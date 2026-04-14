@@ -158,7 +158,7 @@
     "chromatic": "^16.0.0",
     "cypress": "^15.8.1",
     "env-cmd": "10.1.0",
-    "eslint": "^9.39.1",
+    "eslint": "^10.1.0",
     "eslint-plugin-check-file": "^3.3.1",
     "eslint-plugin-prettier": "^5.5.4",
     "identity-obj-proxy": "3.0.0",
