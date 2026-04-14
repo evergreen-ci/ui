@@ -1,5 +1,0 @@
-query QuarantineStatus($taskId: String!, $testName: String!) {
-  quarantineStatus(taskId: $taskId, testName: $testName) {
-    isQuarantined
-  }
-}

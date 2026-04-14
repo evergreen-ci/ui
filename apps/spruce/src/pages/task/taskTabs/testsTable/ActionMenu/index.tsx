@@ -56,6 +56,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         `Error when attempting to quarantine test: ${err.message}`,
       );
     },
+    refetchQueries: ["QuarantineStatus"],
   });
 
   const [unquarantineTest] = useMutation<
@@ -70,6 +71,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         `Error when attempting to unquarantine test: ${err.message}`,
       );
     },
+    refetchQueries: ["QuarantineStatus"],
   });
 
   const isQuarantined = statusData?.quarantineStatus?.isQuarantined ?? false;
