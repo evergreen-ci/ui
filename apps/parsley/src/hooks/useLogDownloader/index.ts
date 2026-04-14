@@ -10,7 +10,7 @@ import {
 } from "constants/errors";
 import { LOG_FILE_SIZE_LIMIT, LOG_LINE_SIZE_LIMIT } from "constants/logs";
 import useStateRef from "hooks/useStateRef";
-import { isProduction } from "utils/environmentVariables";
+import { isProductionBuild } from "utils/environmentVariables";
 import { fetchLogFile } from "utils/fetchLogFile";
 import { getBytesAsString } from "utils/string";
 
@@ -49,14 +49,16 @@ const useLogDownloader = ({
 
   useEffect(() => {
     leaveBreadcrumb("useLogDownloader", { url }, SentryBreadcrumbTypes.HTTP);
-    const abortController = new AbortController();
+    // Conditionally define AbortController because it throws error in development's strict mode
+    const abortController = isProductionBuild()
+      ? new AbortController()
+      : undefined;
     const timeStart = Date.now();
 
     if (url) {
       setIsLoading(true);
       fetchLogFile(url, {
-        // Conditionally define signal because AbortController throws error in development's strict mode
-        abortController: isProduction() ? abortController : undefined,
+        abortController,
         downloadSizeLimit,
         logLineSizeLimit: LOG_LINE_SIZE_LIMIT,
         onIncompleteDownload: (reason, incompleteDownloadError) => {
@@ -152,7 +154,7 @@ const useLogDownloader = ({
 
     return () => {
       // Cancel the request if the component unmounts
-      abortController.abort();
+      abortController?.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, sendEvent]);
