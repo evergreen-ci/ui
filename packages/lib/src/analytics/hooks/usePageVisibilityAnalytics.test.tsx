@@ -151,7 +151,18 @@ describe("usePageVisibilityAnalytics", () => {
       document.dispatchEvent(new Event("visibilitychange"));
     });
 
-    expect(mockSendEvent).not.toHaveBeenCalled();
+    // The individual "page hidden" transition event is suppressed (below minDurationMs)
+    expect(mockSendEvent).not.toHaveBeenCalledWith(
+      expect.objectContaining({ name: "System Event page hidden" }),
+    );
+    // But "session ended" always fires when the page becomes hidden
+    expect(mockSendEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: "System Event session ended",
+        "visibility.total_visible_ms": expect.any(Number),
+        "visibility.visibility_changes": 0,
+      }),
+    );
   });
 
   it("should track session end on unmount with statistics", () => {
@@ -163,7 +174,7 @@ describe("usePageVisibilityAnalytics", () => {
       }),
     );
 
-    // Simulate some visibility changes
+    // Visible for 200ms, then tab hidden — ends the first session immediately
     act(() => {
       vi.advanceTimersByTime(200);
     });
@@ -176,6 +187,17 @@ describe("usePageVisibilityAnalytics", () => {
       document.dispatchEvent(new Event("visibilitychange"));
     });
 
+    // First session ended when the page became hidden
+    expect(mockSendEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: "System Event session ended",
+        "visibility.total_visible_ms": expect.any(Number),
+        "visibility.total_hidden_ms": expect.any(Number),
+        "visibility.visibility_changes": 1,
+      }),
+    );
+
+    // Hidden for 300ms, then tab visible — starts a fresh second session
     act(() => {
       vi.advanceTimersByTime(300);
     });
@@ -190,7 +212,7 @@ describe("usePageVisibilityAnalytics", () => {
 
     mockSendEvent.mockClear();
 
-    // Unmount to trigger session end
+    // Unmount ends the second session (no visibility changes in this session)
     unmount();
 
     expect(mockSendEvent).toHaveBeenCalledWith(
@@ -198,7 +220,7 @@ describe("usePageVisibilityAnalytics", () => {
         name: "System Event session ended",
         "visibility.total_visible_ms": expect.any(Number),
         "visibility.total_hidden_ms": expect.any(Number),
-        "visibility.visibility_changes": 2,
+        "visibility.visibility_changes": 0,
       }),
     );
   });
