@@ -121,12 +121,10 @@ const SharingMenu: React.FC = () => {
       const newBookmarks = bookmarks.filter((b) => b !== startingLine);
       setBookmarks(newBookmarks);
       sendEvent({ name: "Deleted bookmark" });
-      dispatchToast.success("Bookmark removed", true, { timeout: 3000 });
     } else {
       const newBookmarks = [...bookmarks, startingLine].sort((a, b) => a - b);
       setBookmarks(newBookmarks);
       sendEvent({ name: "Created bookmark" });
-      dispatchToast.success("Bookmark added", true, { timeout: 3000 });
     }
     setOpen(false);
   };
