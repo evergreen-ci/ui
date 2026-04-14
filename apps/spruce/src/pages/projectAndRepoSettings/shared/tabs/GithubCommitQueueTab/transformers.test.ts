@@ -73,7 +73,6 @@ const projectForm: GCQFormState = {
       githubCheckAliases: [],
     },
     gitTagVersionsEnabled: null,
-    runEveryMainlineCommit: null,
     users: {
       gitTagAuthorizedUsersOverride: true,
       gitTagAuthorizedUsers: ["privileged"],
@@ -148,7 +147,6 @@ const projectResult: Pick<
     oldestAllowedMergeBase: "abc",
     githubChecksEnabled: null,
     gitTagVersionsEnabled: null,
-    runEveryMainlineCommit: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
     commitQueue: {
@@ -249,7 +247,6 @@ const repoForm: GCQFormState = {
       ],
     },
     gitTagVersionsEnabled: false,
-    runEveryMainlineCommit: false,
     users: {
       gitTagAuthorizedUsersOverride: true,
       gitTagAuthorizedUsers: ["admin"],
@@ -301,7 +298,6 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
       manualPrTestingEnabled: false,
       githubChecksEnabled: true,
       gitTagVersionsEnabled: false,
-      runEveryMainlineCommit: false,
       gitTagAuthorizedUsers: ["admin"],
       gitTagAuthorizedTeams: [],
       oldestAllowedMergeBase: "abc",
@@ -388,7 +384,6 @@ const mergedForm: GCQFormState = {
       },
     },
     gitTagVersionsEnabled: null,
-    runEveryMainlineCommit: null,
     users: {
       gitTagAuthorizedUsersOverride: true,
       gitTagAuthorizedUsers: ["privileged"],

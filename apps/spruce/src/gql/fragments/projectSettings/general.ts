@@ -17,6 +17,7 @@ export const PROJECT_GENERAL_SETTINGS = gql`
     remotePath
     repo
     repotrackerDisabled
+    runEveryMainlineCommit
     spawnHostScriptPath
     stepbackBisect
     stepbackDisabled
@@ -38,6 +39,7 @@ export const REPO_GENERAL_SETTINGS = gql`
     remotePath
     repo
     repotrackerDisabled
+    runEveryMainlineCommit
     spawnHostScriptPath
     stepbackBisect
     stepbackDisabled

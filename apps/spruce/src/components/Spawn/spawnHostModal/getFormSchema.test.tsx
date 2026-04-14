@@ -103,7 +103,7 @@ describe("getFormSchema spawn host token exchange callout", () => {
     expect(button).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("shows loading on the authenticate button when exchange is pending", () => {
+  it("shows waiting text and keeps button clickable when exchange is pending", () => {
     const { uiSchema } = getFormSchema({
       ...baseSchemaInput,
       tokenExchangeState: TokenExchangeState.ExchangePending,
@@ -111,7 +111,11 @@ describe("getFormSchema spawn host token exchange callout", () => {
     });
     const node = tokenAuthDescription(uiSchema!);
     render(node);
-    expect(screen.getByDataCy("spawn-host-authenticate-button")).toBeVisible();
-    expect(screen.getByTestId("lg-button-spinner")).toBeVisible();
+    const button = screen.getByDataCy("spawn-host-authenticate-button");
+    expect(button).toBeVisible();
+    expect(button).not.toHaveAttribute("aria-disabled", "true");
+    expect(
+      screen.getByText("Waiting for authentication to complete..."),
+    ).toBeVisible();
   });
 });
