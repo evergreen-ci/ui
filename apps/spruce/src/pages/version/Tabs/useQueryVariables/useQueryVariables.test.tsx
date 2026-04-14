@@ -10,6 +10,29 @@ vi.mock("js-cookie");
 const mockedGet = vi.spyOn(Cookies, "get") as MockInstance;
 
 describe("useQueryVariables", () => {
+  beforeEach(() => {
+    vi.stubGlobal(
+      "localStorage",
+      (() => {
+        const store: Record<string, string> = {};
+        return {
+          getItem: (key: string) => store[key] ?? null,
+          setItem: (key: string, value: string) => {
+            store[key] = value;
+          },
+          removeItem: (key: string) => {
+            delete store[key];
+          },
+          clear: () => Object.keys(store).forEach((k) => delete store[k]),
+        };
+      })(),
+    );
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   const getWrapper = (search: string) => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <MemoryRouter initialEntries={[`?${search}`]}>{children}</MemoryRouter>
@@ -88,6 +111,39 @@ describe("useQueryVariables", () => {
         variant: "",
       },
     });
+  });
+
+  it("should not parse commas in variant as array values", () => {
+    const versionId = "version";
+    const search = "page=0&limit=20&variant=ubuntu1804,rhel70";
+    const { result } = renderHook(() => useQueryVariables(versionId), {
+      wrapper: getWrapper(search),
+    });
+    expect(result.current.taskFilterOptions.variant).toBe("ubuntu1804,rhel70");
+  });
+
+  it("should not parse commas in taskName as array values", () => {
+    const versionId = "version";
+    const search = "page=0&limit=20&taskName=compile,lint";
+    const { result } = renderHook(() => useQueryVariables(versionId), {
+      wrapper: getWrapper(search),
+    });
+    expect(result.current.taskFilterOptions.taskName).toBe("compile,lint");
+  });
+
+  it("should still parse statuses with commas as arrays", () => {
+    const versionId = "version";
+    const search =
+      "page=0&limit=20&taskName=compile,lint&variant=ubuntu1804,rhel70&statuses=failed,succeeded";
+    const { result } = renderHook(() => useQueryVariables(versionId), {
+      wrapper: getWrapper(search),
+    });
+    expect(result.current.taskFilterOptions.taskName).toBe("compile,lint");
+    expect(result.current.taskFilterOptions.variant).toBe("ubuntu1804,rhel70");
+    expect(result.current.taskFilterOptions.statuses).toStrictEqual([
+      "failed",
+      "succeeded",
+    ]);
   });
 
   it("uses cookie when includeNeverActivatedTasks is not in the search string", () => {
