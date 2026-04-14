@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
-import { useAnalyticsRoot } from "./hooks";
 import { sendEventTrace } from "./utils";
+import { useAnalyticsRoot } from ".";
 
 vi.mock("./utils", () => ({
   sendEventTrace: vi.fn(),
