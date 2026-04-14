@@ -19,7 +19,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await patchCard.getByTestId("patch-card-dropdown").click();
     await expect(page.getByTestId("card-dropdown")).toBeVisible();
     await expect(page.getByTestId("reconfigure-link")).toBeVisible();
-    await page.getByTestId("reconfigure-link").click({ force: true });
+    await page.getByTestId("reconfigure-link").click();
     expect(page.url()).toContain("/configure");
   });
 
@@ -56,7 +56,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       .getByTestId("patch-card")
       .filter({ hasText: patchWithVersion });
     await patchCard.getByTestId("patch-card-dropdown").click();
-    await page.getByTestId("unschedule-patch").click({ force: true });
+    await page.getByTestId("unschedule-patch").click();
     await expect(page.getByTestId("unschedule-patch-popconfirm")).toBeVisible();
     await page.getByRole("button", { name: "Cancel" }).click();
     await expect(page.getByTestId("unschedule-patch-popconfirm")).toBeHidden();
@@ -82,9 +82,9 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       .getByTestId("patch-card")
       .filter({ hasText: patchWithVersion });
     await patchCard.getByTestId("patch-card-dropdown").click();
-    await page.getByTestId("restart-version").click({ force: true });
+    await page.getByTestId("restart-version").click();
 
-    await page.getByTestId("variant-accordion").first().click();
+    await page.getByTestId("variant-accordion").nth(0).click();
     await page.getByText("asdf").click();
     await page
       .getByTestId("version-restart-modal")

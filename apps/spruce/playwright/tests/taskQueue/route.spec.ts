@@ -6,7 +6,9 @@ test.describe("Task Queue", () => {
   }) => {
     await page.goto("/task-queue");
     await expect(page).toHaveURL("/task-queue/osx-108");
-    await expect(page.getByText("osx-108").first()).toBeVisible();
+    await expect(
+      page.getByTestId("distro-dropdown").getByText("osx-108"),
+    ).toBeVisible();
   });
 
   test("Uses distro param in url to query queue and renders table", async ({
@@ -14,7 +16,9 @@ test.describe("Task Queue", () => {
   }) => {
     await page.goto("/task-queue/osx-108");
     await expect(page.getByTestId("task-queue-table")).toBeVisible();
-    await expect(page.getByText("osx-108").first()).toBeVisible();
+    await expect(
+      page.getByTestId("distro-dropdown").getByText("osx-108"),
+    ).toBeVisible();
   });
 
   test("Selecting a distro queries the queue for that distro", async ({
@@ -24,7 +28,7 @@ test.describe("Task Queue", () => {
     await expect(page.getByText("No tasks found in queue")).toBeVisible();
 
     await page.getByTestId("distro-dropdown").click();
-    const option = page.getByText("osx-108").first();
+    const option = page.getByText("osx-108");
     await expect(option).toBeVisible();
     await option.click();
     await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(13);

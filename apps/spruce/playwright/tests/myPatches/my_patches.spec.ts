@@ -90,24 +90,24 @@ test.describe("My Patches Page", () => {
       const cliPatchTitle = "main: EVG-7823 add a commit queue message (#4048)";
       const prPatchTitle =
         "evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
-      await expect(page.getByTestId("patch-card").first()).toContainText(
+      await expect(page.getByTestId("patch-card").nth(0)).toContainText(
         cliPatchTitle,
       );
       await page.getByTestId("github_pull_request-option").click();
       expect(page.url()).toContain("requesters=github_pull_request");
-      await expect(page.getByTestId("patch-card").first()).toContainText(
+      await expect(page.getByTestId("patch-card").nth(0)).toContainText(
         prPatchTitle,
       );
       await page.getByTestId("patch_request-option").click();
       expect(page.url()).toContain(
         "requesters=github_pull_request,patch_request",
       );
-      await expect(page.getByTestId("patch-card").first()).toContainText(
+      await expect(page.getByTestId("patch-card").nth(0)).toContainText(
         cliPatchTitle,
       );
       await page.getByTestId("github_pull_request-option").click();
       expect(page.url()).toContain("requesters=patch_request");
-      await expect(page.getByTestId("patch-card").first()).toContainText(
+      await expect(page.getByTestId("patch-card").nth(0)).toContainText(
         cliPatchTitle,
       );
     });
@@ -122,7 +122,7 @@ test.describe("My Patches Page", () => {
         .locator("button[aria-labelledby='page-size-select']")
         .first()
         .click();
-      await page.getByText(`${pageSize} / page`).first().click();
+      await page.getByText(`${pageSize} / page`).click();
       const patchCards = page.getByTestId("patch-card");
       const count = await patchCards.count();
       expect(count).toBeLessThanOrEqual(pageSize);
@@ -142,7 +142,9 @@ test.describe("My Patches Page", () => {
       await nextPageBtn.click();
 
       for (const displayName of secondPageDisplayNames) {
-        await expect(page.getByText(displayName).first()).toBeVisible();
+        await expect(
+          page.getByText(new RegExp(`^${displayName}$`)).first(),
+        ).toBeVisible();
       }
       expect(page.url()).toContain("page=1");
     });
@@ -158,7 +160,9 @@ test.describe("My Patches Page", () => {
       await prevPageBtn.click();
 
       for (const displayName of firstPageDisplayNames) {
-        await expect(page.getByText(displayName)).toBeVisible();
+        await expect(
+          page.getByText(new RegExp(`^${displayName}$`)),
+        ).toBeVisible();
       }
       expect(page.url()).toContain("page=0");
     });

@@ -49,7 +49,7 @@ test.describe("Nav Bar", () => {
   }) => {
     await page.context().clearCookies({ name: projectCookie });
     await page.goto("/project/evergreen/patches");
-    await expect(page.getByTestId("patch-card").first()).toBeVisible();
+    await expect(page.getByTestId("patch-card")).toHaveCount(6);
 
     await expect(page.getByTestId("waterfall-link")).toHaveAttribute(
       "href",
