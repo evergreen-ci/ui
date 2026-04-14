@@ -5285,8 +5285,8 @@ export type PatchesPagePatchesFragment = {
     createTime?: Date | null;
     description: string;
     hidden: boolean;
-    projectIdentifier: string;
     invalidatedByUpstream: boolean;
+    projectIdentifier: string;
     status: string;
     projectMetadata?: {
       __typename?: "Project";
@@ -9694,8 +9694,8 @@ export type ProjectPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
-        projectIdentifier: string;
         invalidatedByUpstream: boolean;
+        projectIdentifier: string;
         status: string;
         projectMetadata?: {
           __typename?: "Project";
@@ -11637,8 +11637,8 @@ export type UserPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
-        projectIdentifier: string;
         invalidatedByUpstream: boolean;
+        projectIdentifier: string;
         status: string;
         projectMetadata?: {
           __typename?: "Project";
