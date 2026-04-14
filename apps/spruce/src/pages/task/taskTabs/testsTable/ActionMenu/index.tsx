@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
 import { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -38,11 +38,15 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     },
   );
 
-  useEffect(() => {
-    if (menuOpen) {
+  const handleOpenChange: React.Dispatch<React.SetStateAction<boolean>> = (
+    value,
+  ) => {
+    const newOpen = typeof value === "function" ? value(menuOpen) : value;
+    setMenuOpen(newOpen);
+    if (newOpen) {
       fetchStatus({ variables: { taskId: task.id, testName: test.testFile } });
     }
-  }, [menuOpen, fetchStatus, task.id, test.testFile]);
+  };
 
   const [quarantineTest] = useMutation<
     QuarantineTestMutation,
@@ -134,19 +138,13 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         </DropdownItem>
       ),
     ];
-  } else {
-    dropdownItems = [
-      <DropdownItem key="idle" disabled>
-        Loading quarantine status...
-      </DropdownItem>,
-    ];
   }
 
   return (
     <ButtonDropdown
       dropdownItems={dropdownItems}
       open={menuOpen}
-      setOpen={setMenuOpen}
+      setOpen={handleOpenChange}
       size={ButtonSize.XSmall}
     />
   );
