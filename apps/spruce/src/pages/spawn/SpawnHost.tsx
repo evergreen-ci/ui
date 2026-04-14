@@ -3,7 +3,6 @@ import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import { AprilFoolsBannerAd } from "components/AprilFools/AprilFoolsBannerAd";
 import { TitleContainer, Title, BadgeWrapper } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
@@ -53,7 +52,6 @@ export const SpawnHost = () => {
           <Badge variant={Variant.Green}>{runningHosts.length} Running</Badge>
           <Badge variant={Variant.Yellow}>{pausedHosts.length} Paused</Badge>
         </BadgeWrapper>
-        <AprilFoolsBannerAd />
       </TitleContainer>
       <SpawnHostButton />
       {hasHosts ? (

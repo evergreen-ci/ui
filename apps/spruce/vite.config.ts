@@ -31,6 +31,11 @@ const getProjectConfig = () => {
 
   // https://vitejs.dev/config/
   const viteConfig = defineConfig({
+    define: {
+      "globalThis.EMOTION_RUNTIME_AUTO_LABEL": JSON.stringify(
+        process.env.NODE_ENV === "development",
+      ),
+    },
     server: serverConfig,
     optimizeDeps: {
       esbuildOptions: {
@@ -74,14 +79,7 @@ const getProjectConfig = () => {
       envCompatible({
         prefix: "REACT_APP_",
       }),
-      // Use emotion jsx tag instead of React.JSX
       react({
-        babel: {
-          // @emotion/babel-plugin injects styled component names (e.g. "StyledSelect") into HTML for dev
-          // environments only. It can be toggled for production environments by modifying the parameter
-          // autoLabel. (https://emotion.sh/docs/@emotion/babel-plugin)
-          plugins: ["@emotion/babel-plugin", "import-graphql"],
-        },
         // exclude storybook stories
         exclude: [/\.stories\.tsx?$/],
       }),

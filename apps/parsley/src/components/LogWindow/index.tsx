@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
+import { useBeforeUnload } from "react-router-dom";
 import { useChatContext } from "@evg-ui/fungi";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks";
@@ -37,18 +38,16 @@ const LogWindow: React.FC = () => {
   const { drawerOpen, setDrawerOpen } = useChatContext();
   const isParsleyAIAvailable = useIsParsleyAIAvailable();
 
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (isUploadedLog) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [isUploadedLog]);
+  useBeforeUnload(
+    useCallback(
+      (e: BeforeUnloadEvent) => {
+        if (isUploadedLog) {
+          e.preventDefault();
+        }
+      },
+      [isUploadedLog],
+    ),
+  );
 
   useKeyboardShortcut(
     { charKey: CharKey.BracketRight },

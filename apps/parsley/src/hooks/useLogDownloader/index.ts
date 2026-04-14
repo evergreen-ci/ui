@@ -155,7 +155,7 @@ const useLogDownloader = ({
       abortController.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, [url, sendEvent]);
   return { error, fileSize, isLoading };
 };
 

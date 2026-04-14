@@ -39,6 +39,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     htmlLogURL,
     jobLogsURL,
     loading: isLoadingEvergreen,
+    logPath,
     rawLogURL,
     renderingType,
   } = useResolveLogURLAndRenderingType({
@@ -65,6 +66,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
         groupID,
         htmlLogURL,
         jobLogsURL,
+        logPath,
         logType,
         origin,
         rawLogURL,
@@ -82,6 +84,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
       htmlLogURL,
       ingestLines,
       jobLogsURL,
+      logPath,
       logType,
       origin,
       rawLogURL,

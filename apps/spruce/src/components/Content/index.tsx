@@ -17,7 +17,6 @@ import {
   slugs,
 } from "constants/routes";
 import { AdminSettings } from "pages/AdminSettings";
-import { AprilFools } from "pages/aprilFools";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Distro } from "pages/Distro";
 import { Host } from "pages/Host";
@@ -141,7 +140,6 @@ export const Content: React.FC = () => (
       <Route element={<AdminSettings />} path={routes.adminSettings}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<AprilFools />} path={routes.aprilFools} />
     </Route>
   </Routes>
 );
