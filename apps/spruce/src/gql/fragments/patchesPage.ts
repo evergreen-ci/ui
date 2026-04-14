@@ -10,6 +10,7 @@ export const PATCHES_PAGE_PATCHES = gql`
       createTime
       description
       hidden
+      invalidatedByUpstream
       projectIdentifier
       projectMetadata {
         id

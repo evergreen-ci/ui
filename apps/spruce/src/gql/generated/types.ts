@@ -5285,6 +5285,7 @@ export type PatchesPagePatchesFragment = {
     createTime?: Date | null;
     description: string;
     hidden: boolean;
+    invalidatedByUpstream: boolean;
     projectIdentifier: string;
     status: string;
     projectMetadata?: {
@@ -9693,6 +9694,7 @@ export type ProjectPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
+        invalidatedByUpstream: boolean;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
@@ -11319,6 +11321,7 @@ export type TaskQuery = {
     hostId?: string | null;
     imageId: string;
     ingestTime?: Date | null;
+    invalidatedByUpstream?: boolean | null;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
@@ -11634,6 +11637,7 @@ export type UserPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
+        invalidatedByUpstream: boolean;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
