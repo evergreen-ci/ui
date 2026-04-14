@@ -230,7 +230,10 @@ export async function validateDatePickerDate(
   await expect(datePicker.locator("input[id='day']")).toHaveValue(day);
 }
 
-export const clickCheckboxByLabel = async (page: Page, name: string) => {
+export const clickCheckboxByLabel = async (
+  page: Page,
+  name: string | RegExp,
+) => {
   const checkbox = page.getByRole("checkbox", { name });
   const checkboxId = await checkbox.getAttribute("id");
   if (checkboxId) {
