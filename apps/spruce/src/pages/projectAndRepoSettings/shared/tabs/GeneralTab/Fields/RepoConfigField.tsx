@@ -37,7 +37,9 @@ export const RepoConfigField: Field = ({
   const ownerOrRepoHasChanges =
     formData.owner !== initialOwner || formData.repo !== initialRepo;
 
-  const { data } = useQuery<GithubOrgsQuery>(GITHUB_ORGS);
+  const { data } = useQuery<GithubOrgsQuery>(GITHUB_ORGS, {
+    notifyOnNetworkStatusChange: false,
+  });
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
 

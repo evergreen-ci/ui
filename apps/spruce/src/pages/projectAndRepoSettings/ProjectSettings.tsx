@@ -30,7 +30,9 @@ const ProjectSettings: React.FC = () => {
     loading: projectLoading,
   } = useQuery<ProjectSettingsQuery, ProjectSettingsQueryVariables>(
     PROJECT_SETTINGS,
-    projectIdentifier ? { variables: { projectIdentifier } } : skipToken,
+    projectIdentifier
+      ? { variables: { projectIdentifier }, notifyOnNetworkStatusChange: false }
+      : skipToken,
   );
   useErrorToast(
     projectError,
@@ -63,7 +65,9 @@ const ProjectSettings: React.FC = () => {
     loading: repoLoading,
   } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(
     REPO_SETTINGS,
-    repoId && projectIsHidden !== true ? { variables: { repoId } } : skipToken,
+    repoId && projectIsHidden !== true
+      ? { variables: { repoId }, notifyOnNetworkStatusChange: false }
+      : skipToken,
   );
   useErrorToast(repoError, `There was an error loading the repo ${repoId}`);
 

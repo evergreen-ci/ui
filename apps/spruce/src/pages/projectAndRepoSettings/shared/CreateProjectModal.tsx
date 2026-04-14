@@ -47,7 +47,7 @@ export const CreateProjectModal: React.FC<Props> = ({
 
   const { data: gitOrgs } = useQuery<GithubOrgsQuery>(
     GITHUB_ORGS,
-    open ? {} : skipToken,
+    open ? { notifyOnNetworkStatusChange: false } : skipToken,
   );
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { spruceConfig: { githubOrgs = [] } = {} } = gitOrgs ?? {};

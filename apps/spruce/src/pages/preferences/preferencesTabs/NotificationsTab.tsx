@@ -8,7 +8,7 @@ export const NotificationsTab: React.FC = () => {
   const { loading, userSettings } = useUserSettings();
   const { notifications, slackMemberId, slackUsername } = userSettings ?? {};
 
-  if (loading || !userSettings) {
+  if (loading && !userSettings) {
     return <CardSkeleton />;
   }
 
