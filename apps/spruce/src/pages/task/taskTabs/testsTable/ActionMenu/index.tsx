@@ -39,9 +39,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     },
   );
 
-  const handleOpenChange: React.Dispatch<React.SetStateAction<boolean>> = (
-    value,
-  ) => {
+  const handleOpenChange = (value: React.SetStateAction<boolean>) => {
     const newOpen = typeof value === "function" ? value(menuOpen) : value;
     setMenuOpen(newOpen);
     if (newOpen) {
