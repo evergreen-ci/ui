@@ -1,0 +1,21 @@
+import { gql } from "@apollo/client";
+
+export const BASE_TASK = gql`
+  fragment BaseTask on Task {
+    id
+    displayName
+    displayStatus
+    execution
+    patchNumber
+    versionMetadata {
+      id
+      isPatch
+      message
+      projectIdentifier
+      projectMetadata {
+        id
+      }
+      revision
+    }
+  }
+`;

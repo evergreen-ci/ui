@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
-import Icon, { AnimatedIcon, WinterLogo } from "@evg-ui/lib/components/Icon";
+import Icon, { AnimatedIcon, SpringLogo } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
@@ -70,7 +70,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <AnimatedIcon alwaysAnimate icon={WinterLogo} />
+          <AnimatedIcon alwaysAnimate icon={SpringLogo} />
         </LogoLink>
         <PrimaryLink
           data-cy="waterfall-link"

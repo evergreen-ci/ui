@@ -20,8 +20,13 @@ export const useQueryVariables = (
     TableQueryParams.Sorts,
     undefined,
   );
-  const [variant] = useQueryParam<string>(PatchTasksQueryParams.Variant, "");
-  const [taskName] = useQueryParam<string>(PatchTasksQueryParams.TaskName, "");
+  const [variant] = useQueryParam<string>(PatchTasksQueryParams.Variant, "", {
+    arrayFormat: "none",
+  });
+  const [taskName] = useQueryParam<string>(PatchTasksQueryParams.TaskName, "", {
+    arrayFormat: "none",
+  });
+
   const [statuses] = useQueryParam<string[]>(
     PatchTasksQueryParams.Statuses,
     [],

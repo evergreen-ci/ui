@@ -1,3 +1,0 @@
-mutation UpdateVolume($updateVolumeInput: UpdateVolumeInput!) {
-  updateVolume(updateVolumeInput: $updateVolumeInput)
-}
