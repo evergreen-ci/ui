@@ -4,7 +4,7 @@ import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
 import { defineConfig } from "eslint/config";
 import disableConflictsPlugin from "eslint-config-prettier";
-import cypressPlugin from "eslint-plugin-cypress/flat";
+import cypressPlugin from "eslint-plugin-cypress";
 import importPlugin from "eslint-plugin-import";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
@@ -182,11 +182,15 @@ const tsEslintConfig = {
 };
 
 // React ESLint (eslint-plugin-react) settings.
+// eslint-plugin-react uses deprecated context APIs not yet updated for ESLint v10; fixupPluginRules bridges the gap.
 const reactConfig = {
   ...reactPlugin.configs.flat.recommended,
   ...reactPlugin.configs.flat["jsx-runtime"], // Need to use this config if using React 17+.
   name: "react/rules",
   files: ["src/**/*.ts?(x)"],
+  plugins: {
+    react: fixupPluginRules(reactPlugin),
+  },
   rules: {
     ...reactPlugin.configs.flat.recommended.rules,
     ...reactPlugin.configs.flat["jsx-runtime"].rules,
@@ -368,7 +372,8 @@ const graphQLConfig = {
     parser: graphqlPlugin.parser,
   },
   plugins: {
-    "@graphql-eslint": graphqlPlugin,
+    // @graphql-eslint/eslint-plugin uses deprecated context APIs not yet updated for ESLint v10; fixupPluginRules bridges the gap.
+    "@graphql-eslint": fixupPluginRules(graphqlPlugin),
   },
   rules: {
     ...graphqlPlugin.configs["flat/operations-recommended"].rules,
