@@ -439,8 +439,7 @@ test.describe("task history", () => {
       await prevPageButton.click();
 
       // We shouldn't just show the single activated task that appears before this one.
-      const timelineBoxCount = await page.getByTestId("timeline-box").count();
-      expect(timelineBoxCount).toBeGreaterThan(1);
+      await expect(page.getByTestId("timeline-box")).toHaveCount(19);
       await expect(prevPageButton).toHaveAttribute("aria-disabled", "true");
     });
   });

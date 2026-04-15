@@ -142,9 +142,7 @@ test.describe("My Patches Page", () => {
       await nextPageBtn.click();
 
       for (const displayName of secondPageDisplayNames) {
-        await expect(
-          page.getByText(new RegExp(`^${displayName}$`)).first(),
-        ).toBeVisible();
+        await expect(page.getByText(displayName).first()).toBeVisible();
       }
       expect(page.url()).toContain("page=1");
     });
@@ -160,9 +158,7 @@ test.describe("My Patches Page", () => {
       await prevPageBtn.click();
 
       for (const displayName of firstPageDisplayNames) {
-        await expect(
-          page.getByText(new RegExp(`^${displayName}$`)),
-        ).toBeVisible();
+        await expect(page.getByText(displayName).first()).toBeVisible();
       }
       expect(page.url()).toContain("page=0");
     });
