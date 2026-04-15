@@ -7966,6 +7966,7 @@ export type AdminSettingsQuery = {
       collectorEndpoint?: string | null;
       collectorInternalEndpoint?: string | null;
       enabled: boolean;
+      traceUrlTemplate?: string | null;
     } | null;
     triggers?: {
       __typename?: "TriggerConfig";
