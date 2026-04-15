@@ -141,15 +141,6 @@ export const isNotContainedInViewport = async (
   }
 };
 
-export const getInputByLabel = async (page: Page, label: string) => {
-  const labelElement = page.locator("label", { hasText: label });
-  const forAttr = await labelElement.getAttribute("for");
-  if (!forAttr) {
-    throw new Error(`Label "${label}" does not have a "for" attribute`);
-  }
-  return page.locator(`#${forAttr}`);
-};
-
 export const login = async (page: Page) => {
   await page.request.post("http://localhost:9090/login", {
     data: { username: user.username, password: user.password },

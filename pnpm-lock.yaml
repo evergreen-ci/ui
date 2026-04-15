@@ -202,6 +202,9 @@ importers:
       '@evg-ui/lint-staged':
         specifier: workspace:*
         version: link:../../packages/lint-staged
+      '@evg-ui/playwright-config':
+        specifier: workspace:*
+        version: link:../../packages/playwright-config
       '@evg-ui/storybook-addon':
         specifier: workspace:*
         version: link:../../packages/storybook-addon
@@ -343,6 +346,12 @@ importers:
       '@evg-ui/lib':
         specifier: workspace:*
         version: link:../../packages/lib
+      '@evg-ui/playwright-config':
+        specifier: workspace:*
+        version: link:../../packages/playwright-config
+      '@evg-ui/storybook-addon':
+        specifier: workspace:*
+        version: link:../../packages/storybook-addon
       '@leafygreen-ui/badge':
         specifier: ^10.2.3
         version: 10.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
@@ -566,9 +575,6 @@ importers:
       '@evg-ui/lint-staged':
         specifier: workspace:*
         version: link:../../packages/lint-staged
-      '@evg-ui/storybook-addon':
-        specifier: workspace:*
-        version: link:../../packages/storybook-addon
       '@evg-ui/vite-utils':
         specifier: workspace:*
         version: link:../../packages/vite-utils
@@ -1172,6 +1178,16 @@ importers:
         version: 1.1.3(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.19.17)(jiti@2.6.1)(jsdom@29.0.1)(yaml@2.8.3))
 
   packages/lint-staged: {}
+
+  packages/playwright-config:
+    dependencies:
+      '@playwright/test':
+        specifier: ^1.49.1
+        version: 1.58.2
+    devDependencies:
+      '@types/node':
+        specifier: ^22.19.17
+        version: 22.19.17
 
   packages/storybook-addon:
     dependencies:

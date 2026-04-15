@@ -1,0 +1,13 @@
+{
+  "name": "@evg-ui/playwright-config",
+  "version": "0.0.0",
+  "main": "playwright.config.ts",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@playwright/test": "^1.49.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.17"
+  }
+}
