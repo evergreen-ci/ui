@@ -143,6 +143,30 @@ describe("sharingMenu", () => {
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("line 2\n");
   });
+  it("clicking `copy link to lines` should omit legacy shareLine from copied URL", async () => {
+    const user = userEvent.setup({ writeToClipboard: true });
+
+    const { Component: MenuComponent, hook } = renderComponentWithHook(
+      useMultiLineSelectContext,
+      <SharingMenu />,
+    );
+    const { Component } = RenderFakeToastContext(<MenuComponent />);
+    renderWithRouterMatch(<Component />, {
+      route: "?shareLine=5",
+      wrapper,
+    });
+    act(() => {
+      hook.current.handleSelectLine(1, false);
+    });
+    act(() => {
+      hook.current.handleSelectLine(3, true);
+    });
+    await user.click(screen.getByText("Copy link to lines"));
+    const clipboardText = await navigator.clipboard.readText();
+    expect(clipboardText).toBe(
+      "http://localhost:3000/?selectedLineRange=L1-L3",
+    );
+  });
   it("clicking `copy link to lines` should copy the link to the clipboard", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
 

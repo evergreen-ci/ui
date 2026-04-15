@@ -146,6 +146,7 @@ const SharingMenu: React.FC = () => {
     } else {
       url.searchParams.set(QueryParams.SelectedLineRange, `L${startingLine}`);
     }
+    url.searchParams.delete(QueryParams.ShareLine);
 
     await copyToClipboard(url.toString());
     setOpen(false);
