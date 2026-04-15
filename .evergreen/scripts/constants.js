@@ -4,6 +4,7 @@ const Tasks = {
   E2E: "e2e",
   E2EParallel: "e2e_parallel",
   E2ECypress: "e2e_cypress",
+  E2ECypressParallel: "e2e_cypress_parallel",
   Lint: "lint",
   Storybook: "storybook",
   Test: "test",
@@ -53,7 +54,7 @@ const MARKDOWN_EXT = ".md";
 
 const IGNORED_FILE_EXTENSIONS = new Set([MARKDOWN_EXT]);
 
-const PARALLEL_COUNT = 4;
+const PARALLEL_COUNT = 2;
 
 export {
   Tasks,

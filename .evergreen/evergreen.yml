@@ -54,6 +54,7 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: e2e_cypress
+      - name: e2e
       - name: lint
       - name: storybook
       - name: test
@@ -158,6 +159,7 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - generate-tasks
+      - generate-spruce-e2e-cypress
       - generate-spruce-e2e
 
   - name: deploy
