@@ -1,5 +1,5 @@
 import { act, render, renderHook } from "@testing-library/react";
-import { createMemoryRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createMemoryRouter, Outlet, RouterProvider } from "react-router";
 import { useAnalyticsRoot } from "./useAnalyticsRoot";
 import { usePageVisibilityAnalytics } from "./usePageVisibilityAnalytics";
 
