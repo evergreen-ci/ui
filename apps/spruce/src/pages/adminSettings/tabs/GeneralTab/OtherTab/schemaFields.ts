@@ -249,14 +249,14 @@ export const getSingleTaskDistroSchema = ({
     ...projectRefs
       .map((p) => ({
         type: "string" as const,
-        title: `${p.displayName} (Project)`,
+        title: p.displayName,
         enum: [p.id],
       }))
       .sort((a, b) => a.title.localeCompare(b.title)),
     ...repoRefs
       .map((r) => ({
         type: "string" as const,
-        title: `${r.displayName} (Repository)`,
+        title: r.displayName,
         enum: [r.id],
       }))
       .sort((a, b) => a.title.localeCompare(b.title)),
@@ -307,7 +307,6 @@ export const getSingleTaskDistroSchema = ({
         "ui:arrayItemCSS": arrayItemCSS,
         items: {
           projectId: {
-            "ui:allowDeselect": false,
             "ui:widget": widgets.ComboboxWidget,
           },
           allowedTasks: {
