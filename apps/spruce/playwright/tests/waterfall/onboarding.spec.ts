@@ -31,7 +31,9 @@ test.describe("onboarding", () => {
     await page.getByRole("button", { name: "Next" }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
-    await expect(page.getByText("Search by Git Hash")).toBeVisible();
+    await expect(
+      page.getByText("Search by Git Hash", { exact: true }),
+    ).toBeVisible();
     await page.getByRole("button", { name: "Next" }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
