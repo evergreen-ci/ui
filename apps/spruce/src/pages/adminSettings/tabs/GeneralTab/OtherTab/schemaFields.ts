@@ -21,9 +21,17 @@ export const oktaServiceConfig = {
       type: "string" as const,
       title: "Client Secret",
     },
+    headerName: {
+      type: "string" as const,
+      title: "Header Name",
+    },
     issuer: {
       type: "string" as const,
       title: "Issuer",
+    },
+    keysetURL: {
+      type: "string" as const,
+      title: "Keyset URL",
     },
     scopes: {
       type: "array" as const,
@@ -39,6 +47,12 @@ export const oktaServiceConfig = {
     "ui:objectFieldCss": objectGridCss,
     "ui:description":
       "Settings for the Okta Services app. Used exclusively for machine-to-machine authentication, e.g. the token exchange grant used in the spawn host workflow.",
+    headerName: {
+      "ui:fieldCss": fullWidthCss,
+    },
+    keysetURL: {
+      "ui:fieldCss": fullWidthCss,
+    },
   },
 };
 

@@ -62,6 +62,18 @@ describe("admin settings save properly", () => {
       cy.get("@traceUrlTemplateInput").type("https://apm.test.com/trace/%s");
     });
 
+    cy.dataCy("okta-service-config").within(() => {
+      cy.getInputByLabel("Header Name").as("oktaSvcHeaderNameInput");
+      cy.get("@oktaSvcHeaderNameInput").clear();
+      cy.get("@oktaSvcHeaderNameInput").type("X-Okta-Service-Auth");
+
+      cy.getInputByLabel("Keyset URL").as("oktaSvcKeysetUrlInput");
+      cy.get("@oktaSvcKeysetUrlInput").clear();
+      cy.get("@oktaSvcKeysetUrlInput").type(
+        "https://test.okta.com/oauth2/svc/v1/keys",
+      );
+    });
+
     // Save initial changes
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
@@ -103,6 +115,16 @@ describe("admin settings save properly", () => {
       cy.getInputByLabel("Trace URL Template").should(
         "have.value",
         "https://apm.test.com/trace/%s",
+      );
+    });
+    cy.dataCy("okta-service-config").within(() => {
+      cy.getInputByLabel("Header Name").should(
+        "have.value",
+        "X-Okta-Service-Auth",
+      );
+      cy.getInputByLabel("Keyset URL").should(
+        "have.value",
+        "https://test.okta.com/oauth2/svc/v1/keys",
       );
     });
 
@@ -163,6 +185,16 @@ describe("admin settings save properly", () => {
       cy.getInputByLabel("Trace URL Template").should(
         "have.value",
         "https://apm.test.com/trace/%s",
+      );
+    });
+    cy.dataCy("okta-service-config").within(() => {
+      cy.getInputByLabel("Header Name").should(
+        "have.value",
+        "X-Okta-Service-Auth",
+      );
+      cy.getInputByLabel("Keyset URL").should(
+        "have.value",
+        "https://test.okta.com/oauth2/svc/v1/keys",
       );
     });
   });

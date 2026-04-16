@@ -215,7 +215,9 @@ export const ADMIN_SETTINGS = gql`
         audience
         clientId
         clientSecret
+        headerName
         issuer
+        keysetURL
         scopes
       }
       oldestAllowedCLIVersion

@@ -399,6 +399,43 @@ describe("other", () => {
     );
   });
 
+  it("can save Okta service config changes", () => {
+    cy.dataCy("save-settings-button").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
+
+    const headerName = "Header Name";
+    const keysetURL = "Keyset URL";
+    cy.dataCy("okta-service-config").within(() => {
+      cy.getInputByLabel(headerName).as("oktaSvcHeaderNameInput");
+      cy.get("@oktaSvcHeaderNameInput").clear();
+      cy.get("@oktaSvcHeaderNameInput").type("X-Okta-Service-Auth");
+
+      cy.getInputByLabel(keysetURL).as("oktaSvcKeysetUrlInput");
+      cy.get("@oktaSvcKeysetUrlInput").clear();
+      cy.get("@oktaSvcKeysetUrlInput").type(
+        "https://example.okta.com/oauth2/svc/v1/keys",
+      );
+    });
+
+    clickSave();
+    cy.validateToast("success", "Settings saved successfully");
+    cy.reload();
+
+    cy.dataCy("okta-service-config").within(() => {
+      cy.getInputByLabel(headerName).should(
+        "have.value",
+        "X-Okta-Service-Auth",
+      );
+      cy.getInputByLabel(keysetURL).should(
+        "have.value",
+        "https://example.okta.com/oauth2/svc/v1/keys",
+      );
+    });
+  });
+
   it("can save project creation changes", () => {
     cy.dataCy("save-settings-button").should(
       "have.attr",
