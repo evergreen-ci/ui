@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Copyable } from "@leafygreen-ui/copyable";
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { palette } from "@leafygreen-ui/palette";
@@ -575,6 +576,41 @@ export const LeafyGreenDatePicker: React.FC<
         onDateChange={(v) => onChange(v?.toUTCString())}
         value={new Date(value)}
       />
+    </ElementWrapper>
+  );
+};
+
+export const LeafyGreenCombobox: React.FC<
+  {
+    options: {
+      enumOptions: { label: string; value: string }[];
+    };
+  } & EnumSpruceWidgetProps
+> = ({ disabled, label, onChange, options, readonly, value }) => {
+  const {
+    "data-cy": dataCy = "combobox",
+    description,
+    elementWrapperCSS,
+    enumOptions = [],
+  } = options;
+
+  const isDisabled = disabled || readonly;
+
+  return (
+    <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
+      <Combobox
+        data-cy={dataCy}
+        description={description}
+        disabled={isDisabled}
+        label={label}
+        // @ts-expect-error: onChange types are not compatible.
+        onChange={(v: string) => onChange(v)}
+        value={value}
+      >
+        {enumOptions.map((o) => (
+          <ComboboxOption key={o.value} displayName={o.label} value={o.value} />
+        ))}
+      </Combobox>
     </ElementWrapper>
   );
 };

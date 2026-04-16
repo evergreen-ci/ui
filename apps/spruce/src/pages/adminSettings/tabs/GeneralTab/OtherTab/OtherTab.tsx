@@ -23,14 +23,16 @@ export const OtherTab: React.FC<TabProps> = ({ otherData }) => {
     const projects =
       viewableProjectsData?.viewableProjectRefs
         ?.flatMap((group) => group.projects)
+        ?.filter((p) => p.enabled)
         ?.map((p) => ({
           id: p.id,
-          displayName: p.displayName,
+          displayName: p.displayName || p.identifier || p.id,
         })) ?? [];
+
     const repos =
       viewableProjectsData?.viewableProjectRefs
         ?.filter((group) => group.repo != null)
-        .map((group) => ({
+        ?.map((group) => ({
           id: group.repo!.id,
           displayName: group.groupDisplayName || group.repo!.id,
         })) ?? [];

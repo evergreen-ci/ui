@@ -12,6 +12,7 @@ import {
   LeafyGreenCopyable,
   LeafyGreenSegmentedControl,
   LeafyGreenToggle,
+  LeafyGreenCombobox,
 } from "./LeafyGreenWidgets";
 import { MultiSelect } from "./MultiSelect";
 
@@ -31,6 +32,7 @@ const widgets = {
   TextWidget: LeafyGreenTextInput,
   TextareaWidget: LeafyGreenTextArea,
   ToggleWidget: LeafyGreenToggle,
+  ComboboxWidget: LeafyGreenCombobox,
 };
 
 export default widgets;

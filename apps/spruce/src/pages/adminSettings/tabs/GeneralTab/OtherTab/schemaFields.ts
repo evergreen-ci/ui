@@ -246,16 +246,20 @@ export const getSingleTaskDistroSchema = ({
   repoRefs?: Array<{ id: string; displayName: string }>;
 }) => {
   const projectRepoOptions = [
-    ...projectRefs.map((p) => ({
-      type: "string" as const,
-      title: `${p.displayName} (Project)`,
-      enum: [p.id],
-    })),
-    ...repoRefs.map((r) => ({
-      type: "string" as const,
-      title: `${r.displayName} (Repository)`,
-      enum: [r.id],
-    })),
+    ...projectRefs
+      .map((p) => ({
+        type: "string" as const,
+        title: `${p.displayName} (Project)`,
+        enum: [p.id],
+      }))
+      .sort((a, b) => a.title.localeCompare(b.title)),
+    ...repoRefs
+      .map((r) => ({
+        type: "string" as const,
+        title: `${r.displayName} (Repository)`,
+        enum: [r.id],
+      }))
+      .sort((a, b) => a.title.localeCompare(b.title)),
   ];
 
   return {
@@ -304,6 +308,7 @@ export const getSingleTaskDistroSchema = ({
         items: {
           projectId: {
             "ui:allowDeselect": false,
+            "ui:widget": widgets.ComboboxWidget,
           },
           allowedTasks: {
             "ui:widget": widgets.ChipInputWidget,
