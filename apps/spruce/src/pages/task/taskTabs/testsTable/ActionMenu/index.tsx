@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -22,6 +23,7 @@ interface ActionMenuProps {
 export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   const { sendEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
+  const [open, setOpen] = useState(false);
 
   const [quarantineTest] = useMutation<
     QuarantineTestMutation,
@@ -78,6 +80,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   });
 
   const onQuarantineTest = () => {
+    setOpen(false);
     sendEvent({
       name: "Clicked quarantine test button",
       "test.name": test.testFile,
@@ -86,6 +89,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   };
 
   const onUnquarantineTest = () => {
+    setOpen(false);
     sendEvent({
       name: "Clicked unquarantine test button",
       "test.name": test.testFile,
@@ -139,6 +143,11 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   }
 
   return (
-    <ButtonDropdown dropdownItems={dropdownItems} size={ButtonSize.XSmall} />
+    <ButtonDropdown
+      dropdownItems={dropdownItems}
+      open={open}
+      setOpen={setOpen}
+      size={ButtonSize.XSmall}
+    />
   );
 };
