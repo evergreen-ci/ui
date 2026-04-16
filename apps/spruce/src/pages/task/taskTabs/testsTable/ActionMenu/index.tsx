@@ -42,7 +42,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   const handleOpenChange = (value: React.SetStateAction<boolean>) => {
     const newOpen = typeof value === "function" ? value(menuOpen) : value;
     setMenuOpen(newOpen);
-    if (newOpen) {
+    if (newOpen && task.testSelectionEnabled) {
       fetchStatus({ variables: { taskId: task.id, testName: test.testFile } });
     }
   };
@@ -103,7 +103,13 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   const canQuarantine = test.status === TestStatus.Fail;
 
   let dropdownItems: React.ReactNode[] = [];
-  if (statusLoading || (!statusData && !statusError)) {
+  if (!task.testSelectionEnabled) {
+    dropdownItems = [
+      <DropdownItem key="disabled" disabled>
+        Test selection is disabled for this task.
+      </DropdownItem>,
+    ];
+  } else if (statusLoading || (!statusData && !statusError)) {
     dropdownItems = [
       <DropdownItem key="loading" disabled>
         Loading quarantine status...

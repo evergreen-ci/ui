@@ -22,12 +22,34 @@ import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
 import { QUARANTINE_STATUS } from "gql/queries";
 import { ActionMenu } from ".";
 
+const task = { ...taskQuery.task, testSelectionEnabled: true };
+
 describe("action menu for tests table", () => {
+  it("shows disabled message when test selection is not enabled", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[]}>
+        <ActionMenu
+          task={{ ...task, testSelectionEnabled: false }}
+          test={failingTest}
+        />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByDataCy("ellipsis-btn"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+    });
+    expect(
+      screen.getByText("Test selection is disabled for this task."),
+    ).toBeVisible();
+  });
+
   it("can open menu and shows loading state", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[notQuarantinedStatusMock]}>
-        <ActionMenu task={taskQuery.task} test={failingTest} />
+        <ActionMenu task={task} test={failingTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -41,7 +63,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[notQuarantinedStatusMock, quarantineTestMock]}>
-        <ActionMenu task={taskQuery.task} test={failingTest} />
+        <ActionMenu task={task} test={failingTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -59,7 +81,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[quarantinedStatusMock, unquarantineTestMock]}>
-        <ActionMenu task={taskQuery.task} test={passingTest} />
+        <ActionMenu task={task} test={passingTest} />
       </MockedProvider>,
     );
     render(<Component />);
