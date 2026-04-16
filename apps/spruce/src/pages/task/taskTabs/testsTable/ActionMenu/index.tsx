@@ -35,7 +35,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         `Error when attempting to quarantine test: ${err.message}`,
       );
     },
-    refetchQueries: ["TaskTests"],
+    refetchQueries: ["TaskTests", "TaskHistory"],
   });
 
   const [unquarantineTest] = useMutation<
@@ -50,7 +50,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         `Error when attempting to unquarantine test: ${err.message}`,
       );
     },
-    refetchQueries: ["TaskTests"],
+    refetchQueries: ["TaskTests", "TaskHistory"],
   });
 
   const onQuarantineTest = () => {
@@ -71,8 +71,6 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     });
   };
 
-  const canQuarantine = test.status === TestStatus.Fail;
-
   let dropdownItems: React.ReactNode[];
   if (!task.testSelectionEnabled) {
     dropdownItems = [
@@ -86,7 +84,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         Select an execution task to quarantine tests.
       </DropdownItem>,
     ];
-  } else if (test.isQuarantined) {
+  } else if (test.isManuallyQuarantined) {
     dropdownItems = [
       <DropdownItem
         key="unquarantine"
@@ -98,6 +96,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       </DropdownItem>,
     ];
   } else {
+    const canQuarantine = test.status === TestStatus.Fail;
     dropdownItems = [
       <DropdownItem
         key="quarantine"

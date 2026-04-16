@@ -4493,7 +4493,7 @@ export type TestResult = {
   exitCode?: Maybe<Scalars["Int"]["output"]>;
   groupID?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
-  isQuarantined: Scalars["Boolean"]["output"];
+  isManuallyQuarantined: Scalars["Boolean"]["output"];
   logs: TestLog;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
@@ -11042,7 +11042,7 @@ export type TaskHistoryQuery = {
         testResults: Array<{
           __typename?: "TestResult";
           id: string;
-          isQuarantined: boolean;
+          isManuallyQuarantined: boolean;
           status: string;
           testFile: string;
           logs: { __typename?: "TestLog"; urlParsley?: string | null };
@@ -11307,7 +11307,7 @@ export type TaskTestsQuery = {
         id: string;
         baseStatus?: string | null;
         duration?: number | null;
-        isQuarantined: boolean;
+        isManuallyQuarantined: boolean;
         status: string;
         testFile: string;
         logs: {

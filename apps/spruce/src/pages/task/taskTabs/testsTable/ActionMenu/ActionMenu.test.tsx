@@ -118,7 +118,7 @@ const failingTest: TestResult = {
   id: "1",
   testFile: "test_1",
   status: TestStatus.Fail,
-  isQuarantined: false,
+  isManuallyQuarantined: false,
   logs: {},
 };
 
@@ -126,7 +126,7 @@ const passingTest: TestResult = {
   id: "2",
   testFile: "test_2",
   status: TestStatus.Pass,
-  isQuarantined: false,
+  isManuallyQuarantined: false,
   logs: {},
 };
 
@@ -134,7 +134,7 @@ const quarantinedTest: TestResult = {
   id: "3",
   testFile: "test_3",
   status: TestStatus.Pass,
-  isQuarantined: true,
+  isManuallyQuarantined: true,
   logs: {},
 };
 
