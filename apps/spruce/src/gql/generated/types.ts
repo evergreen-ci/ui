@@ -684,9 +684,7 @@ export type Cost = {
   adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
-  childPatchesTotalCost?: Maybe<Scalars["Float"]["output"]>;
-  /** Sum of adjusted cost components; excludes on-demand components. */
-  total?: Maybe<Scalars["Float"]["output"]>;
+  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -2528,8 +2526,6 @@ export type Patch = {
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
-  /** Aggregated actual cost for the patch's version, when cost data exists. */
-  cost?: Maybe<Cost>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
@@ -2539,14 +2535,11 @@ export type Patch = {
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   includedLocalModules: Array<IncludedLocalModule>;
-  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   invalidatedByUpstream: Scalars["Boolean"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
-  /** Aggregated predicted cost for the patch's version. */
-  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectID: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -3055,18 +3048,14 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
-  CommitChecks = "COMMIT_CHECKS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   GithubAppSettings = "GITHUB_APP_SETTINGS",
   GithubPermissions = "GITHUB_PERMISSIONS",
-  GitTags = "GIT_TAGS",
-  MergeQueue = "MERGE_QUEUE",
   Notifications = "NOTIFICATIONS",
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
-  PullRequests = "PULL_REQUESTS",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -3178,7 +3167,6 @@ export type Query = {
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
   projects: Array<GroupedProjects>;
-  quarantineStatus: QuarantineStatus;
   repoEvents: ProjectEvents;
   repoSettings: RepoSettings;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -3298,11 +3286,6 @@ export type QueryProjectEventsArgs = {
 
 export type QueryProjectSettingsArgs = {
   projectIdentifier: Scalars["String"]["input"];
-};
-
-export type QueryQuarantineStatusArgs = {
-  taskId: Scalars["String"]["input"];
-  testName: Scalars["String"]["input"];
 };
 
 export type QueryRepoEventsArgs = {
@@ -3635,22 +3618,14 @@ export type S3CredentialsInput = {
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
   archiveStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
-  artifactAwsAccountsWithoutLifecycleRules?: Maybe<
-    Array<Scalars["String"]["output"]>
-  >;
   defaultMaxArtifactExpirationDays?: Maybe<Scalars["Int"]["output"]>;
-  devprodOwnedAwsAccountIds?: Maybe<Array<Scalars["String"]["output"]>>;
   iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
   archiveStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
-  artifactAwsAccountsWithoutLifecycleRules?: InputMaybe<
-    Array<Scalars["String"]["input"]>
-  >;
   defaultMaxArtifactExpirationDays?: InputMaybe<Scalars["Int"]["input"]>;
-  devprodOwnedAwsAccountIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
@@ -4134,7 +4109,6 @@ export type Task = {
   imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
-  isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
@@ -4157,6 +4131,7 @@ export type Task = {
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
+  quarantineStatus: QuarantineStatus;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
   reviewed?: Maybe<Scalars["Boolean"]["output"]>;
@@ -4180,6 +4155,11 @@ export type Task = {
   totalTestCount: Scalars["Int"]["output"];
   version: VersionLite;
   versionMetadata: Version;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskQuarantineStatusArgs = {
+  testName: Scalars["String"]["input"];
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
@@ -4871,7 +4851,6 @@ export type Version = {
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
-  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -4935,7 +4914,6 @@ export type VersionLite = {
   finishTime?: Maybe<Scalars["Time"]["output"]>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
-  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;
@@ -7134,9 +7112,7 @@ export type SaveAdminSettingsMutation = {
         storage?: {
           __typename?: "S3StorageCostConfig";
           archiveStorageCostDiscount?: number | null;
-          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
           defaultMaxArtifactExpirationDays?: number | null;
-          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -7767,9 +7743,7 @@ export type AdminSettingsQuery = {
         storage?: {
           __typename?: "S3StorageCostConfig";
           archiveStorageCostDiscount?: number | null;
-          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
           defaultMaxArtifactExpirationDays?: number | null;
-          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -10064,7 +10038,14 @@ export type QuarantineStatusQueryVariables = Exact<{
 
 export type QuarantineStatusQuery = {
   __typename?: "Query";
-  quarantineStatus: { __typename?: "QuarantineStatus"; isQuarantined: boolean };
+  task?: {
+    __typename?: "Task";
+    id: string;
+    quarantineStatus: {
+      __typename?: "QuarantineStatus";
+      isQuarantined: boolean;
+    };
+  } | null;
 };
 
 export type RepoEventLogsQueryVariables = Exact<{
@@ -11072,6 +11053,7 @@ export type TaskHistoryQuery = {
       displayStatus: string;
       execution: number;
       ingestTime?: Date | null;
+      latestExecution: number;
       order: number;
       priority?: number | null;
       requester: string;
@@ -11570,17 +11552,6 @@ export type TaskQuery = {
       lastPassingStepbackTaskId?: string | null;
       nextStepbackTaskId?: string | null;
       previousStepbackTaskId?: string | null;
-    } | null;
-    taskCost?: {
-      __typename?: "Cost";
-      adjustedEBSStorageCost?: number | null;
-      adjustedEBSThroughputCost?: number | null;
-      adjustedEC2Cost?: number | null;
-      adjustedS3ArtifactPutCost?: number | null;
-      adjustedS3ArtifactStorageCost?: number | null;
-      adjustedS3LogPutCost?: number | null;
-      adjustedS3LogStorageCost?: number | null;
-      total?: number | null;
     } | null;
     versionMetadata: {
       __typename?: "Version";

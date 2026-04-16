@@ -77,7 +77,8 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     refetchQueries: ["QuarantineStatus"],
   });
 
-  const isQuarantined = statusData?.quarantineStatus?.isQuarantined ?? false;
+  const isQuarantined =
+    statusData?.task?.quarantineStatus?.isQuarantined ?? false;
 
   const onQuarantineTest = () => {
     sendEvent({

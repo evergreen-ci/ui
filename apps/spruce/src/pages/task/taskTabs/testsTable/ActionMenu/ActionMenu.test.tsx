@@ -101,9 +101,13 @@ const notQuarantinedStatusMock: ApolloMock<
   },
   result: {
     data: {
-      quarantineStatus: {
-        __typename: "QuarantineStatus",
-        isQuarantined: false,
+      task: {
+        __typename: "Task",
+        id: taskQuery.task.id,
+        quarantineStatus: {
+          __typename: "QuarantineStatus",
+          isQuarantined: false,
+        },
       },
     },
   },
@@ -122,9 +126,13 @@ const quarantinedStatusMock: ApolloMock<
   },
   result: {
     data: {
-      quarantineStatus: {
-        __typename: "QuarantineStatus",
-        isQuarantined: true,
+      task: {
+        __typename: "Task",
+        id: taskQuery.task.id,
+        quarantineStatus: {
+          __typename: "QuarantineStatus",
+          isQuarantined: true,
+        },
       },
     },
   },
