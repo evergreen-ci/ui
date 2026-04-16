@@ -599,6 +599,7 @@ export const LeafyGreenCombobox: React.FC<
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <Combobox
+        clearable={false}
         data-cy={dataCy}
         description={description}
         disabled={isDisabled}
