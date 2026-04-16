@@ -191,6 +191,7 @@ export const gqlToForm = ((data) => {
         collectorEndpoint: tracer?.collectorEndpoint ?? "",
         collectorInternalEndpoint: tracer?.collectorInternalEndpoint ?? "",
         collectorAPIKey: tracer?.collectorAPIKey ?? "",
+        traceUrlTemplate: tracer?.traceUrlTemplate ?? "",
       },
 
       projectCreationSettings: {
@@ -395,6 +396,7 @@ export const formToGql = ((form: OtherFormState) => {
       collectorInternalEndpoint:
         tracerConfiguration.collectorInternalEndpoint || undefined,
       collectorAPIKey: tracerConfiguration.collectorAPIKey || undefined,
+      traceUrlTemplate: tracerConfiguration.traceUrlTemplate || undefined,
     },
 
     projectCreation: {
