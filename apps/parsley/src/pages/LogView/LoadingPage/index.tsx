@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Body } from "@leafygreen-ui/typography";
@@ -31,6 +31,10 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     [slugs.taskID]: taskID,
   } = useParams();
   const dispatchToast = useToastContext();
+  const dispatchToastRef = useRef(dispatchToast);
+  useEffect(() => {
+    dispatchToastRef.current = dispatchToast;
+  });
   const { ingestLines, preferences, setLogMetadata } = useLogContext();
   const { excludeTimestamps } = preferences;
   const {
@@ -86,13 +90,8 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
       });
       ingestLines(data, renderingType, failingCommand);
     }
-    if (error) {
-      dispatchToast.error(error);
-    }
   }, [
     data,
-    dispatchToast,
-    error,
     execution,
     fileName,
     groupID,
@@ -109,6 +108,12 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     failingCommand,
     logPath,
   ]);
+
+  useEffect(() => {
+    if (error) {
+      dispatchToastRef.current.error(error);
+    }
+  }, [error]);
 
   if (isLoadingLog || isLoadingEvergreen) {
     return (

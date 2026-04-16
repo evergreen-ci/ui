@@ -215,6 +215,8 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to copy bookmarks as JIRA format", async ({
     authenticatedPage,
   }) => {
+    // React Router v7 defers bookmark initialization via startTransition; wait for defaults.
+    await expect(authenticatedPage).toHaveURL(/bookmarks=0/);
     await authenticatedPage.getByTestId("log-row-10").dblclick({ force: true });
     await authenticatedPage.getByTestId("log-row-11").dblclick({ force: true });
 
@@ -267,6 +269,8 @@ test.describe("Jump to line", () => {
   }) => {
     await authenticatedPage.goto(`${logLink}?filters=100repl_hb`);
     await expect(authenticatedPage.getByTestId("log-row-30")).toBeVisible();
+    // React Router v7 defers bookmark initialization via startTransition; wait for defaults.
+    await expect(authenticatedPage).toHaveURL(/bookmarks=0/);
     await authenticatedPage.getByTestId("log-row-30").dblclick({ force: true });
     await expect(authenticatedPage).toHaveURL(/bookmarks=0,30,12568/);
     await expect(authenticatedPage.getByTestId("bookmark-30")).toBeVisible();
