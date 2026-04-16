@@ -3117,11 +3117,6 @@ export type PublicKeyInput = {
   name: Scalars["String"]["input"];
 };
 
-export type QuarantineStatus = {
-  __typename?: "QuarantineStatus";
-  isQuarantined: Scalars["Boolean"]["output"];
-};
-
 export type QuarantineTestInput = {
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
@@ -4131,7 +4126,6 @@ export type Task = {
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
-  quarantineStatus: QuarantineStatus;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
   reviewed?: Maybe<Scalars["Boolean"]["output"]>;
@@ -4155,11 +4149,6 @@ export type Task = {
   totalTestCount: Scalars["Int"]["output"];
   version: VersionLite;
   versionMetadata: Version;
-};
-
-/** Task models a task, the simplest unit of execution for Evergreen. */
-export type TaskQuarantineStatusArgs = {
-  testName: Scalars["String"]["input"];
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
@@ -4504,6 +4493,7 @@ export type TestResult = {
   exitCode?: Maybe<Scalars["Int"]["output"]>;
   groupID?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
+  isQuarantined: Scalars["Boolean"]["output"];
   logs: TestLog;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
@@ -10031,23 +10021,6 @@ export type MyPublicKeysQuery = {
   myPublicKeys: Array<{ __typename?: "PublicKey"; key: string; name: string }>;
 };
 
-export type QuarantineStatusQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  testName: Scalars["String"]["input"];
-}>;
-
-export type QuarantineStatusQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    quarantineStatus: {
-      __typename?: "QuarantineStatus";
-      isQuarantined: boolean;
-    };
-  } | null;
-};
-
 export type RepoEventLogsQueryVariables = Exact<{
   repoId: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -11069,6 +11042,7 @@ export type TaskHistoryQuery = {
         testResults: Array<{
           __typename?: "TestResult";
           id: string;
+          isQuarantined: boolean;
           status: string;
           testFile: string;
           logs: { __typename?: "TestLog"; urlParsley?: string | null };
@@ -11333,6 +11307,7 @@ export type TaskTestsQuery = {
         id: string;
         baseStatus?: string | null;
         duration?: number | null;
+        isQuarantined: boolean;
         status: string;
         testFile: string;
         logs: {
@@ -11371,6 +11346,7 @@ export type TaskQuery = {
     canSchedule: boolean;
     canSetPriority: boolean;
     canUnschedule: boolean;
+    displayOnly?: boolean | null;
     distroId: string;
     errors?: Array<string> | null;
     estimatedStart?: number | null;

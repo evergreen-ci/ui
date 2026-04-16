@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useLazyQuery, useMutation } from "@apollo/client/react";
+import { useMutation } from "@apollo/client/react";
 import { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TestStatus } from "@evg-ui/lib/types/test";
@@ -12,11 +11,8 @@ import {
   QuarantineTestMutationVariables,
   UnquarantineTestMutation,
   UnquarantineTestMutationVariables,
-  QuarantineStatusQuery,
-  QuarantineStatusQueryVariables,
 } from "gql/generated/types";
 import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
-import { QUARANTINE_STATUS } from "gql/queries";
 
 interface ActionMenuProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -26,26 +22,6 @@ interface ActionMenuProps {
 export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   const { sendEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
-
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const [
-    fetchStatus,
-    { data: statusData, error: statusError, loading: statusLoading },
-  ] = useLazyQuery<QuarantineStatusQuery, QuarantineStatusQueryVariables>(
-    QUARANTINE_STATUS,
-    {
-      fetchPolicy: "network-only",
-    },
-  );
-
-  const handleOpenChange = (value: React.SetStateAction<boolean>) => {
-    const newOpen = typeof value === "function" ? value(menuOpen) : value;
-    setMenuOpen(newOpen);
-    if (newOpen && task.testSelectionEnabled) {
-      fetchStatus({ variables: { taskId: task.id, testName: test.testFile } });
-    }
-  };
 
   const [quarantineTest] = useMutation<
     QuarantineTestMutation,
@@ -59,7 +35,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         `Error when attempting to quarantine test: ${err.message}`,
       );
     },
-    refetchQueries: ["QuarantineStatus"],
+    refetchQueries: ["TaskTests"],
   });
 
   const [unquarantineTest] = useMutation<
@@ -74,11 +50,8 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         `Error when attempting to unquarantine test: ${err.message}`,
       );
     },
-    refetchQueries: ["QuarantineStatus"],
+    refetchQueries: ["TaskTests"],
   });
-
-  const isQuarantined =
-    statusData?.task?.quarantineStatus?.isQuarantined ?? false;
 
   const onQuarantineTest = () => {
     sendEvent({
@@ -86,7 +59,6 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       "test.name": test.testFile,
     });
     quarantineTest({ variables: { taskId: task.id, testName: test.testFile } });
-    setMenuOpen(false);
   };
 
   const onUnquarantineTest = () => {
@@ -97,68 +69,53 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     unquarantineTest({
       variables: { taskId: task.id, testName: test.testFile },
     });
-    setMenuOpen(false);
   };
 
   const canQuarantine = test.status === TestStatus.Fail;
 
-  let dropdownItems: React.ReactNode[] = [];
+  let dropdownItems: React.ReactNode[];
   if (!task.testSelectionEnabled) {
     dropdownItems = [
       <DropdownItem key="disabled" disabled>
         Test selection is disabled for this task.
       </DropdownItem>,
     ];
-  } else if (statusLoading || (!statusData && !statusError)) {
+  } else if (task.displayOnly) {
     dropdownItems = [
-      <DropdownItem key="loading" disabled>
-        Loading quarantine status...
+      <DropdownItem key="display-task" disabled>
+        Select an execution task to quarantine tests.
       </DropdownItem>,
     ];
-  } else if (statusError) {
-    const isNotFound = statusError.message.toLowerCase().includes("not found");
+  } else if (test.isQuarantined) {
     dropdownItems = [
-      <DropdownItem key="error" disabled>
-        {isNotFound
-          ? "Quarantine status not found."
-          : "Failed to fetch quarantine status."}
+      <DropdownItem
+        key="unquarantine"
+        data-cy="unquarantine-test"
+        description="This test is currently quarantined."
+        onClick={onUnquarantineTest}
+      >
+        Unquarantine
       </DropdownItem>,
     ];
-  } else if (statusData) {
+  } else {
     dropdownItems = [
-      isQuarantined ? (
-        <DropdownItem
-          key="unquarantine"
-          data-cy="unquarantine-test"
-          description="This test is currently quarantined."
-          onClick={onUnquarantineTest}
-        >
-          Unquarantine
-        </DropdownItem>
-      ) : (
-        <DropdownItem
-          key="quarantine"
-          data-cy="quarantine-test"
-          description={
-            canQuarantine
-              ? "This test is not currently quarantined."
-              : "Passing tests cannot be quarantined."
-          }
-          disabled={!canQuarantine}
-          onClick={onQuarantineTest}
-        >
-          Quarantine
-        </DropdownItem>
-      ),
+      <DropdownItem
+        key="quarantine"
+        data-cy="quarantine-test"
+        description={
+          canQuarantine
+            ? "Quarantine test so that it does not run in future task runs."
+            : "Passing tests cannot be quarantined."
+        }
+        disabled={!canQuarantine}
+        onClick={onQuarantineTest}
+      >
+        Quarantine
+      </DropdownItem>,
     ];
   }
 
   return (
-    <ButtonDropdown
-      dropdownItems={dropdownItems}
-      open={menuOpen}
-      setOpen={handleOpenChange}
-      size={ButtonSize.XSmall}
-    />
+    <ButtonDropdown dropdownItems={dropdownItems} size={ButtonSize.XSmall} />
   );
 };

@@ -48,7 +48,6 @@ export { PROJECT_PATCHES } from "./project-patches";
 export { PROJECT_SETTINGS } from "./project-settings";
 export { PROJECTS } from "./projects";
 export { MY_PUBLIC_KEYS } from "./public-keys";
-export { QUARANTINE_STATUS } from "./quarantine-status";
 export { REPO_EVENT_LOGS } from "./repo-event-logs";
 export { REPO_SETTINGS } from "./repo-settings";
 export { REPOTRACKER_ERROR } from "./repotracker-error";

@@ -144,6 +144,7 @@ export const tasks: TaskHistoryTask[] = [
           id: "e2e_test_id",
           testFile: "e2e_test",
           status: TestStatus.Fail,
+          isQuarantined: false,
           logs: { urlParsley: "a-parsley-url.mongodb.com" },
         },
       ],

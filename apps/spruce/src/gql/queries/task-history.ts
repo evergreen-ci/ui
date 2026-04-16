@@ -28,6 +28,7 @@ export const TASK_HISTORY = gql`
         tests(opts: { statuses: ["fail", "silentfail"] }) {
           testResults {
             id
+            isQuarantined
             logs {
               urlParsley
             }
