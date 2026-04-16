@@ -27,8 +27,12 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     QuarantineTestMutation,
     QuarantineTestMutationVariables
   >(QUARANTINE_TEST, {
-    onCompleted: () => {
-      dispatchToast.success("Successfully quarantined test.");
+    onCompleted: (data) => {
+      if (data?.quarantineTest?.success) {
+        dispatchToast.success("Successfully quarantined test.");
+      } else {
+        dispatchToast.error("Failed to quarantine test.");
+      }
     },
     onError: (err) => {
       dispatchToast.error(
@@ -42,8 +46,12 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     UnquarantineTestMutation,
     UnquarantineTestMutationVariables
   >(UNQUARANTINE_TEST, {
-    onCompleted: () => {
-      dispatchToast.success("Successfully unquarantined test.");
+    onCompleted: (data) => {
+      if (data?.unquarantineTest?.success) {
+        dispatchToast.success("Successfully unquarantined test.");
+      } else {
+        dispatchToast.error("Failed to unquarantine test.");
+      }
     },
     onError: (err) => {
       dispatchToast.error(

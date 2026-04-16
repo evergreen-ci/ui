@@ -19,7 +19,10 @@ import { taskQuery } from "gql/mocks/taskData";
 import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
 import { ActionMenu } from ".";
 
-const task = { ...taskQuery.task, testSelectionEnabled: true };
+const taskWithTestSelection = {
+  ...taskQuery.task,
+  testSelectionEnabled: true,
+};
 
 describe("action menu for tests table", () => {
   it("shows disabled message when test selection is not enabled", async () => {
@@ -27,7 +30,7 @@ describe("action menu for tests table", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[]}>
         <ActionMenu
-          task={{ ...task, testSelectionEnabled: false }}
+          task={{ ...taskWithTestSelection, testSelectionEnabled: false }}
           test={failingTest}
         />
       </MockedProvider>,
@@ -46,7 +49,10 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[]}>
-        <ActionMenu task={{ ...task, displayOnly: true }} test={failingTest} />
+        <ActionMenu
+          task={{ ...taskWithTestSelection, displayOnly: true }}
+          test={failingTest}
+        />
       </MockedProvider>,
     );
     render(<Component />);
@@ -63,7 +69,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[]}>
-        <ActionMenu task={task} test={passingTest} />
+        <ActionMenu task={taskWithTestSelection} test={passingTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -81,7 +87,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[quarantineTestMock]}>
-        <ActionMenu task={task} test={failingTest} />
+        <ActionMenu task={taskWithTestSelection} test={failingTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -99,7 +105,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[unquarantineTestMock]}>
-        <ActionMenu task={task} test={quarantinedTest} />
+        <ActionMenu task={taskWithTestSelection} test={quarantinedTest} />
       </MockedProvider>,
     );
     render(<Component />);
