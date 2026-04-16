@@ -136,6 +136,7 @@ test.describe("Configure Patch Page", () => {
   test.describe("Configuring a patch", () => {
     test.beforeEach(async ({ authenticatedPage: page }) => {
       await page.goto(`patch/${unactivatedPatchId}/configure/tasks`);
+      await expect(page.getByTestId("build-variant-list-item")).toHaveCount(11);
     });
 
     test("Can update patch description by typing into `Patch Name` input field", async ({
@@ -172,11 +173,11 @@ test.describe("Configure Patch Page", () => {
         .getByTestId("build-variant-list-item")
         .getByText("Windows")
         .click();
-
       const taskCountBadge = page
         .getByTestId("build-variant-list-item")
         .getByTestId("task-count-badge");
       await expect(taskCountBadge).toBeHidden();
+
       let count = 0;
       await expect(page.getByTestId("selected-task-disclaimer")).toContainText(
         `${count} tasks across 0 build variants`,
@@ -218,7 +219,6 @@ test.describe("Configure Patch Page", () => {
       }
       const taskCountBadge = page
         .getByTestId("build-variant-list-item")
-        .getByText("Windows")
         .getByTestId("task-count-badge");
       await expect(taskCountBadge).toBeVisible();
       await expect(taskCountBadge).toContainText("7");
