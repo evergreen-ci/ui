@@ -39,7 +39,15 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         `Error when attempting to quarantine test: ${err.message}`,
       );
     },
-    refetchQueries: ["TaskTests", "TaskHistory"],
+    update: (cache, { data }) => {
+      if (!data?.quarantineTest?.success) return;
+      cache.modify({
+        id: cache.identify({ __typename: "TestResult", id: test.id }),
+        fields: {
+          isManuallyQuarantined: () => true,
+        },
+      });
+    },
   });
 
   const [unquarantineTest] = useMutation<
@@ -58,7 +66,15 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         `Error when attempting to unquarantine test: ${err.message}`,
       );
     },
-    refetchQueries: ["TaskTests", "TaskHistory"],
+    update: (cache, { data }) => {
+      if (!data?.unquarantineTest?.success) return;
+      cache.modify({
+        id: cache.identify({ __typename: "TestResult", id: test.id }),
+        fields: {
+          isManuallyQuarantined: () => false,
+        },
+      });
+    },
   });
 
   const onQuarantineTest = () => {
@@ -89,7 +105,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   } else if (task.displayOnly) {
     dropdownItems = [
       <DropdownItem key="display-task" disabled>
-        Select an execution task to quarantine tests.
+        Select an execution task to manage test quarantine status.
       </DropdownItem>,
     ];
   } else if (test.isManuallyQuarantined) {

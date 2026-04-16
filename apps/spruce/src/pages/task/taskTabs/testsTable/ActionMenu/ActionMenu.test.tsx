@@ -61,7 +61,9 @@ describe("action menu for tests table", () => {
       expect(screen.getByDataCy("card-dropdown")).toBeVisible();
     });
     expect(
-      screen.getByText("Select an execution task to quarantine tests."),
+      screen.getByText(
+        "Select an execution task to manage test quarantine status.",
+      ),
     ).toBeVisible();
   });
 
