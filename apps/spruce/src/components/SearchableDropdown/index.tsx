@@ -10,8 +10,8 @@ import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
-
 import Icon from "@evg-ui/lib/components/Icon";
+import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
 import { toggleArray } from "utils/array";
@@ -183,6 +183,13 @@ const SearchableDropdown = <T extends {}>({
             `}
             data-cy={`${dataCy}-search-input`}
             onChange={handleSearch}
+            onKeyDown={(e) => {
+              // Prevent space key from propagating to dropdown and triggering menu close.
+              if (e.key === CharKey.Space) {
+                e.preventDefault();
+                setSearch((prev) => `${prev} `);
+              }
+            }}
             placeholder={searchPlaceholder}
             value={search}
           />
