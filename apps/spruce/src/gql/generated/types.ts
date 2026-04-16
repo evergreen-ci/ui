@@ -680,10 +680,11 @@ export type Cost = {
   adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
-  s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
