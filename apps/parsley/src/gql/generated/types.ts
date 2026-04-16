@@ -683,10 +683,11 @@ export type Cost = {
   adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
-  s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -2394,7 +2395,9 @@ export type OktaServiceConfig = {
   audience?: Maybe<Scalars["String"]["output"]>;
   clientId?: Maybe<Scalars["String"]["output"]>;
   clientSecret?: Maybe<Scalars["String"]["output"]>;
+  headerName?: Maybe<Scalars["String"]["output"]>;
   issuer?: Maybe<Scalars["String"]["output"]>;
+  keysetURL?: Maybe<Scalars["String"]["output"]>;
   scopes?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
@@ -2402,7 +2405,9 @@ export type OktaServiceConfigInput = {
   audience?: InputMaybe<Scalars["String"]["input"]>;
   clientId?: InputMaybe<Scalars["String"]["input"]>;
   clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  headerName?: InputMaybe<Scalars["String"]["input"]>;
   issuer?: InputMaybe<Scalars["String"]["input"]>;
+  keysetURL?: InputMaybe<Scalars["String"]["input"]>;
   scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
