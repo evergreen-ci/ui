@@ -48,7 +48,6 @@ enum CharKey {
   ExclamationMark = "!",
   BracketLeft = "[",
   BracketRight = "]",
-  Space = " ",
 }
 
 export { ModifierKey, CharKey };
