@@ -10,6 +10,16 @@ export const VERSION = gql`
       baseVersion {
         id
       }
+      cost {
+        adjustedEBSStorageCost
+        adjustedEBSThroughputCost
+        adjustedEC2Cost
+        adjustedS3ArtifactPutCost
+        adjustedS3ArtifactStorageCost
+        adjustedS3LogPutCost
+        adjustedS3LogStorageCost
+        onDemandEC2Cost
+      }
       createTime
       errors
       externalLinksForMetadata {
@@ -67,6 +77,16 @@ export const VERSION = gql`
           module
         }
         patchNumber
+      }
+      predictedCost {
+        adjustedEBSStorageCost
+        adjustedEBSThroughputCost
+        adjustedEC2Cost
+        adjustedS3ArtifactPutCost
+        adjustedS3ArtifactStorageCost
+        adjustedS3LogPutCost
+        adjustedS3LogStorageCost
+        onDemandEC2Cost
       }
       previousVersion {
         id
