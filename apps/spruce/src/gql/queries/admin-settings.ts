@@ -381,6 +381,7 @@ export const ADMIN_SETTINGS = gql`
         collectorEndpoint
         collectorInternalEndpoint
         enabled
+        traceUrlTemplate
       }
       triggers {
         generateTaskDistro

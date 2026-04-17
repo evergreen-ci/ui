@@ -116,6 +116,7 @@ export interface OtherFormState {
       collectorEndpoint: string;
       collectorInternalEndpoint: string;
       collectorAPIKey: string;
+      traceUrlTemplate: string;
     };
 
     projectCreationSettings: {

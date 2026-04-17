@@ -57,6 +57,9 @@ describe("admin settings save properly", () => {
       cy.getInputByLabel("Collector Endpoint").as("collectorEndpointInput");
       cy.get("@collectorEndpointInput").clear();
       cy.get("@collectorEndpointInput").type("https://test-collector.com");
+      cy.getInputByLabel("Trace URL Template").as("traceUrlTemplateInput");
+      cy.get("@traceUrlTemplateInput").clear();
+      cy.get("@traceUrlTemplateInput").type("https://apm.test.com/trace/%s");
     });
 
     // Save initial changes
@@ -96,6 +99,10 @@ describe("admin settings save properly", () => {
       cy.getInputByLabel("Collector Endpoint").should(
         "have.value",
         "https://test-collector.com",
+      );
+      cy.getInputByLabel("Trace URL Template").should(
+        "have.value",
+        "https://apm.test.com/trace/%s",
       );
     });
 
@@ -152,6 +159,10 @@ describe("admin settings save properly", () => {
       cy.getInputByLabel("Collector Endpoint").should(
         "have.value",
         "https://test-collector.com",
+      );
+      cy.getInputByLabel("Trace URL Template").should(
+        "have.value",
+        "https://apm.test.com/trace/%s",
       );
     });
   });

@@ -100,6 +100,7 @@ export const TASK = gql`
       hostId
       imageId
       ingestTime
+      invalidatedByUpstream
       latestExecution
       logs {
         agentLogLink

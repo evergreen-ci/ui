@@ -5299,6 +5299,7 @@ export type PatchesPagePatchesFragment = {
     createTime?: Date | null;
     description: string;
     hidden: boolean;
+    invalidatedByUpstream: boolean;
     projectIdentifier: string;
     status: string;
     projectMetadata?: {
@@ -7977,6 +7978,7 @@ export type AdminSettingsQuery = {
       collectorEndpoint?: string | null;
       collectorInternalEndpoint?: string | null;
       enabled: boolean;
+      traceUrlTemplate?: string | null;
     } | null;
     triggers?: {
       __typename?: "TriggerConfig";
@@ -9707,6 +9709,7 @@ export type ProjectPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
+        invalidatedByUpstream: boolean;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
@@ -11333,6 +11336,7 @@ export type TaskQuery = {
     hostId?: string | null;
     imageId: string;
     ingestTime?: Date | null;
+    invalidatedByUpstream?: boolean | null;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
@@ -11648,6 +11652,7 @@ export type UserPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
+        invalidatedByUpstream: boolean;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
