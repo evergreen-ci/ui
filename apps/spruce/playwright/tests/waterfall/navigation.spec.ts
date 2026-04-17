@@ -18,6 +18,18 @@ test.describe("navigation", () => {
     await expect(page.getByTestId("waterfall-page")).toBeVisible();
   });
 
+  test("project select stays open when typing a space", async ({
+    authenticatedPage: page,
+  }) => {
+    await page.goto("/project/evergreen/waterfall");
+    await expect(page.getByTestId("waterfall-page")).toBeVisible();
+
+    await page.getByTestId("project-select").click();
+    await expect(page.getByTestId("project-select-search-input")).toBeVisible();
+    await page.getByTestId("project-select-search-input").fill(" ");
+    await expect(page.getByTestId("project-select-search-input")).toBeVisible();
+  });
+
   test("is redirected to the waterfall page when a user visits a legacy route", async ({
     authenticatedPage: page,
   }) => {
