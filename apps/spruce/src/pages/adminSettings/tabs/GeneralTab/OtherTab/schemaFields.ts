@@ -284,20 +284,6 @@ export const getSingleTaskDistroSchema = ({
     })),
   ];
 
-  const projectIdSchema =
-    projectRepoOptions.length > 0
-      ? ({
-          type: "string" as const,
-          title: "Project ID / Repo",
-          oneOf: projectRepoOptions,
-          default: "",
-        } as const)
-      : ({
-          type: "string" as const,
-          title: "Project ID / Repo",
-          default: "",
-        } as const);
-
   return {
     schema: {
       projectTasksPairs: {
@@ -306,7 +292,12 @@ export const getSingleTaskDistroSchema = ({
         items: {
           type: "object" as const,
           properties: {
-            projectId: projectIdSchema,
+            projectId: {
+              type: "string" as const,
+              title: "Project ID / Repo",
+              oneOf: projectRepoOptions,
+              default: "",
+            },
             allowedTasks: {
               type: "array" as const,
               title: "Allowed Tasks",
