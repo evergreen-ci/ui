@@ -10,7 +10,6 @@ export default {
 export const Default: CustomStoryObj<SearchableDropdownProps<string>> = {
   render: (args) => <Dropdown options={["1", "2", "3"]} {...args} />,
   args: {
-    allowMultiSelect: false,
     disabled: false,
     label: "Searchable Dropdown",
   },
@@ -21,7 +20,6 @@ export const CustomOption: CustomStoryObj<
 > = {
   render: (args) => (
     <Dropdown
-      allowMultiSelect
       label="Custom option select"
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       optionRenderer={(option, onClick, isChecked) => (
