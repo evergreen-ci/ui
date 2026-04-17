@@ -163,6 +163,20 @@ export const miscSettings = {
               title: "Default Max Artifact Expiration Days",
               minimum: 1,
             },
+            devprodOwnedAwsAccountIds: {
+              type: "array" as const,
+              title: "Devprod-owned AWS account IDs",
+              items: {
+                type: "string" as const,
+              },
+            },
+            artifactAwsAccountsWithoutLifecycleRules: {
+              type: "array" as const,
+              title: "Artifact AWS accounts without lifecycle rules",
+              items: {
+                type: "string" as const,
+              },
+            },
           },
         },
       },
@@ -233,6 +247,18 @@ export const miscSettings = {
           "ui:description":
             "The default maximum number of days before artifacts expire (minimum 1).",
         },
+        devprodOwnedAwsAccountIds: {
+          "ui:widget": widgets.ChipInputWidget,
+          "ui:fieldCss": fullWidthCss,
+          "ui:description":
+            "AWS account IDs (12 digits) for S3 buckets owned by Devprod, used for cost calculations.",
+        },
+        artifactAwsAccountsWithoutLifecycleRules: {
+          "ui:widget": widgets.ChipInputWidget,
+          "ui:fieldCss": fullWidthCss,
+          "ui:description":
+            "AWS account IDs where we do not have access to fetch lifecycle rules.",
+        },
       },
     },
   },
@@ -258,6 +284,20 @@ export const getSingleTaskDistroSchema = ({
     })),
   ];
 
+  const projectIdSchema =
+    projectRepoOptions.length > 0
+      ? ({
+          type: "string" as const,
+          title: "Project ID / Repo",
+          oneOf: projectRepoOptions,
+          default: "",
+        } as const)
+      : ({
+          type: "string" as const,
+          title: "Project ID / Repo",
+          default: "",
+        } as const);
+
   return {
     schema: {
       projectTasksPairs: {
@@ -266,12 +306,7 @@ export const getSingleTaskDistroSchema = ({
         items: {
           type: "object" as const,
           properties: {
-            projectId: {
-              type: "string" as const,
-              title: "Project ID / Repo",
-              oneOf: projectRepoOptions,
-              default: "",
-            },
+            projectId: projectIdSchema,
             allowedTasks: {
               type: "array" as const,
               title: "Allowed Tasks",

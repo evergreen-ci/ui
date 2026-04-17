@@ -1,5 +1,9 @@
 import { AdminSettingsGeneralSection } from "constants/routes";
-import { FormToGqlFunction, GqlToFormFunction } from "../../types";
+import {
+  AdminSettingsData,
+  FormToGqlFunction,
+  GqlToFormFunction,
+} from "../../types";
 import { OtherFormState } from "./types";
 
 type Tab = AdminSettingsGeneralSection.Other;
@@ -77,8 +81,13 @@ export const gqlToForm = ((data) => {
           s3Cost: {
             archiveStorageCostDiscount:
               cost?.s3Cost?.storage?.archiveStorageCostDiscount ?? 0,
+            artifactAwsAccountsWithoutLifecycleRules:
+              cost?.s3Cost?.storage?.artifactAwsAccountsWithoutLifecycleRules ??
+              [],
             defaultMaxArtifactExpirationDays:
               cost?.s3Cost?.storage?.defaultMaxArtifactExpirationDays || 1,
+            devprodOwnedAwsAccountIds:
+              cost?.s3Cost?.storage?.devprodOwnedAwsAccountIds ?? [],
             iAStorageCostDiscount:
               cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
             standardStorageCostDiscount:
@@ -216,8 +225,12 @@ export const gqlToForm = ((data) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = ((form: OtherFormState) => {
+export const formToGql = ((form: OtherFormState, data?: AdminSettingsData) => {
   const { other } = form;
+
+  const serverStorage = data?.cost?.s3Cost?.storage;
+  const { __typename: _storageTypename, ...s3StoragePassthrough } =
+    serverStorage ?? {};
 
   const {
     bucketConfig,
@@ -273,11 +286,16 @@ export const formToGql = ((form: OtherFormState) => {
             miscSettings.cost.s3Cost.uploadCostDiscount ?? undefined,
         },
         storage: {
+          ...s3StoragePassthrough,
           archiveStorageCostDiscount:
             miscSettings.cost.s3Cost.archiveStorageCostDiscount ?? undefined,
+          artifactAwsAccountsWithoutLifecycleRules:
+            miscSettings.cost.s3Cost.artifactAwsAccountsWithoutLifecycleRules,
           defaultMaxArtifactExpirationDays:
             miscSettings.cost.s3Cost.defaultMaxArtifactExpirationDays ||
             undefined,
+          devprodOwnedAwsAccountIds:
+            miscSettings.cost.s3Cost.devprodOwnedAwsAccountIds,
           iAStorageCostDiscount:
             miscSettings.cost.s3Cost.iAStorageCostDiscount ?? undefined,
           standardStorageCostDiscount:
