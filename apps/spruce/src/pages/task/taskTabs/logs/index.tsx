@@ -181,7 +181,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                   data-cy="download-log-btn"
                   disabled={noLogs}
                   onClick={() => {
-                    downloadFile(rawLink);
+                    downloadFile(rawLink, `${taskId}_${currentLog}.log`);
                     sendEvent({
                       name: "Clicked log link",
                       "log.type": currentLog,

@@ -93,7 +93,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
         <Button
           data-cy="test-table-download-btn"
           onClick={() => {
-            downloadFile(urlRaw);
+            const sanitized = testFile.replace(/[^a-zA-Z0-9._-]/g, "_");
+            downloadFile(urlRaw, `${taskId}_${sanitized}.log`);
             sendEvent({
               name: "Clicked test log link",
               "log.viewer": "download",

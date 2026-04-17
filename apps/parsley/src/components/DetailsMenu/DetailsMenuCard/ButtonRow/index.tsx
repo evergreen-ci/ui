@@ -77,7 +77,10 @@ const ButtonRow: React.FC = () => {
             leftGlyph={<Icon glyph="Export" />}
             onClick={() => {
               if (rawLogURL) {
-                downloadFile(rawLogURL);
+                const { fileName, taskID, testID } = logMetadata ?? {};
+                const filename =
+                  fileName ?? (testID ? `${testID}.log` : `${taskID}.log`);
+                downloadFile(rawLogURL, filename);
                 sendEvent({ name: "Clicked download logs link" });
               }
             }}
