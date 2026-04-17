@@ -303,20 +303,13 @@ describe("Repo Settings", () => {
       cy.dataCy("navitem-pull-requests").click();
       saveButtonEnabled(false);
     });
-    it("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", () => {
-      cy.dataCy("github-checks-enabled-radio-box")
-        .contains("label", "Enabled")
-        .click();
-      cy.dataCy("error-banner")
+    it("Repo Settings Pull Requests page shows a disabled webhooks banner and no Commit Checks controls when webhooks are disabled", () => {
+      cy.dataCy("disabled-webhook-banner")
         .contains(
-          "A Commit Check Definition must be specified for this feature to run.",
+          "GitHub features are disabled because the Evergreen GitHub App is not",
         )
-        .as("errorBanner");
-      cy.get("@errorBanner").should("be.visible");
-      cy.dataCy("github-checks-enabled-radio-box")
-        .contains("label", "Disabled")
-        .click();
-      cy.get("@errorBanner").should("not.exist");
+        .should("be.visible");
+      cy.dataCy("github-checks-enabled-radio-box").should("not.exist");
     });
     it("Allows enabling manual PR testing", () => {
       cy.dataCy("manual-pr-testing-enabled-radio-box")
