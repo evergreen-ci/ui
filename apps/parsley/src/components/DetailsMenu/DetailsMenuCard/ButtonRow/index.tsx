@@ -66,6 +66,32 @@ const ButtonRow: React.FC = () => {
       >
         Open log in standard HTML format in a new tab
       </Tooltip>
+      <Tooltip
+        align="top"
+        justify="middle"
+        trigger={
+          <Button
+            data-cy="download-log-button"
+            disabled={!rawLogURL}
+            leftGlyph={<Icon glyph="Export" />}
+            onClick={() => {
+              if (rawLogURL) {
+                const a = document.createElement("a");
+                a.href = rawLogURL;
+                a.download = "";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+              }
+              sendEvent({ name: "Clicked download logs link" });
+            }}
+          >
+            Download
+          </Button>
+        }
+      >
+        Download log as a file
+      </Tooltip>
     </DetailRow>
   );
 };

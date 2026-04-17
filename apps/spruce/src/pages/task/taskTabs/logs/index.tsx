@@ -175,6 +175,27 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                   Raw
                 </Button>
               )}
+              {rawLink && (
+                <Button
+                  data-cy="download-log-btn"
+                  disabled={noLogs}
+                  onClick={() => {
+                    const a = document.createElement("a");
+                    a.href = rawLink;
+                    a.download = "";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "download",
+                    });
+                  }}
+                >
+                  Download
+                </Button>
+              )}
             </FloatingButtonContainer>
           </>
         )}

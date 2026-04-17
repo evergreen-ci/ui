@@ -88,6 +88,28 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           Raw
         </Button>
       )}
+      {urlRaw && (
+        <Button
+          data-cy="test-table-download-btn"
+          onClick={() => {
+            const a = document.createElement("a");
+            a.href = urlRaw;
+            a.download = "";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            sendEvent({
+              name: "Clicked test log link",
+              "log.viewer": "download",
+              "test.status": status,
+            });
+          }}
+          size="xsmall"
+          title="Download log file"
+        >
+          Download
+        </Button>
+      )}
       {taskId && filters && !isExecutionTask && (
         <TaskHistoryTestsButton
           onClick={() => {
