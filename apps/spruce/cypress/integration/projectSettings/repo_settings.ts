@@ -297,4 +297,69 @@ describe("Repo Settings", () => {
       cy.dataCy("command-input").eq(1).should("have.value", "command 1");
     });
   });
+  describe("Commit Checks page", () => {
+    beforeEach(() => {
+      cy.dataCy("navitem-commit-checks").click();
+      saveButtonEnabled(false);
+    });
+    it("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", () => {
+      cy.dataCy("github-checks-enabled-radio-box")
+        .contains("label", "Enabled")
+        .click();
+      cy.dataCy("error-banner")
+        .contains(
+          "A Commit Check Definition must be specified for this feature to run.",
+        )
+        .as("errorBanner");
+      cy.get("@errorBanner").should("be.visible");
+      cy.dataCy("github-checks-enabled-radio-box")
+        .contains("label", "Disabled")
+        .click();
+      cy.get("@errorBanner").should("not.exist");
+    });
+    it("Allows enabling manual PR testing", () => {
+      cy.dataCy("manual-pr-testing-enabled-radio-box")
+        .children()
+        .first()
+        .click();
+    });
+    it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
+      cy.contains(
+        "A GitHub Patch Definition must be specified for this feature to run.",
+      ).as("errorBanner");
+      cy.get("@errorBanner").should("be.visible");
+      cy.contains("button", "Add Patch Definition").click();
+      cy.get("@errorBanner").should("not.exist");
+      saveButtonEnabled(false);
+      cy.dataCy("variant-tags-input").first().type("vtag");
+      cy.dataCy("task-tags-input").first().type("ttag");
+      saveButtonEnabled(true);
+      clickSave();
+      cy.validateToast("success", "Successfully updated repo");
+      cy.visit(getProjectSettingsRoute(projectUseRepoEnabled));
+      cy.dataCy("navitem-pull-requests").click();
+      cy.contains("Repo Patch Definition 1")
+        .as("patchDefAccordion")
+        .scrollIntoView();
+      cy.get("@patchDefAccordion").click();
+      cy.dataCy("variant-tags-input").should("have.value", "vtag");
+      cy.dataCy("variant-tags-input").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
+      cy.dataCy("task-tags-input").should("have.value", "ttag");
+      cy.dataCy("task-tags-input").should("have.attr", "aria-disabled", "true");
+      cy.contains(
+        "A GitHub Patch Definition must be specified for this feature to run.",
+      ).should("not.exist");
+    });
+    it("Shows the Commit Checks section only when Commit Checks are enabled", () => {
+      cy.contains("Commit Check Definitions").should("not.exist");
+      cy.dataCy("github-checks-enabled-radio-box")
+        .contains("label", "Enabled")
+        .click();
+      cy.contains("Commit Check Definitions").should("be.visible");
+    });
+  });
 });
