@@ -8,6 +8,7 @@ import {
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { downloadFile } from "@evg-ui/lib/utils/request";
 import { useTaskAnalytics } from "analytics";
 import { siderCardWidth } from "components/styles/Layout";
 import { getParsleyTaskLogLink } from "constants/externalResources";
@@ -180,12 +181,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                   data-cy="download-log-btn"
                   disabled={noLogs}
                   onClick={() => {
-                    const a = document.createElement("a");
-                    a.href = rawLink;
-                    a.download = "";
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
+                    downloadFile(rawLink);
                     sendEvent({
                       name: "Clicked log link",
                       "log.type": currentLog,

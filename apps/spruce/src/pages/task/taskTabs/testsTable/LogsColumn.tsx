@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { downloadFile } from "@evg-ui/lib/utils/request";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { getTaskRoute, getTestHTMLLogRoute } from "constants/routes";
@@ -92,12 +93,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
         <Button
           data-cy="test-table-download-btn"
           onClick={() => {
-            const a = document.createElement("a");
-            a.href = urlRaw;
-            a.download = "";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            downloadFile(urlRaw);
             sendEvent({
               name: "Clicked test log link",
               "log.viewer": "download",

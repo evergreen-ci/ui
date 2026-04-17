@@ -1,6 +1,7 @@
 import { Button } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
+import { downloadFile } from "@evg-ui/lib/utils/request";
 import { usePreferencesAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
 import { DetailRow } from "../styles";
@@ -76,14 +77,9 @@ const ButtonRow: React.FC = () => {
             leftGlyph={<Icon glyph="Export" />}
             onClick={() => {
               if (rawLogURL) {
-                const a = document.createElement("a");
-                a.href = rawLogURL;
-                a.download = "";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                downloadFile(rawLogURL);
+                sendEvent({ name: "Clicked download logs link" });
               }
-              sendEvent({ name: "Clicked download logs link" });
             }}
           >
             Download
