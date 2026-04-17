@@ -647,12 +647,21 @@ export const tracerConfiguration = {
       type: "string" as const,
       title: "Collector API Key",
     },
+    traceUrlTemplate: {
+      type: "string" as const,
+      title: "Trace URL Template",
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "tracer-configuration",
     "ui:objectFieldCss": objectGridCss,
     enabled: {
+      "ui:fieldCss": fullWidthCss,
+    },
+    traceUrlTemplate: {
+      "ui:description":
+        "fmt.Sprintf template with exactly one %s verb for the W3C trace ID (hex). Example: https://apm.example.com/trace/%s",
       "ui:fieldCss": fullWidthCss,
     },
   },
@@ -697,6 +706,31 @@ export const projectCreationSettings = {
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
+    },
+  },
+};
+
+export const diagnosticsConfig = {
+  schema: {
+    s3BucketName: {
+      type: "string" as const,
+      title: "S3 Bucket Name",
+    },
+    s3Prefix: {
+      type: "string" as const,
+      title: "S3 Prefix",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "diagnostics-config",
+    "ui:objectFieldCss": objectGridCss,
+    s3BucketName: {
+      "ui:description": "The S3 bucket where diagnostics data is stored.",
+    },
+    s3Prefix: {
+      "ui:description":
+        "The prefix used for diagnostics data in the S3 bucket.",
     },
   },
 };

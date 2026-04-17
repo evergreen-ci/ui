@@ -122,6 +122,7 @@ const mockAdminSettings: AdminSettingsData = {
     collectorEndpoint: "https://collector.example.com",
     collectorInternalEndpoint: "https://collector-internal.example.com",
     collectorAPIKey: "tracer-api-key",
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
     totalProjectLimit: 100,
@@ -135,6 +136,10 @@ const mockAdminSettings: AdminSettingsData = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };
 
@@ -256,6 +261,7 @@ const expectedForm: OtherFormState = {
       collectorEndpoint: "https://collector.example.com",
       collectorInternalEndpoint: "https://collector-internal.example.com",
       collectorAPIKey: "tracer-api-key",
+      traceUrlTemplate: "https://apm.example.com/trace/%s",
     },
     projectCreationSettings: {
       totalProjectLimit: 100,
@@ -269,6 +275,10 @@ const expectedForm: OtherFormState = {
     },
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
+    },
+    diagnosticsConfig: {
+      s3BucketName: "diagnostics-bucket",
+      s3Prefix: "diagnostics/",
     },
   },
 };
@@ -392,6 +402,7 @@ const expectedGql: AdminSettingsInput = {
     collectorEndpoint: "https://collector.example.com",
     collectorInternalEndpoint: "https://collector-internal.example.com",
     collectorAPIKey: "tracer-api-key",
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
     totalProjectLimit: 100,
@@ -405,5 +416,9 @@ const expectedGql: AdminSettingsInput = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };

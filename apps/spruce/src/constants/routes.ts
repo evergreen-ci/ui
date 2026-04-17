@@ -1,5 +1,6 @@
 import { generatePath } from "react-router-dom";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
@@ -232,7 +233,7 @@ export const getAllHostsRoute = (options?: {
 export type GetTaskRouteOptions = {
   tab?: TaskTab;
   execution?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   const { tab, ...rest } = options || {};
@@ -452,19 +453,25 @@ export const getTriggerRoute = ({
   upstreamVersion,
 }: {
   triggerType: string;
-  upstreamTask: any;
-  upstreamVersion: any;
+  upstreamTask?: { id: string } | null;
+  upstreamVersion?: { id: string } | null;
   upstreamRevision: string;
   upstreamOwner: string;
   upstreamRepo: string;
 }) => {
-  if (triggerType === ProjectTriggerLevel.TASK) {
+  if (triggerType === ProjectTriggerLevel.TASK && upstreamTask) {
     return getTaskRoute(upstreamTask.id);
   }
   if (triggerType === ProjectTriggerLevel.PUSH) {
     return getGithubCommitUrl(upstreamOwner, upstreamRepo, upstreamRevision);
   }
-  return getVersionRoute(upstreamVersion.id);
+
+  const upstreamVersionId = upstreamVersion?.id;
+  if (!upstreamVersionId) {
+    reportError(new Error("No upstream version found for route"));
+  }
+
+  return getVersionRoute(upstreamVersion?.id ?? "");
 };
 
 export const getAdminSettingsRoute = (

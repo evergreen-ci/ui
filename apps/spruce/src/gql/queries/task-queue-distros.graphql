@@ -1,7 +1,0 @@
-query TaskQueueDistros {
-  taskQueueDistros {
-    id
-    hostCount
-    taskCount
-  }
-}

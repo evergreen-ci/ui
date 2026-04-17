@@ -2,8 +2,11 @@ import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { versionControlDocumentationUrl } from "constants/externalResources";
-import { showRecreatableTaskEnvironments } from "constants/featureFlags";
+import {
+  debugSpawnHostsDocumentationUrl,
+  versionControlDocumentationUrl,
+  runEveryMainlineCommitDocumentationUrl,
+} from "constants/externalResources";
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
@@ -158,6 +161,15 @@ export const getFormSchema = (
                   type: "null" as const,
                 },
               }),
+              runEveryMainlineCommit: {
+                type: ["boolean", "null"] as const,
+                title: "Run Every Mainline Commit",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.repotracker?.runEveryMainlineCommit,
+                ),
+              },
             },
           },
           debug: {
@@ -283,20 +295,17 @@ export const getFormSchema = (
         },
         owner: {
           ...placeholderIf(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.repositoryInfo?.owner,
           ),
         },
         repo: {
           "ui:data-cy": "repo-input",
           ...placeholderIf(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.repositoryInfo?.repo,
           ),
         },
       },
       branch: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         ...placeholderIf(repoData?.generalConfiguration?.branch),
       },
       other: {
@@ -329,7 +338,6 @@ export const getFormSchema = (
         remotePath: {
           "ui:description":
             "Path to yaml file where project tasks, variants, and other settings are defined.",
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           ...placeholderIf(repoData?.generalConfiguration?.other?.remotePath),
         },
         spawnHostScriptPath: {
@@ -338,7 +346,6 @@ export const getFormSchema = (
           "ui:data-cy": "spawn-host-input",
           "ui:optional": true,
           ...placeholderIf(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.other?.spawnHostScriptPath,
           ),
         },
@@ -357,12 +364,16 @@ export const getFormSchema = (
       },
       debug: {
         debugSpawnHostsDisabled: {
-          // TODO DEVPROD-25833: Unhide this field when the feature is ready
-          "ui:widget": showRecreatableTaskEnvironments
-            ? widgets.RadioBoxWidget
-            : "hidden",
-          "ui:description":
-            "Sets if project tasks can create debug spawn hosts.", // TODO DEVPROD-25820: Add link to debug spawn hosts documentation
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description": (
+            <>
+              Sets if project tasks can create{" "}
+              <StyledLink href={debugSpawnHostsDocumentationUrl}>
+                debug spawn hosts
+              </StyledLink>
+              .
+            </>
+          ),
         },
       },
       repotracker: {
@@ -375,6 +386,11 @@ export const getFormSchema = (
           "ui:field": "repotrackerField",
           "ui:showLabel": false,
           options: { projectId },
+        },
+        runEveryMainlineCommit: {
+          "ui:data-cy": "run-every-mainline-commit-radio-box",
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description": RunEveryMainlineCommitDescription,
         },
       },
       scheduling: {
@@ -462,3 +478,14 @@ const getMinLength = (
   }
   return 1;
 };
+
+const RunEveryMainlineCommitDescription = (
+  <>
+    By default, only the latest repotracker version is activated periodically to
+    avoid redundant builds. Enable this to activate every mainline commit
+    version.{" "}
+    <StyledLink href={runEveryMainlineCommitDocumentationUrl}>
+      Learn more
+    </StyledLink>
+  </>
+);

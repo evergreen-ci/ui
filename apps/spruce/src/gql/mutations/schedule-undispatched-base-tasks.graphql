@@ -1,7 +1,0 @@
-mutation ScheduleUndispatchedBaseTasks($versionId: String!) {
-  scheduleUndispatchedBaseTasks(versionId: $versionId) {
-    id
-    displayStatus
-    execution
-  }
-}

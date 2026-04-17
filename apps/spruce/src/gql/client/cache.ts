@@ -117,6 +117,7 @@ export const cache = new InMemoryCache({
     },
     Project: {
       keyFields: false,
+      merge: true,
     },
     ProjectEvents: {
       fields: {
@@ -155,6 +156,10 @@ export const cache = new InMemoryCache({
     UserConfig: {
       keyFields: ["user"],
     },
+    UserSettings: {
+      keyFields: false,
+      merge: true,
+    },
     Task: {
       keyFields: ["execution", "id"],
       fields: {
@@ -184,8 +189,21 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    Permissions: {
+      keyFields: false,
+      merge: true,
+    },
     ServiceFlag: {
       keyFields: ["name"],
+    },
+    SpruceConfig: {
+      // SpruceConfig is a singleton type with no identifying field
+      keyFields: [],
+      merge: true,
+    },
+    UIConfig: {
+      keyFields: false,
+      merge: true,
     },
     WaterfallTask: {
       keyFields: false,

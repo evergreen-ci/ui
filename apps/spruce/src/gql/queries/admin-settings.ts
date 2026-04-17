@@ -1,0 +1,409 @@
+import { gql } from "@apollo/client";
+
+export const ADMIN_SETTINGS = gql`
+  query AdminSettings {
+    adminSettings {
+      amboy {
+        groupBackgroundCreateFrequencyMinutes
+        groupDefaultWorkers
+        groupPruneFrequencyMinutes
+        groupTTLMinutes
+        localStorage
+        lockTimeoutMinutes
+        name
+        namedQueues {
+          lockTimeoutSeconds
+          name
+          numWorkers
+          regexp
+          sampleSize
+        }
+        poolSizeLocal
+        poolSizeRemote
+        retry {
+          maxCapacity
+          maxRetryAttempts
+          maxRetryTimeSeconds
+          numWorkers
+          retryBackoffSeconds
+          staleRetryingMonitorIntervalSeconds
+        }
+        sampleSize
+        singleName
+      }
+      amboyDB {
+        database
+        url
+      }
+      api {
+        corpUrl
+        httpListenAddr
+        url
+      }
+      authConfig {
+        allowServiceUsers
+        backgroundReauthMinutes
+        github {
+          appId
+          clientId
+          clientSecret
+          defaultOwner
+          defaultRepo
+          organization
+          users
+        }
+        kanopy {
+          headerName
+          issuer
+          keysetURL
+        }
+        multi {
+          readOnly
+          readWrite
+        }
+        naive {
+          users {
+            displayName
+            email
+            password
+            username
+          }
+        }
+        oauth {
+          clientId
+          connectorId
+          issuer
+        }
+        okta {
+          clientId
+          clientSecret
+          expireAfterMinutes
+          issuer
+          scopes
+          userGroup
+        }
+        preferredType
+      }
+      banner
+      bannerTheme
+      buckets {
+        credentials {
+          key
+          secret
+        }
+        logBucket {
+          name
+          roleARN
+          testResultsPrefix
+        }
+        logBucketFailedTasks {
+          name
+        }
+        logBucketLongRetention {
+          name
+        }
+        longRetentionProjects
+        testResultsBucket {
+          name
+          roleARN
+          testResultsPrefix
+          type
+        }
+      }
+      cedar {
+        dbName
+        dbUrl
+      }
+      configDir
+      containerPools {
+        pools {
+          id
+          distro
+          maxContainers
+          port
+        }
+      }
+      cost {
+        ebsCost {
+          ebsDiscount
+        }
+        financeFormula
+        onDemandDiscount
+        s3Cost {
+          storage {
+            archiveStorageCostDiscount
+            defaultMaxArtifactExpirationDays
+            iAStorageCostDiscount
+            standardStorageCostDiscount
+          }
+          upload {
+            uploadCostDiscount
+          }
+        }
+        savingsPlanDiscount
+      }
+      debugSpawnHosts {
+        setupScript
+      }
+      diagnostics {
+        s3BucketName
+        s3Prefix
+      }
+      disabledGQLQueries
+      domainName
+      expansions
+      fws {
+        url
+      }
+      githubCheckRun {
+        checkRunLimit
+      }
+      githubOrgs
+      githubPRCreatorOrg
+      githubWebhookSecret
+      graphite {
+        ciOptimizationToken
+        serverUrl
+      }
+      hostInit {
+        cloudStatusBatchSize
+        hostThrottle
+        maxTotalDynamicHosts
+        provisioningThrottle
+      }
+      hostJasper {
+        binaryName
+        downloadFileName
+        port
+        url
+        version
+      }
+      jira {
+        email
+        host
+        personalAccessToken
+      }
+      jiraNotifications {
+        customFields {
+          components
+          fields
+          labels
+          project
+        }
+      }
+      loggerConfig {
+        buffer {
+          count
+          durationSeconds
+          incomingBufferFactor
+          useAsync
+        }
+        defaultLevel
+        logkeeperURL
+        redactKeys
+        thresholdLevel
+      }
+      logPath
+      notify {
+        bufferIntervalSeconds
+        bufferTargetPerInterval
+        ses {
+          senderAddress
+        }
+      }
+      oktaServiceConfig {
+        audience
+        clientId
+        clientSecret
+        issuer
+        scopes
+      }
+      oldestAllowedCLIVersion
+      parameterStore {
+        prefix
+      }
+      perfMonitoringKanopyURL
+      perfMonitoringURL
+      pprofPort
+      projectCreation {
+        repoExceptions {
+          owner
+          repo
+        }
+        repoProjectLimit
+        totalProjectLimit
+      }
+
+      providers {
+        aws {
+          accountRoles {
+            account
+            role
+          }
+          alertableInstanceTypes
+          allowedInstanceTypes
+          allowedRegions
+          defaultSecurityGroup
+          ec2Keys {
+            key
+            name
+            secret
+          }
+          elasticIPUsageRate
+          ipamPoolID
+          maxVolumeSizePerUser
+          parserProject {
+            bucket
+            generatedJSONPrefix
+            key
+            prefix
+            secret
+          }
+          persistentDNS {
+            domain
+            hostedZoneID
+          }
+          subnets {
+            az
+            subnetId
+          }
+        }
+        docker {
+          apiVersion
+        }
+      }
+      releaseMode {
+        distroMaxHostsFactor
+        idleTimeSecondsOverride
+        targetTimeSecondsOverride
+      }
+
+      repotracker {
+        maxConcurrentRequests
+        maxRepoRevisionsToSearch
+        numNewRepoRevisionsToFetch
+      }
+      runtimeEnvironments {
+        apiKey
+        baseUrl
+      }
+      sage {
+        baseUrl
+      }
+      scheduler {
+        acceptableHostIdleTimeSeconds
+        cacheDurationSeconds
+        commitQueueFactor
+        expectedRuntimeFactor
+        futureHostFraction
+        generateTaskFactor
+        groupVersions
+        hostAllocator
+        hostAllocatorFeedbackRule
+        hostAllocatorRoundingRule
+        hostsOverallocatedRule
+        mainlineTimeInQueueFactor
+        numDependentsFactor
+        patchFactor
+        patchTimeInQueueFactor
+        stepbackTaskFactor
+        targetTimeSeconds
+        taskFinder
+      }
+
+      shutdownWaitSeconds
+      singleTaskDistro {
+        projectTasksPairs {
+          allowedBVs
+          allowedTasks
+          projectId
+        }
+      }
+      slack {
+        level
+        name
+        options {
+          allFields
+          basicMetadata
+          channel
+          fields
+          fieldsSet
+          hostname
+          name
+          username
+        }
+        token
+      }
+      sleepSchedule {
+        permanentlyExemptHosts
+      }
+      spawnhost {
+        spawnHostsPerUser
+        unexpirableHostsPerUser
+        unexpirableVolumesPerUser
+      }
+      splunk {
+        splunkConnectionInfo {
+          channel
+          serverUrl
+          token
+        }
+      }
+      ssh {
+        spawnHostKey {
+          name
+          secretARN
+        }
+        taskHostKey {
+          name
+          secretARN
+        }
+      }
+      taskLimits {
+        maxConcurrentLargeParserProjectTasks
+        maxDailyAutomaticRestarts
+        maxDegradedModeConcurrentLargeParserProjectTasks
+        maxDegradedModeParserProjectSize
+        maxExecTimeoutSecs
+        maxGenerateTaskJSONSize
+        maxHourlyPatchTasks
+        maxIncludesPerVersion
+        maxParserProjectSize
+        maxPendingGeneratedTasks
+        maxTaskExecution
+        maxTasksPerVersion
+      }
+      testSelection {
+        url
+      }
+      tracer {
+        collectorAPIKey
+        collectorEndpoint
+        collectorInternalEndpoint
+        enabled
+        traceUrlTemplate
+      }
+      triggers {
+        generateTaskDistro
+      }
+      ui {
+        betaFeatures {
+          __typename
+        }
+        cacheTemplates
+        corsOrigins
+        csrfKey
+        defaultProject
+        fileStreamingContentTypes
+        httpListenAddr
+        loginDomain
+        parsleyUrl
+        secret
+        stagingEnvironment
+        uiv2Url
+        url
+        userVoice
+      }
+    }
+  }
+`;

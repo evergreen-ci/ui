@@ -72,7 +72,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         ...obj,
         [route]: val.projectData ?? val.repoData,
       }),
-      {} as Record<WritableProjectSettingsType, any>,
+      {} as { [T in WritableProjectSettingsType]: FormStateMap[T] },
     );
 
     setInitialData(projectOrRepoData);

@@ -28,6 +28,7 @@ export const gqlToForm = ((data) => {
     configDir,
     cost,
     debugSpawnHosts,
+    diagnostics,
     domainName,
     expansions,
     githubCheckRun,
@@ -190,6 +191,7 @@ export const gqlToForm = ((data) => {
         collectorEndpoint: tracer?.collectorEndpoint ?? "",
         collectorInternalEndpoint: tracer?.collectorInternalEndpoint ?? "",
         collectorAPIKey: tracer?.collectorAPIKey ?? "",
+        traceUrlTemplate: tracer?.traceUrlTemplate ?? "",
       },
 
       projectCreationSettings: {
@@ -205,6 +207,11 @@ export const gqlToForm = ((data) => {
       githubCheckRunConfigurations: {
         checkRunLimit: githubCheckRun?.checkRunLimit ?? 0,
       },
+
+      diagnosticsConfig: {
+        s3BucketName: diagnostics?.s3BucketName ?? "",
+        s3Prefix: diagnostics?.s3Prefix ?? "",
+      },
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -215,6 +222,7 @@ export const formToGql = ((form: OtherFormState) => {
   const {
     bucketConfig,
     debugSpawnHostsConfig,
+    diagnosticsConfig,
     expansions,
     githubCheckRunConfigurations,
     hostJasper,
@@ -388,6 +396,7 @@ export const formToGql = ((form: OtherFormState) => {
       collectorInternalEndpoint:
         tracerConfiguration.collectorInternalEndpoint || undefined,
       collectorAPIKey: tracerConfiguration.collectorAPIKey || undefined,
+      traceUrlTemplate: tracerConfiguration.traceUrlTemplate || undefined,
     },
 
     projectCreation: {
@@ -403,6 +412,11 @@ export const formToGql = ((form: OtherFormState) => {
 
     githubCheckRun: {
       checkRunLimit: githubCheckRunConfigurations.checkRunLimit || undefined,
+    },
+
+    diagnostics: {
+      s3BucketName: diagnosticsConfig.s3BucketName || undefined,
+      s3Prefix: diagnosticsConfig.s3Prefix || undefined,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

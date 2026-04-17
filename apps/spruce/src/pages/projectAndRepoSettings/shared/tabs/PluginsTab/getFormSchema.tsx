@@ -247,11 +247,9 @@ export const getFormSchema = (
         "ui:description":
           "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
         endpoint: placeholderIf(
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
         ),
         secret: placeholderIf(
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
         ),
       },

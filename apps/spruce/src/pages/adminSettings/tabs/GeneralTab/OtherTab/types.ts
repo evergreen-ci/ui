@@ -116,6 +116,7 @@ export interface OtherFormState {
       collectorEndpoint: string;
       collectorInternalEndpoint: string;
       collectorAPIKey: string;
+      traceUrlTemplate: string;
     };
 
     projectCreationSettings: {
@@ -129,6 +130,11 @@ export interface OtherFormState {
 
     githubCheckRunConfigurations: {
       checkRunLimit: number;
+    };
+
+    diagnosticsConfig: {
+      s3BucketName: string;
+      s3Prefix: string;
     };
   };
 }

@@ -76,6 +76,11 @@ type Action =
       name: "Clicked task file Parsley link";
       "file.name": string;
     }
+  | {
+      name: "Clicked task file associated link";
+      "file.name": string;
+      "link.name": string;
+    }
   | { name: "Clicked relevant commit"; type: CommitType }
   | { name: "Redirected to default tab"; tab: string }
   | {
