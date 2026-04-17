@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.1.93",
+  "version": "6.1.97",
   "private": true,
   "type": "module",
   "scripts": {
@@ -133,7 +133,6 @@
     "react-virtuoso": "^4.18.3"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "11.13.5",
     "@emotion/css": "11.13.5",
     "@eslint/compat": "^2.0.1",
     "@evg-ui/eslint-config": "workspace:*",
@@ -160,7 +159,7 @@
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "5.1.2",
-    "chromatic": "^13.3.4",
+    "chromatic": "^16.0.0",
     "cypress": "^15.8.1",
     "env-cmd": "10.1.0",
     "eslint": "^9.39.1",

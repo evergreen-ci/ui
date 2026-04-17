@@ -647,12 +647,21 @@ export const tracerConfiguration = {
       type: "string" as const,
       title: "Collector API Key",
     },
+    traceUrlTemplate: {
+      type: "string" as const,
+      title: "Trace URL Template",
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "tracer-configuration",
     "ui:objectFieldCss": objectGridCss,
     enabled: {
+      "ui:fieldCss": fullWidthCss,
+    },
+    traceUrlTemplate: {
+      "ui:description":
+        "fmt.Sprintf template with exactly one %s verb for the W3C trace ID (hex). Example: https://apm.example.com/trace/%s",
       "ui:fieldCss": fullWidthCss,
     },
   },
