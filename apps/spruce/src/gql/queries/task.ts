@@ -111,6 +111,16 @@ export const TASK = gql`
       minQueuePosition
       order
       patchNumber
+      predictedTaskCost {
+        adjustedEBSStorageCost
+        adjustedEBSThroughputCost
+        adjustedEC2Cost
+        adjustedS3ArtifactPutCost
+        adjustedS3ArtifactStorageCost
+        adjustedS3LogPutCost
+        adjustedS3LogStorageCost
+        onDemandEC2Cost
+      }
       priority
       project {
         id
@@ -134,6 +144,16 @@ export const TASK = gql`
         previousStepbackTaskId
       }
       tags
+      taskCost {
+        adjustedEBSStorageCost
+        adjustedEBSThroughputCost
+        adjustedEC2Cost
+        adjustedS3ArtifactPutCost
+        adjustedS3ArtifactStorageCost
+        adjustedS3LogPutCost
+        adjustedS3LogStorageCost
+        onDemandEC2Cost
+      }
       testSelectionEnabled
       timeTaken
       versionMetadata {
