@@ -146,7 +146,8 @@ export const getFormSchema = (
               ),
           ),
           ...errorStyling(
-            !!formData?.github?.prTestingEnabled,
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            formData?.github?.prTestingEnabled,
             formData?.github?.prTesting?.githubPrAliasesOverride,
             formData?.github?.prTesting?.githubPrAliases,
             repoData?.github?.prTesting?.githubPrAliases ?? [],
