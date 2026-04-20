@@ -580,13 +580,14 @@ export const LeafyGreenDatePicker: React.FC<
   );
 };
 
-export const LeafyGreenCombobox: React.FC<
-  {
-    options: {
-      enumOptions: { label: string; value: string }[];
-    };
-  } & EnumSpruceWidgetProps
-> = ({ disabled, label, onChange, options, readonly, value }) => {
+export const LeafyGreenCombobox: React.FC<EnumSpruceWidgetProps> = ({
+  disabled,
+  label,
+  onChange,
+  options,
+  readonly,
+  value,
+}) => {
   const {
     "data-cy": dataCy = "combobox",
     description,
