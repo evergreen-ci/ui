@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { showNewProjectNavigation } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
@@ -14,6 +15,7 @@ import {
   EventLogTab,
   GeneralTab,
   GithubCommitQueueTab,
+  GitTagsTab,
   NotificationsTab,
   PatchAliasesTab,
   PeriodicBuildsTab,
@@ -299,6 +301,31 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           }
           path={ProjectSettingsTabRoutes.GithubPermissionGroups}
         />
+        {showNewProjectNavigation && (
+          <Route
+            element={
+              <GitTagsTab
+                githubWebhooksEnabled={
+                  !!(
+                    projectData?.githubWebhooksEnabled ||
+                    repoData?.githubWebhooksEnabled
+                  )
+                }
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.GitTags].projectData
+                }
+                projectType={projectType}
+                repoData={tabData[ProjectSettingsTabRoutes.GitTags].repoData}
+                versionControlEnabled={
+                  projectData?.projectRef?.versionControlEnabled ??
+                  repoData?.projectRef?.versionControlEnabled ??
+                  false
+                }
+              />
+            }
+            path={ProjectSettingsTabRoutes.GitTags}
+          />
+        )}
         <Route
           element={
             <EventLogTab
