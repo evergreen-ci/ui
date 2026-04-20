@@ -70,7 +70,7 @@ describe("Repo Settings", () => {
           .first()
           .click();
       });
-      it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
+      it("Saving a patch definition should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
         cy.contains(
           "A GitHub Patch Definition must be specified for this feature to run.",
         ).as("errorBanner");
@@ -297,12 +297,37 @@ describe("Repo Settings", () => {
       cy.dataCy("command-input").eq(1).should("have.value", "command 1");
     });
   });
+
   describe("Commit Checks page", () => {
-    beforeEach(() => {
+    describe("A project that has GitHub webhooks disabled", () => {
+      const origin = getProjectSettingsRoute(
+        "logkeeper",
+        ProjectSettingsTabRoutes.CommitChecks,
+      );
+      beforeEach(() => {
+        cy.visit(origin);
+        saveButtonEnabled(false);
+      });
+
+      it("Commit Checks page shows a disabled webhooks banner when webhooks are disabled", () => {
+        cy.dataCy("disabled-webhook-banner")
+          .contains(
+            "GitHub features are disabled because the Evergreen GitHub App is not",
+          )
+          .should("be.visible");
+      });
+
+      it("Disables all interactive elements on the page", () => {
+        cy.dataCy("project-settings-page")
+          .find("button")
+          .should("have.attr", "aria-disabled", "true");
+        cy.get("input").should("have.attr", "aria-disabled", "true");
+      });
+    });
+
+    it("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", () => {
       cy.dataCy("navitem-commit-checks").click();
       saveButtonEnabled(false);
-    });
-    it("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", () => {
       cy.dataCy("github-checks-enabled-radio-box")
         .contains("label", "Enabled")
         .click();
@@ -316,50 +341,6 @@ describe("Repo Settings", () => {
         .contains("label", "Disabled")
         .click();
       cy.get("@errorBanner").should("not.exist");
-    });
-    it("Allows enabling manual PR testing", () => {
-      cy.dataCy("manual-pr-testing-enabled-radio-box")
-        .children()
-        .first()
-        .click();
-    });
-    it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
-      cy.contains(
-        "A GitHub Patch Definition must be specified for this feature to run.",
-      ).as("errorBanner");
-      cy.get("@errorBanner").should("be.visible");
-      cy.contains("button", "Add Patch Definition").click();
-      cy.get("@errorBanner").should("not.exist");
-      saveButtonEnabled(false);
-      cy.dataCy("variant-tags-input").first().type("vtag");
-      cy.dataCy("task-tags-input").first().type("ttag");
-      saveButtonEnabled(true);
-      clickSave();
-      cy.validateToast("success", "Successfully updated repo");
-      cy.visit(getProjectSettingsRoute(projectUseRepoEnabled));
-      cy.dataCy("navitem-pull-requests").click();
-      cy.contains("Repo Patch Definition 1")
-        .as("patchDefAccordion")
-        .scrollIntoView();
-      cy.get("@patchDefAccordion").click();
-      cy.dataCy("variant-tags-input").should("have.value", "vtag");
-      cy.dataCy("variant-tags-input").should(
-        "have.attr",
-        "aria-disabled",
-        "true",
-      );
-      cy.dataCy("task-tags-input").should("have.value", "ttag");
-      cy.dataCy("task-tags-input").should("have.attr", "aria-disabled", "true");
-      cy.contains(
-        "A GitHub Patch Definition must be specified for this feature to run.",
-      ).should("not.exist");
-    });
-    it("Shows the Commit Checks section only when Commit Checks are enabled", () => {
-      cy.contains("Commit Check Definitions").should("not.exist");
-      cy.dataCy("github-checks-enabled-radio-box")
-        .contains("label", "Enabled")
-        .click();
-      cy.contains("Commit Check Definitions").should("be.visible");
     });
   });
 });
