@@ -17,16 +17,6 @@ export async function clearDatePickerInput(page: Page): Promise<void> {
 }
 
 /**
- * Closes a banner by clicking the X icon
- * @param page - The Playwright page object
- * @param dataCy - The data-cy attribute value of the banner
- */
-export async function closeBanner(page: Page, dataCy: string): Promise<void> {
-  const banner = page.getByTestId(dataCy);
-  await banner.locator("[aria-label='X Icon']").click();
-}
-
-/**
  * Gets a locator for an element with the specified data-row-key attribute
  * @param page - The Playwright page object
  * @param value - The data-row-key attribute value
