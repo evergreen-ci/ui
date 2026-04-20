@@ -4,6 +4,7 @@ import { formToGql, gqlToForm } from "./transformers";
 import { BuildType, ProviderFormState } from "./types";
 
 const defaultTaskHostOverrides = {
+  enableTaskHostOverrides: false,
   doNotAssignPublicIpv4Address: false,
   iamInstanceProfileArn: "",
   providerAccount: "",
@@ -343,7 +344,7 @@ describe("provider tab", () => {
           security_group_ids: ["1"],
         },
       ],
-      taskHostOverrides: defaultTaskHostOverrides,
+      taskHostOverrides: null,
     };
 
     it("correctly converts from GQL to a form", () => {
@@ -496,7 +497,7 @@ describe("provider tab", () => {
           security_group_ids: ["1"],
         },
       ],
-      taskHostOverrides: defaultTaskHostOverrides,
+      taskHostOverrides: null,
     };
 
     it("correctly converts from GQL to a form", () => {
@@ -507,6 +508,161 @@ describe("provider tab", () => {
     it("correctly converts from a form to GQL", () => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(formToGql(ec2Form, ec2OnDemandDistroData)).toStrictEqual(ec2Gql);
+    });
+  });
+
+  describe("ec2 fleet provider with task host overrides", () => {
+    const populatedTaskHostOverrides = {
+      enableTaskHostOverrides: true,
+      doNotAssignPublicIpv4Address: true,
+      iamInstanceProfileArn: "task-host-arn",
+      providerAccount: "task-host-account",
+      securityGroupIds: ["sg-task"],
+      subnetId: "subnet-task",
+    };
+
+    const ec2FleetDistroData = {
+      ...distroData,
+      provider: Provider.Ec2Fleet,
+      containerPool: "",
+      providerSettingsList: [
+        {
+          region: "us-east-1",
+          ami: "ami-east",
+          instance_type: "m5.xlarge",
+          key_name: "admin",
+          elastic_ips_enabled: false,
+          iam_instance_profile_arn: "profile-east",
+          is_vpc: true,
+          subnet_id: "subnet-east",
+          vpc_name: "vpc-east",
+          mount_points: [],
+          user_data: "",
+          merge_user_data_parts: false,
+          security_group_ids: ["1"],
+          do_not_assign_public_ipv4_address: true,
+        },
+      ],
+      taskHostOverrides: {
+        __typename: "TaskHostOverrides" as const,
+        doNotAssignPublicIpv4Address: true,
+        iamInstanceProfileArn: "task-host-arn",
+        providerAccount: "task-host-account",
+        securityGroupIds: ["sg-task"],
+        subnetId: "subnet-task",
+      },
+    };
+
+    const ec2Form: ProviderFormState = {
+      ...defaultFormState,
+      provider: {
+        providerName: Provider.Ec2Fleet,
+        providerAccount: "aws",
+      },
+      ec2FleetProviderSettings: [
+        {
+          doNotAssignPublicIPv4Address: true,
+          region: "us-east-1",
+          displayTitle: "us-east-1",
+          amiId: "ami-east",
+          instanceProfileARN: "profile-east",
+          elasticIpsEnabled: false,
+          instanceType: "m5.xlarge",
+          mergeUserData: false,
+          mountPoints: [],
+          securityGroups: ["1"],
+          sshKeyName: "admin",
+          userData: "",
+          vpcOptions: {
+            subnetId: "subnet-east",
+            useVpc: true,
+            subnetPrefix: "vpc-east",
+          },
+        },
+      ],
+      ec2OnDemandProviderSettings: [
+        {
+          doNotAssignPublicIPv4Address: true,
+          region: "us-east-1",
+          displayTitle: "us-east-1",
+          amiId: "ami-east",
+          instanceProfileARN: "profile-east",
+          elasticIpsEnabled: false,
+          instanceType: "m5.xlarge",
+          mergeUserData: false,
+          mountPoints: [],
+          securityGroups: ["1"],
+          sshKeyName: "admin",
+          userData: "",
+          vpcOptions: {
+            subnetId: "subnet-east",
+            useVpc: true,
+            subnetPrefix: "vpc-east",
+          },
+        },
+      ],
+      taskHostOverrides: populatedTaskHostOverrides,
+    };
+
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const ec2Gql: DistroInput = {
+      ...distroData,
+      provider: Provider.Ec2Fleet,
+      providerAccount: "aws",
+      containerPool: "",
+      providerSettingsList: [
+        {
+          do_not_assign_public_ipv4_address: true,
+          region: "us-east-1",
+          ami: "ami-east",
+          instance_type: "m5.xlarge",
+          key_name: "admin",
+          elastic_ips_enabled: false,
+          iam_instance_profile_arn: "profile-east",
+          is_vpc: true,
+          subnet_id: "subnet-east",
+          vpc_name: "vpc-east",
+          mount_points: [],
+          user_data: "",
+          merge_user_data_parts: false,
+          security_group_ids: ["1"],
+        },
+      ],
+      taskHostOverrides: {
+        doNotAssignPublicIpv4Address: true,
+        iamInstanceProfileArn: "task-host-arn",
+        providerAccount: "task-host-account",
+        securityGroupIds: ["sg-task"],
+        subnetId: "subnet-task",
+      },
+    };
+
+    it("enables the toggle and populates fields when GQL has overrides", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      expect(gqlToForm(ec2FleetDistroData)).toStrictEqual(ec2Form);
+    });
+
+    it("sends a populated TaskHostOverridesInput when the toggle is on", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      expect(formToGql(ec2Form, ec2FleetDistroData)).toStrictEqual(ec2Gql);
+    });
+
+    it("sends null when the toggle is off, even if fields still hold stale values", () => {
+      const formWithToggleOff: ProviderFormState = {
+        ...ec2Form,
+        taskHostOverrides: {
+          ...populatedTaskHostOverrides,
+          enableTaskHostOverrides: false,
+        },
+      };
+      const gqlWithoutOverrides = {
+        ...ec2Gql,
+        taskHostOverrides: null,
+      };
+      expect(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        formToGql(formWithToggleOff, ec2FleetDistroData),
+      ).toStrictEqual(gqlWithoutOverrides);
     });
   });
 });

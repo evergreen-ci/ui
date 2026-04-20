@@ -82,6 +82,7 @@ export type ProviderFormState = {
     securityGroups: string[];
   }>;
   taskHostOverrides: {
+    enableTaskHostOverrides: boolean;
     doNotAssignPublicIpv4Address: boolean;
     iamInstanceProfileArn: string;
     providerAccount: string;
