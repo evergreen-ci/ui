@@ -22,7 +22,9 @@ export interface OtherFormState {
         onDemandDiscount: number;
         s3Cost: {
           archiveStorageCostDiscount: number;
+          artifactAwsAccountsWithoutLifecycleRules: string[];
           defaultMaxArtifactExpirationDays: number;
+          devprodOwnedAwsAccountIds: string[];
           iAStorageCostDiscount: number;
           standardStorageCostDiscount: number;
           uploadCostDiscount: number;
