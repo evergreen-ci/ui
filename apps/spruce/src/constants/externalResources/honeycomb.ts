@@ -53,6 +53,27 @@ export const getHoneycombSystemMetricsUrl = (
   )}&omitMissingValues`;
 };
 
+/**
+ * Generates a URL for viewing the cost breakdown of all tasks in a version in Honeycomb.
+ * @param versionId - The ID of the version.
+ * @returns The URL for viewing the version cost breakdown in Honeycomb.
+ */
+export const getHoneycombVersionCostUrl = (versionId: string): string => {
+  const query = {
+    calculations: [
+      { op: "SUM", column: "evergreen.task.on_demand_cost" },
+      { op: "SUM", column: "evergreen.task.adjusted_cost" },
+      { op: "SUM", column: "evergreen.task.cost.ebs.adjusted_throughput_cost" },
+      { op: "SUM", column: "evergreen.task.cost.ebs.adjusted_storage_cost" },
+      { op: "SUM", column: "evergreen.task.s3_cost.artifact_put_cost" },
+      { op: "SUM", column: "evergreen.task.s3_cost.log_put_cost" },
+    ],
+    filters: [{ op: "=", column: "evergreen.version.id", value: versionId }],
+  };
+
+  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
 // Values correspond to the column values displayed in a heatmap on Honeycomb
 export enum TaskTimingMetric {
   RunTime = "duration_min",

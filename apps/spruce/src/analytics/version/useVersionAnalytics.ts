@@ -23,6 +23,7 @@ type Action =
       name: "Filtered by build variant and task status group";
       "filter.task_square_statuses": string | string[];
     }
+  | { name: "Clicked metadata honeycomb version cost link" }
   | { name: "Clicked metadata previous version link" }
   | { name: "Clicked metadata project patches link" }
   | { name: "Clicked task table task link"; "task.id": string }

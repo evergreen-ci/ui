@@ -89,10 +89,25 @@ const roundMax = (max: number) => {
   return Math.ceil(max / 1000) * 1000;
 };
 
+/**
+ * `formatCost` formats a numeric cost value for display in the UI.
+ * Values >= $0.01 are shown to two decimal places; values below $0.01 use
+ * four significant figures to avoid displaying as "$0.00".
+ * @param cost - the cost value to format
+ * @returns a formatted string without a currency symbol
+ * @example formatCost(1.5) // => "1.50"
+ * @example formatCost(0.000056789) // => "0.00005679"
+ */
+const formatCost = (cost: number): string => {
+  if (cost < 0.01) return cost.toPrecision(4);
+  return cost.toFixed(2);
+};
+
 export {
   toDecimal,
   toPercent,
   formatZeroIndexForDisplay,
+  formatCost,
   roundDecimal,
   cryptoRandom,
   roundMax,

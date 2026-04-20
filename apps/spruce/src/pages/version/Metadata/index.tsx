@@ -15,6 +15,7 @@ import {
   getGithubMergeQueueUrl,
   getGithubPRUrl,
 } from "constants/externalResources";
+import { getHoneycombVersionCostUrl } from "constants/externalResources/honeycomb";
 import { Requester } from "constants/requesters";
 import {
   getProjectPatchesRoute,
@@ -24,6 +25,7 @@ import {
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
+import { formatCost } from "utils/numbers";
 import { msToDuration } from "utils/string";
 import { ParametersModal } from "../ParametersModal";
 import IncludedLocalModules from "./IncludedLocalModules";
@@ -37,6 +39,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
   const getDateCopy = useDateFormat();
   const {
     baseVersion,
+    cost,
     createTime,
     externalLinksForMetadata,
     finishTime,
@@ -46,6 +49,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     manifest,
     parameters,
     patch,
+    predictedCost,
     previousVersion,
     projectIdentifier,
     projectMetadata,
@@ -57,6 +61,23 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     versionTiming,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
+
+  const displayCost = cost ?? predictedCost;
+  const totalCost =
+    displayCost != null
+      ? [
+          displayCost.adjustedEC2Cost,
+          displayCost.adjustedEBSStorageCost,
+          displayCost.adjustedEBSThroughputCost,
+          displayCost.adjustedS3ArtifactPutCost,
+          displayCost.adjustedS3LogPutCost,
+        ]
+          .filter((v): v is number => v != null)
+          .reduce((sum, v) => sum + v, 0)
+      : null;
+  const costTooltip = cost
+    ? "Final adjusted cost of this version."
+    : "Estimated cost based on execution so far. Updates as tasks complete.";
   const { makespan, timeTaken } = versionTiming || {};
   const { githubPatchData, includedLocalModules } = patch || {};
   const { headHash, prNumber } = githubPatchData || {};
@@ -213,6 +234,30 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           >
             {upstreamProject.project}
           </StyledRouterLink>
+        </MetadataItem>
+      )}
+      {totalCost != null && totalCost > 0 && (
+        <MetadataItem
+          data-cy="version-metadata-cost"
+          tooltipDescription={costTooltip}
+        >
+          <MetadataLabel>Cost:</MetadataLabel> ${formatCost(totalCost)}
+        </MetadataItem>
+      )}
+      {totalCost != null && totalCost > 0 && (
+        <MetadataItem>
+          <StyledLink
+            data-cy="version-cost-breakdown-link"
+            hideExternalIcon={false}
+            href={getHoneycombVersionCostUrl(id)}
+            onClick={() =>
+              sendEvent({
+                name: "Clicked metadata honeycomb version cost link",
+              })
+            }
+          >
+            Cost Breakdown
+          </StyledLink>
         </MetadataItem>
       )}
       <ParametersModal parameters={parameters} />
