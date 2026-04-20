@@ -10,16 +10,12 @@ import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
-
-import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
-import { toggleArray } from "utils/array";
 
-const { blue, gray } = palette;
+const { gray } = palette;
 
 export interface SearchableDropdownProps<T> {
-  allowMultiSelect?: boolean;
   buttonRenderer?: (option: T | T[]) => React.ReactNode;
   className?: string;
   ["data-cy"]?: string;
@@ -42,7 +38,6 @@ export interface SearchableDropdownProps<T> {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 const SearchableDropdown = <T extends {}>({
-  allowMultiSelect = false,
   buttonRenderer,
   className,
   "data-cy": dataCy = "searchable-dropdown",
@@ -58,7 +53,7 @@ const SearchableDropdown = <T extends {}>({
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [search, setSearch] = useState("");
   const [visibleOptions, setVisibleOptions] = useState(options ?? []);
-  const DropdownRef = useRef(null);
+  const dropdownRef = useRef(null);
 
   // Sometimes options come from a query and we have to wait for the query to complete to know what to show in
   // the dropdown. This hook is used to refresh the options.
@@ -73,48 +68,24 @@ const SearchableDropdown = <T extends {}>({
   };
 
   const onClick = (v: T) => {
-    if (allowMultiSelect) {
-      if (Array.isArray(value)) {
-        const newValue = toggleArray(v, value);
-        onChange(newValue);
-      } else {
-        onChange([v]);
-      }
-    } else {
-      onChange(v);
+    onChange(v);
+    if (dropdownRef.current) {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      dropdownRef.current.setIsOpen(false);
     }
-    // Close the dropdown after user makes a selection only if it isn't a multiselect
-    if (!allowMultiSelect) {
-      if (DropdownRef.current) {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        DropdownRef.current.setIsOpen(false);
-      }
-      resetSearch();
-    }
+    resetSearch();
   };
 
   const option = optionRenderer
     ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-      (v: T) => optionRenderer(v, onClick, isChecked)
+      (v: T) => optionRenderer(v, onClick)
     : (v: T) => (
         <SearchableDropdownOption
           key={`searchable_dropdown_option_${v}`}
-          isChecked={isChecked(v)}
           onClick={() => onClick(v)}
-          showCheckmark={allowMultiSelect}
           value={v}
         />
       );
-
-  const isChecked = (elementValue: T) => {
-    if (typeof value === "string") {
-      return value === elementValue;
-    }
-    if (Array.isArray(value)) {
-      // v is included in value
-      return value.filter((v) => v === elementValue).length > 0;
-    }
-  };
 
   const handleSearch = useMemo(
     () => (e: ChangeEvent<HTMLInputElement>) => {
@@ -162,7 +133,7 @@ const SearchableDropdown = <T extends {}>({
       )}
       <Wrapper>
         <Dropdown
-          ref={DropdownRef}
+          ref={dropdownRef}
           aria-disabled={disabled}
           buttonRenderer={
             buttonRenderer ? () => buttonRenderer(value) : undefined
@@ -196,17 +167,13 @@ const SearchableDropdown = <T extends {}>({
 };
 
 interface SearchableDropdownOptionProps<T> {
-  isChecked?: boolean;
   onClick: (v: T) => void;
-  showCheckmark?: boolean;
   value: T;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const SearchableDropdownOption = <T extends {}>({
-  isChecked,
   onClick,
-  showCheckmark,
   value,
 }: PropsWithChildren<SearchableDropdownOptionProps<T>>) => (
   <Option
@@ -214,18 +181,6 @@ export const SearchableDropdownOption = <T extends {}>({
     data-cy="searchable-dropdown-option"
     onClick={() => onClick(value)}
   >
-    {showCheckmark && (
-      <CheckmarkContainer data-cy="checkmark">
-        <CheckmarkIcon
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          checked={isChecked}
-          fill={blue.base}
-          glyph="Checkmark"
-          height={12}
-          width={12}
-        />
-      </CheckmarkContainer>
-    )}
     {value.toString()}
   </Option>
 );
@@ -258,14 +213,6 @@ const Option = styled.button`
     outline: none;
     background-color: ${gray.light2};
   }
-`;
-
-const CheckmarkContainer = styled.div`
-  margin-right: ${size.xxs};
-`;
-
-const CheckmarkIcon = styled(Icon)<{ checked: boolean }>`
-  visibility: ${({ checked }) => (checked ? "visible" : "hidden")};
 `;
 
 const Container = styled.div`
