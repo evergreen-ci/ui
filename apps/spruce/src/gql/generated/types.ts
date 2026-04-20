@@ -2521,6 +2521,10 @@ export type Patch = {
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
+  /** Aggregated actual cost for the patch's version, when cost data exists. */
+  cost?: Maybe<Cost>;
+  /** Sum of adjusted cost components in cost; excludes on-demand components. */
+  costTotal?: Maybe<Scalars["Float"]["output"]>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
@@ -2536,6 +2540,10 @@ export type Patch = {
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
+  /** Aggregated predicted cost for the patch's version. */
+  predictedCost?: Maybe<Cost>;
+  /** Sum of adjusted cost components in predictedCost. */
+  predictedCostTotal?: Maybe<Scalars["Float"]["output"]>;
   project?: Maybe<PatchProject>;
   projectID: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -4125,6 +4133,8 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   predictedTaskCost?: Maybe<Cost>;
+  /** Sum of adjusted cost components in predictedTaskCost. */
+  predictedTaskCostTotal?: Maybe<Scalars["Float"]["output"]>;
   /** prevTask may be in-progress */
   prevTask?: Maybe<Task>;
   prevTaskCompleted?: Maybe<Task>;
@@ -4147,6 +4157,8 @@ export type Task = {
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
   taskCost?: Maybe<Cost>;
+  /** Sum of adjusted cost components in taskCost; excludes on-demand components. */
+  taskCostTotal?: Maybe<Scalars["Float"]["output"]>;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   taskLogs: TaskLogs;
@@ -4830,6 +4842,8 @@ export type Version = {
   buildVariants?: Maybe<Array<GroupedBuildVariant>>;
   childVersions?: Maybe<Array<Version>>;
   cost?: Maybe<Cost>;
+  /** Sum of adjusted cost components in cost; excludes on-demand components. */
+  costTotal?: Maybe<Scalars["Float"]["output"]>;
   createTime: Scalars["Time"]["output"];
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
@@ -4846,6 +4860,8 @@ export type Version = {
   parameters: Array<Parameter>;
   patch?: Maybe<Patch>;
   predictedCost?: Maybe<Cost>;
+  /** Sum of adjusted cost components in predictedCost. */
+  predictedCostTotal?: Maybe<Scalars["Float"]["output"]>;
   previousVersion?: Maybe<Version>;
   project: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
