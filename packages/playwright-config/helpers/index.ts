@@ -13,16 +13,6 @@ export async function login(page: Page, user = users.admin): Promise<void> {
 }
 
 /**
- * Enters login credentials for the admin user
- * @param page - The Playwright page object
- */
-export async function enterLoginCredentials(page: Page): Promise<void> {
-  await page.getByTestId("login-username").fill(users.admin.username);
-  await page.getByTestId("login-password").fill(users.admin.password);
-  await page.getByTestId("login-submit").click();
-}
-
-/**
  * Logs out the current user
  * @param page - The Playwright page object
  */

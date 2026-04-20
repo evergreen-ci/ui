@@ -3,20 +3,6 @@ import { Page, Locator, expect } from "@playwright/test";
 type LocatorOptions = Parameters<Page["locator"]>[1];
 
 /**
- * Clears a date picker input by pressing backspace multiple times
- * LG Date Picker does not respond well to .clear()
- * @param page - The Playwright page object
- */
-export async function clearDatePickerInput(page: Page): Promise<void> {
-  const dayInput = page.locator("input[id='day']");
-  await dayInput.press("Backspace");
-  await dayInput.press("Backspace");
-  await dayInput.press("Backspace");
-  await dayInput.press("Backspace");
-  await dayInput.press("Backspace");
-}
-
-/**
  * Gets a locator for an element with the specified data-row-key attribute
  * @param page - The Playwright page object
  * @param value - The data-row-key attribute value
@@ -67,7 +53,7 @@ export async function validateTableSort(
  * @param options - Additional options for selecting the option
  * @param options.exact - Whether to match the option text exactly (default: false)
  */
-export async function selectLGOption(
+export async function selectOption(
   page: Page,
   label: string,
   option: string | RegExp,
@@ -105,6 +91,20 @@ export async function openExpandableCard(
 }
 
 /**
+ * Clears a date picker input by pressing backspace multiple times
+ * LG Date Picker does not respond well to .clear()
+ * @param page - The Playwright page object
+ */
+export async function clearDatePickerInput(page: Page): Promise<void> {
+  const dayInput = page.locator("input[id='day']");
+  await dayInput.press("Backspace");
+  await dayInput.press("Backspace");
+  await dayInput.press("Backspace");
+  await dayInput.press("Backspace");
+  await dayInput.press("Backspace");
+}
+
+/**
  * Validates the values in a date picker component
  * @param page - The Playwright page object
  * @param dataCy - The data-cy attribute value of the date picker
@@ -129,7 +129,6 @@ export async function validateDatePickerDate(
 export {
   validateToast,
   login,
-  enterLoginCredentials,
   logout,
   clickCheckboxByLabel,
 } from "@evg-ui/playwright-config/helpers";
