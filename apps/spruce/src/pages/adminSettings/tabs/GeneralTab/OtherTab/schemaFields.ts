@@ -246,20 +246,16 @@ export const getSingleTaskDistroSchema = ({
   repoRefs?: Array<{ id: string; displayName: string }>;
 }) => {
   const projectRepoOptions = [
-    ...projectRefs
-      .map((p) => ({
-        type: "string" as const,
-        title: p.displayName,
-        enum: [p.id],
-      }))
-      .sort((a, b) => a.title.localeCompare(b.title)),
-    ...repoRefs
-      .map((r) => ({
-        type: "string" as const,
-        title: r.displayName,
-        enum: [r.id],
-      }))
-      .sort((a, b) => a.title.localeCompare(b.title)),
+    ...projectRefs.map((p) => ({
+      type: "string" as const,
+      title: p.displayName,
+      enum: [p.id],
+    })),
+    ...repoRefs.map((r) => ({
+      type: "string" as const,
+      title: r.displayName,
+      enum: [r.id],
+    })),
   ];
 
   return {
