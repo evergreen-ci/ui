@@ -165,14 +165,14 @@ export const miscSettings = {
             },
             devprodOwnedAwsAccountIds: {
               type: "array" as const,
-              title: "Devprod-owned AWS account IDs",
+              title: "Devprod Owned AWS Account IDs",
               items: {
                 type: "string" as const,
               },
             },
             artifactAwsAccountsWithoutLifecycleRules: {
               type: "array" as const,
-              title: "Artifact AWS accounts without lifecycle rules",
+              title: "Artifact AWS Account IDs Without Lifecycle Rules",
               items: {
                 type: "string" as const,
               },
