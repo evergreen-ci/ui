@@ -175,6 +175,7 @@ export const miscSettings = {
     githubOrgs: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:description": "Organization names are case-sensitive.",
     },
     releaseMode: {
       "ui:description":
