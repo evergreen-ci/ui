@@ -160,8 +160,9 @@ const quarantineTestMock: ApolloMock<
   result: {
     data: {
       quarantineTest: {
-        __typename: "QuarantineTestPayload",
-        success: true,
+        __typename: "TestResult",
+        id: "1",
+        isManuallyQuarantined: true,
       },
     },
   },
@@ -181,8 +182,9 @@ const unquarantineTestMock: ApolloMock<
   result: {
     data: {
       unquarantineTest: {
-        __typename: "UnquarantineTestPayload",
-        success: true,
+        __typename: "TestResult",
+        id: "3",
+        isManuallyQuarantined: false,
       },
     },
   },

@@ -29,26 +29,13 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     QuarantineTestMutation,
     QuarantineTestMutationVariables
   >(QUARANTINE_TEST, {
-    onCompleted: (data) => {
-      if (data?.quarantineTest?.success) {
-        dispatchToast.success("Successfully quarantined test.");
-      } else {
-        dispatchToast.error("Failed to quarantine test.");
-      }
+    onCompleted: () => {
+      dispatchToast.success("Successfully quarantined test.");
     },
     onError: (err) => {
       dispatchToast.error(
         `Error when attempting to quarantine test: ${err.message}`,
       );
-    },
-    update: (cache, { data }) => {
-      if (!data?.quarantineTest?.success) return;
-      cache.modify({
-        id: cache.identify({ __typename: "TestResult", id: test.id }),
-        fields: {
-          isManuallyQuarantined: () => true,
-        },
-      });
     },
   });
 
@@ -56,26 +43,13 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     UnquarantineTestMutation,
     UnquarantineTestMutationVariables
   >(UNQUARANTINE_TEST, {
-    onCompleted: (data) => {
-      if (data?.unquarantineTest?.success) {
-        dispatchToast.success("Successfully unquarantined test.");
-      } else {
-        dispatchToast.error("Failed to unquarantine test.");
-      }
+    onCompleted: () => {
+      dispatchToast.success("Successfully unquarantined test.");
     },
     onError: (err) => {
       dispatchToast.error(
         `Error when attempting to unquarantine test: ${err.message}`,
       );
-    },
-    update: (cache, { data }) => {
-      if (!data?.unquarantineTest?.success) return;
-      cache.modify({
-        id: cache.identify({ __typename: "TestResult", id: test.id }),
-        fields: {
-          isManuallyQuarantined: () => false,
-        },
-      });
     },
   });
 

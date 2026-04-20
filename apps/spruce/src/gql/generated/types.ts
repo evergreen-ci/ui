@@ -1961,7 +1961,7 @@ export type Mutation = {
   moveAnnotationIssue: Scalars["Boolean"]["output"];
   overrideTaskDependencies: Task;
   promoteVarsToRepo: Scalars["Boolean"]["output"];
-  quarantineTest: QuarantineTestPayload;
+  quarantineTest: TestResult;
   refreshGitHubStatuses?: Maybe<RefreshGitHubStatusesPayload>;
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
@@ -1992,7 +1992,7 @@ export type Mutation = {
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
-  unquarantineTest: UnquarantineTestPayload;
+  unquarantineTest: TestResult;
   unscheduleTask: Task;
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateBetaFeatures?: Maybe<UpdateBetaFeaturesPayload>;
@@ -3120,11 +3120,6 @@ export type PublicKeyInput = {
 export type QuarantineTestInput = {
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
-};
-
-export type QuarantineTestPayload = {
-  __typename?: "QuarantineTestPayload";
-  success: Scalars["Boolean"]["output"];
 };
 
 export type Query = {
@@ -4652,11 +4647,6 @@ export type UiConfigInput = {
 export type UnquarantineTestInput = {
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
-};
-
-export type UnquarantineTestPayload = {
-  __typename?: "UnquarantineTestPayload";
-  success: Scalars["Boolean"]["output"];
 };
 
 export type UpdateBetaFeaturesInput = {
@@ -6917,7 +6907,11 @@ export type QuarantineTestMutationVariables = Exact<{
 
 export type QuarantineTestMutation = {
   __typename?: "Mutation";
-  quarantineTest: { __typename?: "QuarantineTestPayload"; success: boolean };
+  quarantineTest: {
+    __typename?: "TestResult";
+    id: string;
+    isManuallyQuarantined: boolean;
+  };
 };
 
 export type RefreshGithubStatusesMutationVariables = Exact<{
@@ -7430,8 +7424,9 @@ export type UnquarantineTestMutationVariables = Exact<{
 export type UnquarantineTestMutation = {
   __typename?: "Mutation";
   unquarantineTest: {
-    __typename?: "UnquarantineTestPayload";
-    success: boolean;
+    __typename?: "TestResult";
+    id: string;
+    isManuallyQuarantined: boolean;
   };
 };
 
@@ -11042,7 +11037,6 @@ export type TaskHistoryQuery = {
         testResults: Array<{
           __typename?: "TestResult";
           id: string;
-          isManuallyQuarantined: boolean;
           status: string;
           testFile: string;
           logs: { __typename?: "TestLog"; urlParsley?: string | null };
