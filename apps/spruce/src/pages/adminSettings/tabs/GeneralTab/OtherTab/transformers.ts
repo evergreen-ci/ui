@@ -1,9 +1,5 @@
 import { AdminSettingsGeneralSection } from "constants/routes";
-import {
-  AdminSettingsData,
-  FormToGqlFunction,
-  GqlToFormFunction,
-} from "../../types";
+import { FormToGqlFunction, GqlToFormFunction } from "../../types";
 import { OtherFormState } from "./types";
 
 type Tab = AdminSettingsGeneralSection.Other;
@@ -225,12 +221,8 @@ export const gqlToForm = ((data) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = ((form: OtherFormState, data?: AdminSettingsData) => {
+export const formToGql = ((form: OtherFormState) => {
   const { other } = form;
-
-  const serverStorage = data?.cost?.s3Cost?.storage;
-  const { __typename: _storageTypename, ...s3StoragePassthrough } =
-    serverStorage ?? {};
 
   const {
     bucketConfig,
@@ -286,7 +278,6 @@ export const formToGql = ((form: OtherFormState, data?: AdminSettingsData) => {
             miscSettings.cost.s3Cost.uploadCostDiscount ?? undefined,
         },
         storage: {
-          ...s3StoragePassthrough,
           archiveStorageCostDiscount:
             miscSettings.cost.s3Cost.archiveStorageCostDiscount ?? undefined,
           artifactAwsAccountsWithoutLifecycleRules:

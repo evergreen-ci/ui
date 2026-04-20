@@ -37,7 +37,7 @@ describe("other tab transformers", () => {
 
     const loaded = gqlToForm(adminSettingsWithS3Lists);
     expect(loaded).not.toBeNull();
-    expect(formToGql(loaded!, adminSettingsWithS3Lists)).toStrictEqual({
+    expect(formToGql(loaded!)).toStrictEqual({
       ...expectedGql,
       cost: {
         ...expectedGql.cost,
