@@ -1,5 +1,5 @@
-import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { test, expect } from "fixtures";
+import { validateToast } from "helpers";
 
 test.describe("Variant history", () => {
   test("shows an error message if mainline commit history could not be retrieved", async ({

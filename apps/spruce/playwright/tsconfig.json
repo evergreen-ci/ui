@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "helpers": [
+        "./helpers/index.ts"
+      ],
+      "fixtures": [
+        "./fixtures.ts"
+      ],
+      "constants/cookies": [
+        "../src/constants/cookies.ts"
+      ],
+    }
+  },
+}
