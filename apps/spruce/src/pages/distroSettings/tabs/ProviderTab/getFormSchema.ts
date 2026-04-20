@@ -148,11 +148,7 @@ export const getFormSchema = ({
                   },
                 },
               },
-              taskHostOverrides: {
-                type: "object" as const,
-                title: "Task Host Overrides",
-                properties: taskHostOverridesFields.schema,
-              },
+              taskHostOverrides: taskHostOverridesFields.schema,
             },
           },
           {
@@ -185,11 +181,7 @@ export const getFormSchema = ({
                   },
                 },
               },
-              taskHostOverrides: {
-                type: "object" as const,
-                title: "Task Host Overrides",
-                properties: taskHostOverridesFields.schema,
-              },
+              taskHostOverrides: taskHostOverridesFields.schema,
             },
           },
         ],
@@ -261,7 +253,7 @@ export const getFormSchema = ({
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:data-cy": "task-host-overrides",
       "ui:description":
-        "Override provider settings specifically for task hosts. Leave fields empty to use the default provider settings above.",
+        "When enabled, the values below replace the distro's provider settings for task hosts. Every field is required — empty values override the distro's settings rather than falling back to them.",
       ...taskHostOverridesFields.uiSchema,
     },
   },
