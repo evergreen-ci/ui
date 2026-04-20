@@ -685,6 +685,8 @@ export type Cost = {
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  /** Sum of adjusted cost components; excludes on-demand components. */
+  total?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -2521,6 +2523,8 @@ export type Patch = {
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
+  /** Aggregated actual cost for the patch's version, when cost data exists. */
+  cost?: Maybe<Cost>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
@@ -2536,6 +2540,8 @@ export type Patch = {
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
+  /** Aggregated predicted cost for the patch's version. */
+  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectID: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -7101,7 +7107,9 @@ export type SaveAdminSettingsMutation = {
         storage?: {
           __typename?: "S3StorageCostConfig";
           archiveStorageCostDiscount?: number | null;
+          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
           defaultMaxArtifactExpirationDays?: number | null;
+          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -7719,7 +7727,9 @@ export type AdminSettingsQuery = {
         storage?: {
           __typename?: "S3StorageCostConfig";
           archiveStorageCostDiscount?: number | null;
+          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
           defaultMaxArtifactExpirationDays?: number | null;
+          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
