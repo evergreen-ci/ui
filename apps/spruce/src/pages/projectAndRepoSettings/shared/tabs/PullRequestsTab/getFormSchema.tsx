@@ -3,8 +3,8 @@ import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { pullRequestAliasesDocumentationUrl } from "constants/externalResources";
-import { sectionHasError } from "../GithubCommitQueueTab/getErrors";
 import { alias, form, ProjectType } from "../utils";
+import { sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { PullRequestsFormState } from "./types";
 
