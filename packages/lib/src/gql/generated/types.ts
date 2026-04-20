@@ -186,7 +186,6 @@ export type AdminSettings = {
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
-  serviceFlags?: Maybe<ServiceFlags>;
   serviceFlagsList?: Maybe<Array<ServiceFlag>>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
@@ -245,7 +244,6 @@ export type AdminSettingsInput = {
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
-  serviceFlags?: InputMaybe<ServiceFlagsInput>;
   shutdownWaitSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   singleTaskDistro?: InputMaybe<SingleTaskDistroConfigInput>;
   slack?: InputMaybe<SlackConfigInput>;
@@ -685,9 +683,13 @@ export type Cost = {
   adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
-  s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  /** Sum of adjusted cost components; excludes on-demand components. */
+  total?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -2524,6 +2526,8 @@ export type Patch = {
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
+  /** Aggregated actual cost for the patch's version, when cost data exists. */
+  cost?: Maybe<Cost>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
@@ -2533,10 +2537,14 @@ export type Patch = {
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   includedLocalModules: Array<IncludedLocalModule>;
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  invalidatedByUpstream: Scalars["Boolean"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
+  /** Aggregated predicted cost for the patch's version. */
+  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectID: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -2549,6 +2557,7 @@ export type Patch = {
   user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
+  version?: Maybe<VersionLite>;
   versionFull?: Maybe<Version>;
 };
 
@@ -3044,14 +3053,18 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
+  CommitChecks = "COMMIT_CHECKS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   GithubAppSettings = "GITHUB_APP_SETTINGS",
   GithubPermissions = "GITHUB_PERMISSIONS",
+  GitTags = "GIT_TAGS",
+  MergeQueue = "MERGE_QUEUE",
   Notifications = "NOTIFICATIONS",
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
+  PullRequests = "PULL_REQUESTS",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -3609,14 +3622,22 @@ export type S3CredentialsInput = {
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
   archiveStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  artifactAwsAccountsWithoutLifecycleRules?: Maybe<
+    Array<Scalars["String"]["output"]>
+  >;
   defaultMaxArtifactExpirationDays?: Maybe<Scalars["Int"]["output"]>;
+  devprodOwnedAwsAccountIds?: Maybe<Array<Scalars["String"]["output"]>>;
   iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
   archiveStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  artifactAwsAccountsWithoutLifecycleRules?: InputMaybe<
+    Array<Scalars["String"]["input"]>
+  >;
   defaultMaxArtifactExpirationDays?: InputMaybe<Scalars["Int"]["input"]>;
+  devprodOwnedAwsAccountIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
@@ -3758,87 +3779,6 @@ export type ServiceFlag = {
 export type ServiceFlagInput = {
   enabled: Scalars["Boolean"]["input"];
   name: Scalars["String"]["input"];
-};
-
-export type ServiceFlags = {
-  __typename?: "ServiceFlags";
-  agentStartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  alertsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundReauthDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundStatsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cacheStatsEndpointDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cacheStatsJobDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  eventProcessingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  githubPRTestingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  githubStatusAPIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  hostAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  hostInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  podDiagnosticsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  psLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  systemFailedTaskRestartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskDispatchDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-};
-
-export type ServiceFlagsInput = {
-  agentStartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  alertsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  backgroundReauthDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  backgroundStatsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cacheStatsEndpointDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cacheStatsJobDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  debugSpawnHostDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  eventProcessingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubPRTestingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubStatusAPIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  hostAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  hostInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  podDiagnosticsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  psLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  schedulerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  slackNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  sleepScheduleDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  staticAPIKeysDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  systemFailedTaskRestartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskDispatchDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** SetCursorAPIKeyPayload is the response from setting a Cursor API key. */
@@ -4180,6 +4120,7 @@ export type Task = {
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
@@ -4643,6 +4584,7 @@ export type TracerSettings = {
   collectorEndpoint?: Maybe<Scalars["String"]["output"]>;
   collectorInternalEndpoint?: Maybe<Scalars["String"]["output"]>;
   enabled: Scalars["Boolean"]["output"];
+  traceUrlTemplate?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type TracerSettingsInput = {
@@ -4650,6 +4592,7 @@ export type TracerSettingsInput = {
   collectorEndpoint?: InputMaybe<Scalars["String"]["input"]>;
   collectorInternalEndpoint?: InputMaybe<Scalars["String"]["input"]>;
   enabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  traceUrlTemplate?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type TriggerAlias = {
@@ -4903,6 +4846,7 @@ export type Version = {
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -4966,6 +4910,7 @@ export type VersionLite = {
   finishTime?: Maybe<Scalars["Time"]["output"]>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;
@@ -4973,6 +4918,8 @@ export type VersionLite = {
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
   startTime?: Maybe<Scalars["Time"]["output"]>;
+  status: Scalars["String"]["output"];
+  taskStatusStats?: Maybe<TaskStats>;
   user: UserLite;
   warnings: Array<Scalars["String"]["output"]>;
 };
