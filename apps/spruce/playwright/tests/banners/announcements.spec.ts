@@ -1,4 +1,4 @@
-import { test, expect } from "fixtures";
+import { test, expect } from "../../fixtures";
 
 test.describe("Announcement overlays", () => {
   test("Should not show a sitewide banner after it has been dismissed", async ({

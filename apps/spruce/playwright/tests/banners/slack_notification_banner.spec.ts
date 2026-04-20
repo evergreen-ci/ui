@@ -1,5 +1,5 @@
-import { test, expect } from "fixtures";
-import { validateToast } from "helpers";
+import { test, expect } from "../../fixtures";
+import { validateToast } from "../../helpers";
 
 const slackNotificationBanner = "slack-notification-banner";
 const slackUsername = "username";
