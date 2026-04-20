@@ -5087,28 +5087,6 @@ export type WorkstationSetupCommandInput = {
   directory?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type NonDisplayTaskReviewedFragment = {
-  __typename?: "Task";
-  id: string;
-  execution: number;
-  reviewed?: boolean | null;
-};
-
-export type ReviewedTaskFragment = {
-  __typename?: "Task";
-  id: string;
-  displayStatus: string;
-  execution: number;
-  reviewed?: boolean | null;
-  executionTasksFull?: Array<{
-    __typename?: "Task";
-    id: string;
-    displayStatus: string;
-    execution: number;
-    reviewed?: boolean | null;
-  }> | null;
-};
-
 export type AnnotationFragment = {
   __typename?: "Annotation";
   id: string;
@@ -5331,6 +5309,7 @@ export type PatchesPagePatchesFragment = {
     createTime?: Date | null;
     description: string;
     hidden: boolean;
+    invalidatedByUpstream: boolean;
     projectIdentifier: string;
     status: string;
     projectMetadata?: {
@@ -5444,6 +5423,7 @@ export type ProjectGeneralSettingsFragment = {
   remotePath: string;
   repo: string;
   repotrackerDisabled?: boolean | null;
+  runEveryMainlineCommit?: boolean | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
@@ -5464,6 +5444,7 @@ export type RepoGeneralSettingsFragment = {
   remotePath: string;
   repo: string;
   repotrackerDisabled: boolean;
+  runEveryMainlineCommit: boolean;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
@@ -5482,7 +5463,6 @@ export type ProjectGithubSettingsFragment = {
   manualPrTestingEnabled?: boolean | null;
   oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
-  runEveryMainlineCommit?: boolean | null;
   commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
 };
 
@@ -5498,7 +5478,6 @@ export type RepoGithubSettingsFragment = {
   manualPrTestingEnabled: boolean;
   oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
-  runEveryMainlineCommit: boolean;
   commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
 };
 
@@ -5517,7 +5496,6 @@ export type ProjectGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
@@ -5537,7 +5515,6 @@ export type RepoGithubCommitQueueFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
-    runEveryMainlineCommit: boolean;
     commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
   } | null;
 };
@@ -5557,7 +5534,6 @@ export type ProjectEventGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
@@ -5600,6 +5576,7 @@ export type ProjectSettingsFieldsFragment = {
     remotePath: string;
     repo: string;
     repotrackerDisabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -5615,7 +5592,6 @@ export type ProjectSettingsFieldsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    runEveryMainlineCommit?: boolean | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -5807,6 +5783,7 @@ export type RepoSettingsFieldsFragment = {
     remotePath: string;
     repo: string;
     repotrackerDisabled: boolean;
+    runEveryMainlineCommit: boolean;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
@@ -5822,7 +5799,6 @@ export type RepoSettingsFieldsFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
-    runEveryMainlineCommit: boolean;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -6267,6 +6243,7 @@ export type ProjectEventSettingsFragment = {
     remotePath: string;
     repo: string;
     repotrackerDisabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -6281,7 +6258,6 @@ export type ProjectEventSettingsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    runEveryMainlineCommit?: boolean | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -6554,6 +6530,21 @@ export type RepoVirtualWorkstationSettingsFragment = {
   };
 };
 
+export type ReviewedTaskFragment = {
+  __typename?: "Task";
+  id: string;
+  displayStatus: string;
+  execution: number;
+  reviewed?: boolean | null;
+  executionTasksFull?: Array<{
+    __typename?: "Task";
+    id: string;
+    displayStatus: string;
+    execution: number;
+    reviewed?: boolean | null;
+  }> | null;
+};
+
 export type UpstreamProjectFragment = {
   __typename?: "Version";
   id: string;
@@ -6747,18 +6738,6 @@ export type DeleteDistroMutationVariables = Exact<{
 export type DeleteDistroMutation = {
   __typename?: "Mutation";
   deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
-};
-
-export type DeleteGithubAppCredentialsMutationVariables = Exact<{
-  projectId: Scalars["String"]["input"];
-}>;
-
-export type DeleteGithubAppCredentialsMutation = {
-  __typename?: "Mutation";
-  deleteGithubAppCredentials?: {
-    __typename?: "DeleteGithubAppCredentialsPayload";
-    oldAppId: number;
-  } | null;
 };
 
 export type DeleteProjectMutationVariables = Exact<{
@@ -7128,7 +7107,9 @@ export type SaveAdminSettingsMutation = {
         storage?: {
           __typename?: "S3StorageCostConfig";
           archiveStorageCostDiscount?: number | null;
+          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
           defaultMaxArtifactExpirationDays?: number | null;
+          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -7746,7 +7727,9 @@ export type AdminSettingsQuery = {
         storage?: {
           __typename?: "S3StorageCostConfig";
           archiveStorageCostDiscount?: number | null;
+          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
           defaultMaxArtifactExpirationDays?: number | null;
+          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -8009,6 +7992,7 @@ export type AdminSettingsQuery = {
       collectorEndpoint?: string | null;
       collectorInternalEndpoint?: string | null;
       enabled: boolean;
+      traceUrlTemplate?: string | null;
     } | null;
     triggers?: {
       __typename?: "TriggerConfig";
@@ -9311,6 +9295,7 @@ export type ProjectEventLogsQuery = {
           remotePath: string;
           repo: string;
           repotrackerDisabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9325,7 +9310,6 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
-          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -9534,6 +9518,7 @@ export type ProjectEventLogsQuery = {
           remotePath: string;
           repo: string;
           repotrackerDisabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9548,7 +9533,6 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
-          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -9739,6 +9723,7 @@ export type ProjectPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
+        invalidatedByUpstream: boolean;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
@@ -9819,6 +9804,7 @@ export type ProjectSettingsQuery = {
       remotePath: string;
       repo: string;
       repotrackerDisabled?: boolean | null;
+      runEveryMainlineCommit?: boolean | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
@@ -9834,7 +9820,6 @@ export type ProjectSettingsQuery = {
       manualPrTestingEnabled?: boolean | null;
       oldestAllowedMergeBase: string;
       prTestingEnabled?: boolean | null;
-      runEveryMainlineCommit?: boolean | null;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;
@@ -10091,6 +10076,7 @@ export type RepoEventLogsQuery = {
           remotePath: string;
           repo: string;
           repotrackerDisabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10105,7 +10091,6 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
-          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -10314,6 +10299,7 @@ export type RepoEventLogsQuery = {
           remotePath: string;
           repo: string;
           repotrackerDisabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10328,7 +10314,6 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
-          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -10540,6 +10525,7 @@ export type RepoSettingsQuery = {
       remotePath: string;
       repo: string;
       repotrackerDisabled: boolean;
+      runEveryMainlineCommit: boolean;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
@@ -10555,7 +10541,6 @@ export type RepoSettingsQuery = {
       manualPrTestingEnabled: boolean;
       oldestAllowedMergeBase: string;
       prTestingEnabled: boolean;
-      runEveryMainlineCommit: boolean;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;
@@ -11002,6 +10987,11 @@ export type TaskFilesQuery = {
           link: string;
           name: string;
           urlParsley?: string | null;
+          associatedLinks: Array<{
+            __typename?: "AssociatedLink";
+            link: string;
+            name: string;
+          }>;
         }> | null;
       }>;
     };
@@ -11360,6 +11350,7 @@ export type TaskQuery = {
     hostId?: string | null;
     imageId: string;
     ingestTime?: Date | null;
+    invalidatedByUpstream?: boolean | null;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
@@ -11675,6 +11666,7 @@ export type UserPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
+        invalidatedByUpstream: boolean;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
@@ -11821,6 +11813,18 @@ export type UserSubscriptionsQuery = {
         };
       } | null;
     }> | null;
+  };
+};
+
+export type UserTokenExchangeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserTokenExchangeQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    hasTokenExchangePending: boolean;
+    tokenAccessTokenExpiresAt?: Date | null;
+    userId: string;
   };
 };
 

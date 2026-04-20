@@ -11,14 +11,7 @@ export default defineConfig({
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
   },
-  plugins: [
-    tsconfigPaths(),
-    react({
-      babel: {
-        plugins: ["import-graphql"],
-      },
-    }),
-  ],
+  plugins: [tsconfigPaths(), react()],
   resolve: {
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },

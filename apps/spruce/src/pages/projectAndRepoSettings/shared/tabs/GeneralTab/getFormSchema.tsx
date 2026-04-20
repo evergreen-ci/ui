@@ -5,8 +5,8 @@ import widgets from "components/SpruceForm/Widgets";
 import {
   debugSpawnHostsDocumentationUrl,
   versionControlDocumentationUrl,
+  runEveryMainlineCommitDocumentationUrl,
 } from "constants/externalResources";
-import { showRecreatableTaskEnvironments } from "constants/featureFlags";
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
@@ -161,6 +161,15 @@ export const getFormSchema = (
                   type: "null" as const,
                 },
               }),
+              runEveryMainlineCommit: {
+                type: ["boolean", "null"] as const,
+                title: "Run Every Mainline Commit",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.repotracker?.runEveryMainlineCommit,
+                ),
+              },
             },
           },
           debug: {
@@ -355,10 +364,7 @@ export const getFormSchema = (
       },
       debug: {
         debugSpawnHostsDisabled: {
-          // TODO DEVPROD-25833: Unhide this field when the feature is ready
-          "ui:widget": showRecreatableTaskEnvironments
-            ? widgets.RadioBoxWidget
-            : "hidden",
+          "ui:widget": widgets.RadioBoxWidget,
           "ui:description": (
             <>
               Sets if project tasks can create{" "}
@@ -380,6 +386,11 @@ export const getFormSchema = (
           "ui:field": "repotrackerField",
           "ui:showLabel": false,
           options: { projectId },
+        },
+        runEveryMainlineCommit: {
+          "ui:data-cy": "run-every-mainline-commit-radio-box",
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description": RunEveryMainlineCommitDescription,
         },
       },
       scheduling: {
@@ -467,3 +478,14 @@ const getMinLength = (
   }
   return 1;
 };
+
+const RunEveryMainlineCommitDescription = (
+  <>
+    By default, only the latest repotracker version is activated periodically to
+    avoid redundant builds. Enable this to activate every mainline commit
+    version.{" "}
+    <StyledLink href={runEveryMainlineCommitDocumentationUrl}>
+      Learn more
+    </StyledLink>
+  </>
+);

@@ -163,7 +163,6 @@ functions:
       shell: bash
       env:
         STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
-        STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
       script: |
         ${PREPARE_SHELL}
         # Allow spec filtering for an intentional patch.
@@ -171,6 +170,28 @@ functions:
           CYPRESS_CI=true pnpm cy:run --reporter junit --spec "${cypress_spec}"
         else
           CYPRESS_CI=true pnpm cy:run --reporter junit
+        fi
+
+  pnpm-playwright:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      shell: bash
+      env:
+        # Installs browsers to node_modules.
+        PLAYWRIGHT_BROWSERS_PATH: "0"
+        STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
+      script: |
+        ${PREPARE_SHELL}
+
+        # Install Chromium browser to use with Playwright tests.
+        pnpm exec playwright install chromium
+
+        # Allow spec filtering for an intentional patch.
+        if [[ "${playwright_spec}" != "" ]]; then
+          pnpm playwright:test ${playwright_spec}
+        else
+          pnpm playwright:test
         fi
 
   pnpm-eslint:
@@ -252,8 +273,8 @@ tasks:
       - func: symlink
       - func: pnpm-build
 
-  # Updates to e2e should also be applied to e2e_parallel in `generate-parallel-e2e-tasks.js`.
-  - name: e2e
+  # Updates to e2e_cypress should also be applied to e2e_parallel in `generate-parallel-e2e-tasks.js`.
+  - name: e2e_cypress
     commands:
       - func: setup-mongodb
       - func: generate-token
@@ -267,6 +288,21 @@ tasks:
       - func: wait-for-evergreen
       - func: pnpm-verify-backend
       - func: pnpm-cypress
+
+  - name: e2e
+    commands:
+      - func: setup-mongodb
+      - func: generate-token
+      - func: run-make-background
+        vars:
+          target: local-evergreen
+      - func: symlink
+      - func: seed-bucket-data
+      - func: pnpm-build
+      - func: pnpm-preview
+      - func: wait-for-evergreen
+      - func: pnpm-verify-backend
+      - func: pnpm-playwright
 
   - name: lint
     commands:

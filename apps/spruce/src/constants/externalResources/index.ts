@@ -121,6 +121,9 @@ export const getAPIRouteForVersions = (versionId: string) =>
 export const getAPIRouteForTasks = (taskId: string, execution: number) =>
   `${getEvergreenUrl()}/rest/v2/tasks/${taskId}?execution=${execution}`;
 
+export const getSpawnHostTokenExchangeAuthorizeUrl = () =>
+  `${getEvergreenUrl()}/rest/v2/auth/token_exchange/authorize`;
+
 export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";
 export const buildHostPostConfigRepoURL =
@@ -133,4 +136,4 @@ export const sageBotDocumentationUrl =
   "https://docs.devprod.prod.corp.mongodb.com/sage/sage-bot/";
 
 export const backstageS3BucketUrl =
-  "https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3";
+  "https://app.backstage.prod.corp.mongodb.com/autoflow";

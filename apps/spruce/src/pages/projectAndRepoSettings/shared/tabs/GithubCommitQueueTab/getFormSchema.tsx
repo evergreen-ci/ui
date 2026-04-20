@@ -8,7 +8,6 @@ import {
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
-  runEveryMainlineCommitDocumentationUrl,
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
@@ -130,18 +129,6 @@ export const getFormSchema = (
                 ["Override Repo Definition", "Default to Repo Definition"],
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 aliasArray.schema,
-              ),
-            },
-            runEveryMainlineCommitTitle: {
-              type: "null",
-              title: "Run Every Mainline Commit",
-            },
-            runEveryMainlineCommit: {
-              type: ["boolean", "null"],
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                repoData?.github?.runEveryMainlineCommit,
               ),
             },
             gitTagVersionsTitle: {
@@ -413,15 +400,6 @@ export const getFormSchema = (
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
         },
-        runEveryMainlineCommitTitle: {
-          "ui:sectionTitle": true,
-          "ui:description": RunEveryMainlineCommitDescription,
-        },
-        runEveryMainlineCommit: {
-          "ui:data-cy": "run-every-mainline-commit-radio-box",
-          "ui:showLabel": false,
-          "ui:widget": widgets.RadioBoxWidget,
-        },
         users: userTeamStyling(
           "gitTagAuthorizedUsers",
           "Add User",
@@ -645,17 +623,6 @@ const GitTagAliasesDescription = (
     <StyledLink href={gitTagAliasesDocumentationUrl}>may be defined</StyledLink>{" "}
     in this project&rsquo;s config YAML instead if Version Control is enabled
     and no aliases are defined on the project or repo page.
-  </>
-);
-
-const RunEveryMainlineCommitDescription = (
-  <>
-    By default, only the latest repotracker version is activated periodically to
-    avoid redundant builds. Enable this to activate every mainline commit
-    version.{" "}
-    <StyledLink href={runEveryMainlineCommitDocumentationUrl}>
-      Learn more
-    </StyledLink>
   </>
 );
 

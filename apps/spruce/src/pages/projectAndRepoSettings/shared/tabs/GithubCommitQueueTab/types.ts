@@ -25,7 +25,6 @@ export interface GCQFormState {
       };
     };
     gitTagVersionsEnabled: boolean | null;
-    runEveryMainlineCommit: boolean | null;
     users: {
       gitTagAuthorizedUsersOverride: boolean;
       gitTagAuthorizedUsers: Array<string> | null;

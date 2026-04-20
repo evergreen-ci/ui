@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
-import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
@@ -10,61 +10,69 @@ import {
   BaseTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useTaskAnalytics } from "analytics";
-import { GroupedFiles } from "../types";
-
-type GroupedFilesFile = Unpacked<NonNullable<GroupedFiles["files"]>>;
+import { processFilesWithAssociatedLinks } from "./AssociatedLinks";
+import { GroupedFilesFile, FileTableRow } from "./types";
 
 const getColumns = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,
-): LGColumnDef<GroupedFilesFile>[] => [
+): LGColumnDef<FileTableRow>[] => [
   {
     accessorKey: "name",
     header: "Name",
-    size: 100,
     enableSorting: true,
+    meta: {
+      width: "90%",
+    },
     cell: (value) => {
-      const fileName = value.getValue() as GroupedFilesFile["name"];
+      const { link, name: fileName, urlParsley } = value.row.original;
       return (
-        <CellContainer>
-          <StyledLink
-            data-cy="file-link"
-            href={value.row.original.link}
-            onClick={() => {
-              taskAnalytics.sendEvent({
-                name: "Clicked task file link",
-                "parsley.is_available": value.row.original.urlParsley !== null,
-                "file.name": fileName,
-              });
-            }}
-          >
-            {fileName}
-          </StyledLink>
-          <Tooltip
-            align="top"
-            enabled={value.row.original.urlParsley === null}
-            justify="middle"
-            trigger={
-              <Button
-                data-cy="parsley-link"
-                disabled={value.row.original.urlParsley === null}
-                href={value.row.original.urlParsley ?? undefined}
-                onClick={() => {
-                  taskAnalytics.sendEvent({
-                    name: "Clicked task file Parsley link",
-                    "file.name": fileName,
-                  });
-                }}
-                size="small"
-              >
-                Parsley
-              </Button>
-            }
-          >
-            Only plain text files can be opened in Parsley.
-          </Tooltip>
-        </CellContainer>
+        <StyledLink
+          data-cy="file-link"
+          href={link}
+          onClick={() => {
+            taskAnalytics.sendEvent({
+              name: "Clicked task file link",
+              "parsley.is_available": urlParsley !== null,
+              "file.name": fileName,
+            });
+          }}
+        >
+          {fileName}
+        </StyledLink>
+      );
+    },
+  },
+  {
+    accessorKey: "urlParsley",
+    header: "",
+    enableSorting: false,
+    cell: (value) => {
+      const row = value.row.original;
+      return (
+        <Tooltip
+          align={Align.Top}
+          enabled={row.urlParsley === null}
+          justify={Justify.Middle}
+          trigger={
+            <Button
+              data-cy="parsley-link"
+              disabled={row.urlParsley === null}
+              href={row.urlParsley ?? undefined}
+              onClick={() => {
+                taskAnalytics.sendEvent({
+                  name: "Clicked task file Parsley link",
+                  "file.name": row.name,
+                });
+              }}
+              size={ButtonSize.Small}
+            >
+              Parsley
+            </Button>
+          }
+        >
+          Only plain text files can be opened in Parsley.
+        </Tooltip>
       );
     },
   },
@@ -74,6 +82,7 @@ interface GroupedFileTableProps {
   files: GroupedFilesFile[];
   taskName?: string;
 }
+
 const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   files,
   taskName,
@@ -85,11 +94,19 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
     [taskAnalytics],
   );
 
-  const table = useLeafyGreenTable<GroupedFilesFile>({
-    data: files,
+  const tableData = useMemo(
+    () => processFilesWithAssociatedLinks(files, taskAnalytics),
+    [files, taskAnalytics],
+  );
+
+  const table = useLeafyGreenTable<FileTableRow>({
+    data: tableData,
     columns: memoizedColumns,
     defaultColumn: {
       enableColumnFilter: false,
+    },
+    initialState: {
+      expanded: true,
     },
   });
 
@@ -105,10 +122,4 @@ const Container = styled.div`
   margin-bottom: ${size.m};
 `;
 
-const CellContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`;
 export default GroupedFileTable;
