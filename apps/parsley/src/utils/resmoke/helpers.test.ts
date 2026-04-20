@@ -94,6 +94,9 @@ describe("resmoke/helpers", () => {
       // type assert this as a string to satisfy typescript
       expect(() => JSON.parse(json as string)).not.toThrow();
     });
+    it("rejects trailing characters after a valid json object", () => {
+      expect(getJSONString(`{"a":1} garbage text`)).toBeUndefined();
+    });
     it("handles strings with broken json", () => {
       expect(getJSONString("hello {")).toBeUndefined();
       expect(getJSONString("hello {a: { b: 1 }")).toBeUndefined();

@@ -163,7 +163,6 @@ functions:
       shell: bash
       env:
         STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
-        STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
       script: |
         ${PREPARE_SHELL}
         # Allow spec filtering for an intentional patch.
@@ -180,7 +179,8 @@ functions:
       shell: bash
       env:
         # Installs browsers to node_modules.
-        PLAYWRIGHT_BROWSERS_PATH: "0" 
+        PLAYWRIGHT_BROWSERS_PATH: "0"
+        STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
       script: |
         ${PREPARE_SHELL}
 
@@ -189,7 +189,7 @@ functions:
 
         # Allow spec filtering for an intentional patch.
         if [[ "${playwright_spec}" != "" ]]; then
-          pnpm playwright:test "${playwright_spec}"
+          pnpm playwright:test ${playwright_spec}
         else
           pnpm playwright:test
         fi

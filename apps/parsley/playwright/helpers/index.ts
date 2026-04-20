@@ -1,11 +1,5 @@
 import { expect, Page } from "@playwright/test";
 
-const user = {
-  password: "password",
-  username: "admin",
-};
-const toastDataCy = "toast";
-
 export const addFilter = async (page: Page, filter: string) => {
   await expect(page.getByTestId("searchbar-select")).toBeEnabled();
   await page.getByTestId("searchbar-select").click();
@@ -141,27 +135,6 @@ export const isNotContainedInViewport = async (
   }
 };
 
-export const getInputByLabel = async (page: Page, label: string) => {
-  const labelElement = page.locator("label", { hasText: label });
-  const forAttr = await labelElement.getAttribute("for");
-  if (!forAttr) {
-    throw new Error(`Label "${label}" does not have a "for" attribute`);
-  }
-  return page.locator(`#${forAttr}`);
-};
-
-export const login = async (page: Page) => {
-  await page.request.post("http://localhost:9090/login", {
-    data: { username: user.username, password: user.password },
-  });
-};
-
-export const logout = async (page: Page) => {
-  await page.request.get("http://localhost:9090/logout", {
-    maxRedirects: 0,
-  });
-};
-
 export const resetDrawerState = async (page: Page) => {
   await page.evaluate(() => {
     localStorage.setItem("drawer-opened", "false");
@@ -183,31 +156,6 @@ export const toggleDetailsPanel = async (page: Page, open: boolean) => {
 
 export const toggleDrawer = async (page: Page) => {
   await page.locator(`[aria-label="Collapse navigation"]`).click();
-};
-
-export const validateToast = async (
-  page: Page,
-  status: string,
-  message: string,
-  shouldClose?: boolean,
-) => {
-  await expect(page.getByTestId(toastDataCy)).toBeVisible();
-  await expect(page.getByTestId(toastDataCy)).toHaveAttribute(
-    "data-variant",
-    status,
-  );
-
-  if (message) {
-    await expect(page.getByTestId(toastDataCy)).toContainText(message);
-  }
-
-  if (shouldClose) {
-    await page
-      .getByTestId(toastDataCy)
-      .locator("button[aria-label='Close Message']")
-      .click();
-    await expect(page.getByTestId(toastDataCy)).toBeHidden();
-  }
 };
 
 /**
@@ -246,13 +194,10 @@ export const paste = async (
   });
 };
 
-export const clickCheckboxByLabel = async (page: Page, name: string) => {
-  const checkbox = page.getByRole("checkbox", { name });
-  const checkboxId = await checkbox.getAttribute("id");
-  if (checkboxId) {
-    await page.locator(`label[for="${checkboxId}"]`).click();
-  } else {
-    // Fallback: click the checkbox's parent label if it exists.
-    await checkbox.locator("..").locator("label").click();
-  }
-};
+// Re-export shared helpers from the playwright-config package.
+export {
+  validateToast,
+  login,
+  logout,
+  clickCheckboxByLabel,
+} from "@evg-ui/playwright-config/helpers";
