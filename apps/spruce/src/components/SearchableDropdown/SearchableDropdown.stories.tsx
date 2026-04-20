@@ -22,13 +22,12 @@ export const CustomOption: CustomStoryObj<
     <Dropdown
       label="Custom option select"
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      optionRenderer={(option, onClick, isChecked) => (
+      optionRenderer={(option, onClick) => (
         <button
           key={option.value}
           onClick={() => onClick(option.value)}
           type="button"
         >
-          {isChecked(option.value) && `✔️`}
           {option.label}
         </button>
       )}
