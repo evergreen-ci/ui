@@ -19,6 +19,7 @@ import { MultiSelect } from "./MultiSelect";
 const widgets = {
   CheckboxWidget: LeafyGreenCheckBox,
   ChipInputWidget: ChipInput,
+  ComboboxWidget: LeafyGreenCombobox,
   CopyableWidget: LeafyGreenCopyable,
   DateWidget: LeafyGreenDatePicker,
   DateTimeWidget: DateTimePicker,
@@ -32,7 +33,6 @@ const widgets = {
   TextWidget: LeafyGreenTextInput,
   TextareaWidget: LeafyGreenTextArea,
   ToggleWidget: LeafyGreenToggle,
-  ComboboxWidget: LeafyGreenCombobox,
 };
 
 export default widgets;
