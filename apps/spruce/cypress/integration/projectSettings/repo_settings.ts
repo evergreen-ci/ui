@@ -303,19 +303,40 @@ describe("Repo Settings", () => {
       cy.dataCy("navitem-pull-requests").click();
       saveButtonEnabled(false);
     });
-    it("Repo Settings Pull Requests page shows a disabled webhooks banner when webhooks are disabled", () => {
-      cy.dataCy("disabled-webhook-banner")
-        .contains(
-          "GitHub features are disabled because the Evergreen GitHub App is not",
-        )
-        .should("be.visible");
+
+    describe("A project that has GitHub webhooks disabled", () => {
+      const origin = getProjectSettingsRoute(
+        "logkeeper",
+        ProjectSettingsTabRoutes.PullRequests,
+      );
+      beforeEach(() => {
+        cy.visit(origin);
+        saveButtonEnabled(false);
+      });
+
+      it("Pull Requests page shows a disabled webhooks banner when webhooks are disabled", () => {
+        cy.dataCy("disabled-webhook-banner")
+          .contains(
+            "GitHub features are disabled because the Evergreen GitHub App is not",
+          )
+          .should("be.visible");
+      });
+
+      it("Disables all interactive elements on the page", () => {
+        cy.dataCy("project-settings-page")
+          .find("button")
+          .should("have.attr", "aria-disabled", "true");
+        cy.get("input").should("have.attr", "aria-disabled", "true");
+      });
     });
+
     it("Allows enabling manual PR testing", () => {
       cy.dataCy("manual-pr-testing-enabled-radio-box")
         .children()
         .first()
         .click();
     });
+
     it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
       cy.contains(
         "A GitHub Patch Definition must be specified for this feature to run.",
