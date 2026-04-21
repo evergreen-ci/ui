@@ -13,9 +13,7 @@ test.describe("Job logs page", () => {
     authenticatedPage: page,
   }) => {
     await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(655);
-
     const completeTestLogsLink = page.getByTestId("complete-test-logs-link");
-    await expect(completeTestLogsLink).toHaveAttribute("href", /resmoke/);
     const href = await completeTestLogsLink.getAttribute("href");
     expect(href).toContain(
       "resmoke/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/job0/all",
@@ -26,6 +24,7 @@ test.describe("Job logs page", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(`job-logs/DNE/0/job0`);
+    await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(0);
     await validateToast(
       page,
       "error",

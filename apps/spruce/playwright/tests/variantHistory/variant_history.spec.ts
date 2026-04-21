@@ -113,9 +113,8 @@ test.describe("Variant history", () => {
       const successIcons = page
         .getByTestId("history-table-icon")
         .locator("[data-status=success]");
-      const count = await successIcons.count();
-      for (let i = 0; i < count; i++) {
-        const icon = successIcons.nth(i);
+      for (const icon of await successIcons.all()) {
+        await expect(icon).toBeVisible();
         const parent = icon.locator("..");
         await expect(parent).toHaveAttribute("aria-disabled", "true");
       }
@@ -124,8 +123,9 @@ test.describe("Variant history", () => {
     test("should display a message and tooltip on matching tasks with test results", async ({
       authenticatedPage: page,
     }) => {
-      await expect(page.getByText("1 / 1 Failing Tests")).toBeVisible();
-      await page.getByText("1 / 1 Failing Tests").hover();
+      const failedTask = page.getByText("1 / 1 Failing Tests");
+      await expect(failedTask).toBeVisible();
+      await failedTask.hover();
       await expect(page.getByTestId("test-tooltip")).toBeVisible();
       await expect(page.getByTestId("test-tooltip")).toContainText(
         "JustAFakeTestInALonelyWorld",

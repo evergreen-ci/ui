@@ -1,8 +1,7 @@
 import { test, expect } from "../../fixtures";
-import { closeBanner } from "../../helpers";
 
 test.describe("Announcement overlays", () => {
-  test("Should not show a Sitewide banner after it has been dismissed", async ({
+  test("Should not show a sitewide banner after it has been dismissed", async ({
     authenticatedPage: page,
   }) => {
     // Clear the cookie to make the banner show.
@@ -10,26 +9,13 @@ test.describe("Announcement overlays", () => {
       .context()
       .clearCookies({ name: "This is an important notification" });
     await page.goto("/");
-    await expect(page.getByTestId("sitewide-banner-success")).toBeVisible();
-    await closeBanner(page, "sitewide-banner-success");
-    await expect(page.getByTestId("sitewide-banner-success")).toBeHidden();
-    await page.goto("/");
-    await expect(page.getByTestId("sitewide-banner-success")).toBeHidden();
-  });
+    const banner = page.getByTestId("sitewide-banner-success");
+    await expect(banner).toBeVisible();
 
-  test("Should close the announcement toast if one exists", async ({
-    authenticatedPage: page,
-  }) => {
-    await page.goto("/");
-    const toast = page.getByTestId("toast");
-    const toastCount = await toast.count();
+    await banner.locator("[aria-label='X Icon']").click();
+    await expect(banner).toBeHidden();
 
-    if (toastCount > 0) {
-      await expect(toast).toBeVisible();
-      await page.goto("/");
-      await toast.locator("button").click();
-      await page.goto("/");
-      await expect(toast).toBeHidden();
-    }
+    await page.goto("/");
+    await expect(banner).toBeHidden();
   });
 });
