@@ -179,7 +179,7 @@ functions:
       shell: bash
       env:
         # Installs browsers to node_modules.
-        PLAYWRIGHT_BROWSERS_PATH: "0" 
+        PLAYWRIGHT_BROWSERS_PATH: "0"
         STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
       script: |
         ${PREPARE_SHELL}

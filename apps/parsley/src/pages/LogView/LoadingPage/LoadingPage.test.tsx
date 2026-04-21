@@ -37,12 +37,18 @@ vi.mock("context/LogContext", async () => {
 });
 
 vi.mock("hooks", () => ({
-  useLogDownloader: () => ({
-    data: TEST_LOG_LINES,
-    error: "",
-    fileSize: 1024,
-    isLoading: false,
-  }),
+  useLogDownloader: ({
+    onComplete,
+  }: {
+    onComplete: (logs: string[]) => void;
+  }) => {
+    onComplete(TEST_LOG_LINES);
+    return {
+      error: "",
+      fileSize: 1024,
+      isLoading: false,
+    };
+  },
 }));
 
 vi.mock("./useResolveLogURLAndRenderingType", () => ({

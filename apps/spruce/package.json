@@ -70,7 +70,7 @@
     "@leafygreen-ui/checkbox": "^18.1.4",
     "@leafygreen-ui/chip": "^4.2.0",
     "@leafygreen-ui/code": "^20.2.5",
-    "@leafygreen-ui/combobox": "^12.3.0",
+    "@leafygreen-ui/combobox": "^12.5.1",
     "@leafygreen-ui/confirmation-modal": "^10.3.0",
     "@leafygreen-ui/copyable": "^12.0.2",
     "@leafygreen-ui/date-picker": "^4.1.1",

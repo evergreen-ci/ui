@@ -10,13 +10,14 @@ import {
 } from "constants/errors";
 import { LOG_FILE_SIZE_LIMIT, LOG_LINE_SIZE_LIMIT } from "constants/logs";
 import useStateRef from "hooks/useStateRef";
-import { isProduction } from "utils/environmentVariables";
+import { isProductionBuild } from "utils/environmentVariables";
 import { fetchLogFile } from "utils/fetchLogFile";
 import { getBytesAsString } from "utils/string";
 
 type UseLogDownloader = {
   downloadSizeLimit?: number;
   logType: LogTypes;
+  onComplete: (logs: string[]) => void;
   url: string;
 };
 
@@ -28,18 +29,18 @@ type UseLogDownloader = {
  * @param props.url - the url to fetch
  * @param props.logType - the type of log file to download
  * @param props.downloadSizeLimit - the maximum size of the log file to download
+ * @param props.onComplete - callback invoked with the parsed log lines once download finishes
  * @returns an object with the following properties:
  * - isLoading: a boolean that is true while the log is being downloaded
- * - data: the log file as an array of strings
  * - error: an error message if the download fails
  * - fileSize: the size of the log file in bytes
  */
 const useLogDownloader = ({
   downloadSizeLimit = LOG_FILE_SIZE_LIMIT,
   logType,
+  onComplete,
   url,
 }: UseLogDownloader) => {
-  const [data, setData] = useState<string[] | undefined>();
   const [error, setError] = useState<string | undefined>();
   const [fileSize, setFileSize, getFileSize] = useStateRef<number>(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,14 +49,16 @@ const useLogDownloader = ({
 
   useEffect(() => {
     leaveBreadcrumb("useLogDownloader", { url }, SentryBreadcrumbTypes.HTTP);
-    const abortController = new AbortController();
+    // Conditionally define AbortController because it throws error in development's strict mode
+    const abortController = isProductionBuild()
+      ? new AbortController()
+      : undefined;
     const timeStart = Date.now();
 
     if (url) {
       setIsLoading(true);
       fetchLogFile(url, {
-        // Conditionally define signal because AbortController throws error in development's strict mode
-        abortController: isProduction() ? abortController : undefined,
+        abortController,
         downloadSizeLimit,
         logLineSizeLimit: LOG_LINE_SIZE_LIMIT,
         onIncompleteDownload: (reason, incompleteDownloadError) => {
@@ -87,7 +90,7 @@ const useLogDownloader = ({
           if (logs[logs.length - 1] === "") {
             logs.pop();
           }
-          setData(logs);
+          onComplete(logs);
           if (trimmedLines) {
             sendEvent({
               downloaded: getFileSize(),
@@ -151,11 +154,11 @@ const useLogDownloader = ({
 
     return () => {
       // Cancel the request if the component unmounts
-      abortController.abort();
+      abortController?.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, sendEvent]);
-  return { data, error, fileSize, isLoading };
+  return { error, fileSize, isLoading };
 };
 
 export { useLogDownloader };
