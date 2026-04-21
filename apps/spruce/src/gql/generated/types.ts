@@ -12000,6 +12000,7 @@ export type VersionQuery = {
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
       onDemandEC2Cost?: number | null;
+      total?: number | null;
     } | null;
     externalLinksForMetadata: Array<{
       __typename?: "ExternalLinkForMetadata";
@@ -12066,6 +12067,7 @@ export type VersionQuery = {
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
       onDemandEC2Cost?: number | null;
+      total?: number | null;
     } | null;
     previousVersion?: {
       __typename?: "Version";

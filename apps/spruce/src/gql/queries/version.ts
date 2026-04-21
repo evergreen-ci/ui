@@ -19,6 +19,7 @@ export const VERSION = gql`
         adjustedS3LogPutCost
         adjustedS3LogStorageCost
         onDemandEC2Cost
+        total
       }
       createTime
       errors
@@ -87,6 +88,7 @@ export const VERSION = gql`
         adjustedS3LogPutCost
         adjustedS3LogStorageCost
         onDemandEC2Cost
+        total
       }
       previousVersion {
         id
