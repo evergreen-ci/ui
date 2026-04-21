@@ -17,7 +17,7 @@ import {
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "../../getTabTitle";
 import { alias, form, ProjectType } from "../utils";
-import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
+import { githubConflictErrorStyling, sectionHasError } from "../utils/github";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { GCQFormState } from "./types";
 

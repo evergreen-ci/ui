@@ -4,8 +4,7 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { pullRequestAliasesDocumentationUrl } from "constants/externalResources";
-import { alias, form, ProjectType } from "../utils";
-import { sectionHasError } from "./getErrors";
+import { alias, form, ProjectType, sectionHasError } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { PullRequestsFormState } from "./types";
 
