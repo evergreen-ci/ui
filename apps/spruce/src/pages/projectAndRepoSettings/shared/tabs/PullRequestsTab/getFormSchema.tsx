@@ -1,6 +1,7 @@
 import { Description } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
+import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { pullRequestAliasesDocumentationUrl } from "constants/externalResources";
 import { alias, form, ProjectType } from "../utils";
@@ -108,6 +109,7 @@ export const getFormSchema = (
     },
     uiSchema: {
       github: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
         pullRequestSettingsTitle: {
           "ui:numberedTitle": true,
         },
