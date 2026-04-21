@@ -21,6 +21,7 @@ export interface PullRequestsFormState {
 export type TabProps = {
   githubWebhooksEnabled: boolean;
   projectData?: PullRequestsFormState;
+  projectId: string;
   projectType: ProjectType;
   repoData?: PullRequestsFormState;
   versionControlEnabled: boolean;

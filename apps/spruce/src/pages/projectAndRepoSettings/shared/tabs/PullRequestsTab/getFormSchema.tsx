@@ -4,7 +4,14 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { pullRequestAliasesDocumentationUrl } from "constants/externalResources";
-import { alias, form, ProjectType, sectionHasError } from "../utils";
+import { GithubProjectConflicts } from "gql/generated/types";
+import {
+  alias,
+  form,
+  ProjectType,
+  sectionHasError,
+  githubConflictErrorStyling,
+} from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { PullRequestsFormState } from "./types";
 
@@ -25,6 +32,7 @@ export const getFormSchema = (
   projectType: ProjectType,
   githubWebhooksEnabled: boolean,
   formData: PullRequestsFormState,
+  githubProjectConflicts: GithubProjectConflicts | undefined,
   versionControlEnabled: boolean,
   repoData?: PullRequestsFormState,
 ): ReturnType<GetFormSchema> => {
@@ -115,10 +123,22 @@ export const getFormSchema = (
         prTestingEnabled: {
           "ui:data-cy": "pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.prTestingIdentifiers ?? null,
+            formData?.github?.prTestingEnabled ?? null,
+            repoData?.github?.prTestingEnabled ?? false,
+            "PR Testing",
+          ),
         },
         manualPrTestingEnabled: {
           "ui:data-cy": "manual-pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.prTestingIdentifiers ?? null,
+            formData?.github?.prTestingEnabled ?? null,
+            repoData?.github?.prTestingEnabled ?? false,
+            "PR Testing",
+          ),
         },
         oldestAllowedMergeBase: {
           "ui:description":

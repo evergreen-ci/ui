@@ -62,6 +62,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     () => getTabData(projectData, projectType, repoData),
     [projectData, projectType, repoData],
   );
+  const githubWebhooksEnabled = !!(
+    projectData?.githubWebhooksEnabled || repoData?.githubWebhooksEnabled
+  );
 
   useScrollToAnchor();
   useEffect(() => {
@@ -126,11 +129,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         <Route
           element={
             <GithubCommitQueueTab
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              githubWebhooksEnabled={
-                projectData?.githubWebhooksEnabled ||
-                repoData?.githubWebhooksEnabled
-              }
+              githubWebhooksEnabled={githubWebhooksEnabled}
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
@@ -305,15 +304,11 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           <Route
             element={
               <PullRequestsTab
-                githubWebhooksEnabled={
-                  !!(
-                    projectData?.githubWebhooksEnabled ||
-                    repoData?.githubWebhooksEnabled
-                  )
-                }
+                githubWebhooksEnabled={githubWebhooksEnabled}
                 projectData={
                   tabData[ProjectSettingsTabRoutes.PullRequests].projectData
                 }
+                projectId={projectId}
                 projectType={projectType}
                 repoData={
                   tabData[ProjectSettingsTabRoutes.PullRequests].repoData
