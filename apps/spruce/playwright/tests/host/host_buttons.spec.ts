@@ -36,7 +36,7 @@ test.describe("Host page restart jasper, reprovision, and update host status but
     await page.getByTestId("decommissioned-option").click();
     const modal = page.getByTestId("update-host-status-modal");
     const updateButton = modal.getByRole("button", { name: "Update" });
-    await expect(updateButton).not.toHaveAttribute("aria-disabled", "true");
+    await expect(updateButton).toBeEnabled();
     await updateButton.click();
 
     await validateToast(

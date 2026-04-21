@@ -18,10 +18,7 @@ test.describe("Task Action Buttons", () => {
       authenticatedPage: page,
     }) => {
       await page.goto(tasks[1]);
-      await expect(page.getByTestId("schedule-task")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(page.getByTestId("schedule-task")).toBeDisabled();
     });
 
     test("Clicking Restart button should restart a task and display a success toast", async ({
@@ -48,10 +45,7 @@ test.describe("Task Action Buttons", () => {
       await page.goto(tasks[3]);
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
-      await expect(page.getByTestId("abort-task")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(page.getByTestId("abort-task")).toBeDisabled();
     });
 
     test("Clicking on set priority, entering a priority value and submitting should result in a success toast", async ({

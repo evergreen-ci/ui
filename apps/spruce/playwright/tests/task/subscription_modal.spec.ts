@@ -17,9 +17,9 @@ test.describe("Task Subscription Modal", () => {
   const expectSaveButtonEnabled = async (page: Page, enabled = true) => {
     const saveButton = page.getByRole("button", { name: "Save" });
     if (enabled) {
-      await expect(saveButton).not.toHaveAttribute("aria-disabled", "true");
+      await expect(saveButton).toBeEnabled();
     } else {
-      await expect(saveButton).toHaveAttribute("aria-disabled", "true");
+      await expect(saveButton).toBeDisabled();
     }
   };
 

@@ -74,7 +74,7 @@ test.describe("waterfall page", () => {
       const tooltipButton = page
         .getByTestId("task-stats-tooltip-button")
         .nth(3);
-      await expect(tooltipButton).toHaveAttribute("aria-disabled", "false");
+      await expect(tooltipButton).toBeEnabled();
       await tooltipButton.click();
       const tooltip = page.getByTestId("task-stats-tooltip");
       await expect(tooltip).toBeVisible();

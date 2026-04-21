@@ -30,7 +30,7 @@ test.describe("Task Annotation Tab", () => {
     await page.getByTestId("move-btn-AnotherOne").click();
     let yesButton = page.getByTestId("popconfirm-confirm-button");
     await expect(yesButton).toBeVisible();
-    await expect(yesButton).toHaveAttribute("aria-disabled", "false");
+    await expect(yesButton).toBeEnabled();
     await yesButton.click();
     await validateToast(
       page,
@@ -44,7 +44,7 @@ test.describe("Task Annotation Tab", () => {
     await page.getByTestId("move-btn-AnotherOne").click();
     yesButton = page.getByTestId("popconfirm-confirm-button");
     await expect(yesButton).toBeVisible();
-    await expect(yesButton).toHaveAttribute("aria-disabled", "false");
+    await expect(yesButton).toBeEnabled();
     await yesButton.click();
     await validateToast(
       page,
@@ -85,7 +85,7 @@ test.describe("Task Annotation Tab", () => {
     await page.getByTestId("SERVER-1234-delete-btn").click();
     const yesButton = page.getByTestId("popconfirm-confirm-button");
     await expect(yesButton).toBeVisible();
-    await expect(yesButton).toHaveAttribute("aria-disabled", "false");
+    await expect(yesButton).toBeEnabled();
     await yesButton.click();
     await validateToast(
       page,

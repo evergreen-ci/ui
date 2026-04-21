@@ -21,7 +21,7 @@ test.describe("project banners", () => {
         .fill("7ad0f0571691fa5063b757762a5b103999290fa8");
 
       const confirmButton = page.getByRole("button", { name: "Confirm" });
-      await expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+      await expect(confirmButton).toBeEnabled();
       await confirmButton.click();
       await validateToast(
         page,

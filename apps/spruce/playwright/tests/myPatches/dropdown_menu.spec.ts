@@ -43,10 +43,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       .getByTestId("patch-card")
       .filter({ hasText: patchWithoutVersion });
     await patchCard.getByTestId("patch-card-dropdown").click();
-    await expect(page.getByTestId("schedule-patch")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(page.getByTestId("schedule-patch")).toBeDisabled();
   });
 
   test("'Unschedule' link opens popconfirm and unschedules patch", async ({
@@ -69,10 +66,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       .getByTestId("patch-card")
       .filter({ hasText: patchWithoutVersion });
     await patchCard.getByTestId("patch-card-dropdown").click();
-    await expect(page.getByTestId("unschedule-patch")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(page.getByTestId("unschedule-patch")).toBeDisabled();
   });
 
   test("'Restart' link shows restart patch modal", async ({
@@ -90,7 +84,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     const restartButton = page
       .getByTestId("version-restart-modal")
       .getByRole("button", { name: "Restart" });
-    await expect(restartButton).toHaveAttribute("aria-disabled", "false");
+    await expect(restartButton).toBeEnabled();
     await restartButton.click();
     await validateToast(page, "success", "Successfully restarted tasks!");
   });
@@ -102,10 +96,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       .getByTestId("patch-card")
       .filter({ hasText: patchWithoutVersion });
     await patchCard.getByTestId("patch-card-dropdown").click();
-    await expect(page.getByTestId("restart-version")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(page.getByTestId("restart-version")).toBeDisabled();
   });
 
   test("Toggle patch visibility", async ({ authenticatedPage: page }) => {

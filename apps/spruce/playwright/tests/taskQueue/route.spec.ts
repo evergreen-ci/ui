@@ -51,7 +51,7 @@ test.describe("Task Queue", () => {
     await page.goto("/task-queue/debian71-test");
 
     const dropdown = page.getByTestId("distro-dropdown");
-    await expect(dropdown).toHaveAttribute("aria-disabled", "false");
+    await expect(dropdown).toBeEnabled();
     await dropdown.click();
 
     const searchInput = page.getByPlaceholder("Search distros");

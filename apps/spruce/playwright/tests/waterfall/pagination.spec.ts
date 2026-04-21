@@ -72,26 +72,26 @@ test.describe("pagination", () => {
   test("correctly disables buttons on first and last page", async ({
     authenticatedPage: page,
   }) => {
-    await expect(page.getByTestId("prev-page-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
-    const nextButton = page.getByTestId("next-page-button");
-    await expect(nextButton).toHaveAttribute("aria-disabled", "false");
-    await nextButton.click();
-    await expect(nextButton).toHaveAttribute("aria-disabled", "false");
-    await nextButton.click();
-    await expect(nextButton).toHaveAttribute("aria-disabled", "false");
-    await nextButton.click();
-    await expect(nextButton).toHaveAttribute("aria-disabled", "true");
     const prevButton = page.getByTestId("prev-page-button");
-    await expect(prevButton).toHaveAttribute("aria-disabled", "false");
+    const nextButton = page.getByTestId("next-page-button");
+
+    await expect(prevButton).toBeDisabled();
+
+    await expect(nextButton).toBeEnabled();
+    await nextButton.click();
+    await expect(nextButton).toBeEnabled();
+    await nextButton.click();
+    await expect(nextButton).toBeEnabled();
+    await nextButton.click();
+    await expect(nextButton).toBeDisabled();
+
+    await expect(prevButton).toBeEnabled();
     await prevButton.click();
-    await expect(prevButton).toHaveAttribute("aria-disabled", "false");
+    await expect(prevButton).toBeEnabled();
     await prevButton.click();
-    await expect(prevButton).toHaveAttribute("aria-disabled", "false");
+    await expect(prevButton).toBeEnabled();
     await prevButton.click();
-    await expect(prevButton).toHaveAttribute("aria-disabled", "true");
+    await expect(prevButton).toBeDisabled();
   });
 
   test.describe("'Jump to most recent commit' button", () => {
@@ -124,18 +124,12 @@ test.describe("pagination", () => {
     const versionLabels = page.getByTestId("version-labels").locator("> *");
     await expect(versionLabels).toHaveCount(6);
 
-    await expect(page.getByTestId("next-page-button")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
+    await expect(page.getByTestId("next-page-button")).toBeEnabled();
     await page.getByTestId("next-page-button").click();
     await expect(versionLabels).toHaveCount(5);
     await expect(page).toHaveURL(/maxOrder/);
 
-    await expect(page.getByTestId("next-page-button")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
+    await expect(page.getByTestId("next-page-button")).toBeEnabled();
     await page.getByTestId("prev-page-button").click();
     await expect(versionLabels).toHaveCount(6);
     await expect(page).not.toHaveURL(/maxOrder/);

@@ -113,20 +113,14 @@ test.describe("task history", () => {
 
       await expect(firstTaskBox).toHaveCSS("background-color", successColor);
       await expect(firstTaskCard.getByTestId("execution-chip")).toBeHidden();
-      await expect(firstTaskCard.getByTestId("restart-button")).toHaveAttribute(
-        "aria-disabled",
-        "false",
-      );
+      await expect(firstTaskCard.getByTestId("restart-button")).toBeEnabled();
       await firstTaskCard.getByTestId("restart-button").click();
       await validateToast(page, "success", "Task scheduled to restart");
 
       await expect(page).toHaveURL(/execution=1/);
       await expect(firstTaskBox).toHaveCSS("background-color", willRunColor);
       await expect(firstTaskCard.getByTestId("execution-chip")).toBeVisible();
-      await expect(firstTaskCard.getByTestId("restart-button")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(firstTaskCard.getByTestId("restart-button")).toBeDisabled();
     });
 
     test("restarting a task that is not currently being viewed should reflect changes on UI, but not update the URL", async ({
@@ -140,18 +134,14 @@ test.describe("task history", () => {
 
       await expect(secondTaskBox).toHaveCSS("background-color", successColor);
       await expect(secondTaskCard.getByTestId("execution-chip")).toBeHidden();
-      await expect(
-        secondTaskCard.getByTestId("restart-button"),
-      ).toHaveAttribute("aria-disabled", "false");
+      await expect(secondTaskCard.getByTestId("restart-button")).toBeEnabled();
       await secondTaskCard.getByTestId("restart-button").click();
       await validateToast(page, "success", "Task scheduled to restart");
 
       await expect(page).not.toHaveURL(/execution=1/);
       await expect(secondTaskBox).toHaveCSS("background-color", willRunColor);
       await expect(secondTaskCard.getByTestId("execution-chip")).toBeVisible();
-      await expect(
-        secondTaskCard.getByTestId("restart-button"),
-      ).toHaveAttribute("aria-disabled", "true");
+      await expect(secondTaskCard.getByTestId("restart-button")).toBeDisabled();
     });
   });
 
@@ -173,10 +163,7 @@ test.describe("task history", () => {
 
       await page.getByText("1 Inactive Commit").click();
       const taskCard = page.getByTestId("commit-details-card").nth(2);
-      await expect(taskCard.getByTestId("schedule-button")).toHaveAttribute(
-        "aria-disabled",
-        "false",
-      );
+      await expect(taskCard.getByTestId("schedule-button")).toBeEnabled();
       await taskCard.getByTestId("schedule-button").click();
       await validateToast(page, "success", "Task scheduled to run");
 
@@ -200,10 +187,7 @@ test.describe("task history", () => {
 
       await expect(page.getByText("1 Inactive Commit")).toBeHidden();
       await expect(taskCard.getByTestId("restart-button")).toBeVisible();
-      await expect(taskCard.getByTestId("restart-button")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(taskCard.getByTestId("restart-button")).toBeDisabled();
     });
 
     test("scheduling a task in a group of multiple inactive tasks", async ({
@@ -215,10 +199,7 @@ test.describe("task history", () => {
       await expect(page.getByText("2 Expanded")).toBeVisible();
 
       const taskCard = page.getByTestId("commit-details-card").nth(7);
-      await expect(taskCard.getByTestId("schedule-button")).toHaveAttribute(
-        "aria-disabled",
-        "false",
-      );
+      await expect(taskCard.getByTestId("schedule-button")).toBeEnabled();
       await taskCard.getByTestId("schedule-button").click();
       await validateToast(page, "success", "Task scheduled to run");
 
@@ -251,7 +232,7 @@ test.describe("task history", () => {
         };
 
         // Previous page should be disabled.
-        await expect(prevPageButton).toHaveAttribute("aria-disabled", "true");
+        await expect(prevPageButton).toBeDisabled();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(21);
         await expect(
           page
@@ -267,7 +248,7 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Go to next page.
-        await expect(nextPageButton).toHaveAttribute("aria-disabled", "false");
+        await expect(nextPageButton).toBeEnabled();
         await nextPageButton.click();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(19);
         await expect(
@@ -284,10 +265,10 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Reached last page, next button should be disabled.
-        await expect(nextPageButton).toHaveAttribute("aria-disabled", "true");
+        await expect(nextPageButton).toBeDisabled();
 
         // Go to previous page.
-        await expect(prevPageButton).toHaveAttribute("aria-disabled", "false");
+        await expect(prevPageButton).toBeEnabled();
         await prevPageButton.click();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(21);
         await expect(
@@ -303,7 +284,7 @@ test.describe("task history", () => {
             .getByText(collapsedViewPages.first.date),
         ).toBeVisible();
         // Reached first page, previous button should be disabled.
-        await expect(prevPageButton).toHaveAttribute("aria-disabled", "true");
+        await expect(prevPageButton).toBeDisabled();
       });
 
       test("expanded view", async ({ authenticatedPage: page }) => {
@@ -323,7 +304,7 @@ test.describe("task history", () => {
         };
 
         // Previous page should be disabled.
-        await expect(prevPageButton).toHaveAttribute("aria-disabled", "true");
+        await expect(prevPageButton).toBeDisabled();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(45);
         await expect(
           page
@@ -339,7 +320,7 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Go to next page.
-        await expect(nextPageButton).toHaveAttribute("aria-disabled", "false");
+        await expect(nextPageButton).toBeEnabled();
         await nextPageButton.click();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(44);
         await expect(
@@ -356,7 +337,7 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Go to next page.
-        await expect(nextPageButton).toHaveAttribute("aria-disabled", "false");
+        await expect(nextPageButton).toBeEnabled();
         await nextPageButton.click();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(47);
         await expect(
@@ -373,7 +354,7 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Go to next page.
-        await expect(nextPageButton).toHaveAttribute("aria-disabled", "false");
+        await expect(nextPageButton).toBeEnabled();
         await nextPageButton.click();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(14);
         await expect(
@@ -390,10 +371,10 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Reached last page, next button should be disabled.
-        await expect(nextPageButton).toHaveAttribute("aria-disabled", "true");
+        await expect(nextPageButton).toBeDisabled();
 
         // Go to previous page.
-        await expect(prevPageButton).toHaveAttribute("aria-disabled", "false");
+        await expect(prevPageButton).toBeEnabled();
         await prevPageButton.click();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(47);
         await expect(
@@ -404,7 +385,7 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Go to previous page.
-        await expect(prevPageButton).toHaveAttribute("aria-disabled", "false");
+        await expect(prevPageButton).toBeEnabled();
         await prevPageButton.click();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(44);
         await expect(
@@ -415,7 +396,7 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Go to previous page.
-        await expect(prevPageButton).toHaveAttribute("aria-disabled", "false");
+        await expect(prevPageButton).toBeEnabled();
         await prevPageButton.click();
         await expect(page.getByTestId("commit-details-card")).toHaveCount(45);
         await expect(
@@ -426,7 +407,7 @@ test.describe("task history", () => {
         ).toBeVisible();
 
         // Reached first page, previous button should be disabled.
-        await expect(prevPageButton).toHaveAttribute("aria-disabled", "true");
+        await expect(prevPageButton).toBeDisabled();
       });
     });
 
@@ -439,12 +420,12 @@ test.describe("task history", () => {
       const prevPageButton = page.getByRole("button", {
         name: "Previous page",
       });
-      await expect(prevPageButton).toHaveAttribute("aria-disabled", "false");
+      await expect(prevPageButton).toBeEnabled();
       await prevPageButton.click();
 
       // We shouldn't just show the single activated task that appears before this one.
       await expect(page.getByTestId("timeline-box")).toHaveCount(19);
-      await expect(prevPageButton).toHaveAttribute("aria-disabled", "true");
+      await expect(prevPageButton).toBeDisabled();
     });
   });
 
@@ -518,7 +499,7 @@ test.describe("task history", () => {
       const prevPageButton = page.getByRole("button", {
         name: "Previous page",
       });
-      await expect(prevPageButton).toHaveAttribute("aria-disabled", "false");
+      await expect(prevPageButton).toBeEnabled();
       await prevPageButton.click();
       await expect(
         page

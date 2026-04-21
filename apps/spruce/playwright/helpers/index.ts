@@ -61,7 +61,7 @@ export async function selectOption(
 ): Promise<void> {
   const input = page.getByLabel(label);
   await input.scrollIntoViewIfNeeded();
-  await expect(input).not.toHaveAttribute("aria-disabled", "true");
+  await expect(input).toBeEnabled();
   await input.click();
 
   const listbox = page.locator('[role="listbox"]');

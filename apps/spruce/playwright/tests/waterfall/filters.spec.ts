@@ -211,10 +211,7 @@ test.describe("date filter", () => {
       day: "28",
     });
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();
-    await expect(page.getByTestId("prev-page-button")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
+    await expect(page.getByTestId("prev-page-button")).toBeEnabled();
     await page.getByTestId("prev-page-button").click();
     await validateDatePickerDate(page, "date-picker");
     await expect(page).not.toHaveURL(/date/);

@@ -141,7 +141,7 @@ test.describe("My Patches Page", () => {
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
 
       const nextPageBtn = page.getByTestId("next-page-button").first();
-      await expect(nextPageBtn).toHaveAttribute("aria-disabled", "false");
+      await expect(nextPageBtn).toBeEnabled();
       await nextPageBtn.click();
 
       for (const displayName of secondPageDisplayNames) {
@@ -157,7 +157,7 @@ test.describe("My Patches Page", () => {
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
 
       const prevPageBtn = page.getByTestId("prev-page-button").first();
-      await expect(prevPageBtn).toHaveAttribute("aria-disabled", "false");
+      await expect(prevPageBtn).toBeEnabled();
       await prevPageBtn.click();
 
       for (const displayName of firstPageDisplayNames) {
@@ -173,13 +173,13 @@ test.describe("My Patches Page", () => {
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
 
       const prevPageBtn = page.getByTestId("prev-page-button").first();
-      await expect(prevPageBtn).toHaveAttribute("aria-disabled", "true");
+      await expect(prevPageBtn).toBeDisabled();
 
       await page.goto(`${MY_PATCHES_ROUTE}?page=2`);
       await expect(page.getByTestId("patch-card")).toHaveCount(6);
 
       const nextPageBtn = page.getByTestId("next-page-button").first();
-      await expect(nextPageBtn).toHaveAttribute("aria-disabled", "true");
+      await expect(nextPageBtn).toBeDisabled();
     });
   });
 

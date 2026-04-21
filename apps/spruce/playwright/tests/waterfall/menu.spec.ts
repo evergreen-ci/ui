@@ -76,11 +76,10 @@ test.describe("Waterfall subscription modal", () => {
     await selectOption(page, "Notification Method", "JIRA issue");
 
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
-    await expect(page.getByRole("button", { name: "Save" })).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
-    await page.getByRole("button", { name: "Save" }).click();
+
+    const saveButton = page.getByRole("button", { name: "Save" });
+    await expect(saveButton).toBeEnabled();
+    await saveButton.click();
     await validateToast(page, "success", successText);
   });
 
@@ -95,12 +94,12 @@ test.describe("Waterfall subscription modal", () => {
     await page.getByTestId("add-button").click();
 
     const saveButton = page.getByRole("button", { name: "Save" });
-    await expect(saveButton).toHaveAttribute("aria-disabled", "true");
+    await expect(saveButton).toBeDisabled();
 
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
     await page.getByTestId("regex-input").fill("*.notValidRegex");
     await expect(page.getByText(errorTextRegex)).toBeVisible();
-    await expect(saveButton).toHaveAttribute("aria-disabled", "true");
+    await expect(saveButton).toBeDisabled();
 
     await page.getByTestId("regex-input").clear();
     await page.getByTestId("regex-input").fill("validRegex");

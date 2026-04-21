@@ -152,19 +152,13 @@ test.describe("Configure Patch Page", () => {
     test("Schedule button should be disabled when no tasks are selected and enabled when they are", async ({
       authenticatedPage: page,
     }) => {
-      await expect(page.getByTestId("schedule-patch")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(page.getByTestId("schedule-patch")).toBeDisabled();
       await page
         .getByTestId("build-variant-list-item")
         .getByText("Race Detector")
         .click();
       await page.getByText("test-agent").click();
-      await expect(page.getByTestId("schedule-patch")).toHaveAttribute(
-        "aria-disabled",
-        "false",
-      );
+      await expect(page.getByTestId("schedule-patch")).toBeEnabled();
     });
 
     test("Clicking on unchecked tasks checks them and updates task counts", async ({
@@ -602,10 +596,7 @@ test.describe("Configure Patch Page", () => {
         authenticatedPage: page,
       }) => {
         await expect(page.getByTestId("alias-task-checkbox")).toHaveCount(1);
-        await expect(page.getByTestId("alias-task-checkbox")).toHaveAttribute(
-          "aria-disabled",
-          "true",
-        );
+        await expect(page.getByTestId("alias-task-checkbox")).toBeDisabled();
         await expect(page.getByTestId("alias-task-checkbox")).not.toBeChecked();
       });
 
@@ -710,7 +701,7 @@ test.describe("Configure Patch Page", () => {
         .click();
       await page.getByText("test-agent").click();
       const scheduleButton = page.getByTestId("schedule-patch");
-      await expect(scheduleButton).toHaveAttribute("aria-disabled", "false");
+      await expect(scheduleButton).toBeEnabled();
       await scheduleButton.click();
       await expect(page).toHaveURL(
         `/version/${activatedPatchId}/tasks?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`,

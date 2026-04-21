@@ -28,10 +28,7 @@ test.describe("Selecting Task Execution", () => {
     await expect(
       page.getByTestId("execution-select").getByText("Execution 2 (latest)"),
     ).toBeVisible();
-    await expect(page.getByTestId("execution-select")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
+    await expect(page.getByTestId("execution-select")).toBeEnabled();
     await page.getByTestId("execution-select").click();
     await page.getByTestId("execution-0").click();
     await expect(

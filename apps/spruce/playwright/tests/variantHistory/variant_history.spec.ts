@@ -116,7 +116,7 @@ test.describe("Variant history", () => {
       for (const icon of await successIcons.all()) {
         await expect(icon).toBeVisible();
         const parent = icon.locator("..");
-        await expect(parent).toHaveAttribute("aria-disabled", "true");
+        await expect(parent).toBeDisabled();
       }
     });
 
