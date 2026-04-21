@@ -625,7 +625,7 @@ test.describe("Configure Patch Page", () => {
           .getByTestId("task-count-badge");
         await expect(taskCountBadge).toBeHidden();
 
-        await clickCheckboxByLabel(page, /Add alias to patch/);
+        await clickCheckboxByLabel(page, "Add alias to patch");
 
         await expect(
           page.getByTestId("selected-task-disclaimer"),
@@ -653,13 +653,13 @@ test.describe("Configure Patch Page", () => {
       test("Updates the badge count when the trigger alias is deselected", async ({
         authenticatedPage: page,
       }) => {
-        await clickCheckboxByLabel(page, /Add alias to patch/);
+        await clickCheckboxByLabel(page, "Add alias to patch");
 
         const taskCountBadge = page
           .getByTestId("trigger-alias-list-item")
           .getByTestId("task-count-badge");
         await expect(taskCountBadge).toBeVisible();
-        await clickCheckboxByLabel(page, /Add alias to patch/);
+        await clickCheckboxByLabel(page, "Add alias to patch");
 
         await expect(taskCountBadge).toBeHidden();
       });
