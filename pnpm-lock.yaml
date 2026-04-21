@@ -343,12 +343,6 @@ importers:
       '@evg-ui/lib':
         specifier: workspace:*
         version: link:../../packages/lib
-      '@evg-ui/playwright-config':
-        specifier: workspace:*
-        version: link:../../packages/playwright-config
-      '@evg-ui/storybook-addon':
-        specifier: workspace:*
-        version: link:../../packages/storybook-addon
       '@leafygreen-ui/badge':
         specifier: ^10.2.3
         version: 10.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
@@ -569,6 +563,12 @@ importers:
       '@evg-ui/lint-staged':
         specifier: workspace:*
         version: link:../../packages/lint-staged
+      '@evg-ui/playwright-config':
+        specifier: workspace:*
+        version: link:../../packages/playwright-config
+      '@evg-ui/storybook-addon':
+        specifier: workspace:*
+        version: link:../../packages/storybook-addon
       '@evg-ui/vite-utils':
         specifier: workspace:*
         version: link:../../packages/vite-utils

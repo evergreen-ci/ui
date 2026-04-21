@@ -3,7 +3,7 @@ const Tasks = {
   Compile: "compile",
   E2E: "e2e",
   E2EParallel: "e2e_parallel",
- E2ECypress: "e2e_cypress", // TODO: Delete when migration to Playwright is complete.
+  E2ECypress: "e2e_cypress", // TODO: Delete when migration to Playwright is complete.
   E2ECypressParallel: "e2e_cypress_parallel", // TODO: Delete when migration to Playwright is complete.
   Lint: "lint",
   Storybook: "storybook",

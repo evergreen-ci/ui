@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
-import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
+import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, PLAYWRIGHT_PARALLEL_COUNT, Tasks } from "./constants.js"
 import { hasChangesInDirectoryOrFile } from "./git-utils.js";
 
 const ALWAYS_GENERATE_TASKS_REQUESTERS = ["trigger", "patch", "commit"];
@@ -101,7 +101,7 @@ const bucketSpecs = (specs, bucketCount) => {
 export const getSpecs = (dirPath) => {
   const dirSizes = getPlaywrightDirSizes(dirPath);
   const sorted = sortDirSizes(dirSizes);
-  const buckets = bucketSpecs(sorted, PARALLEL_COUNT);
+  const buckets = bucketSpecs(sorted, PLAYWRIGHT_PARALLEL_COUNT);
   // Playwright uses space-separated specs
   return buckets.map((specs) => specs.join(" "));
 };

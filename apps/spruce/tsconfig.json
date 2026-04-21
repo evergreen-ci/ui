@@ -11,7 +11,7 @@
   "exclude": [
     "node_modules",
     "vite.config.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
   ],
   "include": [
     "src",

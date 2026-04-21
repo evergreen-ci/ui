@@ -9,9 +9,8 @@ export function hasOperationName(
   operationName: string,
 ): boolean {
   return (
-    typeof postData === "object" &&
-    postData !== null &&
-    "operationName" in postData &&
-    (postData as { operationName: string }).operationName === operationName
+    Object.prototype.hasOwnProperty.call(postData, "operationName") &&
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (postData as any).operationName === operationName
   );
 }

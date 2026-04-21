@@ -1,12 +1,15 @@
+/** This file is simply a copy of generate-parallel-e2e-tasks.js and should be deleted when the migration to Playwright is complete. */
+
 import { readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
-import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
+import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, CYPRESS_PARALLEL_COUNT, Tasks } from "./constants.js"
 import { hasChangesInDirectoryOrFile } from "./git-utils.js";
 
 const ALWAYS_GENERATE_TASKS_REQUESTERS = ["trigger", "patch", "commit"];
 const PARENT_PATCH_USER = "parent_patch";
 const EVERGREEN_DIR = join(process.cwd(), "/.evergreen");
 const TASKS_FILE = join(EVERGREEN_DIR, "generate-parallel-cypress-tasks.json");
+
 /**
  * getDirSize calculates the size of a directory at a given path, optionally including the size of its subdirectories.
  * @param {string} dirPath - string representing the root directory path
@@ -100,7 +103,7 @@ const bucketSpecs = (specs, bucketCount) => {
 export const getSpecs = (dirPath) => {
   const dirSizes = getCypressDirSizes(dirPath);
   const sorted = sortDirSizes(dirSizes);
-  const buckets = bucketSpecs(sorted, PARALLEL_COUNT);
+  const buckets = bucketSpecs(sorted, CYPRESS_PARALLEL_COUNT);
   return buckets.map((specs) => specs.join());
 };
 
