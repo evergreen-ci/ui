@@ -60,8 +60,6 @@
     "@evg-ui/analytics-visualizer": "workspace:*",
     "@evg-ui/deploy-utils": "workspace:*",
     "@evg-ui/lib": "workspace:*",
-    "@evg-ui/playwright-config": "workspace:*",
-    "@evg-ui/storybook-addon": "workspace:*",
     "@leafygreen-ui/badge": "^10.2.3",
     "@leafygreen-ui/banner": "^10.2.4",
     "@leafygreen-ui/button": "^25.2.1",
