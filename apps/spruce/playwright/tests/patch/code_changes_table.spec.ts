@@ -21,7 +21,7 @@ test.describe("Code Changes Table", () => {
     for (const link of await fileLinks.all()) {
       await expect(link).toHaveAttribute(
         "href",
-        new RegExp(`/version/${patchId}/file-diff`),
+        `/version/${patchId}/file-diff`,
       );
       await expect(link).toHaveAttribute("href", /file_name=/);
       await expect(link).toHaveAttribute("href", /patch_number=/);
@@ -30,14 +30,14 @@ test.describe("Code Changes Table", () => {
     const htmlDiffBtn = page.getByTestId("html-diff-btn");
     await expect(htmlDiffBtn).toHaveAttribute(
       "href",
-      new RegExp(`/version/${patchId}/diff`),
+      `/version/${patchId}/diff?patch_number=0`,
     );
     await expect(htmlDiffBtn).toHaveAttribute("href", /patch_number=/);
 
     const rawDiffBtn = page.getByTestId("raw-diff-btn");
     await expect(rawDiffBtn).toHaveAttribute(
       "href",
-      new RegExp(`rawdiff/${patchId}`),
+      `http://localhost:9090/rawdiff/${patchId}?patch_number=0`,
     );
   });
 });

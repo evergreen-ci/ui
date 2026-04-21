@@ -82,12 +82,10 @@ test.describe("Task Queue", () => {
       "/task-queue/osx-108?taskId=evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
     );
 
-    // patch
     const patchLink = page.getByTestId("current-task-link").nth(0);
     const patchHref = await patchLink.getAttribute("href");
     expect(patchHref).not.toContain("localhost");
 
-    // mainline commit
     const mainlineLink = page.getByTestId("current-task-link").nth(1);
     const mainlineHref = await mainlineLink.getAttribute("href");
     expect(mainlineHref).not.toContain("localhost");

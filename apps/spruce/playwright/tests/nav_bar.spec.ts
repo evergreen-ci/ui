@@ -1,4 +1,4 @@
-import { users } from "../constants";
+import { users } from "@evg-ui/playwright-config/constants";
 import { test, expect } from "../fixtures";
 import { login, logout } from "../helpers";
 

@@ -1,21 +1,27 @@
+import { users } from "@evg-ui/playwright-config/constants";
 import { test, expect } from "../fixtures";
-import { enterLoginCredentials } from "../helpers";
 
 test.describe("Auth", () => {
   test("Unauthenticated user is redirected to login page after visiting a private route", async ({
-    page,
+    unauthenticatedPage,
   }) => {
     // Don't use authenticatedPage fixture - we want to test unauthenticated flow.
-    await page.goto("/version/123123");
-    await expect(page).toHaveURL(/\/login/);
+    await unauthenticatedPage.goto("/version/123123");
+    await expect(unauthenticatedPage).toHaveURL(/\/login/);
   });
 
   test("Redirects user to My Patches page after logging in", async ({
-    page,
+    unauthenticatedPage,
   }) => {
-    await page.goto("/");
-    await enterLoginCredentials(page);
-    await expect(page).toHaveURL(/\/user\/admin\/patches/);
+    await unauthenticatedPage.goto("/");
+    await unauthenticatedPage
+      .getByTestId("login-username")
+      .fill(users.admin.username);
+    await unauthenticatedPage
+      .getByTestId("login-password")
+      .fill(users.admin.password);
+    await unauthenticatedPage.getByTestId("login-submit").click();
+    await expect(unauthenticatedPage).toHaveURL(/\/user\/admin\/patches/);
   });
 
   test("Can log out via the dropdown", async ({ authenticatedPage: page }) => {

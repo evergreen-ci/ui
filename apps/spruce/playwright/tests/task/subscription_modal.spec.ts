@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { selectLGOption, validateToast } from "../../helpers";
+import { selectOption, validateToast } from "../../helpers";
+import { mockGraphQLResponse } from "../../utils";
 
 const TASK_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs";
@@ -29,8 +30,8 @@ test.describe("Task Subscription Modal", () => {
     const modal = page.getByTestId(MODAL_DATA_CY);
     await expect(modal).toBeVisible();
 
-    await selectLGOption(page, "Event", "This task finishes");
-    await selectLGOption(page, "Notification Method", "JIRA issue");
+    await selectOption(page, "Event", "This task finishes");
+    await selectOption(page, "Notification Method", "JIRA issue");
 
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
     await page.getByRole("button", { name: "Save" }).click();
@@ -44,7 +45,7 @@ test.describe("Task Subscription Modal", () => {
     });
 
     test("has an invalid percentage", async ({ authenticatedPage: page }) => {
-      await selectLGOption(page, "Event", "changes by some percentage");
+      await selectOption(page, "Event", "changes by some percentage");
       await page.getByTestId("percent-change-input").clear();
       await page.getByTestId("percent-change-input").fill("-100");
       await page.getByTestId("jira-comment-input").fill("EVG-2000");
@@ -59,7 +60,7 @@ test.describe("Task Subscription Modal", () => {
     test("has an invalid duration value", async ({
       authenticatedPage: page,
     }) => {
-      await selectLGOption(page, "Event", "exceeds some duration");
+      await selectOption(page, "Event", "exceeds some duration");
       await page.getByTestId("duration-secs-input").clear();
       await page.getByTestId("duration-secs-input").fill("-100");
       await page.getByTestId("jira-comment-input").fill("EVG-2000");
@@ -80,7 +81,7 @@ test.describe("Task Subscription Modal", () => {
     });
 
     test("has an invalid email", async ({ authenticatedPage: page }) => {
-      await selectLGOption(page, "Notification Method", "Email");
+      await selectOption(page, "Notification Method", "Email");
       await page.getByTestId("email-input").clear();
       await page.getByTestId("email-input").fill("arst");
       await expectSaveButtonEnabled(page, false);
@@ -91,7 +92,7 @@ test.describe("Task Subscription Modal", () => {
     test("has an invalid slack username", async ({
       authenticatedPage: page,
     }) => {
-      await selectLGOption(page, "Notification Method", "Slack message");
+      await selectOption(page, "Notification Method", "Slack message");
       await page.getByTestId("slack-input").clear();
       await page.getByTestId("slack-input").fill("sa rt");
       await expectSaveButtonEnabled(page, false);
@@ -104,33 +105,20 @@ test.describe("Task Subscription Modal", () => {
   test("Displays error toast when save subscription request fails", async ({
     authenticatedPage: page,
   }) => {
-    // Mock GraphQL error response BEFORE opening the modal
-    await page.route("**/graphql/query", async (route) => {
-      const request = route.request();
-      const postData = request.postDataJSON();
-      if (postData?.operationName === "SaveSubscriptionForUser") {
-        await route.fulfill({
-          status: 200,
-          contentType: "application/json",
-          body: JSON.stringify({
-            errors: [
-              {
-                message: "error",
-                path: ["SaveSubscriptionForUser"],
-                extensions: { code: "INTERNAL_SERVER_ERROR" },
-              },
-            ],
-            data: null,
-          }),
-        });
-      } else {
-        await route.continue();
-      }
+    await mockGraphQLResponse(page, "SaveSubscriptionForUser", {
+      errors: [
+        {
+          message: "error",
+          path: ["SaveSubscriptionForUser"],
+          extensions: { code: "INTERNAL_SERVER_ERROR" },
+        },
+      ],
+      data: null,
     });
 
     await openSubscriptionModal(page);
     await expect(page.getByTestId(MODAL_DATA_CY)).toBeVisible();
-    await selectLGOption(page, "Event", "This task finishes");
+    await selectOption(page, "Event", "This task finishes");
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
     await page.getByRole("button", { name: "Save" }).click();
     await validateToast(page, "error", "Error adding your subscription");

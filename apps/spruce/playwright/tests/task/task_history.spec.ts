@@ -1,7 +1,11 @@
 import { palette } from "@leafygreen-ui/palette";
 import { SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL } from "constants/cookies";
 import { test, expect } from "../../fixtures";
-import { validateToast, validateDatePickerDate } from "../../helpers";
+import {
+  validateToast,
+  validateDatePickerDate,
+  selectDatePickerDate,
+} from "../../helpers";
 
 const { green, gray, blue } = palette;
 
@@ -451,26 +455,7 @@ test.describe("task history", () => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
 
-      await page.getByTestId("date-picker").click();
-      const yearSelect = page.locator("[aria-label*='Select year' i]");
-      await expect(yearSelect).toBeVisible();
-      await yearSelect.click();
-
-      const options = page.getByRole("listbox").getByRole("option");
-      const yearToClick = options.getByText("2025");
-      await expect(yearToClick).toBeVisible();
-      await yearToClick.click();
-
-      const monthSelect = page.locator("[aria-label*='Select month' i]");
-      await expect(monthSelect).toBeVisible();
-      await monthSelect.click();
-
-      const monthToClick = options.getByText("Feb");
-      await expect(monthToClick).toBeVisible();
-      await monthToClick.click();
-
-      await page.locator("[data-iso='2025-02-28']").click();
-
+      await selectDatePickerDate(page, "2025", "Feb", "2025-02-28");
       await expect(page).toHaveURL(/2025-02-28/);
       await validateDatePickerDate(page, "date-picker", {
         year: "2025",
@@ -498,26 +483,7 @@ test.describe("task history", () => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
 
-      await page.getByTestId("date-picker").click();
-      const yearSelect = page.locator("[aria-label*='Select year' i]");
-      await expect(yearSelect).toBeVisible();
-      await yearSelect.click();
-
-      const options = page.getByRole("listbox").getByRole("option");
-      const yearToClick = options.getByText("2025");
-      await expect(yearToClick).toBeVisible();
-      await yearToClick.click();
-
-      const monthSelect = page.locator("[aria-label*='Select month' i]");
-      await expect(monthSelect).toBeVisible();
-      await monthSelect.click();
-
-      const monthToClick = options.getByText("Feb");
-      await expect(monthToClick).toBeVisible();
-      await monthToClick.click();
-
-      await page.locator("[data-iso='2025-02-28']").click();
-
+      await selectDatePickerDate(page, "2025", "Feb", "2025-02-28");
       await expect(page).toHaveURL(/2025-02-28/);
       await validateDatePickerDate(page, "date-picker", {
         year: "2025",
@@ -589,25 +555,7 @@ test.describe("task history", () => {
       const firstTaskCard = page.getByTestId("commit-details-card").nth(0);
       await expect(firstTaskCard.getByText("Order: 12306")).toBeVisible();
 
-      await page.getByTestId("date-picker").click();
-      const yearSelect = page.locator("[aria-label*='Select year' i]");
-      await expect(yearSelect).toBeVisible();
-      await yearSelect.click();
-
-      const options = page.getByRole("listbox").getByRole("option");
-      const yearToClick = options.getByText("2025");
-      await expect(yearToClick).toBeVisible();
-      await yearToClick.click();
-
-      const monthSelect = page.locator("[aria-label*='Select month' i]");
-      await expect(monthSelect).toBeVisible();
-      await monthSelect.click();
-
-      const monthToClick = options.getByText("Feb");
-      await expect(monthToClick).toBeVisible();
-      await monthToClick.click();
-
-      await page.locator("[data-iso='2025-02-28']").click();
+      await selectDatePickerDate(page, "2025", "Feb", "2025-02-28");
       await expect(firstTaskCard.getByText("Order: 12306")).toBeHidden();
 
       await page.getByTestId("jump-to-this-task-button").click();

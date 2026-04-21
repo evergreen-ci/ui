@@ -54,7 +54,7 @@ test.describe("Task Action Buttons", () => {
       );
     });
 
-    test("Clicking on set priority, entering a priority value and submitting should result in a success toast.", async ({
+    test("Clicking on set priority, entering a priority value and submitting should result in a success toast", async ({
       authenticatedPage: page,
     }) => {
       await page.goto(tasks[5]);

@@ -46,26 +46,29 @@ test.describe("My Patches Page", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
+    const patchDescriptionInput = page.getByTestId("patch-description-input");
     const inputVal = "testtest";
-    await page.getByTestId("patch-description-input").fill(inputVal);
+    await patchDescriptionInput.fill(inputVal);
     expect(page.url()).toContain(`patchName=${inputVal}`);
-    await page.getByTestId("patch-description-input").clear();
+    await patchDescriptionInput.clear();
   });
 
   test("Inputting a number successfully searches patches", async ({
     authenticatedPage: page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
-    await page.getByTestId("patch-description-input").fill("3186");
+    const patchDescriptionInput = page.getByTestId("patch-description-input");
+    await patchDescriptionInput.fill("3186");
     await expect(page.getByTestId("patch-card")).toHaveCount(1);
-    await page.getByTestId("patch-description-input").clear();
+    await patchDescriptionInput.clear();
   });
 
   test("Searching for a nonexistent patch shows 'No patches found'", async ({
     authenticatedPage: page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
-    await page.getByTestId("patch-description-input").fill("satenarstharienht");
+    const patchDescriptionInput = page.getByTestId("patch-description-input");
+    await patchDescriptionInput.fill("satenarstharienht");
     await expect(page.getByText("No patches found")).toBeVisible();
   });
 
@@ -198,10 +201,10 @@ test.describe("My Patches Page", () => {
       authenticatedPage: page,
     }) => {
       for (const { display, key } of statuses) {
-        await clickCheckboxByLabel(page, display); // Click to check
+        await clickCheckboxByLabel(page, display); // Click to check status checkbox.
         expect(page.url()).toContain(`statuses=${key}`);
 
-        await clickCheckboxByLabel(page, display); // Click to uncheck
+        await clickCheckboxByLabel(page, display); // Click to uncheck status checkbox.
         expect(page.url()).not.toContain(`statuses`);
       }
     });
@@ -209,12 +212,12 @@ test.describe("My Patches Page", () => {
     test("Clicking on All status checkbox applies all of the statuses and clicking again removes them", async ({
       authenticatedPage: page,
     }) => {
-      await clickCheckboxByLabel(page, "All"); // Click to check
+      await clickCheckboxByLabel(page, "All"); // Click to check status checkbox.
       expect(page.url()).toContain(
         "statuses=all,success,created,started,failed",
       );
 
-      await clickCheckboxByLabel(page, "All"); // Click to uncheck
+      await clickCheckboxByLabel(page, "All"); // Click to uncheck status checkbox.
       expect(page.url()).not.toContain("statuses");
     });
   });

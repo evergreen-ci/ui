@@ -19,10 +19,10 @@ test.describe("project banners", () => {
       await page
         .getByLabel("Base Revision")
         .fill("7ad0f0571691fa5063b757762a5b103999290fa8");
-      await expect(
-        page.getByRole("button", { name: "Confirm" }),
-      ).not.toHaveAttribute("aria-disabled", "true");
-      await page.getByRole("button", { name: "Confirm" }).click();
+
+      const confirmButton = page.getByRole("button", { name: "Confirm" });
+      await expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+      await confirmButton.click();
       await validateToast(
         page,
         "success",

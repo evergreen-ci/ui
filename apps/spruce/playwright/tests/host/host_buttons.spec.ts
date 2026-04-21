@@ -10,7 +10,9 @@ test.describe("Host page restart jasper, reprovision, and update host status but
     authenticatedPage: page,
   }) => {
     await page.getByTestId("restart-jasper-button").click();
-    await page.getByRole("button", { name: "Yes" }).click();
+    const confirmButton = page.getByRole("button", { name: "Yes" });
+    await expect(confirmButton).toBeVisible();
+    await confirmButton.click();
     await validateToast(page, "success", "Marked Jasper as restarting");
   });
 
@@ -18,7 +20,9 @@ test.describe("Host page restart jasper, reprovision, and update host status but
     authenticatedPage: page,
   }) => {
     await page.getByTestId("reprovision-button").click();
-    await page.getByRole("button", { name: "Yes" }).click();
+    const confirmButton = page.getByRole("button", { name: "Yes" });
+    await expect(confirmButton).toBeVisible();
+    await confirmButton.click();
     await validateToast(page, "success", "Marked host to reprovision");
   });
 

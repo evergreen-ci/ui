@@ -19,12 +19,12 @@ test.describe("Task Annotation Tab", () => {
     const issueRows = page
       .getByTestId("issues-list")
       .getByTestId("annotation-ticket-row");
-    const susIssueRows = page
+    const suspectedIssueRows = page
       .getByTestId("suspected-issues-list")
       .getByTestId("annotation-ticket-row");
 
     await expect(issueRows).toHaveCount(1);
-    await expect(susIssueRows).toHaveCount(3);
+    await expect(suspectedIssueRows).toHaveCount(3);
 
     // Move from Suspected Issues to Issues.
     await page.getByTestId("move-btn-AnotherOne").click();
@@ -38,7 +38,7 @@ test.describe("Task Annotation Tab", () => {
       "Successfully moved suspected issue to issues",
     );
     await expect(issueRows).toHaveCount(2);
-    await expect(susIssueRows).toHaveCount(2);
+    await expect(suspectedIssueRows).toHaveCount(2);
 
     // Move from Issues to Suspected Issues.
     await page.getByTestId("move-btn-AnotherOne").click();
@@ -52,7 +52,7 @@ test.describe("Task Annotation Tab", () => {
       "Successfully moved issue to suspected issues",
     );
     await expect(issueRows).toHaveCount(1);
-    await expect(susIssueRows).toHaveCount(3);
+    await expect(suspectedIssueRows).toHaveCount(3);
   });
 
   test("annotations add and delete correctly", async ({
@@ -61,12 +61,12 @@ test.describe("Task Annotation Tab", () => {
     const issueRows = page
       .getByTestId("issues-list")
       .getByTestId("annotation-ticket-row");
-    const susIssueRows = page
+    const suspectedIssueRows = page
       .getByTestId("suspected-issues-list")
       .getByTestId("annotation-ticket-row");
 
     await expect(issueRows).toHaveCount(1);
-    await expect(susIssueRows).toHaveCount(3);
+    await expect(suspectedIssueRows).toHaveCount(3);
 
     await expect(page.getByTestId("loading-annotation-ticket")).toHaveCount(0);
 
@@ -78,7 +78,7 @@ test.describe("Task Annotation Tab", () => {
     const modal = page.getByTestId("add-issue-modal");
     await modal.getByRole("button", { name: "Add suspected issue" }).click();
     await expect(issueRows).toHaveCount(1);
-    await expect(susIssueRows).toHaveCount(4);
+    await expect(suspectedIssueRows).toHaveCount(4);
     await validateToast(page, "success", "Successfully added suspected issue");
 
     // Delete the newly added entry.
@@ -93,6 +93,6 @@ test.describe("Task Annotation Tab", () => {
       "Successfully removed suspected issue",
     );
     await expect(issueRows).toHaveCount(1);
-    await expect(susIssueRows).toHaveCount(3);
+    await expect(suspectedIssueRows).toHaveCount(3);
   });
 });

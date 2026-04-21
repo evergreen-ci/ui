@@ -1,5 +1,6 @@
 import { test, expect } from "../../fixtures";
 import { clickCheckboxByLabel } from "../../helpers";
+import { mockGraphQLResponse } from "../../utils";
 
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
@@ -23,7 +24,7 @@ test.describe("Configure Patch Page", () => {
       await expect(page.getByTestId("cancel-button")).toBeVisible();
       await page.getByTestId("cancel-button").click();
       await expect(page).toHaveURL(
-        "http://localhost:3000/version/5ecedafb562343215a7ff297/tasks?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
+        "/version/5ecedafb562343215a7ff297/tasks?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
       );
     });
 
@@ -293,12 +294,12 @@ test.describe("Configure Patch Page", () => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
 
-        await clickCheckboxByLabel(page, /Select all/);
+        await clickCheckboxByLabel(page, "Select all");
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).toBeChecked();
         }
 
-        await clickCheckboxByLabel(page, /Select all/);
+        await clickCheckboxByLabel(page, "Select all");
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).not.toBeChecked();
         }
@@ -360,12 +361,12 @@ test.describe("Configure Patch Page", () => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
 
-        await clickCheckboxByLabel(page, /Select all/);
+        await clickCheckboxByLabel(page, "Select all");
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).toBeChecked();
         }
         await expect(page.getByTestId("select-all-checkbox")).toBeChecked();
-        await clickCheckboxByLabel(page, /Select all/);
+        await clickCheckboxByLabel(page, "Select all");
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).not.toBeChecked();
         }
@@ -511,7 +512,7 @@ test.describe("Configure Patch Page", () => {
             .getByText("RHEL 7.2 zLinux")
             .click();
 
-          await clickCheckboxByLabel(page, /Select all/);
+          await clickCheckboxByLabel(page, "Select all");
           const taskCheckboxes = page.getByTestId("task-checkbox");
           const count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
@@ -534,7 +535,7 @@ test.describe("Configure Patch Page", () => {
             .getByTestId("build-variant-list-item")
             .getByText("RHEL 7.2 zLinux")
             .click();
-          await clickCheckboxByLabel(page, /Select all/);
+          await clickCheckboxByLabel(page, "Select all");
           const taskCheckboxes = page.getByTestId("task-checkbox");
           let count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
@@ -545,7 +546,7 @@ test.describe("Configure Patch Page", () => {
             .getByTestId("build-variant-list-item")
             .getByText("RHEL 7.1 POWER8")
             .click();
-          await clickCheckboxByLabel(page, /Select all/);
+          await clickCheckboxByLabel(page, "Select all");
 
           count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
@@ -558,7 +559,7 @@ test.describe("Configure Patch Page", () => {
             .getByText("RHEL 7.2 zLinux")
             .click();
 
-          await clickCheckboxByLabel(page, /Select all/);
+          await clickCheckboxByLabel(page, "Select all");
 
           count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
@@ -673,48 +674,35 @@ test.describe("Configure Patch Page", () => {
     test("Clicking 'Schedule' button schedules patch and redirects to patch page", async ({
       authenticatedPage: page,
     }) => {
-      // Mock GraphQL response
-      await page.route("**/graphql/query", async (route) => {
-        const request = route.request();
-        const postData = request.postDataJSON();
-        if (postData?.operationName === "SchedulePatch") {
-          await route.fulfill({
-            status: 200,
-            contentType: "application/json",
-            body: JSON.stringify({
-              data: {
-                schedulePatch: {
-                  id: activatedPatchId,
-                  description: "cypress_v10: turn on retries",
-                  author: "person",
-                  status: "created",
-                  activated: true,
-                  alias: "",
-                  variantsTasks: [
-                    {
-                      name: "ubuntu1604",
-                      tasks: ["test"],
-                    },
-                  ],
-                  parameters: [
-                    {
-                      key: "a",
-                      value: "b",
-                    },
-                  ],
-                  versionFull: {
-                    id: activatedPatchId,
-                  },
-                  tasks: ["test"],
-                  variants: ["ubuntu1604"],
-                },
+      await mockGraphQLResponse(page, "SchedulePatch", {
+        data: {
+          schedulePatch: {
+            id: activatedPatchId,
+            description: "cypress_v10: turn on retries",
+            author: "person",
+            status: "created",
+            activated: true,
+            alias: "",
+            variantsTasks: [
+              {
+                name: "ubuntu1604",
+                tasks: ["test"],
               },
-              errors: null,
-            }),
-          });
-        } else {
-          await route.continue();
-        }
+            ],
+            parameters: [
+              {
+                key: "a",
+                value: "b",
+              },
+            ],
+            versionFull: {
+              id: activatedPatchId,
+            },
+            tasks: ["test"],
+            variants: ["ubuntu1604"],
+          },
+        },
+        errors: null,
       });
       await page
         .getByTestId("build-variant-list-item")

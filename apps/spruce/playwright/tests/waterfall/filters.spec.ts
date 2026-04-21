@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { validateDatePickerDate } from "../../helpers";
+import { validateDatePickerDate, selectDatePickerDate } from "../../helpers";
 
 test.describe("status filtering", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
@@ -188,26 +188,7 @@ test.describe("date filter", () => {
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();
     await expect(page).toHaveURL("/project/spruce/waterfall");
 
-    await page.getByTestId("date-picker").click();
-    const yearSelect = page.locator("[aria-label*='Select year' i]");
-    await expect(yearSelect).toBeVisible();
-    await yearSelect.click();
-
-    const options = page.getByRole("listbox").getByRole("option");
-    const yearToClick = options.getByText("2022");
-    await expect(yearToClick).toBeVisible();
-    await yearToClick.click();
-
-    const monthSelect = page.locator("[aria-label*='Select month' i]");
-    await expect(monthSelect).toBeVisible();
-    await monthSelect.click();
-
-    const monthToClick = options.getByText("Feb");
-    await expect(monthToClick).toBeVisible();
-    await monthToClick.click();
-
-    await page.locator("[data-iso='2022-02-28']").click();
-
+    await selectDatePickerDate(page, "2022", "Feb", "2022-02-28");
     await expect(page).toHaveURL(/date=2022-02-28/);
     await validateDatePickerDate(page, "date-picker", {
       year: "2022",
@@ -301,7 +282,7 @@ test.describe("project selection", () => {
       .getByText("evergreen smoke test")
       .click();
     await expect(page).toHaveURL(
-      "http://localhost:3000/project/evergreen/waterfall?statuses=test-timed-out",
+      "/project/evergreen/waterfall?statuses=test-timed-out",
     );
   });
 });

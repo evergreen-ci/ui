@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel, selectLGOption } from "../../helpers";
+import { clickCheckboxByLabel, selectOption } from "../../helpers";
 
 /**
  * Helper to select page size and verify URL and table row count
@@ -254,7 +254,7 @@ test.describe("Host events", () => {
   }) => {
     await page.goto("/preferences");
     await expect(page.getByText("Preferences")).toBeVisible();
-    await selectLGOption(page, "Timezone", "Hawaii");
+    await selectOption(page, "Timezone", "Hawaii");
     await page.getByRole("button", { name: "Save changes" }).click();
     await page.goto(pathWithEvents);
     await expect(

@@ -86,10 +86,12 @@ test.describe("Dropdown Menu of Patch Actions", () => {
 
     await page.getByTestId("variant-accordion").nth(0).click();
     await page.getByText("asdf").click();
-    await page
+
+    const restartButton = page
       .getByTestId("version-restart-modal")
-      .getByRole("button", { name: "Restart" })
-      .click();
+      .getByRole("button", { name: "Restart" });
+    await expect(restartButton).toHaveAttribute("aria-disabled", "false");
+    await restartButton.click();
     await validateToast(page, "success", "Successfully restarted tasks!");
   });
 
@@ -118,14 +120,14 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       .filter({ hasText: "testtest" });
     await expect(targetPatchCard).toBeVisible();
 
-    // Hide patch card
+    // Hide patch card.
     await expect(targetPatchCard.getByTestId("hidden-badge")).toBeHidden();
     await targetPatchCard.getByTestId("patch-card-dropdown").click();
     await page.getByText("Hide patch").click();
     await validateToast(page, "success", "This patch was successfully hidden.");
     await expect(targetPatchCard).toBeHidden();
 
-    // Check "Include hidden" checkbox and unhide patch card
+    // Check "Include hidden" checkbox and unhide patch card.
     await clickCheckboxByLabel(page, "Include hidden");
     const cookies = await page.context().cookies();
     const hiddenCookie = cookies.find((c) => c.name === INCLUDE_HIDDEN_PATCHES);
@@ -135,7 +137,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(targetPatchCard.getByTestId("hidden-badge")).toBeVisible();
     await targetPatchCard.getByTestId("patch-card-dropdown").click();
 
-    // Test initial state derived from cookie
+    // Test initial state derived from cookie.
     await page.goto("/");
     const cookiesAfterReload = await page.context().cookies();
     const hiddenCookieAfterReload = cookiesAfterReload.find(
@@ -147,7 +149,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(targetPatchCard.getByTestId("hidden-badge")).toBeVisible();
     await targetPatchCard.getByTestId("patch-card-dropdown").click();
 
-    // Test unhide button
+    // Test unhide button.
     await page.getByText("Unhide patch").click();
     await validateToast(
       page,
@@ -157,7 +159,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(targetPatchCard).toBeVisible();
     await expect(targetPatchCard.getByTestId("hidden-badge")).toBeHidden();
 
-    // Uncheck "Include hidden" and verify patch card is visible
+    // Uncheck "Include hidden" and verify patch card is visible.
     await clickCheckboxByLabel(page, "Include hidden");
     const cookiesAfterUncheck = await page.context().cookies();
     const hiddenCookieAfterUncheck = cookiesAfterUncheck.find(

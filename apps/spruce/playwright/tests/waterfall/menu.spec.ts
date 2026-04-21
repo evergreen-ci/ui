@@ -1,9 +1,10 @@
 import { test, expect } from "../../fixtures";
 import {
-  selectLGOption,
+  selectOption,
   validateToast,
   clickCheckboxByLabel,
 } from "../../helpers";
+import { mockGraphQLResponse } from "../../utils";
 
 test.describe("Waterfall menu settings", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
@@ -71,13 +72,14 @@ test.describe("Waterfall subscription modal", () => {
     await page.getByTestId("add-notification").click();
     await expect(page.getByTestId(dataCyModal)).toBeVisible();
 
-    await selectLGOption(page, "Event", "Any version finishes");
-    await selectLGOption(page, "Notification Method", "JIRA issue");
+    await selectOption(page, "Event", "Any version finishes");
+    await selectOption(page, "Notification Method", "JIRA issue");
 
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
-    await expect(
-      page.getByRole("button", { name: "Save" }),
-    ).not.toHaveAttribute("aria-disabled", "true");
+    await expect(page.getByRole("button", { name: "Save" })).toHaveAttribute(
+      "aria-disabled",
+      "false",
+    );
     await page.getByRole("button", { name: "Save" }).click();
     await validateToast(page, "success", successText);
   });
@@ -89,59 +91,42 @@ test.describe("Waterfall subscription modal", () => {
     await page.getByTestId("add-notification").click();
     await expect(page.getByTestId(dataCyModal)).toBeVisible();
 
-    await selectLGOption(page, "Event", "Any build finishes");
+    await selectOption(page, "Event", "Any build finishes");
     await page.getByTestId("add-button").click();
-    await expect(page.getByRole("button", { name: "Save" })).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+
+    const saveButton = page.getByRole("button", { name: "Save" });
+    await expect(saveButton).toHaveAttribute("aria-disabled", "true");
 
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
     await page.getByTestId("regex-input").fill("*.notValidRegex");
     await expect(page.getByText(errorTextRegex)).toBeVisible();
-    await expect(page.getByRole("button", { name: "Save" })).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(saveButton).toHaveAttribute("aria-disabled", "true");
 
     await page.getByTestId("regex-input").clear();
     await page.getByTestId("regex-input").fill("validRegex");
-    await page.getByRole("button", { name: "Save" }).click();
+    await saveButton.click();
     await validateToast(page, "success", successText);
   });
 
   test("Displays error toast when save subscription request fails", async ({
     authenticatedPage: page,
   }) => {
-    // Mock GraphQL error response BEFORE opening the modal
-    await page.route("**/graphql/query", async (route) => {
-      const request = route.request();
-      const postData = request.postDataJSON();
-      if (postData?.operationName === "SaveSubscriptionForUser") {
-        await route.fulfill({
-          status: 200,
-          contentType: "application/json",
-          body: JSON.stringify({
-            errors: [
-              {
-                message: "error",
-                path: ["SaveSubscriptionForUser"],
-                extensions: { code: "INTERNAL_SERVER_ERROR" },
-              },
-            ],
-            data: null,
-          }),
-        });
-      } else {
-        await route.continue();
-      }
+    await mockGraphQLResponse(page, "SaveSubscriptionForUser", {
+      errors: [
+        {
+          message: "error",
+          path: ["SaveSubscriptionForUser"],
+          extensions: { code: "INTERNAL_SERVER_ERROR" },
+        },
+      ],
+      data: null,
     });
 
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
     await expect(page.getByTestId(dataCyModal)).toBeVisible();
 
-    await selectLGOption(page, "Event", "Any version finishes");
+    await selectOption(page, "Event", "Any version finishes");
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
     await page.getByRole("button", { name: "Save" }).click();
     await validateToast(page, "error", "Error adding your subscription");

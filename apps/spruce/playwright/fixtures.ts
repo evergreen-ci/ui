@@ -14,10 +14,15 @@ const bannerCookie = "This is an important notification";
 const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
 
 type CustomFixtures = {
+  unauthenticatedPage: Page;
   authenticatedPage: Page;
 };
 
 export const test = base.extend<CustomFixtures>({
+  unauthenticatedPage: async ({ page }, use) => {
+    await helpers.logout(page);
+    await use(page);
+  },
   authenticatedPage: async ({ page }, use) => {
     // Set up mutation detection BEFORE login/navigation.
     let mutationDispatched = false;
