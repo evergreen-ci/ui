@@ -23,6 +23,20 @@ functions:
       args:
         - ".evergreen/scripts/generate-parallel-e2e-tasks.js"
 
+  # TODO: Delete when migration to Playwright is complete.
+  run-generate-parallel-cypress-tasks:
+    command: subprocess.exec
+    params:
+      working_dir: ui
+      env:
+        BUILD_VARIANT: ${build_variant}
+        REQUESTER: ${requester}
+        TRIGGER_ID: ${trigger_event_identifier}
+        ACTIVATED_BY: ${activated_by}
+      binary: "node"
+      args:
+        - ".evergreen/scripts/generate-parallel-cypress-tasks.js"
+
 tasks:
   - name: generate-tasks
     commands:
@@ -44,3 +58,16 @@ tasks:
         params:
           files:
             - ui/.evergreen/generate-parallel-e2e-tasks.json
+  # TODO: Delete when migration to Playwright is complete.
+  - name: generate-spruce-e2e-cypress
+    commands:
+      - func: run-generate-parallel-cypress-tasks
+        vars:
+          build_variant: spruce
+      - func: attach-e2e-cypress-generated
+        vars:
+          build_variant: spruce
+      - command: generate.tasks
+        params:
+          files:
+            - ui/.evergreen/generate-parallel-cypress-tasks.json

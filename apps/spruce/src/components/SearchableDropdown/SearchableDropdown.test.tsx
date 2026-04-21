@@ -141,176 +141,83 @@ describe("searchableDropdown", () => {
     expect(screen.getByText("spruce")).toBeInTheDocument();
   });
 
-  describe("when multiselect == false", () => {
-    it("should call onChange when clicking on an option and should close the option list", async () => {
-      const user = userEvent.setup();
-      const onChange = vi.fn();
-      const { rerender } = render(
-        RenderSearchableDropdown({
-          value: "evergreen",
-          onChange,
-          options: ["evergreen", "spruce"],
-        }),
-      );
+  it("should call onChange when clicking on an option and should close the option list", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    const { rerender } = render(
+      RenderSearchableDropdown({
+        value: "evergreen",
+        onChange,
+        options: ["evergreen", "spruce"],
+      }),
+    );
+    expect(
+      screen.queryByDataCy("searchable-dropdown-options"),
+    ).not.toBeInTheDocument();
+    await user.click(screen.getByDataCy("searchable-dropdown"));
+    expect(
+      screen.getByDataCy("searchable-dropdown-options"),
+    ).toBeInTheDocument();
+    await user.click(screen.getByText("spruce"));
+    expect(onChange).toHaveBeenCalledWith("spruce");
+    await waitFor(() => {
       expect(
         screen.queryByDataCy("searchable-dropdown-options"),
       ).not.toBeInTheDocument();
-      await user.click(screen.getByDataCy("searchable-dropdown"));
-      expect(
-        screen.getByDataCy("searchable-dropdown-options"),
-      ).toBeInTheDocument();
-      await user.click(screen.getByText("spruce"));
-      expect(onChange).toHaveBeenCalledWith("spruce");
-      await waitFor(() => {
-        expect(
-          screen.queryByDataCy("searchable-dropdown-options"),
-        ).not.toBeInTheDocument();
-      });
-
-      rerender(
-        RenderSearchableDropdown({
-          value: "spruce",
-          onChange,
-          options: ["evergreen", "spruce"],
-        }),
-      );
-      expect(screen.getByText("spruce")).toBeInTheDocument();
     });
 
-    it("should reset the search input and options after user selects an option", async () => {
-      const user = userEvent.setup();
-      render(
-        RenderSearchableDropdown({
-          value: "evergreen",
-          onChange: vi.fn(),
-          options: ["evergreen", "spruce"],
-        }),
-      );
-      // use text input to filter and select an option.
-      await user.click(screen.getByDataCy("searchable-dropdown"));
-      expect(
-        screen.queryAllByDataCy("searchable-dropdown-option"),
-      ).toHaveLength(2);
-      await user.type(screen.getByPlaceholderText("Search"), "spru");
-      expect(
-        screen.queryAllByDataCy("searchable-dropdown-option"),
-      ).toHaveLength(1);
-      await user.click(screen.getByText("spruce"));
-
-      // when reopening the dropdown, the text input should be cleared and all options should be visible.
-      await user.click(screen.getByDataCy("searchable-dropdown"));
-      expect(
-        screen.queryAllByDataCy("searchable-dropdown-option"),
-      ).toHaveLength(2);
-      expect(screen.getByPlaceholderText("Search")).toHaveValue("");
-    });
-
-    it("does not show checkmark next to the selected option", async () => {
-      const user = userEvent.setup();
-      render(
-        RenderSearchableDropdown({
-          value: "evergreen",
-          onChange: vi.fn(),
-          options: ["evergreen", "spruce"],
-        }),
-      );
-      await user.click(screen.getByDataCy("searchable-dropdown"));
-      expect(
-        screen.queryAllByDataCy("searchable-dropdown-option"),
-      ).toHaveLength(2);
-      expect(screen.queryByDataCy("checkmark")).toBeNull();
-    });
+    rerender(
+      RenderSearchableDropdown({
+        value: "spruce",
+        onChange,
+        options: ["evergreen", "spruce"],
+      }),
+    );
+    expect(screen.getByText("spruce")).toBeInTheDocument();
   });
 
-  describe("when multiselect == true", () => {
-    it("should call onChange when clicking on multiple options and shouldn't close the dropdown", async () => {
-      const user = userEvent.setup();
-      const onChange = vi.fn();
-      const { rerender } = render(
-        RenderSearchableDropdown({
-          value: [],
-          onChange,
-          options: ["evergreen", "spruce"],
-          allowMultiSelect: true,
-        }),
-      );
-      expect(
-        screen.queryByDataCy("searchable-dropdown-options"),
-      ).not.toBeInTheDocument();
-      await user.click(screen.getByDataCy("searchable-dropdown"));
-      expect(
-        screen.getByDataCy("searchable-dropdown-options"),
-      ).toBeInTheDocument();
-      await user.click(screen.getByText("spruce"));
-      expect(onChange).toHaveBeenCalledWith(["spruce"]);
+  it("should reset the search input and options after user selects an option", async () => {
+    const user = userEvent.setup();
+    render(
+      RenderSearchableDropdown({
+        value: "evergreen",
+        onChange: vi.fn(),
+        options: ["evergreen", "spruce"],
+      }),
+    );
+    // use text input to filter and select an option.
+    await user.click(screen.getByDataCy("searchable-dropdown"));
+    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
+      2,
+    );
+    await user.type(screen.getByPlaceholderText("Search"), "spru");
+    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
+      1,
+    );
+    await user.click(screen.getByText("spruce"));
 
-      rerender(
-        RenderSearchableDropdown({
-          value: ["spruce"],
-          onChange,
-          options: ["evergreen", "spruce"],
-          allowMultiSelect: true,
-        }),
-      );
-      expect(
-        screen.getByDataCy("searchable-dropdown-options"),
-      ).toBeInTheDocument();
+    // when reopening the dropdown, the text input should be cleared and all options should be visible.
+    await user.click(screen.getByDataCy("searchable-dropdown"));
+    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
+      2,
+    );
+    expect(screen.getByPlaceholderText("Search")).toHaveValue("");
+  });
 
-      rerender(
-        RenderSearchableDropdown({
-          value: ["spruce"],
-          onChange,
-          options: ["evergreen", "spruce"],
-          allowMultiSelect: true,
-        }),
-      );
-      await user.click(screen.getByText("evergreen"));
-      expect(onChange).toHaveBeenCalledWith(["spruce", "evergreen"]);
-    });
-
-    it("should NOT reset the search input and options after user selects an option", async () => {
-      const user = userEvent.setup();
-      render(
-        RenderSearchableDropdown({
-          value: "evergreen",
-          onChange: vi.fn(),
-          options: ["evergreen", "spruce", "sandbox"],
-          allowMultiSelect: true,
-        }),
-      );
-      // use text input to filter and select an option.
-      await user.click(screen.getByDataCy("searchable-dropdown"));
-      expect(
-        screen.queryAllByDataCy("searchable-dropdown-option"),
-      ).toHaveLength(3);
-      await user.type(screen.getByPlaceholderText("Search"), "s");
-      expect(
-        screen.queryAllByDataCy("searchable-dropdown-option"),
-      ).toHaveLength(2);
-      await user.click(screen.getByText("spruce"));
-
-      expect(screen.getByPlaceholderText("Search")).toHaveValue("s");
-      expect(
-        screen.queryAllByDataCy("searchable-dropdown-option"),
-      ).toHaveLength(2);
-    });
-
-    it("shows checkmark next to the selected option", async () => {
-      const user = userEvent.setup();
-      render(
-        RenderSearchableDropdown({
-          value: "evergreen",
-          onChange: vi.fn(),
-          options: ["evergreen", "spruce"],
-          allowMultiSelect: true,
-        }),
-      );
-      await user.click(screen.getByDataCy("searchable-dropdown"));
-      expect(
-        screen.queryAllByDataCy("searchable-dropdown-option"),
-      ).toHaveLength(2);
-      expect(screen.queryAllByDataCy("checkmark")).toHaveLength(2);
-    });
+  it("does not show checkmark next to the selected option", async () => {
+    const user = userEvent.setup();
+    render(
+      RenderSearchableDropdown({
+        value: "evergreen",
+        onChange: vi.fn(),
+        options: ["evergreen", "spruce"],
+      }),
+    );
+    await user.click(screen.getByDataCy("searchable-dropdown"));
+    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
+      2,
+    );
+    expect(screen.queryByDataCy("checkmark")).toBeNull();
   });
 
   describe("when using custom render options", () => {
