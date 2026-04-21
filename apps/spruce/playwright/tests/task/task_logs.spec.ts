@@ -29,9 +29,18 @@ test.describe("task logs", () => {
     await expect(
       page.getByTestId("cy-no-logs").getByText("No logs"),
     ).toBeVisible();
-    await expect(page.getByTestId("parsley-log-btn")).toBeDisabled();
-    await expect(page.getByTestId("html-log-btn")).toBeDisabled();
-    await expect(page.getByTestId("raw-log-btn")).toBeDisabled();
+    await expect(page.getByTestId("parsley-log-btn")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    await expect(page.getByTestId("html-log-btn")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    await expect(page.getByTestId("raw-log-btn")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
   });
 
   test("Should link to Parsley, HTML and Raw version of logs", async ({

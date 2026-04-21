@@ -36,6 +36,7 @@ test.describe("Task Annotation Tab", () => {
       page,
       "success",
       "Successfully moved suspected issue to issues",
+      true,
     );
     await expect(issueRows).toHaveCount(2);
     await expect(suspectedIssueRows).toHaveCount(2);
@@ -79,7 +80,12 @@ test.describe("Task Annotation Tab", () => {
     await modal.getByRole("button", { name: "Add suspected issue" }).click();
     await expect(issueRows).toHaveCount(1);
     await expect(suspectedIssueRows).toHaveCount(4);
-    await validateToast(page, "success", "Successfully added suspected issue");
+    await validateToast(
+      page,
+      "success",
+      "Successfully added suspected issue",
+      true,
+    );
 
     // Delete the newly added entry.
     await page.getByTestId("SERVER-1234-delete-btn").click();

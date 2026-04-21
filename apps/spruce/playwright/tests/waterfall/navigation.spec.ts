@@ -25,9 +25,10 @@ test.describe("navigation", () => {
     await expect(page.getByTestId("waterfall-page")).toBeVisible();
 
     await page.getByTestId("project-select").click();
-    await expect(page.getByTestId("project-select-search-input")).toBeVisible();
-    await page.getByTestId("project-select-search-input").fill(" ");
-    await expect(page.getByTestId("project-select-search-input")).toBeVisible();
+    const searchInput = page.getByPlaceholder("Search projects");
+    await expect(searchInput).toBeVisible();
+    await searchInput.fill(" ");
+    await expect(searchInput).toBeVisible();
   });
 
   test("is redirected to the waterfall page when a user visits a legacy route", async ({

@@ -77,7 +77,7 @@ test.describe("Task Action Buttons", () => {
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
       await page.getByTestId("disable-enable").click();
-      await validateToast(page, "success", "Task successfully disabled");
+      await validateToast(page, "success", "Task successfully disabled", true);
 
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
