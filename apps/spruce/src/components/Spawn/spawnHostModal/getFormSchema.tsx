@@ -460,9 +460,6 @@ export const getFormSchema = ({
         },
       },
       requiredSection: {
-        "ui:elementWrapperCSS": css`
-          display: flex;
-        `,
         distro: {
           "ui:widget": DistroDropdown,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
@@ -621,7 +618,7 @@ export const getFormSchema = ({
 };
 
 const dropdownWrapperClassName = css`
-  max-width: 225px;
+  max-width: 500px;
 `;
 const textAreaWrapperClassName = css`
   max-width: 675px;
