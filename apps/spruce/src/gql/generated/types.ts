@@ -11514,6 +11514,7 @@ export type TaskQuery = {
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
       onDemandEC2Cost?: number | null;
+      total?: number | null;
     } | null;
     project?: {
       __typename?: "Project";
@@ -11543,6 +11544,7 @@ export type TaskQuery = {
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
       onDemandEC2Cost?: number | null;
+      total?: number | null;
     } | null;
     versionMetadata: {
       __typename?: "Version";

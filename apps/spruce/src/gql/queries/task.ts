@@ -120,6 +120,7 @@ export const TASK = gql`
         adjustedS3LogPutCost
         adjustedS3LogStorageCost
         onDemandEC2Cost
+        total
       }
       priority
       project {
@@ -153,6 +154,7 @@ export const TASK = gql`
         adjustedS3LogPutCost
         adjustedS3LogStorageCost
         onDemandEC2Cost
+        total
       }
       testSelectionEnabled
       timeTaken

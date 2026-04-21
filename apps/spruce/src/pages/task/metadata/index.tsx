@@ -29,7 +29,6 @@ import {
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
-import { formatCost } from "utils/numbers";
 import { isInStepback } from "utils/stepback";
 import { msToDuration } from "utils/string";
 import { AbortMessage } from "./AbortMessage";
@@ -104,18 +103,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   } = task;
 
   const displayCost = taskCost ?? predictedTaskCost;
-  const totalCost =
-    displayCost != null
-      ? [
-          displayCost.adjustedEC2Cost,
-          displayCost.adjustedEBSStorageCost,
-          displayCost.adjustedEBSThroughputCost,
-          displayCost.adjustedS3ArtifactPutCost,
-          displayCost.adjustedS3LogPutCost,
-        ]
-          .filter((v): v is number => v != null)
-          .reduce((sum, v) => sum + v, 0)
-      : null;
+  const totalCost = displayCost?.total ?? null;
   const costTooltip = taskCost
     ? "Final adjusted cost of this task."
     : "Estimated cost based on execution so far. Updates as the task runs.";
@@ -352,7 +340,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             data-cy="task-metadata-cost"
             tooltipDescription={costTooltip}
           >
-            <MetadataLabel>Cost:</MetadataLabel> ${formatCost(totalCost)}
+            <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
           </MetadataItem>
         )}
         {startTime && finishTime && (
