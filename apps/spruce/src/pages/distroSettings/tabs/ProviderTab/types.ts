@@ -81,6 +81,14 @@ export type ProviderFormState = {
     mergeUserData: boolean;
     securityGroups: string[];
   }>;
+  taskHostOverrides: {
+    enableTaskHostOverrides: boolean;
+    doNotAssignPublicIpv4Address: boolean;
+    iamInstanceProfileArn: string;
+    providerAccount: string;
+    securityGroupIds: string[];
+    subnetId: string;
+  };
 };
 
 export type TabProps = {

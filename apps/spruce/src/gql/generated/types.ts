@@ -8462,6 +8462,14 @@ export type DistroQuery = {
       targetTime: number;
       version: PlannerVersion;
     };
+    taskHostOverrides?: {
+      __typename?: "TaskHostOverrides";
+      doNotAssignPublicIpv4Address: boolean;
+      iamInstanceProfileArn: string;
+      providerAccount: string;
+      securityGroupIds: Array<string>;
+      subnetId: string;
+    } | null;
   } | null;
 };
 
