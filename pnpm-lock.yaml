@@ -566,6 +566,9 @@ importers:
       '@evg-ui/lint-staged':
         specifier: workspace:*
         version: link:../../packages/lint-staged
+      '@evg-ui/playwright-config':
+        specifier: workspace:*
+        version: link:../../packages/playwright-config
       '@evg-ui/storybook-addon':
         specifier: workspace:*
         version: link:../../packages/storybook-addon
@@ -581,6 +584,9 @@ importers:
       '@graphql-codegen/typescript-operations':
         specifier: 5.0.9
         version: 5.0.9(graphql@16.12.0)
+      '@playwright/test':
+        specifier: ^1.58.2
+        version: 1.59.1
       '@sentry/vite-plugin':
         specifier: ^5.1.1
         version: 5.2.0(rollup@4.60.1)

@@ -21,7 +21,6 @@ export const TASK_HISTORY = gql`
           ingestTime
         }
         ingestTime
-        latestExecution
         order
         priority
         requester
