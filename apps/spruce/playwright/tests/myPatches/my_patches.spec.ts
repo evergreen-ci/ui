@@ -49,7 +49,7 @@ test.describe("My Patches Page", () => {
     const patchDescriptionInput = page.getByTestId("patch-description-input");
     const inputVal = "testtest";
     await patchDescriptionInput.fill(inputVal);
-    expect(page.url()).toContain(`patchName=${inputVal}`);
+    await expect(page).toHaveURL(new RegExp(`patchName=${inputVal}`));
     await patchDescriptionInput.clear();
   });
 
@@ -97,19 +97,19 @@ test.describe("My Patches Page", () => {
         cliPatchTitle,
       );
       await page.getByTestId("github_pull_request-option").click();
-      expect(page.url()).toContain("requesters=github_pull_request");
+      await expect(page).toHaveURL(/requesters=github_pull_request/);
       await expect(page.getByTestId("patch-card").nth(0)).toContainText(
         prPatchTitle,
       );
       await page.getByTestId("patch_request-option").click();
-      expect(page.url()).toContain(
-        "requesters=github_pull_request,patch_request",
+      await expect(page).toHaveURL(
+        /requesters=github_pull_request,patch_request/,
       );
       await expect(page.getByTestId("patch-card").nth(0)).toContainText(
         cliPatchTitle,
       );
       await page.getByTestId("github_pull_request-option").click();
-      expect(page.url()).toContain("requesters=patch_request");
+      await expect(page).toHaveURL(/requesters=patch_request/);
       await expect(page.getByTestId("patch-card").nth(0)).toContainText(
         cliPatchTitle,
       );
@@ -129,7 +129,7 @@ test.describe("My Patches Page", () => {
       const patchCards = page.getByTestId("patch-card");
       const count = await patchCards.count();
       expect(count).toBeLessThanOrEqual(pageSize);
-      expect(page.url()).toContain(`limit=${pageSize}`);
+      await expect(page).toHaveURL(new RegExp(`limit=${pageSize}`));
     }
   });
 
@@ -147,7 +147,7 @@ test.describe("My Patches Page", () => {
       for (const displayName of secondPageDisplayNames) {
         await expect(page.getByText(displayName).first()).toBeVisible();
       }
-      expect(page.url()).toContain("page=1");
+      await expect(page).toHaveURL(/page=1/);
     });
 
     test("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", async ({
@@ -163,7 +163,7 @@ test.describe("My Patches Page", () => {
       for (const displayName of firstPageDisplayNames) {
         await expect(page.getByText(displayName).first()).toBeVisible();
       }
-      expect(page.url()).toContain("page=0");
+      await expect(page).toHaveURL(/page=0/);
     });
 
     test("Should disable pagination when there are no more pages", async ({
@@ -202,10 +202,10 @@ test.describe("My Patches Page", () => {
     }) => {
       for (const { display, key } of statuses) {
         await clickCheckboxByLabel(page, display); // Click to check status checkbox.
-        expect(page.url()).toContain(`statuses=${key}`);
+        await expect(page).toHaveURL(new RegExp(`statuses=${key}`));
 
         await clickCheckboxByLabel(page, display); // Click to uncheck status checkbox.
-        expect(page.url()).not.toContain(`statuses`);
+        await expect(page).not.toHaveURL(/statuses/);
       }
     });
 
@@ -213,12 +213,12 @@ test.describe("My Patches Page", () => {
       authenticatedPage: page,
     }) => {
       await clickCheckboxByLabel(page, "All"); // Click to check status checkbox.
-      expect(page.url()).toContain(
-        "statuses=all,success,created,started,failed",
+      await expect(page).toHaveURL(
+        /statuses=all,success,created,started,failed/,
       );
 
       await clickCheckboxByLabel(page, "All"); // Click to uncheck status checkbox.
-      expect(page.url()).not.toContain("statuses");
+      await expect(page).not.toHaveURL(/statuses/);
     });
   });
 });

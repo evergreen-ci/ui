@@ -73,7 +73,7 @@ test.describe("Tests Table", () => {
   test("Automatically sorts by status in ascending order on page load", async ({
     authenticatedPage: page,
   }) => {
-    expect(page.url()).toContain("sorts=STATUS%3AASC");
+    await expect(page).toHaveURL(/sorts=STATUS%3AASC/);
   });
 
   test("Adjusts query params when table headers are clicked", async ({
@@ -90,34 +90,34 @@ test.describe("Tests Table", () => {
     // Clear default status sort
     await statusSortControl.click();
     await statusSortControl.click();
-    expect(page.url()).not.toContain("sorts");
+    await expect(page).not.toHaveURL(/sorts/);
 
     await nameSortControl.click();
-    expect(page.url()).toContain("sorts=TEST_NAME%3AASC");
+    await expect(page).toHaveURL(/sorts=TEST_NAME%3AASC/);
 
     // Clear name sort
     await nameSortControl.click();
     await nameSortControl.click();
-    expect(page.url()).not.toContain("sorts");
+    await expect(page).not.toHaveURL(/sorts/);
 
     await statusSortControl.click();
-    expect(page.url()).toContain(TESTS_ROUTE);
-    expect(page.url()).toContain("sorts=STATUS%3AASC");
+    await expect(page).toHaveURL(new RegExp(TESTS_ROUTE));
+    await expect(page).toHaveURL(/sorts=STATUS%3AASC/);
     await statusSortControl.click();
-    expect(page.url()).toContain(TESTS_ROUTE);
-    expect(page.url()).toContain("sorts=STATUS%3ADESC");
+    await expect(page).toHaveURL(new RegExp(TESTS_ROUTE));
+    await expect(page).toHaveURL(/sorts=STATUS%3ADESC/);
 
     // Clear status sort
     await statusSortControl.click();
-    expect(page.url()).not.toContain("sorts");
+    await expect(page).not.toHaveURL(/sorts/);
 
     await durationSortControl.click();
-    expect(page.url()).toContain(TESTS_ROUTE);
-    expect(page.url()).toContain("sorts=DURATION%3AASC");
+    await expect(page).toHaveURL(new RegExp(TESTS_ROUTE));
+    await expect(page).toHaveURL(/sorts=DURATION%3AASC/);
 
     await durationSortControl.click();
-    expect(page.url()).toContain(TESTS_ROUTE);
-    expect(page.url()).toContain("sorts=DURATION%3ADESC");
+    await expect(page).toHaveURL(new RegExp(TESTS_ROUTE));
+    await expect(page).toHaveURL(/sorts=DURATION%3ADESC/);
   });
 
   test("Supports multiple sorts", async ({ authenticatedPage: page }) => {
@@ -129,7 +129,7 @@ test.describe("Tests Table", () => {
     });
     await statusSortControl.click();
     await durationSortControl.click();
-    expect(page.url()).toContain("sorts=STATUS%3ADESC%3BDURATION%3AASC");
+    await expect(page).toHaveURL(/sorts=STATUS%3ADESC%3BDURATION%3AASC/);
   });
 
   test.describe("Test Status Selector", () => {
@@ -142,7 +142,7 @@ test.describe("Tests Table", () => {
     }) => {
       await page.getByTestId("status-treeselect").click();
       await clickCheckboxByLabel(page, "All");
-      expect(page.url()).toContain("statuses=all,pass,fail,skip,silentfail");
+      await expect(page).toHaveURL(/statuses=all,pass,fail,skip,silentfail/);
     });
 
     const statuses = [
@@ -158,9 +158,8 @@ test.describe("Tests Table", () => {
       for (const { display } of statuses) {
         await clickCheckboxByLabel(page, display);
       }
-      const decodedUrl = decodeURIComponent(page.url());
-      expect(decodedUrl).toContain(
-        `statuses=${statuses.map(({ key }) => key).join(",")}`,
+      await expect(page).toHaveURL(
+        new RegExp(`statuses=${statuses.map(({ key }) => key).join(",")}`),
       );
     });
   });
@@ -179,7 +178,9 @@ test.describe("Tests Table", () => {
       await testnameInput.focus();
       await testnameInput.fill(testNameInputValue);
       await testnameInput.press("Enter");
-      expect(page.url()).toContain(`testname=${testNameInputValue}`);
+      await expect(page).toHaveURL(
+        new RegExp(`testname=${testNameInputValue}`),
+      );
     });
   });
 
@@ -196,7 +197,7 @@ test.describe("Tests Table", () => {
       for (const displayName of secondPageDisplayNames) {
         await expect(page.getByText(displayName).first()).toBeVisible();
       }
-      expect(page.url()).toContain("page=1");
+      await expect(page).toHaveURL(/page=1/);
     });
 
     test("Does not update results or URL when right arrow is clicked and next page does not exist", async ({
@@ -211,7 +212,7 @@ test.describe("Tests Table", () => {
         const exactMatchRegex = new RegExp(`^${displayName}$`);
         await expect(page.getByText(exactMatchRegex)).toBeVisible();
       }
-      expect(page.url()).toContain("page=1");
+      await expect(page).toHaveURL(/page=1/);
     });
 
     test("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", async ({
@@ -227,7 +228,7 @@ test.describe("Tests Table", () => {
         const exactMatchRegex = new RegExp(`^${displayName}$`);
         await expect(page.getByText(exactMatchRegex)).toBeVisible();
       }
-      expect(page.url()).toContain("page=0");
+      await expect(page).toHaveURL(/page=0/);
     });
 
     test("Does not update results or URL when left arrow is clicked and previous page does not exist", async ({
@@ -242,7 +243,7 @@ test.describe("Tests Table", () => {
         const exactMatchRegex = new RegExp(`^${displayName}$`);
         await expect(page.getByText(exactMatchRegex)).toBeVisible();
       }
-      expect(page.url()).toContain("page=0");
+      await expect(page).toHaveURL(/page=0/);
     });
   });
 
@@ -261,7 +262,7 @@ test.describe("Tests Table", () => {
           .locator("[data-cy=tests-table] tr td:first-child")
           .count();
         expect(rowCount).toBeLessThanOrEqual(pageSize);
-        expect(page.url()).toContain(`limit=${pageSize}`);
+        await expect(page).toHaveURL(new RegExp(`limit=${pageSize}`));
       }
     });
   });

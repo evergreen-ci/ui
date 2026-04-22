@@ -12,7 +12,7 @@ test.describe("Selecting Task Execution", () => {
   test("Should take user to the latest execution if no execution is specified", async ({
     authenticatedPage: page,
   }) => {
-    expect(page.url()).toContain("execution=1");
+    await expect(page).toHaveURL(/execution=1/);
     await expect(
       page.getByTestId("execution-select").getByText("Execution 2 (latest)"),
     ).toBeVisible();
@@ -24,7 +24,7 @@ test.describe("Selecting Task Execution", () => {
   test("Toggling a different execution should change the displayed execution", async ({
     authenticatedPage: page,
   }) => {
-    expect(page.url()).toContain("execution=1");
+    await expect(page).toHaveURL(/execution=1/);
     await expect(
       page.getByTestId("execution-select").getByText("Execution 2 (latest)"),
     ).toBeVisible();
@@ -34,6 +34,6 @@ test.describe("Selecting Task Execution", () => {
     await expect(
       page.getByTestId("task-status-badge").getByText("Succeeded"),
     ).toBeVisible();
-    expect(page.url()).toContain("execution=0");
+    await expect(page).toHaveURL(/execution=0/);
   });
 });

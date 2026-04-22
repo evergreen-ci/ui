@@ -20,7 +20,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(page.getByTestId("card-dropdown")).toBeVisible();
     await expect(page.getByTestId("reconfigure-link")).toBeVisible();
     await page.getByTestId("reconfigure-link").click();
-    expect(page.url()).toContain("/configure");
+    await expect(page).toHaveURL(/\/configure/);
   });
 
   test("'Schedule' link opens modal and clicking on 'Cancel' closes it.", async ({
@@ -105,7 +105,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       name: "Include hidden",
     });
     await expect(includeHiddenCheckbox).not.toBeChecked();
-    expect(page.url()).not.toContain("hidden=true");
+    await expect(page).not.toHaveURL(/hidden=true/);
     const targetPatchCard = page
       .getByTestId("patch-card")
       .filter({ hasText: "testtest" });
@@ -123,7 +123,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     const cookies = await page.context().cookies();
     const hiddenCookie = cookies.find((c) => c.name === INCLUDE_HIDDEN_PATCHES);
     expect(hiddenCookie?.value).toBe("true");
-    expect(page.url()).toContain("hidden=true");
+    await expect(page).toHaveURL(/hidden=true/);
     await expect(targetPatchCard).toBeVisible();
     await expect(targetPatchCard.getByTestId("hidden-badge")).toBeVisible();
     await targetPatchCard.getByTestId("patch-card-dropdown").click();
@@ -135,7 +135,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       (c) => c.name === INCLUDE_HIDDEN_PATCHES,
     );
     expect(hiddenCookieAfterReload?.value).toBe("true");
-    expect(page.url()).not.toContain("hidden=true");
+    await expect(page).not.toHaveURL(/hidden=true/);
     await expect(targetPatchCard).toBeVisible();
     await expect(targetPatchCard.getByTestId("hidden-badge")).toBeVisible();
     await targetPatchCard.getByTestId("patch-card-dropdown").click();
@@ -157,7 +157,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
       (c) => c.name === INCLUDE_HIDDEN_PATCHES,
     );
     expect(hiddenCookieAfterUncheck?.value).toBe("false");
-    expect(page.url()).toContain("hidden=false");
+    await expect(page).toHaveURL(/hidden=false/);
     await expect(targetPatchCard).toBeVisible();
   });
 });

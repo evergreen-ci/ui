@@ -104,7 +104,7 @@ test.describe("Nav Bar", () => {
     ).toHaveAttribute("href", "/project/spruce/patches?mergeQueue=true");
     await page.getByTestId("auxiliary-dropdown-merge-queue").click();
     await expect(page).toHaveURL(/\/project\/spruce\/patches/);
-    expect(page.url()).toContain("?mergeQueue=true");
+    await expect(page).toHaveURL(/\?mergeQueue=true/);
   });
 
   test.describe("Admin settings", () => {

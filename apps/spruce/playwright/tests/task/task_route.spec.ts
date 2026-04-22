@@ -23,14 +23,14 @@ test.describe("Task Page Route", () => {
     await page.goto("/user/admin/patches");
     await page.goto(`/task/${tasks[1]}`);
     await page.goBack();
-    expect(page.url()).toContain("/user/admin/patches");
+    await expect(page).toHaveURL("/user/admin/patches");
   });
 
   test("should not be redirected if they land on a task page with a tab supplied", async ({
     authenticatedPage: page,
   }) => {
     await page.goto(`/task/${tasks[1]}/files`);
-    expect(page.url()).toContain(`/task/${tasks[1]}/files`);
+    await expect(page).toHaveURL(new RegExp(`/task/${tasks[1]}/files`));
   });
 
   test("should display an appropriate status badge when visiting task pages", async ({

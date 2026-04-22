@@ -88,8 +88,8 @@ test.describe("task logs", () => {
       "aria-selected",
       "true",
     );
-    expect(page.url()).toContain(LOGS_ROUTE);
-    expect(page.url()).toContain("logtype=agent");
+    await expect(page).toHaveURL(new RegExp(LOGS_ROUTE));
+    await expect(page).toHaveURL(/logtype=agent/);
   });
 
   test("Should update logtype query param to event after checking event radio button", async ({
@@ -100,8 +100,8 @@ test.describe("task logs", () => {
       "aria-selected",
       "true",
     );
-    expect(page.url()).toContain(LOGS_ROUTE);
-    expect(page.url()).toContain("logtype=event");
+    await expect(page).toHaveURL(new RegExp(LOGS_ROUTE));
+    await expect(page).toHaveURL(/logtype=event/);
   });
 
   test("Should update logtype query param to system after checking system radio button", async ({
@@ -112,8 +112,8 @@ test.describe("task logs", () => {
       "aria-selected",
       "true",
     );
-    expect(page.url()).toContain(LOGS_ROUTE);
-    expect(page.url()).toContain("logtype=system");
+    await expect(page).toHaveURL(new RegExp(LOGS_ROUTE));
+    await expect(page).toHaveURL(/logtype=system/);
   });
 
   test("Should update logtype query param to all after checking all radio button", async ({
@@ -124,8 +124,8 @@ test.describe("task logs", () => {
       "aria-selected",
       "true",
     );
-    expect(page.url()).toContain(LOGS_ROUTE);
-    expect(page.url()).toContain("logtype=all");
+    await expect(page).toHaveURL(new RegExp(LOGS_ROUTE));
+    await expect(page).toHaveURL(/logtype=all/);
   });
 
   test("Should initially load with task log radio checked when logtype query param is task", async ({
@@ -203,7 +203,7 @@ test.describe("HTML log viewer", () => {
     await expect(page.getByTestId("html-log-btn")).toBeEnabled();
     await page.getByTestId("html-log-btn").click();
     await expect(page.getByText("Task logger initialized")).toBeVisible();
-    expect(page.url()).toContain(taskLogURL);
+    await expect(page).toHaveURL(new RegExp(taskLogURL.replace("?", "\\?")));
   });
 
   test("scrolls to the selected line when opening an HTML log", async ({
