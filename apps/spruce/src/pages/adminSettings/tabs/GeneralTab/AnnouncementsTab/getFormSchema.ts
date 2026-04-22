@@ -1,11 +1,6 @@
-import { css } from "@emotion/react";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { BannerTheme } from "gql/generated/types";
-
-const textAreaCSS = css`
-  max-width: 400px;
-`;
 
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
@@ -39,8 +34,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       banner: {
         "ui:widget": "textarea",
-        "ui:elementWrapperCSS": textAreaCSS,
-        "ui:rows": 4,
+        "ui:rows": 2,
       },
       bannerTheme: {
         "ui:allowDeselect": false,
