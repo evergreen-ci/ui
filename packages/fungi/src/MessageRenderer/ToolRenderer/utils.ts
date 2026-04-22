@@ -5,19 +5,94 @@ export type ProgressUpdate = {
   phase: string;
 };
 
-export type LogCoreAnalyzerOutput = {
-  lineReferences: { line: number; description: string; evidence: string }[];
-  markdown: string;
-  summary: string;
+export type OverallStatus =
+  | "success"
+  | "failure"
+  | "partial_failure"
+  | "unknown";
+export type FindingSeverity = "error" | "warning" | "info";
+
+export type MergedFindingError = {
+  line: number | null;
+  severity: FindingSeverity;
+  message: string;
+  evidence: string;
 };
 
-export const isLogCoreAnalyzerOutput = (
-  output: unknown,
-): output is LogCoreAnalyzerOutput =>
-  typeof output === "object" &&
-  output !== null &&
-  typeof (output as Record<string, unknown>).markdown === "string" &&
-  Array.isArray((output as Record<string, unknown>).lineReferences);
+export type MergedFindingEvent = {
+  line: number | null;
+  timestamp: string | null;
+  description: string;
+};
+
+export type MergedFindingMetric = {
+  name: string;
+  value: string;
+};
+
+export type MergedFindings = {
+  summary: string;
+  overallStatus: OverallStatus;
+  errors: MergedFindingError[];
+  events: MergedFindingEvent[];
+  metrics: MergedFindingMetric[];
+  observations: string[];
+};
+
+const isFindingSeverity = (value: unknown): value is FindingSeverity =>
+  value === "error" || value === "warning" || value === "info";
+
+const isOverallStatus = (value: unknown): value is OverallStatus =>
+  value === "success" ||
+  value === "failure" ||
+  value === "partial_failure" ||
+  value === "unknown";
+
+const isMergedFindingError = (value: unknown): value is MergedFindingError => {
+  if (typeof value !== "object" || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return (
+    (v.line === null || typeof v.line === "number") &&
+    isFindingSeverity(v.severity) &&
+    typeof v.message === "string" &&
+    typeof v.evidence === "string"
+  );
+};
+
+const isMergedFindingEvent = (value: unknown): value is MergedFindingEvent => {
+  if (typeof value !== "object" || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return (
+    (v.line === null || typeof v.line === "number") &&
+    (v.timestamp === null || typeof v.timestamp === "string") &&
+    typeof v.description === "string"
+  );
+};
+
+const isMergedFindingMetric = (
+  value: unknown,
+): value is MergedFindingMetric => {
+  if (typeof value !== "object" || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return typeof v.name === "string" && typeof v.value === "string";
+};
+
+export const isMergedFindings = (output: unknown): output is MergedFindings => {
+  if (typeof output !== "object" || output === null) return false;
+  const v = output as Record<string, unknown>;
+  return (
+    typeof v.summary === "string" &&
+    isOverallStatus(v.overallStatus) &&
+    Array.isArray(v.errors) &&
+    v.errors.every(isMergedFindingError) &&
+    Array.isArray(v.events) &&
+    v.events.every(isMergedFindingEvent) &&
+    Array.isArray(v.metrics) &&
+    v.metrics.every(isMergedFindingMetric) &&
+    Array.isArray(v.observations) &&
+    v.observations.every((o) => typeof o === "string")
+  );
+};
 
 type DataProgressData = ProgressUpdate & { toolCallId: string };
 
@@ -50,4 +125,24 @@ export const getProgressByToolCallId = (
     }
   }
   return map;
+};
+
+/**
+ * Groups errors by severity for summary displays. The returned object preserves
+ * insertion order within each severity so the UI can list them in arrival order.
+ * @param errors - The flat list of errors to bucket.
+ * @returns An object keyed by severity with the matching errors in original order.
+ */
+export const groupErrorsBySeverity = (
+  errors: MergedFindingError[],
+): Record<FindingSeverity, MergedFindingError[]> => {
+  const groups: Record<FindingSeverity, MergedFindingError[]> = {
+    error: [],
+    warning: [],
+    info: [],
+  };
+  for (const e of errors) {
+    groups[e.severity].push(e);
+  }
+  return groups;
 };

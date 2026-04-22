@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { Message, ActionCardState } from "@lg-chat/message";
 import { RichLink } from "@lg-chat/rich-links";
@@ -38,6 +39,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
   progress,
   ...tool
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const toolLabel = renderableToolLabels[tool.type];
   if (!toolLabel) return null;
 
@@ -62,7 +64,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
 
   const renderedOutput =
     output !== undefined && toolLabel.renderOutput
-      ? toolLabel.renderOutput(output)
+      ? toolLabel.renderOutput(output, onLinkClick)
       : undefined;
 
   const renderedLinks =
@@ -70,19 +72,25 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
       ? toolLabel.renderLinks(output, onLinkClick)
       : undefined;
 
+  const isStringOutput = typeof renderedOutput === "string";
+
   return (
     <>
       <StyledActionCard
         data-cy="tool-use-chip"
         description={description}
+        onToggleExpanded={setIsExpanded}
         showExpandButton={!!renderedOutput}
         state={toolStateToActionCardState(tool.state)}
         title={toolStateToLabelCopy(tool.state, toolLabel)}
       >
-        {renderedOutput && (
+        {isStringOutput && (
           <Message.ActionCard.ExpandableContent>
-            {renderedOutput}
+            {renderedOutput as string}
           </Message.ActionCard.ExpandableContent>
+        )}
+        {!isStringOutput && renderedOutput && isExpanded && (
+          <RichOutput data-cy="tool-output">{renderedOutput}</RichOutput>
         )}
       </StyledActionCard>
       {renderedLinks && renderedLinks.length > 0 && (
@@ -95,6 +103,8 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
     </>
   );
 };
+
+const RichOutput = styled.div``;
 
 const StyledActionCard = styled(Message.ActionCard)`
   flex-shrink: 0;

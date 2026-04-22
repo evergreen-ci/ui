@@ -1,7 +1,8 @@
 import { RichLinkProps } from "@lg-chat/rich-links";
 import { glyphs } from "@evg-ui/lib/components/Icon";
 import { ToolState } from "../types";
-import { isLogCoreAnalyzerOutput } from "./utils";
+import { MergedFindingsView } from "./MergedFindingsView";
+import { isMergedFindings } from "./utils";
 
 /**
  * Mapping of tool names to their various states.
@@ -19,7 +20,10 @@ export const renderableToolLabels: Record<
       output: unknown,
       onLinkClick?: (href: string) => void,
     ) => RichLinkProps[] | undefined;
-    renderOutput?: (output: unknown) => string | undefined;
+    renderOutput?: (
+      output: unknown,
+      onLinkClick?: (href: string) => void,
+    ) => React.ReactNode | undefined;
   }
 > = {
   "tool-askEvergreenAgentTool": {
@@ -34,22 +38,15 @@ export const renderableToolLabels: Record<
       return undefined;
     },
   },
-  "tool-logCoreAnalyzerTool": {
+  "tool-logAnalyzerTool": {
     loadingCopy: "Analyzing logs",
     completedCopy: "Analyzed logs",
     errorCopy: "Error analyzing logs",
     glyph: "File",
-    renderLinks: (output, onLinkClick) => {
-      if (!isLogCoreAnalyzerOutput(output) || !output.lineReferences.length) {
-        return undefined;
-      }
-      return output.lineReferences.map(({ description, line }) => ({
-        children: `Line ${line}: ${description}`,
-        onLinkClick: () => onLinkClick?.(`#L${line}`),
-      }));
-    },
-    renderOutput: (output) =>
-      isLogCoreAnalyzerOutput(output) ? output.markdown : undefined,
+    renderOutput: (output, onLinkClick) =>
+      isMergedFindings(output) ? (
+        <MergedFindingsView findings={output} onLineClick={onLinkClick} />
+      ) : undefined,
   },
 };
 

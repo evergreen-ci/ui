@@ -1,5 +1,10 @@
 import { UIMessagePart, UIDataTypes, UITools } from "ai";
-import { getProgressByToolCallId, isLogCoreAnalyzerOutput } from "./utils";
+import {
+  MergedFindings,
+  getProgressByToolCallId,
+  groupErrorsBySeverity,
+  isMergedFindings,
+} from "./utils";
 
 type Part = UIMessagePart<UIDataTypes, UITools>;
 
@@ -12,6 +17,15 @@ const makeProgressPart = (
     type: "data-tool-progress",
     data: { toolCallId, percentage, phase },
   }) as unknown as Part;
+
+const validFindings: MergedFindings = {
+  summary: "ok",
+  overallStatus: "success",
+  errors: [],
+  events: [],
+  metrics: [],
+  observations: [],
+};
 
 describe("getProgressByToolCallId", () => {
   it("returns an empty map when there are no data-tool-progress parts", () => {
@@ -99,45 +113,122 @@ describe("getProgressByToolCallId", () => {
   });
 });
 
-describe("isLogCoreAnalyzerOutput", () => {
-  it("returns true for a valid output with a markdown string", () => {
+describe("isMergedFindings", () => {
+  it("returns true for a minimally valid MergedFindings object", () => {
+    expect(isMergedFindings(validFindings)).toBe(true);
+  });
+
+  it("returns true with populated errors, events, metrics, observations", () => {
     expect(
-      isLogCoreAnalyzerOutput({
-        markdown: "## Summary",
-        lineReferences: [],
-        summary: "ok",
+      isMergedFindings({
+        summary: "found issues",
+        overallStatus: "partial_failure",
+        errors: [
+          {
+            line: 42,
+            severity: "error",
+            message: "NPE",
+            evidence: "stack trace",
+          },
+          {
+            line: null,
+            severity: "warning",
+            message: "slow",
+            evidence: "12s",
+          },
+        ],
+        events: [
+          { line: 1, timestamp: "2026-04-22T14:00:00Z", description: "start" },
+          { line: null, timestamp: null, description: "aborted" },
+        ],
+        metrics: [{ name: "Duration", value: "3m" }],
+        observations: ["noisy network"],
       }),
     ).toBe(true);
   });
 
-  it("returns false when markdown field is missing", () => {
-    expect(isLogCoreAnalyzerOutput({ lineReferences: [], summary: "ok" })).toBe(
+  it("returns false for null or non-object", () => {
+    expect(isMergedFindings(null)).toBe(false);
+    expect(isMergedFindings("string")).toBe(false);
+    expect(isMergedFindings(42)).toBe(false);
+  });
+
+  it("returns false when summary is missing or not a string", () => {
+    expect(isMergedFindings({ ...validFindings, summary: undefined })).toBe(
+      false,
+    );
+    expect(isMergedFindings({ ...validFindings, summary: 1 })).toBe(false);
+  });
+
+  it("returns false for unknown overallStatus values", () => {
+    expect(isMergedFindings({ ...validFindings, overallStatus: "bogus" })).toBe(
       false,
     );
   });
 
-  it("returns false when markdown is not a string", () => {
-    expect(isLogCoreAnalyzerOutput({ markdown: 42 })).toBe(false);
-  });
-
-  it("returns false for null", () => {
-    expect(isLogCoreAnalyzerOutput(null)).toBe(false);
-  });
-
-  it("returns false for non-objects", () => {
-    expect(isLogCoreAnalyzerOutput("string")).toBe(false);
-  });
-
-  it("returns false when lineReferences is missing", () => {
-    expect(isLogCoreAnalyzerOutput({ markdown: "## Summary" })).toBe(false);
-  });
-
-  it("returns false when lineReferences is not an array", () => {
+  it("returns false when errors is not an array or has invalid items", () => {
+    expect(isMergedFindings({ ...validFindings, errors: "bad" })).toBe(false);
     expect(
-      isLogCoreAnalyzerOutput({
-        markdown: "## Summary",
-        lineReferences: "bad",
+      isMergedFindings({
+        ...validFindings,
+        errors: [
+          { line: "forty-two", severity: "error", message: "m", evidence: "e" },
+        ],
       }),
     ).toBe(false);
+    expect(
+      isMergedFindings({
+        ...validFindings,
+        errors: [
+          { line: 1, severity: "critical", message: "m", evidence: "e" },
+        ],
+      }),
+    ).toBe(false);
+  });
+
+  it("returns false when events items are malformed", () => {
+    expect(
+      isMergedFindings({
+        ...validFindings,
+        events: [{ line: 1, timestamp: 123, description: "x" }],
+      }),
+    ).toBe(false);
+  });
+
+  it("returns false when metrics items are malformed", () => {
+    expect(
+      isMergedFindings({
+        ...validFindings,
+        metrics: [{ name: "Duration", value: 3 }],
+      }),
+    ).toBe(false);
+  });
+
+  it("returns false when observations contains non-strings", () => {
+    expect(
+      isMergedFindings({ ...validFindings, observations: ["ok", 42] }),
+    ).toBe(false);
+  });
+});
+
+describe("groupErrorsBySeverity", () => {
+  it("groups errors into error/warning/info buckets preserving order", () => {
+    const result = groupErrorsBySeverity([
+      { line: 1, severity: "warning", message: "w1", evidence: "" },
+      { line: 2, severity: "error", message: "e1", evidence: "" },
+      { line: 3, severity: "info", message: "i1", evidence: "" },
+      { line: 4, severity: "error", message: "e2", evidence: "" },
+    ]);
+    expect(result.error.map((e) => e.message)).toEqual(["e1", "e2"]);
+    expect(result.warning.map((e) => e.message)).toEqual(["w1"]);
+    expect(result.info.map((e) => e.message)).toEqual(["i1"]);
+  });
+
+  it("returns empty arrays for each severity when given no errors", () => {
+    expect(groupErrorsBySeverity([])).toEqual({
+      error: [],
+      warning: [],
+      info: [],
+    });
   });
 });
