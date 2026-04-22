@@ -245,7 +245,7 @@ test.describe("Host events", () => {
   test("host event pagination last page displays the right items", async ({
     authenticatedPage: page,
   }) => {
-    await page.goto("host/i-0f81a2d39744003dd?limit=10&page=2");
+    await page.goto("/host/i-0f81a2d39744003dd?limit=10&page=2");
     await expect(page.getByTestId("host-provisioned")).toBeVisible();
   });
 

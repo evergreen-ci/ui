@@ -5,7 +5,7 @@ test.describe("Task page for an aborted task", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(
-      "task/mongodb_mongo_main_enterprise_rhel_62_64_bit_dbtest_patch_0af9c85d7e2ba60f592f2d7a9a35217e254e59fb_5ee1efb3d1fe073e194e8b5c_20_06_11_08_48_06",
+      "/task/mongodb_mongo_main_enterprise_rhel_62_64_bit_dbtest_patch_0af9c85d7e2ba60f592f2d7a9a35217e254e59fb_5ee1efb3d1fe073e194e8b5c_20_06_11_08_48_06",
     );
     await expect(
       page.getByTestId("abort-message-failing-task"),
@@ -19,7 +19,7 @@ test.describe("Task page for an aborted task", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(
-      "task/mongodb_mongo_main_commit_queue_validate_commit_message_patch_0af9c85d7e2ba60f592f2d7a9a35217e254e59fb_5ee1efb3d1fe073e194e8b5c_20_06_11_08_48_06",
+      "/task/mongodb_mongo_main_commit_queue_validate_commit_message_patch_0af9c85d7e2ba60f592f2d7a9a35217e254e59fb_5ee1efb3d1fe073e194e8b5c_20_06_11_08_48_06",
     );
     await expect(page.getByTestId("abort-message-failing-task")).toBeHidden();
   });

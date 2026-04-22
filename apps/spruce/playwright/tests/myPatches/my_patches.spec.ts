@@ -20,7 +20,7 @@ test.describe("My Patches Page", () => {
   test("Redirects user to user patches route from `/user/:id`", async ({
     authenticatedPage: page,
   }) => {
-    await page.goto("user/chicken");
+    await page.goto("/user/chicken");
     await expect(page).toHaveURL("/user/chicken/patches");
   });
 
