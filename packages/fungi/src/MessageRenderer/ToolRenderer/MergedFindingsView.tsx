@@ -1,6 +1,16 @@
 import styled from "@emotion/styled";
+import { Badge, Variant } from "@leafygreen-ui/badge";
+import { Code } from "@leafygreen-ui/code";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
+import {
+  Body,
+  Description,
+  InlineCode,
+  Link,
+  Subtitle,
+} from "@leafygreen-ui/typography";
+import { CollapsibleFinding } from "./CollapsibleFinding";
 import {
   FindingSeverity,
   MergedFindingError,
@@ -19,26 +29,6 @@ const severityLabel: Record<FindingSeverity, string> = {
   info: "Info",
 };
 
-type ColorSet = { background: string; border: string; text: string };
-
-const severityColors: Record<FindingSeverity, ColorSet> = {
-  error: {
-    background: palette.red.light3,
-    border: palette.red.base,
-    text: palette.red.dark2,
-  },
-  warning: {
-    background: palette.yellow.light3,
-    border: palette.yellow.dark2,
-    text: palette.yellow.dark2,
-  },
-  info: {
-    background: palette.blue.light3,
-    border: palette.blue.base,
-    text: palette.blue.dark2,
-  },
-};
-
 const statusLabel: Record<OverallStatus, string> = {
   success: "Success",
   failure: "Failure",
@@ -46,27 +36,11 @@ const statusLabel: Record<OverallStatus, string> = {
   unknown: "Unknown",
 };
 
-const statusColors: Record<OverallStatus, ColorSet> = {
-  success: {
-    background: palette.green.light3,
-    border: palette.green.dark1,
-    text: palette.green.dark2,
-  },
-  failure: {
-    background: palette.red.light3,
-    border: palette.red.base,
-    text: palette.red.dark2,
-  },
-  partial_failure: {
-    background: palette.yellow.light3,
-    border: palette.yellow.dark2,
-    text: palette.yellow.dark2,
-  },
-  unknown: {
-    background: palette.gray.light3,
-    border: palette.gray.base,
-    text: palette.gray.dark2,
-  },
+const statusVariant: Record<OverallStatus, Variant> = {
+  success: Variant.Green,
+  failure: Variant.Red,
+  partial_failure: Variant.Yellow,
+  unknown: Variant.LightGray,
 };
 
 type LineRefProps = {
@@ -81,21 +55,22 @@ const LineRef: React.FC<LineRefProps> = ({
   onLineClick,
 }) => {
   if (line === null) {
-    return emptyLabel ? <Muted>{emptyLabel}</Muted> : null;
+    return emptyLabel ? <Description>{emptyLabel}</Description> : null;
   }
   if (!onLineClick) {
     return <>Line {line}</>;
   }
   return (
-    <LineLink
+    <Link
+      hideExternalIcon
       href={`#L${line}`}
-      onClick={(e) => {
+      onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         onLineClick(`#L${line}`);
       }}
     >
       Line {line}
-    </LineLink>
+    </Link>
   );
 };
 
@@ -112,7 +87,7 @@ const FindingsSection: React.FC<FindingsSectionProps> = ({
   const grouped = groupErrorsBySeverity(errors);
   return (
     <Section>
-      <SectionTitle>Findings</SectionTitle>
+      <Subtitle>Findings</Subtitle>
       {severityOrder.map((sev) =>
         grouped[sev].length > 0 ? (
           <SeverityGroup key={sev}>
@@ -120,22 +95,32 @@ const FindingsSection: React.FC<FindingsSectionProps> = ({
               {severityLabel[sev]} ({grouped[sev].length})
             </SeverityHeading>
             <List>
-              {grouped[sev].map((err) => (
-                <FindingItem
-                  key={`${sev}:${err.line ?? "null"}:${err.message}`}
-                >
-                  <FindingHeader>
-                    <SeverityBadge severity={sev}>
-                      {severityLabel[sev]}
-                    </SeverityBadge>
-                    <FindingMessage>{err.message}</FindingMessage>
-                  </FindingHeader>
-                  <FindingMeta>
-                    <LineRef line={err.line} onLineClick={onLineClick} />
-                  </FindingMeta>
-                  {err.evidence && <Evidence>{err.evidence}</Evidence>}
-                </FindingItem>
-              ))}
+              {grouped[sev].map((err) => {
+                const line = (
+                  <LineRef line={err.line} onLineClick={onLineClick} />
+                );
+                if (!err.evidence) {
+                  return (
+                    <StaticFinding
+                      key={`${sev}:${err.line ?? "null"}:${err.message}`}
+                    >
+                      <Body weight="medium">{err.message}</Body>
+                      <Description>{line}</Description>
+                    </StaticFinding>
+                  );
+                }
+                return (
+                  <CollapsibleFinding
+                    key={`${sev}:${err.line ?? "null"}:${err.message}`}
+                    line={line}
+                    message={err.message}
+                  >
+                    <Code copyButtonAppearance="none" language="none">
+                      {err.evidence}
+                    </Code>
+                  </CollapsibleFinding>
+                );
+              })}
             </List>
           </SeverityGroup>
         ) : null,
@@ -156,7 +141,7 @@ const EventsSection: React.FC<EventsSectionProps> = ({
   if (events.length === 0) return null;
   return (
     <Section>
-      <SectionTitle>Events</SectionTitle>
+      <Subtitle>Events</Subtitle>
       <Timeline>
         {events.map((ev) => (
           <TimelineItem
@@ -164,17 +149,19 @@ const EventsSection: React.FC<EventsSectionProps> = ({
           >
             <TimelineMeta>
               {ev.timestamp ? (
-                <Timestamp>{ev.timestamp}</Timestamp>
+                <InlineCode>{ev.timestamp}</InlineCode>
               ) : (
-                <Muted>No timestamp</Muted>
+                <Description>No timestamp</Description>
               )}
-              <LineRef
-                emptyLabel={null}
-                line={ev.line}
-                onLineClick={onLineClick}
-              />
+              <Description>
+                <LineRef
+                  emptyLabel={null}
+                  line={ev.line}
+                  onLineClick={onLineClick}
+                />
+              </Description>
             </TimelineMeta>
-            <TimelineDescription>{ev.description}</TimelineDescription>
+            <Body>{ev.description}</Body>
           </TimelineItem>
         ))}
       </Timeline>
@@ -190,12 +177,16 @@ const MetricsSection: React.FC<MetricsSectionProps> = ({ metrics }) => {
   if (metrics.length === 0) return null;
   return (
     <Section>
-      <SectionTitle>Metrics</SectionTitle>
+      <Subtitle>Metrics</Subtitle>
       <MetricsList>
         {metrics.map((m) => (
           <MetricRow key={`${m.name}:${m.value}`}>
-            <MetricName>{m.name}</MetricName>
-            <MetricValue>{m.value}</MetricValue>
+            <MetricName>
+              <Body weight="medium">{m.name}</Body>
+            </MetricName>
+            <MetricValue>
+              <InlineCode>{m.value}</InlineCode>
+            </MetricValue>
           </MetricRow>
         ))}
       </MetricsList>
@@ -213,10 +204,12 @@ const ObservationsSection: React.FC<ObservationsSectionProps> = ({
   if (observations.length === 0) return null;
   return (
     <Section>
-      <SectionTitle>Observations</SectionTitle>
+      <Subtitle>Observations</Subtitle>
       <Bulleted>
         {observations.map((o) => (
-          <li key={o}>{o}</li>
+          <li key={o}>
+            <Body>{o}</Body>
+          </li>
         ))}
       </Bulleted>
     </Section>
@@ -238,16 +231,16 @@ export const MergedFindingsView: React.FC<MergedFindingsViewProps> = ({
   return (
     <Container>
       <Header>
-        <StatusBadge
+        <Badge
           data-cy="merged-findings-status"
           data-status={overallStatus}
-          status={overallStatus}
+          variant={statusVariant[overallStatus]}
         >
           {statusLabel[overallStatus]}
-        </StatusBadge>
+        </Badge>
       </Header>
 
-      {summary && <Summary>{summary}</Summary>}
+      {summary && <Body>{summary}</Body>}
 
       <FindingsSection errors={errors} onLineClick={onLineClick} />
       <EventsSection events={events} onLineClick={onLineClick} />
@@ -269,48 +262,16 @@ const Header = styled.div`
   gap: ${spacing[200]}px;
 `;
 
-const StatusBadge = styled.span<{ status: OverallStatus }>`
-  display: inline-flex;
-  align-items: center;
-  padding: ${spacing[50]}px ${spacing[150]}px;
-  border-radius: 12px;
-  border: 1px solid ${({ status }) => statusColors[status].border};
-  background-color: ${({ status }) => statusColors[status].background};
-  color: ${({ status }) => statusColors[status].text};
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-`;
-
-const Summary = styled.p`
-  margin: 0;
-  color: ${palette.gray.dark2};
-`;
-
 const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: ${spacing[100]}px;
 `;
 
-const SectionTitle = styled.h4`
-  margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: ${palette.gray.dark2};
-`;
-
 const SeverityGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing[50]}px;
-`;
-
-const SeverityHeading = styled.div`
-  font-size: 12px;
-  font-weight: 600;
-  color: ${palette.gray.dark1};
 `;
 
 const List = styled.ul`
@@ -322,67 +283,18 @@ const List = styled.ul`
   gap: ${spacing[100]}px;
 `;
 
-const FindingItem = styled.li`
-  border: 1px solid ${palette.gray.light2};
-  border-radius: 4px;
-  padding: ${spacing[150]}px;
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing[50]}px;
-`;
-
-const FindingHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${spacing[150]}px;
-`;
-
-const SeverityBadge = styled.span<{ severity: FindingSeverity }>`
-  display: inline-flex;
-  align-items: center;
-  padding: 2px ${spacing[100]}px;
-  border-radius: 10px;
-  border: 1px solid ${({ severity }) => severityColors[severity].border};
-  background-color: ${({ severity }) => severityColors[severity].background};
-  color: ${({ severity }) => severityColors[severity].text};
-  font-size: 11px;
+const SeverityHeading = styled.div`
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  flex-shrink: 0;
-`;
-
-const FindingMessage = styled.span`
-  font-weight: 500;
-`;
-
-const FindingMeta = styled.div`
-  font-size: 12px;
   color: ${palette.gray.dark1};
 `;
 
-const LineLink = styled.a`
-  color: ${palette.blue.base};
-  cursor: pointer;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const Muted = styled.span`
-  color: ${palette.gray.base};
-  font-style: italic;
-`;
-
-const Evidence = styled.pre`
-  margin: 0;
-  padding: ${spacing[100]}px;
-  background-color: ${palette.gray.light3};
-  border-radius: 3px;
-  font-size: 12px;
-  white-space: pre-wrap;
-  word-break: break-word;
+const StaticFinding = styled.li`
+  padding: ${spacing[150]}px;
+  border: 1px solid ${palette.gray.light2};
+  border-radius: 4px;
 `;
 
 const Timeline = styled.ol`
@@ -404,16 +316,9 @@ const TimelineItem = styled.li`
 
 const TimelineMeta = styled.div`
   display: flex;
+  align-items: center;
   gap: ${spacing[150]}px;
-  font-size: 12px;
-  color: ${palette.gray.dark1};
 `;
-
-const Timestamp = styled.span`
-  font-family: monospace;
-`;
-
-const TimelineDescription = styled.div``;
 
 const MetricsList = styled.dl`
   margin: 0;
@@ -427,13 +332,11 @@ const MetricRow = styled.div`
 `;
 
 const MetricName = styled.dt`
-  font-weight: 600;
-  color: ${palette.gray.dark1};
+  margin: 0;
 `;
 
 const MetricValue = styled.dd`
   margin: 0;
-  font-family: monospace;
 `;
 
 const Bulleted = styled.ul`
