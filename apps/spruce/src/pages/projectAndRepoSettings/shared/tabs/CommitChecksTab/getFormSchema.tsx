@@ -33,7 +33,7 @@ export const getFormSchema = (
       properties: {
         github: {
           type: "object" as const,
-          title: "GitHub",
+          title: "",
           properties: {
             githubWebhooksEnabled: {
               type: "null",
@@ -69,12 +69,10 @@ export const getFormSchema = (
     uiSchema: {
       github: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-
         githubChecksEnabledTitle: {
           "ui:sectionTitle": true,
           "ui:description": GitHubChecksAliasesDescription(projectType),
         },
-
         githubChecksEnabled: {
           "ui:data-cy": "github-checks-enabled-radio-box",
           "ui:showLabel": false,
@@ -86,7 +84,6 @@ export const getFormSchema = (
             "Commit Checks",
           ),
         },
-
         githubChecks: {
           ...errorStyling(
             formData?.github?.githubChecksEnabled ?? false,
