@@ -1,6 +1,4 @@
-import { RichLinkProps } from "@lg-chat/rich-links";
 import { glyphs } from "@evg-ui/lib/components/Icon";
-import { ToolState } from "../types";
 import { MergedFindingsView } from "./MergedFindingsView";
 import { isMergedFindings } from "./utils";
 
@@ -16,10 +14,6 @@ export const renderableToolLabels: Record<
     completedCopy: string;
     errorCopy: string;
     glyph: keyof typeof glyphs;
-    renderLinks?: (
-      output: unknown,
-      onLinkClick?: (href: string) => void,
-    ) => RichLinkProps[] | undefined;
     renderOutput?: (
       output: unknown,
       onLinkClick?: (href: string) => void,
@@ -49,13 +43,3 @@ export const renderableToolLabels: Record<
       ) : undefined,
   },
 };
-
-// 2) Create an enum-like object with compile-time checking
-const satisfiesToolStates = <T extends Record<string, ToolState>>(t: T) => t;
-
-export const ToolStateEnum = satisfiesToolStates({
-  OutputError: "output-error",
-  InputStreaming: "input-streaming",
-  InputAvailable: "input-available",
-  OutputAvailable: "output-available",
-} as const);
