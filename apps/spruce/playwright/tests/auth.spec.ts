@@ -3,7 +3,7 @@ import { test, expect } from "../fixtures";
 
 test.describe("Auth", () => {
   test("Unauthenticated user is redirected to login page after visiting a private route", async ({
-    unauthenticatedPage,
+    page: unauthenticatedPage,
   }) => {
     // Don't use authenticatedPage fixture - we want to test unauthenticated flow.
     await unauthenticatedPage.goto("/version/123123");
@@ -11,7 +11,7 @@ test.describe("Auth", () => {
   });
 
   test("Redirects user to My Patches page after logging in", async ({
-    unauthenticatedPage,
+    page: unauthenticatedPage,
   }) => {
     await unauthenticatedPage.goto("/");
     await unauthenticatedPage
