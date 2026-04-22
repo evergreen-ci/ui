@@ -4,8 +4,13 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { githubChecksAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
-import { alias, form, ProjectType } from "../utils";
-import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
+import {
+  alias,
+  form,
+  ProjectType,
+  githubConflictErrorStyling,
+  sectionHasError,
+} from "../utils";
 import { CommitChecksFormState } from "./types";
 
 const { aliasArray, aliasRowUiSchema } = alias;
