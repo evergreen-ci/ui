@@ -165,4 +165,5 @@ export {
   logout,
   clickCheckboxByLabel,
   mockGraphQLResponse,
+  hasOperationName,
 } from "@evg-ui/playwright-config/helpers";
