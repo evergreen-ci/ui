@@ -87,9 +87,7 @@ const ButtonRow: React.FC = () => {
                   sendEvent({ name: "Clicked download logs link" });
                 }
               }}
-            >
-              Download
-            </Button>
+            />
           }
         >
           Download log as a file

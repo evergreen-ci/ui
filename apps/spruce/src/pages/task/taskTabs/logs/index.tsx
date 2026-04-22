@@ -7,6 +7,7 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { downloadFile } from "@evg-ui/lib/utils/request";
 import { useTaskAnalytics } from "analytics";
@@ -189,7 +190,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                     });
                   }}
                 >
-                  Download
+                  <Icon glyph="Download" />
                 </Button>
               )}
             </FloatingButtonContainer>
