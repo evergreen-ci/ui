@@ -135,8 +135,8 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           ...githubConflictErrorStyling(
             githubProjectConflicts?.prTestingIdentifiers ?? null,
-            formData?.github?.prTestingEnabled ?? null,
-            repoData?.github?.prTestingEnabled ?? false,
+            formData?.github?.manualPrTestingEnabled ?? null,
+            repoData?.github?.manualPrTestingEnabled ?? false,
             "PR Testing",
           ),
         },
