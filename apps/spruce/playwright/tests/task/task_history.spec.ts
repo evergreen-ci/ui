@@ -119,7 +119,9 @@ test.describe("task history", () => {
 
       await expect(page).toHaveURL(/execution=1/);
       await expect(firstTaskBox).toHaveCSS("background-color", willRunColor);
-      await expect(firstTaskCard.getByTestId("execution-chip")).toBeVisible();
+      await expect(
+        firstTaskCard.getByTestId("execution-chip").getByText("Executions: 2"),
+      ).toBeVisible();
       await expect(firstTaskCard.getByTestId("restart-button")).toBeDisabled();
     });
 
@@ -140,7 +142,9 @@ test.describe("task history", () => {
 
       await expect(page).not.toHaveURL(/execution=1/);
       await expect(secondTaskBox).toHaveCSS("background-color", willRunColor);
-      await expect(secondTaskCard.getByTestId("execution-chip")).toBeVisible();
+      await expect(
+        secondTaskCard.getByTestId("execution-chip").getByText("Executions: 2"),
+      ).toBeVisible();
       await expect(secondTaskCard.getByTestId("restart-button")).toBeDisabled();
     });
   });
