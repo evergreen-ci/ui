@@ -1,7 +1,10 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { selectOption, validateToast } from "../../helpers";
-import { mockGraphQLResponse } from "../../utils";
+import {
+  selectOption,
+  validateToast,
+  mockGraphQLResponse,
+} from "../../helpers";
 
 const VERSION_ROUTE = "/version/5e4ff3abe3c3317e352062e4/tasks";
 const MODAL_DATA_CY = "patch-notification-modal";

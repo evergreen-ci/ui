@@ -3,8 +3,8 @@ import {
   selectOption,
   validateToast,
   clickCheckboxByLabel,
+  mockGraphQLResponse,
 } from "../../helpers";
-import { mockGraphQLResponse } from "../../utils";
 
 test.describe("Waterfall menu settings", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {

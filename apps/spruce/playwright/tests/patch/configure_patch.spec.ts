@@ -1,6 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel } from "../../helpers";
-import { mockGraphQLResponse } from "../../utils";
+import { clickCheckboxByLabel, mockGraphQLResponse } from "../../helpers";
 
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
