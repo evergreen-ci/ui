@@ -139,6 +139,26 @@ describe("CommitDetailsCard component", () => {
     expect(screen.getAllByDataCy("failing-tests-table-row")).toHaveLength(1);
   });
 
+  it("shows the execution chip with the correct count when the task has prior executions", () => {
+    const taskWithExecutions = tasks[9];
+    const { Component } = RenderFakeToastContext(
+      <CommitDetailsCard isMatching task={taskWithExecutions} />,
+    );
+    renderWithRouterMatch(<Component />, { wrapper });
+    expect(screen.getByDataCy("execution-chip")).toHaveTextContent(
+      "Executions: 4",
+    );
+  });
+
+  it("does not show the execution chip when the task has no prior executions", () => {
+    const taskWithoutExecutions = tasks[0];
+    const { Component } = RenderFakeToastContext(
+      <CommitDetailsCard isMatching task={taskWithoutExecutions} />,
+    );
+    renderWithRouterMatch(<Component />, { wrapper });
+    expect(screen.queryByDataCy("execution-chip")).not.toBeInTheDocument();
+  });
+
   it("shows 'This Task' badge if it's the current task", () => {
     const task = {
       ...currentTask,
@@ -219,6 +239,7 @@ describe("CommitDetailsCard component", () => {
         name: "Restart Task",
       });
       expect(restartButton).toHaveAttribute("aria-disabled", "false");
+      expect(screen.queryByDataCy("execution-chip")).not.toBeInTheDocument();
       await user.click(restartButton);
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(
