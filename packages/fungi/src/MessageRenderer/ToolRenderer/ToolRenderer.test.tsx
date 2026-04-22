@@ -209,10 +209,18 @@ describe("ToolRenderer", () => {
     );
     expect(screen.getByText("Analyzed logs")).toBeInTheDocument();
     expect(screen.queryByDataCy("tool-output")).not.toBeInTheDocument();
-    await user.click(screen.getByLabelText("Expand additional content"));
+    await user.click(
+      screen.getByRole("button", { name: /expand additional content/i }),
+    );
     expect(screen.getByText("Partial failure")).toBeInTheDocument();
     expect(screen.getByText("One warning found")).toBeInTheDocument();
-    expect(screen.getByText("Disk nearly full")).toBeInTheDocument();
+    const findingSummary = screen.getByText("Disk nearly full");
+    expect(findingSummary).toBeInTheDocument();
+    const details = findingSummary.closest("details");
+    expect(details).not.toBeNull();
+    expect(details).not.toHaveAttribute("open");
+    await user.click(findingSummary);
+    expect(details).toHaveAttribute("open");
     expect(screen.getByText("95% used")).toBeInTheDocument();
     expect(screen.getByText("No line")).toBeInTheDocument();
     expect(screen.getByText("Task started")).toBeInTheDocument();

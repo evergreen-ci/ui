@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
 import { Body, Description } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
 
 type CollapsibleFindingProps = {
   children: React.ReactNode;
@@ -16,16 +17,7 @@ export const CollapsibleFinding: React.FC<CollapsibleFindingProps> = ({
 }) => (
   <Details>
     <Summary>
-      <Caret aria-hidden viewBox="0 0 16 16">
-        <path
-          d="M6 4l4 4-4 4"
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.5"
-        />
-      </Caret>
+      <Caret data-caret glyph="CaretRight" />
       <SummaryText>
         <Body weight="medium">{message}</Body>
         {line && <Description>{line}</Description>}
@@ -39,7 +31,7 @@ const Details = styled.details`
   border: 1px solid ${palette.gray.light2};
   border-radius: 4px;
 
-  &[open] > summary svg {
+  &[open] > summary > [data-caret] {
     transform: rotate(90deg);
   }
 `;
@@ -73,16 +65,13 @@ const SummaryText = styled.div`
   min-width: 0;
 `;
 
-const Caret = styled.svg`
+const Caret = styled(Icon)`
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
   margin-top: 2px;
   color: ${palette.gray.dark1};
   transition: transform 120ms ease;
 `;
 
 const Content = styled.div`
-  padding: 0 ${spacing[150]}px ${spacing[150]}px
-    ${spacing[150] + spacing[100]}px;
+  padding: 0 ${spacing[200]}px ${spacing[200]}px;
 `;

@@ -58,9 +58,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
   }
 
   const output =
-    tool.state === ToolStateEnum.OutputAvailable
-      ? (tool as { output?: unknown }).output
-      : undefined;
+    tool.state === ToolStateEnum.OutputAvailable ? tool.output : undefined;
 
   const renderedOutput =
     output !== undefined && toolLabel.renderOutput

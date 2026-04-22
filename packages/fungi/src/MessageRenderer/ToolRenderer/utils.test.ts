@@ -134,7 +134,7 @@ describe("isMergedFindings", () => {
             line: null,
             severity: "warning",
             message: "slow",
-            evidence: "12s",
+            evidence: null,
           },
         ],
         events: [
@@ -213,15 +213,35 @@ describe("isMergedFindings", () => {
 
 describe("groupErrorsBySeverity", () => {
   it("groups errors into error/warning/info buckets preserving order", () => {
-    const result = groupErrorsBySeverity([
-      { line: 1, severity: "warning", message: "w1", evidence: "" },
-      { line: 2, severity: "error", message: "e1", evidence: "" },
-      { line: 3, severity: "info", message: "i1", evidence: "" },
-      { line: 4, severity: "error", message: "e2", evidence: "" },
-    ]);
-    expect(result.error.map((e) => e.message)).toEqual(["e1", "e2"]);
-    expect(result.warning.map((e) => e.message)).toEqual(["w1"]);
-    expect(result.info.map((e) => e.message)).toEqual(["i1"]);
+    const w1 = {
+      line: 1,
+      severity: "warning",
+      message: "w1",
+      evidence: "",
+    } as const;
+    const e1 = {
+      line: 2,
+      severity: "error",
+      message: "e1",
+      evidence: "",
+    } as const;
+    const i1 = {
+      line: 3,
+      severity: "info",
+      message: "i1",
+      evidence: "",
+    } as const;
+    const e2 = {
+      line: 4,
+      severity: "error",
+      message: "e2",
+      evidence: "",
+    } as const;
+    expect(groupErrorsBySeverity([w1, e1, i1, e2])).toEqual({
+      error: [e1, e2],
+      warning: [w1],
+      info: [i1],
+    });
   });
 
   it("returns empty arrays for each severity when given no errors", () => {

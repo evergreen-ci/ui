@@ -16,7 +16,7 @@ export type MergedFindingError = {
   line: number | null;
   severity: FindingSeverity;
   message: string;
-  evidence: string;
+  evidence: string | null;
 };
 
 export type MergedFindingEvent = {
@@ -55,7 +55,7 @@ const isMergedFindingError = (value: unknown): value is MergedFindingError => {
     (v.line === null || typeof v.line === "number") &&
     isFindingSeverity(v.severity) &&
     typeof v.message === "string" &&
-    typeof v.evidence === "string"
+    (v.evidence === null || typeof v.evidence === "string")
   );
 };
 
@@ -96,19 +96,16 @@ export const isMergedFindings = (output: unknown): output is MergedFindings => {
 
 type DataProgressData = ProgressUpdate & { toolCallId: string };
 
-const isDataProgressData = (data: unknown): data is DataProgressData =>
-  typeof data === "object" &&
-  data !== null &&
-  typeof (data as Record<string, unknown>).toolCallId === "string" &&
-  typeof (data as Record<string, unknown>).percentage === "number" &&
-  typeof (data as Record<string, unknown>).phase === "string";
+const isDataProgressData = (data: unknown): data is DataProgressData => {
+  if (typeof data !== "object" || data === null) return false;
+  const v = data as Record<string, unknown>;
+  return (
+    typeof v.toolCallId === "string" &&
+    typeof v.percentage === "number" &&
+    typeof v.phase === "string"
+  );
+};
 
-/**
- * Scans a message parts array for `data-tool-progress` entries and returns
- * a map of toolCallId to the latest ProgressUpdate for that tool call.
- * @param parts - The message parts array from a UIMessage.
- * @returns A map of toolCallId to the latest ProgressUpdate.
- */
 export const getProgressByToolCallId = (
   parts: Array<UIMessagePart<UIDataTypes, UITools>>,
 ): Map<string, ProgressUpdate> => {
@@ -127,12 +124,8 @@ export const getProgressByToolCallId = (
   return map;
 };
 
-/**
- * Groups errors by severity for summary displays. The returned object preserves
- * insertion order within each severity so the UI can list them in arrival order.
- * @param errors - The flat list of errors to bucket.
- * @returns An object keyed by severity with the matching errors in original order.
- */
+// Insertion order is preserved within each severity so the UI lists findings
+// in the order the analyzer emitted them.
 export const groupErrorsBySeverity = (
   errors: MergedFindingError[],
 ): Record<FindingSeverity, MergedFindingError[]> => {

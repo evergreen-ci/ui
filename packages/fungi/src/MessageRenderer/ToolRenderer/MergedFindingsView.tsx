@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Code } from "@leafygreen-ui/code";
@@ -7,7 +8,7 @@ import {
   Body,
   Description,
   InlineCode,
-  Link,
+  Overline,
   Subtitle,
 } from "@leafygreen-ui/typography";
 import { CollapsibleFinding } from "./CollapsibleFinding";
@@ -23,25 +24,19 @@ import {
 
 const severityOrder: FindingSeverity[] = ["error", "warning", "info"];
 
-const severityLabel: Record<FindingSeverity, string> = {
-  error: "Error",
-  warning: "Warning",
-  info: "Info",
+const severityConfig: Record<FindingSeverity, { label: string }> = {
+  error: { label: "Error" },
+  warning: { label: "Warning" },
+  info: { label: "Info" },
 };
 
-const statusLabel: Record<OverallStatus, string> = {
-  success: "Success",
-  failure: "Failure",
-  partial_failure: "Partial failure",
-  unknown: "Unknown",
-};
-
-const statusVariant: Record<OverallStatus, Variant> = {
-  success: Variant.Green,
-  failure: Variant.Red,
-  partial_failure: Variant.Yellow,
-  unknown: Variant.LightGray,
-};
+const statusConfig: Record<OverallStatus, { label: string; variant: Variant }> =
+  {
+    success: { label: "Success", variant: Variant.Green },
+    failure: { label: "Failure", variant: Variant.Red },
+    partial_failure: { label: "Partial failure", variant: Variant.Yellow },
+    unknown: { label: "Unknown", variant: Variant.LightGray },
+  };
 
 type LineRefProps = {
   emptyLabel?: string | null;
@@ -55,22 +50,15 @@ const LineRef: React.FC<LineRefProps> = ({
   onLineClick,
 }) => {
   if (line === null) {
-    return emptyLabel ? <Description>{emptyLabel}</Description> : null;
+    return emptyLabel ?? null;
   }
   if (!onLineClick) {
     return <>Line {line}</>;
   }
   return (
-    <Link
-      hideExternalIcon
-      href={`#L${line}`}
-      onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
-        onLineClick(`#L${line}`);
-      }}
-    >
+    <LineButton onClick={() => onLineClick(`#L${line}`)} type="button">
       Line {line}
-    </Link>
+    </LineButton>
   );
 };
 
@@ -92,18 +80,17 @@ const FindingsSection: React.FC<FindingsSectionProps> = ({
         grouped[sev].length > 0 ? (
           <SeverityGroup key={sev}>
             <SeverityHeading>
-              {severityLabel[sev]} ({grouped[sev].length})
+              {severityConfig[sev].label} ({grouped[sev].length})
             </SeverityHeading>
             <List>
               {grouped[sev].map((err) => {
                 const line = (
                   <LineRef line={err.line} onLineClick={onLineClick} />
                 );
+                const key = `${sev}:${err.line ?? "null"}:${err.message}:${err.evidence ?? ""}`;
                 if (!err.evidence) {
                   return (
-                    <StaticFinding
-                      key={`${sev}:${err.line ?? "null"}:${err.message}`}
-                    >
+                    <StaticFinding key={key}>
                       <Body weight="medium">{err.message}</Body>
                       <Description>{line}</Description>
                     </StaticFinding>
@@ -111,7 +98,7 @@ const FindingsSection: React.FC<FindingsSectionProps> = ({
                 }
                 return (
                   <CollapsibleFinding
-                    key={`${sev}:${err.line ?? "null"}:${err.message}`}
+                    key={key}
                     line={line}
                     message={err.message}
                   >
@@ -153,13 +140,15 @@ const EventsSection: React.FC<EventsSectionProps> = ({
               ) : (
                 <Description>No timestamp</Description>
               )}
-              <Description>
-                <LineRef
-                  emptyLabel={null}
-                  line={ev.line}
-                  onLineClick={onLineClick}
-                />
-              </Description>
+              {ev.line !== null && (
+                <Description>
+                  <LineRef
+                    emptyLabel={null}
+                    line={ev.line}
+                    onLineClick={onLineClick}
+                  />
+                </Description>
+              )}
             </TimelineMeta>
             <Body>{ev.description}</Body>
           </TimelineItem>
@@ -180,14 +169,14 @@ const MetricsSection: React.FC<MetricsSectionProps> = ({ metrics }) => {
       <Subtitle>Metrics</Subtitle>
       <MetricsList>
         {metrics.map((m) => (
-          <MetricRow key={`${m.name}:${m.value}`}>
+          <Fragment key={`${m.name}:${m.value}`}>
             <MetricName>
               <Body weight="medium">{m.name}</Body>
             </MetricName>
             <MetricValue>
               <InlineCode>{m.value}</InlineCode>
             </MetricValue>
-          </MetricRow>
+          </Fragment>
         ))}
       </MetricsList>
     </Section>
@@ -234,13 +223,13 @@ export const MergedFindingsView: React.FC<MergedFindingsViewProps> = ({
         <Badge
           data-cy="merged-findings-status"
           data-status={overallStatus}
-          variant={statusVariant[overallStatus]}
+          variant={statusConfig[overallStatus].variant}
         >
-          {statusLabel[overallStatus]}
+          {statusConfig[overallStatus].label}
         </Badge>
       </Header>
 
-      {summary && <Body>{summary}</Body>}
+      {summary.trim() && <Body>{summary}</Body>}
 
       <FindingsSection errors={errors} onLineClick={onLineClick} />
       <EventsSection events={events} onLineClick={onLineClick} />
@@ -283,12 +272,27 @@ const List = styled.ul`
   gap: ${spacing[100]}px;
 `;
 
-const SeverityHeading = styled.div`
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+const SeverityHeading = styled(Overline)`
   color: ${palette.gray.dark1};
+`;
+
+const LineButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: ${palette.blue.base};
+  font: inherit;
+  text-decoration: underline;
+
+  &:hover {
+    color: ${palette.blue.dark1};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${palette.blue.base};
+    outline-offset: 2px;
+  }
 `;
 
 const StaticFinding = styled.li`
@@ -325,10 +329,6 @@ const MetricsList = styled.dl`
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: ${spacing[50]}px ${spacing[200]}px;
-`;
-
-const MetricRow = styled.div`
-  display: contents;
 `;
 
 const MetricName = styled.dt`
