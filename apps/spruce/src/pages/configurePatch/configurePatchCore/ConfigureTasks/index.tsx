@@ -254,6 +254,7 @@ const ConfigureTasks: React.FC<Props> = ({
         {sortedVisibleTasks.map(([name, state]) => (
           <Checkbox
             key={name}
+            aria-label={name}
             checked={isTaskCheckboxChecked(state)}
             data-cy="task-checkbox"
             indeterminate={isTaskCheckboxIndeterminate(state)}
