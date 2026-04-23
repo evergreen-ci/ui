@@ -89,7 +89,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     imageId,
     ingestTime,
     minQueuePosition: taskQueuePosition,
-    predictedTaskCost,
     priority,
     project,
     resetWhenFinished,
@@ -102,9 +101,20 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     versionMetadata,
   } = task;
 
-  const displayCost = taskCost ?? predictedTaskCost;
-  const totalCost = displayCost?.total ?? null;
-  const costTooltip = taskCost
+  const totalCost = taskCost?.total ?? 0;
+  const completedStatuses = [
+    TaskStatus.Succeeded,
+    TaskStatus.Failed,
+    TaskStatus.TestTimedOut,
+    TaskStatus.TaskTimedOut,
+    TaskStatus.SetupFailed,
+    TaskStatus.SystemFailed,
+    TaskStatus.SystemTimedOut,
+    TaskStatus.SystemUnresponsive,
+    TaskStatus.Aborted,
+    TaskStatus.KnownIssue,
+  ];
+  const costTooltip = completedStatuses.includes(displayStatus as TaskStatus)
     ? "Final adjusted cost of this task."
     : "Estimated cost based on execution so far. Updates as the task runs.";
 
@@ -335,14 +345,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-        {totalCost != null && totalCost > 0 && (
-          <MetadataItem
-            data-cy="task-metadata-cost"
-            tooltipDescription={costTooltip}
-          >
-            <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
-          </MetadataItem>
-        )}
+        <MetadataItem
+          data-cy="task-metadata-cost"
+          tooltipDescription={costTooltip}
+        >
+          <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
+        </MetadataItem>
         {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>

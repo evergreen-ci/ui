@@ -111,17 +111,6 @@ export const TASK = gql`
       minQueuePosition
       order
       patchNumber
-      predictedTaskCost {
-        adjustedEBSStorageCost
-        adjustedEBSThroughputCost
-        adjustedEC2Cost
-        adjustedS3ArtifactPutCost
-        adjustedS3ArtifactStorageCost
-        adjustedS3LogPutCost
-        adjustedS3LogStorageCost
-        onDemandEC2Cost
-        total
-      }
       priority
       project {
         id

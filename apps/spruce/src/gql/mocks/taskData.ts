@@ -130,7 +130,6 @@ export const taskQuery: TaskQueryType = {
       revision: "123j9123u9123",
     },
     taskCost: null,
-    predictedTaskCost: null,
     testSelectionEnabled: false,
   },
 };
