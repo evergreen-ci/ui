@@ -1,6 +1,7 @@
 import {
-  getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
+  getHoneycombTaskCostUrl,
+  getHoneycombTraceUrl,
 } from "./honeycomb";
 
 describe("getHoneycombTraceUrl", () => {
@@ -13,6 +14,14 @@ describe("getHoneycombTraceUrl", () => {
       ),
     ).toBe(
       "/datasets/evergreen-agent/trace?trace_id=abcdef&trace_start_ts=1688756921&trace_end_ts=1688756941",
+    );
+  });
+});
+
+describe("getHoneycombTaskCostUrl", () => {
+  it("generates the correct url", () => {
+    expect(getHoneycombTaskCostUrl("task_12345")).toBe(
+      `/datasets/evergreen?query={"calculations":[{"op":"MAX","column":"evergreen.task.on_demand_cost"},{"op":"MAX","column":"evergreen.task.adjusted_cost"},{"op":"MAX","column":"evergreen.task.cost.ebs.adjusted_throughput_cost"},{"op":"MAX","column":"evergreen.task.cost.ebs.adjusted_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.artifact_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.log_put_cost"}],"filters":[{"op":"=","column":"evergreen.task.id","value":"task_12345"}]}&omitMissingValues`,
     );
   });
 });

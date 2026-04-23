@@ -11521,6 +11521,18 @@ export type TaskQuery = {
       nextStepbackTaskId?: string | null;
       previousStepbackTaskId?: string | null;
     } | null;
+    taskCost?: {
+      __typename?: "Cost";
+      adjustedEBSStorageCost?: number | null;
+      adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
+      adjustedS3ArtifactPutCost?: number | null;
+      adjustedS3ArtifactStorageCost?: number | null;
+      adjustedS3LogPutCost?: number | null;
+      adjustedS3LogStorageCost?: number | null;
+      onDemandEC2Cost?: number | null;
+      total?: number | null;
+    } | null;
     versionMetadata: {
       __typename?: "Version";
       id: string;
