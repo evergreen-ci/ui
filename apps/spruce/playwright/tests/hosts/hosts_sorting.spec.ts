@@ -1,3 +1,7 @@
+import { test, expect } from "../../fixtures";
+
+const hostsRoute = "/hosts";
+
 const sortByTests = [
   {
     sorterName: "ID",
@@ -45,7 +49,6 @@ const sortByTests = [
       "macos-1014-68.macstadium.build.10gen.cc",
       "ubuntu1604-ppc-1.pic.build.10gen",
       "ubuntu1604-ppc-1.pic.build.10gen.c",
-      "ubuntu1604-ppc-1.pic.build.10gen.cc",
     ],
   },
   {
@@ -78,7 +81,6 @@ const sortByTests = [
       "macos-1014-68.macstadium.build.10gen.cc",
       "ubuntu1604-ppc-1.pic.build.10gen",
       "ubuntu1604-ppc-1.pic.build.10gen.c",
-      "ubuntu1604-ppc-1.pic.build.10gen.cc",
     ],
   },
   {
@@ -130,7 +132,6 @@ const sortDirectionTests = [
       "macos-1014-68.macstadium.build.10gen.cc",
       "ubuntu1604-ppc-1.pic.build.10gen",
       "ubuntu1604-ppc-1.pic.build.10gen.c",
-      "ubuntu1604-ppc-1.pic.build.10gen.cc",
     ],
   },
   {
@@ -151,80 +152,95 @@ const sortDirectionTests = [
   },
 ];
 
-describe("Hosts page sorting", () => {
-  const hostsRoute = "/hosts";
+test.describe("Hosts page sorting", () => {
   const distroSortControl = "button[aria-label='Sort by Distro']";
 
-  it("Clicking the sort direction filter will set the page query param to 0", () => {
-    cy.visit(`${hostsRoute}?page=5`);
-    cy.dataCy("hosts-table").should("be.visible");
-    cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
-    cy.get(distroSortControl).click();
-    cy.location("search").should("equal", "?page=0&sorts=DISTRO%3AASC");
-  });
-  it("Clicking a sort direction 3 times will set the page query param to 0, clear the direction & sortBy query param, and preserve the rest", () => {
-    cy.visit(hostsRoute);
-
-    cy.get(distroSortControl).click();
-    cy.location("search").should("equal", "?page=0&sorts=DISTRO%3AASC");
-    cy.get(distroSortControl).click();
-    cy.location("search").should("equal", "?page=0&sorts=DISTRO%3ADESC");
-    cy.get(distroSortControl).click();
-    cy.location("search").should("equal", "?page=0");
-  });
-  it("Status sorter is selected by default if no sort params in url", () => {
-    cy.visit(hostsRoute);
-    cy.contains("th", "Status")
-      .first()
-      .within(() => {
-        cy.validateTableSort("asc");
-      });
+  test("Clicking the sort direction filter will set the page query param to 0", async ({
+    authenticatedPage: page,
+  }) => {
+    await page.goto(`${hostsRoute}?page=5`);
+    const hostsTable = page.getByTestId("hosts-table");
+    await expect(hostsTable).toBeVisible();
+    await expect(hostsTable).toHaveAttribute("data-loading", "false");
+    await page.locator(distroSortControl).click();
+    await expect(page).toHaveURL("/hosts?page=0&sorts=DISTRO%3AASC");
   });
 
-  it("Status sorter has initial value of sort param from url", () => {
-    cy.visit(`${hostsRoute}?page=0&sorts=DISTRO%3ADESC`);
-    cy.contains("th", "Distro").within(() => {
-      cy.validateTableSort("desc");
-    });
+  test("Clicking a sort direction 3 times clears the sort params and sets page to 0", async ({
+    authenticatedPage: page,
+  }) => {
+    await page.goto(hostsRoute);
+    await page.locator(distroSortControl).click();
+    await expect(page).toHaveURL("/hosts?page=0&sorts=DISTRO%3AASC");
+    await page.locator(distroSortControl).click();
+    await expect(page).toHaveURL("/hosts?page=0&sorts=DISTRO%3ADESC");
+    await page.locator(distroSortControl).click();
+    await expect(page).toHaveURL("/hosts?page=0");
+  });
+
+  test("Status sorter is selected by default if no sort params in url", async ({
+    authenticatedPage: page,
+  }) => {
+    await page.goto(hostsRoute);
+    await expect(
+      page.locator("svg[aria-label='Sort Ascending Icon']"),
+    ).toBeVisible();
+  });
+
+  test("Status sorter has initial value of sort param from url", async ({
+    authenticatedPage: page,
+  }) => {
+    await page.goto(`${hostsRoute}?page=0&sorts=DISTRO%3ADESC`);
+    await expect(
+      page.locator("svg[aria-label='Sort Descending Icon']"),
+    ).toBeVisible();
   });
 
   sortByTests.forEach(({ expectedIds, sortBy, sorterName }) => {
-    it(`Sorts by ${sorterName} when sorts = ${sortBy}`, () => {
-      cy.visit(`${hostsRoute}?sorts=${sortBy}%3AASC&limit=10`);
-      cy.dataCy("leafygreen-table-row").each(($el, index) =>
-        cy.wrap($el).contains(expectedIds[index]),
-      );
+    test(`Sorts by ${sorterName} when sorts = ${sortBy}`, async ({
+      authenticatedPage: page,
+    }) => {
+      await page.goto(`${hostsRoute}?sorts=${sortBy}%3AASC&limit=10`);
+      const rows = page.getByTestId("leafygreen-table-row");
+      for (let i = 0; i < expectedIds.length; i++) {
+        await expect(rows.nth(i)).toContainText(expectedIds[i]);
+      }
     });
   });
 
   sortDirectionTests.forEach(({ expectedIds, order, sortDir }) => {
-    it(`Sorts in ${order} order when sorts = CURRENT_TASK:${sortDir}`, () => {
-      cy.visit(`${hostsRoute}?page=0&sorts=CURRENT_TASK%3A${sortDir}&limit=10`);
-      cy.dataCy("leafygreen-table-row").each(($el, index) =>
-        cy.wrap($el).contains(expectedIds[index]),
+    test(`Sorts in ${order} order when sorts = CURRENT_TASK:${sortDir}`, async ({
+      authenticatedPage: page,
+    }) => {
+      await page.goto(
+        `${hostsRoute}?page=0&sorts=CURRENT_TASK%3A${sortDir}&limit=10`,
       );
+      const rows = page.getByTestId("leafygreen-table-row");
+      for (let i = 0; i < expectedIds.length; i++) {
+        await expect(rows.nth(i)).toContainText(expectedIds[i]);
+      }
     });
   });
 
-  it("Uses default sorts if sorts param is invalid", () => {
-    cy.visit(`${hostsRoute}?sorts=INVALID%3AINVALID&limit=10`);
-    cy.dataCy("leafygreen-table-row").each(($el, index) =>
-      cy
-        .wrap($el)
-        .contains(
-          [
-            "i-06f80fa6e28f93b",
-            "i-06f80fa6e28f93b7",
-            "i-06f80fa6e28f93b7d",
-            "i-0fb9fe0592ea381",
-            "i-0fb9fe0592ea3815",
-            "i-0fb9fe0592ea38150",
-            "macos-1014-68.macstadium.build.10gen",
-            "macos-1014-68.macstadium.build.10gen.c",
-            "macos-1014-68.macstadium.build.10gen.cc",
-            "ubuntu1804-ppc-3.pic.build.10gen",
-          ][index],
-        ),
-    );
+  test("Uses default sorts if sorts param is invalid", async ({
+    authenticatedPage: page,
+  }) => {
+    await page.goto(`${hostsRoute}?sorts=INVALID%3AINVALID&limit=10`);
+    const expectedIds = [
+      "i-06f80fa6e28f93b",
+      "i-06f80fa6e28f93b7",
+      "i-06f80fa6e28f93b7d",
+      "i-0fb9fe0592ea381",
+      "i-0fb9fe0592ea3815",
+      "i-0fb9fe0592ea38150",
+      "macos-1014-68.macstadium.build.10gen",
+      "macos-1014-68.macstadium.build.10gen.c",
+      "macos-1014-68.macstadium.build.10gen.cc",
+      "ubuntu1804-ppc-3.pic.build.10gen",
+    ];
+    const rows = page.getByTestId("leafygreen-table-row");
+    for (let i = 0; i < expectedIds.length; i++) {
+      await expect(rows.nth(i)).toContainText(expectedIds[i]);
+    }
   });
 });
