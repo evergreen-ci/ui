@@ -132,7 +132,9 @@ export const ADMIN_SETTINGS = gql`
         s3Cost {
           storage {
             archiveStorageCostDiscount
+            artifactAwsAccountsWithoutLifecycleRules
             defaultMaxArtifactExpirationDays
+            devprodOwnedAwsAccountIds
             iAStorageCostDiscount
             standardStorageCostDiscount
           }
