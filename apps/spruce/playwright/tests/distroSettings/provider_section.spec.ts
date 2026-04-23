@@ -166,7 +166,11 @@ test.describe("provider section", () => {
           .filter({ hasText: "New AWS Region" }),
       ).toBeVisible();
 
-      await selectOption(page, { testId: "region-select" }, "us-west-1");
+      await selectOption(
+        newExpandableCard,
+        { testId: "region-select" },
+        "us-west-1",
+      );
       await newExpandableCard.getByLabel("EC2 AMI ID").fill("ami-1234");
       await newExpandableCard.getByLabel("Instance Type").fill("m5.xlarge");
       await newExpandableCard
@@ -281,7 +285,11 @@ test.describe("provider section", () => {
           .filter({ hasText: "New AWS Region" }),
       ).toBeVisible();
 
-      await selectOption(page, { testId: "region-select" }, "us-west-1");
+      await selectOption(
+        newExpandableCard,
+        { testId: "region-select" },
+        "us-west-1",
+      );
       await newExpandableCard.getByLabel("EC2 AMI ID").fill("ami-1234");
       await newExpandableCard.getByLabel("Instance Type").fill("m5.xlarge");
       await newExpandableCard
