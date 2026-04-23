@@ -289,3 +289,15 @@ functions:
       bucket: evg-bucket-evergreen-ui
       content_type: text/plain
       permissions: public-read
+
+  # TODO: Delete when migration to Playwright is complete.
+  attach-e2e-cypress-generated:
+    command: s3.put
+    type: system
+    params:
+      role_arn: ${ASSUME_ROLE_ARN}
+      local_files_include_filter: ["ui/.evergreen/generate-parallel-cypress-tasks.json"]
+      remote_file: ${build_variant}/${task_id}/${execution}/generate-parallel-cypress-tasks.json
+      bucket: evg-bucket-evergreen-ui
+      content_type: text/plain
+      permissions: public-read
