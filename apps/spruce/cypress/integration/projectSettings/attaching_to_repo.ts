@@ -1,5 +1,5 @@
-import { clickSave } from "../../utils";
 import { getProjectSettingsRoute, project } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Attaching Spruce to a repo", () => {
   const origin = getProjectSettingsRoute(project);
@@ -16,7 +16,7 @@ describe("Attaching Spruce to a repo", () => {
       "aria-disabled",
       "true",
     );
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
     cy.dataCy("attach-repo-button").click();
     cy.dataCy("attach-repo-modal").contains("button", "Attach").click();
