@@ -1,4 +1,3 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   project,
@@ -6,6 +5,7 @@ import {
   projectUseRepoEnabled,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Access page", () => {
   const origin = getProjectSettingsRoute(
@@ -29,7 +29,7 @@ describe("Access page", () => {
     cy.getInputByLabel("Username").as("usernameInput");
     cy.get("@usernameInput").type("admin");
     cy.get("@usernameInput").should("have.value", "admin").should("be.visible");
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
     // Assert persistence
     cy.reload();
@@ -38,7 +38,7 @@ describe("Access page", () => {
     // Delete a username
     cy.dataCy("delete-item-button").should("be.visible").click();
     cy.get("@usernameInput").should("not.exist");
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
     // Assert persistence
     cy.reload();
@@ -63,7 +63,7 @@ describe("Access page", () => {
     cy.visit(getProjectSettingsRoute(project, ProjectSettingsTabRoutes.Access));
     cy.contains("Add Username").click();
     cy.getInputByLabel("Username").type("mongodb_user");
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("error", "There was an error saving the project");
   });
 });

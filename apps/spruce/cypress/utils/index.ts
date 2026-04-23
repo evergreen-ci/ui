@@ -66,15 +66,11 @@ export const clickOnPageSizeBtnAndAssertURLandTableSize = (
 
 /**
  * Save a settings page that has a button with the 'save-settings-button' data-cy attribute.
- * Clicking the save button opens a diff confirmation modal which must be accepted to persist the change.
  */
 export const clickSave = () => {
   cy.dataCy("save-settings-button")
     .should("not.have.attr", "aria-disabled", "true")
     .click();
-  cy.dataCy("save-changes-modal").should("be.visible");
-  cy.dataCy("save-changes-modal").contains("button", "Save changes").click();
-  cy.dataCy("save-changes-modal").should("not.exist");
 };
 
 /**

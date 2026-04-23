@@ -1,9 +1,9 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("GitHub permission groups", () => {
   const destination = getProjectSettingsRoute(
@@ -35,7 +35,7 @@ describe("GitHub permission groups", () => {
     cy.contains("Write").click({ force: true });
     saveButtonEnabled(true);
     cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("error", "There was an error saving the project");
   });
 
@@ -53,7 +53,7 @@ describe("GitHub permission groups", () => {
     cy.contains("Read").click();
     saveButtonEnabled(true);
     cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
 
     // Delete permission group.
@@ -62,7 +62,7 @@ describe("GitHub permission groups", () => {
     cy.dataCy("delete-item-button").click();
     cy.dataCy("permission-group-list").children().should("have.length", 0);
     cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
   });
 });
