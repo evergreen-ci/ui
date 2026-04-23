@@ -11,9 +11,9 @@ describe("formatCost", () => {
     expect(formatCost(0.01)).toBe("0.01");
   });
 
-  it("formats costs < $0.01 to 4 significant figures", () => {
-    expect(formatCost(0.001234)).toBe("0.001234");
-    expect(formatCost(0.000056789)).toBe("0.00005679");
+  it("formats costs < $0.01 using toString to avoid trailing zeros", () => {
+    expect(formatCost(0.001)).toBe("0.001");
+    expect(formatCost(0.0037)).toBe("0.0037");
   });
 });
 
@@ -54,10 +54,10 @@ describe("CostModal", () => {
     expect(screen.getByText("$0.50")).toBeInTheDocument();
     expect(screen.getByText("$0.01")).toBeInTheDocument();
     expect(screen.getByText("$0.02")).toBeInTheDocument();
-    expect(screen.getByText("$0.001000")).toBeInTheDocument();
-    expect(screen.getByText("$0.0002000")).toBeInTheDocument();
-    expect(screen.getByText("$0.003000")).toBeInTheDocument();
-    expect(screen.getByText("$0.0004000")).toBeInTheDocument();
+    expect(screen.getByText("$0.001")).toBeInTheDocument();
+    expect(screen.getByText("$0.0002")).toBeInTheDocument();
+    expect(screen.getByText("$0.003")).toBeInTheDocument();
+    expect(screen.getByText("$0.0004")).toBeInTheDocument();
   });
 
   it("renders N/A for missing or zero cost fields", () => {

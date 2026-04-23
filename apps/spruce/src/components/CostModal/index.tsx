@@ -5,8 +5,7 @@ import { DisplayModal } from "components/DisplayModal";
 
 export const formatCost = (cost: number): string => {
   if (cost >= 0.01) return cost.toFixed(2);
-  const magnitude = Math.floor(Math.log10(cost));
-  return cost.toFixed(Math.min(-magnitude + 3, 20));
+  return cost.toString();
 };
 
 const COST_DOC_URL =
