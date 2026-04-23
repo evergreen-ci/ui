@@ -53,32 +53,6 @@ export const getHoneycombSystemMetricsUrl = (
   )}&omitMissingValues`;
 };
 
-export const getHoneycombTaskCostUrl = (taskId: string): string => {
-  const query = {
-    calculations: [
-      { op: "SUM", column: "evergreen.task.adjusted_cost" },
-      { op: "SUM", column: "evergreen.task.cost.ebs.adjusted_throughput_cost" },
-      { op: "SUM", column: "evergreen.task.cost.ebs.adjusted_storage_cost" },
-      {
-        op: "SUM",
-        column: "evergreen.task.s3_cost.adjusted_artifact_put_cost",
-      },
-      {
-        op: "SUM",
-        column: "evergreen.task.s3_cost.adjusted_artifact_storage_cost",
-      },
-      { op: "SUM", column: "evergreen.task.s3_cost.adjusted_log_put_cost" },
-      {
-        op: "SUM",
-        column: "evergreen.task.s3_cost.adjusted_log_storage_cost",
-      },
-    ],
-    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
-  };
-
-  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
-};
-
 // Values correspond to the column values displayed in a heatmap on Honeycomb
 export enum TaskTimingMetric {
   RunTime = "duration_min",
