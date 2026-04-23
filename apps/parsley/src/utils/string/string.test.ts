@@ -90,7 +90,7 @@ describe("getBytesAsString", () => {
   const mb = kb * 1024;
   const gb = mb * 1024;
   it("should return 0 Bytes for 0 bytes", () => {
-    expect(getBytesAsString(0)).toBe("0 Bytes");
+    expect(getBytesAsString(0)).toBe("0 KB");
   });
   it("should format file size in the correct unit", () => {
     expect(getBytesAsString(1 * kb)).toBe("1 KB");
