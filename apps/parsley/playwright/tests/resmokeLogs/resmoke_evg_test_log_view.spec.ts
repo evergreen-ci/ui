@@ -160,14 +160,12 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to bookmark and unbookmark log lines", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("log-menu-4").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-4").dblclick();
     await expect(page).toHaveURL(/\?bookmarks=0,4,12568/);
     await expect(page.getByTestId("bookmark-0")).toBeVisible();
     await expect(page.getByTestId("bookmark-4")).toBeVisible();
     await expect(page.getByTestId("bookmark-12568")).toBeVisible();
-    await page.getByTestId("sharing-menu-button").click();
-    await page.getByText("Remove bookmark").click();
+    await page.getByTestId("log-row-4").dblclick();
     await expect(page).toHaveURL(/\?bookmarks=0,12568/);
     await expect(page.getByTestId("bookmark-4")).toBeHidden();
   });
@@ -185,10 +183,8 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to copy bookmarks as JIRA format", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("log-menu-10").click();
-    await page.getByText("Bookmark line").click();
-    await page.getByTestId("log-menu-11").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-10").dblclick();
+    await page.getByTestId("log-row-11").dblclick();
 
     const logLine0 =
       "[fsm_workload_test:internal_transactions_kill_sessions] Fixture status:";
@@ -223,8 +219,7 @@ test.describe("Jump to line", () => {
   }) => {
     await page.goto(logLink);
     await expect(page.getByTestId("log-row-4")).toBeVisible();
-    await page.getByTestId("log-menu-4").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-4").dblclick();
     await expect(page.getByTestId("bookmark-4")).toBeVisible();
 
     await page.getByTestId("bookmark-12568").click();
@@ -240,8 +235,7 @@ test.describe("Jump to line", () => {
   }) => {
     await page.goto(`${logLink}?filters=100repl_hb`);
     await expect(page.getByTestId("log-row-30")).toBeVisible();
-    await page.getByTestId("log-menu-30").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-30").dblclick();
     await expect(page).toHaveURL(/bookmarks=0,30,12568/);
     await expect(page.getByTestId("bookmark-30")).toBeVisible();
     await page.getByTestId("bookmark-12568").click();
@@ -330,8 +324,7 @@ test.describe("pretty print", () => {
     const defaultRowHeight = 18;
 
     await expect(page.getByTestId("log-row-19")).toBeVisible();
-    await page.getByTestId("log-menu-19").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-19").dblclick();
     const box = await page.getByTestId("log-row-19").boundingBox();
     expect(box).not.toBeNull();
     expect(box!.height).toBeGreaterThan(defaultRowHeight);

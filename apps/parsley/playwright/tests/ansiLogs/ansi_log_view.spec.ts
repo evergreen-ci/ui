@@ -93,14 +93,12 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to bookmark and unbookmark log lines", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("log-menu-4").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-4").dblclick();
     await expect(page).toHaveURL(/\?bookmarks=0,4,297/);
     await expect(page.getByTestId("bookmark-list")).toContainText("0");
     await expect(page.getByTestId("bookmark-list")).toContainText("4");
     await expect(page.getByTestId("bookmark-list")).toContainText("297");
-    await page.getByTestId("sharing-menu-button").click();
-    await page.getByText("Remove bookmark").click();
+    await page.getByTestId("log-row-4").dblclick();
     await expect(page).toHaveURL(/\?bookmarks=0,297/);
     const bookmarkList = await page.getByTestId("bookmark-list").innerText();
     expect(bookmarkList).not.toContain("4");
@@ -119,10 +117,8 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to copy bookmarks as JIRA format", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("log-menu-10").click();
-    await page.getByText("Bookmark line").click();
-    await page.getByTestId("log-menu-11").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-10").dblclick();
+    await page.getByTestId("log-row-11").dblclick();
 
     const logLine0 =
       "[2022/03/02 17:01:58.587] Task logger initialized (agent version 2022-02-14 from 00a4c8f3e8e4559cc23e04a019b6d1725c40c3e5).";
@@ -144,10 +140,8 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to copy bookmarks as raw format", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("log-menu-10").click();
-    await page.getByText("Bookmark line").click();
-    await page.getByTestId("log-menu-11").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-10").dblclick();
+    await page.getByTestId("log-row-11").dblclick();
 
     const logLine0 =
       "[2022/03/02 17:01:58.587] Task logger initialized (agent version 2022-02-14 from 00a4c8f3e8e4559cc23e04a019b6d1725c40c3e5).";
@@ -186,8 +180,7 @@ test.describe("Jump to line", () => {
   }) => {
     await page.goto(logLink);
     await expect(page.getByTestId("log-row-4")).toBeVisible();
-    await page.getByTestId("log-menu-4").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-4").dblclick();
     await expect(page.getByTestId("bookmark-4")).toBeVisible();
 
     await page.getByTestId("bookmark-297").click();
@@ -201,8 +194,7 @@ test.describe("Jump to line", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(`${logLink}?filters=100pass`);
-    await page.getByTestId("log-menu-56").click();
-    await page.getByText("Bookmark line").click();
+    await page.getByTestId("log-row-56").dblclick();
     await expect(page.getByTestId("bookmark-56")).toBeVisible();
 
     await page.getByTestId("bookmark-297").click();

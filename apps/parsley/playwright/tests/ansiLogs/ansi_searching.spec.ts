@@ -97,9 +97,8 @@ test.describe("Searching", () => {
     await page.getByTestId("next-button").click();
     await expect(page.getByTestId("search-count")).toContainText("2/4");
 
-    await page.getByTestId("log-menu-27").click();
-    await page.getByText("Bookmark line").click();
-    await expect(page).toHaveURL(/\?bookmarks=0,27,297&selectedLineRange=L27/);
+    await page.getByTestId("log-row-27").dblclick();
+    await expect(page).toHaveURL(/\?bookmarks=0,27,297/);
     await expect(page.getByTestId("search-count")).toContainText("2/4");
   });
 

@@ -16,8 +16,7 @@ test.describe("Filtering", () => {
       test("should not collapse bookmarks and selected line", async ({
         authenticatedPage: page,
       }) => {
-        await page.getByTestId("log-menu-6").click();
-        await page.getByText("Bookmark line").click();
+        await page.getByTestId("log-row-6").dblclick();
         await page.getByTestId("line-index-5").click();
         await expect(page).toHaveURL(
           /\?bookmarks=0,6,115&selectedLineRange=L5/,
@@ -36,8 +35,7 @@ test.describe("Filtering", () => {
       }) => {
         await helpers.addFilter(page, "5553072873648668703");
         await expect(page.getByTestId("log-row-0")).toBeVisible();
-        await page.getByTestId("log-menu-0").click();
-        await page.getByText("Remove bookmark").click();
+        await page.getByTestId("log-row-0").dblclick();
         await expect(page).toHaveURL(/5553072873648668703/);
         await expect(
           page.getByTestId("filter-5553072873648668703"),
