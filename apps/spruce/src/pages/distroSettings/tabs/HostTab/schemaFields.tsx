@@ -38,6 +38,7 @@ const bootstrapMethod = {
     oneOf: enumSelect(bootstrapMethodToCopy),
   },
   uiSchema: {
+    "ui:data-cy": "bootstrap-method-select",
     "ui:allowDeselect": false,
   },
 };

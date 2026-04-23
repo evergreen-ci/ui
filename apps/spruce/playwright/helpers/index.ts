@@ -1,20 +1,23 @@
-import { Page, expect } from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 
 /**
  * Selects an option from a LeafyGreen select component
  * @param page - The Playwright page object
- * @param label - The label of the select input
+ * @param label - The label text of the select input, or `{ testId: string }` to target by data-cy
  * @param option - The option text or regex pattern to select
  * @param options - Additional options for selecting the option
  * @param options.exact - Whether to match the option text exactly (default: false)
  */
 export async function selectOption(
-  page: Page,
-  label: string,
+  page: Page | Locator,
+  label: string | { testId: string },
   option: string | RegExp,
   options?: { exact: boolean },
 ): Promise<void> {
-  const input = page.getByLabel(label);
+  const input =
+    typeof label === "string"
+      ? page.getByLabel(label)
+      : page.getByTestId(label.testId);
   await input.scrollIntoViewIfNeeded();
   await expect(input).toBeEnabled();
   await input.click();
@@ -22,27 +25,6 @@ export async function selectOption(
   const listbox = page.locator('[role="listbox"]');
   await expect(listbox).toHaveCount(1);
   await listbox.getByText(option, options).click();
-}
-
-/**
- * Opens an expandable card if it's not already open
- * @param page - The Playwright page object
- * @param cardTitle - The title of the expandable card
- */
-export async function openExpandableCard(
-  page: Page,
-  cardTitle: string,
-): Promise<void> {
-  const cardButton = page
-    .getByTestId("expandable-card-title")
-    .filter({ hasText: cardTitle })
-    .locator('[role="button"]')
-    .first();
-
-  const isExpanded = await cardButton.getAttribute("aria-expanded");
-  if (isExpanded !== "true") {
-    await cardButton.click();
-  }
 }
 
 /**
