@@ -38,18 +38,12 @@ describe("A project that has GitHub webhooks enabled", () => {
     cy.visit(origin);
     cy.dataCy("navitem-commit-checks").click();
     saveButtonEnabled(false);
-    cy.dataCy("github-checks-enabled-radio-box")
-      .contains("label", "Enabled")
-      .click();
-    cy.dataCy("error-banner")
-      .contains(
-        "A Commit Check Definition must be specified for this feature to run.",
-      )
-      .as("errorBanner");
+    cy.dataCy("github-checks-enabled-radio-box").children().first().click();
+    cy.contains(
+      "A Commit Check Definition must be specified for this feature to run.",
+    ).as("errorBanner");
     cy.get("@errorBanner").should("be.visible");
-    cy.dataCy("github-checks-enabled-radio-box")
-      .contains("label", "Disabled")
-      .click();
+    cy.dataCy("github-checks-enabled-radio-box").children().last().click();
     cy.get("@errorBanner").should("not.exist");
   });
 });
