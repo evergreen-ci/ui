@@ -132,7 +132,9 @@ export const ADMIN_SETTINGS = gql`
         s3Cost {
           storage {
             archiveStorageCostDiscount
+            artifactAwsAccountsWithoutLifecycleRules
             defaultMaxArtifactExpirationDays
+            devprodOwnedAwsAccountIds
             iAStorageCostDiscount
             standardStorageCostDiscount
           }
@@ -381,6 +383,7 @@ export const ADMIN_SETTINGS = gql`
         collectorEndpoint
         collectorInternalEndpoint
         enabled
+        traceUrlTemplate
       }
       triggers {
         generateTaskDistro

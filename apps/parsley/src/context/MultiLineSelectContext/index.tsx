@@ -8,6 +8,7 @@ import {
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { useLogWindowAnalytics } from "analytics";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import useLineRangeSelection from "hooks/useLineRangeSelection";
 
@@ -41,6 +42,7 @@ const MultiLineSelectContextProvider: React.FC<{
 }> = ({ children }) => {
   const [selectedLines, setSelectedLines] = useLineRangeSelection();
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const { sendEvent } = useLogWindowAnalytics();
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -62,8 +64,9 @@ const MultiLineSelectContextProvider: React.FC<{
   const clearSelection = useCallback(() => {
     setSelectedLines({ endingLine: undefined, startingLine: undefined });
     setMenuPosition(undefined);
+    sendEvent({ name: "Deleted share line" });
     leaveBreadcrumb("Clear line range", {}, SentryBreadcrumbTypes.UI);
-  }, [setSelectedLines]);
+  }, [sendEvent, setSelectedLines]);
 
   const handleSelectLine = useCallback(
     (selectedLine: number, shiftClick: boolean) => {
@@ -83,6 +86,7 @@ const MultiLineSelectContextProvider: React.FC<{
         );
       } else {
         setSelectedLines({ endingLine: undefined, startingLine: selectedLine });
+        sendEvent({ name: "Created new share line" });
         leaveBreadcrumb(
           "Set initial line range",
           { endingLine: undefined, startingLine: selectedLine },
@@ -96,7 +100,7 @@ const MultiLineSelectContextProvider: React.FC<{
         setMenuPosition(selectedLine);
       }
     },
-    [selectedLines, setSelectedLines, clearSelection],
+    [selectedLines, setSelectedLines, sendEvent, clearSelection],
   );
 
   const memoizedContext = useMemo(

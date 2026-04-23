@@ -377,6 +377,11 @@ describe("other", () => {
     cy.get("@collectorEndpointInput").clear();
     cy.get("@collectorEndpointInput").type("https://new-collector.example.com");
 
+    const traceUrlTemplate = "Trace URL Template";
+    cy.getInputByLabel(traceUrlTemplate).as("traceUrlTemplateInput");
+    cy.get("@traceUrlTemplateInput").clear();
+    cy.get("@traceUrlTemplateInput").type("https://apm.example.com/trace/%s");
+
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
     cy.reload();
@@ -387,6 +392,10 @@ describe("other", () => {
     cy.getInputByLabel(collectorEndpoint).should(
       "have.value",
       "https://new-collector.example.com",
+    );
+    cy.getInputByLabel(traceUrlTemplate).should(
+      "have.value",
+      "https://apm.example.com/trace/%s",
     );
   });
 

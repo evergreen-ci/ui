@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.1.76",
+  "version": "3.1.79",
   "private": true,
   "type": "module",
   "scripts": {
@@ -96,6 +96,7 @@
     "@eslint/compat": "^2.0.1",
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
+    "@evg-ui/playwright-config": "workspace:*",
     "@evg-ui/storybook-addon": "workspace:*",
     "@evg-ui/vite-utils": "workspace:*",
     "@graphql-codegen/cli": "6.2.1",

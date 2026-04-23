@@ -683,10 +683,13 @@ export type Cost = {
   adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
-  s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  /** Sum of adjusted cost components; excludes on-demand components. */
+  total?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -2523,6 +2526,8 @@ export type Patch = {
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
+  /** Aggregated actual cost for the patch's version, when cost data exists. */
+  cost?: Maybe<Cost>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
@@ -2532,11 +2537,14 @@ export type Patch = {
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   includedLocalModules: Array<IncludedLocalModule>;
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   invalidatedByUpstream: Scalars["Boolean"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
+  /** Aggregated predicted cost for the patch's version. */
+  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectID: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -3045,14 +3053,18 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
+  CommitChecks = "COMMIT_CHECKS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   GithubAppSettings = "GITHUB_APP_SETTINGS",
   GithubPermissions = "GITHUB_PERMISSIONS",
+  GitTags = "GIT_TAGS",
+  MergeQueue = "MERGE_QUEUE",
   Notifications = "NOTIFICATIONS",
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
+  PullRequests = "PULL_REQUESTS",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -3610,14 +3622,22 @@ export type S3CredentialsInput = {
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
   archiveStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  artifactAwsAccountsWithoutLifecycleRules?: Maybe<
+    Array<Scalars["String"]["output"]>
+  >;
   defaultMaxArtifactExpirationDays?: Maybe<Scalars["Int"]["output"]>;
+  devprodOwnedAwsAccountIds?: Maybe<Array<Scalars["String"]["output"]>>;
   iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
   archiveStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  artifactAwsAccountsWithoutLifecycleRules?: InputMaybe<
+    Array<Scalars["String"]["input"]>
+  >;
   defaultMaxArtifactExpirationDays?: InputMaybe<Scalars["Int"]["input"]>;
+  devprodOwnedAwsAccountIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
@@ -4564,6 +4584,7 @@ export type TracerSettings = {
   collectorEndpoint?: Maybe<Scalars["String"]["output"]>;
   collectorInternalEndpoint?: Maybe<Scalars["String"]["output"]>;
   enabled: Scalars["Boolean"]["output"];
+  traceUrlTemplate?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type TracerSettingsInput = {
@@ -4571,6 +4592,7 @@ export type TracerSettingsInput = {
   collectorEndpoint?: InputMaybe<Scalars["String"]["input"]>;
   collectorInternalEndpoint?: InputMaybe<Scalars["String"]["input"]>;
   enabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  traceUrlTemplate?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type TriggerAlias = {
@@ -4824,6 +4846,7 @@ export type Version = {
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -4887,6 +4910,7 @@ export type VersionLite = {
   finishTime?: Maybe<Scalars["Time"]["output"]>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;

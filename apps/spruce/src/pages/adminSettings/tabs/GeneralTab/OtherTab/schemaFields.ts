@@ -163,6 +163,20 @@ export const miscSettings = {
               title: "Default Max Artifact Expiration Days",
               minimum: 1,
             },
+            devprodOwnedAwsAccountIds: {
+              type: "array" as const,
+              title: "Devprod Owned AWS Account IDs",
+              items: {
+                type: "string" as const,
+              },
+            },
+            artifactAwsAccountsWithoutLifecycleRules: {
+              type: "array" as const,
+              title: "Artifact AWS Account IDs Without Lifecycle Rules",
+              items: {
+                type: "string" as const,
+              },
+            },
           },
         },
       },
@@ -175,6 +189,7 @@ export const miscSettings = {
     githubOrgs: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:description": "Organization names are case-sensitive.",
     },
     releaseMode: {
       "ui:description":
@@ -233,6 +248,18 @@ export const miscSettings = {
           "ui:description":
             "The default maximum number of days before artifacts expire (minimum 1).",
         },
+        devprodOwnedAwsAccountIds: {
+          "ui:widget": widgets.ChipInputWidget,
+          "ui:fieldCss": fullWidthCss,
+          "ui:description":
+            "AWS account IDs (12 digits) for S3 buckets owned by Devprod, used for cost calculations.",
+        },
+        artifactAwsAccountsWithoutLifecycleRules: {
+          "ui:widget": widgets.ChipInputWidget,
+          "ui:fieldCss": fullWidthCss,
+          "ui:description":
+            "AWS account IDs where we do not have access to fetch lifecycle rules.",
+        },
       },
     },
   },
@@ -248,12 +275,12 @@ export const getSingleTaskDistroSchema = ({
   const projectRepoOptions = [
     ...projectRefs.map((p) => ({
       type: "string" as const,
-      title: `${p.displayName} (Project)`,
+      title: p.displayName,
       enum: [p.id],
     })),
     ...repoRefs.map((r) => ({
       type: "string" as const,
-      title: `${r.displayName} (Repository)`,
+      title: r.displayName,
       enum: [r.id],
     })),
   ];
@@ -303,7 +330,7 @@ export const getSingleTaskDistroSchema = ({
         "ui:arrayItemCSS": arrayItemCSS,
         items: {
           projectId: {
-            "ui:allowDeselect": false,
+            "ui:widget": widgets.ComboboxWidget,
           },
           allowedTasks: {
             "ui:widget": widgets.ChipInputWidget,
@@ -647,12 +674,21 @@ export const tracerConfiguration = {
       type: "string" as const,
       title: "Collector API Key",
     },
+    traceUrlTemplate: {
+      type: "string" as const,
+      title: "Trace URL Template",
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "tracer-configuration",
     "ui:objectFieldCss": objectGridCss,
     enabled: {
+      "ui:fieldCss": fullWidthCss,
+    },
+    traceUrlTemplate: {
+      "ui:description":
+        "fmt.Sprintf template with exactly one %s verb for the W3C trace ID (hex). Example: https://apm.example.com/trace/%s",
       "ui:fieldCss": fullWidthCss,
     },
   },

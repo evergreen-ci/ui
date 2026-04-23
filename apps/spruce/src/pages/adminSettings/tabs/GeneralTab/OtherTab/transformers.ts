@@ -77,8 +77,13 @@ export const gqlToForm = ((data) => {
           s3Cost: {
             archiveStorageCostDiscount:
               cost?.s3Cost?.storage?.archiveStorageCostDiscount ?? 0,
+            artifactAwsAccountsWithoutLifecycleRules:
+              cost?.s3Cost?.storage?.artifactAwsAccountsWithoutLifecycleRules ??
+              [],
             defaultMaxArtifactExpirationDays:
               cost?.s3Cost?.storage?.defaultMaxArtifactExpirationDays || 1,
+            devprodOwnedAwsAccountIds:
+              cost?.s3Cost?.storage?.devprodOwnedAwsAccountIds ?? [],
             iAStorageCostDiscount:
               cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
             standardStorageCostDiscount:
@@ -191,6 +196,7 @@ export const gqlToForm = ((data) => {
         collectorEndpoint: tracer?.collectorEndpoint ?? "",
         collectorInternalEndpoint: tracer?.collectorInternalEndpoint ?? "",
         collectorAPIKey: tracer?.collectorAPIKey ?? "",
+        traceUrlTemplate: tracer?.traceUrlTemplate ?? "",
       },
 
       projectCreationSettings: {
@@ -274,9 +280,13 @@ export const formToGql = ((form: OtherFormState) => {
         storage: {
           archiveStorageCostDiscount:
             miscSettings.cost.s3Cost.archiveStorageCostDiscount ?? undefined,
+          artifactAwsAccountsWithoutLifecycleRules:
+            miscSettings.cost.s3Cost.artifactAwsAccountsWithoutLifecycleRules,
           defaultMaxArtifactExpirationDays:
             miscSettings.cost.s3Cost.defaultMaxArtifactExpirationDays ||
             undefined,
+          devprodOwnedAwsAccountIds:
+            miscSettings.cost.s3Cost.devprodOwnedAwsAccountIds,
           iAStorageCostDiscount:
             miscSettings.cost.s3Cost.iAStorageCostDiscount ?? undefined,
           standardStorageCostDiscount:
@@ -395,6 +405,7 @@ export const formToGql = ((form: OtherFormState) => {
       collectorInternalEndpoint:
         tracerConfiguration.collectorInternalEndpoint || undefined,
       collectorAPIKey: tracerConfiguration.collectorAPIKey || undefined,
+      traceUrlTemplate: tracerConfiguration.traceUrlTemplate || undefined,
     },
 
     projectCreation: {
