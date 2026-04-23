@@ -10,6 +10,7 @@ import {
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
+  DebugSpawnHostsField,
   DeleteProjectField,
   RepoConfigField,
   RepotrackerField,
@@ -28,6 +29,7 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {
     deactivateStepbackTask: DeactivateStepbackTaskField,
+    debugSpawnHostsField: DebugSpawnHostsField,
     deleteProjectField: DeleteProjectField,
     repoConfigField: RepoConfigField,
     repotrackerField: RepotrackerField,
@@ -364,14 +366,20 @@ export const getFormSchema = (
       },
       debug: {
         debugSpawnHostsDisabled: {
-          "ui:widget": widgets.RadioBoxWidget,
+          "ui:field": "debugSpawnHostsField",
           "ui:description": (
             <>
               Sets if project tasks can create{" "}
               <StyledLink href={debugSpawnHostsDocumentationUrl}>
                 debug spawn hosts
               </StyledLink>
-              .
+              . Make sure you review{" "}
+              <StyledLink
+                href={`${debugSpawnHostsDocumentationUrl}#prerequisites-and-limitations`}
+              >
+                Prerequisites and Limitations
+              </StyledLink>{" "}
+              here before enabling.
             </>
           ),
         },
