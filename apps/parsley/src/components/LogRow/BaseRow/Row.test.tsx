@@ -118,6 +118,22 @@ describe("row", () => {
     expect(screen.getByText("Copy selected contents")).toBeVisible();
   });
 
+  it("double-clicking a line should toggle it as a bookmark", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow(
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 7,
+      },
+      {},
+    );
+    await user.dblClick(screen.getByDataCy("log-row-7"));
+    expect(router.state.location.search).toBe("?bookmarks=7");
+    await user.dblClick(screen.getByDataCy("log-row-7"));
+    expect(router.state.location.search).toBe("");
+  });
+
   it("should not copy line numbers to clipboard", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
     renderRow({ ...rowProps, children: testLog }, {});

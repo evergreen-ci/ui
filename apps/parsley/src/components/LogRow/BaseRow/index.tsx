@@ -76,7 +76,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
     urlParseOptions,
   );
 
-  const [bookmarks] = useQueryParam<number[]>(
+  const [bookmarks, setBookmarks] = useQueryParam<number[]>(
     QueryParams.Bookmarks,
     [],
     urlParseOptions,
@@ -110,6 +110,18 @@ const BaseRow: React.FC<BaseRowProps> = ({
     ],
   );
 
+  const handleDoubleClick = useCallback(() => {
+    if (bookmarks.includes(lineNumber)) {
+      const newBookmarks = bookmarks.filter((b) => b !== lineNumber);
+      setBookmarks(newBookmarks);
+      sendEvent({ name: "Deleted bookmark" });
+    } else {
+      const newBookmarks = [...bookmarks, lineNumber].sort((a, b) => a - b);
+      setBookmarks(newBookmarks);
+      sendEvent({ name: "Created bookmark" });
+    }
+  }, [bookmarks, lineNumber, sendEvent, setBookmarks]);
+
   const isLineBetweenSelectedLines =
     (selectedLines.startingLine !== undefined &&
       selectedLines.endingLine !== undefined &&
@@ -131,6 +143,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
       data-shared={shared}
       failed={failed}
       highlighted={highlighted || isLineBetweenSelectedLines}
+      onDoubleClick={handleDoubleClick}
       shared={shared}
     >
       {menuPosition === lineNumber ? (
