@@ -11022,7 +11022,6 @@ export type TaskHistoryQuery = {
       displayStatus: string;
       execution: number;
       ingestTime?: Date | null;
-      latestExecution: number;
       order: number;
       priority?: number | null;
       requester: string;
