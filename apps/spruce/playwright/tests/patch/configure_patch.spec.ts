@@ -39,10 +39,9 @@ test.describe("Configure Patch Page", () => {
         authenticatedPage: page,
       }) => {
         await page.goto(`/patch/${unactivatedPatchId}/configure`);
-        await expect(
-          page.locator('button[data-cy="tasks-tab"]'),
-        ).toHaveAttribute("aria-selected", "true");
-        await expect(page.getByTestId("tasks-tab")).toBeVisible();
+        const tasksTab = page.getByTestId("tasks-tab");
+        await expect(tasksTab).toHaveAttribute("aria-selected", "true");
+        await expect(tasksTab).toBeVisible();
       });
     });
 
@@ -74,15 +73,18 @@ test.describe("Configure Patch Page", () => {
     test("Should be able to switch between tabs", async ({
       authenticatedPage: page,
     }) => {
-      await page.locator('button[data-cy="changes-tab"]').click();
+      const changesTab = page.getByTestId("changes-tab");
+      await changesTab.click();
       await expect(page).toHaveURL(
         `/patch/${unactivatedPatchId}/configure/changes`,
       );
-      await page.locator('button[data-cy="parameters-tab"]').click();
+      const parametersTab = page.getByTestId("parameters-tab");
+      await parametersTab.click();
       await expect(page).toHaveURL(
         `/patch/${unactivatedPatchId}/configure/parameters`,
       );
-      await page.locator('button[data-cy="tasks-tab"]').click();
+      const tasksTab = page.getByTestId("tasks-tab");
+      await tasksTab.click();
       await expect(page).toHaveURL(
         `/patch/${unactivatedPatchId}/configure/tasks`,
       );
@@ -91,7 +93,7 @@ test.describe("Configure Patch Page", () => {
     test("Navigating away from the configure tab should disable the build variant selector", async ({
       authenticatedPage: page,
     }) => {
-      await page.locator('button[data-cy="changes-tab"]').click();
+      await page.getByTestId("changes-tab").click();
       await expect(
         page.getByTestId("build-variant-select-wrapper"),
       ).toHaveAttribute("disabled", "");
@@ -108,7 +110,7 @@ test.describe("Configure Patch Page", () => {
         authenticatedPage: page,
       }) => {
         await page.goto(`patch/${unactivatedPatchId}/configure/tasks`);
-        await page.locator('button[data-cy="parameters-tab"]').click();
+        await page.getByTestId("parameters-tab").click();
         await page.getByTestId("add-tag-button").click();
         await page.getByTestId("user-tag-key-field").fill("testKey");
         await page.getByTestId("user-tag-value-field").fill("testValue");
@@ -122,7 +124,7 @@ test.describe("Configure Patch Page", () => {
         authenticatedPage: page,
       }) => {
         await page.goto("patch/5ecedafb562343215a7ff297/configure/tasks");
-        await page.locator('button[data-cy="parameters-tab"]').click();
+        await page.getByTestId("parameters-tab").click();
         await expect(page.getByTestId("add-tag-button")).toBeHidden();
         await expect(page.getByTestId("parameters-disclaimer")).toBeVisible();
         await expect(

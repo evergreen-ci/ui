@@ -85,27 +85,29 @@ type ResponseData = {
  * Helper function to mock GraphQL response.
  * @param page - The Playwright page object
  * @param operationName - name of the operation to mock
- * @param responseData - The mock response data
+ * @param responseData - The mock response data, or a function returning it (useful for stateful mocks)
  */
 export async function mockGraphQLResponse(
   page: Page,
   operationName: string,
-  responseData: ResponseData,
+  responseData: ResponseData | (() => ResponseData),
 ) {
   await page.route("**/graphql/query", async (route) => {
     const request = route.request();
     const postData = request.postDataJSON();
     if (postData?.operationName === operationName) {
+      const data =
+        typeof responseData === "function" ? responseData() : responseData;
       await route.fulfill({
         status: 200,
         contentType: "application/json",
         body: JSON.stringify({
-          errors: responseData.errors,
-          data: responseData.data,
+          errors: data.errors,
+          data: data.data,
         }),
       });
     } else {
-      await route.continue();
+      await route.fallback();
     }
   });
 }
