@@ -31,12 +31,14 @@ test.describe("Downstream Projects Tab", () => {
     );
   });
 
-  test("filters by test name", async ({ authenticatedPage: page }) => {
+  test("filters by task name", async ({ authenticatedPage: page }) => {
     await page.getByTestId("task-name-filter").nth(1).click();
-    const input = page.getByTestId("task-name-filter-wrapper").locator("input");
-    await input.focus();
-    await input.fill("generate-lint");
-    await input.press("Enter");
+    const taskInput = page
+      .getByTestId("task-name-filter-wrapper")
+      .locator("input");
+    await taskInput.focus();
+    await taskInput.fill("generate-lint");
+    await taskInput.press("Enter");
     await expect(page).not.toHaveURL(/generate-lint/);
     await expect(page.getByText("generate-lint")).toBeVisible();
   });
@@ -44,6 +46,6 @@ test.describe("Downstream Projects Tab", () => {
   test("does not push query params to the URL", async ({
     authenticatedPage: page,
   }) => {
-    expect(new URL(page.url()).pathname).toBe(DOWNSTREAM_ROUTE);
+    await expect(page).toHaveURL(new RegExp(DOWNSTREAM_ROUTE));
   });
 });

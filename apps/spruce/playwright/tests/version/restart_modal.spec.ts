@@ -132,10 +132,9 @@ test.describe("version/restart_modal", () => {
       const taskCheckbox = modal.getByText("check_codegen");
 
       await taskCheckbox.click();
-      await expect(
-        modal.getByRole("button", { name: "Restart" }),
-      ).toHaveAttribute("aria-disabled", "false");
-      await modal.getByRole("button", { name: "Restart" }).click();
+      const restartButton = modal.getByRole("button", { name: "Restart" });
+      await expect(restartButton).toHaveAttribute("aria-disabled", "false");
+      await restartButton.click();
       await validateToast(page, "success", "Successfully restarted tasks!");
     });
   });
