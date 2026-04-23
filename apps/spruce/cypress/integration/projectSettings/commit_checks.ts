@@ -36,8 +36,6 @@ describe("A project that has GitHub webhooks enabled", () => {
   it("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", () => {
     const origin = getRepoSettingsRoute(repo);
     cy.visit(origin);
-    cy.dataCy("navitem-pull-requests").click();
-    saveButtonEnabled(false);
     cy.dataCy("navitem-commit-checks").click();
     saveButtonEnabled(false);
     cy.dataCy("github-checks-enabled-radio-box")
