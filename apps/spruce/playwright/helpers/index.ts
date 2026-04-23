@@ -61,7 +61,7 @@ export async function selectOption(
 ): Promise<void> {
   const input = page.getByLabel(label);
   await input.scrollIntoViewIfNeeded();
-  await expect(input).not.toHaveAttribute("aria-disabled", "true");
+  await expect(input).toBeEnabled();
   await input.click();
 
   const listbox = page.locator('[role="listbox"]');
@@ -125,10 +125,45 @@ export async function validateDatePickerDate(
   await expect(datePicker.locator("input[id='day']")).toHaveValue(day);
 }
 
+/**
+ * Selects a date in a LeafyGreen date picker by navigating the year/month dropdowns
+ * and clicking the target day cell.
+ * @param page - The Playwright page object
+ * @param year - The year to select (e.g., "2025")
+ * @param month - The abbreviated month name to select (e.g., "Feb")
+ * @param isoDate - The ISO date string of the day cell to click (e.g., "2025-02-28")
+ */
+export async function selectDatePickerDate(
+  page: Page,
+  year: string,
+  month: string,
+  isoDate: string,
+): Promise<void> {
+  await page.getByTestId("date-picker").click();
+
+  const options = page.getByRole("listbox").getByRole("option");
+
+  const yearSelect = page.locator("[aria-label*='Select year' i]");
+  await expect(yearSelect).toBeVisible();
+  await yearSelect.click();
+  await expect(options.getByText(year)).toBeVisible();
+  await options.getByText(year).click();
+
+  const monthSelect = page.locator("[aria-label*='Select month' i]");
+  await expect(monthSelect).toBeVisible();
+  await monthSelect.click();
+  await expect(options.getByText(month)).toBeVisible();
+  await options.getByText(month).click();
+
+  await page.locator(`[data-iso='${isoDate}']`).click();
+}
+
 // Re-export shared helpers from the playwright-config package.
 export {
   validateToast,
   login,
   logout,
   clickCheckboxByLabel,
+  mockGraphQLResponse,
+  hasOperationName,
 } from "@evg-ui/playwright-config/helpers";
