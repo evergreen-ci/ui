@@ -48,7 +48,7 @@ describe("SharedSettings / Commit Checks tab feature flag", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("shows the Commit Queue nav item when new project navigation is enabled", async () => {
+  it("shows the Commit Checks nav item when new project navigation is enabled", async () => {
     vi.doMock("constants/featureFlags", () => ({
       showNewProjectNavigation: true,
     }));
@@ -69,6 +69,6 @@ describe("SharedSettings / Commit Checks tab feature flag", () => {
         path: "/project/:projectIdentifier/settings/:tab",
       },
     );
-    expect(screen.getByDataCy("navitem-commit-queue")).toBeInTheDocument();
+    expect(screen.getByDataCy("navitem-commit-checks")).toBeInTheDocument();
   });
 });
