@@ -61,7 +61,7 @@ describe("sharingMenu", () => {
 
   it("should render an open menu after setting it to open", async () => {
     const { hook } = renderSharingMenu();
-    expect(screen.queryByText("Copy link to lines")).toBeNull();
+    expect(screen.queryByText("Copy link to line")).toBeNull();
     act(() => {
       hook.current.setOpenMenu(true);
     });
@@ -70,15 +70,13 @@ describe("sharingMenu", () => {
   });
   it("should render an open menu after selecting a start and end line", async () => {
     const { hook } = renderSharingMenu();
-    expect(screen.queryByText("Copy link to lines")).toBeNull();
+    expect(screen.queryByText("Only search on range")).toBeNull();
     act(() => {
       hook.current.handleSelectLine(1, false);
     });
-    expect(screen.queryByText("Copy link to lines")).toBeNull();
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    expect(screen.getByText("Copy link to lines")).toBeInTheDocument();
     expect(screen.getByText("Only search on range")).toBeInTheDocument();
   });
   it("clicking `copy selected contents` should copy the line range to the clipboard in Jira format by default", async () => {
@@ -143,7 +141,7 @@ describe("sharingMenu", () => {
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("line 2\n");
   });
-  it("clicking `copy link to lines` should omit legacy shareLine from copied URL", async () => {
+  it("clicking `copy link to line` should omit selectedLineRange from the copied URL", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
 
     const { Component: MenuComponent, hook } = renderComponentWithHook(
@@ -152,22 +150,17 @@ describe("sharingMenu", () => {
     );
     const { Component } = RenderFakeToastContext(<MenuComponent />);
     renderWithRouterMatch(<Component />, {
-      route: "?shareLine=5",
+      route: "?selectedLineRange=L5",
       wrapper,
     });
     act(() => {
-      hook.current.handleSelectLine(1, false);
+      hook.current.setOpenMenu(true);
     });
-    act(() => {
-      hook.current.handleSelectLine(3, true);
-    });
-    await user.click(screen.getByText("Copy link to lines"));
+    await user.click(screen.getByText("Copy link to line"));
     const clipboardText = await navigator.clipboard.readText();
-    expect(clipboardText).toBe(
-      "http://localhost:3000/?selectedLineRange=L1-L3",
-    );
+    expect(clipboardText).toBe("http://localhost:3000/?shareLine=5");
   });
-  it("clicking `copy link to lines` should copy the link to the clipboard", async () => {
+  it("clicking `copy link to line` on a range should copy the link with the starting line as shareLine", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
 
     const { hook } = renderSharingMenu();
@@ -177,12 +170,10 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    expect(screen.getByText("Copy link to lines")).toBeInTheDocument();
-    await user.click(screen.getByText("Copy link to lines"));
+    expect(screen.getByText("Copy link to line")).toBeInTheDocument();
+    await user.click(screen.getByText("Copy link to line"));
     const clipboardText = await navigator.clipboard.readText();
-    expect(clipboardText).toBe(
-      "http://localhost:3000/?selectedLineRange=L1-L3",
-    );
+    expect(clipboardText).toBe("http://localhost:3000/?shareLine=1");
   });
   it("clicking `only search on range` should update the url with the range", async () => {
     const user = userEvent.setup();
@@ -240,7 +231,7 @@ describe("sharingMenu", () => {
         logType: LogTypes.LOCAL_UPLOAD,
       });
     });
-    expect(screen.queryByText("Copy link to lines")).toBeNull();
+    expect(screen.queryByText("Copy link to line")).toBeNull();
   });
   it("should not show 'Add to Parsley AI' if this is a locally uploaded log", () => {
     const useSpecialHook = () => {
@@ -276,7 +267,7 @@ describe("sharingMenu", () => {
     expect(screen.getByText("Add to Parsley AI")).toBeInTheDocument();
   });
 
-  it("clicking `copy link to line` should copy the link with selectedLineRange param", async () => {
+  it("clicking `copy link to line` should copy the link with the shareLine param", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
 
     const { hook } = renderSharingMenu();
@@ -287,6 +278,6 @@ describe("sharingMenu", () => {
     expect(screen.getByText("Copy link to line")).toBeInTheDocument();
     await user.click(screen.getByText("Copy link to line"));
     const clipboardText = await navigator.clipboard.readText();
-    expect(clipboardText).toBe("http://localhost:3000/?selectedLineRange=L1");
+    expect(clipboardText).toBe("http://localhost:3000/?shareLine=1");
   });
 });

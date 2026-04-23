@@ -134,31 +134,18 @@ const SharingMenu: React.FC = () => {
     bookmarks.includes(selectedLines.startingLine);
 
   const handleShareLinkToSelectedLines = async () => {
-    const { endingLine, startingLine } = selectedLines;
+    const { startingLine } = selectedLines;
     if (startingLine === undefined) return;
     const url = new URL(window.location.href);
 
-    if (endingLine !== undefined && endingLine !== startingLine) {
-      url.searchParams.set(
-        QueryParams.SelectedLineRange,
-        `L${startingLine}-L${endingLine}`,
-      );
-    } else {
-      url.searchParams.set(QueryParams.SelectedLineRange, `L${startingLine}`);
-    }
-    url.searchParams.delete(QueryParams.ShareLine);
+    url.searchParams.set(QueryParams.ShareLine, String(startingLine));
+    url.searchParams.delete(QueryParams.SelectedLineRange);
 
     await copyToClipboard(url.toString());
     setOpen(false);
     sendEvent({ name: "Clicked copy share link button" });
     dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
   };
-
-  const lineCount =
-    selectedLines.endingLine === undefined ||
-    selectedLines.startingLine === undefined
-      ? 1
-      : selectedLines.endingLine - selectedLines.startingLine + 1;
 
   return (
     <StyledMenu
@@ -192,7 +179,7 @@ const SharingMenu: React.FC = () => {
           glyph={<Icon glyph="Export" />}
           onClick={handleShareLinkToSelectedLines}
         >
-          Copy link to {pluralize("line", lineCount)}
+          Copy link to line
         </MenuItem>
       )}
       <MenuItem
