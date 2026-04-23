@@ -86,7 +86,7 @@ export const CommitChecksTab: React.FC<TabProps> = ({
   return (
     <>
       {!githubWebhooksEnabled && (
-        <Banner variant="warning">
+        <Banner data-cy="disabled-webhook-banner" variant="warning">
           GitHub features are disabled because the Evergreen GitHub App is not
           installed on the saved owner/repo. Contact IT to install the App and
           enable GitHub features.
