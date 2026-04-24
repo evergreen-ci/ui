@@ -11530,7 +11530,6 @@ export type TaskQuery = {
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
-      onDemandEC2Cost?: number | null;
       total?: number | null;
     } | null;
     versionMetadata: {

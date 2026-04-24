@@ -1,35 +1,59 @@
 import styled from "@emotion/styled";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import {
+  BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
+} from "@evg-ui/lib/components/Table";
 import { DisplayModal } from "components/DisplayModal";
-
-export const formatCost = (cost: number): string => {
-  if (cost >= 0.01) return cost.toFixed(2);
-  return cost.toString();
-};
-
-const COST_DOC_URL =
-  "https://docs.devprod.prod.corp.mongodb.com/evergreen/FAQ/Cost-FAQ";
+import { getHoneycombTaskCostUrl } from "constants/externalResources/honeycomb";
+import { Cost } from "gql/generated/types";
 
 interface CostRow {
-  event: string;
+  category: string;
   cost: number | null | undefined;
 }
 
-interface CostModalProps {
+type CostFields = Pick<
+  Cost,
+  | "adjustedEC2Cost"
+  | "adjustedEBSStorageCost"
+  | "adjustedEBSThroughputCost"
+  | "adjustedS3ArtifactPutCost"
+  | "adjustedS3ArtifactStorageCost"
+  | "adjustedS3LogPutCost"
+  | "adjustedS3LogStorageCost"
+  | "total"
+>;
+
+interface CostModalProps extends CostFields {
   /** Display name shown in the modal title, e.g. task display name */
   name: string;
   open: boolean;
-  onClose: () => void;
-  total?: number | null;
-  adjustedEC2Cost?: number | null;
-  adjustedEBSStorageCost?: number | null;
-  adjustedEBSThroughputCost?: number | null;
-  adjustedS3ArtifactPutCost?: number | null;
-  adjustedS3ArtifactStorageCost?: number | null;
-  adjustedS3LogPutCost?: number | null;
-  adjustedS3LogStorageCost?: number | null;
+  setOpen: (open: boolean) => void;
+  taskId: string;
 }
+
+const columns: LGColumnDef<CostRow>[] = [
+  {
+    accessorKey: "category",
+    header: "Category",
+  },
+  {
+    accessorKey: "cost",
+    header: "Cost",
+    cell: ({ getValue }) => {
+      const cost = getValue() as number | null | undefined;
+      return (
+        <TabularNum>{cost != null && cost > 0 ? `$${cost}` : "N/A"}</TabularNum>
+      );
+    },
+  },
+];
+
+const TabularNum = styled.span`
+  font-variant-numeric: tabular-nums;
+`;
 
 export const CostModal: React.FC<CostModalProps> = ({
   adjustedEBSStorageCost,
@@ -40,66 +64,47 @@ export const CostModal: React.FC<CostModalProps> = ({
   adjustedS3LogPutCost,
   adjustedS3LogStorageCost,
   name,
-  onClose,
   open,
+  setOpen,
+  taskId,
   total,
 }) => {
   const rows: CostRow[] = [
-    { event: "Total", cost: total },
-    { event: "EC2 Instance", cost: adjustedEC2Cost },
-    { event: "EBS Throughput", cost: adjustedEBSThroughputCost },
-    { event: "EBS Storage", cost: adjustedEBSStorageCost },
-    { event: "S3 Artifact Put", cost: adjustedS3ArtifactPutCost },
-    { event: "S3 Log Put", cost: adjustedS3LogPutCost },
-    { event: "S3 Artifact Storage", cost: adjustedS3ArtifactStorageCost },
-    { event: "S3 Log Storage", cost: adjustedS3LogStorageCost },
+    { category: "Total", cost: total },
+    { category: "EC2", cost: adjustedEC2Cost },
+    { category: "EBS Throughput", cost: adjustedEBSThroughputCost },
+    { category: "EBS Storage", cost: adjustedEBSStorageCost },
+    { category: "S3 Artifact Put", cost: adjustedS3ArtifactPutCost },
+    { category: "S3 Artifact Storage", cost: adjustedS3ArtifactStorageCost },
+    { category: "S3 Log Put", cost: adjustedS3LogPutCost },
+    { category: "S3 Log Storage", cost: adjustedS3LogStorageCost },
   ];
+
+  const table = useLeafyGreenTable<CostRow>({
+    columns,
+    data: rows,
+    enableColumnFilters: false,
+    enableSorting: false,
+  });
 
   return (
     <DisplayModal
       data-cy="cost-modal"
       open={open}
-      setOpen={onClose}
+      setOpen={setOpen}
       title={`Cost breakdown for ${name}`}
     >
-      <StyledLink data-cy="cost-docs-link" href={COST_DOC_URL}>
-        View a breakdown of documented data tracked by Evergreen
+      <span data-cy="cost-docs-link">
+        Evergreen cost documentation (coming soon)
+      </span>
+      <BaseTable data-cy="cost-breakdown-table" table={table} />
+      <StyledLink
+        data-cy="task-cost-link"
+        hideExternalIcon={false}
+        href={getHoneycombTaskCostUrl(taskId)}
+      >
+        Cost breakdown in Honeycomb
       </StyledLink>
-      <CostTable data-cy="cost-breakdown-table">
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th>Cost</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(({ cost, event }) => (
-            <tr key={event}>
-              <td>{event}</td>
-              <td>
-                {cost != null && cost > 0 ? `$${formatCost(cost)}` : "N/A"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </CostTable>
     </DisplayModal>
   );
 };
-
-const CostTable = styled.table`
-  margin-top: ${size.s};
-  width: 100%;
-  border-collapse: collapse;
-
-  th,
-  td {
-    padding: ${size.xs} ${size.s};
-    text-align: left;
-    border-bottom: 1px solid #e8edeb;
-  }
-
-  th {
-    font-weight: 600;
-  }
-`;

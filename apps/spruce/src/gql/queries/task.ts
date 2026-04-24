@@ -142,7 +142,6 @@ export const TASK = gql`
         adjustedS3ArtifactStorageCost
         adjustedS3LogPutCost
         adjustedS3LogStorageCost
-        onDemandEC2Cost
         total
       }
       testSelectionEnabled

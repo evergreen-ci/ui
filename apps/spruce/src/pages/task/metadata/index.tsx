@@ -19,7 +19,6 @@ import { Stepback } from "components/Stepback";
 import { getAPIRouteForTasks } from "constants/externalResources";
 import {
   getHoneycombSystemMetricsUrl,
-  getHoneycombTaskCostUrl,
   getHoneycombTraceUrl,
 } from "constants/externalResources/honeycomb";
 import {
@@ -358,19 +357,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
-              <StyledLink
-                data-cy="task-cost-link"
-                hideExternalIcon={false}
-                href={getHoneycombTaskCostUrl(taskId)}
-                onClick={() => {
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "honeycomb task cost link",
-                  });
-                }}
-              >
-                Honeycomb Task Cost
-              </StyledLink>
               {taskTrace && (
                 <StyledLink
                   data-cy="task-trace-link"
@@ -409,19 +395,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
       </MetadataCard>
-      {costModalOpen && taskCost && (
+      {taskCost && (
         <CostModal
-          adjustedEBSStorageCost={taskCost.adjustedEBSStorageCost}
-          adjustedEBSThroughputCost={taskCost.adjustedEBSThroughputCost}
-          adjustedEC2Cost={taskCost.adjustedEC2Cost}
-          adjustedS3ArtifactPutCost={taskCost.adjustedS3ArtifactPutCost}
-          adjustedS3ArtifactStorageCost={taskCost.adjustedS3ArtifactStorageCost}
-          adjustedS3LogPutCost={taskCost.adjustedS3LogPutCost}
-          adjustedS3LogStorageCost={taskCost.adjustedS3LogStorageCost}
+          {...taskCost}
           name={task.displayName}
-          onClose={() => setCostModalOpen(false)}
           open={costModalOpen}
-          total={taskCost.total}
+          setOpen={setCostModalOpen}
+          taskId={taskId}
         />
       )}
 
