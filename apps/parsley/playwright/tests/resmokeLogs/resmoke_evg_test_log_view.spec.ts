@@ -175,10 +175,8 @@ test.describe("Bookmarking and selecting lines", () => {
   }) => {
     await page.getByTestId("line-index-5").click();
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
-    await expect(
-      page.getByText("Copy share link to selected line"),
-    ).toBeVisible();
-    await page.getByText("Copy share link to selected line").click();
+    await expect(page.getByText("Copy share link")).toBeVisible();
+    await page.getByText("Copy share link").click();
     await helpers.validateToast(
       page,
       "success",
@@ -390,10 +388,8 @@ test.describe("Sharing lines", () => {
     await page.getByTestId("line-index-1").click();
     await page.getByTestId("line-index-2").click({ modifiers: ["Shift"] });
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
-    await expect(
-      page.getByText("Copy share link to selected lines"),
-    ).toBeVisible();
-    await page.getByText("Copy share link to selected lines").click();
+    await expect(page.getByText("Copy share link")).toBeVisible();
+    await page.getByText("Copy share link").click();
     await helpers.validateToast(
       page,
       "success",

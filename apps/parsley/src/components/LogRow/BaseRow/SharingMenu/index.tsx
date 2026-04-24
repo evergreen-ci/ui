@@ -42,6 +42,11 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
     [],
     urlParseOptions,
   );
+  const [, setShareLine] = useQueryParam<number | undefined>(
+    QueryParams.ShareLine,
+    undefined,
+    urlParseOptions,
+  );
   const dispatchToast = useToastContext();
   const { sendEvent } = useLogWindowAnalytics();
 
@@ -100,11 +105,11 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
 
   const handleOnlySearchOnRange = () => {
     const { endingLine, startingLine } = selectedLines;
-    if (startingLine === undefined || endingLine === undefined) return;
+    if (startingLine === undefined) return;
     setParams({
       ...params,
       [QueryParams.LowerRange]: startingLine,
-      [QueryParams.UpperRange]: endingLine,
+      [QueryParams.UpperRange]: endingLine ?? startingLine,
     });
     setOpen(false);
     sendEvent({
@@ -135,7 +140,7 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
   const handleShareLinkToSelectedLines = async () => {
     const { startingLine } = selectedLines;
     if (startingLine === undefined) return;
-    // Take the current URL and add the shareLine query param
+    setShareLine(startingLine);
     const url = new URL(window.location.href);
     url.searchParams.set(QueryParams.ShareLine, startingLine.toString());
 
@@ -145,12 +150,6 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
     dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
   };
 
-  const lineCount =
-    selectedLines.endingLine === undefined ||
-    selectedLines.startingLine === undefined
-      ? 1
-      : selectedLines.endingLine - selectedLines.startingLine + 1;
-
   return (
     <StyledMenu
       align="right"
@@ -159,6 +158,9 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
       setOpen={setOpen}
       trigger={<SharingMenuButton lineNumber={lineNumber} />}
     >
+      <MenuItem glyph={<Icon glyph="Trash" />} onClick={clearSelection}>
+        Clear selection
+      </MenuItem>
       {isParsleyAIAvailable && (
         <MenuItem
           glyph={<Icon glyph="Sparkle" />}
@@ -167,6 +169,18 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
           Add to Parsley AI
         </MenuItem>
       )}
+      <MenuItem
+        glyph={<Icon glyph="MagnifyingGlass" />}
+        onClick={handleOnlySearchOnRange}
+      >
+        Only search on range
+      </MenuItem>
+      <MenuItem
+        glyph={<Icon glyph={isBookmarked ? "Checkmark" : "Plus"} />}
+        onClick={handleToggleBookmark}
+      >
+        {isBookmarked ? "Remove bookmark" : "Bookmark line"}
+      </MenuItem>
       <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
         Copy selected contents
       </MenuItem>
@@ -175,24 +189,9 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
           glyph={<Icon glyph="Export" />}
           onClick={handleShareLinkToSelectedLines}
         >
-          Copy share link to selected {pluralize("line", lineCount)}
+          Copy share link
         </MenuItem>
       )}
-      <MenuItem
-        glyph={<Icon glyph={isBookmarked ? "Checkmark" : "Plus"} />}
-        onClick={handleToggleBookmark}
-      >
-        {isBookmarked ? "Remove bookmark" : "Bookmark line"}
-      </MenuItem>
-      <MenuItem
-        glyph={<Icon glyph="MagnifyingGlass" />}
-        onClick={handleOnlySearchOnRange}
-      >
-        Only search on range
-      </MenuItem>
-      <MenuItem glyph={<Icon glyph="Trash" />} onClick={clearSelection}>
-        Clear selection
-      </MenuItem>
     </StyledMenu>
   );
 };
