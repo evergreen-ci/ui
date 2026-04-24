@@ -154,9 +154,10 @@ const SharedSettingsNavItem: React.FC<{
 );
 
 const allTabs = Object.values(ProjectSettingsTabRoutes);
+const hiddenTabs = [ProjectSettingsTabRoutes.GitTags];
 const tabRouteValues = showNewProjectNavigation
   ? allTabs
-  : allTabs.filter((t) => t !== ProjectSettingsTabRoutes.GitTags);
+  : allTabs.filter((t) => !hiddenTabs.includes(t));
 
 const ButtonsContainer = styled.div`
   align-items: flex-start;

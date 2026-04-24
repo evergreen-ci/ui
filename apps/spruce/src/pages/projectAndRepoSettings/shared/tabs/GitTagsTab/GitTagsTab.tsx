@@ -4,11 +4,7 @@ import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
-import {
-  ErrorType,
-  getVersionControlError,
-} from "../GithubCommitQueueTab/getErrors";
-import { ProjectType } from "../utils";
+import { ProjectType, ErrorType, getVersionControlError } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { GitTagsFormState, TabProps } from "./types";

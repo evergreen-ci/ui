@@ -3,8 +3,7 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { gitTagAliasesDocumentationUrl } from "constants/externalResources";
-import { alias, form, ProjectType } from "../utils";
-import { sectionHasError } from "./getErrors";
+import { alias, form, ProjectType, sectionHasError } from "../utils";
 import { GitTagsFormState } from "./types";
 
 const { gitTagArray } = alias;
@@ -34,7 +33,7 @@ export const getFormSchema = (
       properties: {
         github: {
           type: "object" as const,
-          title: "GitTags",
+          title: "",
           properties: {
             githubWebhooksEnabled: {
               type: "null",
@@ -114,7 +113,6 @@ export const getFormSchema = (
     uiSchema: {
       github: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-
         gitTagVersionsTitle: {
           "ui:sectionTitle": true,
         },
@@ -123,7 +121,6 @@ export const getFormSchema = (
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
         },
-
         users: userTeamStyling(
           "gitTagAuthorizedUsers",
           "Add User",
@@ -140,7 +137,6 @@ export const getFormSchema = (
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.github?.gitTagVersionsEnabled,
         ),
-
         gitTags: {
           ...hideIf(
             fieldDisabled(
