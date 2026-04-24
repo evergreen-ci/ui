@@ -55,6 +55,12 @@ const TabularNum = styled.span`
   font-variant-numeric: tabular-nums;
 `;
 
+const Disclaimer = styled.p`
+  font-size: 12px;
+  color: #6f7584;
+  margin-top: 8px;
+`;
+
 export const CostModal: React.FC<CostModalProps> = ({
   adjustedEBSStorageCost,
   adjustedEBSThroughputCost,
@@ -105,6 +111,10 @@ export const CostModal: React.FC<CostModalProps> = ({
       >
         Cost breakdown in Honeycomb
       </StyledLink>
+      <Disclaimer>
+        * Costs are calculated using a finance formula with applicable discounts
+        applied.
+      </Disclaimer>
     </DisplayModal>
   );
 };
