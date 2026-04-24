@@ -52,7 +52,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     stickyHeadersPreference && sectioning.sectioningEnabled;
 
   useEffect(() => {
-    if (listRef.current && !performedScroll.current && settings) {
+    if (listRef.current && !performedScroll.current) {
       // Use a timeout to execute certain actions after the log pane has rendered. All of the
       // code below describes one-time events.
       const timeoutId = setTimeout(() => {

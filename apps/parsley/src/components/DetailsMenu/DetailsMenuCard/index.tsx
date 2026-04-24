@@ -31,8 +31,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
     const [selectedTab, setSelectedTab] = useState(0);
 
     const { settings, updateSettings } = useParsleySettings();
-    const { jumpToFailingLineEnabled = true, sectionsEnabled = true } =
-      settings ?? {};
+    const { jumpToFailingLineEnabled, sectionsEnabled } = settings;
 
     return (
       <Container ref={ref} data-cy={dataCy}>

@@ -60,7 +60,7 @@ export const useSections = ({
   const { settings } = useParsleySettings();
 
   const sectioningEnabled =
-    !!settings?.sectionsEnabled &&
+    settings.sectionsEnabled &&
     logType === LogTypes.EVERGREEN_TASK_LOGS &&
     renderingType === LogRenderingTypes.Default;
 

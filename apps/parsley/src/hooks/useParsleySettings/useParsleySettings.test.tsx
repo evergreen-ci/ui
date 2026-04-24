@@ -1,61 +1,55 @@
-import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
+import { act, renderHook } from "@evg-ui/lib/test_utils";
 import {
-  MockedProvider,
-  act,
-  renderHook,
-  waitFor,
-} from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import {
-  UpdateParsleySettingsMutation,
-  UpdateParsleySettingsMutationVariables,
-} from "gql/generated/types";
-import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
-import { parsleySettingsMock } from "test_data/parsleySettings";
+  JUMP_TO_FAILING_LINE_ENABLED,
+  SECTIONS_ENABLED,
+} from "constants/storageKeys";
 import { useParsleySettings } from ".";
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[parsleySettingsMock, updateSettingsFailedMock]}>
-    {children}
-  </MockedProvider>
-);
-
 describe("useParsleySettings", () => {
-  it("fetches user settings", async () => {
-    RenderFakeToastContext();
+  beforeEach(() => {
+    localStorage.clear();
+  });
 
-    const { result } = renderHook(() => useParsleySettings(), { wrapper });
-    await waitFor(() => {
-      expect(result.current?.settings?.jumpToFailingLineEnabled).toBe(true);
+  it("defaults both settings to true when localStorage is empty", () => {
+    const { result } = renderHook(() => useParsleySettings());
+    expect(result.current.settings).toStrictEqual({
+      jumpToFailingLineEnabled: true,
+      sectionsEnabled: true,
     });
   });
 
-  it("dispatches warning toast if an error occurs when saving preferences", async () => {
-    const { dispatchToast } = RenderFakeToastContext();
+  it("reads existing values from localStorage", () => {
+    localStorage.setItem(JUMP_TO_FAILING_LINE_ENABLED, "false");
+    localStorage.setItem(SECTIONS_ENABLED, "false");
+    const { result } = renderHook(() => useParsleySettings());
+    expect(result.current.settings).toStrictEqual({
+      jumpToFailingLineEnabled: false,
+      sectionsEnabled: false,
+    });
+  });
 
-    const { result } = renderHook(() => useParsleySettings(), { wrapper });
+  it("updateSettings persists values to localStorage and updates state", () => {
+    const { result } = renderHook(() => useParsleySettings());
     act(() => {
       result.current.updateSettings({ jumpToFailingLineEnabled: false });
     });
-    await waitFor(() => {
-      expect(dispatchToast.warning).toHaveBeenCalledTimes(1);
+    expect(result.current.settings.jumpToFailingLineEnabled).toBe(false);
+    expect(result.current.settings.sectionsEnabled).toBe(true);
+    expect(localStorage.getItem(JUMP_TO_FAILING_LINE_ENABLED)).toBe("false");
+    act(() => {
+      result.current.updateSettings({ sectionsEnabled: false });
     });
+    expect(result.current.settings.sectionsEnabled).toBe(false);
+    expect(localStorage.getItem(SECTIONS_ENABLED)).toBe("false");
+  });
+
+  it("updateSettings only writes fields that are provided", () => {
+    localStorage.setItem(JUMP_TO_FAILING_LINE_ENABLED, "false");
+    const { result } = renderHook(() => useParsleySettings());
+    act(() => {
+      result.current.updateSettings({ sectionsEnabled: false });
+    });
+    expect(localStorage.getItem(JUMP_TO_FAILING_LINE_ENABLED)).toBe("false");
+    expect(localStorage.getItem(SECTIONS_ENABLED)).toBe("false");
   });
 });
-
-const updateSettingsFailedMock: ApolloMock<
-  UpdateParsleySettingsMutation,
-  UpdateParsleySettingsMutationVariables
-> = {
-  error: new Error("Failed to update Parsley settings!"),
-  request: {
-    query: UPDATE_PARSLEY_SETTINGS,
-    variables: {
-      opts: {
-        parsleySettings: {
-          jumpToFailingLineEnabled: false,
-        },
-      },
-    },
-  },
-};

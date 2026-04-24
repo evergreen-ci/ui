@@ -18,14 +18,13 @@ import {
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_FILTERS } from "gql/queries";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import { noFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
 import ProjectFiltersModal from ".";
 
 const wrapper = (mocks: MockedResponse[]) => {
   const provider = ({ children }: { children: React.ReactNode }) => (
-    <MockedProvider mocks={[parsleySettingsMock, ...mocks]}>
+    <MockedProvider mocks={mocks}>
       <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
     </MockedProvider>
   );

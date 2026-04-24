@@ -1,58 +1,52 @@
-import { useMutation, useQuery } from "@apollo/client/react";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useState } from "react";
 import {
-  ParsleySettingsInput,
-  ParsleySettingsQuery,
-  ParsleySettingsQueryVariables,
-  UpdateParsleySettingsMutation,
-  UpdateParsleySettingsMutationVariables,
-  User,
-} from "gql/generated/types";
-import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
-import { PARSLEY_SETTINGS } from "gql/queries";
+  getLocalStorageBoolean,
+  setLocalStorageBoolean,
+} from "@evg-ui/lib/utils/localStorage";
+import {
+  JUMP_TO_FAILING_LINE_ENABLED,
+  SECTIONS_ENABLED,
+} from "constants/storageKeys";
+
+export type ParsleySettings = {
+  jumpToFailingLineEnabled: boolean;
+  sectionsEnabled: boolean;
+};
+
+export type ParsleySettingsInput = Partial<ParsleySettings>;
 
 type UseParsleySettingsReturnType = {
-  settings: User["parsleySettings"];
+  settings: ParsleySettings;
   updateSettings: (settings: ParsleySettingsInput) => void;
 };
 
 /**
- * `useParsleySettings` fetches settings for the current user from the database.
- * Eventually we will move the preferences stored in LogContext into the database.
- * This means that preferences will no longer have to be stored centrally in the context.
+ * `useParsleySettings` reads and writes Parsley user preferences from localStorage.
  * @returns Parsley settings for the user, function for updating Parsley settings
  */
 const useParsleySettings = (): UseParsleySettingsReturnType => {
-  const { data } = useQuery<
-    ParsleySettingsQuery,
-    ParsleySettingsQueryVariables
-  >(PARSLEY_SETTINGS);
-
-  const dispatchToast = useToastContext();
-  const [updateParsleySettings] = useMutation<
-    UpdateParsleySettingsMutation,
-    UpdateParsleySettingsMutationVariables
-  >(UPDATE_PARSLEY_SETTINGS, {
-    onError: (err) => {
-      dispatchToast.warning(`Failed to save preferences: ${err.message}`);
-    },
-    refetchQueries: ["ParsleySettings"],
-  });
+  const [settings, setSettings] = useState<ParsleySettings>(() => ({
+    jumpToFailingLineEnabled: getLocalStorageBoolean(
+      JUMP_TO_FAILING_LINE_ENABLED,
+      true,
+    ),
+    sectionsEnabled: getLocalStorageBoolean(SECTIONS_ENABLED, true),
+  }));
 
   const updateSettings = (newSettings: ParsleySettingsInput) => {
-    updateParsleySettings({
-      variables: {
-        opts: {
-          parsleySettings: newSettings,
-        },
-      },
-    });
+    if (newSettings.jumpToFailingLineEnabled !== undefined) {
+      setLocalStorageBoolean(
+        JUMP_TO_FAILING_LINE_ENABLED,
+        newSettings.jumpToFailingLineEnabled,
+      );
+    }
+    if (newSettings.sectionsEnabled !== undefined) {
+      setLocalStorageBoolean(SECTIONS_ENABLED, newSettings.sectionsEnabled);
+    }
+    setSettings((prev) => ({ ...prev, ...newSettings }));
   };
 
-  return {
-    settings: data?.user?.parsleySettings,
-    updateSettings,
-  };
+  return { settings, updateSettings };
 };
 
 export { useParsleySettings };

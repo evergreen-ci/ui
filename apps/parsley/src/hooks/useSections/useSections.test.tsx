@@ -1,26 +1,15 @@
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
-import {
-  MockedProvider,
-  act,
-  renderHook,
-  waitFor,
-} from "@evg-ui/lib/test_utils";
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import {
-  parsleySettingsMock,
-  parsleySettingsMockSectionsDisabled,
-} from "test_data/parsleySettings";
+import { SECTIONS_ENABLED } from "constants/storageKeys";
 import { sectionData, sectionStateAllClosed } from "./testData";
 import * as sectionUtils from "./utils";
 import { useSections } from ".";
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[parsleySettingsMock]}>{children}</MockedProvider>
-);
-
 describe("useSections", () => {
   beforeEach(() => {
+    localStorage.clear();
     vi.spyOn(sectionUtils, "parseSections");
     vi.spyOn(ErrorReporting, "reportError");
   });
@@ -29,9 +18,8 @@ describe("useSections", () => {
   });
   it("should call parsing function when sections are enabled and logs are populated", async () => {
     InitializeFakeToastContext();
-    const { result } = renderHook(
-      () => useSections({ logs: ["log line"], ...metadata }),
-      { wrapper },
+    const { result } = renderHook(() =>
+      useSections({ logs: ["log line"], ...metadata }),
     );
     await waitFor(() => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
@@ -45,16 +33,10 @@ describe("useSections", () => {
   });
 
   it("should not call parsing function when sections are disabled and logs are populated", async () => {
+    localStorage.setItem(SECTIONS_ENABLED, "false");
     InitializeFakeToastContext();
-    const { result } = renderHook(
-      () => useSections({ logs: ["log line"], ...metadata }),
-      {
-        wrapper: ({ children }) => (
-          <MockedProvider mocks={[parsleySettingsMockSectionsDisabled]}>
-            {children}
-          </MockedProvider>
-        ),
-      },
+    const { result } = renderHook(() =>
+      useSections({ logs: ["log line"], ...metadata }),
     );
     await waitFor(() => {
       expect(sectionUtils.parseSections).not.toHaveBeenCalled();
@@ -66,10 +48,7 @@ describe("useSections", () => {
 
   it("should not call parsing function when sections are enabled and logs are empty", async () => {
     InitializeFakeToastContext();
-    const { result } = renderHook(
-      () => useSections({ logs: [], ...metadata }),
-      { wrapper },
-    );
+    const { result } = renderHook(() => useSections({ logs: [], ...metadata }));
     await waitFor(() => {
       expect(sectionUtils.parseSections).not.toHaveBeenCalled();
     });
@@ -85,9 +64,7 @@ describe("useSections", () => {
       "Running command 'c1' in function 'f-1' (step 1 of 4).",
       "Finished command 'c1' in function 'f-1' (step 1 of 4).",
     ];
-    const { result } = renderHook(() => useSections({ logs, ...metadata }), {
-      wrapper,
-    });
+    const { result } = renderHook(() => useSections({ logs, ...metadata }));
     await waitFor(() => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
     });
@@ -124,13 +101,11 @@ describe("useSections", () => {
 
   it("should dispatch a toast and report error when the parsing function throws an error", async () => {
     const { dispatchToast } = InitializeFakeToastContext();
-    const { result } = renderHook(
-      () =>
-        useSections({
-          logs: ["Finished command 'c1' in function 'f-1' (step 1 of 4)."],
-          ...metadata,
-        }),
-      { wrapper },
+    const { result } = renderHook(() =>
+      useSections({
+        logs: ["Finished command 'c1' in function 'f-1' (step 1 of 4)."],
+        ...metadata,
+      }),
     );
     await waitFor(() => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
@@ -157,7 +132,6 @@ describe("useSections", () => {
     const logs = ["normal log line"];
     const { rerender } = renderHook((props) => useSections(props), {
       initialProps: { logs, ...metadata },
-      wrapper,
     });
     await waitFor(() => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
@@ -177,9 +151,7 @@ describe("useSections", () => {
   describe("opening and closing sections", () => {
     it("toggleFunctionSection function toggles the open state", async () => {
       InitializeFakeToastContext();
-      const { result } = renderHook(() => useSections({ logs, ...metadata }), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useSections({ logs, ...metadata }));
       await waitFor(() => {
         expect(result.current.sectionData).toStrictEqual(sectionData);
       });
@@ -240,11 +212,8 @@ describe("useSections", () => {
     });
     it("toggleFunctionSection will open the command if the function contains only one command", async () => {
       InitializeFakeToastContext();
-      const { result } = renderHook(
-        () => useSections({ logs: logsWithOneCommand, ...metadata }),
-        {
-          wrapper,
-        },
+      const { result } = renderHook(() =>
+        useSections({ logs: logsWithOneCommand, ...metadata }),
       );
       await waitFor(() => {
         expect(result.current.sectionData).toStrictEqual(
@@ -280,9 +249,7 @@ describe("useSections", () => {
 
   it("toggleCommandSection toggles the open state", async () => {
     InitializeFakeToastContext();
-    const { result } = renderHook(() => useSections({ logs, ...metadata }), {
-      wrapper,
-    });
+    const { result } = renderHook(() => useSections({ logs, ...metadata }));
     await waitFor(() => {
       expect(result.current.sectionData).toStrictEqual(sectionData);
     });
@@ -319,7 +286,6 @@ describe("useSections", () => {
         onInitOpenSectionsContainingLines: [10],
         renderingType: LogRenderingTypes.Default,
       },
-      wrapper,
     });
     await waitFor(() => {
       expect(result.current.sectionData).toStrictEqual(sectionData);
@@ -350,9 +316,7 @@ describe("useSections", () => {
 
   it("toggleAllCommandsInFunction toggles the open state of all commands in a function. When isOpen is true, the function is toggle open.", async () => {
     InitializeFakeToastContext();
-    const { result } = renderHook(() => useSections({ logs, ...metadata }), {
-      wrapper,
-    });
+    const { result } = renderHook(() => useSections({ logs, ...metadata }));
     await waitFor(() => {
       expect(result.current.sectionData).toStrictEqual(sectionData);
     });

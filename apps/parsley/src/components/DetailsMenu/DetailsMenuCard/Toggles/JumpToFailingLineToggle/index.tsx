@@ -1,7 +1,7 @@
 import { usePreferencesAnalytics } from "analytics";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
-import { ParsleySettingsInput } from "gql/generated/types";
+import { ParsleySettingsInput } from "hooks/useParsleySettings";
 import BaseToggle from "../BaseToggle";
 
 interface JumpToFailingLineToggleProps {
