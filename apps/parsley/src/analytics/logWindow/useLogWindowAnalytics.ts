@@ -11,8 +11,6 @@ type Action =
   | { name: "Clicked all filters toggle"; checked: boolean }
   | { name: "Used project filters"; "filter.expressions": string[] }
   | { name: "Created bookmark" }
-  | { name: "Created new share line" }
-  | { name: "Deleted share line" }
   | { name: "Used bookmark to navigate to a line" }
   | { name: "Deleted bookmark" }
   | { name: "Deleted all bookmarks" }

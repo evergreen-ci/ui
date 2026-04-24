@@ -1,9 +1,7 @@
-import styled from "@emotion/styled";
-import { InlineDefinition } from "@leafygreen-ui/inline-definition";
 import { useParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
 import EventLog from "components/Settings/EventLog";
 import { slugs } from "constants/routes";
+import { renderVars } from "../../DiffConfig";
 import { ProjectType } from "../utils";
 import {
   PROJECT_EVENT_LIMIT,
@@ -72,13 +70,3 @@ export const EventLogTab: React.FC<TabProps> = ({
     />
   );
 };
-
-const renderVars = (val: string) => (
-  <StyledInlineDefinition definition="Evergreen does not display project variable values in the event log for security reasons.">
-    {val}
-  </StyledInlineDefinition>
-);
-
-const StyledInlineDefinition = styled(InlineDefinition)`
-  text-underline-offset: ${size.xxs};
-`;
