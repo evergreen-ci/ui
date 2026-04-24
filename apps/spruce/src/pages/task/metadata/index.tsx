@@ -101,20 +101,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     versionMetadata,
   } = task;
 
-  const totalCost = taskCost?.total ?? 0;
-  const completedStatuses = [
-    TaskStatus.Succeeded,
-    TaskStatus.Failed,
-    TaskStatus.TestTimedOut,
-    TaskStatus.TaskTimedOut,
-    TaskStatus.SetupFailed,
-    TaskStatus.SystemFailed,
-    TaskStatus.SystemTimedOut,
-    TaskStatus.SystemUnresponsive,
-    TaskStatus.Aborted,
-    TaskStatus.KnownIssue,
-  ];
-
   const isDisplayTask = executionTasksFull != null;
   const {
     timeTaken: baseTaskDuration,
@@ -342,9 +328,9 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-        {completedStatuses.includes(displayStatus as TaskStatus) && (
+        {finishTime && taskCost?.total != null && (
           <MetadataItem data-cy="task-metadata-cost">
-            <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
+            <MetadataLabel>Cost:</MetadataLabel> ${taskCost.total}
           </MetadataItem>
         )}
         {startTime && finishTime && (
