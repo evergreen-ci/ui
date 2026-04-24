@@ -10,6 +10,9 @@ export const VERSION = gql`
       baseVersion {
         id
       }
+      cost {
+        total
+      }
       createTime
       errors
       externalLinksForMetadata {

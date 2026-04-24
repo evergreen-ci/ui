@@ -12001,6 +12001,7 @@ export type VersionQuery = {
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
+    cost?: { __typename?: "Cost"; total?: number | null } | null;
     externalLinksForMetadata: Array<{
       __typename?: "ExternalLinkForMetadata";
       displayName: string;
