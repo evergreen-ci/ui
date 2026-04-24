@@ -112,8 +112,8 @@ export const CostModal: React.FC<CostModalProps> = ({
         Cost breakdown in Honeycomb
       </StyledLink>
       <Disclaimer>
-        * Costs are calculated using a finance formula with applicable discounts
-        applied.
+        * Costs are calculated using a Finance Team formula with applicable
+        discounts applied.
       </Disclaimer>
     </DisplayModal>
   );
