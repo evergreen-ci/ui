@@ -44,14 +44,26 @@ export const getFormSchema = (
       properties: {
         mergeQueue: {
           type: "object" as const,
-          title: "Merge Queue",
+          title: "",
           ...(projectType === ProjectType.Repo && {
             description:
               "If enabled, these settings can only apply to one branch project that also has this feature enabled. They do not apply to untracked branches.",
           }),
           properties: {
+            webhooksStatus: {
+              type: "null" as const,
+              title: "GitHub Webhooks",
+              description: `GitHub webhooks ${
+                githubWebhooksEnabled ? "are" : "are not"
+              } enabled.`,
+            },
+            enabledTitle: {
+              type: "null" as const,
+              title: "Merge Queue",
+            },
             enabled: {
               type: ["boolean", "null"],
+              title: "",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -86,6 +98,8 @@ export const getFormSchema = (
       mergeQueue: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "cq-card",
+        "ui:showLabel": false,
+        enabledTitle: {},
         enabled: {
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
