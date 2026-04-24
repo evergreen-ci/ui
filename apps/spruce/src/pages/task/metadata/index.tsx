@@ -105,8 +105,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     versionMetadata,
   } = task;
 
-  const totalCost = taskCost?.total ?? 0;
-
   const isDisplayTask = executionTasksFull != null;
   const {
     timeTaken: baseTaskDuration,
@@ -334,26 +332,28 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-        <MetadataItem data-cy="task-metadata-cost">
-          <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
-          {taskCost != null && totalCost > 0 && (
-            <>
-              {" "}
-              <Button
-                data-cy="cost-details-button"
-                onClick={() => {
-                  taskAnalytics.sendEvent({
-                    name: "Clicked cost details button",
-                  });
-                  setCostModalOpen(true);
-                }}
-                size={ButtonSize.XSmall}
-              >
-                Cost Details
-              </Button>
-            </>
-          )}
-        </MetadataItem>
+        {finishTime && taskCost?.total != null && (
+          <MetadataItem data-cy="task-metadata-cost">
+            <MetadataLabel>Cost:</MetadataLabel> ${taskCost.total}
+            {taskCost.total > 0 && (
+              <>
+                {" "}
+                <Button
+                  data-cy="cost-details-button"
+                  onClick={() => {
+                    taskAnalytics.sendEvent({
+                      name: "Clicked cost details button",
+                    });
+                    setCostModalOpen(true);
+                  }}
+                  size={ButtonSize.XSmall}
+                >
+                  Cost Details
+                </Button>
+              </>
+            )}
+          </MetadataItem>
+        )}
         {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
