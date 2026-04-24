@@ -51,6 +51,8 @@ type Action =
     }
   | { name: "Clicked schedule tasks button"; "task.scheduled_count": number }
   | { name: "Clicked patch reconfigure link" }
+  | { name: "Clicked version cost details button" }
+  | { name: "Clicked version honeycomb cost link" }
   | { name: "Changed version priority"; "version.priority": number }
   | {
       name: "Sorted tasks table";
