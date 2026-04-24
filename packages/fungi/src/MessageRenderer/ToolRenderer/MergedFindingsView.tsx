@@ -14,12 +14,12 @@ import {
 import { CollapsibleFinding } from "./CollapsibleFinding";
 import {
   FindingSeverity,
-  MergedFindingError,
+  MergedFinding,
   MergedFindingEvent,
   MergedFindingMetric,
   MergedFindings,
   OverallStatus,
-  groupErrorsBySeverity,
+  groupFindingsBySeverity,
 } from "./utils";
 
 const severityOrder: FindingSeverity[] = ["error", "warning", "info"];
@@ -63,16 +63,16 @@ const LineRef: React.FC<LineRefProps> = ({
 };
 
 type FindingsSectionProps = {
-  errors: MergedFindingError[];
+  findings: MergedFinding[];
   onLineClick?: (href: string) => void;
 };
 
 const FindingsSection: React.FC<FindingsSectionProps> = ({
-  errors,
+  findings,
   onLineClick,
 }) => {
-  if (errors.length === 0) return null;
-  const grouped = groupErrorsBySeverity(errors);
+  if (findings.length === 0) return null;
+  const grouped = groupFindingsBySeverity(findings);
   return (
     <Section>
       <Subtitle>Findings</Subtitle>
@@ -83,27 +83,23 @@ const FindingsSection: React.FC<FindingsSectionProps> = ({
               {severityConfig[sev].label} ({grouped[sev].length})
             </SeverityHeading>
             <List>
-              {grouped[sev].map((err) => {
+              {grouped[sev].map((f) => {
                 const line = (
-                  <LineRef line={err.line} onLineClick={onLineClick} />
+                  <LineRef line={f.line} onLineClick={onLineClick} />
                 );
-                const key = `${sev}:${err.line ?? "null"}:${err.message}:${err.evidence ?? ""}`;
-                if (!err.evidence) {
+                const key = `${sev}:${f.line ?? "null"}:${f.message}:${f.evidence ?? ""}`;
+                if (!f.evidence) {
                   return (
                     <StaticFinding key={key}>
-                      <Body weight="medium">{err.message}</Body>
+                      <Body weight="medium">{f.message}</Body>
                       <Description>{line}</Description>
                     </StaticFinding>
                   );
                 }
                 return (
-                  <CollapsibleFinding
-                    key={key}
-                    line={line}
-                    message={err.message}
-                  >
+                  <CollapsibleFinding key={key} line={line} message={f.message}>
                     <Code copyButtonAppearance="none" language="none">
-                      {err.evidence}
+                      {f.evidence}
                     </Code>
                   </CollapsibleFinding>
                 );
@@ -169,7 +165,7 @@ const MetricsSection: React.FC<MetricsSectionProps> = ({ metrics }) => {
       <Subtitle>Metrics</Subtitle>
       <MetricsList>
         {metrics.map((m) => (
-          <Fragment key={`${m.name}:${m.value}`}>
+          <Fragment key={m.name}>
             <MetricName>
               <Body weight="medium">{m.name}</Body>
             </MetricName>
@@ -231,7 +227,7 @@ export const MergedFindingsView: React.FC<MergedFindingsViewProps> = ({
 
       {summary.trim() && <Body>{summary}</Body>}
 
-      <FindingsSection errors={errors} onLineClick={onLineClick} />
+      <FindingsSection findings={errors} onLineClick={onLineClick} />
       <EventsSection events={events} onLineClick={onLineClick} />
       <MetricsSection metrics={metrics} />
       <ObservationsSection observations={observations} />

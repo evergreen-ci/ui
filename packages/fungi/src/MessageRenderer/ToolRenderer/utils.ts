@@ -12,7 +12,7 @@ export type OverallStatus =
   | "unknown";
 export type FindingSeverity = "error" | "warning" | "info";
 
-export type MergedFindingError = {
+export type MergedFinding = {
   line: number | null;
   severity: FindingSeverity;
   message: string;
@@ -33,7 +33,7 @@ export type MergedFindingMetric = {
 export type MergedFindings = {
   summary: string;
   overallStatus: OverallStatus;
-  errors: MergedFindingError[];
+  errors: MergedFinding[];
   events: MergedFindingEvent[];
   metrics: MergedFindingMetric[];
   observations: string[];
@@ -48,7 +48,7 @@ const isOverallStatus = (value: unknown): value is OverallStatus =>
   value === "partial_failure" ||
   value === "unknown";
 
-const isMergedFindingError = (value: unknown): value is MergedFindingError => {
+const isMergedFinding = (value: unknown): value is MergedFinding => {
   if (typeof value !== "object" || value === null) return false;
   const v = value as Record<string, unknown>;
   return (
@@ -84,7 +84,7 @@ export const isMergedFindings = (output: unknown): output is MergedFindings => {
     typeof v.summary === "string" &&
     isOverallStatus(v.overallStatus) &&
     Array.isArray(v.errors) &&
-    v.errors.every(isMergedFindingError) &&
+    v.errors.every(isMergedFinding) &&
     Array.isArray(v.events) &&
     v.events.every(isMergedFindingEvent) &&
     Array.isArray(v.metrics) &&
@@ -126,16 +126,16 @@ export const getProgressByToolCallId = (
 
 // Insertion order is preserved within each severity so the UI lists findings
 // in the order the analyzer emitted them.
-export const groupErrorsBySeverity = (
-  errors: MergedFindingError[],
-): Record<FindingSeverity, MergedFindingError[]> => {
-  const groups: Record<FindingSeverity, MergedFindingError[]> = {
+export const groupFindingsBySeverity = (
+  findings: MergedFinding[],
+): Record<FindingSeverity, MergedFinding[]> => {
+  const groups: Record<FindingSeverity, MergedFinding[]> = {
     error: [],
     warning: [],
     info: [],
   };
-  for (const e of errors) {
-    groups[e.severity].push(e);
+  for (const f of findings) {
+    groups[f.severity].push(f);
   }
   return groups;
 };

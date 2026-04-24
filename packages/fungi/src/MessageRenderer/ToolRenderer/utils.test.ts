@@ -2,7 +2,7 @@ import { UIMessagePart, UIDataTypes, UITools } from "ai";
 import {
   MergedFindings,
   getProgressByToolCallId,
-  groupErrorsBySeverity,
+  groupFindingsBySeverity,
   isMergedFindings,
 } from "./utils";
 
@@ -211,8 +211,8 @@ describe("isMergedFindings", () => {
   });
 });
 
-describe("groupErrorsBySeverity", () => {
-  it("groups errors into error/warning/info buckets preserving order", () => {
+describe("groupFindingsBySeverity", () => {
+  it("groups findings into error/warning/info buckets preserving order", () => {
     const w1 = {
       line: 1,
       severity: "warning",
@@ -237,15 +237,15 @@ describe("groupErrorsBySeverity", () => {
       message: "e2",
       evidence: "",
     } as const;
-    expect(groupErrorsBySeverity([w1, e1, i1, e2])).toEqual({
+    expect(groupFindingsBySeverity([w1, e1, i1, e2])).toEqual({
       error: [e1, e2],
       warning: [w1],
       info: [i1],
     });
   });
 
-  it("returns empty arrays for each severity when given no errors", () => {
-    expect(groupErrorsBySeverity([])).toEqual({
+  it("returns empty arrays for each severity when given no findings", () => {
+    expect(groupFindingsBySeverity([])).toEqual({
       error: [],
       warning: [],
       info: [],
