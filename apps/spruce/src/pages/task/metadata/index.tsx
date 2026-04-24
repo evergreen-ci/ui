@@ -343,10 +343,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
         {completedStatuses.includes(displayStatus as TaskStatus) && (
-          <MetadataItem
-            data-cy="task-metadata-cost"
-            tooltipDescription="Final adjusted cost of this task."
-          >
+          <MetadataItem data-cy="task-metadata-cost">
             <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
           </MetadataItem>
         )}
