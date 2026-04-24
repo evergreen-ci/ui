@@ -107,21 +107,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   } = task;
 
   const totalCost = taskCost?.total ?? 0;
-  const completedStatuses = [
-    TaskStatus.Succeeded,
-    TaskStatus.Failed,
-    TaskStatus.TestTimedOut,
-    TaskStatus.TaskTimedOut,
-    TaskStatus.SetupFailed,
-    TaskStatus.SystemFailed,
-    TaskStatus.SystemTimedOut,
-    TaskStatus.SystemUnresponsive,
-    TaskStatus.Aborted,
-    TaskStatus.KnownIssue,
-  ];
-  const costTooltip = completedStatuses.includes(displayStatus as TaskStatus)
-    ? "Final adjusted cost of this task."
-    : "Estimated cost based on execution so far. Updates as the task runs.";
 
   const isDisplayTask = executionTasksFull != null;
   const {
@@ -350,10 +335,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-        <MetadataItem
-          data-cy="task-metadata-cost"
-          tooltipDescription={costTooltip}
-        >
+        <MetadataItem data-cy="task-metadata-cost">
           <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
           {taskCost != null && totalCost > 0 && (
             <>
