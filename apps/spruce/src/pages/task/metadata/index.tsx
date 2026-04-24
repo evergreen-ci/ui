@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -7,6 +9,7 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
+import { CostModal } from "components/CostModal";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
@@ -15,8 +18,9 @@ import MetadataCard, {
 import { Stepback } from "components/Stepback";
 import { getAPIRouteForTasks } from "constants/externalResources";
 import {
-  getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
+  getHoneycombTaskCostUrl,
+  getHoneycombTraceUrl,
 } from "constants/externalResources/honeycomb";
 import {
   getDistroSettingsRoute,
@@ -53,6 +57,7 @@ interface Props {
 export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
+  const [costModalOpen, setCostModalOpen] = useState(false);
 
   const showStepback = isInStepback(task?.stepbackInfo);
 
@@ -95,10 +100,28 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     spawnHostLink,
     startTime,
     tags,
+    taskCost,
     testSelectionEnabled,
     timeTaken,
     versionMetadata,
   } = task;
+
+  const totalCost = taskCost?.total ?? 0;
+  const completedStatuses = [
+    TaskStatus.Succeeded,
+    TaskStatus.Failed,
+    TaskStatus.TestTimedOut,
+    TaskStatus.TaskTimedOut,
+    TaskStatus.SetupFailed,
+    TaskStatus.SystemFailed,
+    TaskStatus.SystemTimedOut,
+    TaskStatus.SystemUnresponsive,
+    TaskStatus.Aborted,
+    TaskStatus.KnownIssue,
+  ];
+  const costTooltip = completedStatuses.includes(displayStatus as TaskStatus)
+    ? "Final adjusted cost of this task."
+    : "Estimated cost based on execution so far. Updates as the task runs.";
 
   const isDisplayTask = executionTasksFull != null;
   const {
@@ -327,9 +350,45 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
+        <MetadataItem
+          data-cy="task-metadata-cost"
+          tooltipDescription={costTooltip}
+        >
+          <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
+          {taskCost != null && totalCost > 0 && (
+            <>
+              {" "}
+              <Button
+                data-cy="cost-details-button"
+                onClick={() => {
+                  taskAnalytics.sendEvent({
+                    name: "Clicked cost details button",
+                  });
+                  setCostModalOpen(true);
+                }}
+                size={ButtonSize.XSmall}
+              >
+                Cost Details
+              </Button>
+            </>
+          )}
+        </MetadataItem>
         {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
+              <StyledLink
+                data-cy="task-cost-link"
+                hideExternalIcon={false}
+                href={getHoneycombTaskCostUrl(taskId)}
+                onClick={() => {
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "honeycomb task cost link",
+                  });
+                }}
+              >
+                Honeycomb Task Cost
+              </StyledLink>
               {taskTrace && (
                 <StyledLink
                   data-cy="task-trace-link"
@@ -368,6 +427,21 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
       </MetadataCard>
+      {costModalOpen && taskCost && (
+        <CostModal
+          adjustedEBSStorageCost={taskCost.adjustedEBSStorageCost}
+          adjustedEBSThroughputCost={taskCost.adjustedEBSThroughputCost}
+          adjustedEC2Cost={taskCost.adjustedEC2Cost}
+          adjustedS3ArtifactPutCost={taskCost.adjustedS3ArtifactPutCost}
+          adjustedS3ArtifactStorageCost={taskCost.adjustedS3ArtifactStorageCost}
+          adjustedS3LogPutCost={taskCost.adjustedS3LogPutCost}
+          adjustedS3LogStorageCost={taskCost.adjustedS3LogStorageCost}
+          name={task.displayName}
+          onClose={() => setCostModalOpen(false)}
+          open={costModalOpen}
+          total={taskCost.total}
+        />
+      )}
 
       <BuildVariantCard
         buildId={buildId}

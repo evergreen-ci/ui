@@ -10,6 +10,16 @@ export const VERSION = gql`
       baseVersion {
         id
       }
+      cost {
+        adjustedEBSStorageCost
+        adjustedEBSThroughputCost
+        adjustedEC2Cost
+        adjustedS3ArtifactPutCost
+        adjustedS3ArtifactStorageCost
+        adjustedS3LogPutCost
+        adjustedS3LogStorageCost
+        total
+      }
       createTime
       errors
       externalLinksForMetadata {
