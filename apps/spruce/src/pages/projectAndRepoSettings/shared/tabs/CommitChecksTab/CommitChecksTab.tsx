@@ -18,19 +18,14 @@ import { CommitChecksFormState, TabProps } from "./types";
 const tab = ProjectSettingsTabRoutes.CommitChecks;
 
 const getInitialFormState = (
-  projectData: CommitChecksFormState | undefined,
-  repoData: CommitChecksFormState | undefined,
+  projectData: CommitChecksFormState,
+  repoData: CommitChecksFormState,
 ): CommitChecksFormState => {
-  if (projectData) {
-    if (repoData) {
-      return mergeProjectRepo(projectData, repoData);
-    }
-    return projectData;
-  }
+  if (!projectData) return repoData;
   if (repoData) {
-    return repoData;
+    return mergeProjectRepo(projectData, repoData);
   }
-  throw new Error("CommitChecksTab requires either projectData or repoData");
+  return projectData;
 };
 
 export const CommitChecksTab: React.FC<TabProps> = ({
@@ -53,6 +48,7 @@ export const CommitChecksTab: React.FC<TabProps> = ({
   );
 
   const initialFormState = useMemo(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData],
   );
