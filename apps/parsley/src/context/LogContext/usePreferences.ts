@@ -13,7 +13,9 @@ import {
   EXPANDABLE_ROWS,
   FILTER_LOGIC,
   HIGHLIGHT_FILTERS,
+  JUMP_TO_FAILING_LINE_ENABLED,
   PRETTY_PRINT_BOOKMARKS,
+  SECTIONS_ENABLED,
   STICKY_HEADERS,
   WRAP,
   WRAP_FORMAT,
@@ -25,7 +27,9 @@ interface PreferencesState {
   caseSensitive: boolean;
   excludeTimestamps: boolean;
   highlightFilters: boolean;
+  jumpToFailingLineEnabled: boolean;
   prettyPrint: boolean;
+  sectionsEnabled: boolean;
   stickyHeaders: boolean;
   wordWrapFormat: WordWrapFormat;
   wrap: boolean;
@@ -36,7 +40,9 @@ type PreferencesAction =
   | { type: "SET_CASE_SENSITIVE"; value: boolean }
   | { type: "SET_EXCLUDE_TIMESTAMPS"; value: boolean }
   | { type: "SET_HIGHLIGHT_FILTERS"; value: boolean }
+  | { type: "SET_JUMP_TO_FAILING_LINE_ENABLED"; value: boolean }
   | { type: "SET_PRETTY_PRINT"; value: boolean }
+  | { type: "SET_SECTIONS_ENABLED"; value: boolean }
   | { type: "SET_STICKY_HEADERS"; value: boolean }
   | { type: "SET_WORD_WRAP_FORMAT"; value: WordWrapFormat }
   | { type: "SET_WRAP"; value: boolean }
@@ -51,7 +57,12 @@ const getInitialState = (): PreferencesState => ({
   caseSensitive: getLocalStorageBoolean(CASE_SENSITIVE, false),
   excludeTimestamps: getLocalStorageBoolean(EXCLUDE_TIMESTAMPS, false),
   highlightFilters: getLocalStorageBoolean(HIGHLIGHT_FILTERS, false),
+  jumpToFailingLineEnabled: getLocalStorageBoolean(
+    JUMP_TO_FAILING_LINE_ENABLED,
+    true,
+  ),
   prettyPrint: false,
+  sectionsEnabled: getLocalStorageBoolean(SECTIONS_ENABLED, true),
   stickyHeaders: getLocalStorageBoolean(STICKY_HEADERS, false),
   wordWrapFormat:
     (getLocalStorageString(WRAP_FORMAT) as WordWrapFormat) ||
@@ -74,9 +85,15 @@ const preferencesReducer = (
     case "SET_HIGHLIGHT_FILTERS":
       persistToLocalStorage(HIGHLIGHT_FILTERS, action.value);
       return { ...state, highlightFilters: action.value };
+    case "SET_JUMP_TO_FAILING_LINE_ENABLED":
+      persistToLocalStorage(JUMP_TO_FAILING_LINE_ENABLED, action.value);
+      return { ...state, jumpToFailingLineEnabled: action.value };
     case "SET_PRETTY_PRINT":
       persistToLocalStorage(PRETTY_PRINT_BOOKMARKS, action.value);
       return { ...state, prettyPrint: action.value };
+    case "SET_SECTIONS_ENABLED":
+      persistToLocalStorage(SECTIONS_ENABLED, action.value);
+      return { ...state, sectionsEnabled: action.value };
     case "SET_STICKY_HEADERS":
       persistToLocalStorage(STICKY_HEADERS, action.value);
       return { ...state, stickyHeaders: action.value };
@@ -142,8 +159,16 @@ const usePreferences = (): Preferences => {
     window.location.reload();
   }, []);
 
+  const setJumpToFailingLineEnabled = useCallback((value: boolean) => {
+    dispatch({ type: "SET_JUMP_TO_FAILING_LINE_ENABLED", value });
+  }, []);
+
   const setPrettyPrint = useCallback((value: boolean) => {
     dispatch({ type: "SET_PRETTY_PRINT", value });
+  }, []);
+
+  const setSectionsEnabled = useCallback((value: boolean) => {
+    dispatch({ type: "SET_SECTIONS_ENABLED", value });
   }, []);
 
   const setStickyHeaders = useCallback((value: boolean) => {
@@ -169,13 +194,17 @@ const usePreferences = (): Preferences => {
       expandableRows,
       filterLogic,
       highlightFilters: state.highlightFilters,
+      jumpToFailingLineEnabled: state.jumpToFailingLineEnabled,
       prettyPrint: state.prettyPrint,
+      sectionsEnabled: state.sectionsEnabled,
       setCaseSensitive,
       setExcludeTimestamps,
       setExpandableRows,
       setFilterLogic,
       setHighlightFilters,
+      setJumpToFailingLineEnabled,
       setPrettyPrint,
+      setSectionsEnabled,
       setStickyHeaders,
       setWordWrapFormat,
       setWrap,
@@ -194,7 +223,9 @@ const usePreferences = (): Preferences => {
       setExpandableRows,
       setFilterLogic,
       setHighlightFilters,
+      setJumpToFailingLineEnabled,
       setPrettyPrint,
+      setSectionsEnabled,
       setStickyHeaders,
       setWordWrapFormat,
       setWrap,

@@ -2,14 +2,12 @@ import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/li
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import { SECTIONS_ENABLED } from "constants/storageKeys";
 import { sectionData, sectionStateAllClosed } from "./testData";
 import * as sectionUtils from "./utils";
 import { useSections } from ".";
 
 describe("useSections", () => {
   beforeEach(() => {
-    localStorage.clear();
     vi.spyOn(sectionUtils, "parseSections");
     vi.spyOn(ErrorReporting, "reportError");
   });
@@ -33,10 +31,13 @@ describe("useSections", () => {
   });
 
   it("should not call parsing function when sections are disabled and logs are populated", async () => {
-    localStorage.setItem(SECTIONS_ENABLED, "false");
     InitializeFakeToastContext();
     const { result } = renderHook(() =>
-      useSections({ logs: ["log line"], ...metadata }),
+      useSections({
+        logs: ["log line"],
+        ...metadata,
+        sectionsEnabled: false,
+      }),
     );
     await waitFor(() => {
       expect(sectionUtils.parseSections).not.toHaveBeenCalled();
@@ -141,6 +142,7 @@ describe("useSections", () => {
       logs,
       onInitOpenSectionsContainingLines: undefined,
       renderingType: LogRenderingTypes.Default,
+      sectionsEnabled: true,
     });
     rerender({ logs, ...metadata });
     await waitFor(() => {
@@ -285,6 +287,7 @@ describe("useSections", () => {
         logs,
         onInitOpenSectionsContainingLines: [10],
         renderingType: LogRenderingTypes.Default,
+        sectionsEnabled: true,
       },
     });
     await waitFor(() => {
@@ -308,6 +311,7 @@ describe("useSections", () => {
       logs,
       onInitOpenSectionsContainingLines: [1, 2],
       renderingType: LogRenderingTypes.Default,
+      sectionsEnabled: true,
     });
     await waitFor(() => {
       expect(result.current.sectionState).toStrictEqual(sectionState);
@@ -416,5 +420,6 @@ describe("useSections", () => {
     logType: LogTypes.EVERGREEN_TASK_LOGS,
     onInitOpenSectionsContainingLines: undefined,
     renderingType: LogRenderingTypes.Default,
+    sectionsEnabled: true,
   };
 });

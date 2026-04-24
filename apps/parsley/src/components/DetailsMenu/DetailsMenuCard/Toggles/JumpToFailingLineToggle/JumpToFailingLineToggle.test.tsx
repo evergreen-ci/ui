@@ -1,4 +1,4 @@
-import { RenderFakeToastContext as InitializeFakeToasContext } from "@evg-ui/lib/context/toast/__mocks__";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   act,
   renderWithRouterMatch as render,
@@ -7,30 +7,30 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { LogTypes } from "constants/enums";
+import { JUMP_TO_FAILING_LINE_ENABLED } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import JumpToFailingLineToggle from ".";
 
 const wrapper = logContextWrapper();
+
 describe("jump to failing line toggle", () => {
   beforeEach(() => {
-    InitializeFakeToasContext();
+    localStorage.clear();
+    InitializeFakeToastContext();
   });
-  it("should render as checked when 'checked' prop is true", () => {
-    render(<JumpToFailingLineToggle checked updateSettings={vi.fn()} />, {
-      wrapper,
-    });
+
+  it("defaults to 'true' when localStorage is unset", () => {
+    render(<JumpToFailingLineToggle />, { wrapper });
     const jumpToFailingLineToggle = screen.getByDataCy(
       "jump-to-failing-line-toggle",
     );
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-checked", "true");
   });
 
-  it("should render as unchecked when 'checked' prop is false", () => {
-    render(
-      <JumpToFailingLineToggle checked={false} updateSettings={vi.fn()} />,
-      { wrapper },
-    );
+  it("reads from localStorage when set to 'false'", () => {
+    localStorage.setItem(JUMP_TO_FAILING_LINE_ENABLED, "false");
+    render(<JumpToFailingLineToggle />, { wrapper });
     const jumpToFailingLineToggle = screen.getByDataCy(
       "jump-to-failing-line-toggle",
     );
@@ -40,7 +40,7 @@ describe("jump to failing line toggle", () => {
   it("should disable toggle if logType is not Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <JumpToFailingLineToggle checked updateSettings={vi.fn()} />,
+      <JumpToFailingLineToggle />,
     );
     render(<Component />, { wrapper });
     act(() => {
@@ -55,7 +55,7 @@ describe("jump to failing line toggle", () => {
   it("should enable toggle if logType is Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <JumpToFailingLineToggle checked updateSettings={vi.fn()} />,
+      <JumpToFailingLineToggle />,
     );
     render(<Component />, { wrapper });
     act(() => {
@@ -67,13 +67,12 @@ describe("jump to failing line toggle", () => {
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-disabled", "false");
   });
 
-  it("should call update function with correct parameters, without updating the URL", async () => {
+  it("should persist changes to localStorage without updating the URL", async () => {
     const user = userEvent.setup();
-    const updateSettings = vi.fn();
 
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <JumpToFailingLineToggle checked updateSettings={updateSettings} />,
+      <JumpToFailingLineToggle />,
     );
     const { router } = render(<Component />, { wrapper });
     act(() => {
@@ -83,11 +82,10 @@ describe("jump to failing line toggle", () => {
     const jumpToFailingLineToggle = screen.getByDataCy(
       "jump-to-failing-line-toggle",
     );
+    expect(jumpToFailingLineToggle).toHaveAttribute("aria-checked", "true");
     await user.click(jumpToFailingLineToggle);
-    expect(updateSettings).toHaveBeenCalledTimes(1);
-    expect(updateSettings).toHaveBeenCalledWith({
-      jumpToFailingLineEnabled: false,
-    });
+    expect(jumpToFailingLineToggle).toHaveAttribute("aria-checked", "false");
+    expect(localStorage.getItem(JUMP_TO_FAILING_LINE_ENABLED)).toBe("false");
     expect(router.state.location.search).toBe("");
   });
 });

@@ -130,6 +130,8 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          jumpToFailingLineEnabled: true,
+          sectionsEnabled: true,
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
           stickyHeaders: false,
@@ -163,6 +165,8 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          jumpToFailingLineEnabled: true,
+          sectionsEnabled: true,
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
           stickyHeaders: false,
