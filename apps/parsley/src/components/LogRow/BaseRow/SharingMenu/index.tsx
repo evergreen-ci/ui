@@ -134,18 +134,10 @@ const SharingMenu: React.FC = () => {
     bookmarks.includes(selectedLines.startingLine);
 
   const handleShareLinkToSelectedLines = async () => {
-    const { endingLine, startingLine } = selectedLines;
+    const { startingLine } = selectedLines;
     if (startingLine === undefined) return;
     // Take the current URL and add the shareLine query param
     const url = new URL(window.location.href);
-    if (endingLine !== undefined && endingLine !== startingLine) {
-      url.searchParams.set(
-        QueryParams.SelectedLineRange,
-        `L${startingLine}-L${endingLine}`,
-      );
-    } else {
-      url.searchParams.set(QueryParams.SelectedLineRange, `L${startingLine}`);
-    }
     url.searchParams.set(QueryParams.ShareLine, startingLine.toString());
 
     await copyToClipboard(url.toString());

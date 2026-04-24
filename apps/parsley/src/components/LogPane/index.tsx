@@ -10,7 +10,6 @@ import StickyHeaders from "components/StickyHeaders";
 import { QueryParams } from "constants/queryParams";
 import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
-import useLineRangeSelection from "hooks/useLineRangeSelection";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { useStickyHeaders } from "hooks/useStickyHeaders";
 import { findLineIndex } from "utils/findLineIndex";
@@ -40,7 +39,6 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     QueryParams.ShareLine,
     undefined,
   );
-  const [{ startingLine: selectedStartingLine }] = useLineRangeSelection();
   const performedScroll = useRef(false);
 
   const {
@@ -59,26 +57,20 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       // code below describes one-time events.
       const timeoutId = setTimeout(() => {
         const jumpToLine =
-          selectedStartingLine ??
           shareLine ??
           (settings.jumpToFailingLineEnabled ? failingLine : undefined);
         const initialScrollIndex = findLineIndex(processedLogLines, jumpToLine);
         if (initialScrollIndex > -1) {
           leaveBreadcrumb(
             "Triggered initial scroll",
-            {
-              failingLine,
-              initialScrollIndex,
-              selectedStartingLine,
-              shareLine,
-            },
+            { failingLine, initialScrollIndex, shareLine },
             SentryBreadcrumbTypes.User,
           );
           scrollToLine(initialScrollIndex);
         } else {
           leaveBreadcrumb(
-            "selectedLineRange, shareLine, or failingLine not provided or found in processedLogLines",
-            { failingLine, selectedStartingLine, shareLine },
+            "shareLine or failingLine not provided or found in processedLogLines",
+            { failingLine, shareLine },
             SentryBreadcrumbTypes.UI,
           );
         }

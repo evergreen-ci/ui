@@ -136,6 +136,16 @@ describe("row", () => {
     expect(router.state.location.search).toBe("");
   });
 
+  it("a log line can be shared and bookmarked at the same time", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow(
+      { ...rowProps, children: testLog },
+      { route: "?shareLine=0" },
+    );
+    await user.dblClick(screen.getByText(testLog));
+    expect(router.state.location.search).toBe("?bookmarks=0&shareLine=0");
+  });
+
   it("should not copy line numbers to clipboard", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
     renderRow({ ...rowProps, children: testLog }, {});

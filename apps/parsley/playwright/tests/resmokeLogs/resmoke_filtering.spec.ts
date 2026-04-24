@@ -13,14 +13,12 @@ test.describe("Filtering", () => {
         await expect(page.getByTestId("paginated-virtual-list")).toBeVisible();
       });
 
-      test("should not collapse bookmarks and selected line", async ({
+      test("should not collapse bookmarks and share line", async ({
         authenticatedPage: page,
       }) => {
+        await page.goto(`${logLink}?shareLine=5`);
         await page.getByTestId("log-row-6").dblclick();
-        await page.getByTestId("line-index-5").click();
-        await expect(page).toHaveURL(
-          /\?bookmarks=0,6,115&selectedLineRange=L5/,
-        );
+        await expect(page).toHaveURL(/\?bookmarks=0,6,115&shareLine=5/);
         await helpers.addFilter(page, "doesNotMatchAnything");
 
         const logRows = await page.locator("[data-cy^='log-row-']").all();

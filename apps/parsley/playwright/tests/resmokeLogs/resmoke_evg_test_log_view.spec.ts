@@ -170,16 +170,25 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(page.getByTestId("bookmark-4")).toBeHidden();
   });
 
-  test("should be able to select a line and copy share link", async ({
+  test("should be able to copy a share link to the selected line", async ({
     authenticatedPage: page,
   }) => {
     await page.getByTestId("line-index-5").click();
-    await expect(page).toHaveURL(/\?bookmarks=0,12568&selectedLineRange=L5/);
-    await expect(page.getByTestId("sharing-menu-button")).toBeVisible();
-    await page.getByTestId("sharing-menu-button").click();
+    await expect(page.getByTestId("sharing-menu")).toBeVisible();
     await expect(
       page.getByText("Copy share link to selected line"),
     ).toBeVisible();
+    await page.getByText("Copy share link to selected line").click();
+    await helpers.validateToast(
+      page,
+      "success",
+      "Copied link to clipboard",
+      true,
+    );
+    await helpers.assertValueCopiedToClipboard(
+      page,
+      "http://localhost:5173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L5&shareLine=5",
+    );
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({
