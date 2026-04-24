@@ -105,6 +105,7 @@ const TaskQueue = () => {
           )}
           options={distrosData?.taskQueueDistros}
           searchFunc={handleSearch}
+          searchPlaceholder="Search distros"
           value={
             selectedDistro ?? { id: distroId ?? "", hostCount: 0, taskCount: 0 }
           }
