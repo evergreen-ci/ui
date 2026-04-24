@@ -1,4 +1,6 @@
 import {
+  Dispatch,
+  SetStateAction,
   createContext,
   useCallback,
   useContext,
@@ -14,7 +16,7 @@ import useLineRangeSelection from "hooks/useLineRangeSelection";
 type MultiLineSelectContextState = {
   handleSelectLine: (selectedLine: number, shiftClick: boolean) => void;
   clearSelection: () => void;
-  setOpenMenu: (v: boolean) => void;
+  setOpenMenu: Dispatch<SetStateAction<boolean>>;
   menuPosition: number | undefined;
   openMenu: boolean;
   selectedLines: {

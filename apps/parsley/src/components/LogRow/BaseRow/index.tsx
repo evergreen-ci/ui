@@ -1,9 +1,7 @@
 import { useCallback } from "react";
 import styled from "@emotion/styled";
-import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { fontFamilies } from "@leafygreen-ui/tokens";
-import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
@@ -16,6 +14,7 @@ import { isLineInRange } from "../utils";
 import Highlighter from "./Highlighter";
 import LineNumber from "./LineNumber";
 import SharingMenu from "./SharingMenu";
+import SharingMenuButton from "./SharingMenu/SharingMenuButton";
 
 const { red, yellow } = palette;
 
@@ -63,13 +62,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
   ...rest
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
-  const {
-    handleSelectLine,
-    menuPosition,
-    openMenu,
-    selectedLines,
-    setOpenMenu,
-  } = useMultiLineSelectContext();
+  const { menuPosition, selectedLines } = useMultiLineSelectContext();
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -87,28 +80,6 @@ const BaseRow: React.FC<BaseRowProps> = ({
   const failed = failingLine === lineNumber;
   const highlighted = searchLine === lineNumber;
   const shared = shareLine === lineNumber;
-
-  const handleMenuClick = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation();
-      if (menuPosition === lineNumber && openMenu && !e.shiftKey) {
-        setOpenMenu(false);
-        sendEvent({ name: "Toggled share menu", open: false });
-      } else {
-        handleSelectLine(lineNumber, e.shiftKey);
-        setOpenMenu(true);
-        sendEvent({ name: "Toggled share menu", open: true });
-      }
-    },
-    [
-      handleSelectLine,
-      lineNumber,
-      menuPosition,
-      openMenu,
-      sendEvent,
-      setOpenMenu,
-    ],
-  );
 
   // Double clicking a line should add or remove the line from bookmarks.
   const handleDoubleClick = useCallback(() => {
@@ -147,16 +118,11 @@ const BaseRow: React.FC<BaseRowProps> = ({
       onDoubleClick={handleDoubleClick}
       shared={shared}
     >
+      {/* Use a ternary to avoid rendering many unused menu components */}
       {menuPosition === lineNumber ? (
-        <SharingMenu />
+        <SharingMenu lineNumber={lineNumber} />
       ) : (
-        <MenuIcon
-          aria-label="Open menu"
-          data-cy={`log-menu-${lineNumber}`}
-          onClick={handleMenuClick}
-        >
-          <ShareIcon glyph="Ellipsis" size="small" />
-        </MenuIcon>
+        <SharingMenuButton lineNumber={lineNumber} />
       )}
       <LineNumber lineNumber={lineNumber} />
       <StyledPre shouldWrap={wrap} wordWrapFormat={wordWrapFormat}>
@@ -200,12 +166,6 @@ const RowContainer = styled.div<{
   }
 `;
 
-const ShareIcon = styled(Icon)`
-  cursor: pointer;
-  user-select: none;
-  flex-shrink: 0;
-`;
-
 // NOTE: This was originally a <pre> tag to preserve whitespace and line breaks,
 // but Firefox inserts extra newlines between block-level <pre> elements during text selection,
 // causing unwanted spacing between log lines. To avoid this, we use a <div> and manually
@@ -240,10 +200,4 @@ const StyledPre = styled.div<{
       `}
 `;
 
-const MenuIcon = styled(IconButton)`
-  height: ${size.s};
-  width: ${size.s};
-  margin-left: ${size.xxs};
-  user-select: none;
-`;
 export default BaseRow;

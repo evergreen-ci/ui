@@ -44,7 +44,7 @@ const logs = [
 const renderSharingMenu = () => {
   const { Component: MenuComponent, hook } = renderComponentWithHook(
     useMultiLineSelectContext,
-    <SharingMenu />,
+    <SharingMenu lineNumber={1} />,
   );
   const { Component } = RenderFakeToastContext(<MenuComponent />);
   const utils = renderWithRouterMatch(<Component />, { wrapper });
@@ -208,7 +208,7 @@ describe("sharingMenu", () => {
     };
     const { Component: MenuComponent, hook } = renderComponentWithHook(
       useSpecialHook,
-      <SharingMenu />,
+      <SharingMenu lineNumber={1} />,
     );
     const { Component } = RenderFakeToastContext(<MenuComponent />);
     renderWithRouterMatch(<Component />, {
@@ -233,7 +233,7 @@ describe("sharingMenu", () => {
     };
     const { Component: MenuComponent, hook } = renderComponentWithHook(
       useSpecialHook,
-      <SharingMenu />,
+      <SharingMenu lineNumber={1} />,
     );
     const { Component } = RenderFakeToastContext(<MenuComponent />);
     renderWithRouterMatch(<Component />, {
