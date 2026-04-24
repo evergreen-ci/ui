@@ -22,7 +22,6 @@ test.describe("Filtering", () => {
           /\?bookmarks=0,6,297&selectedLineRange=L5/,
         );
         await helpers.addFilter(page, "doesNotMatchAnything");
-        await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
 
         const logRows = await page.locator("[data-cy^='log-row-']").all();
         for (const row of logRows) {

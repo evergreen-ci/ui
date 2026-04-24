@@ -110,6 +110,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
     ],
   );
 
+  // Double clicking a line should add or remove the line from bookmarks.
   const handleDoubleClick = useCallback(() => {
     if (bookmarks.includes(lineNumber)) {
       const newBookmarks = bookmarks.filter((b) => b !== lineNumber);

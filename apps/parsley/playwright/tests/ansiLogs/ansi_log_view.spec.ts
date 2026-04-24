@@ -111,7 +111,9 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(page).toHaveURL(/\?bookmarks=0,297&selectedLineRange=L5/);
     await expect(page.getByTestId("sharing-menu-button")).toBeVisible();
     await page.getByTestId("sharing-menu-button").click();
-    await expect(page.getByText("Copy link to line")).toBeVisible();
+    await expect(
+      page.getByText("Copy share link to selected line"),
+    ).toBeVisible();
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({
@@ -318,8 +320,10 @@ test.describe("Sharing lines", () => {
     await page.getByTestId("line-index-1").click();
     await page.getByTestId("line-index-2").click({ modifiers: ["Shift"] });
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
-    await expect(page.getByText("Copy link to line")).toBeVisible();
-    await page.getByText("Copy link to line").click();
+    await expect(
+      page.getByText("Copy share link to selected lines"),
+    ).toBeVisible();
+    await page.getByText("Copy share link to selected lines").click();
     await helpers.validateToast(
       page,
       "success",
@@ -328,7 +332,7 @@ test.describe("Sharing lines", () => {
     );
     await helpers.assertValueCopiedToClipboard(
       page,
-      "http://localhost:5173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&shareLine=1",
+      "http://localhost:5173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&selectedLineRange=L1-L2&shareLine=1",
     );
   });
 

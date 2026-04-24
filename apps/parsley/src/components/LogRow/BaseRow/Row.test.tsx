@@ -118,19 +118,21 @@ describe("row", () => {
     expect(screen.getByText("Copy selected contents")).toBeVisible();
   });
 
-  it("double-clicking a line should toggle it as a bookmark", async () => {
+  it("double clicking a log line adds it to the bookmarks", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow({ ...rowProps, children: testLog }, {});
+    await user.dblClick(screen.getByText(testLog));
+    expect(router.state.location.search).toBe("?bookmarks=0");
+  });
+
+  it("double clicking a bookmarked log line removes it from the bookmarks", async () => {
     const user = userEvent.setup();
     const { router } = renderRow(
-      {
-        ...rowProps,
-        children: testLog,
-        lineNumber: 7,
-      },
-      {},
+      { ...rowProps, children: testLog },
+      { route: "?bookmarks=0" },
     );
-    await user.dblClick(screen.getByDataCy("log-row-7"));
-    expect(router.state.location.search).toBe("?bookmarks=7");
-    await user.dblClick(screen.getByDataCy("log-row-7"));
+
+    await user.dblClick(screen.getByText(testLog));
     expect(router.state.location.search).toBe("");
   });
 

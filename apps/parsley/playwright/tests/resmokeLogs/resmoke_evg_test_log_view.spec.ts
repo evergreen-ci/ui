@@ -177,7 +177,9 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(page).toHaveURL(/\?bookmarks=0,12568&selectedLineRange=L5/);
     await expect(page.getByTestId("sharing-menu-button")).toBeVisible();
     await page.getByTestId("sharing-menu-button").click();
-    await expect(page.getByText("Copy link to line")).toBeVisible();
+    await expect(
+      page.getByText("Copy share link to selected line"),
+    ).toBeVisible();
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({
@@ -379,8 +381,10 @@ test.describe("Sharing lines", () => {
     await page.getByTestId("line-index-1").click();
     await page.getByTestId("line-index-2").click({ modifiers: ["Shift"] });
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
-    await expect(page.getByText("Copy link to line")).toBeVisible();
-    await page.getByText("Copy link to line").click();
+    await expect(
+      page.getByText("Copy share link to selected lines"),
+    ).toBeVisible();
+    await page.getByText("Copy share link to selected lines").click();
     await helpers.validateToast(
       page,
       "success",
@@ -389,7 +393,7 @@ test.describe("Sharing lines", () => {
     );
     await helpers.assertValueCopiedToClipboard(
       page,
-      "http://localhost:5173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&shareLine=1",
+      "http://localhost:5173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L1-L2&shareLine=1",
     );
   });
 
