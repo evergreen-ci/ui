@@ -7,3 +7,10 @@ export { findDuplicateIndices } from "./errors";
 
 export { alias, form, PatchTriggerAliasStatus, ProjectType };
 export type { AliasFormType };
+
+export {
+  ErrorType,
+  sectionHasError,
+  getVersionControlError,
+  githubConflictErrorStyling,
+} from "./github";
