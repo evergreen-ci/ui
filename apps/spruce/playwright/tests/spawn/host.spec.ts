@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clearDatePickerInput, selectDatePickerDate } from "../../helpers";
+import { clearDatePickerInput, typeDatePickerDate } from "../../helpers";
 
 const ascendingSortSpawnHostOrderByHostId = [
   "i-04ade558e1e26b0ad",
@@ -332,31 +332,20 @@ test.describe("Spawn Host page", () => {
     const modal = page.getByTestId("edit-spawn-host-modal").nth(2);
     await expect(modal).toBeVisible();
 
-    const yearInput = page.locator("input[id='year']");
-    const monthInput = page.locator("input[id='month']");
-    const dayInput = page.locator("input[id='day']");
     const saveButton = page.getByRole("button", { name: "Save" });
 
     // Set a valid near-future date
-    await selectDatePickerDate(page, {
-      year: "2026",
-      month: "Jun",
-      isoDate: "2026-06-01",
-    });
+    await typeDatePickerDate(page, { year: "2026", month: "06", day: "01" });
     await expect(saveButton).toHaveAttribute("aria-disabled", "false");
 
     // Set a date in the past
     await clearDatePickerInput(page);
-    await yearInput.fill("2025");
-    await monthInput.fill("01");
-    await dayInput.fill("01");
+    await typeDatePickerDate(page, { year: "2025", month: "01", day: "01" });
     await expect(saveButton).toHaveAttribute("aria-disabled", "true");
 
     // Set a date too far in the future
     await clearDatePickerInput(page);
-    await yearInput.fill("2060");
-    await monthInput.fill("01");
-    await dayInput.fill("15");
+    await typeDatePickerDate(page, { year: "2060", month: "01", day: "15" });
     await expect(saveButton).toHaveAttribute("aria-disabled", "true");
   });
 });
