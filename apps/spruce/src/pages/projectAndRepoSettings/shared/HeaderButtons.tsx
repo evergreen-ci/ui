@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
@@ -24,6 +25,7 @@ import {
 import { useHasProjectOrRepoEditPermission } from "hooks";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
+import { GeneralFormState } from "./tabs/GeneralTab/types";
 import { AppSettingsFormState } from "./tabs/GithubAppSettingsTab/types";
 import { formToGqlMap } from "./tabs/transformers";
 import { FormToGqlFunction, WritableProjectSettingsType } from "./tabs/types";
@@ -48,11 +50,13 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
 
   const isRepo = projectType === ProjectType.Repo;
   const { getTab, saveTab } = useProjectSettingsContext();
-  const { formData, hasChanges, hasError } = getTab(tab);
+  const { formData, hasChanges, hasError, initialData } = getTab(tab);
   const navigate = useNavigate();
   const { [slugs.projectIdentifier]: identifier } = useParams();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
+  const [debugSpawnHostsModalOpen, setDebugSpawnHostsModalOpen] =
+    useState(false);
 
   const { canEdit } = useHasProjectOrRepoEditPermission(id);
 
@@ -102,12 +106,12 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     refetchQueries: ["RepoSettings", "ViewableProjectRefs"],
   });
 
-  const onClick = () => {
+  const save = () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
     const newData = formToGql(formData, isRepo, id);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const save = (update, section) =>
+    const saveMutation = (update, section) =>
       isRepo
         ? saveRepoSection({
             variables: {
@@ -123,11 +127,31 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           });
 
     const section = mapRouteToSection[tab];
-    save(newData, section);
+    saveMutation(newData, section);
     sendEvent({
       section,
       name: isRepo ? "Saved repo settings" : "Saved project settings",
     });
+  };
+
+  const isDisablingDebugSpawnHosts = () => {
+    if (tab !== ProjectSettingsTabRoutes.General) {
+      return false;
+    }
+    const generalFormData = formData as GeneralFormState;
+    const wasDisabled =
+      initialData?.projectRef?.debugSpawnHostsDisabled === true;
+    const willBeDisabled =
+      generalFormData.projectFlags.debug.debugSpawnHostsDisabled === true;
+    return !wasDisabled && willBeDisabled;
+  };
+
+  const onClick = () => {
+    if (isDisablingDebugSpawnHosts()) {
+      setDebugSpawnHostsModalOpen(true);
+    } else {
+      save();
+    }
   };
 
   // Prevent users from defaulting to repo if their project has a Github App
@@ -173,6 +197,25 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           />
         </>
       )}
+      <ConfirmationModal
+        cancelButtonProps={{
+          onClick: () => setDebugSpawnHostsModalOpen(false),
+        }}
+        confirmButtonProps={{
+          children: "Yes, save",
+          onClick: () => {
+            setDebugSpawnHostsModalOpen(false);
+            save();
+          },
+        }}
+        data-cy="disable-debug-spawn-hosts-modal"
+        open={debugSpawnHostsModalOpen}
+        title="Disable Debug Spawn Hosts?"
+        variant="danger"
+      >
+        Are you sure you want to disable debug spawn hosts? Any existing debug
+        spawn hosts will be terminated.
+      </ConfirmationModal>
     </ButtonRow>
   );
 };

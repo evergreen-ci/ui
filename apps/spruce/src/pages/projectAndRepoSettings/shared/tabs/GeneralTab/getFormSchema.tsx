@@ -10,7 +10,6 @@ import {
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
-  DebugSpawnHostsField,
   DeleteProjectField,
   RepoConfigField,
   RepotrackerField,
@@ -29,7 +28,6 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {
     deactivateStepbackTask: DeactivateStepbackTaskField,
-    debugSpawnHostsField: DebugSpawnHostsField,
     deleteProjectField: DeleteProjectField,
     repoConfigField: RepoConfigField,
     repotrackerField: RepotrackerField,
@@ -366,7 +364,7 @@ export const getFormSchema = (
       },
       debug: {
         debugSpawnHostsDisabled: {
-          "ui:field": "debugSpawnHostsField",
+          "ui:widget": widgets.RadioBoxWidget,
           "ui:description": (
             <>
               Sets if project tasks can create{" "}
