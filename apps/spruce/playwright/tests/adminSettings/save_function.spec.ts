@@ -203,10 +203,7 @@ test.describe("admin settings save properly", () => {
         "test-okta-secret",
       );
 
-      const announcements = page.getByTestId("announcements-section");
-      const bannerText = announcements.getByRole("textbox", {
-        name: "Banner Text",
-      });
+      const bannerText = page.getByTestId("banner-text");
       await bannerText.clear();
       await bannerText.fill("Okta param store test");
 
@@ -240,10 +237,7 @@ test.describe("admin settings save properly", () => {
         "test-jira-pat",
       );
 
-      const announcements = page.getByTestId("announcements-section");
-      const bannerText = announcements.getByRole("textbox", {
-        name: "Banner Text",
-      });
+      const bannerText = page.getByTestId("banner-text");
       await bannerText.clear();
       await bannerText.fill("Jira param store test");
 
@@ -282,10 +276,7 @@ test.describe("admin settings save properly", () => {
       );
       await expect(splunk.getByLabel("Token")).toHaveValue("test-splunk-token");
 
-      const announcements = page.getByTestId("announcements-section");
-      const bannerText = announcements.getByRole("textbox", {
-        name: "Banner Text",
-      });
+      const bannerText = page.getByTestId("banner-text");
       await bannerText.clear();
       await bannerText.fill("Tokens param store test");
 
@@ -320,10 +311,7 @@ test.describe("admin settings save properly", () => {
         "test-runtime-env-key",
       );
 
-      const announcements = page.getByTestId("announcements-section");
-      const bannerText = announcements.getByRole("textbox", {
-        name: "Banner Text",
-      });
+      const bannerText = page.getByTestId("banner-text");
       await bannerText.clear();
       await bannerText.fill("Runtime Environments param store test");
 
@@ -364,10 +352,7 @@ test.describe("admin settings save properly", () => {
         "test-ec2-secret",
       );
 
-      const announcements = page.getByTestId("announcements-section");
-      const bannerText = announcements.getByRole("textbox", {
-        name: "Banner Text",
-      });
+      const bannerText = page.getByTestId("banner-text");
       await bannerText.clear();
       await bannerText.fill("AWS EC2 param store test");
 
@@ -409,10 +394,7 @@ test.describe("admin settings save properly", () => {
         "test-s3-secret",
       );
 
-      const announcements = page.getByTestId("announcements-section");
-      const bannerText = announcements.getByRole("textbox", {
-        name: "Banner Text",
-      });
+      const bannerText = page.getByTestId("banner-text");
       await bannerText.clear();
       await bannerText.fill("S3 Keys param store test");
 
@@ -451,10 +433,7 @@ test.describe("admin settings save properly", () => {
         page.getByTestId("misc-settings").getByLabel("Webhook Secret"),
       ).toHaveValue("test-webhook-secret");
 
-      const announcements = page.getByTestId("announcements-section");
-      const bannerText = announcements.getByRole("textbox", {
-        name: "Banner Text",
-      });
+      const bannerText = page.getByTestId("banner-text");
       await bannerText.clear();
       await bannerText.fill("GitHub Webhook Secret param store test");
 
@@ -493,10 +472,7 @@ test.describe("admin settings save properly", () => {
         "test_value",
       );
 
-      const announcements = page.getByTestId("announcements-section");
-      const bannerText = announcements.getByRole("textbox", {
-        name: "Banner Text",
-      });
+      const bannerText = page.getByTestId("banner-text");
       await bannerText.clear();
       await bannerText.fill("Expansions List test");
 

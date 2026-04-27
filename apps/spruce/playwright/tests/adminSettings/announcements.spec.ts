@@ -13,10 +13,7 @@ test.describe("announcements", () => {
       "true",
     );
 
-    const announcements = page.getByTestId("announcements-section");
-    const bannerText = announcements.getByRole("textbox", {
-      name: "Banner Text",
-    });
+    const bannerText = page.getByTestId("banner-text");
     await bannerText.clear();
     await bannerText.fill("some more banner text");
 
