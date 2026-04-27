@@ -100,7 +100,7 @@ describe("version metadata cost display", () => {
       "version-metadata-cost",
     ).parentElement!;
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
-    await screen.findByText("Estimated cost of completed tasks so far.");
+    await screen.findByText("Estimated cost so far.");
   });
 
   it("ShowsCompleteTooltipWhenVersionIsComplete", async () => {
@@ -123,6 +123,6 @@ describe("version metadata cost display", () => {
       "version-metadata-cost",
     ).parentElement!;
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
-    await screen.findByText("Total cost of all completed tasks.");
+    await screen.findByText("Total cost of all tasks.");
   });
 });

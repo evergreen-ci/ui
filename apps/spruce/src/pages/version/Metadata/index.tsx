@@ -67,11 +67,11 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     PatchStatus.Aborted,
   ].includes(status as PatchStatus);
   const completeCostTooltip = isPatch
-    ? "Total cost of all completed tasks, including child patches."
-    : "Total cost of all completed tasks.";
+    ? "Total cost of all tasks, including child patches."
+    : "Total cost of all tasks.";
   const estimateCostTooltip = isPatch
-    ? "Estimated cost of completed tasks so far, including child patches."
-    : "Estimated cost of completed tasks so far.";
+    ? "Estimated cost so far, including child patches."
+    : "Estimated cost so far.";
   const costTooltip = isVersionComplete
     ? completeCostTooltip
     : estimateCostTooltip;
