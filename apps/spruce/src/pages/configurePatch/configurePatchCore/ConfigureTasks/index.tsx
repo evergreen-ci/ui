@@ -256,7 +256,7 @@ const ConfigureTasks: React.FC<Props> = ({
             key={name}
             aria-label={name}
             checked={isTaskCheckboxChecked(state)}
-            data-cy="task-checkbox"
+            data-cy={`${name}-task-checkbox`}
             indeterminate={isTaskCheckboxIndeterminate(state)}
             label={name}
             onChange={onClickCheckbox(name)}
@@ -272,7 +272,7 @@ const ConfigureTasks: React.FC<Props> = ({
               <Checkbox
                 key={name}
                 checked={status === CheckboxState.Checked}
-                data-cy="alias-checkbox"
+                data-cy={`${name}-alias-checkbox`}
                 disabled={activated}
                 indeterminate={status === CheckboxState.Indeterminate}
                 label={name}
@@ -284,7 +284,7 @@ const ConfigureTasks: React.FC<Props> = ({
               <Checkbox
                 key={alias}
                 checked
-                data-cy="child-patch-checkbox"
+                data-cy={`${alias}-child-patch-checkbox`}
                 disabled
                 label={alias}
               />

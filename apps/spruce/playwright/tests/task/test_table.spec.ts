@@ -57,7 +57,7 @@ test.describe("Tests Table", () => {
     await expect(totalCount.getByText("20")).toBeVisible();
 
     await page.getByTestId("status-treeselect").click();
-    await clickLabelForLocator(page.getByText("Silent fail"));
+    await clickLabelForLocator(page.getByTestId("silent-fail-checkbox"));
     await expect(filteredCount.getByText("1")).toBeVisible();
     await expect(totalCount.getByText("20")).toBeVisible();
 
@@ -141,22 +141,26 @@ test.describe("Tests Table", () => {
       authenticatedPage: page,
     }) => {
       await page.getByTestId("status-treeselect").click();
-      await clickLabelForLocator(page.getByText("All"));
+      await clickLabelForLocator(page.getByTestId("all-checkbox"));
       await expect(page).toHaveURL(/statuses=all,pass,fail,skip,silentfail/);
     });
 
     const statuses = [
-      { display: "Pass", key: "pass" },
-      { display: "Silent Fail", key: "silentfail" },
-      { display: "Skip", key: "skip" },
+      { display: "Pass", key: "pass", dataCy: "pass-checkbox" },
+      {
+        display: "Silent Fail",
+        key: "silentfail",
+        dataCy: "silent-fail-checkbox",
+      },
+      { display: "Skip", key: "skip", dataCy: "skip-checkbox" },
     ];
 
     test("Checking multiple statuses adds them all to the URL", async ({
       authenticatedPage: page,
     }) => {
       await page.getByTestId("status-treeselect").click();
-      for (const { display } of statuses) {
-        await clickLabelForLocator(page.getByText(display));
+      for (const { dataCy } of statuses) {
+        await clickLabelForLocator(page.getByTestId(dataCy));
       }
       await expect(page).toHaveURL(
         new RegExp(`statuses=${statuses.map(({ key }) => key).join(",")}`),

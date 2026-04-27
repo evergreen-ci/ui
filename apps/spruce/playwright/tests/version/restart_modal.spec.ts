@@ -71,14 +71,17 @@ test.describe("version/restart_modal", () => {
       authenticatedPage: page,
     }) => {
       await page.getByTestId("task-status-filter").click();
-      await clickLabelForLocator(page.getByText("All"));
+      const options = page.getByTestId("tree-select-options");
+      await expect(options).toBeVisible();
+      await clickLabelForLocator(options.getByTestId("all-checkbox"));
       await page.getByTestId("task-status-filter").click();
 
       await expect(page.getByTestId("version-restart-modal")).toContainText(
         "Are you sure you want to restart the 1 selected tasks?",
       );
       await page.getByTestId("task-status-filter").click();
-      await clickLabelForLocator(page.getByText("All"));
+      await expect(options).toBeVisible();
+      await clickLabelForLocator(options.getByTestId("all-checkbox"));
       await page.getByTestId("task-status-filter").click();
     });
 
@@ -87,14 +90,16 @@ test.describe("version/restart_modal", () => {
     }) => {
       const modal = page.getByTestId("version-restart-modal");
       await modal.getByTestId("base-task-status-filter").click();
-      await clickLabelForLocator(page.getByText("Succeeded"));
+      const options = page.getByTestId("tree-select-options");
+      await expect(options).toBeVisible();
+      await clickLabelForLocator(options.getByTestId("succeeded-checkbox"));
       await modal.getByTestId("base-task-status-filter").click();
 
       await expect(modal.getByTestId("confirmation-message")).toContainText(
         "Are you sure you want to restart the 1 selected tasks?",
       );
       await modal.getByTestId("base-task-status-filter").click();
-      await clickLabelForLocator(page.getByText("Succeeded"));
+      await clickLabelForLocator(options.getByTestId("succeeded-checkbox"));
       await modal.getByTestId("base-task-status-filter").click();
     });
 

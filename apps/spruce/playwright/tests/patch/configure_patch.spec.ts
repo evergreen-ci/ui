@@ -286,12 +286,12 @@ test.describe("Configure Patch Page", () => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
 
-        await clickLabelForLocator(page.getByText("Select all"));
+        await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).toBeChecked();
         }
 
-        await clickLabelForLocator(page.getByText("Select all"));
+        await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).not.toBeChecked();
         }
@@ -302,11 +302,12 @@ test.describe("Configure Patch Page", () => {
       }) => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
-        await expect(page.getByTestId("select-all-checkbox")).not.toBeChecked();
+        const selectAllCheckbox = page.getByTestId("select-all-checkbox");
+        await expect(selectAllCheckbox).not.toBeChecked();
         for (const checkbox of await taskCheckboxes.all()) {
           await clickLabelForLocator(checkbox);
         }
-        await expect(page.getByTestId("select-all-checkbox")).toBeChecked();
+        await expect(selectAllCheckbox).toBeChecked();
       });
 
       test("Unchecking all task checkboxes should uncheck the Select All checkbox", async ({
@@ -349,12 +350,13 @@ test.describe("Configure Patch Page", () => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
 
-        await clickLabelForLocator(page.getByText("Select all"));
+        const selectAllCheckbox = page.getByTestId("select-all-checkbox");
+        await clickLabelForLocator(selectAllCheckbox);
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).toBeChecked();
         }
-        await expect(page.getByTestId("select-all-checkbox")).toBeChecked();
-        await clickLabelForLocator(page.getByText("Select all"));
+        await expect(selectAllCheckbox).toBeChecked();
+        await clickLabelForLocator(selectAllCheckbox);
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).not.toBeChecked();
         }
@@ -369,14 +371,15 @@ test.describe("Configure Patch Page", () => {
           .getByTestId("build-variant-list-item")
           .getByText("RHEL 7.2 zLinux")
           .click();
-        await clickLabelForLocator(page.getByText("test-agent"));
+        const testAgentCheckbox = page.getByTestId("test-agent-task-checkbox");
+        await clickLabelForLocator(testAgentCheckbox);
         await expect(page.getByTestId("task-count-badge")).toHaveCount(1);
         await expect(page.getByTestId("task-count-badge")).toContainText("1");
 
         await expect(
           page.getByTestId("selected-task-disclaimer"),
         ).toContainText("1 task across 1 build variant");
-        await clickLabelForLocator(page.getByText("test-agent"));
+        await clickLabelForLocator(testAgentCheckbox);
         await expect(page.getByTestId("task-count-badge")).toBeHidden();
         await expect(
           page.getByTestId("selected-task-disclaimer"),
@@ -437,10 +440,9 @@ test.describe("Configure Patch Page", () => {
           .getByText("RHEL 7.1 POWER8")
           .click();
         await page.keyboard.up("Meta");
-        await expect(
-          page.getByRole("checkbox", { name: "test-agent" }),
-        ).toHaveCount(1);
-        await clickLabelForLocator(page.getByText("test-agent"));
+        const testAgentCheckbox = page.getByTestId("test-agent-task-checkbox");
+        await expect(testAgentCheckbox).toHaveCount(1);
+        await clickLabelForLocator(testAgentCheckbox);
         const taskCountBadge = page
           .getByTestId("build-variant-select-wrapper")
           .getByTestId("task-count-badge");
@@ -451,25 +453,21 @@ test.describe("Configure Patch Page", () => {
           .getByTestId("build-variant-list-item")
           .getByText("RHEL 7.2 zLinux")
           .click();
-        await expect(
-          page.getByRole("checkbox", { name: "test-agent" }),
-        ).toBeChecked();
+        await expect(testAgentCheckbox).toBeChecked();
 
         await page
           .getByTestId("build-variant-list-item")
           .getByText("RHEL 7.1 POWER8")
           .click();
-        await expect(
-          page.getByRole("checkbox", { name: "test-agent" }),
-        ).toBeChecked();
+        await expect(testAgentCheckbox).toBeChecked();
 
         // Deselect the buttons and reset
-        await clickLabelForLocator(page.getByText("test-agent"));
+        await clickLabelForLocator(testAgentCheckbox);
         await page
           .getByTestId("build-variant-list-item")
           .getByText("RHEL 7.2 zLinux")
           .click();
-        await clickLabelForLocator(page.getByText("test-agent"));
+        await clickLabelForLocator(testAgentCheckbox);
       });
 
       test.describe("Selecting/deselecting all multiple buildvariants", () => {
@@ -482,7 +480,7 @@ test.describe("Configure Patch Page", () => {
             .click();
 
           const variant1TaskCount = await page
-            .getByTestId("task-checkbox")
+            .locator('[data-cy$="task-checkbox"]')
             .count();
 
           await page
@@ -491,7 +489,7 @@ test.describe("Configure Patch Page", () => {
             .click();
 
           const variant2TaskCount = await page
-            .getByTestId("task-checkbox")
+            .locator('[data-cy$="task-checkbox"]')
             .count();
 
           await page.keyboard.down("Meta");
@@ -500,8 +498,8 @@ test.describe("Configure Patch Page", () => {
             .getByText("RHEL 7.2 zLinux")
             .click();
 
-          await clickLabelForLocator(page.getByText("Select all"));
-          const taskCheckboxes = page.getByTestId("task-checkbox");
+          await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
+          const taskCheckboxes = page.locator('[data-cy$="task-checkbox"]');
           const count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
             await expect(taskCheckboxes.nth(i)).toBeChecked();
@@ -523,8 +521,9 @@ test.describe("Configure Patch Page", () => {
             .getByTestId("build-variant-list-item")
             .getByText("RHEL 7.2 zLinux")
             .click();
-          await clickLabelForLocator(page.getByText("Select all"));
-          const taskCheckboxes = page.getByTestId("task-checkbox");
+          await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
+
+          const taskCheckboxes = page.locator('[data-cy$="task-checkbox"]');
           let count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
             await expect(taskCheckboxes.nth(i)).toBeChecked();
@@ -534,7 +533,7 @@ test.describe("Configure Patch Page", () => {
             .getByTestId("build-variant-list-item")
             .getByText("RHEL 7.1 POWER8")
             .click();
-          await clickLabelForLocator(page.getByText("Select all"));
+          await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
 
           count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
@@ -546,8 +545,7 @@ test.describe("Configure Patch Page", () => {
             .getByTestId("build-variant-list-item")
             .getByText("RHEL 7.2 zLinux")
             .click();
-
-          await clickLabelForLocator(page.getByText("Select all"));
+          await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
 
           count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
@@ -610,7 +608,7 @@ test.describe("Configure Patch Page", () => {
           .getByTestId("task-count-badge");
         await expect(taskCountBadge).toBeHidden();
 
-        await clickLabelForLocator(page.getByText("Add alias to patch"));
+        await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
 
         await expect(
           page.getByTestId("selected-task-disclaimer"),
@@ -631,21 +629,18 @@ test.describe("Configure Patch Page", () => {
           .getByText("Windows")
           .click();
         await expect(page.getByTestId("alias-checkbox")).toHaveCount(1);
-
         await expect(page.locator("[data-selected=true]")).toHaveCount(2);
       });
 
       test("Updates the badge count when the trigger alias is deselected", async ({
         authenticatedPage: page,
       }) => {
-        await clickLabelForLocator(page.getByText("Add alias to patch"));
-
+        await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
         const taskCountBadge = page
           .getByTestId("trigger-alias-list-item")
           .getByTestId("task-count-badge");
         await expect(taskCountBadge).toBeVisible();
-        await clickLabelForLocator(page.getByText("Add alias to patch"));
-
+        await clickLabelForLocator(page.getByTestId("select-all-checkbox"));
         await expect(taskCountBadge).toBeHidden();
       });
     });

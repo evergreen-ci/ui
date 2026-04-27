@@ -96,6 +96,7 @@ export const getFormSchema = (
           items: {
             "ui:ObjectFieldTemplate": CommandRow,
             command: {
+              "ui:data-cy": "repo-command-input",
               "ui:widget": widgets.TextareaWidget,
             },
           },

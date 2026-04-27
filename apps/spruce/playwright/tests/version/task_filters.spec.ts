@@ -128,19 +128,12 @@ test.describe("Tasks filters", () => {
     test("Clicking on a status filter filters the tasks to only those statuses", async ({
       authenticatedPage: page,
     }) => {
-      await page
-        .getByTestId("tree-select-options")
-        .getByText("Failed")
-        .first()
-        .click();
+      const options = page.getByTestId("tree-select-options");
+      await clickLabelForLocator(options.getByTestId("failed-checkbox"));
       await expect(page).toHaveURL(/statuses=failed/);
       await waitForTaskTable(page);
       await expect(page.getByTestId("filtered-count")).toHaveText("2");
-
-      await page
-        .getByTestId("tree-select-options")
-        .getByText("Succeeded")
-        .click();
+      await clickLabelForLocator(options.getByTestId("succeeded-checkbox"));
       await expect(page).toHaveURL(
         /statuses=failed-umbrella,failed,known-issue,success/,
       );
@@ -160,7 +153,7 @@ test.describe("Tasks filters", () => {
         "Dispatched",
         "Blocked",
       ];
-      await clickLabelForLocator(page.getByText("All"));
+      await clickLabelForLocator(page.getByTestId("all-checkbox"));
       for (const label of taskStatuses) {
         const checkbox = page.getByRole("checkbox", { name: label }).first();
         await expect(checkbox).toBeChecked();
@@ -168,7 +161,7 @@ test.describe("Tasks filters", () => {
       await expect(page).toHaveURL(/statuses=all/);
       await waitForTaskTable(page);
 
-      await clickLabelForLocator(page.getByText("All"));
+      await clickLabelForLocator(page.getByTestId("all-checkbox"));
       for (const label of taskStatuses) {
         const checkbox = page.getByRole("checkbox", { name: label }).first();
         await expect(checkbox).not.toBeChecked();
@@ -190,12 +183,12 @@ test.describe("Tasks filters", () => {
     test("Clicking on a base status filter filters the tasks to only those base statuses", async ({
       authenticatedPage: page,
     }) => {
-      await clickLabelForLocator(page.getByText("Succeeded"));
+      await clickLabelForLocator(page.getByTestId("succeeded-checkbox"));
       await expect(page).toHaveURL(/baseStatuses=success/);
       await waitForTaskTable(page);
       await expect(page.getByTestId("filtered-count")).toHaveText("44");
 
-      await clickLabelForLocator(page.getByText("Succeeded"));
+      await clickLabelForLocator(page.getByTestId("succeeded-checkbox"));
       await expect(page).not.toHaveURL(/baseStatuses/);
       await waitForTaskTable(page);
       await expect(page.getByTestId("filtered-count")).toHaveText("47");
@@ -205,14 +198,14 @@ test.describe("Tasks filters", () => {
       authenticatedPage: page,
     }) => {
       const taskStatuses = ["All", "Succeeded", "Running"];
-      await clickLabelForLocator(page.getByText("All"));
+      await clickLabelForLocator(page.getByTestId("all-checkbox"));
       for (const label of taskStatuses) {
         await expect(page.getByRole("checkbox", { name: label })).toBeChecked();
       }
       await expect(page).toHaveURL(/baseStatuses=all/);
       await waitForTaskTable(page);
 
-      await clickLabelForLocator(page.getByText("All"));
+      await clickLabelForLocator(page.getByTestId("all-checkbox"));
       for (const label of taskStatuses) {
         await expect(
           page.getByRole("checkbox", { name: label }),

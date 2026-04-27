@@ -138,25 +138,21 @@ test.describe("Repo Settings", () => {
     });
 
     test.describe("Merge Queue section", () => {
-      test.beforeEach(async ({ authenticatedPage: page }) => {
-        const mergeQueueEnabledRadio = page
-          .getByTestId("cq-enabled-radio-box")
-          .getByLabel("Enabled");
-        await mergeQueueEnabledRadio.scrollIntoViewIfNeeded();
-        await clickLabelForLocator(mergeQueueEnabledRadio);
-      });
-
       test("Enabling merge queue shows hidden inputs and error banner", async ({
         authenticatedPage: page,
       }) => {
-        const cqCardFields = page.getByTestId("cq-card").locator("> *");
-        await expect(cqCardFields).toHaveCount(2);
+        await expect(
+          page.getByText("Merge Queue Patch Definitions"),
+        ).toBeHidden();
 
         const mergeQueueEnabledRadio = page
           .getByTestId("cq-enabled-radio-box")
           .getByLabel("Enabled");
         await clickLabelForLocator(mergeQueueEnabledRadio);
-        await expect(cqCardFields).toHaveCount(3);
+
+        await expect(
+          page.getByText("Merge Queue Patch Definitions"),
+        ).toBeVisible();
         await page
           .getByText("Merge Queue Patch Definitions")
           .scrollIntoViewIfNeeded();

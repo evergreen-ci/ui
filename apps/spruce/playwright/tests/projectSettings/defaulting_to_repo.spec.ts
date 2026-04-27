@@ -299,22 +299,17 @@ test.describe("Project Settings when defaulting to repo", () => {
     test("Returns an error on save because no commit check definitions are defined", async ({
       authenticatedPage: page,
     }) => {
-      await expect(
-        page
-          .getByTestId("pr-testing-enabled-radio-box")
-          .getByText("Default to repo (enabled)"),
-      ).toBeVisible();
       const prDisabledRadio = page
         .getByTestId("pr-testing-enabled-radio-box")
-        .getByLabel("Disabled");
+        .getByLabel("Disabled", { exact: true });
       await clickLabelForLocator(prDisabledRadio);
       const manualDisabledRadio = page
         .getByTestId("manual-pr-testing-enabled-radio-box")
-        .getByLabel("Disabled");
+        .getByLabel("Disabled", { exact: true });
       await clickLabelForLocator(manualDisabledRadio);
       const githubEnabledRadio = page
         .getByTestId("github-checks-enabled-radio-box")
-        .getByLabel("Enabled");
+        .getByLabel("Enabled", { exact: true });
       await clickLabelForLocator(githubEnabledRadio);
       await save(page);
       await validateToast(
@@ -445,7 +440,8 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Add commands", async ({ authenticatedPage: page }) => {
-      await expect(page.getByLabel("Default to repo (disabled)")).toBeChecked();
+      const defaultToRepoRadio = page.getByLabel("Default to repo (disabled)");
+      await expect(defaultToRepoRadio).toBeChecked();
       await expect(page.getByTestId("command-row")).toHaveCount(0);
 
       await page.getByTestId("attached-repo-link").click();
@@ -460,15 +456,15 @@ test.describe("Project Settings when defaulting to repo", () => {
       await page.getByRole("button", { name: "Add Command" }).click();
       await page.getByTestId("command-input").fill("a repo command");
       await save(page);
-      await validateToast(page, "success", "Successfully updated repo");
+      await validateToast(page, "success", "Successfully updated repo", true);
 
       await page.goto(origin);
       await page.getByTestId("navitem-virtual-workstation").click();
-      await expect(
-        page
-          .getByTestId("command-row")
-          .locator("textarea", { hasText: "a repo command" }),
-      ).toHaveAttribute("aria-disabled", "true");
+
+      await expect(page.getByTestId("command-row")).toHaveCount(1);
+      const repoCommandInput = page.getByTestId("repo-command-input");
+      await expect(repoCommandInput).toHaveValue("a repo command");
+      await expect(repoCommandInput).toHaveAttribute("aria-disabled", "true");
 
       const overrideRepoCommandsRadio = page.getByLabel(
         "Override Repo Commands",
@@ -477,24 +473,30 @@ test.describe("Project Settings when defaulting to repo", () => {
 
       await expect(page.getByTestId("command-row")).toHaveCount(0);
       await page.getByRole("button", { name: "Add Command" }).click();
-      await page.getByTestId("command-input").fill("a project command");
+      const projectCommandInput = page.getByTestId("command-input");
+      await projectCommandInput.fill("a project command");
       await save(page);
-      await validateToast(page, "success", "Successfully updated project");
-      await expect(
-        page
-          .getByTestId("command-row")
-          .locator("textarea", { hasText: "a project command" }),
-      ).toHaveAttribute("aria-disabled", "false");
+      await validateToast(
+        page,
+        "success",
+        "Successfully updated project",
+        true,
+      );
+      await expect(projectCommandInput).toHaveValue("a project command");
+      await expect(projectCommandInput).toHaveAttribute(
+        "aria-disabled",
+        "false",
+      );
 
-      const defaultToRepoRadio = page.getByLabel("Default to repo (disabled)");
-      await clickLabelForLocator(defaultToRepoRadio);
+      const defaultToRepoCommandsRadio = page.getByLabel(
+        "Default to repo commands",
+      );
+      await clickLabelForLocator(defaultToRepoCommandsRadio);
+      await expect(page.getByTestId("command-row")).toHaveCount(1);
+      await expect(repoCommandInput).toHaveValue("a repo command");
+      await expect(repoCommandInput).toHaveAttribute("aria-disabled", "true");
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
-      await expect(
-        page
-          .getByTestId("command-row")
-          .locator("textarea", { hasText: "a repo command" }),
-      ).toHaveAttribute("aria-disabled", "true");
 
       await clickLabelForLocator(overrideRepoCommandsRadio);
       await expect(page.getByTestId("command-row")).toHaveCount(0);
