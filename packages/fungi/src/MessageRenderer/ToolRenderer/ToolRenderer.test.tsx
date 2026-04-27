@@ -1,6 +1,16 @@
-import { render, screen } from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { ToolStateEnum } from "../types";
+import { MergedFindings } from "./utils";
 import { ToolRenderer } from ".";
+
+const baseFindings: MergedFindings = {
+  summary: "Two issues",
+  overallStatus: "failure",
+  errors: [],
+  events: [],
+  metrics: [],
+  observations: [],
+};
 
 describe("ToolRenderer", () => {
   it("renders a tool with a loading state if the output is not available", () => {
@@ -85,7 +95,7 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logCoreAnalyzerTool",
+          type: "tool-logAnalyzerTool",
           state: ToolStateEnum.InputAvailable,
           toolCallId: "456",
           input: "test",
@@ -101,7 +111,7 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logCoreAnalyzerTool",
+          type: "tool-logAnalyzerTool",
           state: ToolStateEnum.InputAvailable,
           toolCallId: "456",
           input: "test",
@@ -116,7 +126,7 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logCoreAnalyzerTool",
+          type: "tool-logAnalyzerTool",
           state: ToolStateEnum.OutputAvailable,
           toolCallId: "456",
           input: "test",
@@ -129,74 +139,102 @@ describe("ToolRenderer", () => {
     expect(screen.queryByText("Analysis complete")).not.toBeInTheDocument();
   });
 
-  it("renders rich links for each lineReference in logCoreAnalyzerTool output", () => {
+  it("does not render rich navigation links alongside the findings panel", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logCoreAnalyzerTool",
+          type: "tool-logAnalyzerTool",
           state: ToolStateEnum.OutputAvailable,
           toolCallId: "456",
           input: "test",
           output: {
-            markdown: "## Analysis",
-            lineReferences: [
-              { line: 42, description: "Null pointer", evidence: "NPE" },
-              { line: 87, description: "Memory leak", evidence: "Leak" },
+            ...baseFindings,
+            errors: [
+              {
+                line: 42,
+                severity: "error",
+                message: "Null pointer",
+                evidence: "NPE",
+              },
+              {
+                line: 87,
+                severity: "warning",
+                message: "Memory leak",
+                evidence: "Leak",
+              },
             ],
-            summary: "Two issues",
-          },
-        }}
-      />,
-    );
-    expect(screen.getByText("Line 42: Null pointer")).toBeInTheDocument();
-    expect(screen.getByText("Line 87: Memory leak")).toBeInTheDocument();
-  });
-
-  it("does not render rich links when lineReferences is empty", () => {
-    render(
-      <ToolRenderer
-        {...{
-          type: "tool-logCoreAnalyzerTool",
-          state: ToolStateEnum.OutputAvailable,
-          toolCallId: "456",
-          input: "test",
-          output: {
-            markdown: "## Analysis",
-            lineReferences: [],
-            summary: "No issues",
-          },
+          } satisfies MergedFindings,
         }}
       />,
     );
     expect(screen.getByText("Analyzed logs")).toBeInTheDocument();
-    expect(screen.queryByText(/^Line \d+:/)).not.toBeInTheDocument();
+    // Errors are only shown inside the expandable findings panel, not as
+    // separate rich links below the action card.
+    expect(screen.queryByText(/^Line 42:/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/^Line 87:/)).not.toBeInTheDocument();
   });
 
-  it("renders expandable content when logCoreAnalyzerTool output has a markdown field", () => {
+  it("renders status, summary, and findings for logAnalyzerTool output when expanded", async () => {
+    const user = userEvent.setup();
     render(
       <ToolRenderer
         {...{
-          type: "tool-logCoreAnalyzerTool",
+          type: "tool-logAnalyzerTool",
           state: ToolStateEnum.OutputAvailable,
           toolCallId: "456",
           input: "test",
           output: {
-            markdown: "Analysis result text",
-            lineReferences: [],
-            summary: "Two issues found",
-          },
+            summary: "One warning found",
+            overallStatus: "partial_failure",
+            errors: [
+              {
+                line: null,
+                severity: "warning",
+                message: "Disk nearly full",
+                evidence: "95% used",
+              },
+            ],
+            events: [
+              {
+                line: 10,
+                timestamp: "2026-04-22T14:00:00Z",
+                description: "Task started",
+              },
+            ],
+            metrics: [{ name: "Duration", value: "2m" }],
+            observations: ["Cleanup recommended"],
+          } satisfies MergedFindings,
         }}
       />,
     );
     expect(screen.getByText("Analyzed logs")).toBeInTheDocument();
-    expect(screen.getByText("Analysis result text")).toBeInTheDocument();
+    expect(screen.queryByDataCy("tool-output")).not.toBeInTheDocument();
+    await user.click(
+      screen.getByRole("button", { name: /expand additional content/i }),
+    );
+    expect(screen.getByText("Partial failure")).toBeInTheDocument();
+    expect(screen.getByText("One warning found")).toBeInTheDocument();
+    const findingSummary = screen.getByText("Disk nearly full");
+    expect(findingSummary).toBeInTheDocument();
+    const details = findingSummary.closest("details");
+    expect(details).not.toBeNull();
+    expect(details).not.toHaveAttribute("open");
+    await user.click(findingSummary);
+    expect(details).toHaveAttribute("open");
+    expect(screen.getByText("95% used")).toBeInTheDocument();
+    expect(screen.getByText("No line")).toBeInTheDocument();
+    expect(screen.getByText("Task started")).toBeInTheDocument();
+    expect(screen.getByText("2026-04-22T14:00:00Z")).toBeInTheDocument();
+    expect(screen.getByText("Duration")).toBeInTheDocument();
+    expect(screen.getByText("2m")).toBeInTheDocument();
+    expect(screen.getByText("Cleanup recommended")).toBeInTheDocument();
   });
 
-  it("does not render expandable content when output has no markdown field", () => {
+  it("does not render findings when output does not match MergedFindings shape", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logCoreAnalyzerTool",
+          type: "tool-logAnalyzerTool",
           state: ToolStateEnum.OutputAvailable,
           toolCallId: "456",
           input: "test",
@@ -206,6 +244,7 @@ describe("ToolRenderer", () => {
     );
     expect(screen.getByText("Analyzed logs")).toBeInTheDocument();
     expect(screen.queryByText("analysis complete")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("tool-output")).not.toBeInTheDocument();
   });
 
   it("does not render expandable content for askEvergreenAgentTool", () => {

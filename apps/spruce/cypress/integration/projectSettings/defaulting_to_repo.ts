@@ -1,4 +1,3 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
@@ -8,6 +7,7 @@ import {
   repo,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Project Settings when defaulting to repo", () => {
   const origin = getProjectSettingsRoute(projectUseRepoEnabled);
@@ -64,19 +64,19 @@ describe("Project Settings when defaulting to repo", () => {
 
     it("Clicking on save button should show a success toast", () => {
       cy.dataCy("spawn-host-input").type("/test");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
     });
 
     it("Saves when batch time is updated", () => {
       cy.dataCy("batch-time-input").clear();
       cy.dataCy("batch-time-input").type("12");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.dataCy("batch-time-input").should("have.value", 12);
       cy.validateToast("success", "Successfully updated project");
       // Check if clearing attached project defaults batchtime to repo value
       cy.dataCy("batch-time-input").clear();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.dataCy("batch-time-input")
         .invoke("attr", "placeholder")
         .should("equal", "60 (Default from repo)");
@@ -85,7 +85,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("attached-repo-link").click();
       cy.dataCy("batch-time-input").should("have.value", 60);
       cy.dataCy("batch-time-input").clear();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.dataCy("batch-time-input").should("have.value", 0);
       cy.validateToast("success", "Successfully updated repo");
       cy.visit(origin);
@@ -96,7 +96,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.visit(getProjectSettingsRoute(project));
       cy.dataCy("batch-time-input").should("have.value", 60);
       cy.dataCy("batch-time-input").clear();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.dataCy("batch-time-input").should("have.value", 0);
       cy.validateToast("success", "Successfully updated project");
     });
@@ -130,7 +130,7 @@ describe("Project Settings when defaulting to repo", () => {
         .first()
         .type("Description for variable c");
 
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       // Promote variables
       cy.dataCy("promote-vars-modal").should("not.exist");
@@ -175,7 +175,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("variant-input").should("have.value", ".*");
       cy.dataCy("task-input-control").find("button").contains("Regex").click();
       cy.dataCy("task-input").first().type(".*");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -226,7 +226,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("github-checks-enabled-radio-box")
         .contains("label", "Enabled")
         .click();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("error", "There was an error saving the project");
     });
 
@@ -240,7 +240,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.contains("button", "Add Patch Definition").click();
       cy.dataCy("variant-tags-input").first().type("vtag");
       cy.dataCy("task-tags-input").first().type("ttag");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated repo");
       cy.visit(origin);
       cy.dataCy("navitem-github-commitqueue").click();
@@ -297,11 +297,11 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
       cy.dataCy("add-button").contains("Add Task Tag").parent().click();
       cy.dataCy("task-tags-input").first().type("alias task tag 3");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       // Default to repo patch alias
       cy.contains("label", "Default to Repo Patch Aliases").click();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       saveButtonEnabled(false);
       // Aliases are cleared
@@ -318,7 +318,7 @@ describe("Project Settings when defaulting to repo", () => {
     it("Enable git clone", () => {
       cy.contains("label", "Enabled").click();
       cy.getInputByLabel("Enabled").should("be.checked");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
     });
     it("Add commands", () => {
@@ -332,7 +332,7 @@ describe("Project Settings when defaulting to repo", () => {
       );
       cy.contains("button", "Add Command").click();
       cy.dataCy("command-input").type("a repo command");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated repo");
       // Go to project page
       cy.visit(origin);
@@ -347,13 +347,13 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("command-row").should("not.exist");
       cy.contains("button", "Add Command").click();
       cy.dataCy("command-input").type("a project command");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("command-row")
         .contains("textarea", "a project command")
         .should("have.attr", "aria-disabled", "false");
       cy.contains("label", "Default to Repo Commands").click();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("command-row")
         .contains("textarea", "a repo command")
@@ -364,7 +364,7 @@ describe("Project Settings when defaulting to repo", () => {
 
     it("Allows overriding without adding a command", () => {
       cy.contains("label", "Override Repo Commands").click();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.getInputByLabel("Override Repo Commands").should("be.checked");
     });

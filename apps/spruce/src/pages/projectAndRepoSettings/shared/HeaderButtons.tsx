@@ -23,8 +23,12 @@ import {
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
 import { useHasProjectOrRepoEditPermission } from "hooks";
+import { JSONObject } from "utils/object/types";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
+import { getDiffRenderConfig } from "./DiffConfig";
+import { getTabTitle } from "./getTabTitle";
+import { SaveChangesModal } from "./SaveChangesModal";
 import { GeneralFormState } from "./tabs/GeneralTab/types";
 import { AppSettingsFormState } from "./tabs/GithubAppSettingsTab/types";
 import { formToGqlMap } from "./tabs/transformers";
@@ -55,6 +59,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   const { [slugs.projectIdentifier]: identifier } = useParams();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
   const [debugSpawnHostsModalOpen, setDebugSpawnHostsModalOpen] =
     useState(false);
 
@@ -106,7 +111,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     refetchQueries: ["RepoSettings", "ViewableProjectRefs"],
   });
 
-  const save = () => {
+  const performSave = () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
     const newData = formToGql(formData, isRepo, id);
@@ -146,13 +151,32 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     return !wasDisabled && willBeDisabled;
   };
 
-  const onClick = () => {
+  const onSaveConfirm = () => {
+    setSaveModalOpen(false);
     if (isDisablingDebugSpawnHosts()) {
       setDebugSpawnHostsModalOpen(true);
     } else {
-      save();
+      performSave();
     }
   };
+
+  const onClick = () => {
+    setSaveModalOpen(true);
+  };
+
+  // Only compute the diff payload while the modal is open so that tab
+  // transformers aren't invoked against partially-loaded form state on
+  // every render.
+  let diffPayload: { after: JSONObject; before: JSONObject | null } | null =
+    null;
+  if (saveModalOpen) {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+    diffPayload = {
+      after: formToGql(formData, isRepo, id) as unknown as JSONObject,
+      before: initialData as unknown as JSONObject | null,
+    };
+  }
 
   // Prevent users from defaulting to repo if their project has a Github App
   // but the repo does not, which would result in losing credentials entirely.
@@ -179,6 +203,17 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
       >
         Save changes on page
       </Button>
+      {diffPayload && (
+        <SaveChangesModal
+          after={diffPayload.after}
+          before={diffPayload.before}
+          customKeyValueRenderConfig={getDiffRenderConfig(tab)}
+          onCancel={() => setSaveModalOpen(false)}
+          onConfirm={onSaveConfirm}
+          open={saveModalOpen}
+          tabTitle={getTabTitle(tab).title}
+        />
+      )}
       {projectType === ProjectType.AttachedProject && canDefaultToRepo && (
         <>
           <Button
@@ -205,7 +240,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           children: "Yes, save",
           onClick: () => {
             setDebugSpawnHostsModalOpen(false);
-            save();
+            performSave();
           },
         }}
         data-cy="disable-debug-spawn-hosts-modal"
