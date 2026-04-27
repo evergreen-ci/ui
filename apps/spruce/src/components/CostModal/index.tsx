@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
@@ -6,6 +7,7 @@ import {
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DisplayModal } from "components/DisplayModal";
+import { costDocumentationUrl } from "constants/externalResources";
 import { getHoneycombTaskCostUrl } from "constants/externalResources/honeycomb";
 import { Cost } from "gql/generated/types";
 
@@ -44,21 +46,13 @@ const columns: LGColumnDef<CostRow>[] = [
     header: "Cost",
     cell: ({ getValue }) => {
       const cost = getValue() as number | null | undefined;
-      return (
-        <TabularNum>{cost != null && cost > 0 ? `$${cost}` : "N/A"}</TabularNum>
-      );
+      return <TabularNum>{cost && cost > 0 ? `$${cost}` : "N/A"}</TabularNum>;
     },
   },
 ];
 
 const TabularNum = styled.span`
   font-variant-numeric: tabular-nums;
-`;
-
-const Disclaimer = styled.p`
-  font-size: 12px;
-  color: #6f7584;
-  margin-top: 8px;
 `;
 
 export const CostModal: React.FC<CostModalProps> = ({
@@ -100,9 +94,13 @@ export const CostModal: React.FC<CostModalProps> = ({
       setOpen={setOpen}
       title={`Cost breakdown for ${name}`}
     >
-      <span data-cy="cost-docs-link">
-        Evergreen cost documentation (coming soon)
-      </span>
+      <StyledLink
+        data-cy="cost-docs-link"
+        hideExternalIcon={false}
+        href={costDocumentationUrl}
+      >
+        Evergreen cost documentation
+      </StyledLink>
       <BaseTable data-cy="cost-breakdown-table" table={table} />
       <StyledLink
         data-cy="task-cost-link"
