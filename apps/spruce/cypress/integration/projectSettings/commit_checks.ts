@@ -1,9 +1,8 @@
 import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
-  getRepoSettingsRoute,
+  project,
   ProjectSettingsTabRoutes,
-  repo,
   saveButtonEnabled,
 } from "./constants";
 
@@ -34,11 +33,16 @@ describe("A project that has GitHub webhooks disabled", () => {
 });
 
 describe("A project that has GitHub webhooks enabled", () => {
-  it("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", () => {
-    const origin = getRepoSettingsRoute(repo);
+  const origin = getProjectSettingsRoute(
+    project,
+    ProjectSettingsTabRoutes.CommitChecks,
+  );
+  beforeEach(() => {
     cy.visit(origin);
-    cy.dataCy("navitem-commit-checks").click();
     saveButtonEnabled(false);
+  });
+
+  it("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", () => {
     cy.dataCy("github-checks-enabled-radio-box").children().first().click();
     cy.contains(
       "A Commit Check Definition must be specified for this feature to run.",
@@ -49,24 +53,13 @@ describe("A project that has GitHub webhooks enabled", () => {
   });
 
   it("Saves successfully when Commit Checks are enabled and a Commit Check Definition is provided", () => {
-    cy.visit(origin);
-    saveButtonEnabled(false);
-
-    // Enable Commit Checks → shows error banner because there are no definitions yet.
-    cy.dataCy("github-checks-enabled-radio-box")
-      .contains("label", "Enabled")
-      .click();
-    cy.contains(
-      "A Commit Check Definition must be specified for this feature to run.",
-    ).as("errorBanner");
-    cy.dataCy("errorBanner").should("be.visible");
-
+    cy.dataCy("github-checks-enabled-radio-box").children().first().click();
     cy.contains("button", "Add Definition").click();
     cy.dataCy("variant-tags-input").first().type("vtag");
     cy.dataCy("task-tags-input").first().type("ttag");
 
     cy.dataCy("error-banner").should("not.exist");
     clickSave();
-    cy.validateToast("success", "Successfully updated repo");
+    cy.validateToast("success", "Successfully updated project");
   });
 });
