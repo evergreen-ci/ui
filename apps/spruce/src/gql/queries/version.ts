@@ -61,6 +61,9 @@ export const VERSION = gql`
             status
           }
         }
+        cost {
+          total
+        }
         githubPatchData {
           headHash
           prNumber

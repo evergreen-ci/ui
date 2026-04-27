@@ -60,15 +60,21 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     versionTiming,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
-  const totalCost = cost?.total ?? 0;
+  const totalCost = isPatch ? (patch?.cost?.total ?? 0) : (cost?.total ?? 0);
   const isVersionComplete = [
     PatchStatus.Failed,
     PatchStatus.Success,
     PatchStatus.Aborted,
   ].includes(status as PatchStatus);
+  const completeCostTooltip = isPatch
+    ? "Total cost of all completed tasks, including child patches."
+    : "Total cost of all completed tasks.";
+  const estimateCostTooltip = isPatch
+    ? "Estimated cost of completed tasks so far, including child patches."
+    : "Estimated cost of completed tasks so far.";
   const costTooltip = isVersionComplete
-    ? "Cost are for the cumulative cost of all tasks in this version."
-    : "Estimate of cumulated costs of completed tasks in this version.";
+    ? completeCostTooltip
+    : estimateCostTooltip;
   const { makespan, timeTaken } = versionTiming || {};
   const { githubPatchData, includedLocalModules } = patch || {};
   const { headHash, prNumber } = githubPatchData || {};

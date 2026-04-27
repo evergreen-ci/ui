@@ -12045,6 +12045,7 @@ export type VersionQuery = {
           baseVersion?: { __typename?: "Version"; id: string } | null;
         } | null;
       }> | null;
+      cost?: { __typename?: "Cost"; total?: number | null } | null;
       githubPatchData?: {
         __typename?: "GithubPatch";
         headHash?: string | null;
