@@ -684,7 +684,7 @@ export type Cost = {
   adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
-  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  childPatchesTotalCost?: Maybe<Scalars["Float"]["output"]>;
   /** Sum of adjusted cost components; excludes on-demand components. */
   total?: Maybe<Scalars["Float"]["output"]>;
 };
@@ -11530,7 +11530,6 @@ export type TaskQuery = {
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
-      onDemandEC2Cost?: number | null;
       total?: number | null;
     } | null;
     versionMetadata: {
@@ -12003,14 +12002,14 @@ export type VersionQuery = {
     baseVersion?: { __typename?: "Version"; id: string } | null;
     cost?: {
       __typename?: "Cost";
-      total?: number | null;
-      adjustedEC2Cost?: number | null;
       adjustedEBSStorageCost?: number | null;
       adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
       adjustedS3ArtifactPutCost?: number | null;
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
+      total?: number | null;
     } | null;
     externalLinksForMetadata: Array<{
       __typename?: "ExternalLinkForMetadata";
@@ -12056,6 +12055,11 @@ export type VersionQuery = {
           baseVersion?: { __typename?: "Version"; id: string } | null;
         } | null;
       }> | null;
+      cost?: {
+        __typename?: "Cost";
+        childPatchesTotalCost?: number | null;
+        total?: number | null;
+      } | null;
       githubPatchData?: {
         __typename?: "GithubPatch";
         headHash?: string | null;

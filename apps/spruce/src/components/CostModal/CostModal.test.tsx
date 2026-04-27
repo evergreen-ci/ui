@@ -2,26 +2,14 @@ import {
   renderWithRouterMatch as render,
   screen,
 } from "@evg-ui/lib/test_utils";
-import { CostModal, formatCost } from ".";
-
-describe("formatCost", () => {
-  it("formats costs >= $0.01 to two decimal places", () => {
-    expect(formatCost(1.5)).toBe("1.50");
-    expect(formatCost(321.45)).toBe("321.45");
-    expect(formatCost(0.01)).toBe("0.01");
-  });
-
-  it("formats costs < $0.01 using toString to avoid trailing zeros", () => {
-    expect(formatCost(0.001)).toBe("0.001");
-    expect(formatCost(0.0037)).toBe("0.0037");
-  });
-});
+import { CostModal } from ".";
 
 describe("CostModal", () => {
   const defaultProps = {
     name: "my-task",
     open: true,
-    onClose: () => {},
+    setOpen: () => {},
+    taskId: "some-task-id",
   };
 
   it("renders the modal title with task name", () => {
@@ -51,7 +39,7 @@ describe("CostModal", () => {
       />,
     );
     expect(screen.getByText("$0.52")).toBeInTheDocument();
-    expect(screen.getByText("$0.50")).toBeInTheDocument();
+    expect(screen.getByText("$0.5")).toBeInTheDocument();
     expect(screen.getByText("$0.01")).toBeInTheDocument();
     expect(screen.getByText("$0.02")).toBeInTheDocument();
     expect(screen.getByText("$0.001")).toBeInTheDocument();
@@ -60,7 +48,7 @@ describe("CostModal", () => {
     expect(screen.getByText("$0.0004")).toBeInTheDocument();
   });
 
-  it("renders N/A for missing or zero cost fields", () => {
+  it("renders N/A for null cost fields and dollar amount for zero", () => {
     render(
       <CostModal
         {...defaultProps}
@@ -68,7 +56,8 @@ describe("CostModal", () => {
         adjustedEC2Cost={null}
       />,
     );
+    expect(screen.getByText("$0")).toBeInTheDocument();
     const naCells = screen.getAllByText("N/A");
-    expect(naCells.length).toBe(8);
+    expect(naCells.length).toBe(7);
   });
 });

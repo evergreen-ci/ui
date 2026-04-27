@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -19,7 +18,6 @@ import {
   getGithubMergeQueueUrl,
   getGithubPRUrl,
 } from "constants/externalResources";
-import { getHoneycombVersionCostUrl } from "constants/externalResources/honeycomb";
 import { Requester } from "constants/requesters";
 import {
   getProjectPatchesRoute,
@@ -67,15 +65,21 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     versionTiming,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
-  const totalCost = cost?.total ?? 0;
+  const totalCost = isPatch ? (patch?.cost?.total ?? 0) : (cost?.total ?? 0);
   const isVersionComplete = [
     PatchStatus.Failed,
     PatchStatus.Success,
     PatchStatus.Aborted,
   ].includes(status as PatchStatus);
+  const completeCostTooltip = isPatch
+    ? "Total cost of all tasks, including child patches."
+    : "Total cost of all tasks.";
+  const estimateCostTooltip = isPatch
+    ? "Estimated cost so far, including child patches."
+    : "Estimated cost so far.";
   const costTooltip = isVersionComplete
-    ? "Cost are for the cumulative cost of all tasks in this version."
-    : "Estimate of cumulated costs of completed tasks in this version.";
+    ? completeCostTooltip
+    : estimateCostTooltip;
   const { makespan, timeTaken } = versionTiming || {};
   const { githubPatchData, includedLocalModules } = patch || {};
   const { headHash, prNumber } = githubPatchData || {};
@@ -240,7 +244,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           tooltipDescription={costTooltip}
         >
           <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
-          {cost != null && totalCost > 0 && (
+          {cost != null && isVersionComplete && totalCost > 0 && (
             <>
               {" "}
               <Button
@@ -256,22 +260,6 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
             </>
           )}
         </MetadataItem>
-        {startTime && finishTime && (
-          <MetadataItem>
-            <HoneycombLinkContainer>
-              <StyledLink
-                data-cy="version-cost-link"
-                hideExternalIcon={false}
-                href={getHoneycombVersionCostUrl(id)}
-                onClick={() => {
-                  sendEvent({ name: "Clicked version honeycomb cost link" });
-                }}
-              >
-                Honeycomb Version Cost
-              </StyledLink>
-            </HoneycombLinkContainer>
-          </MetadataItem>
-        )}
         <ParametersModal parameters={parameters} />
         {externalLinksForMetadata?.map(({ displayName, url }) => (
           <MetadataItem key={displayName}>
@@ -290,29 +278,21 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </MetadataItem>
         )}
       </MetadataCard>
-      {costModalOpen && cost && (
+      {cost && (
         <CostModal
-          adjustedEBSStorageCost={cost.adjustedEBSStorageCost}
-          adjustedEBSThroughputCost={cost.adjustedEBSThroughputCost}
-          adjustedEC2Cost={cost.adjustedEC2Cost}
-          adjustedS3ArtifactPutCost={cost.adjustedS3ArtifactPutCost}
-          adjustedS3ArtifactStorageCost={cost.adjustedS3ArtifactStorageCost}
-          adjustedS3LogPutCost={cost.adjustedS3LogPutCost}
-          adjustedS3LogStorageCost={cost.adjustedS3LogStorageCost}
+          {...cost}
+          childPatchesTotalCost={
+            isPatch ? patch?.cost?.childPatchesTotalCost : null
+          }
           name={message ?? id}
-          onClose={() => setCostModalOpen(false)}
           open={costModalOpen}
-          total={cost.total}
+          setOpen={setCostModalOpen}
+          versionId={id}
         />
       )}
     </>
   );
 };
-
-const HoneycombLinkContainer = styled.span`
-  display: flex;
-  flex-direction: column;
-`;
 
 interface BaseCommitMetadataProps {
   baseVersionId: string;
