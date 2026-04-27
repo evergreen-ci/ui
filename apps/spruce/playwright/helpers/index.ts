@@ -66,17 +66,18 @@ export async function validateDatePickerDate(
  * Selects a date in a LeafyGreen date picker by navigating the year/month dropdowns
  * and clicking the target day cell.
  * @param page - The Playwright page object
- * @param year - The year to select (e.g., "2025")
- * @param month - The abbreviated month name to select (e.g., "Feb")
- * @param isoDate - The ISO date string of the day cell to click (e.g., "2025-02-28")
+ * @param opts - The expected date values
+ * @param opts.year - The year to select (e.g., "2025")
+ * @param opts.month - The abbreviated month name to select (e.g., "Feb")
+ * @param opts.isoDate - The ISO date string of the day cell to click (e.g., "2025-02-28")
+ * @param dataCy - The data-cy attribute value of the date picker (default: "date-picker")
  */
 export async function selectDatePickerDate(
   page: Page,
-  year: string,
-  month: string,
-  isoDate: string,
+  { year = "", month = "", isoDate = "" } = {},
+  dataCy = "date-picker",
 ): Promise<void> {
-  await page.getByTestId("date-picker").click();
+  await page.getByTestId(dataCy).click();
 
   const options = page.getByRole("listbox").getByRole("option");
 

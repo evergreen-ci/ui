@@ -338,7 +338,11 @@ test.describe("Spawn Host page", () => {
     const saveButton = page.getByRole("button", { name: "Save" });
 
     // Set a valid near-future date
-    await selectDatePickerDate(page, "2026", "Jun", "2026-06-01");
+    await selectDatePickerDate(page, {
+      year: "2026",
+      month: "Jun",
+      isoDate: "2026-06-01",
+    });
     await expect(saveButton).toHaveAttribute("aria-disabled", "false");
 
     // Set a date in the past

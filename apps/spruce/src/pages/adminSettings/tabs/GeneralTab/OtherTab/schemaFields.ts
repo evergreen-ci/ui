@@ -438,6 +438,7 @@ export const sshPairs = {
     "ui:objectFieldCss": objectGridCss,
     taskHostKey: {
       "ui:fieldCss": nestedObjectGridCss,
+      "ui:data-cy": "task-host-key",
     },
     spawnHostKey: {
       "ui:fieldCss": nestedObjectGridCss,
@@ -476,6 +477,7 @@ export const expansions = {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
+        "ui:data-cy": "expansions-list-item",
         value: {
           "ui:widget": "textarea",
         },
@@ -574,6 +576,7 @@ export const jiraNotificationsFields = {
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
+        "ui:data-cy": "jira-custom-fields-list-item",
         fields: {
           "ui:addButtonText": "Add custom field",
           "ui:placeholder": "No custom fields defined.",
@@ -733,6 +736,9 @@ export const projectCreationSettings = {
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
+      items: {
+        "ui:data-cy": "repo-exceptions-list-item",
+      },
     },
   },
 };

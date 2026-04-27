@@ -31,6 +31,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
   },
   uiSchema: {
     announcements: {
+      "ui:data-cy": "announcements-section",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       banner: {
         "ui:widget": "textarea",
