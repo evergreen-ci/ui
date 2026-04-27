@@ -29,7 +29,6 @@ import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { getDiffRenderConfig } from "./DiffConfig";
 import { getTabTitle } from "./getTabTitle";
 import { SaveChangesModal } from "./SaveChangesModal";
-import { GeneralFormState } from "./tabs/GeneralTab/types";
 import { AppSettingsFormState } from "./tabs/GithubAppSettingsTab/types";
 import { formToGqlMap } from "./tabs/transformers";
 import { FormToGqlFunction, WritableProjectSettingsType } from "./tabs/types";
@@ -116,7 +115,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
     const newData = formToGql(formData, isRepo, id);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const saveMutation = (update, section) =>
+    const save = (update, section) =>
       isRepo
         ? saveRepoSection({
             variables: {
@@ -132,7 +131,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           });
 
     const section = mapRouteToSection[tab];
-    saveMutation(newData, section);
+    save(newData, section);
     sendEvent({
       section,
       name: isRepo ? "Saved repo settings" : "Saved project settings",
@@ -143,11 +142,13 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     if (tab !== ProjectSettingsTabRoutes.General) {
       return false;
     }
-    const generalFormData = formData as GeneralFormState;
+    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const newData = formToGql(formData, isRepo, id);
     const wasDisabled =
       initialData?.projectRef?.debugSpawnHostsDisabled === true;
     const willBeDisabled =
-      generalFormData.projectFlags.debug.debugSpawnHostsDisabled === true;
+      newData?.projectRef?.debugSpawnHostsDisabled === true;
     return !wasDisabled && willBeDisabled;
   };
 
