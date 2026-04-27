@@ -97,13 +97,13 @@ export const getFormSchema = (
     uiSchema: {
       mergeQueue: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "cq-card",
+        "ui:data-cy": "mq-card",
         "ui:showLabel": false,
         enabledTitle: {},
         enabled: {
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:data-cy": "cq-enabled-radio-box",
+          "ui:data-cy": "mq-enabled-radio-box",
           ...githubConflictErrorStyling(
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             githubProjectConflicts?.commitQueueIdentifiers,
@@ -129,7 +129,7 @@ export const getFormSchema = (
             "Merge Queue Patch Definition",
           ),
           mergeQueueAliasesOverride: {
-            "ui:data-cy": "cq-override-radio-box",
+            "ui:data-cy": "mq-override-radio-box",
             ...overrideStyling(
               repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases ===
                 undefined,

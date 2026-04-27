@@ -42,17 +42,15 @@ describe("A project that has GitHub webhooks enabled", () => {
     cy.visit(origin);
     saveButtonEnabled(false);
 
-    cy.dataCy("cq-enabled-radio-box")
+    cy.dataCy("mq-enabled-radio-box")
       .contains("label", "Enabled")
-      .as("enableCQButton")
-      .scrollIntoView();
+      .as("enableMQButton");
   });
 
   it("Enabling merge queue shows hidden inputs and error banner", () => {
-    cy.dataCy("cq-card").children().as("cqCardFields").should("have.length", 2);
-
-    cy.get("@enableCQButton").click();
-    cy.get("@cqCardFields").should("have.length", 3);
+    cy.dataCy("mq-card").children().as("mqCardFields").should("have.length", 2);
+    cy.get("@enableMQButton").click();
+    cy.get("@mqCardFields").should("have.length", 3);
     cy.contains("Merge Queue Patch Definitions").scrollIntoView();
     cy.dataCy("error-banner")
       .contains(
@@ -62,19 +60,20 @@ describe("A project that has GitHub webhooks enabled", () => {
   });
 
   it("Does not show override buttons for merge queue patch definitions", () => {
-    cy.get("@enableCQButton").click();
-    cy.dataCy("cq-override-radio-box").should("not.exist");
+    cy.get("@enableMQButton").click();
+    cy.dataCy("mq-override-radio-box").should("not.exist");
   });
 
   it("Saves a merge queue definition", () => {
-    cy.get("@enableCQButton").click();
+    cy.get("@enableMQButton").click();
     cy.contains("button", "Add Patch Definition").click();
     cy.dataCy("variant-tags-input").first().type("vtag");
     cy.dataCy("task-tags-input").first().type("ttag");
     saveButtonEnabled(false);
+
     cy.contains("button", "Add merge queue patch definition").click();
-    cy.dataCy("variant-tags-input").last().type("cqvtag");
-    cy.dataCy("task-tags-input").last().type("cqttag");
+    cy.dataCy("variant-tags-input").last().type("mqvtag");
+    cy.dataCy("task-tags-input").last().type("mqttag");
     cy.dataCy("warning-banner").should("not.exist");
     cy.dataCy("error-banner").should("not.exist");
     clickSave();
