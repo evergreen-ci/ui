@@ -10,6 +10,9 @@ export const VERSION = gql`
       baseVersion {
         id
       }
+      cost {
+        total
+      }
       createTime
       errors
       externalLinksForMetadata {
@@ -57,6 +60,9 @@ export const VERSION = gql`
             }
             status
           }
+        }
+        cost {
+          total
         }
         githubPatchData {
           headHash
