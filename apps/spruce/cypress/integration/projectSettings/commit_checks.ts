@@ -1,3 +1,4 @@
+import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
@@ -42,8 +43,30 @@ describe("A project that has GitHub webhooks enabled", () => {
     cy.contains(
       "A Commit Check Definition must be specified for this feature to run.",
     ).as("errorBanner");
-    cy.get("@errorBanner").should("be.visible");
+    cy.dataCy("error-banner").should("be.visible");
     cy.dataCy("github-checks-enabled-radio-box").children().last().click();
-    cy.get("@errorBanner").should("not.exist");
+    cy.dataCy("error-banner").should("not.exist");
+  });
+
+  it("Saves successfully when Commit Checks are enabled and a Commit Check Definition is provided", () => {
+    cy.visit(origin);
+    saveButtonEnabled(false);
+
+    // Enable Commit Checks → shows error banner because there are no definitions yet.
+    cy.dataCy("github-checks-enabled-radio-box")
+      .contains("label", "Enabled")
+      .click();
+    cy.contains(
+      "A Commit Check Definition must be specified for this feature to run.",
+    ).as("errorBanner");
+    cy.dataCy("errorBanner").should("be.visible");
+
+    cy.contains("button", "Add Definition").click();
+    cy.dataCy("variant-tags-input").first().type("vtag");
+    cy.dataCy("task-tags-input").first().type("ttag");
+
+    cy.dataCy("error-banner").should("not.exist");
+    clickSave();
+    cy.validateToast("success", "Successfully updated repo");
   });
 });
