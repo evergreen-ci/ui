@@ -1,25 +1,35 @@
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   RenderWithRouterMatchOptions,
   renderWithRouterMatch,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { WordWrapFormat } from "constants/enums";
+import { LogContextProvider } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
+import { parsleySettingsMock } from "test_data/parsleySettings";
 import Row from ".";
+
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <MockedProvider mocks={[parsleySettingsMock]}>
+    <LogContextProvider initialLogLines={["Test Log"]}>
+      <MultiLineSelectContextProvider>{children}</MultiLineSelectContextProvider>
+    </LogContextProvider>
+  </MockedProvider>
+);
 
 const renderRow = (
   props: React.ComponentProps<typeof Row>,
   routerOptions: RenderWithRouterMatchOptions,
-) =>
-  renderWithRouterMatch(<Row {...props} />, {
+) => {
+  RenderFakeToastContext();
+  return renderWithRouterMatch(<Row {...props} />, {
     ...routerOptions,
-    wrapper: ({ children }: { children: React.ReactNode }) => (
-      <MultiLineSelectContextProvider>
-        {children}
-      </MultiLineSelectContextProvider>
-    ),
+    wrapper,
   });
+};
 
 describe("row", () => {
   it("renders a log line", () => {
@@ -34,7 +44,7 @@ describe("row", () => {
     expect(screen.getByText(lineContent)).toBeVisible();
   });
 
-  it("clicking log line link updates the url and and scrolls to the line", async () => {
+  it("clicking share line via menu updates the url and scrolls to the line", async () => {
     const user = userEvent.setup();
     const scrollToLine = vi.fn();
     const { router } = renderRow(
@@ -48,11 +58,12 @@ describe("row", () => {
       {},
     );
     await user.click(screen.getByDataCy("log-link-54"));
+    await user.click(screen.getByText("Share line"));
     expect(router.state.location.search).toBe("?shareLine=54");
     expect(scrollToLine).toHaveBeenCalledWith(7);
   });
 
-  it("clicking on a share line's link icon updates the URL correctly", async () => {
+  it("clicking unshare line via menu updates the URL correctly", async () => {
     const user = userEvent.setup();
     const { router } = renderRow(
       { ...rowProps, children: testLog },
@@ -60,6 +71,7 @@ describe("row", () => {
     );
 
     await user.click(screen.getByDataCy("log-link-0"));
+    await user.click(screen.getByText("Unshare line"));
     expect(router.state.location.search).toBe("");
   });
 
@@ -86,6 +98,7 @@ describe("row", () => {
     const { router } = renderRow({ ...rowProps, children: testLog }, {});
 
     await user.click(screen.getByDataCy("log-link-0"));
+    await user.click(screen.getByText("Share line"));
     await user.dblClick(screen.getByText(testLog));
     expect(router.state.location.search).toBe("?bookmarks=0&shareLine=0");
   });

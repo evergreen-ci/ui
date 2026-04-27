@@ -17,6 +17,7 @@ test.describe("Filtering", () => {
         authenticatedPage: page,
       }) => {
         await page.getByTestId("log-link-5").click();
+        await page.getByText("Share line").click();
         await page.getByTestId("log-row-6").dblclick();
         await expect(page).toHaveURL(/\?bookmarks=0,6,297&shareLine=5/);
         await helpers.addFilter(page, "doesNotMatchAnything");

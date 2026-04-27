@@ -8,7 +8,7 @@ export default {
 
 export const Default: CustomStoryObj<typeof SharingMenu> = {
   argTypes: {},
-  args: { defaultOpen: true },
+  args: { lineIndex: 0, lineNumber: 0, scrollToLine: () => {} },
 
   render: (args) => (
     <MultiLineSelectContextProvider>
