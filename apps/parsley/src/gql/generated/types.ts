@@ -4121,7 +4121,6 @@ export type Task = {
   imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
-  isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
