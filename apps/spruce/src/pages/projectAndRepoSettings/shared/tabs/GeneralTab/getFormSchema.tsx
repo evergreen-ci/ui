@@ -377,7 +377,7 @@ export const getFormSchema = (
               >
                 Prerequisites and Limitations
               </StyledLink>{" "}
-              here before enabling.
+              before enabling.
             </>
           ),
         },
