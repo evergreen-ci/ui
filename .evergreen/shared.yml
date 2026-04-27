@@ -144,6 +144,7 @@ functions:
     type: setup
     params:
       exec_timeout_secs: 600
+      timeout_secs: 1800
       working_dir: ui/.evergreen
       script: ./scripts/wait-for-evergreen.sh
 
