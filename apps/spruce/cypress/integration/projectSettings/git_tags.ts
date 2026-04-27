@@ -1,3 +1,4 @@
+import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
@@ -32,22 +33,25 @@ describe("A project that has GitHub webhooks disabled", () => {
   });
 });
 
-describe("A project that has GitHub webhooks enabled (Git Tags)", () => {
-  const origin = getRepoSettingsRoute(repo, ProjectSettingsTabRoutes.GitTags);
-
-  beforeEach(() => {
+describe("A project that has GitHub webhooks enabled", () => {
+  it("Saves successfully when Git Tags are enabled and a Git Tag Definition is provided", () => {
+    const origin = getRepoSettingsRoute(repo, ProjectSettingsTabRoutes.GitTags);
     cy.visit(origin);
     saveButtonEnabled(false);
-  });
 
-  it("Allows enabling Git Tag Versions", () => {
     cy.dataCy("git-tag-enabled-radio-box").children().first().click();
-  });
-
-  it("Allows adding a Git Tag Version Definition", () => {
     cy.dataCy("git-tag-enabled-radio-box").contains("label", "Enabled").click();
+    cy.contains(
+      "A Git Tag Version Definition must be specified for this feature to run.",
+    ).as("errorBanner");
+    cy.dataCy("errorBanner").should("be.visible");
+
     cy.dataCy("add-button").contains("Add Git Tag").parent().click();
     cy.dataCy("git-tag-input").type("v*");
     cy.dataCy("remote-path-input").type("./evergreen.yml");
+
+    cy.dataCy("error-banner").should("not.exist");
+    clickSave();
+    cy.validateToast("success", "Successfully updated repo");
   });
 });
