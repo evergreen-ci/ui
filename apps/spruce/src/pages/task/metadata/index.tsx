@@ -328,7 +328,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-        {finishTime && taskCost?.total != null && (
+        {finishTime && taskCost?.total && (
           <MetadataItem data-cy="task-metadata-cost">
             <MetadataLabel>Cost:</MetadataLabel> ${taskCost.total}
           </MetadataItem>
