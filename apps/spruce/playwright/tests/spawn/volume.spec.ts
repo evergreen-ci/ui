@@ -62,11 +62,11 @@ test.describe("Spawn volume page", () => {
     await expect(migratingRow.getByTestId("volume-status-badge")).toContainText(
       "Migrating",
     );
-    const trashButton = page.getByTestId(`trash-vol-${targetVolume}`);
+    const trashButton = page.getByTestId(`trash-${targetVolume}`);
     await expect(trashButton).toBeDisabled();
-    const migrateButton = page.getByTestId(`migrate-btn-vol-${targetVolume}`);
+    const migrateButton = page.getByTestId(`migrate-btn-${targetVolume}`);
     await expect(migrateButton).toBeDisabled();
-    const editButton = page.getByTestId(`edit-btn-vol-${targetVolume}`);
+    const editButton = page.getByTestId(`edit-btn-${targetVolume}`);
     await expect(editButton).toBeDisabled();
   });
 
@@ -112,7 +112,7 @@ test.describe("Spawn volume page", () => {
         .filter({ hasText: targetVolume }),
     ).toBeVisible();
 
-    await page.getByTestId(`trash-vol-${targetVolume}`).click();
+    await page.getByTestId(`trash-${targetVolume}`).click();
     const popconfirm = page.getByTestId("delete-volume-popconfirm");
     await expect(popconfirm).toBeVisible();
     const yesButton = popconfirm.getByRole("button", { name: "Yes" });
