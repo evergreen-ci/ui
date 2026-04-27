@@ -11,9 +11,7 @@ test.describe("Views & filters page", () => {
 
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(destination);
-    await expect(
-      page.getByTestId("parsley-filter-list").locator("> *"),
-    ).toHaveCount(2);
+    await expect(page.getByTestId("parsley-filter-item")).toHaveCount(2);
     await expectSaveButtonEnabled(page, false);
   });
 
@@ -56,9 +54,7 @@ test.describe("Views & filters page", () => {
       await expectSaveButtonEnabled(page, true);
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
-      await expect(
-        page.getByTestId("parsley-filter-list").locator("> *"),
-      ).toHaveCount(3);
+      await expect(page.getByTestId("parsley-filter-item")).toHaveCount(3);
 
       await page
         .getByTestId("delete-item-button")
@@ -67,9 +63,7 @@ test.describe("Views & filters page", () => {
       await page.getByTestId("delete-item-button").first().click();
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
-      await expect(
-        page.getByTestId("parsley-filter-list").locator("> *"),
-      ).toHaveCount(2);
+      await expect(page.getByTestId("parsley-filter-item")).toHaveCount(2);
     });
   });
 });

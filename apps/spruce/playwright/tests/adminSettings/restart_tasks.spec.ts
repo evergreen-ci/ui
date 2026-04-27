@@ -45,7 +45,7 @@ test.describe("restart tasks", () => {
     await page.getByTestId("restart-tasks-button").click();
     await expect(page.getByTestId("restart-tasks-modal")).toBeVisible();
     await expect(
-      page.getByTestId("restart-tasks-list").locator("> *"),
+      page.getByTestId("restart-tasks-list").locator("li"),
     ).toHaveCount(4);
     await page.getByRole("button", { name: "Confirm" }).click();
     await validateToast(page, "success", "Created job to restart 4 tasks.");

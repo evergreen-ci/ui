@@ -96,6 +96,7 @@ export const getFormSchema = (
       "ui:data-cy": "parsley-filter-list",
       items: {
         "ui:displayTitle": "New Parsley Filter",
+        "ui:data-cy": "parsley-filter-item",
         "ui:label": false,
         expression: {
           "ui:widget": "textarea",

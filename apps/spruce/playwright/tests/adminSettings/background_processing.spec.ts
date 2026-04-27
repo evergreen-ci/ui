@@ -18,8 +18,7 @@ test.describe("background processing", () => {
     await page.getByLabel("Single Worker Name").fill("new single worker name");
 
     await page
-      .getByTestId("named-queue-list")
-      .locator("> *")
+      .getByTestId("named-queue-item")
       .first()
       .getByTestId("delete-item-button")
       .click();
