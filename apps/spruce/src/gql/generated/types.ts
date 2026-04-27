@@ -685,7 +685,6 @@ export type Cost = {
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
   childPatchesTotalCost?: Maybe<Scalars["Float"]["output"]>;
-  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   /** Sum of adjusted cost components; excludes on-demand components. */
   total?: Maybe<Scalars["Float"]["output"]>;
 };
@@ -4119,6 +4118,7 @@ export type Task = {
   imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
+  isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
@@ -11521,6 +11521,17 @@ export type TaskQuery = {
       lastPassingStepbackTaskId?: string | null;
       nextStepbackTaskId?: string | null;
       previousStepbackTaskId?: string | null;
+    } | null;
+    taskCost?: {
+      __typename?: "Cost";
+      adjustedEBSStorageCost?: number | null;
+      adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
+      adjustedS3ArtifactPutCost?: number | null;
+      adjustedS3ArtifactStorageCost?: number | null;
+      adjustedS3LogPutCost?: number | null;
+      adjustedS3LogStorageCost?: number | null;
+      total?: number | null;
     } | null;
     versionMetadata: {
       __typename?: "Version";
