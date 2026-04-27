@@ -13,14 +13,14 @@ import { BaseTab } from "../BaseTab";
 import { ProjectType, ErrorType, getVersionControlError } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
-import { GCQFormState, TabProps } from "./types";
+import { MergeQueueFormState, TabProps } from "./types";
 
-const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
+const tab = ProjectSettingsTabRoutes.MergeQueue;
 
 const getInitialFormState = (
-  projectData: GCQFormState,
-  repoData: GCQFormState,
-): GCQFormState => {
+  projectData: MergeQueueFormState,
+  repoData: MergeQueueFormState,
+): MergeQueueFormState => {
   if (!projectData) return repoData;
   if (repoData) {
     return mergeProjectRepo(projectData, repoData);
@@ -28,7 +28,7 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const GithubCommitQueueTab: React.FC<TabProps> = ({
+export const MergeQueueTab: React.FC<TabProps> = ({
   githubWebhooksEnabled,
   identifier,
   projectData,
@@ -87,7 +87,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   return (
     <>
       {!githubWebhooksEnabled && (
-        <Banner variant="warning">
+        <Banner data-cy="disabled-webhook-banner" variant="warning">
           GitHub features are disabled because the Evergreen GitHub App is not
           installed on the saved owner/repo. Contact IT to install the App and
           enable GitHub features.
@@ -106,19 +106,11 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
 
 const validate = (
   projectType: ProjectType,
-  repoData: GCQFormState,
+  repoData: MergeQueueFormState,
   versionControlEnabled: boolean,
 ) =>
   ((formData, errors) => {
     const {
-      github: {
-        gitTagVersionsEnabled,
-        gitTags,
-        githubChecks,
-        githubChecksEnabled,
-        prTesting,
-        prTestingEnabled,
-      },
       mergeQueue: { enabled, patchDefinitions },
     } = formData;
 
@@ -131,49 +123,16 @@ const validate = (
     if (
       getAliasError(
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        prTestingEnabled,
-        prTesting?.githubPrAliasesOverride,
-        prTesting?.githubPrAliases,
-        repoData?.github?.prTesting?.githubPrAliases,
-      ) === ErrorType.Error
-    ) {
-      errors.github.prTesting.addError("Missing Patch Definition");
-    }
-
-    if (
-      getAliasError(
-        githubChecksEnabled,
-        githubChecks?.githubCheckAliasesOverride,
-        githubChecks?.githubCheckAliases,
-        repoData?.github?.githubChecks?.githubCheckAliases,
-      ) === ErrorType.Error
-    ) {
-      errors.github.prTesting.addError("Missing Commit Check Definition");
-    }
-
-    if (
-      getAliasError(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        gitTagVersionsEnabled,
-        gitTags?.gitTagAliasesOverride,
-        gitTags?.gitTagAliases,
-        repoData?.github?.gitTags?.gitTagAliases,
-      ) === ErrorType.Error
-    ) {
-      errors.github.prTesting.addError("Missing Git Tag Definition");
-    }
-
-    if (
-      getAliasError(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         enabled,
         patchDefinitions?.mergeQueueAliasesOverride,
         patchDefinitions?.mergeQueueAliases,
         repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases,
       ) === ErrorType.Error
     ) {
-      errors.github.prTesting.addError("Missing Merge Queue Patch Definition");
+      errors.mergeQueue.patchDefinitions.addError(
+        "Missing Merge Queue Patch Definition",
+      );
     }
 
     return errors;
-  }) satisfies ValidateProps<GCQFormState>;
+  }) satisfies ValidateProps<MergeQueueFormState>;

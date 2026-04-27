@@ -10,4 +10,5 @@ export { ProjectTriggersTab } from "./ProjectTriggersTab/ProjectTriggersTab";
 export { VariablesTab } from "./VariablesTab/VariablesTab";
 export { ViewsAndFiltersTab } from "./ViewsAndFiltersTab/ViewsAndFiltersTab";
 export { VirtualWorkstationTab } from "./VirtualWorkstationTab/VirtualWorkstationTab";
+export { MergeQueueTab } from "./MergeQueueTab/MergeQueueTab";
 export { TestSelectionTab } from "./TestSelectionTab/TestSelectionTab";
