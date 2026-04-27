@@ -44,7 +44,7 @@ test.describe("GitHub permission groups", () => {
       .getByTestId("permission-type-input")
       .fill(invalidGithubPermission);
     await page.getByTestId("permission-value-input").click();
-    await page.getByText("Write").click({ force: true });
+    await page.getByText("Write").click();
     await expectSaveButtonEnabled(page, true);
     await page.getByTestId("save-settings-button").scrollIntoViewIfNeeded();
     await save(page);

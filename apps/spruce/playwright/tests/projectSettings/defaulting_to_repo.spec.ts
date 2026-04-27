@@ -398,7 +398,7 @@ test.describe("Project Settings when defaulting to repo", () => {
       await page
         .getByTestId("add-button")
         .filter({ hasText: "Add Patch Alias" })
-        .click({ force: true });
+        .click();
       await expectSaveButtonEnabled(page, false);
       await page.getByTestId("alias-input").fill("my overriden alias name");
       await page
