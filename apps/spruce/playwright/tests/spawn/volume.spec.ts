@@ -1,6 +1,6 @@
 import { test, expect } from "../../fixtures";
 import {
-  clickCheckboxByLabel,
+  clickLabelForLocator,
   mockGraphQLResponse,
   selectOption,
   validateDatePickerDate,
@@ -145,8 +145,7 @@ test.describe("Spawn volume page", () => {
     const yesButton = popconfirm.getByRole("button", { name: "Yes" });
     await expect(yesButton).toHaveAttribute("aria-disabled", "true");
 
-    const checkboxId = await confirmCheckbox.getAttribute("id");
-    await page.locator(`label[for="${checkboxId}"]`).click();
+    await clickLabelForLocator(confirmCheckbox);
 
     await expect(yesButton).not.toHaveAttribute("aria-disabled", "true");
     await yesButton.click();
@@ -308,7 +307,7 @@ test.describe("Spawn volume page", () => {
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
       );
       await expect(saveButton).toHaveAttribute("aria-disabled", "true");
-      await clickCheckboxByLabel(page, "Never expire");
+      await clickLabelForLocator(page.getByLabel("Never expire"));
       await expect(saveButton).toHaveAttribute("aria-disabled", "false");
     });
 

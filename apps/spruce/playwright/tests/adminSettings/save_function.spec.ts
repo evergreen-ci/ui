@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("admin settings save properly", () => {
@@ -49,10 +49,7 @@ test.describe("admin settings save properly", () => {
     const tracerConfiguration = page.getByTestId("tracer-configuration");
     const tracerEnabledCheckbox =
       tracerConfiguration.getByLabel("Enable tracer");
-    const tracerEnabledId = await tracerEnabledCheckbox.getAttribute("id");
-    await tracerConfiguration
-      .locator(`label[for="${tracerEnabledId}"]`)
-      .click();
+    await clickLabelForLocator(tracerEnabledCheckbox);
     await tracerConfiguration.getByLabel("Collector Endpoint").clear();
     await tracerConfiguration
       .getByLabel("Collector Endpoint")

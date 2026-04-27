@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+import { clickLabelForLocator } from "@evg-ui/playwright-config/helpers";
 import { expect } from "../../fixtures";
 
 type onSaveOptions = "NONE" | "DECOMMISSION" | "RESTART_JASPER" | "REPROVISION";
@@ -10,8 +11,7 @@ export const save = async (page: Page, onSaveValue?: onSaveOptions) => {
 
   if (onSaveValue) {
     const radio = page.locator(`input[value="${onSaveValue}"]`);
-    const radioId = await radio.getAttribute("id");
-    await page.locator(`label[for="${radioId}"]`).click();
+    await clickLabelForLocator(radio);
   }
 
   const modal = page.getByTestId("save-modal");

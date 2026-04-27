@@ -1,5 +1,9 @@
 import { test, expect } from "../../fixtures";
-import { selectOption, validateToast } from "../../helpers";
+import {
+  clickLabelForLocator,
+  selectOption,
+  validateToast,
+} from "../../helpers";
 import { save } from "./utils";
 
 test.describe("runners", () => {
@@ -32,8 +36,7 @@ test.describe("runners", () => {
     await page.getByLabel("Default Future Host Fraction").fill("0.6");
 
     const groupVersionsCheckbox = page.getByLabel("Group Versions");
-    const groupVersionsId = await groupVersionsCheckbox.getAttribute("id");
-    await page.locator(`label[for="${groupVersionsId}"]`).click();
+    await clickLabelForLocator(groupVersionsCheckbox);
 
     // Repotracker section.
     await page.getByLabel("New Revisions to Fetch").clear();

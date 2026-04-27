@@ -1,14 +1,12 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 
 const hostsRoute = "/hosts";
 
 const selectAllHosts = async (page: Page) => {
   const headerCheckbox = page.locator("thead").locator("input[type=checkbox]");
-  const id = await headerCheckbox.getAttribute("id");
-  await page.locator(`label[for="${id}"]`).click();
-
+  await clickLabelForLocator(headerCheckbox);
   const bodyCheckboxes = page.locator("tbody").locator("input[type=checkbox]");
   await expect(bodyCheckboxes).toHaveCount(3);
   for (let i = 0; i < 3; i++) {

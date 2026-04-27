@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel } from "../../helpers";
+import { clickLabelForLocator } from "../../helpers";
 
 const hostsRoute = "/hosts";
 
@@ -119,7 +119,7 @@ test.describe("Hosts page filtering from table filters", () => {
     const filterWrapper = page.getByTestId("statuses-filter-wrapper");
     await expect(filterWrapper).toBeVisible();
 
-    await clickCheckboxByLabel(page, "Running");
+    await clickLabelForLocator(page.getByLabel("Running"));
     await filterIcon.click();
 
     await expect(page).toHaveURL(/statuses=running/);

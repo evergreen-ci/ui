@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel, validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 
 const path = "/version/5ecedafb562343215a7ff297";
 
@@ -71,14 +71,14 @@ test.describe("version/restart_modal", () => {
       authenticatedPage: page,
     }) => {
       await page.getByTestId("task-status-filter").click();
-      await clickCheckboxByLabel(page, "All");
+      await clickLabelForLocator(page.getByText("All"));
       await page.getByTestId("task-status-filter").click();
 
       await expect(page.getByTestId("version-restart-modal")).toContainText(
         "Are you sure you want to restart the 1 selected tasks?",
       );
       await page.getByTestId("task-status-filter").click();
-      await clickCheckboxByLabel(page, "All");
+      await clickLabelForLocator(page.getByText("All"));
       await page.getByTestId("task-status-filter").click();
     });
 
@@ -87,14 +87,14 @@ test.describe("version/restart_modal", () => {
     }) => {
       const modal = page.getByTestId("version-restart-modal");
       await modal.getByTestId("base-task-status-filter").click();
-      await clickCheckboxByLabel(page, "Succeeded");
+      await clickLabelForLocator(page.getByText("Succeeded"));
       await modal.getByTestId("base-task-status-filter").click();
 
       await expect(modal.getByTestId("confirmation-message")).toContainText(
         "Are you sure you want to restart the 1 selected tasks?",
       );
       await modal.getByTestId("base-task-status-filter").click();
-      await clickCheckboxByLabel(page, "Succeeded");
+      await clickLabelForLocator(page.getByText("Succeeded"));
       await modal.getByTestId("base-task-status-filter").click();
     });
 

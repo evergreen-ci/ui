@@ -1,5 +1,9 @@
 import { test, expect } from "../../fixtures";
-import { clearDatePickerInput, typeDatePickerDate } from "../../helpers";
+import {
+  clearDatePickerInput,
+  clickLabelForLocator,
+  typeDatePickerDate,
+} from "../../helpers";
 
 const ascendingSortSpawnHostOrderByHostId = [
   "i-04ade558e1e26b0ad",
@@ -220,8 +224,7 @@ test.describe("Spawn Host page", () => {
       await expect(page.getByText(startHostsCheckbox)).toBeVisible();
 
       const loadDataCheckbox = page.getByTestId("load-data-checkbox");
-      const loadDataId = await loadDataCheckbox.getAttribute("id");
-      await page.locator(`label[for="${loadDataId}"]`).click();
+      await clickLabelForLocator(loadDataCheckbox);
       await expect(loadDataCheckbox).not.toBeChecked();
       await expect(page.getByText(projectSetupCheckbox)).toHaveCount(0);
       await expect(page.getByText(startHostsCheckbox)).toHaveCount(0);
@@ -311,13 +314,11 @@ test.describe("Spawn Host page", () => {
       await expect(projectCheckbox).toHaveAttribute("aria-disabled", "false");
       await expect(setupCheckbox).toHaveAttribute("aria-disabled", "true");
 
-      const projectId = await projectCheckbox.getAttribute("id");
-      await page.locator(`label[for="${projectId}"]`).click();
+      await clickLabelForLocator(projectCheckbox);
       await expect(projectCheckbox).toHaveAttribute("aria-disabled", "false");
       await expect(setupCheckbox).toHaveAttribute("aria-disabled", "false");
 
-      const setupId = await setupCheckbox.getAttribute("id");
-      await page.locator(`label[for="${setupId}"]`).click();
+      await clickLabelForLocator(setupCheckbox);
       await expect(projectCheckbox).toHaveAttribute("aria-disabled", "true");
       await expect(setupCheckbox).toHaveAttribute("aria-disabled", "false");
     });

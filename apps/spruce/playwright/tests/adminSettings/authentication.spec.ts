@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("authentication", () => {
@@ -19,9 +19,7 @@ test.describe("authentication", () => {
 
     // Global Config section.
     const allowServiceUsersCheckbox = page.getByLabel("Allow Service Users");
-    const allowServiceUsersId =
-      await allowServiceUsersCheckbox.getAttribute("id");
-    await page.locator(`label[for="${allowServiceUsersId}"]`).click();
+    await clickLabelForLocator(allowServiceUsersCheckbox);
 
     await page.getByLabel("Background Reauthentication (Mins)").clear();
     await page.getByLabel("Background Reauthentication (Mins)").fill("120");
@@ -76,20 +74,14 @@ test.describe("authentication", () => {
     await page.getByTestId("multi-read-write").click();
     const multiReadWriteOptions = page.getByTestId("multi-read-write-options");
     const oktaCheckbox = multiReadWriteOptions.getByLabel("Okta");
-    const oktaCheckboxId = await oktaCheckbox.getAttribute("id");
-    await multiReadWriteOptions
-      .locator(`label[for="${oktaCheckboxId}"]`)
-      .click();
+    await clickLabelForLocator(oktaCheckbox);
     await page.getByTestId("multi-read-write").click();
 
     // Multi read-only section.
     await page.getByTestId("multi-read-only").click();
     const multiReadOnlyOptions = page.getByTestId("multi-read-only-options");
     const naiveCheckbox = multiReadOnlyOptions.getByLabel("Naive");
-    const naiveCheckboxId = await naiveCheckbox.getAttribute("id");
-    await multiReadOnlyOptions
-      .locator(`label[for="${naiveCheckboxId}"]`)
-      .click();
+    await clickLabelForLocator(naiveCheckbox);
     await page.getByTestId("multi-read-only").click();
 
     // Kanopy section.

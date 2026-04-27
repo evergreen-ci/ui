@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("service flags", () => {
@@ -20,15 +20,14 @@ test.describe("service flags", () => {
     );
     const initialCheckedCount = await checkedCheckboxes.count();
 
-    // Find the first unchecked checkbox.
-    const targetCheckbox = page
+    // Find the first unchecked checkbox and capture a stable locator by id.
+    const uncheckedCheckbox = page
       .locator('input[type="checkbox"]:not([aria-checked="true"])')
       .first();
-    await targetCheckbox.scrollIntoViewIfNeeded();
+    const checkboxId = await uncheckedCheckbox.getAttribute("id");
+    const checkbox = page.locator(`#${checkboxId}`);
 
-    // Check it via its label.
-    const checkboxId = await targetCheckbox.getAttribute("id");
-    await page.locator(`label[for="${checkboxId}"]`).click();
+    await clickLabelForLocator(checkbox);
 
     // Verify checked count increased.
     await expect(checkedCheckboxes).toHaveCount(initialCheckedCount + 1);
@@ -39,7 +38,7 @@ test.describe("service flags", () => {
     );
 
     // Uncheck it again.
-    await page.locator(`label[for="${checkboxId}"]`).click();
+    await clickLabelForLocator(checkbox);
     await expect(checkedCheckboxes).toHaveCount(initialCheckedCount);
     await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
       "aria-disabled",
@@ -47,19 +46,16 @@ test.describe("service flags", () => {
     );
 
     // Re-check and save.
-    await page.locator(`label[for="${checkboxId}"]`).click();
+    await clickLabelForLocator(checkbox);
     await save(page);
     await validateToast(page, "success", "Service flags saved successfully");
     await page.reload();
 
-    await expect(page.locator(`#${checkboxId}`)).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(checkbox).toHaveAttribute("aria-checked", "true");
     await expect(checkedCheckboxes).toHaveCount(initialCheckedCount + 1);
 
     // Restore original state.
-    await page.locator(`label[for="${checkboxId}"]`).click();
+    await clickLabelForLocator(checkbox);
     await save(page);
     await validateToast(page, "success", "Service flags saved successfully");
   });

@@ -125,7 +125,7 @@ export {
   validateToast,
   login,
   logout,
-  clickCheckboxByLabel,
+  clickLabelForLocator,
   mockGraphQLResponse,
   hasOperationName,
 } from "@evg-ui/playwright-config/helpers";

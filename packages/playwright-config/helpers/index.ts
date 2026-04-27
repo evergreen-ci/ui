@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 import { evergreenUrl, toastDataCy, users } from "./constants";
 
 /**
@@ -56,20 +56,13 @@ export const validateToast = async (
 };
 
 /**
- * Checkboxes are not visible in LG so they cannot be clicked.
- * We need to click the associated label instead.
- * @param page - The Playwright page object
- * @param name - The name of the checkbox
+ * Checkboxes and radio options are not visible in LG so they cannot be clicked directly.
+ * This helper clicks the associated label instead, via the associated id attribute.
+ * @param locator - A locator pointing to the checkbox or radio element
  */
-export const clickCheckboxByLabel = async (page: Page, name: string) => {
-  const checkbox = page.getByRole("checkbox", { name });
-  const checkboxId = await checkbox.getAttribute("id");
-  if (checkboxId) {
-    await page.locator(`label[for="${checkboxId}"]`).click();
-  } else {
-    // Fallback: click the checkbox's parent label if it exists.
-    await checkbox.locator("..").locator("label").click();
-  }
+export const clickLabelForLocator = async (locator: Locator) => {
+  const id = await locator.getAttribute("id");
+  await locator.page().locator(`label[for="${id}"]`).click();
 };
 
 type ResponseData = {

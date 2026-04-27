@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import { test, expect } from "../../fixtures";
+import { clickLabelForLocator } from "../../helpers";
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
 const patchDescriptionTasksExist = "dist";
@@ -159,8 +160,7 @@ test.describe("Task table", () => {
   test.describe("task review", () => {
     // Clicks the label associated with a reviewed checkbox (the input itself is hidden).
     const clickReviewed = async (page: Page, testId: string) => {
-      const id = await page.getByTestId(testId).getAttribute("id");
-      await page.locator(`label[for="${id}"]`).click();
+      await clickLabelForLocator(page.getByTestId(testId));
     };
 
     test("marks tasks as viewed and preserves their state on reload", async ({

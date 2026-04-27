@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 
 const pageRoute = "/preferences/notifications";
 
@@ -67,8 +67,7 @@ test.describe("preferences/notifications", () => {
         .getByTestId("subscription-row")
         .nth(0)
         .locator("input[type=checkbox]");
-      const rowCheckboxId = await rowCheckbox.getAttribute("id");
-      await page.locator(`label[for="${rowCheckboxId}"]`).click();
+      await clickLabelForLocator(rowCheckbox);
 
       const deleteButton = page.getByTestId("delete-some-button");
       await expect(deleteButton).toContainText("Delete (1)");
@@ -76,11 +75,10 @@ test.describe("preferences/notifications", () => {
       const headerCheckbox = page
         .locator("thead")
         .locator("input[type=checkbox]");
-      const headerCheckboxId = await headerCheckbox.getAttribute("id");
-      await page.locator(`label[for="${headerCheckboxId}"]`).click();
+      await clickLabelForLocator(headerCheckbox);
       await expect(deleteButton).toContainText("Delete (3)");
 
-      await page.locator(`label[for="${headerCheckboxId}"]`).click();
+      await clickLabelForLocator(headerCheckbox);
       await expect(deleteButton).toContainText("Delete");
       await expect(deleteButton).toHaveAttribute("aria-disabled", "true");
     });
@@ -93,8 +91,7 @@ test.describe("preferences/notifications", () => {
           .getByTestId("subscription-row")
           .nth(0)
           .locator("input[type=checkbox]");
-        const rowCheckboxId = await rowCheckbox.getAttribute("id");
-        await page.locator(`label[for="${rowCheckboxId}"]`).click();
+        await clickLabelForLocator(rowCheckbox);
         await page.getByTestId("delete-some-button").click();
         await validateToast(page, "success", "Deleted 1 subscription.");
         await expect(page.getByTestId("subscription-row")).toHaveCount(2);

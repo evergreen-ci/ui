@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel, validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("general section", () => {
@@ -23,8 +23,10 @@ test.describe("general section", () => {
     await page.getByLabel("Alias").fill("localhost-alias");
     await page.getByLabel("Notes").fill("this is a note");
     await page.getByLabel("Warnings").fill("this is a warning");
-    await clickCheckboxByLabel(page, "Disable shallow clone for this distro");
-    await clickCheckboxByLabel(page, "Admin only");
+    await clickLabelForLocator(
+      page.getByLabel("Disable shallow clone for this distro"),
+    );
+    await clickLabelForLocator(page.getByLabel("Admin only"));
     await save(page);
     await validateToast(page, "success", "Updated distro.");
 
@@ -45,8 +47,10 @@ test.describe("general section", () => {
     await page.getByTestId("delete-item-button").click();
     await page.getByLabel("Notes").clear();
     await page.getByLabel("Warnings").clear();
-    await clickCheckboxByLabel(page, "Disable shallow clone for this distro");
-    await clickCheckboxByLabel(page, "Admin only");
+    await clickLabelForLocator(
+      page.getByLabel("Disable shallow clone for this distro"),
+    );
+    await clickLabelForLocator(page.getByLabel("Admin only"));
     await save(page);
     await validateToast(page, "success", "Updated distro.");
   });
@@ -78,7 +82,9 @@ test.describe("general section", () => {
           name: "Set distro as Single Task Distro",
         }),
       ).not.toHaveAttribute("aria-disabled", "true");
-      await clickCheckboxByLabel(page, "Set distro as Single Task Distro");
+      await clickLabelForLocator(
+        page.getByLabel("Set distro as Single Task Distro"),
+      );
       await expect(page.getByTestId("single-task-banner")).toContainText(
         "This Distro will be converted to a Single Task Distro once saved. Please review before confirming.",
       );
@@ -102,7 +108,9 @@ test.describe("general section", () => {
           name: "Set distro as Single Task Distro",
         }),
       ).not.toHaveAttribute("aria-disabled", "true");
-      await clickCheckboxByLabel(page, "Set distro as Single Task Distro");
+      await clickLabelForLocator(
+        page.getByLabel("Set distro as Single Task Distro"),
+      );
       await expect(page.getByTestId("single-task-banner")).toContainText(
         "This Distro will no longer be a Single Task Distro once saved. Please review before confirming.",
       );

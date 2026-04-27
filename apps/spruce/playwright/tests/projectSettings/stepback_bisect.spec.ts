@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 import {
   getProjectSettingsRoute,
   project,
@@ -26,10 +26,10 @@ test.describe("Stepback bisect setting", () => {
     test("Clicking on enabled and then save shows a success toast", async ({
       authenticatedPage: page,
     }) => {
-      await page
+      const enableRadio = page
         .getByTestId("stepback-bisect-group")
-        .locator("label", { hasText: "Enable" })
-        .click();
+        .getByLabel("Enable");
+      await clickLabelForLocator(enableRadio);
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
 
@@ -61,10 +61,10 @@ test.describe("Stepback bisect setting", () => {
     test("Clicking on enabled and then save shows a success toast", async ({
       authenticatedPage: page,
     }) => {
-      await page
+      const enableRadio = page
         .getByTestId("stepback-bisect-group")
-        .locator("label", { hasText: "Enable" })
-        .click();
+        .getByLabel("Enabled");
+      await clickLabelForLocator(enableRadio);
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
 

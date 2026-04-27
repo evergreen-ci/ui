@@ -2,7 +2,7 @@ import { test, expect } from "../../fixtures";
 import {
   selectOption,
   validateToast,
-  clickCheckboxByLabel,
+  clickLabelForLocator,
   mockGraphQLResponse,
 } from "../../helpers";
 
@@ -18,7 +18,7 @@ test.describe("Waterfall menu settings", () => {
     await expect(
       page.getByTestId("omit-inactive-builds-checkbox"),
     ).not.toBeChecked();
-    await clickCheckboxByLabel(page, "Omit inactive builds");
+    await clickLabelForLocator(page.getByText("Omit inactive builds"));
     await expect(
       page.getByTestId("omit-inactive-builds-checkbox"),
     ).toBeChecked();
@@ -29,7 +29,7 @@ test.describe("Waterfall menu settings", () => {
       page.getByTestId("omit-inactive-builds-checkbox"),
     ).toBeChecked();
 
-    await clickCheckboxByLabel(page, "Omit inactive builds");
+    await clickLabelForLocator(page.getByText("Omit inactive builds"));
   });
 
   test("omits inactive build variants when filter is applied and setting is enabled", async ({
@@ -40,7 +40,7 @@ test.describe("Waterfall menu settings", () => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(1);
 
     await page.getByTestId("waterfall-menu").click();
-    await clickCheckboxByLabel(page, "Omit inactive builds");
+    await clickLabelForLocator(page.getByText("Omit inactive builds"));
     await page.locator("body").click();
 
     await page.getByTestId("build-variant-filter-input").clear();
@@ -51,7 +51,7 @@ test.describe("Waterfall menu settings", () => {
     expect(count).toBeGreaterThanOrEqual(1);
 
     await page.getByTestId("waterfall-menu").click();
-    await clickCheckboxByLabel(page, "Omit inactive builds");
+    await clickLabelForLocator(page.getByText("Omit inactive builds"));
   });
 });
 

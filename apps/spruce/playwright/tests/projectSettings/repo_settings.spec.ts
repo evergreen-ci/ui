@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel, validateToast } from "../../helpers";
+import { clickLabelForLocator, validateToast } from "../../helpers";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
@@ -66,19 +66,19 @@ test.describe("Repo Settings", () => {
       test("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", async ({
         authenticatedPage: page,
       }) => {
-        await page
+        const githubChecksEnabledRadio = page
           .getByTestId("github-checks-enabled-radio-box")
-          .locator("label", { hasText: "Enabled" })
-          .click();
+          .getByLabel("Enabled");
+        await clickLabelForLocator(githubChecksEnabledRadio);
         const errorBanner = page.getByTestId("error-banner").filter({
           hasText:
             "A Commit Check Definition must be specified for this feature to run.",
         });
         await expect(errorBanner).toBeVisible();
-        await page
+        const githubChecksDisabledRadio = page
           .getByTestId("github-checks-enabled-radio-box")
-          .locator("label", { hasText: "Disabled" })
-          .click();
+          .getByLabel("Disabled");
+        await clickLabelForLocator(githubChecksDisabledRadio);
         await expect(errorBanner).toHaveCount(0);
       });
 
@@ -139,10 +139,11 @@ test.describe("Repo Settings", () => {
 
     test.describe("Merge Queue section", () => {
       test.beforeEach(async ({ authenticatedPage: page }) => {
-        await page
+        const mergeQueueEnabledRadio = page
           .getByTestId("cq-enabled-radio-box")
-          .locator("label", { hasText: "Enabled" })
-          .scrollIntoViewIfNeeded();
+          .getByLabel("Enabled");
+        await mergeQueueEnabledRadio.scrollIntoViewIfNeeded();
+        await clickLabelForLocator(mergeQueueEnabledRadio);
       });
 
       test("Enabling merge queue shows hidden inputs and error banner", async ({
@@ -151,10 +152,10 @@ test.describe("Repo Settings", () => {
         const cqCardFields = page.getByTestId("cq-card").locator("> *");
         await expect(cqCardFields).toHaveCount(2);
 
-        await page
+        const mergeQueueEnabledRadio = page
           .getByTestId("cq-enabled-radio-box")
-          .locator("label", { hasText: "Enabled" })
-          .click();
+          .getByLabel("Enabled");
+        await clickLabelForLocator(mergeQueueEnabledRadio);
         await expect(cqCardFields).toHaveCount(3);
         await page
           .getByText("Merge Queue Patch Definitions")
@@ -170,20 +171,20 @@ test.describe("Repo Settings", () => {
       test("Does not show override buttons for merge queue patch definitions", async ({
         authenticatedPage: page,
       }) => {
-        await page
+        const mergeQueueEnabledRadio = page
           .getByTestId("cq-enabled-radio-box")
-          .locator("label", { hasText: "Enabled" })
-          .click();
+          .getByLabel("Enabled");
+        await clickLabelForLocator(mergeQueueEnabledRadio);
         await expect(page.getByTestId("cq-override-radio-box")).toHaveCount(0);
       });
 
       test("Saves a merge queue definition", async ({
         authenticatedPage: page,
       }) => {
-        await page
+        const mergeQueueEnabledRadio = page
           .getByTestId("cq-enabled-radio-box")
-          .locator("label", { hasText: "Enabled" })
-          .click();
+          .getByLabel("Enabled");
+        await clickLabelForLocator(mergeQueueEnabledRadio);
         await page
           .getByRole("button", { name: "Add Patch Definition" })
           .click();
@@ -303,13 +304,13 @@ test.describe("Repo Settings", () => {
       const githubPRLabel = "Schedule in GitHub Pull Requests";
       const pullRequestCheckbox = page.getByLabel(githubPRLabel);
       await expect(pullRequestCheckbox).not.toBeChecked();
-      await clickCheckboxByLabel(page, githubPRLabel);
+      await clickLabelForLocator(page.getByLabel(githubPRLabel));
       await expect(pullRequestCheckbox).toBeChecked();
 
       const githubMQLabel = "Schedule in GitHub Merge Queue";
       const mergeQueueCheckbox = page.getByLabel(githubMQLabel);
       await expect(mergeQueueCheckbox).not.toBeChecked();
-      await clickCheckboxByLabel(page, githubMQLabel);
+      await clickLabelForLocator(page.getByLabel(githubMQLabel));
       await expect(mergeQueueCheckbox).toBeChecked();
 
       await save(page);

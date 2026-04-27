@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel } from "../../helpers";
+import { clickLabelForLocator } from "../../helpers";
 
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
@@ -57,7 +57,7 @@ test.describe("Tests Table", () => {
     await expect(totalCount.getByText("20")).toBeVisible();
 
     await page.getByTestId("status-treeselect").click();
-    await clickCheckboxByLabel(page, "Silent fail");
+    await clickLabelForLocator(page.getByText("Silent fail"));
     await expect(filteredCount.getByText("1")).toBeVisible();
     await expect(totalCount.getByText("20")).toBeVisible();
 
@@ -141,7 +141,7 @@ test.describe("Tests Table", () => {
       authenticatedPage: page,
     }) => {
       await page.getByTestId("status-treeselect").click();
-      await clickCheckboxByLabel(page, "All");
+      await clickLabelForLocator(page.getByText("All"));
       await expect(page).toHaveURL(/statuses=all,pass,fail,skip,silentfail/);
     });
 
@@ -156,7 +156,7 @@ test.describe("Tests Table", () => {
     }) => {
       await page.getByTestId("status-treeselect").click();
       for (const { display } of statuses) {
-        await clickCheckboxByLabel(page, display);
+        await clickLabelForLocator(page.getByText(display));
       }
       await expect(page).toHaveURL(
         new RegExp(`statuses=${statuses.map(({ key }) => key).join(",")}`),
