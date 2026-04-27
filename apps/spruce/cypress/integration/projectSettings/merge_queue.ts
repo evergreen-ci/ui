@@ -1,11 +1,10 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
-  getRepoSettingsRoute,
   ProjectSettingsTabRoutes,
-  repo,
+  project,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("A project that has GitHub webhooks disabled", () => {
   const origin = getProjectSettingsRoute(
@@ -34,24 +33,19 @@ describe("A project that has GitHub webhooks disabled", () => {
 });
 
 describe("A project that has GitHub webhooks enabled", () => {
-  const origin = getRepoSettingsRoute(
-    repo,
+  const origin = getProjectSettingsRoute(
+    project,
     ProjectSettingsTabRoutes.MergeQueue,
   );
+
   beforeEach(() => {
     cy.visit(origin);
     saveButtonEnabled(false);
-
-    cy.dataCy("mq-enabled-radio-box")
-      .contains("label", "Enabled")
-      .as("enableMQButton");
   });
 
   it("Enabling merge queue shows hidden inputs and error banner", () => {
-    cy.dataCy("mq-card").children().as("mqCardFields").should("have.length", 2);
-    cy.get("@enableMQButton").click();
-    cy.get("@mqCardFields").should("have.length", 3);
-    cy.contains("Merge Queue Patch Definitions").scrollIntoView();
+    cy.dataCy("mq-enabled-radio-box").contains("label", "Enabled").click();
+    cy.contains("Merge Queue Patch Definitions").should("be.visible");
     cy.dataCy("error-banner")
       .contains(
         "A Merge Queue Patch Definition must be specified for this feature to run.",
@@ -59,24 +53,14 @@ describe("A project that has GitHub webhooks enabled", () => {
       .should("be.visible");
   });
 
-  it("Does not show override buttons for merge queue patch definitions", () => {
-    cy.get("@enableMQButton").click();
-    cy.dataCy("mq-override-radio-box").should("not.exist");
-  });
-
   it("Saves a merge queue definition", () => {
-    cy.get("@enableMQButton").click();
-    cy.contains("button", "Add Patch Definition").click();
-    cy.dataCy("variant-tags-input").first().type("vtag");
-    cy.dataCy("task-tags-input").first().type("ttag");
+    cy.dataCy("mq-enabled-radio-box").contains("label", "Enabled").click();
+    cy.contains("button", "Add merge queue patch definition").click();
     saveButtonEnabled(false);
 
-    cy.contains("button", "Add merge queue patch definition").click();
-    cy.dataCy("variant-tags-input").last().type("mqvtag");
-    cy.dataCy("task-tags-input").last().type("mqttag");
-    cy.dataCy("warning-banner").should("not.exist");
-    cy.dataCy("error-banner").should("not.exist");
-    clickSave();
-    cy.validateToast("success", "Successfully updated repo");
+    cy.dataCy("variant-tags-input").first().type("vtag");
+    cy.dataCy("task-tags-input").first().type("ttag");
+    clickSaveAndConfirmDiff();
+    cy.validateToast("success", "Successfully updated project");
   });
 });

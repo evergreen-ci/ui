@@ -34,6 +34,13 @@ export const getFormSchema = (
   repoData?: MergeQueueFormState,
 ): ReturnType<GetFormSchema> => {
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
+  const overrideStyling = {
+    "ui:widget":
+      projectType === ProjectType.AttachedProject
+        ? widgets.RadioBoxWidget
+        : "hidden",
+    "ui:showLabel": false,
+  };
 
   return {
     fields: {
@@ -130,10 +137,7 @@ export const getFormSchema = (
           ),
           mergeQueueAliasesOverride: {
             "ui:data-cy": "mq-override-radio-box",
-            ...overrideStyling(
-              repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases ===
-                undefined,
-            ),
+            ...overrideStyling,
           },
           "ui:description": MergeQueueAliasesDescription,
           mergeQueueAliases: {
@@ -182,10 +186,10 @@ const hideIf = (shouldHide: boolean) =>
     "ui:widget": "hidden",
   };
 
-const overrideStyling = (isMissingRepoField: boolean) => ({
-  "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,
-  "ui:showLabel": false,
-});
+// const overrideStyling = (isMissingRepoField: boolean) => ({
+//   "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,
+//   "ui:showLabel": false,
+// });
 
 const GithubTriggerAliasDescription = ({
   identifier,
