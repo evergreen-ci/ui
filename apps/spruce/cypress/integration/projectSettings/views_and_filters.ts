@@ -1,9 +1,9 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Views & filters page", () => {
   const destination = getProjectSettingsRoute(
@@ -39,13 +39,13 @@ describe("Views & filters page", () => {
       cy.contains("button", "Add filter").should("be.visible").click();
       cy.dataCy("parsley-filter-expression").first().type("my_filter");
       saveButtonEnabled(true);
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("parsley-filter-list").children().should("have.length", 3);
 
       cy.dataCy("delete-item-button").first().scrollIntoView();
       cy.dataCy("delete-item-button").first().should("be.visible").click();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("parsley-filter-list").children().should("have.length", 2);
     });

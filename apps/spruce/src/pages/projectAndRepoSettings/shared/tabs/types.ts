@@ -6,6 +6,7 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { AccessFormState } from "./AccessTab/types";
+import { CommitChecksFormState } from "./CommitChecksTab/types";
 import { GeneralFormState } from "./GeneralTab/types";
 import { AppSettingsFormState } from "./GithubAppSettingsTab/types";
 import { GCQFormState } from "./GithubCommitQueueTab/types";
@@ -16,6 +17,7 @@ import { PatchAliasesFormState } from "./PatchAliasesTab/types";
 import { PeriodicBuildsFormState } from "./PeriodicBuildsTab/types";
 import { PluginsFormState } from "./PluginsTab/types";
 import { ProjectTriggersFormState } from "./ProjectTriggersTab/types";
+import { PullRequestsFormState } from "./PullRequestsTab/types";
 import { TestSelectionFormState } from "./TestSelectionTab/types";
 import { ProjectType } from "./utils";
 import { VariablesFormState } from "./VariablesTab/types";
@@ -37,6 +39,8 @@ export type FormStateMap = {
     [ProjectSettingsTabRoutes.GithubCommitQueue]: GCQFormState;
     [ProjectSettingsTabRoutes.GithubAppSettings]: AppSettingsFormState;
     [ProjectSettingsTabRoutes.GithubPermissionGroups]: PermissionGroupsFormState;
+    [ProjectSettingsTabRoutes.PullRequests]: PullRequestsFormState;
+    [ProjectSettingsTabRoutes.CommitChecks]: CommitChecksFormState;
     [ProjectSettingsTabRoutes.GitTags]: GitTagsFormState;
     [ProjectSettingsTabRoutes.TestSelection]: TestSelectionFormState;
   }[T];

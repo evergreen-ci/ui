@@ -10,7 +10,6 @@ const getTargetSelector = (rowIndex: number) =>
 test.describe("Sectioning", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(`${logLink}?shareLine=0`);
-    await helpers.clickToggle(page, "sections-toggle", true, "log-viewing");
     await page.getByTestId("section-header").first().waitFor();
   });
 

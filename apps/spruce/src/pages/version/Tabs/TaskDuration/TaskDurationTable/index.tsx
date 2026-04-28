@@ -185,6 +185,7 @@ const getColumns = (
     meta: {
       search: {
         "data-cy": "task-name-filter-popover",
+        placeholder: "Task name regex",
       },
     },
   },
@@ -215,6 +216,7 @@ const getColumns = (
     meta: {
       search: {
         "data-cy": "build-variant-filter-popover",
+        placeholder: "Build variant regex",
       },
     },
   },

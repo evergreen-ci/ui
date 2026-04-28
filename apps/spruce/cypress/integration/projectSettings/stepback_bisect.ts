@@ -1,9 +1,9 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   project,
   projectUseRepoEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Stepback bisect setting", () => {
   describe("Repo project present", () => {
@@ -22,7 +22,7 @@ describe("Stepback bisect setting", () => {
 
     it("Clicking on enabled and then save shows a success toast", () => {
       cy.dataCy("stepback-bisect-group").contains("Enable").click();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
 
       cy.reload();
@@ -51,7 +51,7 @@ describe("Stepback bisect setting", () => {
     it("Clicking on enabled and then save shows a success toast", () => {
       cy.dataCy("stepback-bisect-group").contains("Enable").click();
 
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
 
       cy.reload();

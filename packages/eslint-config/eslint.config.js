@@ -4,7 +4,6 @@ import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
 import { defineConfig } from "eslint/config";
 import disableConflictsPlugin from "eslint-config-prettier";
-import cypressPlugin from "eslint-plugin-cypress/flat";
 import importPlugin from "eslint-plugin-import";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
@@ -321,22 +320,6 @@ const storyBookConfig = {
   },
 };
 
-// Cypress ESLint (eslint-plugin-cypress) settings.
-const cypressConfig = {
-  ...cypressPlugin.configs.recommended,
-  name: "cypress/rules",
-  files: ["cypress/**/*.ts"],
-  languageOptions: {
-    parserOptions: {
-      project: "./apps/*/cypress/tsconfig.json",
-    },
-  },
-  rules: {
-    ...cypressPlugin.configs.recommended.rules,
-    "@typescript-eslint/no-namespace": OFF,
-  },
-};
-
 // Playwright ESLint (eslint-plugin-playwright) settings.
 const playwrightConfig = {
   name: "playwright/rules",
@@ -490,7 +473,6 @@ export default defineConfig(
   jsDocConfig,
   storybookPlugin.configs["flat/recommended"],
   storyBookConfig,
-  cypressConfig,
   playwrightConfig,
   graphQLProcessorConfig,
   graphQLConfig,

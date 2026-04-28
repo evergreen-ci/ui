@@ -1,9 +1,9 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("GitHub app settings", () => {
   const destination = getProjectSettingsRoute(
@@ -82,7 +82,7 @@ describe("GitHub app settings", () => {
       });
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(true);
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
 
     // Changes should persist on the page.
@@ -105,7 +105,7 @@ describe("GitHub app settings", () => {
       });
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(true);
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
   });
 });

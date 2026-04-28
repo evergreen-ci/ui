@@ -1,9 +1,9 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Notifications", () => {
   const origin = getProjectSettingsRoute(
@@ -27,7 +27,7 @@ describe("Notifications", () => {
     cy.selectLGOption("Notification Method", "Email");
     cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
     cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
 
     saveButtonEnabled(false);
@@ -38,7 +38,7 @@ describe("Notifications", () => {
     cy.dataCy("delete-item-button").should("not.be.disabled").click();
     cy.get("@subscriptionItem").should("not.exist");
     cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
   });
 
@@ -78,7 +78,7 @@ describe("Notifications", () => {
     // set banner
     cy.dataCy("banner-text").clear();
     cy.dataCy("banner-text").type(bannerText);
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
 
     // ensure banner is displayed
@@ -108,7 +108,7 @@ describe("Notifications", () => {
     // clear banner
     cy.visit(origin);
     cy.dataCy("banner-text").clear();
-    clickSave();
+    clickSaveAndConfirmDiff();
 
     // ensure banner is not displayed
     cy.contains(bannerText).should("not.exist");

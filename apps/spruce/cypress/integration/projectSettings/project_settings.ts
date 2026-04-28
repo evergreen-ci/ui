@@ -1,9 +1,9 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   project,
   ProjectSettingsTabRoutes,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("projectSettings/project_settings", () => {
   describe("Renaming the identifier", () => {
@@ -21,7 +21,7 @@ describe("projectSettings/project_settings", () => {
       cy.dataCy("identifier-input").clear();
       cy.dataCy("identifier-input").type("new-identifier");
       cy.dataCy("input-warning").should("contain", warningText);
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.url().should("include", "new-identifier");
     });

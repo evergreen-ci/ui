@@ -1,9 +1,9 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   project,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Project Settings when not defaulting to repo", () => {
   const origin = getProjectSettingsRoute(project);
@@ -41,7 +41,7 @@ describe("Project Settings when not defaulting to repo", () => {
   it("Allows enabling Run Every Mainline Commit", () => {
     cy.dataCy("navitem-general").click();
     cy.dataCy("run-every-mainline-commit-radio-box").children().first().click();
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
     cy.dataCy("run-every-mainline-commit-radio-box")
       .children()
@@ -71,7 +71,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-value-input").type("sample_value");
       cy.dataCy("var-description-input").type("Sample description");
       cy.dataCy("var-private-input").should("be.checked");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("var-value-input").should("have.value", "{REDACTED}");
       cy.dataCy("var-name-input").should("have.attr", "aria-disabled", "true");
@@ -99,7 +99,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").type("sample_name");
       cy.dataCy("var-value-input").type("sample_value");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").first().type("sample_name");
@@ -120,7 +120,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-value-input").first().type("admin_value");
       cy.contains("label", "Admin Only").click();
       cy.dataCy("var-admin-input").should("be.checked");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -142,7 +142,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-description-input")
         .first()
         .type("Description for admin_var");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       // Verify persistence
       cy.reload();
@@ -162,7 +162,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("var-name-input").should("not.exist");
       // Verify persistence
@@ -183,7 +183,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("git-tag-input").type("myGitTag");
       cy.dataCy("remote-path-input").type("./evergreen.yml");
 
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("remote-path-input").should("have.value", "./evergreen.yml");
     });
@@ -254,7 +254,7 @@ describe("Project Settings when not defaulting to repo", () => {
       saveButtonEnabled(false);
       cy.get("@intervalInput").clear();
       cy.get("@intervalInput").type("12");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated project");
     });
   });

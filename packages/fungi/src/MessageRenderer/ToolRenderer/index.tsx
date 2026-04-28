@@ -1,6 +1,7 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
+import { spacing } from "@leafygreen-ui/tokens";
 import { Message, ActionCardState } from "@lg-chat/message";
-import { RichLink } from "@lg-chat/rich-links";
 import { ToolUIPart } from "ai";
 import { AnimatedEllipsis } from "#AnimatedEllipsis";
 import { ToolState, ToolStateEnum } from "../types";
@@ -38,6 +39,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
   progress,
   ...tool
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const toolLabel = renderableToolLabels[tool.type];
   if (!toolLabel) return null;
 
@@ -56,43 +58,35 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
   }
 
   const output =
-    tool.state === ToolStateEnum.OutputAvailable
-      ? (tool as { output?: unknown }).output
-      : undefined;
+    tool.state === ToolStateEnum.OutputAvailable ? tool.output : undefined;
 
   const renderedOutput =
     output !== undefined && toolLabel.renderOutput
-      ? toolLabel.renderOutput(output)
-      : undefined;
-
-  const renderedLinks =
-    output !== undefined && toolLabel.renderLinks
-      ? toolLabel.renderLinks(output, onLinkClick)
+      ? toolLabel.renderOutput(output, onLinkClick)
       : undefined;
 
   return (
-    <>
-      <StyledActionCard
-        data-cy="tool-use-chip"
-        description={description}
-        showExpandButton={!!renderedOutput}
-        state={toolStateToActionCardState(tool.state)}
-        title={toolStateToLabelCopy(tool.state, toolLabel)}
-      >
-        {renderedOutput && (
-          <Message.ActionCard.ExpandableContent>
-            {renderedOutput}
-          </Message.ActionCard.ExpandableContent>
-        )}
-      </StyledActionCard>
-      {renderedLinks && renderedLinks.length > 0 && (
-        <LinksContainer>
-          {renderedLinks.map((linkProps) => (
-            <RichLink key={linkProps.children} {...linkProps} />
-          ))}
-        </LinksContainer>
+    <StyledActionCard
+      data-cy="tool-use-chip"
+      description={description}
+      onToggleExpanded={setIsExpanded}
+      showExpandButton={!!renderedOutput}
+      state={toolStateToActionCardState(tool.state)}
+      title={toolStateToLabelCopy(tool.state, toolLabel)}
+    >
+      {/* ExpandableContent renders markdown and only accepts string children,
+          so ReactNode output is rendered manually and gated by isExpanded. */}
+      {typeof renderedOutput === "string" ? (
+        <Message.ActionCard.ExpandableContent>
+          {renderedOutput}
+        </Message.ActionCard.ExpandableContent>
+      ) : (
+        renderedOutput &&
+        isExpanded && (
+          <RichOutput data-cy="tool-output">{renderedOutput}</RichOutput>
+        )
       )}
-    </>
+    </StyledActionCard>
   );
 };
 
@@ -100,8 +94,6 @@ const StyledActionCard = styled(Message.ActionCard)`
   flex-shrink: 0;
 `;
 
-const LinksContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
+const RichOutput = styled.div`
+  padding: ${spacing[200]}px ${spacing[300]}px ${spacing[300]}px;
 `;

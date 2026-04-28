@@ -1,4 +1,5 @@
 export { AccessTab } from "./AccessTab/AccessTab";
+export { CommitChecksTab } from "./CommitChecksTab/CommitChecksTab";
 export { EventLogTab } from "./EventLogTab/EventLogTab";
 export { GeneralTab } from "./GeneralTab/GeneralTab";
 export { GithubCommitQueueTab } from "./GithubCommitQueueTab/GithubCommitQueueTab";
@@ -11,4 +12,5 @@ export { ProjectTriggersTab } from "./ProjectTriggersTab/ProjectTriggersTab";
 export { VariablesTab } from "./VariablesTab/VariablesTab";
 export { ViewsAndFiltersTab } from "./ViewsAndFiltersTab/ViewsAndFiltersTab";
 export { VirtualWorkstationTab } from "./VirtualWorkstationTab/VirtualWorkstationTab";
+export { PullRequestsTab } from "./PullRequestsTab/PullRequestsTab";
 export { TestSelectionTab } from "./TestSelectionTab/TestSelectionTab";

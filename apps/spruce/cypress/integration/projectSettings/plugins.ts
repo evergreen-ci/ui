@@ -1,9 +1,9 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Plugins", () => {
   const patchPage = "version/5ecedafb562343215a7ff297";
@@ -40,7 +40,7 @@ describe("Plugins", () => {
       url: "https://example-2.com/{version_id}",
     });
     cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
+    clickSaveAndConfirmDiff();
 
     cy.visit(patchPage);
     cy.dataCy("external-link").should("have.length", 2);
@@ -71,7 +71,7 @@ describe("Plugins", () => {
     cy.dataCy("delete-item-button").first().click();
     cy.dataCy("delete-item-button").first().click();
     cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
+    clickSaveAndConfirmDiff();
 
     cy.visit(patchPage);
     cy.dataCy("external-link").should("not.exist");
