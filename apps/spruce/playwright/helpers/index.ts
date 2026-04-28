@@ -59,11 +59,9 @@ export async function selectOption(
   option: string | RegExp,
   options?: { exact: boolean },
 ): Promise<void> {
-  const input = page.getByLabel(label);
-  await input.scrollIntoViewIfNeeded();
-  await expect(input).toBeEnabled();
-  await input.click();
-
+  const button = page.getByRole("button", { name: label });
+  await expect(button).toBeEnabled();
+  await button.click();
   const listbox = page.locator('[role="listbox"]');
   await expect(listbox).toHaveCount(1);
   await listbox.getByText(option, options).click();
