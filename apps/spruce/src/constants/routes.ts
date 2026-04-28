@@ -53,6 +53,7 @@ export enum ProjectSettingsTabRoutes {
   Plugins = "plugins",
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
+  PullRequests = "pull-requests",
   CommitChecks = "commit-checks",
   EventLog = "event-log",
 }

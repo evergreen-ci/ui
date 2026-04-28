@@ -280,6 +280,7 @@ const mapRouteToSection: Record<
     ProjectSettingsSection.GithubAppSettings,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]:
     ProjectSettingsSection.GithubPermissions,
+  [ProjectSettingsTabRoutes.PullRequests]: ProjectSettingsSection.PullRequests,
   [ProjectSettingsTabRoutes.CommitChecks]: ProjectSettingsSection.CommitChecks,
   [ProjectSettingsTabRoutes.TestSelection]:
     ProjectSettingsSection.TestSelection,

@@ -20,8 +20,9 @@ import {
   PatchAliasesTab,
   PeriodicBuildsTab,
   ProjectTriggersTab,
-  VariablesTab,
   PluginsTab,
+  PullRequestsTab,
+  VariablesTab,
   ViewsAndFiltersTab,
   VirtualWorkstationTab,
   TestSelectionTab,
@@ -300,6 +301,29 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           }
           path={ProjectSettingsTabRoutes.GithubPermissionGroups}
         />
+        {showNewProjectNavigation && (
+          <Route
+            element={
+              <PullRequestsTab
+                githubWebhooksEnabled={githubWebhooksEnabled}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.PullRequests].projectData
+                }
+                projectId={projectId}
+                projectType={projectType}
+                repoData={
+                  tabData[ProjectSettingsTabRoutes.PullRequests].repoData
+                }
+                versionControlEnabled={
+                  projectData?.projectRef?.versionControlEnabled ??
+                  repoData?.projectRef?.versionControlEnabled ??
+                  false
+                }
+              />
+            }
+            path={ProjectSettingsTabRoutes.PullRequests}
+          />
+        )}
         {showNewProjectNavigation && (
           <Route
             element={

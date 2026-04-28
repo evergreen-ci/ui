@@ -154,7 +154,10 @@ const SharedSettingsNavItem: React.FC<{
 );
 
 const allTabs = Object.values(ProjectSettingsTabRoutes);
-const hiddenTabs = [ProjectSettingsTabRoutes.CommitChecks];
+const hiddenTabs = [
+  ProjectSettingsTabRoutes.PullRequests,
+  ProjectSettingsTabRoutes.CommitChecks,
+];
 const tabRouteValues = showNewProjectNavigation
   ? allTabs
   : allTabs.filter((t) => !hiddenTabs.includes(t));
