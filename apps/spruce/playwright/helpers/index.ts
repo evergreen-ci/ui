@@ -54,7 +54,7 @@ export async function validateTableSort(
  * @param options.exact - Whether to match the option text exactly (default: false)
  */
 export async function selectOption(
-  page: Page,
+  page: Page | Locator,
   label: string,
   option: string | RegExp,
   options?: { exact: boolean },

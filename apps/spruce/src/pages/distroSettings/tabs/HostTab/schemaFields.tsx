@@ -38,7 +38,6 @@ const bootstrapMethod = {
     oneOf: enumSelect(bootstrapMethodToCopy),
   },
   uiSchema: {
-    "ui:data-cy": "bootstrap-method-select",
     "ui:allowDeselect": false,
   },
 };
@@ -50,7 +49,6 @@ const communicationMethod = {
     oneOf: enumSelect(communicationMethodToCopy),
   },
   uiSchema: {
-    "ui:data-cy": "communication-method-select",
     "ui:allowDeselect": false,
   },
 };

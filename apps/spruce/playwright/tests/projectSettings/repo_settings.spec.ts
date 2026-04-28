@@ -77,7 +77,7 @@ test.describe("Repo Settings", () => {
         await expect(errorBanner).toBeVisible();
         const githubChecksDisabledRadio = page
           .getByTestId("github-checks-enabled-radio-box")
-          .getByRole("radio", { name: "Disabled" });
+          .getByRole("radio", { name: "Disabled", exact: true });
         await clickRadio(githubChecksDisabledRadio);
         await expect(errorBanner).toHaveCount(0);
       });

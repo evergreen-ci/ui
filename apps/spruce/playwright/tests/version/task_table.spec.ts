@@ -6,12 +6,6 @@ import { clickCheckbox } from "../../helpers";
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
 const patchDescriptionTasksExist = "dist";
 
-const firstTaskId =
-  "evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
-const displayTaskId = "evergreen_ubuntu1604_89";
-const executionTaskId1 = "exec1";
-const executionTaskId2 = "exec2";
-
 const waitForTaskTable = async (page: Page) => {
   const table = page.getByTestId("tasks-table");
   await expect(table).toBeVisible();
@@ -158,30 +152,31 @@ test.describe("Task table", () => {
   });
 
   test.describe("task review", () => {
+    const firstTask =
+      "reviewed-evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
+    const displayTask = "reviewed-evergreen_ubuntu1604_89";
+    const executionTask1 = "reviewed-exec1";
+    const executionTask2 = "reviewed-exec2";
+
     test("marks tasks as viewed and preserves their state on reload", async ({
       authenticatedPage: page,
     }) => {
       await page.goto(pathTasks);
-      const firstTaskCheckbox = page.getByRole("checkbox", {
-        name: firstTaskId,
-      });
+      const firstTaskCheckbox = page.getByTestId(firstTask);
       await clickCheckbox(firstTaskCheckbox);
       await expect(firstTaskCheckbox).toBeChecked();
 
       await page.getByRole("button", { name: "Expand row" }).click();
-      await expect(
-        page.getByTestId(`reviewed-${executionTaskId1}`),
-      ).toHaveAttribute("aria-disabled", "true");
+      await expect(page.getByTestId(executionTask1)).toHaveAttribute(
+        "aria-disabled",
+        "true",
+      );
 
-      const executionTask2Checkbox = page.getByRole("checkbox", {
-        name: executionTaskId2,
-      });
+      const executionTask2Checkbox = page.getByTestId(executionTask2);
       await clickCheckbox(executionTask2Checkbox);
       await expect(executionTask2Checkbox).toBeChecked();
 
-      const displayTaskCheckbox = page.getByRole("checkbox", {
-        name: displayTaskId,
-      });
+      const displayTaskCheckbox = page.getByTestId(displayTask);
       await clickCheckbox(displayTaskCheckbox);
       await expect(displayTaskCheckbox).not.toBeChecked();
       await expect(executionTask2Checkbox).not.toBeChecked();

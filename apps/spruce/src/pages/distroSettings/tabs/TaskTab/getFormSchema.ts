@@ -172,14 +172,12 @@ export const getFormSchema = ({
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         version: {
           "ui:allowDeselect": false,
-          "ui:data-cy": "finder-version-select",
         },
       },
       plannerSettings: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         version: {
           "ui:allowDeselect": false,
-          "ui:data-cy": "planner-version-select",
         },
         tunableOptions: {
           "ui:field-data-cy": "tunable-options",
@@ -218,7 +216,6 @@ export const getFormSchema = ({
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         version: {
           "ui:allowDeselect": false,
-          "ui:data-cy": "dispatcher-version-select",
         },
       },
     },

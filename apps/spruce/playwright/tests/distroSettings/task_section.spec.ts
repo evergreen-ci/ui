@@ -66,15 +66,16 @@ test.describe("task section", () => {
       await validateToast(page, "success", "Updated distro.");
 
       await page.reload();
-      await expect(page.getByTestId("finder-version-select")).toContainText(
-        "Parallel",
-      );
-      await expect(page.getByTestId("planner-version-select")).toContainText(
-        "Tunable",
-      );
-      await expect(page.getByTestId("dispatcher-version-select")).toContainText(
-        "Revised with dependencies",
-      );
+      const finder = page.getByRole("button", { name: "Task Finder Version" });
+      await expect(finder).toContainText("Parallel");
+      const planner = page.getByRole("button", {
+        name: "Task Planner Version",
+      });
+      await expect(planner).toContainText("Tunable");
+      const dispatcher = page.getByRole("button", {
+        name: "Task Dispatcher Version",
+      });
+      await expect(dispatcher).toContainText("Revised with dependencies");
 
       await selectOption(page, "Task Finder Version", "Legacy");
       await selectOption(page, "Task Planner Version", "Tunable");

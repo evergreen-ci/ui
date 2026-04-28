@@ -23,11 +23,7 @@ test.describe("host section", () => {
     test("shows an error when selecting an incompatible host communication method", async ({
       authenticatedPage: page,
     }) => {
-      await selectOption(
-        page,
-        { testId: "communication-method-select" },
-        "RPC",
-      );
+      await selectOption(page, "Host Communication Method", "RPC");
       await expect(
         page.getByText(
           "Legacy and non-legacy bootstrapping and communication are incompatible.",
@@ -84,16 +80,8 @@ test.describe("host section", () => {
   test.describe("using User Data bootstrap method", () => {
     test.beforeEach(async ({ authenticatedPage: page }) => {
       await page.goto("/distro/ubuntu1604-parent/settings/host");
-      await selectOption(
-        page,
-        { testId: "bootstrap-method-select" },
-        "User Data",
-      );
-      await selectOption(
-        page,
-        { testId: "communication-method-select" },
-        "RPC",
-      );
+      await selectOption(page, "Host Bootstrap Method", "User Data");
+      await selectOption(page, "Host Communication Method", "RPC");
     });
 
     test("shows Windows-only fields when the architecture is updated", async ({

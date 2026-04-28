@@ -129,7 +129,9 @@ test.describe("Tasks filters", () => {
       authenticatedPage: page,
     }) => {
       const options = page.getByTestId("tree-select-options");
-      const failedCheckbox = options.getByRole("checkbox", { name: "Failed" });
+      const failedCheckbox = options
+        .getByRole("checkbox", { name: "Failed" })
+        .first();
       await clickCheckbox(failedCheckbox);
       await expect(page).toHaveURL(/statuses=failed/);
       await waitForTaskTable(page);

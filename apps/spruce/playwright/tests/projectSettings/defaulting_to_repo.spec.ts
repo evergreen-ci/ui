@@ -301,11 +301,11 @@ test.describe("Project Settings when defaulting to repo", () => {
     }) => {
       const prDisabledRadio = page
         .getByTestId("pr-testing-enabled-radio-box")
-        .getByRole("radio", { name: "Disabled" });
+        .getByRole("radio", { name: "Disabled", exact: true });
       await clickRadio(prDisabledRadio);
       const manualDisabledRadio = page
         .getByTestId("manual-pr-testing-enabled-radio-box")
-        .getByRole("radio", { name: "Disabled" });
+        .getByRole("radio", { name: "Disabled", exact: true });
       await clickRadio(manualDisabledRadio);
       const githubEnabledRadio = page
         .getByTestId("github-checks-enabled-radio-box")
@@ -492,7 +492,7 @@ test.describe("Project Settings when defaulting to repo", () => {
       );
 
       const defaultToRepoCommandsRadio = page.getByRole("radio", {
-        name: "Default to repo (disabled)",
+        name: "Default to Repo Commands",
       });
       await clickRadio(defaultToRepoCommandsRadio);
       await expect(page.getByTestId("command-row")).toHaveCount(1);
