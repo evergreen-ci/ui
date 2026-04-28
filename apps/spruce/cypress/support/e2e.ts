@@ -25,6 +25,7 @@ import {
 import { hasOperationName, isMutation } from "../utils/graphql-test-utils";
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
       /**
