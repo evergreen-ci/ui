@@ -192,24 +192,22 @@ test.describe("My Patches Page", () => {
 
     const statuses = [
       {
-        display: "Created/Unconfigured",
+        label: "Created/Unconfigured",
         key: "created",
-        dataCy: "created-checkbox",
       },
-      { display: "Running", key: "started", dataCy: "started-checkbox" },
+      { label: "Running", key: "started" },
       {
-        display: "Succeeded",
+        label: "Succeeded",
         key: "success",
-        dataCy: "success-checkbox",
       },
-      { display: "Failed", key: "failed", dataCy: "failed-checkbox" },
+      { label: "Failed", key: "failed" },
     ];
 
     test("Clicking on a status checkbox applies the status and clicking again removes it", async ({
       authenticatedPage: page,
     }) => {
-      for (const { key, dataCy } of statuses) {
-        const checkbox = page.getByTestId(dataCy);
+      for (const { key, label } of statuses) {
+        const checkbox = page.getByRole("checkbox", { name: label });
         await clickCheckbox(checkbox); // Click to check status checkbox.
         await expect(page).toHaveURL(new RegExp(`statuses=${key}`));
         await clickCheckbox(checkbox); // Click to uncheck status checkbox.
@@ -220,7 +218,7 @@ test.describe("My Patches Page", () => {
     test("Clicking on All status checkbox applies all of the statuses and clicking again removes them", async ({
       authenticatedPage: page,
     }) => {
-      const allCheckbox = page.getByTestId("all-status-checkbox");
+      const allCheckbox = page.getByRole("checkbox", { name: "All" });
       await clickCheckbox(allCheckbox); // Click to check status checkbox.
       await expect(page).toHaveURL(
         /statuses=all,success,created,started,failed/,

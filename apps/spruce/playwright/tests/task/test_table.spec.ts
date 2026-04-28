@@ -57,7 +57,9 @@ test.describe("Tests Table", () => {
     await expect(totalCount.getByText("20")).toBeVisible();
 
     await page.getByTestId("status-treeselect").click();
-    const silentFailCheckbox = page.getByTestId("silent-fail-checkbox");
+    const silentFailCheckbox = page.getByRole("checkbox", {
+      name: "Silent Fail",
+    });
     await clickCheckbox(silentFailCheckbox);
     await expect(filteredCount.getByText("1")).toBeVisible();
     await expect(totalCount.getByText("20")).toBeVisible();
@@ -142,27 +144,26 @@ test.describe("Tests Table", () => {
       authenticatedPage: page,
     }) => {
       await page.getByTestId("status-treeselect").click();
-      const allCheckbox = page.getByTestId("all-checkbox");
+      const allCheckbox = page.getByRole("checkbox", { name: "All" });
       await clickCheckbox(allCheckbox);
       await expect(page).toHaveURL(/statuses=all,pass,fail,skip,silentfail/);
     });
 
     const statuses = [
-      { display: "Pass", key: "pass", dataCy: "pass-checkbox" },
+      { label: "Pass", key: "pass" },
       {
-        display: "Silent Fail",
+        label: "Silent Fail",
         key: "silentfail",
-        dataCy: "silent-fail-checkbox",
       },
-      { display: "Skip", key: "skip", dataCy: "skip-checkbox" },
+      { label: "Skip", key: "skip" },
     ];
 
     test("Checking multiple statuses adds them all to the URL", async ({
       authenticatedPage: page,
     }) => {
       await page.getByTestId("status-treeselect").click();
-      for (const { dataCy } of statuses) {
-        const checkbox = page.getByTestId(dataCy);
+      for (const { label } of statuses) {
+        const checkbox = page.getByRole("checkbox", { name: label });
         await clickCheckbox(checkbox);
       }
       await expect(page).toHaveURL(

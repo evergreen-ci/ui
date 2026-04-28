@@ -15,9 +15,9 @@ test.describe("Waterfall menu settings", () => {
     authenticatedPage: page,
   }) => {
     await page.getByTestId("waterfall-menu").click();
-    const omitInactiveBuildsCheckbox = page.getByTestId(
-      "omit-inactive-builds-checkbox",
-    );
+    const omitInactiveBuildsCheckbox = page.getByRole("checkbox", {
+      name: "Omit inactive builds",
+    });
     await expect(omitInactiveBuildsCheckbox).not.toBeChecked();
     await clickCheckbox(omitInactiveBuildsCheckbox);
     await expect(omitInactiveBuildsCheckbox).toBeChecked();
