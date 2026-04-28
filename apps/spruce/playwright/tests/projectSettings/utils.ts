@@ -6,6 +6,11 @@ export const save = async (page: Page) => {
   await saveButton.scrollIntoViewIfNeeded();
   await expect(saveButton).toHaveAttribute("aria-disabled", "false");
   await saveButton.click();
+
+  const saveChangesModal = page.getByTestId("save-changes-modal");
+  await expect(saveChangesModal).toBeVisible();
+  await saveChangesModal.getByRole("button", { name: "Save changes" }).click();
+  await expect(saveChangesModal).toBeHidden();
 };
 
 export const expectSaveButtonEnabled = async (
