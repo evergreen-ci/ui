@@ -91,7 +91,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       <DropdownItem
         key="unquarantine"
         data-cy="unquarantine-test"
-        description="This test is currently quarantined."
+        description="Allow this test to run in future task runs."
         onClick={onUnquarantineTest}
       >
         Unquarantine
