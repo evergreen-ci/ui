@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 import { evergreenUrl, toastDataCy, users } from "./constants";
 
 /**
@@ -55,21 +55,28 @@ export const validateToast = async (
   }
 };
 
+const clickHiddenElementByLabel = async (locator: Locator) => {
+  await expect(locator).not.toHaveAttribute("id", /undefined/);
+  const id = await locator.getAttribute("id");
+  await locator.page().locator(`label[for="${id}"]`).click();
+}
+
 /**
- * Checkboxes are not visible in LG so they cannot be clicked.
- * We need to click the associated label instead.
- * @param page - The Playwright page object
- * @param name - The name of the checkbox
+ * Checkboxes are not visible in LG so they cannot be clicked directly.
+ * This helper clicks the associated label instead, via the associated id attribute.
+ * @param locator - A locator pointing to the checkbox
  */
-export const clickCheckboxByLabel = async (page: Page, name: string) => {
-  const checkbox = page.getByRole("checkbox", { name });
-  const checkboxId = await checkbox.getAttribute("id");
-  if (checkboxId) {
-    await page.locator(`label[for="${checkboxId}"]`).click();
-  } else {
-    // Fallback: click the checkbox's parent label if it exists.
-    await checkbox.locator("..").locator("label").click();
-  }
+export const clickCheckbox = async (locator: Locator) => {
+  await clickHiddenElementByLabel(locator);
+};
+
+/**
+ * Radio options are not visible in LG so they cannot be clicked directly.
+ * This helper clicks the associated label instead, via the associated id attribute.
+ * @param locator - A locator pointing to the radio button
+ */
+export const clickRadio = async (locator: Locator) => {
+  await clickHiddenElementByLabel(locator);
 };
 
 type ResponseData = {
@@ -85,27 +92,29 @@ type ResponseData = {
  * Helper function to mock GraphQL response.
  * @param page - The Playwright page object
  * @param operationName - name of the operation to mock
- * @param responseData - The mock response data
+ * @param responseData - The mock response data, or a function returning it (useful for stateful mocks)
  */
 export async function mockGraphQLResponse(
   page: Page,
   operationName: string,
-  responseData: ResponseData,
+  responseData: ResponseData | (() => ResponseData),
 ) {
   await page.route("**/graphql/query", async (route) => {
     const request = route.request();
     const postData = request.postDataJSON();
     if (postData?.operationName === operationName) {
+      const data =
+        typeof responseData === "function" ? responseData() : responseData;
       await route.fulfill({
         status: 200,
         contentType: "application/json",
         body: JSON.stringify({
-          errors: responseData.errors,
-          data: responseData.data,
+          errors: data.errors,
+          data: data.data,
         }),
       });
     } else {
-      await route.continue();
+      await route.fallback();
     }
   });
 }

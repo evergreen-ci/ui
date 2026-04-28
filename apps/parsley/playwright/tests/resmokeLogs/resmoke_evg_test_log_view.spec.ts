@@ -324,11 +324,14 @@ test.describe("pretty print", () => {
   test("should pretty print bookmarks if pretty print is enabled", async ({
     authenticatedPage: page,
   }) => {
-    const defaultRowHeight = 18;
+    const defaultRowHeight = 17.5;
 
-    await expect(page.getByTestId("log-row-19")).toBeVisible();
-    await page.getByTestId("log-row-19").dblclick();
-    const box = await page.getByTestId("log-row-19").boundingBox();
+    const logRow19 = page.getByTestId("log-row-19");
+
+    await expect(logRow19).toBeVisible();
+    await logRow19.dblclick();
+    await expect(logRow19).toHaveAttribute("data-bookmarked", "true");
+    const box = await logRow19.boundingBox();
     expect(box).not.toBeNull();
     expect(box!.height).toBeGreaterThan(defaultRowHeight);
   });
@@ -364,12 +367,7 @@ test.describe("Sharing lines", () => {
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
     await expect(page.getByText("Copy selected contents")).toBeVisible();
     await page.getByText("Copy selected contents").click();
-    await helpers.validateToast(
-      page,
-      "success",
-      "Copied 2 lines to clipboard",
-      true,
-    );
+    await helpers.validateToast(page, "success", "Copied 2 lines to clipboard");
     await helpers.assertValueCopiedToClipboard(
       page,
       "{noformat}\n+------------------------------------------+--------+-----+-----+\n|full_name                                 |name    |port |pid  |\n{noformat}",
@@ -386,12 +384,7 @@ test.describe("Sharing lines", () => {
       page.getByText("Copy share link to selected lines"),
     ).toBeVisible();
     await page.getByText("Copy share link to selected lines").click();
-    await helpers.validateToast(
-      page,
-      "success",
-      "Copied link to clipboard",
-      true,
-    );
+    await helpers.validateToast(page, "success", "Copied link to clipboard");
     await helpers.assertValueCopiedToClipboard(
       page,
       "http://localhost:5173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L1-L2&shareLine=1",

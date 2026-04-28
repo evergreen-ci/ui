@@ -129,7 +129,6 @@ const renderCheckboxesHelper = ({
         bold={false}
         checked={state.includes(data.value)}
         className="cy-checkbox"
-        data-cy="checkbox"
         label={data.title}
         onChange={onChangeFn}
       />
@@ -150,7 +149,6 @@ const renderCheckboxesHelper = ({
             bold={false}
             checked={state.includes(child.value)}
             className="cy-checkbox"
-            data-cy="checkbox"
             label={child.title}
             onChange={onChangeChildFn}
           />

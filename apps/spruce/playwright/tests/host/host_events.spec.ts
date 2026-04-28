@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel, selectOption } from "../../helpers";
+import { clickCheckbox, selectOption } from "../../helpers";
 
 /**
  * Helper to select page size and verify URL and table row count
@@ -271,7 +271,11 @@ test.describe("Host events", () => {
       // Apply filter.
       await page.getByTestId("event-type-filter").click();
       await expect(page.getByTestId("event-type-filter-wrapper")).toBeVisible();
-      await clickCheckboxByLabel(page, "Agent deployed");
+      const agentDeployedCheckbox = page.getByRole("checkbox", {
+        name: "Agent deployed",
+      });
+      await clickCheckbox(agentDeployedCheckbox);
+      await expect(agentDeployedCheckbox).toBeChecked();
       await expect(page.getByTestId("host-events-table-row")).toHaveCount(2);
       await expect(page.getByTestId("event-type-filter")).toHaveAttribute(
         "data-highlighted",
@@ -280,7 +284,8 @@ test.describe("Host events", () => {
 
       // Remove filter.
       await expect(page.getByTestId("event-type-filter-wrapper")).toBeVisible();
-      await clickCheckboxByLabel(page, "Agent deployed");
+      await clickCheckbox(agentDeployedCheckbox);
+      await expect(agentDeployedCheckbox).not.toBeChecked();
       await expect(page.getByTestId("host-events-table-row")).not.toHaveCount(
         2,
       );

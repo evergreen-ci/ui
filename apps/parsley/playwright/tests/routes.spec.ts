@@ -36,7 +36,6 @@ test.describe("Parsley Routes", () => {
       page,
       "error",
       "Network response was not ok (404)",
-      true,
     );
   });
 
