@@ -1,25 +1,34 @@
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   RenderWithRouterMatchOptions,
   renderWithRouterMatch,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { WordWrapFormat } from "constants/enums";
+import { LogContextProvider } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
+import { parsleySettingsMock } from "test_data/parsleySettings";
 import Row from ".";
+
+const logs = ["Test Log"];
 
 const renderRow = (
   props: React.ComponentProps<typeof Row>,
   routerOptions: RenderWithRouterMatchOptions,
-) =>
-  renderWithRouterMatch(<Row {...props} />, {
-    ...routerOptions,
-    wrapper: ({ children }: { children: React.ReactNode }) => (
-      <MultiLineSelectContextProvider>
-        {children}
-      </MultiLineSelectContextProvider>
-    ),
-  });
+) => {
+  const { Component } = RenderFakeToastContext(
+    <MockedProvider mocks={[parsleySettingsMock]}>
+      <LogContextProvider initialLogLines={logs}>
+        <MultiLineSelectContextProvider>
+          <Row {...props} />
+        </MultiLineSelectContextProvider>
+      </LogContextProvider>
+    </MockedProvider>,
+  );
+  return renderWithRouterMatch(<Component />, routerOptions);
+};
 
 describe("row", () => {
   it("renders a log line", () => {
@@ -34,33 +43,79 @@ describe("row", () => {
     expect(screen.getByText(lineContent)).toBeVisible();
   });
 
-  it("clicking log line link updates the url and and scrolls to the line", async () => {
+  it("clicking log line menu button opens the sharing menu", async () => {
     const user = userEvent.setup();
-    const scrollToLine = vi.fn();
-    const { router } = renderRow(
+    renderRow(
       {
         ...rowProps,
         children: testLog,
         lineIndex: 7,
         lineNumber: 54,
-        scrollToLine,
       },
       {},
     );
-    await user.click(screen.getByDataCy("log-link-54"));
-    expect(router.state.location.search).toBe("?shareLine=54");
-    expect(scrollToLine).toHaveBeenCalledWith(7);
+    await user.click(screen.getByDataCy("log-menu-54"));
+    expect(screen.getByText("Copy selected contents")).toBeVisible();
   });
 
-  it("clicking on a share line's link icon updates the URL correctly", async () => {
+  it("clicking menu button on different line selects that line", async () => {
     const user = userEvent.setup();
     const { router } = renderRow(
-      { ...rowProps, children: testLog },
-      { route: "?shareLine=0" },
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 5,
+      },
+      { route: "?selectedLineRange=L0" },
     );
+    await user.click(screen.getByDataCy("log-menu-5"));
+    expect(router.state.location.search).toBe("?selectedLineRange=L5");
+    expect(screen.getByText("Copy selected contents")).toBeVisible();
+  });
 
-    await user.click(screen.getByDataCy("log-link-0"));
-    expect(router.state.location.search).toBe("");
+  it("clicking line number should select that line", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow(
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 0,
+      },
+      {},
+    );
+    await user.click(screen.getByDataCy("line-index-0"));
+    expect(router.state.location.search).toBe("?selectedLineRange=L0");
+  });
+
+  it("clicking line number on different line should select new line", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow(
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 5,
+      },
+      { route: "?selectedLineRange=L0" },
+    );
+    await user.click(screen.getByDataCy("line-index-5"));
+    expect(router.state.location.search).toBe("?selectedLineRange=L5");
+  });
+
+  it("shift+clicking menu icon should select a range", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow(
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 5,
+      },
+      { route: "?selectedLineRange=L0" },
+    );
+    await user.keyboard("{Shift>}");
+    await user.click(screen.getByDataCy("log-menu-5"));
+    await user.keyboard("{/Shift}");
+    expect(router.state.location.search).toBe("?selectedLineRange=L0-L5");
+    expect(screen.getByText("Copy selected contents")).toBeVisible();
   });
 
   it("double clicking a log line adds it to the bookmarks", async () => {
@@ -83,9 +138,10 @@ describe("row", () => {
 
   it("a log line can be shared and bookmarked at the same time", async () => {
     const user = userEvent.setup();
-    const { router } = renderRow({ ...rowProps, children: testLog }, {});
-
-    await user.click(screen.getByDataCy("log-link-0"));
+    const { router } = renderRow(
+      { ...rowProps, children: testLog },
+      { route: "?shareLine=0" },
+    );
     await user.dblClick(screen.getByText(testLog));
     expect(router.state.location.search).toBe("?bookmarks=0&shareLine=0");
   });

@@ -16,7 +16,7 @@ test.describe("Filtering", () => {
       test("should not collapse bookmarks and share line", async ({
         authenticatedPage: page,
       }) => {
-        await page.getByTestId("log-link-5").click();
+        await page.goto(`${logLink}?shareLine=5`);
         await page.getByTestId("log-row-6").dblclick();
         await expect(page).toHaveURL(/\?bookmarks=0,6,297&shareLine=5/);
         await helpers.addFilter(page, "doesNotMatchAnything");

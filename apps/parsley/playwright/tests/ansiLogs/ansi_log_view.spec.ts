@@ -104,18 +104,23 @@ test.describe("Bookmarking and selecting lines", () => {
     expect(bookmarkList).not.toContain("4");
   });
 
-  test("should be able to set and unset the share line", async ({
+  test("should be able to copy a share link to the selected line", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("log-link-5").click();
-    await expect(page).toHaveURL(/\?bookmarks=0,297&shareLine=5/);
-    await expect(page.getByTestId("bookmark-list")).toContainText("0");
-    await expect(page.getByTestId("bookmark-list")).toContainText("5");
-    await expect(page.getByTestId("bookmark-list")).toContainText("297");
-    await page.getByTestId("log-link-5").click();
-    await expect(page).toHaveURL(/\?bookmarks=0,297/);
-    const bookmarkList = await page.getByTestId("bookmark-list").innerText();
-    expect(bookmarkList).not.toContain("5");
+    await page.getByTestId("line-index-5").click();
+    await expect(page.getByTestId("sharing-menu")).toBeVisible();
+    await expect(page.getByText("Copy share link")).toBeVisible();
+    await page.getByText("Copy share link").click();
+    await helpers.validateToast(
+      page,
+      "success",
+      "Copied link to clipboard",
+      true,
+    );
+    await helpers.assertValueCopiedToClipboard(
+      page,
+      "http://localhost:5173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&selectedLineRange=L5&shareLine=5",
+    );
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({
@@ -322,10 +327,8 @@ test.describe("Sharing lines", () => {
     await page.getByTestId("line-index-1").click();
     await page.getByTestId("line-index-2").click({ modifiers: ["Shift"] });
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
-    await expect(
-      page.getByText("Copy share link to selected lines"),
-    ).toBeVisible();
-    await page.getByText("Copy share link to selected lines").click();
+    await expect(page.getByText("Copy share link")).toBeVisible();
+    await page.getByText("Copy share link").click();
     await helpers.validateToast(
       page,
       "success",

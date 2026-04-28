@@ -170,17 +170,23 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(page.getByTestId("bookmark-4")).toBeHidden();
   });
 
-  test("should be able to set and unset the share line", async ({
+  test("should be able to copy a share link to the selected line", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("log-link-5").click();
-    await expect(page).toHaveURL(/\?bookmarks=0,12568&shareLine=5/);
-    await expect(page.getByTestId("bookmark-0")).toBeVisible();
-    await expect(page.getByTestId("bookmark-5")).toBeVisible();
-    await expect(page.getByTestId("bookmark-12568")).toBeVisible();
-    await page.getByTestId("log-link-5").click();
-    await expect(page).toHaveURL(/\?bookmarks=0,12568/);
-    await expect(page.getByTestId("bookmark-5")).toBeHidden();
+    await page.getByTestId("line-index-5").click();
+    await expect(page.getByTestId("sharing-menu")).toBeVisible();
+    await expect(page.getByText("Copy share link")).toBeVisible();
+    await page.getByText("Copy share link").click();
+    await helpers.validateToast(
+      page,
+      "success",
+      "Copied link to clipboard",
+      true,
+    );
+    await helpers.assertValueCopiedToClipboard(
+      page,
+      "http://localhost:5173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L5&shareLine=5",
+    );
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({
@@ -382,10 +388,8 @@ test.describe("Sharing lines", () => {
     await page.getByTestId("line-index-1").click();
     await page.getByTestId("line-index-2").click({ modifiers: ["Shift"] });
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
-    await expect(
-      page.getByText("Copy share link to selected lines"),
-    ).toBeVisible();
-    await page.getByText("Copy share link to selected lines").click();
+    await expect(page.getByText("Copy share link")).toBeVisible();
+    await page.getByText("Copy share link").click();
     await helpers.validateToast(
       page,
       "success",

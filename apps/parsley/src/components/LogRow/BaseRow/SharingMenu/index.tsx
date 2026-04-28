@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
-import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import pluralize from "pluralize";
 import { useChatContext } from "@evg-ui/fungi";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import {
   getLocalStorageString,
   setLocalStorageString,
@@ -20,9 +18,14 @@ import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
 import { useIsParsleyAIAvailable } from "hooks/useIsParsleyAIAvailable";
 import { getJiraFormat, getRawLines } from "utils/string";
+import SharingMenuButton from "./SharingMenuButton";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
-const SharingMenu: React.FC = () => {
+interface SharingMenuProps {
+  lineNumber: number;
+}
+
+const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
   const {
     clearSelection,
     openMenu: open,
@@ -34,12 +37,18 @@ const SharingMenu: React.FC = () => {
   const isParsleyAIAvailable = useIsParsleyAIAvailable();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
+  const [bookmarks, setBookmarks] = useQueryParam<number[]>(
+    QueryParams.Bookmarks,
+    [],
+    urlParseOptions,
+  );
+  const [, setShareLine] = useQueryParam<number | undefined>(
+    QueryParams.ShareLine,
+    undefined,
+    urlParseOptions,
+  );
   const dispatchToast = useToastContext();
   const { sendEvent } = useLogWindowAnalytics();
-  const setMenuOpen = () => {
-    sendEvent({ name: "Toggled share menu", open });
-    setOpen(!open);
-  };
 
   const handleAddToParsleyAI = async () => {
     const { endingLine, startingLine } = selectedLines;
@@ -96,11 +105,11 @@ const SharingMenu: React.FC = () => {
 
   const handleOnlySearchOnRange = () => {
     const { endingLine, startingLine } = selectedLines;
-    if (startingLine === undefined || endingLine === undefined) return;
+    if (startingLine === undefined) return;
     setParams({
       ...params,
       [QueryParams.LowerRange]: startingLine,
-      [QueryParams.UpperRange]: endingLine,
+      [QueryParams.UpperRange]: endingLine ?? startingLine,
     });
     setOpen(false);
     sendEvent({
@@ -108,10 +117,30 @@ const SharingMenu: React.FC = () => {
     });
   };
 
+  const handleToggleBookmark = () => {
+    const { startingLine } = selectedLines;
+    if (startingLine === undefined) return;
+
+    if (bookmarks.includes(startingLine)) {
+      const newBookmarks = bookmarks.filter((b) => b !== startingLine);
+      setBookmarks(newBookmarks);
+      sendEvent({ name: "Deleted bookmark" });
+    } else {
+      const newBookmarks = [...bookmarks, startingLine].sort((a, b) => a - b);
+      setBookmarks(newBookmarks);
+      sendEvent({ name: "Created bookmark" });
+    }
+    setOpen(false);
+  };
+
+  const isBookmarked =
+    selectedLines.startingLine !== undefined &&
+    bookmarks.includes(selectedLines.startingLine);
+
   const handleShareLinkToSelectedLines = async () => {
     const { startingLine } = selectedLines;
     if (startingLine === undefined) return;
-    // Take the current URL and add the shareLine query param
+    setShareLine(startingLine);
     const url = new URL(window.location.href);
     url.searchParams.set(QueryParams.ShareLine, startingLine.toString());
 
@@ -121,28 +150,17 @@ const SharingMenu: React.FC = () => {
     dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
   };
 
-  const lineCount =
-    selectedLines.endingLine === undefined ||
-    selectedLines.startingLine === undefined
-      ? 1
-      : selectedLines.endingLine - selectedLines.startingLine + 1;
-
   return (
     <StyledMenu
       align="right"
       data-cy="sharing-menu"
       open={open}
-      setOpen={setMenuOpen}
-      trigger={
-        <MenuIcon
-          aria-label="Expand share menu"
-          data-cy="sharing-menu-button"
-          onClick={setMenuOpen}
-        >
-          <Icon glyph="Ellipsis" />
-        </MenuIcon>
-      }
+      setOpen={setOpen}
+      trigger={<SharingMenuButton lineNumber={lineNumber} />}
     >
+      <MenuItem glyph={<Icon glyph="Trash" />} onClick={clearSelection}>
+        Clear selection
+      </MenuItem>
       {isParsleyAIAvailable && (
         <MenuItem
           glyph={<Icon glyph="Sparkle" />}
@@ -151,6 +169,18 @@ const SharingMenu: React.FC = () => {
           Add to Parsley AI
         </MenuItem>
       )}
+      <MenuItem
+        glyph={<Icon glyph="MagnifyingGlass" />}
+        onClick={handleOnlySearchOnRange}
+      >
+        Only search on range
+      </MenuItem>
+      <MenuItem
+        glyph={<Icon glyph={isBookmarked ? "Checkmark" : "Plus"} />}
+        onClick={handleToggleBookmark}
+      >
+        {isBookmarked ? "Remove bookmark" : "Bookmark line"}
+      </MenuItem>
       <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
         Copy selected contents
       </MenuItem>
@@ -159,27 +189,12 @@ const SharingMenu: React.FC = () => {
           glyph={<Icon glyph="Export" />}
           onClick={handleShareLinkToSelectedLines}
         >
-          Copy share link to selected {pluralize("line", lineCount)}
+          Copy share link
         </MenuItem>
       )}
-      <MenuItem
-        glyph={<Icon glyph="MagnifyingGlass" />}
-        onClick={handleOnlySearchOnRange}
-      >
-        Only search on range
-      </MenuItem>
-      <MenuItem glyph={<Icon glyph="Trash" />} onClick={clearSelection}>
-        Clear selection
-      </MenuItem>
     </StyledMenu>
   );
 };
-
-const MenuIcon = styled(IconButton)`
-  height: 16px;
-  width: 16px;
-  margin-left: ${size.xxs};
-`;
 
 const StyledMenu = styled(Menu)`
   width: fit-content;
