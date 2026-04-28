@@ -1,10 +1,10 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   project,
   ProjectSettingsTabRoutes,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("A project that has GitHub webhooks disabled", () => {
   const origin = getProjectSettingsRoute(
@@ -59,7 +59,7 @@ describe("A project that has GitHub webhooks enabled", () => {
     cy.dataCy("task-tags-input").first().type("ttag");
 
     cy.dataCy("error-banner").should("not.exist");
-    clickSave();
+    clickSaveAndConfirmDiff();
     cy.validateToast("success", "Successfully updated project");
   });
 });
