@@ -1,16 +1,16 @@
-import { test, expect } from "../../fixtures";
+import { test, expect } from "@playwright/test";
 import * as helpers from "../../helpers";
 
 const logLink =
   "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
 
 test.describe("Highlighting", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
   });
 
   test("applying a highlight should highlight the matching words", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "@bugsnag/plugin-react@");
     const highlights = page.getByTestId("highlight");
@@ -19,7 +19,7 @@ test.describe("Highlighting", () => {
   });
 
   test("applying a search to a highlighted line should not overwrite an already highlighted term if the search matches the highlight", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "@bugsnag/plugin-react@");
     await helpers.addSearch(page, "@bugsnag/plugin-react@");
@@ -29,7 +29,7 @@ test.describe("Highlighting", () => {
   });
 
   test("should highlight other terms in the log if the search term does not match the highlight", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "@bugsnag/plugin-react@");
     await helpers.addSearch(page, "info");
@@ -43,7 +43,7 @@ test.describe("Highlighting", () => {
   });
 
   test("removing a highlight from the side panel should remove the highlight", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "@bugsnag/plugin-react@");
     const highlights = page.getByTestId("highlight");
@@ -56,7 +56,7 @@ test.describe("Highlighting", () => {
   });
 
   test("applying multiple highlights should use different colors", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "@bugsnag/plugin-react@");
     await helpers.addHighlight(page, "info");
@@ -79,9 +79,7 @@ test.describe("Highlighting", () => {
     expect(colors.size).toBe(2);
   });
 
-  test("highlights should not corrupt links", async ({
-    authenticatedPage: page,
-  }) => {
+  test("highlights should not corrupt links", async ({ page }) => {
     await page.goto(`${logLink}?shareLine=200`);
     await helpers.addHighlight(page, "github");
     await helpers.addHighlight(page, "storybook");
@@ -94,7 +92,7 @@ test.describe("Highlighting", () => {
   });
 
   test("should automatically add a highlight when a filter term is added if `Apply Highlights to Filters` is enabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.clickToggle(
       page,
@@ -113,7 +111,7 @@ test.describe("Highlighting", () => {
   });
 
   test("should not add a highlight when a filter term is added if `Apply Highlights to Filters` is disabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addFilter(page, "task");
     const highlights = page.getByTestId("highlight");

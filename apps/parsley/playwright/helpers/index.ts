@@ -198,6 +198,5 @@ export const paste = async (
 export {
   validateToast,
   login,
-  logout,
   clickCheckboxByLabel,
 } from "@evg-ui/playwright-config/helpers";

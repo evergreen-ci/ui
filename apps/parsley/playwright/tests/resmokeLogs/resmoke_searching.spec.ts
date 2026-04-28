@@ -1,16 +1,16 @@
-import { test, expect } from "../../fixtures";
+import { test, expect } from "@playwright/test";
 import * as helpers from "../../helpers";
 
 const logLink =
   "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
 
 test.describe("Searching", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
   });
 
   test("searching for a term should highlight matching words", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addSearch(page, "ShardedClusterFixture:job0:mongos0 ");
     await expect(page.getByTestId("search-count")).toBeVisible();
@@ -24,7 +24,7 @@ test.describe("Searching", () => {
   });
 
   test("searching for a term should snap the matching line to the top of the window", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addSearch(page, "REPL_HB");
     await expect(page.getByTestId("search-count")).toBeVisible();
@@ -35,7 +35,7 @@ test.describe("Searching", () => {
   });
 
   test("should be able to specify a range of lines to search", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addSearch(page, "REPL_HB");
     await helpers.editBounds(page, { upper: "25" });
@@ -46,9 +46,7 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toContainText("1/1436");
   });
 
-  test("should be able to toggle case sensitivity", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should be able to toggle case sensitivity", async ({ page }) => {
     await helpers.addSearch(page, "Mongos0");
     await expect(page.getByTestId("search-count")).toContainText("1/2");
     await helpers.clickToggle(page, "case-sensitive-toggle", true);
@@ -58,7 +56,7 @@ test.describe("Searching", () => {
   });
 
   test("should be able to paginate through search results", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addSearch(page, "conn49");
     await expect(page.getByTestId("search-count")).toBeVisible();
@@ -84,7 +82,7 @@ test.describe("Searching", () => {
   });
 
   test("should not reset search index when a bookmark is applied", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addSearch(page, "conn49");
     await expect(page.getByTestId("search-count")).toBeVisible();
@@ -98,9 +96,7 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toContainText("2/8");
   });
 
-  test("should be able to search on filtered content", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should be able to search on filtered content", async ({ page }) => {
     await helpers.addFilter(page, "conn49");
     await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
 
@@ -113,7 +109,7 @@ test.describe("Searching", () => {
   });
 
   test("should update search results automatically when filters are removed", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const filter = "nonexistent-term";
     await helpers.addFilter(page, filter);

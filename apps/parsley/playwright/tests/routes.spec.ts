@@ -1,9 +1,9 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "@playwright/test";
 import * as helpers from "../helpers";
 
 test.describe("Parsley Routes", () => {
   test("should render 'No Logs Found' when visiting a task log page of an empty log", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(
       "evergreen/mci_ubuntu1604_test_db_patch_a1d2c8f70bf5c543de8b9641ac1ec08def1ddb26_5f74d99ab2373627c047c5e5_20_09_30_19_16_47/0/task",
@@ -12,7 +12,7 @@ test.describe("Parsley Routes", () => {
   });
 
   test("should load task logs when visiting a task log page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const logLink =
       "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
@@ -28,7 +28,7 @@ test.describe("Parsley Routes", () => {
   });
 
   test("should show error toast when visiting a task log page of an invalid task", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const logLink = "/evergreen/invalid-task-id/0/task";
     await page.goto(logLink);
@@ -41,7 +41,7 @@ test.describe("Parsley Routes", () => {
   });
 
   test("should load test results when visiting a test result page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const logLink =
       "/test/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0/JustAFakeTestInALonelyWorld";
@@ -59,7 +59,7 @@ test.describe("Parsley Routes", () => {
   });
 
   test("should load a task uploaded file when visiting a task log page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const logLink =
       "/taskFile/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/sample%20file";
@@ -72,9 +72,7 @@ test.describe("Parsley Routes", () => {
     expect(await page.getByTestId("ansi-row").count()).toBeGreaterThan(0);
   });
 
-  test("should show 404 when visiting a nonexistent page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should show 404 when visiting a nonexistent page", async ({ page }) => {
     await page.goto("/this/is/not/a/real/page");
     await expect(page.locator('[data-cy="404"]')).toBeVisible();
   });

@@ -1,16 +1,16 @@
-import { test, expect } from "../../fixtures";
+import { test, expect } from "@playwright/test";
 import * as helpers from "../../helpers";
 
 const logLink =
   "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
 
 test.describe("Highlighting", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
   });
 
   test("applying a highlight should highlight matching words", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
     const highlights = page.getByTestId("highlight");
@@ -21,7 +21,7 @@ test.describe("Highlighting", () => {
   });
 
   test("applying a search to a highlighted line should not overwrite an already highlighted term if the search matches the highlight", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
     await helpers.addSearch(page, "ShardedClusterFixture:job0:mongos0 ");
@@ -33,7 +33,7 @@ test.describe("Highlighting", () => {
   });
 
   test("should highlight other terms in the log if the search term does not match the highlight", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
     await helpers.addSearch(page, "ShardedClusterFixture:job0:shard0:node1");
@@ -50,7 +50,7 @@ test.describe("Highlighting", () => {
   });
 
   test("removing a highlight from the side panel should remove the highlight", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:shard0:node1");
     const highlights = page.getByTestId("highlight");
@@ -63,7 +63,7 @@ test.describe("Highlighting", () => {
   });
 
   test("applying multiple highlights should use different colors", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:shard0:node1");
@@ -89,7 +89,7 @@ test.describe("Highlighting", () => {
   });
 
   test("should automatically add a highlight when a filter term is added if `Apply Highlights to Filters` is enabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.clickToggle(
       page,
@@ -108,7 +108,7 @@ test.describe("Highlighting", () => {
   });
 
   test("should not add a highlight when a filter term is added if `Apply Highlights to Filters` is disabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.addFilter(page, "job0");
     const highlights = page.getByTestId("highlight");
