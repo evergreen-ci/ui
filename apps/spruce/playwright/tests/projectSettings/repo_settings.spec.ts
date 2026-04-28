@@ -85,11 +85,11 @@ test.describe("Repo Settings", () => {
       test("Allows enabling manual PR testing", async ({
         authenticatedPage: page,
       }) => {
-        await page
+        const enabledRadio = page
           .getByTestId("manual-pr-testing-enabled-radio-box")
-          .locator("> *")
-          .first()
-          .click();
+          .getByRole("radio", { name: "Enabled" });
+        await clickRadio(enabledRadio);
+        await expect(enabledRadio).toBeChecked();
       });
 
       test("Saving a patch definition should hide the error banner, success toast and displays disabled patch definitions for the repo", async ({
