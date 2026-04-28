@@ -106,7 +106,6 @@ export const getFormSchema = (
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "mq-card",
         "ui:showLabel": false,
-        enabledTitle: {},
         enabled: {
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
@@ -185,11 +184,6 @@ const hideIf = (shouldHide: boolean) =>
   shouldHide && {
     "ui:widget": "hidden",
   };
-
-// const overrideStyling = (isMissingRepoField: boolean) => ({
-//   "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,
-//   "ui:showLabel": false,
-// });
 
 const GithubTriggerAliasDescription = ({
   identifier,

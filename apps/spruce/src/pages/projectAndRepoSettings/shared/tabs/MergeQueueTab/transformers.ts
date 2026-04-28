@@ -62,7 +62,7 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id: id ?? "",
+    id: id,
     commitQueue: {
       enabled,
     },
@@ -74,11 +74,9 @@ export const formToGql = ((
     AliasNames.MergeQueue,
   );
 
-  const aliases = [...mergeQueueAliases];
-
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef,
-    aliases,
+    aliases: mergeQueueAliases,
   };
 }) satisfies FormToGqlFunction<Tab>;
