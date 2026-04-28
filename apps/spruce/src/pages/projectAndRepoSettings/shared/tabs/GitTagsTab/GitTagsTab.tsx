@@ -63,7 +63,7 @@ export const GitTagsTab: React.FC<TabProps> = ({
 
   return (
     <>
-      {!githubWebhooksEnabled && GithubWebhooksDisabledBanner}
+      {!githubWebhooksEnabled && <GithubWebhooksDisabledBanner />}
       <BaseTab
         disabled={!githubWebhooksEnabled}
         formSchema={formSchema}
