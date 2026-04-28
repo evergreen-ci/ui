@@ -57,17 +57,17 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id: id ?? "",
+    id: id,
     githubChecksEnabled,
   };
 
-  const githubCheckAliasDocs = transformAliases(
+  const githubCommitCheckAliases = transformAliases(
     githubCheckAliases,
     githubCheckAliasesOverride,
     AliasNames.GithubCheck,
   );
 
-  const aliases = [...githubCheckAliasDocs];
+  const aliases = [...githubCommitCheckAliases];
 
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
