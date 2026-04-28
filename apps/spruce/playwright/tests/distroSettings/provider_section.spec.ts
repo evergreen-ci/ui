@@ -26,7 +26,7 @@ test.describe("provider section", () => {
       await page.getByRole("button", { name: "Add host" }).click();
       await page.getByLabel("Name").fill("host-1234");
       await save(page);
-      await validateToast(page, "success", "Updated distro.");
+      await validateToast(page, "success", "Updated distro.", true);
 
       await page.getByTestId("user-data-input").clear();
       await clickCheckbox(mergeUserDataCheckbox);
@@ -75,7 +75,7 @@ test.describe("provider section", () => {
       );
       await clickCheckbox(mergeUserDataCheckbox);
       await save(page);
-      await validateToast(page, "success", "Updated distro.");
+      await validateToast(page, "success", "Updated distro.", true);
 
       await selectOption(page, "Image Build Method", "Import");
       await selectOption(page, "Container Pool ID", "test-pool-1");
@@ -137,7 +137,7 @@ test.describe("provider section", () => {
       await page.getByLabel("Device Name").fill("device name");
       await page.getByLabel("Size").fill("200");
       await save(page);
-      await validateToast(page, "success", "Updated distro.");
+      await validateToast(page, "success", "Updated distro.", true);
 
       await selectOption(page, "Region", "us-east-1");
       await page.getByLabel("SSH Key Name").clear();
@@ -179,7 +179,8 @@ test.describe("provider section", () => {
         .click();
       await newExpandableCard.getByLabel("Security Group ID").fill("sg-5678");
       await save(page);
-      await validateToast(page, "success", "Updated distro.");
+      await validateToast(page, "success", "Updated distro.", true);
+
       await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
         "aria-disabled",
         "true",
@@ -265,10 +266,11 @@ test.describe("provider section", () => {
       });
       await clickCheckbox(mergeUserDataCheckbox);
       await save(page);
-      await validateToast(page, "success", "Updated distro.");
+      await validateToast(page, "success", "Updated distro.", true);
+
       await clickCheckbox(mergeUserDataCheckbox);
       await save(page);
-      await validateToast(page, "success", "Updated distro.");
+      await validateToast(page, "success", "Updated distro.", true);
 
       await selectOption(page, "Region", "us-east-1");
       await page.getByLabel("EC2 AMI ID").clear();
@@ -304,7 +306,8 @@ test.describe("provider section", () => {
         .click();
       await newExpandableCard.getByLabel("Security Group ID").fill("sg-0000");
       await save(page);
-      await validateToast(page, "success", "Updated distro.");
+      await validateToast(page, "success", "Updated distro.", true);
+
       await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
         "aria-disabled",
         "true",
