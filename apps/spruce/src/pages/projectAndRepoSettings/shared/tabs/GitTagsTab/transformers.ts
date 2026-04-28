@@ -76,7 +76,7 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id: id ?? "",
+    id,
     gitTagVersionsEnabled,
     gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride
       ? gitTagAuthorizedUsers
@@ -92,11 +92,9 @@ export const formToGql = ((
     AliasNames.GitTag,
   );
 
-  const aliases = [...gitTagAliases];
-
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef,
-    aliases,
+    aliases: gitTagAliases,
   };
 }) satisfies FormToGqlFunction<Tab>;
