@@ -55,7 +55,7 @@ test.describe("Plugins", () => {
       displayName: "An external link 2",
       url: "https://example-2.com/{version_id}",
     });
-    await page.getByTestId("save-settings-button").scrollIntoViewIfNeeded();
+    await expect(page.getByTestId("metadata-link-item")).toHaveCount(2);
     await save(page);
 
     await page.goto(patchPage);

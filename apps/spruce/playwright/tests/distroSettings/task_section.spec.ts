@@ -66,13 +66,13 @@ test.describe("task section", () => {
       await validateToast(page, "success", "Updated distro.");
 
       await page.reload();
-      await expect(page.getByLabel("Task Finder Version")).toContainText(
+      await expect(page.getByTestId("finder-version-select")).toContainText(
         "Parallel",
       );
-      await expect(page.getByLabel("Task Planner Version")).toContainText(
+      await expect(page.getByTestId("planner-version-select")).toContainText(
         "Tunable",
       );
-      await expect(page.getByLabel("Task Dispatcher Version")).toContainText(
+      await expect(page.getByTestId("dispatcher-version-select")).toContainText(
         "Revised with dependencies",
       );
 

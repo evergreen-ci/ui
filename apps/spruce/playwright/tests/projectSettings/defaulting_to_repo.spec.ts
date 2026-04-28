@@ -185,10 +185,10 @@ test.describe("Project Settings when defaulting to repo", () => {
         true,
       );
 
-      await expect(page.getByTestId("promote-vars-modal")).toHaveCount(0);
       await page.getByTestId("promote-vars-button").click();
       await expect(page.getByTestId("promote-vars-modal")).toBeVisible();
 
+      await expect(page.getByTestId("promote-var-checkbox")).toHaveCount(3);
       const variableToPromoteCheckbox = page
         .getByTestId("promote-var-checkbox")
         .first();

@@ -99,6 +99,7 @@ test.describe("version/restart_modal", () => {
         "Are you sure you want to restart the 1 selected tasks?",
       );
       await modal.getByTestId("base-task-status-filter").click();
+      await expect(options).toBeVisible();
       await clickLabelForLocator(options.getByTestId("succeeded-checkbox"));
       await modal.getByTestId("base-task-status-filter").click();
     });

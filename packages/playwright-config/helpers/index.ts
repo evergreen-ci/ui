@@ -61,6 +61,7 @@ export const validateToast = async (
  * @param locator - A locator pointing to the checkbox or radio element
  */
 export const clickLabelForLocator = async (locator: Locator) => {
+  await expect(locator).toHaveAttribute("id", /.+/); // Wait for ID to be defined.
   const id = await locator.getAttribute("id");
   await locator.page().locator(`label[for="${id}"]`).click();
 };
