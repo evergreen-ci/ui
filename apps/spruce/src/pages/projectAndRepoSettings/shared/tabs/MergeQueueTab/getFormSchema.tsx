@@ -27,7 +27,7 @@ const { overrideRadioBox, radioBoxOptions } = form;
 export const getFormSchema = (
   identifier: string,
   projectType: ProjectType,
-  githubWebhooksEnabled: boolean, // kept for signature compatibility, unused
+  githubWebhooksEnabled: boolean,
   formData: MergeQueueFormState,
   githubProjectConflicts: GithubProjectConflicts,
   versionControlEnabled: boolean,

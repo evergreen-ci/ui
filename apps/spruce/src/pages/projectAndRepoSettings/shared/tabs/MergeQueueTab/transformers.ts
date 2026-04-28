@@ -62,7 +62,7 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id: id,
+    id,
     commitQueue: {
       enabled,
     },
