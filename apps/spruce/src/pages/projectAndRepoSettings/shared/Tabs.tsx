@@ -314,11 +314,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 projectId={projectId}
                 projectType={projectType}
                 repoData={tabData[ProjectSettingsTabRoutes.MergeQueue].repoData}
-                versionControlEnabled={
-                  projectData?.projectRef?.versionControlEnabled ??
-                  repoData?.projectRef?.versionControlEnabled ??
-                  false
-                }
+                versionControlEnabled={versionControlEnabled}
               />
             }
             path={ProjectSettingsTabRoutes.MergeQueue}

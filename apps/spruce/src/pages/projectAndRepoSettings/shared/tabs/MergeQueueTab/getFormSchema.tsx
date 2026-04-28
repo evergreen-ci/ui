@@ -17,6 +17,8 @@ import {
   ProjectType,
   githubConflictErrorStyling,
   sectionHasError,
+  hideIf,
+  fieldDisabled,
 } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { MergeQueueFormState } from "./types";
@@ -33,7 +35,6 @@ export const getFormSchema = (
   versionControlEnabled: boolean,
   repoData?: MergeQueueFormState,
 ): ReturnType<GetFormSchema> => {
-  const errorStyling = sectionHasError(versionControlEnabled, projectType);
   const overrideStyling = {
     "ui:widget":
       projectType === ProjectType.AttachedProject
@@ -41,6 +42,7 @@ export const getFormSchema = (
         : "hidden",
     "ui:showLabel": false,
   };
+  const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
   return {
     fields: {
@@ -176,14 +178,6 @@ export const getFormSchema = (
     },
   };
 };
-
-const fieldDisabled = (field: boolean | null, repoField: boolean | null) =>
-  field === false || (field === null && repoField === false);
-
-const hideIf = (shouldHide: boolean) =>
-  shouldHide && {
-    "ui:widget": "hidden",
-  };
 
 const GithubTriggerAliasDescription = ({
   identifier,

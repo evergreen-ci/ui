@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { Banner } from "@leafygreen-ui/banner";
+import { GithubWebhooksDisabledBanner } from "components/Banners";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
@@ -86,13 +86,7 @@ export const MergeQueueTab: React.FC<TabProps> = ({
 
   return (
     <>
-      {!githubWebhooksEnabled && (
-        <Banner data-cy="disabled-webhook-banner" variant="warning">
-          GitHub features are disabled because the Evergreen GitHub App is not
-          installed on the saved owner/repo. Contact IT to install the App and
-          enable GitHub features.
-        </Banner>
-      )}
+      {!githubWebhooksEnabled && <GithubWebhooksDisabledBanner />}
       <BaseTab
         disabled={!githubWebhooksEnabled}
         formSchema={formSchema}
