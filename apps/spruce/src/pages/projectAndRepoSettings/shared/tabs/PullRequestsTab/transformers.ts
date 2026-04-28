@@ -42,7 +42,7 @@ export const gqlToForm = ((data, options) => {
           ({ alias }) => alias === aliasName,
         ),
       )
-      .filter((a): a is NonNullable<typeof a> => Boolean(a)) ?? [];
+      .filter((a) => !!a) ?? [];
 
   return {
     github: {
@@ -71,7 +71,7 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id: id ?? "",
+    id: id,
     prTestingEnabled,
     manualPrTestingEnabled,
     oldestAllowedMergeBase,
@@ -83,11 +83,9 @@ export const formToGql = ((
     AliasNames.GithubPr,
   );
 
-  const aliases = [...githubPrAliases];
-
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef,
-    aliases,
+    aliases: githubPrAliases,
   };
 }) satisfies FormToGqlFunction<Tab>;

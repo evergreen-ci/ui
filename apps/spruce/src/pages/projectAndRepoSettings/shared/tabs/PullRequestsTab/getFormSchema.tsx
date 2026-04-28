@@ -1,4 +1,3 @@
-import { Description } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
@@ -64,9 +63,13 @@ export const getFormSchema = (
                 githubWebhooksEnabled ? "are" : "are not"
               } enabled.`,
             },
-            pullRequestSettingsTitle: {
+            prTestingEnabledTitle: {
               type: "null",
-              title: "Pull Request Settings",
+              title: "GitHub Pull Request Testing",
+              ...(projectType === ProjectType.Repo && {
+                description:
+                  "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
+              }),
             },
             prTestingEnabled: {
               type: ["boolean", "null"],
@@ -79,8 +82,6 @@ export const getFormSchema = (
             manualPrTestingEnabled: {
               type: ["boolean", "null"],
               title: "Manual Testing",
-              description:
-                "Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled; The ‘--alias’ flag is also available to allow users to overwrite the default PR configuration.",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
                 repoData?.github?.manualPrTestingEnabled ?? undefined,
@@ -117,7 +118,7 @@ export const getFormSchema = (
     uiSchema: {
       github: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        pullRequestSettingsTitle: {
+        prTestingEnabledTitle: {
           "ui:numberedTitle": true,
         },
         prTestingEnabled: {
@@ -132,6 +133,8 @@ export const getFormSchema = (
         },
         manualPrTestingEnabled: {
           "ui:data-cy": "manual-pr-testing-enabled-radio-box",
+          "ui:description":
+            "Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled; The ‘--alias’ flag is also available to allow users to overwrite the default PR configuration.",
           "ui:widget": widgets.RadioBoxWidget,
           ...githubConflictErrorStyling(
             githubProjectConflicts?.prTestingIdentifiers ?? null,
@@ -174,24 +177,7 @@ export const getFormSchema = (
             repoData?.github?.prTesting?.githubPrAliases ?? [],
             "GitHub Patch Definition",
           ),
-          "ui:description": (
-            <Description>
-              For patches created from GitHub pull requests, Evergreen will
-              schedule only the tasks and variants matching the tags/regex
-              definitions. All regular expressions must be valid Golang regular
-              expressions. These aliases can also be configured in this
-              project’s config YAML if Version Control is enabled and no aliases
-              are defined on the project or repo page.{" "}
-              <StyledLink
-                href={pullRequestAliasesDocumentationUrl}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Learn more
-              </StyledLink>
-              .
-            </Description>
-          ),
+          "ui:description": PRAliasesDescription,
           githubPrAliasesOverride: overrideStyling,
           githubPrAliases: {
             ...aliasRowUiSchema({
@@ -217,19 +203,7 @@ export const getFormSchema = (
             "No aliases are scheduled to run for pull requests.",
           "ui:readonly": true,
           "ui:removable": false,
-          "ui:description": (
-            <Description>
-              Aliases can be configured to run for pull requests on the{" "}
-              <StyledLink
-                href={pullRequestAliasesDocumentationUrl}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Patch Aliases
-              </StyledLink>{" "}
-              page.
-            </Description>
-          ),
+          "ui:description": GithubTriggerAliasDescription,
           items: {
             "ui:field": "githubTriggerAliasField",
             "ui:label": false,
@@ -239,3 +213,30 @@ export const getFormSchema = (
     },
   };
 };
+
+const PRAliasesDescription = (
+  <>
+    For patches created from GitHub pull requests, Evergreen will schedule only
+    the tasks and variants matching the tags/regex definitions. All regular
+    expressions must be valid Golang regular expressions. These aliases{" "}
+    <StyledLink href={pullRequestAliasesDocumentationUrl}>
+      may be defined
+    </StyledLink>{" "}
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
+  </>
+);
+
+const GithubTriggerAliasDescription = (
+  <>
+    Aliases can be configured to run for pull requests on the{" "}
+    <StyledLink
+      href={pullRequestAliasesDocumentationUrl}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Patch Aliases
+    </StyledLink>{" "}
+    page.
+  </>
+);
