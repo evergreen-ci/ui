@@ -68,7 +68,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   );
   const versionControlEnabled =
     projectData?.projectRef?.versionControlEnabled ??
-    repoData?.projectRef?.versionControlEnabled;
+    repoData?.projectRef?.versionControlEnabled ??
+    false;
 
   useScrollToAnchor();
   useEffect(() => {
@@ -143,7 +144,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               repoData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
               }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               versionControlEnabled={versionControlEnabled}
             />
           }
@@ -314,7 +314,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 repoData={
                   tabData[ProjectSettingsTabRoutes.PullRequests].repoData
                 }
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 versionControlEnabled={versionControlEnabled}
               />
             }
@@ -335,7 +334,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 repoData={
                   tabData[ProjectSettingsTabRoutes.CommitChecks].repoData
                 }
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 versionControlEnabled={versionControlEnabled}
               />
             }

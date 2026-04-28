@@ -20,8 +20,8 @@ const tab = ProjectSettingsTabRoutes.PullRequests;
 const getInitialFormState = (
   projectData?: PullRequestsFormState,
   repoData?: PullRequestsFormState,
-): PullRequestsFormState => {
-  if (!projectData) return repoData as PullRequestsFormState;
+): PullRequestsFormState | undefined => {
+  if (!projectData) return repoData;
   if (repoData) {
     return mergeProjectRepo(projectData, repoData);
   }
@@ -83,6 +83,7 @@ export const PullRequestsTab: React.FC<TabProps> = ({
       <BaseTab
         disabled={!githubWebhooksEnabled}
         formSchema={formSchema}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         initialFormState={initialFormState}
         tab={tab}
         validate={validateConflicts}

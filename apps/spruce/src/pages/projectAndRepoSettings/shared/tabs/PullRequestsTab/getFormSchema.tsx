@@ -5,6 +5,8 @@ import widgets from "components/SpruceForm/Widgets";
 import { pullRequestAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
 import {
+  fieldDisabled,
+  hideIf,
   alias,
   form,
   ProjectType,
@@ -16,16 +18,6 @@ import { PullRequestsFormState } from "./types";
 
 const { aliasArray, aliasRowUiSchema } = alias;
 const { overrideRadioBox, radioBoxOptions } = form;
-
-const fieldDisabled = (
-  field: boolean | null | undefined,
-  repoField: boolean | null | undefined,
-) => field === false || (field == null && repoField === false);
-
-const hideIf = (shouldHide: boolean) =>
-  shouldHide && {
-    "ui:widget": "hidden",
-  };
 
 export const getFormSchema = (
   projectType: ProjectType,
@@ -63,7 +55,7 @@ export const getFormSchema = (
                 githubWebhooksEnabled ? "are" : "are not"
               } enabled.`,
             },
-            sectionTitle: {
+            prTestingEnabledTitle: {
               type: "null",
               title: "GitHub Pull Request Testing",
               ...(projectType === ProjectType.Repo && {
@@ -118,8 +110,8 @@ export const getFormSchema = (
     uiSchema: {
       github: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        sectionTitle: {
-          "ui:numberedTitle": true,
+        prTestingEnabledTitle: {
+          "ui:sectionTitle": true,
         },
         prTestingEnabled: {
           "ui:data-cy": "pr-testing-enabled-radio-box",
@@ -149,11 +141,11 @@ export const getFormSchema = (
           "ui:optional": true,
           ...hideIf(
             fieldDisabled(
-              formData?.github?.prTestingEnabled,
+              formData?.github?.prTestingEnabled ?? null,
               repoData?.github?.prTestingEnabled ?? null,
             ) &&
               fieldDisabled(
-                formData?.github?.manualPrTestingEnabled,
+                formData?.github?.manualPrTestingEnabled ?? null,
                 repoData?.github?.manualPrTestingEnabled ?? null,
               ),
           ),
@@ -161,11 +153,11 @@ export const getFormSchema = (
         prTesting: {
           ...hideIf(
             fieldDisabled(
-              formData?.github?.prTestingEnabled,
+              formData?.github?.prTestingEnabled ?? null,
               repoData?.github?.prTestingEnabled ?? null,
             ) &&
               fieldDisabled(
-                formData?.github?.manualPrTestingEnabled,
+                formData?.github?.manualPrTestingEnabled ?? null,
                 repoData?.github?.manualPrTestingEnabled ?? null,
               ),
           ),

@@ -4,8 +4,9 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { githubChecksAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
-import { fieldDisabled, hideIf } from "../BaseTab";
 import {
+  fieldDisabled,
+  hideIf,
   alias,
   form,
   ProjectType,
