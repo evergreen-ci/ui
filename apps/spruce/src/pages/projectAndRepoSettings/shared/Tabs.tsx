@@ -12,6 +12,7 @@ import { AppSettingsTab } from "./tabs/GithubAppSettingsTab/AppSettingsTab";
 import { PermissionGroupsTab } from "./tabs/GithubPermissionGroupsTab/PermissionGroupsTab";
 import {
   AccessTab,
+  CommitChecksTab,
   EventLogTab,
   GeneralTab,
   GithubCommitQueueTab,
@@ -19,8 +20,9 @@ import {
   PatchAliasesTab,
   PeriodicBuildsTab,
   ProjectTriggersTab,
-  VariablesTab,
   PluginsTab,
+  PullRequestsTab,
+  VariablesTab,
   ViewsAndFiltersTab,
   VirtualWorkstationTab,
   MergeQueueTab,
@@ -65,6 +67,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   const githubWebhooksEnabled = !!(
     projectData?.githubWebhooksEnabled || repoData?.githubWebhooksEnabled
   );
+  const versionControlEnabled =
+    projectData?.projectRef?.versionControlEnabled ??
+    repoData?.projectRef?.versionControlEnabled ??
+    false;
 
   useScrollToAnchor();
   useEffect(() => {
@@ -139,11 +145,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               repoData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
               }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              versionControlEnabled={
-                projectData?.projectRef?.versionControlEnabled ??
-                repoData?.projectRef?.versionControlEnabled
-              }
+              versionControlEnabled={versionControlEnabled}
             />
           }
           path={ProjectSettingsTabRoutes.GithubCommitQueue}
@@ -320,6 +322,45 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               />
             }
             path={ProjectSettingsTabRoutes.MergeQueue}
+          />
+        )}
+        {showNewProjectNavigation && (
+          <Route
+            element={
+              <PullRequestsTab
+                githubWebhooksEnabled={githubWebhooksEnabled}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.PullRequests].projectData
+                }
+                projectId={projectId}
+                projectType={projectType}
+                repoData={
+                  tabData[ProjectSettingsTabRoutes.PullRequests].repoData
+                }
+                versionControlEnabled={versionControlEnabled}
+              />
+            }
+            path={ProjectSettingsTabRoutes.PullRequests}
+          />
+        )}
+        {showNewProjectNavigation && (
+          <Route
+            element={
+              <CommitChecksTab
+                githubWebhooksEnabled={githubWebhooksEnabled}
+                identifier={identifier || repoId}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.CommitChecks].projectData
+                }
+                projectId={projectId}
+                projectType={projectType}
+                repoData={
+                  tabData[ProjectSettingsTabRoutes.CommitChecks].repoData
+                }
+                versionControlEnabled={versionControlEnabled}
+              />
+            }
+            path={ProjectSettingsTabRoutes.CommitChecks}
           />
         )}
         <Route

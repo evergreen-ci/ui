@@ -1,14 +1,16 @@
 export { AccessTab } from "./AccessTab/AccessTab";
+export { CommitChecksTab } from "./CommitChecksTab/CommitChecksTab";
 export { EventLogTab } from "./EventLogTab/EventLogTab";
 export { GeneralTab } from "./GeneralTab/GeneralTab";
 export { GithubCommitQueueTab } from "./GithubCommitQueueTab/GithubCommitQueueTab";
 export { NotificationsTab } from "./NotificationsTab/NotificationsTab";
+export { MergeQueueTab } from "./MergeQueueTab/MergeQueueTab";
 export { PatchAliasesTab } from "./PatchAliasesTab/PatchAliasesTab";
 export { PeriodicBuildsTab } from "./PeriodicBuildsTab/PeriodicBuildsTab";
 export { PluginsTab } from "./PluginsTab/PluginsTab";
+export { PullRequestsTab } from "./PullRequestsTab/PullRequestsTab";
 export { ProjectTriggersTab } from "./ProjectTriggersTab/ProjectTriggersTab";
 export { VariablesTab } from "./VariablesTab/VariablesTab";
 export { ViewsAndFiltersTab } from "./ViewsAndFiltersTab/ViewsAndFiltersTab";
 export { VirtualWorkstationTab } from "./VirtualWorkstationTab/VirtualWorkstationTab";
-export { MergeQueueTab } from "./MergeQueueTab/MergeQueueTab";
 export { TestSelectionTab } from "./TestSelectionTab/TestSelectionTab";

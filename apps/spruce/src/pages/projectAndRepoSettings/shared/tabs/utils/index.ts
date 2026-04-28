@@ -13,4 +13,6 @@ export {
   sectionHasError,
   getVersionControlError,
   githubConflictErrorStyling,
+  fieldDisabled,
+  hideIf,
 } from "./github";

@@ -3,12 +3,11 @@ import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/li
 import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { LogContextProvider } from "context/LogContext";
 import { Task } from "gql/generated/types";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import { evergreenTaskMock } from "test_data/task";
 import { useTaskQuery } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[parsleySettingsMock, evergreenTaskMock]}>
+  <MockedProvider mocks={[evergreenTaskMock]}>
     <MemoryRouter initialEntries={["/"]}>
       <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
     </MemoryRouter>

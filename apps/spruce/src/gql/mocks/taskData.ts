@@ -129,6 +129,7 @@ export const taskQuery: TaskQueryType = {
       projectIdentifier: "spruce",
       revision: "123j9123u9123",
     },
+    taskCost: null,
     testSelectionEnabled: false,
   },
 };
