@@ -68,7 +68,7 @@ test.describe("Repo Settings", () => {
       }) => {
         const githubChecksEnabledRadio = page
           .getByTestId("github-checks-enabled-radio-box")
-          .getByRole("checkbox", { name: "Enabled" });
+          .getByRole("radio", { name: "Enabled" });
         await clickRadio(githubChecksEnabledRadio);
         const errorBanner = page.getByTestId("error-banner").filter({
           hasText:
@@ -77,7 +77,7 @@ test.describe("Repo Settings", () => {
         await expect(errorBanner).toBeVisible();
         const githubChecksDisabledRadio = page
           .getByTestId("github-checks-enabled-radio-box")
-          .getByRole("checkbox", { name: "Disabled" });
+          .getByRole("radio", { name: "Disabled" });
         await clickRadio(githubChecksDisabledRadio);
         await expect(errorBanner).toHaveCount(0);
       });
@@ -147,7 +147,7 @@ test.describe("Repo Settings", () => {
 
         const mergeQueueEnabledRadio = page
           .getByTestId("cq-enabled-radio-box")
-          .getByRole("checkbox", { name: "Enabled" });
+          .getByRole("radio", { name: "Enabled" });
         await clickRadio(mergeQueueEnabledRadio);
 
         await expect(
@@ -169,7 +169,7 @@ test.describe("Repo Settings", () => {
       }) => {
         const mergeQueueEnabledRadio = page
           .getByTestId("cq-enabled-radio-box")
-          .getByRole("checkbox", { name: "Enabled" });
+          .getByRole("radio", { name: "Enabled" });
         await clickRadio(mergeQueueEnabledRadio);
         await expect(page.getByTestId("cq-override-radio-box")).toHaveCount(0);
       });
@@ -179,7 +179,7 @@ test.describe("Repo Settings", () => {
       }) => {
         const mergeQueueEnabledRadio = page
           .getByTestId("cq-enabled-radio-box")
-          .getByRole("checkbox", { name: "Enabled" });
+          .getByRole("radio", { name: "Enabled" });
         await clickRadio(mergeQueueEnabledRadio);
         await page
           .getByRole("button", { name: "Add Patch Definition" })
@@ -297,17 +297,15 @@ test.describe("Repo Settings", () => {
       await page.getByTestId("variant-regex-input").fill(".*");
       await page.getByTestId("task-regex-input").fill(".*");
 
-      const githubPRLabel = "Schedule in GitHub Pull Requests";
       const pullRequestCheckbox = page.getByRole("checkbox", {
-        name: githubPRLabel,
+        name: "Schedule in GitHub Pull Requests",
       });
       await expect(pullRequestCheckbox).not.toBeChecked();
       await clickRadio(pullRequestCheckbox);
       await expect(pullRequestCheckbox).toBeChecked();
 
-      const githubMQLabel = "Schedule in GitHub Merge Queue";
       const mergeQueueCheckbox = page.getByRole("checkbox", {
-        name: githubMQLabel,
+        name: "Schedule in GitHub Merge Queue",
       });
       await expect(mergeQueueCheckbox).not.toBeChecked();
       await clickRadio(mergeQueueCheckbox);

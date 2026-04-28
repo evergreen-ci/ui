@@ -56,10 +56,10 @@ test.describe("A project that has GitHub webhooks enabled", () => {
     authenticatedPage: page,
   }) => {
     const radioBox = page.getByTestId("github-checks-enabled-radio-box");
-    const githubChecksEnabledRadio = radioBox.getByRole("checkbox", {
+    const githubChecksEnabledRadio = radioBox.getByRole("radio", {
       name: "Enabled",
     });
-    const githubChecksDisabledRadio = radioBox.getByRole("checkbox", {
+    const githubChecksDisabledRadio = radioBox.getByRole("radio", {
       name: "Disabled",
     });
 
@@ -77,7 +77,7 @@ test.describe("A project that has GitHub webhooks enabled", () => {
     authenticatedPage: page,
   }) => {
     const radioBox = page.getByTestId("github-checks-enabled-radio-box");
-    const githubChecksEnabledRadio = radioBox.getByRole("checkbox", {
+    const githubChecksEnabledRadio = radioBox.getByRole("radio", {
       name: "Enabled",
     });
     await clickRadio(githubChecksEnabledRadio);
