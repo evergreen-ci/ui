@@ -44,7 +44,7 @@ describe("A project that has GitHub webhooks enabled", () => {
     cy.contains(
       "A Git Tag Version Definition must be specified for this feature to run.",
     ).as("errorBanner");
-    cy.dataCy("errorBanner").should("be.visible");
+    cy.dataCy("error-banner").should("be.visible");
 
     cy.dataCy("add-button").contains("Add Git Tag").parent().click();
     cy.dataCy("git-tag-input").type("v*");
