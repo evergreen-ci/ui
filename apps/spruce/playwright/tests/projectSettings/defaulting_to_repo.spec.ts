@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickCheckbox, clickRadio, validateToast } from "../../helpers";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
@@ -158,8 +158,8 @@ test.describe("Project Settings when defaulting to repo", () => {
       await page
         .getByTestId("var-description-input")
         .fill("Description for variable a");
-      const privateCheckbox = page.getByTestId("var-private-input");
-      await clickLabelForLocator(privateCheckbox);
+      const privateCheckbox = page.getByRole("checkbox", { name: "Private" });
+      await clickCheckbox(privateCheckbox);
 
       await page.getByTestId("add-button").click();
       await page.getByTestId("var-name-input").first().fill("b");
@@ -192,7 +192,7 @@ test.describe("Project Settings when defaulting to repo", () => {
       const variableToPromoteCheckbox = page
         .getByTestId("promote-var-checkbox")
         .first();
-      await clickLabelForLocator(variableToPromoteCheckbox);
+      await clickCheckbox(variableToPromoteCheckbox);
 
       await page.getByRole("button", { name: "Move 1 variable" }).click();
       await validateToast(
@@ -260,8 +260,8 @@ test.describe("Project Settings when defaulting to repo", () => {
         .scrollIntoViewIfNeeded();
       const enabledRadio = page
         .getByTestId("github-checks-enabled-radio-box")
-        .getByLabel("Enabled");
-      await clickLabelForLocator(enabledRadio);
+        .getByRole("radio", { name: "Enabled" });
+      await clickRadio(enabledRadio);
       await expect(
         page.getByTestId("warning-banner").filter({
           hasText:
@@ -301,16 +301,16 @@ test.describe("Project Settings when defaulting to repo", () => {
     }) => {
       const prDisabledRadio = page
         .getByTestId("pr-testing-enabled-radio-box")
-        .getByLabel("Disabled", { exact: true });
-      await clickLabelForLocator(prDisabledRadio);
+        .getByRole("radio", { name: "Disabled" });
+      await clickRadio(prDisabledRadio);
       const manualDisabledRadio = page
         .getByTestId("manual-pr-testing-enabled-radio-box")
-        .getByLabel("Disabled", { exact: true });
-      await clickLabelForLocator(manualDisabledRadio);
+        .getByRole("radio", { name: "Disabled" });
+      await clickRadio(manualDisabledRadio);
       const githubEnabledRadio = page
         .getByTestId("github-checks-enabled-radio-box")
-        .getByLabel("Enabled", { exact: true });
-      await clickLabelForLocator(githubEnabledRadio);
+        .getByRole("radio", { name: "Enabled" });
+      await clickRadio(githubEnabledRadio);
       await save(page);
       await validateToast(
         page,
@@ -382,13 +382,14 @@ test.describe("Project Settings when defaulting to repo", () => {
     test("Patch aliases added before defaulting to repo patch aliases are cleared", async ({
       authenticatedPage: page,
     }) => {
-      const overrideRepoPatchAliasesRadio = page.getByLabel(
-        "Override Repo Patch Aliases",
+      const overrideRepoPatchAliasesRadio = page.getByRole("radio", {
+        name: "Override Repo Patch Aliases",
+      });
+      await clickRadio(overrideRepoPatchAliasesRadio);
+      await expect(overrideRepoPatchAliasesRadio).toHaveAttribute(
+        "aria-checked",
+        "true",
       );
-      await clickLabelForLocator(overrideRepoPatchAliasesRadio);
-      await expect(
-        page.getByLabel("Override Repo Patch Aliases"),
-      ).toHaveAttribute("aria-checked", "true");
       await expectSaveButtonEnabled(page, false);
 
       await page
@@ -413,15 +414,15 @@ test.describe("Project Settings when defaulting to repo", () => {
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
 
-      const defaultToRepoRadio = page.getByLabel(
-        "Default to Repo Patch Aliases",
-      );
-      await clickLabelForLocator(defaultToRepoRadio);
+      const defaultToRepoRadio = page.getByRole("radio", {
+        name: "Default to Repo Patch Aliases",
+      });
+      await clickRadio(defaultToRepoRadio);
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
       await expectSaveButtonEnabled(page, false);
 
-      await clickLabelForLocator(overrideRepoPatchAliasesRadio);
+      await clickRadio(overrideRepoPatchAliasesRadio);
       await expect(page.getByTestId("alias-row")).toHaveCount(0);
     });
   });
@@ -432,15 +433,17 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Enable git clone", async ({ authenticatedPage: page }) => {
-      const githubEnabledRadio = page.getByLabel("Enabled");
-      await clickLabelForLocator(githubEnabledRadio);
-      await expect(page.getByLabel("Enabled")).toBeChecked();
+      const githubEnabledRadio = page.getByRole("radio", { name: "Enabled" });
+      await clickRadio(githubEnabledRadio);
+      await expect(githubEnabledRadio).toBeChecked();
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
     });
 
     test("Add commands", async ({ authenticatedPage: page }) => {
-      const defaultToRepoRadio = page.getByLabel("Default to repo (disabled)");
+      const defaultToRepoRadio = page.getByRole("radio", {
+        name: "Default to repo (disabled)",
+      });
       await expect(defaultToRepoRadio).toBeChecked();
       await expect(page.getByTestId("command-row")).toHaveCount(0);
 
@@ -466,10 +469,10 @@ test.describe("Project Settings when defaulting to repo", () => {
       await expect(repoCommandInput).toHaveValue("a repo command");
       await expect(repoCommandInput).toHaveAttribute("aria-disabled", "true");
 
-      const overrideRepoCommandsRadio = page.getByLabel(
-        "Override Repo Commands",
-      );
-      await clickLabelForLocator(overrideRepoCommandsRadio);
+      const overrideRepoCommandsRadio = page.getByRole("radio", {
+        name: "Override Repo Commands",
+      });
+      await clickRadio(overrideRepoCommandsRadio);
 
       await expect(page.getByTestId("command-row")).toHaveCount(0);
       await page.getByRole("button", { name: "Add Command" }).click();
@@ -488,27 +491,27 @@ test.describe("Project Settings when defaulting to repo", () => {
         "false",
       );
 
-      const defaultToRepoCommandsRadio = page.getByLabel(
-        "Default to repo commands",
-      );
-      await clickLabelForLocator(defaultToRepoCommandsRadio);
+      const defaultToRepoCommandsRadio = page.getByRole("radio", {
+        name: "Default to repo (disabled)",
+      });
+      await clickRadio(defaultToRepoCommandsRadio);
       await expect(page.getByTestId("command-row")).toHaveCount(1);
       await expect(repoCommandInput).toHaveValue("a repo command");
       await expect(repoCommandInput).toHaveAttribute("aria-disabled", "true");
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
 
-      await clickLabelForLocator(overrideRepoCommandsRadio);
+      await clickRadio(overrideRepoCommandsRadio);
       await expect(page.getByTestId("command-row")).toHaveCount(0);
     });
 
     test("Allows overriding without adding a command", async ({
       authenticatedPage: page,
     }) => {
-      const overrideRepoCommandsRadio = page.getByLabel(
-        "Override Repo Commands",
-      );
-      await clickLabelForLocator(overrideRepoCommandsRadio);
+      const overrideRepoCommandsRadio = page.getByRole("radio", {
+        name: "Override Repo Commands",
+      });
+      await clickRadio(overrideRepoCommandsRadio);
       await expect(overrideRepoCommandsRadio).toBeChecked();
       await save(page);
       await validateToast(page, "success", "Successfully updated project");

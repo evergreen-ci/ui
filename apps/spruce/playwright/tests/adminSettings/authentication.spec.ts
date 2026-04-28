@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("authentication", () => {
@@ -18,8 +18,10 @@ test.describe("authentication", () => {
     await page.getByTestId("navitem-admin-global-config").click();
 
     // Global Config section.
-    const allowServiceUsersCheckbox = page.getByLabel("Allow Service Users");
-    await clickLabelForLocator(allowServiceUsersCheckbox);
+    const allowServiceUsersCheckbox = page.getByRole("checkbox", {
+      name: "Allow Service Users",
+    });
+    await clickCheckbox(allowServiceUsersCheckbox);
 
     await page.getByLabel("Background Reauthentication (Mins)").clear();
     await page.getByLabel("Background Reauthentication (Mins)").fill("120");
@@ -73,15 +75,19 @@ test.describe("authentication", () => {
     // Multi read-write section.
     await page.getByTestId("multi-read-write").click();
     const multiReadWriteOptions = page.getByTestId("multi-read-write-options");
-    const oktaCheckbox = multiReadWriteOptions.getByLabel("Okta");
-    await clickLabelForLocator(oktaCheckbox);
+    const oktaCheckbox = multiReadWriteOptions.getByRole("checkbox", {
+      name: "Okta",
+    });
+    await clickCheckbox(oktaCheckbox);
     await page.getByTestId("multi-read-write").click();
 
     // Multi read-only section.
     await page.getByTestId("multi-read-only").click();
     const multiReadOnlyOptions = page.getByTestId("multi-read-only-options");
-    const naiveCheckbox = multiReadOnlyOptions.getByLabel("Naive");
-    await clickLabelForLocator(naiveCheckbox);
+    const naiveCheckbox = multiReadOnlyOptions.getByRole("checkbox", {
+      name: "Naive",
+    });
+    await clickCheckbox(naiveCheckbox);
     await page.getByTestId("multi-read-only").click();
 
     // Kanopy section.

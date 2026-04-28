@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("admin settings save properly", () => {
@@ -47,9 +47,10 @@ test.describe("admin settings save properly", () => {
     await page.getByLabel("Permanently Exempt Hosts").press("Enter");
 
     const tracerConfiguration = page.getByTestId("tracer-configuration");
-    const tracerEnabledCheckbox =
-      tracerConfiguration.getByLabel("Enable tracer");
-    await clickLabelForLocator(tracerEnabledCheckbox);
+    const tracerEnabledCheckbox = tracerConfiguration.getByRole("checkbox", {
+      name: "Enable tracer",
+    });
+    await clickCheckbox(tracerEnabledCheckbox);
     await tracerConfiguration.getByLabel("Collector Endpoint").clear();
     await tracerConfiguration
       .getByLabel("Collector Endpoint")

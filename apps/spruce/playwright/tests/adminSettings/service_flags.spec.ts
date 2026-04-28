@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("service flags", () => {
@@ -27,7 +27,7 @@ test.describe("service flags", () => {
     const checkboxId = await uncheckedCheckbox.getAttribute("id");
     const checkbox = page.locator(`#${checkboxId}`);
 
-    await clickLabelForLocator(checkbox);
+    await clickCheckbox(checkbox);
 
     // Verify checked count increased.
     await expect(checkedCheckboxes).toHaveCount(initialCheckedCount + 1);
@@ -38,7 +38,7 @@ test.describe("service flags", () => {
     );
 
     // Uncheck it again.
-    await clickLabelForLocator(checkbox);
+    await clickCheckbox(checkbox);
     await expect(checkedCheckboxes).toHaveCount(initialCheckedCount);
     await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
       "aria-disabled",
@@ -46,7 +46,7 @@ test.describe("service flags", () => {
     );
 
     // Re-check and save.
-    await clickLabelForLocator(checkbox);
+    await clickCheckbox(checkbox);
     await save(page);
     await validateToast(page, "success", "Service flags saved successfully");
     await page.reload();
@@ -55,7 +55,7 @@ test.describe("service flags", () => {
     await expect(checkedCheckboxes).toHaveCount(initialCheckedCount + 1);
 
     // Restore original state.
-    await clickLabelForLocator(checkbox);
+    await clickCheckbox(checkbox);
     await save(page);
     await validateToast(page, "success", "Service flags saved successfully");
   });

@@ -1,7 +1,7 @@
 import { test, expect } from "../../fixtures";
 import {
   clearDatePickerInput,
-  clickLabelForLocator,
+  clickCheckbox,
   typeDatePickerDate,
 } from "../../helpers";
 
@@ -223,8 +223,10 @@ test.describe("Spawn Host page", () => {
       await expect(page.getByText(projectSetupCheckbox)).toBeVisible();
       await expect(page.getByText(startHostsCheckbox)).toBeVisible();
 
-      const loadDataCheckbox = page.getByTestId("load-data-checkbox");
-      await clickLabelForLocator(loadDataCheckbox);
+      const loadDataCheckbox = page.getByRole("checkbox", {
+        name: "Load data for dist",
+      });
+      await clickCheckbox(loadDataCheckbox);
       await expect(loadDataCheckbox).not.toBeChecked();
       await expect(page.getByText(projectSetupCheckbox)).toHaveCount(0);
       await expect(page.getByText(startHostsCheckbox)).toHaveCount(0);
@@ -307,18 +309,22 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      const projectCheckbox = page.getByTestId("project-setup-script-checkbox");
-      const setupCheckbox = page.getByTestId("setup-script-checkbox");
+      const projectCheckbox = page.getByRole("checkbox", {
+        name: "Use project-specific setup script",
+      });
+      const setupCheckbox = page.getByRole("checkbox", {
+        name: "Define setup script to run after host",
+      });
 
       await expect(projectCheckbox).toHaveAttribute("aria-checked", "true");
       await expect(projectCheckbox).toHaveAttribute("aria-disabled", "false");
       await expect(setupCheckbox).toHaveAttribute("aria-disabled", "true");
 
-      await clickLabelForLocator(projectCheckbox);
+      await clickCheckbox(projectCheckbox);
       await expect(projectCheckbox).toHaveAttribute("aria-disabled", "false");
       await expect(setupCheckbox).toHaveAttribute("aria-disabled", "false");
 
-      await clickLabelForLocator(setupCheckbox);
+      await clickCheckbox(setupCheckbox);
       await expect(projectCheckbox).toHaveAttribute("aria-disabled", "true");
       await expect(setupCheckbox).toHaveAttribute("aria-disabled", "false");
     });

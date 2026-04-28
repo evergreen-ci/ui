@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("other", () => {
@@ -330,9 +330,10 @@ test.describe("other", () => {
     );
 
     const tracerConfiguration = page.getByTestId("tracer-configuration");
-    const tracerEnabledCheckbox =
-      tracerConfiguration.getByLabel("Enable tracer");
-    await clickLabelForLocator(tracerEnabledCheckbox);
+    const tracerEnabledCheckbox = tracerConfiguration.getByRole("checkbox", {
+      name: "Enable tracer",
+    });
+    await clickCheckbox(tracerEnabledCheckbox);
 
     await page.getByLabel("Collector Endpoint").clear();
     await page

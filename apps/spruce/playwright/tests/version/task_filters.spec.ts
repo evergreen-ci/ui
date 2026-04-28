@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator } from "../../helpers";
+import { clickCheckbox } from "../../helpers";
 
 const patch = { id: "5e4ff3abe3c3317e352062e4" };
 const pathTasks = `/version/${patch.id}/tasks`;
@@ -129,11 +129,15 @@ test.describe("Tasks filters", () => {
       authenticatedPage: page,
     }) => {
       const options = page.getByTestId("tree-select-options");
-      await clickLabelForLocator(options.getByTestId("failed-checkbox"));
+      const failedCheckbox = options.getByRole("checkbox", { name: "Failed" });
+      await clickCheckbox(failedCheckbox);
       await expect(page).toHaveURL(/statuses=failed/);
       await waitForTaskTable(page);
       await expect(page.getByTestId("filtered-count")).toHaveText("2");
-      await clickLabelForLocator(options.getByTestId("succeeded-checkbox"));
+      const succeededCheckbox = options.getByRole("checkbox", {
+        name: "Succeeded",
+      });
+      await clickCheckbox(succeededCheckbox);
       await expect(page).toHaveURL(
         /statuses=failed-umbrella,failed,known-issue,success/,
       );
@@ -153,7 +157,8 @@ test.describe("Tasks filters", () => {
         "Dispatched",
         "Blocked",
       ];
-      await clickLabelForLocator(page.getByTestId("all-checkbox"));
+      const allCheckbox = page.getByRole("checkbox", { name: "All" });
+      await clickCheckbox(allCheckbox);
       for (const label of taskStatuses) {
         const checkbox = page.getByRole("checkbox", { name: label }).first();
         await expect(checkbox).toBeChecked();
@@ -161,7 +166,7 @@ test.describe("Tasks filters", () => {
       await expect(page).toHaveURL(/statuses=all/);
       await waitForTaskTable(page);
 
-      await clickLabelForLocator(page.getByTestId("all-checkbox"));
+      await clickCheckbox(allCheckbox);
       for (const label of taskStatuses) {
         const checkbox = page.getByRole("checkbox", { name: label }).first();
         await expect(checkbox).not.toBeChecked();
@@ -183,12 +188,15 @@ test.describe("Tasks filters", () => {
     test("Clicking on a base status filter filters the tasks to only those base statuses", async ({
       authenticatedPage: page,
     }) => {
-      await clickLabelForLocator(page.getByTestId("succeeded-checkbox"));
+      const succeededCheckbox = page.getByRole("checkbox", {
+        name: "Succeeded",
+      });
+      await clickCheckbox(succeededCheckbox);
       await expect(page).toHaveURL(/baseStatuses=success/);
       await waitForTaskTable(page);
       await expect(page.getByTestId("filtered-count")).toHaveText("44");
 
-      await clickLabelForLocator(page.getByTestId("succeeded-checkbox"));
+      await clickCheckbox(succeededCheckbox);
       await expect(page).not.toHaveURL(/baseStatuses/);
       await waitForTaskTable(page);
       await expect(page.getByTestId("filtered-count")).toHaveText("47");
@@ -198,14 +206,15 @@ test.describe("Tasks filters", () => {
       authenticatedPage: page,
     }) => {
       const taskStatuses = ["All", "Succeeded", "Running"];
-      await clickLabelForLocator(page.getByTestId("all-checkbox"));
+      const allCheckbox = page.getByRole("checkbox", { name: "All" });
+      await clickCheckbox(allCheckbox);
       for (const label of taskStatuses) {
         await expect(page.getByRole("checkbox", { name: label })).toBeChecked();
       }
       await expect(page).toHaveURL(/baseStatuses=all/);
       await waitForTaskTable(page);
 
-      await clickLabelForLocator(page.getByTestId("all-checkbox"));
+      await clickCheckbox(allCheckbox);
       for (const label of taskStatuses) {
         await expect(
           page.getByRole("checkbox", { name: label }),

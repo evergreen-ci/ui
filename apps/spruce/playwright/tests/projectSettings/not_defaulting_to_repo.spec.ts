@@ -4,7 +4,7 @@ import {
   validateDatePickerDate,
   clearDatePickerInput,
   typeDatePickerDate,
-  clickLabelForLocator,
+  clickCheckbox,
 } from "../../helpers";
 import { getProjectSettingsRoute, project } from "./constants";
 import { expectSaveButtonEnabled, save } from "./utils";
@@ -146,8 +146,10 @@ test.describe("Project Settings when not defaulting to repo", () => {
       await page.getByTestId("add-button").click();
       await page.getByTestId("var-name-input").first().fill("admin_var");
       await page.getByTestId("var-value-input").first().fill("admin_value");
-      const adminOnlyCheckbox = page.getByTestId("var-admin-input");
-      await clickLabelForLocator(adminOnlyCheckbox);
+      const adminOnlyCheckbox = page.getByRole("checkbox", {
+        name: "Admin Only",
+      });
+      await clickCheckbox(adminOnlyCheckbox);
       await expect(page.getByTestId("var-admin-input")).toBeChecked();
       await save(page);
       await validateToast(page, "success", "Successfully updated project");

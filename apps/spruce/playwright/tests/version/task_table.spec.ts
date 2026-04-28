@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator } from "../../helpers";
+import { clickCheckbox } from "../../helpers";
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
 const patchDescriptionTasksExist = "dist";
@@ -158,45 +158,44 @@ test.describe("Task table", () => {
   });
 
   test.describe("task review", () => {
-    // Clicks the label associated with a reviewed checkbox (the input itself is hidden).
-    const clickReviewed = async (page: Page, testId: string) => {
-      await clickLabelForLocator(page.getByTestId(testId));
-    };
-
     test("marks tasks as viewed and preserves their state on reload", async ({
       authenticatedPage: page,
     }) => {
       await page.goto(pathTasks);
-      await clickReviewed(page, `reviewed-${firstTaskId}`);
-      await expect(page.getByTestId(`reviewed-${firstTaskId}`)).toBeChecked();
+      const firstTaskCheckbox = page.getByRole("checkbox", {
+        name: firstTaskId,
+      });
+      await clickCheckbox(firstTaskCheckbox);
+      await expect(firstTaskCheckbox).toBeChecked();
 
       await page.getByRole("button", { name: "Expand row" }).click();
       await expect(
         page.getByTestId(`reviewed-${executionTaskId1}`),
       ).toHaveAttribute("aria-disabled", "true");
-      await clickReviewed(page, `reviewed-${executionTaskId2}`);
-      await expect(page.getByTestId(`reviewed-${displayTaskId}`)).toBeChecked();
-      await clickReviewed(page, `reviewed-${displayTaskId}`);
-      await expect(
-        page.getByTestId(`reviewed-${displayTaskId}`),
-      ).not.toBeChecked();
-      await expect(
-        page.getByTestId(`reviewed-${executionTaskId2}`),
-      ).not.toBeChecked();
-      await clickReviewed(page, `reviewed-${displayTaskId}`);
-      await expect(page.getByTestId(`reviewed-${displayTaskId}`)).toBeChecked();
-      await expect(
-        page.getByTestId(`reviewed-${executionTaskId2}`),
-      ).toBeChecked();
+
+      const executionTask2Checkbox = page.getByRole("checkbox", {
+        name: executionTaskId2,
+      });
+      await clickCheckbox(executionTask2Checkbox);
+      await expect(executionTask2Checkbox).toBeChecked();
+
+      const displayTaskCheckbox = page.getByRole("checkbox", {
+        name: displayTaskId,
+      });
+      await clickCheckbox(displayTaskCheckbox);
+      await expect(displayTaskCheckbox).not.toBeChecked();
+      await expect(executionTask2Checkbox).not.toBeChecked();
+
+      await clickCheckbox(displayTaskCheckbox);
+      await expect(displayTaskCheckbox).toBeChecked();
+      await expect(executionTask2Checkbox).toBeChecked();
 
       await page.reload();
 
-      await expect(page.getByTestId(`reviewed-${firstTaskId}`)).toBeChecked();
-      await expect(page.getByTestId(`reviewed-${displayTaskId}`)).toBeChecked();
+      await expect(firstTaskCheckbox).toBeChecked();
+      await expect(displayTaskCheckbox).toBeChecked();
       await page.getByRole("button", { name: "Expand row" }).click();
-      await expect(
-        page.getByTestId(`reviewed-${executionTaskId2}`),
-      ).toBeChecked();
+      await expect(executionTask2Checkbox).toBeChecked();
     });
 
     test.describe("announcement tooltip", () => {

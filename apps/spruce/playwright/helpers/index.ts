@@ -166,6 +166,7 @@ export {
   login,
   logout,
   clickCheckbox,
+  clickRadio,
   mockGraphQLResponse,
   hasOperationName,
 } from "@evg-ui/playwright-config/helpers";

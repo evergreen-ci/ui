@@ -1,9 +1,5 @@
 import { test, expect } from "../../fixtures";
-import {
-  clickLabelForLocator,
-  selectOption,
-  validateToast,
-} from "../../helpers";
+import { clickCheckbox, selectOption, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("background processing", () => {
@@ -33,10 +29,10 @@ test.describe("background processing", () => {
     await page.getByLabel("Redact Keys").fill("aNewRedactedKey");
     await page.getByLabel("Redact Keys").press("Enter");
 
-    const asyncBufferCheckbox = page.getByLabel(
-      "Use asynchronous buffered logger",
-    );
-    await clickLabelForLocator(asyncBufferCheckbox);
+    const asyncBufferCheckbox = page.getByRole("checkbox", {
+      name: "Use asynchronous buffered logger",
+    });
+    await clickCheckbox(asyncBufferCheckbox);
 
     // Notification Rate Limits section.
     await page.getByLabel("Time Interval (secs)", { exact: true }).clear();

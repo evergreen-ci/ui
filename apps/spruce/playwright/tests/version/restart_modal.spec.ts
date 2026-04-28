@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 
 const path = "/version/5ecedafb562343215a7ff297";
 
@@ -73,7 +73,9 @@ test.describe("version/restart_modal", () => {
       await page.getByTestId("task-status-filter").click();
       const options = page.getByTestId("tree-select-options");
       await expect(options).toBeVisible();
-      await clickLabelForLocator(options.getByTestId("all-checkbox"));
+
+      const allCheckbox = options.getByRole("checkbox", { name: "All" });
+      await clickCheckbox(allCheckbox);
       await page.getByTestId("task-status-filter").click();
 
       await expect(page.getByTestId("version-restart-modal")).toContainText(
@@ -81,7 +83,7 @@ test.describe("version/restart_modal", () => {
       );
       await page.getByTestId("task-status-filter").click();
       await expect(options).toBeVisible();
-      await clickLabelForLocator(options.getByTestId("all-checkbox"));
+      await clickCheckbox(allCheckbox);
       await page.getByTestId("task-status-filter").click();
     });
 
@@ -92,7 +94,10 @@ test.describe("version/restart_modal", () => {
       await modal.getByTestId("base-task-status-filter").click();
       const options = page.getByTestId("tree-select-options");
       await expect(options).toBeVisible();
-      await clickLabelForLocator(options.getByTestId("succeeded-checkbox"));
+      const succeededCheckbox = options.getByRole("checkbox", {
+        name: "Succeeded",
+      });
+      await clickCheckbox(succeededCheckbox);
       await modal.getByTestId("base-task-status-filter").click();
 
       await expect(modal.getByTestId("confirmation-message")).toContainText(
@@ -100,7 +105,7 @@ test.describe("version/restart_modal", () => {
       );
       await modal.getByTestId("base-task-status-filter").click();
       await expect(options).toBeVisible();
-      await clickLabelForLocator(options.getByTestId("succeeded-checkbox"));
+      await clickCheckbox(succeededCheckbox);
       await modal.getByTestId("base-task-status-filter").click();
     });
 

@@ -1,9 +1,5 @@
 import { test, expect } from "../../fixtures";
-import {
-  clickLabelForLocator,
-  selectOption,
-  validateToast,
-} from "../../helpers";
+import { clickCheckbox, selectOption, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("provider section", () => {
@@ -21,9 +17,10 @@ test.describe("provider section", () => {
       await expect(page.getByTestId("static-provider-settings")).toBeVisible();
 
       await page.getByTestId("user-data-input").fill("my user data");
-      await clickLabelForLocator(
-        page.getByLabel("Merge with existing user data"),
+      const mergeUserDataCheckbox = page.getByLabel(
+        "Merge with existing user data",
       );
+      await clickCheckbox(mergeUserDataCheckbox);
       await page.getByRole("button", { name: "Add security group" }).click();
       await page.getByLabel("Security Group ID").fill("sg-1234");
       await page.getByRole("button", { name: "Add host" }).click();
@@ -32,9 +29,7 @@ test.describe("provider section", () => {
       await validateToast(page, "success", "Updated distro.");
 
       await page.getByTestId("user-data-input").clear();
-      await clickLabelForLocator(
-        page.getByLabel("Merge with existing user data"),
-      );
+      await clickCheckbox(mergeUserDataCheckbox);
       await page.getByTestId("delete-item-button").first().click();
       await page.getByTestId("delete-item-button").first().click();
       await save(page);
@@ -75,9 +70,10 @@ test.describe("provider section", () => {
       await page.getByLabel("Username for Registries").fill("username");
       await page.getByLabel("Password for Registries").fill("password");
       await page.getByTestId("user-data-input").fill("my user data");
-      await clickLabelForLocator(
-        page.getByLabel("Merge with existing user data"),
+      const mergeUserDataCheckbox = page.getByLabel(
+        "Merge with existing user data",
       );
+      await clickCheckbox(mergeUserDataCheckbox);
       await save(page);
       await validateToast(page, "success", "Updated distro.");
 
@@ -86,9 +82,7 @@ test.describe("provider section", () => {
       await page.getByLabel("Username for Registries").clear();
       await page.getByLabel("Password for Registries").clear();
       await page.getByTestId("user-data-input").clear();
-      await clickLabelForLocator(
-        page.getByLabel("Merge with existing user data"),
-      );
+      await clickCheckbox(mergeUserDataCheckbox);
       await save(page);
       await validateToast(page, "success", "Updated distro.");
     });
@@ -114,9 +108,10 @@ test.describe("provider section", () => {
       await expect(page.getByText("Default VPC Subnet ID")).toBeVisible();
       await expect(page.getByText("VPC Subnet Prefix")).toBeVisible();
 
-      await clickLabelForLocator(
-        page.getByLabel("Use security groups in an EC2 VPC"),
-      );
+      const useVpcCheckbox = page.getByRole("checkbox", {
+        name: "Use security groups in an EC2 VPC",
+      });
+      await clickCheckbox(useVpcCheckbox);
       await expect(page.getByTestId("use-vpc")).not.toBeChecked();
       await expect(page.getByText("Default VPC Subnet ID")).toHaveCount(0);
       await expect(page.getByText("VPC Subnet Prefix")).toHaveCount(0);
@@ -235,9 +230,10 @@ test.describe("provider section", () => {
       await expect(page.getByText("Default VPC Subnet ID")).toBeVisible();
       await expect(page.getByText("VPC Subnet Prefix")).toBeVisible();
 
-      await clickLabelForLocator(
-        page.getByLabel("Use security groups in an EC2 VPC"),
-      );
+      const useVpcCheckbox = page.getByRole("checkbox", {
+        name: "Use security groups in an EC2 VPC",
+      });
+      await clickCheckbox(useVpcCheckbox);
       await expect(page.getByText("Default VPC Subnet ID")).toHaveCount(0);
       await expect(page.getByText("VPC Subnet Prefix")).toHaveCount(0);
     });
@@ -267,9 +263,14 @@ test.describe("provider section", () => {
       await page
         .getByTestId("user-data-input")
         .fill("<powershell></powershell>");
-      await clickLabelForLocator(
-        page.getByLabel("Merge with existing user data"),
-      );
+
+      const mergeUserDataCheckbox = page.getByRole("checkbox", {
+        name: "Merge with existing user data",
+      });
+      await clickCheckbox(mergeUserDataCheckbox);
+      await save(page);
+      await validateToast(page, "success", "Updated distro.");
+      await clickCheckbox(mergeUserDataCheckbox);
       await save(page);
       await validateToast(page, "success", "Updated distro.");
 
@@ -279,9 +280,7 @@ test.describe("provider section", () => {
       await page.getByLabel("SSH Key Name").clear();
       await page.getByLabel("SSH Key Name").fill("mci");
       await page.getByTestId("user-data-input").clear();
-      await clickLabelForLocator(
-        page.getByLabel("Merge with existing user data"),
-      );
+      await clickCheckbox(mergeUserDataCheckbox);
       await save(page);
       await validateToast(page, "success", "Updated distro.");
     });

@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickRadio, validateToast } from "../../helpers";
 import {
   getProjectSettingsRoute,
   project,
@@ -28,18 +28,12 @@ test.describe("Stepback bisect setting", () => {
     }) => {
       const enableRadio = page
         .getByTestId("stepback-bisect-group")
-        .getByLabel("Enable");
-      await clickLabelForLocator(enableRadio);
+        .getByRole("radio", { name: "Enabled" });
+      await clickRadio(enableRadio);
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
-
       await page.reload();
-
-      await expect(
-        page
-          .getByTestId("stepback-bisect-group")
-          .getByRole("radio", { name: "Enable" }),
-      ).toHaveAttribute("aria-checked", "true");
+      await expect(enableRadio).toHaveAttribute("aria-checked", "true");
     });
   });
 
@@ -63,18 +57,12 @@ test.describe("Stepback bisect setting", () => {
     }) => {
       const enableRadio = page
         .getByTestId("stepback-bisect-group")
-        .getByLabel("Enabled");
-      await clickLabelForLocator(enableRadio);
+        .getByRole("radio", { name: "Enabled" });
+      await clickRadio(enableRadio);
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
-
       await page.reload();
-
-      await expect(
-        page
-          .getByTestId("stepback-bisect-group")
-          .getByRole("radio", { name: "Enable" }),
-      ).toHaveAttribute("aria-checked", "true");
+      await expect(enableRadio).toHaveAttribute("aria-checked", "true");
     });
   });
 });
