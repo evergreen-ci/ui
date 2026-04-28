@@ -30,7 +30,6 @@ export const UserDropdown = () => {
       onClick: () => sendEvent({ name: "Clicked notifications link" }),
     },
     {
-      "data-cy": "ui-settings-link",
       text: "UI Settings",
       to: getPreferencesRoute(PreferencesTabRoutes.UISettings),
       onClick: () => sendEvent({ name: "Clicked UI settings link" }),
