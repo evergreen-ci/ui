@@ -264,6 +264,7 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Metadata Link",
+        "ui:data-cy": "metadata-link-item",
         requesters: {
           "ui:widget": widgets.MultiSelectWidget,
           "ui:data-cy": "requesters-input",

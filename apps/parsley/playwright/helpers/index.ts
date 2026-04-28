@@ -199,5 +199,5 @@ export {
   validateToast,
   login,
   logout,
-  clickCheckboxByLabel,
+  clickLabelForLocator,
 } from "@evg-ui/playwright-config/helpers";

@@ -8,6 +8,7 @@ const userData = {
     title: "User Data",
   },
   uiSchema: {
+    "ui:data-cy": "user-data-input",
     "ui:widget": "textarea",
     "ui:elementWrapperCSS": textAreaCSS,
     "ui:rows": 6,

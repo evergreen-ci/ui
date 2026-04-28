@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel } from "../../helpers";
+import { clickLabelForLocator } from "../../helpers";
 
 const MY_PATCHES_ROUTE = "/user/admin/patches";
 const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
@@ -201,10 +201,10 @@ test.describe("My Patches Page", () => {
       authenticatedPage: page,
     }) => {
       for (const { display, key } of statuses) {
-        await clickCheckboxByLabel(page, display); // Click to check status checkbox.
+        await clickLabelForLocator(page.getByLabel(display)); // Click to check status checkbox.
         await expect(page).toHaveURL(new RegExp(`statuses=${key}`));
 
-        await clickCheckboxByLabel(page, display); // Click to uncheck status checkbox.
+        await clickLabelForLocator(page.getByLabel(display)); // Click to uncheck status checkbox.
         await expect(page).not.toHaveURL(/statuses/);
       }
     });
@@ -212,12 +212,12 @@ test.describe("My Patches Page", () => {
     test("Clicking on All status checkbox applies all of the statuses and clicking again removes them", async ({
       authenticatedPage: page,
     }) => {
-      await clickCheckboxByLabel(page, "All"); // Click to check status checkbox.
+      await clickLabelForLocator(page.getByLabel("All")); // Click to check status checkbox.
       await expect(page).toHaveURL(
         /statuses=all,success,created,started,failed/,
       );
 
-      await clickCheckboxByLabel(page, "All"); // Click to uncheck status checkbox.
+      await clickLabelForLocator(page.getByLabel("All")); // Click to uncheck status checkbox.
       await expect(page).not.toHaveURL(/statuses/);
     });
   });

@@ -171,4 +171,95 @@ test.describe("Version Subscription Modal", () => {
 
     await context.clearCookies();
   });
+
+  test.describe("Regex selector inputs", () => {
+    test("Can add and remove regex selectors", async ({
+      authenticatedPage: page,
+    }) => {
+      await openSubscriptionModal(page);
+      await selectOption(
+        page,
+        "Event",
+        "A build-variant in this version finishes",
+      );
+      await expect(page.getByTestId("regex-selector-row")).toHaveCount(0);
+      await page.getByText("Add Additional Criteria").click();
+      await expect(page.getByTestId("regex-selector-row")).toHaveCount(1);
+      await page.getByTestId("delete-item-button").first().click();
+      await expect(page.getByTestId("regex-selector-row")).toHaveCount(0);
+    });
+
+    test("Selecting a regex selector type will disable that option in other regex selector type dropdowns", async ({
+      authenticatedPage: page,
+    }) => {
+      await openSubscriptionModal(page);
+      await selectOption(
+        page,
+        "Event",
+        "A build-variant in this version finishes",
+      );
+      await page.getByText("Add Additional Criteria").click();
+      await expect(page.getByText("Build Variant ID")).toBeVisible();
+      await page.getByText("Add Additional Criteria").click();
+      await expect(page.getByText("Build Variant Name")).toBeVisible();
+      await page.getByTestId("regex-select").last().click();
+      await expect(
+        page.locator("#regex-select-menu").getByText("Build Variant ID"),
+      ).toHaveCSS("cursor", "not-allowed");
+    });
+
+    test("Regex selectors are optional for triggers that offer them", async ({
+      authenticatedPage: page,
+    }) => {
+      await openSubscriptionModal(page);
+      await selectOption(
+        page,
+        "Event",
+        "A build-variant in this version finishes",
+      );
+      await page.getByTestId("jira-comment-input").fill("EVG-2000");
+      await expect(page.getByRole("button", { name: "Save" })).toHaveAttribute(
+        "aria-disabled",
+        "false",
+      );
+      await page.getByRole("button", { name: "Save" }).click();
+      await validateToast(page, "success", "Your subscription has been added");
+    });
+
+    test("Display success toast after submitting a valid form with regex selectors inputs and request succeeds", async ({
+      authenticatedPage: page,
+    }) => {
+      await openSubscriptionModal(page);
+      await selectOption(
+        page,
+        "Event",
+        "A build-variant in this version finishes",
+      );
+      await page.getByText("Add Additional Criteria").click();
+      await selectOption(page, "Field name", "Build Variant Name");
+      await page.getByTestId("regex-input").fill("stuff");
+      await page.getByTestId("jira-comment-input").fill("EVG-2000");
+      await page.getByRole("button", { name: "Save" }).click();
+      await validateToast(page, "success", "Your subscription has been added");
+    });
+
+    test("'Add Additional Criteria' button should not appear when there are enough 'Field name' dropdowns to represent all possible regex selector types for a trigger", async ({
+      authenticatedPage: page,
+    }) => {
+      await openSubscriptionModal(page);
+      await selectOption(
+        page,
+        "Event",
+        "A build-variant in this version finishes",
+      );
+      const addCriteriaButton = page.getByRole("button", {
+        name: "Add Additional Criteria",
+      });
+      await expect(addCriteriaButton).toHaveAttribute("aria-disabled", "false");
+      await addCriteriaButton.click();
+      await expect(addCriteriaButton).toHaveAttribute("aria-disabled", "false");
+      await addCriteriaButton.click();
+      await expect(addCriteriaButton).toBeHidden();
+    });
+  });
 });

@@ -6,7 +6,7 @@ export const api = {
   schema: {
     httpListenAddr: {
       type: "string" as const,
-      title: "HTTP listen address",
+      title: "HTTP Listen Address",
     },
     url: {
       type: "string" as const,
@@ -60,7 +60,7 @@ export const ui = {
     },
     httpListenAddr: {
       type: "string" as const,
-      title: "HTTP listen address",
+      title: "HTTP Listen Address",
     },
     secret: {
       type: "string" as const,

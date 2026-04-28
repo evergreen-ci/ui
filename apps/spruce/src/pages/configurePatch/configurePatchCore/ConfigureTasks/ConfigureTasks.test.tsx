@@ -22,7 +22,7 @@ describe("configureTasks", () => {
           totalSelectedTaskCount={0}
         />,
       );
-      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(2);
+      expect(screen.queryAllByDataCy(/task-checkbox$/)).toHaveLength(2);
       expect(screen.getByText("compile")).toBeInTheDocument();
       expect(screen.getByText("test")).toBeInTheDocument();
     });
@@ -46,7 +46,7 @@ describe("configureTasks", () => {
           totalSelectedTaskCount={0}
         />,
       );
-      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(4);
+      expect(screen.queryAllByDataCy(/task-checkbox$/)).toHaveLength(4);
       expect(screen.getByText("compile")).toBeInTheDocument();
       expect(screen.getByText("test")).toBeInTheDocument();
       expect(screen.getByText("e2e")).toBeInTheDocument();
@@ -72,7 +72,7 @@ describe("configureTasks", () => {
           totalSelectedTaskCount={3}
         />,
       );
-      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(3);
+      expect(screen.queryAllByDataCy(/task-checkbox$/)).toHaveLength(3);
       expect(screen.getByText("compile")).toBeInTheDocument();
       expect(screen.getByText("test")).toBeInTheDocument();
       expect(screen.getByText("lint")).toBeInTheDocument();
@@ -249,7 +249,7 @@ describe("configureTasks", () => {
         />,
       );
       await user.type(screen.getByDataCy("task-filter-input"), "compile");
-      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(1);
+      expect(screen.queryAllByDataCy(/task-checkbox$/)).toHaveLength(1);
       const checkbox = screen.getByLabelText("compile");
       expect(checkbox).toBeInTheDocument();
     });
