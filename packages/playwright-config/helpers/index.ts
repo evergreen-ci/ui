@@ -64,19 +64,19 @@ const clickHiddenElementByLabel = async (locator: Locator) => {
 /**
  * Checkboxes are not visible in LG so they cannot be clicked directly.
  * This helper clicks the associated label instead, via the associated id attribute.
- * @param locator - A locator pointing to the checkbox
+ * @param checkbox - A locator pointing to the checkbox
  */
-export const clickCheckbox = async (locator: Locator) => {
-  await clickHiddenElementByLabel(locator);
+export const clickCheckbox = async (checkbox: Locator) => {
+  await clickHiddenElementByLabel(checkbox);
 };
 
 /**
  * Radio options are not visible in LG so they cannot be clicked directly.
  * This helper clicks the associated label instead, via the associated id attribute.
- * @param locator - A locator pointing to the radio button
+ * @param radio - A locator pointing to the radio button
  */
-export const clickRadio = async (locator: Locator) => {
-  await clickHiddenElementByLabel(locator);
+export const clickRadio = async (radio: Locator) => {
+  await clickHiddenElementByLabel(radio);
 };
 
 type ResponseData = {
