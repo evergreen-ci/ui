@@ -54,7 +54,7 @@ describe("A project that has GitHub webhooks enabled", () => {
 
   it("Saves successfully when Commit Checks are enabled and a Commit Check Definition is provided", () => {
     cy.dataCy("github-checks-enabled-radio-box").children().first().click();
-    cy.contains("button", "Add Definition").click();
+    cy.contains("button", "Add definition").click();
     cy.dataCy("variant-tags-input").first().type("vtag");
     cy.dataCy("task-tags-input").first().type("ttag");
 
