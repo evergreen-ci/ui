@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
@@ -6,7 +7,7 @@ import { useChatContext } from "@evg-ui/fungi";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import {
   getLocalStorageString,
   setLocalStorageString,
@@ -22,24 +23,78 @@ import { useIsParsleyAIAvailable } from "hooks/useIsParsleyAIAvailable";
 import { getJiraFormat, getRawLines } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
-const SharingMenu: React.FC = () => {
+interface SharingMenuProps {
+  lineNumber: number;
+  lineIndex: number;
+  scrollToLine: (lineIndex: number) => void;
+}
+
+const SharingMenu: React.FC<SharingMenuProps> = ({
+  lineIndex,
+  lineNumber,
+  scrollToLine,
+}) => {
   const {
     clearSelection,
-    openMenu: open,
+    menuPosition,
+    openMenu: contextOpen,
     selectedLines,
-    setOpenMenu: setOpen,
+    setOpenMenu: setContextOpen,
   } = useMultiLineSelectContext();
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
   const { toggleChip } = useChatContext();
   const isParsleyAIAvailable = useIsParsleyAIAvailable();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
+  const [shareLine, setShareLine] = useQueryParam<number | undefined>(
+    QueryParams.ShareLine,
+    undefined,
+    urlParseOptions,
+  );
   const dispatchToast = useToastContext();
   const { sendEvent } = useLogWindowAnalytics();
+
+  const [localOpen, setLocalOpen] = useState(false);
+
+  const isContextMenuLine = menuPosition === lineNumber;
+  const open = isContextMenuLine ? contextOpen || localOpen : localOpen;
+
+  const setOpen = useCallback(
+    (v: boolean) => {
+      if (isContextMenuLine) {
+        setContextOpen(v);
+      }
+      setLocalOpen(v);
+    },
+    [isContextMenuLine, setContextOpen],
+  );
+
   const setMenuOpen = () => {
     sendEvent({ name: "Toggled share menu", open });
     setOpen(!open);
   };
+
+  const shared = shareLine === lineNumber;
+
+  const handleShareLine = useCallback(() => {
+    if (shared) {
+      setShareLine(undefined);
+      sendEvent({ name: "Deleted share line" });
+    } else {
+      setShareLine(lineNumber);
+      scrollToLine(lineIndex);
+      sendEvent({ name: "Created new share line" });
+    }
+    setOpen(false);
+  }, [
+    lineIndex,
+    lineNumber,
+    shared,
+    scrollToLine,
+    sendEvent,
+    setShareLine,
+    setOpen,
+  ]);
 
   const handleAddToParsleyAI = async () => {
     const { endingLine, startingLine } = selectedLines;
@@ -121,6 +176,8 @@ const SharingMenu: React.FC = () => {
     dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
   };
 
+  const hasSelection = selectedLines.startingLine !== undefined;
+
   const lineCount =
     selectedLines.endingLine === undefined ||
     selectedLines.startingLine === undefined
@@ -136,14 +193,23 @@ const SharingMenu: React.FC = () => {
       trigger={
         <MenuIcon
           aria-label="Expand share menu"
-          data-cy="sharing-menu-button"
+          data-cy={`log-link-${lineNumber}`}
           onClick={setMenuOpen}
         >
           <Icon glyph="Ellipsis" />
         </MenuIcon>
       }
     >
-      {isParsleyAIAvailable && (
+      {!isUploadedLog && (
+        <MenuItem
+          data-cy="share-line-btn"
+          glyph={<Icon glyph="Link" />}
+          onClick={handleShareLine}
+        >
+          {shared ? "Unshare line" : "Share line"}
+        </MenuItem>
+      )}
+      {isParsleyAIAvailable && hasSelection && (
         <MenuItem
           glyph={<Icon glyph="Sparkle" />}
           onClick={handleAddToParsleyAI}
@@ -151,10 +217,15 @@ const SharingMenu: React.FC = () => {
           Add to Parsley AI
         </MenuItem>
       )}
-      <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
-        Copy selected contents
-      </MenuItem>
-      {!isUploadedLog && (
+      {hasSelection && (
+        <MenuItem
+          glyph={<Icon glyph="Copy" />}
+          onClick={handleCopySelectedLines}
+        >
+          Copy selected contents
+        </MenuItem>
+      )}
+      {!isUploadedLog && hasSelection && (
         <MenuItem
           glyph={<Icon glyph="Export" />}
           onClick={handleShareLinkToSelectedLines}
@@ -162,15 +233,19 @@ const SharingMenu: React.FC = () => {
           Copy share link to selected {pluralize("line", lineCount)}
         </MenuItem>
       )}
-      <MenuItem
-        glyph={<Icon glyph="MagnifyingGlass" />}
-        onClick={handleOnlySearchOnRange}
-      >
-        Only search on range
-      </MenuItem>
-      <MenuItem glyph={<Icon glyph="Trash" />} onClick={clearSelection}>
-        Clear selection
-      </MenuItem>
+      {hasSelection && (
+        <MenuItem
+          glyph={<Icon glyph="MagnifyingGlass" />}
+          onClick={handleOnlySearchOnRange}
+        >
+          Only search on range
+        </MenuItem>
+      )}
+      {hasSelection && (
+        <MenuItem glyph={<Icon glyph="Trash" />} onClick={clearSelection}>
+          Clear selection
+        </MenuItem>
+      )}
     </StyledMenu>
   );
 };

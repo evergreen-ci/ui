@@ -174,11 +174,13 @@ test.describe("Bookmarking and selecting lines", () => {
     authenticatedPage: page,
   }) => {
     await page.getByTestId("log-link-5").click();
+    await page.getByText("Share line").click();
     await expect(page).toHaveURL(/\?bookmarks=0,12568&shareLine=5/);
     await expect(page.getByTestId("bookmark-0")).toBeVisible();
     await expect(page.getByTestId("bookmark-5")).toBeVisible();
     await expect(page.getByTestId("bookmark-12568")).toBeVisible();
     await page.getByTestId("log-link-5").click();
+    await page.getByText("Unshare line").click();
     await expect(page).toHaveURL(/\?bookmarks=0,12568/);
     await expect(page.getByTestId("bookmark-5")).toBeHidden();
   });
@@ -339,12 +341,11 @@ test.describe("Sharing lines", () => {
     await page.goto(logLink);
   });
 
-  test("should present a share button with a menu when a line is selected", async ({
+  test("should present a menu button that opens the sharing menu", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("line-index-1").click();
-    await expect(page.getByTestId("sharing-menu-button")).toBeVisible();
-    await page.getByTestId("sharing-menu-button").click();
+    await expect(page.getByTestId("log-link-1")).toBeVisible();
+    await page.getByTestId("log-link-1").click();
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
   });
 
