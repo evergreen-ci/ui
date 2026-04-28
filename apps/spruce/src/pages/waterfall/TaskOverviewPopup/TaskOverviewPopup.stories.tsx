@@ -261,6 +261,7 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
               id: "test-1",
               baseStatus: null,
               duration: 1234,
+              isManuallyQuarantined: false,
               logs: {
                 lineNum: 42,
                 testName: "test_authentication_flow",
@@ -275,6 +276,7 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
               id: "test-2",
               baseStatus: null,
               duration: 890,
+              isManuallyQuarantined: false,
               logs: {
                 lineNum: 156,
                 testName: "test_user_permissions",
@@ -290,6 +292,7 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
               id: "test-3",
               baseStatus: null,
               duration: 2345,
+              isManuallyQuarantined: false,
               logs: {
                 lineNum: 89,
                 testName: "test_database_connection",

@@ -55,6 +55,7 @@ export { SET_TASK_PRIORITY } from "./set-task-priority";
 export { SET_VERSION_PRIORITY } from "./set-version-priority";
 export { SPAWN_HOST } from "./spawn-host";
 export { SPAWN_VOLUME } from "./spawn-volume";
+export { UNQUARANTINE_TEST } from "./unquarantine-test";
 export { UNSCHEDULE_TASK } from "./unschedule-task";
 export { UNSCHEDULE_VERSION_TASKS } from "./unschedule-version-tasks";
 export { UPDATE_HOST_STATUS } from "./update-host-status";
