@@ -57,7 +57,8 @@ test.describe("Tests Table", () => {
     await expect(totalCount.getByText("20")).toBeVisible();
 
     await page.getByTestId("status-treeselect").click();
-    await clickCheckbox(page.getByTestId("silent-fail-checkbox"));
+    const silentFailCheckbox = page.getByTestId("silent-fail-checkbox");
+    await clickCheckbox(silentFailCheckbox);
     await expect(filteredCount.getByText("1")).toBeVisible();
     await expect(totalCount.getByText("20")).toBeVisible();
 
@@ -141,7 +142,8 @@ test.describe("Tests Table", () => {
       authenticatedPage: page,
     }) => {
       await page.getByTestId("status-treeselect").click();
-      await clickCheckbox(page.getByTestId("all-checkbox"));
+      const allCheckbox = page.getByTestId("all-checkbox");
+      await clickCheckbox(allCheckbox);
       await expect(page).toHaveURL(/statuses=all,pass,fail,skip,silentfail/);
     });
 
@@ -160,7 +162,8 @@ test.describe("Tests Table", () => {
     }) => {
       await page.getByTestId("status-treeselect").click();
       for (const { dataCy } of statuses) {
-        await clickCheckbox(page.getByTestId(dataCy));
+        const checkbox = page.getByTestId(dataCy);
+        await clickCheckbox(checkbox);
       }
       await expect(page).toHaveURL(
         new RegExp(`statuses=${statuses.map(({ key }) => key).join(",")}`),

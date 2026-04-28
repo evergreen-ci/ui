@@ -289,12 +289,13 @@ test.describe("Configure Patch Page", () => {
         const taskCheckboxes = page.locator(allCheckboxes);
         await expect(taskCheckboxes).toHaveCount(1);
 
-        await clickCheckbox(page.getByTestId("select-all-checkbox"));
+        const selectAllCheckbox = page.getByTestId("select-all-checkbox");
+        await clickCheckbox(selectAllCheckbox);
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).toBeChecked();
         }
 
-        await clickCheckbox(page.getByTestId("select-all-checkbox"));
+        await clickCheckbox(selectAllCheckbox);
         for (const checkbox of await taskCheckboxes.all()) {
           await expect(checkbox).not.toBeChecked();
         }
@@ -497,7 +498,8 @@ test.describe("Configure Patch Page", () => {
             .getByText("RHEL 7.2 zLinux")
             .click();
 
-          await clickCheckbox(page.getByTestId("select-all-checkbox"));
+          const selectAllCheckbox = page.getByTestId("select-all-checkbox");
+          await clickCheckbox(selectAllCheckbox);
           const taskCheckboxes = page.locator(allCheckboxes);
           const count = await taskCheckboxes.count();
           for (let i = 0; i < count; i++) {
