@@ -77,9 +77,9 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       canSchedule,
       canSetPriority,
       displayStatus,
+      execution,
       generator,
       id: taskId,
-      latestExecution,
       order,
       priority,
       requester,
@@ -159,7 +159,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               canSetPriority: () => true,
               displayStatus: () => TaskStatus.WillRun,
               execution: (cachedExecution: number) => cachedExecution + 1,
-              latestExecution: (cachedExecution: number) => cachedExecution + 1,
             },
             broadcast: false,
           });
@@ -250,10 +249,10 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               </InfoSprinkle>
             )}
           </DateContainer>
-          {latestExecution > 0 ? (
+          {execution > 0 ? (
             <Chip
               data-cy="execution-chip"
-              label={`Executions: ${latestExecution + 1}`}
+              label={`Executions: ${execution + 1}`}
               variant={ChipVariant.Gray}
             />
           ) : null}

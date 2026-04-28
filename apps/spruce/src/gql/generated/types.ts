@@ -7108,7 +7108,9 @@ export type SaveAdminSettingsMutation = {
         storage?: {
           __typename?: "S3StorageCostConfig";
           archiveStorageCostDiscount?: number | null;
+          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
           defaultMaxArtifactExpirationDays?: number | null;
+          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -7726,7 +7728,9 @@ export type AdminSettingsQuery = {
         storage?: {
           __typename?: "S3StorageCostConfig";
           archiveStorageCostDiscount?: number | null;
+          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
           defaultMaxArtifactExpirationDays?: number | null;
+          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -11019,7 +11023,6 @@ export type TaskHistoryQuery = {
       displayStatus: string;
       execution: number;
       ingestTime?: Date | null;
-      latestExecution: number;
       order: number;
       priority?: number | null;
       requester: string;
@@ -11518,6 +11521,17 @@ export type TaskQuery = {
       lastPassingStepbackTaskId?: string | null;
       nextStepbackTaskId?: string | null;
       previousStepbackTaskId?: string | null;
+    } | null;
+    taskCost?: {
+      __typename?: "Cost";
+      adjustedEBSStorageCost?: number | null;
+      adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
+      adjustedS3ArtifactPutCost?: number | null;
+      adjustedS3ArtifactStorageCost?: number | null;
+      adjustedS3LogPutCost?: number | null;
+      adjustedS3LogStorageCost?: number | null;
+      total?: number | null;
     } | null;
     versionMetadata: {
       __typename?: "Version";

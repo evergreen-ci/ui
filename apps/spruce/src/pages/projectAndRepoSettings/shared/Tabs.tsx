@@ -12,6 +12,7 @@ import { AppSettingsTab } from "./tabs/GithubAppSettingsTab/AppSettingsTab";
 import { PermissionGroupsTab } from "./tabs/GithubPermissionGroupsTab/PermissionGroupsTab";
 import {
   AccessTab,
+  CommitChecksTab,
   EventLogTab,
   GeneralTab,
   GithubCommitQueueTab,
@@ -321,6 +322,30 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               />
             }
             path={ProjectSettingsTabRoutes.PullRequests}
+          />
+        )}
+        {showNewProjectNavigation && (
+          <Route
+            element={
+              <CommitChecksTab
+                githubWebhooksEnabled={githubWebhooksEnabled}
+                identifier={identifier || repoId}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.CommitChecks].projectData
+                }
+                projectId={projectId}
+                projectType={projectType}
+                repoData={
+                  tabData[ProjectSettingsTabRoutes.CommitChecks].repoData
+                }
+                versionControlEnabled={
+                  projectData?.projectRef?.versionControlEnabled ??
+                  repoData?.projectRef?.versionControlEnabled ??
+                  false
+                }
+              />
+            }
+            path={ProjectSettingsTabRoutes.CommitChecks}
           />
         )}
         <Route

@@ -105,6 +105,7 @@ const TaskQueue = () => {
           )}
           options={distrosData?.taskQueueDistros}
           searchFunc={handleSearch}
+          searchPlaceholder="Search distros"
           value={
             selectedDistro ?? { id: distroId ?? "", hostCount: 0, taskCount: 0 }
           }
@@ -118,7 +119,7 @@ const TaskQueue = () => {
 
 const SearchableDropdownWrapper = styled.div`
   margin-top: ${size.xs};
-  width: 400px;
+  width: 600px;
 `;
 const DistroLabel = styled.div`
   display: flex;

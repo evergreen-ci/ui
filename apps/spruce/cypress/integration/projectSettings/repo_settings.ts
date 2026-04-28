@@ -1,4 +1,3 @@
-import { clickSave } from "../../utils";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
@@ -7,6 +6,7 @@ import {
   repo,
   saveButtonEnabled,
 } from "./constants";
+import { clickSaveAndConfirmDiff } from "./utils";
 
 describe("Repo Settings", () => {
   const origin = getRepoSettingsRoute(repo);
@@ -37,7 +37,7 @@ describe("Repo Settings", () => {
     });
     it("Inputting a display name then clicking save shows a success toast", () => {
       cy.dataCy("display-name-input").type("evg");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated repo");
     });
   });
@@ -70,7 +70,7 @@ describe("Repo Settings", () => {
           .first()
           .click();
       });
-      it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
+      it("Saving a patch definition should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
         cy.contains(
           "A GitHub Patch Definition must be specified for this feature to run.",
         ).as("errorBanner");
@@ -81,7 +81,7 @@ describe("Repo Settings", () => {
         cy.dataCy("variant-tags-input").first().type("vtag");
         cy.dataCy("task-tags-input").first().type("ttag");
         saveButtonEnabled(true);
-        clickSave();
+        clickSaveAndConfirmDiff();
         cy.validateToast("success", "Successfully updated repo");
         cy.visit(getProjectSettingsRoute(projectUseRepoEnabled));
         cy.dataCy("navitem-github-commitqueue").click();
@@ -146,7 +146,7 @@ describe("Repo Settings", () => {
         cy.dataCy("task-tags-input").last().type("cqttag");
         cy.dataCy("warning-banner").should("not.exist");
         cy.dataCy("error-banner").should("not.exist");
-        clickSave();
+        clickSaveAndConfirmDiff();
         cy.validateToast("success", "Successfully updated repo");
       });
     });
@@ -166,7 +166,7 @@ describe("Repo Settings", () => {
       saveButtonEnabled(false);
       cy.dataCy("variant-tags-input").first().type("alias variant tag");
       cy.dataCy("task-tags-input").first().type("alias task tag");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated repo");
       cy.dataCy("expandable-card-title").contains("my alias name");
       // Verify persistence
@@ -225,7 +225,7 @@ describe("Repo Settings", () => {
       cy.get("@mergeQueueCheckbox").should("not.be.checked");
       cy.get("@mergeQueueCheckbox").check({ force: true });
       cy.get("@mergeQueueCheckbox").should("be.checked");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated repo");
       saveButtonEnabled(false);
       // Demonstrate Wait on field is optional
@@ -287,11 +287,11 @@ describe("Repo Settings", () => {
 
       cy.dataCy("add-button").click();
       cy.dataCy("command-input").eq(1).type("command 2");
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated repo");
       cy.dataCy("array-down-button").click();
       cy.dataCy("save-settings-button").scrollIntoView();
-      clickSave();
+      clickSaveAndConfirmDiff();
       cy.validateToast("success", "Successfully updated repo");
       cy.dataCy("command-input").first().should("have.value", "command 2");
       cy.dataCy("command-input").eq(1).should("have.value", "command 1");

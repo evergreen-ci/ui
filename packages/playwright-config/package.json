@@ -1,0 +1,18 @@
+{
+  "name": "@evg-ui/playwright-config",
+  "version": "0.0.0",
+  "main": "playwright.config.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./playwright.config.ts",
+    "./helpers": "./helpers/index.ts",
+    "./constants": "./helpers/constants.ts"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.49.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.17"
+  }
+}

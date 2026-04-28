@@ -51,6 +51,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.PullRequests]: {
         title: "Pull Request Testing",
       },
+      [ProjectSettingsTabRoutes.CommitChecks]: {
+        title: "GitHub Commit Checks",
+      },
       [ProjectSettingsTabRoutes.EventLog]: {
         title: "Event Log",
       },

@@ -371,7 +371,13 @@ export const getFormSchema = (
               <StyledLink href={debugSpawnHostsDocumentationUrl}>
                 debug spawn hosts
               </StyledLink>
-              .
+              . Make sure you review{" "}
+              <StyledLink
+                href={`${debugSpawnHostsDocumentationUrl}#prerequisites-and-limitations`}
+              >
+                Prerequisites and Limitations
+              </StyledLink>{" "}
+              before enabling.
             </>
           ),
         },

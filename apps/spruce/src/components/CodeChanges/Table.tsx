@@ -54,14 +54,14 @@ const getColumns = (
     }) => {
       if (disableDiffLinks) {
         return (
-          <span data-cy="fileLink">
+          <span data-cy="file-link">
             <WordBreak>{getValue() as string}</WordBreak>
           </span>
         );
       }
       const fileDiffRoute = getFileDiffRoute(patchId, fileName, moduleIndex);
       return (
-        <StyledLink data-cy="fileLink" href={fileDiffRoute}>
+        <StyledLink data-cy="file-link" href={fileDiffRoute}>
           <WordBreak>{getValue() as string}</WordBreak>
         </StyledLink>
       );

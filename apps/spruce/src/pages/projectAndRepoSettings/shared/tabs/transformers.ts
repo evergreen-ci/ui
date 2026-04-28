@@ -1,5 +1,6 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import * as access from "./AccessTab/transformers";
+import * as commitChecks from "./CommitChecksTab/transformers";
 import * as general from "./GeneralTab/transformers";
 import * as appSettings from "./GithubAppSettingsTab/transformers";
 import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
@@ -43,6 +44,7 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
   [ProjectSettingsTabRoutes.PullRequests]: pullRequests.gqlToForm,
+  [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.gqlToForm,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.gqlToForm,
 };
 
@@ -63,5 +65,6 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
   [ProjectSettingsTabRoutes.PullRequests]: pullRequests.formToGql,
+  [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.formToGql,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.formToGql,
 };
