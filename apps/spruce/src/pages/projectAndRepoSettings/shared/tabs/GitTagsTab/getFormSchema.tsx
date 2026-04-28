@@ -3,7 +3,14 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { gitTagAliasesDocumentationUrl } from "constants/externalResources";
-import { alias, form, ProjectType, sectionHasError } from "../utils";
+import {
+  alias,
+  fieldDisabled,
+  form,
+  hideIf,
+  ProjectType,
+  sectionHasError,
+} from "../utils";
 import { GitTagsFormState } from "./types";
 
 const { gitTagArray } = alias;
@@ -23,7 +30,6 @@ export const getFormSchema = (
         : "hidden",
     "ui:showLabel": false,
   };
-
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
   return {
@@ -171,14 +177,6 @@ export const getFormSchema = (
     },
   };
 };
-
-const fieldDisabled = (field: boolean | null, repoField: boolean | null) =>
-  field === false || (field === null && repoField === false);
-
-const hideIf = (shouldHide: boolean) =>
-  shouldHide && {
-    "ui:widget": "hidden",
-  };
 
 const overrideStyling = (isMissingRepoField: boolean) => ({
   "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,

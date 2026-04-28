@@ -351,11 +351,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 }
                 projectType={projectType}
                 repoData={tabData[ProjectSettingsTabRoutes.GitTags].repoData}
-                versionControlEnabled={
-                  projectData?.projectRef?.versionControlEnabled ??
-                  repoData?.projectRef?.versionControlEnabled ??
-                  false
-                }
+                versionControlEnabled={versionControlEnabled}
               />
             }
             path={ProjectSettingsTabRoutes.GitTags}
