@@ -71,7 +71,7 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id: id,
+    id,
     prTestingEnabled,
     manualPrTestingEnabled,
     oldestAllowedMergeBase,

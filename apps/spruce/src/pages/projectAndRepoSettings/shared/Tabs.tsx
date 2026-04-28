@@ -66,6 +66,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   const githubWebhooksEnabled = !!(
     projectData?.githubWebhooksEnabled || repoData?.githubWebhooksEnabled
   );
+  const versionControlEnabled =
+    projectData?.projectRef?.versionControlEnabled ??
+    repoData?.projectRef?.versionControlEnabled;
 
   useScrollToAnchor();
   useEffect(() => {
@@ -141,10 +144,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
               }
               // @ts-expect-error: FIXME. This comment was added by an automated script.
-              versionControlEnabled={
-                projectData?.projectRef?.versionControlEnabled ??
-                repoData?.projectRef?.versionControlEnabled
-              }
+              versionControlEnabled={versionControlEnabled}
             />
           }
           path={ProjectSettingsTabRoutes.GithubCommitQueue}
@@ -314,11 +314,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 repoData={
                   tabData[ProjectSettingsTabRoutes.PullRequests].repoData
                 }
-                versionControlEnabled={
-                  projectData?.projectRef?.versionControlEnabled ??
-                  repoData?.projectRef?.versionControlEnabled ??
-                  false
-                }
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                versionControlEnabled={versionControlEnabled}
               />
             }
             path={ProjectSettingsTabRoutes.PullRequests}
@@ -338,11 +335,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 repoData={
                   tabData[ProjectSettingsTabRoutes.CommitChecks].repoData
                 }
-                versionControlEnabled={
-                  projectData?.projectRef?.versionControlEnabled ??
-                  repoData?.projectRef?.versionControlEnabled ??
-                  false
-                }
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                versionControlEnabled={versionControlEnabled}
               />
             }
             path={ProjectSettingsTabRoutes.CommitChecks}

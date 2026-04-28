@@ -63,7 +63,7 @@ export const getFormSchema = (
                 githubWebhooksEnabled ? "are" : "are not"
               } enabled.`,
             },
-            prTestingEnabledTitle: {
+            sectionTitle: {
               type: "null",
               title: "GitHub Pull Request Testing",
               ...(projectType === ProjectType.Repo && {
@@ -118,7 +118,7 @@ export const getFormSchema = (
     uiSchema: {
       github: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        prTestingEnabledTitle: {
+        sectionTitle: {
           "ui:numberedTitle": true,
         },
         prTestingEnabled: {
@@ -181,7 +181,7 @@ export const getFormSchema = (
           githubPrAliasesOverride: overrideStyling,
           githubPrAliases: {
             ...aliasRowUiSchema({
-              addButtonText: "Add Patch Definition",
+              addButtonText: "Add patch definition",
               numberedTitle: "Patch Definition",
             }),
           },

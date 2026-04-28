@@ -4,6 +4,7 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { githubChecksAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
+import { fieldDisabled, hideIf } from "../BaseTab";
 import {
   alias,
   form,
@@ -107,7 +108,7 @@ export const getFormSchema = (
             "ui:showLabel": false,
           },
           githubCheckAliases: aliasRowUiSchema({
-            addButtonText: "Add Definition",
+            addButtonText: "Add definition",
             numberedTitle: "Commit Check Definition",
           }),
           repoData: {
@@ -121,14 +122,6 @@ export const getFormSchema = (
     },
   };
 };
-
-const fieldDisabled = (field: boolean | null, repoField: boolean | null) =>
-  field === false || (field === null && repoField === false);
-
-const hideIf = (shouldHide: boolean) =>
-  shouldHide && {
-    "ui:widget": "hidden",
-  };
 
 const GitHubChecksAliasesDescription = (projectType: ProjectType) => (
   <>
