@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickCheckboxByLabel } from "../../helpers";
+import { clickCheckbox } from "../../helpers";
 
 const MY_PATCHES_ROUTE = "/user/admin/patches";
 const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
@@ -191,20 +191,28 @@ test.describe("My Patches Page", () => {
     });
 
     const statuses = [
-      { display: "Created/Unconfigured", key: "created" },
-      { display: "Running", key: "started" },
-      { display: "Succeeded", key: "success" },
-      { display: "Failed", key: "failed" },
+      {
+        display: "Created/Unconfigured",
+        key: "created",
+        dataCy: "created-checkbox",
+      },
+      { display: "Running", key: "started", dataCy: "started-checkbox" },
+      {
+        display: "Succeeded",
+        key: "success",
+        dataCy: "success-checkbox",
+      },
+      { display: "Failed", key: "failed", dataCy: "failed-checkbox" },
     ];
 
     test("Clicking on a status checkbox applies the status and clicking again removes it", async ({
       authenticatedPage: page,
     }) => {
-      for (const { display, key } of statuses) {
-        await clickCheckboxByLabel(page, display); // Click to check status checkbox.
+      for (const { key, dataCy } of statuses) {
+        const checkbox = page.getByTestId(dataCy);
+        await clickCheckbox(checkbox); // Click to check status checkbox.
         await expect(page).toHaveURL(new RegExp(`statuses=${key}`));
-
-        await clickCheckboxByLabel(page, display); // Click to uncheck status checkbox.
+        await clickCheckbox(checkbox); // Click to uncheck status checkbox.
         await expect(page).not.toHaveURL(/statuses/);
       }
     });
@@ -212,12 +220,12 @@ test.describe("My Patches Page", () => {
     test("Clicking on All status checkbox applies all of the statuses and clicking again removes them", async ({
       authenticatedPage: page,
     }) => {
-      await clickCheckboxByLabel(page, "All"); // Click to check status checkbox.
+      const allCheckbox = page.getByTestId("all-status-checkbox");
+      await clickCheckbox(allCheckbox); // Click to check status checkbox.
       await expect(page).toHaveURL(
         /statuses=all,success,created,started,failed/,
       );
-
-      await clickCheckboxByLabel(page, "All"); // Click to uncheck status checkbox.
+      await clickCheckbox(allCheckbox); // Click to uncheck status checkbox.
       await expect(page).not.toHaveURL(/statuses/);
     });
   });

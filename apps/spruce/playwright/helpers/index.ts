@@ -70,27 +70,6 @@ export async function selectOption(
 }
 
 /**
- * Opens an expandable card if it's not already open
- * @param page - The Playwright page object
- * @param cardTitle - The title of the expandable card
- */
-export async function openExpandableCard(
-  page: Page,
-  cardTitle: string,
-): Promise<void> {
-  const cardButton = page
-    .getByTestId("expandable-card-title")
-    .filter({ hasText: cardTitle })
-    .locator('[role="button"]')
-    .first();
-
-  const isExpanded = await cardButton.getAttribute("aria-expanded");
-  if (isExpanded !== "true") {
-    await cardButton.click();
-  }
-}
-
-/**
  * Clears a date picker input by pressing backspace multiple times
  * LG Date Picker does not respond well to .clear()
  * @param page - The Playwright page object
@@ -129,17 +108,18 @@ export async function validateDatePickerDate(
  * Selects a date in a LeafyGreen date picker by navigating the year/month dropdowns
  * and clicking the target day cell.
  * @param page - The Playwright page object
- * @param year - The year to select (e.g., "2025")
- * @param month - The abbreviated month name to select (e.g., "Feb")
- * @param isoDate - The ISO date string of the day cell to click (e.g., "2025-02-28")
+ * @param opts - Object describing the date to select
+ * @param opts.year - The year to select (e.g., "2025")
+ * @param opts.month - The abbreviated month name to select (e.g., "Feb")
+ * @param opts.isoDate - The ISO date string of the day cell to click (e.g., "2025-02-28")
+ * @param dataCy - The data-cy attribute value of the date picker (default: "date-picker")
  */
 export async function selectDatePickerDate(
   page: Page,
-  year: string,
-  month: string,
-  isoDate: string,
+  { year = "", month = "", isoDate = "" } = {},
+  dataCy = "date-picker",
 ): Promise<void> {
-  await page.getByTestId("date-picker").click();
+  await page.getByTestId(dataCy).click();
 
   const options = page.getByRole("listbox").getByRole("option");
 
@@ -158,12 +138,36 @@ export async function selectDatePickerDate(
   await page.locator(`[data-iso='${isoDate}']`).click();
 }
 
+/**
+ * Types a date into a LeafyGreen date picker by filling the year, month, and day inputs.
+ * @param page - The Playwright page object
+ * @param opts - The expected date values
+ * @param opts.year - The year to select (e.g., "2025")
+ * @param opts.month - The numerical month value to select (e.g., "02")
+ * @param opts.day - The day to select (e.g., "28")
+ * @param dataCy - The data-cy attribute value of the date picker (default: "date-picker")
+ */
+export async function typeDatePickerDate(
+  page: Page,
+  { year = "", month = "", day = "" } = {},
+  dataCy = "date-picker",
+): Promise<void> {
+  const datePicker = page.getByTestId(dataCy);
+  const yearInput = datePicker.locator("input[id='year']");
+  const monthInput = datePicker.locator("input[id='month']");
+  const dayInput = datePicker.locator("input[id='day']");
+
+  await yearInput.fill(year);
+  await monthInput.fill(month);
+  await dayInput.fill(day);
+}
+
 // Re-export shared helpers from the playwright-config package.
 export {
   validateToast,
   login,
   logout,
-  clickCheckboxByLabel,
+  clickCheckbox,
   mockGraphQLResponse,
   hasOperationName,
 } from "@evg-ui/playwright-config/helpers";
