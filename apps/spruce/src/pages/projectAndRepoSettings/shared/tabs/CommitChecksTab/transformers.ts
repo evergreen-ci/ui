@@ -70,6 +70,6 @@ export const formToGql = ((
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef,
-    githubCommitCheckAliases,
+    aliases: githubCommitCheckAliases,
   };
 }) satisfies FormToGqlFunction<Tab>;
