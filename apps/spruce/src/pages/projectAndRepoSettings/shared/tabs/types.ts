@@ -6,6 +6,7 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { AccessFormState } from "./AccessTab/types";
+import { CommitChecksFormState } from "./CommitChecksTab/types";
 import { GeneralFormState } from "./GeneralTab/types";
 import { AppSettingsFormState } from "./GithubAppSettingsTab/types";
 import { GCQFormState } from "./GithubCommitQueueTab/types";
@@ -36,6 +37,7 @@ export type FormStateMap = {
     [ProjectSettingsTabRoutes.GithubCommitQueue]: GCQFormState;
     [ProjectSettingsTabRoutes.GithubAppSettings]: AppSettingsFormState;
     [ProjectSettingsTabRoutes.GithubPermissionGroups]: PermissionGroupsFormState;
+    [ProjectSettingsTabRoutes.CommitChecks]: CommitChecksFormState;
     [ProjectSettingsTabRoutes.TestSelection]: TestSelectionFormState;
   }[T];
 };

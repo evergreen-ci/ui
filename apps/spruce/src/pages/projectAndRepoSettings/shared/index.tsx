@@ -12,6 +12,7 @@ import {
   SideNavItem,
   SideNavPageWrapper,
 } from "components/styles";
+import { showNewProjectNavigation } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -105,7 +106,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             />
           </ButtonsContainer>
           <SideNavGroup>
-            {Object.values(ProjectSettingsTabRoutes).map((v) => (
+            {tabRouteValues.map((v) => (
               <SharedSettingsNavItem
                 key={v}
                 currentTab={tab ?? ProjectSettingsTabRoutes.General}
@@ -152,7 +153,11 @@ const SharedSettingsNavItem: React.FC<{
   </SideNavItem>
 );
 
-const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
+const allTabs = Object.values(ProjectSettingsTabRoutes);
+const hiddenTabs = [ProjectSettingsTabRoutes.CommitChecks];
+const tabRouteValues = showNewProjectNavigation
+  ? allTabs
+  : allTabs.filter((t) => !hiddenTabs.includes(t));
 
 const ButtonsContainer = styled.div`
   align-items: flex-start;

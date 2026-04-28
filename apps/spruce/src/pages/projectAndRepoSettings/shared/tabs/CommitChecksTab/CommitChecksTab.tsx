@@ -13,14 +13,14 @@ import { BaseTab } from "../BaseTab";
 import { ProjectType, ErrorType, getVersionControlError } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
-import { GCQFormState, TabProps } from "./types";
+import { CommitChecksFormState, TabProps } from "./types";
 
-const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
+const tab = ProjectSettingsTabRoutes.CommitChecks;
 
 const getInitialFormState = (
-  projectData: GCQFormState,
-  repoData: GCQFormState,
-): GCQFormState => {
+  projectData: CommitChecksFormState,
+  repoData: CommitChecksFormState,
+): CommitChecksFormState => {
   if (!projectData) return repoData;
   if (repoData) {
     return mergeProjectRepo(projectData, repoData);
@@ -28,9 +28,8 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const GithubCommitQueueTab: React.FC<TabProps> = ({
+export const CommitChecksTab: React.FC<TabProps> = ({
   githubWebhooksEnabled,
-  identifier,
   projectData,
   projectId,
   projectType,
@@ -38,7 +37,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   versionControlEnabled,
 }) => {
   const { getTab } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
+  const { formData } = getTab(tab) as { formData: CommitChecksFormState };
 
   const { data } = useQuery<
     GithubProjectConflictsQuery,
@@ -57,20 +56,17 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   const formSchema = useMemo(
     () =>
       getFormSchema(
-        identifier,
         projectType,
         githubWebhooksEnabled,
         formData,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         data?.githubProjectConflicts,
         versionControlEnabled,
-        projectType === ProjectType.AttachedProject ? repoData : null,
+        projectType === ProjectType.AttachedProject ? repoData : undefined,
       ),
     [
       data?.githubProjectConflicts,
       formData,
       githubWebhooksEnabled,
-      identifier,
       projectType,
       repoData,
       versionControlEnabled,
@@ -79,7 +75,6 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
 
   const validateConflicts = validate(
     projectType,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     repoData,
     versionControlEnabled,
   );
@@ -87,7 +82,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   return (
     <>
       {!githubWebhooksEnabled && (
-        <Banner variant="warning">
+        <Banner data-cy="disabled-webhook-banner" variant="warning">
           GitHub features are disabled because the Evergreen GitHub App is not
           installed on the saved owner/repo. Contact IT to install the App and
           enable GitHub features.
@@ -106,23 +101,14 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
 
 const validate = (
   projectType: ProjectType,
-  repoData: GCQFormState,
+  repoData: CommitChecksFormState | undefined,
   versionControlEnabled: boolean,
 ) =>
   ((formData, errors) => {
     const {
-      github: {
-        gitTagVersionsEnabled,
-        gitTags,
-        githubChecks,
-        githubChecksEnabled,
-        prTesting,
-        prTestingEnabled,
-      },
-      mergeQueue: { enabled, patchDefinitions },
-    } = formData;
+      github: { githubChecks, githubChecksEnabled },
+    } = formData as CommitChecksFormState;
 
-    // getVersionControlError is a curried function, so save its partial application here to avoid repetition
     const getAliasError = getVersionControlError(
       versionControlEnabled,
       projectType,
@@ -130,50 +116,14 @@ const validate = (
 
     if (
       getAliasError(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        prTestingEnabled,
-        prTesting?.githubPrAliasesOverride,
-        prTesting?.githubPrAliases,
-        repoData?.github?.prTesting?.githubPrAliases,
+        githubChecksEnabled ?? false,
+        githubChecks?.githubCheckAliasesOverride ?? false,
+        githubChecks?.githubCheckAliases ?? [],
+        repoData?.github?.githubChecks?.githubCheckAliases ?? [],
       ) === ErrorType.Error
     ) {
-      errors.github.prTesting.addError("Missing Patch Definition");
-    }
-
-    if (
-      getAliasError(
-        githubChecksEnabled,
-        githubChecks?.githubCheckAliasesOverride,
-        githubChecks?.githubCheckAliases,
-        repoData?.github?.githubChecks?.githubCheckAliases,
-      ) === ErrorType.Error
-    ) {
-      errors.github.prTesting.addError("Missing Commit Check Definition");
-    }
-
-    if (
-      getAliasError(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        gitTagVersionsEnabled,
-        gitTags?.gitTagAliasesOverride,
-        gitTags?.gitTagAliases,
-        repoData?.github?.gitTags?.gitTagAliases,
-      ) === ErrorType.Error
-    ) {
-      errors.github.prTesting.addError("Missing Git Tag Definition");
-    }
-
-    if (
-      getAliasError(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        enabled,
-        patchDefinitions?.mergeQueueAliasesOverride,
-        patchDefinitions?.mergeQueueAliases,
-        repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases,
-      ) === ErrorType.Error
-    ) {
-      errors.github.prTesting.addError("Missing Merge Queue Patch Definition");
+      errors.github.githubChecks?.addError?.("Missing Commit Check Definition");
     }
 
     return errors;
-  }) satisfies ValidateProps<GCQFormState>;
+  }) satisfies ValidateProps<CommitChecksFormState>;
