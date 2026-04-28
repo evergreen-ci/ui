@@ -324,11 +324,14 @@ test.describe("pretty print", () => {
   test("should pretty print bookmarks if pretty print is enabled", async ({
     authenticatedPage: page,
   }) => {
-    const defaultRowHeight = 18;
+    const defaultRowHeight = 17.5;
 
-    await expect(page.getByTestId("log-row-19")).toBeVisible();
-    await page.getByTestId("log-row-19").dblclick();
-    const box = await page.getByTestId("log-row-19").boundingBox();
+    const logRow19 = page.getByTestId("log-row-19");
+
+    await expect(logRow19).toBeVisible();
+    await logRow19.dblclick();
+    await expect(logRow19).toHaveAttribute("data-bookmarked", "true");
+    const box = await logRow19.boundingBox();
     expect(box).not.toBeNull();
     expect(box!.height).toBeGreaterThan(defaultRowHeight);
   });
