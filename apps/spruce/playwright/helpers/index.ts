@@ -20,6 +20,7 @@ export async function selectOption(
       : page.getByTestId(label.testId);
   await input.scrollIntoViewIfNeeded();
   await expect(input).toBeEnabled();
+  await expect(input).not.toHaveAttribute("id", /undefined/);
   await input.click();
 
   const listbox = page.locator('[role="listbox"]');
