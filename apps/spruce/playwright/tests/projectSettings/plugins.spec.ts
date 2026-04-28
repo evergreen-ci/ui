@@ -59,6 +59,7 @@ test.describe("Plugins", () => {
     await save(page);
 
     await page.goto(patchPage);
+    await expect(page.getByTestId("user-patches-link")).toBeVisible();
     await expect(page.getByTestId("external-link")).toHaveCount(2);
     await expect(page.getByTestId("external-link").last()).toContainText(
       "An external link 1",

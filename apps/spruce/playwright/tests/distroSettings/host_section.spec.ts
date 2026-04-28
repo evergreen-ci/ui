@@ -23,7 +23,11 @@ test.describe("host section", () => {
     test("shows an error when selecting an incompatible host communication method", async ({
       authenticatedPage: page,
     }) => {
-      await selectOption(page, "Host Communication Method", "RPC");
+      await selectOption(
+        page,
+        { testId: "communication-method-select" },
+        "RPC",
+      );
       await expect(
         page.getByText(
           "Legacy and non-legacy bootstrapping and communication are incompatible.",
@@ -63,7 +67,7 @@ test.describe("host section", () => {
     test("updates mountpoints", async ({ authenticatedPage: page }) => {
       await expect(
         page.getByRole("button", { name: "Add mountpoint" }),
-      ).not.toHaveAttribute("aria-disabled", "true");
+      ).toHaveAttribute("aria-disabled", "false");
       await page.getByRole("button", { name: "Add mountpoint" }).click();
       await page.getByLabel("Mountpoint").fill("/data");
 
@@ -85,7 +89,11 @@ test.describe("host section", () => {
         { testId: "bootstrap-method-select" },
         "User Data",
       );
-      await selectOption(page, "Host Communication Method", "RPC");
+      await selectOption(
+        page,
+        { testId: "communication-method-select" },
+        "RPC",
+      );
     });
 
     test("shows Windows-only fields when the architecture is updated", async ({

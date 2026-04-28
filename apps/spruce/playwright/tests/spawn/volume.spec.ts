@@ -147,7 +147,7 @@ test.describe("Spawn volume page", () => {
 
     await clickLabelForLocator(confirmCheckbox);
 
-    await expect(yesButton).not.toHaveAttribute("aria-disabled", "true");
+    await expect(yesButton).toHaveAttribute("aria-disabled", "false");
     await yesButton.click();
 
     await validateToast(page, "success", "Successfully deleted the volume.");

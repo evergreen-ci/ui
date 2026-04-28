@@ -38,9 +38,9 @@ test.describe("restart tasks", () => {
       day: "01",
     });
 
-    await expect(page.getByTestId("restart-tasks-button")).not.toHaveAttribute(
+    await expect(page.getByTestId("restart-tasks-button")).toHaveAttribute(
       "aria-disabled",
-      "true",
+      "false",
     );
     await page.getByTestId("restart-tasks-button").click();
     await expect(page.getByTestId("restart-tasks-modal")).toBeVisible();

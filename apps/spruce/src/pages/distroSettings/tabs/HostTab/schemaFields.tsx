@@ -50,6 +50,7 @@ const communicationMethod = {
     oneOf: enumSelect(communicationMethodToCopy),
   },
   uiSchema: {
+    "ui:data-cy": "communication-method-select",
     "ui:allowDeselect": false,
   },
 };

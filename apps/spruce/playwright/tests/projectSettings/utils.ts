@@ -19,7 +19,7 @@ export const expectSaveButtonEnabled = async (
 ) => {
   const saveButton = page.getByTestId("save-settings-button");
   if (isEnabled) {
-    await expect(saveButton).not.toHaveAttribute("aria-disabled", "true");
+    await expect(saveButton).toHaveAttribute("aria-disabled", "false");
   } else {
     await expect(saveButton).toHaveAttribute("aria-disabled", "true");
   }

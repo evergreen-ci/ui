@@ -49,7 +49,7 @@ test.describe("GitHub app settings", () => {
       page
         .getByTestId("replace-github-credentials-modal")
         .getByRole("button", { name: "Replace" }),
-    ).not.toHaveAttribute("aria-disabled", "true");
+    ).toHaveAttribute("aria-disabled", "false");
 
     await page
       .getByTestId("replace-github-credentials-modal")

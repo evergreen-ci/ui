@@ -258,9 +258,9 @@ test.describe("provider section", () => {
       await selectOption(page, "Region", "us-west-1");
       await page.getByLabel("EC2 AMI ID").clear();
       await page.getByLabel("EC2 AMI ID").fill("ami-1234560");
-      await expect(page.getByLabel("SSH Key Name")).not.toHaveAttribute(
+      await expect(page.getByLabel("SSH Key Name")).toHaveAttribute(
         "aria-disabled",
-        "true",
+        "false",
       );
       await page.getByLabel("SSH Key Name").clear();
       await page.getByLabel("SSH Key Name").fill("my ssh key");

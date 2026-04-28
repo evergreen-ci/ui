@@ -17,10 +17,13 @@ test.describe("project section", () => {
 
     await expect(
       page.getByRole("button", { name: "Add expansion" }),
-    ).not.toHaveAttribute("aria-disabled", "true");
+    ).toHaveAttribute("aria-disabled", "false");
     await page.getByRole("button", { name: "Add expansion" }).click();
-    await page.getByLabel("Key").fill("key-name");
-    await page.getByLabel("Value").fill("my-value");
+
+    const newExpansion = page.getByTestId("expansions-list-item");
+    await newExpansion.getByLabel("Key").fill("key-name");
+    await newExpansion.getByLabel("Value").fill("my-value");
+
     await page.getByRole("button", { name: "Add project" }).click();
     await page.getByLabel("Project ID").fill("spruce");
 
@@ -28,8 +31,8 @@ test.describe("project section", () => {
     await validateToast(page, "success", "Updated distro.");
 
     await page.reload();
-    await expect(page.getByLabel("Key")).toHaveValue("key-name");
-    await expect(page.getByLabel("Value")).toHaveValue("my-value");
+    await expect(newExpansion.getByLabel("Key")).toHaveValue("key-name");
+    await expect(newExpansion.getByLabel("Value")).toHaveValue("my-value");
     await expect(page.getByLabel("Project ID")).toHaveValue("spruce");
 
     await page.getByTestId("delete-item-button").first().click();

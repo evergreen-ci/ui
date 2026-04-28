@@ -16,7 +16,7 @@ test.describe("preferences/notifications", () => {
       await page.getByTestId("slack-member-id-field").fill("12345");
       await expect(
         page.getByTestId("save-profile-changes-button"),
-      ).not.toHaveAttribute("aria-disabled", "true");
+      ).toHaveAttribute("aria-disabled", "false");
     });
 
     test("saving changes to a field should work", async ({

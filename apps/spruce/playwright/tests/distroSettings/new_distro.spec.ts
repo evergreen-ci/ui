@@ -27,9 +27,9 @@ test.describe("Creating a new distro", () => {
     );
     await expect(page).toHaveURL(`/distro/${newDistroId}/settings/general`);
 
-    await expect(page.getByTestId("delete-distro-button")).not.toHaveAttribute(
+    await expect(page.getByTestId("delete-distro-button")).toHaveAttribute(
       "aria-disabled",
-      "true",
+      "false",
     );
     await page.getByTestId("delete-distro-button").click();
     await expect(page.getByTestId("delete-distro-modal")).toBeVisible();
@@ -70,9 +70,9 @@ test.describe("Copying a distro", () => {
     );
     await expect(page).toHaveURL(`/distro/${copyDistroId}/settings/general`);
 
-    await expect(page.getByTestId("delete-distro-button")).not.toHaveAttribute(
+    await expect(page.getByTestId("delete-distro-button")).toHaveAttribute(
       "aria-disabled",
-      "true",
+      "false",
     );
     await page.getByTestId("delete-distro-button").click();
     await expect(page.getByTestId("delete-distro-modal")).toBeVisible();

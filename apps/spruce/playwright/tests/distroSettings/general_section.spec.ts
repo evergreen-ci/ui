@@ -18,7 +18,7 @@ test.describe("general section", () => {
 
     await expect(
       page.getByRole("button", { name: "Add alias" }),
-    ).not.toHaveAttribute("aria-disabled", "true");
+    ).toHaveAttribute("aria-disabled", "false");
     await page.getByRole("button", { name: "Add alias" }).click();
     await page.getByLabel("Alias").fill("localhost-alias");
     await page.getByLabel("Notes").fill("this is a note");
@@ -81,7 +81,7 @@ test.describe("general section", () => {
         page.getByRole("checkbox", {
           name: "Set distro as Single Task Distro",
         }),
-      ).not.toHaveAttribute("aria-disabled", "true");
+      ).toHaveAttribute("aria-disabled", "false");
       await clickLabelForLocator(
         page.getByLabel("Set distro as Single Task Distro"),
       );
@@ -107,7 +107,7 @@ test.describe("general section", () => {
         page.getByRole("checkbox", {
           name: "Set distro as Single Task Distro",
         }),
-      ).not.toHaveAttribute("aria-disabled", "true");
+      ).toHaveAttribute("aria-disabled", "false");
       await clickLabelForLocator(
         page.getByLabel("Set distro as Single Task Distro"),
       );

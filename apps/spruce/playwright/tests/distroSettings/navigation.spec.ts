@@ -51,9 +51,10 @@ test.describe("distroSettings/navigation", () => {
         authenticatedPage: page,
       }) => {
         await page.getByLabel("Notes").fill("my note");
-        await expect(
-          page.getByTestId("save-settings-button"),
-        ).not.toHaveAttribute("aria-disabled", "true");
+        await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
+          "aria-disabled",
+          "false",
+        );
         await page.getByTestId("waterfall-link").click();
         await expect(
           page.getByTestId("navigation-warning-modal"),
