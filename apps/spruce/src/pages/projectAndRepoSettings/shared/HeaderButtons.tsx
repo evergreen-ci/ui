@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
@@ -58,6 +59,8 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
   const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [debugSpawnHostsModalOpen, setDebugSpawnHostsModalOpen] =
+    useState(false);
 
   const { canEdit } = useHasProjectOrRepoEditPermission(id);
 
@@ -135,6 +138,29 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     });
   };
 
+  const isDisablingDebugSpawnHosts = () => {
+    if (tab !== ProjectSettingsTabRoutes.General) {
+      return false;
+    }
+    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const newData = formToGql(formData, isRepo, id);
+    const wasDisabled =
+      initialData?.projectRef?.debugSpawnHostsDisabled === true;
+    const willBeDisabled =
+      newData?.projectRef?.debugSpawnHostsDisabled === true;
+    return !wasDisabled && willBeDisabled;
+  };
+
+  const onSaveConfirm = () => {
+    setSaveModalOpen(false);
+    if (isDisablingDebugSpawnHosts()) {
+      setDebugSpawnHostsModalOpen(true);
+    } else {
+      performSave();
+    }
+  };
+
   const onClick = () => {
     setSaveModalOpen(true);
   };
@@ -184,10 +210,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           before={diffPayload.before}
           customKeyValueRenderConfig={getDiffRenderConfig(tab)}
           onCancel={() => setSaveModalOpen(false)}
-          onConfirm={() => {
-            setSaveModalOpen(false);
-            performSave();
-          }}
+          onConfirm={onSaveConfirm}
           open={saveModalOpen}
           tabTitle={getTabTitle(tab).title}
         />
@@ -210,6 +233,25 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           />
         </>
       )}
+      <ConfirmationModal
+        cancelButtonProps={{
+          onClick: () => setDebugSpawnHostsModalOpen(false),
+        }}
+        confirmButtonProps={{
+          children: "Yes, save",
+          onClick: () => {
+            setDebugSpawnHostsModalOpen(false);
+            performSave();
+          },
+        }}
+        data-cy="disable-debug-spawn-hosts-modal"
+        open={debugSpawnHostsModalOpen}
+        title="Disable Debug Spawn Hosts?"
+        variant="danger"
+      >
+        Are you sure you want to disable debug spawn hosts? Any existing debug
+        spawn hosts will be terminated.
+      </ConfirmationModal>
     </ButtonRow>
   );
 };
