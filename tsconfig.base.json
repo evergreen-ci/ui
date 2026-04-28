@@ -20,6 +20,6 @@
     "jsxImportSource": "@emotion/react",
     "noFallthroughCasesInSwitch": true,
     "strict": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "wicg-file-system-access"]
   }
 }

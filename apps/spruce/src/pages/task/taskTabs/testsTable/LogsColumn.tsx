@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { downloadFile } from "@evg-ui/lib/utils/request";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { getTaskRoute, getTestHTMLLogRoute } from "constants/routes";
@@ -86,6 +87,24 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           title="Plain text log viewer"
         >
           Raw
+        </Button>
+      )}
+      {urlRaw && (
+        <Button
+          data-cy="test-table-download-btn"
+          onClick={() => {
+            const sanitized = testFile.replace(/[^a-zA-Z0-9._-]/g, "_");
+            downloadFile(urlRaw, `${taskId}_${sanitized}.log`);
+            sendEvent({
+              name: "Clicked test log link",
+              "log.viewer": "download",
+              "test.status": status,
+            });
+          }}
+          size="xsmall"
+          title="Download log file"
+        >
+          Download
         </Button>
       )}
       {taskId && filters && !isExecutionTask && (
