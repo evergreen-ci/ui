@@ -104,7 +104,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   );
 
   const preferences = usePreferences();
-  const { expandableRows, filterLogic } = preferences;
+  const { expandableRows, filterLogic, sectionsEnabled } = preferences;
 
   const { dispatch, state } = useLogState(initialLogLines);
   const [processedLogLines, setProcessedLogLines] = useState<ProcessedLogLines>(
@@ -134,6 +134,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       (v): v is number => v !== undefined,
     ),
     renderingType: state.logMetadata?.renderingType,
+    sectionsEnabled,
   });
 
   const stringifiedProcessedLogLines = useMemo(

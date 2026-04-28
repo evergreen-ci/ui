@@ -398,17 +398,17 @@ test.describe("sections", () => {
     await expect(page.getByTestId("sections-toggle")).toBeEnabled();
     await expect(page.getByTestId("sections-toggle")).toHaveAttribute(
       "aria-checked",
-      "false",
-    );
-    await page.getByTestId("sections-toggle").click();
-    await expect(page.getByTestId("sections-toggle")).toHaveAttribute(
-      "aria-checked",
       "true",
     );
     await page.getByTestId("sections-toggle").click();
     await expect(page.getByTestId("sections-toggle")).toHaveAttribute(
       "aria-checked",
       "false",
+    );
+    await page.getByTestId("sections-toggle").click();
+    await expect(page.getByTestId("sections-toggle")).toHaveAttribute(
+      "aria-checked",
+      "true",
     );
   });
 });
