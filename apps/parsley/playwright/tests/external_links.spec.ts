@@ -1,9 +1,9 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "@playwright/test";
 import * as helpers from "../helpers";
 
 test.describe("External Links", () => {
   test.describe("should render links to external pages when viewing an evergreen task log", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(
         "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task",
       );
@@ -11,14 +11,12 @@ test.describe("External Links", () => {
     });
 
     test("should disable the link to the job logs page since there are no resmoke logs", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("job-logs-button")).toBeDisabled();
     });
 
-    test("should render links to the log files", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should render links to the log files", async ({ page }) => {
       const rawLogButton = page.getByTestId("raw-log-button");
       await expect(rawLogButton).toBeVisible();
       await expect(rawLogButton).toBeEnabled();
@@ -44,7 +42,7 @@ test.describe("External Links", () => {
       "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
 
     test("should disable the link to the job logs page since when there are no resmoke logs", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(evgTestLogWithoutGroupID);
       await helpers.toggleDetailsPanel(page, true);
@@ -52,7 +50,7 @@ test.describe("External Links", () => {
     });
 
     test("should enable the link to the job logs page when there are resmoke logs", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(evgTestLogWithGroupID);
       await helpers.toggleDetailsPanel(page, true);
@@ -64,9 +62,7 @@ test.describe("External Links", () => {
       );
     });
 
-    test("should render links to the log files", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should render links to the log files", async ({ page }) => {
       await page.goto(evgTestLogWithoutGroupID);
       await helpers.toggleDetailsPanel(page, true);
 
@@ -89,14 +85,14 @@ test.describe("External Links", () => {
   });
 
   test.describe("should render links to external pages when viewing an evergreen task uploaded file", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(
         "/taskFile/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/sample%20file",
       );
       await helpers.toggleDetailsPanel(page, true);
     });
 
-    test("should link to the raw file", async ({ authenticatedPage: page }) => {
+    test("should link to the raw file", async ({ page }) => {
       const rawLogButton = page.getByTestId("raw-log-button");
       await expect(rawLogButton).toBeVisible();
       await expect(rawLogButton).toBeEnabled();

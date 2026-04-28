@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { test, expect } from "@playwright/test";
 import * as helpers from "../../helpers";
 
 const logLink =
@@ -7,15 +7,13 @@ const logLink =
 test.describe("Filtering", () => {
   test.describe("Applying filters", () => {
     test.describe("Basic filtering", () => {
-      test.beforeEach(async ({ authenticatedPage: page }) => {
-        await helpers.resetDrawerState(page);
+      test.beforeEach(async ({ page }) => {
         await page.goto(logLink);
+        await helpers.resetDrawerState(page);
         await expect(page.getByTestId("paginated-virtual-list")).toBeVisible();
       });
 
-      test("should not collapse bookmarks and share line", async ({
-        authenticatedPage: page,
-      }) => {
+      test("should not collapse bookmarks and share line", async ({ page }) => {
         await page.getByTestId("log-link-5").click();
         await page.getByTestId("log-row-6").dblclick();
         await expect(page).toHaveURL(/\?bookmarks=0,6,115&shareLine=5/);
@@ -29,7 +27,7 @@ test.describe("Filtering", () => {
       });
 
       test("does not corrupt filters that are large numbers", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await helpers.addFilter(page, "5553072873648668703");
         await expect(page.getByTestId("log-row-0")).toBeVisible();
@@ -46,14 +44,11 @@ test.describe("Filtering", () => {
       const filter2 = "session";
 
       test.describe("filtering mode is AND", () => {
-        test.beforeEach(async ({ authenticatedPage: page }) => {
-          await helpers.resetDrawerState(page);
-        });
-
         test("should be able to apply two default filters (case insensitive, exact match)", async ({
-          authenticatedPage: page,
+          page,
         }) => {
           await page.goto(`${logLink}?filterLogic=and`);
+          await helpers.resetDrawerState(page);
           await helpers.addFilter(page, filter1);
           await helpers.addFilter(page, filter2);
           await expect(page).toHaveURL(
@@ -76,12 +71,11 @@ test.describe("Filtering", () => {
           }
         });
 
-        test("should be able to toggle case sensitivity", async ({
-          authenticatedPage: page,
-        }) => {
+        test("should be able to toggle case sensitivity", async ({ page }) => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=100${filter1},100${filter2}`,
           );
+          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter1}`)
             .getByText("Sensitive", { exact: true })
@@ -100,12 +94,11 @@ test.describe("Filtering", () => {
           }
         });
 
-        test("should be able to toggle inverse matching", async ({
-          authenticatedPage: page,
-        }) => {
+        test("should be able to toggle inverse matching", async ({ page }) => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=110${filter1},100${filter2}`,
           );
+          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter2}`)
             .getByText("Inverse", { exact: true })
@@ -124,12 +117,11 @@ test.describe("Filtering", () => {
           }
         });
 
-        test("should be able to toggle visibility", async ({
-          authenticatedPage: page,
-        }) => {
+        test("should be able to toggle visibility", async ({ page }) => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=110${filter1},101${filter2}`,
           );
+          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter1}`)
             .locator('[aria-label="Hide filter"]')
@@ -148,14 +140,11 @@ test.describe("Filtering", () => {
       });
 
       test.describe("filtering mode is OR", () => {
-        test.beforeEach(async ({ authenticatedPage: page }) => {
-          await helpers.resetDrawerState(page);
-        });
-
         test("should be able to apply two default filters (case insensitive, exact match)", async ({
-          authenticatedPage: page,
+          page,
         }) => {
           await page.goto(`${logLink}?filterLogic=or`);
+          await helpers.resetDrawerState(page);
           await helpers.addFilter(page, filter1);
           await helpers.addFilter(page, filter2);
           await expect(page).toHaveURL(
@@ -177,12 +166,11 @@ test.describe("Filtering", () => {
           }
         });
 
-        test("should be able to toggle case sensitivity", async ({
-          authenticatedPage: page,
-        }) => {
+        test("should be able to toggle case sensitivity", async ({ page }) => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=100${filter1},100${filter2}`,
           );
+          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter1}`)
             .getByText("Sensitive", { exact: true })
@@ -202,12 +190,11 @@ test.describe("Filtering", () => {
           }
         });
 
-        test("should be able to toggle inverse matching", async ({
-          authenticatedPage: page,
-        }) => {
+        test("should be able to toggle inverse matching", async ({ page }) => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=110${filter1},100${filter2}`,
           );
+          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter2}`)
             .getByText("Inverse", { exact: true })
@@ -227,12 +214,11 @@ test.describe("Filtering", () => {
           }
         });
 
-        test("should be able to toggle visibility", async ({
-          authenticatedPage: page,
-        }) => {
+        test("should be able to toggle visibility", async ({ page }) => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=110${filter1},101${filter2}`,
           );
+          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter1}`)
             .locator('[aria-label="Hide filter"]')
@@ -255,18 +241,16 @@ test.describe("Filtering", () => {
   test.describe("Deleting and editing filters", () => {
     const filter = "doesNotMatchAnything";
 
-    test.beforeEach(async ({ authenticatedPage: page }) => {
-      await helpers.resetDrawerState(page);
+    test.beforeEach(async ({ page }) => {
       await page.goto(`${logLink}?filters=100${filter}`);
+      await helpers.resetDrawerState(page);
       await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
       expect(
         await page.locator("[data-cy^='skipped-lines-row-']").count(),
       ).toBeGreaterThan(0);
     });
 
-    test("should be able to edit a filter", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should be able to edit a filter", async ({ page }) => {
       await page
         .getByTestId(`filter-${filter}`)
         .locator('[aria-label="Edit filter"]')
@@ -285,9 +269,7 @@ test.describe("Filtering", () => {
       }
     });
 
-    test("should be able to delete a filter", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should be able to delete a filter", async ({ page }) => {
       await page
         .getByTestId(`filter-${filter}`)
         .locator('[aria-label="Delete filter"]')
@@ -303,9 +285,7 @@ test.describe("Filtering", () => {
     const filter1 = "doesNotMatchAnything";
     const filter2 = "doesNotMatchAnything2";
 
-    test("should be able to hide and unhide filters", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should be able to hide and unhide filters", async ({ page }) => {
       await page.goto(`${logLink}?filters=110${filter1},100${filter2}`);
       await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
       expect(

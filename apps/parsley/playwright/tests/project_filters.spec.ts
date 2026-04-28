@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "@playwright/test";
 import * as helpers from "../helpers";
 
 const spruceLogLink =
@@ -7,24 +7,18 @@ const resmokeLogLink =
   "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e17b99558fd9c5e2faf70a00d15d";
 
 test.describe("project filters", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
-    await helpers.resetDrawerState(page);
-  });
-
-  test("should show a message if there are no filters", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should show a message if there are no filters", async ({ page }) => {
     await page.goto(spruceLogLink);
+    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     await expect(page.getByTestId("project-filter")).toBeHidden();
     await expect(page.getByTestId("no-filters-message")).toBeVisible();
   });
 
-  test("should be able to apply a filter", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should be able to apply a filter", async ({ page }) => {
     await page.goto(resmokeLogLink);
+    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     await helpers.clickCheckboxByLabel(page, "Select row 0");
@@ -38,9 +32,10 @@ test.describe("project filters", () => {
   });
 
   test("should allow clicking on the filter name to check the checkbox", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(resmokeLogLink);
+    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     await helpers.clickCheckboxByLabel(page, "Select row 0");
@@ -49,10 +44,9 @@ test.describe("project filters", () => {
     ).toBeChecked();
   });
 
-  test("properly processes filters with commas", async ({
-    authenticatedPage: page,
-  }) => {
+  test("properly processes filters with commas", async ({ page }) => {
     await page.goto(resmokeLogLink);
+    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     await helpers.clickCheckboxByLabel(page, "Select row 3");
@@ -66,9 +60,10 @@ test.describe("project filters", () => {
   });
 
   test("should disable checkbox if filter is already applied", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${resmokeLogLink}?filters=111D%255Cd`);
+    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const checkbox = page.getByRole("checkbox", {
