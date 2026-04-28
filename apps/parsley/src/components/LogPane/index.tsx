@@ -10,7 +10,6 @@ import StickyHeaders from "components/StickyHeaders";
 import { QueryParams } from "constants/queryParams";
 import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
-import { useParsleySettings } from "hooks/useParsleySettings";
 import { useStickyHeaders } from "hooks/useStickyHeaders";
 import { findLineIndex } from "utils/findLineIndex";
 
@@ -29,12 +28,13 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
   const {
+    jumpToFailingLineEnabled,
+    sectionsEnabled,
     setPrettyPrint,
     setWrap,
     stickyHeaders: stickyHeadersPreference,
     zebraStriping,
   } = preferences;
-  const { settings } = useParsleySettings();
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -52,13 +52,12 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     stickyHeadersPreference && sectioning.sectioningEnabled;
 
   useEffect(() => {
-    if (listRef.current && !performedScroll.current && settings) {
+    if (listRef.current && !performedScroll.current) {
       // Use a timeout to execute certain actions after the log pane has rendered. All of the
       // code below describes one-time events.
       const timeoutId = setTimeout(() => {
         const jumpToLine =
-          shareLine ??
-          (settings.jumpToFailingLineEnabled ? failingLine : undefined);
+          shareLine ?? (jumpToFailingLineEnabled ? failingLine : undefined);
         const initialScrollIndex = findLineIndex(processedLogLines, jumpToLine);
         if (initialScrollIndex > -1) {
           leaveBreadcrumb(
@@ -84,15 +83,21 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         performedScroll.current = true;
         sendEvent({
           name: "Viewed log with sections and jump to failing line",
-          "settings.jump_to_failing_line.enabled":
-            settings.jumpToFailingLineEnabled,
-          "settings.sections.enabled": settings.sectionsEnabled,
+          "settings.jump_to_failing_line.enabled": jumpToFailingLineEnabled,
+          "settings.sections.enabled": sectionsEnabled,
         });
       }, 100);
       return () => clearTimeout(timeoutId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listRef, performedScroll, settings, processedLogLines, sendEvent]);
+  }, [
+    listRef,
+    performedScroll,
+    jumpToFailingLineEnabled,
+    sectionsEnabled,
+    processedLogLines,
+    sendEvent,
+  ]);
 
   const stickyHeadersProps = stickyHeadersEnabled
     ? {

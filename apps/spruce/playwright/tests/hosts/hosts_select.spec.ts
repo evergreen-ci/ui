@@ -1,12 +1,12 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 
 const hostsRoute = "/hosts";
 
 const selectAllHosts = async (page: Page) => {
   const headerCheckbox = page.locator("thead").locator("input[type=checkbox]");
-  await clickLabelForLocator(headerCheckbox);
+  await clickCheckbox(headerCheckbox);
   const bodyCheckboxes = page.locator("tbody").locator("input[type=checkbox]");
   await expect(bodyCheckboxes).toHaveCount(3);
   for (let i = 0; i < 3; i++) {
@@ -22,36 +22,18 @@ test.describe("Select hosts in hosts page table", () => {
     const table = page.getByTestId("hosts-table");
     await expect(table).toBeVisible();
     await expect(table).toHaveAttribute("data-loading", "false");
-    await expect(page.getByTestId("update-status-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
-    await expect(page.getByTestId("restart-jasper-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
-    await expect(page.getByTestId("reprovision-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(page.getByTestId("update-status-button")).toBeDisabled();
+    await expect(page.getByTestId("restart-jasper-button")).toBeDisabled();
+    await expect(page.getByTestId("reprovision-button")).toBeDisabled();
   });
 
   test("Selecting hosts enables action buttons", async ({
     authenticatedPage: page,
   }) => {
     await selectAllHosts(page);
-    await expect(page.getByTestId("update-status-button")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
-    await expect(page.getByTestId("restart-jasper-button")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
-    await expect(page.getByTestId("reprovision-button")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
+    await expect(page.getByTestId("update-status-button")).toBeEnabled();
+    await expect(page.getByTestId("restart-jasper-button")).toBeEnabled();
+    await expect(page.getByTestId("reprovision-button")).toBeEnabled();
   });
 
   test("Can restart jasper for selected hosts", async ({

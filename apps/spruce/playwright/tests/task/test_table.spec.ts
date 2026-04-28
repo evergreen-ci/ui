@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator } from "../../helpers";
+import { clickCheckbox } from "../../helpers";
 
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
@@ -57,7 +57,10 @@ test.describe("Tests Table", () => {
     await expect(totalCount.getByText("20")).toBeVisible();
 
     await page.getByTestId("status-treeselect").click();
-    await clickLabelForLocator(page.getByTestId("silent-fail-checkbox"));
+    const silentFailCheckbox = page.getByRole("checkbox", {
+      name: "Silent Fail",
+    });
+    await clickCheckbox(silentFailCheckbox);
     await expect(filteredCount.getByText("1")).toBeVisible();
     await expect(totalCount.getByText("20")).toBeVisible();
 
@@ -141,26 +144,27 @@ test.describe("Tests Table", () => {
       authenticatedPage: page,
     }) => {
       await page.getByTestId("status-treeselect").click();
-      await clickLabelForLocator(page.getByTestId("all-checkbox"));
+      const allCheckbox = page.getByRole("checkbox", { name: "All" });
+      await clickCheckbox(allCheckbox);
       await expect(page).toHaveURL(/statuses=all,pass,fail,skip,silentfail/);
     });
 
     const statuses = [
-      { display: "Pass", key: "pass", dataCy: "pass-checkbox" },
+      { label: "Pass", key: "pass" },
       {
-        display: "Silent Fail",
+        label: "Silent Fail",
         key: "silentfail",
-        dataCy: "silent-fail-checkbox",
       },
-      { display: "Skip", key: "skip", dataCy: "skip-checkbox" },
+      { label: "Skip", key: "skip" },
     ];
 
     test("Checking multiple statuses adds them all to the URL", async ({
       authenticatedPage: page,
     }) => {
       await page.getByTestId("status-treeselect").click();
-      for (const { dataCy } of statuses) {
-        await clickLabelForLocator(page.getByTestId(dataCy));
+      for (const { label } of statuses) {
+        const checkbox = page.getByRole("checkbox", { name: label });
+        await clickCheckbox(checkbox);
       }
       await expect(page).toHaveURL(
         new RegExp(`statuses=${statuses.map(({ key }) => key).join(",")}`),

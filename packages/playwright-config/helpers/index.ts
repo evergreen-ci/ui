@@ -55,15 +55,28 @@ export const validateToast = async (
   }
 };
 
-/**
- * Checkboxes and radio options are not visible in LG so they cannot be clicked directly.
- * This helper clicks the associated label instead, via the associated id attribute.
- * @param locator - A locator pointing to the checkbox or radio element
- */
-export const clickLabelForLocator = async (locator: Locator) => {
+const clickHiddenElementByLabel = async (locator: Locator) => {
   await expect(locator).not.toHaveAttribute("id", /undefined/);
   const id = await locator.getAttribute("id");
   await locator.page().locator(`label[for="${id}"]`).click();
+}
+
+/**
+ * Checkboxes are not visible in LG so they cannot be clicked directly.
+ * This helper clicks the associated label instead, via the associated id attribute.
+ * @param checkbox - A locator pointing to the checkbox
+ */
+export const clickCheckbox = async (checkbox: Locator) => {
+  await clickHiddenElementByLabel(checkbox);
+};
+
+/**
+ * Radio options are not visible in LG so they cannot be clicked directly.
+ * This helper clicks the associated label instead, via the associated id attribute.
+ * @param radio - A locator pointing to the radio button
+ */
+export const clickRadio = async (radio: Locator) => {
+  await clickHiddenElementByLabel(radio);
 };
 
 type ResponseData = {

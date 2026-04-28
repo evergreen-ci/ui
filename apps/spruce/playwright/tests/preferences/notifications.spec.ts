@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator, validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 
 const pageRoute = "/preferences/notifications";
 
@@ -16,7 +16,7 @@ test.describe("preferences/notifications", () => {
       await page.getByTestId("slack-member-id-field").fill("12345");
       await expect(
         page.getByTestId("save-profile-changes-button"),
-      ).toHaveAttribute("aria-disabled", "false");
+      ).toBeEnabled();
     });
 
     test("saving changes to a field should work", async ({
@@ -25,6 +25,9 @@ test.describe("preferences/notifications", () => {
       await page.goto(pageRoute);
       await page.getByTestId("slack-username-field").clear();
       await page.getByTestId("slack-username-field").fill("slack.user");
+      await expect(
+        page.getByTestId("save-profile-changes-button"),
+      ).toBeEnabled();
       await page.getByTestId("save-profile-changes-button").click();
       await validateToast(page, "success", "Your changes have been saved.");
     });
@@ -67,7 +70,7 @@ test.describe("preferences/notifications", () => {
         .getByTestId("subscription-row")
         .nth(0)
         .locator("input[type=checkbox]");
-      await clickLabelForLocator(rowCheckbox);
+      await clickCheckbox(rowCheckbox);
 
       const deleteButton = page.getByTestId("delete-some-button");
       await expect(deleteButton).toContainText("Delete (1)");
@@ -75,10 +78,10 @@ test.describe("preferences/notifications", () => {
       const headerCheckbox = page
         .locator("thead")
         .locator("input[type=checkbox]");
-      await clickLabelForLocator(headerCheckbox);
+      await clickCheckbox(headerCheckbox);
       await expect(deleteButton).toContainText("Delete (3)");
 
-      await clickLabelForLocator(headerCheckbox);
+      await clickCheckbox(headerCheckbox);
       await expect(deleteButton).toContainText("Delete");
       await expect(deleteButton).toHaveAttribute("aria-disabled", "true");
     });
@@ -91,7 +94,7 @@ test.describe("preferences/notifications", () => {
           .getByTestId("subscription-row")
           .nth(0)
           .locator("input[type=checkbox]");
-        await clickLabelForLocator(rowCheckbox);
+        await clickCheckbox(rowCheckbox);
         await page.getByTestId("delete-some-button").click();
         await validateToast(page, "success", "Deleted 1 subscription.");
         await expect(page.getByTestId("subscription-row")).toHaveCount(2);

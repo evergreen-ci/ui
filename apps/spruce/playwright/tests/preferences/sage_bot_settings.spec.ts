@@ -70,9 +70,7 @@ test.describe("Sage Bot Settings", () => {
   }) => {
     await setupSageMocks(page, { keyConfigured: false, keyLastFour: "" });
     await page.goto(route);
-    await expect(
-      page.getByTestId("save-cursor-api-key-button"),
-    ).toHaveAttribute("aria-disabled", "true");
+    await expect(page.getByTestId("save-cursor-api-key-button")).toBeDisabled();
   });
 
   test("should enable save button when API key is entered", async ({
@@ -81,9 +79,7 @@ test.describe("Sage Bot Settings", () => {
     await setupSageMocks(page, { keyConfigured: false, keyLastFour: "" });
     await page.goto(route);
     await page.getByTestId("cursor-api-key-input").fill("test-api-key-12345");
-    await expect(
-      page.getByTestId("save-cursor-api-key-button"),
-    ).toHaveAttribute("aria-disabled", "false");
+    await expect(page.getByTestId("save-cursor-api-key-button")).toBeEnabled();
   });
 
   test("should save cursor API key and show success toast", async ({
@@ -105,13 +101,10 @@ test.describe("Sage Bot Settings", () => {
   }) => {
     await setupSageMocks(page, { keyConfigured: true, keyLastFour: "2345" });
     await page.goto(route);
-    await expect(
-      page.getByTestId("delete-cursor-api-key-button"),
-    ).toBeVisible();
-    await page.getByTestId("delete-cursor-api-key-button").click();
+    const deleteButton = page.getByTestId("delete-cursor-api-key-button");
+    await expect(deleteButton).toBeVisible();
+    await deleteButton.click();
     await validateToast(page, "success", "Cursor API key deleted successfully");
-    await expect(page.getByTestId("delete-cursor-api-key-button")).toHaveCount(
-      0,
-    );
+    await expect(deleteButton).toHaveCount(0);
   });
 });

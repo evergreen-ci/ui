@@ -1,4 +1,4 @@
-import { AliasFormType, ProjectType } from "../utils";
+import { AliasFormType, ProjectType } from "./index";
 
 export enum ErrorType {
   None,

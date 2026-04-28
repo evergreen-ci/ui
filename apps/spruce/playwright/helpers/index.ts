@@ -1,28 +1,67 @@
 import { Page, Locator, expect } from "@playwright/test";
 
+type LocatorOptions = Parameters<Page["locator"]>[1];
+
+/**
+ * Gets a locator for an element with the specified data-row-key attribute
+ * @param page - The Playwright page object
+ * @param value - The data-row-key attribute value
+ * @param options - Optional locator options
+ * @returns A Playwright locator
+ */
+export function dataRowKeyLocator(
+  page: Page,
+  value: string,
+  options?: LocatorOptions,
+): Locator {
+  return page.locator(`[data-row-key=${value}]`, options);
+}
+
+/**
+ * Validates table sort direction by checking for the appropriate sort icon
+ * @param page - The Playwright page object
+ * @param direction - The expected sort direction (asc, desc, or none)
+ */
+export async function validateTableSort(
+  page: Page,
+  direction?: "asc" | "desc" | "none",
+): Promise<void> {
+  switch (direction) {
+    case "asc":
+      await expect(
+        page.locator("svg[aria-label='Sort Ascending Icon']"),
+      ).toBeVisible();
+      return;
+    case "desc":
+      await expect(
+        page.locator("svg[aria-label='Sort Descending Icon']"),
+      ).toBeVisible();
+      return;
+    case "none":
+    default:
+      await expect(
+        page.locator("svg[aria-label='Unsorted Icon']"),
+      ).toBeVisible();
+  }
+}
+
 /**
  * Selects an option from a LeafyGreen select component
  * @param page - The Playwright page object
- * @param label - The label text of the select input, or `{ testId: string }` to target by data-cy
+ * @param label - The label of the select input
  * @param option - The option text or regex pattern to select
  * @param options - Additional options for selecting the option
  * @param options.exact - Whether to match the option text exactly (default: false)
  */
 export async function selectOption(
-  page: Page | Locator,
-  label: string | { testId: string },
+  page: Page,
+  label: string,
   option: string | RegExp,
   options?: { exact: boolean },
 ): Promise<void> {
-  const input =
-    typeof label === "string"
-      ? page.getByLabel(label)
-      : page.getByTestId(label.testId);
-  await input.scrollIntoViewIfNeeded();
-  await expect(input).toBeEnabled();
-  await expect(input).not.toHaveAttribute("id", /undefined/);
-  await input.click();
-
+  const button = page.getByRole("button", { name: label });
+  await expect(button).toBeEnabled();
+  await button.click();
   const listbox = page.locator('[role="listbox"]');
   await expect(listbox).toHaveCount(1);
   await listbox.getByText(option, options).click();
@@ -67,7 +106,7 @@ export async function validateDatePickerDate(
  * Selects a date in a LeafyGreen date picker by navigating the year/month dropdowns
  * and clicking the target day cell.
  * @param page - The Playwright page object
- * @param opts - The expected date values
+ * @param opts - Object describing the date to select
  * @param opts.year - The year to select (e.g., "2025")
  * @param opts.month - The abbreviated month name to select (e.g., "Feb")
  * @param opts.isoDate - The ISO date string of the day cell to click (e.g., "2025-02-28")
@@ -126,7 +165,7 @@ export {
   validateToast,
   login,
   logout,
-  clickLabelForLocator,
+  clickCheckbox,
   mockGraphQLResponse,
   hasOperationName,
 } from "@evg-ui/playwright-config/helpers";

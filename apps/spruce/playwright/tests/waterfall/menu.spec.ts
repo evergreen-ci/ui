@@ -2,7 +2,7 @@ import { test, expect } from "../../fixtures";
 import {
   selectOption,
   validateToast,
-  clickLabelForLocator,
+  clickCheckbox,
   mockGraphQLResponse,
 } from "../../helpers";
 
@@ -15,18 +15,18 @@ test.describe("Waterfall menu settings", () => {
     authenticatedPage: page,
   }) => {
     await page.getByTestId("waterfall-menu").click();
-
-    const omitInactiveBuildsCheckbox = page.getByTestId(
-      "omit-inactive-builds-checkbox",
-    );
+    const omitInactiveBuildsCheckbox = page.getByRole("checkbox", {
+      name: "Omit inactive builds",
+    });
     await expect(omitInactiveBuildsCheckbox).not.toBeChecked();
-    await clickLabelForLocator(omitInactiveBuildsCheckbox);
+    await clickCheckbox(omitInactiveBuildsCheckbox);
     await expect(omitInactiveBuildsCheckbox).toBeChecked();
 
     await page.reload();
     await page.getByTestId("waterfall-menu").click();
     await expect(omitInactiveBuildsCheckbox).toBeChecked();
-    await clickLabelForLocator(omitInactiveBuildsCheckbox);
+
+    await clickCheckbox(omitInactiveBuildsCheckbox);
   });
 
   test("omits inactive build variants when filter is applied and setting is enabled", async ({
@@ -37,10 +37,11 @@ test.describe("Waterfall menu settings", () => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(1);
 
     await page.getByTestId("waterfall-menu").click();
-    const omitInactiveBuildsCheckbox = page.getByTestId(
-      "omit-inactive-builds-checkbox",
-    );
-    await clickLabelForLocator(omitInactiveBuildsCheckbox);
+
+    const omitInactiveBuildsCheckbox = page.getByRole("checkbox", {
+      name: "Omit inactive builds",
+    });
+    await clickCheckbox(omitInactiveBuildsCheckbox);
     await page.locator("body").click();
 
     await page.getByTestId("build-variant-filter-input").clear();
@@ -51,7 +52,7 @@ test.describe("Waterfall menu settings", () => {
     expect(count).toBeGreaterThanOrEqual(1);
 
     await page.getByTestId("waterfall-menu").click();
-    await clickLabelForLocator(omitInactiveBuildsCheckbox);
+    await clickCheckbox(omitInactiveBuildsCheckbox);
   });
 });
 

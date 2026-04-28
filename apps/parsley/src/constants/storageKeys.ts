@@ -17,3 +17,6 @@ export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
 export const COPY_FORMAT = "default-copy-format";
 
 export const EXCLUDE_TIMESTAMPS = "exclude-timestamps";
+
+export const JUMP_TO_FAILING_LINE_ENABLED = "jump-to-failing-line-enabled";
+export const SECTIONS_ENABLED = "sections-enabled";

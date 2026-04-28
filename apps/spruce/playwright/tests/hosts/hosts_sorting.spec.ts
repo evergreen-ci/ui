@@ -182,18 +182,20 @@ test.describe("Hosts page sorting", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(hostsRoute);
-    await expect(
-      page.locator("svg[aria-label='Sort Ascending Icon']"),
-    ).toBeVisible();
+    const sortAscendingIcon = page.locator(
+      "svg[aria-label='Sort Ascending Icon']",
+    );
+    await expect(sortAscendingIcon).toBeVisible();
   });
 
   test("Status sorter has initial value of sort param from url", async ({
     authenticatedPage: page,
   }) => {
     await page.goto(`${hostsRoute}?page=0&sorts=DISTRO%3ADESC`);
-    await expect(
-      page.locator("svg[aria-label='Sort Descending Icon']"),
-    ).toBeVisible();
+    const sortDescendingIcon = page.locator(
+      "svg[aria-label='Sort Descending Icon']",
+    );
+    await expect(sortDescendingIcon).toBeVisible();
   });
 
   sortByTests.forEach(({ expectedIds, sortBy, sorterName }) => {

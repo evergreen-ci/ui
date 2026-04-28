@@ -47,12 +47,13 @@ test.describe("user preferences pages", () => {
     ).toBeVisible();
 
     await page.getByTestId("user-dropdown-link").click();
-    await page.getByTestId("ui-settings-link").click();
+    const settingsLink = page.getByRole("menuitem", { name: "UI Settings" });
+    await settingsLink.click();
 
     const toggle = page.getByLabel("Task review");
-    await expect(toggle).toHaveAttribute("aria-checked", "true");
+    await expect(toggle).toBeChecked();
     await toggle.click();
-    await expect(toggle).toHaveAttribute("aria-checked", "false");
+    await expect(toggle).not.toBeChecked();
 
     await page.goBack();
     await expect(

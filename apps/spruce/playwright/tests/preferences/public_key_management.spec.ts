@@ -40,12 +40,10 @@ test.describe("Public Key Management Page", () => {
       await page.getByTestId("delete-btn").first().click();
       await page.getByTestId("popconfirm-confirm-button").click();
       await expect(page.getByTestId("table-key-name")).toHaveCount(1);
-      await expect(
-        page.getByTestId("table-key-name").first(),
-      ).not.toContainText(keyName1);
-      await expect(page.getByTestId("table-key-name").first()).toContainText(
-        keyName2,
+      await expect(page.getByTestId("table-key-name")).not.toContainText(
+        keyName1,
       );
+      await expect(page.getByTestId("table-key-name")).toContainText(keyName2);
     });
 
     test("displays empty message", async ({ authenticatedPage: page }) => {
@@ -120,41 +118,45 @@ test.describe("Public Key Management Page", () => {
     test("after submitting, the key name and key value are updated", async ({
       authenticatedPage: page,
     }) => {
-      await page.getByTestId("key-name-input").clear();
-      await page.getByTestId("key-name-input").fill(keyName4);
-      await page.getByTestId("key-value-input").clear();
-      await page.getByTestId("key-value-input").fill(pubKey2);
-      await page.getByRole("button", { name: "Save" }).click();
+      const saveButton = page.getByRole("button", { name: "Save" });
+      const keyNameInput = page.getByTestId("key-name-input");
+      const keyValueInput = page.getByTestId("key-value-input");
+
+      await keyNameInput.clear();
+      await keyNameInput.fill(keyName4);
+      await keyValueInput.clear();
+      await keyValueInput.fill(pubKey2);
+      await saveButton.click();
       await validateToast(page, "success", "Updated public key.", true);
       await expect(page.getByTestId("table-key-name").nth(1)).toContainText(
         keyName4,
       );
 
       await page.getByTestId("edit-btn").nth(1).click();
-      await expect(page.getByTestId("key-name-input")).toHaveValue(keyName4);
-      await expect(page.getByTestId("key-value-input")).toHaveValue(pubKey2);
-      await page.getByTestId("key-value-input").clear();
-      await page.getByTestId("key-value-input").fill(pubKey3);
-      await page.getByRole("button", { name: "Save" }).click();
+      await expect(keyNameInput).toHaveValue(keyName4);
+      await expect(keyValueInput).toHaveValue(pubKey2);
+      await keyValueInput.clear();
+      await keyValueInput.fill(pubKey3);
+      await saveButton.click();
       await validateToast(page, "success", "Updated public key.", true);
       await expect(page.getByTestId("table-key-name").nth(1)).toContainText(
         keyName4,
       );
 
       await page.getByTestId("edit-btn").nth(1).click();
-      await expect(page.getByTestId("key-name-input")).toHaveValue(keyName4);
-      await expect(page.getByTestId("key-value-input")).toHaveValue(pubKey3);
-      await page.getByTestId("key-value-input").clear();
-      await page.getByTestId("key-value-input").fill(pubKey4);
-      await page.getByRole("button", { name: "Save" }).click();
+      await expect(keyNameInput).toHaveValue(keyName4);
+      await expect(keyValueInput).toHaveValue(pubKey3);
+      await keyValueInput.clear();
+      await keyValueInput.fill(pubKey4);
+      await saveButton.click();
       await validateToast(page, "success", "Updated public key.", true);
       await expect(page.getByTestId("table-key-name").nth(1)).toContainText(
         keyName4,
       );
 
       await page.getByTestId("edit-btn").nth(1).click();
-      await expect(page.getByTestId("key-name-input")).toHaveValue(keyName4);
-      await expect(page.getByTestId("key-value-input")).toHaveValue(pubKey4);
+      await expect(keyNameInput).toHaveValue(keyName4);
+      await expect(keyValueInput).toHaveValue(pubKey4);
     });
   });
 
@@ -165,7 +167,9 @@ test.describe("Public Key Management Page", () => {
       await page.getByTestId("add-key-button").click();
       await page.getByTestId("key-name-input").fill("rsioeantarsn");
       await page.getByTestId("key-value-input").fill("ssh-rsa ");
-      await page.getByRole("button", { name: "Save" }).click();
+      const saveButton = page.getByRole("button", { name: "Save" });
+      await expect(saveButton).toBeEnabled();
+      await saveButton.click();
       await validateToast(
         page,
         "error",

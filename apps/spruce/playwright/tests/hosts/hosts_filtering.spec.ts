@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures";
-import { clickLabelForLocator } from "../../helpers";
+import { clickCheckbox } from "../../helpers";
 
 const hostsRoute = "/hosts";
 
@@ -119,7 +119,8 @@ test.describe("Hosts page filtering from table filters", () => {
     const filterWrapper = page.getByTestId("statuses-filter-wrapper");
     await expect(filterWrapper).toBeVisible();
 
-    await clickLabelForLocator(page.getByLabel("Running"));
+    const runningCheckbox = page.getByRole("checkbox", { name: "Running" });
+    await clickCheckbox(runningCheckbox);
     await filterIcon.click();
 
     await expect(page).toHaveURL(/statuses=running/);
@@ -140,6 +141,7 @@ test.describe("Hosts page filtering from table filters", () => {
       "build10.ny.cbi.10gen.c",
       "build10.ny.cbi.10gen.cc",
     ];
+
     const rows = page.getByTestId("leafygreen-table-row");
     for (let i = 0; i < expectedIds.length; i++) {
       await expect(rows.nth(i)).toContainText(expectedIds[i]);
