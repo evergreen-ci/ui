@@ -7,7 +7,6 @@ import {
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DisplayModal } from "components/DisplayModal";
-import { costDocumentationUrl } from "constants/externalResources";
 import { getHoneycombTaskCostUrl } from "constants/externalResources/honeycomb";
 import { Cost } from "gql/generated/types";
 
@@ -94,13 +93,9 @@ export const CostModal: React.FC<CostModalProps> = ({
       setOpen={setOpen}
       title={`Cost breakdown for ${name}`}
     >
-      <StyledLink
-        data-cy="cost-docs-link"
-        hideExternalIcon={false}
-        href={costDocumentationUrl}
-      >
-        Evergreen cost documentation
-      </StyledLink>
+      <span data-cy="cost-docs-link">
+        Evergreen cost documentation (coming soon)
+      </span>
       <BaseTable data-cy="cost-breakdown-table" table={table} />
       <StyledLink
         data-cy="task-cost-link"
