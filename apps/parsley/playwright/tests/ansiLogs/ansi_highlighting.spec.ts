@@ -49,7 +49,6 @@ test.describe("Highlighting", () => {
     const highlights = page.getByTestId("highlight");
     expect(await highlights.count()).toBeGreaterThan(0);
 
-    await helpers.toggleDrawer(page);
     await expect(page.getByTestId("delete-highlight-button")).toBeVisible();
     await page.getByTestId("delete-highlight-button").click();
     await expect(highlights).toHaveCount(0);
@@ -104,7 +103,6 @@ test.describe("Highlighting", () => {
     const highlights = page.getByTestId("highlight");
     expect(await highlights.count()).toBeGreaterThan(0);
 
-    await helpers.toggleDrawer(page);
     const sideNavHighlights = page.getByTestId("side-nav-highlight");
     await expect(sideNavHighlights).toHaveCount(1);
     await expect(sideNavHighlights.first()).toContainText("task");
@@ -117,7 +115,6 @@ test.describe("Highlighting", () => {
     const highlights = page.getByTestId("highlight");
     await expect(highlights).toHaveCount(0);
 
-    await helpers.toggleDrawer(page);
     const sideNavHighlights = page.getByTestId("side-nav-highlight");
     await expect(sideNavHighlights).toHaveCount(0);
   });

@@ -9,7 +9,6 @@ const resmokeLogLink =
 test.describe("project filters", () => {
   test("should show a message if there are no filters", async ({ page }) => {
     await page.goto(spruceLogLink);
-    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     await expect(page.getByTestId("project-filter")).toBeHidden();
@@ -18,7 +17,6 @@ test.describe("project filters", () => {
 
   test("should be able to apply a filter", async ({ page }) => {
     await page.goto(resmokeLogLink);
-    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const row0Checkbox = page.getByRole("checkbox", { name: "Select row 0" });
@@ -37,7 +35,6 @@ test.describe("project filters", () => {
     page,
   }) => {
     await page.goto(resmokeLogLink);
-    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const row0Checkbox = page.getByRole("checkbox", { name: "Select row 0" });
@@ -47,7 +44,6 @@ test.describe("project filters", () => {
 
   test("properly processes filters with commas", async ({ page }) => {
     await page.goto(resmokeLogLink);
-    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const row3Checkbox = page.getByRole("checkbox", { name: "Select row 3" });
@@ -66,7 +62,6 @@ test.describe("project filters", () => {
     page,
   }) => {
     await page.goto(`${resmokeLogLink}?filters=111D%255Cd`);
-    await helpers.resetDrawerState(page);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const row1Checkbox = page.getByRole("checkbox", {

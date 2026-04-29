@@ -119,7 +119,6 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toBeVisible();
     await expect(page.getByTestId("search-count")).toContainText("No Matches");
 
-    await helpers.toggleDrawer(page);
     await page
       .getByTestId(`filter-${filter}`)
       .locator('[aria-label="Delete filter"]')

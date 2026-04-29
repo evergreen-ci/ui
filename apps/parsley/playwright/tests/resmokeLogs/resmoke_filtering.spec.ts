@@ -9,7 +9,6 @@ test.describe("Filtering", () => {
     test.describe("Basic filtering", () => {
       test.beforeEach(async ({ page }) => {
         await page.goto(logLink);
-        await helpers.resetDrawerState(page);
         await expect(page.getByTestId("paginated-virtual-list")).toBeVisible();
       });
 
@@ -48,7 +47,6 @@ test.describe("Filtering", () => {
           page,
         }) => {
           await page.goto(`${logLink}?filterLogic=and`);
-          await helpers.resetDrawerState(page);
           await helpers.addFilter(page, filter1);
           await helpers.addFilter(page, filter2);
           await expect(page).toHaveURL(
@@ -75,7 +73,6 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=100${filter1},100${filter2}`,
           );
-          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter1}`)
             .getByText("Sensitive", { exact: true })
@@ -98,7 +95,6 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=110${filter1},100${filter2}`,
           );
-          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter2}`)
             .getByText("Inverse", { exact: true })
@@ -121,7 +117,6 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=110${filter1},101${filter2}`,
           );
-          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter1}`)
             .locator('[aria-label="Hide filter"]')
@@ -144,7 +139,6 @@ test.describe("Filtering", () => {
           page,
         }) => {
           await page.goto(`${logLink}?filterLogic=or`);
-          await helpers.resetDrawerState(page);
           await helpers.addFilter(page, filter1);
           await helpers.addFilter(page, filter2);
           await expect(page).toHaveURL(
@@ -170,7 +164,6 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=100${filter1},100${filter2}`,
           );
-          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter1}`)
             .getByText("Sensitive", { exact: true })
@@ -194,7 +187,6 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=110${filter1},100${filter2}`,
           );
-          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter2}`)
             .getByText("Inverse", { exact: true })
@@ -218,7 +210,6 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=110${filter1},101${filter2}`,
           );
-          await helpers.resetDrawerState(page);
           await page
             .getByTestId(`filter-${filter1}`)
             .locator('[aria-label="Hide filter"]')
@@ -243,7 +234,6 @@ test.describe("Filtering", () => {
 
     test.beforeEach(async ({ page }) => {
       await page.goto(`${logLink}?filters=100${filter}`);
-      await helpers.resetDrawerState(page);
       await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
       expect(
         await page.locator("[data-cy^='skipped-lines-row-']").count(),
@@ -291,7 +281,6 @@ test.describe("Filtering", () => {
       expect(
         await page.locator("[data-cy^='skipped-lines-row-']").count(),
       ).toBeGreaterThan(0);
-      await helpers.toggleDrawer(page);
 
       await page.getByTestId("all-filters-toggle").click();
       await expect(page.getByTestId("all-filters-toggle")).toHaveAttribute(

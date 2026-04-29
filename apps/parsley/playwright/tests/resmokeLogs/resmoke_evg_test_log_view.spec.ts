@@ -280,7 +280,6 @@ test.describe("expanding collapsed rows", () => {
       .getByTestId("skipped-lines-row-1-3")
       .getByRole("button", { name: "All" })
       .click();
-    await helpers.toggleDrawer(page);
     await expect(page.getByTestId("expanded-row-1-to-3")).toBeVisible();
   });
 
@@ -293,7 +292,6 @@ test.describe("expanding collapsed rows", () => {
       .click();
     await expect(page.getByTestId("skipped-lines-row-1-3")).toBeHidden();
 
-    await helpers.toggleDrawer(page);
     await page
       .getByTestId("expanded-row-1-to-3")
       .locator(`[aria-label="Delete range"]`)

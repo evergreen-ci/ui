@@ -7,7 +7,6 @@ setup("authenticate", async ({ page }) => {
   await login(page);
   await page.goto("/");
   await page.evaluate(() => {
-    localStorage.setItem("drawer-opened", "true");
     localStorage.setItem("has-seen-searchbar-guide-cue-tab-complete", "true");
   });
   await page.context().storageState({ path: authFile });
