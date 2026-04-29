@@ -25,6 +25,7 @@ interface LogMetadata {
   taskID?: string;
   testID?: string;
   logPath?: string;
+  logsToMerge?: string[];
 }
 
 interface Preferences {
