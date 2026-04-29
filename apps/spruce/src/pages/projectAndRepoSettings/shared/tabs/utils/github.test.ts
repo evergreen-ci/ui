@@ -1,5 +1,5 @@
-import { AliasFormType, ProjectType } from "../utils";
-import { sectionHasError } from "./getErrors";
+import { sectionHasError } from "./github";
+import { AliasFormType, ProjectType } from "./index";
 
 const callSectionHasError = ({
   // @ts-expect-error: FIXME. This comment was added by an automated script.
