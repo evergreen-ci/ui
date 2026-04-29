@@ -5,6 +5,8 @@ import widgets from "components/SpruceForm/Widgets";
 import { githubChecksAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
 import {
+  fieldDisabled,
+  hideIf,
   alias,
   form,
   ProjectType,
@@ -88,14 +90,13 @@ export const getFormSchema = (
           ...hideIf(
             fieldDisabled(
               formData?.github?.githubChecksEnabled,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              repoData?.github?.githubChecksEnabled,
+              repoData?.github?.githubChecksEnabled ?? null,
             ),
           ),
           ...errorStyling(
             formData?.github?.githubChecksEnabled ?? false,
-            formData?.github?.githubChecks?.githubCheckAliasesOverride ?? false,
-            formData?.github?.githubChecks?.githubCheckAliases ?? [],
+            formData?.github?.githubChecks?.githubCheckAliasesOverride,
+            formData?.github?.githubChecks?.githubCheckAliases,
             repoData?.github?.githubChecks?.githubCheckAliases ?? [],
             "Commit Check Definition",
           ),
@@ -107,7 +108,7 @@ export const getFormSchema = (
             "ui:showLabel": false,
           },
           githubCheckAliases: aliasRowUiSchema({
-            addButtonText: "Add Definition",
+            addButtonText: "Add definition",
             numberedTitle: "Commit Check Definition",
           }),
           repoData: {
@@ -121,14 +122,6 @@ export const getFormSchema = (
     },
   };
 };
-
-const fieldDisabled = (field: boolean | null, repoField: boolean | null) =>
-  field === false || (field === null && repoField === false);
-
-const hideIf = (shouldHide: boolean) =>
-  shouldHide && {
-    "ui:widget": "hidden",
-  };
 
 const GitHubChecksAliasesDescription = (projectType: ProjectType) => (
   <>

@@ -13,4 +13,7 @@ export {
   sectionHasError,
   getVersionControlError,
   githubConflictErrorStyling,
+  fieldDisabled,
+  hideIf,
+  canOverrideForProject,
 } from "./github";
