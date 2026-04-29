@@ -8,11 +8,11 @@ import { clickCheckbox, selectOption } from "../../helpers";
  * @param pageSize - The page size to select
  * @param dataCyTableRows - The data-cy selector for table rows
  */
-async function selectPageSize(
+const selectPageSize = async (
   page: Page,
   pageSize: number,
   dataCyTableRows: string,
-) {
+) => {
   await page
     .locator("button[aria-labelledby='page-size-select']")
     .first()
@@ -22,7 +22,7 @@ async function selectPageSize(
   const rowCount = await tableRows.count();
   expect(rowCount).toBeLessThanOrEqual(pageSize);
   await expect(page).toHaveURL(new RegExp(`limit=${pageSize}`));
-}
+};
 
 test.describe("Host events", () => {
   const pathWithEvents = "/host/i-0f81a2d39744003dd";
