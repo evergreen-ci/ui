@@ -1,13 +1,7 @@
 import { useMemo } from "react";
-import { skipToken, useQuery } from "@apollo/client/react";
 import { GithubWebhooksDisabledBanner } from "components/Banners";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  GithubProjectConflictsQuery,
-  GithubProjectConflictsQueryVariables,
-} from "gql/generated/types";
-import { GITHUB_PROJECT_CONFLICTS } from "gql/queries";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType, ErrorType, getVersionControlError } from "../utils";
@@ -29,24 +23,16 @@ const getInitialFormState = (
 };
 
 export const MergeQueueTab: React.FC<TabProps> = ({
+  githubProjectConflicts,
   githubWebhooksEnabled,
   identifier,
   projectData,
-  projectId,
   projectType,
   repoData,
   versionControlEnabled,
 }) => {
   const { getTab } = useProjectSettingsContext();
   const { formData } = getTab(tab);
-
-  const { data } = useQuery<
-    GithubProjectConflictsQuery,
-    GithubProjectConflictsQueryVariables
-  >(
-    GITHUB_PROJECT_CONFLICTS,
-    projectType === ProjectType.Repo ? skipToken : { variables: { projectId } },
-  );
 
   const initialFormState = useMemo(
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -62,12 +48,12 @@ export const MergeQueueTab: React.FC<TabProps> = ({
         githubWebhooksEnabled,
         formData,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        data?.githubProjectConflicts,
+        githubProjectConflicts,
         versionControlEnabled,
         projectType === ProjectType.AttachedProject ? repoData : null,
       ),
     [
-      data?.githubProjectConflicts,
+      githubProjectConflicts,
       formData,
       githubWebhooksEnabled,
       identifier,
