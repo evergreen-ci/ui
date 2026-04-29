@@ -60,21 +60,22 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     versionTiming,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
-  const totalCost = isPatch ? (patch?.cost?.total ?? 0) : (cost?.total ?? 0);
+  const totalCost = isPatch ? patch?.cost?.total : cost?.total;
   const isVersionComplete = [
     PatchStatus.Failed,
     PatchStatus.Success,
     PatchStatus.Aborted,
   ].includes(status as PatchStatus);
-  const completeCostTooltip = isPatch
-    ? "Total cost of all tasks, including child patches."
-    : "Total cost of all tasks.";
-  const estimateCostTooltip = isPatch
-    ? "Estimated cost so far, including child patches."
-    : "Estimated cost so far.";
-  const costTooltip = isVersionComplete
-    ? completeCostTooltip
-    : estimateCostTooltip;
+  let costTooltip: string;
+  if (isVersionComplete) {
+    costTooltip = isPatch
+      ? "Total cost of all tasks, including child patches."
+      : "Total cost of all tasks.";
+  } else {
+    costTooltip = isPatch
+      ? "Estimated cost so far, including child patches."
+      : "Estimated cost so far.";
+  }
   const { makespan, timeTaken } = versionTiming || {};
   const { githubPatchData, includedLocalModules } = patch || {};
   const { headHash, prNumber } = githubPatchData || {};
@@ -233,12 +234,14 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </StyledRouterLink>
         </MetadataItem>
       )}
-      <MetadataItem
-        data-cy="version-metadata-cost"
-        tooltipDescription={costTooltip}
-      >
-        <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
-      </MetadataItem>
+      {totalCost != null && (
+        <MetadataItem
+          data-cy="version-metadata-cost"
+          tooltipDescription={costTooltip}
+        >
+          <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
+        </MetadataItem>
+      )}
       <ParametersModal parameters={parameters} />
       {externalLinksForMetadata?.map(({ displayName, url }) => (
         <MetadataItem key={displayName}>

@@ -60,14 +60,15 @@ describe("version metadata cost display", () => {
     stubGetClientRects();
   });
 
-  it("ShowsCostRowWithZeroWhenCostIsNull", () => {
+  it("HidesCostRowWhenCostIsNull", () => {
     render(<Metadata version={baseVersion} />, {
       route: "/version/version123",
       path: "/version/:id",
       wrapper,
     });
-    expect(screen.getByDataCy("version-metadata-cost")).toBeInTheDocument();
-    expect(screen.getByDataCy("version-metadata-cost")).toHaveTextContent("$0");
+    expect(
+      screen.queryByDataCy("version-metadata-cost"),
+    ).not.toBeInTheDocument();
   });
 
   it("ShowsActualCostValueWhenCostIsSet", () => {
@@ -89,7 +90,13 @@ describe("version metadata cost display", () => {
   it("ShowsEstimateTooltipWhenVersionIsNotComplete", async () => {
     const user = userEvent.setup();
     render(
-      <Metadata version={{ ...baseVersion, status: PatchStatus.Started }} />,
+      <Metadata
+        version={{
+          ...baseVersion,
+          cost: { __typename: "Cost", total: 10 },
+          status: PatchStatus.Started,
+        }}
+      />,
       {
         route: "/version/version123",
         path: "/version/:id",
