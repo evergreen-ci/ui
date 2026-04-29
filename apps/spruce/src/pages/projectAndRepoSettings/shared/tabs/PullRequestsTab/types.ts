@@ -1,4 +1,7 @@
-import { ProjectPatchAliasSettingsFragment } from "gql/generated/types";
+import {
+  GithubProjectConflicts,
+  ProjectPatchAliasSettingsFragment,
+} from "gql/generated/types";
 import { AliasFormType, ProjectType } from "../utils";
 
 export interface PullRequestsFormState {
@@ -25,4 +28,5 @@ export type TabProps = {
   projectType: ProjectType;
   repoData?: PullRequestsFormState;
   versionControlEnabled: boolean;
+  githubProjectConflicts?: GithubProjectConflicts;
 };

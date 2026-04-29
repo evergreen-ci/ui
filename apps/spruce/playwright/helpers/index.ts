@@ -1,50 +1,5 @@
 import { Page, Locator, expect } from "@playwright/test";
 
-type LocatorOptions = Parameters<Page["locator"]>[1];
-
-/**
- * Gets a locator for an element with the specified data-row-key attribute
- * @param page - The Playwright page object
- * @param value - The data-row-key attribute value
- * @param options - Optional locator options
- * @returns A Playwright locator
- */
-export function dataRowKeyLocator(
-  page: Page,
-  value: string,
-  options?: LocatorOptions,
-): Locator {
-  return page.locator(`[data-row-key=${value}]`, options);
-}
-
-/**
- * Validates table sort direction by checking for the appropriate sort icon
- * @param page - The Playwright page object
- * @param direction - The expected sort direction (asc, desc, or none)
- */
-export async function validateTableSort(
-  page: Page,
-  direction?: "asc" | "desc" | "none",
-): Promise<void> {
-  switch (direction) {
-    case "asc":
-      await expect(
-        page.locator("svg[aria-label='Sort Ascending Icon']"),
-      ).toBeVisible();
-      return;
-    case "desc":
-      await expect(
-        page.locator("svg[aria-label='Sort Descending Icon']"),
-      ).toBeVisible();
-      return;
-    case "none":
-    default:
-      await expect(
-        page.locator("svg[aria-label='Unsorted Icon']"),
-      ).toBeVisible();
-  }
-}
-
 /**
  * Selects an option from a LeafyGreen select component
  * @param page - The Playwright page object
@@ -53,33 +8,35 @@ export async function validateTableSort(
  * @param options - Additional options for selecting the option
  * @param options.exact - Whether to match the option text exactly (default: false)
  */
-export async function selectOption(
-  page: Page,
+export const selectOption = async (
+  page: Page | Locator,
   label: string,
   option: string | RegExp,
   options?: { exact: boolean },
-): Promise<void> {
-  const button = page.getByRole("button", { name: label });
+): Promise<void> => {
+  const button = page.getByRole("button", { name: label, exact: true });
   await expect(button).toBeEnabled();
   await button.click();
   const listbox = page.locator('[role="listbox"]');
   await expect(listbox).toHaveCount(1);
   await listbox.getByText(option, options).click();
-}
+};
 
 /**
  * Clears a date picker input by pressing backspace multiple times
  * LG Date Picker does not respond well to .clear()
  * @param page - The Playwright page object
  */
-export async function clearDatePickerInput(page: Page): Promise<void> {
+export const clearDatePickerInput = async (
+  page: Page | Locator,
+): Promise<void> => {
   const dayInput = page.locator("input[id='day']");
   await dayInput.press("Backspace");
   await dayInput.press("Backspace");
   await dayInput.press("Backspace");
   await dayInput.press("Backspace");
   await dayInput.press("Backspace");
-}
+};
 
 /**
  * Validates the values in a date picker component
@@ -90,17 +47,17 @@ export async function clearDatePickerInput(page: Page): Promise<void> {
  * @param opts.month - The expected month value
  * @param opts.day - The expected day value
  */
-export async function validateDatePickerDate(
-  page: Page,
+export const validateDatePickerDate = async (
+  page: Page | Locator,
   dataCy: string,
   { year = "", month = "", day = "" } = {},
-): Promise<void> {
+): Promise<void> => {
   const datePicker = page.getByTestId(dataCy);
 
   await expect(datePicker.locator("input[id='year']")).toHaveValue(year);
   await expect(datePicker.locator("input[id='month']")).toHaveValue(month);
   await expect(datePicker.locator("input[id='day']")).toHaveValue(day);
-}
+};
 
 /**
  * Selects a date in a LeafyGreen date picker by navigating the year/month dropdowns
@@ -112,11 +69,11 @@ export async function validateDatePickerDate(
  * @param opts.isoDate - The ISO date string of the day cell to click (e.g., "2025-02-28")
  * @param dataCy - The data-cy attribute value of the date picker (default: "date-picker")
  */
-export async function selectDatePickerDate(
-  page: Page,
+export const selectDatePickerDate = async (
+  page: Page | Locator,
   { year = "", month = "", isoDate = "" } = {},
   dataCy = "date-picker",
-): Promise<void> {
+): Promise<void> => {
   await page.getByTestId(dataCy).click();
 
   const options = page.getByRole("listbox").getByRole("option");
@@ -134,7 +91,7 @@ export async function selectDatePickerDate(
   await options.getByText(month).click();
 
   await page.locator(`[data-iso='${isoDate}']`).click();
-}
+};
 
 /**
  * Types a date into a LeafyGreen date picker by filling the year, month, and day inputs.
@@ -145,11 +102,11 @@ export async function selectDatePickerDate(
  * @param opts.day - The day to select (e.g., "28")
  * @param dataCy - The data-cy attribute value of the date picker (default: "date-picker")
  */
-export async function typeDatePickerDate(
-  page: Page,
+export const typeDatePickerDate = async (
+  page: Page | Locator,
   { year = "", month = "", day = "" } = {},
   dataCy = "date-picker",
-): Promise<void> {
+): Promise<void> => {
   const datePicker = page.getByTestId(dataCy);
   const yearInput = datePicker.locator("input[id='year']");
   const monthInput = datePicker.locator("input[id='month']");
@@ -158,7 +115,7 @@ export async function typeDatePickerDate(
   await yearInput.fill(year);
   await monthInput.fill(month);
   await dayInput.fill(day);
-}
+};
 
 // Re-export shared helpers from the playwright-config package.
 export {

@@ -34,7 +34,6 @@ export const getFormSchema = (
         : "hidden",
     "ui:showLabel": false,
   };
-
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
   return {
@@ -162,8 +161,7 @@ export const getFormSchema = (
               ),
           ),
           ...errorStyling(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            formData?.github?.prTestingEnabled,
+            formData?.github?.prTestingEnabled ?? false,
             formData?.github?.prTesting?.githubPrAliasesOverride,
             formData?.github?.prTesting?.githubPrAliases,
             repoData?.github?.prTesting?.githubPrAliases ?? [],

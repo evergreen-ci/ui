@@ -225,6 +225,7 @@ const allTabs = Object.values(ProjectSettingsTabRoutes);
 
 // TODO DEVPROD-31534: unhide tabs when feature flag is removed
 const hiddenTabs = [
+  ProjectSettingsTabRoutes.MergeQueue,
   ProjectSettingsTabRoutes.PullRequests,
   ProjectSettingsTabRoutes.CommitChecks,
   ProjectSettingsTabRoutes.GitTags,

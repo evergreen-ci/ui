@@ -7,14 +7,14 @@ import { BaseTab } from "../BaseTab";
 import { ProjectType, ErrorType, getVersionControlError } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
-import { CommitChecksFormState, TabProps } from "./types";
+import { MergeQueueFormState, TabProps } from "./types";
 
-const tab = ProjectSettingsTabRoutes.CommitChecks;
+const tab = ProjectSettingsTabRoutes.MergeQueue;
 
 const getInitialFormState = (
-  projectData: CommitChecksFormState,
-  repoData: CommitChecksFormState,
-): CommitChecksFormState => {
+  projectData: MergeQueueFormState,
+  repoData: MergeQueueFormState,
+): MergeQueueFormState => {
   if (!projectData) return repoData;
   if (repoData) {
     return mergeProjectRepo(projectData, repoData);
@@ -22,16 +22,17 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const CommitChecksTab: React.FC<TabProps> = ({
+export const MergeQueueTab: React.FC<TabProps> = ({
   githubProjectConflicts,
   githubWebhooksEnabled,
+  identifier,
   projectData,
   projectType,
   repoData,
   versionControlEnabled,
 }) => {
   const { getTab } = useProjectSettingsContext();
-  const { formData } = getTab(tab) as { formData: CommitChecksFormState };
+  const { formData } = getTab(tab);
 
   const initialFormState = useMemo(
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -42,17 +43,20 @@ export const CommitChecksTab: React.FC<TabProps> = ({
   const formSchema = useMemo(
     () =>
       getFormSchema(
+        identifier,
         projectType,
         githubWebhooksEnabled,
         formData,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         githubProjectConflicts,
         versionControlEnabled,
-        projectType === ProjectType.AttachedProject ? repoData : undefined,
+        projectType === ProjectType.AttachedProject ? repoData : null,
       ),
     [
       githubProjectConflicts,
       formData,
       githubWebhooksEnabled,
+      identifier,
       projectType,
       repoData,
       versionControlEnabled,
@@ -61,6 +65,7 @@ export const CommitChecksTab: React.FC<TabProps> = ({
 
   const validateConflicts = validate(
     projectType,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     repoData,
     versionControlEnabled,
   );
@@ -81,14 +86,15 @@ export const CommitChecksTab: React.FC<TabProps> = ({
 
 const validate = (
   projectType: ProjectType,
-  repoData: CommitChecksFormState | undefined,
+  repoData: MergeQueueFormState,
   versionControlEnabled: boolean,
 ) =>
   ((formData, errors) => {
     const {
-      github: { githubChecks, githubChecksEnabled },
-    } = formData as CommitChecksFormState;
+      mergeQueue: { enabled, patchDefinitions },
+    } = formData;
 
+    // getVersionControlError is a curried function, so save its partial application here to avoid repetition
     const getAliasError = getVersionControlError(
       versionControlEnabled,
       projectType,
@@ -96,14 +102,17 @@ const validate = (
 
     if (
       getAliasError(
-        githubChecksEnabled ?? false,
-        githubChecks?.githubCheckAliasesOverride ?? false,
-        githubChecks?.githubCheckAliases ?? [],
-        repoData?.github?.githubChecks?.githubCheckAliases ?? [],
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        enabled,
+        patchDefinitions?.mergeQueueAliasesOverride,
+        patchDefinitions?.mergeQueueAliases,
+        repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases,
       ) === ErrorType.Error
     ) {
-      errors.github.githubChecks?.addError?.("Missing Commit Check Definition");
+      errors.mergeQueue.patchDefinitions.addError(
+        "Missing Merge Queue Patch Definition",
+      );
     }
 
     return errors;
-  }) satisfies ValidateProps<CommitChecksFormState>;
+  }) satisfies ValidateProps<MergeQueueFormState>;
