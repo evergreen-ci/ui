@@ -42,23 +42,23 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.Plugins]: {
         title: "Plugins",
       },
-      [ProjectSettingsTabRoutes.GithubAppSettings]: {
-        title: "GitHub App Settings",
-      },
-      [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
-        title: "GitHub Permission Groups",
+      [ProjectSettingsTabRoutes.EventLog]: {
+        title: "Event Log",
       },
       [ProjectSettingsTabRoutes.PullRequests]: {
         title: "Pull Request Testing",
       },
       [ProjectSettingsTabRoutes.CommitChecks]: {
-        title: "GitHub Commit Checks",
+        title: "Commit Checks",
       },
       [ProjectSettingsTabRoutes.GitTags]: {
         title: "Git Tags",
       },
-      [ProjectSettingsTabRoutes.EventLog]: {
-        title: "Event Log",
+      [ProjectSettingsTabRoutes.GithubAppSettings]: {
+        title: "App Settings",
+      },
+      [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
+        title: "Permission Groups",
       },
     }[tab] ?? defaultTitle
   );

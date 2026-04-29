@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Icon } from "@leafygreen-ui/icon";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
@@ -54,6 +55,27 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
   const isRepo = projectType === ProjectType.Repo;
   const projectLabel = isRepo ? `${owner}/${repo}` : projectIdentifier;
 
+  const evergreenTabs: ProjectSettingsTabRoutes[] = [
+    ProjectSettingsTabRoutes.General,
+    ProjectSettingsTabRoutes.Access,
+    ProjectSettingsTabRoutes.Variables,
+    ProjectSettingsTabRoutes.Notifications,
+    ProjectSettingsTabRoutes.PatchAliases,
+    ProjectSettingsTabRoutes.VirtualWorkstation,
+    ProjectSettingsTabRoutes.ViewsAndFilters,
+    ProjectSettingsTabRoutes.ProjectTriggers,
+    ProjectSettingsTabRoutes.PeriodicBuilds,
+    ProjectSettingsTabRoutes.Plugins,
+    ProjectSettingsTabRoutes.EventLog,
+  ];
+  const githubTabs: ProjectSettingsTabRoutes[] = [
+    ProjectSettingsTabRoutes.GithubAppSettings,
+    ProjectSettingsTabRoutes.GithubPermissionGroups,
+    ProjectSettingsTabRoutes.PullRequests,
+    ProjectSettingsTabRoutes.CommitChecks,
+    ProjectSettingsTabRoutes.GitTags,
+  ];
+
   if (!tabRouteValues.includes(tab as ProjectSettingsTabRoutes)) {
     return (
       <Navigate
@@ -105,20 +127,66 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
               repo={repo}
             />
           </ButtonsContainer>
-          <SideNavGroup>
-            {tabRouteValues.map((v) => (
-              <SharedSettingsNavItem
-                key={v}
-                currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                getRoute={
-                  isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                }
-                id={isRepo ? repoId : projectIdentifier}
-                tab={v}
-              />
-            ))}
-          </SideNavGroup>
+
+          {showNewProjectNavigation ? (
+            <>
+              {/* Grouped, collapsible nav when feature flag is on */}
+              <SideNavGroup
+                collapsible
+                glyph={<Icon glyph="GlobeAmericas" />}
+                header="Evergreen"
+                initialCollapsed={false}
+              >
+                {evergreenTabs.map((v) => (
+                  <SharedSettingsNavItem
+                    key={v}
+                    currentTab={tab ?? ProjectSettingsTabRoutes.General}
+                    getRoute={
+                      isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
+                    }
+                    id={isRepo ? repoId : projectIdentifier}
+                    tab={v}
+                  />
+                ))}
+              </SideNavGroup>
+
+              <SideNavGroup
+                collapsible
+                glyph={<Icon glyph="CodeBlock" />}
+                header="GitHub"
+                initialCollapsed={false}
+              >
+                {githubTabs.map((v) => (
+                  <SharedSettingsNavItem
+                    key={v}
+                    currentTab={tab ?? ProjectSettingsTabRoutes.General}
+                    getRoute={
+                      isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
+                    }
+                    id={isRepo ? repoId : projectIdentifier}
+                    tab={v}
+                  />
+                ))}
+              </SideNavGroup>
+            </>
+          ) : (
+            // Original flat nav when feature flag is OFF
+            <SideNavGroup>
+              {tabRouteValues.map((v) => (
+                <SharedSettingsNavItem
+                  key={v}
+                  currentTab={tab ?? ProjectSettingsTabRoutes.General}
+                  getRoute={
+                    isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
+                  }
+                  id={isRepo ? repoId : projectIdentifier}
+                  tab={v}
+                />
+              ))}
+            </SideNavGroup>
+          )}
         </SideNav>
+
         <SettingsPageContent
           data-cy={isRepo ? "repo-settings-page" : "project-settings-page"}
         >
@@ -154,6 +222,8 @@ const SharedSettingsNavItem: React.FC<{
 );
 
 const allTabs = Object.values(ProjectSettingsTabRoutes);
+
+// TODO DEVPROD-31534: unhide tabs when feature flag is removed
 const hiddenTabs = [
   ProjectSettingsTabRoutes.PullRequests,
   ProjectSettingsTabRoutes.CommitChecks,
