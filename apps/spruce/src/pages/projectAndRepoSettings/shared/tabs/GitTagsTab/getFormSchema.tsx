@@ -61,8 +61,7 @@ export const getFormSchema = (
               type: ["boolean", "null"],
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                repoData?.github?.gitTagVersionsEnabled,
+                repoData?.github?.gitTagVersionsEnabled ?? undefined,
               ),
             },
             users: {
@@ -132,31 +131,27 @@ export const getFormSchema = (
           "Add User",
           repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
           formData?.github?.gitTagVersionsEnabled,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          repoData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled ?? false,
         ),
         teams: userTeamStyling(
           "gitTagAuthorizedTeams",
           "Add Team",
           repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
           formData?.github?.gitTagVersionsEnabled,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          repoData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled ?? false,
         ),
         gitTags: {
           ...hideIf(
             fieldDisabled(
               formData?.github?.gitTagVersionsEnabled,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              repoData?.github?.gitTagVersionsEnabled,
+              repoData?.github?.gitTagVersionsEnabled ?? false,
             ),
           ),
           ...errorStyling(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            formData?.github?.gitTagVersionsEnabled,
+            formData?.github?.gitTagVersionsEnabled ?? false,
             formData?.github?.gitTags?.gitTagAliasesOverride,
             formData?.github?.gitTags?.gitTagAliases,
-            repoData?.github?.gitTags?.gitTagAliases,
+            repoData?.github?.gitTags?.gitTagAliases ?? [],
             "Git Tag Version Definition",
           ),
           gitTagAliasesOverride: overrideStyling,
