@@ -319,7 +319,7 @@ export const getFormSchema = (
           "ui:description": PRAliasesDescription,
           githubPrAliases: {
             ...aliasRowUiSchema({
-              addButtonText: "Add Patch Definition",
+              addButtonText: "Add patch definition",
               numberedTitle: "Patch Definition",
             }),
           },

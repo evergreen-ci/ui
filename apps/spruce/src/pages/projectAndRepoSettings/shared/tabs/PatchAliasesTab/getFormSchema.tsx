@@ -197,7 +197,7 @@ export const getFormSchema = (
 });
 
 const aliasesUiSchema = {
-  "ui:addButtonText": "Add Patch Trigger Alias",
+  "ui:addButtonText": "Add patch trigger alias",
   "ui:orderable": false,
   "ui:showLabel": false,
   "ui:useExpandableCard": true,
@@ -220,7 +220,7 @@ const aliasesUiSchema = {
       "ui:allowDeselect": false,
     },
     taskSpecifiers: {
-      "ui:addButtonText": "Add Task Regex Pair",
+      "ui:addButtonText": "Add task regex pair",
       "ui:orderable": false,
       "ui:showLabel": false,
       "ui:topAlignDelete": true,
