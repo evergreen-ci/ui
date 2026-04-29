@@ -1,5 +1,5 @@
-import { test, expect } from "../../fixtures";
-import { getProjectSettingsRoute, project } from "./constants";
+import { test, expect } from "../../../fixtures";
+import { getProjectSettingsRoute, project } from "../constants";
 
 test.describe("navigation", () => {
   const origin = getProjectSettingsRoute(project);

@@ -1,13 +1,13 @@
-import { test, expect } from "../../fixtures";
-import { clickRadio, validateToast } from "../../helpers";
+import { test, expect } from "../../../fixtures";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
   ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
   repo,
-} from "./constants";
-import { expectSaveButtonEnabled, save } from "./utils";
+} from "../constants";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("Patch Aliases page", () => {
   const origin = getRepoSettingsRoute(repo);

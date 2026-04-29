@@ -1,7 +1,7 @@
-import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
-import { getRepoSettingsRoute, repo } from "./constants";
-import { expectSaveButtonEnabled, save } from "./utils";
+import { test, expect } from "../../../fixtures";
+import { validateToast } from "../../../helpers";
+import { getRepoSettingsRoute, repo } from "../constants";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("Virtual Workstation page", () => {
   const origin = getRepoSettingsRoute(repo);

@@ -1,7 +1,10 @@
-import { test, expect } from "../../fixtures";
-import { validateToast, selectOption } from "../../helpers";
-import { getProjectSettingsRoute, ProjectSettingsTabRoutes } from "./constants";
-import { expectSaveButtonEnabled, save } from "./utils";
+import { test, expect } from "../../../fixtures";
+import { validateToast, selectOption } from "../../../helpers";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+} from "../constants";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("Notifications", () => {
   const origin = getProjectSettingsRoute(

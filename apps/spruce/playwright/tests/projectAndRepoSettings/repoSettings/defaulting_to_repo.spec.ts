@@ -1,5 +1,5 @@
-import { test, expect } from "../../fixtures";
-import { clickCheckbox, clickRadio, validateToast } from "../../helpers";
+import { test, expect } from "../../../fixtures";
+import { clickCheckbox, clickRadio, validateToast } from "../../../helpers";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
@@ -7,8 +7,8 @@ import {
   ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
   repo,
-} from "./constants";
-import { expectSaveButtonEnabled, save } from "./utils";
+} from "../constants";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("Project Settings when defaulting to repo", () => {
   const origin = getProjectSettingsRoute(projectUseRepoEnabled);

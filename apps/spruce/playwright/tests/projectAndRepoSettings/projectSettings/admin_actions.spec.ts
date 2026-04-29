@@ -1,6 +1,6 @@
-import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
-import { getProjectSettingsRoute, project } from "./constants";
+import { test, expect } from "../../../fixtures";
+import { validateToast } from "../../../helpers";
+import { getProjectSettingsRoute, project } from "../constants";
 
 test.describe("projectSettings/admin_actions", () => {
   test.describe("Duplicating a project", () => {

@@ -1,12 +1,12 @@
-import { test, expect } from "../../fixtures";
-import { clickRadio, validateToast } from "../../helpers";
+import { test, expect } from "../../../fixtures";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
   getProjectSettingsRoute,
   project,
   ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
-} from "./constants";
-import { expectSaveButtonEnabled, save } from "./utils";
+} from "../constants";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("Access page", () => {
   const origin = getProjectSettingsRoute(

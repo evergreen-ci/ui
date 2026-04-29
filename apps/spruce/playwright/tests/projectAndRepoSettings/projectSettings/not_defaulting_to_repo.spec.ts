@@ -1,7 +1,7 @@
-import { test, expect } from "../../fixtures";
-import { validateToast } from "../../helpers";
-import { getProjectSettingsRoute, project } from "./constants";
-import { expectSaveButtonEnabled } from "./utils";
+import { test, expect } from "../../../fixtures";
+import { validateToast } from "../../../helpers";
+import { getProjectSettingsRoute, project } from "../constants";
+import { expectSaveButtonEnabled } from "../utils";
 
 test.describe("Project Settings when not defaulting to repo", () => {
   const origin = getProjectSettingsRoute(project);

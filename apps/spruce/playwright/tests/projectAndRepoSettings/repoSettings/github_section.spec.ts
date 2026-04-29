@@ -1,12 +1,12 @@
-import { test, expect } from "../../fixtures";
-import { clickRadio, validateToast } from "../../helpers";
+import { test, expect } from "../../../fixtures";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
   getProjectSettingsRoute,
   getRepoSettingsRoute,
   projectUseRepoEnabled,
   repo,
-} from "./constants";
-import { expectSaveButtonEnabled, save } from "./utils";
+} from "../constants";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("GitHub page", () => {
   const origin = getRepoSettingsRoute(repo);

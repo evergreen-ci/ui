@@ -1,7 +1,7 @@
 import { users } from "@evg-ui/playwright-config/constants";
-import { test, expect } from "../../fixtures";
-import { login, logout } from "../../helpers";
-import { getRepoSettingsRoute, repo } from "./constants";
+import { test, expect } from "../../../fixtures";
+import { login, logout } from "../../../helpers";
+import { getRepoSettingsRoute, repo } from "../constants";
 
 test.describe("permissions", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {

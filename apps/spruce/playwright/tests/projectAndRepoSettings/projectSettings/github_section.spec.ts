@@ -1,7 +1,7 @@
-import { test, expect } from "../../fixtures";
-import { validateToast, clickRadio } from "../../helpers";
-import { getProjectSettingsRoute, project } from "./constants";
-import { save } from "./utils";
+import { test, expect } from "../../../fixtures";
+import { validateToast, clickRadio } from "../../../helpers";
+import { getProjectSettingsRoute, project } from "../constants";
+import { save } from "../utils";
 
 test.describe("GitHub page", () => {
   const origin = getProjectSettingsRoute(project);

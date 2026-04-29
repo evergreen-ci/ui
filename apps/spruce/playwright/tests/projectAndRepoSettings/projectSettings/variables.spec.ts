@@ -1,7 +1,7 @@
-import { test, expect } from "../../fixtures";
-import { validateToast, clickCheckbox } from "../../helpers";
-import { getProjectSettingsRoute, project } from "./constants";
-import { expectSaveButtonEnabled, save } from "./utils";
+import { test, expect } from "../../../fixtures";
+import { validateToast, clickCheckbox } from "../../../helpers";
+import { getProjectSettingsRoute, project } from "../constants";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("Variables page", () => {
   const origin = getProjectSettingsRoute(project);

@@ -1,11 +1,11 @@
 import { Page } from "@playwright/test";
-import { test, expect } from "../../fixtures";
+import { test, expect } from "../../../fixtures";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
-} from "./constants";
-import { save } from "./utils";
+} from "../constants";
+import { save } from "../utils";
 
 test.describe("Plugins", () => {
   const patchPage = "version/5ecedafb562343215a7ff297";

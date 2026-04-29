@@ -1,7 +1,7 @@
-import { test, expect } from "../../fixtures";
-import { clickRadio, validateToast } from "../../helpers";
-import { getProjectSettingsRoute, project } from "./constants";
-import { save } from "./utils";
+import { test, expect } from "../../../fixtures";
+import { clickRadio, validateToast } from "../../../helpers";
+import { getProjectSettingsRoute, project } from "../constants";
+import { save } from "../utils";
 
 test.describe("Attaching Spruce to a repo", () => {
   const origin = getProjectSettingsRoute(project);

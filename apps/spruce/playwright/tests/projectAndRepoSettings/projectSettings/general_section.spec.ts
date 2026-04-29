@@ -1,11 +1,11 @@
-import { test, expect } from "../../fixtures";
-import { clickRadio, validateToast } from "../../helpers";
+import { test, expect } from "../../../fixtures";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
   getProjectSettingsRoute,
   project,
   projectUseRepoEnabled,
-} from "./constants";
-import { save } from "./utils";
+} from "../constants";
+import { save } from "../utils";
 
 const origin = getProjectSettingsRoute(project);
 

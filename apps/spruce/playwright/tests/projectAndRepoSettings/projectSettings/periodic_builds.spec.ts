@@ -1,12 +1,12 @@
-import { test, expect } from "../../fixtures";
+import { test, expect } from "../../../fixtures";
 import {
   validateToast,
   validateDatePickerDate,
   clearDatePickerInput,
   typeDatePickerDate,
-} from "../../helpers";
-import { getProjectSettingsRoute, project } from "./constants";
-import { expectSaveButtonEnabled, save } from "./utils";
+} from "../../../helpers";
+import { getProjectSettingsRoute, project } from "../constants";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("Periodic Builds page", () => {
   const origin = getProjectSettingsRoute(project);
