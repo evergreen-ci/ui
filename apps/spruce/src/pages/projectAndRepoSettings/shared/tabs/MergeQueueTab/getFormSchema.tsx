@@ -75,8 +75,7 @@ export const getFormSchema = (
               title: "",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                repoData?.mergeQueue?.enabled,
+                repoData?.mergeQueue?.enabled ?? undefined,
               ),
             },
             patchDefinitions: {
@@ -113,10 +112,9 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           "ui:data-cy": "mq-enabled-radio-box",
           ...githubConflictErrorStyling(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            githubProjectConflicts?.commitQueueIdentifiers,
+            githubProjectConflicts?.commitQueueIdentifiers ?? null,
             formData?.mergeQueue?.enabled,
-            repoData?.mergeQueue?.enabled,
+            repoData?.mergeQueue?.enabled ?? false,
             "the Merge Queue",
           ),
         },
@@ -129,11 +127,10 @@ export const getFormSchema = (
             ),
           ),
           ...errorStyling(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            formData?.mergeQueue?.enabled,
+            formData?.mergeQueue?.enabled ?? false,
             formData?.mergeQueue?.patchDefinitions?.mergeQueueAliasesOverride,
             formData?.mergeQueue?.patchDefinitions?.mergeQueueAliases,
-            repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases,
+            repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases ?? [],
             "Merge Queue Patch Definition",
           ),
           mergeQueueAliasesOverride: {
@@ -181,18 +178,15 @@ export const getFormSchema = (
 
 const GithubTriggerAliasDescription = ({
   identifier,
-  isPR,
   isRepo,
 }: {
   identifier: string;
   isRepo: boolean;
-  isPR?: boolean;
 }) => {
   const tab = ProjectSettingsTabRoutes.PatchAliases;
   return (
     <Description>
       Aliases can be configured to run for{" "}
-      {isPR ? "pull requests" : "merge queue"} on the{" "}
       <StyledRouterLink
         to={
           isRepo
