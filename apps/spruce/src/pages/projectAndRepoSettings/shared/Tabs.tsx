@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { showNewProjectNavigation } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
@@ -11,6 +12,7 @@ import { AppSettingsTab } from "./tabs/GithubAppSettingsTab/AppSettingsTab";
 import { PermissionGroupsTab } from "./tabs/GithubPermissionGroupsTab/PermissionGroupsTab";
 import {
   AccessTab,
+  CommitChecksTab,
   EventLogTab,
   GeneralTab,
   GithubCommitQueueTab,
@@ -18,8 +20,9 @@ import {
   PatchAliasesTab,
   PeriodicBuildsTab,
   ProjectTriggersTab,
-  VariablesTab,
   PluginsTab,
+  PullRequestsTab,
+  VariablesTab,
   ViewsAndFiltersTab,
   VirtualWorkstationTab,
   TestSelectionTab,
@@ -60,6 +63,13 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     () => getTabData(projectData, projectType, repoData),
     [projectData, projectType, repoData],
   );
+  const githubWebhooksEnabled = !!(
+    projectData?.githubWebhooksEnabled || repoData?.githubWebhooksEnabled
+  );
+  const versionControlEnabled =
+    projectData?.projectRef?.versionControlEnabled ??
+    repoData?.projectRef?.versionControlEnabled ??
+    false;
 
   useScrollToAnchor();
   useEffect(() => {
@@ -124,11 +134,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         <Route
           element={
             <GithubCommitQueueTab
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              githubWebhooksEnabled={
-                projectData?.githubWebhooksEnabled ||
-                repoData?.githubWebhooksEnabled
-              }
+              githubWebhooksEnabled={githubWebhooksEnabled}
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
@@ -138,11 +144,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               repoData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
               }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              versionControlEnabled={
-                projectData?.projectRef?.versionControlEnabled ??
-                repoData?.projectRef?.versionControlEnabled
-              }
+              versionControlEnabled={versionControlEnabled}
             />
           }
           path={ProjectSettingsTabRoutes.GithubCommitQueue}
@@ -299,6 +301,45 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           }
           path={ProjectSettingsTabRoutes.GithubPermissionGroups}
         />
+        {showNewProjectNavigation && (
+          <Route
+            element={
+              <PullRequestsTab
+                githubWebhooksEnabled={githubWebhooksEnabled}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.PullRequests].projectData
+                }
+                projectId={projectId}
+                projectType={projectType}
+                repoData={
+                  tabData[ProjectSettingsTabRoutes.PullRequests].repoData
+                }
+                versionControlEnabled={versionControlEnabled}
+              />
+            }
+            path={ProjectSettingsTabRoutes.PullRequests}
+          />
+        )}
+        {showNewProjectNavigation && (
+          <Route
+            element={
+              <CommitChecksTab
+                githubWebhooksEnabled={githubWebhooksEnabled}
+                identifier={identifier || repoId}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.CommitChecks].projectData
+                }
+                projectId={projectId}
+                projectType={projectType}
+                repoData={
+                  tabData[ProjectSettingsTabRoutes.CommitChecks].repoData
+                }
+                versionControlEnabled={versionControlEnabled}
+              />
+            }
+            path={ProjectSettingsTabRoutes.CommitChecks}
+          />
+        )}
         <Route
           element={
             <EventLogTab

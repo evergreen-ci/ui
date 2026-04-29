@@ -27,7 +27,9 @@ test.describe("project filters", () => {
     await page.goto(resmokeLogLink);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
-    await helpers.clickCheckboxByLabel(page, "Select row 0");
+    const row0Checkbox = page.getByRole("checkbox", { name: "Select row 0" });
+    await helpers.clickCheckbox(row0Checkbox);
+    await expect(row0Checkbox).toBeChecked();
     await page.getByRole("button", { name: "Apply filters" }).click();
     await expect(page).toHaveURL(
       /111%28NETWORK%257CASIO%257CEXECUTOR%257CCONNPOOL%257CREPL_HB%29/,
@@ -43,10 +45,9 @@ test.describe("project filters", () => {
     await page.goto(resmokeLogLink);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
-    await helpers.clickCheckboxByLabel(page, "Select row 0");
-    await expect(
-      page.getByRole("checkbox", { name: "Select row 0" }),
-    ).toBeChecked();
+    const row0Checkbox = page.getByRole("checkbox", { name: "Select row 0" });
+    await helpers.clickCheckbox(row0Checkbox);
+    await expect(row0Checkbox).toBeChecked();
   });
 
   test("properly processes filters with commas", async ({
@@ -55,7 +56,9 @@ test.describe("project filters", () => {
     await page.goto(resmokeLogLink);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
-    await helpers.clickCheckboxByLabel(page, "Select row 3");
+    const row3Checkbox = page.getByRole("checkbox", { name: "Select row 3" });
+    await helpers.clickCheckbox(row3Checkbox);
+    await expect(row3Checkbox).toBeChecked();
     await page.getByRole("button", { name: "Apply filters" }).click();
     await expect(page).toHaveURL(
       /110%2522Connection%2520accepted%2522%252C%2522attr%2522/,
@@ -71,9 +74,9 @@ test.describe("project filters", () => {
     await page.goto(`${resmokeLogLink}?filters=111D%255Cd`);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
-    const checkbox = page.getByRole("checkbox", {
+    const row1Checkbox = page.getByRole("checkbox", {
       name: "Select row 1",
     });
-    await expect(checkbox).toBeDisabled();
+    await expect(row1Checkbox).toBeDisabled();
   });
 });

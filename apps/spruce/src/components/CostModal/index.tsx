@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
@@ -44,21 +45,13 @@ const columns: LGColumnDef<CostRow>[] = [
     header: "Cost",
     cell: ({ getValue }) => {
       const cost = getValue() as number | null | undefined;
-      return (
-        <TabularNum>{cost != null && cost > 0 ? `$${cost}` : "N/A"}</TabularNum>
-      );
+      return <TabularNum>{cost && cost > 0 ? `$${cost}` : "N/A"}</TabularNum>;
     },
   },
 ];
 
 const TabularNum = styled.span`
   font-variant-numeric: tabular-nums;
-`;
-
-const Disclaimer = styled.p`
-  font-size: 12px;
-  color: #6f7584;
-  margin-top: 8px;
 `;
 
 export const CostModal: React.FC<CostModalProps> = ({

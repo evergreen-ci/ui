@@ -10,8 +10,7 @@ import {
 import { GITHUB_PROJECT_CONFLICTS } from "gql/queries";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
-import { ProjectType } from "../utils";
-import { ErrorType, getVersionControlError } from "./getErrors";
+import { ProjectType, ErrorType, getVersionControlError } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { GCQFormState, TabProps } from "./types";

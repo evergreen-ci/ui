@@ -395,7 +395,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
       </MetadataCard>
-      {taskCost && (
+      {taskCost && costModalOpen && (
         <CostModal
           {...taskCost}
           name={task.displayName}

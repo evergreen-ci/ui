@@ -1,6 +1,5 @@
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  MockedProvider,
   act,
   renderComponentWithHook,
   renderWithRouterMatch,
@@ -14,17 +13,12 @@ import {
   MultiLineSelectContextProvider,
   useMultiLineSelectContext,
 } from "context/MultiLineSelectContext";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import SharingMenu from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[parsleySettingsMock]}>
-    <LogContextProvider initialLogLines={logs}>
-      <MultiLineSelectContextProvider>
-        {children}
-      </MultiLineSelectContextProvider>
-    </LogContextProvider>
-  </MockedProvider>
+  <LogContextProvider initialLogLines={logs}>
+    <MultiLineSelectContextProvider>{children}</MultiLineSelectContextProvider>
+  </LogContextProvider>
 );
 
 const logs = [

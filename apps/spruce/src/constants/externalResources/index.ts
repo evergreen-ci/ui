@@ -137,6 +137,3 @@ export const sageBotDocumentationUrl =
 
 export const backstageS3BucketUrl =
   "https://app.backstage.prod.corp.mongodb.com/autoflow";
-
-export const costDocumentationUrl =
-  "https://docs.devprod.prod.corp.mongodb.com/evergreen/FAQ/Cost-FAQ";

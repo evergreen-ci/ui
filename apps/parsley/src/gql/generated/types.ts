@@ -4121,6 +4121,7 @@ export type Task = {
   imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
+  isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
@@ -4492,6 +4493,7 @@ export type TestFilterOptions = {
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
+  logsToMerge?: Maybe<Array<Scalars["String"]["output"]>>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
   testName?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
@@ -5107,22 +5109,6 @@ export type BaseTaskFragment = {
   };
 };
 
-export type UpdateParsleySettingsMutationVariables = Exact<{
-  opts: UpdateParsleySettingsInput;
-}>;
-
-export type UpdateParsleySettingsMutation = {
-  __typename?: "Mutation";
-  updateParsleySettings?: {
-    __typename?: "UpdateParsleySettingsPayload";
-    parsleySettings?: {
-      __typename?: "ParsleySettings";
-      jumpToFailingLineEnabled: boolean;
-      sectionsEnabled: boolean;
-    } | null;
-  } | null;
-};
-
 export type TaskQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -5198,21 +5184,6 @@ export type UserQueryVariables = Exact<{ [key: string]: never }>;
 export type UserQuery = {
   __typename?: "Query";
   user: { __typename?: "User"; userId: string };
-};
-
-export type ParsleySettingsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type ParsleySettingsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    parsleySettings?: {
-      __typename?: "ParsleySettings";
-      jumpToFailingLineEnabled: boolean;
-      sectionsEnabled: boolean;
-    } | null;
-  };
 };
 
 export type ProjectFiltersQueryVariables = Exact<{
