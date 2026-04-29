@@ -134,6 +134,11 @@ export const githubConflictErrorStyling = (
   };
 };
 
+export const canOverrideForProject = (
+  projectType: ProjectType | undefined,
+  field: unknown[] | undefined,
+) => projectType !== ProjectType.AttachedProject || !!field?.length;
+
 export const fieldDisabled = (
   field: boolean | null,
   repoField: boolean | null,

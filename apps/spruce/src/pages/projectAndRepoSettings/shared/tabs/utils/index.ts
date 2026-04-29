@@ -15,4 +15,5 @@ export {
   githubConflictErrorStyling,
   fieldDisabled,
   hideIf,
+  canOverrideForProject,
 } from "./github";

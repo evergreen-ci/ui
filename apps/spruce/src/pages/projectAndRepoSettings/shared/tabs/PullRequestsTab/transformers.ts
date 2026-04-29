@@ -1,7 +1,7 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias as aliasUtils, ProjectType } from "../utils";
+import { alias as aliasUtils, canOverrideForProject } from "../utils";
 import { PullRequestsFormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = aliasUtils;
@@ -25,16 +25,9 @@ export const gqlToForm = ((data, options) => {
   if (!data) return null;
 
   const { aliases, projectRef } = data;
-  const { projectType } = options ?? {};
-
   const { manualPrTestingEnabled, oldestAllowedMergeBase, prTestingEnabled } =
     projectRef ?? {};
-
   const { githubPrAliases } = sortAliases(aliases ?? []);
-
-  const override = (field: unknown[] | undefined) =>
-    projectType !== ProjectType.AttachedProject || !!field?.length;
-
   const githubPRTriggerAliases =
     projectRef?.githubPRTriggerAliases
       ?.map((aliasName) =>
@@ -50,7 +43,10 @@ export const gqlToForm = ((data, options) => {
       manualPrTestingEnabled,
       oldestAllowedMergeBase: oldestAllowedMergeBase ?? "",
       prTesting: {
-        githubPrAliasesOverride: override(githubPrAliases),
+        githubPrAliasesOverride: canOverrideForProject(
+          options?.projectType,
+          githubPrAliases,
+        ),
         githubPrAliases,
       },
       githubPRTriggerAliases,

@@ -1,7 +1,7 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput, type PatchTriggerAlias } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias as aliasUtils, ProjectType } from "../utils";
+import { alias as aliasUtils, canOverrideForProject } from "../utils";
 import { MergeQueueFormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = aliasUtils;
@@ -25,15 +25,8 @@ export const gqlToForm = ((data, options) => {
   if (!data) return null;
 
   const { aliases, projectRef } = data;
-  const { projectType } = options ?? {};
-
   const { commitQueue } = projectRef ?? {};
-
   const { mergeQueueAliases } = sortAliases(aliases ?? []);
-
-  const override = (field: Array<unknown>) =>
-    projectType !== ProjectType.AttachedProject || !!field?.length;
-
   const githubMQTriggerAliases =
     projectRef?.githubMQTriggerAliases
       ?.map((aliasName) =>
@@ -47,7 +40,10 @@ export const gqlToForm = ((data, options) => {
     mergeQueue: {
       enabled: commitQueue?.enabled ?? false,
       patchDefinitions: {
-        mergeQueueAliasesOverride: override(mergeQueueAliases),
+        mergeQueueAliasesOverride: canOverrideForProject(
+          options?.projectType,
+          mergeQueueAliases,
+        ),
         mergeQueueAliases,
       },
       githubMQTriggerAliases,
