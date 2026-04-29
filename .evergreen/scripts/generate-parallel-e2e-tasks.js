@@ -60,14 +60,12 @@ const getPlaywrightDirSizes = (dirPath) => {
 
   const collectDirSizes = (currentPath, isRoot) => {
     const dirs = getDirs(currentPath);
-    const directSize = getDirSize(currentPath, false);
-
+    const dirSize = getDirSize(currentPath, false);
     // Add an entry for specs directly in this directory (always for root, only when non-empty for subdirs)
-    if (isRoot || directSize > 0) {
-      dirSizeMap[`${makeRelative(currentPath)}/*.spec.ts`] = directSize;
+    if (isRoot || dirSize > 0) {
+      dirSizeMap[`${makeRelative(currentPath)}/*.spec.ts`] = dirSize;
     }
-
-    // Recurse into subdirectories
+    // Recurse into subdirectories.
     dirs.forEach((dir) => {
       collectDirSizes(dir, false);
     });
