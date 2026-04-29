@@ -186,7 +186,7 @@ const GithubTriggerAliasDescription = ({
   const tab = ProjectSettingsTabRoutes.PatchAliases;
   return (
     <Description>
-      Aliases can be configured to run for{" "}
+      Aliases can be configured to run on the merge queue on the{" "}
       <StyledRouterLink
         to={
           isRepo
