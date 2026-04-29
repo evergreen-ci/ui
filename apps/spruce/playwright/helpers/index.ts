@@ -14,7 +14,7 @@ export const selectOption = async (
   option: string | RegExp,
   options?: { exact: boolean },
 ): Promise<void> => {
-  const button = page.getByRole("button", { name: label });
+  const button = page.getByRole("button", { name: label, exact: true });
   await expect(button).toBeEnabled();
   await button.click();
   const listbox = page.locator('[role="listbox"]');
