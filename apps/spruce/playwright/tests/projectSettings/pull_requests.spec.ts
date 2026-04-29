@@ -24,13 +24,11 @@ test.describe("Pull Requests project settings when GitHub webhooks are disabled"
     authenticatedPage: page,
   }) => {
     const settingsPage = page.getByTestId("project-settings-page");
-    await expect(settingsPage.locator("button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
-    await expect(page.locator("input")).toHaveAttribute(
-      "aria-disabled",
-      "true",
+    await expect(
+      settingsPage.locator('button:not([aria-disabled="true"])'),
+    ).toHaveCount(0);
+    await expect(page.locator('input:not([aria-disabled="true"])')).toHaveCount(
+      0,
     );
   });
 });
@@ -48,10 +46,14 @@ test.describe("Pull Requests project settings when GitHub webhooks are enabled",
   test("allows enabling manual PR testing", async ({
     authenticatedPage: page,
   }) => {
+    const manualEnabledLabel = page
+      .getByTestId("manual-pr-testing-enabled-radio-box")
+      .locator("label", { hasText: "Enabled" });
+    await manualEnabledLabel.scrollIntoViewIfNeeded();
+    await manualEnabledLabel.click();
     const manualEnabledRadio = page
       .getByTestId("manual-pr-testing-enabled-radio-box")
       .getByRole("radio", { name: "Enabled" });
-    await manualEnabledRadio.click();
     await expect(manualEnabledRadio).toBeChecked();
   });
 

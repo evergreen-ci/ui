@@ -2,8 +2,10 @@ import { test, expect } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 test.describe("Commit Checks project settings when GitHub webhooks are disabled", () => {
+  const origin = "/project/logkeeper/settings/commit-checks";
+
   test.beforeEach(async ({ authenticatedPage: page }) => {
-    await page.goto("/project/logkeeper/settings/commit-checks");
+    await page.goto(origin);
     await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
       "aria-disabled",
       "true",
@@ -24,13 +26,11 @@ test.describe("Commit Checks project settings when GitHub webhooks are disabled"
     authenticatedPage: page,
   }) => {
     const settingsPage = page.getByTestId("project-settings-page");
-    await expect(settingsPage.locator("button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
-    await expect(page.locator("input")).toHaveAttribute(
-      "aria-disabled",
-      "true",
+    await expect(
+      settingsPage.locator('button:not([aria-disabled="true"])'),
+    ).toHaveCount(0);
+    await expect(page.locator('input:not([aria-disabled="true"])')).toHaveCount(
+      0,
     );
   });
 });
