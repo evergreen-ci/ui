@@ -7,15 +7,12 @@ import {
 } from "./constants";
 import { save } from "./utils";
 
+const origin = getProjectSettingsRoute(project);
+
 test.describe("general section", () => {
   test.describe("Renaming the identifier", () => {
-    const origin = getProjectSettingsRoute(project);
-
-    test.beforeEach(async ({ authenticatedPage: page }) => {
-      await page.goto(origin);
-    });
-
     test("Update identifier", async ({ authenticatedPage: page }) => {
+      await page.goto(origin);
       const warningText =
         "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.";
 
@@ -34,6 +31,7 @@ test.describe("general section", () => {
   test("Allows enabling Run Every Mainline Commit", async ({
     authenticatedPage: page,
   }) => {
+    await page.goto(origin);
     await page.getByTestId("navitem-general").click();
     const enableRadio = page
       .getByTestId("run-every-mainline-commit-radio-box")

@@ -27,7 +27,10 @@ test.describe("Access page", () => {
   test("Changing settings and clicking the save button produces a success toast and the changes are persisted", async ({
     authenticatedPage: page,
   }) => {
-    const unrestrictedRadio = page.getByRole("radio", { name: "Unrestricted" });
+    const unrestrictedRadio = page.getByRole("radio", {
+      name: "Unrestricted",
+      exact: true,
+    });
     await clickRadio(unrestrictedRadio);
     await expect(unrestrictedRadio).toBeChecked();
 

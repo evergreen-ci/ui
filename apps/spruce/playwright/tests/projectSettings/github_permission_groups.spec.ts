@@ -17,7 +17,7 @@ test.describe("GitHub permission groups", () => {
   test("should not have any permission groups defined", async ({
     authenticatedPage: page,
   }) => {
-    await expect(page.getByTestId("permission-group-item")).toHaveCount(0);
+    await expect(page.getByTestId("permission-group")).toHaveCount(0);
     await expectSaveButtonEnabled(page, false);
   });
 
@@ -29,7 +29,7 @@ test.describe("GitHub permission groups", () => {
     });
     await expect(addPermissionGroupButton).toBeVisible();
     await addPermissionGroupButton.click();
-    await expect(page.getByTestId("permission-group-item")).toHaveCount(1);
+    await expect(page.getByTestId("permission-group")).toHaveCount(1);
 
     const invalidGithubPermission = "invalid_github_permission";
     await page
@@ -55,7 +55,7 @@ test.describe("GitHub permission groups", () => {
     });
     await expect(addPermissionGroupButton).toBeVisible();
     await addPermissionGroupButton.click();
-    await expect(page.getByTestId("permission-group-item")).toHaveCount(1);
+    await expect(page.getByTestId("permission-group")).toHaveCount(1);
 
     await page
       .getByTestId("permission-group-title-input")
@@ -70,9 +70,9 @@ test.describe("GitHub permission groups", () => {
     await validateToast(page, "success", "Successfully updated project");
 
     await page.reload();
-    await expect(page.getByTestId("permission-group-item")).toHaveCount(1);
+    await expect(page.getByTestId("permission-group")).toHaveCount(1);
     await page.getByTestId("delete-item-button").click();
-    await expect(page.getByTestId("permission-group-item")).toHaveCount(0);
+    await expect(page.getByTestId("permission-group")).toHaveCount(0);
     await save(page);
     await validateToast(page, "success", "Successfully updated project");
   });

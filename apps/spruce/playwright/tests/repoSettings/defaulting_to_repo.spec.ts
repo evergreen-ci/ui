@@ -225,8 +225,11 @@ test.describe("Project Settings when defaulting to repo", () => {
         "radio",
         { name: "Override Repo Patch Definition", exact: true },
       );
-      await overrideRepoPatchDefinitionRadio.click();
-      await expect(overrideRepoPatchDefinitionRadio).toBeChecked();
+      await clickRadio(overrideRepoPatchDefinitionRadio);
+      await expect(overrideRepoPatchDefinitionRadio).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
 
       await expect(
         githubSection.getByTestId("error-banner").filter({
@@ -278,11 +281,16 @@ test.describe("Project Settings when defaulting to repo", () => {
     test("Defaults to overriding repo since a patch definition is defined", async ({
       authenticatedPage: page,
     }) => {
-      const overrideRepoPatchDefinitionRadio = page.getByRole("radio", {
-        name: "Override Repo Patch Definition",
-        exact: true,
-      });
-      await expect(overrideRepoPatchDefinitionRadio).toBeChecked();
+      const overrideRepoPatchDefinitionRadio = page
+        .getByTestId("cq-override-radio-box")
+        .getByRole("radio", {
+          name: "Override Repo Patch Definition",
+          exact: true,
+        });
+      await expect(overrideRepoPatchDefinitionRadio).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
     });
 
     test("Shows the existing patch definition", async ({
@@ -386,7 +394,10 @@ test.describe("Project Settings when defaulting to repo", () => {
         name: "Override Repo Patch Aliases",
       });
       await clickRadio(overrideRepoPatchAliasesRadio);
-      await expect(overrideRepoPatchAliasesRadio).toBeChecked();
+      await expect(overrideRepoPatchAliasesRadio).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
       await expectSaveButtonEnabled(page, false);
 
       await page.getByRole("button", { name: "Add patch alias" }).click();
@@ -458,20 +469,21 @@ test.describe("Project Settings when defaulting to repo", () => {
       await page.goto(origin);
       await page.getByTestId("navitem-virtual-workstation").click();
 
-      await expect(page.getByTestId("command-row")).toHaveCount(1);
-      const repoCommandInput = page.getByTestId("repo-command-input");
-      await expect(repoCommandInput).toHaveValue("a repo command");
-      await expect(repoCommandInput).toHaveAttribute("aria-disabled", "true");
+      const commandRow = page.getByTestId("command-row");
+
+      await expect(commandRow).toHaveCount(1);
+      const commandInput = commandRow.getByRole("textbox", { name: "Command" });
+      await expect(commandInput).toHaveValue("a repo command");
+      await expect(commandInput).toBeDisabled();
 
       const overrideRepoCommandsRadio = page.getByRole("radio", {
         name: "Override Repo Commands",
       });
       await clickRadio(overrideRepoCommandsRadio);
 
-      await expect(page.getByTestId("command-row")).toHaveCount(0);
+      await expect(commandRow).toHaveCount(0);
       await page.getByRole("button", { name: "Add Command" }).click();
-      const projectCommandInput = page.getByTestId("command-input");
-      await projectCommandInput.fill("a project command");
+      await commandInput.fill("a project command");
       await save(page);
       await validateToast(
         page,
@@ -479,21 +491,21 @@ test.describe("Project Settings when defaulting to repo", () => {
         "Successfully updated project",
         true,
       );
-      await expect(projectCommandInput).toHaveValue("a project command");
-      await expect(projectCommandInput).toBeEnabled();
+      await expect(commandInput).toHaveValue("a project command");
+      await expect(commandInput).toBeEnabled();
 
       const defaultToRepoCommandsRadio = page.getByRole("radio", {
         name: "Default to Repo Commands",
       });
       await clickRadio(defaultToRepoCommandsRadio);
-      await expect(page.getByTestId("command-row")).toHaveCount(1);
-      await expect(repoCommandInput).toHaveValue("a repo command");
-      await expect(repoCommandInput).toBeDisabled();
+      await expect(commandRow).toHaveCount(1);
+      await expect(commandInput).toHaveValue("a repo command");
+      await expect(commandInput).toBeDisabled();
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
 
       await clickRadio(overrideRepoCommandsRadio);
-      await expect(page.getByTestId("command-row")).toHaveCount(0);
+      await expect(commandRow).toHaveCount(0);
     });
 
     test("Allows overriding without adding a command", async ({
