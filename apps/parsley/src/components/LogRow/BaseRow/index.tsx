@@ -117,11 +117,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
       onDoubleClick={handleDoubleClick}
       shared={shared}
     >
-      <SharingMenu
-        lineIndex={lineIndex}
-        lineNumber={lineNumber}
-        scrollToLine={scrollToLine}
-      />
+      <SharingMenu lineNumber={lineNumber} />
       <LineNumber lineNumber={lineNumber} />
       <StyledPre shouldWrap={wrap} wordWrapFormat={wordWrapFormat}>
         <Highlighter

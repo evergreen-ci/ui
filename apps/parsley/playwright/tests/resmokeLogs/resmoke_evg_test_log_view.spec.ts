@@ -170,19 +170,14 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(page.getByTestId("bookmark-4")).toBeHidden();
   });
 
-  test("should be able to set and unset the share line", async ({
+  test("shared line should appear in the bookmark panel", async ({
     authenticatedPage: page,
   }) => {
-    await page.getByTestId("log-link-5").click();
-    await page.getByText("Share line").click();
+    await page.goto(`${logLink}?shareLine=5`);
     await expect(page).toHaveURL(/\?bookmarks=0,12568&shareLine=5/);
     await expect(page.getByTestId("bookmark-0")).toBeVisible();
     await expect(page.getByTestId("bookmark-5")).toBeVisible();
     await expect(page.getByTestId("bookmark-12568")).toBeVisible();
-    await page.getByTestId("log-link-5").click();
-    await page.getByText("Unshare line").click();
-    await expect(page).toHaveURL(/\?bookmarks=0,12568/);
-    await expect(page.getByTestId("bookmark-5")).toBeHidden();
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({

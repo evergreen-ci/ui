@@ -15,7 +15,9 @@ import Row from ".";
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={[parsleySettingsMock]}>
     <LogContextProvider initialLogLines={["Test Log"]}>
-      <MultiLineSelectContextProvider>{children}</MultiLineSelectContextProvider>
+      <MultiLineSelectContextProvider>
+        {children}
+      </MultiLineSelectContextProvider>
     </LogContextProvider>
   </MockedProvider>
 );
@@ -44,37 +46,6 @@ describe("row", () => {
     expect(screen.getByText(lineContent)).toBeVisible();
   });
 
-  it("clicking share line via menu updates the url and scrolls to the line", async () => {
-    const user = userEvent.setup();
-    const scrollToLine = vi.fn();
-    const { router } = renderRow(
-      {
-        ...rowProps,
-        children: testLog,
-        lineIndex: 7,
-        lineNumber: 54,
-        scrollToLine,
-      },
-      {},
-    );
-    await user.click(screen.getByDataCy("log-link-54"));
-    await user.click(screen.getByText("Share line"));
-    expect(router.state.location.search).toBe("?shareLine=54");
-    expect(scrollToLine).toHaveBeenCalledWith(7);
-  });
-
-  it("clicking unshare line via menu updates the URL correctly", async () => {
-    const user = userEvent.setup();
-    const { router } = renderRow(
-      { ...rowProps, children: testLog },
-      { route: "?shareLine=0" },
-    );
-
-    await user.click(screen.getByDataCy("log-link-0"));
-    await user.click(screen.getByText("Unshare line"));
-    expect(router.state.location.search).toBe("");
-  });
-
   it("double clicking a log line adds it to the bookmarks", async () => {
     const user = userEvent.setup();
     const { router } = renderRow({ ...rowProps, children: testLog }, {});
@@ -95,10 +66,11 @@ describe("row", () => {
 
   it("a log line can be shared and bookmarked at the same time", async () => {
     const user = userEvent.setup();
-    const { router } = renderRow({ ...rowProps, children: testLog }, {});
+    const { router } = renderRow(
+      { ...rowProps, children: testLog },
+      { route: "?shareLine=0" },
+    );
 
-    await user.click(screen.getByDataCy("log-link-0"));
-    await user.click(screen.getByText("Share line"));
     await user.dblClick(screen.getByText(testLog));
     expect(router.state.location.search).toBe("?bookmarks=0&shareLine=0");
   });

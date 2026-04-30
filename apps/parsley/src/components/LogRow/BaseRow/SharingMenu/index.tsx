@@ -7,7 +7,7 @@ import { useChatContext } from "@evg-ui/fungi";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import {
   getLocalStorageString,
   setLocalStorageString,
@@ -25,17 +25,12 @@ import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
 interface SharingMenuProps {
   lineNumber: number;
-  lineIndex: number;
-  scrollToLine: (lineIndex: number) => void;
 }
 
-const SharingMenu: React.FC<SharingMenuProps> = ({
-  lineIndex,
-  lineNumber,
-  scrollToLine,
-}) => {
+const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
   const {
     clearSelection,
+    handleSelectLine,
     menuPosition,
     openMenu: contextOpen,
     selectedLines,
@@ -46,11 +41,6 @@ const SharingMenu: React.FC<SharingMenuProps> = ({
   const isParsleyAIAvailable = useIsParsleyAIAvailable();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
-  const [shareLine, setShareLine] = useQueryParam<number | undefined>(
-    QueryParams.ShareLine,
-    undefined,
-    urlParseOptions,
-  );
   const dispatchToast = useToastContext();
   const { sendEvent } = useLogWindowAnalytics();
 
@@ -69,32 +59,18 @@ const SharingMenu: React.FC<SharingMenuProps> = ({
     [isContextMenuLine, setContextOpen],
   );
 
+  const isWithinSelection =
+    selectedLines.startingLine !== undefined &&
+    lineNumber >= selectedLines.startingLine &&
+    lineNumber <= (selectedLines.endingLine ?? selectedLines.startingLine);
+
   const setMenuOpen = () => {
     sendEvent({ name: "Toggled share menu", open });
+    if (!open && !isWithinSelection) {
+      handleSelectLine(lineNumber, false);
+    }
     setOpen(!open);
   };
-
-  const shared = shareLine === lineNumber;
-
-  const handleShareLine = useCallback(() => {
-    if (shared) {
-      setShareLine(undefined);
-      sendEvent({ name: "Deleted share line" });
-    } else {
-      setShareLine(lineNumber);
-      scrollToLine(lineIndex);
-      sendEvent({ name: "Created new share line" });
-    }
-    setOpen(false);
-  }, [
-    lineIndex,
-    lineNumber,
-    shared,
-    scrollToLine,
-    sendEvent,
-    setShareLine,
-    setOpen,
-  ]);
 
   const handleAddToParsleyAI = async () => {
     const { endingLine, startingLine } = selectedLines;
@@ -151,11 +127,11 @@ const SharingMenu: React.FC<SharingMenuProps> = ({
 
   const handleOnlySearchOnRange = () => {
     const { endingLine, startingLine } = selectedLines;
-    if (startingLine === undefined || endingLine === undefined) return;
+    if (startingLine === undefined) return;
     setParams({
       ...params,
       [QueryParams.LowerRange]: startingLine,
-      [QueryParams.UpperRange]: endingLine,
+      [QueryParams.UpperRange]: endingLine ?? startingLine,
     });
     setOpen(false);
     sendEvent({
@@ -200,16 +176,7 @@ const SharingMenu: React.FC<SharingMenuProps> = ({
         </MenuIcon>
       }
     >
-      {!isUploadedLog && (
-        <MenuItem
-          data-cy="share-line-btn"
-          glyph={<Icon glyph="Link" />}
-          onClick={handleShareLine}
-        >
-          {shared ? "Unshare line" : "Share line"}
-        </MenuItem>
-      )}
-      {isParsleyAIAvailable && hasSelection && (
+      {isParsleyAIAvailable && (
         <MenuItem
           glyph={<Icon glyph="Sparkle" />}
           onClick={handleAddToParsleyAI}
@@ -217,15 +184,10 @@ const SharingMenu: React.FC<SharingMenuProps> = ({
           Add to Parsley AI
         </MenuItem>
       )}
-      {hasSelection && (
-        <MenuItem
-          glyph={<Icon glyph="Copy" />}
-          onClick={handleCopySelectedLines}
-        >
-          Copy selected contents
-        </MenuItem>
-      )}
-      {!isUploadedLog && hasSelection && (
+      <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
+        Copy selected contents
+      </MenuItem>
+      {!isUploadedLog && (
         <MenuItem
           glyph={<Icon glyph="Export" />}
           onClick={handleShareLinkToSelectedLines}
