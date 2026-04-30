@@ -15,6 +15,7 @@ export enum ProjectSettingsTabRoutes {
   GithubPermissionGroups = "github-permission-groups",
   CommitChecks = "commit-checks",
   PullRequests = "pull-requests",
+  MergeQueue = "merge-queue",
 }
 
 export const getProjectSettingsRoute = (

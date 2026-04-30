@@ -21,7 +21,9 @@ test.describe("A project that has GitHub webhooks disabled", () => {
   test("Commit Checks page shows a disabled webhooks banner when webhooks are disabled", async ({
     authenticatedPage: page,
   }) => {
-    await expect(page.getByTestId("disabled-webhook-banner")).toContainText(
+    const banner = page.getByTestId("disabled-webhook-banner");
+    await expect(banner).toBeVisible();
+    await expect(banner).toContainText(
       "GitHub features are disabled because the Evergreen GitHub App is not",
     );
   });

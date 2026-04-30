@@ -26,9 +26,6 @@ test.describe("web", () => {
     const disabledGQLQueriesSection = page.getByTestId("disabled-gql-queries");
     await disabledGQLQueriesSection
       .getByLabel("Disabled GraphQL Queries")
-      .scrollIntoViewIfNeeded();
-    await disabledGQLQueriesSection
-      .getByLabel("Disabled GraphQL Queries")
       .clear();
     await disabledGQLQueriesSection
       .getByLabel("Disabled GraphQL Queries")

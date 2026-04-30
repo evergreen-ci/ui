@@ -119,7 +119,6 @@ test.describe("admin settings save properly", () => {
     await validateToast(page, "success", "Settings saved successfully");
     await page.reload();
 
-    await page.getByLabel("Total Project Limit").scrollIntoViewIfNeeded();
     await expect(page.getByLabel("Total Project Limit")).toHaveValue("200");
     await expect(newProjectCreationException.getByLabel("Owner")).toHaveValue(
       "owner",
