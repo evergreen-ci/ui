@@ -24,7 +24,6 @@ import {
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { PatchStatus } from "types/patch";
 import { msToDuration } from "utils/string";
 import { ParametersModal } from "../ParametersModal";
 import IncludedLocalModules from "./IncludedLocalModules";
@@ -54,20 +53,14 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     requester,
     revision,
     startTime,
-    status,
     upstreamProject,
     user,
     versionTiming,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
   const totalCost = isPatch ? patch?.cost?.total : cost?.total;
-  const isVersionComplete = [
-    PatchStatus.Failed,
-    PatchStatus.Success,
-    PatchStatus.Aborted,
-  ].includes(status as PatchStatus);
   let costTooltip: string;
-  if (isVersionComplete) {
+  if (finishTime) {
     costTooltip = isPatch
       ? "Total cost of all tasks, including child patches."
       : "Total cost of all tasks.";
@@ -234,7 +227,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </StyledRouterLink>
         </MetadataItem>
       )}
-      {totalCost != null && (
+      {startTime && totalCost != null && totalCost > 0 && (
         <MetadataItem
           data-cy="version-metadata-cost"
           tooltipDescription={costTooltip}

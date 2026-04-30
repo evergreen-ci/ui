@@ -75,7 +75,6 @@ describe("version metadata cost display", () => {
     const version: Version = {
       ...baseVersion,
       cost: { __typename: "Cost", total: 321.45 },
-      status: PatchStatus.Success,
     };
     render(<Metadata version={version} />, {
       route: "/version/version123",
@@ -94,7 +93,7 @@ describe("version metadata cost display", () => {
         version={{
           ...baseVersion,
           cost: { __typename: "Cost", total: 10 },
-          status: PatchStatus.Started,
+          finishTime: null,
         }}
       />,
       {
@@ -117,7 +116,7 @@ describe("version metadata cost display", () => {
         version={{
           ...baseVersion,
           cost: { __typename: "Cost", total: 100 },
-          status: PatchStatus.Success,
+          finishTime: new Date("2024-01-02"),
         }}
       />,
       {
