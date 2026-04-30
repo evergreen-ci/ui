@@ -19,6 +19,7 @@ vi.mock("./CreateDuplicateProjectButton", () => ({
 }));
 
 const navItems = [
+  { tabLabel: "Merge Queue", dataCy: "navitem-merge-queue" },
   { tabLabel: "Pull Requests", dataCy: "navitem-pull-requests" },
   { tabLabel: "Commit Checks", dataCy: "navitem-commit-checks" },
 ];

@@ -1,13 +1,7 @@
 import { useMemo } from "react";
-import { skipToken, useQuery } from "@apollo/client/react";
 import { GithubWebhooksDisabledBanner } from "components/Banners";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  GithubProjectConflictsQuery,
-  GithubProjectConflictsQueryVariables,
-} from "gql/generated/types";
-import { GITHUB_PROJECT_CONFLICTS } from "gql/queries";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType, ErrorType, getVersionControlError } from "../utils";
@@ -29,9 +23,9 @@ const getInitialFormState = (
 };
 
 export const PullRequestsTab: React.FC<TabProps> = ({
+  githubProjectConflicts,
   githubWebhooksEnabled,
   projectData,
-  projectId,
   projectType,
   repoData,
   versionControlEnabled,
@@ -39,13 +33,6 @@ export const PullRequestsTab: React.FC<TabProps> = ({
   const { getTab } = useProjectSettingsContext();
   const { formData } = getTab(tab) as { formData: PullRequestsFormState };
 
-  const { data } = useQuery<
-    GithubProjectConflictsQuery,
-    GithubProjectConflictsQueryVariables
-  >(
-    GITHUB_PROJECT_CONFLICTS,
-    projectType === ProjectType.Repo ? skipToken : { variables: { projectId } },
-  );
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData],
@@ -57,12 +44,12 @@ export const PullRequestsTab: React.FC<TabProps> = ({
         projectType,
         githubWebhooksEnabled,
         formData,
-        data?.githubProjectConflicts,
+        githubProjectConflicts,
         versionControlEnabled,
         projectType === ProjectType.AttachedProject ? repoData : undefined,
       ),
     [
-      data?.githubProjectConflicts,
+      githubProjectConflicts,
       formData,
       githubWebhooksEnabled,
       projectType,
