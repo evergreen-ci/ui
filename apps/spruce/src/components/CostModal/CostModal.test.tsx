@@ -21,7 +21,9 @@ describe("CostModal", () => {
 
   it("renders the docs link", () => {
     render(<CostModal {...defaultProps} />);
-    expect(screen.getByDataCy("cost-docs-link")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /evergreen cost documentation/i }),
+    ).toBeInTheDocument();
   });
 
   it("renders cost rows with values when costs are provided", () => {
