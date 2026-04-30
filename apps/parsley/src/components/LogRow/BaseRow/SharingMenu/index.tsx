@@ -1,4 +1,3 @@
-import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
@@ -30,11 +29,9 @@ interface SharingMenuProps {
 const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
   const {
     clearSelection,
-    handleSelectLine,
-    menuPosition,
-    openMenu: contextOpen,
+    openMenu: open,
     selectedLines,
-    setOpenMenu: setContextOpen,
+    setOpenMenu: setOpen,
   } = useMultiLineSelectContext();
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
   const { toggleChip } = useChatContext();
@@ -44,31 +41,8 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useLogWindowAnalytics();
 
-  const [localOpen, setLocalOpen] = useState(false);
-
-  const isContextMenuLine = menuPosition === lineNumber;
-  const open = isContextMenuLine ? contextOpen || localOpen : localOpen;
-
-  const setOpen = useCallback(
-    (v: boolean) => {
-      if (isContextMenuLine) {
-        setContextOpen(v);
-      }
-      setLocalOpen(v);
-    },
-    [isContextMenuLine, setContextOpen],
-  );
-
-  const isWithinSelection =
-    selectedLines.startingLine !== undefined &&
-    lineNumber >= selectedLines.startingLine &&
-    lineNumber <= (selectedLines.endingLine ?? selectedLines.startingLine);
-
   const setMenuOpen = () => {
     sendEvent({ name: "Toggled share menu", open });
-    if (!open && !isWithinSelection) {
-      handleSelectLine(lineNumber, false);
-    }
     setOpen(!open);
   };
 

@@ -1,7 +1,9 @@
 import { useCallback } from "react";
 import styled from "@emotion/styled";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { fontFamilies } from "@leafygreen-ui/tokens";
+import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
@@ -61,7 +63,13 @@ const BaseRow: React.FC<BaseRowProps> = ({
   ...rest
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
-  const { selectedLines } = useMultiLineSelectContext();
+  const {
+    handleSelectLine,
+    menuPosition,
+    selectedLines,
+    setMenuPosition,
+    setOpenMenu,
+  } = useMultiLineSelectContext();
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -100,6 +108,19 @@ const BaseRow: React.FC<BaseRowProps> = ({
       lineNumber <= selectedLines.endingLine) ||
     selectedLines.startingLine === lineNumber;
 
+  const isWithinSelection =
+    selectedLines.startingLine !== undefined &&
+    lineNumber >= selectedLines.startingLine &&
+    lineNumber <= (selectedLines.endingLine ?? selectedLines.startingLine);
+
+  const handleEllipsisClick = () => {
+    if (!isWithinSelection) {
+      handleSelectLine(lineNumber, false);
+    }
+    setMenuPosition(lineNumber);
+    setOpenMenu(true);
+  };
+
   const displayContent =
     bookmarked && prettyPrint ? formatPrettyPrint(children) : children;
 
@@ -117,7 +138,17 @@ const BaseRow: React.FC<BaseRowProps> = ({
       onDoubleClick={handleDoubleClick}
       shared={shared}
     >
-      <SharingMenu lineNumber={lineNumber} />
+      {menuPosition === lineNumber ? (
+        <SharingMenu lineNumber={lineNumber} />
+      ) : (
+        <EllipsisButton
+          aria-label="Expand share menu"
+          data-cy={`log-link-${lineNumber}`}
+          onClick={handleEllipsisClick}
+        >
+          <Icon glyph="Ellipsis" />
+        </EllipsisButton>
+      )}
       <LineNumber lineNumber={lineNumber} />
       <StyledPre shouldWrap={wrap} wordWrapFormat={wordWrapFormat}>
         <Highlighter
@@ -192,6 +223,12 @@ const StyledPre = styled.div<{
       : `
         white-space: pre;
       `}
+`;
+
+const EllipsisButton = styled(IconButton)`
+  height: 16px;
+  width: 16px;
+  margin-left: ${size.xxs};
 `;
 
 export default BaseRow;

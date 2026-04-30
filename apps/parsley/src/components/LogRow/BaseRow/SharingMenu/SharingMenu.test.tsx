@@ -71,8 +71,8 @@ describe("sharingMenu", () => {
     expect(
       screen.getByText("Copy share link to selected line"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Clear selection")).toBeInTheDocument();
-    expect(screen.getByText("Only search on range")).toBeInTheDocument();
+    expect(screen.queryByText("Clear selection")).toBeNull();
+    expect(screen.queryByText("Only search on range")).toBeNull();
   });
   it("should render selection options after selecting a start and end line", async () => {
     const user = userEvent.setup();
