@@ -1,9 +1,16 @@
 import { useEffect, useMemo } from "react";
+import { useQuery, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { showNewProjectNavigation } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
-import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
+import {
+  GithubProjectConflictsQuery,
+  GithubProjectConflictsQueryVariables,
+  ProjectSettingsQuery,
+  RepoSettingsQuery,
+} from "gql/generated/types";
+import { GITHUB_PROJECT_CONFLICTS } from "gql/queries";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
@@ -25,6 +32,7 @@ import {
   VariablesTab,
   ViewsAndFiltersTab,
   VirtualWorkstationTab,
+  MergeQueueTab,
   TestSelectionTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -70,6 +78,15 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     projectData?.projectRef?.versionControlEnabled ??
     repoData?.projectRef?.versionControlEnabled ??
     false;
+
+  const { data: githubConflictsData } = useQuery<
+    GithubProjectConflictsQuery,
+    GithubProjectConflictsQueryVariables
+  >(
+    GITHUB_PROJECT_CONFLICTS,
+    projectType === ProjectType.Repo ? skipToken : { variables: { projectId } },
+  );
+  const githubProjectConflicts = githubConflictsData?.githubProjectConflicts;
 
   useScrollToAnchor();
   useEffect(() => {
@@ -304,7 +321,27 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         {showNewProjectNavigation && (
           <Route
             element={
+              <MergeQueueTab
+                githubProjectConflicts={githubProjectConflicts}
+                githubWebhooksEnabled={githubWebhooksEnabled}
+                identifier={identifier}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.MergeQueue].projectData
+                }
+                projectId={projectId}
+                projectType={projectType}
+                repoData={tabData[ProjectSettingsTabRoutes.MergeQueue].repoData}
+                versionControlEnabled={versionControlEnabled}
+              />
+            }
+            path={ProjectSettingsTabRoutes.MergeQueue}
+          />
+        )}
+        {showNewProjectNavigation && (
+          <Route
+            element={
               <PullRequestsTab
+                githubProjectConflicts={githubProjectConflicts}
                 githubWebhooksEnabled={githubWebhooksEnabled}
                 projectData={
                   tabData[ProjectSettingsTabRoutes.PullRequests].projectData
@@ -324,6 +361,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           <Route
             element={
               <CommitChecksTab
+                githubProjectConflicts={githubProjectConflicts}
                 githubWebhooksEnabled={githubWebhooksEnabled}
                 identifier={identifier || repoId}
                 projectData={

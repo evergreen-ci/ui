@@ -155,6 +155,7 @@ const SharedSettingsNavItem: React.FC<{
 
 const allTabs = Object.values(ProjectSettingsTabRoutes);
 const hiddenTabs = [
+  ProjectSettingsTabRoutes.MergeQueue,
   ProjectSettingsTabRoutes.PullRequests,
   ProjectSettingsTabRoutes.CommitChecks,
 ];

@@ -156,7 +156,7 @@ export const RestartTasksButton: React.FC<RestartTasksButtonProps> = ({
         onClick={() => setModalOpen(true)}
         variant={ButtonVariant.Primary}
       >
-        Preview Restart Tasks
+        Preview restart tasks
       </Button>
     </>
   );

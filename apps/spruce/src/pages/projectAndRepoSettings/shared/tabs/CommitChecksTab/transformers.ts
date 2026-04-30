@@ -1,7 +1,7 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias as aliasUtils, ProjectType } from "../utils";
+import { alias as aliasUtils, canOverrideForProject } from "../utils";
 import { CommitChecksFormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = aliasUtils;
@@ -26,20 +26,17 @@ export const gqlToForm = ((data, options) => {
   if (!data) return null;
 
   const { aliases, projectRef } = data;
-  const { projectType } = options ?? {};
-
   const { githubChecksEnabled } = projectRef ?? {};
-
   const { githubCheckAliases } = sortAliases(aliases ?? []);
-
-  const override = (field: unknown[] | undefined) =>
-    projectType !== ProjectType.AttachedProject || !!field?.length;
 
   return {
     github: {
       githubChecksEnabled: githubChecksEnabled ?? null,
       githubChecks: {
-        githubCheckAliasesOverride: override(githubCheckAliases),
+        githubCheckAliasesOverride: canOverrideForProject(
+          options?.projectType,
+          githubCheckAliases,
+        ),
         githubCheckAliases,
       },
     },

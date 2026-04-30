@@ -90,14 +90,13 @@ export const getFormSchema = (
           ...hideIf(
             fieldDisabled(
               formData?.github?.githubChecksEnabled,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              repoData?.github?.githubChecksEnabled,
+              repoData?.github?.githubChecksEnabled ?? null,
             ),
           ),
           ...errorStyling(
             formData?.github?.githubChecksEnabled ?? false,
-            formData?.github?.githubChecks?.githubCheckAliasesOverride ?? false,
-            formData?.github?.githubChecks?.githubCheckAliases ?? [],
+            formData?.github?.githubChecks?.githubCheckAliasesOverride,
+            formData?.github?.githubChecks?.githubCheckAliases,
             repoData?.github?.githubChecks?.githubCheckAliases ?? [],
             "Commit Check Definition",
           ),

@@ -57,6 +57,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.EventLog]: {
         title: "Event Log",
       },
+      [ProjectSettingsTabRoutes.MergeQueue]: {
+        title: "Merge Queue",
+      },
     }[tab] ?? defaultTitle
   );
 };
