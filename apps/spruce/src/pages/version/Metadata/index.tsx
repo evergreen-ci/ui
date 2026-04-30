@@ -66,8 +66,8 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
       : "Total cost of all tasks.";
   } else {
     costTooltip = isPatch
-      ? "Estimated cost of completed tasks, including child patches."
-      : "Estimated cost of completed tasks.";
+      ? "Estimated cost of completed tasks so far, including child patches."
+      : "Estimated cost of completed tasks so far.";
   }
   const { makespan, timeTaken } = versionTiming || {};
   const { githubPatchData, includedLocalModules } = patch || {};
