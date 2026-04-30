@@ -1,3 +1,4 @@
+import { clickRadio } from "@evg-ui/playwright-config/helpers";
 import { test, expect } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
@@ -6,10 +7,7 @@ test.describe("Git Tags project settings when GitHub webhooks are disabled", () 
 
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(origin);
-    await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(page.getByTestId("save-settings-button")).toBeDisabled();
   });
 
   test("Git tags page shows a disabled webhooks banner when webhooks are disabled", async ({
@@ -40,18 +38,15 @@ test.describe("Git Tags project settings when GitHub webhooks are enabled", () =
 
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(origin);
-    await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(page.getByTestId("save-settings-button")).toBeDisabled();
   });
 
   test("Saves successfully when Git Tags are enabled and a Git Tag Definition is provided", async ({
     authenticatedPage: page,
   }) => {
     const gitTagRadioBox = page.getByTestId("git-tag-enabled-radio-box");
-    await gitTagRadioBox.locator("> *").first().click();
-    await gitTagRadioBox.getByText("Enabled").click();
+    const enabledRadio = gitTagRadioBox.getByRole("radio", { name: "Enabled" });
+    await clickRadio(enabledRadio);
     const errorText =
       "A Git Tag Version Definition must be specified for this feature to run.";
     const errorBanner = page.getByTestId("error-banner");

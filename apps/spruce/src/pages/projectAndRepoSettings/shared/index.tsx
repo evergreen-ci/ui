@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { Icon } from "@leafygreen-ui/icon";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, Link, Navigate } from "react-router-dom";
+import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { ProjectBanner } from "components/Banners";
@@ -135,7 +135,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
               {/* Grouped, collapsible nav when feature flag is on */}
               <SideNavGroup
                 collapsible
-                glyph={<Icon glyph="GlobeAmericas" />}
+                glyph={<Icon glyph="EvergreenLogo" />}
                 header="Evergreen"
                 initialCollapsed={false}
               >
@@ -154,7 +154,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
 
               <SideNavGroup
                 collapsible
-                glyph={<Icon glyph="CodeBlock" />}
+                glyph={<Icon glyph="GitHub" />}
                 header="GitHub"
                 // initialCollapsed={false}
               >
