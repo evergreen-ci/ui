@@ -136,7 +136,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             <>
               {/* Grouped, collapsible nav when feature flag is on */}
               <SideNavGroup
-                glyph={<Icon aria-hidden="true" glyph="EvergreenLogo" />}
+                glyph={<Icon glyph="EvergreenLogo" />}
                 header="Evergreen"
               >
                 {evergreenTabs.map((v) => (
@@ -154,7 +154,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
 
               <SideNavGroup
                 collapsible
-                glyph={<Icon aria-hidden="true" glyph="GitHub" />}
+                glyph={<Icon glyph="GitHub" />}
                 header="GitHub"
               >
                 {githubTabs.map((v) => (
@@ -170,10 +170,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
                 ))}
               </SideNavGroup>
 
-              <SideNavGroup
-                glyph={<Icon aria-hidden="true" glyph="List" />}
-                header="ChangeLog"
-              >
+              <SideNavGroup glyph={<Icon glyph="List" />} header="ChangeLog">
                 {otherTabs.map((v) => (
                   <SharedSettingsNavItem
                     key={v}

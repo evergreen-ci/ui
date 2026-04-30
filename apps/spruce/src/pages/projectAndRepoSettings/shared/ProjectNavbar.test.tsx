@@ -82,7 +82,9 @@ describe("Feature flag tests for DEVPROD-31534", () => {
           },
         );
 
-        await userEvent.click(screen.getByRole("button", { name: "GitHub" }));
+        await userEvent.click(
+          screen.getByRole("button", { name: "GitHub Icon GitHub" }),
+        );
         expect(screen.getByDataCy(dataCy)).toBeInTheDocument();
       });
     });
