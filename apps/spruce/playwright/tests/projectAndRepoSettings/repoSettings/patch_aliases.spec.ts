@@ -122,25 +122,25 @@ test.describe("Patch Aliases page", () => {
     const prTriggerAliases = page.getByTestId("github-pr-trigger-aliases");
     await expect(prTriggerAliases.getByTestId("pta-item")).toHaveCount(1);
     await expect(prTriggerAliases.getByText("my-alias")).toBeVisible();
+
     await prTriggerAliases.getByTestId("pta-item").hover();
-    await expect(page.getByTestId("pta-tooltip")).toHaveCount(1);
-    await expect(page.getByTestId("pta-tooltip")).toBeVisible();
-    await expect(page.getByTestId("pta-tooltip")).toContainText("spruce");
-    await expect(page.getByTestId("pta-tooltip")).toContainText("module_name");
-    await expect(page.getByTestId("pta-tooltip")).toContainText(
-      "Variant/Task Regex Pairs",
-    );
+    const prTooltip = prTriggerAliases.getByTestId("pta-tooltip");
+    await expect(prTooltip).toHaveCount(1);
+    await expect(prTooltip).toBeVisible();
+    await expect(prTooltip).toContainText("spruce");
+    await expect(prTooltip).toContainText("module_name");
+    await expect(prTooltip).toContainText("Variant/Task Regex Pairs");
 
     const mqTriggerAliases = page.getByTestId("github-mq-trigger-aliases");
     await expect(mqTriggerAliases.getByTestId("pta-item")).toHaveCount(1);
     await expect(mqTriggerAliases.getByText("my-alias")).toBeVisible();
+
     await mqTriggerAliases.getByTestId("pta-item").hover();
-    await expect(page.getByTestId("pta-tooltip")).toHaveCount(1);
-    await expect(page.getByTestId("pta-tooltip")).toBeVisible();
-    await expect(page.getByTestId("pta-tooltip")).toContainText("spruce");
-    await expect(page.getByTestId("pta-tooltip")).toContainText("module_name");
-    await expect(page.getByTestId("pta-tooltip")).toContainText(
-      "Variant/Task Regex Pairs",
-    );
+    const mqTooltip = mqTriggerAliases.getByTestId("pta-tooltip");
+    await expect(mqTooltip).toHaveCount(1);
+    await expect(mqTooltip).toBeVisible();
+    await expect(mqTooltip).toContainText("spruce");
+    await expect(mqTooltip).toContainText("module_name");
+    await expect(mqTooltip).toContainText("Variant/Task Regex Pairs");
   });
 });

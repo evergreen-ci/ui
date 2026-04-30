@@ -24,7 +24,8 @@ test.describe("Virtual Workstation page", () => {
     await addCommandButton.click();
     await page.getByTestId("command-input").nth(1).fill("command 2");
     await save(page);
-    await validateToast(page, "success", "Successfully updated repo");
+    await validateToast(page, "success", "Successfully updated repo", true);
+
     await page.getByTestId("array-down-button").click();
     await save(page);
     await validateToast(page, "success", "Successfully updated repo");

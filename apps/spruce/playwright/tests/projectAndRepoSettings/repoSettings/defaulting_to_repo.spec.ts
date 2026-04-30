@@ -417,7 +417,12 @@ test.describe("Project Settings when defaulting to repo", () => {
         .first()
         .fill("alias task tag 3");
       await save(page);
-      await validateToast(page, "success", "Successfully updated project");
+      await validateToast(
+        page,
+        "success",
+        "Successfully updated project",
+        true,
+      );
 
       const defaultToRepoRadio = page.getByRole("radio", {
         name: "Default to Repo Patch Aliases",

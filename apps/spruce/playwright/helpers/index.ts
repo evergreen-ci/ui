@@ -15,6 +15,7 @@ export const selectOption = async (
   options?: { exact: boolean },
 ): Promise<void> => {
   const button = page.getByRole("button", { name: label, exact: true });
+  await expect(button).toHaveCount(1);
   await expect(button).toBeEnabled();
   await button.click();
   const listbox = page.locator('[role="listbox"]');

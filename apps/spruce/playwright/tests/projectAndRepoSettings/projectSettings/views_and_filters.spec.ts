@@ -56,7 +56,12 @@ test.describe("Views & filters page", () => {
         .fill("my_filter");
       await expectSaveButtonEnabled(page, true);
       await save(page);
-      await validateToast(page, "success", "Successfully updated project");
+      await validateToast(
+        page,
+        "success",
+        "Successfully updated project",
+        true,
+      );
       await expect(page.getByTestId("parsley-filter")).toHaveCount(3);
 
       await page.getByTestId("delete-item-button").first().click();
