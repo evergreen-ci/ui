@@ -50,7 +50,7 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
       return null;
     }
     const logsToMergeFlags =
-      logsToMerge?.map((l) => `--logs_to_merge ${l}`)?.join(" ") ?? "";
+      logsToMerge?.map((l) => `--logs_to_merge ${l}`).join(" ") ?? "";
     return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --log_path ${logPath} ${logsToMergeFlags} --o output.txt`;
   }
   // Unsupported log type.
