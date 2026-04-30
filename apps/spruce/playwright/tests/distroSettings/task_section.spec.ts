@@ -64,14 +64,19 @@ test.describe("task section", () => {
 
       await page.reload();
       const finder = page.getByRole("button", { name: "Task Finder Version" });
+      await expect(finder).toHaveCount(1);
       await expect(finder).toContainText("Parallel");
+
       const planner = page.getByRole("button", {
         name: "Task Planner Version",
       });
+      await expect(planner).toHaveCount(1);
       await expect(planner).toContainText("Tunable");
+
       const dispatcher = page.getByRole("button", {
         name: "Task Dispatcher Version",
       });
+      await expect(dispatcher).toHaveCount(1);
       await expect(dispatcher).toContainText("Revised with dependencies");
 
       await selectOption(page, "Task Finder Version", "Legacy");
