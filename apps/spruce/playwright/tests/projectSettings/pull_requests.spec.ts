@@ -35,12 +35,7 @@ test.describe("Pull Requests project settings when GitHub webhooks are disabled"
 
 test.describe("Pull Requests project settings when GitHub webhooks are enabled", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
-    await page.goto("/repo/602d70a2b2373672ee493184/settings/general");
-    await page
-      .getByTestId("side-nav-group-header-label")
-      .filter({ hasText: "GitHub" })
-      .click();
-    await page.getByTestId("navitem-pull-requests").click();
+    await page.goto("/repo/602d70a2b2373672ee493184/settings/pull-requests");
     await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
       "aria-disabled",
       "true",
@@ -83,12 +78,7 @@ test.describe("Pull Requests project settings when GitHub webhooks are enabled",
     await expect(modal).toBeHidden();
     await validateToast(page, "success", "Successfully updated repo");
 
-    await page.goto("/project/evergreen/settings/general");
-    await page
-      .getByTestId("side-nav-group-header-label")
-      .filter({ hasText: "GitHub" })
-      .click();
-    await page.getByTestId("navitem-pull-requests").click();
+    await page.goto("/project/evergreen/settings/pull-requests");
     const patchDefAccordion = page.getByText("Repo Patch Definition 1");
     await patchDefAccordion.scrollIntoViewIfNeeded();
     await patchDefAccordion.click();
