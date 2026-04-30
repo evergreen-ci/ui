@@ -383,6 +383,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           <Route
             element={
               <GitTagsTab
+                githubProjectConflicts={githubProjectConflicts}
                 githubWebhooksEnabled={githubWebhooksEnabled}
                 projectData={
                   tabData[ProjectSettingsTabRoutes.GitTags].projectData

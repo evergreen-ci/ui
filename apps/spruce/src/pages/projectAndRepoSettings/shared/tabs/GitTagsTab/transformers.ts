@@ -1,7 +1,11 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias as aliasUtils, ProjectType } from "../utils";
+import {
+  alias as aliasUtils,
+  canOverrideForProject,
+  ProjectType,
+} from "../utils";
 import { GitTagsFormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = aliasUtils;
@@ -28,7 +32,6 @@ export const gqlToForm = ((data, options) => {
 
   const { aliases, projectRef } = data;
   const { projectType } = options ?? {};
-
   const {
     gitTagAuthorizedTeams,
     gitTagAuthorizedUsers,
@@ -36,9 +39,6 @@ export const gqlToForm = ((data, options) => {
   } = projectRef ?? {};
   const gitTagVersionsEnabledForm = gitTagVersionsEnabled ?? null;
   const { gitTagAliases } = sortAliases(aliases ?? []);
-
-  const override = (field: Array<unknown>) =>
-    projectType !== ProjectType.AttachedProject || !!field?.length;
 
   return {
     github: {
@@ -56,7 +56,10 @@ export const gqlToForm = ((data, options) => {
         gitTagAuthorizedTeams: gitTagAuthorizedTeams ?? [],
       },
       gitTags: {
-        gitTagAliasesOverride: override(gitTagAliases),
+        gitTagAliasesOverride: canOverrideForProject(
+          options?.projectType,
+          gitTagAliases,
+        ),
         gitTagAliases,
       },
     },

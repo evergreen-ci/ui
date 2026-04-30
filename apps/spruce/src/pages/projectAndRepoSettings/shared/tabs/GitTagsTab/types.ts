@@ -1,3 +1,4 @@
+import { GithubProjectConflicts } from "gql/generated/types";
 import { AliasFormType, ProjectType } from "../utils";
 
 export interface GitTagsFormState {
@@ -36,4 +37,5 @@ export type TabProps = {
   projectType: ProjectType;
   repoData?: GitTagsFormState;
   versionControlEnabled: boolean;
+  githubProjectConflicts?: GithubProjectConflicts;
 };
