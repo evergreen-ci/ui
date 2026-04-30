@@ -59,6 +59,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.General,
     ProjectSettingsTabRoutes.Access,
     ProjectSettingsTabRoutes.Variables,
+    ProjectSettingsTabRoutes.MergeQueue,
     ProjectSettingsTabRoutes.Notifications,
     ProjectSettingsTabRoutes.PatchAliases,
     ProjectSettingsTabRoutes.VirtualWorkstation,
@@ -69,11 +70,11 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.EventLog,
   ];
   const githubTabs: ProjectSettingsTabRoutes[] = [
-    ProjectSettingsTabRoutes.GithubAppSettings,
-    ProjectSettingsTabRoutes.GithubPermissionGroups,
     ProjectSettingsTabRoutes.PullRequests,
     ProjectSettingsTabRoutes.CommitChecks,
     ProjectSettingsTabRoutes.GitTags,
+    ProjectSettingsTabRoutes.GithubAppSettings,
+    ProjectSettingsTabRoutes.GithubPermissionGroups,
   ];
 
   if (!tabRouteValues.includes(tab as ProjectSettingsTabRoutes)) {
@@ -154,7 +155,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
                 collapsible
                 glyph={<Icon glyph="CodeBlock" />}
                 header="GitHub"
-                initialCollapsed={false}
+                // initialCollapsed={false}
               >
                 {githubTabs.map((v) => (
                   <SharedSettingsNavItem

@@ -15,6 +15,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.Variables]: {
         title: "Variables",
       },
+      [ProjectSettingsTabRoutes.MergeQueue]: {
+        title: "Merge Queue",
+      },
       [ProjectSettingsTabRoutes.GithubCommitQueue]: {
         title: "GitHub",
       },
@@ -59,9 +62,6 @@ export const getTabTitle = (
       },
       [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
         title: "Permission Groups",
-      },
-      [ProjectSettingsTabRoutes.MergeQueue]: {
-        title: "Merge Queue",
       },
     }[tab] ?? defaultTitle
   );
