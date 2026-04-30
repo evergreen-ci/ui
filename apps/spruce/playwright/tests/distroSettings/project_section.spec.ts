@@ -19,8 +19,13 @@ test.describe("project section", () => {
     await addExpansionButton.click();
 
     const newExpansion = page.getByTestId("expansion-item");
-    await newExpansion.getByLabel("Key").fill("key-name");
-    await newExpansion.getByLabel("Value").fill("my-value");
+    const keyInput = newExpansion.getByLabel("Key");
+    await expect(keyInput).toHaveCount(1);
+    await keyInput.fill("key-name");
+
+    const valueInput = newExpansion.getByLabel("Value");
+    await expect(valueInput).toHaveCount(1);
+    await valueInput.fill("my-value");
 
     await page.getByRole("button", { name: "Add project" }).click();
     await page.getByLabel("Project ID").fill("spruce");
@@ -29,8 +34,11 @@ test.describe("project section", () => {
     await validateToast(page, "success", "Updated distro.");
 
     await page.reload();
-    await expect(newExpansion.getByLabel("Key")).toHaveValue("key-name");
-    await expect(newExpansion.getByLabel("Value")).toHaveValue("my-value");
+    await expect(keyInput).toHaveCount(1);
+    await expect(keyInput).toHaveValue("key-name");
+    await expect(valueInput).toHaveCount(1);
+    await expect(valueInput).toHaveValue("my-value");
+
     await expect(page.getByLabel("Project ID")).toHaveValue("spruce");
 
     await page.getByTestId("delete-item-button").first().click();
