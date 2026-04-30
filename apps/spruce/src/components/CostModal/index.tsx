@@ -6,6 +6,7 @@ import {
   LGColumnDef,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
 import { costDocumentationUrl } from "constants/externalResources";
 import { getHoneycombTaskCostUrl } from "constants/externalResources/honeycomb";
@@ -51,6 +52,10 @@ const columns: LGColumnDef<CostRow>[] = [
   },
 ];
 
+const Content = styled.div`
+  padding: ${size.xxs} 0;
+`;
+
 const TabularNum = styled.span`
   font-variant-numeric: tabular-nums;
 `;
@@ -94,25 +99,23 @@ export const CostModal: React.FC<CostModalProps> = ({
       setOpen={setOpen}
       title={`Cost breakdown for ${name}`}
     >
-      <StyledLink
-        data-cy="cost-docs-link"
-        hideExternalIcon={false}
-        href={costDocumentationUrl}
-      >
-        Evergreen cost documentation
-      </StyledLink>
-      <BaseTable data-cy="cost-breakdown-table" table={table} />
-      <StyledLink
-        data-cy="task-cost-link"
-        hideExternalIcon={false}
-        href={getHoneycombTaskCostUrl(taskId)}
-      >
-        Cost breakdown in Honeycomb
-      </StyledLink>
-      <Disclaimer>
-        * Costs are calculated using a Finance Team formula with applicable
-        discounts applied.
-      </Disclaimer>
+      <Content>
+        <StyledLink hideExternalIcon={false} href={costDocumentationUrl}>
+          Evergreen cost documentation
+        </StyledLink>
+        <BaseTable data-cy="cost-breakdown-table" table={table} />
+        <StyledLink
+          data-cy="task-cost-link"
+          hideExternalIcon={false}
+          href={getHoneycombTaskCostUrl(taskId)}
+        >
+          Cost breakdown in Honeycomb
+        </StyledLink>
+        <Disclaimer>
+          * Costs are calculated using a Finance Team formula with applicable
+          discounts applied.
+        </Disclaimer>
+      </Content>
     </DisplayModal>
   );
 };
