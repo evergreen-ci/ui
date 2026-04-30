@@ -16,9 +16,7 @@ test.describe("Plugins", () => {
   ) => {
     await page.getByRole("button", { name: "Add metadata link" }).click();
 
-    const mostRecentMetadataLink = page
-      .getByTestId("metadata-link-item")
-      .first();
+    const mostRecentMetadataLink = page.getByTestId("metadata-link").first();
     await mostRecentMetadataLink.getByTestId("requesters-input").click();
 
     const options = mostRecentMetadataLink.getByTestId("tree-select-options");
@@ -52,10 +50,11 @@ test.describe("Plugins", () => {
       displayName: "An external link 2",
       url: "https://example-2.com/{version_id}",
     });
-    await expect(page.getByTestId("metadata-link-item")).toHaveCount(2);
+    await expect(page.getByTestId("metadata-link")).toHaveCount(2);
     await save(page);
 
     await page.goto(patchPage);
+    await expect(page.getByText("Patch Metadata")).toBeVisible();
     await expect(page.getByTestId("user-patches-link")).toBeVisible();
     await expect(page.getByTestId("external-link")).toHaveCount(2);
     await expect(page.getByTestId("external-link").last()).toContainText(
@@ -81,9 +80,11 @@ test.describe("Plugins", () => {
     );
     await page.getByTestId("delete-item-button").first().click();
     await page.getByTestId("delete-item-button").first().click();
+    await expect(page.getByTestId("metadata-link")).toHaveCount(0);
     await save(page);
 
     await page.goto(patchPage);
+    await expect(page.getByText("Patch Metadata")).toBeVisible();
     await expect(page.getByTestId("external-link")).toHaveCount(0);
   });
 });
