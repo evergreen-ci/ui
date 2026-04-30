@@ -5186,6 +5186,7 @@ export type TestLogUrlAndRenderingTypeQuery = {
         testFile: string;
         logs: {
           __typename?: "TestLog";
+          logsToMerge?: Array<string> | null;
           renderingType?: string | null;
           url?: string | null;
           urlRaw?: string | null;

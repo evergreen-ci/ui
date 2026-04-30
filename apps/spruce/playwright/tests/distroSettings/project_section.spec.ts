@@ -22,6 +22,7 @@ test.describe("project section", () => {
     const keyInput = newExpansion.getByLabel("Key");
     await expect(keyInput).toHaveCount(1);
     await keyInput.fill("key-name");
+
     const valueInput = newExpansion.getByLabel("Value");
     await expect(valueInput).toHaveCount(1);
     await valueInput.fill("my-value");
