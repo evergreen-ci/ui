@@ -1,4 +1,4 @@
-// TODO DEVPROD-31534: Remove this test file once the feature flag is removed
+// TODO DEVPROD-31534: Delete this file when the feature flag is removed
 import { vi } from "vitest";
 import {
   renderWithRouterMatch as render,
@@ -20,24 +20,10 @@ vi.mock("./CreateDuplicateProjectButton", () => ({
 }));
 
 const navItems = [
-  // Evergreen group – rendered expanded by default
-  { tabLabel: "Merge Queue", dataCy: "navitem-merge-queue", groupHeader: null },
-  // GitHub group – collapsed by default
-  {
-    tabLabel: "Pull Requests",
-    dataCy: "navitem-pull-requests",
-    groupHeader: "GitHub",
-  },
-  {
-    tabLabel: "Commit Checks",
-    dataCy: "navitem-commit-checks",
-    groupHeader: "GitHub",
-  },
-  {
-    tabLabel: "Git Tags",
-    dataCy: "navitem-git-tags",
-    groupHeader: "GitHub",
-  },
+  { tabLabel: "Merge Queue", dataCy: "navitem-merge-queue" },
+  { tabLabel: "Pull Requests", dataCy: "navitem-pull-requests" },
+  { tabLabel: "Commit Checks", dataCy: "navitem-commit-checks" },
+  { tabLabel: "Git Tags", dataCy: "navitem-git-tags" },
 ];
 
 describe("Feature flag tests for DEVPROD-31534", () => {
@@ -45,7 +31,7 @@ describe("Feature flag tests for DEVPROD-31534", () => {
     vi.resetModules();
   });
 
-  navItems.forEach(({ dataCy, groupHeader, tabLabel }) => {
+  navItems.forEach(({ dataCy, tabLabel }) => {
     describe(`${tabLabel} tab`, () => {
       it(`hides the ${tabLabel} nav item when new project navigation is disabled`, async () => {
         vi.doMock("constants/featureFlags", () => ({
@@ -96,11 +82,7 @@ describe("Feature flag tests for DEVPROD-31534", () => {
           },
         );
 
-        // Expand the GitHub group if this nav item lives there
-        if (groupHeader) {
-          await userEvent.click(screen.getByText(groupHeader));
-        }
-
+        await userEvent.click(screen.getByRole("button", { name: "GitHub" }));
         expect(screen.getByDataCy(dataCy)).toBeInTheDocument();
       });
     });

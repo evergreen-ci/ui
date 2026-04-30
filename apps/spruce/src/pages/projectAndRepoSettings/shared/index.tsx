@@ -60,7 +60,6 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.Access,
     ProjectSettingsTabRoutes.Variables,
     ProjectSettingsTabRoutes.GithubCommitQueue, // TODO DEVPROD-31534: remove legacy tab
-    ProjectSettingsTabRoutes.MergeQueue,
     ProjectSettingsTabRoutes.Notifications,
     ProjectSettingsTabRoutes.PatchAliases,
     ProjectSettingsTabRoutes.VirtualWorkstation,
@@ -73,6 +72,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
   const githubTabs: ProjectSettingsTabRoutes[] = [
     ProjectSettingsTabRoutes.PullRequests,
     ProjectSettingsTabRoutes.CommitChecks,
+    ProjectSettingsTabRoutes.MergeQueue,
     ProjectSettingsTabRoutes.GitTags,
     ProjectSettingsTabRoutes.GithubAppSettings,
     ProjectSettingsTabRoutes.GithubPermissionGroups,
