@@ -276,10 +276,6 @@ test.describe("provider section", () => {
       await save(page);
       await validateToast(page, "success", "Updated distro.", true);
 
-      await clickCheckbox(mergeUserDataCheckbox);
-      await save(page);
-      await validateToast(page, "success", "Updated distro.", true);
-
       await selectOption(page, "Region", "us-east-1");
       await page.getByLabel("EC2 AMI ID").clear();
       await page.getByLabel("EC2 AMI ID").fill("ami-0000");
