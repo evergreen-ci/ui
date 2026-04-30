@@ -67,7 +67,6 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.ProjectTriggers,
     ProjectSettingsTabRoutes.PeriodicBuilds,
     ProjectSettingsTabRoutes.Plugins,
-    ProjectSettingsTabRoutes.EventLog,
   ];
   const githubTabs: ProjectSettingsTabRoutes[] = [
     ProjectSettingsTabRoutes.PullRequests,
@@ -76,6 +75,9 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.GitTags,
     ProjectSettingsTabRoutes.GithubAppSettings,
     ProjectSettingsTabRoutes.GithubPermissionGroups,
+  ];
+  const otherTabs: ProjectSettingsTabRoutes[] = [
+    ProjectSettingsTabRoutes.EventLog,
   ];
 
   if (!tabRouteValues.includes(tab as ProjectSettingsTabRoutes)) {
@@ -134,10 +136,8 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             <>
               {/* Grouped, collapsible nav when feature flag is on */}
               <SideNavGroup
-                collapsible
                 glyph={<Icon glyph="EvergreenLogo" />}
                 header="Evergreen"
-                initialCollapsed={false}
               >
                 {evergreenTabs.map((v) => (
                   <SharedSettingsNavItem
@@ -156,9 +156,22 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
                 collapsible
                 glyph={<Icon glyph="GitHub" />}
                 header="GitHub"
-                // initialCollapsed={false}
               >
                 {githubTabs.map((v) => (
+                  <SharedSettingsNavItem
+                    key={v}
+                    currentTab={tab ?? ProjectSettingsTabRoutes.General}
+                    getRoute={
+                      isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
+                    }
+                    id={isRepo ? repoId : projectIdentifier}
+                    tab={v}
+                  />
+                ))}
+              </SideNavGroup>
+
+              <SideNavGroup glyph={<Icon glyph="List" />} header="ChangeLog">
+                {otherTabs.map((v) => (
                   <SharedSettingsNavItem
                     key={v}
                     currentTab={tab ?? ProjectSettingsTabRoutes.General}
