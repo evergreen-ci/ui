@@ -7,7 +7,7 @@ export const addFilter = async (page: Page, filter: string) => {
   const searchbarInput = page.getByTestId("searchbar-input");
   await expect(searchbarInput).toBeEnabled();
   await searchbarInput.focus();
-  await page.keyboard.type(filter);
+  await searchbarInput.fill(filter);
   await searchbarInput.press("Control+Enter");
 };
 
@@ -18,7 +18,7 @@ export const addHighlight = async (page: Page, highlight: string) => {
   const searchbarInput = page.getByTestId("searchbar-input");
   await expect(searchbarInput).toBeEnabled();
   await searchbarInput.focus();
-  await page.keyboard.type(highlight);
+  await searchbarInput.fill(highlight);
   await searchbarInput.press("Control+Enter");
 };
 
@@ -26,7 +26,7 @@ export const addSearch = async (page: Page, search: string) => {
   const searchbarInput = page.getByTestId("searchbar-input");
   await expect(searchbarInput).toBeEnabled();
   await searchbarInput.focus();
-  await page.keyboard.type(search);
+  await searchbarInput.fill(search);
 };
 
 export const assertValueCopiedToClipboard = async (
@@ -74,14 +74,14 @@ export const editBounds = async (
     const upperBound = page.getByTestId("range-upper-bound");
     await expect(upperBound).toBeVisible();
     await upperBound.focus();
-    await page.keyboard.type(bounds.upper);
+    await upperBound.fill(bounds.upper);
   }
 
   if (bounds.lower !== undefined) {
     const lowerBound = page.getByTestId("range-lower-bound");
     await expect(lowerBound).toBeVisible();
     await lowerBound.focus();
-    await page.keyboard.type(bounds.lower);
+    await lowerBound.fill(bounds.lower);
   }
 
   await toggleDetailsPanel(page, false);
@@ -199,5 +199,5 @@ export {
   validateToast,
   login,
   logout,
-  clickCheckboxByLabel,
+  clickCheckbox,
 } from "@evg-ui/playwright-config/helpers";

@@ -70,7 +70,7 @@ describe("Repo Settings", () => {
           .first()
           .click();
       });
-      it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
+      it("Saving a patch definition should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
         cy.contains(
           "A GitHub Patch Definition must be specified for this feature to run.",
         ).as("errorBanner");

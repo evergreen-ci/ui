@@ -440,7 +440,11 @@ test.describe("task history", () => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
 
-      await selectDatePickerDate(page, "2025", "Feb", "2025-02-28");
+      await selectDatePickerDate(page, {
+        year: "2025",
+        month: "Feb",
+        isoDate: "2025-02-28",
+      });
       await expect(page).toHaveURL(/2025-02-28/);
       await validateDatePickerDate(page, "date-picker", {
         year: "2025",
@@ -468,7 +472,11 @@ test.describe("task history", () => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
 
-      await selectDatePickerDate(page, "2025", "Feb", "2025-02-28");
+      await selectDatePickerDate(page, {
+        year: "2025",
+        month: "Feb",
+        isoDate: "2025-02-28",
+      });
       await expect(page).toHaveURL(/2025-02-28/);
       await validateDatePickerDate(page, "date-picker", {
         year: "2025",
@@ -540,7 +548,11 @@ test.describe("task history", () => {
       const firstTaskCard = page.getByTestId("commit-details-card").nth(0);
       await expect(firstTaskCard.getByText("Order: 12306")).toBeVisible();
 
-      await selectDatePickerDate(page, "2025", "Feb", "2025-02-28");
+      await selectDatePickerDate(page, {
+        year: "2025",
+        month: "Feb",
+        isoDate: "2025-02-28",
+      });
       await expect(firstTaskCard.getByText("Order: 12306")).toBeHidden();
 
       await page.getByTestId("jump-to-this-task-button").click();

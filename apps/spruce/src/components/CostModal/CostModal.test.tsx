@@ -21,7 +21,9 @@ describe("CostModal", () => {
 
   it("renders the docs link", () => {
     render(<CostModal {...defaultProps} />);
-    expect(screen.getByDataCy("cost-docs-link")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /evergreen cost documentation/i }),
+    ).toBeInTheDocument();
   });
 
   it("renders cost rows with values when costs are provided", () => {
@@ -48,7 +50,7 @@ describe("CostModal", () => {
     expect(screen.getByText("$0.0004")).toBeInTheDocument();
   });
 
-  it("renders N/A for null cost fields and dollar amount for zero", () => {
+  it("renders N/A for missing or zero cost fields", () => {
     render(
       <CostModal
         {...defaultProps}
@@ -56,8 +58,7 @@ describe("CostModal", () => {
         adjustedEC2Cost={null}
       />,
     );
-    expect(screen.getByText("$0")).toBeInTheDocument();
     const naCells = screen.getAllByText("N/A");
-    expect(naCells.length).toBe(7);
+    expect(naCells.length).toBe(8);
   });
 });

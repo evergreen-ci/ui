@@ -97,11 +97,6 @@ export const getHoneycombTaskCostUrl = (taskId: string): string => {
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
 };
 
-/**
- * Generates a URL for viewing the cost breakdown of a version in Honeycomb.
- * @param versionId - The ID of the version.
- * @returns The URL for viewing the version cost breakdown in Honeycomb.
- */
 export const getHoneycombVersionCostUrl = (versionId: string): string => {
   const query = {
     calculations: [

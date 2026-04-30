@@ -57,6 +57,8 @@ export const taskSchedulingLimitsDocumentationUrl = `${wikiBaseUrl}/Reference/Li
 
 export const dataRetentionDocumentationUrl = `${wikiBaseUrl}/Reference/Data-Retention`;
 
+export const costDocumentationUrl = `${wikiBaseUrl}/FAQ/Cost-FAQ`;
+
 export const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";
 
@@ -137,6 +139,3 @@ export const sageBotDocumentationUrl =
 
 export const backstageS3BucketUrl =
   "https://app.backstage.prod.corp.mongodb.com/autoflow";
-
-export const costDocumentationUrl =
-  "https://docs.devprod.prod.corp.mongodb.com/evergreen/FAQ/Cost-FAQ";
