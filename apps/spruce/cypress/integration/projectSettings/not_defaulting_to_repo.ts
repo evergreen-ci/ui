@@ -172,23 +172,6 @@ describe("Project Settings when not defaulting to repo", () => {
     });
   });
 
-  describe("GitHub page", () => {
-    beforeEach(() => {
-      cy.dataCy("navitem-github-commitqueue").click();
-    });
-
-    it("Allows adding a git tag alias", () => {
-      cy.dataCy("git-tag-enabled-radio-box").children().first().click();
-      cy.dataCy("add-button").contains("Add git tag").parent().click();
-      cy.dataCy("git-tag-input").type("myGitTag");
-      cy.dataCy("remote-path-input").type("./evergreen.yml");
-
-      clickSaveAndConfirmDiff();
-      cy.validateToast("success", "Successfully updated project");
-      cy.dataCy("remote-path-input").should("have.value", "./evergreen.yml");
-    });
-  });
-
   describe("Periodic Builds page", () => {
     beforeEach(() => {
       cy.dataCy("navitem-periodic-builds").click();

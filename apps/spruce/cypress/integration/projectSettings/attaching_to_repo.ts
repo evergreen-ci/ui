@@ -8,7 +8,7 @@ describe("Attaching Spruce to a repo", () => {
     cy.visit(origin);
   });
 
-  it("Saves and attaches new repo and shows warnings on the Github page", () => {
+  it("Saves and attaches new repo and shows warnings on the relevant Github pages", () => {
     cy.dataCy("repo-input").as("repoInput").clear();
     cy.get("@repoInput").type("evergreen");
     cy.dataCy("attach-repo-button").should(
@@ -21,7 +21,9 @@ describe("Attaching Spruce to a repo", () => {
     cy.dataCy("attach-repo-button").click();
     cy.dataCy("attach-repo-modal").contains("button", "Attach").click();
     cy.validateToast("success", "Successfully attached to repo");
-    cy.dataCy("navitem-github-commitqueue").click();
+
+    cy.contains("button", "GitHub").click();
+    cy.dataCy("navitem-pull-requests").click();
     cy.dataCy("pr-testing-enabled-radio-box")
       .prev()
       .dataCy("warning-banner")
@@ -30,11 +32,15 @@ describe("Attaching Spruce to a repo", () => {
       .prev()
       .dataCy("warning-banner")
       .should("exist");
+
+    cy.dataCy("navitem-commit-checks").click();
     cy.dataCy("github-checks-enabled-radio-box").prev().should("not.exist");
-    cy.dataCy("cq-card").dataCy("warning-banner").should("exist");
-    cy.dataCy("cq-enabled-radio-box").within(($el) => {
+
+    cy.dataCy("navitem-merge-queue").click();
+    cy.dataCy("mq-card").dataCy("warning-banner").should("exist");
+    cy.dataCy("mq-enabled-radio-box").within(($el) => {
       cy.wrap($el).getInputByLabel("Enabled").parent().click();
     });
-    cy.dataCy("cq-card").dataCy("error-banner").should("exist");
+    cy.dataCy("mq-card").dataCy("error-banner").should("exist");
   });
 });

@@ -92,7 +92,7 @@ describe("Repo Settings", () => {
       cy.dataCy("expandable-card").find("button").should("be.disabled");
     });
 
-    it("Saving a Patch Trigger Alias shows a success toast and updates the Github page", () => {
+    it("Saving a Patch Trigger Alias shows a success toast and updates the Github pages", () => {
       cy.dataCy("add-button")
         .contains("Add Patch Trigger Alias")
         .parent()
@@ -133,8 +133,9 @@ describe("Repo Settings", () => {
         "false",
       );
       saveButtonEnabled(false);
-      // Verify information on Github page
-      cy.dataCy("navitem-github-commitqueue").click();
+      // Verify information on Pull Requests page
+      cy.contains("button", "GitHub").click();
+      cy.dataCy("navitem-pull-requests").click();
 
       cy.contains("Pull Request Trigger Aliases").scrollIntoView();
       cy.dataCy("github-pr-trigger-aliases").within(() => {
@@ -150,6 +151,9 @@ describe("Repo Settings", () => {
       cy.dataCy("github-pr-trigger-aliases").within(() => {
         cy.dataCy("pta-item").trigger("mouseout");
       });
+
+      // Verify information on Merge Queue page
+      cy.dataCy("navitem-merge-queue").click();
 
       cy.contains("Merge Queue Trigger Aliases").scrollIntoView();
       cy.dataCy("github-mq-trigger-aliases").within(() => {
