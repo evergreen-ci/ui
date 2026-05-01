@@ -1,4 +1,5 @@
 export enum ProjectSettingsTabRoutes {
+  // Evergreen sections
   General = "general",
   Access = "access",
   Variables = "variables",
@@ -11,6 +12,8 @@ export enum ProjectSettingsTabRoutes {
   Plugins = "plugins",
   EventLog = "event-log",
   ViewsAndFilters = "views-and-filters",
+
+  // GitHub sections.
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
   CommitChecks = "commit-checks",
