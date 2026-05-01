@@ -2,6 +2,7 @@ import { test, expect } from "../../fixtures";
 import {
   clearDatePickerInput,
   clickCheckbox,
+  clickRadio,
   typeDatePickerDate,
 } from "../../helpers";
 
@@ -29,10 +30,12 @@ const ascendingSortSpawnHostOrderByExpiration = [
 const hostTaskId =
   "evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46";
 const distroId = "windows-64-vs2015-small";
-const projectSetupCheckbox =
+const projectSetupCheckboxLabel =
   "Use project-specific setup script defined at /path";
-const startHostsCheckbox =
+const setupScriptCheckboxLabel = "Define setup script to run after host";
+const startHostsCheckboxLabel =
   "Also start any hosts this task started (if applicable)";
+const loadDataCheckboxLabel = "Load data for dist";
 
 test.describe("Spawn Host page", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
@@ -73,8 +76,8 @@ test.describe("Spawn Host page", () => {
     authenticatedPage: page,
   }) => {
     await page.goto("/spawn/host?host=i-092593689871a50dc");
-    await expect(page.getByTestId("spawn-host-card").first()).toBeVisible();
     await expect(page.getByTestId("spawn-host-card")).toHaveCount(1);
+    await expect(page.getByTestId("spawn-host-card")).toBeVisible();
   });
 
   test("Clicking on the Event Log link should redirect to /host/:hostId", async ({
@@ -145,7 +148,7 @@ test.describe("Spawn Host page", () => {
     test("Should disable 'Unexpirable Host' radio box when max number of unexpirable hosts is met (2)", async ({
       authenticatedPage: page,
     }) => {
-      await page.getByText("Spawn a host").click();
+      await page.getByRole("button", { name: "Spawn a host" }).click();
       await page.getByTestId("distro-input").click();
       await page.getByTestId("distro-option-ubuntu1804-workstation").click();
 
@@ -170,7 +173,7 @@ test.describe("Spawn Host page", () => {
       authenticatedPage: page,
     }) => {
       await expect(page.getByTestId("spawn-host-modal")).toHaveCount(0);
-      await page.getByTestId("spawn-host-button").click();
+      await page.getByRole("button", { name: "Spawn a host" }).click();
       await expect(page.getByTestId("spawn-host-modal")).toBeVisible();
     });
 
@@ -201,15 +204,19 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`,
       );
-      await expect(page.getByTestId("spawn-host-modal")).toContainText(
-        projectSetupCheckbox,
-      );
-      await expect(page.getByTestId("spawn-host-modal")).toContainText(
-        "Load data for dist on ubuntu1604",
-      );
-      await expect(page.getByTestId("spawn-host-modal")).toContainText(
-        startHostsCheckbox,
-      );
+      const projectSetupCheckbox = page.getByRole("checkbox", {
+        name: projectSetupCheckboxLabel,
+      });
+      const loadDataCheckbox = page.getByRole("checkbox", {
+        name: loadDataCheckboxLabel,
+      });
+      const startHostsCheckbox = page.getByRole("checkbox", {
+        name: startHostsCheckboxLabel,
+      });
+
+      await expect(projectSetupCheckbox).toHaveCount(1);
+      await expect(loadDataCheckbox).toHaveCount(1);
+      await expect(startHostsCheckbox).toHaveCount(1);
     });
 
     test("Unchecking 'Load data for dist' hides nested checkbox selections and checking shows them", async ({
@@ -219,17 +226,24 @@ test.describe("Spawn Host page", () => {
         `/spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`,
       );
       await expect(page.getByTestId("spawn-host-modal")).toBeVisible();
-      await expect(page.getByTestId("load-data-checkbox")).toBeChecked();
-      await expect(page.getByText(projectSetupCheckbox)).toBeVisible();
-      await expect(page.getByText(startHostsCheckbox)).toBeVisible();
-
       const loadDataCheckbox = page.getByRole("checkbox", {
-        name: "Load data for dist",
+        name: loadDataCheckboxLabel,
       });
+      const projectSetupCheckbox = page.getByRole("checkbox", {
+        name: projectSetupCheckboxLabel,
+      });
+      const startHostsCheckbox = page.getByRole("checkbox", {
+        name: startHostsCheckboxLabel,
+      });
+
+      await expect(loadDataCheckbox).toBeChecked();
+      await expect(projectSetupCheckbox).toHaveCount(1);
+      await expect(startHostsCheckbox).toHaveCount(1);
+
       await clickCheckbox(loadDataCheckbox);
       await expect(loadDataCheckbox).not.toBeChecked();
-      await expect(page.getByText(projectSetupCheckbox)).toHaveCount(0);
-      await expect(page.getByText(startHostsCheckbox)).toHaveCount(0);
+      await expect(projectSetupCheckbox).toHaveCount(0);
+      await expect(startHostsCheckbox).toHaveCount(0);
     });
 
     test("Visiting the spawn host page with a task and distro supplied in the url should populate the distro input", async ({
@@ -253,10 +267,7 @@ test.describe("Spawn Host page", () => {
       await page.getByTestId("distro-input").click();
       await expect(page.getByText("Admin-only distros")).toHaveCount(0);
       await page.getByTestId("distro-option-ubuntu1804-workstation").click();
-      await expect(page.getByTestId("volume-select")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(page.getByTestId("volume-select")).toBeDisabled();
     });
 
     test("Clicking 'Add new key' hides the key name dropdown and shows the key value text area", async ({
@@ -267,7 +278,8 @@ test.describe("Spawn Host page", () => {
       );
       await expect(page.getByTestId("key-select")).toBeVisible();
       await expect(page.getByTestId("key-value-text-area")).toHaveCount(0);
-      await page.getByText("Add new key").click();
+      const addNewKeyRadio = page.getByRole("radio", { name: "Add new key" });
+      await clickRadio(addNewKeyRadio);
       await expect(page.getByTestId("key-select")).toHaveCount(0);
       await expect(page.getByTestId("key-value-text-area")).toBeVisible();
     });
@@ -278,13 +290,15 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      await expect(
-        page.getByTestId("run-user-data-script-text-area"),
-      ).toHaveCount(0);
-      await page.getByText("Run Userdata script on start").click();
-      await expect(
-        page.getByTestId("user-data-script-text-area"),
-      ).toBeVisible();
+      const userDataScriptInput = page.getByRole("textbox", {
+        name: "Userdata Script",
+      });
+      await expect(userDataScriptInput).toHaveCount(0);
+      const userDataScriptCheckbox = page.getByRole("checkbox", {
+        name: "Run Userdata script on start",
+      });
+      await clickCheckbox(userDataScriptCheckbox);
+      await expect(userDataScriptInput).toBeVisible();
     });
 
     test("Checking 'Define setup script...' shows the setup script text area", async ({
@@ -293,14 +307,22 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      await expect(page.getByTestId("setup-script-text-area")).toBeHidden();
-      await page.getByText("Use project-specific setup script").click();
-      await expect(page.getByTestId("setup-script-checkbox")).toHaveAttribute(
-        "aria-disabled",
-        "false",
-      );
-      await page.getByText("Define setup script to run after host").click();
-      await expect(page.getByTestId("setup-script-text-area")).toBeVisible();
+      const setupScriptInput = page.getByRole("textbox", {
+        name: "Setup Script",
+      });
+      await expect(setupScriptInput).toHaveCount(0);
+
+      const projectSetupScriptCheckbox = page.getByRole("checkbox", {
+        name: projectSetupCheckboxLabel,
+      });
+      await clickCheckbox(projectSetupScriptCheckbox);
+
+      const setupScriptCheckbox = page.getByRole("checkbox", {
+        name: setupScriptCheckboxLabel,
+      });
+      await expect(setupScriptCheckbox).toBeEnabled();
+      await clickCheckbox(setupScriptCheckbox);
+      await expect(setupScriptInput).toHaveCount(1);
     });
 
     test("Conditionally disables setup script and project setup script checkboxes based on the other's value", async ({
@@ -310,23 +332,24 @@ test.describe("Spawn Host page", () => {
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       const projectCheckbox = page.getByRole("checkbox", {
-        name: "Use project-specific setup script",
+        name: projectSetupCheckboxLabel,
       });
       const setupCheckbox = page.getByRole("checkbox", {
-        name: "Define setup script to run after host",
+        name: setupScriptCheckboxLabel,
       });
 
-      await expect(projectCheckbox).toHaveAttribute("aria-checked", "true");
-      await expect(projectCheckbox).toHaveAttribute("aria-disabled", "false");
-      await expect(setupCheckbox).toHaveAttribute("aria-disabled", "true");
+      await expect(projectCheckbox).toBeChecked();
+      await expect(projectCheckbox).toBeEnabled();
+      await expect(setupCheckbox).toBeDisabled();
 
       await clickCheckbox(projectCheckbox);
-      await expect(projectCheckbox).toHaveAttribute("aria-disabled", "false");
-      await expect(setupCheckbox).toHaveAttribute("aria-disabled", "false");
+      await expect(projectCheckbox).not.toBeChecked();
+      await expect(projectCheckbox).toBeEnabled();
+      await expect(setupCheckbox).toBeEnabled();
 
       await clickCheckbox(setupCheckbox);
-      await expect(projectCheckbox).toHaveAttribute("aria-disabled", "true");
-      await expect(setupCheckbox).toHaveAttribute("aria-disabled", "false");
+      await expect(projectCheckbox).toBeDisabled();
+      await expect(setupCheckbox).toBeEnabled();
     });
   });
 

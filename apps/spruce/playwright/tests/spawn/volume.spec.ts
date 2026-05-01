@@ -76,7 +76,6 @@ test.describe("Spawn volume page", () => {
     const targetVolume = "vol-0ea662ac92f611ed4";
     await page.goto(`/spawn/volume?volume=${targetVolume}`);
     const card = page.getByTestId(`spawn-volume-card-${targetVolume}`);
-    await card.scrollIntoViewIfNeeded();
     await expect(card).toBeVisible();
   });
 
@@ -140,14 +139,11 @@ test.describe("Spawn volume page", () => {
     const confirmCheckbox = popconfirm.getByRole("checkbox", {
       name: "I understand this volume is currently mounted to a host.",
     });
-    await expect(confirmCheckbox).not.toBeChecked();
-
     const yesButton = popconfirm.getByRole("button", { name: "Yes" });
-    await expect(yesButton).toHaveAttribute("aria-disabled", "true");
-
+    await expect(confirmCheckbox).not.toBeChecked();
+    await expect(yesButton).toBeDisabled();
     await clickCheckbox(confirmCheckbox);
-
-    await expect(yesButton).toHaveAttribute("aria-disabled", "false");
+    await expect(yesButton).toBeEnabled();
     await yesButton.click();
 
     await validateToast(page, "success", "Successfully deleted the volume.");
@@ -160,14 +156,12 @@ test.describe("Spawn volume page", () => {
       data: { detachVolumeFromHost: true },
       errors: null,
     });
-    await page
-      .getByTestId(
-        "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857",
-      )
-      .click();
+    const targetVolume =
+      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857";
+    await page.getByTestId(`detach-btn-${targetVolume}`).click();
     const popconfirm = page.getByTestId("unmount-volume-popconfirm");
-    await expect(popconfirm).toBeVisible();
-    await popconfirm.getByRole("button", { name: "Yes" }).click();
+    const yesButton = popconfirm.getByRole("button", { name: "Yes" });
+    await yesButton.click();
     await validateToast(page, "success", "Successfully unmounted the volume.");
   });
 
@@ -205,25 +199,21 @@ test.describe("Spawn volume page", () => {
     test("Clicking on 'Edit' should open the Edit Volume Modal", async ({
       authenticatedPage: page,
     }) => {
-      await page
-        .getByTestId(
-          "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      const targetVolume =
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
+      await page.getByTestId(`edit-btn-${targetVolume}`).click();
       await expect(page.getByTestId("update-volume-modal")).toBeVisible();
     });
 
     test("name, size, expiration inputs should be populated on initial render", async ({
       authenticatedPage: page,
     }) => {
-      await page
-        .getByTestId(
-          "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      const targetVolume =
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
+      await page.getByTestId(`edit-btn-${targetVolume}`).click();
       await expect(page.getByTestId("update-volume-modal")).toBeVisible();
       await expect(page.getByTestId("volume-name-input")).toHaveValue(
-        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
+        targetVolume,
       );
       await expect(page.getByTestId("volume-size-input")).toHaveValue("100");
       await validateDatePickerDate(page, "date-picker", {
@@ -238,103 +228,84 @@ test.describe("Spawn volume page", () => {
     test("Reopening the edit volume modal should reset form input fields", async ({
       authenticatedPage: page,
     }) => {
-      await page
-        .getByTestId(
-          "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      const targetVolume =
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
+      await page.getByTestId(`edit-btn-${targetVolume}`).click();
       await expect(page.getByTestId("update-volume-modal")).toBeVisible();
-      await page.getByTestId("volume-name-input").type("Hello, World");
+      await page.getByTestId("volume-name-input").fill("Hello, World");
 
       await page
         .getByTestId("update-volume-modal")
         .getByRole("button", { name: "Cancel" })
         .click();
 
-      await page
-        .getByTestId(
-          "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      await page.getByTestId(`edit-btn-${targetVolume}`).click();
       await expect(page.getByTestId("volume-name-input")).toHaveValue(
-        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
+        targetVolume,
       );
     });
 
     test("size field is validated correctly", async ({
       authenticatedPage: page,
     }) => {
-      await page
-        .getByTestId(
-          "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      const targetVolume =
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
+      await page.getByTestId(`edit-btn-${targetVolume}`).click();
       await expect(page.getByTestId("update-volume-modal")).toBeVisible();
 
       await page.getByTestId("volume-size-input").clear();
       await page.getByTestId("volume-size-input").fill("10000");
-      await expect(page.getByRole("button", { name: "Save" })).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(page.getByRole("button", { name: "Save" })).toBeDisabled();
 
       await page.getByTestId("volume-size-input").clear();
       await page.getByTestId("volume-size-input").fill("2");
-      await expect(page.getByRole("button", { name: "Save" })).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(page.getByRole("button", { name: "Save" })).toBeDisabled();
     });
 
     test("Submit button should be enabled when the volume details input value differs from what already exists", async ({
       authenticatedPage: page,
     }) => {
-      await page
-        .getByTestId(
-          "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      const targetVolume =
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
+      await page.getByTestId(`edit-btn-${targetVolume}`).click();
       await expect(page.getByTestId("update-volume-modal")).toBeVisible();
 
       const saveButton = page.getByRole("button", { name: "Save" });
       const volumeInput = page.getByTestId("volume-name-input");
 
-      await expect(saveButton).toHaveAttribute("aria-disabled", "true");
+      await expect(saveButton).toBeDisabled();
       await volumeInput.fill("Hello, World");
-      await expect(saveButton).toHaveAttribute("aria-disabled", "false");
+      await expect(saveButton).toBeEnabled();
       await volumeInput.clear();
-      await volumeInput.fill(
-        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-      );
-      await expect(saveButton).toHaveAttribute("aria-disabled", "true");
+      await volumeInput.fill(targetVolume);
+      await expect(saveButton).toBeDisabled();
+
       const neverExpireCheckbox = page.getByRole("checkbox", {
         name: "Never expire",
       });
       await clickCheckbox(neverExpireCheckbox);
-      await expect(saveButton).toHaveAttribute("aria-disabled", "false");
+      await expect(saveButton).toBeEnabled();
     });
 
     test("Clicking on save button should close the modal and show a success toast", async ({
       authenticatedPage: page,
     }) => {
+      const targetVolume =
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
       mockGraphQLResponse(page, "UpdateVolume", {
         data: {
           updateVolume: {
-            id: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
+            id: targetVolume,
             name: "Hello, World",
           },
         },
         errors: null,
       });
-      await page
-        .getByTestId(
-          "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      await page.getByTestId(`edit-btn-${targetVolume}`).click();
       await expect(page.getByTestId("update-volume-modal")).toBeVisible();
       await page.getByTestId("volume-name-input").fill("Hello, World");
       const saveButton = page.getByRole("button", { name: "Save" });
-      await expect(saveButton).toHaveAttribute("aria-disabled", "false");
+      await expect(saveButton).toBeEnabled();
       await saveButton.click();
       await validateToast(page, "success", "Successfully updated volume");
       await expect(page.getByTestId("update-volume-modal")).toHaveCount(0);
@@ -349,54 +320,57 @@ test.describe("Spawn volume page", () => {
     test("migrate button is disabled for volumes with the migrating status", async ({
       authenticatedPage: page,
     }) => {
+      const targetVolume = "vol-0ae8720b445b771b6";
       const migratingRow = page
         .getByTestId("leafygreen-table-row")
-        .filter({ hasText: "vol-0ae8720b445b771b6" });
+        .filter({ hasText: targetVolume });
       await expect(
         migratingRow.getByTestId("volume-status-badge"),
       ).toContainText("Migrating");
       await expect(
-        page.getByTestId("migrate-btn-vol-0ae8720b445b771b6"),
-      ).toHaveAttribute("aria-disabled", "true");
+        page.getByTestId(`migrate-btn-${targetVolume}`),
+      ).toBeDisabled();
     });
 
     test("clicking cancel during confirmation renders the Migrate modal form", async ({
       authenticatedPage: page,
     }) => {
-      await page
-        .getByTestId(
-          "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      const targetVolume =
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
+      await page.getByTestId(`migrate-btn-${targetVolume}`).click();
       await page.getByTestId("distro-input").click();
       await page.getByTestId("distro-option-ubuntu1804-workstation").click();
-      await page.getByTestId("migrate-modal").getByText("Next").click();
+      await page
+        .getByTestId("migrate-modal")
+        .getByRole("button", { name: "Next" })
+        .click();
       await expect(page.getByTestId("migrate-modal")).toContainText(
         "Are you sure you want to migrate this home volume?",
       );
       await expect(page.getByTestId("distro-input")).toHaveCount(0);
-      await page.getByTestId("migrate-modal").getByText("Cancel").click();
+      await page
+        .getByTestId("migrate-modal")
+        .getByRole("button", { name: "Cancel" })
+        .click();
       await expect(page.getByTestId("distro-input")).toBeVisible();
     });
 
     test("open the Migrate modal and spawn a host", async ({
       authenticatedPage: page,
     }) => {
-      await page
-        .getByTestId(
-          "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
-        )
-        .click();
+      const targetVolume =
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
+      await page.getByTestId(`migrate-btn-${targetVolume}`).click();
       await page.getByTestId("distro-input").click();
       await page.getByTestId("distro-option-ubuntu1804-workstation").click();
-      await expect(page.getByTestId("region-select")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
-      await page.getByTestId("migrate-modal").getByText("Next").click();
+      await expect(page.getByTestId("region-select")).toBeDisabled();
       await page
         .getByTestId("migrate-modal")
-        .getByText("Migrate Volume")
+        .getByRole("button", { name: "Next" })
+        .click();
+      await page
+        .getByTestId("migrate-modal")
+        .getByRole("button", { name: "Migrate volume" })
         .click();
       await validateToast(
         page,
