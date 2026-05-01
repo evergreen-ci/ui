@@ -3,7 +3,6 @@ import * as access from "./AccessTab/transformers";
 import * as commitChecks from "./CommitChecksTab/transformers";
 import * as general from "./GeneralTab/transformers";
 import * as appSettings from "./GithubAppSettingsTab/transformers";
-import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
 import * as permissionGroups from "./GithubPermissionGroupsTab/transformers";
 import * as gitTags from "./GitTagsTab/transformers";
 import * as mergeQueue from "./MergeQueueTab/transformers";
@@ -35,20 +34,18 @@ export const gqlToFormMap: {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Variables]: variables.gqlToForm,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Notifications]: notifications.gqlToForm,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.gqlToForm,
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.gqlToForm,
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.gqlToForm,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.gqlToForm,
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
-  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
-  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
-  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.gqlToForm,
   [ProjectSettingsTabRoutes.PullRequests]: pullRequests.gqlToForm,
   [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.gqlToForm,
+  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.gqlToForm,
   [ProjectSettingsTabRoutes.GitTags]: gitTags.gqlToForm,
+  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
+  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.gqlToForm,
 };
 
@@ -59,18 +56,17 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
   [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,
   [ProjectSettingsTabRoutes.Variables]: variables.formToGql,
-  [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.formToGql,
   [ProjectSettingsTabRoutes.Notifications]: notifications.formToGql,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.formToGql,
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.formToGql,
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.formToGql,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.formToGql,
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
-  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
-  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
-  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.formToGql,
   [ProjectSettingsTabRoutes.PullRequests]: pullRequests.formToGql,
   [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.formToGql,
+  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.formToGql,
   [ProjectSettingsTabRoutes.GitTags]: gitTags.formToGql,
+  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
+  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.formToGql,
 };

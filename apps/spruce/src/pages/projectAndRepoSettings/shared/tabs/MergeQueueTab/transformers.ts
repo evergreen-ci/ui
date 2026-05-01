@@ -6,7 +6,7 @@ import { MergeQueueFormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = aliasUtils;
 
-type Tab = ProjectSettingsTabRoutes.GithubCommitQueue;
+type Tab = ProjectSettingsTabRoutes.MergeQueue;
 
 export const mergeProjectRepo = (
   projectData: MergeQueueFormState,
@@ -49,7 +49,6 @@ export const gqlToForm = ((data, options) => {
       githubMQTriggerAliases,
     },
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((

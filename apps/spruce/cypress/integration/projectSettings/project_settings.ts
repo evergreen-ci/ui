@@ -30,7 +30,7 @@ describe("projectSettings/project_settings", () => {
   describe("A project that has GitHub webhooks disabled", () => {
     const origin = getProjectSettingsRoute(
       "logkeeper",
-      ProjectSettingsTabRoutes.GithubCommitQueue,
+      ProjectSettingsTabRoutes.MergeQueue,
     );
 
     beforeEach(() => {
