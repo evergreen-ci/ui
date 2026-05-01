@@ -11,18 +11,28 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import {
   QuarantineTestMutation,
   QuarantineTestMutationVariables,
+  UnquarantineTestMutation,
+  UnquarantineTestMutationVariables,
   TestResult,
 } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
-import { QUARANTINE_TEST } from "gql/mutations";
+import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
 import { ActionMenu } from ".";
 
+const taskWithTestSelection = {
+  ...taskQuery.task,
+  testSelectionEnabled: true,
+};
+
 describe("action menu for tests table", () => {
-  it("can open menu", async () => {
+  it("shows disabled message when test selection is not enabled", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[quarantineTestMock]}>
-        <ActionMenu task={taskQuery.task} test={failingTest} />
+      <MockedProvider mocks={[]}>
+        <ActionMenu
+          task={{ ...taskWithTestSelection, testSelectionEnabled: false }}
+          test={failingTest}
+        />
       </MockedProvider>,
     );
     render(<Component />);
@@ -30,19 +40,44 @@ describe("action menu for tests table", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("card-dropdown")).toBeVisible();
     });
+    expect(
+      screen.getByText("Test selection is disabled for this task."),
+    ).toBeVisible();
   });
 
-  it("cannot quarantine if test is passing'", async () => {
+  it("shows disabled message on display tasks", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[quarantineTestMock]}>
-        <ActionMenu task={taskQuery.task} test={passingTest} />
+      <MockedProvider mocks={[]}>
+        <ActionMenu
+          task={{ ...taskWithTestSelection, displayOnly: true }}
+          test={failingTest}
+        />
       </MockedProvider>,
     );
     render(<Component />);
     await user.click(screen.getByDataCy("ellipsis-btn"));
     await waitFor(() => {
       expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+    });
+    expect(
+      screen.getByText(
+        "Select an execution task to manage test quarantine status.",
+      ),
+    ).toBeVisible();
+  });
+
+  it("disables quarantine option when test is passing and not quarantined", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[]}>
+        <ActionMenu task={taskWithTestSelection} test={passingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByDataCy("ellipsis-btn"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("quarantine-test")).toBeVisible();
     });
     expect(screen.getByDataCy("quarantine-test")).toHaveAttribute(
       "aria-disabled",
@@ -50,28 +85,39 @@ describe("action menu for tests table", () => {
     );
   });
 
-  it("can quarantine if test is failing", async () => {
+  it("quarantines a failing test", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[quarantineTestMock]}>
-        <ActionMenu task={taskQuery.task} test={failingTest} />
+        <ActionMenu task={taskWithTestSelection} test={failingTest} />
       </MockedProvider>,
     );
     render(<Component />);
     await user.click(screen.getByDataCy("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+      expect(screen.getByDataCy("quarantine-test")).toBeVisible();
     });
-    expect(screen.getByDataCy("quarantine-test")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
     await user.click(screen.getByDataCy("quarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it("unquarantines a quarantined test", async () => {
+    const user = userEvent.setup();
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={[unquarantineTestMock]}>
+        <ActionMenu task={taskWithTestSelection} test={quarantinedTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByDataCy("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.queryByDataCy("card-dropdown")).not.toBeInTheDocument();
+      expect(screen.getByDataCy("unquarantine-test")).toBeVisible();
+    });
+    await user.click(screen.getByDataCy("unquarantine-test"));
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
   });
 });
@@ -80,6 +126,7 @@ const failingTest: TestResult = {
   id: "1",
   testFile: "test_1",
   status: TestStatus.Fail,
+  isManuallyQuarantined: false,
   logs: {},
 };
 
@@ -87,6 +134,15 @@ const passingTest: TestResult = {
   id: "2",
   testFile: "test_2",
   status: TestStatus.Pass,
+  isManuallyQuarantined: false,
+  logs: {},
+};
+
+const quarantinedTest: TestResult = {
+  id: "3",
+  testFile: "test_3",
+  status: TestStatus.Pass,
+  isManuallyQuarantined: true,
   logs: {},
 };
 
@@ -104,8 +160,31 @@ const quarantineTestMock: ApolloMock<
   result: {
     data: {
       quarantineTest: {
-        __typename: "QuarantineTestPayload",
-        success: true,
+        __typename: "TestResult",
+        id: "1",
+        isManuallyQuarantined: true,
+      },
+    },
+  },
+};
+
+const unquarantineTestMock: ApolloMock<
+  UnquarantineTestMutation,
+  UnquarantineTestMutationVariables
+> = {
+  request: {
+    query: UNQUARANTINE_TEST,
+    variables: {
+      taskId: taskQuery.task.id,
+      testName: "test_3",
+    },
+  },
+  result: {
+    data: {
+      unquarantineTest: {
+        __typename: "TestResult",
+        id: "3",
+        isManuallyQuarantined: false,
       },
     },
   },

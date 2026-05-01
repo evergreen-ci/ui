@@ -18,13 +18,15 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskHistoryAnalytics } from "analytics";
-import { TaskTestResult, TestResult } from "gql/generated/types";
-import { TaskHistoryOptions } from "../types";
+import { TaskHistoryOptions, TaskHistoryTask } from "../types";
+
+type FailedTests = TaskHistoryTask["tests"];
+type FailedTestResult = FailedTests["testResults"][number];
 
 const DEFAULT_PAGE_SIZE = 5;
 
 interface CommitDetailsCardProps {
-  tests: Omit<TaskTestResult, "filteredTestCount" | "totalTestCount">;
+  tests: FailedTests;
 }
 
 const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
@@ -57,7 +59,7 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
     [sendEvent, setFailingTest],
   );
 
-  const table = useLeafyGreenTable<TestResult>({
+  const table = useLeafyGreenTable<FailedTestResult>({
     columns,
     data: testResults ?? [],
     defaultColumn: {
@@ -121,7 +123,7 @@ const getColumns = ({
 }: {
   onClickLogs: (testName: string) => void;
   onClickSearchFailure: (testName: string) => void;
-}): LGColumnDef<TestResult>[] => [
+}): LGColumnDef<FailedTestResult>[] => [
   {
     accessorKey: "testFile",
     header: "Test Failure Name",
