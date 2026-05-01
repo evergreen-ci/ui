@@ -253,7 +253,7 @@ export const getFormSchema = ({
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:data-cy": "task-host-overrides",
       "ui:description":
-        "When enabled, the values below replace the distro's provider settings for task hosts. Every field is required — empty values override the distro's settings rather than falling back to them.",
+        "When enabled, the values below replace the distro's provider settings for task hosts. Empty values override the distro's settings rather than falling back to them. To remove the overrides, toggle off and save.",
       ...taskHostOverridesFields.uiSchema,
     },
   },

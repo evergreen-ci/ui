@@ -20,4 +20,10 @@ const indentCSS = css`
   padding-left: ${size.m};
 `;
 
-export { textAreaCSS, mergeCheckboxCSS, indentCSS };
+const collapseWhenLastCSS = css`
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+export { textAreaCSS, mergeCheckboxCSS, indentCSS, collapseWhenLastCSS };

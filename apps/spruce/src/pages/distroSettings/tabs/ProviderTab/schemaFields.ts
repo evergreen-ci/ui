@@ -1,5 +1,10 @@
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { textAreaCSS, mergeCheckboxCSS, indentCSS } from "./styles";
+import {
+  textAreaCSS,
+  mergeCheckboxCSS,
+  indentCSS,
+  collapseWhenLastCSS,
+} from "./styles";
 import { BuildType } from "./types";
 
 const userData = {
@@ -431,13 +436,14 @@ export const taskHostOverridesFields = {
                 title: "IAM Instance Profile ARN",
                 default: "",
                 minLength: 1,
+                pattern: "^(a|ar|arn|arn:.*)?$",
               },
               subnetId: {
                 type: "string" as const,
                 title: "Subnet ID",
                 default: "",
                 minLength: 1,
-                pattern: "^subnet-.*",
+                pattern: "^(s|su|sub|subn|subne|subnet|subnet-.*)?$",
               },
               securityGroupIds: {
                 type: "array" as const,
@@ -448,7 +454,7 @@ export const taskHostOverridesFields = {
                   title: "Security Group ID",
                   default: "",
                   minLength: 1,
-                  pattern: "^sg-.*",
+                  pattern: "^(s|sg|sg-.*)?$",
                 },
               },
               doNotAssignPublicIpv4Address: {
@@ -465,6 +471,7 @@ export const taskHostOverridesFields = {
   uiSchema: {
     enableTaskHostOverrides: {
       "ui:data-cy": "enable-task-host-overrides",
+      "ui:elementWrapperCSS": collapseWhenLastCSS,
     },
     iamInstanceProfileArn: {
       "ui:description":
