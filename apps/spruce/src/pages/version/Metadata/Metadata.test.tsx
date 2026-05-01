@@ -109,6 +109,78 @@ describe("version metadata cost display", () => {
     await screen.findByText("Estimated cost of completed tasks so far.");
   });
 
+  it("ShowsChildPatchesTooltipWhenRunningWithChildren", async () => {
+    const user = userEvent.setup();
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          isPatch: true,
+          patch: {
+            __typename: "Patch",
+            cost: { __typename: "Cost", total: 50 },
+            childPatches: [
+              { __typename: "Patch", id: "child1" } as unknown as NonNullable<
+                NonNullable<Version["patch"]>["childPatches"]
+              >[number],
+            ],
+            githubPatchData: null,
+            includedLocalModules: null,
+          } as unknown as Version["patch"],
+          finishTime: null,
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+    const costWrapper = screen.getByDataCy(
+      "version-metadata-cost",
+    ).parentElement!;
+    await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
+    await screen.findByText(
+      "Estimated cost of completed tasks so far, including child patches.",
+    );
+  });
+
+  it("ShowsChildPatchesTooltipWhenCompleteWithChildren", async () => {
+    const user = userEvent.setup();
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          isPatch: true,
+          patch: {
+            __typename: "Patch",
+            cost: { __typename: "Cost", total: 50 },
+            childPatches: [
+              { __typename: "Patch", id: "child1" } as unknown as NonNullable<
+                NonNullable<Version["patch"]>["childPatches"]
+              >[number],
+            ],
+            githubPatchData: null,
+            includedLocalModules: null,
+          } as unknown as Version["patch"],
+          finishTime: new Date("2024-01-02"),
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+    const costWrapper = screen.getByDataCy(
+      "version-metadata-cost",
+    ).parentElement!;
+    await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
+    await screen.findByText(
+      "Total cost of all tasks, including child patches.",
+    );
+  });
+
   it("ShowsCompleteTooltipWhenVersionIsComplete", async () => {
     const user = userEvent.setup();
     render(
