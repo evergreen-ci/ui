@@ -1,12 +1,19 @@
 import { clickRadio } from "@evg-ui/playwright-config/helpers";
+import { SEEN_GITHUB_NAV_GUIDE_CUE } from "../../../src/constants/cookies";
 import { test, expect } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 test.describe("Git Tags project settings when GitHub webhooks are disabled", () => {
-  const origin = "/project/logkeeper/settings/git-tags";
-
   test.beforeEach(async ({ authenticatedPage: page }) => {
-    await page.goto(origin);
+    await page.context().addCookies([
+      {
+        name: SEEN_GITHUB_NAV_GUIDE_CUE,
+        value: "true",
+        domain: "localhost",
+        path: "/",
+      },
+    ]);
+    await page.goto("/project/logkeeper/settings/git-tags");
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
   });
 
@@ -34,10 +41,16 @@ test.describe("Git Tags project settings when GitHub webhooks are disabled", () 
 });
 
 test.describe("Git Tags project settings when GitHub webhooks are enabled", () => {
-  const origin = "/repo/602d70a2b2373672ee493184/settings/git-tags";
-
   test.beforeEach(async ({ authenticatedPage: page }) => {
-    await page.goto(origin);
+    await page.context().addCookies([
+      {
+        name: SEEN_GITHUB_NAV_GUIDE_CUE,
+        value: "true",
+        domain: "localhost",
+        path: "/",
+      },
+    ]);
+    await page.goto("/repo/602d70a2b2373672ee493184/settings/git-tags");
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
   });
 
