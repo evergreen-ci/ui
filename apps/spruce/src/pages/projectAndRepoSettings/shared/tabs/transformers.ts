@@ -5,11 +5,14 @@ import * as general from "./GeneralTab/transformers";
 import * as appSettings from "./GithubAppSettingsTab/transformers";
 import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
 import * as permissionGroups from "./GithubPermissionGroupsTab/transformers";
+import * as gitTags from "./GitTagsTab/transformers";
+import * as mergeQueue from "./MergeQueueTab/transformers";
 import * as notifications from "./NotificationsTab/transformers";
 import * as patchAliases from "./PatchAliasesTab/transformers";
 import * as periodicBuilds from "./PeriodicBuildsTab/transformers";
 import * as plugins from "./PluginsTab/transformers";
 import * as projectTriggers from "./ProjectTriggersTab/transformers";
+import * as pullRequests from "./PullRequestsTab/transformers";
 import * as testSelection from "./TestSelectionTab/transformers";
 import {
   FormToGqlFunction,
@@ -42,7 +45,10 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
+  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.gqlToForm,
+  [ProjectSettingsTabRoutes.PullRequests]: pullRequests.gqlToForm,
   [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.gqlToForm,
+  [ProjectSettingsTabRoutes.GitTags]: gitTags.gqlToForm,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.gqlToForm,
 };
 
@@ -62,6 +68,9 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
+  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.formToGql,
+  [ProjectSettingsTabRoutes.PullRequests]: pullRequests.formToGql,
   [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.formToGql,
+  [ProjectSettingsTabRoutes.GitTags]: gitTags.formToGql,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.formToGql,
 };

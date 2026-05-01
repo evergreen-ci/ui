@@ -28,7 +28,9 @@ export const selectOption = async (
  * LG Date Picker does not respond well to .clear()
  * @param page - The Playwright page object
  */
-export const clearDatePickerInput = async (page: Page): Promise<void> => {
+export const clearDatePickerInput = async (
+  page: Page | Locator,
+): Promise<void> => {
   const dayInput = page.locator("input[id='day']");
   await dayInput.press("Backspace");
   await dayInput.press("Backspace");
@@ -47,7 +49,7 @@ export const clearDatePickerInput = async (page: Page): Promise<void> => {
  * @param opts.day - The expected day value
  */
 export const validateDatePickerDate = async (
-  page: Page,
+  page: Page | Locator,
   dataCy: string,
   { year = "", month = "", day = "" } = {},
 ): Promise<void> => {
@@ -69,7 +71,7 @@ export const validateDatePickerDate = async (
  * @param dataCy - The data-cy attribute value of the date picker (default: "date-picker")
  */
 export const selectDatePickerDate = async (
-  page: Page,
+  page: Page | Locator,
   { year = "", month = "", isoDate = "" } = {},
   dataCy = "date-picker",
 ): Promise<void> => {
@@ -102,7 +104,7 @@ export const selectDatePickerDate = async (
  * @param dataCy - The data-cy attribute value of the date picker (default: "date-picker")
  */
 export const typeDatePickerDate = async (
-  page: Page,
+  page: Page | Locator,
   { year = "", month = "", day = "" } = {},
   dataCy = "date-picker",
 ): Promise<void> => {

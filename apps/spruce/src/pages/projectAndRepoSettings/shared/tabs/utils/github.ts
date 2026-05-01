@@ -133,3 +133,18 @@ export const githubConflictErrorStyling = (
     ],
   };
 };
+
+export const canOverrideForProject = (
+  projectType: ProjectType | undefined,
+  field: unknown[] | undefined,
+) => projectType !== ProjectType.AttachedProject || !!field?.length;
+
+export const fieldDisabled = (
+  field: boolean | null,
+  repoField: boolean | null,
+) => field === false || (field === null && repoField === false);
+
+export const hideIf = (shouldHide: boolean) =>
+  shouldHide && {
+    "ui:widget": "hidden",
+  };

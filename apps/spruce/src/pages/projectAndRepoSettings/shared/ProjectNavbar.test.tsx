@@ -1,8 +1,12 @@
+// TODO DEVPROD-31534: Delete this file when the feature flag is removed
+import Cookies from "js-cookie";
 import { vi } from "vitest";
 import {
   renderWithRouterMatch as render,
   screen,
+  userEvent,
 } from "@evg-ui/lib/test_utils";
+import { SEEN_GITHUB_NAV_GUIDE_CUE } from "constants/cookies";
 import { ProjectType } from "./tabs/utils";
 
 vi.mock("components/ProjectSelect", () => ({
@@ -17,58 +21,75 @@ vi.mock("./CreateDuplicateProjectButton", () => ({
   ),
 }));
 
-describe("SharedSettings / Commit Checks tab feature flag", () => {
+const navItems = [
+  { tabLabel: "Merge Queue", dataCy: "navitem-merge-queue" },
+  { tabLabel: "Pull Requests", dataCy: "navitem-pull-requests" },
+  { tabLabel: "Commit Checks", dataCy: "navitem-commit-checks" },
+  { tabLabel: "Git Tags", dataCy: "navitem-git-tags" },
+];
+
+describe("Feature flag tests for DEVPROD-31534", () => {
   beforeEach(() => {
     vi.resetModules();
+    Cookies.set(SEEN_GITHUB_NAV_GUIDE_CUE, "true");
   });
 
-  it("hides the Commit Checks nav item when new project navigation is disabled", async () => {
-    vi.doMock("constants/featureFlags", () => ({
-      showNewProjectNavigation: false,
-    }));
-    const { default: SharedSettings } = await import("./index");
-    render(
-      <SharedSettings
-        hasLoaded={false}
-        owner="evergreen-ci"
-        projectData={undefined}
-        projectIdentifier="evergreen"
-        projectType={ProjectType.Project}
-        repo="spruce"
-        repoData={undefined}
-        repoId="spruce"
-      />,
-      {
-        route: "/project/evergreen/settings/general",
-        path: "/project/:projectIdentifier/settings/:tab",
-      },
-    );
-    expect(
-      screen.queryByDataCy("navitem-commit-checks"),
-    ).not.toBeInTheDocument();
-  });
+  navItems.forEach(({ dataCy, tabLabel }) => {
+    describe(`${tabLabel} tab`, () => {
+      it(`hides the ${tabLabel} nav item when new project navigation is disabled`, async () => {
+        vi.doMock("constants/featureFlags", () => ({
+          showNewProjectNavigation: false,
+        }));
+        const { default: SharedSettings } = await import("./index");
 
-  it("shows the Commit Checks nav item when new project navigation is enabled", async () => {
-    vi.doMock("constants/featureFlags", () => ({
-      showNewProjectNavigation: true,
-    }));
-    const { default: SharedSettings } = await import("./index");
-    render(
-      <SharedSettings
-        hasLoaded={false}
-        owner="evergreen-ci"
-        projectData={undefined}
-        projectIdentifier="evergreen"
-        projectType={ProjectType.Project}
-        repo="spruce"
-        repoData={undefined}
-        repoId="spruce"
-      />,
-      {
-        route: "/project/evergreen/settings/general",
-        path: "/project/:projectIdentifier/settings/:tab",
-      },
-    );
-    expect(screen.getByDataCy("navitem-commit-checks")).toBeInTheDocument();
+        render(
+          <SharedSettings
+            hasLoaded={false}
+            owner="evergreen-ci"
+            projectData={undefined}
+            projectIdentifier="evergreen"
+            projectType={ProjectType.Project}
+            repo="spruce"
+            repoData={undefined}
+            repoId="spruce"
+          />,
+          {
+            route: "/project/evergreen/settings/general",
+            path: "/project/:projectIdentifier/settings/:tab",
+          },
+        );
+
+        expect(screen.queryByDataCy(dataCy)).not.toBeInTheDocument();
+      });
+
+      it(`shows the ${tabLabel} nav item when new project navigation is enabled`, async () => {
+        vi.doMock("constants/featureFlags", () => ({
+          showNewProjectNavigation: true,
+        }));
+        const { default: SharedSettings } = await import("./index");
+
+        render(
+          <SharedSettings
+            hasLoaded={false}
+            owner="evergreen-ci"
+            projectData={undefined}
+            projectIdentifier="evergreen"
+            projectType={ProjectType.Project}
+            repo="spruce"
+            repoData={undefined}
+            repoId="spruce"
+          />,
+          {
+            route: "/project/evergreen/settings/general",
+            path: "/project/:projectIdentifier/settings/:tab",
+          },
+        );
+
+        await userEvent.click(
+          screen.getByRole("button", { name: "GitHub Icon GitHub" }),
+        );
+        expect(screen.getByDataCy(dataCy)).toBeInTheDocument();
+      });
+    });
   });
 });

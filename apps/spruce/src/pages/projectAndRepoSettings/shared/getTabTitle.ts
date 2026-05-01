@@ -15,6 +15,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.Variables]: {
         title: "Variables",
       },
+      [ProjectSettingsTabRoutes.MergeQueue]: {
+        title: "Merge Queue",
+      },
       [ProjectSettingsTabRoutes.GithubCommitQueue]: {
         title: "GitHub",
       },
@@ -42,17 +45,23 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.Plugins]: {
         title: "Plugins",
       },
-      [ProjectSettingsTabRoutes.GithubAppSettings]: {
-        title: "GitHub App Settings",
-      },
-      [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
-        title: "GitHub Permission Groups",
-      },
-      [ProjectSettingsTabRoutes.CommitChecks]: {
-        title: "GitHub Commit Checks",
-      },
       [ProjectSettingsTabRoutes.EventLog]: {
         title: "Event Log",
+      },
+      [ProjectSettingsTabRoutes.PullRequests]: {
+        title: "Pull Request Testing",
+      },
+      [ProjectSettingsTabRoutes.CommitChecks]: {
+        title: "Commit Checks",
+      },
+      [ProjectSettingsTabRoutes.GitTags]: {
+        title: "Git Tags",
+      },
+      [ProjectSettingsTabRoutes.GithubAppSettings]: {
+        title: "App Settings",
+      },
+      [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
+        title: "Permission Groups",
       },
     }[tab] ?? defaultTitle
   );

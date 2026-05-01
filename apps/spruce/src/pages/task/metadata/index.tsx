@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -7,6 +9,7 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
+import { CostModal } from "components/CostModal";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
@@ -15,8 +18,8 @@ import MetadataCard, {
 import { Stepback } from "components/Stepback";
 import { getAPIRouteForTasks } from "constants/externalResources";
 import {
-  getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
+  getHoneycombTraceUrl,
 } from "constants/externalResources/honeycomb";
 import {
   getDistroSettingsRoute,
@@ -53,6 +56,7 @@ interface Props {
 export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
+  const [costModalOpen, setCostModalOpen] = useState(false);
 
   const showStepback = isInStepback(task?.stepbackInfo);
 
@@ -328,9 +332,26 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-        {finishTime && taskCost?.total && (
+        {finishTime && taskCost?.total != null && (
           <MetadataItem data-cy="task-metadata-cost">
             <MetadataLabel>Cost:</MetadataLabel> ${taskCost.total}
+            {taskCost.total > 0 && (
+              <>
+                {" "}
+                <Button
+                  data-cy="cost-details-button"
+                  onClick={() => {
+                    taskAnalytics.sendEvent({
+                      name: "Clicked cost details button",
+                    });
+                    setCostModalOpen(true);
+                  }}
+                  size={ButtonSize.XSmall}
+                >
+                  Cost Details
+                </Button>
+              </>
+            )}
           </MetadataItem>
         )}
         {startTime && finishTime && (
@@ -374,6 +395,15 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
       </MetadataCard>
+      {taskCost && costModalOpen && (
+        <CostModal
+          {...taskCost}
+          name={task.displayName}
+          open={costModalOpen}
+          setOpen={setCostModalOpen}
+          taskId={taskId}
+        />
+      )}
 
       <BuildVariantCard
         buildId={buildId}
