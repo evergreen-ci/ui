@@ -1,14 +1,14 @@
 import { clickRadio } from "@evg-ui/playwright-config/helpers";
 import { test, expect } from "../../../fixtures";
 import { validateToast } from "../../../helpers";
-import { save } from "../utils";
+import { save, expectSaveButtonEnabled } from "../utils";
 
 test.describe("Git Tags project settings when GitHub webhooks are disabled", () => {
   const origin = "/project/logkeeper/settings/git-tags";
 
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(origin);
-    await expect(page.getByTestId("save-settings-button")).toBeDisabled();
+    await expectSaveButtonEnabled(page, false);
   });
 
   test("Git tags page shows a disabled webhooks banner when webhooks are disabled", async ({
@@ -41,7 +41,7 @@ test.describe("Git Tags project settings when GitHub webhooks are enabled", () =
 
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(origin);
-    await expect(page.getByTestId("save-settings-button")).toBeDisabled();
+    await expectSaveButtonEnabled(page, false);
   });
 
   test("Saves successfully when Git Tags are enabled and a Git Tag Definition is provided", async ({
