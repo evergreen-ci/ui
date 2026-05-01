@@ -11,6 +11,7 @@ import { GeneralFormState } from "./GeneralTab/types";
 import { AppSettingsFormState } from "./GithubAppSettingsTab/types";
 import { GCQFormState } from "./GithubCommitQueueTab/types";
 import { PermissionGroupsFormState } from "./GithubPermissionGroupsTab/types";
+import { GitTagsFormState } from "./GitTagsTab/types";
 import { MergeQueueFormState } from "./MergeQueueTab/types";
 import { NotificationsFormState } from "./NotificationsTab/types";
 import { PatchAliasesFormState } from "./PatchAliasesTab/types";
@@ -42,6 +43,7 @@ export type FormStateMap = {
     [ProjectSettingsTabRoutes.MergeQueue]: MergeQueueFormState;
     [ProjectSettingsTabRoutes.PullRequests]: PullRequestsFormState;
     [ProjectSettingsTabRoutes.CommitChecks]: CommitChecksFormState;
+    [ProjectSettingsTabRoutes.GitTags]: GitTagsFormState;
     [ProjectSettingsTabRoutes.TestSelection]: TestSelectionFormState;
   }[T];
 };

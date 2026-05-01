@@ -1,8 +1,9 @@
+import { clickRadio } from "@evg-ui/playwright-config/helpers";
 import { SEEN_GITHUB_NAV_GUIDE_CUE } from "../../../src/constants/cookies";
 import { test, expect } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
-test.describe("Commit Checks project settings when GitHub webhooks are disabled", () => {
+test.describe("Git Tags project settings when GitHub webhooks are disabled", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.context().addCookies([
       {
@@ -12,14 +13,11 @@ test.describe("Commit Checks project settings when GitHub webhooks are disabled"
         path: "/",
       },
     ]);
-    await page.goto("/project/logkeeper/settings/commit-checks");
-    await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await page.goto("/project/logkeeper/settings/git-tags");
+    await expect(page.getByTestId("save-settings-button")).toBeDisabled();
   });
 
-  test("Commit Checks page shows a disabled webhooks banner when webhooks are disabled", async ({
+  test("Git tags page shows a disabled webhooks banner when webhooks are disabled", async ({
     authenticatedPage: page,
   }) => {
     const banner = page.getByTestId("disabled-webhook-banner");
@@ -42,7 +40,7 @@ test.describe("Commit Checks project settings when GitHub webhooks are disabled"
   });
 });
 
-test.describe("Commit Checks project settings when GitHub webhooks are enabled", () => {
+test.describe("Git Tags project settings when GitHub webhooks are enabled", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.context().addCookies([
       {
@@ -52,46 +50,28 @@ test.describe("Commit Checks project settings when GitHub webhooks are enabled",
         path: "/",
       },
     ]);
-    await page.goto("/project/spruce/settings/commit-checks");
-    await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await page.goto("/repo/602d70a2b2373672ee493184/settings/git-tags");
+    await expect(page.getByTestId("save-settings-button")).toBeDisabled();
   });
 
-  test("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", async ({
+  test("Saves successfully when Git Tags are enabled and a Git Tag Definition is provided", async ({
     authenticatedPage: page,
   }) => {
-    await page
-      .getByTestId("github-checks-enabled-radio-box")
-      .locator("label")
-      .first()
-      .click();
-
+    const gitTagRadioBox = page.getByTestId("git-tag-enabled-radio-box");
+    const enabledRadio = gitTagRadioBox.getByRole("radio", { name: "Enabled" });
+    await clickRadio(enabledRadio);
+    const errorText =
+      "A Git Tag Version Definition must be specified for this feature to run.";
     const errorBanner = page.getByTestId("error-banner");
     await expect(errorBanner).toBeVisible();
-    await expect(errorBanner).toContainText(
-      "A Commit Check Definition must be specified for this feature to run.",
-    );
-    await page
-      .getByTestId("github-checks-enabled-radio-box")
-      .locator("label")
-      .last()
-      .click();
-    await expect(page.getByTestId("error-banner")).toHaveCount(0);
-  });
+    await expect(errorBanner).toContainText(errorText);
 
-  test("Saves successfully when Commit Checks are enabled and a Commit Check Definition is provided", async ({
-    authenticatedPage: page,
-  }) => {
     await page
-      .getByTestId("github-checks-enabled-radio-box")
-      .locator("label")
-      .first()
+      .getByTestId("add-button")
+      .filter({ hasText: "Add git tag" })
       .click();
-    await page.getByRole("button", { name: "Add definition" }).click();
-    await page.getByTestId("variant-tags-input").first().fill("vtag");
-    await page.getByTestId("task-tags-input").first().fill("ttag");
+    await page.getByTestId("git-tag-input").fill("v*");
+    await page.getByTestId("remote-path-input").fill("./evergreen.yml");
     await expect(page.getByTestId("error-banner")).toHaveCount(0);
 
     const saveButton = page.getByTestId("save-settings-button");
@@ -101,6 +81,6 @@ test.describe("Commit Checks project settings when GitHub webhooks are enabled",
     await expect(modal).toBeVisible();
     await modal.getByRole("button", { name: "Save changes" }).click();
     await expect(modal).toBeHidden();
-    await validateToast(page, "success", "Successfully updated project");
+    await validateToast(page, "success", "Successfully updated repo");
   });
 });

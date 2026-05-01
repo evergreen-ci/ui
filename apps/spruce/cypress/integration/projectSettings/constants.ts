@@ -16,6 +16,7 @@ export enum ProjectSettingsTabRoutes {
   MergeQueue = "merge-queue",
   PullRequests = "pull-requests",
   CommitChecks = "commit-checks",
+  GitTags = "git-tags",
 }
 
 export const getProjectSettingsRoute = (

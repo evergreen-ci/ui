@@ -283,6 +283,7 @@ const mapRouteToSection: Record<
   [ProjectSettingsTabRoutes.MergeQueue]: ProjectSettingsSection.MergeQueue,
   [ProjectSettingsTabRoutes.PullRequests]: ProjectSettingsSection.PullRequests,
   [ProjectSettingsTabRoutes.CommitChecks]: ProjectSettingsSection.CommitChecks,
+  [ProjectSettingsTabRoutes.GitTags]: ProjectSettingsSection.GitTags,
   [ProjectSettingsTabRoutes.TestSelection]:
     ProjectSettingsSection.TestSelection,
 };

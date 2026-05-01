@@ -21,6 +21,7 @@ import {
   SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
   SEEN_TASK_REVIEW_TOOLTIP,
   SEEN_TEST_SELECTION_GUIDE_CUE,
+  SEEN_GITHUB_NAV_GUIDE_CUE,
 } from "constants/cookies";
 import { hasOperationName, isMutation } from "../utils/graphql-test-utils";
 
@@ -158,6 +159,7 @@ const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
     cy.setCookie(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL, "true");
     cy.setCookie(SEEN_TASK_REVIEW_TOOLTIP, "true");
     cy.setCookie(SEEN_TEST_SELECTION_GUIDE_CUE, "true");
+    cy.setCookie(SEEN_GITHUB_NAV_GUIDE_CUE, "true");
     mutationDispatched = false;
     clearAmboyDB = false;
     cy.intercept("POST", "/graphql/query", (req) => {

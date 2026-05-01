@@ -1,9 +1,12 @@
 // TODO DEVPROD-31534: Delete this file when the feature flag is removed
+import Cookies from "js-cookie";
 import { vi } from "vitest";
 import {
   renderWithRouterMatch as render,
   screen,
+  userEvent,
 } from "@evg-ui/lib/test_utils";
+import { SEEN_GITHUB_NAV_GUIDE_CUE } from "constants/cookies";
 import { ProjectType } from "./tabs/utils";
 
 vi.mock("components/ProjectSelect", () => ({
@@ -22,11 +25,13 @@ const navItems = [
   { tabLabel: "Merge Queue", dataCy: "navitem-merge-queue" },
   { tabLabel: "Pull Requests", dataCy: "navitem-pull-requests" },
   { tabLabel: "Commit Checks", dataCy: "navitem-commit-checks" },
+  { tabLabel: "Git Tags", dataCy: "navitem-git-tags" },
 ];
 
 describe("Feature flag tests for DEVPROD-31534", () => {
   beforeEach(() => {
     vi.resetModules();
+    Cookies.set(SEEN_GITHUB_NAV_GUIDE_CUE, "true");
   });
 
   navItems.forEach(({ dataCy, tabLabel }) => {
@@ -36,6 +41,7 @@ describe("Feature flag tests for DEVPROD-31534", () => {
           showNewProjectNavigation: false,
         }));
         const { default: SharedSettings } = await import("./index");
+
         render(
           <SharedSettings
             hasLoaded={false}
@@ -52,6 +58,7 @@ describe("Feature flag tests for DEVPROD-31534", () => {
             path: "/project/:projectIdentifier/settings/:tab",
           },
         );
+
         expect(screen.queryByDataCy(dataCy)).not.toBeInTheDocument();
       });
 
@@ -60,6 +67,7 @@ describe("Feature flag tests for DEVPROD-31534", () => {
           showNewProjectNavigation: true,
         }));
         const { default: SharedSettings } = await import("./index");
+
         render(
           <SharedSettings
             hasLoaded={false}
@@ -75,6 +83,10 @@ describe("Feature flag tests for DEVPROD-31534", () => {
             route: "/project/evergreen/settings/general",
             path: "/project/:projectIdentifier/settings/:tab",
           },
+        );
+
+        await userEvent.click(
+          screen.getByRole("button", { name: "GitHub Icon GitHub" }),
         );
         expect(screen.getByDataCy(dataCy)).toBeInTheDocument();
       });

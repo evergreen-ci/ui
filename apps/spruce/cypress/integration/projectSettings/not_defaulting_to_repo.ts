@@ -179,7 +179,7 @@ describe("Project Settings when not defaulting to repo", () => {
 
     it("Allows adding a git tag alias", () => {
       cy.dataCy("git-tag-enabled-radio-box").children().first().click();
-      cy.dataCy("add-button").contains("Add Git Tag").parent().click();
+      cy.dataCy("add-button").contains("Add git tag").parent().click();
       cy.dataCy("git-tag-input").type("myGitTag");
       cy.dataCy("remote-path-input").type("./evergreen.yml");
 
