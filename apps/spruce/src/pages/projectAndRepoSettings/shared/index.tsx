@@ -97,6 +97,10 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     );
   }
 
+  const currentTab = tab ?? ProjectSettingsTabRoutes.General;
+  const getRoute = isRepo ? getRepoSettingsRoute : getProjectSettingsRoute;
+  const identifier = isRepo ? repoId : projectIdentifier;
+
   return (
     <ProjectSettingsProvider>
       {!isRepo && <ProjectBanner projectIdentifier={projectIdentifier} />}
@@ -140,11 +144,9 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             {evergreenTabs.map((v) => (
               <SharedSettingsNavItem
                 key={v}
-                currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                getRoute={
-                  isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                }
-                id={isRepo ? repoId : projectIdentifier}
+                currentTab={currentTab}
+                getRoute={getRoute}
+                id={identifier}
                 tab={v}
               />
             ))}
@@ -155,15 +157,14 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
               collapsible
               glyph={<Icon glyph="GitHub" />}
               header="GitHub"
+              initialCollapsed={!githubTabs.includes(currentTab)}
             >
               {githubTabs.map((v) => (
                 <SharedSettingsNavItem
                   key={v}
-                  currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                  getRoute={
-                    isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                  }
-                  id={isRepo ? repoId : projectIdentifier}
+                  currentTab={currentTab}
+                  getRoute={getRoute}
+                  id={identifier}
                   tab={v}
                 />
               ))}
@@ -171,15 +172,13 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             <GithubNavGuideCue refEl={githubGroupRef} />
           </div>
 
-          <SideNavGroup glyph={<Icon glyph="List" />} header="ChangeLog">
+          <SideNavGroup glyph={<Icon glyph="List" />} header="Changelog">
             {otherTabs.map((v) => (
               <SharedSettingsNavItem
                 key={v}
-                currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                getRoute={
-                  isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                }
-                id={isRepo ? repoId : projectIdentifier}
+                currentTab={currentTab}
+                getRoute={getRoute}
+                id={identifier}
                 tab={v}
               />
             ))}
