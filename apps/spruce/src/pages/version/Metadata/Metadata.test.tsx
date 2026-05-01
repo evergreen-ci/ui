@@ -66,9 +66,7 @@ describe("version metadata cost display", () => {
       path: "/version/:id",
       wrapper,
     });
-    expect(
-      screen.queryByDataCy("version-metadata-cost"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Cost:")).not.toBeInTheDocument();
   });
 
   it("ShowsActualCostValueWhenCostIsSet", () => {
@@ -81,9 +79,7 @@ describe("version metadata cost display", () => {
       path: "/version/:id",
       wrapper,
     });
-    expect(screen.getByDataCy("version-metadata-cost")).toHaveTextContent(
-      "$321.45",
-    );
+    expect(screen.getByText("$321.45")).toBeInTheDocument();
   });
 
   it("ShowsEstimateTooltipWhenVersionIsNotComplete", async () => {
@@ -102,9 +98,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const costWrapper = screen.getByDataCy(
-      "version-metadata-cost",
-    ).parentElement!;
+    const costWrapper = screen.getByText("Cost:").closest("span")!;
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
     await screen.findByText("Estimated cost of completed tasks so far.");
   });
@@ -136,9 +130,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const costWrapper = screen.getByDataCy(
-      "version-metadata-cost",
-    ).parentElement!;
+    const costWrapper = screen.getByText("Cost:").closest("span")!;
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
     await screen.findByText(
       "Estimated cost of completed tasks so far, including child patches.",
@@ -172,9 +164,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const costWrapper = screen.getByDataCy(
-      "version-metadata-cost",
-    ).parentElement!;
+    const costWrapper = screen.getByText("Cost:").closest("span")!;
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
     await screen.findByText(
       "Total cost of all tasks, including child patches.",
@@ -197,9 +187,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const costWrapper = screen.getByDataCy(
-      "version-metadata-cost",
-    ).parentElement!;
+    const costWrapper = screen.getByText("Cost:").closest("span")!;
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
     await screen.findByText("Total cost of all tasks.");
   });

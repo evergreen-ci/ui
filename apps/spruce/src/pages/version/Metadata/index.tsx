@@ -220,10 +220,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
         </MetadataItem>
       )}
       {startTime && totalCost != null && totalCost > 0 && (
-        <MetadataItem
-          data-cy="version-metadata-cost"
-          tooltipDescription={costTooltip}
-        >
+        <MetadataItem tooltipDescription={costTooltip}>
           <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
         </MetadataItem>
       )}
