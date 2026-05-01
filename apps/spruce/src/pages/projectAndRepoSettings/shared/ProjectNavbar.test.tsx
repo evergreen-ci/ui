@@ -1,10 +1,12 @@
 // TODO DEVPROD-31534: Delete this file when the feature flag is removed
+import Cookies from "js-cookie";
 import { vi } from "vitest";
 import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { SEEN_GITHUB_NAV_GUIDE_CUE } from "constants/cookies";
 import { ProjectType } from "./tabs/utils";
 
 vi.mock("components/ProjectSelect", () => ({
@@ -29,6 +31,7 @@ const navItems = [
 describe("Feature flag tests for DEVPROD-31534", () => {
   beforeEach(() => {
     vi.resetModules();
+    Cookies.set(SEEN_GITHUB_NAV_GUIDE_CUE, "true");
   });
 
   navItems.forEach(({ dataCy, tabLabel }) => {
