@@ -31,7 +31,9 @@ test.describe("Downstream Projects Tab", () => {
     );
   });
 
-  test("filters by task name", async ({ authenticatedPage: page }) => {
+  test("filters by task name but doesn't update URL", async ({
+    authenticatedPage: page,
+  }) => {
     await page.getByTestId("task-name-filter").nth(1).click();
     const taskInput = page
       .getByTestId("task-name-filter-wrapper")

@@ -1,3 +1,4 @@
+import { clickCheckbox } from "@evg-ui/playwright-config/helpers";
 import { test, expect } from "../../fixtures";
 
 test.describe("Task Duration Tab", () => {
@@ -9,10 +10,9 @@ test.describe("Task Duration Tab", () => {
     test("updates URL appropriately when task name filter is applied", async ({
       authenticatedPage: page,
     }) => {
-      const filterText = "test-annotation";
       await page.getByTestId("task-name-filter-popover").click();
       const filterInput = page.getByPlaceholder("Task name regex");
-      await filterInput.fill(filterText);
+      await filterInput.fill("test-annotation");
       await filterInput.press("Enter");
       await expect(page.getByTestId("task-duration-table-row")).toHaveCount(1);
       await expect(page).toHaveURL(
@@ -33,13 +33,24 @@ test.describe("Task Duration Tab", () => {
       await page.getByTestId("status-filter-popover").click();
       const options = page.getByTestId("tree-select-options");
       await expect(options).toBeVisible();
-      await options.getByText("Running").first().click();
+
+      const runningCheckbox = options
+        .getByRole("checkbox", {
+          name: "Running",
+        })
+        .first();
+      await clickCheckbox(runningCheckbox);
+
       await expect(page.getByTestId("task-duration-table-row")).toHaveCount(3);
       await expect(page).toHaveURL(
         /statuses=running-umbrella,started,dispatched/,
       );
       await expect(options).toBeVisible();
-      await options.getByText("Succeeded").click();
+
+      const succeededCheckbox = options.getByRole("checkbox", {
+        name: "Succeeded",
+      });
+      await clickCheckbox(succeededCheckbox);
       await expect(page).toHaveURL(
         /statuses=running-umbrella,started,dispatched,success/,
       );
@@ -48,10 +59,9 @@ test.describe("Task Duration Tab", () => {
     test("updates URL appropriately when build variant filter is applied", async ({
       authenticatedPage: page,
     }) => {
-      const filterText = "Lint";
       await page.getByTestId("build-variant-filter-popover").click();
       const filterInput = page.getByPlaceholder("Build variant regex");
-      await filterInput.fill(filterText);
+      await filterInput.fill("Lint");
       await filterInput.press("Enter");
       await expect(page.getByTestId("task-duration-table-row")).toHaveCount(2);
       await expect(page).toHaveURL(/page=0&sorts=DURATION%3ADESC&variant=Lint/);
@@ -131,10 +141,9 @@ test.describe("Task Duration Tab", () => {
     test("shows message when no test results are found", async ({
       authenticatedPage: page,
     }) => {
-      const filterText = "this_does_not_exist";
       await page.getByTestId("task-name-filter-popover").click();
       const filterInput = page.getByPlaceholder("Task name regex");
-      await filterInput.fill(filterText);
+      await filterInput.fill("this_does_not_exist");
       await filterInput.press("Enter");
       await expect(
         page.getByTestId("task-name-filter-popover-task-duration-table-row"),

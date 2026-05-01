@@ -9,7 +9,7 @@ const patchDescriptionTasksExist = "dist";
 const waitForTaskTable = async (page: Page) => {
   const table = page.getByTestId("tasks-table");
   await expect(table).toBeVisible();
-  await expect(table).not.toHaveAttribute("data-loading", "true");
+  await expect(table).toHaveAttribute("data-loading", "false");
 };
 
 test.describe("Task table", () => {
@@ -115,10 +115,7 @@ test.describe("Task table", () => {
     }) => {
       await page.goto(`${pathTasks}?page=0`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
-      await expect(page.getByTestId("prev-page-button")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(page.getByTestId("prev-page-button")).toBeDisabled();
     });
 
     test("Does not update results or URL when right arrow is clicked and next page does not exist", async ({
@@ -126,10 +123,7 @@ test.describe("Task table", () => {
     }) => {
       await page.goto(`${pathTasks}?page=4`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
-      await expect(page.getByTestId("next-page-button")).toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
+      await expect(page.getByTestId("next-page-button")).toBeDisabled();
     });
   });
 
@@ -142,10 +136,11 @@ test.describe("Task table", () => {
     test("shows the blocking tasks when hovering over status badge", async ({
       authenticatedPage: page,
     }) => {
-      await expect(page.getByTestId("depends-on-tooltip")).toHaveCount(0);
+      const dependsOnTooltip = page.getByTestId("depends-on-tooltip");
+      await expect(dependsOnTooltip).toHaveCount(0);
       await page.getByTestId("task-status-badge").getByText("Blocked").hover();
-      await expect(page.getByTestId("depends-on-tooltip")).toBeVisible();
-      await expect(page.getByTestId("depends-on-tooltip")).toContainText(
+      await expect(dependsOnTooltip).toBeVisible();
+      await expect(dependsOnTooltip).toContainText(
         `Depends on tasks: “test-migrations”, “test-graphql”`,
       );
     });

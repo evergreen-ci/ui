@@ -3,9 +3,9 @@ import { test, expect } from "../../fixtures";
 const versionId = "5ecedafb562343215a7ff297";
 const versionRoute = `/version/${versionId}`;
 const versions = {
-  changes: { route: `${versionRoute}/changes`, button: "changes-tab" },
-  tasks: { route: `${versionRoute}/tasks`, button: "task-tab" },
-  duration: { route: `${versionRoute}/task-duration`, button: "duration-tab" },
+  changes: { route: `${versionRoute}/changes`, name: "Changes" },
+  tasks: { route: `${versionRoute}/tasks`, name: "Tasks" },
+  duration: { route: `${versionRoute}/task-duration`, name: "Duration" },
 };
 
 test.describe("page tabs", () => {
@@ -13,10 +13,9 @@ test.describe("page tabs", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(versionRoute);
-    await expect(page.getByTestId(versions.tasks.button)).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    await expect(
+      page.getByRole("tab", { name: versions.tasks.name }),
+    ).toHaveAttribute("aria-selected", "true");
     await expect(page).toHaveURL(
       `${versions.tasks.route}?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`,
     );
@@ -26,10 +25,9 @@ test.describe("page tabs", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(`${versionRoute}/task-duration`);
-    await expect(page.getByTestId(versions.duration.button)).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    await expect(
+      page.getByRole("tab", { name: versions.duration.name }),
+    ).toHaveAttribute("aria-selected", "true");
     await expect(page).toHaveURL(
       `${versions.duration.route}?sorts=DURATION%3ADESC`,
     );
@@ -39,13 +37,11 @@ test.describe("page tabs", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(`${versionRoute}/changes`);
-    await expect(page.getByTestId(versions.changes.button)).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    await expect(
+      page.getByRole("tab", { name: versions.changes.name }),
+    ).toHaveAttribute("aria-selected", "true");
     await expect(page).toHaveURL(versions.changes.route);
-
-    await page.getByTestId("task-tab").first().click();
+    await page.getByRole("tab", { name: versions.tasks.name }).first().click();
     await expect(page).toHaveURL(
       `${versions.tasks.route}?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`,
     );
@@ -56,8 +52,7 @@ test.describe("page tabs", () => {
   }) => {
     await page.goto(versionRoute);
     await expect(page).toHaveURL(/sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC/);
-
-    await page.getByTestId(versions.changes.button).click();
+    await page.getByRole("tab", { name: versions.changes.name }).click();
     await expect(page).toHaveURL(
       `${versions.changes.route}?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`,
     );
@@ -76,9 +71,9 @@ test.describe("page tabs", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(versionRoute);
-    await page.getByTestId(versions.changes.button).click();
+    await page.getByRole("tab", { name: versions.changes.name }).click();
     await expect(page.getByTestId("code-changes")).toBeVisible();
-    await page.getByTestId(versions.tasks.button).click();
+    await page.getByRole("tab", { name: versions.tasks.name }).click();
     await expect(page.getByTestId("total-count")).toBeVisible();
   });
 });

@@ -183,7 +183,10 @@ test.describe("Version Subscription Modal", () => {
         "A build-variant in this version finishes",
       );
       await expect(page.getByTestId("regex-selector-row")).toHaveCount(0);
-      await page.getByText("Add Additional Criteria").click();
+      const addCriteriaButton = page.getByRole("button", {
+        name: "Add additional criteria",
+      });
+      await addCriteriaButton.click();
       await expect(page.getByTestId("regex-selector-row")).toHaveCount(1);
       await page.getByTestId("delete-item-button").first().click();
       await expect(page.getByTestId("regex-selector-row")).toHaveCount(0);
@@ -198,9 +201,12 @@ test.describe("Version Subscription Modal", () => {
         "Event",
         "A build-variant in this version finishes",
       );
-      await page.getByText("Add Additional Criteria").click();
+      const addCriteriaButton = page.getByRole("button", {
+        name: "Add additional criteria",
+      });
+      await addCriteriaButton.click();
       await expect(page.getByText("Build Variant ID")).toBeVisible();
-      await page.getByText("Add Additional Criteria").click();
+      await addCriteriaButton.click();
       await expect(page.getByText("Build Variant Name")).toBeVisible();
       await page.getByTestId("regex-select").last().click();
       await expect(
@@ -235,7 +241,10 @@ test.describe("Version Subscription Modal", () => {
         "Event",
         "A build-variant in this version finishes",
       );
-      await page.getByText("Add Additional Criteria").click();
+      const addCriteriaButton = page.getByRole("button", {
+        name: "Add additional criteria",
+      });
+      await addCriteriaButton.click();
       await selectOption(page, "Field name", "Build Variant Name");
       await page.getByTestId("regex-input").fill("stuff");
       await page.getByTestId("jira-comment-input").fill("EVG-2000");
@@ -253,7 +262,7 @@ test.describe("Version Subscription Modal", () => {
         "A build-variant in this version finishes",
       );
       const addCriteriaButton = page.getByRole("button", {
-        name: "Add Additional Criteria",
+        name: "Add additional criteria",
       });
       await expect(addCriteriaButton).toHaveAttribute("aria-disabled", "false");
       await addCriteriaButton.click();

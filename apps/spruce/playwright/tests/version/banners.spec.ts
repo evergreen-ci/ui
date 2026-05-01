@@ -12,11 +12,10 @@ test.describe("banners", () => {
     test("should display the number of configuration errors", async ({
       authenticatedPage: page,
     }) => {
+      const errorBanner = page.getByTestId("configuration-errors-banner");
+      await expect(errorBanner).toBeVisible();
       await expect(
-        page.getByTestId("configuration-errors-banner"),
-      ).toBeVisible();
-      await expect(
-        page.getByText("4 errors in configuration file"),
+        errorBanner.getByText("4 errors in configuration file"),
       ).toBeVisible();
     });
 
@@ -39,11 +38,10 @@ test.describe("banners", () => {
     test("should display the number of configuration warnings", async ({
       authenticatedPage: page,
     }) => {
+      const warningBanner = page.getByTestId("configuration-warnings-banner");
+      await expect(warningBanner).toBeVisible();
       await expect(
-        page.getByTestId("configuration-warnings-banner"),
-      ).toBeVisible();
-      await expect(
-        page.getByText("3 warnings in configuration file"),
+        warningBanner.getByText("3 warnings in configuration file"),
       ).toBeVisible();
     });
 

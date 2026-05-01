@@ -14,10 +14,11 @@ test.describe("Name change modal", () => {
 
     await page.getByTestId("name-change-modal-trigger").click();
     const newName = "a different name";
-    await page.locator("textarea").clear();
-    await page.locator("textarea").fill(newName);
+    const nameInput = page.locator("textarea");
+    await nameInput.clear();
+    await nameInput.fill(newName);
     await page.getByRole("button", { name: "Confirm" }).click();
-    await expect(page.locator("textarea")).toBeHidden();
+    await expect(nameInput).toBeHidden();
     await expect(page.getByText(newName)).toBeVisible();
     await validateToast(
       page,
@@ -30,25 +31,19 @@ test.describe("Name change modal", () => {
     authenticatedPage: page,
   }) => {
     await page.getByTestId("name-change-modal-trigger").click();
-    await page.locator("textarea").clear();
-    await expect(page.getByRole("button", { name: "Confirm" })).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    const nameInput = page.locator("textarea");
+    const confirmButton = page.getByRole("button", { name: "Confirm" });
 
-    await page.locator("textarea").fill("lol");
-    await expect(page.getByRole("button", { name: "Confirm" })).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
+    await nameInput.clear();
+    await expect(confirmButton).toBeDisabled();
+
+    await nameInput.fill("lol");
+    await expect(confirmButton).toBeEnabled();
 
     const over300Chars =
       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    await page.locator("textarea").fill(over300Chars);
-    await expect(page.getByRole("button", { name: "Confirm" })).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await nameInput.fill(over300Chars);
+    await expect(confirmButton).toBeDisabled();
     await expect(
       page.getByText("Value cannot exceed 300 characters"),
     ).toBeVisible();

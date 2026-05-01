@@ -30,18 +30,9 @@ test.describe("Version Timing Tab without a variant selected", () => {
     await expect(
       page.locator("button[aria-labelledby='page-size-select']"),
     ).toHaveAttribute("aria-disabled", "true");
-    await expect(page.getByTestId("next-page-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
-    await expect(page.getByTestId("prev-page-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
-    await expect(page.getByTestId("clear-all-filters")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(page.getByTestId("next-page-button")).toBeDisabled();
+    await expect(page.getByTestId("prev-page-button")).toBeDisabled();
+    await expect(page.getByTestId("clear-all-filters")).toBeDisabled();
   });
 });
 
@@ -141,10 +132,7 @@ test.describe("Version Timing Tab with a variant selected", () => {
     await page.goto(
       "/version/5e4ff3abe3c3317e352062e4/version-timing?taskName=agent&variant=^ubuntu1604%24",
     );
-    await expect(page.getByTestId("next-page-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    await expect(page.getByTestId("next-page-button")).toBeDisabled();
     await expect(
       page.locator(chart).getByText("test-agent", { exact: true }),
     ).toBeVisible();

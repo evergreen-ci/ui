@@ -7,7 +7,7 @@ test.describe("Restarting and scheduling mainline commits", () => {
   }) => {
     await page.goto("/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33");
 
-    const schedulePatchButton = page.getByTestId("schedule-patch");
+    const schedulePatchButton = page.getByRole("button", { name: "Schedule" });
     await expect(schedulePatchButton).toBeVisible();
     await expect(schedulePatchButton).toBeEnabled();
     await schedulePatchButton.click();
@@ -18,9 +18,9 @@ test.describe("Restarting and scheduling mainline commits", () => {
     const taskCheckbox = modal.getByText("check_codegen");
     await taskCheckbox.click();
 
-    const scheduleButton = modal.getByRole("button", { name: "Schedule" });
-    await expect(scheduleButton).toHaveAttribute("aria-disabled", "false");
-    await scheduleButton.click();
+    const confirmButton = modal.getByRole("button", { name: "Schedule" });
+    await expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+    await confirmButton.click();
     await validateToast(page, "success", "Successfully scheduled tasks!");
   });
 });

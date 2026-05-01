@@ -46,7 +46,7 @@ test.describe("Version route", () => {
       await page.goto(versionRoute(versions[0]));
       const table = page.getByTestId("tasks-table");
       await expect(table).toBeVisible();
-      await expect(table).not.toHaveAttribute("data-loading", "true");
+      await expect(table).toHaveAttribute("data-loading", "false");
     });
 
     test("Lists the patch's build variants", async ({
@@ -75,21 +75,18 @@ test.describe("Version route", () => {
       test("Navigates to task tab and applies filters when clicking on grouped task status badge", async ({
         authenticatedPage: page,
       }) => {
-        await page.getByTestId("changes-tab").first().click();
-        await expect(page.getByTestId("task-tab")).toHaveAttribute(
-          "aria-selected",
-          "false",
-        );
+        const changesTab = page.getByRole("tab", { name: "Changes" });
+        const tasksTab = page.getByRole("tab", { name: "Tasks" });
+
+        await changesTab.first().click();
+        await expect(tasksTab).toHaveAttribute("aria-selected", "false");
 
         await page
           .getByTestId("build-variants")
           .getByTestId("grouped-task-status-badge")
           .first()
           .click();
-        await expect(page.getByTestId("task-tab")).toHaveAttribute(
-          "aria-selected",
-          "true",
-        );
+        await expect(tasksTab).toHaveAttribute("aria-selected", "true");
         await expect(page).toHaveURL(
           /sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24/,
         );
@@ -137,17 +134,14 @@ test.describe("Version route", () => {
       }) => {
         await page.getByTestId("clear-all-filters").click();
 
-        await page.getByTestId("changes-tab").first().click();
-        await expect(page.getByTestId("task-tab")).toHaveAttribute(
-          "aria-selected",
-          "false",
-        );
+        const changesTab = page.getByRole("tab", { name: "Changes" });
+        const tasksTab = page.getByRole("tab", { name: "Tasks" });
+
+        await changesTab.first().click();
+        await expect(tasksTab).toHaveAttribute("aria-selected", "false");
 
         await page.getByTestId("build-variant-display-name").first().click();
-        await expect(page.getByTestId("task-tab")).toHaveAttribute(
-          "aria-selected",
-          "true",
-        );
+        await expect(tasksTab).toHaveAttribute("aria-selected", "true");
         await expect(page).toHaveURL(
           /sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&variant=%5Eubuntu1604%24/,
         );
@@ -162,7 +156,6 @@ test.describe("Version route", () => {
         authenticatedPage: page,
       }) => {
         await page.getByTestId("clear-all-filters").click();
-
         await page.getByTestId("task-name-filter").click();
         const taskNameInput = page
           .getByTestId("task-name-filter-wrapper")

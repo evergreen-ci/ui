@@ -10,7 +10,7 @@ const defaultPath = `${pathTasks}?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`;
 const waitForTaskTable = async (page: Page) => {
   const table = page.getByTestId("tasks-table");
   await expect(table).toBeVisible();
-  await expect(table).not.toHaveAttribute("data-loading", "true");
+  await expect(table).toHaveAttribute("data-loading", "false");
 };
 
 test.describe("Tasks filters", () => {
@@ -136,6 +136,7 @@ test.describe("Tasks filters", () => {
       await expect(page).toHaveURL(/statuses=failed/);
       await waitForTaskTable(page);
       await expect(page.getByTestId("filtered-count")).toHaveText("2");
+
       const succeededCheckbox = options.getByRole("checkbox", {
         name: "Succeeded",
       });

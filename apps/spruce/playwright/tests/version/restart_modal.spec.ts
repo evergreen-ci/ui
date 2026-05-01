@@ -45,10 +45,10 @@ test.describe("version/restart_modal", () => {
       await expect(taskStatusBadge).toContainText("0 of 1 Selected");
       const selectUbuntuCheckbox = page
         .getByTestId("version-restart-modal")
-        .getByText("Ubuntu 16.04");
-      await selectUbuntuCheckbox.click();
+        .getByRole("checkbox", { name: "Ubuntu 16.04" });
+      await clickCheckbox(selectUbuntuCheckbox);
       await expect(taskStatusBadge).toContainText("1 of 1 Selected");
-      await selectUbuntuCheckbox.click();
+      await clickCheckbox(selectUbuntuCheckbox);
       await expect(taskStatusBadge).toContainText("0 of 1 Selected");
     });
 
@@ -58,8 +58,8 @@ test.describe("version/restart_modal", () => {
       await page.getByTestId("variant-accordion").first().click();
       const taskCheckbox = page
         .getByTestId("version-restart-modal")
-        .getByText("dist");
-      await taskCheckbox.click();
+        .getByRole("checkbox", { name: "dist" });
+      await clickCheckbox(taskCheckbox);
       await expect(
         page
           .getByTestId("version-restart-modal")
@@ -116,8 +116,8 @@ test.describe("version/restart_modal", () => {
       await modal.getByTestId("variant-accordion").first().click();
       const taskCheckbox = page
         .getByTestId("version-restart-modal")
-        .getByText("dist");
-      await taskCheckbox.click();
+        .getByRole("checkbox", { name: "dist" });
+      await clickCheckbox(taskCheckbox);
       await modal.getByRole("button", { name: "Restart" }).click();
       await expect(page.getByTestId("version-restart-modal")).toBeHidden();
       await validateToast(page, "success", "Successfully restarted tasks!");
@@ -131,21 +131,19 @@ test.describe("version/restart_modal", () => {
       await page.goto(
         "/version/spruce_ab494436448fbb1d244833046ea6f6af1544e86d",
       );
-      await expect(page.getByTestId("restart-version")).toHaveAttribute(
-        "aria-disabled",
-        "false",
-      );
-      await page.getByTestId("restart-version").click();
+      const restartButton = page.getByRole("button", { name: "Restart" });
+      await expect(restartButton).toBeEnabled();
+      await restartButton.click();
       await expect(page.getByTestId("version-restart-modal")).toBeVisible();
-
       const modal = page.getByTestId("version-restart-modal");
       await modal.getByTestId("accordion-toggle").click();
-      const taskCheckbox = modal.getByText("check_codegen");
-
-      await taskCheckbox.click();
-      const restartButton = modal.getByRole("button", { name: "Restart" });
-      await expect(restartButton).toHaveAttribute("aria-disabled", "false");
-      await restartButton.click();
+      const taskCheckbox = modal.getByRole("checkbox", {
+        name: "check_codegen",
+      });
+      await clickCheckbox(taskCheckbox);
+      const confirmButton = modal.getByRole("button", { name: "Restart" });
+      await expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+      await confirmButton.click();
       await validateToast(page, "success", "Successfully restarted tasks!");
     });
   });

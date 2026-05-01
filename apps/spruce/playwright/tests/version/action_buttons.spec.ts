@@ -14,7 +14,7 @@ test.describe("Action Buttons", () => {
     test("Clicking 'Schedule' button shows modal and clicking on 'Cancel' closes it", async ({
       authenticatedPage: page,
     }) => {
-      await page.getByTestId("schedule-patch").click();
+      await page.getByRole("button", { name: "Schedule" }).click();
       await expect(page.getByTestId("schedule-tasks-modal")).toBeVisible();
       await page.getByRole("button", { name: "Cancel" }).click();
       await expect(page.getByTestId("schedule-tasks-modal")).toBeHidden();
@@ -23,11 +23,11 @@ test.describe("Action Buttons", () => {
     test("Clicking ellipses dropdown shows ellipses options", async ({
       authenticatedPage: page,
     }) => {
-      await expect(page.getByTestId("ellipses-btn")).toHaveCount(0);
-      await page.getByTestId("ellipsis-btn").click();
+      const ellipsisButton = page.getByTestId("ellipsis-btn");
+      await expect(ellipsisButton).toHaveCount(0);
+      await ellipsisButton.click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
-
-      await page.getByTestId("ellipsis-btn").click();
+      await ellipsisButton.click();
       await expect(page.getByTestId("card-dropdown")).toHaveCount(0);
     });
   });
@@ -52,7 +52,9 @@ test.describe("Action Buttons", () => {
           },
         ],
       });
-      await page.getByTestId("unschedule-patch").click();
+      await page
+        .getByRole("menuitem", { name: "Unschedule all tasks" })
+        .click();
       await page.getByRole("button", { name: "Yes" }).click();
       await validateToast(
         page,
@@ -64,7 +66,9 @@ test.describe("Action Buttons", () => {
     test("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", async ({
       authenticatedPage: page,
     }) => {
-      await page.getByTestId("unschedule-patch").click();
+      await page
+        .getByRole("menuitem", { name: "Unschedule all tasks" })
+        .click();
       await page.getByRole("button", { name: "Yes" }).click();
       await validateToast(
         page,
@@ -77,9 +81,10 @@ test.describe("Action Buttons", () => {
       authenticatedPage: page,
     }) => {
       const priority = "99";
-      await page.getByTestId("set-priority-menu-item").click();
-      await page.getByTestId("patch-priority-input").fill(priority);
-      await page.getByTestId("patch-priority-input").press("Enter");
+      await page.getByRole("menuitem", { name: "Set patch priority" }).click();
+      const patchPriorityInput = page.getByTestId("patch-priority-input");
+      await patchPriorityInput.fill(priority);
+      await patchPriorityInput.press("Enter");
       await validateToast(page, "success", priority);
     });
 
@@ -96,27 +101,32 @@ test.describe("Action Buttons", () => {
           },
         ],
       });
-      await page.getByTestId("set-priority-menu-item").click();
-      await page.getByTestId("patch-priority-input").fill("80");
-      await page.getByTestId("patch-priority-input").press("Enter");
+      await page.getByRole("menuitem", { name: "Set patch priority" }).click();
+      const patchPriorityInput = page.getByTestId("patch-priority-input");
+      await patchPriorityInput.fill("80");
+      await patchPriorityInput.press("Enter");
       await validateToast(page, "error", "Error updating priority for patch");
     });
 
     test("Sets priority for multiple tasks when version page table is filtered", async ({
       authenticatedPage: page,
     }) => {
-      const priority = 10;
       await page.goto(
         `${versionPath(mainlineCommit)}/tasks?statuses=failed-umbrella,failed,known-issue`,
       );
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
-      await expect(page.getByTestId("set-priority-menu-item")).toContainText(
+
+      const setTaskPriorityButton = page.getByRole("menuitem", {
+        name: "Set task priority",
+      });
+      await expect(setTaskPriorityButton).toContainText(
         "Set task priority (2)",
       );
-      await page.getByTestId("set-priority-menu-item").click();
-      await page.getByTestId("task-priority-input").fill(`${priority}`);
-      await page.getByTestId("task-priority-input").press("Enter");
+      await setTaskPriorityButton.click();
+      const taskPriorityInput = page.getByTestId("task-priority-input");
+      await taskPriorityInput.fill("10");
+      await taskPriorityInput.press("Enter");
       await validateToast(page, "success", "Priority updated for 2 tasks.");
     });
 
