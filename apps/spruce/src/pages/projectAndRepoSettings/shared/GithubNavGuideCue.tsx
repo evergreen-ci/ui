@@ -1,8 +1,7 @@
-// GithubNavGuideCue.tsx
 import { useState } from "react";
 import {
   GuideCue,
-  type GuideCueProps,
+  GuideCueProps,
   TooltipAlign,
 } from "@leafygreen-ui/guide-cue";
 import Cookies from "js-cookie";
@@ -25,7 +24,6 @@ export const GithubNavGuideCue: React.FC<Props> = ({ refEl }) => {
   return (
     <GuideCue
       currentStep={1}
-      data-cy="github-nav-guide-cue"
       enabled
       numberOfSteps={1}
       onPrimaryButtonClick={close}
