@@ -18,4 +18,5 @@ export const TASK_HISTORY_INACTIVE_COMMITS_VIEW =
   "task-history-inactive-commits-view";
 export const SEEN_TASK_REVIEW_TOOLTIP = "seen-task-review-tooltip";
 export const SEEN_TEST_SELECTION_GUIDE_CUE = "seen-test-selection-guide-cue";
+export const SEEN_GITHUB_NAV_GUIDE_CUE = "seen-github-nav-guide-cue";
 export const OMIT_INACTIVE_WATERFALL_BUILDS = "omit-inactive-waterfall-builds";
