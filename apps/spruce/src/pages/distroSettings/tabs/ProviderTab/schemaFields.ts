@@ -3,7 +3,8 @@ import {
   textAreaCSS,
   mergeCheckboxCSS,
   indentCSS,
-  collapseWhenLastCSS,
+  toggleSpacingCSS,
+  overrideFieldsLeadingSpaceCSS,
 } from "./styles";
 import { BuildType } from "./types";
 
@@ -471,11 +472,16 @@ export const taskHostOverridesFields = {
   uiSchema: {
     enableTaskHostOverrides: {
       "ui:data-cy": "enable-task-host-overrides",
-      "ui:elementWrapperCSS": collapseWhenLastCSS,
+      "ui:elementWrapperCSS": toggleSpacingCSS,
+    },
+    providerAccount: {
+      "ui:elementWrapperCSS": overrideFieldsLeadingSpaceCSS,
     },
     iamInstanceProfileArn: {
       "ui:description":
         "The Amazon Resource Name (ARN) of the instance profile.",
+      "ui:placeholder":
+        "e.g. arn:aws:iam::123456789012:instance-profile/MyProfile",
     },
     subnetId: {
       "ui:placeholder": "e.g. subnet-xxxx",
@@ -483,6 +489,9 @@ export const taskHostOverridesFields = {
     securityGroupIds: {
       "ui:addButtonText": "Add security group",
       "ui:orderable": false,
+      items: {
+        "ui:placeholder": "e.g. sg-xxxx",
+      },
     },
     doNotAssignPublicIpv4Address: {
       "ui:bold": true,
