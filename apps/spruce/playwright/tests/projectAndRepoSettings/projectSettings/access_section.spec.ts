@@ -64,9 +64,11 @@ test.describe("Access page", () => {
     });
     await expect(defaultToRepoButton).toBeEnabled();
     await defaultToRepoButton.click();
-    await page
-      .getByLabel('Type "confirm" to confirm your action')
-      .fill("confirm");
+
+    const confirmInput = page.getByLabel(
+      'Type "confirm" to confirm your action',
+    );
+    await confirmInput.fill("confirm");
     await page
       .getByTestId("default-to-repo-modal")
       .getByRole("button", { name: "Confirm" })

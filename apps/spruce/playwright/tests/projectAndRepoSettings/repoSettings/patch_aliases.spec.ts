@@ -64,9 +64,11 @@ test.describe("Patch Aliases page", () => {
     );
     await page.getByTestId("default-to-repo-button").click();
     await expect(page.getByTestId("default-to-repo-modal")).toBeVisible();
-    await page
-      .getByLabel('Type "confirm" to confirm your action')
-      .fill("confirm");
+
+    const confirmInput = page.getByLabel(
+      'Type "confirm" to confirm your action',
+    );
+    await confirmInput.fill("confirm");
     await page
       .getByTestId("default-to-repo-modal")
       .getByRole("button", { name: "Confirm" })
