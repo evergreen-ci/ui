@@ -389,11 +389,13 @@ describe("readVersions", () => {
     ).toBe(undefined);
   });
 
-  it("returns undefined when the number of activated versions found is less than the limit", () => {
+  it("returns undefined when the number of activated versions found is less than the limit and more data may exist", () => {
+    // Versions with orders that don't reach the end (last order > 1)
+    const partialVersions = versions.slice(0, 4); // orders 5, 4, 3, 2
     expect(
       readVersions(
         {
-          flattenedVersions: versions,
+          flattenedVersions: partialVersions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
@@ -411,6 +413,41 @@ describe("readVersions", () => {
         } as FieldFunctionOptions,
       ),
     ).toBe(undefined);
+  });
+
+  it("returns available data when fewer than limit active versions exist and no more pages are available", () => {
+    expect(
+      readVersions(
+        {
+          allActiveVersions: new Set(["b", "c"]),
+          flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
+          pagination: {
+            mostRecentVersionOrder: 5,
+          },
+        },
+        // @ts-expect-error: for tests we can omit unused fields from the args
+        {
+          args: {
+            options: {
+              limit: 5,
+              maxOrder: 6,
+            },
+          },
+          readField,
+        } as FieldFunctionOptions,
+      ),
+    ).toStrictEqual({
+      flattenedVersions: versions,
+      pagination: {
+        activeVersionIds: ["b", "c"],
+        hasPrevPage: false,
+        hasNextPage: false,
+        mostRecentVersionOrder: 5,
+        prevPageOrder: 0,
+        nextPageOrder: 0,
+      },
+    });
   });
 
   it("returns first page if it exists in cache, even if minOrder and maxOrder are undefined", () => {

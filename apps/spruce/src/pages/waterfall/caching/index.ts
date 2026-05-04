@@ -90,7 +90,18 @@ export const readVersions = ((existing, { args, readField }) => {
       }
     }
     if (activeVersionIds.length < limit) {
-      return undefined;
+      // If there are potentially more versions to fetch, signal a cache miss.
+      // But if we've exhausted all versions (last cached version order <= 1),
+      // return what we have to avoid an infinite refetch loop.
+      const lastOrder =
+        readField<number>(
+          "order",
+          existingVersions[existingVersions.length - 1],
+        ) ?? 0;
+      if (lastOrder > 1) {
+        return undefined;
+      }
+      endIndex = existingVersions.length - 1;
     }
   }
 
