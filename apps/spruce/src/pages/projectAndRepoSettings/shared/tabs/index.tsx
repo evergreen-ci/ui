@@ -3,6 +3,7 @@ export { CommitChecksTab } from "./CommitChecksTab/CommitChecksTab";
 export { EventLogTab } from "./EventLogTab/EventLogTab";
 export { GeneralTab } from "./GeneralTab/GeneralTab";
 export { GithubCommitQueueTab } from "./GithubCommitQueueTab/GithubCommitQueueTab";
+export { GitTagsTab } from "./GitTagsTab/GitTagsTab";
 export { NotificationsTab } from "./NotificationsTab/NotificationsTab";
 export { MergeQueueTab } from "./MergeQueueTab/MergeQueueTab";
 export { PatchAliasesTab } from "./PatchAliasesTab/PatchAliasesTab";

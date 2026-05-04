@@ -23,6 +23,7 @@ import {
   EventLogTab,
   GeneralTab,
   GithubCommitQueueTab,
+  GitTagsTab,
   NotificationsTab,
   PatchAliasesTab,
   PeriodicBuildsTab,
@@ -376,6 +377,23 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               />
             }
             path={ProjectSettingsTabRoutes.CommitChecks}
+          />
+        )}
+        {showNewProjectNavigation && (
+          <Route
+            element={
+              <GitTagsTab
+                githubProjectConflicts={githubProjectConflicts}
+                githubWebhooksEnabled={githubWebhooksEnabled}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.GitTags].projectData
+                }
+                projectType={projectType}
+                repoData={tabData[ProjectSettingsTabRoutes.GitTags].repoData}
+                versionControlEnabled={versionControlEnabled}
+              />
+            }
+            path={ProjectSettingsTabRoutes.GitTags}
           />
         )}
         <Route

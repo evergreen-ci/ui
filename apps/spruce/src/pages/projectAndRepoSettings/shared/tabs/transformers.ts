@@ -5,6 +5,7 @@ import * as general from "./GeneralTab/transformers";
 import * as appSettings from "./GithubAppSettingsTab/transformers";
 import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
 import * as permissionGroups from "./GithubPermissionGroupsTab/transformers";
+import * as gitTags from "./GitTagsTab/transformers";
 import * as mergeQueue from "./MergeQueueTab/transformers";
 import * as notifications from "./NotificationsTab/transformers";
 import * as patchAliases from "./PatchAliasesTab/transformers";
@@ -47,6 +48,7 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.gqlToForm,
   [ProjectSettingsTabRoutes.PullRequests]: pullRequests.gqlToForm,
   [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.gqlToForm,
+  [ProjectSettingsTabRoutes.GitTags]: gitTags.gqlToForm,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.gqlToForm,
 };
 
@@ -69,5 +71,6 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.formToGql,
   [ProjectSettingsTabRoutes.PullRequests]: pullRequests.formToGql,
   [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.formToGql,
+  [ProjectSettingsTabRoutes.GitTags]: gitTags.formToGql,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.formToGql,
 };

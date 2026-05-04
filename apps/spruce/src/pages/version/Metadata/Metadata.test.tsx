@@ -60,47 +60,115 @@ describe("version metadata cost display", () => {
     stubGetClientRects();
   });
 
-  it("ShowsCostRowWithZeroWhenCostIsNull", () => {
+  it("HidesCostRowWhenCostIsNull", () => {
     render(<Metadata version={baseVersion} />, {
       route: "/version/version123",
       path: "/version/:id",
       wrapper,
     });
-    expect(screen.getByDataCy("version-metadata-cost")).toBeInTheDocument();
-    expect(screen.getByDataCy("version-metadata-cost")).toHaveTextContent("$0");
+    expect(screen.queryByText("Cost:")).not.toBeInTheDocument();
   });
 
   it("ShowsActualCostValueWhenCostIsSet", () => {
     const version: Version = {
       ...baseVersion,
       cost: { __typename: "Cost", total: 321.45 },
-      status: PatchStatus.Success,
     };
     render(<Metadata version={version} />, {
       route: "/version/version123",
       path: "/version/:id",
       wrapper,
     });
-    expect(screen.getByDataCy("version-metadata-cost")).toHaveTextContent(
-      "$321.45",
-    );
+    expect(screen.getByText("$321.45")).toBeInTheDocument();
   });
 
   it("ShowsEstimateTooltipWhenVersionIsNotComplete", async () => {
     const user = userEvent.setup();
     render(
-      <Metadata version={{ ...baseVersion, status: PatchStatus.Started }} />,
+      <Metadata
+        version={{
+          ...baseVersion,
+          cost: { __typename: "Cost", total: 10 },
+          finishTime: null,
+        }}
+      />,
       {
         route: "/version/version123",
         path: "/version/:id",
         wrapper,
       },
     );
-    const costWrapper = screen.getByDataCy(
-      "version-metadata-cost",
-    ).parentElement!;
+    const costWrapper = screen.getByText("Cost:").closest("span")!;
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
-    await screen.findByText("Estimated cost so far.");
+    await screen.findByText("Estimated cost of completed tasks so far.");
+  });
+
+  it("ShowsChildPatchesTooltipWhenRunningWithChildren", async () => {
+    const user = userEvent.setup();
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          isPatch: true,
+          patch: {
+            __typename: "Patch",
+            cost: { __typename: "Cost", total: 50 },
+            childPatches: [
+              { __typename: "Patch", id: "child1" } as unknown as NonNullable<
+                NonNullable<Version["patch"]>["childPatches"]
+              >[number],
+            ],
+            githubPatchData: null,
+            includedLocalModules: null,
+          } as unknown as Version["patch"],
+          finishTime: null,
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+    const costWrapper = screen.getByText("Cost:").closest("span")!;
+    await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
+    await screen.findByText(
+      "Estimated cost of completed tasks so far, including child patches.",
+    );
+  });
+
+  it("ShowsChildPatchesTooltipWhenCompleteWithChildren", async () => {
+    const user = userEvent.setup();
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          isPatch: true,
+          patch: {
+            __typename: "Patch",
+            cost: { __typename: "Cost", total: 50 },
+            childPatches: [
+              { __typename: "Patch", id: "child1" } as unknown as NonNullable<
+                NonNullable<Version["patch"]>["childPatches"]
+              >[number],
+            ],
+            githubPatchData: null,
+            includedLocalModules: null,
+          } as unknown as Version["patch"],
+          finishTime: new Date("2024-01-02"),
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+    const costWrapper = screen.getByText("Cost:").closest("span")!;
+    await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
+    await screen.findByText(
+      "Total cost of all tasks, including child patches.",
+    );
   });
 
   it("ShowsCompleteTooltipWhenVersionIsComplete", async () => {
@@ -110,7 +178,7 @@ describe("version metadata cost display", () => {
         version={{
           ...baseVersion,
           cost: { __typename: "Cost", total: 100 },
-          status: PatchStatus.Success,
+          finishTime: new Date("2024-01-02"),
         }}
       />,
       {
@@ -119,9 +187,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const costWrapper = screen.getByDataCy(
-      "version-metadata-cost",
-    ).parentElement!;
+    const costWrapper = screen.getByText("Cost:").closest("span")!;
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
     await screen.findByText("Total cost of all tasks.");
   });

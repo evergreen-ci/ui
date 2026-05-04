@@ -35,7 +35,7 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   if (!logMetadata) {
     return null;
   }
-  const { execution, logPath, logType, taskID } = logMetadata;
+  const { execution, logPath, logType, logsToMerge, taskID } = logMetadata;
   if (!logType || !taskID || execution == null) {
     return null;
   }
@@ -49,7 +49,9 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
     if (!logPath) {
       return null;
     }
-    return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --log_path ${logPath} --o output.txt`;
+    const logsToMergeFlags =
+      logsToMerge?.map((l) => `--logs_to_merge ${l}`).join(" ") ?? "";
+    return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --log_path ${logPath} ${logsToMergeFlags} --o output.txt`;
   }
   // Unsupported log type.
   return null;

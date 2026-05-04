@@ -574,7 +574,7 @@ export const gitTagArray = {
     },
   },
   uiSchema: {
-    "ui:addButtonText": "Add Git Tag",
+    "ui:addButtonText": "Add git tag",
     "ui:orderable": false,
     "ui:showLabel": false,
     "ui:topAlignDelete": true,

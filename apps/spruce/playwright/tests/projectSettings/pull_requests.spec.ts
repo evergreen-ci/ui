@@ -1,8 +1,17 @@
+import { SEEN_GITHUB_NAV_GUIDE_CUE } from "../../../src/constants/cookies";
 import { test, expect } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 test.describe("Pull Requests project settings when GitHub webhooks are disabled", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
+    await page.context().addCookies([
+      {
+        name: SEEN_GITHUB_NAV_GUIDE_CUE,
+        value: "true",
+        domain: "localhost",
+        path: "/",
+      },
+    ]);
     await page.goto("/project/logkeeper/settings/pull-requests");
     await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
       "aria-disabled",
@@ -35,8 +44,15 @@ test.describe("Pull Requests project settings when GitHub webhooks are disabled"
 
 test.describe("Pull Requests project settings when GitHub webhooks are enabled", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
-    await page.goto("/repo/602d70a2b2373672ee493184/settings/general");
-    await page.getByTestId("navitem-pull-requests").click();
+    await page.context().addCookies([
+      {
+        name: SEEN_GITHUB_NAV_GUIDE_CUE,
+        value: "true",
+        domain: "localhost",
+        path: "/",
+      },
+    ]);
+    await page.goto("/repo/602d70a2b2373672ee493184/settings/pull-requests");
     await expect(page.getByTestId("save-settings-button")).toHaveAttribute(
       "aria-disabled",
       "true",
@@ -79,8 +95,7 @@ test.describe("Pull Requests project settings when GitHub webhooks are enabled",
     await expect(modal).toBeHidden();
     await validateToast(page, "success", "Successfully updated repo");
 
-    await page.goto("/project/evergreen/settings/general");
-    await page.getByTestId("navitem-pull-requests").click();
+    await page.goto("/project/evergreen/settings/pull-requests");
     const patchDefAccordion = page.getByText("Repo Patch Definition 1");
     await patchDefAccordion.scrollIntoViewIfNeeded();
     await patchDefAccordion.click();
