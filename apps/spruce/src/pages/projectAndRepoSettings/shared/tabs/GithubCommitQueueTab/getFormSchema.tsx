@@ -243,6 +243,7 @@ export const getFormSchema = (
     uiSchema: {
       github: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:data-cy": "github-card",
         prTestingEnabledTitle: {
           "ui:sectionTitle": true,
         },
@@ -319,7 +320,7 @@ export const getFormSchema = (
           "ui:description": PRAliasesDescription,
           githubPrAliases: {
             ...aliasRowUiSchema({
-              addButtonText: "Add Patch Definition",
+              addButtonText: "Add patch definition",
               numberedTitle: "Patch Definition",
             }),
           },

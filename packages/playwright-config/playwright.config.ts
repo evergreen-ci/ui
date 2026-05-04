@@ -1,36 +1,40 @@
-import { defineConfig, devices, type PlaywrightTestConfig } from "@playwright/test";
+import { defineConfig, type PlaywrightTestConfig } from "@playwright/test";
 import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-interface PlaywrightConfigOptions {
+type PlaywrightConfigOptions = Partial<PlaywrightTestConfig> & {
   appName: string;
   baseURL: string;
   viewport: { width: number; height: number };
-}
+};
 
 export const createPlaywrightConfig = ({
   appName,
   baseURL,
+  reporter,
+  use,
   viewport,
+  ...overrides
 }: PlaywrightConfigOptions): PlaywrightTestConfig =>
   defineConfig({
     testDir: "./playwright/tests",
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,
-    workers: 1,
+    outputDir: "bin/playwright/test-results",
+    ...overrides,
     use: {
       baseURL,
       viewport,
-      video: process.env.CI ? "on-first-retry" : "off",
+      video: process.env.CI ? "retain-on-failure" : "off",
       screenshot: process.env.CI ? "only-on-failure" : "off",
-      trace: process.env.CI ? "on-first-retry" : "off",
+      trace: process.env.CI ? "retain-on-failure-and-retries" : "off",
       permissions: ["clipboard-read", "clipboard-write"],
       testIdAttribute: "data-cy",
+      ...use,
     },
-    outputDir: "bin/playwright/test-results",
-    reporter: [
+    reporter: reporter ?? [
       ["list"],
       [
         "junit",
@@ -48,21 +52,5 @@ export const createPlaywrightConfig = ({
           open: "never",
         },
       ],
-    ],
-    projects: [
-      {
-        name: "setup db",
-        testMatch: path.join(__dirname, "global-setup.ts"),
-        teardown: "cleanup db",
-      },
-      {
-        name: "cleanup db",
-        testMatch: path.join(__dirname, "global-teardown.ts"),
-      },
-      {
-        name: "chromium",
-        use: { ...devices["Desktop Chrome"] },
-        dependencies: ["setup db"],
-      },
     ],
   });
