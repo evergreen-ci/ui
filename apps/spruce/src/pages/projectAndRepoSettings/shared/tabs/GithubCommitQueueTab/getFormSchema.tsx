@@ -242,7 +242,6 @@ export const getFormSchema = (
     },
     uiSchema: {
       github: {
-        "ui:data-cy": "github-card",
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         prTestingEnabledTitle: {
           "ui:sectionTitle": true,

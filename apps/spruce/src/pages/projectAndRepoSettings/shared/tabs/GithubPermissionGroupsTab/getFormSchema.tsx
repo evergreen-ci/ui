@@ -169,7 +169,6 @@ const permissionCss = css`
 
 const itemsUISchema = {
   "ui:displayTitle": "New Permission Group",
-  "ui:data-cy": "permission-group-item",
   name: {
     "ui:ariaLabelledBy": "Permission Group Name",
     "ui:data-cy": "permission-group-title-input",

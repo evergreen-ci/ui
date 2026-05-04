@@ -49,8 +49,8 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:orderable": false,
       items: {
         "ui:ObjectFieldTemplate": FieldRow,
-        "ui:data-cy": "expansion-item",
         "ui:label": false,
+        "ui:data-cy": "expansion-item",
       },
     },
     validProjects: {
