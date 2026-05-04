@@ -36,7 +36,7 @@ test.describe("general section", () => {
     const enableRadio = page
       .getByTestId("run-every-mainline-commit-radio-box")
       .getByRole("radio", { name: "Enabled" });
-    clickRadio(enableRadio);
+    await clickRadio(enableRadio);
     await save(page);
     await validateToast(page, "success", "Successfully updated project");
     await expect(enableRadio).toBeChecked();
