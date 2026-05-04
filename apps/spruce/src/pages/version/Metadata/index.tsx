@@ -267,7 +267,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </MetadataItem>
         )}
       </MetadataCard>
-      {cost && (
+      {cost && costModalOpen && (
         <CostModal
           {...cost}
           childPatchesTotalCost={
