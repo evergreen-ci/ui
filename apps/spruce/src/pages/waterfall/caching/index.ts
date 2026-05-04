@@ -13,7 +13,7 @@ export const readVersions = ((existing, { args, readField }) => {
   const date = args?.options?.date ?? "";
   const revision = args?.options?.revision ?? "";
 
-  const { mostRecentVersionOrder = 0 } =
+  const { mostRecentVersionOrder = 0, hasNextPage: serverHasNextPage = true } =
     readField<WaterfallQuery["waterfall"]["pagination"]>(
       "pagination",
       existing,
@@ -90,7 +90,13 @@ export const readVersions = ((existing, { args, readField }) => {
       }
     }
     if (activeVersionIds.length < limit) {
-      return undefined;
+      // If the server already indicated there are no more pages, return the
+      // data we have rather than triggering an infinite refetch loop.
+      if (!serverHasNextPage) {
+        endIndex = existingVersions.length - 1;
+      } else {
+        return undefined;
+      }
     }
   }
 
