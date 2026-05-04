@@ -7,7 +7,12 @@ export const PROJECT_GITHUB_SETTINGS = gql`
       enabled
     }
     githubChecksEnabled
+    githubDynamicTokenPermissionGroups {
+      name
+      permissions
+    }
     githubMQTriggerAliases
+    githubPermissionGroupByRequester
     githubPRTriggerAliases
     gitTagAuthorizedTeams
     gitTagAuthorizedUsers
@@ -25,7 +30,12 @@ export const REPO_GITHUB_SETTINGS = gql`
       enabled
     }
     githubChecksEnabled
+    githubDynamicTokenPermissionGroups {
+      name
+      permissions
+    }
     githubMQTriggerAliases
+    githubPermissionGroupByRequester
     githubPRTriggerAliases
     gitTagAuthorizedTeams
     gitTagAuthorizedUsers
@@ -36,30 +46,45 @@ export const REPO_GITHUB_SETTINGS = gql`
   }
 `;
 
-export const PROJECT_GITHUB_COMMIT_QUEUE = gql`
-  fragment ProjectGithubCommitQueue on ProjectSettings {
+export const PROJECT_GITHUB_SECTIONS = gql`
+  fragment ProjectGithubSections on ProjectSettings {
+    githubAppAuth {
+      appId
+      privateKey
+    }
     githubWebhooksEnabled
-
     projectRef {
       ...ProjectGithubSettings
     }
   }
 `;
 
-export const REPO_GITHUB_COMMIT_QUEUE = gql`
-  fragment RepoGithubCommitQueue on RepoSettings {
+export const REPO_GITHUB_SECTIONS = gql`
+  fragment RepoGithubSections on RepoSettings {
+    githubAppAuth {
+      appId
+      privateKey
+    }
     githubWebhooksEnabled
-
     projectRef {
       ...RepoGithubSettings
+      githubDynamicTokenPermissionGroups {
+        name
+        permissions
+      }
+      githubPermissionGroupByRequester
     }
   }
 `;
 
-export const PROJECT_EVENT_GITHUB_COMMIT_QUEUE = gql`
-  fragment ProjectEventGithubCommitQueue on ProjectEventSettings {
+// Project events.
+export const PROJECT_EVENT_GITHUB_SECTIONS = gql`
+  fragment ProjectEventGithubSections on ProjectEventSettings {
+    githubAppAuth {
+      appId
+      privateKey
+    }
     githubWebhooksEnabled
-
     projectRef {
       ...ProjectGithubSettings
     }
