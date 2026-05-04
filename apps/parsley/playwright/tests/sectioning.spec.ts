@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "@playwright/test";
 import * as helpers from "../helpers";
 
 const logLink =
@@ -8,13 +8,13 @@ const getTargetSelector = (rowIndex: number) =>
   `[data-index='${rowIndex}'] >  [data-cy='section-header']`;
 
 test.describe("Sectioning", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(`${logLink}?shareLine=0`);
     await page.getByTestId("section-header").first().waitFor();
   });
 
   test("Toggling the sections options displays and hides sections", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     // Check that sections is toggled.
     await helpers.toggleDetailsPanel(page, true);
@@ -32,7 +32,7 @@ test.describe("Sectioning", () => {
   });
 
   test("Clicking 'Open all subsections' opens all subsections", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("open-all-sections-btn").click();
     const caretToggles = await page.getByTestId("caret-toggle").all();
@@ -54,7 +54,7 @@ test.describe("Sectioning", () => {
   });
 
   test("Clicking 'Close all subsections' opens all subsections", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("close-all-sections-btn").click();
 
@@ -87,7 +87,7 @@ test.describe("Sectioning", () => {
   });
 
   test("Clicking on a closed caret opens the section and renders the subsection contents", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.locator(getTargetSelector(4))).toContainText(
       "Function: f_expansions_write",
@@ -101,7 +101,7 @@ test.describe("Sectioning", () => {
   });
 
   test("Clicking on an open caret closes the section and hides the subsection contents", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.locator(getTargetSelector(9))).toContainText(
       "Command: expansions.write (step 2.1 of 2)",
@@ -115,7 +115,7 @@ test.describe("Sectioning", () => {
   });
 
   test("Failing command section is open and scrolled to on page load when share line isn't specified", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(logLink);
     await expect(
@@ -126,7 +126,7 @@ test.describe("Sectioning", () => {
   });
 
   test("Share line section is open and scrolled to on page load when it is specified", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${logLink}?shareLine=19`);
     await expect(
@@ -137,7 +137,7 @@ test.describe("Sectioning", () => {
   });
 
   test("sticky headers are visible when enabled and works properly with scrolling", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await helpers.clickToggle(
       page,

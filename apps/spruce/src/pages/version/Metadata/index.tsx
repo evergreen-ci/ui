@@ -37,6 +37,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
   const getDateCopy = useDateFormat();
   const {
     baseVersion,
+    cost,
     createTime,
     externalLinksForMetadata,
     finishTime,
@@ -57,6 +58,9 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     versionTiming,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
+  const totalCost = isPatch ? patch?.cost?.total : cost?.total;
+  const hasChildPatches = (patch?.childPatches?.length ?? 0) > 0;
+  const costTooltip = getCostTooltip(!!finishTime, hasChildPatches);
   const { makespan, timeTaken } = versionTiming || {};
   const { githubPatchData, includedLocalModules } = patch || {};
   const { headHash, prNumber } = githubPatchData || {};
@@ -215,6 +219,11 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </StyledRouterLink>
         </MetadataItem>
       )}
+      {startTime && totalCost != null && totalCost > 0 && (
+        <MetadataItem tooltipDescription={costTooltip}>
+          <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
+        </MetadataItem>
+      )}
       <ParametersModal parameters={parameters} />
       {externalLinksForMetadata?.map(({ displayName, url }) => (
         <MetadataItem key={displayName}>
@@ -234,6 +243,17 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
       )}
     </MetadataCard>
   );
+};
+
+const getCostTooltip = (isFinished: boolean, hasChildren: boolean): string => {
+  if (isFinished) {
+    return hasChildren
+      ? "Total cost of all tasks, including child patches."
+      : "Total cost of all tasks.";
+  }
+  return hasChildren
+    ? "Estimated cost of completed tasks so far, including child patches."
+    : "Estimated cost of completed tasks so far.";
 };
 
 interface BaseCommitMetadataProps {

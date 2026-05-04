@@ -12019,6 +12019,7 @@ export type VersionQuery = {
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
+    cost?: { __typename?: "Cost"; total?: number | null } | null;
     externalLinksForMetadata: Array<{
       __typename?: "ExternalLinkForMetadata";
       displayName: string;
@@ -12063,6 +12064,7 @@ export type VersionQuery = {
           baseVersion?: { __typename?: "Version"; id: string } | null;
         } | null;
       }> | null;
+      cost?: { __typename?: "Cost"; total?: number | null } | null;
       githubPatchData?: {
         __typename?: "GithubPatch";
         headHash?: string | null;
