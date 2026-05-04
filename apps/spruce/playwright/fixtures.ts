@@ -6,6 +6,7 @@ import {
   SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
   SEEN_TASK_REVIEW_TOOLTIP,
   SEEN_TEST_SELECTION_GUIDE_CUE,
+  SEEN_GITHUB_NAV_GUIDE_CUE,
 } from "constants/cookies";
 import * as helpers from "./helpers";
 
@@ -80,6 +81,12 @@ export const test = base.extend<CustomFixtures>({
       },
       {
         name: SEEN_TEST_SELECTION_GUIDE_CUE,
+        value: "true",
+        domain: "localhost",
+        path: "/",
+      },
+      {
+        name: SEEN_GITHUB_NAV_GUIDE_CUE,
         value: "true",
         domain: "localhost",
         path: "/",

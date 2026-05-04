@@ -27,9 +27,9 @@ export const createPlaywrightConfig = ({
     use: {
       baseURL,
       viewport,
-      video: process.env.CI ? "on-first-retry" : "off",
+      video: process.env.CI ? "retain-on-failure" : "off",
       screenshot: process.env.CI ? "only-on-failure" : "off",
-      trace: process.env.CI ? "on-first-retry" : "off",
+      trace: process.env.CI ? "retain-on-failure-and-retries" : "off",
       permissions: ["clipboard-read", "clipboard-write"],
       testIdAttribute: "data-cy",
       ...use,
