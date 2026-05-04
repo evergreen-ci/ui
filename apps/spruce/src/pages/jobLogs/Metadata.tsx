@@ -32,7 +32,7 @@ export const Metadata: React.FC<{
             });
           }}
         >
-          Complete logs for all tests
+          Complete logs for all tests in this job
         </StyledLink>
       </MetadataItem>
     </MetadataCard>
