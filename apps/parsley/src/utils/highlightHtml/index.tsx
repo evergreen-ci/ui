@@ -21,7 +21,7 @@ const highlightHtml = (
 
   return parse(escapedHtml, {
     replace: (domNode) => {
-      if ("data" in domNode) {
+      if (domNode.type === "text") {
         const domNodeText = domNode.data;
         let highlightedText = domNodeText;
 
