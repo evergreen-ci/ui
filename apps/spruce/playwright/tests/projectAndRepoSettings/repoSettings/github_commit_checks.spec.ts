@@ -7,7 +7,7 @@ import {
 } from "../constants";
 import { expectSaveButtonEnabled } from "../utils";
 
-test.describe("GitHub page", () => {
+test.describe("GitHub Commit Checks", () => {
   const origin = getRepoSettingsRoute(
     repo,
     ProjectSettingsTabRoutes.CommitChecks,

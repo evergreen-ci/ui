@@ -90,7 +90,7 @@ test.describe("Patch Aliases page", () => {
     ).toHaveAttribute("aria-disabled", "true");
   });
 
-  test("Saving a Patch Trigger Alias shows a success toast and updates the Github page", async ({
+  test("Saving a Patch Trigger Alias shows a success toast and updates the Github pages", async ({
     authenticatedPage: page,
   }) => {
     await page.getByRole("button", { name: "Add patch trigger alias" }).click();

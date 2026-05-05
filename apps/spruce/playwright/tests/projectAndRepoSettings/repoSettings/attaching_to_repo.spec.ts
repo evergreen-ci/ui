@@ -10,7 +10,7 @@ test.describe("Attaching Spruce to a repo", () => {
     await page.goto(origin);
   });
 
-  test("Saves and attaches new repo and shows warnings on the Github page", async ({
+  test("Saves and attaches new repo and shows warnings on the Github pages", async ({
     authenticatedPage: page,
   }) => {
     const repoInput = page.getByTestId("repo-input");
