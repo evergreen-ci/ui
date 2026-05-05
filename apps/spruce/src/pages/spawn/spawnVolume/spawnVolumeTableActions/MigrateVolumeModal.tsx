@@ -154,7 +154,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     ? "Migrate Volume"
     : "Are you sure you want to migrate this home volume?";
 
-  let buttonText = "Migrate Volume";
+  let buttonText = "Migrate volume";
   if (loadingMigration) {
     buttonText = "Migrating";
   } else if (onPageOne) {
