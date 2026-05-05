@@ -95,6 +95,7 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       "ui:data-cy": "parsley-filter-list",
       items: {
+        "ui:data-cy": "parsley-filter",
         "ui:displayTitle": "New Parsley Filter",
         "ui:label": false,
         expression: {

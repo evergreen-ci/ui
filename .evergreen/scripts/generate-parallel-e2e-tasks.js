@@ -57,14 +57,21 @@ const getPlaywrightDirSizes = (dirPath) => {
   const makeRelative = (d) => d.substring(d.indexOf("playwright"));
 
   const dirSizeMap = {};
-  const dirs = getDirs(dirPath);
 
-  dirs.forEach((dir) => {
-    const size = getDirSize(dir);
-    dirSizeMap[`${makeRelative(dir)}/*.spec.ts`] = size;
-  });
-  // Specifically add root tests with no wildcard directory regex
-  dirSizeMap[`${makeRelative(dirPath)}/*.spec.ts`] = getDirSize(dirPath, false);
+  const collectDirSizes = (currentPath, isRoot) => {
+    const dirs = getDirs(currentPath);
+    const dirSize = getDirSize(currentPath, false);
+    // Add an entry for specs directly in this directory (always for root, only when non-empty for subdirs)
+    if (isRoot || dirSize > 0) {
+      dirSizeMap[`${makeRelative(currentPath)}/*.spec.ts`] = dirSize;
+    }
+    // Recurse into subdirectories.
+    dirs.forEach((dir) => {
+      collectDirSizes(dir, false);
+    });
+  };
+
+  collectDirSizes(dirPath, true);
   return dirSizeMap;
 };
 

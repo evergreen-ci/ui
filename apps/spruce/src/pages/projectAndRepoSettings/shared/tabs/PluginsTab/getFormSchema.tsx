@@ -213,7 +213,7 @@ export const getFormSchema = (
       ticketSearchProjects: {
         "ui:description":
           "Specify an existing JIRA project to search for tickets related to a failing task.",
-        "ui:addButtonText": "Add Search Project",
+        "ui:addButtonText": "Add search project",
         "ui:orderable": false,
         items: {
           "ui:label": false,
@@ -264,6 +264,7 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Metadata Link",
+        "ui:data-cy": "metadata-link",
         requesters: {
           "ui:widget": widgets.MultiSelectWidget,
           "ui:data-cy": "requesters-input",

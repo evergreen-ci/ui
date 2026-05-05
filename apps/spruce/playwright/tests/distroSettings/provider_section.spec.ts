@@ -50,15 +50,22 @@ test.describe("provider section", () => {
     test("shows pool mapping information based on container pool id", async ({
       authenticatedPage: page,
     }) => {
-      await expect(page.getByLabel("Container Pool ID")).toContainText(
-        "test-pool-1",
-      );
-      await expect(page.getByLabel("Pool Mapping Information")).toHaveAttribute(
+      const containerPoolSelect = page.getByRole("button", {
+        name: "Container Pool ID",
+      });
+      await expect(containerPoolSelect).toHaveCount(1);
+      await expect(containerPoolSelect).toContainText("test-pool-1");
+
+      const containerPoolMapping = page.getByRole("textbox", {
+        name: "Pool Mapping Information",
+      });
+      await expect(containerPoolMapping).toHaveCount(1);
+      await expect(containerPoolMapping).toHaveAttribute(
         "placeholder",
         /test-pool-1/,
       );
       await selectOption(page, "Container Pool ID", "test-pool-2");
-      await expect(page.getByLabel("Pool Mapping Information")).toHaveAttribute(
+      await expect(containerPoolMapping).toHaveAttribute(
         "placeholder",
         /test-pool-2/,
       );

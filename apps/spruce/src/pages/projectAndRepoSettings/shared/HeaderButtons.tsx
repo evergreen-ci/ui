@@ -263,8 +263,6 @@ const mapRouteToSection: Record<
   [ProjectSettingsTabRoutes.General]: ProjectSettingsSection.General,
   [ProjectSettingsTabRoutes.Access]: ProjectSettingsSection.Access,
   [ProjectSettingsTabRoutes.Variables]: ProjectSettingsSection.Variables,
-  [ProjectSettingsTabRoutes.GithubCommitQueue]:
-    ProjectSettingsSection.GithubAndCommitQueue,
   [ProjectSettingsTabRoutes.Notifications]:
     ProjectSettingsSection.Notifications,
   [ProjectSettingsTabRoutes.PatchAliases]: ProjectSettingsSection.PatchAliases,
@@ -276,14 +274,14 @@ const mapRouteToSection: Record<
   [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
   [ProjectSettingsTabRoutes.ViewsAndFilters]:
     ProjectSettingsSection.ViewsAndFilters,
+  [ProjectSettingsTabRoutes.PullRequests]: ProjectSettingsSection.PullRequests,
+  [ProjectSettingsTabRoutes.CommitChecks]: ProjectSettingsSection.CommitChecks,
+  [ProjectSettingsTabRoutes.MergeQueue]: ProjectSettingsSection.MergeQueue,
+  [ProjectSettingsTabRoutes.GitTags]: ProjectSettingsSection.GitTags,
   [ProjectSettingsTabRoutes.GithubAppSettings]:
     ProjectSettingsSection.GithubAppSettings,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]:
     ProjectSettingsSection.GithubPermissions,
-  [ProjectSettingsTabRoutes.MergeQueue]: ProjectSettingsSection.MergeQueue,
-  [ProjectSettingsTabRoutes.PullRequests]: ProjectSettingsSection.PullRequests,
-  [ProjectSettingsTabRoutes.CommitChecks]: ProjectSettingsSection.CommitChecks,
-  [ProjectSettingsTabRoutes.GitTags]: ProjectSettingsSection.GitTags,
   [ProjectSettingsTabRoutes.TestSelection]:
     ProjectSettingsSection.TestSelection,
 };
