@@ -188,7 +188,11 @@ test.describe("date filter", () => {
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();
     await expect(page).toHaveURL("/project/spruce/waterfall");
 
-    await selectDatePickerDate(page, "2022", "Feb", "2022-02-28");
+    await selectDatePickerDate(page, {
+      year: "2022",
+      month: "Feb",
+      isoDate: "2022-02-28",
+    });
     await expect(page).toHaveURL(/date=2022-02-28/);
     await validateDatePickerDate(page, "date-picker", {
       year: "2022",

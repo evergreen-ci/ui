@@ -14,6 +14,7 @@ export const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
           groupID
           logs {
             logPath: testName
+            logsToMerge
             renderingType
             url
             urlRaw

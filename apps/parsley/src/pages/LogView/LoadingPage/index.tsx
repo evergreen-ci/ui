@@ -40,6 +40,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     jobLogsURL,
     loading: isLoadingEvergreen,
     logPath,
+    logsToMerge,
     rawLogURL,
     renderingType,
   } = useResolveLogURLAndRenderingType({
@@ -68,6 +69,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
         jobLogsURL,
         logPath,
         logType,
+        logsToMerge,
         origin,
         rawLogURL,
         renderingType,
@@ -86,6 +88,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
       jobLogsURL,
       logPath,
       logType,
+      logsToMerge,
       origin,
       rawLogURL,
       renderingType,

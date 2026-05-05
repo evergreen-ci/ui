@@ -117,4 +117,22 @@ describe("CliCommandButton", () => {
       "evergreen task build TestLogs --task_id spruce_ubuntu_check_codegen_1234 --execution 1 --log_path AFakeTest --o output.txt";
     expect(screen.getByText(command)).toBeInTheDocument();
   });
+
+  it("includes --logs_to_merge flags in the Evergreen CLI command for test logs", () => {
+    render(
+      <WithLogMetadata
+        metadata={{
+          execution: "1",
+          logPath: "AFakeTest",
+          logType: LogTypes.EVERGREEN_TEST_LOGS,
+          logsToMerge: ["log-a", "log-b"],
+          taskID: "spruce_ubuntu_check_codegen_1234",
+        }}
+      />,
+      { wrapper },
+    );
+    const command =
+      "evergreen task build TestLogs --task_id spruce_ubuntu_check_codegen_1234 --execution 1 --log_path AFakeTest --logs_to_merge log-a --logs_to_merge log-b --o output.txt";
+    expect(screen.getByText(command)).toBeInTheDocument();
+  });
 });

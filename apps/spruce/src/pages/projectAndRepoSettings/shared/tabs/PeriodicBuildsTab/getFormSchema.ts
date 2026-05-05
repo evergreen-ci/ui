@@ -133,7 +133,7 @@ export const getFormSchema = (
       "ui:showLabel": false,
     },
     periodicBuilds: {
-      "ui:addButtonText": "Add Periodic Build",
+      "ui:addButtonText": "Add periodic build",
       "ui:orderable": false,
       "ui:showLabel": false,
       "ui:useExpandableCard": true,

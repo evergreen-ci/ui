@@ -119,7 +119,7 @@ const TaskQueue = () => {
 
 const SearchableDropdownWrapper = styled.div`
   margin-top: ${size.xs};
-  width: 400px;
+  width: 600px;
 `;
 const DistroLabel = styled.div`
   display: flex;

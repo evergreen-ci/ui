@@ -14,8 +14,9 @@ test.describe("Viewing a patch requester", () => {
     test("Clicking on the display task breadcrumb should take you to that task", async ({
       authenticatedPage: page,
     }) => {
-      await expect(page.getByTestId("bc-display-task")).toContainText("asdf");
-      await page.getByTestId("bc-display-task").click();
+      const breadcrumb = page.getByTestId("bc-display-task");
+      await expect(breadcrumb).toContainText("asdf");
+      await breadcrumb.click();
       await expect(page).toHaveURL(new RegExp(`/task/${displayTaskId}`));
     });
 
@@ -37,10 +38,9 @@ test.describe("Viewing a patch requester", () => {
     test("Clicking on the patch name breadcrumb from a task should take you to that version", async ({
       authenticatedPage: page,
     }) => {
-      await expect(page.getByTestId("bc-message")).toContainText(
-        "Patch 1251 - dist",
-      );
-      await page.getByTestId("bc-message").click();
+      const breadcrumb = page.getByTestId("bc-message");
+      await expect(breadcrumb).toContainText("Patch 1251 - dist");
+      await breadcrumb.click();
       await expect(page).toHaveURL(
         "/version/5ecedafb562343215a7ff297/tasks?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
       );
@@ -65,10 +65,9 @@ test.describe("Viewing a mainline commit requester", () => {
   test("Clicking the commit message breadcrumb from a task should take you to that version", async ({
     authenticatedPage: page,
   }) => {
-    await expect(page.getByTestId("bc-message")).toContainText(
-      "5e823e1 - 'ever…reen/pull/3186)",
-    );
-    await page.getByTestId("bc-message").click();
+    const breadcrumb = page.getByTestId("bc-message");
+    await expect(breadcrumb).toContainText("5e823e1 - 'ever…reen/pull/3186)");
+    await breadcrumb.click();
     await expect(page).toHaveURL(
       "/version/5e4ff3abe3c3317e352062e4/tasks?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
     );
@@ -77,8 +76,9 @@ test.describe("Viewing a mainline commit requester", () => {
   test("Clicking on the commits link should take you to that versions waterfall", async ({
     authenticatedPage: page,
   }) => {
-    await expect(page.getByTestId("bc-waterfall")).toContainText("evergreen");
-    await page.getByTestId("bc-waterfall").click();
+    const breadcrumb = page.getByTestId("bc-waterfall");
+    await expect(breadcrumb).toContainText("evergreen");
+    await breadcrumb.click();
     await expect(page).toHaveURL("/project/evergreen/waterfall");
   });
 });
