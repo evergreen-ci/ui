@@ -90,7 +90,7 @@ test.describe("Patch Aliases page", () => {
     ).toHaveAttribute("aria-disabled", "true");
   });
 
-  test("Saving a Patch Trigger Alias shows a success toast and updates the Github page", async ({
+  test("Saving a Patch Trigger Alias shows a success toast and updates the Github pages", async ({
     authenticatedPage: page,
   }) => {
     await page.getByRole("button", { name: "Add patch trigger alias" }).click();
@@ -119,7 +119,8 @@ test.describe("Patch Aliases page", () => {
     await validateToast(page, "success", "Successfully updated repo");
     await expectSaveButtonEnabled(page, false);
 
-    await page.getByTestId("navitem-github-commitqueue").click();
+    await page.getByRole("button", { name: "GitHub" }).click();
+    await page.getByTestId("navitem-pull-requests").click();
 
     const prTriggerAliases = page.getByTestId("github-pr-trigger-aliases");
     await expect(prTriggerAliases.getByTestId("pta-item")).toHaveCount(1);
@@ -132,6 +133,8 @@ test.describe("Patch Aliases page", () => {
     await expect(prTooltip).toContainText("spruce");
     await expect(prTooltip).toContainText("module_name");
     await expect(prTooltip).toContainText("Variant/Task Regex Pairs");
+
+    await page.getByTestId("navitem-merge-queue").click();
 
     const mqTriggerAliases = page.getByTestId("github-mq-trigger-aliases");
     await expect(mqTriggerAliases.getByTestId("pta-item")).toHaveCount(1);

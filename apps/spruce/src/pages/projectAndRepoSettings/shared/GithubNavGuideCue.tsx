@@ -6,7 +6,6 @@ import {
 } from "@leafygreen-ui/guide-cue";
 import Cookies from "js-cookie";
 import { SEEN_GITHUB_NAV_GUIDE_CUE } from "constants/cookies";
-import { showNewProjectNavigation } from "constants/featureFlags";
 
 type Props = {
   refEl: GuideCueProps["refEl"];
@@ -25,7 +24,7 @@ export const GithubNavGuideCue: React.FC<Props> = ({ refEl }) => {
   return (
     <GuideCue
       currentStep={1}
-      enabled={showNewProjectNavigation}
+      enabled
       numberOfSteps={1}
       onPrimaryButtonClick={close}
       open={open}

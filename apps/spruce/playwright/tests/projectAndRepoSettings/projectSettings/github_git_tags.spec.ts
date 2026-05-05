@@ -1,10 +1,18 @@
 import { clickRadio } from "@evg-ui/playwright-config/helpers";
 import { test, expect } from "../../../fixtures";
 import { validateToast } from "../../../helpers";
+import {
+  getProjectSettingsRoute,
+  project,
+  ProjectSettingsTabRoutes,
+} from "../constants";
 import { save, expectSaveButtonEnabled } from "../utils";
 
 test.describe("Git Tags project settings when GitHub webhooks are disabled", () => {
-  const origin = "/project/logkeeper/settings/git-tags";
+  const origin = getProjectSettingsRoute(
+    "logkeeper",
+    ProjectSettingsTabRoutes.GitTags,
+  );
 
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(origin);
@@ -37,7 +45,10 @@ test.describe("Git Tags project settings when GitHub webhooks are disabled", () 
 });
 
 test.describe("Git Tags project settings when GitHub webhooks are enabled", () => {
-  const origin = "/repo/602d70a2b2373672ee493184/settings/git-tags";
+  const origin = getProjectSettingsRoute(
+    project,
+    ProjectSettingsTabRoutes.GitTags,
+  );
 
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(origin);
@@ -62,7 +73,7 @@ test.describe("Git Tags project settings when GitHub webhooks are enabled", () =
     await page.getByTestId("remote-path-input").fill("./evergreen.yml");
 
     await expect(page.getByTestId("error-banner")).toBeHidden();
-    save(page);
-    await validateToast(page, "success", "Successfully updated repo");
+    await save(page);
+    await validateToast(page, "success", "Successfully updated project");
   });
 });

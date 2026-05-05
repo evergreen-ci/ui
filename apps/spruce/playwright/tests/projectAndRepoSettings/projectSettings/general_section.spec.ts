@@ -32,7 +32,6 @@ test.describe("general section", () => {
     authenticatedPage: page,
   }) => {
     await page.goto(origin);
-    await page.getByTestId("navitem-general").click();
     const enableRadio = page
       .getByTestId("run-every-mainline-commit-radio-box")
       .getByRole("radio", { name: "Enabled" });
@@ -55,7 +54,7 @@ test.describe("general section", () => {
           page
             .getByTestId("stepback-bisect-group")
             .getByRole("radio", { name: "Default to repo" }),
-        ).toHaveAttribute("aria-checked", "true");
+        ).toBeChecked();
       });
 
       test("Clicking on enabled and then save shows a success toast", async ({
@@ -68,7 +67,7 @@ test.describe("general section", () => {
         await save(page);
         await validateToast(page, "success", "Successfully updated project");
         await page.reload();
-        await expect(enableRadio).toHaveAttribute("aria-checked", "true");
+        await expect(enableRadio).toBeChecked();
       });
     });
 
@@ -84,7 +83,7 @@ test.describe("general section", () => {
           page
             .getByTestId("stepback-bisect-group")
             .getByRole("radio", { name: "Disabled", exact: true }),
-        ).toHaveAttribute("aria-checked", "true");
+        ).toBeChecked();
       });
 
       test("Clicking on enabled and then save shows a success toast", async ({
@@ -97,7 +96,7 @@ test.describe("general section", () => {
         await save(page);
         await validateToast(page, "success", "Successfully updated project");
         await page.reload();
-        await expect(enableRadio).toHaveAttribute("aria-checked", "true");
+        await expect(enableRadio).toBeChecked();
       });
     });
   });
