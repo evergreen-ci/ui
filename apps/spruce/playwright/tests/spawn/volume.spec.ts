@@ -213,7 +213,7 @@ test.describe("Edit volume modal", () => {
     await expect(page.getByTestId("volume-name-input")).toHaveValue(
       volumeToEditID,
     );
-    await expect(page.getByTestId("volume-size-input")).toHaveValue("100");
+    await expect(page.getByTestId("volume-size-input")).toHaveValue("50");
     await validateDatePickerDate(page, "date-picker", {
       year: "2020",
       month: "06",
