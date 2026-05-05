@@ -22,8 +22,7 @@ const highlightHtml = (
   return parse(escapedHtml, {
     replace: (domNode) => {
       if (domNode.type === "text") {
-        const domNodeText = domNode.data;
-        let highlightedText = domNodeText;
+        let highlightedText = domNode.data;
 
         if (searchTerm) {
           highlightedText = highlighter(
@@ -35,7 +34,7 @@ const highlightHtml = (
 
         if (
           highlights &&
-          !hasOverlappingRegex(searchTerm, highlights, domNodeText)
+          !hasOverlappingRegex(searchTerm, highlights, domNode.data)
         ) {
           highlightedText = highlighter(
             highlights,
