@@ -409,7 +409,10 @@ test.describe("Project Settings when defaulting to repo", () => {
         name: "Override Repo Patch Aliases",
       });
       await clickRadio(overrideRepoPatchAliasesRadio);
-      await expect(overrideRepoPatchAliasesRadio).toBeChecked();
+      await expect(overrideRepoPatchAliasesRadio).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
       await expectSaveButtonEnabled(page, false);
 
       await page.getByRole("button", { name: "Add patch alias" }).click();
