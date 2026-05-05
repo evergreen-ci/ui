@@ -69,12 +69,6 @@ export const useCreateGQLClient = (): ApolloClient | undefined => {
       new ApolloClient({
         cache,
         localState: new LocalState(), // Must define if using @client fields.
-        defaultOptions: {
-          watchQuery: {
-            // TODO DEVPROD-26582: It's probably better to use the new default of 'true', but this avoids many errors for now.
-            notifyOnNetworkStatusChange: false,
-          },
-        },
         link: authenticateIfSuccessfulLink(() =>
           dispatchAuthenticatedRef.current(),
         )
