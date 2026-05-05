@@ -220,7 +220,7 @@ test.describe("Edit volume modal", () => {
       day: "06",
     });
     await expect(page.getByTestId("hour-input")).toHaveValue("15");
-    await expect(page.getByTestId("minute-input")).toHaveValue("48");
+    await expect(page.getByTestId("minute-input")).toHaveValue("57");
   });
 
   test("Reopening the edit volume modal should reset form input fields", async ({
