@@ -52,7 +52,7 @@ const MARKDOWN_EXT = ".md";
 
 const IGNORED_FILE_EXTENSIONS = new Set([MARKDOWN_EXT]);
 
-const E2E_PARALLEL_COUNT = 3;
+const E2E_PARALLEL_COUNT = 4;
 
 export {
   Tasks,
