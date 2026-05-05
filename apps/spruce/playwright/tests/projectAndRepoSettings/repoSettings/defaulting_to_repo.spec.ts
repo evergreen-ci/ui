@@ -206,125 +206,49 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
   });
 
-  test.describe("GitHub page", () => {
+  test.describe("GitHub Pull Requests page", () => {
     test.beforeEach(async ({ authenticatedPage: page }) => {
-      await page.getByTestId("navitem-github-commitqueue").click();
-    });
-
-    test("Should not have the save button enabled on load", async ({
-      authenticatedPage: page,
-    }) => {
+      await page.getByRole("button", { name: "GitHub" }).click();
+      await page.getByTestId("navitem-pull-requests").click();
       await expectSaveButtonEnabled(page, false);
     });
 
     test("Allows overriding repo patch definitions", async ({
       authenticatedPage: page,
     }) => {
-      const githubSection = page.getByTestId("github-card");
-      const overrideRepoPatchDefinitionRadio = githubSection.getByRole(
-        "radio",
-        { name: "Override Repo Patch Definition", exact: true },
-      );
+      const radioBox = page.getByTestId("pr-testing-enabled-radio-box");
+      const enabledRadio = radioBox.getByRole("radio", {
+        name: "Enabled",
+        exact: true,
+      });
+      await clickRadio(enabledRadio);
+
+      const overrideRepoPatchDefinitionRadio = page.getByRole("radio", {
+        name: "Override Repo Patch Definition",
+        exact: true,
+      });
       await clickRadio(overrideRepoPatchDefinitionRadio);
-      await expect(overrideRepoPatchDefinitionRadio).toHaveAttribute(
-        "aria-checked",
-        "true",
-      );
+      await expect(overrideRepoPatchDefinitionRadio).toBeChecked();
 
       await expect(
-        githubSection.getByTestId("error-banner").filter({
+        page.getByTestId("error-banner").filter({
           hasText:
             "A GitHub Patch Definition must be specified for this feature to run.",
         }),
       ).toBeVisible();
 
-      await githubSection
-        .getByRole("button", { name: "Add patch definition" })
-        .click();
-      await githubSection.getByText("Variant Regex").click();
-      await githubSection.getByTestId("variant-input").fill(".*");
+      await page.getByRole("button", { name: "Add patch definition" }).click();
+      await page.getByText("Variant Regex").click();
+      await page.getByTestId("variant-input").fill(".*");
       await expectSaveButtonEnabled(page, false);
 
-      await githubSection.getByText("Variant Tags").click();
-      await githubSection.getByText("Variant Regex").click();
-      await expect(githubSection.getByTestId("variant-input")).toHaveValue(
-        ".*",
-      );
-      await githubSection.getByText("Task Regex").click();
-      await githubSection.getByTestId("task-input").fill(".*");
+      await page.getByText("Variant Tags").click();
+      await page.getByText("Variant Regex").click();
+      await expect(page.getByTestId("variant-input")).toHaveValue(".*");
+      await page.getByText("Task Regex").click();
+      await page.getByTestId("task-input").fill(".*");
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
-    });
-
-    test("Shows a warning banner when a commit check definition does not exist", async ({
-      authenticatedPage: page,
-    }) => {
-      const enabledRadio = page
-        .getByTestId("github-checks-enabled-radio-box")
-        .getByRole("radio", { name: "Enabled" });
-      await clickRadio(enabledRadio);
-      await expect(
-        page.getByTestId("warning-banner").filter({
-          hasText:
-            "This feature will only run if a Commit Check Definition is defined in the project or repo.",
-        }),
-      ).toBeVisible();
-    });
-
-    test("Disables Authorized Users section based on repo settings", async ({
-      authenticatedPage: page,
-    }) => {
-      await expect(page.getByText("Authorized Users")).toHaveCount(0);
-      await expect(page.getByText("Authorized Teams")).toHaveCount(0);
-    });
-
-    test("Defaults to overriding repo since a patch definition is defined", async ({
-      authenticatedPage: page,
-    }) => {
-      const overrideRepoPatchDefinitionRadio = page
-        .getByTestId("cq-override-radio-box")
-        .getByRole("radio", {
-          name: "Override Repo Patch Definition",
-          exact: true,
-        });
-      await expect(overrideRepoPatchDefinitionRadio).toHaveAttribute(
-        "aria-checked",
-        "true",
-      );
-    });
-
-    test("Shows the existing patch definition", async ({
-      authenticatedPage: page,
-    }) => {
-      await expect(page.getByTestId("variant-input").last()).toHaveValue(
-        "^ubuntu1604$",
-      );
-      await expect(page.getByTestId("task-input").last()).toHaveValue(
-        "^smoke-test-endpoints$",
-      );
-    });
-
-    test("Returns an error on save because no commit check definitions are defined", async ({
-      authenticatedPage: page,
-    }) => {
-      const prDisabledRadio = page
-        .getByTestId("pr-testing-enabled-radio-box")
-        .getByRole("radio", { name: "Disabled", exact: true });
-      await clickRadio(prDisabledRadio);
-      const manualDisabledRadio = page
-        .getByTestId("manual-pr-testing-enabled-radio-box")
-        .getByRole("radio", { name: "Disabled", exact: true });
-      await clickRadio(manualDisabledRadio);
-      const githubEnabledRadio = page
-        .getByTestId("github-checks-enabled-radio-box")
-        .getByRole("radio", { name: "Enabled" });
-      await clickRadio(githubEnabledRadio);
-      await save(page);
-      await validateToast(
-        page,
-        "error",
-        "There was an error saving the project",
-      );
     });
 
     test("Defaults to repo and shows the repo's disabled patch definition", async ({
@@ -336,16 +260,21 @@ test.describe("Project Settings when defaulting to repo", () => {
           .filter({ hasText: "Repo Patch Definition 1" }),
       ).toHaveCount(0);
 
-      await page.goto(getRepoSettingsRoute(repo));
-      await page.getByTestId("navitem-github-commitqueue").click();
-      await page.getByRole("button", { name: "Add Patch Definition" }).click();
+      await page.goto(
+        getRepoSettingsRoute(repo, ProjectSettingsTabRoutes.PullRequests),
+      );
+      await page.getByRole("button", { name: "Add patch definition" }).click();
       await page.getByTestId("variant-tags-input").first().fill("vtag");
       await page.getByTestId("task-tags-input").first().fill("ttag");
       await save(page);
       await validateToast(page, "success", "Successfully updated repo", true);
 
-      await page.goto(origin);
-      await page.getByTestId("navitem-github-commitqueue").click();
+      await page.goto(
+        getProjectSettingsRoute(
+          projectUseRepoEnabled,
+          ProjectSettingsTabRoutes.PullRequests,
+        ),
+      );
       await expect(page.getByTestId("default-to-repo-button")).toHaveAttribute(
         "aria-disabled",
         "false",
@@ -371,6 +300,90 @@ test.describe("Project Settings when defaulting to repo", () => {
           .getByTestId("accordion-toggle")
           .filter({ hasText: "Repo Patch Definition 1" }),
       ).toBeVisible();
+    });
+  });
+
+  test.describe("GitHub Commit Checks page", () => {
+    test.beforeEach(async ({ authenticatedPage: page }) => {
+      await page.getByRole("button", { name: "GitHub" }).click();
+      await page.getByTestId("navitem-commit-checks").click();
+      await expectSaveButtonEnabled(page, false);
+    });
+
+    test("Shows a warning banner when a commit check definition does not exist", async ({
+      authenticatedPage: page,
+    }) => {
+      const enabledRadio = page
+        .getByTestId("github-checks-enabled-radio-box")
+        .getByRole("radio", { name: "Enabled" });
+      await clickRadio(enabledRadio);
+      await expect(
+        page.getByTestId("warning-banner").filter({
+          hasText:
+            "This feature will only run if a Commit Check Definition is defined in the project or repo.",
+        }),
+      ).toBeVisible();
+    });
+
+    test("Returns an error on save because no commit check definitions are defined", async ({
+      authenticatedPage: page,
+    }) => {
+      const checksEnabledRadio = page
+        .getByTestId("github-checks-enabled-radio-box")
+        .getByRole("radio", { name: "Enabled" });
+      await clickRadio(checksEnabledRadio);
+      await save(page);
+      await validateToast(
+        page,
+        "error",
+        "There was an error saving the project",
+      );
+    });
+  });
+
+  test.describe("GitHub Git Tags page", () => {
+    test.beforeEach(async ({ authenticatedPage: page }) => {
+      await page.getByRole("button", { name: "GitHub" }).click();
+      await page.getByTestId("navitem-git-tags").click();
+      await expectSaveButtonEnabled(page, false);
+    });
+
+    test("Disables Authorized Users section based on repo settings", async ({
+      authenticatedPage: page,
+    }) => {
+      await expect(page.getByText("Authorized Users")).toHaveCount(0);
+      await expect(page.getByText("Authorized Teams")).toHaveCount(0);
+    });
+  });
+
+  test.describe("GitHub Merge Queue page", () => {
+    test.beforeEach(async ({ authenticatedPage: page }) => {
+      await page.getByRole("button", { name: "GitHub" }).click();
+      await page.getByTestId("navitem-merge-queue").click();
+      await expectSaveButtonEnabled(page, false);
+    });
+
+    test("Defaults to overriding repo since a patch definition is defined", async ({
+      authenticatedPage: page,
+    }) => {
+      const overrideRepoPatchDefinitionRadio = page
+        .getByTestId("mq-override-radio-box")
+        .getByRole("radio", {
+          name: "Override Repo Patch Definition",
+          exact: true,
+        });
+      await expect(overrideRepoPatchDefinitionRadio).toBeChecked();
+    });
+
+    test("Shows the existing patch definition", async ({
+      authenticatedPage: page,
+    }) => {
+      await expect(page.getByTestId("variant-input")).toHaveValue(
+        "^ubuntu1604$",
+      );
+      await expect(page.getByTestId("task-input")).toHaveValue(
+        "^smoke-test-endpoints$",
+      );
     });
   });
 

@@ -3,14 +3,12 @@ export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
   Variables = "variables",
-  GithubCommitQueue = "github-commitqueue",
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
   Plugins = "plugins",
-  EventLog = "event-log",
   ViewsAndFilters = "views-and-filters",
 
   // GitHub sections.
@@ -20,6 +18,9 @@ export enum ProjectSettingsTabRoutes {
   PullRequests = "pull-requests",
   MergeQueue = "merge-queue",
   GitTags = "git-tags",
+
+  // Event log.
+  EventLog = "event-log",
 }
 
 export const getProjectSettingsRoute = (

@@ -10,7 +10,7 @@ test.describe("Attaching Spruce to a repo", () => {
     await page.goto(origin);
   });
 
-  test("Saves and attaches new repo and shows warnings on the Github page", async ({
+  test("Saves and attaches new repo and shows warnings on the Github pages", async ({
     authenticatedPage: page,
   }) => {
     const repoInput = page.getByTestId("repo-input");
@@ -27,35 +27,23 @@ test.describe("Attaching Spruce to a repo", () => {
       .click();
     await validateToast(page, "success", "Successfully attached to repo");
 
-    await page.getByTestId("navitem-github-commitqueue").click();
-    await expect(
-      page
-        .getByTestId("pr-testing-enabled-radio-box")
-        .locator("..")
-        .getByTestId("warning-banner"),
-    ).toBeVisible();
-    await expect(
-      page
-        .getByTestId("manual-pr-testing-enabled-radio-box")
-        .locator("..")
-        .getByTestId("warning-banner"),
-    ).toBeVisible();
-    await expect(
-      page
-        .getByTestId("github-checks-enabled-radio-box")
-        .locator("..")
-        .getByTestId("warning-banner"),
-    ).toHaveCount(0);
-    await expect(
-      page.getByTestId("cq-card").getByTestId("warning-banner"),
-    ).toBeVisible();
+    await page.getByRole("button", { name: "GitHub" }).click();
 
+    // Pull requests section.
+    await page.getByTestId("navitem-pull-requests").click();
+    await expect(page.getByTestId("warning-banner")).toHaveCount(2);
+
+    // Commit checks section.
+    await page.getByTestId("navitem-commit-checks").click();
+    await expect(page.getByTestId("warning-banner")).toHaveCount(0);
+
+    // Merge queue section.
+    await page.getByTestId("navitem-merge-queue").click();
+    await expect(page.getByTestId("warning-banner")).toHaveCount(1);
     const mergeQueueEnabledRadio = page
-      .getByTestId("cq-enabled-radio-box")
+      .getByTestId("mq-enabled-radio-box")
       .getByRole("radio", { name: "Enabled" });
     await clickRadio(mergeQueueEnabledRadio);
-    await expect(
-      page.getByTestId("cq-card").getByTestId("error-banner"),
-    ).toBeVisible();
+    await expect(page.getByTestId("error-banner")).toHaveCount(1);
   });
 });
