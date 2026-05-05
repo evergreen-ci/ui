@@ -133,7 +133,6 @@ const tsEslintConfig = {
     "**/.storybook/**",
     "**/*.config.ts",
     "**/config/**",
-    "**/cypress/**",
     "**/playwright/**",
   ],
   languageOptions: {

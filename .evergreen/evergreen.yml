@@ -21,7 +21,6 @@ post:
   - func: attach-analytics-visualizer
   - func: assume-ec2-role
   - func: attach-codegen-diff
-  - func: attach-cypress-results
   - func: attach-playwright-results
   - func: attach-email
   - func: attach-mongod-logs
@@ -53,7 +52,6 @@ buildvariants:
     tasks:
       - name: check_codegen
       - name: compile
-      - name: e2e_cypress # TODO: Delete when migration to Playwright is complete.
       - name: e2e
       - name: lint
       - name: storybook
@@ -159,7 +157,6 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - generate-tasks
-      - generate-spruce-e2e-cypress # TODO: Delete when migration to Playwright is complete.
       - generate-spruce-e2e
 
   - name: deploy
@@ -177,9 +174,6 @@ buildvariants:
       - name: sync-spruce-staging
 
 parameters:
-  - key: cypress_spec
-    value: cypress/integration/**/*
-    description: Specify the Cypress spec files to run for user submitted patches running the e2e_cypress task.
   - key: playwright_spec
     value: ""
     description: Specify the Playwright spec files to run for user submitted patches running the e2e task.

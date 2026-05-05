@@ -22,32 +22,6 @@ functions:
       content_type: text/plain
       permissions: public-read
 
-  attach-cypress-results:
-    - command: s3.put
-      type: system
-      params:
-        role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/cypress/screenshots/*"]
-        remote_file: ${build_variant}/${task_id}/${execution}/
-        bucket: evg-bucket-evergreen-ui
-        content_type: image/png
-        permissions: public-read
-        display_name: "screenshot:"
-    - command: s3.put
-      type: system
-      params:
-        role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/cypress/videos/*"]
-        remote_file: ${build_variant}/${task_id}/${execution}/
-        bucket: evg-bucket-evergreen-ui
-        content_type: video/mp4
-        permissions: public-read
-        display_name: "video:"
-    - command: attach.xunit_results
-      params:
-        files:
-          - "./ui/${app_dir}/bin/cypress/*.xml"
-
   attach-playwright-results:
     - command: shell.exec
       type: system
@@ -286,18 +260,6 @@ functions:
       role_arn: ${ASSUME_ROLE_ARN}
       local_files_include_filter: ["ui/.evergreen/generate-parallel-e2e-tasks.json"]
       remote_file: ${build_variant}/${task_id}/${execution}/generate-parallel-e2e-tasks.json
-      bucket: evg-bucket-evergreen-ui
-      content_type: text/plain
-      permissions: public-read
-
-  # TODO: Delete when migration to Playwright is complete.
-  attach-e2e-cypress-generated:
-    command: s3.put
-    type: system
-    params:
-      role_arn: ${ASSUME_ROLE_ARN}
-      local_files_include_filter: ["ui/.evergreen/generate-parallel-cypress-tasks.json"]
-      remote_file: ${build_variant}/${task_id}/${execution}/generate-parallel-cypress-tasks.json
       bucket: evg-bucket-evergreen-ui
       content_type: text/plain
       permissions: public-read
