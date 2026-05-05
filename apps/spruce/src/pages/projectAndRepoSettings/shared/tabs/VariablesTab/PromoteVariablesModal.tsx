@@ -185,14 +185,25 @@ export const PromoteVariablesModalButton: React.FC<
           variables={variables}
         />
       )}
-      <Button
-        data-cy="promote-vars-button"
-        disabled={!canEdit}
-        onClick={() => setModalOpen(true)}
-        size={Size.Small}
+      <Tooltip
+        data-cy="promote-vars-tooltip"
+        trigger={
+          <Button
+            data-cy="promote-vars-button"
+            disabled={!canEdit}
+            onClick={() => setModalOpen(true)}
+            size={Size.Small}
+          >
+            Move variables to repo
+          </Button>
+        }
+        triggerEvent="hover"
       >
-        Move variables to repo
-      </Button>
+        <TooltipContainer>
+          Opens a confirmation modal where you can select which variables to
+          move to the repo.
+        </TooltipContainer>
+      </Tooltip>
     </>
   );
 };
