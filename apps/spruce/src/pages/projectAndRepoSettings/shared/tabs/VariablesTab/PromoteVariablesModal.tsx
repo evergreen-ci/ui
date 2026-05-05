@@ -190,6 +190,7 @@ export const PromoteVariablesModalButton: React.FC<
         disabled={!canEdit}
         onClick={() => setModalOpen(true)}
         size={Size.Small}
+        title="Opens a confirmation modal where you can select which variables to move to the repo."
       >
         Select variables to move to repo
       </Button>
