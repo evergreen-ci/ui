@@ -4923,6 +4923,7 @@ export type VersionLite = {
   __typename?: "VersionLite";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   branch: Scalars["String"]["output"];
+  childVersions?: Maybe<Array<VersionLite>>;
   cost?: Maybe<Cost>;
   createTime: Scalars["Time"]["output"];
   errors: Array<Scalars["String"]["output"]>;
