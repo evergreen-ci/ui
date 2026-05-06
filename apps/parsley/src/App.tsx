@@ -11,6 +11,8 @@ import { GlobalProviders } from "context";
 import Content from "pages";
 import { evergreenURL, isLocal, parsleyURL } from "utils/environmentVariables";
 
+const buildBreaker: number = "this is not a number";
+
 const AppContents = () => {
   usePageVisibilityAnalytics();
   return <Outlet />;
