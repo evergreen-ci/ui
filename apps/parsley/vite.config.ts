@@ -7,7 +7,6 @@ import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
-import dns from "dns";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
@@ -17,9 +16,6 @@ import {
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 const getProjectConfig = () => {
-  // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
-  dns.setDefaultResultOrder("ipv4first");
-
   const serverConfig = generateBaseHTTPSViteServerConfig({
     port: 5173,
     appURL: process.env.REACT_APP_PARSLEY_URL,

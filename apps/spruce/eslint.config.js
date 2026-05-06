@@ -18,8 +18,6 @@ export default defineConfig(
           // GraphQL fragments, mutations and queries
           "src/gql/fragments/**/*.graphql": "CAMEL_CASE",
           "src/gql/(mutations,queries)/**/*.graphql": "KEBAB_CASE",
-          // Cypress
-          "cypress/integration/**/*.ts": "SNAKE_CASE",
           // Scripts
           "scripts/**/*.{js,ts}": "KEBAB_CASE",
           // JS and TS with exceptions
