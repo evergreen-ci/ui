@@ -9,7 +9,10 @@ import {
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
 import { costDocumentationUrl } from "constants/externalResources";
-import { getHoneycombTaskCostUrl } from "constants/externalResources/honeycomb";
+import {
+  getHoneycombTaskCostUrl,
+  getHoneycombVersionCostUrl,
+} from "constants/externalResources/honeycomb";
 import { Cost } from "gql/generated/types";
 
 interface CostRow {
@@ -30,11 +33,13 @@ type CostFields = Pick<
 >;
 
 interface CostModalProps extends CostFields {
+  childPatchesTotalCost?: number | null;
   /** Display name shown in the modal title, e.g. task display name */
   name: string;
   open: boolean;
   setOpen: (open: boolean) => void;
-  taskId: string;
+  taskId?: string;
+  versionId?: string;
 }
 
 const columns: LGColumnDef<CostRow>[] = [
@@ -68,11 +73,13 @@ export const CostModal: React.FC<CostModalProps> = ({
   adjustedS3ArtifactStorageCost,
   adjustedS3LogPutCost,
   adjustedS3LogStorageCost,
+  childPatchesTotalCost,
   name,
   open,
   setOpen,
   taskId,
   total,
+  versionId,
 }) => {
   const rows: CostRow[] = [
     { category: "Total", cost: total },
@@ -83,6 +90,9 @@ export const CostModal: React.FC<CostModalProps> = ({
     { category: "S3 Artifact Storage", cost: adjustedS3ArtifactStorageCost },
     { category: "S3 Log Put", cost: adjustedS3LogPutCost },
     { category: "S3 Log Storage", cost: adjustedS3LogStorageCost },
+    ...(childPatchesTotalCost != null
+      ? [{ category: "Child Patches", cost: childPatchesTotalCost }]
+      : []),
   ];
 
   const table = useLeafyGreenTable<CostRow>({
@@ -104,13 +114,24 @@ export const CostModal: React.FC<CostModalProps> = ({
           Evergreen cost documentation
         </StyledLink>
         <BaseTable data-cy="cost-breakdown-table" table={table} />
-        <StyledLink
-          data-cy="task-cost-link"
-          hideExternalIcon={false}
-          href={getHoneycombTaskCostUrl(taskId)}
-        >
-          Cost breakdown in Honeycomb
-        </StyledLink>
+        {taskId && (
+          <StyledLink
+            data-cy="task-cost-link"
+            hideExternalIcon={false}
+            href={getHoneycombTaskCostUrl(taskId)}
+          >
+            Cost breakdown in Honeycomb
+          </StyledLink>
+        )}
+        {versionId && (
+          <StyledLink
+            data-cy="version-cost-link"
+            hideExternalIcon={false}
+            href={getHoneycombVersionCostUrl(versionId)}
+          >
+            Cost breakdown in Honeycomb
+          </StyledLink>
+        )}
         <Disclaimer>
           * Costs are calculated using a Finance Team formula with applicable
           discounts applied.

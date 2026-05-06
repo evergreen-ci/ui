@@ -11,6 +11,13 @@ export const VERSION = gql`
         id
       }
       cost {
+        adjustedEBSStorageCost
+        adjustedEBSThroughputCost
+        adjustedEC2Cost
+        adjustedS3ArtifactPutCost
+        adjustedS3ArtifactStorageCost
+        adjustedS3LogPutCost
+        adjustedS3LogStorageCost
         total
       }
       createTime
@@ -62,6 +69,7 @@ export const VERSION = gql`
           }
         }
         cost {
+          childPatchesTotalCost
           total
         }
         githubPatchData {
