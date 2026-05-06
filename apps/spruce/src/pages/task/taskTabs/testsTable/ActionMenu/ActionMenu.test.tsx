@@ -62,7 +62,7 @@ describe("action menu for tests table", () => {
     });
     expect(
       screen.getByText(
-        "Select an execution task to manage test quarantine status.",
+        "Cannot manage test quarantine status from display status. Click on an execution task instead.",
       ),
     ).toBeVisible();
   });

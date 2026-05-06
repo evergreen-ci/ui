@@ -83,7 +83,8 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   } else if (task.displayOnly) {
     dropdownItems = [
       <DropdownItem key="display-task" disabled>
-        Select an execution task to manage test quarantine status.
+        Cannot manage test quarantine status from display status. Click on an
+        execution task instead.
       </DropdownItem>,
     ];
   } else if (test.isManuallyQuarantined) {
