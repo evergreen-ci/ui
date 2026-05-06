@@ -66,6 +66,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.ViewsAndFilters,
     ProjectSettingsTabRoutes.ProjectTriggers,
     ProjectSettingsTabRoutes.PeriodicBuilds,
+    ProjectSettingsTabRoutes.TestSelection,
     ProjectSettingsTabRoutes.Plugins,
   ];
   const githubTabs: ProjectSettingsTabRoutes[] = [
