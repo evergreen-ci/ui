@@ -13,7 +13,7 @@ export const readVersions = ((existing, { args, readField }) => {
   const date = args?.options?.date ?? "";
   const revision = args?.options?.revision ?? "";
 
-  const { mostRecentVersionOrder = 0, hasNextPage: serverHasNextPage = true } =
+  const { hasNextPage: serverHasNextPage = true, mostRecentVersionOrder = 0 } =
     readField<WaterfallQuery["waterfall"]["pagination"]>(
       "pagination",
       existing,
