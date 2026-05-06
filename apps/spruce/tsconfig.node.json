@@ -3,7 +3,7 @@
         "composite": true,
         "module": "nodenext",
         "moduleResolution": "nodenext",
-        "esModuleInterop": true
+        "types": ["node"]
     },
     "include": [
         ".storybook/main.ts",
