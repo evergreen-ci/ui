@@ -1,4 +1,5 @@
 import { InlineCode, Description } from "@leafygreen-ui/typography";
+import { bannerThemeToLabelMap } from "components/Banners";
 import {
   getEventSchema,
   getNotificationSchema,
@@ -59,28 +60,11 @@ export const getFormSchema = (
                     type: "string" as const,
                     title: "Theme",
                     default: BannerTheme.Announcement,
-                    oneOf: [
-                      {
-                        type: "string" as const,
-                        title: "Announcement",
-                        enum: [BannerTheme.Announcement],
-                      },
-                      {
-                        type: "string" as const,
-                        title: "Information",
-                        enum: [BannerTheme.Information],
-                      },
-                      {
-                        type: "string" as const,
-                        title: "Warning",
-                        enum: [BannerTheme.Warning],
-                      },
-                      {
-                        type: "string" as const,
-                        title: "Important",
-                        enum: [BannerTheme.Important],
-                      },
-                    ],
+                    oneOf: Object.keys(bannerThemeToLabelMap).map((k) => ({
+                      type: "string" as const,
+                      title: k,
+                      enum: [k],
+                    })),
                   },
                   text: {
                     type: "string" as const,
@@ -131,6 +115,8 @@ export const getFormSchema = (
             },
             theme: {
               "ui:data-cy": "banner-theme",
+              "ui:allowDeselect": false,
+              "ui:optionsLabelMap": bannerThemeToLabelMap,
             },
           },
         },
