@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client/react";
+import { useQuery, useMutation, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
@@ -35,21 +35,20 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
   const { data: repotrackerData } = useQuery<
     RepotrackerErrorQuery,
     RepotrackerErrorQueryVariables
-  >(REPOTRACKER_ERROR, {
-    variables: { projectIdentifier },
-    skip: !projectIdentifier,
-  });
+  >(
+    REPOTRACKER_ERROR,
+    projectIdentifier ? { variables: { projectIdentifier } } : skipToken,
+  );
   const hasRepotrackerError =
     repotrackerData?.project?.repotrackerError?.exists ?? false;
 
   const { data: permissionsData } = useQuery<
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
-  >(USER_PROJECT_SETTINGS_PERMISSIONS, {
-    variables: { projectIdentifier },
-    // If there's no repotracker error, there is no need to determine whether the current user is an admin.
-    skip: !hasRepotrackerError,
-  });
+  >(
+    USER_PROJECT_SETTINGS_PERMISSIONS,
+    hasRepotrackerError ? { variables: { projectIdentifier } } : skipToken,
+  );
   const isProjectAdmin =
     permissionsData?.user?.permissions?.projectPermissions?.edit ?? false;
 

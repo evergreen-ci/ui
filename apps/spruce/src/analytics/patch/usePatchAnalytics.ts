@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import {
@@ -26,11 +26,15 @@ type Action =
     };
 
 export const usePatchAnalytics = (id: string) => {
-  const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(PATCH, {
-    skip: !id,
-    variables: { id },
-    fetchPolicy: "cache-first",
-  });
+  const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
+    PATCH,
+    id
+      ? {
+          variables: { id },
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
   const { status } = eventData?.patch || {};
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Patch", {

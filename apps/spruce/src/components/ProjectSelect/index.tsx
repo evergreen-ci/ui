@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -37,16 +37,12 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   const { data: projectsData, loading: projectsLoading } = useQuery<
     ProjectsQuery,
     ProjectsQueryVariables
-  >(PROJECTS, {
-    skip: isProjectSettingsPage,
-  });
+  >(PROJECTS, isProjectSettingsPage ? skipToken : {});
 
   const { data: viewableProjectsData, loading: viewableProjectsLoading } =
     useQuery<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>(
       VIEWABLE_PROJECTS,
-      {
-        skip: !isProjectSettingsPage,
-      },
+      isProjectSettingsPage ? {} : skipToken,
     );
 
   const loading = isProjectSettingsPage
@@ -110,6 +106,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       data-cy="project-select"
       disabled={loading}
       label={showLabel ? "Project" : null}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange={(projectIdentifier: any) => {
         onSubmit(projectIdentifier);
       }}

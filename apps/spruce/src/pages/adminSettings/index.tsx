@@ -41,7 +41,7 @@ const AdminSettingsPage: React.FC = () => {
             collapsible
             glyph={<Icon glyph="Settings" />}
             header={getTabTitle(AdminSettingsTabRoutes.General).title}
-            initialCollapsed
+            initialCollapsed={false}
           >
             <SideNavGroup header="Announcements">
               <SideNavItem

@@ -7,7 +7,6 @@ import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
-import dns from "dns";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
@@ -17,9 +16,6 @@ import {
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 const getProjectConfig = () => {
-  // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
-  dns.setDefaultResultOrder("ipv4first");
-
   const serverConfig = generateBaseHTTPSViteServerConfig({
     port: 3000,
     appURL: process.env.REACT_APP_SPRUCE_URL,
@@ -31,6 +27,11 @@ const getProjectConfig = () => {
 
   // https://vitejs.dev/config/
   const viteConfig = defineConfig({
+    define: {
+      "globalThis.EMOTION_RUNTIME_AUTO_LABEL": JSON.stringify(
+        process.env.NODE_ENV === "development",
+      ),
+    },
     server: serverConfig,
     optimizeDeps: {
       esbuildOptions: {
@@ -74,14 +75,7 @@ const getProjectConfig = () => {
       envCompatible({
         prefix: "REACT_APP_",
       }),
-      // Use emotion jsx tag instead of React.JSX
       react({
-        babel: {
-          // @emotion/babel-plugin injects styled component names (e.g. "StyledSelect") into HTML for dev
-          // environments only. It can be toggled for production environments by modifying the parameter
-          // autoLabel. (https://emotion.sh/docs/@emotion/babel-plugin)
-          plugins: ["@emotion/babel-plugin", "import-graphql"],
-        },
         // exclude storybook stories
         exclude: [/\.stories\.tsx?$/],
       }),
@@ -133,6 +127,7 @@ const getProjectConfig = () => {
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
       setupFiles: "./config/vitest/setupTests.ts",
+      include: ["src/**/*.test.{ts,tsx}"],
     },
   });
 

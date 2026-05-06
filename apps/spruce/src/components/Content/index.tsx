@@ -60,11 +60,8 @@ export const Content: React.FC = () => (
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={null} path={routes.jobLogs}>
-        <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
-          <Route element={null} path={`:${slugs.groupId}`} />
-        </Route>
         <Route
-          element={<JobLogs isLogkeeper={false} />}
+          element={<JobLogs />}
           path={`:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`}
         />
       </Route>

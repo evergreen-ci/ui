@@ -54,7 +54,7 @@ export const deduplicatedAppend = <T>(value: T, array: T[]) => {
  * @param key - The key to use as the key of the object
  * @returns The object created from the array
  */
-export const convertArrayToObject = <T extends Record<string, any>>(
+export const convertArrayToObject = <T extends Record<string, unknown>>(
   array: T[],
   key: keyof T,
 ): Record<string, T> => {

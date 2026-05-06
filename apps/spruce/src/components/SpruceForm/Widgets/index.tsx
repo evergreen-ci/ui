@@ -12,12 +12,14 @@ import {
   LeafyGreenCopyable,
   LeafyGreenSegmentedControl,
   LeafyGreenToggle,
+  LeafyGreenCombobox,
 } from "./LeafyGreenWidgets";
 import { MultiSelect } from "./MultiSelect";
 
 const widgets = {
   CheckboxWidget: LeafyGreenCheckBox,
   ChipInputWidget: ChipInput,
+  ComboboxWidget: LeafyGreenCombobox,
   CopyableWidget: LeafyGreenCopyable,
   DateWidget: LeafyGreenDatePicker,
   DateTimeWidget: DateTimePicker,

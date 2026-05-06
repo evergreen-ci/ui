@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useQuery, useMutation } from "@apollo/client/react";
+import { skipToken, useQuery, useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useLocation } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -12,6 +12,7 @@ import {
 import {
   formToGql,
   getFormSchema,
+  TokenExchangeState,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
   FormState,
@@ -27,6 +28,7 @@ import { SPAWN_HOST } from "gql/mutations";
 import { SPAWN_TASK } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { getString, parseQueryString } from "utils/queryString";
+import { useUserTokenExchange } from "./useUserTokenExchange";
 
 interface SpawnHostModalProps {
   open: boolean;
@@ -50,10 +52,12 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const { data: spawnTaskData } = useQuery<
     SpawnTaskQuery,
     SpawnTaskQueryVariables
-  >(SPAWN_TASK, {
-    skip: !(taskIdQueryParam && distroIdQueryParam),
-    variables: { taskId: taskIdQueryParam },
-  });
+  >(
+    SPAWN_TASK,
+    taskIdQueryParam && distroIdQueryParam
+      ? { variables: { taskId: taskIdQueryParam } }
+      : skipToken,
+  );
 
   const { formSchemaInput, loading: loadingFormData } = useLoadFormSchemaData();
 
@@ -73,6 +77,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     },
     refetchQueries: ["MyHosts", "MyVolumes", "MyPublicKeys"],
   });
+
+  const tokenExchangeState = useUserTokenExchange(!open);
 
   const [formState, setFormState] = useState<FormState>({});
   const [hasError, setHasError] = useState(true);
@@ -112,12 +118,12 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     distroIdQueryParam,
     hostUptimeWarnings,
     isMigration: false,
+    tokenExchangeState,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
     timeZone:
       formState?.expirationDetails?.hostUptime?.details?.timeZone || timeZone,
     useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
-    useOAuth: !!formState?.loadData?.useOAuth,
     useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
 
@@ -145,6 +151,14 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     });
   };
 
+  // If the user is trying to load data onto the host at startup,
+  // jwtTokenForCLIDisabled is false, and the user does not have a valid token,
+  // then we require the user to complete the authenticate spawn hosts flow.
+  const requiresSpawnHostAuthentication =
+    !!formState?.loadData?.loadDataOntoHostAtStartup &&
+    !formSchemaInput.jwtTokenForCLIDisabled &&
+    tokenExchangeState !== TokenExchangeState.TokenValid;
+
   return (
     <ConfirmationModal
       cancelButtonProps={{
@@ -153,7 +167,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       confirmButtonProps={{
         children: loadingSpawnHost ? "Spawning" : "Spawn a host",
         onClick: spawnHost,
-        disabled: hasError || loadingSpawnHost,
+        disabled:
+          hasError || loadingSpawnHost || requiresSpawnHostAuthentication,
       }}
       data-cy="spawn-host-modal"
       open={open}

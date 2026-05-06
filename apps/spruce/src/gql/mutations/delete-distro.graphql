@@ -1,5 +1,0 @@
-mutation DeleteDistro($distroId: String!) {
-  deleteDistro(opts: { distroId: $distroId }) {
-    deletedDistroId
-  }
-}

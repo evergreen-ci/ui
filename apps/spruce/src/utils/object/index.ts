@@ -30,7 +30,7 @@ type PathValue<T, P extends readonly string[]> = P extends [
     ? Tail extends string[]
       ? PathValue<T[Head], Tail>
       : T[Head]
-    : T extends readonly any[]
+    : T extends readonly unknown[]
       ? Head extends `${number}`
         ? Tail extends string[]
           ? PathValue<T[number], Tail>
@@ -53,18 +53,18 @@ export const getObjectValueByPath = <T extends JSONValue, P extends string>(
 ): PathValue<T, StringToPath<P>> => {
   const keys = path.split(".");
 
-  return keys.reduce<any>((acc, key) => {
+  return keys.reduce<unknown>((acc, key) => {
     if (Array.isArray(acc)) {
       const index = Number(key);
       return Number.isInteger(index) ? acc[index] : undefined;
     }
 
     if (acc && typeof acc === "object") {
-      return acc[key as keyof typeof acc];
+      return (acc as Record<string, unknown>)[key];
     }
 
     return undefined;
-  }, obj);
+  }, obj) as PathValue<T, StringToPath<P>>;
 };
 
 type WithoutTypename<T> =

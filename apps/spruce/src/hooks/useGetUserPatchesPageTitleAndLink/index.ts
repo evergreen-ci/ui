@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { getUserPatchesRoute } from "constants/routes";
 import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
@@ -12,10 +12,10 @@ export const useGetUserPatchesPageTitleAndLink = (
   user?: UserInfo,
   skip: boolean = false,
 ) => {
-  const { data } = useQuery<UserQuery>(USER, {
-    skip,
-    fetchPolicy: "cache-only",
-  });
+  const { data } = useQuery<UserQuery>(
+    USER,
+    skip ? skipToken : { fetchPolicy: "cache-only" },
+  );
 
   if (!data || !user) {
     return null;

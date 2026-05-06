@@ -132,5 +132,6 @@ const Row = styled.div`
 `;
 
 const Timestamp = styled.span`
+  font-variant-numeric: tabular-nums;
   margin-right: ${size.s};
 `;

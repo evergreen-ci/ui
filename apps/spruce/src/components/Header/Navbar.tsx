@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
-import Icon, { AnimatedIcon, WinterLogo } from "@evg-ui/lib/components/Icon";
+import Icon, { AnimatedIcon, SpringLogo } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
@@ -52,9 +52,10 @@ export const Navbar: React.FC = () => {
     }
   }, [currProject, projectFromUrl]);
 
-  const { data: configData } = useQuery<SpruceConfigQuery>(SPRUCE_CONFIG, {
-    skip: currProject !== undefined,
-  });
+  const { data: configData } = useQuery<SpruceConfigQuery>(
+    SPRUCE_CONFIG,
+    currProject === undefined ? {} : skipToken,
+  );
 
   const projectIdentifier =
     currProject || configData?.spruceConfig?.ui?.defaultProject;
@@ -69,7 +70,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <AnimatedIcon alwaysAnimate icon={WinterLogo} />
+          <AnimatedIcon alwaysAnimate icon={SpringLogo} />
         </LogoLink>
         <PrimaryLink
           data-cy="waterfall-link"

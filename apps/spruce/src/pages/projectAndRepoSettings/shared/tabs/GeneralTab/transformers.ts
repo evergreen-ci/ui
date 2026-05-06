@@ -55,6 +55,7 @@ export const gqlToForm = ((data, options = {}) => {
       },
       repotracker: {
         repotrackerDisabled: projectRef.repotrackerDisabled,
+        runEveryMainlineCommit: projectRef.runEveryMainlineCommit,
         forceRun: null,
       },
       patch: {
@@ -102,6 +103,7 @@ export const formToGql = ((
     stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
     stepbackBisect: projectFlags.scheduling.stepbackBisection,
     patchingDisabled: projectFlags.patch.patchingDisabled,
+    runEveryMainlineCommit: projectFlags.repotracker.runEveryMainlineCommit,
     disabledStatsCache,
   };
 

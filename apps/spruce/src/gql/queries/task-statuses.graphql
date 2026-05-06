@@ -1,7 +1,0 @@
-query TaskStatuses($id: String!) {
-  version(versionId: $id) {
-    id
-    baseTaskStatuses
-    taskStatuses
-  }
-}

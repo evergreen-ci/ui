@@ -1,24 +1,16 @@
 import { useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
-import { queryString } from "utils";
-
-const { parseQueryString } = queryString;
+import { useQueryParams } from "@evg-ui/lib/hooks";
 
 export const useUpdateURLQueryParams = () => {
-  const navigate = useNavigate();
-  const { pathname, search } = useLocation();
+  const [, setQueryParams] = useQueryParams();
   const updateQueryParams = useCallback(
     (nextQueryParams: StringMap) => {
-      const joinedParams = {
-        ...parseQueryString(search),
+      setQueryParams((current) => ({
+        ...current,
         ...nextQueryParams,
-      };
-      navigate(`${pathname}?${stringifyQuery(joinedParams)}`, {
-        replace: true,
-      });
+      }));
     },
-    [navigate, search, pathname],
+    [setQueryParams],
   );
 
   return updateQueryParams;

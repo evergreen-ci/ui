@@ -145,6 +145,10 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     vars: { test_name: "", test_two: "val" },
     privateVars: ["test_name"],
     adminOnlyVars: ["test_name"],
+    varsDescriptions: {
+      test_name: "this is really important",
+      test_two: "delete me later",
+    },
   },
   aliases: [
     {
@@ -353,6 +357,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     vars: { repo_name: "repo_value" },
     privateVars: [],
     adminOnlyVars: [],
+    varsDescriptions: {},
   },
   aliases: [
     {

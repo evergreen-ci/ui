@@ -71,6 +71,15 @@ const reducer = (state: LogState, action: Action): LogState => {
           );
           processedLogs = transformedLogs.processedLogs;
           colorMap = transformedLogs.colorMap;
+          // Break sliced string references to allow parent chunk buffers to be GC'd.
+          // processResmokeLine returns the original string reference for non-resmoke
+          // lines, which keeps the entire parent chunk alive in memory. Copying these
+          // into independent strings allows the raw download data to be collected.
+          for (let i = 0; i < processedLogs.length; i += 1) {
+            if (processedLogs[i] === action.logs[i]) {
+              processedLogs[i] = ` ${processedLogs[i]}`.slice(1);
+            }
+          }
           break;
         }
         case LogRenderingTypes.Default:

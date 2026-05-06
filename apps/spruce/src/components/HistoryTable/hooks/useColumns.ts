@@ -1,17 +1,14 @@
 import { useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { HistoryQueryParams } from "types/history";
-import { queryString, array } from "utils";
+import { array } from "utils";
 import { useHistoryTable } from "../HistoryTableContext";
 
-const { parseQueryString } = queryString;
 const { toArray } = array;
-
 const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
-  const { search } = useLocation();
-  const { [HistoryQueryParams.VisibleColumns]: queryParams } = useMemo(
-    () => parseQueryString(search),
-    [search],
+  const [queryParams] = useQueryParam<string[]>(
+    HistoryQueryParams.VisibleColumns,
+    [],
   );
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { addColumns } = useHistoryTable();

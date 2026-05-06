@@ -38,16 +38,21 @@ export const useTaskStatuses = ({
   });
 
   const { version } = data || {};
-  const { baseTaskStatuses, taskStatuses } = version || {};
+  const { baseVersion, taskStatuses } = version || {};
   const currentStatuses = useMemo(
     () => getCurrentStatuses(taskStatuses ?? [], taskStatusesFilterTreeData),
     [taskStatuses],
   );
-  const baseStatuses = useMemo(
-    () =>
-      getCurrentStatuses(baseTaskStatuses ?? [], taskStatusesFilterTreeData),
-    [baseTaskStatuses],
-  );
+  const baseStatuses = useMemo(() => {
+    // Only include statuses that appear in both the base version and the current version
+    const baseTaskStatuses = baseVersion?.taskStatuses.filter((s) =>
+      taskStatuses?.includes(s),
+    );
+    return getCurrentStatuses(
+      baseTaskStatuses ?? [],
+      taskStatusesFilterTreeData,
+    );
+  }, [baseVersion?.taskStatuses, taskStatuses]);
 
   return { currentStatuses, baseStatuses };
 };

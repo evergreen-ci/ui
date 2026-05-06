@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
@@ -46,21 +46,23 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
   const { sendEvent } = useLogWindowAnalytics();
   const [filters, setFilters] = useFilterParam();
   const { logMetadata } = useLogContext();
-  const { buildID, execution, logType, taskID } = logMetadata ?? {};
+  const { execution, taskID } = logMetadata ?? {};
   const { loading: taskQueryLoading, task } = useTaskQuery({
-    buildID,
     execution,
-    logType,
     taskID,
   });
   const projectId = task?.versionMetadata?.projectMetadata?.id ?? "";
   const { data, loading: projectFiltersLoading } = useQuery<
     ProjectFiltersQuery,
     ProjectFiltersQueryVariables
-  >(PROJECT_FILTERS, {
-    skip: !projectId,
-    variables: { projectId },
-  });
+  >(
+    PROJECT_FILTERS,
+    projectId
+      ? {
+          variables: { projectId },
+        }
+      : skipToken,
+  );
 
   const parsleyFilters = useMemo(
     () => data?.project?.parsleyFilters ?? [],
@@ -128,7 +130,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
 
     setOpen(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, setFilters]);
+  }, [filters, setFilters, sendEvent]);
 
   const hasNewFilters = table.getSelectedRowModel().rows.length > 0;
 

@@ -7,6 +7,7 @@ import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size as sizeToken } from "@evg-ui/lib/constants/tokens";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useWaterfallAnalytics } from "analytics";
+import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
 import { useSpruceConfig, useDateFormat } from "hooks";
@@ -14,7 +15,6 @@ import { jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
-import UpstreamProjectLink from "./UpstreamProjectLink";
 
 export enum VersionLabelView {
   Modal = "modal",
@@ -93,8 +93,14 @@ export const VersionLabel: React.FC<Props> = ({
         )}
       </HeaderLine>
       <UpstreamProjectLink
-        commitType={commitType}
         isTrigger={requester === Requester.Trigger}
+        onClick={() => {
+          sendEvent({
+            name: "Clicked commit label",
+            "commit.type": commitType,
+            link: "upstream project",
+          });
+        }}
         versionId={id}
       />
       <CommitMessage

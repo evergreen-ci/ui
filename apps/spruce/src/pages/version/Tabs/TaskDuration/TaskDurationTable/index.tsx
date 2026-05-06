@@ -39,6 +39,13 @@ const { getDefaultOptions: getDefaultSorting } = RowSorting;
 type TaskDurationData = Unpacked<
   VersionTaskDurationsQuery["version"]["tasks"]["data"]
 >;
+interface TaskDurationQueryParams {
+  [PatchTasksQueryParams.TaskName]?: string;
+  [PatchTasksQueryParams.Statuses]?: string | string[];
+  [PatchTasksQueryParams.Variant]?: string;
+  [TableQueryParams.Sorts]?: string | string[];
+}
+
 interface Props {
   tasks: TaskDurationData[];
   loading: boolean;
@@ -178,6 +185,7 @@ const getColumns = (
     meta: {
       search: {
         "data-cy": "task-name-filter-popover",
+        placeholder: "Task name regex",
       },
     },
   },
@@ -208,6 +216,7 @@ const getColumns = (
     meta: {
       search: {
         "data-cy": "build-variant-filter-popover",
+        placeholder: "Build variant regex",
       },
     },
   },
@@ -248,18 +257,16 @@ const sortCategoryToColumnId: { [key: string]: PatchTasksQueryParams } = {
   [TaskSortCategory.Variant]: PatchTasksQueryParams.Variant,
 };
 
-export const getInitialParams = (queryParams: {
-  [key: string]: any;
-}): {
+export const getInitialParams = (
+  queryParams: TaskDurationQueryParams,
+): {
   initialFilters: ColumnFiltersState;
   initialSort: SortingState;
 } => {
-  const {
-    [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: statuses,
-    [PatchTasksQueryParams.Variant]: variant,
-    [TableQueryParams.Sorts]: sorts,
-  } = queryParams;
+  const taskName = queryParams[PatchTasksQueryParams.TaskName];
+  const statuses = queryParams[PatchTasksQueryParams.Statuses];
+  const variant = queryParams[PatchTasksQueryParams.Variant];
+  const sorts = queryParams[TableQueryParams.Sorts];
 
   const initialFilters = [];
   if (taskName) {

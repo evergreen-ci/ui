@@ -9,29 +9,40 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
-  DeleteGithubAppCredentialsMutation,
-  DeleteGithubAppCredentialsMutationVariables,
+  ProjectSettingsSection,
+  SaveProjectSettingsForSectionMutation,
+  SaveProjectSettingsForSectionMutationVariables,
 } from "gql/generated/types";
-import { DELETE_GITHUB_APP_CREDENTIALS } from "gql/mutations";
+import { SAVE_PROJECT_SETTINGS_FOR_SECTION } from "gql/mutations";
+import { ProjectSettingsProvider } from "pages/projectAndRepoSettings/shared/Context";
 import { GithubAppActions } from ".";
 
-const Field = ({ isAppDefined }: { isAppDefined: boolean }) => (
-  <MockedProvider mocks={[deleteAppCredentialsMock]}>
-    <GithubAppActions
-      {...({} as unknown as FieldProps)}
-      uiSchema={{
-        options: {
-          projectId: "evergreen",
-          isAppDefined,
-        },
-      }}
-    />
+const Field = ({
+  isAppDefined,
+  isRepo = false,
+}: {
+  isAppDefined: boolean;
+  isRepo?: boolean;
+}) => (
+  <MockedProvider mocks={[replaceAppCredentialsMock]}>
+    <ProjectSettingsProvider>
+      <GithubAppActions
+        {...({} as unknown as FieldProps)}
+        uiSchema={{
+          options: {
+            projectOrRepoId: "evergreen",
+            isAppDefined,
+            isRepo,
+          },
+        }}
+      />
+    </ProjectSettingsProvider>
   </MockedProvider>
 );
 
 describe("githubAppActions", () => {
   describe("app is not defined", () => {
-    it("renders the banner and not the button", () => {
+    it("renders the banner and not the replace button", () => {
       const { Component } = RenderFakeToastContext(
         <Field isAppDefined={false} />,
       );
@@ -40,62 +51,84 @@ describe("githubAppActions", () => {
         screen.getByDataCy("github-app-credentials-banner"),
       ).toBeInTheDocument();
       expect(
-        screen.queryByDataCy("delete-app-credentials-button"),
+        screen.queryByDataCy("replace-app-credentials-button"),
       ).not.toBeInTheDocument();
     });
   });
 
   describe("app is defined", () => {
-    it("renders the button and not the banner", () => {
+    it("renders the replace button and not the banner", () => {
       const { Component } = RenderFakeToastContext(<Field isAppDefined />);
       render(<Component />);
       expect(
-        screen.getByDataCy("delete-app-credentials-button"),
+        screen.getByDataCy("replace-app-credentials-button"),
       ).toBeInTheDocument();
       expect(
         screen.queryByDataCy("github-app-credentials-banner"),
       ).not.toBeInTheDocument();
     });
 
-    it("can delete the credentials via the modal", async () => {
+    it("can replace credentials via the modal", async () => {
       const user = userEvent.setup();
 
       const { Component, dispatchToast } = RenderFakeToastContext(
         <Field isAppDefined />,
       );
       render(<Component />);
-      await user.click(screen.getByDataCy("delete-app-credentials-button"));
+      await user.click(screen.getByDataCy("replace-app-credentials-button"));
       expect(
-        screen.getByDataCy("delete-github-credentials-modal"),
+        screen.getByDataCy("replace-github-credentials-modal"),
       ).toBeInTheDocument();
-      const deleteButton = screen.getByRole("button", {
-        name: "Delete",
+
+      // Replace button should be disabled without input
+      const replaceButton = screen.getByRole("button", {
+        name: "Replace",
       });
-      expect(deleteButton).toBeEnabled();
-      await user.click(deleteButton);
+      expect(replaceButton).toHaveAttribute("aria-disabled", "true");
+
+      // Fill in new credentials
+      await user.type(screen.getByDataCy("replace-app-id-input"), "99999");
+      await user.type(
+        screen.getByDataCy("replace-private-key-input"),
+        "new-private-key",
+      );
+      expect(replaceButton).not.toHaveAttribute("aria-disabled", "true");
+
+      await user.click(replaceButton);
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(
-          "GitHub app credentials were successfully deleted.",
+          "GitHub app credentials were successfully replaced.",
         );
       });
     });
   });
 });
 
-const deleteAppCredentialsMock: ApolloMock<
-  DeleteGithubAppCredentialsMutation,
-  DeleteGithubAppCredentialsMutationVariables
+const replaceAppCredentialsMock: ApolloMock<
+  SaveProjectSettingsForSectionMutation,
+  SaveProjectSettingsForSectionMutationVariables
 > = {
   request: {
-    query: DELETE_GITHUB_APP_CREDENTIALS,
+    query: SAVE_PROJECT_SETTINGS_FOR_SECTION,
     variables: {
-      projectId: "evergreen",
+      projectSettings: {
+        projectId: "evergreen",
+        githubAppAuth: {
+          appId: 99999,
+          privateKey: "new-private-key",
+        },
+        projectRef: { id: "evergreen", githubPermissionGroupByRequester: {} },
+      },
+      section: ProjectSettingsSection.GithubAppSettings,
     },
   },
   result: {
     data: {
-      deleteGithubAppCredentials: {
-        oldAppId: 12344,
+      saveProjectSettingsForSection: {
+        projectRef: {
+          id: "evergreen",
+          identifier: "evergreen",
+        },
       },
     },
   },

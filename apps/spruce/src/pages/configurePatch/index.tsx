@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams, Navigate } from "react-router-dom";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -28,10 +28,10 @@ const ConfigurePatch: React.FC = () => {
   const { data, error, loading } = useQuery<
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
-  >(PATCH_CONFIGURE, {
-    skip: !isValidPatchId,
-    variables: { id: patchId || "" },
-  });
+  >(
+    PATCH_CONFIGURE,
+    isValidPatchId ? { variables: { id: patchId || "" } } : skipToken,
+  );
   useErrorToast(error, "Error loading patch configuration");
 
   const {
@@ -41,10 +41,10 @@ const ConfigurePatch: React.FC = () => {
   } = useQuery<
     PatchConfigureGeneratedTaskCountsQuery,
     PatchConfigureGeneratedTaskCountsQueryVariables
-  >(PATCH_CONFIGURE_GENERATED_TASK_COUNTS, {
-    variables: { patchId: patchId || "" },
-    skip: !isValidPatchId,
-  });
+  >(
+    PATCH_CONFIGURE_GENERATED_TASK_COUNTS,
+    isValidPatchId ? { variables: { patchId: patchId || "" } } : skipToken,
+  );
   useErrorToast(
     generatedTaskCountsError,
     "Error fetching generated task counts",

@@ -2,12 +2,6 @@
 import { AttributeStore } from "./utils/observability/AttributeStore/types";
 
 declare global {
-  module "*.graphql" {
-    import { DocumentNode } from "graphql";
-
-    const content: DocumentNode;
-    export default content;
-  }
   module "*.svg" {
     const content: string;
     export default content;

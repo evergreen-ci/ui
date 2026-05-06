@@ -135,6 +135,7 @@ const isAdminMock: ApolloMock<
           canCreateDistro: true,
           distroPermissions: {
             __typename: "DistroPermissions",
+            id: distroToDelete,
             admin: true,
             edit: true,
           },
@@ -164,6 +165,7 @@ const notAdminMock: ApolloMock<
           canCreateDistro: false,
           distroPermissions: {
             __typename: "DistroPermissions",
+            id: distroToDelete,
             admin: false,
             edit: false,
           },

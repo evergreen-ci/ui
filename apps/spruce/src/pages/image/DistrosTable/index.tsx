@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
@@ -21,6 +22,7 @@ import {
   Provider,
 } from "gql/generated/types";
 import { IMAGE_DISTROS } from "gql/queries";
+import { getBaseDistroName, getSizeRank } from "./utils";
 
 type Distro = Unpacked<NonNullable<ImageDistrosQuery["image"]>["distros"]>;
 
@@ -38,7 +40,17 @@ export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
   });
   useErrorToast(error, "There was an error loading image distros");
 
-  const distros = imageData?.image?.distros ?? [];
+  const distros = useMemo(() => {
+    const distrosList = imageData?.image?.distros ?? [];
+    return [...distrosList].sort((a, b) => {
+      const baseA = getBaseDistroName(a.name);
+      const baseB = getBaseDistroName(b.name);
+      if (baseA !== baseB) {
+        return baseA.localeCompare(baseB);
+      }
+      return getSizeRank(a.name) - getSizeRank(b.name);
+    });
+  }, [imageData]);
 
   const table = useLeafyGreenTable<Distro>({
     columns,

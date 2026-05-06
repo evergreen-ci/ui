@@ -1,9 +1,0 @@
-query AdminBetaFeatures {
-  spruceConfig {
-    ui {
-      betaFeatures {
-        __typename
-      }
-    }
-  }
-}

@@ -131,6 +131,6 @@ const Cell = styled.td`
 `;
 
 const Count = styled(Cell)`
-  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
   text-align: right;
 `;

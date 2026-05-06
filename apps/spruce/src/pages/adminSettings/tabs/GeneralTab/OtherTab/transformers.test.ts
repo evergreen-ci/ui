@@ -11,6 +11,47 @@ describe("other tab transformers", () => {
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
+
+  it("round-trips S3 storage account ID lists from admin settings", () => {
+    const adminSettingsWithS3Lists: AdminSettingsData = {
+      ...mockAdminSettings,
+      cost: {
+        ...mockAdminSettings.cost,
+        s3Cost: {
+          storage: {
+            __typename: "S3StorageCostConfig",
+            archiveStorageCostDiscount: 0,
+            artifactAwsAccountsWithoutLifecycleRules: ["111"],
+            defaultMaxArtifactExpirationDays: 1,
+            devprodOwnedAwsAccountIds: ["222"],
+            iAStorageCostDiscount: 0,
+            standardStorageCostDiscount: 0,
+          },
+          upload: {
+            __typename: "S3UploadCostConfig",
+            uploadCostDiscount: 0,
+          },
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithS3Lists);
+    expect(loaded).not.toBeNull();
+    expect(formToGql(loaded!)).toStrictEqual({
+      ...expectedGql,
+      cost: {
+        ...expectedGql.cost,
+        s3Cost: {
+          ...expectedGql.cost?.s3Cost,
+          storage: {
+            ...expectedGql.cost?.s3Cost?.storage,
+            artifactAwsAccountsWithoutLifecycleRules: ["111"],
+            devprodOwnedAwsAccountIds: ["222"],
+          },
+        },
+      },
+    });
+  });
 });
 
 const mockAdminSettings: AdminSettingsData = {
@@ -22,8 +63,11 @@ const mockAdminSettings: AdminSettingsData = {
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
   oktaServiceConfig: {
+    audience: "https://example.okta.com",
     clientId: "okta-service-client-id",
     clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
+    scopes: ["scope1", "scope2"],
   },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
@@ -119,6 +163,7 @@ const mockAdminSettings: AdminSettingsData = {
     collectorEndpoint: "https://collector.example.com",
     collectorInternalEndpoint: "https://collector-internal.example.com",
     collectorAPIKey: "tracer-api-key",
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
     totalProjectLimit: 100,
@@ -132,6 +177,10 @@ const mockAdminSettings: AdminSettingsData = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };
 
@@ -161,12 +210,19 @@ const expectedForm: OtherFormState = {
           uploadCostDiscount: 0,
           standardStorageCostDiscount: 0,
           iAStorageCostDiscount: 0,
+          archiveStorageCostDiscount: 0,
+          defaultMaxArtifactExpirationDays: 1,
+          artifactAwsAccountsWithoutLifecycleRules: [],
+          devprodOwnedAwsAccountIds: [],
         },
       },
     },
     oktaServiceConfig: {
+      audience: "https://example.okta.com",
       clientId: "okta-service-client-id",
       clientSecret: "okta-service-client-secret",
+      issuer: "https://example.okta.com",
+      scopes: ["scope1", "scope2"],
     },
     singleTaskDistro: {
       projectTasksPairs: [
@@ -248,6 +304,7 @@ const expectedForm: OtherFormState = {
       collectorEndpoint: "https://collector.example.com",
       collectorInternalEndpoint: "https://collector-internal.example.com",
       collectorAPIKey: "tracer-api-key",
+      traceUrlTemplate: "https://apm.example.com/trace/%s",
     },
     projectCreationSettings: {
       totalProjectLimit: 100,
@@ -262,6 +319,10 @@ const expectedForm: OtherFormState = {
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
     },
+    diagnosticsConfig: {
+      s3BucketName: "diagnostics-bucket",
+      s3Prefix: "diagnostics/",
+    },
   },
 };
 
@@ -273,8 +334,11 @@ const expectedGql: AdminSettingsInput = {
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
   oktaServiceConfig: {
+    audience: "https://example.okta.com",
     clientId: "okta-service-client-id",
     clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
+    scopes: ["scope1", "scope2"],
   },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
@@ -355,11 +419,15 @@ const expectedGql: AdminSettingsInput = {
     onDemandDiscount: 0.05,
     s3Cost: {
       upload: {
-        uploadCostDiscount: undefined,
+        uploadCostDiscount: 0,
       },
       storage: {
-        standardStorageCostDiscount: undefined,
-        iAStorageCostDiscount: undefined,
+        archiveStorageCostDiscount: 0,
+        artifactAwsAccountsWithoutLifecycleRules: [],
+        defaultMaxArtifactExpirationDays: 1,
+        devprodOwnedAwsAccountIds: [],
+        iAStorageCostDiscount: 0,
+        standardStorageCostDiscount: 0,
       },
     },
   },
@@ -379,6 +447,7 @@ const expectedGql: AdminSettingsInput = {
     collectorEndpoint: "https://collector.example.com",
     collectorInternalEndpoint: "https://collector-internal.example.com",
     collectorAPIKey: "tracer-api-key",
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
     totalProjectLimit: 100,
@@ -392,5 +461,9 @@ const expectedGql: AdminSettingsInput = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };

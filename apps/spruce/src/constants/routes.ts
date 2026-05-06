@@ -1,5 +1,6 @@
 import { generatePath } from "react-router-dom";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
@@ -41,7 +42,6 @@ export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
   Variables = "variables",
-  GithubCommitQueue = "github-commitqueue",
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
@@ -50,6 +50,10 @@ export enum ProjectSettingsTabRoutes {
   PeriodicBuilds = "periodic-builds",
   TestSelection = "test-selection",
   Plugins = "plugins",
+  PullRequests = "pull-requests",
+  CommitChecks = "commit-checks",
+  MergeQueue = "merge-queue",
+  GitTags = "git-tags",
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
   EventLog = "event-log",
@@ -107,7 +111,6 @@ const paths = {
 };
 
 export enum slugs {
-  buildId = "buildId",
   distroId = "distroId",
   execution = "execution",
   fileName = "fileName",
@@ -125,7 +128,6 @@ export enum slugs {
   userId = "userId",
 }
 export const idSlugs = [
-  slugs.buildId,
   slugs.distroId,
   slugs.hostId,
   slugs.imageId,
@@ -233,7 +235,7 @@ export const getAllHostsRoute = (options?: {
 export type GetTaskRouteOptions = {
   tab?: TaskTab;
   execution?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   const { tab, ...rest } = options || {};
@@ -453,19 +455,25 @@ export const getTriggerRoute = ({
   upstreamVersion,
 }: {
   triggerType: string;
-  upstreamTask: any;
-  upstreamVersion: any;
+  upstreamTask?: { id: string } | null;
+  upstreamVersion?: { id: string } | null;
   upstreamRevision: string;
   upstreamOwner: string;
   upstreamRepo: string;
 }) => {
-  if (triggerType === ProjectTriggerLevel.TASK) {
+  if (triggerType === ProjectTriggerLevel.TASK && upstreamTask) {
     return getTaskRoute(upstreamTask.id);
   }
   if (triggerType === ProjectTriggerLevel.PUSH) {
     return getGithubCommitUrl(upstreamOwner, upstreamRepo, upstreamRevision);
   }
-  return getVersionRoute(upstreamVersion.id);
+
+  const upstreamVersionId = upstreamVersion?.id;
+  if (!upstreamVersionId) {
+    reportError(new Error("No upstream version found for route"));
+  }
+
+  return getVersionRoute(upstreamVersion?.id ?? "");
 };
 
 export const getAdminSettingsRoute = (

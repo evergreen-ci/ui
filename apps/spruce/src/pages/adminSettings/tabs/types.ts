@@ -39,6 +39,11 @@ export type FormToGqlFunction<T extends WritableAdminSettingsType> = (
   data?: AdminSettingsData, // Use if you need access to other admin settings fields.
 ) => AdminSettingsInput;
 
+export type AnyFormToGqlFunction = (
+  form: FormStates,
+  data?: AdminSettingsData,
+) => AdminSettingsInput;
+
 export type GqlToFormFunction<T extends WritableAdminSettingsType> = (
   data: AdminSettingsData,
 ) => FormStateMap[T] | null;

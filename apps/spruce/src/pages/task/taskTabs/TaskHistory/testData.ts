@@ -1,5 +1,6 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { Requester } from "constants/requesters";
 import { GroupedTask, TaskHistoryTask } from "./types";
 
 const emptyTests = {
@@ -12,17 +13,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: true,
     displayStatus: TaskStatus.Succeeded,
     execution: 0,
-    latestExecution: 0,
     order: 100,
     revision: "aef363719d0287e92cd83749a827bae",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: A",
@@ -33,18 +34,18 @@ export const tasks: TaskHistoryTask[] = [
     id: "b",
     activated: true,
     displayStatus: TaskStatus.WillRun,
-    execution: 0,
-    latestExecution: 1,
+    execution: 1,
     order: 99,
     revision: "b",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-03T10:21:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: B",
@@ -56,17 +57,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 98,
     revision: "ce135c28ba11e9189cae",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-03T10:20:13Z"),
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: C",
@@ -78,17 +79,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: true,
     displayStatus: TaskStatus.SetupFailed,
     execution: 0,
-    latestExecution: 0,
     order: 97,
     revision: "d",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-02T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: D",
@@ -100,17 +101,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 96,
     revision: "e",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-02T10:21:13Z"),
     canRestart: true,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: E",
@@ -122,17 +123,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: true,
     displayStatus: TaskStatus.Failed,
     execution: 0,
-    latestExecution: 0,
     order: 95,
     revision: "f",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-01T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: F",
@@ -153,17 +154,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 94,
     revision: "g",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-01T10:21:13Z"),
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: G",
@@ -175,17 +176,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 93,
     revision: "h",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-01T10:20:13Z"),
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: H",
@@ -197,17 +198,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 92,
     revision: "i",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-04-01T10:18:13Z"),
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: I",
@@ -218,18 +219,18 @@ export const tasks: TaskHistoryTask[] = [
     id: "j",
     activated: true,
     displayStatus: TaskStatus.KnownIssue,
-    execution: 0,
-    latestExecution: 3,
+    execution: 3,
     order: 91,
     revision: "j",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-03-30T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: J",
@@ -241,17 +242,17 @@ export const tasks: TaskHistoryTask[] = [
     activated: true,
     displayStatus: TaskStatus.SystemFailed,
     execution: 0,
-    latestExecution: 0,
     order: 90,
     revision: "k",
+    requester: Requester.Gitter,
     ingestTime: new Date("2025-03-29T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: K",

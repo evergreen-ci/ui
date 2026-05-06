@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import { Badge } from "@leafygreen-ui/badge";
+import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { palette } from "@leafygreen-ui/palette";
+import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -42,6 +43,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     description,
     hidden,
     id,
+    invalidatedByUpstream,
     projectIdentifier,
     projectMetadata,
     status,
@@ -127,7 +129,24 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
       <Right>
-        {hidden && <Badge data-cy="hidden-badge">Hidden</Badge>}
+        {invalidatedByUpstream && (
+          <ChipContainer>
+            <Chip
+              glyph={<Icon glyph="Refresh" />}
+              label="Merge Queue Aborted"
+              variant={ChipVariant.Gray}
+            />
+          </ChipContainer>
+        )}
+        {hidden && (
+          <ChipContainer>
+            <Chip
+              data-cy="hidden-badge"
+              label="Hidden"
+              variant={ChipVariant.Gray}
+            />
+          </ChipContainer>
+        )}
         <DropdownMenu
           hasVersion={!!versionId}
           isMergeQueuePatch={isMergeQueuePatch}
@@ -166,10 +185,16 @@ const Left = styled(Center)`
 `;
 
 const Right = styled.div`
-  width: 110px;
   display: flex;
+  align-items: flex-start;
   justify-content: flex-end;
   gap: ${size.xs};
+`;
+
+const ChipContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 28px;
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`

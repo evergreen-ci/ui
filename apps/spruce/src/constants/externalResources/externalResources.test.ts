@@ -1,22 +1,8 @@
 import {
-  getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
+  getHoneycombTaskCostUrl,
+  getHoneycombTraceUrl,
 } from "./honeycomb";
-import { getParsleyBuildLogURL, getParsleyLogkeeperTestLogURL } from ".";
-
-describe("getParsleyLogkeeperTestLogURL", () => {
-  it("generates the correct url", () => {
-    expect(getParsleyLogkeeperTestLogURL("myBuildId", "myTestId")).toBe(
-      "/resmoke/myBuildId/test/myTestId",
-    );
-  });
-});
-
-describe("getParsleyBuildLogURL", () => {
-  it("generates the correct url", () => {
-    expect(getParsleyBuildLogURL("myBuildId")).toBe("/resmoke/myBuildId/all");
-  });
-});
 
 describe("getHoneycombTraceUrl", () => {
   it("generates the correct url", () => {
@@ -28,6 +14,14 @@ describe("getHoneycombTraceUrl", () => {
       ),
     ).toBe(
       "/datasets/evergreen-agent/trace?trace_id=abcdef&trace_start_ts=1688756921&trace_end_ts=1688756941",
+    );
+  });
+});
+
+describe("getHoneycombTaskCostUrl", () => {
+  it("generates the correct url", () => {
+    expect(getHoneycombTaskCostUrl("task_12345")).toBe(
+      `/datasets/evergreen?query={"calculations":[{"op":"MAX","column":"evergreen.task.adjusted_cost"},{"op":"MAX","column":"evergreen.task.cost.ebs.adjusted_throughput_cost"},{"op":"MAX","column":"evergreen.task.cost.ebs.adjusted_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_artifact_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_artifact_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_log_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_log_storage_cost"}],"filters":[{"op":"=","column":"evergreen.task.id","value":"task_12345"}]}&omitMissingValues`,
     );
   });
 });

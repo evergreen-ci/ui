@@ -153,6 +153,7 @@ export type AdminSettings = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   cost?: Maybe<CostConfig>;
   debugSpawnHosts?: Maybe<DebugSpawnHostsConfig>;
+  diagnostics?: Maybe<DiagnosticsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -182,7 +183,6 @@ export type AdminSettings = {
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
-  serviceFlags?: Maybe<ServiceFlags>;
   serviceFlagsList?: Maybe<Array<ServiceFlag>>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
@@ -211,6 +211,7 @@ export type AdminSettingsInput = {
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   cost?: InputMaybe<CostConfigInput>;
   debugSpawnHosts?: InputMaybe<DebugSpawnHostsConfigInput>;
+  diagnostics?: InputMaybe<DiagnosticsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -240,7 +241,6 @@ export type AdminSettingsInput = {
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
-  serviceFlags?: InputMaybe<ServiceFlagsInput>;
   shutdownWaitSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   singleTaskDistro?: InputMaybe<SingleTaskDistroConfigInput>;
   slack?: InputMaybe<SlackConfigInput>;
@@ -367,6 +367,12 @@ export enum Arch {
   Windows_64Bit = "WINDOWS_64_BIT",
 }
 
+export type AssociatedLink = {
+  __typename?: "AssociatedLink";
+  link: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+};
+
 export type AuthConfig = {
   __typename?: "AuthConfig";
   allowServiceUsers?: Maybe<Scalars["Boolean"]["output"]>;
@@ -481,6 +487,8 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
+  retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
+  retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -491,6 +499,8 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
+  retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -667,10 +677,16 @@ export type CopyProjectInput = {
 /** Cost represents the cost breakdown for a task or version. */
 export type Cost = {
   __typename?: "Cost";
+  adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
-  s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  childPatchesTotalCost?: Maybe<Scalars["Float"]["output"]>;
+  /** Sum of adjusted cost components; excludes on-demand components. */
+  total?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -791,6 +807,17 @@ export type Dependency = {
   taskId: Scalars["String"]["output"];
 };
 
+export type DiagnosticsConfig = {
+  __typename?: "DiagnosticsConfig";
+  s3BucketName?: Maybe<Scalars["String"]["output"]>;
+  s3Prefix?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type DiagnosticsConfigInput = {
+  s3BucketName?: InputMaybe<Scalars["String"]["input"]>;
+  s3Prefix?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type DispatcherSettings = {
   __typename?: "DispatcherSettings";
   version: DispatcherVersion;
@@ -843,6 +870,7 @@ export type Distro = {
   setupAsSudo: Scalars["Boolean"]["output"];
   singleTaskDistro: Scalars["Boolean"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
+  taskHostOverrides?: Maybe<TaskHostOverrides>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
   validProjects: Array<Scalars["String"]["output"]>;
@@ -913,6 +941,7 @@ export type DistroInput = {
   setupAsSudo: Scalars["Boolean"]["input"];
   singleTaskDistro?: InputMaybe<Scalars["Boolean"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
+  taskHostOverrides?: InputMaybe<TaskHostOverridesInput>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
@@ -930,6 +959,7 @@ export enum DistroOnSaveOperation {
 export type DistroPermissions = {
   __typename?: "DistroPermissions";
   admin: Scalars["Boolean"]["output"];
+  distroId: Scalars["String"]["output"];
   edit: Scalars["Boolean"]["output"];
   view: Scalars["Boolean"]["output"];
 };
@@ -1059,6 +1089,7 @@ export enum FeedbackRule {
 
 export type File = {
   __typename?: "File";
+  associatedLinks: Array<AssociatedLink>;
   link: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   urlParsley?: Maybe<Scalars["String"]["output"]>;
@@ -2360,13 +2391,19 @@ export type OktaConfigInput = {
 
 export type OktaServiceConfig = {
   __typename?: "OktaServiceConfig";
+  audience?: Maybe<Scalars["String"]["output"]>;
   clientId?: Maybe<Scalars["String"]["output"]>;
   clientSecret?: Maybe<Scalars["String"]["output"]>;
+  issuer?: Maybe<Scalars["String"]["output"]>;
+  scopes?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
 export type OktaServiceConfigInput = {
+  audience?: InputMaybe<Scalars["String"]["input"]>;
   clientId?: InputMaybe<Scalars["String"]["input"]>;
   clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  issuer?: InputMaybe<Scalars["String"]["input"]>;
+  scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type OomTrackerInfo = {
@@ -2483,10 +2520,11 @@ export type Patch = {
   alias?: Maybe<Scalars["String"]["output"]>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
+  /** Aggregated actual cost for the patch's version, when cost data exists. */
+  cost?: Maybe<Cost>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
@@ -2496,10 +2534,14 @@ export type Patch = {
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   includedLocalModules: Array<IncludedLocalModule>;
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  invalidatedByUpstream: Scalars["Boolean"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
+  /** Aggregated predicted cost for the patch's version. */
+  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectID: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -2512,6 +2554,7 @@ export type Patch = {
   user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
+  version?: Maybe<VersionLite>;
   versionFull?: Maybe<Version>;
 };
 
@@ -2917,6 +2960,49 @@ export type ProjectInput = {
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
 
+/** ProjectLite replaces Project by sidestepping the APIProjectRef layer. It does not contain all Project fields at this time. */
+export type ProjectLite = {
+  __typename?: "ProjectLite";
+  admins?: Maybe<Array<Scalars["String"]["output"]>>;
+  batchTime: Scalars["Int"]["output"];
+  branch: Scalars["String"]["output"];
+  deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  displayName: Scalars["String"]["output"];
+  enabled?: Maybe<Scalars["Boolean"]["output"]>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]["output"]>>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]["output"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  hidden?: Maybe<Scalars["Boolean"]["output"]>;
+  id: Scalars["String"]["output"];
+  identifier: Scalars["String"]["output"];
+  isFavorite: Scalars["Boolean"]["output"];
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]["output"]>;
+  oldestAllowedMergeBase: Scalars["String"]["output"];
+  owner: Scalars["String"]["output"];
+  patchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  perfEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  projectHealthView: ProjectHealthView;
+  remotePath: Scalars["String"]["output"];
+  repo: Scalars["String"]["output"];
+  repoRefId: Scalars["String"]["output"];
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  restricted?: Maybe<Scalars["Boolean"]["output"]>;
+  runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
+  spawnHostScriptPath: Scalars["String"]["output"];
+  stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
 export enum ProjectPermission {
   Annotations = "ANNOTATIONS",
   Logs = "LOGS",
@@ -2928,6 +3014,7 @@ export enum ProjectPermission {
 export type ProjectPermissions = {
   __typename?: "ProjectPermissions";
   edit: Scalars["Boolean"]["output"];
+  projectIdentifier: Scalars["String"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
@@ -2963,14 +3050,18 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
+  CommitChecks = "COMMIT_CHECKS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   GithubAppSettings = "GITHUB_APP_SETTINGS",
   GithubPermissions = "GITHUB_PERMISSIONS",
+  GitTags = "GIT_TAGS",
+  MergeQueue = "MERGE_QUEUE",
   Notifications = "NOTIFICATIONS",
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
+  PullRequests = "PULL_REQUESTS",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -2996,12 +3087,14 @@ export type ProjectVars = {
   adminOnlyVars: Array<Scalars["String"]["output"]>;
   privateVars: Array<Scalars["String"]["output"]>;
   vars?: Maybe<Scalars["StringMap"]["output"]>;
+  varsDescriptions?: Maybe<Scalars["StringMap"]["output"]>;
 };
 
 export type ProjectVarsInput = {
   adminOnlyVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
   privateVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
   vars?: InputMaybe<Scalars["StringMap"]["input"]>;
+  varsDescriptions?: InputMaybe<Scalars["StringMap"]["input"]>;
 };
 
 /** PromoteVarsToRepoInput is the input to the promoteVarsToRepo mutation. */
@@ -3082,6 +3175,7 @@ export type Query = {
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   taskHistory: TaskHistory;
+  taskHistoryByCreateTime: TaskHistoryByCreateTime;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
@@ -3219,6 +3313,10 @@ export type QueryTaskHistoryArgs = {
   options: TaskHistoryOpts;
 };
 
+export type QueryTaskHistoryByCreateTimeArgs = {
+  options: TaskHistoryOpts;
+};
+
 export type QueryTaskNamesForBuildVariantArgs = {
   buildVariant: Scalars["String"]["input"];
   projectIdentifier: Scalars["String"]["input"];
@@ -3278,6 +3376,7 @@ export type RepoCommitQueueParams = {
 export type RepoPermissions = {
   __typename?: "RepoPermissions";
   edit: Scalars["Boolean"]["output"];
+  repoId: Scalars["String"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
@@ -3524,11 +3623,23 @@ export type S3CredentialsInput = {
 
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
+  archiveStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  artifactAwsAccountsWithoutLifecycleRules?: Maybe<
+    Array<Scalars["String"]["output"]>
+  >;
+  defaultMaxArtifactExpirationDays?: Maybe<Scalars["Int"]["output"]>;
+  devprodOwnedAwsAccountIds?: Maybe<Array<Scalars["String"]["output"]>>;
   iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
+  archiveStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  artifactAwsAccountsWithoutLifecycleRules?: InputMaybe<
+    Array<Scalars["String"]["input"]>
+  >;
+  defaultMaxArtifactExpirationDays?: InputMaybe<Scalars["Int"]["input"]>;
+  devprodOwnedAwsAccountIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
@@ -3670,85 +3781,6 @@ export type ServiceFlag = {
 export type ServiceFlagInput = {
   enabled: Scalars["Boolean"]["input"];
   name: Scalars["String"]["input"];
-};
-
-export type ServiceFlags = {
-  __typename?: "ServiceFlags";
-  agentStartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  alertsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundReauthDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundStatsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cacheStatsEndpointDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cacheStatsJobDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  eventProcessingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  githubPRTestingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  githubStatusAPIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  hostAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  hostInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  psLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  systemFailedTaskRestartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskDispatchDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-};
-
-export type ServiceFlagsInput = {
-  agentStartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  alertsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  backgroundReauthDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  backgroundStatsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cacheStatsEndpointDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cacheStatsJobDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  debugSpawnHostDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  eventProcessingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubPRTestingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubStatusAPIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  hostAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  hostInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  psLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  schedulerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  slackNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  sleepScheduleDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  staticAPIKeysDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  systemFailedTaskRestartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskDispatchDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** SetCursorAPIKeyPayload is the response from setting a Cursor API key. */
@@ -4090,6 +4122,8 @@ export type Task = {
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
+  isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
@@ -4133,6 +4167,7 @@ export type Task = {
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
+  version: VersionLite;
   versionMetadata: Version;
 };
 
@@ -4233,6 +4268,18 @@ export type TaskHistory = {
   tasks: Array<Task>;
 };
 
+export type TaskHistoryByCreateTime = {
+  __typename?: "TaskHistoryByCreateTime";
+  pagination: TaskHistoryByCreateTimePagination;
+  tasks: Array<Task>;
+};
+
+export type TaskHistoryByCreateTimePagination = {
+  __typename?: "TaskHistoryByCreateTimePagination";
+  mostRecentTaskCreateTime: Scalars["Time"]["output"];
+  oldestTaskCreateTime: Scalars["Time"]["output"];
+};
+
 export enum TaskHistoryDirection {
   After = "AFTER",
   Before = "BEFORE",
@@ -4251,6 +4298,27 @@ export type TaskHistoryPagination = {
   __typename?: "TaskHistoryPagination";
   mostRecentTaskOrder: Scalars["Int"]["output"];
   oldestTaskOrder: Scalars["Int"]["output"];
+};
+
+/**
+ * TaskHostOverrides contains provider settings that override the distro's defaults
+ * for task hosts.
+ */
+export type TaskHostOverrides = {
+  __typename?: "TaskHostOverrides";
+  doNotAssignPublicIpv4Address: Scalars["Boolean"]["output"];
+  iamInstanceProfileArn: Scalars["String"]["output"];
+  providerAccount: Scalars["String"]["output"];
+  securityGroupIds: Array<Scalars["String"]["output"]>;
+  subnetId: Scalars["String"]["output"];
+};
+
+export type TaskHostOverridesInput = {
+  doNotAssignPublicIpv4Address: Scalars["Boolean"]["input"];
+  iamInstanceProfileArn: Scalars["String"]["input"];
+  providerAccount: Scalars["String"]["input"];
+  securityGroupIds: Array<Scalars["String"]["input"]>;
+  subnetId: Scalars["String"]["input"];
 };
 
 export type TaskInfo = {
@@ -4440,6 +4508,7 @@ export type TestFilterOptions = {
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
+  logsToMerge?: Maybe<Array<Scalars["String"]["output"]>>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
   testName?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
@@ -4532,6 +4601,7 @@ export type TracerSettings = {
   collectorEndpoint?: Maybe<Scalars["String"]["output"]>;
   collectorInternalEndpoint?: Maybe<Scalars["String"]["output"]>;
   enabled: Scalars["Boolean"]["output"];
+  traceUrlTemplate?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type TracerSettingsInput = {
@@ -4539,6 +4609,7 @@ export type TracerSettingsInput = {
   collectorEndpoint?: InputMaybe<Scalars["String"]["input"]>;
   collectorInternalEndpoint?: InputMaybe<Scalars["String"]["input"]>;
   enabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  traceUrlTemplate?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type TriggerAlias = {
@@ -4677,12 +4748,14 @@ export type User = {
   betaFeatures?: Maybe<BetaFeatures>;
   displayName?: Maybe<Scalars["String"]["output"]>;
   emailAddress?: Maybe<Scalars["String"]["output"]>;
+  hasTokenExchangePending: Scalars["Boolean"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   parsleySettings?: Maybe<ParsleySettings>;
   patches?: Maybe<Patches>;
   permissions?: Maybe<Permissions>;
   settings?: Maybe<UserSettings>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
+  tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
   userId: Scalars["String"]["output"];
 };
 
@@ -4710,10 +4783,19 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
+/** UserLite replaces User by sidestepping the APIUser field. It does not contain all fields at this time. */
+export type UserLite = {
+  __typename?: "UserLite";
+  displayName?: Maybe<Scalars["String"]["output"]>;
+  emailAddress?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["String"]["output"];
+};
+
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
   debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /**
@@ -4767,7 +4849,6 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
@@ -4782,6 +4863,7 @@ export type Version = {
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -4832,6 +4914,32 @@ export type VersionTaskStatusStatsArgs = {
 /** Version models a commit within a project. */
 export type VersionTasksArgs = {
   options: TaskFilterOptions;
+};
+
+/** VersionLite replaces Version by sidestepping the APIVersion layer. It does not contain all Version fields at this time. */
+export type VersionLite = {
+  __typename?: "VersionLite";
+  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  branch: Scalars["String"]["output"];
+  childVersions?: Maybe<Array<VersionLite>>;
+  cost?: Maybe<Cost>;
+  createTime: Scalars["Time"]["output"];
+  errors: Array<Scalars["String"]["output"]>;
+  finishTime?: Maybe<Scalars["Time"]["output"]>;
+  id: Scalars["String"]["output"];
+  ignored: Scalars["Boolean"]["output"];
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  message: Scalars["String"]["output"];
+  order: Scalars["Int"]["output"];
+  project?: Maybe<ProjectLite>;
+  repo: Scalars["String"]["output"];
+  requester: Scalars["String"]["output"];
+  revision: Scalars["String"]["output"];
+  startTime?: Maybe<Scalars["Time"]["output"]>;
+  status: Scalars["String"]["output"];
+  taskStatusStats?: Maybe<TaskStats>;
+  user: UserLite;
+  warnings: Array<Scalars["String"]["output"]>;
 };
 
 export type VersionTasks = {
@@ -4997,28 +5105,6 @@ export type WorkstationSetupCommand = {
 export type WorkstationSetupCommandInput = {
   command: Scalars["String"]["input"];
   directory?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type NonDisplayTaskReviewedFragment = {
-  __typename?: "Task";
-  id: string;
-  execution: number;
-  reviewed?: boolean | null;
-};
-
-export type ReviewedTaskFragment = {
-  __typename?: "Task";
-  id: string;
-  displayStatus: string;
-  execution: number;
-  reviewed?: boolean | null;
-  executionTasksFull?: Array<{
-    __typename?: "Task";
-    id: string;
-    displayStatus: string;
-    execution: number;
-    reviewed?: boolean | null;
-  }> | null;
 };
 
 export type AnnotationFragment = {
@@ -5243,6 +5329,7 @@ export type PatchesPagePatchesFragment = {
     createTime?: Date | null;
     description: string;
     hidden: boolean;
+    invalidatedByUpstream: boolean;
     projectIdentifier: string;
     status: string;
     projectMetadata?: {
@@ -5297,48 +5384,6 @@ export type AliasFragment = {
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
 };
 
-export type ProjectAppSettingsFragment = {
-  __typename?: "ProjectSettings";
-  githubAppAuth?: {
-    __typename?: "GithubAppAuth";
-    appId?: number | null;
-    privateKey?: string | null;
-  } | null;
-  projectRef?: {
-    __typename?: "Project";
-    id: string;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
-  } | null;
-};
-
-export type ProjectEventAppSettingsFragment = {
-  __typename?: "ProjectEventSettings";
-  githubAppAuth?: {
-    __typename?: "GithubAppAuth";
-    appId?: number | null;
-    privateKey?: string | null;
-  } | null;
-  projectRef?: {
-    __typename?: "Project";
-    id: string;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
-  } | null;
-};
-
-export type RepoAppSettingsFragment = {
-  __typename?: "RepoSettings";
-  githubAppAuth?: {
-    __typename?: "GithubAppAuth";
-    appId?: number | null;
-    privateKey?: string | null;
-  } | null;
-  projectRef?: {
-    __typename?: "RepoRef";
-    id: string;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
-  } | null;
-};
-
 export type ProjectGeneralSettingsFragment = {
   __typename?: "Project";
   id: string;
@@ -5356,6 +5401,7 @@ export type ProjectGeneralSettingsFragment = {
   remotePath: string;
   repo: string;
   repotrackerDisabled?: boolean | null;
+  runEveryMainlineCommit?: boolean | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
@@ -5376,6 +5422,7 @@ export type RepoGeneralSettingsFragment = {
   remotePath: string;
   repo: string;
   repotrackerDisabled: boolean;
+  runEveryMainlineCommit: boolean;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
@@ -5387,6 +5434,7 @@ export type ProjectGithubSettingsFragment = {
   id: string;
   githubChecksEnabled?: boolean | null;
   githubMQTriggerAliases?: Array<string> | null;
+  githubPermissionGroupByRequester?: { [key: string]: any } | null;
   githubPRTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
@@ -5394,8 +5442,12 @@ export type ProjectGithubSettingsFragment = {
   manualPrTestingEnabled?: boolean | null;
   oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
-  runEveryMainlineCommit?: boolean | null;
   commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
+  githubDynamicTokenPermissionGroups: Array<{
+    __typename?: "GitHubDynamicTokenPermissionGroup";
+    name: string;
+    permissions: { [key: string]: any };
+  }>;
 };
 
 export type RepoGithubSettingsFragment = {
@@ -5403,6 +5455,7 @@ export type RepoGithubSettingsFragment = {
   id: string;
   githubChecksEnabled: boolean;
   githubMQTriggerAliases?: Array<string> | null;
+  githubPermissionGroupByRequester?: { [key: string]: any } | null;
   githubPRTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
@@ -5410,18 +5463,28 @@ export type RepoGithubSettingsFragment = {
   manualPrTestingEnabled: boolean;
   oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
-  runEveryMainlineCommit: boolean;
   commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
+  githubDynamicTokenPermissionGroups: Array<{
+    __typename?: "GitHubDynamicTokenPermissionGroup";
+    name: string;
+    permissions: { [key: string]: any };
+  }>;
 };
 
-export type ProjectGithubCommitQueueFragment = {
+export type ProjectGithubSectionsFragment = {
   __typename?: "ProjectSettings";
   githubWebhooksEnabled: boolean;
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
+  } | null;
   projectRef?: {
     __typename?: "Project";
     id: string;
     githubChecksEnabled?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
@@ -5429,16 +5492,26 @@ export type ProjectGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
   } | null;
 };
 
-export type RepoGithubCommitQueueFragment = {
+export type RepoGithubSectionsFragment = {
   __typename?: "RepoSettings";
   githubWebhooksEnabled: boolean;
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
+  } | null;
   projectRef?: {
     __typename?: "RepoRef";
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     id: string;
     githubChecksEnabled: boolean;
     githubMQTriggerAliases?: Array<string> | null;
@@ -5449,19 +5522,29 @@ export type RepoGithubCommitQueueFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
-    runEveryMainlineCommit: boolean;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
     commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
   } | null;
 };
 
-export type ProjectEventGithubCommitQueueFragment = {
+export type ProjectEventGithubSectionsFragment = {
   __typename?: "ProjectEventSettings";
   githubWebhooksEnabled: boolean;
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
+  } | null;
   projectRef?: {
     __typename?: "Project";
     id: string;
     githubChecksEnabled?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
@@ -5469,8 +5552,12 @@ export type ProjectEventGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
   } | null;
 };
 
@@ -5495,7 +5582,6 @@ export type ProjectSettingsFieldsFragment = {
     id: string;
     identifier: string;
     repoRefId: string;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     admins?: Array<string> | null;
     restricted?: boolean | null;
     batchTime: number;
@@ -5512,6 +5598,7 @@ export type ProjectSettingsFieldsFragment = {
     remotePath: string;
     repo: string;
     repotrackerDisabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -5521,18 +5608,13 @@ export type ProjectSettingsFieldsFragment = {
     githubPRTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
     githubChecksEnabled?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    runEveryMainlineCommit?: boolean | null;
-    githubDynamicTokenPermissionGroups: Array<{
-      __typename?: "GitHubDynamicTokenPermissionGroup";
-      name: string;
-      permissions: { [key: string]: any };
-    }>;
     banner?: {
       __typename?: "ProjectBanner";
       text: string;
@@ -5616,6 +5698,11 @@ export type ProjectSettingsFieldsFragment = {
       }> | null;
     };
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
   } | null;
   subscriptions?: Array<{
     __typename?: "GeneralSubscription";
@@ -5677,6 +5764,7 @@ export type ProjectSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -5718,6 +5806,7 @@ export type RepoSettingsFieldsFragment = {
     remotePath: string;
     repo: string;
     repotrackerDisabled: boolean;
+    runEveryMainlineCommit: boolean;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
@@ -5733,7 +5822,6 @@ export type RepoSettingsFieldsFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
-    runEveryMainlineCommit: boolean;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -5878,6 +5966,7 @@ export type RepoSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6031,60 +6120,6 @@ export type RepoPeriodicBuildsSettingsFragment = {
   }> | null;
 };
 
-export type ProjectPermissionGroupSettingsFragment = {
-  __typename?: "ProjectSettings";
-  githubAppAuth?: {
-    __typename?: "GithubAppAuth";
-    appId?: number | null;
-  } | null;
-  projectRef?: {
-    __typename?: "Project";
-    id: string;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
-    githubDynamicTokenPermissionGroups: Array<{
-      __typename?: "GitHubDynamicTokenPermissionGroup";
-      name: string;
-      permissions: { [key: string]: any };
-    }>;
-  } | null;
-};
-
-export type ProjectEventPermissionGroupSettingsFragment = {
-  __typename?: "ProjectEventSettings";
-  githubAppAuth?: {
-    __typename?: "GithubAppAuth";
-    appId?: number | null;
-  } | null;
-  projectRef?: {
-    __typename?: "Project";
-    id: string;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
-    githubDynamicTokenPermissionGroups: Array<{
-      __typename?: "GitHubDynamicTokenPermissionGroup";
-      name: string;
-      permissions: { [key: string]: any };
-    }>;
-  } | null;
-};
-
-export type RepoPermissionGroupSettingsFragment = {
-  __typename?: "RepoSettings";
-  githubAppAuth?: {
-    __typename?: "GithubAppAuth";
-    appId?: number | null;
-  } | null;
-  projectRef?: {
-    __typename?: "RepoRef";
-    id: string;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
-    githubDynamicTokenPermissionGroups: Array<{
-      __typename?: "GitHubDynamicTokenPermissionGroup";
-      name: string;
-      permissions: { [key: string]: any };
-    }>;
-  } | null;
-};
-
 export type ProjectPluginsSettingsFragment = {
   __typename?: "Project";
   id: string;
@@ -6161,7 +6196,6 @@ export type ProjectEventSettingsFragment = {
     tracksPushEvents?: boolean | null;
     versionControlEnabled?: boolean | null;
     id: string;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     admins?: Array<string> | null;
     restricted?: boolean | null;
     batchTime: number;
@@ -6177,6 +6211,7 @@ export type ProjectEventSettingsFragment = {
     remotePath: string;
     repo: string;
     repotrackerDisabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -6185,18 +6220,13 @@ export type ProjectEventSettingsFragment = {
     githubPRTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
     githubChecksEnabled?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    runEveryMainlineCommit?: boolean | null;
-    githubDynamicTokenPermissionGroups: Array<{
-      __typename?: "GitHubDynamicTokenPermissionGroup";
-      name: string;
-      permissions: { [key: string]: any };
-    }>;
     banner?: {
       __typename?: "ProjectBanner";
       text: string;
@@ -6280,6 +6310,11 @@ export type ProjectEventSettingsFragment = {
       }> | null;
     };
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
   } | null;
   subscriptions?: Array<{
     __typename?: "GeneralSubscription";
@@ -6341,6 +6376,7 @@ export type ProjectEventSettingsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6408,6 +6444,7 @@ export type VariablesFragment = {
   adminOnlyVars: Array<string>;
   privateVars: Array<string>;
   vars?: { [key: string]: any } | null;
+  varsDescriptions?: { [key: string]: any } | null;
 };
 
 export type ProjectViewsAndFiltersSettingsFragment = {
@@ -6460,6 +6497,21 @@ export type RepoVirtualWorkstationSettingsFragment = {
       directory: string;
     }> | null;
   };
+};
+
+export type ReviewedTaskFragment = {
+  __typename?: "Task";
+  id: string;
+  displayStatus: string;
+  execution: number;
+  reviewed?: boolean | null;
+  executionTasksFull?: Array<{
+    __typename?: "Task";
+    id: string;
+    displayStatus: string;
+    execution: number;
+    reviewed?: boolean | null;
+  }> | null;
 };
 
 export type UpstreamProjectFragment = {
@@ -6655,18 +6707,6 @@ export type DeleteDistroMutationVariables = Exact<{
 export type DeleteDistroMutation = {
   __typename?: "Mutation";
   deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
-};
-
-export type DeleteGithubAppCredentialsMutationVariables = Exact<{
-  projectId: Scalars["String"]["input"];
-}>;
-
-export type DeleteGithubAppCredentialsMutation = {
-  __typename?: "Mutation";
-  deleteGithubAppCredentials?: {
-    __typename?: "DeleteGithubAppCredentialsPayload";
-    oldAppId: number;
-  } | null;
 };
 
 export type DeleteProjectMutationVariables = Exact<{
@@ -7035,6 +7075,10 @@ export type SaveAdminSettingsMutation = {
         __typename?: "S3CostConfig";
         storage?: {
           __typename?: "S3StorageCostConfig";
+          archiveStorageCostDiscount?: number | null;
+          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
+          defaultMaxArtifactExpirationDays?: number | null;
+          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -7043,6 +7087,11 @@ export type SaveAdminSettingsMutation = {
           uploadCostDiscount?: number | null;
         } | null;
       } | null;
+    } | null;
+    diagnostics?: {
+      __typename?: "DiagnosticsConfig";
+      s3BucketName?: string | null;
+      s3Prefix?: string | null;
     } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
@@ -7646,6 +7695,10 @@ export type AdminSettingsQuery = {
         __typename?: "S3CostConfig";
         storage?: {
           __typename?: "S3StorageCostConfig";
+          archiveStorageCostDiscount?: number | null;
+          artifactAwsAccountsWithoutLifecycleRules?: Array<string> | null;
+          defaultMaxArtifactExpirationDays?: number | null;
+          devprodOwnedAwsAccountIds?: Array<string> | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -7658,6 +7711,11 @@ export type AdminSettingsQuery = {
     debugSpawnHosts?: {
       __typename?: "DebugSpawnHostsConfig";
       setupScript?: string | null;
+    } | null;
+    diagnostics?: {
+      __typename?: "DiagnosticsConfig";
+      s3BucketName?: string | null;
+      s3Prefix?: string | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
@@ -7722,8 +7780,11 @@ export type AdminSettingsQuery = {
     } | null;
     oktaServiceConfig?: {
       __typename?: "OktaServiceConfig";
+      audience?: string | null;
       clientId?: string | null;
       clientSecret?: string | null;
+      issuer?: string | null;
+      scopes?: Array<string> | null;
     } | null;
     parameterStore?: {
       __typename?: "ParameterStoreConfig";
@@ -7900,6 +7961,7 @@ export type AdminSettingsQuery = {
       collectorEndpoint?: string | null;
       collectorInternalEndpoint?: string | null;
       enabled: boolean;
+      traceUrlTemplate?: string | null;
     } | null;
     triggers?: {
       __typename?: "TriggerConfig";
@@ -8850,53 +8912,6 @@ export type SuspectedIssuesQuery = {
   } | null;
 };
 
-export type LastMainlineCommitQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
-  skipOrderNumber: Scalars["Int"]["input"];
-  buildVariantOptions: BuildVariantOptions;
-}>;
-
-export type LastMainlineCommitQuery = {
-  __typename?: "Query";
-  mainlineCommits?: {
-    __typename?: "MainlineCommits";
-    versions: Array<{
-      __typename?: "MainlineCommitVersion";
-      version?: {
-        __typename?: "Version";
-        id: string;
-        buildVariants?: Array<{
-          __typename?: "GroupedBuildVariant";
-          tasks?: Array<{
-            __typename?: "Task";
-            id: string;
-            displayStatus: string;
-            execution: number;
-            order: number;
-          }> | null;
-        }> | null;
-      } | null;
-    }>;
-  } | null;
-};
-
-export type LogkeeperBuildMetadataQueryVariables = Exact<{
-  buildId: Scalars["String"]["input"];
-}>;
-
-export type LogkeeperBuildMetadataQuery = {
-  __typename?: "Query";
-  logkeeperBuildMetadata: {
-    __typename?: "LogkeeperBuild";
-    id: string;
-    builder: string;
-    buildNum: number;
-    taskExecution: number;
-    taskId: string;
-    tests: Array<{ __typename?: "LogkeeperTest"; id: string; name: string }>;
-  };
-};
-
 export type MainlineCommitsForHistoryQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptions: BuildVariantOptions;
@@ -9233,7 +9248,6 @@ export type ProjectEventLogsQuery = {
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
           id: string;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -9249,6 +9263,7 @@ export type ProjectEventLogsQuery = {
           remotePath: string;
           repo: string;
           repotrackerDisabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9257,18 +9272,13 @@ export type ProjectEventLogsQuery = {
           githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
           gitTagVersionsEnabled?: boolean | null;
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
-          runEveryMainlineCommit?: boolean | null;
-          githubDynamicTokenPermissionGroups: Array<{
-            __typename?: "GitHubDynamicTokenPermissionGroup";
-            name: string;
-            permissions: { [key: string]: any };
-          }>;
           banner?: {
             __typename?: "ProjectBanner";
             text: string;
@@ -9355,6 +9365,11 @@ export type ProjectEventLogsQuery = {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
           };
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
         } | null;
         subscriptions?: Array<{
           __typename?: "GeneralSubscription";
@@ -9420,6 +9435,7 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -9455,7 +9471,6 @@ export type ProjectEventLogsQuery = {
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
           id: string;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -9471,6 +9486,7 @@ export type ProjectEventLogsQuery = {
           remotePath: string;
           repo: string;
           repotrackerDisabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9479,18 +9495,13 @@ export type ProjectEventLogsQuery = {
           githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
           gitTagVersionsEnabled?: boolean | null;
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
-          runEveryMainlineCommit?: boolean | null;
-          githubDynamicTokenPermissionGroups: Array<{
-            __typename?: "GitHubDynamicTokenPermissionGroup";
-            name: string;
-            permissions: { [key: string]: any };
-          }>;
           banner?: {
             __typename?: "ProjectBanner";
             text: string;
@@ -9577,6 +9588,11 @@ export type ProjectEventLogsQuery = {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
           };
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
         } | null;
         subscriptions?: Array<{
           __typename?: "GeneralSubscription";
@@ -9642,6 +9658,7 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -9675,6 +9692,7 @@ export type ProjectPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
+        invalidatedByUpstream: boolean;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
@@ -9738,7 +9756,6 @@ export type ProjectSettingsQuery = {
       id: string;
       identifier: string;
       repoRefId: string;
-      githubPermissionGroupByRequester?: { [key: string]: any } | null;
       admins?: Array<string> | null;
       restricted?: boolean | null;
       batchTime: number;
@@ -9755,6 +9772,7 @@ export type ProjectSettingsQuery = {
       remotePath: string;
       repo: string;
       repotrackerDisabled?: boolean | null;
+      runEveryMainlineCommit?: boolean | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
@@ -9764,18 +9782,13 @@ export type ProjectSettingsQuery = {
       githubPRTriggerAliases?: Array<string> | null;
       perfEnabled?: boolean | null;
       githubChecksEnabled?: boolean | null;
+      githubPermissionGroupByRequester?: { [key: string]: any } | null;
       gitTagAuthorizedTeams?: Array<string> | null;
       gitTagAuthorizedUsers?: Array<string> | null;
       gitTagVersionsEnabled?: boolean | null;
       manualPrTestingEnabled?: boolean | null;
       oldestAllowedMergeBase: string;
       prTestingEnabled?: boolean | null;
-      runEveryMainlineCommit?: boolean | null;
-      githubDynamicTokenPermissionGroups: Array<{
-        __typename?: "GitHubDynamicTokenPermissionGroup";
-        name: string;
-        permissions: { [key: string]: any };
-      }>;
       banner?: {
         __typename?: "ProjectBanner";
         text: string;
@@ -9862,6 +9875,11 @@ export type ProjectSettingsQuery = {
         __typename?: "CommitQueueParams";
         enabled?: boolean | null;
       };
+      githubDynamicTokenPermissionGroups: Array<{
+        __typename?: "GitHubDynamicTokenPermissionGroup";
+        name: string;
+        permissions: { [key: string]: any };
+      }>;
     } | null;
     subscriptions?: Array<{
       __typename?: "GeneralSubscription";
@@ -9923,6 +9941,7 @@ export type ProjectSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+      varsDescriptions?: { [key: string]: any } | null;
     } | null;
     githubAppAuth?: {
       __typename?: "GithubAppAuth";
@@ -10010,7 +10029,6 @@ export type RepoEventLogsQuery = {
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
           id: string;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -10026,6 +10044,7 @@ export type RepoEventLogsQuery = {
           remotePath: string;
           repo: string;
           repotrackerDisabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10034,18 +10053,13 @@ export type RepoEventLogsQuery = {
           githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
           gitTagVersionsEnabled?: boolean | null;
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
-          runEveryMainlineCommit?: boolean | null;
-          githubDynamicTokenPermissionGroups: Array<{
-            __typename?: "GitHubDynamicTokenPermissionGroup";
-            name: string;
-            permissions: { [key: string]: any };
-          }>;
           banner?: {
             __typename?: "ProjectBanner";
             text: string;
@@ -10132,6 +10146,11 @@ export type RepoEventLogsQuery = {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
           };
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
         } | null;
         subscriptions?: Array<{
           __typename?: "GeneralSubscription";
@@ -10197,6 +10216,7 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10232,7 +10252,6 @@ export type RepoEventLogsQuery = {
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
           id: string;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -10248,6 +10267,7 @@ export type RepoEventLogsQuery = {
           remotePath: string;
           repo: string;
           repotrackerDisabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10256,18 +10276,13 @@ export type RepoEventLogsQuery = {
           githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
           gitTagVersionsEnabled?: boolean | null;
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
-          runEveryMainlineCommit?: boolean | null;
-          githubDynamicTokenPermissionGroups: Array<{
-            __typename?: "GitHubDynamicTokenPermissionGroup";
-            name: string;
-            permissions: { [key: string]: any };
-          }>;
           banner?: {
             __typename?: "ProjectBanner";
             text: string;
@@ -10354,6 +10369,11 @@ export type RepoEventLogsQuery = {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
           };
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
         } | null;
         subscriptions?: Array<{
           __typename?: "GeneralSubscription";
@@ -10419,6 +10439,7 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10473,6 +10494,7 @@ export type RepoSettingsQuery = {
       remotePath: string;
       repo: string;
       repotrackerDisabled: boolean;
+      runEveryMainlineCommit: boolean;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
@@ -10488,7 +10510,6 @@ export type RepoSettingsQuery = {
       manualPrTestingEnabled: boolean;
       oldestAllowedMergeBase: string;
       prTestingEnabled: boolean;
-      runEveryMainlineCommit: boolean;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;
@@ -10633,6 +10654,7 @@ export type RepoSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+      varsDescriptions?: { [key: string]: any } | null;
     } | null;
     githubAppAuth?: {
       __typename?: "GithubAppAuth";
@@ -10717,6 +10739,19 @@ export type SpawnTaskQuery = {
     displayStatus: string;
     execution: number;
     revision?: string | null;
+    details?: {
+      __typename?: "TaskEndDetail";
+      description?: string | null;
+    } | null;
+    executionSteps?: Array<{
+      __typename?: "TaskExecutionStep";
+      blockType: string;
+      commandName: string;
+      displayName: string;
+      functionName: string;
+      isFunction: boolean;
+      stepNumber: string;
+    }> | null;
     project?: {
       __typename?: "Project";
       id: string;
@@ -10769,6 +10804,49 @@ export type SpruceConfigQuery = {
       unexpirableVolumesPerUser?: number | null;
     };
     ui: { __typename?: "UIConfig"; defaultProject: string };
+  } | null;
+};
+
+export type StepbackTasksQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+  isPassing: Scalars["Boolean"]["input"];
+}>;
+
+export type StepbackTasksQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    prevTask?: {
+      __typename?: "Task";
+      id: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+    } | null;
+    prevTaskCompleted?: {
+      __typename?: "Task";
+      id: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+    } | null;
+    prevTaskPassing?: {
+      __typename?: "Task";
+      id: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+      nextTaskFailing?: {
+        __typename?: "Task";
+        id: string;
+        displayStatus: string;
+        execution: number;
+        revision?: string | null;
+      } | null;
+    } | null;
   } | null;
 };
 
@@ -10878,6 +10956,11 @@ export type TaskFilesQuery = {
           link: string;
           name: string;
           urlParsley?: string | null;
+          associatedLinks: Array<{
+            __typename?: "AssociatedLink";
+            link: string;
+            name: string;
+          }>;
         }> | null;
       }>;
     };
@@ -10908,9 +10991,9 @@ export type TaskHistoryQuery = {
       displayStatus: string;
       execution: number;
       ingestTime?: Date | null;
-      latestExecution: number;
       order: number;
       priority?: number | null;
+      requester: string;
       revision?: string | null;
       generator?: {
         __typename?: "Task";
@@ -10928,14 +11011,14 @@ export type TaskHistoryQuery = {
           logs: { __typename?: "TestLog"; urlParsley?: string | null };
         }>;
       };
-      versionMetadata: {
-        __typename?: "Version";
+      version: {
+        __typename?: "VersionLite";
         id: string;
         message: string;
         user: {
-          __typename?: "User";
+          __typename?: "UserLite";
+          id: string;
           displayName?: string | null;
-          userId: string;
         };
       };
     }>;
@@ -10994,6 +11077,7 @@ export type TaskOverviewPopupQuery = {
     execution: number;
     finishTime?: Date | null;
     priority?: number | null;
+    status: string;
     timeTaken?: number | null;
     annotation?: {
       __typename?: "Annotation";
@@ -11089,8 +11173,12 @@ export type TaskStatusesQuery = {
   version: {
     __typename?: "Version";
     id: string;
-    baseTaskStatuses: Array<string>;
     taskStatuses: Array<string>;
+    baseVersion?: {
+      __typename?: "Version";
+      id: string;
+      taskStatuses: Array<string>;
+    } | null;
   };
 };
 
@@ -11230,6 +11318,7 @@ export type TaskQuery = {
     hostId?: string | null;
     imageId: string;
     ingestTime?: Date | null;
+    invalidatedByUpstream?: boolean | null;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
@@ -11318,7 +11407,10 @@ export type TaskQuery = {
     baseTask?: {
       __typename?: "Task";
       id: string;
+      displayStatus: string;
       execution: number;
+      revision?: string | null;
+      status: string;
       timeTaken?: number | null;
       versionMetadata: { __typename?: "Version"; id: string; revision: string };
     } | null;
@@ -11397,6 +11489,17 @@ export type TaskQuery = {
       lastPassingStepbackTaskId?: string | null;
       nextStepbackTaskId?: string | null;
       previousStepbackTaskId?: string | null;
+    } | null;
+    taskCost?: {
+      __typename?: "Cost";
+      adjustedEBSStorageCost?: number | null;
+      adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
+      adjustedS3ArtifactPutCost?: number | null;
+      adjustedS3ArtifactStorageCost?: number | null;
+      adjustedS3LogPutCost?: number | null;
+      adjustedS3LogStorageCost?: number | null;
+      total?: number | null;
     } | null;
     versionMetadata: {
       __typename?: "Version";
@@ -11514,6 +11617,7 @@ export type UserDistroSettingsPermissionsQuery = {
         __typename?: "DistroPermissions";
         admin: boolean;
         edit: boolean;
+        id: string;
       };
     } | null;
   };
@@ -11541,6 +11645,7 @@ export type UserPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
+        invalidatedByUpstream: boolean;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
@@ -11585,7 +11690,11 @@ export type UserProjectSettingsPermissionsQuery = {
     permissions?: {
       __typename?: "Permissions";
       canCreateProject: boolean;
-      projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
+      projectPermissions: {
+        __typename?: "ProjectPermissions";
+        edit: boolean;
+        id: string;
+      };
     } | null;
   };
 };
@@ -11601,7 +11710,11 @@ export type UserRepoSettingsPermissionsQuery = {
     userId: string;
     permissions?: {
       __typename?: "Permissions";
-      repoPermissions: { __typename?: "RepoPermissions"; edit: boolean };
+      repoPermissions: {
+        __typename?: "RepoPermissions";
+        edit: boolean;
+        id: string;
+      };
     } | null;
   };
 };
@@ -11679,6 +11792,18 @@ export type UserSubscriptionsQuery = {
         };
       } | null;
     }> | null;
+  };
+};
+
+export type UserTokenExchangeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserTokenExchangeQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    hasTokenExchangePending: boolean;
+    tokenAccessTokenExpiresAt?: Date | null;
+    userId: string;
   };
 };
 
@@ -11844,6 +11969,7 @@ export type VersionQuery = {
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
+    cost?: { __typename?: "Cost"; total?: number | null } | null;
     externalLinksForMetadata: Array<{
       __typename?: "ExternalLinkForMetadata";
       displayName: string;
@@ -11888,6 +12014,7 @@ export type VersionQuery = {
           baseVersion?: { __typename?: "Version"; id: string } | null;
         } | null;
       }> | null;
+      cost?: { __typename?: "Cost"; total?: number | null } | null;
       githubPatchData?: {
         __typename?: "GithubPatch";
         headHash?: string | null;

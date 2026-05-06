@@ -14,7 +14,7 @@ import {
   TestSortCategory,
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
-import { CommitType } from "pages/task/ActionButtons/RelevantCommits/types";
+import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley";
@@ -76,6 +76,11 @@ type Action =
       name: "Clicked task file Parsley link";
       "file.name": string;
     }
+  | {
+      name: "Clicked task file associated link";
+      "file.name": string;
+      "link.name": string;
+    }
   | { name: "Clicked relevant commit"; type: CommitType }
   | { name: "Redirected to default tab"; tab: string }
   | {
@@ -87,7 +92,8 @@ type Action =
   | {
       name: "Clicked review task";
       reviewed: boolean;
-    };
+    }
+  | { name: "Clicked cost details button" };
 
 export const useTaskAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();

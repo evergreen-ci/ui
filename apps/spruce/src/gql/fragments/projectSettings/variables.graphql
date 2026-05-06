@@ -1,5 +1,0 @@
-fragment Variables on ProjectVars {
-  adminOnlyVars
-  privateVars
-  vars
-}

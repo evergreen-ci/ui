@@ -1,5 +1,5 @@
 import { cloneElement, useState } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { PlusButton, Size, Variant } from "components/Buttons";
 import {
@@ -41,10 +41,10 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
   const { data } = useQuery<
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
-  >(USER_PROJECT_SETTINGS_PERMISSIONS, {
-    variables: { projectIdentifier: identifier },
-    skip: !identifier,
-  });
+  >(
+    USER_PROJECT_SETTINGS_PERMISSIONS,
+    identifier ? { variables: { projectIdentifier: identifier } } : skipToken,
+  );
 
   const canCreateProject = data?.user?.permissions?.canCreateProject ?? false;
   const projectPermissions = data?.user?.permissions?.projectPermissions ?? {

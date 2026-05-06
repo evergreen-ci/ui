@@ -71,7 +71,7 @@ const generateNewCommitData = (oldData: typeof mainlineCommitData) => {
       // version order number is a random number
       const dt = new Date(newVersion.version.createTime);
       dt.setDate(dt.getDate() - 1);
-      newVersion.version.createTime = dt.toISOString();
+      newVersion.version.createTime = dt;
       newVersion.version.order -= counter;
       counter += 1;
     } else {
@@ -80,7 +80,7 @@ const generateNewCommitData = (oldData: typeof mainlineCommitData) => {
           const newRolledUpVersion = { ...rolledUpVersion };
           const dt = new Date(newRolledUpVersion.createTime);
           dt.setDate(dt.getDate() - 1);
-          newRolledUpVersion.createTime = dt.toISOString();
+          newRolledUpVersion.createTime = dt;
           newRolledUpVersion.order -= counter;
           counter += 1;
           return newRolledUpVersion;

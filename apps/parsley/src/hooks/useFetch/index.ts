@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { leaveBreadcrumb, reportError } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
-import { isProduction } from "utils/environmentVariables";
+import { isProductionBuild } from "utils/environmentVariables";
 /**
  * `useFetch` is a custom hook that downloads json from a given URL.
  * @param url - the url to fetch
@@ -27,7 +27,10 @@ const useFetch = <T extends object>(
   useEffect(() => {
     leaveBreadcrumb("useFetch", { url }, SentryBreadcrumbTypes.HTTP);
     const req = new Request(url, { method: "GET" });
-    const abortController = new AbortController();
+    // Conditionally define AbortController because it throws error in development's strict mode
+    const abortController = isProductionBuild()
+      ? new AbortController()
+      : undefined;
 
     if (!skip) {
       const fetchData = async () => {
@@ -35,8 +38,7 @@ const useFetch = <T extends object>(
           setIsLoading(true);
           const response = await fetch(req, {
             credentials: "include",
-            // Conditionally define signal because AbortController throws error in development's strict mode
-            signal: isProduction() ? abortController.signal : undefined,
+            signal: abortController?.signal,
           });
 
           if (!response.ok) {
@@ -63,7 +65,7 @@ const useFetch = <T extends object>(
     }
     return () => {
       // Cancel the request if the component unmounts
-      abortController.abort();
+      abortController?.abort();
     };
   }, [url, skip]);
 

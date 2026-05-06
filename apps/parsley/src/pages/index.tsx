@@ -57,14 +57,6 @@ const Content: React.FC = () => {
           path={routes.testLogs}
         />
         <Route
-          element={<LogView logType={LogTypes.LOGKEEPER_LOGS} />}
-          path={routes.logkeeperLogs}
-        />
-        <Route
-          element={<LogView logType={LogTypes.LOGKEEPER_LOGS} />}
-          path={routes.logkeeperLogsAll}
-        />
-        <Route
           element={<LogView logType={LogTypes.EVERGREEN_COMPLETE_LOGS} />}
           path={routes.completeLogs}
         />

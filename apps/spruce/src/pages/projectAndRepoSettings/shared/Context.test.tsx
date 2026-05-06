@@ -25,6 +25,7 @@ describe("projectSettingsContext", () => {
         [ProjectSettingsTabRoutes.Variables]: {
           vars: [],
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as Record<WritableProjectSettingsType, any>);
     });
 
@@ -35,6 +36,7 @@ describe("projectSettingsContext", () => {
             {
               varName: "test_name",
               varValue: "test_value",
+              varDescription: "",
               isPrivate: false,
               isDisabled: false,
               isAdminOnly: false,
@@ -64,12 +66,14 @@ describe("projectSettingsContext", () => {
             {
               varName: "test_name",
               varValue: "test_value",
+              varDescription: "",
               isPrivate: false,
               isDisabled: false,
               isAdminOnly: false,
             },
           ],
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as Record<WritableProjectSettingsType, any>);
     });
 
@@ -80,6 +84,7 @@ describe("projectSettingsContext", () => {
             {
               varName: "test_name",
               varValue: "test_value",
+              varDescription: "",
               isPrivate: false,
               isDisabled: false,
               isAdminOnly: false,
@@ -105,6 +110,7 @@ describe("projectSettingsContext", () => {
         [ProjectSettingsTabRoutes.Variables]: {
           vars: [],
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as Record<WritableProjectSettingsType, any>);
     });
 

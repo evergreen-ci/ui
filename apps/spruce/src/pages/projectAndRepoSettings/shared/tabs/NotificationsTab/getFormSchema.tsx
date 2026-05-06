@@ -138,7 +138,7 @@ export const getFormSchema = (
       subscriptions: {
         "ui:placeholder": "No subscriptions are defined.",
         "ui:descriptionNode": <HelpText />,
-        "ui:addButtonText": "Add Subscription",
+        "ui:addButtonText": "Add subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
         items: {

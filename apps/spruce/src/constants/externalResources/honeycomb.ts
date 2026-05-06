@@ -69,6 +69,34 @@ interface TaskTimingParams {
   taskName: string;
 }
 
+/**
+ * Generates a URL for viewing the cost breakdown of a task in Honeycomb.
+ * @param taskId - The ID of the task.
+ * @returns The URL for viewing the task cost breakdown in Honeycomb.
+ */
+export const getHoneycombTaskCostUrl = (taskId: string): string => {
+  const query = {
+    calculations: [
+      { op: "MAX", column: "evergreen.task.adjusted_cost" },
+      { op: "MAX", column: "evergreen.task.cost.ebs.adjusted_throughput_cost" },
+      { op: "MAX", column: "evergreen.task.cost.ebs.adjusted_storage_cost" },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.adjusted_artifact_put_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.adjusted_artifact_storage_cost",
+      },
+      { op: "MAX", column: "evergreen.task.s3_cost.adjusted_log_put_cost" },
+      { op: "MAX", column: "evergreen.task.s3_cost.adjusted_log_storage_cost" },
+    ],
+    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
+  };
+
+  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
 export const getHoneycombTaskTimingURL = ({
   buildVariant,
   metric,
@@ -111,11 +139,6 @@ export const getHoneycombTaskTimingURL = ({
       { column: "evergreen.build.name", op: "=", value: buildVariant },
       { column: "evergreen.task.name", op: "=", value: taskName },
       ...configurableFilters,
-
-      // TODO DEVPROD-22967: This exists case can be deleted once we've been collecting activated_time metrics for 60 days.
-      ...(metric !== TaskTimingMetric.RunTime
-        ? [{ column: "evergreen.task.activated_time", op: "exists" }]
-        : []),
     ],
     filter_combination: "AND",
     limit: 1000,

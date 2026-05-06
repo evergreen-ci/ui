@@ -1,8 +1,0 @@
-query UserBetaFeatures {
-  user {
-    betaFeatures {
-      __typename
-    }
-    userId
-  }
-}

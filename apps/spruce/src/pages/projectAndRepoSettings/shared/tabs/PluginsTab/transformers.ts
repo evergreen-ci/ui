@@ -2,6 +2,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { JiraTicketType } from "types/jira";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { PluginsFormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Plugins;
 
@@ -74,16 +75,17 @@ export const formToGql = ((
 }) satisfies FormToGqlFunction<Tab>;
 
 // conditionally include the buildBaronSettings field based on the useBuildBaron boolean
-export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
+export const buildBaronIf = (
+  useBuildBaron: boolean,
+  buildBaronSettings: PluginsFormState["buildBaronSettings"],
+) =>
   useBuildBaron === true &&
   buildBaronSettings !== undefined && {
     buildBaronSettings: {
       ticketCreateProject:
         buildBaronSettings.ticketCreateProject?.createProject,
       ticketSearchProjects: buildBaronSettings.ticketSearchProjects
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         .map(({ searchProject }) => searchProject)
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         .filter((str) => !!str),
       ticketCreateIssueType:
         buildBaronSettings.ticketCreateIssueType?.issueType ||
@@ -94,7 +96,7 @@ export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
 // conditionally include the fileTicketWebhook field based on the useBuildBaron boolean
 export const fileTicketWebhookIf = (
   useBuildBaron: boolean,
-  fileTicketWebhook: any,
+  fileTicketWebhook: PluginsFormState["buildBaronSettings"]["fileTicketWebhook"],
 ) =>
   useBuildBaron !== true &&
   fileTicketWebhook !== undefined && {

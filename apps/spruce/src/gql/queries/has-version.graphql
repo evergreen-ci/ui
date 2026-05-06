@@ -1,3 +1,0 @@
-query HasVersion($id: String!) {
-  hasVersion(patchId: $id)
-}

@@ -8,7 +8,6 @@ import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import LoadingPage from ".";
 
-const TEST_BUILD_ID = "test-build-id";
 const TEST_EXECUTION = "0";
 const TEST_TASK_ID = "test-task-id";
 const TEST_TEST_ID = "test-test-id";
@@ -22,7 +21,6 @@ vi.mock("react-router-dom", async () => {
   return {
     ...actual,
     useParams: () => ({
-      [slugs.buildID]: TEST_BUILD_ID,
       [slugs.execution]: TEST_EXECUTION,
       [slugs.taskID]: TEST_TASK_ID,
       [slugs.testID]: TEST_TEST_ID,
@@ -38,17 +36,19 @@ vi.mock("context/LogContext", async () => {
   };
 });
 
-vi.mock("hooks/useFetch", () => ({
-  useFetch: () => ({ data: null, error: null, isLoading: false }),
-}));
-
 vi.mock("hooks", () => ({
-  useLogDownloader: () => ({
-    data: TEST_LOG_LINES,
-    error: "",
-    fileSize: 1024,
-    isLoading: false,
-  }),
+  useLogDownloader: ({
+    onComplete,
+  }: {
+    onComplete: (logs: string[]) => void;
+  }) => {
+    onComplete(TEST_LOG_LINES);
+    return {
+      error: "",
+      fileSize: 1024,
+      isLoading: false,
+    };
+  },
 }));
 
 vi.mock("./useResolveLogURLAndRenderingType", () => ({
@@ -77,6 +77,9 @@ describe("LoadingPage", () => {
       hasLogs: null,
       ingestLines: mockIngestLines,
       lineCount: 0,
+      preferences: {
+        excludeTimestamps: false,
+      },
       setLogMetadata: mockSetLogMetadata,
     } as unknown as ReturnType<typeof useLogContext>);
 
@@ -100,7 +103,6 @@ describe("LoadingPage", () => {
 
     await waitFor(() => {
       expect(mockSetLogMetadata).toHaveBeenCalledWith({
-        buildID: TEST_BUILD_ID,
         execution: TEST_EXECUTION,
         fileName: undefined,
         groupID: undefined,

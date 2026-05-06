@@ -3,7 +3,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { LogRenderingTypes, LogTypes } from "constants/enums";
+import { LogRenderingTypes } from "constants/enums";
 import { LAST_SELECTED_LOG_TYPE } from "constants/storageKeys";
 import ParseLogSelect from ".";
 
@@ -55,7 +55,7 @@ describe("parse log select", () => {
 
   it("clicking the 'Process Log' button calls the onParse function", async () => {
     const user = userEvent.setup();
-    localStorage.setItem(LAST_SELECTED_LOG_TYPE, LogTypes.LOGKEEPER_LOGS);
+    localStorage.setItem(LAST_SELECTED_LOG_TYPE, LogRenderingTypes.Resmoke);
     const onParse = vi.fn();
     render(
       <ParseLogSelect

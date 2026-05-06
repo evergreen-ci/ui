@@ -22,7 +22,9 @@ import { useTaskHistoryAnalytics } from "analytics";
 import SetPriority, { Align } from "components/SetPriority";
 import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
+import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { getGithubCommitUrl } from "constants/externalResources";
+import { Requester } from "constants/requesters";
 import { getTaskRoute } from "constants/routes";
 import {
   RestartTaskMutation,
@@ -75,16 +77,17 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       canSchedule,
       canSetPriority,
       displayStatus,
+      execution,
       generator,
       id: taskId,
-      latestExecution,
       order,
       priority,
+      requester,
       revision,
       tests,
-      versionMetadata,
+      version,
     } = task;
-    const { id: versionId, message, user } = versionMetadata;
+    const { id: versionId, message, user } = version;
     const author = user.displayName!;
 
     const owner = currentTask.project?.owner ?? "";
@@ -93,6 +96,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       ? taskId === baseTaskId
       : taskId === currentTask.id;
     const isSelectedTask = taskId === selectedTask;
+    const isTrigger = requester === Requester.Trigger;
 
     const ingestTime = getTaskIngestTime(task);
     const ingestDate = new Date(ingestTime ?? "");
@@ -155,7 +159,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               canSetPriority: () => true,
               displayStatus: () => TaskStatus.WillRun,
               execution: (cachedExecution: number) => cachedExecution + 1,
-              latestExecution: (cachedExecution: number) => cachedExecution + 1,
             },
             broadcast: false,
           });
@@ -246,12 +249,21 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               </InfoSprinkle>
             )}
           </DateContainer>
-          {latestExecution > 0 ? (
+          {execution > 0 ? (
             <Chip
               data-cy="execution-chip"
-              label={`Executions: ${latestExecution + 1}`}
+              label={`Executions: ${execution + 1}`}
               variant={ChipVariant.Gray}
             />
+          ) : null}
+          {isTrigger ? (
+            <>
+              •{" "}
+              <UpstreamProjectLink
+                isTrigger={isTrigger}
+                versionId={versionId}
+              />
+            </>
           ) : null}
           <PriorityContainer>
             <SetPriority

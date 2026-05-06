@@ -17,7 +17,7 @@ interface SubHeaderProps {
 
 const SubHeader: React.FC<SubHeaderProps> = ({ setSidePanelCollapsed }) => {
   const { isUploadedLog, logMetadata } = useLogContext();
-  const { buildID, execution, fileName, groupID, logType, taskID, testID } =
+  const { execution, fileName, groupID, logType, taskID, testID } =
     logMetadata || {};
 
   return (
@@ -43,7 +43,6 @@ const SubHeader: React.FC<SubHeaderProps> = ({ setSidePanelCollapsed }) => {
           <Header>
             {taskID && (
               <EvergreenTaskSubHeader
-                buildID={buildID as string}
                 execution={Number(execution)}
                 fileName={fileName}
                 groupID={groupID}

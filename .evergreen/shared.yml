@@ -47,25 +47,11 @@ functions:
         SETTINGS_OVERRIDE: file
         GOROOT: ${goroot}
 
-  run-logkeeper:
-    command: shell.exec
-    params:
-      working_dir: ui/logkeeper
-      background: true
-      script: go run main/logkeeper.go --localPath ../evergreen/_bucketdata
-      shell: bash
-      env:
-        GOROOT: ${goroot}
-        PATH: ${goroot}/bin:$PATH
-        LK_CORS_ORIGINS: http:\/\/localhost:\d+
-
   seed-bucket-data:
     command: s3.get
     type: setup
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       extract_to: ui/evergreen
       remote_file: _bucketdata.tar.gz
       bucket: parsley-test
@@ -158,6 +144,7 @@ functions:
     type: setup
     params:
       exec_timeout_secs: 600
+      timeout_secs: 1800
       working_dir: ui/.evergreen
       script: ./scripts/wait-for-evergreen.sh
 
@@ -170,21 +157,26 @@ functions:
         ${PREPARE_SHELL}
         pnpm build:local
 
-  pnpm-cypress:
+  pnpm-playwright:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
       env:
+        # Installs browsers to node_modules.
+        PLAYWRIGHT_BROWSERS_PATH: "0"
         STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
-        STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
       script: |
         ${PREPARE_SHELL}
+
+        # Install Chromium browser to use with Playwright tests.
+        pnpm exec playwright install chromium
+
         # Allow spec filtering for an intentional patch.
-        if [[ "${cypress_spec}" != "" ]]; then
-          CYPRESS_CI=true pnpm cy:run --reporter junit --spec "${cypress_spec}"
+        if [[ "${playwright_spec}" != "" ]]; then
+          pnpm playwright:test ${playwright_spec}
         else
-          CYPRESS_CI=true pnpm cy:run --reporter junit
+          pnpm playwright:test
         fi
 
   pnpm-eslint:
@@ -266,7 +258,6 @@ tasks:
       - func: symlink
       - func: pnpm-build
 
-  # Updates to e2e should also be applied to e2e_parallel in `generate-parallel-e2e-tasks.js`.
   - name: e2e
     commands:
       - func: setup-mongodb
@@ -276,12 +267,11 @@ tasks:
           target: local-evergreen
       - func: symlink
       - func: seed-bucket-data
-      - func: run-logkeeper
       - func: pnpm-build
       - func: pnpm-preview
       - func: wait-for-evergreen
       - func: pnpm-verify-backend
-      - func: pnpm-cypress
+      - func: pnpm-playwright
 
   - name: lint
     commands:

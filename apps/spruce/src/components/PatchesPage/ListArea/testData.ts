@@ -17,6 +17,7 @@ const patchData = {
     repo: "ui",
   },
   status: "failed",
+  invalidatedByUpstream: false,
   versionFull: {
     id: "667b2f7f7a878200076f23d1",
     status: "failed",
