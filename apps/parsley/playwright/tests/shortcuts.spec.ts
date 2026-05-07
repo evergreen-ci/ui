@@ -3,6 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("Shortcuts", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
+    await expect(page.getByTestId("upload-zone")).toBeVisible();
   });
 
   test("should be able to open the modal using keyboard shortcut", async ({

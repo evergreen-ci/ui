@@ -7,13 +7,7 @@ test.describe("Basic resmoke log view", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
-  });
-
-  test("should render resmoke lines", async ({ page }) => {
-    const resmokeRows = page.getByTestId("resmoke-row");
-    await resmokeRows.first().waitFor();
-    expect(await resmokeRows.count()).toBeGreaterThan(0);
-    await expect(page.getByTestId("ansii-row")).toBeHidden();
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("the HTML log button is disabled", async ({ page }) => {

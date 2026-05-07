@@ -6,12 +6,10 @@ const logLink =
 test.describe("Parsley AI", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
   test("opens the AI drawer and logs in", async ({ page }) => {
-    await page.locator("[data-cy^='log-row-']").first().waitFor();
-    expect(await page.getByTestId("ansi-row").count()).toBeGreaterThan(0);
-
     const parsleyAIButton = page.getByRole("button", {
       name: "Parsley AI",
     });

@@ -7,6 +7,7 @@ const logLink =
 test.describe("Searching", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("searching for a term should highlight matching words", async ({
@@ -18,7 +19,7 @@ test.describe("Searching", () => {
 
     const highlights = page.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
-    await expect(highlights.first()).toContainText(
+    await expect(highlights).toContainText(
       "ShardedClusterFixture:job0:mongos0 ",
     );
   });
@@ -98,7 +99,6 @@ test.describe("Searching", () => {
 
   test("should be able to search on filtered content", async ({ page }) => {
     await helpers.addFilter(page, "conn49");
-    await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
 
     const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
     await expect(skippedLines).toHaveCount(7);
@@ -113,7 +113,9 @@ test.describe("Searching", () => {
   }) => {
     const filter = "nonexistent-term";
     await helpers.addFilter(page, filter);
-    await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
+
+    const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+    await expect(skippedLines).toHaveCount(1);
 
     await helpers.addSearch(page, "conn49");
     await expect(page.getByTestId("search-count")).toBeVisible();
@@ -125,9 +127,7 @@ test.describe("Searching", () => {
       .click();
 
     await expect(page).toHaveURL(/^(?!.*filters)/);
-    await expect(page.locator("[data-cy^='skipped-lines-row-']")).toHaveCount(
-      0,
-    );
+    await expect(skippedLines).toHaveCount(0);
 
     await expect(page.getByTestId("search-count")).toContainText("1/8");
     await expect(page.locator("[data-highlighted='true']")).toContainText(

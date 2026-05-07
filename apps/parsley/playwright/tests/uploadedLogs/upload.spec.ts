@@ -36,13 +36,12 @@ test.describe("Upload page", () => {
       await page.getByTestId("process-log-button").click();
 
       await expect(page.getByTestId("log-window")).toBeVisible();
-      expect(await page.getByTestId("resmoke-row").count()).toBeGreaterThan(0);
+      await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
     });
   });
 
   test.describe("uploading logs via clipboard", () => {
     test.beforeEach(async ({ page }) => {
-      // Set up clipboard mock before navigation.
       await page.goto("/upload");
     });
 
@@ -83,8 +82,8 @@ test.describe("Upload page", () => {
 
       await expect(page.getByTestId("log-window")).toBeVisible();
       const resmokeRows = page.getByTestId("resmoke-row");
-      expect(await resmokeRows.count()).toBeGreaterThan(0);
-      await expect(resmokeRows.first()).toContainText(
+      await expect(resmokeRows).not.toHaveCount(0);
+      await expect(resmokeRows.nth(0)).toContainText(
         "[js_test:group_pushdown] Fixture status:",
       );
     });
@@ -105,6 +104,7 @@ test.describe("Upload page", () => {
       await page.getByTestId("upload-link").click();
       await expect(page.getByTestId("confirmation-modal")).toBeVisible();
       await page.getByRole("button", { name: "Confirm" }).click();
+      await expect(page).toHaveURL("/upload");
       await expect(page.getByTestId("upload-zone")).toBeVisible();
     });
   });

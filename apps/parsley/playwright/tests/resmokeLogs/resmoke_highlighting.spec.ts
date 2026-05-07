@@ -7,6 +7,7 @@ const logLink =
 test.describe("Highlighting", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("applying a highlight should highlight matching words", async ({
@@ -15,7 +16,7 @@ test.describe("Highlighting", () => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
     const highlights = page.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
-    await expect(highlights.first()).toContainText(
+    await expect(highlights).toContainText(
       "ShardedClusterFixture:job0:mongos0 ",
     );
   });
@@ -27,7 +28,7 @@ test.describe("Highlighting", () => {
     await helpers.addSearch(page, "ShardedClusterFixture:job0:mongos0 ");
     const highlights = page.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
-    await expect(highlights.first()).toContainText(
+    await expect(highlights).toContainText(
       "ShardedClusterFixture:job0:mongos0 ",
     );
   });
@@ -37,13 +38,12 @@ test.describe("Highlighting", () => {
   }) => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
     await helpers.addSearch(page, "ShardedClusterFixture:job0:shard0:node1");
+
     const highlights = page.getByTestId("highlight");
     await expect(highlights).toHaveCount(2);
-
     const highlightElements = await highlights.all();
     for (const element of highlightElements) {
-      const text = await element.innerText();
-      expect(text).toMatch(
+      await expect(element).toContainText(
         /ShardedClusterFixture:job0:mongos0|ShardedClusterFixture:job0:shard0:node1/,
       );
     }
@@ -54,7 +54,7 @@ test.describe("Highlighting", () => {
   }) => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:shard0:node1");
     const highlights = page.getByTestId("highlight");
-    expect(await highlights.count()).toBeGreaterThan(0);
+    await expect(highlights).not.toHaveCount(0);
 
     await expect(page.getByTestId("delete-highlight-button")).toBeVisible();
     await page.getByTestId("delete-highlight-button").click();
@@ -66,13 +66,12 @@ test.describe("Highlighting", () => {
   }) => {
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
     await helpers.addHighlight(page, "ShardedClusterFixture:job0:shard0:node1");
+
     const highlights = page.getByTestId("highlight");
     await expect(highlights).toHaveCount(2);
-
     const highlightElements = await highlights.all();
     for (const element of highlightElements) {
-      const text = await element.innerText();
-      expect(text).toMatch(
+      await expect(element).toContainText(
         /ShardedClusterFixture:job0:mongos0|ShardedClusterFixture:job0:shard0:node1/,
       );
     }
@@ -98,11 +97,11 @@ test.describe("Highlighting", () => {
     );
     await helpers.addFilter(page, "job0");
     const highlights = page.getByTestId("highlight");
-    expect(await highlights.count()).toBeGreaterThan(0);
+    await expect(highlights).not.toHaveCount(0);
 
     const sideNavHighlights = page.getByTestId("side-nav-highlight");
     await expect(sideNavHighlights).toHaveCount(1);
-    await expect(sideNavHighlights.first()).toContainText("job0");
+    await expect(sideNavHighlights).toContainText("job0");
   });
 
   test("should not add a highlight when a filter term is added if `Apply Highlights to Filters` is disabled", async ({
