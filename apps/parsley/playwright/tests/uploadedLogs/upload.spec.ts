@@ -33,7 +33,7 @@ test.describe("Upload page", () => {
       await expect(page.getByTestId("parse-log-select")).toBeVisible();
       await page.getByTestId("parse-log-select").click();
       await page.getByRole("option", { name: "Resmoke" }).click();
-      await page.getByTestId("process-log-button").click();
+      await page.getByRole("button", { name: "Process log" }).click();
 
       await expect(page.getByTestId("log-window")).toBeVisible();
       await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
@@ -76,7 +76,7 @@ test.describe("Upload page", () => {
       await expect(resmokeOption).toBeVisible();
       await resmokeOption.click();
 
-      const processButton = page.getByTestId("process-log-button");
+      const processButton = page.getByRole("button", { name: "Process log" });
       await expect(processButton).toBeVisible();
       await processButton.click();
 

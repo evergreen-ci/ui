@@ -188,8 +188,8 @@ test.describe("Bookmarking and selecting lines", () => {
       "|ShardedClusterFixture:job0:mongos1        |j0:s1   |20010|73217|";
     const logLine1638 = `[ContinuousStepdown:job0] Pausing the stepdown thread.`;
 
-    await page.getByTestId("details-button").click();
-    await page.getByTestId("copy-text-button").click();
+    await page.getByRole("button", { name: "Details" }).click();
+    await page.getByRole("button", { name: "Copy Jira" }).click();
     await helpers.assertValueCopiedToClipboard(
       page,
       `{noformat}\n${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine1638}\n{noformat}`,
@@ -334,8 +334,11 @@ test.describe("Sharing lines", () => {
     page,
   }) => {
     await page.getByTestId("line-index-1").click();
-    await expect(page.getByTestId("sharing-menu-button")).toBeVisible();
-    await page.getByTestId("sharing-menu-button").click();
+    const sharingMenuButton = page.getByRole("button", {
+      name: "Expand share menu",
+    });
+    await expect(sharingMenuButton).toBeVisible();
+    await sharingMenuButton.click();
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
   });
 

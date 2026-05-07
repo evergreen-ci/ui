@@ -274,8 +274,11 @@ test.describe("Sharing lines", () => {
     page,
   }) => {
     await page.getByTestId("line-index-1").click();
-    await expect(page.getByTestId("sharing-menu-button")).toBeVisible();
-    await page.getByTestId("sharing-menu-button").click();
+    const sharingMenuButton = page.getByRole("button", {
+      name: "Expand share menu",
+    });
+    await expect(sharingMenuButton).toBeVisible();
+    await sharingMenuButton.click();
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
   });
 

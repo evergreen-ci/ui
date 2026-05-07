@@ -122,11 +122,13 @@ test.describe("Filtering", () => {
           await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter1}`)
-            .getByRole("button", { name: "Hide" })
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
             .click();
           await page
             .getByTestId(`filter-${filter2}`)
-            .getByRole("button", { name: "Hide" })
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
             .click();
           await expect(page).toHaveURL(
             new RegExp(`filters=010${filter1},001${filter2}`),
@@ -201,8 +203,8 @@ test.describe("Filtering", () => {
           await expect(filteredRows).not.toHaveCount(0);
           await expect(
             filteredRows
-              .filter({ hasText: /deleted/ })
-              .filter({ hasNotText: /session/i }),
+              .filter({ hasNotText: /deleted/ })
+              .filter({ hasText: /session/i }),
           ).toHaveCount(0);
         });
 
@@ -213,11 +215,13 @@ test.describe("Filtering", () => {
           await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter1}`)
-            .getByRole("button", { name: "Hide" })
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
             .click();
           await page
             .getByTestId(`filter-${filter2}`)
-            .getByRole("button", { name: "Hide" })
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
             .click();
           await expect(page).toHaveURL(
             new RegExp(`filters=010${filter1},001${filter2}`),
@@ -242,6 +246,7 @@ test.describe("Filtering", () => {
     test("should be able to edit a filter", async ({ page }) => {
       await page
         .getByTestId(`filter-${filter}`)
+        .getByTestId("accordion-toggle")
         .getByRole("button", { name: "Edit filter" })
         .click();
       await page.getByTestId("edit-filter-name").clear();
@@ -262,6 +267,7 @@ test.describe("Filtering", () => {
     test("should be able to delete a filter", async ({ page }) => {
       await page
         .getByTestId(`filter-${filter}`)
+        .getByTestId("accordion-toggle")
         .getByRole("button", { name: "Delete filter" })
         .click();
       await expect(page).toHaveURL(/^(?!.*filters)/);

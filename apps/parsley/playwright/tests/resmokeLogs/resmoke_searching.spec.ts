@@ -63,19 +63,22 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toBeVisible();
     await expect(page.getByTestId("search-count")).toContainText("1/8");
 
+    const nextButton = page.getByRole("button", { name: "Next" });
+    const previousButton = page.getByRole("button", { name: "Prev" });
+
     // Click the button 8 times
     for (let i = 1; i <= 7; i++) {
-      await page.getByTestId("next-button").click();
+      await nextButton.click();
       await expect(page.getByTestId("search-count")).toContainText(
         `${i + 1}/8`,
       );
     }
 
-    await page.getByTestId("next-button").click();
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("1/8");
 
     for (let i = 7; i >= 0; i--) {
-      await page.getByTestId("previous-button").click();
+      await previousButton.click();
       await expect(page.getByTestId("search-count")).toContainText(
         `${i + 1}/8`,
       );
@@ -89,7 +92,8 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toBeVisible();
     await expect(page.getByTestId("search-count")).toContainText("1/8");
 
-    await page.getByTestId("next-button").click();
+    const nextButton = page.getByRole("button", { name: "Next" });
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("2/8");
 
     await page.getByTestId("log-row-112").dblclick();
@@ -123,6 +127,7 @@ test.describe("Searching", () => {
 
     await page
       .getByTestId(`filter-${filter}`)
+      .getByTestId("accordion-toggle")
       .getByRole("button", { name: "Delete filter" })
       .click();
 

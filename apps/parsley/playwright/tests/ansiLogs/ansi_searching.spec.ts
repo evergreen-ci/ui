@@ -61,28 +61,31 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toBeVisible();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
 
-    await page.getByTestId("next-button").click();
+    const nextButton = page.getByRole("button", { name: "Next" });
+    const previousButton = page.getByRole("button", { name: "Prev" });
+
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("2/4");
 
-    await page.getByTestId("next-button").click();
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("3/4");
 
-    await page.getByTestId("next-button").click();
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("4/4");
 
-    await page.getByTestId("next-button").click();
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
 
-    await page.getByTestId("previous-button").click();
+    await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("4/4");
 
-    await page.getByTestId("previous-button").click();
+    await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("3/4");
 
-    await page.getByTestId("previous-button").click();
+    await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("2/4");
 
-    await page.getByTestId("previous-button").click();
+    await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
   });
 
@@ -93,7 +96,8 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toBeVisible();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
 
-    await page.getByTestId("next-button").click();
+    const nextButton = page.getByRole("button", { name: "Next" });
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("2/4");
 
     await page.getByTestId("log-row-27").dblclick();
@@ -127,6 +131,7 @@ test.describe("Searching", () => {
 
     await page
       .getByTestId(`filter-${filter}`)
+      .getByTestId("accordion-toggle")
       .getByRole("button", { name: "Delete filter" })
       .click();
 

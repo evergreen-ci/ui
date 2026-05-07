@@ -134,11 +134,7 @@ const SharingMenu: React.FC = () => {
       open={open}
       setOpen={setMenuOpen}
       trigger={
-        <MenuIcon
-          aria-label="Expand share menu"
-          data-cy="sharing-menu-button"
-          onClick={setMenuOpen}
-        >
+        <MenuIcon aria-label="Expand share menu" onClick={setMenuOpen}>
           <Icon glyph="Ellipsis" />
         </MenuIcon>
       }

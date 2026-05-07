@@ -29,18 +29,17 @@ test.describe("Sectioning", () => {
     await expect(page.getByTestId("section-header")).toHaveCount(0);
   });
 
-  test("Clicking 'Open all subsections' opens all subsections", async ({
-    page,
-  }) => {
-    await page.getByTestId("open-all-sections-btn").click();
+  test("Clicking 'Open all sections' opens all sections", async ({ page }) => {
+    const openAllSectionsButton = page.getByRole("button", {
+      name: "Open all sections",
+    });
+    await openAllSectionsButton.click();
 
     const carets = page.getByTestId("caret-toggle");
     await expect(carets).not.toHaveCount(0);
     const caretToggles = await carets.all();
     for (const toggle of caretToggles) {
-      await expect(
-        toggle.getByRole("button", { name: "Close section" }),
-      ).toBeVisible();
+      await expect(toggle).toHaveAttribute("aria-label", "Close section");
     }
 
     const headers = page.getByTestId("section-header");
@@ -51,22 +50,18 @@ test.describe("Sectioning", () => {
     }
   });
 
-  test("Clicking 'Close all subsections' opens all subsections", async ({
-    page,
-  }) => {
-    await page.getByTestId("close-all-sections-btn").click();
+  test("Clicking 'Close all sections' opens all sections", async ({ page }) => {
+    const closeAllSectionsButton = page.getByRole("button", {
+      name: "Close all sections",
+    });
+    await closeAllSectionsButton.click();
 
     // Wait for the first caret toggle to update before checking all of them.
     const carets = page.getByTestId("caret-toggle");
     await expect(carets).not.toHaveCount(0);
-    await expect(
-      carets.nth(0).getByRole("button", { name: "Open section" }),
-    ).toBeVisible();
     const caretToggles = await carets.all();
     for (const toggle of caretToggles) {
-      await expect(
-        toggle.getByRole("button", { name: "Open section" }),
-      ).toBeVisible();
+      await expect(toggle).toHaveAttribute("aria-label", "Open section");
     }
 
     const openLineNumbers = [0, 1, 2, 8, 9, 9616, 9617, 9618, 9619];
@@ -140,7 +135,10 @@ test.describe("Sectioning", () => {
       true,
       "log-viewing",
     );
-    await page.getByTestId("open-all-sections-btn").click();
+    const openAllSectionsButton = page.getByRole("button", {
+      name: "Open all sections",
+    });
+    await openAllSectionsButton.click();
     await page.getByTestId("bookmark-9614").click();
     await expect(page.locator("[data-cy='line-index-9614']")).toBeVisible();
     await expect(page.getByTestId("sticky-headers")).toBeVisible();

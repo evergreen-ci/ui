@@ -56,8 +56,11 @@ test.describe("Highlighting", () => {
     const highlights = page.getByTestId("highlight");
     await expect(highlights).not.toHaveCount(0);
 
-    await expect(page.getByTestId("delete-highlight-button")).toBeVisible();
-    await page.getByTestId("delete-highlight-button").click();
+    const deleteHighlightButton = page.getByRole("button", {
+      name: "Delete highlight",
+    });
+    await expect(deleteHighlightButton).toBeVisible();
+    await deleteHighlightButton.click();
     await expect(highlights).toHaveCount(0);
   });
 
