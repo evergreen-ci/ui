@@ -148,7 +148,9 @@ test.describe("Bookmarking and selecting lines", () => {
 
     await helpers.toggleDetailsPanel(page, true);
 
-    const moreOptionsButton = page.locator(`[aria-label='More options']`);
+    const moreOptionsButton = page.getByRole("button", {
+      name: "More options",
+    });
     await moreOptionsButton.click();
     await expect(page.getByText("Copy raw")).toBeVisible();
     await page.getByText("Copy raw").click();
@@ -255,7 +257,7 @@ test.describe("expanding collapsed rows", () => {
 
     await page
       .getByTestId("expanded-row-1-to-4")
-      .locator(`[aria-label="Delete range"]`)
+      .getByRole("button", { name: "Delete range" })
       .click();
     await expect(page.getByTestId("skipped-lines-row-1-4")).toBeVisible();
   });

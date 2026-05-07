@@ -38,7 +38,9 @@ test.describe("Sectioning", () => {
     await expect(carets).not.toHaveCount(0);
     const caretToggles = await carets.all();
     for (const toggle of caretToggles) {
-      await expect(toggle).toHaveAttribute("aria-label", "Close section");
+      await expect(
+        toggle.getByRole("button", { name: "Close section" }),
+      ).toBeVisible();
     }
 
     const headers = page.getByTestId("section-header");
@@ -55,16 +57,16 @@ test.describe("Sectioning", () => {
     await page.getByTestId("close-all-sections-btn").click();
 
     // Wait for the first caret toggle to update before checking all of them.
-    await expect(page.getByTestId("caret-toggle").nth(0)).toHaveAttribute(
-      "aria-label",
-      "Open section",
-    );
-
     const carets = page.getByTestId("caret-toggle");
     await expect(carets).not.toHaveCount(0);
+    await expect(
+      carets.nth(0).getByRole("button", { name: "Open section" }),
+    ).toBeVisible();
     const caretToggles = await carets.all();
     for (const toggle of caretToggles) {
-      await expect(toggle).toHaveAttribute("aria-label", "Open section");
+      await expect(
+        toggle.getByRole("button", { name: "Open section" }),
+      ).toBeVisible();
     }
 
     const openLineNumbers = [0, 1, 2, 8, 9, 9616, 9617, 9618, 9619];

@@ -123,7 +123,7 @@ test.describe("Searching", () => {
 
     await page
       .getByTestId(`filter-${filter}`)
-      .locator('[aria-label="Delete filter"]')
+      .getByRole("button", { name: "Delete filter" })
       .click();
 
     await expect(page).toHaveURL(/^(?!.*filters)/);

@@ -123,11 +123,11 @@ test.describe("Filtering", () => {
           await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter1}`)
-            .locator('[aria-label="Hide filter"]')
+            .getByRole("button", { name: "Hide filter" })
             .click();
           await page
             .getByTestId(`filter-${filter2}`)
-            .locator('[aria-label="Hide filter"]')
+            .getByRole("button", { name: "Hide filter" })
             .click();
           await expect(page).toHaveURL(
             new RegExp(`filters=010${filter1},001${filter2}`),
@@ -214,11 +214,11 @@ test.describe("Filtering", () => {
           await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter1}`)
-            .locator('[aria-label="Hide filter"]')
+            .getByRole("button", { name: "Hide filter" })
             .click();
           await page
             .getByTestId(`filter-${filter2}`)
-            .locator('[aria-label="Hide filter"]')
+            .getByRole("button", { name: "Hide filter" })
             .click();
           await expect(page).toHaveURL(
             new RegExp(`filters=010${filter1},001${filter2}`),
@@ -243,7 +243,7 @@ test.describe("Filtering", () => {
     test("should be able to edit a filter", async ({ page }) => {
       await page
         .getByTestId(`filter-${filter}`)
-        .locator('[aria-label="Edit filter"]')
+        .getByRole("button", { name: "Edit filter" })
         .click();
       await page.getByTestId("edit-filter-name").clear();
       await page.getByTestId("edit-filter-name").fill("running");
@@ -263,7 +263,7 @@ test.describe("Filtering", () => {
     test("should be able to delete a filter", async ({ page }) => {
       await page
         .getByTestId(`filter-${filter}`)
-        .locator('[aria-label="Delete filter"]')
+        .getByRole("button", { name: "Delete filter" })
         .click();
       await expect(page).toHaveURL(/^(?!.*filters)/);
       const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");

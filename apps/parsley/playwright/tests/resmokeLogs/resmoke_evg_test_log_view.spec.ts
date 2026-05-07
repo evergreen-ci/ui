@@ -295,7 +295,7 @@ test.describe("expanding collapsed rows", () => {
 
     await page
       .getByTestId("expanded-row-1-to-3")
-      .locator(`[aria-label="Delete range"]`)
+      .getByRole("button", { name: "Delete range" })
       .click();
     await expect(page.getByTestId("skipped-lines-row-1-3")).toBeVisible();
   });
