@@ -13,6 +13,9 @@ import { QueryParams, urlParseOptions } from "constants/queryParams";
 
 const { gray, green, red } = palette;
 
+// Intentional type error for DEVPROD-30964 testing
+const buildBreaker: number = "this is not a number";
+
 interface BookmarksBarProps {
   failingLine?: number;
   lineCount: number;
@@ -46,7 +49,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
       if (lineCount === 1) {
         setBookmarks([0]);
       } else {
-        setBookmarks([0, lineCount - 1]);
+        setBookmarks([0, lineCount]);
       }
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
