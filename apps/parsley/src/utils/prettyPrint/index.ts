@@ -45,7 +45,7 @@ export const findJsonObjects = (logLine: string) => {
 export const parseJson = (json: string) => {
   try {
     const parsedJSON = parse(json);
-    const stringifiedJSON = stringify(parsedJSON, undefined, 4) ?? "";
+    const stringifiedJSON = stringify(parsedJSON, undefined, 2) ?? "";
     return stringifiedJSON;
   } catch {
     return json;

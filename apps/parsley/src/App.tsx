@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { nonExistentModule } from "this-package-does-not-exist";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks";
 import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
