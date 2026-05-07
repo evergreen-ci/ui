@@ -24,6 +24,7 @@ import { stringifyFilters } from "utils/query-string";
 import { validateRegexp } from "utils/validators";
 
 const Search: React.FC = () => {
+  const breakBuild: number = "this is not a number";
   const { sendEvent } = useLogWindowAnalytics();
 
   const [filters, setFilters] = useFilterParam();

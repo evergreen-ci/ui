@@ -196,7 +196,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <StyledInput
           ref={inputRef}
           aria-labelledby="searchbar-input"
-          data-cy="searchbar-input"
+          data-cy="search-bar-input"
           disabled={disabled}
           errorMessage={validatorMessage}
           onChange={(e) => handleOnChange(e.target.value)}
