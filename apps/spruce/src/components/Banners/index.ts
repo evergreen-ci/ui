@@ -9,4 +9,4 @@ export { ProjectBanner } from "./ProjectBanner";
 export { RepotrackerBanner } from "./RepotrackerBanner";
 export { WarningBanner } from "./WarningBanner";
 export { ErrorBanner } from "./ErrorBanner";
-export { bannerThemeToLabelMap } from "./AnnouncementsBanner";
+export { bannerThemeToLabelMap } from "./AnnouncementsBannerThemes";
