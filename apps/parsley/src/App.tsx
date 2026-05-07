@@ -53,6 +53,9 @@ const router = createBrowserRouter([
   },
 ]);
 
+// DEVPROD-30962: Intentional type error for testing
+const buildBreaker: string = 123;
+
 const App = () => (
   <>
     <GlobalStyles />

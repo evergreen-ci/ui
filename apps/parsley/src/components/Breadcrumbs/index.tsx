@@ -52,7 +52,7 @@ const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
     text = "",
     to,
     tooltipText,
-    trimLength = 30,
+    trimLength = 20,
   } = breadcrumb;
   const shouldTrimMessage =
     typeof text === "string" ? text?.length > trimLength : false;
