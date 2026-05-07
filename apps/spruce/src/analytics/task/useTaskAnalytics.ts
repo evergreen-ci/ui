@@ -57,6 +57,10 @@ type Action =
       name: "Clicked quarantine test button";
       "test.name": string;
     }
+  | {
+      name: "Clicked unquarantine test button";
+      "test.name": string;
+    }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
   | { name: "Viewed notification modal" }
