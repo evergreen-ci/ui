@@ -19,6 +19,9 @@ import SharingMenu from "./SharingMenu";
 
 const { red, yellow } = palette;
 
+// DEVPROD-30962: Intentional type error to break build
+const buildBreaker: string = 12345;
+
 interface BaseRowProps extends Omit<LogLineRow, "getLine"> {
   children: string;
   "data-cy"?: string;
@@ -122,7 +125,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
       {...rest}
       bookmarked={bookmarked}
       data-bookmarked={bookmarked}
-      data-cy={`log-row-${lineNumber}`}
+      data-cy={`log-row-${lineNumber + 1}`}
       data-failed={failed}
       data-highlighted={highlighted}
       data-shared={shared}
