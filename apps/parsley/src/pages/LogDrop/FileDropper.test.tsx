@@ -235,7 +235,9 @@ describe("FileDropper", () => {
       defaultOption.click();
     });
 
-    const processLogButton = screen.getByText("Process Log");
+    const processLogButton = screen.getByRole("button", {
+      name: "Process log",
+    });
     expect(processLogButton).toBeInTheDocument();
 
     act(() => {
