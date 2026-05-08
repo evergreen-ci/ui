@@ -2,7 +2,6 @@ import { useEffect, useMemo } from "react";
 import { useQuery, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
-import { showNewProjectNavigation } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import {
   GithubProjectConflictsQuery,
@@ -22,7 +21,6 @@ import {
   CommitChecksTab,
   EventLogTab,
   GeneralTab,
-  GithubCommitQueueTab,
   GitTagsTab,
   NotificationsTab,
   PatchAliasesTab,
@@ -148,24 +146,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             />
           }
           path={ProjectSettingsTabRoutes.Variables}
-        />
-        <Route
-          element={
-            <GithubCommitQueueTab
-              githubWebhooksEnabled={githubWebhooksEnabled}
-              identifier={identifier || repoId}
-              projectData={
-                tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
-              }
-              projectId={projectId}
-              projectType={projectType}
-              repoData={
-                tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
-              }
-              versionControlEnabled={versionControlEnabled}
-            />
-          }
-          path={ProjectSettingsTabRoutes.GithubCommitQueue}
         />
         <Route
           element={
@@ -319,83 +299,74 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           }
           path={ProjectSettingsTabRoutes.GithubPermissionGroups}
         />
-        {showNewProjectNavigation && (
-          <Route
-            element={
-              <MergeQueueTab
-                githubProjectConflicts={githubProjectConflicts}
-                githubWebhooksEnabled={githubWebhooksEnabled}
-                identifier={identifier}
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.MergeQueue].projectData
-                }
-                projectId={projectId}
-                projectType={projectType}
-                repoData={tabData[ProjectSettingsTabRoutes.MergeQueue].repoData}
-                versionControlEnabled={versionControlEnabled}
-              />
-            }
-            path={ProjectSettingsTabRoutes.MergeQueue}
-          />
-        )}
-        {showNewProjectNavigation && (
-          <Route
-            element={
-              <PullRequestsTab
-                githubProjectConflicts={githubProjectConflicts}
-                githubWebhooksEnabled={githubWebhooksEnabled}
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.PullRequests].projectData
-                }
-                projectId={projectId}
-                projectType={projectType}
-                repoData={
-                  tabData[ProjectSettingsTabRoutes.PullRequests].repoData
-                }
-                versionControlEnabled={versionControlEnabled}
-              />
-            }
-            path={ProjectSettingsTabRoutes.PullRequests}
-          />
-        )}
-        {showNewProjectNavigation && (
-          <Route
-            element={
-              <CommitChecksTab
-                githubProjectConflicts={githubProjectConflicts}
-                githubWebhooksEnabled={githubWebhooksEnabled}
-                identifier={identifier || repoId}
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.CommitChecks].projectData
-                }
-                projectId={projectId}
-                projectType={projectType}
-                repoData={
-                  tabData[ProjectSettingsTabRoutes.CommitChecks].repoData
-                }
-                versionControlEnabled={versionControlEnabled}
-              />
-            }
-            path={ProjectSettingsTabRoutes.CommitChecks}
-          />
-        )}
-        {showNewProjectNavigation && (
-          <Route
-            element={
-              <GitTagsTab
-                githubProjectConflicts={githubProjectConflicts}
-                githubWebhooksEnabled={githubWebhooksEnabled}
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.GitTags].projectData
-                }
-                projectType={projectType}
-                repoData={tabData[ProjectSettingsTabRoutes.GitTags].repoData}
-                versionControlEnabled={versionControlEnabled}
-              />
-            }
-            path={ProjectSettingsTabRoutes.GitTags}
-          />
-        )}
+        <Route
+          element={
+            <MergeQueueTab
+              githubProjectConflicts={githubProjectConflicts}
+              githubWebhooksEnabled={githubWebhooksEnabled}
+              identifier={identifier}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.MergeQueue].projectData
+              }
+              projectId={projectId}
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.MergeQueue].repoData}
+              versionControlEnabled={versionControlEnabled}
+            />
+          }
+          path={ProjectSettingsTabRoutes.MergeQueue}
+        />
+        <Route
+          element={
+            <PullRequestsTab
+              githubProjectConflicts={githubProjectConflicts}
+              githubWebhooksEnabled={githubWebhooksEnabled}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.PullRequests].projectData
+              }
+              projectId={projectId}
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.PullRequests].repoData}
+              versionControlEnabled={versionControlEnabled}
+            />
+          }
+          path={ProjectSettingsTabRoutes.PullRequests}
+        />
+
+        <Route
+          element={
+            <CommitChecksTab
+              githubProjectConflicts={githubProjectConflicts}
+              githubWebhooksEnabled={githubWebhooksEnabled}
+              identifier={identifier || repoId}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.CommitChecks].projectData
+              }
+              projectId={projectId}
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.CommitChecks].repoData}
+              versionControlEnabled={versionControlEnabled}
+            />
+          }
+          path={ProjectSettingsTabRoutes.CommitChecks}
+        />
+
+        <Route
+          element={
+            <GitTagsTab
+              githubProjectConflicts={githubProjectConflicts}
+              githubWebhooksEnabled={githubWebhooksEnabled}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.GitTags].projectData
+              }
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.GitTags].repoData}
+              versionControlEnabled={versionControlEnabled}
+            />
+          }
+          path={ProjectSettingsTabRoutes.GitTags}
+        />
+
         <Route
           element={
             <EventLogTab

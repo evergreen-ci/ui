@@ -3,8 +3,6 @@ const Tasks = {
   Compile: "compile",
   E2E: "e2e",
   E2EParallel: "e2e_parallel",
-  E2ECypress: "e2e_cypress", // TODO: Delete when migration to Playwright is complete.
-  E2ECypressParallel: "e2e_cypress_parallel", // TODO: Delete when migration to Playwright is complete.
   Lint: "lint",
   Storybook: "storybook",
   Test: "test",
@@ -54,8 +52,7 @@ const MARKDOWN_EXT = ".md";
 
 const IGNORED_FILE_EXTENSIONS = new Set([MARKDOWN_EXT]);
 
-const CYPRESS_PARALLEL_COUNT = 2;
-const PLAYWRIGHT_PARALLEL_COUNT = 2;
+const E2E_PARALLEL_COUNT = 4;
 
 export {
   Tasks,
@@ -63,7 +60,6 @@ export {
   PACKAGES_DIR,
   PACKAGE_JSON,
   IGNORED_FILE_EXTENSIONS,
-  CYPRESS_PARALLEL_COUNT,
-  PLAYWRIGHT_PARALLEL_COUNT,
+  E2E_PARALLEL_COUNT,
   TASK_MAPPING,
 };

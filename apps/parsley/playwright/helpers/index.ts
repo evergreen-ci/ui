@@ -135,12 +135,6 @@ export const isNotContainedInViewport = async (
   }
 };
 
-export const resetDrawerState = async (page: Page) => {
-  await page.evaluate(() => {
-    localStorage.setItem("drawer-opened", "false");
-  });
-};
-
 export const toggleDetailsPanel = async (page: Page, open: boolean) => {
   await expect(page.getByTestId("details-button")).toBeEnabled();
   if (open) {
@@ -152,10 +146,6 @@ export const toggleDetailsPanel = async (page: Page, open: boolean) => {
     await page.getByTestId("details-button").click();
     await expect(page.getByTestId("details-menu")).toBeHidden();
   }
-};
-
-export const toggleDrawer = async (page: Page) => {
-  await page.locator(`[aria-label="Collapse navigation"]`).click();
 };
 
 /**

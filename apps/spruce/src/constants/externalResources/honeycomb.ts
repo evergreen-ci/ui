@@ -97,6 +97,38 @@ export const getHoneycombTaskCostUrl = (taskId: string): string => {
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
 };
 
+export const getHoneycombVersionCostUrl = (versionId: string): string => {
+  const query = {
+    calculations: [
+      { op: "MAX", column: "evergreen.version.adjusted_cost" },
+      {
+        op: "MAX",
+        column: "evergreen.version.cost.ebs.adjusted_throughput_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.cost.ebs.adjusted_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.adjusted_artifact_put_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.adjusted_artifact_storage_cost",
+      },
+      { op: "MAX", column: "evergreen.version.s3_cost.adjusted_log_put_cost" },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.adjusted_log_storage_cost",
+      },
+    ],
+    filters: [{ op: "=", column: "evergreen.version.id", value: versionId }],
+  };
+
+  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
 export const getHoneycombTaskTimingURL = ({
   buildVariant,
   metric,

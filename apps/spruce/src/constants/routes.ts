@@ -42,7 +42,6 @@ export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
   Variables = "variables",
-  GithubCommitQueue = "github-commitqueue",
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
@@ -51,12 +50,12 @@ export enum ProjectSettingsTabRoutes {
   PeriodicBuilds = "periodic-builds",
   TestSelection = "test-selection",
   Plugins = "plugins",
-  GithubAppSettings = "github-app-settings",
-  GithubPermissionGroups = "github-permission-groups",
-  MergeQueue = "merge-queue",
   PullRequests = "pull-requests",
   CommitChecks = "commit-checks",
+  MergeQueue = "merge-queue",
   GitTags = "git-tags",
+  GithubAppSettings = "github-app-settings",
+  GithubPermissionGroups = "github-permission-groups",
   EventLog = "event-log",
 }
 

@@ -14,7 +14,6 @@ import {
   SideNavItem,
   SideNavPageWrapper,
 } from "components/styles";
-import { showNewProjectNavigation } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -61,13 +60,13 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.General,
     ProjectSettingsTabRoutes.Access,
     ProjectSettingsTabRoutes.Variables,
-    ProjectSettingsTabRoutes.GithubCommitQueue, // TODO DEVPROD-31534: remove legacy tab
     ProjectSettingsTabRoutes.Notifications,
     ProjectSettingsTabRoutes.PatchAliases,
     ProjectSettingsTabRoutes.VirtualWorkstation,
     ProjectSettingsTabRoutes.ViewsAndFilters,
     ProjectSettingsTabRoutes.ProjectTriggers,
     ProjectSettingsTabRoutes.PeriodicBuilds,
+    ProjectSettingsTabRoutes.TestSelection,
     ProjectSettingsTabRoutes.Plugins,
   ];
   const githubTabs: ProjectSettingsTabRoutes[] = [
@@ -98,6 +97,10 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
       />
     );
   }
+
+  const currentTab = tab ?? ProjectSettingsTabRoutes.General;
+  const getRoute = isRepo ? getRepoSettingsRoute : getProjectSettingsRoute;
+  const identifier = isRepo ? repoId : projectIdentifier;
 
   return (
     <ProjectSettingsProvider>
@@ -135,75 +138,52 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             />
           </ButtonsContainer>
 
-          {showNewProjectNavigation ? (
-            <>
-              {/* Grouped nav when feature flag is on */}
-              <SideNavGroup
-                glyph={<Icon glyph="EvergreenLogo" />}
-                header="Evergreen"
-              >
-                {evergreenTabs.map((v) => (
-                  <SharedSettingsNavItem
-                    key={v}
-                    currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                    getRoute={
-                      isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                    }
-                    id={isRepo ? repoId : projectIdentifier}
-                    tab={v}
-                  />
-                ))}
-              </SideNavGroup>
-              <div ref={githubGroupRef}>
-                <SideNavGroup
-                  collapsible
-                  glyph={<Icon glyph="GitHub" />}
-                  header="GitHub"
-                >
-                  {githubTabs.map((v) => (
-                    <SharedSettingsNavItem
-                      key={v}
-                      currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                      getRoute={
-                        isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                      }
-                      id={isRepo ? repoId : projectIdentifier}
-                      tab={v}
-                    />
-                  ))}
-                </SideNavGroup>
-                <GithubNavGuideCue refEl={githubGroupRef} />
-              </div>
-              <SideNavGroup glyph={<Icon glyph="List" />} header="ChangeLog">
-                {otherTabs.map((v) => (
-                  <SharedSettingsNavItem
-                    key={v}
-                    currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                    getRoute={
-                      isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                    }
-                    id={isRepo ? repoId : projectIdentifier}
-                    tab={v}
-                  />
-                ))}
-              </SideNavGroup>
-            </>
-          ) : (
-            // Original flat nav when feature flag is OFF
-            <SideNavGroup>
-              {tabRouteValues.map((v) => (
+          <SideNavGroup
+            glyph={<Icon glyph="EvergreenLogo" />}
+            header="Evergreen"
+          >
+            {evergreenTabs.map((v) => (
+              <SharedSettingsNavItem
+                key={v}
+                currentTab={currentTab}
+                getRoute={getRoute}
+                id={identifier}
+                tab={v}
+              />
+            ))}
+          </SideNavGroup>
+
+          <div ref={githubGroupRef}>
+            <SideNavGroup
+              collapsible
+              glyph={<Icon glyph="GitHub" />}
+              header="GitHub"
+              initialCollapsed={!githubTabs.includes(currentTab)}
+            >
+              {githubTabs.map((v) => (
                 <SharedSettingsNavItem
                   key={v}
-                  currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                  getRoute={
-                    isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                  }
-                  id={isRepo ? repoId : projectIdentifier}
+                  currentTab={currentTab}
+                  getRoute={getRoute}
+                  id={identifier}
                   tab={v}
                 />
               ))}
             </SideNavGroup>
-          )}
+            <GithubNavGuideCue refEl={githubGroupRef} />
+          </div>
+
+          <SideNavGroup glyph={<Icon glyph="List" />} header="Changelog">
+            {otherTabs.map((v) => (
+              <SharedSettingsNavItem
+                key={v}
+                currentTab={currentTab}
+                getRoute={getRoute}
+                id={identifier}
+                tab={v}
+              />
+            ))}
+          </SideNavGroup>
         </SideNav>
 
         <SettingsPageContent
@@ -240,19 +220,7 @@ const SharedSettingsNavItem: React.FC<{
   </SideNavItem>
 );
 
-const allTabs = Object.values(ProjectSettingsTabRoutes);
-
-// TODO DEVPROD-31534: unhide tabs when feature flag is removed
-const hiddenTabs = [
-  ProjectSettingsTabRoutes.MergeQueue,
-  ProjectSettingsTabRoutes.PullRequests,
-  ProjectSettingsTabRoutes.CommitChecks,
-  ProjectSettingsTabRoutes.GitTags,
-];
-
-const tabRouteValues = showNewProjectNavigation
-  ? allTabs
-  : allTabs.filter((t) => !hiddenTabs.includes(t));
+const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
 const ButtonsContainer = styled.div`
   align-items: flex-start;

@@ -308,7 +308,7 @@ export const baseProps = {
     },
     uiSchema: {
       "ui:addButtonSize": "xsmall",
-      "ui:addButtonText": "Add Task Tag",
+      "ui:addButtonText": "Add task tag",
       "ui:orderable": false,
       "ui:sectionId": "task-tags-field",
       "ui:showLabel": false,
@@ -349,7 +349,7 @@ export const baseProps = {
     },
     uiSchema: {
       "ui:addButtonSize": "xsmall",
-      "ui:addButtonText": "Add Variant Tag",
+      "ui:addButtonText": "Add variant tag",
       "ui:orderable": false,
       "ui:sectionId": "variant-tags-field",
       "ui:showLabel": false,
@@ -664,7 +664,7 @@ export const patchAliasArray = {
     },
   },
   uiSchema: aliasRowUiSchema({
-    addButtonText: "Add Patch Alias",
+    addButtonText: "Add patch alias",
     displayTitle: "New Patch Alias",
     aliasHidden: false,
     useExpandableCard: true,

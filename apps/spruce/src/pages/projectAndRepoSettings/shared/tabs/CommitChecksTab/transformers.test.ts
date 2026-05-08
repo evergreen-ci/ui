@@ -39,7 +39,7 @@ const repoForm: CommitChecksFormState = {
   },
 };
 
-describe("GithubCommitQueueTab transformers – GitHub Checks only", () => {
+describe("GithubCommitChecksTab transformers", () => {
   describe("repo data", () => {
     it("correctly converts from GQL to a form", () => {
       const form = gqlToForm(repoBase, {

@@ -191,4 +191,68 @@ describe("version metadata cost display", () => {
     await user.hover(within(costWrapper).getByTestId("info-sprinkle-icon"));
     await screen.findByText("Total cost of all tasks.");
   });
+
+  it("HidesCostDetailsButtonWhenVersionIsRunning", () => {
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          cost: { __typename: "Cost", total: 100 },
+          finishTime: null,
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+    expect(
+      screen.queryByDataCy("version-cost-details-button"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("ShowsCostDetailsButtonWhenVersionIsComplete", () => {
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          cost: { __typename: "Cost", total: 100 },
+          finishTime: new Date("2024-01-02"),
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+    expect(
+      screen.getByDataCy("version-cost-details-button"),
+    ).toBeInTheDocument();
+  });
+
+  it("CanReopenCostModalAfterClosing", async () => {
+    const user = userEvent.setup();
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          cost: { __typename: "Cost", total: 100 },
+          finishTime: new Date("2024-01-02"),
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+    await user.click(screen.getByDataCy("version-cost-details-button"));
+    expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Close modal" }));
+    expect(screen.queryByDataCy("cost-modal")).not.toBeInTheDocument();
+    await user.click(screen.getByDataCy("version-cost-details-button"));
+    expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
+  });
 });

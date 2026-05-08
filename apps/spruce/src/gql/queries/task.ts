@@ -69,6 +69,7 @@ export const TASK = gql`
         traceID
         type
       }
+      displayOnly
       displayTask {
         id
         displayName

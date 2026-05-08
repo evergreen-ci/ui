@@ -15,12 +15,6 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.Variables]: {
         title: "Variables",
       },
-      [ProjectSettingsTabRoutes.MergeQueue]: {
-        title: "Merge Queue",
-      },
-      [ProjectSettingsTabRoutes.GithubCommitQueue]: {
-        title: "GitHub",
-      },
       [ProjectSettingsTabRoutes.Notifications]: {
         title: "Notifications",
       },
@@ -53,6 +47,9 @@ export const getTabTitle = (
       },
       [ProjectSettingsTabRoutes.CommitChecks]: {
         title: "Commit Checks",
+      },
+      [ProjectSettingsTabRoutes.MergeQueue]: {
+        title: "Merge Queue",
       },
       [ProjectSettingsTabRoutes.GitTags]: {
         title: "Git Tags",
