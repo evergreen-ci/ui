@@ -3,11 +3,14 @@ import { useQuery } from "@apollo/client/react";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate } from "react-router-dom";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { getHoneycombMergeQueueHistoryUrl } from "constants/externalResources/honeycomb";
+import { Requester } from "constants/requesters";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import {
   TaskPerfPluginEnabledQuery,
@@ -45,6 +48,7 @@ const useTabConfig = (
   const {
     annotation,
     baseTask,
+    buildVariant,
     canModifyAnnotation,
     displayName,
     displayStatus,
@@ -53,10 +57,13 @@ const useTabConfig = (
     files,
     id,
     logs: logLinks,
+    project,
+    requester,
     versionMetadata,
   } = task;
   const baseTaskId = baseTask?.id || "";
   const { fileCount } = files ?? {};
+  const { id: projectId } = project || {};
 
   const { showBuildBaron } = useBuildBaronVariables({
     task: {
@@ -170,7 +177,23 @@ const useTabConfig = (
         name="History"
         {...walkthroughHistoryTabProps}
       >
-        <TaskHistory baseTaskId={baseTaskId} task={task} />
+        {requester !== Requester.GitHubMergeQueue ? (
+          <TaskHistory baseTaskId={baseTaskId} task={task} />
+        ) : (
+          <div>
+            Evergreen cannot show history for GitHub merge queue tasks. See the{" "}
+            <StyledLink
+              href={getHoneycombMergeQueueHistoryUrl({
+                bvName: buildVariant,
+                projectId: projectId ?? "",
+                taskName: displayName,
+              })}
+            >
+              history in Honeycomb
+            </StyledLink>{" "}
+            instead.
+          </div>
+        )}
       </Tab>
     ),
     [TaskTab.ExecutionTasksTiming]: (

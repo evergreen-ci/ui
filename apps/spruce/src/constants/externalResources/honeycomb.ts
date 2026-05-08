@@ -129,6 +129,8 @@ export const getHoneycombVersionCostUrl = (versionId: string): string => {
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
 };
 
+const ONE_WEEK_IN_SECONDS = 604800;
+
 export const getHoneycombTaskTimingURL = ({
   buildVariant,
   metric,
@@ -154,7 +156,7 @@ export const getHoneycombTaskTimingURL = ({
   }
 
   const query = {
-    time_range: 604800, // Default to 1 week
+    time_range: ONE_WEEK_IN_SECONDS,
     granularity: 0, // 0 yields auto granularity
     calculations: [
       { op: "HEATMAP", column: metric },
@@ -176,5 +178,48 @@ export const getHoneycombTaskTimingURL = ({
     limit: 1000,
   };
 
+  return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
+export const getHoneycombMergeQueueHistoryUrl = ({
+  bvName,
+  projectId,
+  taskName,
+}: {
+  bvName: string;
+  projectId: string;
+  taskName: string;
+}) => {
+  const query = {
+    time_range: ONE_WEEK_IN_SECONDS,
+    granularity: 0,
+    calculations: [{ op: "COUNT" }],
+    filters: [
+      { column: "name", op: "=", value: "task" },
+      {
+        column: "evergreen.project.id",
+        op: "=",
+        value: projectId,
+      },
+      {
+        column: "evergreen.version.requester",
+        op: "=",
+        value: Requester.GitHubMergeQueue,
+      },
+      {
+        column: "evergreen.build.name",
+        op: "=",
+        value: bvName,
+      },
+      {
+        column: "evergreen.task.name",
+        op: "=",
+        value: taskName,
+      },
+    ],
+    breakdowns: ["evergreen.task.status"],
+    filter_combination: "AND",
+    limit: 1000,
+  };
   return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
 };
