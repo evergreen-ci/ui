@@ -99,7 +99,10 @@ const getProjectConfig = () => {
       }),
       // Analytics visualization
       analyticsVisualizer({
-        analyticsDir: "src/analytics",
+        analyticsDir: [
+          "src/analytics",
+          "../../packages/lib/src/analytics/hooks",
+        ],
         appName: "Spruce",
         honeycombBaseUrl:
           "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/spruce",
