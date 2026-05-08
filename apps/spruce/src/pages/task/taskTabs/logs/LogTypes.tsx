@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ErrorLike, NetworkStatus } from "@apollo/client";
+import { ErrorLike } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -107,11 +107,13 @@ const LogBody: React.FC<{
 };
 
 export const AllLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
-  const { data, error, networkStatus, refetch, startPolling, stopPolling } =
-    useQuery<AllLogsQuery, AllLogsQueryVariables>(ALL_LOGS, {
-      variables: { id: taskId, execution },
-      pollInterval: DEFAULT_POLL_INTERVAL,
-    });
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    AllLogsQuery,
+    AllLogsQueryVariables
+  >(ALL_LOGS, {
+    variables: { id: taskId, execution },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+  });
   useErrorToast(error, "There was an error loading all logs");
   usePolling<AllLogsQuery, AllLogsQueryVariables>({
     startPolling,
@@ -122,7 +124,6 @@ export const AllLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { allLogs } = taskLogs || {};
-  const loading = networkStatus === NetworkStatus.loading;
 
   // All logs includes task, system, and agent logs. Event logs are not included.
   return (
@@ -131,11 +132,13 @@ export const AllLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
 };
 
 export const EventLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
-  const { data, error, networkStatus, refetch, startPolling, stopPolling } =
-    useQuery<TaskEventLogsQuery, TaskEventLogsQueryVariables>(TASK_EVENT_LOGS, {
-      variables: { id: taskId, execution: execution },
-      pollInterval: DEFAULT_POLL_INTERVAL,
-    });
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    TaskEventLogsQuery,
+    TaskEventLogsQueryVariables
+  >(TASK_EVENT_LOGS, {
+    variables: { id: taskId, execution: execution },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+  });
   useErrorToast(error, "There was an error loading event logs");
   usePolling<TaskEventLogsQuery, TaskEventLogsQueryVariables>({
     startPolling,
@@ -146,7 +149,6 @@ export const EventLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { eventLogs } = taskLogs || {};
-  const loading = networkStatus === NetworkStatus.loading;
 
   const logs: TaskEventLogEntryType[] =
     eventLogs?.map((log) => ({
@@ -158,11 +160,13 @@ export const EventLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
 };
 
 export const SystemLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
-  const { data, error, networkStatus, refetch, startPolling, stopPolling } =
-    useQuery<SystemLogsQuery, SystemLogsQueryVariables>(SYSTEM_LOGS, {
-      variables: { id: taskId, execution },
-      pollInterval: DEFAULT_POLL_INTERVAL,
-    });
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    SystemLogsQuery,
+    SystemLogsQueryVariables
+  >(SYSTEM_LOGS, {
+    variables: { id: taskId, execution },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+  });
   useErrorToast(error, "There was an error loading system logs");
   usePolling<SystemLogsQuery, SystemLogsQueryVariables>({
     startPolling,
@@ -173,7 +177,6 @@ export const SystemLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { systemLogs } = taskLogs || {};
-  const loading = networkStatus === NetworkStatus.loading;
 
   return (
     <LogBody
@@ -186,11 +189,13 @@ export const SystemLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
 };
 
 export const AgentLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
-  const { data, error, networkStatus, refetch, startPolling, stopPolling } =
-    useQuery<AgentLogsQuery, AgentLogsQueryVariables>(AGENT_LOGS, {
-      variables: { id: taskId, execution },
-      pollInterval: DEFAULT_POLL_INTERVAL,
-    });
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    AgentLogsQuery,
+    AgentLogsQueryVariables
+  >(AGENT_LOGS, {
+    variables: { id: taskId, execution },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+  });
   useErrorToast(error, "There was an error loading agent logs");
   usePolling<AgentLogsQuery, AgentLogsQueryVariables>({
     startPolling,
@@ -201,7 +206,6 @@ export const AgentLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { agentLogs } = taskLogs || {};
-  const loading = networkStatus === NetworkStatus.loading;
 
   return (
     <LogBody data={agentLogs || []} error={error} loading={loading} {...rest} />
@@ -209,11 +213,13 @@ export const AgentLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
 };
 
 export const TaskLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
-  const { data, error, networkStatus, refetch, startPolling, stopPolling } =
-    useQuery<TaskLogsQuery, TaskLogsQueryVariables>(TASK_LOGS, {
-      variables: { id: taskId, execution },
-      pollInterval: DEFAULT_POLL_INTERVAL,
-    });
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    TaskLogsQuery,
+    TaskLogsQueryVariables
+  >(TASK_LOGS, {
+    variables: { id: taskId, execution },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+  });
   useErrorToast(error, "There was an error loading task logs");
   usePolling<TaskLogsQuery, TaskLogsQueryVariables>({
     startPolling,
@@ -223,7 +229,6 @@ export const TaskLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
 
   const { task } = data || {};
   const { taskLogs } = task || {};
-  const loading = networkStatus === NetworkStatus.loading;
 
   return (
     <LogBody
