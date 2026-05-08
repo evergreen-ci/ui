@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
@@ -22,8 +23,13 @@ import {
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
 import { useHasProjectOrRepoEditPermission } from "hooks";
+import { JSONObject } from "utils/object/types";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
+import { getDiffRenderConfig } from "./DiffConfig";
+import { getTabTitle } from "./getTabTitle";
+import { SaveChangesModal } from "./SaveChangesModal";
+import { AppSettingsFormState } from "./tabs/GithubAppSettingsTab/types";
 import { formToGqlMap } from "./tabs/transformers";
 import { FormToGqlFunction, WritableProjectSettingsType } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
@@ -31,7 +37,6 @@ import { ProjectType } from "./tabs/utils";
 const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Notifications,
   ProjectSettingsTabRoutes.Plugins,
-  ProjectSettingsTabRoutes.Containers,
   ProjectSettingsTabRoutes.ViewsAndFilters,
   ProjectSettingsTabRoutes.GithubPermissionGroups,
 ]);
@@ -48,11 +53,14 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
 
   const isRepo = projectType === ProjectType.Repo;
   const { getTab, saveTab } = useProjectSettingsContext();
-  const { formData, hasChanges, hasError } = getTab(tab);
+  const { formData, hasChanges, hasError, initialData } = getTab(tab);
   const navigate = useNavigate();
   const { [slugs.projectIdentifier]: identifier } = useParams();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [debugSpawnHostsModalOpen, setDebugSpawnHostsModalOpen] =
+    useState(false);
 
   const { canEdit } = useHasProjectOrRepoEditPermission(id);
 
@@ -60,16 +68,13 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     SaveProjectSettingsForSectionMutation,
     SaveProjectSettingsForSectionMutationVariables
   >(SAVE_PROJECT_SETTINGS_FOR_SECTION, {
-    onCompleted({
-      saveProjectSettingsForSection: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectRef: { identifier: newIdentifier },
-      },
-    }) {
+    onCompleted: (data) => {
+      const newIdentifier =
+        data?.saveProjectSettingsForSection?.projectRef?.identifier;
       saveTab(tab);
       dispatchToast.success("Successfully updated project");
 
-      if (identifier !== newIdentifier) {
+      if (newIdentifier && identifier !== newIdentifier) {
         setTimeout(() => {
           navigate(getProjectSettingsRoute(newIdentifier, tab), {
             replace: true,
@@ -77,22 +82,18 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
         }, 500);
       }
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error saving the project: ${err.message}`,
       );
     },
-    refetchQueries: ({
-      data: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        saveProjectSettingsForSection: {
-          projectRef: { identifier: newIdentifier },
-        },
-      },
-    }) =>
-      identifier === newIdentifier
+    refetchQueries: (result) => {
+      const newIdentifier =
+        result.data?.saveProjectSettingsForSection?.projectRef?.identifier;
+      return identifier === newIdentifier
         ? ["ProjectSettings", "ViewableProjectRefs", "ProjectBanner"]
-        : [],
+        : [];
+    },
   });
 
   const [saveRepoSection] = useMutation<
@@ -109,7 +110,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     refetchQueries: ["RepoSettings", "ViewableProjectRefs"],
   });
 
-  const onClick = () => {
+  const performSave = () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
     const newData = formToGql(formData, isRepo, id);
@@ -137,7 +138,61 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     });
   };
 
-  const canDefaultToRepo = !defaultToRepoDisabled.has(tab);
+  const isDisablingDebugSpawnHosts = () => {
+    if (tab !== ProjectSettingsTabRoutes.General) {
+      return false;
+    }
+    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const newData = formToGql(formData, isRepo, id);
+    const wasDisabled =
+      initialData?.projectRef?.debugSpawnHostsDisabled === true;
+    const willBeDisabled =
+      newData?.projectRef?.debugSpawnHostsDisabled === true;
+    return !wasDisabled && willBeDisabled;
+  };
+
+  const onSaveConfirm = () => {
+    setSaveModalOpen(false);
+    if (isDisablingDebugSpawnHosts()) {
+      setDebugSpawnHostsModalOpen(true);
+    } else {
+      performSave();
+    }
+  };
+
+  const onClick = () => {
+    setSaveModalOpen(true);
+  };
+
+  // Only compute the diff payload while the modal is open so that tab
+  // transformers aren't invoked against partially-loaded form state on
+  // every render.
+  let diffPayload: { after: JSONObject; before: JSONObject | null } | null =
+    null;
+  if (saveModalOpen) {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+    diffPayload = {
+      after: formToGql(formData, isRepo, id) as unknown as JSONObject,
+      before: initialData as unknown as JSONObject | null,
+    };
+  }
+
+  // Prevent users from defaulting to repo if their project has a Github App
+  // but the repo does not, which would result in losing credentials entirely.
+  // If the repo has credentials, defaulting to repo is safe.
+  let disableDefaultToRepo = false;
+  if (tab === ProjectSettingsTabRoutes.GithubAppSettings) {
+    const appFormData = formData as AppSettingsFormState;
+    const projectAppId = appFormData?.appCredentials?.githubAppAuth?.appId ?? 0;
+    const repoAppId =
+      appFormData?.repoData?.appCredentials?.githubAppAuth?.appId ?? 0;
+    disableDefaultToRepo = projectAppId > 0 && !(repoAppId > 0);
+  }
+
+  const canDefaultToRepo =
+    !defaultToRepoDisabled.has(tab) && !disableDefaultToRepo;
 
   return (
     <ButtonRow>
@@ -149,6 +204,17 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
       >
         Save changes on page
       </Button>
+      {diffPayload && (
+        <SaveChangesModal
+          after={diffPayload.after}
+          before={diffPayload.before}
+          customKeyValueRenderConfig={getDiffRenderConfig(tab)}
+          onCancel={() => setSaveModalOpen(false)}
+          onConfirm={onSaveConfirm}
+          open={saveModalOpen}
+          tabTitle={getTabTitle(tab).title}
+        />
+      )}
       {projectType === ProjectType.AttachedProject && canDefaultToRepo && (
         <>
           <Button
@@ -167,6 +233,25 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           />
         </>
       )}
+      <ConfirmationModal
+        cancelButtonProps={{
+          onClick: () => setDebugSpawnHostsModalOpen(false),
+        }}
+        confirmButtonProps={{
+          children: "Yes, save",
+          onClick: () => {
+            setDebugSpawnHostsModalOpen(false);
+            performSave();
+          },
+        }}
+        data-cy="disable-debug-spawn-hosts-modal"
+        open={debugSpawnHostsModalOpen}
+        title="Disable Debug Spawn Hosts?"
+        variant="danger"
+      >
+        Are you sure you want to disable debug spawn hosts? Any existing debug
+        spawn hosts will be terminated.
+      </ConfirmationModal>
     </ButtonRow>
   );
 };
@@ -178,8 +263,6 @@ const mapRouteToSection: Record<
   [ProjectSettingsTabRoutes.General]: ProjectSettingsSection.General,
   [ProjectSettingsTabRoutes.Access]: ProjectSettingsSection.Access,
   [ProjectSettingsTabRoutes.Variables]: ProjectSettingsSection.Variables,
-  [ProjectSettingsTabRoutes.GithubCommitQueue]:
-    ProjectSettingsSection.GithubAndCommitQueue,
   [ProjectSettingsTabRoutes.Notifications]:
     ProjectSettingsSection.Notifications,
   [ProjectSettingsTabRoutes.PatchAliases]: ProjectSettingsSection.PatchAliases,
@@ -189,9 +272,12 @@ const mapRouteToSection: Record<
   [ProjectSettingsTabRoutes.PeriodicBuilds]:
     ProjectSettingsSection.PeriodicBuilds,
   [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
-  [ProjectSettingsTabRoutes.Containers]: ProjectSettingsSection.Containers,
   [ProjectSettingsTabRoutes.ViewsAndFilters]:
     ProjectSettingsSection.ViewsAndFilters,
+  [ProjectSettingsTabRoutes.PullRequests]: ProjectSettingsSection.PullRequests,
+  [ProjectSettingsTabRoutes.CommitChecks]: ProjectSettingsSection.CommitChecks,
+  [ProjectSettingsTabRoutes.MergeQueue]: ProjectSettingsSection.MergeQueue,
+  [ProjectSettingsTabRoutes.GitTags]: ProjectSettingsSection.GitTags,
   [ProjectSettingsTabRoutes.GithubAppSettings]:
     ProjectSettingsSection.GithubAppSettings,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]:

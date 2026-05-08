@@ -45,8 +45,5 @@ else
     echo "If you want to download the bucket data again, delete the _bucketdata directory and rerun this script."
 fi
 
-echo "Use the following command to start logkeeper:"
-echo "${YELLOW}LK_CORS_ORIGINS=http:\/\/localhost:\\\d+ LK_EVERGREEN_ORIGIN=http://localhost:8080 LK_PARSLEY_ORIGIN=http://localhost:5173 go run main/logkeeper.go --localPath $PWD/bin/_bucketdata${NC}"
-
-echo "Create symlink in your local evergreen directory:"
-echo "ln -s $PWD/bin/_bucketdata _bucketdata"
+echo "Create a symlink in your local Evergreen directory so Evergreen can serve test log data:"
+echo "${YELLOW}ln -s $PWD/bin/_bucketdata _bucketdata${NC}"

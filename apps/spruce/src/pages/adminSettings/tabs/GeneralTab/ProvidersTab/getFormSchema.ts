@@ -1,7 +1,7 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { containerPools, aws, docker } from "./schemaFields";
 
-export const getFormSchema: ReturnType<GetFormSchema> = {
+export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
     type: "object" as const,
@@ -18,7 +18,6 @@ export const getFormSchema: ReturnType<GetFormSchema> = {
           aws: {
             type: "object" as const,
             title: "AWS Configuration",
-            // @ts-expect-error: Dependencies throws error but works as expected.
             properties: aws.schema,
           },
           docker: {

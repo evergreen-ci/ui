@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { Body, InlineKeyCode } from "@leafygreen-ui/typography";
 import { DropzoneInputProps } from "react-dropzone";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -21,6 +21,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({ getInputProps, open }) => (
     </Body>
     <Body weight="medium">or</Body>
     <Button
+      as="button"
       leftGlyph={<Icon glyph="Upload" />}
       onClick={(e) => {
         e.stopPropagation();

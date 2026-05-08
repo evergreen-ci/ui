@@ -1,5 +1,5 @@
-import { MockedProvider } from "@apollo/client/testing";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   waitFor,
@@ -133,6 +133,8 @@ describe("TaskOwnership", () => {
         screen.getByText("Assigned based on task history"),
       ).toBeInTheDocument();
     });
+
+    await user.unhover(screen.getByDataTestid("info-sprinkle-icon"));
   });
 
   it("renders fallback text when no team name is available", async () => {

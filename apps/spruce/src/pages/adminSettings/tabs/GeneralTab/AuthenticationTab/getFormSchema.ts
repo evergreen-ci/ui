@@ -11,7 +11,7 @@ import {
   oauth,
 } from "./schemaFields";
 
-export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
     type: "object" as const,
@@ -105,4 +105,4 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       },
     },
   },
-});
+};

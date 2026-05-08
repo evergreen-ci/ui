@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
+import { Body, H2 } from "@leafygreen-ui/typography";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
@@ -11,6 +11,7 @@ import { CliTab } from "./preferencesTabs/CliTab";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
+import { SageBotSettingsTab } from "./preferencesTabs/SageBotSettingsTab";
 import { UISettingsTab } from "./preferencesTabs/UISettingsTab";
 
 export const PreferencesTabs: React.FC = () => {
@@ -70,6 +71,14 @@ export const PreferencesTabs: React.FC = () => {
         />
         <Route
           element={
+            <Container>
+              <SageBotSettingsTab />
+            </Container>
+          }
+          path={PreferencesTabRoutes.SageBotSettings}
+        />
+        <Route
+          element={
             <Navigate
               replace
               to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
@@ -104,6 +113,9 @@ const getTitle = (
         title: "Manage Public Keys",
         subtitle: "These keys will be used to SSH into spawned hosts.",
       },
+      [PreferencesTabRoutes.SageBotSettings]: {
+        title: "Sage Bot Settings",
+      },
     }[tab] ?? defaultTitle
   );
 };
@@ -122,6 +134,6 @@ const TitleContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const Subtitle = styled(Body)<BodyProps>`
+const Subtitle = styled(Body)`
   padding-top: ${size.s};
 `;

@@ -46,17 +46,9 @@ describe("highlightHtml", () => {
         )}
       </>,
     );
-    expect(screen.queryAllByDataCy("highlight")).toHaveLength(3);
-    const colors = new Set();
-    colors.add(
-      getComputedStyle(screen.queryAllByDataCy("highlight")[0]).backgroundColor,
-    );
-    colors.add(
-      getComputedStyle(screen.queryAllByDataCy("highlight")[1]).backgroundColor,
-    );
-    colors.add(
-      getComputedStyle(screen.queryAllByDataCy("highlight")[2]).backgroundColor,
-    );
+    const highlights = screen.queryAllByDataCy("highlight");
+    expect(highlights).toHaveLength(3);
+    const colors = new Set(highlights.map((el) => el.getAttribute("color")));
     expect(colors.size).toBe(3);
   });
   it("should deduplicate highlights and searches", () => {

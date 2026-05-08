@@ -10,19 +10,13 @@ import { isFailedTaskStatus } from "utils/statuses";
 const { red } = palette;
 
 const MAX_CHAR = 100;
-const DetailsDescription = ({
-  details,
-  isContainerTask,
-}: {
-  details: TaskEndDetail;
-  isContainerTask: boolean;
-}) => {
+const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
   const { description, failingCommand, otherFailingCommands, status } =
     details ?? {};
   const isFailingTask = isFailedTaskStatus(status);
   const baseCopy = description || failingCommand || "";
   const fullText = isFailingTask
-    ? `${processFailingCommand(baseCopy, isContainerTask)}`
+    ? `${processFailingCommand(baseCopy)}`
     : `${baseCopy}`;
 
   const shouldTruncate = fullText.length > MAX_CHAR;
@@ -106,20 +100,13 @@ const ChipContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const processFailingCommand = (
-  description: string,
-  isContainerTask: boolean,
-): string => {
+const processFailingCommand = (description: string): string => {
   if (description === "stranded") {
-    return isContainerTask
-      ? containerTaskStrandedMessage
-      : hostTaskStrandedMessage;
+    return hostTaskStrandedMessage;
   }
   return description;
 };
 
-const containerTaskStrandedMessage =
-  "Task failed because the container was stranded by the ECS agent.";
 const hostTaskStrandedMessage =
   "Task failed because the host became unreachable unexpectedly";
 

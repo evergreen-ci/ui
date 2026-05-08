@@ -7,7 +7,6 @@ export interface WebFormState {
     };
     ui: {
       url: string;
-      helpUrl: string;
       uiv2Url: string;
       parsleyUrl: string;
       httpListenAddr: string;
@@ -21,9 +20,7 @@ export interface WebFormState {
       cacheTemplates: boolean;
       stagingEnvironment: string;
     };
-    betaFeatures: {
-      parsleyAIEnabled: boolean;
-    };
+    betaFeatures: Record<string, never>;
     disabledGQLQueries: {
       queryNames: string[];
     };

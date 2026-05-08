@@ -45,11 +45,6 @@ const form: RunnersFormState = {
       cloudStatusBatchSize: 1,
       maxTotalDynamicHosts: 1,
     },
-    podLifecycle: {
-      maxParallelPodRequests: 1,
-      maxPodDefinitionCleanupRate: 1,
-      maxSecretCleanupRate: 1,
-    },
     scheduler: {
       taskFinder: FinderVersion.Parallel,
       hostAllocator: HostAllocatorVersion.Utilization,
@@ -105,11 +100,6 @@ const gql: AdminSettingsInput = {
     provisioningThrottle: 1,
     cloudStatusBatchSize: 1,
     maxTotalDynamicHosts: 1,
-  },
-  podLifecycle: {
-    maxParallelPodRequests: 1,
-    maxPodDefinitionCleanupRate: 1,
-    maxSecretCleanupRate: 1,
   },
   scheduler: {
     taskFinder: FinderVersion.Parallel,

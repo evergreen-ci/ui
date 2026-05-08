@@ -1,14 +1,20 @@
 import { TooltipJustify } from "@leafygreen-ui/guide-cue";
-import { FilterType } from "components/TupleSelectWithRegexConditional";
 import { WalkthroughStep } from "components/WalkthroughGuideCue";
 import { validators } from "utils";
-import { ServerFilters } from "./types";
+import { FilterType, ServerFilters } from "./types";
 
 /**
  * Total number of versions checked by the server. Defined on the backend too, so make sure to update both.
  */
 export const VERSION_SEARCH_LIMIT = 300;
 export const VERSION_LIMIT = 5;
+
+/* localStorage fields for default filter settings */
+export const TASK_FILTER_SETTING_KEY = "task-filter-setting";
+export const VARIANT_FILTER_SETTING_KEY = "variant-filter-setting";
+
+export const stringFilterTooltipText =
+  "Search is case sensitive. For best performance, use an Exact filter whenever possible.";
 
 export const waterfallPageContainerId = "waterfall-page";
 
@@ -58,25 +64,16 @@ export const walkthroughSteps: WalkthroughStep[] = [
 
 export const tupleSelectOptions = [
   {
-    value: FilterType.Regex,
-    displayName: "Regex",
-    validator: validators.validateRegexp,
-  },
-  {
     value: FilterType.Exact,
     displayName: "Exact",
     validator: () => true,
   },
+  {
+    value: FilterType.Regex,
+    displayName: "Regex",
+    validator: validators.validateRegexp,
+  },
 ];
-
-/**
- * Timestamp of the last deploy that made changes to `displayStatusCache`, in UTC.
- * This timestamp should correspond to 2025/01/21 10:05AM EST.
- * TODO: Remove in DEVPROD-15269.
- */
-export const displayStatusCacheAddedDate = new Date(
-  Date.UTC(2025, 0, 21, 15, 5),
-);
 
 export const resetFilterState: ServerFilters = {
   requesters: undefined,

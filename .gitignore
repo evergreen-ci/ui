@@ -21,3 +21,4 @@ localhost-cert.pem
 localhost-key.pem
 
 .vscode
+.claude

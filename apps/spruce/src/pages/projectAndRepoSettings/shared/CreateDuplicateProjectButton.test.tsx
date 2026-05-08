@@ -1,6 +1,7 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
+  MockedResponse,
   renderWithRouterMatch as render,
   screen,
   userEvent,
@@ -64,6 +65,7 @@ describe("createDuplicateProjectField", () => {
               canCreateProject: false,
               projectPermissions: {
                 __typename: "ProjectPermissions",
+                id: "my_identifier",
                 edit: false,
               },
             },
@@ -139,7 +141,6 @@ describe("createDuplicateProjectField", () => {
               newProjectIdentifier: newIdentifier,
               projectIdToCopy: "my_id",
             },
-            requestS3Creds: false,
           },
         },
         result: {
@@ -209,6 +210,7 @@ const permissionsMock: ApolloMock<
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
+            id: "my_identifier",
             edit: true,
           },
         },

@@ -10,8 +10,51 @@ import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import { PopoverContainer } from "components/styles/Popover";
-import { waterfallGroupedStatuses } from "components/TaskStatusIcon";
+import { TaskBox } from "components/TaskBox";
 import { walkthroughSteps, waterfallGuideId } from "pages/waterfall/constants";
+
+const waterfallGroupedStatuses = [
+  {
+    icon: <TaskBox status={TaskStatus.Succeeded} />,
+    statuses: [TaskStatus.Succeeded],
+  },
+  {
+    icon: <TaskBox status={TaskStatus.Started} />,
+    statuses: [TaskStatus.Started, TaskStatus.Dispatched],
+  },
+  {
+    icon: <TaskBox status={TaskStatus.SystemFailed} />,
+    statuses: [
+      TaskStatus.SystemFailed,
+      TaskStatus.SystemTimedOut,
+      TaskStatus.SystemUnresponsive,
+    ],
+  },
+  {
+    icon: <TaskBox status={TaskStatus.Failed} />,
+    statuses: [TaskStatus.Failed],
+  },
+  {
+    icon: <TaskBox status={TaskStatus.KnownIssue} />,
+    statuses: [TaskStatus.KnownIssue],
+  },
+  {
+    icon: <TaskBox status={TaskStatus.TaskTimedOut} />,
+    statuses: [TaskStatus.TaskTimedOut, TaskStatus.TestTimedOut],
+  },
+  {
+    icon: <TaskBox status={TaskStatus.SetupFailed} />,
+    statuses: [TaskStatus.SetupFailed],
+  },
+  {
+    icon: <TaskBox status={TaskStatus.Unscheduled} />,
+    statuses: [TaskStatus.Unscheduled, TaskStatus.Aborted, TaskStatus.Blocked],
+  },
+  {
+    icon: <TaskBox status={TaskStatus.Undispatched} />,
+    statuses: [TaskStatus.Undispatched, TaskStatus.WillRun],
+  },
+];
 
 export const LegendContent: React.FC = () => (
   <Container>

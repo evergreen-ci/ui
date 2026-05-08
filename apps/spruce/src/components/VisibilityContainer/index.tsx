@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { SerializedStyles } from "@emotion/react";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 
@@ -26,13 +26,19 @@ const VisibilityContainer: React.FC<VisibilityContainerProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  useIntersectionObserver(
-    containerRef,
+  const handleIntersect = useCallback<IntersectionObserverCallback>(
     ([entry]) => {
       setIsVisible(entry.isIntersecting);
     },
-    { rootMargin: `${offset}px 0px ${offset}px 0px` },
+    [],
   );
+
+  const observerOptions = useMemo(
+    () => ({ rootMargin: `${offset}px 0px ${offset}px 0px` }),
+    [offset],
+  );
+
+  useIntersectionObserver(containerRef, handleIntersect, observerOptions);
 
   return (
     <div

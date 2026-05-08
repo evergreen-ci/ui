@@ -36,6 +36,11 @@ initializeHoneycomb({
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
 
+// Reload on stale chunk errors after deploys so users get the latest assets.
+window.addEventListener("vite:preloadError", () => {
+  window.location.reload();
+});
+
 createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <App />

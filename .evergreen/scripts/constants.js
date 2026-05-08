@@ -4,7 +4,6 @@ const Tasks = {
   E2E: "e2e",
   E2EParallel: "e2e_parallel",
   Lint: "lint",
-  Snapshots: "snapshots",
   Storybook: "storybook",
   Test: "test",
   TypeCheck: "type_check",
@@ -21,7 +20,6 @@ const TASK_MAPPING = {
   fungi: [Tasks.Lint, Tasks.Storybook, Tasks.Test, Tasks.TypeCheck],
   lib: [
     Tasks.Lint,
-    Tasks.Snapshots,
     Tasks.Storybook,
     Tasks.Test,
     Tasks.TypeCheck,
@@ -32,7 +30,6 @@ const TASK_MAPPING = {
     Tasks.Compile,
     Tasks.E2E,
     Tasks.Lint,
-    Tasks.Snapshots,
     Tasks.Storybook,
     Tasks.Test,
     Tasks.TypeCheck,
@@ -41,7 +38,6 @@ const TASK_MAPPING = {
     Tasks.CheckCodegen,
     Tasks.Compile,
     Tasks.Lint,
-    Tasks.Snapshots,
     Tasks.Storybook,
     Tasks.Test,
     Tasks.TypeCheck,
@@ -56,7 +52,7 @@ const MARKDOWN_EXT = ".md";
 
 const IGNORED_FILE_EXTENSIONS = new Set([MARKDOWN_EXT]);
 
-const PARALLEL_COUNT = 4;
+const E2E_PARALLEL_COUNT = 4;
 
 export {
   Tasks,
@@ -64,6 +60,6 @@ export {
   PACKAGES_DIR,
   PACKAGE_JSON,
   IGNORED_FILE_EXTENSIONS,
-  PARALLEL_COUNT,
+  E2E_PARALLEL_COUNT,
   TASK_MAPPING,
 };

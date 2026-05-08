@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
+import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
 
@@ -60,11 +60,13 @@ const StyledBadge = styled(Badge)`
   align-self: flex-start;
 `;
 
+const { gray, green, red, yellow } = palette;
+
 const metStatusToIcon = {
-  [MetStatus.Started]: <TaskStatusIcon status={TaskStatus.Started} />,
-  [MetStatus.Met]: <TaskStatusIcon status={TaskStatus.Succeeded} />,
-  [MetStatus.Unmet]: <TaskStatusIcon status={TaskStatus.Failed} />,
-  [MetStatus.Pending]: <TaskStatusIcon status={TaskStatus.Pending} />,
+  [MetStatus.Started]: <Icon fill={yellow.dark2} glyph="Refresh" />,
+  [MetStatus.Met]: <Icon fill={green.dark1} glyph="Checkmark" />,
+  [MetStatus.Unmet]: <Icon fill={red.base} glyph="X" />,
+  [MetStatus.Pending]: <Icon fill={gray.dark3} glyph="Calendar" />,
 };
 
 const requiredStatusToBadge = {

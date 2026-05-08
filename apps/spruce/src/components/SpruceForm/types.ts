@@ -1,7 +1,7 @@
 import { FieldValidation, FormProps, Field } from "@rjsf/core";
 
 // typescript utility to recursively iterate through an object and add a method called addError to each property
-type RecursivelyAddError<T> = T extends object
+export type RecursivelyAddError<T> = T extends object
   ? {
       [K in keyof T]: RecursivelyAddError<T[K]>;
     } & FieldValidation
@@ -17,12 +17,14 @@ type CustomFormatFields = {
   jiraHost?: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SpruceFormProps<A = any> = Pick<
   FormProps<A>,
   "schema" | "onChange" | "formData"
 > &
   Partial<FormProps<A>> & { customFormatFields?: CustomFormatFields };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GetFormSchema<T = any, P extends any[] = any[]> = (
   ...params: P
 ) => {

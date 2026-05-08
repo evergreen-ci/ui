@@ -3,12 +3,12 @@
     "composite": true,
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "allowSyntheticDefaultImports": true
+    "types": ["node"]
   },
   "include": [
     "vite.config.ts",
-    "cypress.config.ts",
     ".storybook/**/*.ts",
-    "config/injectVariablesInHTML.ts"
+    "config/injectVariablesInHTML.ts",
+    "playwright.config.ts"
   ]
 }

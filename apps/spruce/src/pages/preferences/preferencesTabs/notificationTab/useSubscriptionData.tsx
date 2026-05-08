@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { LeafyGreenTableRow } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";

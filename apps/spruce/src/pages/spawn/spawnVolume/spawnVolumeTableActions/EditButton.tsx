@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { TableVolume } from "types/spawn";
 import { EditVolumeModal } from "./EditVolumeModal";
 
@@ -14,6 +14,7 @@ export const EditButton: React.FC<Props> = ({ maxSpawnableLimit, volume }) => {
   return (
     <>
       <Button
+        as="button"
         data-cy={`edit-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {

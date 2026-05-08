@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -66,13 +66,17 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   const { data, loading } = useQuery<
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
-  >(BUILD_VARIANTS_WITH_CHILDREN, {
-    variables: {
-      id: versionId,
-      statuses: [...finishedTaskStatuses, TaskStatus.Aborted],
-    },
-    skip: !visible,
-  });
+  >(
+    BUILD_VARIANTS_WITH_CHILDREN,
+    visible
+      ? {
+          variables: {
+            id: versionId,
+            statuses: [...finishedTaskStatuses, TaskStatus.Aborted],
+          },
+        }
+      : skipToken,
+  );
 
   const { version } = data || {};
   const { childVersions } = version || {};
@@ -173,7 +177,7 @@ const getTaskIds = (selectedTasks: SelectedTasksMap) =>
     }))
     .filter(({ taskIds }) => taskIds.length > 0);
 
-const ConfirmationMessage = styled(Body)<BodyProps>`
+const ConfirmationMessage = styled(Body)`
   padding: ${size.s} 0;
 `;
 

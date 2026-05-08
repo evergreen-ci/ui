@@ -1,4 +1,4 @@
-import { ApolloLink, execute, gql } from "@apollo/client";
+import { ApolloLink, execute, gql, ApolloClient } from "@apollo/client";
 import { Observable } from "@apollo/client/utilities";
 import { waitFor } from "@testing-library/react";
 import { describe, it, beforeEach, afterEach, vi, expect } from "vitest";
@@ -18,6 +18,7 @@ describe("pausePollingLink", () => {
   let mockForward: ReturnType<typeof vi.fn>;
   let documentHiddenSpy: ReturnType<typeof vi.spyOn>;
   let navigatorOnlineSpy: ReturnType<typeof vi.spyOn>;
+  let mockClient: ApolloClient;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -34,6 +35,8 @@ describe("pausePollingLink", () => {
     documentHiddenSpy = vi.spyOn(document, "hidden", "get");
 
     navigatorOnlineSpy = vi.spyOn(navigator, "onLine", "get");
+
+    mockClient = {} as ApolloClient;
   });
 
   afterEach(() => {
@@ -47,10 +50,13 @@ describe("pausePollingLink", () => {
 
     const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
 
-    execute(ApolloLink.from([pausePollingLink, mockHttpLink]), {
-      query: GET_WATERFALL,
-      operationName: "Waterfall",
-    }).subscribe(observer);
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: GET_WATERFALL,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
 
     expect(mockForward).toHaveBeenCalled();
     await waitFor(() => expect(observer.next).toHaveBeenCalled());
@@ -62,10 +68,13 @@ describe("pausePollingLink", () => {
 
     const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
 
-    execute(ApolloLink.from([pausePollingLink, mockHttpLink]), {
-      query: GET_WATERFALL,
-      operationName: "Waterfall",
-    }).subscribe(observer);
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: GET_WATERFALL,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
 
     expect(mockForward).not.toHaveBeenCalled();
     await waitFor(() => {
@@ -79,10 +88,13 @@ describe("pausePollingLink", () => {
 
     const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
 
-    execute(ApolloLink.from([pausePollingLink, mockHttpLink]), {
-      query: GET_WATERFALL,
-      operationName: "Waterfall",
-    }).subscribe(observer);
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: GET_WATERFALL,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
 
     expect(mockForward).not.toHaveBeenCalled();
     await waitFor(() => {
@@ -96,10 +108,13 @@ describe("pausePollingLink", () => {
 
     const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
 
-    execute(ApolloLink.from([pausePollingLink, mockHttpLink]), {
-      query: GET_WATERFALL,
-      operationName: "Waterfall",
-    }).subscribe(observer);
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: GET_WATERFALL,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
 
     expect(mockForward).not.toHaveBeenCalled();
 
@@ -118,10 +133,13 @@ describe("pausePollingLink", () => {
 
     const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
 
-    execute(ApolloLink.from([pausePollingLink, mockHttpLink]), {
-      query: GET_WATERFALL,
-      operationName: "Waterfall",
-    }).subscribe(observer);
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: GET_WATERFALL,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
 
     expect(mockForward).not.toHaveBeenCalled();
 
@@ -140,16 +158,19 @@ describe("pausePollingLink", () => {
 
     const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
 
-    execute(ApolloLink.from([pausePollingLink, mockHttpLink]), {
-      query: gql`
-        query OtherQuery {
-          otherData {
-            id
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: gql`
+          query OtherQuery {
+            otherData {
+              id
+            }
           }
-        }
-      `,
-      operationName: "OtherQuery",
-    }).subscribe(observer);
+        `,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
 
     expect(mockForward).toHaveBeenCalled();
     await waitFor(() => {

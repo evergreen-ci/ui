@@ -1,5 +1,5 @@
 import { userEvent, render, screen } from "@evg-ui/lib/test_utils";
-import { ContextChip } from "../Context/context";
+import { ContextChip } from "#Context";
 import { ContextChips } from ".";
 
 describe("ContextChips", () => {

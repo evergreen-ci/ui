@@ -14,15 +14,20 @@ import { groupBuildVariants, groupInactiveVersions } from "./utils";
 type UseFiltersProps = {
   activeVersionIds: Pagination["activeVersionIds"];
   flattenedVersions: Version[];
+  omitInactiveBuilds: boolean;
   pins: string[];
 };
 
 export const useFilters = ({
   activeVersionIds,
   flattenedVersions,
+  omitInactiveBuilds,
   pins,
 }: UseFiltersProps) => {
-  const buildVariants = groupBuildVariants(flattenedVersions);
+  const buildVariants = useMemo(
+    () => groupBuildVariants(flattenedVersions),
+    [flattenedVersions],
+  );
 
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
@@ -84,6 +89,14 @@ export const useFilters = ({
       const activeBuilds: Build[] = [];
       bv.builds.forEach((b) => {
         if (activeVersions.find(({ id }) => id === b.version)) {
+          // Omit inactive builds if setting is enabled and filtering is active
+          if (
+            omitInactiveBuilds &&
+            buildVariantFilterRegex.length &&
+            !b.activated
+          ) {
+            return;
+          }
           if (taskFilterRegex.length || statuses.length) {
             const activeTasks = b.tasks.filter(
               (t) =>
@@ -108,6 +121,7 @@ export const useFilters = ({
     buildVariantFilterRegex,
     buildVariants,
     flattenedVersions,
+    omitInactiveBuilds,
     pins,
     requesters,
     statuses,
@@ -168,13 +182,7 @@ const matchesStatuses = (
   task: Unpacked<Unpacked<BuildVariant["builds"]>["tasks"]>,
   statuses: string[],
 ) =>
-  statuses.length
-    ? statuses.some((s) =>
-        task.displayStatusCache
-          ? task.displayStatusCache === s
-          : task.status === s,
-      )
-    : true;
+  statuses.length ? statuses.some((s) => task.displayStatusCache === s) : true;
 
 /**
  * matchesTasksFilter evaluates whether a task should be shown to the user given a set of task name filter regexes

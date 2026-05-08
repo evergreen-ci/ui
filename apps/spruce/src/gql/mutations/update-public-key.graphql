@@ -1,9 +1,0 @@
-mutation UpdatePublicKey(
-  $targetKeyName: String!
-  $updateInfo: PublicKeyInput!
-) {
-  updatePublicKey(targetKeyName: $targetKeyName, updateInfo: $updateInfo) {
-    key
-    name
-  }
-}

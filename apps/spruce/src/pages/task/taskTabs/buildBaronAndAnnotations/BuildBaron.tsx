@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
   Annotation,
@@ -28,7 +28,11 @@ const BuildBaron: React.FC<Props> = ({
   >(BUILD_BARON, {
     variables: { taskId, execution },
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<BuildBaronQuery, BuildBaronQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const { buildBaron } = data || {};
   if (loading || !buildBaron) {

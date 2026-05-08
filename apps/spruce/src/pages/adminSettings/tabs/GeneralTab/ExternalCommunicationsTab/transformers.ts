@@ -10,8 +10,10 @@ export const gqlToForm = ((data) => {
   const {
     cedar,
     fws,
+    graphite,
     jira,
     runtimeEnvironments,
+    sage,
     slack,
     splunk,
     testSelection,
@@ -55,11 +57,18 @@ export const gqlToForm = ((data) => {
     fws: {
       url: fws?.url ?? "",
     },
+    graphite: {
+      ciOptimizationToken: graphite?.ciOptimizationToken ?? "",
+      serverUrl: graphite?.serverUrl ?? "",
+    },
     cedar: {
       dbUrl: cedar?.dbUrl ?? "",
       dbName: cedar?.dbName ?? "",
       spsKanopyUrl: data.perfMonitoringKanopyURL ?? "",
       spsUrl: data.perfMonitoringURL ?? "",
+    },
+    sage: {
+      baseUrl: sage?.baseUrl ?? "",
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -68,8 +77,10 @@ export const formToGql = ((form) => {
   const {
     cedar,
     fws,
+    graphite,
     jira,
     runtimeEnvironments,
+    sage,
     slack,
     splunk,
     testSelection,
@@ -123,11 +134,18 @@ export const formToGql = ((form) => {
     fws: {
       url: fws.url,
     },
+    graphite: {
+      ciOptimizationToken: graphite.ciOptimizationToken,
+      serverUrl: graphite.serverUrl,
+    },
     cedar: {
       dbUrl: cedar.dbUrl,
       dbName: cedar.dbName,
     },
     perfMonitoringKanopyURL: cedar.spsKanopyUrl,
     perfMonitoringURL: cedar.spsUrl,
+    sage: {
+      baseUrl: sage.baseUrl || undefined,
+    },
   };
 }) satisfies FormToGqlFunction<Tab>;

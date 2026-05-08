@@ -1,10 +1,5 @@
-import {
-  AuthProvider,
-  AuthProviderProps,
-  Login,
-  useAuthContext,
-} from "../Auth";
-import { ChatFeed, ChatFeedProps } from "../ChatFeed";
+import { AuthProvider, AuthProviderProps, Login, useAuthContext } from "#Auth";
+import { ChatFeed, ChatFeedProps } from "#ChatFeed";
 
 export { MessageRatingValue } from "@lg-chat/message-rating";
 

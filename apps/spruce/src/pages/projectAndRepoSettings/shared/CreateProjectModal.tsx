@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { skipToken, useMutation, useQuery } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ import { GITHUB_ORGS } from "gql/queries";
 import {
   performanceTooling,
   projectName,
-  requestS3Creds,
+  s3BucketInfo,
 } from "./createDuplicateModalSchema";
 
 interface Props {
@@ -42,13 +42,13 @@ export const CreateProjectModal: React.FC<Props> = ({
     repo: repo ?? "",
     projectName: "",
     enablePerformanceTooling: false,
-    requestS3Creds: false,
   });
   const [hasError, setHasError] = useState(true);
 
-  const { data: gitOrgs } = useQuery<GithubOrgsQuery>(GITHUB_ORGS, {
-    skip: !open,
-  });
+  const { data: gitOrgs } = useQuery<GithubOrgsQuery>(
+    GITHUB_ORGS,
+    open ? {} : skipToken,
+  );
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { spruceConfig: { githubOrgs = [] } = {} } = gitOrgs ?? {};
 
@@ -105,7 +105,6 @@ export const CreateProjectModal: React.FC<Props> = ({
             id: formState.projectName,
           }),
         },
-        requestS3Creds: formState.requestS3Creds,
       },
     });
     sendEvent({ name: "Created new project" });
@@ -165,7 +164,7 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
         format: "noSpaces",
       },
       ...performanceTooling.schema,
-      requestS3Creds: requestS3Creds.schema,
+      s3BucketInfo: s3BucketInfo.schema,
     },
   },
   uiSchema: {
@@ -178,6 +177,6 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
       "ui:data-cy": "new-repo-input",
     },
     ...performanceTooling.uiSchema,
-    requestS3Creds: requestS3Creds.uiSchema,
+    s3BucketInfo: s3BucketInfo.uiSchema,
   },
 });

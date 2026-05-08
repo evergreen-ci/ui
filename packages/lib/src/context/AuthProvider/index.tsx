@@ -5,7 +5,9 @@ import {
   useMemo,
   useReducer,
 } from "react";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { getUserStagingKey, isStaging } from "../../utils/environmentVariables";
 import {
   SentryBreadcrumbTypes,
   leaveBreadcrumb,
@@ -128,6 +130,13 @@ const AuthProvider: React.FC<{
        * or redirects to the remoteAuthURL for remoteAuth.
        */
       logoutAndRedirect: async () => {
+        // Set the staging cookie whether or not the state is currently authenticated so personal stagings can be routed correctly.
+        const stagingKey = getUserStagingKey();
+        if (isStaging() && stagingKey) {
+          Cookies.set("evg-staging-environment", stagingKey, {
+            expires: 365,
+          });
+        }
         if (state.isAuthenticated) {
           try {
             await fetch(`${evergreenAppURL}/logout`, {

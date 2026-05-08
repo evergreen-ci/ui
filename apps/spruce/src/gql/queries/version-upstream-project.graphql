@@ -1,8 +1,0 @@
-#import "../fragments/upstreamProject.graphql"
-
-query VersionUpstreamProject($versionId: String!) {
-  version(versionId: $versionId) {
-    ...UpstreamProject
-    id
-  }
-}

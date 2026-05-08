@@ -16,10 +16,28 @@ export interface OtherFormState {
         idleTimeSecondsOverride: number;
       };
       cost: {
+        ebsDiscount: number;
         financeFormula: number;
         savingsPlanDiscount: number;
         onDemandDiscount: number;
+        s3Cost: {
+          archiveStorageCostDiscount: number;
+          artifactAwsAccountsWithoutLifecycleRules: string[];
+          defaultMaxArtifactExpirationDays: number;
+          devprodOwnedAwsAccountIds: string[];
+          iAStorageCostDiscount: number;
+          standardStorageCostDiscount: number;
+          uploadCostDiscount: number;
+        };
       };
+    };
+
+    oktaServiceConfig: {
+      audience: string;
+      clientId: string;
+      clientSecret: string;
+      issuer: string;
+      scopes: string[];
     };
 
     singleTaskDistro: {
@@ -52,7 +70,6 @@ export interface OtherFormState {
         name: string;
         secretARN: string;
       };
-      kanopySSHKeyPath: string;
     };
 
     expansions: {
@@ -88,6 +105,10 @@ export interface OtherFormState {
       spawnHostsPerUser: number;
     };
 
+    debugSpawnHostsConfig: {
+      setupScript: string;
+    };
+
     sleepSchedule: {
       permanentlyExemptHosts: string[];
     };
@@ -97,12 +118,12 @@ export interface OtherFormState {
       collectorEndpoint: string;
       collectorInternalEndpoint: string;
       collectorAPIKey: string;
+      traceUrlTemplate: string;
     };
 
     projectCreationSettings: {
       totalProjectLimit: number;
       repoProjectLimit: number;
-      jiraProject: string;
       repoExceptions: Array<{
         owner: string;
         repo: string;
@@ -111,6 +132,11 @@ export interface OtherFormState {
 
     githubCheckRunConfigurations: {
       checkRunLimit: number;
+    };
+
+    diagnosticsConfig: {
+      s3BucketName: string;
+      s3Prefix: string;
     };
   };
 }

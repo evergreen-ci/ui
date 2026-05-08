@@ -181,7 +181,7 @@ export const mountpoints = {
     },
   },
   uiSchema: {
-    "ui:addButtonText": "Add Mountpoint",
+    "ui:addButtonText": "Add mountpoint",
     "ui:description": "Mointpoints configured on the host.",
     "ui:orderable": false,
     items: {

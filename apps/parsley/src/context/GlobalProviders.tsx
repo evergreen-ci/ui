@@ -4,6 +4,7 @@ import { ChatProvider } from "components/Chatbot";
 import GQLProvider from "gql/GQLProvider";
 import { LogContextProvider } from "./LogContext";
 import { MultiLineSelectContextProvider } from "./MultiLineSelectContext";
+
 /**
  * GlobalProviders wrap our application with our global contexts
  * @param props - React props
@@ -14,7 +15,7 @@ const GlobalProviders: React.FC<{ children: React.ReactElement }> = ({
   children,
 }) => (
   <LeafyGreenProvider>
-    <ToastProvider>
+    <ToastProvider portalClassName="parsley-toast-portal">
       <GQLProvider>
         <LogContextProvider>
           <MultiLineSelectContextProvider>

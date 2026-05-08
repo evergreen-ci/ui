@@ -14,7 +14,6 @@ export const gqlToForm = ((data) => {
     csrfKey,
     defaultProject,
     fileStreamingContentTypes,
-    helpUrl,
     httpListenAddr: uiHttpListenAddr,
     loginDomain,
     parsleyUrl,
@@ -24,8 +23,6 @@ export const gqlToForm = ((data) => {
     url: uiUrl,
     userVoice,
   } = ui ?? {};
-
-  const { betaFeatures } = ui ?? {};
 
   return {
     web: {
@@ -40,7 +37,6 @@ export const gqlToForm = ((data) => {
         csrfKey: csrfKey ?? "",
         defaultProject: defaultProject ?? "",
         fileStreamingContentTypes: fileStreamingContentTypes ?? [],
-        helpUrl: helpUrl ?? "",
         httpListenAddr: uiHttpListenAddr ?? "",
         loginDomain: loginDomain ?? "",
         parsleyUrl: parsleyUrl ?? "",
@@ -50,9 +46,7 @@ export const gqlToForm = ((data) => {
         url: uiUrl ?? "",
         userVoice: userVoice ?? "",
       },
-      betaFeatures: {
-        parsleyAIEnabled: betaFeatures?.parsleyAIEnabled ?? false,
-      },
+      betaFeatures: {},
       disabledGQLQueries: {
         queryNames: disabledGQLQueries ?? [],
       },

@@ -4,9 +4,7 @@ import {
   screen,
   createWrapper,
 } from "@evg-ui/lib/test_utils";
-import { ChatProvider } from "../Context";
-import { ChatProviderProps } from "../Context/ChatProvider";
-import { ContextChip } from "../Context/context";
+import { ChatProvider, ChatProviderProps, ContextChip } from "#Context";
 import { ChatFeed } from ".";
 
 describe("ChatFeed", () => {

@@ -1,6 +1,10 @@
 import { HostUptime } from "../utils";
 
 export type FormState = {
+  debugSection?: {
+    isDebug?: boolean;
+    setupStepNumber?: string;
+  };
   requiredSection?: {
     distro?: string;
     region?: string;
@@ -34,6 +38,5 @@ export type FormState = {
     loadDataOntoHostAtStartup: boolean;
     runProjectSpecificSetupScript?: boolean;
     startHosts?: boolean;
-    useOAuth?: boolean;
   };
 };

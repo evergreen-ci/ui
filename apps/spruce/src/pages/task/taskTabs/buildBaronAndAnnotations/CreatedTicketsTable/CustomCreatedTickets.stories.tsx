@@ -31,7 +31,7 @@ export const Default: CustomStoryObj<typeof CustomCreatedTickets> = {
             assignedTeam: "evg-ui",
           },
         },
-        url: "https://spruce.mongodb.com",
+        url: "https://spruce.corp.mongodb.com",
       },
       {
         confidenceScore: 0.5,
@@ -50,7 +50,7 @@ export const Default: CustomStoryObj<typeof CustomCreatedTickets> = {
             assignedTeam: "evg-ui",
           },
         },
-        url: "https://spruce.mongodb.com",
+        url: "https://spruce.corp.mongodb.com",
       },
     ],
   },

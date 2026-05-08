@@ -3,7 +3,6 @@ enum LogTypes {
   EVERGREEN_TASK_LOGS = "EVERGREEN_TASK_LOGS",
   EVERGREEN_TEST_LOGS = "EVERGREEN_TEST_LOGS",
   EVERGREEN_COMPLETE_LOGS = "EVERGREEN_COMPLETE_LOGS",
-  LOGKEEPER_LOGS = "LOGKEEPER_LOGS",
   LOCAL_UPLOAD = "LOCAL_UPLOAD",
 }
 
@@ -37,8 +36,14 @@ enum WordWrapFormat {
   Standard = "standard",
 }
 
+enum CopyFormat {
+  Jira = "jira",
+  Raw = "raw",
+}
+
 export {
   CaseSensitivity,
+  CopyFormat,
   FilterLogic,
   LogRenderingTypes,
   LogTypes,

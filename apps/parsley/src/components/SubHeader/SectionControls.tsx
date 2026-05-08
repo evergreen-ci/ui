@@ -1,4 +1,4 @@
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { useLogWindowAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
 

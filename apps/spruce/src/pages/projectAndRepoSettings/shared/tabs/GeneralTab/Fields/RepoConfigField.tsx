@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Field } from "@rjsf/core";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -62,7 +62,7 @@ export const RepoConfigField: Field = ({
                   onClick={() => setMoveModalOpen(true)}
                   size="small"
                 >
-                  Move to New Repo
+                  Move to new repo
                 </Button>
                 <MoveRepoModal
                   githubOrgs={githubOrgs}
@@ -87,8 +87,8 @@ export const RepoConfigField: Field = ({
                   size="small"
                 >
                   {isAttachedProject
-                    ? "Detach from Current Repo"
-                    : "Attach to Current Repo"}
+                    ? "Detach from current repo"
+                    : "Attach to current repo"}
                 </Button>
               }
               triggerEvent="hover"

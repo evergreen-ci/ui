@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";

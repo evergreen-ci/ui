@@ -1,6 +1,11 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
-import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
+import {
+  MockedProvider,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RepotrackerBanner } from "components/Banners";
 import {
@@ -82,7 +87,9 @@ describe("repotracker banner", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("repotracker-error-banner")).toBeVisible();
       });
-      expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      });
     });
 
     it("can submit new base revision via modal", async () => {
@@ -98,7 +105,9 @@ describe("repotracker banner", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("repotracker-error-banner")).toBeVisible();
       });
-      expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      });
 
       // Open modal.
       await user.click(screen.getByDataCy("repotracker-error-trigger"));
@@ -112,7 +121,9 @@ describe("repotracker banner", () => {
       await user.type(screen.getByLabelText("Base Revision"), baseRevision);
       expect(confirmButton).toHaveAttribute("aria-disabled", "false");
       await user.click(confirmButton);
-      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+      await waitFor(() => {
+        expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });
@@ -185,6 +196,7 @@ const adminUser: ApolloMock<
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
+            id: "evergreen",
             edit: true,
           },
         },
@@ -211,6 +223,7 @@ const basicUser: ApolloMock<
           canCreateProject: false,
           projectPermissions: {
             __typename: "ProjectPermissions",
+            id: "evergreen",
             edit: false,
           },
         },

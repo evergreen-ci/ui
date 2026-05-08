@@ -1,4 +1,4 @@
-import { Operation } from "@apollo/client";
+import { ApolloLink } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { reportingFn } from "./logGQLErrorsLink";
@@ -13,7 +13,7 @@ describe("reportingFn", () => {
 
   it("reportError should be called with secret fields redacted", () => {
     const secretFields = ["password", "creditCard"];
-    const operation: Operation = {
+    const operation: ApolloLink.Operation = {
       operationName: "exampleOperation",
       variables: {
         input: { password: "password123", creditCard: "1234567890123456" },

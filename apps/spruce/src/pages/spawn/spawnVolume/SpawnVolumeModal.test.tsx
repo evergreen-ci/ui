@@ -1,6 +1,7 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
+  MockedResponse,
   userEvent,
   renderWithRouterMatch as render,
   screen,
@@ -110,7 +111,9 @@ describe("spawnVolumeModal", () => {
       expect(spawnButton).toBeEnabled();
     });
     await user.click(spawnButton);
-    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
   }, 10000);
 
   it("form submission succeeds after adjusting inputs", async () => {
@@ -164,7 +167,9 @@ describe("spawnVolumeModal", () => {
       expect(spawnButton).toBeEnabled();
     });
     await user.click(spawnButton);
-    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
   }, 15000);
 });
 

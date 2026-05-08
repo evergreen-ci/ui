@@ -1,6 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   renderWithRouterMatch,
   screen,
   userEvent,
@@ -117,7 +117,9 @@ describe("setPriority", () => {
       });
       await user.type(screen.getByDataCy("patch-priority-input"), "99");
       await user.click(screen.getByRole("button", { name: "Set" }));
-      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+      await waitFor(() => {
+        expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+      });
     });
   });
 

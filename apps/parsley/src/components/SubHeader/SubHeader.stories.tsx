@@ -1,18 +1,18 @@
 import { useEffect } from "react";
-import { MockedProvider } from "@apollo/client/testing";
-import { ChatProvider } from "@evg-ui/fungi/Context";
+import { ChatProvider } from "@evg-ui/fungi";
+import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { LogMetadata } from "context/LogContext/types";
-import { evergreenTaskMock, logkeeperMetadataMock } from "test_data/task";
+import { evergreenTaskMock } from "test_data/task";
 import Subheader from ".";
 
 export default {
   component: Subheader,
   decorators: [
     (Story: () => React.JSX.Element) => (
-      <MockedProvider mocks={[evergreenTaskMock, logkeeperMetadataMock]}>
+      <MockedProvider mocks={[evergreenTaskMock]}>
         <ChatProvider appName="Parsley AI Testing">
           <Story />
         </ChatProvider>
@@ -68,8 +68,7 @@ export const TaskFileLog: CustomStoryObj<typeof SubheaderWrapper> = {
   render: (args) => <SubheaderWrapper {...args} />,
 };
 interface SubheaderWrapperProps
-  extends LogMetadata,
-    React.ComponentProps<typeof Subheader> {
+  extends LogMetadata, React.ComponentProps<typeof Subheader> {
   isUploadedLog: boolean;
 }
 

@@ -40,6 +40,15 @@ describe("processResmokeLine", () => {
       "[js_test:startup_recovery_commit_transaction_before_stable_timestamp] MongoDB shell version v6.2.0-alpha-250-g46817bf",
     );
   });
+  it("should not split on pipes inside JSON values", () => {
+    expect(
+      processResmokeLine(
+        `[j1:s0:n1] {"t":{"$date":"2026-03-03T05:21:51.241+00:00"},"s":"I",  "c":"ACCESS",   "id":10483900,"svc":"S", "ctx":"conn134","msg":"Connection not authenticating","attr":{"client":"127.0.0.1:56593","doc":{"driver":{"name":"PyMongo|c","version":"4.12.0"},"os":{"type":"Windows","name":"Windows","architecture":"AMD64","version":"10.0.20348-SP0"},"platform":"CPython 3.13.8.final.0"}}}`,
+      ),
+    ).toBe(
+      '[j1:s0:n1] | 2026-03-03T05:21:51.241+00:00 I  ACCESS   10483900 [S] [conn134] "Connection not authenticating","attr":{"client":"127.0.0.1:56593","doc":{"driver":{"name":"PyMongo|c","version":"4.12.0"},"os":{"type":"Windows","name":"Windows","architecture":"AMD64","version":"10.0.20348-SP0"},"platform":"CPython 3.13.8.final.0"}}',
+    );
+  });
   it("should transform a resmoke log", () => {
     resmokeLogFiles.forEach((file) => {
       const resmokeLog = readFileSync(

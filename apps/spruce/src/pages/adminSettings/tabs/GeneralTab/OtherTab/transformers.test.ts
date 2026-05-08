@@ -1,4 +1,5 @@
-import { AdminSettings, AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { formToGql, gqlToForm } from "./transformers";
 import { OtherFormState } from "./types";
 
@@ -10,9 +11,50 @@ describe("other tab transformers", () => {
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
+
+  it("round-trips S3 storage account ID lists from admin settings", () => {
+    const adminSettingsWithS3Lists: AdminSettingsData = {
+      ...mockAdminSettings,
+      cost: {
+        ...mockAdminSettings.cost,
+        s3Cost: {
+          storage: {
+            __typename: "S3StorageCostConfig",
+            archiveStorageCostDiscount: 0,
+            artifactAwsAccountsWithoutLifecycleRules: ["111"],
+            defaultMaxArtifactExpirationDays: 1,
+            devprodOwnedAwsAccountIds: ["222"],
+            iAStorageCostDiscount: 0,
+            standardStorageCostDiscount: 0,
+          },
+          upload: {
+            __typename: "S3UploadCostConfig",
+            uploadCostDiscount: 0,
+          },
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithS3Lists);
+    expect(loaded).not.toBeNull();
+    expect(formToGql(loaded!)).toStrictEqual({
+      ...expectedGql,
+      cost: {
+        ...expectedGql.cost,
+        s3Cost: {
+          ...expectedGql.cost?.s3Cost,
+          storage: {
+            ...expectedGql.cost?.s3Cost?.storage,
+            artifactAwsAccountsWithoutLifecycleRules: ["111"],
+            devprodOwnedAwsAccountIds: ["222"],
+          },
+        },
+      },
+    });
+  });
 });
 
-const mockAdminSettings: AdminSettings = {
+const mockAdminSettings: AdminSettingsData = {
   disabledGQLQueries: [],
   configDir: "/etc/evergreen",
   domainName: "evergreen.example.com",
@@ -20,6 +62,13 @@ const mockAdminSettings: AdminSettings = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    audience: "https://example.okta.com",
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
+    scopes: ["scope1", "scope2"],
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
@@ -29,6 +78,9 @@ const mockAdminSettings: AdminSettings = {
     idleTimeSecondsOverride: 600,
   },
   cost: {
+    ebsCost: {
+      ebsDiscount: 0.1,
+    },
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
@@ -74,7 +126,6 @@ const mockAdminSettings: AdminSettings = {
       secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
     },
   },
-  kanopySSHKeyPath: "/etc/ssh/kanopy_key",
   expansions: {
     DATABASE_URL: "mongodb://localhost:27017",
     API_KEY: "secret-api-key",
@@ -101,6 +152,9 @@ const mockAdminSettings: AdminSettings = {
     unexpirableVolumesPerUser: 3,
     spawnHostsPerUser: 5,
   },
+  debugSpawnHosts: {
+    setupScript: "echo debug spawn hosts",
+  },
   sleepSchedule: {
     permanentlyExemptHosts: ["build-host-1", "build-host-2"],
   },
@@ -109,11 +163,11 @@ const mockAdminSettings: AdminSettings = {
     collectorEndpoint: "https://collector.example.com",
     collectorInternalEndpoint: "https://collector-internal.example.com",
     collectorAPIKey: "tracer-api-key",
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
     totalProjectLimit: 100,
     repoProjectLimit: 50,
-    jiraProject: "EVG",
     repoExceptions: [
       {
         owner: "evergreen-ci",
@@ -123,6 +177,10 @@ const mockAdminSettings: AdminSettings = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };
 
@@ -144,10 +202,27 @@ const expectedForm: OtherFormState = {
         idleTimeSecondsOverride: 600,
       },
       cost: {
+        ebsDiscount: 0.1,
         financeFormula: 0.5,
         savingsPlanDiscount: 0.1,
         onDemandDiscount: 0.05,
+        s3Cost: {
+          uploadCostDiscount: 0,
+          standardStorageCostDiscount: 0,
+          iAStorageCostDiscount: 0,
+          archiveStorageCostDiscount: 0,
+          defaultMaxArtifactExpirationDays: 1,
+          artifactAwsAccountsWithoutLifecycleRules: [],
+          devprodOwnedAwsAccountIds: [],
+        },
       },
+    },
+    oktaServiceConfig: {
+      audience: "https://example.okta.com",
+      clientId: "okta-service-client-id",
+      clientSecret: "okta-service-client-secret",
+      issuer: "https://example.okta.com",
+      scopes: ["scope1", "scope2"],
     },
     singleTaskDistro: {
       projectTasksPairs: [
@@ -180,7 +255,6 @@ const expectedForm: OtherFormState = {
         secretARN:
           "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
       },
-      kanopySSHKeyPath: "/etc/ssh/kanopy_key",
     },
     expansions: {
       expansionValues: [
@@ -219,6 +293,9 @@ const expectedForm: OtherFormState = {
       unexpirableVolumesPerUser: 3,
       spawnHostsPerUser: 5,
     },
+    debugSpawnHostsConfig: {
+      setupScript: "echo debug spawn hosts",
+    },
     sleepSchedule: {
       permanentlyExemptHosts: ["build-host-1", "build-host-2"],
     },
@@ -227,11 +304,11 @@ const expectedForm: OtherFormState = {
       collectorEndpoint: "https://collector.example.com",
       collectorInternalEndpoint: "https://collector-internal.example.com",
       collectorAPIKey: "tracer-api-key",
+      traceUrlTemplate: "https://apm.example.com/trace/%s",
     },
     projectCreationSettings: {
       totalProjectLimit: 100,
       repoProjectLimit: 50,
-      jiraProject: "EVG",
       repoExceptions: [
         {
           owner: "evergreen-ci",
@@ -241,6 +318,10 @@ const expectedForm: OtherFormState = {
     },
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
+    },
+    diagnosticsConfig: {
+      s3BucketName: "diagnostics-bucket",
+      s3Prefix: "diagnostics/",
     },
   },
 };
@@ -252,6 +333,13 @@ const expectedGql: AdminSettingsInput = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    audience: "https://example.okta.com",
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
+    scopes: ["scope1", "scope2"],
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
@@ -301,7 +389,6 @@ const expectedGql: AdminSettingsInput = {
       secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
     },
   },
-  kanopySSHKeyPath: "/etc/ssh/kanopy_key",
   expansions: {
     DATABASE_URL: "mongodb://localhost:27017",
     API_KEY: "secret-api-key",
@@ -324,14 +411,33 @@ const expectedGql: AdminSettingsInput = {
     ],
   },
   cost: {
+    ebsCost: {
+      ebsDiscount: 0.1,
+    },
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
+    s3Cost: {
+      upload: {
+        uploadCostDiscount: 0,
+      },
+      storage: {
+        archiveStorageCostDiscount: 0,
+        artifactAwsAccountsWithoutLifecycleRules: [],
+        defaultMaxArtifactExpirationDays: 1,
+        devprodOwnedAwsAccountIds: [],
+        iAStorageCostDiscount: 0,
+        standardStorageCostDiscount: 0,
+      },
+    },
   },
   spawnhost: {
     unexpirableHostsPerUser: 2,
     unexpirableVolumesPerUser: 3,
     spawnHostsPerUser: 5,
+  },
+  debugSpawnHosts: {
+    setupScript: "echo debug spawn hosts",
   },
   sleepSchedule: {
     permanentlyExemptHosts: ["build-host-1", "build-host-2"],
@@ -341,11 +447,11 @@ const expectedGql: AdminSettingsInput = {
     collectorEndpoint: "https://collector.example.com",
     collectorInternalEndpoint: "https://collector-internal.example.com",
     collectorAPIKey: "tracer-api-key",
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
     totalProjectLimit: 100,
     repoProjectLimit: 50,
-    jiraProject: "EVG",
     repoExceptions: [
       {
         owner: "evergreen-ci",
@@ -355,5 +461,9 @@ const expectedGql: AdminSettingsInput = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };

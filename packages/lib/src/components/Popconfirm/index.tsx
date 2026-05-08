@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button, Size, Variant } from "@leafygreen-ui/button";
 import { Tooltip, TooltipProps, Align, Justify } from "@leafygreen-ui/tooltip";
 import { size } from "../../constants/tokens";
 import { wordBreakCss } from "../styles";
@@ -72,22 +72,26 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
         {children}
         <ButtonWrapper>
           <Button
+            as="button"
+            data-cy="popconfirm-cancel-button"
             onClick={() => {
               onClose();
               setOpen(false);
             }}
-            size="small"
+            size={Size.Small}
           >
             Cancel
           </Button>
           <Button
+            as="button"
+            data-cy="popconfirm-confirm-button"
             disabled={confirmDisabled}
             onClick={(e) => {
               onConfirm(e);
               setOpen(false);
             }}
-            size="small"
-            variant="primary"
+            size={Size.Small}
+            variant={Variant.Primary}
           >
             {confirmText}
           </Button>

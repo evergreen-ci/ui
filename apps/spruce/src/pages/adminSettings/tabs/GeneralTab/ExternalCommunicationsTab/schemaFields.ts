@@ -237,6 +237,30 @@ export const fws = {
   },
 };
 
+export const graphite = {
+  schema: {
+    ciOptimizationToken: {
+      type: "string" as const,
+      title: "CI Optimization Token",
+    },
+    serverUrl: {
+      type: "string" as const,
+      title: "Server URL",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "graphite",
+    ciOptimizationToken: {
+      "ui:widget": widgets.TextWidget,
+      "ui:options": {
+        inputType: "password",
+      },
+    },
+  },
+};
+
 export const cedar = {
   schema: {
     dbUrl: {
@@ -260,5 +284,23 @@ export const cedar = {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
     "ui:data-cy": "cedar",
+  },
+};
+
+export const sage = {
+  schema: {
+    baseUrl: {
+      type: "string" as const,
+      title: "Base URL",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "sage",
+    baseUrl: {
+      "ui:fullWidth": true,
+      "ui:description":
+        "The base URL for Sage API (e.g., https://sage.prod.corp.mongodb.com)",
+    },
   },
 };

@@ -1,4 +1,4 @@
-import { Operation } from "@apollo/client";
+import { ApolloLink } from "@apollo/client";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { leaveBreadcrumbMapFn } from "./logGQLToSentryLink";
 
@@ -13,8 +13,8 @@ describe("leaveBreadcrumbLinkMapFn", () => {
   it("leaveBreadcrumb function uses a list of secret fields to filter GQL req variables", () => {
     const assertLeaveBreadcrumbParams = (
       secretFields: string[],
-      unfilteredVariables: Operation["variables"],
-      filteredVariables: Operation["variables"],
+      unfilteredVariables: ApolloLink.Operation["variables"],
+      filteredVariables: ApolloLink.Operation["variables"],
     ) => {
       const operation = {
         operationName: "TestOperation",

@@ -18,6 +18,8 @@ export const hostMountVolumeDocumentationUrl = `${hostsDocumentationUrl}/Spawn-H
 
 export const taskSpawnHostDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#spawning-a-host-from-a-task`;
 
+export const debugSpawnHostsDocumentationUrl = `${hostsDocumentationUrl}/Debug-Spawn-Hosts`;
+
 export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
 
 export const projectSettingsRepoSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Repo-Level-Settings`;
@@ -31,6 +33,8 @@ export const pullRequestAliasesDocumentationUrl = `${projectDistroSettingsDocume
 export const mergeQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#merge-queue-aliases`;
 
 export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#git-tag-aliases`;
+
+export const runEveryMainlineCommitDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#run-every-mainline-commit`;
 
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
@@ -49,11 +53,11 @@ export const redactedVarsDocumentationUrl = `${wikiBaseUrl}/Project-Configuratio
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
-export const containersOnboardingDocumentationUrl = `${wikiBaseUrl}/Containers/Container-Tasks`;
-
 export const taskSchedulingLimitsDocumentationUrl = `${wikiBaseUrl}/Reference/Limits#task-scheduling-limits`;
 
 export const dataRetentionDocumentationUrl = `${wikiBaseUrl}/Reference/Data-Retention`;
+
+export const costDocumentationUrl = `${wikiBaseUrl}/FAQ/Cost-FAQ`;
 
 export const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";
@@ -104,21 +108,34 @@ export const getParsleyTaskLogLink = (
   execution: number,
 ) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
 
-export const getParsleyLogkeeperTestLogURL = (
-  buildId: string,
-  testId: string,
-) => `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}`;
-
-export const getParsleyBuildLogURL = (buildId: string) =>
-  `${getParsleyUrl()}/resmoke/${buildId}/all`;
-
 export const getParsleyCompleteLogsURL = (
   taskID: string,
   execution: number | string,
   groupID: string,
 ) => `${getParsleyUrl()}/resmoke/${taskID}/${execution}/${groupID}/all`;
 
+export const getAPIRouteForBuilds = (buildId: string) =>
+  `${getEvergreenUrl()}/rest/v2/builds/${buildId}`;
+
+export const getAPIRouteForVersions = (versionId: string) =>
+  `${getEvergreenUrl()}/rest/v2/versions/${versionId}`;
+
+export const getAPIRouteForTasks = (taskId: string, execution: number) =>
+  `${getEvergreenUrl()}/rest/v2/tasks/${taskId}?execution=${execution}`;
+
+export const getSpawnHostTokenExchangeAuthorizeUrl = () =>
+  `${getEvergreenUrl()}/rest/v2/auth/token_exchange/authorize`;
+
 export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";
 export const buildHostPostConfigRepoURL =
   "https://github.com/10gen/buildhost-post-config";
+
+export const cursorAPIKeySettingsUrl =
+  "https://cursor.com/dashboard?tab=integrations";
+
+export const sageBotDocumentationUrl =
+  "https://docs.devprod.prod.corp.mongodb.com/sage/sage-bot/";
+
+export const backstageS3BucketUrl =
+  "https://app.backstage.prod.corp.mongodb.com/autoflow";

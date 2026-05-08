@@ -87,6 +87,9 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    AdminSettings: {
+      merge: true,
+    },
     Image: {
       fields: {
         events: {
@@ -114,6 +117,7 @@ export const cache = new InMemoryCache({
     },
     Project: {
       keyFields: false,
+      merge: true,
     },
     ProjectEvents: {
       fields: {
@@ -134,9 +138,27 @@ export const cache = new InMemoryCache({
     },
     User: {
       keyFields: ["userId"],
+      fields: {
+        displayName: {
+          read(existing, { readField }) {
+            // Return userId if displayName is not set so that displayName is always populated
+            return existing || readField("userId");
+          },
+        },
+        userId: {
+          read(existing, { readField }) {
+            // Service users don't have userIds, just displayNames. Make sure both fields are set.
+            return existing || readField("displayName");
+          },
+        },
+      },
     },
     UserConfig: {
       keyFields: ["user"],
+    },
+    UserSettings: {
+      keyFields: false,
+      merge: true,
     },
     Task: {
       keyFields: ["execution", "id"],
@@ -166,6 +188,22 @@ export const cache = new InMemoryCache({
           },
         },
       },
+    },
+    Permissions: {
+      keyFields: false,
+      merge: true,
+    },
+    ServiceFlag: {
+      keyFields: ["name"],
+    },
+    SpruceConfig: {
+      // SpruceConfig is a singleton type with no identifying field
+      keyFields: [],
+      merge: true,
+    },
+    UIConfig: {
+      keyFields: false,
+      merge: true,
     },
     WaterfallTask: {
       keyFields: false,

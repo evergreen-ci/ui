@@ -2,19 +2,20 @@ import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Routes, Route, Navigate, useParams } from "react-router-dom";
 import { AdminSettingsTabRoutes, slugs } from "constants/routes";
-import { AdminSettings } from "gql/generated/types";
+import { AdminSettingsQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useAdminSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { EventLogsTab } from "./tabs/EventLogsTab/EventLogsTab";
 import { GeneralTab } from "./tabs/GeneralTab/GeneralTab";
 import { RestartTasksTab } from "./tabs/RestartTasksTab/RestartTasksTab";
+import { ServiceFlagsTab } from "./tabs/ServiceFlagsTab/ServiceFlagsTab";
 import { gqlToFormMap } from "./tabs/transformers";
 import { FormStateMap, WritableAdminSettingsType } from "./tabs/types";
 
-interface Props {
-  data: AdminSettings;
-}
+type Props = {
+  data: NonNullable<AdminSettingsQuery["adminSettings"]>;
+};
 
 export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   const { [slugs.tab]: tab } = useParams<{
@@ -34,6 +35,10 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
         <Route
           element={<GeneralTab tabData={tabData} />}
           path={AdminSettingsTabRoutes.General}
+        />
+        <Route
+          element={<ServiceFlagsTab />}
+          path={AdminSettingsTabRoutes.ServiceFlags}
         />
         <Route
           element={<EventLogsTab />}

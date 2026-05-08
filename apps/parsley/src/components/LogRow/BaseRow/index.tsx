@@ -169,7 +169,7 @@ const RowContainer = styled.div<{
   display: flex;
   align-items: flex-start;
 
-  font-family: "Source Code Pro", monospace;
+  font-family: ${fontFamilies.code};
   line-height: 1.25;
   font-size: ${fontSize.m};
   padding-left: 1px;

@@ -12,7 +12,7 @@ import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
  */
 export const usePatchesQueryParams = (): Omit<
   Required<PatchesInput>,
-  "onlyCommitQueue" | "onlyMergeQueue"
+  "countLimit" | "onlyCommitQueue" | "onlyMergeQueue"
 > => {
   const [patchName] = useQueryParam<string>(PatchPageQueryParams.PatchName, "");
   const [rawStatuses] = useQueryParam<string[]>(

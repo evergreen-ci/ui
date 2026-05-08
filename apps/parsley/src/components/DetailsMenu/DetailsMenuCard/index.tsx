@@ -3,17 +3,19 @@ import styled from "@emotion/styled";
 import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useParsleySettings } from "hooks/useParsleySettings";
 import ButtonRow from "./ButtonRow";
+import CliCommandButton from "./CliCommandButton/CliCommandButton";
 import SearchRangeInput from "./SearchRangeInput";
 import {
   CaseSensitiveToggle,
+  ExcludeTimestampsToggle,
   ExpandableRowsToggle,
   FilterLogicToggle,
   HighlightFiltersToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
   SectionsToggle,
+  StickyHeadersToggle,
   WordWrapFormatToggle,
   WrapToggle,
   ZebraStripingToggle,
@@ -26,10 +28,6 @@ interface DetailsMenuProps {
 const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
   ({ "data-cy": dataCy }, ref) => {
     const [selectedTab, setSelectedTab] = useState(0);
-
-    const { settings, updateSettings } = useParsleySettings();
-    const { jumpToFailingLineEnabled = true, sectionsEnabled = true } =
-      settings ?? {};
 
     return (
       <Container ref={ref} data-cy={dataCy}>
@@ -49,6 +47,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
               </Column>
             </Row>
             <ButtonRow />
+            <CliCommandButton />
           </Tab>
           <Tab data-cy="log-viewing-tab" name="Log Viewing">
             <Row>
@@ -58,14 +57,10 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                 <PrettyPrintToggle />
                 <ExpandableRowsToggle />
                 <ZebraStripingToggle />
-                <JumpToFailingLineToggle
-                  checked={jumpToFailingLineEnabled}
-                  updateSettings={updateSettings}
-                />
-                <SectionsToggle
-                  checked={sectionsEnabled}
-                  updateSettings={updateSettings}
-                />
+                <JumpToFailingLineToggle />
+                <SectionsToggle />
+                <StickyHeadersToggle />
+                <ExcludeTimestampsToggle />
               </Column>
             </Row>
           </Tab>

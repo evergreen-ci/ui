@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -36,6 +36,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
     RestartTaskMutation,
     RestartTaskMutationVariables
   >(RESTART_TASK, {
+    refetchQueries: ["TaskAllExecutions"],
     onCompleted: (data) => {
       const { latestExecution, priority } = data.restartTask ?? {};
       if ((priority || 0) < 0) {

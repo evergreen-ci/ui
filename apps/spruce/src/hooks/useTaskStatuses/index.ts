@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { taskStatusesFilterTreeData } from "constants/task";
@@ -31,19 +31,28 @@ export const useTaskStatuses = ({
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
 
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<TaskStatusesQuery, TaskStatusesQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const { version } = data || {};
-  const { baseTaskStatuses, taskStatuses } = version || {};
+  const { baseVersion, taskStatuses } = version || {};
   const currentStatuses = useMemo(
     () => getCurrentStatuses(taskStatuses ?? [], taskStatusesFilterTreeData),
     [taskStatuses],
   );
-  const baseStatuses = useMemo(
-    () =>
-      getCurrentStatuses(baseTaskStatuses ?? [], taskStatusesFilterTreeData),
-    [baseTaskStatuses],
-  );
+  const baseStatuses = useMemo(() => {
+    // Only include statuses that appear in both the base version and the current version
+    const baseTaskStatuses = baseVersion?.taskStatuses.filter((s) =>
+      taskStatuses?.includes(s),
+    );
+    return getCurrentStatuses(
+      baseTaskStatuses ?? [],
+      taskStatusesFilterTreeData,
+    );
+  }, [baseVersion?.taskStatuses, taskStatuses]);
 
   return { currentStatuses, baseStatuses };
 };

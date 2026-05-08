@@ -5,11 +5,19 @@ import {
   ProjectSettingsRedirect,
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
+  ProjectRedirect,
 } from "components/Redirects";
-import { redirectRoutes, routes, slugs } from "constants/routes";
+import {
+  getProjectPatchesRoute,
+  getProjectSettingsRoute,
+  getVariantHistoryRoute,
+  getWaterfallRoute,
+  redirectRoutes,
+  routes,
+  slugs,
+} from "constants/routes";
 import { AdminSettings } from "pages/AdminSettings";
 import { ConfigurePatch } from "pages/ConfigurePatch";
-import { Container } from "pages/Container";
 import { Distro } from "pages/Distro";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
@@ -34,7 +42,6 @@ export const Content: React.FC = () => (
   <Routes>
     <Route element={<Layout />}>
       <Route element={<Navigate to={routes.myPatches} />} path="/" />
-      <Route element={<Container />} path={routes.container} />
       <Route
         element={<WaterfallCommitsRedirect />}
         path={redirectRoutes.waterfall}
@@ -53,11 +60,8 @@ export const Content: React.FC = () => (
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={null} path={routes.jobLogs}>
-        <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
-          <Route element={null} path={`:${slugs.groupId}`} />
-        </Route>
         <Route
-          element={<JobLogs isLogkeeper={false} />}
+          element={<JobLogs />}
           path={`:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`}
         />
       </Route>
@@ -68,8 +72,26 @@ export const Content: React.FC = () => (
       <Route element={<Preferences />} path={routes.preferences}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<ProjectPatches />} path={routes.projectPatches} />
-      <Route element={<ProjectSettings />} path={routes.projectSettings}>
+      <Route
+        element={
+          <ProjectRedirect getRedirectRoute={getProjectPatchesRoute}>
+            <ProjectPatches />
+          </ProjectRedirect>
+        }
+        path={routes.projectPatches}
+      />
+      <Route
+        element={
+          <ProjectRedirect
+            getRedirectRoute={(identifier) =>
+              getProjectSettingsRoute(identifier)
+            }
+          >
+            <ProjectSettings />
+          </ProjectRedirect>
+        }
+        path={routes.projectSettings}
+      >
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={<RepoSettings />} path={routes.repoSettings}>
@@ -89,13 +111,31 @@ export const Content: React.FC = () => (
         element={<UserPatchesRedirect />}
         path={redirectRoutes.userPatches}
       />
-      <Route element={<VariantHistory />} path={routes.variantHistory} />
+      <Route
+        element={
+          <ProjectRedirect
+            getRedirectRoute={(identifier, params) =>
+              getVariantHistoryRoute(identifier, params.variantName || "")
+            }
+          >
+            <VariantHistory />
+          </ProjectRedirect>
+        }
+        path={routes.variantHistory}
+      />
       <Route element={<VersionPage />} path={routes.version} />
       <Route
         element={<WaterfallCommitsRedirect />}
         path={redirectRoutes.legacyCommits}
       />
-      <Route element={<Waterfall />} path={routes.waterfall} />
+      <Route
+        element={
+          <ProjectRedirect getRedirectRoute={getWaterfallRoute}>
+            <Waterfall />
+          </ProjectRedirect>
+        }
+        path={routes.waterfall}
+      />
       <Route element={<PageDoesNotExist />} path="*" />
       <Route element={<AdminSettings />} path={routes.adminSettings}>
         <Route element={null} path={`:${slugs.tab}`} />

@@ -26,7 +26,7 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
         ? generateColumns(data, visibleColumns, getTaskMetadata, sendEvent)
         : [],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [visibleColumns, getTaskMetadata],
+    [visibleColumns, getTaskMetadata, sendEvent],
   );
   const eventHandlers = useMemo(
     () => ({
@@ -78,8 +78,7 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
         });
       },
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [sendEvent],
   );
 
   return (
@@ -111,13 +110,16 @@ const generateColumns = (
       const taskMap = convertArrayToObject(tasks, "displayName");
       const t = taskMap[c];
       if (t) {
-        const { failingTests, inactive, label } = getTaskMetadata(t.id);
+        const { failingTests, inactive, label, loading } = getTaskMetadata(
+          t.id,
+        );
         return (
           <TaskCell
             key={c}
             failingTests={failingTests}
             inactive={inactive}
             label={label}
+            loading={loading}
             onClick={({ taskStatus }) => {
               sendEvent({
                 name: "Clicked task cell",

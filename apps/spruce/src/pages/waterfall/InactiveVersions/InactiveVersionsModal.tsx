@@ -22,7 +22,7 @@ export const InactiveVersionsModal: React.FC<Props> = ({
     versions?.some(({ activated }) => activated) ?? false;
 
   return (
-    <DisplayModal
+    <StyledDisplayModal
       data-cy="inactive-versions-modal"
       open={open}
       setOpen={setOpen}
@@ -38,9 +38,13 @@ export const InactiveVersionsModal: React.FC<Props> = ({
           {...version}
         />
       ))}
-    </DisplayModal>
+    </StyledDisplayModal>
   );
 };
+
+const StyledDisplayModal = styled(DisplayModal)`
+  text-align: left;
+`;
 
 const StyledVersionLabel = styled(VersionLabel)`
   padding-top: ${size.xs};

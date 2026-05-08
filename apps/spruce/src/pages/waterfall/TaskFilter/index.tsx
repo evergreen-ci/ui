@@ -2,13 +2,17 @@ import { useCallback } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+import { setLocalStorageString } from "@evg-ui/lib/utils/localStorage";
 import { useWaterfallAnalytics } from "analytics";
 import TupleSelect from "components/TupleSelect";
-import { FilterType } from "components/TupleSelectWithRegexConditional";
 import { useUpsertQueryParams } from "hooks";
-import { tupleSelectOptions } from "../constants";
-import { WaterfallFilterOptions } from "../types";
+import {
+  TASK_FILTER_SETTING_KEY,
+  stringFilterTooltipText,
+  tupleSelectOptions,
+} from "../constants";
+import { FilterType, WaterfallFilterOptions } from "../types";
+import { getFilterType, makeExactFilter } from "../utils";
 
 export const TaskFilter = () => {
   const onSubmit = useUpsertQueryParams();
@@ -18,30 +22,40 @@ export const TaskFilter = () => {
     ({ category, value }: { category: string; value: string }) => {
       const filterType = category as FilterType;
       const isRegex = filterType === FilterType.Regex;
+      const filterValue = isRegex ? value : makeExactFilter(value);
       onSubmit({
         category: WaterfallFilterOptions.Task,
-        value: isRegex ? value : toEscapedRegex(value),
+        value: filterValue,
       });
       sendEvent({
         name: "Filtered by task",
         "filter.type": filterType,
+        "filter.value": filterValue,
       });
     },
     [onSubmit, sendEvent],
   );
 
+  const defaultFilterType = getFilterType(TASK_FILTER_SETTING_KEY);
+
+  const handleToggleOption = useCallback((newOption: string) => {
+    setLocalStorageString(TASK_FILTER_SETTING_KEY, newOption);
+  }, []);
+
   return (
     <TupleSelect
       ariaLabel="Task Filter"
       data-cy="task-filter"
+      defaultOption={defaultFilterType}
       id="task-filter"
       label={
         <LabelContainer>
           <span>Task</span>
-          <InfoSprinkle>Search is case sensitive.</InfoSprinkle>
+          <InfoSprinkle>{stringFilterTooltipText}</InfoSprinkle>
         </LabelContainer>
       }
       onSubmit={onSubmitTupleSelect}
+      onToggleOption={handleToggleOption}
       options={tupleSelectOptions}
       placeholder="Search"
       validatorErrorMessage="Invalid regular expression"

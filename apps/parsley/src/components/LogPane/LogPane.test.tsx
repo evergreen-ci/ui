@@ -1,17 +1,15 @@
 import { createRef } from "react";
-import { MockedProvider } from "@apollo/client/testing";
-import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/storageKeys";
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
-import { parsleySettingsMock } from "test_data/parsleySettings";
+import { RowType } from "types/logs";
 import LogPane from ".";
 
 const list = Array.from({ length: 100 }, (_, i) => `${i}`);
@@ -22,16 +20,16 @@ const RowRenderer = (index: number) => (
 );
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[parsleySettingsMock]}>
-    <VirtuosoMockContext.Provider value={virtuosoConfig}>
-      <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
-    </VirtuosoMockContext.Provider>
-  </MockedProvider>
+  <VirtuosoMockContext.Provider value={virtuosoConfig}>
+    <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
+  </VirtuosoMockContext.Provider>
 );
 
-vi.mock("js-cookie");
-
 describe("logPane", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   afterEach(() => {
     vi.restoreAllMocks();
     vi.useRealTimers();
@@ -46,8 +44,9 @@ describe("logPane", () => {
     expect(screen.queryByText("Some Line: 99")).not.toBeInTheDocument();
   });
 
-  it("should not execute wrap and pretty print functionality if cookie is false", async () => {
-    (vi.spyOn(Cookie, "get") as MockInstance).mockReturnValue("false");
+  it("should not execute wrap and pretty print functionality if stored value is false", async () => {
+    localStorage.setItem(WRAP, "false");
+    localStorage.setItem(PRETTY_PRINT_BOOKMARKS, "false");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
@@ -60,8 +59,14 @@ describe("logPane", () => {
       preferences: {
         setPrettyPrint: mockedSetPrettyPrint,
         setWrap: mockedSetWrap,
+        stickyHeaders: false,
+        zebraStriping: false,
       },
       processedLogLines: Array.from(list.keys()),
+      // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+      sectioning: {
+        sectioningEnabled: false,
+      },
     }));
 
     RenderFakeToastContext();
@@ -77,8 +82,9 @@ describe("logPane", () => {
     });
   });
 
-  it("should execute wrap and pretty print functionality if cookie is true", async () => {
-    (vi.spyOn(Cookie, "get") as MockInstance).mockReturnValue("true");
+  it("should execute wrap and pretty print functionality if stored value is true", async () => {
+    localStorage.setItem(WRAP, "true");
+    localStorage.setItem(PRETTY_PRINT_BOOKMARKS, "true");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
@@ -91,8 +97,14 @@ describe("logPane", () => {
       preferences: {
         setPrettyPrint: mockedSetPrettyPrint,
         setWrap: mockedSetWrap,
+        stickyHeaders: false,
+        zebraStriping: false,
       },
       processedLogLines: Array.from(list.keys()),
+      // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+      sectioning: {
+        sectioningEnabled: false,
+      },
     }));
 
     RenderFakeToastContext();
@@ -118,11 +130,19 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          jumpToFailingLineEnabled: true,
+          sectionsEnabled: true,
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
       }));
 
       RenderFakeToastContext();
@@ -145,11 +165,19 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          jumpToFailingLineEnabled: true,
+          sectionsEnabled: true,
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
       }));
 
       RenderFakeToastContext();
@@ -164,6 +192,94 @@ describe("logPane", () => {
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledWith(5);
       });
+    });
+  });
+
+  describe("sticky headers", () => {
+    it("should render sticky headers when stickyHeaders is enabled and sectioning is enabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: true,
+          zebraStriping: false,
+        },
+        processedLogLines: [
+          {
+            functionID: "function-1",
+            functionName: "setup",
+            isOpen: true,
+            range: { end: 10, start: 0 },
+            rowType: RowType.SectionHeader,
+          },
+          1,
+          2,
+          3,
+        ],
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: true,
+        },
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.getByDataCy("sticky-headers")).toBeInTheDocument();
+    });
+
+    it("should not render sticky headers when stickyHeaders is disabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
+        },
+        processedLogLines: Array.from(list.keys()),
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: true,
+        },
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.queryByDataCy("sticky-headers")).not.toBeInTheDocument();
+    });
+
+    it("should not render sticky headers when sectioning is disabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: true,
+          zebraStriping: false,
+        },
+        processedLogLines: Array.from(list.keys()),
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.queryByDataCy("sticky-headers")).not.toBeInTheDocument();
     });
   });
 });

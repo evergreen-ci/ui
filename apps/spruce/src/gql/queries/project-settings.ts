@@ -1,0 +1,11 @@
+import { gql } from "@apollo/client";
+import { PROJECT_SETTINGS_FIELDS } from "../fragments/projectSettings/index";
+
+export const PROJECT_SETTINGS = gql`
+  query ProjectSettings($projectIdentifier: String!) {
+    projectSettings(projectIdentifier: $projectIdentifier) {
+      ...ProjectSettingsFields
+    }
+  }
+  ${PROJECT_SETTINGS_FIELDS}
+`;

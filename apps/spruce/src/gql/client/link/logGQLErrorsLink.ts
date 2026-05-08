@@ -1,12 +1,17 @@
-import { Operation } from "@apollo/client";
-import { onError } from "@apollo/client/link/error";
-import { GraphQLError } from "graphql";
+import { ApolloLink } from "@apollo/client";
+import { CombinedGraphQLErrors } from "@apollo/client/errors";
+import { ErrorLink } from "@apollo/client/link/error";
+import { GraphQLError, GraphQLFormattedError } from "graphql";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { deleteNestedKey } from "@evg-ui/lib/utils/object";
 
 export const reportingFn =
-  (secretFields: string[], operation: Operation) => (gqlErr: GraphQLError) => {
-    const fingerprint = [operation.operationName];
+  (secretFields: string[], operation: ApolloLink.Operation) =>
+  (gqlErr: GraphQLFormattedError) => {
+    const fingerprint: string[] = [];
+    if (operation.operationName) {
+      fingerprint.push(operation.operationName);
+    }
     const path = gqlErr?.path?.map((v) => v.toString());
     if (path) {
       fingerprint.push(...path);
@@ -46,6 +51,10 @@ export const reportingFn =
   };
 
 export const logGQLErrorsLink = (secretFields: string[]) =>
-  onError(({ graphQLErrors, operation }) =>
-    graphQLErrors?.forEach(reportingFn(secretFields, operation)),
-  );
+  new ErrorLink(({ error, operation }) => {
+    if (CombinedGraphQLErrors.is(error)) {
+      error.errors.forEach((gqlErr) =>
+        reportingFn(secretFields, operation)(gqlErr),
+      );
+    }
+  });

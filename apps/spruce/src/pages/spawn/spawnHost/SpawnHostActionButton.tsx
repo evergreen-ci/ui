@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useMutation, useLazyQuery } from "@apollo/client";
-import Button, { Size } from "@leafygreen-ui/button";
+import { useMutation, useLazyQuery } from "@apollo/client/react";
+import { Button, Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useSpawnAnalytics } from "analytics";
 import { isSleepScheduleActive } from "components/Spawn";
 import {
@@ -36,26 +37,22 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   // Since the MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
   // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwidth
   // except when an action is performed and we need to fetch updated data.
-  const [getMyHosts, { refetch, startPolling, stopPolling }] = useLazyQuery<
-    MyHostsQuery,
-    MyHostsQueryVariables
-  >(MY_HOSTS, {
+  const [
+    getMyHosts,
+    { called, error: hostsError, refetch, startPolling, stopPolling },
+  ] = useLazyQuery<MyHostsQuery, MyHostsQueryVariables>(MY_HOSTS, {
     pollInterval: 3000,
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading your spawn hosts: ${e.message}`,
-      );
-    },
   });
-  usePolling({
-    startPolling,
-    stopPolling,
-    refetch,
+  useErrorToast(hostsError, "There was an error loading your spawn hosts");
+  usePolling<MyHostsQuery, MyHostsQueryVariables>({
+    startPolling: called ? startPolling : () => {},
+    stopPolling: called ? stopPolling : () => {},
+    refetch: called ? refetch : () => {},
     initialPollingState: false,
   });
   // Stop polling when we get updated host data
   useEffect(() => {
-    if (stopPolling) {
+    if (called && stopPolling) {
       stopPolling();
     }
   }, [host]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -100,8 +97,9 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     checkboxLabel = `${copyPrefix} a virtual workstation.`;
   }
 
-  const [checkboxAcknowledged, setCheckboxAcknowledged] =
-    useState(!checkboxLabel);
+  const mustAcknowledgeCheckbox =
+    (host.noExpiration || host.distro?.isVirtualWorkStation) ?? false;
+  const [checkboxAcknowledged, setCheckboxAcknowledged] = useState(false);
 
   const [sleepModalOpen, setSleepModalOpen] = useState(false);
 
@@ -145,6 +143,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         onConfirm={() => handleClick(SpawnHostStatusActions.Reboot)}
         trigger={
           <Button
+            as="button"
             disabled={!canReboot}
             onClick={(e) => {
               e.stopPropagation();
@@ -162,10 +161,11 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         </Disclaimer>
       </Popconfirm>
       <Popconfirm
-        confirmDisabled={!checkboxAcknowledged}
+        confirmDisabled={mustAcknowledgeCheckbox && !checkboxAcknowledged}
         onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button
+            as="button"
             disabled={!canTerminate}
             onClick={(e) => {
               e.stopPropagation();

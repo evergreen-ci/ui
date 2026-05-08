@@ -1,10 +1,9 @@
-import { useQuery } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import { ProjectBanner } from "components/Banners";
 import { PatchesPage } from "components/PatchesPage";
@@ -22,7 +21,6 @@ import { usePolling } from "hooks";
 import { PatchPageQueryParams } from "types/patch";
 
 export const ProjectPatches = () => {
-  const dispatchToast = useToastContext();
   const analytics = useProjectPatchesAnalytics();
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
 
@@ -50,26 +48,31 @@ export const ProjectPatches = () => {
 
   const patchesInput = usePatchesQueryParams();
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     ProjectPatchesQuery,
     ProjectPatchesQueryVariables
-  >(PROJECT_PATCHES, {
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      patchesInput: {
-        ...patchesInput,
-        onlyMergeQueue: isGitHubMergeQueueCheckboxChecked,
-      },
-    },
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (err) => {
-      dispatchToast.error(
-        `Error while fetching project patches: ${err.message}`,
-      );
-    },
+  >(
+    PROJECT_PATCHES,
+    projectIdentifier
+      ? {
+          variables: {
+            projectIdentifier: projectIdentifier,
+            patchesInput: {
+              ...patchesInput,
+              onlyMergeQueue: isGitHubMergeQueueCheckboxChecked,
+            },
+          },
+          pollInterval: DEFAULT_POLL_INTERVAL,
+        }
+      : skipToken,
+  );
+  useErrorToast(error, "Error while fetching project patches");
+  usePolling<ProjectPatchesQuery, ProjectPatchesQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
   });
-  usePolling({ startPolling, stopPolling, refetch });
+
   const { displayName, patches } = data?.project ?? {};
 
   return (

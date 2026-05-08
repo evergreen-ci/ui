@@ -1,6 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
@@ -83,6 +83,39 @@ describe("metadata", () => {
     await user.click(screen.getByDataCy("other-failing-commands-summary"));
     expect(screen.getByText("other failing command")).toBeVisible();
   });
+
+  it("HidesCostDetailsButtonWhenTaskIsRunning", () => {
+    render(<Metadata loading={false} task={taskWithCost.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.queryByDataCy("cost-details-button")).not.toBeInTheDocument();
+  });
+
+  it("ShowsCostDetailsButtonWhenTaskIsComplete", () => {
+    render(<Metadata loading={false} task={taskWithCostAndFinishTime.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
+  });
+
+  it("CanReopenCostModalAfterClosing", async () => {
+    const user = userEvent.setup();
+    render(<Metadata loading={false} task={taskWithCostAndFinishTime.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    await user.click(screen.getByDataCy("cost-details-button"));
+    expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Close modal" }));
+    expect(screen.queryByDataCy("cost-modal")).not.toBeInTheDocument();
+    await user.click(screen.getByDataCy("cost-details-button"));
+    expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
+  });
 });
 
 const taskId =
@@ -129,5 +162,30 @@ const taskSucceeded: TaskQueryType = {
         },
       ],
     },
+  },
+};
+
+const taskWithCost: TaskQueryType = {
+  task: {
+    ...taskStarted.task,
+    taskCost: {
+      __typename: "Cost",
+      total: 42.5,
+      adjustedEC2Cost: 40,
+      adjustedEBSStorageCost: null,
+      adjustedEBSThroughputCost: null,
+      adjustedS3ArtifactPutCost: null,
+      adjustedS3ArtifactStorageCost: null,
+      adjustedS3LogPutCost: null,
+      adjustedS3LogStorageCost: 2.5,
+    },
+  },
+};
+
+const taskWithCostAndFinishTime: TaskQueryType = {
+  task: {
+    ...taskWithCost.task,
+    finishTime: new Date("2024-01-02"),
+    status: "succeeded",
   },
 };

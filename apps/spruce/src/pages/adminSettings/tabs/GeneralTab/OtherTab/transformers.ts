@@ -27,6 +27,8 @@ export const gqlToForm = ((data) => {
     buckets,
     configDir,
     cost,
+    debugSpawnHosts,
+    diagnostics,
     domainName,
     expansions,
     githubCheckRun,
@@ -36,6 +38,7 @@ export const gqlToForm = ((data) => {
     hostJasper,
     jiraNotifications,
     logPath,
+    oktaServiceConfig,
     oldestAllowedCLIVersion,
     pprofPort,
     projectCreation,
@@ -67,10 +70,35 @@ export const gqlToForm = ((data) => {
           idleTimeSecondsOverride: releaseMode?.idleTimeSecondsOverride ?? 0,
         },
         cost: {
+          ebsDiscount: cost?.ebsCost?.ebsDiscount ?? 0,
           financeFormula: cost?.financeFormula ?? 0,
           savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
           onDemandDiscount: cost?.onDemandDiscount ?? 0,
+          s3Cost: {
+            archiveStorageCostDiscount:
+              cost?.s3Cost?.storage?.archiveStorageCostDiscount ?? 0,
+            artifactAwsAccountsWithoutLifecycleRules:
+              cost?.s3Cost?.storage?.artifactAwsAccountsWithoutLifecycleRules ??
+              [],
+            defaultMaxArtifactExpirationDays:
+              cost?.s3Cost?.storage?.defaultMaxArtifactExpirationDays || 1,
+            devprodOwnedAwsAccountIds:
+              cost?.s3Cost?.storage?.devprodOwnedAwsAccountIds ?? [],
+            iAStorageCostDiscount:
+              cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
+            standardStorageCostDiscount:
+              cost?.s3Cost?.storage?.standardStorageCostDiscount ?? 0,
+            uploadCostDiscount: cost?.s3Cost?.upload?.uploadCostDiscount ?? 0,
+          },
         },
+      },
+
+      oktaServiceConfig: {
+        audience: oktaServiceConfig?.audience ?? "",
+        clientId: oktaServiceConfig?.clientId ?? "",
+        clientSecret: oktaServiceConfig?.clientSecret ?? "",
+        issuer: oktaServiceConfig?.issuer ?? "",
+        scopes: oktaServiceConfig?.scopes ?? [],
       },
 
       singleTaskDistro: {
@@ -105,7 +133,6 @@ export const gqlToForm = ((data) => {
           name: ssh?.spawnHostKey?.name ?? "",
           secretARN: ssh?.spawnHostKey?.secretARN ?? "",
         },
-        kanopySSHKeyPath: data.kanopySSHKeyPath ?? "",
       },
 
       expansions: {
@@ -156,6 +183,10 @@ export const gqlToForm = ((data) => {
         spawnHostsPerUser: spawnhost?.spawnHostsPerUser ?? 0,
       },
 
+      debugSpawnHostsConfig: {
+        setupScript: debugSpawnHosts?.setupScript ?? "",
+      },
+
       sleepSchedule: {
         permanentlyExemptHosts: sleepSchedule?.permanentlyExemptHosts ?? [],
       },
@@ -165,12 +196,12 @@ export const gqlToForm = ((data) => {
         collectorEndpoint: tracer?.collectorEndpoint ?? "",
         collectorInternalEndpoint: tracer?.collectorInternalEndpoint ?? "",
         collectorAPIKey: tracer?.collectorAPIKey ?? "",
+        traceUrlTemplate: tracer?.traceUrlTemplate ?? "",
       },
 
       projectCreationSettings: {
         totalProjectLimit: projectCreation?.totalProjectLimit ?? 0,
         repoProjectLimit: projectCreation?.repoProjectLimit ?? 0,
-        jiraProject: projectCreation?.jiraProject ?? "",
         repoExceptions:
           projectCreation?.repoExceptions?.map((exception) => ({
             owner: exception.owner ?? "",
@@ -181,6 +212,11 @@ export const gqlToForm = ((data) => {
       githubCheckRunConfigurations: {
         checkRunLimit: githubCheckRun?.checkRunLimit ?? 0,
       },
+
+      diagnosticsConfig: {
+        s3BucketName: diagnostics?.s3BucketName ?? "",
+        s3Prefix: diagnostics?.s3Prefix ?? "",
+      },
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -190,11 +226,14 @@ export const formToGql = ((form: OtherFormState) => {
 
   const {
     bucketConfig,
+    debugSpawnHostsConfig,
+    diagnosticsConfig,
     expansions,
     githubCheckRunConfigurations,
     hostJasper,
     jiraNotificationsFields,
     miscSettings,
+    oktaServiceConfig,
     projectCreationSettings,
     singleTaskDistro,
     sleepSchedule,
@@ -203,7 +242,7 @@ export const formToGql = ((form: OtherFormState) => {
     tracerConfiguration,
   } = other;
 
-  const { kanopySSHKeyPath, ...ssh } = sshPairs;
+  const { ...ssh } = sshPairs;
 
   return {
     configDir: miscSettings.configDir || undefined,
@@ -227,9 +266,41 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     cost: {
+      ebsCost: {
+        ebsDiscount: miscSettings.cost.ebsDiscount || undefined,
+      },
       financeFormula: miscSettings.cost.financeFormula || undefined,
       savingsPlanDiscount: miscSettings.cost.savingsPlanDiscount || undefined,
       onDemandDiscount: miscSettings.cost.onDemandDiscount || undefined,
+      s3Cost: {
+        upload: {
+          uploadCostDiscount:
+            miscSettings.cost.s3Cost.uploadCostDiscount ?? undefined,
+        },
+        storage: {
+          archiveStorageCostDiscount:
+            miscSettings.cost.s3Cost.archiveStorageCostDiscount ?? undefined,
+          artifactAwsAccountsWithoutLifecycleRules:
+            miscSettings.cost.s3Cost.artifactAwsAccountsWithoutLifecycleRules,
+          defaultMaxArtifactExpirationDays:
+            miscSettings.cost.s3Cost.defaultMaxArtifactExpirationDays ||
+            undefined,
+          devprodOwnedAwsAccountIds:
+            miscSettings.cost.s3Cost.devprodOwnedAwsAccountIds,
+          iAStorageCostDiscount:
+            miscSettings.cost.s3Cost.iAStorageCostDiscount ?? undefined,
+          standardStorageCostDiscount:
+            miscSettings.cost.s3Cost.standardStorageCostDiscount ?? undefined,
+        },
+      },
+    },
+
+    oktaServiceConfig: {
+      audience: oktaServiceConfig.audience || undefined,
+      clientId: oktaServiceConfig.clientId || undefined,
+      clientSecret: oktaServiceConfig.clientSecret || undefined,
+      issuer: oktaServiceConfig.issuer || undefined,
+      scopes: oktaServiceConfig.scopes || undefined,
     },
 
     singleTaskDistro: {
@@ -280,8 +351,6 @@ export const formToGql = ((form: OtherFormState) => {
       },
     },
 
-    kanopySSHKeyPath: kanopySSHKeyPath || undefined,
-
     expansions: convertExpansionsToGql(expansions.expansionValues),
 
     hostJasper: {
@@ -322,6 +391,10 @@ export const formToGql = ((form: OtherFormState) => {
       spawnHostsPerUser: spawnHost.spawnHostsPerUser || undefined,
     },
 
+    debugSpawnHosts: {
+      setupScript: debugSpawnHostsConfig.setupScript || undefined,
+    },
+
     sleepSchedule: {
       permanentlyExemptHosts: sleepSchedule.permanentlyExemptHosts || [],
     },
@@ -332,12 +405,12 @@ export const formToGql = ((form: OtherFormState) => {
       collectorInternalEndpoint:
         tracerConfiguration.collectorInternalEndpoint || undefined,
       collectorAPIKey: tracerConfiguration.collectorAPIKey || undefined,
+      traceUrlTemplate: tracerConfiguration.traceUrlTemplate || undefined,
     },
 
     projectCreation: {
       totalProjectLimit: projectCreationSettings.totalProjectLimit || undefined,
       repoProjectLimit: projectCreationSettings.repoProjectLimit || undefined,
-      jiraProject: projectCreationSettings.jiraProject || undefined,
       repoExceptions: projectCreationSettings.repoExceptions
         .filter((exception) => exception.owner && exception.repo)
         .map((exception) => ({
@@ -348,6 +421,11 @@ export const formToGql = ((form: OtherFormState) => {
 
     githubCheckRun: {
       checkRunLimit: githubCheckRunConfigurations.checkRunLimit || undefined,
+    },
+
+    diagnostics: {
+      s3BucketName: diagnosticsConfig.s3BucketName || undefined,
+      s3Prefix: diagnosticsConfig.s3Prefix || undefined,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

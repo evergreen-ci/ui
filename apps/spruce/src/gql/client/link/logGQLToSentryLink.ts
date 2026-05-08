@@ -1,4 +1,4 @@
-import { Operation, FetchResult, ApolloLink } from "@apollo/client";
+import { ApolloLink, Observable } from "@apollo/client";
 import {
   leaveBreadcrumb,
   SentryBreadcrumbTypes,
@@ -6,7 +6,8 @@ import {
 import { deleteNestedKey } from "@evg-ui/lib/utils/object";
 
 export const leaveBreadcrumbMapFn =
-  (operation: Operation, secretFields: string[]) => (response: FetchResult) => {
+  (operation: ApolloLink.Operation, secretFields: string[]) =>
+  (response: ApolloLink.Result) => {
     leaveBreadcrumb(
       "Graphql Request",
       {
@@ -25,6 +26,18 @@ export const leaveBreadcrumbMapFn =
   };
 
 export const logGQLToSentryLink = (secretFields: string[]): ApolloLink =>
-  new ApolloLink((operation, forward) =>
-    forward(operation).map(leaveBreadcrumbMapFn(operation, secretFields)),
+  new ApolloLink(
+    (operation, forward) =>
+      new Observable((observer) => {
+        const subscription = forward(operation).subscribe({
+          next: (result) => {
+            observer.next(
+              leaveBreadcrumbMapFn(operation, secretFields)(result),
+            );
+          },
+          error: observer.error.bind(observer),
+          complete: observer.complete.bind(observer),
+        });
+        return () => subscription.unsubscribe();
+      }),
   );

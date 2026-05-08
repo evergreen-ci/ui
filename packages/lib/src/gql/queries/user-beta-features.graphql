@@ -1,8 +1,0 @@
-query UserBetaFeatures {
-  user {
-    betaFeatures {
-      parsleyAIEnabled
-    }
-    userId
-  }
-}

@@ -1,4 +1,5 @@
 import { FieldFunctionOptions } from "@apollo/client";
+import { FieldMergeFunctionOptions } from "@apollo/client/cache";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { tasks } from "../testData";
 import { mergeTasks, readTasks } from ".";
@@ -17,7 +18,11 @@ const pagination = {
 };
 
 describe("mergeTasks", () => {
-  const readFn = { readField } as FieldFunctionOptions;
+  const readFn = {
+    readField,
+    extensions: {},
+    existingData: undefined,
+  } as FieldMergeFunctionOptions;
 
   it("merges tasks arrays", () => {
     expect(

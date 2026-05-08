@@ -1,5 +1,5 @@
 import { DisplayMode, Drawer, DrawerLayout } from "@leafygreen-ui/drawer";
-import { useChatContext } from "../Context";
+import { useChatContext } from "#Context";
 
 type Props = {
   children: React.ReactNode;

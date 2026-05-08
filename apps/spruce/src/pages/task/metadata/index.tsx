@@ -1,5 +1,6 @@
-import { ApolloError } from "@apollo/client";
+import { useState } from "react";
 import styled from "@emotion/styled";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -7,13 +8,18 @@ import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
+import { CopyableID } from "components/CopyableID";
+import { CostModal } from "components/CostModal";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
+  MetadataTitleWithAPILink,
 } from "components/MetadataCard";
+import { Stepback } from "components/Stepback";
+import { getAPIRouteForTasks } from "constants/externalResources";
 import {
-  getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
+  getHoneycombTraceUrl,
 } from "constants/externalResources/honeycomb";
 import {
   getDistroSettingsRoute,
@@ -22,11 +28,11 @@ import {
   getHostRoute,
   getSpawnHostRoute,
   getProjectPatchesRoute,
-  getPodRoute,
   getImageRoute,
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
+import { isInStepback } from "utils/stepback";
 import { msToDuration } from "utils/string";
 import { AbortMessage } from "./AbortMessage";
 import { BuildVariantCard } from "./BuildVariant";
@@ -34,7 +40,6 @@ import { DependsOn } from "./DependsOn";
 import DetailsDescription from "./DetailsDescription";
 import ETATimer from "./ETATimer";
 import RuntimeTimer from "./RuntimeTimer";
-import { Stepback, isInStepback } from "./Stepback";
 import TagsMetadata from "./TagsMetadata";
 import TaskOwnership from "./TaskOwnership";
 import { TaskTimingMetadata } from "./TaskTiming";
@@ -45,12 +50,15 @@ const { red } = palette;
 interface Props {
   loading: boolean;
   task: TaskQuery["task"];
-  error?: ApolloError;
+  error?: Error;
 }
 
 export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
+  const [costModalOpen, setCostModalOpen] = useState(false);
+
+  const showStepback = isInStepback(task?.stepbackInfo);
 
   if (!task) {
     return (
@@ -65,6 +73,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     ami,
     annotation,
     baseTask,
+    buildId,
     buildVariant,
     buildVariantDisplayName,
     dependsOn,
@@ -84,13 +93,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     imageId,
     ingestTime,
     minQueuePosition: taskQueuePosition,
-    pod,
     priority,
     project,
     resetWhenFinished,
     spawnHostLink,
     startTime,
     tags,
+    taskCost,
     testSelectionEnabled,
     timeTaken,
     versionMetadata,
@@ -98,7 +107,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
   const isDisplayTask = executionTasksFull != null;
   const {
-    id: baseTaskId,
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
@@ -111,19 +119,23 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     testSelection,
   } = project || {};
   const { allowed: testSelectionEnabledForProject } = testSelection || {};
-  const { author } = versionMetadata ?? {};
+  const { user } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices;
-  const { id: podId } = pod ?? {};
-  const isContainerTask = !!podId;
   const { metadataLinks } = annotation ?? {};
-
-  const stepback = isInStepback(task);
 
   return (
     <>
-      <MetadataCard title="Task Metadata">
+      <MetadataCard
+        title={
+          <MetadataTitleWithAPILink
+            href={getAPIRouteForTasks(taskId, execution)}
+            title="Task Metadata"
+          />
+        }
+      >
+        <CopyableID textToCopy={taskId} tooltipLabel="Copy task ID" />
         <MetadataItem data-cy="task-metadata-project">
           <MetadataLabel>Project:</MetadataLabel>{" "}
           <StyledRouterLink
@@ -140,7 +152,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </StyledRouterLink>
         </MetadataItem>
         <MetadataItem>
-          <MetadataLabel>Submitted by:</MetadataLabel> {author}
+          <MetadataLabel>Submitted by:</MetadataLabel> {user.userId}
         </MetadataItem>
         {ingestTime && (
           <MetadataItem data-cy="task-metadata-submitted-at">
@@ -215,11 +227,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             {msToDuration(baseTaskDuration)}
           </MetadataItem>
         ) : null}
-        {baseTaskId && (
+        {baseTask && (
           <MetadataItem>
             <MetadataLabel>Base commit:</MetadataLabel>{" "}
             <InlineCode
-              as={Link as any}
+              as={Link}
               data-cy="base-task-link"
               onClick={() =>
                 taskAnalytics.sendEvent({
@@ -227,17 +239,14 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
                   "link.type": "base commit",
                 })
               }
-              to={getTaskRoute(baseTaskId)}
+              to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
             >
               {baseCommit}
             </InlineCode>
           </MetadataItem>
         )}
         {(details?.description || details?.failingCommand) && (
-          <DetailsDescription
-            details={details}
-            isContainerTask={isContainerTask}
-          />
+          <DetailsDescription details={details} />
         )}
 
         <TaskOwnership execution={execution} taskId={taskId} />
@@ -311,11 +320,40 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             finished.
           </MetadataItem>
         )}
-        {stepback && <Stepback taskId={taskId} />}
+        {showStepback && (
+          <MetadataItem as="div">
+            <Stepback
+              execution={execution}
+              status={task.status}
+              taskId={taskId}
+            />
+          </MetadataItem>
+        )}
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-
+        {finishTime && taskCost?.total != null && (
+          <MetadataItem data-cy="task-metadata-cost">
+            <MetadataLabel>Cost:</MetadataLabel> ${taskCost.total}
+            {taskCost.total > 0 && (
+              <>
+                {" "}
+                <Button
+                  data-cy="cost-details-button"
+                  onClick={() => {
+                    taskAnalytics.sendEvent({
+                      name: "Clicked cost details button",
+                    });
+                    setCostModalOpen(true);
+                  }}
+                  size={ButtonSize.XSmall}
+                >
+                  Cost Details
+                </Button>
+              </>
+            )}
+          </MetadataItem>
+        )}
         {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
@@ -357,8 +395,18 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
       </MetadataCard>
+      {taskCost && costModalOpen && (
+        <CostModal
+          {...taskCost}
+          name={task.displayName}
+          open={costModalOpen}
+          setOpen={setCostModalOpen}
+          taskId={taskId}
+        />
+      )}
 
       <BuildVariantCard
+        buildId={buildId}
         buildVariant={buildVariant}
         buildVariantDisplayName={buildVariantDisplayName ?? ""}
         projectIdentifier={projectIdentifier}
@@ -375,7 +423,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
       {!isDisplayTask && (
         <MetadataCard loading={loading} title="Host Information">
-          {!isContainerTask && hostId && (
+          {hostId && (
             <MetadataItem>
               <MetadataLabel>ID:</MetadataLabel>{" "}
               <StyledLink
@@ -392,7 +440,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
               </StyledLink>
             </MetadataItem>
           )}
-          {!isContainerTask && distroId && (
+          {distroId && (
             <MetadataItem>
               <MetadataLabel>Distro:</MetadataLabel>{" "}
               <StyledRouterLink
@@ -409,7 +457,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
               </StyledRouterLink>
             </MetadataItem>
           )}
-          {!isContainerTask && imageId && (
+          {imageId && (
             <MetadataItem>
               <MetadataLabel>Image:</MetadataLabel>{" "}
               <StyledRouterLink
@@ -429,23 +477,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           {ami && (
             <MetadataItem data-cy="task-metadata-ami">
               <MetadataLabel>AMI:</MetadataLabel> {ami}
-            </MetadataItem>
-          )}
-          {isContainerTask && (
-            <MetadataItem>
-              <MetadataLabel>Container:</MetadataLabel>{" "}
-              <StyledLink
-                data-cy="task-pod-link"
-                href={getPodRoute(podId)}
-                onClick={() =>
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "pod link",
-                  })
-                }
-              >
-                {podId}
-              </StyledLink>
             </MetadataItem>
           )}
           {spawnHostLink && (

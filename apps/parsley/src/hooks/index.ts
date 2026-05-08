@@ -1,4 +1,5 @@
+import { useIsParsleyAIAvailable } from "./useIsParsleyAIAvailable";
 import { useLogDownloader } from "./useLogDownloader";
 import { useUser } from "./useUser";
 
-export { useLogDownloader, useUser };
+export { useIsParsleyAIAvailable, useLogDownloader, useUser };

@@ -7,7 +7,7 @@ interface Props {
 
 const TrendChartsPlugin: React.FC<Props> = ({ taskId }) => (
   <StyledIframe
-    allow="clipboard-read; clipboard-write"
+    allow="clipboard-read; clipboard-write; publickey-credentials-get"
     src={`${getSignalProcessingUrl()}/task/${taskId}/performanceData`}
     title="Task Performance Data"
   />

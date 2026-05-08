@@ -3,8 +3,9 @@ import { ConfigurePatchQuery } from "gql/generated/types";
 
 type PatchQuery = ConfigurePatchQuery["patch"];
 // Extract the type of a child patch and append alias field
-export interface ChildPatchAliased
-  extends Unpacked<NonNullable<PatchQuery["childPatches"]>> {
+export interface ChildPatchAliased extends Unpacked<
+  NonNullable<PatchQuery["childPatches"]>
+> {
   alias: string;
 }
 

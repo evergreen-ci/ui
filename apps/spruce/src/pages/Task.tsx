@@ -1,14 +1,16 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { CombinedGraphQLErrors } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import Icon from "@evg-ui/lib/components/Icon";
+import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { TTLInfo } from "components/404/TTLInfo";
-import { ProjectBanner } from "components/Banners";
+import { ProjectBanner, ErrorBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
 import {
@@ -35,7 +37,6 @@ export const Task = () => {
   const { [slugs.taskId]: taskId } = useParams<{
     [slugs.taskId]: string;
   }>();
-  const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
   const [selectedExecution, setSelectedExecution] = useQueryParam<
@@ -46,35 +47,39 @@ export const Task = () => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskQuery,
     TaskQueryVariables
-  >(TASK, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { taskId, execution: selectedExecution },
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    fetchPolicy: "network-only",
-    errorPolicy: "all",
-    onError: (err) => {
-      // We shouldn't show errors about annotation permissions resulting from the task resolver, but we can't separate out the query because we need to identify if the user has permissions to hide the tab accordingly.
-      // Thus, if an error comes from the annotation resolver, don't show a toast for it.
-      const hasNonAnnotationErrors = err?.graphQLErrors?.some(
-        (e) => !e?.path?.includes("annotation"),
-      );
-      if (hasNonAnnotationErrors) {
-        dispatchToast.error(
-          `There was an error loading the task: ${err.message}`,
-        );
-      }
-    },
+  >(
+    TASK,
+    taskId
+      ? {
+          variables: { taskId: taskId, execution: selectedExecution },
+          pollInterval: DEFAULT_POLL_INTERVAL,
+          fetchPolicy: "network-only",
+          errorPolicy: "all",
+        }
+      : skipToken,
+  );
+  usePolling<TaskQuery, TaskQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
   });
-  usePolling({ startPolling, stopPolling, refetch });
+
+  useErrorToast(
+    error,
+    "Loading task",
+    CombinedGraphQLErrors.is(error) &&
+      error.errors.some((e) => !e?.path?.includes("annotation")),
+  );
 
   const { task } = data ?? {};
   const {
     displayName,
     displayStatus,
     displayTask,
+    errors,
     executionTasksFull,
+    invalidatedByUpstream,
     latestExecution,
-    patchNumber,
     priority,
     status,
     versionMetadata,
@@ -110,15 +115,13 @@ export const Task = () => {
     <PageWrapper>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
+      {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {task && (
         <TaskPageBreadcrumbs
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          displayTask={displayTask}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          patchNumber={patchNumber}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          taskName={displayName}
-          versionMetadata={versionMetadata}
+          displayTask={task.displayTask || undefined}
+          patchNumber={task.patchNumber || undefined}
+          taskName={task.displayName}
+          versionMetadata={task.versionMetadata}
         />
       )}
       <PageTitle
@@ -133,6 +136,13 @@ export const Task = () => {
             />
             {shouldShowOriginalStatus && (
               <TaskStatusBadge status={TaskStatus.KnownIssue} />
+            )}
+            {invalidatedByUpstream && (
+              <Chip
+                glyph={<Icon glyph="Refresh" />}
+                label="Merge Queue Aborted"
+                variant={ChipVariant.Gray}
+              />
             )}
           </StyledBadgeWrapper>
         }
@@ -182,9 +192,10 @@ export const Task = () => {
 };
 
 const StyledBadgeWrapper = styled.div`
-  > :nth-of-type(2) {
-    margin-left: 10px;
-  }
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: normal;
 `;
 
 const StyledPageContent = styled(PageContent)`

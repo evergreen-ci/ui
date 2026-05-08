@@ -1,8 +1,15 @@
 import { useEffect, useMemo } from "react";
+import { useQuery, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
-import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
+import {
+  GithubProjectConflictsQuery,
+  GithubProjectConflictsQueryVariables,
+  ProjectSettingsQuery,
+  RepoSettingsQuery,
+} from "gql/generated/types";
+import { GITHUB_PROJECT_CONFLICTS } from "gql/queries";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
@@ -11,18 +18,20 @@ import { AppSettingsTab } from "./tabs/GithubAppSettingsTab/AppSettingsTab";
 import { PermissionGroupsTab } from "./tabs/GithubPermissionGroupsTab/PermissionGroupsTab";
 import {
   AccessTab,
-  ContainersTab,
+  CommitChecksTab,
   EventLogTab,
   GeneralTab,
-  GithubCommitQueueTab,
+  GitTagsTab,
   NotificationsTab,
   PatchAliasesTab,
   PeriodicBuildsTab,
   ProjectTriggersTab,
-  VariablesTab,
   PluginsTab,
+  PullRequestsTab,
+  VariablesTab,
   ViewsAndFiltersTab,
   VirtualWorkstationTab,
+  MergeQueueTab,
   TestSelectionTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -61,6 +70,22 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     () => getTabData(projectData, projectType, repoData),
     [projectData, projectType, repoData],
   );
+  const githubWebhooksEnabled = !!(
+    projectData?.githubWebhooksEnabled || repoData?.githubWebhooksEnabled
+  );
+  const versionControlEnabled =
+    projectData?.projectRef?.versionControlEnabled ??
+    repoData?.projectRef?.versionControlEnabled ??
+    false;
+
+  const { data: githubConflictsData } = useQuery<
+    GithubProjectConflictsQuery,
+    GithubProjectConflictsQueryVariables
+  >(
+    GITHUB_PROJECT_CONFLICTS,
+    projectType === ProjectType.Repo ? skipToken : { variables: { projectId } },
+  );
+  const githubProjectConflicts = githubConflictsData?.githubProjectConflicts;
 
   useScrollToAnchor();
   useEffect(() => {
@@ -71,7 +96,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         ...obj,
         [route]: val.projectData ?? val.repoData,
       }),
-      {} as Record<WritableProjectSettingsType, any>,
+      {} as { [T in WritableProjectSettingsType]: FormStateMap[T] },
     );
 
     setInitialData(projectOrRepoData);
@@ -121,32 +146,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             />
           }
           path={ProjectSettingsTabRoutes.Variables}
-        />
-        <Route
-          element={
-            <GithubCommitQueueTab
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              githubWebhooksEnabled={
-                projectData?.githubWebhooksEnabled ||
-                repoData?.githubWebhooksEnabled
-              }
-              identifier={identifier || repoId}
-              projectData={
-                tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
-              }
-              projectId={projectId}
-              projectType={projectType}
-              repoData={
-                tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
-              }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              versionControlEnabled={
-                projectData?.projectRef?.versionControlEnabled ??
-                repoData?.projectRef?.versionControlEnabled
-              }
-            />
-          }
-          path={ProjectSettingsTabRoutes.GithubCommitQueue}
         />
         <Route
           element={
@@ -201,19 +200,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             />
           }
           path={ProjectSettingsTabRoutes.VirtualWorkstation}
-        />
-        <Route
-          element={
-            <ContainersTab
-              identifier={identifier || repoId}
-              projectData={
-                tabData[ProjectSettingsTabRoutes.Containers].projectData
-              }
-              projectType={projectType}
-              repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
-            />
-          }
-          path={ProjectSettingsTabRoutes.Containers}
         />
         <Route
           element={
@@ -313,6 +299,74 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           }
           path={ProjectSettingsTabRoutes.GithubPermissionGroups}
         />
+        <Route
+          element={
+            <MergeQueueTab
+              githubProjectConflicts={githubProjectConflicts}
+              githubWebhooksEnabled={githubWebhooksEnabled}
+              identifier={identifier}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.MergeQueue].projectData
+              }
+              projectId={projectId}
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.MergeQueue].repoData}
+              versionControlEnabled={versionControlEnabled}
+            />
+          }
+          path={ProjectSettingsTabRoutes.MergeQueue}
+        />
+        <Route
+          element={
+            <PullRequestsTab
+              githubProjectConflicts={githubProjectConflicts}
+              githubWebhooksEnabled={githubWebhooksEnabled}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.PullRequests].projectData
+              }
+              projectId={projectId}
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.PullRequests].repoData}
+              versionControlEnabled={versionControlEnabled}
+            />
+          }
+          path={ProjectSettingsTabRoutes.PullRequests}
+        />
+
+        <Route
+          element={
+            <CommitChecksTab
+              githubProjectConflicts={githubProjectConflicts}
+              githubWebhooksEnabled={githubWebhooksEnabled}
+              identifier={identifier || repoId}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.CommitChecks].projectData
+              }
+              projectId={projectId}
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.CommitChecks].repoData}
+              versionControlEnabled={versionControlEnabled}
+            />
+          }
+          path={ProjectSettingsTabRoutes.CommitChecks}
+        />
+
+        <Route
+          element={
+            <GitTagsTab
+              githubProjectConflicts={githubProjectConflicts}
+              githubWebhooksEnabled={githubWebhooksEnabled}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.GitTags].projectData
+              }
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.GitTags].repoData}
+              versionControlEnabled={versionControlEnabled}
+            />
+          }
+          path={ProjectSettingsTabRoutes.GitTags}
+        />
+
         <Route
           element={
             <EventLogTab

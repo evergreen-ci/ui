@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Button, { Variant, Size } from "@leafygreen-ui/button";
+import { Button, Variant, Size } from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
 import FilterChip, { FilterChipType } from "./FilterChip";
 import { SeeMoreModal } from "./SeeMoreModal";

@@ -10,11 +10,6 @@ import ProjectFiltersModal from ".";
 
 export default {
   component: ProjectFiltersModal,
-  parameters: {
-    storyshots: {
-      disable: true,
-    },
-  },
 } satisfies CustomMeta<typeof ProjectFiltersModal>;
 
 const Component = ({ ...args }) => {
@@ -48,9 +43,6 @@ export const Default: CustomStoryObj<typeof ProjectFiltersModal> = {
     apolloClient: {
       mocks: [projectFiltersMock, evergreenTaskMock],
     },
-    storyshots: {
-      disable: true,
-    },
   },
   render: (args) => <Component {...args} />,
 };
@@ -59,9 +51,6 @@ export const Empty: CustomStoryObj<typeof ProjectFiltersModal> = {
   parameters: {
     apolloClient: {
       mocks: [noFiltersMock, evergreenTaskMock],
-    },
-    storyshots: {
-      disable: true,
     },
   },
   render: (args) => <Component {...args} />,

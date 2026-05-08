@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
@@ -17,7 +17,7 @@ type EventLogTabProps = {
 };
 
 export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
-  const { allEventsFetched, events, fetchMore, loading } =
+  const { count, events, fetchMore, loading, previousCount } =
     useImageEvents(imageId);
 
   return (
@@ -37,7 +37,7 @@ export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
         </StyledBody>
       </Container>
       <ImageEventLog
-        allEventsFetched={allEventsFetched}
+        count={count}
         events={events}
         handleFetchMore={() => {
           fetchMore({
@@ -47,7 +47,9 @@ export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
             },
           });
         }}
+        limit={IMAGE_EVENT_LIMIT}
         loading={loading}
+        previousCount={previousCount}
       />
     </>
   );
@@ -61,6 +63,6 @@ const Container = styled.div`
   color: ${gray};
 `;
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   color: ${gray.base};
 `;

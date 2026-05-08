@@ -15,15 +15,19 @@ import { Pagination, WaterfallFilterOptions } from "./types";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 type WaterfallFiltersProps = {
+  omitInactiveBuilds: boolean;
   projectIdentifier: string;
   pagination: Pagination | undefined;
   restartWalkthrough: () => void;
+  setOmitInactiveBuilds: (value: boolean) => void;
 };
 
 export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
+  omitInactiveBuilds,
   pagination,
   projectIdentifier,
   restartWalkthrough,
+  setOmitInactiveBuilds,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
 
@@ -83,8 +87,10 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
         />
       </ProjectFilterItem>
       <WaterfallMenu
+        omitInactiveBuilds={omitInactiveBuilds}
         projectIdentifier={projectIdentifier}
         restartWalkthrough={restartWalkthrough}
+        setOmitInactiveBuilds={setOmitInactiveBuilds}
       />
       <PaginationButtons pagination={pagination} />
     </Container>
@@ -103,8 +109,7 @@ const StatusFilterItem = styled.div`
 `;
 
 const RequesterFilterItem = styled.div`
-  min-width: 200px;
-  flex-shrink: 0;
+  min-width: 120px;
   flex-basis: 12%;
 `;
 

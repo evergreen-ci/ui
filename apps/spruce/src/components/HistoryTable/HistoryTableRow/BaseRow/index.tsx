@@ -48,20 +48,20 @@ const BaseRow: React.FC<RowProps> = ({
       return <DateSeparator date={data.date} />;
     case rowType.COMMIT: {
       const {
-        author,
         createTime,
         gitTags,
         id: versionId,
         message,
         revision,
         upstreamProject,
+        user,
       } = data.commit;
 
       return (
         <RowContainer data-selected={selected} selected={selected}>
           <LabelCellContainer>
             <CommitChartLabel
-              author={author}
+              author={user.displayName!}
               createTime={createTime}
               githash={revision}
               gitTags={gitTags}

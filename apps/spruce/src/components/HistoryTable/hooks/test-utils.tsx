@@ -1,4 +1,4 @@
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { MockedProvider, MockedProviderProps } from "@evg-ui/lib/test_utils";
 import { HistoryTableProvider } from "../HistoryTableContext";
 import { HistoryTableReducerState } from "../historyTableContextReducer";
 

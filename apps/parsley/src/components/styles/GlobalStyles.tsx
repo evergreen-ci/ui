@@ -25,6 +25,11 @@ export const globalStyles = css`
       display: none;
     }
   }
+
+  /* Ensure toasts appear above the side panel (z-index: 2) */
+  .parsley-toast-portal {
+    z-index: 10;
+  }
 `;
 
 export const GlobalStyles = () => <Global styles={globalStyles} />;

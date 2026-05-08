@@ -3,6 +3,7 @@ import { VirtuosoHandle } from "react-virtuoso";
 import { usePrevious } from "@evg-ui/lib/hooks/usePrevious";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { ScrollAlign } from "types/logs";
 import { calculatePageSize, calculateStartingIndex } from "./utils";
 
 interface UsePaginatedVirtualListProps {
@@ -10,9 +11,11 @@ interface UsePaginatedVirtualListProps {
   paginationThreshold: number;
   paginationOffset: number;
   ref: React.RefObject<Pick<VirtuosoHandle, "scrollToIndex">>;
+  getScrollOffset?: (lineIndex: number) => number;
 }
 
 const usePaginatedVirtualList = ({
+  getScrollOffset,
   paginationOffset,
   paginationThreshold,
   ref,
@@ -86,7 +89,7 @@ const usePaginatedVirtualList = ({
       // I'm not sure why, but this seems to fix it ¯\_(ツ)_/¯
       setTimeout(() => {
         ref.current?.scrollToIndex({
-          align: "start",
+          align: ScrollAlign.Start,
           index: pageSize - paginationOffset,
         });
       });
@@ -140,14 +143,16 @@ const usePaginatedVirtualList = ({
       );
       // This setTimeout is necessary to avoid a race condition where the list hasn't finished rendering the next page
       setTimeout(() => {
+        const offset = getScrollOffset ? getScrollOffset(index) : 0;
         ref.current?.scrollToIndex({
-          align: "start",
+          align: ScrollAlign.Start,
           index: nextScrollIndex,
+          offset,
         });
       }, 0);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [paginationOffset, currentPage, startingIndex],
+    [paginationOffset, currentPage, startingIndex, getScrollOffset],
   );
 
   return {

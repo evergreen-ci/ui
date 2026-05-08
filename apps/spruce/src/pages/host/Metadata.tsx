@@ -1,4 +1,3 @@
-import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { formatDistanceToNow } from "date-fns";
@@ -16,7 +15,7 @@ const { gray } = palette;
 export const Metadata: React.FC<{
   loading: boolean;
   host: HostQuery["host"];
-  error: ApolloError | undefined;
+  error: Error | undefined;
 }> = ({ error, host, loading }) => {
   const {
     ami,

@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   ApolloClient,
+  ApolloLink,
   HttpLink,
   InMemoryCache,
-  NormalizedCacheObject,
-  from,
 } from "@apollo/client";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
@@ -22,9 +21,7 @@ import { graphqlURL } from "utils/environmentVariables";
 
 const cache = new InMemoryCache();
 
-export const useCreateGQLClient = ():
-  | ApolloClient<NormalizedCacheObject>
-  | undefined => {
+export const useCreateGQLClient = (): ApolloClient | undefined => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
   const [secretFields, setSecretFields] = useState<string[]>();
 
@@ -52,7 +49,7 @@ export const useCreateGQLClient = ():
 
     return new ApolloClient({
       cache,
-      link: from([
+      link: ApolloLink.from([
         logGQLErrorsLink(secretFields),
         retryLink,
         new HttpLink({

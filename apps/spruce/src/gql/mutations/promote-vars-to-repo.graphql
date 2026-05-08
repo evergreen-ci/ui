@@ -1,3 +1,0 @@
-mutation PromoteVarsToRepo($projectId: String!, $varNames: [String!]!) {
-  promoteVarsToRepo(opts: { projectId: $projectId, varNames: $varNames })
-}

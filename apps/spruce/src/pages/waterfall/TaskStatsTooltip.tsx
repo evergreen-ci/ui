@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Popover, Align } from "@leafygreen-ui/popover";
+import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -24,14 +25,22 @@ export const TaskStatsTooltip: React.FC<
     isFirstVersion: boolean;
   }
 > = ({ id, isFirstVersion }) => {
+  const [open, setOpen] = useState(false);
+
   const { data, loading } = useQuery<
     WaterfallTaskStatsQuery,
     WaterfallTaskStatsQueryVariables
-  >(WATERFALL_TASK_STATS, {
-    variables: { versionId: id },
-  });
+  >(
+    WATERFALL_TASK_STATS,
+    open
+      ? {
+          variables: { versionId: id },
+          fetchPolicy: "no-cache",
+        }
+      : skipToken,
+  );
 
-  const [open, setOpen] = useState(false);
+  const isLoading = loading && !data;
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -56,7 +65,6 @@ export const TaskStatsTooltip: React.FC<
           active={open}
           aria-label="Show task stats"
           data-cy="task-stats-tooltip-button"
-          disabled={!data || loading}
           onClick={() => setOpen((o) => !o)}
           {...buttonContainerProps}
         >
@@ -69,32 +77,36 @@ export const TaskStatsTooltip: React.FC<
         align={Align.Right}
         refEl={buttonRef}
       >
-        <PopoverContainer data-cy="task-stats-tooltip">
-          <Table>
-            <Tbody>
-              {data?.version?.taskStatusStats?.counts?.map(
-                ({ count, status }) => (
-                  <Row key={`task_stats_row_${status}`}>
-                    <Count>{count}</Count>
-                    <Cell>
-                      <TaskBox status={status as TaskStatus} />
-                    </Cell>
-                    <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
-                  </Row>
-                ),
-              )}
-              <Row>
-                <Cell colSpan={3}>
-                  <Divider />
-                </Cell>
-              </Row>
-              <Row>
-                <Count>{totalTaskCount}</Count>
-                <Cell colSpan={2}>Total tasks</Cell>
-              </Row>
-            </Tbody>
-          </Table>
-        </PopoverContainer>
+        <FixedWidthContainer data-cy="task-stats-tooltip">
+          {isLoading ? (
+            <Skeleton size={SkeletonSize.Small} />
+          ) : (
+            <Table>
+              <Tbody>
+                {data?.version?.taskStatusStats?.counts?.map(
+                  ({ count, status }) => (
+                    <Row key={`task_stats_row_${status}`}>
+                      <Count>{count}</Count>
+                      <Cell>
+                        <TaskBox status={status as TaskStatus} />
+                      </Cell>
+                      <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
+                    </Row>
+                  ),
+                )}
+                <Row>
+                  <Cell colSpan={3}>
+                    <Divider />
+                  </Cell>
+                </Row>
+                <Row>
+                  <Count>{totalTaskCount}</Count>
+                  <Cell colSpan={2}>Total tasks</Cell>
+                </Row>
+              </Tbody>
+            </Table>
+          )}
+        </FixedWidthContainer>
       </Popover>
     </>
   );
@@ -102,6 +114,10 @@ export const TaskStatsTooltip: React.FC<
 
 const BtnContainer = styled.div`
   align-self: flex-start;
+`;
+
+const FixedWidthContainer = styled(PopoverContainer)`
+  width: 180px;
 `;
 
 const Table = styled.table``;
@@ -115,6 +131,6 @@ const Cell = styled.td`
 `;
 
 const Count = styled(Cell)`
-  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
   text-align: right;
 `;

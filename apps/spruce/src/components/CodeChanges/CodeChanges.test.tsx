@@ -1,6 +1,10 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { vi } from "vitest";
-import { renderWithRouterMatch, screen, waitFor } from "@evg-ui/lib/test_utils";
+import {
+  MockedProvider,
+  renderWithRouterMatch,
+  screen,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { getVersionDiffRoute } from "constants/routes";
 import {

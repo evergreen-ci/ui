@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { mapUmbrellaStatusColors } from "constants/task";
 
 interface GroupedTaskStatusBadgeProps {
@@ -58,11 +57,8 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
         {statusCounts &&
           Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
             <Row key={taskStatus}>
-              <TaskStatusIcon size={16} status={taskStatus} />
-              <span>
-                <Count>{taskCount}</Count>{" "}
-                {taskStatusToCopy[taskStatus as TaskStatus] ?? taskStatus}
-              </span>
+              <Count>{taskCount}</Count>{" "}
+              {taskStatusToCopy[taskStatus as TaskStatus] ?? taskStatus}
             </Row>
           ))}
       </div>
@@ -95,8 +91,6 @@ const BadgeContainer = styled.div<BadgeColorProps>`
 
 const Row = styled.div`
   white-space: nowrap;
-  display: flex;
-  align-items: center;
 `;
 
 const Number = styled.span`

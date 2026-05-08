@@ -5,12 +5,11 @@ import {
   notify,
   taskLimits,
   hostInit,
-  podLifecycle,
   scheduler,
   repotracker,
 } from "./schemaFields";
 
-export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
     type: "object" as const,
@@ -38,13 +37,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
             title: "Host Init",
             properties: {
               ...hostInit.schema,
-            },
-          },
-          podLifecycle: {
-            type: "object" as const,
-            title: "Pod Lifecycle",
-            properties: {
-              ...podLifecycle.schema,
             },
           },
           scheduler: {
@@ -84,12 +76,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         "ui:data-cy": "host-init",
         ...hostInit.uiSchema,
       },
-      podLifecycle: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "pod-lifecycle",
-        ...podLifecycle.uiSchema,
-      },
       scheduler: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
@@ -104,4 +90,4 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       },
     },
   },
-});
+};

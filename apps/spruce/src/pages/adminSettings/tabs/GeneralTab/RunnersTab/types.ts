@@ -31,11 +31,6 @@ export interface RunnersFormState {
       cloudStatusBatchSize: number;
       maxTotalDynamicHosts: number;
     };
-    podLifecycle: {
-      maxParallelPodRequests: number;
-      maxPodDefinitionCleanupRate: number;
-      maxSecretCleanupRate: number;
-    };
     scheduler: {
       taskFinder: FinderVersion;
       hostAllocator: HostAllocatorVersion;

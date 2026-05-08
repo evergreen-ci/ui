@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Copyable } from "@leafygreen-ui/copyable";
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { palette } from "@leafygreen-ui/palette";
@@ -66,6 +67,7 @@ export const LeafyGreenTextInput: React.FC<
       <StyledTextInput
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
+        autoComplete="off"
         data-cy={dataCy}
         description={description}
         disabled={disabled || readonly}
@@ -223,7 +225,12 @@ const ToggleWrapper = styled.div`
 `;
 
 export const LeafyGreenSelect: React.FC<
-  { options: { allowDeselect?: boolean } } & EnumSpruceWidgetProps
+  {
+    options: {
+      allowDeselect?: boolean;
+      optionsLabelMap?: Record<string, React.ReactNode>;
+    };
+  } & EnumSpruceWidgetProps
 > = ({
   disabled,
   label,
@@ -242,6 +249,7 @@ export const LeafyGreenSelect: React.FC<
     elementWrapperCSS,
     enumDisabled,
     enumOptions,
+    optionsLabelMap,
     sizeVariant,
   } = options;
   const { hasError } = processErrors(rawErrors);
@@ -262,7 +270,7 @@ export const LeafyGreenSelect: React.FC<
         errorMessage={hasError ? rawErrors?.join(", ") : ""}
         id={dataCy}
         name={dataCy}
-        onChange={onChange}
+        onChange={(v: string) => onChange(v)}
         placeholder={placeholder}
         size={sizeVariant as SelectSize}
         state={hasError && !disabled ? "error" : "none"}
@@ -273,7 +281,7 @@ export const LeafyGreenSelect: React.FC<
             (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
           return (
             <Option key={o.value} disabled={optionDisabled} value={o.value}>
-              {o.label}
+              {optionsLabelMap ? optionsLabelMap[o.value] : o.label}
             </Option>
           );
         })}
@@ -574,6 +582,43 @@ export const LeafyGreenDatePicker: React.FC<
         onDateChange={(v) => onChange(v?.toUTCString())}
         value={new Date(value)}
       />
+    </ElementWrapper>
+  );
+};
+
+export const LeafyGreenCombobox: React.FC<EnumSpruceWidgetProps> = ({
+  disabled,
+  label,
+  onChange,
+  options,
+  readonly,
+  value,
+}) => {
+  const {
+    "data-cy": dataCy = "combobox",
+    description,
+    elementWrapperCSS,
+    enumOptions = [],
+  } = options;
+
+  const isDisabled = disabled || readonly;
+
+  return (
+    <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
+      <Combobox
+        clearable={false}
+        data-cy={dataCy}
+        description={description}
+        disabled={isDisabled}
+        label={label}
+        // @ts-expect-error: onChange types are not compatible.
+        onChange={(v: string) => onChange(v)}
+        value={value}
+      >
+        {enumOptions.map((o) => (
+          <ComboboxOption key={o.value} displayName={o.label} value={o.value} />
+        ))}
+      </Combobox>
     </ElementWrapper>
   );
 };

@@ -1,6 +1,7 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
+  MockedResponse,
   renderWithRouterMatch as render,
   screen,
   userEvent,
@@ -40,6 +41,7 @@ describe("new distro button", () => {
               canCreateDistro: false,
               distroPermissions: {
                 __typename: "DistroPermissions",
+                id: distroId,
                 admin: false,
                 edit: false,
               },
@@ -137,6 +139,7 @@ const hasPermissionsMock: ApolloMock<
           canCreateDistro: true,
           distroPermissions: {
             __typename: "DistroPermissions",
+            id: distroId,
             admin: true,
             edit: true,
           },

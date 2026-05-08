@@ -36,11 +36,18 @@ export interface ExternalCommunicationsFormState {
   fws: {
     url: string;
   };
+  graphite: {
+    ciOptimizationToken: string;
+    serverUrl: string;
+  };
   cedar: {
     dbUrl: string;
     dbName: string;
     spsUrl: string;
     spsKanopyUrl: string;
+  };
+  sage: {
+    baseUrl: string;
   };
 }
 

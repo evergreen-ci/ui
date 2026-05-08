@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -14,7 +14,7 @@ import {
   TestSortCategory,
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
-import { CommitType } from "pages/task/ActionButtons/RelevantCommits/types";
+import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley";
@@ -57,6 +57,10 @@ type Action =
       name: "Clicked quarantine test button";
       "test.name": string;
     }
+  | {
+      name: "Clicked unquarantine test button";
+      "test.name": string;
+    }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
   | { name: "Viewed notification modal" }
@@ -76,6 +80,11 @@ type Action =
       name: "Clicked task file Parsley link";
       "file.name": string;
     }
+  | {
+      name: "Clicked task file associated link";
+      "file.name": string;
+      "link.name": string;
+    }
   | { name: "Clicked relevant commit"; type: CommitType }
   | { name: "Redirected to default tab"; tab: string }
   | {
@@ -87,30 +96,38 @@ type Action =
   | {
       name: "Clicked review task";
       reviewed: boolean;
-    };
+    }
+  | { name: "Clicked cost details button" };
 
 export const useTaskAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();
 
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
-  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
-    skip: !taskId,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { taskId, execution },
-    errorPolicy: "all",
-    fetchPolicy: "cache-first",
-  });
+  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(
+    TASK,
+    taskId
+      ? {
+          variables: { taskId, execution },
+          errorPolicy: "all",
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
   const { data: taskTestCountData } = useQuery<
     TaskTestCountQuery,
     TaskTestCountQueryVariables
-  >(TASK_TEST_COUNT, {
-    variables: {
-      taskId: taskId || "",
-      execution: execution,
-    },
-    fetchPolicy: "cache-first",
-    skip: !taskId || execution === null,
-  });
+  >(
+    TASK_TEST_COUNT,
+    taskId && execution !== null
+      ? {
+          variables: {
+            taskId,
+            execution,
+          },
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
   const { failedTestCount } = taskTestCountData?.task || {};
 
   const {

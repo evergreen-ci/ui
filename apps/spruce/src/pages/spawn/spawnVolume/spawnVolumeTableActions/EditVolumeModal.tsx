@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { AjvError } from "@rjsf/core";
 import { diff } from "deep-object-diff";

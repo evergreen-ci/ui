@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { H2 } from "@leafygreen-ui/typography";
 import { AdminSettingsGeneralSection } from "constants/routes";
 import {
@@ -25,15 +25,18 @@ export const OtherTab: React.FC<TabProps> = ({ otherData }) => {
         ?.flatMap((group) => group.projects)
         ?.map((p) => ({
           id: p.id,
-          displayName: p.displayName,
-        })) ?? [];
+          displayName: `${p.displayName || p.identifier || p.id}${p.enabled ? " (Project)" : " (Disabled Project)"}`,
+        }))
+        ?.sort((a, b) => a.displayName.localeCompare(b.displayName)) ?? [];
+
     const repos =
       viewableProjectsData?.viewableProjectRefs
         ?.filter((group) => group.repo != null)
-        .map((group) => ({
+        ?.map((group) => ({
           id: group.repo!.id,
-          displayName: group.groupDisplayName || group.repo!.id,
-        })) ?? [];
+          displayName: `${group.groupDisplayName || group.repo!.id} (Repository)`,
+        }))
+        ?.sort((a, b) => a.displayName.localeCompare(b.displayName)) ?? [];
     return getFormSchema({
       projectRefs: projects,
       repoRefs: repos,

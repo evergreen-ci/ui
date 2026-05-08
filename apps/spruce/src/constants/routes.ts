@@ -1,5 +1,6 @@
 import { generatePath } from "react-router-dom";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
@@ -28,6 +29,7 @@ export enum PreferencesTabRoutes {
   CLI = "cli",
   UISettings = "ui-settings",
   PublicKeys = "publickeys",
+  SageBotSettings = "sage-bot-settings",
 }
 
 export enum ImageTabRoutes {
@@ -40,16 +42,18 @@ export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
   Variables = "variables",
-  GithubCommitQueue = "github-commitqueue",
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
-  Containers = "containers",
   ViewsAndFilters = "views-and-filters",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
   TestSelection = "test-selection",
   Plugins = "plugins",
+  PullRequests = "pull-requests",
+  CommitChecks = "commit-checks",
+  MergeQueue = "merge-queue",
+  GitTags = "git-tags",
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
   EventLog = "event-log",
@@ -57,7 +61,6 @@ export enum ProjectSettingsTabRoutes {
 
 export enum AdminSettingsGeneralSection {
   Announcements = "announcements",
-  FeatureFlags = "feature-flags",
   Runners = "runners",
   Web = "web",
   Authentication = "authentication",
@@ -69,6 +72,7 @@ export enum AdminSettingsGeneralSection {
 
 export enum AdminSettingsTabRoutes {
   General = "general",
+  ServiceFlags = "service-flags",
   RestartTasks = "restart-tasks",
   EventLog = "event-log",
 }
@@ -107,7 +111,6 @@ const paths = {
 };
 
 export enum slugs {
-  buildId = "buildId",
   distroId = "distroId",
   execution = "execution",
   fileName = "fileName",
@@ -115,7 +118,6 @@ export enum slugs {
   hostId = "hostId",
   imageId = "imageId",
   patchId = "patchId",
-  podId = "podId",
   projectIdentifier = "projectIdentifier",
   repoId = "repoId",
   tab = "tab",
@@ -126,8 +128,6 @@ export enum slugs {
   userId = "userId",
 }
 export const idSlugs = [
-  slugs.buildId,
-  slugs.podId,
   slugs.distroId,
   slugs.hostId,
   slugs.imageId,
@@ -150,7 +150,6 @@ export const redirectRoutes = {
 export const routes = {
   adminSettings: paths.adminSettings,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
-  container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,
@@ -219,8 +218,6 @@ export const getPatchRoute = (
 
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
-export const getPodRoute = (podId: string) => `${paths.container}/${podId}`;
-
 export const getAllHostsRoute = (options?: {
   hostId?: string;
   distroId?: string;
@@ -238,7 +235,7 @@ export const getAllHostsRoute = (options?: {
 export type GetTaskRouteOptions = {
   tab?: TaskTab;
   execution?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   const { tab, ...rest } = options || {};
@@ -458,19 +455,25 @@ export const getTriggerRoute = ({
   upstreamVersion,
 }: {
   triggerType: string;
-  upstreamTask: any;
-  upstreamVersion: any;
+  upstreamTask?: { id: string } | null;
+  upstreamVersion?: { id: string } | null;
   upstreamRevision: string;
   upstreamOwner: string;
   upstreamRepo: string;
 }) => {
-  if (triggerType === ProjectTriggerLevel.TASK) {
+  if (triggerType === ProjectTriggerLevel.TASK && upstreamTask) {
     return getTaskRoute(upstreamTask.id);
   }
   if (triggerType === ProjectTriggerLevel.PUSH) {
     return getGithubCommitUrl(upstreamOwner, upstreamRepo, upstreamRevision);
   }
-  return getVersionRoute(upstreamVersion.id);
+
+  const upstreamVersionId = upstreamVersion?.id;
+  if (!upstreamVersionId) {
+    reportError(new Error("No upstream version found for route"));
+  }
+
+  return getVersionRoute(upstreamVersion?.id ?? "");
 };
 
 export const getAdminSettingsRoute = (

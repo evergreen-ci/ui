@@ -1,6 +1,0 @@
-fragment FileDiffs on FileDiff {
-  additions
-  deletions
-  description
-  fileName
-}

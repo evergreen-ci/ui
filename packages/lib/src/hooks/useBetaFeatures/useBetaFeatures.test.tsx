@@ -1,4 +1,3 @@
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
 import {
   AdminBetaFeaturesQuery,
   AdminBetaFeaturesQueryVariables,
@@ -6,7 +5,12 @@ import {
   UserBetaFeaturesQueryVariables,
 } from "gql/generated/types";
 import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "gql/queries";
-import { renderHook, waitFor } from "test_utils";
+import {
+  MockedProvider,
+  MockedProviderProps,
+  renderHook,
+  waitFor,
+} from "test_utils";
 import { ApolloMock } from "test_utils/types";
 import {
   useAdminBetaFeatures,
@@ -32,7 +36,7 @@ describe("useAdminBetaFeatures", () => {
         }),
     });
     await waitFor(() => {
-      expect(result?.current?.adminBetaSettings?.parsleyAIEnabled).toBe(false);
+      expect(result?.current?.adminBetaSettings).toBeDefined();
     });
   });
 });
@@ -47,7 +51,7 @@ describe("useUserBetaFeatures", () => {
         }),
     });
     await waitFor(() => {
-      expect(result?.current?.userBetaSettings?.parsleyAIEnabled).toBe(true);
+      expect(result?.current?.userBetaSettings).toBeDefined();
     });
   });
 });
@@ -64,7 +68,7 @@ describe("useMergedBetaFeatures", () => {
     await waitFor(() => {
       expect(result?.current?.betaFeatures).toBeDefined();
     });
-    expect(result?.current?.betaFeatures?.parsleyAIEnabled).toBe(false);
+    expect(result?.current?.betaFeatures).toEqual({});
   });
 });
 
@@ -84,7 +88,6 @@ const adminBetaFeatures: ApolloMock<
           __typename: "UIConfig",
           betaFeatures: {
             __typename: "BetaFeatures",
-            parsleyAIEnabled: false,
           },
         },
       },
@@ -107,7 +110,6 @@ const userBetaFeatures: ApolloMock<
         userId: "me",
         betaFeatures: {
           __typename: "BetaFeatures",
-          parsleyAIEnabled: true,
         },
       },
     },

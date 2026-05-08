@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { SettingsCard } from "components/SettingsCard";
 import { AwsRegionsQuery } from "gql/generated/types";

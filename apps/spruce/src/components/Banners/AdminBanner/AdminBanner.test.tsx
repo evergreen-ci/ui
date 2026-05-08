@@ -1,5 +1,9 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { render, screen, waitFor } from "@evg-ui/lib/test_utils";
+import {
+  MockedProvider,
+  render,
+  screen,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { AdminBanner } from "components/Banners";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 

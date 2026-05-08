@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";

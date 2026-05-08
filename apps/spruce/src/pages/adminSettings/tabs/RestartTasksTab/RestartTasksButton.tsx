@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { skipToken, useMutation, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
+import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Spinner } from "@leafygreen-ui/loading-indicator/spinner";
 import { Description } from "@leafygreen-ui/typography";
@@ -38,10 +38,10 @@ const RestartTasksModal: React.FC<RestartTasksModalProps> = ({
   const { data, loading } = useQuery<
     AdminTasksToRestartQuery,
     AdminTasksToRestartQueryVariables
-  >(ADMIN_TASKS_TO_RESTART, {
-    skip: !open,
-    variables: { opts: restartOpts },
-  });
+  >(
+    ADMIN_TASKS_TO_RESTART,
+    open ? { variables: { opts: restartOpts } } : skipToken,
+  );
   const { adminTasksToRestart } = data ?? {};
   const { tasksToRestart } = adminTasksToRestart ?? {};
 
@@ -156,7 +156,7 @@ export const RestartTasksButton: React.FC<RestartTasksButtonProps> = ({
         onClick={() => setModalOpen(true)}
         variant={ButtonVariant.Primary}
       >
-        Preview Restart Tasks
+        Preview restart tasks
       </Button>
     </>
   );

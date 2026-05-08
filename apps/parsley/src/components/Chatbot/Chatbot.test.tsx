@@ -1,17 +1,12 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  UserBetaFeaturesQuery,
-  UserBetaFeaturesQueryVariables,
-} from "@evg-ui/lib/gql/generated/types";
-import { USER_BETA_FEATURES } from "@evg-ui/lib/gql/queries";
-import {
+  MockedProvider,
+  MockedResponse,
   renderWithRouterMatch as render,
   screen,
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogContextProvider } from "context/LogContext";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
 import { ChatProvider, Chatbot } from ".";
@@ -50,7 +45,7 @@ describe("ToggleChatbotButton", () => {
     const { Component } = RenderFakeToastContext(
       <ToggleChatbotButton setSidePanelCollapsed={vi.fn()} />,
     );
-    render(<Component />, { wrapper: wrapper([userBetaFeaturesEnabledMock]) });
+    render(<Component />, { wrapper: wrapper([]) });
 
     await waitFor(() => {
       expect(screen.getByRole("button", { name: "Parsley AI" })).toBeVisible();
@@ -60,7 +55,6 @@ describe("ToggleChatbotButton", () => {
       "true",
     );
     await user.click(screen.getByRole("button", { name: "Parsley AI" }));
-    expect(screen.queryByDataCy("parsley-ai-modal")).not.toBeVisible();
     expect(screen.getByPlaceholderText("Type your message here")).toBeVisible();
     await waitFor(() => {
       expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
@@ -70,25 +64,3 @@ describe("ToggleChatbotButton", () => {
     });
   });
 });
-
-const userBetaFeaturesEnabledMock: ApolloMock<
-  UserBetaFeaturesQuery,
-  UserBetaFeaturesQueryVariables
-> = {
-  request: {
-    query: USER_BETA_FEATURES,
-    variables: {},
-  },
-  result: {
-    data: {
-      user: {
-        __typename: "User",
-        betaFeatures: {
-          __typename: "BetaFeatures",
-          parsleyAIEnabled: true,
-        },
-        userId: "me",
-      },
-    },
-  },
-};

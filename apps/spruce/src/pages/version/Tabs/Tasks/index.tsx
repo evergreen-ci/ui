@@ -1,8 +1,7 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client";
-import { useLocation } from "react-router-dom";
+import { useQuery } from "@apollo/client/react";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
@@ -15,7 +14,6 @@ import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
 import { VersionTasksTable } from "./VersionTasksTable";
 
@@ -26,12 +24,9 @@ interface Props {
 }
 
 const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
-  const dispatchToast = useToastContext();
-  const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId || "");
-  const queryVariables = useQueryVariables(search, versionId || "");
-  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
+  const queryVariables = useQueryVariables(versionId || "");
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
@@ -69,19 +64,20 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     });
   };
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTasksQuery,
     VersionTasksQueryVariables
   >(VERSION_TASKS, {
     variables: queryVariables,
     pollInterval: DEFAULT_POLL_INTERVAL,
-    skip: !hasQueryVariables,
     fetchPolicy: "cache-and-network",
-    onError: (err) => {
-      dispatchToast.error(`Error fetching patch tasks ${err}`);
-    },
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  useErrorToast(error, "Error fetching patch tasks");
+  usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
   const { version } = data || {};
   const { isPatch, tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};

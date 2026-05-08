@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import {
   AdminBetaFeaturesQuery,
   AdminBetaFeaturesQueryVariables,
@@ -57,10 +57,7 @@ export const useMergedBetaFeatures = () => {
     return { mergedBetaFeatures: undefined, loading: false };
   }
 
-  const mergedBetaFeatures: BetaFeatures = {
-    parsleyAIEnabled:
-      adminBetaSettings.parsleyAIEnabled && userBetaSettings.parsleyAIEnabled,
-  };
+  const mergedBetaFeatures: BetaFeatures = {};
 
   return {
     betaFeatures: mergedBetaFeatures,

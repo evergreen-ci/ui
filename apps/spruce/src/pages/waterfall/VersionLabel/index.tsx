@@ -7,13 +7,14 @@ import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size as sizeToken } from "@evg-ui/lib/constants/tokens";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useWaterfallAnalytics } from "analytics";
+import { UpstreamProjectLink } from "components/UpstreamProjectLink";
+import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
-import UpstreamProjectLink from "./UpstreamProjectLink";
 
 export enum VersionLabelView {
   Modal = "modal",
@@ -30,7 +31,6 @@ type Props = Version & {
 
 export const VersionLabel: React.FC<Props> = ({
   activated,
-  author,
   className,
   createTime,
   errors,
@@ -39,8 +39,10 @@ export const VersionLabel: React.FC<Props> = ({
   id,
   isFirstVersion,
   message,
+  requester,
   revision,
   shouldDisableText = false,
+  user,
   view,
 }) => {
   const getDateCopy = useDateFormat();
@@ -90,13 +92,23 @@ export const VersionLabel: React.FC<Props> = ({
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
       </HeaderLine>
-      <UpstreamProjectLink commitType={commitType} versionId={id} />
+      <UpstreamProjectLink
+        isTrigger={requester === Requester.Trigger}
+        onClick={() => {
+          sendEvent({
+            name: "Clicked commit label",
+            "commit.type": commitType,
+            link: "upstream project",
+          });
+        }}
+        versionId={id}
+      />
       <CommitMessage
         /* @ts-expect-error - the native title attribute works here */
         title={view === VersionLabelView.Waterfall ? message : undefined}
         view={view}
       >
-        <strong>{author}</strong> &bull;{" "}
+        <strong>{user.displayName}</strong> &bull;{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
             name: "Clicked commit label",

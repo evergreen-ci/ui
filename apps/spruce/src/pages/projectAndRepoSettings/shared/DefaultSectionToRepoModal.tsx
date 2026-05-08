@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Body } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
@@ -32,7 +32,6 @@ export const DefaultSectionToRepoModal = ({
     DefaultSectionToRepoMutation,
     DefaultSectionToRepoMutationVariables
   >(DEFAULT_SECTION_TO_REPO, {
-    variables: { projectId, section },
     onCompleted() {
       dispatchToast.success("Successfully defaulted page to repo");
     },
@@ -52,7 +51,7 @@ export const DefaultSectionToRepoModal = ({
       confirmButtonProps={{
         children: "Confirm",
         onClick: () => {
-          defaultSectionToRepo();
+          defaultSectionToRepo({ variables: { projectId, section } });
           sendEvent({
             name: "Clicked default section to repo button",
             section,

@@ -61,7 +61,13 @@ type SelectedLineRange = {
   endingLine?: number;
 };
 
-export { RowType };
+enum ScrollAlign {
+  Start = "start",
+  Center = "center",
+  End = "end",
+}
+
+export { RowType, ScrollAlign };
 
 export type {
   ExpandedLine,

@@ -1,5 +1,5 @@
-import { MockedProvider } from "@apollo/client/testing";
 import {
+  MockedProvider,
   render,
   screen,
   userEvent,
@@ -7,6 +7,7 @@ import {
   within,
 } from "@evg-ui/lib/test_utils";
 import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
+import widgets from "./Widgets";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
@@ -23,7 +24,7 @@ describe("spruce form", () => {
     );
     expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
-    expect(screen.queryByDataCy("add-button")).toHaveTextContent("New User");
+    expect(screen.getByDataCy("add-button")).toHaveTextContent("New User");
     expect(screen.getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
       "Manage Access",
     );
@@ -47,18 +48,13 @@ describe("spruce form", () => {
         />
       </SpruceFormContainer>,
     );
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.clear(screen.queryByDataCy("valid-projects-input"));
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("valid-projects-input"), "new value");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByDataCy("add-button"));
+    await user.clear(screen.getByDataCy("valid-projects-input"));
+    await user.type(screen.getByDataCy("valid-projects-input"), "new value");
+    await user.click(screen.getByDataCy("add-button"));
     expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2);
-    await user.type(screen.queryAllByDataCy("new-user-input")[0], "new-user");
+    await user.type(screen.getAllByDataCy("new-user-input")[0], "new-user");
     expect(onChange).toHaveBeenCalled();
-    expect(screen.queryByDataCy("valid-projects-input")).toHaveValue(
-      "new value",
-    );
+    expect(screen.getByDataCy("valid-projects-input")).toHaveValue("new value");
     expect(data).toStrictEqual({
       ...basicForm.formData,
       access: null,
@@ -91,11 +87,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-input"));
-          expect(screen.queryByDataCy("text-input")).toHaveValue("");
+          await user.type(screen.getByDataCy("text-input"), "new value");
+          await user.clear(screen.getByDataCy("text-input"));
+          expect(screen.getByDataCy("text-input")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
           expect(formErrors).toStrictEqual([{ stack: "textInput: invisible" }]);
@@ -123,11 +117,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-input"));
-          expect(screen.queryByDataCy("text-input")).toHaveValue("");
+          await user.type(screen.getByDataCy("text-input"), "new value");
+          await user.clear(screen.getByDataCy("text-input"));
+          expect(screen.getByDataCy("text-input")).toHaveValue("");
           expect(data).toStrictEqual({
             textInput: "",
           });
@@ -152,13 +144,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-input"));
-          expect(screen.queryByDataCy("text-input")).toHaveValue(
-            "myEmptyValue",
-          );
+          await user.type(screen.getByDataCy("text-input"), "new value");
+          await user.clear(screen.getByDataCy("text-input"));
+          expect(screen.getByDataCy("text-input")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
             textInput: "myEmptyValue",
           });
@@ -189,11 +177,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-area"));
-          expect(screen.queryByDataCy("text-area")).toHaveValue("");
+          await user.type(screen.getByDataCy("text-area"), "new value");
+          await user.clear(screen.getByDataCy("text-area"));
+          expect(screen.getByDataCy("text-area")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
           expect(formErrors).toStrictEqual([{ stack: "textArea: invisible" }]);
@@ -221,11 +207,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-area"));
-          expect(screen.queryByDataCy("text-area")).toHaveValue("");
+          await user.type(screen.getByDataCy("text-area"), "new value");
+          await user.clear(screen.getByDataCy("text-area"));
+          expect(screen.getByDataCy("text-area")).toHaveValue("");
           expect(data).toStrictEqual({
             textArea: "",
           });
@@ -250,11 +234,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-area"));
-          expect(screen.queryByDataCy("text-area")).toHaveValue("myEmptyValue");
+          await user.type(screen.getByDataCy("text-area"), "new value");
+          await user.clear(screen.getByDataCy("text-area"));
+          expect(screen.getByDataCy("text-area")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
             textArea: "myEmptyValue",
           });
@@ -289,32 +271,35 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />,
         );
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        await user.click(screen.queryByRole("button"));
+        await user.click(screen.getByRole("button"));
         expect(screen.queryAllByText("Vanilla")).toHaveLength(2);
         expect(screen.getByText("Chocolate")).toBeInTheDocument();
         expect(screen.getByText("Strawberry")).toBeInTheDocument();
       });
 
-      it("closes the menu and displays the new selected option on click", async () => {
-        const user = userEvent.setup();
-        const { formData, schema, uiSchema } = select;
-        render(
-          <SpruceForm
-            formData={formData}
-            onChange={vi.fn()}
-            schema={schema}
-            uiSchema={uiSchema}
-          />,
-        );
-        await user.click(screen.getByRole("button"));
-        await user.click(screen.getByRole("option", { name: "Chocolate" }));
-        await waitFor(() => {
-          expect(screen.queryByText("Vanilla")).not.toBeInTheDocument();
-        });
-        expect(screen.getByText("Chocolate")).toBeInTheDocument();
-        expect(screen.queryByText("Strawberry")).not.toBeInTheDocument();
-      });
+      it.each([true, false])(
+        "closes the menu and displays the new selected option on click (liveValidate=%s)",
+        async (liveValidate) => {
+          const user = userEvent.setup();
+          const { formData, schema, uiSchema } = select;
+          render(
+            <SpruceForm
+              formData={formData}
+              liveValidate={liveValidate}
+              onChange={vi.fn()}
+              schema={schema}
+              uiSchema={uiSchema}
+            />,
+          );
+          await user.click(screen.getByRole("button"));
+          await user.click(screen.getByRole("option", { name: "Chocolate" }));
+          await waitFor(() => {
+            expect(screen.queryByText("Vanilla")).not.toBeInTheDocument();
+          });
+          expect(screen.getByText("Chocolate")).toBeInTheDocument();
+          expect(screen.queryByText("Strawberry")).not.toBeInTheDocument();
+        },
+      );
 
       it("disables options included in enumDisabled", async () => {
         const user = userEvent.setup();
@@ -327,8 +312,7 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />,
         );
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        await user.click(screen.queryByRole("button"));
+        await user.click(screen.getByRole("button"));
 
         // LeafyGreen doesn't label disabled options as such, so instead of checking for a property
         // ensure that the disabled element is not clickable.
@@ -385,6 +369,48 @@ describe("spruce form", () => {
       });
     });
 
+    describe("segmented control", () => {
+      it("renders with the specified default selected", () => {
+        const { formData, schema, uiSchema } = segmentedControl;
+        render(
+          <SpruceForm
+            formData={formData}
+            onChange={vi.fn()}
+            schema={schema}
+            uiSchema={uiSchema}
+          />,
+        );
+        expect(screen.getByRole("tab", { name: "Small" })).toHaveAttribute(
+          "aria-selected",
+          "true",
+        );
+      });
+
+      it.each([true, false])(
+        "calls onChange when clicking a different option (liveValidate=%s)",
+        async (liveValidate) => {
+          const user = userEvent.setup();
+          let data = {};
+          const onChange = vi.fn((x) => {
+            data = x.formData;
+          });
+          const { formData, schema, uiSchema } = segmentedControl;
+          render(
+            <SpruceForm
+              formData={formData}
+              liveValidate={liveValidate}
+              onChange={onChange}
+              schema={schema}
+              uiSchema={uiSchema}
+            />,
+          );
+          await user.click(screen.getByRole("tab", { name: "Medium" }));
+          expect(onChange).toHaveBeenCalled();
+          expect(data).toStrictEqual({ size: "medium" });
+        },
+      );
+    });
+
     describe("datetime picker", () => {
       beforeEach(() => {
         Element.prototype.scrollIntoView = () => {};
@@ -406,8 +432,10 @@ describe("spruce form", () => {
         expect(screen.getByLabelText("year")).toHaveValue("2025");
         expect(screen.getByLabelText("month")).toHaveValue("09");
         expect(screen.getByLabelText("day")).toHaveValue("16");
-        // Wait for the useUserSettings hook to move to success state
-        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+        // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
+        await waitFor(() => {
+          expect(screen.getByDataCy("hour-input")).toHaveValue("11");
+        });
         expect(screen.getByDataCy("minute-input")).toHaveValue("19");
       });
 
@@ -425,8 +453,10 @@ describe("spruce form", () => {
           </MockedProvider>,
         );
 
-        // Wait for the useUserSettings hook to move to success state
-        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+        // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
+        await waitFor(() => {
+          expect(screen.getByDataCy("hour-input")).toHaveValue("11");
+        });
 
         await user.clear(screen.getByLabelText("day"));
         await user.type(screen.getByLabelText("day"), "19");
@@ -455,8 +485,10 @@ describe("spruce form", () => {
           </MockedProvider>,
         );
 
-        // Wait for the useUserSettings hook to move to success state
-        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+        // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
+        await waitFor(() => {
+          expect(screen.getByDataCy("hour-input")).toHaveValue("11");
+        });
 
         await user.click(screen.getByRole("button", { name: "Clock Icon" }));
         await waitFor(() => {
@@ -654,6 +686,42 @@ const radioGroup = {
     states: {
       "ui:enumDisabled": ["ct"],
       "ui:widget": "radio",
+    },
+  },
+};
+
+const segmentedControl = {
+  formData: { size: "small" },
+  schema: {
+    type: "object" as const,
+    properties: {
+      size: {
+        type: "string" as const,
+        title: "Size",
+        default: "small",
+        oneOf: [
+          {
+            type: "string" as const,
+            title: "Small",
+            enum: ["small"],
+          },
+          {
+            type: "string" as const,
+            title: "Medium",
+            enum: ["medium"],
+          },
+          {
+            type: "string" as const,
+            title: "Large",
+            enum: ["large"],
+          },
+        ],
+      },
+    },
+  },
+  uiSchema: {
+    size: {
+      "ui:widget": widgets.SegmentedControlWidget,
     },
   },
 };

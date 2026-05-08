@@ -2,13 +2,13 @@ import { useRef, useState } from "react";
 import { H2 } from "@leafygreen-ui/typography";
 import { StickyHeaderContainer } from "components/Settings/sharedStyles";
 import { AdminSettingsTabRoutes } from "constants/routes";
-import { AdminSettings } from "gql/generated/types";
+import { AdminSettingsQuery } from "gql/generated/types";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { AdminSaveButton } from "./AdminSaveButton";
 import { getTabTitle } from "./getTabTitle";
 
 interface Props {
-  adminSettingsData: AdminSettings;
+  adminSettingsData: NonNullable<AdminSettingsQuery["adminSettings"]>;
   tab: AdminSettingsTabRoutes;
 }
 

@@ -1,6 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   userEvent,
@@ -38,9 +38,12 @@ describe("deleteDistro", () => {
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveAttribute("aria-disabled", "true");
     await user.hover(deleteButton);
-    await waitFor(() => {
-      expect(screen.getByDataCy("delete-button-tooltip")).toBeVisible();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByDataCy("delete-button-tooltip")).toBeVisible();
+      },
+      { timeout: 2000 },
+    );
   });
 
   it("button is enabled if admin", async () => {
@@ -84,7 +87,9 @@ describe("deleteDistro", () => {
     expect(confirmButton).toHaveAttribute("aria-disabled", "false");
 
     await user.click(confirmButton);
-    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
   });
 });
 
@@ -130,6 +135,7 @@ const isAdminMock: ApolloMock<
           canCreateDistro: true,
           distroPermissions: {
             __typename: "DistroPermissions",
+            id: distroToDelete,
             admin: true,
             edit: true,
           },
@@ -159,6 +165,7 @@ const notAdminMock: ApolloMock<
           canCreateDistro: false,
           distroPermissions: {
             __typename: "DistroPermissions",
+            id: distroToDelete,
             admin: false,
             edit: false,
           },

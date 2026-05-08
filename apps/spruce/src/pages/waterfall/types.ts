@@ -26,7 +26,6 @@ export type Build = {
     displayStatusCache: string;
     execution: number;
     id: string;
-    status: string;
   }>;
   version: string;
 };
@@ -46,4 +45,9 @@ export enum WaterfallFilterOptions {
   Statuses = "statuses",
   Task = "tasks",
   Date = "date",
+}
+
+export enum FilterType {
+  Exact = "exact",
+  Regex = "regex",
 }

@@ -4,11 +4,11 @@ import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
-import debounce from "lodash.debounce";
 import Icon from "@evg-ui/lib/components/Icon";
 import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { size, textInputHeight } from "@evg-ui/lib/constants/tokens";
+import { useDebouncedCallback } from "@evg-ui/lib/hooks/useDebouncedCallback";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
@@ -60,11 +60,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
   }, [input, searchSuggestions]);
 
   const isValid = validator(input);
-  const debounceSearch = useRef(
-    debounce((value: string) => {
-      onChange(value);
-    }, 500),
-  ).current;
+  const debounceSearch = useDebouncedCallback((value: string) => {
+    onChange(value);
+  }, 500);
 
   useKeyboardShortcut(
     { charKey: CharKey.F, modifierKeys: [ModifierKey.Control] },

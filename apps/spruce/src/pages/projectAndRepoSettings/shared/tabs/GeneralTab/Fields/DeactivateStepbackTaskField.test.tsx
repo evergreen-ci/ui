@@ -1,11 +1,12 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
   userEvent,
+  waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
@@ -78,9 +79,11 @@ describe("deactivateStepbackTask", () => {
     });
     expect(confirmButton).toBeEnabled();
     await user.click(confirmButton);
-    expect(dispatchToast.success).toHaveBeenCalledWith(
-      "Stepback task was deactivated.",
-    );
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledWith(
+        "Stepback task was deactivated.",
+      );
+    });
   });
 });
 

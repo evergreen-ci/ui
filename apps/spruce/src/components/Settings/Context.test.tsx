@@ -108,6 +108,47 @@ describe("useTestContext", () => {
 
     expect(result.current.getTab("foo").hasError).toBe(true);
   });
+
+  it("saveTab resets hasChanges and subsequent updates are still detected", async () => {
+    const { result } = renderHook(() => useTestContext(), {
+      wrapper: TestProvider,
+    });
+
+    act(() => {
+      result.current.setInitialData(initialData);
+    });
+
+    act(() => {
+      result.current.updateForm("foo")({
+        formData: { capsLockEnabled: false },
+        errors: [],
+      });
+    });
+
+    await waitFor(() => {
+      expect(result.current.getTab("foo").hasChanges).toBe(true);
+    });
+
+    act(() => {
+      result.current.saveTab("foo");
+      result.current.setInitialData({
+        foo: result.current.getTab("foo").formData,
+      } as Parameters<typeof result.current.setInitialData>[0]);
+    });
+
+    expect(result.current.getTab("foo").hasChanges).toBe(false);
+
+    act(() => {
+      result.current.updateForm("foo")({
+        formData: { capsLockEnabled: true },
+        errors: [],
+      });
+    });
+
+    await waitFor(() => {
+      expect(result.current.getTab("foo").hasChanges).toBe(true);
+    });
+  });
 });
 
 describe("useHasUnsavedTab", () => {

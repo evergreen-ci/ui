@@ -3,7 +3,6 @@ import * as announcements from "./GeneralTab/AnnouncementsTab/transformers";
 import * as authentication from "./GeneralTab/AuthenticationTab/transformers";
 import * as backgroundProcessing from "./GeneralTab/BackgroundProcessingTab/transformers";
 import * as externalCommunications from "./GeneralTab/ExternalCommunicationsTab/transformers";
-import * as featureFlags from "./GeneralTab/FeatureFlagsTab/transformers";
 import * as other from "./GeneralTab/OtherTab/transformers";
 import * as providers from "./GeneralTab/ProvidersTab/transformers";
 import * as runners from "./GeneralTab/RunnersTab/transformers";
@@ -18,7 +17,6 @@ export const formToGqlMap: {
   [T in WritableAdminSettingsType]: FormToGqlFunction<T>;
 } = {
   [AdminSettingsGeneralSection.Announcements]: announcements.formToGql,
-  [AdminSettingsGeneralSection.FeatureFlags]: featureFlags.formToGql,
   [AdminSettingsGeneralSection.Runners]: runners.formToGql,
   [AdminSettingsGeneralSection.Web]: web.formToGql,
   [AdminSettingsGeneralSection.Authentication]: authentication.formToGql,
@@ -33,7 +31,6 @@ export const gqlToFormMap: {
   [T in WritableAdminSettingsType]?: GqlToFormFunction<T>;
 } = {
   [AdminSettingsGeneralSection.Announcements]: announcements.gqlToForm,
-  [AdminSettingsGeneralSection.FeatureFlags]: featureFlags.gqlToForm,
   [AdminSettingsGeneralSection.Runners]: runners.gqlToForm,
   [AdminSettingsGeneralSection.Web]: web.gqlToForm,
   [AdminSettingsGeneralSection.Authentication]: authentication.gqlToForm,

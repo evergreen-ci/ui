@@ -45,10 +45,18 @@ const ToastProviderCore: React.FC<{ children: ReactNode }> = ({ children }) => {
       onClose,
       progress,
       shouldTimeout,
+      timeout,
       title,
       variant,
-    }: ToastParams) =>
-      pushToast({
+    }: ToastParams) => {
+      let toastTimeout = null;
+      if (timeout !== undefined) {
+        toastTimeout = timeout;
+      } else if (shouldTimeout) {
+        toastTimeout = TOAST_TIMEOUT;
+      }
+
+      return pushToast({
         // @ts-expect-error: data-cy doesn't exist as a prop on Toast but it will be propagated correctly.
         "data-cy": "toast",
         "data-variant": mapLeafyGreenVariantToToast[variant],
@@ -56,10 +64,11 @@ const ToastProviderCore: React.FC<{ children: ReactNode }> = ({ children }) => {
         dismissible: closable,
         onClose: closable ? onClose : undefined,
         progress,
-        timeout: shouldTimeout ? TOAST_TIMEOUT : null,
+        timeout: toastTimeout,
         title: title || mapLeafyGreenVariantToTitle[variant],
         variant,
-      }),
+      });
+    },
     [pushToast],
   );
 
@@ -122,8 +131,11 @@ const ToastProviderCore: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-const ToastProvider: React.FC<{ children?: ReactNode }> = ({ children }) => (
-  <LGToastProvider>
+const ToastProvider: React.FC<{
+  children?: ReactNode;
+  portalClassName?: string;
+}> = ({ children, portalClassName }) => (
+  <LGToastProvider portalClassName={portalClassName}>
     <ToastProviderCore>{children}</ToastProviderCore>
   </LGToastProvider>
 );

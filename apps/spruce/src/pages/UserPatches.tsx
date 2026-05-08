@@ -1,6 +1,6 @@
-import { useQuery } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { PatchesPage } from "components/PatchesPage";
 import { RequesterSelector } from "components/PatchesPage/RequesterSelector";
 import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
@@ -15,41 +15,55 @@ import { USER_PATCHES } from "gql/queries";
 import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const UserPatches = () => {
-  const dispatchToast = useToastContext();
   const { [slugs.userId]: userId } = useParams();
-  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   const patchesInput = usePatchesQueryParams();
   const isMergeQueueUser = userId === githubMergeQueueUser;
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
-  >(USER_PATCHES, {
-    variables: {
-      userId,
-      patchesInput: {
-        ...patchesInput,
-        // Always show merge queue patches for the merge queue user.
-        onlyMergeQueue: isMergeQueueUser,
-      },
-    },
-    fetchPolicy: "cache-and-network",
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    skip: !userId,
-    onError: (err) => {
-      dispatchToast.error(`Error while fetching user patches: ${err.message}`);
-    },
+  >(
+    USER_PATCHES,
+    userId
+      ? {
+          variables: {
+            userId,
+            patchesInput: {
+              ...patchesInput,
+              // Always show merge queue patches for the merge queue user.
+              onlyMergeQueue: isMergeQueueUser,
+            },
+          },
+          fetchPolicy: "cache-and-network",
+          pollInterval: DEFAULT_POLL_INTERVAL,
+        }
+      : skipToken,
+  );
+  useErrorToast(error, "Error while fetching user patches");
+  usePolling<UserPatchesQuery, UserPatchesQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
   });
-  usePolling({ startPolling, stopPolling, refetch });
+
+  const { title: pageTitle = "User Patches" } =
+    useGetUserPatchesPageTitleAndLink(
+      userId
+        ? {
+            userId,
+            displayName: data?.user?.displayName,
+          }
+        : undefined,
+    ) || {};
 
   return (
     <PatchesPage
       filterComp={<RequesterSelector />}
       loading={loading && !data?.user.patches}
-      pageTitle={pageTitle || "User Patches"}
+      pageTitle={pageTitle}
       pageType="user"
-      patches={data?.user.patches}
+      patches={data?.user?.patches ?? undefined}
     />
   );
 };

@@ -122,11 +122,12 @@ export const readVersions = ((existing, { args, readField }) => {
 }) satisfies FieldReadFunction<WaterfallQuery["waterfall"]>;
 
 export const mergeVersions = ((existing, incoming, { readField }) => {
-  const existingVersions =
-    readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
-      "flattenedVersions",
-      existing,
-    ) ?? [];
+  const existingVersions = existing
+    ? (readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
+        "flattenedVersions",
+        existing,
+      ) ?? [])
+    : [];
   const incomingVersions =
     readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
       "flattenedVersions",
@@ -159,8 +160,9 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     prevPageOrder: 0,
   };
 
-  const existingActiveVersions =
-    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
+  const existingActiveVersions = existing
+    ? (readField<Set<string>>("allActiveVersions", existing) ?? new Set())
+    : new Set<string>();
   const incomingActiveVersions =
     readField<string[]>("activeVersionIds", pagination) ?? [];
   incomingActiveVersions.forEach((vId) => existingActiveVersions.add(vId));

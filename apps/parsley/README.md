@@ -50,27 +50,17 @@ pnpm <env_name>  # where env_name is the name of the environment you want to run
 
 ### Starting supporting services
 
-Parsley is capable of fetching logs from both
-[evergreen](https://github.com/evergreen-ci/evergreen) and
-[logkeeper](https://github.com/evergreen-ci/logkeeper). If you would like to
-develop against them you will need to run both of the servers locally.
-
-**Evergreen**
+Parsley fetches logs from
+[Evergreen](https://github.com/evergreen-ci/evergreen). To develop locally:
 
 1. Clone the [Evergreen Repository](https://github.com/evergreen-ci/evergreen)
 2. Follow the setup instructions in the README to set up your environment.
-3. Run `make local-evergreen` to start the local evergreen server
-
-**Logkeeper**
-
-1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `pnpm bootstrap-s3-logs` to download some sample resmoke logs from s3.
-3. Run the command outputted by the previous step to seed the env variables and
-   start the local logkeeper server with the following command:
-
+3. Run `pnpm bootstrap-s3-logs` to download sample test log data from S3.
+4. Create a symlink from your Evergreen repo to the downloaded bucket data:
    ```bash
-   LK_CORS_ORIGINS=http:\/\/localhost:\\d+ LK_EVERGREEN_ORIGIN=http://localhost:8080 LK_PARSLEY_ORIGIN=http://localhost:5173 go run main/logkeeper.go --localPath {abs_path_to_parsley}/bin/_bucketdata
+   ln -s <path_to_parsley>/bin/_bucketdata _bucketdata
    ```
+5. Run `make local-evergreen` to start the local Evergreen server.
 
 ### GraphQL Type Generation
 

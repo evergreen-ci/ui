@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import styled from "@emotion/styled";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { fontFamilies } from "@leafygreen-ui/tokens";
+import { Body } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
@@ -9,13 +10,10 @@ import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import LoadingBar from "components/LoadingBar";
 import { LogTypes } from "constants/enums";
-import { getResmokeLogURL } from "constants/logURLTemplates";
 import { slugs } from "constants/routes";
 import { useLogContext } from "context/LogContext";
 import { useLogDownloader } from "hooks";
-import { useFetch } from "hooks/useFetch";
 import NotFound from "pages/404";
-import { LogkeeperMetadata } from "types/api";
 import { getBytesAsString } from "utils/string";
 import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
 
@@ -25,7 +23,6 @@ interface LoadingPageProps {
 
 const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
   const {
-    [slugs.buildID]: buildID,
     [slugs.execution]: execution,
     [slugs.fileName]: fileName,
     [slugs.groupID]: groupID,
@@ -34,17 +31,20 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     [slugs.taskID]: taskID,
   } = useParams();
   const dispatchToast = useToastContext();
-  const { ingestLines, setLogMetadata } = useLogContext();
+  const { ingestLines, preferences, setLogMetadata } = useLogContext();
+  const { excludeTimestamps } = preferences;
   const {
     downloadURL,
     failingCommand,
     htmlLogURL,
     jobLogsURL,
     loading: isLoadingEvergreen,
+    logPath,
+    logsToMerge,
     rawLogURL,
     renderingType,
   } = useResolveLogURLAndRenderingType({
-    buildID,
+    excludeTimestamps,
     execution,
     fileName,
     groupID,
@@ -53,73 +53,66 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     taskID,
     testID,
   });
-  const { data: logkeeperMetadata, isLoading: isLoadingLogkeeperMetadata } =
-    useFetch<LogkeeperMetadata>(
-      getResmokeLogURL(buildID || "", { metadata: true, testID }),
-      {
-        skip: logType !== LogTypes.LOGKEEPER_LOGS || buildID === undefined,
-      },
-    );
 
-  const {
-    data,
-    error,
-    fileSize,
-    isLoading: isLoadingLog,
-  } = useLogDownloader({
-    logType,
-    url: downloadURL,
-  });
-
-  useEffect(() => {
-    if (data && !isLoadingLogkeeperMetadata) {
+  const onComplete = useCallback(
+    (logs: string[]) => {
       leaveBreadcrumb(
         "ingest-log-lines",
         { logType },
         SentryBreadcrumbTypes.UI,
       );
       setLogMetadata({
-        buildID,
-        execution: execution || String(logkeeperMetadata?.execution || 0),
+        execution,
         fileName,
         groupID,
         htmlLogURL,
         jobLogsURL,
+        logPath,
         logType,
+        logsToMerge,
         origin,
         rawLogURL,
         renderingType,
-        taskID: taskID || logkeeperMetadata?.task_id,
+        taskID,
         testID,
       });
-      ingestLines(data, renderingType, failingCommand);
-    }
+      ingestLines(logs, renderingType, failingCommand);
+    },
+    [
+      execution,
+      failingCommand,
+      fileName,
+      groupID,
+      htmlLogURL,
+      ingestLines,
+      jobLogsURL,
+      logPath,
+      logType,
+      logsToMerge,
+      origin,
+      rawLogURL,
+      renderingType,
+      setLogMetadata,
+      taskID,
+      testID,
+    ],
+  );
+
+  const {
+    error,
+    fileSize,
+    isLoading: isLoadingLog,
+  } = useLogDownloader({
+    logType,
+    onComplete,
+    url: downloadURL,
+  });
+
+  useEffect(() => {
     if (error) {
       dispatchToast.error(error);
     }
-  }, [
-    buildID,
-    data,
-    dispatchToast,
-    error,
-    execution,
-    fileName,
-    groupID,
-    htmlLogURL,
-    ingestLines,
-    isLoadingLogkeeperMetadata,
-    jobLogsURL,
-    logkeeperMetadata?.execution,
-    logkeeperMetadata?.task_id,
-    logType,
-    origin,
-    rawLogURL,
-    renderingType,
-    setLogMetadata,
-    taskID,
-    testID,
-    failingCommand,
-  ]);
+  }, [dispatchToast, error]);
 
   if (isLoadingLog || isLoadingEvergreen) {
     return (
@@ -173,7 +166,7 @@ const FlexRow = styled.div`
 `;
 
 const DownloadSize = styled.div`
-  font-family: "Source Code Pro", monospace;
+  font-family: ${fontFamilies.code};
 `;
 
 const AnimationWrapper = styled.div`
@@ -198,7 +191,7 @@ const AnimationWrapper = styled.div`
   }
 `;
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   font-size: ${fontSize.l};
 `;
 

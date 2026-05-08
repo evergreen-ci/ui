@@ -1,7 +1,7 @@
 import { useReducer, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Tooltip } from "@leafygreen-ui/tooltip";
@@ -190,8 +190,9 @@ export const PromoteVariablesModalButton: React.FC<
         disabled={!canEdit}
         onClick={() => setModalOpen(true)}
         size={Size.Small}
+        title="Opens a confirmation modal where you can select which variables to move to the repo."
       >
-        Move variables to repo
+        Select variables to move to repo
       </Button>
     </>
   );

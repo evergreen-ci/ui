@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useNavigate } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -14,7 +14,7 @@ import { COPY_PROJECT } from "gql/mutations";
 import {
   performanceTooling,
   projectName,
-  requestS3Creds,
+  s3BucketInfo,
 } from "./createDuplicateModalSchema";
 
 interface Props {
@@ -37,7 +37,6 @@ export const CopyProjectModal: React.FC<Props> = ({
   const [formState, setFormState] = useState({
     projectName: "",
     enablePerformanceTooling: false,
-    requestS3Creds: false,
   });
   const [hasError, setHasError] = useState(true);
 
@@ -57,7 +56,7 @@ export const CopyProjectModal: React.FC<Props> = ({
     if (identifier) {
       if (error) {
         dispatchToast.warning(
-          `Project cannot be enabled due to the global or repo-specific limits.`,
+          `The project was duplicated but may not be fully enabled: ${error.message}`,
           true,
           { shouldTimeout: false },
         );
@@ -91,7 +90,6 @@ export const CopyProjectModal: React.FC<Props> = ({
           newProjectIdentifier: formState.projectName,
           projectIdToCopy: id,
         },
-        requestS3Creds: formState.requestS3Creds,
       },
     });
     sendEvent({
@@ -134,12 +132,12 @@ const modalFormDefinition = {
     properties: {
       projectName: projectName.schema,
       ...performanceTooling.schema,
-      requestS3Creds: requestS3Creds.schema,
+      s3BucketInfo: s3BucketInfo.schema,
     },
   },
   uiSchema: {
     projectName: projectName.uiSchema,
     ...performanceTooling.uiSchema,
-    requestS3Creds: requestS3Creds.uiSchema,
+    s3BucketInfo: s3BucketInfo.uiSchema,
   },
 };

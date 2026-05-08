@@ -22,6 +22,37 @@ const sharedProps = {
 };
 
 describe("tupleSelect", () => {
+  it("renders with defaultOption when provided", () => {
+    render(
+      <TupleSelect {...sharedProps} defaultOption="task" options={options} />,
+    );
+    expect(screen.getByText("Task")).toBeInTheDocument();
+  });
+
+  it("calls onToggleOption when the dropdown selection changes", async () => {
+    const user = userEvent.setup();
+    const onToggleOption = vi.fn();
+    render(
+      <TupleSelect
+        {...sharedProps}
+        onToggleOption={onToggleOption}
+        options={options}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: /build variant/i }));
+    await user.click(await screen.findByRole("option", { name: "Task" }));
+    expect(onToggleOption).toHaveBeenCalledWith("task");
+  });
+
+  it("does not crash when onSubmit is not provided", async () => {
+    const user = userEvent.setup();
+    render(<TupleSelect {...sharedProps} options={options} />);
+    const input = screen.getByDataCy("tuple-select-input");
+    await user.type(input, "some-filter");
+    await user.type(input, "{enter}");
+    expect(input).toHaveValue("");
+  });
+
   it("renders normally", () => {
     const onSubmit = vi.fn();
     const validator = vi.fn((v) => v !== "bad");

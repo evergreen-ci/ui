@@ -1,5 +1,5 @@
-import { useQuery, useMutation } from "@apollo/client";
-import Button, { Size } from "@leafygreen-ui/button";
+import { useQuery, useMutation } from "@apollo/client/react";
+import { Button, Size } from "@leafygreen-ui/button";
 import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -68,6 +68,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
   ) : (
     <Popconfirm
       align={Align.Left}
+      data-cy="unmount-volume-popconfirm"
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Changed unmounted volume on host",
@@ -77,6 +78,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
       }}
       trigger={
         <Button
+          as="button"
           data-cy={`detach-btn-${volume.displayName || volume.id}`}
           disabled={loadingDetachVolume || volume.migrating}
           onClick={(e) => {

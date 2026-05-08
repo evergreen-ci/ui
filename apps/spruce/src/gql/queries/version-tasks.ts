@@ -1,0 +1,52 @@
+import { gql } from "@apollo/client";
+
+export const VERSION_TASKS = gql`
+  query VersionTasks(
+    $versionId: String!
+    $taskFilterOptions: TaskFilterOptions!
+  ) {
+    version(versionId: $versionId) {
+      id
+      isPatch
+      tasks(options: $taskFilterOptions) {
+        count
+        data {
+          id
+          aborted
+          baseTask {
+            id
+            displayStatus
+            execution
+          }
+          blocked
+          buildVariant
+          buildVariantDisplayName
+          dependsOn {
+            name
+          }
+          displayName
+          displayStatus
+          errors
+          execution
+          executionTasksFull {
+            id
+            baseTask {
+              id
+              displayStatus
+              execution
+            }
+            buildVariant
+            buildVariantDisplayName
+            displayName
+            displayStatus
+            execution
+            projectIdentifier
+            reviewed @client
+          }
+          projectIdentifier
+          reviewed @client
+        }
+      }
+    }
+  }
+`;

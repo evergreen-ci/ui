@@ -1,6 +1,7 @@
 import { GetFormSchema } from "components/SpruceForm";
 import {
   miscSettings,
+  oktaServiceConfig,
   getSingleTaskDistroSchema,
   bucketConfig,
   sshPairs,
@@ -8,10 +9,12 @@ import {
   hostJasper,
   jiraNotificationsFields,
   spawnHost,
+  debugSpawnHostsConfig,
   sleepSchedule,
   tracerConfiguration,
   projectCreationSettings,
   githubCheckRunConfigurations,
+  diagnosticsConfig,
 } from "./schemaFields";
 
 export const getFormSchema = ({
@@ -35,6 +38,11 @@ export const getFormSchema = ({
               type: "object" as const,
               title: "Misc Settings",
               properties: miscSettings.schema,
+            },
+            oktaServiceConfig: {
+              type: "object" as const,
+              title: "Okta Service Config",
+              properties: oktaServiceConfig.schema,
             },
             bucketConfig: {
               type: "object" as const,
@@ -66,6 +74,11 @@ export const getFormSchema = ({
               title: "Spawn Host",
               properties: spawnHost.schema,
             },
+            debugSpawnHostsConfig: {
+              type: "object" as const,
+              title: "Debug Spawn Hosts Config",
+              properties: debugSpawnHostsConfig.schema,
+            },
             sleepSchedule: {
               type: "object" as const,
               title: "Sleep Schedule",
@@ -86,6 +99,11 @@ export const getFormSchema = ({
               title: "GitHub Check Run Config",
               properties: githubCheckRunConfigurations.schema,
             },
+            diagnosticsConfig: {
+              type: "object" as const,
+              title: "Diagnostics Config",
+              properties: diagnosticsConfig.schema,
+            },
             singleTaskDistro: {
               type: "object" as const,
               title: "Single Task Distro Configuration",
@@ -98,6 +116,7 @@ export const getFormSchema = ({
     uiSchema: {
       other: {
         miscSettings: miscSettings.uiSchema,
+        oktaServiceConfig: oktaServiceConfig.uiSchema,
         singleTaskDistro: singleTaskDistro.uiSchema,
         bucketConfig: bucketConfig.uiSchema,
         sshPairs: sshPairs.uiSchema,
@@ -105,10 +124,12 @@ export const getFormSchema = ({
         hostJasper: hostJasper.uiSchema,
         jiraNotificationsFields: jiraNotificationsFields.uiSchema,
         spawnHost: spawnHost.uiSchema,
+        debugSpawnHostsConfig: debugSpawnHostsConfig.uiSchema,
         sleepSchedule: sleepSchedule.uiSchema,
         tracerConfiguration: tracerConfiguration.uiSchema,
         projectCreationSettings: projectCreationSettings.uiSchema,
         githubCheckRunConfigurations: githubCheckRunConfigurations.uiSchema,
+        diagnosticsConfig: diagnosticsConfig.uiSchema,
       },
     },
   };

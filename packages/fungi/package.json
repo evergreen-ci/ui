@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": "./src/index.ts",
+  "imports": {
+    "#*": "./src/*/index.tsx"
+  },
   "scripts": {
     "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint:fix": "pnpm eslint:strict --fix",
@@ -14,31 +18,31 @@
     "chromatic": "npx chromatic --project-token=chpt_e1e0e3c7dd24944 --build-script-name storybook:build"
   },
   "dependencies": {
-    "@ai-sdk/react": "^2.0.11",
-    "@emotion/css": "11.13.5",
-    "@emotion/react": "11.14.0",
+    "@ai-sdk/react": "^3.0.0",
     "@emotion/styled": "11.14.1",
-    "@leafygreen-ui/banner": "^10.2.4",
-    "@leafygreen-ui/button": "^21.0.6",
+    "@leafygreen-ui/badge": "^10.2.4",
+    "@leafygreen-ui/button": "^25.2.1",
+    "@leafygreen-ui/code": "^20.2.7",
     "@leafygreen-ui/drawer": "^5.2.1",
     "@leafygreen-ui/icon-button": "^17.1.4",
-    "@leafygreen-ui/leafygreen-provider": "^5.0.4",
-    "@lg-chat/chat-disclaimer": "^5.0.1",
+    "@leafygreen-ui/palette": "^5.0.2",
+    "@leafygreen-ui/tokens": "^4.0.0",
+    "@leafygreen-ui/typography": "^22.2.4",
     "@lg-chat/chat-window": "^6.0.0",
     "@lg-chat/input-bar": "^12.2.0",
     "@lg-chat/leafygreen-chat-provider": "^6.0.0",
-    "@lg-chat/message": "^10.2.0",
-    "@lg-chat/message-feed": "^9.0.1",
+    "@lg-chat/message": "^12.0.0",
+    "@lg-chat/message-feed": "^9.1.0",
     "@lg-chat/message-prompts": "^4.2.0",
     "@lg-chat/message-rating": "^7.1.0",
     "@lg-chat/rich-links": "^4.0.7",
-    "ai": "^5.0.98",
+    "ai": "^6.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "vite-tsconfig-paths": "^6.0.2",
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@emotion/react": "11.14.0",
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lib": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
@@ -50,15 +54,15 @@
     "@testing-library/react": "^16.3.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
-    "chromatic": "^13.3.4",
+    "chromatic": "^16.0.0",
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",
-    "prettier": "3.5.1",
+    "prettier": "3.7.4",
     "storybook": "^10.1.10",
     "storybook-addon-apollo-client": "^10.0.0",
-    "typescript": "~5.9.3",
+    "typescript": "~6.0.2",
     "vite-tsconfig-paths": "^6.0.2",
     "vitest": "^3.2.4",
-    "vitest-canvas-mock": "0.3.3"
+    "vitest-canvas-mock": "1.1.3"
   }
 }

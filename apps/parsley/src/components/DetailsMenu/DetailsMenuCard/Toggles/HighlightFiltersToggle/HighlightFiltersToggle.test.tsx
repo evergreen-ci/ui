@@ -1,26 +1,21 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
 } from "@evg-ui/lib/test_utils";
+import { HIGHLIGHT_FILTERS } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import HighlightFiltersToggle from ".";
-
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const wrapper = logContextWrapper();
 
 describe("highlight filter toggle", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "true");
+    localStorage.clear();
     InitializeFakeToastContext();
   });
 
-  it("defaults to 'false' if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  it("defaults to 'false' if stored value is unset", () => {
     render(<HighlightFiltersToggle />, { wrapper });
     const highlightFiltersToggle = screen.getByDataCy(
       "highlight-filters-toggle",
@@ -28,7 +23,8 @@ describe("highlight filter toggle", () => {
     expect(highlightFiltersToggle).toHaveAttribute("aria-checked", "false");
   });
 
-  it("should read from the cookie properly", () => {
+  it("should read from localStorage properly", () => {
+    localStorage.setItem(HIGHLIGHT_FILTERS, "true");
     render(<HighlightFiltersToggle />, { wrapper });
     const highlightFiltersToggle = screen.getByDataCy(
       "highlight-filters-toggle",

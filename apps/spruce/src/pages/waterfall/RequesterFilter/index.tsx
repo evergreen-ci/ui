@@ -1,4 +1,3 @@
-import { useTransition } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
@@ -7,28 +6,26 @@ import { WaterfallFilterOptions } from "../types";
 
 export const RequesterFilter = () => {
   const { sendEvent } = useWaterfallAnalytics();
-  const [, startTransition] = useTransition();
   const [requesters, setRequesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],
   );
 
   const handleChange = (value: string[]) => {
-    startTransition(() => {
-      setRequesters(value);
-    });
+    setRequesters(value);
     sendEvent({ name: "Filtered by requester", requesters: value });
   };
 
   return (
     <Combobox
       data-cy="requester-filter"
+      dropdownWidthBasis="option"
+      initialValue={requesters}
       label="Requesters"
       multiselect
       onChange={handleChange}
       overflow="scroll-x"
-      placeholder="Displaying all requesters"
-      value={requesters}
+      placeholder="All"
     >
       {mainlineRequesters.map((requester) => (
         <ComboboxOption

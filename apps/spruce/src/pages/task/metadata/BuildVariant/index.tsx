@@ -1,22 +1,24 @@
-import styled from "@emotion/styled";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
+import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
+  MetadataTitleWithAPILink,
 } from "components/MetadataCard";
+import { getAPIRouteForBuilds } from "constants/externalResources";
 import { getVariantHistoryRoute } from "constants/routes";
-import { CopyButton } from "./CopyButton";
 
 interface Props {
-  projectIdentifier?: string;
-  buildVariantDisplayName?: string;
+  buildId: string;
   buildVariant: string;
+  buildVariantDisplayName?: string;
+  projectIdentifier?: string;
   taskName: string;
 }
 
 export const BuildVariantCard: React.FC<Props> = ({
+  buildId,
   buildVariant,
   buildVariantDisplayName,
   projectIdentifier,
@@ -25,22 +27,22 @@ export const BuildVariantCard: React.FC<Props> = ({
   const taskAnalytics = useTaskAnalytics();
 
   return (
-    <MetadataCard title="Build Variant">
+    <MetadataCard
+      title={
+        <MetadataTitleWithAPILink
+          href={getAPIRouteForBuilds(buildId)}
+          title="Build Variant"
+        />
+      }
+    >
+      <CopyableID textToCopy={buildId} tooltipLabel="Copy build ID" />
+      <MetadataItem>
+        <MetadataLabel>Identifier:</MetadataLabel>{" "}
+        <WordBreak>{buildVariant}</WordBreak>
+      </MetadataItem>
       <MetadataItem>
         <MetadataLabel>Name:</MetadataLabel>{" "}
         <WordBreak>{buildVariantDisplayName}</WordBreak>
-      </MetadataItem>
-      <MetadataItem>
-        <IDWrapper>
-          <LabelWrapper>
-            <StyledMetadataLabel>ID:</StyledMetadataLabel>
-            <WordBreak>{buildVariant}</WordBreak>
-          </LabelWrapper>
-          <CopyButton
-            textToCopy={buildVariant}
-            tooltipLabel="Copy build variant ID"
-          />
-        </IDWrapper>
       </MetadataItem>
       {projectIdentifier && (
         <MetadataItem>
@@ -62,19 +64,3 @@ export const BuildVariantCard: React.FC<Props> = ({
     </MetadataCard>
   );
 };
-
-const StyledMetadataLabel = styled(MetadataLabel)`
-  flex-shrink: 0;
-`;
-
-const IDWrapper = styled.span`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;
-
-const LabelWrapper = styled.span`
-  display: flex;
-  align-items: start;
-  gap: ${size.xxs};
-`;

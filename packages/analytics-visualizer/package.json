@@ -18,8 +18,8 @@
     "@evg-ui/lint-staged": "workspace:*",
     "@types/node": "^22.15.3",
     "eslint": "^9.39.1",
-    "typescript": "~5.9.3",
-    "vite": "7.1.11",
+    "typescript": "~6.0.2",
+    "vite": "7.3.2",
     "vite-tsconfig-paths": "^6.0.2",
     "vitest": "^3.2.4"
   }

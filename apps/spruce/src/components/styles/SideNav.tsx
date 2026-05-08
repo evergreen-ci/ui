@@ -38,7 +38,7 @@ export const SideNavItemLink: React.FC<SideNavItemProps> = ({
   </StyledSideNavItemLink>
 );
 
-const StyledSideNavItemLink = styled(LGSideNavItem)<SideNavItemProps>`
+const StyledSideNavItemLink = styled(LGSideNavItem)`
   color: ${blue.base};
 `;
 const StyledBody = styled(Body)`

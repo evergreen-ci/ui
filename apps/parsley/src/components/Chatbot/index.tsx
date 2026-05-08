@@ -1,13 +1,11 @@
-import { ChangeEvent, FormEvent, useCallback, useEffect } from "react";
-import styled from "@emotion/styled";
-import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import { Chat, MessageRatingValue } from "@evg-ui/fungi/Chat";
-import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
+import { ChangeEvent, FormEvent, useCallback, useEffect, useRef } from "react";
 import {
+  Chat,
+  ChatDrawer,
   ChatProvider as FungiProvider,
+  MessageRatingValue,
   useChatContext,
-} from "@evg-ui/fungi/Context";
-import { size } from "@evg-ui/lib/constants/tokens";
+} from "@evg-ui/fungi";
 import { post } from "@evg-ui/lib/utils/request/post";
 import { useAIAgentAnalytics } from "analytics";
 import { aiPrompts } from "constants/aiPrompts";
@@ -88,12 +86,19 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
     sendEvent({ name: "Clicked copy response button" });
   }, [sendEvent]);
 
+  // Don't send action event on mount, but rather when it changes after the default is set
+  const isInitialRender = useRef(true);
   useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
     sendEvent({
       name: "Toggled AI agent panel",
       open: drawerOpen,
     });
-  }, [drawerOpen, sendEvent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [drawerOpen]);
 
   return (
     <ChatDrawer
@@ -115,6 +120,12 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           onClickSuggestion={(suggestion) => {
             sendEvent({ name: "Clicked suggestion", suggestion });
           }}
+          onLinkClick={(href) => {
+            const line = parseInt(href.replace("#L", ""), 10);
+            if (!Number.isNaN(line)) {
+              openSectionAndScrollToLine(line);
+            }
+          }}
           onSendMessage={(message) => {
             sendEvent({ message, name: "Interacted with Parsley AI" });
           }}
@@ -131,20 +142,8 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
         />
       }
       data-cy="chat-drawer"
-      // TODO: `drawerTitle` can be removed after beta period for Parsley AI ends.
-      drawerTitle={
-        <DrawerTitle>
-          Parsley AI <Badge variant={BadgeVariant.Blue}>Beta</Badge>
-        </DrawerTitle>
-      }
     >
       {children}
     </ChatDrawer>
   );
 };
-
-const DrawerTitle = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
-`;

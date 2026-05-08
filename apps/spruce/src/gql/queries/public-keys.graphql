@@ -1,6 +1,0 @@
-query MyPublicKeys {
-  myPublicKeys {
-    key
-    name
-  }
-}

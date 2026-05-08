@@ -22,7 +22,12 @@ const validateDuration = (duration: string) => {
  * @param v - the string to test
  * @returns - true if the provided string is a valid email address, false otherwise
  */
-const validateEmail = (v: string): boolean => /\S+@\S+\.\S+/.test(v);
+const validateEmail = (v: string): boolean => {
+  if (!v) {
+    return true;
+  }
+  return /\S+@\S+\.\S+/.test(v);
+};
 
 const jiraTicketNumberRegex = ".+-[0-9]+";
 
@@ -51,11 +56,11 @@ const validateJiraURL = (jiraURL: string, url: string): boolean =>
  * @returns - true if the provided url is a valid url, false otherwise
  */
 const validateURL = (url: string): boolean => {
+  if (!url) {
+    return true;
+  }
   const validateUrlRegex =
     /(^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?)|(http:\/\/localhost:\d+)/;
-  if (!url) {
-    return false;
-  }
   return validateUrlRegex.test(url);
 };
 
@@ -123,6 +128,9 @@ const validateObjectId = (id: string): boolean => {
  * @returns - true if it is a valid regexp, false otherwise
  */
 const validateRegexp = (regexp: string): boolean => {
+  if (!regexp) {
+    return true;
+  }
   try {
     new RegExp(regexp);
     return true;

@@ -8,6 +8,7 @@ enum Requester {
   Gitter = "gitter_request",
   Patch = "patch_request",
   Trigger = "trigger_request",
+  Debug = "debug_request",
 }
 
 const mainlineRequesters = [
@@ -22,6 +23,7 @@ export const isWaterfallRequester = (requester: Requester) =>
 
 const requesterToTitle: PartialRecord<Requester, string> = {
   [Requester.AdHoc]: "Periodic build",
+  [Requester.Debug]: "Debug",
   [Requester.GitHubMergeQueue]: "GitHub merge request",
   [Requester.GitHubPR]: "GitHub pull request",
   [Requester.GitTag]: "Git tag",
@@ -31,6 +33,7 @@ const requesterToTitle: PartialRecord<Requester, string> = {
 };
 
 const requesterToDescription: PartialRecord<Requester, string> = {
+  [Requester.Debug]: "Requests made in debug spawn hosts",
   [Requester.Patch]: "Manual patches made via CLI or API",
   [Requester.Trigger]: "Downstream trigger versions",
 };

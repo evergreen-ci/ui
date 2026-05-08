@@ -57,6 +57,7 @@ const repoForm: GeneralFormState = {
     },
     repotracker: {
       repotrackerDisabled: false,
+      runEveryMainlineCommit: false,
       forceRun: null,
     },
     patch: {
@@ -82,6 +83,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     dispatchingDisabled: true,
     deactivatePrevious: true,
     repotrackerDisabled: false,
+    runEveryMainlineCommit: false,
     debugSpawnHostsDisabled: false,
     patchingDisabled: false,
     stepbackDisabled: true,
@@ -125,6 +127,7 @@ const projectForm: GeneralFormState = {
     },
     repotracker: {
       repotrackerDisabled: null,
+      runEveryMainlineCommit: null,
       forceRun: null,
     },
     patch: {
@@ -153,6 +156,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     dispatchingDisabled: null,
     deactivatePrevious: null,
     repotrackerDisabled: null,
+    runEveryMainlineCommit: null,
     debugSpawnHostsDisabled: null,
     patchingDisabled: null,
     stepbackDisabled: null,

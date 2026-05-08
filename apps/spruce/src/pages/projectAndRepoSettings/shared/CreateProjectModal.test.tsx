@@ -1,7 +1,8 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
+  MockedResponse,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
@@ -92,6 +93,14 @@ describe("createProjectField", () => {
     expect(screen.queryByDataCy("performance-tooling-banner")).toBeVisible();
   });
 
+  it("shows info banner for S3 bucket setup", async () => {
+    const { Component } = RenderFakeToastContext(<NewProjectModal />);
+    render(<Component />);
+
+    await waitForModalLoad();
+    expect(screen.queryByDataCy("s3-bucket-info-banner")).toBeVisible();
+  });
+
   it("pre-fills the owner and repo", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
@@ -162,7 +171,6 @@ describe("createProjectField", () => {
             owner: "10gen",
             repo: "new-repo-name",
           },
-          requestS3Creds: true,
         },
       },
       result: {
@@ -200,15 +208,6 @@ describe("createProjectField", () => {
     expect(enablePerformanceTooling).not.toBeChecked();
     await user.click(enablePerformanceToolingLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     expect(enablePerformanceTooling).toBeChecked();
-
-    // Check S3 creds checkbox.
-    const requestS3Creds = screen.getByDataCy("request-s3-creds");
-    const requestS3CredLabel = screen.getByText(
-      "Open a JIRA ticket to request an S3 Bucket",
-    );
-    expect(requestS3Creds).not.toBeChecked();
-    await user.click(requestS3CredLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
-    expect(requestS3Creds).toBeChecked();
     expect(confirmButton).toBeEnabled();
 
     await user.click(confirmButton);
@@ -229,7 +228,6 @@ describe("createProjectField", () => {
             owner: "10gen",
             repo: "new-repo-name",
           },
-          requestS3Creds: false,
         },
       },
       result: {
@@ -282,7 +280,6 @@ const createProjectMock: ApolloMock<
         owner: "10gen",
         repo: "new-repo-name",
       },
-      requestS3Creds: false,
     },
   },
   result: {

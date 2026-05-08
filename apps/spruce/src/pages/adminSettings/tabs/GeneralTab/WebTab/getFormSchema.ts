@@ -1,9 +1,10 @@
+import { css } from "@emotion/react";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { objectGridCss } from "../../sharedStyles";
 import { api, ui, disabledGQLQueries, betaFeatures } from "./schemaFields";
 
-export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
     type: "object" as const,
@@ -61,6 +62,11 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       betaFeatures: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "beta-features",
+        "ui:objectFieldCss": css`
+          [data-cy="beta-features"]:empty {
+            display: none;
+          }
+        `,
         ...betaFeatures.uiSchema,
       },
       disabledGQLQueries: {
@@ -70,4 +76,4 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       },
     },
   },
-});
+};

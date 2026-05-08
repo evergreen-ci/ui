@@ -1,8 +1,9 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Select, Size as SelectSize, Option } from "@leafygreen-ui/select";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
+import { ExecutionStatusIcon } from "components/ExecutionStatusIcon";
 import {
   TaskAllExecutionsQuery,
   TaskAllExecutionsQueryVariables,
@@ -10,7 +11,6 @@ import {
 import { TASK_ALL_EXECUTIONS } from "gql/queries";
 import { useDateFormat } from "hooks";
 import { formatZeroIndexForDisplay } from "utils/numbers";
-import { ExecutionStatusIcon } from "./ExecutionStatusIcon";
 
 interface ExecutionSelectorProps {
   currentExecution: number;
@@ -80,7 +80,7 @@ const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
 `;
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   font-size: ${fontSize.m};
 `;
 

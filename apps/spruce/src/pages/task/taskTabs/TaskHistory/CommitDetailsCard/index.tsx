@@ -1,10 +1,11 @@
 import { forwardRef } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { IconButton } from "@leafygreen-ui/icon-button";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -21,7 +22,9 @@ import { useTaskHistoryAnalytics } from "analytics";
 import SetPriority, { Align } from "components/SetPriority";
 import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
+import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { getGithubCommitUrl } from "constants/externalResources";
+import { Requester } from "constants/requesters";
 import { getTaskRoute } from "constants/routes";
 import {
   RestartTaskMutation,
@@ -40,6 +43,7 @@ import {
 } from "../constants";
 import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
+import { getTaskIngestTime } from "../utils";
 import CommitDescription from "./CommitDescription";
 import FailedTestsTable from "./FailedTestsTable";
 
@@ -72,17 +76,19 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       canRestart,
       canSchedule,
       canSetPriority,
-      createTime,
       displayStatus,
+      execution,
+      generator,
       id: taskId,
-      latestExecution,
       order,
       priority,
+      requester,
       revision,
       tests,
-      versionMetadata,
+      version,
     } = task;
-    const { author, id: versionId, message } = versionMetadata;
+    const { id: versionId, message, user } = version;
+    const author = user.displayName!;
 
     const owner = currentTask.project?.owner ?? "";
     const repo = currentTask.project?.repo ?? "";
@@ -90,9 +96,11 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       ? taskId === baseTaskId
       : taskId === currentTask.id;
     const isSelectedTask = taskId === selectedTask;
+    const isTrigger = requester === Requester.Trigger;
 
-    const createDate = new Date(createTime ?? "");
-    const dateCopy = getDateCopy(createDate, {
+    const ingestTime = getTaskIngestTime(task);
+    const ingestDate = new Date(ingestTime ?? "");
+    const dateCopy = getDateCopy(ingestDate, {
       omitSeconds: true,
       omitTimezone: true,
     });
@@ -106,7 +114,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       ScheduleTasksMutation,
       ScheduleTasksMutationVariables
     >(SCHEDULE_TASKS, {
-      variables: { taskIds: [taskId], versionId },
       onCompleted: () => {
         const newMap = new Map(expandedTasksMap);
         newMap.delete(task.id);
@@ -134,7 +141,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       RestartTaskMutation,
       RestartTaskMutationVariables
     >(RESTART_TASK, {
-      variables: { taskId, failedOnly: false },
       onCompleted: (data) => {
         dispatchToast.success("Task scheduled to restart");
         if (isCurrentTask) {
@@ -153,7 +159,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               canSetPriority: () => true,
               displayStatus: () => TaskStatus.WillRun,
               execution: (cachedExecution: number) => cachedExecution + 1,
-              latestExecution: (cachedExecution: number) => cachedExecution + 1,
             },
             broadcast: false,
           });
@@ -208,7 +213,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                   name: "Clicked restart task button",
                   "task.id": taskId,
                 });
-                restartTask();
+                restartTask({ variables: { taskId, failedOnly: false } });
               }}
               size={ButtonSize.XSmall}
             >
@@ -223,7 +228,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                   name: "Clicked schedule task button",
                   "task.id": taskId,
                 });
-                scheduleTask();
+                scheduleTask({ variables: { taskIds: [taskId], versionId } });
               }}
               size={ButtonSize.XSmall}
             >
@@ -236,13 +241,29 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               {isPatch ? "Base" : "This"} Task
             </Badge>
           )}
-          <span>{dateCopy}</span>
-          {latestExecution > 0 ? (
+          <DateContainer>
+            <span>{dateCopy}</span>
+            {generator?.ingestTime && (
+              <InfoSprinkle>
+                Generated tasks are sorted by generator ingest time.
+              </InfoSprinkle>
+            )}
+          </DateContainer>
+          {execution > 0 ? (
             <Chip
               data-cy="execution-chip"
-              label={`Executions: ${latestExecution + 1}`}
+              label={`Executions: ${execution + 1}`}
               variant={ChipVariant.Gray}
             />
+          ) : null}
+          {isTrigger ? (
+            <>
+              •{" "}
+              <UpstreamProjectLink
+                isTrigger={isTrigger}
+                versionId={versionId}
+              />
+            </>
           ) : null}
           <PriorityContainer>
             <SetPriority
@@ -318,6 +339,12 @@ const CommitCard = styled.div<{
 `;
 
 const TopLabel = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+`;
+
+const DateContainer = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};

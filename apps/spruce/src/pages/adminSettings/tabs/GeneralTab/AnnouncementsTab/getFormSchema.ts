@@ -1,8 +1,9 @@
+import { bannerThemeToLabelMap } from "components/Banners";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { BannerTheme } from "gql/generated/types";
 
-export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
     type: "object" as const,
@@ -18,10 +19,10 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           bannerTheme: {
             type: "string" as const,
             title: "Banner Style",
-            oneOf: Object.values(BannerTheme).map((value) => ({
+            oneOf: Object.keys(bannerThemeToLabelMap).map((k) => ({
               type: "string" as const,
-              title: value,
-              enum: [value],
+              title: k,
+              enum: [k],
             })),
             default: [BannerTheme.Announcement],
           },
@@ -32,9 +33,15 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   uiSchema: {
     announcements: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      banner: {
+        "ui:data-cy": "banner-text",
+        "ui:widget": "textarea",
+        "ui:rows": 2,
+      },
       bannerTheme: {
         "ui:allowDeselect": false,
+        "ui:optionsLabelMap": bannerThemeToLabelMap,
       },
     },
   },
-});
+};

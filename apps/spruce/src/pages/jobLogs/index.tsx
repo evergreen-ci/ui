@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import PageTitle from "components/PageTitle";
 import {
   PageContent,
@@ -17,28 +16,17 @@ import { JobLogsTable } from "./JobLogsTable";
 import { Metadata } from "./Metadata";
 import useJobLogsPageData from "./useJobLogs";
 
-interface JobLogsProps {
-  isLogkeeper: boolean;
-}
-const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
+const JobLogs: React.FC = () => {
   const {
-    [slugs.buildId]: buildIdFromParams,
     [slugs.taskId]: taskIdFromParams,
     [slugs.execution]: executionFromParams,
     [slugs.groupId]: groupIdFromParams,
   } = useParams();
 
-  const dispatchToast = useToastContext();
-
   const { loading, metadata, resultsToRender, title } = useJobLogsPageData({
-    buildId: buildIdFromParams,
     execution: executionFromParams,
     groupId: groupIdFromParams,
-    onError: (err) => {
-      dispatchToast.error(err);
-    },
     taskId: taskIdFromParams,
-    isLogkeeper,
   });
 
   return (
@@ -72,12 +60,7 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
           <Metadata loading={loading} metadata={metadata} />
         </PageSider>
         <PageContent>
-          <JobLogsTable
-            buildId={buildIdFromParams}
-            isLogkeeper={isLogkeeper}
-            loading={loading}
-            tests={resultsToRender}
-          />
+          <JobLogsTable loading={loading} tests={resultsToRender} />
         </PageContent>
       </StyledPageLayout>
     </PageWrapper>

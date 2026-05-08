@@ -36,6 +36,11 @@ export const getFormSchema = (
               default: "",
               minLength: 1,
             },
+            varDescription: {
+              type: "string" as const,
+              title: "Description",
+              default: "",
+            },
             isPrivate: {
               type: "boolean" as const,
               title: "Private",
@@ -91,6 +96,10 @@ export const getFormSchema = (
           "ui:elementWrapperCSS": varCSS,
           "ui:widget": widgets.TextareaWidget,
         },
+        varDescription: {
+          "ui:data-cy": "var-description-input",
+          "ui:widget": widgets.TextareaWidget,
+        },
         isPrivate: {
           "ui:tooltipDescription":
             "Private variables have redacted values on the Project Page and the API and cannot be updated.",
@@ -115,6 +124,9 @@ export const getFormSchema = (
           },
           varValue: {
             "ui:elementWrapperCSS": varCSS,
+            "ui:widget": widgets.TextareaWidget,
+          },
+          varDescription: {
             "ui:widget": widgets.TextareaWidget,
           },
         },

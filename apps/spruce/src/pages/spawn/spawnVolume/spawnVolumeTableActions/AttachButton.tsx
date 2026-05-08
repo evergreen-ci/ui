@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { TableVolume } from "types/spawn";
 import { AttachVolumeModal } from "./AttachVolumeModal";
 
@@ -13,6 +13,7 @@ export const AttachButton: React.FC<Props> = ({ volume }) => {
   return (
     <>
       <Button
+        as="button"
         data-cy={`attach-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {

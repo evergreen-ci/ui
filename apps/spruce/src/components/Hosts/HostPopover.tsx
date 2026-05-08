@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
-import Button, {
+import {
+  Button,
   Size as ButtonSize,
   Variant as ButtonVariant,
 } from "@leafygreen-ui/button";

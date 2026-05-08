@@ -2,9 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@evg-ui/fungi/*": [
-        "../../packages/fungi/src/*"
-      ],
       "@evg-ui/lib/*": [
         "../../packages/lib/src/*"
       ],
@@ -20,7 +17,7 @@
   "exclude": [
     "node_modules",
     "vite.config.ts",
-    "cypress.config.ts"
+    "playwright.config.ts",
   ],
   "references": [
     {

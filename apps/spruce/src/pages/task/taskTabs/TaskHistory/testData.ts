@@ -1,5 +1,6 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { Requester } from "constants/requesters";
 import { GroupedTask, TaskHistoryTask } from "./types";
 
 const emptyTests = {
@@ -12,16 +13,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: true,
     displayStatus: TaskStatus.Succeeded,
     execution: 0,
-    latestExecution: 0,
     order: 100,
     revision: "aef363719d0287e92cd83749a827bae",
-    createTime: new Date("2025-04-03T10:22:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: A",
     },
     tests: emptyTests,
@@ -30,17 +34,20 @@ export const tasks: TaskHistoryTask[] = [
     id: "b",
     activated: true,
     displayStatus: TaskStatus.WillRun,
-    execution: 0,
-    latestExecution: 1,
+    execution: 1,
     order: 99,
     revision: "b",
-    createTime: new Date("2025-04-03T10:21:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-03T10:21:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: B",
     },
     tests: emptyTests,
@@ -50,16 +57,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 98,
     revision: "ce135c28ba11e9189cae",
-    createTime: new Date("2025-04-03T10:20:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-03T10:20:13Z"),
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: C",
     },
     tests: emptyTests,
@@ -69,16 +79,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: true,
     displayStatus: TaskStatus.SetupFailed,
     execution: 0,
-    latestExecution: 0,
     order: 97,
     revision: "d",
-    createTime: new Date("2025-04-02T10:22:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-02T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: D",
     },
     tests: emptyTests,
@@ -88,16 +101,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 96,
     revision: "e",
-    createTime: new Date("2025-04-02T10:21:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-02T10:21:13Z"),
     canRestart: true,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: E",
     },
     tests: emptyTests,
@@ -107,16 +123,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: true,
     displayStatus: TaskStatus.Failed,
     execution: 0,
-    latestExecution: 0,
     order: 95,
     revision: "f",
-    createTime: new Date("2025-04-01T10:22:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-01T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: F",
     },
     tests: {
@@ -135,16 +154,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 94,
     revision: "g",
-    createTime: new Date("2025-04-01T10:21:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-01T10:21:13Z"),
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: G",
     },
     tests: emptyTests,
@@ -154,16 +176,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 93,
     revision: "h",
-    createTime: new Date("2025-04-01T10:20:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-01T10:20:13Z"),
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: H",
     },
     tests: emptyTests,
@@ -173,16 +198,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: false,
     displayStatus: TaskStatus.Unscheduled,
     execution: 0,
-    latestExecution: 0,
     order: 92,
     revision: "i",
-    createTime: new Date("2025-04-01T10:18:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-04-01T10:18:13Z"),
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: I",
     },
     tests: emptyTests,
@@ -191,17 +219,20 @@ export const tasks: TaskHistoryTask[] = [
     id: "j",
     activated: true,
     displayStatus: TaskStatus.KnownIssue,
-    execution: 0,
-    latestExecution: 3,
+    execution: 3,
     order: 91,
     revision: "j",
-    createTime: new Date("2025-03-30T10:22:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-03-30T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: J",
     },
     tests: emptyTests,
@@ -211,16 +242,19 @@ export const tasks: TaskHistoryTask[] = [
     activated: true,
     displayStatus: TaskStatus.SystemFailed,
     execution: 0,
-    latestExecution: 0,
     order: 90,
     revision: "k",
-    createTime: new Date("2025-03-29T10:22:13Z"),
+    requester: Requester.Gitter,
+    ingestTime: new Date("2025-03-29T10:22:13Z"),
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        id: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: K",
     },
     tests: emptyTests,
@@ -229,7 +263,7 @@ export const tasks: TaskHistoryTask[] = [
 
 export const collapsedGroupedTasks: GroupedTask[] = [
   {
-    date: tasks[0].createTime!,
+    date: tasks[0].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,
@@ -257,7 +291,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
     commitCardRef: null,
   },
   {
-    date: tasks[3].createTime!,
+    date: tasks[3].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,
@@ -278,7 +312,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
     commitCardRef: null,
   },
   {
-    date: tasks[5].createTime!,
+    date: tasks[5].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,
@@ -299,7 +333,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
     commitCardRef: null,
   },
   {
-    date: tasks[9].createTime!,
+    date: tasks[9].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,
@@ -313,7 +347,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
     commitCardRef: { current: null },
   },
   {
-    date: tasks[10].createTime!,
+    date: tasks[10].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,
@@ -330,7 +364,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
 
 export const expandedGroupedTasks: GroupedTask[] = [
   {
-    date: tasks[0].createTime!,
+    date: tasks[0].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,
@@ -358,7 +392,7 @@ export const expandedGroupedTasks: GroupedTask[] = [
     commitCardRef: { current: null },
   },
   {
-    date: tasks[3].createTime!,
+    date: tasks[3].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,
@@ -379,7 +413,7 @@ export const expandedGroupedTasks: GroupedTask[] = [
     commitCardRef: { current: null },
   },
   {
-    date: tasks[5].createTime!,
+    date: tasks[5].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,
@@ -414,7 +448,7 @@ export const expandedGroupedTasks: GroupedTask[] = [
     commitCardRef: { current: null },
   },
   {
-    date: tasks[9].createTime!,
+    date: tasks[9].ingestTime!,
     inactiveTasks: null,
     isMatching: false,
     task: null,
@@ -428,7 +462,7 @@ export const expandedGroupedTasks: GroupedTask[] = [
     commitCardRef: { current: null },
   },
   {
-    date: tasks[10].createTime!,
+    date: tasks[10].ingestTime!,
     inactiveTasks: null,
     task: null,
     isMatching: false,

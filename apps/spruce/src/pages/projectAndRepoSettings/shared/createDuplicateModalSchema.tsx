@@ -1,6 +1,8 @@
 /* eslint-disable check-file/filename-naming-convention */
-import { Banner } from "@leafygreen-ui/banner";
+import { Banner, Variant } from "@leafygreen-ui/banner";
 import { Field } from "@rjsf/core";
+import { StyledLink } from "@evg-ui/lib/components/styles";
+import { backstageS3BucketUrl } from "constants/externalResources";
 
 export const projectName = {
   schema: {
@@ -52,13 +54,26 @@ export const performanceTooling = {
   },
 };
 
-export const requestS3Creds = {
+const S3BucketInfoBanner: Field = () => (
+  <Banner
+    data-cy="s3-bucket-info-banner"
+    style={{ marginBottom: "20px" }}
+    variant={Variant.Info}
+  >
+    If you need an S3 bucket, you can set it up in{" "}
+    <StyledLink href={backstageS3BucketUrl} target="_blank">
+      Backstage
+    </StyledLink>
+    .
+  </Banner>
+);
+
+export const s3BucketInfo = {
   schema: {
-    type: "boolean" as const,
-    title: "Open a JIRA ticket to request an S3 Bucket",
-    default: false,
+    type: "null" as const,
   },
   uiSchema: {
-    "ui:data-cy": "request-s3-creds",
+    "ui:field": S3BucketInfoBanner,
+    "ui:showLabel": false,
   },
 };

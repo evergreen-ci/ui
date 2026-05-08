@@ -17,7 +17,10 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   annotation: null,
   baseTask: {
     id: "evergreen_ui_parsley_test_da7ae2020c5af16fdc5daf95a6420b36ec742a06_25_07_17_16_46_56",
+    displayStatus: "success",
     execution: 0,
+    revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
+    status: "success",
     timeTaken: 125703,
     versionMetadata: {
       id: "evergreen_ui_da7ae2020c5af16fdc5daf95a6420b36ec742a06",
@@ -27,6 +30,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
     __typename: "Task",
   },
   blocked: false,
+  buildId: "build-12345",
   canAbort: false,
   canDisable: true,
   canModifyAnnotation: true,
@@ -116,7 +120,6 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   minQueuePosition: 0,
   order: 2894,
   patchNumber: 2894,
-  pod: null,
   priority: 0,
   project: {
     id: "65f08ccac9ec449f57b4015d",
@@ -145,7 +148,11 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   timeTaken: 127755,
   versionMetadata: {
     id: "68795d3e3ec03f0007deb52c",
-    author: "sophie.stadler",
+    user: {
+      __typename: "User",
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     isPatch: true,
     message:
       "'evergreen-ci/ui' pull request #940 by sophstad: DEVPROD-19315: Stabilize useQueryParam hooks (https://github.com/evergreen-ci/ui/pull/940)",
@@ -176,6 +183,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   annotation: null,
   baseTask: null,
   blocked: false,
+  buildId: "build-12345",
   canAbort: false,
   canDisable: true,
   canModifyAnnotation: true,
@@ -292,7 +300,6 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   minQueuePosition: 0,
   order: 2894,
   patchNumber: 2894,
-  pod: null,
   priority: 0,
   project: {
     id: "65f08ccac9ec449f57b4015d",
@@ -314,7 +321,11 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   timeTaken: 2077208,
   versionMetadata: {
     id: "68795d3e3ec03f0007deb52c",
-    author: "sophie.stadler",
+    user: {
+      __typename: "User",
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     isPatch: true,
     message:
       "'evergreen-ci/ui' pull request #940 by sophstad: DEVPROD-19315: Stabilize useQueryParam hooks (https://github.com/evergreen-ci/ui/pull/940)",

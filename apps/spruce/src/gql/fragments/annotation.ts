@@ -1,0 +1,49 @@
+import { gql } from "@apollo/client";
+
+export const ANNOTATION = gql`
+  fragment Annotation on Annotation {
+    id
+    createdIssues {
+      issueKey
+      source {
+        author
+        requester
+        time
+      }
+      url
+    }
+    issues {
+      issueKey
+      source {
+        author
+        requester
+        time
+      }
+      url
+    }
+    metadataLinks {
+      text
+      url
+    }
+    note {
+      message
+      source {
+        author
+        requester
+        time
+      }
+    }
+    suspectedIssues {
+      issueKey
+      source {
+        author
+        requester
+        time
+      }
+      url
+    }
+    taskExecution
+    taskId
+    webhookConfigured
+  }
+`;

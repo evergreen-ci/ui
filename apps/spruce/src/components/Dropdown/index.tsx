@@ -1,10 +1,10 @@
 import { useRef, Component } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { Popover } from "@leafygreen-ui/popover";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
@@ -68,26 +68,28 @@ const Dropdown: React.FC<DropdownProps> = ({
             )}
           </LabelWrapper>
         </ButtonContent>
-        <Menu
-          active={isOpen}
-          adjustOnMutation
-          data-cy={`${dataCy}-options`}
-          onClick={(e) => e.stopPropagation()}
-          refEl={menuButtonRef}
-          style={{
-            width: menuWidth,
-            padding: useHorizontalPadding ? size.xs : `${size.xs} 0`,
-          }}
-        >
-          <div ref={listMenuRef}>{children}</div>
-        </Menu>
       </StyledButton>
+      <Menu
+        active={isOpen}
+        adjustOnMutation
+        data-cy={`${dataCy}-options`}
+        onClick={(e) => e.stopPropagation()}
+        refEl={menuButtonRef}
+        style={{
+          width: menuWidth,
+          padding: useHorizontalPadding ? size.xs : `${size.xs} 0`,
+        }}
+      >
+        <div ref={listMenuRef}>{children}</div>
+      </Menu>
     </Container>
   );
 };
 
-interface DropdownWithRefProps
-  extends Omit<DropdownProps, "isOpen" | "setIsOpen"> {
+interface DropdownWithRefProps extends Omit<
+  DropdownProps,
+  "isOpen" | "setIsOpen"
+> {
   ref?: React.Ref<DropdownWithRef>;
 }
 
@@ -172,7 +174,7 @@ const ButtonContent = styled.div`
   overflow: hidden;
 `;
 
-const OverflowBody = styled(Body)<BodyProps>`
+const OverflowBody = styled(Body)`
   overflow: hidden;
   text-overflow: ellipsis;
 `;

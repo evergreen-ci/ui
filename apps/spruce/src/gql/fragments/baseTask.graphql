@@ -1,9 +1,0 @@
-fragment BaseTask on Task {
-  id
-  buildVariant
-  buildVariantDisplayName
-  displayName
-  displayStatus
-  execution
-  revision
-}

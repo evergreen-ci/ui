@@ -97,6 +97,20 @@ const Preferences: React.FC = () => {
           >
             UI Settings
           </SideNavItem>
+          <SideNavItem
+            active={tab === PreferencesTabRoutes.SageBotSettings}
+            as={Link}
+            data-cy="sage-bot-settings-nav-tab"
+            onClick={() =>
+              sendEvent({
+                name: "Changed tab",
+                tab: PreferencesTabRoutes.SageBotSettings,
+              })
+            }
+            to={getPreferencesRoute(PreferencesTabRoutes.SageBotSettings)}
+          >
+            Sage Bot Settings
+          </SideNavItem>
         </SideNavGroup>
       </SideNav>
       <SideNavPageContent>

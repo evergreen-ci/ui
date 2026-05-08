@@ -1,13 +1,12 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Body, H2 } from "@leafygreen-ui/typography";
+import { useNavigate } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParams, useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import GanttChart from "components/GanttChart";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -38,13 +37,11 @@ interface Props {
 const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
 
 const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
-  const dispatchToast = useToastContext();
-  const { search } = useLocation();
   const navigate = useNavigate();
 
   const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
-  const queryVariables = useQueryVariables(search, versionId);
+  const queryVariables = useQueryVariables(versionId);
   const isVariantTimingView = !!queryParams.variant;
 
   useEffect(() => {
@@ -74,7 +71,7 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
       : undefined,
   };
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTaskDurationsQuery,
     VersionTaskDurationsQueryVariables
   >(VERSION_TASK_DURATIONS, {
@@ -83,11 +80,13 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
       taskFilterOptions,
     },
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (err) => {
-      dispatchToast.error(`Error fetching patch tasks ${err}`);
-    },
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  useErrorToast(error, "Error fetching patch tasks");
+  usePolling<VersionTaskDurationsQuery, VersionTaskDurationsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
   const { version } = data || {};
   const { tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};
@@ -110,9 +109,10 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
   const description = isVariantTimingView ? (
     <>
       This page is showing a timeline view of task run times in the{" "}
-      <b>{queryParams.variant}</b> variant{taskFilterDescription}. This is a
-      Gantt chart showing when each task started and finished running. You can
-      click on a task to visit the task page.
+      <b>{queryVariables.taskFilterOptions.variant}</b> variant
+      {taskFilterDescription}. This is a Gantt chart showing when each task
+      started and finished running. You can click on a task to visit the task
+      page.
     </>
   ) : (
     "This page is showing a timeline view of variant run times in this version. This is a Gantt chart showing when each variant started and finished running. You can click on a variant to see a view of the tasks that ran."
@@ -156,7 +156,7 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
     </>
   );
 };
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   font-size: ${fontSize.m};
   margin-bottom: ${size.s};
 `;

@@ -1,12 +1,10 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { useLocation } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParams, useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { TableQueryParams } from "constants/queryParams";
@@ -19,7 +17,6 @@ import {
 import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
-import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
 import TaskDurationTable from "./TaskDurationTable";
 
@@ -28,13 +25,10 @@ interface Props {
   versionId: string;
 }
 const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
-  const dispatchToast = useToastContext();
-  const { search } = useLocation();
-
   const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
-  const queryVariables = useQueryVariables(search, versionId);
-  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
+  const queryVariables = useQueryVariables(versionId);
+  const hasQueryVariables = Object.keys(queryParams).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   const hasValidSortsForTab = useMemo(
@@ -63,18 +57,24 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
     });
   };
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTaskDurationsQuery,
     VersionTaskDurationsQueryVariables
-  >(VERSION_TASK_DURATIONS, {
-    variables: queryVariables,
-    skip: !hasQueryVariables,
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (err) => {
-      dispatchToast.error(`Error fetching patch tasks ${err}`);
-    },
+  >(
+    VERSION_TASK_DURATIONS,
+    hasQueryVariables
+      ? {
+          variables: queryVariables,
+          pollInterval: DEFAULT_POLL_INTERVAL,
+        }
+      : skipToken,
+  );
+  useErrorToast(error, "Error fetching patch tasks");
+  usePolling<VersionTaskDurationsQuery, VersionTaskDurationsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
   });
-  usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};

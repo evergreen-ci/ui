@@ -7,24 +7,30 @@ import EventDiffTable from "./EventDiffTable";
 import { CustomKeyValueRenderConfig } from "./EventDiffTable/utils/keyRenderer";
 import { Header } from "./Header";
 import { Event } from "./types";
+import { useEvents } from "./useEvents";
 
 type EventLogProps = {
-  allEventsFetched: boolean;
+  count: number | undefined;
   eventRenderer?: (event: Event) => React.ReactNode;
   events: Event[];
   handleFetchMore: () => void;
-  loading?: boolean;
+  limit: number;
+  loading: boolean;
+  previousCount: number;
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
 const EventLog: React.FC<EventLogProps> = ({
-  allEventsFetched,
+  count,
   customKeyValueRenderConfig,
   eventRenderer,
   events,
   handleFetchMore,
+  limit,
   loading,
+  previousCount,
 }) => {
+  const { allEventsFetched } = useEvents(limit, count, previousCount, loading);
   const allEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
 

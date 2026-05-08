@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import {
@@ -42,8 +42,17 @@ type Action =
       abort: boolean;
       "task.modified_count": number;
     }
+  | {
+      name: "Clicked refresh GitHub statuses button";
+    }
+  | {
+      name: "Clicked restart failed tasks button";
+      "task.modified_count": number;
+    }
   | { name: "Clicked schedule tasks button"; "task.scheduled_count": number }
   | { name: "Clicked patch reconfigure link" }
+  | { name: "Clicked version cost details button" }
+  | { name: "Clicked version honeycomb cost link" }
   | { name: "Changed version priority"; "version.priority": number }
   | {
       name: "Sorted tasks table";
@@ -67,11 +76,12 @@ type Action =
 export const useVersionAnalytics = (id: string) => {
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
     VERSION,
-    {
-      skip: !id,
-      variables: { id, includeNeverActivatedTasks: false },
-      fetchPolicy: "cache-first",
-    },
+    id
+      ? {
+          variables: { id, includeNeverActivatedTasks: false },
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
   );
   const { isPatch, requester, status } = eventData?.version || {};
 

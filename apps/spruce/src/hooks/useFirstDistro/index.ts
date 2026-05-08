@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
 import { DISTROS } from "gql/queries";
 

@@ -1,6 +1,6 @@
 import { UIMessage } from "@ai-sdk/react";
 import { ToolUIPart } from "ai";
-import { ContextChip } from "../Context/context";
+import { ContextChip } from "#Context";
 
 export type ToolState = ToolUIPart["state"];
 

@@ -1,3 +1,0 @@
-mutation SpawnVolume($spawnVolumeInput: SpawnVolumeInput!) {
-  spawnVolume(spawnVolumeInput: $spawnVolumeInput)
-}

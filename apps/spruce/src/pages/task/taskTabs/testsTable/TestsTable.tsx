@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useLocation } from "react-router-dom";
 import {
   ColumnFiltersState,
@@ -71,12 +71,20 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
-  >(TASK_TESTS, {
-    variables: queryVariables,
-    skip: queryVariables.execution === null,
-    pollInterval: DEFAULT_POLL_INTERVAL,
+  >(
+    TASK_TESTS,
+    queryVariables.execution !== null
+      ? {
+          variables: queryVariables,
+          pollInterval: DEFAULT_POLL_INTERVAL,
+        }
+      : skipToken,
+  );
+  usePolling<TaskTestsQuery, TaskTestsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
   });
-  usePolling({ startPolling, stopPolling, refetch });
 
   const clearQueryParams = () => {
     table.resetColumnFilters(true);
@@ -206,6 +214,7 @@ const emptyFilterQueryParams = {
 };
 
 const getInitialState = (queryParams: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }): {
   initialFilters: ColumnFiltersState;
@@ -226,21 +235,20 @@ const getInitialState = (queryParams: {
 
   return {
     initialSorting,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     initialFilters: Object.entries(mapFilterParamToId).reduce(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       (accum, [param, id]) => {
         if (queryParams[param]?.length) {
           return [...accum, { id, value: queryParams[param] }];
         }
         return accum;
       },
-      [],
+      [] as ColumnFiltersState,
     ),
   };
 };
 
 const getQueryVariables = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryParams: { [key: string]: any },
   taskId: string,
 ): TaskTestsQueryVariables => {
@@ -264,7 +272,7 @@ const getQueryVariables = (
   const rawStatuses = queryParams[RequiredQueryParams.Statuses];
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
-  ).filter((v) => v && v !== ALL_VALUE);
+  ).filter((v): v is string => !!v && v !== ALL_VALUE);
   const execution = queryParams[RequiredQueryParams.Execution];
   return {
     id: taskId,

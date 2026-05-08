@@ -69,6 +69,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     githubPRTriggerAliases: null,
     githubMQTriggerAliases: null,
     gitTagVersionsEnabled: null,
+    runEveryMainlineCommit: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
     commitQueue: {
@@ -144,6 +145,10 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     vars: { test_name: "", test_two: "val" },
     privateVars: ["test_name"],
     adminOnlyVars: ["test_name"],
+    varsDescriptions: {
+      test_name: "this is really important",
+      test_two: "delete me later",
+    },
   },
   aliases: [
     {
@@ -226,6 +231,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     githubPRTriggerAliases: ["alias1"],
     githubMQTriggerAliases: ["mq-alias"],
     gitTagVersionsEnabled: false,
+    runEveryMainlineCommit: false,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
     githubDynamicTokenPermissionGroups: [
@@ -351,6 +357,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     vars: { repo_name: "repo_value" },
     privateVars: [],
     adminOnlyVars: [],
+    varsDescriptions: {},
   },
   aliases: [
     {

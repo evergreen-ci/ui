@@ -1,8 +1,5 @@
-import {
-  AdminSettings,
-  AdminSettingsInput,
-  PriorityLevel,
-} from "gql/generated/types";
+import { AdminSettingsInput, PriorityLevel } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { formToGql, gqlToForm } from "./transformers";
 import { ExternalCommunicationsFormState } from "./types";
 
@@ -52,11 +49,18 @@ const form: ExternalCommunicationsFormState = {
   fws: {
     url: "fws.example.com",
   },
+  graphite: {
+    ciOptimizationToken: "graphite-token",
+    serverUrl: "graphite.example.com",
+  },
   cedar: {
     dbUrl: "cedar-db.example.com",
     dbName: "cedar-db",
     spsUrl: "sps.example.com",
     spsKanopyUrl: "sps-kanopy.example.com",
+  },
+  sage: {
+    baseUrl: "https://sage.devprod.prod.corp.mongodb.com",
   },
 };
 
@@ -101,15 +105,22 @@ const gql: AdminSettingsInput = {
   fws: {
     url: "fws.example.com",
   },
+  graphite: {
+    ciOptimizationToken: "graphite-token",
+    serverUrl: "graphite.example.com",
+  },
   cedar: {
     dbUrl: "cedar-db.example.com",
     dbName: "cedar-db",
   },
   perfMonitoringURL: "sps.example.com",
   perfMonitoringKanopyURL: "sps-kanopy.example.com",
+  sage: {
+    baseUrl: "https://sage.devprod.prod.corp.mongodb.com",
+  },
 };
 
-const mockAdminSettings: AdminSettings = {
+const mockAdminSettings: AdminSettingsData = {
   disabledGQLQueries: [],
   jira: {
     email: "jira@example.com",
@@ -151,10 +162,17 @@ const mockAdminSettings: AdminSettings = {
   fws: {
     url: "fws.example.com",
   },
+  graphite: {
+    ciOptimizationToken: "graphite-token",
+    serverUrl: "graphite.example.com",
+  },
   cedar: {
     dbUrl: "cedar-db.example.com",
     dbName: "cedar-db",
   },
   perfMonitoringURL: "sps.example.com",
   perfMonitoringKanopyURL: "sps-kanopy.example.com",
+  sage: {
+    baseUrl: "https://sage.devprod.prod.corp.mongodb.com",
+  },
 };

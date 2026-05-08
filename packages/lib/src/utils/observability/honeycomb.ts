@@ -105,7 +105,6 @@ const initializeHoneycomb = ({
         localVisualizations: debug,
         serviceName,
         apiKey: ingestKey,
-        // @ts-expect-error: Type mismatch between SpanProcessor interface and Honeycomb SDK's Span type
         spanProcessor: new ReactRouterSpanProcessor(routeConfig),
       });
       honeycombSdk.start();

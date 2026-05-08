@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Body } from "@leafygreen-ui/typography";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -8,6 +8,7 @@ import { getEnabledHoursCount, getHostUptimeWarnings } from "components/Spawn";
 import {
   formToGql,
   getFormSchema,
+  TokenExchangeState,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
 } from "components/Spawn/spawnHostModal";
@@ -97,6 +98,9 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     hostUptimeWarnings,
     distros,
     isMigration: true,
+    // The migrate volume never requires a token exchange and doesn't
+    // have a valid task, so we can fill in any value here.
+    tokenExchangeState: TokenExchangeState.NeedsAuthentication,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
     timeZone,
@@ -129,6 +133,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
       "host.distro.id": mutationInput?.distroId || "",
       "host.is_unexpirable": mutationInput?.noExpiration || false,
       "host.is_workstation": mutationInput?.isVirtualWorkStation || false,
+      "host.is_from_task": false,
     });
     migrateVolumeMutation({
       variables: {
@@ -149,7 +154,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     ? "Migrate Volume"
     : "Are you sure you want to migrate this home volume?";
 
-  let buttonText = "Migrate Volume";
+  let buttonText = "Migrate volume";
   if (loadingMigration) {
     buttonText = "Migrating";
   } else if (onPageOne) {
