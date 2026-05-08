@@ -9,12 +9,7 @@ test.describe("Basic evergreen log view", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
-  });
-
-  test("should render ansi lines", async ({ page }) => {
-    const ansiRows = page.getByTestId("ansi-row");
-    await ansiRows.first().waitFor();
-    expect(await ansiRows.count()).toBeGreaterThan(0);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
   test("by default should have wrapping turned off and should be able to scroll horizontally", async ({
@@ -80,6 +75,7 @@ test.describe("Basic evergreen log view", () => {
 test.describe("Bookmarking and selecting lines", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
   test("should default to bookmarking 0 and the last log line on load", async ({
@@ -100,8 +96,8 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(page.getByTestId("bookmark-list")).toContainText("297");
     await page.getByTestId("log-row-4").dblclick();
     await expect(page).toHaveURL(/\?bookmarks=0,297/);
-    const bookmarkList = await page.getByTestId("bookmark-list").innerText();
-    expect(bookmarkList).not.toContain("4");
+    const bookmarkList = page.getByTestId("bookmark-list");
+    await expect(bookmarkList).not.toContainText("4");
   });
 
   test("should be able to set and unset the share line", async ({ page }) => {
@@ -112,8 +108,8 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(page.getByTestId("bookmark-list")).toContainText("297");
     await page.getByTestId("log-link-5").click();
     await expect(page).toHaveURL(/\?bookmarks=0,297/);
-    const bookmarkList = await page.getByTestId("bookmark-list").innerText();
-    expect(bookmarkList).not.toContain("5");
+    const bookmarkList = page.getByTestId("bookmark-list");
+    await expect(bookmarkList).not.toContainText("5");
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({ page }) => {
@@ -152,7 +148,9 @@ test.describe("Bookmarking and selecting lines", () => {
 
     await helpers.toggleDetailsPanel(page, true);
 
-    const moreOptionsButton = page.locator(`[aria-label='More options']`);
+    const moreOptionsButton = page.getByRole("button", {
+      name: "More options",
+    });
     await moreOptionsButton.click();
     await expect(page.getByText("Copy raw")).toBeVisible();
     await page.getByText("Copy raw").click();
@@ -175,6 +173,7 @@ test.describe("Jump to line", () => {
     page,
   }) => {
     await page.goto(logLink);
+    await expect(page.locator("[data-cy^='log-row-']")).not.toHaveCount(0);
     await expect(page.getByTestId("log-row-4")).toBeVisible();
     await page.getByTestId("log-row-4").dblclick();
     await expect(page.getByTestId("bookmark-4")).toBeVisible();
@@ -190,6 +189,7 @@ test.describe("Jump to line", () => {
     page,
   }) => {
     await page.goto(`${logLink}?filters=100pass`);
+    await expect(page.locator("[data-cy^='log-row-']")).not.toHaveCount(0);
     await page.getByTestId("log-row-56").dblclick();
     await expect(page.getByTestId("bookmark-56")).toBeVisible();
 
@@ -204,6 +204,7 @@ test.describe("Jump to line", () => {
     page,
   }) => {
     await page.goto(`${logLink}?shareLine=200`);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await expect(page.getByTestId("log-row-200")).toBeVisible();
   });
 });
@@ -214,6 +215,7 @@ test.describe("expanding collapsed rows", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(logLinkWithFilters);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
   test("should be able to expand collapsed rows", async ({ page }) => {
@@ -255,7 +257,7 @@ test.describe("expanding collapsed rows", () => {
 
     await page
       .getByTestId("expanded-row-1-to-4")
-      .locator(`[aria-label="Delete range"]`)
+      .getByRole("button", { name: "Delete range" })
       .click();
     await expect(page.getByTestId("skipped-lines-row-1-4")).toBeVisible();
   });
@@ -264,6 +266,7 @@ test.describe("expanding collapsed rows", () => {
 test.describe("Sharing lines", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await expect(page.getByTestId("line-index-1")).toBeVisible();
   });
 
@@ -271,8 +274,11 @@ test.describe("Sharing lines", () => {
     page,
   }) => {
     await page.getByTestId("line-index-1").click();
-    await expect(page.getByTestId("sharing-menu-button")).toBeVisible();
-    await page.getByTestId("sharing-menu-button").click();
+    const sharingMenuButton = page.getByRole("button", {
+      name: "Expand share menu",
+    });
+    await expect(sharingMenuButton).toBeVisible();
+    await sharingMenuButton.click();
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
   });
 
@@ -336,6 +342,7 @@ test.describe("jump to failing log line", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(failingLogLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
   test("should jump to failing log line based on user setting", async ({
@@ -348,6 +355,7 @@ test.describe("jump to failing log line", () => {
       "log-viewing",
     );
     await page.reload();
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await expect(page.getByTestId("bookmark-list")).toContainText("9614");
     await expect(page.getByTestId("log-row-0")).toBeVisible();
     await expect(page.getByTestId("log-row-9614")).toBeHidden();
@@ -359,6 +367,7 @@ test.describe("jump to failing log line", () => {
       "log-viewing",
     );
     await page.reload();
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await expect(page.getByTestId("bookmark-list")).toContainText("9614");
     await expect(page.getByTestId("log-row-9614")).toBeVisible();
     await expect(page.getByTestId("log-row-0")).toBeHidden();
@@ -368,25 +377,17 @@ test.describe("jump to failing log line", () => {
 test.describe("sections", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
   test("Can enable/disable sections", async ({ page }) => {
     await helpers.toggleDetailsPanel(page, true);
     await page.getByTestId("log-viewing-tab").click();
     await expect(page.getByTestId("sections-toggle")).toBeEnabled();
-    await expect(page.getByTestId("sections-toggle")).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(page.getByTestId("sections-toggle")).toBeChecked();
     await page.getByTestId("sections-toggle").click();
-    await expect(page.getByTestId("sections-toggle")).toHaveAttribute(
-      "aria-checked",
-      "false",
-    );
+    await expect(page.getByTestId("sections-toggle")).not.toBeChecked();
     await page.getByTestId("sections-toggle").click();
-    await expect(page.getByTestId("sections-toggle")).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(page.getByTestId("sections-toggle")).toBeChecked();
   });
 });

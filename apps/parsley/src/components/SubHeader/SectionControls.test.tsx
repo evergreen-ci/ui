@@ -97,14 +97,21 @@ describe("SectionControls", () => {
       },
     }));
     renderWithRouterMatch(<SectionControls />, { wrapper });
-    expect(screen.getByDataCy("open-all-sections-btn")).toBeVisible();
-    await user.click(screen.getByDataCy("open-all-sections-btn"));
+
+    const openAllSectionsButton = screen.getByRole("button", {
+      name: "Open all sections",
+    });
+    expect(openAllSectionsButton).toBeVisible();
+    await user.click(openAllSectionsButton);
     expect(sendEventMock).toHaveBeenCalledOnce();
     expect(sendEventMock).toHaveBeenCalledWith({
       name: "Clicked open all sections button",
     });
     expect(toggleAllSectionsMock).toHaveBeenCalledOnce();
-    await user.click(screen.getByDataCy("close-all-sections-btn"));
+    const closeAllSectionsButton = screen.getByRole("button", {
+      name: "Close all sections",
+    });
+    await user.click(closeAllSectionsButton);
     await waitFor(() =>
       expect(toggleAllSectionsMock).toHaveBeenCalledWith(false),
     );

@@ -9,6 +9,7 @@ const resmokeLogLink =
 test.describe("project filters", () => {
   test("should show a message if there are no filters", async ({ page }) => {
     await page.goto(spruceLogLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     await expect(page.getByTestId("project-filter")).toBeHidden();
@@ -17,6 +18,7 @@ test.describe("project filters", () => {
 
   test("should be able to apply a filter", async ({ page }) => {
     await page.goto(resmokeLogLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const row0Checkbox = page.getByRole("checkbox", { name: "Select row 0" });
@@ -26,15 +28,15 @@ test.describe("project filters", () => {
     await expect(page).toHaveURL(
       /111%28NETWORK%257CASIO%257CEXECUTOR%257CCONNPOOL%257CREPL_HB%29/,
     );
-    expect(
-      await page.locator("[data-cy^='skipped-lines-row-']").count(),
-    ).toBeGreaterThan(0);
+    const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+    await expect(skippedLines).not.toHaveCount(0);
   });
 
   test("should allow clicking on the filter name to check the checkbox", async ({
     page,
   }) => {
     await page.goto(resmokeLogLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const row0Checkbox = page.getByRole("checkbox", { name: "Select row 0" });
@@ -44,6 +46,7 @@ test.describe("project filters", () => {
 
   test("properly processes filters with commas", async ({ page }) => {
     await page.goto(resmokeLogLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const row3Checkbox = page.getByRole("checkbox", { name: "Select row 3" });
@@ -53,15 +56,15 @@ test.describe("project filters", () => {
     await expect(page).toHaveURL(
       /110%2522Connection%2520accepted%2522%252C%2522attr%2522/,
     );
-    expect(
-      await page.locator("[data-cy^='skipped-lines-row-']").count(),
-    ).toBeGreaterThan(0);
+    const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+    await expect(skippedLines).not.toHaveCount(0);
   });
 
   test("should disable checkbox if filter is already applied", async ({
     page,
   }) => {
     await page.goto(`${resmokeLogLink}?filters=111D%255Cd`);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
     await page.getByText("View project filters").click();
     await expect(page.getByTestId("project-filters-modal")).toBeVisible();
     const row1Checkbox = page.getByRole("checkbox", {

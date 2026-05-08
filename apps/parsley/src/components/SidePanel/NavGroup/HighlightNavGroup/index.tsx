@@ -32,7 +32,6 @@ const HighlightNavGroup: React.FC = () => {
         <HighlightedTerm key={`highlight-${highlight}`}>
           <IconButton
             aria-label="Delete highlight"
-            data-cy="delete-highlight-button"
             onClick={() => deleteHighlight(highlight)}
           >
             <Icon glyph="X" />

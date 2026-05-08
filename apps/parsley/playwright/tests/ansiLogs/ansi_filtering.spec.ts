@@ -10,6 +10,7 @@ test.describe("Filtering", () => {
       test.beforeEach(async ({ page }) => {
         await page.goto(logLink);
         await expect(page.getByTestId("paginated-virtual-list")).toBeVisible();
+        await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
       });
 
       test("should not collapse bookmarks and share line", async ({ page }) => {
@@ -18,7 +19,9 @@ test.describe("Filtering", () => {
         await expect(page).toHaveURL(/\?bookmarks=0,6,297&shareLine=5/);
         await helpers.addFilter(page, "doesNotMatchAnything");
 
-        const logRows = await page.locator("[data-cy^='log-row-']").all();
+        const filteredRows = page.locator("[data-cy^='log-row-']");
+        await expect(filteredRows).toHaveCount(4);
+        const logRows = await filteredRows.all();
         for (const row of logRows) {
           const dataCy = await row.getAttribute("data-cy");
           expect(dataCy).toMatch(/log-row-(0|5|6|297)/);
@@ -47,25 +50,21 @@ test.describe("Filtering", () => {
           page,
         }) => {
           await page.goto(`${logLink}?filterLogic=and`);
+          await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await helpers.addFilter(page, filter1);
           await helpers.addFilter(page, filter2);
           await expect(page).toHaveURL(
             new RegExp(`filters=100${filter1},100${filter2}`),
           );
 
-          // Wait for filtered rows to load.
-          await page
-            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-            .first()
-            .waitFor();
-
-          const logRows = await page
-            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-            .all();
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          const logRows = await filteredRows.all();
           for (const row of logRows) {
-            const text = await row.innerText();
-            expect(text.toLowerCase()).toContain(filter1.toLowerCase());
-            expect(text.toLowerCase()).toContain(filter2.toLowerCase());
+            await expect(row).toContainText(filter1, { ignoreCase: true });
+            await expect(row).toContainText(filter2, { ignoreCase: true });
           }
         });
 
@@ -73,6 +72,7 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=100${filter1},100${filter2}`,
           );
+          await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter1}`)
             .getByText("Sensitive", { exact: true })
@@ -81,13 +81,14 @@ test.describe("Filtering", () => {
             new RegExp(`filters=110${filter1},100${filter2}`),
           );
 
-          const logRows = await page
-            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-            .all();
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          const logRows = await filteredRows.all();
           for (const row of logRows) {
-            const text = await row.innerText();
-            expect(text).toContain(filter1);
-            expect(text.toLowerCase()).toContain(filter2.toLowerCase());
+            await expect(row).toContainText(filter1, { ignoreCase: false });
+            await expect(row).toContainText(filter2, { ignoreCase: true });
           }
         });
 
@@ -95,6 +96,7 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=110${filter1},100${filter2}`,
           );
+          await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter2}`)
             .getByText("Inverse", { exact: true })
@@ -103,13 +105,14 @@ test.describe("Filtering", () => {
             new RegExp(`filters=110${filter1},101${filter2}`),
           );
 
-          const logRows = await page
-            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-            .all();
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          const logRows = await filteredRows.all();
           for (const row of logRows) {
-            const text = await row.innerText();
-            expect(text).toContain(filter1);
-            expect(text).not.toContain(filter2);
+            await expect(row).toContainText(filter1, { ignoreCase: false });
+            await expect(row).not.toContainText(filter2, { ignoreCase: true });
           }
         });
 
@@ -117,20 +120,22 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=and&filters=110${filter1},101${filter2}`,
           );
+          await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter1}`)
-            .locator('[aria-label="Hide filter"]')
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
             .click();
           await page
             .getByTestId(`filter-${filter2}`)
-            .locator('[aria-label="Hide filter"]')
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
             .click();
           await expect(page).toHaveURL(
             new RegExp(`filters=010${filter1},001${filter2}`),
           );
-          await expect(
-            page.locator("[data-cy^='skipped-lines-row-']"),
-          ).toHaveCount(0);
+          const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+          await expect(skippedLines).toHaveCount(0);
         });
       });
 
@@ -139,24 +144,20 @@ test.describe("Filtering", () => {
           page,
         }) => {
           await page.goto(`${logLink}?filterLogic=or`);
+          await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await helpers.addFilter(page, filter1);
           await helpers.addFilter(page, filter2);
           await expect(page).toHaveURL(
             new RegExp(`filters=100${filter1},100${filter2}`),
           );
 
-          // Wait for filtered rows to load.
-          await page
-            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-            .first()
-            .waitFor();
-
-          const logRows = await page
-            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-            .all();
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          const logRows = await filteredRows.all();
           for (const row of logRows) {
-            const text = await row.innerText();
-            expect(text.toLowerCase()).toMatch(/warning|storybook/);
+            await expect(row).toContainText(/warning|storybook/i);
           }
         });
 
@@ -164,6 +165,7 @@ test.describe("Filtering", () => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=100${filter1},100${filter2}`,
           );
+          await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter1}`)
             .getByText("Sensitive", { exact: true })
@@ -172,21 +174,22 @@ test.describe("Filtering", () => {
             new RegExp(`filters=110${filter1},100${filter2}`),
           );
 
-          const logRows = await page
-            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-            .all();
-          for (const row of logRows) {
-            const text = await row.innerText();
-            const matchesFilter1 = text.includes("Warning");
-            const matchesFilter2 = text.toLowerCase().includes("storybook");
-            expect(matchesFilter1 || matchesFilter2).toBe(true);
-          }
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          await expect(
+            filteredRows
+              .filter({ hasNotText: /Warning/ })
+              .filter({ hasNotText: /storybook/i }),
+          ).toHaveCount(0);
         });
 
         test("should be able to toggle inverse matching", async ({ page }) => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=110${filter1},100${filter2}`,
           );
+          await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter2}`)
             .getByText("Inverse", { exact: true })
@@ -195,37 +198,37 @@ test.describe("Filtering", () => {
             new RegExp(`filters=110${filter1},101${filter2}`),
           );
 
-          const logRows = await page
-            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-            .all();
-          for (const row of logRows) {
-            const text = await row.innerText();
-            const matchesFilter1 = text.includes("Warning");
-            const doesNotMatchFilter2 = !text
-              .toLowerCase()
-              .includes("storybook");
-            expect(matchesFilter1 || doesNotMatchFilter2).toBe(true);
-          }
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          await expect(
+            filteredRows
+              .filter({ hasNotText: /Warning/ })
+              .filter({ hasText: /storybook/i }),
+          ).toHaveCount(0);
         });
 
         test("should be able to toggle visibility", async ({ page }) => {
           await page.goto(
             `${logLink}?filterLogic=or&filters=110${filter1},101${filter2}`,
           );
+          await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
           await page
             .getByTestId(`filter-${filter1}`)
-            .locator('[aria-label="Hide filter"]')
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
             .click();
           await page
             .getByTestId(`filter-${filter2}`)
-            .locator('[aria-label="Hide filter"]')
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
             .click();
           await expect(page).toHaveURL(
             new RegExp(`filters=010${filter1},001${filter2}`),
           );
-          await expect(
-            page.locator("[data-cy^='skipped-lines-row-']"),
-          ).toHaveCount(0);
+          const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+          await expect(skippedLines).toHaveCount(0);
         });
       });
     });
@@ -236,40 +239,41 @@ test.describe("Filtering", () => {
 
     test.beforeEach(async ({ page }) => {
       await page.goto(`${logLink}?filters=100${filter}`);
-      await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
-      expect(
-        await page.locator("[data-cy^='skipped-lines-row-']").count(),
-      ).toBeGreaterThan(0);
+      await expect(page.getByTestId("ansi-row")).toHaveCount(0);
+      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      await expect(skippedLines).not.toHaveCount(0);
     });
 
     test("should be able to edit a filter", async ({ page }) => {
       await page
         .getByTestId(`filter-${filter}`)
-        .locator('[aria-label="Edit filter"]')
+        .getByTestId("accordion-toggle")
+        .getByRole("button", { name: "Edit filter" })
         .click();
       await page.getByTestId("edit-filter-name").clear();
       await page.getByTestId("edit-filter-name").fill("running");
       await page.getByRole("button", { name: "Apply" }).click();
       await expect(page).toHaveURL(/filters=100running/);
 
-      const logRows = await page
-        .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
-        .all();
+      const filteredRows = page.locator(
+        "[data-cy^='log-row-']:not([data-bookmarked=true])",
+      );
+      await expect(filteredRows).not.toHaveCount(0);
+      const logRows = await filteredRows.all();
       for (const row of logRows) {
-        const text = await row.innerText();
-        expect(text.toLowerCase()).toContain("running");
+        await expect(row).toContainText("running", { ignoreCase: true });
       }
     });
 
     test("should be able to delete a filter", async ({ page }) => {
       await page
         .getByTestId(`filter-${filter}`)
-        .locator('[aria-label="Delete filter"]')
+        .getByTestId("accordion-toggle")
+        .getByRole("button", { name: "Delete filter" })
         .click();
       await expect(page).toHaveURL(/^(?!.*filters)/);
-      await expect(page.locator("[data-cy^='skipped-lines-row-']")).toHaveCount(
-        0,
-      );
+      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      await expect(skippedLines).toHaveCount(0);
     });
   });
 
@@ -279,31 +283,20 @@ test.describe("Filtering", () => {
 
     test("should be able to hide and unhide filters", async ({ page }) => {
       await page.goto(`${logLink}?filters=110${filter1},100${filter2}`);
-      await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
-      expect(
-        await page.locator("[data-cy^='skipped-lines-row-']").count(),
-      ).toBeGreaterThan(0);
+      await expect(page.getByTestId("ansi-row")).toHaveCount(0);
+      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      await expect(skippedLines).not.toHaveCount(0);
 
       await page.getByTestId("all-filters-toggle").click();
-      await expect(page.getByTestId("all-filters-toggle")).toHaveAttribute(
-        "aria-checked",
-        "false",
-      );
-      await expect(page.locator("[data-cy^='skipped-lines-row-']")).toHaveCount(
-        0,
-      );
+      await expect(page.getByTestId("all-filters-toggle")).not.toBeChecked();
+      await expect(skippedLines).toHaveCount(0);
       await expect(page).toHaveURL(
         new RegExp(`filters=010${filter1},000${filter2}`),
       );
 
       await page.getByTestId("all-filters-toggle").click();
-      await expect(page.getByTestId("all-filters-toggle")).toHaveAttribute(
-        "aria-checked",
-        "true",
-      );
-      expect(
-        await page.locator("[data-cy^='skipped-lines-row-']").count(),
-      ).toBeGreaterThan(0);
+      await expect(page.getByTestId("all-filters-toggle")).toBeChecked();
+      await expect(skippedLines).not.toHaveCount(0);
       await expect(page).toHaveURL(
         new RegExp(`filters=110${filter1},100${filter2}`),
       );

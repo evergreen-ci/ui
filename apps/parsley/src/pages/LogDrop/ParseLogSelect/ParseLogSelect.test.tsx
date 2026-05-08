@@ -21,7 +21,7 @@ describe("parse log select", () => {
       />,
     );
     expect(screen.getByText("Select...")).toBeInTheDocument();
-    expect(screen.getByDataCy("process-log-button")).toHaveAttribute(
+    expect(screen.getByRole("button", { name: "Process log" })).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -37,7 +37,7 @@ describe("parse log select", () => {
       />,
     );
     expect(screen.getByText("Raw")).toBeInTheDocument();
-    expect(screen.getByDataCy("process-log-button")).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Process log" })).toBeEnabled();
   });
 
   it("defaults to 'Resmoke' option if stored value is set to resmoke logs", () => {
@@ -50,7 +50,7 @@ describe("parse log select", () => {
       />,
     );
     expect(screen.getByText("Resmoke")).toBeInTheDocument();
-    expect(screen.getByDataCy("process-log-button")).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Process log" })).toBeEnabled();
   });
 
   it("clicking the 'Process Log' button calls the onParse function", async () => {
@@ -64,7 +64,7 @@ describe("parse log select", () => {
         onParse={onParse}
       />,
     );
-    await user.click(screen.getByDataCy("process-log-button"));
+    await user.click(screen.getByRole("button", { name: "Process log" }));
     expect(onParse).toHaveBeenCalledTimes(1);
   });
 

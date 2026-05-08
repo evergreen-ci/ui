@@ -7,6 +7,7 @@ const logLink =
 test.describe("Searching", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
   test("searching for a term should highlight matching words", async ({
@@ -18,7 +19,7 @@ test.describe("Searching", () => {
 
     const highlights = page.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
-    await expect(highlights.first()).toContainText("Starting");
+    await expect(highlights).toContainText("Starting");
   });
 
   test("searching for a term should snap the matching line to the top of the window", async ({
@@ -60,28 +61,31 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toBeVisible();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
 
-    await page.getByTestId("next-button").click();
+    const nextButton = page.getByRole("button", { name: "Next" });
+    const previousButton = page.getByRole("button", { name: "Prev" });
+
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("2/4");
 
-    await page.getByTestId("next-button").click();
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("3/4");
 
-    await page.getByTestId("next-button").click();
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("4/4");
 
-    await page.getByTestId("next-button").click();
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
 
-    await page.getByTestId("previous-button").click();
+    await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("4/4");
 
-    await page.getByTestId("previous-button").click();
+    await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("3/4");
 
-    await page.getByTestId("previous-button").click();
+    await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("2/4");
 
-    await page.getByTestId("previous-button").click();
+    await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
   });
 
@@ -92,7 +96,8 @@ test.describe("Searching", () => {
     await expect(page.getByTestId("search-count")).toBeVisible();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
 
-    await page.getByTestId("next-button").click();
+    const nextButton = page.getByRole("button", { name: "Next" });
+    await nextButton.click();
     await expect(page.getByTestId("search-count")).toContainText("2/4");
 
     await page.getByTestId("log-row-27").dblclick();
@@ -102,7 +107,6 @@ test.describe("Searching", () => {
 
   test("should be able to search on filtered content", async ({ page }) => {
     await helpers.addFilter(page, "installation");
-    await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
 
     const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
     await expect(skippedLines).toHaveCount(3);
@@ -117,7 +121,9 @@ test.describe("Searching", () => {
   }) => {
     const filter = "nonexistent-term";
     await helpers.addFilter(page, filter);
-    await page.locator("[data-cy^='skipped-lines-row-']").first().waitFor();
+
+    const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+    await expect(skippedLines).toHaveCount(1);
 
     await helpers.addSearch(page, "info");
     await expect(page.getByTestId("search-count")).toBeVisible();
@@ -125,14 +131,12 @@ test.describe("Searching", () => {
 
     await page
       .getByTestId(`filter-${filter}`)
-      .locator('[aria-label="Delete filter"]')
+      .getByTestId("accordion-toggle")
+      .getByRole("button", { name: "Delete filter" })
       .click();
 
     await expect(page).toHaveURL(/^(?!.*filters)/);
-    await expect(page.locator("[data-cy^='skipped-lines-row-']")).toHaveCount(
-      0,
-    );
-
+    await expect(skippedLines).toHaveCount(0);
     await expect(page.getByTestId("search-count")).toContainText("1/4");
     await expect(page.locator("[data-highlighted='true']")).toContainText(
       "info",
