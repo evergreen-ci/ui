@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NetworkStatus } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
@@ -18,7 +19,7 @@ interface FileTableProps {
 }
 const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
   const [search, setSearch] = useState("");
-  const { data, error, loading } = useQuery<
+  const { data, error, networkStatus } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
   >(TASK_FILES, {
@@ -28,6 +29,8 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
     },
   });
   useErrorToast(error, "Unable to load task files");
+
+  const loading = networkStatus === NetworkStatus.loading;
   const { files } = data?.task ?? {};
   const { groupedFiles = [] } = files ?? {};
   const filteredGroupedFiles = filterGroupedFiles(

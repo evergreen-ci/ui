@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { CombinedGraphQLErrors } from "@apollo/client";
+import { CombinedGraphQLErrors, NetworkStatus } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
@@ -44,20 +44,18 @@ export const Task = () => {
   >(RequiredQueryParams.Execution, null);
 
   // Query task data
-  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
-    TaskQuery,
-    TaskQueryVariables
-  >(
-    TASK,
-    taskId
-      ? {
-          variables: { taskId: taskId, execution: selectedExecution },
-          pollInterval: DEFAULT_POLL_INTERVAL,
-          fetchPolicy: "network-only",
-          errorPolicy: "all",
-        }
-      : skipToken,
-  );
+  const { data, error, networkStatus, refetch, startPolling, stopPolling } =
+    useQuery<TaskQuery, TaskQueryVariables>(
+      TASK,
+      taskId
+        ? {
+            variables: { taskId: taskId, execution: selectedExecution },
+            pollInterval: DEFAULT_POLL_INTERVAL,
+            fetchPolicy: "cache-and-network",
+            errorPolicy: "all",
+          }
+        : skipToken,
+    );
   usePolling<TaskQuery, TaskQueryVariables>({
     startPolling,
     stopPolling,
@@ -71,6 +69,7 @@ export const Task = () => {
       error.errors.some((e) => !e?.path?.includes("annotation")),
   );
 
+  const loading = networkStatus === NetworkStatus.loading;
   const { task } = data ?? {};
   const {
     displayName,
