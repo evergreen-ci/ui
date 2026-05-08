@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { NetworkStatus } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { useLocation } from "react-router-dom";
 import {
@@ -68,7 +69,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     }
   }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, networkStatus, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(
@@ -85,6 +86,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     stopPolling,
     refetch,
   });
+  const loading = networkStatus === NetworkStatus.loading;
 
   const clearQueryParams = () => {
     table.resetColumnFilters(true);
