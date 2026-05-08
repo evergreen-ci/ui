@@ -180,7 +180,7 @@ const useTabConfig = (
         {requester !== Requester.GitHubMergeQueue ? (
           <TaskHistory baseTaskId={baseTaskId} task={task} />
         ) : (
-          <div>
+          <>
             Evergreen cannot show history for GitHub merge queue tasks. See the{" "}
             <StyledLink
               href={getHoneycombMergeQueueHistoryUrl({
@@ -192,7 +192,7 @@ const useTabConfig = (
               history in Honeycomb
             </StyledLink>{" "}
             instead.
-          </div>
+          </>
         )}
       </Tab>
     ),
