@@ -53,7 +53,7 @@ export const Task = () => {
       ? {
           variables: { taskId: taskId, execution: selectedExecution },
           pollInterval: DEFAULT_POLL_INTERVAL,
-          fetchPolicy: "network-only",
+          fetchPolicy: "cache-and-network",
           errorPolicy: "all",
         }
       : skipToken,
@@ -98,7 +98,7 @@ export const Task = () => {
   const shouldShowOriginalStatus = displayStatus === TaskStatus.KnownIssue;
   const isDisplayTask = executionTasksFull != null;
 
-  if (loading) {
+  if (!task && loading) {
     return <PatchAndTaskFullPageLoad />;
   }
   if (error && !task) {
