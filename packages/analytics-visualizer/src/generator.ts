@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import { generateContent } from "./site/content.ts";
 import { generateSidebar } from "./site/sidebar.ts";
 import type { IdentifierData, AnalyticsVisualizerOptions } from "./types.ts";
-import { extractActionPrefixes, escapeHtml } from "./utils.ts";
+import { extractActionPrefixes, escapeHtml, toSlug } from "./utils.ts";
 
 // Get the directory of the current module
 const __filename = fileURLToPath(import.meta.url);
@@ -12,11 +12,20 @@ const __dirname = dirname(__filename);
 
 // Read external asset files at build time
 const CSS = readFileSync(join(__dirname, "site", "styles.css"), "utf-8");
-const SCRIPT = readFileSync(join(__dirname, "site", "script.js"), "utf-8");
+const SCRIPT_CONTENT = readFileSync(
+  join(__dirname, "site", "script.js"),
+  "utf-8",
+);
 const HTML_TEMPLATE = readFileSync(
   join(__dirname, "site", "template.html"),
   "utf-8",
 );
+
+// Inject shared toSlug function into browser script
+const SCRIPT = `// Converts a string to a URL-friendly ID (shared with build-time code)
+const toSlug = ${toSlug.toString()};
+
+${SCRIPT_CONTENT}`;
 
 /**
  * Generates HTML content for the analytics visualization

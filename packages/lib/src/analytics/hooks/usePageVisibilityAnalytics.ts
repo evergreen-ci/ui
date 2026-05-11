@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { useAnalyticsRoot } from "./useAnalyticsRoot";
 
 // Event names must start with "System Event" prefix per ActionType constraint
-type PageVisibilityAction =
+type Action =
   | {
       // Fired when the user returns to the page (e.g. switches back to this tab).
       // duration_ms is how long the page was hidden before becoming visible.
@@ -50,7 +50,7 @@ export const usePageVisibilityAnalytics = ({
     [JSON.stringify(attributes)],
   );
 
-  const { sendEvent } = useAnalyticsRoot<PageVisibilityAction, string>(
+  const { sendEvent } = useAnalyticsRoot<Action, string>(
     "PageVisibility",
     stableAttributes,
   );
