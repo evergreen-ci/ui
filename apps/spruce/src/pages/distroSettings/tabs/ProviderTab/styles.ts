@@ -24,6 +24,9 @@ const toggleSpacingCSS = css`
   &:last-child {
     margin-bottom: 0;
   }
+  > p {
+    margin-top: ${size.xxs};
+  }
 `;
 
 const overrideFieldsLeadingSpaceCSS = css`

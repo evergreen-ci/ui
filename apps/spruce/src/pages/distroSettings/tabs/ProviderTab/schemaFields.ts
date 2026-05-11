@@ -1,4 +1,5 @@
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import widgets from "components/SpruceForm/Widgets";
 import {
   textAreaCSS,
   mergeCheckboxCSS,
@@ -433,8 +434,7 @@ export const taskHostOverridesFields = {
                 minLength: 1,
               },
               iamInstanceProfileArn: {
-                type: "string" as const,
-                title: "IAM Instance Profile ARN",
+                ...instanceProfileARN.schema,
                 default: "",
                 minLength: 1,
                 pattern: "^(a|ar|arn|arn:.*)?$",
@@ -447,22 +447,14 @@ export const taskHostOverridesFields = {
                 pattern: "^(s|su|sub|subn|subne|subnet|subnet-.*)?$",
               },
               securityGroupIds: {
-                type: "array" as const,
-                title: "Security Groups",
+                ...securityGroups.schema,
                 minItems: 1,
                 items: {
-                  type: "string" as const,
-                  title: "Security Group ID",
-                  default: "",
-                  minLength: 1,
+                  ...securityGroups.schema.items,
                   pattern: "^(s|sg|sg-.*)?$",
                 },
               },
-              doNotAssignPublicIpv4Address: {
-                type: "boolean" as const,
-                title: "Do not assign public IPv4 address",
-                default: false,
-              },
+              doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.schema,
             },
           },
         ],
@@ -472,14 +464,16 @@ export const taskHostOverridesFields = {
   uiSchema: {
     enableTaskHostOverrides: {
       "ui:data-cy": "enable-task-host-overrides",
+      "ui:description":
+        "When enabled, the values below replace the distro's provider settings for task hosts. Empty values override the distro's settings rather than falling back to them. To remove the overrides, toggle off and save.",
       "ui:elementWrapperCSS": toggleSpacingCSS,
+      "ui:widget": widgets.ToggleWidget,
     },
     providerAccount: {
       "ui:elementWrapperCSS": overrideFieldsLeadingSpaceCSS,
     },
     iamInstanceProfileArn: {
-      "ui:description":
-        "The Amazon Resource Name (ARN) of the instance profile.",
+      ...instanceProfileARN.uiSchema,
       "ui:placeholder":
         "e.g. arn:aws:iam::123456789012:instance-profile/MyProfile",
     },
@@ -487,15 +481,11 @@ export const taskHostOverridesFields = {
       "ui:placeholder": "e.g. subnet-xxxx",
     },
     securityGroupIds: {
-      "ui:addButtonText": "Add security group",
-      "ui:orderable": false,
+      ...securityGroups.uiSchema,
       items: {
         "ui:placeholder": "e.g. sg-xxxx",
       },
     },
-    doNotAssignPublicIpv4Address: {
-      "ui:bold": true,
-      "ui:description": "Skip assigning a public IPv4 address to task hosts.",
-    },
+    doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.uiSchema,
   },
 };
