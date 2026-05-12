@@ -198,7 +198,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       <BaseTable
         data-cy="tests-table"
         data-loading={loading}
-        loading={loading}
+        loading={!testResults && loading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         loadingRows={limitNum}
         shouldAlternateRowColor
