@@ -7,12 +7,7 @@ const logLink =
 test.describe("Basic resmoke log view", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
-  });
-
-  test("should render resmoke lines", async ({ page }) => {
-    const resmokeRows = page.getByTestId("resmoke-row");
-    await resmokeRows.first().waitFor();
-    expect(await resmokeRows.count()).toBeGreaterThan(0);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("by default should have wrapping turned off and should be able to scroll horizontally", async ({
@@ -87,6 +82,7 @@ test.describe("Resmoke syntax highlighting", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("should not color non-resmoke log lines", async ({ page }) => {
@@ -145,6 +141,7 @@ test.describe("Resmoke syntax highlighting", () => {
 test.describe("Bookmarking and selecting lines", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("should default to bookmarking 0 and the last log line on load", async ({
@@ -191,8 +188,8 @@ test.describe("Bookmarking and selecting lines", () => {
       "|ShardedClusterFixture:job0:mongos1        |j0:s1   |20010|73217|";
     const logLine1638 = `[ContinuousStepdown:job0] Pausing the stepdown thread.`;
 
-    await page.getByTestId("details-button").click();
-    await page.getByTestId("copy-text-button").click();
+    await page.getByRole("button", { name: "Details" }).click();
+    await page.getByRole("button", { name: "Copy Jira" }).click();
     await helpers.assertValueCopiedToClipboard(
       page,
       `{noformat}\n${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine1638}\n{noformat}`,
@@ -213,6 +210,7 @@ test.describe("Jump to line", () => {
     page,
   }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
     await expect(page.getByTestId("log-row-4")).toBeVisible();
     await page.getByTestId("log-row-4").dblclick();
     await expect(page.getByTestId("bookmark-4")).toBeVisible();
@@ -229,6 +227,7 @@ test.describe("Jump to line", () => {
     page,
   }) => {
     await page.goto(`${logLink}?filters=100repl_hb`);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
     await expect(page.getByTestId("log-row-30")).toBeVisible();
     await page.getByTestId("log-row-30").dblclick();
     await expect(page).toHaveURL(/bookmarks=0,30,12568/);
@@ -245,6 +244,7 @@ test.describe("Jump to line", () => {
     page,
   }) => {
     await page.goto(`${logLink}?shareLine=200`);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
     await expect(page.getByTestId("log-row-200")).toBeVisible();
   });
 });
@@ -255,6 +255,7 @@ test.describe("expanding collapsed rows", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(logLinkWithFilters);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("should be able to expand collapsed rows", async ({ page }) => {
@@ -294,7 +295,7 @@ test.describe("expanding collapsed rows", () => {
 
     await page
       .getByTestId("expanded-row-1-to-3")
-      .locator(`[aria-label="Delete range"]`)
+      .getByRole("button", { name: "Delete range" })
       .click();
     await expect(page.getByTestId("skipped-lines-row-1-3")).toBeVisible();
   });
@@ -307,6 +308,7 @@ test.describe("pretty print", () => {
       localStorage.setItem("pretty-print-bookmarks", "true");
     });
     await page.reload();
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("should pretty print bookmarks if pretty print is enabled", async ({
@@ -315,27 +317,28 @@ test.describe("pretty print", () => {
     const defaultRowHeight = 17.5;
 
     const logRow19 = page.getByTestId("log-row-19");
-
     await expect(logRow19).toBeVisible();
     await logRow19.dblclick();
     await expect(logRow19).toHaveAttribute("data-bookmarked", "true");
-    const box = await logRow19.boundingBox();
-    expect(box).not.toBeNull();
-    expect(box!.height).toBeGreaterThan(defaultRowHeight);
+    await expect(logRow19).not.toHaveCSS("height", `${defaultRowHeight}px`);
   });
 });
 
 test.describe("Sharing lines", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("should present a share button with a menu when a line is selected", async ({
     page,
   }) => {
     await page.getByTestId("line-index-1").click();
-    await expect(page.getByTestId("sharing-menu-button")).toBeVisible();
-    await page.getByTestId("sharing-menu-button").click();
+    const sharingMenuButton = page.getByRole("button", {
+      name: "Expand share menu",
+    });
+    await expect(sharingMenuButton).toBeVisible();
+    await sharingMenuButton.click();
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
   });
 
@@ -396,6 +399,7 @@ test.describe("Sharing lines", () => {
 test.describe("Exclude timestamps toggle", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("should disable the exclude timestamps toggle for resmoke logs", async ({

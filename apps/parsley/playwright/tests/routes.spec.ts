@@ -17,12 +17,8 @@ test.describe("Parsley Routes", () => {
     const logLink =
       "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
     await page.goto(logLink);
-    await page.locator("[data-cy^='log-row-']").first().waitFor();
-    expect(await page.locator("[data-cy^='log-row-']").count()).toBeGreaterThan(
-      0,
-    );
-    await page.getByTestId("ansi-row").first().waitFor();
-    expect(await page.getByTestId("ansi-row").count()).toBeGreaterThan(0);
+    await expect(page.locator("[data-cy^='log-row-']")).not.toHaveCount(0);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await expect(page.getByTestId("resmoke-row")).toBeHidden();
     await expect(page.getByText("Task logger initialized")).toBeVisible();
   });
@@ -47,12 +43,8 @@ test.describe("Parsley Routes", () => {
     const testLogLine =
       "AssertionError: Timed out retrying after 4000ms: Too many elements found. Found '1', expected '0'";
     await page.goto(logLink);
-    await page.locator("[data-cy^='log-row-']").first().waitFor();
-    expect(await page.locator("[data-cy^='log-row-']").count()).toBeGreaterThan(
-      0,
-    );
-    await page.getByTestId("ansi-row").first().waitFor();
-    expect(await page.getByTestId("ansi-row").count()).toBeGreaterThan(0);
+    await expect(page.locator("[data-cy^='log-row-']")).not.toHaveCount(0);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await expect(page.getByTestId("resmoke-row")).toBeHidden();
     await expect(page.getByText(testLogLine)).toBeVisible();
   });
@@ -63,12 +55,8 @@ test.describe("Parsley Routes", () => {
     const logLink =
       "/taskFile/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/sample%20file";
     await page.goto(logLink);
-    await page.locator("[data-cy^='log-row-']").first().waitFor();
-    expect(await page.locator("[data-cy^='log-row-']").count()).toBeGreaterThan(
-      0,
-    );
-    await page.getByTestId("ansi-row").first().waitFor();
-    expect(await page.getByTestId("ansi-row").count()).toBeGreaterThan(0);
+    await expect(page.locator("[data-cy^='log-row-']")).not.toHaveCount(0);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
   test("should show 404 when visiting a nonexistent page", async ({ page }) => {

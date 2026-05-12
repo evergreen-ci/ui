@@ -136,14 +136,15 @@ export const isNotContainedInViewport = async (
 };
 
 export const toggleDetailsPanel = async (page: Page, open: boolean) => {
-  await expect(page.getByTestId("details-button")).toBeEnabled();
+  const detailsButton = page.getByRole("button", { name: "Details" });
+  await expect(detailsButton).toBeEnabled();
   if (open) {
     await expect(page.getByTestId("details-menu")).toBeHidden();
-    await page.getByTestId("details-button").click();
+    await detailsButton.click();
     await expect(page.getByTestId("details-menu")).toBeVisible();
   } else {
     await expect(page.getByTestId("details-menu")).toBeVisible();
-    await page.getByTestId("details-button").click();
+    await detailsButton.click();
     await expect(page.getByTestId("details-menu")).toBeHidden();
   }
 };

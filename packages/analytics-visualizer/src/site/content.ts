@@ -9,6 +9,7 @@ import {
   generateHoneycombIdentifierUrl,
   generateGitHubSearchUrl,
   generateGitHubFileUrl,
+  toSlug,
 } from "../utils.ts";
 
 /**
@@ -30,11 +31,12 @@ const generateAction = (
     options.githubOwner,
     options.githubRepo,
   );
+  const actionId = `action-${toSlug(action.name)}`;
 
   return `
-          <article data-action-name="${action.name.toLowerCase()}" data-properties="${action.properties.map((p) => p.name.toLowerCase()).join(" ")}">
+          <article id="${actionId}" data-action-name="${action.name.toLowerCase()}" data-properties="${action.properties.map((p) => p.name.toLowerCase()).join(" ")}">
             <header>
-              <span>${action.name}</span>
+              <a href="#${actionId}" class="anchor-link">${action.name}</a>
               <a href="${escapeHtml(honeycombUrl)}" target="_blank" rel="noopener noreferrer" class="ml-auto text-small">View in Honeycomb</a>
               <span class="separator text-small">&bull;</span>
               <a href="${escapeHtml(githubUrl)}" target="_blank" rel="noopener noreferrer" class="text-small">Search on GitHub</a>
@@ -81,10 +83,12 @@ const generateSection = (
     options.githubBranch,
   );
 
+  const sectionId = `identifier-${toSlug(item.identifier)}`;
+
   return `
-        <section id="identifier-${item.identifier}" data-identifier="${item.identifier}">
+        <section id="${sectionId}" data-identifier="${item.identifier}">
           <header>
-            <h2>${item.identifier}</h2>
+            <h2><a href="#${sectionId}" class="anchor-link">${item.identifier}</a></h2>
             <span class="text-muted">${item.actions.length} action${item.actions.length !== 1 ? "s" : ""}</span>
             <a href="${escapeHtml(generateHoneycombIdentifierUrl(item.identifier, options.honeycombBaseUrl))}" target="_blank" rel="noopener noreferrer" class="ml-auto text-small">View in Honeycomb</a>
             <span class="separator text-small">&bull;</span>

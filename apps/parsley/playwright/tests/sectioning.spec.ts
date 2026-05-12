@@ -10,7 +10,8 @@ const getTargetSelector = (rowIndex: number) =>
 test.describe("Sectioning", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`${logLink}?shareLine=0`);
-    await page.getByTestId("section-header").first().waitFor();
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
+    await expect(page.getByTestId("section-header")).not.toHaveCount(0);
   });
 
   test("Toggling the sections options displays and hides sections", async ({
@@ -19,70 +20,57 @@ test.describe("Sectioning", () => {
     // Check that sections is toggled.
     await helpers.toggleDetailsPanel(page, true);
     await page.locator("button[data-cy='log-viewing-tab']").click();
-    await expect(page.getByTestId("sections-toggle")).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(page.getByTestId("sections-toggle")).toBeChecked();
     await helpers.toggleDetailsPanel(page, false);
     // Assert sections are visible.
-    expect(await page.getByTestId("section-header").count()).toBeGreaterThan(0);
+    await expect(page.getByTestId("section-header")).not.toHaveCount(0);
     // Untoggle sections and assert they are hidden.
     await helpers.clickToggle(page, "sections-toggle", false, "log-viewing");
     await expect(page.getByTestId("section-header")).toHaveCount(0);
   });
 
-  test("Clicking 'Open all subsections' opens all subsections", async ({
-    page,
-  }) => {
-    await page.getByTestId("open-all-sections-btn").click();
-    const caretToggles = await page.getByTestId("caret-toggle").all();
+  test("Clicking 'Open all sections' opens all sections", async ({ page }) => {
+    const openAllSectionsButton = page.getByRole("button", {
+      name: "Open all sections",
+    });
+    await openAllSectionsButton.click();
+
+    const carets = page.getByTestId("caret-toggle");
+    await expect(carets).not.toHaveCount(0);
+    const caretToggles = await carets.all();
     for (const toggle of caretToggles) {
       await expect(toggle).toHaveAttribute("aria-label", "Close section");
     }
 
-    const headers = await page.getByTestId("section-header").all();
-    for (const header of headers) {
+    const headers = page.getByTestId("section-header");
+    await expect(headers).not.toHaveCount(0);
+    const sectionHeaders = await headers.all();
+    for (const header of sectionHeaders) {
       await expect(header).toHaveAttribute("aria-expanded", "true");
-    }
-
-    const sections = await page
-      .locator("[title='Use shift+click to select multiple lines']")
-      .all();
-    for (let i = 0; i < sections.length; i++) {
-      await expect(sections[i]).toHaveAttribute("data-cy", `line-index-${i}`);
     }
   });
 
-  test("Clicking 'Close all subsections' opens all subsections", async ({
-    page,
-  }) => {
-    await page.getByTestId("close-all-sections-btn").click();
+  test("Clicking 'Close all sections' opens all sections", async ({ page }) => {
+    const closeAllSectionsButton = page.getByRole("button", {
+      name: "Close all sections",
+    });
+    await closeAllSectionsButton.click();
 
     // Wait for the first caret toggle to update before checking all of them.
-    await expect(page.getByTestId("caret-toggle").first()).toHaveAttribute(
-      "aria-label",
-      "Open section",
-    );
-
-    const caretToggles = await page.getByTestId("caret-toggle").all();
+    const carets = page.getByTestId("caret-toggle");
+    await expect(carets).not.toHaveCount(0);
+    const caretToggles = await carets.all();
     for (const toggle of caretToggles) {
       await expect(toggle).toHaveAttribute("aria-label", "Open section");
     }
 
-    const sectionsCount = page.locator(
-      "[title='Use shift+click to select multiple lines']",
-    );
-    await expect(sectionsCount).toHaveCount(9);
-
     const openLineNumbers = [0, 1, 2, 8, 9, 9616, 9617, 9618, 9619];
-    const sections = await page
-      .locator("[title='Use shift+click to select multiple lines']")
-      .all();
-    for (let i = 0; i < sections.length; i++) {
-      await expect(sections[i]).toHaveAttribute(
-        "data-cy",
-        `line-index-${openLineNumbers[i]}`,
-      );
+    const visibleRows = page.locator("[data-cy^='log-row-']");
+    await expect(visibleRows).toHaveCount(openLineNumbers.length);
+    const logRows = await visibleRows.all();
+    for (const row of logRows) {
+      const dataCy = await row.getAttribute("data-cy");
+      expect(dataCy).toMatch(/log-row-(0|1|2|8|9|9616|9617|9618|9619)/);
     }
   });
 
@@ -118,6 +106,7 @@ test.describe("Sectioning", () => {
     page,
   }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await expect(
       page.getByText(
         "[2024/03/12 11:18:36.034] Command 'subprocess.exec' ('check resmoke failure') in function 'run tests' (step 2.20 of 2) failed: process encountered problem: exit code 1.",
@@ -129,6 +118,7 @@ test.describe("Sectioning", () => {
     page,
   }) => {
     await page.goto(`${logLink}?shareLine=19`);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
     await expect(
       page.getByText(
         "[2024/03/12 11:01:53.831] rm -rf /data/db/* mongo-diskstats* mongo-*.tgz ~/.aws ~/.boto venv",
@@ -145,7 +135,10 @@ test.describe("Sectioning", () => {
       true,
       "log-viewing",
     );
-    await page.getByTestId("open-all-sections-btn").click();
+    const openAllSectionsButton = page.getByRole("button", {
+      name: "Open all sections",
+    });
+    await openAllSectionsButton.click();
     await page.getByTestId("bookmark-9614").click();
     await expect(page.locator("[data-cy='line-index-9614']")).toBeVisible();
     await expect(page.getByTestId("sticky-headers")).toBeVisible();

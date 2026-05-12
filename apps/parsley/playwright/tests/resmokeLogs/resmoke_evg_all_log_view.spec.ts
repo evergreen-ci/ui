@@ -7,25 +7,21 @@ test.describe("Basic resmoke log view", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
-  });
-
-  test("should render resmoke lines", async ({ page }) => {
-    const resmokeRows = page.getByTestId("resmoke-row");
-    await resmokeRows.first().waitFor();
-    expect(await resmokeRows.count()).toBeGreaterThan(0);
-    await expect(page.getByTestId("ansii-row")).toBeHidden();
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
   });
 
   test("the HTML log button is disabled", async ({ page }) => {
     await helpers.toggleDetailsPanel(page, true);
-    await expect(page.getByTestId("html-log-button")).toBeDisabled();
+    const htmlLogButton = page.getByRole("button", { name: "HTML" });
+    await expect(htmlLogButton).toBeDisabled();
   });
 
   test("the job logs button has a link to the job logs page", async ({
     page,
   }) => {
     await helpers.toggleDetailsPanel(page, true);
-    await expect(page.getByTestId("job-logs-button")).toHaveAttribute(
+    const jobLogsButton = page.getByRole("link", { name: "Job logs" });
+    await expect(jobLogsButton).toHaveAttribute(
       "href",
       "http://localhost:3000/job-logs/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/job0",
     );

@@ -187,4 +187,94 @@ describe("analyticsVisualizer", () => {
     expect(fs.writeFileSync).toHaveBeenCalled();
     expect(console.error).not.toHaveBeenCalled();
   });
+
+  it("should scan each directory and concatenate results when analyticsDir is an array", async () => {
+    const plugin = analyticsVisualizer({
+      ...mockOptions,
+      analyticsDir: ["src/analytics", "/abs/shared/analytics"],
+    });
+
+    const dataA = [
+      {
+        identifier: "id-a",
+        actions: [{ name: "Action A", properties: [] }],
+        filePath: "/test/project/src/analytics/a.ts",
+      },
+    ];
+    const dataB = [
+      {
+        identifier: "id-b",
+        actions: [{ name: "Action B", properties: [] }],
+        filePath: "/abs/shared/analytics/b.ts",
+      },
+    ];
+
+    vi.mocked(scanAnalyticsDirectory)
+      .mockReturnValueOnce(dataA)
+      .mockReturnValueOnce(dataB);
+    vi.mocked(generateHTML).mockReturnValue("<html>Success</html>");
+    vi.mocked(fs.mkdirSync).mockReturnValue(undefined);
+    vi.mocked(fs.writeFileSync).mockReturnValue(undefined);
+
+    const writeBundle = plugin.writeBundle as (bundleOptions: {
+      dir?: string;
+      file?: string;
+    }) => Promise<void>;
+
+    await writeBundle({ dir: "/test/dist" });
+
+    expect(scanAnalyticsDirectory).toHaveBeenCalledTimes(2);
+    expect(scanAnalyticsDirectory).toHaveBeenNthCalledWith(
+      1,
+      "/test/project/src/analytics",
+    );
+    expect(scanAnalyticsDirectory).toHaveBeenNthCalledWith(
+      2,
+      "/abs/shared/analytics",
+    );
+    expect(generateHTML).toHaveBeenCalledWith(
+      [...dataA, ...dataB],
+      expect.any(Object),
+    );
+    expect(console.error).not.toHaveBeenCalled();
+  });
+
+  it("should still generate HTML from healthy directories when one directory fails to scan", async () => {
+    const plugin = analyticsVisualizer({
+      ...mockOptions,
+      analyticsDir: ["src/analytics", "/missing/dir"],
+    });
+
+    const dataA = [
+      {
+        identifier: "id-a",
+        actions: [{ name: "Action A", properties: [] }],
+        filePath: "/test/project/src/analytics/a.ts",
+      },
+    ];
+
+    vi.mocked(scanAnalyticsDirectory)
+      .mockReturnValueOnce(dataA)
+      .mockImplementationOnce(() => {
+        throw new Error("ENOENT: no such file or directory");
+      });
+    vi.mocked(generateHTML).mockReturnValue("<html>Success</html>");
+    vi.mocked(fs.mkdirSync).mockReturnValue(undefined);
+    vi.mocked(fs.writeFileSync).mockReturnValue(undefined);
+
+    const writeBundle = plugin.writeBundle as (bundleOptions: {
+      dir?: string;
+      file?: string;
+    }) => Promise<void>;
+
+    await writeBundle({ dir: "/test/dist" });
+
+    expect(scanAnalyticsDirectory).toHaveBeenCalledTimes(2);
+    expect(generateHTML).toHaveBeenCalledWith(dataA, expect.any(Object));
+    expect(fs.writeFileSync).toHaveBeenCalled();
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining("Failed to scan"),
+      expect.anything(),
+    );
+  });
 });

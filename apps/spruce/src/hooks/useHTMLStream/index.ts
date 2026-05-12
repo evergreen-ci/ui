@@ -75,7 +75,7 @@ export const useHTMLStream = ({
     const abortController = new AbortController();
 
     const fetchStream = async () => {
-      let stream: ReadableStream | null = null;
+      let stream: ReadableStream | null;
       try {
         stream = await streamedFetch(
           url,
