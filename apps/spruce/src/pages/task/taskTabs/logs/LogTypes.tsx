@@ -124,10 +124,11 @@ export const AllLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { allLogs } = taskLogs || {};
+  const isLoading = !allLogs && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   // All logs includes task, system, and agent logs. Event logs are not included.
   return (
-    <LogBody data={allLogs || []} error={error} loading={loading} {...rest} />
+    <LogBody data={allLogs || []} error={error} loading={isLoading} {...rest} />
   );
 };
 
