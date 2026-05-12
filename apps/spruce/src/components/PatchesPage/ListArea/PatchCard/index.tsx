@@ -58,7 +58,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   );
   const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
 
-  let patchProject = null;
+  let patchProject;
   if (pageType === "project") {
     patchProject = unlinkedPRUsers.has(user.userId) ? (
       user.displayName
