@@ -157,7 +157,7 @@ export const Task = () => {
             />
           ) : undefined
         }
-        loading={loading}
+        loading={false}
         pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
         title={displayName}
       />
