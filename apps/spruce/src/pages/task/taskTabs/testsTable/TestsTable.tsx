@@ -130,6 +130,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     testResults,
     totalTestCount = 0,
   } = tests ?? {};
+  const isLoading = loading && !testResults?.length; // TODO: Re-evaluate in DEVPROD-33191.
 
   const columns = useMemo(
     () =>
@@ -197,8 +198,8 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     >
       <BaseTable
         data-cy="tests-table"
-        data-loading={loading}
-        loading={loading}
+        data-loading={isLoading}
+        loading={isLoading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         loadingRows={limitNum}
         shouldAlternateRowColor
