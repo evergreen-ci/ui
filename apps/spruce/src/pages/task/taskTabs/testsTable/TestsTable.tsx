@@ -130,7 +130,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     testResults,
     totalTestCount = 0,
   } = tests ?? {};
-  const isLoading = loading && !testResults?.length; // TODO: Re-evaluate in DEVPROD-33191.
+  const isLoading = !testResults && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   const columns = useMemo(
     () =>
