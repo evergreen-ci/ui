@@ -422,7 +422,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
       )}
 
       {!isDisplayTask && (
-        <MetadataCard loading={loading} title="Host Information">
+        <MetadataCard title="Host Information">
           {hostId && (
             <MetadataItem>
               <MetadataLabel>ID:</MetadataLabel>{" "}
