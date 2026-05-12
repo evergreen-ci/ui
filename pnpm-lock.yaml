@@ -1059,8 +1059,8 @@ importers:
         specifier: ^2.4.0
         version: 2.6.1(@opentelemetry/api@1.9.1)
       '@sentry/core':
-        specifier: ^10.31.0
-        version: 10.48.0
+        specifier: ^10.50.0
+        version: 10.53.0
       '@sentry/react':
         specifier: ^10.31.0
         version: 10.48.0(react@18.3.1)
@@ -3345,6 +3345,10 @@ packages:
 
   '@sentry/core@10.48.0':
     resolution: {integrity: sha512-h8F+fXVwYC9ro5ZaO8V+v3vqc0awlXHGblEAuVxSGgh4IV/oFX+QVzXeDTTrFOFS6v/Vn5vAyu240eJrJAS6/g==}
+    engines: {node: '>=18'}
+
+  '@sentry/core@10.53.0':
+    resolution: {integrity: sha512-clFNN45Ry4QYn32yzdp7ZqwUrn1HWpd3URsD73L2hk1WS6KDNB2TtBaLNau+Z5hwTU61Kxezkn5FyoRb68/5Yw==}
     engines: {node: '>=18'}
 
   '@sentry/react@10.48.0':
@@ -10666,6 +10670,8 @@ snapshots:
       - supports-color
 
   '@sentry/core@10.48.0': {}
+
+  '@sentry/core@10.53.0': {}
 
   '@sentry/react@10.48.0(react@18.3.1)':
     dependencies:
