@@ -38,7 +38,9 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
   // We only want to show the file group name if there are multiple file groups.
   const hasMultipleFileGroups = groupedFiles.length > 1;
 
-  return loading ? (
+  const isLoading = !files && loading; // TODO: Re-evaluate in DEVPROD-33191.
+
+  return isLoading ? (
     <FilesTableSkeleton />
   ) : (
     <>
