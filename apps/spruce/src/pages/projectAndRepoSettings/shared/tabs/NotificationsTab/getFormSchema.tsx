@@ -29,6 +29,26 @@ export const getFormSchema = (
   return {
     fields: {},
     schema: {
+      definitions: {
+        subscriptionArray: {
+          title: "Subscriptions",
+          type: "array" as const,
+          default: [],
+          items: {
+            type: "object" as const,
+            properties: {
+              subscriptionData: {
+                type: "object" as const,
+                title: "",
+                properties: {
+                  event: eventSchema,
+                  notification: notificationSchema,
+                },
+              },
+            },
+          },
+        },
+      },
       type: "object" as const,
       properties: {
         buildBreakSettings: {
@@ -75,23 +95,16 @@ export const getFormSchema = (
             },
           },
         }),
-        subscriptions: {
-          type: "array" as const,
-          title: "Subscriptions",
-          items: {
+        subscriptions: { $ref: "#/definitions/subscriptionArray" },
+        ...(projectType === ProjectType.AttachedProject && {
+          repoData: {
             type: "object" as const,
+            title: "Repo Subscriptions",
             properties: {
-              subscriptionData: {
-                type: "object" as const,
-                title: "",
-                properties: {
-                  event: eventSchema,
-                  notification: notificationSchema,
-                },
-              },
+              subscriptions: { $ref: "#/definitions/subscriptionArray" },
             },
           },
-        },
+        }),
       },
     },
     uiSchema: {
@@ -133,6 +146,23 @@ export const getFormSchema = (
           subscriptionData: {
             event: eventUiSchema,
             notification: notificationUiSchema,
+          },
+        },
+      },
+      repoData: {
+        subscriptions: {
+          "ui:placeholder": "Repo has no subscriptions defined.",
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:readonly": true,
+          "ui:showLabel": false,
+          "ui:useExpandableCard": true,
+          items: {
+            "ui:label": false,
+            subscriptionData: {
+              event: eventUiSchema,
+              notification: notificationUiSchema,
+            },
           },
         },
       },
