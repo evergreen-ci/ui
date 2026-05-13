@@ -25,7 +25,10 @@ export const NotificationsTab: React.FC<TabProps> = ({
   projectType,
   repoData,
 }) => {
-  const initialFormState = getInitialFormState(projectData, repoData);
+  const initialFormState = useMemo(
+    () => getInitialFormState(projectData, repoData),
+    [projectData, repoData],
+  );
 
   const formSchema = useMemo(
     () =>
