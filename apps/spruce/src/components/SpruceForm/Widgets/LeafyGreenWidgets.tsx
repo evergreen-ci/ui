@@ -197,7 +197,7 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
     elementWrapperCSS,
   } = options;
   return (
-    <ToggleElementWrapper css={elementWrapperCSS}>
+    <ElementWrapper css={elementWrapperCSS}>
       <ToggleWrapper>
         <Toggle
           aria-labelledby={`${id}-label`}
@@ -213,18 +213,13 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
         </Label>
       </ToggleWrapper>
       {descriptionNode ||
-        (description && <Description>{description}</Description>)}
-    </ToggleElementWrapper>
+        (description && <ToggleDescription>{description}</ToggleDescription>)}
+    </ElementWrapper>
   );
 };
 
-const ToggleElementWrapper = styled(ElementWrapper)`
-  &:last-child {
-    margin-bottom: 0;
-  }
-  > p {
-    margin-top: ${size.xxs};
-  }
+const ToggleDescription = styled(Description)`
+  margin-top: ${size.xxs};
 `;
 
 const ToggleWrapper = styled.div`

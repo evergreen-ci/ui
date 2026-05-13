@@ -184,6 +184,7 @@ const instanceProfileARN = {
   schema: {
     type: "string" as const,
     title: "IAM Instance Profile ARN",
+    default: "",
     pattern: "^(a|ar|arn|arn:.*)?$",
   },
   uiSchema: {
@@ -430,10 +431,7 @@ export const taskHostOverridesFields = {
                 enum: [true],
               },
               providerAccount: ec2ProviderAccountField,
-              iamInstanceProfileArn: {
-                ...instanceProfileARN.schema,
-                default: "",
-              },
+              iamInstanceProfileArn: instanceProfileARN.schema,
               subnetId: {
                 type: "string" as const,
                 title: "Subnet ID",
@@ -453,6 +451,11 @@ export const taskHostOverridesFields = {
       "ui:data-cy": "enable-task-host-overrides",
       "ui:description":
         "When enabled, the values below replace the distro's provider settings for task hosts. Empty values override the distro's settings rather than falling back to them. To remove the overrides, toggle off and save.",
+      "ui:elementWrapperCSS": css`
+        &:last-child {
+          margin-bottom: 0;
+        }
+      `,
       "ui:widget": widgets.ToggleWidget,
     },
     providerAccount: {
