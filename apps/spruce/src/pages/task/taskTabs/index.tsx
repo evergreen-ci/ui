@@ -9,8 +9,7 @@ import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { getHoneycombMergeQueueHistoryUrl } from "constants/externalResources/honeycomb";
-import { Requester } from "constants/requesters";
+import { getHoneycombHistoryUrl } from "constants/externalResources/honeycomb";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import {
   TaskPerfPluginEnabledQuery,
@@ -177,16 +176,19 @@ const useTabConfig = (
         name="History"
         {...walkthroughHistoryTabProps}
       >
-        {requester !== Requester.GitHubMergeQueue ? (
+        {baseTaskId ? (
           <TaskHistory baseTaskId={baseTaskId} task={task} />
         ) : (
           <>
-            Evergreen cannot show history for GitHub merge queue tasks. See the{" "}
+            Evergreen cannot show history for this task because there is no
+            corresponding base task. Try viewing the{" "}
             <StyledLink
-              href={getHoneycombMergeQueueHistoryUrl({
+              href={getHoneycombHistoryUrl({
                 bvName: buildVariant,
                 projectId: projectId ?? "",
                 taskName: displayName,
+                requester,
+                isDisplayTask,
               })}
             >
               history in Honeycomb

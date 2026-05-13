@@ -1,6 +1,6 @@
 import { getUnixTime } from "date-fns";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Requester } from "constants/requesters";
+import { mainlineRequesters, Requester } from "constants/requesters";
 import { getHoneycombBaseURL } from "utils/environmentVariables";
 
 /**
@@ -181,14 +181,18 @@ export const getHoneycombTaskTimingURL = ({
   return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
 };
 
-export const getHoneycombMergeQueueHistoryUrl = ({
+export const getHoneycombHistoryUrl = ({
   bvName,
+  isDisplayTask,
   projectId,
+  requester,
   taskName,
 }: {
   bvName: string;
   projectId: string;
   taskName: string;
+  requester: string;
+  isDisplayTask: boolean;
 }) => {
   const query = {
     time_range: ONE_WEEK_IN_SECONDS,
@@ -203,21 +207,27 @@ export const getHoneycombMergeQueueHistoryUrl = ({
       },
       {
         column: "evergreen.version.requester",
-        op: "=",
-        value: Requester.GitHubMergeQueue,
+        op: "in",
+        value: [requester, ...mainlineRequesters],
       },
       {
         column: "evergreen.build.name",
         op: "=",
         value: bvName,
       },
-      {
-        column: "evergreen.task.name",
-        op: "=",
-        value: taskName,
-      },
+      isDisplayTask
+        ? {
+            column: "evergreen.display_task.name",
+            op: "=",
+            value: taskName,
+          }
+        : {
+            column: "evergreen.task.name",
+            op: "=",
+            value: taskName,
+          },
     ],
-    breakdowns: ["evergreen.task.status"],
+    breakdowns: ["evergreen.task.status", "evergreen.version.requester"],
     filter_combination: "AND",
     limit: 1000,
   };
