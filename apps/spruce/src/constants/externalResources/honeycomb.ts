@@ -215,17 +215,13 @@ export const getHoneycombHistoryUrl = ({
         op: "=",
         value: bvName,
       },
-      isDisplayTask
-        ? {
-            column: "evergreen.display_task.name",
-            op: "=",
-            value: taskName,
-          }
-        : {
-            column: "evergreen.task.name",
-            op: "=",
-            value: taskName,
-          },
+      {
+        column: isDisplayTask
+          ? "evergreen.display_task.name"
+          : "evergreen.task.name",
+        op: "=",
+        value: taskName,
+      },
     ],
     breakdowns: ["evergreen.task.status", "evergreen.version.requester"],
     filter_combination: "AND",
