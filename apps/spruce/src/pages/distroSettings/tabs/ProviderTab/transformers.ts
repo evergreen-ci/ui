@@ -2,14 +2,34 @@ import { DistroSettingsTabRoutes } from "constants/routes";
 import { Provider } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { gqlProviderSettings, formProviderSettings } from "./transformerUtils";
+import { ProviderFormState } from "./types";
 
 type Tab = DistroSettingsTabRoutes.Provider;
+
+const toTaskHostOverridesInput = (
+  formOverrides: ProviderFormState["taskHostOverrides"],
+) =>
+  formOverrides.enableTaskHostOverrides
+    ? {
+        doNotAssignPublicIpv4Address:
+          formOverrides.doNotAssignPublicIpv4Address,
+        iamInstanceProfileArn: formOverrides.iamInstanceProfileArn,
+        providerAccount: formOverrides.providerAccount,
+        securityGroupIds: formOverrides.securityGroupIds,
+        subnetId: formOverrides.subnetId,
+      }
+    : null;
 
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { containerPool, provider, providerAccount, providerSettingsList } =
-    data;
+  const {
+    containerPool,
+    provider,
+    providerAccount,
+    providerSettingsList,
+    taskHostOverrides,
+  } = data;
 
   return {
     provider: {
@@ -32,6 +52,15 @@ export const gqlToForm = ((data) => {
       ...formProviderSettings(p).ec2OnDemandProviderSettings,
       displayTitle: p.region,
     })),
+    taskHostOverrides: {
+      enableTaskHostOverrides: taskHostOverrides != null,
+      doNotAssignPublicIpv4Address:
+        taskHostOverrides?.doNotAssignPublicIpv4Address ?? false,
+      iamInstanceProfileArn: taskHostOverrides?.iamInstanceProfileArn ?? "",
+      providerAccount: taskHostOverrides?.providerAccount ?? "",
+      securityGroupIds: taskHostOverrides?.securityGroupIds ?? [],
+      subnetId: taskHostOverrides?.subnetId ?? "",
+    },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
@@ -75,6 +104,7 @@ export const formToGql = ((data, distro) => {
           ...gqlProviderSettings(p).ec2FleetProviderSettings,
         })),
         containerPool: "",
+        taskHostOverrides: toTaskHostOverridesInput(data.taskHostOverrides),
       };
     case Provider.Ec2OnDemand:
       return {
@@ -85,6 +115,7 @@ export const formToGql = ((data, distro) => {
           ...gqlProviderSettings(p).ec2OnDemandProviderSettings,
         })),
         containerPool: "",
+        taskHostOverrides: toTaskHostOverridesInput(data.taskHostOverrides),
       };
     default:
       return distro;
