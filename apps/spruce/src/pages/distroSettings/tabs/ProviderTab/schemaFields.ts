@@ -1,12 +1,8 @@
+import { css } from "@emotion/react";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import {
-  textAreaCSS,
-  mergeCheckboxCSS,
-  indentCSS,
-  toggleSpacingCSS,
-  overrideFieldsLeadingSpaceCSS,
-} from "./styles";
+import { textAreaCSS, mergeCheckboxCSS, indentCSS } from "./styles";
 import { BuildType } from "./types";
 
 const userData = {
@@ -64,12 +60,15 @@ const securityGroups = {
       title: "Security Group ID",
       default: "",
       minLength: 1,
-      pattern: "^sg-.*",
+      pattern: "^(s|sg|sg-.*)?$",
     },
   },
   uiSchema: {
     "ui:addButtonText": "Add security group",
     "ui:orderable": false,
+    items: {
+      "ui:placeholder": "e.g. sg-xxxx",
+    },
   },
 };
 
@@ -185,9 +184,12 @@ const instanceProfileARN = {
   schema: {
     type: "string" as const,
     title: "IAM Instance Profile ARN",
+    pattern: "^(a|ar|arn|arn:.*)?$",
   },
   uiSchema: {
     "ui:description": "The Amazon Resource Name (ARN) of the instance profile.",
+    "ui:placeholder":
+      "e.g. arn:aws:iam::123456789012:instance-profile/MyProfile",
   },
 };
 
@@ -427,33 +429,18 @@ export const taskHostOverridesFields = {
               enableTaskHostOverrides: {
                 enum: [true],
               },
-              providerAccount: {
-                type: "string" as const,
-                title: "Provider Account",
-                default: "",
-                minLength: 1,
-              },
+              providerAccount: ec2ProviderAccountField,
               iamInstanceProfileArn: {
                 ...instanceProfileARN.schema,
                 default: "",
-                minLength: 1,
-                pattern: "^(a|ar|arn|arn:.*)?$",
               },
               subnetId: {
                 type: "string" as const,
                 title: "Subnet ID",
                 default: "",
-                minLength: 1,
                 pattern: "^(s|su|sub|subn|subne|subnet|subnet-.*)?$",
               },
-              securityGroupIds: {
-                ...securityGroups.schema,
-                minItems: 1,
-                items: {
-                  ...securityGroups.schema.items,
-                  pattern: "^(s|sg|sg-.*)?$",
-                },
-              },
+              securityGroupIds: securityGroups.schema,
               doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.schema,
             },
           },
@@ -466,26 +453,18 @@ export const taskHostOverridesFields = {
       "ui:data-cy": "enable-task-host-overrides",
       "ui:description":
         "When enabled, the values below replace the distro's provider settings for task hosts. Empty values override the distro's settings rather than falling back to them. To remove the overrides, toggle off and save.",
-      "ui:elementWrapperCSS": toggleSpacingCSS,
       "ui:widget": widgets.ToggleWidget,
     },
     providerAccount: {
-      "ui:elementWrapperCSS": overrideFieldsLeadingSpaceCSS,
+      "ui:elementWrapperCSS": css`
+        margin-top: ${size.s};
+      `,
     },
-    iamInstanceProfileArn: {
-      ...instanceProfileARN.uiSchema,
-      "ui:placeholder":
-        "e.g. arn:aws:iam::123456789012:instance-profile/MyProfile",
-    },
+    iamInstanceProfileArn: instanceProfileARN.uiSchema,
     subnetId: {
       "ui:placeholder": "e.g. subnet-xxxx",
     },
-    securityGroupIds: {
-      ...securityGroups.uiSchema,
-      items: {
-        "ui:placeholder": "e.g. sg-xxxx",
-      },
-    },
+    securityGroupIds: securityGroups.uiSchema,
     doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.uiSchema,
   },
 };
