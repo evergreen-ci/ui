@@ -100,16 +100,12 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(bookmarkList).not.toContainText("4");
   });
 
-  test("should be able to set and unset the share line", async ({ page }) => {
-    await page.getByTestId("log-link-5").click();
+  test("shared line should appear in the bookmark panel", async ({ page }) => {
+    await page.goto(`${logLink}?shareLine=5`);
     await expect(page).toHaveURL(/\?bookmarks=0,297&shareLine=5/);
     await expect(page.getByTestId("bookmark-list")).toContainText("0");
     await expect(page.getByTestId("bookmark-list")).toContainText("5");
     await expect(page.getByTestId("bookmark-list")).toContainText("297");
-    await page.getByTestId("log-link-5").click();
-    await expect(page).toHaveURL(/\?bookmarks=0,297/);
-    const bookmarkList = page.getByTestId("bookmark-list");
-    await expect(bookmarkList).not.toContainText("5");
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({ page }) => {
@@ -270,15 +266,11 @@ test.describe("Sharing lines", () => {
     await expect(page.getByTestId("line-index-1")).toBeVisible();
   });
 
-  test("should present a share button with a menu when a line is selected", async ({
+  test("should present a menu button that opens the sharing menu", async ({
     page,
   }) => {
-    await page.getByTestId("line-index-1").click();
-    const sharingMenuButton = page.getByRole("button", {
-      name: "Expand share menu",
-    });
-    await expect(sharingMenuButton).toBeVisible();
-    await sharingMenuButton.click();
+    await expect(page.getByTestId("log-link-1")).toBeVisible();
+    await page.getByTestId("log-link-1").click();
     await expect(page.getByTestId("sharing-menu")).toBeVisible();
   });
 

@@ -22,7 +22,11 @@ import { useIsParsleyAIAvailable } from "hooks/useIsParsleyAIAvailable";
 import { getJiraFormat, getRawLines } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
-const SharingMenu: React.FC = () => {
+interface SharingMenuProps {
+  lineNumber: number;
+}
+
+const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
   const {
     clearSelection,
     openMenu: open,
@@ -96,11 +100,11 @@ const SharingMenu: React.FC = () => {
 
   const handleOnlySearchOnRange = () => {
     const { endingLine, startingLine } = selectedLines;
-    if (startingLine === undefined || endingLine === undefined) return;
+    if (startingLine === undefined) return;
     setParams({
       ...params,
       [QueryParams.LowerRange]: startingLine,
-      [QueryParams.UpperRange]: endingLine,
+      [QueryParams.UpperRange]: endingLine ?? startingLine,
     });
     setOpen(false);
     sendEvent({
@@ -134,7 +138,11 @@ const SharingMenu: React.FC = () => {
       open={open}
       setOpen={setMenuOpen}
       trigger={
-        <MenuIcon aria-label="Expand share menu" onClick={setMenuOpen}>
+        <MenuIcon
+          aria-label="Expand share menu"
+          data-cy={`log-link-${lineNumber}`}
+          onClick={setMenuOpen}
+        >
           <Icon glyph="Ellipsis" />
         </MenuIcon>
       }
