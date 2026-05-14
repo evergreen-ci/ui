@@ -51,11 +51,11 @@ const BaseRow: React.FC<BaseRowProps> = ({
   "data-cy": dataCyText,
   failingLine,
   highlightRegex,
-  lineIndex,
+  lineIndex: _lineIndex,
   lineNumber,
   prettyPrint,
   range,
-  scrollToLine,
+  scrollToLine: _scrollToLine,
   searchLine,
   searchTerm,
   wordWrapFormat,
@@ -63,8 +63,15 @@ const BaseRow: React.FC<BaseRowProps> = ({
   ...rest
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
-  const { menuPosition, selectedLines } = useMultiLineSelectContext();
-  const [shareLine, setShareLine] = useQueryParam<number | undefined>(
+  const {
+    clearSelection,
+    handleSelectLine,
+    menuPosition,
+    selectedLines,
+    setMenuPosition,
+    setOpenMenu,
+  } = useMultiLineSelectContext();
+  const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
     urlParseOptions,
@@ -81,18 +88,6 @@ const BaseRow: React.FC<BaseRowProps> = ({
   const failed = failingLine === lineNumber;
   const highlighted = searchLine === lineNumber;
   const shared = shareLine === lineNumber;
-
-  // Clicking link icon should set or unset the share line.
-  const handleClick = useCallback(() => {
-    if (shared) {
-      setShareLine(undefined);
-      sendEvent({ name: "Deleted share line" });
-    } else {
-      setShareLine(lineNumber);
-      scrollToLine(lineIndex);
-      sendEvent({ name: "Created new share line" });
-    }
-  }, [lineIndex, lineNumber, shared, scrollToLine, sendEvent, setShareLine]);
 
   // Double clicking a line should add or remove the line from bookmarks.
   const handleDoubleClick = useCallback(() => {
@@ -114,6 +109,20 @@ const BaseRow: React.FC<BaseRowProps> = ({
       lineNumber <= selectedLines.endingLine) ||
     selectedLines.startingLine === lineNumber;
 
+  const isWithinSelection =
+    selectedLines.startingLine !== undefined &&
+    lineNumber >= selectedLines.startingLine &&
+    lineNumber <= (selectedLines.endingLine ?? selectedLines.startingLine);
+
+  const handleEllipsisClick = () => {
+    if (!isWithinSelection) {
+      clearSelection();
+      handleSelectLine(lineNumber, false);
+    }
+    setMenuPosition(lineNumber);
+    setOpenMenu(true);
+  };
+
   const displayContent =
     bookmarked && prettyPrint ? formatPrettyPrint(children) : children;
 
@@ -132,16 +141,15 @@ const BaseRow: React.FC<BaseRowProps> = ({
       shared={shared}
     >
       {menuPosition === lineNumber ? (
-        <SharingMenu />
+        <SharingMenu lineNumber={lineNumber} />
       ) : (
-        <MenuIcon aria-label="Share link" onClick={handleClick}>
-          <ShareIcon
-            data-cy={`log-link-${lineNumber}`}
-            glyph={shared ? "ArrowWithCircle" : "Link"}
-            onClick={handleClick}
-            size="small"
-          />
-        </MenuIcon>
+        <EllipsisButton
+          aria-label="Expand share menu"
+          data-cy={`log-link-${lineNumber}`}
+          onClick={handleEllipsisClick}
+        >
+          <Icon glyph="Ellipsis" />
+        </EllipsisButton>
       )}
       <LineNumber lineNumber={lineNumber} />
       <StyledPre shouldWrap={wrap} wordWrapFormat={wordWrapFormat}>
@@ -185,12 +193,6 @@ const RowContainer = styled.div<{
   }
 `;
 
-const ShareIcon = styled(Icon)`
-  cursor: pointer;
-  user-select: none;
-  flex-shrink: 0;
-`;
-
 // NOTE: This was originally a <pre> tag to preserve whitespace and line breaks,
 // but Firefox inserts extra newlines between block-level <pre> elements during text selection,
 // causing unwanted spacing between log lines. To avoid this, we use a <div> and manually
@@ -225,10 +227,10 @@ const StyledPre = styled.div<{
       `}
 `;
 
-const MenuIcon = styled(IconButton)`
-  height: ${size.s};
-  width: ${size.s};
+const EllipsisButton = styled(IconButton)`
+  height: 16px;
+  width: 16px;
   margin-left: ${size.xxs};
-  user-select: none;
 `;
+
 export default BaseRow;
