@@ -141,14 +141,14 @@ const BaseRow: React.FC<BaseRowProps> = ({
       shared={shared}
     >
       {menuPosition === lineNumber ? (
-        <SharingMenu lineNumber={lineNumber} />
+        <SharingMenu lineNumber={lineNumber} shared={shared} />
       ) : (
         <EllipsisButton
           aria-label="Expand share menu"
           data-cy={`log-link-${lineNumber}`}
           onClick={handleEllipsisClick}
         >
-          <Icon glyph="Ellipsis" />
+          <Icon glyph={shared ? "ArrowWithCircle" : "Ellipsis"} />
         </EllipsisButton>
       )}
       <LineNumber lineNumber={lineNumber} />

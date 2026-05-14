@@ -24,9 +24,10 @@ import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
 interface SharingMenuProps {
   lineNumber: number;
+  shared?: boolean;
 }
 
-const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
+const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber, shared }) => {
   const {
     clearSelection,
     openMenu: open,
@@ -115,11 +116,9 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
   const handleShareLinkToSelectedLines = async () => {
     const { startingLine } = selectedLines;
     if (startingLine === undefined) return;
-    // Take the current URL and add the shareLine query param
-    const url = new URL(window.location.href);
-    url.searchParams.set(QueryParams.ShareLine, startingLine.toString());
 
-    await copyToClipboard(url.toString());
+    setParams({ ...params, [QueryParams.ShareLine]: startingLine });
+    await copyToClipboard(window.location.href);
     setOpen(false);
     sendEvent({ name: "Clicked copy share link button" });
     dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
@@ -143,7 +142,7 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber }) => {
           data-cy={`log-link-${lineNumber}`}
           onClick={setMenuOpen}
         >
-          <Icon glyph="Ellipsis" />
+          <Icon glyph={shared ? "ArrowWithCircle" : "Ellipsis"} />
         </MenuIcon>
       }
     >
