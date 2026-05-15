@@ -64,7 +64,7 @@ describe("action menu for tests table", () => {
     });
     expect(
       screen.getByText(
-        "Quarantine status can only be managed from an execution task. Open an execution task from this display task to quarantine a test.",
+        "Quarantine is not available on display tasks. Open one of this task's execution tasks to quarantine a test.",
       ),
     ).toBeVisible();
   });
