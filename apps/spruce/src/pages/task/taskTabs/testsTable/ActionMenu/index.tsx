@@ -77,14 +77,16 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   if (!task.testSelectionEnabled) {
     dropdownItems = [
       <DropdownItem key="disabled" disabled>
-        Test selection is disabled for this task.
+        Test selection did not run for this task, so its tests cannot be
+        quarantined. Test selection is only available on patch builds for build
+        variants and tasks configured for it.
       </DropdownItem>,
     ];
   } else if (task.displayOnly) {
     dropdownItems = [
       <DropdownItem key="display-task" disabled>
-        Cannot manage test quarantine status from display status. Click on an
-        execution task instead.
+        Quarantine status can only be managed from an execution task. Open an
+        execution task from this display task to quarantine a test.
       </DropdownItem>,
     ];
   } else if (test.isManuallyQuarantined) {

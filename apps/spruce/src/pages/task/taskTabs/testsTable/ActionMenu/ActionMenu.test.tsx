@@ -25,7 +25,7 @@ const taskWithTestSelection = {
 };
 
 describe("action menu for tests table", () => {
-  it("shows disabled message when test selection is not enabled", async () => {
+  it("shows disabled message when test selection did not run for the task", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[]}>
@@ -41,7 +41,9 @@ describe("action menu for tests table", () => {
       expect(screen.getByDataCy("card-dropdown")).toBeVisible();
     });
     expect(
-      screen.getByText("Test selection is disabled for this task."),
+      screen.getByText(
+        "Test selection did not run for this task, so its tests cannot be quarantined. Test selection is only available on patch builds for build variants and tasks configured for it.",
+      ),
     ).toBeVisible();
   });
 
@@ -62,7 +64,7 @@ describe("action menu for tests table", () => {
     });
     expect(
       screen.getByText(
-        "Cannot manage test quarantine status from display status. Click on an execution task instead.",
+        "Quarantine status can only be managed from an execution task. Open an execution task from this display task to quarantine a test.",
       ),
     ).toBeVisible();
   });
