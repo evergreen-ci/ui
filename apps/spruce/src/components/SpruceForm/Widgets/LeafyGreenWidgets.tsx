@@ -213,10 +213,14 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
         </Label>
       </ToggleWrapper>
       {descriptionNode ||
-        (description && <Description>{description}</Description>)}
+        (description && <ToggleDescription>{description}</ToggleDescription>)}
     </ElementWrapper>
   );
 };
+
+const ToggleDescription = styled(Description)`
+  margin-top: ${size.xxs};
+`;
 
 const ToggleWrapper = styled.div`
   align-items: center;
