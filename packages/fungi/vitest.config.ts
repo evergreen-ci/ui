@@ -1,11 +1,14 @@
-import tsconfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vitest/config";
+import { defineConfig, mergeConfig } from "vite";
+import { defineConfig as defineTestConfig } from "vitest/config";
 
-export default defineConfig({
-  plugins: [tsconfigPaths()],
+const viteConfig = defineConfig({
   resolve: {
+    tsconfigPaths: true,
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
+});
+
+const vitestConfig = defineTestConfig({
   test: {
     environment: "jsdom",
     globals: true,
@@ -15,3 +18,5 @@ export default defineConfig({
     setupFiles: "./config/vitest/setup-tests.ts",
   },
 });
+
+export default mergeConfig(viteConfig, vitestConfig);

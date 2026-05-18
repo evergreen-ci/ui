@@ -1,8 +1,16 @@
 import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vitest/config";
+import { defineConfig, mergeConfig } from "vite";
+import { defineConfig as defineTestConfig } from "vitest/config";
 
-export default defineConfig({
+const viteConfig = defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+  },
+  plugins: [react()],
+});
+
+const vitestConfig = defineTestConfig({
   test: {
     environment: "jsdom",
     globals: true,
@@ -11,8 +19,6 @@ export default defineConfig({
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
   },
-  plugins: [tsconfigPaths(), react()],
-  resolve: {
-    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
-  },
 });
+
+export default mergeConfig(viteConfig, vitestConfig);

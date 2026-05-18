@@ -1,8 +1,13 @@
-import tsconfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vitest/config";
+import { defineConfig, mergeConfig } from "vite";
+import { defineConfig as defineTestConfig } from "vitest/config";
 
-export default defineConfig({
-  plugins: [tsconfigPaths()],
+const viteConfig = defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+  },
+});
+
+const vitestConfig = defineTestConfig({
   test: {
     environment: "node",
     globals: true,
@@ -10,3 +15,5 @@ export default defineConfig({
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
   },
 });
+
+export default mergeConfig(viteConfig, vitestConfig);
