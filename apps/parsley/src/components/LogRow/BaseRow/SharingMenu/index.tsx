@@ -116,9 +116,11 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber, shared }) => {
   const handleShareLinkToSelectedLines = async () => {
     const { startingLine } = selectedLines;
     if (startingLine === undefined) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set(QueryParams.ShareLine, startingLine.toString());
 
+    await copyToClipboard(url.toString());
     setParams({ ...params, [QueryParams.ShareLine]: startingLine });
-    await copyToClipboard(window.location.href);
     setOpen(false);
     sendEvent({ name: "Clicked copy share link button" });
     dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
