@@ -1,4 +1,6 @@
 import { InlineCode, Description } from "@leafygreen-ui/typography";
+import { styled } from "storybook/theming";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { bannerThemeToLabelMap } from "components/Banners";
 import {
   getEventSchema,
@@ -176,13 +178,23 @@ const HelpText: React.FC = () => {
 
   return (
     <Description>
-      Private slack channels may require further Slack configuration.
+      Private Slack channels may require further Slack configuration.{" "}
       {slackName && (
-        <div>
+        <>
           Invite evergreen to your private Slack channels by running{" "}
           <InlineCode>invite {slackName}</InlineCode> in the channel.
-        </div>
+        </>
       )}
+      <NoteText>
+        Note: Project notifications are <b>merged with repo notifications</b>,
+        meaning that users will receive duplicate notifications if the repo and
+        project are both subscribed to the same event.
+      </NoteText>
     </Description>
   );
 };
+
+const NoteText = styled.div`
+  margin-top: ${size.xxs};
+  font-style: italic;
+`;
