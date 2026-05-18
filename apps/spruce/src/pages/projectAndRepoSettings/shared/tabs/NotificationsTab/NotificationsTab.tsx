@@ -13,8 +13,7 @@ const tab = ProjectSettingsTabRoutes.Notifications;
 const getInitialFormState = (
   projectData: TabProps["projectData"],
   repoData: TabProps["repoData"],
-): NotificationsFormState => {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
+): NotificationsFormState | undefined => {
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
   return projectData;
