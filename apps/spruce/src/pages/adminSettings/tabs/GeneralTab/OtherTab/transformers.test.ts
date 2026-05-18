@@ -244,6 +244,8 @@ const expectedForm: OtherFormState = {
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
       failedTasksLogBucketName: "evergreen-failed-tasks",
+      retryFailedLogMoveLookbackMonths: 0,
+      retryFailedLogMoveMaxJobsPerRun: 0,
     },
     sshPairs: {
       taskHostKey: {

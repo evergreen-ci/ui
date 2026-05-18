@@ -122,6 +122,10 @@ export const gqlToForm = ((data) => {
         credentialsKey: buckets?.credentials?.key ?? "",
         credentialsSecret: buckets?.credentials?.secret ?? "",
         failedTasksLogBucketName: buckets?.logBucketFailedTasks?.name ?? "",
+        retryFailedLogMoveLookbackMonths:
+          buckets?.retryFailedLogMoveLookbackMonths ?? 0,
+        retryFailedLogMoveMaxJobsPerRun:
+          buckets?.retryFailedLogMoveMaxJobsPerRun ?? 0,
       },
 
       sshPairs: {
@@ -338,6 +342,10 @@ export const formToGql = ((form: OtherFormState) => {
         key: bucketConfig.credentialsKey || undefined,
         secret: bucketConfig.credentialsSecret || undefined,
       },
+      retryFailedLogMoveLookbackMonths:
+        bucketConfig.retryFailedLogMoveLookbackMonths || undefined,
+      retryFailedLogMoveMaxJobsPerRun:
+        bucketConfig.retryFailedLogMoveMaxJobsPerRun || undefined,
     },
 
     ssh: {

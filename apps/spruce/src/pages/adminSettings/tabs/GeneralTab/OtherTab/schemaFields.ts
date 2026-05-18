@@ -389,6 +389,14 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Failed Tasks Log Bucket",
     },
+    retryFailedLogMoveLookbackMonths: {
+      type: "number" as const,
+      title: "Retry Failed Log Move Lookback Months",
+    },
+    retryFailedLogMoveMaxJobsPerRun: {
+      type: "number" as const,
+      title: "Retry Failed Log Move Max Jobs Per Run",
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
