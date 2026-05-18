@@ -5,7 +5,6 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
@@ -33,25 +32,11 @@ const getProjectConfig = () => {
       ),
     },
     server: serverConfig,
-    optimizeDeps: {
-      esbuildOptions: {
-        // Node.js global to browser globalThis
-        define: {
-          global: "globalThis",
-        },
-      },
-    },
     build: {
       sourcemap: true,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: ["react", "react-router-dom", "react-dom"],
-          },
-        },
-      },
     },
     resolve: {
+      tsconfigPaths: true,
       alias: {
         // Prevent LG from pulling in SSR dependencies.
         // Can be potentially removed upon the completion of LG-4402.
@@ -70,7 +55,6 @@ const getProjectConfig = () => {
       extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
     },
     plugins: [
-      tsconfigPaths(),
       // Inject env variables
       envCompatible({
         prefix: "REACT_APP_",
