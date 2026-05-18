@@ -188,7 +188,7 @@ const HelpText: React.FC = () => {
       <NoteText>
         Note: Project notifications are <b>merged with repo notifications</b>,
         meaning that users will receive duplicate notifications if the repo and
-        project are both subscribed to the same event.
+        project are subscribed to the same event.
       </NoteText>
     </Description>
   );
