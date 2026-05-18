@@ -67,7 +67,6 @@ describe("sharingMenu", () => {
     expect(screen.getByText("Only search on range")).toBeInTheDocument();
   });
   it("should render an open menu after selecting a start and end line", async () => {
-    const user = userEvent.setup();
     const { hook } = renderSharingMenu();
     act(() => {
       hook.current.handleSelectLine(1, false);
@@ -75,9 +74,8 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    await user.click(screen.getByDataCy("log-link-1"));
     expect(
-      screen.getByText("Copy share link to selected lines"),
+      await screen.findByText("Copy share link to selected lines"),
     ).toBeInTheDocument();
     expect(screen.getByText("Only search on range")).toBeInTheDocument();
   });
@@ -91,8 +89,9 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    await user.click(screen.getByDataCy("log-link-1"));
-    expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Copy selected contents"),
+    ).toBeInTheDocument();
     await user.click(screen.getByText("Copy selected contents"));
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe(
@@ -124,8 +123,9 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    await user.click(screen.getByDataCy("log-link-1"));
-    expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Copy selected contents"),
+    ).toBeInTheDocument();
     await user.click(screen.getByText("Copy selected contents"));
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("line 2\nline 3\nline 4\n");
@@ -155,9 +155,8 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    await user.click(screen.getByDataCy("log-link-1"));
     expect(
-      screen.getByText("Copy share link to selected lines"),
+      await screen.findByText("Copy share link to selected lines"),
     ).toBeInTheDocument();
     await user.click(screen.getByText("Copy share link to selected lines"));
     const clipboardText = await navigator.clipboard.readText();
@@ -173,8 +172,7 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    await user.click(screen.getByDataCy("log-link-1"));
-    expect(screen.getByText("Only search on range")).toBeInTheDocument();
+    expect(await screen.findByText("Only search on range")).toBeInTheDocument();
     await user.click(screen.getByText("Only search on range"));
     expect(router.state.location.search).toBe(
       "?lower=1&selectedLineRange=L1-L3&upper=3",
@@ -189,8 +187,7 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    await user.click(screen.getByDataCy("log-link-1"));
-    expect(screen.getByText("Clear selection")).toBeInTheDocument();
+    expect(await screen.findByText("Clear selection")).toBeInTheDocument();
     await user.click(screen.getByText("Clear selection"));
     expect(hook.current.selectedLines).toStrictEqual({
       endingLine: undefined,
