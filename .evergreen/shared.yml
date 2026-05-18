@@ -119,18 +119,13 @@ functions:
         script: |
           ${PREPARE_SHELL}
 
-          # Install pnpm via standalone script.
-          # PNPM_VERSION should match packageManager field in package.json.
-          curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=10.11.0 PNPM_HOME="$PNPM_HOME" SHELL="$(which bash)" bash -
+          # Download Node.js directly from official releases (with retries).
+          curl --output nodejs.tar.xz --fail --retry 5 --retry-delay 10 "https://nodejs.org/dist/v${node_version}/node-v${node_version}-linux-x64.tar.xz"
+          tar xf nodejs.tar.xz
+          mv "node-v${node_version}-linux-x64" "$NODE_HOME"
 
-          # pnpm env manages Node.js versions directly.
-          # Retry the Node.js installation in case it flakes.
-          for i in {1..5}; do
-            pnpm env use --global ${node_version}
-            [[ $? -eq 0 ]] && break
-            echo "Attempt $i of 5 to install Node failed"
-            sleep 10
-          done
+          # Enable pnpm via corepack (uses packageManager field in package.json).
+          corepack enable pnpm
 
   symlink:
     command: shell.exec
