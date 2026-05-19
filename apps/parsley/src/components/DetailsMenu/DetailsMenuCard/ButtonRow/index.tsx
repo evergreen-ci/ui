@@ -84,7 +84,7 @@ const ButtonRow: React.FC = () => {
                   const filename =
                     fileName ?? (testID ? `${testID}.log` : `${taskID}.log`);
                   downloadFile(rawLogURL, filename);
-                  sendEvent({ name: "Clicked download logs link" });
+                  sendEvent({ name: "Clicked download logs button" });
                 }
               }}
             />

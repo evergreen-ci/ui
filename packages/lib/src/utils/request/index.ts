@@ -33,9 +33,28 @@ export const downloadFile = async (
   filename = "logs",
 ): Promise<void> => {
   const response = await fetch(url, { credentials: "include" });
-  const handle = await window.showSaveFilePicker({ suggestedName: filename });
-  const writable = await handle.createWritable();
-  await response.body!.pipeTo(writable);
+  try {
+    if ("showSaveFilePicker" in window) {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+      });
+      const writable = await handle.createWritable();
+      await response.body!.pipeTo(writable);
+    } else {
+      const blob = await response.blob();
+      const objectURL = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = objectURL;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(objectURL);
+    }
+  } catch (e) {
+    if (e instanceof Error && e.name === "AbortError") {
+      return;
+    }
+    throw e;
+  }
 };
 
 const getErrorMessage = (response: Response, method: string) => {

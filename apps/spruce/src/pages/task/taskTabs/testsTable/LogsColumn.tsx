@@ -102,7 +102,6 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
             });
           }}
           size="xsmall"
-          title="Download log file"
         >
           Download
         </Button>
