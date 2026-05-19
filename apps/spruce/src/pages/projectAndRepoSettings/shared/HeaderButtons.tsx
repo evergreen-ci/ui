@@ -173,9 +173,20 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   if (saveModalOpen) {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+    const afterData = formToGql(formData, isRepo, id) as unknown as JSONObject;
+
+    // afterData includes fields that initialData lacks, so we normalize beforeData to match afterData's shape.
+    const idKey = isRepo ? "repoId" : "projectId";
+    const beforeData = initialData
+      ? {
+          ...(initialData as JSONObject),
+          [idKey]: afterData[idKey],
+          projectRef: { id: afterData[idKey] },
+        }
+      : null;
     diffPayload = {
-      after: formToGql(formData, isRepo, id) as unknown as JSONObject,
-      before: initialData as unknown as JSONObject | null,
+      after: afterData,
+      before: beforeData,
     };
   }
 
