@@ -69,6 +69,7 @@ export const TASK = gql`
         traceID
         type
       }
+      displayOnly
       displayTask {
         id
         displayName
@@ -134,6 +135,16 @@ export const TASK = gql`
         previousStepbackTaskId
       }
       tags
+      taskCost {
+        adjustedEBSStorageCost
+        adjustedEBSThroughputCost
+        adjustedEC2Cost
+        adjustedS3ArtifactPutCost
+        adjustedS3ArtifactStorageCost
+        adjustedS3LogPutCost
+        adjustedS3LogStorageCost
+        total
+      }
       testSelectionEnabled
       timeTaken
       versionMetadata {

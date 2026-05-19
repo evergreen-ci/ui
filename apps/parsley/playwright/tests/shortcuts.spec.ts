@@ -1,12 +1,13 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "@playwright/test";
 
 test.describe("Shortcuts", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/");
+    await expect(page.getByTestId("upload-zone")).toBeVisible();
   });
 
   test("should be able to open the modal using keyboard shortcut", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("shortcut-modal")).toBeHidden();
     await page.keyboard.press("Shift+?");
@@ -14,7 +15,7 @@ test.describe("Shortcuts", () => {
   });
 
   test("should be able to open the keyboard shortcut modal by clicking navbar icon button", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByLabel("Open shortcut modal").click();
     await expect(page.getByTestId("shortcut-modal")).toBeVisible();

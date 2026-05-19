@@ -6,7 +6,7 @@ const taskIdWithResmokeLogs =
 
 test.describe("Job logs page", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
-    await page.goto(`job-logs/${taskIdWithResmokeLogs}/0/job0`);
+    await page.goto(`/job-logs/${taskIdWithResmokeLogs}/0/job0`);
   });
 
   test("renders a table with test links", async ({
@@ -23,7 +23,7 @@ test.describe("Job logs page", () => {
   test("visiting an invalid job logs page shows an error toast", async ({
     authenticatedPage: page,
   }) => {
-    await page.goto(`job-logs/DNE/0/job0`);
+    await page.goto(`/job-logs/DNE/0/job0`);
     await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(0);
     await validateToast(
       page,

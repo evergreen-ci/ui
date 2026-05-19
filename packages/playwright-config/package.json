@@ -6,7 +6,8 @@
   "private": true,
   "exports": {
     ".": "./playwright.config.ts",
-    "./helpers": "./helpers/index.ts"
+    "./helpers": "./helpers/index.ts",
+    "./constants": "./helpers/constants.ts"
   },
   "dependencies": {
     "@playwright/test": "^1.49.1"

@@ -1,6 +1,5 @@
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  MockedProvider,
   RenderWithRouterMatchOptions,
   renderWithRouterMatch,
   screen,
@@ -8,7 +7,6 @@ import {
 import { WordWrapFormat } from "constants/enums";
 import { LogContextProvider } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import AnsiRow from ".";
 
 type RenderRowOptions = {
@@ -26,13 +24,11 @@ const renderRow = (
   renderWithRouterMatch(<AnsiRow {...props} />, {
     ...options.routerOptions,
     wrapper: ({ children }: { children: React.ReactNode }) => (
-      <MockedProvider mocks={[parsleySettingsMock]}>
-        <LogContextProvider initialLogLines={logLines}>
-          <MultiLineSelectContextProvider>
-            {children}
-          </MultiLineSelectContextProvider>
-        </LogContextProvider>
-      </MockedProvider>
+      <LogContextProvider initialLogLines={logLines}>
+        <MultiLineSelectContextProvider>
+          {children}
+        </MultiLineSelectContextProvider>
+      </LogContextProvider>
     ),
   });
 

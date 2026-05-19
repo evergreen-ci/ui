@@ -1,19 +1,15 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "@playwright/test";
 
 const logLink =
   "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
 
 test.describe("Parsley AI", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(logLink);
+    await expect(page.getByTestId("ansi-row")).not.toHaveCount(0);
   });
 
-  test("opens the AI drawer and logs in", async ({
-    authenticatedPage: page,
-  }) => {
-    await page.locator("[data-cy^='log-row-']").first().waitFor();
-    expect(await page.getByTestId("ansi-row").count()).toBeGreaterThan(0);
-
+  test("opens the AI drawer and logs in", async ({ page }) => {
     const parsleyAIButton = page.getByRole("button", {
       name: "Parsley AI",
     });

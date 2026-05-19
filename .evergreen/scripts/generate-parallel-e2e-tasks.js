@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
-import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, PLAYWRIGHT_PARALLEL_COUNT, Tasks } from "./constants.js"
+import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, E2E_PARALLEL_COUNT, Tasks } from "./constants.js"
 import { hasChangesInDirectoryOrFile } from "./git-utils.js";
 
 const ALWAYS_GENERATE_TASKS_REQUESTERS = ["trigger", "patch", "commit"];
@@ -57,14 +57,21 @@ const getPlaywrightDirSizes = (dirPath) => {
   const makeRelative = (d) => d.substring(d.indexOf("playwright"));
 
   const dirSizeMap = {};
-  const dirs = getDirs(dirPath);
 
-  dirs.forEach((dir) => {
-    const size = getDirSize(dir);
-    dirSizeMap[`${makeRelative(dir)}/*.spec.ts`] = size;
-  });
-  // Specifically add root tests with no wildcard directory regex
-  dirSizeMap[`${makeRelative(dirPath)}/*.spec.ts`] = getDirSize(dirPath, false);
+  const collectDirSizes = (currentPath, isRoot) => {
+    const dirs = getDirs(currentPath);
+    const dirSize = getDirSize(currentPath, false);
+    // Add an entry for specs directly in this directory (always for root, only when non-empty for subdirs)
+    if (isRoot || dirSize > 0) {
+      dirSizeMap[`${makeRelative(currentPath)}/*.spec.ts`] = dirSize;
+    }
+    // Recurse into subdirectories.
+    dirs.forEach((dir) => {
+      collectDirSizes(dir, false);
+    });
+  };
+
+  collectDirSizes(dirPath, true);
   return dirSizeMap;
 };
 
@@ -101,7 +108,7 @@ const bucketSpecs = (specs, bucketCount) => {
 export const getSpecs = (dirPath) => {
   const dirSizes = getPlaywrightDirSizes(dirPath);
   const sorted = sortDirSizes(dirSizes);
-  const buckets = bucketSpecs(sorted, PLAYWRIGHT_PARALLEL_COUNT);
+  const buckets = bucketSpecs(sorted, E2E_PARALLEL_COUNT);
   // Playwright uses space-separated specs
   return buckets.map((specs) => specs.join(" "));
 };

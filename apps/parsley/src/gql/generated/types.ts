@@ -687,7 +687,7 @@ export type Cost = {
   adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
-  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  childPatchesTotalCost?: Maybe<Scalars["Float"]["output"]>;
   /** Sum of adjusted cost components; excludes on-demand components. */
   total?: Maybe<Scalars["Float"]["output"]>;
 };
@@ -1966,7 +1966,7 @@ export type Mutation = {
   moveAnnotationIssue: Scalars["Boolean"]["output"];
   overrideTaskDependencies: Task;
   promoteVarsToRepo: Scalars["Boolean"]["output"];
-  quarantineTest: QuarantineTestPayload;
+  quarantineTest: TestResult;
   refreshGitHubStatuses?: Maybe<RefreshGitHubStatusesPayload>;
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
@@ -1997,6 +1997,7 @@ export type Mutation = {
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
+  unquarantineTest: TestResult;
   unscheduleTask: Task;
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateBetaFeatures?: Maybe<UpdateBetaFeaturesPayload>;
@@ -2256,6 +2257,10 @@ export type MutationSpawnHostArgs = {
 
 export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
+};
+
+export type MutationUnquarantineTestArgs = {
+  opts: UnquarantineTestInput;
 };
 
 export type MutationUnscheduleTaskArgs = {
@@ -3055,7 +3060,6 @@ export enum ProjectSettingsSection {
   Access = "ACCESS",
   CommitChecks = "COMMIT_CHECKS",
   General = "GENERAL",
-  GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   GithubAppSettings = "GITHUB_APP_SETTINGS",
   GithubPermissions = "GITHUB_PERMISSIONS",
   GitTags = "GIT_TAGS",
@@ -3131,11 +3135,6 @@ export type QuarantineTestInput = {
   testName: Scalars["String"]["input"];
 };
 
-export type QuarantineTestPayload = {
-  __typename?: "QuarantineTestPayload";
-  success: Scalars["Boolean"]["output"];
-};
-
 export type Query = {
   __typename?: "Query";
   adminEvents: AdminEventsPayload;
@@ -3178,6 +3177,7 @@ export type Query = {
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   taskHistory: TaskHistory;
+  taskHistoryByCreateTime: TaskHistoryByCreateTime;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
@@ -3312,6 +3312,10 @@ export type QueryTaskAllExecutionsArgs = {
 };
 
 export type QueryTaskHistoryArgs = {
+  options: TaskHistoryOpts;
+};
+
+export type QueryTaskHistoryByCreateTimeArgs = {
   options: TaskHistoryOpts;
 };
 
@@ -4121,6 +4125,7 @@ export type Task = {
   imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
+  isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
@@ -4262,6 +4267,18 @@ export type TaskHistory = {
   __typename?: "TaskHistory";
   pagination: TaskHistoryPagination;
   tasks: Array<Task>;
+};
+
+export type TaskHistoryByCreateTime = {
+  __typename?: "TaskHistoryByCreateTime";
+  pagination: TaskHistoryByCreateTimePagination;
+  tasks: Array<Task>;
+};
+
+export type TaskHistoryByCreateTimePagination = {
+  __typename?: "TaskHistoryByCreateTimePagination";
+  mostRecentTaskCreateTime: Scalars["Time"]["output"];
+  oldestTaskCreateTime: Scalars["Time"]["output"];
 };
 
 export enum TaskHistoryDirection {
@@ -4492,6 +4509,7 @@ export type TestFilterOptions = {
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
+  logsToMerge?: Maybe<Array<Scalars["String"]["output"]>>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
   testName?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
@@ -4509,6 +4527,7 @@ export type TestResult = {
   exitCode?: Maybe<Scalars["Int"]["output"]>;
   groupID?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
+  isManuallyQuarantined: Scalars["Boolean"]["output"];
   logs: TestLog;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
@@ -4662,6 +4681,11 @@ export type UiConfigInput = {
   uiv2Url: Scalars["String"]["input"];
   url: Scalars["String"]["input"];
   userVoice: Scalars["String"]["input"];
+};
+
+export type UnquarantineTestInput = {
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
 };
 
 export type UpdateBetaFeaturesInput = {
@@ -4904,6 +4928,7 @@ export type VersionLite = {
   __typename?: "VersionLite";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   branch: Scalars["String"]["output"];
+  childVersions?: Maybe<Array<VersionLite>>;
   cost?: Maybe<Cost>;
   createTime: Scalars["Time"]["output"];
   errors: Array<Scalars["String"]["output"]>;
@@ -5107,22 +5132,6 @@ export type BaseTaskFragment = {
   };
 };
 
-export type UpdateParsleySettingsMutationVariables = Exact<{
-  opts: UpdateParsleySettingsInput;
-}>;
-
-export type UpdateParsleySettingsMutation = {
-  __typename?: "Mutation";
-  updateParsleySettings?: {
-    __typename?: "UpdateParsleySettingsPayload";
-    parsleySettings?: {
-      __typename?: "ParsleySettings";
-      jumpToFailingLineEnabled: boolean;
-      sectionsEnabled: boolean;
-    } | null;
-  } | null;
-};
-
 export type TaskQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -5183,6 +5192,7 @@ export type TestLogUrlAndRenderingTypeQuery = {
         testFile: string;
         logs: {
           __typename?: "TestLog";
+          logsToMerge?: Array<string> | null;
           renderingType?: string | null;
           url?: string | null;
           urlRaw?: string | null;
@@ -5198,21 +5208,6 @@ export type UserQueryVariables = Exact<{ [key: string]: never }>;
 export type UserQuery = {
   __typename?: "Query";
   user: { __typename?: "User"; userId: string };
-};
-
-export type ParsleySettingsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type ParsleySettingsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    parsleySettings?: {
-      __typename?: "ParsleySettings";
-      jumpToFailingLineEnabled: boolean;
-      sectionsEnabled: boolean;
-    } | null;
-  };
 };
 
 export type ProjectFiltersQueryVariables = Exact<{

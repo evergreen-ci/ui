@@ -389,6 +389,14 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Failed Tasks Log Bucket",
     },
+    retryFailedLogMoveLookbackMonths: {
+      type: "number" as const,
+      title: "Retry Failed Log Move Lookback Months",
+    },
+    retryFailedLogMoveMaxJobsPerRun: {
+      type: "number" as const,
+      title: "Retry Failed Log Move Max Jobs Per Run",
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
@@ -437,9 +445,11 @@ export const sshPairs = {
     "ui:data-cy": "ssh-pairs",
     "ui:objectFieldCss": objectGridCss,
     taskHostKey: {
+      "ui:data-cy": "task-host-key",
       "ui:fieldCss": nestedObjectGridCss,
     },
     spawnHostKey: {
+      "ui:data-cy": "spawn-host-key",
       "ui:fieldCss": nestedObjectGridCss,
     },
   },
@@ -476,6 +486,7 @@ export const expansions = {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
+        "ui:data-cy": "expansion-item",
         value: {
           "ui:widget": "textarea",
         },
@@ -574,6 +585,7 @@ export const jiraNotificationsFields = {
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
+        "ui:data-cy": "jira-custom-field-item",
         fields: {
           "ui:addButtonText": "Add custom field",
           "ui:placeholder": "No custom fields defined.",
@@ -733,6 +745,9 @@ export const projectCreationSettings = {
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
+      items: {
+        "ui:data-cy": "repo-exception-item",
+      },
     },
   },
 };

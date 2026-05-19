@@ -213,10 +213,14 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
         </Label>
       </ToggleWrapper>
       {descriptionNode ||
-        (description && <Description>{description}</Description>)}
+        (description && <ToggleDescription>{description}</ToggleDescription>)}
     </ElementWrapper>
   );
 };
+
+const ToggleDescription = styled(Description)`
+  margin-top: ${size.xxs};
+`;
 
 const ToggleWrapper = styled.div`
   align-items: center;
@@ -225,7 +229,12 @@ const ToggleWrapper = styled.div`
 `;
 
 export const LeafyGreenSelect: React.FC<
-  { options: { allowDeselect?: boolean } } & EnumSpruceWidgetProps
+  {
+    options: {
+      allowDeselect?: boolean;
+      optionsLabelMap?: Record<string, React.ReactNode>;
+    };
+  } & EnumSpruceWidgetProps
 > = ({
   disabled,
   label,
@@ -244,6 +253,7 @@ export const LeafyGreenSelect: React.FC<
     elementWrapperCSS,
     enumDisabled,
     enumOptions,
+    optionsLabelMap,
     sizeVariant,
   } = options;
   const { hasError } = processErrors(rawErrors);
@@ -275,7 +285,7 @@ export const LeafyGreenSelect: React.FC<
             (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
           return (
             <Option key={o.value} disabled={optionDisabled} value={o.value}>
-              {o.label}
+              {optionsLabelMap ? optionsLabelMap[o.value] : o.label}
             </Option>
           );
         })}

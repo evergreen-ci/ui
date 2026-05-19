@@ -1,6 +1,9 @@
+import styled from "@emotion/styled";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { LGColumnDef } from "@leafygreen-ui/table";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import { WordBreak } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { testStatusesFilterTreeData } from "constants/test";
 import { TestSortCategory, TaskQuery, TestResult } from "gql/generated/types";
 import { string } from "utils";
@@ -20,7 +23,16 @@ export const getColumnsTemplate = ({
     header: "Name",
     accessorKey: "testFile",
     id: TestSortCategory.TestName,
-    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
+    cell: ({ getValue, row }) => (
+      <NameCell>
+        <WordBreak>{getValue() as string}</WordBreak>
+        {row.original.isManuallyQuarantined && (
+          <Badge data-cy="quarantined-badge" variant={Variant.Yellow}>
+            Quarantined
+          </Badge>
+        )}
+      </NameCell>
+    ),
     enableColumnFilter: true,
     enableSorting: true,
     meta: {
@@ -91,3 +103,9 @@ export const getColumnsTemplate = ({
     },
   },
 ];
+
+const NameCell = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xs};
+`;

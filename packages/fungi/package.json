@@ -20,11 +20,14 @@
   "dependencies": {
     "@ai-sdk/react": "^3.0.0",
     "@emotion/styled": "11.14.1",
+    "@leafygreen-ui/badge": "^10.2.4",
     "@leafygreen-ui/button": "^25.2.1",
+    "@leafygreen-ui/code": "^20.2.7",
     "@leafygreen-ui/drawer": "^5.2.1",
     "@leafygreen-ui/icon-button": "^17.1.4",
     "@leafygreen-ui/palette": "^5.0.2",
     "@leafygreen-ui/tokens": "^4.0.0",
+    "@leafygreen-ui/typography": "^22.2.4",
     "@lg-chat/chat-window": "^6.0.0",
     "@lg-chat/input-bar": "^12.2.0",
     "@lg-chat/leafygreen-chat-provider": "^6.0.0",
@@ -33,7 +36,7 @@
     "@lg-chat/message-prompts": "^4.2.0",
     "@lg-chat/message-rating": "^7.1.0",
     "@lg-chat/rich-links": "^4.0.7",
-    "ai": "^6.0.0",
+    "ai": "^6.0.168",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "zod": "^4.1.11"
@@ -57,7 +60,7 @@
     "prettier": "3.7.4",
     "storybook": "^10.1.10",
     "storybook-addon-apollo-client": "^10.0.0",
-    "typescript": "~5.9.3",
+    "typescript": "~6.0.2",
     "vite-tsconfig-paths": "^6.0.2",
     "vitest": "^3.2.4",
     "vitest-canvas-mock": "1.1.3"

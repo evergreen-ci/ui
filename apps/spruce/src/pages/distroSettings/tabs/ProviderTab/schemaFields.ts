@@ -1,4 +1,7 @@
+import { css } from "@emotion/react";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import widgets from "components/SpruceForm/Widgets";
 import { textAreaCSS, mergeCheckboxCSS, indentCSS } from "./styles";
 import { BuildType } from "./types";
 
@@ -57,12 +60,15 @@ const securityGroups = {
       title: "Security Group ID",
       default: "",
       minLength: 1,
-      pattern: "^sg-.*",
+      pattern: "^(s|sg|sg-.*)?$",
     },
   },
   uiSchema: {
     "ui:addButtonText": "Add security group",
     "ui:orderable": false,
+    items: {
+      "ui:placeholder": "e.g. sg-xxxx",
+    },
   },
 };
 
@@ -178,9 +184,13 @@ const instanceProfileARN = {
   schema: {
     type: "string" as const,
     title: "IAM Instance Profile ARN",
+    default: "",
+    pattern: "^(a|ar|arn|arn:.*)?$",
   },
   uiSchema: {
     "ui:description": "The Amazon Resource Name (ARN) of the instance profile.",
+    "ui:placeholder":
+      "e.g. arn:aws:iam::123456789012:instance-profile/MyProfile",
   },
 };
 
@@ -392,4 +402,72 @@ export const ec2ProviderAccountField = {
   type: "string" as const,
   title: "Provider Account",
   default: "",
+};
+
+export const taskHostOverridesFields = {
+  schema: {
+    type: "object" as const,
+    title: "Task Host Overrides",
+    properties: {
+      enableTaskHostOverrides: {
+        type: "boolean" as const,
+        title: "Enable task host overrides",
+        default: false,
+      },
+    },
+    dependencies: {
+      enableTaskHostOverrides: {
+        oneOf: [
+          {
+            properties: {
+              enableTaskHostOverrides: {
+                enum: [false],
+              },
+            },
+          },
+          {
+            properties: {
+              enableTaskHostOverrides: {
+                enum: [true],
+              },
+              providerAccount: ec2ProviderAccountField,
+              iamInstanceProfileArn: instanceProfileARN.schema,
+              subnetId: {
+                type: "string" as const,
+                title: "Subnet ID",
+                default: "",
+                pattern: "^(s|su|sub|subn|subne|subnet|subnet-.*)?$",
+              },
+              securityGroupIds: securityGroups.schema,
+              doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.schema,
+            },
+          },
+        ],
+      },
+    },
+  },
+  uiSchema: {
+    enableTaskHostOverrides: {
+      "ui:data-cy": "enable-task-host-overrides",
+      "ui:description":
+        "When enabled, the values below replace the distro's provider settings for task hosts. Empty values override the distro's settings rather than falling back to them. To remove the overrides, toggle off and save.",
+      "ui:elementWrapperCSS": css`
+        &:last-child {
+          margin-bottom: 0;
+        }
+      `,
+      "ui:widget": widgets.ToggleWidget,
+    },
+    providerAccount: {
+      "ui:elementWrapperCSS": css`
+        margin-top: ${size.s};
+      `,
+    },
+    iamInstanceProfileArn: instanceProfileARN.uiSchema,
+    subnetId: {
+      "ui:placeholder": "e.g. subnet-xxxx",
+    },
+    securityGroupIds: securityGroups.uiSchema,
+    doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.uiSchema,
+  },
 };

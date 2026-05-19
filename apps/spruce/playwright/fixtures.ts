@@ -6,9 +6,9 @@ import {
   SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
   SEEN_TASK_REVIEW_TOOLTIP,
   SEEN_TEST_SELECTION_GUIDE_CUE,
+  SEEN_GITHUB_NAV_GUIDE_CUE,
 } from "constants/cookies";
 import * as helpers from "./helpers";
-import { hasOperationName } from "./utils";
 
 const bannerCookie = "This is an important notification";
 const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
@@ -32,7 +32,7 @@ export const test = base.extend<CustomFixtures>({
           mutationDispatched = true;
           // Check if this is a host mutation that requires Amboy DB cleanup.
           hostMutations.forEach((m) => {
-            if (hasOperationName(postData, m)) {
+            if (helpers.hasOperationName(postData, m)) {
               clearAmboyDB = true;
             }
           });
@@ -81,6 +81,12 @@ export const test = base.extend<CustomFixtures>({
       },
       {
         name: SEEN_TEST_SELECTION_GUIDE_CUE,
+        value: "true",
+        domain: "localhost",
+        path: "/",
+      },
+      {
+        name: SEEN_GITHUB_NAV_GUIDE_CUE,
         value: "true",
         domain: "localhost",
         path: "/",
