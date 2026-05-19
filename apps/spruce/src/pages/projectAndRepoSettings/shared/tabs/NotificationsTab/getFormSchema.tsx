@@ -195,8 +195,11 @@ const HelpText: React.FC<HelpTextProps> = ({ isAttachedToRepo }) => {
       )}
       {isAttachedToRepo && (
         <NoteText>
-          Note: Project notifications are <b>merged with repo notifications</b>,
-          meaning that users will receive duplicate notifications if the repo
+          Project notifications are{" "}
+          <i>
+            <b>merged with repo notifications</b>
+          </i>
+          , meaning that users will receive duplicate notifications if the repo
           and project are subscribed to the same event.
         </NoteText>
       )}
@@ -206,5 +209,4 @@ const HelpText: React.FC<HelpTextProps> = ({ isAttachedToRepo }) => {
 
 const NoteText = styled.div`
   margin-top: ${size.xxs};
-  font-style: italic;
 `;
