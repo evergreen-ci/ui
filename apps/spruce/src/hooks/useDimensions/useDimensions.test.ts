@@ -10,7 +10,7 @@ describe("useDimensions", () => {
   beforeEach(() => {
     window.requestAnimationFrame = vi.fn((cb) => cb());
     disconnectSpy = vi.fn();
-    window.ResizeObserver = vi.fn().mockImplementation((l) => {
+    window.ResizeObserver = vi.fn().mockImplementation(function (l) {
       listener = l;
       return {
         observe: () => {},

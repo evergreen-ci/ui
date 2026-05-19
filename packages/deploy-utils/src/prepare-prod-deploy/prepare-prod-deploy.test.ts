@@ -30,6 +30,7 @@ describe("prepareProdDeploy", () => {
   beforeEach(() => {});
 
   afterEach(() => {
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 

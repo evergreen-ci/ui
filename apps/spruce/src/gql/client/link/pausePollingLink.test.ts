@@ -1,7 +1,15 @@
 import { ApolloLink, execute, gql, ApolloClient } from "@apollo/client";
 import { Observable } from "@apollo/client/utilities";
 import { waitFor } from "@testing-library/react";
-import { describe, it, beforeEach, afterEach, vi, expect } from "vitest";
+import {
+  describe,
+  it,
+  beforeEach,
+  afterEach,
+  vi,
+  expect,
+  MockedFunction,
+} from "vitest";
 import { pausePollingLink } from ".";
 
 const GET_WATERFALL = gql`
@@ -15,7 +23,7 @@ const GET_WATERFALL = gql`
 
 describe("pausePollingLink", () => {
   let mockHttpLink: ApolloLink;
-  let mockForward: ReturnType<typeof vi.fn>;
+  let mockForward: MockedFunction<ApolloLink.RequestHandler>;
   let documentHiddenSpy: ReturnType<typeof vi.spyOn>;
   let navigatorOnlineSpy: ReturnType<typeof vi.spyOn>;
   let mockClient: ApolloClient;

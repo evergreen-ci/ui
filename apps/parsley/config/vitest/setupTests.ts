@@ -29,21 +29,24 @@ if (process.env.CI) {
 // https://github.com/testing-library/react-testing-library/issues/1197
 globalThis.jest = vi;
 
-// LeafyGreen tables require an IntersectionObserver.
 beforeEach(() => {
-  const mockIntersectionObserver = vi.fn();
-  mockIntersectionObserver.mockReturnValue({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
+  // LeafyGreen tables require an IntersectionObserver.
+  const mockIntersectionObserver = vi.fn(function () {
+    return {
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    };
   });
   vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
 
-  const mockResizeObserver = vi.fn(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }));
+  const mockResizeObserver = vi.fn(function () {
+    return {
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    };
+  });
   vi.stubGlobal("ResizeObserver", mockResizeObserver);
 
   // LeafyGreen modals require stubbing dialog

@@ -33,11 +33,6 @@ vi.mock("utils/environmentVariables", () => ({
   isProductionBuild: vi.fn() as MockedFunction<typeof isProductionBuild>,
 }));
 
-const apolloClientSpy = vi.spyOn(
-  ApolloClient.prototype,
-  "constructor" as never,
-);
-
 describe("useCreateGQLClient", () => {
   let mockLogoutAndRedirect: Mock;
   let mockDispatchAuthenticated: Mock;
@@ -50,7 +45,6 @@ describe("useCreateGQLClient", () => {
       dispatchAuthenticated: mockDispatchAuthenticated,
     });
 
-    apolloClientSpy.mockClear();
     vi.clearAllMocks();
   });
 

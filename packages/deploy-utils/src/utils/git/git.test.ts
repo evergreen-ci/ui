@@ -39,6 +39,7 @@ vi.mock("https", () => ({
 
 describe("getRemotePreviousCommit", () => {
   afterEach(() => {
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 
@@ -59,6 +60,7 @@ describe("getRemotePreviousCommit", () => {
 
 describe("getCurrentlyDeployedCommit", () => {
   afterEach(() => {
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 

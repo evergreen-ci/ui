@@ -17,6 +17,7 @@ vi.mock("../utils/s3", () => ({
 
 describe("buildAndPush", () => {
   afterEach(() => {
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 

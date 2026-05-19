@@ -16,15 +16,25 @@ window.crypto.randomUUID = (() => {
 // https://github.com/testing-library/react-testing-library/issues/1197
 globalThis.jest = vi;
 
-// LeafyGreen tables require an IntersectionObserver.
 beforeEach(() => {
-  const mockIntersectionObserver = vi.fn();
-  mockIntersectionObserver.mockReturnValue({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
+  // LeafyGreen tables require an IntersectionObserver.
+  const mockIntersectionObserver = vi.fn(function () {
+    return {
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    };
   });
   vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
+
+  const mockResizeObserver = vi.fn(function () {
+    return {
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    };
+  });
+  vi.stubGlobal("ResizeObserver", mockResizeObserver);
 
   // LeafyGreen modals require stubbing dialog
   // https://github.com/mongodb/leafygreen-ui/blob/22b4d8200b132f24b4cd1a7e4d99b0372ed6fd58/packages/modal/src/utils/getTestUtils.spec.tsx#L36-L54

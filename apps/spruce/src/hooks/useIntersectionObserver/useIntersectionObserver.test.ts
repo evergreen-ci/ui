@@ -3,7 +3,7 @@ import useIntersectionObserver from ".";
 
 describe("useIntersectionObserver", () => {
   it("should call the callback when the element is not intersecting", () => {
-    const mockIntersectionObserver = vi.fn((callback) => {
+    const mockIntersectionObserver = vi.fn(function (callback) {
       callback([
         {
           isIntersecting: false,
@@ -29,7 +29,7 @@ describe("useIntersectionObserver", () => {
     expect(mockCallback).toHaveBeenCalledWith([{ isIntersecting: false }]);
   });
   it("should call the callback when the element is intersecting", () => {
-    const mockIntersectionObserver = vi.fn((callback) => {
+    const mockIntersectionObserver = vi.fn(function (callback) {
       callback([
         {
           isIntersecting: true,
