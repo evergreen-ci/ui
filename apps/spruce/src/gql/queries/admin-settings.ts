@@ -103,6 +103,8 @@ export const ADMIN_SETTINGS = gql`
           name
         }
         longRetentionProjects
+        retryFailedLogMoveLookbackMonths
+        retryFailedLogMoveMaxJobsPerRun
         testResultsBucket {
           name
           roleARN
