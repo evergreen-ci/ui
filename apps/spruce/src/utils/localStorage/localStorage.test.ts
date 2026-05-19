@@ -12,7 +12,7 @@ describe("getObject", () => {
 
   it("catches error and returns empty object when fetching malformed object", () => {
     localStorage.setItem("invalid", "{");
-    expect(() => getObject("invalid")).not.toThrowError();
+    expect(() => getObject("invalid")).not.toThrow();
     expect(getObject("invalid")).toMatchObject({});
   });
 
