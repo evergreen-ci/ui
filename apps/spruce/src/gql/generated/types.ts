@@ -7663,6 +7663,8 @@ export type AdminSettingsQuery = {
     buckets?: {
       __typename?: "BucketsConfig";
       longRetentionProjects?: Array<string> | null;
+      retryFailedLogMoveLookbackMonths?: number | null;
+      retryFailedLogMoveMaxJobsPerRun?: number | null;
       credentials?: {
         __typename?: "S3Credentials";
         key?: string | null;
