@@ -52,9 +52,9 @@ describe("getRemotePreviousCommit", () => {
   it("handles a rejection", async () => {
     vi.mocked(get).mockImplementation(errorMock);
 
-    await expect(async () =>
-      getRemotePreviousCommit("spruce"),
-    ).rejects.toThrowError("invalid");
+    await expect(async () => getRemotePreviousCommit("spruce")).rejects.toThrow(
+      "invalid",
+    );
   });
 });
 
@@ -82,6 +82,6 @@ describe("getCurrentlyDeployedCommit", () => {
     vi.mocked(get).mockImplementation(errorMock);
     await expect(async () =>
       getCurrentlyDeployedCommit("spruce"),
-    ).rejects.toThrowError("No valid commit found");
+    ).rejects.toThrow("No valid commit found");
   });
 });
