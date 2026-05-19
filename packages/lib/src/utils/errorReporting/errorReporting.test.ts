@@ -28,6 +28,7 @@ describe("error reporting", () => {
     afterEach(() => {
       vi.unstubAllEnvs();
       vi.restoreAllMocks();
+      vi.resetAllMocks();
     });
 
     it("should log errors into console when sentry has not been initialized", () => {

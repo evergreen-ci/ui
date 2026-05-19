@@ -10,6 +10,7 @@ export default defineConfig({
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
+    include: ["src/**/*.test.{ts,tsx}"],
   },
   plugins: [tsconfigPaths(), react()],
   resolve: {
