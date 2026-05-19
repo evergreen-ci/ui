@@ -138,7 +138,11 @@ export const getFormSchema = (
       }),
       subscriptions: {
         "ui:placeholder": "No subscriptions are defined.",
-        "ui:descriptionNode": <HelpText />,
+        "ui:descriptionNode": (
+          <HelpText
+            isAttachedToRepo={projectType === ProjectType.AttachedProject}
+          />
+        ),
         "ui:addButtonText": "Add subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
@@ -172,7 +176,11 @@ export const getFormSchema = (
   };
 };
 
-const HelpText: React.FC = () => {
+interface HelpTextProps {
+  isAttachedToRepo: boolean;
+}
+
+const HelpText: React.FC<HelpTextProps> = ({ isAttachedToRepo }) => {
   const spruceConfig = useSpruceConfig();
   const slackName = spruceConfig?.slack?.name;
 
@@ -185,11 +193,13 @@ const HelpText: React.FC = () => {
           <InlineCode>invite {slackName}</InlineCode> in the channel.
         </>
       )}
-      <NoteText>
-        Note: Project notifications are <b>merged with repo notifications</b>,
-        meaning that users will receive duplicate notifications if the repo and
-        project are subscribed to the same event.
-      </NoteText>
+      {isAttachedToRepo && (
+        <NoteText>
+          Note: Project notifications are <b>merged with repo notifications</b>,
+          meaning that users will receive duplicate notifications if the repo
+          and project are subscribed to the same event.
+        </NoteText>
+      )}
     </Description>
   );
 };
