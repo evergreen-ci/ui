@@ -14,9 +14,9 @@
     "playwright.config.ts",
   ],
   "include": [
+    "../../packages/lib/vitest.d.ts",
     "src",
     "scripts",
-    "config/vitest/setupTests.ts",
     "src/**/*.d.ts",
     "./.storybook/preview.tsx"
   ],
