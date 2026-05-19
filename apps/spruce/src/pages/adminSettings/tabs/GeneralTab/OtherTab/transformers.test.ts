@@ -367,6 +367,8 @@ const expectedGql: AdminSettingsInput = {
       name: "logBucketLongRetention",
     },
     longRetentionProjects: ["project1", "project2"],
+    retryFailedLogMoveLookbackMonths: undefined,
+    retryFailedLogMoveMaxJobsPerRun: undefined,
     testResultsBucket: {
       name: "evergreen-test-results",
       testResultsPrefix: "results/",
