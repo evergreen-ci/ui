@@ -1,4 +1,6 @@
+import styled from "@emotion/styled";
 import { InlineCode, Description } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { bannerThemeToLabelMap } from "components/Banners";
 import {
   getEventSchema,
@@ -29,6 +31,26 @@ export const getFormSchema = (
   return {
     fields: {},
     schema: {
+      definitions: {
+        subscriptionArray: {
+          title: "Subscriptions",
+          type: "array" as const,
+          default: [],
+          items: {
+            type: "object" as const,
+            properties: {
+              subscriptionData: {
+                type: "object" as const,
+                title: "",
+                properties: {
+                  event: eventSchema,
+                  notification: notificationSchema,
+                },
+              },
+            },
+          },
+        },
+      },
       type: "object" as const,
       properties: {
         buildBreakSettings: {
@@ -75,23 +97,16 @@ export const getFormSchema = (
             },
           },
         }),
-        subscriptions: {
-          type: "array" as const,
-          title: "Subscriptions",
-          items: {
+        subscriptions: { $ref: "#/definitions/subscriptionArray" },
+        ...(projectType === ProjectType.AttachedProject && {
+          repoData: {
             type: "object" as const,
+            title: "Repo Subscriptions",
             properties: {
-              subscriptionData: {
-                type: "object" as const,
-                title: "",
-                properties: {
-                  event: eventSchema,
-                  notification: notificationSchema,
-                },
-              },
+              subscriptions: { $ref: "#/definitions/subscriptionArray" },
             },
           },
-        },
+        }),
       },
     },
     uiSchema: {
@@ -123,7 +138,11 @@ export const getFormSchema = (
       }),
       subscriptions: {
         "ui:placeholder": "No subscriptions are defined.",
-        "ui:descriptionNode": <HelpText />,
+        "ui:descriptionNode": (
+          <HelpText
+            isAttachedToRepo={projectType === ProjectType.AttachedProject}
+          />
+        ),
         "ui:addButtonText": "Add subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
@@ -136,23 +155,58 @@ export const getFormSchema = (
           },
         },
       },
+      repoData: {
+        subscriptions: {
+          "ui:placeholder": "Repo has no subscriptions defined.",
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:readonly": true,
+          "ui:showLabel": false,
+          "ui:useExpandableCard": true,
+          items: {
+            "ui:label": false,
+            subscriptionData: {
+              event: eventUiSchema,
+              notification: notificationUiSchema,
+            },
+          },
+        },
+      },
     },
   };
 };
 
-const HelpText: React.FC = () => {
+interface HelpTextProps {
+  isAttachedToRepo: boolean;
+}
+
+const HelpText: React.FC<HelpTextProps> = ({ isAttachedToRepo }) => {
   const spruceConfig = useSpruceConfig();
   const slackName = spruceConfig?.slack?.name;
 
   return (
     <Description>
-      Private slack channels may require further Slack configuration.
+      Private Slack channels may require further Slack configuration.{" "}
       {slackName && (
-        <div>
+        <>
           Invite evergreen to your private Slack channels by running{" "}
           <InlineCode>invite {slackName}</InlineCode> in the channel.
-        </div>
+        </>
+      )}
+      {isAttachedToRepo && (
+        <NoteText>
+          Project notifications are{" "}
+          <i>
+            <b>merged with repo notifications</b>
+          </i>
+          , meaning that users will receive duplicate notifications if the repo
+          and project are subscribed to the same event.
+        </NoteText>
       )}
     </Description>
   );
 };
+
+const NoteText = styled.div`
+  margin-top: ${size.xxs};
+`;
