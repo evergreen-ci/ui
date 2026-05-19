@@ -3,11 +3,13 @@ import { useQuery } from "@apollo/client/react";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate } from "react-router-dom";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { getHoneycombHistoryUrl } from "constants/externalResources/honeycomb";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import {
   TaskPerfPluginEnabledQuery,
@@ -45,6 +47,7 @@ const useTabConfig = (
   const {
     annotation,
     baseTask,
+    buildVariant,
     canModifyAnnotation,
     displayName,
     displayStatus,
@@ -53,10 +56,13 @@ const useTabConfig = (
     files,
     id,
     logs: logLinks,
+    project,
+    requester,
     versionMetadata,
   } = task;
   const baseTaskId = baseTask?.id || "";
   const { fileCount } = files ?? {};
+  const { id: projectId } = project || {};
 
   const { showBuildBaron } = useBuildBaronVariables({
     task: {
@@ -170,7 +176,26 @@ const useTabConfig = (
         name="History"
         {...walkthroughHistoryTabProps}
       >
-        <TaskHistory baseTaskId={baseTaskId} task={task} />
+        {baseTaskId ? (
+          <TaskHistory baseTaskId={baseTaskId} task={task} />
+        ) : (
+          <>
+            Evergreen cannot show history for this task because there is no
+            corresponding base task. Try viewing the{" "}
+            <StyledLink
+              href={getHoneycombHistoryUrl({
+                bvName: buildVariant,
+                projectId: projectId ?? "",
+                taskName: displayName,
+                requester,
+                isDisplayTask,
+              })}
+            >
+              history in Honeycomb
+            </StyledLink>{" "}
+            instead.
+          </>
+        )}
       </Tab>
     ),
     [TaskTab.ExecutionTasksTiming]: (
