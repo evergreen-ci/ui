@@ -1,4 +1,4 @@
-import { roundDecimal, cryptoRandom, roundMax } from ".";
+import { roundDecimal, cryptoRandom, roundMax, formatCost } from ".";
 
 describe("roundDecimal", () => {
   it("correctly rounds a decimal to the specified number of places", () => {
@@ -17,6 +17,21 @@ describe("cryptoRandom", () => {
     const randomNumber = cryptoRandom();
     expect(randomNumber).toBeGreaterThanOrEqual(0);
     expect(randomNumber).toBeLessThan(1);
+  });
+});
+
+describe("formatCost", () => {
+  it("PreservesTrailingZero", () => {
+    expect(formatCost(0.1)).toBe("0.10");
+  });
+  it("PadsWholeNumberToTwoDecimalPlaces", () => {
+    expect(formatCost(5)).toBe("5.00");
+  });
+  it("LeavesValueWithTwoDecimalsUnchanged", () => {
+    expect(formatCost(0.52)).toBe("0.52");
+  });
+  it("PassesThroughSubCentPrecision", () => {
+    expect(formatCost(0.0058)).toBe("0.0058");
   });
 });
 
