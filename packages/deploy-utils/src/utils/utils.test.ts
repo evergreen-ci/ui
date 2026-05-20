@@ -19,6 +19,12 @@ describe("getAppToDeploy", () => {
     expect(getAppToDeploy()).toEqual("parsley");
   });
 
+  it("returns app name when in sage-ui directory", () => {
+    vi.spyOn(git, "getGitRoot").mockReturnValue("/repo");
+    vi.stubGlobal("process", { cwd: () => "/repo/apps/sage-ui" });
+    expect(getAppToDeploy()).toEqual("sage-ui");
+  });
+
   it("throws an error when run from directory inside app", () => {
     vi.spyOn(git, "getGitRoot").mockReturnValue("/repo");
     vi.stubGlobal("process", { cwd: () => "/repo/apps/spruce/src" });

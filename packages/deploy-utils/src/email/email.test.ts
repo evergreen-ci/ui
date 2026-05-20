@@ -117,6 +117,25 @@ describe("makeEmail", async () => {
       subject: "2020-06-22 Spruce Deploy to 123",
     });
   });
+
+  it("renders the subject for sage-ui", () => {
+    vi.stubEnv("CI", "true");
+    vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
+    vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
+    vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
+    expect(
+      makeEmail({
+        ...defaultArgs,
+        app: "sage-ui",
+        previousTag: "sage-ui/v0.0.1",
+      }),
+    ).toStrictEqual({
+      body: "<ul><li>commit‘s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (sage-ui/v0.0.1)</b></p>",
+      from: "sender@mongodb.com",
+      recipients: "foo@mongodb.com",
+      subject: "2020-06-22 Sage-ui Deploy to 123",
+    });
+  });
 });
 
 describe("sendEmail", () => {

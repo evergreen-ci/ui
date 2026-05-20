@@ -162,6 +162,35 @@ tasks:
           target: production
       - func: email
 
+  - name: deploy-sage-ui-staging
+    commands:
+      - func: symlink
+        vars:
+          app_dir: apps/sage-ui
+      - func: deploy
+        vars:
+          app_dir: apps/sage-ui
+          target: staging
+
+  - name: deploy-sage-ui-beta
+    commands:
+      - func: symlink
+        vars:
+          app_dir: apps/sage-ui
+      - func: deploy
+        vars:
+          app_dir: apps/sage-ui
+          target: beta
+
+  - name: deploy-sage-ui-prod
+    commands:
+      - func: write-previous-deploy
+      - func: symlink
+      - func: deploy
+        vars:
+          target: production
+      - func: email
+
   - name: sync-spruce-staging
     commands:
       - func: prepare-user-deploy-vars

@@ -39,6 +39,14 @@ describe("tagIsValid", () => {
   it("should not match on the wrong app's tag", () => {
     expect(tagIsValid("parsley", "spruce/v1.2.3")).toEqual(false);
   });
+
+  it("should match on a sage-ui tag", () => {
+    expect(tagIsValid("sage-ui", "sage-ui/v1.2.3")).toEqual(true);
+  });
+
+  it("should not match a sage-ui tag against the wrong app", () => {
+    expect(tagIsValid("sage-ui", "spruce/v1.2.3")).toEqual(false);
+  });
 });
 
 describe("getLatestTag", () => {
@@ -60,6 +68,16 @@ describe("getLatestTag", () => {
     expect(tagIsValid(app, latestTag)).toEqual(true);
     expect(execTrim).toHaveBeenCalledWith(
       'git describe --tags --abbrev=0 --match="parsley/*" ',
+    );
+  });
+
+  it("should return the latest sage-ui tag", () => {
+    vi.mocked(execTrim).mockImplementationOnce(() => "sage-ui/v1.0.0");
+    const app = "sage-ui";
+    const latestTag = getLatestTag(app);
+    expect(tagIsValid(app, latestTag)).toEqual(true);
+    expect(execTrim).toHaveBeenCalledWith(
+      'git describe --tags --abbrev=0 --match="sage-ui/*" ',
     );
   });
 });
