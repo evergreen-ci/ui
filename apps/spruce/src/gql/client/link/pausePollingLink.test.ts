@@ -1,15 +1,7 @@
 import { ApolloLink, execute, gql, ApolloClient } from "@apollo/client";
 import { Observable } from "@apollo/client/utilities";
 import { waitFor } from "@testing-library/react";
-import {
-  describe,
-  it,
-  beforeEach,
-  afterEach,
-  vi,
-  expect,
-  MockedFunction,
-} from "vitest";
+import { MockedFunction } from "vitest";
 import { pausePollingLink } from ".";
 
 const GET_WATERFALL = gql`
@@ -32,9 +24,11 @@ describe("pausePollingLink", () => {
     vi.clearAllMocks();
 
     mockForward = vi.fn(
-      () =>
+      (operation, _forward) =>
         new Observable((observer) => {
-          observer.next({ data: { someData: { id: 1, name: "Test" } } });
+          observer.next({
+            data: { someData: { id: 1, name: operation.operationName } },
+          });
           observer.complete();
         }),
     );

@@ -14,7 +14,6 @@ import {
 } from "utils/environmentVariables";
 import { useCreateGQLClient } from ".";
 
-// Mocks
 vi.mock("@evg-ui/lib/utils/request", () => ({
   fetchWithRetry: vi.fn() as MockedFunction<typeof fetchWithRetry>,
   shouldLogoutAndRedirect: vi.fn() as MockedFunction<
@@ -22,11 +21,13 @@ vi.mock("@evg-ui/lib/utils/request", () => ({
   >,
   getUserStagingHeader: vi.fn() as MockedFunction<typeof getUserStagingHeader>,
 }));
+
 vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
   useAuthProviderContext: vi.fn(() => ({
     logoutAndRedirect: vi.fn(),
   })),
 }));
+
 vi.mock("utils/environmentVariables", () => ({
   getEvergreenUrl: vi.fn() as MockedFunction<typeof getEvergreenUrl>,
   getGQLUrl: vi.fn() as MockedFunction<typeof getGQLUrl>,
