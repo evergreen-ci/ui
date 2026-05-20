@@ -10,12 +10,24 @@ import { NotificationsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Notifications;
 
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"],
+): NotificationsFormState | undefined => {
+  if (!projectData) return repoData;
+  if (repoData) return { ...projectData, repoData };
+  return projectData;
+};
+
 export const NotificationsTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,
 }) => {
-  const initialFormState = projectData || repoData;
+  const initialFormState = useMemo(
+    () => getInitialFormState(projectData, repoData),
+    [projectData, repoData],
+  );
 
   const formSchema = useMemo(
     () =>

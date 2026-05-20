@@ -15,7 +15,8 @@ const vitestConfig = defineTestConfig({
     globalSetup: "./config/vitest/global-setup.ts",
     outputFile: { junit: "./bin/vitest/junit.xml" },
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
-    setupFiles: "./config/vitest/setup-tests.ts",
+    setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
+    include: ["src/**/*.test.{ts,tsx}"],
   },
 });
 

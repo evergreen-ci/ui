@@ -42,7 +42,7 @@ describe("makeEmail", async () => {
   });
 
   it("errors if there is no deploys email set", () => {
-    expect(() => makeEmail(defaultArgs)).toThrowError(
+    expect(() => makeEmail(defaultArgs)).toThrow(
       "DEPLOYS_EMAIL not configured",
     );
   });
@@ -50,9 +50,7 @@ describe("makeEmail", async () => {
   it("errors if there is no author set", () => {
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.spyOn(shellUtils, "execTrim").mockReturnValue("");
-    expect(() => makeEmail(defaultArgs)).toThrowError(
-      "Author email not configured",
-    );
+    expect(() => makeEmail(defaultArgs)).toThrow("Author email not configured");
   });
 
   it("returns email fields with single quotes replaced", () => {
@@ -177,7 +175,7 @@ describe("sendEmail", () => {
     });
     await sendEmail();
     expect(vi.mocked(readFileSync)).toHaveBeenCalledTimes(1);
-    expect(vi.mocked(readFileSync)).toThrowError("file not found");
+    expect(vi.mocked(readFileSync)).toThrow("file not found");
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     expect(consoleSpy).toHaveBeenCalledWith(
       expect.stringMatching(emailCommandRegex),

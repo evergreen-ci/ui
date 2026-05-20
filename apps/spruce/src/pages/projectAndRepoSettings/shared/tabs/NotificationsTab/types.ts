@@ -20,21 +20,26 @@ export type Notification = Partial<{
   };
 }>;
 
+interface Subscription {
+  subscriptionData: {
+    id: string;
+    event: {
+      eventSelect: string;
+      extraFields: FormExtraFields;
+      regexSelector?: FormRegexSelector[];
+    };
+    notification: Notification;
+  };
+}
+
 export interface NotificationsFormState {
   buildBreakSettings: {
     notifyOnBuildFailure: boolean | null;
   };
-  subscriptions: Array<{
-    subscriptionData: {
-      id: string;
-      event: {
-        eventSelect: string;
-        extraFields: FormExtraFields;
-        regexSelector?: FormRegexSelector[];
-      };
-      notification: Notification;
-    };
-  }> | null;
+  subscriptions: Subscription[] | null;
+  repoData?: {
+    subscriptions: Subscription[] | null;
+  };
   banner?: {
     bannerData: {
       text: string;
