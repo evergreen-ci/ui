@@ -17,13 +17,14 @@ import {
   SaveProjectSettingsForSectionMutationVariables,
   SaveRepoSettingsForSectionMutation,
   SaveRepoSettingsForSectionMutationVariables,
+  ProjectSettingsInput,
+  RepoSettingsInput,
 } from "gql/generated/types";
 import {
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
 import { useHasProjectOrRepoEditPermission } from "hooks";
-import { JSONObject } from "utils/object/types";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { getDiffRenderConfig } from "./DiffConfig";
@@ -168,22 +169,34 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   // Only compute the diff payload while the modal is open so that tab
   // transformers aren't invoked against partially-loaded form state on
   // every render.
-  let diffPayload: { after: JSONObject; before: JSONObject | null } | null =
-    null;
+  let diffPayload: {
+    after: ProjectSettingsInput | RepoSettingsInput;
+    before: ProjectSettingsInput | RepoSettingsInput | null;
+  } | null = null;
   if (saveModalOpen) {
+    const formToGql = formToGqlMap[tab];
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
-    const afterData = formToGql(formData, isRepo, id) as unknown as JSONObject;
+    const afterData = formToGql(formData, isRepo, id);
 
-    // afterData includes fields that initialData lacks, so we normalize beforeData to match afterData's shape.
-    const idKey = isRepo ? "repoId" : "projectId";
-    const beforeData = initialData
-      ? {
-          ...(initialData as JSONObject),
-          [idKey]: afterData[idKey],
-          projectRef: { id: afterData[idKey] },
-        }
-      : null;
+    // Normalize beforeData to match afterData's shape.
+    let beforeData: ProjectSettingsInput | RepoSettingsInput | null = null;
+    if (initialData) {
+      if (isRepo) {
+        const repoInitial = initialData as RepoSettingsInput;
+        beforeData = {
+          ...repoInitial,
+          repoId: id,
+          projectRef: { ...repoInitial.projectRef, id },
+        };
+      } else {
+        const projectInitial = initialData as ProjectSettingsInput;
+        beforeData = {
+          ...projectInitial,
+          projectId: id,
+          projectRef: { ...projectInitial.projectRef, id },
+        };
+      }
+    }
     diffPayload = {
       after: afterData,
       before: beforeData,
