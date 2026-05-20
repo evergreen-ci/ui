@@ -30,6 +30,7 @@ describe("prepareProdDeploy", () => {
   beforeEach(() => {});
 
   afterEach(() => {
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 
@@ -37,14 +38,14 @@ describe("prepareProdDeploy", () => {
     vi.mocked(assertMainBranch).mockImplementation(() => {
       throw Error("bad branch");
     });
-    await expect(() => prepareProdDeploy()).rejects.toThrowError("bad branch");
+    await expect(() => prepareProdDeploy()).rejects.toThrow("bad branch");
   });
 
   it("throws if not on main branch", async () => {
     vi.mocked(assertWorkingDirectoryClean).mockImplementation(() => {
       throw Error("git changes found");
     });
-    await expect(() => prepareProdDeploy()).rejects.toThrowError(
+    await expect(() => prepareProdDeploy()).rejects.toThrow(
       "git changes found",
     );
   });
