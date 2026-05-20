@@ -16,6 +16,7 @@ describe("useScrollToAnchor", () => {
   afterEach(() => {
     vi.runOnlyPendingTimers();
     vi.useRealTimers();
+    vi.restoreAllMocks();
   });
 
   it("should scroll to element when hash is present", () => {

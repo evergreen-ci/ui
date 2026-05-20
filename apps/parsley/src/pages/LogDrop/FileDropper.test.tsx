@@ -68,6 +68,7 @@ describe("FileDropper", () => {
   });
 
   afterEach(() => {
+    vi.clearAllMocks();
     vi.restoreAllMocks();
   });
 
