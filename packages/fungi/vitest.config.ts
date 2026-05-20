@@ -1,12 +1,4 @@
-import { defineConfig, mergeConfig } from "vite";
 import { defineConfig as defineTestConfig } from "vitest/config";
-
-const viteConfig = defineConfig({
-  resolve: {
-    tsconfigPaths: true,
-    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
-  },
-});
 
 const vitestConfig = defineTestConfig({
   test: {
@@ -18,6 +10,10 @@ const vitestConfig = defineTestConfig({
     setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
     include: ["src/**/*.test.{ts,tsx}"],
   },
+  resolve: {
+    tsconfigPaths: true,
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+  },
 });
 
-export default mergeConfig(viteConfig, vitestConfig);
+export default vitestConfig;

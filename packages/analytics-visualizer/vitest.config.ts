@@ -1,11 +1,4 @@
-import { defineConfig, mergeConfig } from "vite";
 import { defineConfig as defineTestConfig } from "vitest/config";
-
-const viteConfig = defineConfig({
-  resolve: {
-    tsconfigPaths: true,
-  },
-});
 
 const vitestConfig = defineTestConfig({
   test: {
@@ -15,6 +8,9 @@ const vitestConfig = defineTestConfig({
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
     include: ["src/**/*.test.{ts,tsx}"],
   },
+  resolve: {
+    tsconfigPaths: true,
+  },
 });
 
-export default mergeConfig(viteConfig, vitestConfig);
+export default vitestConfig;

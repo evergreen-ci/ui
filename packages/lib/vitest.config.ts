@@ -1,14 +1,5 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig, mergeConfig } from "vite";
 import { defineConfig as defineTestConfig } from "vitest/config";
-
-const viteConfig = defineConfig({
-  resolve: {
-    tsconfigPaths: true,
-    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
-  },
-  plugins: [react()],
-});
 
 const vitestConfig = defineTestConfig({
   test: {
@@ -20,6 +11,11 @@ const vitestConfig = defineTestConfig({
     globalSetup: "./config/vitest/global-setup.ts",
     include: ["src/**/*.test.{ts,tsx}"],
   },
+  resolve: {
+    tsconfigPaths: true,
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+  },
+  plugins: [react()],
 });
 
-export default mergeConfig(viteConfig, vitestConfig);
+export default vitestConfig;
