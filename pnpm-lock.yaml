@@ -391,9 +391,6 @@ importers:
       globals:
         specifier: ^17.6.0
         version: 17.6.0
-      jsdom:
-        specifier: 29.0.1
-        version: 29.0.1
       typescript:
         specifier: ~6.0.2
         version: 6.0.2
