@@ -1,11 +1,6 @@
-import tsconfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vitest/config";
+import { defineConfig as defineTestConfig } from "vitest/config";
 
-export default defineConfig({
-  plugins: [tsconfigPaths()],
-  resolve: {
-    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
-  },
+const vitestConfig = defineTestConfig({
   test: {
     environment: "jsdom",
     globals: true,
@@ -15,4 +10,10 @@ export default defineConfig({
     setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
     include: ["src/**/*.test.{ts,tsx}"],
   },
+  resolve: {
+    tsconfigPaths: true,
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+  },
 });
+
+export default vitestConfig;
