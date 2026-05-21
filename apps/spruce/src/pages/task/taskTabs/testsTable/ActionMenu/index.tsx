@@ -55,6 +55,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
 
   const onQuarantineTest = () => {
     setOpen(false);
+    // Fall back to task.id since the field is nullable in the schema; for non-display tasks the two IDs are equal.
     const taskId = test.taskId ?? task.id;
     sendEvent({
       name: "Clicked quarantine test button",
