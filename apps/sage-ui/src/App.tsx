@@ -1,7 +1,11 @@
-function App() {
-  return (
-    <>This is the Sage UI </>
-  )
-}
+import { Text, TextStyle } from "@via-ds/components/typography";
+import { TestComponent } from "components/TestComponent";
 
-export default App
+const App = () => (
+  <div>
+    <Text textStyle={TextStyle.heading1}>This is the Sage UI</Text>
+    <TestComponent />
+  </div>
+);
+
+export default App;
