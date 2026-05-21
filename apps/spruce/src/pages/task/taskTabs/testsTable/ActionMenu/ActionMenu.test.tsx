@@ -86,7 +86,7 @@ describe("action menu for tests table", () => {
     );
   });
 
-  it("quarantines a failing test", async () => {
+  it("quarantines a failing test on a non-display task", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[quarantineTestMock]}>

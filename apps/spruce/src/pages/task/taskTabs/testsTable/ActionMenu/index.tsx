@@ -55,23 +55,27 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
 
   const onQuarantineTest = () => {
     setOpen(false);
+    const taskId = test.taskId ?? task.id;
     sendEvent({
       name: "Clicked quarantine test button",
       "test.name": test.testFile,
+      "test.task_id": taskId,
     });
     quarantineTest({
-      variables: { taskId: test.taskId ?? task.id, testName: test.testFile },
+      variables: { taskId, testName: test.testFile },
     });
   };
 
   const onUnquarantineTest = () => {
     setOpen(false);
+    const taskId = test.taskId ?? task.id;
     sendEvent({
       name: "Clicked unquarantine test button",
       "test.name": test.testFile,
+      "test.task_id": taskId,
     });
     unquarantineTest({
-      variables: { taskId: test.taskId ?? task.id, testName: test.testFile },
+      variables: { taskId, testName: test.testFile },
     });
   };
 
