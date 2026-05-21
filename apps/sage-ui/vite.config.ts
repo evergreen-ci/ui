@@ -1,6 +1,5 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig, mergeConfig } from "vite";
-import { defineConfig as defineTestConfig } from "vitest/config";
+import { defineConfig } from "vite";
 
 const viteConfig = defineConfig({
   server: {
@@ -12,15 +11,4 @@ const viteConfig = defineConfig({
   },
 });
 
-const vitestConfig = defineTestConfig({
-  test: {
-    environment: "jsdom",
-    globals: true,
-    outputFile: { junit: "./bin/vitest/junit.xml" },
-    reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
-    setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
-    include: ["src/**/*.test.{ts,tsx}"],
-  },
-});
-
-export default mergeConfig(viteConfig, vitestConfig);
+export default viteConfig;
