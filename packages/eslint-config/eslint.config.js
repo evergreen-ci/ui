@@ -181,19 +181,11 @@ const tsEslintConfig = {
 };
 
 // React ESLint (eslint-plugin-react) settings.
-// eslint-plugin-react v7 uses legacy context.getFilename() API internally,
-// so we wrap it with fixupPluginRules for ESLint v9 compatibility.
 const reactConfig = {
+  ...reactPlugin.configs.flat.recommended,
+  ...reactPlugin.configs.flat["jsx-runtime"], // Need to use this config if using React 17+.
   name: "react/rules",
   files: ["src/**/*.ts?(x)"],
-  plugins: {
-    react: fixupPluginRules(reactPlugin),
-  },
-  settings: {
-    react: {
-      version: "detect",
-    },
-  },
   rules: {
     ...reactPlugin.configs.flat.recommended.rules,
     ...reactPlugin.configs.flat["jsx-runtime"].rules,
@@ -386,13 +378,10 @@ const graphQLConfig = {
 };
 
 // Import ESLint (eslint-plugin-import) settings.
-// eslint-plugin-import uses legacy ESLint APIs internally,
-// so we wrap it with fixupPluginRules for ESLint v9 compatibility.
 const importConfig = {
+  ...importPlugin.flatConfigs.recommended,
+  ...importPlugin.flatConfigs.typescript,
   name: "import/rules",
-  plugins: {
-    import: fixupPluginRules(importPlugin),
-  },
   settings: {
     "import/resolver": {
       typescript: true,
