@@ -36,7 +36,6 @@ export const PROJECT_EVENT_SETTINGS = gql`
       hidden
       identifier
       repoRefId
-      tracksPushEvents
       versionControlEnabled
     }
     subscriptions {
