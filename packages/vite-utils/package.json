@@ -13,14 +13,13 @@
     "eslint:strict": "STRICT=1 eslint ."
   },
   "dependencies": {
-    "vite": "7.3.2"
+    "vite": "8.0.13"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "@types/node": "^22.19.15",
     "eslint": "^9.39.1",
-    "typescript": "~6.0.2",
-    "vite-tsconfig-paths": "^6.0.2"
+    "typescript": "~6.0.2"
   }
 }
