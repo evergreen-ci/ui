@@ -11291,6 +11291,7 @@ export type TaskTestsQuery = {
         duration?: number | null;
         isManuallyQuarantined: boolean;
         status: string;
+        taskId?: string | null;
         testFile: string;
         logs: {
           __typename?: "TestLog";

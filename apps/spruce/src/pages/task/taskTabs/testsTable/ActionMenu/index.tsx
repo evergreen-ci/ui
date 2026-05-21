@@ -59,7 +59,9 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       name: "Clicked quarantine test button",
       "test.name": test.testFile,
     });
-    quarantineTest({ variables: { taskId: task.id, testName: test.testFile } });
+    quarantineTest({
+      variables: { taskId: test.taskId ?? task.id, testName: test.testFile },
+    });
   };
 
   const onUnquarantineTest = () => {
@@ -69,7 +71,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       "test.name": test.testFile,
     });
     unquarantineTest({
-      variables: { taskId: task.id, testName: test.testFile },
+      variables: { taskId: test.taskId ?? task.id, testName: test.testFile },
     });
   };
 
@@ -80,13 +82,6 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         Test selection did not run for this task, so its tests cannot be
         quarantined. Test selection is only available on patch builds for build
         variants and tasks configured for it.
-      </DropdownItem>,
-    ];
-  } else if (task.displayOnly) {
-    dropdownItems = [
-      <DropdownItem key="display-task" disabled>
-        Quarantine is not available on display tasks. Open one of this
-        task&apos;s execution tasks to quarantine a test.
       </DropdownItem>,
     ];
   } else if (test.isManuallyQuarantined) {
