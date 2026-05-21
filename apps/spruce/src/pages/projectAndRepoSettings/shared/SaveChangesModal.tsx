@@ -3,11 +3,11 @@ import { Body } from "@leafygreen-ui/typography";
 import EventDiffTable from "components/Settings/EventLog/EventDiffTable";
 import { getEventDiffLines } from "components/Settings/EventLog/EventDiffTable/utils";
 import { CustomKeyValueRenderConfig } from "components/Settings/EventLog/EventDiffTable/utils/keyRenderer";
-import { JSONObject } from "utils/object/types";
+import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 
 interface Props {
-  after: JSONObject | null;
-  before: JSONObject | null;
+  after: ProjectSettingsInput | RepoSettingsInput | null;
+  before: ProjectSettingsInput | RepoSettingsInput | null;
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
   onCancel: () => void;
   onConfirm: () => void;

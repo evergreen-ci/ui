@@ -47,7 +47,7 @@ type PathValue<T, P extends readonly string[]> = P extends [
  * @example getObjectValueByPath({ a: { b: { c: 1 } } }, "a.b.c") => 1
  * @example getObjectValueByPath({ a: { b: { c: 1 } } }, "a.b") => { c: 1 }
  */
-export const getObjectValueByPath = <T extends JSONValue, P extends string>(
+export const getObjectValueByPath = <T, P extends string>(
   obj: T,
   path: P,
 ): PathValue<T, StringToPath<P>> => {
