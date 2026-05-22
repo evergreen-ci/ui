@@ -82,7 +82,6 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     spawnHostScriptPath: "/test/path",
     versionControlEnabled: false,
     dispatchingDisabled: true,
-    // @ts-expect-error: waterfallDisabled is on ProjectInput but not RepoRefInput
     waterfallDisabled: null,
     deactivatePrevious: true,
     repotrackerDisabled: false,
