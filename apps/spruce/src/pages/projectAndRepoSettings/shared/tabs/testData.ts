@@ -53,6 +53,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     spawnHostScriptPath: null,
     dispatchingDisabled: null,
+    waterfallDisabled: null,
     versionControlEnabled: true,
     deactivatePrevious: null,
     repotrackerDisabled: null,

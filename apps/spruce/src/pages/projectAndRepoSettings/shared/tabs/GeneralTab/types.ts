@@ -20,6 +20,7 @@ export interface GeneralFormState {
   };
   projectFlags: {
     dispatchingDisabled: boolean | null;
+    waterfallDisabled: boolean | null;
     debug: {
       debugSpawnHostsDisabled: boolean | null;
     };

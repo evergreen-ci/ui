@@ -142,6 +142,16 @@ export const getFormSchema = (
               true,
             ),
           },
+          waterfallDisabled: {
+            type: ["boolean", "null"],
+            title: "Waterfall",
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoData?.projectFlags?.waterfallDisabled,
+              true,
+            ),
+          },
           repotracker: {
             type: "object" as const,
             title: "Repotracker Settings",
@@ -361,6 +371,11 @@ export const getFormSchema = (
       dispatchingDisabled: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:description": "Sets if any tasks can be dispatched.",
+      },
+      waterfallDisabled: {
+        "ui:widget": widgets.RadioBoxWidget,
+        "ui:description":
+          "Disables automatic task activation on the waterfall. Tasks will still appear but will be unscheduled by default.",
       },
       debug: {
         debugSpawnHostsDisabled: {

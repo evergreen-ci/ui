@@ -22,6 +22,7 @@ export const PROJECT_GENERAL_SETTINGS = gql`
     stepbackBisect
     stepbackDisabled
     versionControlEnabled
+    waterfallDisabled
   }
 `;
 

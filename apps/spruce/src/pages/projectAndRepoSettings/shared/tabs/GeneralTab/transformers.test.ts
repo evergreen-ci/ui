@@ -46,6 +46,7 @@ const repoForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: true,
+    waterfallDisabled: null,
     debug: {
       debugSpawnHostsDisabled: false,
     },
@@ -81,6 +82,8 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     spawnHostScriptPath: "/test/path",
     versionControlEnabled: false,
     dispatchingDisabled: true,
+    // @ts-expect-error: waterfallDisabled is on ProjectInput but not RepoRefInput
+    waterfallDisabled: null,
     deactivatePrevious: true,
     repotrackerDisabled: false,
     runEveryMainlineCommit: false,
@@ -116,6 +119,7 @@ const projectForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: null,
+    waterfallDisabled: null,
     debug: {
       debugSpawnHostsDisabled: null,
     },
@@ -154,6 +158,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     spawnHostScriptPath: null,
     versionControlEnabled: true,
     dispatchingDisabled: null,
+    waterfallDisabled: null,
     deactivatePrevious: null,
     repotrackerDisabled: null,
     runEveryMainlineCommit: null,
