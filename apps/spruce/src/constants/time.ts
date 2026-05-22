@@ -127,6 +127,10 @@ export const timeZones = [
     value: "Asia/Seoul",
   },
   {
+    str: "Australia Central Time",
+    value: "Australia/Adelaide",
+  },
+  {
     str: "Australia Eastern Time",
     value: "Australia/Sydney",
   },
