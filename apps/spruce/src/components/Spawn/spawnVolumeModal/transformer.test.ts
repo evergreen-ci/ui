@@ -12,7 +12,7 @@ describe("spawn volume modal", () => {
       type: "gp3",
       noExpiration: true,
       expiration: null,
-      host: "mount-host-id",
+      hostId: "mount-host-id",
     });
   });
 });
