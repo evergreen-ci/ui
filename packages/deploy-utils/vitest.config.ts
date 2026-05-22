@@ -8,9 +8,6 @@ const vitestConfig = defineTestConfig({
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
     include: ["src/**/*.test.{ts,tsx}"],
   },
-  resolve: {
-    tsconfigPaths: true,
-  },
 });
 
 export default vitestConfig;

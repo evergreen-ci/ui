@@ -751,9 +751,6 @@ importers:
 
   packages/deploy-utils:
     dependencies:
-      '@evg-ui/lib':
-        specifier: workspace:*
-        version: link:../lib
       '@types/prompts':
         specifier: 2.4.9
         version: 2.4.9
