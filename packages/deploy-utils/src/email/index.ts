@@ -1,6 +1,5 @@
 import { execSync } from "child_process";
 import { readFileSync } from "fs";
-import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { getAppToDeploy, isRunningOnCI, isTest } from "../utils/environment";
 import {
   COMMIT_LENGTH,
@@ -130,7 +129,8 @@ export const makeEmail = ({
     commitToDeploy.length === COMMIT_LENGTH
       ? commitToDeploy.substring(0, 7)
       : commitToDeploy;
-  const subject = `${formatDate(new Date())} ${toSentenceCase(app)} Deploy to ${commitLabel}${isRevert ? " (Revert)" : ""}`;
+  const appName = app[0].toUpperCase() + app.substring(1).toLowerCase();
+  const subject = `${formatDate(new Date())} ${appName} Deploy to ${commitLabel}${isRevert ? " (Revert)" : ""}`;
   const body = `<ul>${commitsHTML}</ul>${previousTag ? `<p><b>To revert, rerun task from previous release tag (${previousTag})</b></p>` : ""}`;
 
   return { body, from, recipients, subject };
