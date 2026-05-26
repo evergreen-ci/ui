@@ -5426,7 +5426,6 @@ export type RepoGeneralSettingsFragment = {
   debugSpawnHostsDisabled: boolean;
   disabledStatsCache: boolean;
   dispatchingDisabled: boolean;
-  waterfallDisabled: boolean;
   displayName: string;
   owner: string;
   patchingDisabled: boolean;
@@ -5438,6 +5437,7 @@ export type RepoGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
+  waterfallDisabled: boolean;
 };
 
 export type ProjectGithubSettingsFragment = {
