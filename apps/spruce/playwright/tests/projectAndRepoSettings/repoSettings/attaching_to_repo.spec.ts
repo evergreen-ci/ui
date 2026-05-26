@@ -6,12 +6,12 @@ import { save } from "../utils";
 test.describe("Attaching Spruce to a repo", () => {
   const origin = getProjectSettingsRoute(project);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
   });
 
   test("Saves and attaches new repo and shows warnings on the Github pages", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const repoInput = page.getByTestId("repo-input");
     await repoInput.clear();

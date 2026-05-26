@@ -3,11 +3,11 @@ import { clickCheckbox, selectOption, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("runners", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/admin-settings");
   });
 
-  test("can save after making changes", async ({ authenticatedPage: page }) => {
+  test("can save after making changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     // Notify section.

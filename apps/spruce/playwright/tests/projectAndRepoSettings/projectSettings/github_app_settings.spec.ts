@@ -17,20 +17,16 @@ test.describe("GitHub app settings", () => {
     writeIssues: "Write Issues",
   };
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(destination);
     await expect(page.getByText("Token Permission Restrictions")).toBeVisible();
   });
 
-  test("save button should be disabled by default", async ({
-    authenticatedPage: page,
-  }) => {
+  test("save button should be disabled by default", async ({ page }) => {
     await expectSaveButtonEnabled(page, false);
   });
 
-  test("should be able to replace app credentials", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should be able to replace app credentials", async ({ page }) => {
     await expect(
       page.getByTestId("replace-app-credentials-button"),
     ).toBeVisible();
@@ -56,7 +52,7 @@ test.describe("GitHub app settings", () => {
   });
 
   test("should be able to save different permission groups for requesters, then return to defaults", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("permission-group-input")).toHaveCount(8);
     const permissionGroupInput0 = page

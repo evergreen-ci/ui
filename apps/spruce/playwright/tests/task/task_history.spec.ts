@@ -25,9 +25,7 @@ test.describe("task history", () => {
     "/task/evg_lint_generate_lint_c6672b24d14c6d8cd51ce2c4b2b88b424aaacd64_25_03_27_14_56_09/history?execution=0";
 
   test.describe("navigation", () => {
-    test("can view the task history tab", async ({
-      authenticatedPage: page,
-    }) => {
+    test("can view the task history tab", async ({ page }) => {
       await page.goto(spruceTaskHistoryLink);
       await expect(page.getByTestId("task-history-tab")).toHaveAttribute(
         "aria-selected",
@@ -38,7 +36,7 @@ test.describe("task history", () => {
   });
 
   test.describe("task timeline", () => {
-    test("can expand/collapse tasks", async ({ authenticatedPage: page }) => {
+    test("can expand/collapse tasks", async ({ page }) => {
       await page.goto(spruceTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
       await expect(page.getByTestId("timeline-box")).toHaveCount(13);
@@ -55,11 +53,11 @@ test.describe("task history", () => {
   });
 
   test.describe("commit details list", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(spruceTaskHistoryLink);
     });
 
-    test("can expand/collapse tasks", async ({ authenticatedPage: page }) => {
+    test("can expand/collapse tasks", async ({ page }) => {
       await page.getByTestId("expanded-option").click();
       await expect(page.getByTestId("commit-details-card")).toHaveCount(13);
       await expect(
@@ -74,7 +72,7 @@ test.describe("task history", () => {
     });
 
     test("can expand/collapse inactive tasks with the inactive commits button", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("commit-details-card")).toHaveCount(10);
       await expect(page.getByText("Order: 12380")).toBeHidden();
@@ -103,7 +101,7 @@ test.describe("task history", () => {
     const willRunColor = hexToRGB(gray.dark1);
 
     test("restarting the task that is currently being viewed should reflect changes on UI and update the URL", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(spruceTaskHistoryLink);
       await expect(page).toHaveURL(/execution=0/);
@@ -126,7 +124,7 @@ test.describe("task history", () => {
     });
 
     test("restarting a task that is not currently being viewed should reflect changes on UI, but not update the URL", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(spruceTaskHistoryLink);
       await expect(page).toHaveURL(/execution=0/);
@@ -153,7 +151,7 @@ test.describe("task history", () => {
     const willRunColor = hexToRGB(gray.dark1);
 
     test("scheduling a task in a group of 1 inactive task", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(spruceTaskHistoryLink);
 
@@ -195,7 +193,7 @@ test.describe("task history", () => {
     });
 
     test("scheduling a task in a group of multiple inactive tasks", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(spruceTaskHistoryLink);
 
@@ -223,7 +221,7 @@ test.describe("task history", () => {
         });
       });
 
-      test("collapsed view", async ({ authenticatedPage: page }) => {
+      test("collapsed view", async ({ page }) => {
         await page.goto(mciTaskHistoryLink);
         const prevPageButton = page.getByRole("button", {
           name: "Previous page",
@@ -291,7 +289,7 @@ test.describe("task history", () => {
         await expect(prevPageButton).toBeDisabled();
       });
 
-      test("expanded view", async ({ authenticatedPage: page }) => {
+      test("expanded view", async ({ page }) => {
         await page.goto(mciTaskHistoryLink);
         await page.getByTestId("expanded-option").click();
 
@@ -416,7 +414,7 @@ test.describe("task history", () => {
     });
 
     test("paging backwards to the first page should show a full page of results", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         "/task/evg_lint_generate_lint_14499175e85a5b550dfb5bb6067fce4ecf7fcd15_25_03_26_19_23_35/history?execution=0",
@@ -435,7 +433,7 @@ test.describe("task history", () => {
 
   test.describe("date filter", () => {
     test("can filter by date correctly with default timezone", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
@@ -460,7 +458,7 @@ test.describe("task history", () => {
     });
 
     test("can filter by date correctly with different timezone", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/preferences");
       await page.getByText("Select a timezone").click();
@@ -491,9 +489,7 @@ test.describe("task history", () => {
       ).toBeVisible();
     });
 
-    test("date is cleared when paginating", async ({
-      authenticatedPage: page,
-    }) => {
+    test("date is cleared when paginating", async ({ page }) => {
       await page.goto(`${mciTaskHistoryLink}&date=2025-02-28`);
       await page.getByTestId("expanded-option").click();
       await validateDatePickerDate(page, "date-picker", {
@@ -526,7 +522,7 @@ test.describe("task history", () => {
 
   test.describe("jumping to current task", () => {
     test("can return to the current task after paginating", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
@@ -541,7 +537,7 @@ test.describe("task history", () => {
     });
 
     test("can return to the current task after filtering by date", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
@@ -561,23 +557,19 @@ test.describe("task history", () => {
   });
 
   test.describe("test failure search", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(
         "task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/history",
       );
     });
 
-    test("should update the URL correctly", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should update the URL correctly", async ({ page }) => {
       const searchInput = page.getByPlaceholder("Search failed test");
       await searchInput.fill("faketest");
       await expect(page).toHaveURL(/failing_test=faketest/);
     });
 
-    test("unmatching search results are opaque", async ({
-      authenticatedPage: page,
-    }) => {
+    test("unmatching search results are opaque", async ({ page }) => {
       const searchInput = page.getByPlaceholder("Search failed test");
       await searchInput.fill("faketest");
       await expect(page.getByTestId("commit-details-card").nth(0)).toHaveCSS(
@@ -596,7 +588,7 @@ test.describe("task history", () => {
     });
 
     test("no results found message is shown when no tasks match the search term", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const searchInput = page.getByPlaceholder("Search failed test");
       await searchInput.fill("artseinrst");
@@ -608,11 +600,11 @@ test.describe("task history", () => {
     const failingTestLink =
       "/task/evg_lint_generate_lint_ecbbf17f49224235d43416ea55566f3b1894bbf7_25_03_21_21_09_20/history?execution=0";
 
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(failingTestLink);
     });
 
-    test("table can be expanded", async ({ authenticatedPage: page }) => {
+    test("table can be expanded", async ({ page }) => {
       const firstCard = page.getByTestId("commit-details-card").nth(0);
       await expect(
         firstCard.getByTestId("failing-tests-changes-table"),
@@ -626,7 +618,7 @@ test.describe("task history", () => {
       ).toHaveCount(3);
     });
 
-    test("can filter within the table", async ({ authenticatedPage: page }) => {
+    test("can filter within the table", async ({ page }) => {
       await expect(
         page.getByTestId("failing-tests-changes-table"),
       ).toBeHidden();
@@ -648,9 +640,7 @@ test.describe("task history", () => {
       await expect(page.getByTestId("failing-tests-table-row")).toHaveCount(3);
     });
 
-    test("clicking 'Search Failure' button'", async ({
-      authenticatedPage: page,
-    }) => {
+    test("clicking 'Search Failure' button'", async ({ page }) => {
       const firstCard = page.getByTestId("commit-details-card").nth(0);
       await expect(
         firstCard.getByTestId("failing-tests-changes-table"),
@@ -678,7 +668,7 @@ test.describe("task history", () => {
 
   test.describe("onboarding", () => {
     test("can go through all steps of the walkthrough", async ({
-      authenticatedPage: page,
+      page,
       context,
     }) => {
       await context.clearCookies({
@@ -749,7 +739,7 @@ test.describe("task history", () => {
     });
 
     test("can end walkthrough early using the dismiss button", async ({
-      authenticatedPage: page,
+      page,
       context,
     }) => {
       await context.clearCookies({
@@ -775,7 +765,7 @@ test.describe("task history", () => {
     const selectedColor = hexToRGB(blue.base);
 
     test("hovering on commit cards highlight the corresponding task box", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(mciTaskHistoryLink);
       const taskCard = page.getByTestId("commit-details-card").nth(1);
@@ -786,7 +776,7 @@ test.describe("task history", () => {
     });
 
     test("clicking on task box should highlight and scroll to the commit card", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(mciTaskHistoryLink);
       const taskCard = page.getByTestId("commit-details-card").nth(10);
@@ -800,9 +790,7 @@ test.describe("task history", () => {
   });
 
   test.describe("historical task timing", () => {
-    test("allows configuring a task timing link", async ({
-      authenticatedPage: page,
-    }) => {
+    test("allows configuring a task timing link", async ({ page }) => {
       await page.goto(mciTaskHistoryLink);
 
       const configButton = page.getByRole("button", {

@@ -38,24 +38,24 @@ const startHostsCheckboxLabel =
 const loadDataCheckboxLabel = "Load data for dist";
 
 test.describe("Spawn Host page", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/spawn/host");
   });
 
   test("Visiting the spawn host page should display all of your spawned hosts", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(3);
   });
 
   test("Visiting the spawn host page should not have any cards expanded by default", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
   });
 
   test("Clicking on a spawn host row should toggle the host card", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
 
@@ -73,7 +73,7 @@ test.describe("Spawn Host page", () => {
   });
 
   test("Visiting the spawn host page with an id in the url should open the page with the row expanded", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/spawn/host?host=i-092593689871a50dc");
     await expect(page.getByTestId("spawn-host-card")).toHaveCount(1);
@@ -81,7 +81,7 @@ test.describe("Spawn Host page", () => {
   });
 
   test("Clicking on the Event Log link should redirect to /host/:hostId", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page
       .getByTestId("leafygreen-table-row")
@@ -94,7 +94,7 @@ test.describe("Spawn Host page", () => {
 
   test.describe("Spawn host card sorting", () => {
     test("Clicking on the host column header should sort spawn hosts by ascending order, then descending, then remove sort", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const hostSortControl = page.getByRole("button", {
         name: "Sort by Host",
@@ -117,7 +117,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Clicking on the expiration column header should sort the hosts by ascending order, then descending, then remove sort", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const expiresInSortControl = page.getByRole("button", {
         name: "Sort by Expires In",
@@ -146,7 +146,7 @@ test.describe("Spawn Host page", () => {
 
   test.describe("Spawn host modal", () => {
     test("Should disable 'Unexpirable Host' radio box when max number of unexpirable hosts is met (2)", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByRole("button", { name: "Spawn a host" }).click();
       await page.getByTestId("distro-input").click();
@@ -170,7 +170,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Clicking on the spawn host button should open a spawn host modal", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("spawn-host-modal")).toHaveCount(0);
       await page.getByRole("button", { name: "Spawn a host" }).click();
@@ -178,14 +178,14 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Visiting the spawn host page with the proper url param should open the spawn host modal by default", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/spawn/host?spawnHost=True");
       await expect(page.getByTestId("spawn-host-modal")).toBeVisible();
     });
 
     test("Closing the spawn host modal removes the 'spawnHost' query param from the url and hides the modal", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/spawn/host?spawnHost=True");
       await expect(page.getByTestId("spawn-host-modal")).toBeVisible();
@@ -199,7 +199,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Visiting the spawn host page with a taskId url param should render additional options at the bottom of the modal", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`,
@@ -220,7 +220,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Unchecking 'Load data for dist' hides nested checkbox selections and checking shows them", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`,
@@ -247,7 +247,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Visiting the spawn host page with a task and distro supplied in the url should populate the distro input", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
@@ -259,7 +259,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("The virtual workstation dropdown should filter any volumes that aren't a home volume", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
@@ -271,7 +271,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Clicking 'Add new key' hides the key name dropdown and shows the key value text area", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
@@ -285,7 +285,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Checking 'Run Userdata script on start' shows the user data script text area", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
@@ -302,7 +302,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Checking 'Define setup script...' shows the setup script text area", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
@@ -326,7 +326,7 @@ test.describe("Spawn Host page", () => {
     });
 
     test("Conditionally disables setup script and project setup script checkboxes based on the other's value", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
@@ -354,7 +354,7 @@ test.describe("Spawn Host page", () => {
   });
 
   test("Allows editing a modal with sleep schedule enabled and validates dates", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.clock.setFixedTime("2026-05-26T00:00:00Z");
     await page.getByTestId("edit-host-button").nth(2).click();

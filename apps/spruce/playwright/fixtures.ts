@@ -1,25 +1,11 @@
-import { test as base, Page } from "@playwright/test";
+import { test as base } from "@playwright/test";
 import { execSync } from "child_process";
-import {
-  SLACK_NOTIFICATION_BANNER,
-  SEEN_WATERFALL_ONBOARDING_TUTORIAL,
-  SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
-  SEEN_TASK_REVIEW_TOOLTIP,
-  SEEN_TEST_SELECTION_GUIDE_CUE,
-  SEEN_GITHUB_NAV_GUIDE_CUE,
-} from "constants/cookies";
 import * as helpers from "./helpers";
 
-const bannerCookie = "This is an important notification";
 const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
 
-type CustomFixtures = {
-  authenticatedPage: Page;
-};
-
-export const test = base.extend<CustomFixtures>({
-  authenticatedPage: async ({ page }, use) => {
-    // Set up mutation detection BEFORE login/navigation.
+export const test = base.extend({
+  page: async ({ page }, use) => {
     let mutationDispatched = false;
     let clearAmboyDB = false;
 
@@ -42,56 +28,6 @@ export const test = base.extend<CustomFixtures>({
       }
       await route.continue();
     });
-
-    // Login before every test.
-    await helpers.login(page);
-
-    // Set cookies to dismiss banners and onboarding tutorials.
-    const context = page.context();
-    await context.addCookies([
-      {
-        name: bannerCookie,
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-      {
-        name: SLACK_NOTIFICATION_BANNER,
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-      {
-        name: SEEN_WATERFALL_ONBOARDING_TUTORIAL,
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-      {
-        name: SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-      {
-        name: SEEN_TASK_REVIEW_TOOLTIP,
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-      {
-        name: SEEN_TEST_SELECTION_GUIDE_CUE,
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-      {
-        name: SEEN_GITHUB_NAV_GUIDE_CUE,
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-    ]);
 
     await use(page);
 

@@ -13,13 +13,13 @@ test.describe("A project that has GitHub webhooks disabled", () => {
     ProjectSettingsTabRoutes.PullRequests,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(destination);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Pull Requests page shows a disabled webhooks banner when webhooks are disabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const banner = page.getByTestId("disabled-webhook-banner");
     await expect(banner).toBeVisible();
@@ -28,9 +28,7 @@ test.describe("A project that has GitHub webhooks disabled", () => {
     );
   });
 
-  test("Disables all interactive elements on the page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Disables all interactive elements on the page", async ({ page }) => {
     const settingsPage = page.getByTestId("project-settings-page");
     const buttons = settingsPage.getByRole("button");
     for (const button of await buttons.all()) {
@@ -49,14 +47,12 @@ test.describe("A project that has GitHub webhooks enabled", () => {
     ProjectSettingsTabRoutes.PullRequests,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(destination);
     await expectSaveButtonEnabled(page, false);
   });
 
-  test("Allows enabling manual PR testing", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Allows enabling manual PR testing", async ({ page }) => {
     const radioBox = page.getByTestId("manual-pr-testing-enabled-radio-box");
     const enabledRadio = radioBox.getByRole("radio", { name: "Enabled" });
     await clickRadio(enabledRadio);
@@ -64,7 +60,7 @@ test.describe("A project that has GitHub webhooks enabled", () => {
   });
 
   test("Saving a patch definition should hide the error banner, show a success toast and display disabled patch definitions for the repo on the project page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const radioBox = page.getByTestId("pr-testing-enabled-radio-box");
     const enabledRadio = radioBox.getByRole("radio", { name: "Enabled" });

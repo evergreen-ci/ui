@@ -12,20 +12,18 @@ test.describe("GitHub permission groups", () => {
     ProjectSettingsTabRoutes.GithubPermissionGroups,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(destination);
     await expect(page.getByText("Token Permission Groups")).toBeVisible();
   });
 
-  test("should not have any permission groups defined", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should not have any permission groups defined", async ({ page }) => {
     await expect(page.getByTestId("permission-group")).toHaveCount(0);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("should throw an error if permission group definitions are invalid", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const addPermissionGroupButton = page.getByRole("button", {
       name: /^Add permission group$/,
@@ -51,7 +49,7 @@ test.describe("GitHub permission groups", () => {
   });
 
   test("should be able to save permission group, then delete it", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const addPermissionGroupButton = page.getByRole("button", {
       name: /^Add permission group$/,

@@ -3,7 +3,7 @@ import { validateToast } from "../../helpers";
 
 test.describe("Variant history", () => {
   test("shows an error message if mainline commit history could not be retrieved", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/variant-history/bogus-project/bogus-variant");
     await expect(page.getByTestId("loading-cell")).toHaveCount(0);
@@ -15,7 +15,7 @@ test.describe("Variant history", () => {
   });
 
   test("should link to variant history from the waterfall page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/project/spruce/waterfall");
     await expect(page.getByTestId("build-variant-link")).toBeVisible();
@@ -25,9 +25,7 @@ test.describe("Variant history", () => {
     await expect(page).toHaveURL("/variant-history/spruce/ubuntu1604");
   });
 
-  test("should be able to paginate column headers", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should be able to paginate column headers", async ({ page }) => {
     await page.setViewportSize({ width: 1000, height: 600 });
     await page.goto("/variant-history/spruce/ubuntu1604");
     await expect(page.getByTestId("header-cell")).toHaveCount(4);
@@ -38,7 +36,7 @@ test.describe("Variant history", () => {
   });
 
   test("should be able expand and collapse inactive commits", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/variant-history/spruce/ubuntu1604?selectedCommit=1238");
     await expect(page.getByText("EVG-16356")).toBeHidden();
@@ -54,9 +52,7 @@ test.describe("Variant history", () => {
     await expect(expandButton).toBeVisible();
   });
 
-  test("should be able to filter column headers", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should be able to filter column headers", async ({ page }) => {
     await page.goto("/variant-history/spruce/ubuntu1604");
     await expect(page.getByTestId("header-cell")).toHaveCount(6);
 
@@ -76,7 +72,7 @@ test.describe("Variant history", () => {
   });
 
   test("hovering over a failing task should show test results", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(
       "/variant-history/spruce/ubuntu1604?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236",
@@ -96,7 +92,7 @@ test.describe("Variant history", () => {
   });
 
   test.describe("applying a test filter", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/variant-history/spruce/ubuntu1604");
       const filterInput = page.getByLabel("Filter by Failed Tests");
       await expect(filterInput).toBeVisible();
@@ -107,9 +103,7 @@ test.describe("Variant history", () => {
       await expect(page.getByTestId("filter-chip")).toContainText("JustA");
     });
 
-    test("should disable non matching tasks", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should disable non matching tasks", async ({ page }) => {
       const successIcons = page
         .getByTestId("history-table-icon")
         .locator("[data-status=success]");
@@ -121,7 +115,7 @@ test.describe("Variant history", () => {
     });
 
     test("should display a message and tooltip on matching tasks with test results", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const failedTask = page.getByText("1 / 1 Failing Tests");
       await expect(failedTask).toBeVisible();

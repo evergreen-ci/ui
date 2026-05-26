@@ -1,13 +1,11 @@
 import { test, expect } from "../../fixtures";
 
 test.describe("pagination", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/spruce/waterfall");
   });
 
-  test("url query params update as page changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("url query params update as page changes", async ({ page }) => {
     await expect(page).toHaveURL("/project/spruce/waterfall");
 
     await expect(page.getByTestId("version-labels")).toContainText("2ab1c56");
@@ -21,9 +19,7 @@ test.describe("pagination", () => {
     await expect(page).toHaveURL("/project/spruce/waterfall");
   });
 
-  test("versions update correctly as page changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("versions update correctly as page changes", async ({ page }) => {
     const firstPageFirstCommit = "2ab1c56";
     const secondPageFirstCommit = "e391612";
 
@@ -41,9 +37,7 @@ test.describe("pagination", () => {
     await expect(versionLabels.nth(0)).toContainText(firstPageFirstCommit);
   });
 
-  test("builds update correctly as page changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("builds update correctly as page changes", async ({ page }) => {
     const builds = page.getByTestId("build-group");
     const buildGroups = builds.locator("> *");
     await expect(buildGroups.nth(0).getByRole("link")).toHaveCount(1);
@@ -70,7 +64,7 @@ test.describe("pagination", () => {
   });
 
   test("correctly disables buttons on first and last page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const prevButton = page.getByTestId("prev-page-button");
     const nextButton = page.getByTestId("next-page-button");
@@ -95,9 +89,7 @@ test.describe("pagination", () => {
   });
 
   test.describe("'Jump to most recent commit' button", () => {
-    test("returns user to the first page", async ({
-      authenticatedPage: page,
-    }) => {
+    test("returns user to the first page", async ({ page }) => {
       const firstPageFirstCommit = "2ab1c56";
       const versionLabels = page.getByTestId("version-labels").locator("> *");
 
@@ -119,7 +111,7 @@ test.describe("pagination", () => {
   });
 
   test("clears minOrder and maxOrder params when reaching the first page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const versionLabels = page.getByTestId("version-labels").locator("> *");
     await expect(versionLabels).toHaveCount(6);

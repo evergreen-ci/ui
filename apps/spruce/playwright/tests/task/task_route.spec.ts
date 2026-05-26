@@ -18,7 +18,7 @@ const taskStates = {
 
 test.describe("Task Page Route", () => {
   test("shouldn't get stuck in a redirect loop when visiting the task page and trying to navigate to a previous page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/user/admin/patches");
     await page.goto(`/task/${tasks[1]}`);
@@ -27,14 +27,14 @@ test.describe("Task Page Route", () => {
   });
 
   test("should not be redirected if they land on a task page with a tab supplied", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`/task/${tasks[1]}/files`);
     await expect(page).toHaveURL(new RegExp(`/task/${tasks[1]}/files`));
   });
 
   test("should display an appropriate status badge when visiting task pages", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`/task/${tasks[1]}`);
     await expect(
@@ -52,7 +52,7 @@ test.describe("Task Page Route", () => {
 
   test.describe("should redirect to the appropriate task tab depending on the conditions", () => {
     test("should redirect to the logs tab if the task is running", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`/task/${taskStates.runningTask}`);
       await expect(page).toHaveURL(
@@ -61,7 +61,7 @@ test.describe("Task Page Route", () => {
     });
 
     test("should redirect to the logs tab if the task is in a completed state", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`/task/${taskStates.succeededTask}`);
       await expect(page).toHaveURL(
@@ -70,7 +70,7 @@ test.describe("Task Page Route", () => {
     });
 
     test("should redirect to the tests tab if the task is completed and has failed tests", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`/task/${taskStates.failedTaskWithFailedTests}`);
       await expect(page).toHaveURL(
@@ -79,7 +79,7 @@ test.describe("Task Page Route", () => {
     });
 
     test("should redirect to the logs tab if the task is completed as failed and has no failed tests", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`/task/${taskStates.failedTaskWithNoFailedTests}`);
       await expect(page).toHaveURL(

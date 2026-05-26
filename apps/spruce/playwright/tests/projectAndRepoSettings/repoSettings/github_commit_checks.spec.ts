@@ -13,13 +13,13 @@ test.describe("GitHub Commit Checks", () => {
     ProjectSettingsTabRoutes.CommitChecks,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const githubChecksEnabledRadio = page
       .getByTestId("github-checks-enabled-radio-box")

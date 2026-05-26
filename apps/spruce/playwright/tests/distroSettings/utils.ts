@@ -1,6 +1,5 @@
-import { Page } from "@playwright/test";
 import { clickRadio } from "@evg-ui/playwright-config/helpers";
-import { expect } from "../../fixtures";
+import { Page, expect } from "../../fixtures";
 
 type onSaveOptions = "NONE" | "DECOMMISSION" | "RESTART_JASPER" | "REPROVISION";
 

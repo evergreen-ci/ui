@@ -156,7 +156,7 @@ test.describe("Hosts page sorting", () => {
   const distroSortControl = "button[aria-label='Sort by Distro']";
 
   test("Clicking the sort direction filter will set the page query param to 0", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${hostsRoute}?page=5`);
     const hostsTable = page.getByTestId("hosts-table");
@@ -167,7 +167,7 @@ test.describe("Hosts page sorting", () => {
   });
 
   test("Clicking a sort direction 3 times clears the sort params and sets page to 0", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(hostsRoute);
     await page.locator(distroSortControl).click();
@@ -179,7 +179,7 @@ test.describe("Hosts page sorting", () => {
   });
 
   test("Status sorter is selected by default if no sort params in url", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(hostsRoute);
     const sortAscendingIcon = page.locator(
@@ -189,7 +189,7 @@ test.describe("Hosts page sorting", () => {
   });
 
   test("Status sorter has initial value of sort param from url", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${hostsRoute}?page=0&sorts=DISTRO%3ADESC`);
     const sortDescendingIcon = page.locator(
@@ -199,9 +199,7 @@ test.describe("Hosts page sorting", () => {
   });
 
   sortByTests.forEach(({ expectedIds, sortBy, sorterName }) => {
-    test(`Sorts by ${sorterName} when sorts = ${sortBy}`, async ({
-      authenticatedPage: page,
-    }) => {
+    test(`Sorts by ${sorterName} when sorts = ${sortBy}`, async ({ page }) => {
       await page.goto(`${hostsRoute}?sorts=${sortBy}%3AASC&limit=10`);
       const rows = page.getByTestId("leafygreen-table-row");
       for (let i = 0; i < expectedIds.length; i++) {
@@ -212,7 +210,7 @@ test.describe("Hosts page sorting", () => {
 
   sortDirectionTests.forEach(({ expectedIds, order, sortDir }) => {
     test(`Sorts in ${order} order when sorts = CURRENT_TASK:${sortDir}`, async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `${hostsRoute}?page=0&sorts=CURRENT_TASK%3A${sortDir}&limit=10`,
@@ -224,9 +222,7 @@ test.describe("Hosts page sorting", () => {
     });
   });
 
-  test("Uses default sorts if sorts param is invalid", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Uses default sorts if sorts param is invalid", async ({ page }) => {
     await page.goto(`${hostsRoute}?sorts=INVALID%3AINVALID&limit=10`);
     const expectedIds = [
       "i-06f80fa6e28f93b",

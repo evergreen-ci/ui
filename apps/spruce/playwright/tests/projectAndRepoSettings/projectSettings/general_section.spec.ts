@@ -11,7 +11,7 @@ const origin = getProjectSettingsRoute(project);
 
 test.describe("general section", () => {
   test.describe("Renaming the identifier", () => {
-    test("Update identifier", async ({ authenticatedPage: page }) => {
+    test("Update identifier", async ({ page }) => {
       await page.goto(origin);
       const warningText =
         "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.";
@@ -28,9 +28,7 @@ test.describe("general section", () => {
     });
   });
 
-  test("Allows enabling Run Every Mainline Commit", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Allows enabling Run Every Mainline Commit", async ({ page }) => {
     await page.goto(origin);
     const enableRadio = page
       .getByTestId("run-every-mainline-commit-radio-box")
@@ -45,11 +43,11 @@ test.describe("general section", () => {
     test.describe("Repo project present", () => {
       const destination = getProjectSettingsRoute(projectUseRepoEnabled);
 
-      test.beforeEach(async ({ authenticatedPage: page }) => {
+      test.beforeEach(async ({ page }) => {
         await page.goto(destination);
       });
 
-      test("Starts as default to repo", async ({ authenticatedPage: page }) => {
+      test("Starts as default to repo", async ({ page }) => {
         await expect(
           page
             .getByTestId("stepback-bisect-group")
@@ -58,7 +56,7 @@ test.describe("general section", () => {
       });
 
       test("Clicking on enabled and then save shows a success toast", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const enableRadio = page
           .getByTestId("stepback-bisect-group")
@@ -74,11 +72,11 @@ test.describe("general section", () => {
     test.describe("Repo project not present", () => {
       const destination = getProjectSettingsRoute(project);
 
-      test.beforeEach(async ({ authenticatedPage: page }) => {
+      test.beforeEach(async ({ page }) => {
         await page.goto(destination);
       });
 
-      test("Starts as disabled", async ({ authenticatedPage: page }) => {
+      test("Starts as disabled", async ({ page }) => {
         await expect(
           page
             .getByTestId("stepback-bisect-group")
@@ -87,7 +85,7 @@ test.describe("general section", () => {
       });
 
       test("Clicking on enabled and then save shows a success toast", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const enableRadio = page
           .getByTestId("stepback-bisect-group")

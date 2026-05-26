@@ -3,12 +3,12 @@ import { validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("using an on-save operation", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/distro/localhost/settings/general");
   });
 
   test("notes how many hosts were updated in the resulting toast", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByLabel("Notes").fill("My note");
     await save(page, "DECOMMISSION");

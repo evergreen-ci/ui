@@ -15,14 +15,12 @@ test.describe("A repo that has GitHub webhooks enabled", () => {
     ProjectSettingsTabRoutes.PullRequests,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(destination);
     await expectSaveButtonEnabled(page, false);
   });
 
-  test("Allows enabling manual PR testing", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Allows enabling manual PR testing", async ({ page }) => {
     const radioBox = page.getByTestId("manual-pr-testing-enabled-radio-box");
     const enabledRadio = radioBox.getByRole("radio", { name: "Enabled" });
     await clickRadio(enabledRadio);
@@ -30,7 +28,7 @@ test.describe("A repo that has GitHub webhooks enabled", () => {
   });
 
   test("Saving a patch definition should hide the error banner, show a success toast and display disabled patch definitions for the repo on the project page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const errorBanner = page.getByTestId("error-banner").filter({
       hasText:

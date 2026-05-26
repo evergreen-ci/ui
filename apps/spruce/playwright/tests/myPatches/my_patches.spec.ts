@@ -6,7 +6,7 @@ const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
 const REGULAR_USER_PATCHES_ROUTE = "/user/regular/patches";
 
 test.describe("My Patches Page", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.context().addCookies([
       {
         name: "include-commit-queue-user-patches",
@@ -18,14 +18,14 @@ test.describe("My Patches Page", () => {
   });
 
   test("Redirects user to user patches route from `/user/:id`", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/user/chicken");
     await expect(page).toHaveURL("/user/chicken/patches");
   });
 
   test("The page title should be 'My Patches' when viewing the logged in users' patches page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
     await expect(
@@ -34,7 +34,7 @@ test.describe("My Patches Page", () => {
   });
 
   test("The page title should reflect another users patches when viewing another users patches page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(BOB_HICKS_PATCHES_ROUTE);
     await expect(page.getByText("Bob Hicks's Patches")).toBeVisible();
@@ -43,7 +43,7 @@ test.describe("My Patches Page", () => {
   });
 
   test("Typing in patch description input updates the url, requests patches and renders patches", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
     const patchDescriptionInput = page.getByTestId("patch-description-input");
@@ -53,9 +53,7 @@ test.describe("My Patches Page", () => {
     await patchDescriptionInput.clear();
   });
 
-  test("Inputting a number successfully searches patches", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Inputting a number successfully searches patches", async ({ page }) => {
     await page.goto(MY_PATCHES_ROUTE);
     const patchDescriptionInput = page.getByTestId("patch-description-input");
     await patchDescriptionInput.fill("3186");
@@ -64,7 +62,7 @@ test.describe("My Patches Page", () => {
   });
 
   test("Searching for a nonexistent patch shows 'No patches found'", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
     const patchDescriptionInput = page.getByTestId("patch-description-input");
@@ -73,7 +71,7 @@ test.describe("My Patches Page", () => {
   });
 
   test("Grouped task status icon should link to version page with appropriate filters", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
     await expect(
@@ -86,7 +84,7 @@ test.describe("My Patches Page", () => {
 
   test.describe("Patch submission selector", () => {
     test("Clicking the patch submission selector updates the URL, and renders patches", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(MY_PATCHES_ROUTE);
       await page.getByTestId("requester-selector").click();
@@ -117,7 +115,7 @@ test.describe("My Patches Page", () => {
   });
 
   test("Changing page size updates URL and renders less than or equal to that many rows", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${MY_PATCHES_ROUTE}?limit=10`);
     for (const pageSize of [20, 10, 50, 100]) {
@@ -135,7 +133,7 @@ test.describe("My Patches Page", () => {
 
   test.describe("Changing page number", () => {
     test("Displays the next page of results and updates URL when right arrow is clicked and next page exists", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`${MY_PATCHES_ROUTE}?limit=10`);
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
@@ -151,7 +149,7 @@ test.describe("My Patches Page", () => {
     });
 
     test("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`${MY_PATCHES_ROUTE}?limit=10&page=1`);
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
@@ -167,7 +165,7 @@ test.describe("My Patches Page", () => {
     });
 
     test("Should disable pagination when there are no more pages", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`${MY_PATCHES_ROUTE}?limit=10`);
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
@@ -184,7 +182,7 @@ test.describe("My Patches Page", () => {
   });
 
   test.describe("Clicking on status checkbox requests and renders patches for that status", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(MY_PATCHES_ROUTE);
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
       await page.getByTestId("my-patch-status-select").click();
@@ -204,7 +202,7 @@ test.describe("My Patches Page", () => {
     ];
 
     test("Clicking on a status checkbox applies the status and clicking again removes it", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       for (const { key, label } of statuses) {
         const checkbox = page.getByRole("checkbox", { name: label });
@@ -216,7 +214,7 @@ test.describe("My Patches Page", () => {
     });
 
     test("Clicking on All status checkbox applies all of the statuses and clicking again removes them", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const allCheckbox = page.getByRole("checkbox", { name: "All" });
       await clickCheckbox(allCheckbox); // Click to check status checkbox.

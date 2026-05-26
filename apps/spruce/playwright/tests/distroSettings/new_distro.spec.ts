@@ -4,13 +4,11 @@ import { validateToast } from "../../helpers";
 const distroSettingPage = "/distro/rhel71-power8-large/settings/general";
 
 test.describe("Creating a new distro", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(distroSettingPage);
   });
 
-  test("allows a user to create a new distro", async ({
-    authenticatedPage: page,
-  }) => {
+  test("allows a user to create a new distro", async ({ page }) => {
     const newDistroId = "new-distro";
 
     await page.getByTestId("new-distro-button").click();
@@ -44,13 +42,11 @@ test.describe("Creating a new distro", () => {
 });
 
 test.describe("Copying a distro", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(distroSettingPage);
   });
 
-  test("allows a user to copy an existing distro", async ({
-    authenticatedPage: page,
-  }) => {
+  test("allows a user to copy an existing distro", async ({ page }) => {
     const copyDistroId = "copy-distro";
 
     await page.getByTestId("new-distro-button").click();

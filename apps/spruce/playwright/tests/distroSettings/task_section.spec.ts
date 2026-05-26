@@ -4,9 +4,7 @@ import { save } from "./utils";
 
 test.describe("task section", () => {
   test.describe("static provider", () => {
-    test("should not show tunable options", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should not show tunable options", async ({ page }) => {
       await page.goto("/distro/localhost/settings/task");
       await selectOption(page, "Task Planner Version", "Tunable");
       await expect(page.getByTestId("tunable-options")).toHaveCount(0);
@@ -14,9 +12,7 @@ test.describe("task section", () => {
   });
 
   test.describe("docker provider", () => {
-    test("should not show tunable options", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should not show tunable options", async ({ page }) => {
       await page.goto("/distro/ubuntu1604-container-test/settings/task");
       await selectOption(page, "Task Planner Version", "Tunable");
       await expect(page.getByTestId("tunable-options")).toHaveCount(0);
@@ -24,19 +20,19 @@ test.describe("task section", () => {
   });
 
   test.describe("ec2 provider", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/distro/ubuntu1804-workstation/settings/task");
     });
 
     test("should only show tunable options if planner version is tunable", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await selectOption(page, "Task Planner Version", "Tunable");
       await expect(page.getByTestId("tunable-options")).toBeVisible();
     });
 
     test("should surface warnings for invalid number inputs", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await selectOption(page, "Task Planner Version", "Tunable");
       await page.getByLabel("Patch Factor").clear();
@@ -48,7 +44,7 @@ test.describe("task section", () => {
     });
 
     test("can update fields and those changes will persist", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 

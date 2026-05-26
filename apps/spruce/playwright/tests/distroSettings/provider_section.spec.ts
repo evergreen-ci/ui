@@ -4,13 +4,11 @@ import { save } from "./utils";
 
 test.describe("provider section", () => {
   test.describe("static", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/distro/localhost/settings/provider");
     });
 
-    test("successfully updates static provider fields", async ({
-      authenticatedPage: page,
-    }) => {
+    test("successfully updates static provider fields", async ({ page }) => {
       await expect(page.getByTestId("provider-select")).toContainText(
         "Static IP/VM",
       );
@@ -43,12 +41,12 @@ test.describe("provider section", () => {
   });
 
   test.describe("docker", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/distro/ubuntu1604-container-test/settings/provider");
     });
 
     test("shows pool mapping information based on container pool id", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const containerPoolSelect = page.getByRole("button", {
         name: "Container Pool ID",
@@ -71,9 +69,7 @@ test.describe("provider section", () => {
       );
     });
 
-    test("successfully updates docker provider fields", async ({
-      authenticatedPage: page,
-    }) => {
+    test("successfully updates docker provider fields", async ({ page }) => {
       await expect(page.getByTestId("provider-select")).toContainText("Docker");
       await expect(page.getByTestId("docker-provider-settings")).toBeVisible();
 
@@ -106,7 +102,7 @@ test.describe("provider section", () => {
   });
 
   test.describe("ec2 fleet", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/distro/ubuntu1804-workstation/settings/provider");
       await expect(
         page.getByTestId("ec2-fleet-provider-settings"),
@@ -118,9 +114,7 @@ test.describe("provider section", () => {
       ).toBeVisible();
     });
 
-    test("shows and hides fields correctly", async ({
-      authenticatedPage: page,
-    }) => {
+    test("shows and hides fields correctly", async ({ page }) => {
       const useVpcCheckbox = page.getByRole("checkbox", {
         name: "Use security groups in an EC2 VPC",
       });
@@ -134,9 +128,7 @@ test.describe("provider section", () => {
       await expect(page.getByText("VPC Subnet Prefix")).toHaveCount(0);
     });
 
-    test("successfully updates ec2 fleet provider fields", async ({
-      authenticatedPage: page,
-    }) => {
+    test("successfully updates ec2 fleet provider fields", async ({ page }) => {
       await expect(page.getByTestId("provider-select")).toContainText(
         "EC2 Fleet",
       );
@@ -167,9 +159,7 @@ test.describe("provider section", () => {
       await validateToast(page, "success", "Updated distro.");
     });
 
-    test("can add and delete region settings", async ({
-      authenticatedPage: page,
-    }) => {
+    test("can add and delete region settings", async ({ page }) => {
       await expect(
         page
           .getByTestId("expandable-card-title")
@@ -226,16 +216,14 @@ test.describe("provider section", () => {
   });
 
   test.describe("ec2 on-demand", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/distro/ubuntu1604-parent/settings/provider");
       await expect(
         page.getByTestId("ec2-on-demand-provider-settings"),
       ).toBeVisible();
     });
 
-    test("shows and hides fields correctly", async ({
-      authenticatedPage: page,
-    }) => {
+    test("shows and hides fields correctly", async ({ page }) => {
       const useVpcCheckbox = page.getByRole("checkbox", {
         name: "Use security groups in an EC2 VPC",
       });
@@ -249,7 +237,7 @@ test.describe("provider section", () => {
     });
 
     test("successfully updates ec2 on-demand provider fields", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("provider-select")).toContainText(
         "EC2 On-Demand",
@@ -294,9 +282,7 @@ test.describe("provider section", () => {
       await validateToast(page, "success", "Updated distro.");
     });
 
-    test("can add and delete region settings", async ({
-      authenticatedPage: page,
-    }) => {
+    test("can add and delete region settings", async ({ page }) => {
       const addRegionButton = page.getByRole("button", {
         name: "Add region settings",
       });

@@ -6,12 +6,12 @@ const patchWithoutVersion = "test meee";
 const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
 
 test.describe("Dropdown Menu of Patch Actions", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/");
   });
 
   test("'Reconfigure' link takes user to patch configure page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const patchCard = page
       .getByTestId("patch-card")
@@ -24,7 +24,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
   });
 
   test("'Schedule' link opens modal and clicking on 'Cancel' closes it.", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const patchCard = page
       .getByTestId("patch-card")
@@ -37,7 +37,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
   });
 
   test("'Schedule' link is disabled for unfinalized patch", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const patchCard = page
       .getByTestId("patch-card")
@@ -47,7 +47,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
   });
 
   test("'Unschedule' link opens popconfirm and unschedules patch", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const patchCard = page
       .getByTestId("patch-card")
@@ -60,7 +60,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
   });
 
   test("'Unschedule' link is disabled for unfinalized patch", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const patchCard = page
       .getByTestId("patch-card")
@@ -69,9 +69,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(page.getByTestId("unschedule-patch")).toBeDisabled();
   });
 
-  test("'Restart' link shows restart patch modal", async ({
-    authenticatedPage: page,
-  }) => {
+  test("'Restart' link shows restart patch modal", async ({ page }) => {
     const patchCard = page
       .getByTestId("patch-card")
       .filter({ hasText: patchWithVersion });
@@ -89,9 +87,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await validateToast(page, "success", "Successfully restarted tasks!");
   });
 
-  test("'Restart' link is disabled for unfinalized patch", async ({
-    authenticatedPage: page,
-  }) => {
+  test("'Restart' link is disabled for unfinalized patch", async ({ page }) => {
     const patchCard = page
       .getByTestId("patch-card")
       .filter({ hasText: patchWithoutVersion });
@@ -99,7 +95,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(page.getByTestId("restart-version")).toBeDisabled();
   });
 
-  test("Toggle patch visibility", async ({ authenticatedPage: page }) => {
+  test("Toggle patch visibility", async ({ page }) => {
     // "Include hidden" checkbox is not checked and patch is visible
     const includeHiddenCheckbox = page.getByRole("checkbox", {
       name: "Include hidden",

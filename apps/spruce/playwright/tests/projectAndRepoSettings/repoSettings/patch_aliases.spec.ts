@@ -12,7 +12,7 @@ import { expectSaveButtonEnabled, save } from "../utils";
 test.describe("Patch Aliases page", () => {
   const origin = getRepoSettingsRoute(repo);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await page.getByTestId("navitem-patch-aliases").click();
     await expectSaveButtonEnabled(page, false);
@@ -22,7 +22,7 @@ test.describe("Patch Aliases page", () => {
   });
 
   test("Saving a patch alias shows a success toast, the alias name in the card title and in the repo defaulted project", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByRole("button", { name: "Add patch alias" }).click();
     await expect(
@@ -91,7 +91,7 @@ test.describe("Patch Aliases page", () => {
   });
 
   test("Saving a Patch Trigger Alias shows a success toast and updates the Github pages", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByRole("button", { name: "Add patch trigger alias" }).click();
     await page.getByTestId("pta-alias-input").fill("my-alias");

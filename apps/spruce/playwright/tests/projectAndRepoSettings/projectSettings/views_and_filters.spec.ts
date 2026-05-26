@@ -12,7 +12,7 @@ test.describe("Views & filters page", () => {
     ProjectSettingsTabRoutes.ViewsAndFilters,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(destination);
     await expect(page.getByTestId("parsley-filter")).toHaveCount(2);
     await expectSaveButtonEnabled(page, false);
@@ -20,7 +20,7 @@ test.describe("Views & filters page", () => {
 
   test.describe("parsley filters", () => {
     test("does not allow saving with invalid regular expression or empty expression", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByRole("button", { name: "Add filter" }).click();
       await page.getByTestId("parsley-filter-expression").first().fill("*");
@@ -33,7 +33,7 @@ test.describe("Views & filters page", () => {
     });
 
     test("does not allow saving with duplicate filter expressions", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByRole("button", { name: "Add filter" }).click();
       await page
@@ -46,9 +46,7 @@ test.describe("Views & filters page", () => {
       ).toBeVisible();
     });
 
-    test("can successfully save and delete filter", async ({
-      authenticatedPage: page,
-    }) => {
+    test("can successfully save and delete filter", async ({ page }) => {
       await page.getByRole("button", { name: "Add filter" }).click();
       await page
         .getByTestId("parsley-filter-expression")

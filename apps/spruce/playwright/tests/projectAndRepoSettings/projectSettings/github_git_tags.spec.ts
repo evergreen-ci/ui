@@ -14,13 +14,13 @@ test.describe("Git Tags project settings when GitHub webhooks are disabled", () 
     ProjectSettingsTabRoutes.GitTags,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Git tags page shows a disabled webhooks banner when webhooks are disabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const banner = page.getByTestId("disabled-webhook-banner");
     await expect(banner).toBeVisible();
@@ -29,9 +29,7 @@ test.describe("Git Tags project settings when GitHub webhooks are disabled", () 
     );
   });
 
-  test("Disables all interactive elements on the page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Disables all interactive elements on the page", async ({ page }) => {
     const settingsPage = page.getByTestId("project-settings-page");
     const buttons = settingsPage.getByRole("button");
     for (const button of await buttons.all()) {
@@ -50,13 +48,13 @@ test.describe("Git Tags project settings when GitHub webhooks are enabled", () =
     ProjectSettingsTabRoutes.GitTags,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Saves successfully when Git Tags are enabled and a Git Tag Definition is provided", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const gitTagRadioBox = page.getByTestId("git-tag-enabled-radio-box");
     const enabledRadio = gitTagRadioBox.getByRole("radio", { name: "Enabled" });

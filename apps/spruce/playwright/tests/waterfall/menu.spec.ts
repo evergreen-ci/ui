@@ -7,12 +7,12 @@ import {
 } from "../../helpers";
 
 test.describe("Waterfall menu settings", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
   });
 
   test("toggles the omit inactive builds checkbox and persists the setting", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("waterfall-menu").click();
     const omitInactiveBuildsCheckbox = page.getByRole("checkbox", {
@@ -30,7 +30,7 @@ test.describe("Waterfall menu settings", () => {
   });
 
   test("omits inactive build variants when filter is applied and setting is enabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("build-variant-filter-input").fill("Lint");
     await page.getByTestId("build-variant-filter-input").press("Enter");
@@ -62,12 +62,12 @@ test.describe("Waterfall subscription modal", () => {
   const errorTextRegex = "Value should be a valid regex expression.";
   const successText = "Your subscription has been added";
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(route);
   });
 
   test("Displays success toast after submitting a valid form and request succeeds", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
@@ -85,7 +85,7 @@ test.describe("Waterfall subscription modal", () => {
   });
 
   test("Disables save button and displays an error message when populating form with invalid values", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
@@ -109,7 +109,7 @@ test.describe("Waterfall subscription modal", () => {
   });
 
   test("Displays error toast when save subscription request fails", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await mockGraphQLResponse(page, "SaveSubscriptionForUser", {
       errors: [
@@ -132,9 +132,7 @@ test.describe("Waterfall subscription modal", () => {
     await validateToast(page, "error", "Error adding your subscription");
   });
 
-  test("Hides the modal after clicking the cancel button", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Hides the modal after clicking the cancel button", async ({ page }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
     await expect(page.getByTestId(dataCyModal)).toBeVisible();
@@ -142,10 +140,7 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(dataCyModal)).toBeHidden();
   });
 
-  test("Pulls initial values from cookies", async ({
-    authenticatedPage: page,
-    context,
-  }) => {
+  test("Pulls initial values from cookies", async ({ page, context }) => {
     const type = "project";
     const triggerCookie = `${type}-notification-trigger`;
     await context.addCookies([

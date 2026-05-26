@@ -2,13 +2,13 @@ import { clickCheckbox } from "@evg-ui/playwright-config/helpers";
 import { test, expect } from "../../fixtures";
 
 test.describe("Task Duration Tab", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/version/5e4ff3abe3c3317e352062e4/task-duration");
   });
 
   test.describe("when interacting with the filters on the page", () => {
     test("updates URL appropriately when task name filter is applied", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("task-name-filter-popover").click();
       const filterInput = page.getByPlaceholder("Task name regex");
@@ -28,7 +28,7 @@ test.describe("Task Duration Tab", () => {
     });
 
     test("updates URL appropriately when status filter is applied", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("status-filter-popover").click();
       const options = page.getByTestId("tree-select-options");
@@ -57,7 +57,7 @@ test.describe("Task Duration Tab", () => {
     });
 
     test("updates URL appropriately when build variant filter is applied", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("build-variant-filter-popover").click();
       const filterInput = page.getByPlaceholder("Build variant regex");
@@ -75,7 +75,7 @@ test.describe("Task Duration Tab", () => {
     });
 
     test("updates URL appropriately when sort is changing", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const durationSortControl = page.getByRole("button", {
         name: "Sort by Task Duration",
@@ -123,7 +123,7 @@ test.describe("Task Duration Tab", () => {
     });
 
     test("clearing all filters resets to the default sort", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const durationSortControl = page.getByRole("button", {
         name: "Sort by Task Duration",
@@ -138,9 +138,7 @@ test.describe("Task Duration Tab", () => {
       await expect(page).toHaveURL(/sorts=DURATION%3ADESC/);
     });
 
-    test("shows message when no test results are found", async ({
-      authenticatedPage: page,
-    }) => {
+    test("shows message when no test results are found", async ({ page }) => {
       await page.getByTestId("task-name-filter-popover").click();
       const filterInput = page.getByPlaceholder("Task name regex");
       await filterInput.fill("this_does_not_exist");

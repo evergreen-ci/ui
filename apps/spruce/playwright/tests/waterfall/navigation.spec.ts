@@ -1,14 +1,12 @@
 import { test, expect } from "../../fixtures";
 
 test.describe("navigation", () => {
-  test("can view the waterfall page", async ({ authenticatedPage: page }) => {
+  test("can view the waterfall page", async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
     await expect(page.getByTestId("waterfall-page")).toBeVisible();
   });
 
-  test("can visit other projects using project select", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can visit other projects using project select", async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
     await expect(page.getByTestId("waterfall-page")).toBeVisible();
 
@@ -18,9 +16,7 @@ test.describe("navigation", () => {
     await expect(page.getByTestId("waterfall-page")).toBeVisible();
   });
 
-  test("project select stays open when typing a space", async ({
-    authenticatedPage: page,
-  }) => {
+  test("project select stays open when typing a space", async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
     await expect(page.getByTestId("waterfall-page")).toBeVisible();
 
@@ -32,7 +28,7 @@ test.describe("navigation", () => {
   });
 
   test("is redirected to the waterfall page when a user visits a legacy route", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/commits/evergreen");
     await expect(page).toHaveURL("/project/evergreen/waterfall");

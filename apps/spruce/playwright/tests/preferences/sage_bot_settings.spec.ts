@@ -1,5 +1,4 @@
-import { Page } from "@playwright/test";
-import { test, expect } from "../../fixtures";
+import { Page, test, expect } from "../../fixtures";
 import { mockGraphQLResponse, validateToast } from "../../helpers";
 
 const route = "/preferences/sage-bot-settings";
@@ -53,7 +52,7 @@ const setupSageMocks = async (
 
 test.describe("Sage Bot Settings", () => {
   test("should navigate to Sage Bot Settings from sidebar and display the tab", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await setupSageMocks(page, { keyConfigured: false, keyLastFour: "" });
     await page.goto("/preferences/profile");
@@ -66,7 +65,7 @@ test.describe("Sage Bot Settings", () => {
   });
 
   test("should have a disabled save button when input is empty", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await setupSageMocks(page, { keyConfigured: false, keyLastFour: "" });
     await page.goto(route);
@@ -74,7 +73,7 @@ test.describe("Sage Bot Settings", () => {
   });
 
   test("should enable save button when API key is entered", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await setupSageMocks(page, { keyConfigured: false, keyLastFour: "" });
     await page.goto(route);
@@ -83,7 +82,7 @@ test.describe("Sage Bot Settings", () => {
   });
 
   test("should save cursor API key and show success toast", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await setupSageMocks(page, { keyConfigured: false, keyLastFour: "" });
     await page.goto(route);
@@ -97,7 +96,7 @@ test.describe("Sage Bot Settings", () => {
   });
 
   test("should delete cursor API key and show success toast", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await setupSageMocks(page, { keyConfigured: true, keyLastFour: "2345" });
     await page.goto(route);

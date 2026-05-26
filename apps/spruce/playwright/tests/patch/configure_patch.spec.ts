@@ -8,7 +8,7 @@ const activatedPatchId = "5e4ff3abe3c3317e352062e4";
 test.describe("Configure Patch Page", () => {
   test.describe("Initial state reflects patch data", () => {
     test("First build variant in list is selected by default", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`/patch/${unactivatedPatchId}/configure/tasks`);
       await expect(
@@ -16,9 +16,7 @@ test.describe("Configure Patch Page", () => {
       ).toHaveAttribute("data-selected", "true");
     });
 
-    test("should allow canceling a configured patch", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should allow canceling a configured patch", async ({ page }) => {
       await page.goto("/patch/5ecedafb562343215a7ff297/configure/tasks");
       await expect(page.getByTestId("cancel-button")).toBeVisible();
       await page.getByTestId("cancel-button").click();
@@ -28,7 +26,7 @@ test.describe("Configure Patch Page", () => {
     });
 
     test("should not allow canceling an unconfigured patch", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`/patch/${unactivatedPatchId}/configure/tasks`);
       await expect(page.getByTestId("cancel-button")).toBeHidden();
@@ -36,7 +34,7 @@ test.describe("Configure Patch Page", () => {
 
     test.describe("Visiting configure page from a redirect", () => {
       test("should default to the tasks tab when there isn't one in the url", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.goto(`/patch/${unactivatedPatchId}/configure`);
         const tasksTab = page.getByTestId("tasks-tab");
@@ -46,17 +44,13 @@ test.describe("Configure Patch Page", () => {
     });
 
     test.describe("Visiting a configure page with display tasks", () => {
-      test("should show display tasks if there are any", async ({
-        authenticatedPage: page,
-      }) => {
+      test("should show display tasks if there are any", async ({ page }) => {
         await page.goto(`patch/${patchWithDisplayTasks}/configure/tasks`);
         await expect(page.getByText("display_task")).toBeVisible();
       });
     });
 
-    test("Required tasks should be auto selected", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Required tasks should be auto selected", async ({ page }) => {
       await page.goto(`patch/${patchWithDisplayTasks}/configure/tasks`);
       await expect(page.getByTestId("task-count-badge")).toContainText("1");
       await expect(
@@ -66,13 +60,11 @@ test.describe("Configure Patch Page", () => {
   });
 
   test.describe("Switching tabs", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(`patch/${unactivatedPatchId}/configure/tasks`);
     });
 
-    test("Should be able to switch between tabs", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should be able to switch between tabs", async ({ page }) => {
       const changesTab = page.getByTestId("changes-tab");
       await changesTab.click();
       await expect(page).toHaveURL(
@@ -91,7 +83,7 @@ test.describe("Configure Patch Page", () => {
     });
 
     test("Navigating away from the configure tab should disable the build variant selector", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("changes-tab").click();
       await expect(
@@ -106,9 +98,7 @@ test.describe("Configure Patch Page", () => {
 
   test.describe("Patch Parameters", () => {
     test.describe("Unactivated Patch", () => {
-      test("Adding a parameter is reflected on the page", async ({
-        authenticatedPage: page,
-      }) => {
+      test("Adding a parameter is reflected on the page", async ({ page }) => {
         await page.goto(`patch/${unactivatedPatchId}/configure/tasks`);
         await page.getByTestId("parameters-tab").click();
         await page.getByTestId("add-tag-button").click();
@@ -120,9 +110,7 @@ test.describe("Configure Patch Page", () => {
     });
 
     test.describe("Activated Patch", () => {
-      test("Parameters cannot be added once activated", async ({
-        authenticatedPage: page,
-      }) => {
+      test("Parameters cannot be added once activated", async ({ page }) => {
         await page.goto("patch/5ecedafb562343215a7ff297/configure/tasks");
         await page.getByTestId("parameters-tab").click();
         await expect(page.getByTestId("add-tag-button")).toBeHidden();
@@ -136,13 +124,13 @@ test.describe("Configure Patch Page", () => {
   });
 
   test.describe("Configuring a patch", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(`patch/${unactivatedPatchId}/configure/tasks`);
       await expect(page.getByTestId("build-variant-list-item")).toHaveCount(11);
     });
 
     test("Can update patch description by typing into `Patch Name` input field", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const val = "michelle obama";
       await page.getByTestId("patch-name-input").clear();
@@ -151,7 +139,7 @@ test.describe("Configure Patch Page", () => {
     });
 
     test("Schedule button should be disabled when no tasks are selected and enabled when they are", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("schedule-patch")).toBeDisabled();
       await page
@@ -163,7 +151,7 @@ test.describe("Configure Patch Page", () => {
     });
 
     test("Clicking on unchecked tasks checks them and updates task counts", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page
         .getByTestId("build-variant-list-item")
@@ -200,7 +188,7 @@ test.describe("Configure Patch Page", () => {
     });
 
     test("Clicking on checked tasks unchecks them and updates task counts", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page
         .getByTestId("build-variant-list-item")
@@ -232,7 +220,7 @@ test.describe("Configure Patch Page", () => {
 
     test.describe("Task filter input", () => {
       test("Updating the task filter input filters tasks in view", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.goto(`/patch/${unactivatedPatchId}/configure/tasks`);
         await page
@@ -252,7 +240,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("The task filter input works across multiple build variants", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.goto(`/patch/${unactivatedPatchId}/configure/tasks`);
         await page.keyboard.down("Meta");
@@ -281,7 +269,7 @@ test.describe("Configure Patch Page", () => {
 
     test.describe("Select/Deselect All checkbox", () => {
       test("Checking Select All should check/uncheck all task checkboxes", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
@@ -301,7 +289,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Checking all task checkboxes should check the Select All checkbox", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
@@ -316,7 +304,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Unchecking all task checkboxes should uncheck the Select All checkbox", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
@@ -336,7 +324,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("A mixture of checked and unchecked task checkboxes sets the Select All checkbox in an indeterminate state", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page
           .getByTestId("build-variant-list-item")
@@ -353,7 +341,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Selecting all tasks on an indeterminate state should check all the checkboxes", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const taskCheckboxes = page.getByTestId("task-checkbox");
         await expect(taskCheckboxes).toHaveCount(1);
@@ -375,7 +363,7 @@ test.describe("Configure Patch Page", () => {
 
     test.describe("Build variant selection", () => {
       test("Should be able to select and unselect an individual task and have task count be reflected in variant tab badge and task count label", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page
           .getByTestId("build-variant-list-item")
@@ -399,7 +387,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Selecting multiple build variants should display deduplicated task checkboxes", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.keyboard.down("Meta");
         await page
@@ -421,7 +409,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Deselecting multiple build variants should remove the associated tasks", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.keyboard.down("Meta");
         await page
@@ -440,7 +428,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Checking a deduplicated task between multiple build variants updates the task within each selected build variant", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.keyboard.down("Meta");
         await page
@@ -486,7 +474,7 @@ test.describe("Configure Patch Page", () => {
 
       test.describe("Selecting/deselecting all multiple buildvariants", () => {
         test("Should be able to select all tasks from multiple build variants", async ({
-          authenticatedPage: page,
+          page,
         }) => {
           await page
             .getByTestId("build-variant-list-item")
@@ -532,7 +520,7 @@ test.describe("Configure Patch Page", () => {
         });
 
         test("Should be able to deselect all tasks from multiple build variants", async ({
-          authenticatedPage: page,
+          page,
         }) => {
           await page
             .getByTestId("build-variant-list-item")
@@ -580,7 +568,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Shift+click will select the clicked build variant along with all build variants between the clicked build variant and the first selected build variant in the list", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page
           .getByTestId("build-variant-list-item")
@@ -597,7 +585,7 @@ test.describe("Configure Patch Page", () => {
     });
 
     test.describe("Selecting a trigger alias", () => {
-      test.beforeEach(async ({ authenticatedPage: page }) => {
+      test.beforeEach(async ({ page }) => {
         await page.goto(`/patch/${unactivatedPatchId}/configure/tasks`);
         await page
           .getByTestId("trigger-alias-list-item")
@@ -605,24 +593,20 @@ test.describe("Configure Patch Page", () => {
           .click();
       });
 
-      test("Should show one disabled task", async ({
-        authenticatedPage: page,
-      }) => {
+      test("Should show one disabled task", async ({ page }) => {
         await expect(page.getByTestId("alias-task-checkbox")).toHaveCount(1);
         await expect(page.getByTestId("alias-task-checkbox")).toBeDisabled();
         await expect(page.getByTestId("alias-task-checkbox")).not.toBeChecked();
       });
 
-      test("Should update the 'Select all' label", async ({
-        authenticatedPage: page,
-      }) => {
+      test("Should update the 'Select all' label", async ({ page }) => {
         await expect(
           page.getByTestId("select-all-checkbox").locator("..").locator("span"),
         ).toContainText("Add alias to patch");
       });
 
       test("Clicking 'Add alias to patch' should update the task count and select the disabled task", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const taskCountBadge = page
           .getByTestId("trigger-alias-list-item")
@@ -645,7 +629,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Cmd+click will select the clicked trigger alias along with the build variant and will show a checkbox for the trigger alias", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.keyboard.down("Meta");
         await page
@@ -657,7 +641,7 @@ test.describe("Configure Patch Page", () => {
       });
 
       test("Updates the badge count when the trigger alias is deselected", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const addAliasCheckbox = page.getByRole("checkbox", {
           name: "Add alias to patch",
@@ -674,12 +658,12 @@ test.describe("Configure Patch Page", () => {
   });
 
   test.describe("Scheduling a patch", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(`/patch/${unactivatedPatchId}/configure/tasks`);
     });
 
     test("Clicking 'Schedule' button schedules patch and redirects to patch page", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await mockGraphQLResponse(page, "SchedulePatch", {
         data: {
