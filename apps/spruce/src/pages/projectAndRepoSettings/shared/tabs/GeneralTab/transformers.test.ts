@@ -46,7 +46,7 @@ const repoForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: true,
-    waterfallDisabled: null,
+    waterfallDisabled: false,
     debug: {
       debugSpawnHostsDisabled: false,
     },
@@ -82,7 +82,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     spawnHostScriptPath: "/test/path",
     versionControlEnabled: false,
     dispatchingDisabled: true,
-    waterfallDisabled: null,
+    waterfallDisabled: false,
     deactivatePrevious: true,
     repotrackerDisabled: false,
     runEveryMainlineCommit: false,

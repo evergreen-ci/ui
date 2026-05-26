@@ -45,5 +45,6 @@ export const REPO_GENERAL_SETTINGS = gql`
     stepbackBisect
     stepbackDisabled
     versionControlEnabled
+    waterfallDisabled
   }
 `;

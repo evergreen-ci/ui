@@ -5426,6 +5426,7 @@ export type RepoGeneralSettingsFragment = {
   debugSpawnHostsDisabled: boolean;
   disabledStatsCache: boolean;
   dispatchingDisabled: boolean;
+  waterfallDisabled: boolean;
   displayName: string;
   owner: string;
   patchingDisabled: boolean;
@@ -5812,6 +5813,7 @@ export type RepoSettingsFieldsFragment = {
     debugSpawnHostsDisabled: boolean;
     disabledStatsCache: boolean;
     dispatchingDisabled: boolean;
+    waterfallDisabled: boolean;
     owner: string;
     patchingDisabled: boolean;
     remotePath: string;
@@ -10529,6 +10531,7 @@ export type RepoSettingsQuery = {
       debugSpawnHostsDisabled: boolean;
       disabledStatsCache: boolean;
       dispatchingDisabled: boolean;
+      waterfallDisabled: boolean;
       owner: string;
       patchingDisabled: boolean;
       remotePath: string;

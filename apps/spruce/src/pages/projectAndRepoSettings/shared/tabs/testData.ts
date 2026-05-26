@@ -215,6 +215,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     spawnHostScriptPath: "/test/path",
     oldestAllowedMergeBase: "abc",
     dispatchingDisabled: true,
+    waterfallDisabled: false,
     versionControlEnabled: false,
     deactivatePrevious: true,
     repotrackerDisabled: false,

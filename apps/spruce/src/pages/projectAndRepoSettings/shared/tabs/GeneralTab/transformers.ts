@@ -44,10 +44,7 @@ export const gqlToForm = ((data, options = {}) => {
     },
     projectFlags: {
       dispatchingDisabled: projectRef.dispatchingDisabled,
-      waterfallDisabled:
-        "waterfallDisabled" in projectRef
-          ? (projectRef.waterfallDisabled ?? null)
-          : null,
+      waterfallDisabled: projectRef.waterfallDisabled,
       debug: {
         debugSpawnHostsDisabled: projectRef.debugSpawnHostsDisabled,
       },
