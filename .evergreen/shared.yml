@@ -11,12 +11,15 @@ functions:
       role_arn: ${USER_STAGING_ARN}
 
   check-codegen:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        ./scripts/check_codegen.sh
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          ./scripts/check_codegen.sh
 
   get-project:
     command: git.get_project
@@ -30,11 +33,14 @@ functions:
       type: setup
       params:
         expansion_name: github_token
-    - command: shell.exec
+    - command: subprocess.exec
       params:
-        script: |
-          # Set GitHub app dynamic token to ensure it can clone non-public repos for Go modules.
-          git config --global url."https://x-access-token:${github_token}@github.com/evergreen-ci/".insteadOf https://github.com/evergreen-ci/
+        binary: bash
+        args:
+          - "-c"
+          - |
+            # Set GitHub app dynamic token to ensure it can clone non-public repos for Go modules.
+            git config --global url."https://x-access-token:${github_token}@github.com/evergreen-ci/".insteadOf https://github.com/evergreen-ci/
 
   run-make-background:
     command: subprocess.exec
@@ -75,33 +81,37 @@ functions:
           MONGOSH_DECOMPRESS: ${decompress}
         working_dir: ui/evergreen
         command: make get-mongosh
-    - command: shell.exec
+    - command: subprocess.exec
       type: setup
       params:
         background: true
         # Turn off silent to enable DB logging for debugging purposes
         silent: true
         working_dir: ui/evergreen
-        shell: bash
-        script: | 
-          mkdir -p bin
-          make start-mongod > bin/mongod-logs.txt 2>&1
+        binary: bash
+        args:
+          - "-c"
+          - |
+            mkdir -p bin
+            make start-mongod > bin/mongod-logs.txt 2>&1
     - command: subprocess.exec
       type: setup
       params:
         working_dir: ui/evergreen
         command: make configure-mongod
-    - command: shell.exec
+    - command: subprocess.exec
       type: setup
       params:
-        shell: bash
-        script: |
-          ${PREPARE_SHELL}
-          cd $PROJECT_DIRECTORY
-          mkdir mongodb-tools && cd mongodb-tools
-          curl ${mongodb_tools_url} -o mongodb-tools.tgz
-          ${decompress} mongodb-tools.tgz
-          mv ./mongodb-*/bin/* .
+        binary: bash
+        args:
+          - "-c"
+          - |
+            ${PREPARE_SHELL}
+            cd $PROJECT_DIRECTORY
+            mkdir mongodb-tools && cd mongodb-tools
+            curl ${mongodb_tools_url} -o mongodb-tools.tgz
+            ${decompress} mongodb-tools.tgz
+            mv ./mongodb-*/bin/* .
 
   setup-node:
     - command: subprocess.exec
@@ -112,130 +122,158 @@ functions:
     - command: expansions.update
       params:
         file: expansion.yml
-    - command: shell.exec
+    - command: subprocess.exec
       params:
         exec_timeout_secs: 60
-        shell: bash
-        script: |
-          ${PREPARE_SHELL}
+        binary: bash
+        args:
+          - "-c"
+          - |
+            ${PREPARE_SHELL}
 
-          # Download Node.js directly from official releases (with retries).
-          curl --output nodejs.tar.xz --fail --retry 5 --retry-delay 10 "https://nodejs.org/dist/v${node_version}/node-v${node_version}-linux-x64.tar.xz"
-          tar xf nodejs.tar.xz
-          mv "node-v${node_version}-linux-x64" "$NODE_HOME"
+            # Download Node.js directly from official releases (with retries).
+            curl --output nodejs.tar.xz --fail --retry 5 --retry-delay 10 "https://nodejs.org/dist/v${node_version}/node-v${node_version}-linux-x64.tar.xz"
+            tar xf nodejs.tar.xz
+            mv "node-v${node_version}-linux-x64" "$NODE_HOME"
 
-          # Enable pnpm via corepack (uses packageManager field in package.json).
-          corepack enable pnpm
+            # Enable pnpm via corepack (uses packageManager field in package.json).
+            corepack enable pnpm
 
   symlink:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui
-      shell: bash
-      script: |
-        ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema
 
   wait-for-evergreen:
-    command: shell.exec
+    command: subprocess.exec
     type: setup
     params:
       exec_timeout_secs: 600
       timeout_secs: 1800
       working_dir: ui/.evergreen
-      script: ./scripts/wait-for-evergreen.sh
+      binary: bash
+      args:
+        - scripts/wait-for-evergreen.sh
 
   pnpm-build:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        pnpm build:local
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm build:local
 
   pnpm-playwright:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      shell: bash
+      binary: bash
       env:
         # Installs browsers to node_modules.
         PLAYWRIGHT_BROWSERS_PATH: "0"
         STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
-      script: |
-        ${PREPARE_SHELL}
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
 
-        # Install Chromium browser to use with Playwright tests.
-        pnpm exec playwright install chromium
+          # Install Chromium browser to use with Playwright tests.
+          pnpm exec playwright install chromium
 
-        # Allow spec filtering for an intentional patch.
-        if [[ "${playwright_spec}" != "" ]]; then
-          pnpm playwright:test ${playwright_spec}
-        else
-          pnpm playwright:test
-        fi
+          # Allow spec filtering for an intentional patch.
+          if [[ "${playwright_spec}" != "" ]]; then
+            pnpm playwright:test ${playwright_spec}
+          else
+            pnpm playwright:test
+          fi
 
   pnpm-eslint:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        pnpm eslint:strict
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm eslint:strict
 
   pnpm-install:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        pnpm install
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm install
 
   pnpm-preview:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       background: true
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        pnpm preview --no-request-logging
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm preview --no-request-logging
 
   pnpm-serve:
-    command: shell.exec
+    command: subprocess.exec
     type: setup
     params:
       working_dir: ui/${app_dir}
       background: true
-      script: |
-        ${PREPARE_SHELL}
-        pnpm serve
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm serve
 
   pnpm-storybook-build:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        pnpm storybook:build
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm storybook:build
 
   pnpm-test:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        pnpm test
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm test
 
   pnpm-tsc:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        pnpm check-types
+      binary: bash
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm check-types
 
   pnpm-verify-backend:
     command: subprocess.exec
