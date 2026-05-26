@@ -33,8 +33,17 @@ export const downloadFile = async (
   filename = "logs",
 ): Promise<void> => {
   const response = await fetch(url, { credentials: "include" });
+  const supportsFileSystemAccess =
+    "showSaveFilePicker" in window &&
+    (() => {
+      try {
+        return window.self === window.top;
+      } catch {
+        return false;
+      }
+    })();
   try {
-    if ("showSaveFilePicker" in window) {
+    if (supportsFileSystemAccess) {
       const handle = await window.showSaveFilePicker({
         suggestedName: filename,
       });
@@ -46,8 +55,13 @@ export const downloadFile = async (
       const a = document.createElement("a");
       a.href = objectURL;
       a.download = filename;
+      a.style.display = "none";
+      document.body.append(a);
       a.click();
-      URL.revokeObjectURL(objectURL);
+      setTimeout(() => {
+        URL.revokeObjectURL(objectURL);
+        a.remove();
+      }, 1000);
     }
   } catch (e) {
     if (e instanceof Error && e.name === "AbortError") {
