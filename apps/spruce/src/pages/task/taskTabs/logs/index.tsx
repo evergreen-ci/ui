@@ -9,6 +9,7 @@ import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { downloadFile } from "@evg-ui/lib/utils/request";
 import { useTaskAnalytics } from "analytics";
 import { siderCardWidth } from "components/styles/Layout";
@@ -53,7 +54,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
   const [noLogs, setNoLogs] = useState(false);
   const [showFade, setShowFade] = useState(false);
   const logWrapperRef = useRef<HTMLDivElement>(null);
-
+  const { success } = useToastContext();
   useEffect(() => {
     // Don't show fade overlay on small log tails
     const el = logWrapperRef.current;
@@ -182,7 +183,9 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                   data-cy="download-log-btn"
                   disabled={noLogs}
                   onClick={() => {
-                    downloadFile(rawLink, `${taskId}_${currentLog}.log`);
+                    downloadFile(rawLink, `${taskId}_${currentLog}.log`, () => {
+                      success("Log downloaded started");
+                    });
                     sendEvent({
                       name: "Clicked log link",
                       "log.type": currentLog,

@@ -3,6 +3,7 @@ import { Button } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { downloadFile } from "@evg-ui/lib/utils/request";
 import { usePreferencesAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
@@ -12,7 +13,7 @@ import { CopyTextButton } from "./CopyTextButton";
 const ButtonRow: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const { logMetadata } = useLogContext();
-
+  const { success } = useToastContext();
   const { htmlLogURL, jobLogsURL, rawLogURL } = logMetadata || {};
 
   return (
@@ -83,7 +84,9 @@ const ButtonRow: React.FC = () => {
                   const { fileName, taskID, testID } = logMetadata ?? {};
                   const filename =
                     fileName ?? (testID ? `${testID}.log` : `${taskID}.log`);
-                  downloadFile(rawLogURL, filename);
+                  downloadFile(rawLogURL, filename, () => {
+                    success("Log downloaded started");
+                  });
                   sendEvent({ name: "Clicked download logs button" });
                 }
               }}

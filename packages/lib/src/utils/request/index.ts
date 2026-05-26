@@ -26,11 +26,13 @@ export const shouldLogoutAndRedirect = (statusCode: number) =>
  * downloadFile downloads a file from a given URL and saves it to the user's filesystem.
  * @param url - the URL of the file to download
  * @param filename - the name of the file to save
+ * @param onDownloadComplete - a callback that is invoked when the file has been downloaded
  * @returns - a promise that resolves when the file has been downloaded
  */
 export const downloadFile = async (
   url: string,
   filename = "logs",
+  onDownloadComplete?: () => void,
 ): Promise<void> => {
   const response = await fetch(url, { credentials: "include" });
   const supportsFileSystemAccess =
@@ -63,6 +65,7 @@ export const downloadFile = async (
         a.remove();
       }, 1000);
     }
+    onDownloadComplete?.();
   } catch (e) {
     if (e instanceof Error && e.name === "AbortError") {
       return;

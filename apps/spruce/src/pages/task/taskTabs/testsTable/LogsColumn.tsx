@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { downloadFile } from "@evg-ui/lib/utils/request";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
@@ -21,6 +22,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const { lineNum, testName, urlParsley, urlRaw } = testResult.logs ?? {};
   const { displayTask, execution: taskExecution, id: taskId } = task ?? {};
   const { sendEvent } = useTaskAnalytics();
+  const { success } = useToastContext();
   const filters = status === TestStatus.Fail ? toEscapedRegex(testFile) : null;
   const isExecutionTask = displayTask !== null;
 
@@ -94,7 +96,9 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           data-cy="test-table-download-btn"
           onClick={() => {
             const sanitized = testFile.replace(/[^a-zA-Z0-9._-]/g, "_");
-            downloadFile(urlRaw, `${taskId}_${sanitized}.log`);
+            downloadFile(urlRaw, `${taskId}_${sanitized}.log`, () => {
+              success("Log downloaded started");
+            });
             sendEvent({
               name: "Clicked test log link",
               "log.viewer": "download",
