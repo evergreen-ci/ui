@@ -27,6 +27,7 @@ import {
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
+import { formatCost } from "utils/numbers";
 import { msToDuration } from "utils/string";
 import { ParametersModal } from "../ParametersModal";
 import IncludedLocalModules from "./IncludedLocalModules";
@@ -231,7 +232,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
             data-cy="version-metadata-cost"
             tooltipDescription={costTooltip}
           >
-            <MetadataLabel>Cost:</MetadataLabel> ${totalCost}
+            <MetadataLabel>Cost:</MetadataLabel> ${formatCost(totalCost)}
             {cost != null && isVersionComplete && (
               <>
                 {" "}

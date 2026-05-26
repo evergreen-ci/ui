@@ -41,7 +41,7 @@ describe("CostModal", () => {
       />,
     );
     expect(screen.getByText("$0.52")).toBeInTheDocument();
-    expect(screen.getByText("$0.5")).toBeInTheDocument();
+    expect(screen.getByText("$0.50")).toBeInTheDocument();
     expect(screen.getByText("$0.01")).toBeInTheDocument();
     expect(screen.getByText("$0.02")).toBeInTheDocument();
     expect(screen.getByText("$0.001")).toBeInTheDocument();

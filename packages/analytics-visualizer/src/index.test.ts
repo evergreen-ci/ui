@@ -34,6 +34,7 @@ describe("analyticsVisualizer", () => {
   });
 
   afterEach(() => {
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 

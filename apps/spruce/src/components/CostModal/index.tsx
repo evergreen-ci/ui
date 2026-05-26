@@ -14,6 +14,7 @@ import {
   getHoneycombVersionCostUrl,
 } from "constants/externalResources/honeycomb";
 import { Cost } from "gql/generated/types";
+import { formatCost } from "utils/numbers";
 
 interface CostRow {
   category: string;
@@ -52,7 +53,11 @@ const columns: LGColumnDef<CostRow>[] = [
     header: "Cost",
     cell: ({ getValue }) => {
       const cost = getValue() as number | null | undefined;
-      return <TabularNum>{cost && cost > 0 ? `$${cost}` : "N/A"}</TabularNum>;
+      return (
+        <TabularNum>
+          {cost != null && cost > 0 ? `$${formatCost(cost)}` : "N/A"}
+        </TabularNum>
+      );
     },
   },
 ];

@@ -1,12 +1,16 @@
-import tsconfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vitest/config";
+import { defineConfig as defineTestConfig } from "vitest/config";
 
-export default defineConfig({
-  plugins: [tsconfigPaths()],
+const vitestConfig = defineTestConfig({
   test: {
     environment: "node",
     globals: true,
     outputFile: { junit: "./bin/vitest/junit.xml" },
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+    include: ["src/**/*.test.{ts,tsx}"],
+  },
+  resolve: {
+    tsconfigPaths: true,
   },
 });
+
+export default vitestConfig;
