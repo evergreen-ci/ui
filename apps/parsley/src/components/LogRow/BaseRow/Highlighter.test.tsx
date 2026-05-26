@@ -47,5 +47,13 @@ describe("highlighter", () => {
         expect(highlight).toHaveTextContent(/test|blah/i);
       });
     });
+
+    it("should correctly count highlight matches", () => {
+      const regexp = /blah/gi;
+      renderWithRouterMatch(
+        <Highlighter highlights={regexp}>Test blah test blah</Highlighter>,
+      );
+      expect(screen.queryAllByDataCy("highlight")).toHaveLength(3);
+    });
   });
 });
