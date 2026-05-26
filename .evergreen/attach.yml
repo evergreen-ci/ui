@@ -23,16 +23,18 @@ functions:
       permissions: public-read
 
   attach-playwright-results:
-    - command: shell.exec
+    - command: subprocess.exec
       type: system
       params:
         working_dir: ui/${app_dir}/bin/playwright
-        shell: bash
-        script: |
-          if [ -d "html" ]; then
-            cd html
-            zip -r ../playwright-html-report.zip .
-          fi
+        binary: bash
+        args:
+          - "-c"
+          - |
+            if [ -d "html" ]; then
+              cd html
+              zip -r ../playwright-html-report.zip .
+            fi
     - command: s3.put
       type: system
       params:

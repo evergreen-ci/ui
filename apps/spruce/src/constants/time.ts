@@ -123,10 +123,6 @@ export const timeZones = [
     value: "Asia/Hong_Kong",
   },
   {
-    str: "Eucla (Unofficial)",
-    value: "Australia/Eucla",
-  },
-  {
     str: "Japan, South Korea",
     value: "Asia/Seoul",
   },
@@ -139,32 +135,16 @@ export const timeZones = [
     value: "Australia/Sydney",
   },
   {
-    str: "Lord Howe Island",
-    value: "Australia/Lord_Howe",
-  },
-  {
     str: "Russia Vladivostok Time",
     value: "Asia/Vladivostok",
-  },
-  {
-    str: "Norfolk Island",
-    value: "Pacific/Norfolk",
   },
   {
     str: "Fiji, Russia Magadan Time",
     value: "Asia/Magadan",
   },
   {
-    str: "Chatham Islands",
-    value: "Pacific/Chatham",
-  },
-  {
-    str: "Tonga",
-    value: "Pacific/Tongatapu",
-  },
-  {
-    str: "Kiribati Line Islands",
-    value: "Pacific/Kiritimati",
+    str: "New Zealand",
+    value: "Pacific/Auckland",
   },
 ];
 
