@@ -1022,7 +1022,9 @@ export type EditSpawnHostInput = {
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
+  /** @deprecated Use volumeId instead of volume. */
   volume?: InputMaybe<Scalars["String"]["input"]>;
+  volumeId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type EnvVar = {
@@ -2808,7 +2810,6 @@ export type Project = {
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   testSelection?: Maybe<TestSelectionSettings>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
@@ -2959,7 +2960,6 @@ export type ProjectInput = {
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
-  tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
@@ -3004,7 +3004,6 @@ export type ProjectLite = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -3430,7 +3429,6 @@ export type RepoRef = {
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   testSelection?: Maybe<RepoTestSelectionSettings>;
-  tracksPushEvents: Scalars["Boolean"]["output"];
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
@@ -3479,7 +3477,6 @@ export type RepoRefInput = {
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
-  tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
@@ -3953,7 +3950,9 @@ export enum SpawnHostStatusActions {
 export type SpawnVolumeInput = {
   availabilityZone: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
+  /** @deprecated Use hostId instead of host. */
   host?: InputMaybe<Scalars["String"]["input"]>;
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
   size: Scalars["Int"]["input"];
   type: Scalars["String"]["input"];
@@ -6195,12 +6194,9 @@ export type ProjectEventSettingsFragment = {
   }> | null;
   projectRef?: {
     __typename?: "Project";
-    hidden?: boolean | null;
+    id: string;
     identifier: string;
     repoRefId: string;
-    tracksPushEvents?: boolean | null;
-    versionControlEnabled?: boolean | null;
-    id: string;
     admins?: Array<string> | null;
     restricted?: boolean | null;
     batchTime: number;
@@ -6211,6 +6207,7 @@ export type ProjectEventSettingsFragment = {
     dispatchingDisabled?: boolean | null;
     displayName: string;
     enabled?: boolean | null;
+    hidden?: boolean | null;
     owner: string;
     patchingDisabled?: boolean | null;
     remotePath: string;
@@ -6220,6 +6217,7 @@ export type ProjectEventSettingsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
+    versionControlEnabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
     githubPRTriggerAliases?: Array<string> | null;
@@ -9275,12 +9273,9 @@ export type ProjectEventLogsQuery = {
         }> | null;
         projectRef?: {
           __typename?: "Project";
-          hidden?: boolean | null;
+          id: string;
           identifier: string;
           repoRefId: string;
-          tracksPushEvents?: boolean | null;
-          versionControlEnabled?: boolean | null;
-          id: string;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -9291,6 +9286,7 @@ export type ProjectEventLogsQuery = {
           dispatchingDisabled?: boolean | null;
           displayName: string;
           enabled?: boolean | null;
+          hidden?: boolean | null;
           owner: string;
           patchingDisabled?: boolean | null;
           remotePath: string;
@@ -9300,6 +9296,7 @@ export type ProjectEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          versionControlEnabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
           githubPRTriggerAliases?: Array<string> | null;
@@ -9498,12 +9495,9 @@ export type ProjectEventLogsQuery = {
         }> | null;
         projectRef?: {
           __typename?: "Project";
-          hidden?: boolean | null;
+          id: string;
           identifier: string;
           repoRefId: string;
-          tracksPushEvents?: boolean | null;
-          versionControlEnabled?: boolean | null;
-          id: string;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -9514,6 +9508,7 @@ export type ProjectEventLogsQuery = {
           dispatchingDisabled?: boolean | null;
           displayName: string;
           enabled?: boolean | null;
+          hidden?: boolean | null;
           owner: string;
           patchingDisabled?: boolean | null;
           remotePath: string;
@@ -9523,6 +9518,7 @@ export type ProjectEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          versionControlEnabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
           githubPRTriggerAliases?: Array<string> | null;
@@ -10056,12 +10052,9 @@ export type RepoEventLogsQuery = {
         }> | null;
         projectRef?: {
           __typename?: "Project";
-          hidden?: boolean | null;
+          id: string;
           identifier: string;
           repoRefId: string;
-          tracksPushEvents?: boolean | null;
-          versionControlEnabled?: boolean | null;
-          id: string;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -10072,6 +10065,7 @@ export type RepoEventLogsQuery = {
           dispatchingDisabled?: boolean | null;
           displayName: string;
           enabled?: boolean | null;
+          hidden?: boolean | null;
           owner: string;
           patchingDisabled?: boolean | null;
           remotePath: string;
@@ -10081,6 +10075,7 @@ export type RepoEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          versionControlEnabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
           githubPRTriggerAliases?: Array<string> | null;
@@ -10279,12 +10274,9 @@ export type RepoEventLogsQuery = {
         }> | null;
         projectRef?: {
           __typename?: "Project";
-          hidden?: boolean | null;
+          id: string;
           identifier: string;
           repoRefId: string;
-          tracksPushEvents?: boolean | null;
-          versionControlEnabled?: boolean | null;
-          id: string;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -10295,6 +10287,7 @@ export type RepoEventLogsQuery = {
           dispatchingDisabled?: boolean | null;
           displayName: string;
           enabled?: boolean | null;
+          hidden?: boolean | null;
           owner: string;
           patchingDisabled?: boolean | null;
           remotePath: string;
@@ -10304,6 +10297,7 @@ export type RepoEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          versionControlEnabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
           githubPRTriggerAliases?: Array<string> | null;
