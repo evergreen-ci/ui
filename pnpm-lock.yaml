@@ -41,6 +41,9 @@ importers:
       '@storybook/react-vite':
         specifier: ^10.1.10
         version: 10.3.5(esbuild@0.27.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.60.1)(storybook@10.3.5(@testing-library/dom@9.3.1)(@types/prettier@3.0.0)(@types/react-dom@18.3.1)(@types/react@18.3.12)(prettier@3.7.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@6.0.2)(vite@8.0.13(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.6.1)(yaml@2.8.3))
+      '@types/wicg-file-system-access':
+        specifier: ^2023.10.7
+        version: 2023.10.7
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -1151,6 +1154,9 @@ importers:
       '@types/node':
         specifier: ^22.15.3
         version: 22.19.17
+      '@types/wicg-file-system-access':
+        specifier: ^2023.10.7
+        version: 2023.10.7
       '@vitejs/plugin-react':
         specifier: 5.1.2
         version: 5.1.2(vite@8.0.13(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.6.1)(yaml@2.8.3))
@@ -4071,6 +4077,9 @@ packages:
   '@types/which-boxed-primitive@1.1.0':
     resolution: {integrity: sha512-p5PUZOuUSMctikVRO2rhzmyD8yrF8FGY7JMg3g5LZM69KFhxRQlGgSIsH+bMFtW4uPmJafcPjHxd5cbLB9qpcA==}
     deprecated: This is a stub types definition. which-boxed-primitive provides its own type definitions, so you do not need this installed.
+
+  '@types/wicg-file-system-access@2023.10.7':
+    resolution: {integrity: sha512-g49ijasEJvCd7ifmAY2D0wdEtt1xRjBbA33PJTiv8mKBr7DoMsPeISoJ8oQOTopSRi+FBWPpPW5ouDj2QPKtGA==}
 
   '@types/wrap-ansi@3.0.0':
     resolution: {integrity: sha512-ltIpx+kM7g/MLRZfkbL7EsCEjfzCcScLpkg37eXEtx5kmrAKBkTJwd1GIAjDSL8wTpM6Hzn5YO4pSb91BEwu1g==}
@@ -12128,6 +12137,8 @@ snapshots:
   '@types/which-boxed-primitive@1.1.0':
     dependencies:
       which-boxed-primitive: 1.1.1
+
+  '@types/wicg-file-system-access@2023.10.7': {}
 
   '@types/wrap-ansi@3.0.0': {}
 
