@@ -5813,7 +5813,6 @@ export type RepoSettingsFieldsFragment = {
     debugSpawnHostsDisabled: boolean;
     disabledStatsCache: boolean;
     dispatchingDisabled: boolean;
-    waterfallDisabled: boolean;
     owner: string;
     patchingDisabled: boolean;
     remotePath: string;
@@ -5824,6 +5823,7 @@ export type RepoSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
+    waterfallDisabled: boolean;
     notifyOnBuildFailure: boolean;
     githubMQTriggerAliases?: Array<string> | null;
     githubPRTriggerAliases?: Array<string> | null;
@@ -10531,7 +10531,6 @@ export type RepoSettingsQuery = {
       debugSpawnHostsDisabled: boolean;
       disabledStatsCache: boolean;
       dispatchingDisabled: boolean;
-      waterfallDisabled: boolean;
       owner: string;
       patchingDisabled: boolean;
       remotePath: string;
@@ -10542,6 +10541,7 @@ export type RepoSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
+      waterfallDisabled: boolean;
       notifyOnBuildFailure: boolean;
       githubMQTriggerAliases?: Array<string> | null;
       githubPRTriggerAliases?: Array<string> | null;
