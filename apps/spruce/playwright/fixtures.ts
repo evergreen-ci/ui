@@ -49,4 +49,4 @@ export const test = base.extend({
   },
 });
 
-export { Page, expect } from "@playwright/test";
+export { type Page, expect } from "@playwright/test";
