@@ -17,6 +17,7 @@
   "devDependencies": {
     "@evg-ui/storybook-addon": "workspace:*",
     "@storybook/react-vite": "^10.1.10",
+    "@types/wicg-file-system-access": "^2023.10.7",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
     "storybook": "^10.1.10",
