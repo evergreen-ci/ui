@@ -1,6 +1,5 @@
-import { clickRadio } from "@evg-ui/playwright-config/helpers";
 import { test, expect } from "../../../fixtures";
-import { validateToast } from "../../../helpers";
+import { validateToast, clickRadio } from "../../../helpers";
 import {
   getProjectSettingsRoute,
   project,

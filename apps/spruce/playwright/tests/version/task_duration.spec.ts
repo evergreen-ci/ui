@@ -1,5 +1,5 @@
-import { clickCheckbox } from "@evg-ui/playwright-config/helpers";
 import { test, expect } from "../../fixtures";
+import { clickCheckbox } from "../../helpers";
 
 test.describe("Task Duration Tab", () => {
   test.beforeEach(async ({ page }) => {
