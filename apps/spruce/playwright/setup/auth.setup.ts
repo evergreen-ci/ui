@@ -11,7 +11,7 @@ import {
 
 const bannerCookie = "This is an important notification";
 
-const dismissalCookies = () => [
+const dismissalCookies = [
   { name: bannerCookie, value: "true", domain: "localhost", path: "/" },
   {
     name: SLACK_NOTIFICATION_BANNER,
@@ -57,7 +57,7 @@ setup("authenticate as admin", async ({ page }) => {
   await page.getByTestId("login-password").fill(users.admin.password);
   await page.getByTestId("login-submit").click();
   await page.waitForURL("/user/admin/patches");
-  await page.context().addCookies(dismissalCookies());
+  await page.context().addCookies(dismissalCookies);
   await page.context().storageState({ path: "playwright/.auth/admin.json" });
 });
 
@@ -67,7 +67,7 @@ setup("authenticate as privileged", async ({ page }) => {
   await page.getByTestId("login-password").fill(users.privileged.password);
   await page.getByTestId("login-submit").click();
   await page.waitForURL("/user/privileged/patches");
-  await page.context().addCookies(dismissalCookies());
+  await page.context().addCookies(dismissalCookies);
   await page
     .context()
     .storageState({ path: "playwright/.auth/privileged.json" });
@@ -79,6 +79,6 @@ setup("authenticate as regular", async ({ page }) => {
   await page.getByTestId("login-password").fill(users.regular.password);
   await page.getByTestId("login-submit").click();
   await page.waitForURL("/user/regular/patches");
-  await page.context().addCookies(dismissalCookies());
+  await page.context().addCookies(dismissalCookies);
   await page.context().storageState({ path: "playwright/.auth/regular.json" });
 });
