@@ -10,7 +10,10 @@
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint --concurrency=auto",
     "eslint:strict": "STRICT=1 eslint --concurrency=auto .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "playwright:test": "playwright test",
+    "playwright:ui": "playwright test --ui",
+    "test": "vitest"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -24,6 +27,11 @@
   "devDependencies": {
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
+    "@evg-ui/playwright-config": "workspace:*",
+    "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -31,6 +39,7 @@
     "eslint": "^9.39.1",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "vitest": "^4.1.6"
   }
 }

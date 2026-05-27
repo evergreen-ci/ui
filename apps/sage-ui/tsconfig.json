@@ -13,6 +13,7 @@
     "vite.config.ts",
   ],
   "include": [
+    "../../packages/lib/vitest.d.ts",
     "src",
   ],
   "references": [

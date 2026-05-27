@@ -8,7 +8,7 @@ export const TestComponent: React.FC = () => {
   return (
     <div>
       <Text textStyle={TextStyle.body}>
-        Click the button to increase the count: {count}
+        Click the button to increase the count: <span>{count}</span>
       </Text>
       <Button onClick={() => setCount((prevCount) => prevCount + 1)}>
         Click me
