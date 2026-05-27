@@ -2,12 +2,12 @@ import { test, expect } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 test.describe("Name change modal", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/version/5f74d99ab2373627c047c5e5");
   });
 
   test("Use the name change modal to change the name of a patch", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const originalName = "main: EVG-7823 add a commit queue message (#4048)";
     await expect(page.getByText(originalName)).toBeVisible();
@@ -28,7 +28,7 @@ test.describe("Name change modal", () => {
   });
 
   test("The confirm button is disabled when the text area value is empty or greater than 300 characters", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("name-change-modal-trigger").click();
     const nameInput = page.locator("textarea");

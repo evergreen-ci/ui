@@ -3,19 +3,17 @@ import { test, expect } from "../../fixtures";
 test.describe("Code Changes Table", () => {
   const patchId = "5ecedafb562343215a7ff297";
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(`/version/${patchId}/changes`);
   });
 
   test("Should display at least one table when there are code changes", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("code-changes-table")).toBeVisible();
   });
 
-  test("Should link to code changes when they exist", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Should link to code changes when they exist", async ({ page }) => {
     const fileLinks = page.getByTestId("file-link");
 
     for (const link of await fileLinks.all()) {

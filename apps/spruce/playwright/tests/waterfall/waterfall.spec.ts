@@ -1,12 +1,12 @@
 import { test, expect } from "../../fixtures";
 
 test.describe("waterfall page", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/spruce/waterfall");
   });
 
   test.describe("version labels", () => {
-    test("shows a git tag label", async ({ authenticatedPage: page }) => {
+    test("shows a git tag label", async ({ page }) => {
       const versionLabels = page.getByTestId("version-labels").locator("> *");
       await expect(versionLabels.nth(4)).toContainText("Git Tags: v2.28.5");
     });
@@ -14,7 +14,7 @@ test.describe("waterfall page", () => {
 
   test.describe("inactive commits", () => {
     test("renders an inactive version column, button and broken versions badge", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const builds = page.getByTestId("build-group");
       const buildGroups = builds.locator("> *");
@@ -36,7 +36,7 @@ test.describe("waterfall page", () => {
     });
 
     test("clicking an inactive versions button renders a inactive versions modal", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("inactive-versions-button").first().click();
       const modal = page.getByTestId("inactive-versions-modal");
@@ -52,9 +52,7 @@ test.describe("waterfall page", () => {
   });
 
   test.describe("task grid", () => {
-    test("correctly renders child tasks", async ({
-      authenticatedPage: page,
-    }) => {
+    test("correctly renders child tasks", async ({ page }) => {
       const builds = page.getByTestId("build-group");
       const buildGroups = builds.locator("> *");
       await expect(buildGroups.nth(0).getByRole("link")).toHaveCount(1);
@@ -67,9 +65,7 @@ test.describe("waterfall page", () => {
   });
 
   test.describe("task stats tooltip", () => {
-    test("shows task stats when clicked", async ({
-      authenticatedPage: page,
-    }) => {
+    test("shows task stats when clicked", async ({ page }) => {
       await expect(page.getByTestId("task-stats-tooltip")).toBeHidden();
       const tooltipButton = page
         .getByTestId("task-stats-tooltip-button")
@@ -84,12 +80,12 @@ test.describe("waterfall page", () => {
   });
 
   test.describe("pinned build variants", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/project/evergreen/waterfall");
     });
 
     test("clicking the pin button moves the build variant to the top, persist on reload, and unpin on click", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const buildVariantLinks = page.getByTestId("build-variant-link");
       await expect(buildVariantLinks.nth(0)).toHaveText("Lint");

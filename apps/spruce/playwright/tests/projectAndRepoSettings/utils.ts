@@ -1,5 +1,4 @@
-import { Page } from "@playwright/test";
-import { expect } from "../../fixtures";
+import { Page, expect } from "../../fixtures";
 
 export const save = async (page: Page) => {
   const saveButton = page.getByTestId("save-settings-button");

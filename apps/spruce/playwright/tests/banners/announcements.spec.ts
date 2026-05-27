@@ -2,7 +2,7 @@ import { test, expect } from "../../fixtures";
 
 test.describe("Announcement overlays", () => {
   test("Should not show a sitewide banner after it has been dismissed", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     // Clear the cookie to make the banner show.
     await page

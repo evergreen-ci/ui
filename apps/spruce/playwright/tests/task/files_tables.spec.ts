@@ -8,7 +8,7 @@ test.describe("files table", () => {
     "/task/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/files?execution=0";
 
   test("Searching for a non existent value yields 0 results, tables will not render and will display 'No files found'", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(FILES_ROUTE);
     await page.getByTestId("file-search-input").fill("Hello world");
@@ -18,7 +18,7 @@ test.describe("files table", () => {
   });
 
   test("Searching for a value yields results across multiple tables", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(FILES_ROUTE);
     await page.getByTestId("file-search-input").fill("458");
@@ -26,14 +26,14 @@ test.describe("files table", () => {
   });
 
   test("Should display 'No files found' after loading a task without files", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(FILES_ROUTE_WITHOUT_FILES);
     await expect(page.getByText("No files found")).toBeVisible();
   });
 
   test("Should display associated links when a file has them", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(FILES_ROUTE_WITH_ASSOCIATED_LINKS);
     await expect(

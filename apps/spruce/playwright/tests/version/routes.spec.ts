@@ -11,9 +11,7 @@ const versionRoute = (id: string) => `/version/${id}`;
 
 test.describe("Version route", () => {
   test.describe("Metadata", () => {
-    test("Shows patch parameters if they exist", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Shows patch parameters if they exist", async ({ page }) => {
       await page.goto(versionRoute(versions[0]));
       await expect(page.getByTestId("parameters-modal")).toHaveCount(0);
       await page.getByTestId("parameters-link").click();
@@ -23,7 +21,7 @@ test.describe("Version route", () => {
     });
 
     test("'Base commit' link in metadata links to version page", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(versionRoute(versions[0]));
       await expect(page.getByTestId("patch-base-commit")).toHaveAttribute(
@@ -33,7 +31,7 @@ test.describe("Version route", () => {
     });
 
     test("Doesn't show patch parameters if they don't exist", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(versionRoute(versions[2]));
       await expect(page.getByTestId("parameters-link")).toHaveCount(0);
@@ -42,16 +40,14 @@ test.describe("Version route", () => {
   });
 
   test.describe("Build Variants", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(versionRoute(versions[0]));
       const table = page.getByTestId("tasks-table");
       await expect(table).toBeVisible();
       await expect(table).toHaveAttribute("data-loading", "false");
     });
 
-    test("Lists the patch's build variants", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Lists the patch's build variants", async ({ page }) => {
       await expect(
         page
           .getByTestId("build-variants")
@@ -61,9 +57,7 @@ test.describe("Version route", () => {
     });
 
     test.describe("Grouped Task Status Badge", () => {
-      test("Shows tooltip with task's name on hover", async ({
-        authenticatedPage: page,
-      }) => {
+      test("Shows tooltip with task's name on hover", async ({ page }) => {
         const statusBadge = page
           .getByTestId("build-variants")
           .getByTestId("grouped-task-status-badge")
@@ -73,7 +67,7 @@ test.describe("Version route", () => {
       });
 
       test("Navigates to task tab and applies filters when clicking on grouped task status badge", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const changesTab = page.getByRole("tab", { name: "Changes" });
         const tasksTab = page.getByRole("tab", { name: "Tasks" });
@@ -105,7 +99,7 @@ test.describe("Version route", () => {
       });
 
       test("Keeps sorts but not other filters when clicking on grouped task status badge", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.getByTestId("clear-all-filters").click();
 
@@ -130,7 +124,7 @@ test.describe("Version route", () => {
 
     test.describe("Build Variant Name", () => {
       test("Navigates to task tab and applies filters when clicking on build variant name", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.getByTestId("clear-all-filters").click();
 
@@ -153,7 +147,7 @@ test.describe("Version route", () => {
       });
 
       test("Keeps sorts but not other filters when clicking on build variant name", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.getByTestId("clear-all-filters").click();
         await page.getByTestId("task-name-filter").click();
@@ -173,21 +167,17 @@ test.describe("Version route", () => {
   });
 
   test.describe("Page title", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(versionRoute(versions[5]));
     });
 
-    test("Should include a link to Jira", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should include a link to Jira", async ({ page }) => {
       await expect(
         page.getByTestId("page-title").getByRole("link", { name: "EVG-7425" }),
       ).toHaveAttribute("href", "https://jira.example.com/browse/EVG-7425");
     });
 
-    test("Should include a link to GitHub", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should include a link to GitHub", async ({ page }) => {
       await expect(
         page.getByTestId("page-title").getByRole("link", {
           name: "https://github.com/evergreen-ci/evergreen/pull/3186",

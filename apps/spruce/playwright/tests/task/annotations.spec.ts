@@ -6,14 +6,12 @@ const taskWithAnnotations =
 const taskRoute = `/task/${taskWithAnnotations}/annotations`;
 
 test.describe("Task Annotation Tab", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(taskRoute);
     await expect(page.getByTestId("loading-annotation-ticket")).toBeHidden();
   });
 
-  test("annotations can be moved between lists", async ({
-    authenticatedPage: page,
-  }) => {
+  test("annotations can be moved between lists", async ({ page }) => {
     await expect(page.getByTestId("loading-annotation-ticket")).toBeHidden();
 
     const issueRows = page
@@ -56,9 +54,7 @@ test.describe("Task Annotation Tab", () => {
     await expect(suspectedIssueRows).toHaveCount(3);
   });
 
-  test("annotations add and delete correctly", async ({
-    authenticatedPage: page,
-  }) => {
+  test("annotations add and delete correctly", async ({ page }) => {
     const issueRows = page
       .getByTestId("issues-list")
       .getByTestId("annotation-ticket-row");

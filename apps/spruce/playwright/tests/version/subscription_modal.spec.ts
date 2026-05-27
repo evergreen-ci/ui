@@ -1,5 +1,4 @@
-import { Page } from "@playwright/test";
-import { test, expect } from "../../fixtures";
+import { Page, test, expect } from "../../fixtures";
 import {
   selectOption,
   validateToast,
@@ -26,7 +25,7 @@ test.describe("Version Subscription Modal", () => {
   };
 
   test("Displays success toast after submitting a valid form and request succeeds", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await openSubscriptionModal(page);
     const modal = page.getByTestId(MODAL_DATA_CY);
@@ -43,12 +42,12 @@ test.describe("Version Subscription Modal", () => {
   });
 
   test.describe("Disables save button and displays an error message when populating form with invalid values", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await openSubscriptionModal(page);
       await expect(page.getByTestId(MODAL_DATA_CY)).toBeVisible();
     });
 
-    test("has an invalid percentage", async ({ authenticatedPage: page }) => {
+    test("has an invalid percentage", async ({ page }) => {
       await selectOption(page, "Event", "changes by some percentage");
       await page.getByTestId("percent-change-input").clear();
       await page.getByTestId("percent-change-input").fill("-100");
@@ -61,9 +60,7 @@ test.describe("Version Subscription Modal", () => {
       await page.getByTestId("jira-comment-input").clear();
     });
 
-    test("has an invalid duration value", async ({
-      authenticatedPage: page,
-    }) => {
+    test("has an invalid duration value", async ({ page }) => {
       await selectOption(page, "Event", "exceeds some duration");
       await page.getByTestId("duration-secs-input").clear();
       await page.getByTestId("duration-secs-input").fill("-100");
@@ -76,7 +73,7 @@ test.describe("Version Subscription Modal", () => {
       await page.getByTestId("jira-comment-input").clear();
     });
 
-    test("has an invalid jira ticket", async ({ authenticatedPage: page }) => {
+    test("has an invalid jira ticket", async ({ page }) => {
       await page.getByTestId("jira-comment-input").fill("E");
       await expectSaveButtonEnabled(page, false);
       await page.getByTestId("jira-comment-input").fill("EVG-100");
@@ -84,7 +81,7 @@ test.describe("Version Subscription Modal", () => {
       await page.getByTestId("jira-comment-input").clear();
     });
 
-    test("has an invalid email", async ({ authenticatedPage: page }) => {
+    test("has an invalid email", async ({ page }) => {
       await selectOption(page, "Notification Method", "Email");
       await page.getByTestId("email-input").clear();
       await page.getByTestId("email-input").fill("arst");
@@ -93,9 +90,7 @@ test.describe("Version Subscription Modal", () => {
       await expectSaveButtonEnabled(page, true);
     });
 
-    test("has an invalid slack username", async ({
-      authenticatedPage: page,
-    }) => {
+    test("has an invalid slack username", async ({ page }) => {
       await selectOption(page, "Notification Method", "Slack message");
       await page.getByTestId("slack-input").clear();
       await page.getByTestId("slack-input").fill("sa rt");
@@ -107,7 +102,7 @@ test.describe("Version Subscription Modal", () => {
   });
 
   test("Displays error toast when save subscription request fails", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await mockGraphQLResponse(page, "SaveSubscriptionForUser", {
       errors: [
@@ -130,9 +125,7 @@ test.describe("Version Subscription Modal", () => {
     await validateToast(page, "error", "Error adding your subscription");
   });
 
-  test("Hides the modal after clicking the cancel button", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Hides the modal after clicking the cancel button", async ({ page }) => {
     await page.goto(VERSION_ROUTE);
     await page.getByTestId(TOGGLE_BUTTON_DATA_CY).click();
     await expect(page.getByTestId(MODAL_DATA_CY)).toBeVisible();
@@ -140,10 +133,7 @@ test.describe("Version Subscription Modal", () => {
     await expect(page.getByTestId(MODAL_DATA_CY)).toBeHidden();
   });
 
-  test("Pulls initial values from cookies", async ({
-    authenticatedPage: page,
-    context,
-  }) => {
+  test("Pulls initial values from cookies", async ({ page, context }) => {
     const triggerCookie = "version-notification-trigger";
     const subscriptionCookie = "subscription-method";
 
@@ -173,9 +163,7 @@ test.describe("Version Subscription Modal", () => {
   });
 
   test.describe("Regex selector inputs", () => {
-    test("Can add and remove regex selectors", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Can add and remove regex selectors", async ({ page }) => {
       await openSubscriptionModal(page);
       await selectOption(
         page,
@@ -193,7 +181,7 @@ test.describe("Version Subscription Modal", () => {
     });
 
     test("Selecting a regex selector type will disable that option in other regex selector type dropdowns", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await openSubscriptionModal(page);
       await selectOption(
@@ -215,7 +203,7 @@ test.describe("Version Subscription Modal", () => {
     });
 
     test("Regex selectors are optional for triggers that offer them", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await openSubscriptionModal(page);
       await selectOption(
@@ -233,7 +221,7 @@ test.describe("Version Subscription Modal", () => {
     });
 
     test("Display success toast after submitting a valid form with regex selectors inputs and request succeeds", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await openSubscriptionModal(page);
       await selectOption(
@@ -253,7 +241,7 @@ test.describe("Version Subscription Modal", () => {
     });
 
     test("'Add Additional Criteria' button should not appear when there are enough 'Field name' dropdowns to represent all possible regex selector types for a trigger", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await openSubscriptionModal(page);
       await selectOption(

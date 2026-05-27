@@ -4,24 +4,24 @@ const DOWNSTREAM_ROUTE =
   "/version/5f74d99ab2373627c047c5e5/downstream-projects";
 
 test.describe("Downstream Projects Tab", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(DOWNSTREAM_ROUTE);
   });
 
   test("shows number of failed patches in the Downstream tab label", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("downstream-tab-badge")).toBeVisible();
     await expect(page.getByTestId("downstream-tab-badge")).toContainText("1");
   });
 
-  test("renders child patches", async ({ authenticatedPage: page }) => {
+  test("renders child patches", async ({ page }) => {
     await expect(page.getByTestId("project-accordion")).toHaveCount(3);
     await expect(page.getByTestId("project-title")).toHaveCount(3);
     await expect(page.getByTestId("downstream-tasks-table")).toHaveCount(3);
   });
 
-  test("links to base commit", async ({ authenticatedPage: page }) => {
+  test("links to base commit", async ({ page }) => {
     await page.getByTestId("accordion-toggle").first().click();
     await expect(
       page.getByTestId("downstream-base-commit").first(),
@@ -31,9 +31,7 @@ test.describe("Downstream Projects Tab", () => {
     );
   });
 
-  test("filters by task name but doesn't update URL", async ({
-    authenticatedPage: page,
-  }) => {
+  test("filters by task name but doesn't update URL", async ({ page }) => {
     await page.getByTestId("task-name-filter").nth(1).click();
     const taskInput = page
       .getByTestId("task-name-filter-wrapper")
@@ -45,9 +43,7 @@ test.describe("Downstream Projects Tab", () => {
     await expect(page.getByText("generate-lint")).toBeVisible();
   });
 
-  test("does not push query params to the URL", async ({
-    authenticatedPage: page,
-  }) => {
+  test("does not push query params to the URL", async ({ page }) => {
     await expect(page).toHaveURL(new RegExp(DOWNSTREAM_ROUTE));
   });
 });

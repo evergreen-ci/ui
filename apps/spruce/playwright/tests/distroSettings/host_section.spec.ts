@@ -4,12 +4,12 @@ import { save } from "./utils";
 
 test.describe("host section", () => {
   test.describe("using legacy ssh", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/distro/localhost/settings/host");
     });
 
     test("shows the correct fields when distro has static provider", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("authorized-keys-input")).toBeVisible();
       await expect(page.getByTestId("minimum-hosts-input")).toHaveCount(0);
@@ -21,7 +21,7 @@ test.describe("host section", () => {
     });
 
     test("shows an error when selecting an incompatible host communication method", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await selectOption(page, "Host Communication Method", "RPC");
       await expect(
@@ -31,7 +31,7 @@ test.describe("host section", () => {
       ).toBeVisible();
     });
 
-    test("updates host fields", async ({ authenticatedPage: page }) => {
+    test("updates host fields", async ({ page }) => {
       await selectOption(page, "Agent Architecture", "Linux ARM 64-bit");
       await page.getByLabel("Working Directory").clear();
       await page.getByLabel("Working Directory").fill("/usr/local/bin");
@@ -60,7 +60,7 @@ test.describe("host section", () => {
       await validateToast(page, "success", "Updated distro.");
     });
 
-    test("updates mountpoints", async ({ authenticatedPage: page }) => {
+    test("updates mountpoints", async ({ page }) => {
       const addMountpointButton = page.getByRole("button", {
         name: "Add mountpoint",
       });
@@ -79,14 +79,14 @@ test.describe("host section", () => {
   });
 
   test.describe("using User Data bootstrap method", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/distro/ubuntu1604-parent/settings/host");
       await selectOption(page, "Host Bootstrap Method", "User Data");
       await selectOption(page, "Host Communication Method", "RPC");
     });
 
     test("shows Windows-only fields when the architecture is updated", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByLabel("Root Directory")).toHaveCount(0);
       await expect(page.getByLabel("Service User")).toHaveCount(0);
@@ -98,14 +98,14 @@ test.describe("host section", () => {
     });
 
     test("hides resource limit fields when the architecture is not Linux", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByText("Resource Limits")).toBeVisible();
       await selectOption(page, "Agent Architecture", "Windows 64-bit");
       await expect(page.getByText("Resource Limits")).toHaveCount(0);
     });
 
-    test("saves bootstrap settings", async ({ authenticatedPage: page }) => {
+    test("saves bootstrap settings", async ({ page }) => {
       await page.getByLabel("Jasper Binary Directory").fill("/jasper/binary");
       await page
         .getByLabel("Jasper Credentials Path")

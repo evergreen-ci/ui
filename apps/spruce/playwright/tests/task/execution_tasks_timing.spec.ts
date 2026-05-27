@@ -7,7 +7,7 @@ test.describe("Execution Tasks Timing", () => {
 
   test.describe("Tab Navigation", () => {
     test("Should be able to navigate to the Execution Tasks Timing tab", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(taskRoute);
       await page.getByTestId("execution-tasks-timing-tab").click();
@@ -18,19 +18,15 @@ test.describe("Execution Tasks Timing", () => {
   });
 
   test.describe("Chart Rendering", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(executionTasksTimingRoute);
     });
 
-    test("Should render the Gantt chart container", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should render the Gantt chart container", async ({ page }) => {
       await expect(page.locator("[id^=reactgooglegraph]")).toBeVisible();
     });
 
-    test("Should display task name in the description", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should display task name in the description", async ({ page }) => {
       await expect(
         page.getByText(
           "This page shows a timeline view of execution task run times for asdf",
@@ -38,9 +34,7 @@ test.describe("Execution Tasks Timing", () => {
       ).toBeVisible();
     });
 
-    test("Should render chart with execution tasks", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should render chart with execution tasks", async ({ page }) => {
       await expect(page.locator("[id^=reactgooglegraph]")).toBeVisible();
 
       // Check that specific task names are rendered in the chart
@@ -58,7 +52,7 @@ test.describe("Execution Tasks Timing", () => {
 
   test.describe("Tab Visibility", () => {
     test("Should not show the Execution Tasks Timing tab for non-display tasks", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       // Visit a regular task (not a display task)
       const regularTaskRoute =
@@ -71,13 +65,11 @@ test.describe("Execution Tasks Timing", () => {
   });
 
   test.describe("Interaction", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(executionTasksTimingRoute);
     });
 
-    test("Should allow clicking on tasks to navigate", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should allow clicking on tasks to navigate", async ({ page }) => {
       // Wait for chart to load
       await expect(page.locator("[id^=reactgooglegraph]")).toBeVisible();
 
