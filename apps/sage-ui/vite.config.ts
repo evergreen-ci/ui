@@ -8,7 +8,6 @@ const viteConfig = defineConfig({
   },
   plugins: [react()],
   resolve: {
-    dedupe: ["react", "react-dom"],
     tsconfigPaths: true,
   },
 });
@@ -23,5 +22,4 @@ const vitestConfig = defineTestConfig({
     include: ["src/**/*.test.{ts,tsx}"],
   },
 });
-
 export default mergeConfig(viteConfig, vitestConfig);
