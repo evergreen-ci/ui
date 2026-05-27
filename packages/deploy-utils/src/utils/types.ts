@@ -10,7 +10,7 @@ export const isTargetEnvironment = (
 ): t is TargetEnvironment =>
   t === "staging" || t === "beta" || t === "production";
 
-export const DEPLOYABLE_APPS = ["parsley", "sage-ui", "spruce"] as const;
+export const DEPLOYABLE_APPS = ["parsley", "sage", "spruce"] as const;
 
 export type DeployableApp = (typeof DEPLOYABLE_APPS)[number];
 

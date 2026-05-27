@@ -4,7 +4,7 @@ import { COMMIT_LENGTH, getLatestTag, tagIsValid } from ".";
 
 const appToDomain: Record<DeployableApp, string> = {
   parsley: "parsley.corp.mongodb.com",
-  "sage-ui": "sage-ui.corp.mongodb.com",
+  sage: "sage-ui.corp.mongodb.com",
   spruce: "spruce.corp.mongodb.com",
 };
 

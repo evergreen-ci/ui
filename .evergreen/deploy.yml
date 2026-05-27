@@ -184,20 +184,20 @@ tasks:
     commands:
       - func: symlink
         vars:
-          app_dir: apps/sage-ui
+          app_dir: apps/sage
       - func: deploy
         vars:
-          app_dir: apps/sage-ui
+          app_dir: apps/sage
           target: staging
 
   - name: deploy-sage-ui-beta
     commands:
       - func: symlink
         vars:
-          app_dir: apps/sage-ui
+          app_dir: apps/sage
       - func: deploy
         vars:
-          app_dir: apps/sage-ui
+          app_dir: apps/sage
           target: beta
 
   - name: deploy-sage-ui-prod
