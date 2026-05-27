@@ -227,7 +227,7 @@ functions:
         - "-c"
         - |
           ${PREPARE_SHELL}
-          pnpm preview --no-request-logging
+          pnpm preview --logLevel silent
 
   pnpm-serve:
     command: subprocess.exec
@@ -305,6 +305,12 @@ tasks:
       - func: pnpm-preview
       - func: wait-for-evergreen
       - func: pnpm-verify-backend
+      - func: pnpm-playwright
+
+  - name: e2e_no_db
+    commands:
+      - func: pnpm-build
+      - func: pnpm-preview
       - func: pnpm-playwright
 
   - name: lint

@@ -97,11 +97,19 @@ buildvariants:
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small
+    paths:
+      - "apps/sage-ui/**"
+      - "packages/lib/**"
     tasks:
       - name: deploy-sage-ui-prod
         git_tag_only: true
         patchable: false
         priority: 100
+      - name: lint
+      - name: type_check
+      - name: test
+      - name: compile
+      - name: e2e_no_db
 
   - name: lib
     display_name: Lib
