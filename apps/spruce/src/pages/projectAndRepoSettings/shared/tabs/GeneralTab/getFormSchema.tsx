@@ -142,16 +142,6 @@ export const getFormSchema = (
               true,
             ),
           },
-          waterfallDisabled: {
-            type: ["boolean", "null"],
-            title: "Waterfall",
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              repoData?.projectFlags?.waterfallDisabled,
-              true,
-            ),
-          },
           repotracker: {
             type: "object" as const,
             title: "Repotracker Settings",
@@ -178,6 +168,16 @@ export const getFormSchema = (
                   ["Enabled", "Disabled"],
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
                   repoData?.projectFlags?.repotracker?.runEveryMainlineCommit,
+                ),
+              },
+              waterfallDisabled: {
+                type: ["boolean", "null"],
+                title: "Waterfall",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.repotracker?.waterfallDisabled,
+                  true,
                 ),
               },
             },
@@ -372,11 +372,6 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
         "ui:description": "Sets if any tasks can be dispatched.",
       },
-      waterfallDisabled: {
-        "ui:widget": widgets.RadioBoxWidget,
-        "ui:description":
-          "Disables automatic task activation on the waterfall. Tasks will still appear but will be unscheduled by default.",
-      },
       debug: {
         debugSpawnHostsDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
@@ -400,7 +395,7 @@ export const getFormSchema = (
       repotracker: {
         repotrackerDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:description": `The repotracker will be triggered from GitHub push events sent via webhook. 
+          "ui:description": `The repotracker will be triggered from GitHub push events sent via webhook.
             This creates mainline builds for merged commits.`,
         },
         forceRun: {
@@ -412,6 +407,11 @@ export const getFormSchema = (
           "ui:data-cy": "run-every-mainline-commit-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description": RunEveryMainlineCommitDescription,
+        },
+        waterfallDisabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description":
+            "Disables automatic task activation on the waterfall. Tasks will still appear but will be unscheduled by default.",
         },
       },
       scheduling: {

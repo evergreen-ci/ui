@@ -1022,8 +1022,6 @@ export type EditSpawnHostInput = {
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
-  /** @deprecated Use volumeId instead of volume. */
-  volume?: InputMaybe<Scalars["String"]["input"]>;
   volumeId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -3152,8 +3150,6 @@ export type Query = {
   githubProjectConflicts: GithubProjectConflicts;
   hasVersion: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
-  /** @deprecated Use host.events instead. */
-  hostEvents: HostEvents;
   hosts: HostsResponse;
   image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
@@ -3235,13 +3231,6 @@ export type QueryHasVersionArgs = {
 
 export type QueryHostArgs = {
   hostId: Scalars["String"]["input"];
-};
-
-export type QueryHostEventsArgs = {
-  hostId: Scalars["String"]["input"];
-  hostTag?: InputMaybe<Scalars["String"]["input"]>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type QueryHostsArgs = {
@@ -3955,8 +3944,6 @@ export enum SpawnHostStatusActions {
 export type SpawnVolumeInput = {
   availabilityZone: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
-  /** @deprecated Use hostId instead of host. */
-  host?: InputMaybe<Scalars["String"]["input"]>;
   hostId?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
   size: Scalars["Int"]["input"];

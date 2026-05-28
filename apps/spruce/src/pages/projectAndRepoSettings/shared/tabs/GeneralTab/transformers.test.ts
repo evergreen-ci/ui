@@ -46,7 +46,6 @@ const repoForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: true,
-    waterfallDisabled: false,
     debug: {
       debugSpawnHostsDisabled: false,
     },
@@ -59,6 +58,7 @@ const repoForm: GeneralFormState = {
     repotracker: {
       repotrackerDisabled: false,
       runEveryMainlineCommit: false,
+      waterfallDisabled: false,
       forceRun: null,
     },
     patch: {
@@ -118,7 +118,6 @@ const projectForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: null,
-    waterfallDisabled: null,
     debug: {
       debugSpawnHostsDisabled: null,
     },
@@ -131,6 +130,7 @@ const projectForm: GeneralFormState = {
     repotracker: {
       repotrackerDisabled: null,
       runEveryMainlineCommit: null,
+      waterfallDisabled: null,
       forceRun: null,
     },
     patch: {

@@ -44,7 +44,6 @@ export const gqlToForm = ((data, options = {}) => {
     },
     projectFlags: {
       dispatchingDisabled: projectRef.dispatchingDisabled,
-      waterfallDisabled: projectRef.waterfallDisabled,
       debug: {
         debugSpawnHostsDisabled: projectRef.debugSpawnHostsDisabled,
       },
@@ -57,6 +56,7 @@ export const gqlToForm = ((data, options = {}) => {
       repotracker: {
         repotrackerDisabled: projectRef.repotrackerDisabled,
         runEveryMainlineCommit: projectRef.runEveryMainlineCommit,
+        waterfallDisabled: projectRef.waterfallDisabled,
         forceRun: null,
       },
       patch: {
@@ -98,9 +98,9 @@ export const formToGql = ((
     spawnHostScriptPath: generalConfiguration.other.spawnHostScriptPath,
     versionControlEnabled: generalConfiguration.other.versionControlEnabled,
     dispatchingDisabled: projectFlags.dispatchingDisabled,
-    waterfallDisabled: projectFlags.waterfallDisabled,
     deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
     repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
+    waterfallDisabled: projectFlags.repotracker.waterfallDisabled,
     debugSpawnHostsDisabled: projectFlags.debug.debugSpawnHostsDisabled,
     stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
     stepbackBisect: projectFlags.scheduling.stepbackBisection,
