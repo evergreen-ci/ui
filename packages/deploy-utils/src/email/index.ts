@@ -73,7 +73,7 @@ export const sendEmail = async () => {
   await evergreenNotify(emailFields);
 };
 
-const appDisplayNames: Record<string, string> = {
+const appDisplayNames: Record<DeployableApp, string> = {
   sage: "Sage UI",
   spruce: "Spruce",
   parsley: "Parsley",
