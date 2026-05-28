@@ -227,7 +227,7 @@ functions:
         - "-c"
         - |
           ${PREPARE_SHELL}
-          pnpm preview --logLevel silent
+          pnpm preview --no-request-logging
 
   pnpm-serve:
     command: subprocess.exec

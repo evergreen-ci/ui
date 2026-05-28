@@ -11,7 +11,7 @@
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint --concurrency=auto",
     "eslint:strict": "STRICT=1 eslint --concurrency=auto .",
-    "preview": "vite preview --port 5493",
+    "preview": "serve -s dist -p 5493",
     "playwright:test": "playwright test",
     "playwright:ui": "playwright test --ui",
     "test": "vitest"
@@ -40,6 +40,7 @@
     "env-cmd": "10.1.0",
     "eslint": "^9.39.1",
     "prettier": "3.7.4",
+    "serve": "^14.2.5",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12",
