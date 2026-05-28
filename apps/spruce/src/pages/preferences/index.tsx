@@ -97,6 +97,7 @@ const Preferences: React.FC = () => {
           >
             UI Settings
           </SideNavItem>
+          {/* TODO: DEVPROD-33674 - Restore SageBotSettings tab when GitHub OAuth credentials are implemented
           <SideNavItem
             active={tab === PreferencesTabRoutes.SageBotSettings}
             as={Link}
@@ -111,6 +112,7 @@ const Preferences: React.FC = () => {
           >
             Sage Bot Settings
           </SideNavItem>
+          */}
         </SideNavGroup>
       </SideNav>
       <SideNavPageContent>

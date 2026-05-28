@@ -12,7 +12,6 @@ export { BUILD_VARIANTS_WITH_CHILDREN } from "./build-variants-with-children";
 export { CLIENT_CONFIG } from "./client-config";
 export { CODE_CHANGES } from "./code-changes";
 export { CREATED_TICKETS } from "./created-tickets";
-export { CURSOR_SETTINGS } from "./cursor-settings";
 export { DISTRO } from "./distro";
 export { DISTRO_EVENTS } from "./distro-events";
 export { DISTRO_TASK_QUEUE } from "./distro-task-queue";
