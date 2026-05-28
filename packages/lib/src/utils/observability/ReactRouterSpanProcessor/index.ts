@@ -10,7 +10,6 @@ class ReactRouterSpanProcessor {
     this.routeConfig = routeConfig;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onStart(span: Span, _parentContext: Context): void {
     const matchedRoute = calculateRouteName(
       window.location.pathname,
