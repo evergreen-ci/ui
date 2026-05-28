@@ -1,6 +1,5 @@
-import { clickRadio } from "@evg-ui/playwright-config/helpers";
 import { test, expect } from "../../../fixtures";
-import { validateToast } from "../../../helpers";
+import { validateToast, clickRadio } from "../../../helpers";
 import {
   getRepoSettingsRoute,
   ProjectSettingsTabRoutes,
@@ -11,13 +10,13 @@ import { save, expectSaveButtonEnabled } from "../utils";
 test.describe("Git Tags repo settings when GitHub webhooks are enabled", () => {
   const origin = getRepoSettingsRoute(repo, ProjectSettingsTabRoutes.GitTags);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Saves successfully when Git Tags are enabled and a Git Tag Definition is provided", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const gitTagRadioBox = page.getByTestId("git-tag-enabled-radio-box");
     const enabledRadio = gitTagRadioBox.getByRole("radio", { name: "Enabled" });

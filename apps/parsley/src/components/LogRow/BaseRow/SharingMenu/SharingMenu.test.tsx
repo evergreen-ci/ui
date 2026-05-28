@@ -31,6 +31,10 @@ const logs = [
   "line 7",
 ];
 
+const defaultMenuProps = {
+  lineNumber: 1,
+};
+
 /**
  * `renderSharingMenu` renders the sharing menu with the default open prop
  * @returns - hook and utils
@@ -38,7 +42,7 @@ const logs = [
 const renderSharingMenu = () => {
   const { Component: MenuComponent, hook } = renderComponentWithHook(
     useMultiLineSelectContext,
-    <SharingMenu />,
+    <SharingMenu {...defaultMenuProps} />,
   );
   const { Component } = RenderFakeToastContext(<MenuComponent />);
   const utils = renderWithRouterMatch(<Component />, { wrapper });
@@ -53,12 +57,10 @@ describe("sharingMenu", () => {
     localStorage.clear();
   });
 
-  it("should render an open menu after setting it to open", async () => {
-    const { hook } = renderSharingMenu();
-    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
-    act(() => {
-      hook.current.setOpenMenu(true);
-    });
+  it("should render an open menu after clicking the trigger", async () => {
+    const user = userEvent.setup();
+    renderSharingMenu();
+    await user.click(screen.getByDataCy("log-link-1"));
     expect(
       screen.getByText("Copy share link to selected line"),
     ).toBeInTheDocument();
@@ -66,16 +68,14 @@ describe("sharingMenu", () => {
   });
   it("should render an open menu after selecting a start and end line", async () => {
     const { hook } = renderSharingMenu();
-    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
     act(() => {
       hook.current.handleSelectLine(1, false);
     });
-    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
     expect(
-      screen.getByText("Copy share link to selected lines"),
+      await screen.findByText("Copy share link to selected lines"),
     ).toBeInTheDocument();
     expect(screen.getByText("Only search on range")).toBeInTheDocument();
   });
@@ -89,7 +89,9 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Copy selected contents"),
+    ).toBeInTheDocument();
     await user.click(screen.getByText("Copy selected contents"));
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe(
@@ -101,9 +103,9 @@ describe("sharingMenu", () => {
 
     const { hook } = renderSharingMenu();
     act(() => {
-      hook.current.setOpenMenu(true);
       hook.current.handleSelectLine(1, false);
     });
+    await user.click(screen.getByDataCy("log-link-1"));
 
     expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
     await user.click(screen.getByText("Copy selected contents"));
@@ -121,7 +123,9 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Copy selected contents"),
+    ).toBeInTheDocument();
     await user.click(screen.getByText("Copy selected contents"));
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("line 2\nline 3\nline 4\n");
@@ -132,9 +136,9 @@ describe("sharingMenu", () => {
 
     const { hook } = renderSharingMenu();
     act(() => {
-      hook.current.setOpenMenu(true);
       hook.current.handleSelectLine(1, false);
     });
+    await user.click(screen.getByDataCy("log-link-1"));
 
     expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
     await user.click(screen.getByText("Copy selected contents"));
@@ -152,7 +156,7 @@ describe("sharingMenu", () => {
       hook.current.handleSelectLine(3, true);
     });
     expect(
-      screen.getByText("Copy share link to selected lines"),
+      await screen.findByText("Copy share link to selected lines"),
     ).toBeInTheDocument();
     await user.click(screen.getByText("Copy share link to selected lines"));
     const clipboardText = await navigator.clipboard.readText();
@@ -168,13 +172,14 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    expect(screen.getByText("Only search on range")).toBeInTheDocument();
+    expect(await screen.findByText("Only search on range")).toBeInTheDocument();
     await user.click(screen.getByText("Only search on range"));
     expect(router.state.location.search).toBe(
       "?lower=1&selectedLineRange=L1-L3&upper=3",
     );
   });
-  it("clicking `clear selection` should clear the selected line range", () => {
+  it("clicking `clear selection` should clear the selected line range", async () => {
+    const user = userEvent.setup();
     const { hook } = renderSharingMenu();
     act(() => {
       hook.current.handleSelectLine(1, false);
@@ -182,10 +187,8 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    expect(screen.getByText("Clear selection")).toBeInTheDocument();
-    act(() => {
-      hook.current.clearSelection();
-    });
+    expect(await screen.findByText("Clear selection")).toBeInTheDocument();
+    await user.click(screen.getByText("Clear selection"));
     expect(hook.current.selectedLines).toStrictEqual({
       endingLine: undefined,
       startingLine: undefined,
@@ -202,7 +205,7 @@ describe("sharingMenu", () => {
     };
     const { Component: MenuComponent, hook } = renderComponentWithHook(
       useSpecialHook,
-      <SharingMenu />,
+      <SharingMenu {...defaultMenuProps} />,
     );
     const { Component } = RenderFakeToastContext(<MenuComponent />);
     renderWithRouterMatch(<Component />, {
@@ -210,11 +213,12 @@ describe("sharingMenu", () => {
       wrapper,
     });
     act(() => {
+      hook.current.useMultiLineSelectContextHook.setOpenMenu(true);
       hook.current.useLogContextHook.setLogMetadata({
         logType: LogTypes.LOCAL_UPLOAD,
       });
     });
-    expect(screen.queryByText("Share link to selected lines")).toBeNull();
+    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
   });
   it("should not show 'Add to Parsley AI' if this is a locally uploaded log", () => {
     const useSpecialHook = () => {
@@ -227,7 +231,7 @@ describe("sharingMenu", () => {
     };
     const { Component: MenuComponent, hook } = renderComponentWithHook(
       useSpecialHook,
-      <SharingMenu />,
+      <SharingMenu {...defaultMenuProps} />,
     );
     const { Component } = RenderFakeToastContext(<MenuComponent />);
     renderWithRouterMatch(<Component />, {
@@ -242,11 +246,10 @@ describe("sharingMenu", () => {
     });
     expect(screen.queryByText("Add to Parsley AI")).toBeNull();
   });
-  it("should show 'Add to Parsley AI' for non-uploaded logs", () => {
-    const { hook } = renderSharingMenu();
-    act(() => {
-      hook.current.setOpenMenu(true);
-    });
+  it("should show 'Add to Parsley AI' for non-uploaded logs", async () => {
+    const user = userEvent.setup();
+    renderSharingMenu();
+    await user.click(screen.getByDataCy("log-link-1"));
     expect(screen.getByText("Add to Parsley AI")).toBeInTheDocument();
   });
 });

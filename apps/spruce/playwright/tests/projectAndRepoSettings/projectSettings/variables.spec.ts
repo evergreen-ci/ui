@@ -6,25 +6,21 @@ import { expectSaveButtonEnabled, save } from "../utils";
 test.describe("Variables page", () => {
   const origin = getProjectSettingsRoute(project);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await page.getByTestId("navitem-variables").click();
   });
 
-  test("Should not have the save button enabled on load", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Should not have the save button enabled on load", async ({ page }) => {
     await expectSaveButtonEnabled(page, false);
   });
 
-  test("Should not show the move variables button", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Should not show the move variables button", async ({ page }) => {
     await expect(page.getByTestId("promote-vars-button")).toHaveCount(0);
   });
 
   test("Should redact and disable private variables on saving", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByRole("button", { name: "Add variables" }).click();
     await page.getByTestId("var-name-input").fill("sample_name");
@@ -49,7 +45,7 @@ test.describe("Variables page", () => {
   });
 
   test("Typing a duplicate variable name will disable saving and show an error message", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByRole("button", { name: "Add variables" }).click();
     await page.getByTestId("var-name-input").fill("sample_name");
@@ -70,9 +66,7 @@ test.describe("Variables page", () => {
     await expect(errorMessage).toHaveCount(0);
   });
 
-  test("Should correctly save an admin only variable", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Should correctly save an admin only variable", async ({ page }) => {
     await page.getByRole("button", { name: "Add variables" }).click();
     await page.getByTestId("var-name-input").first().fill("admin_var");
     await page.getByTestId("var-value-input").first().fill("admin_value");
@@ -86,7 +80,7 @@ test.describe("Variables page", () => {
   });
 
   test("Should persist saved variables and allow deletion", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByRole("button", { name: "Add variables" }).click();
     await page.getByTestId("var-name-input").fill("sample_name");

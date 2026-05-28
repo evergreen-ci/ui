@@ -230,7 +230,6 @@ const logLines = [
 const resmokeProps = {
   getLine: (index: number) => logLines[index],
   getResmokeLineColor: vi.fn(),
-  scrollToLine: vi.fn(),
 
   prettyPrint: false,
   range: { lowerRange: 0 },

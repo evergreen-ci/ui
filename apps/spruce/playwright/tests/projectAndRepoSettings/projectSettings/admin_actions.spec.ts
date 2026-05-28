@@ -7,7 +7,7 @@ test.describe("projectSettings/admin_actions", () => {
     const destination = getProjectSettingsRoute(project);
 
     test("Successfully duplicates a project with warnings", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(destination);
       await page.getByTestId("new-project-button").click();
@@ -33,7 +33,7 @@ test.describe("projectSettings/admin_actions", () => {
 
   test.describe("Creating a new project and deleting it", () => {
     test("Successfully creates a new project and then deletes it", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(getProjectSettingsRoute(project));
       await page.getByTestId("new-project-button").click();

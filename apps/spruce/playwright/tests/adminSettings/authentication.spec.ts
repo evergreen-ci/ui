@@ -3,12 +3,12 @@ import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("authentication", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/admin-settings");
   });
 
   test("can save after making changes to authentication settings", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 

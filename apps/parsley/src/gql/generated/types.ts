@@ -744,13 +744,6 @@ export type CursorParams = {
   includeCursor: Scalars["Boolean"]["input"];
 };
 
-/** CursorSettings represents the status of a user's Cursor API key stored in Sage. */
-export type CursorSettings = {
-  __typename?: "CursorSettings";
-  keyConfigured: Scalars["Boolean"]["output"];
-  keyLastFour?: Maybe<Scalars["String"]["output"]>;
-};
-
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
 export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
@@ -771,12 +764,6 @@ export type DebugSpawnHostsConfigInput = {
 export type DefaultSectionToRepoInput = {
   projectId: Scalars["String"]["input"];
   section: ProjectSettingsSection;
-};
-
-/** DeleteCursorAPIKeyPayload is the response from deleting a Cursor API key. */
-export type DeleteCursorApiKeyPayload = {
-  __typename?: "DeleteCursorAPIKeyPayload";
-  success: Scalars["Boolean"]["output"];
 };
 
 /** DeleteDistroInput is the input to the deleteDistro mutation. */
@@ -1025,7 +1012,7 @@ export type EditSpawnHostInput = {
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
-  volume?: InputMaybe<Scalars["String"]["input"]>;
+  volumeId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type EnvVar = {
@@ -1952,7 +1939,6 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"]["output"];
   defaultSectionToRepo?: Maybe<Scalars["String"]["output"]>;
-  deleteCursorAPIKey: DeleteCursorApiKeyPayload;
   deleteDistro: DeleteDistroPayload;
   deleteGithubAppCredentials?: Maybe<DeleteGithubAppCredentialsPayload>;
   deleteProject: Scalars["Boolean"]["output"];
@@ -1987,7 +1973,6 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
-  setCursorAPIKey: SetCursorApiKeyPayload;
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -2218,10 +2203,6 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"]["input"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"]["input"];
-};
-
-export type MutationSetCursorApiKeyArgs = {
-  apiKey: Scalars["String"]["input"];
 };
 
 export type MutationSetLastRevisionArgs = {
@@ -2811,9 +2792,9 @@ export type Project = {
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   testSelection?: Maybe<TestSelectionSettings>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
 };
 
@@ -2962,9 +2943,9 @@ export type ProjectInput = {
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
-  tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
 
@@ -3007,8 +2988,8 @@ export type ProjectLite = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export enum ProjectPermission {
@@ -3145,7 +3126,6 @@ export type Query = {
   buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
-  cursorSettings?: Maybe<CursorSettings>;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
@@ -3153,8 +3133,6 @@ export type Query = {
   githubProjectConflicts: GithubProjectConflicts;
   hasVersion: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
-  /** @deprecated Use host.events instead. */
-  hostEvents: HostEvents;
   hosts: HostsResponse;
   image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
@@ -3236,13 +3214,6 @@ export type QueryHasVersionArgs = {
 
 export type QueryHostArgs = {
   hostId: Scalars["String"]["input"];
-};
-
-export type QueryHostEventsArgs = {
-  hostId: Scalars["String"]["input"];
-  hostTag?: InputMaybe<Scalars["String"]["input"]>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type QueryHostsArgs = {
@@ -3433,9 +3404,9 @@ export type RepoRef = {
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   testSelection?: Maybe<RepoTestSelectionSettings>;
-  tracksPushEvents: Scalars["Boolean"]["output"];
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
+  waterfallDisabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
 };
 
@@ -3482,9 +3453,9 @@ export type RepoRefInput = {
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
-  tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
 
@@ -3785,13 +3756,6 @@ export type ServiceFlagInput = {
   name: Scalars["String"]["input"];
 };
 
-/** SetCursorAPIKeyPayload is the response from setting a Cursor API key. */
-export type SetCursorApiKeyPayload = {
-  __typename?: "SetCursorAPIKeyPayload";
-  keyLastFour?: Maybe<Scalars["String"]["output"]>;
-  success: Scalars["Boolean"]["output"];
-};
-
 /**
  * SetLastRevisionInput is the input to the setLastRevision mutation.
  * It contains information used to fix the repotracker error of a project.
@@ -3956,7 +3920,7 @@ export enum SpawnHostStatusActions {
 export type SpawnVolumeInput = {
   availabilityZone: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
-  host?: InputMaybe<Scalars["String"]["input"]>;
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
   size: Scalars["Int"]["input"];
   type: Scalars["String"]["input"];

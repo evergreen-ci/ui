@@ -22,7 +22,7 @@ export const EDIT_SPAWN_HOST = gql`
         displayName: $displayName
         addedInstanceTags: $addedInstanceTags
         deletedInstanceTags: $deletedInstanceTags
-        volume: $volumeId
+        volumeId: $volumeId
         instanceType: $instanceType
         expiration: $expiration
         noExpiration: $noExpiration

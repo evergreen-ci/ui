@@ -9,8 +9,8 @@
     }
   },
   "include": [
+    "../../packages/lib/vitest.d.ts",
     "src",
-    "./config/vitest/setupTests.ts",
     "src/**/*.d.ts",
     "./.storybook/preview.tsx"
   ],

@@ -10,12 +10,12 @@ test.describe("task logs", () => {
   const eventLogsButton = "button[id='cy-event-option']";
   const allLogsButton = "button[id='cy-all-option']";
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(LOGS_ROUTE);
   });
 
   test("Should default to the task logs page when logtype is not indicated in URL query param", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.locator(taskLogsButton)).toHaveAttribute(
       "aria-selected",
@@ -24,7 +24,7 @@ test.describe("task logs", () => {
   });
 
   test("Should display 'No logs' and disable Parsley, HTML and Raw buttons when no logs are found.", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(
       page.getByTestId("cy-no-logs").getByText("No logs"),
@@ -44,7 +44,7 @@ test.describe("task logs", () => {
   });
 
   test("Should link to Parsley, HTML and Raw version of logs", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(systemLogsButton).click();
     await expect(page.locator(systemLogsButton)).toHaveAttribute(
@@ -68,7 +68,7 @@ test.describe("task logs", () => {
   });
 
   test("Event logs should not have an HTML button, Raw button, or Parsley button", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(eventLogsButton).click();
     await expect(page.locator(eventLogsButton)).toHaveAttribute(
@@ -81,7 +81,7 @@ test.describe("task logs", () => {
   });
 
   test("Should update logtype query param to agent after checking agent radio button", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(agentLogsButton).click();
     await expect(page.locator(agentLogsButton)).toHaveAttribute(
@@ -93,7 +93,7 @@ test.describe("task logs", () => {
   });
 
   test("Should update logtype query param to event after checking event radio button", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(eventLogsButton).click();
     await expect(page.locator(eventLogsButton)).toHaveAttribute(
@@ -105,7 +105,7 @@ test.describe("task logs", () => {
   });
 
   test("Should update logtype query param to system after checking system radio button", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(systemLogsButton).click();
     await expect(page.locator(systemLogsButton)).toHaveAttribute(
@@ -117,7 +117,7 @@ test.describe("task logs", () => {
   });
 
   test("Should update logtype query param to all after checking all radio button", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(allLogsButton).click();
     await expect(page.locator(allLogsButton)).toHaveAttribute(
@@ -129,7 +129,7 @@ test.describe("task logs", () => {
   });
 
   test("Should initially load with task log radio checked when logtype query param is task", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${LOGS_ROUTE}?logtype=task`);
     await expect(page.locator(taskLogsButton)).toHaveAttribute(
@@ -139,7 +139,7 @@ test.describe("task logs", () => {
   });
 
   test("Should initially load with task log radio checked as default when logtype query param is not a valid log type", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${LOGS_ROUTE}?logtype=soeiantsrein`);
     await expect(page.locator(taskLogsButton)).toHaveAttribute(
@@ -149,7 +149,7 @@ test.describe("task logs", () => {
   });
 
   test("Should initially load with agent log radio checked when logtype query param is agent", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${LOGS_ROUTE}?logtype=agent`);
     await expect(page.locator(agentLogsButton)).toHaveAttribute(
@@ -159,7 +159,7 @@ test.describe("task logs", () => {
   });
 
   test("Should initially load with system log radio checked when logtype query param is system", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${LOGS_ROUTE}?logtype=system`);
     await expect(page.locator(systemLogsButton)).toHaveAttribute(
@@ -169,7 +169,7 @@ test.describe("task logs", () => {
   });
 
   test("Should initially load with event log radio checked when logtype query param is event", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${LOGS_ROUTE}?logtype=event`);
     await expect(page.locator(eventLogsButton)).toHaveAttribute(
@@ -179,7 +179,7 @@ test.describe("task logs", () => {
   });
 
   test("Should initially load with all log radio checked when logtype query param is all", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${LOGS_ROUTE}?logtype=all`);
     await expect(page.locator(allLogsButton)).toHaveAttribute(
@@ -195,9 +195,7 @@ test.describe("HTML log viewer", () => {
   const taskLogURL =
     "/task/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/html-log?execution=0&origin=task";
 
-  test("loads a HTML log page on click", async ({
-    authenticatedPage: page,
-  }) => {
+  test("loads a HTML log page on click", async ({ page }) => {
     await page.goto(taskPageURL);
     await expect(page.getByTestId("html-log-btn")).toBeVisible();
     await expect(page.getByTestId("html-log-btn")).toBeEnabled();
@@ -207,7 +205,7 @@ test.describe("HTML log viewer", () => {
   });
 
   test("scrolls to the selected line when opening an HTML log", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${taskLogURL}#L292`);
 

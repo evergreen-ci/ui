@@ -6,14 +6,12 @@ import { expectSaveButtonEnabled, save } from "../utils";
 test.describe("Virtual Workstation page", () => {
   const origin = getRepoSettingsRoute(repo);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await page.getByTestId("navitem-virtual-workstation").click();
   });
 
-  test("Adds two commands and then reorders them", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Adds two commands and then reorders them", async ({ page }) => {
     await expectSaveButtonEnabled(page, false);
 
     const addCommandButton = page.getByRole("button", { name: "Add Command" });

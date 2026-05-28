@@ -5,7 +5,7 @@ test.describe("Project Patches Page", () => {
   const evergreenPatchesRoute = "/project/evergreen/patches";
 
   test("Should link to project patches page from the user patches page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(adminPatchesRoute);
     await page.getByTestId("project-patches-link").first().click();
@@ -14,7 +14,7 @@ test.describe("Project Patches Page", () => {
   });
 
   test("Should link to author patches page from the project patches page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(evergreenPatchesRoute);
     await page.getByTestId("user-patches-link").first().click();
@@ -23,7 +23,7 @@ test.describe("Project Patches Page", () => {
   });
 
   test("Project dropdown navigates to another project patches page upon selection", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(evergreenPatchesRoute);
     await page.getByTestId("project-select").click();

@@ -3,13 +3,11 @@ import { selectOption } from "../../helpers";
 
 test.describe("distroSettings/navigation", () => {
   test.describe("using the distro dropdown", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto("/distro/localhost/settings");
     });
 
-    test("navigates to distro when clicked", async ({
-      authenticatedPage: page,
-    }) => {
+    test("navigates to distro when clicked", async ({ page }) => {
       await page.getByTestId("distro-select").click();
       const listbox = page.getByRole("listbox");
       await expect(listbox.getByText("Admin-only")).toBeVisible();
@@ -22,7 +20,7 @@ test.describe("distroSettings/navigation", () => {
     });
 
     test("can navigate to the task queue for the selected distro", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("navitem-task-queue-link")).toHaveAttribute(
         "href",
@@ -31,7 +29,7 @@ test.describe("distroSettings/navigation", () => {
     });
 
     test("can navigate to the image build information for the selected distro", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(
         page.getByTestId("navitem-image-build-information-link"),
@@ -39,7 +37,7 @@ test.describe("distroSettings/navigation", () => {
     });
 
     test("can navigate to the image event log for the selected distro", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(
         page.getByTestId("navitem-image-event-log-link"),
@@ -48,7 +46,7 @@ test.describe("distroSettings/navigation", () => {
 
     test.describe("warning modal", () => {
       test("warns when navigating away with unsaved changes and allows returning", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await page.getByLabel("Notes").fill("my note");
         await expect(page.getByTestId("save-settings-button")).toBeEnabled();
@@ -64,14 +62,14 @@ test.describe("distroSettings/navigation", () => {
       });
 
       test.describe("modifying the distro provider", () => {
-        test.beforeEach(async ({ authenticatedPage: page }) => {
+        test.beforeEach(async ({ page }) => {
           await page.goto(
             "/distro/ubuntu1604-container-test/settings/provider",
           );
         });
 
         test("warns when navigating to another tab after provider changed and allows save", async ({
-          authenticatedPage: page,
+          page,
         }) => {
           await selectOption(page, "Provider", "Static");
           await expect(page.getByTestId("save-settings-button")).toBeEnabled();
@@ -82,7 +80,7 @@ test.describe("distroSettings/navigation", () => {
         });
 
         test("shows the standard save warning modal when non-provider fields have changed", async ({
-          authenticatedPage: page,
+          page,
         }) => {
           const userDataInput = page.getByRole("textbox", {
             name: "User data",
@@ -102,9 +100,7 @@ test.describe("distroSettings/navigation", () => {
   });
 
   test.describe("/distros redirect route", () => {
-    test("should redirect to the first distro available", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should redirect to the first distro available", async ({ page }) => {
       await page.goto("/distros");
       await expect(page).not.toHaveURL(/\/distros$/);
       await expect(page).toHaveURL("/distro/archlinux-test/settings/general");

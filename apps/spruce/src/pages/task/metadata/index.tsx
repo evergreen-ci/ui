@@ -32,6 +32,7 @@ import {
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
+import { formatCost } from "utils/numbers";
 import { isInStepback } from "utils/stepback";
 import { msToDuration } from "utils/string";
 import { AbortMessage } from "./AbortMessage";
@@ -334,7 +335,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         )}
         {finishTime && taskCost?.total != null && (
           <MetadataItem data-cy="task-metadata-cost">
-            <MetadataLabel>Cost:</MetadataLabel> ${taskCost.total}
+            <MetadataLabel>Cost:</MetadataLabel> ${formatCost(taskCost.total)}
             {taskCost.total > 0 && (
               <>
                 {" "}

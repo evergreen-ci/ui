@@ -3,13 +3,11 @@ import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("admin settings save properly", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/admin-settings");
   });
 
-  test("saves changes in each section independently", async ({
-    authenticatedPage: page,
-  }) => {
+  test("saves changes in each section independently", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByLabel("Config Directory").clear();
@@ -170,7 +168,7 @@ test.describe("admin settings save properly", () => {
 
   test.describe("save parameter store values independently", () => {
     test("saves Okta Client Secret parameter store value independently", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
@@ -209,7 +207,7 @@ test.describe("admin settings save properly", () => {
     });
 
     test("saves Jira Personal Access Token parameter store value independently", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
@@ -240,7 +238,7 @@ test.describe("admin settings save properly", () => {
     });
 
     test("saves Slack and Splunk token parameter store values independently", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
@@ -277,7 +275,7 @@ test.describe("admin settings save properly", () => {
     });
 
     test("saves Runtime Environments API Key parameter store value independently", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
@@ -310,7 +308,7 @@ test.describe("admin settings save properly", () => {
     });
 
     test("saves AWS EC2 Keys parameter store values independently", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
@@ -349,7 +347,7 @@ test.describe("admin settings save properly", () => {
     });
 
     test("saves S3 Keys parameter store values independently", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
@@ -388,7 +386,7 @@ test.describe("admin settings save properly", () => {
     });
 
     test("saves GitHub Webhook Secret parameter store value independently", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
@@ -422,9 +420,7 @@ test.describe("admin settings save properly", () => {
       ).toHaveValue("test-webhook-secret");
     });
 
-    test("saves Expansions List values independently", async ({
-      authenticatedPage: page,
-    }) => {
+    test("saves Expansions List values independently", async ({ page }) => {
       await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
       const expansionsList = page.getByTestId("expansions-list");

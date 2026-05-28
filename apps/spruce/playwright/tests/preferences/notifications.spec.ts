@@ -6,7 +6,7 @@ const pageRoute = "/preferences/notifications";
 test.describe("preferences/notifications", () => {
   test.describe("global subscription settings", () => {
     test("updating a field should enable the submit button", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(pageRoute);
       await expect(
@@ -19,9 +19,7 @@ test.describe("preferences/notifications", () => {
       ).toBeEnabled();
     });
 
-    test("saving changes to a field should work", async ({
-      authenticatedPage: page,
-    }) => {
+    test("saving changes to a field should work", async ({ page }) => {
       await page.goto(pageRoute);
       await page.getByTestId("slack-username-field").clear();
       await page.getByTestId("slack-username-field").fill("slack.user");
@@ -34,12 +32,12 @@ test.describe("preferences/notifications", () => {
   });
 
   test.describe("user subscriptions table", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(pageRoute);
     });
 
     test("shows all of a user's subscriptions and expands with details", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("subscription-row")).toHaveCount(3);
 
@@ -64,7 +62,7 @@ test.describe("preferences/notifications", () => {
     });
 
     test("shows the selected count in the 'Delete' button", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const rowCheckbox = page
         .getByTestId("subscription-row")
@@ -87,9 +85,7 @@ test.describe("preferences/notifications", () => {
     });
 
     test.describe("Deleting subscriptions", () => {
-      test("deletes a single subscription", async ({
-        authenticatedPage: page,
-      }) => {
+      test("deletes a single subscription", async ({ page }) => {
         const rowCheckbox = page
           .getByTestId("subscription-row")
           .nth(0)

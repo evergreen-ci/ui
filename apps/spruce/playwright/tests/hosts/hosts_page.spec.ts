@@ -32,12 +32,12 @@ const hostsSecondPageWithLimitOfTen = [
 ];
 
 test.describe("Hosts page default", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(`${hostsRoute}?limit=10`);
   });
 
   test("Renders hosts table with hosts sorted by status by default", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const rows = page.getByTestId("leafygreen-table-row");
     for (let i = 0; i < defaultHostsFirstPage.length; i++) {
@@ -45,9 +45,7 @@ test.describe("Hosts page default", () => {
     }
   });
 
-  test("ID column value links to host page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("ID column value links to host page", async ({ page }) => {
     await expect(
       page
         .getByTestId("leafygreen-table-row")
@@ -56,9 +54,7 @@ test.describe("Hosts page default", () => {
     ).toHaveAttribute("href", "/host/i-06f80fa6e28f93b");
   });
 
-  test("Current Task column value links to task page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Current Task column value links to task page", async ({ page }) => {
     await expect(
       page
         .getByTestId("leafygreen-table-row")
@@ -69,9 +65,7 @@ test.describe("Hosts page default", () => {
 });
 
 test.describe("Hosts page pagination", () => {
-  test("URL query parameters determine pagination values", async ({
-    authenticatedPage: page,
-  }) => {
+  test("URL query parameters determine pagination values", async ({ page }) => {
     await page.goto(`${hostsRoute}?limit=10&page=1`);
     const rows = page.getByTestId("leafygreen-table-row");
     for (let i = 0; i < hostsSecondPageWithLimitOfTen.length; i++) {

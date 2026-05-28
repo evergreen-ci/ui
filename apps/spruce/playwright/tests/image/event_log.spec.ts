@@ -4,7 +4,7 @@ test.describe("Event log page", () => {
   const IMAGE_EVENT_LIMIT = 5;
 
   test("load more button should return twice as many events", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/image/ubuntu2204/event-log");
     await expect(page.getByTestId("image-event-log-card")).toHaveCount(
@@ -17,7 +17,7 @@ test.describe("Event log page", () => {
   });
 
   test("should show no events when filtering by name for a nonexistent item", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/image/ubuntu2204/event-log");
     await expect(page.getByTestId("image-event-log-card")).toHaveCount(
@@ -34,7 +34,7 @@ test.describe("Event log page", () => {
   });
 
   test("should show no events when global filtering for a nonexistent item", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/image/ubuntu2204/event-log");
     await expect(page.getByTestId("image-event-log-card")).toHaveCount(

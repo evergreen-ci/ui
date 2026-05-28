@@ -63,7 +63,7 @@ const textFilterTests = [
 ];
 
 test.describe("Hosts page filtering from table filters", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(`${hostsRoute}?page=0`);
     const hostsTable = page.getByTestId("hosts-table");
     await expect(hostsTable).toBeVisible();
@@ -79,7 +79,7 @@ test.describe("Hosts page filtering from table filters", () => {
       testName,
     }) => {
       test(`Filters hosts using table filter for ${testName}`, async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const filterIcon = page.getByTestId(filterIconDataCy);
         await expect(filterIcon).toBeVisible();
@@ -109,9 +109,7 @@ test.describe("Hosts page filtering from table filters", () => {
     },
   );
 
-  test("Filters hosts using table filter for statuses", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Filters hosts using table filter for statuses", async ({ page }) => {
     const filterIcon = page.getByTestId("statuses-filter");
     await expect(filterIcon).toBeVisible();
     await filterIcon.click();

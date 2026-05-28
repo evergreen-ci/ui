@@ -167,6 +167,7 @@ const tsEslintConfig = {
       errorIfStrict,
       {
         args: "after-used",
+        argsIgnorePattern: "^_",
         ignoreRestSiblings: true,
         vars: "all",
         caughtErrors: "none",

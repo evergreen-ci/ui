@@ -3,13 +3,11 @@ import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("other", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/admin-settings");
   });
 
-  test("can save misc settings changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save misc settings changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByLabel("Config Directory").clear();
@@ -47,9 +45,7 @@ test.describe("other", () => {
     ).toBeVisible();
   });
 
-  test("can save cost settings changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save cost settings changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByLabel("Finance Formula").clear();
@@ -86,9 +82,7 @@ test.describe("other", () => {
     ).toHaveValue("0.22");
   });
 
-  test("can clear S3 cost discount values", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can clear S3 cost discount values", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByLabel("Upload Cost Discount").clear();
@@ -129,9 +123,7 @@ test.describe("other", () => {
     ).toHaveValue("0");
   });
 
-  test("can save single task host changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save single task host changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByRole("button", { name: "Add project tasks pair" }).click();
@@ -151,9 +143,7 @@ test.describe("other", () => {
     await expect(page.getByLabel("Project ID / Repo")).toHaveCount(3);
   });
 
-  test("can save bucket config changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save bucket config changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     const bucketConfig = page.getByTestId("bucket-config");
@@ -169,7 +159,7 @@ test.describe("other", () => {
     ).toHaveValue("new-log-bucket");
   });
 
-  test("can save SSH pairs changes", async ({ authenticatedPage: page }) => {
+  test("can save SSH pairs changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     const sshPairs = page.getByTestId("ssh-pairs");
@@ -191,7 +181,7 @@ test.describe("other", () => {
     );
   });
 
-  test("can save expansions changes", async ({ authenticatedPage: page }) => {
+  test("can save expansions changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page
@@ -209,7 +199,7 @@ test.describe("other", () => {
     await expect(page.getByTestId("expansion-item")).toHaveCount(2);
   });
 
-  test("can save host jasper changes", async ({ authenticatedPage: page }) => {
+  test("can save host jasper changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     const hostJasper = page.getByTestId("host-jasper");
@@ -225,9 +215,7 @@ test.describe("other", () => {
     ).toHaveValue("new-jasper");
   });
 
-  test("can save JIRA notifications changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save JIRA notifications changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     const jiraNotifications = page.getByTestId("jira-notifications");
@@ -251,7 +239,7 @@ test.describe("other", () => {
     await expect(page.getByTestId("jira-custom-field-item")).toHaveCount(3);
   });
 
-  test("can save spawn host changes", async ({ authenticatedPage: page }) => {
+  test("can save spawn host changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByLabel("Unexpirable Hosts Per User").clear();
@@ -266,9 +254,7 @@ test.describe("other", () => {
     );
   });
 
-  test("can save sleep schedule changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save sleep schedule changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByLabel("Permanently Exempt Hosts").fill("exempt-host-1");
@@ -286,9 +272,7 @@ test.describe("other", () => {
     ).toBeVisible();
   });
 
-  test("can save tracer configuration changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save tracer configuration changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     const tracerConfiguration = page.getByTestId("tracer-configuration");
@@ -320,9 +304,7 @@ test.describe("other", () => {
     );
   });
 
-  test("can save project creation changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save project creation changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByLabel("Total Project Limit").clear();
@@ -350,9 +332,7 @@ test.describe("other", () => {
     await expect(page.getByTestId("repo-exception-item")).toHaveCount(1);
   });
 
-  test("can save GitHub check run changes", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can save GitHub check run changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByLabel("Check Run Limit").clear();

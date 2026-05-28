@@ -13,13 +13,13 @@ import { expectSaveButtonEnabled, save } from "../utils";
 test.describe("Project Settings when defaulting to repo", () => {
   const origin = getProjectSettingsRoute(projectUseRepoEnabled);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
   });
 
   test.describe("General Settings page", () => {
     test("Save button is disabled on load and shows a link to the repo", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expectSaveButtonEnabled(page, false);
       await expect(page.getByTestId("attached-repo-link")).toHaveAttribute(
@@ -29,7 +29,7 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("spawn-host-input")).toHaveValue("/path");
       await page.getByTestId("spawn-host-input").fill("/path/test");
@@ -43,9 +43,7 @@ test.describe("Project Settings when defaulting to repo", () => {
       await expectSaveButtonEnabled(page, true);
     });
 
-    test("Shows a 'Default to Repo' button on page", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Shows a 'Default to Repo' button on page", async ({ page }) => {
       const defaultToRepoButton = page.getByRole("button", {
         name: "Default to repo on page",
       });
@@ -53,7 +51,7 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Shows only two radio boxes even when rendering a project that inherits from repo", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(
         page.getByTestId("enabled-radio-box").locator("> *"),
@@ -61,7 +59,7 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Does not default to repo value for display name", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("display-name-input")).not.toHaveAttribute(
         "placeholder",
@@ -69,7 +67,7 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Shows a navigation warning modal that lists the general page when navigating away from project settings", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("spawn-host-input").fill("/path/test");
       await expectSaveButtonEnabled(page, true);
@@ -81,9 +79,7 @@ test.describe("Project Settings when defaulting to repo", () => {
       await page.keyboard.press("Escape");
     });
 
-    test("Shows the repo value for Batch Time", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Shows the repo value for Batch Time", async ({ page }) => {
       await expect(page.getByTestId("batch-time-input")).toHaveAttribute(
         "placeholder",
         /.+/,
@@ -91,16 +87,14 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Clicking on save button should show a success toast", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("spawn-host-input").fill("/path/test");
       await save(page);
       await validateToast(page, "success", "Successfully updated project");
     });
 
-    test("Saves when batch time is updated", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Saves when batch time is updated", async ({ page }) => {
       await page.getByTestId("batch-time-input").clear();
       await page.getByTestId("batch-time-input").fill("12");
       await save(page);
@@ -147,13 +141,13 @@ test.describe("Project Settings when defaulting to repo", () => {
   });
 
   test.describe("Variables page", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.getByTestId("navitem-variables").click();
       await expectSaveButtonEnabled(page, false);
     });
 
     test("Successfully saves variables and then promotes them using the promote variables modal", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByRole("button", { name: "Add variables" }).click();
       await page.getByTestId("var-name-input").fill("a");
@@ -207,15 +201,13 @@ test.describe("Project Settings when defaulting to repo", () => {
   });
 
   test.describe("GitHub Pull Requests page", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.getByRole("button", { name: "GitHub" }).click();
       await page.getByTestId("navitem-pull-requests").click();
       await expectSaveButtonEnabled(page, false);
     });
 
-    test("Allows overriding repo patch definitions", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Allows overriding repo patch definitions", async ({ page }) => {
       const radioBox = page.getByTestId("pr-testing-enabled-radio-box");
       const enabledRadio = radioBox.getByRole("radio", {
         name: "Enabled",
@@ -252,7 +244,7 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Defaults to repo and shows the repo's disabled patch definition", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(
         page
@@ -304,14 +296,14 @@ test.describe("Project Settings when defaulting to repo", () => {
   });
 
   test.describe("GitHub Commit Checks page", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.getByRole("button", { name: "GitHub" }).click();
       await page.getByTestId("navitem-commit-checks").click();
       await expectSaveButtonEnabled(page, false);
     });
 
     test("Shows a warning banner when a commit check definition does not exist", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const enabledRadio = page
         .getByTestId("github-checks-enabled-radio-box")
@@ -326,7 +318,7 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Returns an error on save because no commit check definitions are defined", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const checksEnabledRadio = page
         .getByTestId("github-checks-enabled-radio-box")
@@ -342,14 +334,14 @@ test.describe("Project Settings when defaulting to repo", () => {
   });
 
   test.describe("GitHub Git Tags page", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.getByRole("button", { name: "GitHub" }).click();
       await page.getByTestId("navitem-git-tags").click();
       await expectSaveButtonEnabled(page, false);
     });
 
     test("Disables Authorized Users section based on repo settings", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByText("Authorized Users")).toHaveCount(0);
       await expect(page.getByText("Authorized Teams")).toHaveCount(0);
@@ -357,14 +349,14 @@ test.describe("Project Settings when defaulting to repo", () => {
   });
 
   test.describe("GitHub Merge Queue page", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.getByRole("button", { name: "GitHub" }).click();
       await page.getByTestId("navitem-merge-queue").click();
       await expectSaveButtonEnabled(page, false);
     });
 
     test("Defaults to overriding repo since a patch definition is defined", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const overrideRepoPatchDefinitionRadio = page
         .getByTestId("mq-override-radio-box")
@@ -375,9 +367,7 @@ test.describe("Project Settings when defaulting to repo", () => {
       await expect(overrideRepoPatchDefinitionRadio).toBeChecked();
     });
 
-    test("Shows the existing patch definition", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Shows the existing patch definition", async ({ page }) => {
       await expect(page.getByTestId("variant-input")).toHaveValue(
         "^ubuntu1604$",
       );
@@ -388,14 +378,12 @@ test.describe("Project Settings when defaulting to repo", () => {
   });
 
   test.describe("Patch Aliases page", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.getByTestId("navitem-patch-aliases").click();
       await expectSaveButtonEnabled(page, false);
     });
 
-    test("Defaults to repo patch aliases", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Defaults to repo patch aliases", async ({ page }) => {
       const defaultToRepoRadio = page.getByRole("radio", {
         name: "Default to Repo Patch Aliases",
       });
@@ -403,7 +391,7 @@ test.describe("Project Settings when defaulting to repo", () => {
     });
 
     test("Patch aliases added before defaulting to repo patch aliases are cleared", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const overrideRepoPatchAliasesRadio = page.getByRole("radio", {
         name: "Override Repo Patch Aliases",
@@ -453,11 +441,11 @@ test.describe("Project Settings when defaulting to repo", () => {
   });
 
   test.describe("Virtual Workstation page", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.getByTestId("navitem-virtual-workstation").click();
     });
 
-    test("Enable git clone", async ({ authenticatedPage: page }) => {
+    test("Enable git clone", async ({ page }) => {
       const githubEnabledRadio = page.getByRole("radio", { name: "Enabled" });
       await clickRadio(githubEnabledRadio);
       await expect(githubEnabledRadio).toBeChecked();
@@ -465,7 +453,7 @@ test.describe("Project Settings when defaulting to repo", () => {
       await validateToast(page, "success", "Successfully updated project");
     });
 
-    test("Add commands", async ({ authenticatedPage: page }) => {
+    test("Add commands", async ({ page }) => {
       const defaultToRepoRadio = page.getByRole("radio", {
         name: "Default to repo (disabled)",
       });
@@ -528,9 +516,7 @@ test.describe("Project Settings when defaulting to repo", () => {
       await expect(commandRow).toHaveCount(0);
     });
 
-    test("Allows overriding without adding a command", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Allows overriding without adding a command", async ({ page }) => {
       const overrideRepoCommandsRadio = page.getByRole("radio", {
         name: "Override Repo Commands",
       });

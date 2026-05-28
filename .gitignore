@@ -22,3 +22,7 @@ localhost-key.pem
 
 .vscode
 .claude
+
+# chrome devtools local overrides
+chrome-overrides/
+scripts/setup-chrome-overrides.sh

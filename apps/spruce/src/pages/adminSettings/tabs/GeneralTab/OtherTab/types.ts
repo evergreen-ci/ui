@@ -59,6 +59,8 @@ export interface OtherFormState {
       credentialsKey: string;
       credentialsSecret: string;
       failedTasksLogBucketName: string;
+      retryFailedLogMoveLookbackMonths: number;
+      retryFailedLogMoveMaxJobsPerRun: number;
     };
 
     sshPairs: {

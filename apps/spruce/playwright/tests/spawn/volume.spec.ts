@@ -31,19 +31,19 @@ test.describe("Spawn volume page", () => {
   const mountedVolume2ID =
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/spawn/volume");
   });
 
   test("Visiting the spawn volume page should display the number of free and mounted volumes", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("mounted-badge")).toContainText("9 Mounted");
     await expect(page.getByTestId("free-badge")).toContainText("4 Free");
   });
 
   test("The table initially displays volumes with status ascending", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const rows = page.getByTestId("leafygreen-table-row");
     for (let i = 0; i < expectedVolNames.length; i++) {
@@ -51,16 +51,14 @@ test.describe("Spawn volume page", () => {
     }
   });
 
-  test("Table should have no cards visible by default", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Table should have no cards visible by default", async ({ page }) => {
     for (const name of expectedVolNames) {
       await expect(page.getByTestId(name)).toHaveCount(0);
     }
   });
 
   test("Should render migrating volumes with a different badge and disable action buttons", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const migratingRow = page
       .getByTestId("leafygreen-table-row")
@@ -77,7 +75,7 @@ test.describe("Spawn volume page", () => {
   });
 
   test("Should have a volume card visible initially when the 'volume' query param is provided", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const targetVolume = "vol-0ea662ac92f611ed4";
     await page.goto(`/spawn/volume?volume=${targetVolume}`);
@@ -86,7 +84,7 @@ test.describe("Spawn volume page", () => {
   });
 
   test("Clicking on the row should toggle the volume card open and closed", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`/spawn/volume?volume=${freeVolumeID}`);
     const card = page.getByTestId(`spawn-volume-card-${freeVolumeID}`);
@@ -103,7 +101,7 @@ test.describe("Spawn volume page", () => {
   });
 
   test("Clicking the trash can should remove the volume from the table and update free/mounted volumes badges", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await mockGraphQLResponse(page, "RemoveVolume", {
       data: { removeVolume: true },
@@ -126,7 +124,7 @@ test.describe("Spawn volume page", () => {
   });
 
   test("Clicking the trash can for a mounted volume should show an additional confirmation checkbox which enables the submit button when checked", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await mockGraphQLResponse(page, "RemoveVolume", {
       data: { removeVolume: true },
@@ -150,7 +148,7 @@ test.describe("Spawn volume page", () => {
   });
 
   test("Clicking on unmount should result in a success toast appearing", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await mockGraphQLResponse(page, "DetachVolumeFromHost", {
       data: { detachVolumeFromHost: true },
@@ -164,7 +162,7 @@ test.describe("Spawn volume page", () => {
   });
 
   test("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const spawnButton = page.getByTestId("spawn-volume-btn");
     await expect(spawnButton).toBeEnabled();
@@ -173,7 +171,7 @@ test.describe("Spawn volume page", () => {
   });
 
   test("Reopening the Spawn Volume modal clears previous input changes", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("spawn-volume-btn").click();
     await expect(page.getByTestId("spawn-volume-modal")).toBeVisible();
@@ -194,19 +192,19 @@ test.describe("Edit volume modal", () => {
   const volumeToEditID =
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b815";
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/spawn/volume");
   });
 
   test("Clicking on 'Edit' should open the Edit Volume Modal", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId(`edit-btn-${volumeToEditID}`).click();
     await expect(page.getByTestId("update-volume-modal")).toBeVisible();
   });
 
   test("name, size, expiration inputs should be populated on initial render", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId(`edit-btn-${volumeToEditID}`).click();
     await expect(page.getByTestId("update-volume-modal")).toBeVisible();
@@ -224,7 +222,7 @@ test.describe("Edit volume modal", () => {
   });
 
   test("Reopening the edit volume modal should reset form input fields", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId(`edit-btn-${volumeToEditID}`).click();
     await expect(page.getByTestId("update-volume-modal")).toBeVisible();
@@ -241,9 +239,7 @@ test.describe("Edit volume modal", () => {
     );
   });
 
-  test("size field is validated correctly", async ({
-    authenticatedPage: page,
-  }) => {
+  test("size field is validated correctly", async ({ page }) => {
     await page.getByTestId(`edit-btn-${volumeToEditID}`).click();
     await expect(page.getByTestId("update-volume-modal")).toBeVisible();
 
@@ -257,7 +253,7 @@ test.describe("Edit volume modal", () => {
   });
 
   test("Submit button should be enabled when the volume details input value differs from what already exists", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId(`edit-btn-${volumeToEditID}`).click();
     await expect(page.getByTestId("update-volume-modal")).toBeVisible();
@@ -280,7 +276,7 @@ test.describe("Edit volume modal", () => {
   });
 
   test("Clicking on save button should close the modal and show a success toast", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     mockGraphQLResponse(page, "UpdateVolume", {
       data: {
@@ -307,12 +303,12 @@ test.describe("Migrate Modal", () => {
   const volumeToMigrateID =
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858";
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/spawn/volume");
   });
 
   test("migrate button is disabled for volumes with the migrating status", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const migratingRow = page
       .getByTestId("leafygreen-table-row")
@@ -326,7 +322,7 @@ test.describe("Migrate Modal", () => {
   });
 
   test("clicking cancel during confirmation renders the Migrate modal form", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId(`migrate-btn-${volumeToMigrateID}`).click();
     await page.getByTestId("distro-input").click();
@@ -346,9 +342,7 @@ test.describe("Migrate Modal", () => {
     await expect(page.getByTestId("distro-input")).toBeVisible();
   });
 
-  test("open the Migrate modal and spawn a host", async ({
-    authenticatedPage: page,
-  }) => {
+  test("open the Migrate modal and spawn a host", async ({ page }) => {
     await mockGraphQLResponse(page, "MigrateVolume", {
       data: { migrateVolume: true },
       errors: null,

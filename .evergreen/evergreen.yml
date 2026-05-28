@@ -89,6 +89,20 @@ buildvariants:
         patchable: false
         priority: 100
 
+  - name: sage-ui
+    display_name: Sage UI
+    expansions:
+      app_dir: apps/sage
+      node_version: 22.18.0
+    run_on:
+      - ubuntu2204-large
+      - ubuntu2204-small
+    tasks:
+      - name: deploy-sage-ui-prod
+        git_tag_only: true
+        patchable: false
+        priority: 100
+
   - name: lib
     display_name: Lib
     expansions:
@@ -169,6 +183,8 @@ buildvariants:
     tasks:
       - name: deploy-parsley-beta
       - name: deploy-parsley-staging
+      - name: deploy-sage-ui-beta
+      - name: deploy-sage-ui-staging
       - name: deploy-spruce-beta
       - name: deploy-spruce-staging
       - name: sync-spruce-staging

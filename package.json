@@ -3,7 +3,7 @@
   "repository": "https://github.com/evergreen-ci/ui",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@11.1.1",
   "scripts": {
     "check-types": "pnpm -r check-types",
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
@@ -17,9 +17,10 @@
   "devDependencies": {
     "@evg-ui/storybook-addon": "workspace:*",
     "@storybook/react-vite": "^10.1.10",
+    "@types/wicg-file-system-access": "^2023.10.7",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
     "storybook": "^10.1.10",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.6"
   }
 }

@@ -284,6 +284,26 @@ describe("editSpawnHostModal", () => {
       expect(screen.getByDisplayValue("01")).toBeVisible();
       expect(screen.getByDisplayValue("15")).toBeVisible();
     });
+
+    it("displays the temporary exemption description", () => {
+      const { Component } = RenderFakeToastContext(
+        <EditSpawnHostModal
+          host={tempExemptSpawnHost}
+          onCancel={() => {}}
+          visible
+        />,
+      );
+      render(
+        <MockedProvider mocks={baseMocks}>
+          <Component />
+        </MockedProvider>,
+      );
+      expect(
+        screen.getByText(
+          "During a temporary exemption, the uptime schedule will not take effect at all, so Evergreen will not stop/start your host unless you do so manually. This is useful if you have a one-off need to keep your host on without interruption.",
+        ),
+      ).toBeVisible();
+    });
   });
 });
 
