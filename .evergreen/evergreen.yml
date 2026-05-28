@@ -92,7 +92,7 @@ buildvariants:
   - name: sage-ui
     display_name: Sage UI
     expansions:
-      app_dir: apps/sage-ui
+      app_dir: apps/sage
       node_version: 22.18.0
     run_on:
       - ubuntu2204-large

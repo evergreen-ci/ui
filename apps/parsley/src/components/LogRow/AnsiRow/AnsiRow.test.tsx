@@ -170,7 +170,6 @@ const priorityLogLines = [
 
 const ansiProps = {
   getLine: (index: number) => logLines[index],
-  scrollToLine: vi.fn(),
 
   prettyPrint: false,
   range: { lowerRange: 0 },

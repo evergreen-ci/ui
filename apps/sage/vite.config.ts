@@ -22,4 +22,5 @@ const vitestConfig = defineTestConfig({
     include: ["src/**/*.test.{ts,tsx}"],
   },
 });
+
 export default mergeConfig(viteConfig, vitestConfig);

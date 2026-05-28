@@ -409,6 +409,9 @@ importers:
       eslint:
         specifier: ^9.39.1
         version: 9.39.4(@types/eslint@9.6.1)(jiti@2.6.1)
+      prettier:
+        specifier: 3.7.4
+        version: 3.7.4
       typescript:
         specifier: ~6.0.2
         version: 6.0.2
