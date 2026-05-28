@@ -26,10 +26,11 @@ const targetsFromChangedFiles = (files) => {
       return;
     }
 
-    // If a change is made to a shared directory, test both apps.
+    // If a change is made to a shared directory, test all apps.
     if (packageDir !== APPS_DIR) {
       targets.add("spruce");
       targets.add("parsley");
+      targets.add("sage");
     }
 
     if (TASK_MAPPING[packageName]) {

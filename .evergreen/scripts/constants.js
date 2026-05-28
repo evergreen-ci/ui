@@ -3,6 +3,7 @@ const Tasks = {
   Compile: "compile",
   E2E: "e2e",
   E2EParallel: "e2e_parallel",
+  E2ENoDB: "e2e_no_db",
   Lint: "lint",
   Storybook: "storybook",
   Test: "test",
@@ -42,6 +43,13 @@ const TASK_MAPPING = {
     Tasks.Test,
     Tasks.TypeCheck,
   ],
+  sage: [
+    Tasks.Compile,
+    Tasks.Lint,
+    Tasks.E2ENoDB,
+    Tasks.Test,
+    Tasks.TypeCheck,
+  ]
 };
 
 const APPS_DIR = "apps";
