@@ -6,7 +6,7 @@ const path = "/version/5ecedafb562343215a7ff297";
 test.describe("version/restart_modal", () => {
   test.describe("Restarting a patch with Downstream Tasks", () => {
     test("Clicking on the Select Downstream Tasks should show the downstream projects", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/version/5f74d99ab2373627c047c5e5");
       await page.getByTestId("restart-version").click();
@@ -19,7 +19,7 @@ test.describe("version/restart_modal", () => {
   });
 
   test.describe("Restarting a patch", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(path);
       await expect(page.getByTestId("version-restart-modal")).toBeHidden();
       await page.getByTestId("restart-version").click();
@@ -27,7 +27,7 @@ test.describe("version/restart_modal", () => {
     });
 
     test("Clicking on a variant should toggle an accordion dropdown of tasks", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("variant-accordion").first().click();
       await expect(
@@ -36,7 +36,7 @@ test.describe("version/restart_modal", () => {
     });
 
     test("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const taskStatusBadge = page
         .getByTestId("version-restart-modal")
@@ -53,7 +53,7 @@ test.describe("version/restart_modal", () => {
     });
 
     test("Clicking on a task should toggle its check box and select the task", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("variant-accordion").first().click();
       const taskCheckbox = page
@@ -68,7 +68,7 @@ test.describe("version/restart_modal", () => {
     });
 
     test("Selecting on the task status filter should toggle the tasks that have matching statuses to it", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("task-status-filter").click();
       const options = page.getByTestId("tree-select-options");
@@ -88,7 +88,7 @@ test.describe("version/restart_modal", () => {
     });
 
     test("Selecting on the base status filter should toggle the tasks that have matching statuses to it", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const modal = page.getByTestId("version-restart-modal");
       await modal.getByTestId("base-task-status-filter").click();
@@ -110,7 +110,7 @@ test.describe("version/restart_modal", () => {
     });
 
     test("Restarting a task should close the modal and display a success message if it occurs successfully.", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const modal = page.getByTestId("version-restart-modal");
       await modal.getByTestId("variant-accordion").first().click();
@@ -126,7 +126,7 @@ test.describe("version/restart_modal", () => {
 
   test.describe("Restarting mainline commits", () => {
     test("should be able to restart scheduled mainline commit tasks", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         "/version/spruce_ab494436448fbb1d244833046ea6f6af1544e86d",

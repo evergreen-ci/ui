@@ -6,25 +6,23 @@ import { expectSaveButtonEnabled } from "../utils";
 test.describe("Project Settings when not defaulting to repo", () => {
   const origin = getProjectSettingsRoute(project);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
   });
 
-  test("Does not show a 'Default to Repo' button on page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Does not show a 'Default to Repo' button on page", async ({ page }) => {
     await expect(page.getByTestId("default-to-repo-button")).toHaveCount(0);
   });
 
-  test("Shows two radio boxes", async ({ authenticatedPage: page }) => {
+  test("Shows two radio boxes", async ({ page }) => {
     await expect(
       page.getByTestId("enabled-radio-box").locator("> *"),
     ).toHaveCount(2);
   });
 
   test("Successfully attaches to and detaches from a repo that does not yet exist and shows 'Default to Repo' options", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("attach-repo-button").click();
     await page

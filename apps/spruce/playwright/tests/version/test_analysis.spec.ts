@@ -1,12 +1,12 @@
 import { test, expect } from "../../fixtures";
 
 test.describe("Test Analysis", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/version/5e4ff3abe3c3317e352062e4/test-analysis");
   });
 
   test("should group together all matching failing tests in a version and present a stat", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(
       page.getByText("1 test failed across more than one task"),
@@ -17,9 +17,7 @@ test.describe("Test Analysis", () => {
     ).toBeVisible();
   });
 
-  test("clicking on a test should show the test details", async ({
-    authenticatedPage: page,
-  }) => {
+  test("clicking on a test should show the test details", async ({ page }) => {
     await page.getByText("JustAFakeTestInALonelyWorld").click();
     await expect(
       page.getByTestId("failed-test-grouped-table").first(),
@@ -27,7 +25,7 @@ test.describe("Test Analysis", () => {
   });
 
   test("filtering by test name should only show matching tests", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page
       .getByLabel("Search Test Failures")
@@ -43,7 +41,7 @@ test.describe("Test Analysis", () => {
   });
 
   test("filtering by task status should only show matching tests", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByLabel("Failure Type").click();
     await expect(
@@ -60,9 +58,7 @@ test.describe("Test Analysis", () => {
     ).toBeHidden();
   });
 
-  test("clearing the filters should reset the view", async ({
-    authenticatedPage: page,
-  }) => {
+  test("clearing the filters should reset the view", async ({ page }) => {
     await page
       .getByLabel("Search Test Failures")
       .fill("JustAFakeTestInALonelyWorld");

@@ -1,5 +1,4 @@
-import { Page } from "@playwright/test";
-import { test, expect } from "../../fixtures";
+import { Page, test, expect } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const patch = { id: "5e4ff3abe3c3317e352062e4" };
@@ -15,7 +14,7 @@ const waitForTaskTable = async (page: Page) => {
 
 test.describe("Tasks filters", () => {
   test("Should clear any filters with the Clear All Filters button and reset the table to its default state", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(pathURLWithFilters);
     await waitForTaskTable(page);
@@ -57,7 +56,7 @@ test.describe("Tasks filters", () => {
     const variantInputValue = "lint";
 
     test("Updates url with input value and fetches tasks filtered by variant", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(defaultPath);
       await waitForTaskTable(page);
@@ -89,7 +88,7 @@ test.describe("Tasks filters", () => {
     const taskNameInputValue = "test-cloud";
 
     test("Updates url with input value and fetches tasks filtered by task name", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(defaultPath);
       await waitForTaskTable(page);
@@ -118,7 +117,7 @@ test.describe("Tasks filters", () => {
   });
 
   test.describe("Task Statuses select", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(defaultPath);
       await waitForTaskTable(page);
       await page.getByTestId("status-filter").click();
@@ -126,7 +125,7 @@ test.describe("Tasks filters", () => {
     });
 
     test("Clicking on a status filter filters the tasks to only those statuses", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const options = page.getByTestId("tree-select-options");
       const failedCheckbox = options
@@ -149,7 +148,7 @@ test.describe("Tasks filters", () => {
     });
 
     test("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const taskStatuses = [
         "All",
@@ -179,7 +178,7 @@ test.describe("Tasks filters", () => {
   });
 
   test.describe("Task Base Statuses select", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(defaultPath);
       await waitForTaskTable(page);
       await page.getByTestId("base-status-filter").click();
@@ -189,7 +188,7 @@ test.describe("Tasks filters", () => {
     });
 
     test("Clicking on a base status filter filters the tasks to only those base statuses", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const succeededCheckbox = page.getByRole("checkbox", {
         name: "Succeeded",
@@ -206,7 +205,7 @@ test.describe("Tasks filters", () => {
     });
 
     test("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const taskStatuses = ["All", "Succeeded", "Running"];
       const allCheckbox = page.getByRole("checkbox", { name: "All" });

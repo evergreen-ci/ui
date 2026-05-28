@@ -6,11 +6,11 @@ import {
 } from "../../helpers";
 
 test.describe("restart tasks", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/admin-settings/restart-tasks");
   });
 
-  test("can restart tasks", async ({ authenticatedPage: page }) => {
+  test("can restart tasks", async ({ page }) => {
     await expect(page.getByTestId("restart-tasks-button")).toBeDisabled();
 
     await selectDatePickerDate(

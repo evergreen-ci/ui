@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
  * @returns boolean - true if visible, false if hidden
  */
 export const usePageVisibility = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(
+    document.visibilityState === "visible",
+  );
 
   useEffect(() => {
     const handleVisibilityChange = () => {

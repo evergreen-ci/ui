@@ -69,6 +69,7 @@
     "@types/node": "^22.15.3",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
+    "@types/wicg-file-system-access": "^2023.10.7",
     "@vitejs/plugin-react": "5.1.2",
     "chromatic": "^16.0.0",
     "eslint": "^9.39.1",
@@ -77,9 +78,8 @@
     "storybook": "^10.1.10",
     "storybook-addon-apollo-client": "^10.0.0",
     "typescript": "~6.0.2",
-    "vite": "7.3.2",
-    "vite-tsconfig-paths": "^6.0.2",
-    "vitest": "^3.2.4",
+    "vite": "8.0.13",
+    "vitest": "^4.1.6",
     "vitest-canvas-mock": "1.1.3"
   }
 }

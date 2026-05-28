@@ -25,6 +25,6 @@ export const formToGql = ({
     noExpiration,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expiration: noExpiration ? null : new Date(expiration),
-    host: mountToHost || null,
+    hostId: mountToHost || null,
   };
 };

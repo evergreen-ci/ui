@@ -5,13 +5,11 @@ test.describe("project banners", () => {
   const projectWithrepotrackerError = "/project/mongodb-mongo-test/waterfall";
 
   test.describe("repotracker banner", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(projectWithrepotrackerError);
     });
 
-    test("should be able to clear the repotracker error", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should be able to clear the repotracker error", async ({ page }) => {
       await expect(page.getByTestId("repotracker-error-banner")).toBeVisible();
       await expect(page.getByTestId("repotracker-error-trigger")).toBeVisible();
       await page.getByTestId("repotracker-error-trigger").click();

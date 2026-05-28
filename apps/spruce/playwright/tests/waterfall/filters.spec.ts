@@ -2,12 +2,12 @@ import { test, expect } from "../../fixtures";
 import { validateDatePickerDate, selectDatePickerDate } from "../../helpers";
 
 test.describe("status filtering", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/spruce/waterfall");
   });
 
   test("filters on failed tasks and fetches additional from the server", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(
       page.getByTestId("inactive-versions-button").first(),
@@ -21,12 +21,12 @@ test.describe("status filtering", () => {
 });
 
 test.describe("requester filtering", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/spruce/waterfall");
   });
 
   test("filters on periodic builds and shows an empty state", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(
       page.getByTestId("inactive-versions-button").first(),
@@ -37,7 +37,7 @@ test.describe("requester filtering", () => {
   });
 
   test("filters on git tags and fetches more from the server", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("requester-filter").click();
     await page.getByTestId("git_tag_request-option").click();
@@ -50,7 +50,7 @@ test.describe("requester filtering", () => {
     await expect(page.getByTestId("version-label-active")).toHaveCount(3);
   });
 
-  test("clears requester filters", async ({ authenticatedPage: page }) => {
+  test("clears requester filters", async ({ page }) => {
     await page.getByTestId("requester-filter").click();
     await page.getByTestId("gitter_request-option").click();
     await expect(page.getByTestId("version-label-active")).toHaveCount(4);
@@ -63,12 +63,12 @@ test.describe("requester filtering", () => {
 });
 
 test.describe("build variant filtering", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
   });
 
   test("submitting a build variant filter updates the url, creates a badge and filters the grid to only show active builds", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
     await page.getByTestId("build-variant-filter-input").fill("P");
@@ -104,12 +104,12 @@ test.describe("build variant filtering", () => {
 });
 
 test.describe("task filtering", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
   });
 
   test("with exact match, filters grid squares, removes inactive build variants, creates a badge, and updates the url", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
     await page.getByTestId("task-filter-input").fill("js-test");
@@ -128,7 +128,7 @@ test.describe("task filtering", () => {
   });
 
   test("with regex match, filters grid squares, removes inactive build variants, creates a badge, and updates the url", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
     await page.getByTestId("task-filter-select").click();
@@ -157,9 +157,7 @@ test.describe("task filtering", () => {
     await expect(page.locator("a[data-tooltip]")).toHaveCount(4);
   });
 
-  test("correctly applies build variant and task filters", async ({
-    authenticatedPage: page,
-  }) => {
+  test("correctly applies build variant and task filters", async ({ page }) => {
     await page.getByTestId("build-variant-filter-select").click();
     await expect(page.locator('[role="listbox"]')).toHaveCount(1);
     await page.locator('[role="listbox"]').getByText("Regex").click();
@@ -182,7 +180,7 @@ test.describe("task filtering", () => {
 
 test.describe("date filter", () => {
   test("url query params update when date filter is applied", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/project/spruce/waterfall");
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();
@@ -205,9 +203,7 @@ test.describe("date filter", () => {
     await expect(activeVersion).toHaveAttribute("data-highlighted", "true");
   });
 
-  test("date is cleared when paginating", async ({
-    authenticatedPage: page,
-  }) => {
+  test("date is cleared when paginating", async ({ page }) => {
     await page.goto("/project/spruce/waterfall?date=2022-02-28");
     await validateDatePickerDate(page, "date-picker", {
       year: "2022",
@@ -222,7 +218,7 @@ test.describe("date filter", () => {
   });
 
   test("versions update correctly when date filter is applied", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const commit20220228 = "e391612";
     const commit20220303 = "2c9056d";
@@ -242,11 +238,11 @@ test.describe("date filter", () => {
 });
 
 test.describe("revision filtering", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/spruce/waterfall");
   });
 
-  test("filters by git commit", async ({ authenticatedPage: page }) => {
+  test("filters by git commit", async ({ page }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("git-commit-search").click();
     await expect(page.getByTestId("git-commit-search-modal")).toBeVisible();
@@ -260,7 +256,7 @@ test.describe("revision filtering", () => {
   });
 
   test("should highlight a commit if it is passed into the url", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/project/spruce/waterfall?revision=ab49443");
     const targetVersion = page.getByTestId("version-label-active").nth(1);
@@ -271,7 +267,7 @@ test.describe("revision filtering", () => {
 
 test.describe("project selection", () => {
   test("selects a project and applies current task filters", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/project/spruce/waterfall");
     await page.getByTestId("status-filter").click();
@@ -290,7 +286,7 @@ test.describe("project selection", () => {
 
 test.describe("clear all filters button", () => {
   test("clicking the clear filters button clears all parameters except for minOrder & maxOrder", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(
       "/project/spruce/waterfall?buildVariants=ubuntu&maxOrder=1235&requesters=gitter_request&statuses=success&tasks=test",

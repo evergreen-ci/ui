@@ -5,13 +5,11 @@ const knownIssueTaskId =
   "evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 
 test.describe("task overview popup", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
   });
 
-  test("displays task overview popup on alt+click", async ({
-    authenticatedPage: page,
-  }) => {
+  test("displays task overview popup on alt+click", async ({ page }) => {
     await page.locator(knownIssueTask).click({ modifiers: ["Alt"] });
     const popup = page.getByTestId("task-overview-popup");
     await expect(popup).toBeVisible();
@@ -23,9 +21,7 @@ test.describe("task overview popup", () => {
     await expect(popup).toContainText("host.list");
   });
 
-  test("closes the popup when clicking outside", async ({
-    authenticatedPage: page,
-  }) => {
+  test("closes the popup when clicking outside", async ({ page }) => {
     const taskElement = page.locator(knownIssueTask);
     await taskElement.click({ modifiers: ["Alt"] });
     await expect(page.getByTestId("task-overview-popup")).toBeVisible();
@@ -36,7 +32,7 @@ test.describe("task overview popup", () => {
   });
 
   test("navigates to task page when clicking the task link", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(knownIssueTask).click({ modifiers: ["Alt"] });
     const popup = page.getByTestId("task-overview-popup");
@@ -45,7 +41,7 @@ test.describe("task overview popup", () => {
     await expect(page).toHaveURL(new RegExp(`/task/${knownIssueTaskId}`));
   });
 
-  test("displays associated issues", async ({ authenticatedPage: page }) => {
+  test("displays associated issues", async ({ page }) => {
     await page.locator(knownIssueTask).click({ modifiers: ["Alt"] });
     const popup = page.getByTestId("task-overview-popup");
     await expect(popup).toBeVisible();
@@ -56,9 +52,7 @@ test.describe("task overview popup", () => {
     await expect(popup).toContainText("A-Random-Ticket");
   });
 
-  test("displays failing tests for a failed task", async ({
-    authenticatedPage: page,
-  }) => {
+  test("displays failing tests for a failed task", async ({ page }) => {
     const testServiceTask = 'a[data-tooltip="test-service - Failed"]';
     await page.locator(testServiceTask).click({ modifiers: ["Alt"] });
     const popup = page.getByTestId("task-overview-popup");
@@ -71,9 +65,7 @@ test.describe("task overview popup", () => {
   });
 
   test.describe("buttons", () => {
-    test("restart button restarts the task", async ({
-      authenticatedPage: page,
-    }) => {
+    test("restart button restarts the task", async ({ page }) => {
       await page.locator(knownIssueTask).click({ modifiers: ["Alt"] });
       const popup = page.getByTestId("task-overview-popup");
       await expect(popup).toBeVisible();
@@ -89,7 +81,7 @@ test.describe("task overview popup", () => {
     });
 
     test("filter button applies task and build variant filters", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.locator(knownIssueTask).click({ modifiers: ["Alt"] });
       const popup = page.getByTestId("task-overview-popup");
@@ -104,9 +96,7 @@ test.describe("task overview popup", () => {
       await expect(page).toHaveURL(/buildVariants=ubuntu1604/);
     });
 
-    test("task logs button navigates to Parsley", async ({
-      authenticatedPage: page,
-    }) => {
+    test("task logs button navigates to Parsley", async ({ page }) => {
       await page.locator(knownIssueTask).click({ modifiers: ["Alt"] });
       const popup = page.getByTestId("task-overview-popup");
       await expect(popup).toBeVisible();
@@ -120,7 +110,7 @@ test.describe("task overview popup", () => {
     });
 
     test("task history button navigates to task history tab", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.locator(knownIssueTask).click({ modifiers: ["Alt"] });
       await expect(page.getByTestId("task-overview-popup")).toBeVisible();

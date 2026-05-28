@@ -2,9 +2,7 @@ import { test, expect } from "../../fixtures";
 
 test.describe("Build information", () => {
   test.describe("general", () => {
-    test("should show correct property values", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should show correct property values", async ({ page }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("general-table-row")).toHaveCount(4);
       await expect(page.getByTestId("general-table-row").nth(0)).toContainText(
@@ -23,9 +21,7 @@ test.describe("Build information", () => {
   });
 
   test.describe("distros", () => {
-    test("should show the corresponding distros", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should show the corresponding distros", async ({ page }) => {
       await page.goto("/image/ubuntu1804");
       await expect(page.getByTestId("distro-table-row")).toHaveCount(1);
       await expect(page.getByText("ubuntu1804-workstation")).toBeVisible();
@@ -33,15 +29,13 @@ test.describe("Build information", () => {
   });
 
   test.describe("os", () => {
-    test("should show the corresponding OS info", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should show the corresponding OS info", async ({ page }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("os-table-row")).toHaveCount(10);
     });
 
     test("should show different OS info on different pages", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("os-table-row")).toHaveCount(10);
@@ -68,7 +62,7 @@ test.describe("Build information", () => {
     });
 
     test("should show no OS info when filtering for nonexistent item", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("os-table-row")).toHaveCount(10);
@@ -80,16 +74,12 @@ test.describe("Build information", () => {
   });
 
   test.describe("packages", () => {
-    test("should show the corresponding packages", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should show the corresponding packages", async ({ page }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("packages-table-row")).toHaveCount(10);
     });
 
-    test("should show different package on new page", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should show different package on new page", async ({ page }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("packages-table-row")).toHaveCount(10);
 
@@ -115,7 +105,7 @@ test.describe("Build information", () => {
     });
 
     test("should show no packages when filtering for nonexistent item", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("packages-table-row")).toHaveCount(10);
@@ -127,15 +117,13 @@ test.describe("Build information", () => {
   });
 
   test.describe("toolchains", () => {
-    test("should show the corresponding toolchains", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should show the corresponding toolchains", async ({ page }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("toolchains-table-row")).toHaveCount(10);
     });
 
     test("should show different toolchains on different pages", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("toolchains-table-row")).toHaveCount(10);
@@ -162,7 +150,7 @@ test.describe("Build information", () => {
     });
 
     test("should show no toolchains when filtering for nonexistent item", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("toolchains-table-row")).toHaveCount(10);
@@ -174,16 +162,12 @@ test.describe("Build information", () => {
   });
 
   test.describe("files", () => {
-    test("should show the corresponding files", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should show the corresponding files", async ({ page }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("files-table-row")).toHaveCount(10);
     });
 
-    test("should show different files on different pages", async ({
-      authenticatedPage: page,
-    }) => {
+    test("should show different files on different pages", async ({ page }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("files-table-row")).toHaveCount(10);
 
@@ -209,7 +193,7 @@ test.describe("Build information", () => {
     });
 
     test("should show no files when filtering for nonexistent item", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/image/ubuntu2204");
       await expect(page.getByTestId("files-table-row")).toHaveCount(10);
@@ -222,7 +206,7 @@ test.describe("Build information", () => {
 });
 
 test.describe("Side nav", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/image/ubuntu2204/build-information");
     await expect(
       page.getByRole("heading", { name: "ubuntu2204" }),
@@ -231,7 +215,7 @@ test.describe("Side nav", () => {
   });
 
   test("highlights different sections as the user scrolls", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page
       .getByTestId("general-card")
@@ -258,9 +242,7 @@ test.describe("Side nav", () => {
     );
   });
 
-  test("can click to navigate to different sections", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can click to navigate to different sections", async ({ page }) => {
     await expect(page.getByTestId("navitem-packages")).toHaveAttribute(
       "data-active",
       "false",

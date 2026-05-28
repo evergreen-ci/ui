@@ -13,13 +13,13 @@ test.describe("A project that has GitHub webhooks disabled", () => {
     ProjectSettingsTabRoutes.CommitChecks,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(destination);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Commit Checks page shows a disabled webhooks banner when webhooks are disabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const banner = page.getByTestId("disabled-webhook-banner");
     await expect(banner).toBeVisible();
@@ -28,9 +28,7 @@ test.describe("A project that has GitHub webhooks disabled", () => {
     );
   });
 
-  test("Disables all interactive elements on the page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Disables all interactive elements on the page", async ({ page }) => {
     const settingsPage = page.getByTestId("project-settings-page");
     const buttons = settingsPage.getByRole("button");
     for (const button of await buttons.all()) {
@@ -49,13 +47,13 @@ test.describe("A project that has GitHub webhooks enabled", () => {
     ProjectSettingsTabRoutes.CommitChecks,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(destination);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Shows an error banner when Commit Checks are enabled and hides it when Commit Checks are disabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const radioBox = page.getByTestId("github-checks-enabled-radio-box");
     const githubChecksEnabledRadio = radioBox.getByRole("radio", {
@@ -76,7 +74,7 @@ test.describe("A project that has GitHub webhooks enabled", () => {
   });
 
   test("Saves successfully when Commit Checks are enabled and a Commit Check Definition is provided", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const radioBox = page.getByTestId("github-checks-enabled-radio-box");
     const githubChecksEnabledRadio = radioBox.getByRole("radio", {

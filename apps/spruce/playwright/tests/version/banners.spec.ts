@@ -5,12 +5,12 @@ const versionWithBanners =
 
 test.describe("banners", () => {
   test.describe("errors", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(versionWithBanners);
     });
 
     test("should display the number of configuration errors", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const errorBanner = page.getByTestId("configuration-errors-banner");
       await expect(errorBanner).toBeVisible();
@@ -20,7 +20,7 @@ test.describe("banners", () => {
     });
 
     test("should be able to open the modal and see all errors", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("configuration-errors-modal-trigger").click();
       await expect(
@@ -31,12 +31,12 @@ test.describe("banners", () => {
   });
 
   test.describe("warnings", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(versionWithBanners);
     });
 
     test("should display the number of configuration warnings", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const warningBanner = page.getByTestId("configuration-warnings-banner");
       await expect(warningBanner).toBeVisible();
@@ -46,7 +46,7 @@ test.describe("banners", () => {
     });
 
     test("should be able to open the modal and see all warnings", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("configuration-warnings-modal-trigger").click();
       await expect(
@@ -57,7 +57,7 @@ test.describe("banners", () => {
   });
 
   test.describe("ignored", () => {
-    test("should display a banner", async ({ authenticatedPage: page }) => {
+    test("should display a banner", async ({ page }) => {
       await page.goto(
         "/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33",
       );

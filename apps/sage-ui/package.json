@@ -1,0 +1,36 @@
+{
+  "name": "sage-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "dev": "vite",
+    "eslint:fix": "pnpm eslint:strict --fix",
+    "eslint:staged": "STRICT=1 eslint --concurrency=auto",
+    "eslint:strict": "STRICT=1 eslint --concurrency=auto .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.1",
+    "@evg-ui/lib": "workspace:*",
+    "@via-ds/components": "0.0.1-canary.0",
+    "@via-ds/icons": "0.0.2-canary.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@evg-ui/eslint-config": "workspace:*",
+    "@evg-ui/lint-staged": "workspace:*",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^9.39.1",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12"
+  }
+}

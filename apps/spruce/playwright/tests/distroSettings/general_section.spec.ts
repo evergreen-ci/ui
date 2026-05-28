@@ -3,14 +3,12 @@ import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("general section", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/distro/localhost/settings/general");
     await expect(page.getByTestId("distro-settings-page")).toBeVisible();
   });
 
-  test("can update fields and those changes will persist", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can update fields and those changes will persist", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
     await expect(
       page.getByRole("button", { name: "Add alias" }),
@@ -49,7 +47,7 @@ test.describe("general section", () => {
 
   test.describe("container pool distro", () => {
     test("warns users that the distro will not be spawned for tasks", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto("/distro/ubuntu1604-parent/settings/general");
       await expect(
@@ -62,7 +60,7 @@ test.describe("general section", () => {
 
   test.describe("single task distro", () => {
     test("can toggle a distro as single task distro and shows a warning banner that dismisses on save", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await expect(page.getByTestId("single-task-banner")).toHaveCount(0);
 

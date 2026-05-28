@@ -12,18 +12,18 @@ test.describe("Notifications", () => {
     ProjectSettingsTabRoutes.Notifications,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
   });
 
-  test("shows correct initial state", async ({ authenticatedPage: page }) => {
+  test("shows correct initial state", async ({ page }) => {
     await expect(page.getByTestId("default-to-repo-button")).toHaveCount(0);
     await expect(page.getByText("No subscriptions are defined.")).toBeVisible();
     await expectSaveButtonEnabled(page, false);
   });
 
   test("should be able to add a subscription, save it and delete it", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("expandable-card")).toHaveCount(0);
     const addSubscriptionButton = page.getByRole("button", {
@@ -53,7 +53,7 @@ test.describe("Notifications", () => {
   });
 
   test("should not be able to combine a jira comment subscription with a task event", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("expandable-card")).toHaveCount(0);
     const addSubscriptionButton = page.getByRole("button", {
@@ -74,7 +74,7 @@ test.describe("Notifications", () => {
   });
 
   test("should not be able to save a subscription if an input is invalid", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const addSubscriptionButton = page.getByRole("button", {
       name: "Add Subscription",
@@ -94,7 +94,7 @@ test.describe("Notifications", () => {
   });
 
   test("Setting a project banner displays the banner on the correct pages and unsetting it removes it", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const bannerText = "This is a project banner!";
 

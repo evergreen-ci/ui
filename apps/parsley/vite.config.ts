@@ -5,7 +5,6 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
@@ -34,14 +33,10 @@ const getProjectConfig = () => {
     },
     server: serverConfig,
     build: {
-      rollupOptions: {
-        plugins: [],
-      },
       sourcemap: true,
     },
 
     plugins: [
-      tsconfigPaths(),
       react({
         // Exclude storybook stories from fast refresh.
         exclude: /\.stories\.tsx?$/,
@@ -92,13 +87,8 @@ const getProjectConfig = () => {
       }),
     ],
 
-    // Setting jsxImportSource to @emotion/react raises a warning in the console. This line silences
-    // the warning. (https://github.com/vitejs/vite/issues/8644)
-    esbuild: {
-      logOverride: { "this-is-undefined-in-esm": "silent" },
-    },
-
     resolve: {
+      tsconfigPaths: true,
       alias: {
         // Prevent LG from pulling in SSR dependencies.
         // Can be potentially removed upon the completion of LG-4402.
@@ -124,7 +114,7 @@ const getProjectConfig = () => {
       globals: true,
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
-      setupFiles: "./config/vitest/setupTests.ts",
+      setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
       include: ["src/**/*.test.{ts,tsx}"],
     },
   });

@@ -5,17 +5,23 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { CustomKeyValueRenderConfig } from "components/Settings/EventLog/EventDiffTable/utils/keyRenderer";
-import { JSONObject } from "utils/object/types";
+import { ProjectSettingsInput } from "gql/generated/types";
 import { SaveChangesModal } from "./SaveChangesModal";
 
-const before: JSONObject = {
-  notifyOnBuildFailure: false,
-  subscriptions: [{ slackChannel: "#old" }],
+const before: ProjectSettingsInput = {
+  projectId: "spruce",
+  projectRef: {
+    id: "spruce",
+    notifyOnBuildFailure: false,
+  },
 };
 
-const after: JSONObject = {
-  notifyOnBuildFailure: true,
-  subscriptions: [{ slackChannel: "#new" }],
+const after: ProjectSettingsInput = {
+  projectId: "spruce",
+  projectRef: {
+    id: "spruce",
+    notifyOnBuildFailure: true,
+  },
 };
 
 const renderModal = (
@@ -48,10 +54,8 @@ describe("SaveChangesModal", () => {
   it("renders the diff table when before and after differ", () => {
     renderModal();
     expect(screen.getByDataCy("event-diff-table")).toBeInTheDocument();
-    // One row per changed leaf property.
-    expect(screen.getByText("notifyOnBuildFailure")).toBeInTheDocument();
     expect(
-      screen.getByText("subscriptions[0].slackChannel"),
+      screen.getByText("projectRef.notifyOnBuildFailure"),
     ).toBeInTheDocument();
   });
 
@@ -95,9 +99,25 @@ describe("SaveChangesModal", () => {
     const customKeyValueRenderConfig: CustomKeyValueRenderConfig = {
       "vars.vars": () => <span data-cy="masked-value">REDACTED</span>,
     };
+
+    const beforeVars: ProjectSettingsInput = {
+      projectId: "spruce",
+      projectRef: {
+        id: "spruce",
+      },
+      vars: { vars: { API_TOKEN: "old-secret" } },
+    };
+
+    const afterVars: ProjectSettingsInput = {
+      projectId: "spruce",
+      projectRef: {
+        id: "spruce",
+      },
+      vars: { vars: { API_TOKEN: "new-secret" } },
+    };
     renderModal({
-      before: { vars: { vars: { API_TOKEN: "old-secret" } } },
-      after: { vars: { vars: { API_TOKEN: "new-secret" } } },
+      before: beforeVars,
+      after: afterVars,
       customKeyValueRenderConfig,
     });
 

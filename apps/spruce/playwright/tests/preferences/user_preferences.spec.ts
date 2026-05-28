@@ -4,14 +4,14 @@ const baseRoute = "/preferences";
 
 test.describe("user preferences pages", () => {
   test("visiting /preferences should redirect to the profile tab", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(baseRoute);
     await expect(page).toHaveURL(`${baseRoute}/profile`);
   });
 
   test("should be able to navigate between tabs using the side nav", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(baseRoute);
     await expect(page.getByTestId("preferences-tab-title")).toHaveText(
@@ -23,9 +23,7 @@ test.describe("user preferences pages", () => {
     );
   });
 
-  test("should be able to reset Evergreen API key", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should be able to reset Evergreen API key", async ({ page }) => {
     const defaultApiKey = "abb623665fdbf368a1db980dde6ee0f0";
     await page.goto(`${baseRoute}/cli`);
     await expect(page.getByText(defaultApiKey)).toBeVisible();
@@ -34,7 +32,7 @@ test.describe("user preferences pages", () => {
   });
 
   test("disabling task review should hide review button on a task page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const failedTaskRoute =
       "/task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";

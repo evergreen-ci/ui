@@ -1025,7 +1025,7 @@ export type EditSpawnHostInput = {
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
-  volume?: InputMaybe<Scalars["String"]["input"]>;
+  volumeId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type EnvVar = {
@@ -2811,9 +2811,9 @@ export type Project = {
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   testSelection?: Maybe<TestSelectionSettings>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
 };
 
@@ -2962,9 +2962,9 @@ export type ProjectInput = {
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
-  tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
 
@@ -3007,8 +3007,8 @@ export type ProjectLite = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export enum ProjectPermission {
@@ -3153,8 +3153,6 @@ export type Query = {
   githubProjectConflicts: GithubProjectConflicts;
   hasVersion: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
-  /** @deprecated Use host.events instead. */
-  hostEvents: HostEvents;
   hosts: HostsResponse;
   image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
@@ -3236,13 +3234,6 @@ export type QueryHasVersionArgs = {
 
 export type QueryHostArgs = {
   hostId: Scalars["String"]["input"];
-};
-
-export type QueryHostEventsArgs = {
-  hostId: Scalars["String"]["input"];
-  hostTag?: InputMaybe<Scalars["String"]["input"]>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type QueryHostsArgs = {
@@ -3433,9 +3424,9 @@ export type RepoRef = {
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   testSelection?: Maybe<RepoTestSelectionSettings>;
-  tracksPushEvents: Scalars["Boolean"]["output"];
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
+  waterfallDisabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
 };
 
@@ -3482,9 +3473,9 @@ export type RepoRefInput = {
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
-  tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
 
@@ -3956,7 +3947,7 @@ export enum SpawnHostStatusActions {
 export type SpawnVolumeInput = {
   availabilityZone: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
-  host?: InputMaybe<Scalars["String"]["input"]>;
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
   size: Scalars["Int"]["input"];
   type: Scalars["String"]["input"];

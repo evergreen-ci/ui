@@ -3,7 +3,7 @@ import { test, expect } from "../../fixtures";
 
 test.describe("onboarding", () => {
   test("can go through all steps of the walkthrough", async ({
-    authenticatedPage: page,
+    page,
     context,
   }) => {
     await context.clearCookies({
@@ -46,7 +46,7 @@ test.describe("onboarding", () => {
     await page.close();
   });
 
-  test("can restart the walkthrough", async ({ authenticatedPage: page }) => {
+  test("can restart the walkthrough", async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
@@ -62,7 +62,7 @@ test.describe("onboarding", () => {
   });
 
   test("can end walkthrough early using the dismiss button", async ({
-    authenticatedPage: page,
+    page,
     context,
   }) => {
     await context.clearCookies({

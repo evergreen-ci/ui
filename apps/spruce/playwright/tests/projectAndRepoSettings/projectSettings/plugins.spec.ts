@@ -1,5 +1,4 @@
-import { Page } from "@playwright/test";
-import { test, expect } from "../../../fixtures";
+import { Page, test, expect } from "../../../fixtures";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
@@ -34,7 +33,7 @@ test.describe("Plugins", () => {
   };
 
   test("Should be able to set external links to render on patch metadata panel", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(
       getProjectSettingsRoute(

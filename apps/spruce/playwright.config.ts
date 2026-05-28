@@ -19,9 +19,18 @@ export default createPlaywrightConfig({
       testMatch: /global-teardown\.ts/,
     },
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: "setup auth",
+      testDir: "./playwright",
+      testMatch: /auth\.setup\.ts/,
       dependencies: ["setup db"],
+    },
+    {
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/admin.json",
+      },
+      dependencies: ["setup db", "setup auth"],
     },
   ],
 });

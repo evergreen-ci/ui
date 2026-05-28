@@ -1,6 +1,4 @@
-import { users } from "@evg-ui/playwright-config/constants";
 import { test, expect } from "../fixtures";
-import { login, logout } from "../helpers";
 
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
@@ -15,7 +13,7 @@ test.describe("Nav Bar", () => {
   const projectCookie = "mci-project-cookie";
 
   test("Nav Dropdown should link to patches page of most recent project if cookie exists", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.context().addCookies([
       {
@@ -32,7 +30,7 @@ test.describe("Nav Bar", () => {
   });
 
   test("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.context().clearCookies({ name: projectCookie });
     await page.goto(SPRUCE_URLS.userPatches);
@@ -45,7 +43,7 @@ test.describe("Nav Bar", () => {
   });
 
   test("Should update the links in the nav bar when visiting a specific project patches page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.context().clearCookies({ name: projectCookie });
     await page.goto("/project/evergreen/patches");
@@ -66,7 +64,7 @@ test.describe("Nav Bar", () => {
   });
 
   test("Should update the links in the nav bar when visiting a specific project settings page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.context().clearCookies({ name: projectCookie });
     await page.goto("/project/spruce/settings");
@@ -87,7 +85,7 @@ test.describe("Nav Bar", () => {
   });
 
   test("Merge Queue link should navigate to project patches page with mergeQueue query param", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.context().addCookies([
       {
@@ -108,26 +106,26 @@ test.describe("Nav Bar", () => {
   });
 
   test.describe("Admin settings", () => {
-    test("Should show Admin button to admins", async ({
-      authenticatedPage: page,
-    }) => {
-      await page.goto(SPRUCE_URLS.version);
-      await page.getByTestId("user-dropdown-link").click();
-      const adminLink = page.getByTestId("admin-link");
-      await expect(adminLink).toBeVisible();
-      await expect(adminLink).toHaveAttribute("href", SPRUCE_URLS.admin);
+    test.describe("admin user", () => {
+      test("Should show Admin button", async ({ page }) => {
+        await page.goto(SPRUCE_URLS.version);
+        await page.getByTestId("user-dropdown-link").click();
+        const adminLink = page.getByTestId("admin-link");
+        await expect(adminLink).toBeVisible();
+        await expect(adminLink).toHaveAttribute("href", SPRUCE_URLS.admin);
+      });
     });
 
-    test("Should not show Admin button to non-admins", async ({
-      authenticatedPage: page,
-    }) => {
-      await logout(page);
-      await login(page, users.regular);
-      await page.goto(SPRUCE_URLS.version);
-      await page.getByTestId("user-dropdown-link").click();
-      await expect(page.getByText("UI Settings")).toBeVisible();
-      // Admin link should not be visible for non-admins.
-      await expect(page.getByTestId("admin-link")).toBeHidden();
+    test.describe("regular user", () => {
+      test.use({ storageState: "playwright/.auth/regular.json" });
+
+      test("Should not show Admin button", async ({ page }) => {
+        await page.goto(SPRUCE_URLS.version);
+        await page.getByTestId("user-dropdown-link").click();
+        await expect(page.getByText("UI Settings")).toBeVisible();
+        // Admin link should not be visible for non-admins.
+        await expect(page.getByTestId("admin-link")).toBeHidden();
+      });
     });
   });
 });
