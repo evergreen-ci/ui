@@ -5375,6 +5375,7 @@ export type ProjectGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
   versionControlEnabled?: boolean | null;
+  waterfallDisabled?: boolean | null;
 };
 
 export type RepoGeneralSettingsFragment = {
@@ -5396,6 +5397,7 @@ export type RepoGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
+  waterfallDisabled: boolean;
 };
 
 export type ProjectGithubSettingsFragment = {
@@ -5572,6 +5574,7 @@ export type ProjectSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
     githubPRTriggerAliases?: Array<string> | null;
@@ -5780,6 +5783,7 @@ export type RepoSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
+    waterfallDisabled: boolean;
     notifyOnBuildFailure: boolean;
     githubMQTriggerAliases?: Array<string> | null;
     githubPRTriggerAliases?: Array<string> | null;
@@ -6183,6 +6187,7 @@ export type ProjectEventSettingsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
     githubPRTriggerAliases?: Array<string> | null;
@@ -9226,6 +9231,7 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
           githubPRTriggerAliases?: Array<string> | null;
@@ -9448,6 +9454,7 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
           githubPRTriggerAliases?: Array<string> | null;
@@ -9735,6 +9742,7 @@ export type ProjectSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
+      waterfallDisabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
       githubMQTriggerAliases?: Array<string> | null;
       githubPRTriggerAliases?: Array<string> | null;
@@ -10005,6 +10013,7 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
           githubPRTriggerAliases?: Array<string> | null;
@@ -10227,6 +10236,7 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
           githubPRTriggerAliases?: Array<string> | null;
@@ -10455,6 +10465,7 @@ export type RepoSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
+      waterfallDisabled: boolean;
       notifyOnBuildFailure: boolean;
       githubMQTriggerAliases?: Array<string> | null;
       githubPRTriggerAliases?: Array<string> | null;
