@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
+import { Body } from "@leafygreen-ui/typography";
 import { useParams, useNavigate } from "react-router-dom";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useQueryParams } from "@evg-ui/lib/hooks";
@@ -179,9 +180,8 @@ const useTabConfig = (
         {baseTaskId ? (
           <TaskHistory baseTaskId={baseTaskId} task={task} />
         ) : (
-          <>
-            Evergreen cannot show history for this task because there is no
-            corresponding base task. Try viewing the{" "}
+          <Body>
+            Evergreen cannot show history for this task; try viewing the{" "}
             <StyledLink
               href={getHoneycombHistoryUrl({
                 bvName: buildVariant,
@@ -193,8 +193,9 @@ const useTabConfig = (
             >
               history in Honeycomb
             </StyledLink>{" "}
-            instead.
-          </>
+            instead. (Note that if this is a merge queue task, history may
+            become available upon task completion.)
+          </Body>
         )}
       </Tab>
     ),
