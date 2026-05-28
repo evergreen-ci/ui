@@ -41,7 +41,6 @@ interface BaseRowProps extends Omit<LogLineRow, "getLine"> {
  * @param BaseRowProps.color - the color of the highlight
  * @param BaseRowProps.wordWrapFormat - the word wrap format to be used aggressive or standard
  * @param BaseRowProps.wrap - whether or not the text should wrap
- * @param BaseRowProps.scrollToLine - function to scroll to a line
  * @param BaseRowProps.range - the range of lines to be displayed
  * @returns the base row component
  */
@@ -55,7 +54,6 @@ const BaseRow: React.FC<BaseRowProps> = ({
   lineNumber,
   prettyPrint,
   range,
-  scrollToLine,
   searchLine,
   searchTerm,
   wordWrapFormat,

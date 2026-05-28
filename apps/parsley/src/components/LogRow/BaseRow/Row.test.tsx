@@ -144,7 +144,6 @@ const rowProps = {
     lowerRange: 0,
     upperRange: undefined,
   },
-  scrollToLine: vi.fn(),
   wordWrapFormat: WordWrapFormat.Standard,
   wrap: false,
 };
