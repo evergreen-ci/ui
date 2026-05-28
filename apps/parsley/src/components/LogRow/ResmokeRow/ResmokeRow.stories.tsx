@@ -23,7 +23,7 @@ type ResmokeRowProps = React.FC<React.ComponentProps<typeof ResmokeRow>>;
 
 // Single ResmokeRow.
 const SingleLineStory = (args: React.ComponentProps<typeof ResmokeRow>) => {
-  const { getResmokeLineColor, ingestLines, scrollToLine } = useLogContext();
+  const { getResmokeLineColor, ingestLines } = useLogContext();
 
   useEffect(() => {
     ingestLines(logLines, LogRenderingTypes.Resmoke);
@@ -39,7 +39,6 @@ const SingleLineStory = (args: React.ComponentProps<typeof ResmokeRow>) => {
       lineNumber={8}
       prettyPrint={args.prettyPrint}
       range={{ lowerRange: 0 }}
-      scrollToLine={scrollToLine}
       searchTerm={undefined}
       wordWrapFormat={args.wordWrapFormat}
       wrap={args.wrap}

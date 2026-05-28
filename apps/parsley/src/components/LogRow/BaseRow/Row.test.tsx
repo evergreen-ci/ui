@@ -1,3 +1,4 @@
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   RenderWithRouterMatchOptions,
   renderWithRouterMatch,
@@ -5,21 +6,26 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { WordWrapFormat } from "constants/enums";
+import { LogContextProvider } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
 import Row from ".";
+
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <LogContextProvider initialLogLines={["Test Log"]}>
+    <MultiLineSelectContextProvider>{children}</MultiLineSelectContextProvider>
+  </LogContextProvider>
+);
 
 const renderRow = (
   props: React.ComponentProps<typeof Row>,
   routerOptions: RenderWithRouterMatchOptions,
-) =>
-  renderWithRouterMatch(<Row {...props} />, {
+) => {
+  RenderFakeToastContext();
+  return renderWithRouterMatch(<Row {...props} />, {
     ...routerOptions,
-    wrapper: ({ children }: { children: React.ReactNode }) => (
-      <MultiLineSelectContextProvider>
-        {children}
-      </MultiLineSelectContextProvider>
-    ),
+    wrapper,
   });
+};
 
 describe("row", () => {
   it("renders a log line", () => {
@@ -32,35 +38,6 @@ describe("row", () => {
     const lineContent = "Test line with a <nil> value";
     renderRow({ ...rowProps, children: lineContent }, {});
     expect(screen.getByText(lineContent)).toBeVisible();
-  });
-
-  it("clicking log line link updates the url and and scrolls to the line", async () => {
-    const user = userEvent.setup();
-    const scrollToLine = vi.fn();
-    const { router } = renderRow(
-      {
-        ...rowProps,
-        children: testLog,
-        lineIndex: 7,
-        lineNumber: 54,
-        scrollToLine,
-      },
-      {},
-    );
-    await user.click(screen.getByDataCy("log-link-54"));
-    expect(router.state.location.search).toBe("?shareLine=54");
-    expect(scrollToLine).toHaveBeenCalledWith(7);
-  });
-
-  it("clicking on a share line's link icon updates the URL correctly", async () => {
-    const user = userEvent.setup();
-    const { router } = renderRow(
-      { ...rowProps, children: testLog },
-      { route: "?shareLine=0" },
-    );
-
-    await user.click(screen.getByDataCy("log-link-0"));
-    expect(router.state.location.search).toBe("");
   });
 
   it("double clicking a log line adds it to the bookmarks", async () => {
@@ -83,9 +60,11 @@ describe("row", () => {
 
   it("a log line can be shared and bookmarked at the same time", async () => {
     const user = userEvent.setup();
-    const { router } = renderRow({ ...rowProps, children: testLog }, {});
+    const { router } = renderRow(
+      { ...rowProps, children: testLog },
+      { route: "?shareLine=0" },
+    );
 
-    await user.click(screen.getByDataCy("log-link-0"));
     await user.dblClick(screen.getByText(testLog));
     expect(router.state.location.search).toBe("?bookmarks=0&shareLine=0");
   });
@@ -165,7 +144,6 @@ const rowProps = {
     lowerRange: 0,
     upperRange: undefined,
   },
-  scrollToLine: vi.fn(),
   wordWrapFormat: WordWrapFormat.Standard,
   wrap: false,
 };
