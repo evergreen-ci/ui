@@ -20,7 +20,7 @@ test.describe("Repo Notifications", () => {
   );
 
   test("adding a subscription to a repo causes it to appear on a branch project's notifications page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(repoNotificationsRoute);
     await page.getByRole("button", { name: "Add Subscription" }).click();

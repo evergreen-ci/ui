@@ -12,13 +12,13 @@ test.describe("Merge Queue project settings when GitHub webhooks are disabled", 
     ProjectSettingsTabRoutes.MergeQueue,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Merge Queue page shows a disabled webhooks banner when webhooks are disabled", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const banner = page.getByTestId("disabled-webhook-banner");
     await expect(banner).toBeVisible();
@@ -27,9 +27,7 @@ test.describe("Merge Queue project settings when GitHub webhooks are disabled", 
     );
   });
 
-  test("Disables all interactive elements on the page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Disables all interactive elements on the page", async ({ page }) => {
     const settingsPage = page.getByTestId("project-settings-page");
     const buttons = settingsPage.getByRole("button");
     for (const button of await buttons.all()) {
@@ -48,13 +46,13 @@ test.describe("Merge Queue project settings when GitHub webhooks are enabled", (
     ProjectSettingsTabRoutes.MergeQueue,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Enabling merge queue shows hidden inputs and error banner", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const radioBox = page.getByTestId("mq-enabled-radio-box");
     const mergeQueueEnabledRadio = radioBox.getByRole("radio", {
@@ -70,9 +68,7 @@ test.describe("Merge Queue project settings when GitHub webhooks are enabled", (
     );
   });
 
-  test("Saves a merge queue definition", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Saves a merge queue definition", async ({ page }) => {
     const radioBox = page.getByTestId("mq-enabled-radio-box");
     const mergeQueueEnabledRadio = radioBox.getByRole("radio", {
       name: "Enabled",

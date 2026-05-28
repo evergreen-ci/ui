@@ -10,7 +10,7 @@ const versions = {
 
 test.describe("page tabs", () => {
   test("Defaults to the task tab and applies default sorts", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(versionRoute);
     await expect(
@@ -21,9 +21,7 @@ test.describe("page tabs", () => {
     );
   });
 
-  test("Applies default sorts on task duration tab", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Applies default sorts on task duration tab", async ({ page }) => {
     await page.goto(`${versionRoute}/task-duration`);
     await expect(
       page.getByRole("tab", { name: versions.duration.name }),
@@ -34,7 +32,7 @@ test.describe("page tabs", () => {
   });
 
   test("Applies default sorts on task tab when switching from another tab without any filters", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${versionRoute}/changes`);
     await expect(
@@ -48,7 +46,7 @@ test.describe("page tabs", () => {
   });
 
   test("Retains filters even when moving to a tab that isn't a task tab", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(versionRoute);
     await expect(page).toHaveURL(/sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC/);
@@ -59,7 +57,7 @@ test.describe("page tabs", () => {
   });
 
   test("replaces invalid tab names in url path with default", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${versionRoute}/chicken`);
     await expect(page).toHaveURL(
@@ -67,9 +65,7 @@ test.describe("page tabs", () => {
     );
   });
 
-  test("should be able to toggle between tabs", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should be able to toggle between tabs", async ({ page }) => {
     await page.goto(versionRoute);
     await page.getByRole("tab", { name: versions.changes.name }).click();
     await expect(page.getByTestId("code-changes")).toBeVisible();

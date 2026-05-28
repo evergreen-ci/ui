@@ -6,42 +6,38 @@ import { expectSaveButtonEnabled, save } from "../utils";
 test.describe("General settings page", () => {
   const origin = getRepoSettingsRoute(repo);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
   });
 
-  test("Should have the save button disabled on load", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Should have the save button disabled on load", async ({ page }) => {
     await expectSaveButtonEnabled(page, false);
   });
 
-  test("Does not show a 'Default to Repo' button on page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Does not show a 'Default to Repo' button on page", async ({ page }) => {
     await expect(page.getByTestId("default-to-repo-button")).toHaveCount(0);
   });
 
   test("Does not show a 'Move to New Repo' button on page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("move-repo-button")).toHaveCount(0);
   });
 
   test("Does not show an Attach/Detach to Repo button on page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("attach-repo-button")).toHaveCount(0);
   });
 
   test("Does not show a 'Go to repo settings' link on page", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByTestId("attached-repo-link")).toHaveCount(0);
   });
 
   test("Inputting a display name then clicking save shows a success toast", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByTestId("display-name-input").fill("evg");
     await save(page);

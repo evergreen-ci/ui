@@ -3,13 +3,11 @@ import { clickCheckbox, validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("service flags", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/admin-settings/service-flags");
   });
 
-  test("can interact with and save service flags", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can interact with and save service flags", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     const checkedCheckboxes = page.locator(

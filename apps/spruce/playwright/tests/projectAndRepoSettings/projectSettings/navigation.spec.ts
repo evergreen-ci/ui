@@ -4,12 +4,12 @@ import { getProjectSettingsRoute, project } from "../constants";
 test.describe("navigation", () => {
   const origin = getProjectSettingsRoute(project);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
   });
 
   test("headers (repos) are clickable in project select dropdown", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const projectSelect = page.getByTestId("project-select");
     await expect(projectSelect).toBeVisible();
@@ -24,13 +24,11 @@ test.describe("navigation", () => {
     const projectId = "602d70a2b2373672ee493189";
     const origin = getProjectSettingsRoute(projectId);
 
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(origin);
     });
 
-    test("Redirects to the project identifier", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Redirects to the project identifier", async ({ page }) => {
       await expect(page).toHaveURL(
         new RegExp(getProjectSettingsRoute("parsley")),
       );

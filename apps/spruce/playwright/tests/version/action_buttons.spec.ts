@@ -7,12 +7,12 @@ const versionPath = (id: string) => `/version/${id}`;
 
 test.describe("Action Buttons", () => {
   test.describe("When viewing a patch build", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(versionPath(patch));
     });
 
     test("Clicking 'Schedule' button shows modal and clicking on 'Cancel' closes it", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByRole("button", { name: "Schedule" }).click();
       await expect(page.getByTestId("schedule-tasks-modal")).toBeVisible();
@@ -21,7 +21,7 @@ test.describe("Action Buttons", () => {
     });
 
     test("Clicking ellipses dropdown shows ellipses options", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const ellipsisButton = page.getByTestId("ellipsis-btn");
       await expect(ellipsisButton).toHaveCount(0);
@@ -33,15 +33,13 @@ test.describe("Action Buttons", () => {
   });
 
   test.describe("Version dropdown options", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(versionPath(patch));
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
     });
 
-    test("Error unscheduling a version shows error toast", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Error unscheduling a version shows error toast", async ({ page }) => {
       await mockGraphQLResponse(page, "UnscheduleVersionTasks", {
         data: null,
         errors: [
@@ -64,7 +62,7 @@ test.describe("Action Buttons", () => {
     });
 
     test("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page
         .getByRole("menuitem", { name: "Unschedule all tasks" })
@@ -78,7 +76,7 @@ test.describe("Action Buttons", () => {
     });
 
     test("Clicking 'Set Priority' button shows popconfirm with input and toast on success", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const priority = "99";
       await page.getByRole("menuitem", { name: "Set patch priority" }).click();
@@ -88,9 +86,7 @@ test.describe("Action Buttons", () => {
       await validateToast(page, "success", priority);
     });
 
-    test("Error setting priority shows error toast", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Error setting priority shows error toast", async ({ page }) => {
       await mockGraphQLResponse(page, "SetVersionPriority", {
         data: null,
         errors: [
@@ -109,7 +105,7 @@ test.describe("Action Buttons", () => {
     });
 
     test("Sets priority for multiple tasks when version page table is filtered", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(
         `${versionPath(mainlineCommit)}/tasks?statuses=failed-umbrella,failed,known-issue`,
@@ -130,9 +126,7 @@ test.describe("Action Buttons", () => {
       await validateToast(page, "success", "Priority updated for 2 tasks.");
     });
 
-    test("Should be able to reconfigure the patch", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should be able to reconfigure the patch", async ({ page }) => {
       await expect(page.getByTestId("reconfigure-link")).not.toHaveAttribute(
         "disabled",
       );
@@ -143,14 +137,14 @@ test.describe("Action Buttons", () => {
 
   test.describe("When viewing a mainline commit", () => {
     test.describe("Version dropdown options", () => {
-      test.beforeEach(async ({ authenticatedPage: page }) => {
+      test.beforeEach(async ({ page }) => {
         await page.goto(versionPath(mainlineCommit));
         await page.getByTestId("ellipsis-btn").click();
         await expect(page.getByTestId("card-dropdown")).toBeVisible();
       });
 
       test("Reconfigure link is disabled for mainline commits", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await expect(page.getByTestId("reconfigure-link")).toBeVisible();
         await expect(page.getByTestId("reconfigure-link")).toHaveAttribute(
@@ -162,9 +156,7 @@ test.describe("Action Buttons", () => {
   });
 
   test.describe("Include Never-activated Tasks toggle", () => {
-    test("sets URL and cookie when toggled on", async ({
-      authenticatedPage: page,
-    }) => {
+    test("sets URL and cookie when toggled on", async ({ page }) => {
       await page.goto(versionPath(patch));
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();

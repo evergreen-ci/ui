@@ -3,13 +3,11 @@ import { validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("project section", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/distro/localhost/settings/project");
   });
 
-  test("can update fields and those changes will persist", async ({
-    authenticatedPage: page,
-  }) => {
+  test("can update fields and those changes will persist", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     const addExpansionButton = page.getByRole("button", {

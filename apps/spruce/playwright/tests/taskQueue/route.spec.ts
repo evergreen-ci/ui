@@ -2,7 +2,7 @@ import { test, expect } from "../../fixtures";
 
 test.describe("Task Queue", () => {
   test("Sets first distro in list as default if no distro in url", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/task-queue");
     await expect(page).toHaveURL("/task-queue/osx-108");
@@ -12,7 +12,7 @@ test.describe("Task Queue", () => {
   });
 
   test("Uses distro param in url to query queue and renders table", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/task-queue/osx-108");
     await expect(page.getByTestId("task-queue-table")).toBeVisible();
@@ -22,7 +22,7 @@ test.describe("Task Queue", () => {
   });
 
   test("Selecting a distro queries the queue for that distro", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/task-queue/debian71-test");
     await expect(page.getByText("No tasks found in queue")).toBeVisible();
@@ -35,7 +35,7 @@ test.describe("Task Queue", () => {
   });
 
   test("Renders link to host page filtered to that particular distro", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/task-queue/debian71-test");
     const viewHostsLink = page.getByRole("link", { name: "View hosts" });
@@ -46,7 +46,7 @@ test.describe("Task Queue", () => {
   });
 
   test("Searching for a distro shows results that match search term", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/task-queue/debian71-test");
 
@@ -63,9 +63,7 @@ test.describe("Task Queue", () => {
     await expect(dropdownOptions.getByText("osx-108")).toBeVisible();
   });
 
-  test("Scrolls to current task if taskId param in url", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Scrolls to current task if taskId param in url", async ({ page }) => {
     await page.goto(
       "/task-queue/osx-108?taskId=evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
     );
@@ -76,7 +74,7 @@ test.describe("Task Queue", () => {
   });
 
   test("Task links goes to Spruce for both patches and mainline commits", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(
       "/task-queue/osx-108?taskId=evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",

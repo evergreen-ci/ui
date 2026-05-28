@@ -1,9 +1,7 @@
 import { test, expect } from "../../fixtures";
 
 test.describe("single task distro", () => {
-  test("should render allowed projects and tasks", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should render allowed projects and tasks", async ({ page }) => {
     await page.goto("/distro/archlinux-test/settings");
     await page.getByTestId("navitem-single-task-distros").click();
     await expect(page).toHaveURL(

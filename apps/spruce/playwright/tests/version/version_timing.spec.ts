@@ -3,20 +3,18 @@ import { test, expect } from "../../fixtures";
 const chart = "[id^=reactgooglegraph]";
 
 test.describe("Version Timing Tab without a variant selected", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/version/5e4ff3abe3c3317e352062e4/version-timing");
   });
 
-  test("shows a chart of all variants in the version", async ({
-    authenticatedPage: page,
-  }) => {
+  test("shows a chart of all variants in the version", async ({ page }) => {
     await expect(page.locator(chart).getByText("Ubuntu 16.04")).toBeVisible();
     await expect(page.locator(chart).getByText("Race Detector")).toBeVisible();
     await expect(page.locator(chart).getByText("Lint")).toBeVisible();
   });
 
   test("allows the user to select a variant and navigate to the variant timing view", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(chart).getByText("Ubuntu 16.04").click();
     await expect(page).toHaveURL(
@@ -24,9 +22,7 @@ test.describe("Version Timing Tab without a variant selected", () => {
     );
   });
 
-  test("has disabled pagination functionality", async ({
-    authenticatedPage: page,
-  }) => {
+  test("has disabled pagination functionality", async ({ page }) => {
     await expect(
       page.locator("button[aria-labelledby='page-size-select']"),
     ).toHaveAttribute("aria-disabled", "true");
@@ -37,7 +33,7 @@ test.describe("Version Timing Tab without a variant selected", () => {
 });
 
 test.describe("Version Timing Tab with a variant selected", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(
       "/version/5e4ff3abe3c3317e352062e4/version-timing?variant=^ubuntu1604%24",
     );
@@ -96,7 +92,7 @@ test.describe("Version Timing Tab with a variant selected", () => {
   ];
 
   test("shows a paginated chart of all tasks in the variant", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     for (const pageTasks of expectedTasks.slice(0, -1)) {
       for (const task of pageTasks) {
@@ -128,7 +124,7 @@ test.describe("Version Timing Tab with a variant selected", () => {
     }
   });
 
-  test("respects the task filter", async ({ authenticatedPage: page }) => {
+  test("respects the task filter", async ({ page }) => {
     await page.goto(
       "/version/5e4ff3abe3c3317e352062e4/version-timing?taskName=agent&variant=^ubuntu1604%24",
     );
@@ -144,9 +140,7 @@ test.describe("Version Timing Tab with a variant selected", () => {
     }
   });
 
-  test("allows the user to clear all filters", async ({
-    authenticatedPage: page,
-  }) => {
+  test("allows the user to clear all filters", async ({ page }) => {
     await page.getByTestId("clear-all-filters").click();
     await expect(page).toHaveURL(
       "/version/5e4ff3abe3c3317e352062e4/version-timing?sorts=DURATION%3ADESC",
@@ -156,9 +150,7 @@ test.describe("Version Timing Tab with a variant selected", () => {
     await expect(page.locator(chart).getByText("Lint")).toBeVisible();
   });
 
-  test("allows the user to change the page size", async ({
-    authenticatedPage: page,
-  }) => {
+  test("allows the user to change the page size", async ({ page }) => {
     await page.locator("button[aria-labelledby='page-size-select']").click();
     await page.getByText("50 / page").first().click();
     await expect(page).toHaveURL(/limit=50/);
@@ -170,7 +162,7 @@ test.describe("Version Timing Tab with a variant selected", () => {
   });
 
   test("allows the user to select a task and navigate to it", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.locator(chart).getByText("test-agent").click();
     await expect(page).toHaveURL(

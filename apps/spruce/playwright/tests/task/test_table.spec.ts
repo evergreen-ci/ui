@@ -1,5 +1,4 @@
-import { Page } from "@playwright/test";
-import { test, expect } from "../../fixtures";
+import { Page, test, expect } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const TESTS_ROUTE =
@@ -40,13 +39,11 @@ test.describe("Tests Table", () => {
     await expect(table).not.toHaveAttribute("data-loading", "true");
   };
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await visitAndWait(page, TESTS_ROUTE);
   });
 
-  test("count should update to reflect filtered values", async ({
-    authenticatedPage: page,
-  }) => {
+  test("count should update to reflect filtered values", async ({ page }) => {
     const nameSortControl = page.getByRole("button", { name: "Sort by Name" });
     await nameSortControl.click();
 
@@ -74,13 +71,13 @@ test.describe("Tests Table", () => {
   });
 
   test("Automatically sorts by status in ascending order on page load", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page).toHaveURL(/sorts=STATUS%3AASC/);
   });
 
   test("Adjusts query params when table headers are clicked", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const nameSortControl = page.getByRole("button", { name: "Sort by Name" });
     const statusSortControl = page.getByRole("button", {
@@ -123,7 +120,7 @@ test.describe("Tests Table", () => {
     await expect(page).toHaveURL(/sorts=DURATION%3ADESC/);
   });
 
-  test("Supports multiple sorts", async ({ authenticatedPage: page }) => {
+  test("Supports multiple sorts", async ({ page }) => {
     const statusSortControl = page.getByRole("button", {
       name: "Sort by Status",
     });
@@ -136,12 +133,12 @@ test.describe("Tests Table", () => {
   });
 
   test.describe("Test Status Selector", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await visitAndWait(page, TESTS_ROUTE);
     });
 
     test("Clicking on 'All' checkbox adds all statuses to URL", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("status-treeselect").click();
       const allCheckbox = page.getByRole("checkbox", { name: "All" });
@@ -159,7 +156,7 @@ test.describe("Tests Table", () => {
     ];
 
     test("Checking multiple statuses adds them all to the URL", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.getByTestId("status-treeselect").click();
       for (const { label } of statuses) {
@@ -176,7 +173,7 @@ test.describe("Tests Table", () => {
     const testNameInputValue = "group";
 
     test("Typing in test name filter updates testname query param", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await visitAndWait(page, TESTS_ROUTE);
       await page.getByTestId("test-name-filter").click();
@@ -194,7 +191,7 @@ test.describe("Tests Table", () => {
 
   test.describe("Changing page number", () => {
     test("Displays the next page of results and updates URL when right arrow is clicked and next page exists", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10`);
       await expect(
@@ -209,7 +206,7 @@ test.describe("Tests Table", () => {
     });
 
     test("Does not update results or URL when right arrow is clicked and next page does not exist", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=1`);
       await expect(
@@ -224,7 +221,7 @@ test.describe("Tests Table", () => {
     });
 
     test("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=1`);
       await expect(
@@ -240,7 +237,7 @@ test.describe("Tests Table", () => {
     });
 
     test("Does not update results or URL when left arrow is clicked and previous page does not exist", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=0`);
       await expect(
@@ -257,7 +254,7 @@ test.describe("Tests Table", () => {
 
   test.describe("Changing page limit", () => {
     test("Changing page size updates URL and renders less than or equal to that many rows", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       for (const pageSize of [20, 50, 100]) {
         await visitAndWait(page, TESTS_ROUTE);
@@ -276,9 +273,7 @@ test.describe("Tests Table", () => {
   });
 
   test.describe("Test log links", () => {
-    test("Links to Spruce's HTML viewer", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Links to Spruce's HTML viewer", async ({ page }) => {
       const htmlLink = page.getByRole("link", { name: "HTML" }).nth(0);
       await expect(htmlLink).toHaveAttribute("href");
       const href = await htmlLink.getAttribute("href");

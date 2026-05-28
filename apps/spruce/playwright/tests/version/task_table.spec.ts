@@ -1,6 +1,5 @@
-import { Page } from "@playwright/test";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
-import { test, expect } from "../../fixtures";
+import { Page, test, expect } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
@@ -14,7 +13,7 @@ const waitForTaskTable = async (page: Page) => {
 
 test.describe("Task table", () => {
   test("Loading skeleton does not persist when you navigate to Patch page from My Patches and adjust a filter", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/user/patches");
     await page
@@ -25,7 +24,7 @@ test.describe("Task table", () => {
   });
 
   test("Updates sorting in the url when column headers are clicked", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(pathTasks);
     await waitForTaskTable(page);
@@ -63,7 +62,7 @@ test.describe("Task table", () => {
   });
 
   test("Clicking task name goes to task page for that task", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(pathTasks);
     await expect(
@@ -71,16 +70,14 @@ test.describe("Task table", () => {
     ).toHaveAttribute("href", /\/task/);
   });
 
-  test("Task count displays total tasks", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Task count displays total tasks", async ({ page }) => {
     await page.goto(pathTasks);
     await expect(page.getByTestId("total-count").first()).toContainText("49");
   });
 
   test.describe("Changing page number", () => {
     test("Displays the next page of results and updates URL when right arrow is clicked and next page exists", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`${pathTasks}?page=0`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
@@ -96,7 +93,7 @@ test.describe("Task table", () => {
     });
 
     test("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`${pathTasks}?page=1`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
@@ -111,7 +108,7 @@ test.describe("Task table", () => {
     });
 
     test("Does not update results or URL when left arrow is clicked and previous page does not exist", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`${pathTasks}?page=0`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
@@ -119,7 +116,7 @@ test.describe("Task table", () => {
     });
 
     test("Does not update results or URL when right arrow is clicked and next page does not exist", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(`${pathTasks}?page=4`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
@@ -128,13 +125,13 @@ test.describe("Task table", () => {
   });
 
   test.describe("blocked tasks", () => {
-    test.beforeEach(async ({ authenticatedPage: page }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(`${pathTasks}?limit=100`);
       await waitForTaskTable(page);
     });
 
     test("shows the blocking tasks when hovering over status badge", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       const dependsOnTooltip = page.getByTestId("depends-on-tooltip");
       await expect(dependsOnTooltip).toHaveCount(0);
@@ -154,7 +151,7 @@ test.describe("Task table", () => {
     const executionTask2 = "reviewed-exec2";
 
     test("marks tasks as viewed and preserves their state on reload", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(pathTasks);
       const firstTaskCheckbox = page.getByTestId(firstTask);
@@ -189,20 +186,20 @@ test.describe("Task table", () => {
     });
 
     test.describe("announcement tooltip", () => {
-      test.beforeEach(async ({ authenticatedPage: page }) => {
+      test.beforeEach(async ({ page }) => {
         await page.context().clearCookies({ name: SEEN_TASK_REVIEW_TOOLTIP });
         await page.goto(pathTasks);
         await waitForTaskTable(page);
       });
 
       test("shows the announcement tooltip open on the first viewing", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         await expect(page.getByText("New feature: Task Review")).toBeVisible();
       });
 
       test("shows the info icon one day after the initial close and hides it after one week", async ({
-        authenticatedPage: page,
+        page,
       }) => {
         const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
         await page.context().addCookies([

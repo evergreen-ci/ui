@@ -15,14 +15,14 @@ const tasks = {
 test.describe("Task Action Buttons", () => {
   test.describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
     test("Schedule button should be disabled on a completed task", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(tasks[1]);
       await expect(page.getByTestId("schedule-task")).toBeDisabled();
     });
 
     test("Clicking Restart button should restart a task and display a success toast", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(tasks[3]);
       await page.getByTestId("restart-task").click();
@@ -30,7 +30,7 @@ test.describe("Task Action Buttons", () => {
     });
 
     test("Clicking Unschedule button should unschedule a task and display a success toast", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(tasks[5]);
       await page.getByTestId("ellipsis-btn").click();
@@ -40,7 +40,7 @@ test.describe("Task Action Buttons", () => {
     });
 
     test("Abort button should be disabled on completed tasks", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(tasks[3]);
       await page.getByTestId("ellipsis-btn").click();
@@ -49,7 +49,7 @@ test.describe("Task Action Buttons", () => {
     });
 
     test("Clicking on set priority, entering a priority value and submitting should result in a success toast", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(tasks[5]);
       await page.getByTestId("ellipsis-btn").click();
@@ -60,9 +60,7 @@ test.describe("Task Action Buttons", () => {
       await validateToast(page, "success", prioritySuccessBannerText);
     });
 
-    test("Should be able to abort an incomplete task", async ({
-      authenticatedPage: page,
-    }) => {
+    test("Should be able to abort an incomplete task", async ({ page }) => {
       await page.goto(tasks[2]);
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
@@ -71,7 +69,7 @@ test.describe("Task Action Buttons", () => {
     });
 
     test("Should correctly disable/enable the task when clicked", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(tasks[5]);
       await page.getByTestId("ellipsis-btn").click();
@@ -88,7 +86,7 @@ test.describe("Task Action Buttons", () => {
 
   test.describe("restarting a display task", () => {
     test("does not allow restarting only failed execution tasks when all execution tasks were successful", async ({
-      authenticatedPage: page,
+      page,
     }) => {
       await page.goto(tasks[4]);
       await page.getByTestId("restart-task").click();

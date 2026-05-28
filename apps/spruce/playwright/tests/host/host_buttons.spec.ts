@@ -2,13 +2,11 @@ import { test, expect } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 test.describe("Host page restart jasper, reprovision, and update host status buttons", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/host/i-0d0ae8b83366d22be");
   });
 
-  test("Should show a toast when jasper restarted", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Should show a toast when jasper restarted", async ({ page }) => {
     await page.getByTestId("restart-jasper-button").click();
     const confirmButton = page.getByRole("button", { name: "Yes" });
     await expect(confirmButton).toBeVisible();
@@ -16,9 +14,7 @@ test.describe("Host page restart jasper, reprovision, and update host status but
     await validateToast(page, "success", "Marked Jasper as restarting");
   });
 
-  test("Should show a toast when host is reprovisioned", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Should show a toast when host is reprovisioned", async ({ page }) => {
     await page.getByTestId("reprovision-button").click();
     const confirmButton = page.getByRole("button", { name: "Yes" });
     await expect(confirmButton).toBeVisible();
@@ -26,9 +22,7 @@ test.describe("Host page restart jasper, reprovision, and update host status but
     await validateToast(page, "success", "Marked host to reprovision");
   });
 
-  test("Should show and hide the modal for update status", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Should show and hide the modal for update status", async ({ page }) => {
     await page.getByTestId("update-status-button").click();
     await expect(page.getByTestId("update-host-status-modal")).toBeVisible();
 

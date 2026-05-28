@@ -1,5 +1,4 @@
-import { Page } from "@playwright/test";
-import { test, expect } from "../../fixtures";
+import { Page, test, expect } from "../../fixtures";
 import { clickCheckbox, selectOption } from "../../helpers";
 
 /**
@@ -34,9 +33,7 @@ test.describe("Host events", () => {
     });
   });
 
-  test("host events display the correct text", async ({
-    authenticatedPage: page,
-  }) => {
+  test("host events display the correct text", async ({ page }) => {
     await page.goto(pathWithEvents);
     await selectPageSize(page, 100, dataCyTableRows);
 
@@ -140,7 +137,7 @@ test.describe("Host events", () => {
   });
 
   test("host events with logs display the correct text and the logs get displayed when available", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const hostTypes = [
       {
@@ -214,7 +211,7 @@ test.describe("Host events", () => {
   });
 
   test("host events logs do not display when not available", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(pathWithEvents);
     await selectPageSize(page, 100, dataCyTableRows);
@@ -227,9 +224,7 @@ test.describe("Host events", () => {
     ).toBeHidden();
   });
 
-  test("host event links get displayed", async ({
-    authenticatedPage: page,
-  }) => {
+  test("host event links get displayed", async ({ page }) => {
     await page.goto(pathWithEvents);
     await selectPageSize(page, 100, dataCyTableRows);
     const hostTypes = [
@@ -243,15 +238,13 @@ test.describe("Host events", () => {
   });
 
   test("host event pagination last page displays the right items", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto("/host/i-0f81a2d39744003dd?limit=10&page=2");
     await expect(page.getByTestId("host-provisioned")).toBeVisible();
   });
 
-  test("host events are displayed in the right timezone", async ({
-    authenticatedPage: page,
-  }) => {
+  test("host events are displayed in the right timezone", async ({ page }) => {
     await page.goto("/preferences");
     await expect(page.getByText("Preferences")).toBeVisible();
     await selectOption(page, "Timezone", "Hawaii");
@@ -263,9 +256,7 @@ test.describe("Host events", () => {
   });
 
   test.describe("host event filters", () => {
-    test("can filter for specific events", async ({
-      authenticatedPage: page,
-    }) => {
+    test("can filter for specific events", async ({ page }) => {
       await page.goto(pathWithEvents);
 
       // Apply filter.
@@ -295,9 +286,7 @@ test.describe("Host events", () => {
       );
     });
 
-    test("filter is properly processed from URL", async ({
-      authenticatedPage: page,
-    }) => {
+    test("filter is properly processed from URL", async ({ page }) => {
       await page.goto(
         `${pathWithEvents}?eventType=HOST_AGENT_DEPLOYED,HOST_AGENT_DEPLOY_FAILED`,
       );

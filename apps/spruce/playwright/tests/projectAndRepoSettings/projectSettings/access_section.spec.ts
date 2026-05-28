@@ -14,7 +14,7 @@ test.describe("Access page", () => {
     ProjectSettingsTabRoutes.Access,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
     const defaultToRepoButton = page.getByRole("button", {
@@ -25,7 +25,7 @@ test.describe("Access page", () => {
   });
 
   test("Changing settings and clicking the save button produces a success toast and the changes are persisted", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const unrestrictedRadio = page.getByRole("radio", {
       name: "Unrestricted",
@@ -57,7 +57,7 @@ test.describe("Access page", () => {
   });
 
   test("Clicking on 'Default to Repo on Page' selects the 'Default to repo (unrestricted)' radio box and produces a success banner", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const defaultToRepoButton = page.getByRole("button", {
       name: "Default to repo on page",
@@ -82,7 +82,7 @@ test.describe("Access page", () => {
   });
 
   test("Submitting an invalid admin username produces an error toast", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(
       getProjectSettingsRoute(project, ProjectSettingsTabRoutes.Access),

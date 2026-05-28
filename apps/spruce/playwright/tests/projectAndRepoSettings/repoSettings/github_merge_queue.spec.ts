@@ -13,13 +13,13 @@ test.describe("Merge Queue section", () => {
     ProjectSettingsTabRoutes.MergeQueue,
   );
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await expectSaveButtonEnabled(page, false);
   });
 
   test("Enabling merge queue shows hidden inputs and error banner", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await expect(page.getByText("Merge Queue Patch Definitions")).toBeHidden();
 
@@ -38,7 +38,7 @@ test.describe("Merge Queue section", () => {
   });
 
   test("Does not show override buttons for merge queue patch definitions", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     const mergeQueueEnabledRadio = page
       .getByTestId("mq-enabled-radio-box")
@@ -47,9 +47,7 @@ test.describe("Merge Queue section", () => {
     await expect(page.getByTestId("mq-override-radio-box")).toHaveCount(0);
   });
 
-  test("Saves a merge queue definition", async ({
-    authenticatedPage: page,
-  }) => {
+  test("Saves a merge queue definition", async ({ page }) => {
     const mergeQueueEnabledRadio = page
       .getByTestId("mq-enabled-radio-box")
       .getByRole("radio", { name: "Enabled" });

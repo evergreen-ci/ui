@@ -1,9 +1,7 @@
 import { test, expect } from "../../fixtures";
 
 test.describe("/image/imageId/random redirect route", () => {
-  test("should redirect to the build information page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("should redirect to the build information page", async ({ page }) => {
     await page.goto("/image/imageId/random");
     await expect(page).not.toHaveURL(/\/random/);
     await expect(page).toHaveURL("/image/imageId/build-information");
@@ -11,9 +9,7 @@ test.describe("/image/imageId/random redirect route", () => {
 });
 
 test.describe("Image dropdown", () => {
-  test("navigates to the image when clicked", async ({
-    authenticatedPage: page,
-  }) => {
+  test("navigates to the image when clicked", async ({ page }) => {
     await page.goto("/image/amazon2/build-information");
     const imagesSelect = page.getByTestId("images-select");
     await expect(imagesSelect).toBeVisible();
@@ -31,9 +27,7 @@ test.describe("Image dropdown", () => {
 });
 
 test.describe("Task metadata", () => {
-  test("navigates to the image page from the task page", async ({
-    authenticatedPage: page,
-  }) => {
+  test("navigates to the image page from the task page", async ({ page }) => {
     await page.goto(
       "/task/evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
     );

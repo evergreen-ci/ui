@@ -5,15 +5,13 @@ const slackNotificationBanner = "slack-notification-banner";
 const slackUsername = "username";
 
 test.describe("Slack notification banner", () => {
-  test("does not show up if user has the cookie set", async ({
-    authenticatedPage: page,
-  }) => {
+  test("does not show up if user has the cookie set", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByTestId(slackNotificationBanner)).toBeHidden();
   });
 
   test("shows up across the app if user has not set slack notification settings", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     // Clear the cookie to simulate a user who hasn't set slack notification settings.
     await page.context().clearCookies({ name: "has-closed-slack-banner" });
@@ -32,7 +30,7 @@ test.describe("Slack notification banner", () => {
   });
 
   test("after user has entered their username and clicks 'save', new settings are reflected in user preferences", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     // Clear the cookie to make the banner visible.
     await page.context().clearCookies({ name: "has-closed-slack-banner" });

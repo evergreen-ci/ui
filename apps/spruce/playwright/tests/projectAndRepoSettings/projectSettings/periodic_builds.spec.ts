@@ -11,13 +11,13 @@ import { expectSaveButtonEnabled, save } from "../utils";
 test.describe("Periodic Builds page", () => {
   const origin = getProjectSettingsRoute(project);
 
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto(origin);
     await page.getByTestId("navitem-periodic-builds").click();
   });
 
   test("allows a user to schedule the next build on the current day", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.clock.setFixedTime(new Date(2025, 8, 16));
     await page.reload();
@@ -58,7 +58,7 @@ test.describe("Periodic Builds page", () => {
   });
 
   test("Disables save button when interval is NaN or below minimum and allows saving a number in range", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.getByRole("button", { name: "Add periodic build" }).click();
     const intervalInput = page.getByTestId("interval-input");

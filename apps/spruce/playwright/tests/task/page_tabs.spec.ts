@@ -33,7 +33,7 @@ const task = {
 
 test.describe("page tabs", () => {
   test("selects tests tab by default if there are tests and no tab is provided in url", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(taskRoute(tasks.withTests));
     await expect(page.getByTestId(task.tests.btn)).toHaveAttribute(
@@ -43,7 +43,7 @@ test.describe("page tabs", () => {
   });
 
   test("selects logs tab by default if there are no tests and no tab is provided in url", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(taskRoute(tasks.noTests));
     await expect(page.getByTestId(task.logs.btn)).toHaveAttribute(
@@ -53,7 +53,7 @@ test.describe("page tabs", () => {
   });
 
   test("toggling between tabs updates the url with the selected tab name", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(taskRoute(tasks.withTests));
     await expect(page).toHaveURL(
@@ -70,7 +70,7 @@ test.describe("page tabs", () => {
   });
 
   test("replaces invalid tab names in url path with a default route", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(`${taskRoute(tasks.withTests)}/chicken`);
     await expect(page).toHaveURL(
@@ -79,7 +79,7 @@ test.describe("page tabs", () => {
   });
 
   test("Should only display a badge with the number of failed tests if they exist", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(taskRoute(tasks.withTests));
     await expect(page.getByTestId("tests-tab-badge")).toContainText("1");
@@ -88,14 +88,14 @@ test.describe("page tabs", () => {
   });
 
   test("Should display a badge with the number of files in the Files tab", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(task.files.route);
     await expect(page.getByTestId("files-tab-badge")).toContainText("0");
   });
 
   test("Should default to the execution task tab if the task is a display task", async ({
-    authenticatedPage: page,
+    page,
   }) => {
     await page.goto(taskRoute(tasks.displayTask));
     await expect(page.getByTestId(task.display.btn)).toHaveAttribute(

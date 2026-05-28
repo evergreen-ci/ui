@@ -3,11 +3,11 @@ import { validateToast } from "../../helpers";
 import { save } from "./utils";
 
 test.describe("announcements", () => {
-  test.beforeEach(async ({ authenticatedPage: page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/admin-settings");
   });
 
-  test("can save after making changes", async ({ authenticatedPage: page }) => {
+  test("can save after making changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
     const bannerText = page.getByTestId("banner-text");
     await bannerText.clear();
