@@ -1,5 +1,6 @@
 import { getAppToDeploy } from "../utils/environment";
 import * as shellUtils from "../utils/shell";
+import { DeployableApp } from "../utils/types";
 import { findEvergreen, formatDate } from "./utils";
 import { makeEmail } from ".";
 
@@ -25,7 +26,7 @@ describe("findEvergreen", () => {
 
 describe("makeEmail", async () => {
   const defaultArgs = {
-    app: "spruce",
+    app: "spruce" as DeployableApp,
     commitToDeploy: "123",
     commitsString: "commit's a\ncommit b\n",
     isRevert: false,
@@ -59,7 +60,7 @@ describe("makeEmail", async () => {
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
     vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
     expect(makeEmail(defaultArgs)).toStrictEqual({
-      body: "<ul><li>commit‘s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
+      body: "<ul><li>commit’s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
       from: "sender@mongodb.com",
       recipients: "foo@mongodb.com",
       subject: "2020-06-22 Spruce Deploy to 123",
@@ -73,7 +74,7 @@ describe("makeEmail", async () => {
     vi.spyOn(shellUtils, "execTrim").mockReturnValue("git.email@mongodb.com");
     vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
     expect(makeEmail(defaultArgs)).toStrictEqual({
-      body: "<ul><li>commit‘s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
+      body: "<ul><li>commit’s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
       from: "git.email@mongodb.com",
       recipients: "foo@mongodb.com",
       subject: "2020-06-22 Spruce Deploy to 123",
@@ -109,14 +110,14 @@ describe("makeEmail", async () => {
         previousTag: undefined,
       }),
     ).toStrictEqual({
-      body: "<ul><li>commit‘s a</li><li>commit b</li></ul>",
+      body: "<ul><li>commit’s a</li><li>commit b</li></ul>",
       from: "sender@mongodb.com",
       recipients: "foo@mongodb.com",
       subject: "2020-06-22 Spruce Deploy to 123",
     });
   });
 
-  it("renders the subject for sage-ui", () => {
+  it("renders the subject for sage", () => {
     vi.stubEnv("CI", "true");
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
@@ -124,14 +125,14 @@ describe("makeEmail", async () => {
     expect(
       makeEmail({
         ...defaultArgs,
-        app: "sage-ui",
-        previousTag: "sage-ui/v0.0.1",
+        app: "sage",
+        previousTag: "sage/v0.0.1",
       }),
     ).toStrictEqual({
-      body: "<ul><li>commit‘s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (sage-ui/v0.0.1)</b></p>",
+      body: "<ul><li>commit’s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (sage/v0.0.1)</b></p>",
       from: "sender@mongodb.com",
       recipients: "foo@mongodb.com",
-      subject: "2020-06-22 Sage-ui Deploy to 123",
+      subject: "2020-06-22 Sage UI Deploy to 123",
     });
   });
 });
