@@ -47,26 +47,25 @@ describe("action menu for tests table", () => {
     ).toBeVisible();
   });
 
-  it("shows disabled message on display tasks", async () => {
+  it("quarantines a failing test on a display task using its execution task ID", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[]}>
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={[quarantineDisplayTaskTestMock]}>
         <ActionMenu
           task={{ ...taskWithTestSelection, displayOnly: true }}
-          test={failingTest}
+          test={failingTestOnDisplayTask}
         />
       </MockedProvider>,
     );
     render(<Component />);
     await user.click(screen.getByDataCy("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+      expect(screen.getByDataCy("quarantine-test")).toBeVisible();
     });
-    expect(
-      screen.getByText(
-        "Quarantine is not available on display tasks. Open one of this task's execution tasks to quarantine a test.",
-      ),
-    ).toBeVisible();
+    await user.click(screen.getByDataCy("quarantine-test"));
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("disables quarantine option when test is passing and not quarantined", async () => {
@@ -87,7 +86,7 @@ describe("action menu for tests table", () => {
     );
   });
 
-  it("quarantines a failing test", async () => {
+  it("quarantines a failing test on a non-display task", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[quarantineTestMock]}>
@@ -126,6 +125,7 @@ describe("action menu for tests table", () => {
 
 const failingTest: TestResult = {
   id: "1",
+  taskId: taskQuery.task.id,
   testFile: "test_1",
   status: TestStatus.Fail,
   isManuallyQuarantined: false,
@@ -134,6 +134,7 @@ const failingTest: TestResult = {
 
 const passingTest: TestResult = {
   id: "2",
+  taskId: taskQuery.task.id,
   testFile: "test_2",
   status: TestStatus.Pass,
   isManuallyQuarantined: false,
@@ -142,9 +143,19 @@ const passingTest: TestResult = {
 
 const quarantinedTest: TestResult = {
   id: "3",
+  taskId: taskQuery.task.id,
   testFile: "test_3",
   status: TestStatus.Pass,
   isManuallyQuarantined: true,
+  logs: {},
+};
+
+const failingTestOnDisplayTask: TestResult = {
+  id: "4",
+  taskId: "execTaskId",
+  testFile: "test_4",
+  status: TestStatus.Fail,
+  isManuallyQuarantined: false,
   logs: {},
 };
 
@@ -164,6 +175,28 @@ const quarantineTestMock: ApolloMock<
       quarantineTest: {
         __typename: "TestResult",
         id: "1",
+        isManuallyQuarantined: true,
+      },
+    },
+  },
+};
+
+const quarantineDisplayTaskTestMock: ApolloMock<
+  QuarantineTestMutation,
+  QuarantineTestMutationVariables
+> = {
+  request: {
+    query: QUARANTINE_TEST,
+    variables: {
+      taskId: "execTaskId",
+      testName: "test_4",
+    },
+  },
+  result: {
+    data: {
+      quarantineTest: {
+        __typename: "TestResult",
+        id: "4",
         isManuallyQuarantined: true,
       },
     },

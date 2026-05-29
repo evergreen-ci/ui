@@ -48,6 +48,15 @@ const quarantinedTest: TestResult = {
   logs: {},
 };
 
+const failingTestOnDisplayTask: TestResult = {
+  id: "4",
+  taskId: "execTaskId",
+  testFile: "test_4",
+  status: TestStatus.Fail,
+  isManuallyQuarantined: false,
+  logs: {},
+};
+
 export const TestSelectionDisabled: CustomStoryObj<typeof ActionMenu> = {
   render: () => (
     <ActionMenu
@@ -61,7 +70,7 @@ export const DisplayTask: CustomStoryObj<typeof ActionMenu> = {
   render: () => (
     <ActionMenu
       task={{ ...taskWithTestSelection, displayOnly: true }}
-      test={failingTest}
+      test={failingTestOnDisplayTask}
     />
   ),
 };

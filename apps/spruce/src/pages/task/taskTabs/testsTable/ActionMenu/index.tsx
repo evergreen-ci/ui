@@ -55,21 +55,28 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
 
   const onQuarantineTest = () => {
     setOpen(false);
+    // Fall back to task.id since the field is nullable in the schema; for non-display tasks the two IDs are equal.
+    const taskId = test.taskId ?? task.id;
     sendEvent({
       name: "Clicked quarantine test button",
       "test.name": test.testFile,
+      "test.task_id": taskId,
     });
-    quarantineTest({ variables: { taskId: task.id, testName: test.testFile } });
+    quarantineTest({
+      variables: { taskId, testName: test.testFile },
+    });
   };
 
   const onUnquarantineTest = () => {
     setOpen(false);
+    const taskId = test.taskId ?? task.id;
     sendEvent({
       name: "Clicked unquarantine test button",
       "test.name": test.testFile,
+      "test.task_id": taskId,
     });
     unquarantineTest({
-      variables: { taskId: task.id, testName: test.testFile },
+      variables: { taskId, testName: test.testFile },
     });
   };
 
@@ -80,13 +87,6 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         Test selection did not run for this task, so its tests cannot be
         quarantined. Test selection is only available on patch builds for build
         variants and tasks configured for it.
-      </DropdownItem>,
-    ];
-  } else if (task.displayOnly) {
-    dropdownItems = [
-      <DropdownItem key="display-task" disabled>
-        Quarantine is not available on display tasks. Open one of this
-        task&apos;s execution tasks to quarantine a test.
       </DropdownItem>,
     ];
   } else if (test.isManuallyQuarantined) {
