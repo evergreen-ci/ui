@@ -7,6 +7,7 @@ export const SINGLE_TASK_DISTRO = gql`
         projectTasksPairs {
           allowedBVs
           allowedTasks
+          displayName
           projectId
         }
       }
