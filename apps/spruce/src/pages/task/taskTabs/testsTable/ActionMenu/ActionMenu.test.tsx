@@ -42,7 +42,7 @@ describe("action menu for tests table", () => {
     });
     expect(
       screen.getByText(
-        "Test selection did not run for this task, so its tests cannot be quarantined. Test selection is only available on patch builds for build variants and tasks configured for it.",
+        "Test selection did not run for this task, so its tests cannot be quarantined.",
       ),
     ).toBeVisible();
   });
@@ -68,10 +68,10 @@ describe("action menu for tests table", () => {
     });
   });
 
-  it("disables quarantine option when test is passing and not quarantined", async () => {
+  it("quarantines a passing test", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[]}>
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={[quarantinePassingTestMock]}>
         <ActionMenu task={taskWithTestSelection} test={passingTest} />
       </MockedProvider>,
     );
@@ -80,10 +80,14 @@ describe("action menu for tests table", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("quarantine-test")).toBeVisible();
     });
-    expect(screen.getByDataCy("quarantine-test")).toHaveAttribute(
+    expect(screen.getByDataCy("quarantine-test")).not.toHaveAttribute(
       "aria-disabled",
       "true",
     );
+    await user.click(screen.getByDataCy("quarantine-test"));
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("quarantines a failing test on a non-display task", async () => {
@@ -159,49 +163,47 @@ const failingTestOnDisplayTask: TestResult = {
   logs: {},
 };
 
-const quarantineTestMock: ApolloMock<
-  QuarantineTestMutation,
-  QuarantineTestMutationVariables
-> = {
+const quarantineMock = ({
+  id,
+  taskId,
+  testName,
+}: {
+  id: string;
+  taskId: string;
+  testName: string;
+}): ApolloMock<QuarantineTestMutation, QuarantineTestMutationVariables> => ({
   request: {
     query: QUARANTINE_TEST,
-    variables: {
-      taskId: taskQuery.task.id,
-      testName: "test_1",
-    },
+    variables: { taskId, testName },
   },
   result: {
     data: {
       quarantineTest: {
         __typename: "TestResult",
-        id: "1",
+        id,
         isManuallyQuarantined: true,
       },
     },
   },
-};
+});
 
-const quarantineDisplayTaskTestMock: ApolloMock<
-  QuarantineTestMutation,
-  QuarantineTestMutationVariables
-> = {
-  request: {
-    query: QUARANTINE_TEST,
-    variables: {
-      taskId: "execTaskId",
-      testName: "test_4",
-    },
-  },
-  result: {
-    data: {
-      quarantineTest: {
-        __typename: "TestResult",
-        id: "4",
-        isManuallyQuarantined: true,
-      },
-    },
-  },
-};
+const quarantineTestMock = quarantineMock({
+  id: "1",
+  taskId: taskQuery.task.id,
+  testName: "test_1",
+});
+
+const quarantinePassingTestMock = quarantineMock({
+  id: "2",
+  taskId: taskQuery.task.id,
+  testName: "test_2",
+});
+
+const quarantineDisplayTaskTestMock = quarantineMock({
+  id: "4",
+  taskId: "execTaskId",
+  testName: "test_4",
+});
 
 const unquarantineTestMock: ApolloMock<
   UnquarantineTestMutation,
