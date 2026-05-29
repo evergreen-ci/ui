@@ -1952,7 +1952,9 @@ export type Mutation = {
   moveAnnotationIssue: Scalars["Boolean"]["output"];
   overrideTaskDependencies: Task;
   promoteVarsToRepo: Scalars["Boolean"]["output"];
+  quarantineTask: Task;
   quarantineTest: TestResult;
+  quarantineVariant: VariantQuarantineStatus;
   refreshGitHubStatuses?: Maybe<RefreshGitHubStatusesPayload>;
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
@@ -1982,7 +1984,9 @@ export type Mutation = {
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
+  unquarantineTask: Task;
   unquarantineTest: TestResult;
+  unquarantineVariant: VariantQuarantineStatus;
   unscheduleTask: Task;
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateBetaFeatures?: Maybe<UpdateBetaFeaturesPayload>;
@@ -2112,8 +2116,16 @@ export type MutationPromoteVarsToRepoArgs = {
   opts: PromoteVarsToRepoInput;
 };
 
+export type MutationQuarantineTaskArgs = {
+  opts: QuarantineTaskInput;
+};
+
 export type MutationQuarantineTestArgs = {
   opts: QuarantineTestInput;
+};
+
+export type MutationQuarantineVariantArgs = {
+  opts: QuarantineVariantInput;
 };
 
 export type MutationRefreshGitHubStatusesArgs = {
@@ -2239,8 +2251,16 @@ export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
 };
 
+export type MutationUnquarantineTaskArgs = {
+  opts: UnquarantineTaskInput;
+};
+
 export type MutationUnquarantineTestArgs = {
   opts: UnquarantineTestInput;
+};
+
+export type MutationUnquarantineVariantArgs = {
+  opts: UnquarantineVariantInput;
 };
 
 export type MutationUnscheduleTaskArgs = {
@@ -3094,9 +3114,20 @@ export type PublicKeyInput = {
   name: Scalars["String"]["input"];
 };
 
+/** QuarantineTaskInput is the input to the quarantineTask mutation. It marks every known test of the given task as manually quarantined in the test selection service. */
+export type QuarantineTaskInput = {
+  taskId: Scalars["String"]["input"];
+};
+
 export type QuarantineTestInput = {
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
+};
+
+/** QuarantineVariantInput is the input to the quarantineVariant mutation. It marks every known test of every known task in the build variant as manually quarantined in the test selection service. */
+export type QuarantineVariantInput = {
+  buildVariant: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type Query = {
@@ -3144,6 +3175,7 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
+  variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
   waterfall: Waterfall;
@@ -3286,6 +3318,11 @@ export type QueryTaskTestSampleArgs = {
 
 export type QueryUserArgs = {
   userId?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryVariantQuarantineStatusArgs = {
+  buildVariant: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type QueryVersionArgs = {
@@ -4349,6 +4386,16 @@ export type TaskPriority = {
 };
 
 /**
+ * TaskQuarantineEntry is the per-task view of quarantine state inside a build
+ * variant.
+ */
+export type TaskQuarantineEntry = {
+  __typename?: "TaskQuarantineEntry";
+  taskName: Scalars["String"]["output"];
+  tests: Array<TestQuarantineEntry>;
+};
+
+/**
  * TaskQueueDistro[] is the return value for the taskQueueDistros query.
  * It contains information about how many tasks and hosts are running on on a particular distro.
  */
@@ -4463,6 +4510,16 @@ export type TestLog = {
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
   version?: Maybe<Scalars["Int"]["output"]>;
+};
+
+/**
+ * TestQuarantineEntry is the per-test view of manual-quarantine state inside a
+ * task.
+ */
+export type TestQuarantineEntry = {
+  __typename?: "TestQuarantineEntry";
+  isManuallyQuarantined: Scalars["Boolean"]["output"];
+  testName: Scalars["String"]["output"];
 };
 
 export type TestResult = {
@@ -4630,9 +4687,20 @@ export type UiConfigInput = {
   userVoice: Scalars["String"]["input"];
 };
 
+/** UnquarantineTaskInput is the input to the unquarantineTask mutation. */
+export type UnquarantineTaskInput = {
+  taskId: Scalars["String"]["input"];
+};
+
 export type UnquarantineTestInput = {
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
+};
+
+/** UnquarantineVariantInput is the input to the unquarantineVariant mutation. */
+export type UnquarantineVariantInput = {
+  buildVariant: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type UpdateBetaFeaturesInput = {
@@ -4773,6 +4841,18 @@ export type UserSettingsInput = {
   timeFormat?: InputMaybe<Scalars["String"]["input"]>;
   timezone?: InputMaybe<Scalars["String"]["input"]>;
   useSpruceOptions?: InputMaybe<UseSpruceOptionsInput>;
+};
+
+/**
+ * VariantQuarantineStatus is the manual-quarantine status of every known test
+ * of every known task in a build variant, as reported by the test selection
+ * service.
+ */
+export type VariantQuarantineStatus = {
+  __typename?: "VariantQuarantineStatus";
+  buildVariant: Scalars["String"]["output"];
+  projectIdentifier: Scalars["String"]["output"];
+  tasks: Array<TaskQuarantineEntry>;
 };
 
 export type VariantTask = {
