@@ -1984,7 +1984,6 @@ export type Mutation = {
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateBetaFeatures?: Maybe<UpdateBetaFeaturesPayload>;
   updateHostStatus: Scalars["Int"]["output"];
-  updateParsleySettings?: Maybe<UpdateParsleySettingsPayload>;
   updatePublicKey: Array<PublicKey>;
   updateSpawnHostStatus: Host;
   updateUserSettings: Scalars["Boolean"]["output"];
@@ -2260,10 +2259,6 @@ export type MutationUpdateHostStatusArgs = {
   status: Scalars["String"]["input"];
 };
 
-export type MutationUpdateParsleySettingsArgs = {
-  opts: UpdateParsleySettingsInput;
-};
-
 export type MutationUpdatePublicKeyArgs = {
   targetKeyName: Scalars["String"]["input"];
   updateInfo: PublicKeyInput;
@@ -2485,18 +2480,6 @@ export type ParsleyFilterInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
   exactMatch: Scalars["Boolean"]["input"];
   expression: Scalars["String"]["input"];
-};
-
-/** ParsleySettings contains information about a user's settings for Parsley. */
-export type ParsleySettings = {
-  __typename?: "ParsleySettings";
-  jumpToFailingLineEnabled: Scalars["Boolean"]["output"];
-  sectionsEnabled: Scalars["Boolean"]["output"];
-};
-
-export type ParsleySettingsInput = {
-  jumpToFailingLineEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  sectionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Patch is a manually initiated version submitted to test local code changes. */
@@ -4659,15 +4642,6 @@ export type UpdateBetaFeaturesPayload = {
   betaFeatures?: Maybe<BetaFeatures>;
 };
 
-export type UpdateParsleySettingsInput = {
-  parsleySettings: ParsleySettingsInput;
-};
-
-export type UpdateParsleySettingsPayload = {
-  __typename?: "UpdateParsleySettingsPayload";
-  parsleySettings?: Maybe<ParsleySettings>;
-};
-
 export type UpdateSpawnHostStatusInput = {
   action: SpawnHostStatusActions;
   hostId: Scalars["String"]["input"];
@@ -4719,7 +4693,6 @@ export type User = {
   emailAddress?: Maybe<Scalars["String"]["output"]>;
   hasTokenExchangePending: Scalars["Boolean"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
-  parsleySettings?: Maybe<ParsleySettings>;
   patches?: Maybe<Patches>;
   permissions?: Maybe<Permissions>;
   settings?: Maybe<UserSettings>;
