@@ -69,14 +69,6 @@ export const TaskJiraAlertCreated = buildStory(
   },
 );
 
-export const TaskJiraAlertCreatedNoUser = buildStory(
-  TaskEventType.TaskJiraAlertCreated,
-  {
-    jiraIssue: "EVG-1234",
-    jiraLink: "https://jira.mongodb.org/browse/EVG-1234",
-  },
-);
-
 export const TaskDeactivated = buildStory(TaskEventType.TaskDeactivated, {
   userId: "mohamed.khelif",
 });

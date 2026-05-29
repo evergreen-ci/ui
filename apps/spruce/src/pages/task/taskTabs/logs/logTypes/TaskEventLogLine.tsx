@@ -77,7 +77,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
           <StyledLink href={jiraLink ?? ""}>
             <strong>{jiraIssue}</strong>
           </StyledLink>
-          {userId && <> by {userId}</>}
+          {userId && ` by ${userId}`}
         </>
       );
       break;
