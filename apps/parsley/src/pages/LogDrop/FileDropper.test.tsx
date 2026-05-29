@@ -1,5 +1,5 @@
 import * as useDropzoneModule from "react-dropzone";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { MockedFunction } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { act, render, screen, waitFor } from "@evg-ui/lib/test_utils";

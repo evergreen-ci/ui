@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";

@@ -3,7 +3,7 @@ import { CombinedGraphQLErrors } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";

@@ -4,7 +4,7 @@ import { Link, LinkProps } from "@leafygreen-ui/typography";
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
-} from "react-router-dom";
+} from "react-router";
 
 // Override LeafyGreen's font-weight declaration for Link.
 const overrideStyles = css`

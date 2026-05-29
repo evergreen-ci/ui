@@ -1,5 +1,5 @@
 import { skipToken, useQuery } from "@apollo/client/react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { ProjectBanner } from "components/Banners";

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { TextInput } from "@leafygreen-ui/text-input";
-import { Location, Navigate, useLocation } from "react-router-dom";
+import { Location, Navigate, useLocation } from "react-router";
 import { FullPageLoad } from "../../components/FullPageLoad";
 import { size } from "../../constants/tokens";
 import { useAuthProviderContext } from "../../context/AuthProvider";

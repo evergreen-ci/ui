@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect, useRef } from "react";
 import { trace } from "@opentelemetry/api";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { streamedFetch } from "@evg-ui/lib/utils/request/streamedFetch";
 import { CLASSNAME_ACTIVE_LINE, getLineContainer } from "./utils";
 

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import {
   BaseTable,

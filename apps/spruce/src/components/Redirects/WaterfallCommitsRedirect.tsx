@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { getWaterfallRoute, slugs } from "constants/routes";

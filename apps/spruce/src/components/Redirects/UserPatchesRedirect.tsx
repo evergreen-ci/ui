@@ -1,4 +1,4 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router";
 import { getUserPatchesRoute, slugs } from "constants/routes";
 
 export const UserPatchesRedirect: React.FC = () => {

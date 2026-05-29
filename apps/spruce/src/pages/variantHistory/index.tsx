@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";

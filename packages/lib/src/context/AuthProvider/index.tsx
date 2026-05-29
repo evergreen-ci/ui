@@ -6,7 +6,7 @@ import {
   useReducer,
 } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { getUserStagingKey, isStaging } from "../../utils/environmentVariables";
 import {
   SentryBreadcrumbTypes,

@@ -1,5 +1,5 @@
 import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useVersionAnalytics, usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { getPatchRoute } from "constants/routes";

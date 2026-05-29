@@ -1,6 +1,6 @@
 import { skipToken, useQuery } from "@apollo/client/react";
 import { ColumnFiltersState } from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { AnalyticsIdentifier } from "analytics/types";

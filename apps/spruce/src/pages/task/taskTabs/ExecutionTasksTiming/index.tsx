@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { Body, H2 } from "@leafygreen-ui/typography";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import GanttChart from "components/GanttChart";
 import {

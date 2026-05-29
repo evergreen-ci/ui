@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { useQuery, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { Navigate, Route, Routes, useParams } from "react-router";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import {
   GithubProjectConflictsQuery,

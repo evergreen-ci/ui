@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { getPatchRoute, slugs } from "constants/routes";
 import { ConfigurePatchQuery, ParameterInput } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";

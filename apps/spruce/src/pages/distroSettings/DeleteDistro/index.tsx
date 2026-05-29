@@ -4,7 +4,7 @@ import { Button } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Description } from "@leafygreen-ui/typography";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { slugs } from "constants/routes";

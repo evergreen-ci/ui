@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Body, H2 } from "@leafygreen-ui/typography";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";

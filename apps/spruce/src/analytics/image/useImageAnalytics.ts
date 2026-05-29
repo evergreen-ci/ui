@@ -1,5 +1,5 @@
 import { ColumnFiltersState, PaginationState } from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { ImageTabRoutes, slugs } from "constants/routes";

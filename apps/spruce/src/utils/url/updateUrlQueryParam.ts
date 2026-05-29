@@ -1,4 +1,4 @@
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router";
 import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
 import { parseQueryString } from "utils/queryString";
 

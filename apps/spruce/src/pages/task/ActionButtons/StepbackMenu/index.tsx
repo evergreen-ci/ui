@@ -4,7 +4,7 @@ import { Button, Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem, MenuItemProps } from "@leafygreen-ui/menu";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";

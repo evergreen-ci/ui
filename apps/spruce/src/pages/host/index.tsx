@@ -3,7 +3,7 @@ import { useQuery, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Code } from "@leafygreen-ui/code";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";

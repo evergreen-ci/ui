@@ -3,7 +3,7 @@ import { Body } from "@leafygreen-ui/typography";
 import {
   unstable_BlockerFunction as BlockerFunction,
   unstable_useBlocker as useBlocker,
-} from "react-router-dom";
+} from "react-router";
 
 export type NavigationModalProps = {
   shouldBlock: boolean | BlockerFunction;

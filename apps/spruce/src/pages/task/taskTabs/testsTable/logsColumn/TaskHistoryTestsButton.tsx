@@ -1,5 +1,5 @@
 import { Button } from "@leafygreen-ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface Props {
   onClick: () => void;

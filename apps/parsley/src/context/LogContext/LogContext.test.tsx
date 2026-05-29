@@ -1,4 +1,4 @@
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes } from "constants/enums";

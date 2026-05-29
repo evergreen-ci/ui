@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client/react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {

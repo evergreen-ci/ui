@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useVersionAnalytics } from "analytics";

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { shortenGithash } from "@evg-ui/lib/utils/string";

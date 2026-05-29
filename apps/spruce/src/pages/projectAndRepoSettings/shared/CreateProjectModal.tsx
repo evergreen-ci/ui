@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { skipToken, useMutation, useQuery } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";

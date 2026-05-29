@@ -1,4 +1,4 @@
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { MultiLineSelectContextProvider, useMultiLineSelectContext } from ".";
 

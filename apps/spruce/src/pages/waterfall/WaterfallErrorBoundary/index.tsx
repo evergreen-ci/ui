@@ -2,7 +2,7 @@ import React, { Component, ErrorInfo } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { H1, InlineCode } from "@leafygreen-ui/typography";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";

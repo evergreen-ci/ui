@@ -1,7 +1,7 @@
 import { useQuery, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";

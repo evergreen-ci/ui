@@ -3,7 +3,7 @@ import { Banner } from "@leafygreen-ui/banner";
 import {
   unstable_BlockerFunction as BlockerFunction,
   unstable_useBlocker as useBlocker,
-} from "react-router-dom";
+} from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DistroQuery } from "gql/generated/types";
 import { SaveModal } from "../../SaveModal";

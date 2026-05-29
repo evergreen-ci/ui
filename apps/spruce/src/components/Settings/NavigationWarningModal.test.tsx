@@ -3,7 +3,7 @@ import {
   Link,
   Outlet,
   RouterProvider,
-} from "react-router-dom";
+} from "react-router";
 import {
   render,
   screen,

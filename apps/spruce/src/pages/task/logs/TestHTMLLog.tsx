@@ -2,7 +2,7 @@ import { useMemo, useRef } from "react";
 import { Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router";
 import { getEvergreenTestLogURL } from "@evg-ui/lib/constants/logURLTemplates";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { styles } from "hooks/useHTMLStream/utils";
