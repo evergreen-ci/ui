@@ -36,6 +36,7 @@ export const TASK_TESTS = gql`
             urlRaw
           }
           status
+          taskId
           testFile
         }
         totalTestCount
