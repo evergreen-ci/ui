@@ -1,13 +1,18 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
+import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
+import { Body } from "@leafygreen-ui/typography";
 import { useParams, useNavigate } from "react-router-dom";
+import { StyledLink } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { getHoneycombHistoryUrl } from "constants/externalResources/honeycomb";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import {
   TaskPerfPluginEnabledQuery,
@@ -45,6 +50,7 @@ const useTabConfig = (
   const {
     annotation,
     baseTask,
+    buildVariant,
     canModifyAnnotation,
     displayName,
     displayStatus,
@@ -53,10 +59,13 @@ const useTabConfig = (
     files,
     id,
     logs: logLinks,
+    project,
+    requester,
     versionMetadata,
   } = task;
   const baseTaskId = baseTask?.id || "";
   const { fileCount } = files ?? {};
+  const { id: projectId } = project || {};
 
   const { showBuildBaron } = useBuildBaronVariables({
     task: {
@@ -170,7 +179,31 @@ const useTabConfig = (
         name="History"
         {...walkthroughHistoryTabProps}
       >
-        <TaskHistory baseTaskId={baseTaskId} task={task} />
+        {baseTaskId ? (
+          <TaskHistory baseTaskId={baseTaskId} task={task} />
+        ) : (
+          <TaskHistoryDisclaimer>
+            <Body>
+              Evergreen cannot show history for this task; try viewing the{" "}
+              <StyledLink
+                href={getHoneycombHistoryUrl({
+                  bvName: buildVariant,
+                  projectId: projectId ?? "",
+                  taskName: displayName,
+                  requester,
+                  isDisplayTask,
+                })}
+              >
+                history in Honeycomb
+              </StyledLink>{" "}
+              instead.
+            </Body>
+            <Body>
+              (Note that if this is a merge queue task, history may become
+              available upon task completion.)
+            </Body>
+          </TaskHistoryDisclaimer>
+        )}
       </Tab>
     ),
     [TaskTab.ExecutionTasksTiming]: (
@@ -193,6 +226,12 @@ const useTabConfig = (
 
   return { tabMap, activeTabs };
 };
+
+const TaskHistoryDisclaimer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+`;
 
 const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { [slugs.tab]: urlTab } = useParams<{ [slugs.tab]: TaskTab }>();
