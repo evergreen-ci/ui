@@ -19,7 +19,7 @@
   "dependencies": {
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
-    "@evg-ui/lib": "workspace:*",
+    "@evg-ui/lib_new": "workspace:*",
     "@via-ds/components": "0.0.1-canary.0",
     "@via-ds/icons": "0.0.2-canary.0",
     "react": "^19.2.6",
@@ -30,9 +30,6 @@
     "@evg-ui/lint-staged": "workspace:*",
     "@evg-ui/playwright-config": "workspace:*",
     "@playwright/test": "^1.58.2",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
