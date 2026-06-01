@@ -1,6 +1,6 @@
 import { getUnixTime } from "date-fns";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Requester } from "constants/requesters";
+import { mainlineRequesters, Requester } from "constants/requesters";
 import { getHoneycombBaseURL } from "utils/environmentVariables";
 
 /**
@@ -129,6 +129,8 @@ export const getHoneycombVersionCostUrl = (versionId: string): string => {
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
 };
 
+const ONE_WEEK_IN_SECONDS = 604800;
+
 export const getHoneycombTaskTimingURL = ({
   buildVariant,
   metric,
@@ -154,7 +156,7 @@ export const getHoneycombTaskTimingURL = ({
   }
 
   const query = {
-    time_range: 604800, // Default to 1 week
+    time_range: ONE_WEEK_IN_SECONDS,
     granularity: 0, // 0 yields auto granularity
     calculations: [
       { op: "HEATMAP", column: metric },
@@ -176,5 +178,54 @@ export const getHoneycombTaskTimingURL = ({
     limit: 1000,
   };
 
+  return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
+export const getHoneycombHistoryUrl = ({
+  bvName,
+  isDisplayTask,
+  projectId,
+  requester,
+  taskName,
+}: {
+  bvName: string;
+  projectId: string;
+  taskName: string;
+  requester: string;
+  isDisplayTask: boolean;
+}) => {
+  const query = {
+    time_range: ONE_WEEK_IN_SECONDS,
+    granularity: 0,
+    calculations: [{ op: "COUNT" }],
+    filters: [
+      { column: "name", op: "=", value: "task" },
+      {
+        column: "evergreen.project.id",
+        op: "=",
+        value: projectId,
+      },
+      {
+        column: "evergreen.version.requester",
+        op: "in",
+        value: [requester, ...mainlineRequesters],
+      },
+      {
+        column: "evergreen.build.name",
+        op: "=",
+        value: bvName,
+      },
+      {
+        column: isDisplayTask
+          ? "evergreen.display_task.name"
+          : "evergreen.task.name",
+        op: "=",
+        value: taskName,
+      },
+    ],
+    breakdowns: ["evergreen.task.status", "evergreen.version.requester"],
+    filter_combination: "AND",
+    limit: 1000,
+  };
   return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
 };
