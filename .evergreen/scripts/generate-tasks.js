@@ -9,9 +9,16 @@ import { whatChanged } from "./git-utils.js";
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
 
+// Maps specific packages to the apps that should be tested when they change.
+// Packages not listed here will trigger tests in all apps.
+const PACKAGE_APP_MAPPING = {
+  lib: ["spruce", "parsley"],
+  lib_new: ["sage"],
+};
+
 /**
  * targetsFromChangedFiles returns a list of build variants to run based on a list of changed files.
- * If any non-app code has changed, all apps will run.
+ * If any non-app code has changed, all apps will run (unless a specific package-to-app mapping exists).
  * @param files - string array of modified files as per git
  * @returns a list of build variants found as keys in TASK_MAPPING
  */
@@ -26,11 +33,15 @@ const targetsFromChangedFiles = (files) => {
       return;
     }
 
-    // If a change is made to a shared directory, test all apps.
     if (packageDir !== APPS_DIR) {
-      targets.add("spruce");
-      targets.add("parsley");
-      targets.add("sage");
+      // If the package has a specific app mapping, only add those apps. Otherwise, test all apps.
+      if (PACKAGE_APP_MAPPING[packageName]) {
+        PACKAGE_APP_MAPPING[packageName].forEach((app) => targets.add(app));
+      } else {
+        targets.add("spruce");
+        targets.add("parsley");
+        targets.add("sage");
+      }
     }
 
     if (TASK_MAPPING[packageName]) {
