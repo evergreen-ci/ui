@@ -4,17 +4,11 @@ import {
   APPS_DIR,
   IGNORED_FILE_EXTENSIONS,
   TASK_MAPPING,
+  PACKAGE_APP_MAPPING
 } from "./constants.js";
 import { whatChanged } from "./git-utils.js";
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
-
-// Maps specific packages to the apps that should be tested when they change.
-// Packages not listed here will trigger tests in all apps.
-const PACKAGE_APP_MAPPING = {
-  lib: ["spruce", "parsley"],
-  lib_new: ["sage"],
-};
 
 /**
  * targetsFromChangedFiles returns a list of build variants to run based on a list of changed files.

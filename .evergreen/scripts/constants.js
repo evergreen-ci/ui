@@ -52,6 +52,15 @@ const TASK_MAPPING = {
   ]
 };
 
+/**
+ * Maps specific packages to apps that should be tested when they change.
+ * Packages not listed here will trigger tests in all apps.
+ */
+const PACKAGE_APP_MAPPING = {
+  lib: ["spruce", "parsley"],
+  lib_new: ["sage"],
+};
+
 const APPS_DIR = "apps";
 const PACKAGES_DIR = "packages";
 const PACKAGE_JSON = "package.json";
@@ -70,4 +79,5 @@ export {
   IGNORED_FILE_EXTENSIONS,
   E2E_PARALLEL_COUNT,
   TASK_MAPPING,
+  PACKAGE_APP_MAPPING
 };
