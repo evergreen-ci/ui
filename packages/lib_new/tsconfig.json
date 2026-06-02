@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "src",
+    "src/**/*.d.ts",
+    "vitest.d.ts"
+  ],
+  "compilerOptions": {
+    "paths": {
+      "*": ["./src/*"]
+    }
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
