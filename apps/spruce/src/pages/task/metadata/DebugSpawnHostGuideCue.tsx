@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
+import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
 import { MetadataItem } from "components/MetadataCard";
 import { SEEN_DEBUG_SPAWN_HOST_GUIDE_CUE } from "constants/cookies";
 import { getSpawnHostRoute } from "constants/routes";
+
+const { green } = palette;
 
 const debugSpawnHostDocsUrl =
   "https://docs.devprod.prod.corp.mongodb.com/evergreen/Hosts/Debug-Spawn-Hosts";
@@ -67,13 +71,12 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
         open={open && isVisible}
         refEl={refEl}
         setOpen={setOpen}
-        title="Debug your failed task"
+        title="New: Debug Spawn Hosts"
       >
-        Spawn a host with debug mode to interactively re-run and inspect failed
-        commands.{" "}
-        <StyledLink hideExternalIcon={false} href={debugSpawnHostDocsUrl}>
-          Learn more
-        </StyledLink>
+        This task can be debugged using <GreenText>debug spawn hosts</GreenText>
+        , which allows you to interactively re-run and inspect failed commands.
+        Read more in{" "}
+        <StyledLink href={debugSpawnHostDocsUrl}>the docs</StyledLink>.
       </GuideCue>
       <span ref={refEl}>
         <StyledRouterLink
@@ -97,3 +100,7 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
     </MetadataItem>
   );
 };
+
+const GreenText = styled.span`
+  color: ${green.base};
+`;
