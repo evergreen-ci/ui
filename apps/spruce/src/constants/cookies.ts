@@ -10,6 +10,8 @@ export const INCLUDE_HIDDEN_PATCHES = "include-hidden-patches";
 export const INCLUDE_NEVER_ACTIVATED_TASKS = "include-never-activated-tasks";
 export const SLACK_NOTIFICATION_BANNER = "has-closed-slack-banner";
 export const SUBSCRIPTION_METHOD = "subscription-method";
+export const SEEN_DEBUG_SPAWN_HOST_GUIDE_CUE =
+  "seen-debug-spawn-host-guide-cue";
 export const SEEN_WATERFALL_ONBOARDING_TUTORIAL =
   "seen-waterfall-onboarding-tutorial";
 export const SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL =
