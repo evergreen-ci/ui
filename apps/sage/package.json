@@ -14,7 +14,9 @@
     "preview": "serve -s dist -p 5493",
     "playwright:test": "playwright test",
     "playwright:ui": "playwright test --ui",
-    "test": "vitest"
+    "test": "vitest",
+    "storybook": "storybook dev -p 6010",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -29,7 +31,11 @@
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "@evg-ui/playwright-config": "workspace:*",
+    "@evg-ui/storybook-addon": "workspace:*",
     "@playwright/test": "^1.58.2",
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-links": "^10.1.10",
+    "@storybook/react-vite": "^10.1.10",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -41,6 +47,7 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.6",
+    "storybook": "^10.1.10"
   }
 }
