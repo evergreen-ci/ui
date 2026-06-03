@@ -29,4 +29,4 @@ type CustomMeta<T> = Omit<Meta<ComponentProps<T>>, "component"> & {
   parameters?: CustomStorybookParams;
 };
 
-export type { CustomStoryObj, CustomMeta };
+export type { ApolloMock, CustomStoryObj, CustomMeta };
