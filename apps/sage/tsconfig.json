@@ -3,7 +3,7 @@
   "compilerOptions": {
     "paths": {
       "@evg-ui/lib/*": [
-        "../../packages/lib/src/*"
+        "../../packages/lib_new/src/*"
       ],
       "*": ["./src/*"]
     }
@@ -13,6 +13,7 @@
     "vite.config.ts",
   ],
   "include": [
+    "../../packages/lib_new/vitest.d.ts",
     "src",
   ],
   "references": [

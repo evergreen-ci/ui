@@ -89,7 +89,7 @@ buildvariants:
         patchable: false
         priority: 100
 
-  - name: sage-ui
+  - name: sage
     display_name: Sage UI
     expansions:
       app_dir: apps/sage
@@ -102,6 +102,11 @@ buildvariants:
         git_tag_only: true
         patchable: false
         priority: 100
+      - name: lint
+      - name: type_check
+      - name: test
+      - name: compile
+      - name: e2e_no_db
 
   - name: lib
     display_name: Lib
