@@ -231,4 +231,4 @@ const useAuthProviderContext = (): AuthState & AuthProviderDispatchMethods => {
   return authState;
 };
 
-export { AuthProvider, useAuthProviderContext };
+export { AuthProvider, AuthStateContext, useAuthProviderContext };
