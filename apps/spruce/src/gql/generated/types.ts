@@ -3061,6 +3061,7 @@ export type ProjectTasksPair = {
   __typename?: "ProjectTasksPair";
   allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
+  displayName: Scalars["String"]["output"];
   projectId: Scalars["String"]["output"];
 };
 
