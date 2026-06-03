@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
@@ -7,12 +7,11 @@ import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
 import { MetadataItem } from "components/MetadataCard";
 import { SEEN_DEBUG_SPAWN_HOST_GUIDE_CUE } from "constants/cookies";
+import { debugSpawnHostsDocumentationUrl } from "constants/externalResources";
 import { getSpawnHostRoute } from "constants/routes";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 const { green } = palette;
-
-const debugSpawnHostDocsUrl =
-  "https://docs.devprod.prod.corp.mongodb.com/evergreen/Hosts/Debug-Spawn-Hosts";
 
 interface DebugSpawnHostGuideCueProps {
   enabled: boolean;
@@ -25,7 +24,7 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
   enabled,
   taskId,
 }) => {
-  const taskAnalytics = useTaskAnalytics();
+  const { sendEvent } = useTaskAnalytics();
   const refEl = useRef<HTMLSpanElement>(null);
 
   const [open, setOpen] = useState(
@@ -33,22 +32,15 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
   );
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    if (!open || !refEl.current) {
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 },
-    );
-    observer.observe(refEl.current);
-    return () => observer.disconnect();
-  }, [open]);
+  useIntersectionObserver(
+    refEl,
+    useCallback(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+      }
+    }, []),
+    { threshold: 0.5 },
+  );
 
   const closeGuideCue = () => {
     Cookies.set(SEEN_DEBUG_SPAWN_HOST_GUIDE_CUE, "true", { expires: 365 });
@@ -59,13 +51,12 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
     <MetadataItem>
       <GuideCue
         currentStep={1}
-        data-cy="debug-spawn-host-guide-cue"
         enabled={enabled}
         numberOfSteps={1}
         onPrimaryButtonClick={() => {
           closeGuideCue();
-          taskAnalytics.sendEvent({
-            name: "Clicked debug spawn host guide cue dismiss",
+          sendEvent({
+            name: "Clicked to dismiss debug spawn host guide cue",
           });
         }}
         open={open && isVisible}
@@ -76,14 +67,15 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
         This task can be debugged using <GreenText>debug spawn hosts</GreenText>
         , which allows you to interactively re-run and inspect failed commands.
         Read more in{" "}
-        <StyledLink href={debugSpawnHostDocsUrl}>the docs</StyledLink>.
+        <StyledLink href={debugSpawnHostsDocumentationUrl}>the docs</StyledLink>
+        .
       </GuideCue>
       <span ref={refEl}>
         <StyledRouterLink
           data-cy="task-spawn-host-link"
           onClick={() => {
             closeGuideCue();
-            taskAnalytics.sendEvent({
+            sendEvent({
               name: "Clicked metadata link",
               "link.type": "spawn host link",
             });
