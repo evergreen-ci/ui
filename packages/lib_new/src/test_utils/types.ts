@@ -1,21 +1,8 @@
 import { ComponentType } from "react";
+import { MockLink } from "@apollo/client/testing";
 import { StoryObj, Meta } from "@storybook/react-vite";
-import { DocumentNode, GraphQLError } from "graphql";
 
-/**
- * Mock for ApolloProvider this allows you to mock GraphQL queries in tests.
- */
-export type ApolloMock<Data, Variables> = {
-  request: {
-    query: DocumentNode;
-    variables?: Variables;
-  };
-  result?: {
-    data?: Data;
-    errors?: GraphQLError[];
-  };
-  error?: Error;
-};
+type ApolloMock = MockLink.MockedResponse;
 
 type CustomStorybookReactRouterParams = {
   initialEntries?: string[];
@@ -23,7 +10,7 @@ type CustomStorybookReactRouterParams = {
   route?: string;
 };
 type CustomStorybookMockApolloProviderParams = {
-  mocks: ApolloMock<unknown, unknown>[];
+  mocks: ApolloMock[];
 };
 
 type CustomStorybookParams = {
@@ -38,7 +25,7 @@ type CustomStoryObj<T> = StoryObj<ComponentProps<T>> & {
 };
 
 type CustomMeta<T> = Omit<Meta<ComponentProps<T>>, "component"> & {
-  component?: ComponentType<any>;
+  component?: ComponentType<T>;
   parameters?: CustomStorybookParams;
 };
 
