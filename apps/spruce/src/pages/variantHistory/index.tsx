@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import { Body, H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -76,9 +77,13 @@ const VariantHistoryContents: React.FC = () => {
       : skipToken,
   );
 
-  const variantDisplayName =
-    data?.mainlineCommits?.versions?.find((v) => v.version)?.version
-      ?.buildVariants?.[0]?.displayName ?? "";
+  const variantDisplayNameRef = useRef<string | undefined>(undefined);
+  if (!variantDisplayNameRef.current) {
+    variantDisplayNameRef.current = data?.mainlineCommits?.versions?.find(
+      (v) => v.version,
+    )?.version?.buildVariants?.[0]?.displayName;
+  }
+  const variantDisplayName = variantDisplayNameRef.current;
 
   const prevLoadingRef = useRef(loading);
   useEffect(() => {
@@ -139,13 +144,13 @@ const VariantHistoryContents: React.FC = () => {
             <Body>
               <b>Identifier:</b> {variantName}
             </Body>
-            {variantDisplayName && (
-              <>
-                <Body> | </Body>
-                <Body>
-                  <b>Display Name:</b> {variantDisplayName}
-                </Body>
-              </>
+            <Body> | </Body>
+            {variantDisplayName ? (
+              <Body>
+                <b>Display Name:</b> {variantDisplayName}
+              </Body>
+            ) : (
+              <DisplayNamePlaceholder size={SkeletonSize.Small} />
             )}
           </VariantMetadata>
           <PageHeaderContent>
@@ -224,9 +229,14 @@ const PageHeader = styled.div`
 
 const VariantMetadata = styled.div`
   display: flex;
+  align-items: center;
   gap: ${size.xxs};
   margin-top: ${size.xxs};
   padding-left: ${size.xxs};
+`;
+
+const DisplayNamePlaceholder = styled(Skeleton)`
+  width: 200px;
 `;
 
 const PageHeaderContent = styled.div`
