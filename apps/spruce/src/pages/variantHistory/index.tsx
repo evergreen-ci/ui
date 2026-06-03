@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { H2 } from "@leafygreen-ui/typography";
+import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
+import { Body, H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
@@ -76,6 +77,14 @@ const VariantHistoryContents: React.FC = () => {
       : skipToken,
   );
 
+  const variantDisplayNameRef = useRef<string | undefined>(undefined);
+  if (!variantDisplayNameRef.current) {
+    variantDisplayNameRef.current = data?.mainlineCommits?.versions?.find(
+      (v) => v.version,
+    )?.version?.buildVariants?.[0]?.displayName;
+  }
+  const variantDisplayName = variantDisplayNameRef.current;
+
   const prevLoadingRef = useRef(loading);
   useEffect(() => {
     // Trigger only when loading transitions from true to false (query completed).
@@ -130,7 +139,20 @@ const VariantHistoryContents: React.FC = () => {
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <CenterPage>
         <PageHeader>
-          <H2>Build Variant: {variantName}</H2>
+          <H2>Variant History</H2>
+          <VariantMetadata>
+            <Body>
+              <b>Identifier:</b> {variantName}
+            </Body>
+            <Body> | </Body>
+            {variantDisplayName ? (
+              <Body>
+                <b>Display Name:</b> {variantDisplayName}
+              </Body>
+            ) : (
+              <DisplayNamePlaceholder size={SkeletonSize.Small} />
+            )}
+          </VariantMetadata>
           <PageHeaderContent>
             <HistoryTableTestSearch
               onSubmit={() => {
@@ -198,10 +220,23 @@ const VariantHistory = () => (
     <VariantHistoryContents />
   </HistoryTableProvider>
 );
+
 const PageHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+const VariantMetadata = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+  margin-top: ${size.xxs};
+  padding-left: ${size.xxs};
+`;
+
+const DisplayNamePlaceholder = styled(Skeleton)`
+  width: 200px;
 `;
 
 const PageHeaderContent = styled.div`
