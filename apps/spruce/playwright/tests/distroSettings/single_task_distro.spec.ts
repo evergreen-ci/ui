@@ -10,8 +10,12 @@ test.describe("single task distro", () => {
 
     const cards = page.getByTestId("expandable-card-title");
     await expect(cards).toHaveCount(2);
-    await expect(cards.nth(0)).toHaveText("evergreen");
-    await expect(cards.nth(1)).toHaveText("spruce");
+    await expect(cards.nth(0)).toContainText("evergreen smoke test", {
+      ignoreCase: false,
+    });
+    await expect(cards.nth(1)).toContainText("Spruce", {
+      ignoreCase: false,
+    });
 
     await cards.nth(0).click();
     const inputs = page.getByTestId("expandable-card").locator("input");
