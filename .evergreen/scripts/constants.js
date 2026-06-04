@@ -3,6 +3,7 @@ const Tasks = {
   Compile: "compile",
   E2E: "e2e",
   E2EParallel: "e2e_parallel",
+  E2ENoDB: "e2e_no_db",
   Lint: "lint",
   Storybook: "storybook",
   Test: "test",
@@ -42,6 +43,23 @@ const TASK_MAPPING = {
     Tasks.Test,
     Tasks.TypeCheck,
   ],
+  sage: [
+    Tasks.Compile,
+    Tasks.E2ENoDB,
+    Tasks.Lint,
+    Tasks.Storybook,
+    Tasks.Test,
+    Tasks.TypeCheck,
+  ]
+};
+
+/**
+ * Maps specific packages to apps that should be tested when they change.
+ * Packages not listed here will trigger tests in all apps.
+ */
+const PACKAGE_APP_MAPPING = {
+  lib: ["spruce", "parsley"],
+  lib_new: ["sage"],
 };
 
 const APPS_DIR = "apps";
@@ -62,4 +80,5 @@ export {
   IGNORED_FILE_EXTENSIONS,
   E2E_PARALLEL_COUNT,
   TASK_MAPPING,
+  PACKAGE_APP_MAPPING
 };

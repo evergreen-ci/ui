@@ -89,7 +89,7 @@ buildvariants:
         patchable: false
         priority: 100
 
-  - name: sage-ui
+  - name: sage
     display_name: Sage UI
     expansions:
       app_dir: apps/sage
@@ -98,6 +98,12 @@ buildvariants:
       - ubuntu2204-large
       - ubuntu2204-small
     tasks:
+      - name: compile
+      - name: e2e_no_db
+      - name: lint
+      - name: storybook
+      - name: test
+      - name: type_check
       - name: deploy-sage-ui-prod
         git_tag_only: true
         patchable: false
