@@ -4,8 +4,9 @@ export const gqlToForm = (data?: SingleTaskDistroQuery) => {
   const sortedProjectTasksPairs = (
     data?.spruceConfig?.singleTaskDistro?.projectTasksPairs || []
   )
-    .map(({ allowedBVs, allowedTasks, projectId }) => ({
-      displayTitle: projectId,
+    .map(({ allowedBVs, allowedTasks, displayName, projectId }) => ({
+      displayTitle: displayName,
+      projectId,
       allowedTasks: [...allowedTasks].sort(),
       allowedBVs: [...allowedBVs].sort(),
     }))

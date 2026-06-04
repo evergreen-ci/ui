@@ -10739,6 +10739,7 @@ export type SingleTaskDistroQuery = {
         __typename?: "ProjectTasksPair";
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
+        displayName: string;
         projectId: string;
       }>;
     } | null;

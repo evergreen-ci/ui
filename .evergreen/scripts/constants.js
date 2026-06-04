@@ -45,8 +45,9 @@ const TASK_MAPPING = {
   ],
   sage: [
     Tasks.Compile,
-    Tasks.Lint,
     Tasks.E2ENoDB,
+    Tasks.Lint,
+    Tasks.Storybook,
     Tasks.Test,
     Tasks.TypeCheck,
   ]
