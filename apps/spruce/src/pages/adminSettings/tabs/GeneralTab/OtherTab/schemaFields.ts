@@ -295,7 +295,7 @@ export const getSingleTaskDistroSchema = ({
           properties: {
             projectId: {
               type: "string" as const,
-              title: "Project ID / Repo",
+              title: "Project ID / Repo ID",
               oneOf: projectRepoOptions,
               default: "",
             },
