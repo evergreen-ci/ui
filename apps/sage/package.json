@@ -21,7 +21,7 @@
   "dependencies": {
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
-    "@evg-ui/lib_new": "workspace:*",
+    "@evg-ui/lib-via": "workspace:*",
     "@via-ds/components": "0.0.1-canary.0",
     "@via-ds/icons": "0.0.2-canary.0",
     "react": "^19.2.6",

@@ -355,9 +355,9 @@ importers:
       '@emotion/styled':
         specifier: 11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@18.3.12)(react@19.2.6))(@types/react@18.3.12)(react@19.2.6)
-      '@evg-ui/lib_new':
+      '@evg-ui/lib-via':
         specifier: workspace:*
-        version: link:../../packages/lib_new
+        version: link:../../packages/lib-via
       '@types/react':
         specifier: 18.3.12
         version: 18.3.12
@@ -1280,7 +1280,7 @@ importers:
         specifier: 1.1.3
         version: 1.1.3(vitest@4.1.6(@opentelemetry/api@1.9.1)(@types/jsdom@28.0.2)(@types/node@22.19.17)(jsdom@29.0.1)(vite@8.0.13(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.6.1)(yaml@2.8.3)))
 
-  packages/lib_new:
+  packages/lib-via:
     dependencies:
       '@apollo/client':
         specifier: ^4.1.3
@@ -8332,8 +8332,8 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
-  undici-types@7.27.0:
-    resolution: {integrity: sha512-sqqlwW3zm+cE82GwKdGyn3pcze7LXlx/4jUgA0vtAf6Fa81KMrJqc3VfWmmeOTUIElW9IdPsLwMUIpiOZQgK3A==}
+  undici-types@7.25.0:
+    resolution: {integrity: sha512-AXNgS1Byr27fTI+2bsPEkV9CxkT8H6xNyRI68b3TatlZo3RkzlqQBLL+w7SmGPVpokjHbcuNVQUWE7FRTg+LRA==}
 
   undici@7.24.5:
     resolution: {integrity: sha512-3IWdCpjgxp15CbJnsi/Y9TCDE7HWVN19j1hmzVhoAkY/+CJx449tVxT5wZc1Gwg8J+P0LWvzlBzxYRnHJ+1i7Q==}
@@ -13428,7 +13428,7 @@ snapshots:
       '@types/node': 22.19.17
       '@types/tough-cookie': 4.0.5
       parse5: 8.0.1
-      undici-types: 7.27.0
+      undici-types: 7.25.0
 
   '@types/json-schema@7.0.15': {}
 
@@ -18002,7 +18002,7 @@ snapshots:
 
   undici-types@7.16.0: {}
 
-  undici-types@7.27.0: {}
+  undici-types@7.25.0: {}
 
   undici@7.24.5: {}
 
