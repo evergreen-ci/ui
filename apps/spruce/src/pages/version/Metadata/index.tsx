@@ -274,9 +274,11 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           childPatchesTotalCost={
             isPatch ? patch?.cost?.childPatchesTotalCost : null
           }
+          endTs={finishTime ?? undefined}
           name={message ?? id}
           open={costModalOpen}
           setOpen={setCostModalOpen}
+          startTs={startTime ?? undefined}
           versionId={id}
         />
       )}
