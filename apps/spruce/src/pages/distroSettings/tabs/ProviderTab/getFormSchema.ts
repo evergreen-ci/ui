@@ -53,11 +53,6 @@ export const getFormSchema = ({
                 title: "EC2 Fleet",
                 enum: [Provider.Ec2Fleet],
               },
-              {
-                type: "string" as const,
-                title: "EC2 On-Demand",
-                enum: [Provider.Ec2OnDemand],
-              },
             ],
           },
           ...(isEC2Provider && {
@@ -145,39 +140,6 @@ export const getFormSchema = ({
                       })),
                     },
                     ...ec2FleetProviderSettings.schema,
-                  },
-                },
-              },
-              taskHostOverrides: taskHostOverridesFields.schema,
-            },
-          },
-          {
-            properties: {
-              provider: {
-                properties: {
-                  providerName: {
-                    enum: [Provider.Ec2OnDemand],
-                  },
-                },
-              },
-              ec2OnDemandProviderSettings: {
-                type: "array" as const,
-                minItems: 1,
-                title: "",
-                items: {
-                  type: "object" as const,
-                  properties: {
-                    region: {
-                      type: "string" as const,
-                      title: "Region",
-                      default: "",
-                      oneOf: awsRegions.map((r) => ({
-                        type: "string" as const,
-                        title: r,
-                        enum: [r],
-                      })),
-                    },
-                    ...ec2OnDemandProviderSettings.schema,
                   },
                 },
               },

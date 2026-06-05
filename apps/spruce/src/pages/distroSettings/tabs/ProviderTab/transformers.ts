@@ -106,17 +106,6 @@ export const formToGql = ((data, distro) => {
         containerPool: "",
         taskHostOverrides: toTaskHostOverridesInput(data.taskHostOverrides),
       };
-    case Provider.Ec2OnDemand:
-      return {
-        ...distro,
-        provider: Provider.Ec2OnDemand,
-        providerAccount: data.provider.providerAccount,
-        providerSettingsList: data.ec2OnDemandProviderSettings.map((p) => ({
-          ...gqlProviderSettings(p).ec2OnDemandProviderSettings,
-        })),
-        containerPool: "",
-        taskHostOverrides: toTaskHostOverridesInput(data.taskHostOverrides),
-      };
     default:
       return distro;
   }

@@ -15,7 +15,7 @@ import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 import { UnsavedModal } from "./UnsavedModal";
 
-const ec2Providers = [Provider.Ec2Fleet, Provider.Ec2OnDemand];
+const ec2Providers = [Provider.Ec2Fleet];
 
 export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const { getTab } = useDistroSettingsContext();

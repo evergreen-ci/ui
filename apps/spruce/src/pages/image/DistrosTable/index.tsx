@@ -120,7 +120,7 @@ const columns: LGColumnDef<Distro>[] = [
       },
     }) => (
       <span>
-        {provider === Provider.Ec2Fleet || provider === Provider.Ec2OnDemand
+        {provider === Provider.Ec2Fleet
           ? providerSettingsList.find((e) => e.region === defaultEC2Region)
               ?.instance_type
           : "N/A"}
@@ -138,7 +138,7 @@ const columns: LGColumnDef<Distro>[] = [
       },
     }) => (
       <span>
-        {provider === Provider.Ec2Fleet || provider === Provider.Ec2OnDemand
+        {provider === Provider.Ec2Fleet
           ? getValue()
           : (providerSettingsList?.[0]?.hosts?.length ?? 0)}
       </span>
