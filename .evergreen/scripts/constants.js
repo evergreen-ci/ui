@@ -59,7 +59,7 @@ const TASK_MAPPING = {
  */
 const PACKAGE_APP_MAPPING = {
   lib: ["spruce", "parsley"],
-  lib_new: ["sage"],
+  "lib-via": ["sage"],
 };
 
 const APPS_DIR = "apps";
