@@ -279,6 +279,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           open={costModalOpen}
           setOpen={setCostModalOpen}
           startTs={startTime ?? undefined}
+          total={totalCost ?? cost.total}
           versionId={id}
         />
       )}

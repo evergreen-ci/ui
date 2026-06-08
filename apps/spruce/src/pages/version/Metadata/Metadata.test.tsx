@@ -232,6 +232,36 @@ describe("version metadata cost display", () => {
     ).toBeInTheDocument();
   });
 
+  it("ShowsPatchCostTotalInModalForPatches", async () => {
+    const user = userEvent.setup();
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          isPatch: true,
+          cost: { __typename: "Cost", total: 1.5 },
+          patch: {
+            __typename: "Patch",
+            cost: { __typename: "Cost", total: 3.75 },
+            childPatches: null,
+            githubPatchData: null,
+            includedLocalModules: null,
+          } as unknown as Version["patch"],
+          finishTime: new Date("2024-01-02"),
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+    await user.click(screen.getByDataCy("version-cost-details-button"));
+    // Total row in the modal uses patch.cost.total (3.75), not cost.total (1.5).
+    const modal = screen.getByDataCy("cost-modal");
+    expect(within(modal).getByText("$3.75")).toBeInTheDocument();
+  });
+
   it("CanReopenCostModalAfterClosing", async () => {
     const user = userEvent.setup();
     render(
