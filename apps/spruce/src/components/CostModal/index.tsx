@@ -35,10 +35,14 @@ type CostFields = Pick<
 
 interface CostModalProps extends CostFields {
   childPatchesTotalCost?: number | null;
+  /** End timestamp used to bound the Honeycomb cost query time range. */
+  endTs?: Date;
   /** Display name shown in the modal title, e.g. task display name */
   name: string;
   open: boolean;
   setOpen: (open: boolean) => void;
+  /** Start timestamp used to bound the Honeycomb cost query time range. */
+  startTs?: Date;
   taskId?: string;
   versionId?: string;
 }
@@ -79,9 +83,11 @@ export const CostModal: React.FC<CostModalProps> = ({
   adjustedS3LogPutCost,
   adjustedS3LogStorageCost,
   childPatchesTotalCost,
+  endTs,
   name,
   open,
   setOpen,
+  startTs,
   taskId,
   total,
   versionId,
@@ -119,20 +125,20 @@ export const CostModal: React.FC<CostModalProps> = ({
           Evergreen cost documentation
         </StyledLink>
         <BaseTable data-cy="cost-breakdown-table" table={table} />
-        {taskId && (
+        {taskId && startTs && endTs && (
           <StyledLink
             data-cy="task-cost-link"
             hideExternalIcon={false}
-            href={getHoneycombTaskCostUrl(taskId)}
+            href={getHoneycombTaskCostUrl(taskId, startTs, endTs)}
           >
             Cost breakdown in Honeycomb
           </StyledLink>
         )}
-        {versionId && (
+        {versionId && startTs && endTs && (
           <StyledLink
             data-cy="version-cost-link"
             hideExternalIcon={false}
-            href={getHoneycombVersionCostUrl(versionId)}
+            href={getHoneycombVersionCostUrl(versionId, startTs, endTs)}
           >
             Cost breakdown in Honeycomb
           </StyledLink>

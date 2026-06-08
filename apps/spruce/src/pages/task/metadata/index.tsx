@@ -399,9 +399,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
       {taskCost && costModalOpen && (
         <CostModal
           {...taskCost}
+          endTs={finishTime ?? undefined}
           name={task.displayName}
           open={costModalOpen}
           setOpen={setCostModalOpen}
+          startTs={startTime ?? undefined}
           taskId={taskId}
         />
       )}
