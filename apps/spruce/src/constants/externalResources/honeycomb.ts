@@ -15,9 +15,7 @@ export const getHoneycombTraceUrl = (
   startTs: Date,
   endTs: Date,
 ): string =>
-  `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
-    new Date(startTs),
-  )}&trace_end_ts=${getUnixTime(new Date(endTs)) + 1}`;
+  `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(startTs)}&trace_end_ts=${getUnixTime(endTs) + 1}`;
 
 export const getHoneycombSystemMetricsUrl = (
   taskId: string,
@@ -44,8 +42,8 @@ export const getHoneycombSystemMetricsUrl = (
       ]),
     ),
     filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
-    start_time: getUnixTime(new Date(startTs)),
-    end_time: getUnixTime(new Date(endTs)),
+    start_time: getUnixTime(startTs),
+    end_time: getUnixTime(endTs),
   };
 
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(
@@ -133,8 +131,8 @@ export const getHoneycombTaskCostUrl = (
       { op: "MAX", column: "evergreen.task.s3_cost.log_upload_bytes" },
     ],
     filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
-    start_time: getUnixTime(new Date(startTs)),
-    end_time: getUnixTime(new Date(endTs)) + 300,
+    start_time: getUnixTime(startTs),
+    end_time: getUnixTime(endTs) + 300,
   };
 
   return buildHoneycombStatUrl("evergreen", query);
@@ -200,8 +198,8 @@ export const getHoneycombVersionCostUrl = (
       { op: "MAX", column: "evergreen.version.s3_cost.log_upload_bytes" },
     ],
     filters: [{ op: "=", column: "evergreen.version.id", value: versionId }],
-    start_time: getUnixTime(new Date(startTs)),
-    end_time: getUnixTime(new Date(endTs)) + 300,
+    start_time: getUnixTime(startTs),
+    end_time: getUnixTime(endTs) + 300,
   };
 
   return buildHoneycombStatUrl("evergreen", query);
