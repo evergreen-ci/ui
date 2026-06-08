@@ -69,6 +69,16 @@ interface TaskTimingParams {
   taskName: string;
 }
 
+const buildHoneycombStatUrl = (
+  dataset: string,
+  query: { calculations: unknown[] },
+) => {
+  const columnSeriesParams = query.calculations
+    .map((_, i) => `cstype_${i}=stat`)
+    .join("&");
+  return `${getHoneycombBaseURL()}/datasets/${dataset}?query=${JSON.stringify(query)}&${columnSeriesParams}`;
+};
+
 /**
  * Generates a URL for viewing the cost breakdown of a task in Honeycomb.
  * @param taskId - The ID of the task.
@@ -127,11 +137,7 @@ export const getHoneycombTaskCostUrl = (
     end_time: getUnixTime(new Date(endTs)) + 300,
   };
 
-  const columnSeriesParams = query.calculations
-    .map((_, i) => `cstype_${i}=stat`)
-    .join("&");
-
-  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&${columnSeriesParams}`;
+  return buildHoneycombStatUrl("evergreen", query);
 };
 
 /**
@@ -198,11 +204,7 @@ export const getHoneycombVersionCostUrl = (
     end_time: getUnixTime(new Date(endTs)) + 300,
   };
 
-  const columnSeriesParams = query.calculations
-    .map((_, i) => `cstype_${i}=stat`)
-    .join("&");
-
-  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&${columnSeriesParams}`;
+  return buildHoneycombStatUrl("evergreen", query);
 };
 
 const ONE_WEEK_IN_SECONDS = 604800;
