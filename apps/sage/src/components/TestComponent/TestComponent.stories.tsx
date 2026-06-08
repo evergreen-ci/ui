@@ -1,5 +1,5 @@
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { TestComponent } from "./TestComponent";
+import { TestComponent } from ".";
 
 export default {
   component: TestComponent,
