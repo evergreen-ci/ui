@@ -1,4 +1,5 @@
 import { trimSeverity } from "@evg-ui/lib/utils/string/logs";
+import { ansiToJiraColorMarkup } from "./ansiToJira";
 
 /**
  * `getRawLines` constructs a string with the lines provided.
@@ -38,6 +39,8 @@ export const getRawLines = (
 
 /**
  * `getJiraFormat` constructs a JIRA formatted string with the lines provided.
+ * ANSI color codes are rewritten as JIRA color tags and other escape
+ * sequences are stripped.
  * @param indices  - array of numbers representing the line indices you want to copy
  * @param getLine - function that retrieves the log text associated with a log line number
  * @returns formatted string that can be pasted into JIRA
@@ -50,7 +53,12 @@ export const getJiraFormat = (
     return "";
   }
 
-  return `{noformat}\n${getRawLines(indices, getLine)}{noformat}`;
+  const getJiraLine = (lineNumber: number) => {
+    const line = getLine(lineNumber);
+    return line === undefined ? undefined : ansiToJiraColorMarkup(line);
+  };
+
+  return `{noformat}\n${getRawLines(indices, getJiraLine)}{noformat}`;
 };
 
 /**
