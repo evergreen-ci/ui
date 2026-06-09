@@ -99,7 +99,8 @@ type Action =
       name: "Clicked review task";
       reviewed: boolean;
     }
-  | { name: "Clicked cost details button" };
+  | { name: "Clicked cost details button" }
+  | { name: "Clicked to dismiss debug spawn host guide cue" };
 
 export const useTaskAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();
