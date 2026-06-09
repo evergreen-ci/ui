@@ -71,7 +71,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
       {activeColumns.map((vc) => {
         const cell = columnMap[vc];
         if (!cell) {
-          return null;
+          return <div key={vc}>{vc}</div>;
         }
         return (
           <ColumnHeaderCell
