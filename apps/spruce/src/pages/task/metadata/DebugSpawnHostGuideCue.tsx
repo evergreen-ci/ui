@@ -7,7 +7,10 @@ import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
 import { MetadataItem } from "components/MetadataCard";
 import { SEEN_DEBUG_SPAWN_HOST_GUIDE_CUE } from "constants/cookies";
-import { debugSpawnHostsDocumentationUrl } from "constants/externalResources";
+import {
+  debugSpawnHostsAdminDocumentationUrl,
+  debugSpawnHostsDocumentationUrl,
+} from "constants/externalResources";
 import { getSpawnHostRoute } from "constants/routes";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 
@@ -68,6 +71,13 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
         , which allows you to interactively re-run and inspect failed commands.
         Read more in{" "}
         <StyledLink href={debugSpawnHostsDocumentationUrl}>the docs</StyledLink>
+        .
+        <br />
+        <br />
+        If not yet enabled, reach out to your{" "}
+        <StyledLink href={debugSpawnHostsAdminDocumentationUrl}>
+          project admin
+        </StyledLink>
         .
       </GuideCue>
       <span ref={refEl}>

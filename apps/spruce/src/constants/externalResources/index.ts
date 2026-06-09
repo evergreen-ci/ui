@@ -20,6 +20,8 @@ export const taskSpawnHostDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hos
 
 export const debugSpawnHostsDocumentationUrl = `${hostsDocumentationUrl}/Debug-Spawn-Hosts`;
 
+export const debugSpawnHostsAdminDocumentationUrl = `${hostsDocumentationUrl}/Debug-Spawn-Hosts#for-project-admins`;
+
 export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
 
 export const projectSettingsRepoSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Repo-Level-Settings`;
