@@ -51,27 +51,6 @@ const defaultFormState = {
       doNotAssignPublicIPv4Address: true,
     },
   ],
-  ec2OnDemandProviderSettings: [
-    {
-      region: "",
-      displayTitle: undefined,
-      amiId: "",
-      instanceProfileARN: "",
-      elasticIpsEnabled: false,
-      instanceType: "",
-      mergeUserData: false,
-      mountPoints: [],
-      securityGroups: ["1"],
-      sshKeyName: "",
-      userData: "",
-      vpcOptions: {
-        subnetId: "",
-        useVpc: false,
-        subnetPrefix: "",
-      },
-      doNotAssignPublicIPv4Address: true,
-    },
-  ],
   taskHostOverrides: defaultTaskHostOverrides,
 };
 
@@ -275,40 +254,6 @@ describe("provider tab", () => {
           },
         },
       ],
-      ec2OnDemandProviderSettings: [
-        {
-          doNotAssignPublicIPv4Address: true,
-          region: "us-east-1",
-          displayTitle: "us-east-1",
-          amiId: "ami-east",
-          instanceProfileARN: "profile-east",
-          elasticIpsEnabled: false,
-          instanceType: "m5.xlarge",
-          mergeUserData: false,
-          mountPoints: [
-            {
-              deviceName: "device-east",
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              virtualName: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              volumeType: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              iops: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              throughput: undefined,
-              size: 200,
-            },
-          ],
-          securityGroups: ["1"],
-          sshKeyName: "admin",
-          userData: "",
-          vpcOptions: {
-            subnetId: "subnet-east",
-            useVpc: true,
-            subnetPrefix: "vpc-east",
-          },
-        },
-      ],
     };
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -407,27 +352,6 @@ describe("provider tab", () => {
         providerAccount: "aws",
       },
       ec2FleetProviderSettings: [
-        {
-          doNotAssignPublicIPv4Address: true,
-          region: "us-east-1",
-          displayTitle: "us-east-1",
-          amiId: "ami-east",
-          instanceProfileARN: "profile-east",
-          elasticIpsEnabled: false,
-          instanceType: "m5.xlarge",
-          mergeUserData: false,
-          mountPoints: [],
-          securityGroups: ["1"],
-          sshKeyName: "admin",
-          userData: "",
-          vpcOptions: {
-            subnetId: "subnet-east",
-            useVpc: true,
-            subnetPrefix: "vpc-east",
-          },
-        },
-      ],
-      ec2OnDemandProviderSettings: [
         {
           doNotAssignPublicIPv4Address: true,
           region: "us-east-1",

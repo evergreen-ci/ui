@@ -48,10 +48,6 @@ export const gqlToForm = ((data) => {
       ...formProviderSettings(p).ec2FleetProviderSettings,
       displayTitle: p.region,
     })),
-    ec2OnDemandProviderSettings: providerSettingsList.map((p) => ({
-      ...formProviderSettings(p).ec2OnDemandProviderSettings,
-      displayTitle: p.region,
-    })),
     taskHostOverrides: {
       enableTaskHostOverrides: taskHostOverrides != null,
       doNotAssignPublicIpv4Address:
