@@ -26,17 +26,18 @@ import {
   getTaskQueueRoute,
   getTaskRoute,
   getHostRoute,
-  getSpawnHostRoute,
   getProjectPatchesRoute,
   getImageRoute,
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
 import { formatCost } from "utils/numbers";
+import { isFailedTaskStatus } from "utils/statuses";
 import { isInStepback } from "utils/stepback";
 import { msToDuration } from "utils/string";
 import { AbortMessage } from "./AbortMessage";
 import { BuildVariantCard } from "./BuildVariant";
+import { DebugSpawnHostGuideCue } from "./DebugSpawnHostGuideCue";
 import { DependsOn } from "./DependsOn";
 import DetailsDescription from "./DetailsDescription";
 import ETATimer from "./ETATimer";
@@ -399,9 +400,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
       {taskCost && costModalOpen && (
         <CostModal
           {...taskCost}
+          endTs={finishTime ?? undefined}
           name={task.displayName}
           open={costModalOpen}
           setOpen={setCostModalOpen}
+          startTs={startTime ?? undefined}
           taskId={taskId}
         />
       )}
@@ -481,24 +484,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </MetadataItem>
           )}
           {spawnHostLink && (
-            <MetadataItem>
-              <StyledRouterLink
-                data-cy="task-spawn-host-link"
-                onClick={() =>
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "spawn host link",
-                  })
-                }
-                to={getSpawnHostRoute({
-                  distroId,
-                  spawnHost: true,
-                  taskId,
-                })}
-              >
-                Spawn host
-              </StyledRouterLink>
-            </MetadataItem>
+            <DebugSpawnHostGuideCue
+              distroId={distroId}
+              enabled={isFailedTaskStatus(displayStatus)}
+              taskId={taskId}
+            />
           )}
         </MetadataCard>
       )}
