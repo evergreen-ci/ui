@@ -38,6 +38,9 @@ include:
 buildvariants:
   - name: spruce
     display_name: Spruce
+    paths:
+      - "apps/spruce/**"
+      - "packages/**"
     run_on:
       - ubuntu2204-large
     expansions:
@@ -53,6 +56,7 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: e2e
+        patchable: false
       - name: lint
       - name: storybook
       - name: test
@@ -64,6 +68,9 @@ buildvariants:
 
   - name: parsley
     display_name: Parsley
+    paths:
+      - "apps/parsley/**"
+      - "packages/**"
     expansions:
       app_dir: apps/parsley
       goroot: /opt/golang/go1.24
@@ -91,6 +98,9 @@ buildvariants:
 
   - name: sage
     display_name: Sage UI
+    paths:
+      - "apps/sage/**"
+      - "packages/**"
     expansions:
       app_dir: apps/sage
       node_version: 22.18.0
@@ -111,6 +121,8 @@ buildvariants:
 
   - name: lib
     display_name: Lib
+    paths:
+      - "packages/lib/**"
     expansions:
       app_dir: packages/lib
       goroot: /opt/golang/go1.24
@@ -129,6 +141,8 @@ buildvariants:
 
   - name: deploy-utils
     display_name: Deploy Utils
+    paths:
+      - "packages/deploy-utils/**"
     expansions:
       app_dir: packages/deploy-utils
       goroot: /opt/golang/go1.24
@@ -143,6 +157,9 @@ buildvariants:
 
   - name: fungi
     display_name: Fungi
+    paths:
+      - "packages/fungi/**"
+      - "packages/lib/**"
     expansions:
       app_dir: packages/fungi
       goroot: /opt/golang/go1.24
@@ -158,6 +175,8 @@ buildvariants:
 
   - name: analytics-visualizer
     display_name: Analytics Visualizer
+    paths:
+      - "packages/analytics-visualizer/**"
     expansions:
       app_dir: packages/analytics-visualizer
       node_version: 22.18.0
@@ -176,7 +195,6 @@ buildvariants:
     run_on:
       - ubuntu2204-small
     tasks:
-      - generate-tasks
       - generate-spruce-e2e
 
   - name: deploy
