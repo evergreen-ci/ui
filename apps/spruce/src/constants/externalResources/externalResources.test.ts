@@ -2,6 +2,7 @@ import {
   getHoneycombSystemMetricsUrl,
   getHoneycombTaskCostUrl,
   getHoneycombTraceUrl,
+  getHoneycombVersionCostUrl,
 } from "./honeycomb";
 
 describe("getHoneycombTraceUrl", () => {
@@ -20,8 +21,28 @@ describe("getHoneycombTraceUrl", () => {
 
 describe("getHoneycombTaskCostUrl", () => {
   it("generates the correct url", () => {
-    expect(getHoneycombTaskCostUrl("task_12345")).toBe(
-      `/datasets/evergreen?query={"calculations":[{"op":"MAX","column":"evergreen.task.adjusted_cost"},{"op":"MAX","column":"evergreen.task.cost.ebs.adjusted_throughput_cost"},{"op":"MAX","column":"evergreen.task.cost.ebs.adjusted_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_artifact_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_artifact_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_log_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_log_storage_cost"}],"filters":[{"op":"=","column":"evergreen.task.id","value":"task_12345"}]}&omitMissingValues`,
+    expect(
+      getHoneycombTaskCostUrl(
+        "task_12345",
+        new Date("2023-07-07T19:08:41"),
+        new Date("2023-07-07T20:00:00"),
+      ),
+    ).toBe(
+      `/datasets/evergreen?query={"calculations":[{"op":"MAX","column":"evergreen.task.adjusted_cost"},{"op":"MAX","column":"evergreen.task.on_demand_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_artifact_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.on_demand_artifact_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_log_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.on_demand_log_put_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_artifact_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.on_demand_artifact_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.adjusted_log_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.on_demand_log_storage_cost"},{"op":"MAX","column":"evergreen.task.s3_cost.artifact_put_requests"},{"op":"MAX","column":"evergreen.task.s3_cost.artifact_upload_bytes"},{"op":"MAX","column":"evergreen.task.s3_cost.log_put_requests"},{"op":"MAX","column":"evergreen.task.s3_cost.log_upload_bytes"}],"filters":[{"op":"=","column":"evergreen.task.id","value":"task_12345"}],"start_time":1688756921,"end_time":1688760300}&cstype_0=stat&cstype_1=stat&cstype_2=stat&cstype_3=stat&cstype_4=stat&cstype_5=stat&cstype_6=stat&cstype_7=stat&cstype_8=stat&cstype_9=stat&cstype_10=stat&cstype_11=stat&cstype_12=stat&cstype_13=stat`,
+    );
+  });
+});
+
+describe("getHoneycombVersionCostUrl", () => {
+  it("generates the correct url", () => {
+    expect(
+      getHoneycombVersionCostUrl(
+        "version_12345",
+        new Date("2023-07-07T19:08:41"),
+        new Date("2023-07-07T20:00:00"),
+      ),
+    ).toBe(
+      `/datasets/evergreen?query={"calculations":[{"op":"MAX","column":"evergreen.version.adjusted_cost"},{"op":"MAX","column":"evergreen.version.on_demand_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.adjusted_artifact_put_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.on_demand_artifact_put_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.adjusted_log_put_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.on_demand_log_put_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.adjusted_artifact_storage_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.on_demand_artifact_storage_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.adjusted_log_storage_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.on_demand_log_storage_cost"},{"op":"MAX","column":"evergreen.version.s3_cost.artifact_put_requests"},{"op":"MAX","column":"evergreen.version.s3_cost.artifact_upload_bytes"},{"op":"MAX","column":"evergreen.version.s3_cost.log_put_requests"},{"op":"MAX","column":"evergreen.version.s3_cost.log_upload_bytes"}],"filters":[{"op":"=","column":"evergreen.version.id","value":"version_12345"}],"start_time":1688756921,"end_time":1688760300}&cstype_0=stat&cstype_1=stat&cstype_2=stat&cstype_3=stat&cstype_4=stat&cstype_5=stat&cstype_6=stat&cstype_7=stat&cstype_8=stat&cstype_9=stat&cstype_10=stat&cstype_11=stat&cstype_12=stat&cstype_13=stat`,
     );
   });
 });
