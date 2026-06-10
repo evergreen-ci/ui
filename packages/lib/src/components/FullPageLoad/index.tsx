@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const FullPageLoad: React.FC = () => (
   <FullPage data-cy="loading-page">
-    <div>TESTING...</div>
+    <div>LOADING...</div>
   </FullPage>
 );
 
