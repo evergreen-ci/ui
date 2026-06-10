@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import { size, palette } from "@evg-ui/lib/constants/tokens";
+import { size, palette } from "@evg-ui/lib/constants/tokens-via";
 import {
   getAgentDetailRoute,
   getAgentRunsRoute,

@@ -1,9 +1,9 @@
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { NavBar } from "components/NavBar";
 import { routes } from "constants/routes";
 import { AgentDetailPage } from "pages/AgentDetail";
 import { AgentRunsPage } from "pages/AgentRuns";
 import { HomePage } from "pages/Home";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => (
   <main>{children}</main>
