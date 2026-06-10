@@ -53,7 +53,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   useEffect(() => {
     if (columnData && !taskNamesForBuildVariant && !hasReportedError.current) {
       hasReportedError.current = true;
-      reportError(new Error("Testing")).warning();
+      reportError(new Error("No task names found for build variant")).warning();
       dispatchToast.error(`No tasks found for build variant: ${variantName}}`);
     }
   }, [columnData, taskNamesForBuildVariant, dispatchToast, variantName]);
