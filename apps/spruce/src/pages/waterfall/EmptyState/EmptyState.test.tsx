@@ -71,7 +71,7 @@ describe("EmptyState", () => {
     );
   });
 
-  it("indicates the searched history is exhausted when there is no next page", () => {
+  it("does not offer to search older commits when there is no next page", () => {
     renderEmptyState({
       ...basePagination,
       hasNextPage: false,
@@ -79,7 +79,7 @@ describe("EmptyState", () => {
     });
     expect(
       screen.getByText(
-        "Evergreen found no builds matching the applied filters in the searched commit history.",
+        "Evergreen found no builds matching the applied filters.",
       ),
     ).toBeVisible();
     expect(

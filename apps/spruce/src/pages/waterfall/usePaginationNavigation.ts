@@ -1,8 +1,9 @@
+import { useCallback } from "react";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { Pagination, WaterfallFilterOptions } from "./types";
 
 export const usePaginationNavigation = (pagination: Pagination | undefined) => {
-  const [queryParams, setQueryParams] = useQueryParams();
+  const [, setQueryParams] = useQueryParams();
 
   const { hasNextPage, hasPrevPage, nextPageOrder, prevPageOrder } =
     pagination ?? {};
@@ -22,25 +23,25 @@ export const usePaginationNavigation = (pagination: Pagination | undefined) => {
   const isNavigatingToPage =
     prevPageOrder === minOrder || nextPageOrder === maxOrder;
 
-  const goToNextPage = () => {
-    setQueryParams({
+  const goToNextPage = useCallback(() => {
+    setQueryParams((queryParams) => ({
       ...queryParams,
       [WaterfallFilterOptions.Date]: undefined,
       [WaterfallFilterOptions.MaxOrder]: nextPageOrder,
       [WaterfallFilterOptions.MinOrder]: undefined,
       [WaterfallFilterOptions.Revision]: undefined,
-    });
-  };
+    }));
+  }, [setQueryParams, nextPageOrder]);
 
-  const goToPrevPage = () => {
-    setQueryParams({
+  const goToPrevPage = useCallback(() => {
+    setQueryParams((queryParams) => ({
       ...queryParams,
       [WaterfallFilterOptions.Date]: undefined,
       [WaterfallFilterOptions.MaxOrder]: undefined,
       [WaterfallFilterOptions.MinOrder]: prevPageOrder,
       [WaterfallFilterOptions.Revision]: undefined,
-    });
-  };
+    }));
+  }, [setQueryParams, prevPageOrder]);
 
   return {
     goToNextPage,

@@ -49,11 +49,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ pagination }) => {
 
   return (
     <BasicEmptyState
-      description={
-        searchIsWindowLimited
-          ? "Evergreen found no builds matching the applied filters in the searched commit history."
-          : "Evergreen found no builds matching the applied filters."
-      }
+      description="Evergreen found no builds matching the applied filters."
       graphic={<EmptyGraphic />}
       title="No Results Found"
     />
