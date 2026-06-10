@@ -79,7 +79,7 @@ const Accordion: React.FC<AccordionProps> = ({
         role="button"
       >
         <AccordionIcon
-          aria-label="Accordion icon"
+          aria-label="Testing"
           open={accordionOpen}
           style={{ alignSelf: caretAlign }}
         >
