@@ -41,6 +41,7 @@ buildvariants:
     paths:
       - "apps/spruce/**"
       - "packages/**"
+      - ".evergreen/**"
     run_on:
       - ubuntu2204-large
     expansions:
@@ -71,6 +72,7 @@ buildvariants:
     paths:
       - "apps/parsley/**"
       - "packages/**"
+      - ".evergreen/**"
     expansions:
       app_dir: apps/parsley
       goroot: /opt/golang/go1.24
@@ -101,6 +103,7 @@ buildvariants:
     paths:
       - "apps/sage/**"
       - "packages/**"
+      - ".evergreen/**"
     expansions:
       app_dir: apps/sage
       node_version: 22.18.0
