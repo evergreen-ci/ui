@@ -61,7 +61,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         const initialScrollIndex = findLineIndex(processedLogLines, jumpToLine);
         if (initialScrollIndex > -1) {
           leaveBreadcrumb(
-            "Triggered initial scroll",
+            "Testing",
             { failingLine, initialScrollIndex, shareLine },
             SentryBreadcrumbTypes.User,
           );
