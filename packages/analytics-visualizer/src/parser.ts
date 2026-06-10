@@ -56,7 +56,7 @@ const getTypeString = (typeNode: ts.TypeNode): string => {
 /**
  * Extracts properties from an object type literal
  * @param node - The type literal node containing properties
- * @returns Array of extracted properties TESTING
+ * @returns Array of extracted properties
  */
 const extractProperties = (node: ts.TypeLiteralNode): ActionProperty[] => {
   const properties: ActionProperty[] = [];
