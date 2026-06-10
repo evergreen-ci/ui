@@ -3,8 +3,7 @@ import { join, parse } from "path";
 import {
   APPS_DIR,
   IGNORED_FILE_EXTENSIONS,
-  TASK_MAPPING,
-  PACKAGE_APP_MAPPING
+  TASK_MAPPING
 } from "./constants.js";
 import { whatChanged } from "./git-utils.js";
 
@@ -28,14 +27,10 @@ const targetsFromChangedFiles = (files) => {
     }
 
     if (packageDir !== APPS_DIR) {
-      // If the package has a specific app mapping, only add those apps. Otherwise, test all apps.
-      if (PACKAGE_APP_MAPPING[packageName]) {
-        PACKAGE_APP_MAPPING[packageName].forEach((app) => targets.add(app));
-      } else {
-        targets.add("spruce");
-        targets.add("parsley");
-        targets.add("sage");
-      }
+      // Test all apps if a common package changes.
+      targets.add("spruce");
+      targets.add("parsley");
+      targets.add("sage");
     }
 
     if (TASK_MAPPING[packageName]) {

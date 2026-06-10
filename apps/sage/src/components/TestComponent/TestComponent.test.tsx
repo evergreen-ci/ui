@@ -1,5 +1,5 @@
 import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
-import { TestComponent } from "./TestComponent";
+import { TestComponent } from ".";
 
 describe("test component", () => {
   it("clicking button increases counter", async () => {

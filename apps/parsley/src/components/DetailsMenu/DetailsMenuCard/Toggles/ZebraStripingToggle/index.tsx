@@ -14,7 +14,7 @@ const ZebraStripingToggle: React.FC = () => {
         setZebraStriping(value);
         sendEvent({ name: "Toggled zebra stripes", on: value });
       }}
-      tooltip="Toggle whether zebra striping is enabled in the log file."
+      tooltip="Zebra striping alternates the background color of log lines, making it easier to visually track a line across the screen."
       value={zebraStriping}
     />
   );
