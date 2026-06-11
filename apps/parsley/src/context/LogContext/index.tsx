@@ -7,7 +7,6 @@ import {
   useRef,
   useState,
 } from "react";
-import stripAnsi from "strip-ansi";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { PaginatedVirtualListRef } from "components/PaginatedVirtualList/types";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
@@ -19,7 +18,7 @@ import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import filterLogs from "utils/filterLogs";
 import { getMatchingLines } from "utils/matchingLines";
 import { getColorMapping } from "utils/resmoke";
-import searchLogs from "utils/searchLogs";
+import { findMatchingLinesBySearch, searchLogs } from "utils/searchLogs";
 import useLogState from "./state";
 import { DIRECTION, LogMetadata, Preferences, SearchState } from "./types";
 import { usePreferences } from "./usePreferences";
@@ -203,19 +202,12 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   );
 
   const getLinesBySearch = useCallback(
-    (searchTerm: string) => {
-      const searchRegex = new RegExp(
+    (searchTerm: string) =>
+      findMatchingLinesBySearch(
+        state.logs,
         searchTerm,
-        preferences.caseSensitive ? "" : "i",
-      );
-      const matchingLineNumbers: number[] = [];
-      state.logs.forEach((line, idx) => {
-        if (searchRegex.test(stripAnsi(line))) {
-          matchingLineNumbers.push(idx);
-        }
-      });
-      return matchingLineNumbers;
-    },
+        preferences.caseSensitive,
+      ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state.logs.length, preferences.caseSensitive],
   );
