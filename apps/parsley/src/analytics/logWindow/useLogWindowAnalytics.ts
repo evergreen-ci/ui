@@ -23,6 +23,7 @@ type Action =
   | { name: "Used range limit for search" }
   | { name: "Changed existing filter"; before: Filter; after: Filter }
   | { name: "Created new highlight"; "highlight.expression": string }
+  | { name: "Created bookmarks by search"; "bookmark.expression": string }
   | { name: "Deleted existing highlight"; "highlight.expression": string }
   | { name: "Used search"; "search.expression": string }
   | {
