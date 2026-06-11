@@ -24,7 +24,7 @@ interface searchOptions {
  * @param options.processedLogLines Processed log lines that are currently rendered.
  * @returns An array of sorted raw log indices that match the search criteria. SkippedLines are not included in the result.
  */
-const searchLogs = (options: searchOptions): number[] => {
+export const searchLogs = (options: searchOptions): number[] => {
   const {
     getLine,
     lowerBound,
@@ -69,4 +69,25 @@ const searchLogs = (options: searchOptions): number[] => {
   return Array.from(matchingLogIndices).sort((a, b) => a - b);
 };
 
-export default searchLogs;
+/**
+ * Searches all raw log lines for matches to the provided search term.
+ * Unlike `searchLogs`, this ignores filters, sections, and bounds — it scans every line.
+ * @param logs - the full array of raw log strings
+ * @param searchTerm - a regular expression string to search for
+ * @param caseSensitive - whether the search should be case sensitive
+ * @returns a sorted array of line indices that match the search term
+ */
+export const findMatchingLinesBySearch = (
+  logs: string[],
+  searchTerm: string,
+  caseSensitive: boolean,
+): number[] => {
+  const searchRegex = new RegExp(searchTerm, caseSensitive ? "" : "i");
+  const matchingLineNumbers: number[] = [];
+  logs.forEach((line, idx) => {
+    if (searchRegex.test(stripAnsi(line))) {
+      matchingLineNumbers.push(idx);
+    }
+  });
+  return matchingLineNumbers;
+};
