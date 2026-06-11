@@ -1,6 +1,8 @@
-import { useParams } from "react-router-dom";
+import { getRouteApi } from "@tanstack/react-router";
+
+const routeApi = getRouteApi("/agents/$agentId/");
 
 export const AgentDetailPage: React.FC = () => {
-  const { agentId } = useParams<{ agentId: string }>();
+  const { agentId } = routeApi.useParams();
   return <p>Agent ID: {agentId}</p>;
 };
