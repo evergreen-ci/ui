@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import stripAnsi from "strip-ansi";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { PaginatedVirtualListRef } from "components/PaginatedVirtualList/types";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
@@ -55,6 +56,7 @@ interface LogContextState {
   ) => void;
   paginate: (dir: DIRECTION) => void;
   scrollToLine: (lineNumber: number) => void;
+  getLinesBySearch: (searchTerm: string) => number[];
   setFileName: (fileName: string) => void;
   setLogMetadata: (logMetadata: LogMetadata) => void;
   setSearch: (search: string) => void;
@@ -200,6 +202,24 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     [getLine, state.colorMapping],
   );
 
+  const getLinesBySearch = useCallback(
+    (searchTerm: string) => {
+      const searchRegex = new RegExp(
+        searchTerm,
+        preferences.caseSensitive ? "" : "i",
+      );
+      const matchingLineNumbers: number[] = [];
+      state.logs.forEach((line, idx) => {
+        if (searchRegex.test(stripAnsi(line))) {
+          matchingLineNumbers.push(idx);
+        }
+      });
+      return matchingLineNumbers;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.logs.length, preferences.caseSensitive],
+  );
+
   const scrollToLine = useCallback((lineNumber: number) => {
     listRef.current?.scrollToIndex(lineNumber);
   }, []);
@@ -305,6 +325,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       expandLines: (expandedLines: ExpandedLines) =>
         dispatch({ expandedLines, type: "EXPAND_LINES" }),
       getLine,
+      getLinesBySearch,
       getResmokeLineColor,
       ingestLines,
       isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
@@ -347,6 +368,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       upperRange,
       dispatch,
       getLine,
+      getLinesBySearch,
       getResmokeLineColor,
       ingestLines,
       scrollToLine,
