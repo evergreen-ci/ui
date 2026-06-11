@@ -16,6 +16,7 @@ type Action =
   | { name: "Clicked task box"; "task.status": string }
   | { name: "Clicked jump to most recent commit button" }
   | { name: "Clicked clear all filters button" }
+  | { name: "Clicked search older commits button" }
   | {
       name: "Clicked pin build variant";
       action: "pinned" | "unpinned";
