@@ -5,7 +5,6 @@ import {
   dockerProviderSettings,
   staticProviderSettings,
   ec2FleetProviderSettings,
-  ec2OnDemandProviderSettings,
   ec2ProviderAccountField,
   taskHostOverridesFields,
 } from "./schemaFields";
@@ -15,13 +14,11 @@ export const getFormSchema = ({
   awsRegions,
   fleetRegionsInUse,
   isEC2Provider,
-  onDemandRegionsInUse,
   poolMappingInfo,
   pools,
 }: {
   awsRegions: string[];
   fleetRegionsInUse: string[];
-  onDemandRegionsInUse: string[];
   poolMappingInfo: string;
   pools: ContainerPool[];
   isEC2Provider: boolean;
@@ -52,11 +49,6 @@ export const getFormSchema = ({
                 type: "string" as const,
                 title: "EC2 Fleet",
                 enum: [Provider.Ec2Fleet],
-              },
-              {
-                type: "string" as const,
-                title: "EC2 On-Demand",
-                enum: [Provider.Ec2OnDemand],
               },
             ],
           },
@@ -151,39 +143,6 @@ export const getFormSchema = ({
               taskHostOverrides: taskHostOverridesFields.schema,
             },
           },
-          {
-            properties: {
-              provider: {
-                properties: {
-                  providerName: {
-                    enum: [Provider.Ec2OnDemand],
-                  },
-                },
-              },
-              ec2OnDemandProviderSettings: {
-                type: "array" as const,
-                minItems: 1,
-                title: "",
-                items: {
-                  type: "object" as const,
-                  properties: {
-                    region: {
-                      type: "string" as const,
-                      title: "Region",
-                      default: "",
-                      oneOf: awsRegions.map((r) => ({
-                        type: "string" as const,
-                        title: r,
-                        enum: [r],
-                      })),
-                    },
-                    ...ec2OnDemandProviderSettings.schema,
-                  },
-                },
-              },
-              taskHostOverrides: taskHostOverridesFields.schema,
-            },
-          },
         ],
       },
     },
@@ -231,22 +190,6 @@ export const getFormSchema = ({
           "ui:enumDisabled": fleetRegionsInUse,
         },
         ...ec2FleetProviderSettings.uiSchema,
-      },
-    },
-    ec2OnDemandProviderSettings: {
-      "ui:data-cy": "ec2-on-demand-provider-settings",
-      "ui:useExpandableCard": true,
-      "ui:addButtonText": "Add region settings",
-      "ui:addable": onDemandRegionsInUse.length < awsRegions.length,
-      "ui:orderable": false,
-      items: {
-        "ui:displayTitle": "New AWS Region",
-        region: {
-          "ui:data-cy": "region-select",
-          "ui:allowDeselect": false,
-          "ui:enumDisabled": onDemandRegionsInUse,
-        },
-        ...ec2OnDemandProviderSettings.uiSchema,
       },
     },
     taskHostOverrides: {
