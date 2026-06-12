@@ -284,7 +284,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
         </TopLabel>
         <BottomLabel>
           {tests.testResults.length > 0 ? (
-            <Accordion
+            <FullWidthAccordion
               caretAlign={AccordionCaretAlign.Start}
               onToggle={({ isVisible }) =>
                 sendEvent({
@@ -295,7 +295,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               title={<CommitDescription author={author} message={message} />}
             >
               <FailedTestsTable tests={tests} />
-            </Accordion>
+            </FullWidthAccordion>
           ) : (
             <CommitDescription author={author} message={message} />
           )}
@@ -361,6 +361,11 @@ const BottomLabel = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
+`;
+
+const FullWidthAccordion = styled(Accordion)`
+  flex: 1;
+  min-width: 0;
 `;
 
 const OrderLabel = styled.div`
