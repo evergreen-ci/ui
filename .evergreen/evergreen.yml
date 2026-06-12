@@ -38,6 +38,7 @@ include:
 buildvariants:
   - name: spruce
     display_name: Spruce
+    activate: true
     paths:
       - "apps/spruce/**"
       - "packages/**"
@@ -69,6 +70,7 @@ buildvariants:
 
   - name: parsley
     display_name: Parsley
+    activate: true
     paths:
       - "apps/parsley/**"
       - "packages/**"
@@ -100,6 +102,7 @@ buildvariants:
 
   - name: sage
     display_name: Sage UI
+    activate: true
     paths:
       - "apps/sage/**"
       - "packages/**"
@@ -124,6 +127,7 @@ buildvariants:
 
   - name: lib
     display_name: Lib
+    activate: true
     paths:
       - "packages/lib/**"
     expansions:
@@ -144,6 +148,7 @@ buildvariants:
 
   - name: deploy-utils
     display_name: Deploy Utils
+    activate: true
     paths:
       - "packages/deploy-utils/**"
     expansions:
@@ -160,6 +165,7 @@ buildvariants:
 
   - name: fungi
     display_name: Fungi
+    activate: true
     paths:
       - "packages/fungi/**"
       - "packages/lib/**"
@@ -178,6 +184,7 @@ buildvariants:
 
   - name: analytics-visualizer
     display_name: Analytics Visualizer
+    activate: true
     paths:
       - "packages/analytics-visualizer/**"
     expansions:
