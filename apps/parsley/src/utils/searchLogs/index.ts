@@ -71,7 +71,7 @@ export const searchLogs = (options: searchOptions): number[] => {
 
 /**
  * Searches all raw log lines for matches to the provided search term.
- * Unlike `searchLogs`, this ignores filters, sections, and bounds — it scans every line.
+ * Unlike `searchLogs`, this ignores filters, sections, and bounds.
  * @param logs - the full array of raw log strings
  * @param searchTerm - a regular expression string to search for
  * @param caseSensitive - whether the search should be case sensitive
