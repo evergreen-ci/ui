@@ -1,28 +1,20 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Link } from "@tanstack/react-router";
+import { createLink } from "@tanstack/react-router";
 import { size, palette } from "@evg-ui/lib/constants/tokens-via";
 import { routes } from "constants/routes";
 
 export const NavBar: React.FC = () => (
   <NavContainer>
-    <Link css={linkStyles} to="/">
-      Home
-    </Link>
-    <Link
-      css={linkStyles}
-      params={{ agentId: "sage-bot" }}
-      to={routes.agentDetail}
-    >
+    <NavLink to={routes.home}>Home</NavLink>
+    <NavLink params={{ agentId: "sage-bot" }} to={routes.agentDetail}>
       Agent Info
-    </Link>
-    <Link
-      css={linkStyles}
+    </NavLink>
+    <NavLink
       params={{ agentId: "sage-bot", runId: "abcdefg" }}
-      to="/agents/$agentId/runs/$runId"
+      to={routes.agentRuns}
     >
       Agent Runs
-    </Link>
+    </NavLink>
   </NavContainer>
 );
 
@@ -36,7 +28,9 @@ const NavContainer = styled.nav`
   padding: ${size.s};
 `;
 
-const linkStyles = css`
+const Link = styled.a`
   color: ${palette.gray.dark3};
   text-decoration: none;
 `;
+
+const NavLink = createLink(Link);
