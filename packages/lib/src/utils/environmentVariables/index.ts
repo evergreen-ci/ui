@@ -93,12 +93,6 @@ export const getSignalProcessingUrl = () =>
 export const getApiUrl = () => `${getEvergreenUrl()}/api`;
 
 /**
- * `getSentryDSN()` - Get the Sentry Data Source Name (SENTRY_DSN) from the environment variables
- * @returns - The application's DSN
- */
-export const getSentryDSN = () => process.env.REACT_APP_SPRUCE_SENTRY_DSN || "";
-
-/**
  * `getSpruceURL()` - Get the SPRUCE URL from the environment variables
  * @returns - Returns the Spruce URL
  */
@@ -127,7 +121,21 @@ export const getAppVersion = () => process.env.REACT_APP_VERSION || "";
  * @returns - Returns the base Honeycomb URL
  */
 export const getHoneycombBaseURL = () =>
-  process.env.REACT_APP_HONEYCOMB_BASE_URL || "";
+  import.meta.env.VITE_HONEYCOMB_BASE_URL || "";
+
+/**
+ * `getHoneycombIngestKey()` - Get the Honeycomb ingest key from the environment variables
+ * @returns - Returns the Honeycomb ingest key
+ */
+export const getHoneycombIngestKey = () =>
+  import.meta.env.VITE_HONEYCOMB_INGEST_KEY || "";
+
+/**
+ * `getHoneycombEndpoint()` - Get the Honeycomb endpoint from the environment variables
+ * @returns - Returns the Honeycomb endpoint
+ */
+export const getHoneycombEndpoint = () =>
+  import.meta.env.VITE_HONEYCOMB_ENDPOINT || "";
 
 /**
  * `getUserStagingKey()` - Get the user-specific staging key configured by the deploy task.
