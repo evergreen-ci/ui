@@ -63,7 +63,8 @@ const DistroSettings: React.FC = () => {
   const imageId = data?.distro?.imageId ?? "";
 
   return (
-    <DistroSettingsProvider>
+    // Remount on distro switch so one distro's unsaved edits can't leak into another (DEVPROD-29223).
+    <DistroSettingsProvider key={distroId}>
       <SideNavPageWrapper>
         <SideNav aria-label="Distro Settings" widthOverride={250}>
           <ButtonsContainer>
