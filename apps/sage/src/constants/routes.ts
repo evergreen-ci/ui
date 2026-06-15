@@ -15,6 +15,10 @@ export const routes = {
   notFound: "*",
 };
 
+export const routeConfig = {
+  ...routes,
+};
+
 export const getAgentDetailRoute = (agentId: string) =>
   `/${paths.agents}/${agentId}`;
 
