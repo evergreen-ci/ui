@@ -1,6 +1,7 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { defineConfig, mergeConfig } from "vite";
+import envCompatible from "vite-plugin-env-compatible";
 import { defineConfig as defineTestConfig } from "vitest/config";
 
 const viteConfig = defineConfig({
@@ -9,6 +10,10 @@ const viteConfig = defineConfig({
   },
   plugins: [
     react(),
+    // Allows using legacy CRA-based process.env even though Vite projects should use import.meta.env.
+    envCompatible({
+      prefix: "REACT_APP_",
+    }),
     sentryVitePlugin({
       authToken: process.env.SAGE_SENTRY_AUTH_TOKEN,
       disable: process.env.NODE_ENV === "development",
