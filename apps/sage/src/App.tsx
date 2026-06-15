@@ -1,4 +1,6 @@
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ErrorBoundary } from "@evg-ui/lib/components/ErrorBoundary";
+import { ErrorFallback } from "@evg-ui/lib/components-via/ErrorFallback";
 import { NavBar } from "components/NavBar";
 import { routes } from "constants/routes";
 import { AgentDetailPage } from "pages/AgentDetail";
@@ -20,7 +22,11 @@ const Layout = () => (
 
 const router = createBrowserRouter([
   {
-    element: <Layout />,
+    element: (
+      <ErrorBoundary FallbackComponent={ErrorFallback} homeURL="/">
+        <Layout />{" "}
+      </ErrorBoundary>
+    ),
     children: [
       { path: routes.home, element: <HomePage /> },
       { path: routes.agentDetail, element: <AgentDetailPage /> },

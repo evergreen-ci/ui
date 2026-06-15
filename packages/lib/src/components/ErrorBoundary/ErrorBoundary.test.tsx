@@ -2,7 +2,7 @@ import { isInitialized } from "@sentry/core";
 import { Mock } from "vitest";
 import { render, screen } from "test_utils";
 import { dynamicallyLoadedModuleErrorMessage } from "./utils";
-import ErrorBoundary from ".";
+import { ErrorBoundary } from ".";
 
 vi.mock("@sentry/react", async (importOriginal) => {
   const actual = await importOriginal();

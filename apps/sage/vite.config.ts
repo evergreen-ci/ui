@@ -9,6 +9,9 @@ const viteConfig = defineConfig({
   plugins: [react()],
   resolve: {
     tsconfigPaths: true,
+    alias: {
+      "@emotion/server": "@emotion/css", // TODO: Delete when LeafyGreen is no longer used in this repo.
+    },
   },
 });
 
