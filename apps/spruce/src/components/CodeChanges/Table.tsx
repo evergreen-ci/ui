@@ -23,7 +23,7 @@ export const Table: React.FC<TableProps> = ({
 }) => {
   const { sendEvent } = useVersionAnalytics(patchId);
   const table = useLeafyGreenTable<FileDiffsFragment>({
-    columns: getColumns(patchId, moduleIndex, disableDiffLinks, sendEvent),
+    columns: getColumns({ patchId, moduleIndex, disableDiffLinks, sendEvent }),
     data: fileDiffs ?? [],
     enableColumnFilters: false,
     enableSorting: false,
@@ -39,12 +39,17 @@ export const Table: React.FC<TableProps> = ({
   );
 };
 
-const getColumns = (
-  patchId: string,
-  moduleIndex: number,
-  disableDiffLinks: boolean,
-  sendEvent: ReturnType<typeof useVersionAnalytics>["sendEvent"],
-): LGColumnDef<FileDiffsFragment>[] => [
+const getColumns = ({
+  disableDiffLinks,
+  moduleIndex,
+  patchId,
+  sendEvent,
+}: {
+  patchId: string;
+  moduleIndex: number;
+  disableDiffLinks: boolean;
+  sendEvent: ReturnType<typeof useVersionAnalytics>["sendEvent"];
+}): LGColumnDef<FileDiffsFragment>[] => [
   {
     accessorKey: "fileName",
     header: "File Name",
