@@ -81,13 +81,14 @@ export const VersionPage: React.FC = () => {
     message,
     order,
     patch,
-    projectIdentifier,
+    projectMetadata,
     requester,
     revision,
     status,
     warnings,
   } = version || {};
   const { patchNumber } = patch || {};
+  const projectIdentifier = projectMetadata?.identifier || projectMetadata?.id;
 
   const versionText = shortenGithash(revision || versionId);
   const pageTitle = isPatch

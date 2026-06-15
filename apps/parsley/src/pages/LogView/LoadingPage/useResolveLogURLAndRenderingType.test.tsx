@@ -964,7 +964,11 @@ const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
           id: "spruce_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
           isPatch: false,
           message: "v2.28.5",
-          projectIdentifier: "spruce",
+          projectMetadata: {
+            __typename: "Project",
+            id: "spruce",
+            identifier: "spruce",
+          },
           revision: "d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
         },
       },

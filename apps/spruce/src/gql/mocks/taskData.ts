@@ -125,8 +125,11 @@ export const taskQuery: TaskQueryType = {
       isPatch: false,
       message: "ubuntu_e2e_task",
       order: 1,
-      project: "spruce",
-      projectIdentifier: "spruce",
+      projectMetadata: {
+        __typename: "Project",
+        id: "spruce",
+        identifier: "spruce",
+      },
       revision: "123j9123u9123",
     },
     taskCost: null,

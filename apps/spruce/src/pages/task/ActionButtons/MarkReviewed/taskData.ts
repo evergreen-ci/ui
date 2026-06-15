@@ -157,8 +157,11 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
     message:
       "'evergreen-ci/ui' pull request #940 by sophstad: DEVPROD-19315: Stabilize useQueryParam hooks (https://github.com/evergreen-ci/ui/pull/940)",
     order: 2894,
-    project: "65f08ccac9ec449f57b4015d",
-    projectIdentifier: "evergreen-ui",
+    projectMetadata: {
+      __typename: "Project",
+      id: "65f08ccac9ec449f57b4015d",
+      identifier: "evergreen-ui",
+    },
     revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
     __typename: "Version",
   },
@@ -237,7 +240,11 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
       execution: 0,
       revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
       __typename: "Task",
-      projectIdentifier: "evergreen-ui",
+      project: {
+        __typename: "Project",
+        id: "65f08ccac9ec449f57b4015d",
+        identifier: "evergreen-ui",
+      },
     },
     {
       id: "evergreen_ui_spruce_e2e_spruce_1_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51",
@@ -248,7 +255,11 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
       execution: 0,
       revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
       __typename: "Task",
-      projectIdentifier: "evergreen-ui",
+      project: {
+        __typename: "Project",
+        id: "65f08ccac9ec449f57b4015d",
+        identifier: "evergreen-ui",
+      },
     },
     {
       id: "evergreen_ui_spruce_e2e_spruce_2_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51",
@@ -259,7 +270,11 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
       execution: 0,
       revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
       __typename: "Task",
-      projectIdentifier: "evergreen-ui",
+      project: {
+        __typename: "Project",
+        id: "65f08ccac9ec449f57b4015d",
+        identifier: "evergreen-ui",
+      },
     },
     {
       id: "evergreen_ui_spruce_e2e_spruce_3_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51",
@@ -270,7 +285,11 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
       execution: 0,
       revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
       __typename: "Task",
-      projectIdentifier: "evergreen-ui",
+      project: {
+        __typename: "Project",
+        id: "65f08ccac9ec449f57b4015d",
+        identifier: "evergreen-ui",
+      },
     },
   ],
   expectedDuration: 0,
@@ -330,8 +349,11 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
     message:
       "'evergreen-ci/ui' pull request #940 by sophstad: DEVPROD-19315: Stabilize useQueryParam hooks (https://github.com/evergreen-ci/ui/pull/940)",
     order: 2894,
-    project: "65f08ccac9ec449f57b4015d",
-    projectIdentifier: "evergreen-ui",
+    projectMetadata: {
+      __typename: "Project",
+      id: "65f08ccac9ec449f57b4015d",
+      identifier: "evergreen-ui",
+    },
     revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
     __typename: "Version",
   },

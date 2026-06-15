@@ -11,9 +11,9 @@ export const BASE_TASK = gql`
       id
       isPatch
       message
-      projectIdentifier
       projectMetadata {
         id
+        identifier
       }
       revision
     }

@@ -87,7 +87,10 @@ export const TASK = gql`
         displayStatus
         execution
         finishTime
-        projectIdentifier
+        project {
+          id
+          identifier
+        }
         reviewed @client
         startTime
       }
@@ -152,8 +155,10 @@ export const TASK = gql`
         isPatch
         message
         order
-        project
-        projectIdentifier
+        projectMetadata {
+          id
+          identifier
+        }
         revision
         user {
           displayName
