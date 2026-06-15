@@ -4,6 +4,7 @@ import {
   BaseTable,
   LGColumnDef,
 } from "@evg-ui/lib/components/Table";
+import { useVersionAnalytics } from "analytics";
 import { getFileDiffRoute } from "constants/routes";
 import { FileDiffsFragment } from "gql/generated/types";
 import { FileDiffText } from "./Badge";
@@ -20,8 +21,9 @@ export const Table: React.FC<TableProps> = ({
   moduleIndex,
   patchId,
 }) => {
+  const { sendEvent } = useVersionAnalytics(patchId);
   const table = useLeafyGreenTable<FileDiffsFragment>({
-    columns: getColumns(patchId, moduleIndex, disableDiffLinks),
+    columns: getColumns(patchId, moduleIndex, disableDiffLinks, sendEvent),
     data: fileDiffs ?? [],
     enableColumnFilters: false,
     enableSorting: false,
@@ -41,6 +43,7 @@ const getColumns = (
   patchId: string,
   moduleIndex: number,
   disableDiffLinks: boolean,
+  sendEvent: ReturnType<typeof useVersionAnalytics>["sendEvent"],
 ): LGColumnDef<FileDiffsFragment>[] => [
   {
     accessorKey: "fileName",
@@ -61,7 +64,16 @@ const getColumns = (
       }
       const fileDiffRoute = getFileDiffRoute(patchId, fileName, moduleIndex);
       return (
-        <StyledLink data-cy="file-link" href={fileDiffRoute}>
+        <StyledLink
+          data-cy="file-link"
+          href={fileDiffRoute}
+          onClick={() =>
+            sendEvent({
+              name: "Clicked code changes diff link",
+              "diff.type": "file",
+            })
+          }
+        >
           <WordBreak>{getValue() as string}</WordBreak>
         </StyledLink>
       );

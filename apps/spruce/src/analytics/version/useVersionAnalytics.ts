@@ -71,6 +71,11 @@ type Action =
       num_reoccurring_tests: number;
       num_tests: number;
       num_failed_tasks: number;
+    }
+  | {
+      name: "Clicked code changes diff link";
+      "diff.type": "file" | "patch";
+      "diff.format"?: "html" | "raw";
     };
 
 export const useVersionAnalytics = (id: string) => {
