@@ -114,10 +114,7 @@ export const Task = () => {
   return (
     <PageWrapper>
       <ProjectBanner
-        projectIdentifier={
-          versionMetadata?.projectMetadata?.identifier ||
-          versionMetadata?.projectMetadata?.id
-        }
+        projectIdentifier={versionMetadata?.projectMetadata?.identifier}
       />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {task && (

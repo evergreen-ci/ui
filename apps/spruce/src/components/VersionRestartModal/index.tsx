@@ -139,11 +139,7 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               {childVersions?.map((v) => (
                 <Accordion
                   key={v?.id}
-                  title={
-                    <b>
-                      {v?.projectMetadata?.identifier || v?.projectMetadata?.id}
-                    </b>
-                  }
+                  title={<b>{v?.projectMetadata?.identifier}</b>}
                 >
                   <DownstreamTasksContainer>
                     <VersionTasks

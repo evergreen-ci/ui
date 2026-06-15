@@ -26,9 +26,11 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   versionMetadata,
 }) => {
   const { isPatch, projectMetadata, revision, user } = versionMetadata;
-  const projectIdentifier =
-    projectMetadata?.identifier || projectMetadata?.id || "";
-  const breadcrumbRoot = useBreadcrumbRoot(isPatch, user, projectIdentifier);
+  const breadcrumbRoot = useBreadcrumbRoot(
+    isPatch,
+    user,
+    projectMetadata?.identifier || projectMetadata?.id || "",
+  );
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
   const patchBreadcrumb = {

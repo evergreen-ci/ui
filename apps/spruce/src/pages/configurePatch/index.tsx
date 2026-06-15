@@ -73,11 +73,7 @@ const ConfigurePatch: React.FC = () => {
 
   return (
     <PageWrapper>
-      <ProjectBanner
-        projectIdentifier={
-          patch?.projectMetadata?.identifier || patch?.projectMetadata?.id
-        }
-      />
+      <ProjectBanner projectIdentifier={patch?.projectMetadata?.identifier} />
       <ConfigurePatchCore
         generatedTaskCounts={generatedTaskCounts}
         loadingGeneratedTaskCounts={loadingGeneratedTaskCounts}

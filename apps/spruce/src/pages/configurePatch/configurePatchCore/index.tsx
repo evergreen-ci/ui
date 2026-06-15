@@ -72,7 +72,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
   } = patch;
   const { variants = [] } = project || {};
   const projectID = projectMetadata?.id ?? "";
-  const projectIdentifier = projectMetadata?.identifier ?? "";
+  const projectIdentifier = projectMetadata?.identifier;
 
   const childPatchesWithAliases: ChildPatchAliased[] =
     childPatches?.map((cp) => {

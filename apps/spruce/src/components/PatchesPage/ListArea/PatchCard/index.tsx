@@ -49,7 +49,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     user,
     versionFull,
   } = patch;
-  const projectIdentifier = projectMetadata?.identifier || projectMetadata?.id;
+  const projectIdentifier = projectMetadata?.identifier;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const createDate = new Date(createTime);
   const { id: versionId, requester, taskStatusStats } = versionFull || {};
