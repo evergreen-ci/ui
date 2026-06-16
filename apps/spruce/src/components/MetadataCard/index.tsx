@@ -1,10 +1,12 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body, BodyProps, Overline } from "@leafygreen-ui/typography";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
@@ -95,6 +97,21 @@ export const MetadataItem: React.FC<ItemProps> = ({
     )}
   </MetadataItemWrapper>
 );
+
+interface MetadataHeaderProps {
+  title: string;
+}
+
+export const MetadataHeader: React.FC<MetadataHeaderProps> = ({ title }) => (
+  <>
+    <Header>{title}</Header>
+    <Divider margin={`${size.xxs} 0`} />
+  </>
+);
+
+const Header = styled(Overline)`
+  color: ${palette.gray.dark1};
+`;
 
 export const MetadataLabel = styled.b<{ color?: string }>`
   ${({ color }) => color && `color: ${color};`}
