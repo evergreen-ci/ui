@@ -13,6 +13,8 @@ import {
   isDevelopmentBuild,
   getSentryDSN,
   sageAPIURL,
+  getHoneycombEndpoint,
+  getHoneycombIngestKey,
 } from "utils/environmentVariables";
 import App from "./App";
 
@@ -26,9 +28,9 @@ initializeHoneycomb({
   appVersion: getAppVersion(),
   backendURL: toEscapedRegex(sageAPIURL),
   debug: isDevelopmentBuild(),
-  endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
+  endpoint: getHoneycombEndpoint(),
   environment: getReleaseStage(),
-  ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
+  ingestKey: getHoneycombIngestKey(),
   routeConfig,
   serviceName: "sage-ui",
 });

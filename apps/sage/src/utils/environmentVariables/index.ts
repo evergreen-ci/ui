@@ -10,6 +10,8 @@ export {
   isStaging,
   isTest,
   getAppVersion,
+  getHoneycombEndpoint,
+  getHoneycombIngestKey,
 } from "@evg-ui/lib/utils/environmentVariables";
 
 const getSentryDSN = () => import.meta.env.VITE_SAGE_SENTRY_DSN || "";
