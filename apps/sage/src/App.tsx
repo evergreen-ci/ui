@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   {
     element: (
       <ErrorBoundary FallbackComponent={ErrorFallback} homeURL="/">
-        <Layout />{" "}
+        <Layout />
       </ErrorBoundary>
     ),
     children: [

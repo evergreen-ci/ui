@@ -14,9 +14,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ homeURL }) => (
         Ouch! That&apos;s gotta hurt,
         <br /> sorry about that!
       </WhiteText>
-      <WhiteText textStyle={TextStyle.heading3}>
-        Something went wrong.
-      </WhiteText>
+      <WhiteText textStyle={TextStyle.body}>Something went wrong.</WhiteText>
       <WhiteLink href={homeURL}>Back To Home</WhiteLink>
     </Paragraph>
     <img alt="Error Background" src={errorPage} />
@@ -32,6 +30,7 @@ const Center = styled.div`
 
 const Paragraph = styled.div`
   position: absolute;
+  top: 25%;
 `;
 
 const WhiteText = styled(Text)`
