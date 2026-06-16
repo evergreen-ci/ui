@@ -1,17 +1,16 @@
 import styled from "@emotion/styled";
 import { createLink } from "@tanstack/react-router";
 import { size, palette } from "@evg-ui/lib/constants/tokens-via";
-import { routes } from "constants/routes";
 
 export const NavBar: React.FC = () => (
   <NavContainer>
-    <NavLink to={routes.home}>Home</NavLink>
-    <NavLink params={{ agentId: "sage-bot" }} to={routes.agentDetail}>
+    <NavLink to="/">Home</NavLink>
+    <NavLink params={{ agentId: "sage-bot" }} to="/agents/$agentId">
       Agent Info
     </NavLink>
     <NavLink
       params={{ agentId: "sage-bot", runId: "abcdefg" }}
-      to={routes.agentRuns}
+      to="/agents/$agentId/runs/$runId"
     >
       Agent Runs
     </NavLink>
