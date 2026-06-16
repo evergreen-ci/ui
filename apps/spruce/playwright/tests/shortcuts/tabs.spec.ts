@@ -89,6 +89,7 @@ test.describe("Tab shortcut", () => {
       "/task/mci_ubuntu1604_display_asdf_patch_a1d2c8f70bf5c543de8b9641ac1ec08def1ddb26_5f74d99ab2373627c047c5e5_20_09_30_19_16_47/execution-tasks",
     );
 
+    const taskLogsTab = page.getByTestId("task-logs-tab");
     const taskExecutionTab = page.getByTestId("task-execution-tab");
     const taskTestsTab = page.getByTestId("task-tests-tab");
     const taskFilesTab = page.getByTestId("task-files-tab");
@@ -115,13 +116,13 @@ test.describe("Tab shortcut", () => {
     );
     await page.locator("body").press("j");
 
-    await expect(taskExecutionTab).toHaveAttribute("aria-selected", "true");
+    await expect(taskLogsTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("j");
 
-    await expect(taskTestsTab).toHaveAttribute("aria-selected", "true");
+    await expect(taskExecutionTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("k");
 
-    await expect(taskExecutionTab).toHaveAttribute("aria-selected", "true");
+    await expect(taskLogsTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("k");
 
     await expect(executionTasksTimingTab).toHaveAttribute(
@@ -137,5 +138,8 @@ test.describe("Tab shortcut", () => {
     await page.locator("body").press("k");
 
     await expect(taskTestsTab).toHaveAttribute("aria-selected", "true");
+    await page.locator("body").press("k");
+
+    await expect(taskExecutionTab).toHaveAttribute("aria-selected", "true");
   });
 });
