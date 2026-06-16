@@ -78,7 +78,9 @@ const useTabConfig = (
   });
 
   const tabIsActive: Record<TaskTab, boolean> = {
-    [TaskTab.Logs]: !isDisplayTask,
+    // Display tasks have no execution logs, but the Logs tab still surfaces
+    // their event log (e.g. created Jira tickets, restarts).
+    [TaskTab.Logs]: true,
     [TaskTab.ExecutionTasks]: isDisplayTask,
     [TaskTab.Tests]: true,
     [TaskTab.Files]: true,
@@ -92,7 +94,12 @@ const useTabConfig = (
   const tabMap: Record<TaskTab, React.JSX.Element> = {
     [TaskTab.Logs]: (
       <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
-        <Logs execution={execution} logLinks={logLinks} taskId={id} />
+        <Logs
+          execution={execution}
+          isDisplayTask={isDisplayTask}
+          logLinks={logLinks}
+          taskId={id}
+        />
       </Tab>
     ),
     [TaskTab.Tests]: (
