@@ -5170,13 +5170,16 @@ export type BaseTaskFragment = {
   execution: number;
   patchNumber?: number | null;
   versionMetadata: {
-    __typename?: "Version";
+    __typename?: "VersionLite";
     id: string;
     isPatch: boolean;
     message: string;
-    projectIdentifier: string;
     revision: string;
-    projectMetadata?: { __typename?: "Project"; id: string } | null;
+    projectMetadata?: {
+      __typename?: "ProjectLite";
+      id: string;
+      identifier: string;
+    } | null;
   };
 };
 
@@ -5208,13 +5211,16 @@ export type TaskQuery = {
       taskLogLink?: string | null;
     };
     versionMetadata: {
-      __typename?: "Version";
+      __typename?: "VersionLite";
       id: string;
       isPatch: boolean;
       message: string;
-      projectIdentifier: string;
       revision: string;
-      projectMetadata?: { __typename?: "Project"; id: string } | null;
+      projectMetadata?: {
+        __typename?: "ProjectLite";
+        id: string;
+        identifier: string;
+      } | null;
     };
   } | null;
 };

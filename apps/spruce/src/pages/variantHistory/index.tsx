@@ -135,7 +135,6 @@ const VariantHistoryContents: React.FC = () => {
 
   return (
     <PageWrapper>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <CenterPage>
         <PageHeader>
