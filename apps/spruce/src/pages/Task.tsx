@@ -113,8 +113,9 @@ export const Task = () => {
 
   return (
     <PageWrapper>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
+      <ProjectBanner
+        projectIdentifier={versionMetadata?.projectMetadata?.identifier}
+      />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {task && (
         <TaskPageBreadcrumbs

@@ -99,6 +99,30 @@ test.describe("distroSettings/navigation", () => {
     });
   });
 
+  test.describe("settings carry-over between distros", () => {
+    test("does not carry an unsaved field into another distro after switching", async ({
+      page,
+    }) => {
+      const unsavedNote = "an unsaved note";
+
+      await page.goto("/distro/localhost/settings/general");
+
+      // Make, but do not save, an edit on the first distro.
+      await page.getByLabel("Notes").fill(unsavedNote);
+      await expect(page.getByTestId("save-settings-button")).toBeEnabled();
+
+      // Switch to another distro and leave past the unsaved-changes guard.
+      await page.getByTestId("distro-select").click();
+      await page.getByRole("listbox").getByText("rhel71-power8-large").click();
+      await expect(page.getByTestId("navigation-warning-modal")).toBeVisible();
+      await page.getByRole("button", { name: "Leave" }).click();
+      await expect(page).toHaveURL(/\/distro\/rhel71-power8-large\/settings/);
+
+      // The new distro must show its own data, not the stale edit.
+      await expect(page.getByLabel("Notes")).not.toHaveValue(unsavedNote);
+    });
+  });
+
   test.describe("/distros redirect route", () => {
     test("should redirect to the first distro available", async ({ page }) => {
       await page.goto("/distros");

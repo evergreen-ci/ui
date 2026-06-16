@@ -4983,6 +4983,7 @@ export type VersionLite = {
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  isPatch: Scalars["Boolean"]["output"];
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;

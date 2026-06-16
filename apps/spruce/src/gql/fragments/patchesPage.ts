@@ -11,9 +11,9 @@ export const PATCHES_PAGE_PATCHES = gql`
       description
       hidden
       invalidatedByUpstream
-      projectIdentifier
       projectMetadata {
         id
+        identifier
         owner
         repo
       }

@@ -14,7 +14,10 @@ export const BASE_VERSION_AND_TASK = gql`
       displayName
       displayStatus
       execution
-      projectIdentifier
+      project {
+        id
+        identifier
+      }
       versionMetadata {
         id
         baseVersion {

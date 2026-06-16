@@ -4983,6 +4983,7 @@ export type VersionLite = {
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  isPatch: Scalars["Boolean"]["output"];
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;
@@ -5169,13 +5170,16 @@ export type BaseTaskFragment = {
   execution: number;
   patchNumber?: number | null;
   versionMetadata: {
-    __typename?: "Version";
+    __typename?: "VersionLite";
     id: string;
     isPatch: boolean;
     message: string;
-    projectIdentifier: string;
     revision: string;
-    projectMetadata?: { __typename?: "Project"; id: string } | null;
+    projectMetadata?: {
+      __typename?: "ProjectLite";
+      id: string;
+      identifier: string;
+    } | null;
   };
 };
 
@@ -5207,13 +5211,16 @@ export type TaskQuery = {
       taskLogLink?: string | null;
     };
     versionMetadata: {
-      __typename?: "Version";
+      __typename?: "VersionLite";
       id: string;
       isPatch: boolean;
       message: string;
-      projectIdentifier: string;
       revision: string;
-      projectMetadata?: { __typename?: "Project"; id: string } | null;
+      projectMetadata?: {
+        __typename?: "ProjectLite";
+        id: string;
+        identifier: string;
+      } | null;
     };
   } | null;
 };

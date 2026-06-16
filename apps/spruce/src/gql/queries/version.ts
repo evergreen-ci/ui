@@ -58,7 +58,10 @@ export const VERSION = gql`
             key
             value
           }
-          projectIdentifier
+          projectMetadata {
+            id
+            identifier
+          }
           status
           versionFull {
             id
@@ -86,11 +89,10 @@ export const VERSION = gql`
         id
         revision
       }
-      project
-      projectIdentifier
       projectMetadata {
         id
         branch
+        identifier
         owner
         repo
       }
