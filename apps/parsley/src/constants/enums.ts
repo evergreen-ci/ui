@@ -24,6 +24,7 @@ enum MatchType {
 enum SearchBarActions {
   Filter = "filter",
   Highlight = "highlight",
+  Bookmark = "bookmark",
 }
 
 enum FilterLogic {

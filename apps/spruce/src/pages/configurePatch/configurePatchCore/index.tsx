@@ -64,14 +64,15 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     id,
     patchTriggerAliases,
     project,
-    projectID,
-    projectIdentifier,
+    projectMetadata,
     time,
     user,
     variantsTasks,
     versionFull,
   } = patch;
   const { variants = [] } = project || {};
+  const projectID = projectMetadata?.id ?? "";
+  const projectIdentifier = projectMetadata?.identifier;
 
   const childPatchesWithAliases: ChildPatchAliased[] =
     childPatches?.map((cp) => {
@@ -326,8 +327,8 @@ const getChildPatchEntries = (childPatches: ChildPatchAliased[]) => {
   if (!childPatches) {
     return [];
   }
-  return childPatches.map(({ alias, projectIdentifier, variantsTasks }) => ({
-    displayName: `${alias} (${projectIdentifier})`,
+  return childPatches.map(({ alias, projectMetadata, variantsTasks }) => ({
+    displayName: `${alias} (${projectMetadata?.identifier})`,
     name: alias,
     taskCount: variantsTasks.reduce((c, v) => c + v.tasks.length, 0),
   }));

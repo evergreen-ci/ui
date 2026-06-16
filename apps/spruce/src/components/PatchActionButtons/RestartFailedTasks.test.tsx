@@ -323,8 +323,11 @@ const buildVariantsQueryMockWithChildVersions: ApolloMock<
           {
             __typename: "Version",
             id: "child-version-id",
-            project: "child-project",
-            projectIdentifier: "child-project",
+            projectMetadata: {
+              __typename: "Project",
+              id: "child-project",
+              identifier: "child-project",
+            },
             buildVariants: [
               {
                 __typename: "GroupedBuildVariant",

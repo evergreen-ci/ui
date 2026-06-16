@@ -54,7 +54,6 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
     parameters,
     patch,
     previousVersion,
-    projectIdentifier,
     projectMetadata,
     requester,
     revision,
@@ -72,7 +71,13 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
   const { githubPatchData, includedLocalModules } = patch || {};
   const { headHash, prNumber } = githubPatchData || {};
 
-  const { branch, id: projectID, owner, repo } = projectMetadata || {};
+  const {
+    branch,
+    id: projectID,
+    identifier: projectIdentifier,
+    owner,
+    repo,
+  } = projectMetadata || {};
   const hasOwnerAndRepo = !!owner && !!repo;
 
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;

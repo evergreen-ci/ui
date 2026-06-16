@@ -59,17 +59,6 @@ export const useFilters = ({
   const filteredBuildVariants = useMemo(() => {
     const bvs: BuildVariant[] = [];
 
-    let pinIndex = 0;
-    const pushVariant = (variant: BuildVariant) => {
-      if (pins.includes(variant.id)) {
-        // If build variant is pinned, insert it at the end of the list of pinned variants
-        bvs.splice(pinIndex, 0, variant);
-        pinIndex += 1;
-      } else {
-        bvs.push(variant);
-      }
-    };
-
     const activeVersions = flattenedVersions.filter(
       (v) =>
         activeVersionIds.includes(v.id) && matchesRequesters(v, requesters),
@@ -112,7 +101,7 @@ export const useFilters = ({
         }
       });
       if (activeBuilds.length) {
-        pushVariant({ ...bv, builds: activeBuilds });
+        bvs.push({ ...bv, builds: activeBuilds });
       }
     });
     return bvs;
@@ -122,11 +111,22 @@ export const useFilters = ({
     buildVariants,
     flattenedVersions,
     omitInactiveBuilds,
-    pins,
     requesters,
     statuses,
     taskFilterRegex,
   ]);
+
+  const orderedBuildVariants = useMemo(() => {
+    if (!pins.length) {
+      return filteredBuildVariants;
+    }
+    const pinned: BuildVariant[] = [];
+    const unpinned: BuildVariant[] = [];
+    filteredBuildVariants.forEach((bv) => {
+      (pins.includes(bv.id) ? pinned : unpinned).push(bv);
+    });
+    return [...pinned, ...unpinned];
+  }, [filteredBuildVariants, pins]);
 
   const groupedVersions = useMemo(() => {
     const hasActiveBuild = (version: Version) =>
@@ -154,7 +154,7 @@ export const useFilters = ({
 
   return {
     activeVersionIds: filteredVersionIds,
-    buildVariants: filteredBuildVariants,
+    buildVariants: orderedBuildVariants,
     versions: groupedVersions,
   };
 };

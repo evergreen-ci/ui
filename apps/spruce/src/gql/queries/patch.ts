@@ -7,8 +7,10 @@ export const PATCH = gql`
       ...BasePatch
       githash
       patchNumber
-      projectID
-      projectIdentifier
+      projectMetadata {
+        id
+        identifier
+      }
       versionFull {
         id
       }

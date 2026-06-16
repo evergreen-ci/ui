@@ -227,7 +227,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     dataIsComplete &&
     data?.waterfall?.pagination?.activeVersionIds?.length === 0
   ) {
-    return <EmptyState />;
+    return <EmptyState pagination={data.waterfall.pagination} />;
   }
 
   return (
