@@ -1,5 +1,5 @@
 import { render, screen, waitFor, act } from "@evg-ui/lib/test_utils";
-import ETATimer from ".";
+import { ETATimer } from ".";
 
 describe("etaTimer", () => {
   beforeEach(() => {

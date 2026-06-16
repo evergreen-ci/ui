@@ -1,54 +1,28 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { palette } from "@leafygreen-ui/palette";
-import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
-import { CostModal } from "components/CostModal";
 import MetadataCard, {
-  MetadataHeader,
   MetadataItem,
   MetadataLabel,
   MetadataTitleWithAPILink,
 } from "components/MetadataCard";
-import { Stepback } from "components/Stepback";
 import { getAPIRouteForTasks } from "constants/externalResources";
 import {
-  getHoneycombSystemMetricsUrl,
-  getHoneycombTraceUrl,
-} from "constants/externalResources/honeycomb";
-import {
   getDistroSettingsRoute,
-  getTaskQueueRoute,
-  getTaskRoute,
   getHostRoute,
-  getProjectPatchesRoute,
   getImageRoute,
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
-import { formatCost } from "utils/numbers";
 import { isFailedTaskStatus } from "utils/statuses";
-import { isInStepback } from "utils/stepback";
-import { msToDuration } from "utils/string";
-import { AbortMessage } from "./AbortMessage";
 import { BuildVariantCard } from "./BuildVariant";
 import { DebugSpawnHostGuideCue } from "./DebugSpawnHostGuideCue";
 import { DependsOn } from "./DependsOn";
-import DetailsDescription from "./DetailsDescription";
-import ETATimer from "./ETATimer";
-import RuntimeTimer from "./RuntimeTimer";
+import { ExecutionSection } from "./ExecutionSection";
+import { GeneralSection } from "./GeneralSection";
+import { LinksSection } from "./LinksSection";
 import TagsMetadata from "./TagsMetadata";
-import TaskOwnership from "./TaskOwnership";
 import { TaskTimingMetadata } from "./TaskTiming";
-import { TestSelection } from "./TestSelection";
-import { Timeline } from "./Timeline";
-
-const { red } = palette;
+import { TimelineSection } from "./TimelineSection";
 
 interface Props {
   loading: boolean;
@@ -58,9 +32,6 @@ interface Props {
 
 export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskAnalytics = useTaskAnalytics();
-  const [costModalOpen, setCostModalOpen] = useState(false);
-
-  const showStepback = isInStepback(task?.stepbackInfo);
 
   if (!task) {
     return (
@@ -69,12 +40,9 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
       </MetadataCard>
     );
   }
+
   const {
-    abortInfo,
-    activatedTime,
     ami,
-    annotation,
-    baseTask,
     buildId,
     buildVariant,
     buildVariantDisplayName,
@@ -83,49 +51,18 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     displayStatus,
     displayTask,
     distroId,
-    estimatedStart,
     execution,
     executionTasksFull,
-    expectedDuration,
-    finishTime,
-    generatedBy,
-    generatedByName,
     hostId,
     id: taskId,
     imageId,
-    ingestTime,
-    minQueuePosition: taskQueuePosition,
-    priority,
     project,
-    resetWhenFinished,
     spawnHostLink,
-    startTime,
     tags,
-    taskCost,
-    testSelectionEnabled,
-    timeTaken,
-    versionMetadata,
   } = task;
 
   const isDisplayTask = executionTasksFull != null;
-  const {
-    timeTaken: baseTaskDuration,
-    versionMetadata: baseTaskVersionMetadata,
-  } = baseTask ?? {};
-  const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
-  const {
-    id: projectID,
-    identifier: projectIdentifier,
-    owner,
-    repo,
-    testSelection,
-  } = project || {};
-  const { allowed: testSelectionEnabledForProject } = testSelection || {};
-  const { user } = versionMetadata ?? {};
-  const oomTracker = details?.oomTracker;
-  const taskTrace = details?.traceID;
-  const diskDevices = details?.diskDevices;
-  const { metadataLinks } = annotation ?? {};
+  const { identifier: projectIdentifier } = project || {};
 
   return (
     <>
@@ -138,247 +75,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         }
       >
         <CopyableID textToCopy={taskId} tooltipLabel="Copy task ID" />
-
-        <MetadataHeader title="General" />
-        <MetadataItem data-cy="task-metadata-project">
-          <MetadataLabel>Project:</MetadataLabel>{" "}
-          <StyledRouterLink
-            data-cy="project-link"
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
-                "link.type": "project link",
-              })
-            }
-            to={getProjectPatchesRoute(projectIdentifier || projectID || "")}
-          >
-            {projectIdentifier || `${owner}/${repo}`}
-          </StyledRouterLink>
-        </MetadataItem>
-        <MetadataItem>
-          <MetadataLabel>Submitted by:</MetadataLabel> {user.userId}
-        </MetadataItem>
-        {generatedBy && (
-          <MetadataItem>
-            <MetadataLabel>Generated by:</MetadataLabel>{" "}
-            <StyledRouterLink to={getTaskRoute(generatedBy)}>
-              {generatedByName}
-            </StyledRouterLink>
-          </MetadataItem>
-        )}
-        <TaskOwnership execution={execution} taskId={taskId} />
-        {displayTask && (
-          <MetadataItem>
-            <MetadataLabel>Display Task:</MetadataLabel>{" "}
-            <StyledRouterLink
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "display task link",
-                })
-              }
-              to={getTaskRoute(displayTask.id, {
-                execution: displayTask.execution,
-              })}
-            >
-              {displayTask.displayName}
-            </StyledRouterLink>
-          </MetadataItem>
-        )}
-        {baseTask && (
-          <MetadataItem>
-            <MetadataLabel>Base commit:</MetadataLabel>{" "}
-            <InlineCode
-              as={Link}
-              data-cy="base-task-link"
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "base commit",
-                })
-              }
-              to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
-            >
-              {baseCommit}
-            </InlineCode>
-          </MetadataItem>
-        )}
-
-        <MetadataHeader title="Timeline" />
-        <Timeline
-          activatedTime={activatedTime}
-          finishTime={finishTime}
-          ingestTime={ingestTime}
-          startTime={startTime}
-        />
-        {estimatedStart && estimatedStart > 0 ? (
-          <MetadataItem>
-            <MetadataLabel>Estimated time to start:</MetadataLabel>{" "}
-            <span data-cy="task-metadata-estimated-start">
-              {msToDuration(estimatedStart)}
-            </span>
-          </MetadataItem>
-        ) : null}
-        {displayStatus === TaskStatus.Started &&
-        startTime &&
-        expectedDuration ? (
-          <ETATimer expectedDuration={expectedDuration} startTime={startTime} />
-        ) : null}
-        {displayStatus === TaskStatus.Started && startTime && (
-          <RuntimeTimer startTime={startTime} />
-        )}
-        {finishTime && timeTaken && timeTaken > 0 ? (
-          <MetadataItem data-cy="task-metadata-duration">
-            <MetadataLabel>Duration:</MetadataLabel> {msToDuration(timeTaken)}
-          </MetadataItem>
-        ) : null}
-        {baseTaskDuration ? (
-          <MetadataItem data-cy="task-metadata-base-commit-duration">
-            <MetadataLabel>Base commit duration:</MetadataLabel>{" "}
-            {msToDuration(baseTaskDuration)}
-          </MetadataItem>
-        ) : null}
-
-        <MetadataHeader title="Execution" />
-        {(details?.description || details?.failingCommand) && (
-          <DetailsDescription details={details} />
-        )}
-        {details?.timeoutType && details?.timeoutType !== "" && (
-          <MetadataItem>
-            <MetadataLabel>Timeout type:</MetadataLabel> {details?.timeoutType}
-          </MetadataItem>
-        )}
-        {priority && priority !== 0 ? (
-          <MetadataItem data-cy="task-metadata-priority">
-            <MetadataLabel>Priority:</MetadataLabel> {priority}{" "}
-            {priority < 0 && `(Disabled)`}
-          </MetadataItem>
-        ) : null}
-        {taskQueuePosition && taskQueuePosition > 0 ? (
-          <MetadataItem>
-            <MetadataLabel>Position in queue:</MetadataLabel>{" "}
-            <StyledRouterLink
-              data-cy="task-queue-position"
-              to={getTaskQueueRoute(distroId, taskId)}
-            >
-              {taskQueuePosition}
-            </StyledRouterLink>
-          </MetadataItem>
-        ) : null}
-        {abortInfo && <AbortMessage {...abortInfo} />}
-        {oomTracker && oomTracker.detected && (
-          <OOMTrackerMessage>
-            Out of Memory Kill detected{" "}
-            {oomTracker.pids ? `(PIDs: ${oomTracker.pids.join(", ")})` : ""}
-          </OOMTrackerMessage>
-        )}
-        {resetWhenFinished && (
-          <MetadataItem>
-            This task will restart when all of its sibling execution tasks have
-            finished.
-          </MetadataItem>
-        )}
-        {showStepback && (
-          <MetadataItem as="div">
-            <Stepback
-              execution={execution}
-              status={task.status}
-              taskId={taskId}
-            />
-          </MetadataItem>
-        )}
-        {testSelectionEnabledForProject && (
-          <TestSelection testSelectionEnabled={testSelectionEnabled} />
-        )}
-        {finishTime && taskCost?.total != null && (
-          <MetadataItem data-cy="task-metadata-cost">
-            <MetadataLabel>Cost: </MetadataLabel> ${formatCost(taskCost.total)}
-            {taskCost.total > 0 && (
-              <Button
-                data-cy="cost-details-button"
-                onClick={() => {
-                  taskAnalytics.sendEvent({
-                    name: "Clicked cost details button",
-                  });
-                  setCostModalOpen(true);
-                }}
-                size={ButtonSize.XSmall}
-              >
-                Cost Details
-              </Button>
-            )}
-          </MetadataItem>
-        )}
-        {taskCost && costModalOpen && (
-          <CostModal
-            {...taskCost}
-            endTs={finishTime ?? undefined}
-            name={task.displayName}
-            open={costModalOpen}
-            setOpen={setCostModalOpen}
-            startTs={startTime ?? undefined}
-            taskId={taskId}
-          />
-        )}
-
-        <MetadataHeader title="Links" />
-        {metadataLinks &&
-          metadataLinks.map((link) => (
-            <MetadataItem key={link.text}>
-              <StyledLink
-                data-cy="task-metadata-link"
-                href={link.url}
-                onClick={() =>
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "annotation link",
-                  })
-                }
-              >
-                {link.text}
-              </StyledLink>
-            </MetadataItem>
-          ))}
-        {startTime && finishTime && (
-          <MetadataItem>
-            <HoneycombLinkContainer>
-              {taskTrace && (
-                <StyledLink
-                  data-cy="task-trace-link"
-                  hideExternalIcon={false}
-                  href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
-                  onClick={() => {
-                    taskAnalytics.sendEvent({
-                      name: "Clicked metadata link",
-                      "link.type": "honeycomb trace link",
-                    });
-                  }}
-                >
-                  Honeycomb Trace
-                </StyledLink>
-              )}
-              <StyledLink
-                data-cy="task-metrics-link"
-                hideExternalIcon={false}
-                href={getHoneycombSystemMetricsUrl(
-                  taskId,
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  diskDevices,
-                  startTime,
-                  finishTime,
-                )}
-                onClick={() => {
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "honeycomb metrics link",
-                  });
-                }}
-              >
-                Honeycomb System Metrics
-              </StyledLink>
-            </HoneycombLinkContainer>
-          </MetadataItem>
-        )}
+        <GeneralSection task={task} />
+        <TimelineSection task={task} />
+        <ExecutionSection task={task} />
+        <LinksSection task={task} />
       </MetadataCard>
 
       <BuildVariantCard
@@ -487,13 +187,3 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     </>
   );
 };
-
-const HoneycombLinkContainer = styled.span`
-  display: flex;
-  flex-direction: column;
-`;
-
-const OOMTrackerMessage = styled(MetadataItem)`
-  color: ${red.dark2};
-  font-weight: 500;
-`;

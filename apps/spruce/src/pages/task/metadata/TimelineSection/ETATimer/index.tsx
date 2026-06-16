@@ -9,7 +9,11 @@ interface ETATimerProps {
   startTime: Date;
   expectedDuration: number;
 }
-const ETATimer: React.FC<ETATimerProps> = ({ expectedDuration, startTime }) => {
+
+export const ETATimer: React.FC<ETATimerProps> = ({
+  expectedDuration,
+  startTime,
+}) => {
   const parsedStartTime = new Date(startTime);
   const { endTimer, runningTime } = useRunningTime(parsedStartTime);
   useEffect(() => {
@@ -26,5 +30,3 @@ const ETATimer: React.FC<ETATimerProps> = ({ expectedDuration, startTime }) => {
     </MetadataItem>
   );
 };
-
-export default ETATimer;
