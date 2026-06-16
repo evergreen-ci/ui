@@ -8,7 +8,11 @@ import {
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import {
   evergreenURL,
+  getAppVersion,
+  getHoneycombEndpoint,
+  getHoneycombIngestKey,
   getReleaseStage,
+  getSentryDSN,
   isDevelopmentBuild,
 } from "utils/environmentVariables";
 import App from "./App";
@@ -22,15 +26,15 @@ const routeConfig = {
 initializeErrorHandling({
   environment: getReleaseStage(),
   isProductionBuild: !isDevelopmentBuild(),
-  sentryDSN: process.env.REACT_APP_PARSLEY_SENTRY_DSN || "",
+  sentryDSN: getSentryDSN(),
 });
 initializeHoneycomb({
-  appVersion: process.env.REACT_APP_VERSION || "",
+  appVersion: getAppVersion(),
   backendURL: toEscapedRegex(evergreenURL || ""),
   debug: isDevelopmentBuild(),
-  endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
+  endpoint: getHoneycombEndpoint(),
   environment: getReleaseStage(),
-  ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
+  ingestKey: getHoneycombIngestKey(),
   routeConfig,
   serviceName: "parsley",
 });

@@ -9,9 +9,12 @@ export {
   isProductionBuild,
   isStaging,
   isTest,
+  getAppVersion,
+  getHoneycombIngestKey,
+  getHoneycombEndpoint,
 } from "@evg-ui/lib/utils/environmentVariables";
 
-const getSentryDSN = () => process.env.REACT_APP_PARSLEY_SENTRY_DSN || "";
+const getSentryDSN = () => import.meta.env.VITE_PARSLEY_SENTRY_DSN || "";
 
 const evergreenURL = process.env.REACT_APP_EVERGREEN_URL;
 const graphqlURL = process.env.REACT_APP_GRAPHQL_URL;
