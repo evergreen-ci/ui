@@ -20,7 +20,10 @@ export const Timeline: React.FC<TimelineProps> = ({
 }) => {
   const getDateCopy = useDateFormat();
 
-  return (
+  const hasTimelineData =
+    ingestTime || activatedTime || startTime || finishTime;
+
+  return hasTimelineData ? (
     <TimelineContainer>
       {ingestTime && (
         <TimelineRow data-cy="task-metadata-submitted-at">
@@ -55,7 +58,7 @@ export const Timeline: React.FC<TimelineProps> = ({
         </TimelineRow>
       )}
     </TimelineContainer>
-  );
+  ) : null;
 };
 
 const DOT_SIZE = 10;
