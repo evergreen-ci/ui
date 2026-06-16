@@ -4981,6 +4981,7 @@ export type VersionLite = {
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  isPatch: Scalars["Boolean"]["output"];
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;
@@ -11479,7 +11480,11 @@ export type TaskQuery = {
       revision?: string | null;
       status: string;
       timeTaken?: number | null;
-      versionMetadata: { __typename?: "Version"; id: string; revision: string };
+      versionMetadata: {
+        __typename?: "VersionLite";
+        id: string;
+        revision: string;
+      };
     } | null;
     dependsOn?: Array<{
       __typename?: "Dependency";
@@ -11573,19 +11578,19 @@ export type TaskQuery = {
       total?: number | null;
     } | null;
     versionMetadata: {
-      __typename?: "Version";
+      __typename?: "VersionLite";
       id: string;
       isPatch: boolean;
       message: string;
       order: number;
       revision: string;
       projectMetadata?: {
-        __typename?: "Project";
+        __typename?: "ProjectLite";
         id: string;
         identifier: string;
       } | null;
       user: {
-        __typename?: "User";
+        __typename?: "UserLite";
         displayName?: string | null;
         userId: string;
       };

@@ -7,11 +7,11 @@ export const BASE_TASK = gql`
     displayStatus
     execution
     patchNumber
-    versionMetadata {
+    versionMetadata: version {
       id
       isPatch
       message
-      projectMetadata {
+      projectMetadata: project {
         id
         identifier
       }

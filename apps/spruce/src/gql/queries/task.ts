@@ -28,7 +28,7 @@ export const TASK = gql`
         revision
         status
         timeTaken
-        versionMetadata {
+        versionMetadata: version {
           id
           revision
         }
@@ -150,19 +150,19 @@ export const TASK = gql`
       }
       testSelectionEnabled
       timeTaken
-      versionMetadata {
+      versionMetadata: version {
         id
         isPatch
         message
         order
-        projectMetadata {
+        projectMetadata: project {
           id
           identifier
         }
         revision
         user {
           displayName
-          userId
+          userId: id
         }
       }
     }

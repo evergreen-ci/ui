@@ -50,7 +50,7 @@ export const taskQuery: TaskQueryType = {
     ami: "ami-0c83bb0a9f48c15bf",
     baseTask: {
       versionMetadata: {
-        __typename: "Version",
+        __typename: "VersionLite",
         id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
         revision: "e0ece5ad52ad01630bdf29f55b9382a26d6256b3",
       },
@@ -115,10 +115,10 @@ export const taskQuery: TaskQueryType = {
     status: "pending",
     files: { __typename: "TaskFiles", fileCount: 38 },
     versionMetadata: {
-      __typename: "Version",
+      __typename: "VersionLite",
       id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "mohamed.khelif",
         displayName: "Mohamed Khelif",
       },
@@ -126,7 +126,7 @@ export const taskQuery: TaskQueryType = {
       message: "ubuntu_e2e_task",
       order: 1,
       projectMetadata: {
-        __typename: "Project",
+        __typename: "ProjectLite",
         id: "spruce",
         identifier: "spruce",
       },
