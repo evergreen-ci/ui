@@ -75,7 +75,7 @@ export const getUserSettingsMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "user.id",
         settings: {
           __typename: "UserSettings",

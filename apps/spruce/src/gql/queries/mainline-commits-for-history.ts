@@ -23,9 +23,9 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
           message
           order
           revision
-          user {
+          user: userLite {
             displayName
-            userId
+            userId: id
           }
         }
         version {
@@ -49,9 +49,9 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
           message
           order
           revision
-          user {
+          user: userLite {
             displayName
-            userId
+            userId: id
           }
         }
       }

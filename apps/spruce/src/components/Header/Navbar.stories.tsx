@@ -18,7 +18,7 @@ const userMock: ApolloMock<UserQuery, UserQueryVariables> = {
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         displayName: "Mohamed Khelif",
         emailAddress: "mohamed.khelif@mongodb.com",
         userId: "mohamed.khelif",

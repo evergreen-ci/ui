@@ -56,7 +56,11 @@ const baseVersion: Version = {
     repo: "evergreen",
   },
   upstreamProject: null,
-  user: { __typename: "User", displayName: "Test User", userId: "testuser" },
+  user: {
+    __typename: "UserLite",
+    displayName: "Test User",
+    userId: "testuser",
+  },
   versionTiming: null,
 };
 
