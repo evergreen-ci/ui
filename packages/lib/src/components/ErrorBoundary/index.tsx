@@ -1,5 +1,6 @@
 import { isInitialized } from "@sentry/core";
 import DefaultErrorBoundary from "./DefaultErrorBoundary";
+import ErrorFallback from "./ErrorFallback/ErrorFallback";
 import SentryErrorBoundary from "./SentryErrorBoundary";
 
 /**
@@ -8,22 +9,32 @@ import SentryErrorBoundary from "./SentryErrorBoundary";
  * @param param0 - The props
  * @param param0.children - The children
  * @param param0.homeURL - The home URL of the application.
+ * @param param0.FallbackComponent - Optional custom fallback component. Defaults to the built-in LeafyGreen ErrorFallback.
  * @returns - The wrapped component.
  */
-const ErrorBoundary: React.FC<{
+export const ErrorBoundary: React.FC<{
   children: React.ReactNode;
   homeURL: string;
-}> = ({ children, homeURL }) => {
+  FallbackComponent?: React.ComponentType<{ homeURL: string }>;
+}> = ({ FallbackComponent = ErrorFallback, children, homeURL }) => {
   const shouldUseSentry = isInitialized();
 
   if (shouldUseSentry) {
     return (
-      <SentryErrorBoundary homeURL={homeURL}>{children}</SentryErrorBoundary>
+      <SentryErrorBoundary
+        FallbackComponent={FallbackComponent}
+        homeURL={homeURL}
+      >
+        {children}
+      </SentryErrorBoundary>
     );
   }
   return (
-    <DefaultErrorBoundary homeURL={homeURL}>{children}</DefaultErrorBoundary>
+    <DefaultErrorBoundary
+      FallbackComponent={FallbackComponent}
+      homeURL={homeURL}
+    >
+      {children}
+    </DefaultErrorBoundary>
   );
 };
-
-export default ErrorBoundary;

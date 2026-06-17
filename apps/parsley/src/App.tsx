@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks";
-import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
+import { ErrorBoundary } from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
 import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
 import LoginPage from "@evg-ui/lib/pages/LoginPage";
