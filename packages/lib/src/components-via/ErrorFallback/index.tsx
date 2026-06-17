@@ -22,8 +22,8 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ homeURL }) => (
 );
 
 const Center = styled.div`
-  display: flex;
   height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
