@@ -1,3 +1,4 @@
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, mergeConfig } from "vite";
 import { defineConfig as defineTestConfig } from "vitest/config";
@@ -6,7 +7,13 @@ const viteConfig = defineConfig({
   server: {
     port: 5493,
   },
-  plugins: [react()],
+  plugins: [
+    tanstackRouter({
+      target: "react",
+      autoCodeSplitting: true,
+    }),
+    react(),
+  ],
   resolve: {
     tsconfigPaths: true,
   },
