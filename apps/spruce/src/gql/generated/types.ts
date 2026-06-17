@@ -1025,6 +1025,14 @@ export type EnvVarInput = {
   value: Scalars["String"]["input"];
 };
 
+/**
+ * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
+ * It's used to filter a display task's execution tasks.
+ */
+export type ExecutionTasksFilterOptions = {
+  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
 export type Expansion = {
   __typename?: "Expansion";
   key: Scalars["String"]["output"];
@@ -2542,7 +2550,9 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
+  /** @deprecated Use userLite instead. */
   user: User;
+  userLite: UserLite;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
@@ -3175,6 +3185,7 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
+  userLite: UserLite;
   variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
@@ -3317,6 +3328,10 @@ export type QueryTaskTestSampleArgs = {
 };
 
 export type QueryUserArgs = {
+  userId?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryUserLiteArgs = {
   userId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -4185,6 +4200,11 @@ export type Task = {
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskExecutionTasksFullArgs = {
+  options?: InputMaybe<ExecutionTasksFilterOptions>;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
 export type TaskTestsArgs = {
   opts?: InputMaybe<TestFilterOptions>;
 };
@@ -4823,12 +4843,31 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
-/** UserLite replaces User by sidestepping the APIUser field. It does not contain all fields at this time. */
+/**
+ * UserLite replaces User by sidestepping the APIDBUser API model and binding directly to the
+ * service-layer user model. New clients should query UserLite instead of User.
+ */
 export type UserLite = {
   __typename?: "UserLite";
+  betaFeatures?: Maybe<BetaFeatures>;
   displayName?: Maybe<Scalars["String"]["output"]>;
   emailAddress?: Maybe<Scalars["String"]["output"]>;
+  hasTokenExchangePending: Scalars["Boolean"]["output"];
   id: Scalars["String"]["output"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
+  patches?: Maybe<Patches>;
+  permissions?: Maybe<Permissions>;
+  settings?: Maybe<UserSettings>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
+  tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
+};
+
+/**
+ * UserLite replaces User by sidestepping the APIDBUser API model and binding directly to the
+ * service-layer user model. New clients should query UserLite instead of User.
+ */
+export type UserLitePatchesArgs = {
+  patchesInput: PatchesInput;
 };
 
 export type UserServiceFlags = {
@@ -4937,7 +4976,9 @@ export type Version = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
+  /** @deprecated Use userLite instead. */
   user: User;
+  userLite: UserLite;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
@@ -11944,6 +11985,7 @@ export type VersionTaskDurationsQuery = {
 export type VersionTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
+  executionTaskOptions?: InputMaybe<ExecutionTasksFilterOptions>;
 }>;
 
 export type VersionTasksQuery = {

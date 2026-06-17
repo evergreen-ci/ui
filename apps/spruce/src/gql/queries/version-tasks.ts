@@ -4,6 +4,7 @@ export const VERSION_TASKS = gql`
   query VersionTasks(
     $versionId: String!
     $taskFilterOptions: TaskFilterOptions!
+    $executionTaskOptions: ExecutionTasksFilterOptions
   ) {
     version(versionId: $versionId) {
       id
@@ -28,7 +29,7 @@ export const VERSION_TASKS = gql`
           displayStatus
           errors
           execution
-          executionTasksFull {
+          executionTasksFull(options: $executionTaskOptions) {
             id
             baseTask {
               id

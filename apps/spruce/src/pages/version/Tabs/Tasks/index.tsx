@@ -27,7 +27,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(versionId || "");
-  const { limit, page, sorts } = queryVariables.taskFilterOptions;
+  const { limit, page, sorts, statuses } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
     const hasValidSortsForTab =
@@ -99,6 +99,8 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
 
   return (
     <VersionTasksTable
+      // Remount the table when the status filter changes to expand and show matching execution tasks
+      key={(statuses ?? []).join(",")}
       clearQueryParams={clearQueryParams}
       filteredCount={count}
       isPatch={isPatch ?? false}
