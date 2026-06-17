@@ -145,7 +145,7 @@ const imageDistrosMock: ApolloMock<
           {
             __typename: "Distro",
             name: "ubuntu2204-large",
-            provider: Provider.Ec2OnDemand,
+            provider: Provider.Ec2Fleet,
             providerSettingsList: [
               { region: "us-east-1", instance_type: "m6i.2xlarge" },
               { region: "us-east-1", instance_type: "m5.2xlarge" },
