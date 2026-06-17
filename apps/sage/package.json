@@ -22,11 +22,12 @@
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@evg-ui/lib": "workspace:*",
+    "@tanstack/react-router": "1.170.10",
+    "@tanstack/router-plugin": "1.168.13",
     "@via-ds/components": "0.0.1-canary.0",
     "@via-ds/icons": "0.0.2-canary.0",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-router-dom": "^7.16.0"
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "workspace:*",

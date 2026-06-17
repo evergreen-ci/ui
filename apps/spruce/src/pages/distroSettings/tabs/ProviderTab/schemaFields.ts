@@ -369,35 +369,6 @@ export const ec2FleetProviderSettings = {
   },
 };
 
-export const ec2OnDemandProviderSettings = {
-  schema: {
-    amiId: amiId.schema,
-    instanceType: instanceType.schema,
-    sshKeyName: sshKeyName.schema,
-    instanceProfileARN: instanceProfileARN.schema,
-    doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
-    elasticIpsEnabled: elasticIpsEnabled.schema,
-    mergeUserData: mergeUserData.schema,
-    userData: userData.schema,
-    securityGroups: securityGroups.schema,
-    vpcOptions: vpcOptions.schema,
-    mountPoints: mountPoints.schema,
-  },
-  uiSchema: {
-    amiId: amiId.uiSchema,
-    instanceType: instanceType.uiSchema,
-    sshKeyName: sshKeyName.uiSchema,
-    instanceProfileARN: instanceProfileARN.uiSchema,
-    doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
-    elasticIpsEnabled: elasticIpsEnabled.uiSchema,
-    mergeUserData: mergeUserData.uiSchema,
-    userData: userData.uiSchema,
-    securityGroups: securityGroups.uiSchema,
-    vpcOptions: vpcOptions.uiSchema,
-    mountPoints: mountPoints.uiSchema,
-  },
-};
-
 export const ec2ProviderAccountField = {
   type: "string" as const,
   title: "Provider Account",

@@ -336,7 +336,7 @@ const baseSpawnHost: MyHost = {
   ],
   noExpiration: true,
   persistentDnsName: "",
-  provider: "ec2-ondemand",
+  provider: "ec2-fleet",
   startedBy: "stssss.arst",
   status: "running",
   tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
