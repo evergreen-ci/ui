@@ -63,7 +63,7 @@ const DistroSettings: React.FC = () => {
   const imageId = data?.distro?.imageId ?? "";
 
   return (
-    <DistroSettingsProvider>
+    <DistroSettingsProvider key={distroId}>
       <SideNavPageWrapper>
         <SideNav aria-label="Distro Settings" widthOverride={250}>
           <ButtonsContainer>
