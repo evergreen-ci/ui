@@ -15,8 +15,6 @@ import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 import { UnsavedModal } from "./UnsavedModal";
 
-const ec2Providers = [Provider.Ec2Fleet, Provider.Ec2OnDemand];
-
 export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const { getTab } = useDistroSettingsContext();
   const { formData, initialData } = getTab(WritableDistroSettingsTabs.Provider);
@@ -38,9 +36,6 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const fleetRegionsInUse = formData?.ec2FleetProviderSettings?.map(
     (p) => p.region,
   );
-  const onDemandRegionsInUse = formData?.ec2OnDemandProviderSettings?.map(
-    (p) => p.region,
-  );
   const providerName = formData?.provider?.providerName;
 
   const formSchema = useMemo(
@@ -48,19 +43,11 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
       getFormSchema({
         awsRegions: awsRegions || [],
         fleetRegionsInUse: fleetRegionsInUse || [],
-        onDemandRegionsInUse: onDemandRegionsInUse || [],
         pools: pools || [],
         poolMappingInfo,
-        isEC2Provider: ec2Providers.includes(providerName as Provider),
+        isEC2Provider: providerName === Provider.Ec2Fleet,
       }),
-    [
-      awsRegions,
-      fleetRegionsInUse,
-      onDemandRegionsInUse,
-      pools,
-      poolMappingInfo,
-      providerName,
-    ],
+    [awsRegions, fleetRegionsInUse, pools, poolMappingInfo, providerName],
   );
 
   return (

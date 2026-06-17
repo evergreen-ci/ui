@@ -81,14 +81,13 @@ export const VersionPage: React.FC = () => {
     message,
     order,
     patch,
-    projectIdentifier,
+    projectMetadata,
     requester,
     revision,
     status,
     warnings,
   } = version || {};
   const { patchNumber } = patch || {};
-
   const versionText = shortenGithash(revision || versionId);
   const pageTitle = isPatch
     ? `Patch - ${patchNumber}`
@@ -102,7 +101,7 @@ export const VersionPage: React.FC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      <ProjectBanner projectIdentifier={projectIdentifier} />
+      <ProjectBanner projectIdentifier={projectMetadata?.identifier} />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
       {ignored && <IgnoredBanner />}
