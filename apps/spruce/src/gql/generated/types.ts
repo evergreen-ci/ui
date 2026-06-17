@@ -178,6 +178,7 @@ export type AdminSettings = {
   pprofPort?: Maybe<Scalars["String"]["output"]>;
   projectCreation?: Maybe<ProjectCreationConfig>;
   providers?: Maybe<CloudProviderConfig>;
+  rateLimit?: Maybe<RateLimitConfig>;
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
@@ -236,6 +237,7 @@ export type AdminSettingsInput = {
   pprofPort?: InputMaybe<Scalars["String"]["input"]>;
   projectCreation?: InputMaybe<ProjectCreationConfigInput>;
   providers?: InputMaybe<CloudProviderConfigInput>;
+  rateLimit?: InputMaybe<RateLimitConfigInput>;
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
@@ -3331,6 +3333,33 @@ export type QueryWaterfallArgs = {
   options: WaterfallOptions;
 };
 
+export type RateLimitConfig = {
+  __typename?: "RateLimitConfig";
+  elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
+  graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
+  graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
+  graphqlUserPerHour?: Maybe<Scalars["Int"]["output"]>;
+  restServiceBurst?: Maybe<Scalars["Int"]["output"]>;
+  restServicePerHour?: Maybe<Scalars["Int"]["output"]>;
+  restUserBurst?: Maybe<Scalars["Int"]["output"]>;
+  restUserPerHour?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type RateLimitConfigInput = {
+  elevatedUserIds: Array<Scalars["String"]["input"]>;
+  graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlServiceBurst: Scalars["Int"]["input"];
+  graphqlServicePerHour: Scalars["Int"]["input"];
+  graphqlUserBurst: Scalars["Int"]["input"];
+  graphqlUserPerHour: Scalars["Int"]["input"];
+  restServiceBurst: Scalars["Int"]["input"];
+  restServicePerHour: Scalars["Int"]["input"];
+  restUserBurst: Scalars["Int"]["input"];
+  restUserPerHour: Scalars["Int"]["input"];
+};
+
 export type RefreshGitHubStatusesInput = {
   versionId: Scalars["String"]["input"];
 };
@@ -4325,6 +4354,7 @@ export type TaskLimitsConfig = {
   maxIncludesPerVersion?: Maybe<Scalars["Int"]["output"]>;
   maxParserProjectSize?: Maybe<Scalars["Int"]["output"]>;
   maxPendingGeneratedTasks?: Maybe<Scalars["Int"]["output"]>;
+  maxScheduledTasksPerDistro?: Maybe<Scalars["Int"]["output"]>;
   maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
   maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
 };
@@ -4340,6 +4370,7 @@ export type TaskLimitsConfigInput = {
   maxIncludesPerVersion: Scalars["Int"]["input"];
   maxParserProjectSize: Scalars["Int"]["input"];
   maxPendingGeneratedTasks: Scalars["Int"]["input"];
+  maxScheduledTasksPerDistro: Scalars["Int"]["input"];
   maxTaskExecution: Scalars["Int"]["input"];
   maxTasksPerVersion: Scalars["Int"]["input"];
 };
@@ -4952,6 +4983,7 @@ export type VersionLite = {
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  isPatch: Scalars["Boolean"]["output"];
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;
@@ -7163,6 +7195,7 @@ export type SaveAdminSettingsMutation = {
       maxIncludesPerVersion?: number | null;
       maxParserProjectSize?: number | null;
       maxPendingGeneratedTasks?: number | null;
+      maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
@@ -7973,6 +8006,7 @@ export type AdminSettingsQuery = {
       maxIncludesPerVersion?: number | null;
       maxParserProjectSize?: number | null;
       maxPendingGeneratedTasks?: number | null;
+      maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
