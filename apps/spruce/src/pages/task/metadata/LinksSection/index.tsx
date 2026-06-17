@@ -22,9 +22,9 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices ?? [];
 
-  const hasContent = metadataLinks?.length || (startTime && finishTime);
+  const hasLinks = metadataLinks?.length || (startTime && finishTime);
 
-  return hasContent ? (
+  return hasLinks ? (
     <>
       <MetadataHeader title="Links" />
       {metadataLinks &&

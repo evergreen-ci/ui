@@ -51,26 +51,22 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
   const oomTracker = details?.oomTracker;
   const { allowed: testSelectionEnabledForProject } =
     task.project?.testSelection || {};
+  const hasDetailsDescription = details?.description || details?.failingCommand;
 
-  const hasContent =
-    details?.description ||
-    details?.failingCommand ||
-    (details?.timeoutType && details?.timeoutType) ||
+  const hasExecutionInfo =
+    hasDetailsDescription ||
     (priority && priority > 0) ||
     (taskQueuePosition && taskQueuePosition > 0) ||
     abortInfo ||
-    oomTracker?.detected ||
     resetWhenFinished ||
     showStepback ||
     testSelectionEnabledForProject ||
-    taskCost?.total;
+    taskCost;
 
-  return hasContent ? (
+  return hasExecutionInfo ? (
     <>
       <MetadataHeader title="Execution" />
-      {(details?.description || details?.failingCommand) && (
-        <DetailsDescription details={details} />
-      )}
+      {hasDetailsDescription && <DetailsDescription details={details} />}
       {details?.timeoutType && details?.timeoutType !== "" && (
         <MetadataItem>
           <MetadataLabel>Timeout type:</MetadataLabel> {details?.timeoutType}
@@ -116,7 +112,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
       )}
       {finishTime && taskCost?.total != null && (
         <MetadataItem data-cy="task-metadata-cost">
-          <MetadataLabel>Cost: </MetadataLabel> ${formatCost(taskCost.total)}
+          <MetadataLabel>Cost: </MetadataLabel> ${formatCost(taskCost.total)}{" "}
           {taskCost.total > 0 && (
             <Button
               data-cy="cost-details-button"
