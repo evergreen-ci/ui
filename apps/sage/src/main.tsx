@@ -6,7 +6,6 @@ import {
   injectOpenTelemetryAttributeStoreIntoWindow,
 } from "@evg-ui/lib/utils/observability";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
-import { routeConfig } from "constants/routes";
 import {
   getAppVersion,
   getReleaseStage,
@@ -23,6 +22,12 @@ initializeErrorHandling({
   isProductionBuild: !isDevelopmentBuild(),
   sentryDSN: getSentryDSN(),
 });
+
+const routeConfig = {
+  home: "/",
+  agentDetail: "/agents/:agentId",
+  agentRuns: "/agents/:agentId/runs/:runId",
+};
 
 initializeHoneycomb({
   appVersion: getAppVersion(),
