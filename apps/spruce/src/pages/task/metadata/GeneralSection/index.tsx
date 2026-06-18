@@ -3,11 +3,8 @@ import { Link } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
-import {
-  MetadataItem,
-  MetadataLabel,
-  MetadataSection,
-} from "components/MetadataCard";
+import { CopyableID } from "components/CopyableID";
+import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import { getProjectPatchesRoute, getTaskRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { TaskOwnership } from "./TaskOwnership";
@@ -43,7 +40,8 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
   const { user } = versionMetadata ?? {};
 
   return (
-    <MetadataSection title="General">
+    <>
+      <CopyableID textToCopy={task.id} tooltipLabel="Copy task ID" />
       <MetadataItem data-cy="task-metadata-project">
         <MetadataLabel>Project:</MetadataLabel>{" "}
         <StyledRouterLink
@@ -107,6 +105,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
           </InlineCode>
         </MetadataItem>
       )}
-    </MetadataSection>
+    </>
   );
 };

@@ -1,6 +1,5 @@
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
-import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
@@ -74,7 +73,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           />
         }
       >
-        <CopyableID textToCopy={taskId} tooltipLabel="Copy task ID" />
         <GeneralSection task={task} />
         <TimelineSection task={task} />
         <ExecutionSection task={task} />
