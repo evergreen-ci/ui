@@ -3,9 +3,9 @@ import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
-  MetadataHeader,
   MetadataItem,
   MetadataLabel,
+  MetadataSection,
 } from "components/MetadataCard";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
@@ -42,8 +42,7 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
     ingestTime || activatedTime || startTime || finishTime;
 
   return (
-    <>
-      <MetadataHeader title="Timeline" />
+    <MetadataSection title="Timeline">
       {hasTimelineData && (
         <TimelineContainer>
           {ingestTime && (
@@ -105,7 +104,7 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
           {msToDuration(baseTaskDuration)}
         </MetadataItem>
       ) : null}
-    </>
+    </MetadataSection>
   );
 };
 

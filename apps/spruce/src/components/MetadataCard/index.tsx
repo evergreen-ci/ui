@@ -1,3 +1,4 @@
+import { Children } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
@@ -98,16 +99,24 @@ export const MetadataItem: React.FC<ItemProps> = ({
   </MetadataItemWrapper>
 );
 
-interface MetadataHeaderProps {
+interface MetadataSectionProps {
   title: string;
+  children?: React.ReactNode;
 }
 
-export const MetadataHeader: React.FC<MetadataHeaderProps> = ({ title }) => (
-  <>
-    <Header>{title}</Header>
-    <Divider margin={`${size.xxs} 0`} />
-  </>
-);
+export const MetadataSection: React.FC<MetadataSectionProps> = ({
+  children,
+  title,
+}) => {
+  if (Children.toArray(children).length === 0) return null;
+  return (
+    <>
+      <Header>{title}</Header>
+      <Divider margin={`${size.xxs} 0`} />
+      {children}
+    </>
+  );
+};
 
 const Header = styled(Overline)`
   color: ${palette.gray.dark1};

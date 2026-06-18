@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
-import { MetadataHeader, MetadataItem } from "components/MetadataCard";
+import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import {
   getHoneycombSystemMetricsUrl,
   getHoneycombTraceUrl,
@@ -22,11 +22,8 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices ?? [];
 
-  const hasLinks = metadataLinks?.length || (startTime && finishTime);
-
-  return hasLinks ? (
-    <>
-      <MetadataHeader title="Links" />
+  return (
+    <MetadataSection title="Links">
       {metadataLinks &&
         metadataLinks.map((link) => (
           <MetadataItem key={link.text}>
@@ -83,8 +80,8 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
           </HoneycombLinkContainer>
         </MetadataItem>
       )}
-    </>
-  ) : null;
+    </MetadataSection>
+  );
 };
 
 const HoneycombLinkContainer = styled.span`

@@ -6,9 +6,9 @@ import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
 import { CostModal } from "components/CostModal";
 import {
-  MetadataHeader,
   MetadataItem,
   MetadataLabel,
+  MetadataSection,
 } from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
 import { getTaskQueueRoute } from "constants/routes";
@@ -51,27 +51,17 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
   const oomTracker = details?.oomTracker;
   const { allowed: testSelectionEnabledForProject } =
     task.project?.testSelection || {};
-  const hasDetailsDescription = details?.description || details?.failingCommand;
 
-  const hasExecutionInfo =
-    hasDetailsDescription ||
-    (priority && priority > 0) ||
-    (taskQueuePosition && taskQueuePosition > 0) ||
-    abortInfo ||
-    resetWhenFinished ||
-    showStepback ||
-    testSelectionEnabledForProject ||
-    taskCost;
-
-  return hasExecutionInfo ? (
-    <>
-      <MetadataHeader title="Execution" />
-      {hasDetailsDescription && <DetailsDescription details={details} />}
-      {details?.timeoutType && details?.timeoutType !== "" && (
+  return (
+    <MetadataSection title="Execution">
+      {details?.description || details?.failingCommand ? (
+        <DetailsDescription details={details} />
+      ) : null}
+      {details?.timeoutType && details?.timeoutType !== "" ? (
         <MetadataItem>
           <MetadataLabel>Timeout type:</MetadataLabel> {details?.timeoutType}
         </MetadataItem>
-      )}
+      ) : null}
       {priority && priority !== 0 ? (
         <MetadataItem data-cy="task-metadata-priority">
           <MetadataLabel>Priority:</MetadataLabel> {priority}{" "}
@@ -140,8 +130,8 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
           taskId={task.id}
         />
       )}
-    </>
-  ) : null;
+    </MetadataSection>
+  );
 };
 
 const OOMTrackerMessage = styled(MetadataItem)`
