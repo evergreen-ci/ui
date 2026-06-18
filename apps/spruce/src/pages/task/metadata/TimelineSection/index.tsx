@@ -38,47 +38,42 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
 
   const baseTaskDuration = baseTask?.timeTaken;
 
-  const hasTimelineData =
-    ingestTime || activatedTime || startTime || finishTime;
-
   return (
     <MetadataSection title="Timeline">
-      {hasTimelineData && (
-        <TimelineContainer>
-          {ingestTime && (
-            <TimelineRow data-cy="task-metadata-submitted-at">
-              <Label>Submitted</Label>
-              <Timestamp title={getDateCopy(ingestTime)}>
-                {getDateCopy(ingestTime, { omitSeconds: true })}
-              </Timestamp>
-            </TimelineRow>
-          )}
-          {activatedTime && (
-            <TimelineRow data-cy="task-metadata-activated-at">
-              <Label>Activated</Label>
-              <Timestamp title={getDateCopy(activatedTime)}>
-                {getDateCopy(activatedTime, { omitSeconds: true })}
-              </Timestamp>
-            </TimelineRow>
-          )}
-          {startTime && (
-            <TimelineRow data-cy="task-metadata-started">
-              <Label>Started</Label>
-              <Timestamp title={getDateCopy(startTime)}>
-                {getDateCopy(startTime, { omitSeconds: true })}
-              </Timestamp>
-            </TimelineRow>
-          )}
-          {finishTime && (
-            <TimelineRow data-cy="task-metadata-finished">
-              <Label>Finished</Label>
-              <Timestamp title={getDateCopy(finishTime)}>
-                {getDateCopy(finishTime, { omitSeconds: true })}
-              </Timestamp>
-            </TimelineRow>
-          )}
-        </TimelineContainer>
-      )}
+      <TimelineContainer>
+        {ingestTime && (
+          <TimelineRow data-cy="task-metadata-submitted-at">
+            <Label>Submitted</Label>
+            <Timestamp title={getDateCopy(ingestTime)}>
+              {getDateCopy(ingestTime, { omitSeconds: true })}
+            </Timestamp>
+          </TimelineRow>
+        )}
+        {activatedTime && (
+          <TimelineRow data-cy="task-metadata-activated-at">
+            <Label>Activated</Label>
+            <Timestamp title={getDateCopy(activatedTime)}>
+              {getDateCopy(activatedTime, { omitSeconds: true })}
+            </Timestamp>
+          </TimelineRow>
+        )}
+        {startTime && (
+          <TimelineRow data-cy="task-metadata-started">
+            <Label>Started</Label>
+            <Timestamp title={getDateCopy(startTime)}>
+              {getDateCopy(startTime, { omitSeconds: true })}
+            </Timestamp>
+          </TimelineRow>
+        )}
+        {finishTime && (
+          <TimelineRow data-cy="task-metadata-finished">
+            <Label>Finished</Label>
+            <Timestamp title={getDateCopy(finishTime)}>
+              {getDateCopy(finishTime, { omitSeconds: true })}
+            </Timestamp>
+          </TimelineRow>
+        )}
+      </TimelineContainer>
       {estimatedStart && estimatedStart > 0 ? (
         <MetadataItem>
           <MetadataLabel>Estimated time to start:</MetadataLabel>{" "}
