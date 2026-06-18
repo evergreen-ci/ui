@@ -128,7 +128,7 @@ const isAdminMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "me",
         permissions: {
           __typename: "Permissions",
@@ -158,7 +158,7 @@ const notAdminMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "me",
         permissions: {
           __typename: "Permissions",

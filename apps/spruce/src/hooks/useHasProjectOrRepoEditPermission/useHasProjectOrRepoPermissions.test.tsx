@@ -109,7 +109,7 @@ const userHasProjectPermissions: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "evergreen.user",
         permissions: {
           __typename: "Permissions",
@@ -136,7 +136,7 @@ const userNoProjectPermissions: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "evergreen.user",
         permissions: {
           __typename: "Permissions",
@@ -163,7 +163,7 @@ const userHasRepoPermissions: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "evergreen.user",
         permissions: {
           __typename: "Permissions",
@@ -189,7 +189,7 @@ const userNoRepoPermissions: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "evergreen.user",
         permissions: {
           __typename: "Permissions",
