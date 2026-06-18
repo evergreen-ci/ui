@@ -75,6 +75,7 @@ const getColumns = ({
           onClick={() =>
             sendEvent({
               name: "Clicked code changes diff link",
+              "diff.format": "html",
               "diff.type": "file",
             })
           }
