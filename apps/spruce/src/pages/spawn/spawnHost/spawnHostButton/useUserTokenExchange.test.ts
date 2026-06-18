@@ -31,7 +31,7 @@ const userTokenExchangeMock = (
   result: {
     data: {
       user: {
-        __typename: "User" as const,
+        __typename: "UserLite" as const,
         hasTokenExchangePending: false,
         tokenAccessTokenExpiresAt: null,
         ...overrides,

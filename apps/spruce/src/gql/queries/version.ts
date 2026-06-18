@@ -104,9 +104,9 @@ export const VERSION = gql`
       taskCount(
         options: { includeNeverActivatedTasks: $includeNeverActivatedTasks }
       )
-      user {
+      user: userLite {
         displayName
-        userId
+        userId: id
       }
       versionTiming {
         makespan

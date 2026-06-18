@@ -18,9 +18,9 @@ export const PATCHES_PAGE_PATCHES = gql`
         repo
       }
       status
-      user {
+      user: userLite {
         displayName
-        userId
+        userId: id
       }
       versionFull {
         id
