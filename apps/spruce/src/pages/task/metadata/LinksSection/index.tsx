@@ -23,7 +23,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
   const diskDevices = details?.diskDevices ?? [];
 
   return (
-    <MetadataSection title="Links">
+    <MetadataSection title="External Links">
       {metadataLinks &&
         metadataLinks.map((link) => (
           <MetadataItem key={link.text}>

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { CostModal } from "components/CostModal";
 import {
@@ -102,9 +103,9 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
       )}
       {finishTime && taskCost?.total != null && (
         <MetadataItem data-cy="task-metadata-cost">
-          <MetadataLabel>Cost: </MetadataLabel> ${formatCost(taskCost.total)}{" "}
+          <MetadataLabel>Cost: </MetadataLabel> ${formatCost(taskCost.total)}
           {taskCost.total > 0 && (
-            <Button
+            <CostDetailsButton
               data-cy="cost-details-button"
               onClick={() => {
                 taskAnalytics.sendEvent({
@@ -115,7 +116,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
               size={ButtonSize.XSmall}
             >
               Cost Details
-            </Button>
+            </CostDetailsButton>
           )}
         </MetadataItem>
       )}
@@ -137,4 +138,8 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
 const OOMTrackerMessage = styled(MetadataItem)`
   color: ${red.dark2};
   font-weight: 500;
+`;
+
+const CostDetailsButton = styled(Button)`
+  margin-left: ${size.xxs};
 `;

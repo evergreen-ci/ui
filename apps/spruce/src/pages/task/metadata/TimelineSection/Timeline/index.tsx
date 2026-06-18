@@ -83,6 +83,7 @@ const Label = styled.b`
 
 const Timestamp = styled.span`
   color: ${palette.gray.dark1};
+  font-variant-numeric: tabular-nums;
 `;
 
 const TimelineRow = styled.li`
