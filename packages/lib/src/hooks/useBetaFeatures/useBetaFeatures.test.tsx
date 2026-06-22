@@ -106,7 +106,7 @@ const userBetaFeatures: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "me",
         betaFeatures: {
           __typename: "BetaFeatures",

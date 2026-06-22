@@ -12,6 +12,9 @@ import {
   getReleaseStage,
   getEvergreenUrl,
   isDevelopmentBuild,
+  getHoneycombIngestKey,
+  getHoneycombEndpoint,
+  getSentryDSN,
 } from "utils/environmentVariables";
 import App from "./App";
 
@@ -28,17 +31,17 @@ const routeConfig = {
 initializeErrorHandling({
   environment: getReleaseStage(),
   isProductionBuild: !isDevelopmentBuild(),
-  sentryDSN: process.env.REACT_APP_SPRUCE_SENTRY_DSN || "",
+  sentryDSN: getSentryDSN(),
 });
 initializeHoneycomb({
-  debug: isDevelopmentBuild(),
-  endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
-  ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
-  backendURL: toEscapedRegex(getEvergreenUrl() || ""),
-  serviceName: "spruce",
-  environment: getReleaseStage(),
   appVersion: getAppVersion(),
+  backendURL: toEscapedRegex(getEvergreenUrl() || ""),
+  debug: isDevelopmentBuild(),
+  endpoint: getHoneycombEndpoint(),
+  environment: getReleaseStage(),
+  ingestKey: getHoneycombIngestKey(),
   routeConfig,
+  serviceName: "spruce",
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
 

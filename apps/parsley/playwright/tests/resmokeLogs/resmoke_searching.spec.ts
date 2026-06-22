@@ -85,6 +85,16 @@ test.describe("Searching", () => {
     }
   });
 
+  test("bookmarking should add all lines containing the search term", async ({
+    page,
+  }) => {
+    await helpers.addBookmark(page, "VectorClockStateOperation");
+    await expect(page).toHaveURL(/bookmarks=0,723,725,12568/);
+    const bookmarkList = page.getByTestId("bookmark-list");
+    await expect(bookmarkList).toContainText("723");
+    await expect(bookmarkList).toContainText("725");
+  });
+
   test("should not reset search index when a bookmark is applied", async ({
     page,
   }) => {

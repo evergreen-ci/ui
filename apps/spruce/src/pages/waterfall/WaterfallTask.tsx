@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { taskBoxStyles } from "components/TaskBox";
+import { taskBoxClassName } from "components/TaskBox";
 import { getTaskRoute } from "constants/routes";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { TaskOverviewPopup } from "./TaskOverviewPopup";
@@ -47,7 +47,7 @@ const WaterfallTaskInner: React.FC<{
       <Link
         key={taskId}
         ref={taskBoxRef}
-        css={taskBoxStyles}
+        className={taskBoxClassName}
         data-status={taskStatus}
         data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
         onClick={onClick}

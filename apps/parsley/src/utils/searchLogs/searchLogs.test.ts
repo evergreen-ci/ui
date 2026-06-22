@@ -1,5 +1,44 @@
 import { ProcessedLogLines, RowType } from "types/logs";
-import searchLogs from ".";
+import { findMatchingLinesBySearch, searchLogs } from ".";
+
+describe("findMatchingLinesBySearch", () => {
+  it("should return an empty array if there are no matching lines", () => {
+    const logs = ["line 1", "line 2", "line 3"];
+    expect(findMatchingLinesBySearch(logs, "nonexistent", false)).toStrictEqual(
+      [],
+    );
+  });
+  it("should return indices of all matching lines", () => {
+    const logs = ["line 1", "line 2", "line 3"];
+    expect(findMatchingLinesBySearch(logs, "line", false)).toStrictEqual([
+      0, 1, 2,
+    ]);
+  });
+  it("should return only the indices of lines that match", () => {
+    const logs = ["apple", "banana", "apricot", "cherry"];
+    expect(findMatchingLinesBySearch(logs, "ap", false)).toStrictEqual([0, 2]);
+  });
+  it("should match case-insensitive when caseSensitive is false", () => {
+    const logs = ["Hello World", "hello world", "HELLO WORLD"];
+    expect(findMatchingLinesBySearch(logs, "hello", false)).toStrictEqual([
+      0, 1, 2,
+    ]);
+  });
+  it("should match case-sensitive when caseSensitive is true", () => {
+    const logs = ["Hello World", "hello world", "HELLO WORLD"];
+    expect(findMatchingLinesBySearch(logs, "hello", true)).toStrictEqual([1]);
+  });
+  it("should match content within ANSI-formatted lines", () => {
+    const logs = [
+      "plain line",
+      "[2025/06/24 09:28:08.663] [2mdist/[22m[32mindex.html",
+    ];
+    expect(findMatchingLinesBySearch(logs, "dist/", false)).toStrictEqual([1]);
+  });
+  it("should return an empty array when logs is empty", () => {
+    expect(findMatchingLinesBySearch([], "line", false)).toStrictEqual([]);
+  });
+});
 
 describe("searchLogs", () => {
   it("should return an empty array if there are no matching lines", () => {

@@ -28,8 +28,6 @@ const baseVersion: Version = {
   isPatch: false,
   message: "Test commit",
   order: 1,
-  project: "evergreen",
-  projectIdentifier: "evergreen",
   repo: "evergreen",
   requester: "gitter_request",
   revision: "abc123def456",
@@ -49,9 +47,20 @@ const baseVersion: Version = {
     id: "prev123",
     revision: "prevrevision",
   },
-  projectMetadata: null,
+  projectMetadata: {
+    __typename: "Project",
+    id: "evergreen",
+    branch: "main",
+    identifier: "evergreen",
+    owner: "evergreen-ci",
+    repo: "evergreen",
+  },
   upstreamProject: null,
-  user: { __typename: "User", displayName: "Test User", userId: "testuser" },
+  user: {
+    __typename: "UserLite",
+    displayName: "Test User",
+    userId: "testuser",
+  },
   versionTiming: null,
 };
 

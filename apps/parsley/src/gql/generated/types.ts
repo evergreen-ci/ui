@@ -181,6 +181,7 @@ export type AdminSettings = {
   pprofPort?: Maybe<Scalars["String"]["output"]>;
   projectCreation?: Maybe<ProjectCreationConfig>;
   providers?: Maybe<CloudProviderConfig>;
+  rateLimit?: Maybe<RateLimitConfig>;
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
@@ -239,6 +240,7 @@ export type AdminSettingsInput = {
   pprofPort?: InputMaybe<Scalars["String"]["input"]>;
   projectCreation?: InputMaybe<ProjectCreationConfigInput>;
   providers?: InputMaybe<CloudProviderConfigInput>;
+  rateLimit?: InputMaybe<RateLimitConfigInput>;
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
@@ -2543,7 +2545,9 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
+  /** @deprecated Use userLite instead. */
   user: User;
+  userLite: UserLite;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
@@ -3098,7 +3102,6 @@ export type PromoteVarsToRepoInput = {
 export enum Provider {
   Docker = "DOCKER",
   Ec2Fleet = "EC2_FLEET",
-  Ec2OnDemand = "EC2_ON_DEMAND",
   Static = "STATIC",
 }
 
@@ -3176,6 +3179,7 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
+  userLite: UserLite;
   variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
@@ -3321,6 +3325,10 @@ export type QueryUserArgs = {
   userId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type QueryUserLiteArgs = {
+  userId?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type QueryVariantQuarantineStatusArgs = {
   buildVariant: Scalars["String"]["input"];
   projectIdentifier: Scalars["String"]["input"];
@@ -3332,6 +3340,33 @@ export type QueryVersionArgs = {
 
 export type QueryWaterfallArgs = {
   options: WaterfallOptions;
+};
+
+export type RateLimitConfig = {
+  __typename?: "RateLimitConfig";
+  elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
+  graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
+  graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
+  graphqlUserPerHour?: Maybe<Scalars["Int"]["output"]>;
+  restServiceBurst?: Maybe<Scalars["Int"]["output"]>;
+  restServicePerHour?: Maybe<Scalars["Int"]["output"]>;
+  restUserBurst?: Maybe<Scalars["Int"]["output"]>;
+  restUserPerHour?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type RateLimitConfigInput = {
+  elevatedUserIds: Array<Scalars["String"]["input"]>;
+  graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlServiceBurst: Scalars["Int"]["input"];
+  graphqlServicePerHour: Scalars["Int"]["input"];
+  graphqlUserBurst: Scalars["Int"]["input"];
+  graphqlUserPerHour: Scalars["Int"]["input"];
+  restServiceBurst: Scalars["Int"]["input"];
+  restServicePerHour: Scalars["Int"]["input"];
+  restUserBurst: Scalars["Int"]["input"];
+  restUserPerHour: Scalars["Int"]["input"];
 };
 
 export type RefreshGitHubStatusesInput = {
@@ -4796,12 +4831,31 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
-/** UserLite replaces User by sidestepping the APIUser field. It does not contain all fields at this time. */
+/**
+ * UserLite replaces User by sidestepping the APIDBUser API model and binding directly to the
+ * service-layer user model. New clients should query UserLite instead of User.
+ */
 export type UserLite = {
   __typename?: "UserLite";
+  betaFeatures?: Maybe<BetaFeatures>;
   displayName?: Maybe<Scalars["String"]["output"]>;
   emailAddress?: Maybe<Scalars["String"]["output"]>;
+  hasTokenExchangePending: Scalars["Boolean"]["output"];
   id: Scalars["String"]["output"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
+  patches?: Maybe<Patches>;
+  permissions?: Maybe<Permissions>;
+  settings?: Maybe<UserSettings>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
+  tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
+};
+
+/**
+ * UserLite replaces User by sidestepping the APIDBUser API model and binding directly to the
+ * service-layer user model. New clients should query UserLite instead of User.
+ */
+export type UserLitePatchesArgs = {
+  patchesInput: PatchesInput;
 };
 
 export type UserServiceFlags = {
@@ -4910,7 +4964,9 @@ export type Version = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
+  /** @deprecated Use userLite instead. */
   user: User;
+  userLite: UserLite;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
@@ -4954,6 +5010,7 @@ export type VersionLite = {
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  isPatch: Scalars["Boolean"]["output"];
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;
@@ -5140,13 +5197,16 @@ export type BaseTaskFragment = {
   execution: number;
   patchNumber?: number | null;
   versionMetadata: {
-    __typename?: "Version";
+    __typename?: "VersionLite";
     id: string;
     isPatch: boolean;
     message: string;
-    projectIdentifier: string;
     revision: string;
-    projectMetadata?: { __typename?: "Project"; id: string } | null;
+    projectMetadata?: {
+      __typename?: "ProjectLite";
+      id: string;
+      identifier: string;
+    } | null;
   };
 };
 
@@ -5178,13 +5238,16 @@ export type TaskQuery = {
       taskLogLink?: string | null;
     };
     versionMetadata: {
-      __typename?: "Version";
+      __typename?: "VersionLite";
       id: string;
       isPatch: boolean;
       message: string;
-      projectIdentifier: string;
       revision: string;
-      projectMetadata?: { __typename?: "Project"; id: string } | null;
+      projectMetadata?: {
+        __typename?: "ProjectLite";
+        id: string;
+        identifier: string;
+      } | null;
     };
   } | null;
 };
@@ -5225,7 +5288,7 @@ export type UserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserQuery = {
   __typename?: "Query";
-  user: { __typename?: "User"; userId: string };
+  user: { __typename?: "UserLite"; userId: string };
 };
 
 export type ProjectFiltersQueryVariables = Exact<{

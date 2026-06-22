@@ -32,12 +32,26 @@ const options = {
   [LogTypes.All]: AllLog,
 };
 
+const logTypeOptions: { id: string; label: string; value: LogTypes }[] = [
+  { id: "cy-task-option", label: "Task Logs", value: LogTypes.Task },
+  { id: "cy-agent-option", label: "Agent Logs", value: LogTypes.Agent },
+  { id: "cy-system-option", label: "System Logs", value: LogTypes.System },
+  { id: "cy-event-option", label: "Event Logs", value: LogTypes.Event },
+  { id: "cy-all-option", label: "Combined", value: LogTypes.All },
+];
+
 interface Props {
   logLinks: TaskLogLinks;
   taskId: string;
   execution: number;
+  isDisplayTask: boolean;
 }
-const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
+const Logs: React.FC<Props> = ({
+  execution,
+  isDisplayTask,
+  logLinks,
+  taskId,
+}) => {
   const { sendEvent } = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
@@ -46,10 +60,11 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     .toString()
     .toLowerCase() as LogTypes;
 
+  const validatedLogType = Object.values(LogTypes).includes(logTypeParam)
+    ? logTypeParam
+    : DEFAULT_LOG_TYPE;
   const [currentLog, setCurrentLog] = useState<LogTypes>(
-    Object.values(LogTypes).includes(logTypeParam)
-      ? logTypeParam
-      : DEFAULT_LOG_TYPE,
+    isDisplayTask ? LogTypes.Event : validatedLogType,
   );
   const [noLogs, setNoLogs] = useState(false);
   const [showFade, setShowFade] = useState(false);
@@ -98,21 +113,13 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
           onChange={onChangeLog}
           value={currentLog}
         >
-          <SegmentedControlOption id="cy-task-option" value={LogTypes.Task}>
-            Task Logs
-          </SegmentedControlOption>
-          <SegmentedControlOption id="cy-agent-option" value={LogTypes.Agent}>
-            Agent Logs
-          </SegmentedControlOption>
-          <SegmentedControlOption id="cy-system-option" value={LogTypes.System}>
-            System Logs
-          </SegmentedControlOption>
-          <SegmentedControlOption id="cy-event-option" value={LogTypes.Event}>
-            Event Logs
-          </SegmentedControlOption>
-          <SegmentedControlOption id="cy-all-option" value={LogTypes.All}>
-            Combined
-          </SegmentedControlOption>
+          {logTypeOptions
+            .filter(({ value }) => !isDisplayTask || value === LogTypes.Event)
+            .map(({ id, label, value }) => (
+              <SegmentedControlOption key={value} id={id} value={value}>
+                {label}
+              </SegmentedControlOption>
+            ))}
         </SegmentedControl>
       </LogHeader>
       <LogContentWrapper>

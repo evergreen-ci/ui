@@ -115,6 +115,7 @@ const TableContainer = styled.div`
   flex-direction: column;
   gap: ${size.xxs};
   margin-top: ${size.xxs};
+  overflow-x: auto;
 `;
 
 const getColumns = ({

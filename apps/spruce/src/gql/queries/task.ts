@@ -28,7 +28,7 @@ export const TASK = gql`
         revision
         status
         timeTaken
-        versionMetadata {
+        versionMetadata: version {
           id
           revision
         }
@@ -87,7 +87,10 @@ export const TASK = gql`
         displayStatus
         execution
         finishTime
-        projectIdentifier
+        project {
+          id
+          identifier
+        }
         reviewed @client
         startTime
       }
@@ -147,17 +150,19 @@ export const TASK = gql`
       }
       testSelectionEnabled
       timeTaken
-      versionMetadata {
+      versionMetadata: version {
         id
         isPatch
         message
         order
-        project
-        projectIdentifier
+        projectMetadata: project {
+          id
+          identifier
+        }
         revision
         user {
           displayName
-          userId
+          userId: id
         }
       }
     }
