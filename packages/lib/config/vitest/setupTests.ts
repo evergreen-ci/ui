@@ -3,7 +3,7 @@ import "vitest-canvas-mock";
 import { vi } from "vitest";
 
 // Dummy values for environment variables used in the app.
-process.env.REACT_APP_EVERGREEN_URL = "http://test-evergreen.com";
+import.meta.env.VITE_EVERGREEN_URL = "http://test-evergreen.com";
 import.meta.env.VITE_GRAPHQL_URL = "http://test-graphql.com";
 process.env.REACT_APP_SPRUCE_URL = "http://test-spruce.com";
 

@@ -77,7 +77,7 @@ export const isEndUserProduction = () => isProduction() && isProductionBuild();
  * `getEvergreenUrl()` - Get the backing evergreen URL from the environment variables
  * @returns - Returns the backing evergreen url
  */
-export const getEvergreenUrl = () => process.env.REACT_APP_EVERGREEN_URL || "";
+export const getEvergreenUrl = () => import.meta.env.VITE_EVERGREEN_URL || "";
 
 /**
  * `getSignalProcessingUrl()` - Get the TIPS Signal Processing URL from the environment variables
@@ -154,4 +154,4 @@ export const getUserStagingKey = (): string =>
 export const getLoginDomain = () =>
   isDevelopmentBuild() || getReleaseStage() === ReleaseStage.Local
     ? process.env.REACT_APP_SPRUCE_URL || ""
-    : process.env.REACT_APP_EVERGREEN_URL || "";
+    : import.meta.env.VITE_EVERGREEN_URL || "";
