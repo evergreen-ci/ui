@@ -11,7 +11,7 @@ import {
   TaskOwnerTeamsForTaskQueryVariables,
 } from "gql/generated/types";
 import { TASK_OWNER_TEAM } from "gql/queries";
-import TaskOwnership from ".";
+import { TaskOwnership } from ".";
 
 const taskId = "task123";
 const execution = 5;

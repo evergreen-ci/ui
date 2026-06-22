@@ -1,10 +1,13 @@
+import { Children } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body, BodyProps, Overline } from "@leafygreen-ui/typography";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
@@ -95,6 +98,29 @@ export const MetadataItem: React.FC<ItemProps> = ({
     )}
   </MetadataItemWrapper>
 );
+
+interface MetadataSectionProps {
+  title: string;
+  children?: React.ReactNode;
+}
+
+export const MetadataSection: React.FC<MetadataSectionProps> = ({
+  children,
+  title,
+}) => {
+  if (Children.toArray(children).length === 0) return null;
+  return (
+    <>
+      <Header>{title}</Header>
+      <Divider margin={`${size.xxs} 0`} />
+      {children}
+    </>
+  );
+};
+
+const Header = styled(Overline)`
+  color: ${palette.gray.dark1};
+`;
 
 export const MetadataLabel = styled.b<{ color?: string }>`
   ${({ color }) => color && `color: ${color};`}
