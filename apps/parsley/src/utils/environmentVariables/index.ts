@@ -17,7 +17,7 @@ export {
 const getSentryDSN = () => import.meta.env.VITE_PARSLEY_SENTRY_DSN || "";
 
 const evergreenURL = process.env.REACT_APP_EVERGREEN_URL;
-const graphqlURL = process.env.REACT_APP_GRAPHQL_URL;
+const graphqlURL = import.meta.env.VITE_GRAPHQL_URL;
 const spruceURL = process.env.REACT_APP_SPRUCE_URL;
 const parsleyURL = import.meta.env.VITE_PARSLEY_URL;
 const parsleyAIURL = import.meta.env.VITE_PARSLEY_AI_URL;
