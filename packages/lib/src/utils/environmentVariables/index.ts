@@ -108,7 +108,7 @@ export const getGQLUrl = () => `${getEvergreenUrl()}/graphql/query`;
  * `getParsleyUrl()` - Get the Parsley URL from the environment variables
  * @returns - Returns the Parsley URL.
  */
-export const getParsleyUrl = () => process.env.REACT_APP_PARSLEY_URL || "";
+export const getParsleyUrl = () => import.meta.env.VITE_PARSLEY_URL || "";
 
 /**
  * `getAppVersion()` - Get the app release version from the environment variables
