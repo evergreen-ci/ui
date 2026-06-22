@@ -5,7 +5,6 @@ import { useTaskAnalytics } from "analytics";
 import MetadataCard, {
   MetadataCardTitle,
   MetadataItem,
-  MetadataLabel,
 } from "components/MetadataCard";
 import {
   getHoneycombTaskTimingURL,
@@ -66,20 +65,17 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
         </CardHeader>
       }
     >
-      <MetadataItem>
-        <MetadataLabel>Total Time:</MetadataLabel>{" "}
+      <MetadataItem label="Total Time">
         <StyledRouterLink {...linkProps(TaskTimingMetric.TotalTime)}>
           Activated &rarr; Finish
         </StyledRouterLink>
       </MetadataItem>
-      <MetadataItem>
-        <MetadataLabel>Wait Time:</MetadataLabel>{" "}
+      <MetadataItem label="Wait Time">
         <StyledRouterLink {...linkProps(TaskTimingMetric.WaitTime)}>
           Activated &rarr; Start
         </StyledRouterLink>
       </MetadataItem>
-      <MetadataItem>
-        <MetadataLabel>Run Time:</MetadataLabel>{" "}
+      <MetadataItem label="Run Time">
         <StyledRouterLink {...linkProps(TaskTimingMetric.RunTime)}>
           Start &rarr; Finish
         </StyledRouterLink>

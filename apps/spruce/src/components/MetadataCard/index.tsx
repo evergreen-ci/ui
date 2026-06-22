@@ -78,6 +78,8 @@ interface ItemProps {
   as?: BodyProps["as"];
   children: React.ReactNode;
   "data-cy"?: string;
+  label?: string;
+  labelColor?: string;
   tooltipDescription?: string;
 }
 
@@ -85,12 +87,20 @@ export const MetadataItem: React.FC<ItemProps> = ({
   as = "p",
   children,
   "data-cy": dataCy,
+  label,
+  labelColor,
   tooltipDescription,
 }) => (
   <MetadataItemWrapper>
-    <Item as={as} data-cy={dataCy}>
-      {children}
-    </Item>
+    {label ? (
+      <Item as={as} data-cy={dataCy}>
+        <MetadataLabel color={labelColor}>{label}:</MetadataLabel> {children}
+      </Item>
+    ) : (
+      <Item as={as} data-cy={dataCy}>
+        {children}
+      </Item>
+    )}
     {tooltipDescription && (
       <InfoSprinkle align="right" baseFontSize={BaseFontSize.Body1}>
         {tooltipDescription}
