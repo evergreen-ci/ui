@@ -84,7 +84,7 @@ export const getEvergreenUrl = () => process.env.REACT_APP_EVERGREEN_URL || "";
  * @returns - Returns the TIPS Signal Processing Iframe URL
  */
 export const getSignalProcessingUrl = () =>
-  process.env.REACT_APP_SIGNAL_PROCESSING_URL || "";
+  import.meta.env.VITE_SIGNAL_PROCESSING_URL || "";
 
 /**
  * `getApiUrl()` - Get the API URL from the environment variables
