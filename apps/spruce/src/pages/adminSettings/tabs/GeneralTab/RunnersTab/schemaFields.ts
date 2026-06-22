@@ -68,8 +68,17 @@ export const taskLimits = {
       type: "number" as const,
       title: "Max Daily Automatic Restarts Per Project",
     },
+    maxScheduledTasksPerDistro: {
+      type: "number" as const,
+      title: "Max Scheduled Tasks Per Distro",
+    },
   },
-  uiSchema: {},
+  uiSchema: {
+    maxScheduledTasksPerDistro: {
+      "ui:description":
+        "Maximum number of tasks the scheduler materializes into a single distro's task queue per pass. 0 means no limit.",
+    },
+  },
 };
 
 export const hostInit = {

@@ -26,6 +26,7 @@ export const gqlToForm = ((data) => {
     maxIncludesPerVersion,
     maxParserProjectSize,
     maxPendingGeneratedTasks,
+    maxScheduledTasksPerDistro,
     maxTaskExecution,
     maxTasksPerVersion,
   } = taskLimits ?? {};
@@ -84,6 +85,7 @@ export const gqlToForm = ((data) => {
         maxExecTimeoutSecs: maxExecTimeoutSecs ?? 0,
         maxTaskExecution: maxTaskExecution ?? 0,
         maxDailyAutomaticRestarts: maxDailyAutomaticRestarts ?? 0,
+        maxScheduledTasksPerDistro: maxScheduledTasksPerDistro ?? 0,
       },
       hostInit: {
         hostThrottle: hostThrottle ?? 0,

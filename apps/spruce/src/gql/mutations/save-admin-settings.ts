@@ -86,6 +86,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
         maxIncludesPerVersion
         maxParserProjectSize
         maxPendingGeneratedTasks
+        maxScheduledTasksPerDistro
         maxTaskExecution
         maxTasksPerVersion
       }
