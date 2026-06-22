@@ -17,7 +17,7 @@ import injectVariablesInHTML from "./config/injectVariablesInHTML";
 const getProjectConfig = () => {
   const serverConfig = generateBaseHTTPSViteServerConfig({
     port: 3000,
-    appURL: process.env.REACT_APP_SPRUCE_URL,
+    appURL: process.env.VITE_SPRUCE_URL ?? "",
     httpsPort: 8443,
     useHTTPS:
       process.env.REACT_APP_RELEASE_STAGE !== "local" &&

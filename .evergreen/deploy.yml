@@ -29,7 +29,7 @@ functions:
           - VITE_SPRUCE_SENTRY_DSN
           - PARSLEY_SENTRY_AUTH_TOKEN
           - SPRUCE_SENTRY_AUTH_TOKEN
-          - REACT_APP_SPRUCE_URL
+          - VITE_SPRUCE_URL
           - VITE_EVERGREEN_URL
           - REACT_APP_USER_KEY
         env:
@@ -96,7 +96,7 @@ functions:
             if ! [ -z "${staging_user_key}" ]; then
               echo "BUCKET: spruce-${staging_user_key}" >> deploy-vars.yml
               echo "REACT_APP_USER_KEY: ${staging_user_key}" >> deploy-vars.yml
-              echo "REACT_APP_SPRUCE_URL: https://spruce.${staging_user_key}.evergreen-staging.devprod.mongodb.com" >> deploy-vars.yml
+              echo "VITE_SPRUCE_URL: https://spruce.${staging_user_key}.evergreen-staging.devprod.mongodb.com" >> deploy-vars.yml
               echo "VITE_EVERGREEN_URL: https://evergreen-multi.staging.corp.mongodb.com" >> deploy-vars.yml
               echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${staging_user_key}.ui_put" >> deploy-vars.yml
             else

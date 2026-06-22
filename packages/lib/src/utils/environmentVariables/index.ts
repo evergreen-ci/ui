@@ -96,7 +96,7 @@ export const getApiUrl = () => `${getEvergreenUrl()}/api`;
  * `getSpruceURL()` - Get the SPRUCE URL from the environment variables
  * @returns - Returns the Spruce URL
  */
-export const getSpruceURL = () => process.env.REACT_APP_SPRUCE_URL || "";
+export const getSpruceURL = () => import.meta.env.VITE_SPRUCE_URL || "";
 
 /**
  * `getGQLUrl()` - Get the GQL URL from the environment variables
@@ -153,5 +153,5 @@ export const getUserStagingKey = (): string =>
  */
 export const getLoginDomain = () =>
   isDevelopmentBuild() || getReleaseStage() === ReleaseStage.Local
-    ? process.env.REACT_APP_SPRUCE_URL || ""
+    ? import.meta.env.VITE_SPRUCE_URL || ""
     : import.meta.env.VITE_EVERGREEN_URL || "";
