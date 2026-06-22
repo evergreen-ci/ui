@@ -153,8 +153,8 @@ functions:
     command: subprocess.exec
     type: setup
     params:
-      exec_timeout_secs: 600
-      timeout_secs: 1800
+      # Fail the task instead of waiting indefinitely if Evergreen never comes up.
+      exec_timeout_secs: 300
       working_dir: ui/.evergreen
       binary: bash
       args:
