@@ -61,6 +61,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     maxIncludesPerVersion: 1,
     maxParserProjectSize: 1,
     maxPendingGeneratedTasks: 1,
+    maxScheduledTasksPerDistro: 1,
     maxTaskExecution: 1,
     maxTasksPerVersion: 1,
   },

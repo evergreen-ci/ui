@@ -374,6 +374,7 @@ export const ADMIN_SETTINGS = gql`
         maxIncludesPerVersion
         maxParserProjectSize
         maxPendingGeneratedTasks
+        maxScheduledTasksPerDistro
         maxTaskExecution
         maxTasksPerVersion
       }
