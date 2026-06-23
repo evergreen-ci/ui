@@ -11,7 +11,10 @@ interface TaskOwnershipProps {
   taskId: string;
   execution?: number;
 }
-const TaskOwnership: React.FC<TaskOwnershipProps> = ({ execution, taskId }) => {
+export const TaskOwnership: React.FC<TaskOwnershipProps> = ({
+  execution,
+  taskId,
+}) => {
   const { data } = useQuery<
     TaskOwnerTeamsForTaskQuery,
     TaskOwnerTeamsForTaskQueryVariables
@@ -35,5 +38,3 @@ const TaskOwnership: React.FC<TaskOwnershipProps> = ({ execution, taskId }) => {
     </MetadataItem>
   );
 };
-
-export default TaskOwnership;

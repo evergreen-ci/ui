@@ -7,7 +7,7 @@ const { msToDuration } = string;
 interface RuntimeTimerProps {
   startTime: Date;
 }
-const RuntimeTimer: React.FC<RuntimeTimerProps> = ({ startTime }) => {
+export const RuntimeTimer: React.FC<RuntimeTimerProps> = ({ startTime }) => {
   const parsedStartTime = new Date(startTime);
 
   const { runningTime } = useRunningTime(parsedStartTime);
@@ -18,5 +18,3 @@ const RuntimeTimer: React.FC<RuntimeTimerProps> = ({ startTime }) => {
     </MetadataItem>
   );
 };
-
-export default RuntimeTimer;

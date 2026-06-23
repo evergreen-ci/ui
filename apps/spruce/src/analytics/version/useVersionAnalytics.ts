@@ -75,7 +75,7 @@ type Action =
   | {
       name: "Clicked code changes diff link";
       "diff.type": "file" | "patch";
-      "diff.format"?: "html" | "raw";
+      "diff.format": "html" | "raw";
     };
 
 export const useVersionAnalytics = (id: string) => {
