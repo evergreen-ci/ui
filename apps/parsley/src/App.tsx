@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+  useLocation,
+} from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks";
 import { ErrorBoundary } from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
@@ -12,7 +17,8 @@ import Content from "pages";
 import { evergreenURL, isLocal, parsleyURL } from "utils/environmentVariables";
 
 const AppContents = () => {
-  usePageVisibilityAnalytics();
+  const { pathname } = useLocation();
+  usePageVisibilityAnalytics({ pathname, routeConfig: routes });
   return <Outlet />;
 };
 
