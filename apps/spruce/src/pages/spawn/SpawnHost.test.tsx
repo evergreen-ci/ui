@@ -173,7 +173,7 @@ const userTokenExchangeMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         hasTokenExchangePending: false,
         tokenAccessTokenExpiresAt: null,
       },
