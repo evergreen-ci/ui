@@ -112,7 +112,26 @@ export const gqlToForm = ((data) => {
 
       bucketConfig: {
         defaultLogBucket: buckets?.logBucket?.name ?? "",
+        logBucketExpirationDays: buckets?.logBucket?.expirationDays ?? null,
+        logBucketTransitionToIADays:
+          buckets?.logBucket?.transitionToIADays ?? null,
+        logBucketTransitionToGlacierDays:
+          buckets?.logBucket?.transitionToGlacierDays ?? null,
+        logBucketLifecycleLastSyncedAt:
+          buckets?.logBucket?.lifecycleLastSyncedAt ?? "",
+        logBucketLifecycleSyncError:
+          buckets?.logBucket?.lifecycleSyncError ?? "",
         logBucketLongRetentionName: buckets?.logBucketLongRetention?.name ?? "",
+        logBucketLongRetentionExpirationDays:
+          buckets?.logBucketLongRetention?.expirationDays ?? null,
+        logBucketLongRetentionTransitionToIADays:
+          buckets?.logBucketLongRetention?.transitionToIADays ?? null,
+        logBucketLongRetentionTransitionToGlacierDays:
+          buckets?.logBucketLongRetention?.transitionToGlacierDays ?? null,
+        logBucketLongRetentionLifecycleLastSyncedAt:
+          buckets?.logBucketLongRetention?.lifecycleLastSyncedAt ?? "",
+        logBucketLongRetentionLifecycleSyncError:
+          buckets?.logBucketLongRetention?.lifecycleSyncError ?? "",
         longRetentionProjects: buckets?.longRetentionProjects ?? [],
         testResultsBucketName: buckets?.testResultsBucket?.name ?? "",
         testResultsBucketTestResultsPrefix:
@@ -122,8 +141,18 @@ export const gqlToForm = ((data) => {
         credentialsKey: buckets?.credentials?.key ?? "",
         credentialsSecret: buckets?.credentials?.secret ?? "",
         failedTasksLogBucketName: buckets?.logBucketFailedTasks?.name ?? "",
-        retryFailedLogMoveLookbackMonths:
-          buckets?.retryFailedLogMoveLookbackMonths ?? 0,
+        failedTasksLogBucketExpirationDays:
+          buckets?.logBucketFailedTasks?.expirationDays ?? null,
+        failedTasksLogBucketTransitionToIADays:
+          buckets?.logBucketFailedTasks?.transitionToIADays ?? null,
+        failedTasksLogBucketTransitionToGlacierDays:
+          buckets?.logBucketFailedTasks?.transitionToGlacierDays ?? null,
+        failedTasksLogBucketLifecycleLastSyncedAt:
+          buckets?.logBucketFailedTasks?.lifecycleLastSyncedAt ?? "",
+        failedTasksLogBucketLifecycleSyncError:
+          buckets?.logBucketFailedTasks?.lifecycleSyncError ?? "",
+        retryFailedLogMoveLookbackDays:
+          buckets?.retryFailedLogMoveLookbackDays ?? 0,
         retryFailedLogMoveMaxJobsPerRun:
           buckets?.retryFailedLogMoveMaxJobsPerRun ?? 0,
       },
@@ -342,8 +371,8 @@ export const formToGql = ((form: OtherFormState) => {
         key: bucketConfig.credentialsKey || undefined,
         secret: bucketConfig.credentialsSecret || undefined,
       },
-      retryFailedLogMoveLookbackMonths:
-        bucketConfig.retryFailedLogMoveLookbackMonths || undefined,
+      retryFailedLogMoveLookbackDays:
+        bucketConfig.retryFailedLogMoveLookbackDays || undefined,
       retryFailedLogMoveMaxJobsPerRun:
         bucketConfig.retryFailedLogMoveMaxJobsPerRun || undefined,
     },

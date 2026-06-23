@@ -468,9 +468,14 @@ export type BootstrapSettingsInput = {
 
 export type BucketConfig = {
   __typename?: "BucketConfig";
+  expirationDays?: Maybe<Scalars["Int"]["output"]>;
+  lifecycleLastSyncedAt?: Maybe<Scalars["Time"]["output"]>;
+  lifecycleSyncError?: Maybe<Scalars["String"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
   roleARN?: Maybe<Scalars["String"]["output"]>;
   testResultsPrefix?: Maybe<Scalars["String"]["output"]>;
+  transitionToGlacierDays?: Maybe<Scalars["Int"]["output"]>;
+  transitionToIADays?: Maybe<Scalars["Int"]["output"]>;
   type?: Maybe<Scalars["String"]["output"]>;
 };
 
@@ -489,7 +494,7 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
-  retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
+  retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
@@ -501,7 +506,7 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
+  retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
@@ -7731,7 +7736,7 @@ export type AdminSettingsQuery = {
     buckets?: {
       __typename?: "BucketsConfig";
       longRetentionProjects?: Array<string> | null;
-      retryFailedLogMoveLookbackMonths?: number | null;
+      retryFailedLogMoveLookbackDays?: number | null;
       retryFailedLogMoveMaxJobsPerRun?: number | null;
       credentials?: {
         __typename?: "S3Credentials";
@@ -7740,17 +7745,32 @@ export type AdminSettingsQuery = {
       } | null;
       logBucket?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
         roleARN?: string | null;
         testResultsPrefix?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       logBucketFailedTasks?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       logBucketLongRetention?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";

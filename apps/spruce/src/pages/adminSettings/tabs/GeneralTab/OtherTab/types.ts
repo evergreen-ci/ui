@@ -50,7 +50,17 @@ export interface OtherFormState {
 
     bucketConfig: {
       defaultLogBucket: string;
+      logBucketExpirationDays: number | null;
+      logBucketTransitionToIADays: number | null;
+      logBucketTransitionToGlacierDays: number | null;
+      logBucketLifecycleLastSyncedAt: string;
+      logBucketLifecycleSyncError: string;
       logBucketLongRetentionName: string;
+      logBucketLongRetentionExpirationDays: number | null;
+      logBucketLongRetentionTransitionToIADays: number | null;
+      logBucketLongRetentionTransitionToGlacierDays: number | null;
+      logBucketLongRetentionLifecycleLastSyncedAt: string;
+      logBucketLongRetentionLifecycleSyncError: string;
       longRetentionProjects: string[];
       testResultsBucketName: string;
       testResultsBucketTestResultsPrefix: string;
@@ -59,7 +69,12 @@ export interface OtherFormState {
       credentialsKey: string;
       credentialsSecret: string;
       failedTasksLogBucketName: string;
-      retryFailedLogMoveLookbackMonths: number;
+      failedTasksLogBucketExpirationDays: number | null;
+      failedTasksLogBucketTransitionToIADays: number | null;
+      failedTasksLogBucketTransitionToGlacierDays: number | null;
+      failedTasksLogBucketLifecycleLastSyncedAt: string;
+      failedTasksLogBucketLifecycleSyncError: string;
+      retryFailedLogMoveLookbackDays: number;
       retryFailedLogMoveMaxJobsPerRun: number;
     };
 
