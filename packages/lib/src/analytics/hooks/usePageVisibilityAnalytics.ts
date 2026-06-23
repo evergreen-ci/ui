@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
+import { RouteConfig } from "../../utils/observability/ReactRouterSpanProcessor/types";
+import { calculateRouteName } from "../../utils/observability/ReactRouterSpanProcessor/utils";
 import { useAnalyticsRoot } from "./useAnalyticsRoot";
 
 // Event names must start with "System Event" prefix per ActionType constraint
@@ -30,18 +32,30 @@ type Action =
       "visibility.total_visible_ms": number;
       "visibility.total_hidden_ms": number;
       "visibility.visibility_changes": number;
+    }
+  | {
+      // Fired on navigation away (or unmount) with the foreground time spent on
+      // that route. Route name is set explicitly to reflect the route left.
+      name: "System Event route active";
+      "visibility.duration_ms": number;
+      "page.route_name": string;
     };
 
 interface PageVisibilityAnalyticsOptions {
   attributes?: Record<string, string | number | boolean>;
   enabled?: boolean;
   minDurationMs?: number;
+  // Together enable per-route active-duration tracking.
+  pathname?: string;
+  routeConfig?: RouteConfig;
 }
 
 export const usePageVisibilityAnalytics = ({
   attributes,
   enabled = true,
   minDurationMs = 1000,
+  pathname,
+  routeConfig,
 }: PageVisibilityAnalyticsOptions = {}) => {
   // Memoize attributes to prevent sendEvent recreation on every render
   const stableAttributes = useMemo(
@@ -170,6 +184,46 @@ export const usePageVisibilityAnalytics = ({
       sendSessionEnded();
     };
   }, [enabled, sendEvent, minDurationMs]);
+
+  // Emit active (foreground) time per route on navigation away/unmount. Route
+  // name is set explicitly; the processor would otherwise stamp the new route.
+  useEffect(() => {
+    if (!enabled || !pathname || !routeConfig) {
+      return;
+    }
+
+    const routeName =
+      calculateRouteName(pathname, routeConfig)?.name ?? pathname;
+
+    let activeMs = 0;
+    let resumeTime: number | null =
+      document.visibilityState === "visible" ? Date.now() : null;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        resumeTime = Date.now();
+      } else if (resumeTime !== null) {
+        activeMs += Date.now() - resumeTime;
+        resumeTime = null;
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (resumeTime !== null) {
+        activeMs += Date.now() - resumeTime;
+      }
+      if (activeMs >= minDurationMs) {
+        sendEvent({
+          name: "System Event route active",
+          "visibility.duration_ms": activeMs,
+          "page.route_name": routeName,
+        });
+      }
+    };
+  }, [enabled, pathname, routeConfig, sendEvent, minDurationMs]);
 
   return {
     isVisible: document.visibilityState === "visible",

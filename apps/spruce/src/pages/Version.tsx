@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
@@ -56,6 +56,20 @@ export const VersionPage: React.FC = () => {
     stopPolling,
     refetch,
   });
+
+  // Patches and mainline share the /version route, so stamp is_patch to let
+  // page views be split by type.
+  useEffect(() => {
+    const { AttributeStore } = window;
+    const isPatch = versionData?.version?.isPatch;
+    if (!AttributeStore || isPatch === undefined) {
+      return;
+    }
+    AttributeStore.setGlobalAttribute("version.is_patch", isPatch);
+    return () => {
+      AttributeStore.removeGlobalAttribute("version.is_patch");
+    };
+  }, [versionData?.version?.isPatch]);
 
   const [activeTaskIds, setActiveTaskIds] = useState<string[]>([]);
 

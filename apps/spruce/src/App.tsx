@@ -1,5 +1,10 @@
 import * as React from "react";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks";
 import { ErrorBoundary } from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
@@ -20,7 +25,8 @@ import {
 } from "utils/environmentVariables";
 
 const AppContents: React.FC = () => {
-  usePageVisibilityAnalytics();
+  const { pathname } = useLocation();
+  usePageVisibilityAnalytics({ pathname, routeConfig: routes });
   return <Outlet />;
 };
 

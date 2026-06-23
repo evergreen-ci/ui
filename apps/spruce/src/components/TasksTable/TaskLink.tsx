@@ -6,8 +6,9 @@ import { formatZeroIndexForDisplay } from "utils/numbers";
 
 interface TaskLinkProps {
   execution?: number;
-  onClick?: (taskId: string) => void;
+  onClick?: (taskId: string, status?: string) => void;
   showTaskExecutionLabel?: boolean;
+  status?: string;
   taskId: string;
   taskName: string;
 }
@@ -16,11 +17,12 @@ export const TaskLink: React.FC<TaskLinkProps> = ({
   execution,
   onClick = () => {},
   showTaskExecutionLabel,
+  status,
   taskId,
   taskName,
 }) => (
   <StyledRouterLink
-    onClick={() => onClick(taskId)}
+    onClick={() => onClick(taskId, status)}
     to={getTaskRoute(taskId, { execution })}
   >
     <WordBreakAll>{taskName}</WordBreakAll>

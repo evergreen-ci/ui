@@ -42,6 +42,9 @@ type Action =
     }
   | { name: "Clicked schedule task button" }
   | { name: "Clicked abort task button" }
+  | { name: "Clicked disable task button" }
+  | { name: "Clicked enable task button" }
+  | { name: "Clicked override dependencies button" }
   | { name: "Changed task priority"; "task.priority": number }
   | { name: "Clicked unschedule task button" }
   | { name: "Changed page size" }

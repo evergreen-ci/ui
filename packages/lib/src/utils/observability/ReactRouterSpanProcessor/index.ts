@@ -11,16 +11,26 @@ class ReactRouterSpanProcessor {
   }
 
   onStart(span: Span, _parentContext: Context): void {
+    // Type assertion needed due to type mismatch between SpanProcessor interface
+    // and actual Span implementation from Honeycomb SDK
+    const spanWithAttributes = span as Span & {
+      setAttribute: (key: string, value: unknown) => void;
+    };
+
+    // Apply global attributes to every span so auto-instrumented spans carry
+    // the same context as analytics events.
+    const globalAttributes = window.AttributeStore?.getGlobalAttributes();
+    if (globalAttributes) {
+      Object.entries(globalAttributes).forEach(([key, value]) => {
+        spanWithAttributes.setAttribute(key, value);
+      });
+    }
+
     const matchedRoute = calculateRouteName(
       window.location.pathname,
       this.routeConfig,
     );
     if (matchedRoute) {
-      // Type assertion needed due to type mismatch between SpanProcessor interface
-      // and actual Span implementation from Honeycomb SDK
-      const spanWithAttributes = span as Span & {
-        setAttribute: (key: string, value: unknown) => void;
-      };
       spanWithAttributes.setAttribute("page.route_name", matchedRoute.name);
       spanWithAttributes.setAttribute("page.route", matchedRoute.route);
       const params = getRouteParams(
