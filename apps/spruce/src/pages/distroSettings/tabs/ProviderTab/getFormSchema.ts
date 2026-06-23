@@ -1,26 +1,20 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { Provider, ContainerPool } from "gql/generated/types";
+import { Provider } from "gql/generated/types";
 import {
-  dockerProviderSettings,
   staticProviderSettings,
   ec2FleetProviderSettings,
   ec2ProviderAccountField,
   taskHostOverridesFields,
 } from "./schemaFields";
-import { textAreaCSS } from "./styles";
 
 export const getFormSchema = ({
   awsRegions,
   fleetRegionsInUse,
   isEC2Provider,
-  poolMappingInfo,
-  pools,
 }: {
   awsRegions: string[];
   fleetRegionsInUse: string[];
-  poolMappingInfo: string;
-  pools: ContainerPool[];
   isEC2Provider: boolean;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -39,11 +33,6 @@ export const getFormSchema = ({
                 type: "string" as const,
                 title: "Static IP/VM",
                 enum: [Provider.Static],
-              },
-              {
-                type: "string" as const,
-                title: "Docker",
-                enum: [Provider.Docker],
               },
               {
                 type: "string" as const,
@@ -75,38 +64,6 @@ export const getFormSchema = ({
                 type: "object" as const,
                 title: "",
                 properties: staticProviderSettings.schema,
-              },
-            },
-          },
-          {
-            properties: {
-              provider: {
-                properties: {
-                  providerName: {
-                    enum: [Provider.Docker],
-                  },
-                },
-              },
-              dockerProviderSettings: {
-                type: "object" as const,
-                title: "",
-                properties: {
-                  containerPoolId: {
-                    type: "string" as const,
-                    title: "Container Pool ID",
-                    default: "",
-                    oneOf: pools.map((p) => ({
-                      type: "string" as const,
-                      title: p.id,
-                      enum: [p.id],
-                    })),
-                  },
-                  poolMappingInfo: {
-                    type: "string" as const,
-                    title: "Pool Mapping Information",
-                  },
-                  ...dockerProviderSettings.schema,
-                },
               },
             },
           },
@@ -159,22 +116,6 @@ export const getFormSchema = ({
       "ui:data-cy": "static-provider-settings",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       ...staticProviderSettings.uiSchema,
-    },
-    dockerProviderSettings: {
-      "ui:data-cy": "docker-provider-settings",
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      containerPoolId: {
-        "ui:allowDeselect": false,
-        "ui:placeholder": "Select a pool",
-      },
-      poolMappingInfo: {
-        "ui:widget": poolMappingInfo.length > 0 ? "textarea" : "hidden",
-        "ui:placeholder": poolMappingInfo,
-        "ui:elementWrapperCSS": textAreaCSS,
-        "ui:rows": 6,
-        "ui:readonly": true,
-      },
-      ...dockerProviderSettings.uiSchema,
     },
     ec2FleetProviderSettings: {
       "ui:data-cy": "ec2-fleet-provider-settings",

@@ -1,10 +1,5 @@
 import { DistroQuery, Provider } from "gql/generated/types";
 
-export enum BuildType {
-  Import = "import",
-  Pull = "pull",
-}
-
 export type ProviderFormState = {
   provider: {
     providerName: Provider;
@@ -17,17 +12,6 @@ export type ProviderFormState = {
     hosts: Array<{
       name: string;
     }>;
-  };
-  dockerProviderSettings: {
-    imageUrl: string;
-    buildType: BuildType;
-    registryUsername: string;
-    registryPassword: string;
-    containerPoolId: string;
-    poolMappingInfo: string;
-    userData: string;
-    mergeUserData: boolean;
-    securityGroups: string[];
   };
   ec2FleetProviderSettings: Array<{
     displayTitle: string;
