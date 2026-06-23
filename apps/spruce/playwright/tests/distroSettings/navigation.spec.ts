@@ -63,9 +63,7 @@ test.describe("distroSettings/navigation", () => {
 
       test.describe("modifying the distro provider", () => {
         test.beforeEach(async ({ page }) => {
-          await page.goto(
-            "/distro/ubuntu1604-container-test/settings/provider",
-          );
+          await page.goto("/distro/ubuntu1804-workstation/settings/provider");
         });
 
         test("warns when navigating to another tab after provider changed and allows save", async ({
@@ -83,7 +81,7 @@ test.describe("distroSettings/navigation", () => {
           page,
         }) => {
           const userDataInput = page.getByRole("textbox", {
-            name: "User data",
+            name: "User Data",
           });
           await userDataInput.fill("test user data");
           await expect(page.getByTestId("save-settings-button")).toBeEnabled();

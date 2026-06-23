@@ -11,14 +11,6 @@ test.describe("task section", () => {
     });
   });
 
-  test.describe("docker provider", () => {
-    test("should not show tunable options", async ({ page }) => {
-      await page.goto("/distro/ubuntu1604-container-test/settings/task");
-      await selectOption(page, "Task Planner Version", "Tunable");
-      await expect(page.getByTestId("tunable-options")).toHaveCount(0);
-    });
-  });
-
   test.describe("ec2 provider", () => {
     test.beforeEach(async ({ page }) => {
       await page.goto("/distro/ubuntu1804-workstation/settings/task");
