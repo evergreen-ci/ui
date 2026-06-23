@@ -37,9 +37,6 @@ export const SpawnVolume = () => {
     shouldPollFaster: migrationInProcess,
   });
 
-  // Only show the skeleton on initial load. Background refetches (e.g. polling
-  // or returning to the tab) toggle `loading` in Apollo Client v4, and
-  // unmounting the page would close an open spawn volume modal.
   if (loading && !volumesData) {
     return <SpawnPageSkeleton />;
   }
