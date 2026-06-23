@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -62,6 +63,17 @@ const Search: React.FC = () => {
   );
   const { project } = data || {};
   const { parsleyFilters } = project || {};
+
+  useEffect(() => {
+    if (!project) return;
+    sendEvent({
+      name: "System Event loaded project filters",
+      "project.has_parsley_filters": (parsleyFilters?.length ?? 0) > 0,
+      "project.id": project.id,
+      "project.parsley_filters_count": parsleyFilters?.length ?? 0,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [project?.id]);
 
   const handleOnSubmit = (selected: string, value: string) => {
     addToHistory(value);

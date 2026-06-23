@@ -8,8 +8,14 @@ type Action =
       suggestion: string;
     }
   | {
+      name: "Created Parsley AI session";
+      "conversation.id": string;
+    }
+  | {
       name: "Interacted with Parsley AI";
       message: string;
+      "conversation.id": string;
+      "message.index": number;
     }
   | {
       name: "Toggled AI agent panel";
@@ -27,6 +33,11 @@ type Action =
     }
   | {
       name: "Clicked copy response button";
+    }
+  | {
+      name: "System Event AI tool result";
+      "tool.name": string;
+      "tool.is_error": boolean;
     };
 
 export const useAIAgentAnalytics = () =>

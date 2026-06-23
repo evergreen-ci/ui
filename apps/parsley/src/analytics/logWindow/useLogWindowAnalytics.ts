@@ -64,6 +64,24 @@ type Action =
       name: "Viewed log with sections and jump to failing line";
       "settings.sections.enabled": boolean;
       "settings.jump_to_failing_line.enabled": boolean;
+    }
+  | {
+      // Fired once per log view on initial load. Flags indicate which precision
+      // params the URL carried, so inbound shared-link rate is measurable.
+      name: "System Event opened log view";
+      "share.is_shared_link": boolean;
+      "share.has_share_line": boolean;
+      "share.has_filters": boolean;
+      "share.has_highlights": boolean;
+      "share.has_bookmarks": boolean;
+      "share.has_selected_line_range": boolean;
+    }
+  | {
+      // Fired once per viewed project when its ProjectFilters query resolves.
+      name: "System Event loaded project filters";
+      "project.id": string;
+      "project.has_parsley_filters": boolean;
+      "project.parsley_filters_count": number;
     };
 
 export const useLogWindowAnalytics = () =>

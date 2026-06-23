@@ -126,8 +126,26 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
               openSectionAndScrollToLine(line);
             }
           }}
-          onSendMessage={(message) => {
-            sendEvent({ message, name: "Interacted with Parsley AI" });
+          onSendMessage={(message, { conversationId, messageIndex }) => {
+            if (messageIndex === 0) {
+              sendEvent({
+                "conversation.id": conversationId,
+                name: "Created Parsley AI session",
+              });
+            }
+            sendEvent({
+              "conversation.id": conversationId,
+              message,
+              "message.index": messageIndex,
+              name: "Interacted with Parsley AI",
+            });
+          }}
+          onToolResult={({ isError, toolName }) => {
+            sendEvent({
+              name: "System Event AI tool result",
+              "tool.is_error": isError,
+              "tool.name": toolName,
+            });
           }}
           transformMessage={(message, { pendingChips: chips }) => {
             let transformed = message;
