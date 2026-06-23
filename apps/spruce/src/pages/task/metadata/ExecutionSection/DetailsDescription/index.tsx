@@ -10,7 +10,8 @@ import { isFailedTaskStatus } from "utils/statuses";
 const { red } = palette;
 
 const MAX_CHAR = 100;
-const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
+
+export const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
   const { description, failingCommand, otherFailingCommands, status } =
     details ?? {};
   const isFailingTask = isFailedTaskStatus(status);
@@ -109,5 +110,3 @@ const processFailingCommand = (description: string): string => {
 
 const hostTaskStrandedMessage =
   "Task failed because the host became unreachable unexpectedly";
-
-export default DetailsDescription;
