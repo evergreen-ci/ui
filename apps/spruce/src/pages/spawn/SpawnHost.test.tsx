@@ -176,6 +176,7 @@ const userTokenExchangeMock: ApolloMock<
         __typename: "UserLite",
         hasTokenExchangePending: false,
         tokenAccessTokenExpiresAt: null,
+        userId: "me",
       },
     },
   },
