@@ -36,6 +36,9 @@ export const gqlToForm = ((data) => {
     workDir,
   } = data;
 
+  const { acceptableHostIdleTime, ...hostAllocatorSettingsRest } =
+    hostAllocatorSettings;
+
   return {
     setup: {
       bootstrapMethod: method,
@@ -68,7 +71,10 @@ export const gqlToForm = ((data) => {
       authorizedKeysFile,
       sshOptions,
     },
-    allocation: hostAllocatorSettings,
+    allocation: {
+      ...hostAllocatorSettingsRest,
+      acceptableHostIdleTimeSeconds: acceptableHostIdleTime / 1000,
+    },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
@@ -77,38 +83,45 @@ export const formToGql = ((
   { allocation, bootstrapSettings, setup, sshConfig },
   distro,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-) => ({
-  ...distro,
-  arch: setup.arch,
-  authorizedKeysFile: sshConfig.authorizedKeysFile,
-  bootstrapSettings: {
-    clientDir: bootstrapSettings.clientDir,
-    communication: setup.communicationMethod,
-    env: bootstrapSettings.env,
-    jasperBinaryDir: bootstrapSettings.jasperBinaryDir,
-    jasperCredentialsPath: bootstrapSettings.jasperCredentialsPath,
-    method: setup.bootstrapMethod,
-    preconditionScripts: bootstrapSettings.preconditionScripts,
-    resourceLimits: bootstrapSettings.resourceLimits,
-    rootDir: setup.rootDir,
-    serviceUser: bootstrapSettings.serviceUser,
-    shellPath: bootstrapSettings.shellPath,
-  },
-  homeVolumeSettings: {
-    formatCommand: bootstrapSettings.homeVolumeFormatCommand,
-  },
-  hostAllocatorSettings: allocation,
-  iceCreamSettings: {
-    configPath: setup.icecreamConfigPath,
-    schedulerHost: setup.icecreamSchedulerHost,
-  },
-  isVirtualWorkStation: setup.isVirtualWorkStation,
-  setupAsSudo: setup.setupAsSudo,
-  setup: setup.setupScript,
-  mountpoints: setup.mountpoints,
-  sshOptions: sshConfig.sshOptions,
-  user: sshConfig.user,
-  execUser: sshConfig.execUser,
-  userSpawnAllowed: setup.userSpawnAllowed,
-  workDir: setup.workDir,
-})) satisfies FormToGqlFunction<Tab>;
+) => {
+  const { acceptableHostIdleTimeSeconds, ...hostAllocatorSettings } =
+    allocation;
+  return {
+    ...distro,
+    arch: setup.arch,
+    authorizedKeysFile: sshConfig.authorizedKeysFile,
+    bootstrapSettings: {
+      clientDir: bootstrapSettings.clientDir,
+      communication: setup.communicationMethod,
+      env: bootstrapSettings.env,
+      jasperBinaryDir: bootstrapSettings.jasperBinaryDir,
+      jasperCredentialsPath: bootstrapSettings.jasperCredentialsPath,
+      method: setup.bootstrapMethod,
+      preconditionScripts: bootstrapSettings.preconditionScripts,
+      resourceLimits: bootstrapSettings.resourceLimits,
+      rootDir: setup.rootDir,
+      serviceUser: bootstrapSettings.serviceUser,
+      shellPath: bootstrapSettings.shellPath,
+    },
+    homeVolumeSettings: {
+      formatCommand: bootstrapSettings.homeVolumeFormatCommand,
+    },
+    hostAllocatorSettings: {
+      ...hostAllocatorSettings,
+      acceptableHostIdleTime: acceptableHostIdleTimeSeconds * 1000,
+    },
+    iceCreamSettings: {
+      configPath: setup.icecreamConfigPath,
+      schedulerHost: setup.icecreamSchedulerHost,
+    },
+    isVirtualWorkStation: setup.isVirtualWorkStation,
+    setupAsSudo: setup.setupAsSudo,
+    setup: setup.setupScript,
+    mountpoints: setup.mountpoints,
+    sshOptions: sshConfig.sshOptions,
+    user: sshConfig.user,
+    execUser: sshConfig.execUser,
+    userSpawnAllowed: setup.userSpawnAllowed,
+    workDir: setup.workDir,
+  };
+}) satisfies FormToGqlFunction<Tab>;
