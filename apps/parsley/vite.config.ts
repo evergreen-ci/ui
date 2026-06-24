@@ -13,6 +13,8 @@ import {
 } from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
+process.env.VITE_APP_VERSION = process.env.npm_package_version ?? "0.0.0";
+
 const getProjectConfig = () => {
   const serverConfig = generateBaseHTTPSViteServerConfig({
     port: 5173,
