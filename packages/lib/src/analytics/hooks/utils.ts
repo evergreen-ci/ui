@@ -20,8 +20,6 @@ export const sendEventTrace = <A extends ActionType>(
   const tracer = trace.getTracer("analytics");
 
   tracer.startActiveSpan(name, (span) => {
-    // actionProps spread last so explicit event attributes override globals and
-    // anything stamped in onStart (e.g. page.route_name).
     span.setAttributes({
       ...globalAttributes,
       ...properties,
