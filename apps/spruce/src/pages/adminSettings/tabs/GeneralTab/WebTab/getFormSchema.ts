@@ -26,6 +26,11 @@ export const formSchema: ReturnType<GetFormSchema> = {
               ...api.schema,
             },
           },
+          rateLimitConfig: {
+            type: "object" as const,
+            title: "API Rate Limit Config",
+            properties: rateLimitConfig.schema,
+          },
           ui: {
             type: "object" as const,
             title: "UI Settings",
@@ -46,11 +51,6 @@ export const formSchema: ReturnType<GetFormSchema> = {
             properties: {
               ...disabledGQLQueries.schema,
             },
-          },
-          rateLimitConfig: {
-            type: "object" as const,
-            title: "API Rate Limit Config",
-            properties: rateLimitConfig.schema,
           },
         },
       },

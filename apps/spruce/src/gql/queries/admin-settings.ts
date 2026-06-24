@@ -276,12 +276,6 @@ export const ADMIN_SETTINGS = gql`
           apiVersion
         }
       }
-      releaseMode {
-        distroMaxHostsFactor
-        idleTimeSecondsOverride
-        targetTimeSecondsOverride
-      }
-
       rateLimit {
         elevatedUserIds
         graphqlComplexityLimit
@@ -294,6 +288,12 @@ export const ADMIN_SETTINGS = gql`
         restUserBurst
         restUserPerHour
       }
+      releaseMode {
+        distroMaxHostsFactor
+        idleTimeSecondsOverride
+        targetTimeSecondsOverride
+      }
+
       repotracker {
         maxConcurrentRequests
         maxRepoRevisionsToSearch
