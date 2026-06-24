@@ -14,7 +14,7 @@ import { FileDiff } from "components/CodeChanges/FileDiff";
 import { PatchDiff } from "components/CodeChanges/PatchDiff";
 import { Content } from "components/Content";
 import { GlobalStyles } from "components/styles";
-import { routes } from "constants/routes";
+import { observabilityRouteConfig, routes } from "constants/routes";
 import ContextProviders from "context/Providers";
 import { HTMLLog } from "pages/task/logs/HTMLLog";
 import { TestHTMLLog } from "pages/task/logs/TestHTMLLog";
@@ -26,7 +26,10 @@ import {
 
 const AppContents: React.FC = () => {
   const { pathname } = useLocation();
-  usePageVisibilityAnalytics({ pathname, routeConfig: routes });
+  usePageVisibilityAnalytics({
+    pathname,
+    routeConfig: observabilityRouteConfig,
+  });
   return <Outlet />;
 };
 
