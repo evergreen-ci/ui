@@ -45,7 +45,7 @@ functions:
             # Add PROFILER to env if profiler patch parameter is set to true.
             if [ "${profiler}" = "true" ]; then
                 echo "PROFILER is set to true, adding profiler to the build"
-                PROFILER=true PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" pnpm env-cmd --no-override -e "${target}" pnpm deploy-utils-build-and-push
+                PROFILER=true VITE_PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" pnpm env-cmd --no-override -e "${target}" pnpm deploy-utils-build-and-push
             else
                 pnpm env-cmd --no-override -e "${target}" pnpm deploy-utils-build-and-push
             fi

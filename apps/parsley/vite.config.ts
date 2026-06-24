@@ -13,6 +13,8 @@ import {
 } from "@evg-ui/vite-utils";
 
 process.env.VITE_APP_VERSION = process.env.npm_package_version ?? "0.0.0";
+process.env.VITE_GIT_SHA = process.env.VITE_GIT_SHA ?? "unknown";
+process.env.VITE_PROFILE_HEAD = process.env.VITE_PROFILE_HEAD ?? "";
 
 const getProjectConfig = () => {
   const serverConfig = generateBaseHTTPSViteServerConfig({
