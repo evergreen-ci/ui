@@ -17,7 +17,7 @@ import injectVariablesInHTML from "./config/injectVariablesInHTML";
 const getProjectConfig = () => {
   const serverConfig = generateBaseHTTPSViteServerConfig({
     port: 5173,
-    appURL: process.env.REACT_APP_PARSLEY_URL,
+    appURL: process.env.VITE_PARSLEY_URL ?? "",
     httpsPort: 8444,
     useHTTPS:
       process.env.REACT_APP_RELEASE_STAGE !== "local" &&
