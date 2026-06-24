@@ -140,13 +140,6 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
               name: "Interacted with Parsley AI",
             });
           }}
-          onToolResult={({ isError, toolName }) => {
-            sendEvent({
-              name: "System Event AI tool result",
-              "tool.is_error": isError,
-              "tool.name": toolName,
-            });
-          }}
           transformMessage={(message, { pendingChips: chips }) => {
             let transformed = message;
             if (chips && chips.length > 0) {

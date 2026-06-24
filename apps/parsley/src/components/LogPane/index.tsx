@@ -87,7 +87,8 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
           "settings.jump_to_failing_line.enabled": jumpToFailingLineEnabled,
           "settings.sections.enabled": sectionsEnabled,
         });
-        const hasShareLine = queryParams[QueryParams.ShareLine] !== undefined;
+        // ShareLine is only set by the share-link action, so it marks an inbound share.
+        const isSharedLink = queryParams[QueryParams.ShareLine] !== undefined;
         const hasFilters = queryParams[QueryParams.Filters] !== undefined;
         const hasHighlights = queryParams[QueryParams.Highlights] !== undefined;
         const hasBookmarks = queryParams[QueryParams.Bookmarks] !== undefined;
@@ -99,13 +100,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
           "share.has_filters": hasFilters,
           "share.has_highlights": hasHighlights,
           "share.has_selected_line_range": hasSelectedLineRange,
-          "share.has_share_line": hasShareLine,
-          "share.is_shared_link":
-            hasShareLine ||
-            hasFilters ||
-            hasHighlights ||
-            hasBookmarks ||
-            hasSelectedLineRange,
+          "share.is_shared_link": isSharedLink,
         });
       }, 100);
       return () => clearTimeout(timeoutId);

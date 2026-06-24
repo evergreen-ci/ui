@@ -33,11 +33,6 @@ type Action =
     }
   | {
       name: "Clicked copy response button";
-    }
-  | {
-      name: "System Event AI tool result";
-      "tool.name": string;
-      "tool.is_error": boolean;
     };
 
 export const useAIAgentAnalytics = () =>

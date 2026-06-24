@@ -66,11 +66,9 @@ type Action =
       "settings.jump_to_failing_line.enabled": boolean;
     }
   | {
-      // Fired once per log view on initial load. Flags indicate which precision
-      // params the URL carried, so inbound shared-link rate is measurable.
+      // is_shared_link reflects the ShareLine param, which only the share-link action sets.
       name: "System Event opened log view";
       "share.is_shared_link": boolean;
-      "share.has_share_line": boolean;
       "share.has_filters": boolean;
       "share.has_highlights": boolean;
       "share.has_bookmarks": boolean;

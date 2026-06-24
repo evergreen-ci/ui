@@ -16,7 +16,6 @@ export const MessageRenderer: React.FC<
     MessageActionsProps & {
       onChipClick?: (chip: ContextChip) => void;
       onLinkClick?: (href: string) => void;
-      onToolResult?: (result: { toolName: string; isError: boolean }) => void;
     }
 > = ({
   id,
@@ -26,7 +25,6 @@ export const MessageRenderer: React.FC<
   onLinkClick,
   onRatingChange,
   onSubmitFeedback,
-  onToolResult,
   parts,
   role,
 }) => {
@@ -78,7 +76,6 @@ export const MessageRenderer: React.FC<
             <ToolRenderer
               key={key}
               onLinkClick={onLinkClick}
-              onToolResult={onToolResult}
               progress={progressMap.get(part.toolCallId)}
               {...part}
             />

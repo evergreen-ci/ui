@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { spacing } from "@leafygreen-ui/tokens";
 import { Message, ActionCardState } from "@lg-chat/message";
@@ -31,33 +31,15 @@ const toolStateToLabelCopy = (
 
 type ToolRendererProps = ToolUIPart & {
   onLinkClick?: (href: string) => void;
-  onToolResult?: (result: { toolName: string; isError: boolean }) => void;
   progress?: ProgressUpdate;
 };
 
 export const ToolRenderer: React.FC<ToolRendererProps> = ({
   onLinkClick,
-  onToolResult,
   progress,
   ...tool
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
-  // Report each tool call once when it reaches a terminal state, so tool
-  // error rate can be measured.
-  const reportedResultRef = useRef(false);
-  useEffect(() => {
-    const isTerminal =
-      tool.state === ToolStateEnum.OutputAvailable ||
-      tool.state === ToolStateEnum.OutputError;
-    if (isTerminal && !reportedResultRef.current) {
-      reportedResultRef.current = true;
-      onToolResult?.({
-        isError: tool.state === ToolStateEnum.OutputError,
-        toolName: tool.type,
-      });
-    }
-  }, [tool.state, tool.type, onToolResult]);
 
   const toolLabel = renderableToolLabels[tool.type];
   if (!toolLabel) return null;

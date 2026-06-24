@@ -28,7 +28,6 @@ export type ChatFeedProps = {
     message: string,
     meta: { conversationId: string; messageIndex: number },
   ) => void;
-  onToolResult?: (result: { toolName: string; isError: boolean }) => void;
   transformMessage?: (
     message: string,
     transformers: {
@@ -48,7 +47,6 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   onClickSuggestion,
   onLinkClick,
   onSendMessage,
-  onToolResult,
   transformMessage,
 }) => {
   const { appName, chips, clearChips, toggleChip } = useChatContext();
@@ -123,7 +121,6 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
                   onSubmitFeedback={
                     spanId ? handleSubmitFeedback?.(spanId) : undefined
                   }
-                  onToolResult={onToolResult}
                   {...m}
                 />
               );
