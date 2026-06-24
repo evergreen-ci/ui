@@ -142,7 +142,7 @@ export const getHoneycombEndpoint = () =>
  * @returns - Returns the user's staging key.
  */
 export const getUserStagingKey = (): string =>
-  process.env.REACT_APP_USER_KEY || "";
+  import.meta.env.VITE_USER_KEY || "";
 
 /**
  * `getLoginDomain()` - Get the login domain depending on the release stage
