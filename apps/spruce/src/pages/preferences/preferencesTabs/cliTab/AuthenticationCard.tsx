@@ -24,6 +24,7 @@ export const AuthenticationCard = () => {
   const authCode = `user: "${data.userConfig.user}"
 api_key: "${data.userConfig.api_key}"
 api_server_host: "${data.userConfig.api_server_host}"
+corp_api_server_host: "${data.userConfig.corp_api_server_host}"
 ui_server_host: "${data.userConfig.ui_server_host}"
 oauth:
     issuer: "${data.userConfig.oauth_issuer}"

@@ -11721,6 +11721,7 @@ export type UserConfigQuery = {
     __typename?: "UserConfig";
     api_key: string;
     api_server_host: string;
+    corp_api_server_host: string;
     oauth_client_id: string;
     oauth_connector_id: string;
     oauth_issuer: string;
