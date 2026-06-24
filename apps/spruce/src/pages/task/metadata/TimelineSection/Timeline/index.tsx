@@ -71,10 +71,6 @@ const TimelineContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: ${ROW_GAP}px;
-
-  &:not(:last-child) {
-    margin-bottom: ${size.xs};
-  }
 `;
 
 const Label = styled.b`
