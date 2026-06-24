@@ -52,20 +52,20 @@ export const isProduction = () => getReleaseStage() === ReleaseStage.Production;
  * @returns `true` if the current environment is a production build.
  */
 export const isProductionBuild = () =>
-  process.env.NODE_ENV === Environment.Production;
+  import.meta.env.MODE === Environment.Production;
 
 /**
  * `isDevelopmentBuild()` indicates if the current environment is a local development environment.
  * @returns `true` if the current environment is a local development environment.
  */
 export const isDevelopmentBuild = () =>
-  isLocal() || process.env.NODE_ENV === Environment.Development;
+  isLocal() || import.meta.env.MODE === Environment.Development;
 
 /**
  * `isTest()` indicates if the current environment is a test environment.
  * @returns `true` if the current environment is a test environment.
  */
-export const isTest = () => process.env.NODE_ENV === Environment.Test;
+export const isTest = () => import.meta.env.MODE === Environment.Test;
 
 /**
  * `isEndUserProduction()` targets the end-user environment, useful for feature flags.
