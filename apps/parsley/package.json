@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "bootstrap-s3-logs": "../../scripts/bootstrap-s3-logs.sh",
-    "build": "tsc && GIT_SHA=`git rev-parse HEAD` REACT_APP_VERSION=$npm_package_version vite build",
+    "build": "tsc && GIT_SHA=`git rev-parse HEAD` VITE_APP_VERSION=$npm_package_version vite build",
     "build:local": "env-cmd -e local pnpm build",
     "build:beta": "env-cmd -e beta pnpm build",
     "build:staging": "env-cmd -e staging pnpm build",

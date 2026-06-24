@@ -114,7 +114,7 @@ export const getParsleyUrl = () => import.meta.env.VITE_PARSLEY_URL || "";
  * `getAppVersion()` - Get the app release version from the environment variables
  * @returns - Returns the release version.
  */
-export const getAppVersion = () => process.env.REACT_APP_VERSION || "";
+export const getAppVersion = () => import.meta.env.VITE_APP_VERSION || "";
 
 /**
  * `getHoneycombBaseURL()` - Get the base Honeycomb URL from the environment variables

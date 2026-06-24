@@ -67,7 +67,7 @@ const getProjectConfig = () => {
       injectVariablesInHTML({
         files: "dist/index.html",
         variables: [
-          "%REACT_APP_VERSION%",
+          "%VITE_APP_VERSION%",
           "%GIT_SHA%",
           "%VITE_RELEASE_STAGE%",
           "%NODE_ENV%",
