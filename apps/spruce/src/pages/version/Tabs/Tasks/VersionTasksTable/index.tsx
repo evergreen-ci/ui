@@ -76,6 +76,11 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 
   const { initialFilters, initialSorting } = getInitialState(queryParams);
 
+  const statusFilter = queryParams[PatchTasksQueryParams.Statuses] as
+    | string
+    | string[]
+    | undefined;
+
   const columns = useMemo(
     () =>
       getColumnsTemplate({
@@ -134,6 +139,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       getRowId: (originalRow) => originalRow.id,
       initialState: {
         columnVisibility: { reviewed: taskReviewEnabled },
+        // Expand the table initially when a status filter is applied so matching execution tasks are apparent
+        expanded: statusFilter?.length ? true : {},
       },
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
       state: {

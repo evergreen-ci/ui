@@ -1025,6 +1025,14 @@ export type EnvVarInput = {
   value: Scalars["String"]["input"];
 };
 
+/**
+ * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
+ * It's used to filter a display task's execution tasks.
+ */
+export type ExecutionTasksFilterOptions = {
+  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
 export type Expansion = {
   __typename?: "Expansion";
   key: Scalars["String"]["output"];
@@ -4184,6 +4192,11 @@ export type Task = {
   totalTestCount: Scalars["Int"]["output"];
   version: VersionLite;
   versionMetadata: Version;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskExecutionTasksFullArgs = {
+  options?: InputMaybe<ExecutionTasksFilterOptions>;
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
@@ -11993,6 +12006,7 @@ export type VersionTaskDurationsQuery = {
 export type VersionTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
+  executionTaskOptions?: InputMaybe<ExecutionTasksFilterOptions>;
 }>;
 
 export type VersionTasksQuery = {
