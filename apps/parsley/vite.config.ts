@@ -4,7 +4,6 @@ import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
-import envCompatible from "vite-plugin-env-compatible";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
@@ -42,9 +41,6 @@ const getProjectConfig = () => {
         exclude: /\.stories\.tsx?$/,
         // Only Typescript files should use fast refresh.
         include: ["**/*.tsx", "**/*.ts"],
-      }),
-      envCompatible({
-        prefix: "REACT_APP_",
       }),
       injectVariablesInHTML({
         files: "dist/index.html",

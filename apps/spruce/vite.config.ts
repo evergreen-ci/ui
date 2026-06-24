@@ -4,7 +4,6 @@ import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
-import envCompatible from "vite-plugin-env-compatible";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
@@ -55,10 +54,6 @@ const getProjectConfig = () => {
       extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
     },
     plugins: [
-      // Inject env variables
-      envCompatible({
-        prefix: "REACT_APP_",
-      }),
       react({
         // exclude storybook stories
         exclude: [/\.stories\.tsx?$/],
