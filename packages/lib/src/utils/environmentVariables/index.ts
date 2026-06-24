@@ -19,7 +19,7 @@ export enum Environment {
  * `getReleaseStage()` - Get the release stage from the environment variables
  * @returns - Returns the production release environment
  */
-export const getReleaseStage = () => process.env.REACT_APP_RELEASE_STAGE || "";
+export const getReleaseStage = () => import.meta.env.VITE_RELEASE_STAGE || "";
 
 /**
  * `isLocal()` indicates if the current build is a local build.

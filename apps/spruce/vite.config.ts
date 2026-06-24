@@ -20,7 +20,7 @@ const getProjectConfig = () => {
     appURL: process.env.VITE_SPRUCE_URL ?? "",
     httpsPort: 8443,
     useHTTPS:
-      process.env.REACT_APP_RELEASE_STAGE !== "local" &&
+      process.env.VITE_RELEASE_STAGE !== "local" &&
       process.env.NO_HTTPS !== "true",
   });
 
@@ -69,7 +69,7 @@ const getProjectConfig = () => {
         variables: [
           "%REACT_APP_VERSION%",
           "%GIT_SHA%",
-          "%REACT_APP_RELEASE_STAGE%",
+          "%VITE_RELEASE_STAGE%",
           "%NODE_ENV%",
           "%PROFILE_HEAD%",
         ],
