@@ -66,7 +66,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
       )}
       <TaskOwnership execution={execution} taskId={task.id} />
       {displayTask && (
-        <MetadataItem label="Display Task">
+        <MetadataItem label="Display task">
           <StyledRouterLink
             onClick={() =>
               taskAnalytics.sendEvent({

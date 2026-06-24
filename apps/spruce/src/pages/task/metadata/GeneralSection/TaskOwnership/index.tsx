@@ -31,7 +31,7 @@ export const TaskOwnership: React.FC<TaskOwnershipProps> = ({
   return (
     <MetadataItem
       data-cy="task-metadata-task-ownership"
-      label="Task Owner"
+      label="Task owner"
       tooltipDescription={messages}
     >
       {teamName || "No known team"}

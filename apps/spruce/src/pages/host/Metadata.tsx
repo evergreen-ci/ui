@@ -37,16 +37,16 @@ export const Metadata: React.FC<{
   return (
     <MetadataCard error={error} loading={loading} title="Host Details">
       <MetadataItem label="User">{user}</MetadataItem>
-      {hostUrl && <MetadataItem label="Host Name">{hostUrl}</MetadataItem>}
+      {hostUrl && <MetadataItem label="Host name">{hostUrl}</MetadataItem>}
       {persistentDnsName && (
-        <MetadataItem label="Persistent DNS Name">
+        <MetadataItem label="Persistent DNS name">
           {persistentDnsName}
         </MetadataItem>
       )}
       {lastCommunicationTime && (
         <MetadataItem
           data-cy="host-last-communication"
-          label="Last Communication"
+          label="Last communication"
         >
           {formatDistanceToNow(new Date(lastCommunicationTime))} ago
         </MetadataItem>
@@ -55,8 +55,8 @@ export const Metadata: React.FC<{
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {formatDistanceToNow(new Date(uptime))}
       </MetadataItem>
-      <MetadataItem label="Started By">{startedBy}</MetadataItem>
-      <MetadataItem label="Cloud Provider">{provider}</MetadataItem>
+      <MetadataItem label="Started by">{startedBy}</MetadataItem>
+      <MetadataItem label="Cloud provider">{provider}</MetadataItem>
       {ami && <MetadataItem label="AMI">{ami}</MetadataItem>}
       <MetadataItem label="Distro">
         <StyledLink data-cy="distro-link" href={distroLink}>
@@ -64,7 +64,7 @@ export const Metadata: React.FC<{
         </StyledLink>
       </MetadataItem>
       {startedBy === MCI_USER && (
-        <MetadataItem data-cy="current-running-task" label="Current Task">
+        <MetadataItem data-cy="current-running-task" label="Current task">
           {runningTaskName ? (
             <StyledLink data-cy="running-task-link" href={taskLink}>
               <WordBreak all>{runningTaskName}</WordBreak>

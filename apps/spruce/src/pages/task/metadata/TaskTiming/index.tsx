@@ -65,17 +65,17 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
         </CardHeader>
       }
     >
-      <MetadataItem label="Total Time">
+      <MetadataItem label="Total time">
         <StyledRouterLink {...linkProps(TaskTimingMetric.TotalTime)}>
           Activated &rarr; Finish
         </StyledRouterLink>
       </MetadataItem>
-      <MetadataItem label="Wait Time">
+      <MetadataItem label="Wait time">
         <StyledRouterLink {...linkProps(TaskTimingMetric.WaitTime)}>
           Activated &rarr; Start
         </StyledRouterLink>
       </MetadataItem>
-      <MetadataItem label="Run Time">
+      <MetadataItem label="Run time">
         <StyledRouterLink {...linkProps(TaskTimingMetric.RunTime)}>
           Start &rarr; Finish
         </StyledRouterLink>

@@ -13,7 +13,7 @@ export const RuntimeTimer: React.FC<RuntimeTimerProps> = ({ startTime }) => {
   const { runningTime } = useRunningTime(parsedStartTime);
 
   return (
-    <MetadataItem data-cy="task-metadata-running-time" label="Running Time">
+    <MetadataItem data-cy="task-metadata-running-time" label="Running time">
       {msToDuration(runningTime)}
     </MetadataItem>
   );
