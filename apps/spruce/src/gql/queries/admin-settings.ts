@@ -282,6 +282,18 @@ export const ADMIN_SETTINGS = gql`
         targetTimeSecondsOverride
       }
 
+      rateLimit {
+        elevatedUserIds
+        graphqlComplexityLimit
+        graphqlServiceBurst
+        graphqlServicePerHour
+        graphqlUserBurst
+        graphqlUserPerHour
+        restServiceBurst
+        restServicePerHour
+        restUserBurst
+        restUserPerHour
+      }
       repotracker {
         maxConcurrentRequests
         maxRepoRevisionsToSearch

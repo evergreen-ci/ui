@@ -218,8 +218,14 @@ export const rateLimitConfig = {
         elevatedUserIds: {
           type: "array" as const,
           title: "User IDs",
+          default: [],
           items: {
             type: "string" as const,
+            properties: {
+              value: {
+                type: "string" as const,
+              },
+            },
           },
         },
       },
