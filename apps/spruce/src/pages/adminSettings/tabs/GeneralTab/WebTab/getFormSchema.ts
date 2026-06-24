@@ -2,7 +2,13 @@ import { css } from "@emotion/react";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { objectGridCss } from "../../sharedStyles";
-import { api, ui, disabledGQLQueries, betaFeatures } from "./schemaFields";
+import {
+  api,
+  betaFeatures,
+  disabledGQLQueries,
+  rateLimitConfig,
+  ui,
+} from "./schemaFields";
 
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
@@ -41,6 +47,11 @@ export const formSchema: ReturnType<GetFormSchema> = {
               ...disabledGQLQueries.schema,
             },
           },
+          rateLimitConfig: {
+            type: "object" as const,
+            title: "API Rate Limit Config",
+            properties: rateLimitConfig.schema,
+          },
         },
       },
     },
@@ -74,6 +85,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
         "ui:data-cy": "disabled-gql-queries",
         ...disabledGQLQueries.uiSchema,
       },
+      rateLimitConfig: rateLimitConfig.uiSchema,
     },
   },
 };

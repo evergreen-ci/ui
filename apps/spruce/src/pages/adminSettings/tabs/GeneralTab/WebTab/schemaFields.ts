@@ -1,6 +1,11 @@
 import { css } from "@emotion/react";
+import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { fullWidthCss } from "../../sharedStyles";
+import {
+  fullWidthCss,
+  nestedObjectGridCss,
+  objectGridCss,
+} from "../../sharedStyles";
 
 export const api = {
   schema: {
@@ -146,6 +151,99 @@ export const disabledGQLQueries = {
       "ui:elementWrapperCSS": css`
         margin-bottom: 0;
       `,
+    },
+  },
+};
+
+export const rateLimitConfig = {
+  schema: {
+    restLimits: {
+      type: "object" as const,
+      title: "REST Rate Limits",
+      properties: {
+        restUserPerHour: {
+          type: "number" as const,
+          title: "User Per Hour",
+        },
+        restUserBurst: {
+          type: "number" as const,
+          title: "User Burst",
+        },
+        restServicePerHour: {
+          type: "number" as const,
+          title: "Service User Per Hour",
+        },
+        restServiceBurst: {
+          type: "number" as const,
+          title: "Service User Burst",
+        },
+      },
+    },
+    graphqlLimits: {
+      type: "object" as const,
+      title: "GraphQL Rate Limits",
+      properties: {
+        graphqlUserPerHour: {
+          type: "number" as const,
+          title: "User Per Hour",
+        },
+        graphqlUserBurst: {
+          type: "number" as const,
+          title: "User Burst",
+        },
+        graphqlServicePerHour: {
+          type: "number" as const,
+          title: "Service User Per Hour",
+        },
+        graphqlServiceBurst: {
+          type: "number" as const,
+          title: "Service User Burst",
+        },
+      },
+    },
+    graphqlComplexity: {
+      type: "object" as const,
+      title: "GraphQL Query Complexity",
+      properties: {
+        graphqlComplexityLimit: {
+          type: "number" as const,
+          title: "Complexity Limit",
+        },
+      },
+    },
+    elevatedUsers: {
+      type: "object" as const,
+      title: "Elevated Users",
+      properties: {
+        elevatedUserIds: {
+          type: "array" as const,
+          title: "User IDs",
+          items: {
+            type: "string" as const,
+          },
+        },
+      },
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "rate-limit-config",
+    "ui:objectFieldCss": objectGridCss,
+    restLimits: {
+      "ui:fieldCss": nestedObjectGridCss,
+    },
+    graphqlLimits: {
+      "ui:fieldCss": nestedObjectGridCss,
+    },
+    graphqlComplexity: {
+      "ui:fieldCss": nestedObjectGridCss,
+    },
+    elevatedUsers: {
+      "ui:fieldCss": nestedObjectGridCss,
+      elevatedUserIds: {
+        "ui:widget": widgets.ChipInputWidget,
+        "ui:fieldCss": fullWidthCss,
+      },
     },
   },
 };

@@ -148,6 +148,16 @@ const AdminSettingsPage: React.FC = () => {
               >
                 Disabled GraphQL Queries
               </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-rate-limit-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "api-rate-limit-config",
+                )}
+              >
+                API Rate Limits
+              </SideNavItem>
             </SideNavGroup>
             <SideNavGroup header="Authentication">
               <SideNavItem
