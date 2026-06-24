@@ -44,23 +44,22 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
 
   return (
     <StickyMetadataCard
+      data-cy="build-variants"
       error={error}
       loading={loading && !data}
       title="Build Variants"
     >
-      <ScrollableBuildVariantStatsContainer data-cy="build-variants">
-        {version?.buildVariantStats?.map(
-          ({ displayName, statusCounts, variant }) => (
-            <VariantTaskGroup
-              key={`buildVariant_${displayName}_${variant}`}
-              displayName={displayName}
-              statusCounts={statusCounts}
-              variant={variant}
-              versionId={versionId}
-            />
-          ),
-        )}
-      </ScrollableBuildVariantStatsContainer>
+      {version?.buildVariantStats?.map(
+        ({ displayName, statusCounts, variant }) => (
+          <VariantTaskGroup
+            key={`buildVariant_${displayName}_${variant}`}
+            displayName={displayName}
+            statusCounts={statusCounts}
+            variant={variant}
+            versionId={versionId}
+          />
+        ),
+      )}
     </StickyMetadataCard>
   );
 };
@@ -72,9 +71,6 @@ const StickyMetadataCard = styled(MetadataCard)`
   max-height: calc(100vh - ${navBarHeight} - ${size.m} - ${size.m});
   position: sticky;
   top: 0;
-`;
-
-const ScrollableBuildVariantStatsContainer = styled.div`
   overflow-y: scroll;
 `;
 
