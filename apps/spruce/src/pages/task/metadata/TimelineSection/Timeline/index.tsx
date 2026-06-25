@@ -22,6 +22,13 @@ export const Timeline: React.FC<TimelineProps> = ({ task }) => {
   const isRunning = displayStatus === TaskStatus.Started;
   const getDateCopy = useDateFormat();
 
+  const hasTimelineData =
+    ingestTime || activatedTime || startTime || finishTime;
+
+  if (!hasTimelineData) {
+    return null;
+  }
+
   return (
     <TimelineContainer>
       {ingestTime && (
