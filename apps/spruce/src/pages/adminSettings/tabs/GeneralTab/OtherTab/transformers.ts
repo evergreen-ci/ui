@@ -118,7 +118,7 @@ export const gqlToForm = ((data) => {
         logBucketTransitionToGlacierDays:
           buckets?.logBucket?.transitionToGlacierDays ?? null,
         logBucketLifecycleLastSyncedAt:
-          buckets?.logBucket?.lifecycleLastSyncedAt ?? "",
+          buckets?.logBucket?.lifecycleLastSyncedAt?.toISOString() ?? "",
         logBucketLifecycleSyncError:
           buckets?.logBucket?.lifecycleSyncError ?? "",
         logBucketLongRetentionName: buckets?.logBucketLongRetention?.name ?? "",
@@ -129,7 +129,8 @@ export const gqlToForm = ((data) => {
         logBucketLongRetentionTransitionToGlacierDays:
           buckets?.logBucketLongRetention?.transitionToGlacierDays ?? null,
         logBucketLongRetentionLifecycleLastSyncedAt:
-          buckets?.logBucketLongRetention?.lifecycleLastSyncedAt ?? "",
+          buckets?.logBucketLongRetention?.lifecycleLastSyncedAt?.toISOString() ??
+          "",
         logBucketLongRetentionLifecycleSyncError:
           buckets?.logBucketLongRetention?.lifecycleSyncError ?? "",
         longRetentionProjects: buckets?.longRetentionProjects ?? [],
@@ -148,7 +149,8 @@ export const gqlToForm = ((data) => {
         failedTasksLogBucketTransitionToGlacierDays:
           buckets?.logBucketFailedTasks?.transitionToGlacierDays ?? null,
         failedTasksLogBucketLifecycleLastSyncedAt:
-          buckets?.logBucketFailedTasks?.lifecycleLastSyncedAt ?? "",
+          buckets?.logBucketFailedTasks?.lifecycleLastSyncedAt?.toISOString() ??
+          "",
         failedTasksLogBucketLifecycleSyncError:
           buckets?.logBucketFailedTasks?.lifecycleSyncError ?? "",
         retryFailedLogMoveLookbackDays:
