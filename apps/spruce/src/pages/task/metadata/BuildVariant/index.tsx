@@ -3,7 +3,6 @@ import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
-  MetadataSection,
   MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import { getAPIRouteForBuilds } from "constants/externalResources";
@@ -35,33 +34,29 @@ export const BuildVariantCard: React.FC<Props> = ({
         />
       }
     >
-      <MetadataSection title="General">
-        <CopyableID textToCopy={buildId} tooltipLabel="Copy build ID" />
-        <MetadataItem label="Identifier">
-          <WordBreak>{buildVariant}</WordBreak>
-        </MetadataItem>
-        <MetadataItem label="Name">
-          <WordBreak>{buildVariantDisplayName}</WordBreak>
-        </MetadataItem>
-      </MetadataSection>
+      <CopyableID textToCopy={buildId} tooltipLabel="Copy build ID" />
+      <MetadataItem label="Identifier">
+        <WordBreak>{buildVariant}</WordBreak>
+      </MetadataItem>
+      <MetadataItem label="Name">
+        <WordBreak>{buildVariantDisplayName}</WordBreak>
+      </MetadataItem>
       {projectIdentifier && (
-        <MetadataSection title="External Links">
-          <MetadataItem>
-            <StyledRouterLink
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "build variant history link",
-                })
-              }
-              to={getVariantHistoryRoute(projectIdentifier, buildVariant, {
-                visibleColumns: [taskName],
-              })}
-            >
-              View Build Variant history
-            </StyledRouterLink>
-          </MetadataItem>
-        </MetadataSection>
+        <MetadataItem>
+          <StyledRouterLink
+            onClick={() =>
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                "link.type": "build variant history link",
+              })
+            }
+            to={getVariantHistoryRoute(projectIdentifier, buildVariant, {
+              visibleColumns: [taskName],
+            })}
+          >
+            View Build Variant history
+          </StyledRouterLink>
+        </MetadataItem>
       )}
     </MetadataCard>
   );

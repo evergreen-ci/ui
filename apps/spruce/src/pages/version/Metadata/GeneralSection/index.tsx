@@ -59,7 +59,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
   const isGitHubPullRequest = requester === Requester.GitHubPR;
 
   return (
-    <MetadataSection title="General">
+    <MetadataSection>
       <CopyableID textToCopy={id} tooltipLabel="Copy version ID" />
       <MetadataItem label="Project">
         <StyledRouterLink
