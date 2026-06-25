@@ -1,7 +1,7 @@
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
-import { MetadataTimeline } from "components/MetadataCard/MetadataTimeline";
 import { VersionQuery } from "gql/generated/types";
 import { msToDuration } from "utils/string";
+import { Timeline } from "./Timeline";
 
 type Version = NonNullable<VersionQuery["version"]>;
 
@@ -17,7 +17,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
   return (
     <MetadataSection title="Timeline">
-      <MetadataTimeline
+      <Timeline
         entries={[
           {
             dataCy: "version-metadata-submitted-at",

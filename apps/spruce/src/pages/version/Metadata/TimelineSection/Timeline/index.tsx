@@ -5,23 +5,20 @@ import { useDateFormat } from "hooks/useDateFormat";
 
 const { blue } = palette;
 
-export interface MetadataTimelineEntry {
+interface TimelineEntry {
   dataCy?: string;
   label: string;
   timestamp?: Date | null;
 }
 
-interface MetadataTimelineProps {
-  entries: MetadataTimelineEntry[];
+interface TimelineProps {
+  entries: TimelineEntry[];
 }
 
-export const MetadataTimeline: React.FC<MetadataTimelineProps> = ({
-  entries,
-}) => {
+export const Timeline: React.FC<TimelineProps> = ({ entries }) => {
   const getDateCopy = useDateFormat();
   const visibleEntries = entries.filter(
-    (entry): entry is MetadataTimelineEntry & { timestamp: Date } =>
-      !!entry.timestamp,
+    (entry): entry is TimelineEntry & { timestamp: Date } => !!entry.timestamp,
   );
 
   if (visibleEntries.length === 0) return null;
