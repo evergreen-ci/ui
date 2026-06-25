@@ -235,17 +235,26 @@ export const rateLimitConfig = {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "rate-limit-config",
     "ui:objectFieldCss": objectGridCss,
+    "ui:description": "A limit of 0 means no limit is applied.",
     restLimits: {
+      "ui:description":
+        "The burst limit cannot exceed the per hour limit for each user type.",
       "ui:fieldCss": nestedObjectGridCss,
     },
     graphqlLimits: {
+      "ui:description":
+        "The burst limit cannot exceed the per hour limit for each user type.",
       "ui:fieldCss": nestedObjectGridCss,
     },
     graphqlComplexity: {
+      "ui:description":
+        "Prevent expensive queries from being executed by blocking queries beyond the complexity limit (see https://gqlgen.com/reference/complexity).",
       "ui:fieldCss": nestedObjectGridCss,
     },
     elevatedUsers: {
       "ui:fieldCss": nestedObjectGridCss,
+      "ui:description":
+        "Users who are exempt from standard rate limiting and query complexity restrictions.",
       elevatedUserIds: {
         "ui:widget": widgets.ChipInputWidget,
         "ui:fieldCss": fullWidthCss,

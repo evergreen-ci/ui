@@ -126,7 +126,7 @@ const AdminSettingsPage: React.FC = () => {
                   "api-rate-limit-config",
                 )}
               >
-                Rate Limit Config
+                Rate Limiting
               </SideNavItem>
               <SideNavItem
                 as={Link}
