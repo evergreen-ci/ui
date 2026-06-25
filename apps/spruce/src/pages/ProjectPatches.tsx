@@ -101,7 +101,7 @@ export const ProjectPatches = () => {
             />
           </>
         }
-        loading={loading}
+        loading={loading && !patches}
         pageTitle={`${displayName ?? ""} Patches`}
         pageType="project"
         patches={patches}
