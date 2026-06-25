@@ -71,7 +71,12 @@ const StickyMetadataCard = styled(MetadataCard)`
   max-height: calc(100vh - ${navBarHeight} - ${size.m} - ${size.m});
   position: sticky;
   top: 0;
-  overflow-y: scroll;
+  overflow: hidden;
+
+  /* Scroll only the content area, keeping the title visible */
+  > :last-child {
+    overflow-y: auto;
+  }
 `;
 
 export default BuildVariantCard;
