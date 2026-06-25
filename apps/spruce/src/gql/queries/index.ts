@@ -34,6 +34,7 @@ export { INSTANCE_TYPES } from "./instance-types";
 export { JIRA_CUSTOM_CREATED_ISSUES } from "./jira-custom-created-issues";
 export { JIRA_ISSUES } from "./jira-issues";
 export { JIRA_SUSPECTED_ISSUES } from "./jira-suspected-issues";
+export { LAST_COMPLETED_TASK } from "./last-completed-task";
 export { MAINLINE_COMMITS_FOR_HISTORY } from "./mainline-commits-for-history";
 export { MY_HOSTS } from "./my-hosts";
 export { MY_VOLUMES } from "./my-volumes";

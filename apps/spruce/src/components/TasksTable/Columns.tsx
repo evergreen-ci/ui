@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
@@ -13,6 +12,7 @@ import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
+import { getBaseTaskCell } from "./BaseTask";
 import { ReviewedCheckbox } from "./ReviewedCheckbox";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
@@ -132,21 +132,7 @@ export const getColumnsTemplate = ({
     id: TaskSortCategory.BaseStatus,
     accessorKey: "baseTask.displayStatus",
     header: `${isPatch ? "Base" : "Previous"} Status`,
-    cell: ({
-      getValue,
-      row: {
-        original: { baseTask },
-      },
-    }) =>
-      baseTask ? (
-        <TaskStatusBadgeWithLink
-          execution={baseTask?.execution}
-          id={baseTask?.id}
-          status={getValue() as TaskStatus}
-        />
-      ) : (
-        <TaskStatusBadge status={getValue() as TaskStatus} />
-      ),
+    cell: getBaseTaskCell,
     meta: {
       treeSelect: {
         "data-cy": "base-status-filter",
