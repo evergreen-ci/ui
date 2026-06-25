@@ -27,7 +27,7 @@ export const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
     <>
       <MetadataItem
         data-cy="task-metadata-command"
-        label={isFailingTask ? "Failing Command" : "Command"}
+        label={isFailingTask ? "Failing command" : "Command"}
         labelColor={isFailingTask ? red.base : undefined}
       >
         {shouldTruncate ? (
