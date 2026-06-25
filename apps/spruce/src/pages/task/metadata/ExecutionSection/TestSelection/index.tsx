@@ -14,7 +14,7 @@ type Props = {
 export const TestSelection: React.FC<Props> = ({ testSelectionEnabled }) => {
   const testSelectionGuideCue = useRef<HTMLDivElement>(null);
   return (
-    <MetadataItem as="div" label="Test Selection">
+    <MetadataItem as="div" label="Test selection">
       <TestSelectionGuideCue
         enabled={testSelectionEnabled}
         refEl={testSelectionGuideCue}
