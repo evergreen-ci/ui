@@ -12,12 +12,6 @@ type Action =
       "conversation.id": string;
     }
   | {
-      name: "Interacted with Parsley AI";
-      message: string;
-      "conversation.id": string;
-      "message.index": number;
-    }
-  | {
       name: "Toggled AI agent panel";
       open: boolean;
     }
