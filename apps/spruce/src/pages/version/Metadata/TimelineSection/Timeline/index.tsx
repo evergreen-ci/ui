@@ -50,10 +50,6 @@ const TimelineContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: ${ROW_GAP}px;
-
-  &:not(:last-child) {
-    margin-bottom: ${size.xs};
-  }
 `;
 
 const Label = styled.b`
@@ -61,7 +57,7 @@ const Label = styled.b`
 `;
 
 const Timestamp = styled.span`
-  color: ${palette.gray.dark1};
+  color: ${palette.gray.dark2};
   font-variant-numeric: tabular-nums;
 `;
 
@@ -96,10 +92,6 @@ const TimelineRow = styled.li`
     width: ${DOT_SIZE}px;
     height: ${DOT_SIZE}px;
     border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(0, 123, 255, 1) 20%,
-      rgba(0, 123, 255, 0) 70%
-    );
+    background: radial-gradient(circle, ${blue.base} 20%, transparent 70%);
   }
 `;
