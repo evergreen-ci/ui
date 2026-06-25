@@ -28,7 +28,7 @@ describe("metadata", () => {
     expect(
       screen.queryByDataCy("task-metadata-estimated-start"),
     ).toHaveTextContent("1s");
-    expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
+    expect(screen.queryByDataCy("eta-timer")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-started")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
   });
@@ -53,7 +53,7 @@ describe("metadata", () => {
       wrapper,
     });
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
-    expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
+    expect(screen.queryByDataCy("eta-timer")).toBeNull();
     expect(screen.getByDataCy("task-metadata-started")).toBeInTheDocument();
     expect(screen.getByDataCy("task-metadata-finished")).toBeInTheDocument();
     expect(screen.getByDataCy("task-trace-link")).toBeInTheDocument();
