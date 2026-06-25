@@ -63,7 +63,7 @@ export const VERSION = gql`
             identifier
           }
           status
-          versionFull {
+          version {
             id
             baseVersion {
               id
