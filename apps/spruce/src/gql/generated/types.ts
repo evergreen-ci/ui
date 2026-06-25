@@ -4995,6 +4995,7 @@ export type VersionTasksArgs = {
 export type VersionLite = {
   __typename?: "VersionLite";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
+  baseVersion?: Maybe<VersionLite>;
   branch: Scalars["String"]["output"];
   childVersions?: Maybe<Array<VersionLite>>;
   cost?: Maybe<Cost>;

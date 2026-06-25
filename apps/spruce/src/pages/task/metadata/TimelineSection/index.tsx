@@ -1,9 +1,5 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import {
-  MetadataItem,
-  MetadataLabel,
-  MetadataSection,
-} from "components/MetadataCard";
+import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { TaskQuery } from "gql/generated/types";
 import { msToDuration } from "utils/string";
 import { ETATimer } from "./ETATimer";
@@ -40,8 +36,7 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
         startTime={startTime}
       />
       {estimatedStart && estimatedStart > 0 ? (
-        <MetadataItem>
-          <MetadataLabel>Estimated time to start:</MetadataLabel>{" "}
+        <MetadataItem label="Estimated time to start">
           <span data-cy="task-metadata-estimated-start">
             {msToDuration(estimatedStart)}
           </span>
@@ -54,13 +49,15 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
         <RuntimeTimer startTime={startTime} />
       )}
       {finishTime && timeTaken && timeTaken > 0 ? (
-        <MetadataItem data-cy="task-metadata-duration">
-          <MetadataLabel>Duration:</MetadataLabel> {msToDuration(timeTaken)}
+        <MetadataItem data-cy="task-metadata-duration" label="Duration">
+          {msToDuration(timeTaken)}
         </MetadataItem>
       ) : null}
       {baseTaskDuration ? (
-        <MetadataItem data-cy="task-metadata-base-commit-duration">
-          <MetadataLabel>Base commit duration:</MetadataLabel>{" "}
+        <MetadataItem
+          data-cy="task-metadata-base-commit-duration"
+          label="Base commit duration"
+        >
           {msToDuration(baseTaskDuration)}
         </MetadataItem>
       ) : null}

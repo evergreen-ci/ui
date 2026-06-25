@@ -70,7 +70,7 @@ const MetadataCard: React.FC<Props> = ({
     {error && !loading && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
     )}
-    {!loading && !error && children}
+    {!loading && !error && <ItemsContainer>{children}</ItemsContainer>}
   </SiderCard>
 );
 
@@ -78,6 +78,8 @@ interface ItemProps {
   as?: BodyProps["as"];
   children: React.ReactNode;
   "data-cy"?: string;
+  label?: string;
+  labelColor?: string;
   tooltipDescription?: string;
 }
 
@@ -85,12 +87,20 @@ export const MetadataItem: React.FC<ItemProps> = ({
   as = "p",
   children,
   "data-cy": dataCy,
+  label,
+  labelColor,
   tooltipDescription,
 }) => (
   <MetadataItemWrapper>
-    <Item as={as} data-cy={dataCy}>
-      {children}
-    </Item>
+    {label ? (
+      <Item as={as} data-cy={dataCy}>
+        <MetadataLabel color={labelColor}>{label}:</MetadataLabel> {children}
+      </Item>
+    ) : (
+      <Item as={as} data-cy={dataCy}>
+        {children}
+      </Item>
+    )}
     {tooltipDescription && (
       <InfoSprinkle align="right" baseFontSize={BaseFontSize.Body1}>
         {tooltipDescription}
@@ -110,11 +120,11 @@ export const MetadataSection: React.FC<MetadataSectionProps> = ({
 }) => {
   if (Children.toArray(children).length === 0) return null;
   return (
-    <>
+    <div>
       <Header>{title}</Header>
       <Divider margin={`${size.xxs} 0`} />
-      {children}
-    </>
+      <ItemsContainer>{children}</ItemsContainer>
+    </div>
   );
 };
 
@@ -143,15 +153,18 @@ const Item = styled(Body)`
   width: fit-content;
 `;
 
+const ItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
 const MetadataItemWrapper = styled.span`
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  align-items: center;
+  gap: ${size.xxs};
   line-height: 14px;
-
-  :not(:last-child) {
-    margin-bottom: 12px;
-  }
 `;
 
 export default MetadataCard;
