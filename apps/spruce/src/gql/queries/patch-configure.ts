@@ -46,7 +46,7 @@ export const PATCH_CONFIGURE = gql`
       time {
         submittedAt
       }
-      versionFull {
+      version {
         id
       }
     }

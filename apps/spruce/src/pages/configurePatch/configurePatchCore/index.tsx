@@ -65,7 +65,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     time,
     user,
     variantsTasks,
-    versionFull,
+    version,
   } = patch;
   const { variants = [] } = project || {};
   const projectID = projectMetadata?.id ?? "";
@@ -124,12 +124,12 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
   >(SCHEDULE_PATCH, {
     onCompleted(data) {
       const { schedulePatch: scheduledPatch } = data;
-      const hasChildPatch = scheduledPatch.versionFull?.childVersions?.length;
+      const hasChildPatch = scheduledPatch.version?.childVersions?.length;
       dispatchToast.success(
         `Successfully scheduled the patch${hasChildPatch ? " and its child patches" : ""}`,
       );
-      if (scheduledPatch.versionFull) {
-        navigate(getVersionRoute(scheduledPatch.versionFull.id));
+      if (scheduledPatch.version) {
+        navigate(getVersionRoute(scheduledPatch.version.id));
       }
     },
     onError(err) {
@@ -169,7 +169,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     );
   }
 
-  const isUnauthorizedGHPatch = !versionFull?.id && githubPatchData?.prNumber;
+  const isUnauthorizedGHPatch = !version?.id && githubPatchData?.prNumber;
 
   const estimatedActivatedTasksCount = sumActivatedTasksInVariantsTasks(
     selectedBuildVariantTasks,
