@@ -36,11 +36,9 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   const hasCost = !!startTime && totalCost != null && totalCost > 0;
   const hasParameters = parameters.length > 0;
 
-  if (!hasCost && !hasParameters && !costModalOpen) return null;
-
   return (
     <MetadataSection title="Execution">
-      {hasCost && (
+      {hasCost ? (
         <MetadataItem
           data-cy="version-metadata-cost"
           label="Cost"
@@ -63,9 +61,9 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
             </>
           )}
         </MetadataItem>
-      )}
-      {hasParameters && <ParametersModal parameters={parameters} />}
-      {cost && costModalOpen && (
+      ) : null}
+      {hasParameters ? <ParametersModal parameters={parameters} /> : null}
+      {cost && costModalOpen ? (
         <CostModal
           {...cost}
           childPatchesTotalCost={
@@ -79,7 +77,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
           total={totalCost ?? cost.total}
           versionId={id}
         />
-      )}
+      ) : null}
     </MetadataSection>
   );
 };
