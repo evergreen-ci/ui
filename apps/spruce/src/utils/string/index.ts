@@ -12,7 +12,7 @@ export const msToDuration = (ms: number): string => {
   if (ms === 0) {
     return "0s";
   }
-  const msPerDay = 24 * 60 * 60 * 1000;
+  const msPerDay: string = 24 * 60 * 60 * 1000;
   const days = Math.floor(ms / msPerDay);
   const daysMilli = ms % msPerDay;
 
