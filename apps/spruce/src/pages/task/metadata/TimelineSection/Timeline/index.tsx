@@ -1,8 +1,10 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import {
+  MetadataTimelineContainer,
+  MetadataTimelineTimestampRow,
+} from "components/MetadataCard/MetadataTimeline";
 import { TaskQuery } from "gql/generated/types";
-import { useDateFormat } from "hooks/useDateFormat";
 import { ETARow } from "./ETARow";
-import { Label, Timestamp, TimelineContainer, TimelineRow } from "./styles";
 
 type Task = NonNullable<TaskQuery["task"]>;
 
@@ -20,7 +22,6 @@ export const Timeline: React.FC<TimelineProps> = ({ task }) => {
     startTime,
   } = task;
   const isRunning = displayStatus === TaskStatus.Started;
-  const getDateCopy = useDateFormat();
 
   const hasTimelineData =
     ingestTime || activatedTime || startTime || finishTime;
@@ -30,42 +31,38 @@ export const Timeline: React.FC<TimelineProps> = ({ task }) => {
   }
 
   return (
-    <TimelineContainer>
+    <MetadataTimelineContainer>
       {ingestTime && (
-        <TimelineRow data-cy="task-metadata-submitted-at">
-          <Label>Submitted</Label>
-          <Timestamp title={getDateCopy(ingestTime)}>
-            {getDateCopy(ingestTime, { omitSeconds: true })}
-          </Timestamp>
-        </TimelineRow>
+        <MetadataTimelineTimestampRow
+          data-cy="task-metadata-submitted-at"
+          label="Submitted"
+          timestamp={ingestTime}
+        />
       )}
       {activatedTime && (
-        <TimelineRow data-cy="task-metadata-activated-at">
-          <Label>Activated</Label>
-          <Timestamp title={getDateCopy(activatedTime)}>
-            {getDateCopy(activatedTime, { omitSeconds: true })}
-          </Timestamp>
-        </TimelineRow>
+        <MetadataTimelineTimestampRow
+          data-cy="task-metadata-activated-at"
+          label="Activated"
+          timestamp={activatedTime}
+        />
       )}
       {startTime && (
-        <TimelineRow data-cy="task-metadata-started">
-          <Label>Started</Label>
-          <Timestamp title={getDateCopy(startTime)}>
-            {getDateCopy(startTime, { omitSeconds: true })}
-          </Timestamp>
-        </TimelineRow>
+        <MetadataTimelineTimestampRow
+          data-cy="task-metadata-started"
+          label="Started"
+          timestamp={startTime}
+        />
       )}
       {isRunning && startTime && expectedDuration ? (
         <ETARow expectedDuration={expectedDuration} startTime={startTime} />
       ) : null}
       {finishTime && (
-        <TimelineRow data-cy="task-metadata-finished">
-          <Label>Finished</Label>
-          <Timestamp title={getDateCopy(finishTime)}>
-            {getDateCopy(finishTime, { omitSeconds: true })}
-          </Timestamp>
-        </TimelineRow>
+        <MetadataTimelineTimestampRow
+          data-cy="task-metadata-finished"
+          label="Finished"
+          timestamp={finishTime}
+        />
       )}
-    </TimelineContainer>
+    </MetadataTimelineContainer>
   );
 };
