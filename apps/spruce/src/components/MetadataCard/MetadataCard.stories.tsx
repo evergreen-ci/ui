@@ -1,5 +1,5 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import MetadataCard, { MetadataItem, MetadataLabel } from ".";
+import MetadataCard, { MetadataItem } from ".";
 
 export default {
   component: MetadataCard,
@@ -18,15 +18,15 @@ export const Default: CustomStoryObj<typeof MetadataCard> = {
   render: (args) => (
     <div style={{ width: 300 }}>
       <MetadataCard {...args}>
-        <MetadataItem>
-          <MetadataLabel>Metadata Label 1:</MetadataLabel> Metadata Value 1
+        <MetadataItem label="Metadata Label 1">Metadata Value 1</MetadataItem>
+        <MetadataItem
+          label="Metadata Label 2"
+          tooltipDescription="This is a tooltip description"
+        >
+          Metadata Value 2
         </MetadataItem>
-        <MetadataItem tooltipDescription="This is a tooltip description">
-          <MetadataLabel>Metadata Label 2:</MetadataLabel> Metadata Value 2
-        </MetadataItem>
-        <MetadataItem>
-          <MetadataLabel color="red">Metadata Label 3:</MetadataLabel> Metadata
-          Value 3
+        <MetadataItem label="Metadata Label 3" labelColor="red">
+          Metadata Value 3
         </MetadataItem>
       </MetadataCard>
     </div>

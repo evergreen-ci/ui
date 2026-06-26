@@ -1,9 +1,6 @@
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useJobLogsAnalytics } from "analytics";
-import MetadataCard, {
-  MetadataItem,
-  MetadataLabel,
-} from "components/MetadataCard";
+import MetadataCard, { MetadataItem } from "components/MetadataCard";
 import { JobLogsMetadata } from "./types";
 
 export const Metadata: React.FC<{
@@ -15,9 +12,7 @@ export const Metadata: React.FC<{
   return (
     <MetadataCard loading={loading} title="Job log details">
       {metadata.groupID && (
-        <MetadataItem>
-          <MetadataLabel>Group:</MetadataLabel> {metadata.groupID}
-        </MetadataItem>
+        <MetadataItem label="Group">{metadata.groupID}</MetadataItem>
       )}
       <MetadataItem>
         <StyledLink

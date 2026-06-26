@@ -1,24 +1,33 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
+import { ETARow } from "./ETARow";
+import { Label, Timestamp, TimelineContainer, TimelineRow } from "./styles";
 
-const { blue } = palette;
+type Task = NonNullable<TaskQuery["task"]>;
 
 interface TimelineProps {
-  activatedTime?: Date | null;
-  finishTime?: Date | null;
-  ingestTime?: Date | null;
-  startTime?: Date | null;
+  task: Task;
 }
 
-export const Timeline: React.FC<TimelineProps> = ({
-  activatedTime,
-  finishTime,
-  ingestTime,
-  startTime,
-}) => {
+export const Timeline: React.FC<TimelineProps> = ({ task }) => {
+  const {
+    activatedTime,
+    displayStatus,
+    expectedDuration,
+    finishTime,
+    ingestTime,
+    startTime,
+  } = task;
+  const isRunning = displayStatus === TaskStatus.Started;
   const getDateCopy = useDateFormat();
+
+  const hasTimelineData =
+    ingestTime || activatedTime || startTime || finishTime;
+
+  if (!hasTimelineData) {
+    return null;
+  }
 
   return (
     <TimelineContainer>
@@ -46,6 +55,9 @@ export const Timeline: React.FC<TimelineProps> = ({
           </Timestamp>
         </TimelineRow>
       )}
+      {isRunning && startTime && expectedDuration ? (
+        <ETARow expectedDuration={expectedDuration} startTime={startTime} />
+      ) : null}
       {finishTime && (
         <TimelineRow data-cy="task-metadata-finished">
           <Label>Finished</Label>
@@ -57,70 +69,3 @@ export const Timeline: React.FC<TimelineProps> = ({
     </TimelineContainer>
   );
 };
-
-const DOT_SIZE = 10;
-const ROW_GAP = 12;
-const LABEL_WIDTH = 60;
-
-const TimelineContainer = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  gap: ${ROW_GAP}px;
-
-  &:not(:last-child) {
-    margin-bottom: ${size.xs};
-  }
-`;
-
-const Label = styled.b`
-  width: ${LABEL_WIDTH}px;
-`;
-
-const Timestamp = styled.span`
-  color: ${palette.gray.dark1};
-  font-variant-numeric: tabular-nums;
-`;
-
-const TimelineRow = styled.li`
-  font-size: 12px;
-  line-height: ${size.s};
-  padding-left: ${size.s};
-
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.xs};
-
-  // Dashed lines.
-  &:not(:last-child)::before {
-    content: "";
-    position: absolute;
-    left: calc(${DOT_SIZE / 2}px);
-    top: calc(50% + ${DOT_SIZE / 2}px);
-    bottom: -${ROW_GAP}px;
-
-    border-left: 1px dashed ${blue.base};
-  }
-
-  // Dots.
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: ${size.xxs};
-
-    width: ${DOT_SIZE}px;
-    height: ${DOT_SIZE}px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(0, 123, 255, 1) 20%,
-      rgba(0, 123, 255, 0) 70%
-    );
-  }
-`;

@@ -9,7 +9,6 @@ import { CopyableID } from "components/CopyableID";
 import { CostModal } from "components/CostModal";
 import MetadataCard, {
   MetadataItem,
-  MetadataLabel,
   MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import {
@@ -94,8 +93,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
         }
       >
         <CopyableID textToCopy={id} tooltipLabel="Copy version ID" />
-        <MetadataItem>
-          <MetadataLabel>Project:</MetadataLabel>{" "}
+        <MetadataItem label="Project">
           <StyledRouterLink
             onClick={() =>
               sendEvent({ name: "Clicked metadata project patches link" })
@@ -105,24 +103,26 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
             {projectIdentifier || `${owner}/${repo}`}
           </StyledRouterLink>
         </MetadataItem>
-        <MetadataItem tooltipDescription="Makespan represents the wall clock time of this version's execution.">
-          <MetadataLabel>Makespan:</MetadataLabel>{" "}
+        <MetadataItem
+          label="Makespan"
+          tooltipDescription="Makespan represents the wall clock time of this version's execution."
+        >
           {makespan && msToDuration(makespan)}
         </MetadataItem>
-        <MetadataItem tooltipDescription="Time taken represents the total time spent executing tasks for this version.">
-          <MetadataLabel>Time taken:</MetadataLabel>{" "}
+        <MetadataItem
+          label="Time taken"
+          tooltipDescription="Time taken represents the total time spent executing tasks for this version."
+        >
           {timeTaken && msToDuration(timeTaken)}
         </MetadataItem>
-        <MetadataItem>
-          <MetadataLabel>Submitted at:</MetadataLabel>{" "}
+        <MetadataItem label="Submitted at">
           {createTime && (
             <span title={getDateCopy(createTime)}>
               {getDateCopy(createTime, { omitSeconds: true })}
             </span>
           )}
         </MetadataItem>
-        <MetadataItem>
-          <MetadataLabel>Started:</MetadataLabel>{" "}
+        <MetadataItem label="Started">
           {startTime && (
             <span title={getDateCopy(startTime)}>
               {getDateCopy(startTime, { omitSeconds: true })}
@@ -130,15 +130,13 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           )}
         </MetadataItem>
         {finishTime && (
-          <MetadataItem>
-            <MetadataLabel>Finished:</MetadataLabel>{" "}
+          <MetadataItem label="Finished">
             <span title={getDateCopy(finishTime)}>
               {getDateCopy(finishTime, { omitSeconds: true })}
             </span>
           </MetadataItem>
         )}
-        <MetadataItem>
-          <MetadataLabel>Submitted by:</MetadataLabel>{" "}
+        <MetadataItem label="Submitted by">
           <StyledRouterLink
             data-cy="user-patches-link"
             to={getUserPatchesRoute(user.userId)}
@@ -156,8 +154,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
             revision={revision}
           />
         ) : (
-          <MetadataItem>
-            <MetadataLabel>Previous commit:</MetadataLabel>{" "}
+          <MetadataItem label="Previous commit">
             <InlineCode
               as={Link}
               data-cy="version-previous-commit"
@@ -171,8 +168,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </MetadataItem>
         )}
         {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
-          <MetadataItem>
-            <MetadataLabel>GitHub PR commit:</MetadataLabel>{" "}
+          <MetadataItem label="GitHub PR commit">
             <InlineCode
               data-cy="github-pr-commit"
               href={getGithubPRUrl(owner, repo, prNumber, headHash)}
@@ -196,8 +192,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </MetadataItem>
         )}
         {!isPatch && hasOwnerAndRepo && revision && (
-          <MetadataItem>
-            <MetadataLabel>GitHub commit:</MetadataLabel>{" "}
+          <MetadataItem label="GitHub commit">
             <InlineCode
               data-cy="version-github-commit"
               href={getGithubCommitUrl(owner, repo, revision)}
@@ -216,8 +211,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
         )}
         {manifest && <ManifestBlob manifest={manifest} />}
         {upstreamProject && (
-          <MetadataItem>
-            <MetadataLabel>Triggered from:</MetadataLabel>{" "}
+          <MetadataItem label="Triggered from">
             <StyledRouterLink
               to={getTriggerRoute({
                 triggerType: upstreamProject.triggerType,
@@ -235,9 +229,10 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
         {startTime && totalCost != null && totalCost > 0 && (
           <MetadataItem
             data-cy="version-metadata-cost"
+            label="Cost"
             tooltipDescription={costTooltip}
           >
-            <MetadataLabel>Cost:</MetadataLabel> ${formatCost(totalCost)}
+            ${formatCost(totalCost)}
             {cost != null && isVersionComplete && (
               <>
                 {" "}
@@ -319,8 +314,7 @@ const BaseCommitMetadata: React.FC<BaseCommitMetadataProps> = ({
   const isBaseVersionPending = isGithubMergePatch && !baseVersionId;
 
   return (
-    <MetadataItem>
-      <MetadataLabel>Base commit:</MetadataLabel>{" "}
+    <MetadataItem label="Base commit">
       {isBaseVersionPending ? (
         <InlineCode data-cy="patch-base-commit">
           {shortenGithash(revision)}

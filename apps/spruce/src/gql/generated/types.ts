@@ -5429,8 +5429,8 @@ export type PatchesPagePatchesFragment = {
       displayName?: string | null;
       userId: string;
     };
-    versionFull?: {
-      __typename?: "Version";
+    version?: {
+      __typename?: "VersionLite";
       id: string;
       requester: string;
       status: string;
@@ -7323,10 +7323,10 @@ export type SchedulePatchMutation = {
     alias?: string | null;
     description: string;
     status: string;
-    versionFull?: {
-      __typename?: "Version";
+    version?: {
+      __typename?: "VersionLite";
       id: string;
-      childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
+      childVersions?: Array<{ __typename?: "VersionLite"; id: string }> | null;
     } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     projectMetadata?: { __typename?: "Project"; id: string } | null;
@@ -9270,7 +9270,7 @@ export type ConfigurePatchQuery = {
       identifier: string;
     } | null;
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: {
       __typename?: "UserLite";
@@ -9305,7 +9305,7 @@ export type PatchQuery = {
       id: string;
       identifier: string;
     } | null;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: {
       __typename?: "UserLite";
@@ -9838,8 +9838,8 @@ export type ProjectPatchesQuery = {
           displayName?: string | null;
           userId: string;
         };
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           requester: string;
           status: string;
@@ -11742,6 +11742,7 @@ export type UserConfigQuery = {
     __typename?: "UserConfig";
     api_key: string;
     api_server_host: string;
+    corp_api_server_host: string;
     oauth_client_id: string;
     oauth_connector_id: string;
     oauth_issuer: string;
@@ -11808,8 +11809,8 @@ export type UserPatchesQuery = {
           displayName?: string | null;
           userId: string;
         };
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           requester: string;
           status: string;
@@ -12176,11 +12177,11 @@ export type VersionQuery = {
           id: string;
           identifier: string;
         } | null;
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           status: string;
-          baseVersion?: { __typename?: "Version"; id: string } | null;
+          baseVersion?: { __typename?: "VersionLite"; id: string } | null;
         } | null;
       }> | null;
       cost?: {

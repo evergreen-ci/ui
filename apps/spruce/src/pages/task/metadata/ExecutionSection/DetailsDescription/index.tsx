@@ -25,12 +25,11 @@ export const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
 
   return (
     <>
-      <MetadataItem data-cy="task-metadata-command">
-        {isFailingTask ? (
-          <MetadataLabel color={red.base}>Failing Command: </MetadataLabel>
-        ) : (
-          <MetadataLabel>Command: </MetadataLabel>
-        )}
+      <MetadataItem
+        data-cy="task-metadata-command"
+        label={isFailingTask ? "Failing command" : "Command"}
+        labelColor={isFailingTask ? red.base : undefined}
+      >
         {shouldTruncate ? (
           <>
             {truncatedText}{" "}
