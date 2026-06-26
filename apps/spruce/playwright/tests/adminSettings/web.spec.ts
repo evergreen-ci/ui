@@ -17,6 +17,22 @@ test.describe("web", () => {
       .getByLabel("HTTP Listen Address")
       .fill("http://example.com/api");
 
+    // Rate Limiting section.
+    await page.getByLabel("REST User Per Hour").clear();
+    await page.getByLabel("REST User Per Hour").fill("1000");
+    await page.getByLabel("REST User Burst").clear();
+    await page.getByLabel("REST User Burst").fill("200");
+    await page.getByLabel("GraphQL User Per Hour").clear();
+    await page.getByLabel("GraphQL User Per Hour").fill("1000");
+    await page.getByLabel("GraphQL User Burst").clear();
+    await page.getByLabel("GraphQL User Burst").fill("200");
+    await page.getByLabel("Complexity Limit").clear();
+    await page.getByLabel("Complexity Limit").fill("500");
+    await page.getByTestId("elevated-user-ids").fill("user1");
+    await page.getByTestId("elevated-user-ids").press("Enter");
+    await page.getByTestId("elevated-user-ids").fill("user2");
+    await page.getByTestId("elevated-user-ids").press("Enter");
+
     // UI section.
     const uiSection = page.getByTestId("ui-settings");
     await uiSection.getByLabel("UIv2 URL").clear();

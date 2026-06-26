@@ -163,19 +163,19 @@ export const rateLimitConfig = {
       properties: {
         restUserPerHour: {
           type: "number" as const,
-          title: "User Per Hour",
+          title: "REST User Per Hour",
         },
         restUserBurst: {
           type: "number" as const,
-          title: "User Burst",
+          title: "REST User Burst",
         },
         restServicePerHour: {
           type: "number" as const,
-          title: "Service User Per Hour",
+          title: "REST Service Per Hour",
         },
         restServiceBurst: {
           type: "number" as const,
-          title: "Service User Burst",
+          title: "REST Service Burst",
         },
       },
     },
@@ -185,19 +185,19 @@ export const rateLimitConfig = {
       properties: {
         graphqlUserPerHour: {
           type: "number" as const,
-          title: "User Per Hour",
+          title: "GraphQL User Per Hour",
         },
         graphqlUserBurst: {
           type: "number" as const,
-          title: "User Burst",
+          title: "GraphQL User Burst",
         },
         graphqlServicePerHour: {
           type: "number" as const,
-          title: "Service User Per Hour",
+          title: "GraphQL Service Per Hour",
         },
         graphqlServiceBurst: {
           type: "number" as const,
-          title: "Service User Burst",
+          title: "GraphQL Service Burst",
         },
       },
     },
@@ -252,12 +252,14 @@ export const rateLimitConfig = {
       "ui:fieldCss": nestedObjectGridCss,
     },
     elevatedUsers: {
+      "ui:data-cy": "elevated-users",
       "ui:fieldCss": nestedObjectGridCss,
       "ui:description":
         "Users who are exempt from standard rate limiting and query complexity restrictions.",
       elevatedUserIds: {
         "ui:widget": widgets.ChipInputWidget,
         "ui:fieldCss": fullWidthCss,
+        "ui:data-cy": "elevated-user-ids",
       },
     },
   },
