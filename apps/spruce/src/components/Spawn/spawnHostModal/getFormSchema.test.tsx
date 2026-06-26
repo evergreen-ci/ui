@@ -41,7 +41,6 @@ const baseSchemaInput = {
   hostUptimeWarnings: { enabledHoursCount: 0, warnings: [] },
   isMigration: false,
   isVirtualWorkstation: false,
-  jiraHost: "jira.example.com",
   myPublicKeys,
   noExpirationCheckboxTooltip: "",
   spawnTaskData: taskForLoadDataBanner,
@@ -70,7 +69,6 @@ describe("getFormSchema spawn host token exchange callout", () => {
     expect(
       screen.getByText(/Spawn hosts require an additional authentication step/),
     ).toBeInTheDocument();
-    expect(screen.getByText("DEVPROD-4160")).toBeInTheDocument();
   });
 
   it("disables the authenticate button when token is valid", () => {

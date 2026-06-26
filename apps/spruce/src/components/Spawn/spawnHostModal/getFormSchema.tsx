@@ -18,7 +18,6 @@ import {
   MyVolumesQuery,
 } from "gql/generated/types";
 import { isFailedTaskStatus } from "utils/statuses";
-import { jiraLinkify } from "utils/string";
 import {
   getExpirationDetailsSchema,
   getPublicKeySchema,
@@ -49,7 +48,6 @@ interface Props {
   };
   isMigration: boolean;
   isVirtualWorkstation: boolean;
-  jiraHost: string;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
   spawnTaskData?: SpawnTaskQuery["task"];
@@ -70,7 +68,6 @@ export const getFormSchema = ({
   hostUptimeWarnings,
   isMigration,
   isVirtualWorkstation,
-  jiraHost,
   myPublicKeys,
   noExpirationCheckboxTooltip,
   spawnTaskData,
@@ -547,9 +544,7 @@ export const getFormSchema = ({
               >
                 <div data-cy="spawn-host-token-auth-banner-copy">
                   Spawn hosts require an additional authentication step to load
-                  task data. This is part of Evergreens migration to temporary
-                  credentials for human users:{" "}
-                  {jiraLinkify("DEVPROD-4160", jiraHost)}.
+                  task data.
                 </div>
                 <Button
                   data-cy="spawn-host-authenticate-button"
