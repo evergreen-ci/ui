@@ -22,19 +22,14 @@ export const CostSummary: React.FC<CostSummaryProps> = (props) => {
     type === "task"
       ? deriveTaskConfig(props.task)
       : deriveVersionConfig(props.version);
+  const dataCy =
+    type === "task" ? "task-metadata-cost" : "version-metadata-cost";
 
   if (!config) {
     return null;
   }
 
-  const {
-    costModalProps,
-    dataCy,
-    detailsButtonDataCy,
-    showDetailsButton,
-    tooltipDescription,
-    totalCost,
-  } = config;
+  const { modalProps, showDetails, tooltipDescription, totalCost } = config;
 
   return (
     <>
@@ -44,9 +39,9 @@ export const CostSummary: React.FC<CostSummaryProps> = (props) => {
         tooltipDescription={tooltipDescription}
       >
         ${formatCost(totalCost)}
-        {showDetailsButton && (
+        {showDetails && (
           <CostDetailsButton
-            data-cy={detailsButtonDataCy}
+            data-cy="cost-details-button"
             onClick={() => {
               onClickDetailsButton();
               setCostModalOpen(true);
@@ -57,9 +52,9 @@ export const CostSummary: React.FC<CostSummaryProps> = (props) => {
           </CostDetailsButton>
         )}
       </MetadataItem>
-      {costModalProps && costModalOpen && (
+      {showDetails && costModalOpen && (
         <CostModal
-          {...costModalProps}
+          {...modalProps}
           open={costModalOpen}
           setOpen={setCostModalOpen}
         />
@@ -78,62 +73,49 @@ type CostModalProps = Omit<
 >;
 
 interface CostConfig {
-  costModalProps?: CostModalProps;
-  dataCy: string;
-  detailsButtonDataCy: string;
-  showDetailsButton: boolean;
-  tooltipDescription?: string;
+  modalProps: CostModalProps;
+  showDetails: boolean;
+  tooltipDescription?: string; // Only populated for versions; tasks have no tooltip.
   totalCost: number;
 }
 
-const deriveTaskConfig = (task: Task): CostConfig | null => {
+const deriveTaskConfig = (task: Task): CostConfig => {
   const { displayName, finishTime, id, startTime, taskCost } = task;
-  if (!finishTime || taskCost?.total == null) {
-    return null;
-  }
+
+  const taskCostTotal = taskCost?.total ?? 0;
   return {
-    costModalProps: {
+    modalProps: {
       ...taskCost,
       endTs: finishTime ?? undefined,
       name: displayName,
       startTs: startTime ?? undefined,
       taskId: id,
     },
-    dataCy: "task-metadata-cost",
-    detailsButtonDataCy: "cost-details-button",
-    showDetailsButton: taskCost.total > 0,
-    totalCost: taskCost.total,
+    showDetails: taskCostTotal > 0,
+    totalCost: taskCostTotal,
   };
 };
 
-const deriveVersionConfig = (version: Version): CostConfig | null => {
+const deriveVersionConfig = (version: Version): CostConfig => {
   const { cost, finishTime, id, isPatch, message, patch, startTime } = version;
   const totalCost = isPatch ? patch?.cost?.total : cost?.total;
-  if (!startTime || totalCost == null || totalCost <= 0) {
-    return null;
-  }
   const isVersionComplete = !!finishTime;
   const hasChildPatches = (patch?.childPatches?.length ?? 0) > 0;
   return {
-    costModalProps:
-      cost != null
-        ? {
-            ...cost,
-            childPatchesTotalCost: isPatch
-              ? patch?.cost?.childPatchesTotalCost
-              : null,
-            endTs: finishTime ?? undefined,
-            name: message ?? id,
-            startTs: startTime ?? undefined,
-            total: totalCost ?? cost.total,
-            versionId: id,
-          }
-        : undefined,
-    dataCy: "version-metadata-cost",
-    detailsButtonDataCy: "version-cost-details-button",
-    showDetailsButton: cost != null && isVersionComplete,
+    modalProps: {
+      ...cost,
+      childPatchesTotalCost: isPatch
+        ? patch?.cost?.childPatchesTotalCost
+        : null,
+      endTs: finishTime ?? undefined,
+      name: message ?? id,
+      startTs: startTime ?? undefined,
+      total: totalCost,
+      versionId: id,
+    },
+    showDetails: isVersionComplete,
     tooltipDescription: getCostTooltip(isVersionComplete, hasChildPatches),
-    totalCost,
+    totalCost: totalCost ?? 0,
   };
 };
 

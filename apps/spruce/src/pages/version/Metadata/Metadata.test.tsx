@@ -273,9 +273,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    expect(
-      screen.queryByDataCy("version-cost-details-button"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("cost-details-button")).not.toBeInTheDocument();
   });
 
   it("ShowsCostDetailsButtonWhenVersionIsComplete", () => {
@@ -293,9 +291,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    expect(
-      screen.getByDataCy("version-cost-details-button"),
-    ).toBeInTheDocument();
+    expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
   });
 
   it("ShowsPatchCostTotalInModalForPatches", async () => {
@@ -324,7 +320,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    await user.click(screen.getByDataCy("version-cost-details-button"));
+    await user.click(screen.getByDataCy("cost-details-button"));
     // Total row in the modal uses patch.cost.total (3.75), not cost.total (1.5).
     const modal = screen.getByDataCy("cost-modal");
     expect(within(modal).getByText("$3.75")).toBeInTheDocument();
@@ -346,11 +342,11 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    await user.click(screen.getByDataCy("version-cost-details-button"));
+    await user.click(screen.getByDataCy("cost-details-button"));
     expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "Close modal" }));
     expect(screen.queryByDataCy("cost-modal")).not.toBeInTheDocument();
-    await user.click(screen.getByDataCy("version-cost-details-button"));
+    await user.click(screen.getByDataCy("cost-details-button"));
     expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
   });
 });
