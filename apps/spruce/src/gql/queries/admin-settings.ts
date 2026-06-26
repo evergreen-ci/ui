@@ -92,18 +92,33 @@ export const ADMIN_SETTINGS = gql`
           secret
         }
         logBucket {
+          expirationDays
+          lifecycleLastSyncedAt
+          lifecycleSyncError
           name
           roleARN
           testResultsPrefix
+          transitionToGlacierDays
+          transitionToIADays
         }
         logBucketFailedTasks {
+          expirationDays
+          lifecycleLastSyncedAt
+          lifecycleSyncError
           name
+          transitionToGlacierDays
+          transitionToIADays
         }
         logBucketLongRetention {
+          expirationDays
+          lifecycleLastSyncedAt
+          lifecycleSyncError
           name
+          transitionToGlacierDays
+          transitionToIADays
         }
         longRetentionProjects
-        retryFailedLogMoveLookbackMonths
+        retryFailedLogMoveLookbackDays
         retryFailedLogMoveMaxJobsPerRun
         testResultsBucket {
           name
