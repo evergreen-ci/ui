@@ -4,7 +4,7 @@ import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
-import { MetadataItem } from "components/MetadataCard";
+import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { getProjectPatchesRoute, getTaskRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { TaskOwnership } from "./TaskOwnership";
@@ -40,7 +40,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
   const { user } = versionMetadata ?? {};
 
   return (
-    <>
+    <MetadataSection>
       <CopyableID textToCopy={task.id} tooltipLabel="Copy task ID" />
       <MetadataItem data-cy="task-metadata-project" label="Project">
         <StyledRouterLink
@@ -99,6 +99,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
           </InlineCode>
         </MetadataItem>
       )}
-    </>
+    </MetadataSection>
   );
 };
