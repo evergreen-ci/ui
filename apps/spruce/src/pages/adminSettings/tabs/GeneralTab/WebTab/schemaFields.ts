@@ -163,19 +163,19 @@ export const rateLimitConfig = {
       properties: {
         restUserPerHour: {
           type: "number" as const,
-          title: "REST User Per Hour",
+          title: "User Per Hour",
         },
         restUserBurst: {
           type: "number" as const,
-          title: "REST User Burst",
+          title: "User Burst",
         },
         restServicePerHour: {
           type: "number" as const,
-          title: "REST Service Per Hour",
+          title: "Service User Per Hour",
         },
         restServiceBurst: {
           type: "number" as const,
-          title: "REST Service Burst",
+          title: "Service User Burst",
         },
       },
     },
@@ -185,19 +185,19 @@ export const rateLimitConfig = {
       properties: {
         graphqlUserPerHour: {
           type: "number" as const,
-          title: "GraphQL User Per Hour",
+          title: "User Per Hour",
         },
         graphqlUserBurst: {
           type: "number" as const,
-          title: "GraphQL User Burst",
+          title: "User Burst",
         },
         graphqlServicePerHour: {
           type: "number" as const,
-          title: "GraphQL Service Per Hour",
+          title: "Service User Per Hour",
         },
         graphqlServiceBurst: {
           type: "number" as const,
-          title: "GraphQL Service Burst",
+          title: "Service User Burst",
         },
       },
     },
@@ -237,11 +237,13 @@ export const rateLimitConfig = {
     "ui:objectFieldCss": objectGridCss,
     "ui:description": "A limit of 0 means no limit is applied.",
     restLimits: {
+      "ui:data-cy": "rest-limits",
       "ui:description":
         "The burst limit cannot exceed the per hour limit for each user type.",
       "ui:fieldCss": nestedObjectGridCss,
     },
     graphqlLimits: {
+      "ui:data-cy": "graphql-limits",
       "ui:description":
         "The burst limit cannot exceed the per hour limit for each user type.",
       "ui:fieldCss": nestedObjectGridCss,
