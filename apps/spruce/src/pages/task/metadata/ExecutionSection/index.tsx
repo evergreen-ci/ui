@@ -41,6 +41,9 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
   const { allowed: testSelectionEnabledForProject } =
     task.project?.testSelection || {};
 
+  const totalCost = task.taskCost?.total ?? 0;
+  const hasCost = totalCost > 0;
+
   return (
     <MetadataSection title="Execution">
       {details?.description || details?.failingCommand ? (
@@ -85,13 +88,16 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
       {testSelectionEnabledForProject && (
         <TestSelection testSelectionEnabled={testSelectionEnabled} />
       )}
-      <CostSummary
-        onClickDetailsButton={() =>
-          taskAnalytics.sendEvent({ name: "Clicked cost details button" })
-        }
-        task={task}
-        type="task"
-      />
+      {hasCost && (
+        <CostSummary
+          onClickDetailsButton={() =>
+            taskAnalytics.sendEvent({ name: "Clicked cost details button" })
+          }
+          task={task}
+          totalCost={totalCost}
+          type="task"
+        />
+      )}
     </MetadataSection>
   );
 };

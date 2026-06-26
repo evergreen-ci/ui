@@ -14,12 +14,14 @@ type CostSummaryProps =
   | {
       onClickDetailsButton: () => void;
       task: Task;
+      totalCost: number;
       type: "task";
       version?: never;
     }
   | {
       onClickDetailsButton: () => void;
       task?: never;
+      totalCost: number;
       type: "version";
       version: Version;
     };
@@ -27,19 +29,16 @@ type CostSummaryProps =
 export const CostSummary: React.FC<CostSummaryProps> = ({
   onClickDetailsButton,
   task,
+  totalCost,
   type,
   version,
 }) => {
   const [costModalOpen, setCostModalOpen] = useState(false);
 
-  const config =
-    type === "task" ? getTaskConfig(task) : getVersionConfig(version);
-
-  if (!config) {
-    return null;
-  }
-
-  const { modalProps, showDetails, tooltipDescription, totalCost } = config;
+  const { modalProps, showDetails, tooltipDescription } =
+    type === "task"
+      ? getTaskConfig(task)
+      : getVersionConfig(version, totalCost);
 
   return (
     <>
@@ -82,16 +81,10 @@ interface CostConfig {
   modalProps: CostModalProps;
   showDetails: boolean;
   tooltipDescription?: string; // Only populated for versions; tasks have no tooltip.
-  totalCost: number;
 }
 
-const getTaskConfig = (task: Task): CostConfig | null => {
+const getTaskConfig = (task: Task): CostConfig => {
   const { displayName, finishTime, id, startTime, taskCost } = task;
-  const totalCost = taskCost?.total;
-  if (totalCost == null || totalCost <= 0) {
-    return null;
-  }
-  const isTaskComplete = !!finishTime;
   return {
     modalProps: {
       ...taskCost,
@@ -100,17 +93,12 @@ const getTaskConfig = (task: Task): CostConfig | null => {
       startTs: startTime ?? undefined,
       taskId: id,
     },
-    showDetails: isTaskComplete,
-    totalCost,
+    showDetails: !!finishTime,
   };
 };
 
-const getVersionConfig = (version: Version): CostConfig | null => {
+const getVersionConfig = (version: Version, totalCost: number): CostConfig => {
   const { cost, finishTime, id, isPatch, message, patch, startTime } = version;
-  const totalCost = isPatch ? patch?.cost?.total : cost?.total;
-  if (totalCost == null || totalCost <= 0) {
-    return null;
-  }
   const isVersionComplete = !!finishTime;
   const hasChildPatches = (patch?.childPatches?.length ?? 0) > 0;
   return {
@@ -127,7 +115,6 @@ const getVersionConfig = (version: Version): CostConfig | null => {
     },
     showDetails: isVersionComplete,
     tooltipDescription: getCostTooltip(isVersionComplete, hasChildPatches),
-    totalCost,
   };
 };
 

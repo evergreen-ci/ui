@@ -13,20 +13,25 @@ interface ExecutionSectionProps {
 export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   version,
 }) => {
-  const { id, parameters } = version;
+  const { cost, id, isPatch, parameters, patch } = version;
   const { sendEvent } = useVersionAnalytics(id);
 
   const hasParameters = parameters.length > 0;
+  const totalCost = isPatch ? patch?.cost?.total : cost?.total;
+  const hasCost = totalCost != null && totalCost > 0;
 
   return (
     <MetadataSection title="Execution">
-      <CostSummary
-        onClickDetailsButton={() =>
-          sendEvent({ name: "Clicked version cost details button" })
-        }
-        type="version"
-        version={version}
-      />
+      {hasCost && (
+        <CostSummary
+          onClickDetailsButton={() =>
+            sendEvent({ name: "Clicked version cost details button" })
+          }
+          totalCost={totalCost}
+          type="version"
+          version={version}
+        />
+      )}
       {hasParameters ? <ParametersModal parameters={parameters} /> : null}
     </MetadataSection>
   );
