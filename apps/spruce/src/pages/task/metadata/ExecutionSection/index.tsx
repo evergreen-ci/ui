@@ -6,11 +6,7 @@ import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { CostModal } from "components/CostModal";
-import {
-  MetadataItem,
-  MetadataLabel,
-  MetadataSection,
-} from "components/MetadataCard";
+import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
 import { getTaskQueueRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
@@ -59,19 +55,15 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
         <DetailsDescription details={details} />
       ) : null}
       {details?.timeoutType && details?.timeoutType !== "" ? (
-        <MetadataItem>
-          <MetadataLabel>Timeout type:</MetadataLabel> {details?.timeoutType}
-        </MetadataItem>
+        <MetadataItem label="Timeout type">{details?.timeoutType}</MetadataItem>
       ) : null}
       {priority && priority !== 0 ? (
-        <MetadataItem data-cy="task-metadata-priority">
-          <MetadataLabel>Priority:</MetadataLabel> {priority}{" "}
-          {priority < 0 && `(Disabled)`}
+        <MetadataItem data-cy="task-metadata-priority" label="Priority">
+          {priority} {priority < 0 && `(Disabled)`}
         </MetadataItem>
       ) : null}
       {taskQueuePosition && taskQueuePosition > 0 ? (
-        <MetadataItem>
-          <MetadataLabel>Position in queue:</MetadataLabel>{" "}
+        <MetadataItem label="Position in queue">
           <StyledRouterLink
             data-cy="task-queue-position"
             to={getTaskQueueRoute(distroId, task.id)}
@@ -102,8 +94,8 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
         <TestSelection testSelectionEnabled={testSelectionEnabled} />
       )}
       {finishTime && taskCost?.total != null && (
-        <MetadataItem data-cy="task-metadata-cost">
-          <MetadataLabel>Cost: </MetadataLabel> ${formatCost(taskCost.total)}
+        <MetadataItem data-cy="task-metadata-cost" label="Cost">
+          ${formatCost(taskCost.total)}
           {taskCost.total > 0 && (
             <CostDetailsButton
               data-cy="cost-details-button"

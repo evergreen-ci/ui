@@ -2,7 +2,6 @@ import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
 import MetadataCard, {
   MetadataItem,
-  MetadataLabel,
   MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import { getAPIRouteForTasks } from "constants/externalResources";
@@ -98,8 +97,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
       {!isDisplayTask && (
         <MetadataCard title="Host Information">
           {hostId && (
-            <MetadataItem>
-              <MetadataLabel>ID:</MetadataLabel>{" "}
+            <MetadataItem label="ID">
               <StyledLink
                 data-cy="task-host-link"
                 href={getHostRoute(hostId)}
@@ -115,8 +113,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </MetadataItem>
           )}
           {distroId && (
-            <MetadataItem>
-              <MetadataLabel>Distro:</MetadataLabel>{" "}
+            <MetadataItem label="Distro">
               <StyledRouterLink
                 data-cy="task-distro-link"
                 onClick={() =>
@@ -132,8 +129,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </MetadataItem>
           )}
           {imageId && (
-            <MetadataItem>
-              <MetadataLabel>Image:</MetadataLabel>{" "}
+            <MetadataItem label="Image">
               <StyledRouterLink
                 data-cy="task-image-link"
                 onClick={() =>
@@ -149,8 +145,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </MetadataItem>
           )}
           {ami && (
-            <MetadataItem data-cy="task-metadata-ami">
-              <MetadataLabel>AMI:</MetadataLabel> {ami}
+            <MetadataItem data-cy="task-metadata-ami" label="AMI">
+              {ami}
             </MetadataItem>
           )}
           {spawnHostLink && (

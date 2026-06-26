@@ -147,15 +147,15 @@ test.describe("other", () => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     const bucketConfig = page.getByTestId("bucket-config");
-    await bucketConfig.getByLabel("Name").clear();
-    await bucketConfig.getByLabel("Name").fill("new-log-bucket");
+    await bucketConfig.getByLabel("Default Log Bucket").clear();
+    await bucketConfig.getByLabel("Default Log Bucket").fill("new-log-bucket");
 
     await save(page);
     await validateToast(page, "success", "Settings saved successfully");
     await page.reload();
 
     await expect(
-      page.getByTestId("bucket-config").getByLabel("Name"),
+      page.getByTestId("bucket-config").getByLabel("Default Log Bucket"),
     ).toHaveValue("new-log-bucket");
   });
 
