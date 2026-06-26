@@ -99,7 +99,7 @@ describe("version metadata sections", () => {
       },
     );
 
-    expect(screen.getByText("General")).toBeInTheDocument();
+    expect(screen.getByText("Project:")).toBeInTheDocument();
     expect(screen.getByText("Timeline")).toBeInTheDocument();
     expect(screen.getByText("Execution")).toBeInTheDocument();
     expect(screen.getByText("External Links")).toBeInTheDocument();
