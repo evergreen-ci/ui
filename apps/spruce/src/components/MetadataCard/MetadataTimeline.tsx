@@ -1,14 +1,54 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useDateFormat } from "hooks/useDateFormat";
 
 const { blue } = palette;
 
-export const DOT_SIZE = 10;
-export const ROW_GAP = 12;
-export const LABEL_WIDTH = 60;
+interface MetadataTimelineRowProps {
+  children: React.ReactNode;
+  label: string;
+  "data-cy"?: string;
+  isRunning?: boolean;
+}
 
-export const TimelineContainer = styled.ul`
+export const MetadataTimelineRow: React.FC<MetadataTimelineRowProps> = ({
+  children,
+  "data-cy": dataCy,
+  isRunning,
+  label,
+}) => (
+  <TimelineRow data-cy={dataCy} isRunning={isRunning}>
+    <Label>{label}</Label>
+    <Timestamp isRunning={isRunning}>{children}</Timestamp>
+  </TimelineRow>
+);
+
+interface MetadataTimelineTimestampRowProps {
+  label: string;
+  timestamp: Date;
+  "data-cy"?: string;
+}
+
+export const MetadataTimelineTimestampRow: React.FC<
+  MetadataTimelineTimestampRowProps
+> = ({ "data-cy": dataCy, label, timestamp }) => {
+  const getDateCopy = useDateFormat();
+
+  return (
+    <MetadataTimelineRow data-cy={dataCy} label={label}>
+      <span title={getDateCopy(timestamp)}>
+        {getDateCopy(timestamp, { omitSeconds: true })}
+      </span>
+    </MetadataTimelineRow>
+  );
+};
+
+const DOT_SIZE = 10;
+const ROW_GAP = 12;
+const LABEL_WIDTH = 60;
+
+export const MetadataTimelineContainer = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
@@ -19,17 +59,17 @@ export const TimelineContainer = styled.ul`
   gap: ${ROW_GAP}px;
 `;
 
-export const Label = styled.b`
+const Label = styled.b`
   width: ${LABEL_WIDTH}px;
 `;
 
-export const Timestamp = styled.span<{ isRunning?: boolean }>`
+const Timestamp = styled.span<{ isRunning?: boolean }>`
   color: ${({ isRunning }) =>
     isRunning ? palette.gray.base : palette.gray.dark2};
   font-variant-numeric: tabular-nums;
 `;
 
-export const TimelineRow = styled.li<{ isRunning?: boolean }>`
+const TimelineRow = styled.li<{ isRunning?: boolean }>`
   font-size: 12px;
   line-height: ${size.s};
   padding-left: ${size.s};

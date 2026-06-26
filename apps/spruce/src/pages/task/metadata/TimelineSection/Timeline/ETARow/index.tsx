@@ -1,7 +1,7 @@
 import { useEffect } from "react";
+import { MetadataTimelineRow } from "components/MetadataCard/MetadataTimeline";
 import { useRunningTime } from "hooks";
 import { msToDuration } from "utils/string";
-import { Label, Timestamp, TimelineRow } from "../styles";
 
 interface ETARowProps {
   expectedDuration: number;
@@ -22,9 +22,8 @@ export const ETARow: React.FC<ETARowProps> = ({
   const eta = expectedDuration - runningTime;
   if (eta < 0) return null;
   return (
-    <TimelineRow data-cy="eta-timer" isRunning>
-      <Label>ETA</Label>
-      <Timestamp isRunning>{msToDuration(eta)}</Timestamp>
-    </TimelineRow>
+    <MetadataTimelineRow data-cy="eta-timer" isRunning label="ETA">
+      {msToDuration(eta)}
+    </MetadataTimelineRow>
   );
 };
