@@ -112,22 +112,22 @@ export const gqlToForm = ((data) => {
 
       bucketConfig: {
         defaultLogBucket: buckets?.logBucket?.name ?? "",
-        logBucketExpirationDays: buckets?.logBucket?.expirationDays ?? null,
+        logBucketExpirationDays: buckets?.logBucket?.expirationDays ?? 0,
         logBucketTransitionToIADays:
-          buckets?.logBucket?.transitionToIADays ?? null,
+          buckets?.logBucket?.transitionToIADays ?? 0,
         logBucketTransitionToGlacierDays:
-          buckets?.logBucket?.transitionToGlacierDays ?? null,
+          buckets?.logBucket?.transitionToGlacierDays ?? 0,
         logBucketLifecycleLastSyncedAt:
           buckets?.logBucket?.lifecycleLastSyncedAt?.toISOString() ?? "",
         logBucketLifecycleSyncError:
           buckets?.logBucket?.lifecycleSyncError ?? "",
         logBucketLongRetentionName: buckets?.logBucketLongRetention?.name ?? "",
         logBucketLongRetentionExpirationDays:
-          buckets?.logBucketLongRetention?.expirationDays ?? null,
+          buckets?.logBucketLongRetention?.expirationDays ?? 0,
         logBucketLongRetentionTransitionToIADays:
-          buckets?.logBucketLongRetention?.transitionToIADays ?? null,
+          buckets?.logBucketLongRetention?.transitionToIADays ?? 0,
         logBucketLongRetentionTransitionToGlacierDays:
-          buckets?.logBucketLongRetention?.transitionToGlacierDays ?? null,
+          buckets?.logBucketLongRetention?.transitionToGlacierDays ?? 0,
         logBucketLongRetentionLifecycleLastSyncedAt:
           buckets?.logBucketLongRetention?.lifecycleLastSyncedAt?.toISOString() ??
           "",
@@ -143,11 +143,11 @@ export const gqlToForm = ((data) => {
         credentialsSecret: buckets?.credentials?.secret ?? "",
         failedTasksLogBucketName: buckets?.logBucketFailedTasks?.name ?? "",
         failedTasksLogBucketExpirationDays:
-          buckets?.logBucketFailedTasks?.expirationDays ?? null,
+          buckets?.logBucketFailedTasks?.expirationDays ?? 0,
         failedTasksLogBucketTransitionToIADays:
-          buckets?.logBucketFailedTasks?.transitionToIADays ?? null,
+          buckets?.logBucketFailedTasks?.transitionToIADays ?? 0,
         failedTasksLogBucketTransitionToGlacierDays:
-          buckets?.logBucketFailedTasks?.transitionToGlacierDays ?? null,
+          buckets?.logBucketFailedTasks?.transitionToGlacierDays ?? 0,
         failedTasksLogBucketLifecycleLastSyncedAt:
           buckets?.logBucketFailedTasks?.lifecycleLastSyncedAt?.toISOString() ??
           "",
