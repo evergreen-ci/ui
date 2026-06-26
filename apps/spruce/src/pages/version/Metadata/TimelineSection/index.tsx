@@ -12,30 +12,12 @@ interface TimelineSectionProps {
 export const TimelineSection: React.FC<TimelineSectionProps> = ({
   version,
 }) => {
-  const { createTime, finishTime, startTime, versionTiming } = version;
+  const { versionTiming } = version;
   const { makespan, timeTaken } = versionTiming || {};
 
   return (
     <MetadataSection title="Timeline">
-      <Timeline
-        entries={[
-          {
-            dataCy: "version-metadata-submitted-at",
-            label: "Submitted",
-            timestamp: createTime,
-          },
-          {
-            dataCy: "version-metadata-started",
-            label: "Started",
-            timestamp: startTime,
-          },
-          {
-            dataCy: "version-metadata-finished",
-            label: "Finished",
-            timestamp: finishTime,
-          },
-        ]}
-      />
+      <Timeline version={version} />
       {makespan ? (
         <MetadataItem
           label="Makespan"

@@ -2,34 +2,46 @@ import {
   MetadataTimelineContainer,
   MetadataTimelineTimestampRow,
 } from "components/MetadataCard/MetadataTimeline";
+import { VersionQuery } from "gql/generated/types";
 
-interface TimelineEntry {
-  dataCy?: string;
-  label: string;
-  timestamp?: Date | null;
-}
+type Version = NonNullable<VersionQuery["version"]>;
 
 interface TimelineProps {
-  entries: TimelineEntry[];
+  version: Version;
 }
 
-export const Timeline: React.FC<TimelineProps> = ({ entries }) => {
-  const visibleEntries = entries.filter(
-    (entry): entry is TimelineEntry & { timestamp: Date } => !!entry.timestamp,
-  );
+export const Timeline: React.FC<TimelineProps> = ({ version }) => {
+  const { createTime, finishTime, startTime } = version;
 
-  if (visibleEntries.length === 0) return null;
+  const hasTimelineData = createTime || startTime || finishTime;
+
+  if (!hasTimelineData) {
+    return null;
+  }
 
   return (
     <MetadataTimelineContainer>
-      {visibleEntries.map(({ dataCy, label, timestamp }) => (
+      {createTime && (
         <MetadataTimelineTimestampRow
-          key={label}
-          data-cy={dataCy}
-          label={label}
-          timestamp={timestamp}
+          data-cy="version-metadata-submitted-at"
+          label="Submitted"
+          timestamp={createTime}
         />
-      ))}
+      )}
+      {startTime && (
+        <MetadataTimelineTimestampRow
+          data-cy="version-metadata-started"
+          label="Started"
+          timestamp={startTime}
+        />
+      )}
+      {finishTime && (
+        <MetadataTimelineTimestampRow
+          data-cy="version-metadata-finished"
+          label="Finished"
+          timestamp={finishTime}
+        />
+      )}
     </MetadataTimelineContainer>
   );
 };
