@@ -11,7 +11,7 @@ import {
   TaskOwnerTeamsForTaskQueryVariables,
 } from "gql/generated/types";
 import { TASK_OWNER_TEAM } from "gql/queries";
-import TaskOwnership from ".";
+import { TaskOwnership } from ".";
 
 const taskId = "task123";
 const execution = 5;
@@ -123,7 +123,7 @@ describe("TaskOwnership", () => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Task Owner:")).toBeInTheDocument();
+    expect(screen.getByText("Task owner:")).toBeInTheDocument();
     expect(screen.getByText("Evergreen UI Team")).toBeInTheDocument();
 
     await user.hover(screen.getByDataTestid("info-sprinkle-icon"));
@@ -150,7 +150,7 @@ describe("TaskOwnership", () => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Task Owner:")).toBeInTheDocument();
+    expect(screen.getByText("Task owner:")).toBeInTheDocument();
     expect(screen.getByText("No known team")).toBeInTheDocument();
   });
 
@@ -167,7 +167,7 @@ describe("TaskOwnership", () => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Task Owner:")).toBeInTheDocument();
+    expect(screen.getByText("Task owner:")).toBeInTheDocument();
     expect(screen.getByText("No known team")).toBeInTheDocument();
   });
 

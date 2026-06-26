@@ -77,14 +77,14 @@ export const isEndUserProduction = () => isProduction() && isProductionBuild();
  * `getEvergreenUrl()` - Get the backing evergreen URL from the environment variables
  * @returns - Returns the backing evergreen url
  */
-export const getEvergreenUrl = () => process.env.REACT_APP_EVERGREEN_URL || "";
+export const getEvergreenUrl = () => import.meta.env.VITE_EVERGREEN_URL || "";
 
 /**
  * `getSignalProcessingUrl()` - Get the TIPS Signal Processing URL from the environment variables
  * @returns - Returns the TIPS Signal Processing Iframe URL
  */
 export const getSignalProcessingUrl = () =>
-  process.env.REACT_APP_SIGNAL_PROCESSING_URL || "";
+  import.meta.env.VITE_SIGNAL_PROCESSING_URL || "";
 
 /**
  * `getApiUrl()` - Get the API URL from the environment variables
@@ -96,7 +96,7 @@ export const getApiUrl = () => `${getEvergreenUrl()}/api`;
  * `getSpruceURL()` - Get the SPRUCE URL from the environment variables
  * @returns - Returns the Spruce URL
  */
-export const getSpruceURL = () => process.env.REACT_APP_SPRUCE_URL || "";
+export const getSpruceURL = () => import.meta.env.VITE_SPRUCE_URL || "";
 
 /**
  * `getGQLUrl()` - Get the GQL URL from the environment variables
@@ -108,7 +108,7 @@ export const getGQLUrl = () => `${getEvergreenUrl()}/graphql/query`;
  * `getParsleyUrl()` - Get the Parsley URL from the environment variables
  * @returns - Returns the Parsley URL.
  */
-export const getParsleyUrl = () => process.env.REACT_APP_PARSLEY_URL || "";
+export const getParsleyUrl = () => import.meta.env.VITE_PARSLEY_URL || "";
 
 /**
  * `getAppVersion()` - Get the app release version from the environment variables
@@ -153,5 +153,5 @@ export const getUserStagingKey = (): string =>
  */
 export const getLoginDomain = () =>
   isDevelopmentBuild() || getReleaseStage() === ReleaseStage.Local
-    ? process.env.REACT_APP_SPRUCE_URL || ""
-    : process.env.REACT_APP_EVERGREEN_URL || "";
+    ? import.meta.env.VITE_SPRUCE_URL || ""
+    : import.meta.env.VITE_EVERGREEN_URL || "";

@@ -2,10 +2,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
-import MetadataCard, {
-  MetadataItem,
-  MetadataLabel,
-} from "components/MetadataCard";
+import MetadataCard, { MetadataItem } from "components/MetadataCard";
 import { MCI_USER } from "constants/hosts";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
@@ -39,51 +36,35 @@ export const Metadata: React.FC<{
 
   return (
     <MetadataCard error={error} loading={loading} title="Host Details">
-      <MetadataItem>
-        <MetadataLabel>User:</MetadataLabel> {user}
-      </MetadataItem>
-      {hostUrl && (
-        <MetadataItem>
-          <MetadataLabel>Host Name:</MetadataLabel> {hostUrl}
-        </MetadataItem>
-      )}
+      <MetadataItem label="User">{user}</MetadataItem>
+      {hostUrl && <MetadataItem label="Host name">{hostUrl}</MetadataItem>}
       {persistentDnsName && (
-        <MetadataItem>
-          <MetadataLabel>Persistent DNS Name:</MetadataLabel>{" "}
+        <MetadataItem label="Persistent DNS name">
           {persistentDnsName}
         </MetadataItem>
       )}
       {lastCommunicationTime && (
-        <MetadataItem data-cy="host-last-communication">
-          <MetadataLabel>Last Communication:</MetadataLabel>{" "}
+        <MetadataItem
+          data-cy="host-last-communication"
+          label="Last communication"
+        >
           {formatDistanceToNow(new Date(lastCommunicationTime))} ago
         </MetadataItem>
       )}
-      <MetadataItem>
-        <MetadataLabel>Uptime:</MetadataLabel>{" "}
+      <MetadataItem label="Uptime">
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {formatDistanceToNow(new Date(uptime))}
       </MetadataItem>
-      <MetadataItem>
-        <MetadataLabel>Started By:</MetadataLabel> {startedBy}
-      </MetadataItem>
-      <MetadataItem>
-        <MetadataLabel>Cloud Provider:</MetadataLabel> {provider}
-      </MetadataItem>
-      {ami && (
-        <MetadataItem>
-          <MetadataLabel>AMI:</MetadataLabel> {ami}
-        </MetadataItem>
-      )}
-      <MetadataItem>
-        <MetadataLabel>Distro:</MetadataLabel>{" "}
+      <MetadataItem label="Started by">{startedBy}</MetadataItem>
+      <MetadataItem label="Cloud provider">{provider}</MetadataItem>
+      {ami && <MetadataItem label="AMI">{ami}</MetadataItem>}
+      <MetadataItem label="Distro">
         <StyledLink data-cy="distro-link" href={distroLink}>
           {distroId}
         </StyledLink>
       </MetadataItem>
       {startedBy === MCI_USER && (
-        <MetadataItem data-cy="current-running-task">
-          <MetadataLabel>Current Task:</MetadataLabel>{" "}
+        <MetadataItem data-cy="current-running-task" label="Current task">
           {runningTaskName ? (
             <StyledLink data-cy="running-task-link" href={taskLink}>
               <WordBreak all>{runningTaskName}</WordBreak>

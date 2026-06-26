@@ -7,7 +7,7 @@ export const SCHEDULE_PATCH = gql`
       ...BasePatch
       tasks
       variants
-      versionFull {
+      version {
         id
         childVersions {
           id

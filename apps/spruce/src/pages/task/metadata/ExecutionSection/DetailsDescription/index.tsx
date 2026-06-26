@@ -10,7 +10,8 @@ import { isFailedTaskStatus } from "utils/statuses";
 const { red } = palette;
 
 const MAX_CHAR = 100;
-const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
+
+export const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
   const { description, failingCommand, otherFailingCommands, status } =
     details ?? {};
   const isFailingTask = isFailedTaskStatus(status);
@@ -24,12 +25,11 @@ const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
 
   return (
     <>
-      <MetadataItem data-cy="task-metadata-command">
-        {isFailingTask ? (
-          <MetadataLabel color={red.base}>Failing Command: </MetadataLabel>
-        ) : (
-          <MetadataLabel>Command: </MetadataLabel>
-        )}
+      <MetadataItem
+        data-cy="task-metadata-command"
+        label={isFailingTask ? "Failing command" : "Command"}
+        labelColor={isFailingTask ? red.base : undefined}
+      >
         {shouldTruncate ? (
           <>
             {truncatedText}{" "}
@@ -109,5 +109,3 @@ const processFailingCommand = (description: string): string => {
 
 const hostTaskStrandedMessage =
   "Task failed because the host became unreachable unexpectedly";
-
-export default DetailsDescription;

@@ -154,6 +154,43 @@ const taskOwnerTeamMock: ApolloMock<
     },
   },
 };
+
+export const WithRunningETA: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          displayStatus: TaskStatus.Started,
+          ingestTime: new Date("2020-09-30T19:16:00.000Z"),
+          activatedTime: new Date("2020-09-30T19:16:30.000Z"),
+          startTime: new Date(),
+          finishTime: null,
+          expectedDuration: 5 * 60 * 1000,
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const WithTimeline: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          ingestTime: new Date("2020-09-30T19:16:00.000Z"),
+          activatedTime: new Date("2020-09-30T19:16:30.000Z"),
+          startTime: new Date("2020-09-30T21:30:00.000Z"),
+          finishTime: new Date("2020-09-30T21:32:00.000Z"),
+        }}
+      />
+    </Container>
+  ),
+};
+
 export const WithTaskOwner: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>

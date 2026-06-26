@@ -18,7 +18,7 @@ const patchData = {
   },
   status: "failed",
   invalidatedByUpstream: false,
-  versionFull: {
+  version: {
     id: "667b2f7f7a878200076f23d1",
     status: "failed",
     requester: "patch_request",

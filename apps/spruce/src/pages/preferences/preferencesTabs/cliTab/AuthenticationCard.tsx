@@ -9,7 +9,6 @@ import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
 import { USER_CONFIG } from "gql/queries";
-import { ResetAPIKey } from "./ResetAPIKey";
 
 export const AuthenticationCard = () => {
   const { data, loading } = useQuery<UserConfigQuery, UserConfigQueryVariables>(
@@ -24,6 +23,7 @@ export const AuthenticationCard = () => {
   const authCode = `user: "${data.userConfig.user}"
 api_key: "${data.userConfig.api_key}"
 api_server_host: "${data.userConfig.api_server_host}"
+corp_api_server_host: "${data.userConfig.corp_api_server_host}"
 ui_server_host: "${data.userConfig.ui_server_host}"
 oauth:
     issuer: "${data.userConfig.oauth_issuer}"
@@ -54,21 +54,13 @@ oauth:
       <CodeContainer>
         <Code language="yaml">{authCode}</Code>
       </CodeContainer>
-      <ButtonGroup>
-        <Button onClick={downloadFile} variant={Variant.Primary}>
-          Download file
-        </Button>
-        <ResetAPIKey />
-      </ButtonGroup>
+      <Button onClick={downloadFile} variant={Variant.Primary}>
+        Download file
+      </Button>
     </SettingsCard>
   );
 };
 
 const CodeContainer = styled.div`
   margin: ${size.m} 0;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: ${size.xs};
 `;

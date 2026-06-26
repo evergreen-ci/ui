@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client/react";
-import { MetadataItem, MetadataLabel } from "components/MetadataCard";
+import { MetadataItem } from "components/MetadataCard";
 import {
   TaskOwnerTeamsForTaskQuery,
   TaskOwnerTeamsForTaskQueryVariables,
@@ -11,7 +11,10 @@ interface TaskOwnershipProps {
   taskId: string;
   execution?: number;
 }
-const TaskOwnership: React.FC<TaskOwnershipProps> = ({ execution, taskId }) => {
+export const TaskOwnership: React.FC<TaskOwnershipProps> = ({
+  execution,
+  taskId,
+}) => {
   const { data } = useQuery<
     TaskOwnerTeamsForTaskQuery,
     TaskOwnerTeamsForTaskQueryVariables
@@ -28,12 +31,10 @@ const TaskOwnership: React.FC<TaskOwnershipProps> = ({ execution, taskId }) => {
   return (
     <MetadataItem
       data-cy="task-metadata-task-ownership"
+      label="Task owner"
       tooltipDescription={messages}
     >
-      <MetadataLabel>Task Owner: </MetadataLabel>
       {teamName || "No known team"}
     </MetadataItem>
   );
 };
-
-export default TaskOwnership;
