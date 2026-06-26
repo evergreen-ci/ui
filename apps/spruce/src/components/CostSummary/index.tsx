@@ -11,19 +11,29 @@ type Task = NonNullable<TaskQuery["task"]>;
 type Version = NonNullable<VersionQuery["version"]>;
 
 type CostSummaryProps =
-  | { type: "task"; task: Task; onClickDetailsButton: () => void }
-  | { type: "version"; version: Version; onClickDetailsButton: () => void };
+  | {
+      onClickDetailsButton: () => void;
+      task: Task;
+      type: "task";
+      version?: never;
+    }
+  | {
+      onClickDetailsButton: () => void;
+      task?: never;
+      type: "version";
+      version: Version;
+    };
 
-export const CostSummary: React.FC<CostSummaryProps> = (props) => {
+export const CostSummary: React.FC<CostSummaryProps> = ({
+  onClickDetailsButton,
+  task,
+  type,
+  version,
+}) => {
   const [costModalOpen, setCostModalOpen] = useState(false);
 
-  const { onClickDetailsButton, type } = props;
   const config =
-    type === "task"
-      ? deriveTaskConfig(props.task)
-      : deriveVersionConfig(props.version);
-  const dataCy =
-    type === "task" ? "task-metadata-cost" : "version-metadata-cost";
+    type === "task" ? getTaskConfig(task) : getVersionConfig(version);
 
   if (!config) {
     return null;
@@ -33,11 +43,7 @@ export const CostSummary: React.FC<CostSummaryProps> = (props) => {
 
   return (
     <>
-      <MetadataItem
-        data-cy={dataCy}
-        label="Cost"
-        tooltipDescription={tooltipDescription}
-      >
+      <MetadataItem label="Cost" tooltipDescription={tooltipDescription}>
         ${formatCost(totalCost)}
         {showDetails && (
           <CostDetailsButton
@@ -79,10 +85,13 @@ interface CostConfig {
   totalCost: number;
 }
 
-const deriveTaskConfig = (task: Task): CostConfig => {
+const getTaskConfig = (task: Task): CostConfig | null => {
   const { displayName, finishTime, id, startTime, taskCost } = task;
-
-  const taskCostTotal = taskCost?.total ?? 0;
+  const totalCost = taskCost?.total;
+  if (totalCost == null || totalCost <= 0) {
+    return null;
+  }
+  const isTaskComplete = !!finishTime;
   return {
     modalProps: {
       ...taskCost,
@@ -91,14 +100,17 @@ const deriveTaskConfig = (task: Task): CostConfig => {
       startTs: startTime ?? undefined,
       taskId: id,
     },
-    showDetails: taskCostTotal > 0,
-    totalCost: taskCostTotal,
+    showDetails: isTaskComplete,
+    totalCost,
   };
 };
 
-const deriveVersionConfig = (version: Version): CostConfig => {
+const getVersionConfig = (version: Version): CostConfig | null => {
   const { cost, finishTime, id, isPatch, message, patch, startTime } = version;
   const totalCost = isPatch ? patch?.cost?.total : cost?.total;
+  if (totalCost == null || totalCost <= 0) {
+    return null;
+  }
   const isVersionComplete = !!finishTime;
   const hasChildPatches = (patch?.childPatches?.length ?? 0) > 0;
   return {
@@ -115,7 +127,7 @@ const deriveVersionConfig = (version: Version): CostConfig => {
     },
     showDetails: isVersionComplete,
     tooltipDescription: getCostTooltip(isVersionComplete, hasChildPatches),
-    totalCost: totalCost ?? 0,
+    totalCost,
   };
 };
 

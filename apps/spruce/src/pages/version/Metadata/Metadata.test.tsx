@@ -126,7 +126,7 @@ describe("version metadata cost display", () => {
     stubGetClientRects();
   });
 
-  it("HidesCostRowWhenCostIsNull", () => {
+  it("hides cost row when cost is null", () => {
     render(<Metadata version={baseVersion} />, {
       route: "/version/version123",
       path: "/version/:id",
@@ -135,7 +135,7 @@ describe("version metadata cost display", () => {
     expect(screen.queryByText("Cost:")).not.toBeInTheDocument();
   });
 
-  it("ShowsActualCostValueWhenCostIsSet", () => {
+  it("shows actual cost value when cost is set", () => {
     const version: Version = {
       ...baseVersion,
       cost: { __typename: "Cost", total: 321.45 },
@@ -148,7 +148,7 @@ describe("version metadata cost display", () => {
     expect(screen.getByText("$321.45")).toBeInTheDocument();
   });
 
-  it("ShowsEstimateTooltipWhenVersionIsNotComplete", async () => {
+  it("shows estimate tooltip when version is not complete", async () => {
     const user = userEvent.setup();
     render(
       <Metadata
@@ -169,7 +169,7 @@ describe("version metadata cost display", () => {
     await screen.findByText("Estimated cost of completed tasks so far.");
   });
 
-  it("ShowsChildPatchesTooltipWhenRunningWithChildren", async () => {
+  it("shows child patches tooltip when running with children", async () => {
     const user = userEvent.setup();
     render(
       <Metadata
@@ -203,7 +203,7 @@ describe("version metadata cost display", () => {
     );
   });
 
-  it("ShowsChildPatchesTooltipWhenCompleteWithChildren", async () => {
+  it("shows child patches tooltip when complete with children", async () => {
     const user = userEvent.setup();
     render(
       <Metadata
@@ -237,7 +237,7 @@ describe("version metadata cost display", () => {
     );
   });
 
-  it("ShowsCompleteTooltipWhenVersionIsComplete", async () => {
+  it("shows complete tooltip when version is complete", async () => {
     const user = userEvent.setup();
     render(
       <Metadata
@@ -258,7 +258,7 @@ describe("version metadata cost display", () => {
     await screen.findByText("Total cost of all tasks.");
   });
 
-  it("HidesCostDetailsButtonWhenVersionIsRunning", () => {
+  it("hides cost detail button when version is running", () => {
     render(
       <Metadata
         version={{
@@ -276,7 +276,7 @@ describe("version metadata cost display", () => {
     expect(screen.queryByDataCy("cost-details-button")).not.toBeInTheDocument();
   });
 
-  it("ShowsCostDetailsButtonWhenVersionIsComplete", () => {
+  it("shows cost detail button when version is complete", () => {
     render(
       <Metadata
         version={{
@@ -294,7 +294,7 @@ describe("version metadata cost display", () => {
     expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
   });
 
-  it("ShowsPatchCostTotalInModalForPatches", async () => {
+  it("shows patch cost total in modal for patches", async () => {
     const user = userEvent.setup();
     render(
       <Metadata
@@ -326,7 +326,7 @@ describe("version metadata cost display", () => {
     expect(within(modal).getByText("$3.75")).toBeInTheDocument();
   });
 
-  it("CanReopenCostModalAfterClosing", async () => {
+  it("can reopen cost modal after closing", async () => {
     const user = userEvent.setup();
     render(
       <Metadata
