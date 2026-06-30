@@ -1,16 +1,12 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
-import { CostModal } from "components/CostModal";
+import { CostSummary } from "components/CostSummary";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
 import { getTaskQueueRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
-import { formatCost } from "utils/numbers";
 import { isInStepback } from "utils/stepback";
 import { AbortMessage } from "./AbortMessage";
 import { DetailsDescription } from "./DetailsDescription";
@@ -26,21 +22,17 @@ interface ExecutionSectionProps {
 
 export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
   const taskAnalytics = useTaskAnalytics();
-  const [costModalOpen, setCostModalOpen] = useState(false);
 
   const {
     abortInfo,
     details,
     distroId,
     execution,
-    finishTime,
     minQueuePosition: taskQueuePosition,
     priority,
     resetWhenFinished,
-    startTime,
     status,
     stepbackInfo,
-    taskCost,
     testSelectionEnabled,
   } = task;
 
@@ -48,6 +40,9 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
   const oomTracker = details?.oomTracker;
   const { allowed: testSelectionEnabledForProject } =
     task.project?.testSelection || {};
+
+  const totalCost = task.taskCost?.total ?? 0;
+  const hasCost = totalCost > 0;
 
   return (
     <MetadataSection title="Execution">
@@ -93,34 +88,14 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
       {testSelectionEnabledForProject && (
         <TestSelection testSelectionEnabled={testSelectionEnabled} />
       )}
-      {finishTime && taskCost?.total != null && (
-        <MetadataItem data-cy="task-metadata-cost" label="Cost">
-          ${formatCost(taskCost.total)}
-          {taskCost.total > 0 && (
-            <CostDetailsButton
-              data-cy="cost-details-button"
-              onClick={() => {
-                taskAnalytics.sendEvent({
-                  name: "Clicked cost details button",
-                });
-                setCostModalOpen(true);
-              }}
-              size={ButtonSize.XSmall}
-            >
-              Cost Details
-            </CostDetailsButton>
-          )}
-        </MetadataItem>
-      )}
-      {taskCost && costModalOpen && (
-        <CostModal
-          {...taskCost}
-          endTs={finishTime ?? undefined}
-          name={task.displayName}
-          open={costModalOpen}
-          setOpen={setCostModalOpen}
-          startTs={startTime ?? undefined}
-          taskId={task.id}
+      {hasCost && (
+        <CostSummary
+          onClickDetailsButton={() =>
+            taskAnalytics.sendEvent({ name: "Clicked cost details button" })
+          }
+          task={task}
+          totalCost={totalCost}
+          type="task"
         />
       )}
     </MetadataSection>
@@ -130,8 +105,4 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
 const OOMTrackerMessage = styled(MetadataItem)`
   color: ${red.dark2};
   font-weight: 500;
-`;
-
-const CostDetailsButton = styled(Button)`
-  margin-left: ${size.xxs};
 `;
