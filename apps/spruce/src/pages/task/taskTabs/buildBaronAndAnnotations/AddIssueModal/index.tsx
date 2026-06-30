@@ -38,7 +38,7 @@ export const AddIssueModal: React.FC<Props> = ({
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const dispatchToast = useToastContext();
-  const title = isIssue ? "Add Issue" : "Add Suspected Issue";
+  const title = isIssue ? "Add issue" : "Add suspected issue";
   const issueString = isIssue ? "issue" : "suspected issue";
 
   const [canSubmit, setCanSubmit] = useState(false);

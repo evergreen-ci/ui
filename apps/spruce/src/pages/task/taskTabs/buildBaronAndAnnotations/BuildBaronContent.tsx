@@ -108,8 +108,6 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   );
 };
 
-const Wrapper = styled.div`
-  width: 80%;
-`;
+const Wrapper = styled.div``;
 
 export default BuildBaronContent;
