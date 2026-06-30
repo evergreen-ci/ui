@@ -41,8 +41,6 @@ const baseSchemaInput = {
   hostUptimeWarnings: { enabledHoursCount: 0, warnings: [] },
   isMigration: false,
   isVirtualWorkstation: false,
-  jiraHost: "jira.example.com",
-  jwtTokenForCLIDisabled: false,
   myPublicKeys,
   noExpirationCheckboxTooltip: "",
   spawnTaskData: taskForLoadDataBanner,
@@ -61,41 +59,22 @@ const tokenAuthDescription = (
   ] as ReactElement;
 
 describe("getFormSchema spawn host token exchange callout", () => {
-  it("renders required-stricter copy when jwtTokenForCLIDisabled is false", () => {
+  it("renders required authentication copy", () => {
     const { uiSchema } = getFormSchema({
       ...baseSchemaInput,
       tokenExchangeState: TokenExchangeState.NeedsAuthentication,
-      jwtTokenForCLIDisabled: false,
     });
     const node = tokenAuthDescription(uiSchema!);
     render(node);
     expect(
       screen.getByText(/Spawn hosts require an additional authentication step/),
     ).toBeInTheDocument();
-    expect(screen.getByText("DEVPROD-4160")).toBeInTheDocument();
-  });
-
-  it("renders optional-phase copy when jwtTokenForCLIDisabled is true", () => {
-    const { uiSchema } = getFormSchema({
-      ...baseSchemaInput,
-      tokenExchangeState: TokenExchangeState.NeedsAuthentication,
-      jwtTokenForCLIDisabled: true,
-    });
-    const node = tokenAuthDescription(uiSchema!);
-    render(node);
-    expect(
-      screen.getByText(
-        /An additional authentication step will soon be required/,
-      ),
-    ).toBeInTheDocument();
-    expect(screen.getByText("DEVPROD-4160")).toBeInTheDocument();
   });
 
   it("disables the authenticate button when token is valid", () => {
     const { uiSchema } = getFormSchema({
       ...baseSchemaInput,
       tokenExchangeState: TokenExchangeState.TokenValid,
-      jwtTokenForCLIDisabled: false,
     });
     const node = tokenAuthDescription(uiSchema!);
     render(node);
@@ -107,7 +86,6 @@ describe("getFormSchema spawn host token exchange callout", () => {
     const { uiSchema } = getFormSchema({
       ...baseSchemaInput,
       tokenExchangeState: TokenExchangeState.ExchangePending,
-      jwtTokenForCLIDisabled: false,
     });
     const node = tokenAuthDescription(uiSchema!);
     render(node);
