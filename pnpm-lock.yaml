@@ -306,9 +306,6 @@ importers:
       prettier:
         specifier: 3.7.4
         version: 3.7.4
-      replace-in-file:
-        specifier: 8.4.0
-        version: 8.4.0
       rollup-plugin-visualizer:
         specifier: 7.0.1
         version: 7.0.1(rolldown@1.0.1)(rollup@4.60.1)
@@ -779,9 +776,6 @@ importers:
       prettier:
         specifier: 3.7.4
         version: 3.7.4
-      replace-in-file:
-        specifier: 8.4.0
-        version: 8.4.0
       rollup-plugin-visualizer:
         specifier: 7.0.1
         version: 7.0.1(rolldown@1.0.1)(rollup@4.60.1)
@@ -7783,11 +7777,6 @@ packages:
 
   remove-trailing-spaces@1.0.9:
     resolution: {integrity: sha512-xzG7w5IRijvIkHIjDk65URsJJ7k4J95wmcArY5PRcmjldIOl7oTvG8+X2Ag690R7SfwiOcHrWZKVc1Pp5WIOzA==}
-
-  replace-in-file@8.4.0:
-    resolution: {integrity: sha512-D28k8jy2LtUGbCzCnR3znajaTWIjJ/Uee3UdodzcHRxE7zn6NmYW/dcSqyivnsYU3W+MxdX6SbF28NvJ0GRoLA==}
-    engines: {node: '>=18'}
-    hasBin: true
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -17307,12 +17296,6 @@ snapshots:
   remove-trailing-separator@1.1.0: {}
 
   remove-trailing-spaces@1.0.9: {}
-
-  replace-in-file@8.4.0:
-    dependencies:
-      chalk: 5.6.2
-      glob: 13.0.6
-      yargs: 18.0.0
 
   require-directory@2.1.1: {}
 
