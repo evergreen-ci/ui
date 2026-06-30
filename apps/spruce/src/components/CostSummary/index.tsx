@@ -85,6 +85,7 @@ interface CostConfig {
 
 const getTaskConfig = (task: Task): CostConfig => {
   const { displayName, finishTime, id, startTime, taskCost } = task;
+  const isTaskComplete = !!finishTime;
   return {
     modalProps: {
       ...taskCost,
@@ -93,7 +94,7 @@ const getTaskConfig = (task: Task): CostConfig => {
       startTs: startTime ?? undefined,
       taskId: id,
     },
-    showDetails: !!finishTime,
+    showDetails: isTaskComplete,
   };
 };
 
