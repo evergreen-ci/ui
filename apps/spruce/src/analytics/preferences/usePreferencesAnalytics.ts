@@ -11,7 +11,6 @@ type Action =
   | { name: "Deleted subscriptions" }
   | { name: "Clicked CLI download link"; "download.name": string }
   | { name: "Clicked download auth file" }
-  | { name: "Clicked reset API key" }
   | { name: "Created new public key" }
   | { name: "Changed public key" }
   | { name: "Deleted public key" }

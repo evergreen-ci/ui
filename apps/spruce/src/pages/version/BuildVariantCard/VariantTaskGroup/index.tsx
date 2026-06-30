@@ -135,9 +135,8 @@ const TaskBadgeContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  gap: ${size.xs};
-  margin-top: ${size.xs};
-  margin-bottom: ${size.xs};
+  gap: ${size.xxs};
+  margin-top: ${size.xxs};
 `;
 
 export default VariantTaskGroup;

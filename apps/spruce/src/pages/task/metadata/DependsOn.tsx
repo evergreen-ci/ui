@@ -36,7 +36,6 @@ export const DependsOn: React.FC<Props> = ({
 
 const DependsOnWrapper = styled.div`
   display: flex;
-  padding-bottom: ${size.xs};
 `;
 
 const LeftContainer = styled.div`

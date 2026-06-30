@@ -47,12 +47,12 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     projectMetadata,
     status,
     user,
-    versionFull,
+    version,
   } = patch;
   const projectIdentifier = projectMetadata?.identifier;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const createDate = new Date(createTime);
-  const { id: versionId, requester, taskStatusStats } = versionFull || {};
+  const { id: versionId, requester, taskStatusStats } = version || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? [],
   );
@@ -120,9 +120,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         <PatchBadgeContainer>
           <PatchStatusBadge
             status={
-              activated
-                ? (versionFull?.status ?? status)
-                : PatchStatus.Unconfigured
+              activated ? (version?.status ?? status) : PatchStatus.Unconfigured
             }
           />
         </PatchBadgeContainer>

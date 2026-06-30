@@ -123,8 +123,8 @@ functions:
       params:
         file: expansion.yml
     - command: subprocess.exec
+      timeout_secs: 300
       params:
-        exec_timeout_secs: 60
         binary: bash
         args:
           - "-c"
@@ -152,9 +152,8 @@ functions:
   wait-for-evergreen:
     command: subprocess.exec
     type: setup
+    timeout_secs: 300
     params:
-      exec_timeout_secs: 600
-      timeout_secs: 1800
       working_dir: ui/.evergreen
       binary: bash
       args:

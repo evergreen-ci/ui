@@ -64,6 +64,63 @@ const baseVersion: Version = {
   versionTiming: null,
 };
 
+describe("version metadata sections", () => {
+  it("ShowsSectionsAndTimeline", () => {
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          externalLinksForMetadata: [
+            {
+              __typename: "ExternalLinkForMetadata",
+              displayName: "Evergreen Docs",
+              url: "https://example.com/docs",
+            },
+          ],
+          finishTime: new Date("2024-01-02"),
+          parameters: [
+            {
+              __typename: "Parameter",
+              key: "burn_in",
+              value: "true",
+            },
+          ],
+          versionTiming: {
+            __typename: "VersionTiming",
+            makespan: 3600000,
+            timeTaken: 600000,
+          },
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
+
+    expect(screen.getByText("Project:")).toBeInTheDocument();
+    expect(screen.getByText("Timeline")).toBeInTheDocument();
+    expect(screen.getByText("Execution")).toBeInTheDocument();
+    expect(screen.getByText("External Links")).toBeInTheDocument();
+    expect(
+      screen.getByDataCy("version-metadata-submitted-at"),
+    ).toHaveTextContent("Submitted");
+    expect(screen.getByDataCy("version-metadata-started")).toHaveTextContent(
+      "Started",
+    );
+    expect(screen.getByDataCy("version-metadata-finished")).toHaveTextContent(
+      "Finished",
+    );
+    expect(screen.getByText("Makespan:")).toBeInTheDocument();
+    expect(screen.getByText("Time taken:")).toBeInTheDocument();
+    expect(screen.getByDataCy("parameters-link")).toBeInTheDocument();
+    expect(screen.getByDataCy("external-link")).toHaveTextContent(
+      "Evergreen Docs",
+    );
+  });
+});
+
 describe("version metadata cost display", () => {
   beforeAll(() => {
     stubGetClientRects();

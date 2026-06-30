@@ -4,7 +4,7 @@ import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { MetadataItem, MetadataLabel } from "components/MetadataCard";
+import { MetadataItem } from "components/MetadataCard";
 import { TestSelectionGuideCue } from "./TestSelectionGuideCue";
 
 type Props = {
@@ -14,13 +14,12 @@ type Props = {
 export const TestSelection: React.FC<Props> = ({ testSelectionEnabled }) => {
   const testSelectionGuideCue = useRef<HTMLDivElement>(null);
   return (
-    <MetadataItem as="div">
+    <MetadataItem as="div" label="Test selection">
       <TestSelectionGuideCue
         enabled={testSelectionEnabled}
         refEl={testSelectionGuideCue}
       />
-      <ItemWrapper ref={testSelectionGuideCue}>
-        <MetadataLabel>Test Selection:</MetadataLabel>
+      <BadgeWrapper ref={testSelectionGuideCue}>
         <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
           If enabled, a subset of tests will run based on the project&apos;s
           optimization strategies.
@@ -32,13 +31,14 @@ export const TestSelection: React.FC<Props> = ({ testSelectionEnabled }) => {
         >
           {testSelectionEnabled ? "enabled" : "disabled"}
         </Badge>
-      </ItemWrapper>
+      </BadgeWrapper>
     </MetadataItem>
   );
 };
 
-const ItemWrapper = styled.div`
-  display: flex;
+const BadgeWrapper = styled.div`
+  display: inline-flex;
   align-items: center;
   gap: ${size.xxs};
+  vertical-align: middle;
 `;

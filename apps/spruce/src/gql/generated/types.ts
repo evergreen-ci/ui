@@ -468,9 +468,14 @@ export type BootstrapSettingsInput = {
 
 export type BucketConfig = {
   __typename?: "BucketConfig";
+  expirationDays?: Maybe<Scalars["Int"]["output"]>;
+  lifecycleLastSyncedAt?: Maybe<Scalars["Time"]["output"]>;
+  lifecycleSyncError?: Maybe<Scalars["String"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
   roleARN?: Maybe<Scalars["String"]["output"]>;
   testResultsPrefix?: Maybe<Scalars["String"]["output"]>;
+  transitionToGlacierDays?: Maybe<Scalars["Int"]["output"]>;
+  transitionToIADays?: Maybe<Scalars["Int"]["output"]>;
   type?: Maybe<Scalars["String"]["output"]>;
 };
 
@@ -489,6 +494,7 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
+  retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
@@ -501,6 +507,7 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
@@ -4813,13 +4820,13 @@ export type UserPatchesArgs = {
 
 /**
  * UserConfig is returned by the userConfig query.
- * It contains configuration information such as the user's api key for the Evergreen CLI and a user's
- * preferred UI (legacy vs Spruce).
+ * It contains configuration information for the Evergreen CLI.
  */
 export type UserConfig = {
   __typename?: "UserConfig";
   api_key: Scalars["String"]["output"];
   api_server_host: Scalars["String"]["output"];
+  corp_api_server_host: Scalars["String"]["output"];
   oauth_client_id: Scalars["String"]["output"];
   oauth_connector_id: Scalars["String"]["output"];
   oauth_issuer: Scalars["String"]["output"];
@@ -4995,6 +5002,7 @@ export type VersionTasksArgs = {
 export type VersionLite = {
   __typename?: "VersionLite";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
+  baseVersion?: Maybe<VersionLite>;
   branch: Scalars["String"]["output"];
   childVersions?: Maybe<Array<VersionLite>>;
   cost?: Maybe<Cost>;
@@ -5423,8 +5431,8 @@ export type PatchesPagePatchesFragment = {
       displayName?: string | null;
       userId: string;
     };
-    versionFull?: {
-      __typename?: "Version";
+    version?: {
+      __typename?: "VersionLite";
       id: string;
       requester: string;
       status: string;
@@ -7046,17 +7054,6 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
-export type ResetUserApiKeyMutationVariables = Exact<{ [key: string]: never }>;
-
-export type ResetUserApiKeyMutation = {
-  __typename?: "Mutation";
-  resetAPIKey?: {
-    __typename?: "UserConfig";
-    api_key: string;
-    user: string;
-  } | null;
-};
-
 export type RestartAdminTasksMutationVariables = Exact<{
   opts: RestartAdminTasksOptions;
 }>;
@@ -7317,10 +7314,10 @@ export type SchedulePatchMutation = {
     alias?: string | null;
     description: string;
     status: string;
-    versionFull?: {
-      __typename?: "Version";
+    version?: {
+      __typename?: "VersionLite";
       id: string;
-      childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
+      childVersions?: Array<{ __typename?: "VersionLite"; id: string }> | null;
     } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     projectMetadata?: { __typename?: "Project"; id: string } | null;
@@ -7730,7 +7727,7 @@ export type AdminSettingsQuery = {
     buckets?: {
       __typename?: "BucketsConfig";
       longRetentionProjects?: Array<string> | null;
-      retryFailedLogMoveLookbackMonths?: number | null;
+      retryFailedLogMoveLookbackDays?: number | null;
       retryFailedLogMoveMaxJobsPerRun?: number | null;
       credentials?: {
         __typename?: "S3Credentials";
@@ -7739,17 +7736,32 @@ export type AdminSettingsQuery = {
       } | null;
       logBucket?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
         roleARN?: string | null;
         testResultsPrefix?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       logBucketFailedTasks?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       logBucketLongRetention?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";
@@ -9249,7 +9261,7 @@ export type ConfigurePatchQuery = {
       identifier: string;
     } | null;
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: {
       __typename?: "UserLite";
@@ -9284,7 +9296,7 @@ export type PatchQuery = {
       id: string;
       identifier: string;
     } | null;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: {
       __typename?: "UserLite";
@@ -9817,8 +9829,8 @@ export type ProjectPatchesQuery = {
           displayName?: string | null;
           userId: string;
         };
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           requester: string;
           status: string;
@@ -10908,7 +10920,6 @@ export type SpruceConfigQuery = {
     serviceFlags: {
       __typename?: "UserServiceFlags";
       debugSpawnHostDisabled?: boolean | null;
-      jwtTokenForCLIDisabled?: boolean | null;
     };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
@@ -11719,8 +11730,8 @@ export type UserConfigQuery = {
   __typename?: "Query";
   userConfig?: {
     __typename?: "UserConfig";
-    api_key: string;
     api_server_host: string;
+    corp_api_server_host: string;
     oauth_client_id: string;
     oauth_connector_id: string;
     oauth_issuer: string;
@@ -11787,8 +11798,8 @@ export type UserPatchesQuery = {
           displayName?: string | null;
           userId: string;
         };
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           requester: string;
           status: string;
@@ -12155,11 +12166,11 @@ export type VersionQuery = {
           id: string;
           identifier: string;
         } | null;
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           status: string;
-          baseVersion?: { __typename?: "Version"; id: string } | null;
+          baseVersion?: { __typename?: "VersionLite"; id: string } | null;
         } | null;
       }> | null;
       cost?: {

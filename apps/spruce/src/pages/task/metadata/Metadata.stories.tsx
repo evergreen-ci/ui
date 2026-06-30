@@ -154,6 +154,26 @@ const taskOwnerTeamMock: ApolloMock<
     },
   },
 };
+
+export const WithRunningETA: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          displayStatus: TaskStatus.Started,
+          ingestTime: new Date("2020-09-30T19:16:00.000Z"),
+          activatedTime: new Date("2020-09-30T19:16:30.000Z"),
+          startTime: new Date(),
+          finishTime: null,
+          expectedDuration: 5 * 60 * 1000,
+        }}
+      />
+    </Container>
+  ),
+};
+
 export const WithTimeline: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
