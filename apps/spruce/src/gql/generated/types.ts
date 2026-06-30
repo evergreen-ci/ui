@@ -4864,6 +4864,8 @@ export type UserLitePatchesArgs = {
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
   debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /**
