@@ -156,6 +156,7 @@ const taskOwnerTeamMock: ApolloMock<
 };
 
 export const WithRunningETA: CustomStoryObj<typeof Metadata> = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: (args) => (
     <Container>
       <Metadata

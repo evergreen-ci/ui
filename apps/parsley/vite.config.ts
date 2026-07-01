@@ -4,7 +4,6 @@ import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
-import envCompatible from "vite-plugin-env-compatible";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
@@ -12,7 +11,10 @@ import {
   generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
 } from "@evg-ui/vite-utils";
-import injectVariablesInHTML from "./config/injectVariablesInHTML";
+
+process.env.VITE_APP_VERSION = process.env.npm_package_version ?? "0.0.0";
+process.env.VITE_GIT_SHA = process.env.VITE_GIT_SHA ?? "unknown";
+process.env.VITE_PROFILE_HEAD = process.env.VITE_PROFILE_HEAD ?? "";
 
 const getProjectConfig = () => {
   const serverConfig = generateBaseHTTPSViteServerConfig({
@@ -20,7 +22,7 @@ const getProjectConfig = () => {
     appURL: process.env.VITE_PARSLEY_URL ?? "",
     httpsPort: 8444,
     useHTTPS:
-      process.env.REACT_APP_RELEASE_STAGE !== "local" &&
+      process.env.VITE_RELEASE_STAGE !== "local" &&
       process.env.NO_HTTPS !== "true",
   });
 
@@ -42,19 +44,6 @@ const getProjectConfig = () => {
         exclude: /\.stories\.tsx?$/,
         // Only Typescript files should use fast refresh.
         include: ["**/*.tsx", "**/*.ts"],
-      }),
-      envCompatible({
-        prefix: "REACT_APP_",
-      }),
-      injectVariablesInHTML({
-        files: "dist/index.html",
-        variables: [
-          "%REACT_APP_VERSION%",
-          "%GIT_SHA%",
-          "%REACT_APP_RELEASE_STAGE%",
-          "%NODE_ENV%",
-          "%PROFILE_HEAD%",
-        ],
       }),
       // Typescript checking
       checker({ typescript: true }),

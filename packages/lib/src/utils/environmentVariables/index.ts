@@ -19,7 +19,7 @@ export enum Environment {
  * `getReleaseStage()` - Get the release stage from the environment variables
  * @returns - Returns the production release environment
  */
-export const getReleaseStage = () => process.env.REACT_APP_RELEASE_STAGE || "";
+export const getReleaseStage = () => import.meta.env.VITE_RELEASE_STAGE || "";
 
 /**
  * `isLocal()` indicates if the current build is a local build.
@@ -52,20 +52,14 @@ export const isProduction = () => getReleaseStage() === ReleaseStage.Production;
  * @returns `true` if the current environment is a production build.
  */
 export const isProductionBuild = () =>
-  process.env.NODE_ENV === Environment.Production;
+  import.meta.env.MODE === Environment.Production;
 
 /**
  * `isDevelopmentBuild()` indicates if the current environment is a local development environment.
  * @returns `true` if the current environment is a local development environment.
  */
 export const isDevelopmentBuild = () =>
-  isLocal() || process.env.NODE_ENV === Environment.Development;
-
-/**
- * `isTest()` indicates if the current environment is a test environment.
- * @returns `true` if the current environment is a test environment.
- */
-export const isTest = () => process.env.NODE_ENV === Environment.Test;
+  isLocal() || import.meta.env.MODE === Environment.Development;
 
 /**
  * `isEndUserProduction()` targets the end-user environment, useful for feature flags.
@@ -114,7 +108,7 @@ export const getParsleyUrl = () => import.meta.env.VITE_PARSLEY_URL || "";
  * `getAppVersion()` - Get the app release version from the environment variables
  * @returns - Returns the release version.
  */
-export const getAppVersion = () => process.env.REACT_APP_VERSION || "";
+export const getAppVersion = () => import.meta.env.VITE_APP_VERSION || "";
 
 /**
  * `getHoneycombBaseURL()` - Get the base Honeycomb URL from the environment variables
@@ -142,7 +136,7 @@ export const getHoneycombEndpoint = () =>
  * @returns - Returns the user's staging key.
  */
 export const getUserStagingKey = (): string =>
-  process.env.REACT_APP_USER_KEY || "";
+  import.meta.env.VITE_USER_KEY || "";
 
 /**
  * `getLoginDomain()` - Get the login domain depending on the release stage

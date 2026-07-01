@@ -8,7 +8,6 @@ export {
   isProduction,
   isProductionBuild,
   isStaging,
-  isTest,
   getAppVersion,
   getHoneycombIngestKey,
   getHoneycombEndpoint,
