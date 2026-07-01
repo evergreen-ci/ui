@@ -548,10 +548,10 @@ const maximumHosts = {
   }),
 };
 
-const acceptableHostIdleTime = {
+const acceptableHostIdleTimeSeconds = {
   schema: {
     type: "number" as const,
-    title: "Acceptable Host Idle Time (ms)",
+    title: "Acceptable Host Idle Time (secs)",
     minimum: 0,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
@@ -663,7 +663,7 @@ export const allocation = {
     minimumHosts: minimumHosts.schema,
     maximumHosts: maximumHosts.schema,
     autoTuneMaximumHosts: autoTuneMaximumHosts.schema,
-    acceptableHostIdleTime: acceptableHostIdleTime.schema,
+    acceptableHostIdleTimeSeconds: acceptableHostIdleTimeSeconds.schema,
     futureHostFraction: futureHostFraction.schema,
   },
   uiSchema: (hasEC2Provider: boolean, hasStaticProvider: boolean) => ({
@@ -675,7 +675,8 @@ export const allocation = {
     minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
     maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
     autoTuneMaximumHosts: autoTuneMaximumHosts.uiSchema(hasEC2Provider),
-    acceptableHostIdleTime: acceptableHostIdleTime.uiSchema(hasEC2Provider),
+    acceptableHostIdleTimeSeconds:
+      acceptableHostIdleTimeSeconds.uiSchema(hasEC2Provider),
     futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
   }),
 };
