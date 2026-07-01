@@ -62,12 +62,6 @@ export const isDevelopmentBuild = () =>
   isLocal() || import.meta.env.MODE === Environment.Development;
 
 /**
- * `isTest()` indicates if the current environment is a test environment.
- * @returns `true` if the current environment is a test environment.
- */
-export const isTest = () => import.meta.env.MODE === Environment.Test;
-
-/**
  * `isEndUserProduction()` targets the end-user environment, useful for feature flags.
  * @returns `true` only on <app>.mongodb.com
  */
