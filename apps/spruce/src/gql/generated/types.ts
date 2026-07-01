@@ -1967,7 +1967,6 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
-  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -2516,6 +2515,7 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
+  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
   builds: Array<Build>;
@@ -7054,17 +7054,6 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
-export type ResetUserApiKeyMutationVariables = Exact<{ [key: string]: never }>;
-
-export type ResetUserApiKeyMutation = {
-  __typename?: "Mutation";
-  resetAPIKey?: {
-    __typename?: "UserConfig";
-    api_key: string;
-    user: string;
-  } | null;
-};
-
 export type RestartAdminTasksMutationVariables = Exact<{
   opts: RestartAdminTasksOptions;
 }>;
@@ -10944,7 +10933,6 @@ export type SpruceConfigQuery = {
     serviceFlags: {
       __typename?: "UserServiceFlags";
       debugSpawnHostDisabled?: boolean | null;
-      jwtTokenForCLIDisabled?: boolean | null;
     };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
@@ -11755,7 +11743,6 @@ export type UserConfigQuery = {
   __typename?: "Query";
   userConfig?: {
     __typename?: "UserConfig";
-    api_key: string;
     api_server_host: string;
     corp_api_server_host: string;
     oauth_client_id: string;
