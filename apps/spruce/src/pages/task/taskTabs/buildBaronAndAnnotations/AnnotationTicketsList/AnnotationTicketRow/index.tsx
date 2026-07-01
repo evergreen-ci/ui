@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAnnotationAnalytics } from "analytics";
 import { JiraTicket } from "gql/generated/types";
@@ -54,6 +54,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
       {summary && `: ${summary}`}
     </JiraSummaryLink>
   );
+
   return (
     <Container data-cy="annotation-ticket-row">
       {loading ? (
@@ -79,7 +80,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
               suggestion
             </StyledBadge>
           )}
-          <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
+          <BottomMetadataWrapper data-cy={`${issueKey}-metadata`}>
             {created && (
               <Disclaimer>
                 Created: {getDateCopy(created, { dateOnly: true })}
@@ -98,7 +99,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
             {assignedTeam && (
               <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>
             )}
-          </BottomMetaDataWrapper>
+          </BottomMetadataWrapper>
         </>
       )}
     </Container>
@@ -111,17 +112,17 @@ const Container = styled.div`
 const JiraSummaryLink = styled(StyledLink)`
   font-weight: bold;
   margin-right: ${size.s};
+  ${wordBreakCss};
 `;
 
 const StyledBadge = styled(Badge)`
   margin-right: ${size.s};
 `;
 
-const BottomMetaDataWrapper = styled.div`
+const BottomMetadataWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: ${size.s};
   margin-top: ${size.xs};
-  width: 80%;
 `;
 
 export default AnnotationTicketRow;

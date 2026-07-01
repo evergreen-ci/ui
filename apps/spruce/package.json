@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.1.138",
+  "version": "6.1.139",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,10 +9,10 @@
     "build:local": "env-cmd -e local pnpm build",
     "build:prod": "env-cmd -e production pnpm build",
     "build:staging": "env-cmd -e staging pnpm build",
-    "build": "GIT_SHA=`git rev-parse HEAD` REACT_APP_VERSION=$npm_package_version vite build",
-    "build:profiler:beta": "PROFILER=true PROFILE_HEAD=\"<script src=\"https://localhost:8097\"></script>\" pnpm build:beta",
-    "build:profiler:local": "PROFILER=true PROFILE_HEAD=\"<script src=\"https://localhost:8097\"></script>\" pnpm build:local",
-    "build:profiler:staging": "PROFILER=true PROFILE_HEAD=\"<script src=\"https://localhost:8097\"></script>\" pnpm build:staging",
+    "build": "VITE_GIT_SHA=`git rev-parse HEAD` VITE_APP_VERSION=$npm_package_version vite build",
+    "build:profiler:beta": "PROFILER=true VITE_PROFILE_HEAD='<script src=\"https://localhost:8097\"></script>' pnpm build:beta",
+    "build:profiler:local": "PROFILER=true VITE_PROFILE_HEAD='<script src=\"https://localhost:8097\"></script>' pnpm build:local",
+    "build:profiler:staging": "PROFILER=true VITE_PROFILE_HEAD='<script src=\"https://localhost:8097\"></script>' pnpm build:staging",
     "check-schema-and-codegen": "env-cmd -e local vite-node scripts/check-schema-and-codegen/script.ts",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf node_modules && rm -rf dist && pnpm install",
@@ -165,7 +165,6 @@
     "mutation-observer": "1.0.3",
     "path": "0.12.7",
     "prettier": "3.7.4",
-    "replace-in-file": "8.4.0",
     "rollup-plugin-visualizer": "7.0.1",
     "serve": "^14.2.5",
     "storybook": "^10.1.10",
@@ -175,7 +174,6 @@
     "vite": "8.0.13",
     "vite-node": "^5.3.0",
     "vite-plugin-checker": "0.12.0",
-    "vite-plugin-env-compatible": "2.0.1",
     "vitest": "^4.1.6",
     "vitest-canvas-mock": "1.1.3"
   },
