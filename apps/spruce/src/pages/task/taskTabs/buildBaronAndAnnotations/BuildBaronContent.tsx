@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   BuildBaron,
@@ -60,7 +59,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const canCreateTickets = bbData?.bbTicketCreationDefined;
 
   return (
-    <Wrapper data-cy="bb-content">
+    <div data-cy="build-baron-content">
       {canCreateTickets ? (
         <CustomCreatedTickets
           execution={execution}
@@ -104,10 +103,8 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
       {bbData?.searchReturnInfo?.issues.length > 0 && (
         <JiraIssueTable bbData={bbData} />
       )}
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div``;
 
 export default BuildBaronContent;

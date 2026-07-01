@@ -80,7 +80,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
               suggestion
             </StyledBadge>
           )}
-          <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
+          <BottomMetadataWrapper data-cy={`${issueKey}-metadata`}>
             {created && (
               <Disclaimer>
                 Created: {getDateCopy(created, { dateOnly: true })}
@@ -99,7 +99,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
             {assignedTeam && (
               <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>
             )}
-          </BottomMetaDataWrapper>
+          </BottomMetadataWrapper>
         </>
       )}
     </Container>
@@ -119,7 +119,7 @@ const StyledBadge = styled(Badge)`
   margin-right: ${size.s};
 `;
 
-const BottomMetaDataWrapper = styled.div`
+const BottomMetadataWrapper = styled.div`
   display: flex;
   gap: ${size.s};
   margin-top: ${size.xs};
