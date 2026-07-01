@@ -14,6 +14,7 @@ import {
   getReleaseStage,
   getSentryDSN,
   isDevelopmentBuild,
+  parsleyAIURL,
 } from "utils/environmentVariables";
 import App from "./App";
 import routes, { slugs } from "./constants/routes";
@@ -37,6 +38,7 @@ initializeHoneycomb({
   ingestKey: getHoneycombIngestKey(),
   routeConfig,
   serviceName: "parsley",
+  tracePropagationURLs: parsleyAIURL ? [toEscapedRegex(parsleyAIURL)] : [],
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
 

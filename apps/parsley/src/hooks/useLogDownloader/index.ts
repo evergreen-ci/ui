@@ -110,6 +110,12 @@ const useLogDownloader = ({
               title: "Log not fully downloaded",
             });
           }
+          sendEvent({
+            duration: Date.now() - timeStart,
+            "log.size": getFileSize(),
+            "log.type": logType,
+            name: "System Event log downloaded",
+          });
         })
         .catch((err: Error) => {
           leaveBreadcrumb(
@@ -142,12 +148,6 @@ const useLogDownloader = ({
             },
             SentryBreadcrumbTypes.HTTP,
           );
-          sendEvent({
-            duration: Date.now() - timeStart,
-            "log.size": getFileSize(),
-            "log.type": logType,
-            name: "System Event log downloaded",
-          });
           setIsLoading(false);
         });
     }
