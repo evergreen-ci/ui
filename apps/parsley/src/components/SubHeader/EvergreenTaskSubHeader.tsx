@@ -1,4 +1,5 @@
 import { skipToken, useQuery } from "@apollo/client/react";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { InlineCode } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
@@ -83,6 +84,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     displayName,
     displayStatus,
     execution: taskExecution,
+    executionPlatform,
     patchNumber,
     versionMetadata,
   } = taskData;
@@ -113,7 +115,15 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
       text: (
         <>
           {trimStringFromMiddle(displayName, 30)}{" "}
-          <TaskStatusBadge status={displayStatus as TaskStatus} />
+          <TaskStatusBadge status={displayStatus as TaskStatus} />{" "}
+          {executionPlatform === "container" && (
+            <Badge
+              data-cy="task-execution-platform-badge"
+              variant={Variant.Blue}
+            >
+              Container
+            </Badge>
+          )}
         </>
       ),
       tooltipText: displayName.length > 30 && displayName,
