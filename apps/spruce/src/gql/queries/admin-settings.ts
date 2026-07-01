@@ -328,6 +328,7 @@ export const ADMIN_SETTINGS = gql`
         stepbackTaskFactor
         targetTimeSeconds
         taskFinder
+        translateProjectConcurrencyLimit
       }
 
       shutdownWaitSeconds
