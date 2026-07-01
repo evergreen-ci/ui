@@ -1,0 +1,28 @@
+{
+  "name": "@pnpm/plugin-types-fixer",
+  "version": "0.1.0",
+  "description": "A hook for fixing TypeScript issues",
+  "files": [
+    "pnpmfile.cjs"
+  ],
+  "main": "index.js",
+  "keywords": [
+    "pnpm-config"
+  ],
+  "license": "MIT",
+  "funding": "https://opencollective.com/pnpm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pnpm/types-fixer.git"
+  },
+  "homepage": "https://github.com/pnpm/types-fixer#readme",
+  "bugs": {
+    "url": "https://github.com/pnpm/types-fixer/issues"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

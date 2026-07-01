@@ -34,8 +34,8 @@ type Action =
       "visibility.visibility_changes": number;
     }
   | {
-      // Fired on navigation away (or unmount) with the foreground time spent on
-      // that route. Route name is set explicitly to reflect the route left.
+      // Foreground time on a route, flushed on tab-hide, navigation, or unmount.
+      // A backgrounded-then-resumed visit emits one event per segment.
       name: "System Event route active";
       "visibility.duration_ms": number;
       "page.route_name": string;
@@ -185,8 +185,10 @@ export const usePageVisibilityAnalytics = ({
     };
   }, [enabled, sendEvent, minDurationMs]);
 
-  // Emit active (foreground) time per route on navigation away/unmount. Route
-  // name is set explicitly; the processor would otherwise stamp the new route.
+  // Flush foreground time for the current route when it is left. Emitting on
+  // "hidden" (not just on cleanup) captures tab close/refresh/bfcache, where
+  // React cleanup never runs. Route name is set explicitly because on navigation
+  // the span processor would otherwise stamp the destination route.
   useEffect(() => {
     if (!enabled || !pathname || !routeConfig) {
       return;
@@ -199,21 +201,10 @@ export const usePageVisibilityAnalytics = ({
     let resumeTime: number | null =
       document.visibilityState === "visible" ? Date.now() : null;
 
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        resumeTime = Date.now();
-      } else if (resumeTime !== null) {
-        activeMs += Date.now() - resumeTime;
-        resumeTime = null;
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    const emitActiveDuration = () => {
       if (resumeTime !== null) {
         activeMs += Date.now() - resumeTime;
+        resumeTime = null;
       }
       if (activeMs >= minDurationMs) {
         sendEvent({
@@ -221,7 +212,24 @@ export const usePageVisibilityAnalytics = ({
           "visibility.duration_ms": activeMs,
           "page.route_name": routeName,
         });
+        // Reset so a later flush can't double-count already-emitted time.
+        activeMs = 0;
       }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        resumeTime = Date.now();
+      } else {
+        emitActiveDuration();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      emitActiveDuration();
     };
   }, [enabled, pathname, routeConfig, sendEvent, minDurationMs]);
 
