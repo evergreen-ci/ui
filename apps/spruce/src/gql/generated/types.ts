@@ -3761,6 +3761,7 @@ export type SchedulerConfig = {
   stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   taskFinder?: Maybe<FinderVersion>;
+  translateProjectConcurrencyLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type SchedulerConfigInput = {
@@ -3782,6 +3783,7 @@ export type SchedulerConfigInput = {
   stepbackTaskFactor: Scalars["Int"]["input"];
   targetTimeSeconds: Scalars["Int"]["input"];
   taskFinder: FinderVersion;
+  translateProjectConcurrencyLimit: Scalars["Int"]["input"];
 };
 
 export type SearchReturnInfo = {
@@ -7208,6 +7210,7 @@ export type SaveAdminSettingsMutation = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectConcurrencyLimit?: number | null;
     } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
@@ -7984,6 +7987,7 @@ export type AdminSettingsQuery = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectConcurrencyLimit?: number | null;
     } | null;
     singleTaskDistro?: {
       __typename?: "SingleTaskDistroConfig";
