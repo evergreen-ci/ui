@@ -177,6 +177,19 @@ export const routes = {
   waterfall: `${paths.project}/:${slugs.projectIdentifier}/waterfall`,
 };
 
+// Route patterns augmented with optional tab/param segments so deep links resolve
+// to one route name. Shared so the span processor and analytics agree.
+export const observabilityRouteConfig = {
+  ...routes,
+  projectSettings: `${routes.projectSettings}/:${slugs.tab}?`,
+  image: `${routes.image}/:${slugs.tab}?`,
+  distroSettings: `${routes.distroSettings}/:${slugs.tab}?`,
+  preferences: `${routes.preferences}/:${slugs.tab}?`,
+  spawn: `${routes.spawn}/:${slugs.tab}?`,
+  jobLogs: `${routes.jobLogs}/:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`,
+  patchRedirect: redirectRoutes.patch,
+};
+
 export const getUserPatchesRoute = (userId: string): string =>
   `${paths.user}/${userId}/${PageNames.Patches}`;
 

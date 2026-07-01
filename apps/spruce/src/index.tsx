@@ -6,7 +6,7 @@ import {
   injectOpenTelemetryAttributeStoreIntoWindow,
 } from "@evg-ui/lib/utils/observability";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
-import { redirectRoutes, routes, slugs } from "constants/routes";
+import { observabilityRouteConfig } from "constants/routes";
 import {
   getAppVersion,
   getReleaseStage,
@@ -18,16 +18,6 @@ import {
 } from "utils/environmentVariables";
 import App from "./App";
 
-const routeConfig = {
-  ...routes,
-  projectSettings: `${routes.projectSettings}/:${slugs.tab}?`,
-  image: `${routes.image}/:${slugs.tab}?`,
-  distroSettings: `${routes.distroSettings}/:${slugs.tab}?`,
-  preferences: `${routes.preferences}/:${slugs.tab}?`,
-  spawn: `${routes.spawn}/:${slugs.tab}?`,
-  jobLogs: `${routes.jobLogs}/:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`,
-  patchRedirect: redirectRoutes.patch,
-};
 initializeErrorHandling({
   environment: getReleaseStage(),
   isProductionBuild: !isDevelopmentBuild(),
@@ -40,7 +30,7 @@ initializeHoneycomb({
   endpoint: getHoneycombEndpoint(),
   environment: getReleaseStage(),
   ingestKey: getHoneycombIngestKey(),
-  routeConfig,
+  routeConfig: observabilityRouteConfig,
   serviceName: "spruce",
 });
 injectOpenTelemetryAttributeStoreIntoWindow();

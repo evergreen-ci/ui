@@ -1,5 +1,10 @@
 import * as React from "react";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks";
 import { ErrorBoundary } from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
@@ -9,7 +14,7 @@ import { FileDiff } from "components/CodeChanges/FileDiff";
 import { PatchDiff } from "components/CodeChanges/PatchDiff";
 import { Content } from "components/Content";
 import { GlobalStyles } from "components/styles";
-import { routes } from "constants/routes";
+import { observabilityRouteConfig, routes } from "constants/routes";
 import ContextProviders from "context/Providers";
 import { HTMLLog } from "pages/task/logs/HTMLLog";
 import { TestHTMLLog } from "pages/task/logs/TestHTMLLog";
@@ -20,7 +25,11 @@ import {
 } from "utils/environmentVariables";
 
 const AppContents: React.FC = () => {
-  usePageVisibilityAnalytics();
+  const { pathname } = useLocation();
+  usePageVisibilityAnalytics({
+    pathname,
+    routeConfig: observabilityRouteConfig,
+  });
   return <Outlet />;
 };
 

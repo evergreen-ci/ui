@@ -33,6 +33,21 @@ describe("AttributeStore", () => {
     expect(provider.getGlobalAttributes()).toEqual({});
   });
 
+  // Guards a regression where falsy values (e.g. mainline version.is_patch=false)
+  // were never deleted and leaked onto every subsequent span/event.
+  test("should remove falsy global attributes", () => {
+    const key = "version.is_patch";
+    const falsyValues: AttributeValue[] = [false, 0, ""];
+
+    falsyValues.forEach((value) => {
+      provider.setGlobalAttribute(key, value);
+      provider.removeGlobalAttribute(key);
+
+      expect(provider.getGlobalAttribute(key)).toBeUndefined();
+      expect(provider.getGlobalAttributes()).toEqual({});
+    });
+  });
+
   test("should handle removing a non-existent global attribute gracefully", () => {
     const key = "nonExistentKey";
 

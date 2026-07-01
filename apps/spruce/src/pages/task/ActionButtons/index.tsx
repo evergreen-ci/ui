@@ -169,6 +169,12 @@ export const ActionButtons: React.FC<Props> = ({
             ],
           },
         });
+        taskAnalytics.sendEvent({
+          name:
+            initialPriority < 0
+              ? "Clicked enable task button"
+              : "Clicked disable task button",
+        });
       }}
       title={
         initialPriority < 0
@@ -188,7 +194,12 @@ export const ActionButtons: React.FC<Props> = ({
       key="override-dependencies"
       data-cy="override-dependencies"
       disabled={disabled || !canOverrideDependencies}
-      onClick={() => overrideTaskDependencies({ variables: { taskId } })}
+      onClick={() => {
+        overrideTaskDependencies({ variables: { taskId } });
+        taskAnalytics.sendEvent({
+          name: "Clicked override dependencies button",
+        });
+      }}
     >
       Override Dependencies
     </DropdownItem>,
