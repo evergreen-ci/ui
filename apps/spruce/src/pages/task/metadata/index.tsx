@@ -1,3 +1,4 @@
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
 import MetadataCard, {
@@ -50,6 +51,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     displayTask,
     distroId,
     execution,
+    executionPlatform,
     executionTasksFull,
     hostId,
     id: taskId,
@@ -96,6 +98,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
       {!isDisplayTask && (
         <MetadataCard title="Host Information">
+          {executionPlatform === "container" && (
+            <MetadataItem data-cy="task-metadata-execution-platform">
+              <Badge variant={Variant.Blue}>Container</Badge>
+            </MetadataItem>
+          )}
           {hostId && (
             <MetadataItem label="ID">
               <StyledLink
