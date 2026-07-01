@@ -8,7 +8,6 @@ import { Link, useParams } from "react-router-dom";
 import Icon, { AnimatedIcon, PrideLogo } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { useNavbarAnalytics } from "analytics";
 import { navBarHeight } from "components/styles/Layout";
 import { CURRENT_PROJECT } from "constants/cookies";
@@ -88,10 +87,7 @@ export const Navbar: React.FC = () => {
           My Patches
         </PrimaryLink>
         <PrimaryLink
-          onClick={() => {
-            sendEvent({ name: "Clicked my hosts link" });
-            reportError(new Error("This is a test error")).severe();
-          }}
+          onClick={() => sendEvent({ name: "Clicked my hosts link" })}
           to={routes.spawnHost}
         >
           My Hosts
