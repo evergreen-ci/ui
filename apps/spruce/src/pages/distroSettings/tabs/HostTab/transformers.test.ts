@@ -67,6 +67,11 @@ const form: HostFormState = {
     ],
     preconditionScripts: [],
   },
+  containerIsolation: {
+    enabled: false,
+    image: "",
+    requireIsolation: false,
+  },
   sshConfig: {
     user: "admin",
     execUser: "execUser",

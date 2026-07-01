@@ -47,6 +47,11 @@ export interface HostFormState {
       script: string;
     }>;
   };
+  containerIsolation: {
+    enabled: boolean;
+    image: string;
+    requireIsolation: boolean;
+  };
   sshConfig: {
     user: string;
     execUser: string;

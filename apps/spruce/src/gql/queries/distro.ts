@@ -11,6 +11,11 @@ export const DISTRO = gql`
       bootstrapSettings {
         clientDir
         communication
+        containerIsolation {
+          enabled
+          image
+          requireIsolation
+        }
         env {
           key
           value
