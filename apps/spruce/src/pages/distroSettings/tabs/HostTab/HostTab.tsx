@@ -33,7 +33,9 @@ export const HostTab: React.FC<TabProps> = ({
 
 const validate = ((formData, errors) => {
   const {
+    containerIsolation,
     setup: { bootstrapMethod, communicationMethod },
+    sshConfig,
   } = formData;
 
   // Ensure either Legacy SSH or non-legacy methods are used for both communication and bootstrapping.
@@ -45,6 +47,14 @@ const validate = ((formData, errors) => {
   ) {
     errors.setup.communicationMethod.addError(
       "Legacy and non-legacy bootstrapping and communication are incompatible.",
+    );
+  }
+
+  // Container isolation requires an exec user to scope between-task process
+  // cleanup inside the container's PID namespace.
+  if (containerIsolation?.enabled && !sshConfig?.execUser) {
+    errors.sshConfig.execUser.addError(
+      "Exec User is required when Container Isolation is enabled.",
     );
   }
 
