@@ -4128,6 +4128,12 @@ export type Task = {
   errors?: Maybe<Array<Scalars["String"]["output"]>>;
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
   execution: Scalars["Int"]["output"];
+  /**
+   * executionPlatform indicates the environment the task ran in: "host" for a
+   * task that ran directly on the host, or "container" for a task that ran
+   * inside a Docker container on the host.
+   */
+  executionPlatform: Scalars["String"]["output"];
   executionSteps?: Maybe<Array<TaskExecutionStep>>;
   executionTasks?: Maybe<Array<Scalars["String"]["output"]>>;
   executionTasksFull?: Maybe<Array<Task>>;
@@ -11406,6 +11412,7 @@ export type TaskQuery = {
     distroId: string;
     errors?: Array<string> | null;
     estimatedStart?: number | null;
+    executionPlatform: string;
     expectedDuration?: number | null;
     finishTime?: Date | null;
     generatedBy?: string | null;

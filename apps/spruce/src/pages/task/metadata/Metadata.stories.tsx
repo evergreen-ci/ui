@@ -28,6 +28,20 @@ export const Default: CustomStoryObj<typeof Metadata> = {
   ),
 };
 
+export const RanInContainer: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          executionPlatform: "container",
+        }}
+      />
+    </Container>
+  ),
+};
+
 export const WithDependencies: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
