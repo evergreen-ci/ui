@@ -257,7 +257,7 @@ export const rateLimitConfig = {
       "ui:data-cy": "elevated-users",
       "ui:fieldCss": nestedObjectGridCss,
       "ui:description":
-        "Users who are exempt from standard rate limiting and query complexity restrictions.",
+        "Users who receive 2x their baseline rate and query complexity limits.",
       elevatedUserIds: {
         "ui:widget": widgets.ChipInputWidget,
         "ui:fieldCss": fullWidthCss,
