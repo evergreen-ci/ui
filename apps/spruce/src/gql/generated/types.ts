@@ -1967,7 +1967,6 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
-  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -2516,6 +2515,7 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
+  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
   builds: Array<Build>;
