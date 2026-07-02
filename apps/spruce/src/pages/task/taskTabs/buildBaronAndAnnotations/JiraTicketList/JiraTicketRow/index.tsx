@@ -40,7 +40,7 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
         {status.name}
       </Badge>
 
-      <BottomMetaDataWrapper data-cy={`${jiraKey}-metadata`}>
+      <BottomMetadataWrapper data-cy={`${jiraKey}-metadata`}>
         <Disclaimer>
           Created: {getDateCopy(created, { dateOnly: true })}
         </Disclaimer>
@@ -52,7 +52,7 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
             ? `Assignee: ${assigneeDisplayName}`
             : "Unassigned"}
         </Disclaimer>
-      </BottomMetaDataWrapper>
+      </BottomMetadataWrapper>
     </Container>
   );
 };
@@ -60,7 +60,8 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
 const Container = styled.div`
   padding: ${size.xs};
 `;
-const BottomMetaDataWrapper = styled.div`
+
+const BottomMetadataWrapper = styled.div`
   margin-top: ${size.xs};
   display: flex;
   gap: ${size.s};

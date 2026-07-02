@@ -6,7 +6,7 @@ describe("test component", () => {
     const user = userEvent.setup();
     render(<TestComponent />);
     expect(screen.getByText("0")).toBeInTheDocument();
-    const button = screen.getByRole("button");
+    const button = screen.getByRole("button", { name: "Click me" });
     await user.click(button);
     expect(screen.getByText("1")).toBeInTheDocument();
   });

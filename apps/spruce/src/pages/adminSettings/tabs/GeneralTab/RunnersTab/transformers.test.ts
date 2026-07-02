@@ -38,6 +38,7 @@ const form: RunnersFormState = {
       maxExecTimeoutSecs: 1,
       maxTaskExecution: 1,
       maxDailyAutomaticRestarts: 1,
+      maxScheduledTasksPerDistro: 1,
     },
     hostInit: {
       hostThrottle: 1,
@@ -64,6 +65,7 @@ const form: RunnersFormState = {
       generateTaskFactor: 1,
       numDependentsFactor: 1,
       stepbackTaskFactor: 1,
+      translateProjectConcurrencyLimit: 1,
     },
     repotracker: {
       numNewRepoRevisionsToFetch: 1,
@@ -94,6 +96,7 @@ const gql: AdminSettingsInput = {
     maxExecTimeoutSecs: 1,
     maxTaskExecution: 1,
     maxDailyAutomaticRestarts: 1,
+    maxScheduledTasksPerDistro: 1,
   },
   hostInit: {
     hostThrottle: 1,
@@ -120,6 +123,7 @@ const gql: AdminSettingsInput = {
     generateTaskFactor: 1,
     numDependentsFactor: 1,
     stepbackTaskFactor: 1,
+    translateProjectConcurrencyLimit: 1,
   },
   repotracker: {
     numNewRepoRevisionsToFetch: 1,

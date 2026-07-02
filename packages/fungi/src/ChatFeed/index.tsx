@@ -24,7 +24,10 @@ export type ChatFeedProps = {
   onClickCopy?: MessageActionsProps["onClickCopy"];
   onClickSuggestion?: (suggestion: string) => void;
   onLinkClick?: (href: string) => void;
-  onSendMessage?: (message: string) => void;
+  onSendMessage?: (
+    message: string,
+    meta: { conversationId: string; messageIndex: number },
+  ) => void;
   transformMessage?: (
     message: string,
     transformers: {
@@ -48,7 +51,13 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
 }) => {
   const { appName, chips, clearChips, toggleChip } = useChatContext();
 
-  const { error, messages, sendMessage, status } = useChat<FungiUIMessage>({
+  const {
+    error,
+    id: conversationId,
+    messages,
+    sendMessage,
+    status,
+  } = useChat<FungiUIMessage>({
     transport: new DefaultChatTransport({
       api: apiUrl,
       credentials: "include",
@@ -65,7 +74,10 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   });
 
   const handleSend = (message: string) => {
-    onSendMessage?.(message);
+    onSendMessage?.(message, {
+      conversationId,
+      messageIndex: messages.length,
+    });
     const transformed = transformMessage
       ? transformMessage(message, { pendingChips: chips })
       : message;

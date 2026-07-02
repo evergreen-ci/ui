@@ -11,7 +11,7 @@ export const PATCH = gql`
         id
         identifier
       }
-      versionFull {
+      version {
         id
       }
     }

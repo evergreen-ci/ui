@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
+import { RouteConfig } from "../../utils/observability/ReactRouterSpanProcessor/types";
+import { calculateRouteName } from "../../utils/observability/ReactRouterSpanProcessor/utils";
 import { useAnalyticsRoot } from "./useAnalyticsRoot";
 
 // Event names must start with "System Event" prefix per ActionType constraint
@@ -30,18 +32,30 @@ type Action =
       "visibility.total_visible_ms": number;
       "visibility.total_hidden_ms": number;
       "visibility.visibility_changes": number;
+    }
+  | {
+      // Foreground time on a route, flushed on tab-hide, navigation, or unmount.
+      // A backgrounded-then-resumed visit emits one event per segment.
+      name: "System Event route active";
+      "visibility.duration_ms": number;
+      "page.route_name": string;
     };
 
 interface PageVisibilityAnalyticsOptions {
   attributes?: Record<string, string | number | boolean>;
   enabled?: boolean;
   minDurationMs?: number;
+  // Together enable per-route active-duration tracking.
+  pathname?: string;
+  routeConfig?: RouteConfig;
 }
 
 export const usePageVisibilityAnalytics = ({
   attributes,
   enabled = true,
   minDurationMs = 1000,
+  pathname,
+  routeConfig,
 }: PageVisibilityAnalyticsOptions = {}) => {
   // Memoize attributes to prevent sendEvent recreation on every render
   const stableAttributes = useMemo(
@@ -68,7 +82,7 @@ export const usePageVisibilityAnalytics = ({
     if (!enabled) return;
 
     const initSession = () => {
-      visibilityStartTime.current = Date.now();
+      visibilityStartTime.current = performance.now();
       lastVisibilityState.current = document.visibilityState;
       sessionStarted.current = true;
       sendEvent({
@@ -86,7 +100,7 @@ export const usePageVisibilityAnalytics = ({
       if (sessionEnded.current) return;
       sessionEnded.current = true;
 
-      const finalDuration = Date.now() - visibilityStartTime.current;
+      const finalDuration = performance.now() - visibilityStartTime.current;
 
       if (lastVisibilityState.current === "visible") {
         totalVisibleTime.current += finalDuration;
@@ -123,7 +137,7 @@ export const usePageVisibilityAnalytics = ({
         return;
       }
 
-      const currentTime = Date.now();
+      const currentTime = performance.now();
       const duration = currentTime - visibilityStartTime.current;
 
       // Always accumulate time, even for short durations
@@ -170,6 +184,54 @@ export const usePageVisibilityAnalytics = ({
       sendSessionEnded();
     };
   }, [enabled, sendEvent, minDurationMs]);
+
+  // Flush foreground time for the current route when it is left. Emitting on
+  // "hidden" (not just on cleanup) captures tab close/refresh/bfcache, where
+  // React cleanup never runs. Route name is set explicitly because on navigation
+  // the span processor would otherwise stamp the destination route.
+  useEffect(() => {
+    if (!enabled || !pathname || !routeConfig) {
+      return;
+    }
+
+    const routeName =
+      calculateRouteName(pathname, routeConfig)?.name ?? pathname;
+
+    let activeMs = 0;
+    let resumeTime: number | null =
+      document.visibilityState === "visible" ? performance.now() : null;
+
+    const emitActiveDuration = () => {
+      if (resumeTime !== null) {
+        activeMs += performance.now() - resumeTime;
+        resumeTime = null;
+      }
+      if (activeMs >= minDurationMs) {
+        sendEvent({
+          name: "System Event route active",
+          "visibility.duration_ms": activeMs,
+          "page.route_name": routeName,
+        });
+        // Reset so a later flush can't double-count already-emitted time.
+        activeMs = 0;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        resumeTime = performance.now();
+      } else {
+        emitActiveDuration();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      emitActiveDuration();
+    };
+  }, [enabled, pathname, routeConfig, sendEvent, minDurationMs]);
 
   return {
     isVisible: document.visibilityState === "visible",

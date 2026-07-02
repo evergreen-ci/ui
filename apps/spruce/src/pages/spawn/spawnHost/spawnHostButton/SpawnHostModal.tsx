@@ -151,12 +151,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     });
   };
 
-  // If the user is trying to load data onto the host at startup,
-  // jwtTokenForCLIDisabled is false, and the user does not have a valid token,
-  // then we require the user to complete the authenticate spawn hosts flow.
   const requiresSpawnHostAuthentication =
     !!formState?.loadData?.loadDataOntoHostAtStartup &&
-    !formSchemaInput.jwtTokenForCLIDisabled &&
     tokenExchangeState !== TokenExchangeState.TokenValid;
 
   return (

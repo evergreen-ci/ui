@@ -14,9 +14,9 @@ export const BASE_PATCH = gql`
       id
     }
     status
-    user {
+    user: userLite {
       displayName
-      userId
+      userId: id
     }
     variantsTasks {
       name

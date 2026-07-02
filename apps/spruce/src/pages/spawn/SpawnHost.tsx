@@ -32,7 +32,7 @@ export const SpawnHost = () => {
 
   usePageTitle("My Hosts");
 
-  if (loading) {
+  if (loading && !data) {
     return <SpawnPageSkeleton />;
   }
   const hosts = data?.myHosts || [];

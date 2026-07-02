@@ -29,9 +29,9 @@ functions:
           - VITE_SPRUCE_SENTRY_DSN
           - PARSLEY_SENTRY_AUTH_TOKEN
           - SPRUCE_SENTRY_AUTH_TOKEN
-          - REACT_APP_SPRUCE_URL
-          - REACT_APP_EVERGREEN_URL
-          - REACT_APP_USER_KEY
+          - VITE_SPRUCE_URL
+          - VITE_EVERGREEN_URL
+          - VITE_USER_KEY
         env:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
@@ -45,7 +45,7 @@ functions:
             # Add PROFILER to env if profiler patch parameter is set to true.
             if [ "${profiler}" = "true" ]; then
                 echo "PROFILER is set to true, adding profiler to the build"
-                PROFILER=true PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" pnpm env-cmd --no-override -e "${target}" pnpm deploy-utils-build-and-push
+                PROFILER=true VITE_PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" pnpm env-cmd --no-override -e "${target}" pnpm deploy-utils-build-and-push
             else
                 pnpm env-cmd --no-override -e "${target}" pnpm deploy-utils-build-and-push
             fi
@@ -95,9 +95,9 @@ functions:
           - |
             if ! [ -z "${staging_user_key}" ]; then
               echo "BUCKET: spruce-${staging_user_key}" >> deploy-vars.yml
-              echo "REACT_APP_USER_KEY: ${staging_user_key}" >> deploy-vars.yml
-              echo "REACT_APP_SPRUCE_URL: https://spruce.${staging_user_key}.evergreen-staging.devprod.mongodb.com" >> deploy-vars.yml
-              echo "REACT_APP_EVERGREEN_URL: https://evergreen-multi.staging.corp.mongodb.com" >> deploy-vars.yml
+              echo "VITE_USER_KEY: ${staging_user_key}" >> deploy-vars.yml
+              echo "VITE_SPRUCE_URL: https://spruce.${staging_user_key}.evergreen-staging.devprod.mongodb.com" >> deploy-vars.yml
+              echo "VITE_EVERGREEN_URL: https://evergreen-multi.staging.corp.mongodb.com" >> deploy-vars.yml
               echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${staging_user_key}.ui_put" >> deploy-vars.yml
             else
               echo "Must include staging_user_key as a task parameter."

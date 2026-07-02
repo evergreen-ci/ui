@@ -28,7 +28,7 @@ export const getColumnsTemplate = ({
   baseStatusOptions?: TreeDataEntry[];
   isPatch?: boolean;
   loading?: boolean;
-  onClickTaskLink?: (taskId: string) => void;
+  onClickTaskLink?: (taskId: string, status?: string) => void;
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
 }): LGColumnDef<TaskTableInfo>[] => [
@@ -50,12 +50,12 @@ export const getColumnsTemplate = ({
     cell: ({
       getValue,
       row: {
-        original: { execution, id },
+        original: { displayStatus, execution, id },
       },
     }): React.JSX.Element => (
       <TaskLink
         execution={execution}
-        onClick={onClickTaskLink}
+        onClick={() => onClickTaskLink(id, displayStatus)}
         showTaskExecutionLabel={showTaskExecutionLabel}
         taskId={id}
         taskName={getValue() as string}

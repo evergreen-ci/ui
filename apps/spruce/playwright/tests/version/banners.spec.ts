@@ -23,10 +23,9 @@ test.describe("banners", () => {
       page,
     }) => {
       await page.getByTestId("configuration-errors-modal-trigger").click();
-      await expect(
-        page.getByTestId("configuration-errors-modal"),
-      ).toBeVisible();
-      await expect(page.locator("li")).toHaveCount(4);
+      const modal = page.getByTestId("configuration-errors-modal");
+      await expect(modal).toBeVisible();
+      await expect(modal.locator("li")).toHaveCount(4);
     });
   });
 
@@ -49,10 +48,9 @@ test.describe("banners", () => {
       page,
     }) => {
       await page.getByTestId("configuration-warnings-modal-trigger").click();
-      await expect(
-        page.getByTestId("configuration-warnings-modal"),
-      ).toBeVisible();
-      await expect(page.locator("li")).toHaveCount(3);
+      const modal = page.getByTestId("configuration-warnings-modal");
+      await expect(modal).toBeVisible();
+      await expect(modal.locator("li")).toHaveCount(3);
     });
   });
 

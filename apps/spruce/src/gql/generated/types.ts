@@ -468,9 +468,14 @@ export type BootstrapSettingsInput = {
 
 export type BucketConfig = {
   __typename?: "BucketConfig";
+  expirationDays?: Maybe<Scalars["Int"]["output"]>;
+  lifecycleLastSyncedAt?: Maybe<Scalars["Time"]["output"]>;
+  lifecycleSyncError?: Maybe<Scalars["String"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
   roleARN?: Maybe<Scalars["String"]["output"]>;
   testResultsPrefix?: Maybe<Scalars["String"]["output"]>;
+  transitionToGlacierDays?: Maybe<Scalars["Int"]["output"]>;
+  transitionToIADays?: Maybe<Scalars["Int"]["output"]>;
   type?: Maybe<Scalars["String"]["output"]>;
 };
 
@@ -489,6 +494,7 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
+  retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
@@ -501,6 +507,7 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
@@ -1968,7 +1975,6 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
-  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -2517,6 +2523,7 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
+  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
   builds: Array<Build>;
@@ -2542,8 +2549,6 @@ export type Patch = {
   /** Aggregated predicted cost for the patch's version. */
   predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
-  projectID: Scalars["String"]["output"];
-  projectIdentifier: Scalars["String"]["output"];
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
   taskCount?: Maybe<Scalars["Int"]["output"]>;
@@ -3107,7 +3112,6 @@ export type PromoteVarsToRepoInput = {
 export enum Provider {
   Docker = "DOCKER",
   Ec2Fleet = "EC2_FLEET",
-  Ec2OnDemand = "EC2_ON_DEMAND",
   Static = "STATIC",
 }
 
@@ -3765,6 +3769,7 @@ export type SchedulerConfig = {
   stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   taskFinder?: Maybe<FinderVersion>;
+  translateProjectConcurrencyLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type SchedulerConfigInput = {
@@ -3786,6 +3791,7 @@ export type SchedulerConfigInput = {
   stepbackTaskFactor: Scalars["Int"]["input"];
   targetTimeSeconds: Scalars["Int"]["input"];
   taskFinder: FinderVersion;
+  translateProjectConcurrencyLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type SearchReturnInfo = {
@@ -4172,8 +4178,6 @@ export type Task = {
   prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
-  projectId: Scalars["String"]["output"];
-  projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
   reviewed?: Maybe<Scalars["Boolean"]["output"]>;
@@ -4374,6 +4378,7 @@ export type TaskLimitsConfig = {
   maxIncludesPerVersion?: Maybe<Scalars["Int"]["output"]>;
   maxParserProjectSize?: Maybe<Scalars["Int"]["output"]>;
   maxPendingGeneratedTasks?: Maybe<Scalars["Int"]["output"]>;
+  maxScheduledTasksPerDistro?: Maybe<Scalars["Int"]["output"]>;
   maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
   maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
 };
@@ -4389,6 +4394,7 @@ export type TaskLimitsConfigInput = {
   maxIncludesPerVersion: Scalars["Int"]["input"];
   maxParserProjectSize: Scalars["Int"]["input"];
   maxPendingGeneratedTasks: Scalars["Int"]["input"];
+  maxScheduledTasksPerDistro: Scalars["Int"]["input"];
   maxTaskExecution: Scalars["Int"]["input"];
   maxTasksPerVersion: Scalars["Int"]["input"];
 };
@@ -4829,13 +4835,13 @@ export type UserPatchesArgs = {
 
 /**
  * UserConfig is returned by the userConfig query.
- * It contains configuration information such as the user's api key for the Evergreen CLI and a user's
- * preferred UI (legacy vs Spruce).
+ * It contains configuration information for the Evergreen CLI.
  */
 export type UserConfig = {
   __typename?: "UserConfig";
   api_key: Scalars["String"]["output"];
   api_server_host: Scalars["String"]["output"];
+  corp_api_server_host: Scalars["String"]["output"];
   oauth_client_id: Scalars["String"]["output"];
   oauth_connector_id: Scalars["String"]["output"];
   oauth_issuer: Scalars["String"]["output"];
@@ -4873,8 +4879,6 @@ export type UserLitePatchesArgs = {
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
   debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /**
@@ -4963,8 +4967,6 @@ export type Version = {
   patch?: Maybe<Patch>;
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
-  project: Scalars["String"]["output"];
-  projectIdentifier: Scalars["String"]["output"];
   projectMetadata?: Maybe<Project>;
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
@@ -5013,6 +5015,7 @@ export type VersionTasksArgs = {
 export type VersionLite = {
   __typename?: "VersionLite";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
+  baseVersion?: Maybe<VersionLite>;
   branch: Scalars["String"]["output"];
   childVersions?: Maybe<Array<VersionLite>>;
   cost?: Maybe<Cost>;
@@ -5321,7 +5324,11 @@ export type BasePatchFragment = {
   status: string;
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   projectMetadata?: { __typename?: "Project"; id: string } | null;
-  user: { __typename?: "User"; displayName?: string | null; userId: string };
+  user: {
+    __typename?: "UserLite";
+    displayName?: string | null;
+    userId: string;
+  };
   variantsTasks: Array<{
     __typename?: "VariantTask";
     name: string;
@@ -5432,9 +5439,13 @@ export type PatchesPagePatchesFragment = {
       owner: string;
       repo: string;
     } | null;
-    user: { __typename?: "User"; displayName?: string | null; userId: string };
-    versionFull?: {
-      __typename?: "Version";
+    user: {
+      __typename?: "UserLite";
+      displayName?: string | null;
+      userId: string;
+    };
+    version?: {
+      __typename?: "VersionLite";
       id: string;
       requester: string;
       status: string;
@@ -7056,17 +7067,6 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
-export type ResetUserApiKeyMutationVariables = Exact<{ [key: string]: never }>;
-
-export type ResetUserApiKeyMutation = {
-  __typename?: "Mutation";
-  resetAPIKey?: {
-    __typename?: "UserConfig";
-    api_key: string;
-    user: string;
-  } | null;
-};
-
 export type RestartAdminTasksMutationVariables = Exact<{
   opts: RestartAdminTasksOptions;
 }>;
@@ -7221,6 +7221,7 @@ export type SaveAdminSettingsMutation = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectConcurrencyLimit?: number | null;
     } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
@@ -7234,6 +7235,7 @@ export type SaveAdminSettingsMutation = {
       maxIncludesPerVersion?: number | null;
       maxParserProjectSize?: number | null;
       maxPendingGeneratedTasks?: number | null;
+      maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
@@ -7326,14 +7328,18 @@ export type SchedulePatchMutation = {
     alias?: string | null;
     description: string;
     status: string;
-    versionFull?: {
-      __typename?: "Version";
+    version?: {
+      __typename?: "VersionLite";
       id: string;
-      childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
+      childVersions?: Array<{ __typename?: "VersionLite"; id: string }> | null;
     } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     projectMetadata?: { __typename?: "Project"; id: string } | null;
-    user: { __typename?: "User"; displayName?: string | null; userId: string };
+    user: {
+      __typename?: "UserLite";
+      displayName?: string | null;
+      userId: string;
+    };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -7543,7 +7549,11 @@ export type UpdatePatchDescriptionMutation = {
     status: string;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     projectMetadata?: { __typename?: "Project"; id: string } | null;
-    user: { __typename?: "User"; displayName?: string | null; userId: string };
+    user: {
+      __typename?: "UserLite";
+      displayName?: string | null;
+      userId: string;
+    };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -7731,7 +7741,7 @@ export type AdminSettingsQuery = {
     buckets?: {
       __typename?: "BucketsConfig";
       longRetentionProjects?: Array<string> | null;
-      retryFailedLogMoveLookbackMonths?: number | null;
+      retryFailedLogMoveLookbackDays?: number | null;
       retryFailedLogMoveMaxJobsPerRun?: number | null;
       credentials?: {
         __typename?: "S3Credentials";
@@ -7740,17 +7750,32 @@ export type AdminSettingsQuery = {
       } | null;
       logBucket?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
         roleARN?: string | null;
         testResultsPrefix?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       logBucketFailedTasks?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       logBucketLongRetention?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";
@@ -7935,6 +7960,19 @@ export type AdminSettingsQuery = {
         apiVersion?: string | null;
       } | null;
     } | null;
+    rateLimit?: {
+      __typename?: "RateLimitConfig";
+      elevatedUserIds?: Array<string> | null;
+      graphqlComplexityLimit?: number | null;
+      graphqlServiceBurst?: number | null;
+      graphqlServicePerHour?: number | null;
+      graphqlUserBurst?: number | null;
+      graphqlUserPerHour?: number | null;
+      restServiceBurst?: number | null;
+      restServicePerHour?: number | null;
+      restUserBurst?: number | null;
+      restUserPerHour?: number | null;
+    } | null;
     releaseMode?: {
       __typename?: "ReleaseModeConfig";
       distroMaxHostsFactor?: number | null;
@@ -7973,6 +8011,7 @@ export type AdminSettingsQuery = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectConcurrencyLimit?: number | null;
     } | null;
     singleTaskDistro?: {
       __typename?: "SingleTaskDistroConfig";
@@ -8044,6 +8083,7 @@ export type AdminSettingsQuery = {
       maxIncludesPerVersion?: number | null;
       maxParserProjectSize?: number | null;
       maxPendingGeneratedTasks?: number | null;
+      maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
@@ -9031,7 +9071,7 @@ export type MainlineCommitsForHistoryQuery = {
           tag: string;
         }> | null;
         user: {
-          __typename?: "User";
+          __typename?: "UserLite";
           displayName?: string | null;
           userId: string;
         };
@@ -9061,7 +9101,7 @@ export type MainlineCommitsForHistoryQuery = {
           tag: string;
         }> | null;
         user: {
-          __typename?: "User";
+          __typename?: "UserLite";
           displayName?: string | null;
           userId: string;
         };
@@ -9249,9 +9289,13 @@ export type ConfigurePatchQuery = {
       identifier: string;
     } | null;
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
-    user: { __typename?: "User"; displayName?: string | null; userId: string };
+    user: {
+      __typename?: "UserLite";
+      displayName?: string | null;
+      userId: string;
+    };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -9280,9 +9324,13 @@ export type PatchQuery = {
       id: string;
       identifier: string;
     } | null;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
-    user: { __typename?: "User"; displayName?: string | null; userId: string };
+    user: {
+      __typename?: "UserLite";
+      displayName?: string | null;
+      userId: string;
+    };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -9805,12 +9853,12 @@ export type ProjectPatchesQuery = {
           repo: string;
         } | null;
         user: {
-          __typename?: "User";
+          __typename?: "UserLite";
           displayName?: string | null;
           userId: string;
         };
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           requester: string;
           status: string;
@@ -10900,7 +10948,6 @@ export type SpruceConfigQuery = {
     serviceFlags: {
       __typename?: "UserServiceFlags";
       debugSpawnHostDisabled?: boolean | null;
-      jwtTokenForCLIDisabled?: boolean | null;
     };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
@@ -11711,8 +11758,8 @@ export type UserConfigQuery = {
   __typename?: "Query";
   userConfig?: {
     __typename?: "UserConfig";
-    api_key: string;
     api_server_host: string;
+    corp_api_server_host: string;
     oauth_client_id: string;
     oauth_connector_id: string;
     oauth_issuer: string;
@@ -11728,7 +11775,7 @@ export type UserDistroSettingsPermissionsQueryVariables = Exact<{
 export type UserDistroSettingsPermissionsQuery = {
   __typename?: "Query";
   user: {
-    __typename?: "User";
+    __typename?: "UserLite";
     userId: string;
     permissions?: {
       __typename?: "Permissions";
@@ -11751,7 +11798,7 @@ export type UserPatchesQueryVariables = Exact<{
 export type UserPatchesQuery = {
   __typename?: "Query";
   user: {
-    __typename?: "User";
+    __typename?: "UserLite";
     displayName?: string | null;
     userId: string;
     patches?: {
@@ -11775,12 +11822,12 @@ export type UserPatchesQuery = {
           repo: string;
         } | null;
         user: {
-          __typename?: "User";
+          __typename?: "UserLite";
           displayName?: string | null;
           userId: string;
         };
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           requester: string;
           status: string;
@@ -11805,7 +11852,7 @@ export type UserProjectSettingsPermissionsQueryVariables = Exact<{
 export type UserProjectSettingsPermissionsQuery = {
   __typename?: "Query";
   user: {
-    __typename?: "User";
+    __typename?: "UserLite";
     userId: string;
     permissions?: {
       __typename?: "Permissions";
@@ -11826,7 +11873,7 @@ export type UserRepoSettingsPermissionsQueryVariables = Exact<{
 export type UserRepoSettingsPermissionsQuery = {
   __typename?: "Query";
   user: {
-    __typename?: "User";
+    __typename?: "UserLite";
     userId: string;
     permissions?: {
       __typename?: "Permissions";
@@ -11844,7 +11891,7 @@ export type UserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 export type UserSettingsQuery = {
   __typename?: "Query";
   user: {
-    __typename?: "User";
+    __typename?: "UserLite";
     userId: string;
     settings?: {
       __typename?: "UserSettings";
@@ -11875,7 +11922,7 @@ export type UserSubscriptionsQueryVariables = Exact<{ [key: string]: never }>;
 export type UserSubscriptionsQuery = {
   __typename?: "Query";
   user: {
-    __typename?: "User";
+    __typename?: "UserLite";
     userId: string;
     settings?: {
       __typename?: "UserSettings";
@@ -11920,7 +11967,7 @@ export type UserTokenExchangeQueryVariables = Exact<{ [key: string]: never }>;
 export type UserTokenExchangeQuery = {
   __typename?: "Query";
   user: {
-    __typename?: "User";
+    __typename?: "UserLite";
     hasTokenExchangePending: boolean;
     tokenAccessTokenExpiresAt?: Date | null;
     userId: string;
@@ -11932,7 +11979,7 @@ export type UserQueryVariables = Exact<{ [key: string]: never }>;
 export type UserQuery = {
   __typename?: "Query";
   user: {
-    __typename?: "User";
+    __typename?: "UserLite";
     displayName?: string | null;
     emailAddress?: string | null;
     userId: string;
@@ -12148,11 +12195,11 @@ export type VersionQuery = {
           id: string;
           identifier: string;
         } | null;
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           status: string;
-          baseVersion?: { __typename?: "Version"; id: string } | null;
+          baseVersion?: { __typename?: "VersionLite"; id: string } | null;
         } | null;
       }> | null;
       cost?: {
@@ -12184,7 +12231,11 @@ export type VersionQuery = {
       owner: string;
       repo: string;
     } | null;
-    user: { __typename?: "User"; displayName?: string | null; userId: string };
+    user: {
+      __typename?: "UserLite";
+      displayName?: string | null;
+      userId: string;
+    };
     versionTiming?: {
       __typename?: "VersionTiming";
       makespan?: number | null;
@@ -12265,7 +12316,7 @@ export type WaterfallQuery = {
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
       user: {
-        __typename?: "User";
+        __typename?: "UserLite";
         displayName?: string | null;
         userId: string;
       };

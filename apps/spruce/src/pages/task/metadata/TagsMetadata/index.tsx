@@ -26,7 +26,7 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
   return (
     <MetadataCard>
       {hasTags && (
-        <>
+        <div>
           <MetadataCardTitle weight="medium">Tags</MetadataCardTitle>
           <Divider />
           <TagsContainer>
@@ -40,11 +40,11 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
               />
             ))}
           </TagsContainer>
-        </>
+        </div>
       )}
 
       {hasFailureMetadataTags && (
-        <>
+        <div>
           <MetadataCardTitle weight="medium">
             Failure Metadata Tags
           </MetadataCardTitle>
@@ -60,7 +60,7 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
               />
             ))}
           </TagsContainer>
-        </>
+        </div>
       )}
     </MetadataCard>
   );
@@ -70,7 +70,6 @@ const TagsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: ${size.xs};
-  margin-bottom: ${size.xs};
 `;
 
 export default TagsMetadata;

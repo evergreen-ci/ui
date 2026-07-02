@@ -63,7 +63,7 @@ export const VERSION = gql`
             identifier
           }
           status
-          versionFull {
+          version {
             id
             baseVersion {
               id
@@ -104,9 +104,9 @@ export const VERSION = gql`
       taskCount(
         options: { includeNeverActivatedTasks: $includeNeverActivatedTasks }
       )
-      user {
+      user: userLite {
         displayName
-        userId
+        userId: id
       }
       versionTiming {
         makespan

@@ -18,7 +18,7 @@ const userMock: ApolloMock<UserQuery, UserQueryVariables> = {
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         displayName: "Mohamed Khelif",
         emailAddress: "mohamed.khelif@mongodb.com",
         userId: "mohamed.khelif",
@@ -48,7 +48,6 @@ const spruceConfigMock: ApolloMock<
         serviceFlags: {
           __typename: "UserServiceFlags",
           debugSpawnHostDisabled: false,
-          jwtTokenForCLIDisabled: false,
         },
         slack: null,
         spawnHost: {

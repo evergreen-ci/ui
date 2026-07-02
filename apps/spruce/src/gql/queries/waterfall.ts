@@ -15,9 +15,9 @@ export const WATERFALL = gql`
         order
         requester
         revision
-        user {
+        user: userLite {
           displayName
-          userId
+          userId: id
         }
         waterfallBuilds {
           id

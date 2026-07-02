@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
@@ -39,6 +39,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     QueryParams.ShareLine,
     undefined,
   );
+  const [queryParams] = useQueryParams();
   const performedScroll = useRef(false);
 
   const {
@@ -85,6 +86,21 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
           name: "Viewed log with sections and jump to failing line",
           "settings.jump_to_failing_line.enabled": jumpToFailingLineEnabled,
           "settings.sections.enabled": sectionsEnabled,
+        });
+        // ShareLine is only set by the share-link action, so it marks an inbound share.
+        const isSharedLink = queryParams[QueryParams.ShareLine] !== undefined;
+        const hasFilters = queryParams[QueryParams.Filters] !== undefined;
+        const hasHighlights = queryParams[QueryParams.Highlights] !== undefined;
+        const hasBookmarks = queryParams[QueryParams.Bookmarks] !== undefined;
+        const hasSelectedLineRange =
+          queryParams[QueryParams.SelectedLineRange] !== undefined;
+        sendEvent({
+          name: "System Event opened log view",
+          "share.has_bookmarks": hasBookmarks,
+          "share.has_filters": hasFilters,
+          "share.has_highlights": hasHighlights,
+          "share.has_selected_line_range": hasSelectedLineRange,
+          "share.is_shared_link": isSharedLink,
         });
       }, 100);
       return () => clearTimeout(timeoutId);

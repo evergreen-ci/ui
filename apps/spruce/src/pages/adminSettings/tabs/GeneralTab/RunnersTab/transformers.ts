@@ -26,6 +26,7 @@ export const gqlToForm = ((data) => {
     maxIncludesPerVersion,
     maxParserProjectSize,
     maxPendingGeneratedTasks,
+    maxScheduledTasksPerDistro,
     maxTaskExecution,
     maxTasksPerVersion,
   } = taskLimits ?? {};
@@ -56,6 +57,7 @@ export const gqlToForm = ((data) => {
     stepbackTaskFactor,
     targetTimeSeconds,
     taskFinder,
+    translateProjectConcurrencyLimit,
   } = scheduler ?? {};
 
   const {
@@ -84,6 +86,7 @@ export const gqlToForm = ((data) => {
         maxExecTimeoutSecs: maxExecTimeoutSecs ?? 0,
         maxTaskExecution: maxTaskExecution ?? 0,
         maxDailyAutomaticRestarts: maxDailyAutomaticRestarts ?? 0,
+        maxScheduledTasksPerDistro: maxScheduledTasksPerDistro ?? 0,
       },
       hostInit: {
         hostThrottle: hostThrottle ?? 0,
@@ -113,6 +116,7 @@ export const gqlToForm = ((data) => {
         generateTaskFactor: generateTaskFactor ?? 0,
         numDependentsFactor: numDependentsFactor ?? 0,
         stepbackTaskFactor: stepbackTaskFactor ?? 0,
+        translateProjectConcurrencyLimit: translateProjectConcurrencyLimit ?? 0,
       },
       repotracker: {
         numNewRepoRevisionsToFetch: numNewRepoRevisionsToFetch ?? 0,

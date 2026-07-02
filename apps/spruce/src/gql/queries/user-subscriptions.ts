@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const USER_SUBSCRIPTIONS = gql`
   query UserSubscriptions {
-    user {
+    user: userLite {
       settings {
         notifications {
           buildBreakId
@@ -35,7 +35,7 @@ export const USER_SUBSCRIPTIONS = gql`
         trigger
         triggerData
       }
-      userId
+      userId: id
     }
   }
 `;

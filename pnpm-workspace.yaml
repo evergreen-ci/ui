@@ -1,6 +1,9 @@
 packages:
   - apps/*
   - packages/*
+# Supply-chain cooldown: wait 3 days (value is in minutes) after a version is
+# published before installing it, so compromised releases can be caught/yanked first.
+minimumReleaseAge: 4320
 allowBuilds:
   '@sentry/cli': false
   core-js-pure: false

@@ -23,14 +23,6 @@ test.describe("user preferences pages", () => {
     );
   });
 
-  test("should be able to reset Evergreen API key", async ({ page }) => {
-    const defaultApiKey = "abb623665fdbf368a1db980dde6ee0f0";
-    await page.goto(`${baseRoute}/cli`);
-    await expect(page.getByText(defaultApiKey)).toBeVisible();
-    await page.getByRole("button", { name: "Reset key" }).click();
-    await expect(page.getByText(defaultApiKey)).toHaveCount(0);
-  });
-
   test("disabling task review should hide review button on a task page", async ({
     page,
   }) => {

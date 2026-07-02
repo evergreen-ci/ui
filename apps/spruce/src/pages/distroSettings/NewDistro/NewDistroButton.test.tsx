@@ -34,7 +34,7 @@ describe("new distro button", () => {
       result: {
         data: {
           user: {
-            __typename: "User",
+            __typename: "UserLite",
             userId: "string",
             permissions: {
               __typename: "Permissions",
@@ -132,7 +132,7 @@ const hasPermissionsMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "string",
         permissions: {
           __typename: "Permissions",

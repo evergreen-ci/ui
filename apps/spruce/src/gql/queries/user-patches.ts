@@ -3,12 +3,12 @@ import { PATCHES_PAGE_PATCHES } from "../fragments/patchesPage";
 
 export const USER_PATCHES = gql`
   query UserPatches($userId: String, $patchesInput: PatchesInput!) {
-    user(userId: $userId) {
+    user: userLite(userId: $userId) {
       displayName
       patches(patchesInput: $patchesInput) {
         ...PatchesPagePatches
       }
-      userId
+      userId: id
     }
   }
   ${PATCHES_PAGE_PATCHES}
