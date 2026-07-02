@@ -7,7 +7,7 @@
     "build": "tsc -b && vite build",
     "build:local": "env-cmd -e local pnpm build",
     "check-types": "tsc -p tsconfig.json --noEmit",
-    "dev": "vite",
+    "dev": "env-cmd -e devLocal pnpm vite",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint --concurrency=auto",
     "eslint:strict": "STRICT=1 eslint --concurrency=auto .",
