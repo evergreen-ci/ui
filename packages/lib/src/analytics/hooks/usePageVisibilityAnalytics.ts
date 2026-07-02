@@ -82,7 +82,7 @@ export const usePageVisibilityAnalytics = ({
     if (!enabled) return;
 
     const initSession = () => {
-      visibilityStartTime.current = Date.now();
+      visibilityStartTime.current = performance.now();
       lastVisibilityState.current = document.visibilityState;
       sessionStarted.current = true;
       sendEvent({
@@ -100,7 +100,7 @@ export const usePageVisibilityAnalytics = ({
       if (sessionEnded.current) return;
       sessionEnded.current = true;
 
-      const finalDuration = Date.now() - visibilityStartTime.current;
+      const finalDuration = performance.now() - visibilityStartTime.current;
 
       if (lastVisibilityState.current === "visible") {
         totalVisibleTime.current += finalDuration;
@@ -137,7 +137,7 @@ export const usePageVisibilityAnalytics = ({
         return;
       }
 
-      const currentTime = Date.now();
+      const currentTime = performance.now();
       const duration = currentTime - visibilityStartTime.current;
 
       // Always accumulate time, even for short durations
@@ -199,11 +199,11 @@ export const usePageVisibilityAnalytics = ({
 
     let activeMs = 0;
     let resumeTime: number | null =
-      document.visibilityState === "visible" ? Date.now() : null;
+      document.visibilityState === "visible" ? performance.now() : null;
 
     const emitActiveDuration = () => {
       if (resumeTime !== null) {
-        activeMs += Date.now() - resumeTime;
+        activeMs += performance.now() - resumeTime;
         resumeTime = null;
       }
       if (activeMs >= minDurationMs) {
@@ -219,7 +219,7 @@ export const usePageVisibilityAnalytics = ({
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        resumeTime = Date.now();
+        resumeTime = performance.now();
       } else {
         emitActiveDuration();
       }

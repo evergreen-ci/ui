@@ -55,9 +55,8 @@ export const getColumnsTemplate = ({
     }): React.JSX.Element => (
       <TaskLink
         execution={execution}
-        onClick={onClickTaskLink}
+        onClick={() => onClickTaskLink(id, displayStatus)}
         showTaskExecutionLabel={showTaskExecutionLabel}
-        status={displayStatus}
         taskId={id}
         taskName={getValue() as string}
       />

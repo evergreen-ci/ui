@@ -436,7 +436,7 @@ describe("usePageVisibilityAnalytics", () => {
       expect.objectContaining({
         name: "System Event route active",
         "page.route_name": "home",
-        "visibility.duration_ms": expect.any(Number),
+        "visibility.duration_ms": 200,
       }),
     );
   });
@@ -463,7 +463,7 @@ describe("usePageVisibilityAnalytics", () => {
       expect.objectContaining({
         name: "System Event route active",
         "page.route_name": "home",
-        "visibility.duration_ms": expect.any(Number),
+        "visibility.duration_ms": 300,
       }),
     );
   });
