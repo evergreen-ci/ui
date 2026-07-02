@@ -3761,6 +3761,7 @@ export type SchedulerConfig = {
   stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   taskFinder?: Maybe<FinderVersion>;
+  translateProjectConcurrencyLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type SchedulerConfigInput = {
@@ -3782,6 +3783,7 @@ export type SchedulerConfigInput = {
   stepbackTaskFactor: Scalars["Int"]["input"];
   targetTimeSeconds: Scalars["Int"]["input"];
   taskFinder: FinderVersion;
+  translateProjectConcurrencyLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type SearchReturnInfo = {
@@ -4864,8 +4866,6 @@ export type UserLitePatchesArgs = {
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
   debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /**
