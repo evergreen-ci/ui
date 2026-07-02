@@ -291,6 +291,18 @@ export const ADMIN_SETTINGS = gql`
           apiVersion
         }
       }
+      rateLimit {
+        elevatedUserIds
+        graphqlComplexityLimit
+        graphqlServiceBurst
+        graphqlServicePerHour
+        graphqlUserBurst
+        graphqlUserPerHour
+        restServiceBurst
+        restServicePerHour
+        restUserBurst
+        restUserPerHour
+      }
       releaseMode {
         distroMaxHostsFactor
         idleTimeSecondsOverride

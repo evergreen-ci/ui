@@ -17,6 +17,32 @@ test.describe("web", () => {
       .getByLabel("HTTP Listen Address")
       .fill("http://example.com/api");
 
+    // Rate Limiting section.
+    const restLimits = page.getByTestId("rest-limits");
+    await restLimits.getByLabel("User Per Hour", { exact: true }).clear();
+    await restLimits.getByLabel("User Per Hour", { exact: true }).fill("1000");
+    await restLimits.getByLabel("User Burst", { exact: true }).clear();
+    await restLimits.getByLabel("User Burst", { exact: true }).fill("200");
+    await restLimits.getByLabel("Service User Per Hour").clear();
+    await restLimits.getByLabel("Service User Per Hour").fill("1000");
+    await restLimits.getByLabel("Service User Burst").clear();
+    await restLimits.getByLabel("Service User Burst").fill("200");
+    const gqlLimits = page.getByTestId("graphql-limits");
+    await gqlLimits.getByLabel("User Per Hour", { exact: true }).clear();
+    await gqlLimits.getByLabel("User Per Hour", { exact: true }).fill("1000");
+    await gqlLimits.getByLabel("User Burst", { exact: true }).clear();
+    await gqlLimits.getByLabel("User Burst", { exact: true }).fill("200");
+    await gqlLimits.getByLabel("Service User Per Hour").clear();
+    await gqlLimits.getByLabel("Service User Per Hour").fill("1000");
+    await gqlLimits.getByLabel("Service User Burst").clear();
+    await gqlLimits.getByLabel("Service User Burst").fill("200");
+    await page.getByLabel("Complexity Limit").clear();
+    await page.getByLabel("Complexity Limit").fill("500");
+    await page.getByTestId("elevated-user-ids").fill("user1");
+    await page.getByTestId("elevated-user-ids").press("Enter");
+    await page.getByTestId("elevated-user-ids").fill("user2");
+    await page.getByTestId("elevated-user-ids").press("Enter");
+
     // UI section.
     const uiSection = page.getByTestId("ui-settings");
     await uiSection.getByLabel("UIv2 URL").clear();

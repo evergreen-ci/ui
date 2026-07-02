@@ -38,6 +38,26 @@ const form: WebFormState = {
     disabledGQLQueries: {
       queryNames: ["query1", "query2"],
     },
+    rateLimitConfig: {
+      restLimits: {
+        restUserPerHour: 0,
+        restUserBurst: 0,
+        restServicePerHour: 0,
+        restServiceBurst: 0,
+      },
+      graphqlLimits: {
+        graphqlUserPerHour: 0,
+        graphqlUserBurst: 0,
+        graphqlServicePerHour: 0,
+        graphqlServiceBurst: 0,
+      },
+      graphqlComplexity: {
+        graphqlComplexityLimit: 0,
+      },
+      elevatedUsers: {
+        elevatedUserIds: [],
+      },
+    },
   },
 };
 
@@ -64,4 +84,16 @@ const gql: AdminSettingsInput = {
     betaFeatures: {},
   },
   disabledGQLQueries: ["query1", "query2"],
+  rateLimit: {
+    restUserPerHour: 0,
+    restUserBurst: 0,
+    restServicePerHour: 0,
+    restServiceBurst: 0,
+    graphqlUserPerHour: 0,
+    graphqlUserBurst: 0,
+    graphqlServicePerHour: 0,
+    graphqlServiceBurst: 0,
+    graphqlComplexityLimit: 0,
+    elevatedUserIds: [],
+  },
 };

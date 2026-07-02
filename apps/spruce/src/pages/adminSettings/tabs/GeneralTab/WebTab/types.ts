@@ -24,6 +24,26 @@ export interface WebFormState {
     disabledGQLQueries: {
       queryNames: string[];
     };
+    rateLimitConfig: {
+      restLimits: {
+        restUserPerHour: number;
+        restUserBurst: number;
+        restServicePerHour: number;
+        restServiceBurst: number;
+      };
+      graphqlLimits: {
+        graphqlUserPerHour: number;
+        graphqlUserBurst: number;
+        graphqlServicePerHour: number;
+        graphqlServiceBurst: number;
+      };
+      graphqlComplexity: {
+        graphqlComplexityLimit: number;
+      };
+      elevatedUsers: {
+        elevatedUserIds: string[];
+      };
+    };
   };
 }
 

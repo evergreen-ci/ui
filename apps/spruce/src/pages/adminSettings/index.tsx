@@ -120,6 +120,16 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
+                data-cy="navitem-admin-rate-limiting"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "api-rate-limit-config",
+                )}
+              >
+                Rate Limiting
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
                 data-cy="navitem-admin-ui"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,

@@ -7947,6 +7947,19 @@ export type AdminSettingsQuery = {
         apiVersion?: string | null;
       } | null;
     } | null;
+    rateLimit?: {
+      __typename?: "RateLimitConfig";
+      elevatedUserIds?: Array<string> | null;
+      graphqlComplexityLimit?: number | null;
+      graphqlServiceBurst?: number | null;
+      graphqlServicePerHour?: number | null;
+      graphqlUserBurst?: number | null;
+      graphqlUserPerHour?: number | null;
+      restServiceBurst?: number | null;
+      restServicePerHour?: number | null;
+      restUserBurst?: number | null;
+      restUserPerHour?: number | null;
+    } | null;
     releaseMode?: {
       __typename?: "ReleaseModeConfig";
       distroMaxHostsFactor?: number | null;
