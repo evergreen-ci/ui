@@ -2,7 +2,7 @@ import { test, expect } from "../../fixtures";
 
 test.describe("admin settings page", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/admin-settings");
+    await page.goto("/admin-settings/general");
   });
 
   test("can navigate to the admin settings page", async ({ page }) => {

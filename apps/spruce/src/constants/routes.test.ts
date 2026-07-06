@@ -9,6 +9,8 @@ import {
   getProjectPatchesRoute,
   getWaterfallRoute,
   getVersionDiffRoute,
+  getAdminSettingsRoute,
+  AdminSettingsTabRoutes,
 } from "./routes";
 
 const identifierWithSpecialCharacters = "!?identifier@";
@@ -249,5 +251,28 @@ describe("getVersionDiffRoute", () => {
     expect(getVersionDiffRoute("someVersionId", 0)).toBe(
       "/version/someVersionId/diff?patch_number=0",
     );
+  });
+});
+
+describe("getAdminSettingsRoute", () => {
+  it("defaults to the service flags tab when no tab is provided", () => {
+    expect(getAdminSettingsRoute()).toBe("/admin-settings/service-flags");
+  });
+  it("generates a route for the provided tab", () => {
+    expect(getAdminSettingsRoute(AdminSettingsTabRoutes.General)).toBe(
+      "/admin-settings/general",
+    );
+    expect(getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)).toBe(
+      "/admin-settings/event-log",
+    );
+  });
+  it("appends an anchor to the general tab", () => {
+    expect(
+      getAdminSettingsRoute(AdminSettingsTabRoutes.General, "announcements"),
+    ).toBe("/admin-settings/general#announcements");
+  });
+  // Intentionally failing for platform testing purposes (DEVPROD-41718).
+  it("defaults to the general tab when no tab is provided", () => {
+    expect(getAdminSettingsRoute()).toBe("/admin-settings/general");
   });
 });
