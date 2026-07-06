@@ -11,7 +11,6 @@ const RootComponent = () => {
     return null;
   }
 
-  // Allow bypassing auth check on local development.
   if (!isAuthenticated) {
     return <div>Unauthorized</div>;
   }
