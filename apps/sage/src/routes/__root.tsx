@@ -2,10 +2,10 @@ import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { ErrorBoundary } from "@evg-ui/lib/components/ErrorBoundary";
 import { ErrorFallback } from "@evg-ui/lib/components-via/ErrorFallback";
 import { NavBar } from "components/NavBar";
-import { useAuthContext } from "context/SageProvider";
+import { useSageContext } from "context/SageProvider";
 
 const RootComponent = () => {
-  const { hasCheckedAuth, isAuthenticated } = useAuthContext();
+  const { hasCheckedAuth, isAuthenticated } = useSageContext();
 
   if (!hasCheckedAuth) {
     return null;

@@ -1,6 +1,5 @@
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { SageClient } from "api/sageClient";
-import { SageProvider, useAuthContext, useSageClient } from ".";
+import { SageProvider, useSageContext } from ".";
 
 const mockGet = vi.fn();
 
@@ -19,56 +18,53 @@ describe("SageProvider", () => {
     vi.clearAllMocks();
   });
 
-  describe("useAuthContext", () => {
-    it("sets isAuthenticated true when /login returns ok", async () => {
-      mockGet.mockResolvedValue({ ok: true, data: {} });
-      const { result } = renderHook(useAuthContext, { wrapper });
-      await waitFor(() => {
-        expect(result.current.isAuthenticated).toBe(true);
-        expect(result.current.hasCheckedAuth).toBe(true);
-      });
-    });
-
-    it("sets isAuthenticated false when /login returns not ok", async () => {
-      mockGet.mockResolvedValue({ ok: false, type: "unauthenticated" });
-      const { result } = renderHook(useAuthContext, { wrapper });
-      await waitFor(() => {
-        expect(result.current.isAuthenticated).toBe(false);
-        expect(result.current.hasCheckedAuth).toBe(true);
-      });
-    });
-
-    it("calling logout sets isAuthenticated to false", async () => {
-      mockGet.mockResolvedValue({ ok: true, data: {} });
-      const { result } = renderHook(useAuthContext, { wrapper });
-      await waitFor(() => {
-        expect(result.current.isAuthenticated).toBe(true);
-      });
-      act(() => {
-        result.current.logout();
-      });
-      await waitFor(() => {
-        expect(result.current.isAuthenticated).toBe(false);
-      });
+  it("sets isAuthenticated true when /login returns ok", async () => {
+    mockGet.mockResolvedValue({ ok: true, data: {} });
+    const { result } = renderHook(useSageContext, { wrapper });
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.hasCheckedAuth).toBe(true);
+      expect(result.current.authError).toBeNull();
     });
   });
 
-  describe("useSageClient", () => {
-    it("provides a SageClient instance", async () => {
-      mockGet.mockResolvedValue({ ok: true, data: {} });
-      const { result } = renderHook(useSageClient, { wrapper });
-      await waitFor(() => {
-        expect(result.current).toBeDefined();
-        expect(result.current.get).toBeDefined();
-      });
+  it("sets isAuthenticated false and authError when /login returns not ok", async () => {
+    const error = { ok: false, type: "unauthenticated" };
+    mockGet.mockResolvedValue(error);
+    const { result } = renderHook(useSageContext, { wrapper });
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.hasCheckedAuth).toBe(true);
+      expect(result.current.authError).toStrictEqual(error);
     });
+  });
 
-    it("constructs the client with logout so a 401 updates auth state", async () => {
-      mockGet.mockResolvedValue({ ok: true, data: {} });
-      renderHook(useSageClient, { wrapper });
-      await waitFor(() => {
-        expect(SageClient).toHaveBeenCalledWith(expect.any(Function));
-      });
+  it("calling logout sets isAuthenticated to false", async () => {
+    mockGet.mockResolvedValue({ ok: true, data: {} });
+    const { result } = renderHook(useSageContext, { wrapper });
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(true);
     });
+    act(() => {
+      result.current.logout();
+    });
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(false);
+    });
+  });
+
+  it("provides a SageClient instance", async () => {
+    mockGet.mockResolvedValue({ ok: true, data: {} });
+    const { result } = renderHook(useSageContext, { wrapper });
+    await waitFor(() => {
+      expect(result.current.client).toBeDefined();
+      expect(result.current.client.get).toBeDefined();
+    });
+  });
+
+  it("throws when used outside SageProvider", () => {
+    expect(() => renderHook(useSageContext)).toThrow(
+      "useSageContext must be used within a SageProvider",
+    );
   });
 });

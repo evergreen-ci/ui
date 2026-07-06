@@ -13,90 +13,103 @@ export type ApiError =
 
 export type ApiResult<T> = ApiSuccess<T> | ApiError;
 
-const request = async <T>(
-  path: string,
-  options: RequestInit = {},
-  logout?: () => void,
-): Promise<ApiResult<T>> => {
-  const url = `${sageAPIURL}${path}`;
-
-  leaveBreadcrumb(
-    "sageRequest",
-    { url, method: options.method },
-    SentryBreadcrumbTypes.HTTP,
-  );
-
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      ...options,
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-      },
-    });
-
-    if (shouldLogoutAndRedirect(response.status)) {
-      leaveBreadcrumb(
-        "sageRequest: unauthenticated",
-        { status_code: response.status, url },
-        SentryBreadcrumbTypes.HTTP,
-      );
-      logout?.();
-      return { ok: false, type: "unauthenticated" };
-    }
-
-    if (!response.ok) {
-      // Attempt to extract a message from the response body; fall back to statusText.
-      let message = response.statusText;
-      try {
-        const body = await response.json();
-        if (body.message) {
-          message = body.message;
-        }
-      } catch {
-        // Don't throw an error, just use statusText as the message.
-      }
-
-      leaveBreadcrumb(
-        "sageRequest: error response",
-        { status_code: response.status, url },
-        SentryBreadcrumbTypes.HTTP,
-      );
-
-      if (response.status >= 500) {
-        return { ok: false, type: "server", status: response.status, message };
-      }
-      return { ok: false, type: "client", status: response.status, message };
-    }
-
-    const data = (await response.json()) as T;
-    return { ok: true, data };
-  } catch (err) {
-    const error = err as Error;
-    leaveBreadcrumb(
-      "sageRequest: network error",
-      { err: error, url },
-      SentryBreadcrumbTypes.Error,
-    );
-    reportError(error).severe();
-    return { ok: false, type: "network", message: error.message };
-  }
-};
+const DEFAULT_TIMEOUT_MS = 30_000;
 
 export class SageClient {
-  constructor(private readonly logout?: () => void) {}
+  private readonly baseURL: string;
 
-  get<T>(path: string) {
-    return request<T>(path, { method: "GET" }, this.logout);
+  constructor(
+    private readonly logout?: () => void,
+    baseURL: string = sageAPIURL,
+  ) {
+    this.baseURL = baseURL;
   }
 
-  post<T>(path: string, body: unknown) {
-    return request<T>(
-      path,
-      { method: "POST", body: JSON.stringify(body) },
-      this.logout,
+  get<T>(path: string) {
+    return this.request<T>(path, { method: "GET" });
+  }
+
+  post<T>(path: string, body: Record<string, unknown>) {
+    return this.request<T>(path, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  private async request<T>(
+    path: string,
+    options: RequestInit = {},
+  ): Promise<ApiResult<T>> {
+    const url = `${this.baseURL}${path}`;
+
+    leaveBreadcrumb(
+      "sageRequest",
+      { url, method: options.method },
+      SentryBreadcrumbTypes.HTTP,
     );
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        ...options,
+        credentials: "include",
+        headers: {
+          ...options?.headers,
+        },
+        signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
+      });
+
+      if (shouldLogoutAndRedirect(response.status)) {
+        leaveBreadcrumb(
+          "sageRequest: unauthenticated",
+          { status_code: response.status, url },
+          SentryBreadcrumbTypes.HTTP,
+        );
+        this.logout?.();
+        return { ok: false, type: "unauthenticated" };
+      }
+
+      if (!response.ok) {
+        // Attempt to extract a message from the response body; fall back to statusText.
+        let message = response.statusText;
+        try {
+          const body = await response.json();
+          if (body.message) {
+            message = body.message;
+          }
+        } catch {
+          // Don't throw an error, just use statusText as the message.
+        }
+
+        leaveBreadcrumb(
+          "sageRequest: error response",
+          { status_code: response.status, url },
+          SentryBreadcrumbTypes.HTTP,
+        );
+
+        if (response.status >= 500) {
+          return {
+            ok: false,
+            type: "server",
+            status: response.status,
+            message,
+          };
+        }
+        return { ok: false, type: "client", status: response.status, message };
+      }
+
+      const data = (await response.json()) as T;
+      return { ok: true, data };
+    } catch (err) {
+      const error = err as Error;
+      leaveBreadcrumb(
+        "sageRequest: network error",
+        { err: error, url },
+        SentryBreadcrumbTypes.Error,
+      );
+      reportError(error).severe();
+      return { ok: false, type: "network", message: error.message };
+    }
   }
 }

@@ -6,29 +6,24 @@ import {
   useMemo,
   useState,
 } from "react";
-import { SageClient } from "api/sageClient";
+import { ApiError, SageClient } from "api/sageClient";
 
-type AuthState = {
-  isAuthenticated: boolean;
+type SageContextState = {
+  authError: ApiError | null;
+  client: SageClient;
   hasCheckedAuth: boolean;
+  isAuthenticated: boolean;
   logout: () => void;
 };
 
-const AuthContext = createContext<AuthState>({
-  isAuthenticated: false,
-  hasCheckedAuth: false,
-  logout: () => {},
-});
+const SageContext = createContext<SageContextState | null>(null);
 
-export const useAuthContext = () => useContext(AuthContext);
-
-const SageClientContext = createContext<SageClient | null>(null);
-export const useSageClient = () => {
-  const client = useContext(SageClientContext);
-  if (!client) {
-    throw new Error("useSageClient must be used within a SageProvider");
+export const useSageContext = () => {
+  const ctx = useContext(SageContext);
+  if (!ctx) {
+    throw new Error("useSageContext must be used within a SageProvider");
   }
-  return client;
+  return ctx;
 };
 
 export const SageProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -36,7 +31,10 @@ export const SageProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
+  const [authError, setAuthError] = useState<ApiError | null>(null);
 
+  // Clears local auth state only.
+  // Improvement: call /logout endpoint to clear server session, but that doesn't exist right now
   const logout = useCallback(() => {
     setIsAuthenticated(false);
   }, []);
@@ -46,22 +44,22 @@ export const SageProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const checkAuth = async () => {
       const result = await client.get("/login");
-      setIsAuthenticated(result.ok);
+      if (result.ok) {
+        setIsAuthenticated(true);
+        setAuthError(null);
+      } else {
+        setIsAuthenticated(false);
+        setAuthError(result);
+      }
       setHasCheckedAuth(true);
     };
     checkAuth();
   }, [client]);
 
-  const authState = useMemo(
-    () => ({ isAuthenticated, hasCheckedAuth, logout }),
-    [isAuthenticated, hasCheckedAuth, logout],
+  const value = useMemo(
+    () => ({ client, isAuthenticated, hasCheckedAuth, authError, logout }),
+    [client, isAuthenticated, hasCheckedAuth, authError, logout],
   );
 
-  return (
-    <AuthContext.Provider value={authState}>
-      <SageClientContext.Provider value={client}>
-        {children}
-      </SageClientContext.Provider>
-    </AuthContext.Provider>
-  );
+  return <SageContext.Provider value={value}>{children}</SageContext.Provider>;
 };
