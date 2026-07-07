@@ -165,17 +165,18 @@ export const getColumnsTemplate = ({
       row: {
         original: { buildVariant, project },
       },
-    }) => (
-      <StyledRouterLink
-        to={
-          project?.identifier
-            ? getVariantHistoryRoute(project.identifier, buildVariant)
-            : ""
-        }
-      >
-        {getValue() as string}
-      </StyledRouterLink>
-    ),
+    }) => {
+      const variant = getValue() as string;
+      return project?.identifier ? (
+        <StyledRouterLink
+          to={getVariantHistoryRoute(project.identifier, buildVariant)}
+        >
+          {variant}
+        </StyledRouterLink>
+      ) : (
+        variant
+      );
+    },
     meta: {
       search: {
         "data-cy": "variant-filter",
