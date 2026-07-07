@@ -7182,8 +7182,8 @@ export type SaveAdminSettingsMutation = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
-      translateProjectConcurrencyLimit?: number | null;
       translateProjectCacheBytesLimit?: number | null;
+      translateProjectConcurrencyLimit?: number | null;
     } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
@@ -7973,8 +7973,8 @@ export type AdminSettingsQuery = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
-      translateProjectConcurrencyLimit?: number | null;
       translateProjectCacheBytesLimit?: number | null;
+      translateProjectConcurrencyLimit?: number | null;
     } | null;
     singleTaskDistro?: {
       __typename?: "SingleTaskDistroConfig";
