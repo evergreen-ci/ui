@@ -57,6 +57,7 @@ export const gqlToForm = ((data) => {
     stepbackTaskFactor,
     targetTimeSeconds,
     taskFinder,
+    translateProjectCacheBytesLimit,
     translateProjectConcurrencyLimit,
   } = scheduler ?? {};
 
@@ -117,6 +118,7 @@ export const gqlToForm = ((data) => {
         numDependentsFactor: numDependentsFactor ?? 0,
         stepbackTaskFactor: stepbackTaskFactor ?? 0,
         translateProjectConcurrencyLimit: translateProjectConcurrencyLimit ?? 0,
+        translateProjectCacheBytesLimit: translateProjectCacheBytesLimit ?? 0,
       },
       repotracker: {
         numNewRepoRevisionsToFetch: numNewRepoRevisionsToFetch ?? 0,

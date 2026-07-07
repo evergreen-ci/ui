@@ -74,6 +74,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
         stepbackTaskFactor
         targetTimeSeconds
         taskFinder
+        translateProjectCacheBytesLimit
         translateProjectConcurrencyLimit
       }
       taskLimits {
