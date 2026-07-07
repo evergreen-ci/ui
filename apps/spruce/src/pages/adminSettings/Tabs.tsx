@@ -49,7 +49,9 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
           path={AdminSettingsTabRoutes.RestartTasks}
         />
         <Route
-          element={<Navigate replace to={AdminSettingsTabRoutes.General} />}
+          element={
+            <Navigate replace to={AdminSettingsTabRoutes.ServiceFlags} />
+          }
           path="*"
         />
       </Routes>
