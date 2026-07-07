@@ -3733,6 +3733,7 @@ export type SchedulerConfig = {
   stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   taskFinder?: Maybe<FinderVersion>;
+  translateProjectCacheBytesLimit?: Maybe<Scalars["Int"]["output"]>;
   translateProjectConcurrencyLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
@@ -3755,6 +3756,7 @@ export type SchedulerConfigInput = {
   stepbackTaskFactor: Scalars["Int"]["input"];
   targetTimeSeconds: Scalars["Int"]["input"];
   taskFinder: FinderVersion;
+  translateProjectCacheBytesLimit?: InputMaybe<Scalars["Int"]["input"]>;
   translateProjectConcurrencyLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
