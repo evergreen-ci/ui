@@ -58,5 +58,17 @@ const validate = ((formData, errors) => {
     );
   }
 
+  if (containerIsolation?.enabled && !containerIsolation?.image) {
+    errors.containerIsolation.image.addError(
+      "Container Image is required when Container Isolation is enabled.",
+    );
+  }
+
+  if (containerIsolation?.requireIsolation && !containerIsolation?.enabled) {
+    errors.containerIsolation.requireIsolation.addError(
+      "Require Isolation has no effect when Container Isolation is not enabled.",
+    );
+  }
+
   return errors;
 }) satisfies ValidateProps<HostFormState>;
