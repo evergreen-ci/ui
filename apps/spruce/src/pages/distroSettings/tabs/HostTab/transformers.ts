@@ -82,12 +82,11 @@ export const gqlToForm = ((data) => {
 export const formToGql = ((
   { allocation, bootstrapSettings, setup, sshConfig },
   distro,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 ) => {
   const { acceptableHostIdleTimeSeconds, ...hostAllocatorSettings } =
     allocation;
   return {
-    ...distro,
+    ...(distro as NonNullable<typeof distro>),
     arch: setup.arch,
     authorizedKeysFile: sshConfig.authorizedKeysFile,
     bootstrapSettings: {
