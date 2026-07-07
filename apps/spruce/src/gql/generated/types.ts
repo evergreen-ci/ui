@@ -8205,9 +8205,7 @@ export type BuildBaronQuery = {
     buildBaronConfigured: boolean;
     searchReturnInfo?: {
       __typename?: "SearchReturnInfo";
-      featuresURL: string;
       search: string;
-      source: string;
       issues: Array<{
         __typename?: "JiraTicket";
         key: string;
