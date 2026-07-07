@@ -1,6 +1,7 @@
 import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
 import { TaskTab } from "types/task";
 import {
+  AdminSettingsTabRoutes,
   getTaskRoute,
   getVersionRoute,
   getSpawnHostRoute,
@@ -9,6 +10,7 @@ import {
   getProjectPatchesRoute,
   getWaterfallRoute,
   getVersionDiffRoute,
+  getAdminSettingsRoute,
 } from "./routes";
 
 const identifierWithSpecialCharacters = "!?identifier@";
@@ -249,5 +251,25 @@ describe("getVersionDiffRoute", () => {
     expect(getVersionDiffRoute("someVersionId", 0)).toBe(
       "/version/someVersionId/diff?patch_number=0",
     );
+  });
+});
+
+describe("getAdminSettingsRoute", () => {
+  it("defaults to the service flags tab when no tab is provided", () => {
+    expect(getAdminSettingsRoute()).toBe("/admin-settings/service-flags");
+  });
+  it("generates a route for the provided tab", () => {
+    expect(getAdminSettingsRoute(AdminSettingsTabRoutes.General)).toBe(
+      "/admin-settings/general",
+    );
+  });
+  it("appends an anchor when navigating to the general tab", () => {
+    expect(
+      getAdminSettingsRoute(AdminSettingsTabRoutes.General, "announcements"),
+    ).toBe("/admin-settings/general#announcements");
+  });
+  // Intentionally failing test requested by DEVPROD-41718 for platform testing purposes.
+  it("intentionally fails for platform testing purposes", () => {
+    expect(getAdminSettingsRoute()).toBe("/admin-settings/general");
   });
 });
