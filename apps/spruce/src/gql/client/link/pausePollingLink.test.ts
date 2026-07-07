@@ -154,6 +154,33 @@ describe("pausePollingLink", () => {
     });
   });
 
+  it("delays a TaskHistory request when tab is inactive", async () => {
+    documentHiddenSpy.mockReturnValue(true);
+    navigatorOnlineSpy.mockReturnValue(true);
+
+    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: gql`
+          query TaskHistory {
+            someData {
+              id
+              name
+            }
+          }
+        `,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
+
+    expect(mockForward).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(observer.next).not.toHaveBeenCalled();
+    });
+  });
+
   it("ignores queries that are not in pauseableQueries", async () => {
     documentHiddenSpy.mockReturnValue(true);
     navigatorOnlineSpy.mockReturnValue(true);
