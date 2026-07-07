@@ -62,8 +62,7 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    expect(screen.getByDataCy("bb-content")).toBeInTheDocument();
-    expect(screen.queryByDataCy("bb-error")).toBeNull();
+    expect(screen.getByDataCy("build-baron-content")).toBeInTheDocument();
   });
 
   it("clicking on file a new ticket dispatches a toast", async () => {

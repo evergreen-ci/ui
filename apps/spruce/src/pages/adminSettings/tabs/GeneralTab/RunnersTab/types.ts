@@ -50,6 +50,7 @@ export interface RunnersFormState {
       generateTaskFactor: number;
       stepbackTaskFactor: number;
       numDependentsFactor: number;
+      translateProjectConcurrencyLimit: number;
       groupVersions: boolean;
     };
     repotracker: {

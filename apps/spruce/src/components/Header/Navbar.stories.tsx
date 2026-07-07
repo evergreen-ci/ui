@@ -48,7 +48,6 @@ const spruceConfigMock: ApolloMock<
         serviceFlags: {
           __typename: "UserServiceFlags",
           debugSpawnHostDisabled: false,
-          jwtTokenForCLIDisabled: false,
         },
         slack: null,
         spawnHost: {

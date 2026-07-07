@@ -8,8 +8,8 @@ type Action =
       suggestion: string;
     }
   | {
-      name: "Interacted with Parsley AI";
-      message: string;
+      name: "Created Parsley AI session";
+      "conversation.id": string;
     }
   | {
       name: "Toggled AI agent panel";

@@ -23,16 +23,16 @@ const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childPatches }) => (
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         taskCount,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        versionFull,
+        version,
       }) => (
         <DownstreamProjectAccordion
           key={`downstream_project_${id}`}
-          baseVersionID={versionFull?.baseVersion?.id}
+          baseVersionID={version?.baseVersion?.id}
           childPatchId={id}
           githash={githash}
           parameters={parameters}
           projectName={projectIdentifier}
-          status={versionFull?.status ?? status}
+          status={version?.status ?? status}
           taskCount={taskCount}
         />
       ),

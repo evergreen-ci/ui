@@ -350,9 +350,59 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Default Log Bucket",
     },
+    logBucketExpirationDays: {
+      type: "number" as const,
+      title: "Log Bucket Expiration Days",
+      readOnly: true,
+    },
+    logBucketTransitionToIADays: {
+      type: "number" as const,
+      title: "Log Bucket Transition to IA Days",
+      readOnly: true,
+    },
+    logBucketTransitionToGlacierDays: {
+      type: "number" as const,
+      title: "Log Bucket Transition to Glacier Days",
+      readOnly: true,
+    },
+    logBucketLifecycleLastSyncedAt: {
+      type: "string" as const,
+      title: "Log Bucket Lifecycle Last Synced At",
+      readOnly: true,
+    },
+    logBucketLifecycleSyncError: {
+      type: "string" as const,
+      title: "Log Bucket Lifecycle Sync Error",
+      readOnly: true,
+    },
     logBucketLongRetentionName: {
       type: "string" as const,
       title: "Long Retention Log Bucket",
+    },
+    logBucketLongRetentionExpirationDays: {
+      type: "number" as const,
+      title: "Long Retention Log Bucket Expiration Days",
+      readOnly: true,
+    },
+    logBucketLongRetentionTransitionToIADays: {
+      type: "number" as const,
+      title: "Long Retention Log Bucket Transition to IA Days",
+      readOnly: true,
+    },
+    logBucketLongRetentionTransitionToGlacierDays: {
+      type: "number" as const,
+      title: "Long Retention Log Bucket Transition to Glacier Days",
+      readOnly: true,
+    },
+    logBucketLongRetentionLifecycleLastSyncedAt: {
+      type: "string" as const,
+      title: "Long Retention Log Bucket Lifecycle Last Synced At",
+      readOnly: true,
+    },
+    logBucketLongRetentionLifecycleSyncError: {
+      type: "string" as const,
+      title: "Long Retention Log Bucket Lifecycle Sync Error",
+      readOnly: true,
     },
     longRetentionProjects: {
       type: "array" as const,
@@ -389,9 +439,34 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Failed Tasks Log Bucket",
     },
-    retryFailedLogMoveLookbackMonths: {
+    failedTasksLogBucketExpirationDays: {
       type: "number" as const,
-      title: "Retry Failed Log Move Lookback Months",
+      title: "Failed Tasks Log Bucket Expiration Days",
+      readOnly: true,
+    },
+    failedTasksLogBucketTransitionToIADays: {
+      type: "number" as const,
+      title: "Failed Tasks Log Bucket Transition to IA Days",
+      readOnly: true,
+    },
+    failedTasksLogBucketTransitionToGlacierDays: {
+      type: "number" as const,
+      title: "Failed Tasks Log Bucket Transition to Glacier Days",
+      readOnly: true,
+    },
+    failedTasksLogBucketLifecycleLastSyncedAt: {
+      type: "string" as const,
+      title: "Failed Tasks Log Bucket Lifecycle Last Synced At",
+      readOnly: true,
+    },
+    failedTasksLogBucketLifecycleSyncError: {
+      type: "string" as const,
+      title: "Failed Tasks Log Bucket Lifecycle Sync Error",
+      readOnly: true,
+    },
+    retryFailedLogMoveLookbackDays: {
+      type: "number" as const,
+      title: "Retry Failed Log Move Lookback Days",
     },
     retryFailedLogMoveMaxJobsPerRun: {
       type: "number" as const,
@@ -402,10 +477,25 @@ export const bucketConfig = {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "bucket-config",
     "ui:objectFieldCss": objectGridCss,
+    logBucketExpirationDays: { "ui:readonly": true },
+    logBucketTransitionToIADays: { "ui:readonly": true },
+    logBucketTransitionToGlacierDays: { "ui:readonly": true },
+    logBucketLifecycleLastSyncedAt: { "ui:readonly": true },
+    logBucketLifecycleSyncError: { "ui:readonly": true },
+    logBucketLongRetentionExpirationDays: { "ui:readonly": true },
+    logBucketLongRetentionTransitionToIADays: { "ui:readonly": true },
+    logBucketLongRetentionTransitionToGlacierDays: { "ui:readonly": true },
+    logBucketLongRetentionLifecycleLastSyncedAt: { "ui:readonly": true },
+    logBucketLongRetentionLifecycleSyncError: { "ui:readonly": true },
     longRetentionProjects: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
     },
+    failedTasksLogBucketExpirationDays: { "ui:readonly": true },
+    failedTasksLogBucketTransitionToIADays: { "ui:readonly": true },
+    failedTasksLogBucketTransitionToGlacierDays: { "ui:readonly": true },
+    failedTasksLogBucketLifecycleLastSyncedAt: { "ui:readonly": true },
+    failedTasksLogBucketLifecycleSyncError: { "ui:readonly": true },
   },
 };
 

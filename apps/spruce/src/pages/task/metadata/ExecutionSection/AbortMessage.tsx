@@ -1,5 +1,5 @@
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { MetadataItem, MetadataLabel } from "components/MetadataCard";
+import { MetadataItem } from "components/MetadataCard";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
 
@@ -12,8 +12,8 @@ export const AbortMessage: React.FC<AbortInfo> = ({
   user,
 }) =>
   user ? (
-    <MetadataItem>
-      <MetadataLabel>Aborted by:</MetadataLabel> {user}{" "}
+    <MetadataItem label="Aborted by">
+      {user}{" "}
       {taskID && buildVariantDisplayName && taskDisplayName && (
         <span>
           because of failing task{" "}

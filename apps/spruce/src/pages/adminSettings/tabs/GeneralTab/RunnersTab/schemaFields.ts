@@ -273,6 +273,12 @@ export const scheduler = {
       minimum: 0,
       maximum: 100,
     },
+    translateProjectConcurrencyLimit: {
+      type: "number" as const,
+      title: "Translate Project Concurrency Limit",
+      default: 0,
+      minimum: 0,
+    },
     groupVersions: {
       type: "boolean" as const,
       title: "Group Versions",
@@ -322,6 +328,10 @@ export const scheduler = {
     },
     numDependentsFactor: {
       "ui:description": boundsDescription,
+    },
+    translateProjectConcurrencyLimit: {
+      "ui:description":
+        "Maximum number of project configs translated concurrently. 0 means unlimited.",
     },
     groupVersions: {
       "ui:fieldCss": fullWidthCss,

@@ -18,7 +18,6 @@ import {
   MyVolumesQuery,
 } from "gql/generated/types";
 import { isFailedTaskStatus } from "utils/statuses";
-import { jiraLinkify } from "utils/string";
 import {
   getExpirationDetailsSchema,
   getPublicKeySchema,
@@ -49,8 +48,6 @@ interface Props {
   };
   isMigration: boolean;
   isVirtualWorkstation: boolean;
-  jiraHost: string;
-  jwtTokenForCLIDisabled: boolean;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
   spawnTaskData?: SpawnTaskQuery["task"];
@@ -71,8 +68,6 @@ export const getFormSchema = ({
   hostUptimeWarnings,
   isMigration,
   isVirtualWorkstation,
-  jiraHost,
-  jwtTokenForCLIDisabled,
   myPublicKeys,
   noExpirationCheckboxTooltip,
   spawnTaskData,
@@ -548,23 +543,8 @@ export const getFormSchema = ({
                 variant={Variant.Warning}
               >
                 <div data-cy="spawn-host-token-auth-banner-copy">
-                  {jwtTokenForCLIDisabled ? (
-                    <>
-                      As part of {jiraLinkify("DEVPROD-4160", jiraHost)},
-                      Evergreen is migrating to temporary credentials for human
-                      users. An additional authentication step will soon be
-                      required to load task data. You can try the flow before it
-                      is required with <strong>Authenticate spawn hosts</strong>{" "}
-                      below.
-                    </>
-                  ) : (
-                    <>
-                      Spawn hosts require an additional authentication step to
-                      load task data. This is part of Evergreens migration to
-                      temporary credentials for human users:{" "}
-                      {jiraLinkify("DEVPROD-4160", jiraHost)}.
-                    </>
-                  )}
+                  Spawn hosts require an additional authentication step to load
+                  task data.
                 </div>
                 <Button
                   data-cy="spawn-host-authenticate-button"

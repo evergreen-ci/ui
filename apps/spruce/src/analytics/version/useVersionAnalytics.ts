@@ -25,7 +25,11 @@ type Action =
     }
   | { name: "Clicked metadata previous version link" }
   | { name: "Clicked metadata project patches link" }
-  | { name: "Clicked task table task link"; "task.id": string }
+  | {
+      name: "Clicked task table task link";
+      "task.id": string;
+      "task.status": string;
+    }
   | { name: "Deleted all filters" }
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
   | { name: "Filtered tasks table"; "filter.by": string | string[] }

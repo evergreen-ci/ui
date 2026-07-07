@@ -10,9 +10,9 @@ if (isRunningOnCI()) {
   throw Error("pnpm deploy:<target> scripts are for local use only!");
 }
 
-const target = process.env.REACT_APP_RELEASE_STAGE;
+const target = process.env.VITE_RELEASE_STAGE;
 if (!isTargetEnvironment(target)) {
-  throw Error("REACT_APP_RELEASE_STAGE must be specified");
+  throw Error("VITE_RELEASE_STAGE must be specified");
 }
 
 if (process.argv.includes("--force")) {

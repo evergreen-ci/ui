@@ -22,11 +22,11 @@ export const PATCHES_PAGE_PATCHES = gql`
         displayName
         userId: id
       }
-      versionFull {
+      version {
         id
         requester
         status
-        taskStatusStats(options: {}) {
+        taskStatusStats {
           counts {
             count
             status

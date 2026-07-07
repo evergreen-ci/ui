@@ -65,6 +65,7 @@ const form: RunnersFormState = {
       generateTaskFactor: 1,
       numDependentsFactor: 1,
       stepbackTaskFactor: 1,
+      translateProjectConcurrencyLimit: 1,
     },
     repotracker: {
       numNewRepoRevisionsToFetch: 1,
@@ -122,6 +123,7 @@ const gql: AdminSettingsInput = {
     generateTaskFactor: 1,
     numDependentsFactor: 1,
     stepbackTaskFactor: 1,
+    translateProjectConcurrencyLimit: 1,
   },
   repotracker: {
     numNewRepoRevisionsToFetch: 1,

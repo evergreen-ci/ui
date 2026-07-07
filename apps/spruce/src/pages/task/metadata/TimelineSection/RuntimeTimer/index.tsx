@@ -1,4 +1,4 @@
-import { MetadataItem, MetadataLabel } from "components/MetadataCard";
+import { MetadataItem } from "components/MetadataCard";
 import { useRunningTime } from "hooks";
 import { string } from "utils";
 
@@ -13,8 +13,8 @@ export const RuntimeTimer: React.FC<RuntimeTimerProps> = ({ startTime }) => {
   const { runningTime } = useRunningTime(parsedStartTime);
 
   return (
-    <MetadataItem data-cy="task-metadata-running-time">
-      <MetadataLabel>Running Time:</MetadataLabel> {msToDuration(runningTime)}
+    <MetadataItem data-cy="task-metadata-running-time" label="Running time">
+      {msToDuration(runningTime)}
     </MetadataItem>
   );
 };

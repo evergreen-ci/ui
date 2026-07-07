@@ -12,10 +12,7 @@ import { usePatchAnalytics } from "analytics";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { LoadingButton } from "components/Buttons";
 import { CodeChanges } from "components/CodeChanges";
-import MetadataCard, {
-  MetadataItem,
-  MetadataLabel,
-} from "components/MetadataCard";
+import MetadataCard, { MetadataItem } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getProjectPatchesRoute, getVersionRoute } from "constants/routes";
@@ -68,7 +65,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     time,
     user,
     variantsTasks,
-    versionFull,
+    version,
   } = patch;
   const { variants = [] } = project || {};
   const projectID = projectMetadata?.id ?? "";
@@ -127,12 +124,12 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
   >(SCHEDULE_PATCH, {
     onCompleted(data) {
       const { schedulePatch: scheduledPatch } = data;
-      const hasChildPatch = scheduledPatch.versionFull?.childVersions?.length;
+      const hasChildPatch = scheduledPatch.version?.childVersions?.length;
       dispatchToast.success(
         `Successfully scheduled the patch${hasChildPatch ? " and its child patches" : ""}`,
       );
-      if (scheduledPatch.versionFull) {
-        navigate(getVersionRoute(scheduledPatch.versionFull.id));
+      if (scheduledPatch.version) {
+        navigate(getVersionRoute(scheduledPatch.version.id));
       }
     },
     onError(err) {
@@ -172,7 +169,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     );
   }
 
-  const isUnauthorizedGHPatch = !versionFull?.id && githubPatchData?.prNumber;
+  const isUnauthorizedGHPatch = !version?.id && githubPatchData?.prNumber;
 
   const estimatedActivatedTasksCount = sumActivatedTasksInVariantsTasks(
     selectedBuildVariantTasks,
@@ -226,14 +223,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
       <PageLayout hasSider>
         <PageSider>
           <MetadataCard title="Patch Metadata">
-            <MetadataItem>
-              <MetadataLabel>Submitted by:</MetadataLabel> {user.userId}
+            <MetadataItem label="Submitted by">{user.userId}</MetadataItem>
+            <MetadataItem label="Submitted at">
+              {time?.submittedAt}
             </MetadataItem>
-            <MetadataItem>
-              <MetadataLabel>Submitted at:</MetadataLabel> {time?.submittedAt}
-            </MetadataItem>
-            <MetadataItem>
-              <MetadataLabel>Project:</MetadataLabel>{" "}
+            <MetadataItem label="Project">
               <StyledRouterLink
                 to={getProjectPatchesRoute(projectIdentifier || projectID)}
               >

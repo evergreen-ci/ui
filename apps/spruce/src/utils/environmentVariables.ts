@@ -7,7 +7,6 @@ export {
   isProduction,
   isProductionBuild,
   isDevelopmentBuild,
-  isTest,
   getEvergreenUrl,
   getSignalProcessingUrl,
   getApiUrl,

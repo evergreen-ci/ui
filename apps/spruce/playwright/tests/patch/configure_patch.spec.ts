@@ -686,7 +686,7 @@ test.describe("Configure Patch Page", () => {
                 value: "b",
               },
             ],
-            versionFull: {
+            version: {
               id: activatedPatchId,
             },
             tasks: ["test"],
