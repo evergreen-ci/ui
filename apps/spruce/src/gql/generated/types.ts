@@ -3136,6 +3136,13 @@ export type QuarantineVariantInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
+/** QuarantinedTest represents a test skipped because it was quarantined in TSS at execution time. */
+export type QuarantinedTest = {
+  __typename?: "QuarantinedTest";
+  displayTestName?: Maybe<Scalars["String"]["output"]>;
+  testName: Scalars["String"]["output"];
+};
+
 export type Query = {
   __typename?: "Query";
   adminEvents: AdminEventsPayload;
@@ -3177,6 +3184,7 @@ export type Query = {
   taskHistory: TaskHistory;
   taskHistoryByCreateTime: TaskHistoryByCreateTime;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
+  taskQuarantinedTestsSample?: Maybe<Array<TaskQuarantinedTestsSample>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
@@ -3315,6 +3323,12 @@ export type QueryTaskHistoryByCreateTimeArgs = {
 export type QueryTaskNamesForBuildVariantArgs = {
   buildVariant: Scalars["String"]["input"];
   projectIdentifier: Scalars["String"]["input"];
+};
+
+export type QueryTaskQuarantinedTestsSampleArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  taskIds: Array<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type QueryTaskTestSampleArgs = {
@@ -4170,6 +4184,8 @@ export type Task = {
   prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
+  /** quarantinedTestsSkippedCount is the number of tests this execution skipped because they were quarantined in TSS at execution time. */
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
   reviewed?: Maybe<Scalars["Boolean"]["output"]>;
@@ -4434,6 +4450,18 @@ export type TaskQuarantineEntry = {
   __typename?: "TaskQuarantineEntry";
   taskName: Scalars["String"]["output"];
   tests: Array<TestQuarantineEntry>;
+};
+
+/**
+ * TaskQuarantinedTestsSample is the return value for the taskQuarantinedTestsSample query.
+ * It contains the execution-time snapshot of tests skipped because they were quarantined in TSS.
+ */
+export type TaskQuarantinedTestsSample = {
+  __typename?: "TaskQuarantinedTestsSample";
+  execution: Scalars["Int"]["output"];
+  quarantinedTests: Array<QuarantinedTest>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
+  taskId: Scalars["String"]["output"];
 };
 
 /**
@@ -11292,6 +11320,27 @@ export type TaskPerfPluginEnabledQuery = {
   } | null;
 };
 
+export type TaskQuarantinedTestsSampleQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  taskIds: Array<Scalars["String"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskQuarantinedTestsSampleQuery = {
+  __typename?: "Query";
+  taskQuarantinedTestsSample?: Array<{
+    __typename?: "TaskQuarantinedTestsSample";
+    execution: number;
+    quarantinedTestsSkippedCount: number;
+    taskId: string;
+    quarantinedTests: Array<{
+      __typename?: "QuarantinedTest";
+      displayTestName?: string | null;
+      testName: string;
+    }>;
+  }> | null;
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
@@ -11467,6 +11516,7 @@ export type TaskQuery = {
     order: number;
     patchNumber?: number | null;
     priority?: number | null;
+    quarantinedTestsSkippedCount: number;
     requester: string;
     resetWhenFinished: boolean;
     reviewed?: boolean | null;

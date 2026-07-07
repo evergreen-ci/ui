@@ -35,6 +35,7 @@ import {
 } from "types/task";
 import { queryString } from "utils";
 import { getColumnsTemplate } from "./getColumnsTemplate";
+import { QuarantinedTests } from "./QuarantinedTests";
 
 const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
   queryString;
@@ -178,34 +179,37 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   });
 
   return (
-    <TableWrapper
-      controls={
-        <TableControl
-          filteredCount={filteredTestCount}
-          label="tests"
+    <>
+      <QuarantinedTests task={task} />
+      <TableWrapper
+        controls={
+          <TableControl
+            filteredCount={filteredTestCount}
+            label="tests"
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            limit={limitNum}
+            onClear={clearQueryParams}
+            onPageSizeChange={() => {
+              sendEvent({ name: "Changed page size" });
+            }}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            page={pageNum}
+            totalCount={totalTestCount}
+          />
+        }
+        shouldShowBottomTableControl={filteredTestCount > 10}
+      >
+        <BaseTable
+          data-cy="tests-table"
+          data-loading={isLoading}
+          loading={isLoading}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
-          limit={limitNum}
-          onClear={clearQueryParams}
-          onPageSizeChange={() => {
-            sendEvent({ name: "Changed page size" });
-          }}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          page={pageNum}
-          totalCount={totalTestCount}
+          loadingRows={limitNum}
+          shouldAlternateRowColor
+          table={table}
         />
-      }
-      shouldShowBottomTableControl={filteredTestCount > 10}
-    >
-      <BaseTable
-        data-cy="tests-table"
-        data-loading={isLoading}
-        loading={isLoading}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        loadingRows={limitNum}
-        shouldAlternateRowColor
-        table={table}
-      />
-    </TableWrapper>
+      </TableWrapper>
+    </>
   );
 };
 

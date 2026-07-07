@@ -10,6 +10,7 @@ import { TaskQuery } from "gql/generated/types";
 import { isInStepback } from "utils/stepback";
 import { AbortMessage } from "./AbortMessage";
 import { DetailsDescription } from "./DetailsDescription";
+import { QuarantinedTestsSkipped } from "./QuarantinedTestsSkipped";
 import { TestSelection } from "./TestSelection";
 
 const { red } = palette;
@@ -88,6 +89,12 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
       {testSelectionEnabledForProject && (
         <TestSelection testSelectionEnabled={testSelectionEnabled} />
       )}
+      <QuarantinedTestsSkipped
+        count={task.quarantinedTestsSkippedCount}
+        execution={execution}
+        taskId={task.id}
+        testSelectionEnabled={testSelectionEnabled}
+      />
       {hasCost && (
         <CostSummary
           onClickDetailsButton={() =>

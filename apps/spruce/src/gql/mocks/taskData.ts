@@ -9,6 +9,7 @@ export const taskQuery: TaskQueryType = {
   task: {
     __typename: "Task",
     id: "someTaskId",
+    quarantinedTestsSkippedCount: 0,
     generatedByName: null,
     generatedBy: null,
     activatedTime: null,

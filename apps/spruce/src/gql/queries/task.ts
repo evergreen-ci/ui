@@ -125,6 +125,7 @@ export const TASK = gql`
           allowed
         }
       }
+      quarantinedTestsSkippedCount
       requester
       resetWhenFinished
       reviewed @client
