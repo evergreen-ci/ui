@@ -70,7 +70,7 @@ test.describe("general section", () => {
       await expect(singleTaskCheckbox).toBeEnabled();
       await clickCheckbox(singleTaskCheckbox);
       await expect(page.getByTestId("single-task-banner")).toContainText(
-        "This Distro will be converted to a Single Task Distro once saved. Please review before confirming.",
+        "This Distro will be converted to a Single Task Distro once saved. The distro will become unspawnable for personal use. Please review before confirming.",
       );
       await save(page);
       await expect(page.getByTestId("single-task-banner")).toHaveCount(0);
