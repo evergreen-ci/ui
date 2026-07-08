@@ -1,0 +1,42 @@
+import { test, expect } from "@playwright/test";
+import * as helpers from "../../helpers";
+
+test.describe("Basic resmoke log view", () => {
+  const logLink =
+    "/resmoke/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/job0/all";
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+  });
+
+  test("the HTML log button is disabled", async ({ page }) => {
+    await helpers.toggleDetailsPanel(page, true);
+    const htmlLogButton = page.getByRole("button", { name: "HTML" });
+    await expect(htmlLogButton).toBeDisabled();
+  });
+
+  test("the job logs button has a link to the job logs page", async ({
+    page,
+  }) => {
+    await helpers.toggleDetailsPanel(page, true);
+    const jobLogsButton = page.getByRole("link", { name: "Job logs" });
+    await expect(jobLogsButton).toHaveAttribute(
+      "href",
+      "http://localhost:3000/job-logs/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/job0",
+    );
+  });
+
+  test("should show the project, patch, task, and group the breadcrumb", async ({
+    page,
+  }) => {
+    await expect(page.getByTestId("project-breadcrumb")).toContainText(
+      "mongodb-mongo-master",
+    );
+    await expect(page.getByTestId("version-breadcrumb")).toContainText(
+      "Patch 1994",
+    );
+    await expect(page.getByTestId("task-breadcrumb")).toContainText("jsCore");
+    await expect(page.getByTestId("group-breadcrumb")).toContainText("job0");
+  });
+});

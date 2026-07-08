@@ -17,6 +17,7 @@ vi.mock("../utils/s3", () => ({
 
 describe("buildAndPush", () => {
   afterEach(() => {
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 
@@ -37,9 +38,7 @@ describe("buildAndPush", () => {
     vi.mocked(execSync).mockImplementation(() => {
       throw Error("mock pnpm build error");
     });
-    expect(() => buildAndPush("my-bucket")).toThrowError(
-      "mock pnpm build error",
-    );
+    expect(() => buildAndPush("my-bucket")).toThrow("mock pnpm build error");
     expect(vi.mocked(pushToS3)).not.toHaveBeenCalled();
   });
 });

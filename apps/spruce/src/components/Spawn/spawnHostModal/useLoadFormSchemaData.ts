@@ -56,8 +56,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
       isVolume: false,
     }) ?? "";
 
-  const oAuthDisabled =
-    spruceConfig?.serviceFlags?.jwtTokenForCLIDisabled ?? false;
   const debugSpawnHostDisabled =
     spruceConfig?.serviceFlags?.debugSpawnHostDisabled ?? false;
 
@@ -66,7 +64,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
       disableExpirationCheckbox,
       distros: distrosData?.distros ?? [],
       debugSpawnHostDisabled,
-      oAuthDisabled,
       myPublicKeys: publicKeysData?.myPublicKeys ?? [],
       noExpirationCheckboxTooltip,
       userAwsRegion: userAwsRegion ?? defaultEC2Region,

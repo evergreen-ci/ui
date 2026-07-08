@@ -159,7 +159,7 @@ const FileDropper: React.FC = () => {
     onDropRejected,
   });
 
-  let visibleUI = null;
+  let visibleUI;
 
   switch (state.currentState) {
     case "WAITING_FOR_FILE":

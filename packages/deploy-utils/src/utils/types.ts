@@ -10,7 +10,9 @@ export const isTargetEnvironment = (
 ): t is TargetEnvironment =>
   t === "staging" || t === "beta" || t === "production";
 
-export type DeployableApp = "parsley" | "spruce";
+export const DEPLOYABLE_APPS = ["parsley", "sage", "spruce"] as const;
+
+export type DeployableApp = (typeof DEPLOYABLE_APPS)[number];
 
 /**
  * isDeployable app asserts that a given string represents a deployable app
@@ -18,4 +20,4 @@ export type DeployableApp = "parsley" | "spruce";
  * @returns - typeguard for DeployableApp type
  */
 export const isDeployableApp = (a: string): a is DeployableApp =>
-  a === "parsley" || a === "spruce";
+  (DEPLOYABLE_APPS as readonly string[]).includes(a);

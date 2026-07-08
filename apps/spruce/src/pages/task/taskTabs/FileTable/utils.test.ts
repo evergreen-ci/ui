@@ -1,13 +1,13 @@
+import { GroupedFiles } from "./types";
 import { filterGroupedFiles } from "./utils";
 
 describe("filterGroupedFiles", () => {
   it("should return an empty array if groupedFiles is empty", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const groupedFiles = [];
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const groupedFiles: GroupedFiles[] = [];
     const result = filterGroupedFiles(groupedFiles, /(?:)/);
     expect(result).toStrictEqual([]);
   });
+
   it("should return the original array if search term is empty", () => {
     const groupedFiles = [
       {
@@ -16,6 +16,7 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
@@ -23,6 +24,7 @@ describe("filterGroupedFiles", () => {
     const result = filterGroupedFiles(groupedFiles, /(?:)/);
     expect(result).toStrictEqual(groupedFiles);
   });
+
   it("should filter the array if search term is not empty", () => {
     const groupedFiles = [
       {
@@ -31,10 +33,12 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
           {
             name: "some_other_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
@@ -48,11 +52,13 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
     ]);
   });
+
   it("should filter across multiple groups", () => {
     const groupedFiles = [
       {
@@ -61,10 +67,12 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
           {
             name: "some_other_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
@@ -74,10 +82,12 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
           {
             name: "some_other_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
@@ -91,6 +101,7 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
@@ -100,11 +111,13 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
     ]);
   });
+
   it("should not return groups that have no matching files", () => {
     const groupedFiles = [
       {
@@ -113,10 +126,12 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_matching_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
           {
             name: "some_other_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
@@ -126,10 +141,12 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
           {
             name: "some_other_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },
@@ -143,6 +160,7 @@ describe("filterGroupedFiles", () => {
           {
             name: "some_matching_file_name",
             link: "some_url",
+            associatedLinks: [],
           },
         ],
       },

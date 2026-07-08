@@ -22,7 +22,12 @@ import { useIsParsleyAIAvailable } from "hooks/useIsParsleyAIAvailable";
 import { getJiraFormat, getRawLines } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
-const SharingMenu: React.FC = () => {
+interface SharingMenuProps {
+  lineNumber: number;
+  shared?: boolean;
+}
+
+const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber, shared }) => {
   const {
     clearSelection,
     openMenu: open,
@@ -96,11 +101,11 @@ const SharingMenu: React.FC = () => {
 
   const handleOnlySearchOnRange = () => {
     const { endingLine, startingLine } = selectedLines;
-    if (startingLine === undefined || endingLine === undefined) return;
+    if (startingLine === undefined) return;
     setParams({
       ...params,
       [QueryParams.LowerRange]: startingLine,
-      [QueryParams.UpperRange]: endingLine,
+      [QueryParams.UpperRange]: endingLine ?? startingLine,
     });
     setOpen(false);
     sendEvent({
@@ -111,11 +116,11 @@ const SharingMenu: React.FC = () => {
   const handleShareLinkToSelectedLines = async () => {
     const { startingLine } = selectedLines;
     if (startingLine === undefined) return;
-    // Take the current URL and add the shareLine query param
     const url = new URL(window.location.href);
     url.searchParams.set(QueryParams.ShareLine, startingLine.toString());
 
     await copyToClipboard(url.toString());
+    setParams({ ...params, [QueryParams.ShareLine]: startingLine });
     setOpen(false);
     sendEvent({ name: "Clicked copy share link button" });
     dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
@@ -136,10 +141,10 @@ const SharingMenu: React.FC = () => {
       trigger={
         <MenuIcon
           aria-label="Expand share menu"
-          data-cy="sharing-menu-button"
+          data-cy={`log-link-${lineNumber}`}
           onClick={setMenuOpen}
         >
-          <Icon glyph="Ellipsis" />
+          <Icon glyph={shared ? "ArrowWithCircle" : "Ellipsis"} />
         </MenuIcon>
       }
     >

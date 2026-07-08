@@ -37,7 +37,7 @@ export const SpawnVolume = () => {
     shouldPollFaster: migrationInProcess,
   });
 
-  if (loading) {
+  if (loading && !volumesData) {
     return <SpawnPageSkeleton />;
   }
 

@@ -89,6 +89,20 @@ const roundMax = (max: number) => {
   return Math.ceil(max / 1000) * 1000;
 };
 
+/**
+ * `formatCost` formats a cost value for display, preserving trailing zeros to 2 decimal places.
+ * Values with more precision (e.g. sub-cent costs) are displayed with their full precision.
+ * @param value - the numeric cost value
+ * @returns a formatted string with at least 2 decimal places
+ * @example formatCost(0.1) // => "0.10"
+ * @example formatCost(0.0058) // => "0.0058"
+ */
+const formatCost = (value: number): string =>
+  new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 20,
+  }).format(value);
+
 export {
   toDecimal,
   toPercent,
@@ -96,4 +110,5 @@ export {
   roundDecimal,
   cryptoRandom,
   roundMax,
+  formatCost,
 };

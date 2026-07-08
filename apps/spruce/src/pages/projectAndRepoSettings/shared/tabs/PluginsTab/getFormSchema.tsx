@@ -213,7 +213,7 @@ export const getFormSchema = (
       ticketSearchProjects: {
         "ui:description":
           "Specify an existing JIRA project to search for tickets related to a failing task.",
-        "ui:addButtonText": "Add Search Project",
+        "ui:addButtonText": "Add search project",
         "ui:orderable": false,
         items: {
           "ui:label": false,
@@ -247,11 +247,9 @@ export const getFormSchema = (
         "ui:description":
           "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
         endpoint: placeholderIf(
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
         ),
         secret: placeholderIf(
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
         ),
       },
@@ -266,6 +264,7 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Metadata Link",
+        "ui:data-cy": "metadata-link",
         requesters: {
           "ui:widget": widgets.MultiSelectWidget,
           "ui:data-cy": "requesters-input",

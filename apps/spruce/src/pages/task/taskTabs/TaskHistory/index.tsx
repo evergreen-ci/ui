@@ -71,9 +71,10 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
     "",
   );
 
+  const defaultCursorId = isPatch ? baseTaskId : task.id;
   const [cursorId] = useQueryParam<string>(
     TaskHistoryOptions.CursorID,
-    isPatch ? baseTaskId : task.id,
+    defaultCursorId,
   );
   const [direction] = useQueryParam<TaskHistoryDirection>(
     TaskHistoryOptions.Direction,
@@ -87,6 +88,14 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
   const [date] = useQueryParam<string>(TaskHistoryOptions.Date, "");
   const timezone = useUserTimeZone();
   const utcDate = getUTCEndOfDay(date, timezone);
+
+  // Polling refetches the timeline on an interval, which yanks the user around
+  // once they've paginated into history. Only poll on the default, most-recent
+  // view (cursor still at its default and no date filter applied).
+  const isFirstPage =
+    cursorId === defaultCursorId &&
+    direction === TaskHistoryDirection.Before &&
+    !date;
 
   const { data, error, loading } = useQuery<
     TaskHistoryQuery,
@@ -108,7 +117,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
       includeGenerator: !!task.generatedBy,
     },
     fetchPolicy: "cache-first",
-    pollInterval: DEFAULT_POLL_INTERVAL,
+    pollInterval: isFirstPage ? DEFAULT_POLL_INTERVAL : 0,
   });
   useErrorToast(error, "Unable to get task history");
 

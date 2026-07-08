@@ -13,7 +13,7 @@ export const readVersions = ((existing, { args, readField }) => {
   const date = args?.options?.date ?? "";
   const revision = args?.options?.revision ?? "";
 
-  const { mostRecentVersionOrder = 0 } =
+  const { hasNextPage = true, mostRecentVersionOrder = 0 } =
     readField<WaterfallQuery["waterfall"]["pagination"]>(
       "pagination",
       existing,
@@ -90,7 +90,13 @@ export const readVersions = ((existing, { args, readField }) => {
       }
     }
     if (activeVersionIds.length < limit) {
-      return undefined;
+      // If the server already indicated there are no more pages, return the
+      // data we have rather than triggering an infinite refetch loop.
+      if (!hasNextPage) {
+        endIndex = existingVersions.length - 1;
+      } else {
+        return undefined;
+      }
     }
   }
 
@@ -122,11 +128,12 @@ export const readVersions = ((existing, { args, readField }) => {
 }) satisfies FieldReadFunction<WaterfallQuery["waterfall"]>;
 
 export const mergeVersions = ((existing, incoming, { readField }) => {
-  const existingVersions =
-    readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
-      "flattenedVersions",
-      existing,
-    ) ?? [];
+  const existingVersions = existing
+    ? (readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
+        "flattenedVersions",
+        existing,
+      ) ?? [])
+    : [];
   const incomingVersions =
     readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
       "flattenedVersions",
@@ -159,8 +166,9 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     prevPageOrder: 0,
   };
 
-  const existingActiveVersions =
-    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
+  const existingActiveVersions = existing
+    ? (readField<Set<string>>("allActiveVersions", existing) ?? new Set())
+    : new Set<string>();
   const incomingActiveVersions =
     readField<string[]>("activeVersionIds", pagination) ?? [];
   incomingActiveVersions.forEach((vId) => existingActiveVersions.add(vId));

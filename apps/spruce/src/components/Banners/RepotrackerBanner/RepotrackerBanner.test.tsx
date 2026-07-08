@@ -189,13 +189,14 @@ const adminUser: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "admin",
         permissions: {
           __typename: "Permissions",
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
+            id: "evergreen",
             edit: true,
           },
         },
@@ -215,13 +216,14 @@ const basicUser: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "basic",
         permissions: {
           __typename: "Permissions",
           canCreateProject: false,
           projectPermissions: {
             __typename: "ProjectPermissions",
+            id: "evergreen",
             edit: false,
           },
         },

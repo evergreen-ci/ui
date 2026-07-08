@@ -93,8 +93,8 @@ describe("CommitDetailsCard component", () => {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
     const task = {
       ...currentTask,
-      versionMetadata: {
-        ...currentTask.versionMetadata,
+      version: {
+        ...currentTask.version,
         message: longMessage,
       },
     };
@@ -137,6 +137,26 @@ describe("CommitDetailsCard component", () => {
 
     expect(screen.getByDataCy("failing-tests-changes-table")).toBeVisible();
     expect(screen.getAllByDataCy("failing-tests-table-row")).toHaveLength(1);
+  });
+
+  it("shows the execution chip with the correct count when the task has prior executions", () => {
+    const taskWithExecutions = tasks[9];
+    const { Component } = RenderFakeToastContext(
+      <CommitDetailsCard isMatching task={taskWithExecutions} />,
+    );
+    renderWithRouterMatch(<Component />, { wrapper });
+    expect(screen.getByDataCy("execution-chip")).toHaveTextContent(
+      "Executions: 4",
+    );
+  });
+
+  it("does not show the execution chip when the task has no prior executions", () => {
+    const taskWithoutExecutions = tasks[0];
+    const { Component } = RenderFakeToastContext(
+      <CommitDetailsCard isMatching task={taskWithoutExecutions} />,
+    );
+    renderWithRouterMatch(<Component />, { wrapper });
+    expect(screen.queryByDataCy("execution-chip")).not.toBeInTheDocument();
   });
 
   it("shows 'This Task' badge if it's the current task", () => {
@@ -219,6 +239,7 @@ describe("CommitDetailsCard component", () => {
         name: "Restart Task",
       });
       expect(restartButton).toHaveAttribute("aria-disabled", "false");
+      expect(screen.queryByDataCy("execution-chip")).not.toBeInTheDocument();
       await user.click(restartButton);
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(
@@ -311,7 +332,7 @@ const scheduleTasksMock: ApolloMock<
     query: SCHEDULE_TASKS,
     variables: {
       taskIds: [currentTask.id],
-      versionId: currentTask.versionMetadata.id,
+      versionId: currentTask.version.id,
     },
   },
   result: {

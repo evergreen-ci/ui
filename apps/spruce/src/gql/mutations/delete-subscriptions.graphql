@@ -1,3 +1,0 @@
-mutation DeleteSubscriptions($subscriptionIds: [String!]!) {
-  deleteSubscriptions(subscriptionIds: $subscriptionIds)
-}

@@ -464,7 +464,7 @@ export const getEventSchema = (
         "Regex can be specified for at most one name and one ID.",
       "ui:orderable": false,
       "ui:addToEnd": true,
-      "ui:addButtonText": "Add Additional Criteria",
+      "ui:addButtonText": "Add additional criteria",
       items: {
         "ui:ObjectFieldTemplate": RegexSelectorRow,
         "ui:label": false,

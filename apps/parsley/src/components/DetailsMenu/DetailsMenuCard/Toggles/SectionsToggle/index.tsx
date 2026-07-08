@@ -1,20 +1,12 @@
 import { usePreferencesAnalytics } from "analytics";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
-import { ParsleySettingsInput } from "gql/generated/types";
 import BaseToggle from "../BaseToggle";
 
-interface SectionsToggleProps {
-  checked: boolean;
-  updateSettings: (parsleySettings: ParsleySettingsInput) => void;
-}
-
-const SectionsToggle: React.FC<SectionsToggleProps> = ({
-  checked,
-  updateSettings,
-}) => {
+const SectionsToggle: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
-  const { logMetadata } = useLogContext();
+  const { logMetadata, preferences } = useLogContext();
+  const { sectionsEnabled, setSectionsEnabled } = preferences;
 
   const isTaskLog = logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS;
 
@@ -24,13 +16,11 @@ const SectionsToggle: React.FC<SectionsToggleProps> = ({
       disabled={!isTaskLog}
       label="Sections"
       onChange={(value) => {
-        updateSettings({
-          sectionsEnabled: value,
-        });
+        setSectionsEnabled(value);
         sendEvent({ name: "Toggled sections", on: value });
       }}
       tooltip="Toggle sections. Only available for Evergreen task logs."
-      value={checked}
+      value={sectionsEnabled}
     />
   );
 };

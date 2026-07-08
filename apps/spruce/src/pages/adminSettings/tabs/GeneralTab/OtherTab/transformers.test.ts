@@ -11,6 +11,66 @@ describe("other tab transformers", () => {
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
+
+  it("converts lifecycleLastSyncedAt values arriving as ISO strings", () => {
+    const isoString = "2026-07-06T12:00:00.000Z";
+    const adminSettingsWithSyncTime: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        logBucket: {
+          ...mockAdminSettings.buckets?.logBucket,
+          lifecycleLastSyncedAt: isoString as unknown as Date,
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithSyncTime);
+    expect(loaded?.other.bucketConfig.logBucketLifecycleLastSyncedAt).toBe(
+      isoString,
+    );
+  });
+
+  it("round-trips S3 storage account ID lists from admin settings", () => {
+    const adminSettingsWithS3Lists: AdminSettingsData = {
+      ...mockAdminSettings,
+      cost: {
+        ...mockAdminSettings.cost,
+        s3Cost: {
+          storage: {
+            __typename: "S3StorageCostConfig",
+            archiveStorageCostDiscount: 0,
+            artifactAwsAccountsWithoutLifecycleRules: ["111"],
+            defaultMaxArtifactExpirationDays: 1,
+            devprodOwnedAwsAccountIds: ["222"],
+            iAStorageCostDiscount: 0,
+            standardStorageCostDiscount: 0,
+          },
+          upload: {
+            __typename: "S3UploadCostConfig",
+            uploadCostDiscount: 0,
+          },
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithS3Lists);
+    expect(loaded).not.toBeNull();
+    expect(formToGql(loaded!)).toStrictEqual({
+      ...expectedGql,
+      cost: {
+        ...expectedGql.cost,
+        s3Cost: {
+          ...expectedGql.cost?.s3Cost,
+          storage: {
+            ...expectedGql.cost?.s3Cost?.storage,
+            artifactAwsAccountsWithoutLifecycleRules: ["111"],
+            devprodOwnedAwsAccountIds: ["222"],
+          },
+        },
+      },
+    });
+  });
 });
 
 const mockAdminSettings: AdminSettingsData = {
@@ -122,6 +182,7 @@ const mockAdminSettings: AdminSettingsData = {
     collectorEndpoint: "https://collector.example.com",
     collectorInternalEndpoint: "https://collector-internal.example.com",
     collectorAPIKey: "tracer-api-key",
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
     totalProjectLimit: 100,
@@ -135,6 +196,10 @@ const mockAdminSettings: AdminSettingsData = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };
 
@@ -166,6 +231,8 @@ const expectedForm: OtherFormState = {
           iAStorageCostDiscount: 0,
           archiveStorageCostDiscount: 0,
           defaultMaxArtifactExpirationDays: 1,
+          artifactAwsAccountsWithoutLifecycleRules: [],
+          devprodOwnedAwsAccountIds: [],
         },
       },
     },
@@ -187,7 +254,17 @@ const expectedForm: OtherFormState = {
     },
     bucketConfig: {
       defaultLogBucket: "evergreen-logs",
+      logBucketExpirationDays: 0,
+      logBucketTransitionToIADays: 0,
+      logBucketTransitionToGlacierDays: 0,
+      logBucketLifecycleLastSyncedAt: "",
+      logBucketLifecycleSyncError: "",
       logBucketLongRetentionName: "logBucketLongRetention",
+      logBucketLongRetentionExpirationDays: 0,
+      logBucketLongRetentionTransitionToIADays: 0,
+      logBucketLongRetentionTransitionToGlacierDays: 0,
+      logBucketLongRetentionLifecycleLastSyncedAt: "",
+      logBucketLongRetentionLifecycleSyncError: "",
       longRetentionProjects: ["project1", "project2"],
       testResultsBucketName: "evergreen-test-results",
       testResultsBucketTestResultsPrefix: "results/",
@@ -196,6 +273,13 @@ const expectedForm: OtherFormState = {
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
       failedTasksLogBucketName: "evergreen-failed-tasks",
+      failedTasksLogBucketExpirationDays: 0,
+      failedTasksLogBucketTransitionToIADays: 0,
+      failedTasksLogBucketTransitionToGlacierDays: 0,
+      failedTasksLogBucketLifecycleLastSyncedAt: "",
+      failedTasksLogBucketLifecycleSyncError: "",
+      retryFailedLogMoveLookbackDays: 0,
+      retryFailedLogMoveMaxJobsPerRun: 0,
     },
     sshPairs: {
       taskHostKey: {
@@ -256,6 +340,7 @@ const expectedForm: OtherFormState = {
       collectorEndpoint: "https://collector.example.com",
       collectorInternalEndpoint: "https://collector-internal.example.com",
       collectorAPIKey: "tracer-api-key",
+      traceUrlTemplate: "https://apm.example.com/trace/%s",
     },
     projectCreationSettings: {
       totalProjectLimit: 100,
@@ -269,6 +354,10 @@ const expectedForm: OtherFormState = {
     },
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
+    },
+    diagnosticsConfig: {
+      s3BucketName: "diagnostics-bucket",
+      s3Prefix: "diagnostics/",
     },
   },
 };
@@ -312,6 +401,8 @@ const expectedGql: AdminSettingsInput = {
       name: "logBucketLongRetention",
     },
     longRetentionProjects: ["project1", "project2"],
+    retryFailedLogMoveLookbackDays: undefined,
+    retryFailedLogMoveMaxJobsPerRun: undefined,
     testResultsBucket: {
       name: "evergreen-test-results",
       testResultsPrefix: "results/",
@@ -370,7 +461,9 @@ const expectedGql: AdminSettingsInput = {
       },
       storage: {
         archiveStorageCostDiscount: 0,
+        artifactAwsAccountsWithoutLifecycleRules: [],
         defaultMaxArtifactExpirationDays: 1,
+        devprodOwnedAwsAccountIds: [],
         iAStorageCostDiscount: 0,
         standardStorageCostDiscount: 0,
       },
@@ -392,6 +485,7 @@ const expectedGql: AdminSettingsInput = {
     collectorEndpoint: "https://collector.example.com",
     collectorInternalEndpoint: "https://collector-internal.example.com",
     collectorAPIKey: "tracer-api-key",
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
     totalProjectLimit: 100,
@@ -405,5 +499,9 @@ const expectedGql: AdminSettingsInput = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };

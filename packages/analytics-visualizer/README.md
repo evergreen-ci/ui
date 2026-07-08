@@ -10,7 +10,10 @@ import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 export default defineConfig({
   plugins: [
     analyticsVisualizer({
-      analyticsDir: "src/analytics",
+      analyticsDir: [
+        "src/analytics",
+        "../../packages/lib/src/analytics/hooks",
+      ],
       appName: "Parsley",
       honeycombBaseUrl: "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley",
     }),
@@ -20,7 +23,7 @@ export default defineConfig({
 
 ## Options
 
-- `analyticsDir` (required): Path to the analytics directory (relative to project root or absolute)
+- `analyticsDir` (required): Path or array of paths to the analytics directory (each relative to project root or absolute).
 - `appName` (required): App name to display in the UI (e.g., "Parsley", "Spruce")
 - `honeycombBaseUrl` (required): Honeycomb base URL including dataset path (e.g., "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley")
 - `outputFileName` (optional): Output file name (default: "analytics.html")

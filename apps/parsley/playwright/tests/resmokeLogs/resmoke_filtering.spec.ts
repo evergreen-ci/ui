@@ -1,0 +1,305 @@
+import { test, expect } from "@playwright/test";
+import * as helpers from "../../helpers";
+
+const logLink =
+  "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e17b99558fd9c5e2faf70a00d15d";
+
+test.describe("Filtering", () => {
+  test.describe("Applying filters", () => {
+    test.describe("Basic filtering", () => {
+      test.beforeEach(async ({ page }) => {
+        await page.goto(logLink);
+        await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+        await expect(page.getByTestId("paginated-virtual-list")).toBeVisible();
+      });
+
+      test("should not collapse bookmarks and share line", async ({ page }) => {
+        await page.goto(`${logLink}?shareLine=5`);
+        await page.getByTestId("log-row-6").dblclick();
+        await expect(page).toHaveURL(/\?bookmarks=0,6,115&shareLine=5/);
+        await helpers.addFilter(page, "doesNotMatchAnything");
+
+        const filteredRows = page.locator("[data-cy^='log-row-']");
+        await expect(filteredRows).toHaveCount(4);
+        const logRows = await filteredRows.all();
+        for (const row of logRows) {
+          const dataCy = await row.getAttribute("data-cy");
+          expect(dataCy).toMatch(/log-row-(0|5|6|115)/);
+        }
+      });
+
+      test("does not corrupt filters that are large numbers", async ({
+        page,
+      }) => {
+        await helpers.addFilter(page, "5553072873648668703");
+        await expect(page.getByTestId("log-row-0")).toBeVisible();
+        await page.getByTestId("log-row-0").dblclick();
+        await expect(page).toHaveURL(/5553072873648668703/);
+        await expect(
+          page.getByTestId("filter-5553072873648668703"),
+        ).toBeVisible();
+      });
+    });
+
+    test.describe("Advanced filtering", () => {
+      const filter1 = "deleted";
+      const filter2 = "session";
+
+      test.describe("filtering mode is AND", () => {
+        test("should be able to apply two default filters (case insensitive, exact match)", async ({
+          page,
+        }) => {
+          await page.goto(`${logLink}?filterLogic=and`);
+          await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+          await helpers.addFilter(page, filter1);
+          await helpers.addFilter(page, filter2);
+          await expect(page).toHaveURL(
+            new RegExp(`filters=100${filter1},100${filter2}`),
+          );
+
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          const logRows = await filteredRows.all();
+          for (const row of logRows) {
+            await expect(row).toContainText(filter1, { ignoreCase: true });
+            await expect(row).toContainText(filter2, { ignoreCase: true });
+          }
+        });
+
+        test("should be able to toggle case sensitivity", async ({ page }) => {
+          await page.goto(
+            `${logLink}?filterLogic=and&filters=100${filter1},100${filter2}`,
+          );
+          await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+          await page
+            .getByTestId(`filter-${filter1}`)
+            .getByText("Sensitive", { exact: true })
+            .click();
+          await expect(page).toHaveURL(
+            new RegExp(`filters=110${filter1},100${filter2}`),
+          );
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          const logRows = await filteredRows.all();
+          for (const row of logRows) {
+            await expect(row).toContainText(filter1, { ignoreCase: false });
+            await expect(row).toContainText(filter2, { ignoreCase: true });
+          }
+        });
+
+        test("should be able to toggle inverse matching", async ({ page }) => {
+          await page.goto(
+            `${logLink}?filterLogic=and&filters=110${filter1},100${filter2}`,
+          );
+          await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+          await page
+            .getByTestId(`filter-${filter2}`)
+            .getByText("Inverse", { exact: true })
+            .click();
+          await expect(page).toHaveURL(
+            new RegExp(`filters=110${filter1},101${filter2}`),
+          );
+
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          const logRows = await filteredRows.all();
+          for (const row of logRows) {
+            await expect(row).toContainText(filter1, { ignoreCase: false });
+            await expect(row).not.toContainText(filter2, { ignoreCase: true });
+          }
+        });
+
+        test("should be able to toggle visibility", async ({ page }) => {
+          await page.goto(
+            `${logLink}?filterLogic=and&filters=110${filter1},101${filter2}`,
+          );
+          await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+          await page
+            .getByTestId(`filter-${filter1}`)
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
+            .click();
+          await page
+            .getByTestId(`filter-${filter2}`)
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
+            .click();
+          await expect(page).toHaveURL(
+            new RegExp(`filters=010${filter1},001${filter2}`),
+          );
+          const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+          await expect(skippedLines).toHaveCount(0);
+        });
+      });
+
+      test.describe("filtering mode is OR", () => {
+        test("should be able to apply two default filters (case insensitive, exact match)", async ({
+          page,
+        }) => {
+          await page.goto(`${logLink}?filterLogic=or`);
+          await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+          await helpers.addFilter(page, filter1);
+          await helpers.addFilter(page, filter2);
+          await expect(page).toHaveURL(
+            new RegExp(`filters=100${filter1},100${filter2}`),
+          );
+
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          const logRows = await filteredRows.all();
+          for (const row of logRows) {
+            await expect(row).toContainText(/deleted|session/i);
+          }
+        });
+
+        test("should be able to toggle case sensitivity", async ({ page }) => {
+          await page.goto(
+            `${logLink}?filterLogic=or&filters=100${filter1},100${filter2}`,
+          );
+          await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+          await page
+            .getByTestId(`filter-${filter1}`)
+            .getByText("Sensitive", { exact: true })
+            .click();
+          await expect(page).toHaveURL(
+            new RegExp(`filters=110${filter1},100${filter2}`),
+          );
+
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          await expect(
+            filteredRows
+              .filter({ hasNotText: /deleted/ })
+              .filter({ hasNotText: /session/i }),
+          ).toHaveCount(0);
+        });
+
+        test("should be able to toggle inverse matching", async ({ page }) => {
+          await page.goto(
+            `${logLink}?filterLogic=or&filters=110${filter1},100${filter2}`,
+          );
+          await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+          await page
+            .getByTestId(`filter-${filter2}`)
+            .getByText("Inverse", { exact: true })
+            .click();
+          await expect(page).toHaveURL(
+            new RegExp(`filters=110${filter1},101${filter2}`),
+          );
+
+          const filteredRows = page.locator(
+            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+          );
+          await expect(filteredRows).not.toHaveCount(0);
+          await expect(
+            filteredRows
+              .filter({ hasNotText: /deleted/ })
+              .filter({ hasText: /session/i }),
+          ).toHaveCount(0);
+        });
+
+        test("should be able to toggle visibility", async ({ page }) => {
+          await page.goto(
+            `${logLink}?filterLogic=or&filters=110${filter1},101${filter2}`,
+          );
+          await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+          await page
+            .getByTestId(`filter-${filter1}`)
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
+            .click();
+          await page
+            .getByTestId(`filter-${filter2}`)
+            .getByTestId("accordion-toggle")
+            .getByRole("switch", { name: "Hide filter" })
+            .click();
+          await expect(page).toHaveURL(
+            new RegExp(`filters=010${filter1},001${filter2}`),
+          );
+          const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+          await expect(skippedLines).toHaveCount(0);
+        });
+      });
+    });
+  });
+
+  test.describe("Deleting and editing filters", () => {
+    const filter = "doesNotMatchAnything";
+
+    test.beforeEach(async ({ page }) => {
+      await page.goto(`${logLink}?filters=100${filter}`);
+      await expect(page.getByTestId("resmoke-row")).toHaveCount(0);
+      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      await expect(skippedLines).not.toHaveCount(0);
+    });
+
+    test("should be able to edit a filter", async ({ page }) => {
+      await page
+        .getByTestId(`filter-${filter}`)
+        .getByTestId("accordion-toggle")
+        .getByRole("button", { name: "Edit filter" })
+        .click();
+      await page.getByTestId("edit-filter-name").clear();
+      await page.getByTestId("edit-filter-name").fill("session");
+      await page.getByRole("button", { name: "Apply" }).click();
+      await expect(page).toHaveURL(/filters=100session/);
+
+      const filteredRows = page.locator(
+        "[data-cy^='log-row-']:not([data-bookmarked=true])",
+      );
+      await expect(filteredRows).not.toHaveCount(0);
+      const logRows = await filteredRows.all();
+      for (const row of logRows) {
+        await expect(row).toContainText("session", { ignoreCase: true });
+      }
+    });
+
+    test("should be able to delete a filter", async ({ page }) => {
+      await page
+        .getByTestId(`filter-${filter}`)
+        .getByTestId("accordion-toggle")
+        .getByRole("button", { name: "Delete filter" })
+        .click();
+      await expect(page).toHaveURL(/^(?!.*filters)/);
+      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      await expect(skippedLines).toHaveCount(0);
+    });
+  });
+
+  test.describe("hiding filters", () => {
+    const filter1 = "doesNotMatchAnything";
+    const filter2 = "doesNotMatchAnything2";
+
+    test("should be able to hide and unhide filters", async ({ page }) => {
+      await page.goto(`${logLink}?filters=110${filter1},100${filter2}`);
+      await expect(page.getByTestId("resmoke-row")).toHaveCount(0);
+      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      await expect(skippedLines).not.toHaveCount(0);
+
+      await page.getByTestId("all-filters-toggle").click();
+      await expect(page.getByTestId("all-filters-toggle")).not.toBeChecked();
+
+      await expect(skippedLines).toHaveCount(0);
+      await expect(page).toHaveURL(
+        new RegExp(`filters=010${filter1},000${filter2}`),
+      );
+
+      await page.getByTestId("all-filters-toggle").click();
+      await expect(page.getByTestId("all-filters-toggle")).toBeChecked();
+      await expect(skippedLines).not.toHaveCount(0);
+      await expect(page).toHaveURL(
+        new RegExp(`filters=110${filter1},100${filter2}`),
+      );
+    });
+  });
+});

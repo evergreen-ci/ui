@@ -49,6 +49,10 @@ type HookResult = {
   renderingType: LogRenderingTypes;
   /** The failing command in the log, if available */
   failingCommand: string;
+  /** Evergreen test log path (for Evergreen CLI --log_path) */
+  logPath: string;
+  /** Logs to merge alongside this test log (for Evergreen CLI --logs_to_merge) */
+  logsToMerge: string[];
 };
 
 /**
@@ -117,6 +121,8 @@ export const useResolveLogURLAndRenderingType = ({
   let jobLogsURL = "";
   let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
   let failingCommand = "";
+  let logPath = "";
+  let logsToMerge: string[] = [];
   switch (logType) {
     case LogTypes.EVERGREEN_COMPLETE_LOGS: {
       if (!taskID || !execution || !groupID) {
@@ -198,7 +204,13 @@ export const useResolveLogURLAndRenderingType = ({
       }
       const { groupID: groupIDFromQuery, logs } =
         testData?.task?.tests.testResults[0] || {};
-      const { renderingType: renderingTypeFromQuery, url, urlRaw } = logs || {};
+      const {
+        logPath: logPathFromQuery,
+        logsToMerge: logsToMergeFromQuery,
+        renderingType: renderingTypeFromQuery,
+        url,
+        urlRaw,
+      } = logs || {};
 
       const isResmoke = renderingTypeFromQuery === LogRenderingTypes.Resmoke;
       const printTime = isResmoke ? false : !excludeTimestamps;
@@ -217,6 +229,8 @@ export const useResolveLogURLAndRenderingType = ({
         url: baseHtmlLogURL,
       });
       downloadURL = rawLogURL;
+      logPath = logPathFromQuery ?? "";
+      logsToMerge = logsToMergeFromQuery ?? [];
       if (!renderingTypeFromQuery) {
         renderingType = LogRenderingTypes.Default;
       } else if (
@@ -268,6 +282,8 @@ export const useResolveLogURLAndRenderingType = ({
     htmlLogURL,
     jobLogsURL,
     loading: isLoadingTest || isLoadingTask || isLoadingTaskFileData,
+    logPath,
+    logsToMerge,
     rawLogURL,
     renderingType,
   };

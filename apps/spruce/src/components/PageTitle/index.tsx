@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
+import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size as tokenSize } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 
@@ -86,7 +87,9 @@ const PageHeader = styled.div<TitleTypographyProps>`
 `;
 
 const TitleWrapper = styled.span<TitleTypographyProps>`
+  ${wordBreakCss}
   flex: 1;
+  min-width: 0;
 `;
 
 export default PageTitle;

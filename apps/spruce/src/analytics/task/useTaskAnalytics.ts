@@ -14,10 +14,10 @@ import {
   TestSortCategory,
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
-import { CommitType } from "pages/task/ActionButtons/RelevantCommits/types";
+import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 
-type LogViewer = "raw" | "html" | "parsley";
+type LogViewer = "raw" | "html" | "parsley" | "download";
 type Action =
   | { name: "Filtered tests table"; "filter.by": string | string[] }
   | {
@@ -42,6 +42,9 @@ type Action =
     }
   | { name: "Clicked schedule task button" }
   | { name: "Clicked abort task button" }
+  | { name: "Clicked disable task button" }
+  | { name: "Clicked enable task button" }
+  | { name: "Clicked override dependencies button" }
   | { name: "Changed task priority"; "task.priority": number }
   | { name: "Clicked unschedule task button" }
   | { name: "Changed page size" }
@@ -56,6 +59,12 @@ type Action =
   | {
       name: "Clicked quarantine test button";
       "test.name": string;
+      "test.task_id": string;
+    }
+  | {
+      name: "Clicked unquarantine test button";
+      "test.name": string;
+      "test.task_id": string;
     }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
@@ -76,6 +85,11 @@ type Action =
       name: "Clicked task file Parsley link";
       "file.name": string;
     }
+  | {
+      name: "Clicked task file associated link";
+      "file.name": string;
+      "link.name": string;
+    }
   | { name: "Clicked relevant commit"; type: CommitType }
   | { name: "Redirected to default tab"; tab: string }
   | {
@@ -87,7 +101,9 @@ type Action =
   | {
       name: "Clicked review task";
       reviewed: boolean;
-    };
+    }
+  | { name: "Clicked cost details button" }
+  | { name: "Clicked to dismiss debug spawn host guide cue" };
 
 export const useTaskAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();

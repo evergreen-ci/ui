@@ -77,7 +77,6 @@ export const ProjectPatches = () => {
 
   return (
     <>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <PatchesPage
         filterComp={
@@ -102,7 +101,7 @@ export const ProjectPatches = () => {
             />
           </>
         }
-        loading={loading}
+        loading={loading && !patches}
         pageTitle={`${displayName ?? ""} Patches`}
         pageType="project"
         patches={patches}

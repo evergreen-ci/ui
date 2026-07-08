@@ -6,6 +6,12 @@ Note that there is a 1 minute timeout on log downloads. If you find that your do
 
 The methods listed below are ordered from most to least recommended. We recommend going through these methods sequentially if you are running into issues fetching your logs.
 
+## Via Parsley UI
+
+Click on the "Details" button in the upper right hand corner of Parsley to copy the CLI download command. The command is documented in more detail in the next section.
+
+![copyable CLI command](./images/copyable_cli_command.png)
+
 ## Via Evergreen CLI
 
 You can use the following commands with the `evergreen` client to fetch task and test logs.
@@ -16,7 +22,14 @@ You can use the following commands with the `evergreen` client to fetch task and
 evergreen task build TaskLogs --task_id <task_id> --execution <execution> --type <task_log_type>  --o output.txt
 ```
 
-See other options using the following command:
+Parameters:
+
+- `task_id`: The ID of the task.
+- `execution`: The execution of the task.
+- `task_log_type`: one of `task_log`, `agent_log`, `system_log`, or `all_logs`
+- `out` (`o`): File to download to.
+
+This list is not comprehensive. See other options using the following command:
 
 ```properties
 evergreen task build TaskLogs --help
@@ -25,18 +38,23 @@ evergreen task build TaskLogs --help
 ### Test Logs
 
 ```properties
-evergreen task build TestLogs --task_id <task_id> --execution <execution> --log_path <test_log_path> --o output.txt
+evergreen task build TestLogs --task_id <task_id> --execution <execution> --log_path <test_log_path> --logs_to_merge <log1> --logs_to_merge <log2> --o output.txt
 ```
 
-See other options using the following command:
+Parameters:
+
+- `task_id`: The ID of the task.
+- `execution`: The execution of the task.
+- `test_log_path`: A unique identifier for the test log. Can be found by viewing `https://evergreen.corp.mongodb.com/rest/v2/tasks/<task_id>/tests?limit=1000` ([docs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tests/paths/~1tasks~1%7Btask_id%7D~1tests/get)) in your browser and using Ctrl + F with test name
+- `logs_to_merge`: Specifies logs to merge with the given test log. Only relevant for resmoke logs.
+- `out` (`o`): File to download to.
+
+
+This list is not comprehensive. See other options using the following command:
 
 ```properties
 evergreen task build TestLogs --help
 ```
-
-To find the correct value for `<test_log_path>`, we recommend viewing `https://evergreen.corp.mongodb.com/rest/v2/tasks/<task_id>/tests` ([docs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tests/paths/~1tasks~1%7Btask_id%7D~1tests/get)) in your browser and using Ctrl + F to locate your test.
-
-Please note that this endpoint will only show the first 100 tests by default; append the `?limit=<num>` query parameter to show more tests. The test log path can then be grabbed from the `logs.url` field which should contain some value `test_name=<this_is_the_test_log_path>`.
 
 ## Via Spruce
 

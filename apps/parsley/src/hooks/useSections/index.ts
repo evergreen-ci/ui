@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import { useParsleySettings } from "hooks/useParsleySettings";
 import {
   SectionData,
   getOpenSectionStateBasedOnLineNumbers,
@@ -45,6 +44,7 @@ interface Props {
   logs: string[];
   logType: string | undefined;
   renderingType: string | undefined;
+  sectionsEnabled: boolean;
   onInitOpenSectionsContainingLines: number[] | undefined;
 }
 export const useSections = ({
@@ -52,15 +52,14 @@ export const useSections = ({
   logs,
   onInitOpenSectionsContainingLines,
   renderingType,
+  sectionsEnabled,
 }: Props): UseSectionsResult => {
   const dispatchToast = useToastContext();
   const [sectionData, setSectionData] = useState<SectionData | undefined>();
   const [sectionState, setSectionState] = useState<SectionState>();
 
-  const { settings } = useParsleySettings();
-
   const sectioningEnabled =
-    !!settings?.sectionsEnabled &&
+    sectionsEnabled &&
     logType === LogTypes.EVERGREEN_TASK_LOGS &&
     renderingType === LogRenderingTypes.Default;
 

@@ -21,11 +21,13 @@ describe("projectSelect", () => {
   const originalResizeObserver = window.ResizeObserver;
 
   beforeEach(() => {
-    const mockResizeObserver = vi.fn(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    const mockResizeObserver = vi.fn(function () {
+      return {
+        observe: vi.fn(),
+        unobserve: vi.fn(),
+        disconnect: vi.fn(),
+      };
+    });
     window.ResizeObserver = mockResizeObserver;
   });
 

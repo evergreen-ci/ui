@@ -6,7 +6,6 @@ interface Row {
 
 interface LogLineRow extends Row {
   getLine: (index: number) => string | undefined;
-  scrollToLine: (lineNumber: number) => void;
 
   failingLine?: number;
   highlightRegex?: RegExp;

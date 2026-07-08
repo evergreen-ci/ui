@@ -14,6 +14,7 @@ import useLineRangeSelection from "hooks/useLineRangeSelection";
 type MultiLineSelectContextState = {
   handleSelectLine: (selectedLine: number, shiftClick: boolean) => void;
   clearSelection: () => void;
+  setMenuPosition: (lineNumber: number | undefined) => void;
   setOpenMenu: (v: boolean) => void;
   menuPosition: number | undefined;
   openMenu: boolean;
@@ -106,16 +107,10 @@ const MultiLineSelectContextProvider: React.FC<{
       menuPosition,
       openMenu,
       selectedLines,
+      setMenuPosition,
       setOpenMenu,
     }),
-    [
-      clearSelection,
-      handleSelectLine,
-      menuPosition,
-      openMenu,
-      selectedLines,
-      setOpenMenu,
-    ],
+    [clearSelection, handleSelectLine, menuPosition, openMenu, selectedLines],
   );
   return (
     <MultiLineSelectContext.Provider value={memoizedContext}>

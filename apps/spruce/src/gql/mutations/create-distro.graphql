@@ -1,5 +1,0 @@
-mutation CreateDistro($opts: CreateDistroInput!) {
-  createDistro(opts: $opts) {
-    newDistroId
-  }
-}

@@ -130,6 +130,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     testResults,
     totalTestCount = 0,
   } = tests ?? {};
+  const isLoading = !testResults && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   const columns = useMemo(
     () =>
@@ -197,8 +198,8 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     >
       <BaseTable
         data-cy="tests-table"
-        data-loading={loading}
-        loading={loading}
+        data-loading={isLoading}
+        loading={isLoading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         loadingRows={limitNum}
         shouldAlternateRowColor
@@ -214,6 +215,7 @@ const emptyFilterQueryParams = {
 };
 
 const getInitialState = (queryParams: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }): {
   initialFilters: ColumnFiltersState;
@@ -234,21 +236,20 @@ const getInitialState = (queryParams: {
 
   return {
     initialSorting,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     initialFilters: Object.entries(mapFilterParamToId).reduce(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       (accum, [param, id]) => {
         if (queryParams[param]?.length) {
           return [...accum, { id, value: queryParams[param] }];
         }
         return accum;
       },
-      [],
+      [] as ColumnFiltersState,
     ),
   };
 };
 
 const getQueryVariables = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryParams: { [key: string]: any },
   taskId: string,
 ): TaskTestsQueryVariables => {
@@ -272,7 +273,7 @@ const getQueryVariables = (
   const rawStatuses = queryParams[RequiredQueryParams.Statuses];
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
-  ).filter((v) => v && v !== ALL_VALUE);
+  ).filter((v): v is string => !!v && v !== ALL_VALUE);
   const execution = queryParams[RequiredQueryParams.Execution];
   return {
     id: taskId,

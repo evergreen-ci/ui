@@ -6,7 +6,7 @@ describe("visibilityContainer", () => {
     vi.clearAllMocks();
   });
   it("should not render children when not visible in viewport", () => {
-    const mockIntersectionObserver = vi.fn((callback) => {
+    const mockIntersectionObserver = vi.fn(function (callback) {
       callback([
         {
           isIntersecting: false,
@@ -30,7 +30,7 @@ describe("visibilityContainer", () => {
   });
 
   it("should render children when visible in viewport", () => {
-    const mockIntersectionObserver = vi.fn((callback) => {
+    const mockIntersectionObserver = vi.fn(function (callback) {
       callback([
         {
           isIntersecting: true,

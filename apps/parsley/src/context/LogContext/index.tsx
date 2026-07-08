@@ -18,7 +18,7 @@ import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import filterLogs from "utils/filterLogs";
 import { getMatchingLines } from "utils/matchingLines";
 import { getColorMapping } from "utils/resmoke";
-import searchLogs from "utils/searchLogs";
+import { findMatchingLinesBySearch, searchLogs } from "utils/searchLogs";
 import useLogState from "./state";
 import { DIRECTION, LogMetadata, Preferences, SearchState } from "./types";
 import { usePreferences } from "./usePreferences";
@@ -55,6 +55,7 @@ interface LogContextState {
   ) => void;
   paginate: (dir: DIRECTION) => void;
   scrollToLine: (lineNumber: number) => void;
+  getLinesBySearch: (searchTerm: string) => number[];
   setFileName: (fileName: string) => void;
   setLogMetadata: (logMetadata: LogMetadata) => void;
   setSearch: (search: string) => void;
@@ -104,7 +105,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   );
 
   const preferences = usePreferences();
-  const { expandableRows, filterLogic } = preferences;
+  const { expandableRows, filterLogic, sectionsEnabled } = preferences;
 
   const { dispatch, state } = useLogState(initialLogLines);
   const [processedLogLines, setProcessedLogLines] = useState<ProcessedLogLines>(
@@ -134,6 +135,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       (v): v is number => v !== undefined,
     ),
     renderingType: state.logMetadata?.renderingType,
+    sectionsEnabled,
   });
 
   const stringifiedProcessedLogLines = useMemo(
@@ -197,6 +199,17 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       return colorMapping !== undefined ? colorMapping.color : undefined;
     },
     [getLine, state.colorMapping],
+  );
+
+  const getLinesBySearch = useCallback(
+    (searchTerm: string) =>
+      findMatchingLinesBySearch(
+        state.logs,
+        searchTerm,
+        preferences.caseSensitive,
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.logs.length, preferences.caseSensitive],
   );
 
   const scrollToLine = useCallback((lineNumber: number) => {
@@ -304,6 +317,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       expandLines: (expandedLines: ExpandedLines) =>
         dispatch({ expandedLines, type: "EXPAND_LINES" }),
       getLine,
+      getLinesBySearch,
       getResmokeLineColor,
       ingestLines,
       isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
@@ -346,6 +360,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       upperRange,
       dispatch,
       getLine,
+      getLinesBySearch,
       getResmokeLineColor,
       ingestLines,
       scrollToLine,

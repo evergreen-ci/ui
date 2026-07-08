@@ -68,6 +68,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
   ) : (
     <Popconfirm
       align={Align.Left}
+      data-cy="unmount-volume-popconfirm"
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Changed unmounted volume on host",

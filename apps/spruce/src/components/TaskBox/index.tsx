@@ -1,4 +1,7 @@
 import { forwardRef } from "react";
+// Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
+// eslint-disable-next-line @emotion/no-vanilla
+import { css as classNameCss } from "@emotion/css";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -34,7 +37,7 @@ const statusStyles = Object.entries(statusColorMap)
   })
   .join("\n");
 
-export const taskBoxStyles = css`
+const taskBoxStyles = css`
   width: ${DEFAULT_SQUARE_SIZE}px;
   height: ${DEFAULT_SQUARE_SIZE}px;
   border: ${SQUARE_BORDER}px solid ${white};
@@ -84,6 +87,8 @@ export const taskBoxStyles = css`
     border-color: ${black} transparent transparent transparent;
   }
 `;
+
+export const taskBoxClassName = classNameCss(taskBoxStyles.styles);
 
 const PolymorphicTaskBox = styled.div`
   ${taskBoxStyles}

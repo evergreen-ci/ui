@@ -4,6 +4,7 @@ import { Button } from "@leafygreen-ui/button";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useVersionAnalytics } from "analytics";
 import { getVersionDiffRoute } from "constants/routes";
 import {
   CodeChangesQuery,
@@ -21,6 +22,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
   disableDiffLinks = false,
   patchId,
 }) => {
+  const { sendEvent } = useVersionAnalytics(patchId);
   const { data, error, loading } = useQuery<
     CodeChangesQuery,
     CodeChangesQueryVariables
@@ -81,6 +83,13 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
                   <Button
                     data-cy="html-diff-btn"
                     href={getVersionDiffRoute(patchId, index)}
+                    onClick={() =>
+                      sendEvent({
+                        name: "Clicked code changes diff link",
+                        "diff.type": "patch",
+                        "diff.format": "html",
+                      })
+                    }
                     size="small"
                     title="Open diff as html file"
                   >
@@ -89,6 +98,13 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
                   <Button
                     data-cy="raw-diff-btn"
                     href={rawLink}
+                    onClick={() =>
+                      sendEvent({
+                        name: "Clicked code changes diff link",
+                        "diff.type": "patch",
+                        "diff.format": "raw",
+                      })
+                    }
                     size="small"
                     title="Open diff as raw file"
                   >

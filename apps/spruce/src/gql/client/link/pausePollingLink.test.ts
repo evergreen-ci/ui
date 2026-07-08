@@ -1,7 +1,7 @@
 import { ApolloLink, execute, gql, ApolloClient } from "@apollo/client";
 import { Observable } from "@apollo/client/utilities";
 import { waitFor } from "@testing-library/react";
-import { describe, it, beforeEach, afterEach, vi, expect } from "vitest";
+import { MockedFunction } from "vitest";
 import { pausePollingLink } from ".";
 
 const GET_WATERFALL = gql`
@@ -15,7 +15,7 @@ const GET_WATERFALL = gql`
 
 describe("pausePollingLink", () => {
   let mockHttpLink: ApolloLink;
-  let mockForward: ReturnType<typeof vi.fn>;
+  let mockForward: MockedFunction<ApolloLink.RequestHandler>;
   let documentHiddenSpy: ReturnType<typeof vi.spyOn>;
   let navigatorOnlineSpy: ReturnType<typeof vi.spyOn>;
   let mockClient: ApolloClient;
@@ -24,9 +24,11 @@ describe("pausePollingLink", () => {
     vi.clearAllMocks();
 
     mockForward = vi.fn(
-      () =>
+      (operation, _forward) =>
         new Observable((observer) => {
-          observer.next({ data: { someData: { id: 1, name: "Test" } } });
+          observer.next({
+            data: { someData: { id: 1, name: operation.operationName } },
+          });
           observer.complete();
         }),
     );
@@ -149,6 +151,33 @@ describe("pausePollingLink", () => {
     expect(mockForward).toHaveBeenCalled();
     await waitFor(() => {
       expect(observer.next).toHaveBeenCalled();
+    });
+  });
+
+  it("delays a TaskHistory request when tab is inactive", async () => {
+    documentHiddenSpy.mockReturnValue(true);
+    navigatorOnlineSpy.mockReturnValue(true);
+
+    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: gql`
+          query TaskHistory {
+            someData {
+              id
+              name
+            }
+          }
+        `,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
+
+    expect(mockForward).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(observer.next).not.toHaveBeenCalled();
     });
   });
 

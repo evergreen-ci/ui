@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import { Banner, Variant } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Select, Option } from "@leafygreen-ui/select";
 import { TextArea } from "@leafygreen-ui/text-area";
+import { Body } from "@leafygreen-ui/typography";
+import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
@@ -33,7 +36,6 @@ export const UpdateStatusModal: React.FC<Props> = ({
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const [status, setHostStatus] = useState<UpdateHostStatus>(null);
-
   const [notes, setNotesValue] = useState<string>("");
 
   const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
@@ -53,12 +55,12 @@ export const UpdateStatusModal: React.FC<Props> = ({
       closeModal();
       const message = isHostPage
         ? `Status was changed to ${status}`
-        : `Status was changed to ${status} for ${numberOfHostsUpdated} host${
-            numberOfHostsUpdated === 1 ? "" : "s"
-          }`;
+        : `Status was changed to ${status} for ${numberOfHostsUpdated} host${pluralize(
+            "host",
+            numberOfHostsUpdated,
+          )}`;
 
       dispatchToast.success(message);
-
       resetForm();
     },
     onError(error) {
@@ -83,6 +85,9 @@ export const UpdateStatusModal: React.FC<Props> = ({
     resetForm();
   };
 
+  const statusDescription =
+    status != null ? statusDescriptions[status] : undefined;
+
   return (
     <ConfirmationModal
       cancelButtonProps={{
@@ -97,6 +102,10 @@ export const UpdateStatusModal: React.FC<Props> = ({
       open={visible}
       title="Update Host Status"
     >
+      <StyledBody>
+        {`Choose how Evergreen should treat the selected ${pluralize("host", hostIds.length)}.`}
+      </StyledBody>
+
       <StyledSelect
         data-cy="host-status-select"
         label="Host Status"
@@ -111,6 +120,13 @@ export const UpdateStatusModal: React.FC<Props> = ({
           </Option>
         ))}
       </StyledSelect>
+
+      {statusDescription && (
+        <StatusBanner data-cy="host-status-description" variant={Variant.Info}>
+          {statusDescription}
+        </StatusBanner>
+      )}
+
       <TextArea
         data-cy="host-status-notes"
         label="Add Notes"
@@ -125,6 +141,15 @@ export const UpdateStatusModal: React.FC<Props> = ({
 const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
 `;
+
+const StyledBody = styled(Body)`
+  margin-bottom: ${size.xs};
+`;
+
+const StatusBanner = styled(Banner)`
+  margin-bottom: ${size.xs};
+`;
+
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
 interface Status {
   title: keyof typeof UpdateHostStatus;
@@ -159,3 +184,16 @@ const hostStatuses: Status[] = [
     key: UpdateHostStatus.Stopped,
   },
 ];
+
+const statusDescriptions: Record<UpdateHostStatus, string> = {
+  [UpdateHostStatus.Running]:
+    "This status will mark the host as running so Evergreen can schedule tasks on it.",
+  [UpdateHostStatus.Quarantined]:
+    "This status will stop scheduling new tasks on this host without terminating it. Useful for maintenance or debugging, especially for static hosts.",
+  [UpdateHostStatus.Decommissioned]:
+    "This status will mark the host for termination once it finishes its current work. Evergreen will clean it up shortly after.",
+  [UpdateHostStatus.Stopped]:
+    "This status will stop the host so it no longer runs tasks. It can be started again later if supported by the host type.",
+  [UpdateHostStatus.Terminated]:
+    "This status will permanently shut down the host and remove it from Evergreen. Any in-progress work will not resume on this host.",
+};

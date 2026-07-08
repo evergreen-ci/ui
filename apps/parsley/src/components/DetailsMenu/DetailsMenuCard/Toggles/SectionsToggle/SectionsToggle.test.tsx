@@ -7,6 +7,7 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { LogTypes } from "constants/enums";
+import { SECTIONS_ENABLED } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import SectionsToggle from ".";
@@ -15,18 +16,19 @@ const wrapper = logContextWrapper();
 
 describe("sections toggle", () => {
   beforeEach(() => {
+    localStorage.clear();
     InitializeFakeToastContext();
   });
-  it("should render as checked when 'checked' prop is true", () => {
-    render(<SectionsToggle checked updateSettings={vi.fn()} />, { wrapper });
+
+  it("defaults to 'true' when localStorage is unset", () => {
+    render(<SectionsToggle />, { wrapper });
     const sectionsToggle = screen.getByDataCy("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-checked", "true");
   });
 
-  it("should render as unchecked when 'checked' prop is false", () => {
-    render(<SectionsToggle checked={false} updateSettings={vi.fn()} />, {
-      wrapper,
-    });
+  it("reads from localStorage when set to 'false'", () => {
+    localStorage.setItem(SECTIONS_ENABLED, "false");
+    render(<SectionsToggle />, { wrapper });
     const sectionsToggle = screen.getByDataCy("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-checked", "false");
   });
@@ -34,7 +36,7 @@ describe("sections toggle", () => {
   it("should disable toggle if logType is not Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <SectionsToggle checked updateSettings={vi.fn()} />,
+      <SectionsToggle />,
     );
     render(<Component />, { wrapper });
     act(() => {
@@ -49,7 +51,7 @@ describe("sections toggle", () => {
   it("should enable toggle if logType is Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <SectionsToggle checked updateSettings={vi.fn()} />,
+      <SectionsToggle />,
     );
     render(<Component />, { wrapper });
     act(() => {
@@ -59,13 +61,12 @@ describe("sections toggle", () => {
     expect(sectionsToggle).toHaveAttribute("aria-disabled", "false");
   });
 
-  it("should call update function with correct parameters, without updating the URL", async () => {
+  it("should persist changes to localStorage without updating the URL", async () => {
     const user = userEvent.setup();
-    const updateSettings = vi.fn();
 
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <SectionsToggle checked updateSettings={updateSettings} />,
+      <SectionsToggle />,
     );
     const { router } = render(<Component />, { wrapper });
     act(() => {
@@ -73,11 +74,10 @@ describe("sections toggle", () => {
     });
 
     const sectionsToggle = screen.getByDataCy("sections-toggle");
+    expect(sectionsToggle).toHaveAttribute("aria-checked", "true");
     await user.click(sectionsToggle);
-    expect(updateSettings).toHaveBeenCalledTimes(1);
-    expect(updateSettings).toHaveBeenCalledWith({
-      sectionsEnabled: false,
-    });
+    expect(sectionsToggle).toHaveAttribute("aria-checked", "false");
+    expect(localStorage.getItem(SECTIONS_ENABLED)).toBe("false");
     expect(router.state.location.search).toBe("");
   });
 });

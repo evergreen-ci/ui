@@ -14,6 +14,7 @@ import {
   tracerConfiguration,
   projectCreationSettings,
   githubCheckRunConfigurations,
+  diagnosticsConfig,
 } from "./schemaFields";
 
 export const getFormSchema = ({
@@ -98,6 +99,11 @@ export const getFormSchema = ({
               title: "GitHub Check Run Config",
               properties: githubCheckRunConfigurations.schema,
             },
+            diagnosticsConfig: {
+              type: "object" as const,
+              title: "Diagnostics Config",
+              properties: diagnosticsConfig.schema,
+            },
             singleTaskDistro: {
               type: "object" as const,
               title: "Single Task Distro Configuration",
@@ -123,6 +129,7 @@ export const getFormSchema = ({
         tracerConfiguration: tracerConfiguration.uiSchema,
         projectCreationSettings: projectCreationSettings.uiSchema,
         githubCheckRunConfigurations: githubCheckRunConfigurations.uiSchema,
+        diagnosticsConfig: diagnosticsConfig.uiSchema,
       },
     },
   };

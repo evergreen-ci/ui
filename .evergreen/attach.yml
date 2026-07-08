@@ -22,31 +22,88 @@ functions:
       content_type: text/plain
       permissions: public-read
 
-  attach-cypress-results:
+  attach-playwright-results:
+    - command: subprocess.exec
+      type: system
+      params:
+        working_dir: ui/${app_dir}/bin/playwright
+        binary: bash
+        args:
+          - "-c"
+          - |
+            if [ -d "html" ]; then
+              cd html
+              zip -r ../playwright-html-report.zip .
+            fi
     - command: s3.put
       type: system
       params:
         role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/cypress/screenshots/*"]
+        local_file: "ui/${app_dir}/bin/playwright/playwright-html-report.zip"
+        remote_file: ${build_variant}/${task_id}/${execution}/playwright-html-report.zip
+        bucket: evg-bucket-evergreen-ui
+        content_type: application/zip
+        permissions: private
+        visibility: signed
+        display_name: "Playwright HTML Report (zip)"
+    - command: s3.put
+      type: system
+      params:
+        role_arn: ${ASSUME_ROLE_ARN}
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/**/*"]
+        remote_file: ${build_variant}/${task_id}/${execution}/report/
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/html
+        visibility: none
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        role_arn: ${ASSUME_ROLE_ARN}
+        local_file: "ui/${app_dir}/bin/playwright/html/index.html"
+        remote_file: ${build_variant}/${task_id}/${execution}/report/ui/${app_dir}/bin/playwright/html/index.html
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/html
+        permissions: public-read
+        display_name: "*** Playwright HTML Report"
+    - command: s3.put
+      type: system
+      params:
+        role_arn: ${ASSUME_ROLE_ARN}
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/test-results/**/*.png"]
         remote_file: ${build_variant}/${task_id}/${execution}/
         bucket: evg-bucket-evergreen-ui
         content_type: image/png
         permissions: public-read
         display_name: "screenshot:"
+        preserve_path: true
     - command: s3.put
       type: system
       params:
         role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/cypress/videos/*"]
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/test-results/**/*.webm"]
         remote_file: ${build_variant}/${task_id}/${execution}/
         bucket: evg-bucket-evergreen-ui
-        content_type: video/mp4
+        content_type: video/webm
         permissions: public-read
         display_name: "video:"
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        role_arn: ${ASSUME_ROLE_ARN}
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/test-results/**/trace.zip"]
+        remote_file: ${build_variant}/${task_id}/${execution}/
+        bucket: evg-bucket-evergreen-ui
+        content_type: application/zip
+        permissions: public-read
+        display_name: "trace:"
+        preserve_path: true
     - command: attach.xunit_results
       params:
         files:
-          - "./ui/${app_dir}/bin/cypress/*.xml"
+          - "./ui/${app_dir}/bin/playwright/*.xml"
 
   attach-email:
     command: s3.put
@@ -106,6 +163,18 @@ functions:
         content_type: text/html
         permissions: public-read
         preserve_path: true
+        visibility: none
+    - command: s3.put
+      type: system
+      params:
+        role_arn: ${ASSUME_ROLE_ARN}
+        local_files_include_filter: ["ui/${app_dir}/storybook-static/index.html"]
+        remote_file: ${build_variant}/${task_id}/${execution}/storybook/
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/html
+        permissions: public-read
+        preserve_path: true
+        display_name: "Storybook:"
     - command: s3.put
       type: system
       params:
@@ -120,6 +189,7 @@ functions:
         content_type: application/javascript
         permissions: public-read
         preserve_path: true
+        visibility: none
     - command: s3.put
       type: system
       params:
@@ -130,6 +200,7 @@ functions:
         content_type: application/json
         permissions: public-read
         preserve_path: true
+        visibility: none
     - command: s3.put
       type: system
       params:
@@ -140,6 +211,7 @@ functions:
         content_type: text/css
         permissions: public-read
         preserve_path: true
+        visibility: none
     - command: s3.put
       type: system
       params:
@@ -150,6 +222,7 @@ functions:
         content_type: application/json
         permissions: public-read
         preserve_path: true
+        visibility: none
     - command: s3.put
       type: system
       params:
@@ -163,6 +236,7 @@ functions:
         content_type: font/woff2
         permissions: public-read
         preserve_path: true
+        visibility: none
 
   attach-test-results:
     command: attach.xunit_results

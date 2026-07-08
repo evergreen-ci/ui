@@ -23,7 +23,7 @@ type AnsiRowProps = React.FC<React.ComponentProps<typeof AnsiRow>>;
 
 // Single AnsiRow.
 const SingleLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
-  const { ingestLines, scrollToLine } = useLogContext();
+  const { ingestLines } = useLogContext();
 
   useEffect(() => {
     ingestLines(logLines, LogRenderingTypes.Default);
@@ -38,7 +38,6 @@ const SingleLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
       lineNumber={0}
       prettyPrint={args.prettyPrint}
       range={{ lowerRange: 0 }}
-      scrollToLine={scrollToLine}
       searchTerm={undefined}
       wordWrapFormat={args.wordWrapFormat}
       wrap={args.wrap}

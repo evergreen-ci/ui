@@ -167,6 +167,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
         >
           Highlight
         </Option>
+        <Option
+          key={SearchBarActions.Bookmark}
+          data-cy="bookmark-option"
+          value={SearchBarActions.Bookmark}
+        >
+          Bookmark
+        </Option>
       </StyledSelect>
       <InputWrapper>
         <IconButtonWrapper

@@ -1,6 +1,5 @@
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  MockedProvider,
   act,
   renderWithRouterMatch as render,
   renderComponentWithHook,
@@ -9,32 +8,12 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import { STICKY_HEADERS } from "constants/storageKeys";
+import { SECTIONS_ENABLED, STICKY_HEADERS } from "constants/storageKeys";
 import { LogContextProvider, useLogContext } from "context/LogContext";
-import {
-  parsleySettingsMock,
-  parsleySettingsMockSectionsDisabled,
-} from "test_data/parsleySettings";
 import StickyHeadersToggle from ".";
 
-const sectionsEnabledWrapper = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => (
-  <MockedProvider mocks={[parsleySettingsMock]}>
-    <LogContextProvider>{children}</LogContextProvider>
-  </MockedProvider>
-);
-
-const sectionsDisabledWrapper = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => (
-  <MockedProvider mocks={[parsleySettingsMockSectionsDisabled]}>
-    <LogContextProvider>{children}</LogContextProvider>
-  </MockedProvider>
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <LogContextProvider>{children}</LogContextProvider>
 );
 
 describe("sticky headers toggle", () => {
@@ -46,22 +25,20 @@ describe("sticky headers toggle", () => {
 
   it("defaults to 'false' if stored value is unset", () => {
     localStorage.clear();
-    render(<StickyHeadersToggle />, { wrapper: sectionsEnabledWrapper });
+    render(<StickyHeadersToggle />, { wrapper });
     const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
     expect(stickyHeadersToggle).toHaveAttribute("aria-checked", "false");
   });
 
   it("should read from localStorage properly", () => {
-    render(<StickyHeadersToggle />, { wrapper: sectionsEnabledWrapper });
+    render(<StickyHeadersToggle />, { wrapper });
     const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
     expect(stickyHeadersToggle).toHaveAttribute("aria-checked", "true");
   });
 
   it("should not update the URL when clicked", async () => {
     const user = userEvent.setup();
-    const { router } = render(<StickyHeadersToggle />, {
-      wrapper: sectionsEnabledWrapper,
-    });
+    const { router } = render(<StickyHeadersToggle />, { wrapper });
     const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
     expect(stickyHeadersToggle).toHaveAttribute("aria-checked", "true");
     await user.click(stickyHeadersToggle);
@@ -73,7 +50,7 @@ describe("sticky headers toggle", () => {
       useLogContext,
       <StickyHeadersToggle />,
     );
-    render(<Component />, { wrapper: sectionsEnabledWrapper });
+    render(<Component />, { wrapper });
     act(() => {
       hook.current.setLogMetadata({
         logType: LogTypes.EVERGREEN_TASK_LOGS,
@@ -90,11 +67,12 @@ describe("sticky headers toggle", () => {
   });
 
   it("should disable toggle if sectioning is disabled", async () => {
+    localStorage.setItem(SECTIONS_ENABLED, "false");
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <StickyHeadersToggle />,
     );
-    render(<Component />, { wrapper: sectionsDisabledWrapper });
+    render(<Component />, { wrapper });
     act(() => {
       hook.current.setLogMetadata({
         logType: LogTypes.EVERGREEN_TASK_LOGS,

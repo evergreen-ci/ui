@@ -27,4 +27,9 @@ export const testStatusesFilterTreeData = [
     value: TestStatus.SilentFail,
     key: TestStatus.SilentFail,
   },
+  {
+    title: "Timeout",
+    value: TestStatus.Timeout,
+    key: TestStatus.Timeout,
+  },
 ];

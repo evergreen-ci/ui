@@ -54,7 +54,9 @@ export const checkIsAncestor = async (commit: string): Promise<boolean> => {
       return false;
     }
     // @ts-expect-error: error is unknown type.
-    throw new Error(`Error checking ancestor: ${error.message}`);
+    throw new Error(`Error checking ancestor: ${error.message}`, {
+      cause: error,
+    });
   }
 };
 

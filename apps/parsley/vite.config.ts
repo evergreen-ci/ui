@@ -4,67 +4,46 @@ import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
-import envCompatible from "vite-plugin-env-compatible";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
-import dns from "dns";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
   generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
 } from "@evg-ui/vite-utils";
-import injectVariablesInHTML from "./config/injectVariablesInHTML";
+
+process.env.VITE_APP_VERSION = process.env.npm_package_version ?? "0.0.0";
+process.env.VITE_GIT_SHA = process.env.VITE_GIT_SHA ?? "unknown";
+process.env.VITE_PROFILE_HEAD = process.env.VITE_PROFILE_HEAD ?? "";
 
 const getProjectConfig = () => {
-  // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
-  dns.setDefaultResultOrder("ipv4first");
-
   const serverConfig = generateBaseHTTPSViteServerConfig({
     port: 5173,
-    appURL: process.env.REACT_APP_PARSLEY_URL,
+    appURL: process.env.VITE_PARSLEY_URL ?? "",
     httpsPort: 8444,
     useHTTPS:
-      process.env.REACT_APP_RELEASE_STAGE !== "local" &&
+      process.env.VITE_RELEASE_STAGE !== "local" &&
       process.env.NO_HTTPS !== "true",
   });
 
   // https://vitejs.dev/config/
   const viteConfig = defineConfig({
+    define: {
+      "globalThis.EMOTION_RUNTIME_AUTO_LABEL": JSON.stringify(
+        process.env.NODE_ENV === "development",
+      ),
+    },
     server: serverConfig,
     build: {
-      rollupOptions: {
-        plugins: [],
-      },
       sourcemap: true,
     },
 
     plugins: [
-      tsconfigPaths(),
       react({
-        babel: {
-          // @emotion/babel-plugin injects styled component names (e.g. "StyledSelect") into HTML for dev
-          // environments only. It can be toggled for production environments by modifying the parameter
-          // autoLabel. (https://emotion.sh/docs/@emotion/babel-plugin)
-          plugins: ["@emotion/babel-plugin", "import-graphql"],
-        },
         // Exclude storybook stories from fast refresh.
         exclude: /\.stories\.tsx?$/,
         // Only Typescript files should use fast refresh.
         include: ["**/*.tsx", "**/*.ts"],
-      }),
-      envCompatible({
-        prefix: "REACT_APP_",
-      }),
-      injectVariablesInHTML({
-        files: "dist/index.html",
-        variables: [
-          "%REACT_APP_VERSION%",
-          "%GIT_SHA%",
-          "%REACT_APP_RELEASE_STAGE%",
-          "%NODE_ENV%",
-          "%PROFILE_HEAD%",
-        ],
       }),
       // Typescript checking
       checker({ typescript: true }),
@@ -75,7 +54,10 @@ const getProjectConfig = () => {
       }),
       // Analytics visualization
       analyticsVisualizer({
-        analyticsDir: "src/analytics",
+        analyticsDir: [
+          "src/analytics",
+          "../../packages/lib/src/analytics/hooks",
+        ],
         appName: "Parsley",
         honeycombBaseUrl:
           "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley",
@@ -94,13 +76,8 @@ const getProjectConfig = () => {
       }),
     ],
 
-    // Setting jsxImportSource to @emotion/react raises a warning in the console. This line silences
-    // the warning. (https://github.com/vitejs/vite/issues/8644)
-    esbuild: {
-      logOverride: { "this-is-undefined-in-esm": "silent" },
-    },
-
     resolve: {
+      tsconfigPaths: true,
       alias: {
         // Prevent LG from pulling in SSR dependencies.
         // Can be potentially removed upon the completion of LG-4402.
@@ -126,7 +103,8 @@ const getProjectConfig = () => {
       globals: true,
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
-      setupFiles: "./config/vitest/setupTests.ts",
+      setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
+      include: ["src/**/*.test.{ts,tsx}"],
     },
   });
   return mergeConfig(viteConfig, vitestConfig);

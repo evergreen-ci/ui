@@ -47,7 +47,7 @@ export const getSpruceConfigMock: ApolloMock<
           __typename: "CloudProviderConfig",
         },
         serviceFlags: {
-          jwtTokenForCLIDisabled: true,
+          debugSpawnHostDisabled: false,
         },
         slack: {
           name: "everygreen_slack",
@@ -75,7 +75,7 @@ export const getUserSettingsMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "User",
+        __typename: "UserLite",
         userId: "user.id",
         settings: {
           __typename: "UserSettings",

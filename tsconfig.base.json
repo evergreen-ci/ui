@@ -3,13 +3,10 @@
     "target": "ESNext",
     "lib": [
       "DOM",
-      "DOM.Iterable",
       "ESNext"
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -20,6 +17,6 @@
     "jsxImportSource": "@emotion/react",
     "noFallthroughCasesInSwitch": true,
     "strict": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "wicg-file-system-access"]
   }
 }

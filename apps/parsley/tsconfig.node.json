@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "composite": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "allowSyntheticDefaultImports": true
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"]
   },
   "include": [
     "vite.config.ts",
-    "cypress.config.ts",
     ".storybook/**/*.ts",
-    "config/injectVariablesInHTML.ts"
+    "playwright.config.ts"
   ]
 }

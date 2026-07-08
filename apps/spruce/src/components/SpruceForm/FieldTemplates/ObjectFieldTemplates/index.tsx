@@ -19,8 +19,13 @@ export const ObjectFieldTemplate = ({
 }: ObjectFieldTemplateProps) => {
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
+  const dataCy = uiSchema["ui:data-cy"];
   return (
-    <fieldset css={uiSchema["ui:elementWrapperCSS"]} id={idSchema.$id}>
+    <fieldset
+      css={uiSchema["ui:elementWrapperCSS"]}
+      data-cy={dataCy}
+      id={idSchema.$id}
+    >
       {(uiSchema["ui:title"] || title) && (
         <TitleContainer>
           <TitleField

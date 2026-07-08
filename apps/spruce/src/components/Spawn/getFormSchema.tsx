@@ -222,6 +222,8 @@ const getHostUptimeSchema = ({
       },
     },
     temporarilyExemptUntil: {
+      "ui:description":
+        "During a temporary exemption, the uptime schedule will not take effect at all, so Evergreen will not stop/start your host unless you do so manually. This is useful if you have a one-off need to keep your host on without interruption.",
       "ui:disableAfter": exemptionRange.disableAfter,
       "ui:disableBefore": exemptionRange.disableBefore,
       "ui:widget": "date",

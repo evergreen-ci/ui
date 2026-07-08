@@ -68,7 +68,7 @@ export const getFormSchema = (
         "ui:showLabel": false,
       },
       setupCommands: {
-        "ui:addButtonText": "Add Command",
+        "ui:addButtonText": "Add command",
         "ui:addToEnd": true,
         "ui:border": true,
         "ui:fullWidth": true,

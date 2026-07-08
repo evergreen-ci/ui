@@ -31,6 +31,8 @@ export interface GeneralFormState {
     };
     repotracker: {
       repotrackerDisabled: boolean | null;
+      runEveryMainlineCommit: boolean | null;
+      waterfallDisabled: boolean | null;
       forceRun: null;
     };
     patch: {

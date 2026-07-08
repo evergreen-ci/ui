@@ -65,8 +65,8 @@ pnpm dev                  # Start dev server (local Evergreen)
 pnpm staging              # Dev server against staging Evergreen (HTTPS)
 pnpm prod                 # Dev server against production Evergreen (HTTPS)
 pnpm test                 # Run Vitest unit tests
-pnpm cy:open              # Cypress interactive mode
-pnpm cy:run               # Cypress headless tests
+pnpm playwright:ui        # Playwright interactive mode
+pnpm playwwright:test     # Playwright headless tests
 pnpm codegen              # Generate GraphQL types
 pnpm storybook            # Run Storybook
 pnpm build                # Production build
@@ -206,12 +206,12 @@ Use test utilities from `@evg-ui/lib/test_utils`:
 import { render, screen, userEvent, waitFor, renderWithRouterMatch } from "@evg-ui/lib/test_utils";
 ```
 
-### E2E Tests (Cypress)
+### E2E Tests (Playwright)
 Requires local Evergreen server and built app:
 ```bash
-pnpm build:local && pnpm serve   # Build and serve
-pnpm cy:open                     # Interactive mode
-pnpm cy:run                      # Headless mode
+pnpm dev                               # Serve
+pnpm playwright:ui                     # Interactive mode
+pnpm playwright:test                   # Headless mode
 ```
 
 ### Snapshot Tests

@@ -1,7 +1,3 @@
-# testing
-cypress/videos/
-cypress/screenshots/
-
 # artifacts
 /src/**/*.css
 build.txt

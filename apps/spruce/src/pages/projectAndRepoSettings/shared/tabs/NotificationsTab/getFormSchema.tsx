@@ -1,4 +1,7 @@
+import styled from "@emotion/styled";
 import { InlineCode, Description } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
+import { bannerThemeToLabelMap } from "components/Banners";
 import {
   getEventSchema,
   getNotificationSchema,
@@ -28,6 +31,26 @@ export const getFormSchema = (
   return {
     fields: {},
     schema: {
+      definitions: {
+        subscriptionArray: {
+          title: "Subscriptions",
+          type: "array" as const,
+          default: [],
+          items: {
+            type: "object" as const,
+            properties: {
+              subscriptionData: {
+                type: "object" as const,
+                title: "",
+                properties: {
+                  event: eventSchema,
+                  notification: notificationSchema,
+                },
+              },
+            },
+          },
+        },
+      },
       type: "object" as const,
       properties: {
         buildBreakSettings: {
@@ -59,28 +82,11 @@ export const getFormSchema = (
                     type: "string" as const,
                     title: "Theme",
                     default: BannerTheme.Announcement,
-                    oneOf: [
-                      {
-                        type: "string" as const,
-                        title: "Announcement",
-                        enum: [BannerTheme.Announcement],
-                      },
-                      {
-                        type: "string" as const,
-                        title: "Information",
-                        enum: [BannerTheme.Information],
-                      },
-                      {
-                        type: "string" as const,
-                        title: "Warning",
-                        enum: [BannerTheme.Warning],
-                      },
-                      {
-                        type: "string" as const,
-                        title: "Important",
-                        enum: [BannerTheme.Important],
-                      },
-                    ],
+                    oneOf: Object.keys(bannerThemeToLabelMap).map((k) => ({
+                      type: "string" as const,
+                      title: k,
+                      enum: [k],
+                    })),
                   },
                   text: {
                     type: "string" as const,
@@ -91,23 +97,16 @@ export const getFormSchema = (
             },
           },
         }),
-        subscriptions: {
-          type: "array" as const,
-          title: "Subscriptions",
-          items: {
+        subscriptions: { $ref: "#/definitions/subscriptionArray" },
+        ...(projectType === ProjectType.AttachedProject && {
+          repoData: {
             type: "object" as const,
+            title: "Repo Subscriptions",
             properties: {
-              subscriptionData: {
-                type: "object" as const,
-                title: "",
-                properties: {
-                  event: eventSchema,
-                  notification: notificationSchema,
-                },
-              },
+              subscriptions: { $ref: "#/definitions/subscriptionArray" },
             },
           },
-        },
+        }),
       },
     },
     uiSchema: {
@@ -131,14 +130,20 @@ export const getFormSchema = (
             },
             theme: {
               "ui:data-cy": "banner-theme",
+              "ui:allowDeselect": false,
+              "ui:optionsLabelMap": bannerThemeToLabelMap,
             },
           },
         },
       }),
       subscriptions: {
         "ui:placeholder": "No subscriptions are defined.",
-        "ui:descriptionNode": <HelpText />,
-        "ui:addButtonText": "Add Subscription",
+        "ui:descriptionNode": (
+          <HelpText
+            isAttachedToRepo={projectType === ProjectType.AttachedProject}
+          />
+        ),
+        "ui:addButtonText": "Add subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
         items: {
@@ -150,23 +155,58 @@ export const getFormSchema = (
           },
         },
       },
+      repoData: {
+        subscriptions: {
+          "ui:placeholder": "Repo has no subscriptions defined.",
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:readonly": true,
+          "ui:showLabel": false,
+          "ui:useExpandableCard": true,
+          items: {
+            "ui:label": false,
+            subscriptionData: {
+              event: eventUiSchema,
+              notification: notificationUiSchema,
+            },
+          },
+        },
+      },
     },
   };
 };
 
-const HelpText: React.FC = () => {
+interface HelpTextProps {
+  isAttachedToRepo: boolean;
+}
+
+const HelpText: React.FC<HelpTextProps> = ({ isAttachedToRepo }) => {
   const spruceConfig = useSpruceConfig();
   const slackName = spruceConfig?.slack?.name;
 
   return (
     <Description>
-      Private slack channels may require further Slack configuration.
+      Private Slack channels may require further Slack configuration.{" "}
       {slackName && (
-        <div>
+        <>
           Invite evergreen to your private Slack channels by running{" "}
           <InlineCode>invite {slackName}</InlineCode> in the channel.
-        </div>
+        </>
+      )}
+      {isAttachedToRepo && (
+        <NoteText>
+          Project notifications are{" "}
+          <i>
+            <b>merged with repo notifications</b>
+          </i>
+          , meaning that users will receive duplicate notifications if the repo
+          and project are subscribed to the same event.
+        </NoteText>
       )}
     </Description>
   );
 };
+
+const NoteText = styled.div`
+  margin-top: ${size.xxs};
+`;

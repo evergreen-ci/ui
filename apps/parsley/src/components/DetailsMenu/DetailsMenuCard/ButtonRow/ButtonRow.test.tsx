@@ -96,6 +96,18 @@ describe("buttonRow", () => {
       );
     });
   });
+
+  describe("download button", () => {
+    it("should be disabled when there is no rawLogURL", () => {
+      renderWithRouterMatch(<ButtonRow />, {
+        wrapper: logContextWrapper(logLines),
+      });
+      expect(screen.getByDataCy("download-log-button")).toHaveAttribute(
+        "aria-disabled",
+        "true",
+      );
+    });
+  });
 });
 
 const logLines = [

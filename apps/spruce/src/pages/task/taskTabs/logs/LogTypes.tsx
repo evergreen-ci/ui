@@ -124,10 +124,11 @@ export const AllLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { allLogs } = taskLogs || {};
+  const isLoading = !allLogs && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   // All logs includes task, system, and agent logs. Event logs are not included.
   return (
-    <LogBody data={allLogs || []} error={error} loading={loading} {...rest} />
+    <LogBody data={allLogs || []} error={error} loading={isLoading} {...rest} />
   );
 };
 
@@ -149,6 +150,7 @@ export const EventLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { eventLogs } = taskLogs || {};
+  const isLoading = !eventLogs && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   const logs: TaskEventLogEntryType[] =
     eventLogs?.map((log) => ({
@@ -156,7 +158,7 @@ export const EventLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
       kind: "taskEventLogEntry" as const,
     })) ?? [];
 
-  return <LogBody data={logs} error={error} loading={loading} {...rest} />;
+  return <LogBody data={logs} error={error} loading={isLoading} {...rest} />;
 };
 
 export const SystemLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
@@ -177,12 +179,13 @@ export const SystemLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { systemLogs } = taskLogs || {};
+  const isLoading = !systemLogs && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   return (
     <LogBody
       data={systemLogs || []}
       error={error}
-      loading={loading}
+      loading={isLoading}
       {...rest}
     />
   );
@@ -206,9 +209,15 @@ export const AgentLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { agentLogs } = taskLogs || {};
+  const isLoading = !agentLogs && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   return (
-    <LogBody data={agentLogs || []} error={error} loading={loading} {...rest} />
+    <LogBody
+      data={agentLogs || []}
+      error={error}
+      loading={isLoading}
+      {...rest}
+    />
   );
 };
 
@@ -229,13 +238,10 @@ export const TaskLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
 
   const { task } = data || {};
   const { taskLogs } = task || {};
+  const { taskLogs: logs } = taskLogs || {};
+  const isLoading = !logs && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   return (
-    <LogBody
-      data={taskLogs?.taskLogs || []}
-      error={error}
-      loading={loading}
-      {...rest}
-    />
+    <LogBody data={logs || []} error={error} loading={isLoading} {...rest} />
   );
 };

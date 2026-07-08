@@ -8,7 +8,7 @@ import { PortalBanner } from "./PortalBanner";
 import { SiteBanner } from "./SiteBanner";
 
 interface ProjectBannerProps {
-  projectIdentifier: string;
+  projectIdentifier?: string;
 }
 export const ProjectBanner: React.FC<ProjectBannerProps> = ({
   projectIdentifier,

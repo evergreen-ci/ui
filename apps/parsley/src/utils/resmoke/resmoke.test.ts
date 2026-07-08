@@ -104,7 +104,6 @@ describe("getColorMapping", () => {
       `[j0:s0:n1] | 2022-09-21T12:59:01.284+00:00 I  -        20883   [conn1299] "Interrupted operation as its client disconnected","attr":{"opId":163850}`,
       portColors,
     );
-    portColors = { ...portColors, ...color2 };
     expect(color1).not.toStrictEqual(color2);
     expect(color2).toStrictEqual({ color: "#5B0000", portOrState: ":s0:n1]" });
   });
@@ -120,7 +119,6 @@ describe("getColorMapping", () => {
       '[js_test:catalog_cache_refresh_counters] sh12345| d20042| 2022-11-29T12:42:28.889+00:00 I  NETWORK  6496702 [ConfigServerCatalogCacheLoader::getDatabase] "Acquired connection for remote operation and completed writing to wire","attr":{"durationMicros":73}',
       portColors,
     );
-    portColors = { ...portColors, ...color2 };
     expect(color1).not.toStrictEqual(color2);
     expect(color1).toStrictEqual({
       color: "#00A35C",

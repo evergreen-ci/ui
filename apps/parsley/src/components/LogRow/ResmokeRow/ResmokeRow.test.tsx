@@ -1,6 +1,5 @@
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  MockedProvider,
   RenderWithRouterMatchOptions,
   renderWithRouterMatch,
   screen,
@@ -8,7 +7,6 @@ import {
 import { WordWrapFormat } from "constants/enums";
 import { LogContextProvider } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import ResmokeRow from ".";
 
 const renderRow = (
@@ -18,13 +16,11 @@ const renderRow = (
   renderWithRouterMatch(<ResmokeRow {...props} />, {
     ...options,
     wrapper: ({ children }: { children: React.ReactNode }) => (
-      <MockedProvider mocks={[parsleySettingsMock]}>
-        <LogContextProvider initialLogLines={logLines}>
-          <MultiLineSelectContextProvider>
-            {children}
-          </MultiLineSelectContextProvider>
-        </LogContextProvider>
-      </MockedProvider>
+      <LogContextProvider initialLogLines={logLines}>
+        <MultiLineSelectContextProvider>
+          {children}
+        </MultiLineSelectContextProvider>
+      </LogContextProvider>
     ),
   });
 
@@ -234,7 +230,6 @@ const logLines = [
 const resmokeProps = {
   getLine: (index: number) => logLines[index],
   getResmokeLineColor: vi.fn(),
-  scrollToLine: vi.fn(),
 
   prettyPrint: false,
   range: { lowerRange: 0 },

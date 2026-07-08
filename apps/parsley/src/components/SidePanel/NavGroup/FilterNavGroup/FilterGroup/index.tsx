@@ -105,7 +105,6 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           <IconButtonContainer>
             <Toggle
               aria-label={visible ? "Hide filter" : "Show filter"}
-              aria-labelledby={id}
               checked={visible}
               disabled={!isValid}
               onChange={() => editFilter("visible", !visible, filter)}

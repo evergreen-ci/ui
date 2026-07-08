@@ -11,9 +11,9 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         items: {
           type: "object" as const,
           properties: {
-            displayTitle: {
+            projectId: {
               type: "string" as const,
-              title: "Project ID / Repo",
+              title: "Project ID / Repo ID",
             },
             allowedTasks: {
               type: "array" as const,

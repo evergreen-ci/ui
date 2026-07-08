@@ -16,6 +16,11 @@ interface HoneycombConfig {
   endpoint: string;
   /** The url for our Honeycomb instrumented server to connect frontend and backend traces together */
   backendURL?: string;
+  /**
+   * Additional first-party origins (besides backendURL) to attach W3C trace headers to,
+   * e.g. the Parsley AI (Sage) server, so frontend fetch spans join the backend trace.
+   */
+  tracePropagationURLs?: string[];
   /** Whether to enable debug mode in the Honeycomb SDK this will enable additional logging and print links to traces */
   debug: boolean;
   /** The INGEST key for the Honeycomb SDK */
@@ -33,6 +38,7 @@ interface HoneycombConfig {
  * @param config - The configuration object for the Honeycomb SDK.
  * @param config.ingestKey - The Honeycomb INGEST API key.
  * @param config.backendURL - The backend URL.
+ * @param config.tracePropagationURLs - Extra first-party origins (besides backendURL) to attach W3C trace headers to, e.g. the Parsley AI (Sage) server.
  * @param config.debug - Whether to start the SDK in debug mode.
  * @param config.serviceName - The name of the service.
  * @param config.endpoint - The endpoint for the Honeycomb SDK to send traces to if we are not using the default.
@@ -49,6 +55,7 @@ const initializeHoneycomb = ({
   ingestKey,
   routeConfig,
   serviceName,
+  tracePropagationURLs = [],
 }: HoneycombConfig) => {
   if (debug && (!ingestKey || !endpoint)) {
     console.warn(
@@ -86,7 +93,10 @@ const initializeHoneycomb = ({
             }
           },
           // Allow connecting frontend & backend traces.
-          propagateTraceHeaderCorsUrls: [new RegExp(backendURL || "")],
+          propagateTraceHeaderCorsUrls: [
+            new RegExp(backendURL || ""),
+            ...tracePropagationURLs.map((url) => new RegExp(url)),
+          ],
         },
       };
 

@@ -1,10 +1,84 @@
-import { BannerTheme, ProjectSettingsInput } from "gql/generated/types";
+import {
+  BannerTheme,
+  ProjectSettingsInput,
+  RepoSettingsInput,
+} from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
 import { NotificationsFormState } from "./types";
 
-const { projectBase } = data;
+const { projectBase, repoBase } = data;
+
+describe("repo data", () => {
+  it("correctly converts from GQL to a form", () => {
+    expect(
+      gqlToForm(repoBase, { projectType: ProjectType.Repo }),
+    ).toStrictEqual(repoFormBase);
+  });
+
+  it("correctly converts from a form to GQL when the subscriptions field is empty", () => {
+    expect(formToGql(repoFormBase, true, "repo123")).toStrictEqual(
+      repoResultBase,
+    );
+  });
+
+  it("correctly converts from a form to GQL when the subscriptions field is populated", () => {
+    const repoForm = {
+      ...repoFormBase,
+      subscriptions: [
+        {
+          subscriptionData: {
+            id: "xyz",
+            event: {
+              extraFields: {
+                requester: "gitter_request",
+              },
+              eventSelect: "any-version-finishes",
+            },
+            notification: {
+              notificationSelect: "jira-comment",
+              jiraCommentInput: "evg-123",
+            },
+          },
+        },
+      ],
+    };
+    const repoResult = {
+      ...repoResultBase,
+      subscriptions: [
+        {
+          id: "xyz",
+          owner_type: "project",
+          regex_selectors: [],
+          resource_type: "VERSION",
+          selectors: [
+            {
+              type: "project",
+              data: "repo123",
+            },
+            {
+              type: "requester",
+              data: "gitter_request",
+            },
+          ],
+          subscriber: {
+            type: "jira-comment",
+            target: "evg-123",
+            jiraIssueSubscriber: undefined,
+            webhookSubscriber: undefined,
+          },
+          trigger: "outcome",
+          trigger_data: {
+            requester: "gitter_request",
+          },
+        },
+      ],
+    };
+
+    expect(formToGql(repoForm, true, "repo123")).toStrictEqual(repoResult);
+  });
+});
 
 describe("project data", () => {
   it("correctly converts from GQL to a form for project type", () => {
@@ -259,3 +333,19 @@ const projectResultBase: ProjectSettingsInput = {
 };
 
 const banner = { bannerData: { text: "", theme: BannerTheme.Announcement } };
+
+const repoFormBase: NotificationsFormState = {
+  buildBreakSettings: {
+    notifyOnBuildFailure: false,
+  },
+  subscriptions: [],
+};
+
+const repoResultBase: RepoSettingsInput = {
+  repoId: "repo123",
+  projectRef: {
+    id: "repo123",
+    notifyOnBuildFailure: false,
+  },
+  subscriptions: [],
+};

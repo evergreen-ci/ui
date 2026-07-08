@@ -1,20 +1,20 @@
-export type TaskTableInfo = {
-  id: string;
-  aborted?: boolean;
-  blocked?: boolean;
-  baseTask?: {
-    id: string;
-    execution: number;
-    displayStatus: string;
-  } | null;
-  buildVariant?: string;
-  buildVariantDisplayName?: string | null;
-  dependsOn?: Array<{ name: string }> | null;
-  displayName: string;
-  displayStatus: string;
-  execution: number;
-  executionTasksFull?: TaskTableInfo[] | null;
-  projectIdentifier?: string | null;
-  reviewed?: boolean | null;
-  errors?: string[] | null;
-};
+import { Unpacked } from "@evg-ui/lib/types/utils";
+import { VersionTasksQuery } from "gql/generated/types";
+
+type Task = Unpacked<VersionTasksQuery["version"]["tasks"]["data"]>;
+
+export type TaskTableInfo = Pick<
+  Task,
+  | "id"
+  | "baseTask"
+  | "buildVariant"
+  | "buildVariantDisplayName"
+  | "dependsOn"
+  | "displayName"
+  | "displayStatus"
+  | "execution"
+  | "executionTasksFull"
+  | "project"
+  | "reviewed"
+  | "errors"
+>;

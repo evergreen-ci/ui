@@ -12,14 +12,12 @@ import { SiteLayout } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { USER } from "gql/queries";
-import { useAnnouncementToast } from "hooks/useAnnouncementToast";
 import { WaterfallScrollToTop } from "pages/waterfall/ScrollToTop";
 
 const { gray, white } = palette;
 
 export const Layout: React.FC = () => {
   const { isAuthenticated } = useAuthProviderContext();
-  useAnnouncementToast();
 
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query

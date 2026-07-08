@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
         "composite": true,
-        "module": "nodenext",
-        "moduleResolution": "nodenext",
-        "esModuleInterop": true
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "types": ["node"]
     },
     "include": [
         ".storybook/main.ts",
         "vite.config.ts",
-        "config/injectVariablesInHTML.ts"
+        "playwright.config.ts"
     ]
 }

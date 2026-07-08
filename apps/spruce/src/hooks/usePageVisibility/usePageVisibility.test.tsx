@@ -12,6 +12,7 @@ describe("usePageVisibility", () => {
     act(() => {
       Object.defineProperty(document, "visibilityState", {
         value: status,
+        configurable: true,
       });
       document.dispatchEvent(new window.Event("visibilitychange"));
     });
@@ -29,6 +30,17 @@ describe("usePageVisibility", () => {
       wrapper: Provider,
     });
     updatePageVisibility("hidden");
+    expect(result.current).toBe(false);
+  });
+
+  it("usePageVisibility should return false when page is initially hidden", () => {
+    Object.defineProperty(document, "visibilityState", {
+      value: "hidden",
+      configurable: true,
+    });
+    const { result } = renderHook(() => usePageVisibility(), {
+      wrapper: Provider,
+    });
     expect(result.current).toBe(false);
   });
 });

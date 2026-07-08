@@ -13,6 +13,31 @@ describe("mergeVersions", () => {
     existingData: undefined,
   } as FieldMergeFunctionOptions;
 
+  it("handles undefined existing on first cache write", () => {
+    const pagination = {
+      activeVersionIds: ["b", "c"],
+      nextPageOrder: 0,
+      prevPageOrder: 0,
+      hasNextPage: false,
+      hasPrevPage: false,
+      mostRecentVersionOrder: 5,
+    };
+    expect(
+      mergeVersions(
+        undefined,
+        {
+          flattenedVersions: versions.slice(0, 2),
+          pagination,
+        },
+        readFn,
+      ),
+    ).toStrictEqual({
+      allActiveVersions: new Set(["b", "c"]),
+      flattenedVersions: versions.slice(0, 2),
+      pagination,
+    });
+  });
+
   it("merges version arrays", () => {
     const pagination = {
       activeVersionIds: ["b", "c", "f"],
@@ -364,7 +389,7 @@ describe("readVersions", () => {
     ).toBe(undefined);
   });
 
-  it("returns undefined when the number of activated versions found is less than the limit", () => {
+  it("returns undefined when the number of activated versions found is less than the limit and server has next page", () => {
     expect(
       readVersions(
         {
@@ -372,6 +397,7 @@ describe("readVersions", () => {
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
+            hasNextPage: true,
           },
         },
         // @ts-expect-error: for tests we can omit unused fields from the args
@@ -386,6 +412,42 @@ describe("readVersions", () => {
         } as FieldFunctionOptions,
       ),
     ).toBe(undefined);
+  });
+
+  it("returns available versions when active versions are less than limit and server has no next page", () => {
+    expect(
+      readVersions(
+        {
+          allActiveVersions: new Set(["c", "f"]),
+          flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
+          pagination: {
+            mostRecentVersionOrder: 5,
+            hasNextPage: false,
+          },
+        },
+        // @ts-expect-error: for tests we can omit unused fields from the args
+        {
+          args: {
+            options: {
+              limit: 3,
+              maxOrder: 4,
+            },
+          },
+          readField,
+        } as FieldFunctionOptions,
+      ),
+    ).toStrictEqual({
+      flattenedVersions: versions.slice(2),
+      pagination: {
+        activeVersionIds: ["c", "f"],
+        hasPrevPage: true,
+        hasNextPage: false,
+        mostRecentVersionOrder: 5,
+        prevPageOrder: 3,
+        nextPageOrder: 0,
+      },
+    });
   });
 
   it("returns first page if it exists in cache, even if minOrder and maxOrder are undefined", () => {
@@ -420,6 +482,41 @@ describe("readVersions", () => {
         mostRecentVersionOrder: 5,
         prevPageOrder: 0,
         nextPageOrder: 0,
+      },
+    });
+  });
+
+  it("returns all versions on initial load when project has fewer active versions than limit and no next page", () => {
+    expect(
+      readVersions(
+        {
+          allActiveVersions: new Set(["b", "c"]),
+          flattenedVersions: versions.slice(0, 3),
+          // @ts-expect-error: only mostRecentVersionOrder and hasNextPage affect reading versions
+          pagination: {
+            mostRecentVersionOrder: 5,
+            hasNextPage: false,
+          },
+        },
+        // @ts-expect-error: for tests we can omit unused fields from the args
+        {
+          args: {
+            options: {
+              limit: 5,
+            },
+          },
+          readField,
+        } as FieldFunctionOptions,
+      ),
+    ).toStrictEqual({
+      flattenedVersions: versions.slice(0, 3),
+      pagination: {
+        activeVersionIds: ["b", "c"],
+        hasPrevPage: false,
+        hasNextPage: true,
+        mostRecentVersionOrder: 5,
+        prevPageOrder: 0,
+        nextPageOrder: 3,
       },
     });
   });

@@ -25,7 +25,11 @@ type Action =
     }
   | { name: "Clicked metadata previous version link" }
   | { name: "Clicked metadata project patches link" }
-  | { name: "Clicked task table task link"; "task.id": string }
+  | {
+      name: "Clicked task table task link";
+      "task.id": string;
+      "task.status": string;
+    }
   | { name: "Deleted all filters" }
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
   | { name: "Filtered tasks table"; "filter.by": string | string[] }
@@ -51,6 +55,8 @@ type Action =
     }
   | { name: "Clicked schedule tasks button"; "task.scheduled_count": number }
   | { name: "Clicked patch reconfigure link" }
+  | { name: "Clicked version cost details button" }
+  | { name: "Clicked version honeycomb cost link" }
   | { name: "Changed version priority"; "version.priority": number }
   | {
       name: "Sorted tasks table";
@@ -69,6 +75,11 @@ type Action =
       num_reoccurring_tests: number;
       num_tests: number;
       num_failed_tasks: number;
+    }
+  | {
+      name: "Clicked code changes diff link";
+      "diff.type": "file" | "patch";
+      "diff.format": "html" | "raw";
     };
 
 export const useVersionAnalytics = (id: string) => {

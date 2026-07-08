@@ -41,7 +41,7 @@ const AdminSettingsPage: React.FC = () => {
             collapsible
             glyph={<Icon glyph="Settings" />}
             header={getTabTitle(AdminSettingsTabRoutes.General).title}
-            initialCollapsed
+            initialCollapsed={false}
           >
             <SideNavGroup header="Announcements">
               <SideNavItem
@@ -117,6 +117,16 @@ const AdminSettingsPage: React.FC = () => {
                 )}
               >
                 API
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-rate-limiting"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "api-rate-limit-config",
+                )}
+              >
+                Rate Limiting
               </SideNavItem>
               <SideNavItem
                 as={Link}

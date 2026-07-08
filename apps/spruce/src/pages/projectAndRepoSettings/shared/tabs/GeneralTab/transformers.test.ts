@@ -57,6 +57,8 @@ const repoForm: GeneralFormState = {
     },
     repotracker: {
       repotrackerDisabled: false,
+      runEveryMainlineCommit: false,
+      waterfallDisabled: false,
       forceRun: null,
     },
     patch: {
@@ -80,8 +82,10 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     spawnHostScriptPath: "/test/path",
     versionControlEnabled: false,
     dispatchingDisabled: true,
+    waterfallDisabled: false,
     deactivatePrevious: true,
     repotrackerDisabled: false,
+    runEveryMainlineCommit: false,
     debugSpawnHostsDisabled: false,
     patchingDisabled: false,
     stepbackDisabled: true,
@@ -125,6 +129,8 @@ const projectForm: GeneralFormState = {
     },
     repotracker: {
       repotrackerDisabled: null,
+      runEveryMainlineCommit: null,
+      waterfallDisabled: null,
       forceRun: null,
     },
     patch: {
@@ -151,8 +157,10 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     spawnHostScriptPath: null,
     versionControlEnabled: true,
     dispatchingDisabled: null,
+    waterfallDisabled: null,
     deactivatePrevious: null,
     repotrackerDisabled: null,
+    runEveryMainlineCommit: null,
     debugSpawnHostsDisabled: null,
     patchingDisabled: null,
     stepbackDisabled: null,

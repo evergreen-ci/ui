@@ -28,6 +28,7 @@ export const gqlToForm = ((data) => {
     configDir,
     cost,
     debugSpawnHosts,
+    diagnostics,
     domainName,
     expansions,
     githubCheckRun,
@@ -76,8 +77,13 @@ export const gqlToForm = ((data) => {
           s3Cost: {
             archiveStorageCostDiscount:
               cost?.s3Cost?.storage?.archiveStorageCostDiscount ?? 0,
+            artifactAwsAccountsWithoutLifecycleRules:
+              cost?.s3Cost?.storage?.artifactAwsAccountsWithoutLifecycleRules ??
+              [],
             defaultMaxArtifactExpirationDays:
               cost?.s3Cost?.storage?.defaultMaxArtifactExpirationDays || 1,
+            devprodOwnedAwsAccountIds:
+              cost?.s3Cost?.storage?.devprodOwnedAwsAccountIds ?? [],
             iAStorageCostDiscount:
               cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
             standardStorageCostDiscount:
@@ -106,7 +112,32 @@ export const gqlToForm = ((data) => {
 
       bucketConfig: {
         defaultLogBucket: buckets?.logBucket?.name ?? "",
+        logBucketExpirationDays: buckets?.logBucket?.expirationDays ?? 0,
+        logBucketTransitionToIADays:
+          buckets?.logBucket?.transitionToIADays ?? 0,
+        logBucketTransitionToGlacierDays:
+          buckets?.logBucket?.transitionToGlacierDays ?? 0,
+        logBucketLifecycleLastSyncedAt: buckets?.logBucket
+          ?.lifecycleLastSyncedAt
+          ? new Date(buckets.logBucket.lifecycleLastSyncedAt).toISOString()
+          : "",
+        logBucketLifecycleSyncError:
+          buckets?.logBucket?.lifecycleSyncError ?? "",
         logBucketLongRetentionName: buckets?.logBucketLongRetention?.name ?? "",
+        logBucketLongRetentionExpirationDays:
+          buckets?.logBucketLongRetention?.expirationDays ?? 0,
+        logBucketLongRetentionTransitionToIADays:
+          buckets?.logBucketLongRetention?.transitionToIADays ?? 0,
+        logBucketLongRetentionTransitionToGlacierDays:
+          buckets?.logBucketLongRetention?.transitionToGlacierDays ?? 0,
+        logBucketLongRetentionLifecycleLastSyncedAt: buckets
+          ?.logBucketLongRetention?.lifecycleLastSyncedAt
+          ? new Date(
+              buckets.logBucketLongRetention.lifecycleLastSyncedAt,
+            ).toISOString()
+          : "",
+        logBucketLongRetentionLifecycleSyncError:
+          buckets?.logBucketLongRetention?.lifecycleSyncError ?? "",
         longRetentionProjects: buckets?.longRetentionProjects ?? [],
         testResultsBucketName: buckets?.testResultsBucket?.name ?? "",
         testResultsBucketTestResultsPrefix:
@@ -116,6 +147,24 @@ export const gqlToForm = ((data) => {
         credentialsKey: buckets?.credentials?.key ?? "",
         credentialsSecret: buckets?.credentials?.secret ?? "",
         failedTasksLogBucketName: buckets?.logBucketFailedTasks?.name ?? "",
+        failedTasksLogBucketExpirationDays:
+          buckets?.logBucketFailedTasks?.expirationDays ?? 0,
+        failedTasksLogBucketTransitionToIADays:
+          buckets?.logBucketFailedTasks?.transitionToIADays ?? 0,
+        failedTasksLogBucketTransitionToGlacierDays:
+          buckets?.logBucketFailedTasks?.transitionToGlacierDays ?? 0,
+        failedTasksLogBucketLifecycleLastSyncedAt: buckets?.logBucketFailedTasks
+          ?.lifecycleLastSyncedAt
+          ? new Date(
+              buckets.logBucketFailedTasks.lifecycleLastSyncedAt,
+            ).toISOString()
+          : "",
+        failedTasksLogBucketLifecycleSyncError:
+          buckets?.logBucketFailedTasks?.lifecycleSyncError ?? "",
+        retryFailedLogMoveLookbackDays:
+          buckets?.retryFailedLogMoveLookbackDays ?? 0,
+        retryFailedLogMoveMaxJobsPerRun:
+          buckets?.retryFailedLogMoveMaxJobsPerRun ?? 0,
       },
 
       sshPairs: {
@@ -190,6 +239,7 @@ export const gqlToForm = ((data) => {
         collectorEndpoint: tracer?.collectorEndpoint ?? "",
         collectorInternalEndpoint: tracer?.collectorInternalEndpoint ?? "",
         collectorAPIKey: tracer?.collectorAPIKey ?? "",
+        traceUrlTemplate: tracer?.traceUrlTemplate ?? "",
       },
 
       projectCreationSettings: {
@@ -205,6 +255,11 @@ export const gqlToForm = ((data) => {
       githubCheckRunConfigurations: {
         checkRunLimit: githubCheckRun?.checkRunLimit ?? 0,
       },
+
+      diagnosticsConfig: {
+        s3BucketName: diagnostics?.s3BucketName ?? "",
+        s3Prefix: diagnostics?.s3Prefix ?? "",
+      },
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -215,6 +270,7 @@ export const formToGql = ((form: OtherFormState) => {
   const {
     bucketConfig,
     debugSpawnHostsConfig,
+    diagnosticsConfig,
     expansions,
     githubCheckRunConfigurations,
     hostJasper,
@@ -267,9 +323,13 @@ export const formToGql = ((form: OtherFormState) => {
         storage: {
           archiveStorageCostDiscount:
             miscSettings.cost.s3Cost.archiveStorageCostDiscount ?? undefined,
+          artifactAwsAccountsWithoutLifecycleRules:
+            miscSettings.cost.s3Cost.artifactAwsAccountsWithoutLifecycleRules,
           defaultMaxArtifactExpirationDays:
             miscSettings.cost.s3Cost.defaultMaxArtifactExpirationDays ||
             undefined,
+          devprodOwnedAwsAccountIds:
+            miscSettings.cost.s3Cost.devprodOwnedAwsAccountIds,
           iAStorageCostDiscount:
             miscSettings.cost.s3Cost.iAStorageCostDiscount ?? undefined,
           standardStorageCostDiscount:
@@ -321,6 +381,10 @@ export const formToGql = ((form: OtherFormState) => {
         key: bucketConfig.credentialsKey || undefined,
         secret: bucketConfig.credentialsSecret || undefined,
       },
+      retryFailedLogMoveLookbackDays:
+        bucketConfig.retryFailedLogMoveLookbackDays || undefined,
+      retryFailedLogMoveMaxJobsPerRun:
+        bucketConfig.retryFailedLogMoveMaxJobsPerRun || undefined,
     },
 
     ssh: {
@@ -388,6 +452,7 @@ export const formToGql = ((form: OtherFormState) => {
       collectorInternalEndpoint:
         tracerConfiguration.collectorInternalEndpoint || undefined,
       collectorAPIKey: tracerConfiguration.collectorAPIKey || undefined,
+      traceUrlTemplate: tracerConfiguration.traceUrlTemplate || undefined,
     },
 
     projectCreation: {
@@ -403,6 +468,11 @@ export const formToGql = ((form: OtherFormState) => {
 
     githubCheckRun: {
       checkRunLimit: githubCheckRunConfigurations.checkRunLimit || undefined,
+    },
+
+    diagnostics: {
+      s3BucketName: diagnosticsConfig.s3BucketName || undefined,
+      s3Prefix: diagnosticsConfig.s3Prefix || undefined,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

@@ -3,6 +3,7 @@ import { ProjectType } from "../utils";
 type Variable = {
   varName: string;
   varValue: string;
+  varDescription: string;
   isPrivate: boolean;
   isAdminOnly: boolean;
   isDisabled: boolean;

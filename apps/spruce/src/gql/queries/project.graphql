@@ -1,6 +1,0 @@
-query Project($idOrIdentifier: String!) {
-  project(projectIdentifier: $idOrIdentifier) {
-    id
-    identifier
-  }
-}

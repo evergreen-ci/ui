@@ -3,6 +3,15 @@ import { distroData } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { BuildType, ProviderFormState } from "./types";
 
+const defaultTaskHostOverrides = {
+  enableTaskHostOverrides: false,
+  doNotAssignPublicIpv4Address: false,
+  iamInstanceProfileArn: "",
+  providerAccount: "",
+  securityGroupIds: [],
+  subnetId: "",
+};
+
 const defaultFormState = {
   staticProviderSettings: {
     userData: "",
@@ -42,27 +51,7 @@ const defaultFormState = {
       doNotAssignPublicIPv4Address: true,
     },
   ],
-  ec2OnDemandProviderSettings: [
-    {
-      region: "",
-      displayTitle: undefined,
-      amiId: "",
-      instanceProfileARN: "",
-      elasticIpsEnabled: false,
-      instanceType: "",
-      mergeUserData: false,
-      mountPoints: [],
-      securityGroups: ["1"],
-      sshKeyName: "",
-      userData: "",
-      vpcOptions: {
-        subnetId: "",
-        useVpc: false,
-        subnetPrefix: "",
-      },
-      doNotAssignPublicIPv4Address: true,
-    },
-  ],
+  taskHostOverrides: defaultTaskHostOverrides,
 };
 
 describe("provider tab", () => {
@@ -265,40 +254,6 @@ describe("provider tab", () => {
           },
         },
       ],
-      ec2OnDemandProviderSettings: [
-        {
-          doNotAssignPublicIPv4Address: true,
-          region: "us-east-1",
-          displayTitle: "us-east-1",
-          amiId: "ami-east",
-          instanceProfileARN: "profile-east",
-          elasticIpsEnabled: false,
-          instanceType: "m5.xlarge",
-          mergeUserData: false,
-          mountPoints: [
-            {
-              deviceName: "device-east",
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              virtualName: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              volumeType: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              iops: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              throughput: undefined,
-              size: 200,
-            },
-          ],
-          securityGroups: ["1"],
-          sshKeyName: "admin",
-          userData: "",
-          vpcOptions: {
-            subnetId: "subnet-east",
-            useVpc: true,
-            subnetPrefix: "vpc-east",
-          },
-        },
-      ],
     };
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -334,6 +289,7 @@ describe("provider tab", () => {
           security_group_ids: ["1"],
         },
       ],
+      taskHostOverrides: null,
     };
 
     it("correctly converts from GQL to a form", () => {
@@ -347,66 +303,65 @@ describe("provider tab", () => {
     });
   });
 
-  describe("ec2 on demand provider", () => {
-    const ec2OnDemandDistroData = {
+  describe("ec2 fleet provider with task host overrides", () => {
+    const populatedTaskHostOverrides = {
+      enableTaskHostOverrides: true,
+      doNotAssignPublicIpv4Address: true,
+      iamInstanceProfileArn: "task-host-arn",
+      providerAccount: "task-host-account",
+      securityGroupIds: ["sg-task"],
+      subnetId: "subnet-task",
+    };
+
+    const ec2FleetDistroData = {
       ...distroData,
-      provider: Provider.Ec2OnDemand,
+      provider: Provider.Ec2Fleet,
       containerPool: "",
       providerSettingsList: [
         {
-          do_not_assign_public_ipv4_address: true,
-          elastic_ips_enabled: false,
           region: "us-east-1",
           ami: "ami-east",
           instance_type: "m5.xlarge",
           key_name: "admin",
+          elastic_ips_enabled: false,
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
           subnet_id: "subnet-east",
           vpc_name: "vpc-east",
-          mount_points: [
-            {
-              device_name: "device-east",
-              size: 200,
-            },
-          ],
+          mount_points: [],
           user_data: "",
           merge_user_data_parts: false,
           security_group_ids: ["1"],
+          do_not_assign_public_ipv4_address: true,
         },
       ],
+      taskHostOverrides: {
+        __typename: "TaskHostOverrides" as const,
+        doNotAssignPublicIpv4Address: true,
+        iamInstanceProfileArn: "task-host-arn",
+        providerAccount: "task-host-account",
+        securityGroupIds: ["sg-task"],
+        subnetId: "subnet-task",
+      },
     };
 
     const ec2Form: ProviderFormState = {
       ...defaultFormState,
       provider: {
-        providerName: Provider.Ec2OnDemand,
+        providerName: Provider.Ec2Fleet,
         providerAccount: "aws",
       },
       ec2FleetProviderSettings: [
         {
           doNotAssignPublicIPv4Address: true,
-          elasticIpsEnabled: false,
           region: "us-east-1",
           displayTitle: "us-east-1",
           amiId: "ami-east",
           instanceProfileARN: "profile-east",
+          elasticIpsEnabled: false,
           instanceType: "m5.xlarge",
           mergeUserData: false,
-          mountPoints: [
-            {
-              deviceName: "device-east",
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              virtualName: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              volumeType: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              iops: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              throughput: undefined,
-              size: 200,
-            },
-          ],
+          mountPoints: [],
           securityGroups: ["1"],
           sshKeyName: "admin",
           userData: "",
@@ -417,46 +372,13 @@ describe("provider tab", () => {
           },
         },
       ],
-      ec2OnDemandProviderSettings: [
-        {
-          doNotAssignPublicIPv4Address: true,
-          region: "us-east-1",
-          displayTitle: "us-east-1",
-          amiId: "ami-east",
-          instanceProfileARN: "profile-east",
-          elasticIpsEnabled: false,
-          instanceType: "m5.xlarge",
-          mergeUserData: false,
-          mountPoints: [
-            {
-              deviceName: "device-east",
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              virtualName: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              volumeType: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              iops: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              throughput: undefined,
-              size: 200,
-            },
-          ],
-          securityGroups: ["1"],
-          sshKeyName: "admin",
-          userData: "",
-          vpcOptions: {
-            subnetId: "subnet-east",
-            useVpc: true,
-            subnetPrefix: "vpc-east",
-          },
-        },
-      ],
+      taskHostOverrides: populatedTaskHostOverrides,
     };
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const ec2Gql: DistroInput = {
       ...distroData,
-      provider: Provider.Ec2OnDemand,
+      provider: Provider.Ec2Fleet,
       providerAccount: "aws",
       containerPool: "",
       providerSettingsList: [
@@ -466,36 +388,52 @@ describe("provider tab", () => {
           ami: "ami-east",
           instance_type: "m5.xlarge",
           key_name: "admin",
+          elastic_ips_enabled: false,
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
-          elastic_ips_enabled: false,
           subnet_id: "subnet-east",
           vpc_name: "vpc-east",
-          mount_points: [
-            {
-              device_name: "device-east",
-              iops: undefined,
-              throughput: undefined,
-              virtual_name: undefined,
-              volume_type: undefined,
-              size: 200,
-            },
-          ],
+          mount_points: [],
           user_data: "",
           merge_user_data_parts: false,
           security_group_ids: ["1"],
         },
       ],
+      taskHostOverrides: {
+        doNotAssignPublicIpv4Address: true,
+        iamInstanceProfileArn: "task-host-arn",
+        providerAccount: "task-host-account",
+        securityGroupIds: ["sg-task"],
+        subnetId: "subnet-task",
+      },
     };
 
-    it("correctly converts from GQL to a form", () => {
+    it("enables the toggle and populates fields when GQL has overrides", () => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      expect(gqlToForm(ec2OnDemandDistroData)).toStrictEqual(ec2Form);
+      expect(gqlToForm(ec2FleetDistroData)).toStrictEqual(ec2Form);
     });
 
-    it("correctly converts from a form to GQL", () => {
+    it("sends a populated TaskHostOverridesInput when the toggle is on", () => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      expect(formToGql(ec2Form, ec2OnDemandDistroData)).toStrictEqual(ec2Gql);
+      expect(formToGql(ec2Form, ec2FleetDistroData)).toStrictEqual(ec2Gql);
+    });
+
+    it("sends null when the toggle is off, even if fields still hold stale values", () => {
+      const formWithToggleOff: ProviderFormState = {
+        ...ec2Form,
+        taskHostOverrides: {
+          ...populatedTaskHostOverrides,
+          enableTaskHostOverrides: false,
+        },
+      };
+      const gqlWithoutOverrides = {
+        ...ec2Gql,
+        taskHostOverrides: null,
+      };
+      expect(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        formToGql(formWithToggleOff, ec2FleetDistroData),
+      ).toStrictEqual(gqlWithoutOverrides);
     });
   });
 });

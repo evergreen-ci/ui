@@ -1,4 +1,5 @@
 import "vitest";
+import "@testing-library/jest-dom/vitest";
 
 interface CustomMatchers<R = unknown> {
   // Headers require a custom matcher because they lack the standard properties of an Object required for accurate comparison

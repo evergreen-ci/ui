@@ -1,6 +1,6 @@
 import { getUnixTime } from "date-fns";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Requester } from "constants/requesters";
+import { mainlineRequesters, Requester } from "constants/requesters";
 import { getHoneycombBaseURL } from "utils/environmentVariables";
 
 /**
@@ -15,9 +15,7 @@ export const getHoneycombTraceUrl = (
   startTs: Date,
   endTs: Date,
 ): string =>
-  `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
-    new Date(startTs),
-  )}&trace_end_ts=${getUnixTime(new Date(endTs)) + 1}`;
+  `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(startTs)}&trace_end_ts=${getUnixTime(endTs) + 1}`;
 
 export const getHoneycombSystemMetricsUrl = (
   taskId: string,
@@ -44,8 +42,8 @@ export const getHoneycombSystemMetricsUrl = (
       ]),
     ),
     filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
-    start_time: getUnixTime(new Date(startTs)),
-    end_time: getUnixTime(new Date(endTs)),
+    start_time: getUnixTime(startTs),
+    end_time: getUnixTime(endTs),
   };
 
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(
@@ -68,6 +66,146 @@ interface TaskTimingParams {
   projectIdentifier: string;
   taskName: string;
 }
+
+const buildHoneycombStatUrl = (
+  dataset: string,
+  query: { calculations: unknown[] },
+) => {
+  const columnSeriesParams = query.calculations
+    .map((_, i) => `cstype_${i}=stat`)
+    .join("&");
+  return `${getHoneycombBaseURL()}/datasets/${dataset}?query=${JSON.stringify(query)}&${columnSeriesParams}`;
+};
+
+/**
+ * Generates a URL for viewing the cost breakdown of a task in Honeycomb.
+ * @param taskId - The ID of the task.
+ * @param startTs - The start timestamp of the task. Note that this timestamp is truncated to the nearest second.
+ * @param endTs - The end timestamp of the task. Note that 300 seconds are added to this timestamp to account for S3 data-arrival lag.
+ * @returns The URL for viewing the task cost breakdown in Honeycomb.
+ */
+export const getHoneycombTaskCostUrl = (
+  taskId: string,
+  startTs: Date,
+  endTs: Date,
+): string => {
+  const query = {
+    calculations: [
+      { op: "MAX", column: "evergreen.task.adjusted_cost" },
+      { op: "MAX", column: "evergreen.task.on_demand_cost" },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.adjusted_artifact_put_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.on_demand_artifact_put_cost",
+      },
+      { op: "MAX", column: "evergreen.task.s3_cost.adjusted_log_put_cost" },
+      { op: "MAX", column: "evergreen.task.s3_cost.on_demand_log_put_cost" },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.adjusted_artifact_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.on_demand_artifact_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.adjusted_log_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.on_demand_log_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.artifact_put_requests",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.task.s3_cost.artifact_upload_bytes",
+      },
+      { op: "MAX", column: "evergreen.task.s3_cost.log_put_requests" },
+      { op: "MAX", column: "evergreen.task.s3_cost.log_upload_bytes" },
+    ],
+    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
+    start_time: getUnixTime(startTs),
+    end_time: getUnixTime(endTs) + 300,
+  };
+
+  return buildHoneycombStatUrl("evergreen", query);
+};
+
+/**
+ * Generates a URL for viewing the cost breakdown of a version in Honeycomb.
+ * @param versionId - The ID of the version.
+ * @param startTs - The start timestamp of the version. Note that this timestamp is truncated to the nearest second.
+ * @param endTs - The end timestamp of the version. Note that 300 seconds are added to this timestamp to account for S3 data-arrival lag.
+ * @returns The URL for viewing the version cost breakdown in Honeycomb.
+ */
+export const getHoneycombVersionCostUrl = (
+  versionId: string,
+  startTs: Date,
+  endTs: Date,
+): string => {
+  const query = {
+    calculations: [
+      { op: "MAX", column: "evergreen.version.adjusted_cost" },
+      { op: "MAX", column: "evergreen.version.on_demand_cost" },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.adjusted_artifact_put_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.on_demand_artifact_put_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.adjusted_log_put_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.on_demand_log_put_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.adjusted_artifact_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.on_demand_artifact_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.adjusted_log_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.on_demand_log_storage_cost",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.artifact_put_requests",
+      },
+      {
+        op: "MAX",
+        column: "evergreen.version.s3_cost.artifact_upload_bytes",
+      },
+      { op: "MAX", column: "evergreen.version.s3_cost.log_put_requests" },
+      { op: "MAX", column: "evergreen.version.s3_cost.log_upload_bytes" },
+    ],
+    filters: [{ op: "=", column: "evergreen.version.id", value: versionId }],
+    start_time: getUnixTime(startTs),
+    end_time: getUnixTime(endTs) + 300,
+  };
+
+  return buildHoneycombStatUrl("evergreen", query);
+};
+
+const ONE_WEEK_IN_SECONDS = 604800;
 
 export const getHoneycombTaskTimingURL = ({
   buildVariant,
@@ -94,7 +232,7 @@ export const getHoneycombTaskTimingURL = ({
   }
 
   const query = {
-    time_range: 604800, // Default to 1 week
+    time_range: ONE_WEEK_IN_SECONDS,
     granularity: 0, // 0 yields auto granularity
     calculations: [
       { op: "HEATMAP", column: metric },
@@ -116,5 +254,54 @@ export const getHoneycombTaskTimingURL = ({
     limit: 1000,
   };
 
+  return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
+export const getHoneycombHistoryUrl = ({
+  bvName,
+  isDisplayTask,
+  projectId,
+  requester,
+  taskName,
+}: {
+  bvName: string;
+  projectId: string;
+  taskName: string;
+  requester: string;
+  isDisplayTask: boolean;
+}) => {
+  const query = {
+    time_range: ONE_WEEK_IN_SECONDS,
+    granularity: 0,
+    calculations: [{ op: "COUNT" }],
+    filters: [
+      { column: "name", op: "=", value: "task" },
+      {
+        column: "evergreen.project.id",
+        op: "=",
+        value: projectId,
+      },
+      {
+        column: "evergreen.version.requester",
+        op: "in",
+        value: [requester, ...mainlineRequesters],
+      },
+      {
+        column: "evergreen.build.name",
+        op: "=",
+        value: bvName,
+      },
+      {
+        column: isDisplayTask
+          ? "evergreen.display_task.name"
+          : "evergreen.task.name",
+        op: "=",
+        value: taskName,
+      },
+    ],
+    breakdowns: ["evergreen.task.status", "evergreen.version.requester"],
+    filter_combination: "AND",
+    limit: 1000,
+  };
   return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
 };

@@ -32,7 +32,7 @@ const getGitRoot = () => execTrim(`git rev-parse --show-toplevel`);
  * @param app - the app being deployed
  * @param fromCommit - the oldest commit in range to return
  * @param toCommit - optional hash marking the end of the range of commits. Defaults to HEAD.
- * @returns - a string of all commit messages between the first specified commit and last specified commit or HEAD. Commits are limited to those in the app's directory and all shared directories, as well as the root (the other app is excluded).
+ * @returns - a string of all commit messages between the first specified commit and last specified commit or HEAD. Commits are limited to those that touch the app's directory or the shared packages directory; commits scoped to other apps are excluded.
  */
 const getCommitMessages = (
   app: DeployableApp,
@@ -42,13 +42,8 @@ const getCommitMessages = (
   const gitRoot = getGitRoot();
   const appDir = resolve(gitRoot, "apps", app);
   const packageDir = resolve(gitRoot, "packages");
-  const excludeDir = resolve(
-    gitRoot,
-    "apps",
-    app === "spruce" ? "parsley" : "spruce",
-  );
   const commitMessages = execTrim(
-    `git log ${fromCommit}..${toCommit} --oneline -- ${appDir} ${packageDir} '!${excludeDir}'`,
+    `git log ${fromCommit}..${toCommit} --oneline -- ${appDir} ${packageDir}`,
   );
   return commitMessages;
 };

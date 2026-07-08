@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Body, H2 } from "@leafygreen-ui/typography";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
@@ -37,12 +37,11 @@ interface Props {
 const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
 
 const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
-  const { search } = useLocation();
   const navigate = useNavigate();
 
   const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
-  const queryVariables = useQueryVariables(search, versionId);
+  const queryVariables = useQueryVariables(versionId);
   const isVariantTimingView = !!queryParams.variant;
 
   useEffect(() => {

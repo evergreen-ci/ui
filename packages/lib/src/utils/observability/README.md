@@ -21,14 +21,14 @@ const routeConfig = {
 };
 
 initializeHoneycomb({
-  serviceName: "spruce",
-  endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
-  ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
-  backendURL: toEscapedRegex(getEvergreenUrl()),
-  environment: getReleaseStage(),
   appVersion: getAppVersion(),
+  backendURL: toEscapedRegex(getEvergreenUrl()),
   debug: isDevelopmentBuild(),
+  endpoint: getHoneycombEndpoint(),
+  environment: getReleaseStage(),
+  ingestKey: getHoneycombIngestKey(),
   routeConfig,
+  serviceName: "spruce",
 });
 
 injectOpenTelemetryAttributeStoreIntoWindow();

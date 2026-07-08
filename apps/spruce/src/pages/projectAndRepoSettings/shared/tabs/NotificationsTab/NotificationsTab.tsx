@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
+import { RecursivelyAddError } from "components/SpruceForm/types";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { invalidProjectTriggerSubscriptionCombinations } from "constants/triggers";
 import { BaseTab } from "../BaseTab";
@@ -9,12 +10,24 @@ import { NotificationsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Notifications;
 
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"],
+): NotificationsFormState | undefined => {
+  if (!projectData) return repoData;
+  if (repoData) return { ...projectData, repoData };
+  return projectData;
+};
+
 export const NotificationsTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,
 }) => {
-  const initialFormState = projectData || repoData;
+  const initialFormState = useMemo(
+    () => getInitialFormState(projectData, repoData),
+    [projectData, repoData],
+  );
 
   const formSchema = useMemo(
     () =>
@@ -38,6 +51,10 @@ export const NotificationsTab: React.FC<TabProps> = ({
 const validate = ((formData, errors) => {
   const { subscriptions } = formData;
 
+  const subscriptionErrors = errors.subscriptions as RecursivelyAddError<
+    NonNullable<NotificationsFormState["subscriptions"]>
+  >;
+
   subscriptions?.forEach((subscription, i) => {
     const { subscriptionData } = subscription || {};
     const { event, notification } = subscriptionData || {};
@@ -49,7 +66,7 @@ const validate = ((formData, errors) => {
         if (notificationSelect === notificationType) {
           const hasMatchingEvent = eventType.some((e) => e === eventSelect);
           if (hasMatchingEvent) {
-            (errors.subscriptions as any[])[
+            subscriptionErrors[
               i
             ]?.subscriptionData?.notification?.notificationSelect?.addError(
               "Subscription type not allowed for tasks in a project.",

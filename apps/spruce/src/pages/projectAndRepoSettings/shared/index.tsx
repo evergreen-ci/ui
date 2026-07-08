@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, Link, Navigate } from "react-router-dom";
+import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { ProjectBanner } from "components/Banners";
@@ -22,6 +24,7 @@ import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { getTabTitle } from "./getTabTitle";
+import { GithubNavGuideCue } from "./GithubNavGuideCue";
 import { ProjectSettingsTabs } from "./Tabs";
 import { projectOnlyTabs } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
@@ -53,6 +56,32 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
   const isRepo = projectType === ProjectType.Repo;
   const projectLabel = isRepo ? `${owner}/${repo}` : projectIdentifier;
 
+  const evergreenTabs: ProjectSettingsTabRoutes[] = [
+    ProjectSettingsTabRoutes.General,
+    ProjectSettingsTabRoutes.Access,
+    ProjectSettingsTabRoutes.Variables,
+    ProjectSettingsTabRoutes.Notifications,
+    ProjectSettingsTabRoutes.PatchAliases,
+    ProjectSettingsTabRoutes.VirtualWorkstation,
+    ProjectSettingsTabRoutes.ViewsAndFilters,
+    ProjectSettingsTabRoutes.ProjectTriggers,
+    ProjectSettingsTabRoutes.PeriodicBuilds,
+    ProjectSettingsTabRoutes.TestSelection,
+    ProjectSettingsTabRoutes.Plugins,
+  ];
+  const githubTabs: ProjectSettingsTabRoutes[] = [
+    ProjectSettingsTabRoutes.PullRequests,
+    ProjectSettingsTabRoutes.CommitChecks,
+    ProjectSettingsTabRoutes.MergeQueue,
+    ProjectSettingsTabRoutes.GitTags,
+    ProjectSettingsTabRoutes.GithubAppSettings,
+    ProjectSettingsTabRoutes.GithubPermissionGroups,
+  ];
+  const otherTabs: ProjectSettingsTabRoutes[] = [
+    ProjectSettingsTabRoutes.EventLog,
+  ];
+  const githubGroupRef = useRef<HTMLDivElement | null>(null);
+
   if (!tabRouteValues.includes(tab as ProjectSettingsTabRoutes)) {
     return (
       <Navigate
@@ -68,6 +97,10 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
       />
     );
   }
+
+  const currentTab = tab ?? ProjectSettingsTabRoutes.General;
+  const getRoute = isRepo ? getRepoSettingsRoute : getProjectSettingsRoute;
+  const identifier = isRepo ? repoId : projectIdentifier;
 
   return (
     <ProjectSettingsProvider>
@@ -104,20 +137,55 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
               repo={repo}
             />
           </ButtonsContainer>
-          <SideNavGroup>
-            {Object.values(ProjectSettingsTabRoutes).map((v) => (
+
+          <SideNavGroup
+            glyph={<Icon glyph="EvergreenLogo" />}
+            header="Evergreen"
+          >
+            {evergreenTabs.map((v) => (
               <SharedSettingsNavItem
                 key={v}
-                currentTab={tab ?? ProjectSettingsTabRoutes.General}
-                getRoute={
-                  isRepo ? getRepoSettingsRoute : getProjectSettingsRoute
-                }
-                id={isRepo ? repoId : projectIdentifier}
+                currentTab={currentTab}
+                getRoute={getRoute}
+                id={identifier}
+                tab={v}
+              />
+            ))}
+          </SideNavGroup>
+
+          <div ref={githubGroupRef}>
+            <SideNavGroup
+              collapsible
+              glyph={<Icon glyph="GitHub" />}
+              header="GitHub"
+              initialCollapsed={!githubTabs.includes(currentTab)}
+            >
+              {githubTabs.map((v) => (
+                <SharedSettingsNavItem
+                  key={v}
+                  currentTab={currentTab}
+                  getRoute={getRoute}
+                  id={identifier}
+                  tab={v}
+                />
+              ))}
+            </SideNavGroup>
+            <GithubNavGuideCue refEl={githubGroupRef} />
+          </div>
+
+          <SideNavGroup glyph={<Icon glyph="List" />} header="Changelog">
+            {otherTabs.map((v) => (
+              <SharedSettingsNavItem
+                key={v}
+                currentTab={currentTab}
+                getRoute={getRoute}
+                id={identifier}
                 tab={v}
               />
             ))}
           </SideNavGroup>
         </SideNav>
+
         <SettingsPageContent
           data-cy={isRepo ? "repo-settings-page" : "project-settings-page"}
         >

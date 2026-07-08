@@ -2,14 +2,6 @@ include:
   - filename: .evergreen/attach.yml
 
 functions:
-  run-generate-tasks:
-    command: subprocess.exec
-    params:
-      working_dir: ui
-      binary: "node"
-      args:
-        - ".evergreen/scripts/generate-tasks.js"
-
   run-generate-parallel-e2e-tasks:
     command: subprocess.exec
     params:
@@ -24,14 +16,6 @@ functions:
         - ".evergreen/scripts/generate-parallel-e2e-tasks.js"
 
 tasks:
-  - name: generate-tasks
-    commands:
-      - func: run-generate-tasks
-      - func: attach-generated
-      - command: generate.tasks
-        params:
-          files:
-            - ui/.evergreen/generate-tasks.json
   - name: generate-spruce-e2e
     commands:
       - func: run-generate-parallel-e2e-tasks

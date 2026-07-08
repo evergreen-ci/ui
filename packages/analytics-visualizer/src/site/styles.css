@@ -125,7 +125,6 @@ nav a.active {
 
 section {
   margin-bottom: 2rem;
-  scroll-margin-top: 1.5rem;
 }
 
 section:last-child {
@@ -185,6 +184,18 @@ a {
 a:hover {
   opacity: 1;
   text-decoration: underline;
+}
+
+/* Anchor links for headers */
+.anchor-link {
+  color: inherit;
+  opacity: 1;
+  font-weight: 600;
+}
+
+.anchor-link:hover {
+  color: var(--color-green);
+  text-decoration: none;
 }
 
 /* Utility classes */

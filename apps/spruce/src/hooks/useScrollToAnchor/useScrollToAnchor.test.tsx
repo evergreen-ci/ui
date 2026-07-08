@@ -8,7 +8,7 @@ describe("useScrollToAnchor", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.spyOn(document, "getElementById").mockReturnValue(
-      mockElement as any as HTMLElement,
+      mockElement as unknown as HTMLElement,
     );
     mockElement.scrollIntoView.mockClear();
   });
@@ -16,6 +16,7 @@ describe("useScrollToAnchor", () => {
   afterEach(() => {
     vi.runOnlyPendingTimers();
     vi.useRealTimers();
+    vi.restoreAllMocks();
   });
 
   it("should scroll to element when hash is present", () => {

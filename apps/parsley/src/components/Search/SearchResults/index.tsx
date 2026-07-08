@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
@@ -40,17 +40,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({
       {searchState.searchRange !== undefined && (
         <>
           <Button
-            data-cy="previous-button"
             onClick={() => paginate(DIRECTION.PREVIOUS)}
-            size="small"
+            size={Size.Small}
           >
             Prev
           </Button>
-          <Button
-            data-cy="next-button"
-            onClick={() => paginate(DIRECTION.NEXT)}
-            size="small"
-          >
+          <Button onClick={() => paginate(DIRECTION.NEXT)} size={Size.Small}>
             Next
           </Button>
         </>

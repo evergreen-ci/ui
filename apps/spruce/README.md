@@ -118,7 +118,7 @@ ln -s <path_to_evergreen_repo>/graphql/schema sdlschema
 ## Testing
 
 Spruce has a combination of unit tests using Vitest and integration tests using
-Cypress.
+Playwright.
 
 ### Unit tests
 
@@ -166,13 +166,12 @@ run and often just test standard JavaScript functions.
 
 ### E2E tests
 
-At a high level, we use [Cypress](https://www.cypress.io/) to start a virtual
-browser that is running Spruce. Cypress then is able to run our test specs,
-which tell it to interact with the browser in certain ways and makes assertions
+At a high level, we use [Playwright](https://playwright.dev/) to run our test specs,
+telling it to interact with the browser in certain ways and makes assertions
 about what happens in the UI. Note that you must be running the Evergreen server
 on http://localhost:9090 for the front-end to work.
 
-In order to run the Cypress tests, do the following, assuming you have this repo
+In order to run the Playwright tests, do the following, assuming you have this repo
 checked out and all the dependencies installed by pnpm:
 
 1. Increase the limit on open files by running `ulimit -n 64000` before running
@@ -181,12 +180,11 @@ checked out and all the dependencies installed by pnpm:
    by typing `make local-evergreen` in your evergreen folder.
 3. Start the Spruce local server by typing `pnpm build:local && pnpm serve` in
    this repo.
-4. Run Cypress by typing one of the following:
-   - `pnpm cy:open` - opens the Cypress app in interactive mode. You can select
-     tests to run from here in the Cypress browser.
-   - `pnpm cy:run` - runs all the Cypress tests at the command-line and reports
+4. Run Playwright by typing one of the Playwright:
+   - `pnpm playwright:ui` - opens the Playwright app in interactive mode.
+   - `pnpm playwright:test` - runs all tests at the command-line and reports
      the results
-   - `pnpm cy:test cypress/integration/hosts/hosts-filtering.ts` - runs tests in
+   - `pnpm playwright:test playwright/tests/banners/announcements.spec.ts` - runs tests in
      a specific file at the command-line. Replace the final argument with the
      relative path to your test file
 
@@ -233,21 +231,6 @@ production environments.
 When creating your queries you should be sure to limit the amount of documents
 so you don't accidentally export an entire collection. You can do this by
 passing a limit to the query.
-
-### Logkeeper
-
-Spruce has a minimal dependency on Logkeeper: it is used by Cypress tests on the
-Job Logs page. If you'd like to get set up to develop these tests, complete the
-following:
-
-1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `pnpm bootstrap-s3-logs` to download some sample resmoke logs from s3.
-3. Run the command outputted by the previous step to seed the env variables and
-   start the local logkeeper server with the following command:
-
-   ```bash
-   LK_CORS_ORIGINS=http:\/\/localhost:\\d+ LK_EVERGREEN_ORIGIN=http://localhost:8080 LK_PARSLEY_ORIGIN=http://localhost:5173 go run main/logkeeper.go --localPath {abs_path_to_spruce}/bin/_bucketdata
-   ```
 
 ## Deployment
 

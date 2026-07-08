@@ -26,7 +26,6 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     logMetadata,
     preferences,
     range,
-    scrollToLine,
     searchLine,
     searchState,
   } = useLogContext();
@@ -101,7 +100,6 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
         lineNumber={processedLogLine}
         prettyPrint={prettyPrint}
         range={range}
-        scrollToLine={scrollToLine}
         searchLine={searchLine}
         searchTerm={searchRegex}
         wordWrapFormat={wordWrapFormat}

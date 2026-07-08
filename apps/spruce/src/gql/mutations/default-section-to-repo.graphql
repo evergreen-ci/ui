@@ -1,6 +1,0 @@
-mutation DefaultSectionToRepo(
-  $projectId: String!
-  $section: ProjectSettingsSection!
-) {
-  defaultSectionToRepo(opts: { projectId: $projectId, section: $section })
-}

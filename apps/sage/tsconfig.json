@@ -1,0 +1,24 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@evg-ui/lib/*": [
+        "../../packages/lib/src/*"
+      ],
+      "*": ["./src/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "vite.config.ts",
+  ],
+  "include": [
+    "../../packages/lib/vitest.d.ts",
+    "src",
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

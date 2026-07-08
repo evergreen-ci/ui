@@ -156,6 +156,7 @@ export type AdminSettings = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   cost?: Maybe<CostConfig>;
   debugSpawnHosts?: Maybe<DebugSpawnHostsConfig>;
+  diagnostics?: Maybe<DiagnosticsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -180,12 +181,12 @@ export type AdminSettings = {
   pprofPort?: Maybe<Scalars["String"]["output"]>;
   projectCreation?: Maybe<ProjectCreationConfig>;
   providers?: Maybe<CloudProviderConfig>;
+  rateLimit?: Maybe<RateLimitConfig>;
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
-  serviceFlags?: Maybe<ServiceFlags>;
   serviceFlagsList?: Maybe<Array<ServiceFlag>>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
@@ -214,6 +215,7 @@ export type AdminSettingsInput = {
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   cost?: InputMaybe<CostConfigInput>;
   debugSpawnHosts?: InputMaybe<DebugSpawnHostsConfigInput>;
+  diagnostics?: InputMaybe<DiagnosticsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -238,12 +240,12 @@ export type AdminSettingsInput = {
   pprofPort?: InputMaybe<Scalars["String"]["input"]>;
   projectCreation?: InputMaybe<ProjectCreationConfigInput>;
   providers?: InputMaybe<CloudProviderConfigInput>;
+  rateLimit?: InputMaybe<RateLimitConfigInput>;
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
-  serviceFlags?: InputMaybe<ServiceFlagsInput>;
   shutdownWaitSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   singleTaskDistro?: InputMaybe<SingleTaskDistroConfigInput>;
   slack?: InputMaybe<SlackConfigInput>;
@@ -469,9 +471,14 @@ export type BootstrapSettingsInput = {
 
 export type BucketConfig = {
   __typename?: "BucketConfig";
+  expirationDays?: Maybe<Scalars["Int"]["output"]>;
+  lifecycleLastSyncedAt?: Maybe<Scalars["Time"]["output"]>;
+  lifecycleSyncError?: Maybe<Scalars["String"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
   roleARN?: Maybe<Scalars["String"]["output"]>;
   testResultsPrefix?: Maybe<Scalars["String"]["output"]>;
+  transitionToGlacierDays?: Maybe<Scalars["Int"]["output"]>;
+  transitionToIADays?: Maybe<Scalars["Int"]["output"]>;
   type?: Maybe<Scalars["String"]["output"]>;
 };
 
@@ -490,6 +497,7 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
+  retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
@@ -502,6 +510,7 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
@@ -680,10 +689,16 @@ export type CopyProjectInput = {
 /** Cost represents the cost breakdown for a task or version. */
 export type Cost = {
   __typename?: "Cost";
+  adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
-  s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedS3LogStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  childPatchesTotalCost?: Maybe<Scalars["Float"]["output"]>;
+  /** Sum of adjusted cost components; excludes on-demand components. */
+  total?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -738,13 +753,6 @@ export type CursorParams = {
   includeCursor: Scalars["Boolean"]["input"];
 };
 
-/** CursorSettings represents the status of a user's Cursor API key stored in Sage. */
-export type CursorSettings = {
-  __typename?: "CursorSettings";
-  keyConfigured: Scalars["Boolean"]["output"];
-  keyLastFour?: Maybe<Scalars["String"]["output"]>;
-};
-
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
 export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
@@ -765,12 +773,6 @@ export type DebugSpawnHostsConfigInput = {
 export type DefaultSectionToRepoInput = {
   projectId: Scalars["String"]["input"];
   section: ProjectSettingsSection;
-};
-
-/** DeleteCursorAPIKeyPayload is the response from deleting a Cursor API key. */
-export type DeleteCursorApiKeyPayload = {
-  __typename?: "DeleteCursorAPIKeyPayload";
-  success: Scalars["Boolean"]["output"];
 };
 
 /** DeleteDistroInput is the input to the deleteDistro mutation. */
@@ -802,6 +804,17 @@ export type Dependency = {
   name: Scalars["String"]["output"];
   requiredStatus: RequiredStatus;
   taskId: Scalars["String"]["output"];
+};
+
+export type DiagnosticsConfig = {
+  __typename?: "DiagnosticsConfig";
+  s3BucketName?: Maybe<Scalars["String"]["output"]>;
+  s3Prefix?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type DiagnosticsConfigInput = {
+  s3BucketName?: InputMaybe<Scalars["String"]["input"]>;
+  s3Prefix?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type DispatcherSettings = {
@@ -1008,7 +1021,7 @@ export type EditSpawnHostInput = {
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
-  volume?: InputMaybe<Scalars["String"]["input"]>;
+  volumeId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type EnvVar = {
@@ -1807,28 +1820,6 @@ export type LoggerConfigInput = {
   thresholdLevel: PriorityLevel;
 };
 
-export type LogkeeperBuild = {
-  __typename?: "LogkeeperBuild";
-  buildNum: Scalars["Int"]["output"];
-  builder: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  task: Task;
-  taskExecution: Scalars["Int"]["output"];
-  taskId: Scalars["String"]["output"];
-  tests: Array<LogkeeperTest>;
-};
-
-export type LogkeeperTest = {
-  __typename?: "LogkeeperTest";
-  buildId: Scalars["String"]["output"];
-  command: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-  phase: Scalars["String"]["output"];
-  taskExecution: Scalars["Int"]["output"];
-  taskId: Scalars["String"]["output"];
-};
-
 export type MainlineCommitVersion = {
   __typename?: "MainlineCommitVersion";
   rolledUpVersions?: Maybe<Array<Version>>;
@@ -1935,7 +1926,6 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"]["output"];
   defaultSectionToRepo?: Maybe<Scalars["String"]["output"]>;
-  deleteCursorAPIKey: DeleteCursorApiKeyPayload;
   deleteDistro: DeleteDistroPayload;
   deleteGithubAppCredentials?: Maybe<DeleteGithubAppCredentialsPayload>;
   deleteProject: Scalars["Boolean"]["output"];
@@ -1949,14 +1939,15 @@ export type Mutation = {
   moveAnnotationIssue: Scalars["Boolean"]["output"];
   overrideTaskDependencies: Task;
   promoteVarsToRepo: Scalars["Boolean"]["output"];
-  quarantineTest: QuarantineTestPayload;
+  quarantineTask: Task;
+  quarantineTest: TestResult;
+  quarantineVariant: VariantQuarantineStatus;
   refreshGitHubStatuses?: Maybe<RefreshGitHubStatusesPayload>;
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
-  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -1970,7 +1961,6 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
-  setCursorAPIKey: SetCursorApiKeyPayload;
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -1980,11 +1970,13 @@ export type Mutation = {
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
+  unquarantineTask: Task;
+  unquarantineTest: TestResult;
+  unquarantineVariant: VariantQuarantineStatus;
   unscheduleTask: Task;
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateBetaFeatures?: Maybe<UpdateBetaFeaturesPayload>;
   updateHostStatus: Scalars["Int"]["output"];
-  updateParsleySettings?: Maybe<UpdateParsleySettingsPayload>;
   updatePublicKey: Array<PublicKey>;
   updateSpawnHostStatus: Host;
   updateUserSettings: Scalars["Boolean"]["output"];
@@ -2110,8 +2102,16 @@ export type MutationPromoteVarsToRepoArgs = {
   opts: PromoteVarsToRepoInput;
 };
 
+export type MutationQuarantineTaskArgs = {
+  opts: QuarantineTaskInput;
+};
+
 export type MutationQuarantineTestArgs = {
   opts: QuarantineTestInput;
+};
+
+export type MutationQuarantineVariantArgs = {
+  opts: QuarantineVariantInput;
 };
 
 export type MutationRefreshGitHubStatusesArgs = {
@@ -2202,10 +2202,6 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   taskId: Scalars["String"]["input"];
 };
 
-export type MutationSetCursorApiKeyArgs = {
-  apiKey: Scalars["String"]["input"];
-};
-
 export type MutationSetLastRevisionArgs = {
   opts: SetLastRevisionInput;
 };
@@ -2241,6 +2237,18 @@ export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
 };
 
+export type MutationUnquarantineTaskArgs = {
+  opts: UnquarantineTaskInput;
+};
+
+export type MutationUnquarantineTestArgs = {
+  opts: UnquarantineTestInput;
+};
+
+export type MutationUnquarantineVariantArgs = {
+  opts: UnquarantineVariantInput;
+};
+
 export type MutationUnscheduleTaskArgs = {
   taskId: Scalars["String"]["input"];
 };
@@ -2258,10 +2266,6 @@ export type MutationUpdateHostStatusArgs = {
   hostIds: Array<Scalars["String"]["input"]>;
   notes?: InputMaybe<Scalars["String"]["input"]>;
   status: Scalars["String"]["input"];
-};
-
-export type MutationUpdateParsleySettingsArgs = {
-  opts: UpdateParsleySettingsInput;
 };
 
 export type MutationUpdatePublicKeyArgs = {
@@ -2487,18 +2491,6 @@ export type ParsleyFilterInput = {
   expression: Scalars["String"]["input"];
 };
 
-/** ParsleySettings contains information about a user's settings for Parsley. */
-export type ParsleySettings = {
-  __typename?: "ParsleySettings";
-  jumpToFailingLineEnabled: Scalars["Boolean"]["output"];
-  sectionsEnabled: Scalars["Boolean"]["output"];
-};
-
-export type ParsleySettingsInput = {
-  jumpToFailingLineEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  sectionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-};
-
 /** Patch is a manually initiated version submitted to test local code changes. */
 export type Patch = {
   __typename?: "Patch";
@@ -2506,10 +2498,11 @@ export type Patch = {
   alias?: Maybe<Scalars["String"]["output"]>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
+  /** Aggregated actual cost for the patch's version, when cost data exists. */
+  cost?: Maybe<Cost>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
@@ -2519,22 +2512,27 @@ export type Patch = {
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   includedLocalModules: Array<IncludedLocalModule>;
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  invalidatedByUpstream: Scalars["Boolean"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
+  /** Aggregated predicted cost for the patch's version. */
+  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
-  projectID: Scalars["String"]["output"];
-  projectIdentifier: Scalars["String"]["output"];
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
   taskCount?: Maybe<Scalars["Int"]["output"]>;
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
+  /** @deprecated Use userLite instead. */
   user: User;
+  userLite: UserLite;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
+  version?: Maybe<VersionLite>;
   versionFull?: Maybe<Version>;
 };
 
@@ -2783,9 +2781,9 @@ export type Project = {
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   testSelection?: Maybe<TestSelectionSettings>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
 };
 
@@ -2934,10 +2932,53 @@ export type ProjectInput = {
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
-  tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
+};
+
+/** ProjectLite replaces Project by sidestepping the APIProjectRef layer. It does not contain all Project fields at this time. */
+export type ProjectLite = {
+  __typename?: "ProjectLite";
+  admins?: Maybe<Array<Scalars["String"]["output"]>>;
+  batchTime: Scalars["Int"]["output"];
+  branch: Scalars["String"]["output"];
+  deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  displayName: Scalars["String"]["output"];
+  enabled?: Maybe<Scalars["Boolean"]["output"]>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]["output"]>>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]["output"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  hidden?: Maybe<Scalars["Boolean"]["output"]>;
+  id: Scalars["String"]["output"];
+  identifier: Scalars["String"]["output"];
+  isFavorite: Scalars["Boolean"]["output"];
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]["output"]>;
+  oldestAllowedMergeBase: Scalars["String"]["output"];
+  owner: Scalars["String"]["output"];
+  patchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  perfEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  projectHealthView: ProjectHealthView;
+  remotePath: Scalars["String"]["output"];
+  repo: Scalars["String"]["output"];
+  repoRefId: Scalars["String"]["output"];
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  restricted?: Maybe<Scalars["Boolean"]["output"]>;
+  runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
+  spawnHostScriptPath: Scalars["String"]["output"];
+  stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export enum ProjectPermission {
@@ -2987,14 +3028,17 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
+  CommitChecks = "COMMIT_CHECKS",
   General = "GENERAL",
-  GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   GithubAppSettings = "GITHUB_APP_SETTINGS",
   GithubPermissions = "GITHUB_PERMISSIONS",
+  GitTags = "GIT_TAGS",
+  MergeQueue = "MERGE_QUEUE",
   Notifications = "NOTIFICATIONS",
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
+  PullRequests = "PULL_REQUESTS",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -3006,6 +3050,7 @@ export type ProjectTasksPair = {
   __typename?: "ProjectTasksPair";
   allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
+  displayName: Scalars["String"]["output"];
   projectId: Scalars["String"]["output"];
 };
 
@@ -3020,12 +3065,14 @@ export type ProjectVars = {
   adminOnlyVars: Array<Scalars["String"]["output"]>;
   privateVars: Array<Scalars["String"]["output"]>;
   vars?: Maybe<Scalars["StringMap"]["output"]>;
+  varsDescriptions?: Maybe<Scalars["StringMap"]["output"]>;
 };
 
 export type ProjectVarsInput = {
   adminOnlyVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
   privateVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
   vars?: InputMaybe<Scalars["StringMap"]["input"]>;
+  varsDescriptions?: InputMaybe<Scalars["StringMap"]["input"]>;
 };
 
 /** PromoteVarsToRepoInput is the input to the promoteVarsToRepo mutation. */
@@ -3037,7 +3084,6 @@ export type PromoteVarsToRepoInput = {
 export enum Provider {
   Docker = "DOCKER",
   Ec2Fleet = "EC2_FLEET",
-  Ec2OnDemand = "EC2_ON_DEMAND",
   Static = "STATIC",
 }
 
@@ -3054,14 +3100,20 @@ export type PublicKeyInput = {
   name: Scalars["String"]["input"];
 };
 
+/** QuarantineTaskInput is the input to the quarantineTask mutation. It marks every known test of the given task as manually quarantined in the test selection service. */
+export type QuarantineTaskInput = {
+  taskId: Scalars["String"]["input"];
+};
+
 export type QuarantineTestInput = {
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
 };
 
-export type QuarantineTestPayload = {
-  __typename?: "QuarantineTestPayload";
-  success: Scalars["Boolean"]["output"];
+/** QuarantineVariantInput is the input to the quarantineVariant mutation. It marks every known test of every known task in the build variant as manually quarantined in the test selection service. */
+export type QuarantineVariantInput = {
+  buildVariant: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type Query = {
@@ -3074,7 +3126,6 @@ export type Query = {
   buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
-  cursorSettings?: Maybe<CursorSettings>;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
@@ -3082,14 +3133,11 @@ export type Query = {
   githubProjectConflicts: GithubProjectConflicts;
   hasVersion: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
-  /** @deprecated Use host.events instead. */
-  hostEvents: HostEvents;
   hosts: HostsResponse;
   image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
   isRepo: Scalars["Boolean"]["output"];
-  logkeeperBuildMetadata: LogkeeperBuild;
   mainlineCommits?: Maybe<MainlineCommits>;
   myHosts: Array<Host>;
   myPublicKeys: Array<PublicKey>;
@@ -3106,11 +3154,14 @@ export type Query = {
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   taskHistory: TaskHistory;
+  taskHistoryByCreateTime: TaskHistoryByCreateTime;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
+  userLite: UserLite;
+  variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
   waterfall: Waterfall;
@@ -3166,13 +3217,6 @@ export type QueryHostArgs = {
   hostId: Scalars["String"]["input"];
 };
 
-export type QueryHostEventsArgs = {
-  hostId: Scalars["String"]["input"];
-  hostTag?: InputMaybe<Scalars["String"]["input"]>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-};
-
 export type QueryHostsArgs = {
   currentTaskId?: InputMaybe<Scalars["String"]["input"]>;
   distroId?: InputMaybe<Scalars["String"]["input"]>;
@@ -3191,10 +3235,6 @@ export type QueryImageArgs = {
 
 export type QueryIsRepoArgs = {
   projectOrRepoId: Scalars["String"]["input"];
-};
-
-export type QueryLogkeeperBuildMetadataArgs = {
-  buildId: Scalars["String"]["input"];
 };
 
 export type QueryMainlineCommitsArgs = {
@@ -3243,6 +3283,10 @@ export type QueryTaskHistoryArgs = {
   options: TaskHistoryOpts;
 };
 
+export type QueryTaskHistoryByCreateTimeArgs = {
+  options: TaskHistoryOpts;
+};
+
 export type QueryTaskNamesForBuildVariantArgs = {
   buildVariant: Scalars["String"]["input"];
   projectIdentifier: Scalars["String"]["input"];
@@ -3258,12 +3302,48 @@ export type QueryUserArgs = {
   userId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type QueryUserLiteArgs = {
+  userId?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryVariantQuarantineStatusArgs = {
+  buildVariant: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
+};
+
 export type QueryVersionArgs = {
   versionId: Scalars["String"]["input"];
 };
 
 export type QueryWaterfallArgs = {
   options: WaterfallOptions;
+};
+
+export type RateLimitConfig = {
+  __typename?: "RateLimitConfig";
+  elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
+  graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
+  graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
+  graphqlUserPerHour?: Maybe<Scalars["Int"]["output"]>;
+  restServiceBurst?: Maybe<Scalars["Int"]["output"]>;
+  restServicePerHour?: Maybe<Scalars["Int"]["output"]>;
+  restUserBurst?: Maybe<Scalars["Int"]["output"]>;
+  restUserPerHour?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type RateLimitConfigInput = {
+  elevatedUserIds: Array<Scalars["String"]["input"]>;
+  graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlServiceBurst: Scalars["Int"]["input"];
+  graphqlServicePerHour: Scalars["Int"]["input"];
+  graphqlUserBurst: Scalars["Int"]["input"];
+  graphqlUserPerHour: Scalars["Int"]["input"];
+  restServiceBurst: Scalars["Int"]["input"];
+  restServicePerHour: Scalars["Int"]["input"];
+  restUserBurst: Scalars["Int"]["input"];
+  restUserPerHour: Scalars["Int"]["input"];
 };
 
 export type RefreshGitHubStatusesInput = {
@@ -3357,9 +3437,9 @@ export type RepoRef = {
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   testSelection?: Maybe<RepoTestSelectionSettings>;
-  tracksPushEvents: Scalars["Boolean"]["output"];
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
+  waterfallDisabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
 };
 
@@ -3406,9 +3486,9 @@ export type RepoRefInput = {
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
-  tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
 
@@ -3550,14 +3630,22 @@ export type S3CredentialsInput = {
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
   archiveStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  artifactAwsAccountsWithoutLifecycleRules?: Maybe<
+    Array<Scalars["String"]["output"]>
+  >;
   defaultMaxArtifactExpirationDays?: Maybe<Scalars["Int"]["output"]>;
+  devprodOwnedAwsAccountIds?: Maybe<Array<Scalars["String"]["output"]>>;
   iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
   archiveStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  artifactAwsAccountsWithoutLifecycleRules?: InputMaybe<
+    Array<Scalars["String"]["input"]>
+  >;
   defaultMaxArtifactExpirationDays?: InputMaybe<Scalars["Int"]["input"]>;
+  devprodOwnedAwsAccountIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
@@ -3648,6 +3736,8 @@ export type SchedulerConfig = {
   stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   taskFinder?: Maybe<FinderVersion>;
+  translateProjectCacheBytesLimit?: Maybe<Scalars["Int"]["output"]>;
+  translateProjectConcurrencyLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type SchedulerConfigInput = {
@@ -3669,6 +3759,8 @@ export type SchedulerConfigInput = {
   stepbackTaskFactor: Scalars["Int"]["input"];
   targetTimeSeconds: Scalars["Int"]["input"];
   taskFinder: FinderVersion;
+  translateProjectCacheBytesLimit?: InputMaybe<Scalars["Int"]["input"]>;
+  translateProjectConcurrencyLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type SearchReturnInfo = {
@@ -3699,92 +3791,6 @@ export type ServiceFlag = {
 export type ServiceFlagInput = {
   enabled: Scalars["Boolean"]["input"];
   name: Scalars["String"]["input"];
-};
-
-export type ServiceFlags = {
-  __typename?: "ServiceFlags";
-  agentStartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  alertsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundReauthDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundStatsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cacheStatsEndpointDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cacheStatsJobDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  eventProcessingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  githubPRTestingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  githubStatusAPIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  hostAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  hostInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  psLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  systemFailedTaskRestartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskDispatchDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-};
-
-export type ServiceFlagsInput = {
-  agentStartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  alertsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  backgroundReauthDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  backgroundStatsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cacheStatsEndpointDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cacheStatsJobDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  debugSpawnHostDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  eventProcessingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubPRTestingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubStatusAPIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  hostAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  hostInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  psLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  schedulerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  slackNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  sleepScheduleDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  staticAPIKeysDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  systemFailedTaskRestartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskDispatchDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-};
-
-/** SetCursorAPIKeyPayload is the response from setting a Cursor API key. */
-export type SetCursorApiKeyPayload = {
-  __typename?: "SetCursorAPIKeyPayload";
-  keyLastFour?: Maybe<Scalars["String"]["output"]>;
-  success: Scalars["Boolean"]["output"];
 };
 
 /**
@@ -3951,7 +3957,7 @@ export enum SpawnHostStatusActions {
 export type SpawnVolumeInput = {
   availabilityZone: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
-  host?: InputMaybe<Scalars["String"]["input"]>;
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
   size: Scalars["Int"]["input"];
   type: Scalars["String"]["input"];
@@ -4119,6 +4125,8 @@ export type Task = {
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
+  isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
@@ -4139,8 +4147,6 @@ export type Task = {
   prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
-  projectId: Scalars["String"]["output"];
-  projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
   revision?: Maybe<Scalars["String"]["output"]>;
@@ -4161,6 +4167,7 @@ export type Task = {
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
+  version: VersionLite;
   versionMetadata: Version;
 };
 
@@ -4261,6 +4268,18 @@ export type TaskHistory = {
   tasks: Array<Task>;
 };
 
+export type TaskHistoryByCreateTime = {
+  __typename?: "TaskHistoryByCreateTime";
+  pagination: TaskHistoryByCreateTimePagination;
+  tasks: Array<Task>;
+};
+
+export type TaskHistoryByCreateTimePagination = {
+  __typename?: "TaskHistoryByCreateTimePagination";
+  mostRecentTaskCreateTime: Scalars["Time"]["output"];
+  oldestTaskCreateTime: Scalars["Time"]["output"];
+};
+
 export enum TaskHistoryDirection {
   After = "AFTER",
   Before = "BEFORE",
@@ -4322,6 +4341,7 @@ export type TaskLimitsConfig = {
   maxIncludesPerVersion?: Maybe<Scalars["Int"]["output"]>;
   maxParserProjectSize?: Maybe<Scalars["Int"]["output"]>;
   maxPendingGeneratedTasks?: Maybe<Scalars["Int"]["output"]>;
+  maxScheduledTasksPerDistro?: Maybe<Scalars["Int"]["output"]>;
   maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
   maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
 };
@@ -4337,6 +4357,7 @@ export type TaskLimitsConfigInput = {
   maxIncludesPerVersion: Scalars["Int"]["input"];
   maxParserProjectSize: Scalars["Int"]["input"];
   maxPendingGeneratedTasks: Scalars["Int"]["input"];
+  maxScheduledTasksPerDistro: Scalars["Int"]["input"];
   maxTaskExecution: Scalars["Int"]["input"];
   maxTasksPerVersion: Scalars["Int"]["input"];
 };
@@ -4379,6 +4400,16 @@ export type TaskOwnerTeam = {
 export type TaskPriority = {
   priority: Scalars["Int"]["input"];
   taskId: Scalars["String"]["input"];
+};
+
+/**
+ * TaskQuarantineEntry is the per-task view of quarantine state inside a build
+ * variant.
+ */
+export type TaskQuarantineEntry = {
+  __typename?: "TaskQuarantineEntry";
+  taskName: Scalars["String"]["output"];
+  tests: Array<TestQuarantineEntry>;
 };
 
 /**
@@ -4489,12 +4520,23 @@ export type TestFilterOptions = {
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
+  logsToMerge?: Maybe<Array<Scalars["String"]["output"]>>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
   testName?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
   version?: Maybe<Scalars["Int"]["output"]>;
+};
+
+/**
+ * TestQuarantineEntry is the per-test view of manual-quarantine state inside a
+ * task.
+ */
+export type TestQuarantineEntry = {
+  __typename?: "TestQuarantineEntry";
+  isManuallyQuarantined: Scalars["Boolean"]["output"];
+  testName: Scalars["String"]["output"];
 };
 
 export type TestResult = {
@@ -4506,6 +4548,7 @@ export type TestResult = {
   exitCode?: Maybe<Scalars["Int"]["output"]>;
   groupID?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
+  isManuallyQuarantined: Scalars["Boolean"]["output"];
   logs: TestLog;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
@@ -4581,6 +4624,7 @@ export type TracerSettings = {
   collectorEndpoint?: Maybe<Scalars["String"]["output"]>;
   collectorInternalEndpoint?: Maybe<Scalars["String"]["output"]>;
   enabled: Scalars["Boolean"]["output"];
+  traceUrlTemplate?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type TracerSettingsInput = {
@@ -4588,6 +4632,7 @@ export type TracerSettingsInput = {
   collectorEndpoint?: InputMaybe<Scalars["String"]["input"]>;
   collectorInternalEndpoint?: InputMaybe<Scalars["String"]["input"]>;
   enabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  traceUrlTemplate?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type TriggerAlias = {
@@ -4659,6 +4704,22 @@ export type UiConfigInput = {
   userVoice: Scalars["String"]["input"];
 };
 
+/** UnquarantineTaskInput is the input to the unquarantineTask mutation. */
+export type UnquarantineTaskInput = {
+  taskId: Scalars["String"]["input"];
+};
+
+export type UnquarantineTestInput = {
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+};
+
+/** UnquarantineVariantInput is the input to the unquarantineVariant mutation. */
+export type UnquarantineVariantInput = {
+  buildVariant: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
+};
+
 export type UpdateBetaFeaturesInput = {
   betaFeatures: BetaFeaturesInput;
 };
@@ -4666,15 +4727,6 @@ export type UpdateBetaFeaturesInput = {
 export type UpdateBetaFeaturesPayload = {
   __typename?: "UpdateBetaFeaturesPayload";
   betaFeatures?: Maybe<BetaFeatures>;
-};
-
-export type UpdateParsleySettingsInput = {
-  parsleySettings: ParsleySettingsInput;
-};
-
-export type UpdateParsleySettingsPayload = {
-  __typename?: "UpdateParsleySettingsPayload";
-  parsleySettings?: Maybe<ParsleySettings>;
 };
 
 export type UpdateSpawnHostStatusInput = {
@@ -4726,12 +4778,13 @@ export type User = {
   betaFeatures?: Maybe<BetaFeatures>;
   displayName?: Maybe<Scalars["String"]["output"]>;
   emailAddress?: Maybe<Scalars["String"]["output"]>;
+  hasTokenExchangePending: Scalars["Boolean"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
-  parsleySettings?: Maybe<ParsleySettings>;
   patches?: Maybe<Patches>;
   permissions?: Maybe<Permissions>;
   settings?: Maybe<UserSettings>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
+  tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
   userId: Scalars["String"]["output"];
 };
 
@@ -4745,13 +4798,13 @@ export type UserPatchesArgs = {
 
 /**
  * UserConfig is returned by the userConfig query.
- * It contains configuration information such as the user's api key for the Evergreen CLI and a user's
- * preferred UI (legacy vs Spruce).
+ * It contains configuration information for the Evergreen CLI.
  */
 export type UserConfig = {
   __typename?: "UserConfig";
   api_key: Scalars["String"]["output"];
   api_server_host: Scalars["String"]["output"];
+  corp_api_server_host: Scalars["String"]["output"];
   oauth_client_id: Scalars["String"]["output"];
   oauth_connector_id: Scalars["String"]["output"];
   oauth_issuer: Scalars["String"]["output"];
@@ -4759,10 +4812,36 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
+/**
+ * UserLite replaces User by sidestepping the APIDBUser API model and binding directly to the
+ * service-layer user model. New clients should query UserLite instead of User.
+ */
+export type UserLite = {
+  __typename?: "UserLite";
+  betaFeatures?: Maybe<BetaFeatures>;
+  displayName?: Maybe<Scalars["String"]["output"]>;
+  emailAddress?: Maybe<Scalars["String"]["output"]>;
+  hasTokenExchangePending: Scalars["Boolean"]["output"];
+  id: Scalars["String"]["output"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
+  patches?: Maybe<Patches>;
+  permissions?: Maybe<Permissions>;
+  settings?: Maybe<UserSettings>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
+  tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
+};
+
+/**
+ * UserLite replaces User by sidestepping the APIDBUser API model and binding directly to the
+ * service-layer user model. New clients should query UserLite instead of User.
+ */
+export type UserLitePatchesArgs = {
+  patchesInput: PatchesInput;
+};
+
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
   debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /**
@@ -4798,6 +4877,18 @@ export type UserSettingsInput = {
   useSpruceOptions?: InputMaybe<UseSpruceOptionsInput>;
 };
 
+/**
+ * VariantQuarantineStatus is the manual-quarantine status of every known test
+ * of every known task in a build variant, as reported by the test selection
+ * service.
+ */
+export type VariantQuarantineStatus = {
+  __typename?: "VariantQuarantineStatus";
+  buildVariant: Scalars["String"]["output"];
+  projectIdentifier: Scalars["String"]["output"];
+  tasks: Array<TaskQuarantineEntry>;
+};
+
 export type VariantTask = {
   __typename?: "VariantTask";
   name: Scalars["String"]["output"];
@@ -4816,7 +4907,6 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
@@ -4831,6 +4921,7 @@ export type Version = {
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -4839,8 +4930,6 @@ export type Version = {
   patch?: Maybe<Patch>;
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
-  project: Scalars["String"]["output"];
-  projectIdentifier: Scalars["String"]["output"];
   projectMetadata?: Maybe<Project>;
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
@@ -4852,7 +4941,9 @@ export type Version = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
+  /** @deprecated Use userLite instead. */
   user: User;
+  userLite: UserLite;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
@@ -4881,6 +4972,34 @@ export type VersionTaskStatusStatsArgs = {
 /** Version models a commit within a project. */
 export type VersionTasksArgs = {
   options: TaskFilterOptions;
+};
+
+/** VersionLite replaces Version by sidestepping the APIVersion layer. It does not contain all Version fields at this time. */
+export type VersionLite = {
+  __typename?: "VersionLite";
+  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  baseVersion?: Maybe<VersionLite>;
+  branch: Scalars["String"]["output"];
+  childVersions?: Maybe<Array<VersionLite>>;
+  cost?: Maybe<Cost>;
+  createTime: Scalars["Time"]["output"];
+  errors: Array<Scalars["String"]["output"]>;
+  finishTime?: Maybe<Scalars["Time"]["output"]>;
+  id: Scalars["String"]["output"];
+  ignored: Scalars["Boolean"]["output"];
+  ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  isPatch: Scalars["Boolean"]["output"];
+  message: Scalars["String"]["output"];
+  order: Scalars["Int"]["output"];
+  project?: Maybe<ProjectLite>;
+  repo: Scalars["String"]["output"];
+  requester: Scalars["String"]["output"];
+  revision: Scalars["String"]["output"];
+  startTime?: Maybe<Scalars["Time"]["output"]>;
+  status: Scalars["String"]["output"];
+  taskStatusStats?: Maybe<TaskStats>;
+  user: UserLite;
+  warnings: Array<Scalars["String"]["output"]>;
 };
 
 export type VersionTasks = {
@@ -5056,30 +5175,17 @@ export type BaseTaskFragment = {
   execution: number;
   patchNumber?: number | null;
   versionMetadata: {
-    __typename?: "Version";
+    __typename?: "VersionLite";
     id: string;
     isPatch: boolean;
     message: string;
-    projectIdentifier: string;
     revision: string;
-    projectMetadata?: { __typename?: "Project"; id: string } | null;
-  };
-};
-
-export type UpdateParsleySettingsMutationVariables = Exact<{
-  opts: UpdateParsleySettingsInput;
-}>;
-
-export type UpdateParsleySettingsMutation = {
-  __typename?: "Mutation";
-  updateParsleySettings?: {
-    __typename?: "UpdateParsleySettingsPayload";
-    parsleySettings?: {
-      __typename?: "ParsleySettings";
-      jumpToFailingLineEnabled: boolean;
-      sectionsEnabled: boolean;
+    projectMetadata?: {
+      __typename?: "ProjectLite";
+      id: string;
+      identifier: string;
     } | null;
-  } | null;
+  };
 };
 
 export type TaskQueryVariables = Exact<{
@@ -5110,13 +5216,16 @@ export type TaskQuery = {
       taskLogLink?: string | null;
     };
     versionMetadata: {
-      __typename?: "Version";
+      __typename?: "VersionLite";
       id: string;
       isPatch: boolean;
       message: string;
-      projectIdentifier: string;
       revision: string;
-      projectMetadata?: { __typename?: "Project"; id: string } | null;
+      projectMetadata?: {
+        __typename?: "ProjectLite";
+        id: string;
+        identifier: string;
+      } | null;
     };
   } | null;
 };
@@ -5142,9 +5251,11 @@ export type TestLogUrlAndRenderingTypeQuery = {
         testFile: string;
         logs: {
           __typename?: "TestLog";
+          logsToMerge?: Array<string> | null;
           renderingType?: string | null;
           url?: string | null;
           urlRaw?: string | null;
+          logPath?: string | null;
         };
       }>;
     };
@@ -5155,22 +5266,7 @@ export type UserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserQuery = {
   __typename?: "Query";
-  user: { __typename?: "User"; userId: string };
-};
-
-export type ParsleySettingsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type ParsleySettingsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    parsleySettings?: {
-      __typename?: "ParsleySettings";
-      jumpToFailingLineEnabled: boolean;
-      sectionsEnabled: boolean;
-    } | null;
-  };
+  user: { __typename?: "UserLite"; userId: string };
 };
 
 export type ProjectFiltersQueryVariables = Exact<{

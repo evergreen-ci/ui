@@ -22,7 +22,9 @@ export interface OtherFormState {
         onDemandDiscount: number;
         s3Cost: {
           archiveStorageCostDiscount: number;
+          artifactAwsAccountsWithoutLifecycleRules: string[];
           defaultMaxArtifactExpirationDays: number;
+          devprodOwnedAwsAccountIds: string[];
           iAStorageCostDiscount: number;
           standardStorageCostDiscount: number;
           uploadCostDiscount: number;
@@ -48,7 +50,17 @@ export interface OtherFormState {
 
     bucketConfig: {
       defaultLogBucket: string;
+      logBucketExpirationDays: number;
+      logBucketTransitionToIADays: number;
+      logBucketTransitionToGlacierDays: number;
+      logBucketLifecycleLastSyncedAt: string;
+      logBucketLifecycleSyncError: string;
       logBucketLongRetentionName: string;
+      logBucketLongRetentionExpirationDays: number;
+      logBucketLongRetentionTransitionToIADays: number;
+      logBucketLongRetentionTransitionToGlacierDays: number;
+      logBucketLongRetentionLifecycleLastSyncedAt: string;
+      logBucketLongRetentionLifecycleSyncError: string;
       longRetentionProjects: string[];
       testResultsBucketName: string;
       testResultsBucketTestResultsPrefix: string;
@@ -57,6 +69,13 @@ export interface OtherFormState {
       credentialsKey: string;
       credentialsSecret: string;
       failedTasksLogBucketName: string;
+      failedTasksLogBucketExpirationDays: number;
+      failedTasksLogBucketTransitionToIADays: number;
+      failedTasksLogBucketTransitionToGlacierDays: number;
+      failedTasksLogBucketLifecycleLastSyncedAt: string;
+      failedTasksLogBucketLifecycleSyncError: string;
+      retryFailedLogMoveLookbackDays: number;
+      retryFailedLogMoveMaxJobsPerRun: number;
     };
 
     sshPairs: {
@@ -116,6 +135,7 @@ export interface OtherFormState {
       collectorEndpoint: string;
       collectorInternalEndpoint: string;
       collectorAPIKey: string;
+      traceUrlTemplate: string;
     };
 
     projectCreationSettings: {
@@ -129,6 +149,11 @@ export interface OtherFormState {
 
     githubCheckRunConfigurations: {
       checkRunLimit: number;
+    };
+
+    diagnosticsConfig: {
+      s3BucketName: string;
+      s3Prefix: string;
     };
   };
 }

@@ -5,8 +5,9 @@ import { H3 } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
+import { useNavbarAnalytics } from "analytics";
 import { MCI_USER } from "constants/hosts";
-import { getAllHostsRoute } from "constants/routes";
+import { getAllHostsRoute, getDistroSettingsRoute } from "constants/routes";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,
@@ -20,6 +21,7 @@ type TaskQueueContentProps = {
 };
 
 const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
+  const { sendEvent: sendNavbarEvent } = useNavbarAnalytics();
   const [taskId] = useQueryParam<string | undefined>(
     QueryParams.TaskId,
     undefined,
@@ -43,9 +45,19 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
       <TableHeader>
         <H3>{distroId}</H3>
         <StyledRouterLink
+          onClick={() => sendNavbarEvent({ name: "Clicked all hosts link" })}
           to={getAllHostsRoute({ distroId, startedBy: MCI_USER })}
         >
           View hosts
+        </StyledRouterLink>
+        <StyledRouterLink
+          data-cy="distro-settings-link"
+          onClick={() =>
+            sendNavbarEvent({ name: "Clicked distro settings link" })
+          }
+          to={getDistroSettingsRoute(distroId)}
+        >
+          Distro settings
         </StyledRouterLink>
       </TableHeader>
       {loadingTaskQueueItems ? (

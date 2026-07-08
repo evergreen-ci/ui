@@ -7,7 +7,7 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import * as db from "components/TaskReview/db";
-import { REVIEWED_TASK_FRAGMENT } from "components/TaskReview/utils";
+import { REVIEWED_TASK_FRAGMENT } from "gql/fragments/reviewedTask";
 import { TaskQuery } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { taskData, displayTaskData } from "./taskData";

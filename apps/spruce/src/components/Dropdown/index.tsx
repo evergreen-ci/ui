@@ -68,20 +68,20 @@ const Dropdown: React.FC<DropdownProps> = ({
             )}
           </LabelWrapper>
         </ButtonContent>
-        <Menu
-          active={isOpen}
-          adjustOnMutation
-          data-cy={`${dataCy}-options`}
-          onClick={(e) => e.stopPropagation()}
-          refEl={menuButtonRef}
-          style={{
-            width: menuWidth,
-            padding: useHorizontalPadding ? size.xs : `${size.xs} 0`,
-          }}
-        >
-          <div ref={listMenuRef}>{children}</div>
-        </Menu>
       </StyledButton>
+      <Menu
+        active={isOpen}
+        adjustOnMutation
+        data-cy={`${dataCy}-options`}
+        onClick={(e) => e.stopPropagation()}
+        refEl={menuButtonRef}
+        style={{
+          width: menuWidth,
+          padding: useHorizontalPadding ? size.xs : `${size.xs} 0`,
+        }}
+      >
+        <div ref={listMenuRef}>{children}</div>
+      </Menu>
     </Container>
   );
 };

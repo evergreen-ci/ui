@@ -1,10 +1,17 @@
 packages:
   - apps/*
   - packages/*
+# Supply-chain cooldown: wait 3 days (value is in minutes) after a version is
+# published before installing it, so compromised releases can be caught/yanked first.
+minimumReleaseAge: 4320
+allowBuilds:
+  '@sentry/cli': false
+  core-js-pure: false
+  esbuild: false
+  protobufjs: false
+  unrs-resolver: false
 configDependencies:
   '@pnpm/plugin-types-fixer': 0.1.0+sha512-bLww63gRHi7siYTqFJb5qNdcXadU0jv20Et6z5AryMZ7FlLolbEJOrXLpg8+amQZNHHNW1dfFUBGVw/9ezQbFg==
-onlyBuiltDependencies:
-  - cypress
 overrides:
   glob@>=10.2.0 <10.5.0: '>=10.5.0'
   qs@<6.14.1: '>=6.14.1'

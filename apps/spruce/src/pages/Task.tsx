@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { CombinedGraphQLErrors } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import Icon from "@evg-ui/lib/components/Icon";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
@@ -51,7 +53,7 @@ export const Task = () => {
       ? {
           variables: { taskId: taskId, execution: selectedExecution },
           pollInterval: DEFAULT_POLL_INTERVAL,
-          fetchPolicy: "network-only",
+          fetchPolicy: "cache-and-network",
           errorPolicy: "all",
         }
       : skipToken,
@@ -76,6 +78,7 @@ export const Task = () => {
     displayTask,
     errors,
     executionTasksFull,
+    invalidatedByUpstream,
     latestExecution,
     priority,
     status,
@@ -95,7 +98,7 @@ export const Task = () => {
   const shouldShowOriginalStatus = displayStatus === TaskStatus.KnownIssue;
   const isDisplayTask = executionTasksFull != null;
 
-  if (loading) {
+  if (!task && loading) {
     return <PatchAndTaskFullPageLoad />;
   }
   if (error && !task) {
@@ -110,8 +113,9 @@ export const Task = () => {
 
   return (
     <PageWrapper>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
+      <ProjectBanner
+        projectIdentifier={versionMetadata?.projectMetadata?.identifier}
+      />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {task && (
         <TaskPageBreadcrumbs
@@ -134,6 +138,13 @@ export const Task = () => {
             {shouldShowOriginalStatus && (
               <TaskStatusBadge status={TaskStatus.KnownIssue} />
             )}
+            {invalidatedByUpstream && (
+              <Chip
+                glyph={<Icon glyph="Refresh" />}
+                label="Merge Queue Aborted"
+                variant={ChipVariant.Gray}
+              />
+            )}
           </StyledBadgeWrapper>
         }
         buttons={
@@ -147,7 +158,7 @@ export const Task = () => {
             />
           ) : undefined
         }
-        loading={loading}
+        loading={false}
         pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
         title={displayName}
       />
@@ -182,9 +193,10 @@ export const Task = () => {
 };
 
 const StyledBadgeWrapper = styled.div`
-  > :nth-of-type(2) {
-    margin-left: 10px;
-  }
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: normal;
 `;
 
 const StyledPageContent = styled(PageContent)`

@@ -5,35 +5,107 @@ export type ProgressUpdate = {
   phase: string;
 };
 
-export type LogCoreAnalyzerOutput = {
-  lineReferences: { line: number; description: string; evidence: string }[];
-  markdown: string;
-  summary: string;
+export type OverallStatus =
+  | "success"
+  | "failure"
+  | "partial_failure"
+  | "unknown";
+export type FindingSeverity = "error" | "warning" | "info";
+
+export type MergedFinding = {
+  line: number | null;
+  severity: FindingSeverity;
+  message: string;
+  evidence: string | null;
 };
 
-export const isLogCoreAnalyzerOutput = (
-  output: unknown,
-): output is LogCoreAnalyzerOutput =>
-  typeof output === "object" &&
-  output !== null &&
-  typeof (output as Record<string, unknown>).markdown === "string" &&
-  Array.isArray((output as Record<string, unknown>).lineReferences);
+export type MergedFindingEvent = {
+  line: number | null;
+  timestamp: string | null;
+  description: string;
+};
+
+export type MergedFindingMetric = {
+  name: string;
+  value: string;
+};
+
+export type MergedFindings = {
+  summary: string;
+  overallStatus: OverallStatus;
+  errors: MergedFinding[];
+  events: MergedFindingEvent[];
+  metrics: MergedFindingMetric[];
+  observations: string[];
+};
+
+const isFindingSeverity = (value: unknown): value is FindingSeverity =>
+  value === "error" || value === "warning" || value === "info";
+
+const isOverallStatus = (value: unknown): value is OverallStatus =>
+  value === "success" ||
+  value === "failure" ||
+  value === "partial_failure" ||
+  value === "unknown";
+
+const isMergedFinding = (value: unknown): value is MergedFinding => {
+  if (typeof value !== "object" || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return (
+    (v.line === null || typeof v.line === "number") &&
+    isFindingSeverity(v.severity) &&
+    typeof v.message === "string" &&
+    (v.evidence === null || typeof v.evidence === "string")
+  );
+};
+
+const isMergedFindingEvent = (value: unknown): value is MergedFindingEvent => {
+  if (typeof value !== "object" || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return (
+    (v.line === null || typeof v.line === "number") &&
+    (v.timestamp === null || typeof v.timestamp === "string") &&
+    typeof v.description === "string"
+  );
+};
+
+const isMergedFindingMetric = (
+  value: unknown,
+): value is MergedFindingMetric => {
+  if (typeof value !== "object" || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return typeof v.name === "string" && typeof v.value === "string";
+};
+
+export const isMergedFindings = (output: unknown): output is MergedFindings => {
+  if (typeof output !== "object" || output === null) return false;
+  const v = output as Record<string, unknown>;
+  return (
+    typeof v.summary === "string" &&
+    isOverallStatus(v.overallStatus) &&
+    Array.isArray(v.errors) &&
+    v.errors.every(isMergedFinding) &&
+    Array.isArray(v.events) &&
+    v.events.every(isMergedFindingEvent) &&
+    Array.isArray(v.metrics) &&
+    v.metrics.every(isMergedFindingMetric) &&
+    Array.isArray(v.observations) &&
+    v.observations.every((o) => typeof o === "string")
+  );
+};
 
 type DataProgressData = ProgressUpdate & { toolCallId: string };
 
-const isDataProgressData = (data: unknown): data is DataProgressData =>
-  typeof data === "object" &&
-  data !== null &&
-  typeof (data as Record<string, unknown>).toolCallId === "string" &&
-  typeof (data as Record<string, unknown>).percentage === "number" &&
-  typeof (data as Record<string, unknown>).phase === "string";
+const isDataProgressData = (data: unknown): data is DataProgressData => {
+  if (typeof data !== "object" || data === null) return false;
+  const v = data as Record<string, unknown>;
+  return (
+    typeof v.toolCallId === "string" &&
+    typeof v.percentage === "number" &&
+    typeof v.phase === "string"
+  );
+};
 
-/**
- * Scans a message parts array for `data-tool-progress` entries and returns
- * a map of toolCallId to the latest ProgressUpdate for that tool call.
- * @param parts - The message parts array from a UIMessage.
- * @returns A map of toolCallId to the latest ProgressUpdate.
- */
 export const getProgressByToolCallId = (
   parts: Array<UIMessagePart<UIDataTypes, UITools>>,
 ): Map<string, ProgressUpdate> => {
@@ -50,4 +122,20 @@ export const getProgressByToolCallId = (
     }
   }
   return map;
+};
+
+// Insertion order is preserved within each severity so the UI lists findings
+// in the order the analyzer emitted them.
+export const groupFindingsBySeverity = (
+  findings: MergedFinding[],
+): Record<FindingSeverity, MergedFinding[]> => {
+  const groups: Record<FindingSeverity, MergedFinding[]> = {
+    error: [],
+    warning: [],
+    info: [],
+  };
+  for (const f of findings) {
+    groups[f.severity].push(f);
+  }
+  return groups;
 };

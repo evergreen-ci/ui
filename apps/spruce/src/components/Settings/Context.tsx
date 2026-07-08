@@ -14,6 +14,7 @@ import { FormToGqlFunction, SettingsRoutes } from "./types";
 
 type OnChangeParams<
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FormStateMap extends Record<T, any>,
 > = Pick<
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -26,6 +27,7 @@ type OnChangeParams<
 // For now, leave as-is and assert form state types when errors are thrown.
 export type TabState<
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FormStateMap extends Record<T, any>,
 > = {
   [K in T]: {
@@ -36,6 +38,7 @@ export type TabState<
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Action<T extends SettingsRoutes, FormStateMap extends Record<T, any>> =
   | {
       type: "updateForm";
@@ -55,69 +58,71 @@ type Action<T extends SettingsRoutes, FormStateMap extends Record<T, any>> =
     };
 
 const reducer =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   <T extends SettingsRoutes, FormStateMap extends Record<T, any>>(
-    getTransformer: Record<T, FormToGqlFunction<T>>,
-  ) =>
-  (
-    state: TabState<T, FormStateMap>,
-    action: Action<T, FormStateMap>,
-  ): TabState<T, FormStateMap> => {
-    switch (action.type) {
-      case "saveTab":
-        return state[action.tab].hasChanges
-          ? {
-              ...state,
-              [action.tab]: {
-                ...state[action.tab],
-                hasChanges: false,
-                hasError: false,
-              },
-            }
-          : state;
-      case "updateForm":
-        return {
-          ...state,
-          [action.tab]: {
-            ...state[action.tab],
-            formData: action.formData,
-            hasError: !!action.errors?.length,
-          },
-        };
-      case "setHasChanges": {
-        const formToGql = getTransformer[action.tab];
-        return {
-          ...state,
-          [action.tab]: {
-            ...state[action.tab],
-            hasChanges:
-              formToGql &&
-              !isEqual(
-                state[action.tab].initialData,
-                formToGql(action.formData),
-              ),
-          },
-        };
-      }
-      case "setInitialData":
-        return Object.entries(action.tabData).reduce(
-          (s, [tab, data]) => ({
-            ...s,
-            [tab]: {
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              ...s[tab],
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              initialData: getTransformer[tab](data),
+      getTransformer: Record<T, FormToGqlFunction<T>>,
+    ) =>
+    (
+      state: TabState<T, FormStateMap>,
+      action: Action<T, FormStateMap>,
+    ): TabState<T, FormStateMap> => {
+      switch (action.type) {
+        case "saveTab":
+          return state[action.tab].hasChanges
+            ? {
+                ...state,
+                [action.tab]: {
+                  ...state[action.tab],
+                  hasChanges: false,
+                  hasError: false,
+                },
+              }
+            : state;
+        case "updateForm":
+          return {
+            ...state,
+            [action.tab]: {
+              ...state[action.tab],
+              formData: action.formData,
+              hasError: !!action.errors?.length,
             },
-          }),
-          state,
-        );
-      default:
-        throw new Error("Unknown action type");
-    }
-  };
+          };
+        case "setHasChanges": {
+          const formToGql = getTransformer[action.tab];
+          return {
+            ...state,
+            [action.tab]: {
+              ...state[action.tab],
+              hasChanges:
+                formToGql &&
+                !isEqual(
+                  state[action.tab].initialData,
+                  formToGql(action.formData),
+                ),
+            },
+          };
+        }
+        case "setInitialData":
+          return Object.entries(action.tabData).reduce(
+            (s, [tab, data]) => ({
+              ...s,
+              [tab]: {
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                ...s[tab],
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                initialData: getTransformer[tab](data),
+              },
+            }),
+            state,
+          );
+        default:
+          throw new Error("Unknown action type");
+      }
+    };
 
 interface SettingsState<
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FormStateMap extends Record<T, any>,
 > {
   tabs: TabState<T, FormStateMap>;
@@ -131,15 +136,18 @@ interface SettingsState<
 
 const createSettingsContext = <
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FormStateMap extends Record<T, any>,
 >() => createContext<SettingsState<T, FormStateMap> | null>(null);
 
 const useSettingsState = <
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FormStateMap extends Record<T, any>,
 >(
   routes: T[],
   // @ts-expect-error: FIXME. This comment was added by an automated script.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getTransformer: Record<T, (...any) => any>,
 ): SettingsState<T, FormStateMap> => {
   const [state, dispatch] = useReducer(
@@ -189,6 +197,7 @@ const useSettingsState = <
 
 const getUsePopulateForm = <
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FormStateMap extends Record<T, any>,
 >(
   context: Context<SettingsState<T, FormStateMap>>,
@@ -209,6 +218,7 @@ const getUsePopulateForm = <
 
 const getUseHasUnsavedTab = <
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FormStateMap extends Record<T, any>,
 >(
   context: Context<SettingsState<T, FormStateMap>>,
@@ -237,6 +247,7 @@ const getUseHasUnsavedTab = <
 
 const getDefaultTabState = <
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FormStateMap extends Record<T, any>,
 >(
   routes: T[],

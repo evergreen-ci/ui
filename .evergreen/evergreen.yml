@@ -21,7 +21,7 @@ post:
   - func: attach-analytics-visualizer
   - func: assume-ec2-role
   - func: attach-codegen-diff
-  - func: attach-cypress-results
+  - func: attach-playwright-results
   - func: attach-email
   - func: attach-mongod-logs
   - func: attach-restore-logs
@@ -38,6 +38,11 @@ include:
 buildvariants:
   - name: spruce
     display_name: Spruce
+    activate: true
+    paths:
+      - "apps/spruce/**"
+      - "packages/**"
+      - ".evergreen/**"
     run_on:
       - ubuntu2204-large
     expansions:
@@ -53,6 +58,7 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: e2e
+        patchable: false
       - name: lint
       - name: storybook
       - name: test
@@ -64,6 +70,11 @@ buildvariants:
 
   - name: parsley
     display_name: Parsley
+    activate: true
+    paths:
+      - "apps/parsley/**"
+      - "packages/**"
+      - ".evergreen/**"
     expansions:
       app_dir: apps/parsley
       goroot: /opt/golang/go1.24
@@ -89,8 +100,36 @@ buildvariants:
         patchable: false
         priority: 100
 
+  - name: sage
+    display_name: Sage UI
+    activate: true
+    paths:
+      - "apps/sage/**"
+      - "packages/**"
+      - ".evergreen/**"
+    expansions:
+      app_dir: apps/sage
+      node_version: 22.18.0
+    run_on:
+      - ubuntu2204-large
+      - ubuntu2204-small
+    tasks:
+      - name: compile
+      - name: e2e_no_db
+      - name: lint
+      - name: storybook
+      - name: test
+      - name: type_check
+      - name: deploy-sage-ui-prod
+        git_tag_only: true
+        patchable: false
+        priority: 100
+
   - name: lib
     display_name: Lib
+    activate: true
+    paths:
+      - "packages/lib/**"
     expansions:
       app_dir: packages/lib
       goroot: /opt/golang/go1.24
@@ -109,6 +148,9 @@ buildvariants:
 
   - name: deploy-utils
     display_name: Deploy Utils
+    activate: true
+    paths:
+      - "packages/deploy-utils/**"
     expansions:
       app_dir: packages/deploy-utils
       goroot: /opt/golang/go1.24
@@ -123,6 +165,10 @@ buildvariants:
 
   - name: fungi
     display_name: Fungi
+    activate: true
+    paths:
+      - "packages/fungi/**"
+      - "packages/lib/**"
     expansions:
       app_dir: packages/fungi
       goroot: /opt/golang/go1.24
@@ -138,6 +184,9 @@ buildvariants:
 
   - name: analytics-visualizer
     display_name: Analytics Visualizer
+    activate: true
+    paths:
+      - "packages/analytics-visualizer/**"
     expansions:
       app_dir: packages/analytics-visualizer
       node_version: 22.18.0
@@ -156,7 +205,6 @@ buildvariants:
     run_on:
       - ubuntu2204-small
     tasks:
-      - generate-tasks
       - generate-spruce-e2e
 
   - name: deploy
@@ -169,11 +217,13 @@ buildvariants:
     tasks:
       - name: deploy-parsley-beta
       - name: deploy-parsley-staging
+      - name: deploy-sage-ui-beta
+      - name: deploy-sage-ui-staging
       - name: deploy-spruce-beta
       - name: deploy-spruce-staging
       - name: sync-spruce-staging
 
 parameters:
-  - key: cypress_spec
-    value: cypress/integration/**/*
-    description: Specify the Cypress spec files to run for user submitted patches running the e2e_test task.
+  - key: playwright_spec
+    value: ""
+    description: Specify the Playwright spec files to run for user submitted patches running the e2e task.

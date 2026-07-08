@@ -28,6 +28,37 @@ type SaveModalProps = {
   tab: WritableDistroSettingsType;
 };
 
+const onSaveOptions: {
+  value: DistroOnSaveOperation;
+  label: string;
+  description: string;
+}[] = [
+  {
+    value: DistroOnSaveOperation.None,
+    label: "Nothing",
+    description:
+      "Apply updated distro settings only to hosts created in the future; existing hosts keep their current configuration.",
+  },
+  {
+    value: DistroOnSaveOperation.Decommission,
+    label: "Decommission hosts of this distro",
+    description:
+      "Mark all hosts of this distro for termination after they finish their current work. Evergreen stops scheduling new tasks on them and cleans them up.",
+  },
+  {
+    value: DistroOnSaveOperation.RestartJasper,
+    label: "Restart Jasper service on running hosts of this distro",
+    description:
+      "Restart the Jasper process management service on running hosts so Evergreen can restart agents and pick up the new configuration.",
+  },
+  {
+    value: DistroOnSaveOperation.Reprovision,
+    label: "Reprovision running hosts of this distro",
+    description:
+      "Rebuild running hosts of this distro with the updated configuration. This restarts agents and may briefly interrupt running work.",
+  },
+];
+
 export const SaveModal: React.FC<SaveModalProps> = ({
   banner,
   distro,
@@ -38,7 +69,6 @@ export const SaveModal: React.FC<SaveModalProps> = ({
 }) => {
   const { sendEvent } = useDistroSettingsAnalytics();
   const dispatchToast = useToastContext();
-
   const { getTab, saveTab } = useDistroSettingsContext();
   const { formData } = getTab(tab);
   const [onSaveOperation, setOnSaveOperation] = useState(
@@ -105,24 +135,18 @@ export const SaveModal: React.FC<SaveModalProps> = ({
       <StyledBody>
         Evergreen can perform one of the following actions on save:
       </StyledBody>
+
       <RadioGroup
         onChange={(e) =>
           setOnSaveOperation(e.target.value as DistroOnSaveOperation)
         }
         value={onSaveOperation}
       >
-        <Radio value={DistroOnSaveOperation.None}>
-          Nothing, only new hosts will have updated distro settings applied
-        </Radio>
-        <Radio value={DistroOnSaveOperation.Decommission}>
-          Decommission hosts of this distro
-        </Radio>
-        <Radio value={DistroOnSaveOperation.RestartJasper}>
-          Restart Jasper service on running hosts of this distro
-        </Radio>
-        <Radio value={DistroOnSaveOperation.Reprovision}>
-          Reprovision running hosts of this distro
-        </Radio>
+        {onSaveOptions.map(({ description, label, value }) => (
+          <Radio key={value} description={description} value={value}>
+            {label}
+          </Radio>
+        ))}
       </RadioGroup>
     </ConfirmationModal>
   );

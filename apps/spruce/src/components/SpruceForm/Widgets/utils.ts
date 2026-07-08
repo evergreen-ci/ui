@@ -5,7 +5,7 @@ import { Errors } from "../errors";
  * @param val - value to check
  * @returns true if the value is null or undefined
  */
-export const isNullish = (val: any) => val === null || val === undefined;
+export const isNullish = (val: unknown) => val === null || val === undefined;
 
 /**
  * Processes errors by removing "invisible" and duplicate errors.

@@ -41,7 +41,7 @@ const NavBar: React.FC = () => {
         >
           <Icon glyph="InfoWithCircle" />
         </IconButton>
-        <StyledDetailsMenu data-cy="details-button" disabled={!hasLogs} />
+        <StyledDetailsMenu disabled={!hasLogs} />
         {isDevelopmentBuild() && (
           <Button
             onClick={logoutAndRedirect}

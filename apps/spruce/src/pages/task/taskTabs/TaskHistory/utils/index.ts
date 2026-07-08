@@ -70,7 +70,7 @@ export const groupTasks = (
   };
 
   tasks.forEach((task, i) => {
-    let shouldShowDateSeparator = false;
+    let shouldShowDateSeparator: boolean;
     if (i === 0) {
       shouldShowDateSeparator = true;
     } else {

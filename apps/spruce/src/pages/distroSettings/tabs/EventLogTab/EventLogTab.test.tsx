@@ -168,7 +168,7 @@ const distroEvents: DistroEventsQuery = {
             tartime: 0,
             version: "tunable",
           },
-          provider: "ec2-ondemand",
+          provider: "ec2-fleet",
           provider_settings_list: [
             {
               ami: "who-ami2",
@@ -270,7 +270,7 @@ const distroEvents: DistroEventsQuery = {
             tartime: 0,
             version: "tunable",
           },
-          provider: "ec2-ondemand",
+          provider: "ec2-fleet",
           provider_settings_list: [
             {
               ami: "who-ami",
@@ -372,7 +372,7 @@ const distroEvents: DistroEventsQuery = {
             tartime: 0,
             version: "tunable",
           },
-          provider: "ec2-ondemand",
+          provider: "ec2-fleet",
           provider_settings_list: [
             {
               ami: "who-ami2",
@@ -481,7 +481,7 @@ const distroEvents: DistroEventsQuery = {
             tartime: 0,
             version: "tunable",
           },
-          provider: "ec2-ondemand",
+          provider: "ec2-fleet",
           provider_settings_list: [
             {
               ami: "who-ami",

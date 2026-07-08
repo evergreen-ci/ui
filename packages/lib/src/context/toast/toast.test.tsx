@@ -231,6 +231,10 @@ describe("toast", () => {
 });
 
 describe("mocked toast", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("should be able to mock the toast in a component test", async () => {
     const user = userEvent.setup();
     const ToastComponent: React.FC = () => {

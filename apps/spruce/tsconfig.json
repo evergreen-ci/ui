@@ -10,12 +10,13 @@
   },
   "exclude": [
     "node_modules",
-    "vite.config.ts"
+    "vite.config.ts",
+    "playwright.config.ts",
   ],
   "include": [
+    "../../packages/lib/vitest.d.ts",
     "src",
     "scripts",
-    "config/vitest/setupTests.ts",
     "src/**/*.d.ts",
     "./.storybook/preview.tsx"
   ],

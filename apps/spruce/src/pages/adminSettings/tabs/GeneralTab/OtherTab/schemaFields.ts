@@ -163,6 +163,20 @@ export const miscSettings = {
               title: "Default Max Artifact Expiration Days",
               minimum: 1,
             },
+            devprodOwnedAwsAccountIds: {
+              type: "array" as const,
+              title: "Devprod Owned AWS Account IDs",
+              items: {
+                type: "string" as const,
+              },
+            },
+            artifactAwsAccountsWithoutLifecycleRules: {
+              type: "array" as const,
+              title: "Artifact AWS Account IDs Without Lifecycle Rules",
+              items: {
+                type: "string" as const,
+              },
+            },
           },
         },
       },
@@ -175,6 +189,7 @@ export const miscSettings = {
     githubOrgs: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:description": "Organization names are case-sensitive.",
     },
     releaseMode: {
       "ui:description":
@@ -233,6 +248,18 @@ export const miscSettings = {
           "ui:description":
             "The default maximum number of days before artifacts expire (minimum 1).",
         },
+        devprodOwnedAwsAccountIds: {
+          "ui:widget": widgets.ChipInputWidget,
+          "ui:fieldCss": fullWidthCss,
+          "ui:description":
+            "AWS account IDs (12 digits) for S3 buckets owned by Devprod, used for cost calculations.",
+        },
+        artifactAwsAccountsWithoutLifecycleRules: {
+          "ui:widget": widgets.ChipInputWidget,
+          "ui:fieldCss": fullWidthCss,
+          "ui:description":
+            "AWS account IDs where we do not have access to fetch lifecycle rules.",
+        },
       },
     },
   },
@@ -248,12 +275,12 @@ export const getSingleTaskDistroSchema = ({
   const projectRepoOptions = [
     ...projectRefs.map((p) => ({
       type: "string" as const,
-      title: `${p.displayName} (Project)`,
+      title: p.displayName,
       enum: [p.id],
     })),
     ...repoRefs.map((r) => ({
       type: "string" as const,
-      title: `${r.displayName} (Repository)`,
+      title: r.displayName,
       enum: [r.id],
     })),
   ];
@@ -268,7 +295,7 @@ export const getSingleTaskDistroSchema = ({
           properties: {
             projectId: {
               type: "string" as const,
-              title: "Project ID / Repo",
+              title: "Project ID / Repo ID",
               oneOf: projectRepoOptions,
               default: "",
             },
@@ -303,7 +330,7 @@ export const getSingleTaskDistroSchema = ({
         "ui:arrayItemCSS": arrayItemCSS,
         items: {
           projectId: {
-            "ui:allowDeselect": false,
+            "ui:widget": widgets.ComboboxWidget,
           },
           allowedTasks: {
             "ui:widget": widgets.ChipInputWidget,
@@ -323,9 +350,59 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Default Log Bucket",
     },
+    logBucketExpirationDays: {
+      type: "number" as const,
+      title: "Log Bucket Expiration Days",
+      readOnly: true,
+    },
+    logBucketTransitionToIADays: {
+      type: "number" as const,
+      title: "Log Bucket Transition to IA Days",
+      readOnly: true,
+    },
+    logBucketTransitionToGlacierDays: {
+      type: "number" as const,
+      title: "Log Bucket Transition to Glacier Days",
+      readOnly: true,
+    },
+    logBucketLifecycleLastSyncedAt: {
+      type: "string" as const,
+      title: "Log Bucket Lifecycle Last Synced At",
+      readOnly: true,
+    },
+    logBucketLifecycleSyncError: {
+      type: "string" as const,
+      title: "Log Bucket Lifecycle Sync Error",
+      readOnly: true,
+    },
     logBucketLongRetentionName: {
       type: "string" as const,
       title: "Long Retention Log Bucket",
+    },
+    logBucketLongRetentionExpirationDays: {
+      type: "number" as const,
+      title: "Long Retention Log Bucket Expiration Days",
+      readOnly: true,
+    },
+    logBucketLongRetentionTransitionToIADays: {
+      type: "number" as const,
+      title: "Long Retention Log Bucket Transition to IA Days",
+      readOnly: true,
+    },
+    logBucketLongRetentionTransitionToGlacierDays: {
+      type: "number" as const,
+      title: "Long Retention Log Bucket Transition to Glacier Days",
+      readOnly: true,
+    },
+    logBucketLongRetentionLifecycleLastSyncedAt: {
+      type: "string" as const,
+      title: "Long Retention Log Bucket Lifecycle Last Synced At",
+      readOnly: true,
+    },
+    logBucketLongRetentionLifecycleSyncError: {
+      type: "string" as const,
+      title: "Long Retention Log Bucket Lifecycle Sync Error",
+      readOnly: true,
     },
     longRetentionProjects: {
       type: "array" as const,
@@ -362,15 +439,63 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Failed Tasks Log Bucket",
     },
+    failedTasksLogBucketExpirationDays: {
+      type: "number" as const,
+      title: "Failed Tasks Log Bucket Expiration Days",
+      readOnly: true,
+    },
+    failedTasksLogBucketTransitionToIADays: {
+      type: "number" as const,
+      title: "Failed Tasks Log Bucket Transition to IA Days",
+      readOnly: true,
+    },
+    failedTasksLogBucketTransitionToGlacierDays: {
+      type: "number" as const,
+      title: "Failed Tasks Log Bucket Transition to Glacier Days",
+      readOnly: true,
+    },
+    failedTasksLogBucketLifecycleLastSyncedAt: {
+      type: "string" as const,
+      title: "Failed Tasks Log Bucket Lifecycle Last Synced At",
+      readOnly: true,
+    },
+    failedTasksLogBucketLifecycleSyncError: {
+      type: "string" as const,
+      title: "Failed Tasks Log Bucket Lifecycle Sync Error",
+      readOnly: true,
+    },
+    retryFailedLogMoveLookbackDays: {
+      type: "number" as const,
+      title: "Retry Failed Log Move Lookback Days",
+    },
+    retryFailedLogMoveMaxJobsPerRun: {
+      type: "number" as const,
+      title: "Retry Failed Log Move Max Jobs Per Run",
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "bucket-config",
     "ui:objectFieldCss": objectGridCss,
+    logBucketExpirationDays: { "ui:readonly": true },
+    logBucketTransitionToIADays: { "ui:readonly": true },
+    logBucketTransitionToGlacierDays: { "ui:readonly": true },
+    logBucketLifecycleLastSyncedAt: { "ui:readonly": true },
+    logBucketLifecycleSyncError: { "ui:readonly": true },
+    logBucketLongRetentionExpirationDays: { "ui:readonly": true },
+    logBucketLongRetentionTransitionToIADays: { "ui:readonly": true },
+    logBucketLongRetentionTransitionToGlacierDays: { "ui:readonly": true },
+    logBucketLongRetentionLifecycleLastSyncedAt: { "ui:readonly": true },
+    logBucketLongRetentionLifecycleSyncError: { "ui:readonly": true },
     longRetentionProjects: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
     },
+    failedTasksLogBucketExpirationDays: { "ui:readonly": true },
+    failedTasksLogBucketTransitionToIADays: { "ui:readonly": true },
+    failedTasksLogBucketTransitionToGlacierDays: { "ui:readonly": true },
+    failedTasksLogBucketLifecycleLastSyncedAt: { "ui:readonly": true },
+    failedTasksLogBucketLifecycleSyncError: { "ui:readonly": true },
   },
 };
 
@@ -410,9 +535,11 @@ export const sshPairs = {
     "ui:data-cy": "ssh-pairs",
     "ui:objectFieldCss": objectGridCss,
     taskHostKey: {
+      "ui:data-cy": "task-host-key",
       "ui:fieldCss": nestedObjectGridCss,
     },
     spawnHostKey: {
+      "ui:data-cy": "spawn-host-key",
       "ui:fieldCss": nestedObjectGridCss,
     },
   },
@@ -449,6 +576,7 @@ export const expansions = {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
+        "ui:data-cy": "expansion-item",
         value: {
           "ui:widget": "textarea",
         },
@@ -547,6 +675,7 @@ export const jiraNotificationsFields = {
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
+        "ui:data-cy": "jira-custom-field-item",
         fields: {
           "ui:addButtonText": "Add custom field",
           "ui:placeholder": "No custom fields defined.",
@@ -647,12 +776,21 @@ export const tracerConfiguration = {
       type: "string" as const,
       title: "Collector API Key",
     },
+    traceUrlTemplate: {
+      type: "string" as const,
+      title: "Trace URL Template",
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "tracer-configuration",
     "ui:objectFieldCss": objectGridCss,
     enabled: {
+      "ui:fieldCss": fullWidthCss,
+    },
+    traceUrlTemplate: {
+      "ui:description":
+        "fmt.Sprintf template with exactly one %s verb for the W3C trace ID (hex). Example: https://apm.example.com/trace/%s",
       "ui:fieldCss": fullWidthCss,
     },
   },
@@ -697,6 +835,34 @@ export const projectCreationSettings = {
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
+      items: {
+        "ui:data-cy": "repo-exception-item",
+      },
+    },
+  },
+};
+
+export const diagnosticsConfig = {
+  schema: {
+    s3BucketName: {
+      type: "string" as const,
+      title: "S3 Bucket Name",
+    },
+    s3Prefix: {
+      type: "string" as const,
+      title: "S3 Prefix",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "diagnostics-config",
+    "ui:objectFieldCss": objectGridCss,
+    s3BucketName: {
+      "ui:description": "The S3 bucket where diagnostics data is stored.",
+    },
+    s3Prefix: {
+      "ui:description":
+        "The prefix used for diagnostics data in the S3 bucket.",
     },
   },
 };

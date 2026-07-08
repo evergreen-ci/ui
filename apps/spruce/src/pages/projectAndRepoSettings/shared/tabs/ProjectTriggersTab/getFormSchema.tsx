@@ -119,7 +119,7 @@ export const getFormSchema = (
       "ui:showLabel": false,
     },
     triggers: {
-      "ui:addButtonText": "Add Project Trigger",
+      "ui:addButtonText": "Add project trigger",
       "ui:orderable": false,
       "ui:showLabel": false,
       "ui:useExpandableCard": true,

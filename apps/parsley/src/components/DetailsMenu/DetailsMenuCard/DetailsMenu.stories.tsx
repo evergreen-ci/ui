@@ -1,21 +1,12 @@
 import { useEffect } from "react";
 import { Card } from "@leafygreen-ui/card";
-import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import DetailsMenu from ".";
 
 export default {
   component: DetailsMenu,
-  decorators: [
-    (Story: () => React.JSX.Element) => (
-      <MockedProvider mocks={[parsleySettingsMock]}>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
 } satisfies CustomMeta<typeof DetailsMenu>;
 
 export const Default: CustomStoryObj<typeof DetailsMenu> = {

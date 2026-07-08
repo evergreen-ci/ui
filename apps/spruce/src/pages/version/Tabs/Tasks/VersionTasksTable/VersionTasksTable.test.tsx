@@ -12,6 +12,7 @@ import {
   within,
 } from "@evg-ui/lib/test_utils";
 import * as db from "components/TaskReview/db";
+import { getVariantHistoryRoute } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
 import { versionTasks } from "./testData";
@@ -74,6 +75,24 @@ describe("VersionTasksTable", () => {
     ).getByRole("button");
     await user.click(expandRowButton);
     expect(screen.queryByText("e2e_spruce_0")).toBeVisible();
+  });
+
+  it("links the variant column to the variant history page using the task's project identifier", () => {
+    render(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} />
+      </MockedProvider>,
+    );
+    const variantLink = within(
+      screen.getAllByDataCy("tasks-table-row")[0],
+    ).getByRole("link", { name: tasks[0].buildVariantDisplayName ?? "" });
+    expect(variantLink).toHaveAttribute(
+      "href",
+      getVariantHistoryRoute(
+        tasks[0].project?.identifier ?? "",
+        tasks[0].buildVariant,
+      ),
+    );
   });
 
   it("calls clearQueryParams function when button is clicked", async () => {

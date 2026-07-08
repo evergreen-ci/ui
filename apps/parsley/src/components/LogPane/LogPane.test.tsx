@@ -2,7 +2,6 @@ import { createRef } from "react";
 import { VirtuosoMockContext } from "react-virtuoso";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   waitFor,
@@ -10,7 +9,6 @@ import {
 import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/storageKeys";
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import { RowType } from "types/logs";
 import LogPane from ".";
 
@@ -22,11 +20,9 @@ const RowRenderer = (index: number) => (
 );
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[parsleySettingsMock]}>
-    <VirtuosoMockContext.Provider value={virtuosoConfig}>
-      <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
-    </VirtuosoMockContext.Provider>
-  </MockedProvider>
+  <VirtuosoMockContext.Provider value={virtuosoConfig}>
+    <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
+  </VirtuosoMockContext.Provider>
 );
 
 describe("logPane", () => {
@@ -134,6 +130,8 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          jumpToFailingLineEnabled: true,
+          sectionsEnabled: true,
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
           stickyHeaders: false,
@@ -167,6 +165,8 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          jumpToFailingLineEnabled: true,
+          sectionsEnabled: true,
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
           stickyHeaders: false,

@@ -1,5 +1,6 @@
 import { generatePath } from "react-router-dom";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
@@ -41,7 +42,6 @@ export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
   Variables = "variables",
-  GithubCommitQueue = "github-commitqueue",
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
@@ -50,6 +50,10 @@ export enum ProjectSettingsTabRoutes {
   PeriodicBuilds = "periodic-builds",
   TestSelection = "test-selection",
   Plugins = "plugins",
+  PullRequests = "pull-requests",
+  CommitChecks = "commit-checks",
+  MergeQueue = "merge-queue",
+  GitTags = "git-tags",
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
   EventLog = "event-log",
@@ -173,6 +177,19 @@ export const routes = {
   waterfall: `${paths.project}/:${slugs.projectIdentifier}/waterfall`,
 };
 
+// Route patterns augmented with optional tab/param segments so deep links resolve
+// to one route name. Shared so the span processor and analytics agree.
+export const observabilityRouteConfig = {
+  ...routes,
+  projectSettings: `${routes.projectSettings}/:${slugs.tab}?`,
+  image: `${routes.image}/:${slugs.tab}?`,
+  distroSettings: `${routes.distroSettings}/:${slugs.tab}?`,
+  preferences: `${routes.preferences}/:${slugs.tab}?`,
+  spawn: `${routes.spawn}/:${slugs.tab}?`,
+  jobLogs: `${routes.jobLogs}/:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`,
+  patchRedirect: redirectRoutes.patch,
+};
+
 export const getUserPatchesRoute = (userId: string): string =>
   `${paths.user}/${userId}/${PageNames.Patches}`;
 
@@ -231,7 +248,7 @@ export const getAllHostsRoute = (options?: {
 export type GetTaskRouteOptions = {
   tab?: TaskTab;
   execution?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   const { tab, ...rest } = options || {};
@@ -451,19 +468,25 @@ export const getTriggerRoute = ({
   upstreamVersion,
 }: {
   triggerType: string;
-  upstreamTask: any;
-  upstreamVersion: any;
+  upstreamTask?: { id: string } | null;
+  upstreamVersion?: { id: string } | null;
   upstreamRevision: string;
   upstreamOwner: string;
   upstreamRepo: string;
 }) => {
-  if (triggerType === ProjectTriggerLevel.TASK) {
+  if (triggerType === ProjectTriggerLevel.TASK && upstreamTask) {
     return getTaskRoute(upstreamTask.id);
   }
   if (triggerType === ProjectTriggerLevel.PUSH) {
     return getGithubCommitUrl(upstreamOwner, upstreamRepo, upstreamRevision);
   }
-  return getVersionRoute(upstreamVersion.id);
+
+  const upstreamVersionId = upstreamVersion?.id;
+  if (!upstreamVersionId) {
+    reportError(new Error("No upstream version found for route"));
+  }
+
+  return getVersionRoute(upstreamVersion?.id ?? "");
 };
 
 export const getAdminSettingsRoute = (

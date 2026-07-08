@@ -28,7 +28,6 @@ const SectionControls = () => {
     <>
       {!allOpen && (
         <Button
-          data-cy="open-all-sections-btn"
           onClick={() => {
             toggleAllSections(true);
             sendEvent({ name: "Clicked open all sections button" });
@@ -40,7 +39,6 @@ const SectionControls = () => {
       )}
       {!allClosed && (
         <Button
-          data-cy="close-all-sections-btn"
           onClick={() => {
             toggleAllSections(false);
             sendEvent({ name: "Clicked close all sections button" });

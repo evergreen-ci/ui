@@ -38,6 +38,5 @@ export type FormState = {
     loadDataOntoHostAtStartup: boolean;
     runProjectSpecificSetupScript?: boolean;
     startHosts?: boolean;
-    useOAuth?: boolean;
   };
 };

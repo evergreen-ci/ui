@@ -1,0 +1,120 @@
+import { test, expect } from "@playwright/test";
+import * as helpers from "../../helpers";
+
+const logLink =
+  "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
+
+test.describe("Highlighting", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(logLink);
+    await expect(page.getByTestId("resmoke-row")).not.toHaveCount(0);
+  });
+
+  test("applying a highlight should highlight matching words", async ({
+    page,
+  }) => {
+    await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
+    const highlights = page.getByTestId("highlight");
+    await expect(highlights).toHaveCount(1);
+    await expect(highlights).toContainText(
+      "ShardedClusterFixture:job0:mongos0 ",
+    );
+  });
+
+  test("applying a search to a highlighted line should not overwrite an already highlighted term if the search matches the highlight", async ({
+    page,
+  }) => {
+    await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
+    await helpers.addSearch(page, "ShardedClusterFixture:job0:mongos0 ");
+    const highlights = page.getByTestId("highlight");
+    await expect(highlights).toHaveCount(1);
+    await expect(highlights).toContainText(
+      "ShardedClusterFixture:job0:mongos0 ",
+    );
+  });
+
+  test("should highlight other terms in the log if the search term does not match the highlight", async ({
+    page,
+  }) => {
+    await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
+    await helpers.addSearch(page, "ShardedClusterFixture:job0:shard0:node1");
+
+    const highlights = page.getByTestId("highlight");
+    await expect(highlights).toHaveCount(2);
+    const highlightElements = await highlights.all();
+    for (const element of highlightElements) {
+      await expect(element).toContainText(
+        /ShardedClusterFixture:job0:mongos0|ShardedClusterFixture:job0:shard0:node1/,
+      );
+    }
+  });
+
+  test("removing a highlight from the side panel should remove the highlight", async ({
+    page,
+  }) => {
+    await helpers.addHighlight(page, "ShardedClusterFixture:job0:shard0:node1");
+    const highlights = page.getByTestId("highlight");
+    await expect(highlights).not.toHaveCount(0);
+
+    const deleteHighlightButton = page.getByRole("button", {
+      name: "Delete highlight",
+    });
+    await expect(deleteHighlightButton).toBeVisible();
+    await deleteHighlightButton.click();
+    await expect(highlights).toHaveCount(0);
+  });
+
+  test("applying multiple highlights should use different colors", async ({
+    page,
+  }) => {
+    await helpers.addHighlight(page, "ShardedClusterFixture:job0:mongos0 ");
+    await helpers.addHighlight(page, "ShardedClusterFixture:job0:shard0:node1");
+
+    const highlights = page.getByTestId("highlight");
+    await expect(highlights).toHaveCount(2);
+    const highlightElements = await highlights.all();
+    for (const element of highlightElements) {
+      await expect(element).toContainText(
+        /ShardedClusterFixture:job0:mongos0|ShardedClusterFixture:job0:shard0:node1/,
+      );
+    }
+
+    const colors = new Set<string>();
+    for (const element of highlightElements) {
+      const backgroundColor = await element.evaluate((el) =>
+        window.getComputedStyle(el).getPropertyValue("background-color"),
+      );
+      colors.add(backgroundColor);
+    }
+    expect(colors.size).toBe(2);
+  });
+
+  test("should automatically add a highlight when a filter term is added if `Apply Highlights to Filters` is enabled", async ({
+    page,
+  }) => {
+    await helpers.clickToggle(
+      page,
+      "highlight-filters-toggle",
+      true,
+      "search-and-filter",
+    );
+    await helpers.addFilter(page, "job0");
+    const highlights = page.getByTestId("highlight");
+    await expect(highlights).not.toHaveCount(0);
+
+    const sideNavHighlights = page.getByTestId("side-nav-highlight");
+    await expect(sideNavHighlights).toHaveCount(1);
+    await expect(sideNavHighlights).toContainText("job0");
+  });
+
+  test("should not add a highlight when a filter term is added if `Apply Highlights to Filters` is disabled", async ({
+    page,
+  }) => {
+    await helpers.addFilter(page, "job0");
+    const highlights = page.getByTestId("highlight");
+    await expect(highlights).toHaveCount(0);
+
+    const sideNavHighlights = page.getByTestId("side-nav-highlight");
+    await expect(sideNavHighlights).toHaveCount(0);
+  });
+});

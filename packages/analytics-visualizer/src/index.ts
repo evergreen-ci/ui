@@ -28,7 +28,7 @@ import type { AnalyticsVisualizerOptions } from "./types.ts";
  *     analyticsVisualizer({
  *       analyticsDir: "src/analytics",
  *       appName: "Parsley",
- *       honeycombBaseUrl: `${process.env.REACT_APP_HONEYCOMB_BASE_URL}/datasets/parsley`,
+ *       honeycombBaseUrl: `${import.meta.env.VITE_HONEYCOMB_BASE_URL}/datasets/parsley`,
  *     }),
  *   ],
  * });
@@ -54,12 +54,25 @@ const analyticsVisualizer = (options: AnalyticsVisualizerOptions): Plugin => {
         const outputDir =
           bundleOptions.dir || path.resolve(process.cwd(), "dist");
 
-        // Resolve analytics directory (can be relative to process.cwd() or absolute)
-        const analyticsDir = path.isAbsolute(resolvedOptions.analyticsDir)
+        // Resolve analytics directories (each can be relative to process.cwd() or absolute)
+        const analyticsDirs = Array.isArray(resolvedOptions.analyticsDir)
           ? resolvedOptions.analyticsDir
-          : path.resolve(process.cwd(), resolvedOptions.analyticsDir);
+          : [resolvedOptions.analyticsDir];
 
-        const data = scanAnalyticsDirectory(analyticsDir);
+        const data = analyticsDirs.flatMap((dir) => {
+          const resolvedDir = path.isAbsolute(dir)
+            ? dir
+            : path.resolve(process.cwd(), dir);
+          try {
+            return scanAnalyticsDirectory(resolvedDir);
+          } catch (error) {
+            console.error(
+              `[analyticsVisualizer] Failed to scan ${resolvedDir}:`,
+              error instanceof Error ? error.message : error,
+            );
+            return [];
+          }
+        });
         const html = generateHTML(data, resolvedOptions);
 
         fs.mkdirSync(outputDir, { recursive: true });

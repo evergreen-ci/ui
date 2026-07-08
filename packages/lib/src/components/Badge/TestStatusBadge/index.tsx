@@ -6,6 +6,7 @@ const statusToBadgeColor = {
   [TestStatus.Fail]: Variant.Red,
   [TestStatus.SilentFail]: Variant.Blue,
   [TestStatus.Skip]: Variant.Yellow,
+  [TestStatus.Timeout]: Variant.Red,
 };
 
 const statusToCopy = {
@@ -13,6 +14,7 @@ const statusToCopy = {
   [TestStatus.Fail]: "Fail",
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
+  [TestStatus.Timeout]: "Timeout",
 };
 
 interface TestStatusBadgeProps {

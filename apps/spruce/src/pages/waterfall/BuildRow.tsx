@@ -1,4 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+// Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
+// eslint-disable-next-line @emotion/no-vanilla
+import { css as classNameCss } from "@emotion/css";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
@@ -80,7 +83,6 @@ const BuildRowInner: React.FC<Props> = ({
   );
 
   const { builds, displayName } = build;
-  let buildIndex = 0;
 
   const { columnWidth } = useBuildVariantContext();
 
@@ -90,14 +92,6 @@ const BuildRowInner: React.FC<Props> = ({
         ? calculateBVContainerHeight({ builds, columnWidth })
         : 0,
     [builds, columnWidth],
-  );
-
-  const containerStyles = useMemo(
-    () => css`
-      ${buildGroupCss};
-      height: ${containerHeight}px;
-    `,
-    [containerHeight],
   );
 
   const iconButtonProps = isFirstBuild
@@ -111,6 +105,37 @@ const BuildRowInner: React.FC<Props> = ({
         firstActiveTaskId = builds[i].tasks[0].id;
         break;
       }
+    }
+  }
+
+  const buildColumns: React.ReactNode[] = [];
+  let buildIndex = 0;
+  for (const { inactiveVersions, version } of versions) {
+    if (inactiveVersions?.length) {
+      buildColumns.push(
+        <InactiveVersion
+          key={inactiveVersions[0].id}
+          data-cy="inactive-column"
+        />,
+      );
+    } else if (version && version.id === builds?.[buildIndex]?.version) {
+      /* The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column.
+      Builds are sorted in descending revision order and so match the versions' sort order. */
+      const b = builds[buildIndex];
+      buildIndex += 1;
+      buildColumns.push(
+        <BuildGrid
+          key={b.id}
+          build={b}
+          firstActiveTaskId={firstActiveTaskId}
+          handleTaskClick={handleTaskClick}
+          isRightmostBuild={b.version === lastActiveVersionId}
+          openTaskId={openTaskId}
+          setOpenTaskId={setOpenTaskId}
+        />,
+      );
+    } else {
+      buildColumns.push(<BuildContainer key={version?.id} />);
     }
   }
 
@@ -135,38 +160,12 @@ const BuildRowInner: React.FC<Props> = ({
         </StyledLink>
       </BuildVariantTitle>
       <VisibilityContainer
-        containerCss={containerStyles}
+        className={buildGroupClassName}
         data-cy="build-group"
         offset={1000}
+        style={{ height: containerHeight }}
       >
-        {versions.map(({ inactiveVersions, version }) => {
-          if (inactiveVersions?.length) {
-            return (
-              <InactiveVersion
-                key={inactiveVersions[0].id}
-                data-cy="inactive-column"
-              />
-            );
-          }
-          /* The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column.
-        Builds are sorted in descending revision order and so match the versions' sort order. */
-          if (version && version.id === builds?.[buildIndex]?.version) {
-            const b = builds[buildIndex];
-            buildIndex += 1;
-            return (
-              <BuildGrid
-                key={b.id}
-                build={b}
-                firstActiveTaskId={firstActiveTaskId}
-                handleTaskClick={handleTaskClick}
-                isRightmostBuild={b.version === lastActiveVersionId}
-                openTaskId={openTaskId}
-                setOpenTaskId={setOpenTaskId}
-              />
-            );
-          }
-          return <BuildContainer key={version?.id} />;
-        })}
+        {buildColumns}
       </VisibilityContainer>
     </Row>
   );
@@ -249,6 +248,8 @@ const buildGroupCss = css`
   border-radius: ${size.xs};
   padding: ${padding}px;
 `;
+
+const buildGroupClassName = classNameCss(buildGroupCss.styles);
 
 const BuildContainer = styled.div`
   ${columnBasis}

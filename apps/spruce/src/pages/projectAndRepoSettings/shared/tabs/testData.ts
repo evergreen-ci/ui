@@ -53,6 +53,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     spawnHostScriptPath: null,
     dispatchingDisabled: null,
+    waterfallDisabled: null,
     versionControlEnabled: true,
     deactivatePrevious: null,
     repotrackerDisabled: null,
@@ -145,6 +146,10 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     vars: { test_name: "", test_two: "val" },
     privateVars: ["test_name"],
     adminOnlyVars: ["test_name"],
+    varsDescriptions: {
+      test_name: "this is really important",
+      test_two: "delete me later",
+    },
   },
   aliases: [
     {
@@ -210,6 +215,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     spawnHostScriptPath: "/test/path",
     oldestAllowedMergeBase: "abc",
     dispatchingDisabled: true,
+    waterfallDisabled: false,
     versionControlEnabled: false,
     deactivatePrevious: true,
     repotrackerDisabled: false,
@@ -353,6 +359,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     vars: { repo_name: "repo_value" },
     privateVars: [],
     adminOnlyVars: [],
+    varsDescriptions: {},
   },
   aliases: [
     {

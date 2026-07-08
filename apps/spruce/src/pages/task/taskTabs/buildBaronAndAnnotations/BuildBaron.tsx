@@ -35,7 +35,8 @@ const BuildBaron: React.FC<Props> = ({
   });
 
   const { buildBaron } = data || {};
-  if (loading || !buildBaron) {
+  const isLoading = !buildBaron && loading; // TODO: Re-evaluate in DEVPROD-33191.
+  if (isLoading || !buildBaron) {
     return <ParagraphSkeleton />;
   }
   return (
@@ -43,7 +44,6 @@ const BuildBaron: React.FC<Props> = ({
       annotation={annotation}
       bbData={buildBaron}
       execution={execution}
-      loading={loading}
       taskId={taskId}
       userCanModify={userCanModify}
     />

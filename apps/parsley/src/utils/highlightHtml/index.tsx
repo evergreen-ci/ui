@@ -1,4 +1,4 @@
-import parse, { Text } from "html-react-parser";
+import parse from "html-react-parser";
 import Highlight, { highlightColorList } from "components/Highlight";
 import { escapeTags } from "utils/escapeTags";
 import { hasOverlappingRegex } from "utils/regex";
@@ -21,7 +21,7 @@ const highlightHtml = (
 
   return parse(escapedHtml, {
     replace: (domNode) => {
-      if (domNode instanceof Text) {
+      if (domNode.type === "text") {
         let highlightedText = domNode.data;
 
         if (searchTerm) {

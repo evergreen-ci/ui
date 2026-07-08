@@ -1,9 +1,11 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import MetadataCard from "components/MetadataCard";
 import { navBarHeight } from "components/styles/Layout";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
   BuildVariantStatsQuery,
@@ -20,7 +22,7 @@ interface BuildVariantCardProps {
 const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
   const [includeNeverActivatedTasks] = useQueryParam<boolean | undefined>(
     PatchTasksQueryParams.IncludeNeverActivatedTasks,
-    undefined,
+    Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
   );
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     BuildVariantStatsQuery,
@@ -42,23 +44,22 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
 
   return (
     <StickyMetadataCard
+      data-cy="build-variants"
       error={error}
       loading={loading && !data}
       title="Build Variants"
     >
-      <ScrollableBuildVariantStatsContainer data-cy="build-variants">
-        {version?.buildVariantStats?.map(
-          ({ displayName, statusCounts, variant }) => (
-            <VariantTaskGroup
-              key={`buildVariant_${displayName}_${variant}`}
-              displayName={displayName}
-              statusCounts={statusCounts}
-              variant={variant}
-              versionId={versionId}
-            />
-          ),
-        )}
-      </ScrollableBuildVariantStatsContainer>
+      {version?.buildVariantStats?.map(
+        ({ displayName, statusCounts, variant }) => (
+          <VariantTaskGroup
+            key={`buildVariant_${displayName}_${variant}`}
+            displayName={displayName}
+            statusCounts={statusCounts}
+            variant={variant}
+            versionId={versionId}
+          />
+        ),
+      )}
     </StickyMetadataCard>
   );
 };
@@ -70,10 +71,12 @@ const StickyMetadataCard = styled(MetadataCard)`
   max-height: calc(100vh - ${navBarHeight} - ${size.m} - ${size.m});
   position: sticky;
   top: 0;
-`;
+  overflow: hidden;
 
-const ScrollableBuildVariantStatsContainer = styled.div`
-  overflow-y: scroll;
+  /* Scroll only the content area, keeping the title visible */
+  > :last-child {
+    overflow-y: auto;
+  }
 `;
 
 export default BuildVariantCard;

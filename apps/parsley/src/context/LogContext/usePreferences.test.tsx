@@ -6,7 +6,9 @@ import {
   EXPANDABLE_ROWS,
   FILTER_LOGIC,
   HIGHLIGHT_FILTERS,
+  JUMP_TO_FAILING_LINE_ENABLED,
   PRETTY_PRINT_BOOKMARKS,
+  SECTIONS_ENABLED,
   STICKY_HEADERS,
   WRAP,
   WRAP_FORMAT,
@@ -35,7 +37,9 @@ describe("usePreferences", () => {
       expect(result.current.expandableRows).toBe(true);
       expect(result.current.filterLogic).toBe(FilterLogic.And);
       expect(result.current.highlightFilters).toBe(false);
+      expect(result.current.jumpToFailingLineEnabled).toBe(true);
       expect(result.current.prettyPrint).toBe(false);
+      expect(result.current.sectionsEnabled).toBe(true);
       expect(result.current.stickyHeaders).toBe(false);
       expect(result.current.wordWrapFormat).toBe(WordWrapFormat.Standard);
       expect(result.current.wrap).toBe(false);
@@ -64,6 +68,18 @@ describe("usePreferences", () => {
       localStorage.setItem(WRAP_FORMAT, WordWrapFormat.Aggressive);
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.wordWrapFormat).toBe(WordWrapFormat.Aggressive);
+    });
+
+    it("should initialize jumpToFailingLineEnabled from localStorage", () => {
+      localStorage.setItem(JUMP_TO_FAILING_LINE_ENABLED, "false");
+      const { result } = renderHook(() => usePreferences(), { wrapper });
+      expect(result.current.jumpToFailingLineEnabled).toBe(false);
+    });
+
+    it("should initialize sectionsEnabled from localStorage", () => {
+      localStorage.setItem(SECTIONS_ENABLED, "false");
+      const { result } = renderHook(() => usePreferences(), { wrapper });
+      expect(result.current.sectionsEnabled).toBe(false);
     });
   });
 
@@ -175,6 +191,30 @@ describe("usePreferences", () => {
       expect(result.current.filterLogic).toBe(FilterLogic.Or);
       expect(localStorage.getItem(FILTER_LOGIC)).toBe("or");
     });
+
+    it("should update jumpToFailingLineEnabled and persist to localStorage", () => {
+      const { result } = renderHook(() => usePreferences(), { wrapper });
+      expect(result.current.jumpToFailingLineEnabled).toBe(true);
+
+      act(() => {
+        result.current.setJumpToFailingLineEnabled(false);
+      });
+
+      expect(result.current.jumpToFailingLineEnabled).toBe(false);
+      expect(localStorage.getItem(JUMP_TO_FAILING_LINE_ENABLED)).toBe("false");
+    });
+
+    it("should update sectionsEnabled and persist to localStorage", () => {
+      const { result } = renderHook(() => usePreferences(), { wrapper });
+      expect(result.current.sectionsEnabled).toBe(true);
+
+      act(() => {
+        result.current.setSectionsEnabled(false);
+      });
+
+      expect(result.current.sectionsEnabled).toBe(false);
+      expect(localStorage.getItem(SECTIONS_ENABLED)).toBe("false");
+    });
   });
 });
 
@@ -246,6 +286,26 @@ describe("preferencesReducer", () => {
     expect(newState.zebraStriping).toBe(true);
   });
 
+  it("should handle SET_JUMP_TO_FAILING_LINE_ENABLED action", () => {
+    const initialState = getInitialState();
+    const newState = preferencesReducer(initialState, {
+      type: "SET_JUMP_TO_FAILING_LINE_ENABLED",
+      value: false,
+    });
+    expect(newState.jumpToFailingLineEnabled).toBe(false);
+    expect(localStorage.getItem(JUMP_TO_FAILING_LINE_ENABLED)).toBe("false");
+  });
+
+  it("should handle SET_SECTIONS_ENABLED action", () => {
+    const initialState = getInitialState();
+    const newState = preferencesReducer(initialState, {
+      type: "SET_SECTIONS_ENABLED",
+      value: false,
+    });
+    expect(newState.sectionsEnabled).toBe(false);
+    expect(localStorage.getItem(SECTIONS_ENABLED)).toBe("false");
+  });
+
   it("should return current state for unknown action", () => {
     const initialState = getInitialState();
     // @ts-expect-error - Testing unknown action type
@@ -265,7 +325,9 @@ describe("getInitialState", () => {
       caseSensitive: false,
       excludeTimestamps: false,
       highlightFilters: false,
+      jumpToFailingLineEnabled: true,
       prettyPrint: false,
+      sectionsEnabled: true,
       stickyHeaders: false,
       wordWrapFormat: WordWrapFormat.Standard,
       wrap: false,

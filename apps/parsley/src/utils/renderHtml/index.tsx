@@ -1,6 +1,5 @@
 import parse, {
   DOMNode,
-  Element,
   HTMLReactParserOptions,
   domToReact,
 } from "html-react-parser";
@@ -29,7 +28,7 @@ const renderHtml = (html: string = "", options: renderHtmlOptions = {}) => {
 
   return parse(escapedHtml, {
     replace: (domNode) => {
-      if (domNode instanceof Element) {
+      if (domNode.type === "tag") {
         if (options.transformNode && options.transformNode[domNode.name]) {
           const SwapComponent = options.transformNode[domNode.name];
           // SwapComponent is just what ever component we want to return from the transform object

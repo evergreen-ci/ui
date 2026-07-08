@@ -3,7 +3,6 @@ import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
-  MetadataLabel,
   MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import { getAPIRouteForBuilds } from "constants/externalResources";
@@ -36,12 +35,10 @@ export const BuildVariantCard: React.FC<Props> = ({
       }
     >
       <CopyableID textToCopy={buildId} tooltipLabel="Copy build ID" />
-      <MetadataItem>
-        <MetadataLabel>Identifier:</MetadataLabel>{" "}
+      <MetadataItem label="Identifier">
         <WordBreak>{buildVariant}</WordBreak>
       </MetadataItem>
-      <MetadataItem>
-        <MetadataLabel>Name:</MetadataLabel>{" "}
+      <MetadataItem label="Name">
         <WordBreak>{buildVariantDisplayName}</WordBreak>
       </MetadataItem>
       {projectIdentifier && (

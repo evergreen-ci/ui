@@ -53,12 +53,11 @@ const ParseLogSelect: React.FC<ParseLogSelectProps> = ({
       <ButtonContainer>
         <Button onClick={onCancel}>Cancel</Button>
         <Button
-          data-cy="process-log-button"
           disabled={!logType}
           onClick={() => onParse(logType)}
           variant="primary"
         >
-          Process Log
+          Process log
         </Button>
       </ButtonContainer>
     </ProcessLogsContainer>
