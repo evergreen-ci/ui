@@ -16,6 +16,7 @@ overrides:
   glob@>=10.2.0 <10.5.0: '>=10.5.0'
   qs@<6.14.1: '>=6.14.1'
 minimumReleaseAgeExclude:
+  - '@typescript/typescript6@6.0.2'
   - '@typescript/typescript-aix-ppc64@7.0.2'
   - '@typescript/typescript-darwin-arm64@7.0.2'
   - '@typescript/typescript-darwin-x64@7.0.2'
