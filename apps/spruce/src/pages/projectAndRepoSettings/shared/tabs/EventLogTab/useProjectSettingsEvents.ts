@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
+import { getEventsUpdateQuery } from "components/Settings/EventLog/useEvents";
 import {
   ProjectEventLogsQuery,
   ProjectEventLogsQueryVariables,
@@ -43,28 +44,14 @@ export const useProjectSettingsEvents = ({
     `Unable to fetch events for ${projectIdentifier}`,
   );
 
-  // Wrap fetchMore with updateQuery to merge paginated results, since
-  // no-cache queries don't write to the cache and can't merge automatically.
   const projectFetchMore = useCallback(
     (options: Parameters<typeof projectFetchMoreBase>[0]) =>
       projectFetchMoreBase({
         ...options,
-        updateQuery(
-          previousData: ProjectEventLogsQuery,
-          { fetchMoreResult }: { fetchMoreResult: ProjectEventLogsQuery },
-        ) {
-          if (!fetchMoreResult) return previousData;
-          return {
-            ...previousData,
-            projectEvents: {
-              ...fetchMoreResult.projectEvents,
-              eventLogEntries: [
-                ...previousData.projectEvents.eventLogEntries,
-                ...fetchMoreResult.projectEvents.eventLogEntries,
-              ],
-            },
-          };
-        },
+        updateQuery: getEventsUpdateQuery<
+          "projectEvents",
+          ProjectEventLogsQuery
+        >("projectEvents"),
       }),
     [projectFetchMoreBase],
   );
@@ -91,22 +78,9 @@ export const useProjectSettingsEvents = ({
     (options: Parameters<typeof repoFetchMoreBase>[0]) =>
       repoFetchMoreBase({
         ...options,
-        updateQuery(
-          previousData: RepoEventLogsQuery,
-          { fetchMoreResult }: { fetchMoreResult: RepoEventLogsQuery },
-        ) {
-          if (!fetchMoreResult) return previousData;
-          return {
-            ...previousData,
-            repoEvents: {
-              ...fetchMoreResult.repoEvents,
-              eventLogEntries: [
-                ...previousData.repoEvents.eventLogEntries,
-                ...fetchMoreResult.repoEvents.eventLogEntries,
-              ],
-            },
-          };
-        },
+        updateQuery: getEventsUpdateQuery<"repoEvents", RepoEventLogsQuery>(
+          "repoEvents",
+        ),
       }),
     [repoFetchMoreBase],
   );
