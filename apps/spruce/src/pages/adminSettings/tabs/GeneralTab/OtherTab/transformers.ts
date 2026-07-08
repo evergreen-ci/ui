@@ -74,6 +74,7 @@ export const gqlToForm = ((data) => {
           financeFormula: cost?.financeFormula ?? 0,
           savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
           onDemandDiscount: cost?.onDemandDiscount ?? 0,
+          hiddenCostProjects: cost?.hiddenCostProjects ?? [],
           s3Cost: {
             archiveStorageCostDiscount:
               cost?.s3Cost?.storage?.archiveStorageCostDiscount ?? 0,
@@ -315,6 +316,7 @@ export const formToGql = ((form: OtherFormState) => {
       financeFormula: miscSettings.cost.financeFormula || undefined,
       savingsPlanDiscount: miscSettings.cost.savingsPlanDiscount || undefined,
       onDemandDiscount: miscSettings.cost.onDemandDiscount || undefined,
+      hiddenCostProjects: miscSettings.cost.hiddenCostProjects,
       s3Cost: {
         upload: {
           uploadCostDiscount:

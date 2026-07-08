@@ -20,6 +20,7 @@ export interface OtherFormState {
         financeFormula: number;
         savingsPlanDiscount: number;
         onDemandDiscount: number;
+        hiddenCostProjects: string[];
         s3Cost: {
           archiveStorageCostDiscount: number;
           artifactAwsAccountsWithoutLifecycleRules: string[];

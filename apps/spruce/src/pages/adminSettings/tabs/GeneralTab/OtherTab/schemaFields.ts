@@ -130,6 +130,13 @@ export const miscSettings = {
           minimum: 0,
           maximum: 1,
         },
+        hiddenCostProjects: {
+          type: "array" as const,
+          title: "Projects With Hidden Costs",
+          items: {
+            type: "string" as const,
+          },
+        },
         s3Cost: {
           type: "object" as const,
           title: "S3 Cost",
@@ -225,6 +232,12 @@ export const miscSettings = {
       onDemandDiscount: {
         "ui:description":
           "The discount applied to on-demand tasks (value 0-1).",
+      },
+      hiddenCostProjects: {
+        "ui:widget": widgets.ChipInputWidget,
+        "ui:fieldCss": fullWidthCss,
+        "ui:description":
+          "Project IDs whose costs are hidden in the UI and API.",
       },
       s3Cost: {
         "ui:fieldCss": nestedObjectGridCss,
