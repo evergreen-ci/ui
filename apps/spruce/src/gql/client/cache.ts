@@ -112,20 +112,6 @@ export const cache = new InMemoryCache({
     Project: {
       merge: true,
     },
-    ProjectEvents: {
-      fields: {
-        count: {
-          merge(existing = 0, incoming = 0) {
-            return existing + incoming;
-          },
-        },
-        eventLogEntries: {
-          merge(existing = [], incoming = []) {
-            return [...existing, ...incoming];
-          },
-        },
-      },
-    },
     ProjectAlias: {
       keyFields: false,
     },
