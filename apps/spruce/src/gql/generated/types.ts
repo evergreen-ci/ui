@@ -536,22 +536,12 @@ export type BuildBaron = {
 
 export type BuildBaronSettings = {
   __typename?: "BuildBaronSettings";
-  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionPassword?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionServer?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
-  bfSuggestionUsername?: Maybe<Scalars["String"]["output"]>;
   ticketCreateIssueType: Scalars["String"]["output"];
   ticketCreateProject: Scalars["String"]["output"];
   ticketSearchProjects?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
 export type BuildBaronSettingsInput = {
-  bfSuggestionFeaturesURL?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionPassword?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
-  bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateIssueType?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -3762,7 +3752,6 @@ export type SchedulerConfigInput = {
 
 export type SearchReturnInfo = {
   __typename?: "SearchReturnInfo";
-  featuresURL: Scalars["String"]["output"];
   issues: Array<JiraTicket>;
   search: Scalars["String"]["output"];
   source: Scalars["String"]["output"];
