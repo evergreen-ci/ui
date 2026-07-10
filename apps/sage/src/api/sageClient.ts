@@ -54,9 +54,7 @@ export class SageClient {
         method: "GET",
         ...options,
         credentials: "include",
-        headers: {
-          ...options?.headers,
-        },
+        headers: options?.headers,
         signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
       });
 
