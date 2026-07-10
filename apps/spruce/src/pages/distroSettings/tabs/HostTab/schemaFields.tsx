@@ -553,6 +553,7 @@ const acceptableHostIdleTimeSeconds = {
     type: "number" as const,
     title: "Acceptable Host Idle Time (secs)",
     minimum: 0,
+    multipleOf: 1,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
     "ui:data-cy": "idle-time-input",
