@@ -68,5 +68,6 @@ export interface HostFormState {
 
 export type TabProps = {
   distroData: HostFormState;
+  isSingleTaskDistro: boolean;
   provider: Provider;
 };

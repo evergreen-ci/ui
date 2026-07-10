@@ -340,6 +340,7 @@ export const ADMIN_SETTINGS = gql`
         stepbackTaskFactor
         targetTimeSeconds
         taskFinder
+        translateProjectCacheBytesLimit
         translateProjectConcurrencyLimit
       }
 

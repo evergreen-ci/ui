@@ -536,22 +536,12 @@ export type BuildBaron = {
 
 export type BuildBaronSettings = {
   __typename?: "BuildBaronSettings";
-  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionPassword?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionServer?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
-  bfSuggestionUsername?: Maybe<Scalars["String"]["output"]>;
   ticketCreateIssueType: Scalars["String"]["output"];
   ticketCreateProject: Scalars["String"]["output"];
   ticketSearchProjects?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
 export type BuildBaronSettingsInput = {
-  bfSuggestionFeaturesURL?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionPassword?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
-  bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateIssueType?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -1817,28 +1807,6 @@ export type LoggerConfigInput = {
   thresholdLevel: PriorityLevel;
 };
 
-export type LogkeeperBuild = {
-  __typename?: "LogkeeperBuild";
-  buildNum: Scalars["Int"]["output"];
-  builder: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  task: Task;
-  taskExecution: Scalars["Int"]["output"];
-  taskId: Scalars["String"]["output"];
-  tests: Array<LogkeeperTest>;
-};
-
-export type LogkeeperTest = {
-  __typename?: "LogkeeperTest";
-  buildId: Scalars["String"]["output"];
-  command: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-  phase: Scalars["String"]["output"];
-  taskExecution: Scalars["Int"]["output"];
-  taskId: Scalars["String"]["output"];
-};
-
 export type MainlineCommitVersion = {
   __typename?: "MainlineCommitVersion";
   rolledUpVersions?: Maybe<Array<Version>>;
@@ -2515,7 +2483,6 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
-  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
   builds: Array<Build>;
@@ -3158,7 +3125,6 @@ export type Query = {
   images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
   isRepo: Scalars["Boolean"]["output"];
-  logkeeperBuildMetadata: LogkeeperBuild;
   mainlineCommits?: Maybe<MainlineCommits>;
   myHosts: Array<Host>;
   myPublicKeys: Array<PublicKey>;
@@ -3256,10 +3222,6 @@ export type QueryImageArgs = {
 
 export type QueryIsRepoArgs = {
   projectOrRepoId: Scalars["String"]["input"];
-};
-
-export type QueryLogkeeperBuildMetadataArgs = {
-  buildId: Scalars["String"]["input"];
 };
 
 export type QueryMainlineCommitsArgs = {
@@ -3761,6 +3723,7 @@ export type SchedulerConfig = {
   stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   taskFinder?: Maybe<FinderVersion>;
+  translateProjectCacheBytesLimit?: Maybe<Scalars["Int"]["output"]>;
   translateProjectConcurrencyLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
@@ -3783,12 +3746,12 @@ export type SchedulerConfigInput = {
   stepbackTaskFactor: Scalars["Int"]["input"];
   targetTimeSeconds: Scalars["Int"]["input"];
   taskFinder: FinderVersion;
+  translateProjectCacheBytesLimit?: InputMaybe<Scalars["Int"]["input"]>;
   translateProjectConcurrencyLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type SearchReturnInfo = {
   __typename?: "SearchReturnInfo";
-  featuresURL: Scalars["String"]["output"];
   issues: Array<JiraTicket>;
   search: Scalars["String"]["output"];
   source: Scalars["String"]["output"];
@@ -7208,6 +7171,7 @@ export type SaveAdminSettingsMutation = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectCacheBytesLimit?: number | null;
       translateProjectConcurrencyLimit?: number | null;
     } | null;
     taskLimits?: {
@@ -7998,6 +7962,7 @@ export type AdminSettingsQuery = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectCacheBytesLimit?: number | null;
       translateProjectConcurrencyLimit?: number | null;
     } | null;
     singleTaskDistro?: {
@@ -8233,9 +8198,7 @@ export type BuildBaronQuery = {
     buildBaronConfigured: boolean;
     searchReturnInfo?: {
       __typename?: "SearchReturnInfo";
-      featuresURL: string;
       search: string;
-      source: string;
       issues: Array<{
         __typename?: "JiraTicket";
         key: string;

@@ -62,5 +62,9 @@ export const formToGql = ((
   name: distroName.name,
   note: distroOptions.note,
   singleTaskDistro: distroOptions.singleTaskDistro,
+  ...(distroOptions.singleTaskDistro && {
+    userSpawnAllowed: false,
+    isVirtualWorkStation: false,
+  }),
   warningNote: distroOptions.warningNote,
 })) satisfies FormToGqlFunction<Tab>;

@@ -18,10 +18,7 @@ class OpenTelemetryAttributeStore implements AttributeStore {
   }
 
   removeGlobalAttribute(key: string): void {
-    const value = this.attributesMap.get(key);
-    if (value) {
-      this.attributesMap.delete(key);
-    }
+    this.attributesMap.delete(key);
   }
 
   getGlobalAttributes(): Record<string, AttributeValue> {

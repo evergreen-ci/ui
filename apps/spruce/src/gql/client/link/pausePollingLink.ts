@@ -41,4 +41,4 @@ export const pausePollingLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const pauseableQueries = ["Waterfall"];
+const pauseableQueries = ["Waterfall", "TaskHistory"];

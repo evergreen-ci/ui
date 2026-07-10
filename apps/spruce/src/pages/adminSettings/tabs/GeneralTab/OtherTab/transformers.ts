@@ -117,8 +117,10 @@ export const gqlToForm = ((data) => {
           buckets?.logBucket?.transitionToIADays ?? 0,
         logBucketTransitionToGlacierDays:
           buckets?.logBucket?.transitionToGlacierDays ?? 0,
-        logBucketLifecycleLastSyncedAt:
-          buckets?.logBucket?.lifecycleLastSyncedAt?.toISOString() ?? "",
+        logBucketLifecycleLastSyncedAt: buckets?.logBucket
+          ?.lifecycleLastSyncedAt
+          ? new Date(buckets.logBucket.lifecycleLastSyncedAt).toISOString()
+          : "",
         logBucketLifecycleSyncError:
           buckets?.logBucket?.lifecycleSyncError ?? "",
         logBucketLongRetentionName: buckets?.logBucketLongRetention?.name ?? "",
@@ -128,9 +130,12 @@ export const gqlToForm = ((data) => {
           buckets?.logBucketLongRetention?.transitionToIADays ?? 0,
         logBucketLongRetentionTransitionToGlacierDays:
           buckets?.logBucketLongRetention?.transitionToGlacierDays ?? 0,
-        logBucketLongRetentionLifecycleLastSyncedAt:
-          buckets?.logBucketLongRetention?.lifecycleLastSyncedAt?.toISOString() ??
-          "",
+        logBucketLongRetentionLifecycleLastSyncedAt: buckets
+          ?.logBucketLongRetention?.lifecycleLastSyncedAt
+          ? new Date(
+              buckets.logBucketLongRetention.lifecycleLastSyncedAt,
+            ).toISOString()
+          : "",
         logBucketLongRetentionLifecycleSyncError:
           buckets?.logBucketLongRetention?.lifecycleSyncError ?? "",
         longRetentionProjects: buckets?.longRetentionProjects ?? [],
@@ -148,9 +153,12 @@ export const gqlToForm = ((data) => {
           buckets?.logBucketFailedTasks?.transitionToIADays ?? 0,
         failedTasksLogBucketTransitionToGlacierDays:
           buckets?.logBucketFailedTasks?.transitionToGlacierDays ?? 0,
-        failedTasksLogBucketLifecycleLastSyncedAt:
-          buckets?.logBucketFailedTasks?.lifecycleLastSyncedAt?.toISOString() ??
-          "",
+        failedTasksLogBucketLifecycleLastSyncedAt: buckets?.logBucketFailedTasks
+          ?.lifecycleLastSyncedAt
+          ? new Date(
+              buckets.logBucketFailedTasks.lifecycleLastSyncedAt,
+            ).toISOString()
+          : "",
         failedTasksLogBucketLifecycleSyncError:
           buckets?.logBucketFailedTasks?.lifecycleSyncError ?? "",
         retryFailedLogMoveLookbackDays:

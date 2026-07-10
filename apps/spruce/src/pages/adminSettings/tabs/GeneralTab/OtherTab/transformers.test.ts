@@ -12,6 +12,25 @@ describe("other tab transformers", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
 
+  it("converts lifecycleLastSyncedAt values arriving as ISO strings", () => {
+    const isoString = "2026-07-06T12:00:00.000Z";
+    const adminSettingsWithSyncTime: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        logBucket: {
+          ...mockAdminSettings.buckets?.logBucket,
+          lifecycleLastSyncedAt: isoString as unknown as Date,
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithSyncTime);
+    expect(loaded?.other.bucketConfig.logBucketLifecycleLastSyncedAt).toBe(
+      isoString,
+    );
+  });
+
   it("round-trips S3 storage account ID lists from admin settings", () => {
     const adminSettingsWithS3Lists: AdminSettingsData = {
       ...mockAdminSettings,

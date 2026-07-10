@@ -51,6 +51,19 @@ describe("general tab", () => {
       });
     });
   });
+
+  it("sets userSpawnAllowed and isVirtualWorkStation to false when singleTaskDistro is true", () => {
+    const singleTaskForm: GeneralFormState = {
+      ...generalForm,
+      distroOptions: {
+        ...generalForm.distroOptions,
+        singleTaskDistro: true,
+      },
+    };
+    const result = formToGql(singleTaskForm, distroData);
+    expect(result.userSpawnAllowed).toBe(false);
+    expect(result.isVirtualWorkStation).toBe(false);
+  });
 });
 
 const generalForm: GeneralFormState = {

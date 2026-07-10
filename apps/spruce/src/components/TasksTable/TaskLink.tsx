@@ -6,7 +6,7 @@ import { formatZeroIndexForDisplay } from "utils/numbers";
 
 interface TaskLinkProps {
   execution?: number;
-  onClick?: (taskId: string) => void;
+  onClick?: () => void;
   showTaskExecutionLabel?: boolean;
   taskId: string;
   taskName: string;
@@ -14,15 +14,12 @@ interface TaskLinkProps {
 
 export const TaskLink: React.FC<TaskLinkProps> = ({
   execution,
-  onClick = () => {},
+  onClick,
   showTaskExecutionLabel,
   taskId,
   taskName,
 }) => (
-  <StyledRouterLink
-    onClick={() => onClick(taskId)}
-    to={getTaskRoute(taskId, { execution })}
-  >
+  <StyledRouterLink onClick={onClick} to={getTaskRoute(taskId, { execution })}>
     <WordBreakAll>{taskName}</WordBreakAll>
     {showTaskExecutionLabel && (
       // @ts-expect-error: FIXME. This comment was added by an automated script.

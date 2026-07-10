@@ -17,13 +17,8 @@ import {
   parsleyAIURL,
 } from "utils/environmentVariables";
 import App from "./App";
-import routes, { slugs } from "./constants/routes";
+import { observabilityRouteConfig } from "./constants/routes";
 
-const routeConfig = {
-  ...routes,
-  // Override the testLogs route to include the groupID parameter so that we can easily identify routes with groupID slugs in Honeycomb.
-  testLogs: `${routes.testLogs}/:${slugs.groupID}?`,
-};
 initializeErrorHandling({
   environment: getReleaseStage(),
   isProductionBuild: !isDevelopmentBuild(),
@@ -36,7 +31,7 @@ initializeHoneycomb({
   endpoint: getHoneycombEndpoint(),
   environment: getReleaseStage(),
   ingestKey: getHoneycombIngestKey(),
-  routeConfig,
+  routeConfig: observabilityRouteConfig,
   serviceName: "parsley",
   tracePropagationURLs: parsleyAIURL ? [toEscapedRegex(parsleyAIURL)] : [],
 });

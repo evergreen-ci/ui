@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
-  BuildBaron,
+  BuildBaronQuery,
   Annotation,
   CustomCreatedIssuesQuery,
   CustomCreatedIssuesQueryVariables,
@@ -16,7 +16,7 @@ import { Issues, SuspectedIssues } from "./Issues";
 import JiraIssueTable from "./JiraIssueTable";
 
 interface BuildBaronCoreProps {
-  bbData: BuildBaron;
+  bbData: BuildBaronQuery["buildBaron"];
   taskId: string;
   execution: number;
   annotation: Annotation;
