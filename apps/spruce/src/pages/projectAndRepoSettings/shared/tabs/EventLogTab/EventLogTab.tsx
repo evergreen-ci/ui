@@ -22,33 +22,13 @@ export const EventLogTab: React.FC<TabProps> = ({
     [slugs.repoId]: repoId,
   } = useParams();
 
-  const { events, lastFetchedCount, loading, projectFetchMore, repoFetchMore } =
+  const { events, handleFetchMore, lastFetchedCount, loading } =
     useProjectSettingsEvents({
       projectIdentifier,
       repoId,
       isRepo: projectType === ProjectType.Repo,
       limit,
     });
-
-  const lastEventTimestamp = events[events.length - 1]?.timestamp;
-
-  const handleFetchMore = () => {
-    if (projectType === ProjectType.Repo) {
-      repoFetchMore({
-        variables: {
-          repoId,
-          before: lastEventTimestamp,
-        },
-      });
-    } else {
-      projectFetchMore({
-        variables: {
-          projectIdentifier,
-          before: lastEventTimestamp,
-        },
-      });
-    }
-  };
 
   return (
     <EventLog

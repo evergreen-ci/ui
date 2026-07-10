@@ -14,12 +14,10 @@ export const useDistroEvents = (
   distroId: string,
   limit: number = DISTRO_EVENT_LIMIT,
 ) => {
-  const {
-    data,
-    error,
-    fetchMore: fetchMoreBase,
-    loading,
-  } = useQuery<DistroEventsQuery, DistroEventsQueryVariables>(DISTRO_EVENTS, {
+  const { data, error, fetchMore, loading } = useQuery<
+    DistroEventsQuery,
+    DistroEventsQueryVariables
+  >(DISTRO_EVENTS, {
     variables: {
       distroId,
       limit,
@@ -29,22 +27,27 @@ export const useDistroEvents = (
   });
   useErrorToast(error, "Unable to fetch distro events");
 
-  const fetchMore = useCallback(
-    (options: Parameters<typeof fetchMoreBase>[0]) =>
-      fetchMoreBase({
-        ...options,
+  const events = data?.distroEvents?.eventLogEntries ?? [];
+
+  const lastEventTimestamp = events[events.length - 1]?.timestamp;
+
+  const handleFetchMore = useCallback(
+    () =>
+      fetchMore({
+        variables: {
+          distroId,
+          before: lastEventTimestamp,
+        },
         updateQuery: getEventsUpdateQuery<"distroEvents", DistroEventsQuery>(
           "distroEvents",
         ),
       }),
-    [fetchMoreBase],
+    [distroId, fetchMore, lastEventTimestamp],
   );
-
-  const events = data?.distroEvents?.eventLogEntries ?? [];
 
   return {
     events,
-    fetchMore,
+    handleFetchMore,
     lastFetchedCount: data?.distroEvents?.count,
     loading,
   };

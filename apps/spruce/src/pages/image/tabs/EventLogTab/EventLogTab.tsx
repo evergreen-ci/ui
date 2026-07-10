@@ -17,7 +17,7 @@ type EventLogTabProps = {
 };
 
 export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
-  const { events, fetchMore, lastFetchedCount, loading } =
+  const { events, handleFetchMore, lastFetchedCount, loading } =
     useImageEvents(imageId);
 
   return (
@@ -38,14 +38,7 @@ export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
       </Container>
       <ImageEventLog
         events={events}
-        handleFetchMore={() => {
-          fetchMore({
-            variables: {
-              imageId,
-              page: Math.floor(events.length / IMAGE_EVENT_LIMIT),
-            },
-          });
-        }}
+        handleFetchMore={handleFetchMore}
         lastFetchedCount={lastFetchedCount}
         limit={IMAGE_EVENT_LIMIT}
         loading={loading}

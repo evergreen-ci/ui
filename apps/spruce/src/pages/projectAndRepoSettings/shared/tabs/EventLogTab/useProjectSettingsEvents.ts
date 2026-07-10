@@ -26,7 +26,7 @@ export const useProjectSettingsEvents = ({
   const {
     data: projectEventData,
     error: projectError,
-    fetchMore: projectFetchMoreBase,
+    fetchMore: projectFetchMore,
     loading: projectLoading,
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     PROJECT_EVENT_LOGS,
@@ -44,22 +44,10 @@ export const useProjectSettingsEvents = ({
     `Unable to fetch events for ${projectIdentifier}`,
   );
 
-  const projectFetchMore = useCallback(
-    (options: Parameters<typeof projectFetchMoreBase>[0]) =>
-      projectFetchMoreBase({
-        ...options,
-        updateQuery: getEventsUpdateQuery<
-          "projectEvents",
-          ProjectEventLogsQuery
-        >("projectEvents"),
-      }),
-    [projectFetchMoreBase],
-  );
-
   const {
     data: repoEventData,
     error: repoError,
-    fetchMore: repoFetchMoreBase,
+    fetchMore: repoFetchMore,
     loading: repoLoading,
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
@@ -74,17 +62,6 @@ export const useProjectSettingsEvents = ({
   );
   useErrorToast(repoError, `Unable to fetch events for ${repoId}`);
 
-  const repoFetchMore = useCallback(
-    (options: Parameters<typeof repoFetchMoreBase>[0]) =>
-      repoFetchMoreBase({
-        ...options,
-        updateQuery: getEventsUpdateQuery<"repoEvents", RepoEventLogsQuery>(
-          "repoEvents",
-        ),
-      }),
-    [repoFetchMoreBase],
-  );
-
   const events = isRepo
     ? repoEventData?.repoEvents?.eventLogEntries || []
     : projectEventData?.projectEvents?.eventLogEntries || [];
@@ -95,11 +72,38 @@ export const useProjectSettingsEvents = ({
     ? repoEventData?.repoEvents?.count
     : projectEventData?.projectEvents?.count;
 
+  const lastEventTimestamp = events[events.length - 1]?.timestamp;
+
+  const handleFetchMore = useCallback(
+    () =>
+      isRepo
+        ? repoFetchMore({
+            variables: { repoId, before: lastEventTimestamp },
+            updateQuery: getEventsUpdateQuery<"repoEvents", RepoEventLogsQuery>(
+              "repoEvents",
+            ),
+          })
+        : projectFetchMore({
+            variables: { projectIdentifier, before: lastEventTimestamp },
+            updateQuery: getEventsUpdateQuery<
+              "projectEvents",
+              ProjectEventLogsQuery
+            >("projectEvents"),
+          }),
+    [
+      isRepo,
+      lastEventTimestamp,
+      projectFetchMore,
+      projectIdentifier,
+      repoFetchMore,
+      repoId,
+    ],
+  );
+
   return {
     events,
+    handleFetchMore,
     lastFetchedCount,
     loading,
-    projectFetchMore,
-    repoFetchMore,
   };
 };

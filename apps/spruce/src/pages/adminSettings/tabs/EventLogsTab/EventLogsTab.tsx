@@ -4,7 +4,7 @@ import { Event } from "components/Settings/EventLog/types";
 import { ADMIN_EVENT_LIMIT, useAdminEvents } from "./useAdminEvents";
 
 export const EventLogsTab: React.FC = () => {
-  const { events, fetchMore, lastEventTimestamp, lastFetchedCount, loading } =
+  const { events, handleFetchMore, lastFetchedCount, loading } =
     useAdminEvents();
 
   const transformedEvents: Event[] = events.map((event) => ({
@@ -22,16 +22,7 @@ export const EventLogsTab: React.FC = () => {
   return (
     <EventLog
       events={transformedEvents}
-      handleFetchMore={() => {
-        fetchMore({
-          variables: {
-            opts: {
-              limit: ADMIN_EVENT_LIMIT,
-              before: lastEventTimestamp,
-            },
-          },
-        });
-      }}
+      handleFetchMore={handleFetchMore}
       lastFetchedCount={lastFetchedCount}
       limit={ADMIN_EVENT_LIMIT}
       loading={loading}
