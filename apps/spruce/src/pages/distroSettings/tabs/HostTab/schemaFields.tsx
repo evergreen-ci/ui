@@ -118,7 +118,7 @@ const userSpawnAllowed = {
     }),
     ...(isSingleTaskDistro && {
       "ui:disabled": true,
-      "ui:tooltipDescription": "Single-task distros are not spawnable.",
+      "ui:tooltipDescription": "Single task distros are not spawnable.",
     }),
     "ui:description": "Allow users to spawn these hosts for personal use.",
     "ui:bold": true,
