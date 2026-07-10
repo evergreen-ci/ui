@@ -5,7 +5,8 @@ import { NavBar } from "components/NavBar";
 import { useSageContext } from "context/SageProvider";
 
 const RootComponent = () => {
-  const { hasCheckedAuth, isAuthenticated } = useSageContext();
+  const { auth } = useSageContext();
+  const { hasCheckedAuth, isAuthenticated } = auth;
 
   if (!hasCheckedAuth) {
     return null;

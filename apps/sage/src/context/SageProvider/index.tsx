@@ -9,11 +9,15 @@ import {
 import { ApiError, SageClient } from "api/sageClient";
 import { sageAPIURL } from "utils/environmentVariables";
 
-type SageContextState = {
-  authError: ApiError | null;
-  client: SageClient;
+type AuthState = {
+  error: ApiError | null;
   hasCheckedAuth: boolean;
   isAuthenticated: boolean;
+};
+
+type SageContextState = {
+  auth: AuthState;
+  client: SageClient;
   logout: () => void;
 };
 
@@ -30,14 +34,16 @@ export const useSageContext = () => {
 export const SageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
-  const [authError, setAuthError] = useState<ApiError | null>(null);
+  const [auth, setAuth] = useState<AuthState>({
+    error: null,
+    hasCheckedAuth: false,
+    isAuthenticated: false,
+  });
 
   // Clears local auth state only.
   // Improvement: call /logout endpoint to clear server session, but that doesn't exist right now
   const logout = useCallback(() => {
-    setIsAuthenticated(false);
+    setAuth((prev) => ({ ...prev, isAuthenticated: false }));
   }, []);
 
   const client = useMemo(() => new SageClient(sageAPIURL, logout), [logout]);
@@ -46,20 +52,21 @@ export const SageProvider: React.FC<{ children: React.ReactNode }> = ({
     const checkAuth = async () => {
       const result = await client.get("/login");
       if (result.ok) {
-        setIsAuthenticated(true);
-        setAuthError(null);
+        setAuth({ error: null, hasCheckedAuth: true, isAuthenticated: true });
       } else {
-        setIsAuthenticated(false);
-        setAuthError(result);
+        setAuth({
+          error: result,
+          hasCheckedAuth: true,
+          isAuthenticated: false,
+        });
       }
-      setHasCheckedAuth(true);
     };
     checkAuth();
   }, [client]);
 
   const value = useMemo(
-    () => ({ client, isAuthenticated, hasCheckedAuth, authError, logout }),
-    [client, isAuthenticated, hasCheckedAuth, authError, logout],
+    () => ({ auth, client, logout }),
+    [auth, client, logout],
   );
 
   return <SageContext.Provider value={value}>{children}</SageContext.Provider>;

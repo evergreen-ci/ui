@@ -22,9 +22,9 @@ describe("SageProvider", () => {
     mockGet.mockResolvedValue({ ok: true, data: {} });
     const { result } = renderHook(useSageContext, { wrapper });
     await waitFor(() => {
-      expect(result.current.isAuthenticated).toBe(true);
-      expect(result.current.hasCheckedAuth).toBe(true);
-      expect(result.current.authError).toBeNull();
+      expect(result.current.auth.isAuthenticated).toBe(true);
+      expect(result.current.auth.hasCheckedAuth).toBe(true);
+      expect(result.current.auth.error).toBeNull();
     });
   });
 
@@ -33,9 +33,9 @@ describe("SageProvider", () => {
     mockGet.mockResolvedValue(error);
     const { result } = renderHook(useSageContext, { wrapper });
     await waitFor(() => {
-      expect(result.current.isAuthenticated).toBe(false);
-      expect(result.current.hasCheckedAuth).toBe(true);
-      expect(result.current.authError).toStrictEqual(error);
+      expect(result.current.auth.isAuthenticated).toBe(false);
+      expect(result.current.auth.hasCheckedAuth).toBe(true);
+      expect(result.current.auth.error).toStrictEqual(error);
     });
   });
 
@@ -43,13 +43,13 @@ describe("SageProvider", () => {
     mockGet.mockResolvedValue({ ok: true, data: {} });
     const { result } = renderHook(useSageContext, { wrapper });
     await waitFor(() => {
-      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.auth.isAuthenticated).toBe(true);
     });
     act(() => {
       result.current.logout();
     });
     await waitFor(() => {
-      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.auth.isAuthenticated).toBe(false);
     });
   });
 
