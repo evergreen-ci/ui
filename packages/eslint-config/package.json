@@ -7,6 +7,7 @@
   "dependencies": {
     "@emotion/eslint-plugin": "^11.12.0",
     "@graphql-eslint/eslint-plugin": "^4.4.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",

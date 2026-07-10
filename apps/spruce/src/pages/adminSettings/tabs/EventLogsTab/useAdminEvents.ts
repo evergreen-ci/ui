@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useCallback } from "react";
 import { useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
+import { getEventsUpdateQuery } from "components/Settings/EventLog/useEvents";
 import {
   AdminEventsQuery,
   AdminEventsQueryVariables,
@@ -10,7 +11,7 @@ import { ADMIN_EVENT_LOG } from "gql/queries";
 export const ADMIN_EVENT_LIMIT = 15;
 
 export const useAdminEvents = (limit: number = ADMIN_EVENT_LIMIT) => {
-  const { data, error, fetchMore, loading, previousData } = useQuery<
+  const { data, error, fetchMore, loading } = useQuery<
     AdminEventsQuery,
     AdminEventsQueryVariables
   >(ADMIN_EVENT_LOG, {
@@ -19,23 +20,35 @@ export const useAdminEvents = (limit: number = ADMIN_EVENT_LIMIT) => {
         limit,
       },
     },
+    fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
   });
   useErrorToast(error, "Unable to fetch admin events");
 
-  const events = useMemo(
-    () => data?.adminEvents?.eventLogEntries ?? [],
-    [data],
-  );
+  const events = data?.adminEvents?.eventLogEntries ?? [];
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;
 
+  const handleFetchMore = useCallback(
+    () =>
+      fetchMore({
+        variables: {
+          opts: {
+            limit,
+            before: lastEventTimestamp,
+          },
+        },
+        updateQuery: getEventsUpdateQuery<"adminEvents", AdminEventsQuery>(
+          "adminEvents",
+        ),
+      }),
+    [fetchMore, limit, lastEventTimestamp],
+  );
+
   return {
-    count: data?.adminEvents?.count,
     events,
-    fetchMore,
-    lastEventTimestamp,
+    handleFetchMore,
+    lastFetchedCount: data?.adminEvents?.count,
     loading,
-    previousCount: previousData?.adminEvents?.count ?? 0,
   };
 };

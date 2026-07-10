@@ -13,23 +13,21 @@ import { Header } from "./Header";
 import { ImageEventLogTable } from "./ImageEventLogTable";
 
 type ImageEventLogProps = {
-  count: number | undefined;
   events: ImageEvent[];
   handleFetchMore: () => void;
+  lastFetchedCount: number | undefined;
   limit: number;
   loading: boolean;
-  previousCount: number;
 };
 
 export const ImageEventLog: React.FC<ImageEventLogProps> = ({
-  count,
   events,
   handleFetchMore,
+  lastFetchedCount,
   limit,
   loading,
-  previousCount,
 }) => {
-  const { allEventsFetched } = useEvents(limit, count, previousCount, loading);
+  const { allEventsFetched } = useEvents(limit, lastFetchedCount, loading);
   const { sendEvent } = useImageAnalytics();
 
   const [globalSearch, setGlobalSearch] = useState("");
