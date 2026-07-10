@@ -285,6 +285,12 @@ export const scheduler = {
       default: 0,
       minimum: 0,
     },
+    translateProjectCacheTTLSeconds: {
+      type: "number" as const,
+      title: "Translate Project Cache TTL (secs)",
+      default: 0,
+      minimum: 0,
+    },
     groupVersions: {
       type: "boolean" as const,
       title: "Group Versions",
@@ -342,6 +348,10 @@ export const scheduler = {
     translateProjectCacheBytesLimit: {
       "ui:description":
         "Byte budget for the project translation cache, measured against each entry's serialized size. 0 uses the built-in default.",
+    },
+    translateProjectCacheTTLSeconds: {
+      "ui:description":
+        "Lifetime of each project translation cache entry, in seconds. 0 uses the built-in default. Changing this rebuilds the cache.",
     },
     groupVersions: {
       "ui:fieldCss": fullWidthCss,
