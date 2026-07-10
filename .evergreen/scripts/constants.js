@@ -1,4 +1,3 @@
-const E2E_PARALLEL = "e2e_parallel";
 const APPS_DIR = "apps";
 const PACKAGES_DIR = "packages";
 const PACKAGE_JSON = "package.json";
@@ -9,6 +8,5 @@ export {
   APPS_DIR,
   PACKAGES_DIR,
   PACKAGE_JSON,
-  E2E_PARALLEL,
   E2E_PARALLEL_COUNT
 };
