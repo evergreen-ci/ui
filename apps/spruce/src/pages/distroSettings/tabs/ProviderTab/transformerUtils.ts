@@ -1,5 +1,5 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { BuildType, ProviderFormState } from "./types";
+import { ProviderFormState } from "./types";
 
 /**
  * The provider settings list is untyped in the backend, so we manually define types here.
@@ -8,10 +8,6 @@ interface ProviderSettingsList {
   user_data: string;
   merge_user_data_parts: boolean;
   security_group_ids: string[];
-  image_url: string;
-  build_type: string;
-  docker_registry_user: string;
-  docker_registry_pw: string;
   hosts: Array<{ name: string; ssh_port: string }>;
   ami: string;
   instance_type: string;
@@ -43,15 +39,6 @@ export const formProviderSettings = (
     securityGroups: providerSettings.security_group_ids ?? [],
     hosts: providerSettings.hosts?.map((h) => ({ name: h.name })) ?? [],
   },
-  dockerProviderSettings: {
-    userData: providerSettings.user_data ?? "",
-    mergeUserData: providerSettings.merge_user_data_parts ?? false,
-    securityGroups: providerSettings.security_group_ids ?? [],
-    imageUrl: providerSettings.image_url ?? "",
-    buildType: (providerSettings.build_type ?? "") as BuildType,
-    registryUsername: providerSettings.docker_registry_user ?? "",
-    registryPassword: providerSettings.docker_registry_pw ?? "",
-  },
   ec2FleetProviderSettings: {
     region: providerSettings.region ?? "",
     userData: providerSettings.user_data ?? "",
@@ -82,7 +69,6 @@ export const formProviderSettings = (
 });
 
 type ProviderSettings = ProviderFormState["staticProviderSettings"] &
-  ProviderFormState["dockerProviderSettings"] &
   Unpacked<ProviderFormState["ec2FleetProviderSettings"]>;
 
 export const gqlProviderSettings = (
@@ -98,15 +84,6 @@ export const gqlProviderSettings = (
         providerSettings.hosts?.map((h) => ({
           name: h.name,
         })) ?? [],
-    },
-    dockerProviderSettings: {
-      user_data: providerSettings.userData,
-      merge_user_data_parts: providerSettings.mergeUserData,
-      security_group_ids: providerSettings.securityGroups,
-      image_url: providerSettings.imageUrl,
-      build_type: providerSettings.buildType,
-      docker_registry_user: providerSettings.registryUsername,
-      docker_registry_pw: providerSettings.registryPassword,
     },
     ec2FleetProviderSettings: {
       region: providerSettings.region,

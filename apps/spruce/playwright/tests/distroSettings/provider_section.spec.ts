@@ -40,67 +40,6 @@ test.describe("provider section", () => {
     });
   });
 
-  test.describe("docker", () => {
-    test.beforeEach(async ({ page }) => {
-      await page.goto("/distro/ubuntu1604-container-test/settings/provider");
-    });
-
-    test("shows pool mapping information based on container pool id", async ({
-      page,
-    }) => {
-      const containerPoolSelect = page.getByRole("button", {
-        name: "Container Pool ID",
-      });
-      await expect(containerPoolSelect).toHaveCount(1);
-      await expect(containerPoolSelect).toContainText("test-pool-1");
-
-      const containerPoolMapping = page.getByRole("textbox", {
-        name: "Pool Mapping Information",
-      });
-      await expect(containerPoolMapping).toHaveCount(1);
-      await expect(containerPoolMapping).toHaveAttribute(
-        "placeholder",
-        /test-pool-1/,
-      );
-      await selectOption(page, "Container Pool ID", "test-pool-2");
-      await expect(containerPoolMapping).toHaveAttribute(
-        "placeholder",
-        /test-pool-2/,
-      );
-    });
-
-    test("successfully updates docker provider fields", async ({ page }) => {
-      await expect(page.getByTestId("provider-select")).toContainText("Docker");
-      await expect(page.getByTestId("docker-provider-settings")).toBeVisible();
-
-      await selectOption(page, "Image Build Method", "Pull");
-      await selectOption(page, "Container Pool ID", "test-pool-2");
-      await page.getByLabel("Username for Registries").fill("username");
-      await page.getByLabel("Password for Registries").fill("password");
-
-      const userDataInput = page.getByRole("textbox", {
-        name: "User Data",
-      });
-      await userDataInput.fill("my user data");
-
-      const mergeUserDataCheckbox = page.getByLabel(
-        "Merge with existing user data",
-      );
-      await clickCheckbox(mergeUserDataCheckbox);
-      await save(page);
-      await validateToast(page, "success", "Updated distro.", true);
-
-      await selectOption(page, "Image Build Method", "Import");
-      await selectOption(page, "Container Pool ID", "test-pool-1");
-      await page.getByLabel("Username for Registries").clear();
-      await page.getByLabel("Password for Registries").clear();
-      await userDataInput.clear();
-      await clickCheckbox(mergeUserDataCheckbox);
-      await save(page);
-      await validateToast(page, "success", "Updated distro.");
-    });
-  });
-
   test.describe("ec2 fleet", () => {
     test.beforeEach(async ({ page }) => {
       await page.goto("/distro/ubuntu1804-workstation/settings/provider");

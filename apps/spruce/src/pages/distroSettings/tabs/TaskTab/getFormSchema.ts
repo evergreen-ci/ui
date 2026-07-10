@@ -12,8 +12,7 @@ export const getFormSchema = ({
 }: {
   provider: Provider;
 }): ReturnType<GetFormSchema> => {
-  const hasEC2Provider =
-    provider !== Provider.Static && provider !== Provider.Docker;
+  const hasEC2Provider = provider !== Provider.Static;
 
   return {
     fields: {},

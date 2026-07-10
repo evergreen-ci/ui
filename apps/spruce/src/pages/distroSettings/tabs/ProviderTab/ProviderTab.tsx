@@ -6,9 +6,7 @@ import {
   Provider,
 } from "gql/generated/types";
 import { AWS_REGIONS } from "gql/queries";
-import { useSpruceConfig } from "hooks";
 import { useDistroSettingsContext } from "pages/distroSettings/Context";
-import { omitTypename } from "utils/object";
 import { BaseTab } from "../BaseTab";
 import { WritableDistroSettingsTabs } from "../types";
 import { getFormSchema } from "./getFormSchema";
@@ -24,15 +22,6 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   );
   const { awsRegions } = awsData || {};
 
-  const spruceConfig = useSpruceConfig();
-  const { pools } = spruceConfig?.containerPools || {};
-
-  const selectedPoolId = formData?.dockerProviderSettings?.containerPoolId;
-  const selectedPool = pools?.find((p) => p.id === selectedPoolId) ?? null;
-  const poolMappingInfo = selectedPool
-    ? JSON.stringify(omitTypename(selectedPool), null, 2)
-    : "";
-
   const fleetRegionsInUse = formData?.ec2FleetProviderSettings?.map(
     (p) => p.region,
   );
@@ -43,11 +32,9 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
       getFormSchema({
         awsRegions: awsRegions || [],
         fleetRegionsInUse: fleetRegionsInUse || [],
-        pools: pools || [],
-        poolMappingInfo,
         isEC2Provider: providerName === Provider.Ec2Fleet,
       }),
-    [awsRegions, fleetRegionsInUse, pools, poolMappingInfo, providerName],
+    [awsRegions, fleetRegionsInUse, providerName],
   );
 
   return (

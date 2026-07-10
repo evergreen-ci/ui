@@ -3,7 +3,6 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { textAreaCSS, mergeCheckboxCSS, indentCSS } from "./styles";
-import { BuildType } from "./types";
 
 const userData = {
   schema: {
@@ -90,60 +89,6 @@ const hosts = {
   uiSchema: {
     "ui:addButtonText": "Add host",
     "ui:orderable": false,
-  },
-};
-
-const imageUrl = {
-  schema: {
-    type: "string" as const,
-    title: "Docker Image URL",
-    default: "",
-    format: "validURL",
-    minLength: 1,
-  },
-  uiSchema: {
-    "ui:description": "Docker image URL to import on host machine.",
-  },
-};
-
-const buildType = {
-  schema: {
-    type: "string" as const,
-    title: "Image Build Method",
-    default: BuildType.Import,
-    oneOf: [
-      {
-        type: "string" as const,
-        title: "Import",
-        enum: [BuildType.Import],
-      },
-      {
-        type: "string" as const,
-        title: "Pull",
-        enum: [BuildType.Pull],
-      },
-    ],
-  },
-  uiSchema: {
-    "ui:allowDeselect": false,
-  },
-};
-
-const registryUsername = {
-  schema: {
-    type: "string" as const,
-    title: "Username for Registries",
-  },
-  uiSchema: {
-    "ui:optional": true,
-  },
-};
-
-const registryPassword = {
-  schema: { type: "string" as const, title: "Password for Registries" },
-  uiSchema: {
-    "ui:optional": true,
-    "ui:inputType": "password",
   },
 };
 
@@ -316,27 +261,6 @@ export const staticProviderSettings = {
     userData: userData.uiSchema,
     securityGroups: securityGroups.uiSchema,
     hosts: hosts.uiSchema,
-  },
-};
-
-export const dockerProviderSettings = {
-  schema: {
-    buildType: buildType.schema,
-    imageUrl: imageUrl.schema,
-    registryUsername: registryUsername.schema,
-    registryPassword: registryPassword.schema,
-    mergeUserData: mergeUserData.schema,
-    userData: userData.schema,
-    securityGroups: securityGroups.schema,
-  },
-  uiSchema: {
-    buildType: buildType.uiSchema,
-    imageUrl: imageUrl.uiSchema,
-    registryUsername: registryUsername.uiSchema,
-    registryPassword: registryPassword.uiSchema,
-    mergeUserData: mergeUserData.uiSchema,
-    userData: userData.uiSchema,
-    securityGroups: securityGroups.uiSchema,
   },
 };
 

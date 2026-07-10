@@ -23,13 +23,8 @@ const toTaskHostOverridesInput = (
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const {
-    containerPool,
-    provider,
-    providerAccount,
-    providerSettingsList,
-    taskHostOverrides,
-  } = data;
+  const { provider, providerAccount, providerSettingsList, taskHostOverrides } =
+    data;
 
   return {
     provider: {
@@ -38,11 +33,6 @@ export const gqlToForm = ((data) => {
     },
     staticProviderSettings: {
       ...formProviderSettings(providerSettingsList[0]).staticProviderSettings,
-    },
-    dockerProviderSettings: {
-      ...formProviderSettings(providerSettingsList[0]).dockerProviderSettings,
-      containerPoolId: containerPool,
-      poolMappingInfo: "",
     },
     ec2FleetProviderSettings: providerSettingsList.map((p) => ({
       ...formProviderSettings(p).ec2FleetProviderSettings,
@@ -78,18 +68,6 @@ export const formToGql = ((data, distro) => {
           },
         ],
         containerPool: "",
-      };
-    case Provider.Docker:
-      return {
-        ...distro,
-        provider: Provider.Docker,
-        providerSettingsList: [
-          {
-            ...gqlProviderSettings(data.dockerProviderSettings)
-              .dockerProviderSettings,
-          },
-        ],
-        containerPool: data.dockerProviderSettings.containerPoolId,
       };
     case Provider.Ec2Fleet:
       return {
