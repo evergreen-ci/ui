@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { ApiError, SageClient } from "api/sageClient";
+import { sageAPIURL } from "utils/environmentVariables";
 
 type SageContextState = {
   authError: ApiError | null;
@@ -39,7 +40,7 @@ export const SageProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsAuthenticated(false);
   }, []);
 
-  const client = useMemo(() => new SageClient(logout), [logout]);
+  const client = useMemo(() => new SageClient(sageAPIURL, logout), [logout]);
 
   useEffect(() => {
     const checkAuth = async () => {

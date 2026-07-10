@@ -1,7 +1,6 @@
 import { leaveBreadcrumb, reportError } from "@evg-ui/lib/utils/errorReporting";
 import { shouldLogoutAndRedirect } from "@evg-ui/lib/utils/request";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
-import { sageAPIURL } from "utils/environmentVariables";
 
 export type ApiSuccess<T> = { ok: true; data: T };
 
@@ -19,8 +18,8 @@ export class SageClient {
   private readonly baseURL: string;
 
   constructor(
+    baseURL: string,
     private readonly logout?: () => void,
-    baseURL: string = sageAPIURL,
   ) {
     this.baseURL = baseURL;
   }

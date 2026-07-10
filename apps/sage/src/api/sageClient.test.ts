@@ -27,7 +27,7 @@ describe("SageClient", () => {
         json: () => Promise.resolve({ id: 1 }),
       });
 
-      await new SageClient(undefined, BASE_URL).get("/agents");
+      await new SageClient(BASE_URL).get("/agents");
 
       expect(fetchSpy).toHaveBeenCalledWith(
         "https://sage-api.test/agents",
@@ -45,7 +45,7 @@ describe("SageClient", () => {
       });
       const body = { name: "my-agent" };
 
-      await new SageClient(undefined, BASE_URL).post("/agents", body);
+      await new SageClient(BASE_URL).post("/agents", body);
 
       expect(fetchSpy).toHaveBeenCalledWith(
         "https://sage-api.test/agents",
@@ -64,9 +64,7 @@ describe("SageClient", () => {
       status: 200,
       json: () => Promise.resolve(data),
     });
-    const result = await new SageClient(undefined, BASE_URL).get(
-      "/agents/abc123",
-    );
+    const result = await new SageClient(BASE_URL).get("/agents/abc123");
     expect(result).toStrictEqual({ ok: true, data });
   });
 
@@ -76,7 +74,7 @@ describe("SageClient", () => {
       status: 200,
       json: () => Promise.resolve({}),
     });
-    await new SageClient(undefined, BASE_URL).get("/agents");
+    await new SageClient(BASE_URL).get("/agents");
     expect(fetchSpy).toHaveBeenCalledWith(
       "https://sage-api.test/agents",
       expect.objectContaining({
@@ -91,7 +89,7 @@ describe("SageClient", () => {
       status: 201,
       json: () => Promise.resolve({}),
     });
-    await new SageClient(undefined, BASE_URL).post("/agents", { name: "a" });
+    await new SageClient(BASE_URL).post("/agents", { name: "a" });
     expect(fetchSpy).toHaveBeenCalledWith(
       "https://sage-api.test/agents",
       expect.objectContaining({
@@ -106,14 +104,14 @@ describe("SageClient", () => {
     it("calls logout and returns unauthenticated", async () => {
       mockFetch({ ok: false, status: 401, statusText: "Unauthorized" });
       const logout = vi.fn();
-      const result = await new SageClient(logout, BASE_URL).get("/agents");
+      const result = await new SageClient(BASE_URL, logout).get("/agents");
       expect(logout).toHaveBeenCalledTimes(1);
       expect(result).toStrictEqual({ ok: false, type: "unauthenticated" });
     });
 
     it("does not throw when no logout is provided", async () => {
       mockFetch({ ok: false, status: 401, statusText: "Unauthorized" });
-      const result = await new SageClient(undefined, BASE_URL).get("/agents");
+      const result = await new SageClient(BASE_URL).get("/agents");
       expect(result).toStrictEqual({ ok: false, type: "unauthenticated" });
     });
   });
@@ -126,9 +124,7 @@ describe("SageClient", () => {
         statusText: "Not Found",
         json: () => Promise.resolve({ error: "something" }),
       });
-      const result = await new SageClient(undefined, BASE_URL).get(
-        "/agents/missing",
-      );
+      const result = await new SageClient(BASE_URL).get("/agents/missing");
       expect(result).toStrictEqual({
         ok: false,
         type: "client",
@@ -144,9 +140,7 @@ describe("SageClient", () => {
         statusText: "Bad Request",
         json: () => Promise.reject(new Error("not json")),
       });
-      const result = await new SageClient(undefined, BASE_URL).get(
-        "/agents/bad",
-      );
+      const result = await new SageClient(BASE_URL).get("/agents/bad");
       expect(result).toStrictEqual({
         ok: false,
         type: "client",
@@ -162,9 +156,7 @@ describe("SageClient", () => {
         statusText: "Bad Request",
         json: () => Promise.resolve({ message: "invalid agent ID format" }),
       });
-      const result = await new SageClient(undefined, BASE_URL).get(
-        "/agents/bad",
-      );
+      const result = await new SageClient(BASE_URL).get("/agents/bad");
       expect(result).toStrictEqual({
         ok: false,
         type: "client",
@@ -182,7 +174,7 @@ describe("SageClient", () => {
         statusText: "Internal Server Error",
         json: () => Promise.resolve({}),
       });
-      const result = await new SageClient(undefined, BASE_URL).get("/agents");
+      const result = await new SageClient(BASE_URL).get("/agents");
       expect(result).toStrictEqual({
         ok: false,
         type: "server",
@@ -198,7 +190,7 @@ describe("SageClient", () => {
         statusText: "Service Unavailable",
         json: () => Promise.resolve({}),
       });
-      const result = await new SageClient(undefined, BASE_URL).get("/agents");
+      const result = await new SageClient(BASE_URL).get("/agents");
       expect(result).toStrictEqual({
         ok: false,
         type: "server",
@@ -211,7 +203,7 @@ describe("SageClient", () => {
   describe("network error handling", () => {
     it("returns network error and calls reportError on fetch throw", async () => {
       mockFetchError(new Error("Failed to fetch"));
-      const result = await new SageClient(undefined, BASE_URL).get("/agents");
+      const result = await new SageClient(BASE_URL).get("/agents");
       expect(result).toStrictEqual({
         ok: false,
         type: "network",
@@ -223,7 +215,7 @@ describe("SageClient", () => {
 
   it("leaves a breadcrumb on every request", async () => {
     mockFetch({ ok: true, status: 200, json: () => Promise.resolve({}) });
-    await new SageClient(undefined, BASE_URL).get("/agents");
+    await new SageClient(BASE_URL).get("/agents");
     expect(leaveBreadcrumb).toHaveBeenCalledWith(
       "sageRequest",
       expect.objectContaining({ url: "https://sage-api.test/agents" }),
