@@ -1,4 +1,6 @@
 import { test, expect } from "../../fixtures";
+import { clickCheckbox, validateToast } from "../../helpers";
+import { save } from "./utils";
 
 test.describe("single task distro", () => {
   test("should render allowed projects and tasks", async ({ page }) => {
@@ -29,5 +31,32 @@ test.describe("single task distro", () => {
     await expect(inputs.nth(5)).toHaveValue("spruce");
     await expect(inputs.nth(6)).toHaveValue("lint");
     await expect(inputs.nth(7)).toHaveValue("storybook");
+  });
+
+  test("disables spawnable checkbox when distro is a single task distro", async ({
+    page,
+  }) => {
+    await page.goto("/distro/ubuntu1604-small/settings/host");
+    await expect(page.getByTestId("distro-settings-page")).toBeVisible();
+    const spawnableCheckbox = page.getByRole("checkbox", {
+      name: "Spawnable",
+    });
+    await expect(spawnableCheckbox).toBeEnabled();
+    await expect(spawnableCheckbox).toBeChecked();
+
+    await page.getByTestId("navitem-general").click();
+    await expect(page).toHaveURL("/distro/ubuntu1604-small/settings/general");
+    const singleTaskCheckbox = page.getByRole("checkbox", {
+      name: "Set distro as Single Task Distro",
+    });
+    await expect(singleTaskCheckbox).not.toBeChecked();
+    await clickCheckbox(singleTaskCheckbox);
+    await save(page);
+    await validateToast(page, "success", "Updated distro.");
+
+    await page.getByTestId("navitem-host").click();
+    await expect(page).toHaveURL("/distro/ubuntu1604-small/settings/host");
+    await expect(spawnableCheckbox).toBeDisabled();
+    await expect(spawnableCheckbox).not.toBeChecked();
   });
 });

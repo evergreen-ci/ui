@@ -4,69 +4,39 @@ import { useEvents } from "./useEvents";
 describe("useEvents", () => {
   const limit = 15;
 
-  it("should return allEventsFetched as false when count is undefined", () => {
-    const { result } = renderHook(() => useEvents(limit, undefined, 0, false));
+  it("should return allEventsFetched as false when lastFetchedCount is undefined", () => {
+    const { result } = renderHook(() => useEvents(limit, undefined, false));
     expect(result.current.allEventsFetched).toBe(false);
   });
 
-  it("should set allEventsFetched to true when count - previousCount < limit", () => {
-    // Simulate fetchMore that returns fewer than limit events
-    const { result } = renderHook(() => useEvents(limit, 20, 15, false)); // Only 5 new events
+  it("should set allEventsFetched to true when lastFetchedCount < limit", () => {
+    const { result } = renderHook(() => useEvents(limit, 5, false));
     expect(result.current.allEventsFetched).toBe(true);
   });
 
   it("should set allEventsFetched to false when loading", () => {
-    const { result } = renderHook(() => useEvents(limit, 20, 15, true));
+    const { result } = renderHook(() => useEvents(limit, 5, true));
     expect(result.current.allEventsFetched).toBe(false);
   });
 
-  it("should keep allEventsFetched as false when count - previousCount >= limit", () => {
-    // Simulate fetchMore that returns exactly limit events
-    const { result } = renderHook(() => useEvents(limit, 30, 15, false)); // 15 new events
+  it("should keep allEventsFetched as false when lastFetchedCount >= limit", () => {
+    const { result } = renderHook(() => useEvents(limit, 15, false));
     expect(result.current.allEventsFetched).toBe(false);
   });
 
-  it("should set allEventsFetched to true on initial load when count < limit", () => {
-    // Initial load returns fewer than limit events
-    const { result } = renderHook(() => useEvents(limit, 10, 0, false)); // Only 10 events total
+  it("should set allEventsFetched to true when lastFetchedCount is 0", () => {
+    const { result } = renderHook(() => useEvents(limit, 0, false));
     expect(result.current.allEventsFetched).toBe(true);
   });
 
-  it("should keep allEventsFetched as false on initial load when count >= limit", () => {
-    // Initial load returns exactly limit events
-    const { result } = renderHook(() => useEvents(limit, 15, 0, false)); // 15 events
-    expect(result.current.allEventsFetched).toBe(false);
-  });
-
-  it("should handle edge case when count equals previousCount (no new events)", () => {
-    const { result } = renderHook(() => useEvents(limit, 15, 15, false)); // 0 new events
-    expect(result.current.allEventsFetched).toBe(true);
-  });
-
-  it("should update when count changes", () => {
-    // Start with enough events that we haven't fetched all
+  it("should update when lastFetchedCount changes", () => {
     const { rerender, result } = renderHook(
-      ({ count, previousCount }) =>
-        useEvents(limit, count, previousCount, false),
-      { initialProps: { count: 15, previousCount: 0 } },
+      ({ lastFetchedCount }) => useEvents(limit, lastFetchedCount, false),
+      { initialProps: { lastFetchedCount: 15 } },
     );
     expect(result.current.allEventsFetched).toBe(false);
 
-    // Rerender with a fetchMore that returns fewer than limit
-    rerender({ count: 20, previousCount: 15 }); // Only 5 new events
+    rerender({ lastFetchedCount: 5 });
     expect(result.current.allEventsFetched).toBe(true);
-  });
-
-  it("should derive allEventsFetched from current inputs", () => {
-    const { rerender, result } = renderHook(
-      ({ count, previousCount }) =>
-        useEvents(limit, count, previousCount, false),
-      { initialProps: { count: 20, previousCount: 15 } }, // 5 new events, all fetched
-    );
-    expect(result.current.allEventsFetched).toBe(true);
-
-    // Value is derived from inputs - if inputs change, result changes
-    rerender({ count: 50, previousCount: 20 }); // 30 new events
-    expect(result.current.allEventsFetched).toBe(false);
   });
 });

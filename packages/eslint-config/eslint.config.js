@@ -1,5 +1,6 @@
 import * as emotionPlugin from "@emotion/eslint-plugin";
 import { fixupPluginRules } from "@eslint/compat";
+import stylisticPlugin from "@stylistic/eslint-plugin";
 import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
 import { defineConfig } from "eslint/config";
@@ -121,8 +122,20 @@ const eslintConfig = {
     "prefer-regex-literals": [ERROR, { disallowRedundantWrapping: true }],
     "prefer-template": ERROR,
     radix: ERROR,
-    "spaced-comment": [ERROR, "always", { markers: ["/"] }], // TODO: This rule is deprecated - fix in DEVPROD-15014.
     yoda: ERROR,
+  },
+};
+
+// Stylistic (@stylistic/eslint-plugin) settings.
+const stylisticConfig = {
+  name: "@stylistic/rules",
+  plugins: {
+    "@stylistic": stylisticPlugin,
+  },
+  files: ["**/*.js?(x)", "**/*.ts?(x)"],
+  rules: {
+    ...stylisticPlugin.configs.recommended.rules,
+    "@stylistic/spaced-comment": [ERROR, "always", { markers: ["/"] }],
   },
 };
 
@@ -369,7 +382,6 @@ const graphQLConfig = {
     ],
     "@graphql-eslint/no-deprecated": ERROR,
     "@graphql-eslint/selection-set-depth": [ERROR, { maxDepth: 8 }],
-    "spaced-comment": OFF,
 
     // The following two rules are disabled because Spruce and Parsley could have
     // identical fragment and operation names.
@@ -463,6 +475,7 @@ export default defineConfig(
   globalIgnores,
   languageOptions,
   eslintConfig,
+  stylisticConfig,
   tseslint.configs.recommended,
   tsEslintConfig,
   reactConfig,
