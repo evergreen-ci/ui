@@ -91,7 +91,7 @@ export const QuarantinedTestsModal = <T extends LGRowData>({
       {!loading && rows.length < totalCount && (
         <Disclaimer data-cy={`${dataCyPrefix}-truncation-note`}>
           Showing the first {rows.length} of {totalCount} tests. Download the
-          JSON for the full list.
+          JSON for all available stored tests.
         </Disclaimer>
       )}
       <OverflowContainer>

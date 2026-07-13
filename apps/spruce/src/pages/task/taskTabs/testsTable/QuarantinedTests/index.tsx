@@ -37,7 +37,7 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
   const [showModal, setShowModal] = useState(false);
   const [queryParams, setQueryParams] = useQueryParams();
 
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     TaskQuarantinedTestsSampleQuery,
     TaskQuarantinedTestsSampleQueryVariables
   >(
@@ -76,15 +76,25 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
 
   const shouldAutoOpen = queryParams[QueryParams.QuarantinedTests] === true;
   useEffect(() => {
-    if (shouldAutoOpen && listAvailable) {
+    if (!shouldAutoOpen || loading) {
+      return;
+    }
+    if (listAvailable) {
       sendEvent({
         name: "Viewed quarantined tests modal",
         "tests.skipped_count": count,
       });
       setShowModal(true);
+      return;
+    }
+    setModalOpen(false);
+    if (sample !== undefined && sample.execution !== execution) {
+      dispatchToast.warning(
+        "Quarantined test details are only available for the latest execution of this task.",
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldAutoOpen, listAvailable]);
+  }, [shouldAutoOpen, listAvailable, loading]);
 
   const handleDownload = async () => {
     sendEvent({
@@ -96,8 +106,8 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
         variables: { versionId, taskIds: [taskId], limit: FULL_LIST_LIMIT },
       });
       const fullSample = fullData?.version.taskQuarantinedTestsSample?.[0];
-      if (!fullSample) {
-        throw new Error("no quarantined test sample returned");
+      if (!fullSample || fullSample.execution !== execution) {
+        throw new Error("no matching quarantined test sample returned");
       }
       downloadJsonBlob(
         buildQuarantinedTestsJson(fullSample),
