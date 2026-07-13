@@ -11230,6 +11230,31 @@ export type TaskPerfPluginEnabledQuery = {
   } | null;
 };
 
+export type TaskQuarantinedTestsSampleQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  taskIds: Array<Scalars["String"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskQuarantinedTestsSampleQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    taskQuarantinedTestsSample?: Array<{
+      __typename?: "TaskQuarantinedTestsSample";
+      execution: number;
+      quarantinedTestsSkippedCount: number;
+      taskId: string;
+      quarantinedTests: Array<{
+        __typename?: "QuarantinedTest";
+        displayTestName?: string | null;
+        testName: string;
+      }>;
+    }> | null;
+  };
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
@@ -11405,6 +11430,7 @@ export type TaskQuery = {
     order: number;
     patchNumber?: number | null;
     priority?: number | null;
+    quarantinedTestsSkippedCount: number;
     requester: string;
     resetWhenFinished: boolean;
     reviewed?: boolean | null;
