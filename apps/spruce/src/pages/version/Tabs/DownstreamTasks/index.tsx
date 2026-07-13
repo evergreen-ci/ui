@@ -1,12 +1,13 @@
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { VersionQuery } from "gql/generated/types";
 import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
 
-type ChildPatches = NonNullable<
-  NonNullable<VersionQuery["version"]["patch"]>["childPatches"]
+type ChildPatch = Unpacked<
+  NonNullable<NonNullable<VersionQuery["version"]["patch"]>["childPatches"]>
 >;
 
 interface DownstreamTasksProps {
-  childPatches: ChildPatches;
+  childPatches: ChildPatch[];
 }
 
 const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childPatches }) => (
