@@ -59,6 +59,29 @@ describe("SaveChangesModal", () => {
     ).toBeInTheDocument();
   });
 
+  it("renders shifted arrays as a single highlighted diff", () => {
+    renderModal({
+      before: {
+        projectId: "spruce",
+        projectRef: {
+          id: "spruce",
+          admins: ["jonathan.brill", "annie.black"],
+        },
+      },
+      after: {
+        projectId: "spruce",
+        projectRef: {
+          id: "spruce",
+          admins: ["bynn.lee", "jonathan.brill", "annie.black"],
+        },
+      },
+    });
+
+    expect(screen.getByText("projectRef.admins")).toBeInTheDocument();
+    expect(screen.queryByText("projectRef.admins[0]")).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Added "bynn.lee"')).toBeInTheDocument();
+  });
+
   it("renders a no-changes message when before and after are equal", () => {
     renderModal({ after: before });
     expect(screen.queryByDataCy("event-diff-table")).not.toBeInTheDocument();
