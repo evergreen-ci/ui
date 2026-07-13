@@ -4,7 +4,7 @@ import { save } from "./utils";
 
 test.describe("admin settings save properly", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/admin-settings");
+    await page.goto("/admin-settings/general");
   });
 
   test("saves changes in each section independently", async ({ page }) => {
