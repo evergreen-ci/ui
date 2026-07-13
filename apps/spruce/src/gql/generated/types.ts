@@ -12138,6 +12138,7 @@ export type VersionQuery = {
         id: string;
         githash: string;
         status: string;
+        taskCount?: number | null;
         parameters: Array<{
           __typename?: "Parameter";
           key: string;

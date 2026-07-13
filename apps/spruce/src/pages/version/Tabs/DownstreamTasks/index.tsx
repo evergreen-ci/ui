@@ -1,39 +1,35 @@
 import { VersionQuery } from "gql/generated/types";
 import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
 
+type ChildPatches = NonNullable<
+  NonNullable<VersionQuery["version"]["patch"]>["childPatches"]
+>;
+
 interface DownstreamTasksProps {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  childPatches: VersionQuery["version"]["patch"]["childPatches"];
+  childPatches: ChildPatches;
 }
 
 const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childPatches }) => (
   <>
     {childPatches.map(
       ({
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         githash,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         id,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         parameters,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectIdentifier,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        projectMetadata,
         status,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         taskCount,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         version,
       }) => (
         <DownstreamProjectAccordion
           key={`downstream_project_${id}`}
-          baseVersionID={version?.baseVersion?.id}
+          baseVersionID={version?.baseVersion?.id ?? ""}
           childPatchId={id}
           githash={githash}
           parameters={parameters}
-          projectName={projectIdentifier}
+          projectName={projectMetadata?.identifier ?? ""}
           status={version?.status ?? status}
-          taskCount={taskCount}
+          taskCount={taskCount ?? 0}
         />
       ),
     )}
