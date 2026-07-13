@@ -26,9 +26,7 @@ describe("SageClient", () => {
         status: 200,
         json: () => Promise.resolve({ id: 1 }),
       });
-
       await new SageClient(BASE_URL).get("/agents");
-
       expect(fetchSpy).toHaveBeenCalledWith(
         "https://sage-api.test/agents",
         expect.objectContaining({ method: "GET" }),
@@ -44,9 +42,7 @@ describe("SageClient", () => {
         json: () => Promise.resolve({ id: 2 }),
       });
       const body = { name: "my-agent" };
-
       await new SageClient(BASE_URL).post("/agents", body);
-
       expect(fetchSpy).toHaveBeenCalledWith(
         "https://sage-api.test/agents",
         expect.objectContaining({
