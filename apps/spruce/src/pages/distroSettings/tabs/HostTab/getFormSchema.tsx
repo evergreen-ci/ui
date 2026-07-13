@@ -14,11 +14,13 @@ import {
 
 type FormSchemaParams = {
   architecture: Arch;
+  isSingleTaskDistro: boolean;
   provider: Provider;
 };
 
 export const getFormSchema = ({
   architecture,
+  isSingleTaskDistro,
   provider,
 }: FormSchemaParams): ReturnType<GetFormSchema> => {
   const hasStaticProvider = provider === Provider.Static;
@@ -123,7 +125,11 @@ export const getFormSchema = ({
       },
     },
     uiSchema: {
-      setup: setup.uiSchema(architecture, hasStaticProvider),
+      setup: setup.uiSchema(
+        architecture,
+        hasStaticProvider,
+        isSingleTaskDistro,
+      ),
       bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
       allocation: allocationProperties.uiSchema(

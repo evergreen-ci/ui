@@ -134,7 +134,7 @@ const tabMap = ({
         numSuccessChildPatches,
       )}
     >
-      <DownstreamTasks childPatches={childPatches} />
+      <DownstreamTasks childPatches={childPatches ?? []} />
     </Tab>
   ),
   [VersionPageTabs.TestAnalysis]: (

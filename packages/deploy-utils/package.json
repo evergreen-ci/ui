@@ -22,7 +22,8 @@
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "3.7.4",
-    "typescript": "~6.0.2",
+    "typescript": "npm:@typescript/typescript6@~6.0.2",
+    "typescript-7": "npm:typescript@~7.0.2",
     "vite": "8.0.13",
     "vitest": "^4.1.6"
   },

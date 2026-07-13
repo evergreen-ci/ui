@@ -163,16 +163,20 @@ export const getColumnsTemplate = ({
     cell: ({
       getValue,
       row: {
-        original: { buildVariant, projectIdentifier },
+        original: { buildVariant, project },
       },
-    }) => (
-      <StyledRouterLink
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
-      >
-        {getValue() as string}
-      </StyledRouterLink>
-    ),
+    }) => {
+      const variant = getValue() as string;
+      return project?.identifier ? (
+        <StyledRouterLink
+          to={getVariantHistoryRoute(project.identifier, buildVariant)}
+        >
+          {variant}
+        </StyledRouterLink>
+      ) : (
+        variant
+      );
+    },
     meta: {
       search: {
         "data-cy": "variant-filter",

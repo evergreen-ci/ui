@@ -6,7 +6,6 @@ export const BUILD_BARON = gql`
       bbTicketCreationDefined
       buildBaronConfigured
       searchReturnInfo {
-        featuresURL
         issues {
           fields {
             assigneeDisplayName
@@ -22,7 +21,6 @@ export const BUILD_BARON = gql`
           key
         }
         search
-        source
       }
     }
   }

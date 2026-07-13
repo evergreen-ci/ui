@@ -147,6 +147,7 @@ const buildBaronQuery: BuildBaronQuery = {
     bbTicketCreationDefined: true,
     searchReturnInfo: {
       __typename: "SearchReturnInfo",
+      search: "test search string",
       issues: [
         {
           __typename: "JiraTicket",
@@ -200,10 +201,6 @@ const buildBaronQuery: BuildBaronQuery = {
           },
         },
       ],
-      search:
-        '(project in (EVG)) and ( text~"docker\\\\-cleanup" ) order by updatedDate desc',
-      source: "JIRA",
-      featuresURL: "",
     },
   },
 };

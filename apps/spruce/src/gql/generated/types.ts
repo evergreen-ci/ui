@@ -536,22 +536,12 @@ export type BuildBaron = {
 
 export type BuildBaronSettings = {
   __typename?: "BuildBaronSettings";
-  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionPassword?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionServer?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
-  bfSuggestionUsername?: Maybe<Scalars["String"]["output"]>;
   ticketCreateIssueType: Scalars["String"]["output"];
   ticketCreateProject: Scalars["String"]["output"];
   ticketSearchProjects?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
 export type BuildBaronSettingsInput = {
-  bfSuggestionFeaturesURL?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionPassword?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
-  bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateIssueType?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -3733,6 +3723,8 @@ export type SchedulerConfig = {
   stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   taskFinder?: Maybe<FinderVersion>;
+  translateProjectCacheBytesLimit?: Maybe<Scalars["Int"]["output"]>;
+  translateProjectCacheTTLSeconds?: Maybe<Scalars["Int"]["output"]>;
   translateProjectConcurrencyLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
@@ -3755,12 +3747,13 @@ export type SchedulerConfigInput = {
   stepbackTaskFactor: Scalars["Int"]["input"];
   targetTimeSeconds: Scalars["Int"]["input"];
   taskFinder: FinderVersion;
+  translateProjectCacheBytesLimit?: InputMaybe<Scalars["Int"]["input"]>;
+  translateProjectCacheTTLSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   translateProjectConcurrencyLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type SearchReturnInfo = {
   __typename?: "SearchReturnInfo";
-  featuresURL: Scalars["String"]["output"];
   issues: Array<JiraTicket>;
   search: Scalars["String"]["output"];
   source: Scalars["String"]["output"];
@@ -7180,6 +7173,8 @@ export type SaveAdminSettingsMutation = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectCacheBytesLimit?: number | null;
+      translateProjectCacheTTLSeconds?: number | null;
       translateProjectConcurrencyLimit?: number | null;
     } | null;
     taskLimits?: {
@@ -7970,6 +7965,8 @@ export type AdminSettingsQuery = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectCacheBytesLimit?: number | null;
+      translateProjectCacheTTLSeconds?: number | null;
       translateProjectConcurrencyLimit?: number | null;
     } | null;
     singleTaskDistro?: {
@@ -8205,9 +8202,7 @@ export type BuildBaronQuery = {
     buildBaronConfigured: boolean;
     searchReturnInfo?: {
       __typename?: "SearchReturnInfo";
-      featuresURL: string;
       search: string;
-      source: string;
       issues: Array<{
         __typename?: "JiraTicket";
         key: string;
@@ -12143,6 +12138,7 @@ export type VersionQuery = {
         id: string;
         githash: string;
         status: string;
+        taskCount?: number | null;
         parameters: Array<{
           __typename?: "Parameter";
           key: string;
