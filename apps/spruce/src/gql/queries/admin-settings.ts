@@ -342,6 +342,7 @@ export const ADMIN_SETTINGS = gql`
         targetTimeSeconds
         taskFinder
         translateProjectCacheBytesLimit
+        translateProjectCacheTTLSeconds
         translateProjectConcurrencyLimit
       }
 

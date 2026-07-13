@@ -76,6 +76,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
         targetTimeSeconds
         taskFinder
         translateProjectCacheBytesLimit
+        translateProjectCacheTTLSeconds
         translateProjectConcurrencyLimit
       }
       taskLimits {

@@ -1,5 +1,7 @@
+import { useCallback } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
+import { getEventsUpdateQuery } from "components/Settings/EventLog/useEvents";
 import {
   ProjectEventLogsQuery,
   ProjectEventLogsQueryVariables,
@@ -26,12 +28,12 @@ export const useProjectSettingsEvents = ({
     error: projectError,
     fetchMore: projectFetchMore,
     loading: projectLoading,
-    previousData: projectPreviousData,
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     PROJECT_EVENT_LOGS,
     projectIdentifier && !isRepo
       ? {
           variables: { projectIdentifier, limit },
+          fetchPolicy: "no-cache",
           errorPolicy: "all",
           notifyOnNetworkStatusChange: true,
         }
@@ -47,12 +49,12 @@ export const useProjectSettingsEvents = ({
     error: repoError,
     fetchMore: repoFetchMore,
     loading: repoLoading,
-    previousData: repoPreviousData,
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
     isRepo && repoId
       ? {
           variables: { repoId, limit },
+          fetchPolicy: "no-cache",
           errorPolicy: "all",
           notifyOnNetworkStatusChange: true,
         }
@@ -60,26 +62,48 @@ export const useProjectSettingsEvents = ({
   );
   useErrorToast(repoError, `Unable to fetch events for ${repoId}`);
 
-  // Determine count and previousCount based on whether we're viewing project or repo
-  const count = isRepo
-    ? repoEventData?.repoEvents?.count
-    : projectEventData?.projectEvents?.count;
-  const previousCount = isRepo
-    ? (repoPreviousData?.repoEvents?.count ?? 0)
-    : (projectPreviousData?.projectEvents?.count ?? 0);
-
   const events = isRepo
     ? repoEventData?.repoEvents?.eventLogEntries || []
     : projectEventData?.projectEvents?.eventLogEntries || [];
 
   const loading = isRepo ? repoLoading : projectLoading;
 
+  const lastFetchedCount = isRepo
+    ? repoEventData?.repoEvents?.count
+    : projectEventData?.projectEvents?.count;
+
+  const lastEventTimestamp = events[events.length - 1]?.timestamp;
+
+  const handleFetchMore = useCallback(
+    () =>
+      isRepo
+        ? repoFetchMore({
+            variables: { repoId, before: lastEventTimestamp },
+            updateQuery: getEventsUpdateQuery<"repoEvents", RepoEventLogsQuery>(
+              "repoEvents",
+            ),
+          })
+        : projectFetchMore({
+            variables: { projectIdentifier, before: lastEventTimestamp },
+            updateQuery: getEventsUpdateQuery<
+              "projectEvents",
+              ProjectEventLogsQuery
+            >("projectEvents"),
+          }),
+    [
+      isRepo,
+      lastEventTimestamp,
+      projectFetchMore,
+      projectIdentifier,
+      repoFetchMore,
+      repoId,
+    ],
+  );
+
   return {
-    count,
     events,
+    handleFetchMore,
+    lastFetchedCount,
     loading,
-    previousCount,
-    projectFetchMore,
-    repoFetchMore,
   };
 };

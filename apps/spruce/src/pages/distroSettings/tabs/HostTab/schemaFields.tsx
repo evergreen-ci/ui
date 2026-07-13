@@ -111,10 +111,14 @@ const userSpawnAllowed = {
     type: "boolean" as const,
     title: "Spawnable",
   },
-  uiSchema: (hasStaticProvider: boolean) => ({
+  uiSchema: (hasStaticProvider: boolean, isSingleTaskDistro: boolean) => ({
     ...(hasStaticProvider && {
       "ui:disabled": true,
       "ui:tooltipDescription": "Static distros are not spawnable.",
+    }),
+    ...(isSingleTaskDistro && {
+      "ui:disabled": true,
+      "ui:tooltipDescription": "Single task distros are not spawnable.",
     }),
     "ui:description": "Allow users to spawn these hosts for personal use.",
     "ui:bold": true,
@@ -586,7 +590,11 @@ export const setup = {
     mountpoints: mountpoints.schema,
     userSpawnAllowed: userSpawnAllowed.schema,
   },
-  uiSchema: (architecture: Arch, hasStaticProvider: boolean) => ({
+  uiSchema: (
+    architecture: Arch,
+    hasStaticProvider: boolean,
+    isSingleTaskDistro: boolean,
+  ) => ({
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     bootstrapMethod: bootstrapMethod.uiSchema,
     communicationMethod: communicationMethod.uiSchema,
@@ -595,7 +603,10 @@ export const setup = {
     workDir: workDir.uiSchema,
     setupScript: setupScript.uiSchema,
     mountpoints: mountpoints.uiSchema,
-    userSpawnAllowed: userSpawnAllowed.uiSchema(hasStaticProvider),
+    userSpawnAllowed: userSpawnAllowed.uiSchema(
+      hasStaticProvider,
+      isSingleTaskDistro,
+    ),
     isVirtualWorkStation: isVirtualWorkStation.uiSchema(architecture),
     icecreamSchedulerHost: icecreamSchedulerHost.uiSchema,
     icecreamConfigPath: icecreamConfigPath.uiSchema,
