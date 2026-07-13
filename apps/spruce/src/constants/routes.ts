@@ -495,7 +495,7 @@ export const getAdminSettingsRoute = (
 ) => {
   const pathName = tab
     ? `${paths.adminSettings}/${tab}`
-    : `${paths.adminSettings}/${AdminSettingsTabRoutes.General}`;
+    : `${paths.adminSettings}/${AdminSettingsTabRoutes.ServiceFlags}`;
 
   if (anchor && pathName.includes(AdminSettingsTabRoutes.General)) {
     return `${pathName}#${anchor}`;

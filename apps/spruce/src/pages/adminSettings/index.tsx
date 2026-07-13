@@ -37,6 +37,14 @@ const AdminSettingsPage: React.FC = () => {
     <AdminSettingsProvider>
       <SideNavPageWrapper>
         <SideNav aria-label="Admin Settings" widthOverride={250}>
+          <SideNavItem
+            active={tab === AdminSettingsTabRoutes.ServiceFlags}
+            as={Link}
+            data-cy="navitem-admin-feature-flags"
+            to={getAdminSettingsRoute(AdminSettingsTabRoutes.ServiceFlags)}
+          >
+            {getTabTitle(AdminSettingsTabRoutes.ServiceFlags).title}
+          </SideNavItem>
           <SideNavGroup
             collapsible
             glyph={<Icon glyph="Settings" />}
@@ -530,14 +538,6 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
-          <SideNavItem
-            active={tab === AdminSettingsTabRoutes.ServiceFlags}
-            as={Link}
-            data-cy="navitem-admin-feature-flags"
-            to={getAdminSettingsRoute(AdminSettingsTabRoutes.ServiceFlags)}
-          >
-            {getTabTitle(AdminSettingsTabRoutes.ServiceFlags).title}
-          </SideNavItem>
           <SideNavItem
             active={tab === AdminSettingsTabRoutes.RestartTasks}
             as={Link}
