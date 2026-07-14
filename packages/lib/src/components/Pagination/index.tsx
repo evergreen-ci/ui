@@ -63,7 +63,7 @@ export const Pagination: React.FC<Props> = ({
       numTotalItems={numTotalItems}
       onBackArrowClick={handlePrevClick}
       onCurrentPageOptionChange={(value: string) => {
-        handlePageChange(parseInt(value, 10));
+        handlePageChange(parseInt(value, 10) - 1);
       }}
       onForwardArrowClick={handleNextClick}
       onItemsPerPageOptionChange={(value: string) => {
