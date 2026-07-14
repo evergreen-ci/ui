@@ -5,6 +5,7 @@ import { slugs } from "constants/routes";
 
 type Action =
   | { name: "Changed page size" }
+  | { name: "Changed page" }
   | { name: "Changed project"; "project.identifier": string }
   | { name: "Clicked patch link" }
   | {

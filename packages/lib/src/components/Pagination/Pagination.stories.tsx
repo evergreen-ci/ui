@@ -1,7 +1,7 @@
 import { useState } from "react";
 import usePagination from "hooks/usePagination";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import Pagination from ".";
+import { Pagination } from ".";
 
 export default {
   component: Pagination,
@@ -38,7 +38,7 @@ const ControlledImpl = (args: React.ComponentProps<typeof Pagination>) => {
       <Pagination
         {...args}
         currentPage={currentPage}
-        onChange={setCurrentPage}
+        onPageChange={setCurrentPage}
       />
     </>
   );

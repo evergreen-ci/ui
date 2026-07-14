@@ -23,7 +23,6 @@ export const Default: CustomStoryObj<typeof VersionTasksTable> = {
         loading={false}
         page={0}
         tasks={tasks}
-        totalCount={tasks.length}
         versionId={versionId}
       />
     );

@@ -3,6 +3,7 @@ import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | { name: "Changed page size" }
+  | { name: "Changed page" }
   | { name: "Clicked patch link" }
   | {
       name: "Filtered for patches";

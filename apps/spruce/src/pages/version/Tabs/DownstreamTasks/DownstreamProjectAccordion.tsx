@@ -39,7 +39,6 @@ interface DownstreamProjectAccordionProps {
   githash: string;
   projectName: string;
   status: string;
-  taskCount: number;
   childPatchId: string;
   parameters: Parameter[];
 }
@@ -53,7 +52,6 @@ export const DownstreamProjectAccordion: React.FC<
   parameters,
   projectName,
   status,
-  taskCount,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     baseStatuses: [],
@@ -127,7 +125,6 @@ export const DownstreamProjectAccordion: React.FC<
             limit={limit}
             loading={showSkeleton}
             page={page}
-            taskCount={taskCount}
             tasks={tasksData}
           />
         </AccordionContents>
