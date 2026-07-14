@@ -110,7 +110,7 @@ const tabMap = ({
       id="duration-tab"
       name="Task Duration"
     >
-      <TaskDuration taskCount={taskCount} versionId={versionId} />
+      <TaskDuration versionId={versionId} />
     </Tab>
   ),
   [VersionPageTabs.Changes]: (
@@ -154,7 +154,7 @@ const tabMap = ({
       id="version-timing-tab"
       name={isVariantTimingView ? "Variant Timing" : "Version Timing"}
     >
-      <VersionTiming taskCount={taskCount} versionId={versionId} />
+      <VersionTiming versionId={versionId} />
     </Tab>
   ),
 });

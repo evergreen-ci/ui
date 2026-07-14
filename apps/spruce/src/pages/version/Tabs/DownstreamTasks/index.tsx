@@ -13,15 +13,7 @@ interface DownstreamTasksProps {
 const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childPatches }) => (
   <>
     {childPatches.map(
-      ({
-        githash,
-        id,
-        parameters,
-        projectMetadata,
-        status,
-        taskCount,
-        version,
-      }) => (
+      ({ githash, id, parameters, projectMetadata, status, version }) => (
         <DownstreamProjectAccordion
           key={`downstream_project_${id}`}
           baseVersionID={version?.baseVersion?.id ?? ""}
@@ -30,7 +22,6 @@ const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childPatches }) => (
           parameters={parameters}
           projectName={projectMetadata?.identifier ?? ""}
           status={version?.status ?? status}
-          taskCount={taskCount ?? 0}
         />
       ),
     )}
