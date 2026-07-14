@@ -36,7 +36,7 @@ export const Default: CustomStoryObj<typeof QuarantinedTestsModal> = {
       rows={getRows(8)}
       searchPlaceholder="Search test names"
       setOpen={() => {}}
-      subtitle="8 tests were quarantined in TSS when this task ran. This snapshot may not match the current quarantine state."
+      subtitle="8 tests were skipped by TSS when this task ran. This snapshot may differ from what TSS would skip now."
       totalCount={8}
     />
   ),
@@ -53,7 +53,7 @@ export const Truncated: CustomStoryObj<typeof QuarantinedTestsModal> = {
       rows={getRows(50)}
       searchPlaceholder="Search test names"
       setOpen={() => {}}
-      subtitle="120 tests were quarantined in TSS when this task ran. This snapshot may not match the current quarantine state."
+      subtitle="120 tests were skipped by TSS when this task ran. This snapshot may differ from what TSS would skip now."
       totalCount={120}
     />
   ),

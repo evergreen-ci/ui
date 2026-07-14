@@ -31,12 +31,11 @@ export const QuarantinedTestsSkipped: React.FC<Props> = ({
   }
 
   return (
-    <MetadataItem as="div" label="Quarantined test skips">
+    <MetadataItem as="div" label="Tests skipped by TSS">
       <BadgeWrapper data-cy="quarantined-test-skips">
         <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
-          Tests skipped on this execution because they were quarantined in TSS
-          when it ran. This is an execution-time snapshot, not the live
-          quarantine state.
+          Tests skipped by TSS when this execution ran. This snapshot may
+          differ from what TSS would skip now.
         </InfoSprinkle>
         {count === 0 ? (
           <Badge

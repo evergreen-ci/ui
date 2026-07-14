@@ -68,7 +68,7 @@ export const QuarantinedTestsModal = <T extends LGRowData>({
       setOpen={setOpen}
       size="large"
       subtitle={subtitle}
-      title="Tests skipped due to TSS quarantine"
+      title="Tests skipped by TSS"
     >
       <HeaderRow>
         <SearchInput

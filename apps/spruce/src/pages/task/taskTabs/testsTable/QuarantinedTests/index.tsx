@@ -139,9 +139,9 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
         sample.quarantinedTestsSkippedCount,
       )} ${
         sample.quarantinedTestsSkippedCount === 1 ? "was" : "were"
-      } quarantined in TSS when execution ${formatZeroIndexForDisplay(
+      } skipped by TSS when execution ${formatZeroIndexForDisplay(
         sample.execution,
-      )} of this task ran. This snapshot may not match the current quarantine state.`}
+      )} of this task ran. This snapshot may differ from what TSS would skip now.`}
       totalCount={sample.quarantinedTestsSkippedCount}
     />
   );
