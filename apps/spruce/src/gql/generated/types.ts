@@ -7109,6 +7109,7 @@ export type SaveAdminSettingsMutation = {
     cost?: {
       __typename?: "CostConfig";
       financeFormula?: number | null;
+      hiddenCostProjects?: Array<string> | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
       ebsCost?: {
@@ -7759,6 +7760,7 @@ export type AdminSettingsQuery = {
     cost?: {
       __typename?: "CostConfig";
       financeFormula?: number | null;
+      hiddenCostProjects?: Array<string> | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
       ebsCost?: {
