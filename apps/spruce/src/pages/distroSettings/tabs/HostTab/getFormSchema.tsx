@@ -158,7 +158,7 @@ const allocation = {
   required: [
     "minimumHosts",
     "maximumHosts",
-    "acceptableHostIdleTime",
+    "acceptableHostIdleTimeSeconds",
     "futureHostFraction",
   ],
   properties: allocationProperties.schema,
