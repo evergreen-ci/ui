@@ -81,7 +81,7 @@ const form: HostFormState = {
     minimumHosts: 0,
     maximumHosts: 0,
     autoTuneMaximumHosts: true,
-    acceptableHostIdleTime: 0,
+    acceptableHostIdleTimeSeconds: 60,
     futureHostFraction: 0,
   },
 };
