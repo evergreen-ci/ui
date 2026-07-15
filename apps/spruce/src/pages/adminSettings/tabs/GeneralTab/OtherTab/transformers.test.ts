@@ -225,6 +225,7 @@ const expectedForm: OtherFormState = {
         financeFormula: 0.5,
         savingsPlanDiscount: 0.1,
         onDemandDiscount: 0.05,
+        hiddenCostProjects: [],
         s3Cost: {
           uploadCostDiscount: 0,
           standardStorageCostDiscount: 0,
@@ -455,6 +456,7 @@ const expectedGql: AdminSettingsInput = {
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
+    hiddenCostProjects: [],
     s3Cost: {
       upload: {
         uploadCostDiscount: 0,

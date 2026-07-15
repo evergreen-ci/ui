@@ -692,6 +692,7 @@ export type CostConfig = {
   __typename?: "CostConfig";
   ebsCost?: Maybe<EbsCostConfig>;
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
+  hiddenCostProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
   s3Cost?: Maybe<S3CostConfig>;
   savingsPlanDiscount?: Maybe<Scalars["Float"]["output"]>;
@@ -700,6 +701,7 @@ export type CostConfig = {
 export type CostConfigInput = {
   ebsCost?: InputMaybe<EbsCostConfigInput>;
   financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
+  hiddenCostProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   s3Cost?: InputMaybe<S3CostConfigInput>;
   savingsPlanDiscount?: InputMaybe<Scalars["Float"]["input"]>;
@@ -7107,6 +7109,7 @@ export type SaveAdminSettingsMutation = {
     cost?: {
       __typename?: "CostConfig";
       financeFormula?: number | null;
+      hiddenCostProjects?: Array<string> | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
       ebsCost?: {
@@ -7757,6 +7760,7 @@ export type AdminSettingsQuery = {
     cost?: {
       __typename?: "CostConfig";
       financeFormula?: number | null;
+      hiddenCostProjects?: Array<string> | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
       ebsCost?: {

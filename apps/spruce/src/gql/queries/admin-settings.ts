@@ -145,6 +145,7 @@ export const ADMIN_SETTINGS = gql`
           ebsDiscount
         }
         financeFormula
+        hiddenCostProjects
         onDemandDiscount
         s3Cost {
           storage {
