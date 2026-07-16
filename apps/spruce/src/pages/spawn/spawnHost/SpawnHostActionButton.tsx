@@ -45,10 +45,10 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   });
   useErrorToast(hostsError, "There was an error loading your spawn hosts");
   usePolling<MyHostsQuery, MyHostsQueryVariables>({
+    initialPollingState: false,
+    refetch: called ? refetch : () => {},
     startPolling: called ? startPolling : () => {},
     stopPolling: called ? stopPolling : () => {},
-    refetch: called ? refetch : () => {},
-    initialPollingState: false,
   });
   // Stop polling when we get updated host data
   useEffect(() => {
@@ -76,12 +76,12 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   });
 
   const handleClick = (a: SpawnHostStatusActions, shouldKeepOff?: boolean) => {
-    spawnAnalytics.sendEvent({ name: "Changed host status", "host.status": a });
+    spawnAnalytics.sendEvent({ "host.status": a, name: "Changed host status" });
     updateSpawnHostStatus({
       variables: {
         updateSpawnHostStatusInput: {
-          hostId: host.id,
           action: a,
+          hostId: host.id,
           shouldKeepOff,
         },
       },
@@ -193,14 +193,14 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
 };
 const mapStatusToAction = {
   [HostStatus.Running]: SpawnHostStatusActions.Stop,
-  [HostStatus.Stopping]: SpawnHostStatusActions.Stop,
   [HostStatus.Stopped]: SpawnHostStatusActions.Start,
+  [HostStatus.Stopping]: SpawnHostStatusActions.Stop,
 };
 
 const mapStatusToGlyph = {
   [HostStatus.Running]: "Pause",
-  [HostStatus.Stopping]: "Pause",
   [HostStatus.Stopped]: "Play",
+  [HostStatus.Stopping]: "Pause",
 };
 
 const copyPrefix = "I understand that this host is";

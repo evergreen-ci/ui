@@ -40,11 +40,11 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({
   const memoizedContext = useMemo(
     () => ({
       appName,
+      chips: chipsArray,
+      clearChips,
       drawerOpen,
       setDrawerOpen,
-      chips: chipsArray,
       toggleChip,
-      clearChips,
     }),
     [appName, drawerOpen, setDrawerOpen, chipsArray, toggleChip, clearChips],
   );

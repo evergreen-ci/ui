@@ -144,8 +144,8 @@ export const groupExecutionSteps = (
         result.push({
           label: `${blockLabel} — ${functionLabel}`,
           steps: functionSteps.map((s) => ({
-            stepNumber: s.stepNumber,
             displayText: stripFunctionContext(stripBlockContext(s.displayName)),
+            stepNumber: s.stepNumber,
           })),
         });
       } else {
@@ -153,8 +153,8 @@ export const groupExecutionSteps = (
         const standaloneSteps: StepOption[] = [];
         while (idx < stepsInBlock.length && !stepsInBlock[idx].isFunction) {
           standaloneSteps.push({
-            stepNumber: stepsInBlock[idx].stepNumber,
             displayText: stripBlockContext(stepsInBlock[idx].displayName),
+            stepNumber: stepsInBlock[idx].stepNumber,
           });
           idx += 1;
         }

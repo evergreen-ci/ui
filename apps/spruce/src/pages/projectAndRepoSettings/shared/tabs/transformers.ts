@@ -26,47 +26,47 @@ export const gqlToFormMap: {
   [T in WritableProjectSettingsType]: GqlToFormFunction<T>;
 } = {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  [ProjectSettingsTabRoutes.General]: general.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Access]: access.gqlToForm,
+  [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.gqlToForm,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  [ProjectSettingsTabRoutes.Plugins]: plugins.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  [ProjectSettingsTabRoutes.Variables]: variables.gqlToForm,
+  [ProjectSettingsTabRoutes.General]: general.gqlToForm,
+  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
+  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
+  [ProjectSettingsTabRoutes.GitTags]: gitTags.gqlToForm,
+  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.gqlToForm,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Notifications]: notifications.gqlToForm,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.gqlToForm,
-  [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.gqlToForm,
-  [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.gqlToForm,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.gqlToForm,
-  [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  [ProjectSettingsTabRoutes.Plugins]: plugins.gqlToForm,
+  [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.gqlToForm,
   [ProjectSettingsTabRoutes.PullRequests]: pullRequests.gqlToForm,
-  [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.gqlToForm,
-  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.gqlToForm,
-  [ProjectSettingsTabRoutes.GitTags]: gitTags.gqlToForm,
-  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
-  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.gqlToForm,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  [ProjectSettingsTabRoutes.Variables]: variables.gqlToForm,
+  [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
+  [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.gqlToForm,
 };
 
 export const formToGqlMap: {
   [T in WritableProjectSettingsType]: FormToGqlFunction<T>;
 } = {
-  [ProjectSettingsTabRoutes.General]: general.formToGql,
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
-  [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,
-  [ProjectSettingsTabRoutes.Variables]: variables.formToGql,
-  [ProjectSettingsTabRoutes.Notifications]: notifications.formToGql,
-  [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.formToGql,
-  [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.formToGql,
-  [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.formToGql,
-  [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.formToGql,
-  [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
-  [ProjectSettingsTabRoutes.PullRequests]: pullRequests.formToGql,
   [ProjectSettingsTabRoutes.CommitChecks]: commitChecks.formToGql,
-  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.formToGql,
-  [ProjectSettingsTabRoutes.GitTags]: gitTags.formToGql,
+  [ProjectSettingsTabRoutes.General]: general.formToGql,
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
+  [ProjectSettingsTabRoutes.GitTags]: gitTags.formToGql,
+  [ProjectSettingsTabRoutes.MergeQueue]: mergeQueue.formToGql,
+  [ProjectSettingsTabRoutes.Notifications]: notifications.formToGql,
+  [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.formToGql,
+  [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.formToGql,
+  [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,
+  [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.formToGql,
+  [ProjectSettingsTabRoutes.PullRequests]: pullRequests.formToGql,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.formToGql,
+  [ProjectSettingsTabRoutes.Variables]: variables.formToGql,
+  [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
+  [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.formToGql,
 };

@@ -19,7 +19,7 @@ export const OmitInactiveBuilds: React.FC<OmitInactiveBuildsProps> = ({
     const newValue = e.target.checked;
     setOmitInactiveBuilds(newValue);
     localStorage.setItem(OMIT_INACTIVE_WATERFALL_BUILDS, newValue.toString());
-    sendEvent({ name: "Toggled omit inactive builds", enabled: newValue });
+    sendEvent({ enabled: newValue, name: "Toggled omit inactive builds" });
   };
 
   return (

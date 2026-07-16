@@ -6,27 +6,6 @@ export default {
 } satisfies CustomMeta<typeof AnnotationTicketRow>;
 
 export const Default: CustomStoryObj<typeof AnnotationTicketRow> = {
-  render: (args) => (
-    <AnnotationTicketRow
-      issueKey="EVG-123"
-      jiraTicket={{
-        key: "key",
-        fields: {
-          summary: "summary",
-          status: {
-            name: "status",
-            id: "id",
-          },
-          created: "2020-01-02",
-          updated: "2020-01-02",
-          assigneeDisplayName: "mohamed.khelif",
-          assignedTeam: "evg-ui",
-        },
-      }}
-      url="https://www.google.com"
-      {...args}
-    />
-  ),
   args: {
     confidenceScore: 0.5,
     loading: false,
@@ -34,11 +13,32 @@ export const Default: CustomStoryObj<typeof AnnotationTicketRow> = {
   argTypes: {
     confidenceScore: {
       control: {
-        type: "range",
-        min: 0,
         max: 1,
+        min: 0,
         step: 0.01,
+        type: "range",
       },
     },
   },
+  render: (args) => (
+    <AnnotationTicketRow
+      issueKey="EVG-123"
+      jiraTicket={{
+        fields: {
+          assignedTeam: "evg-ui",
+          assigneeDisplayName: "mohamed.khelif",
+          created: "2020-01-02",
+          status: {
+            id: "id",
+            name: "status",
+          },
+          summary: "summary",
+          updated: "2020-01-02",
+        },
+        key: "key",
+      }}
+      url="https://www.google.com"
+      {...args}
+    />
+  ),
 };

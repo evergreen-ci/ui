@@ -43,9 +43,9 @@ const useTestResults = (rowIndex: number) => {
     hasDataToQuery
       ? {
           variables: {
-            versionId,
-            taskIds,
             filters: historyTableFilters,
+            taskIds,
+            versionId,
           },
         }
       : skipToken,
@@ -70,17 +70,17 @@ const useTestResults = (rowIndex: number) => {
           taskTest.matchingFailedTestNames?.length || 0;
         const label = `${matchingTestNameCount} / ${taskTest.totalTestCount} Failing Tests`;
         return {
-          label: hasTestFilters ? label : "",
-          inactive: hasTestFilters && matchingTestNameCount === 0,
-          loading,
           failingTests: taskTest.matchingFailedTestNames,
+          inactive: hasTestFilters && matchingTestNameCount === 0,
+          label: hasTestFilters ? label : "",
+          loading,
         };
       }
       return {
-        label: "",
-        inactive: hasTestFilters,
-        loading,
         failingTests: [],
+        inactive: hasTestFilters,
+        label: "",
+        loading,
       };
     },
     [hasTestFilters, loading, taskTestMap],

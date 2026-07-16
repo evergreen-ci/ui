@@ -19,67 +19,50 @@ export const getNotificationSchema = (
   uiSchema: SpruceFormProps["uiSchema"];
 } => ({
   schema: {
-    type: "object" as const,
-    title: "Choose How to be Notified",
-    required: ["notificationSelect"],
-    properties: {
-      notificationSelect: {
-        type: "string" as const,
-        title: "Notification Method",
-        default: "",
-        oneOf: [
-          ...subscriptionMethods.map(({ label, value }) => ({
-            type: "string" as const,
-            title: label,
-            enum: [value],
-          })),
-        ],
-      },
-    },
     dependencies: {
       notificationSelect: {
         oneOf: [
           {
-            required: ["jiraCommentInput"],
             properties: {
+              jiraCommentInput: {
+                format: "validJiraTicket",
+                minLength: 1,
+                title: "JIRA Issue",
+                type: "string" as const,
+              },
               notificationSelect: {
                 enum: [NotificationMethods.JIRA_COMMENT],
               },
-              jiraCommentInput: {
-                type: "string" as const,
-                title: "JIRA Issue",
-                format: "validJiraTicket",
-                minLength: 1,
-              },
             },
+            required: ["jiraCommentInput"],
           },
           {
-            required: ["slackInput"],
             properties: {
               notificationSelect: {
                 enum: [NotificationMethods.SLACK],
               },
               slackInput: {
-                type: "string" as const,
-                title: "Slack message",
                 format: "validSlack",
                 minLength: 1,
+                title: "Slack message",
+                type: "string" as const,
               },
             },
+            required: ["slackInput"],
           },
           {
-            required: ["emailInput"],
             properties: {
+              emailInput: {
+                format: "validEmail",
+                minLength: 1,
+                title: "Email",
+                type: "string" as const,
+              },
               notificationSelect: {
                 enum: [NotificationMethods.EMAIL],
               },
-              emailInput: {
-                type: "string" as const,
-                title: "Email",
-                format: "validEmail",
-                minLength: 1,
-              },
             },
+            required: ["emailInput"],
           },
           {
             properties: {
@@ -87,150 +70,167 @@ export const getNotificationSchema = (
                 enum: [NotificationMethods.WEBHOOK],
               },
               webhookInput: {
-                type: "object" as const,
-                title: "",
-                required: ["urlInput"],
                 properties: {
-                  urlInput: {
-                    type: "string" as const,
-                    title: "Webhook URL",
-                    format: "validURL",
-                    minLength: 1,
-                  },
-                  secretInput: {
-                    type: "string" as const,
-                    title: "Webhook Secret",
-                  },
-                  retryInput: {
-                    type: "number" as const,
-                    title: "Retry count",
-                    minimum: 0,
-                    maximum: 10,
-                  },
-                  minDelayInput: {
-                    type: "number" as const,
-                    title: "Minimum delay (ms)",
-                    minimum: 0,
-                    maximum: 10000,
-                  },
-                  timeoutInput: {
-                    type: "number" as const,
-                    title: "Max timeout (ms)",
-                    minimum: 0,
-                    maximum: 30000,
-                  },
                   httpHeaders: {
-                    type: "array" as const,
-                    title: "HTTP Headers",
                     items: {
-                      type: "object" as const,
-                      required: ["keyInput", "valueInput"],
                       properties: {
                         keyInput: {
-                          type: "string" as const,
                           title: "Key",
+                          type: "string" as const,
                         },
                         valueInput: {
-                          type: "string" as const,
                           title: "Value",
+                          type: "string" as const,
                         },
                       },
+                      required: ["keyInput", "valueInput"],
+                      type: "object" as const,
                     },
+                    title: "HTTP Headers",
+                    type: "array" as const,
+                  },
+                  minDelayInput: {
+                    maximum: 10000,
+                    minimum: 0,
+                    title: "Minimum delay (ms)",
+                    type: "number" as const,
+                  },
+                  retryInput: {
+                    maximum: 10,
+                    minimum: 0,
+                    title: "Retry count",
+                    type: "number" as const,
+                  },
+                  secretInput: {
+                    title: "Webhook Secret",
+                    type: "string" as const,
+                  },
+                  timeoutInput: {
+                    maximum: 30000,
+                    minimum: 0,
+                    title: "Max timeout (ms)",
+                    type: "number" as const,
+                  },
+                  urlInput: {
+                    format: "validURL",
+                    minLength: 1,
+                    title: "Webhook URL",
+                    type: "string" as const,
                   },
                 },
+                required: ["urlInput"],
+                title: "",
+                type: "object" as const,
               },
             },
           },
           {
             properties: {
-              notificationSelect: {
-                enum: [NotificationMethods.JIRA_ISSUE],
-              },
               jiraIssueInput: {
-                type: "object" as const,
-                title: "",
-                required: ["projectInput", "issueInput"],
                 properties: {
-                  projectInput: {
-                    type: "string" as const,
-                    title: "JIRA Project",
-                    minLength: 1,
-                  },
                   issueInput: {
-                    type: "string" as const,
-                    title: "Issue Type",
                     minLength: 1,
+                    title: "Issue Type",
+                    type: "string" as const,
+                  },
+                  projectInput: {
+                    minLength: 1,
+                    title: "JIRA Project",
+                    type: "string" as const,
                   },
                 },
+                required: ["projectInput", "issueInput"],
+                title: "",
+                type: "object" as const,
+              },
+              notificationSelect: {
+                enum: [NotificationMethods.JIRA_ISSUE],
               },
             },
           },
         ],
       },
     },
+    properties: {
+      notificationSelect: {
+        default: "",
+        oneOf: [
+          ...subscriptionMethods.map(({ label, value }) => ({
+            enum: [value],
+            title: label,
+            type: "string" as const,
+          })),
+        ],
+        title: "Notification Method",
+        type: "string" as const,
+      },
+    },
+    required: ["notificationSelect"],
+    title: "Choose How to be Notified",
+    type: "object" as const,
   },
   uiSchema: {
-    notificationSelect: {
-      "ui:data-cy": "notification-method-select",
-      "ui:allowDeselect": false,
+    emailInput: {
+      "ui:data-cy": "email-input",
+      "ui:placeholder": "someone@example.com",
     },
     jiraCommentInput: {
-      "ui:placeholder": "ABC-123",
       "ui:data-cy": "jira-comment-input",
+      "ui:placeholder": "ABC-123",
+    },
+    jiraIssueInput: {
+      issueInput: {
+        "ui:data-cy": "issue-input",
+        "ui:placeholder": JiraTicketType.BuildFailure,
+      },
+      projectInput: {
+        "ui:data-cy": "project-input",
+        "ui:placeholder": "ABC",
+      },
+    },
+    notificationSelect: {
+      "ui:allowDeselect": false,
+      "ui:data-cy": "notification-method-select",
     },
     slackInput: {
+      "ui:data-cy": "slack-input",
       "ui:description":
         "Notifications can be sent to a Slack channel, @user, or member ID represented as an alphanumeric string.",
       "ui:placeholder": "#channel, @user, or MEMBERID",
-      "ui:data-cy": "slack-input",
-    },
-    emailInput: {
-      "ui:placeholder": "someone@example.com",
-      "ui:data-cy": "email-input",
-    },
-    jiraIssueInput: {
-      projectInput: {
-        "ui:placeholder": "ABC",
-        "ui:data-cy": "project-input",
-      },
-      issueInput: {
-        "ui:placeholder": JiraTicketType.BuildFailure,
-        "ui:data-cy": "issue-input",
-      },
     },
     webhookInput: {
-      urlInput: {
-        "ui:placeholder": "https://example.com",
-        "ui:data-cy": "url-input",
-      },
-      secretInput: {
-        "ui:readonly": true,
-        "ui:placeholder":
-          "The secret will be shown upon saving the subscription.",
-        "ui:data-cy": "secret-input",
-      },
-      retryInput: {
-        "ui:data-cy": "retry-input",
-        "ui:placeholder": "Defaults to 0 if unset.",
-        "ui:optional": true,
-      },
-      minDelayInput: {
-        "ui:data-cy": "min-delay-input",
-        "ui:placeholder": "Defaults to 500 if unset.",
-        "ui:optional": true,
-      },
-      timeoutInput: {
-        "ui:data-cy": "timeout-input",
-        "ui:placeholder": "Defaults to 10000 if unset.",
-        "ui:optional": true,
-      },
       httpHeaders: {
-        "ui:addToEnd": true,
-        "ui:orderable": false,
-        "ui:addButtonText": "Add HTTP Header",
         items: {
           "ui:ObjectFieldTemplate": FieldRow,
         },
+        "ui:addButtonText": "Add HTTP Header",
+        "ui:addToEnd": true,
+        "ui:orderable": false,
+      },
+      minDelayInput: {
+        "ui:data-cy": "min-delay-input",
+        "ui:optional": true,
+        "ui:placeholder": "Defaults to 500 if unset.",
+      },
+      retryInput: {
+        "ui:data-cy": "retry-input",
+        "ui:optional": true,
+        "ui:placeholder": "Defaults to 0 if unset.",
+      },
+      secretInput: {
+        "ui:data-cy": "secret-input",
+        "ui:placeholder":
+          "The secret will be shown upon saving the subscription.",
+        "ui:readonly": true,
+      },
+      timeoutInput: {
+        "ui:data-cy": "timeout-input",
+        "ui:optional": true,
+        "ui:placeholder": "Defaults to 10000 if unset.",
+      },
+      urlInput: {
+        "ui:data-cy": "url-input",
+        "ui:placeholder": "https://example.com",
       },
     },
   },

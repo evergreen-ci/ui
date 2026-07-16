@@ -28,16 +28,16 @@ export const gqlToForm = ((data, { projectType }) => {
   } = data;
 
   return {
-    triggersOverride: projectType !== ProjectType.AttachedProject || !!triggers,
     triggers:
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       triggers?.map((trigger) =>
         omitTypename({
           ...trigger,
-          level: trigger.level as ProjectTriggerLevel,
           displayTitle: getTitle(trigger),
+          level: trigger.level as ProjectTriggerLevel,
         }),
       ) ?? [],
+    triggersOverride: projectType !== ProjectType.AttachedProject || !!triggers,
   };
 }) satisfies GqlToFormFunction<Tab>;
 
@@ -47,14 +47,14 @@ export const formToGql = (({ triggers, triggersOverride }, isRepo, id) => ({
     id,
     triggers: triggersOverride
       ? triggers.map((trigger) => ({
-          project: trigger.project,
-          level: trigger.level,
-          buildVariantRegex: trigger.buildVariantRegex,
-          taskRegex: trigger.taskRegex,
-          status: trigger.status,
-          dateCutoff: trigger.dateCutoff,
-          configFile: trigger.configFile,
           alias: trigger.alias,
+          buildVariantRegex: trigger.buildVariantRegex,
+          configFile: trigger.configFile,
+          dateCutoff: trigger.dateCutoff,
+          level: trigger.level,
+          project: trigger.project,
+          status: trigger.status,
+          taskRegex: trigger.taskRegex,
           unscheduleDownstreamVersions: trigger.unscheduleDownstreamVersions,
         }))
       : null,

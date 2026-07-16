@@ -50,7 +50,7 @@ const HistoryTableWrapper: React.FC = () => {
   }, [oldData]);
 
   return (
-    <div style={{ height: 600, width: "100%", border: "red 1px solid" }}>
+    <div style={{ border: "red 1px solid", height: 600, width: "100%" }}>
       <HistoryTable loading={isLoading} loadMoreItems={loadMore}>
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {VariantHistoryRow}

@@ -99,8 +99,8 @@ const roundMax = (max: number) => {
  */
 const formatCost = (value: number): string =>
   new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
     maximumFractionDigits: 20,
+    minimumFractionDigits: 2,
   }).format(value);
 
 export {

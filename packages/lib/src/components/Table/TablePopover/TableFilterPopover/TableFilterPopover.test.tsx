@@ -3,8 +3,8 @@ import { TreeDataEntry } from "../../../TreeSelect";
 import TableFilterPopover from ".";
 
 const options: TreeDataEntry[] = [
-  { title: "Success", value: "success", key: "success" },
-  { title: "Failed", value: "failed", key: "failed" },
+  { key: "success", title: "Success", value: "success" },
+  { key: "failed", title: "Failed", value: "failed" },
 ];
 
 describe("table filter popover", () => {

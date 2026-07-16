@@ -3,34 +3,34 @@ import { SpruceForm } from "components/SpruceForm";
 import { FieldRow, CardFieldTemplate, AccordionFieldTemplate } from ".";
 
 const ObjectSchema = {
-  type: "object" as const,
   properties: {
     person: {
-      type: "object" as const,
       properties: {
-        name: {
-          type: "string" as const,
-          title: "Name",
-        },
         age: {
-          type: "integer" as const,
           title: "Age",
+          type: "integer" as const,
+        },
+        name: {
+          title: "Name",
+          type: "string" as const,
         },
       },
+      type: "object" as const,
     },
   },
+  type: "object" as const,
 };
 describe("objectFieldTemplates", () => {
   describe("fieldRow", () => {
     const uiSchema = {
       person: {
-        "ui:ObjectFieldTemplate": FieldRow,
-        name: {
-          "ui:data-cy": "name",
-        },
         age: {
           "ui:data-cy": "age",
         },
+        name: {
+          "ui:data-cy": "name",
+        },
+        "ui:ObjectFieldTemplate": FieldRow,
       },
     };
     it("applies data-cy attributes", () => {
@@ -75,20 +75,20 @@ describe("objectFieldTemplates", () => {
       );
       await user.type(screen.getByDataCy("name"), "Bruce Lee");
       await user.type(screen.getByDataCy("age"), "32");
-      expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
+      expect(data).toStrictEqual({ person: { age: 32, name: "Bruce Lee" } });
     });
   });
 
   describe("cardFieldTemplate", () => {
     const uiSchema = {
       person: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        name: {
-          "ui:data-cy": "name",
-        },
         age: {
           "ui:data-cy": "age",
         },
+        name: {
+          "ui:data-cy": "name",
+        },
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
       },
     };
     it("applies data-cy attributes", () => {
@@ -131,19 +131,19 @@ describe("objectFieldTemplates", () => {
       );
       await user.type(screen.getByDataCy("name"), "Bruce Lee");
       await user.type(screen.getByDataCy("age"), "32");
-      expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
+      expect(data).toStrictEqual({ person: { age: 32, name: "Bruce Lee" } });
     });
   });
   describe("accordionFieldTemplate", () => {
     const uiSchema = {
       person: {
-        "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-        name: {
-          "ui:data-cy": "name",
-        },
         age: {
           "ui:data-cy": "age",
         },
+        name: {
+          "ui:data-cy": "name",
+        },
+        "ui:ObjectFieldTemplate": AccordionFieldTemplate,
       },
     };
     it("applies data-cy attributes", () => {
@@ -187,7 +187,7 @@ describe("objectFieldTemplates", () => {
       await user.type(screen.getByDataCy("name"), "Bruce Lee");
       await user.type(screen.getByDataCy("age"), "32");
 
-      expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
+      expect(data).toStrictEqual({ person: { age: 32, name: "Bruce Lee" } });
     });
     it("accordion is expanded by default", () => {
       render(

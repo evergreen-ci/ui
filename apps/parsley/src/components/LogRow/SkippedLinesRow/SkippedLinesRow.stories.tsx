@@ -34,12 +34,12 @@ const SkippedLinesRowStory = (
 };
 
 export const SkippedLinesRowSingle: CustomStoryObj<typeof SkippedLinesRow> = {
-  argTypes: {
-    expandLines: { action: "expandLines" },
-  },
   args: {
     // Initialize an array with 100 skipped lines.
     range: { end: 101, start: 1 },
+  },
+  argTypes: {
+    expandLines: { action: "expandLines" },
   },
   render: (args) => <SkippedLinesRowStory {...args} />,
 };

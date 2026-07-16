@@ -140,11 +140,11 @@ export const idSlugs = [
 
 export const redirectRoutes = {
   distroSettings: paths.distros,
+  legacyCommits: `commits/:${slugs.projectIdentifier}`,
   patch: `${paths.patch}/:${slugs.versionId}`,
   projectSettings: paths.projects,
   userPatches: `${paths.user}/:${slugs.userId}`,
   waterfall: `${paths.waterfall}/:${slugs.projectIdentifier}`,
-  legacyCommits: `commits/:${slugs.projectIdentifier}`,
 };
 
 export const routes = {
@@ -166,14 +166,14 @@ export const routes = {
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
   taskHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.HTMLLog}`,
-  testHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.TestHTMLLog}`,
-  versionDiff: `${paths.version}/:${slugs.versionId}/${PageNames.Diff}`,
-  versionFileDiff: `${paths.version}/:${slugs.versionId}/${PageNames.FileDiff}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
+  testHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.TestHTMLLog}`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
   version: `${paths.version}/:${slugs.versionId}/:${slugs.tab}?`,
+  versionDiff: `${paths.version}/:${slugs.versionId}/${PageNames.Diff}`,
+  versionFileDiff: `${paths.version}/:${slugs.versionId}/${PageNames.FileDiff}`,
   waterfall: `${paths.project}/:${slugs.projectIdentifier}/waterfall`,
 };
 
@@ -181,13 +181,13 @@ export const routes = {
 // to one route name. Shared so the span processor and analytics agree.
 export const observabilityRouteConfig = {
   ...routes,
-  projectSettings: `${routes.projectSettings}/:${slugs.tab}?`,
-  image: `${routes.image}/:${slugs.tab}?`,
   distroSettings: `${routes.distroSettings}/:${slugs.tab}?`,
-  preferences: `${routes.preferences}/:${slugs.tab}?`,
-  spawn: `${routes.spawn}/:${slugs.tab}?`,
+  image: `${routes.image}/:${slugs.tab}?`,
   jobLogs: `${routes.jobLogs}/:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`,
   patchRedirect: redirectRoutes.patch,
+  preferences: `${routes.preferences}/:${slugs.tab}?`,
+  projectSettings: `${routes.projectSettings}/:${slugs.tab}?`,
+  spawn: `${routes.spawn}/:${slugs.tab}?`,
 };
 
 export const getUserPatchesRoute = (userId: string): string =>
@@ -339,8 +339,8 @@ export const getSpawnHostRoute = ({
   const queryParams = stringifyQuery({
     ...(spawnHost && { spawnHost: "True" }),
     distroId,
-    taskId,
     host,
+    taskId,
   });
   return `${routes.spawnHost}?${queryParams}`;
 };
@@ -403,10 +403,10 @@ export const getWaterfallRoute = (
   const { requesterFilters, statusFilters, taskFilters, variantFilters } =
     options || {};
   const queryParams = stringifyQuery({
+    [WaterfallFilterOptions.BuildVariant]: variantFilters,
+    [WaterfallFilterOptions.Requesters]: requesterFilters,
     [WaterfallFilterOptions.Statuses]: statusFilters,
     [WaterfallFilterOptions.Task]: taskFilters,
-    [WaterfallFilterOptions.Requesters]: requesterFilters,
-    [WaterfallFilterOptions.BuildVariant]: variantFilters,
   });
   return `${paths.project}/${encodeURIComponent(projectIdentifier ?? "")}${paths.waterfall}${queryParams ? `?${queryParams}` : ""}`;
 };
@@ -426,11 +426,11 @@ const getHistoryRoute = (
     const passingTests = toArray(filters?.passingTests);
 
     const queryParams = stringifyQuery({
-      [TestStatus.Failed]: failingTests,
-      [TestStatus.Passed]: passingTests,
       [HistoryQueryParams.SelectedCommit]: selectedCommit,
       [HistoryQueryParams.TaskID]: taskId,
       [HistoryQueryParams.VisibleColumns]: visibleColumns,
+      [TestStatus.Failed]: failingTests,
+      [TestStatus.Passed]: passingTests,
     });
     return `${basePath}?${queryParams}`;
   }

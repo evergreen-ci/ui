@@ -5,12 +5,11 @@ import { SortedTaskStatus, TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox } from ".";
 
 export default {
-  title: "Components/Task Box",
   component: TaskBox,
+  title: "Components/Task Box",
 } satisfies CustomMeta<typeof TaskBox>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
-  render: (args) => <Template {...args} />,
   args: {
     hasTooltip: true,
   },
@@ -19,6 +18,7 @@ export const Default: CustomStoryObj<TemplateProps> = {
       control: { type: "boolean" },
     },
   },
+  render: (args) => <Template {...args} />,
 };
 
 type TemplateProps = {

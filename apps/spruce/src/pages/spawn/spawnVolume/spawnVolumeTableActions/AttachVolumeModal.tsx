@@ -33,11 +33,11 @@ export const AttachVolumeModal: React.FC<Props> = ({
     AttachVolumeToHostMutation,
     AttachVolumeToHostMutationVariables
   >(ATTACH_VOLUME, {
-    onError: (err) =>
-      dispatchToast.error(`Error attaching volume: '${err.message}'`),
     onCompleted: () => {
       dispatchToast.success("Successfully mounted the volume.");
     },
+    onError: (err) =>
+      dispatchToast.error(`Error attaching volume: '${err.message}'`),
     refetchQueries: ["MyVolumes", "MyHosts"],
   });
   const targetAvailabilityZone = volume.availabilityZone;
@@ -45,15 +45,15 @@ export const AttachVolumeModal: React.FC<Props> = ({
 
   const onConfirm = () => {
     spawnAnalytics.sendEvent({
+      "host.id": selectedHostId,
       name: "Changed mounted volume on host",
       "volume.id": volume.id,
-      "host.id": selectedHostId,
     });
     attachVolume({
       variables: {
         volumeAndHost: {
-          volumeId: volume.id,
           hostId: selectedHostId,
+          volumeId: volume.id,
         },
       },
     });

@@ -46,8 +46,8 @@ export const useTopmostVisibleElement = ({
 
     const handleScroll = () => {
       const id = findTopmostVisibleElement({
-        scrollTop: scrollElement.scrollTop,
         elements,
+        scrollTop: scrollElement.scrollTop,
       });
       setTopmostVisibleElementId(id);
     };

@@ -12,11 +12,11 @@ export const gqlToForm = ((data) => {
     parsleyFilters:
       projectRef?.parsleyFilters?.map(
         ({ caseSensitive, description, exactMatch, expression }) => ({
-          displayTitle: expression,
-          expression,
-          description,
           caseSensitive,
+          description,
+          displayTitle: expression,
           exactMatch,
+          expression,
         }),
       ) ?? [],
   };
@@ -28,10 +28,10 @@ export const formToGql = (({ parsleyFilters }, isRepo, id) => ({
     id,
     parsleyFilters: parsleyFilters.map(
       ({ caseSensitive, description, exactMatch, expression }) => ({
-        expression,
-        description,
         caseSensitive,
+        description,
         exactMatch,
+        expression,
       }),
     ),
   },

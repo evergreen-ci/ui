@@ -3,9 +3,9 @@ import { test, expect } from "../../fixtures";
 const versionId = "5ecedafb562343215a7ff297";
 const versionRoute = `/version/${versionId}`;
 const versions = {
-  changes: { route: `${versionRoute}/changes`, name: "Changes" },
-  tasks: { route: `${versionRoute}/tasks`, name: "Tasks" },
-  duration: { route: `${versionRoute}/task-duration`, name: "Duration" },
+  changes: { name: "Changes", route: `${versionRoute}/changes` },
+  duration: { name: "Duration", route: `${versionRoute}/task-duration` },
+  tasks: { name: "Tasks", route: `${versionRoute}/tasks` },
 };
 
 test.describe("page tabs", () => {

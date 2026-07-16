@@ -21,8 +21,8 @@ describe("metadata", () => {
 
   it("renders the metadata card with a pending status", () => {
     render(<Metadata loading={false} task={taskAboutToStart.task} />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
       wrapper,
     });
     expect(
@@ -35,8 +35,8 @@ describe("metadata", () => {
 
   it("renders the metadata card with a started status", () => {
     render(<Metadata loading={false} task={taskStarted.task} />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
       wrapper,
     });
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
@@ -48,8 +48,8 @@ describe("metadata", () => {
 
   it("renders the metadata card with a succeeded status", async () => {
     render(<Metadata loading={false} task={taskSucceeded.task} />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
       wrapper,
     });
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
@@ -63,8 +63,8 @@ describe("metadata", () => {
   it("renders failing command and other failing commands", async () => {
     const user = userEvent.setup();
     render(<Metadata loading={false} task={taskSucceeded.task} />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
       wrapper,
     });
 
@@ -86,8 +86,8 @@ describe("metadata", () => {
 
   it("hides cost detail button when task is running", () => {
     render(<Metadata loading={false} task={taskWithCost.task} />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
       wrapper,
     });
     expect(screen.queryByDataCy("cost-details-button")).not.toBeInTheDocument();
@@ -95,8 +95,8 @@ describe("metadata", () => {
 
   it("shows cost detail button when task is complete", () => {
     render(<Metadata loading={false} task={taskWithCostAndFinishTime.task} />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
       wrapper,
     });
     expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
@@ -105,8 +105,8 @@ describe("metadata", () => {
   it("can reopen cost modal after closing", async () => {
     const user = userEvent.setup();
     render(<Metadata loading={false} task={taskWithCostAndFinishTime.task} />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
       wrapper,
     });
     await user.click(screen.getByDataCy("cost-details-button"));
@@ -143,25 +143,25 @@ const failingCommand =
 const taskSucceeded: TaskQueryType = {
   task: {
     ...taskStarted.task,
-    finishTime: addMilliseconds(new Date(), 1228078),
-    status: "succeeded",
     details: {
-      type: "",
-      status: "success",
       description: failingCommand,
-      traceID: "trace_abcde",
+      diskDevices: [],
+      failureMetadataTags: [],
       oomTracker: {
         detected: false,
       },
-      failureMetadataTags: [],
-      diskDevices: [],
       otherFailingCommands: [
         {
-          fullDisplayName: "other failing command",
           failureMetadataTags: ["tag1", "tag2"],
+          fullDisplayName: "other failing command",
         },
       ],
+      status: "success",
+      traceID: "trace_abcde",
+      type: "",
     },
+    finishTime: addMilliseconds(new Date(), 1228078),
+    status: "succeeded",
   },
 };
 
@@ -170,14 +170,14 @@ const taskWithCost: TaskQueryType = {
     ...taskStarted.task,
     taskCost: {
       __typename: "Cost",
-      total: 42.5,
-      adjustedEC2Cost: 40,
       adjustedEBSStorageCost: null,
       adjustedEBSThroughputCost: null,
+      adjustedEC2Cost: 40,
       adjustedS3ArtifactPutCost: null,
       adjustedS3ArtifactStorageCost: null,
       adjustedS3LogPutCost: null,
       adjustedS3LogStorageCost: 2.5,
+      total: 42.5,
     },
   },
 };

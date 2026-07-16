@@ -7,9 +7,9 @@ import Icon, { Size, glyphs } from ".";
 const { green } = palette;
 
 const Sizes = {
-  [Size.Small]: 14,
   [Size.Default]: 16,
   [Size.Large]: 20,
+  [Size.Small]: 14,
   [Size.XLarge]: 24,
 };
 
@@ -18,6 +18,10 @@ export default {
 } satisfies CustomMeta<typeof Icon>;
 
 export const Default: CustomStoryObj<typeof Icon> = {
+  args: {
+    fill: green.dark3,
+    size: Sizes[Size.Default],
+  },
   argTypes: {
     fill: {
       control: "color",
@@ -26,10 +30,6 @@ export const Default: CustomStoryObj<typeof Icon> = {
       control: { type: "select" },
       options: Object.values(Sizes),
     },
-  },
-  args: {
-    fill: green.dark3,
-    size: Sizes[Size.Default],
   },
   render: (args) => (
     <Container>

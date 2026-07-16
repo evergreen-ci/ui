@@ -24,10 +24,10 @@ export const EventLogTab: React.FC<TabProps> = ({
 
   const { events, handleFetchMore, lastFetchedCount, loading } =
     useProjectSettingsEvents({
-      projectIdentifier,
-      repoId,
       isRepo: projectType === ProjectType.Repo,
       limit,
+      projectIdentifier,
+      repoId,
     });
 
   return (

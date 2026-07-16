@@ -35,7 +35,7 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   if (!logMetadata) {
     return null;
   }
-  const { execution, logPath, logType, logsToMerge, taskID } = logMetadata;
+  const { execution, logPath, logsToMerge, logType, taskID } = logMetadata;
   if (!logType || !taskID || execution == null) {
     return null;
   }

@@ -33,8 +33,8 @@ describe("repo data", () => {
 });
 
 const projectForm: ProjectTriggersFormState = {
-  triggersOverride: true,
   triggers: [],
+  triggersOverride: true,
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -46,7 +46,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
 };
 
 const repoForm: ProjectTriggersFormState = {
-  triggersOverride: true,
   triggers: [
     {
       alias: "my-alias",
@@ -61,10 +60,10 @@ const repoForm: ProjectTriggersFormState = {
       unscheduleDownstreamVersions: true,
     },
   ],
+  triggersOverride: true,
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
-  repoId: "repo",
   projectRef: {
     id: "repo",
     triggers: [
@@ -81,4 +80,5 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
       },
     ],
   },
+  repoId: "repo",
 };

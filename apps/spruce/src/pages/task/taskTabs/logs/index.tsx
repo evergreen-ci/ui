@@ -26,10 +26,10 @@ const MIN_HEIGHT_FOR_FADE = FADE_OVERLAY_HEIGHT + 20;
 
 const options = {
   [LogTypes.Agent]: AgentLog,
+  [LogTypes.All]: AllLog,
+  [LogTypes.Event]: EventLog,
   [LogTypes.System]: SystemLog,
   [LogTypes.Task]: TaskLog,
-  [LogTypes.Event]: EventLog,
-  [LogTypes.All]: AllLog,
 };
 
 const logTypeOptions: { id: string; label: string; value: LogTypes }[] = [
@@ -90,8 +90,8 @@ const Logs: React.FC<Props> = ({
     setCurrentLog(nextLogType);
     updateQueryParams({ [QueryParams.LogType]: nextLogType });
     sendEvent({
-      name: "Changed log preview type",
       "log.type": nextLogType,
+      name: "Changed log preview type",
     });
   };
 
@@ -143,9 +143,9 @@ const Logs: React.FC<Props> = ({
                   href={parsleyLink}
                   onClick={() =>
                     sendEvent({
-                      name: "Clicked log link",
                       "log.type": currentLog,
                       "log.viewer": "parsley",
+                      name: "Clicked log link",
                     })
                   }
                   variant={Variant.Primary}
@@ -160,9 +160,9 @@ const Logs: React.FC<Props> = ({
                   href={htmlLink}
                   onClick={() =>
                     sendEvent({
-                      name: "Clicked log link",
                       "log.type": currentLog,
                       "log.viewer": "html",
+                      name: "Clicked log link",
                     })
                   }
                 >
@@ -176,9 +176,9 @@ const Logs: React.FC<Props> = ({
                   href={rawLink}
                   onClick={() =>
                     sendEvent({
-                      name: "Clicked log link",
                       "log.type": currentLog,
                       "log.viewer": "raw",
+                      name: "Clicked log link",
                     })
                   }
                 >
@@ -194,9 +194,9 @@ const Logs: React.FC<Props> = ({
                       success("Log downloaded started");
                     });
                     sendEvent({
-                      name: "Clicked log link",
                       "log.type": currentLog,
                       "log.viewer": "download",
+                      name: "Clicked log link",
                     });
                   }}
                 >
@@ -268,9 +268,9 @@ const getLinks = (
   const rawLink = `${
     {
       [LogTypes.Agent]: logLinks.agentLogLink,
+      [LogTypes.All]: logLinks.allLogLink,
       [LogTypes.System]: logLinks.systemLogLink,
       [LogTypes.Task]: logLinks.taskLogLink,
-      [LogTypes.All]: logLinks.allLogLink,
     }[logType] ?? ""
   }&text=true`;
   return {

@@ -86,8 +86,8 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
           onClick={() => {
             closeGuideCue();
             sendEvent({
-              name: "Clicked metadata link",
               "link.type": "spawn host link",
+              name: "Clicked metadata link",
             });
           }}
           to={getSpawnHostRoute({

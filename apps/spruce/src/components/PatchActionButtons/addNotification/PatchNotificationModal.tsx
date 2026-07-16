@@ -27,8 +27,8 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
       sendAnalyticsEvent={(subscription) =>
         sendEvent({
           name: "Created notification",
-          "subscription.type": subscription.subscriber.type || "",
           "subscription.trigger": subscription.trigger || "",
+          "subscription.type": subscription.subscriber.type || "",
         })
       }
       subscriptionMethods={versionSubscriptionMethods}

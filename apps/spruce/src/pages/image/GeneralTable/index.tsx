@@ -92,12 +92,12 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
 
 const columns: LGColumnDef<GeneralInfo>[] = [
   {
-    header: "Property",
     accessorKey: "property",
+    header: "Property",
   },
   {
-    header: "Value",
     accessorKey: "value",
     cell: ({ getValue }) => getValue(),
+    header: "Value",
   },
 ];

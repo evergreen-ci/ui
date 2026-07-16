@@ -44,9 +44,9 @@ test.describe("Action Buttons", () => {
         data: null,
         errors: [
           {
+            extensions: { code: "INTERNAL_SERVER_ERROR" },
             message: "There was an error unscheduling tasks",
             path: ["UnscheduleVersionTasks"],
-            extensions: { code: "INTERNAL_SERVER_ERROR" },
           },
         ],
       });
@@ -91,9 +91,9 @@ test.describe("Action Buttons", () => {
         data: null,
         errors: [
           {
+            extensions: { code: "INTERNAL_SERVER_ERROR" },
             message: "There was an error setting priority",
             path: ["SetVersionPriority"],
-            extensions: { code: "INTERNAL_SERVER_ERROR" },
           },
         ],
       });

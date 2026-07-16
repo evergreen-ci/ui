@@ -50,9 +50,9 @@ export const transformTaskDurationDataToVariantGanttChartData = (
 
     if (!acc[buildVariant]) {
       acc[buildVariant] = {
-        start: new Date(startTime),
-        finish: new Date(finishTime),
         buildVariantDisplayName: buildVariantDisplayName || "",
+        finish: new Date(finishTime),
+        start: new Date(startTime),
       };
       return acc;
     }

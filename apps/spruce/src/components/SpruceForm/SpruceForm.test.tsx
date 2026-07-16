@@ -58,8 +58,8 @@ describe("spruce form", () => {
     expect(data).toStrictEqual({
       ...basicForm.formData,
       access: null,
-      validProjects: "new value",
       users: ["new-user", "initial-user"],
+      validProjects: "new value",
     });
   });
 
@@ -516,59 +516,59 @@ describe("spruce form", () => {
 const basicForm = {
   formData: {
     cloneMethod: "legacy-ssh",
-    validProjects: "spruce",
     users: ["initial-user"],
+    validProjects: "spruce",
   },
   schema: {
-    type: "object" as const,
     properties: {
+      access: {
+        title: "Manage Access",
+        type: "null" as const,
+      },
       cloneMethod: {
-        type: "string" as const,
-        title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
         enumNames: ["Legacy SSH", "Oath Token"],
-      },
-      validProjects: {
+        title: "Project Cloning Method",
         type: "string" as const,
-        title: "Valid Projects",
-        placeholder: "Sample input",
-      },
-      access: {
-        type: "null" as const,
-        title: "Manage Access",
       },
       users: {
-        type: "array" as const,
-        title: "Users",
         items: {
           type: "string" as const,
         },
+        title: "Users",
+        type: "array" as const,
+      },
+      validProjects: {
+        placeholder: "Sample input",
+        title: "Valid Projects",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
+    access: {
+      "ui:rootFieldId": "access",
+      "ui:sectionTitle": true,
+    },
     cloneMethod: {
       "ui:options": {
         label: false,
       },
     },
-    validProjects: {
-      "ui:widget": "textarea",
-      "ui:options": {
-        "data-cy": "valid-projects-input",
-        label: false,
-      },
-    },
-    access: {
-      "ui:rootFieldId": "access",
-      "ui:sectionTitle": true,
-    },
     users: {
-      "ui:addButtonText": "New User",
       items: {
         "ui:ariaLabelledBy": "root_access",
         "ui:data-cy": "new-user-input",
       },
+      "ui:addButtonText": "New User",
+    },
+    validProjects: {
+      "ui:options": {
+        "data-cy": "valid-projects-input",
+        label: false,
+      },
+      "ui:widget": "textarea",
     },
   },
 };
@@ -576,15 +576,15 @@ const basicForm = {
 const textInput = (emptyValue?: string) => ({
   formData: {},
   schema: {
-    type: "object" as const,
     properties: {
       textInput: {
-        type: "string" as const,
-        title: "Text Input",
         default: "",
         minLength: 1,
+        title: "Text Input",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     textInput: {
@@ -597,20 +597,20 @@ const textInput = (emptyValue?: string) => ({
 const textArea = (emptyValue?: string) => ({
   formData: {},
   schema: {
-    type: "object" as const,
     properties: {
       textArea: {
-        type: "string" as const,
-        title: "Text Area",
         default: "",
         minLength: 1,
+        title: "Text Area",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     textArea: {
-      "ui:widget": "textarea",
       "ui:data-cy": "text-area",
+      "ui:widget": "textarea",
       ...(emptyValue && { "ui:emptyValue": emptyValue }),
     },
   },
@@ -619,31 +619,31 @@ const textArea = (emptyValue?: string) => ({
 const select = {
   formData: {},
   schema: {
-    type: "object" as const,
     properties: {
       iceCream: {
-        type: "string" as const,
-        title: "Ice Cream",
         default: "vanilla",
         oneOf: [
           {
-            type: "string" as const,
-            title: "Vanilla",
             enum: ["vanilla"],
+            title: "Vanilla",
+            type: "string" as const,
           },
           {
-            type: "string" as const,
-            title: "Chocolate",
             enum: ["chocolate"],
+            title: "Chocolate",
+            type: "string" as const,
           },
           {
-            type: "string" as const,
-            title: "Strawberry",
             enum: ["strawberry"],
+            title: "Strawberry",
+            type: "string" as const,
           },
         ],
+        title: "Ice Cream",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     iceCream: {
@@ -655,32 +655,32 @@ const select = {
 const radioGroup = {
   formData: {},
   schema: {
-    type: "object" as const,
     properties: {
       states: {
-        type: "string" as const,
-        title: "Tri-state Area",
         default: "ny",
         oneOf: [
           {
-            type: "string" as const,
-            title: "New York",
             enum: ["ny"],
+            title: "New York",
+            type: "string" as const,
           },
           {
-            type: "string" as const,
-            title: "New Jersey",
             description: "The Garden State",
             enum: ["nj"],
+            title: "New Jersey",
+            type: "string" as const,
           },
           {
-            type: "string" as const,
-            title: "Connecticut",
             enum: ["ct"],
+            title: "Connecticut",
+            type: "string" as const,
           },
         ],
+        title: "Tri-state Area",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     states: {
@@ -693,31 +693,31 @@ const radioGroup = {
 const segmentedControl = {
   formData: { size: "small" },
   schema: {
-    type: "object" as const,
     properties: {
       size: {
-        type: "string" as const,
-        title: "Size",
         default: "small",
         oneOf: [
           {
-            type: "string" as const,
-            title: "Small",
             enum: ["small"],
+            title: "Small",
+            type: "string" as const,
           },
           {
-            type: "string" as const,
-            title: "Medium",
             enum: ["medium"],
+            title: "Medium",
+            type: "string" as const,
           },
           {
-            type: "string" as const,
-            title: "Large",
             enum: ["large"],
+            title: "Large",
+            type: "string" as const,
           },
         ],
+        title: "Size",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     size: {
@@ -729,16 +729,16 @@ const segmentedControl = {
 const dateTimePicker = {
   formData: {},
   schema: {
-    type: "object" as const,
     properties: {
       dateTime: {
-        type: "string" as const,
-        title: "Date Time Picker",
         default: new Date(
           "Tue Sep 16 2025 11:19:00 GMT-0400 (Eastern Daylight Time)",
         ).toString(),
+        title: "Date Time Picker",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     dateTime: {

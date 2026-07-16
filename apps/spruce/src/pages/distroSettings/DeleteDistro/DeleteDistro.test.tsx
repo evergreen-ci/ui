@@ -129,17 +129,17 @@ const isAdminMock: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "me",
         permissions: {
           __typename: "Permissions",
           canCreateDistro: true,
           distroPermissions: {
             __typename: "DistroPermissions",
-            id: distroToDelete,
             admin: true,
             edit: true,
+            id: distroToDelete,
           },
         },
+        userId: "me",
       },
     },
   },
@@ -159,17 +159,17 @@ const notAdminMock: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "me",
         permissions: {
           __typename: "Permissions",
           canCreateDistro: false,
           distroPermissions: {
             __typename: "DistroPermissions",
-            id: distroToDelete,
             admin: false,
             edit: false,
+            id: distroToDelete,
           },
         },
+        userId: "me",
       },
     },
   },

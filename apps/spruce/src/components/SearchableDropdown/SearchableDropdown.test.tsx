@@ -17,9 +17,9 @@ describe("searchableDropdown", () => {
   beforeEach(() => {
     const mockResizeObserver = vi.fn(function () {
       return {
+        disconnect: vi.fn(),
         observe: vi.fn(),
         unobserve: vi.fn(),
-        disconnect: vi.fn(),
       };
     });
     window.ResizeObserver = mockResizeObserver;
@@ -32,9 +32,9 @@ describe("searchableDropdown", () => {
   it("sets the label to what ever the current value is", () => {
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange: vi.fn(),
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       }),
     );
     expect(screen.getByText("evergreen")).toBeInTheDocument();
@@ -44,9 +44,9 @@ describe("searchableDropdown", () => {
     const user = userEvent.setup();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange: vi.fn(),
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       }),
     );
     expect(
@@ -68,9 +68,9 @@ describe("searchableDropdown", () => {
     const user = userEvent.setup();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange: vi.fn(),
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       }),
     );
     expect(
@@ -94,9 +94,9 @@ describe("searchableDropdown", () => {
     const user = userEvent.setup();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange: vi.fn(),
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       }),
     );
     // use text input to filter and click on document body (which closes the dropdown).
@@ -126,10 +126,10 @@ describe("searchableDropdown", () => {
     );
     render(
       RenderSearchableDropdown({
-        value: ["evergreen"],
         onChange: vi.fn(),
         options: ["evergreen", "spruce"],
         searchFunc,
+        value: ["evergreen"],
       }),
     );
     await user.click(screen.getByDataCy("searchable-dropdown"));
@@ -148,9 +148,9 @@ describe("searchableDropdown", () => {
     const onChange = vi.fn();
     const { rerender } = render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange,
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       }),
     );
     expect(
@@ -170,9 +170,9 @@ describe("searchableDropdown", () => {
 
     rerender(
       RenderSearchableDropdown({
-        value: "spruce",
         onChange,
         options: ["evergreen", "spruce"],
+        value: "spruce",
       }),
     );
     expect(screen.getByText("spruce")).toBeInTheDocument();
@@ -182,9 +182,9 @@ describe("searchableDropdown", () => {
     const user = userEvent.setup();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange: vi.fn(),
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       }),
     );
     // use text input to filter and select an option.
@@ -210,9 +210,9 @@ describe("searchableDropdown", () => {
     const user = userEvent.setup();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange: vi.fn(),
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       }),
     );
     await user.click(screen.getByDataCy("searchable-dropdown"));
@@ -227,18 +227,7 @@ describe("searchableDropdown", () => {
       const user = userEvent.setup();
       render(
         RenderSearchableDropdown({
-          value: "evergreen",
           onChange: vi.fn(),
-          options: [
-            {
-              label: "Evergreen",
-              value: "evergreen",
-            },
-            {
-              label: "Spruce",
-              value: "spruce",
-            },
-          ],
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           optionRenderer: (option: any, onClick) => (
             <button
@@ -249,6 +238,17 @@ describe("searchableDropdown", () => {
               {option.label}
             </button>
           ),
+          options: [
+            {
+              label: "Evergreen",
+              value: "evergreen",
+            },
+            {
+              label: "Spruce",
+              value: "spruce",
+            },
+          ],
+          value: "evergreen",
         }),
       );
       await user.click(screen.getByDataCy("searchable-dropdown"));
@@ -263,18 +263,7 @@ describe("searchableDropdown", () => {
       const onChange = vi.fn();
       render(
         RenderSearchableDropdown({
-          value: "evergreen",
           onChange,
-          options: [
-            {
-              label: "Evergreen",
-              value: "evergreen",
-            },
-            {
-              label: "Spruce",
-              value: "spruce",
-            },
-          ],
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           optionRenderer: (option: any, onClick) => (
             <button
@@ -285,6 +274,17 @@ describe("searchableDropdown", () => {
               {option.label}
             </button>
           ),
+          options: [
+            {
+              label: "Evergreen",
+              value: "evergreen",
+            },
+            {
+              label: "Spruce",
+              value: "spruce",
+            },
+          ],
+          value: "evergreen",
         }),
       );
       await user.click(screen.getByDataCy("searchable-dropdown"));
@@ -297,13 +297,13 @@ describe("searchableDropdown", () => {
     it("should render a custom button", () => {
       render(
         RenderSearchableDropdown({
-          value: "evergreen",
-          onChange: vi.fn(),
-          options: ["evergreen", "spruce"],
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           buttonRenderer: (option: string) => (
             <b className="just-a-test">{option}</b>
           ),
+          onChange: vi.fn(),
+          options: ["evergreen", "spruce"],
+          value: "evergreen",
         }),
       );
       expect(screen.getByText("evergreen")).toBeInTheDocument();

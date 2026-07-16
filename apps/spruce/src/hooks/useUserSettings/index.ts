@@ -12,5 +12,5 @@ export const useUserSettings = () => {
   >(USER_SETTINGS);
 
   const { user } = data || {};
-  return { userSettings: user?.settings ?? {}, loading };
+  return { loading, userSettings: user?.settings ?? {} };
 };

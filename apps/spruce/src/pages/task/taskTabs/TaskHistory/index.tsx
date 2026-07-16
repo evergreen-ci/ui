@@ -101,23 +101,23 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
     TaskHistoryQuery,
     TaskHistoryQueryVariables
   >(TASK_HISTORY, {
+    fetchPolicy: "cache-first",
+    pollInterval: isFirstPage ? DEFAULT_POLL_INTERVAL : 0,
     variables: {
+      includeGenerator: !!task.generatedBy,
       options: {
-        taskName,
         buildVariant,
-        projectIdentifier,
         cursorParams: {
           cursorId,
           direction,
           includeCursor,
         },
-        limit: ACTIVATED_TASKS_LIMIT,
         date: utcDate,
+        limit: ACTIVATED_TASKS_LIMIT,
+        projectIdentifier,
+        taskName,
       },
-      includeGenerator: !!task.generatedBy,
     },
-    fetchPolicy: "cache-first",
-    pollInterval: isFirstPage ? DEFAULT_POLL_INTERVAL : 0,
   });
   useErrorToast(error, "Unable to get task history");
 
@@ -134,8 +134,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
 
   const groupedTasks = groupTasks(tasks, {
     shouldCollapse,
-    timezone,
     testFailureSearchTerm,
+    timezone,
   });
 
   const numVisibleTasks = Math.floor(
@@ -164,8 +164,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
     if (direction === TaskHistoryDirection.After && prevPageCursor) {
       setQueryParams({
         ...queryParams,
-        [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
         [TaskHistoryOptions.CursorID]: prevPageCursor.id,
+        [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
         [TaskHistoryOptions.IncludeCursor]: true,
       });
     }
@@ -190,8 +190,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
             loading={loading}
             pagination={{
               mostRecentTaskOrder,
-              oldestTaskOrder,
               nextPageCursor,
+              oldestTaskOrder,
               prevPageCursor,
             }}
             tasks={visibleTasks}

@@ -157,8 +157,8 @@ export const getSleepSchedule = ({
     dailyStartTime: runContinuously ? "" : toTimeString(new Date(startTime)),
     dailyStopTime: runContinuously ? "" : toTimeString(new Date(stopTime)),
     permanentlyExempt: false,
-    timeZone,
     shouldKeepOff: false,
+    timeZone,
     ...(temporarilyExemptUntil
       ? { temporarilyExemptUntil: new Date(temporarilyExemptUntil) }
       : {}),
@@ -219,8 +219,7 @@ export const getHostUptimeFromGql = (
   } = sleepSchedule;
 
   return {
-    useDefaultUptimeSchedule: matchesDefaultUptimeSchedule(sleepSchedule),
-    temporarilyExemptUntil: temporarilyExemptUntil?.toString() ?? "",
+    details: { timeZone },
     sleepSchedule: {
       enabledWeekdays: new Array(7)
         .fill(false)
@@ -228,6 +227,7 @@ export const getHostUptimeFromGql = (
       timeSelection:
         dailyStartTime && dailyStopTime
           ? {
+              runContinuously: false,
               startTime: parse(
                 dailyStartTime,
                 "HH:mm",
@@ -238,15 +238,15 @@ export const getHostUptimeFromGql = (
                 "HH:mm",
                 new Date(0, 0),
               ).toString(),
-              runContinuously: false,
             }
           : {
+              runContinuously: true,
               startTime: defaultStartDate.toString(),
               stopTime: defaultStopDate.toString(),
-              runContinuously: true,
             },
     },
-    details: { timeZone },
+    temporarilyExemptUntil: temporarilyExemptUntil?.toString() ?? "",
+    useDefaultUptimeSchedule: matchesDefaultUptimeSchedule(sleepSchedule),
   };
 };
 
@@ -396,6 +396,6 @@ export const getNextHostStart = (
 const today = new Date();
 
 export const exemptionRange = {
-  disableBefore: today,
   disableAfter: add(today, { months: 1 }),
+  disableBefore: today,
 };

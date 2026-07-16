@@ -34,35 +34,35 @@ export const StatusSelector: React.FC = () => {
 const statusValToCopy = {
   [ALL_PATCH_STATUS]: "All",
   [PatchStatus.Created]: "Created/Unconfigured",
-  [PatchStatus.Success]: "Succeeded",
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",
+  [PatchStatus.Success]: "Succeeded",
 };
 
 const treeData = [
   {
+    key: ALL_PATCH_STATUS,
     title: statusValToCopy[ALL_PATCH_STATUS],
     value: ALL_PATCH_STATUS,
-    key: ALL_PATCH_STATUS,
   },
   {
+    key: PatchStatus.Success,
     title: statusValToCopy[PatchStatus.Success],
     value: PatchStatus.Success,
-    key: PatchStatus.Success,
   },
   {
+    key: PatchStatus.Created,
     title: statusValToCopy[PatchStatus.Created],
     value: PatchStatus.Created,
-    key: PatchStatus.Created,
   },
   {
+    key: PatchStatus.Started,
     title: statusValToCopy[PatchStatus.Started],
     value: PatchStatus.Started,
-    key: PatchStatus.Started,
   },
   {
+    key: PatchStatus.Failed,
     title: statusValToCopy[PatchStatus.Failed],
     value: PatchStatus.Failed,
-    key: PatchStatus.Failed,
   },
 ];

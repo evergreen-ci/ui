@@ -24,35 +24,35 @@ test.describe("Periodic Builds page", () => {
     await page.getByTestId("navitem-periodic-builds").click();
     await page.getByRole("button", { name: "Add periodic build" }).click();
     await validateDatePickerDate(page, "date-picker", {
-      year: "2025",
-      month: "09",
       day: "16",
+      month: "09",
+      year: "2025",
     });
     await clearDatePickerInput(page);
 
-    await typeDatePickerDate(page, { year: "2025", month: "01", day: "01" });
+    await typeDatePickerDate(page, { day: "01", month: "01", year: "2025" });
     await validateDatePickerDate(page, "date-picker", {
-      year: "2025",
-      month: "01",
       day: "01",
+      month: "01",
+      year: "2025",
     });
     await expect(page.getByText("Date must be after")).toBeVisible();
     await clearDatePickerInput(page);
 
-    await typeDatePickerDate(page, { year: "2025", month: "09", day: "20" });
+    await typeDatePickerDate(page, { day: "20", month: "09", year: "2025" });
     await validateDatePickerDate(page, "date-picker", {
-      year: "2025",
-      month: "09",
       day: "20",
+      month: "09",
+      year: "2025",
     });
     await expect(page.getByText("Date must be after")).toHaveCount(0);
     await clearDatePickerInput(page);
 
-    await typeDatePickerDate(page, { year: "2025", month: "09", day: "16" });
+    await typeDatePickerDate(page, { day: "16", month: "09", year: "2025" });
     await validateDatePickerDate(page, "date-picker", {
-      year: "2025",
-      month: "09",
       day: "16",
+      month: "09",
+      year: "2025",
     });
     await expect(page.getByText("Date must be after")).toHaveCount(0);
   });

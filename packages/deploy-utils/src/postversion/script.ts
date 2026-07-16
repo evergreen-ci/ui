@@ -14,15 +14,15 @@ const tagName = `${app}/v${newVersion}`;
 console.log(`Creating commit and tag for ${tagName}...`);
 
 // Stage the package.json change
-execSync("git add package.json", { stdio: "inherit", encoding: "utf-8" });
+execSync("git add package.json", { encoding: "utf-8", stdio: "inherit" });
 
 // Create the version commit
-execSync(`git commit -m "${tagName}"`, { stdio: "inherit", encoding: "utf-8" });
+execSync(`git commit -m "${tagName}"`, { encoding: "utf-8", stdio: "inherit" });
 
 // Create the annotated tag
 execSync(`git tag -a "${tagName}" -m "${tagName}"`, {
-  stdio: "inherit",
   encoding: "utf-8",
+  stdio: "inherit",
 });
 
 push();

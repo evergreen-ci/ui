@@ -83,13 +83,12 @@ const columns = (
   customKeyValueRenderConfig: CustomKeyValueRenderConfig = {},
 ): LGColumnDef<EventDiffLine>[] => [
   {
-    header: "Property",
     accessorKey: "key",
     cell: ({ getValue }) => <CellText>{getValue() as string}</CellText>,
     enableSorting: true,
+    header: "Property",
   },
   {
-    header: "Before",
     accessorKey: "before",
     cell: ({ getValue, row }) => (
       <CellText>
@@ -100,9 +99,9 @@ const columns = (
         )}
       </CellText>
     ),
+    header: "Before",
   },
   {
-    header: "After",
     accessorKey: "after",
     cell: ({ getValue, row }) =>
       getValue() === null || getValue() === undefined ? (
@@ -117,6 +116,7 @@ const columns = (
           )}
         </CellText>
       ),
+    header: "After",
   },
 ];
 

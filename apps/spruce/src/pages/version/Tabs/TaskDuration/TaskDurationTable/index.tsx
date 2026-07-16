@@ -77,8 +77,8 @@ const TaskDurationTable: React.FC<Props> = ({
     const updatedParams = {
       ...queryParams,
       page: "0",
-      [PatchTasksQueryParams.TaskName]: undefined,
       [PatchTasksQueryParams.Statuses]: undefined,
+      [PatchTasksQueryParams.TaskName]: undefined,
       [PatchTasksQueryParams.Variant]: undefined,
     };
 
@@ -89,8 +89,8 @@ const TaskDurationTable: React.FC<Props> = ({
 
     setQueryParams(updatedParams);
     sendEvent({
-      name: "Filtered task duration table",
       "filter.by": Object.keys(filterState),
+      name: "Filtered task duration table",
     });
   };
 
@@ -120,12 +120,12 @@ const TaskDurationTable: React.FC<Props> = ({
         // https://github.com/TanStack/table/issues/4289
         sortDescFirst: false,
       },
-      isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
       getFacetedMinMaxValues: getFacetedMinMaxValues(),
       initialState: {
         columnFilters: initialFilters,
         sorting: initialSort,
       },
+      isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
       manualFiltering: true,
       manualPagination: true,
       manualSorting: true,
@@ -140,8 +140,8 @@ const TaskDurationTable: React.FC<Props> = ({
       onSortingChange: onChangeHandler<SortingState>(setSorting, (sorts) => {
         tableSortHandler(
           sorts.map(({ desc, id }) => ({
-            id: columnIdToSortCategory[id],
             desc,
+            id: columnIdToSortCategory[id],
           })),
         );
       }),
@@ -164,12 +164,7 @@ const getColumns = (
   statusOptions: TreeDataEntry[],
 ): LGColumnDef<TaskDurationData>[] => [
   {
-    id: PatchTasksQueryParams.TaskName,
     accessorKey: "displayName",
-    header: "Task Name",
-    size: 250,
-    enableColumnFilter: true,
-    enableSorting: true,
     cell: ({
       getValue,
       row: {
@@ -182,51 +177,51 @@ const getColumns = (
         taskName={getValue() as string}
       />
     ),
+    enableColumnFilter: true,
+    enableSorting: true,
+    header: "Task Name",
+    id: PatchTasksQueryParams.TaskName,
     meta: {
       search: {
         "data-cy": "task-name-filter-popover",
         placeholder: "Task name regex",
       },
     },
+    size: 250,
   },
   {
-    id: PatchTasksQueryParams.Statuses,
     accessorKey: "displayStatus",
-    header: "Status",
-    size: 120,
-    enableColumnFilter: true,
-    enableSorting: true,
     cell: ({ getValue }) => (
       <TaskStatusBadge status={getValue() as TaskStatus} />
     ),
+    enableColumnFilter: true,
+    enableSorting: true,
+    header: "Status",
+    id: PatchTasksQueryParams.Statuses,
     meta: {
       treeSelect: {
         "data-cy": "status-filter-popover",
         options: statusOptions,
       },
     },
+    size: 120,
   },
   {
-    id: PatchTasksQueryParams.Variant,
     accessorKey: "buildVariantDisplayName",
-    header: "Build Variant",
-    size: 150,
     enableColumnFilter: true,
     enableSorting: true,
+    header: "Build Variant",
+    id: PatchTasksQueryParams.Variant,
     meta: {
       search: {
         "data-cy": "build-variant-filter-popover",
         placeholder: "Build variant regex",
       },
     },
+    size: 150,
   },
   {
-    id: PatchTasksQueryParams.Duration,
     accessorKey: "timeTaken",
-    header: "Task Duration",
-    enableColumnFilter: false,
-    enableSorting: true,
-    size: 250,
     cell: ({
       column,
       getValue,
@@ -240,13 +235,18 @@ const getColumns = (
         timeTaken={getValue() as number}
       />
     ),
+    enableColumnFilter: false,
+    enableSorting: true,
+    header: "Task Duration",
+    id: PatchTasksQueryParams.Duration,
+    size: 250,
   },
 ];
 
 const columnIdToSortCategory: { [key: string]: TaskSortCategory } = {
   [PatchTasksQueryParams.Duration]: TaskSortCategory.Duration,
-  [PatchTasksQueryParams.TaskName]: TaskSortCategory.Name,
   [PatchTasksQueryParams.Statuses]: TaskSortCategory.Status,
+  [PatchTasksQueryParams.TaskName]: TaskSortCategory.Name,
   [PatchTasksQueryParams.Variant]: TaskSortCategory.Variant,
 };
 
@@ -288,16 +288,16 @@ export const getInitialParams = (
   const initialSort: SortingState = sorts
     ? parseSortString(sorts, {
         sortByKey: "sortCategory",
-        sortDirKey: "direction",
         sortCategoryEnum: TaskSortCategory,
+        sortDirKey: "direction",
       }).map(({ direction, sortCategory }) => ({
-        id: sortCategoryToColumnId[sortCategory],
         desc: direction === SortDirection.Desc,
+        id: sortCategoryToColumnId[sortCategory],
       }))
     : [
         {
-          id: PatchTasksQueryParams.Duration,
           desc: true,
+          id: PatchTasksQueryParams.Duration,
         },
       ];
 

@@ -15,24 +15,24 @@ test.describe("restart tasks", () => {
 
     await selectDatePickerDate(
       page,
-      { year: "2020", month: "Feb", isoDate: "2020-02-01" },
+      { isoDate: "2020-02-01", month: "Feb", year: "2020" },
       "start-date-picker",
     );
     await validateDatePickerDate(page, "start-date-picker", {
-      year: "2020",
-      month: "02",
       day: "01",
+      month: "02",
+      year: "2020",
     });
 
     await selectDatePickerDate(
       page,
-      { year: "2021", month: "Mar", isoDate: "2021-03-01" },
+      { isoDate: "2021-03-01", month: "Mar", year: "2021" },
       "end-date-picker",
     );
     await validateDatePickerDate(page, "end-date-picker", {
-      year: "2021",
-      month: "03",
       day: "01",
+      month: "03",
+      year: "2021",
     });
 
     await expect(page.getByTestId("restart-tasks-button")).toBeEnabled();

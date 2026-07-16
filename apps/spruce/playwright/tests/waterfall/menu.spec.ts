@@ -112,14 +112,14 @@ test.describe("Waterfall subscription modal", () => {
     page,
   }) => {
     await mockGraphQLResponse(page, "SaveSubscriptionForUser", {
+      data: null,
       errors: [
         {
+          extensions: { code: "INTERNAL_SERVER_ERROR" },
           message: "error",
           path: ["SaveSubscriptionForUser"],
-          extensions: { code: "INTERNAL_SERVER_ERROR" },
         },
       ],
-      data: null,
     });
 
     await page.getByTestId("waterfall-menu").click();
@@ -140,21 +140,21 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(dataCyModal)).toBeHidden();
   });
 
-  test("Pulls initial values from cookies", async ({ page, context }) => {
+  test("Pulls initial values from cookies", async ({ context, page }) => {
     const type = "project";
     const triggerCookie = `${type}-notification-trigger`;
     await context.addCookies([
       {
-        name: triggerCookie,
-        value: "any-build-fails",
         domain: "localhost",
+        name: triggerCookie,
         path: "/",
+        value: "any-build-fails",
       },
       {
-        name: "subscription-method",
-        value: "slack",
         domain: "localhost",
+        name: "subscription-method",
         path: "/",
+        value: "slack",
       },
     ]);
 

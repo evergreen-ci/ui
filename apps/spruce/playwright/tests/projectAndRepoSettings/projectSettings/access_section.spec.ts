@@ -28,8 +28,8 @@ test.describe("Access page", () => {
     page,
   }) => {
     const unrestrictedRadio = page.getByRole("radio", {
-      name: "Unrestricted",
       exact: true,
+      name: "Unrestricted",
     });
     await clickRadio(unrestrictedRadio);
     await expect(unrestrictedRadio).toBeChecked();

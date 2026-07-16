@@ -14,37 +14,11 @@ describe("external communications section", () => {
 });
 
 const form: ExternalCommunicationsFormState = {
-  jira: {
-    email: "jira@example.com",
-    host: "jira.example.com",
-    personalAccessToken: "jira-token",
-  },
-  slack: {
-    token: "slack-token",
-    name: "slack-app",
-    level: PriorityLevel.Warning,
-    channel: "#evergreen",
-    hostname: "slack.example.com",
-    optionsName: "slack-options",
-    username: "evg-bot",
-    basicMetadata: true,
-    fields: false,
-    allFields: true,
-    fieldsSet: ["field1", "field2"],
-  },
-  splunk: {
-    splunkConnectionInfo: {
-      serverUrl: "splunk.example.com",
-      token: "splunk-token",
-      channel: "evergreen",
-    },
-  },
-  runtimeEnvironments: {
-    baseUrl: "runtime.example.com",
-    apiKey: "runtime-api-key",
-  },
-  testSelection: {
-    url: "testselection.example.com",
+  cedar: {
+    dbName: "cedar-db",
+    dbUrl: "cedar-db.example.com",
+    spsKanopyUrl: "sps-kanopy.example.com",
+    spsUrl: "sps.example.com",
   },
   fws: {
     url: "fws.example.com",
@@ -53,54 +27,47 @@ const form: ExternalCommunicationsFormState = {
     ciOptimizationToken: "graphite-token",
     serverUrl: "graphite.example.com",
   },
-  cedar: {
-    dbUrl: "cedar-db.example.com",
-    dbName: "cedar-db",
-    spsUrl: "sps.example.com",
-    spsKanopyUrl: "sps-kanopy.example.com",
+  jira: {
+    email: "jira@example.com",
+    host: "jira.example.com",
+    personalAccessToken: "jira-token",
+  },
+  runtimeEnvironments: {
+    apiKey: "runtime-api-key",
+    baseUrl: "runtime.example.com",
   },
   sage: {
     baseUrl: "https://sage.devprod.prod.corp.mongodb.com",
+  },
+  slack: {
+    allFields: true,
+    basicMetadata: true,
+    channel: "#evergreen",
+    fields: false,
+    fieldsSet: ["field1", "field2"],
+    hostname: "slack.example.com",
+    level: PriorityLevel.Warning,
+    name: "slack-app",
+    optionsName: "slack-options",
+    token: "slack-token",
+    username: "evg-bot",
+  },
+  splunk: {
+    splunkConnectionInfo: {
+      channel: "evergreen",
+      serverUrl: "splunk.example.com",
+      token: "splunk-token",
+    },
+  },
+  testSelection: {
+    url: "testselection.example.com",
   },
 };
 
 const gql: AdminSettingsInput = {
-  jira: {
-    email: "jira@example.com",
-    host: "jira.example.com",
-    personalAccessToken: "jira-token",
-  },
-  slack: {
-    token: "slack-token",
-    name: "slack-app",
-    level: PriorityLevel.Warning,
-    options: {
-      channel: "#evergreen",
-      hostname: "slack.example.com",
-      name: "slack-options",
-      username: "evg-bot",
-      basicMetadata: true,
-      fields: false,
-      allFields: true,
-      fieldsSet: {
-        field1: true,
-        field2: true,
-      },
-    },
-  },
-  splunk: {
-    splunkConnectionInfo: {
-      serverUrl: "splunk.example.com",
-      token: "splunk-token",
-      channel: "evergreen",
-    },
-  },
-  runtimeEnvironments: {
-    baseUrl: "runtime.example.com",
-    apiKey: "runtime-api-key",
-  },
-  testSelection: {
-    url: "testselection.example.com",
+  cedar: {
+    dbName: "cedar-db",
+    dbUrl: "cedar-db.example.com",
   },
   fws: {
     url: "fws.example.com",
@@ -109,56 +76,56 @@ const gql: AdminSettingsInput = {
     ciOptimizationToken: "graphite-token",
     serverUrl: "graphite.example.com",
   },
-  cedar: {
-    dbUrl: "cedar-db.example.com",
-    dbName: "cedar-db",
+  jira: {
+    email: "jira@example.com",
+    host: "jira.example.com",
+    personalAccessToken: "jira-token",
   },
-  perfMonitoringURL: "sps.example.com",
   perfMonitoringKanopyURL: "sps-kanopy.example.com",
+  perfMonitoringURL: "sps.example.com",
+  runtimeEnvironments: {
+    apiKey: "runtime-api-key",
+    baseUrl: "runtime.example.com",
+  },
   sage: {
     baseUrl: "https://sage.devprod.prod.corp.mongodb.com",
+  },
+  slack: {
+    level: PriorityLevel.Warning,
+    name: "slack-app",
+    options: {
+      allFields: true,
+      basicMetadata: true,
+      channel: "#evergreen",
+      fields: false,
+      fieldsSet: {
+        field1: true,
+        field2: true,
+      },
+      hostname: "slack.example.com",
+      name: "slack-options",
+      username: "evg-bot",
+    },
+    token: "slack-token",
+  },
+  splunk: {
+    splunkConnectionInfo: {
+      channel: "evergreen",
+      serverUrl: "splunk.example.com",
+      token: "splunk-token",
+    },
+  },
+  testSelection: {
+    url: "testselection.example.com",
   },
 };
 
 const mockAdminSettings: AdminSettingsData = {
+  cedar: {
+    dbName: "cedar-db",
+    dbUrl: "cedar-db.example.com",
+  },
   disabledGQLQueries: [],
-  jira: {
-    email: "jira@example.com",
-    host: "jira.example.com",
-    personalAccessToken: "jira-token",
-  },
-  slack: {
-    token: "slack-token",
-    name: "slack-app",
-    level: PriorityLevel.Warning,
-    options: {
-      channel: "#evergreen",
-      hostname: "slack.example.com",
-      name: "slack-options",
-      username: "evg-bot",
-      basicMetadata: true,
-      fields: false,
-      allFields: true,
-      fieldsSet: {
-        field1: true,
-        field2: true,
-      },
-    },
-  },
-  splunk: {
-    splunkConnectionInfo: {
-      serverUrl: "splunk.example.com",
-      token: "splunk-token",
-      channel: "evergreen",
-    },
-  },
-  runtimeEnvironments: {
-    baseUrl: "runtime.example.com",
-    apiKey: "runtime-api-key",
-  },
-  testSelection: {
-    url: "testselection.example.com",
-  },
   fws: {
     url: "fws.example.com",
   },
@@ -166,13 +133,46 @@ const mockAdminSettings: AdminSettingsData = {
     ciOptimizationToken: "graphite-token",
     serverUrl: "graphite.example.com",
   },
-  cedar: {
-    dbUrl: "cedar-db.example.com",
-    dbName: "cedar-db",
+  jira: {
+    email: "jira@example.com",
+    host: "jira.example.com",
+    personalAccessToken: "jira-token",
   },
-  perfMonitoringURL: "sps.example.com",
   perfMonitoringKanopyURL: "sps-kanopy.example.com",
+  perfMonitoringURL: "sps.example.com",
+  runtimeEnvironments: {
+    apiKey: "runtime-api-key",
+    baseUrl: "runtime.example.com",
+  },
   sage: {
     baseUrl: "https://sage.devprod.prod.corp.mongodb.com",
+  },
+  slack: {
+    level: PriorityLevel.Warning,
+    name: "slack-app",
+    options: {
+      allFields: true,
+      basicMetadata: true,
+      channel: "#evergreen",
+      fields: false,
+      fieldsSet: {
+        field1: true,
+        field2: true,
+      },
+      hostname: "slack.example.com",
+      name: "slack-options",
+      username: "evg-bot",
+    },
+    token: "slack-token",
+  },
+  splunk: {
+    splunkConnectionInfo: {
+      channel: "evergreen",
+      serverUrl: "splunk.example.com",
+      token: "splunk-token",
+    },
+  },
+  testSelection: {
+    url: "testselection.example.com",
   },
 };

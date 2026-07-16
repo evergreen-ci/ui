@@ -9,8 +9,8 @@ export const MarkReviewed: React.FC<{
   execution: number;
 }> = ({ execution, taskId }) => {
   const { checked, task, updateDisplayTask, updateTask } = useTaskReview({
-    taskId: taskId ?? "",
     execution: execution ?? 0,
+    taskId: taskId ?? "",
   });
 
   const handleClick = () => {

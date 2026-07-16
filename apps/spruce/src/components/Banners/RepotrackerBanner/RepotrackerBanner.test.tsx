@@ -144,8 +144,8 @@ const projectNoError: ApolloMock<
     data: {
       project: {
         __typename: "Project",
-        id: "evergreen",
         branch: "",
+        id: "evergreen",
         repotrackerError: null,
       },
     },
@@ -166,8 +166,8 @@ const projectWithError: ApolloMock<
     data: {
       project: {
         __typename: "Project",
-        id: "evergreen",
         branch: "main",
+        id: "evergreen",
         repotrackerError: {
           __typename: "RepotrackerError",
           exists: true,
@@ -190,16 +190,16 @@ const adminUser: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "admin",
         permissions: {
           __typename: "Permissions",
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
-            id: "evergreen",
             edit: true,
+            id: "evergreen",
           },
         },
+        userId: "admin",
       },
     },
   },
@@ -217,16 +217,16 @@ const basicUser: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "basic",
         permissions: {
           __typename: "Permissions",
           canCreateProject: false,
           projectPermissions: {
             __typename: "ProjectPermissions",
-            id: "evergreen",
             edit: false,
+            id: "evergreen",
           },
         },
+        userId: "basic",
       },
     },
   },

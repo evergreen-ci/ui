@@ -86,20 +86,20 @@ const BaseForm = ({ data, schema, title, uiSchema }) => {
 };
 
 const example1Def = {
+  formData: {
+    cloneMethod: "legacy-ssh",
+    expansions: [{ key: "Sample Input", value: "Sample Input" }],
+  },
   schema: {
-    type: "object" as const,
     properties: {
       cloneMethod: {
-        type: "string" as const,
-        title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
         enumNames: ["Legacy SSH", "Oath Token"],
+        title: "Project Cloning Method",
+        type: "string" as const,
       },
       expansions: {
-        type: "array" as const,
-        title: "Expansions",
         items: {
-          type: "object" as const,
           properties: {
             key: {
               type: "string" as const,
@@ -108,23 +108,20 @@ const example1Def = {
               type: "string" as const,
             },
           },
+          type: "object" as const,
         },
+        title: "Expansions",
+        type: "array" as const,
       },
       validProjects: {
-        type: "string" as const,
-        title: "Valid Projects",
         placeholder: "Sample input",
+        title: "Valid Projects",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
-    validProjects: {
-      "ui:widget": "textarea",
-      "ui:options": {
-        rows: 5,
-        label: false,
-      },
-    },
     cloneMethod: {
       "ui:options": {
         label: false,
@@ -135,140 +132,143 @@ const example1Def = {
         "ui:label": false,
       },
     },
-  },
-  formData: {
-    cloneMethod: "legacy-ssh",
-    expansions: [{ key: "Sample Input", value: "Sample Input" }],
+    validProjects: {
+      "ui:options": {
+        label: false,
+        rows: 5,
+      },
+      "ui:widget": "textarea",
+    },
   },
 };
 
 const example2Def = {
+  formData: {
+    decommissionHosts: true,
+    disableQueue: false,
+    disableShallowClone: false,
+    distroIsCluster: false,
+  },
   schema: {
-    type: "object" as const,
     properties: {
-      distroIsCluster: {
+      decommissionHosts: {
+        title: "Decommission hosts of this distro for this update",
         type: "boolean" as const,
-        title:
-          "Mark distro as a cluster (jobs are not run on this host, used for special purposes).",
-      },
-      disableShallowClone: {
-        type: "boolean" as const,
-        title: "Disable shallow clone for this distro.",
       },
       disableQueue: {
-        type: "boolean" as const,
         title:
           "Disable queueing this distro. Tasks already in the task queue will be removed.",
-      },
-      decommissionHosts: {
         type: "boolean" as const,
-        title: "Decommission hosts of this distro for this update",
+      },
+      disableShallowClone: {
+        title: "Disable shallow clone for this distro.",
+        type: "boolean" as const,
+      },
+      distroIsCluster: {
+        title:
+          "Mark distro as a cluster (jobs are not run on this host, used for special purposes).",
+        type: "boolean" as const,
       },
       reprovisionMethod: {
-        title: "",
-        type: "string" as const,
         enum: ["restartJasper", "reprovisionHosts"],
         enumNames: [
           "Restart Jasper service on running hosts of this distro for this update",
           "Reprovision running hosts of this distro for this update",
         ],
+        title: "",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     reprovisionMethod: {
-      "ui:widget": "radio",
       "ui:options": {
-        label: false,
         bold: true,
+        label: false,
       },
+      "ui:widget": "radio",
     },
     "ui:options": {
       label: false,
     },
   },
-  formData: {
-    distroIsCluster: false,
-    disableShallowClone: false,
-    disableQueue: false,
-    decommissionHosts: true,
-  },
 };
 
 const example3Def = {
+  formData: {
+    visible: true,
+  },
   schema: {
-    type: "object" as const,
     properties: {
       invisible: {
-        type: "object" as const,
-        title: "Invisible",
         description: "This field should be invisible",
         properties: {
           child: {
-            type: "string" as const,
             title: "And so should its children",
+            type: "string" as const,
           },
         },
+        title: "Invisible",
+        type: "object" as const,
       },
       visible: {
         title: "This is the only visible page element",
         type: "boolean" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     invisible: {
       "ui:widget": "hidden",
     },
   },
-  formData: {
-    visible: true,
-  },
 };
 
 const example4Def = {
+  formData: {
+    testText: ["text1", "text2", "text3"],
+  },
   schema: {
-    type: "object" as const,
     properties: {
       testText: {
-        title: "This is the only visible page element",
-        type: "array" as const,
-        uniqueItems: true,
         default: [],
         items: {
-          type: "string" as const,
           properties: {
             value: {
               type: "string" as const,
             },
           },
+          type: "string" as const,
         },
+        title: "This is the only visible page element",
+        type: "array" as const,
+        uniqueItems: true,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     testText: {
       "ui:widget": widgets.ChipInputWidget,
     },
   },
-  formData: {
-    testText: ["text1", "text2", "text3"],
-  },
 };
 
 const dateTimeSchema = {
   formData: {},
   schema: {
-    type: "object" as const,
     properties: {
       nextRunTime: {
-        type: "string" as const,
-        title: "Next Run Time",
         default: new Date(
           "Tue Sep 16 2025 11:19:00 GMT-0400 (Eastern Daylight Time)",
         ).toString(),
+        title: "Next Run Time",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     nextRunTime: {

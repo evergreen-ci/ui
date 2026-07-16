@@ -7,32 +7,32 @@ export default {
 } satisfies CustomMeta<typeof PageTitle>;
 
 export const Default: CustomStoryObj<typeof PageTitle> = {
-  render: (args) => <PageTitle {...args} />,
-  argTypes: {},
   args: {
-    loading: false,
-    title: "Test Page",
-    size: "large",
     badge: <Badge>Some Badge</Badge>,
+    loading: false,
+    size: "large",
+    title: "Test Page",
   },
+  argTypes: {},
+  render: (args) => <PageTitle {...args} />,
 };
 
 export const WithBadge: CustomStoryObj<typeof PageTitle> = {
-  render: (args) => <PageTitle {...args} />,
-  argTypes: {},
   args: {
+    badge: <Badge>Some Badge</Badge>,
     loading: false,
     title: "Test Page",
-    badge: <Badge>Some Badge</Badge>,
   },
+  argTypes: {},
+  render: (args) => <PageTitle {...args} />,
 };
 
 export const WithSubtitle: CustomStoryObj<typeof PageTitle> = {
-  render: (args) => <PageTitle {...args} />,
-  argTypes: {},
   args: {
     loading: false,
-    title: "Test Page",
     subtitle: <>Some subtitle</>,
+    title: "Test Page",
   },
+  argTypes: {},
+  render: (args) => <PageTitle {...args} />,
 };

@@ -64,9 +64,9 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           onChange={(newDate) => {
             setQueryParams({
               ...queryParams,
+              [WaterfallFilterOptions.Date]: newDate,
               [WaterfallFilterOptions.MaxOrder]: undefined,
               [WaterfallFilterOptions.MinOrder]: undefined,
-              [WaterfallFilterOptions.Date]: newDate,
             });
             sendEvent({ name: "Filtered by date" });
           }}

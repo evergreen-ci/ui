@@ -27,8 +27,8 @@ describe("findEvergreen", () => {
 describe("makeEmail", async () => {
   const defaultArgs = {
     app: "spruce" as DeployableApp,
-    commitToDeploy: "123",
     commitsString: "commit's a\ncommit b\n",
+    commitToDeploy: "123",
     isRevert: false,
     previousTag: "spruce/v0.0.1",
   };

@@ -70,11 +70,11 @@ const extractProperties = (node: ts.TypeLiteralNode): ActionProperty[] => {
         const typeString = getTypeString(member.type);
         properties.push({
           name,
-          type: typeString,
           optional,
+          type: typeString,
         });
       } else {
-        properties.push({ name, type: "any", optional });
+        properties.push({ name, optional, type: "any" });
       }
     }
   }
@@ -290,9 +290,9 @@ const parseAnalyticsFile = (filePath: string): IdentifierData | null => {
     }
 
     return {
-      identifier,
       actions,
       filePath,
+      identifier,
     };
   } catch (error) {
     return null;

@@ -39,17 +39,17 @@ export const gqlToForm = ((data, options) => {
 
   return {
     github: {
-      prTestingEnabled,
+      githubPRTriggerAliases,
       manualPrTestingEnabled,
       oldestAllowedMergeBase: oldestAllowedMergeBase ?? "",
       prTesting: {
+        githubPrAliases,
         githubPrAliasesOverride: canOverrideForProject(
           options?.projectType,
           githubPrAliases,
         ),
-        githubPrAliases,
       },
-      githubPRTriggerAliases,
+      prTestingEnabled,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -68,9 +68,9 @@ export const formToGql = ((
 ) => {
   const projectRef: ProjectInput = {
     id,
-    prTestingEnabled,
     manualPrTestingEnabled,
     oldestAllowedMergeBase,
+    prTestingEnabled,
   };
 
   const githubPrAliases = transformAliases(
@@ -81,7 +81,7 @@ export const formToGql = ((
 
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
-    projectRef,
     aliases: githubPrAliases,
+    projectRef,
   };
 }) satisfies FormToGqlFunction<Tab>;

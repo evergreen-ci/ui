@@ -6,6 +6,6 @@ export default {
 } satisfies CustomMeta<typeof ChatFeed>;
 
 export const Default: CustomStoryObj<typeof ChatFeed> = {
-  argTypes: {},
   args: {},
+  argTypes: {},
 };

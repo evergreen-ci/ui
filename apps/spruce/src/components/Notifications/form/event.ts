@@ -18,101 +18,101 @@ import {
 import { RegexSelectorRow } from "./RegexSelectorRow";
 
 const percentChangeInput = {
-  type: "number" as const,
-  title: "Percent Change",
-  minimum: 0,
   default: 10,
+  minimum: 0,
+  title: "Percent Change",
+  type: "number" as const,
 };
 
 const taskDurationInput = {
-  type: "number" as const,
-  title: "Task Duration (seconds)",
-  minimum: 0,
   default: 10,
+  minimum: 0,
+  title: "Task Duration (seconds)",
+  type: "number" as const,
 };
 
 const versionDurationInput = {
-  type: "number" as const,
-  title: "Version Duration (seconds)",
-  minimum: 0,
   default: 10,
+  minimum: 0,
+  title: "Version Duration (seconds)",
+  type: "number" as const,
 };
 
 const renotifyInput = {
-  type: "number" as const,
-  title: "Re-Notify After How Many Hours",
-  minimum: 0,
   default: 48,
+  minimum: 0,
+  title: "Re-Notify After How Many Hours",
+  type: "number" as const,
 };
 
 const testNameRegexInput = {
-  type: "string" as const,
-  title: "Test Names Matching Regex",
-  format: "validRegex",
   default: "",
+  format: "validRegex",
+  title: "Test Names Matching Regex",
+  type: "string" as const,
 };
 
 const buildSelect = {
-  type: "string" as const,
-  title: "Build Initiator",
   default: "gitter_request",
   oneOf: [
     ...Object.keys(requesterSubscriberOptions).map((r) => ({
-      type: "string" as const,
+      enum: [r],
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       title: requesterSubscriberOptions[r],
-      enum: [r],
+      type: "string" as const,
     })),
   ],
+  title: "Build Initiator",
+  type: "string" as const,
 };
 
 const failureSelect = {
-  type: "string" as const,
-  title: "Failure Type",
   default: "any",
   oneOf: [
     ...Object.keys(failureTypeSubscriberOptions).map((f) => ({
-      type: "string" as const,
+      enum: [f],
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       title: failureTypeSubscriberOptions[f],
-      enum: [f],
+      type: "string" as const,
     })),
   ],
+  title: "Failure Type",
+  type: "string" as const,
 };
 
 const regexSelector = (
   regexEnumsToDisable: string[],
   regexSelectors: RegexSelector[],
 ) => ({
-  type: "array" as const,
-  minItems: 0,
-  maxItems: 2,
   items: {
-    type: "object" as const,
-    required: ["regexSelect", "regexInput"],
     properties: {
-      regexSelect: {
+      regexInput: {
+        format: "validRegex",
+        minLength: 1,
+        title: "Regex",
         type: "string" as const,
-        title: "Field name",
+      },
+      regexSelect: {
         default: regexEnumsToDisable.includes(regexBuildVariant)
           ? regexDisplayName
           : regexBuildVariant,
         oneOf: [
           ...regexSelectors.map((r) => ({
-            type: "string" as const,
-            title: r.typeLabel,
             enum: [r.type],
+            title: r.typeLabel,
+            type: "string" as const,
           })),
         ],
-      },
-      regexInput: {
+        title: "Field name",
         type: "string" as const,
-        title: "Regex",
-        format: "validRegex",
-        minLength: 1,
       },
     },
+    required: ["regexSelect", "regexInput"],
+    type: "object" as const,
   },
+  maxItems: 2,
+  minItems: 0,
+  type: "array" as const,
 });
 
 /**
@@ -131,23 +131,6 @@ export const getEventSchema = (
   uiSchema: SpruceFormProps["uiSchema"];
 } => ({
   schema: {
-    type: "object" as const,
-    title: "Choose an Event",
-    required: ["eventSelect"],
-    properties: {
-      eventSelect: {
-        type: "string" as const,
-        title: "Event",
-        default: "",
-        oneOf: [
-          ...Object.keys(triggers).map((t) => ({
-            type: "string" as const,
-            title: triggers[t].label,
-            enum: [t],
-          })),
-        ],
-      },
-    },
     dependencies: {
       eventSelect: {
         oneOf: [
@@ -173,12 +156,12 @@ export const getEventSchema = (
                 enum: [TaskTriggers.TASK_RUNTIME_CHANGE],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.TASK_PERCENT_CHANGE],
                 properties: {
                   [ExtraFieldKey.TASK_PERCENT_CHANGE]: percentChangeInput,
                 },
+                required: [ExtraFieldKey.TASK_PERCENT_CHANGE],
+                title: "",
+                type: "object" as const,
               },
             },
           },
@@ -188,12 +171,12 @@ export const getEventSchema = (
                 enum: [VersionTriggers.VERSION_RUNTIME_CHANGE],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.VERSION_PERCENT_CHANGE],
                 properties: {
                   [ExtraFieldKey.VERSION_PERCENT_CHANGE]: percentChangeInput,
                 },
+                required: [ExtraFieldKey.VERSION_PERCENT_CHANGE],
+                title: "",
+                type: "object" as const,
               },
             },
           },
@@ -203,12 +186,12 @@ export const getEventSchema = (
                 enum: [TaskTriggers.TASK_EXCEEDS_DURATION],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.TASK_DURATION_SECS],
                 properties: {
                   [ExtraFieldKey.TASK_DURATION_SECS]: taskDurationInput,
                 },
+                required: [ExtraFieldKey.TASK_DURATION_SECS],
+                title: "",
+                type: "object" as const,
               },
             },
           },
@@ -218,12 +201,12 @@ export const getEventSchema = (
                 enum: [VersionTriggers.VERSION_EXCEEDS_DURATION],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.VERSION_DURATION_SECS],
                 properties: {
                   [ExtraFieldKey.VERSION_DURATION_SECS]: versionDurationInput,
                 },
+                required: [ExtraFieldKey.VERSION_DURATION_SECS],
+                title: "",
+                type: "object" as const,
               },
             },
           },
@@ -252,12 +235,12 @@ export const getEventSchema = (
                 ],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.BUILD_INITIATOR],
                 properties: {
                   [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
                 },
+                required: [ExtraFieldKey.BUILD_INITIATOR],
+                title: "",
+                type: "object" as const,
               },
             },
           },
@@ -271,12 +254,12 @@ export const getEventSchema = (
                 ],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.BUILD_INITIATOR],
                 properties: {
                   [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
                 },
+                required: [ExtraFieldKey.BUILD_INITIATOR],
+                title: "",
+                type: "object" as const,
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
@@ -295,12 +278,12 @@ export const getEventSchema = (
                 ],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.BUILD_INITIATOR],
                 properties: {
                   [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
                 },
+                required: [ExtraFieldKey.BUILD_INITIATOR],
+                title: "",
+                type: "object" as const,
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
@@ -314,16 +297,16 @@ export const getEventSchema = (
                 enum: [ProjectTriggers.ANY_TASK_FAILS],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
+                properties: {
+                  [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
+                  [ExtraFieldKey.FAILURE_TYPE]: failureSelect,
+                },
                 required: [
                   ExtraFieldKey.FAILURE_TYPE,
                   ExtraFieldKey.BUILD_INITIATOR,
                 ],
-                properties: {
-                  [ExtraFieldKey.FAILURE_TYPE]: failureSelect,
-                  [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
-                },
+                title: "",
+                type: "object" as const,
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
@@ -337,16 +320,16 @@ export const getEventSchema = (
                 enum: [ProjectTriggers.PREVIOUS_PASSING_TASK_FAILS],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
+                properties: {
+                  [ExtraFieldKey.FAILURE_TYPE]: failureSelect,
+                  [ExtraFieldKey.RENOTIFY_INTERVAL]: renotifyInput,
+                },
                 required: [
                   ExtraFieldKey.RENOTIFY_INTERVAL,
                   ExtraFieldKey.FAILURE_TYPE,
                 ],
-                properties: {
-                  [ExtraFieldKey.RENOTIFY_INTERVAL]: renotifyInput,
-                  [ExtraFieldKey.FAILURE_TYPE]: failureSelect,
-                },
+                title: "",
+                type: "object" as const,
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
@@ -360,18 +343,18 @@ export const getEventSchema = (
                 enum: [ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
+                properties: {
+                  [ExtraFieldKey.FAILURE_TYPE]: failureSelect,
+                  [ExtraFieldKey.RENOTIFY_INTERVAL]: renotifyInput,
+                  [ExtraFieldKey.TEST_REGEX]: testNameRegexInput,
+                },
                 required: [
                   ExtraFieldKey.TEST_REGEX,
                   ExtraFieldKey.RENOTIFY_INTERVAL,
                   ExtraFieldKey.FAILURE_TYPE,
                 ],
-                properties: {
-                  [ExtraFieldKey.TEST_REGEX]: testNameRegexInput,
-                  [ExtraFieldKey.RENOTIFY_INTERVAL]: renotifyInput,
-                  [ExtraFieldKey.FAILURE_TYPE]: failureSelect,
-                },
+                title: "",
+                type: "object" as const,
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
@@ -388,12 +371,12 @@ export const getEventSchema = (
                 ],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.TASK_DURATION_SECS],
                 properties: {
                   [ExtraFieldKey.TASK_DURATION_SECS]: taskDurationInput,
                 },
+                required: [ExtraFieldKey.TASK_DURATION_SECS],
+                title: "",
+                type: "object" as const,
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
@@ -407,12 +390,12 @@ export const getEventSchema = (
                 enum: [ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES],
               },
               extraFields: {
-                type: "object" as const,
-                title: "",
-                required: [ExtraFieldKey.TASK_PERCENT_CHANGE],
                 properties: {
                   [ExtraFieldKey.TASK_PERCENT_CHANGE]: percentChangeInput,
                 },
+                required: [ExtraFieldKey.TASK_PERCENT_CHANGE],
+                title: "",
+                type: "object" as const,
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
@@ -423,60 +406,77 @@ export const getEventSchema = (
         ],
       },
     },
+    properties: {
+      eventSelect: {
+        default: "",
+        oneOf: [
+          ...Object.keys(triggers).map((t) => ({
+            enum: [t],
+            title: triggers[t].label,
+            type: "string" as const,
+          })),
+        ],
+        title: "Event",
+        type: "string" as const,
+      },
+    },
+    required: ["eventSelect"],
+    title: "Choose an Event",
+    type: "object" as const,
   },
   uiSchema: {
     eventSelect: {
-      "ui:data-cy": "event-trigger-select",
       "ui:allowDeselect": false,
+      "ui:data-cy": "event-trigger-select",
     },
     extraFields: {
-      "ui:showLabel": false,
-      [ExtraFieldKey.TASK_PERCENT_CHANGE]: {
-        "ui:data-cy": "percent-change-input",
+      [ExtraFieldKey.BUILD_INITIATOR]: {
+        "ui:allowDeselect": false,
+        "ui:data-cy": "build-initiator-select",
       },
-      [ExtraFieldKey.VERSION_PERCENT_CHANGE]: {
-        "ui:data-cy": "percent-change-input",
-      },
-      [ExtraFieldKey.TASK_DURATION_SECS]: {
-        "ui:data-cy": "duration-secs-input",
-      },
-      [ExtraFieldKey.VERSION_DURATION_SECS]: {
-        "ui:data-cy": "duration-secs-input",
+      [ExtraFieldKey.FAILURE_TYPE]: {
+        "ui:allowDeselect": false,
+        "ui:data-cy": "failure-type-select",
       },
       [ExtraFieldKey.RENOTIFY_INTERVAL]: {
         "ui:data-cy": "renotify-interval-input",
       },
+      [ExtraFieldKey.TASK_DURATION_SECS]: {
+        "ui:data-cy": "duration-secs-input",
+      },
+      [ExtraFieldKey.TASK_PERCENT_CHANGE]: {
+        "ui:data-cy": "percent-change-input",
+      },
       [ExtraFieldKey.TEST_REGEX]: {
         "ui:data-cy": "test-regex-input",
       },
-      [ExtraFieldKey.BUILD_INITIATOR]: {
-        "ui:data-cy": "build-initiator-select",
-        "ui:allowDeselect": false,
+      [ExtraFieldKey.VERSION_DURATION_SECS]: {
+        "ui:data-cy": "duration-secs-input",
       },
-      [ExtraFieldKey.FAILURE_TYPE]: {
-        "ui:data-cy": "failure-type-select",
-        "ui:allowDeselect": false,
+      [ExtraFieldKey.VERSION_PERCENT_CHANGE]: {
+        "ui:data-cy": "percent-change-input",
       },
+      "ui:showLabel": false,
     },
     regexSelector: {
-      "ui:showLabel": false,
-      "ui:description":
-        "Regex can be specified for at most one name and one ID.",
-      "ui:orderable": false,
-      "ui:addToEnd": true,
-      "ui:addButtonText": "Add additional criteria",
       items: {
-        "ui:ObjectFieldTemplate": RegexSelectorRow,
-        "ui:label": false,
-        regexSelect: {
-          "ui:data-cy": "regex-select",
-          "ui:enumDisabled": regexEnumsToDisable,
-          "ui:allowDeselect": false,
-        },
         regexInput: {
           "ui:data-cy": "regex-input",
         },
+        regexSelect: {
+          "ui:allowDeselect": false,
+          "ui:data-cy": "regex-select",
+          "ui:enumDisabled": regexEnumsToDisable,
+        },
+        "ui:label": false,
+        "ui:ObjectFieldTemplate": RegexSelectorRow,
       },
+      "ui:addButtonText": "Add additional criteria",
+      "ui:addToEnd": true,
+      "ui:description":
+        "Regex can be specified for at most one name and one ID.",
+      "ui:orderable": false,
+      "ui:showLabel": false,
     },
   },
 });

@@ -7,19 +7,19 @@ import { useGetUserPatchesPageTitleAndLink } from ".";
 const createCacheWithUser = (currentUserId: string = "admin") => {
   const cache = new InMemoryCache();
   cache.writeQuery<UserQuery>({
-    query: USER,
     data: {
       user: {
         __typename: "UserLite",
-        userId: currentUserId,
         displayName: "Evergreen Admin",
         emailAddress: "admin@example.com",
         permissions: {
-          canEditAdminSettings: true,
           __typename: "Permissions",
+          canEditAdminSettings: true,
         },
+        userId: currentUserId,
       },
     },
+    query: USER,
   });
   return cache;
 };
@@ -36,8 +36,8 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
     const { result } = renderHook(
       () =>
         useGetUserPatchesPageTitleAndLink({
-          userId: "admin",
           displayName: "Evergreen Admin",
+          userId: "admin",
         }),
       { wrapper: Provider },
     );
@@ -51,8 +51,8 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
     const { result } = renderHook(
       () =>
         useGetUserPatchesPageTitleAndLink({
-          userId: "justin.mathew",
           displayName: "Justin Mathew",
+          userId: "justin.mathew",
         }),
       { wrapper: Provider },
     );

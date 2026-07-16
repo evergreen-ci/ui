@@ -47,11 +47,11 @@ export enum HostsTableFilterParams {
 }
 
 export const mapQueryParamToId: Record<HostsTableFilterParams, HostSortBy> = {
-  [HostsTableFilterParams.HostId]: HostSortBy.Id,
-  [HostsTableFilterParams.DistroId]: HostSortBy.Distro,
-  [HostsTableFilterParams.Statuses]: HostSortBy.Status,
   [HostsTableFilterParams.CurrentTaskId]: HostSortBy.CurrentTask,
+  [HostsTableFilterParams.DistroId]: HostSortBy.Distro,
+  [HostsTableFilterParams.HostId]: HostSortBy.Id,
   [HostsTableFilterParams.StartedBy]: HostSortBy.Owner,
+  [HostsTableFilterParams.Statuses]: HostSortBy.Status,
 } as const;
 
 export const mapIdToFilterParam: PartialRecord<

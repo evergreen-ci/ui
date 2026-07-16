@@ -19,27 +19,20 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 const baseVersion: Version = {
   __typename: "Version",
-  id: "version123",
   activated: true,
-  createTime: new Date("2024-01-01"),
-  errors: [],
-  finishTime: null,
-  ignored: false,
-  isPatch: false,
-  message: "Test commit",
-  order: 1,
-  repo: "evergreen",
-  requester: "gitter_request",
-  revision: "abc123def456",
-  startTime: new Date("2024-01-01"),
-  status: PatchStatus.Started,
-  taskCount: null,
-  warnings: [],
   baseVersion: null,
   cost: null,
+  createTime: new Date("2024-01-01"),
+  errors: [],
   externalLinksForMetadata: [],
+  finishTime: null,
   gitTags: null,
+  id: "version123",
+  ignored: false,
+  isPatch: false,
   manifest: null,
+  message: "Test commit",
+  order: 1,
   parameters: [],
   patch: null,
   previousVersion: {
@@ -49,12 +42,18 @@ const baseVersion: Version = {
   },
   projectMetadata: {
     __typename: "Project",
-    id: "evergreen",
     branch: "main",
+    id: "evergreen",
     identifier: "evergreen",
     owner: "evergreen-ci",
     repo: "evergreen",
   },
+  repo: "evergreen",
+  requester: "gitter_request",
+  revision: "abc123def456",
+  startTime: new Date("2024-01-01"),
+  status: PatchStatus.Started,
+  taskCount: null,
   upstreamProject: null,
   user: {
     __typename: "UserLite",
@@ -62,6 +61,7 @@ const baseVersion: Version = {
     userId: "testuser",
   },
   versionTiming: null,
+  warnings: [],
 };
 
 describe("version metadata sections", () => {
@@ -93,8 +93,8 @@ describe("version metadata sections", () => {
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );
@@ -128,8 +128,8 @@ describe("version metadata cost display", () => {
 
   it("hides cost row when cost is null", () => {
     render(<Metadata version={baseVersion} />, {
-      route: "/version/version123",
       path: "/version/:id",
+      route: "/version/version123",
       wrapper,
     });
     expect(screen.queryByText("Cost:")).not.toBeInTheDocument();
@@ -141,8 +141,8 @@ describe("version metadata cost display", () => {
       cost: { __typename: "Cost", total: 321.45 },
     };
     render(<Metadata version={version} />, {
-      route: "/version/version123",
       path: "/version/:id",
+      route: "/version/version123",
       wrapper,
     });
     expect(screen.getByText("$321.45")).toBeInTheDocument();
@@ -159,8 +159,8 @@ describe("version metadata cost display", () => {
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );
@@ -175,24 +175,24 @@ describe("version metadata cost display", () => {
       <Metadata
         version={{
           ...baseVersion,
+          finishTime: null,
           isPatch: true,
           patch: {
             __typename: "Patch",
-            cost: { __typename: "Cost", total: 50 },
             childPatches: [
               { __typename: "Patch", id: "child1" } as unknown as NonNullable<
                 NonNullable<Version["patch"]>["childPatches"]
               >[number],
             ],
+            cost: { __typename: "Cost", total: 50 },
             githubPatchData: null,
             includedLocalModules: null,
           } as unknown as Version["patch"],
-          finishTime: null,
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );
@@ -209,24 +209,24 @@ describe("version metadata cost display", () => {
       <Metadata
         version={{
           ...baseVersion,
+          finishTime: new Date("2024-01-02"),
           isPatch: true,
           patch: {
             __typename: "Patch",
-            cost: { __typename: "Cost", total: 50 },
             childPatches: [
               { __typename: "Patch", id: "child1" } as unknown as NonNullable<
                 NonNullable<Version["patch"]>["childPatches"]
               >[number],
             ],
+            cost: { __typename: "Cost", total: 50 },
             githubPatchData: null,
             includedLocalModules: null,
           } as unknown as Version["patch"],
-          finishTime: new Date("2024-01-02"),
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );
@@ -248,8 +248,8 @@ describe("version metadata cost display", () => {
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );
@@ -268,8 +268,8 @@ describe("version metadata cost display", () => {
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );
@@ -286,8 +286,8 @@ describe("version metadata cost display", () => {
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );
@@ -300,23 +300,23 @@ describe("version metadata cost display", () => {
       <Metadata
         version={{
           ...baseVersion,
-          isPatch: true,
           cost: { __typename: "Cost", total: 1.5 },
+          finishTime: new Date("2024-01-02"),
+          isPatch: true,
           patch: {
             __typename: "Patch",
-            cost: { __typename: "Cost", total: 3.75 },
             childPatches: null,
+            cost: { __typename: "Cost", total: 3.75 },
             githubPatchData: null,
-            includedLocalModules: [],
             id: "child-patch",
+            includedLocalModules: [],
             patchNumber: 123,
           },
-          finishTime: new Date("2024-01-02"),
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );
@@ -337,8 +337,8 @@ describe("version metadata cost display", () => {
         }}
       />,
       {
-        route: "/version/version123",
         path: "/version/:id",
+        route: "/version/version123",
         wrapper,
       },
     );

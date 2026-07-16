@@ -4,7 +4,6 @@ import ListArea from ".";
 
 const patches = new Array(4).fill(patchData);
 export default {
-  component: ListArea,
   args: {
     loading: false,
     pageType: "project",
@@ -15,20 +14,21 @@ export default {
       options: ["project", "user"],
     },
   },
+  component: ListArea,
 } satisfies CustomMeta<typeof ListArea>;
 
 export const Default: CustomStoryObj<typeof ListArea> = {
-  render: (args) => <ListArea {...args} />,
-  argTypes: {},
   args: {
     patches,
   },
+  argTypes: {},
+  render: (args) => <ListArea {...args} />,
 };
 
 export const Empty: CustomStoryObj<typeof ListArea> = {
-  render: (args) => <ListArea {...args} />,
-  argTypes: {},
   args: {
     patches: [],
   },
+  argTypes: {},
+  render: (args) => <ListArea {...args} />,
 };

@@ -120,22 +120,22 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
       isRepo
         ? saveRepoSection({
             variables: {
-              section,
               repoSettings: update,
+              section,
             },
           })
         : saveProjectSection({
             variables: {
-              section,
               projectSettings: update,
+              section,
             },
           });
 
     const section = mapRouteToSection[tab];
     save(newData, section);
     sendEvent({
-      section,
       name: isRepo ? "Saved repo settings" : "Saved project settings",
+      section,
     });
   };
 
@@ -185,8 +185,8 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
         const repoInitial = initialData as RepoSettingsInput;
         beforeData = {
           ...repoInitial,
-          repoId: id,
           projectRef: { ...repoInitial.projectRef, id },
+          repoId: id,
         };
       } else {
         const projectInitial = initialData as ProjectSettingsInput;
@@ -284,30 +284,30 @@ const mapRouteToSection: Record<
   WritableProjectSettingsType,
   ProjectSettingsSection
 > = {
-  [ProjectSettingsTabRoutes.General]: ProjectSettingsSection.General,
   [ProjectSettingsTabRoutes.Access]: ProjectSettingsSection.Access,
-  [ProjectSettingsTabRoutes.Variables]: ProjectSettingsSection.Variables,
-  [ProjectSettingsTabRoutes.Notifications]:
-    ProjectSettingsSection.Notifications,
-  [ProjectSettingsTabRoutes.PatchAliases]: ProjectSettingsSection.PatchAliases,
-  [ProjectSettingsTabRoutes.VirtualWorkstation]:
-    ProjectSettingsSection.Workstation,
-  [ProjectSettingsTabRoutes.ProjectTriggers]: ProjectSettingsSection.Triggers,
-  [ProjectSettingsTabRoutes.PeriodicBuilds]:
-    ProjectSettingsSection.PeriodicBuilds,
-  [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
-  [ProjectSettingsTabRoutes.ViewsAndFilters]:
-    ProjectSettingsSection.ViewsAndFilters,
-  [ProjectSettingsTabRoutes.PullRequests]: ProjectSettingsSection.PullRequests,
   [ProjectSettingsTabRoutes.CommitChecks]: ProjectSettingsSection.CommitChecks,
-  [ProjectSettingsTabRoutes.MergeQueue]: ProjectSettingsSection.MergeQueue,
-  [ProjectSettingsTabRoutes.GitTags]: ProjectSettingsSection.GitTags,
+  [ProjectSettingsTabRoutes.General]: ProjectSettingsSection.General,
   [ProjectSettingsTabRoutes.GithubAppSettings]:
     ProjectSettingsSection.GithubAppSettings,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]:
     ProjectSettingsSection.GithubPermissions,
+  [ProjectSettingsTabRoutes.GitTags]: ProjectSettingsSection.GitTags,
+  [ProjectSettingsTabRoutes.MergeQueue]: ProjectSettingsSection.MergeQueue,
+  [ProjectSettingsTabRoutes.Notifications]:
+    ProjectSettingsSection.Notifications,
+  [ProjectSettingsTabRoutes.PatchAliases]: ProjectSettingsSection.PatchAliases,
+  [ProjectSettingsTabRoutes.PeriodicBuilds]:
+    ProjectSettingsSection.PeriodicBuilds,
+  [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
+  [ProjectSettingsTabRoutes.ProjectTriggers]: ProjectSettingsSection.Triggers,
+  [ProjectSettingsTabRoutes.PullRequests]: ProjectSettingsSection.PullRequests,
   [ProjectSettingsTabRoutes.TestSelection]:
     ProjectSettingsSection.TestSelection,
+  [ProjectSettingsTabRoutes.Variables]: ProjectSettingsSection.Variables,
+  [ProjectSettingsTabRoutes.ViewsAndFilters]:
+    ProjectSettingsSection.ViewsAndFilters,
+  [ProjectSettingsTabRoutes.VirtualWorkstation]:
+    ProjectSettingsSection.Workstation,
 };
 
 const ButtonRow = styled.div`

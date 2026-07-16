@@ -2,18 +2,18 @@ import { Badge, Variant } from "@leafygreen-ui/badge";
 import { TestStatus } from "../../../types/test";
 
 const statusToBadgeColor = {
-  [TestStatus.Pass]: Variant.Green,
   [TestStatus.Fail]: Variant.Red,
+  [TestStatus.Pass]: Variant.Green,
   [TestStatus.SilentFail]: Variant.Blue,
   [TestStatus.Skip]: Variant.Yellow,
   [TestStatus.Timeout]: Variant.Red,
 };
 
 const statusToCopy = {
-  [TestStatus.Pass]: "Pass",
   [TestStatus.Fail]: "Fail",
-  [TestStatus.Skip]: "Skip",
+  [TestStatus.Pass]: "Pass",
   [TestStatus.SilentFail]: "Silent Fail",
+  [TestStatus.Skip]: "Skip",
   [TestStatus.Timeout]: "Timeout",
 };
 

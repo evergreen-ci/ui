@@ -33,144 +33,144 @@ export const getFormSchema = (
     schema: {
       definitions: {
         subscriptionArray: {
-          title: "Subscriptions",
-          type: "array" as const,
           default: [],
           items: {
-            type: "object" as const,
             properties: {
               subscriptionData: {
-                type: "object" as const,
-                title: "",
                 properties: {
                   event: eventSchema,
                   notification: notificationSchema,
                 },
+                title: "",
+                type: "object" as const,
               },
             },
+            type: "object" as const,
           },
+          title: "Subscriptions",
+          type: "array" as const,
         },
       },
-      type: "object" as const,
       properties: {
         buildBreakSettings: {
-          type: "object" as const,
-          title: "",
           properties: {
             notifyOnBuildFailure: {
-              type: ["boolean", "null"],
-              title: "Build Break Notifications",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
                 repoData?.buildBreakSettings?.notifyOnBuildFailure ?? undefined,
               ),
+              title: "Build Break Notifications",
+              type: ["boolean", "null"],
             },
           },
+          title: "",
+          type: "object" as const,
         },
         ...(projectType !== ProjectType.Repo && {
           banner: {
-            type: "object" as const,
-            title: "Project Banner",
             properties: {
               bannerData: {
-                type: "object" as const,
-                title: "",
                 description:
                   "Add a banner to pages that represent data from this project. JIRA tickets will be linked automatically.",
                 properties: {
-                  theme: {
+                  text: {
+                    title: "Banner Text",
                     type: "string" as const,
-                    title: "Theme",
+                  },
+                  theme: {
                     default: BannerTheme.Announcement,
                     oneOf: Object.keys(bannerThemeToLabelMap).map((k) => ({
-                      type: "string" as const,
-                      title: k,
                       enum: [k],
+                      title: k,
+                      type: "string" as const,
                     })),
-                  },
-                  text: {
+                    title: "Theme",
                     type: "string" as const,
-                    title: "Banner Text",
                   },
                 },
+                title: "",
+                type: "object" as const,
               },
             },
+            title: "Project Banner",
+            type: "object" as const,
           },
         }),
         subscriptions: { $ref: "#/definitions/subscriptionArray" },
         ...(projectType === ProjectType.AttachedProject && {
           repoData: {
-            type: "object" as const,
-            title: "Repo Subscriptions",
             properties: {
               subscriptions: { $ref: "#/definitions/subscriptionArray" },
             },
+            title: "Repo Subscriptions",
+            type: "object" as const,
           },
         }),
       },
+      type: "object" as const,
     },
     uiSchema: {
       buildBreakSettings: {
-        "ui:rootFieldId": "plugins",
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
         notifyOnBuildFailure: {
-          "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Send notification of build breaks to admins of a project if the commit author is not signed up to receive notifications.",
+          "ui:widget": widgets.RadioBoxWidget,
         },
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:rootFieldId": "plugins",
       },
       ...(projectType !== ProjectType.Repo && {
         banner: {
-          "ui:rootFieldId": "banner",
-          "ui:ObjectFieldTemplate": CardFieldTemplate,
           bannerData: {
             text: {
-              "ui:placeholder": "Enter banner text",
               "ui:data-cy": "banner-text",
+              "ui:placeholder": "Enter banner text",
             },
             theme: {
-              "ui:data-cy": "banner-theme",
               "ui:allowDeselect": false,
+              "ui:data-cy": "banner-theme",
               "ui:optionsLabelMap": bannerThemeToLabelMap,
             },
           },
+          "ui:ObjectFieldTemplate": CardFieldTemplate,
+          "ui:rootFieldId": "banner",
         },
       }),
+      repoData: {
+        subscriptions: {
+          items: {
+            subscriptionData: {
+              event: eventUiSchema,
+              notification: notificationUiSchema,
+            },
+            "ui:label": false,
+          },
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:placeholder": "Repo has no subscriptions defined.",
+          "ui:readonly": true,
+          "ui:showLabel": false,
+          "ui:useExpandableCard": true,
+        },
+      },
       subscriptions: {
-        "ui:placeholder": "No subscriptions are defined.",
+        items: {
+          subscriptionData: {
+            event: eventUiSchema,
+            notification: notificationUiSchema,
+          },
+          "ui:displayTitle": "New Subscription",
+          "ui:label": false,
+        },
+        "ui:addButtonText": "Add subscription",
         "ui:descriptionNode": (
           <HelpText
             isAttachedToRepo={projectType === ProjectType.AttachedProject}
           />
         ),
-        "ui:addButtonText": "Add subscription",
         "ui:orderable": false,
+        "ui:placeholder": "No subscriptions are defined.",
         "ui:useExpandableCard": true,
-        items: {
-          "ui:displayTitle": "New Subscription",
-          "ui:label": false,
-          subscriptionData: {
-            event: eventUiSchema,
-            notification: notificationUiSchema,
-          },
-        },
-      },
-      repoData: {
-        subscriptions: {
-          "ui:placeholder": "Repo has no subscriptions defined.",
-          "ui:addable": false,
-          "ui:orderable": false,
-          "ui:readonly": true,
-          "ui:showLabel": false,
-          "ui:useExpandableCard": true,
-          items: {
-            "ui:label": false,
-            subscriptionData: {
-              event: eventUiSchema,
-              notification: notificationUiSchema,
-            },
-          },
-        },
       },
     },
   };

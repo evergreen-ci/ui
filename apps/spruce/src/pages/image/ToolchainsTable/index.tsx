@@ -42,11 +42,11 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
       variables: {
         imageId,
         opts: {
-          page: pagination.pageIndex,
           limit: pagination.pageSize,
           name:
             (columnFilters.find((filter) => filter.id === "name")
               ?.value as string) ?? undefined,
+          page: pagination.pageIndex,
         },
       },
     },
@@ -72,8 +72,8 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
       (f) =>
         sendEvent({
           name: "Filtered table",
-          "table.name": "Toolchains",
           "table.filters": f,
+          "table.name": "Toolchains",
         }),
     ),
     onPaginationChange: onChangeHandler<PaginationState>(setPagination, (p) =>
@@ -84,8 +84,8 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
       }),
     ),
     state: {
-      pagination,
       columnFilters,
+      pagination,
     },
   });
 
@@ -104,9 +104,9 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
 
 const columns: LGColumnDef<Toolchain>[] = [
   {
-    header: "Name",
     accessorKey: "name",
     enableColumnFilter: true,
+    header: "Name",
     meta: {
       search: {
         "data-cy": "toolchain-name-filter",
@@ -115,11 +115,11 @@ const columns: LGColumnDef<Toolchain>[] = [
     },
   },
   {
-    header: "Path",
     accessorKey: "path",
+    header: "Path",
   },
   {
-    header: "Version",
     accessorKey: "version",
+    header: "Version",
   },
 ];

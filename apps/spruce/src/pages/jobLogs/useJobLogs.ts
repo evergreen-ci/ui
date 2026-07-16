@@ -37,8 +37,8 @@ const useJobLogsPageData = ({
     TASK_TESTS_FOR_JOB_LOGS,
     {
       variables: {
-        id: taskId || "",
         execution: executionAsInt || 0,
+        id: taskId || "",
       },
     },
   );
@@ -60,12 +60,12 @@ const useJobLogsPageData = ({
   });
   const title = getTitle(metadata);
   return {
-    resultsToRender,
-    title,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    status: evergreenTask?.status,
     loading,
     metadata,
+    resultsToRender,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    status: evergreenTask?.status,
+    title,
   };
 };
 

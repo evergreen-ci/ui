@@ -9,27 +9,23 @@ import { BuildVariant, Version } from "./types";
 
 export const version: Version = {
   activated: true,
-  user: {
-    userId: "sophie.stadler",
-    displayName: "Sophie Stadler",
-  },
   createTime: new Date("2024-09-19T14:56:08Z"),
   errors: [],
   gitTags: null,
   id: "evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
   message:
     "DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)",
+  order: 10,
   requester: Requester.Gitter,
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
-  order: 10,
+  user: {
+    displayName: "Sophie Stadler",
+    userId: "sophie.stadler",
+  },
 };
 
 export const versionWithGitTag: Version = {
   activated: true,
-  user: {
-    userId: "sophie.stadler",
-    displayName: "Sophie Stadler",
-  },
   createTime: new Date("2024-09-19T16:14:10Z"),
   errors: [],
   gitTags: [
@@ -39,17 +35,17 @@ export const versionWithGitTag: Version = {
   ],
   id: "evergreen_ui_deb77a36604446272d610d267f1cd9f95e4fe8ff",
   message: "parsley/v2.1.64",
+  order: 9,
   requester: Requester.GitTag,
   revision: "deb77a36604446272d610d267f1cd9f95e4fe8ff",
-  order: 9,
+  user: {
+    displayName: "Sophie Stadler",
+    userId: "sophie.stadler",
+  },
 };
 
 export const versionWithUpstreamProject: Version = {
   activated: true,
-  user: {
-    userId: "sophie.stadler",
-    displayName: "Sophie Stadler",
-  },
   createTime: new Date("2024-09-19T16:06:54Z"),
   errors: [],
   gitTags: [
@@ -59,64 +55,66 @@ export const versionWithUpstreamProject: Version = {
   ],
   id: "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a",
   message: "spruce/v4.1.87",
+  order: 8,
   requester: Requester.Trigger,
   revision: "130948895a46d4fd04292e7783069918e4e7cd5a",
-  order: 8,
+  user: {
+    displayName: "Sophie Stadler",
+    userId: "sophie.stadler",
+  },
 };
 
 export const versionBroken: Version = {
   activated: true,
-  user: {
-    userId: "sophie.stadler",
-    displayName: "Sophie Stadler",
-  },
   createTime: new Date("2024-09-19T14:56:08Z"),
   errors: ["errors happened"],
   gitTags: null,
   id: "evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
   message:
     "DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)",
+  order: 7,
   requester: Requester.Gitter,
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
-  order: 7,
+  user: {
+    displayName: "Sophie Stadler",
+    userId: "sophie.stadler",
+  },
 };
 
 export const inactiveVersion: Version = {
   activated: false,
-  user: {
-    userId: "sophie.stadler",
-    displayName: "Sophie Stadler",
-  },
   createTime: new Date("2024-10-24T14:56:08Z"),
   errors: [],
   gitTags: null,
   id: "81667704832f1021cc9573bd5edafc32",
   message: "Inactive Version by Sophie Stadler",
+  order: 6,
   requester: Requester.Gitter,
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
-  order: 6,
+  user: {
+    displayName: "Sophie Stadler",
+    userId: "sophie.stadler",
+  },
 };
 
 export const inactiveBrokenVersion: Version = {
   activated: false,
-  user: {
-    userId: "sophie.stadler",
-    displayName: "Sophie Stadler",
-  },
   createTime: new Date("2024-10-25T14:56:08Z"),
   errors: ["Error string"],
   gitTags: null,
   id: "08576a4e52f9c350430182597a4b22c0",
   message: "Inactive Version by Sophie Stadler",
+  order: 5,
   requester: Requester.Gitter,
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
-  order: 5,
+  user: {
+    displayName: "Sophie Stadler",
+    userId: "sophie.stadler",
+  },
 };
 
 export const buildVariants: BuildVariant[] = [
   {
-    id: "1",
-    displayName: "BV 1",
     builds: [
       {
         activated: true,
@@ -144,10 +142,10 @@ export const buildVariants: BuildVariant[] = [
         version: "f",
       },
     ],
+    displayName: "BV 1",
+    id: "1",
   },
   {
-    id: "2",
-    displayName: "BV 2",
     builds: [
       {
         activated: true,
@@ -163,10 +161,10 @@ export const buildVariants: BuildVariant[] = [
         version: "b",
       },
     ],
+    displayName: "BV 2",
+    id: "2",
   },
   {
-    id: "3",
-    displayName: "BV 3",
     builds: [
       {
         activated: true,
@@ -188,6 +186,8 @@ export const buildVariants: BuildVariant[] = [
         version: "c",
       },
     ],
+    displayName: "BV 3",
+    id: "3",
   },
 ];
 
@@ -209,38 +209,38 @@ export const getTaskStatsMock = (
           counts: [
             {
               __typename: "StatusCount",
-              status: "blocked",
               count: 4,
+              status: "blocked",
             },
             {
               __typename: "StatusCount",
+              count: 3,
               status: "failed",
-              count: 3,
             },
             {
               __typename: "StatusCount",
+              count: 3,
               status: "setup-failed",
-              count: 3,
             },
             {
               __typename: "StatusCount",
-              status: "started",
               count: 22,
+              status: "started",
             },
             {
               __typename: "StatusCount",
-              status: "success",
               count: 255,
+              status: "success",
             },
             {
               __typename: "StatusCount",
-              status: "unscheduled",
               count: 2313,
+              status: "unscheduled",
             },
             {
               __typename: "StatusCount",
-              status: "will-run",
               count: 100,
+              status: "will-run",
             },
           ],
         },
@@ -251,39 +251,39 @@ export const getTaskStatsMock = (
 
 export const versions: Version[] = [
   {
-    id: "a",
-    user: {
-      userId: "sophie.stadler",
-      displayName: "Sophie Stadler",
-    },
     activated: false,
     createTime: new Date("2024-09-20T14:56:08Z"),
     errors: [],
+    id: "a",
     message: "bar",
+    order: 5,
     requester: "gitter_request",
     revision: "a",
-    order: 5,
+    user: {
+      displayName: "Sophie Stadler",
+      userId: "sophie.stadler",
+    },
     waterfallBuilds: null,
   },
   {
-    id: "b",
-    user: {
-      userId: "sophie.stadler",
-      displayName: "Sophie Stadler",
-    },
     activated: true,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
+    id: "b",
     message: "foo",
+    order: 4,
     requester: "gitter_request",
     revision: "b",
-    order: 4,
+    user: {
+      displayName: "Sophie Stadler",
+      userId: "sophie.stadler",
+    },
     waterfallBuilds: [
       {
         activated: true,
-        id: "ii",
         buildVariant: "1",
         displayName: "BV 1",
+        id: "ii",
         tasks: [
           {
             displayName: "Task 20",
@@ -301,9 +301,9 @@ export const versions: Version[] = [
       },
       {
         activated: true,
-        id: "ii2",
         buildVariant: "2",
         displayName: "BV 2",
+        id: "ii2",
         tasks: [
           {
             displayName: "Task 100",
@@ -316,24 +316,24 @@ export const versions: Version[] = [
     ],
   },
   {
-    id: "c",
-    user: {
-      userId: "sophie.stadler",
-      displayName: "Sophie Stadler",
-    },
     activated: true,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
+    id: "c",
     message: "foo",
+    order: 3,
     requester: "gitter_request",
     revision: "c",
-    order: 3,
+    user: {
+      displayName: "Sophie Stadler",
+      userId: "sophie.stadler",
+    },
     waterfallBuilds: [
       {
         activated: true,
-        id: "iii",
         buildVariant: "3",
         displayName: "BV 3",
+        id: "iii",
         tasks: [
           {
             displayName: "Task 1",
@@ -352,52 +352,52 @@ export const versions: Version[] = [
     ],
   },
   {
-    id: "d",
-    user: {
-      userId: "sophie.stadler",
-      displayName: "Sophie Stadler",
-    },
     activated: false,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
+    id: "d",
     message: "foo",
+    order: 2,
     requester: "gitter_request",
     revision: "d",
-    order: 2,
+    user: {
+      displayName: "Sophie Stadler",
+      userId: "sophie.stadler",
+    },
   },
   {
-    id: "e",
-    user: {
-      userId: "sophie.stadler",
-      displayName: "Sophie Stadler",
-    },
     activated: false,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
+    id: "e",
     message: "foo",
+    order: 1,
     requester: "gitter_request",
     revision: "e",
-    order: 1,
+    user: {
+      displayName: "Sophie Stadler",
+      userId: "sophie.stadler",
+    },
   },
   {
-    id: "f",
-    user: {
-      userId: "sophie.stadler",
-      displayName: "Sophie Stadler",
-    },
     activated: true,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
+    id: "f",
     message: "foo",
+    order: 0,
     requester: "gitter_request",
     revision: "f",
-    order: 0,
+    user: {
+      displayName: "Sophie Stadler",
+      userId: "sophie.stadler",
+    },
     waterfallBuilds: [
       {
         activated: false,
-        id: "i",
         buildVariant: "1",
         displayName: "BV 1",
+        id: "i",
         tasks: [],
       },
     ],

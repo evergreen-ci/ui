@@ -21,11 +21,11 @@ const userMock: ApolloMock<UserQuery, UserQueryVariables> = {
         __typename: "UserLite",
         displayName: "Mohamed Khelif",
         emailAddress: "mohamed.khelif@mongodb.com",
-        userId: "mohamed.khelif",
         permissions: {
           __typename: "Permissions",
           canEditAdminSettings: false,
         },
+        userId: "mohamed.khelif",
       },
     },
   },
@@ -78,11 +78,11 @@ export const Default: CustomStoryObj<typeof Navbar> = {
   render: () => (
     <AuthStateContext.Provider
       value={{
-        isAuthenticated: true,
+        dispatchAuthenticated: () => {},
         hasCheckedAuth: true,
+        isAuthenticated: true,
         localLogin: () => {},
         logoutAndRedirect: () => {},
-        dispatchAuthenticated: () => {},
       }}
     >
       <Navbar />

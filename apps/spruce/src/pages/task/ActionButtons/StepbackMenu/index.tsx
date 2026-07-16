@@ -44,9 +44,9 @@ export const StepbackMenu: React.FC<StepbackMenuProps> = ({ task }) => {
       ? skipToken
       : {
           variables: {
-            taskId: task.id,
             execution: task.execution,
             isPassing: task.status === TaskStatus.Succeeded,
+            taskId: task.id,
           },
         },
   );

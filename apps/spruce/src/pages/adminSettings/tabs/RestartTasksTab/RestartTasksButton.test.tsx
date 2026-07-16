@@ -119,11 +119,11 @@ describe("restartTasksButton", () => {
 });
 
 const hasTasksToRestartOpts: RestartAdminTasksOptions = {
-  startTime: new Date("2025-07-01T10:00:00Z"),
   endTime: new Date("2025-07-12T19:00:00Z"),
   includeSetupFailed: true,
   includeSystemFailed: true,
   includeTestFailed: true,
+  startTime: new Date("2025-07-01T10:00:00Z"),
 };
 
 const hasTasksToRestartMock: ApolloMock<
@@ -140,13 +140,13 @@ const hasTasksToRestartMock: ApolloMock<
         tasksToRestart: [
           {
             __typename: "Task",
-            id: "task-1",
             execution: 0,
+            id: "task-1",
           },
           {
             __typename: "Task",
-            id: "task-2",
             execution: 1,
+            id: "task-2",
           },
         ],
       },
@@ -155,18 +155,18 @@ const hasTasksToRestartMock: ApolloMock<
 };
 
 const hasTasksToRestartForm: RestartTasksFormState = {
-  start: {
-    startDate: "2025-07-01T00:00:00Z",
-    startTime: "1970-07-01T10:00:00Z",
-  },
   end: {
     endDate: "2025-07-12T00:00:00Z",
     endTime: "1970-07-12T19:00:00Z",
   },
   includeTasks: {
-    includeTestFailed: true,
-    includeSystemFailed: true,
     includeSetupFailed: true,
+    includeSystemFailed: true,
+    includeTestFailed: true,
+  },
+  start: {
+    startDate: "2025-07-01T00:00:00Z",
+    startTime: "1970-07-01T10:00:00Z",
   },
 };
 
@@ -188,11 +188,11 @@ const restartAdminTasksMock: ApolloMock<
 };
 
 const noTasksToRestartOpts: RestartAdminTasksOptions = {
-  startTime: new Date("2025-07-01T10:00:00Z"),
   endTime: new Date("2025-07-01T11:00:00Z"),
   includeSetupFailed: true,
   includeSystemFailed: true,
   includeTestFailed: true,
+  startTime: new Date("2025-07-01T10:00:00Z"),
 };
 
 const noTasksToRestartMock: ApolloMock<
@@ -213,17 +213,17 @@ const noTasksToRestartMock: ApolloMock<
 };
 
 const noTasksToRestartForm: RestartTasksFormState = {
-  start: {
-    startDate: "2025-07-01T00:00:00Z",
-    startTime: "1970-07-01T10:00:00Z",
-  },
   end: {
     endDate: "2025-07-01T00:00:00Z",
     endTime: "1970-07-01T11:00:00Z",
   },
   includeTasks: {
-    includeTestFailed: true,
-    includeSystemFailed: true,
     includeSetupFailed: true,
+    includeSystemFailed: true,
+    includeTestFailed: true,
+  },
+  start: {
+    startDate: "2025-07-01T00:00:00Z",
+    startTime: "1970-07-01T10:00:00Z",
   },
 };

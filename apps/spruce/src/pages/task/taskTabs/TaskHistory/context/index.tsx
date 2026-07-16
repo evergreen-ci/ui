@@ -39,15 +39,15 @@ const TaskHistoryContextProvider: React.FC<{
 
   const memoizedContext = useMemo(
     () => ({
-      selectedTask,
-      setSelectedTask,
-      hoveredTask,
-      setHoveredTask,
-      expandedTasksMap,
-      setExpandedTasksMap,
-      currentTask: task,
       baseTaskId,
+      currentTask: task,
+      expandedTasksMap,
+      hoveredTask,
       isPatch,
+      selectedTask,
+      setExpandedTasksMap,
+      setHoveredTask,
+      setSelectedTask,
     }),
     [
       selectedTask,

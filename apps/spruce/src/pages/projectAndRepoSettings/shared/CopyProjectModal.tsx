@@ -35,8 +35,8 @@ export const CopyProjectModal: React.FC<Props> = ({
   const { sendEvent } = useProjectSettingsAnalytics();
 
   const [formState, setFormState] = useState({
-    projectName: "",
     enablePerformanceTooling: false,
+    projectName: "",
   });
   const [hasError, setHasError] = useState(true);
 
@@ -128,12 +128,12 @@ export const CopyProjectModal: React.FC<Props> = ({
 
 const modalFormDefinition = {
   schema: {
-    type: "object" as const,
     properties: {
       projectName: projectName.schema,
       ...performanceTooling.schema,
       s3BucketInfo: s3BucketInfo.schema,
     },
+    type: "object" as const,
   },
   uiSchema: {
     projectName: projectName.uiSchema,

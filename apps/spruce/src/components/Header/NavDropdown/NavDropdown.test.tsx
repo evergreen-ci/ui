@@ -8,8 +8,8 @@ import { NavDropdown } from ".";
 const menuItems = [
   {
     "data-cy": "item-1",
-    text: "Item 1",
     href: "/item1",
+    text: "Item 1",
   },
   {
     "data-cy": "item-2",
@@ -52,9 +52,9 @@ describe("navDropdown", () => {
         menuItems={[
           {
             "data-cy": "item-1",
-            text: "Item 1",
             href: "/item1",
             onClick: mockCallback,
+            text: "Item 1",
           },
         ]}
         title="Dropdown"

@@ -34,8 +34,8 @@ export const TaskStatsTooltip: React.FC<
     WATERFALL_TASK_STATS,
     open
       ? {
-          variables: { versionId: id },
           fetchPolicy: "no-cache",
+          variables: { versionId: id },
         }
       : skipToken,
   );

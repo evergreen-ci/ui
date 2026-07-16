@@ -24,16 +24,16 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as const,
     properties: Object.fromEntries(
       flagNames.map((name) => [
         name,
         {
-          type: "boolean" as const,
           title: name,
+          type: "boolean" as const,
         },
       ]),
     ),
+    type: "object" as const,
   },
   uiSchema: {
     "ui:objectFieldCss": zebraCSS,

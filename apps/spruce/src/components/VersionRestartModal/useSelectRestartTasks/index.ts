@@ -84,8 +84,8 @@ export const useSelectRestartTasks = (
   };
 
   return {
+    selectByFilters,
     selectedTasks,
     toggleSelectedTask,
-    selectByFilters,
   };
 };

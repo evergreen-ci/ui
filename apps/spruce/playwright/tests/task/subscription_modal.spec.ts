@@ -104,14 +104,14 @@ test.describe("Task Subscription Modal", () => {
     page,
   }) => {
     await mockGraphQLResponse(page, "SaveSubscriptionForUser", {
+      data: null,
       errors: [
         {
+          extensions: { code: "INTERNAL_SERVER_ERROR" },
           message: "error",
           path: ["SaveSubscriptionForUser"],
-          extensions: { code: "INTERNAL_SERVER_ERROR" },
         },
       ],
-      data: null,
     });
 
     await openSubscriptionModal(page);
@@ -130,22 +130,22 @@ test.describe("Task Subscription Modal", () => {
     await expect(page.getByTestId(MODAL_DATA_CY)).toBeHidden();
   });
 
-  test("Pulls initial values from cookies", async ({ page, context }) => {
+  test("Pulls initial values from cookies", async ({ context, page }) => {
     const triggerCookie = "task-notification-trigger";
     const subscriptionCookie = "subscription-method";
 
     await context.addCookies([
       {
-        name: triggerCookie,
-        value: "task-succeeds",
         domain: "localhost",
+        name: triggerCookie,
         path: "/",
+        value: "task-succeeds",
       },
       {
-        name: subscriptionCookie,
-        value: "slack",
         domain: "localhost",
+        name: subscriptionCookie,
         path: "/",
+        value: "slack",
       },
     ]);
 

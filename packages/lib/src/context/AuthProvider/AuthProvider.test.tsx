@@ -52,8 +52,8 @@ describe("AuthProvider", () => {
           authProviderProps: {
             children,
             evergreenAppURL: "evergreen-server.com",
-            remoteAuthURL: "some-identity-provider.com",
             localAuthRoute: "/login",
+            remoteAuthURL: "some-identity-provider.com",
             shouldUseLocalAuth: false,
           },
         }),
@@ -76,8 +76,8 @@ describe("AuthProvider", () => {
           authProviderProps: {
             children,
             evergreenAppURL: "evergreen-server.com",
-            remoteAuthURL: "evergreen-server.com/login",
             localAuthRoute: "/login",
+            remoteAuthURL: "evergreen-server.com/login",
             shouldUseLocalAuth: false,
           },
         }),
@@ -106,8 +106,8 @@ describe("AuthProvider", () => {
           authProviderProps: {
             children,
             evergreenAppURL: "evergreen-server.com",
-            remoteAuthURL: "evergreen-server.com/login",
             localAuthRoute: "/login",
+            remoteAuthURL: "evergreen-server.com/login",
             shouldUseLocalAuth: true,
           },
         }),
@@ -132,8 +132,8 @@ describe("AuthProvider", () => {
           authProviderProps: {
             children,
             evergreenAppURL: "evergreen-server.com",
-            remoteAuthURL: "evergreen-server.com/login",
             localAuthRoute: "/login",
+            remoteAuthURL: "evergreen-server.com/login",
             shouldUseLocalAuth: false,
           },
         }),

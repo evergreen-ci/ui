@@ -12,6 +12,19 @@ export default {
 } satisfies CustomMeta<typeof VersionTasksTable>;
 
 export const Default: CustomStoryObj<typeof VersionTasksTable> = {
+  args: {
+    isPatch: false,
+  },
+  argTypes: {
+    isPatch: {
+      control: { type: "boolean" },
+    },
+  },
+  parameters: {
+    apolloClient: {
+      mocks: [taskStatusesMock],
+    },
+  },
   render: (args) => {
     Cookies.set(SEEN_TASK_REVIEW_TOOLTIP, new Date("2020-01-01").toString());
     return (
@@ -27,18 +40,5 @@ export const Default: CustomStoryObj<typeof VersionTasksTable> = {
         versionId={versionId}
       />
     );
-  },
-  args: {
-    isPatch: false,
-  },
-  argTypes: {
-    isPatch: {
-      control: { type: "boolean" },
-    },
-  },
-  parameters: {
-    apolloClient: {
-      mocks: [taskStatusesMock],
-    },
   },
 };

@@ -8,12 +8,12 @@ import {
 
 describe("getNumEstimatedActivatedTasks", () => {
   const generatedTaskCounts: GeneratedTaskCountResults[] = [
-    { taskName: "task1", buildVariantName: "variant1", estimatedTasks: 5 },
-    { taskName: "task2", buildVariantName: "variant1", estimatedTasks: 10 },
-    { taskName: "task4", buildVariantName: "variant1", estimatedTasks: 20 },
-    { taskId: "task1-variant2", estimatedTasks: 100 },
-    { taskId: "task2-variant2", estimatedTasks: 50 },
-    { taskId: "task4-variant2", estimatedTasks: 25 },
+    { buildVariantName: "variant1", estimatedTasks: 5, taskName: "task1" },
+    { buildVariantName: "variant1", estimatedTasks: 10, taskName: "task2" },
+    { buildVariantName: "variant1", estimatedTasks: 20, taskName: "task4" },
+    { estimatedTasks: 100, taskId: "task1-variant2" },
+    { estimatedTasks: 50, taskId: "task2-variant2" },
+    { estimatedTasks: 25, taskId: "task4-variant2" },
   ];
 
   it("should compute the correct number of activated tasks to be created when configuring a patch where some tasks have already been created", () => {

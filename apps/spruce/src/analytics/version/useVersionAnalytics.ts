@@ -87,17 +87,17 @@ export const useVersionAnalytics = (id: string) => {
     VERSION,
     id
       ? {
-          variables: { id, includeNeverActivatedTasks: false },
           fetchPolicy: "cache-first",
+          variables: { id, includeNeverActivatedTasks: false },
         }
       : skipToken,
   );
   const { isPatch, requester, status } = eventData?.version || {};
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Version", {
-    "version.status": status || "",
     "version.id": id,
     "version.is_patch": isPatch || false,
     "version.requester": requester || "",
+    "version.status": status || "",
   });
 };

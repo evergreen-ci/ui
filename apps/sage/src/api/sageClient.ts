@@ -30,9 +30,9 @@ export class SageClient {
 
   post<T>(path: string, body: Record<string, unknown>) {
     return this.request<T>(path, {
-      method: "POST",
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" },
+      method: "POST",
     });
   }
 
@@ -44,7 +44,7 @@ export class SageClient {
 
     leaveBreadcrumb(
       "sageRequest",
-      { url, method: options.method },
+      { method: options.method, url },
       SentryBreadcrumbTypes.HTTP,
     );
 
@@ -87,17 +87,17 @@ export class SageClient {
 
         if (response.status >= 500) {
           return {
-            ok: false,
-            type: "server",
-            status: response.status,
             message,
+            ok: false,
+            status: response.status,
+            type: "server",
           };
         }
-        return { ok: false, type: "client", status: response.status, message };
+        return { message, ok: false, status: response.status, type: "client" };
       }
 
       const data = (await response.json()) as T;
-      return { ok: true, data };
+      return { data, ok: true };
     } catch (err) {
       const error = err as Error;
       leaveBreadcrumb(
@@ -106,7 +106,7 @@ export class SageClient {
         SentryBreadcrumbTypes.Error,
       );
       reportError(error).severe();
-      return { ok: false, type: "network", message: error.message };
+      return { message: error.message, ok: false, type: "network" };
     }
   }
 }

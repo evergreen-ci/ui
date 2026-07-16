@@ -34,11 +34,11 @@ export const groupTasks = (
   const pushInactive = (t: TaskHistoryTask) => {
     if (!groupedTasks?.[groupedTasks.length - 1]?.inactiveTasks) {
       groupedTasks.push({
+        commitCardRef: null,
         date: null,
-        task: null,
         inactiveTasks: [],
         isMatching: false,
-        commitCardRef: null,
+        task: null,
       });
     }
     groupedTasks[groupedTasks.length - 1].inactiveTasks?.push(t);
@@ -51,21 +51,21 @@ export const groupTasks = (
         testFile.match(testFailureSearchTerm),
       );
     groupedTasks.push({
+      commitCardRef: createRef<HTMLDivElement>(),
       date: null,
       inactiveTasks: null,
-      task: t,
       isMatching,
-      commitCardRef: createRef<HTMLDivElement>(),
+      task: t,
     });
   };
 
   const pushDate = (t: TaskHistoryTask) => {
     groupedTasks.push({
+      commitCardRef: null,
       date: getTaskIngestTime(t) ?? new Date(),
       inactiveTasks: null,
-      task: null,
       isMatching: false,
-      commitCardRef: null,
+      task: null,
     });
   };
 

@@ -26,8 +26,8 @@ describe("loading events", () => {
       </Wrapper>,
     );
     render(<Component />, {
-      route: "/distro/rhel71-power8-large/settings",
       path: "/distro/:distroId/settings",
+      route: "/distro/rhel71-power8-large/settings",
     });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(2);
@@ -46,8 +46,8 @@ describe("loading events", () => {
       </Wrapper>,
     );
     render(<Component />, {
-      route: "/distro/rhel71-power8-large/settings",
       path: "/distro/:distroId/settings",
+      route: "/distro/rhel71-power8-large/settings",
     });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(2);
@@ -65,8 +65,8 @@ describe("loading events", () => {
       </Wrapper>,
     );
     render(<Component />, {
-      route: "/distro/rhel71-power8-large/settings",
       path: "/distro/:distroId/settings",
+      route: "/distro/rhel71-power8-large/settings",
     });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(2);
@@ -93,9 +93,11 @@ const query = (
 
 const distroEvents: DistroEventsQuery = {
   distroEvents: {
+    __typename: "DistroEventsPayload",
     count: 2,
     eventLogEntries: [
       {
+        __typename: "DistroEvent",
         after: {
           _id: "rhel71-power8-large",
           arch: "linux_ppc64le",
@@ -404,9 +406,9 @@ const distroEvents: DistroEventsQuery = {
         },
         timestamp: new Date("2023-08-10T12:57:32.566-04:00"),
         user: "admin",
-        __typename: "DistroEvent",
       },
       {
+        __typename: "DistroEvent",
         after: null,
         before: null,
         data: {
@@ -513,9 +515,7 @@ const distroEvents: DistroEventsQuery = {
         },
         timestamp: new Date("2023-08-09T17:00:06.819-04:00"),
         user: "admin",
-        __typename: "DistroEvent",
       },
     ],
-    __typename: "DistroEventsPayload",
   },
 };

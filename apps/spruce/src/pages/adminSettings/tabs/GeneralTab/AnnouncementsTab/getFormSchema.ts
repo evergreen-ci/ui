@@ -6,42 +6,42 @@ import { BannerTheme } from "gql/generated/types";
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
-    type: "object" as const,
     properties: {
       announcements: {
-        type: "object" as const,
-        title: "Announcements",
         properties: {
           banner: {
-            type: "string" as const,
             title: "Banner Text",
+            type: "string" as const,
           },
           bannerTheme: {
-            type: "string" as const,
-            title: "Banner Style",
-            oneOf: Object.keys(bannerThemeToLabelMap).map((k) => ({
-              type: "string" as const,
-              title: k,
-              enum: [k],
-            })),
             default: [BannerTheme.Announcement],
+            oneOf: Object.keys(bannerThemeToLabelMap).map((k) => ({
+              enum: [k],
+              title: k,
+              type: "string" as const,
+            })),
+            title: "Banner Style",
+            type: "string" as const,
           },
         },
+        title: "Announcements",
+        type: "object" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     announcements: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
       banner: {
         "ui:data-cy": "banner-text",
-        "ui:widget": "textarea",
         "ui:rows": 2,
+        "ui:widget": "textarea",
       },
       bannerTheme: {
         "ui:allowDeselect": false,
         "ui:optionsLabelMap": bannerThemeToLabelMap,
       },
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
     },
   },
 };

@@ -45,9 +45,9 @@ describe("getObjectValueByPath", () => {
 describe("omitTypename", () => {
   it("simple object with __typename", () => {
     const obj = {
+      __typename: "simpleObj",
       fieldA: "test",
       fieldB: "test2",
-      __typename: "simpleObj",
     };
     expect(omitTypename(obj)).toStrictEqual({
       fieldA: "test",
@@ -99,8 +99,8 @@ describe("omitTypename", () => {
       fieldA: "test",
       fieldB: "test2",
       someOtherObj: {
-        fieldC: "test3",
         __typename: "someOtherObj",
+        fieldC: "test3",
 
         someDeepObject: {
           __typename: "someDeepObject",
@@ -124,8 +124,8 @@ describe("omitTypename", () => {
       fieldA: "test",
       fieldB: "test2",
       someOtherObj: {
-        fieldC: "test3",
         __typename: "someOtherObj",
+        fieldC: "test3",
         someArray: [
           {
             __typename: "someDeepObject",

@@ -41,11 +41,11 @@ export const UpstreamProjectLink: React.FC<{
         onClick={onClick}
         to={getTriggerRoute({
           triggerType: upstreamProject.triggerType,
-          upstreamTask: upstreamProject.task,
-          upstreamVersion: upstreamProject.version,
-          upstreamRevision: upstreamProject.revision,
           upstreamOwner: upstreamProject.owner,
           upstreamRepo: upstreamProject.repo,
+          upstreamRevision: upstreamProject.revision,
+          upstreamTask: upstreamProject.task,
+          upstreamVersion: upstreamProject.version,
         })}
       >
         {upstreamProject.project}

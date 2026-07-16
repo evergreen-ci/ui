@@ -40,7 +40,7 @@ export const useUserBetaFeatures = () => {
   });
   const { user } = data ?? {};
   const { betaFeatures } = user ?? {};
-  return { userBetaSettings: betaFeatures, loading };
+  return { loading, userBetaSettings: betaFeatures };
 };
 
 /**
@@ -54,7 +54,7 @@ export const useMergedBetaFeatures = () => {
   const { loading: userLoading, userBetaSettings } = useUserBetaFeatures();
 
   if (!adminBetaSettings || !userBetaSettings) {
-    return { mergedBetaFeatures: undefined, loading: false };
+    return { loading: false, mergedBetaFeatures: undefined };
   }
 
   const mergedBetaFeatures: BetaFeatures = {};

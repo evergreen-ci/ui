@@ -6,7 +6,7 @@ export default {
 } satisfies CustomMeta<typeof LoadingAnimation>;
 
 export const Default: CustomStoryObj<typeof LoadingAnimation> = {
-  argTypes: {},
   args: {},
+  argTypes: {},
   render: (args) => <LoadingAnimation {...args} />,
 };

@@ -80,8 +80,8 @@ export const useKeyboardShortcut = (
           cbRef.current();
           if (sendAnalytics) {
             sendAnalytics({
-              name: "Used Shortcut",
               keys: getPressedKeysAsString(keys),
+              name: "Used Shortcut",
             });
           }
         }

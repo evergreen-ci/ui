@@ -40,10 +40,10 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
       variables: {
         imageId,
         opts: {
-          page: pagination.pageIndex,
           limit: pagination.pageSize,
           name: columnFilters.find((filter) => filter.id === "name")
             ?.value as string,
+          page: pagination.pageIndex,
         },
       },
     },
@@ -62,20 +62,15 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     defaultColumn: {
       enableColumnFilter: false,
     },
-    manualPagination: true,
     manualFiltering: true,
-    rowCount: numPackages,
-    state: {
-      pagination,
-      columnFilters,
-    },
+    manualPagination: true,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setColumnFilters,
       (f) =>
         sendEvent({
           name: "Filtered table",
-          "table.name": "Packages",
           "table.filters": f,
+          "table.name": "Packages",
         }),
     ),
     onPaginationChange: onChangeHandler<PaginationState>(setPagination, (p) =>
@@ -85,6 +80,11 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
         "table.pagination": p,
       }),
     ),
+    rowCount: numPackages,
+    state: {
+      columnFilters,
+      pagination,
+    },
   });
 
   return (
@@ -102,9 +102,9 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
 
 const columns: LGColumnDef<Package>[] = [
   {
-    header: "Name",
     accessorKey: "name",
     enableColumnFilter: true,
+    header: "Name",
     meta: {
       search: {
         "data-cy": "package-name-filter",
@@ -113,11 +113,11 @@ const columns: LGColumnDef<Package>[] = [
     },
   },
   {
-    header: "Manager",
     accessorKey: "manager",
+    header: "Manager",
   },
   {
-    header: "Version",
     accessorKey: "version",
+    header: "Version",
   },
 ];

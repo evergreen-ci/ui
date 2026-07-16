@@ -63,11 +63,11 @@ export const SlackNotificationBanner = () => {
     updateUserSettings({
       variables: {
         userSettings: {
-          slackUsername,
           notifications: {
             patchFinish: "slack",
             patchFirstFailure: "slack",
           },
+          slackUsername,
         },
       },
     });

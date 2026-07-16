@@ -18,8 +18,8 @@ vi.mock("../shell", async () => {
   const actual = await vi.importActual("../shell");
   return {
     ...actual,
-    execTrim: vi.fn().mockReturnValue(""), // Mock execTrim with default return value
     countdownTimer: vi.fn(),
+    execTrim: vi.fn().mockReturnValue(""), // Mock execTrim with default return value
     green: vi.fn(),
     underline: vi.fn(),
   };

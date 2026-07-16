@@ -8,8 +8,6 @@ export default {
 } satisfies CustomMeta<typeof CustomCreatedTickets>;
 
 export const Default: CustomStoryObj<typeof CustomCreatedTickets> = {
-  render: (args) => <CustomCreatedTickets {...args} />,
-  argTypes: {},
   args: {
     execution: 0,
     taskId: "123",
@@ -18,18 +16,18 @@ export const Default: CustomStoryObj<typeof CustomCreatedTickets> = {
         confidenceScore: 0.25,
         issueKey: "DEVPROD-1",
         jiraTicket: {
-          key: "key",
           fields: {
-            summary: "Issue Summary",
+            assignedTeam: "evg-ui",
+            assigneeDisplayName: "sophie.stadler",
+            created: "2020-01-27",
             status: {
               id: "id",
               name: "Done",
             },
-            created: "2020-01-27",
+            summary: "Issue Summary",
             updated: "2023-11-28",
-            assigneeDisplayName: "sophie.stadler",
-            assignedTeam: "evg-ui",
           },
+          key: "key",
         },
         url: "https://spruce.corp.mongodb.com",
       },
@@ -37,21 +35,23 @@ export const Default: CustomStoryObj<typeof CustomCreatedTickets> = {
         confidenceScore: 0.5,
         issueKey: "DEVPROD-2",
         jiraTicket: {
-          key: "key",
           fields: {
-            summary: "Issue Summary",
+            assignedTeam: "evg-ui",
+            assigneeDisplayName: "mohamed.khelif",
+            created: "2020-01-28",
             status: {
               id: "id",
               name: "In Progress",
             },
-            created: "2020-01-28",
+            summary: "Issue Summary",
             updated: "2023-11-29",
-            assigneeDisplayName: "mohamed.khelif",
-            assignedTeam: "evg-ui",
           },
+          key: "key",
         },
         url: "https://spruce.corp.mongodb.com",
       },
     ],
   },
+  argTypes: {},
+  render: (args) => <CustomCreatedTickets {...args} />,
 };

@@ -35,9 +35,9 @@ describe("image select", () => {
       <ImageSelect selectedImage="ubuntu2204" />,
     );
     const { router } = render(<Component />, {
-      wrapper,
-      route: "/image/ubuntu2204/build-information",
       path: "/image/:imageId/:tab",
+      route: "/image/ubuntu2204/build-information",
+      wrapper,
     });
 
     await waitFor(() => {

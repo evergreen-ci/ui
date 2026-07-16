@@ -74,30 +74,28 @@ export const formToGql = ({
     isVirtualWorkStation,
     ...(isDebug ? { isDebug: true } : {}),
     ...(isDebug && setupStepNumber ? { setupStepNumber } : {}),
-    userDataScript: runUserdataScript ? userdataScript : null,
+    distroId: distro,
     expiration: noExpiration ? null : new Date(expiration),
-    noExpiration: noExpiration,
-    sleepSchedule:
-      noExpiration && hostUptime ? getSleepSchedule(hostUptime) : null,
-    volumeId:
-      migrateVolumeId ||
-      (isVirtualWorkStation && selectExistingVolume ? volumeSelect : null),
     homeVolumeSize:
       !migrateVolumeId &&
       isVirtualWorkStation &&
       (!selectExistingVolume || !volumeSelect)
         ? volumeSize
         : null,
+    noExpiration: noExpiration,
     publicKey: {
-      name: useExisting ? publicKeyNameDropdown : newPublicKeyName,
       key: useExisting
         ? (myPublicKeys.find(({ name }) => name === publicKeyNameDropdown)
             ?.key ?? "")
         : stripNewLines(newPublicKey),
+      name: useExisting ? publicKeyNameDropdown : newPublicKeyName,
     },
-    savePublicKey: !useExisting && !!savePublicKey,
-    distroId: distro,
     region,
+    savePublicKey: !useExisting && !!savePublicKey,
+    setUpScript: defineSetupScriptCheckbox ? setupScript : null,
+    sleepSchedule:
+      noExpiration && hostUptime ? getSleepSchedule(hostUptime) : null,
+    spawnHostsStartedByTask: !!(loadDataOntoHostAtStartup && startHosts),
     taskId:
       loadDataOntoHostAtStartup && validateTask(spawnTaskData)
         ? spawnTaskData?.id
@@ -105,7 +103,9 @@ export const formToGql = ({
     useProjectSetupScript: !!(
       loadDataOntoHostAtStartup && runProjectSpecificSetupScript
     ),
-    setUpScript: defineSetupScriptCheckbox ? setupScript : null,
-    spawnHostsStartedByTask: !!(loadDataOntoHostAtStartup && startHosts),
+    userDataScript: runUserdataScript ? userdataScript : null,
+    volumeId:
+      migrateVolumeId ||
+      (isVirtualWorkStation && selectExistingVolume ? volumeSelect : null),
   };
 };

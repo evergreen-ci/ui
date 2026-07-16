@@ -67,6 +67,8 @@ const HeaderLabel = styled.span`
 
 const getColumns = (disabled: boolean): LGColumnDef<ArrayItem>[] => [
   {
+    accessorKey: "children",
+    cell: ({ row }) => row.original.children,
     header: () => (
       <>
         <HeaderLabel>Permission Type</HeaderLabel>
@@ -75,11 +77,8 @@ const getColumns = (disabled: boolean): LGColumnDef<ArrayItem>[] => [
         </HeaderLabel>
       </>
     ),
-    accessorKey: "children",
-    cell: ({ row }) => row.original.children,
   },
   {
-    header: "Action",
     cell: ({ row }) => (
       <Button
         data-cy="delete-permission-button"
@@ -89,6 +88,7 @@ const getColumns = (disabled: boolean): LGColumnDef<ArrayItem>[] => [
         size={ButtonSize.Small}
       />
     ),
+    header: "Action",
     size: 10,
   },
 ];

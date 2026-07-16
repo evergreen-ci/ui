@@ -27,8 +27,8 @@ export const usePatchesQueryParams = (): Omit<
   const { limit, page } = usePagination();
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
-    limit,
     includeHidden: hidden || Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
+    limit,
     page,
     patchName: `${patchName}`,
     requesters,

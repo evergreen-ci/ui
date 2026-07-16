@@ -53,8 +53,8 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
         }}
         confirmButtonProps={{
           children: "Submit",
-          onClick: onConfirm,
           disabled: commitHash.trim().length < 7,
+          onClick: onConfirm,
         }}
         data-cy="git-commit-search-modal"
         open={modalOpen}

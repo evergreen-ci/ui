@@ -43,15 +43,15 @@ export const Controls: React.FC<ControlsProps> = ({
           dataCyProps={walkthroughDateFilterProps}
           onChange={(newDate) => {
             sendEvent({
-              name: "Filtered by date",
               date: newDate,
+              name: "Filtered by date",
             });
             setQueryParams({
               ...queryParams,
-              [TaskHistoryOptions.Direction]: undefined,
               [TaskHistoryOptions.CursorID]: undefined,
-              [TaskHistoryOptions.IncludeCursor]: undefined,
               [TaskHistoryOptions.Date]: newDate,
+              [TaskHistoryOptions.Direction]: undefined,
+              [TaskHistoryOptions.IncludeCursor]: undefined,
             });
           }}
           size={Size.Small}
@@ -65,10 +65,10 @@ export const Controls: React.FC<ControlsProps> = ({
             });
             setQueryParams({
               ...queryParams,
-              [TaskHistoryOptions.Direction]: undefined,
               [TaskHistoryOptions.CursorID]: undefined,
-              [TaskHistoryOptions.IncludeCursor]: undefined,
               [TaskHistoryOptions.Date]: undefined,
+              [TaskHistoryOptions.Direction]: undefined,
+              [TaskHistoryOptions.IncludeCursor]: undefined,
             });
           }}
           size={Size.XSmall}
@@ -82,8 +82,8 @@ export const Controls: React.FC<ControlsProps> = ({
         label="Inactive Commits"
         onChange={(t) => {
           sendEvent({
-            name: "Toggled inactive tasks view",
             expanded: t === ViewOptions.Expanded,
+            name: "Toggled inactive tasks view",
           });
           setViewOption(t as ViewOptions);
           Cookies.set(TASK_HISTORY_INACTIVE_COMMITS_VIEW, t);

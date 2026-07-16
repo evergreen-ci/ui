@@ -39,14 +39,14 @@ export const gqlToForm = ((data, options) => {
   return {
     mergeQueue: {
       enabled: commitQueue?.enabled ?? false,
+      githubMQTriggerAliases,
       patchDefinitions: {
+        mergeQueueAliases,
         mergeQueueAliasesOverride: canOverrideForProject(
           options?.projectType,
           mergeQueueAliases,
         ),
-        mergeQueueAliases,
       },
-      githubMQTriggerAliases,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -57,10 +57,10 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id,
     commitQueue: {
       enabled,
     },
+    id,
   };
 
   const mergeQueueAliases = transformAliases(
@@ -71,7 +71,7 @@ export const formToGql = ((
 
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
-    projectRef,
     aliases: mergeQueueAliases,
+    projectRef,
   };
 }) satisfies FormToGqlFunction<Tab>;

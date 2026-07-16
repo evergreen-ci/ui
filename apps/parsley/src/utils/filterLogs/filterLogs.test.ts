@@ -13,8 +13,8 @@ describe("filterLogs", () => {
         logLines,
         matchingLines: undefined,
         sectionData: undefined,
-        sectionState: undefined,
         sectioningEnabled: false,
+        sectionState: undefined,
         shareLine: undefined,
       }),
     ).toStrictEqual([0, 1, 2, 3, 4, 5, 6, 7]);
@@ -30,8 +30,8 @@ describe("filterLogs", () => {
         logLines,
         matchingLines: new Set([1, 2, 3]),
         sectionData: undefined,
-        sectionState: undefined,
         sectioningEnabled: false,
+        sectionState: undefined,
         shareLine: undefined,
       }),
     ).toStrictEqual([1, 2, 3]);
@@ -47,8 +47,8 @@ describe("filterLogs", () => {
         logLines,
         matchingLines: new Set([]),
         sectionData: undefined,
-        sectionState: undefined,
         sectioningEnabled: false,
+        sectionState: undefined,
         shareLine: undefined,
       }),
     ).toStrictEqual([
@@ -67,8 +67,8 @@ describe("filterLogs", () => {
           logLines,
           matchingLines: new Set([1]),
           sectionData: undefined,
-          sectionState: undefined,
           sectioningEnabled: false,
+          sectionState: undefined,
           shareLine: undefined,
         }),
       ).toStrictEqual([
@@ -89,8 +89,8 @@ describe("filterLogs", () => {
           logLines,
           matchingLines: new Set([1]),
           sectionData: undefined,
-          sectionState: undefined,
           sectioningEnabled: false,
+          sectionState: undefined,
           shareLine: 7,
         }),
       ).toStrictEqual([
@@ -111,8 +111,8 @@ describe("filterLogs", () => {
           logLines,
           matchingLines: new Set([1]),
           sectionData: undefined,
-          sectionState: undefined,
           sectioningEnabled: false,
+          sectionState: undefined,
           shareLine: undefined,
         }),
       ).toStrictEqual([
@@ -133,8 +133,8 @@ describe("filterLogs", () => {
           logLines,
           matchingLines: new Set([1]),
           sectionData: undefined,
-          sectionState: undefined,
           sectioningEnabled: false,
+          sectionState: undefined,
           shareLine: undefined,
         }),
       ).toStrictEqual([
@@ -335,8 +335,8 @@ describe("filterLogs", () => {
         logLines,
         matchingLines: new Set([1]),
         sectionData,
-        sectionState: undefined,
         sectioningEnabled: true,
+        sectionState: undefined,
         shareLine: undefined,
       }),
     ).toStrictEqual([

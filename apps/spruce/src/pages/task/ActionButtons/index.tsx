@@ -165,7 +165,7 @@ export const ActionButtons: React.FC<Props> = ({
         setTaskPriority({
           variables: {
             taskPriorities: [
-              { taskId, priority: initialPriority < 0 ? 0 : -1 },
+              { priority: initialPriority < 0 ? 0 : -1, taskId },
             ],
           },
         });

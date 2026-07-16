@@ -14,9 +14,9 @@ export const DEFAULT_HONEYCOMB_TIME_RANGE = 604800;
 
 /** Default GitHub configuration */
 export const DEFAULT_GITHUB_CONFIG = {
+  branch: "main",
   owner: "evergreen-ci",
   repo: "ui",
-  branch: "main",
 } as const;
 
 /** Default output file name */

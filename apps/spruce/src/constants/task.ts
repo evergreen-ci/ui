@@ -7,124 +7,124 @@ const { gray, green, purple, red, yellow } = palette;
 
 const taskStatuses: TreeDataEntry[] = [
   {
-    title: taskStatusToCopy[TaskStatusUmbrella.Failed],
-    value: TaskStatusUmbrella.Failed,
-    key: TaskStatusUmbrella.Failed,
     children: [
       {
+        key: TaskStatus.Failed,
         title: taskStatusToCopy[TaskStatus.Failed],
         value: TaskStatus.Failed,
-        key: TaskStatus.Failed,
       },
       {
+        key: TaskStatus.TaskTimedOut,
         title: taskStatusToCopy[TaskStatus.TaskTimedOut],
         value: TaskStatus.TaskTimedOut,
-        key: TaskStatus.TaskTimedOut,
       },
       {
+        key: TaskStatus.TestTimedOut,
         title: taskStatusToCopy[TaskStatus.TestTimedOut],
         value: TaskStatus.TestTimedOut,
-        key: TaskStatus.TestTimedOut,
       },
       {
+        key: TaskStatus.KnownIssue,
         title: taskStatusToCopy[TaskStatus.KnownIssue],
         value: TaskStatus.KnownIssue,
-        key: TaskStatus.KnownIssue,
       },
     ],
+    key: TaskStatusUmbrella.Failed,
+    title: taskStatusToCopy[TaskStatusUmbrella.Failed],
+    value: TaskStatusUmbrella.Failed,
   },
   {
+    key: TaskStatus.Succeeded,
     title: taskStatusToCopy[TaskStatus.Succeeded],
     value: TaskStatus.Succeeded,
-    key: TaskStatus.Succeeded,
   },
   {
-    title: taskStatusToCopy[TaskStatusUmbrella.Running],
-    value: TaskStatusUmbrella.Running,
-    key: TaskStatusUmbrella.Running,
     children: [
       {
+        key: TaskStatus.Started,
         title: taskStatusToCopy[TaskStatus.Started],
         value: TaskStatus.Started,
-        key: TaskStatus.Started,
       },
       {
+        key: TaskStatus.Dispatched,
         title: taskStatusToCopy[TaskStatus.Dispatched],
         value: TaskStatus.Dispatched,
-        key: TaskStatus.Dispatched,
       },
     ],
+    key: TaskStatusUmbrella.Running,
+    title: taskStatusToCopy[TaskStatusUmbrella.Running],
+    value: TaskStatusUmbrella.Running,
   },
   {
-    title: taskStatusToCopy[TaskStatusUmbrella.Scheduled],
-    value: TaskStatusUmbrella.Scheduled,
-    key: TaskStatusUmbrella.Scheduled,
     children: [
       {
+        key: TaskStatus.WillRun,
         title: taskStatusToCopy[TaskStatus.WillRun],
         value: TaskStatus.WillRun,
-        key: TaskStatus.WillRun,
       },
       {
+        key: TaskStatus.Pending,
         title: taskStatusToCopy[TaskStatus.Pending],
         value: TaskStatus.Pending,
-        key: TaskStatus.Pending,
       },
       {
+        key: TaskStatus.Unstarted,
         title: taskStatusToCopy[TaskStatus.Unstarted],
         value: TaskStatus.Unstarted,
-        key: TaskStatus.Unstarted,
       },
     ],
+    key: TaskStatusUmbrella.Scheduled,
+    title: taskStatusToCopy[TaskStatusUmbrella.Scheduled],
+    value: TaskStatusUmbrella.Scheduled,
   },
   {
-    title: taskStatusToCopy[TaskStatusUmbrella.SystemFailure],
-    value: TaskStatusUmbrella.SystemFailure,
-    key: TaskStatusUmbrella.SystemFailure,
     children: [
       {
+        key: TaskStatus.SystemFailed,
         title: taskStatusToCopy[TaskStatus.SystemFailed],
         value: TaskStatus.SystemFailed,
-        key: TaskStatus.SystemFailed,
       },
       {
+        key: TaskStatus.SystemTimedOut,
         title: taskStatusToCopy[TaskStatus.SystemTimedOut],
         value: TaskStatus.SystemTimedOut,
-        key: TaskStatus.SystemTimedOut,
       },
       {
+        key: TaskStatus.SystemUnresponsive,
         title: taskStatusToCopy[TaskStatus.SystemUnresponsive],
         value: TaskStatus.SystemUnresponsive,
-        key: TaskStatus.SystemUnresponsive,
       },
     ],
+    key: TaskStatusUmbrella.SystemFailure,
+    title: taskStatusToCopy[TaskStatusUmbrella.SystemFailure],
+    value: TaskStatusUmbrella.SystemFailure,
   },
   {
-    title: taskStatusToCopy[TaskStatusUmbrella.Undispatched],
-    value: TaskStatusUmbrella.Undispatched,
-    key: TaskStatus.Undispatched,
     children: [
       {
+        key: TaskStatus.Unscheduled,
         title: taskStatusToCopy[TaskStatus.Unscheduled],
         value: TaskStatus.Unscheduled,
-        key: TaskStatus.Unscheduled,
       },
       {
+        key: TaskStatus.Aborted,
         title: taskStatusToCopy[TaskStatus.Aborted],
         value: TaskStatus.Aborted,
-        key: TaskStatus.Aborted,
       },
       {
+        key: TaskStatus.Blocked,
         title: taskStatusToCopy[TaskStatus.Blocked],
         value: TaskStatus.Blocked,
-        key: TaskStatus.Blocked,
       },
     ],
+    key: TaskStatus.Undispatched,
+    title: taskStatusToCopy[TaskStatusUmbrella.Undispatched],
+    value: TaskStatusUmbrella.Undispatched,
   },
   {
+    key: TaskStatus.SetupFailed,
     title: taskStatusToCopy[TaskStatus.SetupFailed],
     value: TaskStatus.SetupFailed,
-    key: TaskStatus.SetupFailed,
   },
 ];
 
@@ -157,9 +157,9 @@ export const mapUmbrellaStatusToQueryParam: {
 
 export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   {
+    key: ALL_VALUE,
     title: "All",
     value: ALL_VALUE,
-    key: ALL_VALUE,
   },
   ...taskStatuses,
 ];
@@ -170,51 +170,51 @@ type ColorScheme = {
 };
 
 export const mapUmbrellaStatusColors: Record<string, ColorScheme> = {
-  [TaskStatusUmbrella.Undispatched]: {
-    fill: gray.light3,
-    border: gray.light2,
-    text: gray.dark1,
-  },
-  [TaskStatusUmbrella.Running]: {
-    fill: yellow.light3,
-    border: yellow.light2,
-    text: yellow.dark2,
-  },
-  [TaskStatusUmbrella.SystemFailure]: {
-    fill: purple.dark2,
-    border: purple.dark3,
-    text: purple.light3,
-  },
-  [TaskStatusUmbrella.Scheduled]: {
-    fill: gray.dark1,
-    border: gray.dark2,
-    text: gray.light3,
-  },
-  [TaskStatusUmbrella.Failed]: {
-    fill: red.light3,
-    border: red.light2,
-    text: red.dark2,
+  [TaskStatus.SetupFailed]: {
+    border: purple.base,
+    fill: purple.light2,
+    text: purple.dark2,
   },
   [TaskStatus.Succeeded]: {
-    fill: green.light3,
     border: green.light2,
+    fill: green.light3,
     text: green.dark2,
   },
-  [TaskStatus.SetupFailed]: {
-    fill: purple.light2,
-    border: purple.base,
-    text: purple.dark2,
+  [TaskStatusUmbrella.Failed]: {
+    border: red.light2,
+    fill: red.light3,
+    text: red.dark2,
+  },
+  [TaskStatusUmbrella.Running]: {
+    border: yellow.light2,
+    fill: yellow.light3,
+    text: yellow.dark2,
+  },
+  [TaskStatusUmbrella.Scheduled]: {
+    border: gray.dark2,
+    fill: gray.dark1,
+    text: gray.light3,
+  },
+  [TaskStatusUmbrella.SystemFailure]: {
+    border: purple.dark3,
+    fill: purple.dark2,
+    text: purple.light3,
+  },
+  [TaskStatusUmbrella.Undispatched]: {
+    border: gray.light2,
+    fill: gray.light3,
+    text: gray.dark1,
   },
 };
 
 export const mapTaskToBarchartColor = {
-  [TaskStatusUmbrella.Undispatched]: gray.dark1,
-  [TaskStatusUmbrella.Running]: yellow.base,
-  [TaskStatusUmbrella.SystemFailure]: purple.dark2,
-  [TaskStatusUmbrella.Scheduled]: gray.base,
-  [TaskStatusUmbrella.Failed]: red.base,
-  [TaskStatus.Succeeded]: green.dark1,
   [TaskStatus.SetupFailed]: purple.light2,
+  [TaskStatus.Succeeded]: green.dark1,
+  [TaskStatusUmbrella.Failed]: red.base,
+  [TaskStatusUmbrella.Running]: yellow.base,
+  [TaskStatusUmbrella.Scheduled]: gray.base,
+  [TaskStatusUmbrella.SystemFailure]: purple.dark2,
+  [TaskStatusUmbrella.Undispatched]: gray.dark1,
 };
 
 // Represents order for waterfall barchart

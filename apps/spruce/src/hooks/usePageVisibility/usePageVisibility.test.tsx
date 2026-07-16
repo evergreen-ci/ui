@@ -11,8 +11,8 @@ describe("usePageVisibility", () => {
   const updatePageVisibility = (status: string) => {
     act(() => {
       Object.defineProperty(document, "visibilityState", {
-        value: status,
         configurable: true,
+        value: status,
       });
       document.dispatchEvent(new window.Event("visibilitychange"));
     });
@@ -35,8 +35,8 @@ describe("usePageVisibility", () => {
 
   it("usePageVisibility should return false when page is initially hidden", () => {
     Object.defineProperty(document, "visibilityState", {
-      value: "hidden",
       configurable: true,
+      value: "hidden",
     });
     const { result } = renderHook(() => usePageVisibility(), {
       wrapper: Provider,

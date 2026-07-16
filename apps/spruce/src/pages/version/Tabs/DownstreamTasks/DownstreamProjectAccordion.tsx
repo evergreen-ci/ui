@@ -25,12 +25,12 @@ import { reducer } from "./state";
 
 const defaultSorts: SortOrder[] = [
   {
-    Key: TaskSortCategory.Status,
     Direction: SortDirection.Asc,
+    Key: TaskSortCategory.Status,
   },
   {
-    Key: TaskSortCategory.BaseStatus,
     Direction: SortDirection.Desc,
+    Key: TaskSortCategory.BaseStatus,
   },
 ];
 
@@ -59,10 +59,10 @@ export const DownstreamProjectAccordion: React.FC<
     baseStatuses: [],
     limit: 10,
     page: 0,
+    sorts: defaultSorts,
     statuses: [],
     taskName: "",
     variant: "",
-    sorts: defaultSorts,
   });
 
   const { baseStatuses, limit, page, sorts, statuses, taskName, variant } =
@@ -72,8 +72,8 @@ export const DownstreamProjectAccordion: React.FC<
     VersionTasksQuery,
     VersionTasksQueryVariables
   >(VERSION_TASKS, {
+    fetchPolicy: "cache-and-network",
     variables: {
-      versionId: childPatchId,
       taskFilterOptions: {
         baseStatuses,
         limit,
@@ -83,13 +83,13 @@ export const DownstreamProjectAccordion: React.FC<
         taskName,
         variant,
       },
+      versionId: childPatchId,
     },
-    fetchPolicy: "cache-and-network",
   });
   usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
 
   const showSkeleton = !data;

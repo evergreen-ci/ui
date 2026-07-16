@@ -29,7 +29,7 @@ const Issues: React.FC<IssuesProps> = ({
   const { data, error, loading } = useQuery<IssuesQuery, IssuesQueryVariables>(
     JIRA_ISSUES,
     {
-      variables: { taskId, execution },
+      variables: { execution, taskId },
     },
   );
   useErrorToast(

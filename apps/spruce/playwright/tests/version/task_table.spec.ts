@@ -204,10 +204,10 @@ test.describe("Task table", () => {
         const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
         await page.context().addCookies([
           {
-            name: SEEN_TASK_REVIEW_TOOLTIP,
-            value: oneDayAgo.toString(),
             domain: "localhost",
+            name: SEEN_TASK_REVIEW_TOOLTIP,
             path: "/",
+            value: oneDayAgo.toString(),
           },
         ]);
         await page.goto(pathTasks);
@@ -218,10 +218,10 @@ test.describe("Task table", () => {
         const eightDaysAgo = new Date(Date.now() - 8 * 24 * 60 * 60 * 1000);
         await page.context().addCookies([
           {
-            name: SEEN_TASK_REVIEW_TOOLTIP,
-            value: eightDaysAgo.toString(),
             domain: "localhost",
+            name: SEEN_TASK_REVIEW_TOOLTIP,
             path: "/",
+            value: eightDaysAgo.toString(),
           },
         ]);
         await page.goto(pathTasks);

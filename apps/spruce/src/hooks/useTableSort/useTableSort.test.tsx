@@ -19,7 +19,7 @@ describe("useTableSort", () => {
       },
     );
     act(() => {
-      result.current.sort([{ id: "distroId", desc: false }]);
+      result.current.sort([{ desc: false, id: "distroId" }]);
     });
     expect(result.current.location.search).toBe("?page=0&sorts=distroId%3AASC");
     expect(analytics).toHaveBeenCalledTimes(1);
@@ -41,7 +41,7 @@ describe("useTableSort", () => {
       },
     );
     act(() => {
-      result.current.sort([{ id: "distroId", desc: true }]);
+      result.current.sort([{ desc: true, id: "distroId" }]);
     });
     expect(result.current.location.search).toBe(
       "?page=0&sorts=distroId%3ADESC",
@@ -67,7 +67,7 @@ describe("useTableSort", () => {
       },
     );
     act(() => {
-      result.current.sort([{ id: "bar", desc: false }]);
+      result.current.sort([{ desc: false, id: "bar" }]);
     });
     expect(result.current.location.search).toBe("?page=0&sorts=bar%3AASC");
     expect(analytics).toHaveBeenCalledTimes(1);
@@ -89,7 +89,7 @@ describe("useTableSort", () => {
       },
     );
     act(() => {
-      result.current.sort([{ id: "foo", desc: false }]);
+      result.current.sort([{ desc: false, id: "foo" }]);
     });
     expect(result.current.location.search).toBe("?page=0&sorts=foo%3AASC");
     expect(analytics).toHaveBeenCalledTimes(1);
@@ -138,8 +138,8 @@ describe("useTableSort", () => {
     );
     act(() => {
       result.current.sort([
-        { id: "distroId", desc: false },
-        { id: "status", desc: true },
+        { desc: false, id: "distroId" },
+        { desc: true, id: "status" },
       ]);
     });
     expect(result.current.location.search).toBe(

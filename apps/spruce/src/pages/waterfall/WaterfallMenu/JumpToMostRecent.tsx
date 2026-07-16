@@ -17,9 +17,9 @@ export const JumpToMostRecent: React.FC<Props> = ({ setMenuOpen }) => {
     setQueryParams({
       ...queryParams,
       [WaterfallFilterOptions.Date]: undefined,
-      [WaterfallFilterOptions.Revision]: undefined,
       [WaterfallFilterOptions.MaxOrder]: undefined,
       [WaterfallFilterOptions.MinOrder]: undefined,
+      [WaterfallFilterOptions.Revision]: undefined,
     });
     setMenuOpen(false);
   };

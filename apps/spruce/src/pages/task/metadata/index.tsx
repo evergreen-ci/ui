@@ -103,8 +103,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
                 href={getHostRoute(hostId)}
                 onClick={() =>
                   taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
                     "link.type": "host link",
+                    name: "Clicked metadata link",
                   })
                 }
               >
@@ -118,8 +118,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
                 data-cy="task-distro-link"
                 onClick={() =>
                   taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
                     "link.type": "distro link",
+                    name: "Clicked metadata link",
                   })
                 }
                 to={getDistroSettingsRoute(distroId)}
@@ -134,8 +134,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
                 data-cy="task-image-link"
                 onClick={() =>
                   taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
                     "link.type": "image link",
+                    name: "Clicked metadata link",
                   })
                 }
                 to={getImageRoute(imageId)}

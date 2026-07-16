@@ -18,9 +18,9 @@ import useJobLogsPageData from "./useJobLogs";
 
 const JobLogs: React.FC = () => {
   const {
-    [slugs.taskId]: taskIdFromParams,
     [slugs.execution]: executionFromParams,
     [slugs.groupId]: groupIdFromParams,
+    [slugs.taskId]: taskIdFromParams,
   } = useParams();
 
   const { loading, metadata, resultsToRender, title } = useJobLogsPageData({

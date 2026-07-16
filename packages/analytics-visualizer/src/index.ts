@@ -37,17 +37,17 @@ import type { AnalyticsVisualizerOptions } from "./types.ts";
 const analyticsVisualizer = (options: AnalyticsVisualizerOptions): Plugin => {
   const resolvedOptions: Required<AnalyticsVisualizerOptions> = {
     analyticsDir: options.analyticsDir,
-    outputFileName: options.outputFileName || DEFAULT_OUTPUT_FILE_NAME,
     appName: options.appName,
-    honeycombBaseUrl: options.honeycombBaseUrl,
+    githubBranch: options.githubBranch || DEFAULT_GITHUB_CONFIG.branch,
     githubOwner: options.githubOwner || DEFAULT_GITHUB_CONFIG.owner,
     githubRepo: options.githubRepo || DEFAULT_GITHUB_CONFIG.repo,
-    githubBranch: options.githubBranch || DEFAULT_GITHUB_CONFIG.branch,
+    honeycombBaseUrl: options.honeycombBaseUrl,
+    outputFileName: options.outputFileName || DEFAULT_OUTPUT_FILE_NAME,
   };
 
   return {
-    name: "analyticsVisualizer",
     enforce: "post" as const,
+    name: "analyticsVisualizer",
     writeBundle: async (bundleOptions: { dir?: string; file?: string }) => {
       try {
         // Get output directory from options, fallback to dist relative to process.cwd()

@@ -44,53 +44,23 @@ const HostExpiration: React.FC<MyHost> = ({ expiration, noExpiration }) => {
 const spawnHostCardFieldMaps = (
   sendEvent: ExtractAnalyticsSendEvent<typeof useSpawnAnalytics>,
 ) => ({
-  ID: (host: MyHost) => (
-    <span>
-      {host?.id} (
-      <StyledRouterLink to={getHostRoute(host?.id)}>Event Log</StyledRouterLink>
-      )
-    </span>
-  ),
-  "Created at": HostUptime,
-  "Started at": HostUptime,
-  "Expires at": HostExpiration,
-  "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
-  "Host Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
-  "Persistent DNS Name": (host: MyHost) => (
-    <span>{host?.persistentDnsName}</span>
-  ),
-  "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
   "Availability Zone": (host: MyHost) => <span>{host?.availabilityZone}</span>,
-  "User Tags": (host: MyHost) => (
-    <span>
-      {host?.instanceTags?.map(
-        (tag) =>
-          tag.canBeModified && (
-            <PaddedBadge key={`user_tag_${host.id}_${tag.key}`}>
-              {tag.key}:{tag.value}
-            </PaddedBadge>
-          ),
-      )}
-    </span>
-  ),
-  "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
-  "Mounted Volumes": (host: MyHost) => (
-    <>
-      {host.volumes.map(({ displayName, id }) => (
-        <div key={`volume_link_${id}`}>
-          <StyledRouterLink to={getSpawnVolumeRoute(id)}>
-            {displayName || id}
-          </StyledRouterLink>
-        </div>
-      ))}
-    </>
-  ),
+  "Created at": HostUptime,
+  "Expires at": HostExpiration,
   "Home Volume": (host: MyHost) => (
     <span>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <StyledRouterLink to={getSpawnVolumeRoute(host?.homeVolumeID)}>
         {host?.homeVolume?.displayName || host?.homeVolumeID}
       </StyledRouterLink>
+    </span>
+  ),
+  "Host Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
+  ID: (host: MyHost) => (
+    <span>
+      {host?.id} (
+      <StyledRouterLink to={getHostRoute(host?.id)}>Event Log</StyledRouterLink>
+      )
     </span>
   ),
   IDE: (host: MyHost) =>
@@ -111,6 +81,36 @@ const spawnHostCardFieldMaps = (
         </InfoSprinkle>
       </IDEContainer>
     ) : undefined,
+  "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
+  "Mounted Volumes": (host: MyHost) => (
+    <>
+      {host.volumes.map(({ displayName, id }) => (
+        <div key={`volume_link_${id}`}>
+          <StyledRouterLink to={getSpawnVolumeRoute(id)}>
+            {displayName || id}
+          </StyledRouterLink>
+        </div>
+      ))}
+    </>
+  ),
+  "Persistent DNS Name": (host: MyHost) => (
+    <span>{host?.persistentDnsName}</span>
+  ),
+  "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
+  "Started at": HostUptime,
+  "User Tags": (host: MyHost) => (
+    <span>
+      {host?.instanceTags?.map(
+        (tag) =>
+          tag.canBeModified && (
+            <PaddedBadge key={`user_tag_${host.id}_${tag.key}`}>
+              {tag.key}:{tag.value}
+            </PaddedBadge>
+          ),
+      )}
+    </span>
+  ),
+  "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
 });
 
 const IDEContainer = styled.div`

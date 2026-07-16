@@ -5,16 +5,16 @@ const singleTaskDistroData = {
     singleTaskDistro: {
       projectTasksPairs: [
         {
-          projectId: "spruce",
-          allowedTasks: ["storybook", "lint"],
           allowedBVs: ["ubuntu1604"],
+          allowedTasks: ["storybook", "lint"],
           displayName: "spruce (Repo)",
+          projectId: "spruce",
         },
         {
-          projectId: "evergreen",
-          allowedTasks: ["test", "compile"],
           allowedBVs: ["windows", "ubuntu1604"],
+          allowedTasks: ["test", "compile"],
           displayName: "evergreen (Project)",
+          projectId: "evergreen",
         },
       ],
     },
@@ -26,16 +26,16 @@ describe("single task distro data", () => {
     expect(gqlToForm(singleTaskDistroData)).toStrictEqual({
       projectTasksPairs: [
         {
+          allowedBVs: ["ubuntu1604", "windows"],
+          allowedTasks: ["compile", "test"],
           displayTitle: "evergreen (Project)",
           projectId: "evergreen",
-          allowedTasks: ["compile", "test"],
-          allowedBVs: ["ubuntu1604", "windows"],
         },
         {
+          allowedBVs: ["ubuntu1604"],
+          allowedTasks: ["lint", "storybook"],
           displayTitle: "spruce (Repo)",
           projectId: "spruce",
-          allowedTasks: ["lint", "storybook"],
-          allowedBVs: ["ubuntu1604"],
         },
       ],
     });

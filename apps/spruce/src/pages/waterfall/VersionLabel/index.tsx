@@ -71,9 +71,9 @@ export const VersionLabel: React.FC<Props> = ({
             as={Link}
             onClick={() => {
               sendEvent({
-                name: "Clicked commit label",
                 "commit.type": commitType,
                 link: "githash",
+                name: "Clicked commit label",
               });
             }}
             to={getVersionRoute(id)}
@@ -96,9 +96,9 @@ export const VersionLabel: React.FC<Props> = ({
         isTrigger={requester === Requester.Trigger}
         onClick={() => {
           sendEvent({
-            name: "Clicked commit label",
             "commit.type": commitType,
             link: "upstream project",
+            name: "Clicked commit label",
           });
         }}
         versionId={id}
@@ -111,9 +111,9 @@ export const VersionLabel: React.FC<Props> = ({
         <strong>{user.displayName}</strong> &bull;{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
-            name: "Clicked commit label",
             "commit.type": commitType,
             link: "jira",
+            name: "Clicked commit label",
           });
         })}
       </CommitMessage>

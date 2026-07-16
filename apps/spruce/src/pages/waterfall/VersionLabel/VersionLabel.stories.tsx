@@ -15,31 +15,31 @@ import { getVersionUpstreamProjectMock } from "./testData";
 import { VersionLabel, VersionLabelView } from ".";
 
 export default {
-  title: "Pages/Waterfall/VersionLabel",
-  component: VersionLabel,
   args: {
     view: VersionLabelView.Modal,
   },
   argTypes: {
     view: {
-      options: Object.values(VersionLabelView),
       control: { type: "select" },
+      options: Object.values(VersionLabelView),
     },
   },
+  component: VersionLabel,
+  title: "Pages/Waterfall/VersionLabel",
 };
 
 export const Default: StoryObj<typeof VersionLabel> = {
-  render: (args) => (
-    <Container>
-      <VersionLabel {...args} />
-    </Container>
-  ),
+  args: version,
   parameters: {
     apolloClient: {
       mocks: [getSpruceConfigMock, getUserSettingsMock],
     },
   },
-  args: version,
+  render: (args) => (
+    <Container>
+      <VersionLabel {...args} />
+    </Container>
+  ),
 };
 
 export const GitTag: StoryObj<typeof VersionLabel> = {

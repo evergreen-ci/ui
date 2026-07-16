@@ -32,13 +32,6 @@ export const gqlToForm = ((data) => {
   } = data;
 
   return {
-    provider: {
-      providerName: provider,
-      providerAccount: providerAccount,
-    },
-    staticProviderSettings: {
-      ...formProviderSettings(providerSettingsList[0]).staticProviderSettings,
-    },
     dockerProviderSettings: {
       ...formProviderSettings(providerSettingsList[0]).dockerProviderSettings,
       containerPoolId: containerPool,
@@ -48,10 +41,17 @@ export const gqlToForm = ((data) => {
       ...formProviderSettings(p).ec2FleetProviderSettings,
       displayTitle: p.region,
     })),
+    provider: {
+      providerAccount: providerAccount,
+      providerName: provider,
+    },
+    staticProviderSettings: {
+      ...formProviderSettings(providerSettingsList[0]).staticProviderSettings,
+    },
     taskHostOverrides: {
-      enableTaskHostOverrides: taskHostOverrides != null,
       doNotAssignPublicIpv4Address:
         taskHostOverrides?.doNotAssignPublicIpv4Address ?? false,
+      enableTaskHostOverrides: taskHostOverrides != null,
       iamInstanceProfileArn: taskHostOverrides?.iamInstanceProfileArn ?? "",
       providerAccount: taskHostOverrides?.providerAccount ?? "",
       securityGroupIds: taskHostOverrides?.securityGroupIds ?? [],
@@ -70,6 +70,7 @@ export const formToGql = ((data, distro) => {
     case Provider.Static:
       return {
         ...distro,
+        containerPool: "",
         provider: Provider.Static,
         providerSettingsList: [
           {
@@ -77,11 +78,11 @@ export const formToGql = ((data, distro) => {
               .staticProviderSettings,
           },
         ],
-        containerPool: "",
       };
     case Provider.Docker:
       return {
         ...distro,
+        containerPool: data.dockerProviderSettings.containerPoolId,
         provider: Provider.Docker,
         providerSettingsList: [
           {
@@ -89,17 +90,16 @@ export const formToGql = ((data, distro) => {
               .dockerProviderSettings,
           },
         ],
-        containerPool: data.dockerProviderSettings.containerPoolId,
       };
     case Provider.Ec2Fleet:
       return {
         ...distro,
+        containerPool: "",
         provider: Provider.Ec2Fleet,
         providerAccount: data.provider.providerAccount,
         providerSettingsList: data.ec2FleetProviderSettings.map((p) => ({
           ...gqlProviderSettings(p).ec2FleetProviderSettings,
         })),
-        containerPool: "",
         taskHostOverrides: toTaskHostOverridesInput(data.taskHostOverrides),
       };
     default:

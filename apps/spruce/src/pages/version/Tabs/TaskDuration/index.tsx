@@ -48,11 +48,11 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const clearQueryParams = () => {
     setQueryParams({
       ...queryParams,
+      [PaginationQueryParams.Page]: undefined,
+      [PatchTasksQueryParams.BaseStatuses]: undefined,
+      [PatchTasksQueryParams.Statuses]: undefined,
       [PatchTasksQueryParams.TaskName]: undefined,
       [PatchTasksQueryParams.Variant]: undefined,
-      [PatchTasksQueryParams.Statuses]: undefined,
-      [PatchTasksQueryParams.BaseStatuses]: undefined,
-      [PaginationQueryParams.Page]: undefined,
       [TableQueryParams.Sorts]: defaultSort,
     });
   };
@@ -64,16 +64,16 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
     VERSION_TASK_DURATIONS,
     hasQueryVariables
       ? {
-          variables: queryVariables,
           pollInterval: DEFAULT_POLL_INTERVAL,
+          variables: queryVariables,
         }
       : skipToken,
   );
   useErrorToast(error, "Error fetching patch tasks");
   usePolling<VersionTaskDurationsQuery, VersionTaskDurationsQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
   const { version } = data || {};
   const { tasks } = version || {};

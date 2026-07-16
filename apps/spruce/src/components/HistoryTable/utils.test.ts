@@ -15,8 +15,8 @@ describe("historyTable utils", () => {
   describe("processCommits", () => {
     it("should return empty array if no commits", () => {
       const { processedCommits } = processCommits({
-        newCommits: [],
         existingCommits: [],
+        newCommits: [],
         selectedCommitOrder: null,
       });
       expect(processedCommits).toStrictEqual([]);
@@ -25,8 +25,8 @@ describe("historyTable utils", () => {
     it("should handle adding new commits when none exist", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const { processedCommits } = processCommits({
-        newCommits: [firstCommit],
         existingCommits: [],
+        newCommits: [firstCommit],
         selectedCommitOrder: null,
       });
       expect(processedCommits).toStrictEqual<CommitRowType[]>([
@@ -40,8 +40,8 @@ describe("historyTable utils", () => {
           commit: firstCommit.version,
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           date: firstCommit.version.createTime,
-          type: rowType.COMMIT,
           selected: false,
+          type: rowType.COMMIT,
         },
       ]);
     });
@@ -52,8 +52,8 @@ describe("historyTable utils", () => {
       const thirdCommit = mainlineCommitData.versions[2];
       it("should not seperate commits when they subsequent commits are of the same date", () => {
         const { processedCommits } = processCommits({
-          newCommits: [firstCommit, secondCommit],
           existingCommits: [],
+          newCommits: [firstCommit, secondCommit],
           selectedCommitOrder: null,
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
@@ -67,23 +67,23 @@ describe("historyTable utils", () => {
             commit: firstCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
-            type: rowType.COMMIT,
             selected: false,
+            type: rowType.COMMIT,
           },
           {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             commit: secondCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: secondCommit.version.createTime,
-            type: rowType.COMMIT,
             selected: false,
+            type: rowType.COMMIT,
           },
         ]);
       });
       it("should seperate commits when they are not of the same date", () => {
         const { processedCommits } = processCommits({
-          newCommits: [firstCommit, thirdCommit],
           existingCommits: [],
+          newCommits: [firstCommit, thirdCommit],
           selectedCommitOrder: null,
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
@@ -97,8 +97,8 @@ describe("historyTable utils", () => {
             commit: firstCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
-            type: rowType.COMMIT,
             selected: false,
+            type: rowType.COMMIT,
           },
           {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -110,8 +110,8 @@ describe("historyTable utils", () => {
             commit: thirdCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: thirdCommit.version.createTime,
-            type: rowType.COMMIT,
             selected: false,
+            type: rowType.COMMIT,
           },
         ]);
       });
@@ -122,8 +122,8 @@ describe("historyTable utils", () => {
       const foldedUpCommits = mainlineCommitData.versions[5];
       it("should add a folded up commit when it is the first commit", () => {
         const { processedCommits } = processCommits({
-          newCommits: [foldedUpCommits],
           existingCommits: [],
+          newCommits: [foldedUpCommits],
           selectedCommitOrder: null,
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
@@ -134,18 +134,17 @@ describe("historyTable utils", () => {
           },
           {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            rolledUpCommits: foldedUpCommits.rolledUpVersions,
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: foldedUpCommits.rolledUpVersions[0].createTime,
-            type: rowType.FOLDED_COMMITS,
-            selected: false,
             expanded: false,
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            rolledUpCommits: foldedUpCommits.rolledUpVersions,
+            selected: false,
+            type: rowType.FOLDED_COMMITS,
           },
         ]);
       });
       it("should add a folded up commit when there are prior commits", () => {
         const { processedCommits } = processCommits({
-          newCommits: [foldedUpCommits],
           existingCommits: [
             {
               // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -157,10 +156,11 @@ describe("historyTable utils", () => {
               commit: firstCommit.version,
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               date: firstCommit.version.createTime,
-              type: rowType.COMMIT,
               selected: false,
+              type: rowType.COMMIT,
             },
           ],
+          newCommits: [foldedUpCommits],
           selectedCommitOrder: null,
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
@@ -174,8 +174,8 @@ describe("historyTable utils", () => {
             commit: firstCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
-            type: rowType.COMMIT,
             selected: false,
+            type: rowType.COMMIT,
           },
           {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -184,12 +184,12 @@ describe("historyTable utils", () => {
           },
           {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            rolledUpCommits: foldedUpCommits.rolledUpVersions,
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: foldedUpCommits.rolledUpVersions[0].createTime,
-            type: rowType.FOLDED_COMMITS,
-            selected: false,
             expanded: false,
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            rolledUpCommits: foldedUpCommits.rolledUpVersions,
+            selected: false,
+            type: rowType.FOLDED_COMMITS,
           },
         ]);
       });
@@ -198,8 +198,8 @@ describe("historyTable utils", () => {
     describe("selected commits", () => {
       it("should return the correct row number for selected commits", () => {
         const { processedCommits, selectedCommitRowIndex } = processCommits({
-          newCommits: [mainlineCommitData.versions[0]],
           existingCommits: [],
+          newCommits: [mainlineCommitData.versions[0]],
           selectedCommitOrder: 3399,
         });
         expect(processedCommits).toStrictEqual([
@@ -212,16 +212,16 @@ describe("historyTable utils", () => {
             commit: mainlineCommitData.versions[0].version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: mainlineCommitData.versions[0].version.createTime,
-            type: rowType.COMMIT,
             selected: true,
+            type: rowType.COMMIT,
           },
         ]);
         expect(selectedCommitRowIndex).toBe(1);
       });
       it("should not return a selected commit if it does not exist", () => {
         const { processedCommits, selectedCommitRowIndex } = processCommits({
-          newCommits: [mainlineCommitData.versions[0]],
           existingCommits: [],
+          newCommits: [mainlineCommitData.versions[0]],
           selectedCommitOrder: 1996,
         });
         expect(processedCommits).toStrictEqual([
@@ -234,9 +234,9 @@ describe("historyTable utils", () => {
             commit: mainlineCommitData.versions[0].version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: mainlineCommitData.versions[0].version.createTime,
-            type: rowType.COMMIT,
-
             selected: false,
+
+            type: rowType.COMMIT,
           },
         ]);
         expect(selectedCommitRowIndex).toBeNull();

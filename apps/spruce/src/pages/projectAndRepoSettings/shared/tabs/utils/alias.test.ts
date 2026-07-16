@@ -13,15 +13,15 @@ describe("transformAliases", () => {
         [
           {
             id: "123",
-            variants: {
-              specifier: VariantTaskSpecifier.Regex,
-              variant: ".*",
-              variantTags: ["hi"],
-            },
             tasks: {
               specifier: VariantTaskSpecifier.Regex,
               task: ".*",
               taskTags: ["hello"],
+            },
+            variants: {
+              specifier: VariantTaskSpecifier.Regex,
+              variant: ".*",
+              variantTags: ["hi"],
             },
           } as AliasFormType,
         ],
@@ -30,16 +30,16 @@ describe("transformAliases", () => {
       ),
     ).toStrictEqual([
       {
-        id: "123",
         alias: "__github",
         description: "",
-        variantTags: [],
+        gitTag: "",
+        id: "123",
+        parameters: undefined,
+        remotePath: "",
+        task: ".*",
         taskTags: [],
         variant: ".*",
-        task: ".*",
-        gitTag: "",
-        remotePath: "",
-        parameters: undefined,
+        variantTags: [],
       },
     ]);
   });
@@ -65,17 +65,17 @@ describe("transformAliases", () => {
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           {
             id: "456",
-            variants: {
-              specifier: VariantTaskSpecifier.Tags,
-              variant: "something",
-              variantTags: ["new", "", ""],
-            },
+            parameters: [],
             tasks: {
               specifier: VariantTaskSpecifier.Tags,
               task: "",
               taskTags: ["test"],
             },
-            parameters: [],
+            variants: {
+              specifier: VariantTaskSpecifier.Tags,
+              variant: "something",
+              variantTags: ["new", "", ""],
+            },
           } as AliasFormType,
         ],
         true,
@@ -83,16 +83,16 @@ describe("transformAliases", () => {
       ),
     ).toStrictEqual([
       {
-        id: "456",
         alias: "__commit_queue",
         description: "",
-        variantTags: ["new"],
+        gitTag: "",
+        id: "456",
+        parameters: [],
+        remotePath: "",
+        task: "",
         taskTags: ["test"],
         variant: "",
-        task: "",
-        gitTag: "",
-        remotePath: "",
-        parameters: [],
+        variantTags: ["new"],
       },
     ]);
   });
@@ -102,18 +102,18 @@ describe("transformAliases", () => {
       transformAliases(
         [
           {
-            id: "",
             alias: "myAlias",
             description: "myDescription",
-            variants: {
-              specifier: VariantTaskSpecifier.Tags,
-              variant: "",
-              variantTags: ["hello"],
-            },
+            id: "",
             tasks: {
               specifier: VariantTaskSpecifier.Tags,
               task: "",
               taskTags: ["goodbye"],
+            },
+            variants: {
+              specifier: VariantTaskSpecifier.Tags,
+              variant: "",
+              variantTags: ["hello"],
             },
           } as AliasFormType,
         ],
@@ -121,16 +121,16 @@ describe("transformAliases", () => {
       ),
     ).toStrictEqual([
       {
-        id: "",
         alias: "myAlias",
         description: "myDescription",
-        variantTags: ["hello"],
+        gitTag: "",
+        id: "",
+        parameters: undefined,
+        remotePath: "",
+        task: "",
         taskTags: ["goodbye"],
         variant: "",
-        task: "",
-        gitTag: "",
-        remotePath: "",
-        parameters: undefined,
+        variantTags: ["hello"],
       },
     ]);
   });
@@ -141,19 +141,19 @@ describe("transformAliases", () => {
         transformAliases(
           [
             {
-              id: "",
               gitTag: "test",
-              specifier: GitTagSpecifier.ConfigFile,
+              id: "",
               remotePath: "evergreen.yml",
-              variants: {
-                specifier: VariantTaskSpecifier.Tags,
-                variant: "",
-                variantTags: ["hello"],
-              },
+              specifier: GitTagSpecifier.ConfigFile,
               tasks: {
                 specifier: VariantTaskSpecifier.Tags,
                 task: "",
                 taskTags: ["goodbye"],
+              },
+              variants: {
+                specifier: VariantTaskSpecifier.Tags,
+                variant: "",
+                variantTags: ["hello"],
               },
             } as AliasFormType,
           ],
@@ -162,16 +162,16 @@ describe("transformAliases", () => {
         ),
       ).toStrictEqual([
         {
-          id: "",
           alias: "__git_tag",
           description: "",
           gitTag: "test",
+          id: "",
+          parameters: undefined,
           remotePath: "evergreen.yml",
-          variantTags: [],
+          task: "",
           taskTags: [],
           variant: "",
-          task: "",
-          parameters: undefined,
+          variantTags: [],
         },
       ]);
     });
@@ -181,19 +181,19 @@ describe("transformAliases", () => {
         transformAliases(
           [
             {
-              id: "",
               gitTag: "test",
-              specifier: GitTagSpecifier.VariantTask,
+              id: "",
               remotePath: "evergreen.yml",
-              variants: {
-                specifier: VariantTaskSpecifier.Tags,
-                variant: "",
-                variantTags: ["hello"],
-              },
+              specifier: GitTagSpecifier.VariantTask,
               tasks: {
                 specifier: VariantTaskSpecifier.Tags,
                 task: "",
                 taskTags: ["goodbye"],
+              },
+              variants: {
+                specifier: VariantTaskSpecifier.Tags,
+                variant: "",
+                variantTags: ["hello"],
               },
             } as AliasFormType,
           ],
@@ -202,16 +202,16 @@ describe("transformAliases", () => {
         ),
       ).toStrictEqual([
         {
-          id: "",
           alias: "__git_tag",
           description: "",
           gitTag: "test",
+          id: "",
+          parameters: undefined,
           remotePath: "",
-          variantTags: ["hello"],
+          task: "",
           taskTags: ["goodbye"],
           variant: "",
-          task: "",
-          parameters: undefined,
+          variantTags: ["hello"],
         },
       ]);
     });

@@ -111,7 +111,7 @@ const imageOperatingSystemMock: ApolloMock<
 > = {
   request: {
     query: IMAGE_OPERATING_SYSTEM,
-    variables: { imageId: "ubuntu2204", opts: { page: 0, limit: 10 } },
+    variables: { imageId: "ubuntu2204", opts: { limit: 10, page: 0 } },
   },
   result: {
     data: {
@@ -187,7 +187,7 @@ const imageOperatingSystemNextPageMock: ApolloMock<
 > = {
   request: {
     query: IMAGE_OPERATING_SYSTEM,
-    variables: { imageId: "ubuntu2204", opts: { page: 1, limit: 10 } },
+    variables: { imageId: "ubuntu2204", opts: { limit: 10, page: 1 } },
   },
   result: {
     data: {
@@ -219,7 +219,7 @@ const imageOperatingSystemNameFilterMock: ApolloMock<
     query: IMAGE_OPERATING_SYSTEM,
     variables: {
       imageId: "ubuntu2204",
-      opts: { page: 0, limit: 10, name: "^Kernel" },
+      opts: { limit: 10, name: "^Kernel", page: 0 },
     },
   },
   result: {

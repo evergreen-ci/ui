@@ -668,29 +668,29 @@ test.describe("Configure Patch Page", () => {
       await mockGraphQLResponse(page, "SchedulePatch", {
         data: {
           schedulePatch: {
-            id: activatedPatchId,
-            description: "cypress_v10: turn on retries",
-            author: "person",
-            status: "created",
             activated: true,
             alias: "",
-            variantsTasks: [
-              {
-                name: "ubuntu1604",
-                tasks: ["test"],
-              },
-            ],
+            author: "person",
+            description: "cypress_v10: turn on retries",
+            id: activatedPatchId,
             parameters: [
               {
                 key: "a",
                 value: "b",
               },
             ],
+            status: "created",
+            tasks: ["test"],
+            variants: ["ubuntu1604"],
+            variantsTasks: [
+              {
+                name: "ubuntu1604",
+                tasks: ["test"],
+              },
+            ],
             version: {
               id: activatedPatchId,
             },
-            tasks: ["test"],
-            variants: ["ubuntu1604"],
           },
         },
         errors: null,

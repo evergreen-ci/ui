@@ -124,13 +124,12 @@ describe("files table", () => {
 const imageFilesMock: ApolloMock<ImageFilesQuery, ImageFilesQueryVariables> = {
   request: {
     query: IMAGE_FILES,
-    variables: { imageId: "ubuntu2204", opts: { page: 0, limit: 10 } },
+    variables: { imageId: "ubuntu2204", opts: { limit: 10, page: 0 } },
   },
   result: {
     data: {
       image: {
         __typename: "Image",
-        id: "ubuntu2204",
         files: {
           __typename: "ImageFilesPayload",
           data: [
@@ -198,6 +197,7 @@ const imageFilesMock: ApolloMock<ImageFilesQuery, ImageFilesQueryVariables> = {
           filteredCount: 11,
           totalCount: 11,
         },
+        id: "ubuntu2204",
       },
     },
   },
@@ -209,13 +209,12 @@ const imageFilesNextPageMock: ApolloMock<
 > = {
   request: {
     query: IMAGE_FILES,
-    variables: { imageId: "ubuntu2204", opts: { page: 1, limit: 10 } },
+    variables: { imageId: "ubuntu2204", opts: { limit: 10, page: 1 } },
   },
   result: {
     data: {
       image: {
         __typename: "Image",
-        id: "ubuntu2204",
         files: {
           __typename: "ImageFilesPayload",
           data: [
@@ -229,6 +228,7 @@ const imageFilesNextPageMock: ApolloMock<
           filteredCount: 11,
           totalCount: 11,
         },
+        id: "ubuntu2204",
       },
     },
   },
@@ -242,14 +242,13 @@ const imageFilesFilterMock: ApolloMock<
     query: IMAGE_FILES,
     variables: {
       imageId: "ubuntu2204",
-      opts: { page: 0, limit: 10, name: "my-special-cert.pem" },
+      opts: { limit: 10, name: "my-special-cert.pem", page: 0 },
     },
   },
   result: {
     data: {
       image: {
         __typename: "Image",
-        id: "ubuntu2204",
         files: {
           __typename: "ImageFilesPayload",
           data: [
@@ -263,6 +262,7 @@ const imageFilesFilterMock: ApolloMock<
           filteredCount: 1,
           totalCount: 11,
         },
+        id: "ubuntu2204",
       },
     },
   },

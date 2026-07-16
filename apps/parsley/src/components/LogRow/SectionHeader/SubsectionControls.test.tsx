@@ -28,8 +28,8 @@ describe("SectionControls", () => {
     mockedLogContext.mockImplementation(() => ({
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test
       sectioning: {
-        sectionState: sectionStateAllOpen,
         sectioningEnabled: true,
+        sectionState: sectionStateAllOpen,
         toggleAllSections: vi.fn(),
       },
     }));
@@ -42,8 +42,8 @@ describe("SectionControls", () => {
     mockedLogContext.mockImplementation(() => ({
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       sectioning: {
-        sectionState: sectionStateAllClosed,
         sectioningEnabled: true,
+        sectionState: sectionStateAllClosed,
         toggleAllCommandsInFunction: vi.fn(),
       },
     }));
@@ -56,8 +56,8 @@ describe("SectionControls", () => {
     mockedLogContext.mockImplementation(() => ({
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       sectioning: {
-        sectionState: sectionStateSomeOpen,
         sectioningEnabled: true,
+        sectionState: sectionStateSomeOpen,
         toggleAllCommandsInFunction: vi.fn(),
       },
     }));
@@ -78,8 +78,8 @@ describe("SectionControls", () => {
     mockedLogContext.mockImplementation(() => ({
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       sectioning: {
-        sectionState: sectionStateSomeOpen,
         sectioningEnabled: true,
+        sectionState: sectionStateSomeOpen,
         toggleAllCommandsInFunction: toggleAllCommandsInFunctionMock,
       },
     }));

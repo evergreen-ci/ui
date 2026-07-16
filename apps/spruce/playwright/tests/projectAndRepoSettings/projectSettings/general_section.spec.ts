@@ -80,7 +80,7 @@ test.describe("general section", () => {
         await expect(
           page
             .getByTestId("stepback-bisect-group")
-            .getByRole("radio", { name: "Disabled", exact: true }),
+            .getByRole("radio", { exact: true, name: "Disabled" }),
         ).toBeChecked();
       });
 

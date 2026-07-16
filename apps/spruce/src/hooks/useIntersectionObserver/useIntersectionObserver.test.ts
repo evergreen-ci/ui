@@ -10,8 +10,8 @@ describe("useIntersectionObserver", () => {
         },
       ]);
       return {
-        observe: vi.fn(),
         disconnect: vi.fn(),
+        observe: vi.fn(),
       };
     });
 
@@ -36,8 +36,8 @@ describe("useIntersectionObserver", () => {
         },
       ]);
       return {
-        observe: vi.fn(),
         disconnect: vi.fn(),
+        observe: vi.fn(),
       };
     });
 

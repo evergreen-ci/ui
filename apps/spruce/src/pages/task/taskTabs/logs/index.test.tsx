@@ -22,14 +22,14 @@ const taskEventLogsMock: ApolloMock<
 > = {
   request: {
     query: TASK_EVENT_LOGS,
-    variables: { id: taskId, execution },
+    variables: { execution, id: taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
         execution,
+        id: taskId,
         taskLogs: {
           __typename: "TaskLogs",
           eventLogs: [],
@@ -51,8 +51,8 @@ const renderLogs = (isDisplayTask: boolean) => {
     </MockedProvider>,
   );
   render(<Component />, {
-    route: `/task/${taskId}/logs?logtype=event`,
     path: "/task/:id/:tab",
+    route: `/task/${taskId}/logs?logtype=event`,
   });
 };
 

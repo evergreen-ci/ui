@@ -129,8 +129,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   );
 
   const sectioning = useSections({
-    logType: state.logMetadata?.logType,
     logs: state.logs,
+    logType: state.logMetadata?.logType,
     onInitOpenSectionsContainingLines: [shareLine, state.failingLine].filter(
       (v): v is number => v !== undefined,
     ),
@@ -162,8 +162,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           logLines: state.logs,
           matchingLines,
           sectionData: sectioning.sectionData,
-          sectionState: sectioning.sectionState,
           sectioningEnabled: sectioning.sectioningEnabled,
+          sectionState: sectioning.sectionState,
           shareLine,
         }),
       );
@@ -295,32 +295,24 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   );
   const memoizedContext = useMemo(
     () => ({
+      clearExpandedLines: () => dispatch({ type: "CLEAR_EXPANDED_LINES" }),
+      clearLogs: () => dispatch({ type: "CLEAR_LOGS" }),
+      collapseLines: (idx: number) => dispatch({ idx, type: "COLLAPSE_LINES" }),
       expandedLines: state.expandedLines,
+      expandLines: (expandedLines: ExpandedLines) =>
+        dispatch({ expandedLines, type: "EXPAND_LINES" }),
       failingLine: state.failingLine,
+      getLine,
+      getLinesBySearch,
+      getResmokeLineColor,
       hasLogs: state.hasLogs,
+      ingestLines,
+      isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
+
       lineCount: state.logs.length,
       listRef,
       logMetadata: state.logMetadata,
       matchingLines,
-      preferences,
-      processedLogLines,
-      range: {
-        lowerRange,
-        upperRange,
-      },
-      searchLine,
-      searchState: state.searchState,
-
-      clearExpandedLines: () => dispatch({ type: "CLEAR_EXPANDED_LINES" }),
-      clearLogs: () => dispatch({ type: "CLEAR_LOGS" }),
-      collapseLines: (idx: number) => dispatch({ idx, type: "COLLAPSE_LINES" }),
-      expandLines: (expandedLines: ExpandedLines) =>
-        dispatch({ expandedLines, type: "EXPAND_LINES" }),
-      getLine,
-      getLinesBySearch,
-      getResmokeLineColor,
-      ingestLines,
-      isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
       openSectionAndScrollToLine,
       paginate: (direction: DIRECTION) => {
         const { searchIndex, searchRange } = state.searchState;
@@ -330,7 +322,15 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           openSectionAndScrollToLine(searchResults[nextPage]);
         }
       },
+      preferences,
+      processedLogLines,
+      range: {
+        lowerRange,
+        upperRange,
+      },
       scrollToLine,
+      searchLine,
+      searchState: state.searchState,
       sectioning,
       setFileName: (fileName: string) => {
         dispatch({ fileName, type: "SET_FILE_NAME" });

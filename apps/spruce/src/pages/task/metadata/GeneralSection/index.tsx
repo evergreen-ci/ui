@@ -47,8 +47,8 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
           data-cy="project-link"
           onClick={() =>
             taskAnalytics.sendEvent({
-              name: "Clicked metadata link",
               "link.type": "project link",
+              name: "Clicked metadata link",
             })
           }
           to={getProjectPatchesRoute(projectIdentifier || projectID || "")}
@@ -70,8 +70,8 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
           <StyledRouterLink
             onClick={() =>
               taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
                 "link.type": "display task link",
+                name: "Clicked metadata link",
               })
             }
             to={getTaskRoute(displayTask.id, {
@@ -89,8 +89,8 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
             data-cy="base-task-link"
             onClick={() =>
               taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
                 "link.type": "base commit",
+                name: "Clicked metadata link",
               })
             }
             to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}

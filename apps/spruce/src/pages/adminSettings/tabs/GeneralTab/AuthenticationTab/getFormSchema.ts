@@ -14,94 +14,94 @@ import {
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
-    type: "object" as const,
     properties: {
       authentication: {
-        type: "object" as const,
-        title: "",
         properties: {
+          github: {
+            properties: github.schema,
+            title: "GitHub Authentication",
+            type: "object" as const,
+          },
           globalConfig: {
-            type: "object" as const,
-            title: "Global Config",
             properties: globalConfig.schema,
-          },
-          okta: {
+            title: "Global Config",
             type: "object" as const,
-            title: "Okta",
-            properties: okta.schema,
-          },
-          naive: {
-            type: "object" as const,
-            title: "Naive Authentication",
-            properties: naive.schema,
           },
           kanopy: {
-            type: "object" as const,
-            title: "Kanopy Authentication",
             properties: kanopy.schema,
-          },
-          github: {
+            title: "Kanopy Authentication",
             type: "object" as const,
-            title: "GitHub Authentication",
-            properties: github.schema,
-          },
-          oauth: {
-            type: "object" as const,
-            title: "OAuth Authentication",
-            properties: oauth.schema,
           },
           multi: {
-            type: "object" as const,
-            title: "Multi Authentication",
             properties: multi.schema,
+            title: "Multi Authentication",
+            type: "object" as const,
+          },
+          naive: {
+            properties: naive.schema,
+            title: "Naive Authentication",
+            type: "object" as const,
+          },
+          oauth: {
+            properties: oauth.schema,
+            title: "OAuth Authentication",
+            type: "object" as const,
+          },
+          okta: {
+            properties: okta.schema,
+            title: "Okta",
+            type: "object" as const,
           },
         },
+        title: "",
+        type: "object" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     authentication: {
-      globalConfig: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "globalConfig",
-        "ui:objectFieldCss": objectGridCss,
-        ...globalConfig.uiSchema,
-      },
-      okta: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "okta",
-        "ui:objectFieldCss": objectGridCss,
-        ...okta.uiSchema,
-      },
-      naive: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "naive",
-        "ui:objectFieldCss": fullWidthCss,
-        ...naive.uiSchema,
-      },
-      kanopy: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "kanopy",
-        "ui:objectFieldCss": objectGridCss,
-        ...kanopy.uiSchema,
-      },
       github: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "github",
         "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
         ...github.uiSchema,
       },
-      oauth: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "oauth",
+      globalConfig: {
+        "ui:data-cy": "globalConfig",
         "ui:objectFieldCss": objectGridCss,
-        ...oauth.uiSchema,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        ...globalConfig.uiSchema,
+      },
+      kanopy: {
+        "ui:data-cy": "kanopy",
+        "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        ...kanopy.uiSchema,
       },
       multi: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "multi",
         "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
         ...multi.uiSchema,
+      },
+      naive: {
+        "ui:data-cy": "naive",
+        "ui:objectFieldCss": fullWidthCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        ...naive.uiSchema,
+      },
+      oauth: {
+        "ui:data-cy": "oauth",
+        "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        ...oauth.uiSchema,
+      },
+      okta: {
+        "ui:data-cy": "okta",
+        "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        ...okta.uiSchema,
       },
     },
   },

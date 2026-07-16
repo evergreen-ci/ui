@@ -30,9 +30,9 @@ const Field = ({
         {...({} as unknown as FieldProps)}
         uiSchema={{
           options: {
-            projectOrRepoId: "evergreen",
             isAppDefined,
             isRepo,
+            projectOrRepoId: "evergreen",
           },
         }}
       />
@@ -112,12 +112,12 @@ const replaceAppCredentialsMock: ApolloMock<
     query: SAVE_PROJECT_SETTINGS_FOR_SECTION,
     variables: {
       projectSettings: {
-        projectId: "evergreen",
         githubAppAuth: {
           appId: 99999,
           privateKey: "new-private-key",
         },
-        projectRef: { id: "evergreen", githubPermissionGroupByRequester: {} },
+        projectId: "evergreen",
+        projectRef: { githubPermissionGroupByRequester: {}, id: "evergreen" },
       },
       section: ProjectSettingsSection.GithubAppSettings,
     },

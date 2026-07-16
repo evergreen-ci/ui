@@ -7,8 +7,8 @@ const indexToTabMap = [
 ];
 
 const tabToIndexMap = {
-  [ConfigurePatchPageTabs.Tasks]: 0,
   [ConfigurePatchPageTabs.Changes]: 1,
   [ConfigurePatchPageTabs.Parameters]: 2,
+  [ConfigurePatchPageTabs.Tasks]: 0,
 };
 export { indexToTabMap, tabToIndexMap };

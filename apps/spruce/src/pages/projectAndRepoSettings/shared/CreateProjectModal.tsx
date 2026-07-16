@@ -38,10 +38,10 @@ export const CreateProjectModal: React.FC<Props> = ({
   const { sendEvent } = useProjectSettingsAnalytics();
 
   const [formState, setFormState] = useState({
-    owner: owner ?? "",
-    repo: repo ?? "",
-    projectName: "",
     enablePerformanceTooling: false,
+    owner: owner ?? "",
+    projectName: "",
+    repo: repo ?? "",
   });
   const [hasError, setHasError] = useState(true);
 
@@ -144,35 +144,35 @@ export const CreateProjectModal: React.FC<Props> = ({
 
 const modalFormDefinition = (githubOrgs: string[]) => ({
   schema: {
-    type: "object" as const,
-    required: ["owner", "repo"],
     properties: {
-      projectName: projectName.schema,
       owner: {
-        type: "string" as const,
-        title: "GitHub Organization",
         oneOf: githubOrgs.map((org) => ({
-          type: "string" as const,
-          title: org,
           enum: [org],
+          title: org,
+          type: "string" as const,
         })),
-      },
-      repo: {
+        title: "GitHub Organization",
         type: "string" as const,
-        title: "Repo",
-        minLength: 1,
+      },
+      projectName: projectName.schema,
+      repo: {
         format: "noSpaces",
+        minLength: 1,
+        title: "Repo",
+        type: "string" as const,
       },
       ...performanceTooling.schema,
       s3BucketInfo: s3BucketInfo.schema,
     },
+    required: ["owner", "repo"],
+    type: "object" as const,
   },
   uiSchema: {
-    projectName: projectName.uiSchema,
     owner: {
-      "ui:data-cy": "new-owner-select",
       "ui:allowDeselect": false,
+      "ui:data-cy": "new-owner-select",
     },
+    projectName: projectName.uiSchema,
     repo: {
       "ui:data-cy": "new-repo-input",
     },

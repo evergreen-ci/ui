@@ -83,11 +83,11 @@ export const EditVolumeModal: React.FC<Props> = ({
     useLoadFormData(volume);
 
   const { schema, uiSchema } = getFormSchema({
+    disableExpirationCheckbox,
+    hasName: initialState?.name?.length > 0,
     maxSpawnableLimit,
     minVolumeSize: volume.size,
-    disableExpirationCheckbox,
     noExpirationCheckboxTooltip,
-    hasName: initialState?.name?.length > 0,
   });
 
   const hasChanges = useMemo(() => {

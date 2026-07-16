@@ -76,8 +76,8 @@ const Dropdown: React.FC<DropdownProps> = ({
         onClick={(e) => e.stopPropagation()}
         refEl={menuButtonRef}
         style={{
-          width: menuWidth,
           padding: useHorizontalPadding ? size.xs : `${size.xs} 0`,
+          width: menuWidth,
         }}
       >
         <div ref={listMenuRef}>{children}</div>

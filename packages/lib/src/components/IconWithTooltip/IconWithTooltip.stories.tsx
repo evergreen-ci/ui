@@ -8,9 +8,9 @@ import IconWithTooltip from ".";
 const { green } = palette;
 
 const Sizes = {
-  [Size.Small]: 14,
   [Size.Default]: 16,
   [Size.Large]: 20,
+  [Size.Small]: 14,
   [Size.XLarge]: 24,
 };
 
@@ -19,7 +19,15 @@ export default {
 } satisfies CustomMeta<typeof IconWithTooltip>;
 
 export const Default: CustomStoryObj<typeof IconWithTooltip> = {
+  args: {
+    children: "Tooltip Text",
+    fill: green.dark3,
+    size: Sizes[Size.Default],
+  },
   argTypes: {
+    children: {
+      control: { type: "text" },
+    },
     fill: {
       control: "color",
     },
@@ -27,14 +35,6 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
       control: { type: "select" },
       options: Object.values(Sizes),
     },
-    children: {
-      control: { type: "text" },
-    },
-  },
-  args: {
-    fill: green.dark3,
-    size: Sizes[Size.Default],
-    children: "Tooltip Text",
   },
   render: ({ children, ...rest }) => (
     <Container>

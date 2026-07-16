@@ -153,16 +153,16 @@ const useSettingsState = <
   const [state, dispatch] = useReducer(
     reducer(getTransformer),
     getDefaultTabState(routes, {
+      formData: null,
       hasChanges: false,
       hasError: false,
       initialData: null,
-      formData: null,
     }),
   );
 
   const setHasChanges = useDebouncedCallback(
     (tab: T, formData: FormStateMap[T]) => {
-      dispatch({ type: "setHasChanges", tab, formData });
+      dispatch({ formData, tab, type: "setHasChanges" });
     },
     400,
   );
@@ -170,11 +170,11 @@ const useSettingsState = <
   const updateForm = ((tab) =>
     ({ errors = [], formData }: OnChangeParams<T, FormStateMap>) => {
       setHasChanges(tab, formData);
-      dispatch({ type: "updateForm", tab, formData, errors });
+      dispatch({ errors, formData, tab, type: "updateForm" });
     }) satisfies SettingsState<T, FormStateMap>["updateForm"];
 
   const saveTab = ((tab) => {
-    dispatch({ type: "saveTab", tab });
+    dispatch({ tab, type: "saveTab" });
   }) satisfies SettingsState<T, FormStateMap>["saveTab"];
 
   const getTab = ((tab) => state[tab]) satisfies SettingsState<
@@ -183,15 +183,15 @@ const useSettingsState = <
   >["getTab"];
 
   const setInitialData = useCallback((tabData) => {
-    dispatch({ type: "setInitialData", tabData });
+    dispatch({ tabData, type: "setInitialData" });
   }, []) satisfies SettingsState<T, FormStateMap>["setInitialData"];
 
   return {
-    updateForm,
-    saveTab,
     getTab,
+    saveTab,
     setInitialData,
     tabs: state,
+    updateForm,
   };
 };
 
@@ -210,7 +210,7 @@ const getUsePopulateForm = <
       // Ensure form does not have unsaved changes before writing.
       // This preserves the unsaved form state when switching between project settings tabs.
       if (!hasChanges) {
-        updateForm(tab)({ formData, errors: [] });
+        updateForm(tab)({ errors: [], formData });
         saveTab(tab);
       }
     }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -240,8 +240,8 @@ const getUseHasUnsavedTab = <
     );
 
     return {
-      unsavedTabs,
       hasUnsaved: !!unsavedTabs.length,
+      unsavedTabs,
     };
   };
 

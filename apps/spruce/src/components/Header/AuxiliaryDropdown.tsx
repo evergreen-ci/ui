@@ -20,41 +20,41 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
 
   const menuItems = [
     {
+      onClick: () => sendEvent({ name: "Clicked all hosts link" }),
       text: "All Hosts",
       to: routes.hosts,
-      onClick: () => sendEvent({ name: "Clicked all hosts link" }),
     },
     {
+      onClick: () => sendEvent({ name: "Clicked task queue link" }),
       text: "Task Queue",
       to: getTaskQueueRoute(""),
-      onClick: () => sendEvent({ name: "Clicked task queue link" }),
     },
     {
       "data-cy": "auxiliary-dropdown-distro-settings",
-      to: redirectRoutes.distroSettings,
-      text: "Distro Settings",
       onClick: () => sendEvent({ name: "Clicked distro settings link" }),
+      text: "Distro Settings",
+      to: redirectRoutes.distroSettings,
     },
     {
       "data-cy": "auxiliary-dropdown-project-patches",
-      to: getProjectPatchesRoute(projectIdentifier),
-      text: "Project Patches",
       onClick: () => sendEvent({ name: "Clicked project patches link" }),
+      text: "Project Patches",
+      to: getProjectPatchesRoute(projectIdentifier),
     },
     {
       "data-cy": "auxiliary-dropdown-merge-queue",
+      onClick: () => sendEvent({ name: "Clicked merge queue link" }),
+      text: "Merge Queue",
       to: {
         pathname: getProjectPatchesRoute(projectIdentifier),
         search: stringifyQuery({ mergeQueue: true }),
       },
-      text: "Merge Queue",
-      onClick: () => sendEvent({ name: "Clicked merge queue link" }),
     },
     {
       "data-cy": "auxiliary-dropdown-project-settings",
+      onClick: () => sendEvent({ name: "Clicked project settings link" }),
       text: "Project Settings",
       to: getProjectSettingsRoute(projectIdentifier),
-      onClick: () => sendEvent({ name: "Clicked project settings link" }),
     },
   ];
 

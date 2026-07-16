@@ -54,15 +54,15 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
 
   const handleRestartClick = () => {
     setOpen(false);
-    restartTask({ variables: { taskId, failedOnly: false } });
+    restartTask({ variables: { failedOnly: false, taskId } });
   };
 
   const handleFilterClick = () => {
     setOpen(false);
     setQueryParams((current) => ({
       ...current,
-      [WaterfallFilterOptions.Task]: displayName ? [displayName] : [],
       [WaterfallFilterOptions.BuildVariant]: buildVariant ? [buildVariant] : [],
+      [WaterfallFilterOptions.Task]: displayName ? [displayName] : [],
     }));
   };
 

@@ -48,8 +48,8 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
   const versionRouteParams = {
-    sorts,
     page: 0,
+    sorts,
   };
 
   return (
@@ -98,17 +98,17 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
                   shouldLinkToVariant
                     ? {
                         ...versionRouteParams,
-                        variant: applyStrictRegex(variant),
                         statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
+                        variant: applyStrictRegex(variant),
                       }
                     : { ...versionRouteParams },
                 )}
                 isActive={isBadgeActive}
                 onClick={() => {
                   sendEvent({
-                    name: "Filtered by build variant and task status group",
                     "filter.task_square_statuses":
                       Object.keys(groupedStatusCounts),
+                    name: "Filtered by build variant and task status group",
                   });
                 }}
                 status={umbrellaStatus}

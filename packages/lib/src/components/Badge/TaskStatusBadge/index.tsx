@@ -54,19 +54,19 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
 };
 
 const mapTaskStatusToBadgeVariant: Record<string, Variant> = {
-  [TaskStatus.Inactive]: Variant.LightGray,
-  [TaskStatus.Unstarted]: Variant.LightGray,
-  [TaskStatus.Undispatched]: Variant.LightGray,
-  [TaskStatus.Blocked]: Variant.LightGray,
-  [TaskStatus.Pending]: Variant.LightGray,
-  [TaskStatus.Unscheduled]: Variant.LightGray,
   [TaskStatus.Aborted]: Variant.LightGray,
-  [TaskStatus.Started]: Variant.Yellow,
+  [TaskStatus.Blocked]: Variant.LightGray,
   [TaskStatus.Dispatched]: Variant.Yellow,
   [TaskStatus.Failed]: Variant.Red,
-  [TaskStatus.TestTimedOut]: Variant.Red,
-  [TaskStatus.TaskTimedOut]: Variant.Red,
+  [TaskStatus.Inactive]: Variant.LightGray,
+  [TaskStatus.Pending]: Variant.LightGray,
+  [TaskStatus.Started]: Variant.Yellow,
   [TaskStatus.Succeeded]: Variant.Green,
+  [TaskStatus.TaskTimedOut]: Variant.Red,
+  [TaskStatus.TestTimedOut]: Variant.Red,
+  [TaskStatus.Undispatched]: Variant.LightGray,
+  [TaskStatus.Unscheduled]: Variant.LightGray,
+  [TaskStatus.Unstarted]: Variant.LightGray,
   [TaskStatus.WillRun]: Variant.DarkGray,
 };
 const customBadgeColors = (status: string) => {

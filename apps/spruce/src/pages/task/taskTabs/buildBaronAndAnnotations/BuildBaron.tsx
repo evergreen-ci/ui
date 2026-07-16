@@ -26,12 +26,12 @@ const BuildBaron: React.FC<Props> = ({
     BuildBaronQuery,
     BuildBaronQueryVariables
   >(BUILD_BARON, {
-    variables: { taskId, execution },
+    variables: { execution, taskId },
   });
   usePolling<BuildBaronQuery, BuildBaronQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
 
   const { buildBaron } = data || {};

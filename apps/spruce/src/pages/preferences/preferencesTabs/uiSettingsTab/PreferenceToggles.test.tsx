@@ -117,8 +117,8 @@ describe("PreferenceToggles", () => {
 
       await waitFor(() => {
         expect(mockSendEvent).toHaveBeenCalledWith({
-          name: "Toggled polling",
           enabled: true,
+          name: "Toggled polling",
         });
       });
     });
@@ -133,8 +133,8 @@ describe("PreferenceToggles", () => {
 
       await waitFor(() => {
         expect(mockSendEvent).toHaveBeenCalledWith({
-          name: "Toggled polling",
           enabled: false,
+          name: "Toggled polling",
         });
       });
     });
@@ -221,8 +221,8 @@ describe("PreferenceToggles", () => {
 
       await waitFor(() => {
         expect(mockSendEvent).toHaveBeenCalledWith({
-          name: "Toggled task review",
           enabled: true,
+          name: "Toggled task review",
         });
       });
     });
@@ -237,8 +237,8 @@ describe("PreferenceToggles", () => {
 
       await waitFor(() => {
         expect(mockSendEvent).toHaveBeenCalledWith({
-          name: "Toggled task review",
           enabled: false,
+          name: "Toggled task review",
         });
       });
     });

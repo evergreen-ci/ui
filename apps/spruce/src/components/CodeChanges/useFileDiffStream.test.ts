@@ -27,9 +27,9 @@ describe("useFileDiffStream", () => {
   it("matches when fileName equals file path in diff", () => {
     renderHook(() =>
       useFileDiffStream({
-        url: "https://example.com/diff",
         containerRef: mockContainerRef,
         fileName: "src/utils.ts",
+        url: "https://example.com/diff",
       }),
     );
 
@@ -41,9 +41,9 @@ describe("useFileDiffStream", () => {
   it("does not match when fileName does not equal file path", () => {
     renderHook(() =>
       useFileDiffStream({
-        url: "https://example.com/diff",
         containerRef: mockContainerRef,
         fileName: "src/utils.ts",
+        url: "https://example.com/diff",
       }),
     );
 
@@ -71,9 +71,9 @@ describe("useFileDiffStream", () => {
   it("does not match when fileName does not include directory but diff path does", () => {
     renderHook(() =>
       useFileDiffStream({
-        url: "https://example.com/diff",
         containerRef: mockContainerRef,
         fileName: "utils.ts",
+        url: "https://example.com/diff",
       }),
     );
 
@@ -87,9 +87,9 @@ describe("useFileDiffStream", () => {
   it("stops rendering when encountering a new file after target file", () => {
     renderHook(() =>
       useFileDiffStream({
-        url: "https://example.com/diff",
         containerRef: mockContainerRef,
         fileName: "src/utils.ts",
+        url: "https://example.com/diff",
       }),
     );
 
@@ -109,9 +109,9 @@ describe("useFileDiffStream", () => {
   it("matches when fileName has nested path", () => {
     renderHook(() =>
       useFileDiffStream({
-        url: "https://example.com/diff",
         containerRef: mockContainerRef,
         fileName: "nested/path/to/file.ts",
+        url: "https://example.com/diff",
       }),
     );
 
@@ -125,9 +125,9 @@ describe("useFileDiffStream", () => {
   it("does not match when filePath regex fails to extract path", () => {
     renderHook(() =>
       useFileDiffStream({
-        url: "https://example.com/diff",
         containerRef: mockContainerRef,
         fileName: "src/utils.ts",
+        url: "https://example.com/diff",
       }),
     );
 
@@ -141,9 +141,9 @@ describe("useFileDiffStream", () => {
   it("correctly matches file paths containing 'b/'", () => {
     renderHook(() =>
       useFileDiffStream({
-        url: "https://example.com/diff",
         containerRef: mockContainerRef,
         fileName: "buildscripts/resmokelib/config.py",
+        url: "https://example.com/diff",
       }),
     );
 

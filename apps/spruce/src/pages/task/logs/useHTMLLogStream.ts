@@ -40,9 +40,9 @@ export const useHTMLLogStream = ({
   );
 
   return useHTMLStream({
-    url,
     containerRef,
-    spanName: "fetchLogFile",
     processLine,
+    spanName: "fetchLogFile",
+    url,
   });
 };

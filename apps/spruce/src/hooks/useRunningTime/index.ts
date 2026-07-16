@@ -33,5 +33,5 @@ export const useRunningTime = (startTime: Date) => {
     }
   };
 
-  return { runningTime, endTimer };
+  return { endTimer, runningTime };
 };

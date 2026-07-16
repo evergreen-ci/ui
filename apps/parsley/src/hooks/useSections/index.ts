@@ -48,8 +48,8 @@ interface Props {
   onInitOpenSectionsContainingLines: number[] | undefined;
 }
 export const useSections = ({
-  logType,
   logs,
+  logType,
   onInitOpenSectionsContainingLines,
   renderingType,
   sectionsEnabled,
@@ -188,8 +188,8 @@ export const useSections = ({
   return {
     openSectionsContainingLineNumbers,
     sectionData,
-    sectionState,
     sectioningEnabled,
+    sectionState,
     toggleAllCommandsInFunction,
     toggleAllSections,
     toggleCommandSection,

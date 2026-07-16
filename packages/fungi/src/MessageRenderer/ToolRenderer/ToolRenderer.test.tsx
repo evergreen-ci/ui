@@ -4,12 +4,12 @@ import { MergedFindings } from "./utils";
 import { ToolRenderer } from ".";
 
 const baseFindings: MergedFindings = {
-  summary: "Two issues",
-  overallStatus: "failure",
   errors: [],
   events: [],
   metrics: [],
   observations: [],
+  overallStatus: "failure",
+  summary: "Two issues",
 };
 
 describe("ToolRenderer", () => {
@@ -17,10 +17,10 @@ describe("ToolRenderer", () => {
     const { rerender } = render(
       <ToolRenderer
         {...{
-          type: "tool-askEvergreenAgentTool",
-          toolCallId: "123",
-          state: ToolStateEnum.InputStreaming,
           input: "test",
+          state: ToolStateEnum.InputStreaming,
+          toolCallId: "123",
+          type: "tool-askEvergreenAgentTool",
         }}
       />,
     );
@@ -30,10 +30,10 @@ describe("ToolRenderer", () => {
     rerender(
       <ToolRenderer
         {...{
-          type: "tool-askEvergreenAgentTool",
+          input: "test",
           state: ToolStateEnum.InputAvailable,
           toolCallId: "123",
-          input: "test",
+          type: "tool-askEvergreenAgentTool",
         }}
       />,
     );
@@ -46,11 +46,11 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-askEvergreenAgentTool",
+          input: "test",
+          output: { steps: { "123": { endedAt: 2, startedAt: 1 } } },
           state: ToolStateEnum.OutputAvailable,
           toolCallId: "123",
-          input: "test",
-          output: { steps: { "123": { startedAt: 1, endedAt: 2 } } },
+          type: "tool-askEvergreenAgentTool",
         }}
       />,
     );
@@ -63,11 +63,11 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-someRandomBackgroundTool",
+          input: "test",
+          output: { steps: { "123": { endedAt: 2, startedAt: 1 } } },
           state: ToolStateEnum.OutputAvailable,
           toolCallId: "123",
-          input: "test",
-          output: { steps: { "123": { startedAt: 1, endedAt: 2 } } },
+          type: "tool-someRandomBackgroundTool",
         }}
       />,
     );
@@ -78,11 +78,11 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-askEvergreenAgentTool",
+          errorText: "Error fetching information from Evergreen Agent",
+          input: "test",
           state: ToolStateEnum.OutputError,
           toolCallId: "123",
-          input: "test",
-          errorText: "Error fetching information from Evergreen Agent",
+          type: "tool-askEvergreenAgentTool",
         }}
       />,
     );
@@ -95,10 +95,10 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logAnalyzerTool",
+          input: "test",
           state: ToolStateEnum.InputAvailable,
           toolCallId: "456",
-          input: "test",
+          type: "tool-logAnalyzerTool",
         }}
         progress={{ percentage: 50, phase: "Refining chunk 3 of 5" }}
       />,
@@ -111,10 +111,10 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logAnalyzerTool",
+          input: "test",
           state: ToolStateEnum.InputAvailable,
           toolCallId: "456",
-          input: "test",
+          type: "tool-logAnalyzerTool",
         }}
       />,
     );
@@ -126,11 +126,11 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logAnalyzerTool",
-          state: ToolStateEnum.OutputAvailable,
-          toolCallId: "456",
           input: "test",
           output: { result: "analysis complete" },
+          state: ToolStateEnum.OutputAvailable,
+          toolCallId: "456",
+          type: "tool-logAnalyzerTool",
         }}
         progress={{ percentage: 100, phase: "Analysis complete" }}
       />,
@@ -143,27 +143,27 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logAnalyzerTool",
-          state: ToolStateEnum.OutputAvailable,
-          toolCallId: "456",
           input: "test",
           output: {
             ...baseFindings,
             errors: [
               {
-                line: 42,
-                severity: "error",
-                message: "Null pointer",
                 evidence: "NPE",
+                line: 42,
+                message: "Null pointer",
+                severity: "error",
               },
               {
-                line: 87,
-                severity: "warning",
-                message: "Memory leak",
                 evidence: "Leak",
+                line: 87,
+                message: "Memory leak",
+                severity: "warning",
               },
             ],
           } satisfies MergedFindings,
+          state: ToolStateEnum.OutputAvailable,
+          toolCallId: "456",
+          type: "tool-logAnalyzerTool",
         }}
       />,
     );
@@ -179,31 +179,31 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logAnalyzerTool",
-          state: ToolStateEnum.OutputAvailable,
-          toolCallId: "456",
           input: "test",
           output: {
-            summary: "One warning found",
-            overallStatus: "partial_failure",
             errors: [
               {
-                line: null,
-                severity: "warning",
-                message: "Disk nearly full",
                 evidence: "95% used",
+                line: null,
+                message: "Disk nearly full",
+                severity: "warning",
               },
             ],
             events: [
               {
+                description: "Task started",
                 line: 10,
                 timestamp: "2026-04-22T14:00:00Z",
-                description: "Task started",
               },
             ],
             metrics: [{ name: "Duration", value: "2m" }],
             observations: ["Cleanup recommended"],
+            overallStatus: "partial_failure",
+            summary: "One warning found",
           } satisfies MergedFindings,
+          state: ToolStateEnum.OutputAvailable,
+          toolCallId: "456",
+          type: "tool-logAnalyzerTool",
         }}
       />,
     );
@@ -234,11 +234,11 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-logAnalyzerTool",
-          state: ToolStateEnum.OutputAvailable,
-          toolCallId: "456",
           input: "test",
           output: { result: "analysis complete" },
+          state: ToolStateEnum.OutputAvailable,
+          toolCallId: "456",
+          type: "tool-logAnalyzerTool",
         }}
       />,
     );
@@ -251,11 +251,11 @@ describe("ToolRenderer", () => {
     render(
       <ToolRenderer
         {...{
-          type: "tool-askEvergreenAgentTool",
+          input: "test",
+          output: { steps: { "123": { endedAt: 2, startedAt: 1 } } },
           state: ToolStateEnum.OutputAvailable,
           toolCallId: "123",
-          input: "test",
-          output: { steps: { "123": { startedAt: 1, endedAt: 2 } } },
+          type: "tool-askEvergreenAgentTool",
         }}
       />,
     );

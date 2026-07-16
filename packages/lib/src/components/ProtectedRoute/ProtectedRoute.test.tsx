@@ -10,11 +10,11 @@ describe("ProtectedRoute", () => {
 
   it("renders children when authenticated", () => {
     vi.spyOn(AuthProviderContext, "useAuthProviderContext").mockReturnValue({
+      dispatchAuthenticated: vi.fn(),
+      hasCheckedAuth: true,
       isAuthenticated: true,
       localLogin: vi.fn(),
       logoutAndRedirect: vi.fn(),
-      dispatchAuthenticated: vi.fn(),
-      hasCheckedAuth: true,
     });
 
     render(
@@ -37,11 +37,11 @@ describe("ProtectedRoute", () => {
   });
   it("does not redirect when we have not checked auth yet", () => {
     vi.spyOn(AuthProviderContext, "useAuthProviderContext").mockReturnValue({
+      dispatchAuthenticated: vi.fn(),
+      hasCheckedAuth: false,
       isAuthenticated: false,
       localLogin: vi.fn(),
       logoutAndRedirect: vi.fn(),
-      dispatchAuthenticated: vi.fn(),
-      hasCheckedAuth: false,
     });
 
     render(
@@ -65,11 +65,11 @@ describe("ProtectedRoute", () => {
 
   it("redirects to login when not authenticated and has checked auth is true", () => {
     vi.spyOn(AuthProviderContext, "useAuthProviderContext").mockReturnValue({
+      dispatchAuthenticated: vi.fn(),
+      hasCheckedAuth: true,
       isAuthenticated: false,
       localLogin: vi.fn(),
       logoutAndRedirect: vi.fn(),
-      dispatchAuthenticated: vi.fn(),
-      hasCheckedAuth: true,
     });
 
     render(

@@ -29,16 +29,16 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
     BuildVariantStatsQueryVariables
   >(BUILD_VARIANTS_STATS, {
     fetchPolicy: "cache-and-network",
+    pollInterval: DEFAULT_POLL_INTERVAL,
     variables: {
       id: versionId,
       includeNeverActivatedTasks,
     },
-    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling<BuildVariantStatsQuery, BuildVariantStatsQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
   const { version } = data || {};
 

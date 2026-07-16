@@ -74,8 +74,8 @@ export const getFormSchema = ({
   timeZone,
   tokenExchangeState,
   useProjectSetupScript = false,
-  useSetupScript = false,
   userAwsRegion,
+  useSetupScript = false,
   volumes,
 }: Props): ReturnType<GetFormSchema> => {
   const {
@@ -118,276 +118,6 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      type: "object" as const,
-      properties: {
-        requiredSection: {
-          type: "object" as const,
-          title: "",
-          properties: {
-            distro: {
-              type: "string" as const,
-              title: "Distro",
-              default: distroIdQueryParam,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              enum: distros?.map(({ name }) => name),
-              minLength: 1,
-            },
-            region: {
-              type: "string" as const,
-              title: "Region",
-              default:
-                userAwsRegion && availableRegions.includes(userAwsRegion)
-                  ? userAwsRegion
-                  : availableRegions[0],
-              oneOf: [
-                ...(availableRegions.map((r) => ({
-                  type: "string" as const,
-                  title: r,
-                  enum: [r],
-                })) || []),
-              ],
-              minLength: 1,
-            },
-          },
-        },
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        publicKeySection: publicKeys.schema,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        expirationDetails: expirationDetails.schema,
-        optionalInformationTitle: {
-          title: "Optional Host Details",
-          type: "null",
-        },
-        userdataScriptSection: {
-          type: "object" as const,
-          title: "",
-          properties: {
-            runUserdataScript: {
-              title: "Run Userdata script on start",
-              type: "boolean",
-            },
-          },
-          dependencies: {
-            runUserdataScript: {
-              oneOf: [
-                {
-                  properties: {
-                    runUserdataScript: {
-                      enum: [true],
-                    },
-                    userdataScript: {
-                      title: "Userdata Script",
-                      type: "string" as const,
-                      default: "",
-                      minLength: 1,
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    runUserdataScript: {
-                      enum: [false],
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
-        setupScriptSection: {
-          type: "object" as const,
-          title: "",
-          properties: {
-            defineSetupScriptCheckbox: {
-              title:
-                "Define setup script to run after host is configured (i.e. task data and artifacts are loaded)",
-              type: "boolean",
-            },
-          },
-          dependencies: {
-            defineSetupScriptCheckbox: {
-              oneOf: [
-                {
-                  properties: {
-                    defineSetupScriptCheckbox: {
-                      enum: [true],
-                    },
-                    warningBanner: {
-                      type: "null" as const,
-                    },
-                    setupScript: {
-                      title: "Setup Script",
-                      type: "string" as const,
-                      default: "",
-                      minLength: 1,
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    defineSetupScriptCheckbox: {
-                      enum: [false],
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
-        debugSection: {
-          type: "object" as const,
-          title: "",
-          properties: {
-            isDebug: {
-              title: "Spawn host in Debug Mode",
-              type: "boolean" as const,
-              default: false,
-            },
-          },
-          dependencies: {
-            isDebug: {
-              oneOf: [
-                {
-                  properties: {
-                    isDebug: {
-                      enum: [true],
-                    },
-                    setupStepNumber: {
-                      title: "Run task until step number",
-                      type: "string" as const,
-                      default: "",
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    isDebug: {
-                      enum: [false],
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
-        ...(hasValidTask && {
-          loadData: {
-            title: "",
-            type: "object" as const,
-            properties: {
-              loadDataOntoHostAtStartup: {
-                type: "boolean" as const,
-                default: true,
-              },
-            },
-            dependencies: {
-              loadDataOntoHostAtStartup: {
-                oneOf: [
-                  {
-                    properties: {
-                      loadDataOntoHostAtStartup: {
-                        enum: [true],
-                      },
-                      runProjectSpecificSetupScript: {
-                        type: "boolean" as const,
-                        title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
-                        default: hasProjectSetupScript,
-                      },
-                      startHosts: {
-                        type: "boolean" as const,
-                        title:
-                          "Also start any hosts this task started (if applicable)",
-                      },
-                      spawnHostTokenAuthBanner: {
-                        type: "null" as const,
-                      },
-                    },
-                  },
-                  {
-                    properties: {
-                      loadDataOntoHostAtStartup: {
-                        enum: [false],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-        }),
-        ...(shouldRenderVolumeSelection && {
-          homeVolumeDetails: {
-            type: "object" as const,
-            title: "Virtual Workstation",
-            properties: {
-              selectExistingVolume: {
-                title: "Volume selection",
-                type: "boolean" as const,
-                default: true,
-                oneOf: [
-                  {
-                    type: "boolean" as const,
-                    title: "Attach existing volume",
-                    enum: [true],
-                  },
-                  {
-                    type: "boolean" as const,
-                    title: "Attach new volume",
-                    enum: [false],
-                  },
-                ],
-              },
-            },
-            dependencies: {
-              selectExistingVolume: {
-                oneOf: [
-                  {
-                    properties: {
-                      selectExistingVolume: {
-                        enum: [true],
-                      },
-                      volumeSelect: {
-                        title: "Volume",
-                        type: "string" as const,
-                        default: availableVolumes[0]?.id ?? "",
-                        minLength: 1,
-                        oneOf:
-                          availableVolumes.length > 0
-                            ? availableVolumes.map((v) => ({
-                                type: "string" as const,
-                                title: `(${v.size}GB) ${v.displayName || v.id}`,
-                                enum: [v.id],
-                              }))
-                            : [
-                                {
-                                  type: "string" as const,
-                                  title: "No volumes available.",
-                                  enum: [""],
-                                },
-                              ],
-                      },
-                    },
-                  },
-                  {
-                    required: ["volumeSize"],
-                    properties: {
-                      selectExistingVolume: {
-                        enum: [false],
-                      },
-                      volumeSize: {
-                        title: "Volume size (GB)",
-                        type: "number" as const,
-                        default: DEFAULT_VOLUME_SIZE,
-                        minimum: 1,
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-        }),
-      },
       dependencies: {
         runUserdataScript: {
           oneOf: [
@@ -412,15 +142,280 @@ export const getFormSchema = ({
           ],
         },
       },
+      properties: {
+        debugSection: {
+          dependencies: {
+            isDebug: {
+              oneOf: [
+                {
+                  properties: {
+                    isDebug: {
+                      enum: [true],
+                    },
+                    setupStepNumber: {
+                      default: "",
+                      title: "Run task until step number",
+                      type: "string" as const,
+                    },
+                  },
+                },
+                {
+                  properties: {
+                    isDebug: {
+                      enum: [false],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+          properties: {
+            isDebug: {
+              default: false,
+              title: "Spawn host in Debug Mode",
+              type: "boolean" as const,
+            },
+          },
+          title: "",
+          type: "object" as const,
+        },
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        expirationDetails: expirationDetails.schema,
+        optionalInformationTitle: {
+          title: "Optional Host Details",
+          type: "null",
+        },
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        publicKeySection: publicKeys.schema,
+        requiredSection: {
+          properties: {
+            distro: {
+              default: distroIdQueryParam,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              enum: distros?.map(({ name }) => name),
+              minLength: 1,
+              title: "Distro",
+              type: "string" as const,
+            },
+            region: {
+              default:
+                userAwsRegion && availableRegions.includes(userAwsRegion)
+                  ? userAwsRegion
+                  : availableRegions[0],
+              minLength: 1,
+              oneOf: [
+                ...(availableRegions.map((r) => ({
+                  enum: [r],
+                  title: r,
+                  type: "string" as const,
+                })) || []),
+              ],
+              title: "Region",
+              type: "string" as const,
+            },
+          },
+          title: "",
+          type: "object" as const,
+        },
+        setupScriptSection: {
+          dependencies: {
+            defineSetupScriptCheckbox: {
+              oneOf: [
+                {
+                  properties: {
+                    defineSetupScriptCheckbox: {
+                      enum: [true],
+                    },
+                    setupScript: {
+                      default: "",
+                      minLength: 1,
+                      title: "Setup Script",
+                      type: "string" as const,
+                    },
+                    warningBanner: {
+                      type: "null" as const,
+                    },
+                  },
+                },
+                {
+                  properties: {
+                    defineSetupScriptCheckbox: {
+                      enum: [false],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+          properties: {
+            defineSetupScriptCheckbox: {
+              title:
+                "Define setup script to run after host is configured (i.e. task data and artifacts are loaded)",
+              type: "boolean",
+            },
+          },
+          title: "",
+          type: "object" as const,
+        },
+        userdataScriptSection: {
+          dependencies: {
+            runUserdataScript: {
+              oneOf: [
+                {
+                  properties: {
+                    runUserdataScript: {
+                      enum: [true],
+                    },
+                    userdataScript: {
+                      default: "",
+                      minLength: 1,
+                      title: "Userdata Script",
+                      type: "string" as const,
+                    },
+                  },
+                },
+                {
+                  properties: {
+                    runUserdataScript: {
+                      enum: [false],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+          properties: {
+            runUserdataScript: {
+              title: "Run Userdata script on start",
+              type: "boolean",
+            },
+          },
+          title: "",
+          type: "object" as const,
+        },
+        ...(hasValidTask && {
+          loadData: {
+            dependencies: {
+              loadDataOntoHostAtStartup: {
+                oneOf: [
+                  {
+                    properties: {
+                      loadDataOntoHostAtStartup: {
+                        enum: [true],
+                      },
+                      runProjectSpecificSetupScript: {
+                        default: hasProjectSetupScript,
+                        title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
+                        type: "boolean" as const,
+                      },
+                      spawnHostTokenAuthBanner: {
+                        type: "null" as const,
+                      },
+                      startHosts: {
+                        title:
+                          "Also start any hosts this task started (if applicable)",
+                        type: "boolean" as const,
+                      },
+                    },
+                  },
+                  {
+                    properties: {
+                      loadDataOntoHostAtStartup: {
+                        enum: [false],
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            properties: {
+              loadDataOntoHostAtStartup: {
+                default: true,
+                type: "boolean" as const,
+              },
+            },
+            title: "",
+            type: "object" as const,
+          },
+        }),
+        ...(shouldRenderVolumeSelection && {
+          homeVolumeDetails: {
+            dependencies: {
+              selectExistingVolume: {
+                oneOf: [
+                  {
+                    properties: {
+                      selectExistingVolume: {
+                        enum: [true],
+                      },
+                      volumeSelect: {
+                        default: availableVolumes[0]?.id ?? "",
+                        minLength: 1,
+                        oneOf:
+                          availableVolumes.length > 0
+                            ? availableVolumes.map((v) => ({
+                                enum: [v.id],
+                                title: `(${v.size}GB) ${v.displayName || v.id}`,
+                                type: "string" as const,
+                              }))
+                            : [
+                                {
+                                  enum: [""],
+                                  title: "No volumes available.",
+                                  type: "string" as const,
+                                },
+                              ],
+                        title: "Volume",
+                        type: "string" as const,
+                      },
+                    },
+                  },
+                  {
+                    properties: {
+                      selectExistingVolume: {
+                        enum: [false],
+                      },
+                      volumeSize: {
+                        default: DEFAULT_VOLUME_SIZE,
+                        minimum: 1,
+                        title: "Volume size (GB)",
+                        type: "number" as const,
+                      },
+                    },
+                    required: ["volumeSize"],
+                  },
+                ],
+              },
+            },
+            properties: {
+              selectExistingVolume: {
+                default: true,
+                oneOf: [
+                  {
+                    enum: [true],
+                    title: "Attach existing volume",
+                    type: "boolean" as const,
+                  },
+                  {
+                    enum: [false],
+                    title: "Attach new volume",
+                    type: "boolean" as const,
+                  },
+                ],
+                title: "Volume selection",
+                type: "boolean" as const,
+              },
+            },
+            title: "Virtual Workstation",
+            type: "object" as const,
+          },
+        }),
+      },
+      type: "object" as const,
     },
     uiSchema: {
       debugSection: {
         isDebug: {
-          "ui:widget":
-            hasValidTask && !isDebugDisabled
-              ? widgets.CheckboxWidget
-              : "hidden",
-          "ui:data-cy": "is-debug-toggle",
           "ui:customLabel": (
             <>
               Spawn host in{" "}
@@ -438,49 +433,53 @@ export const getFormSchema = ({
               </StyledLink>
             </>
           ),
+          "ui:data-cy": "is-debug-toggle",
           "ui:description":
             "Debug Mode that allows users to interactively step through task commands on spawn hosts",
+          "ui:widget":
+            hasValidTask && !isDebugDisabled
+              ? widgets.CheckboxWidget
+              : "hidden",
         },
         setupStepNumber: {
           ...(executionSteps?.length
             ? {
-                "ui:widget": ExecutionStepsDropdown,
                 "ui:executionSteps": executionSteps,
                 "ui:failingStepNumber": failingStepNumber,
                 "ui:isFailedTask": isFailedTask,
+                "ui:widget": ExecutionStepsDropdown,
               }
             : {}),
           "ui:data-cy": "setup-step-number-input",
           "ui:placeholder": "Select spawn end point",
         },
       },
+      expirationDetails: expirationDetails.uiSchema,
+      publicKeySection: publicKeys.uiSchema,
       requiredSection: {
         distro: {
-          "ui:widget": DistroDropdown,
-          "ui:elementWrapperCSS": dropdownWrapperClassName,
           "ui:data-cy": "distro-input",
           "ui:distros": distros,
+          "ui:elementWrapperCSS": dropdownWrapperClassName,
+          "ui:widget": DistroDropdown,
         },
         region: {
+          "ui:allowDeselect": false,
           "ui:data-cy": "region-select",
           "ui:disabled": isMigration || availableRegions.length === 0,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
           "ui:placeholder": "Select a region",
-          "ui:allowDeselect": false,
-        },
-      },
-      publicKeySection: publicKeys.uiSchema,
-      userdataScriptSection: {
-        userdataScript: {
-          "ui:widget": LeafyGreenTextArea,
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
-          "ui:data-cy": "user-data-script-text-area",
         },
       },
       setupScriptSection: {
         defineSetupScriptCheckbox: {
-          "ui:disabled": useProjectSetupScript,
           "ui:data-cy": "setup-script-checkbox",
+          "ui:disabled": useProjectSetupScript,
+        },
+        setupScript: {
+          "ui:data-cy": "setup-script-text-area",
+          "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:widget": LeafyGreenTextArea,
         },
         warningBanner: {
           "ui:showLabel": false,
@@ -498,18 +497,17 @@ export const getFormSchema = ({
             </>,
           ],
         },
-        setupScript: {
-          "ui:widget": LeafyGreenTextArea,
+      },
+      userdataScriptSection: {
+        userdataScript: {
+          "ui:data-cy": "user-data-script-text-area",
           "ui:elementWrapperCSS": textAreaWrapperClassName,
-          "ui:data-cy": "setup-script-text-area",
+          "ui:widget": LeafyGreenTextArea,
         },
       },
-      expirationDetails: expirationDetails.uiSchema,
       ...(hasValidTask && {
         loadData: {
-          "ui:elementWrapperCSS": loadDataFieldSetCSS,
           loadDataOntoHostAtStartup: {
-            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
             "ui:customLabel": (
               <>
                 Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b>{" "}
@@ -518,25 +516,20 @@ export const getFormSchema = ({
                 files will typically be in <InlineCode>/data/mci</InlineCode>)
               </>
             ),
-            "ui:elementWrapperCSS": dropMarginBottomCSS,
             "ui:data-cy": "load-data-checkbox",
+            "ui:elementWrapperCSS": dropMarginBottomCSS,
+            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
           },
           runProjectSpecificSetupScript: {
+            "ui:data-cy": "project-setup-script-checkbox",
+            "ui:disabled": useSetupScript,
+            "ui:elementWrapperCSS": childCheckboxCSS,
             "ui:widget":
               hasValidTask && hasProjectSetupScript
                 ? widgets.CheckboxWidget
                 : "hidden",
-            "ui:disabled": useSetupScript,
-            "ui:data-cy": "project-setup-script-checkbox",
-            "ui:elementWrapperCSS": childCheckboxCSS,
-          },
-          startHosts: {
-            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
-            "ui:elementWrapperCSS": childCheckboxCSS,
           },
           spawnHostTokenAuthBanner: {
-            "ui:showLabel": false,
-            "ui:field-data-cy": "spawn-host-token-auth-banner",
             "ui:descriptionNode": (
               <Banner
                 data-cy="spawn-host-token-auth-banner"
@@ -570,7 +563,14 @@ export const getFormSchema = ({
                 )}
               </Banner>
             ),
+            "ui:field-data-cy": "spawn-host-token-auth-banner",
+            "ui:showLabel": false,
           },
+          startHosts: {
+            "ui:elementWrapperCSS": childCheckboxCSS,
+            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
+          },
+          "ui:elementWrapperCSS": loadDataFieldSetCSS,
         },
       }),
       ...(shouldRenderVolumeSelection && {

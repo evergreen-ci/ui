@@ -13,8 +13,6 @@ type CommitDetailsListType = React.ComponentProps<typeof CommitDetailsList> & {
 };
 
 export default {
-  component: CommitDetailsList,
-  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   args: {
     isPatch: false,
     loading: false,
@@ -31,6 +29,8 @@ export default {
       control: { type: "boolean" },
     },
   },
+  component: CommitDetailsList,
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
 } satisfies CustomMeta<CommitDetailsListType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {

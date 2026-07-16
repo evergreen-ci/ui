@@ -4,35 +4,35 @@ import { containerPools, aws, docker } from "./schemaFields";
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
-    type: "object" as const,
     properties: {
       providers: {
-        type: "object" as const,
-        title: "",
         properties: {
-          containerPools: {
-            type: "object" as const,
-            title: "Container Pools",
-            properties: containerPools.schema,
-          },
           aws: {
-            type: "object" as const,
-            title: "AWS Configuration",
             properties: aws.schema,
+            title: "AWS Configuration",
+            type: "object" as const,
+          },
+          containerPools: {
+            properties: containerPools.schema,
+            title: "Container Pools",
+            type: "object" as const,
           },
           docker: {
-            type: "object" as const,
-            title: "Docker",
             properties: docker.schema,
+            title: "Docker",
+            type: "object" as const,
           },
         },
+        title: "",
+        type: "object" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     providers: {
-      containerPools: containerPools.uiSchema,
       aws: aws.uiSchema,
+      containerPools: containerPools.uiSchema,
       docker: docker.uiSchema,
     },
   },

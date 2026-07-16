@@ -32,9 +32,9 @@ describe("useFilters", () => {
         },
       );
       expect(result.current).toStrictEqual({
+        activeVersionIds: ["b", "c", "f"],
         buildVariants,
         versions: groupedVersions,
-        activeVersionIds: ["b", "c", "f"],
       });
     });
 
@@ -60,8 +60,8 @@ describe("useFilters", () => {
         buildVariants: [],
         versions: [
           {
-            version: null,
             inactiveVersions: versions,
+            version: null,
           },
         ],
       };
@@ -88,9 +88,9 @@ describe("useFilters", () => {
       );
 
       const pinnedWaterfall = {
-        versions: groupedVersions,
         activeVersionIds: ["b", "c", "f"],
         buildVariants: [buildVariants[1], buildVariants[2], buildVariants[0]],
+        versions: groupedVersions,
       };
 
       expect(result.current).toStrictEqual(pinnedWaterfall);
@@ -145,6 +145,7 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
+        activeVersionIds: ["b", "c", "f"],
         buildVariants: [buildVariants[0], buildVariants[1], buildVariants[2]],
         versions: [
           groupedVersions[0],
@@ -156,7 +157,6 @@ describe("useFilters", () => {
           },
           groupedVersions[4],
         ],
-        activeVersionIds: ["b", "c", "f"],
       };
 
       expect(result.current).toStrictEqual(filteredWaterfall);
@@ -179,6 +179,7 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
+        activeVersionIds: ["b", "c"],
         buildVariants: [
           { ...buildVariants[0], builds: [buildVariants[0].builds[0]] },
           buildVariants[1],
@@ -193,7 +194,6 @@ describe("useFilters", () => {
             version: null,
           },
         ],
-        activeVersionIds: ["b", "c"],
       };
 
       expect(result.current).toStrictEqual(filteredWaterfall);
@@ -265,15 +265,6 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
-        versions: [
-          groupedVersions[0],
-          groupedVersions[1],
-          { inactiveVersions: null, version: versions[2] },
-          {
-            inactiveVersions: [versions[3], versions[4], versions[5]],
-            version: null,
-          },
-        ],
         activeVersionIds: ["b", "c"],
         buildVariants: [
           {
@@ -294,6 +285,15 @@ describe("useFilters", () => {
                 tasks: [buildVariants[2].builds[0].tasks[0]],
               },
             ],
+          },
+        ],
+        versions: [
+          groupedVersions[0],
+          groupedVersions[1],
+          { inactiveVersions: null, version: versions[2] },
+          {
+            inactiveVersions: [versions[3], versions[4], versions[5]],
+            version: null,
           },
         ],
       };
@@ -319,13 +319,13 @@ describe("useFilters", () => {
 
       expect(result.current).toStrictEqual({
         activeVersionIds: [],
+        buildVariants: [],
         versions: [
           {
             inactiveVersions: versions,
             version: null,
           },
         ],
-        buildVariants: [],
       });
     });
   });
@@ -349,6 +349,13 @@ describe("useFilters", () => {
 
       expect(result.current).toStrictEqual({
         activeVersionIds: ["b"],
+        buildVariants: [
+          {
+            ...buildVariants[0],
+            builds: [buildVariants[0].builds[0]],
+          },
+          buildVariants[1],
+        ],
         versions: [
           {
             inactiveVersions: [versions[0]],
@@ -367,13 +374,6 @@ describe("useFilters", () => {
             ],
             version: null,
           },
-        ],
-        buildVariants: [
-          {
-            ...buildVariants[0],
-            builds: [buildVariants[0].builds[0]],
-          },
-          buildVariants[1],
         ],
       });
     });
@@ -397,13 +397,13 @@ describe("useFilters", () => {
 
       expect(result.current).toStrictEqual({
         activeVersionIds: [],
+        buildVariants: [],
         versions: [
           {
             inactiveVersions: versions,
             version: null,
           },
         ],
-        buildVariants: [],
       });
     });
   });

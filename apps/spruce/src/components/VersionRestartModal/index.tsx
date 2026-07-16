@@ -87,15 +87,15 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 
   const handlePatchRestart = () => {
     sendEvent({
-      name: "Clicked restart tasks button",
       abort: shouldAbortInProgressTasks,
+      name: "Clicked restart tasks button",
       "task.modified_count": selectedTotal,
     });
     restartVersions({
       variables: {
+        abort: shouldAbortInProgressTasks,
         versionId,
         versionsToRestart: getTaskIds(selectedTasksMap),
-        abort: shouldAbortInProgressTasks,
       },
     });
   };
@@ -172,8 +172,8 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 const getTaskIds = (selectedTasks: SelectedTasksMap) =>
   Array.from(selectedTasks.entries())
     .map(([versionId, tasks]) => ({
-      versionId,
       taskIds: Array.from(tasks),
+      versionId,
     }))
     .filter(({ taskIds }) => taskIds.length > 0);
 

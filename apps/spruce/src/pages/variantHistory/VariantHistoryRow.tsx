@@ -30,44 +30,44 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
   );
   const eventHandlers = useMemo(
     () => ({
-      onClickGithash: () =>
-        sendEvent({
-          name: "Clicked commit label",
-          link: "githash",
-          "commit.type": "active",
-        }),
       onClickFoldedGithash: () =>
         sendEvent({
-          name: "Clicked commit label",
-          link: "githash",
           "commit.type": "inactive",
-        }),
-      onClickUpstreamProject: () => {
-        sendEvent({
+          link: "githash",
           name: "Clicked commit label",
-          link: "upstream project",
-          "commit.type": "active",
+        }),
+      onClickFoldedJiraTicket: () => {
+        sendEvent({
+          "commit.type": "inactive",
+          link: "jira",
+          name: "Clicked commit label",
         });
       },
       onClickFoldedUpstreamProject: () => {
         sendEvent({
-          name: "Clicked commit label",
-          link: "upstream project",
           "commit.type": "inactive",
+          link: "upstream project",
+          name: "Clicked commit label",
         });
       },
+      onClickGithash: () =>
+        sendEvent({
+          "commit.type": "active",
+          link: "githash",
+          name: "Clicked commit label",
+        }),
       onClickJiraTicket: () => {
         sendEvent({
-          name: "Clicked commit label",
-          link: "jira",
           "commit.type": "active",
+          link: "jira",
+          name: "Clicked commit label",
         });
       },
-      onClickFoldedJiraTicket: () => {
+      onClickUpstreamProject: () => {
         sendEvent({
+          "commit.type": "active",
+          link: "upstream project",
           name: "Clicked commit label",
-          link: "jira",
-          "commit.type": "inactive",
         });
       },
       // @ts-expect-error: FIXME. This comment was added by an automated script.

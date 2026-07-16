@@ -33,8 +33,8 @@ describe("repo data", () => {
 });
 
 const projectForm: PeriodicBuildsFormState = {
-  periodicBuildsOverride: true,
   periodicBuilds: [],
+  periodicBuildsOverride: true,
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -46,42 +46,41 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
 };
 
 const repoForm: PeriodicBuildsFormState = {
-  periodicBuildsOverride: true,
   periodicBuilds: [
     {
       alias: "",
       configFile: "evergreen.yml",
+      displayTitle: "Every 24 hours",
       id: "123",
       interval: {
-        specifier: IntervalSpecifier.Hours,
-        intervalHours: 24,
         cron: "",
+        intervalHours: 24,
+        specifier: IntervalSpecifier.Hours,
       },
       message: "",
       nextRunTime:
         "Wed Mar 30 2022 17:07:10 GMT+0000 (Coordinated Universal Time)",
-      displayTitle: "Every 24 hours",
     },
     {
       alias: "test",
       configFile: "evergreen.yml",
+      displayTitle: "Build Message",
       id: "456",
       interval: {
-        specifier: IntervalSpecifier.Cron,
+        cron: "*/5 * * * *",
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         intervalHours: null,
-        cron: "*/5 * * * *",
+        specifier: IntervalSpecifier.Cron,
       },
       message: "Build Message",
       nextRunTime:
         "Wed Mar 30 2022 17:07:10 GMT+0000 (Coordinated Universal Time)",
-      displayTitle: "Build Message",
     },
   ],
+  periodicBuildsOverride: true,
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
-  repoId: "repo",
   projectRef: {
     id: "repo",
     periodicBuilds: [
@@ -105,4 +104,5 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
       },
     ],
   },
+  repoId: "repo",
 };

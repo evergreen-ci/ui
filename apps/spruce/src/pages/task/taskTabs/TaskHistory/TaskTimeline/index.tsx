@@ -69,8 +69,8 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
               sendEvent({ name: "Clicked previous page button" });
               setQueryParams({
                 ...queryParams,
-                [TaskHistoryOptions.Date]: undefined,
                 [TaskHistoryOptions.CursorID]: prevPageCursor.id,
+                [TaskHistoryOptions.Date]: undefined,
                 [TaskHistoryOptions.Direction]: TaskHistoryDirection.After,
                 [TaskHistoryOptions.IncludeCursor]: false,
               });
@@ -161,8 +161,8 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
               sendEvent({ name: "Clicked next page button" });
               setQueryParams({
                 ...queryParams,
-                [TaskHistoryOptions.Date]: undefined,
                 [TaskHistoryOptions.CursorID]: nextPageCursor.id,
+                [TaskHistoryOptions.Date]: undefined,
                 [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
                 [TaskHistoryOptions.IncludeCursor]: false,
               });

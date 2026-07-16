@@ -31,10 +31,10 @@ enum LogLevel {
 }
 
 export const mapLogLevelToColor: Record<LogLevel, string> = {
-  [LogLevel.Error]: "#ff0000",
-  [LogLevel.Warn]: "#ffa500",
   [LogLevel.Debug]: "#666",
+  [LogLevel.Error]: "#ff0000",
   [LogLevel.Info]: "#333",
+  [LogLevel.Warn]: "#ffa500",
 };
 
 export const getSeverityMapping = (s: number): LogLevel => {

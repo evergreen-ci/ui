@@ -56,11 +56,11 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
       distros: [
         {
           __typename: "Distro",
-          name: "test-distro",
           adminOnly: false,
           aliases: [],
           availableRegions: ["us-east-1"],
           isVirtualWorkStation: false,
+          name: "test-distro",
         },
       ],
     },
@@ -85,21 +85,21 @@ const spawnTaskMock: ApolloMock<SpawnTaskQuery, SpawnTaskQueryVariables> = {
     data: {
       task: {
         __typename: "Task",
-        id: "t1",
         buildVariant: "ubuntu",
         buildVariantDisplayName: "Ubuntu",
+        details: null,
         displayName: "my-task",
         displayStatus: "success",
         execution: 0,
-        revision: "abc1234",
-        details: null,
         executionSteps: null,
+        id: "t1",
         project: {
           __typename: "Project",
-          id: "proj",
           debugSpawnHostsDisabled: false,
+          id: "proj",
           spawnHostScriptPath: "",
         },
+        revision: "abc1234",
       },
     },
   },
@@ -124,9 +124,9 @@ describe("SpawnHostModal token gate", () => {
   beforeEach(() => {
     window.ResizeObserver = vi.fn().mockImplementation(function () {
       return {
+        disconnect: vi.fn(),
         observe: vi.fn(),
         unobserve: vi.fn(),
-        disconnect: vi.fn(),
       };
     });
     mockUseUserTokenExchange.mockReturnValue(
@@ -146,7 +146,7 @@ describe("SpawnHostModal token gate", () => {
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>,
-      { route: "/?taskId=t1&distroId=test-distro", path: "/" },
+      { path: "/", route: "/?taskId=t1&distroId=test-distro" },
     );
 
     const spawnButton = await screen.findByRole("button", {
@@ -181,7 +181,7 @@ describe("SpawnHostModal token gate", () => {
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>,
-      { route: "/?taskId=t1&distroId=test-distro", path: "/" },
+      { path: "/", route: "/?taskId=t1&distroId=test-distro" },
     );
 
     const spawnButton = await screen.findByRole("button", {

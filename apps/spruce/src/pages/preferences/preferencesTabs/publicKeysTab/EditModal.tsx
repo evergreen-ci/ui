@@ -70,8 +70,8 @@ export const EditModal: React.FC<EditModalProps> = ({
 
   const initialState = useMemo(
     () => ({
-      name: initialPublicKey?.name ?? "",
       key: initialPublicKey?.key ?? "",
+      name: initialPublicKey?.name ?? "",
     }),
     [initialPublicKey?.name, initialPublicKey?.key],
   );
@@ -90,8 +90,8 @@ export const EditModal: React.FC<EditModalProps> = ({
 
   const onClickSave = () => {
     const nextKeyInfo = {
-      name: formState.name,
       key: stripNewLines(formState.key),
+      name: formState.name,
     };
     if (replaceKeyName) {
       sendEvent({ name: "Changed public key" });
@@ -140,31 +140,31 @@ type FormState = {
 };
 
 const schema = {
-  required: ["name", "key"],
   properties: {
-    name: {
-      type: "string" as const,
-      title: "Key Name",
-      minLength: 1,
-    },
     key: {
-      type: "string" as const,
-      title: "Public Key",
       format: "validSSHPublicKey",
+      title: "Public Key",
+      type: "string" as const,
+    },
+    name: {
+      minLength: 1,
+      title: "Key Name",
+      type: "string" as const,
     },
   },
+  required: ["name", "key"],
 };
 
 const uiSchema = {
-  name: {
-    "ui:data-cy": "key-name-input",
-  },
   key: {
     "ui:data-cy": "key-value-input",
-    "ui:widget": "textarea",
     "ui:description":
       "The SSH key must begin with 'ssh-rsa' or 'ssh-dss' or 'ssh-ed25519' or 'ecdsa-sha2-nistp256'.",
     "ui:rows": 8,
+    "ui:widget": "textarea",
+  },
+  name: {
+    "ui:data-cy": "key-name-input",
   },
 };
 

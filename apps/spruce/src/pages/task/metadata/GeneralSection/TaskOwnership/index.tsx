@@ -20,8 +20,8 @@ export const TaskOwnership: React.FC<TaskOwnershipProps> = ({
     TaskOwnerTeamsForTaskQueryVariables
   >(TASK_OWNER_TEAM, {
     variables: {
-      taskId,
       execution,
+      taskId,
     },
   });
   if (!data) return null;

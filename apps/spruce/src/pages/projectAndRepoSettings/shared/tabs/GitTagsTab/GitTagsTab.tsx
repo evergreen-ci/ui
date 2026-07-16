@@ -82,7 +82,7 @@ const validate = (
 ) =>
   ((formData, errors) => {
     const {
-      github: { gitTagVersionsEnabled, gitTags },
+      github: { gitTags, gitTagVersionsEnabled },
     } = formData;
 
     const getAliasError = getVersionControlError(

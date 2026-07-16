@@ -188,8 +188,8 @@ describe("spawn host table", () => {
             sleepSchedule: {
               ...defaultSleepSchedule,
               nextStartTime: null,
-              timeZone: "America/New_York",
               permanentlyExempt: true,
+              timeZone: "America/New_York",
             },
           },
         ]}
@@ -215,8 +215,8 @@ describe("spawn host table", () => {
             sleepSchedule: {
               ...defaultSleepSchedule,
               nextStartTime: null,
-              timeZone: "America/New_York",
               permanentlyExempt: false,
+              timeZone: "America/New_York",
             },
           },
         ]}
@@ -242,8 +242,8 @@ describe("spawn host table", () => {
             sleepSchedule: {
               ...defaultSleepSchedule,
               nextStartTime: null,
-              timeZone: "America/New_York",
               permanentlyExempt: true,
+              timeZone: "America/New_York",
             },
           },
         ]}
@@ -261,49 +261,49 @@ describe("spawn host table", () => {
 });
 
 const baseSpawnHost: MyHost = {
-  id: "i-0e2424677dfab890e",
+  __typename: "Host",
+  availabilityZone: "us-east-1c",
+  displayName: "",
   distro: {
-    isVirtualWorkStation: true,
+    __typename: "DistroInfo",
     id: "ubuntu1804-workstation",
+    isVirtualWorkStation: true,
+    isWindows: false,
     user: "ubuntu",
     workDir: "/home/ubuntu",
-    isWindows: false,
-    __typename: "DistroInfo",
   },
   expiration: new Date("2024-05-06T20:27:43.024Z"),
-  hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
-  homeVolumeID: "vol-07fa9f6b5c2067e34",
   homeVolume: {
-    id: "home-volume-id",
     displayName: "",
+    id: "home-volume-id",
   },
-  instanceType: "m5.xlarge",
+  homeVolumeID: "vol-07fa9f6b5c2067e34",
+  hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
+  id: "i-0e2424677dfab890e",
   instanceTags: [],
-  volumes: [
-    {
-      displayName: "",
-      id: "vol-0cf616375140c067e",
-      migrating: false,
-      __typename: "Volume",
-    },
-  ],
+  instanceType: "m5.xlarge",
   noExpiration: true,
   persistentDnsName: "",
   provider: "ec2-fleet",
-  startedBy: "stssss.arst",
-  status: "running",
-  tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
-  user: "ubuntu",
-  uptime: new Date("2020-10-14T22:37:40Z"),
-  displayName: "",
-  availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
     nextStartTime: new Date("2024-06-06T08:00:00Z"),
     temporarilyExemptUntil: null,
     timeZone: "America/New_York",
   },
-  __typename: "Host",
+  startedBy: "stssss.arst",
+  status: "running",
+  tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
+  uptime: new Date("2020-10-14T22:37:40Z"),
+  user: "ubuntu",
+  volumes: [
+    {
+      __typename: "Volume",
+      displayName: "",
+      id: "vol-0cf616375140c067e",
+      migrating: false,
+    },
+  ],
 };
 
 const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
@@ -322,7 +322,7 @@ const myPublicKeysMock: ApolloMock<
   request: { query: MY_PUBLIC_KEYS, variables: {} },
   result: {
     data: {
-      myPublicKeys: [{ key: "abc", name: "MBP", __typename: "PublicKey" }],
+      myPublicKeys: [{ __typename: "PublicKey", key: "abc", name: "MBP" }],
     },
   },
 };

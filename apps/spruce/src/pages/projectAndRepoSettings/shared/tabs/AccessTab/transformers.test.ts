@@ -39,9 +39,9 @@ const projectForm: AccessFormState = {
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
   projectId: "project",
   projectRef: {
+    admins: [],
     id: "project",
     restricted: true,
-    admins: [],
   },
 };
 
@@ -55,10 +55,10 @@ const repoForm: AccessFormState = {
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
-  repoId: "repo",
   projectRef: {
+    admins: ["admin"],
     id: "repo",
     restricted: true,
-    admins: ["admin"],
   },
+  repoId: "repo",
 };

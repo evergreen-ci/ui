@@ -9,21 +9,17 @@ import { CODE_CHANGES } from "gql/queries";
 export const patchQuery: ConfigurePatchQuery = {
   patch: {
     __typename: "Patch",
-    id: "version",
-    description: "test",
-    projectMetadata: {
-      id: "spruce",
-      identifier: "spruce",
-    },
-    user: {
-      userId: "mohamed.khelif",
-      displayName: "Mohamed Khelif",
-    },
     activated: false,
-    status: "created",
-    time: {
-      submittedAt: "2020-08-28T15:00:17Z",
-    },
+    childPatchAliases: [
+      {
+        alias: "spruce",
+        patchId: "5f4889313627e0544660c800",
+      },
+    ],
+    childPatches: [],
+    description: "test",
+    id: "version",
+    parameters: [],
     patchTriggerAliases: [
       {
         alias: "evergreen",
@@ -37,15 +33,6 @@ export const patchQuery: ConfigurePatchQuery = {
         ],
       },
     ],
-    childPatchAliases: [
-      {
-        alias: "spruce",
-        patchId: "5f4889313627e0544660c800",
-      },
-    ],
-    childPatches: [],
-    parameters: [],
-    variantsTasks: [],
     project: {
       variants: [
         {
@@ -60,6 +47,19 @@ export const patchQuery: ConfigurePatchQuery = {
         },
       ],
     },
+    projectMetadata: {
+      id: "spruce",
+      identifier: "spruce",
+    },
+    status: "created",
+    time: {
+      submittedAt: "2020-08-28T15:00:17Z",
+    },
+    user: {
+      displayName: "Mohamed Khelif",
+      userId: "mohamed.khelif",
+    },
+    variantsTasks: [],
   },
 };
 
@@ -79,7 +79,6 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
               {
                 __typename: "ModuleCodeChange",
                 branchName: "main",
-                rawLink: "rawLink",
                 fileDiffs: [
                   {
                     __typename: "FileDiff",
@@ -89,6 +88,7 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
                     fileName: "diff",
                   },
                 ],
+                rawLink: "rawLink",
               },
             ],
           },

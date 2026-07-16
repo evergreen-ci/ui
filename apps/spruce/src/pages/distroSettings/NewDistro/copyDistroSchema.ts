@@ -3,15 +3,15 @@ export const modalFormDefinition = {
     newDistroId: "",
   },
   schema: {
-    type: "object" as const,
     properties: {
       newDistroId: {
-        type: "string" as const,
-        title: "Distro ID",
         format: "noSpaces",
         minLength: 1,
+        title: "Distro ID",
+        type: "string" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     newDistroId: {

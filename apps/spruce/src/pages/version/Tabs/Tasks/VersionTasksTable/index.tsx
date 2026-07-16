@@ -80,7 +80,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
     () =>
       getColumnsTemplate({
         baseStatusOptions,
-        statusOptions,
         isPatch,
         loading,
         onClickTaskLink: (taskId: string, status?: string) =>
@@ -89,6 +88,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             "task.id": taskId,
             "task.status": status ?? "",
           }),
+        statusOptions,
       }),
     [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
   );
@@ -110,8 +110,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
     });
     setQueryParams(updatedParams);
     sendEvent({
-      name: "Filtered tasks table",
       "filter.by": Object.keys(filterState),
+      name: "Filtered tasks table",
     });
   };
 
@@ -133,24 +133,24 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         sortDescFirst: false,
       },
       getRowId: (originalRow) => originalRow.id,
+      getSubRows: (row) => row.executionTasksFull || [],
       initialState: {
         columnVisibility: { reviewed: taskReviewEnabled },
       },
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
-      state: {
-        columnFilters,
-        sorting,
-      },
-      maxMultiSortColCount: 2,
       manualFiltering: true,
       manualPagination: true,
       manualSorting: true,
+      maxMultiSortColCount: 2,
       onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
         setColumnFilters,
         (updatedState) => updateFilters(updatedState),
       ),
       onSortingChange: onChangeHandler<SortingState>(setSorting, updateSorting),
-      getSubRows: (row) => row.executionTasksFull || [],
+      state: {
+        columnFilters,
+        sorting,
+      },
     });
 
   return (
@@ -228,18 +228,18 @@ export const getInitialState = (
   const parsedSorts = sorts
     ? parseSortString(sorts, {
         sortByKey: "sortCategory",
-        sortDirKey: "direction",
         sortCategoryEnum: VersionTaskCategory,
+        sortDirKey: "direction",
       })
     : [];
 
   return {
+    initialFilters,
     initialSorting: parsedSorts.length
       ? parsedSorts.map(({ direction, sortCategory }) => ({
-          id: sortCategory,
           desc: direction === SortDirection.Desc,
+          id: sortCategory,
         }))
       : defaultSorting,
-    initialFilters,
   };
 };

@@ -16,17 +16,17 @@ export const readTaskReviewed = ((existing, { cache, readField, storage }) => {
         storage.var(data);
       }
       cache.modify({
-        id: cache.identify({
-          __typename: "Task",
-          id: taskId,
-          execution,
-        }),
+        broadcast: false,
         fields: {
           reviewed() {
             return data ?? false;
           },
         },
-        broadcast: false,
+        id: cache.identify({
+          __typename: "Task",
+          execution,
+          id: taskId,
+        }),
       });
     });
   } else if (existing !== undefined) {

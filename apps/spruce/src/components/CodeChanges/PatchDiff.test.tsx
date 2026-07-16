@@ -30,8 +30,8 @@ describe("PatchDiff", () => {
     });
 
     expect(mockUsePatchDiffStream).toHaveBeenCalledWith({
-      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=0",
       containerRef: expect.any(Object),
+      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=0",
     });
   });
 
@@ -47,8 +47,8 @@ describe("PatchDiff", () => {
     });
 
     expect(mockUsePatchDiffStream).toHaveBeenCalledWith({
-      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=2",
       containerRef: expect.any(Object),
+      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=2",
     });
   });
 

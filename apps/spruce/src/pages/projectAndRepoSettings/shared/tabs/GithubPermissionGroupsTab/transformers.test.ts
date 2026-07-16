@@ -66,8 +66,8 @@ const projectResult: Pick<
       {
         name: "permission-group-2",
         permissions: {
-          pull_requests: "write",
           contents: "admin",
+          pull_requests: "write",
         },
       },
     ],

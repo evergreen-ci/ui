@@ -20,12 +20,12 @@ export const gqlToForm = ((data) => {
 
   return {
     vars: Object.entries(vars).map(([varName, varValue]) => ({
-      varName,
-      varValue: varValue || "{REDACTED}",
-      varDescription: varsDescriptions[varName] ?? "",
-      isPrivate: privateVars.includes(varName),
       isAdminOnly: adminOnlyVars.includes(varName),
       isDisabled: privateVars.includes(varName),
+      isPrivate: privateVars.includes(varName),
+      varDescription: varsDescriptions[varName] ?? "",
+      varName,
+      varValue: varValue || "{REDACTED}",
     })),
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -33,9 +33,9 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = (({ vars: varsData }, isRepo, id) => {
   const initialValue: VarsAccumulator = {
-    vars: {},
-    privateVarsList: [],
     adminOnlyVarsList: [],
+    privateVarsList: [],
+    vars: {},
     varsDescriptions: {},
   };
 

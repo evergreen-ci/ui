@@ -73,8 +73,8 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               setTestName(value);
             }
             sendEvent({
-              name: "Filtered test analysis tab",
               "filter.by": "test name",
+              name: "Filtered test analysis tab",
             });
           }}
           placeholder="Search failed tests (regex)"
@@ -88,8 +88,8 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           onChange={(value: string[]) => {
             setSelectedTaskStatuses(value);
             sendEvent({
-              name: "Filtered test analysis tab",
               "filter.by": "task statuses",
+              name: "Filtered test analysis tab",
             });
           }}
           placeholder="Select a task status"
@@ -111,8 +111,8 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           onChange={(value: string[]) => {
             setSelectedBuildVariants(value);
             sendEvent({
-              name: "Filtered test analysis tab",
               "filter.by": "build variant",
+              name: "Filtered test analysis tab",
             });
           }}
           overflow="scroll-x"
@@ -141,8 +141,8 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             onClick={() => {
               setQueryParams({
                 [TestAnalysisQueryParams.Statuses]: [],
-                [TestAnalysisQueryParams.Variants]: [],
                 [TestAnalysisQueryParams.TestName]: "",
+                [TestAnalysisQueryParams.Variants]: [],
               });
             }}
             size="xsmall"

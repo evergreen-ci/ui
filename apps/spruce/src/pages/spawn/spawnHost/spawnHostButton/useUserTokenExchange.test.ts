@@ -111,8 +111,8 @@ describe("useUserTokenExchange", () => {
     const farFuture = new Date(Date.now() + 60 * 60 * 1000);
     const wrapper = apolloMocksWrapper([
       userTokenExchangeMock({
-        tokenAccessTokenExpiresAt: farFuture,
         hasTokenExchangePending: false,
+        tokenAccessTokenExpiresAt: farFuture,
       }),
     ]);
     const { result } = renderHook(() => useUserTokenExchange(false), {

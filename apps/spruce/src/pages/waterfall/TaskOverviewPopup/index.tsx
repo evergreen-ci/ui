@@ -53,9 +53,9 @@ export const TaskOverviewPopup: React.FC<Props> = ({
     TASK_OVERVIEW_POPUP,
     open
       ? {
-          variables: { taskId, execution },
           // TODO DEVPROD-27824: Remove when cache performance is fixed.
           fetchPolicy: "no-cache",
+          variables: { execution, taskId },
         }
       : skipToken,
   );

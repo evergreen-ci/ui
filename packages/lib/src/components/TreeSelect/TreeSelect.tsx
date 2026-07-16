@@ -47,7 +47,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
         .reduce(
           // remove children nodes if parent exists in state
           (accum, value) => {
-            const { target } = findNode({ value, tData });
+            const { target } = findNode({ tData, value });
             if (target.children) {
               return accum.filter(
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -58,7 +58,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
           },
           [...filteredState],
         )
-        .map((value) => findNode({ value, tData }).target.title)
+        .map((value) => findNode({ tData, value }).target.title)
         .join(", ");
 
   useEffect(() => {
@@ -72,9 +72,9 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   return (
     <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
       {renderCheckboxes({
+        onChange,
         state: filteredState,
         tData,
-        onChange,
       })}
       {onReset && onFilter && (
         <FilterInputControls
@@ -102,7 +102,7 @@ const renderCheckboxes = ({
   const rows: React.JSX.Element[] = [];
   tData.forEach((entry) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
+    renderCheckboxesHelper({ data: entry, onChange, rows, state, tData });
   });
   return rows;
 };
@@ -122,7 +122,7 @@ const renderCheckboxesHelper = ({
 }): void => {
   // push parent
   const onChangeFn = (): void =>
-    handleOnChange({ state, value: data.value, onChange, tData });
+    handleOnChange({ onChange, state, tData, value: data.value });
   rows.push(
     <CheckboxWrapper key={data.key} isAll={data.value === ALL_VALUE} level={0}>
       <Checkbox
@@ -138,7 +138,7 @@ const renderCheckboxesHelper = ({
   if (data.children) {
     data.children.forEach((child) => {
       const onChangeChildFn = (): void =>
-        handleOnChange({ state, value: child.value, onChange, tData });
+        handleOnChange({ onChange, state, tData, value: child.value });
       rows.push(
         <CheckboxWrapper
           key={`${data.key}-${child.key}`}
@@ -171,7 +171,7 @@ const handleOnChange = ({
   tData: TreeDataEntry[];
 }): void => {
   const isAlreadyChecked = state.includes(value); // is checkbox already selected
-  const { parent, siblings, target } = findNode({ value, tData });
+  const { parent, siblings, target } = findNode({ tData, value });
   const isParent = target.children;
   const isAll = target.value === ALL_VALUE; // is all button clicked
   if (!target) {
@@ -269,29 +269,29 @@ const findNode = ({
   for (const curr of tData) {
     if (curr.value === value) {
       return {
-        target: curr,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         parent: null,
         siblings: tData.filter((v) => v.value !== value),
+        target: curr,
       };
     }
     if (curr.children) {
       const child = curr.children.find((c) => c.value === value);
       if (child) {
         return {
-          target: child,
           parent: curr,
           siblings: curr.children.filter((c) => c.value !== value),
+          target: child,
         };
       }
     }
   }
   return {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    target: null,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     parent: null,
     siblings: [],
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    target: null,
   };
 };
 

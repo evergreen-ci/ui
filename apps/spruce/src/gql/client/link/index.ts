@@ -34,6 +34,8 @@ export const authenticateIfSuccessfulLink = (
     (operation, forward) =>
       new Observable((observer) => {
         const subscription = forward(operation).subscribe({
+          complete: observer.complete.bind(observer),
+          error: observer.error.bind(observer),
           next: (response) => {
             if (response && response.data) {
               // If there is data in response, then server responded with 200; therefore, is authenticated.
@@ -42,28 +44,21 @@ export const authenticateIfSuccessfulLink = (
             leaveBreadcrumb(
               "Graphql Request",
               {
-                operationName: operation.operationName,
-                variables: operation.variables,
-                status: !response.errors ? "OK" : "ERROR",
                 errors: response.errors,
+                operationName: operation.operationName,
+                status: !response.errors ? "OK" : "ERROR",
+                variables: operation.variables,
               },
               SentryBreadcrumbTypes.HTTP,
             );
             observer.next(response);
           },
-          error: observer.error.bind(observer),
-          complete: observer.complete.bind(observer),
         });
         return () => subscription.unsubscribe();
       }),
   );
 
 export const retryLink = new RetryLink({
-  delay: {
-    initial: 300,
-    max: 3000,
-    jitter: true,
-  },
   attempts: {
     max: 5,
     retryIf: (error): boolean => {
@@ -73,5 +68,10 @@ export const retryLink = new RetryLink({
       }
       return false;
     },
+  },
+  delay: {
+    initial: 300,
+    jitter: true,
+    max: 3000,
   },
 });

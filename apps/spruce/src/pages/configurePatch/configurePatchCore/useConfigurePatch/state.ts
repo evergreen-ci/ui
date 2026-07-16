@@ -38,12 +38,12 @@ const initialState = ({
   selectedTab: ConfigurePatchPageTabs;
 }): ConfigurePatchState => ({
   description: "",
+  disableBuildVariantSelect: selectedTab !== ConfigurePatchPageTabs.Tasks,
+  patchParams: [],
   selectedAliases: {},
   selectedBuildVariants: [],
   selectedBuildVariantTasks: {},
-  patchParams: [],
   selectedTab,
-  disableBuildVariantSelect: selectedTab !== ConfigurePatchPageTabs.Tasks,
 });
 
 const reducer = (
@@ -81,18 +81,18 @@ const reducer = (
     case "setSelectedTab": {
       return {
         ...state,
-        selectedTab: action.tab,
         disableBuildVariantSelect: action.tab !== ConfigurePatchPageTabs.Tasks,
+        selectedTab: action.tab,
       };
     }
     case "updatePatchData":
       return {
         ...state,
         description: action.description,
-        selectedBuildVariants: action.buildVariants,
         patchParams: omitTypename(action.params),
-        selectedBuildVariantTasks: action.variantTasks,
         selectedAliases: action.aliases,
+        selectedBuildVariants: action.buildVariants,
+        selectedBuildVariantTasks: action.variantTasks,
       };
 
     default:

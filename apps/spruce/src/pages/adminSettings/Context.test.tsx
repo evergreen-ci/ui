@@ -34,13 +34,13 @@ describe("adminSettingsContext", () => {
 
     act(() => {
       result.current.updateForm(AdminSettingsGeneralSection.Announcements)({
+        errors: [],
         formData: {
           announcements: {
             banner: "updated text!",
             bannerTheme: BannerTheme.Announcement,
           },
         },
-        errors: [],
       });
     });
 
@@ -67,13 +67,13 @@ describe("adminSettingsContext", () => {
 
     act(() => {
       result.current.updateForm(AdminSettingsGeneralSection.Announcements)({
+        errors: [],
         formData: {
           announcements: {
             banner: "updated text!",
             bannerTheme: BannerTheme.Announcement,
           },
         },
-        errors: [],
       });
     });
 

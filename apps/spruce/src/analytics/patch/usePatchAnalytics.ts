@@ -30,15 +30,15 @@ export const usePatchAnalytics = (id: string) => {
     PATCH,
     id
       ? {
-          variables: { id },
           fetchPolicy: "cache-first",
+          variables: { id },
         }
       : skipToken,
   );
   const { status } = eventData?.patch || {};
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Patch", {
-    "patch.status": status || "",
     "patch.id": id,
+    "patch.status": status || "",
   });
 };

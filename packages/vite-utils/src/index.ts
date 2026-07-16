@@ -74,11 +74,11 @@ const generateBaseHTTPSViteServerConfig = ({
 
     serverConfig = {
       host: hostURL,
-      port: httpsPort,
       https: {
-        key: fs.readFileSync(path.resolve(sslKeyName)),
         cert: fs.readFileSync(path.resolve(sslCertName)),
+        key: fs.readFileSync(path.resolve(sslKeyName)),
       },
+      port: httpsPort,
     };
   }
   return serverConfig;

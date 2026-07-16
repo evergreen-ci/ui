@@ -38,8 +38,8 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
         sendAnalyticsEvent={(subscription) =>
           sendEvent({
             name: "Created notification",
-            "subscription.type": subscription.subscriber.type || "",
             "subscription.trigger": subscription.trigger || "",
+            "subscription.type": subscription.subscriber.type || "",
           })
         }
         subscriptionMethods={subscriptionMethods}

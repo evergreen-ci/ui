@@ -51,7 +51,7 @@ const AdminSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
         const formRef = formRefsMap.current[tab];
         if (!formRef) return [];
         const { formData } = getTab(tab);
-        const { errorSchema, errors } = formRef.validate(formData);
+        const { errors, errorSchema } = formRef.validate(formData);
         if (errors.length > 0) {
           // Set RJSF's internal error state to show inline field errors.
           formRef.setState({ errors, errorSchema });
@@ -78,6 +78,8 @@ const AdminSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const contextValue = useMemo(
     () => ({
+      checkHasUnsavedChanges,
+      getChangedTabs,
       getTab,
       saveTab,
       setFormRef,
@@ -85,8 +87,6 @@ const AdminSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
       tabs,
       updateForm,
       validateTabs,
-      checkHasUnsavedChanges,
-      getChangedTabs,
     }),
     [
       getTab,

@@ -51,17 +51,17 @@ export const Task = () => {
     TASK,
     taskId
       ? {
-          variables: { taskId: taskId, execution: selectedExecution },
-          pollInterval: DEFAULT_POLL_INTERVAL,
-          fetchPolicy: "cache-and-network",
           errorPolicy: "all",
+          fetchPolicy: "cache-and-network",
+          pollInterval: DEFAULT_POLL_INTERVAL,
+          variables: { execution: selectedExecution, taskId: taskId },
         }
       : skipToken,
   );
   usePolling<TaskQuery, TaskQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
 
   useErrorToast(

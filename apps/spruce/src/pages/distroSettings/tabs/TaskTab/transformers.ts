@@ -10,12 +10,12 @@ export const gqlToForm = ((data) => {
   const { version: plannerVersion, ...rest } = plannerSettings;
 
   return {
+    dispatcherSettings,
     finderSettings,
     plannerSettings: {
-      version: plannerVersion,
       tunableOptions: rest,
+      version: plannerVersion,
     },
-    dispatcherSettings,
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
@@ -28,12 +28,12 @@ export const formToGql = ((
 
   return {
     ...distro,
+    dispatcherSettings,
     finderSettings,
     plannerSettings: {
       version: plannerVersion,
       ...tunableOptions,
     },
-    dispatcherSettings,
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

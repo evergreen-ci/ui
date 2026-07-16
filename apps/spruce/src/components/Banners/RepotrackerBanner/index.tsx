@@ -75,8 +75,8 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
 
   const onConfirm = () => {
     setLastRevision({
-      variables: { projectIdentifier, revision: baseRevision },
       refetchQueries: ["RepotrackerError"],
+      variables: { projectIdentifier, revision: baseRevision },
     });
     resetModal();
   };

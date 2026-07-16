@@ -85,7 +85,7 @@ describe("useQueryParams", () => {
 const useQueryJointHook = (param: string, def: unknown) => {
   const [queryParam, setQueryParam] = useQueryParam(param, def);
   const [allQueryParams] = useQueryParams();
-  return { queryParam, setQueryParam, allQueryParams };
+  return { allQueryParams, queryParam, setQueryParam };
 };
 
 describe("useQueryParam", () => {
@@ -110,7 +110,7 @@ describe("useQueryParam", () => {
       () => {
         const [valueA, setValueA] = useQueryParam("paramA", "");
         const [valueB, setValueB] = useQueryParam("paramB", "");
-        return { valueA, setValueA, valueB, setValueB };
+        return { setValueA, setValueB, valueA, valueB };
       },
       { wrapper: createWrapper(["/?paramA=initial"]) },
     );

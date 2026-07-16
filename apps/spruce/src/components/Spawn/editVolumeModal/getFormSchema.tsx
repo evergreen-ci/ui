@@ -20,81 +20,81 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object",
     properties: {
-      name: {
-        type: "string",
-        title: "Volume Name",
-        // The back end requires a name if one has previously been set, so prevent users from unsetting a name.
-        ...(hasName && { minLength: 1 }),
-      },
-      size: {
-        type: "number",
-        title: "Volume Size (GiB)",
-        minimum: minVolumeSize,
-        maximum: maxSpawnableLimit,
-      },
       expirationDetails: {
-        type: "object",
-        properties: {
-          expiration: {
-            type: "string" as const,
-            title: "Expiration",
-          },
-          noExpiration: {
-            type: "boolean" as const,
-            title: "Never expire",
-          },
-        },
         dependencies: {
           noExpiration: {
             oneOf: [
               {
                 properties: {
-                  noExpiration: {
-                    enum: [true],
-                  },
                   expiration: {
                     readOnly: true,
+                  },
+                  noExpiration: {
+                    enum: [true],
                   },
                 },
               },
               {
                 properties: {
-                  noExpiration: {
-                    enum: [false],
-                  },
                   expiration: {
                     readOnly: false,
+                  },
+                  noExpiration: {
+                    enum: [false],
                   },
                 },
               },
             ],
           },
         },
+        properties: {
+          expiration: {
+            title: "Expiration",
+            type: "string" as const,
+          },
+          noExpiration: {
+            title: "Never expire",
+            type: "boolean" as const,
+          },
+        },
+        type: "object",
+      },
+      name: {
+        title: "Volume Name",
+        type: "string",
+        // The back end requires a name if one has previously been set, so prevent users from unsetting a name.
+        ...(hasName && { minLength: 1 }),
+      },
+      size: {
+        maximum: maxSpawnableLimit,
+        minimum: minVolumeSize,
+        title: "Volume Size (GiB)",
+        type: "number",
       },
     },
+    type: "object",
   },
   uiSchema: {
+    expirationDetails: {
+      expiration: {
+        "ui:disableAfter": add(today, { days: 30 }),
+        "ui:disableBefore": add(today, { days: 1 }),
+        "ui:widget": "date-time",
+      },
+      noExpiration: {
+        "ui:disabled": disableExpirationCheckbox,
+        "ui:elementWrapperCSS": checkboxCSS,
+        "ui:tooltipDescription": noExpirationCheckboxTooltip,
+      },
+      "ui:ObjectFieldTemplate": ExpirationRow,
+    },
     name: {
       "ui:data-cy": "volume-name-input",
     },
     size: {
       "ui:data-cy": "volume-size-input",
       "ui:description": `The max volume size is ${maxSpawnableLimit} GiB. Volume size can only be updated once every 6 hours, and cannot be decreased.`,
-    },
-    expirationDetails: {
-      "ui:ObjectFieldTemplate": ExpirationRow,
-      expiration: {
-        "ui:disableBefore": add(today, { days: 1 }),
-        "ui:disableAfter": add(today, { days: 30 }),
-        "ui:widget": "date-time",
-      },
-      noExpiration: {
-        "ui:disabled": disableExpirationCheckbox,
-        "ui:tooltipDescription": noExpirationCheckboxTooltip,
-        "ui:elementWrapperCSS": checkboxCSS,
-      },
     },
   },
 });

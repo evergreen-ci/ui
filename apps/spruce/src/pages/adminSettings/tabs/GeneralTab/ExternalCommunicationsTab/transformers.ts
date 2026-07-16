@@ -20,39 +20,11 @@ export const gqlToForm = ((data) => {
   } = data;
 
   return {
-    jira: {
-      email: jira?.email ?? "",
-      host: jira?.host ?? "",
-      personalAccessToken: jira?.personalAccessToken ?? "",
-    },
-    slack: {
-      token: slack?.token ?? "",
-      name: slack?.name ?? "",
-      level: slack?.level ?? PriorityLevel.Info,
-      channel: slack?.options?.channel ?? "",
-      hostname: slack?.options?.hostname ?? "",
-      optionsName: slack?.options?.name ?? "",
-      username: slack?.options?.username ?? "",
-      basicMetadata: slack?.options?.basicMetadata ?? false,
-      fields: slack?.options?.fields ?? false,
-      allFields: slack?.options?.allFields ?? false,
-      fieldsSet: slack?.options?.fieldsSet
-        ? Object.keys(slack.options.fieldsSet)
-        : [],
-    },
-    splunk: {
-      splunkConnectionInfo: {
-        serverUrl: splunk?.splunkConnectionInfo?.serverUrl ?? "",
-        token: splunk?.splunkConnectionInfo?.token ?? "",
-        channel: splunk?.splunkConnectionInfo?.channel ?? "",
-      },
-    },
-    runtimeEnvironments: {
-      baseUrl: runtimeEnvironments?.baseUrl ?? "",
-      apiKey: runtimeEnvironments?.apiKey ?? "",
-    },
-    testSelection: {
-      url: testSelection?.url ?? "",
+    cedar: {
+      dbName: cedar?.dbName ?? "",
+      dbUrl: cedar?.dbUrl ?? "",
+      spsKanopyUrl: data.perfMonitoringKanopyURL ?? "",
+      spsUrl: data.perfMonitoringURL ?? "",
     },
     fws: {
       url: fws?.url ?? "",
@@ -61,14 +33,42 @@ export const gqlToForm = ((data) => {
       ciOptimizationToken: graphite?.ciOptimizationToken ?? "",
       serverUrl: graphite?.serverUrl ?? "",
     },
-    cedar: {
-      dbUrl: cedar?.dbUrl ?? "",
-      dbName: cedar?.dbName ?? "",
-      spsKanopyUrl: data.perfMonitoringKanopyURL ?? "",
-      spsUrl: data.perfMonitoringURL ?? "",
+    jira: {
+      email: jira?.email ?? "",
+      host: jira?.host ?? "",
+      personalAccessToken: jira?.personalAccessToken ?? "",
+    },
+    runtimeEnvironments: {
+      apiKey: runtimeEnvironments?.apiKey ?? "",
+      baseUrl: runtimeEnvironments?.baseUrl ?? "",
     },
     sage: {
       baseUrl: sage?.baseUrl ?? "",
+    },
+    slack: {
+      allFields: slack?.options?.allFields ?? false,
+      basicMetadata: slack?.options?.basicMetadata ?? false,
+      channel: slack?.options?.channel ?? "",
+      fields: slack?.options?.fields ?? false,
+      fieldsSet: slack?.options?.fieldsSet
+        ? Object.keys(slack.options.fieldsSet)
+        : [],
+      hostname: slack?.options?.hostname ?? "",
+      level: slack?.level ?? PriorityLevel.Info,
+      name: slack?.name ?? "",
+      optionsName: slack?.options?.name ?? "",
+      token: slack?.token ?? "",
+      username: slack?.options?.username ?? "",
+    },
+    splunk: {
+      splunkConnectionInfo: {
+        channel: splunk?.splunkConnectionInfo?.channel ?? "",
+        serverUrl: splunk?.splunkConnectionInfo?.serverUrl ?? "",
+        token: splunk?.splunkConnectionInfo?.token ?? "",
+      },
+    },
+    testSelection: {
+      url: testSelection?.url ?? "",
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -87,49 +87,9 @@ export const formToGql = ((form) => {
   } = form;
 
   return {
-    jira: {
-      email: jira.email,
-      host: jira.host,
-      personalAccessToken: jira.personalAccessToken,
-    },
-    slack: {
-      token: slack.token,
-      name: slack.name,
-      level:
-        slack.level &&
-        Object.values(PriorityLevel).includes(slack.level as PriorityLevel)
-          ? slack.level
-          : undefined,
-      options: {
-        channel: slack.channel,
-        hostname: slack.hostname,
-        name: slack.optionsName,
-        username: slack.username,
-        basicMetadata: slack.basicMetadata,
-        fields: slack.fields,
-        allFields: slack.allFields,
-        fieldsSet: slack.fieldsSet.reduce(
-          (acc, field) => {
-            acc[field] = true;
-            return acc;
-          },
-          {} as { [key: string]: boolean },
-        ),
-      },
-    },
-    splunk: {
-      splunkConnectionInfo: {
-        serverUrl: splunk.splunkConnectionInfo.serverUrl,
-        token: splunk.splunkConnectionInfo.token,
-        channel: splunk.splunkConnectionInfo.channel,
-      },
-    },
-    runtimeEnvironments: {
-      baseUrl: runtimeEnvironments.baseUrl,
-      apiKey: runtimeEnvironments.apiKey,
-    },
-    testSelection: {
-      url: testSelection.url,
+    cedar: {
+      dbName: cedar.dbName,
+      dbUrl: cedar.dbUrl,
     },
     fws: {
       url: fws.url,
@@ -138,14 +98,54 @@ export const formToGql = ((form) => {
       ciOptimizationToken: graphite.ciOptimizationToken,
       serverUrl: graphite.serverUrl,
     },
-    cedar: {
-      dbUrl: cedar.dbUrl,
-      dbName: cedar.dbName,
+    jira: {
+      email: jira.email,
+      host: jira.host,
+      personalAccessToken: jira.personalAccessToken,
     },
     perfMonitoringKanopyURL: cedar.spsKanopyUrl,
     perfMonitoringURL: cedar.spsUrl,
+    runtimeEnvironments: {
+      apiKey: runtimeEnvironments.apiKey,
+      baseUrl: runtimeEnvironments.baseUrl,
+    },
     sage: {
       baseUrl: sage.baseUrl || undefined,
+    },
+    slack: {
+      level:
+        slack.level &&
+        Object.values(PriorityLevel).includes(slack.level as PriorityLevel)
+          ? slack.level
+          : undefined,
+      name: slack.name,
+      options: {
+        allFields: slack.allFields,
+        basicMetadata: slack.basicMetadata,
+        channel: slack.channel,
+        fields: slack.fields,
+        fieldsSet: slack.fieldsSet.reduce(
+          (acc, field) => {
+            acc[field] = true;
+            return acc;
+          },
+          {} as { [key: string]: boolean },
+        ),
+        hostname: slack.hostname,
+        name: slack.optionsName,
+        username: slack.username,
+      },
+      token: slack.token,
+    },
+    splunk: {
+      splunkConnectionInfo: {
+        channel: splunk.splunkConnectionInfo.channel,
+        serverUrl: splunk.splunkConnectionInfo.serverUrl,
+        token: splunk.splunkConnectionInfo.token,
+      },
+    },
+    testSelection: {
+      url: testSelection.url,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

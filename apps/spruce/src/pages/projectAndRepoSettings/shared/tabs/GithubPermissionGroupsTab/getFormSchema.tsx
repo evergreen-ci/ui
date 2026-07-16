@@ -23,91 +23,92 @@ export const getFormSchema = ({
   schema: {
     definitions: {
       permissionGroupsArray: {
-        type: "array" as const,
-        title: "",
         items: {
-          type: "object" as const,
           properties: {
             name: {
-              type: "string" as const,
-              title: "",
               default: "",
               minLength: 1,
+              title: "",
+              type: "string" as const,
             },
             permissions: {
-              type: "array" as const,
               default: [],
               items: {
-                type: "object" as const,
                 properties: {
                   type: {
-                    type: "string" as const,
-                    title: "",
                     default: "",
                     minLength: 1,
+                    title: "",
+                    type: "string" as const,
                   },
                   value: {
-                    type: "string" as const,
-                    title: "",
                     default: "",
                     minLength: 1,
                     oneOf: [
                       {
-                        type: "string" as const,
-                        title: "Select...",
                         enum: [""],
+                        title: "Select...",
+                        type: "string" as const,
                       },
                       {
-                        type: "string" as const,
-                        title: "Read",
                         enum: ["read"],
+                        title: "Read",
+                        type: "string" as const,
                       },
                       {
-                        type: "string" as const,
-                        title: "Write",
                         enum: ["write"],
+                        title: "Write",
+                        type: "string" as const,
                       },
                       {
-                        type: "string" as const,
-                        title: "Admin",
                         enum: ["admin"],
+                        title: "Admin",
+                        type: "string" as const,
                       },
                     ],
+                    title: "",
+                    type: "string" as const,
                   },
                 },
+                type: "object" as const,
               },
+              type: "array" as const,
             },
           },
+          type: "object" as const,
         },
+        title: "",
+        type: "array" as const,
       },
     },
-    type: "object" as const,
     properties: {
       // Only show one of project or repo permission group at a time.
       // Show project permission groups for the project if it's not using repo's GitHub app.
       ...(!defaultsToRepo && {
         permissionGroups: {
-          title: "Token Permission Groups",
           $ref: "#/definitions/permissionGroupsArray",
+          title: "Token Permission Groups",
         },
       }),
       // Show repo permission groups for the project if it is using repo's GitHub app.
       ...(defaultsToRepo && {
         repoData: {
-          type: "object" as const,
-          title: "",
           properties: {
             permissionGroups: {
-              title: "Repo Token Permission Groups",
               $ref: "#/definitions/permissionGroupsArray",
+              title: "Repo Token Permission Groups",
             },
           },
+          title: "",
+          type: "object" as const,
         },
       }),
     },
+    type: "object" as const,
   },
   uiSchema: {
     permissionGroups: {
+      items: itemsUISchema,
       "ui:addButtonText": "Add permission group",
       "ui:data-cy": "permission-group-list",
       "ui:descriptionNode": (
@@ -137,12 +138,13 @@ export const getFormSchema = ({
       ),
       "ui:orderable": false,
       "ui:useExpandableCard": true,
-      items: itemsUISchema,
     },
     repoData: {
-      "ui:readonly": true,
       permissionGroups: {
         ...(!defaultsToRepo && { "ui:widget": "hidden" }),
+        items: itemsUISchema,
+        "ui:addable": false,
+        "ui:data-cy": "permission-group-list",
         "ui:descriptionNode": (
           <StyledDescription>
             This project is using the GitHub app defined in the corresponding
@@ -151,13 +153,11 @@ export const getFormSchema = ({
             want to override the following settings.
           </StyledDescription>
         ),
-        "ui:addable": false,
-        "ui:data-cy": "permission-group-list",
         "ui:orderable": false,
-        "ui:useExpandableCard": true,
         "ui:placeholder": "There are no permission groups defined in the repo.",
-        items: itemsUISchema,
+        "ui:useExpandableCard": true,
       },
+      "ui:readonly": true,
     },
   },
 });
@@ -168,8 +168,6 @@ const permissionCss = css`
 `;
 
 const itemsUISchema = {
-  "ui:data-cy": "permission-group",
-  "ui:displayTitle": "New Permission Group",
   name: {
     "ui:ariaLabelledBy": "Permission Group Name",
     "ui:data-cy": "permission-group-title-input",
@@ -179,20 +177,13 @@ const itemsUISchema = {
     `,
   },
   permissions: {
-    "ui:ArrayFieldTemplate": ArrayFieldTemplate,
-    "ui:addButtonText": "Add permission",
-    "ui:addToEnd": true,
-    "ui:orderable": false,
-    "ui:placeholder": "No permissions have been added.",
-    "ui:showLabel": false,
-    "ui:topAlignDelete": true,
     items: {
-      "ui:ObjectFieldTemplate": FieldRow,
       type: {
         "ui:ariaLabelledBy": "GitHub Permission Type",
         "ui:data-cy": "permission-type-input",
         "ui:elementWrapperCSS": permissionCss,
       },
+      "ui:ObjectFieldTemplate": FieldRow,
       value: {
         "ui:allowDeselect": false,
         "ui:ariaLabelledBy": "GitHub Permission Value",
@@ -200,7 +191,16 @@ const itemsUISchema = {
         "ui:elementWrapperCSS": permissionCss,
       },
     },
+    "ui:addButtonText": "Add permission",
+    "ui:addToEnd": true,
+    "ui:ArrayFieldTemplate": ArrayFieldTemplate,
+    "ui:orderable": false,
+    "ui:placeholder": "No permissions have been added.",
+    "ui:showLabel": false,
+    "ui:topAlignDelete": true,
   },
+  "ui:data-cy": "permission-group",
+  "ui:displayTitle": "New Permission Group",
 };
 
 const StyledDescription = styled(Description)`

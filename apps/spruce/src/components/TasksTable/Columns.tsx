@@ -33,20 +33,18 @@ export const getColumnsTemplate = ({
   statusOptions?: TreeDataEntry[];
 }): LGColumnDef<TaskTableInfo>[] => [
   {
+    accessorKey: "reviewed",
+    cell: ({ row }) => <ReviewedCheckbox row={row} />,
+    enableColumnFilter: false,
     header: () => (
       <>
         Reviewed <AnnouncementPopover loading={loading} />
       </>
     ),
-    accessorKey: "reviewed",
-    enableColumnFilter: false,
     size: 0,
-    cell: ({ row }) => <ReviewedCheckbox row={row} />,
   } as LGColumnDef<TaskTableInfo>,
   {
-    header: "Name",
     accessorKey: "displayName",
-    id: TaskSortCategory.Name,
     cell: ({
       getValue,
       row: {
@@ -61,19 +59,19 @@ export const getColumnsTemplate = ({
         taskName={getValue() as string}
       />
     ),
+    enableSorting: true,
+    header: "Name",
+    id: TaskSortCategory.Name,
     meta: {
       search: {
         "data-cy": "task-name-filter",
         placeholder: "Task name regex",
       },
     },
-    enableSorting: true,
     size: 300,
   },
   {
     accessorKey: "displayStatus",
-    id: TaskSortCategory.Status,
-    header: "Task Status",
     cell: ({
       getValue,
       row: {
@@ -119,19 +117,19 @@ export const getColumnsTemplate = ({
         </TaskBadgeWrapper>
       );
     },
+    enableSorting: true,
+    header: "Task Status",
+    id: TaskSortCategory.Status,
     meta: {
       treeSelect: {
         "data-cy": "status-filter",
         options: statusOptions,
       },
     },
-    enableSorting: true,
     size: 80,
   },
   {
-    id: TaskSortCategory.BaseStatus,
     accessorKey: "baseTask.displayStatus",
-    header: `${isPatch ? "Base" : "Previous"} Status`,
     cell: ({
       getValue,
       row: {
@@ -147,19 +145,19 @@ export const getColumnsTemplate = ({
       ) : (
         <TaskStatusBadge status={getValue() as TaskStatus} />
       ),
+    enableSorting: true,
+    header: `${isPatch ? "Base" : "Previous"} Status`,
+    id: TaskSortCategory.BaseStatus,
     meta: {
       treeSelect: {
         "data-cy": "base-status-filter",
         options: baseStatusOptions,
       },
     },
-    enableSorting: true,
     size: 80,
   },
   {
     accessorKey: "buildVariantDisplayName",
-    id: TaskSortCategory.Variant,
-    header: "Variant",
     cell: ({
       getValue,
       row: {
@@ -177,13 +175,15 @@ export const getColumnsTemplate = ({
         variant
       );
     },
+    enableSorting: true,
+    header: "Variant",
+    id: TaskSortCategory.Variant,
     meta: {
       search: {
         "data-cy": "variant-filter",
         placeholder: "Variant name regex",
       },
     },
-    enableSorting: true,
     size: 250,
   },
 ];

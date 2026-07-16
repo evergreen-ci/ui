@@ -116,8 +116,8 @@ describe("SaveChangesModal", () => {
       vars: { vars: { API_TOKEN: "new-secret" } },
     };
     renderModal({
-      before: beforeVars,
       after: afterVars,
+      before: beforeVars,
       customKeyValueRenderConfig,
     });
 

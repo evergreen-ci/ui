@@ -27,32 +27,32 @@ export const UserPatches = () => {
     USER_PATCHES,
     userId
       ? {
+          fetchPolicy: "cache-and-network",
+          pollInterval: DEFAULT_POLL_INTERVAL,
           variables: {
-            userId,
             patchesInput: {
               ...patchesInput,
               // Always show merge queue patches for the merge queue user.
               onlyMergeQueue: isMergeQueueUser,
             },
+            userId,
           },
-          fetchPolicy: "cache-and-network",
-          pollInterval: DEFAULT_POLL_INTERVAL,
         }
       : skipToken,
   );
   useErrorToast(error, "Error while fetching user patches");
   usePolling<UserPatchesQuery, UserPatchesQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
 
   const { title: pageTitle = "User Patches" } =
     useGetUserPatchesPageTitleAndLink(
       userId
         ? {
-            userId,
             displayName: data?.user?.displayName,
+            userId,
           }
         : undefined,
     ) || {};

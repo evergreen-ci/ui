@@ -33,9 +33,9 @@ import { InactiveVersionsButton } from "./InactiveVersions";
 import { OnboardingTutorial } from "./OnboardingTutorial";
 import {
   BuildVariantTitle,
-  gridGroupCss,
   InactiveVersion,
   Row,
+  gridGroupCss,
 } from "./styles";
 import { Pagination, Version, WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
@@ -85,8 +85,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const handlePinBV = useCallback(
     (buildVariant: string, wasPinned: boolean) => {
       sendEvent({
-        name: "Clicked pin build variant",
         action: wasPinned ? "unpinned" : "pinned",
+        name: "Clicked pin build variant",
         variant: buildVariant,
       });
       setPins((prev: string[]) => {
@@ -168,21 +168,21 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     WaterfallQuery,
     WaterfallQueryVariables
   >(WATERFALL, {
+    // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
+    nextFetchPolicy: "cache-and-network",
+    pollInterval: DEFAULT_POLL_INTERVAL,
     variables: {
       options: {
-        projectIdentifier,
+        date: utcDate,
         limit: VERSION_LIMIT,
         maxOrder,
         minOrder,
         omitInactiveBuilds,
+        projectIdentifier,
         revision,
-        date: utcDate,
         ...serverFilters,
       },
     },
-    // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    nextFetchPolicy: "cache-and-network",
   });
   // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
   const dataIsComplete = dataState === "complete";

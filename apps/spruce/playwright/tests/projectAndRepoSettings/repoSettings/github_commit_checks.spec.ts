@@ -32,7 +32,7 @@ test.describe("GitHub Commit Checks", () => {
     await expect(errorBanner).toBeVisible();
     const githubChecksDisabledRadio = page
       .getByTestId("github-checks-enabled-radio-box")
-      .getByRole("radio", { name: "Disabled", exact: true });
+      .getByRole("radio", { exact: true, name: "Disabled" });
     await clickRadio(githubChecksDisabledRadio);
     await expect(errorBanner).toHaveCount(0);
   });

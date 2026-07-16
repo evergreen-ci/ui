@@ -1,15 +1,20 @@
 export const tocItems: {
   [key: string]: { observedElementId: string; id: string; title: string };
 } = {
-  general: {
-    id: "general",
-    observedElementId: "toc-item-general",
-    title: "General",
-  },
   distros: {
     id: "distros",
     observedElementId: "toc-item-distros",
     title: "Distros",
+  },
+  files: {
+    id: "files",
+    observedElementId: "toc-item-files",
+    title: "Files",
+  },
+  general: {
+    id: "general",
+    observedElementId: "toc-item-general",
+    title: "General",
   },
   os: {
     id: "operating-system",
@@ -25,10 +30,5 @@ export const tocItems: {
     id: "toolchains",
     observedElementId: "toc-item-toolchains",
     title: "Toolchains",
-  },
-  files: {
-    id: "files",
-    observedElementId: "toc-item-files",
-    title: "Files",
   },
 };

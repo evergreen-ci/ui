@@ -19,11 +19,6 @@ const getColumns = (
 ): LGColumnDef<FileTableRow>[] => [
   {
     accessorKey: "name",
-    header: "Name",
-    enableSorting: true,
-    meta: {
-      width: "90%",
-    },
     cell: (value) => {
       const { link, name: fileName, urlParsley } = value.row.original;
       return (
@@ -32,9 +27,9 @@ const getColumns = (
           href={link}
           onClick={() => {
             taskAnalytics.sendEvent({
+              "file.name": fileName,
               name: "Clicked task file link",
               "parsley.is_available": urlParsley !== null,
-              "file.name": fileName,
             });
           }}
         >
@@ -42,11 +37,14 @@ const getColumns = (
         </StyledLink>
       );
     },
+    enableSorting: true,
+    header: "Name",
+    meta: {
+      width: "90%",
+    },
   },
   {
     accessorKey: "urlParsley",
-    header: "",
-    enableSorting: false,
     cell: (value) => {
       const row = value.row.original;
       return (
@@ -61,8 +59,8 @@ const getColumns = (
               href={row.urlParsley ?? undefined}
               onClick={() => {
                 taskAnalytics.sendEvent({
-                  name: "Clicked task file Parsley link",
                   "file.name": row.name,
+                  name: "Clicked task file Parsley link",
                 });
               }}
               size={ButtonSize.Small}
@@ -75,6 +73,8 @@ const getColumns = (
         </Tooltip>
       );
     },
+    enableSorting: false,
+    header: "",
   },
 ];
 
@@ -100,8 +100,8 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   );
 
   const table = useLeafyGreenTable<FileTableRow>({
-    data: tableData,
     columns: memoizedColumns,
+    data: tableData,
     defaultColumn: {
       enableColumnFilter: false,
     },

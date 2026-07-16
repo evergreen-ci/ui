@@ -113,9 +113,9 @@ export const useTaskAnalytics = () => {
     TASK,
     taskId
       ? {
-          variables: { taskId, execution },
           errorPolicy: "all",
           fetchPolicy: "cache-first",
+          variables: { execution, taskId },
         }
       : skipToken,
   );
@@ -126,11 +126,11 @@ export const useTaskAnalytics = () => {
     TASK_TEST_COUNT,
     taskId && execution !== null
       ? {
-          variables: {
-            taskId,
-            execution,
-          },
           fetchPolicy: "cache-first",
+          variables: {
+            execution,
+            taskId,
+          },
         }
       : skipToken,
   );

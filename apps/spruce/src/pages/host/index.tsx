@@ -64,9 +64,9 @@ const Host: React.FC = () => {
           variables: {
             id: hostId,
             opts: {
-              page,
-              limit,
               eventTypes: eventTypes.filter((e) => e.toString() !== ALL_VALUE),
+              limit,
+              page,
             },
           },
         }

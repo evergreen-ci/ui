@@ -62,7 +62,7 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
             newPatchName === originalPatchName || hasFormError || loading,
           onClick: () =>
             updateDescription({
-              variables: { patchId, description: newPatchName },
+              variables: { description: newPatchName, patchId },
             }),
         }}
         open={isOpen}

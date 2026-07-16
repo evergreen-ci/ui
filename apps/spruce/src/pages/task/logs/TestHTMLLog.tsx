@@ -26,8 +26,8 @@ export const TestHTMLLog: React.FC = () => {
         params.execution,
         params.testName,
         {
-          text: true,
           groupID: groupId || undefined,
+          text: true,
         },
       );
     } catch {
@@ -36,8 +36,8 @@ export const TestHTMLLog: React.FC = () => {
   }, [taskId, execution, testName, groupId]);
 
   const { error, isLoading } = useHTMLLogStream({
-    url,
     containerRef,
+    url,
   });
 
   if (error) {

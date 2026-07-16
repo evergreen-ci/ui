@@ -24,9 +24,9 @@ initializeErrorHandling({
 });
 
 const routeConfig = {
-  home: "/",
   agentDetail: "/agents/:agentId",
   agentRuns: "/agents/:agentId/runs/:runId",
+  home: "/",
 };
 
 initializeHoneycomb({

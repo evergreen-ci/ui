@@ -70,7 +70,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   }, [calledTaskData, loadTaskData, open, versionId]);
 
   useEffect(() => {
-    dispatch({ type: "ingestData", taskData });
+    dispatch({ taskData, type: "ingestData" });
   }, [taskData]);
 
   const { generatedTaskCounts = [] } = taskData?.version ?? {};
@@ -150,8 +150,8 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                           name={buildVariant}
                           onClick={() => {
                             dispatch({
-                              type: "toggleBuildVariant",
                               buildVariant,
+                              type: "toggleBuildVariant",
                             });
                           }}
                         />
@@ -170,7 +170,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                           }
                           name={id}
                           onClick={() => {
-                            dispatch({ type: "toggleTask", taskId: id });
+                            dispatch({ taskId: id, type: "toggleTask" });
                           }}
                         />
                       ))}

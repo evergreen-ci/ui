@@ -481,7 +481,6 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
       data: {
         image: {
           __typename: "Image",
-          id: "ubuntu2204",
           events: {
             __typename: "ImageEventsPayload",
             count: 5,
@@ -493,27 +492,27 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                 entries: [
                   {
                     __typename: "ImageEventEntry",
-                    type: ImageEventType.Package,
-                    name: "apache2-bin",
-                    before: "2.4.52-1ubuntu4.8",
-                    after: "2.4.52-1ubuntu4.10",
                     action: ImageEventEntryAction.Updated,
-                  },
-                  {
-                    __typename: "ImageEventEntry",
-                    type: ImageEventType.Toolchain,
-                    name: "golang",
-                    before: "",
-                    after: "go1.21.13",
-                    action: ImageEventEntryAction.Added,
-                  },
-                  {
-                    __typename: "ImageEventEntry",
+                    after: "2.4.52-1ubuntu4.10",
+                    before: "2.4.52-1ubuntu4.8",
+                    name: "apache2-bin",
                     type: ImageEventType.Package,
-                    name: "containerd.io",
-                    before: "1.6.28-1",
-                    after: "",
+                  },
+                  {
+                    __typename: "ImageEventEntry",
+                    action: ImageEventEntryAction.Added,
+                    after: "go1.21.13",
+                    before: "",
+                    name: "golang",
+                    type: ImageEventType.Toolchain,
+                  },
+                  {
+                    __typename: "ImageEventEntry",
                     action: ImageEventEntryAction.Deleted,
+                    after: "",
+                    before: "1.6.28-1",
+                    name: "containerd.io",
+                    type: ImageEventType.Package,
                   },
                 ],
                 timestamp: new Date("2024-08-07T17:57:00-04:00"),
@@ -525,11 +524,11 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                 entries: [
                   {
                     __typename: "ImageEventEntry",
-                    type: ImageEventType.Toolchain,
-                    name: "golang",
-                    before: "go1.20.14",
-                    after: "",
                     action: ImageEventEntryAction.Deleted,
+                    after: "",
+                    before: "go1.20.14",
+                    name: "golang",
+                    type: ImageEventType.Toolchain,
                   },
                 ],
                 timestamp: new Date("2023-08-07T17:57:00-04:00"),
@@ -557,6 +556,7 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
               },
             ],
           },
+          id: "ubuntu2204",
         },
       },
     },

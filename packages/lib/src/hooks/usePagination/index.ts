@@ -36,7 +36,7 @@ const usePagination = () => {
     [queryParams, setQueryParams],
   );
 
-  return { page, limit, setLimit, setPage };
+  return { limit, page, setLimit, setPage };
 };
 
 export default usePagination;

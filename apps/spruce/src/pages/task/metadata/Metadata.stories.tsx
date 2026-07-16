@@ -74,18 +74,6 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
 export const WithAbortMessage: CustomStoryObj<
   { abortInfoSelection: string } & React.ComponentProps<typeof Metadata>
 > = {
-  render: ({ abortInfoSelection, ...args }) => (
-    <Container>
-      <Metadata
-        {...args}
-        task={{
-          ...taskQuery.task,
-          aborted: true,
-          abortInfo: abortInfoMap[abortInfoSelection],
-        }}
-      />
-    </Container>
-  ),
   args: {
     abortInfoSelection: "NoUser",
   },
@@ -100,6 +88,18 @@ export const WithAbortMessage: CustomStoryObj<
       ],
     },
   },
+  render: ({ abortInfoSelection, ...args }) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          aborted: true,
+          abortInfo: abortInfoMap[abortInfoSelection],
+        }}
+      />
+    </Container>
+  ),
 };
 
 export const OOMTracker: CustomStoryObj<typeof Metadata> = {
@@ -110,17 +110,17 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
         task={{
           ...taskQuery.task,
           details: {
-            failingCommand: "",
             description: "'shell.exec' in function 'yarn-test' (step 1 of 1)",
             diskDevices: [],
+            failingCommand: "",
+            failureMetadataTags: [],
             oomTracker: {
               detected: true,
               pids: [12345, 67890],
             },
+            otherFailingCommands: [],
             status: TaskStatus.Failed,
             type: "type",
-            failureMetadataTags: [],
-            otherFailingCommands: [],
           },
         }}
       />
@@ -135,16 +135,16 @@ const taskOwnerTeamMock: ApolloMock<
   request: {
     query: TASK_OWNER_TEAM,
     variables: {
-      taskId: taskQuery.task.id,
       execution: taskQuery.task.execution,
+      taskId: taskQuery.task.id,
     },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskQuery.task.id,
         execution: taskQuery.task.execution,
+        id: taskQuery.task.id,
         taskOwnerTeam: {
           __typename: "TaskOwnerTeam",
           messages: "Assigned based on default team",
@@ -163,12 +163,12 @@ export const WithRunningETA: CustomStoryObj<typeof Metadata> = {
         {...args}
         task={{
           ...taskQuery.task,
-          displayStatus: TaskStatus.Started,
-          ingestTime: new Date("2020-09-30T19:16:00.000Z"),
           activatedTime: new Date("2020-09-30T19:16:30.000Z"),
-          startTime: new Date(),
-          finishTime: null,
+          displayStatus: TaskStatus.Started,
           expectedDuration: 5 * 60 * 1000,
+          finishTime: null,
+          ingestTime: new Date("2020-09-30T19:16:00.000Z"),
+          startTime: new Date(),
         }}
       />
     </Container>
@@ -182,10 +182,10 @@ export const WithTimeline: CustomStoryObj<typeof Metadata> = {
         {...args}
         task={{
           ...taskQuery.task,
-          ingestTime: new Date("2020-09-30T19:16:00.000Z"),
           activatedTime: new Date("2020-09-30T19:16:30.000Z"),
-          startTime: new Date("2020-09-30T21:30:00.000Z"),
           finishTime: new Date("2020-09-30T21:32:00.000Z"),
+          ingestTime: new Date("2020-09-30T19:16:00.000Z"),
+          startTime: new Date("2020-09-30T21:30:00.000Z"),
         }}
       />
     </Container>
@@ -193,6 +193,11 @@ export const WithTimeline: CustomStoryObj<typeof Metadata> = {
 };
 
 export const WithTaskOwner: CustomStoryObj<typeof Metadata> = {
+  parameters: {
+    apolloClient: {
+      mocks: [taskOwnerTeamMock],
+    },
+  },
   render: (args) => (
     <Container>
       <Metadata
@@ -203,11 +208,6 @@ export const WithTaskOwner: CustomStoryObj<typeof Metadata> = {
       />
     </Container>
   ),
-  parameters: {
-    apolloClient: {
-      mocks: [taskOwnerTeamMock],
-    },
-  },
 };
 
 const Container = styled.div`
@@ -215,14 +215,6 @@ const Container = styled.div`
 `;
 
 const abortInfoMap: Record<string, AbortInfo> = {
-  NoUser: {
-    buildVariantDisplayName: "~ Merge Queue",
-    newVersion: "",
-    prClosed: false,
-    taskDisplayName: "api-task-server",
-    taskID: "abc",
-    user: "",
-  },
   AbortedBecauseOfFailingTask: {
     buildVariantDisplayName: "~ Merge Queue",
     newVersion: "",
@@ -246,5 +238,13 @@ const abortInfoMap: Record<string, AbortInfo> = {
     taskDisplayName: "",
     taskID: "",
     user: "apiserver",
+  },
+  NoUser: {
+    buildVariantDisplayName: "~ Merge Queue",
+    newVersion: "",
+    prClosed: false,
+    taskDisplayName: "api-task-server",
+    taskID: "abc",
+    user: "",
   },
 };

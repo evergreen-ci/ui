@@ -30,50 +30,40 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      type: "object" as const,
-      properties: {
+      dependencies: {
         setup: {
-          type: "object" as const,
-          title: "Host Setup",
-          properties: setup.schema,
-          dependencies: {
-            userSpawnAllowed: {
-              oneOf: [
-                {
+          oneOf: [
+            {
+              properties: {
+                allocation,
+                setup: {
                   properties: {
-                    userSpawnAllowed: { enum: [false] },
+                    bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
                   },
                 },
-                {
+                sshConfig,
+              },
+            },
+            {
+              properties: {
+                allocation,
+                bootstrapSettings,
+                setup: {
                   properties: {
-                    userSpawnAllowed: { enum: [true] },
-                    isVirtualWorkStation: isVirtualWorkStation.schema,
-                  },
-                  dependencies: {
-                    isVirtualWorkStation: {
-                      oneOf: [
-                        {
-                          properties: {
-                            isVirtualWorkStation: {
-                              enum: [false],
-                            },
-                          },
-                        },
-                        {
-                          properties: {
-                            isVirtualWorkStation: {
-                              enum: [true],
-                            },
-                            icecreamSchedulerHost: icecreamSchedulerHost.schema,
-                            icecreamConfigPath: icecreamConfigPath.schema,
-                          },
-                        },
-                      ],
+                    bootstrapMethod: {
+                      enum: [BootstrapMethod.Ssh, BootstrapMethod.UserData],
                     },
                   },
                 },
-              ],
+                sshConfig,
+              },
             },
+          ],
+        },
+      },
+      properties: {
+        setup: {
+          dependencies: {
             arch: {
               oneOf: [
                 {
@@ -89,77 +79,87 @@ export const getFormSchema = ({
                 },
               ],
             },
-          },
-        },
-      },
-      dependencies: {
-        setup: {
-          oneOf: [
-            {
-              properties: {
-                setup: {
+            userSpawnAllowed: {
+              oneOf: [
+                {
                   properties: {
-                    bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
+                    userSpawnAllowed: { enum: [false] },
                   },
                 },
-                sshConfig,
-                allocation,
-              },
-            },
-            {
-              properties: {
-                setup: {
-                  properties: {
-                    bootstrapMethod: {
-                      enum: [BootstrapMethod.Ssh, BootstrapMethod.UserData],
+                {
+                  dependencies: {
+                    isVirtualWorkStation: {
+                      oneOf: [
+                        {
+                          properties: {
+                            isVirtualWorkStation: {
+                              enum: [false],
+                            },
+                          },
+                        },
+                        {
+                          properties: {
+                            icecreamConfigPath: icecreamConfigPath.schema,
+                            icecreamSchedulerHost: icecreamSchedulerHost.schema,
+                            isVirtualWorkStation: {
+                              enum: [true],
+                            },
+                          },
+                        },
+                      ],
                     },
                   },
+                  properties: {
+                    isVirtualWorkStation: isVirtualWorkStation.schema,
+                    userSpawnAllowed: { enum: [true] },
+                  },
                 },
-                bootstrapSettings,
-                sshConfig,
-                allocation,
-              },
+              ],
             },
-          ],
+          },
+          properties: setup.schema,
+          title: "Host Setup",
+          type: "object" as const,
         },
       },
+      type: "object" as const,
     },
     uiSchema: {
+      allocation: allocationProperties.uiSchema(
+        hasEC2Provider,
+        hasStaticProvider,
+      ),
+      bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       setup: setup.uiSchema(
         architecture,
         hasStaticProvider,
         isSingleTaskDistro,
       ),
-      bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
-      allocation: allocationProperties.uiSchema(
-        hasEC2Provider,
-        hasStaticProvider,
-      ),
     },
   };
 };
 
 const bootstrapSettings = {
-  type: "object" as const,
-  title: "Bootstrap Settings",
   properties: bootstrapProperties.schema,
+  title: "Bootstrap Settings",
+  type: "object" as const,
 };
 
 const sshConfig = {
-  type: "object" as const,
-  title: "User and SSH Configuration",
   properties: sshConfigProperties.schema,
+  title: "User and SSH Configuration",
+  type: "object" as const,
 };
 
 const allocation = {
-  type: "object" as const,
-  title: "Host Allocation",
+  properties: allocationProperties.schema,
   required: [
     "minimumHosts",
     "maximumHosts",
     "acceptableHostIdleTimeSeconds",
     "futureHostFraction",
   ],
-  properties: allocationProperties.schema,
+  title: "Host Allocation",
+  type: "object" as const,
 };

@@ -29,8 +29,8 @@ interface Props {
 const CommitChartLabel: React.FC<Props> = ({
   author,
   createTime,
-  gitTags,
   githash,
+  gitTags,
   message,
   onClickGithash = () => {},
   onClickJiraTicket = () => {},
@@ -77,14 +77,14 @@ const CommitChartLabel: React.FC<Props> = ({
             to={getTriggerRoute({
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               triggerType,
-              upstreamTask,
-              upstreamVersion,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              upstreamRevision,
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               upstreamOwner,
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               upstreamRepo,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              upstreamRevision,
+              upstreamTask,
+              upstreamVersion,
             })}
           >
             {upstreamProjectIdentifier}

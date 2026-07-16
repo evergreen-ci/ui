@@ -40,10 +40,10 @@ const decorators: Decorator[] = [
     const { params, path, route } = reactRouter || {};
     const routes = [
       {
-        path: path || "/",
-        parameters: params || {},
         element: <Story />,
         errorElement: <div>Failed to render component.</div>,
+        parameters: params || {},
+        path: path || "/",
       },
     ];
     const memoryRouter = createMemoryRouter(routes, {
@@ -54,8 +54,8 @@ const decorators: Decorator[] = [
 ];
 
 const preview: Preview = {
-  parameters,
   decorators,
+  parameters,
 };
 
 export default preview;

@@ -12,81 +12,81 @@ import {
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
-    type: "object" as const,
     properties: {
       runners: {
-        type: "object" as const,
-        title: "",
         properties: {
-          notify: {
-            type: "object" as const,
-            title: "Notify",
-            properties: {
-              ...notify.schema,
-            },
-          },
-          taskLimits: {
-            type: "object" as const,
-            title: "Task Limits",
-            properties: {
-              ...taskLimits.schema,
-            },
-          },
           hostInit: {
-            type: "object" as const,
-            title: "Host Init",
             properties: {
               ...hostInit.schema,
             },
-          },
-          scheduler: {
+            title: "Host Init",
             type: "object" as const,
-            title: "Scheduler",
+          },
+          notify: {
             properties: {
-              ...scheduler.schema,
+              ...notify.schema,
             },
+            title: "Notify",
+            type: "object" as const,
           },
           repotracker: {
-            type: "object" as const,
-            title: "Repotracker",
             properties: {
               ...repotracker.schema,
             },
+            title: "Repotracker",
+            type: "object" as const,
+          },
+          scheduler: {
+            properties: {
+              ...scheduler.schema,
+            },
+            title: "Scheduler",
+            type: "object" as const,
+          },
+          taskLimits: {
+            properties: {
+              ...taskLimits.schema,
+            },
+            title: "Task Limits",
+            type: "object" as const,
           },
         },
+        title: "",
+        type: "object" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
     runners: {
-      notify: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "notify",
-        ...notify.uiSchema,
-      },
-      taskLimits: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "task-limits",
-        ...taskLimits.uiSchema,
-      },
       hostInit: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "host-init",
+        "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
         ...hostInit.uiSchema,
       },
-      scheduler: {
+      notify: {
+        "ui:data-cy": "notify",
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "scheduler",
-        ...scheduler.uiSchema,
+        ...notify.uiSchema,
       },
       repotracker: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "repotracker",
+        "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
         ...repotracker.uiSchema,
+      },
+      scheduler: {
+        "ui:data-cy": "scheduler",
+        "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        ...scheduler.uiSchema,
+      },
+      taskLimits: {
+        "ui:data-cy": "task-limits",
+        "ui:objectFieldCss": objectGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        ...taskLimits.uiSchema,
       },
     },
   },

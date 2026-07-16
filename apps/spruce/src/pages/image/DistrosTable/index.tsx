@@ -72,9 +72,7 @@ export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
 
 const columns: LGColumnDef<Distro>[] = [
   {
-    header: "Name",
     accessorKey: "name",
-    size: 200,
     cell: ({ getValue }) => {
       const distro = getValue() as string;
       return (
@@ -83,8 +81,23 @@ const columns: LGColumnDef<Distro>[] = [
         </StyledRouterLink>
       );
     },
+    header: "Name",
+    size: 200,
   },
   {
+    accessorKey: "providerSettingsList",
+    cell: ({
+      row: {
+        original: { provider, providerSettingsList },
+      },
+    }) => (
+      <span>
+        {provider === Provider.Ec2Fleet
+          ? providerSettingsList.find((e) => e.region === defaultEC2Region)
+              ?.instance_type
+          : "N/A"}
+      </span>
+    ),
     header: () => (
       <HeaderCell>
         <span>Instance Type</span>
@@ -113,24 +126,9 @@ const columns: LGColumnDef<Distro>[] = [
         </Tooltip>
       </HeaderCell>
     ),
-    accessorKey: "providerSettingsList",
-    cell: ({
-      row: {
-        original: { provider, providerSettingsList },
-      },
-    }) => (
-      <span>
-        {provider === Provider.Ec2Fleet
-          ? providerSettingsList.find((e) => e.region === defaultEC2Region)
-              ?.instance_type
-          : "N/A"}
-      </span>
-    ),
   },
   {
-    header: "Max Hosts",
     accessorKey: "hostAllocatorSettings.maximumHosts",
-    size: 100,
     cell: ({
       getValue,
       row: {
@@ -143,10 +141,10 @@ const columns: LGColumnDef<Distro>[] = [
           : (providerSettingsList?.[0]?.hosts?.length ?? 0)}
       </span>
     ),
+    header: "Max Hosts",
+    size: 100,
   },
   {
-    id: "view-hosts-links",
-    size: 100,
     cell: ({
       row: {
         original: { name },
@@ -158,6 +156,8 @@ const columns: LGColumnDef<Distro>[] = [
         View hosts
       </StyledRouterLink>
     ),
+    id: "view-hosts-links",
+    size: 100,
   },
 ];
 

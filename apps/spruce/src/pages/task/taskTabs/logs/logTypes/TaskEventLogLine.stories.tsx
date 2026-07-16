@@ -20,16 +20,16 @@ const buildStory = (
   eventType: TaskEventType,
   data: Partial<TaskEventLogData> = {},
 ): CustomStoryObj<typeof TaskEventLogLine> => ({
-  render: (args) => <TaskEventLogLine {...args} />,
   args: {
+    data: { timestamp, ...data },
+    eventType,
     id: "event-id",
     resourceId: "task-id",
     resourceType: "TASK",
     timestamp,
-    eventType,
-    data: { timestamp, ...data },
   },
   parameters: apolloMocks,
+  render: (args) => <TaskEventLogLine {...args} />,
 });
 
 export const TaskBlocked = buildStory(TaskEventType.TaskBlocked, {

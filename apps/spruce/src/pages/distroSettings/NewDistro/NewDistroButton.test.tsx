@@ -35,17 +35,17 @@ describe("new distro button", () => {
         data: {
           user: {
             __typename: "UserLite",
-            userId: "string",
             permissions: {
               __typename: "Permissions",
               canCreateDistro: false,
               distroPermissions: {
                 __typename: "DistroPermissions",
-                id: distroId,
                 admin: false,
                 edit: false,
+                id: distroId,
               },
             },
+            userId: "string",
           },
         },
       },
@@ -133,17 +133,17 @@ const hasPermissionsMock: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "string",
         permissions: {
           __typename: "Permissions",
           canCreateDistro: true,
           distroPermissions: {
             __typename: "DistroPermissions",
-            id: distroId,
             admin: true,
             edit: true,
+            id: distroId,
           },
         },
+        userId: "string",
       },
     },
   },

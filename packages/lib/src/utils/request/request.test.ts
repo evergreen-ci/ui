@@ -32,8 +32,8 @@ describe("request utils", () => {
         .mockRejectedValueOnce(new Error("Network failure"))
         .mockRejectedValueOnce(new Error("Network failure"))
         .mockResolvedValueOnce({
-          ok: true,
           json: () => Promise.resolve(mockData),
+          ok: true,
         } as Response);
 
       const result = await fetchWithRetry<{ success: boolean }>(
@@ -73,8 +73,8 @@ describe("request utils", () => {
       );
       expect(error).toHaveProperty("cause");
       expect((error as Error).cause).toStrictEqual({
-        statusCode: 500,
         message: "Internal Server Error",
+        statusCode: 500,
       });
       expect(global.fetch).toHaveBeenCalledTimes(1);
     });
@@ -91,9 +91,9 @@ describe("request utils", () => {
           const expectedString = JSON.stringify(expected);
           const { equals, isNot } = this;
           return {
-            pass: equals(receivedString, expectedString),
             message: () =>
               `${receivedString} is${isNot ? " not" : ""} ${expectedString}`,
+            pass: equals(receivedString, expectedString),
           };
         },
       });
@@ -115,10 +115,10 @@ describe("request utils", () => {
       const response = await post(url, body);
 
       expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
-        headers: expect.toBeHeader({ "content-type": "application/json" }),
-        method: "POST",
         body: JSON.stringify(body),
         credentials: "include",
+        headers: expect.toBeHeader({ "content-type": "application/json" }),
+        method: "POST",
       });
       expect(response).toStrictEqual({ ok: true });
     });
@@ -138,10 +138,10 @@ describe("request utils", () => {
       await post(url, body);
 
       expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
-        headers: expect.toBeHeader({ "content-type": "application/json" }),
-        method: "POST",
         body: JSON.stringify(body),
         credentials: "include",
+        headers: expect.toBeHeader({ "content-type": "application/json" }),
+        method: "POST",
       });
       expect(errorReportingMock).toHaveBeenCalledTimes(1);
     });

@@ -12,7 +12,6 @@ type TaskTimelineType = React.ComponentProps<typeof TaskTimeline> & {
 };
 
 export default {
-  component: TaskTimeline,
   args: {
     isPatch: false,
     loading: false,
@@ -29,6 +28,7 @@ export default {
       control: { type: "boolean" },
     },
   },
+  component: TaskTimeline,
 } satisfies CustomMeta<TaskTimelineType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
@@ -57,8 +57,8 @@ const Template = (args: TemplateProps) => {
         loading={args.loading}
         pagination={{
           mostRecentTaskOrder: 10,
-          oldestTaskOrder: 1,
           nextPageCursor: null,
+          oldestTaskOrder: 1,
           prevPageCursor: null,
         }}
         tasks={groupedTasks}

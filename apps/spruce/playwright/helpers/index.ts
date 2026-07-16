@@ -14,7 +14,7 @@ export const selectOption = async (
   option: string | RegExp,
   options?: { exact: boolean },
 ): Promise<void> => {
-  const button = page.getByRole("button", { name: label, exact: true });
+  const button = page.getByRole("button", { exact: true, name: label });
   await expect(button).toHaveCount(1);
   await expect(button).toBeEnabled();
   await button.click();
@@ -51,7 +51,7 @@ export const clearDatePickerInput = async (
 export const validateDatePickerDate = async (
   page: Page | Locator,
   dataCy: string,
-  { year = "", month = "", day = "" } = {},
+  { day = "", month = "", year = "" } = {},
 ): Promise<void> => {
   const datePicker = page.getByTestId(dataCy);
 
@@ -72,7 +72,7 @@ export const validateDatePickerDate = async (
  */
 export const selectDatePickerDate = async (
   page: Page | Locator,
-  { year = "", month = "", isoDate = "" } = {},
+  { isoDate = "", month = "", year = "" } = {},
   dataCy = "date-picker",
 ): Promise<void> => {
   await page.getByTestId(dataCy).click();
@@ -105,7 +105,7 @@ export const selectDatePickerDate = async (
  */
 export const typeDatePickerDate = async (
   page: Page | Locator,
-  { year = "", month = "", day = "" } = {},
+  { day = "", month = "", year = "" } = {},
   dataCy = "date-picker",
 ): Promise<void> => {
   const datePicker = page.getByTestId(dataCy);

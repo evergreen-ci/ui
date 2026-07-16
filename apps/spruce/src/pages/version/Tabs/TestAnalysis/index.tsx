@@ -49,13 +49,13 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     TestAnalysisQueryVariables
   >(TEST_ANALYSIS, {
     variables: {
-      versionId,
       options: {
         statuses: failedTaskStatuses,
       },
       opts: {
         statuses: ["fail"],
       },
+      versionId,
     },
   });
   useErrorToast(error, "Error fetching test analysis");
@@ -99,11 +99,11 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
         (tasks) => tasks.length > 1,
       ).length;
       sendEvent({
-        name: "System Event test analysis tab stats",
         has_reoccurring_tests: numReoccurringTests > 0,
+        name: "System Event test analysis tab stats",
+        num_failed_tasks: data?.version?.tasks?.data.length,
         num_reoccurring_tests: numReoccurringTests,
         num_tests: totalTestCount,
-        num_failed_tasks: data?.version?.tasks?.data.length,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

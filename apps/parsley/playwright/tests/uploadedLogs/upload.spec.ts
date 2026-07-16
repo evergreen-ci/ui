@@ -50,8 +50,8 @@ test.describe("Upload page", () => {
 
       const fileContents = readFileSync("sample_logs/resmoke.log", "utf-8");
       await helpers.paste(page, 'input[type="file"]', {
-        pastePayload: fileContents,
         pasteFormat: "text/plain",
+        pastePayload: fileContents,
       });
 
       await expect(page.getByTestId("parse-log-select")).toBeVisible();
@@ -62,8 +62,8 @@ test.describe("Upload page", () => {
     }) => {
       const fileContents = readFileSync("sample_logs/resmoke.log", "utf-8");
       await helpers.paste(page, 'input[type="file"]', {
-        pastePayload: fileContents,
         pasteFormat: "text/plain",
+        pastePayload: fileContents,
       });
 
       const parseLogSelect = page.getByTestId("parse-log-select");

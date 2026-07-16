@@ -49,7 +49,6 @@ const repoForm: TestSelectionFormState = {
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
-  repoId: "repo",
   projectRef: {
     id: "repo",
     testSelection: {
@@ -57,4 +56,5 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
       defaultEnabled: true,
     },
   },
+  repoId: "repo",
 };

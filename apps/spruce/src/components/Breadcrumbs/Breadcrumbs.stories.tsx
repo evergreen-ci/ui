@@ -11,9 +11,9 @@ export const Default: CustomStoryObj<typeof Breadcrumbs> = {
     <Breadcrumbs
       breadcrumbs={[
         {
+          onClick: () => actions("Clicked first link"),
           text: "spruce",
           to: "/project/spruce/waterfall",
-          onClick: () => actions("Clicked first link"),
         },
         { text: "511232" },
       ]}

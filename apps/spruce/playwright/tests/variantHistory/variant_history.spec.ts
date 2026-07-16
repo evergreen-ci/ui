@@ -26,7 +26,7 @@ test.describe("Variant history", () => {
   });
 
   test("should be able to paginate column headers", async ({ page }) => {
-    await page.setViewportSize({ width: 1000, height: 600 });
+    await page.setViewportSize({ height: 600, width: 1000 });
     await page.goto("/variant-history/spruce/ubuntu1604");
     await expect(page.getByTestId("header-cell")).toHaveCount(4);
     await page.getByTestId("next-page-button").click();

@@ -13,9 +13,9 @@ describe("useDimensions", () => {
     window.ResizeObserver = vi.fn().mockImplementation(function (l) {
       listener = l;
       return {
-        observe: () => {},
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         disconnect: disconnectSpy,
+        observe: () => {},
         unobserve: () => {},
       };
     });
@@ -24,8 +24,8 @@ describe("useDimensions", () => {
   it("validate default value", () => {
     const { result } = renderHook(() => useDimensions({ current: null }));
     expect(result.current).toMatchObject({
-      width: 0,
       height: 0,
+      width: 0,
     });
   });
 
@@ -45,16 +45,16 @@ describe("useDimensions", () => {
       listener([
         {
           target: {
-            clientWidth: 200,
             clientHeight: 200,
+            clientWidth: 200,
           },
         },
       ]);
     });
 
     expect(result.current).toMatchObject({
-      width: 200,
       height: 200,
+      width: 200,
     });
   });
 
@@ -68,16 +68,16 @@ describe("useDimensions", () => {
       listener([
         {
           target: {
-            clientWidth: 200,
             clientHeight: 200,
+            clientWidth: 200,
           },
         },
       ]);
     });
 
     expect(result.current).toMatchObject({
-      width: 200,
       height: 200,
+      width: 200,
     });
 
     act(() => {
@@ -85,16 +85,16 @@ describe("useDimensions", () => {
       listener([
         {
           target: {
-            clientWidth: 100,
             clientHeight: 100,
+            clientWidth: 100,
           },
         },
       ]);
     });
 
     expect(result.current).toMatchObject({
-      width: 100,
       height: 100,
+      width: 100,
     });
   });
 

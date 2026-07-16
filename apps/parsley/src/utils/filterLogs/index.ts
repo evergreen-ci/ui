@@ -67,8 +67,8 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
     logLines,
     matchingLines,
     sectionData,
-    sectionState,
     sectioningEnabled,
+    sectionState,
     shareLine,
   } = options;
   // If there are no filters or expandable rows is not enabled, then we only have to process sections if they exist and are enabled.

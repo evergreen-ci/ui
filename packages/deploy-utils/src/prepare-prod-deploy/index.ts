@@ -35,10 +35,10 @@ export const prepareProdDeploy = async () => {
   if (commitMessages.length === 0) {
     const latestTag = getLatestTag(app);
     const { value: cancelDeploy } = await prompts({
-      type: "confirm",
-      name: "value",
-      message: "No new commits. Do you want to cancel the deploy?",
       initial: true,
+      message: "No new commits. Do you want to cancel the deploy?",
+      name: "value",
+      type: "confirm",
     });
 
     if (cancelDeploy) {
@@ -47,10 +47,10 @@ export const prepareProdDeploy = async () => {
     }
 
     const { value: shouldForceDeploy } = await prompts({
-      type: "confirm",
-      name: "value",
-      message: `Do you want to trigger a deploy on the most recent existing tag? (${latestTag})`,
       initial: false,
+      message: `Do you want to trigger a deploy on the most recent existing tag? (${latestTag})`,
+      name: "value",
+      type: "confirm",
     });
 
     if (shouldForceDeploy) {
@@ -71,10 +71,10 @@ export const prepareProdDeploy = async () => {
   console.log(`This deploy is a ${version} release.`);
 
   const { value: shouldDeploy } = await prompts({
-    type: "confirm",
-    name: "value",
-    message: "Do you want to deploy?",
     initial: true,
+    message: "Do you want to deploy?",
+    name: "value",
+    type: "confirm",
   });
   if (!shouldDeploy) {
     console.log("Deploy cancelled.");

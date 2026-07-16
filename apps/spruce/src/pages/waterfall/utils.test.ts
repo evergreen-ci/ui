@@ -45,35 +45,33 @@ describe("groupBuildVariants", () => {
         waterfallBuilds: [
           {
             activated: true,
-            id: "id_a",
             buildVariant: "bv_a",
             displayName: "a",
+            id: "id_a",
           },
           {
             activated: true,
-            id: "id_b",
             buildVariant: "bv_b",
             displayName: "1",
+            id: "id_b",
           },
           {
             activated: true,
-            id: "id_c",
             buildVariant: "bv_c",
             displayName: "!",
+            id: "id_c",
           },
           {
             activated: true,
-            id: "id_d",
             buildVariant: "bv_d",
             displayName: "~",
+            id: "id_d",
           },
         ],
       },
     ] as Version[];
     expect(groupBuildVariants(symbolVersions)).toStrictEqual([
       {
-        displayName: "!",
-        id: "bv_c",
         builds: [
           {
             activated: true,
@@ -82,10 +80,10 @@ describe("groupBuildVariants", () => {
             version: "version_1",
           },
         ],
+        displayName: "!",
+        id: "bv_c",
       },
       {
-        displayName: "1",
-        id: "bv_b",
         builds: [
           {
             activated: true,
@@ -94,10 +92,10 @@ describe("groupBuildVariants", () => {
             version: "version_1",
           },
         ],
+        displayName: "1",
+        id: "bv_b",
       },
       {
-        displayName: "a",
-        id: "bv_a",
         builds: [
           {
             activated: true,
@@ -106,10 +104,10 @@ describe("groupBuildVariants", () => {
             version: "version_1",
           },
         ],
+        displayName: "a",
+        id: "bv_a",
       },
       {
-        displayName: "~",
-        id: "bv_d",
         builds: [
           {
             activated: true,
@@ -118,6 +116,8 @@ describe("groupBuildVariants", () => {
             version: "version_1",
           },
         ],
+        displayName: "~",
+        id: "bv_d",
       },
     ]);
   });

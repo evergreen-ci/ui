@@ -1,12 +1,12 @@
 export const GANTT_CHART_COLUMN_HEADERS = [
-  { type: "string", label: "Task ID" },
-  { type: "string", label: "Task Name" },
-  { type: "string", label: "Resource" },
-  { type: "date", label: "Start Date" },
-  { type: "date", label: "End Date" },
-  { type: "number", label: "Duration" },
-  { type: "number", label: "Percent Complete" },
-  { type: "string", label: "Dependencies" },
+  { label: "Task ID", type: "string" },
+  { label: "Task Name", type: "string" },
+  { label: "Resource", type: "string" },
+  { label: "Start Date", type: "date" },
+  { label: "End Date", type: "date" },
+  { label: "Duration", type: "number" },
+  { label: "Percent Complete", type: "number" },
+  { label: "Dependencies", type: "string" },
 ] as const;
 
 export type GanttChartColumnHeaders = typeof GANTT_CHART_COLUMN_HEADERS;

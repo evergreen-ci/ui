@@ -19,6 +19,16 @@ const getRouter = ({ shouldBlock, unsavedTabs }: NavigationModalProps) =>
   createMemoryRouter(
     [
       {
+        children: [
+          {
+            element: <h1>Home Page</h1>,
+            path: "/",
+          },
+          {
+            element: <h1>About Page</h1>,
+            path: "/about",
+          },
+        ],
         Component() {
           return (
             <div>
@@ -31,16 +41,6 @@ const getRouter = ({ shouldBlock, unsavedTabs }: NavigationModalProps) =>
             </div>
           );
         },
-        children: [
-          {
-            path: "/",
-            element: <h1>Home Page</h1>,
-          },
-          {
-            path: "/about",
-            element: <h1>About Page</h1>,
-          },
-        ],
       },
     ],
     {

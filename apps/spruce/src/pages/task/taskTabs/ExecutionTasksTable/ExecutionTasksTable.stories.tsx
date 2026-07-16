@@ -35,59 +35,59 @@ export const MultipleExecutions: CustomStoryObj<typeof ExecutionTasksTable> = {
 
 const singleExecution = [
   {
-    execution: 5,
     baseTask: {
-      id: "some_id_5_base",
-      execution: 5,
       displayStatus: "success",
+      execution: 5,
+      id: "some_id_5_base",
     },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Some fancy execution task",
-    id: "some_id_5",
     displayStatus: "success",
+    execution: 5,
+    id: "some_id_5",
   },
   {
-    execution: 5,
     baseStatus: "success",
     baseTask: {
-      id: "some_id_6_base",
-      execution: 5,
       displayStatus: "success",
+      execution: 5,
+      id: "some_id_6_base",
     },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Another execution task",
-    id: "some_id_6",
     displayStatus: "success",
+    execution: 5,
+    id: "some_id_6",
   },
 ];
 
 const multipleExecutions = [
   {
-    execution: 14,
     baseTask: {
       displayStatus: "failed",
-      id: "some_id_5_base",
       execution: 1,
+      id: "some_id_5_base",
     },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Some fancy execution task",
-    id: "some_id_5",
     displayStatus: "success",
+    execution: 14,
+    id: "some_id_5",
   },
   {
-    execution: 12,
     baseTask: {
       displayStatus: "success",
-      id: "some_id_6_base",
       execution: 1,
+      id: "some_id_6_base",
     },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Another execution task",
-    id: "some_id_6",
     displayStatus: "success",
+    execution: 12,
+    id: "some_id_6",
   },
 ];

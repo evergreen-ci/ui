@@ -5,14 +5,14 @@ import { ContextChips } from ".";
 describe("ContextChips", () => {
   const chips: ContextChip[] = [
     {
+      badgeLabel: "Line 1",
       content: "console.log('hello')",
       identifier: "test-1",
-      badgeLabel: "Line 1",
     },
     {
+      badgeLabel: "Lines 5-6",
       content: "const x = 42;",
       identifier: "test-2",
-      badgeLabel: "Lines 5-6",
     },
   ];
 

@@ -12,42 +12,42 @@ import {
 const bannerCookie = "This is an important notification";
 
 const dismissalCookies = [
-  { name: bannerCookie, value: "true", domain: "localhost", path: "/" },
+  { domain: "localhost", name: bannerCookie, path: "/", value: "true" },
   {
+    domain: "localhost",
     name: SLACK_NOTIFICATION_BANNER,
-    value: "true",
-    domain: "localhost",
     path: "/",
+    value: "true",
   },
   {
+    domain: "localhost",
     name: SEEN_WATERFALL_ONBOARDING_TUTORIAL,
-    value: "true",
-    domain: "localhost",
     path: "/",
+    value: "true",
   },
   {
+    domain: "localhost",
     name: SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
-    value: "true",
-    domain: "localhost",
     path: "/",
+    value: "true",
   },
   {
+    domain: "localhost",
     name: SEEN_TASK_REVIEW_TOOLTIP,
-    value: "true",
-    domain: "localhost",
     path: "/",
+    value: "true",
   },
   {
+    domain: "localhost",
     name: SEEN_TEST_SELECTION_GUIDE_CUE,
-    value: "true",
-    domain: "localhost",
     path: "/",
+    value: "true",
   },
   {
-    name: SEEN_GITHUB_NAV_GUIDE_CUE,
-    value: "true",
     domain: "localhost",
+    name: SEEN_GITHUB_NAV_GUIDE_CUE,
     path: "/",
+    value: "true",
   },
 ];
 

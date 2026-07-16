@@ -2,9 +2,9 @@ import { calculateRouteName, getRouteParams } from "./utils";
 
 describe("calculateRouteName", () => {
   const routeConfig = {
-    home: "/",
     about: "/about",
     contact: "/contact",
+    home: "/",
   };
 
   it("should return the route name and route for a matching route", () => {
@@ -53,13 +53,13 @@ describe("getRouteParams", () => {
     const route = "/task/:taskId/:tab";
     const url = "/task/123/logs";
     const result = getRouteParams(route, url);
-    expect(result).toEqual({ taskId: "123", tab: "logs" });
+    expect(result).toEqual({ tab: "logs", taskId: "123" });
   });
   it("should remove the question mark from optional params", () => {
     const route = "/task/:taskId/:tab?";
     const url = "/task/123/logs";
     const result = getRouteParams(route, url);
-    expect(result).toEqual({ taskId: "123", tab: "logs" });
+    expect(result).toEqual({ tab: "logs", taskId: "123" });
   });
   it("should handle no params in the route", () => {
     const route = "/task";

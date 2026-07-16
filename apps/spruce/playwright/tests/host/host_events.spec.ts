@@ -76,8 +76,8 @@ test.describe("Host events", () => {
       },
       {
         hostType: "agent-deployed",
-        text: "Agent deployed with revision 2019-05-25 from f4c4c42abc123456d14edfe4c123bb1a1a47dd12",
         index: 1,
+        text: "Agent deployed with revision 2019-05-25 from f4c4c42abc123456d14edfe4c123bb1a1a47dd12",
       },
       {
         hostType: "modified",
@@ -129,7 +129,7 @@ test.describe("Host events", () => {
       },
     ];
 
-    for (const { hostType, text, index } of hostTypes) {
+    for (const { hostType, index, text } of hostTypes) {
       await expect(page.getByTestId(hostType).nth(index ?? 0)).toContainText(
         text,
       );
@@ -142,55 +142,55 @@ test.describe("Host events", () => {
     const hostTypes = [
       {
         hostType: "host-script-executed",
-        text: "Executed script on host",
         logsTitle: "Script logs",
+        text: "Executed script on host",
       },
       {
         hostType: "host-script-execute-failed",
-        text: "Failed to execute script on host",
         logsTitle: "Script logs",
+        text: "Failed to execute script on host",
       },
       {
         hostType: "host-provision-failed",
-        text: "Provisioning failed",
         logsTitle: "Provisioning logs",
+        text: "Provisioning failed",
       },
       {
         hostType: "host-jasper-restart-error",
-        text: "Host encountered error when restarting Jasper service",
         logsTitle: "Provisioning logs",
+        text: "Host encountered error when restarting Jasper service",
       },
       {
         hostType: "host-converting-provisioning-error",
-        text: "Host encountered error when converting reprovisioning",
         logsTitle: "Provisioning logs",
+        text: "Host encountered error when converting reprovisioning",
       },
       {
         hostType: "host-status-changed",
-        text: "Status changed from running to unreachable by chaya.malik",
-        logsTitle: "Additional details",
         index: 2,
+        logsTitle: "Additional details",
+        text: "Status changed from running to unreachable by chaya.malik",
       },
       {
         hostType: "stopped",
-        text: "Host stop attempt failed",
         logsTitle: "Additional details",
+        text: "Host stop attempt failed",
       },
       {
         hostType: "modified",
-        text: "Host modify attempt failed",
         logsTitle: "Additional details",
+        text: "Host modify attempt failed",
       },
       {
         hostType: "host-creation-failed",
-        text: "Host creation failed.",
         logsTitle: "Host creation logs",
+        text: "Host creation failed.",
       },
     ];
     await page.goto(pathWithEvents);
     await selectPageSize(page, 100, dataCyTableRows);
 
-    for (const { hostType, logsTitle, text, index } of hostTypes) {
+    for (const { hostType, index, logsTitle, text } of hostTypes) {
       const eventElement = page
         .getByTestId(hostType)
         .nth(index ?? 0)

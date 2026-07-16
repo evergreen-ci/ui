@@ -7,10 +7,10 @@ export type ToolState = ToolUIPart["state"];
 const satisfiesToolStates = <T extends Record<string, ToolState>>(t: T) => t;
 
 export const ToolStateEnum = satisfiesToolStates({
-  OutputError: "output-error",
-  InputStreaming: "input-streaming",
   InputAvailable: "input-available",
+  InputStreaming: "input-streaming",
   OutputAvailable: "output-available",
+  OutputError: "output-error",
 } as const);
 
 type MessageMetadata = {

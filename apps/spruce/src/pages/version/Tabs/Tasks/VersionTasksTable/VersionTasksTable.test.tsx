@@ -39,9 +39,9 @@ const cache = new InMemoryCache({
 });
 
 cache.writeQuery({
+  data: versionTasks.data,
   query: VERSION_TASKS,
   variables: { versionId },
-  data: versionTasks.data,
 });
 
 describe("VersionTasksTable", () => {

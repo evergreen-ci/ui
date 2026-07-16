@@ -44,20 +44,20 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
   const clearQueryParams = () => {
     updateQueryParams({
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      [PatchTasksQueryParams.TaskName]: undefined,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      [PatchTasksQueryParams.Variant]: undefined,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      [PatchTasksQueryParams.Statuses]: undefined,
+      [PaginationQueryParams.Page]: undefined,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.BaseStatuses]: undefined,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      [PaginationQueryParams.Page]: undefined,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Duration]: undefined,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.IncludeNeverActivatedTasks]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      [PatchTasksQueryParams.Statuses]: undefined,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      [PatchTasksQueryParams.TaskName]: undefined,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      [PatchTasksQueryParams.Variant]: undefined,
     });
     versionAnalytics.sendEvent({
       name: "Deleted all filters",
@@ -68,15 +68,15 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     VersionTasksQuery,
     VersionTasksQueryVariables
   >(VERSION_TASKS, {
-    variables: queryVariables,
-    pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "cache-and-network",
+    pollInterval: DEFAULT_POLL_INTERVAL,
+    variables: queryVariables,
   });
   useErrorToast(error, "Error fetching patch tasks");
   usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
   const { version } = data || {};
   const { isPatch, tasks } = version || {};

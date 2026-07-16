@@ -27,131 +27,131 @@ const arrayItemCSS = css`
 export const containerPools = {
   schema: {
     pools: {
-      type: "array" as const,
-      title: "",
+      default: [],
       items: {
-        type: "object" as const,
         properties: {
-          id: {
-            type: "string" as const,
-            title: "ID",
-            default: "",
-            minLength: 1,
-          },
           distro: {
-            type: "string" as const,
-            title: "Distro",
             default: "",
             minLength: 1,
+            title: "Distro",
+            type: "string" as const,
+          },
+          id: {
+            default: "",
+            minLength: 1,
+            title: "ID",
+            type: "string" as const,
           },
           maxContainers: {
-            type: "number" as const,
-            title: "Max Containers",
             default: 0,
             minimum: 0,
+            title: "Max Containers",
+            type: "number" as const,
           },
           port: {
-            type: "number" as const,
-            title: "Port",
             default: 0,
-            minimum: 0,
             maximum: 65535,
+            minimum: 0,
+            title: "Port",
+            type: "number" as const,
           },
         },
         required: ["id", "distro"],
+        type: "object" as const,
       },
-      default: [],
+      title: "",
+      type: "array" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "container-pools",
-    "ui:objectFieldCss": objectGridCss,
     pools: {
       "ui:addButtonText": "Add container pool",
-      "ui:data-cy": "container-pools-list",
-      "ui:orderable": false,
-      "ui:fullWidth": true,
-      "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
+      "ui:data-cy": "container-pools-list",
+      "ui:fieldCss": fullWidthCss,
+      "ui:fullWidth": true,
+      "ui:orderable": false,
     },
+    "ui:data-cy": "container-pools",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 const accountRoles = {
   schema: {
-    type: "array" as const,
-    title: "Account Roles",
+    default: [],
     items: {
-      type: "object" as const,
       properties: {
         account: {
-          type: "string" as const,
-          title: "Account",
           default: "",
           minLength: 1,
+          title: "Account",
+          type: "string" as const,
         },
         role: {
-          type: "string" as const,
-          title: "Role",
           default: "",
           minLength: 1,
+          title: "Role",
+          type: "string" as const,
         },
       },
       required: ["account", "role"],
+      type: "object" as const,
     },
-    default: [],
+    title: "Account Roles",
+    type: "array" as const,
   },
   uiSchema: {
     "ui:addButtonText": "Add account role",
-    "ui:data-cy": "account-roles-list",
-    "ui:orderable": false,
-    "ui:fullWidth": true,
-    "ui:fieldCss": fullWidthCss,
     "ui:arrayItemCSS": arrayItemCSS,
+    "ui:data-cy": "account-roles-list",
+    "ui:fieldCss": fullWidthCss,
+    "ui:fullWidth": true,
+    "ui:orderable": false,
   },
 };
 
 const subnets = {
   schema: {
-    type: "array" as const,
-    title: "Subnets",
+    default: [],
     items: {
-      type: "object" as const,
       properties: {
         az: {
-          type: "string" as const,
-          title: "Availability Zone",
           default: "",
           minLength: 1,
+          title: "Availability Zone",
+          type: "string" as const,
         },
         subnetId: {
-          type: "string" as const,
-          title: "Subnet ID",
           default: "",
           minLength: 1,
+          title: "Subnet ID",
+          type: "string" as const,
         },
       },
       required: ["az", "subnetId"],
+      type: "object" as const,
     },
-    default: [],
+    title: "Subnets",
+    type: "array" as const,
   },
   uiSchema: {
     "ui:addButtonText": "Add subnet",
-    "ui:data-cy": "subnets-list",
-    "ui:orderable": false,
-    "ui:fullWidth": true,
-    "ui:fieldCss": fullWidthCss,
     "ui:arrayItemCSS": arrayItemCSS,
+    "ui:data-cy": "subnets-list",
+    "ui:fieldCss": fullWidthCss,
+    "ui:fullWidth": true,
+    "ui:orderable": false,
   },
 };
 
 export const docker = {
   schema: {
     apiVersion: {
-      type: "string" as const,
-      title: "API Version",
       default: "",
+      title: "API Version",
+      type: "string" as const,
     },
   },
   uiSchema: {
@@ -161,125 +161,121 @@ export const docker = {
 
 export const aws = {
   schema: {
-    subnets: subnets.schema,
     accountRoles: accountRoles.schema,
-    ec2Key: {
-      type: "string" as const,
-      title: "EC2 Key",
-      default: "",
-    },
-    ec2Secret: {
-      type: "string" as const,
-      title: "EC2 Secret",
-      default: "",
-    },
-    parameterStorePrefix: {
-      type: "string" as const,
-      title: "Parameter Store Prefix",
-      default: "",
-    },
-    defaultSecurityGroup: {
-      type: "string" as const,
-      title: "Default Security Group",
-      default: "",
-    },
-    maxVolumeSizePerUser: {
-      type: "number" as const,
-      title: "Total EBS Volume Size Per User",
-      default: 0,
-      minimum: 0,
+    alertableInstanceTypes: {
+      default: [],
+      items: {
+        minLength: 1,
+        type: "string" as const,
+      },
+      title: "Alertable Instance Types",
+      type: "array" as const,
     },
     allowedInstanceTypes: {
-      type: "array" as const,
-      title: "Allowed Instance Types",
-      items: {
-        type: "string" as const,
-        minLength: 1,
-      },
       default: [],
+      items: {
+        minLength: 1,
+        type: "string" as const,
+      },
+      title: "Allowed Instance Types",
+      type: "array" as const,
     },
     allowedRegions: {
-      type: "array" as const,
+      default: [],
+      items: {
+        minLength: 1,
+        type: "string" as const,
+      },
       title: "Allowed Regions",
-      items: {
-        type: "string" as const,
-        minLength: 1,
-      },
-      default: [],
-    },
-    alertableInstanceTypes: {
       type: "array" as const,
-      title: "Alertable Instance Types",
-      items: {
-        type: "string" as const,
-        minLength: 1,
-      },
-      default: [],
+    },
+    defaultSecurityGroup: {
+      default: "",
+      title: "Default Security Group",
+      type: "string" as const,
+    },
+    ec2Key: {
+      default: "",
+      title: "EC2 Key",
+      type: "string" as const,
+    },
+    ec2Secret: {
+      default: "",
+      title: "EC2 Secret",
+      type: "string" as const,
     },
     elasticIPUsageRate: {
-      type: "number" as const,
-      title: "Elastic IP Usage Rate",
       default: 0,
       minimum: 0,
+      title: "Elastic IP Usage Rate",
+      type: "number" as const,
     },
     ipamPoolID: {
-      type: "string" as const,
-      title: "IPAM Pool ID",
       default: "",
+      title: "IPAM Pool ID",
+      type: "string" as const,
     },
-    persistentDNS: {
-      type: "object" as const,
-      title: "Persistent DNS",
-      properties: {
-        hostedZoneID: {
-          type: "string" as const,
-          title: "Persistent DNS Hosted Zone ID",
-          default: "",
-        },
-        domain: {
-          type: "string" as const,
-          title: "Persistent DNS Domain Name",
-          default: "",
-        },
-      },
+    maxVolumeSizePerUser: {
+      default: 0,
+      minimum: 0,
+      title: "Total EBS Volume Size Per User",
+      type: "number" as const,
+    },
+    parameterStorePrefix: {
+      default: "",
+      title: "Parameter Store Prefix",
+      type: "string" as const,
     },
     parserProject: {
-      type: "object" as const,
-      title: "Parser Project Settings",
       properties: {
-        key: {
-          type: "string" as const,
-          title: "Parser Project S3 Key",
-          default: "",
-        },
-        secret: {
-          type: "string" as const,
-          title: "Parser Project S3 Secret",
-          default: "",
-        },
         bucket: {
-          type: "string" as const,
+          default: "",
           title: "Parser Project S3 Bucket",
-          default: "",
-        },
-        prefix: {
           type: "string" as const,
-          title: "Parser Project S3 Prefix",
-          default: "",
         },
         generatedJSONPrefix: {
-          type: "string" as const,
-          title: "Generated JSON Files S3 Prefix",
           default: "",
+          title: "Generated JSON Files S3 Prefix",
+          type: "string" as const,
+        },
+        key: {
+          default: "",
+          title: "Parser Project S3 Key",
+          type: "string" as const,
+        },
+        prefix: {
+          default: "",
+          title: "Parser Project S3 Prefix",
+          type: "string" as const,
+        },
+        secret: {
+          default: "",
+          title: "Parser Project S3 Secret",
+          type: "string" as const,
         },
       },
+      title: "Parser Project Settings",
+      type: "object" as const,
     },
+    persistentDNS: {
+      properties: {
+        domain: {
+          default: "",
+          title: "Persistent DNS Domain Name",
+          type: "string" as const,
+        },
+        hostedZoneID: {
+          default: "",
+          title: "Persistent DNS Hosted Zone ID",
+          type: "string" as const,
+        },
+      },
+      title: "Persistent DNS",
+      type: "object" as const,
+    },
+    subnets: subnets.schema,
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "aws-configuration",
-    subnets: subnets.uiSchema,
     accountRoles: accountRoles.uiSchema,
     alertableInstanceTypes: {
       "ui:widget": widgets.ChipInputWidget,
@@ -290,11 +286,15 @@ export const aws = {
     allowedRegions: {
       "ui:widget": widgets.ChipInputWidget,
     },
-    persistentDNS: {
-      "ui:fieldCss": nestedObjectGridCss,
-    },
     parserProject: {
       "ui:fieldCss": nestedObjectGridCss,
     },
+    persistentDNS: {
+      "ui:fieldCss": nestedObjectGridCss,
+    },
+    subnets: subnets.uiSchema,
+    "ui:data-cy": "aws-configuration",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };

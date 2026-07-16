@@ -9,13 +9,13 @@ export const getBaseDistroName = (distroName: string): string =>
   distroName.replace(distroSuffixRegex, "");
 
 const baseRanks: Record<string, number> = {
-  xxsmall: 0,
-  xsmall: 1,
-  small: 2,
-  medium: 3,
   large: 4,
+  medium: 3,
+  small: 2,
   xlarge: 5,
+  xsmall: 1,
   xxlarge: 6,
+  xxsmall: 0,
 };
 
 /**

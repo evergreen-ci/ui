@@ -9,19 +9,19 @@ export default {
 } satisfies CustomMeta<typeof PatchCard>;
 
 export const ProjectPatchCard: CustomStoryObj<typeof PatchCard> = {
-  render: (args) => <PatchCard {...args} />,
-  argTypes: {},
   args: {
     pageType: "project",
     patch: patchData,
   },
+  argTypes: {},
+  render: (args) => <PatchCard {...args} />,
 };
 
 export const UserPatchCard: CustomStoryObj<typeof PatchCard> = {
-  render: (args) => <PatchCard {...args} />,
-  argTypes: {},
   args: {
     pageType: "user",
     patch: patchData,
   },
+  argTypes: {},
+  render: (args) => <PatchCard {...args} />,
 };

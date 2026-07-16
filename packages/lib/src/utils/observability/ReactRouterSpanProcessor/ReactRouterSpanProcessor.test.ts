@@ -6,11 +6,11 @@ import ReactRouterSpanProcessor from ".";
 describe("ReactRouterSpanProcessor", () => {
   let spanProcessor: ReactRouterSpanProcessor;
   const mockRouteConfig: RouteConfig = {
-    upload: "/upload",
-    spawnHost: "/spawn/host",
-    versionPage: "/version/:id/:tab?",
-    taskHistory: "/task-history/:projectId/:taskId",
     configurePatch: `/patch/:patchId/configure/:tab?`,
+    spawnHost: "/spawn/host",
+    taskHistory: "/task-history/:projectId/:taskId",
+    upload: "/upload",
+    versionPage: "/version/:id/:tab?",
   };
 
   beforeEach(() => {
@@ -28,13 +28,13 @@ describe("ReactRouterSpanProcessor", () => {
       } as unknown as Span;
 
       window.AttributeStore = {
+        getGlobalAttribute: vi.fn(),
         getGlobalAttributes: () => ({
           "user.id": "john.doe",
           "version.is_patch": true,
         }),
-        getGlobalAttribute: vi.fn(),
-        setGlobalAttribute: vi.fn(),
         removeGlobalAttribute: vi.fn(),
+        setGlobalAttribute: vi.fn(),
       };
 
       Object.defineProperty(window, "location", {

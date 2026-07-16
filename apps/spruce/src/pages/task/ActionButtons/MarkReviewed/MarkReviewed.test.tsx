@@ -19,7 +19,6 @@ vi.spyOn(db, "setItems");
 const cache = new InMemoryCache({
   typePolicies: {
     Task: {
-      keyFields: ["execution", "id"],
       fields: {
         reviewed: {
           read(existing) {
@@ -27,6 +26,7 @@ const cache = new InMemoryCache({
           },
         },
       },
+      keyFields: ["execution", "id"],
     },
   },
 });
@@ -35,25 +35,25 @@ const taskId = taskData.id;
 const displayTaskId = displayTaskData.id;
 
 cache.writeQuery({
+  data: { task: taskData },
   query: TASK,
   variables: {
     taskId: taskId,
   },
-  data: { task: taskData },
 });
 
 cache.writeQuery({
+  data: { task: displayTaskData },
   query: TASK,
   variables: {
     taskId: displayTaskId,
   },
-  data: { task: displayTaskData },
 });
 
 const read = (task: NonNullable<TaskQuery["task"]>) =>
   cache.readFragment({
-    id: cache.identify(task),
     fragment: REVIEWED_TASK_FRAGMENT,
+    id: cache.identify(task),
   }) as NonNullable<TaskQuery["task"]>;
 
 describe("mark as reviewed button", () => {

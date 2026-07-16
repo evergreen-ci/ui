@@ -3,8 +3,8 @@ import { test, expect } from "../../fixtures";
 
 test.describe("onboarding", () => {
   test("can go through all steps of the walkthrough", async ({
-    page,
     context,
+    page,
   }) => {
     await context.clearCookies({
       name: SEEN_WATERFALL_ONBOARDING_TUTORIAL,
@@ -62,8 +62,8 @@ test.describe("onboarding", () => {
   });
 
   test("can end walkthrough early using the dismiss button", async ({
-    page,
     context,
+    page,
   }) => {
     await context.clearCookies({
       name: SEEN_WATERFALL_ONBOARDING_TUTORIAL,

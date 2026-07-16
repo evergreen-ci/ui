@@ -22,8 +22,8 @@ const useQueryVariables = (): HostsQueryVariables => {
   // Parse the sorts query param into an array of sort objects
   const sortsArray = parseSortString(sorts ?? "", {
     sortByKey: "sortBy",
-    sortDirKey: "sortDir",
     sortCategoryEnum: HostSortBy,
+    sortDirKey: "sortDir",
   });
 
   // Default to status sort if no sorts are provided. We only support one sort at a time.
@@ -31,15 +31,15 @@ const useQueryVariables = (): HostsQueryVariables => {
   const sortDir = sortsArray[0]?.sortDir ?? SortDirection.Asc;
 
   return {
-    hostId,
-    distroId,
     currentTaskId,
-    statuses,
-    startedBy,
+    distroId,
+    hostId,
+    limit,
+    page,
     sortBy,
     sortDir,
-    page,
-    limit,
+    startedBy,
+    statuses,
   };
 };
 
@@ -65,7 +65,7 @@ const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState =>
  */
 const getSorting = (queryParams: HostsQueryVariables): SortingState => {
   const { sortBy, sortDir } = queryParams;
-  return [{ id: sortBy as string, desc: sortDir === SortDirection.Desc }];
+  return [{ desc: sortDir === SortDirection.Desc, id: sortBy as string }];
 };
 
 export { getFilters, useQueryVariables, getSorting };

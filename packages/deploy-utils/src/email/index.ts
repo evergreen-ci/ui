@@ -74,9 +74,9 @@ export const sendEmail = async () => {
 };
 
 const appDisplayNames: Record<DeployableApp, string> = {
+  parsley: "Parsley",
   sage: "Sage UI",
   spruce: "Spruce",
-  parsley: "Parsley",
 };
 
 /**
@@ -93,8 +93,8 @@ const appDisplayNames: Record<DeployableApp, string> = {
  */
 export const makeEmail = ({
   app,
-  commitToDeploy,
   commitsString,
+  commitToDeploy,
   isRevert,
   previousTag,
 }: {

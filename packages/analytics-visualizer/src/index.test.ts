@@ -159,7 +159,6 @@ describe("analyticsVisualizer", () => {
     const plugin = analyticsVisualizer(mockOptions);
     const mockData = [
       {
-        identifier: "test-identifier",
         actions: [
           {
             name: "Test Action",
@@ -167,6 +166,7 @@ describe("analyticsVisualizer", () => {
           },
         ],
         filePath: "/test/analytics.ts",
+        identifier: "test-identifier",
       },
     ];
 
@@ -197,16 +197,16 @@ describe("analyticsVisualizer", () => {
 
     const dataA = [
       {
-        identifier: "id-a",
         actions: [{ name: "Action A", properties: [] }],
         filePath: "/test/project/src/analytics/a.ts",
+        identifier: "id-a",
       },
     ];
     const dataB = [
       {
-        identifier: "id-b",
         actions: [{ name: "Action B", properties: [] }],
         filePath: "/abs/shared/analytics/b.ts",
+        identifier: "id-b",
       },
     ];
 
@@ -248,9 +248,9 @@ describe("analyticsVisualizer", () => {
 
     const dataA = [
       {
-        identifier: "id-a",
         actions: [{ name: "Action A", properties: [] }],
         filePath: "/test/project/src/analytics/a.ts",
+        identifier: "id-a",
       },
     ];
 

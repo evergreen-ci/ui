@@ -17,13 +17,13 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
 
   const dropdownOptions = [
     {
-      title: "All",
       key: ALL_VALUE,
+      title: "All",
       value: ALL_VALUE,
     },
     ...enumOptions.map((o) => ({
-      title: o.label,
       key: o.value,
+      title: o.label,
       value: o.value,
     })),
   ];

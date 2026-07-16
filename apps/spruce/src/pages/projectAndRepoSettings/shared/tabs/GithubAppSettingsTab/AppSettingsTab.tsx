@@ -46,13 +46,13 @@ export const AppSettingsTab: React.FC<TabProps> = ({
   const formSchema = useMemo(
     () =>
       getFormSchema({
+        defaultsToRepo,
         githubPermissionGroups,
         identifier,
         isAppDefined,
         isRepo,
         projectOrRepoId: projectId || repoId,
         repoData,
-        defaultsToRepo,
       }),
     [
       githubPermissionGroups,

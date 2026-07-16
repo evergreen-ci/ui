@@ -7,9 +7,9 @@ import FilterChips from "components/FilterChips";
 import useFilterChipQueryParams from "./useFilterChipQueryParams";
 
 const TestFilterOptions = {
-  Test: "tests",
-  Task: "tasks",
   BuildVariant: "buildVariants",
+  Task: "tasks",
+  Test: "tests",
 };
 const Content = () => {
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
@@ -20,8 +20,8 @@ const Content = () => {
     ]),
     {
       [TestFilterOptions.BuildVariant]: "Variant",
-      [TestFilterOptions.Test]: "Test",
       [TestFilterOptions.Task]: "Task",
+      [TestFilterOptions.Test]: "Test",
     },
   );
   return (
@@ -35,24 +35,24 @@ const Content = () => {
 describe("filterChips - queryParams", () => {
   it("should not render any chips if there are no query params", () => {
     render(<Content />, {
-      route: "/project/evergreen/waterfall",
       path: "/project/:projectId/waterfall",
+      route: "/project/evergreen/waterfall",
     });
     expect(screen.queryByDataCy("filter-chip")).not.toBeInTheDocument();
   });
 
   it("should render a singular filter chip if there is only one query param", () => {
     render(<Content />, {
-      route: "/project/evergreen/waterfall?buildVariants=variant1",
       path: "/project/:projectId/waterfall",
+      route: "/project/evergreen/waterfall?buildVariants=variant1",
     });
     expect(screen.queryAllByDataCy("filter-chip")).toHaveLength(1);
   });
 
   it("should render multiple filter chips with the same key but different values", () => {
     render(<Content />, {
-      route: "/project/evergreen/waterfall?buildVariants=variant1,variant2",
       path: "/project/:projectId/waterfall",
+      route: "/project/evergreen/waterfall?buildVariants=variant1,variant2",
     });
     const chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(2);
@@ -62,8 +62,8 @@ describe("filterChips - queryParams", () => {
 
   it("should render multiple filter chips with the different keys and different values", () => {
     render(<Content />, {
-      route: "/project/evergreen/waterfall?buildVariants=variant1&tests=test1",
       path: "/project/:projectId/waterfall",
+      route: "/project/evergreen/waterfall?buildVariants=variant1&tests=test1",
     });
     const chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(2);
@@ -74,8 +74,8 @@ describe("filterChips - queryParams", () => {
   it("closing out a chip should remove it from the url", async () => {
     const user = userEvent.setup();
     const { router } = render(<Content />, {
-      route: "/project/evergreen/waterfall?buildVariants=variant1",
       path: "/project/:projectId/waterfall",
+      route: "/project/evergreen/waterfall?buildVariants=variant1",
     });
 
     const chip = screen.queryByDataCy("filter-chip");
@@ -91,8 +91,8 @@ describe("filterChips - queryParams", () => {
   it("should only remove one chip from the url if it is closed and more remain", async () => {
     const user = userEvent.setup();
     const { router } = render(<Content />, {
-      route: "/project/evergreen/waterfall?buildVariants=variant1,variant2",
       path: "/project/:projectId/waterfall",
+      route: "/project/evergreen/waterfall?buildVariants=variant1,variant2",
     });
 
     let chips = screen.queryAllByDataCy("filter-chip");
@@ -111,9 +111,9 @@ describe("filterChips - queryParams", () => {
   it("should remove all chips when clicking on clear all button", async () => {
     const user = userEvent.setup();
     const { router } = render(<Content />, {
+      path: "/project/:projectId/waterfall",
       route:
         "/project/evergreen/waterfall?buildVariants=variant1,variant2&tests=test1,test2",
-      path: "/project/:projectId/waterfall",
     });
 
     let chips = screen.queryAllByDataCy("filter-chip");
@@ -129,9 +129,9 @@ describe("filterChips - queryParams", () => {
   it("should only remove query params for displayable chips when clear all is pressed", async () => {
     const user = userEvent.setup();
     const { router } = render(<Content />, {
+      path: "/project/:projectId/waterfall",
       route:
         "/project/evergreen/waterfall?buildVariants=variant1,variant2&tests=test1,test2&notRelated=notRelated",
-      path: "/project/:projectId/waterfall",
     });
 
     let chips = screen.queryAllByDataCy("filter-chip");

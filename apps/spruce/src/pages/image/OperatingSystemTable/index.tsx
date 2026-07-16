@@ -43,10 +43,10 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
       variables: {
         imageId,
         opts: {
-          page: pagination.pageIndex,
           limit: pagination.pageSize,
           name: columnFilters.find((filter) => filter.id === "name")
             ?.value as string,
+          page: pagination.pageIndex,
         },
       },
     },
@@ -68,20 +68,15 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
     defaultColumn: {
       enableColumnFilter: false,
     },
-    manualPagination: true,
     manualFiltering: true,
-    rowCount: numTotalItems,
-    state: {
-      pagination,
-      columnFilters,
-    },
+    manualPagination: true,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setColumnFilters,
       (f) =>
         sendEvent({
           name: "Filtered table",
-          "table.name": "Operating System",
           "table.filters": f,
+          "table.name": "Operating System",
         }),
     ),
     onPaginationChange: onChangeHandler<PaginationState>(setPagination, (p) =>
@@ -91,6 +86,11 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
         "table.pagination": p,
       }),
     ),
+    rowCount: numTotalItems,
+    state: {
+      columnFilters,
+      pagination,
+    },
   });
 
   return (
@@ -108,9 +108,9 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
 
 const columns: LGColumnDef<OsInfo>[] = [
   {
-    header: "Name",
     accessorKey: "name",
     enableColumnFilter: true,
+    header: "Name",
     meta: {
       search: {
         "data-cy": "os-name-filter",
@@ -119,8 +119,8 @@ const columns: LGColumnDef<OsInfo>[] = [
     },
   },
   {
-    header: "Version",
     accessorKey: "version",
     cell: ({ getValue }) => (getValue() as string).replace(/"/g, ""),
+    header: "Version",
   },
 ];

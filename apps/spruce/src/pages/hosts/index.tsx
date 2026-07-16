@@ -103,8 +103,8 @@ const Hosts: React.FC = () => {
     HostsQuery,
     HostsQueryVariables
   >(HOSTS, {
-    variables: queryVariables,
     fetchPolicy: "cache-and-network",
+    variables: queryVariables,
   });
 
   const hosts = hostsData?.hosts;

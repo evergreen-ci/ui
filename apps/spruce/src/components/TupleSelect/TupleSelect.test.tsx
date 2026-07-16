@@ -3,21 +3,21 @@ import TupleSelect from ".";
 
 const options = [
   {
-    value: "build_variant",
     displayName: "Build Variant",
     placeHolderText: "Search Build Variant names",
+    value: "build_variant",
   },
   {
-    value: "task",
     displayName: "Task",
     placeHolderText: "Search Task names",
+    value: "task",
   },
 ];
 
 const sharedProps = {
   ariaLabel: "Tuple Select",
-  id: "tuple-select",
   "data-cy": "tuple-select",
+  id: "tuple-select",
   label: "Tuple Select",
 };
 

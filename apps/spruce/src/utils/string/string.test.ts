@@ -89,8 +89,8 @@ describe("getDateCopy", () => {
     ).toBe("Nov 16, 2020");
     expect(
       getDateCopy("2020-11-16T22:17:29", {
-        tz: "America/New_York",
         dateOnly: true,
+        tz: "America/New_York",
       }),
     ).toBe("Nov 16, 2020");
     expect(getDateCopy("08/31/1996", { dateOnly: true })).toBe("Aug 31, 1996");
@@ -105,9 +105,9 @@ describe("getDateCopy", () => {
     ).toBe("11-16-2020");
     expect(
       getDateCopy("2020-11-16T22:17:29", {
-        tz: "America/New_York",
         dateFormat: "dd-MM-yyyy",
         dateOnly: true,
+        tz: "America/New_York",
       }),
     ).toBe("16-11-2020");
     expect(

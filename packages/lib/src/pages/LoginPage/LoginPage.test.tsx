@@ -31,16 +31,16 @@ describe("LoginPage", () => {
     fireEvent.click(loginButton);
 
     expect(localLoginMock).toHaveBeenCalledWith({
-      username: "testuser",
       password: "password123",
+      username: "testuser",
     });
   });
 
   it("redirects to the referrer page when authenticated", () => {
     (useAuthProviderContext as Mock).mockReturnValue({
+      hasCheckedAuth: true,
       isAuthenticated: true,
       localLogin: vi.fn(),
-      hasCheckedAuth: true,
     });
 
     render(

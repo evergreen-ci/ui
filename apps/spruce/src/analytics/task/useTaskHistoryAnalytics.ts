@@ -73,9 +73,9 @@ export const useTaskHistoryAnalytics = () => {
     TASK,
     taskId
       ? {
-          variables: { taskId, execution },
           errorPolicy: "all",
           fetchPolicy: "cache-first",
+          variables: { execution, taskId },
         }
       : skipToken,
   );
@@ -87,7 +87,7 @@ export const useTaskHistoryAnalytics = () => {
     "task.execution": execution,
     "task.id": taskId || "",
     "task.name": displayName || "",
-    "task.variant": buildVariant || "",
     "task.project.identifier": identifier || "",
+    "task.variant": buildVariant || "",
   });
 };

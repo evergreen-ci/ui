@@ -28,9 +28,9 @@ export const TaskFilter = () => {
         value: filterValue,
       });
       sendEvent({
-        name: "Filtered by task",
         "filter.type": filterType,
         "filter.value": filterValue,
+        name: "Filtered by task",
       });
     },
     [onSubmit, sendEvent],

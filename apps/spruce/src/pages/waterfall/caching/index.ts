@@ -118,11 +118,11 @@ export const readVersions = ((existing, { args, readField }) => {
     pagination: {
       // Sort is only necessary for consistency in testing
       activeVersionIds: activeVersionIds.sort(),
-      mostRecentVersionOrder,
-      prevPageOrder: prevOrderNumber,
-      nextPageOrder: nextOrderNumber,
       hasNextPage: nextOrderNumber > 0,
       hasPrevPage: prevOrderNumber > 0,
+      mostRecentVersionOrder,
+      nextPageOrder: nextOrderNumber,
+      prevPageOrder: prevOrderNumber,
     },
   };
 }) satisfies FieldReadFunction<WaterfallQuery["waterfall"]>;
@@ -173,9 +173,9 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     readField<string[]>("activeVersionIds", pagination) ?? [];
   incomingActiveVersions.forEach((vId) => existingActiveVersions.add(vId));
   return {
+    allActiveVersions: existingActiveVersions,
     flattenedVersions: v,
     pagination,
-    allActiveVersions: existingActiveVersions,
   };
 }) satisfies FieldMergeFunction<
   WaterfallQuery["waterfall"] & { allActiveVersions?: Set<string> }

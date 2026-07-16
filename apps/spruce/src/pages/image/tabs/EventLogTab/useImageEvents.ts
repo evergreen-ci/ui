@@ -38,13 +38,13 @@ export const useImageEvents = (
     ImageEventsQuery,
     ImageEventsQueryVariables
   >(IMAGE_EVENTS, {
+    fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true,
     variables: {
       imageId,
       limit,
       page,
     },
-    fetchPolicy: "no-cache",
-    notifyOnNetworkStatusChange: true,
   });
   useErrorToast(error, "Unable to fetch image events");
 
@@ -53,11 +53,11 @@ export const useImageEvents = (
   const handleFetchMore = useCallback(
     () =>
       fetchMore({
+        updateQuery: imageEventsUpdateQuery,
         variables: {
           imageId,
           page: Math.floor(events.length / limit),
         },
-        updateQuery: imageEventsUpdateQuery,
       }),
     [events.length, fetchMore, imageId, limit],
   );

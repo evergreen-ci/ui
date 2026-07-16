@@ -264,7 +264,7 @@ const setVersionPriority: ApolloMock<
 > = {
   request: {
     query: SET_VERSION_PRIORITY,
-    variables: { versionId: "version_id", priority: 99 },
+    variables: { priority: 99, versionId: "version_id" },
   },
   result: {
     data: {
@@ -279,7 +279,7 @@ const setTaskPriority: ApolloMock<
 > = {
   request: {
     query: SET_TASK_PRIORITIES,
-    variables: { taskPriorities: [{ taskId: "task_id", priority: 99 }] },
+    variables: { taskPriorities: [{ priority: 99, taskId: "task_id" }] },
   },
   result: {
     data: {
@@ -303,8 +303,8 @@ const setMultipleTaskPriorities: ApolloMock<
     query: SET_TASK_PRIORITIES,
     variables: {
       taskPriorities: [
-        { taskId: "task_id", priority: 99 },
-        { taskId: "task_id_2", priority: 99 },
+        { priority: 99, taskId: "task_id" },
+        { priority: 99, taskId: "task_id_2" },
       ],
     },
   },

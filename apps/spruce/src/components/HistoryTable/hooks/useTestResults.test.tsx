@@ -31,9 +31,9 @@ describe("useTestResults", () => {
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
       ),
     ).toMatchObject({
+      failingTests: [],
       inactive: false,
       label: "",
-      failingTests: [],
     });
   });
 
@@ -44,9 +44,9 @@ describe("useTestResults", () => {
     expect(
       result.current.hookResponse.getTaskMetadata("some_id"),
     ).toMatchObject({
+      failingTests: [],
       inactive: false,
       label: "",
-      failingTests: [],
     });
     act(() => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -61,9 +61,9 @@ describe("useTestResults", () => {
     expect(
       result.current.hookResponse.getTaskMetadata("some_id"),
     ).toMatchObject({
+      failingTests: [],
       inactive: false,
       label: "",
-      failingTests: [],
     });
   });
 
@@ -76,9 +76,9 @@ describe("useTestResults", () => {
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
       ),
     ).toMatchObject({
+      failingTests: [],
       inactive: false,
       label: "",
-      failingTests: [],
     });
     act(() => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -96,9 +96,9 @@ describe("useTestResults", () => {
           "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         ),
       ).toMatchObject({
+        failingTests: ["TestJiraIntegration"],
         inactive: false,
         label: "",
-        failingTests: ["TestJiraIntegration"],
         loading: false,
       });
     });
@@ -113,9 +113,9 @@ describe("useTestResults", () => {
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
       ),
     ).toMatchObject({
+      failingTests: [],
       inactive: false,
       label: "",
-      failingTests: [],
       loading: false,
     });
     act(() => {
@@ -140,9 +140,9 @@ describe("useTestResults", () => {
           "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         ),
       ).toMatchObject({
+        failingTests: ["TestJiraIntegration"],
         inactive: false,
         label: "1 / 1 Failing Tests",
-        failingTests: ["TestJiraIntegration"],
         loading: false,
       });
     });
@@ -157,9 +157,9 @@ describe("useTestResults", () => {
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
       ),
     ).toMatchObject({
+      failingTests: [],
       inactive: false,
       label: "",
-      failingTests: [],
     });
     act(() => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -183,9 +183,9 @@ describe("useTestResults", () => {
           "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         ),
       ).toMatchObject({
+        failingTests: [],
         inactive: true,
         label: "0 / 1 Failing Tests",
-        failingTests: [],
       });
     });
   });
@@ -209,8 +209,8 @@ const useMergedTestHook: UseMergedTestHookType = (rowIndex) => {
   const historyTable = useHistoryTable();
 
   return {
-    hookResponse,
     historyTable,
+    hookResponse,
   };
 };
 
@@ -224,28 +224,28 @@ describe("useMergedHookRender - sanity check", () => {
       getTaskMetadata: expect.any(Function),
     });
     expect(result.current.historyTable).toStrictEqual({
+      addColumns: expect.any(Function),
       columnLimit: 7,
       commitCount: 10,
       currentPage: 0,
+      getItem: expect.any(Function),
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
-      pageCount: 0,
-      processedCommitCount: 0,
-      processedCommits: [],
-      selectedCommit: null,
-      visibleColumns: [],
-      addColumns: expect.any(Function),
-      getItem: expect.any(Function),
       ingestNewCommits: expect.any(Function),
       isItemLoaded: expect.any(Function),
-      toggleRowExpansion: expect.any(Function),
       markSelectedRowVisited: expect.any(Function),
       nextPage: expect.any(Function),
       onChangeTableWidth: expect.any(Function),
+      pageCount: 0,
       previousPage: expect.any(Function),
+      processedCommitCount: 0,
+      processedCommits: [],
+      selectedCommit: null,
       setHistoryTableFilters: expect.any(Function),
       setSelectedCommit: expect.any(Function),
+      toggleRowExpansion: expect.any(Function),
+      visibleColumns: [],
     });
   });
 });
@@ -257,26 +257,26 @@ const noFilterData: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      filters: [],
       taskIds: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_race_detector_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
       ],
-      filters: [],
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     },
   },
   result: {
     data: {
       taskTestSample: [
         {
-          taskId:
-            "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+          __typename: "TaskTestResultSample",
           execution: 0,
           matchingFailedTestNames: ["TestJiraIntegration"],
+          taskId:
+            "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
           totalTestCount: 1,
-          __typename: "TaskTestResultSample",
         },
       ],
     },
@@ -290,28 +290,28 @@ const withMatchingFilter: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      filters: [
+        { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
+      ],
       taskIds: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_race_detector_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
       ],
-      filters: [
-        { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
-      ],
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     },
   },
   result: {
     data: {
       taskTestSample: [
         {
-          taskId:
-            "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+          __typename: "TaskTestResultSample",
           execution: 0,
           matchingFailedTestNames: ["TestJiraIntegration"],
+          taskId:
+            "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
           totalTestCount: 1,
-          __typename: "TaskTestResultSample",
         },
       ],
     },
@@ -325,26 +325,26 @@ const withNonMatchingFilter: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      filters: [{ testName: "NotARealTest", testStatus: TestStatus.Failed }],
       taskIds: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_race_detector_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
       ],
-      filters: [{ testName: "NotARealTest", testStatus: TestStatus.Failed }],
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     },
   },
   result: {
     data: {
       taskTestSample: [
         {
-          taskId:
-            "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+          __typename: "TaskTestResultSample",
           execution: 0,
           matchingFailedTestNames: [],
+          taskId:
+            "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
           totalTestCount: 1,
-          __typename: "TaskTestResultSample",
         },
       ],
     },

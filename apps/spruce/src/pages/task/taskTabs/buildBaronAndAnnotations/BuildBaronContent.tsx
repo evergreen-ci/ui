@@ -36,7 +36,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
     CustomCreatedIssuesQuery,
     CustomCreatedIssuesQueryVariables
   >(JIRA_CUSTOM_CREATED_ISSUES, {
-    variables: { taskId, execution },
+    variables: { execution, taskId },
   });
   useErrorToast(
     customTicketsError,

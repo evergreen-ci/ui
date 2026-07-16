@@ -21,9 +21,9 @@ type ChatContextState = {
 
 export const ChatContext = createContext<ChatContextState>({
   appName: "",
+  chips: [],
+  clearChips: () => {},
   drawerOpen: false,
   setDrawerOpen: () => {},
-  chips: [],
   toggleChip: () => {},
-  clearChips: () => {},
 });

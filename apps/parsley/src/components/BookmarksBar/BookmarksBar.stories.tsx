@@ -14,8 +14,8 @@ const Story = ({ ...args }: React.ComponentProps<typeof BookmarksBar>) => {
 
   useEffect(() => {
     setSearchParams({
-      [QueryParams.ShareLine]: 21,
       [QueryParams.Bookmarks]: [4, 5, 6, 7, 21, 24, 30, 85],
+      [QueryParams.ShareLine]: 21,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -27,12 +27,12 @@ const Story = ({ ...args }: React.ComponentProps<typeof BookmarksBar>) => {
   );
 };
 export const Default: CustomStoryObj<typeof BookmarksBar> = {
-  argTypes: {
-    scrollToLine: { action: "scrollToLine" },
-  },
   args: {
     failingLine: 10,
     lineCount: 100,
+  },
+  argTypes: {
+    scrollToLine: { action: "scrollToLine" },
   },
   render: (args) => <Story {...args} />,
 };

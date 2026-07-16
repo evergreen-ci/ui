@@ -11,36 +11,36 @@ export const gqlToForm = ((data) => {
 
   const { projectRef } = data;
   return {
-    performanceSettings: {
-      perfEnabled: projectRef?.perfEnabled,
-    },
     buildBaronSettings: {
-      useBuildBaron:
-        projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint === "",
-      ticketSearchProjects:
-        projectRef?.buildBaronSettings?.ticketSearchProjects?.map(
-          (searchProject) => ({ searchProject }),
-        ) ?? [],
-
-      ticketCreateProject: {
-        createProject: projectRef?.buildBaronSettings?.ticketCreateProject,
+      fileTicketWebhook: {
+        endpoint:
+          projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint,
+        secret: projectRef?.taskAnnotationSettings?.fileTicketWebhook?.secret,
       },
       ticketCreateIssueType: {
         issueType:
           projectRef?.buildBaronSettings?.ticketCreateIssueType ||
           JiraTicketType.BuildFailure,
       },
-      fileTicketWebhook: {
-        endpoint:
-          projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint,
-        secret: projectRef?.taskAnnotationSettings?.fileTicketWebhook?.secret,
+
+      ticketCreateProject: {
+        createProject: projectRef?.buildBaronSettings?.ticketCreateProject,
       },
+      ticketSearchProjects:
+        projectRef?.buildBaronSettings?.ticketSearchProjects?.map(
+          (searchProject) => ({ searchProject }),
+        ) ?? [],
+      useBuildBaron:
+        projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint === "",
     },
     externalLinks:
       projectRef?.externalLinks?.map((e) => ({
         ...e,
         displayTitle: e.displayName,
       })) ?? [],
+    performanceSettings: {
+      perfEnabled: projectRef?.perfEnabled,
+    },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
@@ -55,6 +55,14 @@ export const formToGql = ((
     perfEnabled: performanceSettings.perfEnabled,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     ...buildBaronIf(buildBaronSettings.useBuildBaron, buildBaronSettings),
+    externalLinks:
+      externalLinks.length > 0
+        ? externalLinks.map(({ displayName, requesters, urlTemplate }) => ({
+            displayName,
+            requesters,
+            urlTemplate,
+          }))
+        : null,
     taskAnnotationSettings: {
       ...fileTicketWebhookIf(
         // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -62,14 +70,6 @@ export const formToGql = ((
         buildBaronSettings.fileTicketWebhook,
       ),
     },
-    externalLinks:
-      externalLinks.length > 0
-        ? externalLinks.map(({ displayName, requesters, urlTemplate }) => ({
-            requesters,
-            displayName,
-            urlTemplate,
-          }))
-        : null,
   };
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
 }) satisfies FormToGqlFunction<Tab>;
@@ -82,14 +82,14 @@ export const buildBaronIf = (
   useBuildBaron === true &&
   buildBaronSettings !== undefined && {
     buildBaronSettings: {
+      ticketCreateIssueType:
+        buildBaronSettings.ticketCreateIssueType?.issueType ||
+        JiraTicketType.BuildFailure,
       ticketCreateProject:
         buildBaronSettings.ticketCreateProject?.createProject,
       ticketSearchProjects: buildBaronSettings.ticketSearchProjects
         .map(({ searchProject }) => searchProject)
         .filter((str) => !!str),
-      ticketCreateIssueType:
-        buildBaronSettings.ticketCreateIssueType?.issueType ||
-        JiraTicketType.BuildFailure,
     },
   };
 

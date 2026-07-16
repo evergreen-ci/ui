@@ -23,19 +23,19 @@ const { HistoryTableProvider } = context;
 const { rowType } = types;
 
 const initialState: HistoryTableReducerState = {
-  loadedCommits: [],
-  processedCommits: [],
-  processedCommitCount: 0,
-  commitCache: new Map(),
-  visibleColumns: [],
-  currentPage: 0,
-  pageCount: 0,
-  columns: [],
   columnLimit: 7,
-  historyTableFilters: [],
+  columns: [],
+  commitCache: new Map(),
   commitCount: 10,
+  currentPage: 0,
+  historyTableFilters: [],
+  loadedCommits: [],
+  pageCount: 0,
+  processedCommitCount: 0,
+  processedCommits: [],
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   selectedCommit: null,
+  visibleColumns: [],
 };
 
 interface wrapperProps {
@@ -55,16 +55,16 @@ const wrapper: React.FC<wrapperProps> = ({ children, mocks = [], state }) => (
 describe("variantHistoryRow", () => {
   it("renders a row when there is data", () => {
     render(<VariantHistoryRow data={taskRow} index={0} />, {
-      route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
+      route: "/variant-history/mci/ubuntu1604",
       wrapper: ({ children }) =>
         wrapper({
           children,
           state: {
-            processedCommitCount: 1,
-            processedCommits: [taskRow],
             // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
             visibleColumns: [
               "test-cmd-codegen-core",
               "test-thirdparty",
@@ -83,16 +83,16 @@ describe("variantHistoryRow", () => {
 
   it("amount of cells rendered corresponds to the amount of visibleColumns", () => {
     render(<VariantHistoryRow data={taskRow} index={0} />, {
-      route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
+      route: "/variant-history/mci/ubuntu1604",
       wrapper: ({ children }) =>
         wrapper({
           children,
           state: {
-            processedCommitCount: 1,
-            processedCommits: [taskRow],
             // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
             visibleColumns: [
               "test-cmd-codegen-core",
               "test-thirdparty",
@@ -106,16 +106,16 @@ describe("variantHistoryRow", () => {
 
   it("renders a blank cell when there isn't a matching variant for that column", () => {
     render(<VariantHistoryRow data={taskRow} index={0} />, {
-      route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
+      route: "/variant-history/mci/ubuntu1604",
       wrapper: ({ children }) =>
         wrapper({
           children,
           state: {
-            processedCommitCount: 1,
-            processedCommits: [taskRow],
             // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
             visibleColumns: ["test-cmd-codegen-core", "DNE"],
           },
         }),
@@ -127,19 +127,19 @@ describe("variantHistoryRow", () => {
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
     const user = userEvent.setup();
     render(<VariantHistoryRow data={taskRow} index={0} />, {
-      route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
+      route: "/variant-history/mci/ubuntu1604",
       wrapper: ({ children }) =>
         wrapper({
           children,
+          mocks,
           state: {
-            processedCommitCount: 1,
-            processedCommits: [taskRow],
             // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
             visibleColumns: ["test-cmd-codegen-core"],
           },
-          mocks,
         }),
     });
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
@@ -157,25 +157,25 @@ describe("variantHistoryRow", () => {
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
     const user = userEvent.setup();
     render(<VariantHistoryRow data={taskRow} index={0} />, {
-      route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
+      route: "/variant-history/mci/ubuntu1604",
       wrapper: ({ children }) =>
         wrapper({
           children,
+          mocks,
           state: {
-            processedCommitCount: 1,
-            processedCommits: [taskRow],
-            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
-            loadedCommits: [mainlineCommitData.versions[0].version],
-            visibleColumns: ["test-cmd-codegen-core"],
             historyTableFilters: [
               {
                 testName: "TestJiraIntegration",
                 testStatus: TestStatus.Failed,
               },
             ],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            visibleColumns: ["test-cmd-codegen-core"],
           },
-          mocks,
         }),
     });
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
@@ -201,22 +201,22 @@ describe("variantHistoryRow", () => {
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {
     render(<VariantHistoryRow data={taskRow} index={0} />, {
-      route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
+      route: "/variant-history/mci/ubuntu1604",
       wrapper: ({ children }) =>
         wrapper({
           children,
+          mocks,
           state: {
-            processedCommitCount: 1,
-            processedCommits: [taskRow],
-            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
-            loadedCommits: [mainlineCommitData.versions[0].version],
-            visibleColumns: ["test-cmd-codegen-core"],
             historyTableFilters: [
               { testName: "NotARealTest", testStatus: TestStatus.Failed },
             ],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            visibleColumns: ["test-cmd-codegen-core"],
           },
-          mocks,
         }),
     });
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
@@ -229,22 +229,10 @@ describe("variantHistoryRow", () => {
 });
 
 const taskRow: CommitRowType = {
-  type: rowType.COMMIT,
   commit: {
-    id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
-    user: {
-      userId: "malik.hadjri",
-      displayName: "Malik Hadjri",
-    },
-    createTime: new Date("2021-09-02T14:20:04Z"),
-    message:
-      "EVG-15213: Reference a project’s configuration when interacting with perf plugin configs (#4992)",
-    revision: "d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
-    order: 3399,
     buildVariants: [
       {
         displayName: "Ubuntu 16.04",
-        variant: "ubuntu1604",
         tasks: [
           {
             displayName: "test-cmd-codegen-core",
@@ -254,46 +242,58 @@ const taskRow: CommitRowType = {
           },
           {
             displayName: "test-thirdparty",
-            id: "some_id_2",
-            execution: 0,
             displayStatus: "success",
+            execution: 0,
+            id: "some_id_2",
           },
           {
             displayName: "test-db-auth",
-            id: "some_id_3",
-            execution: 0,
             displayStatus: "success",
+            execution: 0,
+            id: "some_id_3",
           },
           {
             displayName: "test-evergreen",
-            id: "some_id_4",
-            execution: 0,
             displayStatus: "success",
+            execution: 0,
+            id: "some_id_4",
           },
           {
             displayName: "test-graphql",
-            id: "some_id_5",
-            execution: 0,
             displayStatus: "success",
+            execution: 0,
+            id: "some_id_5",
           },
           {
             displayName: "test-jira-integration",
-            id: "some_id_6",
-            execution: 0,
             displayStatus: "success",
+            execution: 0,
+            id: "some_id_6",
           },
           {
             displayName: "test-mci",
-            id: "some_id_7",
-            execution: 0,
             displayStatus: "success",
+            execution: 0,
+            id: "some_id_7",
           },
         ],
+        variant: "ubuntu1604",
       },
     ],
+    createTime: new Date("2021-09-02T14:20:04Z"),
+    id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+    message:
+      "EVG-15213: Reference a project’s configuration when interacting with perf plugin configs (#4992)",
+    order: 3399,
+    revision: "d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+    user: {
+      displayName: "Malik Hadjri",
+      userId: "malik.hadjri",
+    },
   },
   date: new Date("2021-09-02T14:20:04Z"),
   selected: false,
+  type: rowType.COMMIT,
 };
 
 const noFilterData: ApolloMock<
@@ -303,7 +303,7 @@ const noFilterData: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      filters: [],
       taskIds: [
         "some_id_1",
         "some_id_2",
@@ -313,18 +313,18 @@ const noFilterData: ApolloMock<
         "some_id_6",
         "some_id_7",
       ],
-      filters: [],
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     },
   },
   result: {
     data: {
       taskTestSample: [
         {
-          taskId: "some_id_1",
+          __typename: "TaskTestResultSample",
           execution: 0,
           matchingFailedTestNames: ["TestJiraIntegration"],
+          taskId: "some_id_1",
           totalTestCount: 1,
-          __typename: "TaskTestResultSample",
         },
       ],
     },
@@ -338,7 +338,9 @@ const withMatchingFilter: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      filters: [
+        { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
+      ],
       taskIds: [
         "some_id_1",
         "some_id_2",
@@ -348,20 +350,18 @@ const withMatchingFilter: ApolloMock<
         "some_id_6",
         "some_id_7",
       ],
-      filters: [
-        { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
-      ],
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     },
   },
   result: {
     data: {
       taskTestSample: [
         {
-          taskId: "some_id_1",
+          __typename: "TaskTestResultSample",
           execution: 0,
           matchingFailedTestNames: ["TestJiraIntegration"],
+          taskId: "some_id_1",
           totalTestCount: 1,
-          __typename: "TaskTestResultSample",
         },
       ],
     },
@@ -375,7 +375,7 @@ const withNonMatchingFilter: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      filters: [{ testName: "NotARealTest", testStatus: TestStatus.Failed }],
       taskIds: [
         "some_id_1",
         "some_id_2",
@@ -385,18 +385,18 @@ const withNonMatchingFilter: ApolloMock<
         "some_id_6",
         "some_id_7",
       ],
-      filters: [{ testName: "NotARealTest", testStatus: TestStatus.Failed }],
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     },
   },
   result: {
     data: {
       taskTestSample: [
         {
-          taskId: "some_id_1",
+          __typename: "TaskTestResultSample",
           execution: 0,
           matchingFailedTestNames: [],
+          taskId: "some_id_1",
           totalTestCount: 1,
-          __typename: "TaskTestResultSample",
         },
       ],
     },

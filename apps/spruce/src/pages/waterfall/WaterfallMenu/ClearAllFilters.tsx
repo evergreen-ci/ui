@@ -19,11 +19,11 @@ export const ClearAllFilters: React.FC<ClearAllFiltersProps> = ({
     setQueryParams({
       ...queryParams,
       [WaterfallFilterOptions.BuildVariant]: undefined,
-      [WaterfallFilterOptions.Task]: undefined,
-      [WaterfallFilterOptions.Statuses]: undefined,
-      [WaterfallFilterOptions.Requesters]: undefined,
       [WaterfallFilterOptions.Date]: undefined,
+      [WaterfallFilterOptions.Requesters]: undefined,
       [WaterfallFilterOptions.Revision]: undefined,
+      [WaterfallFilterOptions.Statuses]: undefined,
+      [WaterfallFilterOptions.Task]: undefined,
     });
     setMenuOpen(false);
   };

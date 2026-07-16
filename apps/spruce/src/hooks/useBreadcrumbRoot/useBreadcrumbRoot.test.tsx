@@ -7,19 +7,19 @@ import { useBreadcrumbRoot } from ".";
 const createCacheWithUser = (currentUserId: string = "admin") => {
   const cache = new InMemoryCache();
   cache.writeQuery<UserQuery>({
-    query: USER,
     data: {
       user: {
         __typename: "UserLite",
-        userId: currentUserId,
         displayName: "Evergreen Admin",
         emailAddress: "admin@example.com",
         permissions: {
-          canEditAdminSettings: true,
           __typename: "Permissions",
+          canEditAdminSettings: true,
         },
+        userId: currentUserId,
       },
     },
+    query: USER,
   });
   return cache;
 };
@@ -37,7 +37,7 @@ describe("useBreadcrumbRoot", () => {
       () =>
         useBreadcrumbRoot(
           true,
-          { userId: "admin", displayName: "Evergreen Admin" },
+          { displayName: "Evergreen Admin", userId: "admin" },
           "spruce",
         ),
       { wrapper: Provider },
@@ -53,7 +53,7 @@ describe("useBreadcrumbRoot", () => {
       () =>
         useBreadcrumbRoot(
           true,
-          { userId: "john.doe", displayName: "John Doe" },
+          { displayName: "John Doe", userId: "john.doe" },
           "spruce",
         ),
       { wrapper: Provider },
@@ -69,7 +69,7 @@ describe("useBreadcrumbRoot", () => {
       () =>
         useBreadcrumbRoot(
           false,
-          { userId: "admin", displayName: "Evergreen Admin" },
+          { displayName: "Evergreen Admin", userId: "admin" },
           "spruce",
         ),
       { wrapper: Provider },

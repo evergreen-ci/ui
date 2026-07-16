@@ -43,9 +43,9 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
       getFormSchema({
         awsRegions: awsRegions || [],
         fleetRegionsInUse: fleetRegionsInUse || [],
-        pools: pools || [],
-        poolMappingInfo,
         isEC2Provider: providerName === Provider.Ec2Fleet,
+        poolMappingInfo,
+        pools: pools || [],
       }),
     [awsRegions, fleetRegionsInUse, pools, poolMappingInfo, providerName],
   );

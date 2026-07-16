@@ -65,21 +65,21 @@ const aliasToForm = ({
   variant,
   variantTags,
 }: ProjectAlias): AliasFormType => ({
-  id,
   alias,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   description,
   gitTag,
+  id,
   remotePath,
-  variants: {
-    specifier: variant ? VariantTaskSpecifier.Regex : VariantTaskSpecifier.Tags,
-    variant,
-    variantTags,
-  },
   tasks: {
     specifier: task ? VariantTaskSpecifier.Regex : VariantTaskSpecifier.Tags,
     task,
     taskTags,
+  },
+  variants: {
+    specifier: variant ? VariantTaskSpecifier.Regex : VariantTaskSpecifier.Tags,
+    variant,
+    variantTags,
   },
   ...(alias === AliasNames.GitTag && {
     specifier: remotePath
@@ -118,10 +118,10 @@ export const sortAliases = (
       return o;
     },
     {
-      mergeQueueAliases: [],
-      githubPrAliases: [],
       githubCheckAliases: [],
+      githubPrAliases: [],
       gitTagAliases: [],
+      mergeQueueAliases: [],
       patchAliases: [],
     },
   );
@@ -202,9 +202,9 @@ export const transformAliases = (
                 description: "",
                 gitTag,
                 id: id || "",
+                parameters,
                 remotePath,
                 task: "",
-                parameters,
                 taskTags: [],
                 variant: "",
                 variantTags: [],
@@ -215,8 +215,8 @@ export const transformAliases = (
                 alias: aliasName,
                 description: "",
                 gitTag,
-                parameters,
                 id: id || "",
+                parameters,
                 remotePath: "",
               };
         }
@@ -236,10 +236,10 @@ export const transformAliases = (
 export const baseProps = {
   alias: {
     schema: {
-      type: "string" as const,
-      title: "Alias Name",
       default: "",
       minLength: 1,
+      title: "Alias Name",
+      type: "string" as const,
     },
     uiSchema: {
       "ui:data-cy": "alias-input",
@@ -247,9 +247,9 @@ export const baseProps = {
   },
   description: {
     schema: {
-      type: "string" as const,
-      title: "Description",
       default: "",
+      title: "Description",
+      type: "string" as const,
     },
     uiSchema: {
       "ui:elementWrapperCSS": textAreaCSS,
@@ -258,10 +258,10 @@ export const baseProps = {
   },
   gitTag: {
     schema: {
-      type: "string" as const,
-      title: "Git Tag Regex",
       default: "",
       minLength: 1,
+      title: "Git Tag Regex",
+      type: "string" as const,
     },
     uiSchema: {
       "ui:data-cy": "git-tag-input",
@@ -269,10 +269,10 @@ export const baseProps = {
   },
   remotePath: {
     schema: {
-      type: "string" as const,
-      title: "Config File",
       default: "",
       minLength: 1,
+      title: "Config File",
+      type: "string" as const,
     },
     uiSchema: {
       "ui:data-cy": "remote-path-input",
@@ -281,83 +281,83 @@ export const baseProps = {
   },
   task: {
     schema: {
-      type: "string" as const,
-      title: "Task Regex",
       default: "",
       minLength: 1,
+      title: "Task Regex",
+      type: "string" as const,
     },
     uiSchema: {
       "ui:ariaLabelledBy": "task-input-control",
       "ui:data-cy": "task-input",
+      "ui:elementWrapperCSS": textAreaCSS,
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "task-regex-field",
-      "ui:elementWrapperCSS": textAreaCSS,
       "ui:widget": "textarea",
     },
   },
   taskTags: {
     schema: {
-      type: "array" as const,
-      minItems: 1,
       items: {
-        type: "string" as const,
-        title: "Task Tag",
         default: "",
         minLength: 1,
+        title: "Task Tag",
+        type: "string" as const,
       },
+      minItems: 1,
+      type: "array" as const,
     },
     uiSchema: {
+      items: {
+        "ui:ariaLabelledBy": "variant-input-control",
+        "ui:data-cy": "task-tags-input",
+      },
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add task tag",
       "ui:orderable": false,
       "ui:sectionId": "task-tags-field",
       "ui:showLabel": false,
       "ui:topAlignDelete": true,
-      items: {
-        "ui:ariaLabelledBy": "variant-input-control",
-        "ui:data-cy": "task-tags-input",
-      },
     },
   },
   variant: {
     schema: {
-      type: "string" as const,
-      title: "Variant Regex",
       default: "",
       minLength: 1,
+      title: "Variant Regex",
+      type: "string" as const,
     },
     uiSchema: {
       "ui:ariaLabelledBy": "variant-input-control",
       "ui:data-cy": "variant-input",
+      "ui:elementWrapperCSS": textAreaCSS,
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "variant-regex-field",
-      "ui:elementWrapperCSS": textAreaCSS,
       "ui:widget": "textarea",
     },
   },
   variantTags: {
     schema: {
-      type: "array" as const,
-      title: "Variant Tags",
-      minItems: 1,
       items: {
-        type: "string" as const,
-        title: "Variant Tag",
         default: "",
         minLength: 1,
+        title: "Variant Tag",
+        type: "string" as const,
       },
+      minItems: 1,
+      title: "Variant Tags",
+      type: "array" as const,
     },
     uiSchema: {
+      items: {
+        "ui:ariaLabelledBy": "variant-input-control",
+        "ui:data-cy": "variant-tags-input",
+      },
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add variant tag",
       "ui:orderable": false,
       "ui:sectionId": "variant-tags-field",
       "ui:showLabel": false,
       "ui:topAlignDelete": true,
-      items: {
-        "ui:ariaLabelledBy": "variant-input-control",
-        "ui:data-cy": "variant-tags-input",
-      },
     },
   },
 };
@@ -375,27 +375,6 @@ const {
 
 const variants = {
   schema: {
-    type: "object" as const,
-    title: "",
-    properties: {
-      specifier: {
-        type: "string" as const,
-        title: "",
-        default: VariantTaskSpecifier.Tags,
-        oneOf: [
-          {
-            type: "string" as const,
-            title: "Variant Tags",
-            enum: [VariantTaskSpecifier.Tags],
-          },
-          {
-            type: "string" as const,
-            title: "Variant Regex",
-            enum: [VariantTaskSpecifier.Regex],
-          },
-        ],
-      },
-    },
     dependencies: {
       specifier: {
         oneOf: [
@@ -418,13 +397,34 @@ const variants = {
         ],
       },
     },
+    properties: {
+      specifier: {
+        default: VariantTaskSpecifier.Tags,
+        oneOf: [
+          {
+            enum: [VariantTaskSpecifier.Tags],
+            title: "Variant Tags",
+            type: "string" as const,
+          },
+          {
+            enum: [VariantTaskSpecifier.Regex],
+            title: "Variant Regex",
+            type: "string" as const,
+          },
+        ],
+        title: "",
+        type: "string" as const,
+      },
+    },
+    title: "",
+    type: "object" as const,
   },
   uiSchema: {
     specifier: {
-      "ui:widget": widgets.SegmentedControlWidget,
+      "ui:aria-controls": ["variant-regex-field", "variant-tags-field"],
       "ui:data-cy": "variant-input-control",
       "ui:sectionId": "variant-task-field",
-      "ui:aria-controls": ["variant-regex-field", "variant-tags-field"],
+      "ui:widget": widgets.SegmentedControlWidget,
     },
     variant: variant.uiSchema,
     variantTags: variantTags.uiSchema,
@@ -433,27 +433,6 @@ const variants = {
 
 const tasks = {
   schema: {
-    type: "object" as const,
-    title: "",
-    properties: {
-      specifier: {
-        type: "string" as const,
-        title: "",
-        default: VariantTaskSpecifier.Tags,
-        oneOf: [
-          {
-            type: "string" as const,
-            title: "Task Tags",
-            enum: [VariantTaskSpecifier.Tags],
-          },
-          {
-            type: "string" as const,
-            title: "Task Regex",
-            enum: [VariantTaskSpecifier.Regex],
-          },
-        ],
-      },
-    },
     dependencies: {
       specifier: {
         oneOf: [
@@ -476,12 +455,33 @@ const tasks = {
         ],
       },
     },
+    properties: {
+      specifier: {
+        default: VariantTaskSpecifier.Tags,
+        oneOf: [
+          {
+            enum: [VariantTaskSpecifier.Tags],
+            title: "Task Tags",
+            type: "string" as const,
+          },
+          {
+            enum: [VariantTaskSpecifier.Regex],
+            title: "Task Regex",
+            type: "string" as const,
+          },
+        ],
+        title: "",
+        type: "string" as const,
+      },
+    },
+    title: "",
+    type: "object" as const,
   },
   uiSchema: {
     specifier: {
-      "ui:widget": widgets.SegmentedControlWidget,
-      "ui:data-cy": "task-input-control",
       "ui:aria-controls": ["task-regex-field", "task-tags-field"],
+      "ui:data-cy": "task-input-control",
+      "ui:widget": widgets.SegmentedControlWidget,
     },
     task: task.uiSchema,
     taskTags: taskTags.uiSchema,
@@ -490,73 +490,51 @@ const tasks = {
 
 const parameters = {
   schema: {
-    type: "array" as const,
-    title: "Parameters",
     items: {
-      type: "object" as const,
-      title: "Parameter",
       properties: {
         key: {
-          type: "string" as const,
           title: "Key",
+          type: "string" as const,
         },
         value: {
-          type: "string" as const,
           title: "Value",
+          type: "string" as const,
         },
       },
       required: ["key", "value"],
+      title: "Parameter",
+      type: "object" as const,
     },
+    title: "Parameters",
+    type: "array" as const,
   },
   uiSchema: {
-    "ui:addButtonText": "Add parameter",
     items: {
-      "ui:ObjectFieldTemplate": FieldRow,
-      "ui:data-cy": "parameter-input",
       key: {
         "ui:placeholder": "Key",
       },
+      "ui:data-cy": "parameter-input",
+      "ui:ObjectFieldTemplate": FieldRow,
       value: {
         "ui:placeholder": "Value",
       },
     },
+    "ui:addButtonText": "Add parameter",
   },
 };
 
 export const gitTagArray = {
   schema: {
-    type: "array" as const,
     items: {
-      type: "object" as const,
-      properties: {
-        gitTag: gitTag.schema,
-        specifier: {
-          type: "string" as const,
-          title: "Specify Via",
-          default: GitTagSpecifier.ConfigFile,
-          oneOf: [
-            {
-              type: "string" as const,
-              title: "Config File",
-              enum: [GitTagSpecifier.ConfigFile],
-            },
-            {
-              type: "string" as const,
-              title: "Variant/Task",
-              enum: [GitTagSpecifier.VariantTask],
-            },
-          ],
-        },
-      },
       dependencies: {
         specifier: {
           oneOf: [
             {
               properties: {
+                remotePath: remotePath.schema,
                 specifier: {
                   enum: [GitTagSpecifier.ConfigFile],
                 },
-                remotePath: remotePath.schema,
               },
             },
             {
@@ -564,45 +542,67 @@ export const gitTagArray = {
                 specifier: {
                   enum: [GitTagSpecifier.VariantTask],
                 },
-                variants: variants.schema,
                 tasks: tasks.schema,
+                variants: variants.schema,
               },
             },
           ],
         },
       },
+      properties: {
+        gitTag: gitTag.schema,
+        specifier: {
+          default: GitTagSpecifier.ConfigFile,
+          oneOf: [
+            {
+              enum: [GitTagSpecifier.ConfigFile],
+              title: "Config File",
+              type: "string" as const,
+            },
+            {
+              enum: [GitTagSpecifier.VariantTask],
+              title: "Variant/Task",
+              type: "string" as const,
+            },
+          ],
+          title: "Specify Via",
+          type: "string" as const,
+        },
+      },
+      type: "object" as const,
     },
+    type: "array" as const,
   },
   uiSchema: {
+    items: {
+      gitTag: gitTag.uiSchema,
+      remotePath: remotePath.uiSchema,
+      specifier: {
+        "ui:aria-controls": ["variant-task-field", "remote-path-field"],
+        "ui:widget": widgets.SegmentedControlWidget,
+      },
+      tasks: tasks.uiSchema,
+      "ui:numberedTitle": "Git Tag",
+      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+      variants: variants.uiSchema,
+    },
     "ui:addButtonText": "Add git tag",
     "ui:orderable": false,
     "ui:showLabel": false,
     "ui:topAlignDelete": true,
-    items: {
-      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-      "ui:numberedTitle": "Git Tag",
-      remotePath: remotePath.uiSchema,
-      gitTag: gitTag.uiSchema,
-      specifier: {
-        "ui:widget": widgets.SegmentedControlWidget,
-        "ui:aria-controls": ["variant-task-field", "remote-path-field"],
-      },
-      variants: variants.uiSchema,
-      tasks: tasks.uiSchema,
-    },
   },
 };
 
 export const aliasArray = {
   schema: {
-    type: "array" as const,
     items: {
-      type: "object" as const,
       properties: {
-        variants: variants.schema,
         tasks: tasks.schema,
+        variants: variants.schema,
       },
+      type: "object" as const,
     },
+    type: "array" as const,
   },
   uiSchema: {
     "ui:orderable": false,
@@ -626,10 +626,10 @@ export const aliasRowUiSchema = ({
   numberedTitle,
   useExpandableCard = false,
 }: AliasRowUIParams) => ({
+  "ui:orderable": false,
   "ui:showLabel": false,
   "ui:topAlignDelete": true,
   "ui:useExpandableCard": useExpandableCard,
-  "ui:orderable": false,
   ...(addButtonText && { "ui:addButtonText": addButtonText }),
   ...(isRepo && { "ui:readonly": true }),
   items: {
@@ -643,32 +643,13 @@ export const aliasRowUiSchema = ({
       alias: alias.uiSchema,
       description: description.uiSchema,
     }),
-    variants: variants.uiSchema,
-    tasks: tasks.uiSchema,
     parameters: parameters.uiSchema,
+    tasks: tasks.uiSchema,
+    variants: variants.uiSchema,
   },
 });
 
 export const patchAliasArray = {
-  schema: {
-    type: "array" as const,
-    items: {
-      type: "object" as const,
-      properties: {
-        alias: alias.schema,
-        description: description.schema,
-        variants: variants.schema,
-        tasks: tasks.schema,
-        parameters: parameters.schema,
-      },
-    },
-  },
-  uiSchema: aliasRowUiSchema({
-    addButtonText: "Add patch alias",
-    displayTitle: "New Patch Alias",
-    aliasHidden: false,
-    useExpandableCard: true,
-  }),
   repoData: {
     uiSchema: aliasRowUiSchema({
       aliasHidden: false,
@@ -677,4 +658,23 @@ export const patchAliasArray = {
       useExpandableCard: true,
     }),
   },
+  schema: {
+    items: {
+      properties: {
+        alias: alias.schema,
+        description: description.schema,
+        parameters: parameters.schema,
+        tasks: tasks.schema,
+        variants: variants.schema,
+      },
+      type: "object" as const,
+    },
+    type: "array" as const,
+  },
+  uiSchema: aliasRowUiSchema({
+    addButtonText: "Add patch alias",
+    aliasHidden: false,
+    displayTitle: "New Patch Alias",
+    useExpandableCard: true,
+  }),
 };

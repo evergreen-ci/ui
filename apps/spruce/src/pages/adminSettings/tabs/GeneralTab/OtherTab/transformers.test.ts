@@ -74,48 +74,16 @@ describe("other tab transformers", () => {
 });
 
 const mockAdminSettings: AdminSettingsData = {
-  disabledGQLQueries: [],
-  configDir: "/etc/evergreen",
-  domainName: "evergreen.example.com",
-  githubOrgs: ["evergreen-ci", "mongodb"],
-  githubPRCreatorOrg: "evergreen-ci",
-  githubWebhookSecret: "webhook-secret",
-  logPath: "/var/log/evergreen",
-  oktaServiceConfig: {
-    audience: "https://example.okta.com",
-    clientId: "okta-service-client-id",
-    clientSecret: "okta-service-client-secret",
-    issuer: "https://example.okta.com",
-    scopes: ["scope1", "scope2"],
-  },
-  oldestAllowedCLIVersion: "",
-  pprofPort: "8080",
-  shutdownWaitSeconds: 30,
-  releaseMode: {
-    distroMaxHostsFactor: 2,
-    targetTimeSecondsOverride: 300,
-    idleTimeSecondsOverride: 600,
-  },
-  cost: {
-    ebsCost: {
-      ebsDiscount: 0.1,
-    },
-    financeFormula: 0.5,
-    savingsPlanDiscount: 0.1,
-    onDemandDiscount: 0.05,
-  },
-  singleTaskDistro: {
-    projectTasksPairs: [
-      {
-        projectId: "test-project",
-        allowedTasks: ["compile", "test"],
-        allowedBVs: ["ubuntu", "windows"],
-      },
-    ],
-  },
   buckets: {
+    credentials: {
+      key: "cred-key",
+      secret: "cred-secret",
+    },
     logBucket: {
       name: "evergreen-logs",
+    },
+    logBucketFailedTasks: {
+      name: "evergreen-failed-tasks",
     },
     logBucketLongRetention: {
       name: "logBucketLongRetention",
@@ -123,32 +91,39 @@ const mockAdminSettings: AdminSettingsData = {
     longRetentionProjects: ["project1", "project2"],
     testResultsBucket: {
       name: "evergreen-test-results",
-      testResultsPrefix: "results/",
       roleARN: "arn:aws:iam::123456789:role/TestRole",
+      testResultsPrefix: "results/",
       type: "s3",
     },
-    credentials: {
-      key: "cred-key",
-      secret: "cred-secret",
-    },
-    logBucketFailedTasks: {
-      name: "evergreen-failed-tasks",
-    },
   },
-  ssh: {
-    taskHostKey: {
-      name: "task-key",
-      secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:task-key",
+  configDir: "/etc/evergreen",
+  cost: {
+    ebsCost: {
+      ebsDiscount: 0.1,
     },
-    spawnHostKey: {
-      name: "spawn-key",
-      secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
-    },
+    financeFormula: 0.5,
+    onDemandDiscount: 0.05,
+    savingsPlanDiscount: 0.1,
   },
+  debugSpawnHosts: {
+    setupScript: "echo debug spawn hosts",
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
+  },
+  disabledGQLQueries: [],
+  domainName: "evergreen.example.com",
   expansions: {
-    DATABASE_URL: "mongodb://localhost:27017",
     API_KEY: "secret-api-key",
+    DATABASE_URL: "mongodb://localhost:27017",
   },
+  githubCheckRun: {
+    checkRunLimit: 10,
+  },
+  githubOrgs: ["evergreen-ci", "mongodb"],
+  githubPRCreatorOrg: "evergreen-ci",
+  githubWebhookSecret: "webhook-secret",
   hostJasper: {
     binaryName: "jasper",
     downloadFileName: "jasper.tar.gz",
@@ -159,139 +134,112 @@ const mockAdminSettings: AdminSettingsData = {
   jiraNotifications: {
     customFields: [
       {
-        project: "EVG",
-        fields: { priority: "high", team: "platform" },
         components: ["backend", "frontend"],
+        fields: { priority: "high", team: "platform" },
         labels: ["bug", "critical"],
+        project: "EVG",
       },
     ],
   },
-  spawnhost: {
-    unexpirableHostsPerUser: 2,
-    unexpirableVolumesPerUser: 3,
-    spawnHostsPerUser: 5,
+  logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    audience: "https://example.okta.com",
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
+    scopes: ["scope1", "scope2"],
   },
-  debugSpawnHosts: {
-    setupScript: "echo debug spawn hosts",
-  },
-  sleepSchedule: {
-    permanentlyExemptHosts: ["build-host-1", "build-host-2"],
-  },
-  tracer: {
-    enabled: true,
-    collectorEndpoint: "https://collector.example.com",
-    collectorInternalEndpoint: "https://collector-internal.example.com",
-    collectorAPIKey: "tracer-api-key",
-    traceUrlTemplate: "https://apm.example.com/trace/%s",
-  },
+  oldestAllowedCLIVersion: "",
+  pprofPort: "8080",
   projectCreation: {
-    totalProjectLimit: 100,
-    repoProjectLimit: 50,
     repoExceptions: [
       {
         owner: "evergreen-ci",
         repo: "evergreen",
       },
     ],
+    repoProjectLimit: 50,
+    totalProjectLimit: 100,
   },
-  githubCheckRun: {
-    checkRunLimit: 10,
+  releaseMode: {
+    distroMaxHostsFactor: 2,
+    idleTimeSecondsOverride: 600,
+    targetTimeSecondsOverride: 300,
   },
-  diagnostics: {
-    s3BucketName: "diagnostics-bucket",
-    s3Prefix: "diagnostics/",
+  shutdownWaitSeconds: 30,
+  singleTaskDistro: {
+    projectTasksPairs: [
+      {
+        allowedBVs: ["ubuntu", "windows"],
+        allowedTasks: ["compile", "test"],
+        projectId: "test-project",
+      },
+    ],
+  },
+  sleepSchedule: {
+    permanentlyExemptHosts: ["build-host-1", "build-host-2"],
+  },
+  spawnhost: {
+    spawnHostsPerUser: 5,
+    unexpirableHostsPerUser: 2,
+    unexpirableVolumesPerUser: 3,
+  },
+  ssh: {
+    spawnHostKey: {
+      name: "spawn-key",
+      secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
+    },
+    taskHostKey: {
+      name: "task-key",
+      secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:task-key",
+    },
+  },
+  tracer: {
+    collectorAPIKey: "tracer-api-key",
+    collectorEndpoint: "https://collector.example.com",
+    collectorInternalEndpoint: "https://collector-internal.example.com",
+    enabled: true,
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
 };
 
 const expectedForm: OtherFormState = {
   other: {
-    miscSettings: {
-      configDir: "/etc/evergreen",
-      domainName: "evergreen.example.com",
-      githubOrgs: ["evergreen-ci", "mongodb"],
-      githubPRCreatorOrg: "evergreen-ci",
-      githubWebhookSecret: "webhook-secret",
-      logPath: "/var/log/evergreen",
-      oldestAllowedCLIVersion: "",
-      pprofPort: "8080",
-      shutdownWaitSeconds: 30,
-      releaseMode: {
-        distroMaxHostsFactor: 2,
-        targetTimeSecondsOverride: 300,
-        idleTimeSecondsOverride: 600,
-      },
-      cost: {
-        ebsDiscount: 0.1,
-        financeFormula: 0.5,
-        savingsPlanDiscount: 0.1,
-        onDemandDiscount: 0.05,
-        hiddenCostProjects: [],
-        s3Cost: {
-          uploadCostDiscount: 0,
-          standardStorageCostDiscount: 0,
-          iAStorageCostDiscount: 0,
-          archiveStorageCostDiscount: 0,
-          defaultMaxArtifactExpirationDays: 1,
-          artifactAwsAccountsWithoutLifecycleRules: [],
-          devprodOwnedAwsAccountIds: [],
-        },
-      },
-    },
-    oktaServiceConfig: {
-      audience: "https://example.okta.com",
-      clientId: "okta-service-client-id",
-      clientSecret: "okta-service-client-secret",
-      issuer: "https://example.okta.com",
-      scopes: ["scope1", "scope2"],
-    },
-    singleTaskDistro: {
-      projectTasksPairs: [
-        {
-          projectId: "test-project",
-          allowedTasks: ["compile", "test"],
-          allowedBVs: ["ubuntu", "windows"],
-        },
-      ],
-    },
     bucketConfig: {
-      defaultLogBucket: "evergreen-logs",
-      logBucketExpirationDays: 0,
-      logBucketTransitionToIADays: 0,
-      logBucketTransitionToGlacierDays: 0,
-      logBucketLifecycleLastSyncedAt: "",
-      logBucketLifecycleSyncError: "",
-      logBucketLongRetentionName: "logBucketLongRetention",
-      logBucketLongRetentionExpirationDays: 0,
-      logBucketLongRetentionTransitionToIADays: 0,
-      logBucketLongRetentionTransitionToGlacierDays: 0,
-      logBucketLongRetentionLifecycleLastSyncedAt: "",
-      logBucketLongRetentionLifecycleSyncError: "",
-      longRetentionProjects: ["project1", "project2"],
-      testResultsBucketName: "evergreen-test-results",
-      testResultsBucketTestResultsPrefix: "results/",
-      testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
-      testResultsBucketType: "s3",
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
-      failedTasksLogBucketName: "evergreen-failed-tasks",
+      defaultLogBucket: "evergreen-logs",
       failedTasksLogBucketExpirationDays: 0,
-      failedTasksLogBucketTransitionToIADays: 0,
-      failedTasksLogBucketTransitionToGlacierDays: 0,
       failedTasksLogBucketLifecycleLastSyncedAt: "",
       failedTasksLogBucketLifecycleSyncError: "",
+      failedTasksLogBucketName: "evergreen-failed-tasks",
+      failedTasksLogBucketTransitionToGlacierDays: 0,
+      failedTasksLogBucketTransitionToIADays: 0,
+      logBucketExpirationDays: 0,
+      logBucketLifecycleLastSyncedAt: "",
+      logBucketLifecycleSyncError: "",
+      logBucketLongRetentionExpirationDays: 0,
+      logBucketLongRetentionLifecycleLastSyncedAt: "",
+      logBucketLongRetentionLifecycleSyncError: "",
+      logBucketLongRetentionName: "logBucketLongRetention",
+      logBucketLongRetentionTransitionToGlacierDays: 0,
+      logBucketLongRetentionTransitionToIADays: 0,
+      logBucketTransitionToGlacierDays: 0,
+      logBucketTransitionToIADays: 0,
+      longRetentionProjects: ["project1", "project2"],
       retryFailedLogMoveLookbackDays: 0,
       retryFailedLogMoveMaxJobsPerRun: 0,
+      testResultsBucketName: "evergreen-test-results",
+      testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
+      testResultsBucketTestResultsPrefix: "results/",
+      testResultsBucketType: "s3",
     },
-    sshPairs: {
-      taskHostKey: {
-        name: "task-key",
-        secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:task-key",
-      },
-      spawnHostKey: {
-        name: "spawn-key",
-        secretARN:
-          "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
-      },
+    debugSpawnHostsConfig: {
+      setupScript: "echo debug spawn hosts",
+    },
+    diagnosticsConfig: {
+      s3BucketName: "diagnostics-bucket",
+      s3Prefix: "diagnostics/",
     },
     expansions: {
       expansionValues: [
@@ -305,6 +253,9 @@ const expectedForm: OtherFormState = {
         },
       ],
     },
+    githubCheckRunConfigurations: {
+      checkRunLimit: 10,
+    },
     hostJasper: {
       binaryName: "jasper",
       downloadFileName: "jasper.tar.gz",
@@ -315,88 +266,114 @@ const expectedForm: OtherFormState = {
     jiraNotificationsFields: {
       customFields: [
         {
-          project: "EVG",
+          components: ["backend", "frontend"],
           fields: [
             { key: "priority", value: "high" },
             { key: "team", value: "platform" },
           ],
-          components: ["backend", "frontend"],
           labels: ["bug", "critical"],
+          project: "EVG",
         },
       ],
     },
-    spawnHost: {
-      unexpirableHostsPerUser: 2,
-      unexpirableVolumesPerUser: 3,
-      spawnHostsPerUser: 5,
+    miscSettings: {
+      configDir: "/etc/evergreen",
+      cost: {
+        ebsDiscount: 0.1,
+        financeFormula: 0.5,
+        hiddenCostProjects: [],
+        onDemandDiscount: 0.05,
+        s3Cost: {
+          archiveStorageCostDiscount: 0,
+          artifactAwsAccountsWithoutLifecycleRules: [],
+          defaultMaxArtifactExpirationDays: 1,
+          devprodOwnedAwsAccountIds: [],
+          iAStorageCostDiscount: 0,
+          standardStorageCostDiscount: 0,
+          uploadCostDiscount: 0,
+        },
+        savingsPlanDiscount: 0.1,
+      },
+      domainName: "evergreen.example.com",
+      githubOrgs: ["evergreen-ci", "mongodb"],
+      githubPRCreatorOrg: "evergreen-ci",
+      githubWebhookSecret: "webhook-secret",
+      logPath: "/var/log/evergreen",
+      oldestAllowedCLIVersion: "",
+      pprofPort: "8080",
+      releaseMode: {
+        distroMaxHostsFactor: 2,
+        idleTimeSecondsOverride: 600,
+        targetTimeSecondsOverride: 300,
+      },
+      shutdownWaitSeconds: 30,
     },
-    debugSpawnHostsConfig: {
-      setupScript: "echo debug spawn hosts",
-    },
-    sleepSchedule: {
-      permanentlyExemptHosts: ["build-host-1", "build-host-2"],
-    },
-    tracerConfiguration: {
-      enabled: true,
-      collectorEndpoint: "https://collector.example.com",
-      collectorInternalEndpoint: "https://collector-internal.example.com",
-      collectorAPIKey: "tracer-api-key",
-      traceUrlTemplate: "https://apm.example.com/trace/%s",
+    oktaServiceConfig: {
+      audience: "https://example.okta.com",
+      clientId: "okta-service-client-id",
+      clientSecret: "okta-service-client-secret",
+      issuer: "https://example.okta.com",
+      scopes: ["scope1", "scope2"],
     },
     projectCreationSettings: {
-      totalProjectLimit: 100,
-      repoProjectLimit: 50,
       repoExceptions: [
         {
           owner: "evergreen-ci",
           repo: "evergreen",
         },
       ],
+      repoProjectLimit: 50,
+      totalProjectLimit: 100,
     },
-    githubCheckRunConfigurations: {
-      checkRunLimit: 10,
+    singleTaskDistro: {
+      projectTasksPairs: [
+        {
+          allowedBVs: ["ubuntu", "windows"],
+          allowedTasks: ["compile", "test"],
+          projectId: "test-project",
+        },
+      ],
     },
-    diagnosticsConfig: {
-      s3BucketName: "diagnostics-bucket",
-      s3Prefix: "diagnostics/",
+    sleepSchedule: {
+      permanentlyExemptHosts: ["build-host-1", "build-host-2"],
+    },
+    spawnHost: {
+      spawnHostsPerUser: 5,
+      unexpirableHostsPerUser: 2,
+      unexpirableVolumesPerUser: 3,
+    },
+    sshPairs: {
+      spawnHostKey: {
+        name: "spawn-key",
+        secretARN:
+          "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
+      },
+      taskHostKey: {
+        name: "task-key",
+        secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:task-key",
+      },
+    },
+    tracerConfiguration: {
+      collectorAPIKey: "tracer-api-key",
+      collectorEndpoint: "https://collector.example.com",
+      collectorInternalEndpoint: "https://collector-internal.example.com",
+      enabled: true,
+      traceUrlTemplate: "https://apm.example.com/trace/%s",
     },
   },
 };
 
 const expectedGql: AdminSettingsInput = {
-  configDir: "/etc/evergreen",
-  domainName: "evergreen.example.com",
-  githubOrgs: ["evergreen-ci", "mongodb"],
-  githubPRCreatorOrg: "evergreen-ci",
-  githubWebhookSecret: "webhook-secret",
-  logPath: "/var/log/evergreen",
-  oktaServiceConfig: {
-    audience: "https://example.okta.com",
-    clientId: "okta-service-client-id",
-    clientSecret: "okta-service-client-secret",
-    issuer: "https://example.okta.com",
-    scopes: ["scope1", "scope2"],
-  },
-  oldestAllowedCLIVersion: "",
-  pprofPort: "8080",
-  shutdownWaitSeconds: 30,
-  releaseMode: {
-    distroMaxHostsFactor: 2,
-    targetTimeSecondsOverride: 300,
-    idleTimeSecondsOverride: 600,
-  },
-  singleTaskDistro: {
-    projectTasksPairs: [
-      {
-        projectID: "test-project",
-        allowedTasks: ["compile", "test"],
-        allowedBVs: ["ubuntu", "windows"],
-      },
-    ],
-  },
   buckets: {
+    credentials: {
+      key: "cred-key",
+      secret: "cred-secret",
+    },
     logBucket: {
       name: "evergreen-logs",
+    },
+    logBucketFailedTasks: {
+      name: "evergreen-failed-tasks",
     },
     logBucketLongRetention: {
       name: "logBucketLongRetention",
@@ -406,32 +383,52 @@ const expectedGql: AdminSettingsInput = {
     retryFailedLogMoveMaxJobsPerRun: undefined,
     testResultsBucket: {
       name: "evergreen-test-results",
-      testResultsPrefix: "results/",
       roleARN: "arn:aws:iam::123456789:role/TestRole",
+      testResultsPrefix: "results/",
       type: "s3",
     },
-    credentials: {
-      key: "cred-key",
-      secret: "cred-secret",
-    },
-    logBucketFailedTasks: {
-      name: "evergreen-failed-tasks",
-    },
   },
-  ssh: {
-    taskHostKey: {
-      name: "task-key",
-      secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:task-key",
+  configDir: "/etc/evergreen",
+  cost: {
+    ebsCost: {
+      ebsDiscount: 0.1,
     },
-    spawnHostKey: {
-      name: "spawn-key",
-      secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
+    financeFormula: 0.5,
+    hiddenCostProjects: [],
+    onDemandDiscount: 0.05,
+    s3Cost: {
+      storage: {
+        archiveStorageCostDiscount: 0,
+        artifactAwsAccountsWithoutLifecycleRules: [],
+        defaultMaxArtifactExpirationDays: 1,
+        devprodOwnedAwsAccountIds: [],
+        iAStorageCostDiscount: 0,
+        standardStorageCostDiscount: 0,
+      },
+      upload: {
+        uploadCostDiscount: 0,
+      },
     },
+    savingsPlanDiscount: 0.1,
   },
+  debugSpawnHosts: {
+    setupScript: "echo debug spawn hosts",
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
+  },
+  domainName: "evergreen.example.com",
   expansions: {
-    DATABASE_URL: "mongodb://localhost:27017",
     API_KEY: "secret-api-key",
+    DATABASE_URL: "mongodb://localhost:27017",
   },
+  githubCheckRun: {
+    checkRunLimit: 10,
+  },
+  githubOrgs: ["evergreen-ci", "mongodb"],
+  githubPRCreatorOrg: "evergreen-ci",
+  githubWebhookSecret: "webhook-secret",
   hostJasper: {
     binaryName: "jasper",
     downloadFileName: "jasper.tar.gz",
@@ -442,68 +439,71 @@ const expectedGql: AdminSettingsInput = {
   jiraNotifications: {
     customFields: [
       {
-        project: "EVG",
-        fields: { priority: "high", team: "platform" },
         components: ["backend", "frontend"],
+        fields: { priority: "high", team: "platform" },
         labels: ["bug", "critical"],
+        project: "EVG",
       },
     ],
   },
-  cost: {
-    ebsCost: {
-      ebsDiscount: 0.1,
-    },
-    financeFormula: 0.5,
-    savingsPlanDiscount: 0.1,
-    onDemandDiscount: 0.05,
-    hiddenCostProjects: [],
-    s3Cost: {
-      upload: {
-        uploadCostDiscount: 0,
-      },
-      storage: {
-        archiveStorageCostDiscount: 0,
-        artifactAwsAccountsWithoutLifecycleRules: [],
-        defaultMaxArtifactExpirationDays: 1,
-        devprodOwnedAwsAccountIds: [],
-        iAStorageCostDiscount: 0,
-        standardStorageCostDiscount: 0,
-      },
-    },
+  logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    audience: "https://example.okta.com",
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
+    scopes: ["scope1", "scope2"],
   },
-  spawnhost: {
-    unexpirableHostsPerUser: 2,
-    unexpirableVolumesPerUser: 3,
-    spawnHostsPerUser: 5,
-  },
-  debugSpawnHosts: {
-    setupScript: "echo debug spawn hosts",
-  },
-  sleepSchedule: {
-    permanentlyExemptHosts: ["build-host-1", "build-host-2"],
-  },
-  tracer: {
-    enabled: true,
-    collectorEndpoint: "https://collector.example.com",
-    collectorInternalEndpoint: "https://collector-internal.example.com",
-    collectorAPIKey: "tracer-api-key",
-    traceUrlTemplate: "https://apm.example.com/trace/%s",
-  },
+  oldestAllowedCLIVersion: "",
+  pprofPort: "8080",
   projectCreation: {
-    totalProjectLimit: 100,
-    repoProjectLimit: 50,
     repoExceptions: [
       {
         owner: "evergreen-ci",
         repo: "evergreen",
       },
     ],
+    repoProjectLimit: 50,
+    totalProjectLimit: 100,
   },
-  githubCheckRun: {
-    checkRunLimit: 10,
+  releaseMode: {
+    distroMaxHostsFactor: 2,
+    idleTimeSecondsOverride: 600,
+    targetTimeSecondsOverride: 300,
   },
-  diagnostics: {
-    s3BucketName: "diagnostics-bucket",
-    s3Prefix: "diagnostics/",
+  shutdownWaitSeconds: 30,
+  singleTaskDistro: {
+    projectTasksPairs: [
+      {
+        allowedBVs: ["ubuntu", "windows"],
+        allowedTasks: ["compile", "test"],
+        projectID: "test-project",
+      },
+    ],
+  },
+  sleepSchedule: {
+    permanentlyExemptHosts: ["build-host-1", "build-host-2"],
+  },
+  spawnhost: {
+    spawnHostsPerUser: 5,
+    unexpirableHostsPerUser: 2,
+    unexpirableVolumesPerUser: 3,
+  },
+  ssh: {
+    spawnHostKey: {
+      name: "spawn-key",
+      secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
+    },
+    taskHostKey: {
+      name: "task-key",
+      secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:task-key",
+    },
+  },
+  tracer: {
+    collectorAPIKey: "tracer-api-key",
+    collectorEndpoint: "https://collector.example.com",
+    collectorInternalEndpoint: "https://collector-internal.example.com",
+    enabled: true,
+    traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
 };

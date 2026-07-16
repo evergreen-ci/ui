@@ -16,14 +16,14 @@ describe("useQueryVariables", () => {
       (() => {
         const store: Record<string, string> = {};
         return {
+          clear: () => Object.keys(store).forEach((k) => delete store[k]),
           getItem: (key: string) => store[key] ?? null,
-          setItem: (key: string, value: string) => {
-            store[key] = value;
-          },
           removeItem: (key: string) => {
             delete store[key];
           },
-          clear: () => Object.keys(store).forEach((k) => delete store[k]),
+          setItem: (key: string, value: string) => {
+            store[key] = value;
+          },
         };
       })(),
     );
@@ -49,22 +49,22 @@ describe("useQueryVariables", () => {
       wrapper: getWrapper(search),
     });
     expect(result.current).toStrictEqual({
-      versionId,
       taskFilterOptions: {
-        taskName: "generate",
-        includeNeverActivatedTasks: false,
-        variant: "",
-        statuses: ["success"],
         baseStatuses: [],
-        sorts: [
-          { Key: TaskSortCategory.Name, Direction: SortDirection.Asc },
-          { Key: TaskSortCategory.Status, Direction: SortDirection.Asc },
-          { Key: TaskSortCategory.BaseStatus, Direction: SortDirection.Desc },
-          { Key: TaskSortCategory.Variant, Direction: SortDirection.Asc },
-        ],
-        page: 0,
+        includeNeverActivatedTasks: false,
         limit: 20,
+        page: 0,
+        sorts: [
+          { Direction: SortDirection.Asc, Key: TaskSortCategory.Name },
+          { Direction: SortDirection.Asc, Key: TaskSortCategory.Status },
+          { Direction: SortDirection.Desc, Key: TaskSortCategory.BaseStatus },
+          { Direction: SortDirection.Asc, Key: TaskSortCategory.Variant },
+        ],
+        statuses: ["success"],
+        taskName: "generate",
+        variant: "",
       },
+      versionId,
     });
   });
 
@@ -76,19 +76,19 @@ describe("useQueryVariables", () => {
       wrapper: getWrapper(search),
     });
     expect(result.current).toStrictEqual({
-      versionId,
       taskFilterOptions: {
-        taskName: "generate",
-        includeNeverActivatedTasks: false,
-        variant: "",
-        statuses: ["success"],
         baseStatuses: [],
-        sorts: [
-          { Key: TaskSortCategory.Variant, Direction: SortDirection.Asc },
-        ],
-        page: 0,
+        includeNeverActivatedTasks: false,
         limit: 20,
+        page: 0,
+        sorts: [
+          { Direction: SortDirection.Asc, Key: TaskSortCategory.Variant },
+        ],
+        statuses: ["success"],
+        taskName: "generate",
+        variant: "",
       },
+      versionId,
     });
   });
 
@@ -99,17 +99,17 @@ describe("useQueryVariables", () => {
       wrapper: getWrapper(search),
     });
     expect(result.current).toStrictEqual({
-      versionId,
       taskFilterOptions: {
         baseStatuses: [],
-        statuses: [],
-        sorts: [],
-        page: 0,
-        limit: 20,
         includeNeverActivatedTasks: true,
+        limit: 20,
+        page: 0,
+        sorts: [],
+        statuses: [],
         taskName: "",
         variant: "",
       },
+      versionId,
     });
   });
 
@@ -156,17 +156,17 @@ describe("useQueryVariables", () => {
       wrapper: getWrapper(search),
     });
     expect(result.current).toStrictEqual({
-      versionId,
       taskFilterOptions: {
-        taskName: "",
-        includeNeverActivatedTasks: true,
-        variant: "",
-        statuses: [],
         baseStatuses: [],
-        sorts: [],
-        page: 0,
+        includeNeverActivatedTasks: true,
         limit: 20,
+        page: 0,
+        sorts: [],
+        statuses: [],
+        taskName: "",
+        variant: "",
       },
+      versionId,
     });
   });
 });

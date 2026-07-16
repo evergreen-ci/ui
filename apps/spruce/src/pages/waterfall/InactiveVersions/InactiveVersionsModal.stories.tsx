@@ -12,8 +12,8 @@ import {
 import { InactiveVersionsButton } from ".";
 
 export default {
-  title: "Pages/Waterfall/InactiveVersions",
   component: InactiveVersionsButton,
+  title: "Pages/Waterfall/InactiveVersions",
 };
 
 const render: StoryObj<typeof InactiveVersionsButton>["render"] = (args) => (
@@ -25,21 +25,20 @@ const render: StoryObj<typeof InactiveVersionsButton>["render"] = (args) => (
 );
 
 export const Default: StoryObj<typeof InactiveVersionsButton> = {
-  render,
   args: {
     versions: [inactiveVersion],
   },
+  render,
 };
 
 export const Broken: StoryObj<typeof InactiveVersionsButton> = {
-  render,
   args: {
     versions: [inactiveVersion, inactiveBrokenVersion],
   },
+  render,
 };
 
 export const FilteredAndInactive: StoryObj<typeof InactiveVersionsButton> = {
-  render,
   args: {
     versions: [
       version,
@@ -50,10 +49,10 @@ export const FilteredAndInactive: StoryObj<typeof InactiveVersionsButton> = {
       inactiveBrokenVersion,
     ],
   },
+  render,
 };
 
 export const Filtered: StoryObj<typeof InactiveVersionsButton> = {
-  render,
   args: {
     versions: [
       version,
@@ -62,6 +61,7 @@ export const Filtered: StoryObj<typeof InactiveVersionsButton> = {
       versionBroken,
     ],
   },
+  render,
 };
 
 const Container = styled.div`

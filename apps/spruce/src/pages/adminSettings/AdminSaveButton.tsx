@@ -40,6 +40,7 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     SaveAdminSettingsMutation,
     SaveAdminSettingsMutationVariables
   >(SAVE_ADMIN_SETTINGS, {
+    awaitRefetchQueries: true,
     onCompleted: () => {
       changedTabs.forEach((t) => saveTab(t));
       dispatchToast.success("Settings saved successfully");
@@ -47,7 +48,6 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     onError: (err) => {
       dispatchToast.error(`Error saving settings: ${err.message}`);
     },
-    awaitRefetchQueries: true,
     refetchQueries: ["AdminSettings"],
   });
 

@@ -210,14 +210,14 @@ test.describe("Project Settings when defaulting to repo", () => {
     test("Allows overriding repo patch definitions", async ({ page }) => {
       const radioBox = page.getByTestId("pr-testing-enabled-radio-box");
       const enabledRadio = radioBox.getByRole("radio", {
-        name: "Enabled",
         exact: true,
+        name: "Enabled",
       });
       await clickRadio(enabledRadio);
 
       const overrideRepoPatchDefinitionRadio = page.getByRole("radio", {
-        name: "Override Repo Patch Definition",
         exact: true,
+        name: "Override Repo Patch Definition",
       });
       await clickRadio(overrideRepoPatchDefinitionRadio);
       await expect(overrideRepoPatchDefinitionRadio).toBeChecked();
@@ -361,8 +361,8 @@ test.describe("Project Settings when defaulting to repo", () => {
       const overrideRepoPatchDefinitionRadio = page
         .getByTestId("mq-override-radio-box")
         .getByRole("radio", {
-          name: "Override Repo Patch Definition",
           exact: true,
+          name: "Override Repo Patch Definition",
         });
       await expect(overrideRepoPatchDefinitionRadio).toBeChecked();
     });

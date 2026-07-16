@@ -18,9 +18,9 @@ process.env.VITE_PROFILE_HEAD = process.env.VITE_PROFILE_HEAD ?? "";
 
 const getProjectConfig = () => {
   const serverConfig = generateBaseHTTPSViteServerConfig({
-    port: 5173,
     appURL: process.env.VITE_PARSLEY_URL ?? "",
     httpsPort: 8444,
+    port: 5173,
     useHTTPS:
       process.env.VITE_RELEASE_STAGE !== "local" &&
       process.env.NO_HTTPS !== "true",
@@ -28,16 +28,14 @@ const getProjectConfig = () => {
 
   // https://vitejs.dev/config/
   const viteConfig = defineConfig({
+    build: {
+      sourcemap: true,
+    },
     define: {
       "globalThis.EMOTION_RUNTIME_AUTO_LABEL": JSON.stringify(
         process.env.NODE_ENV === "development",
       ),
     },
-    server: serverConfig,
-    build: {
-      sourcemap: true,
-    },
-
     plugins: [
       react({
         // Exclude storybook stories from fast refresh.
@@ -77,7 +75,6 @@ const getProjectConfig = () => {
     ],
 
     resolve: {
-      tsconfigPaths: true,
       alias: {
         // Prevent LG from pulling in SSR dependencies.
         // Can be potentially removed upon the completion of LG-4402.
@@ -94,17 +91,20 @@ const getProjectConfig = () => {
         }),
       },
       extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+      tsconfigPaths: true,
     },
+
+    server: serverConfig,
   });
 
   const vitestConfig = defineTestConfig({
     test: {
       environment: "jsdom",
       globals: true,
+      include: ["src/**/*.test.{ts,tsx}"],
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
       setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
-      include: ["src/**/*.test.{ts,tsx}"],
     },
   });
   return mergeConfig(viteConfig, vitestConfig);

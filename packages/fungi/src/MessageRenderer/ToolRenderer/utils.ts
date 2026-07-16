@@ -131,8 +131,8 @@ export const groupFindingsBySeverity = (
 ): Record<FindingSeverity, MergedFinding[]> => {
   const groups: Record<FindingSeverity, MergedFinding[]> = {
     error: [],
-    warning: [],
     info: [],
+    warning: [],
   };
   for (const f of findings) {
     groups[f.severity].push(f);

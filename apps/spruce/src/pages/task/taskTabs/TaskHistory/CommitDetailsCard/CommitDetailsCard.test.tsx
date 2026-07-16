@@ -302,23 +302,23 @@ const restartTaskMock: ApolloMock<
   request: {
     query: RESTART_TASK,
     variables: {
-      taskId: currentTask.id,
       failedOnly: false,
+      taskId: currentTask.id,
     },
   },
   result: {
     data: {
       restartTask: {
-        id: currentTask.id,
-        execution: 1,
-        latestExecution: 1,
-        priority: 0,
+        __typename: "Task",
         buildVariant: "ubuntu",
         buildVariantDisplayName: "Ubuntu",
         displayName: "test_task",
         displayStatus: "will-run",
+        execution: 1,
+        id: currentTask.id,
+        latestExecution: 1,
+        priority: 0,
         revision: currentTask.revision,
-        __typename: "Task",
       },
     },
   },
@@ -339,17 +339,17 @@ const scheduleTasksMock: ApolloMock<
     data: {
       scheduleTasks: [
         {
-          id: currentTask.id,
-          execution: 0,
-          canSchedule: false,
-          canUnschedule: true,
-          status: "will-run",
+          __typename: "Task",
           buildVariant: "ubuntu",
           buildVariantDisplayName: "Ubuntu",
+          canSchedule: false,
+          canUnschedule: true,
           displayName: "test_task",
           displayStatus: "will-run",
+          execution: 0,
+          id: currentTask.id,
           revision: currentTask.revision,
-          __typename: "Task",
+          status: "will-run",
         },
       ],
     },
@@ -363,17 +363,17 @@ const setTaskPrioritiesMock: ApolloMock<
   request: {
     query: SET_TASK_PRIORITIES,
     variables: {
-      taskPriorities: [{ taskId: currentTask.id, priority: 25 }],
+      taskPriorities: [{ priority: 25, taskId: currentTask.id }],
     },
   },
   result: {
     data: {
       setTaskPriorities: [
         {
-          id: currentTask.id,
-          execution: 0,
-          priority: 25,
           __typename: "Task",
+          execution: 0,
+          id: currentTask.id,
+          priority: 25,
         },
       ],
     },

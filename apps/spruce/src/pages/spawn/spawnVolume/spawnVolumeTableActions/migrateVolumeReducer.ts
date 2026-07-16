@@ -11,7 +11,7 @@ interface State {
   form: FormState;
 }
 
-export const initialState = { page: Page.First, form: {}, hasError: true };
+export const initialState = { form: {}, hasError: true, page: Page.First };
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {

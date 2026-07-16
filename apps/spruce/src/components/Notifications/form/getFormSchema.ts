@@ -21,11 +21,11 @@ export const getFormSchema = (
 
   return {
     schema: {
-      type: "object" as const,
       properties: {
         event: eventSchema,
         notification: notificationSchema,
       },
+      type: "object" as const,
     },
     uiSchema: {
       event: eventUiSchema,

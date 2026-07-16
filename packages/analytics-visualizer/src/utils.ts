@@ -60,16 +60,16 @@ export const generateHoneycombUrl = (
   honeycombBaseUrl: string,
 ): string => {
   const query = {
-    time_range: DEFAULT_HONEYCOMB_TIME_RANGE,
-    granularity: 0,
     calculations: [{ op: "COUNT" }],
+    compare_time_offset_seconds: null,
+    filter_combination: "AND",
     filters: [
       { column: "library.name", op: "=", value: "analytics" },
       { column: "name", op: "=", value: actionName },
     ],
-    filter_combination: "AND",
+    granularity: 0,
     limit: 1000,
-    compare_time_offset_seconds: null,
+    time_range: DEFAULT_HONEYCOMB_TIME_RANGE,
   };
 
   const queryString = encodeURIComponent(JSON.stringify(query));
@@ -87,16 +87,16 @@ export const generateHoneycombIdentifierUrl = (
   honeycombBaseUrl: string,
 ): string => {
   const query = {
-    time_range: DEFAULT_HONEYCOMB_TIME_RANGE,
-    granularity: 0,
     breakdowns: ["name"],
     calculations: [{ op: "COUNT" }],
+    filter_combination: "AND",
     filters: [
       { column: "library.name", op: "=", value: "analytics" },
       { column: "analytics.identifier", op: "=", value: identifier },
     ],
-    filter_combination: "AND",
+    granularity: 0,
     orders: [{ op: "COUNT", order: "descending" }],
+    time_range: DEFAULT_HONEYCOMB_TIME_RANGE,
   };
 
   const queryString = encodeURIComponent(JSON.stringify(query));

@@ -30,8 +30,8 @@ export const gqlToForm = ((data, options = {}) => {
         displayName: projectRef.displayName,
         ...(projectType !== ProjectType.Repo &&
           "identifier" in projectRef && {
-            projectID: projectRef.id,
             identifier: projectRef.identifier,
+            projectID: projectRef.id,
           }),
         batchTime:
           projectRef?.batchTime ||
@@ -42,29 +42,29 @@ export const gqlToForm = ((data, options = {}) => {
         versionControlEnabled: projectRef.versionControlEnabled,
       },
     },
+    historicalTaskDataCaching: {
+      disabledStatsCache: projectRef.disabledStatsCache,
+    },
     projectFlags: {
-      dispatchingDisabled: projectRef.dispatchingDisabled,
       debug: {
         debugSpawnHostsDisabled: projectRef.debugSpawnHostsDisabled,
       },
-      scheduling: {
-        deactivatePrevious: projectRef.deactivatePrevious,
-        stepbackDisabled: projectRef.stepbackDisabled,
-        stepbackBisection: projectRef.stepbackBisect,
-        deactivateStepback: null,
-      },
-      repotracker: {
-        repotrackerDisabled: projectRef.repotrackerDisabled,
-        runEveryMainlineCommit: projectRef.runEveryMainlineCommit,
-        waterfallDisabled: projectRef.waterfallDisabled,
-        forceRun: null,
-      },
+      dispatchingDisabled: projectRef.dispatchingDisabled,
       patch: {
         patchingDisabled: projectRef.patchingDisabled,
       },
-    },
-    historicalTaskDataCaching: {
-      disabledStatsCache: projectRef.disabledStatsCache,
+      repotracker: {
+        forceRun: null,
+        repotrackerDisabled: projectRef.repotrackerDisabled,
+        runEveryMainlineCommit: projectRef.runEveryMainlineCommit,
+        waterfallDisabled: projectRef.waterfallDisabled,
+      },
+      scheduling: {
+        deactivatePrevious: projectRef.deactivatePrevious,
+        deactivateStepback: null,
+        stepbackBisection: projectRef.stepbackBisect,
+        stepbackDisabled: projectRef.stepbackDisabled,
+      },
     },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -94,19 +94,19 @@ export const formToGql = ((
       identifier: generalConfiguration.other.identifier,
     }),
     batchTime: generalConfiguration.other.batchTime ?? 0,
-    remotePath: generalConfiguration.other.remotePath,
-    spawnHostScriptPath: generalConfiguration.other.spawnHostScriptPath,
-    versionControlEnabled: generalConfiguration.other.versionControlEnabled,
-    dispatchingDisabled: projectFlags.dispatchingDisabled,
     deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
-    repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
-    waterfallDisabled: projectFlags.repotracker.waterfallDisabled,
     debugSpawnHostsDisabled: projectFlags.debug.debugSpawnHostsDisabled,
-    stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
-    stepbackBisect: projectFlags.scheduling.stepbackBisection,
-    patchingDisabled: projectFlags.patch.patchingDisabled,
-    runEveryMainlineCommit: projectFlags.repotracker.runEveryMainlineCommit,
     disabledStatsCache,
+    dispatchingDisabled: projectFlags.dispatchingDisabled,
+    patchingDisabled: projectFlags.patch.patchingDisabled,
+    remotePath: generalConfiguration.other.remotePath,
+    repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
+    runEveryMainlineCommit: projectFlags.repotracker.runEveryMainlineCommit,
+    spawnHostScriptPath: generalConfiguration.other.spawnHostScriptPath,
+    stepbackBisect: projectFlags.scheduling.stepbackBisection,
+    stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
+    versionControlEnabled: generalConfiguration.other.versionControlEnabled,
+    waterfallDisabled: projectFlags.repotracker.waterfallDisabled,
   };
 
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };

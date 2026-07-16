@@ -22,16 +22,15 @@ export default {
 } satisfies CustomMeta<typeof Subheader>;
 
 export const UploadedLog: CustomStoryObj<typeof SubheaderWrapper> = {
-  argTypes: {},
   args: {
     fileName: "some-file-name.log",
     isUploadedLog: true,
   },
+  argTypes: {},
   render: (args) => <SubheaderWrapper {...args} />,
 };
 
 export const TaskLog: CustomStoryObj<typeof SubheaderWrapper> = {
-  argTypes: {},
   args: {
     execution: "0",
     isUploadedLog: false,
@@ -39,11 +38,11 @@ export const TaskLog: CustomStoryObj<typeof SubheaderWrapper> = {
     taskID:
       "spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35",
   },
+  argTypes: {},
   render: (args) => <SubheaderWrapper {...args} />,
 };
 
 export const TestLog: CustomStoryObj<typeof SubheaderWrapper> = {
-  argTypes: {},
   args: {
     execution: "0",
     isUploadedLog: false,
@@ -52,11 +51,11 @@ export const TestLog: CustomStoryObj<typeof SubheaderWrapper> = {
       "spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35",
     testID: "JustAFakeTestInALonelyWorld",
   },
+  argTypes: {},
   render: (args) => <SubheaderWrapper {...args} />,
 };
 
 export const TaskFileLog: CustomStoryObj<typeof SubheaderWrapper> = {
-  argTypes: {},
   args: {
     execution: "0",
     fileName: "some-file-name.log",
@@ -65,6 +64,7 @@ export const TaskFileLog: CustomStoryObj<typeof SubheaderWrapper> = {
     taskID:
       "spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35",
   },
+  argTypes: {},
   render: (args) => <SubheaderWrapper {...args} />,
 };
 interface SubheaderWrapperProps

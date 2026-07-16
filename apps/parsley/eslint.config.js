@@ -5,8 +5,8 @@ export default defineConfig(
   ...baseConfig,
   // ESLint (@eslint/js) overrides for Parsley.
   {
-    name: "@eslint/js/parsley-overrides",
     files: ["src/**/*.ts?(x)"],
+    name: "@eslint/js/parsley-overrides",
     rules: {
       "sort-imports": [ERROR, { ignoreDeclarationSort: true }],
     },

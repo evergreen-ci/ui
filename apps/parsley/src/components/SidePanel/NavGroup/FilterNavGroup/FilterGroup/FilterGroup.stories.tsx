@@ -7,7 +7,6 @@ export default {
 } satisfies CustomMeta<typeof FilterGroup>;
 
 export const Default: CustomStoryObj<typeof FilterGroup> = {
-  argTypes: {},
   args: {
     deleteFilter: () => {},
     editFilter: () => {},
@@ -18,5 +17,6 @@ export const Default: CustomStoryObj<typeof FilterGroup> = {
       visible: true,
     },
   },
+  argTypes: {},
   render: (args) => <FilterGroup {...args} />,
 };

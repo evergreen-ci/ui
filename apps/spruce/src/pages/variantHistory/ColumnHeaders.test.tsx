@@ -44,10 +44,10 @@ describe("columnHeaders (Variant History)", () => {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
+          mocks: [mock(["task1", "task2", "task3"])],
           state: {
             visibleColumns: ["task1", "task2", "task3"],
           },
-          mocks: [mock(["task1", "task2", "task3"])],
         }),
     });
     await waitFor(() => {
@@ -69,11 +69,11 @@ describe("columnHeaders (Variant History)", () => {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
-          state: {
-            visibleColumns: ["task1", "task2", "task3", "task4", "task5"],
-            columnLimit: 3,
-          },
           mocks: [mock(["task1", "task2", "task3", "task4", "task5"])],
+          state: {
+            columnLimit: 3,
+            visibleColumns: ["task1", "task2", "task3", "task4", "task5"],
+          },
         }),
     });
     await waitFor(() => {
@@ -95,10 +95,10 @@ describe("columnHeaders (Variant History)", () => {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
+          mocks: [mock([longTaskName, "task2"])],
           state: {
             visibleColumns: [longTaskName, "task2"],
           },
-          mocks: [mock([longTaskName, "task2"])],
         }),
     });
 
@@ -124,10 +124,10 @@ describe("columnHeaders (Variant History)", () => {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
+          mocks: [mock([longTaskName])],
           state: {
             visibleColumns: [longTaskName],
           },
-          mocks: [mock([longTaskName])],
         }),
     });
     await waitFor(() => {
@@ -152,8 +152,8 @@ const mock = (
   request: {
     query: TASK_NAMES_FOR_BUILD_VARIANT,
     variables: {
-      projectIdentifier: "evergreen",
       buildVariant: "some_variant",
+      projectIdentifier: "evergreen",
     },
   },
   result: {

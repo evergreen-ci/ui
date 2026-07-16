@@ -17,11 +17,11 @@ describe("leaveBreadcrumbLinkMapFn", () => {
       filteredVariables: ApolloLink.Operation["variables"],
     ) => {
       const operation = {
-        operationName: "TestOperation",
         extensions: {},
+        getContext: vi.fn(),
+        operationName: "TestOperation",
         query: null,
         setContext: vi.fn(),
-        getContext: vi.fn(),
       };
       const response = { data: { result: "Success" }, errors: null };
 
@@ -37,10 +37,10 @@ describe("leaveBreadcrumbLinkMapFn", () => {
       expect(ErrorReporting.leaveBreadcrumb).toHaveBeenLastCalledWith(
         "Graphql Request",
         {
-          operationName: operation.operationName,
-          variables: filteredVariables,
-          status: "OK",
           errors: null,
+          operationName: operation.operationName,
+          status: "OK",
+          variables: filteredVariables,
         },
         ErrorReporting.SentryBreadcrumbTypes.HTTP,
       );

@@ -24,8 +24,8 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       sendAnalyticsEvent={(subscription) =>
         taskAnalytics.sendEvent({
           name: "Created notification",
-          "subscription.type": subscription.subscriber.type || "",
           "subscription.trigger": subscription.trigger || "",
+          "subscription.type": subscription.subscriber.type || "",
         })
       }
       subscriptionMethods={taskSubscriptionMethods}

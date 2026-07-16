@@ -12,8 +12,8 @@ describe("taskCell", () => {
       <TaskCell
         loading={false}
         task={{
-          id: "some-task-id",
           displayStatus: TaskStatus.Succeeded,
+          id: "some-task-id",
         }}
       />,
     );
@@ -27,8 +27,8 @@ describe("taskCell", () => {
       <TaskCell
         loading={false}
         task={{
-          id: "some-task-id",
           displayStatus: TaskStatus.Failed,
+          id: "some-task-id",
         }}
       />,
     );
@@ -43,8 +43,8 @@ describe("taskCell", () => {
       <TaskCell
         loading={false}
         task={{
-          id: "some-task-id",
           displayStatus: TaskStatus.Succeeded,
+          id: "some-task-id",
         }}
       />,
     );
@@ -60,8 +60,8 @@ describe("taskCell", () => {
         inactive
         loading={false}
         task={{
-          id: "some-task-id",
           displayStatus: TaskStatus.Succeeded,
+          id: "some-task-id",
         }}
       />,
     );
@@ -73,8 +73,8 @@ describe("taskCell", () => {
       <TaskCell
         label="some-label"
         task={{
-          id: "some-task-id",
           displayStatus: TaskStatus.Failed,
+          id: "some-task-id",
         }}
       />,
     );
@@ -88,8 +88,8 @@ describe("taskCell", () => {
         failingTests={["some-test"]}
         loading={false}
         task={{
-          id: "some-task-id",
           displayStatus: TaskStatus.Failed,
+          id: "some-task-id",
         }}
       />,
     );

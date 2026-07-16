@@ -26,15 +26,15 @@ const severityOrder: FindingSeverity[] = ["error", "warning", "info"];
 
 const severityConfig: Record<FindingSeverity, { label: string }> = {
   error: { label: "Error" },
-  warning: { label: "Warning" },
   info: { label: "Info" },
+  warning: { label: "Warning" },
 };
 
 const statusConfig: Record<OverallStatus, { label: string; variant: Variant }> =
   {
-    success: { label: "Success", variant: Variant.Green },
     failure: { label: "Failure", variant: Variant.Red },
     partial_failure: { label: "Partial failure", variant: Variant.Yellow },
+    success: { label: "Success", variant: Variant.Green },
     unknown: { label: "Unknown", variant: Variant.LightGray },
   };
 

@@ -38,7 +38,6 @@ const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
 
 const getColumns = (): LGColumnDef<TaskBuildVariantField>[] => [
   {
-    header: "Task Name",
     accessorKey: "taskName",
     cell: ({ getValue, row }) => (
       <StyledRouterLink
@@ -48,23 +47,22 @@ const getColumns = (): LGColumnDef<TaskBuildVariantField>[] => [
       </StyledRouterLink>
     ),
     enableSorting: true,
+    header: "Task Name",
   },
   {
-    header: "Build Variant",
     accessorKey: "buildVariant",
     enableSorting: true,
+    header: "Build Variant",
   },
   {
-    header: "Failure Type",
     accessorKey: "displayStatus",
-    meta: { width: "15%" },
     cell: ({ getValue }) => (
       <TaskStatusBadge status={getValue() as TaskStatus} />
     ),
+    header: "Failure Type",
+    meta: { width: "15%" },
   },
   {
-    header: "Logs",
-    meta: { width: "10%" },
     cell: ({ row }) => (
       <Button
         data-cy="failed-test-group-parsley-btn"
@@ -74,6 +72,8 @@ const getColumns = (): LGColumnDef<TaskBuildVariantField>[] => [
         Parsley
       </Button>
     ),
+    header: "Logs",
+    meta: { width: "10%" },
   },
 ];
 

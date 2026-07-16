@@ -8,19 +8,19 @@ const readField = (field, obj) => obj[field];
 
 describe("mergeVersions", () => {
   const readFn = {
-    readField,
-    extensions: {},
     existingData: undefined,
+    extensions: {},
+    readField,
   } as FieldMergeFunctionOptions;
 
   it("handles undefined existing on first cache write", () => {
     const pagination = {
       activeVersionIds: ["b", "c"],
-      nextPageOrder: 0,
-      prevPageOrder: 0,
       hasNextPage: false,
       hasPrevPage: false,
       mostRecentVersionOrder: 5,
+      nextPageOrder: 0,
+      prevPageOrder: 0,
     };
     expect(
       mergeVersions(
@@ -41,11 +41,11 @@ describe("mergeVersions", () => {
   it("merges version arrays", () => {
     const pagination = {
       activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 0,
-      prevPageOrder: 0,
       hasNextPage: true,
       hasPrevPage: true,
       mostRecentVersionOrder: 5,
+      nextPageOrder: 0,
+      prevPageOrder: 0,
     };
     expect(
       mergeVersions(
@@ -69,11 +69,11 @@ describe("mergeVersions", () => {
   it("merges version when incoming is newer than existing", () => {
     const pagination = {
       activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 3,
-      prevPageOrder: 0,
       hasNextPage: true,
       hasPrevPage: false,
       mostRecentVersionOrder: 5,
+      nextPageOrder: 3,
+      prevPageOrder: 0,
     };
     expect(
       mergeVersions(
@@ -97,11 +97,11 @@ describe("mergeVersions", () => {
   it("deduplicates versions when merging", () => {
     const pagination = {
       activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 0,
-      prevPageOrder: 1,
       hasNextPage: false,
       hasPrevPage: true,
       mostRecentVersionOrder: 5,
+      nextPageOrder: 0,
+      prevPageOrder: 1,
     };
     expect(
       mergeVersions(
@@ -125,11 +125,11 @@ describe("mergeVersions", () => {
   it("returns an identical cache when duplicate data is incoming", () => {
     const pagination = {
       activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 0,
-      prevPageOrder: 0,
       hasNextPage: false,
       hasPrevPage: false,
       mostRecentVersionOrder: 5,
+      nextPageOrder: 0,
+      prevPageOrder: 0,
     };
     expect(
       mergeVersions(
@@ -153,11 +153,11 @@ describe("mergeVersions", () => {
   it("combines lists of active versions", () => {
     const pagination = {
       activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 0,
-      prevPageOrder: 1,
       hasNextPage: false,
       hasPrevPage: true,
       mostRecentVersionOrder: 5,
+      nextPageOrder: 0,
+      prevPageOrder: 1,
     };
     expect(
       mergeVersions(
@@ -219,11 +219,11 @@ describe("readVersions", () => {
       flattenedVersions: versions,
       pagination: {
         activeVersionIds: ["b", "c", "f"],
-        hasPrevPage: false,
         hasNextPage: false,
+        hasPrevPage: false,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
         nextPageOrder: 0,
+        prevPageOrder: 0,
       },
     });
   });
@@ -251,11 +251,11 @@ describe("readVersions", () => {
       flattenedVersions: versions.slice(1, 3),
       pagination: {
         activeVersionIds: ["b", "c"],
-        hasPrevPage: true,
         hasNextPage: true,
+        hasPrevPage: true,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 4,
         nextPageOrder: 3,
+        prevPageOrder: 4,
       },
     });
   });
@@ -286,11 +286,11 @@ describe("readVersions", () => {
       flattenedVersions: versions.slice(2),
       pagination: {
         activeVersionIds: ["c", "f"],
-        hasPrevPage: true,
         hasNextPage: false,
+        hasPrevPage: true,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 3,
         nextPageOrder: 0,
+        prevPageOrder: 3,
       },
     });
   });
@@ -321,11 +321,11 @@ describe("readVersions", () => {
       flattenedVersions: versions.slice(0, 3),
       pagination: {
         activeVersionIds: ["b", "c"],
-        hasPrevPage: false,
         hasNextPage: true,
+        hasPrevPage: false,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
         nextPageOrder: 3,
+        prevPageOrder: 0,
       },
     });
   });
@@ -356,11 +356,11 @@ describe("readVersions", () => {
       flattenedVersions: versions.slice(2, 3),
       pagination: {
         activeVersionIds: ["c"],
-        hasPrevPage: true,
         hasNextPage: true,
+        hasPrevPage: true,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 3,
         nextPageOrder: 3,
+        prevPageOrder: 3,
       },
     });
   });
@@ -396,8 +396,8 @@ describe("readVersions", () => {
           flattenedVersions: versions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
-            mostRecentVersionOrder: 5,
             hasNextPage: true,
+            mostRecentVersionOrder: 5,
           },
         },
         // @ts-expect-error: for tests we can omit unused fields from the args
@@ -422,8 +422,8 @@ describe("readVersions", () => {
           flattenedVersions: versions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
-            mostRecentVersionOrder: 5,
             hasNextPage: false,
+            mostRecentVersionOrder: 5,
           },
         },
         // @ts-expect-error: for tests we can omit unused fields from the args
@@ -441,11 +441,11 @@ describe("readVersions", () => {
       flattenedVersions: versions.slice(2),
       pagination: {
         activeVersionIds: ["c", "f"],
-        hasPrevPage: true,
         hasNextPage: false,
+        hasPrevPage: true,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 3,
         nextPageOrder: 0,
+        prevPageOrder: 3,
       },
     });
   });
@@ -465,9 +465,9 @@ describe("readVersions", () => {
         {
           args: {
             options: {
+              limit: 3,
               maxOrder: undefined,
               minOrder: undefined,
-              limit: 3,
             },
           },
           readField,
@@ -477,11 +477,11 @@ describe("readVersions", () => {
       flattenedVersions: versions,
       pagination: {
         activeVersionIds: ["b", "c", "f"],
-        hasPrevPage: false,
         hasNextPage: false,
+        hasPrevPage: false,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
         nextPageOrder: 0,
+        prevPageOrder: 0,
       },
     });
   });
@@ -494,8 +494,8 @@ describe("readVersions", () => {
           flattenedVersions: versions.slice(0, 3),
           // @ts-expect-error: only mostRecentVersionOrder and hasNextPage affect reading versions
           pagination: {
-            mostRecentVersionOrder: 5,
             hasNextPage: false,
+            mostRecentVersionOrder: 5,
           },
         },
         // @ts-expect-error: for tests we can omit unused fields from the args
@@ -512,11 +512,11 @@ describe("readVersions", () => {
       flattenedVersions: versions.slice(0, 3),
       pagination: {
         activeVersionIds: ["b", "c"],
-        hasPrevPage: false,
         hasNextPage: true,
+        hasPrevPage: false,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
         nextPageOrder: 3,
+        prevPageOrder: 0,
       },
     });
   });
@@ -544,11 +544,11 @@ describe("readVersions", () => {
       flattenedVersions: versions.slice(0, 3),
       pagination: {
         activeVersionIds: ["b", "c"],
-        hasPrevPage: false,
         hasNextPage: true,
+        hasPrevPage: false,
         mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
         nextPageOrder: 3,
+        prevPageOrder: 0,
       },
     });
   });

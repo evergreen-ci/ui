@@ -89,9 +89,9 @@ const categorizeDistros = (distros: DistroValue[]): DistroGroup[] =>
       return accum;
     },
     [
-      { title: "Workstation distros", distros: [] },
-      { title: "Other distros", distros: [] },
-      { title: "Admin-only distros", distros: [] },
+      { distros: [], title: "Workstation distros" },
+      { distros: [], title: "Other distros" },
+      { distros: [], title: "Admin-only distros" },
     ],
   );
 

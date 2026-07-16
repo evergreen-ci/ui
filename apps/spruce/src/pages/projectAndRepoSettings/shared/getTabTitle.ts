@@ -8,12 +8,27 @@ export const getTabTitle = (
   };
   return (
     {
-      [ProjectSettingsTabRoutes.General]: defaultTitle,
       [ProjectSettingsTabRoutes.Access]: {
         title: "Access Settings & Admin",
       },
-      [ProjectSettingsTabRoutes.Variables]: {
-        title: "Variables",
+      [ProjectSettingsTabRoutes.CommitChecks]: {
+        title: "Commit Checks",
+      },
+      [ProjectSettingsTabRoutes.EventLog]: {
+        title: "Event Log",
+      },
+      [ProjectSettingsTabRoutes.General]: defaultTitle,
+      [ProjectSettingsTabRoutes.GithubAppSettings]: {
+        title: "App Settings",
+      },
+      [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
+        title: "Permission Groups",
+      },
+      [ProjectSettingsTabRoutes.GitTags]: {
+        title: "Git Tags",
+      },
+      [ProjectSettingsTabRoutes.MergeQueue]: {
+        title: "Merge Queue",
       },
       [ProjectSettingsTabRoutes.Notifications]: {
         title: "Notifications",
@@ -21,44 +36,29 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.PatchAliases]: {
         title: "Patch Aliases",
       },
-      [ProjectSettingsTabRoutes.VirtualWorkstation]: {
-        title: "Virtual Workstation",
-      },
-      [ProjectSettingsTabRoutes.ViewsAndFilters]: {
-        title: "Views & Filters",
-      },
-      [ProjectSettingsTabRoutes.ProjectTriggers]: {
-        title: "Project Triggers",
-      },
       [ProjectSettingsTabRoutes.PeriodicBuilds]: {
         title: "Periodic Builds",
-      },
-      [ProjectSettingsTabRoutes.TestSelection]: {
-        title: "Test Selection",
       },
       [ProjectSettingsTabRoutes.Plugins]: {
         title: "Plugins",
       },
-      [ProjectSettingsTabRoutes.EventLog]: {
-        title: "Event Log",
+      [ProjectSettingsTabRoutes.ProjectTriggers]: {
+        title: "Project Triggers",
       },
       [ProjectSettingsTabRoutes.PullRequests]: {
         title: "Pull Request Testing",
       },
-      [ProjectSettingsTabRoutes.CommitChecks]: {
-        title: "Commit Checks",
+      [ProjectSettingsTabRoutes.TestSelection]: {
+        title: "Test Selection",
       },
-      [ProjectSettingsTabRoutes.MergeQueue]: {
-        title: "Merge Queue",
+      [ProjectSettingsTabRoutes.Variables]: {
+        title: "Variables",
       },
-      [ProjectSettingsTabRoutes.GitTags]: {
-        title: "Git Tags",
+      [ProjectSettingsTabRoutes.ViewsAndFilters]: {
+        title: "Views & Filters",
       },
-      [ProjectSettingsTabRoutes.GithubAppSettings]: {
-        title: "App Settings",
-      },
-      [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
-        title: "Permission Groups",
+      [ProjectSettingsTabRoutes.VirtualWorkstation]: {
+        title: "Virtual Workstation",
       },
     }[tab] ?? defaultTitle
   );

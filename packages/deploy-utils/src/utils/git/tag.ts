@@ -76,7 +76,7 @@ const deleteTag = (tag: string) => {
   console.log(`Deleting tag (${tag}) from remote...`);
   const deleteCommand = `git push --delete upstream ${tag}`;
   try {
-    execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
+    execSync(deleteCommand, { encoding: "utf-8", stdio: "inherit" });
   } catch (err) {
     throw Error("Deleting tag failed.", { cause: err });
   }
@@ -89,8 +89,8 @@ const pushTags = () => {
   console.log("Pushing tags...");
   try {
     execSync(`git push --tags upstream`, {
-      stdio: "inherit",
       encoding: "utf-8",
+      stdio: "inherit",
     });
     console.log("Successfully pushed tags.");
   } catch (err) {

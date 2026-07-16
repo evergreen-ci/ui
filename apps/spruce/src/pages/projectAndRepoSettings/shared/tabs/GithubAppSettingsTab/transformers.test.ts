@@ -43,11 +43,11 @@ const projectResult: Pick<
   ProjectSettingsInput,
   "githubAppAuth" | "projectId" | "projectRef"
 > = {
-  projectId: "project",
   githubAppAuth: {
     appId: 12345,
     privateKey: "{REDACTED}",
   },
+  projectId: "project",
   projectRef: {
     githubPermissionGroupByRequester: {
       [Requester.Gitter]: "permission-group-1",

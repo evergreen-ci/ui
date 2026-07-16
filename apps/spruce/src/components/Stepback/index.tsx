@@ -52,9 +52,9 @@ export const Stepback: React.FC<StepbackProps> = ({
     StepbackTasksQueryVariables
   >(STEPBACK_TASKS, {
     variables: {
-      taskId,
       execution,
       isPassing: status === TaskStatus.Succeeded,
+      taskId,
     },
   });
 

@@ -83,17 +83,15 @@ const sortByHost = (a: TableVolume, b: TableVolume) =>
 
 const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
   {
-    header: "Volume",
     accessorFn: ({ displayName, id }) => displayName || id,
-    enableSorting: true,
     cell: ({ getValue }) => (
       <WordBreak data-cy="vol-name">{getValue() as string}</WordBreak>
     ),
+    enableSorting: true,
+    header: "Volume",
   },
   {
-    header: "Mounted On",
     accessorFn: ({ host, hostID }) => host?.displayName || hostID,
-    enableSorting: true,
     cell: ({ getValue, row }) => {
       const hostId = row.original.hostID;
       return (
@@ -107,22 +105,22 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
         )
       );
     },
+    enableSorting: true,
+    header: "Mounted On",
   },
   {
-    header: "Status",
     accessorKey: "hostID",
-    enableSorting: true,
     cell: ({ getValue, row }) => {
       const hostId = getValue() as string;
       const { migrating } = row.original;
       return <VolumeStatusBadge hostId={hostId} migrating={migrating} />;
     },
+    enableSorting: true,
+    header: "Status",
   },
   {
-    header: "Expires In",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ expiration }) => new Date(expiration),
-    enableSorting: true,
     cell: ({ getValue, row }) => {
       const expiration = getValue() as Date;
       const { noExpiration } = row.original;
@@ -140,15 +138,17 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
         </>
       );
     },
+    enableSorting: true,
+    header: "Expires In",
   },
   {
-    header: "Actions",
     cell: ({ row }) => (
       <SpawnVolumeTableActions
         maxSpawnableLimit={maxSpawnableLimit}
         volume={row.original}
       />
     ),
+    header: "Actions",
   },
 ];
 

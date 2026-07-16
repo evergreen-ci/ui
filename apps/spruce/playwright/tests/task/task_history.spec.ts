@@ -7,7 +7,7 @@ import {
   selectDatePickerDate,
 } from "../../helpers";
 
-const { green, gray, blue } = palette;
+const { blue, gray, green } = palette;
 
 // Helper function to convert hex to RGB
 const hexToRGB = (hex: string) => {
@@ -216,8 +216,8 @@ test.describe("task history", () => {
       test.beforeEach(async ({ page }) => {
         // Smaller viewport size to test commits going to next/prev pages.
         await page.setViewportSize({
-          width: 1400,
           height: 1080,
+          width: 1400,
         });
       });
 
@@ -229,8 +229,8 @@ test.describe("task history", () => {
         const nextPageButton = page.getByRole("button", { name: "Next page" });
 
         const collapsedViewPages = {
-          first: { order: "12305", date: "Mar 27, 2025" },
-          next: { order: "12236", date: "Mar 10, 2025" },
+          first: { date: "Mar 27, 2025", order: "12305" },
+          next: { date: "Mar 10, 2025", order: "12236" },
         };
 
         // Previous page should be disabled.
@@ -299,10 +299,10 @@ test.describe("task history", () => {
         const nextPageButton = page.getByRole("button", { name: "Next page" });
 
         const expandedViewPages = {
-          first: { order: "12306", date: "Mar 27, 2025" },
-          second: { order: "12261", date: "Mar 17, 2025" },
-          third: { order: "12217", date: "Mar 5, 2025" },
-          last: { order: "12170", date: "Feb 25, 2025" },
+          first: { date: "Mar 27, 2025", order: "12306" },
+          last: { date: "Feb 25, 2025", order: "12170" },
+          second: { date: "Mar 17, 2025", order: "12261" },
+          third: { date: "Mar 5, 2025", order: "12217" },
         };
 
         // Previous page should be disabled.
@@ -439,15 +439,15 @@ test.describe("task history", () => {
       await page.getByTestId("expanded-option").click();
 
       await selectDatePickerDate(page, {
-        year: "2025",
-        month: "Feb",
         isoDate: "2025-02-28",
+        month: "Feb",
+        year: "2025",
       });
       await expect(page).toHaveURL(/2025-02-28/);
       await validateDatePickerDate(page, "date-picker", {
-        year: "2025",
-        month: "02",
         day: "28",
+        month: "02",
+        year: "2025",
       });
       await expect(
         page
@@ -471,15 +471,15 @@ test.describe("task history", () => {
       await page.getByTestId("expanded-option").click();
 
       await selectDatePickerDate(page, {
-        year: "2025",
-        month: "Feb",
         isoDate: "2025-02-28",
+        month: "Feb",
+        year: "2025",
       });
       await expect(page).toHaveURL(/2025-02-28/);
       await validateDatePickerDate(page, "date-picker", {
-        year: "2025",
-        month: "02",
         day: "28",
+        month: "02",
+        year: "2025",
       });
       await expect(
         page
@@ -493,9 +493,9 @@ test.describe("task history", () => {
       await page.goto(`${mciTaskHistoryLink}&date=2025-02-28`);
       await page.getByTestId("expanded-option").click();
       await validateDatePickerDate(page, "date-picker", {
-        year: "2025",
-        month: "02",
         day: "28",
+        month: "02",
+        year: "2025",
       });
       await expect(
         page
@@ -545,9 +545,9 @@ test.describe("task history", () => {
       await expect(firstTaskCard.getByText("Order: 12306")).toBeVisible();
 
       await selectDatePickerDate(page, {
-        year: "2025",
-        month: "Feb",
         isoDate: "2025-02-28",
+        month: "Feb",
+        year: "2025",
       });
       await expect(firstTaskCard.getByText("Order: 12306")).toBeHidden();
 
@@ -668,8 +668,8 @@ test.describe("task history", () => {
 
   test.describe("onboarding", () => {
     test("can go through all steps of the walkthrough", async ({
-      page,
       context,
+      page,
     }) => {
       await context.clearCookies({
         name: SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
@@ -739,8 +739,8 @@ test.describe("task history", () => {
     });
 
     test("can end walkthrough early using the dismiss button", async ({
-      page,
       context,
+      page,
     }) => {
       await context.clearCookies({
         name: SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
@@ -794,8 +794,8 @@ test.describe("task history", () => {
       await page.goto(mciTaskHistoryLink);
 
       const configButton = page.getByRole("button", {
-        name: "Config",
         exact: true,
+        name: "Config",
       });
       await configButton.click();
       await page.getByText("Only include successful runs").click();

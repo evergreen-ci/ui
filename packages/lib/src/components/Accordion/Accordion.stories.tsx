@@ -2,8 +2,28 @@ import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import Accordion, { AccordionCaretAlign, AccordionCaretIcon } from ".";
 
 export default {
-  component: Accordion,
+  args: {
+    caretAlign: AccordionCaretAlign.Center,
+    caretIcon: AccordionCaretIcon.Chevron,
+    defaultOpen: false,
+    disableAnimations: true,
+    useIndent: true,
+  },
   argTypes: {
+    caretAlign: {
+      control: "radio",
+      description: "Where the caret icon should be aligned",
+      options: [
+        AccordionCaretAlign.Start,
+        AccordionCaretAlign.Center,
+        AccordionCaretAlign.End,
+      ],
+    },
+    caretIcon: {
+      control: "radio",
+      description: "What glyph to use for the caret icon",
+      options: [AccordionCaretIcon.Caret, AccordionCaretIcon.Chevron],
+    },
     defaultOpen: {
       control: "boolean",
       description: "Whether the accordion should be open by default",
@@ -17,50 +37,30 @@ export default {
       control: "boolean",
       description: "Whether the accordion content should have an indent",
     },
-    caretAlign: {
-      control: "radio",
-      options: [
-        AccordionCaretAlign.Start,
-        AccordionCaretAlign.Center,
-        AccordionCaretAlign.End,
-      ],
-      description: "Where the caret icon should be aligned",
-    },
-    caretIcon: {
-      control: "radio",
-      options: [AccordionCaretIcon.Caret, AccordionCaretIcon.Chevron],
-      description: "What glyph to use for the caret icon",
-    },
   },
-  args: {
-    defaultOpen: false,
-    disableAnimations: true,
-    useIndent: true,
-    caretAlign: AccordionCaretAlign.Center,
-    caretIcon: AccordionCaretIcon.Chevron,
-  },
+  component: Accordion,
 } satisfies CustomMeta<typeof Accordion>;
 
 export const Default: CustomStoryObj<typeof Accordion> = {
-  render: (args) => <Accordion {...args} />,
   args: {
-    title: "Accordion",
     children: "Accordion content",
+    title: "Accordion",
   },
+  render: (args) => <Accordion {...args} />,
 };
 
 export const WithSubtitle: CustomStoryObj<typeof Accordion> = {
-  render: (args) => <Accordion {...args} />,
   args: {
-    title: "Accordion",
-    subtitle: "Subtitle",
     children: "Accordion content",
+    subtitle: "Subtitle",
+    title: "Accordion",
   },
+  render: (args) => <Accordion {...args} />,
 };
 
 export const WithToggledTitle: CustomStoryObj<typeof Accordion> = {
-  render: (args) => <Accordion {...args} />,
   args: {
+    children: "Accordion content",
     title: "Some really long title that will be replaced because ...",
     toggledTitle: (
       <div>
@@ -68,6 +68,6 @@ export const WithToggledTitle: CustomStoryObj<typeof Accordion> = {
         <div>it&apos;s too long and we want to fit more content</div>
       </div>
     ),
-    children: "Accordion content",
   },
+  render: (args) => <Accordion {...args} />,
 };

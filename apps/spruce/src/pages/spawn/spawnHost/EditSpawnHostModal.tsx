@@ -70,20 +70,20 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const publicKeys = publicKeysData?.myPublicKeys ?? [];
 
   const initialFormState = {
-    hostName: host.displayName ?? "",
-    instanceType: host.instanceType ?? "",
-    volume: "",
-    rdpPassword: "",
-    userTags,
     expirationDetails: {
       expiration: host.expiration ? host.expiration.toString() : undefined,
-      noExpiration: host.noExpiration,
       hostUptime:
         host?.sleepSchedule && !isNullSleepSchedule(host?.sleepSchedule)
           ? getHostUptimeFromGql(host.sleepSchedule)
           : getHostUptimeFromGql({ ...defaultSleepSchedule, timeZone }),
+      noExpiration: host.noExpiration,
     },
-    publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
+    hostName: host.displayName ?? "",
+    instanceType: host.instanceType ?? "",
+    publicKeySection: { publicKeyNameDropdown: "", useExisting: true },
+    rdpPassword: "",
+    userTags,
+    volume: "",
   };
 
   const [formState, setFormState] = useState<FormState>(initialFormState);

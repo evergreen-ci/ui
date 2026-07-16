@@ -34,197 +34,180 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as const,
     properties: {
-      performanceSettings: {
-        type: "object" as const,
-        title: "Performance Plugins",
-        properties: {
-          perfEnabled: {
-            type: ["boolean", "null"],
-            title: "",
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              repoData?.performanceSettings?.perfEnabled,
-            ),
-          },
-        },
-      },
       buildBaronSettings: {
-        type: "object" as const,
-        title: "Ticket Creation",
-        properties: {
-          useBuildBaron: {
-            type: "boolean" as const,
-            oneOf: radioBoxOptions([
-              "JIRA Ticket Search and Create",
-              "Custom Ticket Creation",
-            ]),
-          },
-        },
         dependencies: {
           useBuildBaron: {
             oneOf: [
               {
                 dependencies: {
-                  ticketSearchProjects: ["ticketCreateProject"],
                   ticketCreateProject: ["ticketSearchProjects"],
+                  ticketSearchProjects: ["ticketCreateProject"],
                 },
                 properties: {
-                  useBuildBaron: {
-                    enum: [true],
-                  },
-                  ticketSearchProjects: {
-                    type: "array" as const,
-                    title: "Ticket Search Projects",
-                    items: {
-                      type: "object" as const,
-                      properties: {
-                        searchProject: {
-                          type: "string" as const,
-                          title: "Search Project",
-                          minLength: 1,
-                          default: "",
-                        },
-                      },
-                    },
-                  },
-                  ticketCreateProject: {
-                    type: "object" as const,
-                    title: "Ticket Create Project",
-                    properties: {
-                      createProject: {
-                        type: "string" as const,
-                        title: "",
-                        format: "noStartingOrTrailingWhitespace",
-                      },
-                    },
-                  },
                   ticketCreateIssueType: {
-                    type: "object" as const,
-                    title: "Ticket Create Issue Type",
                     properties: {
                       issueType: {
-                        type: "string" as const,
-                        title: "",
                         oneOf: Object.values(JiraTicketType).map(
                           (r: string) => ({
-                            type: "string" as const,
-                            title: r,
                             enum: [r],
+                            title: r,
+                            type: "string" as const,
                           }),
                         ),
+                        title: "",
+                        type: "string" as const,
                       },
                     },
+                    title: "Ticket Create Issue Type",
+                    type: "object" as const,
+                  },
+                  ticketCreateProject: {
+                    properties: {
+                      createProject: {
+                        format: "noStartingOrTrailingWhitespace",
+                        title: "",
+                        type: "string" as const,
+                      },
+                    },
+                    title: "Ticket Create Project",
+                    type: "object" as const,
+                  },
+                  ticketSearchProjects: {
+                    items: {
+                      properties: {
+                        searchProject: {
+                          default: "",
+                          minLength: 1,
+                          title: "Search Project",
+                          type: "string" as const,
+                        },
+                      },
+                      type: "object" as const,
+                    },
+                    title: "Ticket Search Projects",
+                    type: "array" as const,
+                  },
+                  useBuildBaron: {
+                    enum: [true],
                   },
                 },
               },
               {
                 properties: {
-                  useBuildBaron: {
-                    enum: [false],
-                  },
                   fileTicketWebhook: {
-                    type: "object" as const,
-                    title: "Custom Ticket Creation",
                     properties: {
                       endpoint: {
-                        type: "string" as const,
-                        title: "Webhook Endpoint",
-                        minLength: 1,
                         default: "",
+                        minLength: 1,
+                        title: "Webhook Endpoint",
+                        type: "string" as const,
                       },
                       secret: {
-                        type: "string" as const,
-                        title: "Webhook Secret",
-                        minLength: 1,
                         default: "",
+                        minLength: 1,
+                        title: "Webhook Secret",
+                        type: "string" as const,
                       },
                     },
+                    title: "Custom Ticket Creation",
+                    type: "object" as const,
+                  },
+                  useBuildBaron: {
+                    enum: [false],
                   },
                 },
               },
             ],
           },
         },
-      },
-      externalLinks: {
-        type: "array" as const,
-        title: "Metadata Links",
-        maxItems: 5,
-        items: {
-          type: "object" as const,
-          properties: {
-            requesters: {
-              type: "array" as const,
-              title: "Requesters",
-              uniqueItems: true,
-              items: {
-                type: "string" as const,
-                anyOf: requesters.map((r) => ({
-                  type: "string" as const,
-                  title: r.label,
-                  enum: [r.value],
-                })),
-              },
-              default: [],
-            },
-            displayName: {
-              type: "string" as const,
-              title: "Display name",
-              default: "",
-              minLength: 1,
-              maxLength: 40,
-              format: "noStartingOrTrailingWhitespace",
-            },
-            urlTemplate: {
-              type: "string" as const,
-              title: "URL template",
-              default: "",
-              minLength: 1,
-              format: "validURLTemplate",
-            },
+        properties: {
+          useBuildBaron: {
+            oneOf: radioBoxOptions([
+              "JIRA Ticket Search and Create",
+              "Custom Ticket Creation",
+            ]),
+            type: "boolean" as const,
           },
         },
+        title: "Ticket Creation",
+        type: "object" as const,
+      },
+      externalLinks: {
+        items: {
+          properties: {
+            displayName: {
+              default: "",
+              format: "noStartingOrTrailingWhitespace",
+              maxLength: 40,
+              minLength: 1,
+              title: "Display name",
+              type: "string" as const,
+            },
+            requesters: {
+              default: [],
+              items: {
+                anyOf: requesters.map((r) => ({
+                  enum: [r.value],
+                  title: r.label,
+                  type: "string" as const,
+                })),
+                type: "string" as const,
+              },
+              title: "Requesters",
+              type: "array" as const,
+              uniqueItems: true,
+            },
+            urlTemplate: {
+              default: "",
+              format: "validURLTemplate",
+              minLength: 1,
+              title: "URL template",
+              type: "string" as const,
+            },
+          },
+          type: "object" as const,
+        },
+        maxItems: 5,
+        title: "Metadata Links",
+        type: "array" as const,
+      },
+      performanceSettings: {
+        properties: {
+          perfEnabled: {
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoData?.performanceSettings?.perfEnabled,
+            ),
+            title: "",
+            type: ["boolean", "null"],
+          },
+        },
+        title: "Performance Plugins",
+        type: "object" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
-    performanceSettings: {
-      "ui:rootFieldId": "plugins",
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      perfEnabled: {
-        "ui:widget": widgets.RadioBoxWidget,
-        "ui:disabled": isRepo,
-        "ui:description": isRepo
-          ? "This setting is disabled at the repo level."
-          : "Enable the performance plugin (this requires the project to have matching ID and identifier).",
-      },
-    },
     buildBaronSettings: {
-      "ui:rootFieldId": "buildBaron",
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      useBuildBaron: {
-        "ui:widget": widgets.RadioBoxWidget,
-        "ui:showLabel": false,
-        "ui:data-cy": "enabled-radio-box",
-      },
-      ticketSearchProjects: {
+      fileTicketWebhook: {
+        endpoint: placeholderIf(
+          repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
+        ),
+        secret: placeholderIf(
+          repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
+        ),
         "ui:description":
-          "Specify an existing JIRA project to search for tickets related to a failing task.",
-        "ui:addButtonText": "Add search project",
-        "ui:orderable": false,
-        items: {
-          "ui:label": false,
-        },
+          "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
       },
       ticketCreateIssueType: {
-        "ui:description":
-          "Specify a JIRA issue type for tickets created by the File Ticket button.",
         issueType: {
           "ui:allowDeselect": false,
         },
+        "ui:description":
+          "Specify a JIRA issue type for tickets created by the File Ticket button.",
       },
       ticketCreateProject: {
         "ui:description": (
@@ -243,42 +226,59 @@ export const getFormSchema = (
           </>
         ),
       },
-      fileTicketWebhook: {
+      ticketSearchProjects: {
+        items: {
+          "ui:label": false,
+        },
+        "ui:addButtonText": "Add search project",
         "ui:description":
-          "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
-        endpoint: placeholderIf(
-          repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
-        ),
-        secret: placeholderIf(
-          repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
-        ),
+          "Specify an existing JIRA project to search for tickets related to a failing task.",
+        "ui:orderable": false,
+      },
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:rootFieldId": "buildBaron",
+      useBuildBaron: {
+        "ui:data-cy": "enabled-radio-box",
+        "ui:showLabel": false,
+        "ui:widget": widgets.RadioBoxWidget,
       },
     },
     externalLinks: {
-      "ui:rootFieldId": "externalLinks",
-      "ui:placeholder": "No metadata links are defined.",
-      "ui:description":
-        "Add URLs to the metadata panel for versions with the specified requester.",
-      "ui:addButtonText": "Add metadata link",
-      "ui:orderable": false,
-      "ui:useExpandableCard": true,
       items: {
-        "ui:displayTitle": "New Metadata Link",
-        "ui:data-cy": "metadata-link",
-        requesters: {
-          "ui:widget": widgets.MultiSelectWidget,
-          "ui:data-cy": "requesters-input",
-        },
         displayName: {
           "ui:data-cy": "display-name-input",
         },
+        requesters: {
+          "ui:data-cy": "requesters-input",
+          "ui:widget": widgets.MultiSelectWidget,
+        },
+        "ui:data-cy": "metadata-link",
+        "ui:displayTitle": "New Metadata Link",
         urlTemplate: {
-          "ui:placeholder": "https://example.com/{version_id}",
           "ui:data-cy": "url-template-input",
           "ui:description":
             "Include {version_id} in the URL template and it will be replaced by an actual version ID.",
+          "ui:placeholder": "https://example.com/{version_id}",
         },
       },
+      "ui:addButtonText": "Add metadata link",
+      "ui:description":
+        "Add URLs to the metadata panel for versions with the specified requester.",
+      "ui:orderable": false,
+      "ui:placeholder": "No metadata links are defined.",
+      "ui:rootFieldId": "externalLinks",
+      "ui:useExpandableCard": true,
+    },
+    performanceSettings: {
+      perfEnabled: {
+        "ui:description": isRepo
+          ? "This setting is disabled at the repo level."
+          : "Enable the performance plugin (this requires the project to have matching ID and identifier).",
+        "ui:disabled": isRepo,
+        "ui:widget": widgets.RadioBoxWidget,
+      },
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:rootFieldId": "plugins",
     },
   },
 });

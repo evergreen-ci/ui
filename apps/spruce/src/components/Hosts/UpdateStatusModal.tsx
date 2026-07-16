@@ -74,10 +74,10 @@ export const UpdateStatusModal: React.FC<Props> = ({
 
   const onClickUpdate = () => {
     hostsTableAnalytics.sendEvent({
-      name: "Clicked update host status button",
       "host.status": status,
+      name: "Clicked update host status button",
     });
-    updateHostStatus({ variables: { hostIds, status, notes } });
+    updateHostStatus({ variables: { hostIds, notes, status } });
   };
 
   const onClickCancel = () => {
@@ -159,39 +159,39 @@ interface Status {
 
 const hostStatuses: Status[] = [
   {
+    key: UpdateHostStatus.Decommissioned,
     title: "Decommissioned",
     value: UpdateHostStatus.Decommissioned,
-    key: UpdateHostStatus.Decommissioned,
   },
   {
+    key: UpdateHostStatus.Quarantined,
     title: "Quarantined",
     value: UpdateHostStatus.Quarantined,
-    key: UpdateHostStatus.Quarantined,
   },
   {
+    key: UpdateHostStatus.Running,
     title: "Running",
     value: UpdateHostStatus.Running,
-    key: UpdateHostStatus.Running,
   },
   {
+    key: UpdateHostStatus.Terminated,
     title: "Terminated",
     value: UpdateHostStatus.Terminated,
-    key: UpdateHostStatus.Terminated,
   },
   {
+    key: UpdateHostStatus.Stopped,
     title: "Stopped",
     value: UpdateHostStatus.Stopped,
-    key: UpdateHostStatus.Stopped,
   },
 ];
 
 const statusDescriptions: Record<UpdateHostStatus, string> = {
-  [UpdateHostStatus.Running]:
-    "This status will mark the host as running so Evergreen can schedule tasks on it.",
-  [UpdateHostStatus.Quarantined]:
-    "This status will stop scheduling new tasks on this host without terminating it. Useful for maintenance or debugging, especially for static hosts.",
   [UpdateHostStatus.Decommissioned]:
     "This status will mark the host for termination once it finishes its current work. Evergreen will clean it up shortly after.",
+  [UpdateHostStatus.Quarantined]:
+    "This status will stop scheduling new tasks on this host without terminating it. Useful for maintenance or debugging, especially for static hosts.",
+  [UpdateHostStatus.Running]:
+    "This status will mark the host as running so Evergreen can schedule tasks on it.",
   [UpdateHostStatus.Stopped]:
     "This status will stop the host so it no longer runs tasks. It can be started again later if supported by the host type.",
   [UpdateHostStatus.Terminated]:

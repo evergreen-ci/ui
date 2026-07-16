@@ -8,54 +8,54 @@ export default {
 } satisfies CustomMeta<typeof AnnotationTicketsList>;
 
 export const Default: CustomStoryObj<typeof AnnotationTicketsList> = {
-  render: (args) => <AnnotationTicketsList {...args} />,
-  argTypes: {},
   args: {
     execution: 0,
     isIssue: true,
-    taskId: "taskId",
-    userCanModify: true,
-    selectedRowKey: "key",
-    loading: false,
     jiraIssues: [
       {
         confidenceScore: 0.5,
         issueKey: "DEVPROD-123",
-        url: "https://example.com",
         jiraTicket: {
-          key: "key",
           fields: {
-            summary: "summary",
-            status: {
-              name: "status",
-              id: "id",
-            },
-            created: "2020-01-02",
-            updated: "2020-01-02",
-            assigneeDisplayName: "mohamed.khelif",
             assignedTeam: "evg-ui",
+            assigneeDisplayName: "mohamed.khelif",
+            created: "2020-01-02",
+            status: {
+              id: "id",
+              name: "status",
+            },
+            summary: "summary",
+            updated: "2020-01-02",
           },
+          key: "key",
         },
+        url: "https://example.com",
       },
       {
         confidenceScore: 0.99,
         issueKey: "DEVPROD-456",
-        url: "https://example.com",
         jiraTicket: {
-          key: "key2",
           fields: {
-            summary: "other summary",
-            status: {
-              name: "failed",
-              id: "id",
-            },
-            created: "2020-01-02",
-            updated: "2020-01-02",
-            assigneeDisplayName: "sophie.stadler",
             assignedTeam: "evg-ui",
+            assigneeDisplayName: "sophie.stadler",
+            created: "2020-01-02",
+            status: {
+              id: "id",
+              name: "failed",
+            },
+            summary: "other summary",
+            updated: "2020-01-02",
           },
+          key: "key2",
         },
+        url: "https://example.com",
       },
     ],
+    loading: false,
+    selectedRowKey: "key",
+    taskId: "taskId",
+    userCanModify: true,
   },
+  argTypes: {},
+  render: (args) => <AnnotationTicketsList {...args} />,
 };

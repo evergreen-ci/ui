@@ -29,8 +29,8 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
     setIncludeNeverActivatedTasks(checked);
     Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, checked.toString());
     versionAnalytics.sendEvent({
-      name: "Toggled include never activated tasks",
       include_never_activated_tasks: checked,
+      name: "Toggled include never activated tasks",
     });
   };
 

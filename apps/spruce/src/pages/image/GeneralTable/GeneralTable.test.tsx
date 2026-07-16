@@ -74,13 +74,13 @@ const imageGeneralMock: ApolloMock<
   result: {
     data: {
       image: {
-        id: "ubuntu2204",
         ami: "ami-9809871715289206",
+        id: "ubuntu2204",
         lastDeployed: new Date("2021-08-07T17:57:00-04:00"),
         latestTask: {
+          execution: 0,
           finishTime: new Date("2021-08-08T17:57:00-04:00"),
           id: "evergreen_ui_spruce_check_codegen_patch_b01dd570dbb2d060bf56d853e9eb1a71d60a6464_66be78cc4f92ba0007d94fcf_24_08_15_21_53_20",
-          execution: 0,
         },
       },
     },

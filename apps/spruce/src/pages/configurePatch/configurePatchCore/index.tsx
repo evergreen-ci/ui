@@ -93,14 +93,14 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     disableBuildVariantSelect,
     patchParams,
     selectedAliases,
-    selectedBuildVariantTasks,
     selectedBuildVariants,
+    selectedBuildVariantTasks,
     selectedTab,
     setDescription,
     setPatchParams,
     setSelectedAliases,
-    setSelectedBuildVariantTasks,
     setSelectedBuildVariants,
+    setSelectedBuildVariantTasks,
     setSelectedTab,
   } = useConfigurePatch(initialPatch);
 
@@ -143,17 +143,17 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
   const onClickSchedule = async (): Promise<void> => {
     const configurePatchParam: PatchConfigure = {
       description,
-      variantsTasks: toGQLVariantTasksType(selectedBuildVariantTasks),
       parameters: patchParams,
       patchTriggerAliases: toGQLAliasType(selectedAliases),
+      variantsTasks: toGQLVariantTasksType(selectedBuildVariantTasks),
     };
     schedulePatch({
-      variables: { patchId: id, configure: configurePatchParam },
+      variables: { configure: configurePatchParam, patchId: id },
     });
     sendEvent({
+      "aliases.scheduled_count": aliasCount,
       name: "Clicked schedule patch button",
       "task.scheduled_count": totalSelectedTaskCount,
-      "aliases.scheduled_count": aliasCount,
     });
   };
 
@@ -337,9 +337,9 @@ const toGQLVariantTasksType = (
         .filter((entry) => entry[1])
         .map((entry) => entry[0]);
       return {
-        variant: variantName,
-        tasks: tasksArr,
         displayTasks: [],
+        tasks: tasksArr,
+        variant: variantName,
       };
     })
     .filter(({ tasks }) => tasks.length);

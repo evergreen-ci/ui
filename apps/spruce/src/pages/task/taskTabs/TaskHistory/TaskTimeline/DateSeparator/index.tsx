@@ -15,8 +15,8 @@ interface DateSeparatorProps {
 const DateSeparator: React.FC<DateSeparatorProps> = ({ date, timezone }) => {
   const zonedTime = timezone ? toZonedTime(date, timezone) : new Date(date);
   const formattedDate = zonedTime.toLocaleDateString("en-US", {
-    month: "numeric",
     day: "2-digit",
+    month: "numeric",
   });
   const dateString = formattedDate || "";
   return (

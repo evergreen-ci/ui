@@ -15,24 +15,24 @@ describe("getAllBuildVariants", () => {
         "test1",
         [
           {
-            taskName: "task1",
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
-            id: "id1",
             displayStatus: "passed",
+            id: "id1",
             logs: {
               urlParsley: "",
             },
+            taskName: "task1",
           },
           {
-            taskName: "task2",
             buildVariant: "variant2",
             buildVariantDisplayName: "Variant 2",
-            id: "id2",
             displayStatus: "failed",
+            id: "id2",
             logs: {
               urlParsley: "",
             },
+            taskName: "task2",
           },
         ],
       ],
@@ -40,24 +40,24 @@ describe("getAllBuildVariants", () => {
         "test2",
         [
           {
-            taskName: "task3",
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
-            id: "id3",
             displayStatus: "passed",
+            id: "id3",
             logs: {
               urlParsley: "",
             },
+            taskName: "task3",
           },
           {
-            taskName: "task4",
             buildVariant: "variant3",
             buildVariantDisplayName: "Variant 3",
-            id: "id4",
             displayStatus: "failed",
+            id: "id4",
             logs: {
               urlParsley: "",
             },
+            taskName: "task4",
           },
         ],
       ],
@@ -77,24 +77,24 @@ describe("getAllBuildVariants", () => {
         "test1",
         [
           {
-            taskName: "task1",
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
-            id: "id1",
             displayStatus: "passed",
+            id: "id1",
             logs: {
               urlParsley: "",
             },
+            taskName: "task1",
           },
           {
-            taskName: "task2",
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
-            id: "id2",
             displayStatus: "failed",
+            id: "id2",
             logs: {
               urlParsley: "",
             },
+            taskName: "task2",
           },
         ],
       ],
@@ -102,14 +102,14 @@ describe("getAllBuildVariants", () => {
         "test2",
         [
           {
-            taskName: "task3",
             buildVariant: "variant2",
             buildVariantDisplayName: "Variant 2",
-            id: "id3",
             displayStatus: "passed",
+            id: "id3",
             logs: {
               urlParsley: "",
             },
+            taskName: "task3",
           },
         ],
       ],
@@ -128,22 +128,22 @@ describe("getAllBuildVariants", () => {
         "test1",
         [
           {
-            taskName: "task1",
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
-            id: "id1",
             displayStatus: "passed",
+            id: "id1",
             logs: {
               urlParsley: "",
             },
+            taskName: "task1",
           },
           {
-            taskName: "task2",
             buildVariant: "variant2",
             buildVariantDisplayName: "Variant 2",
-            id: "id2",
             displayStatus: "failed",
+            id: "id2",
             logs: { urlParsley: "" },
+            taskName: "task2",
           },
         ],
       ],
@@ -151,20 +151,20 @@ describe("getAllBuildVariants", () => {
         "test2",
         [
           {
-            taskName: "task3",
             buildVariant: "variant3",
             buildVariantDisplayName: "Variant 3",
-            id: "id3",
             displayStatus: "passed",
+            id: "id3",
             logs: { urlParsley: "" },
+            taskName: "task3",
           },
           {
-            taskName: "task4",
             buildVariant: "variant4",
             buildVariantDisplayName: "Variant 4",
-            id: "id4",
             displayStatus: "failed",
+            id: "id4",
             logs: { urlParsley: "" },
+            taskName: "task4",
           },
         ],
       ],

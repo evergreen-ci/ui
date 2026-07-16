@@ -43,22 +43,22 @@ export const useQueryVariables = (
   const sortsToApply: SortOrder[] = sorts
     ? parseSortString<"Key", "Direction", TaskSortCategory, SortOrder>(sorts, {
         sortByKey: "Key",
-        sortDirKey: "Direction",
         sortCategoryEnum: TaskSortCategory,
+        sortDirKey: "Direction",
       })
     : [];
 
   return {
-    versionId,
     taskFilterOptions: {
-      variant,
-      taskName,
-      statuses,
       baseStatuses,
-      sorts: sortsToApply,
+      includeNeverActivatedTasks,
       limit,
       page,
-      includeNeverActivatedTasks,
+      sorts: sortsToApply,
+      statuses,
+      taskName,
+      variant,
     },
+    versionId,
   };
 };

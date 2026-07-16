@@ -6,9 +6,9 @@ export default {
 } satisfies CustomMeta<typeof PopoverButton>;
 
 export const Default: CustomStoryObj<typeof PopoverButton> = {
-  render: (args) => <PopoverButton {...args}>Some Content</PopoverButton>,
-
   args: {
     buttonText: "Popover Button",
   },
+
+  render: (args) => <PopoverButton {...args}>Some Content</PopoverButton>,
 };

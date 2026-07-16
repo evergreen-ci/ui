@@ -4,7 +4,6 @@ import { createPlaywrightConfig } from "@evg-ui/playwright-config";
 export default createPlaywrightConfig({
   appName: "Sage",
   baseURL: "http://localhost:5493",
-  viewport: { width: 1920, height: 1080 },
   projects: [
     {
       name: "chromium",
@@ -13,4 +12,5 @@ export default createPlaywrightConfig({
       },
     },
   ],
+  viewport: { height: 1080, width: 1920 },
 });

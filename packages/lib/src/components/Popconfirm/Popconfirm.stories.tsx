@@ -8,29 +8,29 @@ export default {
 } satisfies CustomMeta<typeof Popconfirm>;
 
 export const Default: CustomStoryObj<typeof Popconfirm> = {
+  args: {
+    align: "top",
+    children: "Are you sure you want to perform this action?",
+    confirmDisabled: false,
+    confirmText: "Confirm",
+    justify: "middle",
+    trigger: <Button size="small">Click to open popconfirm</Button>,
+  },
   argTypes: {
-    confirmText: {
-      control: { type: "text" },
+    align: {
+      control: { type: "select" },
+      options: ["top", "bottom", "left", "right"],
     },
     confirmDisabled: {
       control: { type: "boolean" },
     },
-    align: {
-      control: { type: "select" },
-      options: ["top", "bottom", "left", "right"],
+    confirmText: {
+      control: { type: "text" },
     },
     justify: {
       control: { type: "select" },
       options: ["start", "middle", "end"],
     },
-  },
-  args: {
-    confirmText: "Confirm",
-    confirmDisabled: false,
-    align: "top",
-    justify: "middle",
-    children: "Are you sure you want to perform this action?",
-    trigger: <Button size="small">Click to open popconfirm</Button>,
   },
 };
 

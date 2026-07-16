@@ -10,213 +10,187 @@ import {
 export const oktaServiceConfig = {
   schema: {
     audience: {
-      type: "string" as const,
       title: "Audience",
+      type: "string" as const,
     },
     clientId: {
-      type: "string" as const,
       title: "Client ID",
+      type: "string" as const,
     },
     clientSecret: {
-      type: "string" as const,
       title: "Client Secret",
+      type: "string" as const,
     },
     issuer: {
-      type: "string" as const,
       title: "Issuer",
+      type: "string" as const,
     },
     scopes: {
-      type: "array" as const,
-      title: "Scopes",
       items: {
         type: "string" as const,
       },
+      title: "Scopes",
+      type: "array" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "okta-service-config",
-    "ui:objectFieldCss": objectGridCss,
     "ui:description":
       "Settings for the Okta Services app. Used exclusively for machine-to-machine authentication, e.g. the token exchange grant used in the spawn host workflow.",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const miscSettings = {
   schema: {
     configDir: {
-      type: "string" as const,
       title: "Config Directory",
-    },
-    domainName: {
       type: "string" as const,
-      title: "Domain Name",
-    },
-    githubPRCreatorOrg: {
-      type: "string" as const,
-      title: "GitHub PR Creator Organization",
-    },
-    oldestAllowedCLIVersion: {
-      type: "string" as const,
-      title: "Oldest Allowed CLI Version",
-    },
-    shutdownWaitSeconds: {
-      type: "number" as const,
-      title: "Shutdown Wait Time (secs)",
-    },
-    githubWebhookSecret: {
-      type: "string" as const,
-      title: "GitHub Webhook Secret",
-    },
-    pprofPort: {
-      type: "string" as const,
-      title: "PProf Port",
-    },
-    logPath: {
-      type: "string" as const,
-      title: "Log Path",
-    },
-    githubOrgs: {
-      type: "array" as const,
-      title: "GitHub Organizations",
-      items: {
-        type: "string" as const,
-      },
-    },
-    releaseMode: {
-      type: "object" as const,
-      title: "Release Mode",
-      properties: {
-        distroMaxHostsFactor: {
-          type: "number" as const,
-          title: "Distro Max Hosts Factor",
-          default: 1,
-        },
-        targetTimeSecondsOverride: {
-          type: "number" as const,
-          title: "Target Time Override (secs)",
-        },
-        idleTimeSecondsOverride: {
-          type: "number" as const,
-          title: "Idle Time Override (secs)",
-        },
-      },
     },
     cost: {
-      type: "object" as const,
-      title: "Cost",
       properties: {
         ebsDiscount: {
-          type: "number" as const,
-          title: "EBS Cost Discount",
-          minimum: 0,
           maximum: 1,
+          minimum: 0,
+          title: "EBS Cost Discount",
+          type: "number" as const,
         },
         financeFormula: {
-          type: "number" as const,
+          maximum: 1,
+          minimum: 0,
           title: "Finance Formula",
-          minimum: 0,
-          maximum: 1,
-        },
-        savingsPlanDiscount: {
           type: "number" as const,
-          title: "Savings Plan Discount",
-          minimum: 0,
-          maximum: 1,
-        },
-        onDemandDiscount: {
-          type: "number" as const,
-          title: "On-Demand Discount",
-          minimum: 0,
-          maximum: 1,
         },
         hiddenCostProjects: {
-          type: "array" as const,
-          title: "Projects With Hidden Costs",
           items: {
             type: "string" as const,
           },
+          title: "Projects With Hidden Costs",
+          type: "array" as const,
+        },
+        onDemandDiscount: {
+          maximum: 1,
+          minimum: 0,
+          title: "On-Demand Discount",
+          type: "number" as const,
         },
         s3Cost: {
-          type: "object" as const,
-          title: "S3 Cost",
           properties: {
-            uploadCostDiscount: {
-              type: "number" as const,
-              title: "Upload Cost Discount",
-              minimum: 0,
-              maximum: 1,
-            },
-            standardStorageCostDiscount: {
-              type: "number" as const,
-              title: "Standard Storage Cost Discount",
-              minimum: 0,
-              maximum: 1,
-            },
-            iAStorageCostDiscount: {
-              type: "number" as const,
-              title: "Infrequent Access Storage Cost Discount",
-              minimum: 0,
-              maximum: 1,
-            },
             archiveStorageCostDiscount: {
-              type: "number" as const,
-              title: "Archive Storage Cost Discount",
-              minimum: 0,
               maximum: 1,
-            },
-            defaultMaxArtifactExpirationDays: {
+              minimum: 0,
+              title: "Archive Storage Cost Discount",
               type: "number" as const,
-              title: "Default Max Artifact Expiration Days",
-              minimum: 1,
-            },
-            devprodOwnedAwsAccountIds: {
-              type: "array" as const,
-              title: "Devprod Owned AWS Account IDs",
-              items: {
-                type: "string" as const,
-              },
             },
             artifactAwsAccountsWithoutLifecycleRules: {
-              type: "array" as const,
-              title: "Artifact AWS Account IDs Without Lifecycle Rules",
               items: {
                 type: "string" as const,
               },
+              title: "Artifact AWS Account IDs Without Lifecycle Rules",
+              type: "array" as const,
+            },
+            defaultMaxArtifactExpirationDays: {
+              minimum: 1,
+              title: "Default Max Artifact Expiration Days",
+              type: "number" as const,
+            },
+            devprodOwnedAwsAccountIds: {
+              items: {
+                type: "string" as const,
+              },
+              title: "Devprod Owned AWS Account IDs",
+              type: "array" as const,
+            },
+            iAStorageCostDiscount: {
+              maximum: 1,
+              minimum: 0,
+              title: "Infrequent Access Storage Cost Discount",
+              type: "number" as const,
+            },
+            standardStorageCostDiscount: {
+              maximum: 1,
+              minimum: 0,
+              title: "Standard Storage Cost Discount",
+              type: "number" as const,
+            },
+            uploadCostDiscount: {
+              maximum: 1,
+              minimum: 0,
+              title: "Upload Cost Discount",
+              type: "number" as const,
             },
           },
+          title: "S3 Cost",
+          type: "object" as const,
+        },
+        savingsPlanDiscount: {
+          maximum: 1,
+          minimum: 0,
+          title: "Savings Plan Discount",
+          type: "number" as const,
         },
       },
+      title: "Cost",
+      type: "object" as const,
+    },
+    domainName: {
+      title: "Domain Name",
+      type: "string" as const,
+    },
+    githubOrgs: {
+      items: {
+        type: "string" as const,
+      },
+      title: "GitHub Organizations",
+      type: "array" as const,
+    },
+    githubPRCreatorOrg: {
+      title: "GitHub PR Creator Organization",
+      type: "string" as const,
+    },
+    githubWebhookSecret: {
+      title: "GitHub Webhook Secret",
+      type: "string" as const,
+    },
+    logPath: {
+      title: "Log Path",
+      type: "string" as const,
+    },
+    oldestAllowedCLIVersion: {
+      title: "Oldest Allowed CLI Version",
+      type: "string" as const,
+    },
+    pprofPort: {
+      title: "PProf Port",
+      type: "string" as const,
+    },
+    releaseMode: {
+      properties: {
+        distroMaxHostsFactor: {
+          default: 1,
+          title: "Distro Max Hosts Factor",
+          type: "number" as const,
+        },
+        idleTimeSecondsOverride: {
+          title: "Idle Time Override (secs)",
+          type: "number" as const,
+        },
+        targetTimeSecondsOverride: {
+          title: "Target Time Override (secs)",
+          type: "number" as const,
+        },
+      },
+      title: "Release Mode",
+      type: "object" as const,
+    },
+    shutdownWaitSeconds: {
+      title: "Shutdown Wait Time (secs)",
+      type: "number" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "misc-settings",
-    "ui:objectFieldCss": objectGridCss,
-    githubOrgs: {
-      "ui:widget": widgets.ChipInputWidget,
-      "ui:fieldCss": fullWidthCss,
-      "ui:description": "Organization names are case-sensitive.",
-    },
-    releaseMode: {
-      "ui:description":
-        "Release mode allows Evergreen to scale more aggressively by affecting the following factors. Note that it doesn't change task queue ordering; this is still handled by adjusting priorities.",
-      "ui:fieldCss": nestedObjectGridCss,
-      distroMaxHostsFactor: {
-        "ui:description":
-          "Multiply distro max hosts by this factor (default is 1 if unset).",
-      },
-      targetTimeSecondsOverride: {
-        "ui:description":
-          "Override the target time to clear a task from the queue (ignored if 0)",
-      },
-      idleTimeSecondsOverride: {
-        "ui:description":
-          "Override for the acceptable host idle time (ignored if 0).",
-      },
-    },
     cost: {
-      "ui:fieldCss": nestedObjectGridCss,
       ebsDiscount: {
         "ui:description":
           "The discount applied to EBS costs (throughput, storage, etc.) (value 0-1).",
@@ -225,56 +199,82 @@ export const miscSettings = {
         "ui:description":
           "The formula used to calculate the cost of running a task (value 0-1).",
       },
-      savingsPlanDiscount: {
+      hiddenCostProjects: {
         "ui:description":
-          "The discount applied to tasks that are part of a savings plan (value 0-1).",
+          "Project IDs whose costs are hidden in the UI and API.",
+        "ui:fieldCss": fullWidthCss,
+        "ui:widget": widgets.ChipInputWidget,
       },
       onDemandDiscount: {
         "ui:description":
           "The discount applied to on-demand tasks (value 0-1).",
       },
-      hiddenCostProjects: {
-        "ui:widget": widgets.ChipInputWidget,
-        "ui:fieldCss": fullWidthCss,
-        "ui:description":
-          "Project IDs whose costs are hidden in the UI and API.",
-      },
       s3Cost: {
-        "ui:fieldCss": nestedObjectGridCss,
-        uploadCostDiscount: {
-          "ui:description":
-            "The discount applied to S3 upload costs (value 0-1).",
-        },
-        standardStorageCostDiscount: {
-          "ui:description":
-            "The discount applied to S3 standard storage costs (value 0-1).",
-        },
-        iAStorageCostDiscount: {
-          "ui:description":
-            "The discount applied to S3 infrequent access storage costs (value 0-1).",
-        },
         archiveStorageCostDiscount: {
           "ui:description":
             "The discount applied to S3 archive storage costs (value 0-1).",
+        },
+        artifactAwsAccountsWithoutLifecycleRules: {
+          "ui:description":
+            "AWS account IDs where we do not have access to fetch lifecycle rules.",
+          "ui:fieldCss": fullWidthCss,
+          "ui:widget": widgets.ChipInputWidget,
         },
         defaultMaxArtifactExpirationDays: {
           "ui:description":
             "The default maximum number of days before artifacts expire (minimum 1).",
         },
         devprodOwnedAwsAccountIds: {
-          "ui:widget": widgets.ChipInputWidget,
-          "ui:fieldCss": fullWidthCss,
           "ui:description":
             "AWS account IDs (12 digits) for S3 buckets owned by Devprod, used for cost calculations.",
-        },
-        artifactAwsAccountsWithoutLifecycleRules: {
-          "ui:widget": widgets.ChipInputWidget,
           "ui:fieldCss": fullWidthCss,
+          "ui:widget": widgets.ChipInputWidget,
+        },
+        iAStorageCostDiscount: {
           "ui:description":
-            "AWS account IDs where we do not have access to fetch lifecycle rules.",
+            "The discount applied to S3 infrequent access storage costs (value 0-1).",
+        },
+        standardStorageCostDiscount: {
+          "ui:description":
+            "The discount applied to S3 standard storage costs (value 0-1).",
+        },
+        "ui:fieldCss": nestedObjectGridCss,
+        uploadCostDiscount: {
+          "ui:description":
+            "The discount applied to S3 upload costs (value 0-1).",
         },
       },
+      savingsPlanDiscount: {
+        "ui:description":
+          "The discount applied to tasks that are part of a savings plan (value 0-1).",
+      },
+      "ui:fieldCss": nestedObjectGridCss,
     },
+    githubOrgs: {
+      "ui:description": "Organization names are case-sensitive.",
+      "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.ChipInputWidget,
+    },
+    releaseMode: {
+      distroMaxHostsFactor: {
+        "ui:description":
+          "Multiply distro max hosts by this factor (default is 1 if unset).",
+      },
+      idleTimeSecondsOverride: {
+        "ui:description":
+          "Override for the acceptable host idle time (ignored if 0).",
+      },
+      targetTimeSecondsOverride: {
+        "ui:description":
+          "Override the target time to clear a task from the queue (ignored if 0)",
+      },
+      "ui:description":
+        "Release mode allows Evergreen to scale more aggressively by affecting the following factors. Note that it doesn't change task queue ordering; this is still handled by adjusting priorities.",
+      "ui:fieldCss": nestedObjectGridCss,
+    },
+    "ui:data-cy": "misc-settings",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
@@ -287,517 +287,514 @@ export const getSingleTaskDistroSchema = ({
 }) => {
   const projectRepoOptions = [
     ...projectRefs.map((p) => ({
-      type: "string" as const,
-      title: p.displayName,
       enum: [p.id],
+      title: p.displayName,
+      type: "string" as const,
     })),
     ...repoRefs.map((r) => ({
-      type: "string" as const,
-      title: r.displayName,
       enum: [r.id],
+      title: r.displayName,
+      type: "string" as const,
     })),
   ];
 
   return {
     schema: {
       projectTasksPairs: {
-        type: "array" as const,
-        title: "Project Tasks Pairs",
         items: {
-          type: "object" as const,
           properties: {
-            projectId: {
-              type: "string" as const,
-              title: "Project ID / Repo ID",
-              oneOf: projectRepoOptions,
-              default: "",
+            allowedBVs: {
+              items: {
+                type: "string" as const,
+              },
+              title: "Allowed Build Variants",
+              type: "array" as const,
             },
             allowedTasks: {
-              type: "array" as const,
+              items: {
+                type: "string" as const,
+              },
               title: "Allowed Tasks",
-              items: {
-                type: "string" as const,
-              },
-            },
-            allowedBVs: {
               type: "array" as const,
-              title: "Allowed Build Variants",
-              items: {
-                type: "string" as const,
-              },
+            },
+            projectId: {
+              default: "",
+              oneOf: projectRepoOptions,
+              title: "Project ID / Repo ID",
+              type: "string" as const,
             },
           },
+          type: "object" as const,
         },
+        title: "Project Tasks Pairs",
+        type: "array" as const,
       },
     },
     uiSchema: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:data-cy": "single-task-host",
-      "ui:objectFieldCss": objectGridCss,
       projectTasksPairs: {
-        "ui:addButtonText": "Add project tasks pair",
-        "ui:data-cy": "project-tasks-pairs-list",
-        "ui:orderable": false,
-        "ui:fullWidth": true,
-        "ui:fieldCss": fullWidthCss,
-        "ui:arrayItemCSS": arrayItemCSS,
         items: {
-          projectId: {
-            "ui:widget": widgets.ComboboxWidget,
+          allowedBVs: {
+            "ui:widget": widgets.ChipInputWidget,
           },
           allowedTasks: {
             "ui:widget": widgets.ChipInputWidget,
           },
-          allowedBVs: {
-            "ui:widget": widgets.ChipInputWidget,
+          projectId: {
+            "ui:widget": widgets.ComboboxWidget,
           },
         },
+        "ui:addButtonText": "Add project tasks pair",
+        "ui:arrayItemCSS": arrayItemCSS,
+        "ui:data-cy": "project-tasks-pairs-list",
+        "ui:fieldCss": fullWidthCss,
+        "ui:fullWidth": true,
+        "ui:orderable": false,
       },
+      "ui:data-cy": "single-task-host",
+      "ui:objectFieldCss": objectGridCss,
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
     },
   };
 };
 
 export const bucketConfig = {
   schema: {
-    defaultLogBucket: {
+    credentialsKey: {
+      title: "S3 Key",
       type: "string" as const,
+    },
+    credentialsSecret: {
+      title: "S3 Secret",
+      type: "string" as const,
+    },
+    defaultLogBucket: {
       title: "Default Log Bucket",
+      type: "string" as const,
+    },
+    failedTasksLogBucketExpirationDays: {
+      readOnly: true,
+      title: "Failed Tasks Log Bucket Expiration Days",
+      type: "number" as const,
+    },
+    failedTasksLogBucketLifecycleLastSyncedAt: {
+      readOnly: true,
+      title: "Failed Tasks Log Bucket Lifecycle Last Synced At",
+      type: "string" as const,
+    },
+    failedTasksLogBucketLifecycleSyncError: {
+      readOnly: true,
+      title: "Failed Tasks Log Bucket Lifecycle Sync Error",
+      type: "string" as const,
+    },
+    failedTasksLogBucketName: {
+      title: "Failed Tasks Log Bucket",
+      type: "string" as const,
+    },
+    failedTasksLogBucketTransitionToGlacierDays: {
+      readOnly: true,
+      title: "Failed Tasks Log Bucket Transition to Glacier Days",
+      type: "number" as const,
+    },
+    failedTasksLogBucketTransitionToIADays: {
+      readOnly: true,
+      title: "Failed Tasks Log Bucket Transition to IA Days",
+      type: "number" as const,
     },
     logBucketExpirationDays: {
-      type: "number" as const,
+      readOnly: true,
       title: "Log Bucket Expiration Days",
-      readOnly: true,
-    },
-    logBucketTransitionToIADays: {
       type: "number" as const,
-      title: "Log Bucket Transition to IA Days",
-      readOnly: true,
-    },
-    logBucketTransitionToGlacierDays: {
-      type: "number" as const,
-      title: "Log Bucket Transition to Glacier Days",
-      readOnly: true,
     },
     logBucketLifecycleLastSyncedAt: {
-      type: "string" as const,
-      title: "Log Bucket Lifecycle Last Synced At",
       readOnly: true,
+      title: "Log Bucket Lifecycle Last Synced At",
+      type: "string" as const,
     },
     logBucketLifecycleSyncError: {
-      type: "string" as const,
-      title: "Log Bucket Lifecycle Sync Error",
       readOnly: true,
-    },
-    logBucketLongRetentionName: {
+      title: "Log Bucket Lifecycle Sync Error",
       type: "string" as const,
-      title: "Long Retention Log Bucket",
     },
     logBucketLongRetentionExpirationDays: {
-      type: "number" as const,
+      readOnly: true,
       title: "Long Retention Log Bucket Expiration Days",
-      readOnly: true,
-    },
-    logBucketLongRetentionTransitionToIADays: {
       type: "number" as const,
-      title: "Long Retention Log Bucket Transition to IA Days",
-      readOnly: true,
-    },
-    logBucketLongRetentionTransitionToGlacierDays: {
-      type: "number" as const,
-      title: "Long Retention Log Bucket Transition to Glacier Days",
-      readOnly: true,
     },
     logBucketLongRetentionLifecycleLastSyncedAt: {
-      type: "string" as const,
-      title: "Long Retention Log Bucket Lifecycle Last Synced At",
       readOnly: true,
+      title: "Long Retention Log Bucket Lifecycle Last Synced At",
+      type: "string" as const,
     },
     logBucketLongRetentionLifecycleSyncError: {
-      type: "string" as const,
-      title: "Long Retention Log Bucket Lifecycle Sync Error",
       readOnly: true,
+      title: "Long Retention Log Bucket Lifecycle Sync Error",
+      type: "string" as const,
+    },
+    logBucketLongRetentionName: {
+      title: "Long Retention Log Bucket",
+      type: "string" as const,
+    },
+    logBucketLongRetentionTransitionToGlacierDays: {
+      readOnly: true,
+      title: "Long Retention Log Bucket Transition to Glacier Days",
+      type: "number" as const,
+    },
+    logBucketLongRetentionTransitionToIADays: {
+      readOnly: true,
+      title: "Long Retention Log Bucket Transition to IA Days",
+      type: "number" as const,
+    },
+    logBucketTransitionToGlacierDays: {
+      readOnly: true,
+      title: "Log Bucket Transition to Glacier Days",
+      type: "number" as const,
+    },
+    logBucketTransitionToIADays: {
+      readOnly: true,
+      title: "Log Bucket Transition to IA Days",
+      type: "number" as const,
     },
     longRetentionProjects: {
-      type: "array" as const,
-      title: "Projects Requiring Long Retention",
       items: {
         type: "string" as const,
       },
-    },
-    testResultsBucketName: {
-      type: "string" as const,
-      title: "Test Results Bucket Name",
-    },
-    testResultsBucketTestResultsPrefix: {
-      type: "string" as const,
-      title: "Test Results Bucket Prefix",
-    },
-    testResultsBucketRoleARN: {
-      type: "string" as const,
-      title: "Test Results Bucket Role ARN",
-    },
-    testResultsBucketType: {
-      type: "string" as const,
-      title: "Test Results Bucket Type",
-    },
-    credentialsKey: {
-      type: "string" as const,
-      title: "S3 Key",
-    },
-    credentialsSecret: {
-      type: "string" as const,
-      title: "S3 Secret",
-    },
-    failedTasksLogBucketName: {
-      type: "string" as const,
-      title: "Failed Tasks Log Bucket",
-    },
-    failedTasksLogBucketExpirationDays: {
-      type: "number" as const,
-      title: "Failed Tasks Log Bucket Expiration Days",
-      readOnly: true,
-    },
-    failedTasksLogBucketTransitionToIADays: {
-      type: "number" as const,
-      title: "Failed Tasks Log Bucket Transition to IA Days",
-      readOnly: true,
-    },
-    failedTasksLogBucketTransitionToGlacierDays: {
-      type: "number" as const,
-      title: "Failed Tasks Log Bucket Transition to Glacier Days",
-      readOnly: true,
-    },
-    failedTasksLogBucketLifecycleLastSyncedAt: {
-      type: "string" as const,
-      title: "Failed Tasks Log Bucket Lifecycle Last Synced At",
-      readOnly: true,
-    },
-    failedTasksLogBucketLifecycleSyncError: {
-      type: "string" as const,
-      title: "Failed Tasks Log Bucket Lifecycle Sync Error",
-      readOnly: true,
+      title: "Projects Requiring Long Retention",
+      type: "array" as const,
     },
     retryFailedLogMoveLookbackDays: {
-      type: "number" as const,
       title: "Retry Failed Log Move Lookback Days",
+      type: "number" as const,
     },
     retryFailedLogMoveMaxJobsPerRun: {
-      type: "number" as const,
       title: "Retry Failed Log Move Max Jobs Per Run",
+      type: "number" as const,
+    },
+    testResultsBucketName: {
+      title: "Test Results Bucket Name",
+      type: "string" as const,
+    },
+    testResultsBucketRoleARN: {
+      title: "Test Results Bucket Role ARN",
+      type: "string" as const,
+    },
+    testResultsBucketTestResultsPrefix: {
+      title: "Test Results Bucket Prefix",
+      type: "string" as const,
+    },
+    testResultsBucketType: {
+      title: "Test Results Bucket Type",
+      type: "string" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "bucket-config",
-    "ui:objectFieldCss": objectGridCss,
+    failedTasksLogBucketExpirationDays: { "ui:readonly": true },
+    failedTasksLogBucketLifecycleLastSyncedAt: { "ui:readonly": true },
+    failedTasksLogBucketLifecycleSyncError: { "ui:readonly": true },
+    failedTasksLogBucketTransitionToGlacierDays: { "ui:readonly": true },
+    failedTasksLogBucketTransitionToIADays: { "ui:readonly": true },
     logBucketExpirationDays: { "ui:readonly": true },
-    logBucketTransitionToIADays: { "ui:readonly": true },
-    logBucketTransitionToGlacierDays: { "ui:readonly": true },
     logBucketLifecycleLastSyncedAt: { "ui:readonly": true },
     logBucketLifecycleSyncError: { "ui:readonly": true },
     logBucketLongRetentionExpirationDays: { "ui:readonly": true },
-    logBucketLongRetentionTransitionToIADays: { "ui:readonly": true },
-    logBucketLongRetentionTransitionToGlacierDays: { "ui:readonly": true },
     logBucketLongRetentionLifecycleLastSyncedAt: { "ui:readonly": true },
     logBucketLongRetentionLifecycleSyncError: { "ui:readonly": true },
+    logBucketLongRetentionTransitionToGlacierDays: { "ui:readonly": true },
+    logBucketLongRetentionTransitionToIADays: { "ui:readonly": true },
+    logBucketTransitionToGlacierDays: { "ui:readonly": true },
+    logBucketTransitionToIADays: { "ui:readonly": true },
     longRetentionProjects: {
-      "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.ChipInputWidget,
     },
-    failedTasksLogBucketExpirationDays: { "ui:readonly": true },
-    failedTasksLogBucketTransitionToIADays: { "ui:readonly": true },
-    failedTasksLogBucketTransitionToGlacierDays: { "ui:readonly": true },
-    failedTasksLogBucketLifecycleLastSyncedAt: { "ui:readonly": true },
-    failedTasksLogBucketLifecycleSyncError: { "ui:readonly": true },
+    "ui:data-cy": "bucket-config",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const sshPairs = {
   schema: {
-    taskHostKey: {
-      type: "object" as const,
-      title: "Task Host Key",
-      properties: {
-        name: {
-          type: "string" as const,
-          title: "Name",
-        },
-        secretARN: {
-          type: "string" as const,
-          title: "Secret ARN",
-        },
-      },
-    },
     spawnHostKey: {
-      type: "object" as const,
-      title: "Spawn Host Key",
       properties: {
         name: {
-          type: "string" as const,
           title: "Name",
+          type: "string" as const,
         },
         secretARN: {
-          type: "string" as const,
           title: "Secret ARN",
+          type: "string" as const,
         },
       },
+      title: "Spawn Host Key",
+      type: "object" as const,
+    },
+    taskHostKey: {
+      properties: {
+        name: {
+          title: "Name",
+          type: "string" as const,
+        },
+        secretARN: {
+          title: "Secret ARN",
+          type: "string" as const,
+        },
+      },
+      title: "Task Host Key",
+      type: "object" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "ssh-pairs",
-    "ui:objectFieldCss": objectGridCss,
-    taskHostKey: {
-      "ui:data-cy": "task-host-key",
-      "ui:fieldCss": nestedObjectGridCss,
-    },
     spawnHostKey: {
       "ui:data-cy": "spawn-host-key",
       "ui:fieldCss": nestedObjectGridCss,
     },
+    taskHostKey: {
+      "ui:data-cy": "task-host-key",
+      "ui:fieldCss": nestedObjectGridCss,
+    },
+    "ui:data-cy": "ssh-pairs",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const expansions = {
   schema: {
     expansionValues: {
-      type: "array" as const,
-      title: "",
       items: {
-        type: "object" as const,
         properties: {
           key: {
-            type: "string" as const,
             title: "Key",
+            type: "string" as const,
           },
           value: {
-            type: "string" as const,
             title: "Value",
+            type: "string" as const,
           },
         },
+        type: "object" as const,
       },
+      title: "",
+      type: "array" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "expansions-list",
-    "ui:fullWidth": true,
     expansionValues: {
-      "ui:orderable": false,
-      "ui:fullWidth": true,
-      "ui:addButtonText": "Add expansion",
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:arrayItemCSS": arrayItemCSS,
       items: {
         "ui:data-cy": "expansion-item",
         value: {
           "ui:widget": "textarea",
         },
       },
+      "ui:addButtonText": "Add expansion",
+      "ui:arrayItemCSS": arrayItemCSS,
+      "ui:fullWidth": true,
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:orderable": false,
     },
+    "ui:data-cy": "expansions-list",
+    "ui:fullWidth": true,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const hostJasper = {
   schema: {
     binaryName: {
-      type: "string" as const,
       title: "Binary Name",
+      type: "string" as const,
     },
     downloadFileName: {
-      type: "string" as const,
       title: "Download File Name",
+      type: "string" as const,
     },
     port: {
-      type: "number" as const,
       title: "Port",
+      type: "number" as const,
     },
     url: {
-      type: "string" as const,
-      title: "URL",
       format: "validURL",
+      title: "URL",
+      type: "string" as const,
     },
     version: {
-      type: "string" as const,
       title: "Version",
+      type: "string" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "host-jasper",
     "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const jiraNotificationsFields = {
   schema: {
     customFields: {
-      type: "array" as const,
-      title: "Jira Projects",
       items: {
-        type: "object" as const,
         properties: {
-          project: {
-            type: "string" as const,
-            title: "Project",
-          },
           components: {
-            type: "array" as const,
+            items: {
+              type: "string" as const,
+            },
             title: "Components",
-            items: {
-              type: "string" as const,
-            },
-          },
-          labels: {
             type: "array" as const,
-            title: "Labels",
-            items: {
-              type: "string" as const,
-            },
           },
           fields: {
-            type: "array" as const,
-            title: "Fields",
             items: {
-              type: "object" as const,
               properties: {
                 key: {
-                  type: "string" as const,
                   title: "Field Key",
+                  type: "string" as const,
                 },
                 value: {
-                  type: "string" as const,
                   title: "Field Value",
+                  type: "string" as const,
                 },
               },
+              type: "object" as const,
             },
+            title: "Fields",
+            type: "array" as const,
+          },
+          labels: {
+            items: {
+              type: "string" as const,
+            },
+            title: "Labels",
+            type: "array" as const,
+          },
+          project: {
+            title: "Project",
+            type: "string" as const,
           },
         },
+        type: "object" as const,
       },
+      title: "Jira Projects",
+      type: "array" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "jira-notifications",
-    "ui:objectFieldCss": objectGridCss,
     customFields: {
-      "ui:addButtonText": "Add new Jira project",
-      "ui:data-cy": "jira-custom-fields-list",
-      "ui:orderable": false,
-      "ui:fullWidth": true,
-      "ui:fieldCss": fullWidthCss,
-      "ui:arrayItemCSS": arrayItemCSS,
       items: {
-        "ui:data-cy": "jira-custom-field-item",
-        fields: {
-          "ui:addButtonText": "Add custom field",
-          "ui:placeholder": "No custom fields defined.",
-          "ui:data-cy": "jira-fields-list",
-          "ui:orderable": false,
-          "ui:fullWidth": true,
-          "ui:fieldCss": fullWidthCss,
-          "ui:arrayItemCSS": arrayItemCSS,
-        },
         components: {
           "ui:widget": widgets.ChipInputWidget,
+        },
+        fields: {
+          "ui:addButtonText": "Add custom field",
+          "ui:arrayItemCSS": arrayItemCSS,
+          "ui:data-cy": "jira-fields-list",
+          "ui:fieldCss": fullWidthCss,
+          "ui:fullWidth": true,
+          "ui:orderable": false,
+          "ui:placeholder": "No custom fields defined.",
         },
         labels: {
           "ui:widget": widgets.ChipInputWidget,
         },
+        "ui:data-cy": "jira-custom-field-item",
       },
+      "ui:addButtonText": "Add new Jira project",
+      "ui:arrayItemCSS": arrayItemCSS,
+      "ui:data-cy": "jira-custom-fields-list",
+      "ui:fieldCss": fullWidthCss,
+      "ui:fullWidth": true,
+      "ui:orderable": false,
     },
+    "ui:data-cy": "jira-notifications",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const spawnHost = {
   schema: {
     spawnHostsPerUser: {
-      type: "number" as const,
       title: "Total Spawn Hosts Per User",
+      type: "number" as const,
     },
     unexpirableHostsPerUser: {
-      type: "number" as const,
       title: "Unexpirable Hosts Per User",
+      type: "number" as const,
     },
     unexpirableVolumesPerUser: {
-      type: "number" as const,
       title: "Unexpirable Volumes Per User",
+      type: "number" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "spawn-host",
     "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const debugSpawnHostsConfig = {
   schema: {
     setupScript: {
-      type: "string" as const,
       title: "Setup Script",
+      type: "string" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "debug-spawn-hosts-config",
     setupScript: {
-      "ui:widget": "textarea",
-      "ui:fieldCss": fullWidthCss,
       "ui:description":
         "Optional script used to help debug spawn host setup/provisioning.",
+      "ui:fieldCss": fullWidthCss,
+      "ui:widget": "textarea",
     },
+    "ui:data-cy": "debug-spawn-hosts-config",
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const sleepSchedule = {
   schema: {
     permanentlyExemptHosts: {
-      type: "array" as const,
-      title: "Permanently Exempt Hosts",
       items: {
         type: "string" as const,
       },
+      title: "Permanently Exempt Hosts",
+      type: "array" as const,
     },
   },
   uiSchema: {
-    "ui:data-cy": "sleep-schedule",
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:objectFieldCss": objectGridCss,
     permanentlyExemptHosts: {
-      "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.ChipInputWidget,
     },
+    "ui:data-cy": "sleep-schedule",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const tracerConfiguration = {
   schema: {
-    enabled: {
-      type: "boolean" as const,
-      title: "Enable tracer",
+    collectorAPIKey: {
+      title: "Collector API Key",
+      type: "string" as const,
     },
     collectorEndpoint: {
-      type: "string" as const,
       title: "Collector Endpoint",
+      type: "string" as const,
     },
     collectorInternalEndpoint: {
-      type: "string" as const,
       title: "Collector Internal Endpoint",
-    },
-    collectorAPIKey: {
       type: "string" as const,
-      title: "Collector API Key",
+    },
+    enabled: {
+      title: "Enable tracer",
+      type: "boolean" as const,
     },
     traceUrlTemplate: {
-      type: "string" as const,
       title: "Trace URL Template",
+      type: "string" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "tracer-configuration",
-    "ui:objectFieldCss": objectGridCss,
     enabled: {
       "ui:fieldCss": fullWidthCss,
     },
@@ -806,70 +803,70 @@ export const tracerConfiguration = {
         "fmt.Sprintf template with exactly one %s verb for the W3C trace ID (hex). Example: https://apm.example.com/trace/%s",
       "ui:fieldCss": fullWidthCss,
     },
+    "ui:data-cy": "tracer-configuration",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const projectCreationSettings = {
   schema: {
-    totalProjectLimit: {
-      type: "number" as const,
-      title: "Total Project Limit",
-    },
-    repoProjectLimit: {
-      type: "number" as const,
-      title: "Repository Project Limit",
-    },
     repoExceptions: {
-      type: "array" as const,
-      title: "Repository Exceptions",
       items: {
-        type: "object" as const,
         properties: {
           owner: {
-            type: "string" as const,
             title: "Owner",
+            type: "string" as const,
           },
           repo: {
-            type: "string" as const,
             title: "Repository",
+            type: "string" as const,
           },
         },
+        type: "object" as const,
       },
+      title: "Repository Exceptions",
+      type: "array" as const,
+    },
+    repoProjectLimit: {
+      title: "Repository Project Limit",
+      type: "number" as const,
+    },
+    totalProjectLimit: {
+      title: "Total Project Limit",
+      type: "number" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "project-creation-settings",
-    "ui:objectFieldCss": objectGridCss,
     repoExceptions: {
-      "ui:addButtonText": "Add repository exception",
-      "ui:data-cy": "repo-exceptions-list",
-      "ui:orderable": false,
-      "ui:fullWidth": true,
-      "ui:fieldCss": fullWidthCss,
-      "ui:arrayItemCSS": arrayItemCSS,
       items: {
         "ui:data-cy": "repo-exception-item",
       },
+      "ui:addButtonText": "Add repository exception",
+      "ui:arrayItemCSS": arrayItemCSS,
+      "ui:data-cy": "repo-exceptions-list",
+      "ui:fieldCss": fullWidthCss,
+      "ui:fullWidth": true,
+      "ui:orderable": false,
     },
+    "ui:data-cy": "project-creation-settings",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const diagnosticsConfig = {
   schema: {
     s3BucketName: {
-      type: "string" as const,
       title: "S3 Bucket Name",
+      type: "string" as const,
     },
     s3Prefix: {
-      type: "string" as const,
       title: "S3 Prefix",
+      type: "string" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "diagnostics-config",
-    "ui:objectFieldCss": objectGridCss,
     s3BucketName: {
       "ui:description": "The S3 bucket where diagnostics data is stored.",
     },
@@ -877,19 +874,22 @@ export const diagnosticsConfig = {
       "ui:description":
         "The prefix used for diagnostics data in the S3 bucket.",
     },
+    "ui:data-cy": "diagnostics-config",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const githubCheckRunConfigurations = {
   schema: {
     checkRunLimit: {
-      type: "number" as const,
       title: "Check Run Limit",
+      type: "number" as const,
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "github-check-run-configurations",
     "ui:objectFieldCss": objectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };

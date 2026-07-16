@@ -67,9 +67,7 @@ const renderExpandedContent = (row: LeafyGreenTableRow<MyHost>) => (
 
 const columns: LGColumnDef<MyHost>[] = [
   {
-    header: "Host",
     accessorKey: "id",
-    enableSorting: true,
     cell: ({ getValue, row }) => {
       const id = getValue() as string;
       return row.original.distro?.isVirtualWorkStation ? (
@@ -81,41 +79,43 @@ const columns: LGColumnDef<MyHost>[] = [
         <WordBreak>{row.original.displayName || id}</WordBreak>
       );
     },
+    enableSorting: true,
+    header: "Host",
   },
   {
-    header: "Distro",
     accessorKey: "distro.id",
-    enableSorting: true,
     cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
+    enableSorting: true,
+    header: "Distro",
   },
   {
-    header: "Status",
     accessorKey: "status",
-    enableSorting: true,
     cell: ({ getValue }) => (
       <HostStatusBadge status={getValue() as HostStatus} />
     ),
+    enableSorting: true,
+    header: "Status",
   },
   {
-    header: "Expires In",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ expiration }) => new Date(expiration),
-    enableSorting: true,
     cell: ({ getValue, row }) =>
       row.original.noExpiration
         ? DoesNotExpire
         : formatDistanceToNow(getValue() as Date),
+    enableSorting: true,
+    header: "Expires In",
   },
   {
-    header: "Uptime",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ uptime }) => new Date(uptime),
-    enableSorting: true,
     cell: ({ getValue }) => formatDistanceToNow(getValue() as Date),
+    enableSorting: true,
+    header: "Uptime",
   },
   {
-    header: "Actions",
     cell: ({ row }) => <SpawnHostTableActions host={row.original} />,
+    header: "Actions",
   },
 ];
 

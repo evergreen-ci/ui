@@ -77,23 +77,23 @@ const baseTaskId = "base_task_id";
 
 const patchTaskWithNoBaseTask = {
   ...taskQuery.task,
-  id: "t1",
-  execution: 0,
-  status: TaskStatus.Succeeded,
-  displayStatus: TaskStatus.Succeeded,
+  __typename: "Task" as const,
   baseTask: null,
+  displayStatus: TaskStatus.Succeeded,
+  execution: 0,
+  id: "t1",
+  status: TaskStatus.Succeeded,
   versionMetadata: {
     ...taskQuery.task.versionMetadata,
     isPatch: true,
   },
-  __typename: "Task" as const,
 };
 
 const baseTask = {
   __typename: "Task" as const,
-  id: baseTaskId,
   displayStatus: TaskStatus.Failed,
   execution: 0,
+  id: baseTaskId,
   revision: "abc123",
   status: TaskStatus.Failed,
   timeTaken: null,
@@ -106,30 +106,30 @@ const baseTask = {
 
 const patchTaskWithBaseTask = {
   ...taskQuery.task,
-  id: "t2",
-  execution: 0,
-  status: TaskStatus.Failed,
-  displayStatus: TaskStatus.Failed,
+  __typename: "Task" as const,
   baseTask,
+  displayStatus: TaskStatus.Failed,
+  execution: 0,
+  id: "t2",
+  status: TaskStatus.Failed,
   versionMetadata: {
     ...taskQuery.task.versionMetadata,
     isPatch: true,
   },
-  __typename: "Task" as const,
 };
 
 const mainlineTask = {
   ...taskQuery.task,
-  id: "t3",
-  execution: 0,
-  status: TaskStatus.Failed,
-  displayStatus: TaskStatus.Failed,
+  __typename: "Task" as const,
   baseTask,
+  displayStatus: TaskStatus.Failed,
+  execution: 0,
+  id: "t3",
+  status: TaskStatus.Failed,
   versionMetadata: {
     ...taskQuery.task.versionMetadata,
     isPatch: false,
   },
-  __typename: "Task" as const,
 };
 
 const getStepbackTasksMock: ApolloMock<
@@ -139,44 +139,44 @@ const getStepbackTasksMock: ApolloMock<
   request: {
     query: STEPBACK_TASKS,
     variables: {
-      taskId: "t3",
       execution: 0,
       isPassing: false,
+      taskId: "t3",
     },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: "t3",
         execution: 0,
+        id: "t3",
         prevTask: {
           __typename: "Task",
-          id: "prev_task",
           displayStatus: TaskStatus.Failed,
           execution: 0,
+          id: "prev_task",
           revision: "aaa111",
         },
         prevTaskCompleted: {
           __typename: "Task",
-          id: "prev_completed",
           displayStatus: TaskStatus.Failed,
           execution: 0,
+          id: "prev_completed",
           revision: "bbb222",
         },
         prevTaskPassing: {
           __typename: "Task",
-          id: "prev_passing",
           displayStatus: TaskStatus.Succeeded,
           execution: 0,
-          revision: "ccc333",
+          id: "prev_passing",
           nextTaskFailing: {
             __typename: "Task",
-            id: "breaking_task",
             displayStatus: TaskStatus.Failed,
             execution: 0,
+            id: "breaking_task",
             revision: "ddd444",
           },
+          revision: "ccc333",
         },
       },
     },

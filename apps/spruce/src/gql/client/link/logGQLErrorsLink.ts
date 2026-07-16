@@ -31,8 +31,6 @@ export const reportingFn =
         );
 
     const sendError = reportError(err, {
-      fingerprint,
-      tags: { operationName: operation.operationName },
       context: {
         gqlErr,
         variables: deleteNestedKey(
@@ -41,6 +39,8 @@ export const reportingFn =
           "REDACTED",
         ),
       },
+      fingerprint,
+      tags: { operationName: operation.operationName },
     });
 
     if (isValidationError) {

@@ -10,51 +10,51 @@ export const taskHistoryGuideId = "data-task-history-guide-id";
 
 export const walkthroughSteps: WalkthroughStep[] = [
   {
-    title: "Introducing the Task History Tab",
     description:
       "An at-a-glance view of task history for gauging overall task health and investigating test failures.",
     targetId: "task-history-tab",
+    title: "Introducing the Task History Tab",
   },
   {
-    title: "Task Timeline",
+    beaconAlign: BeaconAlign.Left,
     description:
       "The timeline shows this task's previous runs. Paginate to view additional history.",
     targetId: "task-timeline",
-    beaconAlign: BeaconAlign.Left,
+    title: "Task Timeline",
     tooltipAlign: TooltipAlign.Left,
   },
   {
-    title: "View Options",
     description:
       "Choose to collapse or expand inactive commits in the timeline.",
     targetId: "inactive-commits",
+    title: "View Options",
   },
   {
-    title: "Commit Details",
+    beaconAlign: BeaconAlign.Left,
     description:
       "Each card represents a task in the timeline and contains additional commit information.",
     targetId: "commit-details",
-    beaconAlign: BeaconAlign.Left,
+    title: "Commit Details",
     tooltipAlign: TooltipAlign.Left,
   },
   {
-    title: "Search Test Failures",
+    beaconAlign: BeaconAlign.Left,
     description:
       "Search for specific tests to identify common failures across different task runs.",
     targetId: "search-test-failures",
-    beaconAlign: BeaconAlign.Left,
+    title: "Search Test Failures",
     tooltipAlign: TooltipAlign.Left,
   },
   {
-    title: "Filter by Date",
     description:
       "Jump directly to any given date in the task history. Tasks are TTL'd after 1 year.",
     targetId: "search-by-date",
+    title: "Filter by Date",
   },
   {
-    title: "Jump to Current Task",
     description: "Use this button to reset the page to its original state.",
     targetId: "jump-to-task",
+    title: "Jump to Current Task",
   },
 ];
 

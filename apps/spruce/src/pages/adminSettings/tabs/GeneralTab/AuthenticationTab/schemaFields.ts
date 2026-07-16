@@ -31,118 +31,119 @@ export const usersGridCss = css`
 
 export const globalConfig = {
   schema: {
-    preferredType: {
-      type: "string" as const,
-      title: "Preferred Authentication Type",
-      oneOf: Object.entries(PreferredAuthType).map(([key, value]) => ({
-        type: "string" as const,
-        title: key,
-        enum: [value],
-      })),
+    allowServiceUsers: {
+      title: "Allow Service Users",
+      type: "boolean" as const,
     },
     backgroundReauthMinutes: {
-      type: "number" as const,
       title: "Background Reauthentication (Mins)",
+      type: "number" as const,
     },
-    allowServiceUsers: {
-      type: "boolean" as const,
-      title: "Allow Service Users",
+    preferredType: {
+      oneOf: Object.entries(PreferredAuthType).map(([key, value]) => ({
+        enum: [value],
+        title: key,
+        type: "string" as const,
+      })),
+      title: "Preferred Authentication Type",
+      type: "string" as const,
     },
   },
   uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
-    preferredType: {
-      "ui:fieldCss": fullWidthCss,
-      "ui:widget": widgets.RadioWidget,
-      "ui:options": {
-        inline: true,
-        elementWrapperCSS: radioCSS,
-      },
-    },
     allowServiceUsers: {
       "ui:fieldCss": fullWidthCss,
-      "ui:widget": widgets.CheckboxWidget,
       "ui:options": {
         bold: true,
       },
+      "ui:widget": widgets.CheckboxWidget,
     },
+    preferredType: {
+      "ui:fieldCss": fullWidthCss,
+      "ui:options": {
+        elementWrapperCSS: radioCSS,
+        inline: true,
+      },
+      "ui:widget": widgets.RadioWidget,
+    },
+    "ui:fieldCss": nestedObjectGridCss,
   },
 };
 
 export const okta = {
   schema: {
     clientId: {
-      type: "string" as const,
       title: "Client ID",
+      type: "string" as const,
     },
     clientSecret: {
-      type: "string" as const,
       title: "Client Secret",
-    },
-    issuer: {
       type: "string" as const,
-      title: "Issuer",
-    },
-    userGroup: {
-      type: "string" as const,
-      title: "User Group",
     },
     expireAfterMinutes: {
-      type: "number" as const,
       title: "Expire After (Mins)",
+      type: "number" as const,
+    },
+    issuer: {
+      title: "Issuer",
+      type: "string" as const,
     },
     scopes: {
-      type: "array" as const,
-      title: "Scopes",
       items: {
         type: "string" as const,
       },
+      title: "Scopes",
+      type: "array" as const,
+    },
+    userGroup: {
+      title: "User Group",
+      type: "string" as const,
     },
   },
   uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
     scopes: {
-      "ui:widget": widgets.ChipInputWidget,
-      "ui:fieldCss": fullWidthCss,
       "ui:elementWrapperCSS": css`
         margin-bottom: 0;
       `,
+      "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.ChipInputWidget,
     },
+    "ui:fieldCss": nestedObjectGridCss,
   },
 };
 
 export const naive = {
   schema: {
     users: {
-      type: "array" as const,
-      title: "Users",
       items: {
-        type: "object" as const,
         properties: {
           displayName: {
-            type: "string" as const,
             title: "Display Name",
+            type: "string" as const,
           },
           email: {
-            type: "string" as const,
             title: "Email",
+            type: "string" as const,
           },
           password: {
-            type: "string" as const,
             title: "Password",
+            type: "string" as const,
           },
           username: {
-            type: "string" as const,
             title: "Username",
+            type: "string" as const,
           },
         },
+        type: "object" as const,
       },
+      title: "Users",
+      type: "array" as const,
     },
   },
   uiSchema: {
     users: {
-      "ui:fullWidth": true,
-      "ui:orderable": false,
+      items: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+      },
       "ui:addButtonText": "Add user",
       "ui:arrayCSS": css`
         margin-bottom: 0;
@@ -152,9 +153,8 @@ export const naive = {
           margin-bottom: ${size.m};
         }
       `,
-      items: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-      },
+      "ui:fullWidth": true,
+      "ui:orderable": false,
     },
   },
 };
@@ -162,45 +162,45 @@ export const naive = {
 export const github = {
   schema: {
     appId: {
-      type: "number" as const,
       title: "App ID",
+      type: "number" as const,
     },
     clientId: {
-      type: "string" as const,
       title: "Client ID",
+      type: "string" as const,
     },
     clientSecret: {
-      type: "string" as const,
       title: "Client Secret",
+      type: "string" as const,
     },
     defaultOwner: {
-      type: "string" as const,
       title: "Default Owner",
+      type: "string" as const,
     },
     defaultRepo: {
-      type: "string" as const,
       title: "Default Repository",
+      type: "string" as const,
     },
     organization: {
-      type: "string" as const,
       title: "Organization",
+      type: "string" as const,
     },
     users: {
-      type: "array" as const,
-      title: "Users",
       items: {
         type: "string" as const,
       },
+      title: "Users",
+      type: "array" as const,
     },
   },
   uiSchema: {
     "ui:fieldCss": nestedObjectGridCss,
     users: {
-      "ui:widget": widgets.ChipInputWidget,
-      "ui:fieldCss": fullWidthCss,
       "ui:elementWrapperCSS": css`
         margin-bottom: 0;
       `,
+      "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.ChipInputWidget,
     },
   },
 };
@@ -208,16 +208,16 @@ export const github = {
 export const oauth = {
   schema: {
     clientId: {
-      type: "string" as const,
       title: "Client ID",
-    },
-    issuer: {
       type: "string" as const,
-      title: "Issuer",
     },
     connectorId: {
-      type: "string" as const,
       title: "Connector ID",
+      type: "string" as const,
+    },
+    issuer: {
+      title: "Issuer",
+      type: "string" as const,
     },
   },
   uiSchema: {
@@ -233,43 +233,43 @@ const validMultiOptions = [
 
 const multiOptions = [
   ...validMultiOptions.map((key) => ({
-    type: "string" as const,
-    title: toSentenceCase(key),
     enum: [key.toLowerCase()],
+    title: toSentenceCase(key),
+    type: "string" as const,
   })),
 ];
 
 export const multi = {
   schema: {
-    readWrite: {
-      type: "array" as const,
-      title: "Read Write",
-      uniqueItems: true,
-      items: {
-        type: "string" as const,
-        anyOf: multiOptions,
-      },
-    },
     readOnly: {
-      type: "array" as const,
-      title: "Read Only",
-      uniqueItems: true,
       items: {
-        type: "string" as const,
         anyOf: multiOptions,
+        type: "string" as const,
       },
+      title: "Read Only",
+      type: "array" as const,
+      uniqueItems: true,
+    },
+    readWrite: {
+      items: {
+        anyOf: multiOptions,
+        type: "string" as const,
+      },
+      title: "Read Write",
+      type: "array" as const,
+      uniqueItems: true,
     },
   },
   uiSchema: {
-    readWrite: {
-      "ui:data-cy": "multi-read-write",
-      "ui:widget": widgets.MultiSelectWidget,
-      "ui:fieldCss": fullWidthCss,
-    },
     readOnly: {
       "ui:data-cy": "multi-read-only",
-      "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.MultiSelectWidget,
+    },
+    readWrite: {
+      "ui:data-cy": "multi-read-write",
+      "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.MultiSelectWidget,
     },
   },
 };
@@ -277,16 +277,16 @@ export const multi = {
 export const kanopy = {
   schema: {
     headerName: {
-      type: "string" as const,
       title: "Header Name",
+      type: "string" as const,
     },
     issuer: {
-      type: "string" as const,
       title: "Issuer",
+      type: "string" as const,
     },
     keysetURL: {
-      type: "string" as const,
       title: "Keyset URL",
+      type: "string" as const,
     },
   },
   uiSchema: {

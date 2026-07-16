@@ -10,8 +10,8 @@ export const gqlToForm = ((data) => {
     adminOnly,
     aliases,
     costData,
-    disableShallowClone,
     disabled,
+    disableShallowClone,
     imageId,
     isCluster,
     name,
@@ -36,8 +36,8 @@ export const gqlToForm = ((data) => {
     },
     distroOptions: {
       adminOnly,
-      disableShallowClone,
       disabled,
+      disableShallowClone,
       isCluster,
       note,
       singleTaskDistro,
@@ -63,8 +63,8 @@ export const formToGql = ((
   note: distroOptions.note,
   singleTaskDistro: distroOptions.singleTaskDistro,
   ...(distroOptions.singleTaskDistro && {
-    userSpawnAllowed: false,
     isVirtualWorkStation: false,
+    userSpawnAllowed: false,
   }),
   warningNote: distroOptions.warningNote,
 })) satisfies FormToGqlFunction<Tab>;

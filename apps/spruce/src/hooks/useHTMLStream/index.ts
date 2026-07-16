@@ -111,6 +111,13 @@ export const useHTMLStream = ({
 
       let lineBuffer = "";
       const lineSplitter = new TransformStream<string, string>({
+        flush(controller) {
+          // Enqueue any remaining buffer as the last line
+          if (lineBuffer) {
+            controller.enqueue(lineBuffer);
+            lineBuffer = "";
+          }
+        },
         transform(chunk, controller) {
           // Combine buffer with new chunk
           const combined = lineBuffer + chunk;
@@ -121,13 +128,6 @@ export const useHTMLStream = ({
 
           for (const line of lines) {
             controller.enqueue(line);
-          }
-        },
-        flush(controller) {
-          // Enqueue any remaining buffer as the last line
-          if (lineBuffer) {
-            controller.enqueue(lineBuffer);
-            lineBuffer = "";
           }
         },
       });
@@ -142,6 +142,19 @@ export const useHTMLStream = ({
       let hasStreamedLinkedLine = false;
 
       const htmlStream = new WritableStream<string>({
+        async close() {
+          // Flush any remaining fragments
+          const element = containerRef.current;
+          element?.appendChild?.(frag);
+          await new Promise(requestAnimationFrame);
+
+          if (hasStreamedLinkedLine) {
+            scrollTo(`L${linkedLineNumber}`);
+            hasStreamedLinkedLine = false;
+          }
+
+          setIsLoading(false);
+        },
         async write(chunk) {
           const element = containerRef.current;
           if (!element) {
@@ -155,8 +168,8 @@ export const useHTMLStream = ({
           }
 
           const lineContainer = getLineContainer({
-            lineNumber,
             htmlContent,
+            lineNumber,
             style,
           });
           frag.appendChild(lineContainer);
@@ -185,19 +198,6 @@ export const useHTMLStream = ({
             }
           }
         },
-        async close() {
-          // Flush any remaining fragments
-          const element = containerRef.current;
-          element?.appendChild?.(frag);
-          await new Promise(requestAnimationFrame);
-
-          if (hasStreamedLinkedLine) {
-            scrollTo(`L${linkedLineNumber}`);
-            hasStreamedLinkedLine = false;
-          }
-
-          setIsLoading(false);
-        },
       });
 
       try {
@@ -223,5 +223,5 @@ export const useHTMLStream = ({
     };
   }, [url, hash, scrollTo, containerRef, spanName, processLine]);
 
-  return { isLoading, error };
+  return { error, isLoading };
 };

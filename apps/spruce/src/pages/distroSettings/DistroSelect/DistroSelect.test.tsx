@@ -30,9 +30,9 @@ describe("distro select", () => {
   it("selecting a different distro will navigate to the correct URL", async () => {
     const user = userEvent.setup();
     const { router } = render(<DistroSelect selectedDistro="localhost" />, {
-      wrapper,
-      route: "/distro/localhost/settings/general",
       path: "/distro/:distroId/settings/:tab",
+      route: "/distro/localhost/settings/general",
+      wrapper,
     });
     await waitFor(() => {
       expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
@@ -120,8 +120,8 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
         },
         {
           __typename: "Distro",
-          aliases: ["alphabetical"],
           adminOnly: true,
+          aliases: ["alphabetical"],
           availableRegions: [],
           isVirtualWorkStation: true,
           name: "abc",

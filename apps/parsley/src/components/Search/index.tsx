@@ -85,7 +85,6 @@ const Search: React.FC = () => {
           if (highlightFilters) {
             setSearchParams({
               ...searchParams,
-              [QueryParams.Highlights]: [...highlights, value],
               [QueryParams.Filters]: stringifyFilters([
                 ...filters,
                 {
@@ -95,6 +94,7 @@ const Search: React.FC = () => {
                   visible: true,
                 },
               ]),
+              [QueryParams.Highlights]: [...highlights, value],
             });
           } else {
             setFilters([

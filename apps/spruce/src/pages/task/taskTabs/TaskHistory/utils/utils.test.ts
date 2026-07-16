@@ -14,8 +14,8 @@ describe("groupTasks", () => {
   it("groups inactive tasks if shouldCollapse is true", () => {
     const res = groupTasks(tasks, {
       shouldCollapse: true,
-      timezone: "America/New_York",
       testFailureSearchTerm: null,
+      timezone: "America/New_York",
     });
     expect(res).toStrictEqual(collapsedGroupedTasks);
   });

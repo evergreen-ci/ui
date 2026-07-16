@@ -97,7 +97,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
     if (taskIds) {
       setTaskPriorities({
         variables: {
-          taskPriorities: taskIds.map((taskId) => ({ taskId, priority })),
+          taskPriorities: taskIds.map((taskId) => ({ priority, taskId })),
         },
       });
       sendTaskEvent({
@@ -105,7 +105,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         "task.priority": priority,
       });
     } else {
-      setVersionPriority({ variables: { versionId, priority } });
+      setVersionPriority({ variables: { priority, versionId } });
       sendVersionEvent({
         name: "Changed version priority",
         "version.priority": priority,

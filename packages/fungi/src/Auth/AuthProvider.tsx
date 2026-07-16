@@ -93,9 +93,9 @@ export const AuthProvider = ({
   const memoizedContext = useMemo(
     () => ({
       beginPollingAuth,
-      loginUrl,
-      isPolling,
       isAuthenticated,
+      isPolling,
+      loginUrl,
     }),
     [isPolling, isAuthenticated, beginPollingAuth, loginUrl],
   );

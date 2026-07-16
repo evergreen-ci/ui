@@ -43,8 +43,8 @@ export const useAnnotationAnalytics = () => {
   const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
     BUILD_BARON,
     {
-      variables: { taskId: taskId || "", execution },
       fetchPolicy: "cache-first",
+      variables: { execution, taskId: taskId || "" },
     },
   );
 
@@ -52,9 +52,9 @@ export const useAnnotationAnalytics = () => {
     TASK,
     taskId
       ? {
-          variables: { taskId, execution },
           errorPolicy: "all",
           fetchPolicy: "cache-first",
+          variables: { execution, taskId },
         }
       : skipToken,
   );
@@ -63,11 +63,11 @@ export const useAnnotationAnalytics = () => {
     TaskTestCountQuery,
     TaskTestCountQueryVariables
   >(TASK_TEST_COUNT, {
-    variables: {
-      taskId: taskId || "",
-      execution: execution,
-    },
     fetchPolicy: "cache-first",
+    variables: {
+      execution: execution,
+      taskId: taskId || "",
+    },
   });
   const { failedTestCount } = taskTestCountData?.task || {};
   const { buildBaronConfigured } = bbData?.buildBaron || {};
@@ -85,6 +85,7 @@ export const useAnnotationAnalytics = () => {
   const isLatestExecution = latestExecution === execution;
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Annotations", {
+    "task.build_baron_configured": buildBaronConfigured || false,
     "task.display_status": displayStatus || "",
     "task.execution": execution,
     "task.failed_test_count": failedTestCount ?? 0,
@@ -95,6 +96,5 @@ export const useAnnotationAnalytics = () => {
     "task.status": taskStatus || "",
     "version.is_patch": isPatch,
     "version.requester": requester,
-    "task.build_baron_configured": buildBaronConfigured || false,
   });
 };

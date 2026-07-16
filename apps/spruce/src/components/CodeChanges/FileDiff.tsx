@@ -20,9 +20,9 @@ export const FileDiff: React.FC = () => {
   const url = getRawDiffUrl(versionId, patchNumber);
 
   const { error, isLoading } = useFileDiffStream({
-    url,
     containerRef,
     fileName,
+    url,
   });
 
   if (!fileName) {

@@ -39,11 +39,11 @@ export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
     variables: {
       imageId,
       opts: {
-        page: pagination.pageIndex,
         limit: pagination.pageSize,
         name:
           (columnFilters.find((filter) => filter.id === "name")
             ?.value as string) ?? undefined,
+        page: pagination.pageIndex,
       },
     },
   });
@@ -68,8 +68,8 @@ export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
       (f) =>
         sendEvent({
           name: "Filtered table",
-          "table.name": "Files",
           "table.filters": f,
+          "table.name": "Files",
         }),
     ),
     onPaginationChange: onChangeHandler<PaginationState>(setPagination, (p) =>
@@ -80,8 +80,8 @@ export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
       }),
     ),
     state: {
-      pagination,
       columnFilters,
+      pagination,
     },
   });
 
@@ -100,25 +100,25 @@ export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
 
 const columns: LGColumnDef<ImageFile>[] = [
   {
-    header: "Name",
     accessorKey: "name",
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
     enableColumnFilter: true,
+    header: "Name",
     meta: {
       search: {
         "data-cy": "file-name-filter",
         placeholder: "Name regex",
       },
     },
-    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
   },
   {
-    header: "Path",
     accessorKey: "path",
     cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
+    header: "Path",
   },
   {
-    header: "File SHA",
     accessorKey: "version",
     cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
+    header: "File SHA",
   },
 ];

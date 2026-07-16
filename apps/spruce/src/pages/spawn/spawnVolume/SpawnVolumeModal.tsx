@@ -52,9 +52,9 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     const mutationInput = formToGql({ formData: formState });
     spawnAnalytics.sendEvent({
       name: "Created a volume",
-      "volume.type": mutationInput.type,
-      "volume.size": mutationInput.size,
       "volume.is_unexpirable": mutationInput.noExpiration || false,
+      "volume.size": mutationInput.size,
+      "volume.type": mutationInput.type,
     });
     spawnVolumeMutation({
       variables: { spawnVolumeInput: mutationInput },
@@ -80,19 +80,19 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
           formState?.requiredVolumeInformation?.availabilityZone &&
         (status === HostStatus.Running || status === HostStatus.Stopped),
     )
-    .map(({ displayName, id }) => ({ id, displayName }))
+    .map(({ displayName, id }) => ({ displayName, id }))
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
   const { schema, uiSchema } = getFormSchema({
-    maxSpawnableLimit,
     availabilityZones,
-    types,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    hosts: availableHosts,
     disableExpirationCheckbox,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
+    hosts: availableHosts,
+    maxSpawnableLimit,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     noExpirationCheckboxTooltip,
+    types,
   });
 
   if (loadingFormData) {

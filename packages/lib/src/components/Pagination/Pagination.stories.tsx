@@ -18,14 +18,14 @@ const DefaultImpl = (args: React.ComponentProps<typeof Pagination>) => {
   );
 };
 export const Default: CustomStoryObj<typeof Pagination> = {
-  render: (args) => <DefaultImpl {...args} />,
-  argTypes: {},
   args: {
-    totalResults: 100,
-    pageSize: 10,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     onChange: null,
+    pageSize: 10,
+    totalResults: 100,
   },
+  argTypes: {},
+  render: (args) => <DefaultImpl {...args} />,
 };
 
 const ControlledImpl = (args: React.ComponentProps<typeof Pagination>) => {
@@ -44,11 +44,11 @@ const ControlledImpl = (args: React.ComponentProps<typeof Pagination>) => {
   );
 };
 export const Controlled: CustomStoryObj<typeof Pagination> = {
-  render: (args) => <ControlledImpl {...args} />,
-  argTypes: {},
   args: {
     currentPage: 2,
     pageSize: 10,
     totalResults: 100,
   },
+  argTypes: {},
+  render: (args) => <ControlledImpl {...args} />,
 };

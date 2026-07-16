@@ -41,7 +41,6 @@ const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
     <Chart
       chartEvents={[
         {
-          eventName: "select",
           callback: ({ chartWrapper }) => {
             const chart = chartWrapper?.getChart();
             const selection = chart?.getSelection();
@@ -56,6 +55,7 @@ const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
               onRowClick(selectedId);
             }
           },
+          eventName: "select",
         },
       ]}
       chartType="Gantt"
@@ -65,11 +65,6 @@ const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
         MINIMUM_CHART_HEIGHT_IN_PIXELS,
       )}
       options={{
-        timeline: {
-          groupByRowLabel: false,
-          showRowLabels: false,
-        },
-
         gantt: {
           criticalPathEnabled: false,
           labelMaxWidth: labelMaxWidth,
@@ -79,11 +74,16 @@ const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
           },
           palette: [
             {
+              color: black,
               dark: green.dark1,
               light: green.dark1,
-              color: black,
             },
           ],
+        },
+
+        timeline: {
+          groupByRowLabel: false,
+          showRowLabels: false,
         },
       }}
       width="100%"

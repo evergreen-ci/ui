@@ -23,17 +23,15 @@ type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
 };
 
 export default {
-  component: CommitDetailsCard,
-  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   args: {
     activated: true,
     canRestart: true,
     canSchedule: true,
+    execution: 2,
     isCurrentTask: true,
     isMatching: true,
     isPatch: false,
     isTrigger: false,
-    execution: 2,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
     status: TaskStatus.Succeeded,
@@ -48,6 +46,9 @@ export default {
     canSchedule: {
       control: { type: "boolean" },
     },
+    execution: {
+      control: { type: "number" },
+    },
     isCurrentTask: {
       control: { type: "boolean" },
     },
@@ -60,17 +61,16 @@ export default {
     isTrigger: {
       control: { type: "boolean" },
     },
-    execution: {
-      control: { type: "number" },
-    },
     message: {
       control: { type: "text" },
     },
     status: {
-      options: SortedTaskStatus,
       control: { type: "select" },
+      options: SortedTaskStatus,
     },
   },
+  component: CommitDetailsCard,
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   parameters: {
     apolloClient: {
       mocks: [getVersionUpstreamProjectMock],
@@ -120,10 +120,10 @@ type TemplateProps = {
 
 const testResults: TestResult[] = Array.from({ length: 15 }, (_, idx) => ({
   id: `e2e_test_${idx}`,
-  testFile: `e2e_test_${idx}`,
-  status: idx % 3 === 0 ? TestStatus.SilentFail : TestStatus.Fail,
   isManuallyQuarantined: false,
   logs: { urlParsley: `${idx}-parsley-url.mongodb.com` },
+  status: idx % 3 === 0 ? TestStatus.SilentFail : TestStatus.Fail,
+  testFile: `e2e_test_${idx}`,
 }));
 
 const getStoryTask = (args: TemplateProps) => {
@@ -137,9 +137,9 @@ const getStoryTask = (args: TemplateProps) => {
   return {
     ...task,
     activated: args.activated,
-    displayStatus: args.status,
     canRestart: args.canRestart,
     canSchedule: args.canSchedule,
+    displayStatus: args.status,
     execution: args.execution,
     requester: args.isTrigger ? Requester.Trigger : task.requester,
     version: {

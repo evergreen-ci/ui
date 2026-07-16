@@ -57,94 +57,95 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      type: "object" as const,
       properties: {
         hostName: {
+          default: "",
           title: "Edit Host Name",
           type: "string",
-          default: "",
         },
         instanceType: {
-          title: "Change Instance Type",
-          type: "string" as const,
           default: "",
           oneOf: [
             {
-              type: "string" as const,
-              title: "Select instance type…",
               enum: [""],
+              title: "Select instance type…",
+              type: "string" as const,
             },
             ...instanceTypes.map((it) => ({
-              type: "string" as const,
-              title: it,
               enum: [it],
+              title: it,
+              type: "string" as const,
             })),
           ],
+          title: "Change Instance Type",
+          type: "string" as const,
         },
         volume: {
-          title: "Add Volume",
-          type: "string" as const,
           default: "",
           oneOf: [
             {
-              type: "string" as const,
-              title: "Select volume…",
               enum: [""],
+              title: "Select volume…",
+              type: "string" as const,
             },
             ...volumes.map((v) => ({
-              type: "string" as const,
-              title: `(${v.size}GB) ${v.displayName || v.id}`,
               enum: [v.id],
+              title: `(${v.size}GB) ${v.displayName || v.id}`,
+              type: "string" as const,
             })),
           ],
+          title: "Add Volume",
+          type: "string" as const,
         },
         ...(canEditRdpPassword && {
           rdpPassword: {
+            default: "",
             title: "Set New RDP Password",
             type: "string",
-            default: "",
           },
         }),
-        userTags: {
-          title: "",
-          type: "array" as const,
-          items: {
-            type: "object" as const,
-            properties: {
-              key: {
-                type: "string" as const,
-                title: "Key",
-                default: "",
-              },
-              value: {
-                type: "string" as const,
-                title: "Value",
-                default: "",
-              },
-            },
-          },
-        },
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         expirationDetails: expirationDetails.schema,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         publicKeySection: publicKeys.schema,
+        userTags: {
+          items: {
+            properties: {
+              key: {
+                default: "",
+                title: "Key",
+                type: "string" as const,
+              },
+              value: {
+                default: "",
+                title: "Value",
+                type: "string" as const,
+              },
+            },
+            type: "object" as const,
+          },
+          title: "",
+          type: "array" as const,
+        },
       },
+      type: "object" as const,
     },
     uiSchema: {
+      expirationDetails: {
+        ...expirationDetails.uiSchema,
+        "ui:elementWrapperCSS": css`
+          margin-bottom: ${size.s};
+        `,
+      },
       instanceType: {
+        "ui:allowDeselect": false,
         "ui:description": !canEditInstanceType
           ? "Instance type can only be changed when the host is stopped."
           : "",
         "ui:disabled": !canEditInstanceType,
-        "ui:allowDeselect": false,
       },
-      volume: {
-        "ui:allowDeselect": false,
-        "ui:disabled": volumes.length === 0,
-        "ui:description": volumes.length === 0 ? "No volumes available." : "",
-      },
+      publicKeySection: publicKeys.uiSchema,
       rdpPassword: {
-        "ui:inputType": "password",
         // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
         "ui:description": (
           <>
@@ -154,27 +155,26 @@ export const getFormSchema = ({
             </StyledLink>
           </>
         ),
+        "ui:inputType": "password",
       },
       userTags: {
-        "ui:addButtonText": "Add Tag",
-        "ui:descriptionNode": (
-          <Label htmlFor="root_userTags">Add User Tags</Label>
-        ),
-        "ui:orderable": false,
         items: {
           "ui:elementWrapperCSS": css`
             display: flex;
             gap: ${size.s};
           `,
         },
+        "ui:addButtonText": "Add Tag",
+        "ui:descriptionNode": (
+          <Label htmlFor="root_userTags">Add User Tags</Label>
+        ),
+        "ui:orderable": false,
       },
-      expirationDetails: {
-        ...expirationDetails.uiSchema,
-        "ui:elementWrapperCSS": css`
-          margin-bottom: ${size.s};
-        `,
+      volume: {
+        "ui:allowDeselect": false,
+        "ui:description": volumes.length === 0 ? "No volumes available." : "",
+        "ui:disabled": volumes.length === 0,
       },
-      publicKeySection: publicKeys.uiSchema,
     },
   };
 };

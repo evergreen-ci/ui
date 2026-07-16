@@ -35,6 +35,42 @@ const AppContents: React.FC = () => {
 
 const router = createBrowserRouter([
   {
+    children: [
+      ...(isLocal()
+        ? [
+            {
+              element: <LoginPage />,
+              path: routes.login,
+            },
+          ]
+        : []),
+      {
+        element: <HTMLLog />,
+        path: routes.taskHTMLLog,
+      },
+      {
+        element: <TestHTMLLog />,
+        path: routes.testHTMLLog,
+      },
+      {
+        element: <PatchDiff />,
+        path: routes.versionDiff,
+      },
+      {
+        element: <FileDiff />,
+        path: routes.versionFileDiff,
+      },
+      {
+        element: (
+          <ProtectedRoute loginPageRoute={routes.login}>
+            <ContextProviders>
+              <Content />
+            </ContextProviders>
+          </ProtectedRoute>
+        ),
+        path: "/*",
+      },
+    ],
     element: (
       <ErrorBoundary homeURL={getSpruceURL() || ""}>
         <AuthProvider
@@ -47,42 +83,6 @@ const router = createBrowserRouter([
         </AuthProvider>
       </ErrorBoundary>
     ),
-    children: [
-      ...(isLocal()
-        ? [
-            {
-              path: routes.login,
-              element: <LoginPage />,
-            },
-          ]
-        : []),
-      {
-        path: routes.taskHTMLLog,
-        element: <HTMLLog />,
-      },
-      {
-        path: routes.testHTMLLog,
-        element: <TestHTMLLog />,
-      },
-      {
-        path: routes.versionDiff,
-        element: <PatchDiff />,
-      },
-      {
-        path: routes.versionFileDiff,
-        element: <FileDiff />,
-      },
-      {
-        path: "/*",
-        element: (
-          <ProtectedRoute loginPageRoute={routes.login}>
-            <ContextProviders>
-              <Content />
-            </ContextProviders>
-          </ProtectedRoute>
-        ),
-      },
-    ],
   },
 ]);
 

@@ -50,16 +50,16 @@ export const Settings: React.FC<SettingsProps> = ({
       name: "Saved notification preferences",
     });
     updateUserSettings({
-      variables,
       refetchQueries: ["UserSettings"],
+      variables,
     });
   };
 
   const initialState = useMemo(
     () => ({
-      slackUsername,
-      slackMemberId,
       notifications,
+      slackMemberId,
+      slackUsername,
     }),
     [notifications, slackMemberId, slackUsername],
   );
@@ -102,62 +102,62 @@ type FormState = {
 
 const notificationOptions = [
   {
-    type: "string" as const,
-    title: "Email",
     enum: ["email"],
+    title: "Email",
+    type: "string" as const,
   },
   {
-    type: "string" as const,
-    title: "Slack",
     enum: ["slack"],
+    title: "Slack",
+    type: "string" as const,
   },
   {
-    type: "string" as const,
-    title: "None",
     enum: [""],
+    title: "None",
+    type: "string" as const,
   },
 ];
 
 const schema = {
   properties: {
-    slackUsername: {
-      type: "string" as const,
-      title: "Slack Username",
-    },
-    slackMemberId: {
-      type: "string" as const,
-      title: "Slack Member ID",
-    },
     notifications: {
-      type: "object" as const,
-      title: "Notifications",
       properties: {
         buildBreak: {
-          type: "string" as const,
-          title: notificationFields.buildBreak,
           oneOf: notificationOptions,
+          title: notificationFields.buildBreak,
+          type: "string" as const,
         },
         patchFinish: {
-          type: "string" as const,
-          title: notificationFields.patchFinish,
           oneOf: notificationOptions,
+          title: notificationFields.patchFinish,
+          type: "string" as const,
         },
         patchFirstFailure: {
-          type: "string" as const,
-          title: notificationFields.patchFirstFailure,
           oneOf: notificationOptions,
+          title: notificationFields.patchFirstFailure,
+          type: "string" as const,
         },
         spawnHostExpiration: {
-          type: "string" as const,
-          title: notificationFields.spawnHostExpiration,
           oneOf: notificationOptions,
+          title: notificationFields.spawnHostExpiration,
+          type: "string" as const,
         },
         spawnHostOutcome: {
-          type: "string" as const,
-          title: notificationFields.spawnHostOutcome,
           oneOf: notificationOptions,
+          title: notificationFields.spawnHostOutcome,
+          type: "string" as const,
         },
       },
+      title: "Notifications",
+      type: "object" as const,
+    },
+    slackMemberId: {
+      title: "Slack Member ID",
+      type: "string" as const,
+    },
+    slackUsername: {
+      title: "Slack Username",
+      type: "string" as const,
     },
   },
 };
@@ -176,8 +176,6 @@ const zebraCSS = css`
 `;
 
 const radioUISchema = {
-  "ui:widget": "radio",
-  "ui:inline": true,
   "ui:elementWrapperCSS": css`
     display: flex;
     justify-content: space-between;
@@ -185,25 +183,27 @@ const radioUISchema = {
     padding: ${size.xs};
     margin-bottom: 0;
   `,
+  "ui:inline": true,
+  "ui:widget": "radio",
 };
 
 const uiSchema = {
-  slackUsername: {
-    "ui:placeholder": "e.g. john.smith",
-    "ui:data-cy": "slack-username-field",
-  },
-  slackMemberId: {
-    "ui:description":
-      "Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'.",
-    "ui:placeholder": "e.g. U12345678",
-    "ui:data-cy": "slack-member-id-field",
-  },
   notifications: {
-    "ui:fieldCss": zebraCSS,
     buildBreak: radioUISchema,
     patchFinish: radioUISchema,
     patchFirstFailure: radioUISchema,
     spawnHostExpiration: radioUISchema,
     spawnHostOutcome: radioUISchema,
+    "ui:fieldCss": zebraCSS,
+  },
+  slackMemberId: {
+    "ui:data-cy": "slack-member-id-field",
+    "ui:description":
+      "Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'.",
+    "ui:placeholder": "e.g. U12345678",
+  },
+  slackUsername: {
+    "ui:data-cy": "slack-username-field",
+    "ui:placeholder": "e.g. john.smith",
   },
 };

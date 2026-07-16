@@ -42,7 +42,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
 
 const getColumns = (): LGColumnDef<EvergreenTestResult>[] => [
   {
-    header: "Test Name",
     accessorKey: "testFile",
     cell: ({ getValue, row }) => (
       <ParsleyLink
@@ -52,13 +51,14 @@ const getColumns = (): LGColumnDef<EvergreenTestResult>[] => [
     ),
     enableColumnFilter: false,
     enableSorting: false,
+    header: "Test Name",
   },
   {
-    header: "Status",
     accessorKey: "status",
     cell: ({ getValue }) => <TestStatusBadge status={getValue() as string} />,
     enableColumnFilter: false,
     enableSorting: false,
+    header: "Status",
   },
 ];
 

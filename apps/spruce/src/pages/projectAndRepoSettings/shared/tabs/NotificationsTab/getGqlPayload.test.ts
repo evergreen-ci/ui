@@ -8,17 +8,17 @@ describe("getGqlPayload", () => {
       {
         id: "subscription_1",
         owner_type: "project",
-        regex_selectors: [{ type: "build-variant", data: "bv-name" }],
+        regex_selectors: [{ data: "bv-name", type: "build-variant" }],
         resource_type: "TASK",
         selectors: [
-          { type: "project", data: "project_id" },
-          { type: "requester", data: "gitter_request" },
+          { data: "project_id", type: "project" },
+          { data: "gitter_request", type: "requester" },
         ],
         subscriber: {
+          jiraIssueSubscriber: undefined,
           target: "@fake.user",
           type: "slack",
           webhookSubscriber: undefined,
-          jiraIssueSubscriber: undefined,
         },
         trigger: "first-failure-in-version",
         trigger_data: { requester: "gitter_request" },
@@ -29,14 +29,14 @@ describe("getGqlPayload", () => {
         regex_selectors: [],
         resource_type: "VERSION",
         selectors: [
-          { type: "project", data: "project_id" },
-          { type: "requester", data: "gitter_request" },
+          { data: "project_id", type: "project" },
+          { data: "gitter_request", type: "requester" },
         ],
         subscriber: {
+          jiraIssueSubscriber: undefined,
           target: "fake@fake.com",
           type: "email",
           webhookSubscriber: undefined,
-          jiraIssueSubscriber: undefined,
         },
         trigger: "outcome",
         trigger_data: { requester: "gitter_request" },
@@ -53,21 +53,21 @@ describe("getGqlPayload", () => {
       regex_selectors: [],
       resource_type: "TASK",
       selectors: [
-        { type: "project", data: "project_id" },
-        { type: "requester", data: "gitter_request" },
+        { data: "project_id", type: "project" },
+        { data: "gitter_request", type: "requester" },
       ],
       subscriber: {
+        jiraIssueSubscriber: undefined,
         target: "https://fake-website.com",
         type: "evergreen-webhook",
         webhookSubscriber: {
-          secret: "webhook_secret",
-          url: "https://fake-website.com",
-          retries: 0,
-          minDelayMs: 0,
-          timeoutMs: 0,
           headers: [],
+          minDelayMs: 0,
+          retries: 0,
+          secret: "webhook_secret",
+          timeoutMs: 0,
+          url: "https://fake-website.com",
         },
-        jiraIssueSubscriber: undefined,
       },
       trigger: "outcome",
       trigger_data: { requester: "gitter_request" },
@@ -89,21 +89,21 @@ describe("getGqlPayload", () => {
       regex_selectors: [],
       resource_type: "TASK",
       selectors: [
-        { type: "project", data: "project_id" },
-        { type: "requester", data: "gitter_request" },
+        { data: "project_id", type: "project" },
+        { data: "gitter_request", type: "requester" },
       ],
       subscriber: {
+        jiraIssueSubscriber: undefined,
         target: "https://fake-website.com",
         type: "evergreen-webhook",
         webhookSubscriber: {
-          secret: "my_generated_secret",
-          url: "https://fake-website.com",
-          retries: 1,
-          minDelayMs: 100,
-          timeoutMs: 1000,
           headers: [],
+          minDelayMs: 100,
+          retries: 1,
+          secret: "my_generated_secret",
+          timeoutMs: 1000,
+          url: "https://fake-website.com",
         },
-        jiraIssueSubscriber: undefined,
       },
       trigger: "outcome",
       trigger_data: { requester: "gitter_request" },
@@ -118,17 +118,17 @@ describe("getGqlPayload", () => {
       regex_selectors: [],
       resource_type: "TASK",
       selectors: [
-        { type: "project", data: "project_id" },
-        { type: "requester", data: "gitter_request" },
+        { data: "project_id", type: "project" },
+        { data: "gitter_request", type: "requester" },
       ],
       subscriber: {
+        jiraIssueSubscriber: {
+          issueType: "Build Failure",
+          project: "FAKEPROJECT",
+        },
         target: "FAKEPROJECT",
         type: "jira-issue",
         webhookSubscriber: undefined,
-        jiraIssueSubscriber: {
-          project: "FAKEPROJECT",
-          issueType: "Build Failure",
-        },
       },
       trigger: "outcome",
       trigger_data: { requester: "gitter_request" },
@@ -143,14 +143,14 @@ describe("getGqlPayload", () => {
       regex_selectors: [],
       resource_type: "VERSION",
       selectors: [
-        { type: "project", data: "project_id" },
-        { type: "requester", data: "ad_hoc" },
+        { data: "project_id", type: "project" },
+        { data: "ad_hoc", type: "requester" },
       ],
       subscriber: {
-        type: "email",
-        target: "fake.user@mongodb.com",
-        webhookSubscriber: undefined,
         jiraIssueSubscriber: undefined,
+        target: "fake.user@mongodb.com",
+        type: "email",
+        webhookSubscriber: undefined,
       },
       trigger: "failure",
       trigger_data: { requester: "ad_hoc" },
@@ -161,19 +161,19 @@ describe("getGqlPayload", () => {
 const multipleSubscriptions = [
   {
     subscriptionData: {
-      id: "subscription_1",
       event: {
+        eventSelect: "first-failure-version",
         extraFields: {
           requester: "gitter_request",
         },
         regexSelector: [
           {
-            regexSelect: "build-variant",
             regexInput: "bv-name",
+            regexSelect: "build-variant",
           },
         ],
-        eventSelect: "first-failure-version",
       },
+      id: "subscription_1",
       notification: {
         notificationSelect: "slack",
         slackInput: "@fake.user",
@@ -182,16 +182,16 @@ const multipleSubscriptions = [
   },
   {
     subscriptionData: {
-      id: "subscription_2",
       event: {
+        eventSelect: "any-version-finishes",
         extraFields: {
           requester: "gitter_request",
         },
-        eventSelect: "any-version-finishes",
       },
+      id: "subscription_2",
       notification: {
-        notificationSelect: "email",
         emailInput: "fake@fake.com",
+        notificationSelect: "email",
       },
     },
   },
@@ -199,53 +199,52 @@ const multipleSubscriptions = [
 
 const webhookSubscriptionWithSecret = {
   subscriptionData: {
-    id: "webhook_subscription",
     event: {
+      eventSelect: "any-task-finishes",
       extraFields: {
         requester: "gitter_request",
       },
-      eventSelect: "any-task-finishes",
     },
+    id: "webhook_subscription",
     notification: {
-      webhookInput: {
-        secretInput: "webhook_secret",
-        urlInput: "https://fake-website.com",
-        retryInput: undefined,
-        minDelayInput: undefined,
-        timeoutInput: undefined,
-        httpHeaders: undefined,
-      },
       notificationSelect: "evergreen-webhook",
+      webhookInput: {
+        httpHeaders: undefined,
+        minDelayInput: undefined,
+        retryInput: undefined,
+        secretInput: "webhook_secret",
+        timeoutInput: undefined,
+        urlInput: "https://fake-website.com",
+      },
     },
   },
 };
 
 const webhookSubscriptionWithoutSecret = {
   subscriptionData: {
-    id: "webhook_subscription",
     event: {
+      eventSelect: "any-task-finishes",
       extraFields: {
         requester: "gitter_request",
       },
-      eventSelect: "any-task-finishes",
     },
+    id: "webhook_subscription",
     notification: {
-      webhookInput: {
-        secretInput: "",
-        urlInput: "https://fake-website.com",
-        retryInput: 1,
-        minDelayInput: 100,
-        timeoutInput: 1000,
-        httpHeaders: undefined,
-      },
       notificationSelect: "evergreen-webhook",
+      webhookInput: {
+        httpHeaders: undefined,
+        minDelayInput: 100,
+        retryInput: 1,
+        secretInput: "",
+        timeoutInput: 1000,
+        urlInput: "https://fake-website.com",
+      },
     },
   },
 };
 
 const jiraIssueSubscription = {
   subscriptionData: {
-    id: "jira_issue_subscription",
     event: {
       eventSelect: "any-task-finishes",
       extraFields: {
@@ -253,40 +252,41 @@ const jiraIssueSubscription = {
       },
       regexSelector: [],
     },
+    id: "jira_issue_subscription",
     notification: {
-      notificationSelect: "jira-issue",
       jiraIssueInput: {
-        projectInput: "FAKEPROJECT",
         issueInput: "Build Failure",
+        projectInput: "FAKEPROJECT",
       },
+      notificationSelect: "jira-issue",
     },
   },
 };
 
 const omitFieldsSubscription = {
   subscriptionData: {
-    id: "omit_fields_subscription",
     event: {
+      eventSelect: "any-version-fails",
       // Only the requester field is applicable to the "any-version-fails" event.
       extraFields: {
-        "version-percent-change": "10",
-        "version-duration-secs": "10",
         requester: "ad_hoc",
+        "version-duration-secs": "10",
+        "version-percent-change": "10",
       },
       // Regex fields are not applicable to the "any-version-fails" event.
       regexSelector: [
         {
-          regexSelect: "build-variant",
           regexInput: "bv_id",
+          regexSelect: "build-variant",
         },
       ],
-      eventSelect: "any-version-fails",
     },
+    id: "omit_fields_subscription",
     notification: {
-      notificationSelect: "email",
-      jiraCommentInput: "",
-      slackInput: "@fake.user",
       emailInput: "fake.user@mongodb.com",
+      jiraCommentInput: "",
+      notificationSelect: "email",
+      slackInput: "@fake.user",
     },
   },
 };

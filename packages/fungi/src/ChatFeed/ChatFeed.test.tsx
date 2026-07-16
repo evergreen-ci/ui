@@ -95,15 +95,15 @@ describe("ChatFeed", () => {
 
   describe("context chips", () => {
     const chip1: ContextChip = {
+      badgeLabel: "Line 1",
       content: "console.log('test')",
       identifier: "test-1",
-      badgeLabel: "Line 1",
     };
 
     const chip2: ContextChip = {
+      badgeLabel: "Lines 5-6",
       content: "const x = 42;",
       identifier: "test-2",
-      badgeLabel: "Lines 5-6",
     };
 
     const chipMap: Map<string, ContextChip> = new Map();

@@ -5,11 +5,15 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { TextInputWithGlyph } from ".";
 
 export default {
-  title: "Components/TextInput/TextInputWithGlyph",
   component: TextInputWithGlyph,
+  title: "Components/TextInput/TextInputWithGlyph",
 } satisfies Meta<typeof TextInputWithGlyph>;
 
 export const Default: StoryObj<typeof TextInputWithGlyph> = {
+  args: {
+    label: "Some search field",
+    placeholder: "Search",
+  },
   render: (args) => {
     const [value, setValue] = useState("");
     return (
@@ -21,13 +25,13 @@ export const Default: StoryObj<typeof TextInputWithGlyph> = {
       />
     );
   },
+};
+
+export const WithPersistentPlaceholder: StoryObj<typeof TextInputWithGlyph> = {
   args: {
     label: "Some search field",
     placeholder: "Search",
   },
-};
-
-export const WithPersistentPlaceholder: StoryObj<typeof TextInputWithGlyph> = {
   render: (args) => {
     const [value, setValue] = useState("Test");
     return (
@@ -44,9 +48,5 @@ export const WithPersistentPlaceholder: StoryObj<typeof TextInputWithGlyph> = {
         value={value}
       />
     );
-  },
-  args: {
-    label: "Some search field",
-    placeholder: "Search",
   },
 };

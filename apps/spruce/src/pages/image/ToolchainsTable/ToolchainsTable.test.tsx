@@ -131,7 +131,7 @@ const imageToolchainsMock: ApolloMock<
 > = {
   request: {
     query: IMAGE_TOOLCHAINS,
-    variables: { imageId: "ubuntu2204", opts: { page: 0, limit: 10 } },
+    variables: { imageId: "ubuntu2204", opts: { limit: 10, page: 0 } },
   },
   result: {
     data: {
@@ -216,7 +216,7 @@ const imageToolchainsNextPageMock: ApolloMock<
 > = {
   request: {
     query: IMAGE_TOOLCHAINS,
-    variables: { imageId: "ubuntu2204", opts: { page: 1, limit: 10 } },
+    variables: { imageId: "ubuntu2204", opts: { limit: 10, page: 1 } },
   },
   result: {
     data: {
@@ -249,7 +249,7 @@ const imageToolchainsFilterMock: ApolloMock<
     query: IMAGE_TOOLCHAINS,
     variables: {
       imageId: "ubuntu2204",
-      opts: { page: 0, limit: 10, name: "nodejs" },
+      opts: { limit: 10, name: "nodejs", page: 0 },
     },
   },
   result: {

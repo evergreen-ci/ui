@@ -27,8 +27,8 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     [slugs.fileName]: fileName,
     [slugs.groupID]: groupID,
     [slugs.origin]: origin,
-    [slugs.testID]: testID,
     [slugs.taskID]: taskID,
+    [slugs.testID]: testID,
   } = useParams();
   const dispatchToast = useToastContext();
   const { ingestLines, preferences, setLogMetadata } = useLogContext();
@@ -68,8 +68,8 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
         htmlLogURL,
         jobLogsURL,
         logPath,
-        logType,
         logsToMerge,
+        logType,
         origin,
         rawLogURL,
         renderingType,

@@ -110,16 +110,16 @@ const userHasProjectPermissions: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "evergreen.user",
         permissions: {
           __typename: "Permissions",
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
-            id: projectIdentifier,
             edit: true,
+            id: projectIdentifier,
           },
         },
+        userId: "evergreen.user",
       },
     },
   },
@@ -137,16 +137,16 @@ const userNoProjectPermissions: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "evergreen.user",
         permissions: {
           __typename: "Permissions",
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
-            id: projectIdentifier,
             edit: false,
+            id: projectIdentifier,
           },
         },
+        userId: "evergreen.user",
       },
     },
   },
@@ -164,15 +164,15 @@ const userHasRepoPermissions: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "evergreen.user",
         permissions: {
           __typename: "Permissions",
           repoPermissions: {
             __typename: "RepoPermissions",
-            id: repoId,
             edit: true,
+            id: repoId,
           },
         },
+        userId: "evergreen.user",
       },
     },
   },
@@ -190,15 +190,15 @@ const userNoRepoPermissions: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "evergreen.user",
         permissions: {
           __typename: "Permissions",
           repoPermissions: {
             __typename: "RepoPermissions",
-            id: repoId,
             edit: false,
+            id: repoId,
           },
         },
+        userId: "evergreen.user",
       },
     },
   },

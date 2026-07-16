@@ -6,15 +6,12 @@ export default {
 } satisfies CustomMeta<typeof EventDiffTable>;
 
 export const Default: CustomStoryObj<typeof EventDiffTable> = {
-  render: (args) => <EventDiffTable {...args} />,
-  argTypes: {},
   args: {
     after: {
-      stringField: "updated value",
-      numberField: 1,
-      booleanField: true,
-      deletedField: undefined,
       addedField: "added value",
+      booleanField: true,
+      customKey: "modified value",
+      deletedField: undefined,
       nested: {
         array: [1, 2, 3],
         object: {
@@ -22,14 +19,14 @@ export const Default: CustomStoryObj<typeof EventDiffTable> = {
           value: "value",
         },
       },
-      customKey: "modified value",
+      numberField: 1,
+      stringField: "updated value",
     },
     before: {
-      stringField: "original value",
-      numberField: 96,
-      booleanField: false,
-      deletedField: "deleted value",
       addedField: undefined,
+      booleanField: false,
+      customKey: "custom value",
+      deletedField: "deleted value",
       nested: {
         array: [4, 5, 6],
         object: {
@@ -37,10 +34,13 @@ export const Default: CustomStoryObj<typeof EventDiffTable> = {
           value: "value",
         },
       },
-      customKey: "custom value",
+      numberField: 96,
+      stringField: "original value",
     },
     customKeyValueRenderConfig: {
       customKey: (value) => <b style={{ color: "red" }}>{value}</b>,
     },
   },
+  argTypes: {},
+  render: (args) => <EventDiffTable {...args} />,
 };

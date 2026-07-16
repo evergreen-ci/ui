@@ -69,29 +69,123 @@ const useTabConfig = (
 
   const { showBuildBaron } = useBuildBaronVariables({
     task: {
-      id,
-      execution,
-      status: displayStatus,
       canModifyAnnotation,
+      execution,
       hasAnnotation: !!annotation,
+      id,
+      status: displayStatus,
     },
   });
 
   const tabIsActive: Record<TaskTab, boolean> = {
+    [TaskTab.Annotations]: showBuildBaron,
+    [TaskTab.ExecutionTasks]: isDisplayTask,
+    [TaskTab.ExecutionTasksTiming]:
+      isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
+    [TaskTab.Files]: true,
+    [TaskTab.History]: true,
     // Display tasks have no execution logs, but the Logs tab still surfaces
     // their event log (e.g. created Jira tickets, restarts).
     [TaskTab.Logs]: true,
-    [TaskTab.ExecutionTasks]: isDisplayTask,
     [TaskTab.Tests]: true,
-    [TaskTab.Files]: true,
-    [TaskTab.Annotations]: showBuildBaron,
     [TaskTab.TrendCharts]: !!isPerfPluginEnabled,
-    [TaskTab.History]: true,
-    [TaskTab.ExecutionTasksTiming]:
-      isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
   };
 
   const tabMap: Record<TaskTab, React.JSX.Element> = {
+    [TaskTab.Annotations]: (
+      <Tab
+        key="task-build-baron-tab"
+        data-cy="task-build-baron-tab"
+        name="Failure Details"
+      >
+        <BuildBaron
+          /* @ts-expect-error: FIXME. This comment was added by an automated script. */
+          annotation={annotation}
+          execution={execution}
+          taskId={id}
+          userCanModify={canModifyAnnotation}
+        />
+      </Tab>
+    ),
+    [TaskTab.ExecutionTasks]: (
+      <Tab
+        key="execution-tasks-tab"
+        data-cy="task-execution-tab"
+        name="Execution Tasks"
+      >
+        <ExecutionTasksTable
+          execution={execution}
+          executionTasksFull={executionTasksFull}
+          isPatch={versionMetadata?.isPatch}
+        />
+      </Tab>
+    ),
+    [TaskTab.ExecutionTasksTiming]: (
+      <Tab
+        key="execution-tasks-timing-tab"
+        data-cy="execution-tasks-timing-tab"
+        name="Execution Tasks Timing"
+      >
+        <ExecutionTasksTiming
+          executionTasksFull={executionTasksFull}
+          taskName={displayName}
+        />
+      </Tab>
+    ),
+    [TaskTab.Files]: (
+      <Tab
+        key="task-files-tab"
+        data-cy="task-files-tab"
+        name={
+          fileCount !== undefined ? (
+            <TabLabelWithBadge
+              badgeText={fileCount}
+              badgeVariant={Variant.LightGray}
+              dataCyBadge="files-tab-badge"
+              tabLabel="Files"
+            />
+          ) : (
+            "Files"
+          )
+        }
+      >
+        <FileTable execution={execution} taskId={id} />
+      </Tab>
+    ),
+    [TaskTab.History]: (
+      <Tab
+        key="task-history-tab"
+        data-cy="task-history-tab"
+        name="History"
+        {...walkthroughHistoryTabProps}
+      >
+        {baseTaskId ? (
+          <TaskHistory baseTaskId={baseTaskId} task={task} />
+        ) : (
+          <TaskHistoryDisclaimer>
+            <Body>
+              Evergreen cannot show history for this task; try viewing the{" "}
+              <StyledLink
+                href={getHoneycombHistoryUrl({
+                  bvName: buildVariant,
+                  isDisplayTask,
+                  projectId: projectId ?? "",
+                  requester,
+                  taskName: displayName,
+                })}
+              >
+                history in Honeycomb
+              </StyledLink>{" "}
+              instead.
+            </Body>
+            <Body>
+              (Note that if this is a merge queue task, history may become
+              available upon task completion.)
+            </Body>
+          </TaskHistoryDisclaimer>
+        )}
+      </Tab>
+    ),
     [TaskTab.Logs]: (
       <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
         <Logs
@@ -122,54 +216,6 @@ const useTabConfig = (
         <TestsTable task={task} />
       </Tab>
     ),
-    [TaskTab.ExecutionTasks]: (
-      <Tab
-        key="execution-tasks-tab"
-        data-cy="task-execution-tab"
-        name="Execution Tasks"
-      >
-        <ExecutionTasksTable
-          execution={execution}
-          executionTasksFull={executionTasksFull}
-          isPatch={versionMetadata?.isPatch}
-        />
-      </Tab>
-    ),
-    [TaskTab.Files]: (
-      <Tab
-        key="task-files-tab"
-        data-cy="task-files-tab"
-        name={
-          fileCount !== undefined ? (
-            <TabLabelWithBadge
-              badgeText={fileCount}
-              badgeVariant={Variant.LightGray}
-              dataCyBadge="files-tab-badge"
-              tabLabel="Files"
-            />
-          ) : (
-            "Files"
-          )
-        }
-      >
-        <FileTable execution={execution} taskId={id} />
-      </Tab>
-    ),
-    [TaskTab.Annotations]: (
-      <Tab
-        key="task-build-baron-tab"
-        data-cy="task-build-baron-tab"
-        name="Failure Details"
-      >
-        <BuildBaron
-          /* @ts-expect-error: FIXME. This comment was added by an automated script. */
-          annotation={annotation}
-          execution={execution}
-          taskId={id}
-          userCanModify={canModifyAnnotation}
-        />
-      </Tab>
-    ),
     [TaskTab.TrendCharts]: (
       <Tab
         key="trend-charts-tab"
@@ -179,59 +225,13 @@ const useTabConfig = (
         <TrendChartsPlugin taskId={id} />
       </Tab>
     ),
-    [TaskTab.History]: (
-      <Tab
-        key="task-history-tab"
-        data-cy="task-history-tab"
-        name="History"
-        {...walkthroughHistoryTabProps}
-      >
-        {baseTaskId ? (
-          <TaskHistory baseTaskId={baseTaskId} task={task} />
-        ) : (
-          <TaskHistoryDisclaimer>
-            <Body>
-              Evergreen cannot show history for this task; try viewing the{" "}
-              <StyledLink
-                href={getHoneycombHistoryUrl({
-                  bvName: buildVariant,
-                  projectId: projectId ?? "",
-                  taskName: displayName,
-                  requester,
-                  isDisplayTask,
-                })}
-              >
-                history in Honeycomb
-              </StyledLink>{" "}
-              instead.
-            </Body>
-            <Body>
-              (Note that if this is a merge queue task, history may become
-              available upon task completion.)
-            </Body>
-          </TaskHistoryDisclaimer>
-        )}
-      </Tab>
-    ),
-    [TaskTab.ExecutionTasksTiming]: (
-      <Tab
-        key="execution-tasks-timing-tab"
-        data-cy="execution-tasks-timing-tab"
-        name="Execution Tasks Timing"
-      >
-        <ExecutionTasksTiming
-          executionTasksFull={executionTasksFull}
-          taskName={displayName}
-        />
-      </Tab>
-    ),
   };
 
   const activeTabs = Object.keys(tabIsActive).filter(
     (tab) => tabIsActive[tab as TaskTab],
   ) as TaskTab[];
 
-  return { tabMap, activeTabs };
+  return { activeTabs, tabMap };
 };
 
 const TaskHistoryDisclaimer = styled.div`
@@ -248,8 +248,8 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     TaskTestCountQueryVariables
   >(TASK_TEST_COUNT, {
     variables: {
-      taskId: task.id,
       execution: task.execution,
+      taskId: task.id,
     },
   });
   const { data: taskPerfPluginEnabledData } = useQuery<
@@ -257,8 +257,8 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     TaskPerfPluginEnabledQueryVariables
   >(TASK_PERF_PLUGIN_ENABLED, {
     variables: {
-      taskId: task.id,
       execution: task.execution,
+      taskId: task.id,
     },
   });
   const { failedTestCount } = taskTestCountData?.task || {};

@@ -29,16 +29,16 @@ describe("repo data", () => {
       subscriptions: [
         {
           subscriptionData: {
-            id: "xyz",
             event: {
+              eventSelect: "any-version-finishes",
               extraFields: {
                 requester: "gitter_request",
               },
-              eventSelect: "any-version-finishes",
             },
+            id: "xyz",
             notification: {
-              notificationSelect: "jira-comment",
               jiraCommentInput: "evg-123",
+              notificationSelect: "jira-comment",
             },
           },
         },
@@ -54,18 +54,18 @@ describe("repo data", () => {
           resource_type: "VERSION",
           selectors: [
             {
-              type: "project",
               data: "repo123",
+              type: "project",
             },
             {
-              type: "requester",
               data: "gitter_request",
+              type: "requester",
             },
           ],
           subscriber: {
-            type: "jira-comment",
-            target: "evg-123",
             jiraIssueSubscriber: undefined,
+            target: "evg-123",
+            type: "jira-comment",
             webhookSubscriber: undefined,
           },
           trigger: "outcome",
@@ -117,16 +117,16 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
-            id: "xyz",
             event: {
+              eventSelect: "any-version-finishes",
               extraFields: {
                 requester: "gitter_request",
               },
-              eventSelect: "any-version-finishes",
             },
+            id: "xyz",
             notification: {
-              notificationSelect: "jira-comment",
               jiraCommentInput: "evg-123",
+              notificationSelect: "jira-comment",
             },
           },
         },
@@ -142,18 +142,18 @@ describe("project data", () => {
           resource_type: "VERSION",
           selectors: [
             {
-              type: "project",
               data: "spruce",
+              type: "project",
             },
             {
-              type: "requester",
               data: "gitter_request",
+              type: "requester",
             },
           ],
           subscriber: {
-            type: "jira-comment",
-            target: "evg-123",
             jiraIssueSubscriber: undefined,
+            target: "evg-123",
+            type: "jira-comment",
             webhookSubscriber: undefined,
           },
           trigger: "outcome",
@@ -175,19 +175,19 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
-            id: "abc",
             event: {
+              eventSelect: "any-version-finishes",
               extraFields: {
                 requester: "gitter_request",
               },
-              eventSelect: "any-version-finishes",
             },
+            id: "abc",
             notification: {
-              notificationSelect: "jira-issue",
               jiraIssueInput: {
                 issueInput: "Bug",
                 projectInput: "EVG",
               },
+              notificationSelect: "jira-issue",
             },
           },
         },
@@ -204,21 +204,21 @@ describe("project data", () => {
           resource_type: "VERSION",
           selectors: [
             {
-              type: "project",
               data: "spruce",
+              type: "project",
             },
             {
-              type: "requester",
               data: "gitter_request",
+              type: "requester",
             },
           ],
           subscriber: {
-            type: "jira-issue",
-            target: "EVG",
             jiraIssueSubscriber: {
               issueType: "Bug",
               project: "EVG",
             },
+            target: "EVG",
+            type: "jira-issue",
             webhookSubscriber: undefined,
           },
           trigger: "outcome",
@@ -238,27 +238,27 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
-            id: "def",
             event: {
+              eventSelect: "any-version-finishes",
               extraFields: {
                 requester: "gitter_request",
               },
-              eventSelect: "any-version-finishes",
             },
+            id: "def",
             notification: {
               notificationSelect: "evergreen-webhook",
               webhookInput: {
-                urlInput: "https://example.com",
-                secretInput: "webhook_secret",
                 httpHeaders: [
                   {
                     keyInput: "Content-Type",
                     valueInput: "application/json",
                   },
                 ],
-                retryInput: 0,
                 minDelayInput: 100,
+                retryInput: 0,
+                secretInput: "webhook_secret",
                 timeoutInput: 1000,
+                urlInput: "https://example.com",
               },
             },
           },
@@ -276,30 +276,30 @@ describe("project data", () => {
           resource_type: "VERSION",
           selectors: [
             {
-              type: "project",
               data: "spruce",
+              type: "project",
             },
             {
-              type: "requester",
               data: "gitter_request",
+              type: "requester",
             },
           ],
           subscriber: {
-            type: "evergreen-webhook",
-            target: "https://example.com",
             jiraIssueSubscriber: undefined,
+            target: "https://example.com",
+            type: "evergreen-webhook",
             webhookSubscriber: {
-              url: "https://example.com",
-              secret: "webhook_secret",
-              retries: 0,
-              minDelayMs: 100,
-              timeoutMs: 1000,
               headers: [
                 {
                   key: "Content-Type",
                   value: "application/json",
                 },
               ],
+              minDelayMs: 100,
+              retries: 0,
+              secret: "webhook_secret",
+              timeoutMs: 1000,
+              url: "https://example.com",
             },
           },
           trigger: "outcome",
@@ -342,10 +342,10 @@ const repoFormBase: NotificationsFormState = {
 };
 
 const repoResultBase: RepoSettingsInput = {
-  repoId: "repo123",
   projectRef: {
     id: "repo123",
     notifyOnBuildFailure: false,
   },
+  repoId: "repo123",
   subscriptions: [],
 };

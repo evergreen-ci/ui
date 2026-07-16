@@ -15,43 +15,43 @@ export const getFormSchema = ({
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as const,
-    title: "",
     properties: {
       allowed: {
-        type: ["boolean", "null"],
-        title: "Project-Level Test Selection",
         oneOf: radioBoxOptions(
           ["Enabled", "Disabled"],
           repoData?.allowed ?? undefined,
         ),
+        title: "Project-Level Test Selection",
+        type: ["boolean", "null"],
       },
       defaultEnabled: {
-        type: ["boolean", "null"],
-        title: "Task-Level Test Selection",
         oneOf: radioBoxOptions(
           ["Enabled", "Disabled"],
           repoData?.defaultEnabled ?? undefined,
         ),
+        title: "Task-Level Test Selection",
+        type: ["boolean", "null"],
       },
     },
+    title: "",
+    type: "object" as const,
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
     allowed: {
-      "ui:widget": widgets.RadioBoxWidget,
       "ui:description":
         "Sets if the project can use test selection features or not.",
+      "ui:widget": widgets.RadioBoxWidget,
     },
     defaultEnabled: {
-      "ui:widget": widgets.RadioBoxWidget,
       "ui:description":
         "If enabled, all tasks in patches run with test selection enabled by default.",
+      "ui:widget": widgets.RadioBoxWidget,
       ...(!canEnableTaskLevel && {
         "ui:warnings": [
           "This setting will only have an effect if test selection is enabled for the project.",
         ],
       }),
     },
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 });

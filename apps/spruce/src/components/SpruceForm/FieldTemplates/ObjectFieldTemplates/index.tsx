@@ -8,13 +8,13 @@ import { getFields } from "components/SpruceForm/utils";
 import { SpruceFormContainer } from "../../Container";
 
 export const ObjectFieldTemplate = ({
-  DescriptionField,
-  TitleField,
   description,
+  DescriptionField,
   idSchema,
   properties,
   required,
   title,
+  TitleField,
   uiSchema,
 }: ObjectFieldTemplateProps) => {
   const errors = uiSchema["ui:errors"] ?? [];

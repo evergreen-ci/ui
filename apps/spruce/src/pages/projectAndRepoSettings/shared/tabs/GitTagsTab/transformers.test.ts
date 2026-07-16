@@ -44,38 +44,38 @@ describe("GitTagsTab transformers", () => {
 // Project-level git tags form state
 const projectForm: GitTagsFormState = {
   github: {
-    gitTagVersionsEnabled: null,
-    users: {
-      gitTagAuthorizedUsersOverride: true,
-      gitTagAuthorizedUsers: ["privileged"],
-    },
-    teams: {
-      gitTagAuthorizedTeamsOverride: true,
-      gitTagAuthorizedTeams: [],
-    },
     gitTags: {
-      gitTagAliasesOverride: true,
       gitTagAliases: [
         {
-          id: "5",
           alias: "__git_tag",
           description: "",
-          specifier: GitTagSpecifier.ConfigFile,
-          remotePath: "./evergreen.yml",
           gitTag: "tagName",
-          variants: {
-            specifier: VariantTaskSpecifier.Tags,
-            variant: "",
-            variantTags: [],
-          },
+          id: "5",
+          parameters: [],
+          remotePath: "./evergreen.yml",
+          specifier: GitTagSpecifier.ConfigFile,
           tasks: {
             specifier: VariantTaskSpecifier.Tags,
             task: "",
             taskTags: [],
           },
-          parameters: [],
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: [],
+          },
         },
       ],
+      gitTagAliasesOverride: true,
+    },
+    gitTagVersionsEnabled: null,
+    teams: {
+      gitTagAuthorizedTeams: [],
+      gitTagAuthorizedTeamsOverride: true,
+    },
+    users: {
+      gitTagAuthorizedUsers: ["privileged"],
+      gitTagAuthorizedUsersOverride: true,
     },
   },
 };
@@ -84,106 +84,106 @@ const projectResult: Pick<
   ProjectSettingsInput,
   "projectId" | "projectRef" | "aliases"
 > = {
-  projectId: "project",
-  projectRef: {
-    id: "project",
-    gitTagVersionsEnabled: null,
-    gitTagAuthorizedUsers: ["privileged"],
-    gitTagAuthorizedTeams: [],
-  },
   aliases: [
     {
-      id: "5",
       alias: "__git_tag",
       description: "",
       gitTag: "tagName",
-      variant: "",
-      task: "",
-      remotePath: "./evergreen.yml",
-      variantTags: [],
-      taskTags: [],
+      id: "5",
       parameters: [],
+      remotePath: "./evergreen.yml",
+      task: "",
+      taskTags: [],
+      variant: "",
+      variantTags: [],
     },
   ],
+  projectId: "project",
+  projectRef: {
+    gitTagAuthorizedTeams: [],
+    gitTagAuthorizedUsers: ["privileged"],
+    gitTagVersionsEnabled: null,
+    id: "project",
+  },
 };
 
 // Repo-level git tags form state
 const repoForm: GitTagsFormState = {
   github: {
-    gitTagVersionsEnabled: false,
-    users: {
-      gitTagAuthorizedUsersOverride: true,
-      gitTagAuthorizedUsers: ["admin"],
-    },
-    teams: {
-      gitTagAuthorizedTeamsOverride: true,
-      gitTagAuthorizedTeams: [],
-    },
     gitTags: {
-      gitTagAliasesOverride: true,
       gitTagAliases: [],
+      gitTagAliasesOverride: true,
+    },
+    gitTagVersionsEnabled: false,
+    teams: {
+      gitTagAuthorizedTeams: [],
+      gitTagAuthorizedTeamsOverride: true,
+    },
+    users: {
+      gitTagAuthorizedUsers: ["admin"],
+      gitTagAuthorizedUsersOverride: true,
     },
   },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
   {
-    repoId: "repo",
-    projectRef: {
-      id: "repo",
-      gitTagVersionsEnabled: false,
-      gitTagAuthorizedUsers: ["admin"],
-      gitTagAuthorizedTeams: [],
-    },
     aliases: [],
+    projectRef: {
+      gitTagAuthorizedTeams: [],
+      gitTagAuthorizedUsers: ["admin"],
+      gitTagVersionsEnabled: false,
+      id: "repo",
+    },
+    repoId: "repo",
   };
 
 // Expected merged project+repo form state
 const mergedForm: GitTagsFormState = {
   github: {
-    gitTagVersionsEnabled: null,
-    users: {
-      gitTagAuthorizedUsersOverride: true,
-      gitTagAuthorizedUsers: ["privileged"],
-      repoData: {
-        gitTagAuthorizedUsersOverride: true,
-        gitTagAuthorizedUsers: ["admin"],
-      },
-    },
-    teams: {
-      gitTagAuthorizedTeamsOverride: true,
-      gitTagAuthorizedTeams: [],
-      repoData: {
-        gitTagAuthorizedTeamsOverride: true,
-        gitTagAuthorizedTeams: [],
-      },
-    },
     gitTags: {
-      gitTagAliasesOverride: true,
       gitTagAliases: [
         {
-          id: "5",
           alias: "__git_tag",
           description: "",
-          specifier: GitTagSpecifier.ConfigFile,
-          remotePath: "./evergreen.yml",
           gitTag: "tagName",
-          variants: {
-            specifier: VariantTaskSpecifier.Tags,
-            variant: "",
-            variantTags: [],
-          },
+          id: "5",
+          parameters: [],
+          remotePath: "./evergreen.yml",
+          specifier: GitTagSpecifier.ConfigFile,
           tasks: {
             specifier: VariantTaskSpecifier.Tags,
             task: "",
             taskTags: [],
           },
-          parameters: [],
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: [],
+          },
         },
       ],
+      gitTagAliasesOverride: true,
       repoData: {
-        gitTagAliasesOverride: true,
         gitTagAliases: [],
+        gitTagAliasesOverride: true,
+      },
+    },
+    gitTagVersionsEnabled: null,
+    teams: {
+      gitTagAuthorizedTeams: [],
+      gitTagAuthorizedTeamsOverride: true,
+      repoData: {
+        gitTagAuthorizedTeams: [],
+        gitTagAuthorizedTeamsOverride: true,
+      },
+    },
+    users: {
+      gitTagAuthorizedUsers: ["privileged"],
+      gitTagAuthorizedUsersOverride: true,
+      repoData: {
+        gitTagAuthorizedUsers: ["admin"],
+        gitTagAuthorizedUsersOverride: true,
       },
     },
   },

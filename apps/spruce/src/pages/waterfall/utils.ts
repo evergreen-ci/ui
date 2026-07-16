@@ -28,7 +28,7 @@ export const groupInactiveVersions = (
 
   const pushInactive = (v: Version) => {
     if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
-      filteredVersions.push({ version: null, inactiveVersions: [] });
+      filteredVersions.push({ inactiveVersions: [], version: null });
     }
     filteredVersions[filteredVersions.length - 1].inactiveVersions?.push(v);
   };
@@ -73,9 +73,9 @@ export const groupBuildVariants = (
       }) => {
         if (!bvs.has(buildVariant)) {
           bvs.set(buildVariant, {
-            id: buildVariant,
-            displayName,
             builds: [],
+            displayName,
+            id: buildVariant,
           });
         }
 
@@ -83,8 +83,8 @@ export const groupBuildVariants = (
         bv?.builds?.push({
           activated: buildActivated,
           id: buildId,
-          version: id,
           tasks: tasks ?? [],
+          version: id,
         });
       },
     );

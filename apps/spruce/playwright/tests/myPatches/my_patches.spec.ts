@@ -9,10 +9,10 @@ test.describe("My Patches Page", () => {
   test.beforeEach(async ({ page }) => {
     await page.context().addCookies([
       {
-        name: "include-commit-queue-user-patches",
-        value: "true",
         domain: "localhost",
+        name: "include-commit-queue-user-patches",
         path: "/",
+        value: "true",
       },
     ]);
   });
@@ -190,15 +190,15 @@ test.describe("My Patches Page", () => {
 
     const statuses = [
       {
-        label: "Created/Unconfigured",
         key: "created",
+        label: "Created/Unconfigured",
       },
-      { label: "Running", key: "started" },
+      { key: "started", label: "Running" },
       {
-        label: "Succeeded",
         key: "success",
+        label: "Succeeded",
       },
-      { label: "Failed", key: "failed" },
+      { key: "failed", label: "Failed" },
     ];
 
     test("Clicking on a status checkbox applies the status and clicking again removes it", async ({

@@ -23,7 +23,7 @@ export const Table: React.FC<TableProps> = ({
 }) => {
   const { sendEvent } = useVersionAnalytics(patchId);
   const table = useLeafyGreenTable<FileDiffsFragment>({
-    columns: getColumns({ patchId, moduleIndex, disableDiffLinks, sendEvent }),
+    columns: getColumns({ disableDiffLinks, moduleIndex, patchId, sendEvent }),
     data: fileDiffs ?? [],
     enableColumnFilters: false,
     enableSorting: false,
@@ -52,8 +52,6 @@ const getColumns = ({
 }): LGColumnDef<FileDiffsFragment>[] => [
   {
     accessorKey: "fileName",
-    header: "File Name",
-    meta: { width: "70%" },
     cell: ({
       getValue,
       row: {
@@ -74,9 +72,9 @@ const getColumns = ({
           href={fileDiffRoute}
           onClick={() =>
             sendEvent({
-              name: "Clicked code changes diff link",
               "diff.format": "html",
               "diff.type": "file",
+              name: "Clicked code changes diff link",
             })
           }
         >
@@ -84,19 +82,21 @@ const getColumns = ({
         </StyledLink>
       );
     },
+    header: "File Name",
+    meta: { width: "70%" },
   },
   {
     accessorKey: "additions",
-    header: "Additions",
     cell: ({ getValue }) => (
       <FileDiffText type="+" value={getValue() as number} />
     ),
+    header: "Additions",
   },
   {
     accessorKey: "deletions",
-    header: "Deletions",
     cell: ({ getValue }) => (
       <FileDiffText type="-" value={getValue() as number} />
     ),
+    header: "Deletions",
   },
 ];

@@ -4,9 +4,9 @@ import { SpruceFormProps } from "components/SpruceForm/types";
 export const insertIf = (condition, ...elements) => (condition ? elements : []);
 
 const radioBoxOption = (title: string, value: boolean) => ({
-  type: ["boolean", "null"],
-  title,
   enum: [value],
+  title,
+  type: ["boolean", "null"],
 });
 
 /**
@@ -44,23 +44,6 @@ export const overrideRadioBox = (
 ): SpruceFormProps["schema"] => {
   const propertyNameOverride = `${propertyName}Override`;
   return {
-    properties: {
-      [propertyNameOverride]: {
-        type: "boolean" as const,
-        oneOf: [
-          {
-            type: "boolean" as const,
-            title: buttonText[0],
-            enum: [true],
-          },
-          {
-            type: "boolean" as const,
-            title: buttonText[1],
-            enum: [false],
-          },
-        ],
-      },
-    },
     dependencies: {
       [propertyNameOverride]: {
         oneOf: [
@@ -70,23 +53,40 @@ export const overrideRadioBox = (
                 enum: [false],
               },
               repoData: {
-                type: "object" as const,
-                title: "",
                 properties: {
                   [propertyName]: overrideSchema,
                 },
+                title: "",
+                type: "object" as const,
               },
             },
           },
           {
             properties: {
+              [propertyName]: overrideSchema,
               [propertyNameOverride]: {
                 enum: [true],
               },
-              [propertyName]: overrideSchema,
             },
           },
         ],
+      },
+    },
+    properties: {
+      [propertyNameOverride]: {
+        oneOf: [
+          {
+            enum: [true],
+            title: buttonText[0],
+            type: "boolean" as const,
+          },
+          {
+            enum: [false],
+            title: buttonText[1],
+            type: "boolean" as const,
+          },
+        ],
+        type: "boolean" as const,
       },
     },
   };

@@ -70,62 +70,62 @@ export const gqlToForm = ((data) => {
 
   return {
     runners: {
+      hostInit: {
+        cloudStatusBatchSize: cloudStatusBatchSize ?? 0,
+        hostThrottle: hostThrottle ?? 0,
+        maxTotalDynamicHosts: maxTotalDynamicHosts ?? 0,
+        provisioningThrottle: provisioningThrottle ?? 0,
+      },
       notify: {
         sesEmail: notify?.ses?.senderAddress ?? "",
       },
+      repotracker: {
+        maxConcurrentRequests: maxConcurrentRequests ?? 0,
+        maxRepoRevisionsToSearch: maxRepoRevisionsToSearch ?? 0,
+        numNewRepoRevisionsToFetch: numNewRepoRevisionsToFetch ?? 0,
+      },
+      scheduler: {
+        acceptableHostIdleTimeSeconds: acceptableHostIdleTimeSeconds ?? 0,
+        cacheDurationSeconds: cacheDurationSeconds ?? 0,
+        commitQueueFactor: commitQueueFactor ?? 0,
+        expectedRuntimeFactor: expectedRuntimeFactor ?? 0,
+        futureHostFraction: futureHostFraction ?? 0,
+        generateTaskFactor: generateTaskFactor ?? 0,
+        groupVersions: groupVersions ?? false,
+        hostAllocator: hostAllocator ?? HostAllocatorVersion.Utilization,
+        hostAllocatorFeedbackRule:
+          hostAllocatorFeedbackRule ?? FeedbackRule.NoFeedback,
+        hostAllocatorRoundingRule:
+          hostAllocatorRoundingRule ?? RoundingRule.Down,
+        hostsOverallocatedRule:
+          hostsOverallocatedRule ?? OverallocatedRule.Ignore,
+        mainlineTimeInQueueFactor: mainlineTimeInQueueFactor ?? 0,
+        numDependentsFactor: numDependentsFactor ?? 0,
+        patchFactor: patchFactor ?? 0,
+        patchTimeInQueueFactor: patchTimeInQueueFactor ?? 0,
+        stepbackTaskFactor: stepbackTaskFactor ?? 0,
+        targetTimeSeconds: targetTimeSeconds ?? 0,
+        taskFinder: taskFinder ?? FinderVersion.Legacy,
+        translateProjectCacheBytesLimit: translateProjectCacheBytesLimit ?? 0,
+        translateProjectCacheTTLSeconds: translateProjectCacheTTLSeconds ?? 0,
+        translateProjectConcurrencyLimit: translateProjectConcurrencyLimit ?? 0,
+      },
       taskLimits: {
-        maxTasksPerVersion: maxTasksPerVersion ?? 0,
-        maxIncludesPerVersion: maxIncludesPerVersion ?? 0,
-        maxHourlyPatchTasks: maxHourlyPatchTasks ?? 0,
-        maxPendingGeneratedTasks: maxPendingGeneratedTasks ?? 0,
-        maxGenerateTaskJSONSize: maxGenerateTaskJSONSize ?? 0,
         maxConcurrentLargeParserProjectTasks:
           maxConcurrentLargeParserProjectTasks ?? 0,
+        maxDailyAutomaticRestarts: maxDailyAutomaticRestarts ?? 0,
         maxDegradedModeConcurrentLargeParserProjectTasks:
           maxDegradedModeConcurrentLargeParserProjectTasks ?? 0,
         maxDegradedModeParserProjectSize: maxDegradedModeParserProjectSize ?? 0,
-        maxParserProjectSize: maxParserProjectSize ?? 0,
         maxExecTimeoutSecs: maxExecTimeoutSecs ?? 0,
-        maxTaskExecution: maxTaskExecution ?? 0,
-        maxDailyAutomaticRestarts: maxDailyAutomaticRestarts ?? 0,
+        maxGenerateTaskJSONSize: maxGenerateTaskJSONSize ?? 0,
+        maxHourlyPatchTasks: maxHourlyPatchTasks ?? 0,
+        maxIncludesPerVersion: maxIncludesPerVersion ?? 0,
+        maxParserProjectSize: maxParserProjectSize ?? 0,
+        maxPendingGeneratedTasks: maxPendingGeneratedTasks ?? 0,
         maxScheduledTasksPerDistro: maxScheduledTasksPerDistro ?? 0,
-      },
-      hostInit: {
-        hostThrottle: hostThrottle ?? 0,
-        provisioningThrottle: provisioningThrottle ?? 0,
-        cloudStatusBatchSize: cloudStatusBatchSize ?? 0,
-        maxTotalDynamicHosts: maxTotalDynamicHosts ?? 0,
-      },
-      scheduler: {
-        taskFinder: taskFinder ?? FinderVersion.Legacy,
-        hostAllocator: hostAllocator ?? HostAllocatorVersion.Utilization,
-        hostAllocatorRoundingRule:
-          hostAllocatorRoundingRule ?? RoundingRule.Down,
-        hostAllocatorFeedbackRule:
-          hostAllocatorFeedbackRule ?? FeedbackRule.NoFeedback,
-        hostsOverallocatedRule:
-          hostsOverallocatedRule ?? OverallocatedRule.Ignore,
-        futureHostFraction: futureHostFraction ?? 0,
-        cacheDurationSeconds: cacheDurationSeconds ?? 0,
-        targetTimeSeconds: targetTimeSeconds ?? 0,
-        acceptableHostIdleTimeSeconds: acceptableHostIdleTimeSeconds ?? 0,
-        groupVersions: groupVersions ?? false,
-        patchFactor: patchFactor ?? 0,
-        patchTimeInQueueFactor: patchTimeInQueueFactor ?? 0,
-        commitQueueFactor: commitQueueFactor ?? 0,
-        mainlineTimeInQueueFactor: mainlineTimeInQueueFactor ?? 0,
-        expectedRuntimeFactor: expectedRuntimeFactor ?? 0,
-        generateTaskFactor: generateTaskFactor ?? 0,
-        numDependentsFactor: numDependentsFactor ?? 0,
-        stepbackTaskFactor: stepbackTaskFactor ?? 0,
-        translateProjectConcurrencyLimit: translateProjectConcurrencyLimit ?? 0,
-        translateProjectCacheBytesLimit: translateProjectCacheBytesLimit ?? 0,
-        translateProjectCacheTTLSeconds: translateProjectCacheTTLSeconds ?? 0,
-      },
-      repotracker: {
-        numNewRepoRevisionsToFetch: numNewRepoRevisionsToFetch ?? 0,
-        maxRepoRevisionsToSearch: maxRepoRevisionsToSearch ?? 0,
-        maxConcurrentRequests: maxConcurrentRequests ?? 0,
+        maxTaskExecution: maxTaskExecution ?? 0,
+        maxTasksPerVersion: maxTasksPerVersion ?? 0,
       },
     },
   };
@@ -135,16 +135,16 @@ export const formToGql = (({ runners }, data) => {
   const { hostInit, notify, repotracker, scheduler, taskLimits } = runners;
 
   return {
+    hostInit,
     notify: {
+      bufferIntervalSeconds: data?.notify?.bufferIntervalSeconds,
+      bufferTargetPerInterval: data?.notify?.bufferTargetPerInterval,
       ses: {
         senderAddress: notify.sesEmail,
       },
-      bufferIntervalSeconds: data?.notify?.bufferIntervalSeconds,
-      bufferTargetPerInterval: data?.notify?.bufferTargetPerInterval,
     },
-    taskLimits,
-    hostInit,
-    scheduler,
     repotracker,
+    scheduler,
+    taskLimits,
   };
 }) satisfies FormToGqlFunction<Tab>;

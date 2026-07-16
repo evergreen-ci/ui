@@ -72,7 +72,6 @@ const SubscriptionsTable: React.FC<{
     DeleteSubscriptionsMutation,
     DeleteSubscriptionsMutationVariables
   >(DELETE_SUBSCRIPTIONS, {
-    refetchQueries: ["UserSubscriptions"],
     onCompleted: (result) => {
       dispatchToast.success(
         `Deleted ${result.deleteSubscriptions} subscription${
@@ -85,6 +84,7 @@ const SubscriptionsTable: React.FC<{
         `Error attempting to delete subscriptions: ${e.message}`,
       );
     },
+    refetchQueries: ["UserSubscriptions"],
   });
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -166,7 +166,6 @@ const SubscriptionsTable: React.FC<{
 const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
   {
     accessorKey: "resourceType",
-    id: "resourceType",
     cell: ({ getValue }) => {
       const resourceType = getValue() as ResourceType;
       return resourceTypeToCopy[resourceType] ?? resourceType;
@@ -174,6 +173,7 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
     enableColumnFilter: true,
     filterFn: filterFns.arrIncludesSome,
     header: "Type",
+    id: "resourceType",
     meta: {
       treeSelect: {
         "data-cy": "status-filter-popover",
@@ -183,7 +183,6 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
     },
   },
   {
-    header: "ID",
     accessorKey: "selectors",
     cell: ({
       getValue,
@@ -207,12 +206,17 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
         selectorId
       );
     },
+    header: "ID",
   },
   {
     accessorKey: "trigger",
-    header: "Event",
+    cell: ({ getValue }) => {
+      const trigger = getValue() as keyof typeof triggerToCopy;
+      return triggerToCopy[trigger] ?? trigger;
+    },
     enableColumnFilter: true,
     filterFn: filterFns.arrIncludesSome,
+    header: "Event",
     meta: {
       treeSelect: {
         "data-cy": "trigger-filter-popover",
@@ -220,22 +224,17 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
         options: triggerTreeData,
       },
     },
-    cell: ({ getValue }) => {
-      const trigger = getValue() as keyof typeof triggerToCopy;
-      return triggerToCopy[trigger] ?? trigger;
-    },
   },
   {
-    header: "Notify by",
     accessorKey: "subscriber.type",
     cell: ({ getValue }) => {
       const subscriberType =
         getValue() as keyof typeof notificationMethodToCopy;
       return notificationMethodToCopy[subscriberType] ?? subscriberType;
     },
+    header: "Notify by",
   },
   {
-    header: "Target",
     accessorKey: "subscriber",
     cell: ({ getValue }) => {
       const subscriber = getValue() as SubscriberWrapper;
@@ -244,6 +243,7 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
         ? jiraLinkify(text, jiraHost)
         : text;
     },
+    header: "Target",
   },
 ];
 

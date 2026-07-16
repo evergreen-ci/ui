@@ -81,14 +81,14 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
         schema={{
           properties: {
             betaFeatures: {
-              title: "Beta Features",
-              type: "object" as const,
               properties: {
                 // Example for future beta features:
                 // newFeature: radioSchema({
                 //   title: "New Feature Name",
                 // }),
               },
+              title: "Beta Features",
+              type: "object" as const,
             },
           },
         }}
@@ -131,21 +131,21 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioSchema = ({ title }: { title: string }) => ({
-  type: "boolean" as const,
-  title,
   default: false,
   oneOf: [
     {
-      type: "boolean" as const,
-      title: "Enabled",
       enum: [true],
+      title: "Enabled",
+      type: "boolean" as const,
     },
     {
-      type: "boolean" as const,
-      title: "Disabled",
       enum: [false],
+      title: "Disabled",
+      type: "boolean" as const,
     },
   ],
+  title,
+  type: "boolean" as const,
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -157,16 +157,16 @@ const radioUiSchema = ({
   isAdminEnabled: boolean;
 }) => ({
   "ui:data-cy": dataCy,
-  "ui:widget": isAdminEnabled ? "radio" : "hidden",
-  "ui:options": {
-    inline: true,
-  },
   "ui:elementWrapperCSS": css`
     display: flex;
     justify-content: space-between;
     gap: ${size.m};
     margin-bottom: ${size.s};
   `,
+  "ui:options": {
+    inline: true,
+  },
+  "ui:widget": isAdminEnabled ? "radio" : "hidden",
 });
 
 const ContentWrapper = styled.div`

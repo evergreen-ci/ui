@@ -20,9 +20,7 @@ export const getColumnsTemplate = ({
   task,
 }: GetColumnsTemplateParams): LGColumnDef<TestResult>[] => [
   {
-    header: "Name",
     accessorKey: "testFile",
-    id: TestSortCategory.TestName,
     cell: ({ getValue, row }) => (
       <NameCell>
         <WordBreak>{getValue() as string}</WordBreak>
@@ -35,6 +33,8 @@ export const getColumnsTemplate = ({
     ),
     enableColumnFilter: true,
     enableSorting: true,
+    header: "Name",
+    id: TestSortCategory.TestName,
     meta: {
       search: {
         "data-cy": "test-name-filter",
@@ -44,12 +44,12 @@ export const getColumnsTemplate = ({
     },
   },
   {
-    header: "Status",
     accessorKey: "status",
-    id: TestSortCategory.Status,
+    cell: ({ getValue }) => <TestStatusBadge status={getValue() as string} />,
     enableColumnFilter: true,
     enableSorting: true,
-    cell: ({ getValue }) => <TestStatusBadge status={getValue() as string} />,
+    header: "Status",
+    id: TestSortCategory.Status,
     meta: {
       treeSelect: {
         "data-cy": "status-treeselect",
@@ -59,45 +59,45 @@ export const getColumnsTemplate = ({
     },
   },
   {
-    header: () =>
-      `${task.versionMetadata.isPatch ? "Base" : "Previous"} Status`,
     accessorKey: "baseStatus",
-    id: TestSortCategory.BaseStatus,
-    enableSorting: true,
     cell: ({ getValue }) => {
       const status = getValue() as string;
       return status && <TestStatusBadge status={status} />;
     },
+    enableSorting: true,
+    header: () =>
+      `${task.versionMetadata.isPatch ? "Base" : "Previous"} Status`,
+    id: TestSortCategory.BaseStatus,
     meta: {
       width: "10%",
     },
   },
   {
-    header: "Time",
     accessorKey: "duration",
-    id: TestSortCategory.Duration,
-    enableSorting: true,
     cell: ({ getValue }): string => {
       const ms = (getValue() as number) * 1000;
       return msToDuration(Math.trunc(ms));
     },
+    enableSorting: true,
+    header: "Time",
+    id: TestSortCategory.Duration,
     meta: {
       width: "10%",
     },
   },
   {
-    header: "Logs",
-    enableSorting: false,
     cell: ({ row }) => <LogsColumn task={task} testResult={row.original} />,
+    enableSorting: false,
+    header: "Logs",
     meta: {
       width: "20%",
     },
   },
   {
+    cell: ({ row }) => <ActionMenu task={task} test={row.original} />,
+    enableSorting: false,
     header: "Actions",
     id: "actions",
-    enableSorting: false,
-    cell: ({ row }) => <ActionMenu task={task} test={row.original} />,
     meta: {
       width: "10%",
     },

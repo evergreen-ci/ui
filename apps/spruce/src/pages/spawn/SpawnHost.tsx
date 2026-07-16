@@ -24,10 +24,10 @@ export const SpawnHost = () => {
     ({ volumes }) => !!volumes.find(({ migrating }) => migrating),
   );
   usePolling<MyHostsQuery, MyHostsQueryVariables>({
-    startPolling,
-    stopPolling,
     refetch,
     shouldPollFaster: migrationInProcess,
+    startPolling,
+    stopPolling,
   });
 
   usePageTitle("My Hosts");

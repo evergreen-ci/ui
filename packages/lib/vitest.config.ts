@@ -2,20 +2,20 @@ import react from "@vitejs/plugin-react";
 import { defineConfig as defineTestConfig } from "vitest/config";
 
 const vitestConfig = defineTestConfig({
+  plugins: [react()],
+  resolve: {
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+    tsconfigPaths: true,
+  },
   test: {
     environment: "jsdom",
     globals: true,
+    globalSetup: "./config/vitest/global-setup.ts",
+    include: ["src/**/*.test.{ts,tsx}"],
     outputFile: { junit: "./bin/vitest/junit.xml" },
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
     setupFiles: "./config/vitest/setupTests.ts",
-    globalSetup: "./config/vitest/global-setup.ts",
-    include: ["src/**/*.test.{ts,tsx}"],
   },
-  resolve: {
-    tsconfigPaths: true,
-    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
-  },
-  plugins: [react()],
 });
 
 export default vitestConfig;

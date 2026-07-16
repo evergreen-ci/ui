@@ -38,8 +38,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { e2e: false, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={() => {}}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -64,8 +64,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: true, test: true },
             ubuntu1804: { compile: true, lint: true },
+            ubuntu2004: { compile: true, test: true },
           }}
           setSelectedAliases={() => {}}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -89,8 +89,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: true, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={() => {}}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -143,8 +143,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={() => {}}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -159,8 +159,8 @@ describe("configureTasks", () => {
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
       await user.click(screen.getByText("Select all tasks in this variant"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
-        ubuntu2004: { compile: true, test: true },
         ubuntu1804: { compile: false, lint: false },
+        ubuntu2004: { compile: true, test: true },
       });
     });
     it("selecting a deduplicated task should call setSelectedBuildVariantTasks selecting the task in all variants", async () => {
@@ -176,8 +176,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={() => {}}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -190,8 +190,8 @@ describe("configureTasks", () => {
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
       await user.click(screen.getByText("compile"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
-        ubuntu2004: { compile: true, test: false },
         ubuntu1804: { compile: true, lint: false },
+        ubuntu2004: { compile: true, test: false },
       });
     });
     it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in multiple variants", async () => {
@@ -207,8 +207,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={() => {}}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -224,8 +224,8 @@ describe("configureTasks", () => {
       await user.type(screen.getByDataCy("task-filter-input"), "^c");
       await user.click(screen.getByText("Select all tasks in view"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
-        ubuntu2004: { compile: true, test: false },
         ubuntu1804: { compile: true, lint: false },
+        ubuntu2004: { compile: true, test: false },
       });
     });
     it("applying a search should filter the tasks", async () => {
@@ -240,8 +240,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={() => {}}
           setSelectedBuildVariantTasks={() => {}}
@@ -267,8 +267,8 @@ describe("configureTasks", () => {
           selectableAliases={[
             {
               alias: "parsley",
-              childProjectIdentifier: "Parsley",
               childProjectId: "parsley",
+              childProjectIdentifier: "Parsley",
               variantsTasks: [
                 {
                   name: "ubuntu2204-large",
@@ -280,8 +280,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: true, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={setSelectedAliases}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -304,8 +304,8 @@ describe("configureTasks", () => {
           selectableAliases={[
             {
               alias: "parsley",
-              childProjectIdentifier: "Parsley",
               childProjectId: "parsley",
+              childProjectIdentifier: "Parsley",
               variantsTasks: [
                 {
                   name: "ubuntu2204-large",
@@ -317,8 +317,8 @@ describe("configureTasks", () => {
           selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: true, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={setSelectedAliases}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -342,8 +342,8 @@ describe("configureTasks", () => {
           selectableAliases={[
             {
               alias: "parsley",
-              childProjectIdentifier: "Parsley",
               childProjectId: "parsley",
+              childProjectIdentifier: "Parsley",
               variantsTasks: [
                 {
                   name: "ubuntu2204-large",
@@ -355,8 +355,8 @@ describe("configureTasks", () => {
           selectedAliases={{ parsley: true }}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: true, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={setSelectedAliases}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -380,8 +380,8 @@ describe("configureTasks", () => {
           selectableAliases={[
             {
               alias: "parsley",
-              childProjectIdentifier: "Parsley",
               childProjectId: "parsley",
+              childProjectIdentifier: "Parsley",
               variantsTasks: [
                 {
                   name: "ubuntu2204-large",
@@ -393,8 +393,8 @@ describe("configureTasks", () => {
           selectedAliases={{ parsley: true }}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={setSelectedAliases}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -418,8 +418,8 @@ describe("configureTasks", () => {
           selectableAliases={[
             {
               alias: "parsley",
-              childProjectIdentifier: "Parsley",
               childProjectId: "parsley",
+              childProjectIdentifier: "Parsley",
               variantsTasks: [
                 {
                   name: "ubuntu2204-large",
@@ -433,8 +433,8 @@ describe("configureTasks", () => {
           }}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
+            ubuntu2004: { compile: false, test: false },
           }}
           setSelectedAliases={setSelectedAliases}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
@@ -447,8 +447,8 @@ describe("configureTasks", () => {
         parsley: true,
       });
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
-        ubuntu2004: { compile: false, test: false },
         ubuntu1804: { compile: false, lint: false },
+        ubuntu2004: { compile: false, test: false },
       });
     });
   });

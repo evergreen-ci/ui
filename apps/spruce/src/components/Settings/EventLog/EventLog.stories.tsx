@@ -5,11 +5,10 @@ import EventLog from ".";
 
 const event: Event = {
   after: {
-    stringField: "updated value",
-    numberField: 1,
-    booleanField: true,
-    deletedField: undefined,
     addedField: "added value",
+    booleanField: true,
+    customKey: "modified value",
+    deletedField: undefined,
     nested: {
       array: [1, 2, 3],
       object: {
@@ -17,14 +16,14 @@ const event: Event = {
         value: "value",
       },
     },
-    customKey: "modified value",
+    numberField: 1,
+    stringField: "updated value",
   },
   before: {
-    stringField: "original value",
-    numberField: 96,
-    booleanField: false,
-    deletedField: "deleted value",
     addedField: undefined,
+    booleanField: false,
+    customKey: "custom value",
+    deletedField: "deleted value",
     nested: {
       array: [4, 5, 6],
       object: {
@@ -32,7 +31,8 @@ const event: Event = {
         value: "value",
       },
     },
-    customKey: "custom value",
+    numberField: 96,
+    stringField: "original value",
   },
   timestamp: new Date("2024-08-31T00:00:00.000Z"),
   user: "Mohamed Khelif",
@@ -43,21 +43,32 @@ export default {
 } satisfies CustomMeta<typeof EventLog>;
 
 export const Default: CustomStoryObj<typeof EventLog> = {
-  render: (args) => <EventLog {...args} />,
-  argTypes: {},
   args: {
-    events: [event],
-    lastFetchedCount: 1,
-    limit: 15,
-    loading: false,
     customKeyValueRenderConfig: {
       customKey: (value) => <b style={{ color: "red" }}>{value}</b>,
     },
+    events: [event],
     handleFetchMore: () => actions("handleFetchMore"),
+    lastFetchedCount: 1,
+    limit: 15,
+    loading: false,
   },
+  argTypes: {},
+  render: (args) => <EventLog {...args} />,
 };
 
 export const CustomEventRenderer: CustomStoryObj<typeof EventLog> = {
+  args: {
+    customKeyValueRenderConfig: {
+      customKey: (value) => <b style={{ color: "red" }}>{value}</b>,
+    },
+    events: [event],
+    handleFetchMore: () => actions("handleFetchMore"),
+    lastFetchedCount: 1,
+    limit: 15,
+    loading: false,
+  },
+  argTypes: {},
   render: (args) => (
     <EventLog
       {...args}
@@ -69,15 +80,4 @@ export const CustomEventRenderer: CustomStoryObj<typeof EventLog> = {
       )}
     />
   ),
-  argTypes: {},
-  args: {
-    events: [event],
-    lastFetchedCount: 1,
-    limit: 15,
-    loading: false,
-    customKeyValueRenderConfig: {
-      customKey: (value) => <b style={{ color: "red" }}>{value}</b>,
-    },
-    handleFetchMore: () => actions("handleFetchMore"),
-  },
 };

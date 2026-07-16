@@ -17,14 +17,23 @@ const mockAdminSettings: AdminSettingsData = {
   authConfig: {
     allowServiceUsers: true,
     backgroundReauthMinutes: 60,
-    preferredType: PreferredAuthType.Github,
-    okta: {
-      clientId: "okta-client-id",
-      clientSecret: "okta-client-secret",
-      issuer: "https://example.okta.com",
-      userGroup: "evg-users",
-      expireAfterMinutes: 480,
-      scopes: ["openid", "profile", "email"],
+    github: {
+      appId: 12345,
+      clientId: "github-client-id",
+      clientSecret: "github-client-secret",
+      defaultOwner: "evergreen-ci",
+      defaultRepo: "evergreen",
+      organization: "evergreen-ci",
+      users: ["user1", "user2", "admin"],
+    },
+    kanopy: {
+      headerName: "X-Auth-Token",
+      issuer: "https://kanopy.example.com",
+      keysetURL: "https://kanopy.example.com/.well-known/jwks.json",
+    },
+    multi: {
+      readOnly: ["viewer", "guest"],
+      readWrite: ["admin", "developer"],
     },
     naive: {
       users: [
@@ -42,47 +51,48 @@ const mockAdminSettings: AdminSettingsData = {
         },
       ],
     },
-    github: {
-      appId: 12345,
-      clientId: "github-client-id",
-      clientSecret: "github-client-secret",
-      defaultOwner: "evergreen-ci",
-      defaultRepo: "evergreen",
-      organization: "evergreen-ci",
-      users: ["user1", "user2", "admin"],
-    },
-    multi: {
-      readWrite: ["admin", "developer"],
-      readOnly: ["viewer", "guest"],
-    },
-    kanopy: {
-      headerName: "X-Auth-Token",
-      issuer: "https://kanopy.example.com",
-      keysetURL: "https://kanopy.example.com/.well-known/jwks.json",
-    },
     oauth: {
       clientId: "oauth-client-id",
       connectorId: "oauth-connector-id",
       issuer: "https://oauth.example.com",
     },
+    okta: {
+      clientId: "okta-client-id",
+      clientSecret: "okta-client-secret",
+      expireAfterMinutes: 480,
+      issuer: "https://example.okta.com",
+      scopes: ["openid", "profile", "email"],
+      userGroup: "evg-users",
+    },
+    preferredType: PreferredAuthType.Github,
   },
   disabledGQLQueries: [],
 };
 
 const form: AuthenticationFormState = {
   authentication: {
+    github: {
+      appId: 12345,
+      clientId: "github-client-id",
+      clientSecret: "github-client-secret",
+      defaultOwner: "evergreen-ci",
+      defaultRepo: "evergreen",
+      organization: "evergreen-ci",
+      users: ["user1", "user2", "admin"],
+    },
     globalConfig: {
       allowServiceUsers: true,
       backgroundReauthMinutes: 60,
       preferredType: PreferredAuthType.Github,
     },
-    okta: {
-      clientId: "okta-client-id",
-      clientSecret: "okta-client-secret",
-      issuer: "https://example.okta.com",
-      userGroup: "evg-users",
-      expireAfterMinutes: 480,
-      scopes: ["openid", "profile", "email"],
+    kanopy: {
+      headerName: "X-Auth-Token",
+      issuer: "https://kanopy.example.com",
+      keysetURL: "https://kanopy.example.com/.well-known/jwks.json",
+    },
+    multi: {
+      readOnly: ["viewer", "guest"],
+      readWrite: ["admin", "developer"],
     },
     naive: {
       users: [
@@ -100,28 +110,18 @@ const form: AuthenticationFormState = {
         },
       ],
     },
-    github: {
-      appId: 12345,
-      clientId: "github-client-id",
-      clientSecret: "github-client-secret",
-      defaultOwner: "evergreen-ci",
-      defaultRepo: "evergreen",
-      organization: "evergreen-ci",
-      users: ["user1", "user2", "admin"],
-    },
-    multi: {
-      readWrite: ["admin", "developer"],
-      readOnly: ["viewer", "guest"],
-    },
-    kanopy: {
-      headerName: "X-Auth-Token",
-      issuer: "https://kanopy.example.com",
-      keysetURL: "https://kanopy.example.com/.well-known/jwks.json",
-    },
     oauth: {
       clientId: "oauth-client-id",
       connectorId: "oauth-connector-id",
       issuer: "https://oauth.example.com",
+    },
+    okta: {
+      clientId: "okta-client-id",
+      clientSecret: "okta-client-secret",
+      expireAfterMinutes: 480,
+      issuer: "https://example.okta.com",
+      scopes: ["openid", "profile", "email"],
+      userGroup: "evg-users",
     },
   },
 };
@@ -144,11 +144,6 @@ const gql: AdminSettingsInput = {
       issuer: "https://kanopy.example.com",
       keysetURL: "https://kanopy.example.com/.well-known/jwks.json",
     },
-    oauth: {
-      clientId: "oauth-client-id",
-      connectorId: "oauth-connector-id",
-      issuer: "https://oauth.example.com",
-    },
     multi: {
       readOnly: ["viewer", "guest"],
       readWrite: ["admin", "developer"],
@@ -169,13 +164,18 @@ const gql: AdminSettingsInput = {
         },
       ],
     },
+    oauth: {
+      clientId: "oauth-client-id",
+      connectorId: "oauth-connector-id",
+      issuer: "https://oauth.example.com",
+    },
     okta: {
       clientId: "okta-client-id",
       clientSecret: "okta-client-secret",
       expireAfterMinutes: 480,
       issuer: "https://example.okta.com",
-      userGroup: "evg-users",
       scopes: ["openid", "profile", "email"],
+      userGroup: "evg-users",
     },
     preferredType: PreferredAuthType.Github,
   },

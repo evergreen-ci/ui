@@ -46,15 +46,15 @@ export const VersionPage: React.FC = () => {
     startPolling,
     stopPolling,
   } = useQuery<VersionQuery, VersionQueryVariables>(VERSION, {
-    variables: { id: versionId, includeNeverActivatedTasks },
     fetchPolicy: "cache-and-network",
+    variables: { id: versionId, includeNeverActivatedTasks },
   });
   useErrorToast(error, "There was an error loading the version");
 
   usePolling<VersionQuery, VersionQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
 
   // Patches and mainline share the /version route, so stamp is_patch to let

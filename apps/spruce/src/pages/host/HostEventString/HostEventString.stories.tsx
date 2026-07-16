@@ -10,6 +10,8 @@ export default {
 } satisfies CustomMeta<typeof HostEventString>;
 
 export const Default: CustomStoryObj<typeof HostEventString> = {
+  args: {},
+  argTypes: {},
   render: () => (
     <>
       {Object.values(HostEventType).map((eventType) => (
@@ -22,8 +24,6 @@ export const Default: CustomStoryObj<typeof HostEventString> = {
       ))}
     </>
   ),
-  argTypes: {},
-  args: {},
 };
 
 const EventContainer = styled.div`
@@ -31,18 +31,18 @@ const EventContainer = styled.div`
   border: 1px solid green;
 `;
 const data: HostEventLogData = {
-  successful: true,
-  logs: "This is a log message",
   agentBuild: "1.2.3",
   agentRevision: "abc123",
   duration: 1000,
   execution: "execution",
   hostname: "hostname",
   jasperRevision: "abc123",
+  logs: "This is a log message",
   monitorOp: "monitorOp",
   newStatus: "newStatus",
   oldStatus: "oldStatus",
   provisioningMethod: "provisioningMethod",
+  successful: true,
   taskId: "taskId",
   taskPid: "123",
   taskStatus: "failed",

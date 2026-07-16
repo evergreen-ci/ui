@@ -31,10 +31,10 @@ export const SpawnVolume = () => {
     ({ migrating }) => migrating,
   );
   usePolling<MyVolumesQuery, MyVolumesQueryVariables>({
-    startPolling,
-    stopPolling,
     refetch,
     shouldPollFaster: migrationInProcess,
+    startPolling,
+    stopPolling,
   });
 
   if (loading && !volumesData) {

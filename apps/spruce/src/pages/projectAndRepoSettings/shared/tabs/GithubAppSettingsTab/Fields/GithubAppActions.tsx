@@ -32,22 +32,22 @@ interface ReplaceFormState {
 
 const replaceFormSchema: SpruceFormProps = {
   schema: {
-    type: "object" as const,
     description:
       "Enter new GitHub app credentials to replace the existing ones.",
     properties: {
       appId: {
-        type: "number" as const,
-        title: "New App ID",
         minimum: 1,
+        title: "New App ID",
+        type: "number" as const,
       },
       privateKey: {
-        type: "string" as const,
-        title: "New Private Key",
         minLength: 1,
+        title: "New Private Key",
+        type: "string" as const,
       },
     },
     required: ["appId", "privateKey"],
+    type: "object" as const,
   },
   uiSchema: {
     appId: {
@@ -123,16 +123,16 @@ const ReplaceAppCredentialsButton: React.FC<{
       privateKey: formState.privateKey ?? "",
     };
     const projectRef = {
-      id: projectId,
       githubPermissionGroupByRequester,
+      id: projectId,
     };
     if (isRepo) {
       saveRepoSettings({
         variables: {
           repoSettings: {
-            repoId: projectId,
             githubAppAuth,
             projectRef,
+            repoId: projectId,
           },
           section: ProjectSettingsSection.GithubAppSettings,
         },
@@ -141,8 +141,8 @@ const ReplaceAppCredentialsButton: React.FC<{
       saveProjectSettings({
         variables: {
           projectSettings: {
-            projectId,
             githubAppAuth,
+            projectId,
             projectRef,
           },
           section: ProjectSettingsSection.GithubAppSettings,

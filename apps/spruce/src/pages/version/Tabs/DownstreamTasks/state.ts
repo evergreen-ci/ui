@@ -52,10 +52,10 @@ export const reducer = (state: State, action: Action) => {
       return {
         ...state,
         ...resetPage,
-        statuses: [],
-        variant: "",
         baseStatuses: [],
+        statuses: [],
         taskName: "",
+        variant: "",
       };
     case "setSorts":
       return {

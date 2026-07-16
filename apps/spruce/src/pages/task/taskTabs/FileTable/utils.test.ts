@@ -11,14 +11,14 @@ describe("filterGroupedFiles", () => {
   it("should return the original array if search term is empty", () => {
     const groupedFiles = [
       {
-        taskName: "some_task_name",
         files: [
           {
-            name: "some_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_file_name",
           },
         ],
+        taskName: "some_task_name",
       },
     ];
     const result = filterGroupedFiles(groupedFiles, /(?:)/);
@@ -28,33 +28,33 @@ describe("filterGroupedFiles", () => {
   it("should filter the array if search term is not empty", () => {
     const groupedFiles = [
       {
-        taskName: "some_task_name",
         files: [
           {
-            name: "some_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_file_name",
           },
           {
-            name: "some_other_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_other_file_name",
           },
         ],
+        taskName: "some_task_name",
       },
     ];
     const search = /some_file_name/;
     const result = filterGroupedFiles(groupedFiles, search);
     expect(result).toStrictEqual([
       {
-        taskName: "some_task_name",
         files: [
           {
-            name: "some_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_file_name",
           },
         ],
+        taskName: "some_task_name",
       },
     ]);
   });
@@ -62,58 +62,58 @@ describe("filterGroupedFiles", () => {
   it("should filter across multiple groups", () => {
     const groupedFiles = [
       {
-        taskName: "some_task_name",
         files: [
           {
-            name: "some_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_file_name",
           },
           {
-            name: "some_other_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_other_file_name",
           },
         ],
+        taskName: "some_task_name",
       },
       {
-        taskName: "some_other_task_name",
         files: [
           {
-            name: "some_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_file_name",
           },
           {
-            name: "some_other_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_other_file_name",
           },
         ],
+        taskName: "some_other_task_name",
       },
     ];
     const search = /some_file_name/;
     const result = filterGroupedFiles(groupedFiles, search);
     expect(result).toStrictEqual([
       {
-        taskName: "some_task_name",
         files: [
           {
-            name: "some_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_file_name",
           },
         ],
+        taskName: "some_task_name",
       },
       {
-        taskName: "some_other_task_name",
         files: [
           {
-            name: "some_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_file_name",
           },
         ],
+        taskName: "some_other_task_name",
       },
     ]);
   });
@@ -121,48 +121,48 @@ describe("filterGroupedFiles", () => {
   it("should not return groups that have no matching files", () => {
     const groupedFiles = [
       {
-        taskName: "some_task_name",
         files: [
           {
-            name: "some_matching_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_matching_file_name",
           },
           {
-            name: "some_other_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_other_file_name",
           },
         ],
+        taskName: "some_task_name",
       },
       {
-        taskName: "some_other_task_name",
         files: [
           {
-            name: "some_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_file_name",
           },
           {
-            name: "some_other_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_other_file_name",
           },
         ],
+        taskName: "some_other_task_name",
       },
     ];
     const search = /some_matching_file_name/;
     const result = filterGroupedFiles(groupedFiles, search);
     expect(result).toStrictEqual([
       {
-        taskName: "some_task_name",
         files: [
           {
-            name: "some_matching_file_name",
-            link: "some_url",
             associatedLinks: [],
+            link: "some_url",
+            name: "some_matching_file_name",
           },
         ],
+        taskName: "some_task_name",
       },
     ]);
   });

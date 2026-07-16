@@ -12,8 +12,8 @@ export const processFilesWithAssociatedLinks = (
 ): FileTableRow[] =>
   files.map((file) => {
     const baseRow: FileTableRow = {
-      name: file.name,
       link: file.link,
+      name: file.name,
       urlParsley: file.urlParsley ?? null,
     };
 
@@ -31,9 +31,9 @@ export const processFilesWithAssociatedLinks = (
                     href={link.link}
                     onClick={() => {
                       taskAnalytics.sendEvent({
-                        name: "Clicked task file associated link",
                         "file.name": file.name,
                         "link.name": link.name,
+                        name: "Clicked task file associated link",
                       });
                     }}
                   >

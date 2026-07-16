@@ -101,20 +101,20 @@ const initializeHoneycomb = ({
       };
 
       const honeycombSdk = new HoneycombWebSDK({
+        apiKey: ingestKey,
         debug,
         endpoint,
         instrumentations: [
           getWebAutoInstrumentations(webAutoInstrumentationConfig),
         ],
+        localVisualizations: debug,
         // Add attributes to all traces.
         resourceAttributes: {
-          "user.id": userId,
-          environment,
           app_version: appVersion,
+          environment,
+          "user.id": userId,
         },
-        localVisualizations: debug,
         serviceName,
-        apiKey: ingestKey,
         spanProcessor: new ReactRouterSpanProcessor(routeConfig),
       });
       honeycombSdk.start();

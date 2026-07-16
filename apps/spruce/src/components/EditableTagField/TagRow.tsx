@@ -43,7 +43,7 @@ export const TagRow: React.FC<TagRowProps> = ({
               label="Key"
               onChange={(e) =>
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
-                dispatch({ type: "updateTag", key: e.target.value })
+                dispatch({ key: e.target.value, type: "updateTag" })
               }
               value={key}
             />

@@ -48,22 +48,22 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
 
 const getColumns = (myPublicKeys: PublicKey[]): LGColumnDef<PublicKey>[] => [
   {
-    header: "Name",
     accessorKey: "name",
+    cell: ({ getValue }) => (
+      <WordBreak data-cy="table-key-name">{getValue() as string}</WordBreak>
+    ),
     filterFn: filterFns.includesString,
+    header: "Name",
     meta: {
       search: {
         placeholder: "Key name",
       },
     },
-    cell: ({ getValue }) => (
-      <WordBreak data-cy="table-key-name">{getValue() as string}</WordBreak>
-    ),
   },
   {
-    header: "Actions",
     cell: ({ row }) => (
       <ActionButtons myPublicKeys={myPublicKeys} publicKey={row.original} />
     ),
+    header: "Actions",
   },
 ];

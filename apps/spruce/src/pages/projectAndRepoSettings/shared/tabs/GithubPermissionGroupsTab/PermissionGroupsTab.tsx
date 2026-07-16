@@ -35,7 +35,7 @@ export const PermissionGroupsTab: React.FC<TabProps> = ({
   const defaultsToRepo = !isRepo && !(projectAppId > 0) && repoAppId > 0;
 
   const formSchema = useMemo(
-    () => getFormSchema({ identifier, defaultsToRepo }),
+    () => getFormSchema({ defaultsToRepo, identifier }),
     [identifier, defaultsToRepo],
   );
 

@@ -67,6 +67,9 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
       enableSorting: false,
     },
     getFilteredRowModel: getFilteredRowModel(),
+    initialState: {
+      pagination: { pageIndex: 0, pageSize: DEFAULT_PAGE_SIZE },
+    },
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setColumnFilters,
       (f) =>
@@ -75,9 +78,6 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
           "table.filters": f,
         }),
     ),
-    initialState: {
-      pagination: { pageIndex: 0, pageSize: DEFAULT_PAGE_SIZE },
-    },
     state: {
       columnFilters,
     },
@@ -127,9 +127,10 @@ const getColumns = ({
 }): LGColumnDef<FailedTestResult>[] => [
   {
     accessorKey: "testFile",
-    header: "Test Failure Name",
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
     enableColumnFilter: true,
     filterFn: filterFns.includesString,
+    header: "Test Failure Name",
     meta: {
       search: {
         "data-cy": "test-name-filter",
@@ -137,18 +138,16 @@ const getColumns = ({
       },
       width: "60%",
     },
-    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
   },
   {
     accessorKey: "status",
-    header: "Failure Type",
-    meta: { width: "80px" },
     cell: ({ getValue }) => (
       <TestStatusBadge status={getValue() as TestStatus} />
     ),
+    header: "Failure Type",
+    meta: { width: "80px" },
   },
   {
-    header: "Actions",
     cell: ({
       row: {
         original: {
@@ -178,6 +177,7 @@ const getColumns = ({
         )}
       </ButtonContainer>
     ),
+    header: "Actions",
   },
 ];
 

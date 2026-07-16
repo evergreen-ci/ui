@@ -2,16 +2,16 @@ import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import MetadataCard, { MetadataItem } from ".";
 
 export default {
-  component: MetadataCard,
+  args: {
+    loading: false,
+    title: "Example Metadata Card",
+  },
   argTypes: {
     loading: {
       control: { type: "boolean" },
     },
   },
-  args: {
-    loading: false,
-    title: "Example Metadata Card",
-  },
+  component: MetadataCard,
 } satisfies CustomMeta<typeof MetadataCard>;
 
 export const Default: CustomStoryObj<typeof MetadataCard> = {

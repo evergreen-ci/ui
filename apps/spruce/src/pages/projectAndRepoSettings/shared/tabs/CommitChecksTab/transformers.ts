@@ -31,14 +31,14 @@ export const gqlToForm = ((data, options) => {
 
   return {
     github: {
-      githubChecksEnabled: githubChecksEnabled ?? null,
       githubChecks: {
+        githubCheckAliases,
         githubCheckAliasesOverride: canOverrideForProject(
           options?.projectType,
           githubCheckAliases,
         ),
-        githubCheckAliases,
       },
+      githubChecksEnabled: githubChecksEnabled ?? null,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -54,8 +54,8 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id,
     githubChecksEnabled,
+    id,
   };
 
   const githubCommitCheckAliases = transformAliases(
@@ -66,7 +66,7 @@ export const formToGql = ((
 
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
-    projectRef,
     aliases: githubCommitCheckAliases,
+    projectRef,
   };
 }) satisfies FormToGqlFunction<Tab>;

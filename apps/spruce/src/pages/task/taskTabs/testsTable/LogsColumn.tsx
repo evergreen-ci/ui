@@ -46,8 +46,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           href={urlParsley}
           onClick={() =>
             sendEvent({
-              name: "Clicked test log link",
               "log.viewer": "parsley",
+              name: "Clicked test log link",
               "test.status": status,
             })
           }
@@ -63,8 +63,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           href={testHTMLLogRoute}
           onClick={() =>
             sendEvent({
-              name: "Clicked test log link",
               "log.viewer": "html",
+              name: "Clicked test log link",
               "test.status": status,
             })
           }
@@ -80,8 +80,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           href={urlRaw}
           onClick={() =>
             sendEvent({
-              name: "Clicked test log link",
               "log.viewer": "raw",
+              name: "Clicked test log link",
               "test.status": status,
             })
           }
@@ -100,8 +100,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
               success("Log downloaded started");
             });
             sendEvent({
-              name: "Clicked test log link",
               "log.viewer": "download",
+              name: "Clicked test log link",
               "test.status": status,
             });
           }}

@@ -20,32 +20,32 @@ export const UserDropdown = () => {
 
   const menuItems: MenuItemType[] = [
     {
+      onClick: () => sendEvent({ name: "Clicked profile link" }),
       text: "Profile",
       to: getPreferencesRoute(PreferencesTabRoutes.Profile),
-      onClick: () => sendEvent({ name: "Clicked profile link" }),
     },
     {
+      onClick: () => sendEvent({ name: "Clicked notifications link" }),
       text: "Notifications",
       to: getPreferencesRoute(PreferencesTabRoutes.Notifications),
-      onClick: () => sendEvent({ name: "Clicked notifications link" }),
     },
     {
+      onClick: () => sendEvent({ name: "Clicked UI settings link" }),
       text: "UI Settings",
       to: getPreferencesRoute(PreferencesTabRoutes.UISettings),
-      onClick: () => sendEvent({ name: "Clicked UI settings link" }),
     },
     {
       "data-cy": "log-out",
-      text: "Log out",
       onClick: () => logoutAndRedirect(),
+      text: "Log out",
     },
   ];
   if (permissions?.canEditAdminSettings) {
     menuItems.splice(-1, 0, {
       "data-cy": "admin-link",
-      text: "Admin",
       href: getAdminSettingsRoute(),
       onClick: () => sendEvent({ name: "Clicked admin settings link" }),
+      text: "Admin",
     });
   }
   return (

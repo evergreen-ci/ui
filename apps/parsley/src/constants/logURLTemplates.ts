@@ -14,9 +14,9 @@ const getEvergreenTaskLogURL = (
   const url =
     {
       [Origin.Agent]: logLinks.agentLogLink,
+      [Origin.All]: logLinks.allLogLink,
       [Origin.System]: logLinks.systemLogLink,
       [Origin.Task]: logLinks.taskLogLink,
-      [Origin.All]: logLinks.allLogLink,
     }[origin] ?? "";
   return queryString.stringifyUrl({ query: params, url });
 };

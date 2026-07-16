@@ -69,7 +69,7 @@ const sendError = ({
   tags,
 }: ErrorInput) => {
   withScope((scope) => {
-    setScope(scope, { level: severity, context });
+    setScope(scope, { context, level: severity });
     if (fingerprint) {
       // A custom fingerprint allows for more intelligent grouping
       scope.setFingerprint(fingerprint);

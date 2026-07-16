@@ -39,33 +39,33 @@ describe("project data", () => {
 
 const projectForm: PullRequestsFormState = {
   github: {
-    prTestingEnabled: null,
+    githubPRTriggerAliases: [],
     manualPrTestingEnabled: null,
     oldestAllowedMergeBase: "abc",
     prTesting: {
-      githubPrAliasesOverride: true,
       githubPrAliases: [
         {
-          id: "1",
           alias: "__github",
           description: "",
           gitTag: "",
+          id: "1",
+          parameters: [],
           remotePath: "",
-          variants: {
-            specifier: VariantTaskSpecifier.Regex,
-            variant: ".*",
-            variantTags: [],
-          },
           tasks: {
             specifier: VariantTaskSpecifier.Regex,
             task: ".*",
             taskTags: [],
           },
-          parameters: [],
+          variants: {
+            specifier: VariantTaskSpecifier.Regex,
+            variant: ".*",
+            variantTags: [],
+          },
         },
       ],
+      githubPrAliasesOverride: true,
     },
-    githubPRTriggerAliases: [],
+    prTestingEnabled: null,
   },
 };
 
@@ -73,97 +73,97 @@ const projectResult: Pick<
   ProjectSettingsInput,
   "projectId" | "projectRef" | "aliases"
 > = {
-  projectId: "project",
-  projectRef: {
-    id: "project",
-    prTestingEnabled: null,
-    manualPrTestingEnabled: null,
-    oldestAllowedMergeBase: "abc",
-  },
   aliases: [
     {
-      id: "1",
       alias: "__github",
       description: "",
       gitTag: "",
+      id: "1",
+      parameters: [],
       remotePath: "",
       task: ".*",
       taskTags: [],
       variant: ".*",
       variantTags: [],
-      parameters: [],
     },
   ],
+  projectId: "project",
+  projectRef: {
+    id: "project",
+    manualPrTestingEnabled: null,
+    oldestAllowedMergeBase: "abc",
+    prTestingEnabled: null,
+  },
 };
 
 const repoForm: PullRequestsFormState = {
   github: {
-    prTestingEnabled: false,
-    manualPrTestingEnabled: false,
-    oldestAllowedMergeBase: "abc",
-    prTesting: {
-      githubPrAliasesOverride: true,
-      githubPrAliases: [],
-    },
     githubPRTriggerAliases: [
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
+        parentAsModule: "",
+        status: "success",
         taskSpecifiers: [
           { patchAlias: "alias2", taskRegex: "", variantRegex: "" },
           { patchAlias: "", taskRegex: ".*", variantRegex: ".*" },
         ],
-        status: "success",
-        parentAsModule: "",
       },
     ],
+    manualPrTestingEnabled: false,
+    oldestAllowedMergeBase: "abc",
+    prTesting: {
+      githubPrAliases: [],
+      githubPrAliasesOverride: true,
+    },
+    prTestingEnabled: false,
   },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
   {
-    repoId: "repo",
+    aliases: [],
     projectRef: {
       id: "repo",
-      prTestingEnabled: false,
       manualPrTestingEnabled: false,
       oldestAllowedMergeBase: "abc",
+      prTestingEnabled: false,
     },
-    aliases: [],
+    repoId: "repo",
   };
 
 const mergedForm: PullRequestsFormState = {
   github: {
-    prTestingEnabled: null,
+    githubPRTriggerAliases: [],
     manualPrTestingEnabled: null,
     oldestAllowedMergeBase: "abc",
     prTesting: {
-      githubPrAliasesOverride: true,
       githubPrAliases: [
         {
-          id: "1",
           alias: "__github",
           description: "",
           gitTag: "",
+          id: "1",
+          parameters: [],
           remotePath: "",
-          variants: {
-            specifier: VariantTaskSpecifier.Regex,
-            variant: ".*",
-            variantTags: [],
-          },
           tasks: {
             specifier: VariantTaskSpecifier.Regex,
             task: ".*",
             taskTags: [],
           },
-          parameters: [],
+          variants: {
+            specifier: VariantTaskSpecifier.Regex,
+            variant: ".*",
+            variantTags: [],
+          },
         },
       ],
+      githubPrAliasesOverride: true,
       repoData: {
-        githubPrAliasesOverride: true,
         githubPrAliases: [],
+        githubPrAliasesOverride: true,
       },
     },
-    githubPRTriggerAliases: [],
+    prTestingEnabled: null,
   },
 };

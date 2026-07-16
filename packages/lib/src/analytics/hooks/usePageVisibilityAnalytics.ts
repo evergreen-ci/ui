@@ -111,8 +111,8 @@ export const usePageVisibilityAnalytics = ({
       try {
         sendEvent({
           name: "System Event session ended",
-          "visibility.total_visible_ms": totalVisibleTime.current,
           "visibility.total_hidden_ms": totalHiddenTime.current,
+          "visibility.total_visible_ms": totalVisibleTime.current,
           "visibility.visibility_changes": stateChangeCount.current,
         });
       } catch {
@@ -209,8 +209,8 @@ export const usePageVisibilityAnalytics = ({
       if (activeMs >= minDurationMs) {
         sendEvent({
           name: "System Event route active",
-          "visibility.duration_ms": activeMs,
           "page.route_name": routeName,
+          "visibility.duration_ms": activeMs,
         });
         // Reset so a later flush can't double-count already-emitted time.
         activeMs = 0;

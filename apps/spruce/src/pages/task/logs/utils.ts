@@ -23,9 +23,9 @@ export const validateTaskLogParams = (
   }
 
   return {
-    taskId,
     execution: executionNum,
     origin,
+    taskId,
   };
 };
 
@@ -54,8 +54,8 @@ export const validateTestLogParams = (
   }
 
   return {
-    taskId,
     execution: executionNum,
+    taskId,
     testName,
   };
 };

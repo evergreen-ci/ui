@@ -12,9 +12,9 @@ vi.mock("path", () => ({
 }));
 vi.mock("./utils.ts", () => ({
   canResolveDNS: vi.fn(),
-  getLatestCommitFromRemote: vi.fn(),
   checkIsAncestor: vi.fn(),
   generateTypes: vi.fn(),
+  getLatestCommitFromRemote: vi.fn(),
 }));
 
 describe("checkSchemaAndCodegen", () => {

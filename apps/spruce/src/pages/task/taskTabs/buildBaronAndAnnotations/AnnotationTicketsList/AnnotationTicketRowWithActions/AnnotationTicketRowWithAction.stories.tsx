@@ -8,28 +8,28 @@ export default {
 export const Default: CustomStoryObj<
   typeof AnnotationTicketRowWithActionProps
 > = {
-  render: (args) => <AnnotationTicketRowWithActionProps {...args} />,
-  argTypes: {},
   args: {
-    issueKey: "EVG-123",
-    url: "https://www.google.com",
-    jiraTicket: {
-      key: "key",
-      fields: {
-        summary: "summary",
-        status: {
-          name: "status",
-          id: "id",
-        },
-        created: "2020-01-02",
-        updated: "2020-01-02",
-        assigneeDisplayName: "mohamed.khelif",
-        assignedTeam: "evg-ui",
-      },
-    },
     confidenceScore: 0.5,
-    loading: false,
-    userCanModify: true,
     isIssue: true,
+    issueKey: "EVG-123",
+    jiraTicket: {
+      fields: {
+        assignedTeam: "evg-ui",
+        assigneeDisplayName: "mohamed.khelif",
+        created: "2020-01-02",
+        status: {
+          id: "id",
+          name: "status",
+        },
+        summary: "summary",
+        updated: "2020-01-02",
+      },
+      key: "key",
+    },
+    loading: false,
+    url: "https://www.google.com",
+    userCanModify: true,
   },
+  argTypes: {},
+  render: (args) => <AnnotationTicketRowWithActionProps {...args} />,
 };

@@ -2,11 +2,11 @@ import { SubscriberWrapper } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 
 export const notificationFields = {
+  buildBreak: "Build break",
   patchFinish: "Patch finish",
   patchFirstFailure: "Patch first task failure",
-  spawnHostOutcome: "Spawn host outcome",
   spawnHostExpiration: "Spawn host expiration",
-  buildBreak: "Build break",
+  spawnHostOutcome: "Spawn host outcome",
 };
 
 export const getSubscriberText = (subscriberWrapper: SubscriberWrapper) => {

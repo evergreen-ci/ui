@@ -21,8 +21,8 @@ export const useHasProjectOrRepoEditPermission = (
     USER_PROJECT_SETTINGS_PERMISSIONS,
     projectIdentifier
       ? {
-          variables: { projectIdentifier },
           fetchPolicy: "cache-first",
+          variables: { projectIdentifier },
         }
       : skipToken,
   );
@@ -37,8 +37,8 @@ export const useHasProjectOrRepoEditPermission = (
     USER_REPO_SETTINGS_PERMISSIONS,
     repoId
       ? {
-          variables: { repoId },
           fetchPolicy: "cache-first",
+          variables: { repoId },
         }
       : skipToken,
   );

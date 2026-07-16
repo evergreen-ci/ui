@@ -87,35 +87,35 @@ const barValidator = ((formData, errors) => {
 }) satisfies ValidateProps<FormStateMap["bar"]>;
 
 const formSchema = {
-  foo: {
-    fields: {},
-    schema: {
-      type: "object" as const,
-      title: "Test Form",
-      properties: {
-        capsLockEnabled: {
-          type: "boolean" as const,
-          title: "Caps Lock Enabled",
-        },
-      },
-    },
-    uiSchema: {},
-  },
   bar: {
     fields: {},
     schema: {
-      type: "object" as const,
-      title: "Add User",
       properties: {
-        name: {
-          type: "string" as const,
-          title: "Name",
-        },
         age: {
-          type: "number" as const,
           title: "Age",
+          type: "number" as const,
+        },
+        name: {
+          title: "Name",
+          type: "string" as const,
         },
       },
+      title: "Add User",
+      type: "object" as const,
+    },
+    uiSchema: {},
+  },
+  foo: {
+    fields: {},
+    schema: {
+      properties: {
+        capsLockEnabled: {
+          title: "Caps Lock Enabled",
+          type: "boolean" as const,
+        },
+      },
+      title: "Test Form",
+      type: "object" as const,
     },
     uiSchema: {},
   },

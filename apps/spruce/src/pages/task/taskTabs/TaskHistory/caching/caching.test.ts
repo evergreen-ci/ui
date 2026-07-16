@@ -19,64 +19,64 @@ const pagination = {
 
 describe("mergeTasks", () => {
   const readFn = {
-    readField,
-    extensions: {},
     existingData: undefined,
+    extensions: {},
+    readField,
   } as FieldMergeFunctionOptions;
 
   it("merges tasks arrays", () => {
     expect(
       mergeTasks(
-        { tasks: tasks.slice(0, 2), pagination },
-        { tasks: tasks.slice(2), pagination },
+        { pagination, tasks: tasks.slice(0, 2) },
+        { pagination, tasks: tasks.slice(2) },
         readFn,
       ),
     ).toStrictEqual({
-      tasks: tasks,
-      pagination,
       allTaskOrders: allTaskOrders,
+      pagination,
+      tasks: tasks,
     });
   });
 
   it("merges tasks when incoming is newer than existing", () => {
     expect(
       mergeTasks(
-        { tasks: tasks.slice(2), pagination },
-        { tasks: tasks.slice(0, 2), pagination },
+        { pagination, tasks: tasks.slice(2) },
+        { pagination, tasks: tasks.slice(0, 2) },
         readFn,
       ),
     ).toStrictEqual({
-      tasks: tasks,
-      pagination,
       allTaskOrders: allTaskOrders,
+      pagination,
+      tasks: tasks,
     });
   });
 
   it("deduplicates tasks when merging", () => {
     expect(
       mergeTasks(
-        { tasks: tasks.slice(0, 4), pagination },
-        { tasks: tasks.slice(2), pagination },
+        { pagination, tasks: tasks.slice(0, 4) },
+        { pagination, tasks: tasks.slice(2) },
         readFn,
       ),
     ).toStrictEqual({
-      tasks: tasks,
-      pagination,
       allTaskOrders: allTaskOrders,
+      pagination,
+      tasks: tasks,
     });
   });
 
   it("returns an identical cache when duplicate data is incoming", () => {
     expect(
       mergeTasks(
-        { tasks: tasks, pagination },
-        { tasks: tasks, pagination },
+        { pagination, tasks: tasks },
+        { pagination, tasks: tasks },
         readFn,
       ),
     ).toStrictEqual({
-      tasks: tasks,
-      pagination,
       allTaskOrders: allTaskOrders,
+      pagination,
+      tasks: tasks,
     });
   });
 });
@@ -91,24 +91,24 @@ describe("readTasks", () => {
   it("reads the first page and returns limit active tasks", () => {
     const args = {
       options: {
-        limit: 6,
         cursorParams: {
           cursorId: tasks[0].id,
-          includeCursor: true,
           direction: TaskHistoryDirection.Before,
+          includeCursor: true,
         },
+        limit: 6,
       },
     };
 
     expect(
       readTasks(
-        { tasks: tasks, pagination },
+        { pagination, tasks: tasks },
         // @ts-expect-error: for tests we can omit unused fields from the args
         { args, readField } as FieldFunctionOptions,
       ),
     ).toStrictEqual({
-      tasks: tasks,
       pagination,
+      tasks: tasks,
     });
   });
 
@@ -116,72 +116,72 @@ describe("readTasks", () => {
     it("includes task if includeCursor is true", () => {
       const args = {
         options: {
-          limit: 3,
           cursorParams: {
             cursorId: tasks[0].id,
-            includeCursor: true,
             direction: TaskHistoryDirection.Before,
+            includeCursor: true,
           },
+          limit: 3,
         },
       };
 
       expect(
         readTasks(
-          { tasks: tasks, pagination },
+          { pagination, tasks: tasks },
           // @ts-expect-error: for tests we can omit unused fields from the args
           { args, readField } as FieldFunctionOptions,
         ),
       ).toStrictEqual({
-        tasks: tasks.slice(0, 4),
         pagination,
+        tasks: tasks.slice(0, 4),
       });
     });
 
     it("excludes task if includeCursor is false", () => {
       const args = {
         options: {
-          limit: 2,
           cursorParams: {
             cursorId: tasks[0].id,
-            includeCursor: false,
             direction: TaskHistoryDirection.Before,
+            includeCursor: false,
           },
+          limit: 2,
         },
       };
 
       expect(
         readTasks(
-          { tasks: tasks, pagination },
+          { pagination, tasks: tasks },
           // @ts-expect-error: for tests we can omit unused fields from the args
           { args, readField } as FieldFunctionOptions,
         ),
       ).toStrictEqual({
-        tasks: tasks.slice(1, 4),
         pagination,
+        tasks: tasks.slice(1, 4),
       });
     });
 
     it("returns less than LIMIT activated tasks if task with oldestTaskOrder has already been fetched", () => {
       const args = {
         options: {
-          limit: 200,
           cursorParams: {
             cursorId: tasks[0].id,
-            includeCursor: true,
             direction: TaskHistoryDirection.Before,
+            includeCursor: true,
           },
+          limit: 200,
         },
       };
 
       expect(
         readTasks(
-          { tasks: tasks, pagination, allTaskOrders: allTaskOrders },
+          { allTaskOrders: allTaskOrders, pagination, tasks: tasks },
           // @ts-expect-error: for tests we can omit unused fields from the args
           { args, readField } as FieldFunctionOptions,
         ),
       ).toStrictEqual({
-        tasks: tasks,
         pagination,
+        tasks: tasks,
       });
     });
   });
@@ -190,72 +190,72 @@ describe("readTasks", () => {
     it("includes task if includeCursor is true", () => {
       const args = {
         options: {
-          limit: 3,
           cursorParams: {
             cursorId: tasks[tasks.length - 1].id,
-            includeCursor: true,
             direction: TaskHistoryDirection.After,
+            includeCursor: true,
           },
+          limit: 3,
         },
       };
 
       expect(
         readTasks(
-          { tasks: tasks, pagination },
+          { pagination, tasks: tasks },
           // @ts-expect-error: for tests we can omit unused fields from the args
           { args, readField } as FieldFunctionOptions,
         ),
       ).toStrictEqual({
-        tasks: tasks.slice(5),
         pagination,
+        tasks: tasks.slice(5),
       });
     });
 
     it("excludes task if includeCursor is false", () => {
       const args = {
         options: {
-          limit: 2,
           cursorParams: {
             cursorId: tasks[tasks.length - 1].id,
-            includeCursor: false,
             direction: TaskHistoryDirection.After,
+            includeCursor: false,
           },
+          limit: 2,
         },
       };
 
       expect(
         readTasks(
-          { tasks: tasks, pagination },
+          { pagination, tasks: tasks },
           // @ts-expect-error: for tests we can omit unused fields from the args
           { args, readField } as FieldFunctionOptions,
         ),
       ).toStrictEqual({
-        tasks: tasks.slice(5, 10),
         pagination,
+        tasks: tasks.slice(5, 10),
       });
     });
 
     it("returns less than LIMIT activated tasks if task with mostRecentTaskOrder has already been fetched", () => {
       const args = {
         options: {
-          limit: 200,
           cursorParams: {
             cursorId: tasks[tasks.length - 1].id,
-            includeCursor: true,
             direction: TaskHistoryDirection.After,
+            includeCursor: true,
           },
+          limit: 200,
         },
       };
 
       expect(
         readTasks(
-          { tasks: tasks, pagination, allTaskOrders: allTaskOrders },
+          { allTaskOrders: allTaskOrders, pagination, tasks: tasks },
           // @ts-expect-error: for tests we can omit unused fields from the args
           { args, readField } as FieldFunctionOptions,
         ),
       ).toStrictEqual({
-        tasks: tasks,
         pagination,
+        tasks: tasks,
       });
     });
   });
@@ -263,18 +263,18 @@ describe("readTasks", () => {
   it("returns undefined when task is not found in cache", () => {
     const args = {
       options: {
-        limit: 2,
         cursorParams: {
           cursorId: "w",
-          includeCursor: false,
           direction: TaskHistoryDirection.Before,
+          includeCursor: false,
         },
+        limit: 2,
       },
     };
 
     expect(
       readTasks(
-        { tasks: tasks, pagination },
+        { pagination, tasks: tasks },
         // @ts-expect-error: for tests we can omit unused fields from the args
         { args, readField } as FieldFunctionOptions,
       ),
@@ -284,19 +284,19 @@ describe("readTasks", () => {
   it("returns undefined when date parameter is supplied", () => {
     const args = {
       options: {
-        limit: 2,
         cursorParams: {
           cursorId: "w",
-          includeCursor: false,
-          direction: TaskHistoryDirection.Before,
           date: new Date(),
+          direction: TaskHistoryDirection.Before,
+          includeCursor: false,
         },
+        limit: 2,
       },
     };
 
     expect(
       readTasks(
-        { tasks: tasks, pagination },
+        { pagination, tasks: tasks },
         // @ts-expect-error: for tests we can omit unused fields from the args
         { args, readField } as FieldFunctionOptions,
       ),
@@ -306,19 +306,19 @@ describe("readTasks", () => {
   it("returns undefined when the number of activated versions found is less than the limit", () => {
     const args = {
       options: {
-        limit: 20,
         cursorParams: {
           cursorId: "w",
-          includeCursor: false,
-          direction: TaskHistoryDirection.Before,
           date: new Date(),
+          direction: TaskHistoryDirection.Before,
+          includeCursor: false,
         },
+        limit: 20,
       },
     };
 
     expect(
       readTasks(
-        { tasks: tasks, pagination },
+        { pagination, tasks: tasks },
         // @ts-expect-error: for tests we can omit unused fields from the args
         { args, readField } as FieldFunctionOptions,
       ),

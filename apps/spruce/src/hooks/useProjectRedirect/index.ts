@@ -42,9 +42,9 @@ export const useProjectRedirect = () => {
   );
 
   return {
-    redirectIdentifier,
-    needsRedirect,
-    loading,
     error,
+    loading,
+    needsRedirect,
+    redirectIdentifier,
   };
 };

@@ -7,15 +7,15 @@ export default {
 } satisfies CustomMeta<typeof LoadingButton>;
 
 export const Default: CustomStoryObj<typeof LoadingButton> = {
-  render: (args) => <LoadingButton {...args}>Button text</LoadingButton>,
   args: {
     loading: false,
     variant: Variant.Default,
   },
   argTypes: {
     variant: {
-      options: Object.values(Variant),
       control: { type: "select" },
+      options: Object.values(Variant),
     },
   },
+  render: (args) => <LoadingButton {...args}>Button text</LoadingButton>,
 };

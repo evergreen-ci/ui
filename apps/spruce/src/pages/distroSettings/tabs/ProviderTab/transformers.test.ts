@@ -4,8 +4,8 @@ import { formToGql, gqlToForm } from "./transformers";
 import { BuildType, ProviderFormState } from "./types";
 
 const defaultTaskHostOverrides = {
-  enableTaskHostOverrides: false,
   doNotAssignPublicIpv4Address: false,
+  enableTaskHostOverrides: false,
   iamInstanceProfileArn: "",
   providerAccount: "",
   securityGroupIds: [],
@@ -13,44 +13,44 @@ const defaultTaskHostOverrides = {
 };
 
 const defaultFormState = {
-  staticProviderSettings: {
-    userData: "",
-    mergeUserData: false,
-    securityGroups: ["1"],
-    hosts: [],
-  },
   dockerProviderSettings: {
-    imageUrl: "",
     buildType: "" as BuildType,
-    registryUsername: "",
-    registryPassword: "",
     containerPoolId: "",
-    poolMappingInfo: "",
-    userData: "",
+    imageUrl: "",
     mergeUserData: false,
+    poolMappingInfo: "",
+    registryPassword: "",
+    registryUsername: "",
     securityGroups: ["1"],
+    userData: "",
   },
   ec2FleetProviderSettings: [
     {
-      region: "",
-      displayTitle: undefined,
       amiId: "",
-      instanceProfileARN: "",
+      displayTitle: undefined,
+      doNotAssignPublicIPv4Address: true,
       elasticIpsEnabled: false,
+      instanceProfileARN: "",
       instanceType: "",
       mergeUserData: false,
       mountPoints: [],
+      region: "",
       securityGroups: ["1"],
       sshKeyName: "",
       userData: "",
       vpcOptions: {
         subnetId: "",
-        useVpc: false,
         subnetPrefix: "",
+        useVpc: false,
       },
-      doNotAssignPublicIPv4Address: true,
     },
   ],
+  staticProviderSettings: {
+    hosts: [],
+    mergeUserData: false,
+    securityGroups: ["1"],
+    userData: "",
+  },
   taskHostOverrides: defaultTaskHostOverrides,
 };
 
@@ -58,16 +58,16 @@ describe("provider tab", () => {
   describe("static provider", () => {
     const staticDistroData = {
       ...distroData,
+      containerPool: "",
       provider: Provider.Static,
       providerAccount: "",
-      containerPool: "",
       providerSettingsList: [
         {
-          user_data: "",
+          do_not_assign_public_ipv4_address: true,
+          hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
           merge_user_data: false,
           security_group_ids: ["1"],
-          hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
-          do_not_assign_public_ipv4_address: true,
+          user_data: "",
         },
       ],
     };
@@ -76,29 +76,29 @@ describe("provider tab", () => {
     const staticForm: ProviderFormState = {
       ...defaultFormState,
       provider: {
-        providerName: Provider.Static,
         providerAccount: "",
+        providerName: Provider.Static,
       },
       staticProviderSettings: {
-        userData: "",
+        hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
         mergeUserData: false,
         securityGroups: ["1"],
-        hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
+        userData: "",
       },
     };
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const staticGql: DistroInput = {
       ...distroData,
+      containerPool: "",
       provider: Provider.Static,
       providerAccount: "",
-      containerPool: "",
       providerSettingsList: [
         {
+          hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
           merge_user_data_parts: false,
           security_group_ids: ["1"],
           user_data: "",
-          hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
         },
       ],
     };
@@ -117,19 +117,19 @@ describe("provider tab", () => {
   describe("docker provider", () => {
     const dockerDistroData = {
       ...distroData,
+      containerPool: "pool-1",
       provider: Provider.Docker,
       providerAccount: "",
-      containerPool: "pool-1",
       providerSettingsList: [
         {
-          image_url: "https://some-url",
           build_type: "import",
-          docker_registry_user: "testuser",
+          do_not_assign_public_ipv4_address: true,
           docker_registry_pw: "abc-123",
-          user_data: "",
+          docker_registry_user: "testuser",
+          image_url: "https://some-url",
           merge_user_data: false,
           security_group_ids: ["1"],
-          do_not_assign_public_ipv4_address: true,
+          user_data: "",
         },
       ],
     };
@@ -137,38 +137,38 @@ describe("provider tab", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const dockerForm: ProviderFormState = {
       ...defaultFormState,
-      provider: {
-        providerName: Provider.Docker,
-        providerAccount: "",
-      },
       dockerProviderSettings: {
-        imageUrl: "https://some-url",
         buildType: BuildType.Import,
-        registryUsername: "testuser",
-        registryPassword: "abc-123",
         containerPoolId: "pool-1",
-        poolMappingInfo: "",
-        userData: "",
+        imageUrl: "https://some-url",
         mergeUserData: false,
+        poolMappingInfo: "",
+        registryPassword: "abc-123",
+        registryUsername: "testuser",
         securityGroups: ["1"],
+        userData: "",
+      },
+      provider: {
+        providerAccount: "",
+        providerName: Provider.Docker,
       },
     };
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const dockerGql: DistroInput = {
       ...distroData,
+      containerPool: "pool-1",
       provider: Provider.Docker,
       providerAccount: "",
-      containerPool: "pool-1",
       providerSettingsList: [
         {
-          image_url: "https://some-url",
           build_type: "import",
-          docker_registry_user: "testuser",
           docker_registry_pw: "abc-123",
-          user_data: "",
+          docker_registry_user: "testuser",
+          image_url: "https://some-url",
           merge_user_data_parts: false,
           security_group_ids: ["1"],
+          user_data: "",
         },
       ],
     };
@@ -187,106 +187,106 @@ describe("provider tab", () => {
   describe("ec2 fleet provider", () => {
     const ec2FleetDistroData = {
       ...distroData,
-      provider: Provider.Ec2Fleet,
       containerPool: "",
+      provider: Provider.Ec2Fleet,
       providerSettingsList: [
         {
-          region: "us-east-1",
           ami: "ami-east",
-          instance_type: "m5.xlarge",
-          key_name: "admin",
+          do_not_assign_public_ipv4_address: true,
           elastic_ips_enabled: false,
           iam_instance_profile_arn: "profile-east",
+          instance_type: "m5.xlarge",
           is_vpc: true,
-          subnet_id: "subnet-east",
-          vpc_name: "vpc-east",
+          key_name: "admin",
+          merge_user_data_parts: false,
           mount_points: [
             {
               device_name: "device-east",
               size: 200,
             },
           ],
-          user_data: "",
-          merge_user_data_parts: false,
+          region: "us-east-1",
           security_group_ids: ["1"],
-          do_not_assign_public_ipv4_address: true,
+          subnet_id: "subnet-east",
+          user_data: "",
+          vpc_name: "vpc-east",
         },
       ],
     };
 
     const ec2Form: ProviderFormState = {
       ...defaultFormState,
-      provider: {
-        providerName: Provider.Ec2Fleet,
-        providerAccount: "aws",
-      },
       ec2FleetProviderSettings: [
         {
-          doNotAssignPublicIPv4Address: true,
-          region: "us-east-1",
-          displayTitle: "us-east-1",
           amiId: "ami-east",
-          instanceProfileARN: "profile-east",
+          displayTitle: "us-east-1",
+          doNotAssignPublicIPv4Address: true,
           elasticIpsEnabled: false,
+          instanceProfileARN: "profile-east",
           instanceType: "m5.xlarge",
           mergeUserData: false,
           mountPoints: [
             {
               deviceName: "device-east",
               // @ts-expect-error: FIXME. This comment was added by an automated script.
+              iops: undefined,
+              size: 200,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              throughput: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               virtualName: undefined,
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               volumeType: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              iops: undefined,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              throughput: undefined,
-              size: 200,
             },
           ],
+          region: "us-east-1",
           securityGroups: ["1"],
           sshKeyName: "admin",
           userData: "",
           vpcOptions: {
             subnetId: "subnet-east",
-            useVpc: true,
             subnetPrefix: "vpc-east",
+            useVpc: true,
           },
         },
       ],
+      provider: {
+        providerAccount: "aws",
+        providerName: Provider.Ec2Fleet,
+      },
     };
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const ec2Gql: DistroInput = {
       ...distroData,
+      containerPool: "",
       provider: Provider.Ec2Fleet,
       providerAccount: "aws",
-      containerPool: "",
       providerSettingsList: [
         {
-          do_not_assign_public_ipv4_address: true,
-          region: "us-east-1",
           ami: "ami-east",
-          instance_type: "m5.xlarge",
-          key_name: "admin",
+          do_not_assign_public_ipv4_address: true,
           elastic_ips_enabled: false,
           iam_instance_profile_arn: "profile-east",
+          instance_type: "m5.xlarge",
           is_vpc: true,
-          subnet_id: "subnet-east",
-          vpc_name: "vpc-east",
+          key_name: "admin",
+          merge_user_data_parts: false,
           mount_points: [
             {
               device_name: "device-east",
               iops: undefined,
+              size: 200,
               throughput: undefined,
               virtual_name: undefined,
               volume_type: undefined,
-              size: 200,
             },
           ],
-          user_data: "",
-          merge_user_data_parts: false,
+          region: "us-east-1",
           security_group_ids: ["1"],
+          subnet_id: "subnet-east",
+          user_data: "",
+          vpc_name: "vpc-east",
         },
       ],
       taskHostOverrides: null,
@@ -305,8 +305,8 @@ describe("provider tab", () => {
 
   describe("ec2 fleet provider with task host overrides", () => {
     const populatedTaskHostOverrides = {
-      enableTaskHostOverrides: true,
       doNotAssignPublicIpv4Address: true,
+      enableTaskHostOverrides: true,
       iamInstanceProfileArn: "task-host-arn",
       providerAccount: "task-host-account",
       securityGroupIds: ["sg-task"],
@@ -315,24 +315,24 @@ describe("provider tab", () => {
 
     const ec2FleetDistroData = {
       ...distroData,
-      provider: Provider.Ec2Fleet,
       containerPool: "",
+      provider: Provider.Ec2Fleet,
       providerSettingsList: [
         {
-          region: "us-east-1",
           ami: "ami-east",
-          instance_type: "m5.xlarge",
-          key_name: "admin",
+          do_not_assign_public_ipv4_address: true,
           elastic_ips_enabled: false,
           iam_instance_profile_arn: "profile-east",
+          instance_type: "m5.xlarge",
           is_vpc: true,
-          subnet_id: "subnet-east",
-          vpc_name: "vpc-east",
-          mount_points: [],
-          user_data: "",
+          key_name: "admin",
           merge_user_data_parts: false,
+          mount_points: [],
+          region: "us-east-1",
           security_group_ids: ["1"],
-          do_not_assign_public_ipv4_address: true,
+          subnet_id: "subnet-east",
+          user_data: "",
+          vpc_name: "vpc-east",
         },
       ],
       taskHostOverrides: {
@@ -347,56 +347,56 @@ describe("provider tab", () => {
 
     const ec2Form: ProviderFormState = {
       ...defaultFormState,
-      provider: {
-        providerName: Provider.Ec2Fleet,
-        providerAccount: "aws",
-      },
       ec2FleetProviderSettings: [
         {
-          doNotAssignPublicIPv4Address: true,
-          region: "us-east-1",
-          displayTitle: "us-east-1",
           amiId: "ami-east",
-          instanceProfileARN: "profile-east",
+          displayTitle: "us-east-1",
+          doNotAssignPublicIPv4Address: true,
           elasticIpsEnabled: false,
+          instanceProfileARN: "profile-east",
           instanceType: "m5.xlarge",
           mergeUserData: false,
           mountPoints: [],
+          region: "us-east-1",
           securityGroups: ["1"],
           sshKeyName: "admin",
           userData: "",
           vpcOptions: {
             subnetId: "subnet-east",
-            useVpc: true,
             subnetPrefix: "vpc-east",
+            useVpc: true,
           },
         },
       ],
+      provider: {
+        providerAccount: "aws",
+        providerName: Provider.Ec2Fleet,
+      },
       taskHostOverrides: populatedTaskHostOverrides,
     };
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const ec2Gql: DistroInput = {
       ...distroData,
+      containerPool: "",
       provider: Provider.Ec2Fleet,
       providerAccount: "aws",
-      containerPool: "",
       providerSettingsList: [
         {
-          do_not_assign_public_ipv4_address: true,
-          region: "us-east-1",
           ami: "ami-east",
-          instance_type: "m5.xlarge",
-          key_name: "admin",
+          do_not_assign_public_ipv4_address: true,
           elastic_ips_enabled: false,
           iam_instance_profile_arn: "profile-east",
+          instance_type: "m5.xlarge",
           is_vpc: true,
-          subnet_id: "subnet-east",
-          vpc_name: "vpc-east",
-          mount_points: [],
-          user_data: "",
+          key_name: "admin",
           merge_user_data_parts: false,
+          mount_points: [],
+          region: "us-east-1",
           security_group_ids: ["1"],
+          subnet_id: "subnet-east",
+          user_data: "",
+          vpc_name: "vpc-east",
         },
       ],
       taskHostOverrides: {

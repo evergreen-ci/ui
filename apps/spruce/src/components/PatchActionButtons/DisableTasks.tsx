@@ -50,7 +50,7 @@ export const DisableTasks: React.FC<Props> = ({
         align="left"
         onConfirm={() => {
           disableVersion({
-            variables: { versionId, priority: -1 },
+            variables: { priority: -1, versionId },
           });
         }}
         open={open}

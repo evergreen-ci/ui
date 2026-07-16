@@ -43,9 +43,9 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenVirtualTable<TaskQueueColumnData>({
+    columns,
     containerRef: tableContainerRef,
     data: taskQueue,
-    columns,
     enableColumnFilters: false,
     virtualizerOptions: {
       estimateSize,
@@ -94,15 +94,14 @@ const taskQueueTableColumns = (
 ) => {
   const columns: LGColumnDef<TaskQueueColumnData>[] = [
     {
-      header: "",
+      align: "center",
       cell: ({ row }) => (
         <Body weight="medium">{formatZeroIndexForDisplay(row.index)}</Body>
       ),
-      align: "center",
+      header: "",
       id: "index",
     },
     {
-      header: "Task",
       accessorKey: "displayName",
       cell: (value) => {
         const { buildVariant, displayName, id } = value.row.original;
@@ -119,15 +118,15 @@ const taskQueueTableColumns = (
           </TaskCell>
         );
       },
+      header: "Task",
     },
     {
-      header: "Est. Runtime",
       accessorKey: "expectedDuration",
       align: "center",
       cell: (value) => msToDuration(value.row.original.expectedDuration),
+      header: "Est. Runtime",
     },
     {
-      header: "Project",
       accessorKey: "projectIdentifier",
       cell: (value) => {
         const project =
@@ -141,9 +140,9 @@ const taskQueueTableColumns = (
           </StyledRouterLink>
         );
       },
+      header: "Project",
     },
     {
-      header: "Version",
       accessorKey: "version",
       cell: (value) => (
         <StyledRouterLink
@@ -153,15 +152,15 @@ const taskQueueTableColumns = (
           <WordBreak>{value.row.original.version}</WordBreak>
         </StyledRouterLink>
       ),
+      header: "Version",
     },
     {
-      header: "Priority",
       accessorKey: "priority",
       align: "center",
       cell: (value) => <Badge>{value.row.original.priority}</Badge>,
+      header: "Priority",
     },
     {
-      header: "Activated By",
       accessorKey: "activatedBy",
       cell: (value) => (
         <StyledRouterLink
@@ -171,9 +170,9 @@ const taskQueueTableColumns = (
           <WordBreak>{value.row.original.activatedBy}</WordBreak>
         </StyledRouterLink>
       ),
+      header: "Activated By",
     },
     {
-      header: "Task Type",
       accessorKey: "requester",
       cell: (value) => {
         const { requester } = value.row.original;
@@ -182,6 +181,7 @@ const taskQueueTableColumns = (
           : "Patch";
         return <Badge>{copy}</Badge>;
       },
+      header: "Task Type",
     },
   ];
 

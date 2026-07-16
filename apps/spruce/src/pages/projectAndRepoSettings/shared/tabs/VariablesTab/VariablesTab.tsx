@@ -35,10 +35,10 @@ export const VariablesTab: React.FC<TabProps> = ({
   );
 
   const variables = formData?.vars?.map(({ varName }) => ({
-    name: varName,
     inRepo:
       repoData?.vars?.some(({ varName: repoVar }) => varName === repoVar) ??
       false,
+    name: varName,
   }));
 
   const formSchema = useMemo(

@@ -15,52 +15,7 @@ describe("providers section", () => {
 
 const form: ProvidersFormState = {
   providers: {
-    containerPools: {
-      pools: [
-        {
-          id: "test-pool-1",
-          distro: "ubuntu2004-small",
-          maxContainers: 10,
-          port: 8080,
-        },
-        {
-          id: "test-pool-2",
-          distro: "archlinux-test",
-          maxContainers: 5,
-          port: 9000,
-        },
-      ],
-    },
     aws: {
-      subnets: [
-        {
-          az: "us-east-1a",
-          subnetId: "subnet-12345",
-        },
-        {
-          az: "us-east-1b",
-          subnetId: "subnet-67890",
-        },
-      ],
-      ec2Key: "test-ec2-key",
-      ec2Secret: "test-ec2-secret",
-      parameterStorePrefix: "/evergreen/test",
-      persistentDNS: {
-        hostedZoneID: "Z123456789",
-        domain: "test.example.com",
-      },
-      parserProject: {
-        key: "test-parser-key",
-        secret: "test-parser-secret",
-        bucket: "test-parser-bucket",
-        prefix: "test-parser-prefix",
-        generatedJSONPrefix: "test-json-prefix",
-      },
-      defaultSecurityGroup: "sg-default123",
-      maxVolumeSizePerUser: 100,
-      allowedInstanceTypes: ["m5.large", "m5.xlarge", "c5.large"],
-      alertableInstanceTypes: ["m5.2xlarge", "c5.2xlarge"],
-      allowedRegions: ["us-east-1", "us-west-2"],
       accountRoles: [
         {
           account: "123456789",
@@ -71,8 +26,53 @@ const form: ProvidersFormState = {
           role: "arn:aws:iam::987654321:role/AnotherRole",
         },
       ],
-      ipamPoolID: "ipam-pool-123",
+      alertableInstanceTypes: ["m5.2xlarge", "c5.2xlarge"],
+      allowedInstanceTypes: ["m5.large", "m5.xlarge", "c5.large"],
+      allowedRegions: ["us-east-1", "us-west-2"],
+      defaultSecurityGroup: "sg-default123",
+      ec2Key: "test-ec2-key",
+      ec2Secret: "test-ec2-secret",
       elasticIPUsageRate: 0.8,
+      ipamPoolID: "ipam-pool-123",
+      maxVolumeSizePerUser: 100,
+      parameterStorePrefix: "/evergreen/test",
+      parserProject: {
+        bucket: "test-parser-bucket",
+        generatedJSONPrefix: "test-json-prefix",
+        key: "test-parser-key",
+        prefix: "test-parser-prefix",
+        secret: "test-parser-secret",
+      },
+      persistentDNS: {
+        domain: "test.example.com",
+        hostedZoneID: "Z123456789",
+      },
+      subnets: [
+        {
+          az: "us-east-1a",
+          subnetId: "subnet-12345",
+        },
+        {
+          az: "us-east-1b",
+          subnetId: "subnet-67890",
+        },
+      ],
+    },
+    containerPools: {
+      pools: [
+        {
+          distro: "ubuntu2004-small",
+          id: "test-pool-1",
+          maxContainers: 10,
+          port: 8080,
+        },
+        {
+          distro: "archlinux-test",
+          id: "test-pool-2",
+          maxContainers: 5,
+          port: 9000,
+        },
+      ],
     },
     docker: {
       apiVersion: "1.40",
@@ -84,14 +84,14 @@ const gql: AdminSettingsInput = {
   containerPools: {
     pools: [
       {
-        id: "test-pool-1",
         distro: "ubuntu2004-small",
+        id: "test-pool-1",
         maxContainers: 10,
         port: 8080,
       },
       {
-        id: "test-pool-2",
         distro: "archlinux-test",
+        id: "test-pool-2",
         maxContainers: 5,
         port: 9000,
       },
@@ -118,8 +118,8 @@ const gql: AdminSettingsInput = {
       defaultSecurityGroup: "sg-default123",
       ec2Keys: [
         {
-          name: "default",
           key: "test-ec2-key",
+          name: "default",
           secret: "test-ec2-secret",
         },
       ],
@@ -134,8 +134,8 @@ const gql: AdminSettingsInput = {
         secret: "test-parser-secret",
       },
       persistentDNS: {
-        hostedZoneID: "Z123456789",
         domain: "test.example.com",
+        hostedZoneID: "Z123456789",
       },
       subnets: [
         {
@@ -160,14 +160,14 @@ const testAdminSettings = {
   containerPools: {
     pools: [
       {
-        id: "test-pool-1",
         distro: "ubuntu2004-small",
+        id: "test-pool-1",
         maxContainers: 10,
         port: 8080,
       },
       {
-        id: "test-pool-2",
         distro: "archlinux-test",
+        id: "test-pool-2",
         maxContainers: 5,
         port: 9000,
       },
@@ -194,8 +194,8 @@ const testAdminSettings = {
       defaultSecurityGroup: "sg-default123",
       ec2Keys: [
         {
-          name: "default",
           key: "test-ec2-key",
+          name: "default",
           secret: "test-ec2-secret",
         },
       ],
@@ -210,8 +210,8 @@ const testAdminSettings = {
         secret: "test-parser-secret",
       },
       persistentDNS: {
-        hostedZoneID: "Z123456789",
         domain: "test.example.com",
+        hostedZoneID: "Z123456789",
       },
       subnets: [
         {

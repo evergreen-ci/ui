@@ -19,11 +19,11 @@ export const Default: CustomStoryObj<typeof FilterChips> = {
 
 const ChipContainer = () => {
   const [chips, setChips] = useState<FilterChipType[]>([
-    { key: "test", value: "test", title: "Test" },
+    { key: "test", title: "Test", value: "test" },
   ]);
 
   const addChip = (key: string, value: string) => {
-    setChips([...chips, { key, value, title: toSentenceCase(key) }]);
+    setChips([...chips, { key, title: toSentenceCase(key), value }]);
   };
   const removeChip = (chip: FilterChipType) => {
     setChips(

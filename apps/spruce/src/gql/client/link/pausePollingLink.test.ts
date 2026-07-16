@@ -50,7 +50,7 @@ describe("pausePollingLink", () => {
     documentHiddenSpy.mockReturnValue(false);
     navigatorOnlineSpy.mockReturnValue(true);
 
-    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+    const observer = { complete: vi.fn(), error: vi.fn(), next: vi.fn() };
 
     execute(
       ApolloLink.from([pausePollingLink, mockHttpLink]),
@@ -68,7 +68,7 @@ describe("pausePollingLink", () => {
     documentHiddenSpy.mockReturnValue(true);
     navigatorOnlineSpy.mockReturnValue(true);
 
-    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+    const observer = { complete: vi.fn(), error: vi.fn(), next: vi.fn() };
 
     execute(
       ApolloLink.from([pausePollingLink, mockHttpLink]),
@@ -88,7 +88,7 @@ describe("pausePollingLink", () => {
     documentHiddenSpy.mockReturnValue(false);
     navigatorOnlineSpy.mockReturnValue(false);
 
-    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+    const observer = { complete: vi.fn(), error: vi.fn(), next: vi.fn() };
 
     execute(
       ApolloLink.from([pausePollingLink, mockHttpLink]),
@@ -108,7 +108,7 @@ describe("pausePollingLink", () => {
     documentHiddenSpy.mockReturnValue(true);
     navigatorOnlineSpy.mockReturnValue(true);
 
-    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+    const observer = { complete: vi.fn(), error: vi.fn(), next: vi.fn() };
 
     execute(
       ApolloLink.from([pausePollingLink, mockHttpLink]),
@@ -133,7 +133,7 @@ describe("pausePollingLink", () => {
     documentHiddenSpy.mockReturnValue(false);
     navigatorOnlineSpy.mockReturnValue(false);
 
-    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+    const observer = { complete: vi.fn(), error: vi.fn(), next: vi.fn() };
 
     execute(
       ApolloLink.from([pausePollingLink, mockHttpLink]),
@@ -158,7 +158,7 @@ describe("pausePollingLink", () => {
     documentHiddenSpy.mockReturnValue(true);
     navigatorOnlineSpy.mockReturnValue(true);
 
-    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+    const observer = { complete: vi.fn(), error: vi.fn(), next: vi.fn() };
 
     execute(
       ApolloLink.from([pausePollingLink, mockHttpLink]),
@@ -185,7 +185,7 @@ describe("pausePollingLink", () => {
     documentHiddenSpy.mockReturnValue(true);
     navigatorOnlineSpy.mockReturnValue(true);
 
-    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+    const observer = { complete: vi.fn(), error: vi.fn(), next: vi.fn() };
 
     execute(
       ApolloLink.from([pausePollingLink, mockHttpLink]),

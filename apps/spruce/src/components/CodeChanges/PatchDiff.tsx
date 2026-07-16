@@ -17,8 +17,8 @@ export const PatchDiff: React.FC = () => {
   const url = getRawDiffUrl(versionId, patchNumber);
 
   const { error, isLoading } = usePatchDiffStream({
-    url,
     containerRef,
+    url,
   });
 
   if (error) {

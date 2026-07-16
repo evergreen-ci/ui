@@ -18,12 +18,9 @@ export const getSpruceConfigMock: ApolloMock<
   result: {
     data: {
       spruceConfig: {
-        bannerTheme: "warning",
+        __typename: "SpruceConfig",
         banner: "",
-        ui: {
-          defaultProject: "evergreen",
-          __typename: "UIConfig",
-        },
+        bannerTheme: "warning",
         containerPools: {
           pools: [
             {
@@ -35,16 +32,16 @@ export const getSpruceConfigMock: ApolloMock<
           ],
         },
         jira: {
-          host: "jira.mongodb.org",
           __typename: "JiraConfig",
           email: "test@example.com",
+          host: "jira.mongodb.org",
         },
         providers: {
-          aws: {
-            maxVolumeSizePerUser: 1500,
-            __typename: "AWSConfig",
-          },
           __typename: "CloudProviderConfig",
+          aws: {
+            __typename: "AWSConfig",
+            maxVolumeSizePerUser: 1500,
+          },
         },
         serviceFlags: {
           debugSpawnHostDisabled: false,
@@ -53,12 +50,15 @@ export const getSpruceConfigMock: ApolloMock<
           name: "everygreen_slack",
         },
         spawnHost: {
+          __typename: "SpawnHostConfig",
           spawnHostsPerUser: 6,
           unexpirableHostsPerUser: 2,
           unexpirableVolumesPerUser: 1,
-          __typename: "SpawnHostConfig",
         },
-        __typename: "SpruceConfig",
+        ui: {
+          __typename: "UIConfig",
+          defaultProject: "evergreen",
+        },
       },
     },
   },
@@ -76,18 +76,12 @@ export const getUserSettingsMock: ApolloMock<
     data: {
       user: {
         __typename: "UserLite",
-        userId: "user.id",
         settings: {
           __typename: "UserSettings",
           dateFormat: "MM/dd/yyyy",
-          region: "us-east-1",
-          slackMemberId: "1234",
-          slackUsername: "user",
-          timeFormat: "H:mm:ss",
-          timezone: "America/New_York",
           githubUser: {
-            lastKnownAs: "user",
             __typename: "GithubUser",
+            lastKnownAs: "user",
           },
           notifications: {
             __typename: "Notifications",
@@ -97,7 +91,13 @@ export const getUserSettingsMock: ApolloMock<
             spawnHostExpiration: "",
             spawnHostOutcome: "",
           },
+          region: "us-east-1",
+          slackMemberId: "1234",
+          slackUsername: "user",
+          timeFormat: "H:mm:ss",
+          timezone: "America/New_York",
         },
+        userId: "user.id",
       },
     },
   },

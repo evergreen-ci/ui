@@ -16,8 +16,8 @@ export const ReviewedCheckbox: React.FC<{
     updateDisplayTask,
     updateTask,
   } = useTaskReview({
-    taskId: row.original.id,
     execution: row.original.execution,
+    taskId: row.original.id,
   });
 
   const indeterminate: boolean = someChecked && !allChecked;

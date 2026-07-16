@@ -1,18 +1,17 @@
 import tokens from "@via-ds/tokens";
 
 export const size = {
-  xxs: tokens.space[100].$value, // 4px
-  xs: tokens.space[200].$value, // 8px
-  s: tokens.space[400].$value, // 16px
-  m: tokens.space[600].$value, // 24px
   l: tokens.space[800].$value, // 32px
+  m: tokens.space[600].$value, // 24px
+  s: tokens.space[400].$value, // 16px
   xl: tokens.space[1600].$value, // 64px
+  xs: tokens.space[200].$value, // 8px
   xxl: tokens.space[1800].$value, // 72px
+  xxs: tokens.space[100].$value, // 4px
 } as const;
 
 export const palette = {
   black: tokens.color.black.$value,
-  white: tokens.color.white.$value,
   blue: {
     base: tokens.color.blue.base.$value,
     dark1: tokens.color.blue.dark1.$value,
@@ -56,6 +55,7 @@ export const palette = {
     light2: tokens.color.red.light2.$value,
     light3: tokens.color.red.light3.$value,
   },
+  white: tokens.color.white.$value,
   yellow: {
     base: tokens.color.yellow.base.$value,
     dark2: tokens.color.yellow.dark2.$value,

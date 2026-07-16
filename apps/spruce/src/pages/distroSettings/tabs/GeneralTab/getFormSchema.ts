@@ -8,107 +8,133 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as const,
     properties: {
-      distroName: {
-        type: "object" as const,
-        title: "",
-        properties: {
-          name: {
-            type: "string" as const,
-            title: "Identifier",
-            readOnly: true,
-          },
-        },
-      },
-      distroImage: {
-        type: "object" as const,
-        title: "",
-        properties: {
-          image: {
-            type: "string" as const,
-            title: "Image",
-            default: "",
-          },
-        },
-      },
-      distroAliases: {
-        type: "object" as const,
-        title: "Aliases",
-        properties: {
-          aliases: {
-            type: "array" as const,
-            items: {
-              type: "string" as const,
-              title: "Alias",
-              default: "",
-              minLength: 1,
-            },
-          },
-        },
-      },
-      distroOptions: {
-        type: "object" as const,
-        title: "Distro Options",
-        properties: {
-          adminOnly: {
-            type: "boolean" as const,
-            title: "Admin only",
-            default: false,
-          },
-          isCluster: {
-            type: "boolean" as const,
-            title: "Mark distro as cluster",
-            default: false,
-          },
-          disableShallowClone: {
-            type: "boolean" as const,
-            title: "Disable shallow clone for this distro",
-            default: false,
-          },
-          disabled: {
-            type: "boolean" as const,
-            title: "Disable queueing for this distro",
-            default: false,
-          },
-          singleTaskDistro: {
-            type: "boolean" as const,
-            title: "Set distro as Single Task Distro",
-            default: false,
-          },
-          note: {
-            type: "string" as const,
-            title: "Notes",
-            default: "",
-          },
-          warningNote: {
-            type: "string" as const,
-            title: "Warnings",
-            default: "",
-          },
-        },
-      },
       costData: {
-        type: "object" as const,
-        title: "Cost Data",
         properties: {
           onDemandRate: {
-            type: "number" as const,
-            title: "On Demand Rate",
             readOnly: true,
+            title: "On Demand Rate",
+            type: "number" as const,
           },
           savingsPlanRate: {
-            type: "number" as const,
-            title: "Savings Plan Rate",
             readOnly: true,
+            title: "Savings Plan Rate",
+            type: "number" as const,
           },
         },
+        title: "Cost Data",
+        type: "object" as const,
+      },
+      distroAliases: {
+        properties: {
+          aliases: {
+            items: {
+              default: "",
+              minLength: 1,
+              title: "Alias",
+              type: "string" as const,
+            },
+            type: "array" as const,
+          },
+        },
+        title: "Aliases",
+        type: "object" as const,
+      },
+      distroImage: {
+        properties: {
+          image: {
+            default: "",
+            title: "Image",
+            type: "string" as const,
+          },
+        },
+        title: "",
+        type: "object" as const,
+      },
+      distroName: {
+        properties: {
+          name: {
+            readOnly: true,
+            title: "Identifier",
+            type: "string" as const,
+          },
+        },
+        title: "",
+        type: "object" as const,
+      },
+      distroOptions: {
+        properties: {
+          adminOnly: {
+            default: false,
+            title: "Admin only",
+            type: "boolean" as const,
+          },
+          disabled: {
+            default: false,
+            title: "Disable queueing for this distro",
+            type: "boolean" as const,
+          },
+          disableShallowClone: {
+            default: false,
+            title: "Disable shallow clone for this distro",
+            type: "boolean" as const,
+          },
+          isCluster: {
+            default: false,
+            title: "Mark distro as cluster",
+            type: "boolean" as const,
+          },
+          note: {
+            default: "",
+            title: "Notes",
+            type: "string" as const,
+          },
+          singleTaskDistro: {
+            default: false,
+            title: "Set distro as Single Task Distro",
+            type: "boolean" as const,
+          },
+          warningNote: {
+            default: "",
+            title: "Warnings",
+            type: "string" as const,
+          },
+        },
+        title: "Distro Options",
+        type: "object" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
-    distroName: {
+    costData: {
+      onDemandRate: {
+        "ui:description": "The on-demand rate for this distro.",
+      },
+      savingsPlanRate: {
+        "ui:description": "The savings plan rate for this distro.",
+      },
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+    },
+    distroAliases: {
+      aliases: {
+        items: {
+          "ui:label": false,
+        },
+        "ui:addButtonText": "Add alias",
+        "ui:orderable": false,
+        "ui:showLabel": false,
+      },
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:rootFieldId": "aliases",
+    },
+    distroImage: {
+      image: {
+        "ui:description": "The image from which this distro inherits.",
+      },
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+    },
+    distroName: {
       name: {
         ...(isContainerDistro && {
           "ui:warnings": [
@@ -116,34 +142,12 @@ export const getFormSchema = (
           ],
         }),
       },
-    },
-    distroImage: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      image: {
-        "ui:description": "The image from which this distro inherits.",
-      },
-    },
-    distroAliases: {
-      "ui:rootFieldId": "aliases",
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      aliases: {
-        "ui:addButtonText": "Add alias",
-        "ui:orderable": false,
-        "ui:showLabel": false,
-        items: {
-          "ui:label": false,
-        },
-      },
     },
     distroOptions: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
       adminOnly: {
         "ui:description":
           "Admin-only distros are not selectable by general users (e.g. when spawning a host). They do not have their access controlled beyond being hidden.",
-      },
-      isCluster: {
-        "ui:description":
-          "Jobs will not be run on this host. Used for special purposes.",
       },
       disabled: {
         "ui:description": "Tasks already in the task queue will be removed.",
@@ -151,30 +155,26 @@ export const getFormSchema = (
           "ui:tooltipDescription": `This will still allow the minimum number of hosts (${minimumHosts}) to start`,
         }),
       },
-      singleTaskDistro: {
+      isCluster: {
         "ui:description":
-          "Hosts will run only one task or task group before terminating.",
-        "ui:warnings": singleTaskDistroWarnings,
-        "ui:data-cy-banner": "single-task-banner",
+          "Jobs will not be run on this host. Used for special purposes.",
       },
       note: {
         "ui:rows": 7,
         "ui:widget": "textarea",
       },
+      singleTaskDistro: {
+        "ui:data-cy-banner": "single-task-banner",
+        "ui:description":
+          "Hosts will run only one task or task group before terminating.",
+        "ui:warnings": singleTaskDistroWarnings,
+      },
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       warningNote: {
-        "ui:rows": 2,
-        "ui:widget": "textarea",
         "ui:description":
           "This will be displayed to users when selecting this distro as part of evergreen yml validation.",
-      },
-    },
-    costData: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      onDemandRate: {
-        "ui:description": "The on-demand rate for this distro.",
-      },
-      savingsPlanRate: {
-        "ui:description": "The savings plan rate for this distro.",
+        "ui:rows": 2,
+        "ui:widget": "textarea",
       },
     },
   },

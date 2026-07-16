@@ -127,45 +127,45 @@ const imageDistrosMock: ApolloMock<
     data: {
       image: {
         __typename: "Image",
-        id: "ubuntu2204",
         distros: [
           {
             __typename: "Distro",
-            name: "ubuntu2204-small",
-            provider: Provider.Ec2Fleet,
-            providerSettingsList: [
-              { region: "us-east-1", instance_type: "m4.xlarge" },
-              { region: "us-west-1", instance_type: "m4.4xlarge" },
-            ],
             hostAllocatorSettings: {
               __typename: "HostAllocatorSettings",
               maximumHosts: 100,
             },
+            name: "ubuntu2204-small",
+            provider: Provider.Ec2Fleet,
+            providerSettingsList: [
+              { instance_type: "m4.xlarge", region: "us-east-1" },
+              { instance_type: "m4.4xlarge", region: "us-west-1" },
+            ],
           },
           {
             __typename: "Distro",
-            name: "ubuntu2204-large",
-            provider: Provider.Ec2Fleet,
-            providerSettingsList: [
-              { region: "us-east-1", instance_type: "m6i.2xlarge" },
-              { region: "us-east-1", instance_type: "m5.2xlarge" },
-            ],
             hostAllocatorSettings: {
               __typename: "HostAllocatorSettings",
               maximumHosts: 30,
             },
+            name: "ubuntu2204-large",
+            provider: Provider.Ec2Fleet,
+            providerSettingsList: [
+              { instance_type: "m6i.2xlarge", region: "us-east-1" },
+              { instance_type: "m5.2xlarge", region: "us-east-1" },
+            ],
           },
           {
             __typename: "Distro",
-            name: "ubuntu2204-static",
-            provider: Provider.Static,
-            providerSettingsList: [{ hosts: ["host-1", "host-2"] }],
             hostAllocatorSettings: {
               __typename: "HostAllocatorSettings",
               maximumHosts: 0,
             },
+            name: "ubuntu2204-static",
+            provider: Provider.Static,
+            providerSettingsList: [{ hosts: ["host-1", "host-2"] }],
           },
         ],
+        id: "ubuntu2204",
       },
     },
   },

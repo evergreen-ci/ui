@@ -85,9 +85,9 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
                     href={getVersionDiffRoute(patchId, index)}
                     onClick={() =>
                       sendEvent({
-                        name: "Clicked code changes diff link",
-                        "diff.type": "patch",
                         "diff.format": "html",
+                        "diff.type": "patch",
+                        name: "Clicked code changes diff link",
                       })
                     }
                     size="small"
@@ -100,9 +100,9 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
                     href={rawLink}
                     onClick={() =>
                       sendEvent({
-                        name: "Clicked code changes diff link",
-                        "diff.type": "patch",
                         "diff.format": "raw",
+                        "diff.type": "patch",
+                        name: "Clicked code changes diff link",
                       })
                     }
                     size="small"

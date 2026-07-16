@@ -6,22 +6,22 @@ const groupedTests = new Map<string, TaskBuildVariantField[]>([
     "test1",
     [
       {
-        taskName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
         displayStatus: "failed",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
       {
-        taskName: "task2",
         buildVariant: "variant2",
-        id: "task2_id",
         displayStatus: "success",
+        id: "task2_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task2",
       },
     ],
   ],
@@ -29,13 +29,13 @@ const groupedTests = new Map<string, TaskBuildVariantField[]>([
     "test2",
     [
       {
-        taskName: "task3",
         buildVariant: "variant1",
-        id: "task3_id",
         displayStatus: "success",
+        id: "task3_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task3",
       },
     ],
   ],
@@ -43,13 +43,13 @@ const groupedTests = new Map<string, TaskBuildVariantField[]>([
     "anotherTest",
     [
       {
-        taskName: "task4",
         buildVariant: "variant3",
-        id: "task4_id",
         displayStatus: "failed",
+        id: "task4_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task4",
       },
     ],
   ],
@@ -75,19 +75,19 @@ describe("groupTestsByName", () => {
   it("should group tests correctly when given one task with one test", () => {
     const tasks: TestAnalysisQueryTasks = [
       {
-        displayName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
+        displayName: "task1",
         displayStatus: "failed",
         execution: 0,
+        id: "task1_id",
         tests: {
           filteredTestCount: 1,
           testResults: [
             {
-              testFile: "test1",
               id: "0",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test1",
             },
           ],
         },
@@ -98,13 +98,13 @@ describe("groupTestsByName", () => {
     expect(result.has("test1")).toBe(true);
     expect(result.get("test1")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
         displayStatus: "failed",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
     ]);
   });
@@ -112,49 +112,49 @@ describe("groupTestsByName", () => {
   it("should group tests correctly when given multiple tasks with overlapping tests", () => {
     const tasks: TestAnalysisQueryTasks = [
       {
-        displayName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
+        displayName: "task1",
         displayStatus: "failed",
         execution: 0,
+        id: "task1_id",
         tests: {
           filteredTestCount: 2,
           testResults: [
             {
-              testFile: "test1",
               id: "0",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test1",
             },
             {
-              testFile: "test2",
               id: "1",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test2",
             },
           ],
         },
       },
       {
-        displayName: "task2",
         buildVariant: "variant2",
-        id: "task2_id",
+        displayName: "task2",
         displayStatus: "failed",
         execution: 0,
+        id: "task2_id",
         tests: {
           filteredTestCount: 2,
           testResults: [
             {
-              testFile: "test2",
               id: "0",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test2",
             },
             {
-              testFile: "test3",
               id: "1",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test3",
             },
           ],
         },
@@ -169,46 +169,46 @@ describe("groupTestsByName", () => {
 
     expect(result.get("test1")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
         displayStatus: "failed",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
     ]);
 
     expect(result.get("test2")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
         displayStatus: "failed",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
       {
-        taskName: "task2",
         buildVariant: "variant2",
-        id: "task2_id",
         displayStatus: "failed",
+        id: "task2_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task2",
       },
     ]);
 
     expect(result.get("test3")).toEqual([
       {
-        taskName: "task2",
         buildVariant: "variant2",
-        id: "task2_id",
         displayStatus: "failed",
+        id: "task2_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task2",
       },
     ]);
   });
@@ -216,11 +216,11 @@ describe("groupTestsByName", () => {
   it("should handle tasks with no tests", () => {
     const tasks: TestAnalysisQueryTasks = [
       {
-        displayName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
-        execution: 0,
+        displayName: "task1",
         displayStatus: "success",
+        execution: 0,
+        id: "task1_id",
         tests: {
           filteredTestCount: 0,
           testResults: [],
@@ -234,25 +234,25 @@ describe("groupTestsByName", () => {
   it("should handle tasks with duplicate test names", () => {
     const tasks: TestAnalysisQueryTasks = [
       {
-        displayName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
-        execution: 0,
+        displayName: "task1",
         displayStatus: "success",
+        execution: 0,
+        id: "task1_id",
         tests: {
           filteredTestCount: 2,
           testResults: [
             {
-              testFile: "test1",
               id: "1",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test1",
             },
             {
-              testFile: "test1",
               id: "2",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test1",
             },
           ],
         },
@@ -264,51 +264,51 @@ describe("groupTestsByName", () => {
     expect(result.has("test1")).toBe(true);
     expect(result.get("test1")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
         buildVariantDisplayName: undefined,
-        id: "task1_id",
         displayStatus: "success",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
     ]);
   });
   it("should handle multiple tasks with the same test name", () => {
     const tasks: TestAnalysisQueryTasks = [
       {
-        displayName: "task1",
         buildVariant: "variant1",
-        id: "task1_variant1_id",
-        execution: 0,
+        displayName: "task1",
         displayStatus: "success",
+        execution: 0,
+        id: "task1_variant1_id",
         tests: {
           filteredTestCount: 2,
           testResults: [
             {
-              testFile: "test1",
               id: "1",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test1",
             },
           ],
         },
       },
       {
-        displayName: "task1",
         buildVariant: "variant2",
-        id: "task1_variant2_id",
-        execution: 0,
+        displayName: "task1",
         displayStatus: "success",
+        execution: 0,
+        id: "task1_variant2_id",
         tests: {
           filteredTestCount: 2,
           testResults: [
             {
-              testFile: "test1",
               id: "1",
-              status: "fail",
               logs: { urlParsley: "" },
+              status: "fail",
+              testFile: "test1",
             },
           ],
         },
@@ -319,24 +319,24 @@ describe("groupTestsByName", () => {
     expect(result.has("test1")).toBe(true);
     expect(result.get("test1")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
         buildVariantDisplayName: undefined,
-        id: "task1_variant1_id",
         displayStatus: "success",
+        id: "task1_variant1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
       {
-        taskName: "task1",
         buildVariant: "variant2",
         buildVariantDisplayName: undefined,
-        id: "task1_variant2_id",
         displayStatus: "success",
+        id: "task1_variant2_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
     ]);
   });
@@ -361,34 +361,34 @@ describe("filterGroupedTests", () => {
 
     expect(result.get("test1")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
         displayStatus: "failed",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
       {
-        taskName: "task2",
         buildVariant: "variant2",
-        id: "task2_id",
         displayStatus: "success",
+        id: "task2_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task2",
       },
     ]);
 
     expect(result.get("test2")).toEqual([
       {
-        taskName: "task3",
         buildVariant: "variant1",
-        id: "task3_id",
         displayStatus: "success",
+        id: "task3_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task3",
       },
     ]);
   });
@@ -410,13 +410,13 @@ describe("filterGroupedTests", () => {
 
     expect(result.get("test1")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
         displayStatus: "failed",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
     ]);
   });
@@ -466,22 +466,22 @@ describe("filterGroupedTests", () => {
     expect(result.size).toBe(1);
     expect(result.get("test1")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
         displayStatus: "failed",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
       {
-        taskName: "task2",
         buildVariant: "variant2",
-        id: "task2_id",
         displayStatus: "success",
+        id: "task2_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task2",
       },
     ]);
   });
@@ -501,22 +501,22 @@ describe("filterGroupedTests", () => {
     expect(result.size).toBe(1);
     expect(result.get("test1")).toEqual([
       {
-        taskName: "task1",
         buildVariant: "variant1",
-        id: "task1_id",
         displayStatus: "failed",
+        id: "task1_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task1",
       },
       {
-        taskName: "task2",
         buildVariant: "variant2",
-        id: "task2_id",
         displayStatus: "success",
+        id: "task2_id",
         logs: {
           urlParsley: "",
         },
+        taskName: "task2",
       },
     ]);
   });

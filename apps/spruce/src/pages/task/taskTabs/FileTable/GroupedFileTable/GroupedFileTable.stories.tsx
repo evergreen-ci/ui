@@ -3,21 +3,21 @@ import GroupedFileTable from ".";
 
 const files = [
   {
-    name: "some_file",
-    link: "some_link",
-    urlParsley: null,
     associatedLinks: [
       {
-        name: "Coverage",
         link: "coverage_link",
+        name: "Coverage",
       },
     ],
+    link: "some_link",
+    name: "some_file",
+    urlParsley: null,
   },
   {
-    name: "another_file",
-    link: "another_link",
-    urlParsley: "parsley_link",
     associatedLinks: [],
+    link: "another_link",
+    name: "another_file",
+    urlParsley: "parsley_link",
   },
 ];
 
@@ -26,9 +26,9 @@ export default {
 } satisfies CustomMeta<typeof GroupedFileTable>;
 
 export const DefaultTable: CustomStoryObj<typeof GroupedFileTable> = {
-  render: (args) => <GroupedFileTable {...args} />,
   args: {
-    taskName: "Task 1",
     files,
+    taskName: "Task 1",
   },
+  render: (args) => <GroupedFileTable {...args} />,
 };

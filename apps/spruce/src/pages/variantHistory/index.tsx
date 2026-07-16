@@ -60,19 +60,19 @@ const VariantHistoryContents: React.FC = () => {
     MAINLINE_COMMITS_FOR_HISTORY,
     projectIdentifier && variantName
       ? {
+          fetchPolicy: "no-cache", // This is because we already cache the data in the history table
+          notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
           variables: {
+            buildVariantOptions: {
+              includeBaseTasks: false,
+              variants: [applyStrictRegex(variantName)],
+            },
             mainlineCommitsOptions: {
-              projectIdentifier,
               limit: 10,
+              projectIdentifier,
               shouldCollapse: true,
             },
-            buildVariantOptions: {
-              variants: [applyStrictRegex(variantName)],
-              includeBaseTasks: false,
-            },
           },
-          notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
-          fetchPolicy: "no-cache", // This is because we already cache the data in the history table
         }
       : skipToken,
   );
@@ -92,9 +92,9 @@ const VariantHistoryContents: React.FC = () => {
       leaveBreadcrumb(
         "Loaded more commits for variant history",
         {
+          numCommits: data.mainlineCommits.versions.length,
           projectIdentifier,
           variantName,
-          numCommits: data.mainlineCommits.versions.length,
         },
         SentryBreadcrumbTypes.UI,
       );
@@ -111,23 +111,23 @@ const VariantHistoryContents: React.FC = () => {
         "Requesting more variant history",
         {
           projectIdentifier,
-          variantName,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+          variantName,
         },
         SentryBreadcrumbTypes.UI,
       );
       refetch({
-        mainlineCommitsOptions: {
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          projectIdentifier,
-          limit: 10,
-          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
-          shouldCollapse: true,
-        },
         buildVariantOptions: {
+          includeBaseTasks: false,
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           variants: [applyStrictRegex(variantName)],
-          includeBaseTasks: false,
+        },
+        mainlineCommitsOptions: {
+          limit: 10,
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          projectIdentifier,
+          shouldCollapse: true,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
         },
       });
     }
@@ -184,10 +184,10 @@ const VariantHistoryContents: React.FC = () => {
           </BadgeWrapper>
           <ColumnPaginationButtons
             onClickNext={() =>
-              sendEvent({ name: "Changed page", direction: "next" })
+              sendEvent({ direction: "next", name: "Changed page" })
             }
             onClickPrev={() =>
-              sendEvent({ name: "Changed page", direction: "previous" })
+              sendEvent({ direction: "previous", name: "Changed page" })
             }
           />
         </PaginationFilterWrapper>

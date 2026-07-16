@@ -28,9 +28,9 @@ export const TestSelectionTab: React.FC<TabProps> = ({
   const formSchema = useMemo(
     () =>
       getFormSchema({
+        canEnableTaskLevel,
         repoData:
           projectType === ProjectType.AttachedProject ? repoData : undefined,
-        canEnableTaskLevel,
       }),
     [projectType, canEnableTaskLevel, repoData],
   );

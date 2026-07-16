@@ -32,8 +32,8 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
               href={link.url}
               onClick={() =>
                 taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
                   "link.type": "annotation link",
+                  name: "Clicked metadata link",
                 })
               }
             >
@@ -51,8 +51,8 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
                 href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
                 onClick={() => {
                   taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
                     "link.type": "honeycomb trace link",
+                    name: "Clicked metadata link",
                   });
                 }}
               >
@@ -70,8 +70,8 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
               )}
               onClick={() => {
                 taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
                   "link.type": "honeycomb metrics link",
+                  name: "Clicked metadata link",
                 });
               }}
             >

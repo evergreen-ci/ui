@@ -23,9 +23,9 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = (({ accessSettings, admin }, isRepo, id) => {
   const projectRef: ProjectInput = {
+    admins: admin.admins,
     id,
     restricted: accessSettings.restricted,
-    admins: admin.admins,
   };
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
 }) satisfies FormToGqlFunction<Tab>;

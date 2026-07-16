@@ -25,8 +25,8 @@ import { SpawnVolume } from "./SpawnVolume";
 const setPageVisibility = (visibilityState: "visible" | "hidden") => {
   act(() => {
     Object.defineProperty(document, "visibilityState", {
-      value: visibilityState,
       configurable: true,
+      value: visibilityState,
     });
     document.dispatchEvent(new window.Event("visibilitychange"));
   });
@@ -35,8 +35,8 @@ const setPageVisibility = (visibilityState: "visible" | "hidden") => {
 describe("SpawnVolume", () => {
   beforeEach(() => {
     Object.defineProperty(document, "visibilityState", {
-      value: "visible",
       configurable: true,
+      value: "visible",
     });
   });
 

@@ -8,6 +8,7 @@ const generateTaskQueue = (length: number): TaskQueueColumnData[] => {
   const tq: TaskQueueColumnData[] = [];
   for (let i = 0; i < length; i++) {
     const task: TaskQueueColumnData = {
+      __typename: "TaskQueueItem",
       activatedBy: "admin",
       buildVariant: "osx-108-debug",
       displayName: "compile",
@@ -19,7 +20,6 @@ const generateTaskQueue = (length: number): TaskQueueColumnData[] => {
       projectIdentifier: "parsley",
       requester: "gitter_request",
       version: "mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe",
-      __typename: "TaskQueueItem",
     };
     tq.push(task);
   }

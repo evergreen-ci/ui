@@ -4,9 +4,9 @@ const vitestConfig = defineTestConfig({
   test: {
     environment: "node",
     globals: true,
+    include: ["src/**/*.test.{ts,tsx}"],
     outputFile: { junit: "./bin/vitest/junit.xml" },
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
-    include: ["src/**/*.test.{ts,tsx}"],
   },
 });
 

@@ -110,11 +110,11 @@ export const readTasks = ((existing, { args, readField }) => {
   const tasks = existingTasks.slice(startIndex, endIndex + 1);
 
   return {
-    tasks,
     pagination: {
       mostRecentTaskOrder,
       oldestTaskOrder,
     },
+    tasks,
   };
 }) satisfies FieldReadFunction<TaskHistoryCache>;
 
@@ -150,8 +150,8 @@ export const mergeTasks = ((existing, incoming, { readField }) => {
   };
 
   return {
-    tasks: sortedTasks,
-    pagination,
     allTaskOrders,
+    pagination,
+    tasks: sortedTasks,
   };
 }) satisfies FieldMergeFunction<TaskHistoryCache>;

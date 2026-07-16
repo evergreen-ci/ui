@@ -35,8 +35,8 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
         // @ts-expect-error: onChange expects type string | null
         onChange={(imageId: string) => {
           sendEvent({
-            name: "Changed image",
             from: selectedImage,
+            name: "Changed image",
             to: imageId,
           });
           navigate(getImageRoute(imageId));

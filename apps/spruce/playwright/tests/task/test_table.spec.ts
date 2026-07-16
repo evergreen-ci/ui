@@ -147,12 +147,12 @@ test.describe("Tests Table", () => {
     });
 
     const statuses = [
-      { label: "Pass", key: "pass" },
+      { key: "pass", label: "Pass" },
       {
-        label: "Silent Fail",
         key: "silentfail",
+        label: "Silent Fail",
       },
-      { label: "Skip", key: "skip" },
+      { key: "skip", label: "Skip" },
     ];
 
     test("Checking multiple statuses adds them all to the URL", async ({

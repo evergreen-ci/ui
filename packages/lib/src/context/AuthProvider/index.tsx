@@ -55,7 +55,7 @@ type AuthAction = { type: "SET_AUTH"; payload: boolean };
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case "SET_AUTH":
-      return { isAuthenticated: action.payload, hasCheckedAuth: true };
+      return { hasCheckedAuth: true, isAuthenticated: action.payload };
     default:
       return state;
   }
@@ -91,14 +91,21 @@ const AuthProvider: React.FC<{
   shouldUseLocalAuth,
 }) => {
   const [state, dispatch] = useReducer(authReducer, {
-    isAuthenticated: false,
     hasCheckedAuth: false,
+    isAuthenticated: false,
   });
 
   const navigate = useNavigate();
 
   const authMethods: AuthProviderDispatchMethods = useMemo(
     () => ({
+      /**
+       * A helper to mark the user as authenticated in local state.
+       */
+      dispatchAuthenticated: () => {
+        leaveBreadcrumb("User authenticated", {}, SentryBreadcrumbTypes.User);
+        dispatch({ payload: true, type: "SET_AUTH" });
+      },
       /**
        * localLogin - used only if `shouldUseLocalAuth` is true.
        * @param credentials - credentials to login with
@@ -118,7 +125,7 @@ const AuthProvider: React.FC<{
           method: "POST",
         }).then((response) => {
           // Dispatch once so that hasCheckedAuth is set to true along with isAuthenticated.
-          dispatch({ type: "SET_AUTH", payload: response.ok });
+          dispatch({ payload: response.ok, type: "SET_AUTH" });
           if (!response.ok) {
             // I know we don't like using alerts but this is a dev only feature
             alert("Error logging in, username or password invalid");
@@ -141,9 +148,9 @@ const AuthProvider: React.FC<{
           try {
             await fetch(`${evergreenAppURL}/logout`, {
               credentials: "include",
+              headers: getUserStagingHeader(),
               method: "GET",
               redirect: "manual",
-              headers: getUserStagingHeader(),
             });
           } catch (error) {
             leaveBreadcrumb(
@@ -155,20 +162,13 @@ const AuthProvider: React.FC<{
         }
         // Reset auth state.
         if (shouldUseLocalAuth) {
-          dispatch({ type: "SET_AUTH", payload: false });
+          dispatch({ payload: false, type: "SET_AUTH" });
           navigate(localAuthRoute);
         } else {
           const encodedOrigin = encodeURIComponent(window.location.href);
           const redirectURL = `${remoteAuthURL}?redirect=${encodedOrigin}`;
           window.location.href = redirectURL;
         }
-      },
-      /**
-       * A helper to mark the user as authenticated in local state.
-       */
-      dispatchAuthenticated: () => {
-        leaveBreadcrumb("User authenticated", {}, SentryBreadcrumbTypes.User);
-        dispatch({ type: "SET_AUTH", payload: true });
       },
     }),
     [
@@ -184,31 +184,31 @@ const AuthProvider: React.FC<{
   useEffect(() => {
     // Testing if the user is authenticated
     fetchWithRetry(`${evergreenAppURL}/graphql/query`, {
+      body: JSON.stringify({
+        query: "{\n  userLite {\n    id\n  }\n}",
+        variables: {},
+      }),
       credentials: "include",
       headers: {
         ...getUserStagingHeader(),
         "content-type": "application/json",
       },
-      body: JSON.stringify({
-        query: "{\n  userLite {\n    id\n  }\n}",
-        variables: {},
-      }),
       method: "POST",
       mode: "cors",
     })
       .then(() => {
-        dispatch({ type: "SET_AUTH", payload: true });
+        dispatch({ payload: true, type: "SET_AUTH" });
       })
       .catch(() => {
-        dispatch({ type: "SET_AUTH", payload: false });
+        dispatch({ payload: false, type: "SET_AUTH" });
         authMethods.logoutAndRedirect();
       });
   }, [evergreenAppURL, authMethods]);
 
   const authProviderValue = useMemo(
     () => ({
-      isAuthenticated: state.isAuthenticated,
       hasCheckedAuth: state.hasCheckedAuth,
+      isAuthenticated: state.isAuthenticated,
       ...authMethods,
     }),
     [state, authMethods],

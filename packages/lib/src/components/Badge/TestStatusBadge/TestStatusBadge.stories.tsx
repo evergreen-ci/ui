@@ -9,14 +9,14 @@ export default {
 } satisfies CustomMeta<typeof TestStatusBadge>;
 
 export const Default: CustomStoryObj<typeof TestStatusBadge> = {
+  args: {
+    status: TestStatus.Pass,
+  },
   argTypes: {
     status: {
       control: "select",
       options: Object.values(TestStatus),
     },
-  },
-  args: {
-    status: TestStatus.Pass,
   },
   render: (args) => <TestStatusBadge {...args} />,
 };

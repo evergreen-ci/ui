@@ -67,40 +67,40 @@ describe("general tab", () => {
 });
 
 const generalForm: GeneralFormState = {
-  distroName: {
-    name: "rhel71-power8-large",
-  },
-  distroImage: {
-    image: "rhel71-power8",
+  costData: {
+    onDemandRate: 0.01,
+    savingsPlanRate: 0.02,
   },
   distroAliases: {
     aliases: ["rhel71-power8", "rhel71-power8-build"],
   },
+  distroImage: {
+    image: "rhel71-power8",
+  },
+  distroName: {
+    name: "rhel71-power8-large",
+  },
   distroOptions: {
     adminOnly: false,
-    isCluster: false,
-    singleTaskDistro: false,
-    disableShallowClone: true,
     disabled: false,
+    disableShallowClone: true,
+    isCluster: false,
     note: "distro note",
+    singleTaskDistro: false,
     warningNote: "distro warnings",
-  },
-  costData: {
-    onDemandRate: 0.01,
-    savingsPlanRate: 0.02,
   },
 };
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const generalGql: DistroInput = {
   ...distroData,
-  name: "rhel71-power8-large",
-  imageId: "rhel71-power8",
   adminOnly: false,
   aliases: ["rhel71-power8", "rhel71-power8-build"],
-  isCluster: false,
-  disableShallowClone: true,
   disabled: false,
+  disableShallowClone: true,
+  imageId: "rhel71-power8",
+  isCluster: false,
+  name: "rhel71-power8-large",
   note: "distro note",
   singleTaskDistro: false,
 };

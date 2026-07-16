@@ -95,23 +95,23 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
-    hostUptimeWarnings,
     distros,
+    hostUptimeWarnings,
     isMigration: true,
+    isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
+    timeZone,
     // The migrate volume never requires a token exchange and doesn't
     // have a valid task, so we can fill in any value here.
     tokenExchangeState: TokenExchangeState.NeedsAuthentication,
-    isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
-    timeZone,
   });
 
   useVirtualWorkstationDefaultExpiration({
-    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation ?? false,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
     formState: form,
+    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation ?? false,
     setFormState: (formState) =>
-      dispatch({ type: "setForm", payload: formState }),
+      dispatch({ payload: formState, type: "setForm" }),
   });
 
   useEffect(() => {
@@ -122,18 +122,18 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
 
   const migrateVolume = useCallback(() => {
     const mutationInput = formToGql({
-      isVirtualWorkStation: !!selectedDistro?.isVirtualWorkStation,
       formData: form,
-      myPublicKeys: formSchemaInput.myPublicKeys,
+      isVirtualWorkStation: !!selectedDistro?.isVirtualWorkStation,
       migrateVolumeId: volume.id,
+      myPublicKeys: formSchemaInput.myPublicKeys,
     });
     sendEvent({
-      name: "Created a spawn host",
-      "host.is_volume_migration": true,
       "host.distro.id": mutationInput?.distroId || "",
-      "host.is_unexpirable": mutationInput?.noExpiration || false,
-      "host.is_workstation": mutationInput?.isVirtualWorkStation || false,
       "host.is_from_task": false,
+      "host.is_unexpirable": mutationInput?.noExpiration || false,
+      "host.is_volume_migration": true,
+      "host.is_workstation": mutationInput?.isVirtualWorkStation || false,
+      name: "Created a spawn host",
     });
     migrateVolumeMutation({
       variables: {
@@ -202,8 +202,8 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
         <SpruceForm
           formData={form}
           onChange={({ errors, formData }) => {
-            dispatch({ type: "setForm", payload: formData });
-            dispatch({ type: "setHasError", payload: errors.length > 0 });
+            dispatch({ payload: formData, type: "setForm" });
+            dispatch({ payload: errors.length > 0, type: "setHasError" });
           }}
           schema={schema}
           uiSchema={uiSchema}

@@ -27,8 +27,8 @@ const useBuildBaronVariables = ({ task }: UseBuildBaronVariablesType) => {
     isFailedTask || (hasAnnotation && canModifyAnnotation)
       ? {
           variables: {
-            taskId: id,
             execution,
+            taskId: id,
           },
         }
       : skipToken,

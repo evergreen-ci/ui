@@ -35,7 +35,7 @@ describe("getTaskRoute", () => {
     expect(getTaskRoute("SomeId", { a: "b" })).toBe("/task/SomeId?a=b");
   });
   it("generates a test route with only an id, tab and some params", () => {
-    expect(getTaskRoute("SomeId", { tab: "logs" as TaskTab, a: "b" })).toBe(
+    expect(getTaskRoute("SomeId", { a: "b", tab: "logs" as TaskTab })).toBe(
       "/task/SomeId/logs?a=b",
     );
   });
@@ -73,8 +73,8 @@ describe("getSpawnHostRoute", () => {
     expect(
       getSpawnHostRoute({
         distroId: "ubuntu1604",
-        taskId: "someTask",
         spawnHost: true,
+        taskId: "someTask",
       }),
     ).toBe("/spawn/host?distroId=ubuntu1604&spawnHost=True&taskId=someTask");
   });

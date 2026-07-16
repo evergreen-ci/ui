@@ -33,9 +33,9 @@ export const AttachVolumeSelect = ({
   });
   useErrorToast(error, "There was an error loading hosts");
   usePolling<MyHostsQuery, MyHostsQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
 
   const hostDropdownOptions = useMemo(() => {
@@ -54,8 +54,8 @@ export const AttachVolumeSelect = ({
           canUpdateHost(status, availabilityZone),
         )
         .map(({ displayName, id }) => ({
-          id,
           displayName: displayName || id,
+          id,
         }))
         .sort((a, b) => a.displayName.localeCompare(b.displayName));
     }

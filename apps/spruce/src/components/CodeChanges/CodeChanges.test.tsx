@@ -19,10 +19,6 @@ vi.mock("analytics", () => ({
 }));
 
 vi.mock("constants/routes", () => ({
-  getVersionDiffRoute: vi.fn(
-    (versionId: string, moduleIndex: number) =>
-      `/version/${versionId}/diff?patch_number=${moduleIndex}`,
-  ),
   getFileDiffRoute: vi.fn(
     (versionId: string, fileName: string, patchNumber?: number) => {
       const params = new URLSearchParams();
@@ -33,6 +29,10 @@ vi.mock("constants/routes", () => ({
       const query = params.toString();
       return `/version/${versionId}/file-diff?${query}`;
     },
+  ),
+  getVersionDiffRoute: vi.fn(
+    (versionId: string, moduleIndex: number) =>
+      `/version/${versionId}/diff?patch_number=${moduleIndex}`,
   ),
 }));
 
@@ -60,7 +60,6 @@ describe("CodeChanges", () => {
                 {
                   __typename: "ModuleCodeChange",
                   branchName: "main",
-                  rawLink: "rawLink",
                   fileDiffs: [
                     {
                       __typename: "FileDiff",
@@ -70,6 +69,7 @@ describe("CodeChanges", () => {
                       fileName: "test.ts",
                     },
                   ],
+                  rawLink: "rawLink",
                 },
               ],
             },
@@ -113,7 +113,6 @@ describe("CodeChanges", () => {
                 {
                   __typename: "ModuleCodeChange",
                   branchName: "main",
-                  rawLink: "rawLink1",
                   fileDiffs: [
                     {
                       __typename: "FileDiff",
@@ -123,11 +122,11 @@ describe("CodeChanges", () => {
                       fileName: "test1.ts",
                     },
                   ],
+                  rawLink: "rawLink1",
                 },
                 {
                   __typename: "ModuleCodeChange",
                   branchName: "feature",
-                  rawLink: "rawLink2",
                   fileDiffs: [
                     {
                       __typename: "FileDiff",
@@ -137,11 +136,11 @@ describe("CodeChanges", () => {
                       fileName: "test2.ts",
                     },
                   ],
+                  rawLink: "rawLink2",
                 },
                 {
                   __typename: "ModuleCodeChange",
                   branchName: "develop",
-                  rawLink: "rawLink3",
                   fileDiffs: [
                     {
                       __typename: "FileDiff",
@@ -151,6 +150,7 @@ describe("CodeChanges", () => {
                       fileName: "test3.ts",
                     },
                   ],
+                  rawLink: "rawLink3",
                 },
               ],
             },

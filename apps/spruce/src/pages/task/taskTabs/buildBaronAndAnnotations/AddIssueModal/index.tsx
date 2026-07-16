@@ -43,10 +43,10 @@ export const AddIssueModal: React.FC<Props> = ({
 
   const [canSubmit, setCanSubmit] = useState(false);
   const [formState, setFormState] = useState({
-    url: "",
     advancedOptions: {
       confidenceScore: null,
     },
+    url: "",
   });
   const issueKey = getTicketFromJiraURL(formState.url);
 
@@ -60,8 +60,8 @@ export const AddIssueModal: React.FC<Props> = ({
       setSelectedRowKey(issueKey);
       closeModal();
       annotationAnalytics.sendEvent({
-        name: "Created task annotation",
         "annotation.type": isIssue ? "Issue" : "Suspected Issue",
+        name: "Created task annotation",
       });
     },
     onError(error) {
@@ -78,12 +78,12 @@ export const AddIssueModal: React.FC<Props> = ({
 
   const handleSubmit = () => {
     const apiIssue: IssueLinkInput = {
-      url: formState.url,
+      confidenceScore: toDecimal(formState.advancedOptions.confidenceScore),
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       issueKey,
-      confidenceScore: toDecimal(formState.advancedOptions.confidenceScore),
+      url: formState.url,
     };
-    addAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
+    addAnnotation({ variables: { apiIssue, execution, isIssue, taskId } });
   };
 
   const handleCancel = () => {
@@ -126,41 +126,41 @@ export const AddIssueModal: React.FC<Props> = ({
 
 const addIssueModalSchema: SpruceFormProps = {
   schema: {
-    type: "object" as const,
     properties: {
-      url: {
-        type: "string" as const,
-        title: "Ticket URL",
-        minLength: 1,
-        format: "validJiraURL",
-      },
       advancedOptions: {
-        type: "object" as const,
         properties: {
           confidenceScore: {
-            type: ["number", "null"],
-            title: "Confidence Score",
-            minimum: 0,
             maximum: 100,
+            minimum: 0,
+            title: "Confidence Score",
+            type: ["number", "null"],
           },
         },
+        type: "object" as const,
+      },
+      url: {
+        format: "validJiraURL",
+        minLength: 1,
+        title: "Ticket URL",
+        type: "string" as const,
       },
     },
     required: ["url"],
+    type: "object" as const,
   },
   uiSchema: {
-    url: {
-      "ui:data-cy": "issue-url",
-    },
     advancedOptions: {
-      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-      "ui:displayTitle": "Advanced Options",
       confidenceScore: {
         "ui:data-cy": "confidence-level",
         "ui:description":
           "The confidence score of the issue. This is a number between 0 and 100 representing a percentage.",
         "ui:optional": true,
       },
+      "ui:displayTitle": "Advanced Options",
+      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+    },
+    url: {
+      "ui:data-cy": "issue-url",
     },
   },
 };

@@ -2,22 +2,22 @@ import { TaskSortCategory } from "gql/generated/types";
 import { PatchTasksQueryParams } from "types/task";
 
 const mapIdToFilterParam = {
+  [TaskSortCategory.BaseStatus]: PatchTasksQueryParams.BaseStatuses,
   [TaskSortCategory.Name]: PatchTasksQueryParams.TaskName,
   [TaskSortCategory.Status]: PatchTasksQueryParams.Statuses,
-  [TaskSortCategory.BaseStatus]: PatchTasksQueryParams.BaseStatuses,
   [TaskSortCategory.Variant]: PatchTasksQueryParams.Variant,
 };
 
 const emptyFilterQueryParams = {
-  [PatchTasksQueryParams.TaskName]: undefined,
-  [PatchTasksQueryParams.Statuses]: undefined,
   [PatchTasksQueryParams.BaseStatuses]: undefined,
+  [PatchTasksQueryParams.Statuses]: undefined,
+  [PatchTasksQueryParams.TaskName]: undefined,
   [PatchTasksQueryParams.Variant]: undefined,
 };
 
 const defaultSorting = [
-  { id: TaskSortCategory.Status, desc: false },
-  { id: TaskSortCategory.BaseStatus, desc: true },
+  { desc: false, id: TaskSortCategory.Status },
+  { desc: true, id: TaskSortCategory.BaseStatus },
 ];
 
 export { mapIdToFilterParam, emptyFilterQueryParams, defaultSorting };

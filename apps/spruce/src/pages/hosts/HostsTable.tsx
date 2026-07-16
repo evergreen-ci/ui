@@ -84,8 +84,8 @@ export const HostsTable: React.FC<Props> = ({
 
     setQueryParams(updatedParams);
     sendEvent({
-      name: "Filtered hosts table",
       "filter.by": Object.keys(filterState),
+      name: "Filtered hosts table",
     });
   };
 
@@ -99,15 +99,12 @@ export const HostsTable: React.FC<Props> = ({
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
+    enableMultiSort: false,
+    hasSelectableRows: true,
     initialState: {
       columnFilters: initialFilters,
       sorting: initialSorting,
     },
-    state: {
-      rowSelection,
-    },
-    enableMultiSort: false,
-    hasSelectableRows: true,
     manualFiltering: true,
     manualPagination: true,
     manualSorting: true,
@@ -131,6 +128,9 @@ export const HostsTable: React.FC<Props> = ({
         table.resetRowSelection();
       },
     ),
+    state: {
+      rowSelection,
+    },
   });
 
   return (
@@ -152,9 +152,7 @@ const emptyFilterQueryParams = Object.values(HostsTableFilterParams).reduce(
 
 const columns: LGColumnDef<Host>[] = [
   {
-    header: "ID",
     accessorKey: "id",
-    id: HostSortBy.Id,
     cell: ({ getValue }): React.JSX.Element => {
       const id = getValue() as string;
       return (
@@ -165,6 +163,8 @@ const columns: LGColumnDef<Host>[] = [
     },
     enableColumnFilter: true,
     enableSorting: true,
+    header: "ID",
+    id: HostSortBy.Id,
     meta: {
       search: {
         "data-cy": "host-id-filter",
@@ -174,11 +174,11 @@ const columns: LGColumnDef<Host>[] = [
     },
   },
   {
-    header: "Distro",
     accessorKey: "distroId",
-    id: HostSortBy.Distro,
     enableColumnFilter: true,
     enableSorting: true,
+    header: "Distro",
+    id: HostSortBy.Distro,
     meta: {
       search: {
         "data-cy": "distro-id-filter",
@@ -188,11 +188,11 @@ const columns: LGColumnDef<Host>[] = [
     },
   },
   {
-    header: "Status",
     accessorKey: "status",
-    id: HostSortBy.Status,
     enableColumnFilter: true,
     enableSorting: true,
+    header: "Status",
+    id: HostSortBy.Status,
     meta: {
       treeSelect: {
         "data-cy": "statuses-filter",
@@ -202,9 +202,7 @@ const columns: LGColumnDef<Host>[] = [
     },
   },
   {
-    header: "Current Task",
     accessorKey: "runningTask",
-    id: HostSortBy.CurrentTask,
     cell: ({ getValue }) => {
       const task = getValue() as Host["runningTask"];
       return task?.id ? (
@@ -220,6 +218,8 @@ const columns: LGColumnDef<Host>[] = [
     },
     enableColumnFilter: true,
     enableSorting: true,
+    header: "Current Task",
+    id: HostSortBy.CurrentTask,
     meta: {
       search: {
         "data-cy": "current-task-id-filter",
@@ -229,35 +229,33 @@ const columns: LGColumnDef<Host>[] = [
     },
   },
   {
-    header: "Elapsed",
     accessorKey: "elapsed",
-    id: HostSortBy.Elapsed,
     cell: ({ getValue }) => {
       const elapsed = getValue() as Date;
       return elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A";
     },
     enableSorting: true,
+    header: "Elapsed",
+    id: HostSortBy.Elapsed,
     meta: {
       width: "10%",
     },
   },
   {
-    header: "Uptime",
     accessorKey: "uptime",
-    id: HostSortBy.Uptime,
     cell: ({ getValue }) => {
       const uptime = getValue() as Date;
       return uptime ? formatDistanceToNow(new Date(uptime)) : "N/A";
     },
     enableSorting: true,
+    header: "Uptime",
+    id: HostSortBy.Uptime,
     meta: {
       width: "10%",
     },
   },
   {
-    header: "Idle Time",
     accessorKey: "totalIdleTime",
-    id: HostSortBy.IdleTime,
     cell: ({ getValue }) => {
       const totalIdleTime = getValue() as number;
       return totalIdleTime
@@ -265,17 +263,19 @@ const columns: LGColumnDef<Host>[] = [
         : "N/A";
     },
     enableSorting: true,
+    header: "Idle Time",
+    id: HostSortBy.IdleTime,
     meta: {
       width: "10%",
     },
   },
   {
-    header: "Owner",
     accessorKey: "startedBy",
-    id: HostSortBy.Owner,
     cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
     enableColumnFilter: true,
     enableSorting: true,
+    header: "Owner",
+    id: HostSortBy.Owner,
     meta: {
       search: {
         "data-cy": "owner-filter",

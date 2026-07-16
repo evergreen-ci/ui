@@ -125,14 +125,14 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       },
       update: (cache) => {
         cache.modify({
-          id: cache.identify(task),
+          broadcast: true,
           fields: {
+            activated: () => true,
             canSchedule: () => false,
             canSetPriority: () => true,
             displayStatus: () => TaskStatus.WillRun,
-            activated: () => true,
           },
-          broadcast: true,
+          id: cache.identify(task),
         });
       },
     });
@@ -150,23 +150,23 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       },
       onError: (err) =>
         dispatchToast.error(`Error restarting task: ${err.message}`),
+      // Only re-request if the current task is restarted. This should be relatively
+      // uncommon.
+      refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
       update: (cache) => {
         if (!isCurrentTask) {
           cache.modify({
-            id: cache.identify(task),
+            broadcast: false,
             fields: {
               canRestart: () => false,
               canSetPriority: () => true,
               displayStatus: () => TaskStatus.WillRun,
               execution: (cachedExecution: number) => cachedExecution + 1,
             },
-            broadcast: false,
+            id: cache.identify(task),
           });
         }
       },
-      // Only re-request if the current task is restarted. This should be relatively
-      // uncommon.
-      refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
     });
 
     return (
@@ -213,7 +213,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                   name: "Clicked restart task button",
                   "task.id": taskId,
                 });
-                restartTask({ variables: { taskId, failedOnly: false } });
+                restartTask({ variables: { failedOnly: false, taskId } });
               }}
               size={ButtonSize.XSmall}
             >

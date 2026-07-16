@@ -25,9 +25,9 @@ const Component = () => (
 describe("variantTaskGroup", () => {
   it("should render variants with their grouped status cards", () => {
     render(<Component />, {
-      wrapper: Wrapper,
-      route: "/version/1",
       path: "/version/:id",
+      route: "/version/1",
+      wrapper: Wrapper,
     });
     expect(screen.getByText("Some Variant")).toBeDefined();
     expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
@@ -37,9 +37,9 @@ describe("variantTaskGroup", () => {
   describe("variantTaskGroup status badge state", () => {
     it("should render a status badge for each status", () => {
       render(<Component />, {
-        wrapper: Wrapper,
-        route: "/version/1",
         path: "/version/:id",
+        route: "/version/1",
+        wrapper: Wrapper,
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
@@ -48,9 +48,9 @@ describe("variantTaskGroup", () => {
     });
     it("all should be active if no status and variant filters are set", () => {
       render(<Component />, {
-        wrapper: Wrapper,
-        route: "/version/1",
         path: "/version/:id",
+        route: "/version/1",
+        wrapper: Wrapper,
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
@@ -62,9 +62,9 @@ describe("variantTaskGroup", () => {
     });
     it("all should be active if the variant is selected and there are no status filters", () => {
       render(<Component />, {
-        wrapper: Wrapper,
-        route: `/version/1?variant=${applyStrictRegex("some_variant")}`,
         path: "/version/:id",
+        route: `/version/1?variant=${applyStrictRegex("some_variant")}`,
+        wrapper: Wrapper,
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
@@ -76,9 +76,9 @@ describe("variantTaskGroup", () => {
     });
     it("all should be active if no variant is selected and there are status filters", () => {
       render(<Component />, {
-        wrapper: Wrapper,
-        route: `/version/1?statuses=${TaskStatus.Succeeded}`,
         path: "/version/:id",
+        route: `/version/1?statuses=${TaskStatus.Succeeded}`,
+        wrapper: Wrapper,
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
@@ -91,11 +91,11 @@ describe("variantTaskGroup", () => {
 
     it("should only be active if the variant is selected and a matching status filter", () => {
       render(<Component />, {
-        wrapper: Wrapper,
+        path: "/version/:id",
         route: `/version/1?statuses=${
           TaskStatus.Succeeded
         }&variant=${applyStrictRegex("some_variant")}`,
-        path: "/version/:id",
+        wrapper: Wrapper,
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
@@ -115,11 +115,11 @@ describe("variantTaskGroup", () => {
     });
     it("none should be active if no matching variant is selected", () => {
       render(<Component />, {
-        wrapper: Wrapper,
+        path: "/version/:id",
         route: `/version/1?statuses=${
           TaskStatus.Succeeded
         }&variant=${applyStrictRegex("some_other_variant")}`,
-        path: "/version/:id",
+        wrapper: Wrapper,
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
@@ -135,9 +135,9 @@ describe("variantTaskGroup", () => {
     describe("title", () => {
       it("should link to the variant filter if there is no variant selected", () => {
         render(<Component />, {
-          wrapper: Wrapper,
-          route: "/version/1",
           path: "/version/:id",
+          route: "/version/1",
+          wrapper: Wrapper,
         });
         const variantLink = screen.queryByDataCy("build-variant-display-name");
         expect(variantLink).toBeDefined();
@@ -145,16 +145,16 @@ describe("variantTaskGroup", () => {
         expect(variantLink).toHaveAttribute(
           "href",
           getVersionRoute("1", {
-            variant: applyStrictRegex("some_variant"),
             page: 0,
+            variant: applyStrictRegex("some_variant"),
           }),
         );
       });
       it("should link to the variant filter if a different variant is selected", () => {
         render(<Component />, {
-          wrapper: Wrapper,
-          route: `/version/1?variant=${applyStrictRegex("some_other_variant")}`,
           path: "/version/:id",
+          route: `/version/1?variant=${applyStrictRegex("some_other_variant")}`,
+          wrapper: Wrapper,
         });
         const variantLink = screen.queryByDataCy("build-variant-display-name");
         expect(variantLink).toBeDefined();
@@ -162,16 +162,16 @@ describe("variantTaskGroup", () => {
         expect(variantLink).toHaveAttribute(
           "href",
           getVersionRoute("1", {
-            variant: applyStrictRegex("some_variant"),
             page: 0,
+            variant: applyStrictRegex("some_variant"),
           }),
         );
       });
       it("should remove the variant filter if the same variant is selected", () => {
         render(<Component />, {
-          wrapper: Wrapper,
-          route: `/version/1?variant=${applyStrictRegex("some_variant")}`,
           path: "/version/:id",
+          route: `/version/1?variant=${applyStrictRegex("some_variant")}`,
+          wrapper: Wrapper,
         });
         const variantLink = screen.queryByDataCy("build-variant-display-name");
         expect(variantLink).toBeDefined();
@@ -187,9 +187,9 @@ describe("variantTaskGroup", () => {
     describe("status badges", () => {
       it("should link to the variant and status filter if there is no variant selected", () => {
         render(<Component />, {
-          wrapper: Wrapper,
-          route: "/version/1",
           path: "/version/:id",
+          route: "/version/1",
+          wrapper: Wrapper,
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
@@ -202,9 +202,9 @@ describe("variantTaskGroup", () => {
         expect(successBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
+            page: 0,
             statuses: [TaskStatus.Succeeded],
             variant: applyStrictRegex("some_variant"),
-            page: 0,
           }),
         );
 
@@ -215,17 +215,17 @@ describe("variantTaskGroup", () => {
         expect(failedBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
+            page: 0,
             statuses: mapUmbrellaStatusToQueryParam[TaskStatusUmbrella.Failed],
             variant: applyStrictRegex("some_variant"),
-            page: 0,
           }),
         );
       });
       it("should link to the variant and status filter if a different variant is selected", () => {
         render(<Component />, {
-          wrapper: Wrapper,
-          route: `/version/1?variant=${applyStrictRegex("some_other_variant")}`,
           path: "/version/:id",
+          route: `/version/1?variant=${applyStrictRegex("some_other_variant")}`,
+          wrapper: Wrapper,
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
@@ -238,9 +238,9 @@ describe("variantTaskGroup", () => {
         expect(successBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
+            page: 0,
             statuses: [TaskStatus.Succeeded],
             variant: applyStrictRegex("some_variant"),
-            page: 0,
           }),
         );
 
@@ -251,17 +251,17 @@ describe("variantTaskGroup", () => {
         expect(failedBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
+            page: 0,
             statuses: mapUmbrellaStatusToQueryParam[TaskStatusUmbrella.Failed],
             variant: applyStrictRegex("some_variant"),
-            page: 0,
           }),
         );
       });
       it("should link to the variant and status filter if the same variant is selected and no status is selected", () => {
         render(<Component />, {
-          wrapper: Wrapper,
-          route: `/version/1?variant=${applyStrictRegex("some_variant")}`,
           path: "/version/:id",
+          route: `/version/1?variant=${applyStrictRegex("some_variant")}`,
+          wrapper: Wrapper,
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
@@ -274,9 +274,9 @@ describe("variantTaskGroup", () => {
         expect(successBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
+            page: 0,
             statuses: [TaskStatus.Succeeded],
             variant: applyStrictRegex("some_variant"),
-            page: 0,
           }),
         );
 
@@ -287,19 +287,19 @@ describe("variantTaskGroup", () => {
         expect(failedBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
+            page: 0,
             statuses: mapUmbrellaStatusToQueryParam[TaskStatusUmbrella.Failed],
             variant: applyStrictRegex("some_variant"),
-            page: 0,
           }),
         );
       });
       it("should remove the variant and status filter if the same variant and the same status is selected", () => {
         render(<Component />, {
-          wrapper: Wrapper,
+          path: "/version/:id",
           route: `/version/1?variant=${applyStrictRegex(
             "some_variant",
           )}&statuses=${TaskStatus.Succeeded}`,
-          path: "/version/:id",
+          wrapper: Wrapper,
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(

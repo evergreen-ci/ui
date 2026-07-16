@@ -20,8 +20,8 @@ const regexFormToGql = (
 ) =>
   hasRegexSelectors && regexForm
     ? regexForm.map((r) => ({
-        type: r.regexSelect,
         data: r.regexInput,
+        type: r.regexSelect,
       }))
     : [];
 
@@ -30,17 +30,17 @@ const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
     return null;
   }
   return {
-    url: webhookInput.urlInput,
-    // Use existing secret if it was already generated, otherwise generate a new secret.
-    secret: webhookInput.secretInput || generateWebhookSecret(),
     headers:
       webhookInput.httpHeaders?.map(({ keyInput, valueInput }) => ({
         key: keyInput,
         value: valueInput,
       })) ?? [],
-    retries: webhookInput.retryInput ?? 0,
     minDelayMs: webhookInput.minDelayInput ?? 0,
+    retries: webhookInput.retryInput ?? 0,
+    // Use existing secret if it was already generated, otherwise generate a new secret.
+    secret: webhookInput.secretInput || generateWebhookSecret(),
     timeoutMs: webhookInput.timeoutInput ?? 0,
+    url: webhookInput.urlInput,
   };
 };
 
@@ -49,8 +49,8 @@ const jiraFormToGql = (jiraInput: Notification["jiraIssueInput"]) => {
     return null;
   }
   return {
-    project: jiraInput.projectInput,
     issueType: jiraInput.issueInput,
+    project: jiraInput.projectInput,
   };
 };
 
@@ -107,8 +107,8 @@ export const getGqlPayload =
 
     const selectors = Object.entries(triggerData)
       .map(([key, value]) => ({
-        type: key,
         data: value.toString(),
+        type: key,
       }))
       .filter(({ type }) => allowedSelectors.has(type));
 
@@ -118,19 +118,19 @@ export const getGqlPayload =
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       regex_selectors: regexData,
       resource_type: resourceType,
-      selectors: [{ type: "project", data: projectId }, ...selectors],
+      selectors: [{ data: projectId, type: "project" }, ...selectors],
       subscriber: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        type: method,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        target: subscriber,
-        webhookSubscriber:
-          method === NotificationMethods.WEBHOOK
-            ? webhookFormToGql(subscriptionData?.notification?.webhookInput)
-            : undefined,
         jiraIssueSubscriber:
           method === NotificationMethods.JIRA_ISSUE
             ? jiraFormToGql(subscriptionData?.notification?.jiraIssueInput)
+            : undefined,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        target: subscriber,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        type: method,
+        webhookSubscriber:
+          method === NotificationMethods.WEBHOOK
+            ? webhookFormToGql(subscriptionData?.notification?.webhookInput)
             : undefined,
       },
       trigger,

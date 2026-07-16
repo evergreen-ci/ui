@@ -12,11 +12,11 @@ vi.mock("@sentry/react", async () => {
     await vi.importActual<typeof import("@sentry/react")>("@sentry/react");
   return {
     ...original,
+    addBreadcrumb: vi.fn(),
+    captureException: vi.fn(),
     // Override just `isInitialized`
     isInitialized: vi.fn(() => false),
-    captureException: vi.fn(),
     setTags: vi.fn(),
-    addBreadcrumb: vi.fn(),
   };
 });
 

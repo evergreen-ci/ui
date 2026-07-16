@@ -34,28 +34,28 @@ const onSaveOptions: {
   description: string;
 }[] = [
   {
-    value: DistroOnSaveOperation.None,
-    label: "Nothing",
     description:
       "Apply updated distro settings only to hosts created in the future; existing hosts keep their current configuration.",
+    label: "Nothing",
+    value: DistroOnSaveOperation.None,
   },
   {
-    value: DistroOnSaveOperation.Decommission,
-    label: "Decommission hosts of this distro",
     description:
       "Mark all hosts of this distro for termination after they finish their current work. Evergreen stops scheduling new tasks on them and cleans them up.",
+    label: "Decommission hosts of this distro",
+    value: DistroOnSaveOperation.Decommission,
   },
   {
-    value: DistroOnSaveOperation.RestartJasper,
-    label: "Restart Jasper service on running hosts of this distro",
     description:
       "Restart the Jasper process management service on running hosts so Evergreen can restart agents and pick up the new configuration.",
+    label: "Restart Jasper service on running hosts of this distro",
+    value: DistroOnSaveOperation.RestartJasper,
   },
   {
-    value: DistroOnSaveOperation.Reprovision,
-    label: "Reprovision running hosts of this distro",
     description:
       "Rebuild running hosts of this distro with the updated configuration. This restarts agents and may briefly interrupt running work.",
+    label: "Reprovision running hosts of this distro",
+    value: DistroOnSaveOperation.Reprovision,
   },
 ];
 

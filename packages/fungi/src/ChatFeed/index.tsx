@@ -65,8 +65,8 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
         return {
           body: {
             ...(bodyData ?? {}),
-            message: outgoingMessages[outgoingMessages.length - 1],
             id,
+            message: outgoingMessages[outgoingMessages.length - 1],
           },
         };
       },
@@ -82,11 +82,11 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
       ? transformMessage(message, { pendingChips: chips })
       : message;
     sendMessage({
-      text: transformed,
       metadata: {
         chips,
         originalMessage: message,
       },
+      text: transformed,
     });
     clearChips();
   };

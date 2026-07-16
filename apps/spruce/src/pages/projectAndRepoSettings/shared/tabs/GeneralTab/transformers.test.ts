@@ -32,139 +32,139 @@ describe("project data", () => {
 
 const repoForm: GeneralFormState = {
   generalConfiguration: {
-    repositoryInfo: {
-      owner: "evergreen-ci",
-      repo: "spruce",
-    },
     other: {
-      displayName: "",
       batchTime: 12,
+      displayName: "",
       remotePath: "evergreen.yml",
       spawnHostScriptPath: "/test/path",
       versionControlEnabled: false,
     },
-  },
-  projectFlags: {
-    dispatchingDisabled: true,
-    debug: {
-      debugSpawnHostsDisabled: false,
-    },
-    scheduling: {
-      deactivatePrevious: true,
-      stepbackDisabled: true,
-      stepbackBisection: true,
-      deactivateStepback: null,
-    },
-    repotracker: {
-      repotrackerDisabled: false,
-      runEveryMainlineCommit: false,
-      waterfallDisabled: false,
-      forceRun: null,
-    },
-    patch: {
-      patchingDisabled: false,
+    repositoryInfo: {
+      owner: "evergreen-ci",
+      repo: "spruce",
     },
   },
   historicalTaskDataCaching: {
     disabledStatsCache: false,
   },
+  projectFlags: {
+    debug: {
+      debugSpawnHostsDisabled: false,
+    },
+    dispatchingDisabled: true,
+    patch: {
+      patchingDisabled: false,
+    },
+    repotracker: {
+      forceRun: null,
+      repotrackerDisabled: false,
+      runEveryMainlineCommit: false,
+      waterfallDisabled: false,
+    },
+    scheduling: {
+      deactivatePrevious: true,
+      deactivateStepback: null,
+      stepbackBisection: true,
+      stepbackDisabled: true,
+    },
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
-  repoId: "repo",
   projectRef: {
+    batchTime: 12,
+    deactivatePrevious: true,
+    debugSpawnHostsDisabled: false,
+    disabledStatsCache: false,
+    dispatchingDisabled: true,
+    displayName: "",
     id: "repo",
     owner: "evergreen-ci",
-    repo: "spruce",
-    displayName: "",
-    batchTime: 12,
+    patchingDisabled: false,
     remotePath: "evergreen.yml",
-    spawnHostScriptPath: "/test/path",
-    versionControlEnabled: false,
-    dispatchingDisabled: true,
-    waterfallDisabled: false,
-    deactivatePrevious: true,
+    repo: "spruce",
     repotrackerDisabled: false,
     runEveryMainlineCommit: false,
-    debugSpawnHostsDisabled: false,
-    patchingDisabled: false,
-    stepbackDisabled: true,
+    spawnHostScriptPath: "/test/path",
     stepbackBisect: true,
-    disabledStatsCache: false,
+    stepbackDisabled: true,
+    versionControlEnabled: false,
+    waterfallDisabled: false,
   },
+  repoId: "repo",
 };
 
 const projectForm: GeneralFormState = {
   generalConfiguration: {
-    enabled: false,
-    repositoryInfo: {
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     branch: null,
+    enabled: false,
     other: {
+      batchTime: 0,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       displayName: null,
-      projectID: "projectid",
       identifier: "project",
-      batchTime: 0,
+      projectID: "projectid",
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       remotePath: null,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       spawnHostScriptPath: null,
       versionControlEnabled: true,
     },
-  },
-  projectFlags: {
-    dispatchingDisabled: null,
-    debug: {
-      debugSpawnHostsDisabled: null,
-    },
-    scheduling: {
-      deactivatePrevious: null,
-      stepbackDisabled: null,
-      stepbackBisection: null,
-      deactivateStepback: null,
-    },
-    repotracker: {
-      repotrackerDisabled: null,
-      runEveryMainlineCommit: null,
-      waterfallDisabled: null,
-      forceRun: null,
-    },
-    patch: {
-      patchingDisabled: null,
+    repositoryInfo: {
+      owner: "evergreen-ci",
+      repo: "evergreen",
     },
   },
   historicalTaskDataCaching: {
     disabledStatsCache: null,
+  },
+  projectFlags: {
+    debug: {
+      debugSpawnHostsDisabled: null,
+    },
+    dispatchingDisabled: null,
+    patch: {
+      patchingDisabled: null,
+    },
+    repotracker: {
+      forceRun: null,
+      repotrackerDisabled: null,
+      runEveryMainlineCommit: null,
+      waterfallDisabled: null,
+    },
+    scheduling: {
+      deactivatePrevious: null,
+      deactivateStepback: null,
+      stepbackBisection: null,
+      stepbackDisabled: null,
+    },
   },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
   projectId: "project",
   projectRef: {
-    id: "project",
-    enabled: false,
-    owner: "evergreen-ci",
-    repo: "evergreen",
-    branch: null,
-    displayName: null,
-    identifier: "project",
     batchTime: 0,
-    remotePath: null,
-    spawnHostScriptPath: null,
-    versionControlEnabled: true,
-    dispatchingDisabled: null,
-    waterfallDisabled: null,
+    branch: null,
     deactivatePrevious: null,
+    debugSpawnHostsDisabled: null,
+    disabledStatsCache: null,
+    dispatchingDisabled: null,
+    displayName: null,
+    enabled: false,
+    id: "project",
+    identifier: "project",
+    owner: "evergreen-ci",
+    patchingDisabled: null,
+    remotePath: null,
+    repo: "evergreen",
     repotrackerDisabled: null,
     runEveryMainlineCommit: null,
-    debugSpawnHostsDisabled: null,
-    patchingDisabled: null,
-    stepbackDisabled: null,
+    spawnHostScriptPath: null,
     stepbackBisect: null,
-    disabledStatsCache: null,
+    stepbackDisabled: null,
+    versionControlEnabled: true,
+    waterfallDisabled: null,
   },
 };

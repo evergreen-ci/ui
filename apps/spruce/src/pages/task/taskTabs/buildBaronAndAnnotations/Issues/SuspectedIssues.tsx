@@ -30,7 +30,7 @@ const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
     SuspectedIssuesQuery,
     SuspectedIssuesQueryVariables
   >(JIRA_SUSPECTED_ISSUES, {
-    variables: { taskId, execution },
+    variables: { execution, taskId },
   });
   useErrorToast(
     error,

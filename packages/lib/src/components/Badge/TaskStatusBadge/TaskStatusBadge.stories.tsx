@@ -14,14 +14,14 @@ const statuses = [
 ];
 
 export const Default: CustomStoryObj<typeof TaskStatusBadge> = {
+  args: {
+    status: TaskStatus.Succeeded,
+  },
   argTypes: {
     status: {
       control: "select",
       options: statuses,
     },
-  },
-  args: {
-    status: TaskStatus.Succeeded,
   },
   render: (args) => <TaskStatusBadge {...args} />,
 };

@@ -3,16 +3,16 @@ import FilterChips from ".";
 
 describe("filterChips", () => {
   const chips = [
-    { key: "test1", value: "value1", title: "Test 1" },
-    { key: "test2", value: "value2", title: "Test 2" },
-    { key: "test3", value: "value3", title: "Test 3" },
-    { key: "test4", value: "value4", title: "Test 4" },
-    { key: "test5", value: "value5", title: "Test 5" },
-    { key: "test6", value: "value6", title: "Test 6" },
-    { key: "test7", value: "value7", title: "Test 7" },
-    { key: "test8", value: "value8", title: "Test 8" },
-    { key: "test9", value: "value9", title: "Test 9" },
-    { key: "test10", value: "value10", title: "Test 10" },
+    { key: "test1", title: "Test 1", value: "value1" },
+    { key: "test2", title: "Test 2", value: "value2" },
+    { key: "test3", title: "Test 3", value: "value3" },
+    { key: "test4", title: "Test 4", value: "value4" },
+    { key: "test5", title: "Test 5", value: "value5" },
+    { key: "test6", title: "Test 6", value: "value6" },
+    { key: "test7", title: "Test 7", value: "value7" },
+    { key: "test8", title: "Test 8", value: "value8" },
+    { key: "test9", title: "Test 9", value: "value9" },
+    { key: "test10", title: "Test 10", value: "value10" },
   ];
   it("should not render any chips if there are none passed in", () => {
     const onRemove = vi.fn();
@@ -100,8 +100,8 @@ describe("filterChips", () => {
     await user.click(closeChip);
     expect(onRemove).toHaveBeenCalledWith({
       key: "test1",
-      value: "value1",
       title: "Test 1",
+      value: "value1",
     });
   });
 });

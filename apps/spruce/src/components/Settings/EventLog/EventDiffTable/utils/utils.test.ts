@@ -28,18 +28,18 @@ describe("getChangedPaths", () => {
   it("returns nested changed keys in dot notation", () => {
     const oldObj = {
       user: {
-        name: "John",
         location: {
           city: "NYC",
         },
+        name: "John",
       },
     };
     const newObj = {
       user: {
-        name: "Jane",
         location: {
           city: "LA",
         },
+        name: "Jane",
       },
     };
 
@@ -88,18 +88,6 @@ describe("getChangedPaths", () => {
 });
 
 const exampleAddition = {
-  before: {
-    __typename: "ProjectEventSettings",
-    projectRef: {
-      __typename: "Project",
-      identifier: "viewTest",
-      patchTriggerAliases: [],
-    },
-    vars: {
-      __typename: "ProjectVars",
-      vars: { newVariable: "so new" },
-    },
-  },
   after: {
     __typename: "ProjectEventSettings",
     projectRef: {
@@ -118,27 +106,21 @@ const exampleAddition = {
       vars: { newVariable: "so new" },
     },
   },
-};
-
-const exampleUpdate = {
   before: {
     __typename: "ProjectEventSettings",
     projectRef: {
       __typename: "Project",
       identifier: "viewTest",
-      patchTriggerAliases: [
-        {
-          __typename: "PatchTriggerAlias",
-          alias: "newAlias",
-          childProjectIdentifier: "evg",
-        },
-      ],
+      patchTriggerAliases: [],
     },
     vars: {
       __typename: "ProjectVars",
       vars: { newVariable: "so new" },
     },
   },
+};
+
+const exampleUpdate = {
   after: {
     __typename: "ProjectEventSettings",
     projectRef: {
@@ -157,21 +139,27 @@ const exampleUpdate = {
       vars: { newVariable: "so new" },
     },
   },
-};
-
-const exampleDeletion = {
   before: {
     __typename: "ProjectEventSettings",
     projectRef: {
       __typename: "Project",
       identifier: "viewTest",
-      patchTriggerAliases: [],
+      patchTriggerAliases: [
+        {
+          __typename: "PatchTriggerAlias",
+          alias: "newAlias",
+          childProjectIdentifier: "evg",
+        },
+      ],
     },
     vars: {
       __typename: "ProjectVars",
       vars: { newVariable: "so new" },
     },
   },
+};
+
+const exampleDeletion = {
   after: {
     __typename: "ProjectEventSettings",
     projectRef: {
@@ -184,6 +172,18 @@ const exampleDeletion = {
       vars: {},
     },
   },
+  before: {
+    __typename: "ProjectEventSettings",
+    projectRef: {
+      __typename: "Project",
+      identifier: "viewTest",
+      patchTriggerAliases: [],
+    },
+    vars: {
+      __typename: "ProjectVars",
+      vars: { newVariable: "so new" },
+    },
+  },
 };
 
 describe("getEventDiffLines", () => {
@@ -194,9 +194,9 @@ describe("getEventDiffLines", () => {
     );
     expect(diffLines).toStrictEqual([
       {
-        key: "projectRef.patchTriggerAliases[0].alias",
-        before: "newAlias",
         after: "noLongerNewAlias",
+        before: "newAlias",
+        key: "projectRef.patchTriggerAliases[0].alias",
       },
     ]);
   });
@@ -207,14 +207,14 @@ describe("getEventDiffLines", () => {
     );
     expect(diffLines).toStrictEqual([
       {
-        key: "projectRef.patchTriggerAliases[0].alias",
-        before: undefined,
         after: "newAlias",
+        before: undefined,
+        key: "projectRef.patchTriggerAliases[0].alias",
       },
       {
-        key: "projectRef.patchTriggerAliases[0].childProjectIdentifier",
-        before: undefined,
         after: "evg",
+        before: undefined,
+        key: "projectRef.patchTriggerAliases[0].childProjectIdentifier",
       },
     ]);
   });
@@ -225,9 +225,9 @@ describe("getEventDiffLines", () => {
     );
     expect(diffLines).toStrictEqual([
       {
-        key: "vars.vars.newVariable",
-        before: "so new",
         after: undefined,
+        before: "so new",
+        key: "vars.vars.newVariable",
       },
     ]);
   });

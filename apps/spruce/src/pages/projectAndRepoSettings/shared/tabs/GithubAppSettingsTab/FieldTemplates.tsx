@@ -34,6 +34,8 @@ const HeaderLabel = styled.span`
 
 const columns: LGColumnDef<ArrayItem>[] = [
   {
+    accessorKey: "children",
+    cell: ({ row }) => row.original.children,
     header: () => (
       <>
         <HeaderLabel>Requester Type</HeaderLabel>
@@ -42,7 +44,5 @@ const columns: LGColumnDef<ArrayItem>[] = [
         </HeaderLabel>
       </>
     ),
-    accessorKey: "children",
-    cell: ({ row }) => row.original.children,
   },
 ];

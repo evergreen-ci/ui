@@ -23,50 +23,50 @@ import {
 
 const imageEventEntryActionTreeData = [
   {
+    key: ImageEventEntryAction.Added,
     title: "ADDED",
     value: ImageEventEntryAction.Added,
-    key: ImageEventEntryAction.Added,
   },
   {
+    key: ImageEventEntryAction.Updated,
     title: "UPDATED",
     value: ImageEventEntryAction.Updated,
-    key: ImageEventEntryAction.Updated,
   },
   {
+    key: ImageEventEntryAction.Deleted,
     title: "DELETED",
     value: ImageEventEntryAction.Deleted,
-    key: ImageEventEntryAction.Deleted,
   },
 ];
 
 const imageEventTypeTreeData = [
   {
+    key: ImageEventType.Package,
     title: "Package",
     value: ImageEventType.Package,
-    key: ImageEventType.Package,
   },
   {
+    key: ImageEventType.Toolchain,
     title: "Toolchain",
     value: ImageEventType.Toolchain,
-    key: ImageEventType.Toolchain,
   },
   {
+    key: ImageEventType.OperatingSystem,
     title: "OS",
     value: ImageEventType.OperatingSystem,
-    key: ImageEventType.OperatingSystem,
   },
   {
+    key: ImageEventType.File,
     title: "File",
     value: ImageEventType.File,
-    key: ImageEventType.File,
   },
 ];
 
 const eventTypeToLabel = {
+  [ImageEventType.File]: "File",
+  [ImageEventType.OperatingSystem]: "OS",
   [ImageEventType.Package]: "Package",
   [ImageEventType.Toolchain]: "Toolchain",
-  [ImageEventType.OperatingSystem]: "OS",
-  [ImageEventType.File]: "File",
 };
 
 interface ImageEventLogTableProps {
@@ -87,23 +87,23 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     defaultColumn: {
       enableColumnFilter: false,
     },
+    enableGlobalFilter: true,
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFilteredRowModel: getFilteredRowModel(),
+    globalFilterFn: filterFns.includesString,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setColumnFilters,
       (f) =>
         sendEvent({
           name: "Filtered table",
-          "table.name": "Image Event Log",
           "table.filters": f,
+          "table.name": "Image Event Log",
         }),
     ),
     state: {
       columnFilters,
       globalFilter,
     },
-    getFilteredRowModel: getFilteredRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
-    enableGlobalFilter: true,
-    globalFilterFn: filterFns.includesString,
   });
 
   const hasFilters = columnFilters.length > 0 || globalFilter;
@@ -128,10 +128,11 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
 
 const columns: LGColumnDef<ImageEventEntry>[] = [
   {
-    header: "Name",
     accessorKey: "name",
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
     enableColumnFilter: true,
     filterFn: filterFns.includesString,
+    header: "Name",
     meta: {
       search: {
         "data-cy": "image-event-log-name-filter",
@@ -139,10 +140,8 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
       },
       width: "25%",
     },
-    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
   },
   {
-    header: "Type",
     accessorKey: "type",
     cell: ({ getValue }) => {
       const value = getValue() as ImageEventType;
@@ -150,6 +149,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     },
     enableColumnFilter: true,
     filterFn: filterFns.arrIncludesSome,
+    header: "Type",
     meta: {
       treeSelect: {
         "data-cy": "image-event-log-type-filter",
@@ -160,28 +160,17 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     },
   },
   {
-    header: "Before",
     accessorKey: "before",
     cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
+    header: "Before",
   },
   {
-    header: "After",
     accessorKey: "after",
     cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
+    header: "After",
   },
   {
-    header: "Action",
     accessorKey: "action",
-    enableColumnFilter: true,
-    filterFn: filterFns.arrIncludesSome,
-    meta: {
-      treeSelect: {
-        "data-cy": "image-event-log-action-filter",
-        filterOptions: true,
-        options: imageEventEntryActionTreeData,
-      },
-      width: "5%",
-    },
     cell: ({ getValue }) => {
       const value = getValue() as ImageEventEntryAction;
       if (value === ImageEventEntryAction.Updated) {
@@ -193,6 +182,17 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
       if (value === ImageEventEntryAction.Added) {
         return <Badge variant={Variant.Green}>{value}</Badge>;
       }
+    },
+    enableColumnFilter: true,
+    filterFn: filterFns.arrIncludesSome,
+    header: "Action",
+    meta: {
+      treeSelect: {
+        "data-cy": "image-event-log-action-filter",
+        filterOptions: true,
+        options: imageEventEntryActionTreeData,
+      },
+      width: "5%",
     },
   },
 ];

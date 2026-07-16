@@ -22,15 +22,15 @@ export const FailingTests: React.FC<FailingTestsProps> = ({
   const { data, loading } = useQuery<TaskTestsQuery, TaskTestsQueryVariables>(
     TASK_TESTS,
     {
-      variables: {
-        id: taskId,
-        execution,
-        statusList: [TestStatus.Fail, TestStatus.SilentFail],
-        limitNum: FAILING_TEST_LIMIT,
-        testName: "",
-      },
       // TODO DEVPROD-27824: Remove "no-cache" policy.
       fetchPolicy: "no-cache",
+      variables: {
+        execution,
+        id: taskId,
+        limitNum: FAILING_TEST_LIMIT,
+        statusList: [TestStatus.Fail, TestStatus.SilentFail],
+        testName: "",
+      },
     },
   );
   const { task } = data || {};

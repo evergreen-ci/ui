@@ -5,7 +5,7 @@ import { useLogContext } from "context/LogContext";
 const SectionControls = () => {
   const { sendEvent } = useLogWindowAnalytics();
   const { sectioning } = useLogContext();
-  const { sectionState, sectioningEnabled, toggleAllSections } = sectioning;
+  const { sectioningEnabled, sectionState, toggleAllSections } = sectioning;
   if (!sectioningEnabled) {
     return null;
   }

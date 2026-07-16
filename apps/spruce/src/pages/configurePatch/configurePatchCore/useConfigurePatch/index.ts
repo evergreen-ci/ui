@@ -47,12 +47,12 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   useEffect(() => {
     if (patch) {
       dispatch({
-        type: "updatePatchData",
-        description: patch.description,
-        buildVariants: variants.length > 0 ? [variants[0].name] : [],
-        params: patch.parameters,
-        variantTasks: initializeTaskState(variants, patch.variantsTasks),
         aliases: initializeAliasState(patch.patchTriggerAliases),
+        buildVariants: variants.length > 0 ? [variants[0].name] : [],
+        description: patch.description,
+        params: patch.parameters,
+        type: "updatePatchData",
+        variantTasks: initializeTaskState(variants, patch.variantsTasks),
       });
     }
   }, [patch, variants]);
@@ -72,9 +72,9 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   }, []);
 
   const setDescription = (description: string) =>
-    dispatch({ type: "setDescription", description });
+    dispatch({ description, type: "setDescription" });
   const setSelectedBuildVariants = (buildVariants: string[]) =>
-    dispatch({ type: "setSelectedBuildVariants", buildVariants });
+    dispatch({ buildVariants, type: "setSelectedBuildVariants" });
   const setSelectedBuildVariantTasks = (variantTasks: VariantTasksState) =>
     dispatch({
       type: "setSelectedBuildVariantTasks",
@@ -82,14 +82,14 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     });
   const setSelectedAliases = (aliases: AliasState) =>
     dispatch({
-      type: "setSelectedAliases",
       aliases,
+      type: "setSelectedAliases",
     });
   const setSelectedTab = (t: ConfigurePatchPageTabs) => {
-    dispatch({ type: "setSelectedTab", tab: t });
+    dispatch({ tab: t, type: "setSelectedTab" });
   };
   const setPatchParams = (params: ParameterInput[]) =>
-    dispatch({ type: "setPatchParams", params });
+    dispatch({ params, type: "setPatchParams" });
 
   return {
     ...state,

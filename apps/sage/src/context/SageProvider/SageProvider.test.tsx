@@ -19,7 +19,7 @@ describe("SageProvider", () => {
   });
 
   it("sets isAuthenticated true when /login returns ok", async () => {
-    mockGet.mockResolvedValue({ ok: true, data: {} });
+    mockGet.mockResolvedValue({ data: {}, ok: true });
     const { result } = renderHook(useSageContext, { wrapper });
     await waitFor(() => {
       expect(result.current.auth.isAuthenticated).toBe(true);
@@ -40,7 +40,7 @@ describe("SageProvider", () => {
   });
 
   it("calling logout sets isAuthenticated to false", async () => {
-    mockGet.mockResolvedValue({ ok: true, data: {} });
+    mockGet.mockResolvedValue({ data: {}, ok: true });
     const { result } = renderHook(useSageContext, { wrapper });
     await waitFor(() => {
       expect(result.current.auth.isAuthenticated).toBe(true);
@@ -54,7 +54,7 @@ describe("SageProvider", () => {
   });
 
   it("provides a SageClient instance", async () => {
-    mockGet.mockResolvedValue({ ok: true, data: {} });
+    mockGet.mockResolvedValue({ data: {}, ok: true });
     const { result } = renderHook(useSageContext, { wrapper });
     await waitFor(() => {
       expect(result.current.client).toBeDefined();

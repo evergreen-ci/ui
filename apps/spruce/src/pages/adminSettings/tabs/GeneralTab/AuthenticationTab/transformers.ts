@@ -21,18 +21,28 @@ export const gqlToForm = ((data) => {
 
   return {
     authentication: {
+      github: {
+        appId: github?.appId ?? undefined,
+        clientId: github?.clientId ?? "",
+        clientSecret: github?.clientSecret ?? "",
+        defaultOwner: github?.defaultOwner ?? undefined,
+        defaultRepo: github?.defaultRepo ?? undefined,
+        organization: github?.organization ?? "",
+        users: github?.users ?? [],
+      },
       globalConfig: {
         allowServiceUsers: allowServiceUsers ?? false,
         backgroundReauthMinutes: backgroundReauthMinutes ?? 0,
         preferredType: preferredType ?? null,
       },
-      okta: {
-        clientId: okta?.clientId ?? "",
-        clientSecret: okta?.clientSecret ?? "",
-        issuer: okta?.issuer ?? "",
-        userGroup: okta?.userGroup ?? "",
-        expireAfterMinutes: okta?.expireAfterMinutes ?? 0,
-        scopes: okta?.scopes ?? [],
+      kanopy: {
+        headerName: kanopy?.headerName ?? "",
+        issuer: kanopy?.issuer ?? "",
+        keysetURL: kanopy?.keysetURL ?? "",
+      },
+      multi: {
+        readOnly: multi?.readOnly ?? [],
+        readWrite: multi?.readWrite ?? [],
       },
       naive: {
         users:
@@ -43,28 +53,18 @@ export const gqlToForm = ((data) => {
             username: user?.username ?? "",
           })) ?? [],
       },
-      github: {
-        appId: github?.appId ?? undefined,
-        clientId: github?.clientId ?? "",
-        clientSecret: github?.clientSecret ?? "",
-        defaultOwner: github?.defaultOwner ?? undefined,
-        defaultRepo: github?.defaultRepo ?? undefined,
-        organization: github?.organization ?? "",
-        users: github?.users ?? [],
-      },
-      multi: {
-        readWrite: multi?.readWrite ?? [],
-        readOnly: multi?.readOnly ?? [],
-      },
-      kanopy: {
-        headerName: kanopy?.headerName ?? "",
-        issuer: kanopy?.issuer ?? "",
-        keysetURL: kanopy?.keysetURL ?? "",
-      },
       oauth: {
         clientId: oauth?.clientId ?? "",
         connectorId: oauth?.connectorId ?? "",
         issuer: oauth?.issuer ?? "",
+      },
+      okta: {
+        clientId: okta?.clientId ?? "",
+        clientSecret: okta?.clientSecret ?? "",
+        expireAfterMinutes: okta?.expireAfterMinutes ?? 0,
+        issuer: okta?.issuer ?? "",
+        scopes: okta?.scopes ?? [],
+        userGroup: okta?.userGroup ?? "",
       },
     },
   };
@@ -94,11 +94,6 @@ export const formToGql = (({ authentication }) => {
         issuer: kanopy.issuer,
         keysetURL: kanopy.keysetURL,
       },
-      oauth: {
-        clientId: oauth.clientId,
-        connectorId: oauth.connectorId,
-        issuer: oauth.issuer,
-      },
       multi: {
         readOnly: multi.readOnly,
         readWrite: multi.readWrite,
@@ -111,13 +106,18 @@ export const formToGql = (({ authentication }) => {
           username: user.username,
         })),
       },
+      oauth: {
+        clientId: oauth.clientId,
+        connectorId: oauth.connectorId,
+        issuer: oauth.issuer,
+      },
       okta: {
         clientId: okta.clientId,
         clientSecret: okta.clientSecret,
         expireAfterMinutes: okta.expireAfterMinutes,
         issuer: okta.issuer,
-        userGroup: okta.userGroup,
         scopes: okta.scopes,
+        userGroup: okta.userGroup,
       },
       preferredType: globalConfig.preferredType,
     },

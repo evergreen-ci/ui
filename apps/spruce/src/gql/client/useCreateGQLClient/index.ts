@@ -68,7 +68,6 @@ export const useCreateGQLClient = (): ApolloClient | undefined => {
     setGqlClient(
       new ApolloClient({
         cache,
-        localState: new LocalState(), // Must define if using @client fields.
         link: authenticateIfSuccessfulLink(() =>
           dispatchAuthenticatedRef.current(),
         )
@@ -79,11 +78,12 @@ export const useCreateGQLClient = (): ApolloClient | undefined => {
           .concat(pausePollingLink)
           .concat(
             new HttpLink({
-              uri: getGQLUrl(),
               credentials: "include",
               headers: getUserStagingHeader(),
+              uri: getGQLUrl(),
             }),
           ),
+        localState: new LocalState(), // Must define if using @client fields.
       }),
     );
   }, [secretFields]);

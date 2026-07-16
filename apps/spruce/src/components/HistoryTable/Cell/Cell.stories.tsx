@@ -7,11 +7,10 @@ export default {
 } satisfies CustomMeta<typeof TaskCell>;
 
 export const TaskCellStory: CustomStoryObj<typeof TaskCell> = {
-  render: (args) => <TaskCell {...args} />,
   args: {
     task: {
-      id: "task-1",
       displayStatus: "success",
+      id: "task-1",
     },
   },
   parameters: {
@@ -20,24 +19,25 @@ export const TaskCellStory: CustomStoryObj<typeof TaskCell> = {
       route: "/task/task-1",
     },
   },
+  render: (args) => <TaskCell {...args} />,
 };
 
 export const EmptyCellStory: CustomStoryObj<typeof EmptyCell> = {
-  render: () => <EmptyCell />,
   args: {},
+  render: () => <EmptyCell />,
 };
 
 export const LoadingCellStory: CustomStoryObj<typeof LoadingCell> = {
-  render: (args) => <LoadingCell {...args} />,
   args: {
     isHeader: false,
   },
+  render: (args) => <LoadingCell {...args} />,
 };
 
 export const ColumnHeaderCellStory: CustomStoryObj<typeof ColumnHeaderCell> = {
-  render: (args) => <ColumnHeaderCell {...args} />,
   args: {
-    trimmedDisplayName: "displayName",
     fullDisplayName: "LongWindedDisplayName",
+    trimmedDisplayName: "displayName",
   },
+  render: (args) => <ColumnHeaderCell {...args} />,
 };

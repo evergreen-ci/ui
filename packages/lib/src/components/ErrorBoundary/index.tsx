@@ -16,7 +16,7 @@ export const ErrorBoundary: React.FC<{
   children: React.ReactNode;
   homeURL: string;
   FallbackComponent?: React.ComponentType<{ homeURL: string }>;
-}> = ({ FallbackComponent = ErrorFallback, children, homeURL }) => {
+}> = ({ children, FallbackComponent = ErrorFallback, homeURL }) => {
   const shouldUseSentry = isInitialized();
 
   if (shouldUseSentry) {

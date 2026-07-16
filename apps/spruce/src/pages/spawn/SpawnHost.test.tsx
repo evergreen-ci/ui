@@ -36,8 +36,8 @@ import { SpawnHost } from "./SpawnHost";
 const setPageVisibility = (visibilityState: "visible" | "hidden") => {
   act(() => {
     Object.defineProperty(document, "visibilityState", {
-      value: visibilityState,
       configurable: true,
+      value: visibilityState,
     });
     document.dispatchEvent(new window.Event("visibilitychange"));
   });
@@ -46,8 +46,8 @@ const setPageVisibility = (visibilityState: "visible" | "hidden") => {
 describe("SpawnHost", () => {
   beforeEach(() => {
     Object.defineProperty(document, "visibilityState", {
-      value: "visible",
       configurable: true,
+      value: "visible",
     });
   });
 
@@ -94,34 +94,34 @@ describe("SpawnHost", () => {
 });
 
 const baseSpawnHost: Omit<MyHost, "id" | "status"> = {
-  expiration: new Date("2021-10-28T22:37:40Z"),
+  __typename: "Host",
+  availabilityZone: "us-east-1c",
+  displayName: "",
   distro: {
-    isVirtualWorkStation: true,
+    __typename: "DistroInfo",
     id: "ubuntu1804-workstation",
+    isVirtualWorkStation: true,
+    isWindows: false,
     user: "ubuntu",
     workDir: "/home/ubuntu",
-    isWindows: false,
-    __typename: "DistroInfo",
   },
-  hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
-  homeVolumeID: "vol-07fa9f6b5c2067e34",
+  expiration: new Date("2021-10-28T22:37:40Z"),
   homeVolume: {
-    id: "home-volume-id",
     displayName: "",
+    id: "home-volume-id",
   },
-  instanceType: "m5.xlarge",
+  homeVolumeID: "vol-07fa9f6b5c2067e34",
+  hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
   instanceTags: [],
-  volumes: [],
+  instanceType: "m5.xlarge",
   noExpiration: false,
   persistentDnsName: "",
   provider: "ec2-fleet",
   startedBy: "stssss.arst",
   tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
-  user: "ubuntu",
   uptime: new Date("2020-10-14T22:37:40Z"),
-  displayName: "",
-  availabilityZone: "us-east-1c",
-  __typename: "Host",
+  user: "ubuntu",
+  volumes: [],
 };
 
 const spawnHost: MyHost = {
@@ -142,11 +142,11 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
       distros: [
         {
           __typename: "Distro",
-          name: "test-distro",
           adminOnly: false,
           aliases: [],
           availableRegions: ["us-east-1"],
           isVirtualWorkStation: false,
+          name: "test-distro",
         },
       ],
     },

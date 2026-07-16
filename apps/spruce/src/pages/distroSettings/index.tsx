@@ -102,7 +102,7 @@ const DistroSettings: React.FC = () => {
             <SideNavItemLink
               data-cy="navitem-task-queue-link"
               onClick={() =>
-                sendEvent({ name: "Clicked link", link: "Task Queue" })
+                sendEvent({ link: "Task Queue", name: "Clicked link" })
               }
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               to={getTaskQueueRoute(distroId)}
@@ -114,8 +114,8 @@ const DistroSettings: React.FC = () => {
                 data-cy="navitem-image-build-information-link"
                 onClick={() =>
                   sendEvent({
-                    name: "Clicked link",
                     link: "Image Build Information",
+                    name: "Clicked link",
                   })
                 }
                 to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
@@ -128,8 +128,8 @@ const DistroSettings: React.FC = () => {
                 data-cy="navitem-image-event-log-link"
                 onClick={() =>
                   sendEvent({
-                    name: "Clicked link",
                     link: "Image Event Log",
+                    name: "Clicked link",
                   })
                 }
                 to={getImageRoute(imageId, ImageTabRoutes.EventLog)}

@@ -37,47 +37,47 @@ interface ProviderSettingsList {
 export const formProviderSettings = (
   providerSettings: Partial<ProviderSettingsList> = {},
 ) => ({
-  staticProviderSettings: {
-    userData: providerSettings.user_data ?? "",
-    mergeUserData: providerSettings.merge_user_data_parts ?? false,
-    securityGroups: providerSettings.security_group_ids ?? [],
-    hosts: providerSettings.hosts?.map((h) => ({ name: h.name })) ?? [],
-  },
   dockerProviderSettings: {
-    userData: providerSettings.user_data ?? "",
-    mergeUserData: providerSettings.merge_user_data_parts ?? false,
-    securityGroups: providerSettings.security_group_ids ?? [],
-    imageUrl: providerSettings.image_url ?? "",
     buildType: (providerSettings.build_type ?? "") as BuildType,
-    registryUsername: providerSettings.docker_registry_user ?? "",
+    imageUrl: providerSettings.image_url ?? "",
+    mergeUserData: providerSettings.merge_user_data_parts ?? false,
     registryPassword: providerSettings.docker_registry_pw ?? "",
+    registryUsername: providerSettings.docker_registry_user ?? "",
+    securityGroups: providerSettings.security_group_ids ?? [],
+    userData: providerSettings.user_data ?? "",
   },
   ec2FleetProviderSettings: {
-    region: providerSettings.region ?? "",
-    userData: providerSettings.user_data ?? "",
-    mergeUserData: providerSettings.merge_user_data_parts ?? false,
-    securityGroups: providerSettings.security_group_ids ?? [],
     amiId: providerSettings.ami ?? "",
-    instanceType: providerSettings.instance_type ?? "",
-    sshKeyName: providerSettings.key_name ?? "",
-    instanceProfileARN: providerSettings.iam_instance_profile_arn ?? "",
     doNotAssignPublicIPv4Address:
       providerSettings.do_not_assign_public_ipv4_address ?? false,
     elasticIpsEnabled: providerSettings.elastic_ips_enabled ?? false,
-    vpcOptions: {
-      useVpc: providerSettings.is_vpc ?? false,
-      subnetId: providerSettings.subnet_id ?? "",
-      subnetPrefix: providerSettings.vpc_name ?? "",
-    },
+    instanceProfileARN: providerSettings.iam_instance_profile_arn ?? "",
+    instanceType: providerSettings.instance_type ?? "",
+    mergeUserData: providerSettings.merge_user_data_parts ?? false,
     mountPoints:
       providerSettings.mount_points?.map((mp) => ({
         deviceName: mp.device_name,
+        iops: mp.iops,
+        size: mp.size,
+        throughput: mp.throughput,
         virtualName: mp.virtual_name,
         volumeType: mp.volume_type,
-        iops: mp.iops,
-        throughput: mp.throughput,
-        size: mp.size,
       })) ?? [],
+    region: providerSettings.region ?? "",
+    securityGroups: providerSettings.security_group_ids ?? [],
+    sshKeyName: providerSettings.key_name ?? "",
+    userData: providerSettings.user_data ?? "",
+    vpcOptions: {
+      subnetId: providerSettings.subnet_id ?? "",
+      subnetPrefix: providerSettings.vpc_name ?? "",
+      useVpc: providerSettings.is_vpc ?? false,
+    },
+  },
+  staticProviderSettings: {
+    hosts: providerSettings.hosts?.map((h) => ({ name: h.name })) ?? [],
+    mergeUserData: providerSettings.merge_user_data_parts ?? false,
+    securityGroups: providerSettings.security_group_ids ?? [],
+    userData: providerSettings.user_data ?? "",
   },
 });
 
@@ -90,48 +90,48 @@ export const gqlProviderSettings = (
 ) => {
   const { vpcOptions } = providerSettings;
   return {
-    staticProviderSettings: {
-      user_data: providerSettings.userData,
+    dockerProviderSettings: {
+      build_type: providerSettings.buildType,
+      docker_registry_pw: providerSettings.registryPassword,
+      docker_registry_user: providerSettings.registryUsername,
+      image_url: providerSettings.imageUrl,
       merge_user_data_parts: providerSettings.mergeUserData,
       security_group_ids: providerSettings.securityGroups,
+      user_data: providerSettings.userData,
+    },
+    ec2FleetProviderSettings: {
+      ami: providerSettings.amiId,
+      do_not_assign_public_ipv4_address:
+        providerSettings.doNotAssignPublicIPv4Address,
+      elastic_ips_enabled: providerSettings.elasticIpsEnabled,
+      iam_instance_profile_arn: providerSettings.instanceProfileARN,
+      instance_type: providerSettings.instanceType,
+      is_vpc: vpcOptions?.useVpc,
+      key_name: providerSettings.sshKeyName,
+      merge_user_data_parts: providerSettings.mergeUserData,
+      mount_points:
+        providerSettings.mountPoints?.map((mp) => ({
+          device_name: mp.deviceName,
+          iops: mp.iops,
+          size: mp.size,
+          throughput: mp.throughput,
+          virtual_name: mp.virtualName,
+          volume_type: mp.volumeType,
+        })) ?? [],
+      region: providerSettings.region,
+      security_group_ids: providerSettings.securityGroups,
+      subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
+      user_data: providerSettings.userData,
+      vpc_name: vpcOptions?.useVpc ? vpcOptions?.subnetPrefix : undefined,
+    },
+    staticProviderSettings: {
       hosts:
         providerSettings.hosts?.map((h) => ({
           name: h.name,
         })) ?? [],
-    },
-    dockerProviderSettings: {
-      user_data: providerSettings.userData,
       merge_user_data_parts: providerSettings.mergeUserData,
       security_group_ids: providerSettings.securityGroups,
-      image_url: providerSettings.imageUrl,
-      build_type: providerSettings.buildType,
-      docker_registry_user: providerSettings.registryUsername,
-      docker_registry_pw: providerSettings.registryPassword,
-    },
-    ec2FleetProviderSettings: {
-      region: providerSettings.region,
       user_data: providerSettings.userData,
-      merge_user_data_parts: providerSettings.mergeUserData,
-      security_group_ids: providerSettings.securityGroups,
-      ami: providerSettings.amiId,
-      instance_type: providerSettings.instanceType,
-      key_name: providerSettings.sshKeyName,
-      iam_instance_profile_arn: providerSettings.instanceProfileARN,
-      do_not_assign_public_ipv4_address:
-        providerSettings.doNotAssignPublicIPv4Address,
-      is_vpc: vpcOptions?.useVpc,
-      elastic_ips_enabled: providerSettings.elasticIpsEnabled,
-      subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
-      vpc_name: vpcOptions?.useVpc ? vpcOptions?.subnetPrefix : undefined,
-      mount_points:
-        providerSettings.mountPoints?.map((mp) => ({
-          device_name: mp.deviceName,
-          virtual_name: mp.virtualName,
-          volume_type: mp.volumeType,
-          iops: mp.iops,
-          throughput: mp.throughput,
-          size: mp.size,
-        })) ?? [],
     },
   };
 };

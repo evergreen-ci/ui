@@ -11,40 +11,22 @@ export const gqlToForm = ((data) => {
 
   return {
     providers: {
-      containerPools: {
-        pools:
-          containerPools?.pools?.map((pool) => ({
-            id: pool.id ?? "",
-            distro: pool.distro ?? "",
-            maxContainers: pool.maxContainers ?? 0,
-            port: pool.port ?? 0,
-          })) ?? [],
-      },
       aws: {
-        subnets:
-          providers?.aws?.subnets?.map((subnet) => ({
-            az: subnet.az ?? "",
-            subnetId: subnet.subnetId ?? "",
-          })) ?? [],
         accountRoles:
           providers?.aws?.accountRoles?.map((role) => ({
             account: role.account ?? "",
             role: role.role ?? "",
           })) ?? [],
+        alertableInstanceTypes: providers?.aws?.alertableInstanceTypes ?? [],
+        allowedInstanceTypes: providers?.aws?.allowedInstanceTypes ?? [],
+        allowedRegions: providers?.aws?.allowedRegions ?? [],
+        defaultSecurityGroup: providers?.aws?.defaultSecurityGroup ?? "",
         ec2Key: providers?.aws?.ec2Keys?.[0]?.key ?? "",
         ec2Secret: providers?.aws?.ec2Keys?.[0]?.secret ?? "",
-        parameterStorePrefix: parameterStore?.prefix ?? "",
-        defaultSecurityGroup: providers?.aws?.defaultSecurityGroup ?? "",
-        maxVolumeSizePerUser: providers?.aws?.maxVolumeSizePerUser ?? 0,
-        allowedInstanceTypes: providers?.aws?.allowedInstanceTypes ?? [],
-        alertableInstanceTypes: providers?.aws?.alertableInstanceTypes ?? [],
-        allowedRegions: providers?.aws?.allowedRegions ?? [],
-        ipamPoolID: providers?.aws?.ipamPoolID ?? "",
         elasticIPUsageRate: providers?.aws?.elasticIPUsageRate ?? 0,
-        persistentDNS: {
-          hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
-          domain: providers?.aws?.persistentDNS?.domain ?? "",
-        },
+        ipamPoolID: providers?.aws?.ipamPoolID ?? "",
+        maxVolumeSizePerUser: providers?.aws?.maxVolumeSizePerUser ?? 0,
+        parameterStorePrefix: parameterStore?.prefix ?? "",
         parserProject: {
           bucket: providers?.aws?.parserProject?.bucket ?? "",
           generatedJSONPrefix:
@@ -53,6 +35,24 @@ export const gqlToForm = ((data) => {
           prefix: providers?.aws?.parserProject?.prefix ?? "",
           secret: providers?.aws?.parserProject?.secret ?? "",
         },
+        persistentDNS: {
+          domain: providers?.aws?.persistentDNS?.domain ?? "",
+          hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
+        },
+        subnets:
+          providers?.aws?.subnets?.map((subnet) => ({
+            az: subnet.az ?? "",
+            subnetId: subnet.subnetId ?? "",
+          })) ?? [],
+      },
+      containerPools: {
+        pools:
+          containerPools?.pools?.map((pool) => ({
+            distro: pool.distro ?? "",
+            id: pool.id ?? "",
+            maxContainers: pool.maxContainers ?? 0,
+            port: pool.port ?? 0,
+          })) ?? [],
       },
       docker: {
         apiVersion: providers?.docker?.apiVersion ?? "",
@@ -68,8 +68,8 @@ export const formToGql = ((form: ProvidersFormState) => {
   return {
     containerPools: {
       pools: containerPools.pools.map((pool) => ({
-        id: pool.id,
         distro: pool.distro,
+        id: pool.id,
         maxContainers: pool.maxContainers,
         port: pool.port,
       })),
@@ -89,18 +89,14 @@ export const formToGql = ((form: ProvidersFormState) => {
         defaultSecurityGroup: aws.defaultSecurityGroup || undefined,
         ec2Keys: [
           {
-            name: "default", // We'll use a default name since we flattened this
             key: aws.ec2Key,
+            name: "default", // We'll use a default name since we flattened this
             secret: aws.ec2Secret,
           },
         ],
         elasticIPUsageRate: aws.elasticIPUsageRate || undefined,
         ipamPoolID: aws.ipamPoolID || undefined,
         maxVolumeSizePerUser: aws.maxVolumeSizePerUser || undefined,
-        persistentDNS: {
-          hostedZoneID: aws.persistentDNS.hostedZoneID,
-          domain: aws.persistentDNS.domain || undefined,
-        },
         parserProject: {
           bucket: aws.parserProject.bucket,
           generatedJSONPrefix:
@@ -108,6 +104,10 @@ export const formToGql = ((form: ProvidersFormState) => {
           key: aws.parserProject.key || undefined,
           prefix: aws.parserProject.prefix || undefined,
           secret: aws.parserProject.secret,
+        },
+        persistentDNS: {
+          domain: aws.persistentDNS.domain || undefined,
+          hostedZoneID: aws.persistentDNS.hostedZoneID,
         },
         subnets: aws.subnets.map((subnet) => ({
           az: subnet.az,

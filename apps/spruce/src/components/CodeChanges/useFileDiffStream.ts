@@ -60,9 +60,9 @@ export const useFileDiffStream = ({
   );
 
   return useHTMLStream({
-    url,
     containerRef,
-    spanName: "fetchFileDiff",
     processLine,
+    spanName: "fetchFileDiff",
+    url,
   });
 };

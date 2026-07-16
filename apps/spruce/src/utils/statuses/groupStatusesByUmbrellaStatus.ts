@@ -33,12 +33,12 @@ export const groupStatusesByUmbrellaStatus = (
       );
     } else {
       counts[umbrellaStatus] = {
-        count: stat.count,
-        statuses: toArray(taskStatusToCopy[stat.status as TaskStatus]),
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         color: mapTaskToBarchartColor[umbrellaStatus],
-        umbrellaStatus: umbrellaStatus as TaskStatusUmbrella,
+        count: stat.count,
         statusCounts: {},
+        statuses: toArray(taskStatusToCopy[stat.status as TaskStatus]),
+        umbrellaStatus: umbrellaStatus as TaskStatusUmbrella,
       };
     }
     if (!counts[umbrellaStatus].statusCounts[stat.status]) {
@@ -61,5 +61,5 @@ export const groupStatusesByUmbrellaStatus = (
     }
   });
 
-  return { stats, max, total };
+  return { max, stats, total };
 };

@@ -25,25 +25,25 @@ export const getHoneycombSystemMetricsUrl = (
 ): string => {
   const query = {
     calculations: [
-      { op: "AVG", column: "system.memory.usage.used" },
-      { op: "AVG", column: "system.cpu.utilization" },
-      { op: "RATE_AVG", column: "system.network.io.transmit" },
-      { op: "RATE_AVG", column: "system.network.io.receive" },
+      { column: "system.memory.usage.used", op: "AVG" },
+      { column: "system.cpu.utilization", op: "AVG" },
+      { column: "system.network.io.transmit", op: "RATE_AVG" },
+      { column: "system.network.io.receive", op: "RATE_AVG" },
     ].concat(
       diskDevices.flatMap((device) => [
-        { op: "RATE_AVG", column: `system.disk.io.${device}.read` },
-        { op: "RATE_AVG", column: `system.disk.io.${device}.write` },
-        { op: "RATE_AVG", column: `system.disk.operations.${device}.read` },
+        { column: `system.disk.io.${device}.read`, op: "RATE_AVG" },
+        { column: `system.disk.io.${device}.write`, op: "RATE_AVG" },
+        { column: `system.disk.operations.${device}.read`, op: "RATE_AVG" },
         {
-          op: "RATE_AVG",
           column: `system.disk.operations.${device}.write`,
+          op: "RATE_AVG",
         },
-        { op: "RATE_AVG", column: `system.disk.io_time.${device}` },
+        { column: `system.disk.io_time.${device}`, op: "RATE_AVG" },
       ]),
     ),
-    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
-    start_time: getUnixTime(startTs),
     end_time: getUnixTime(endTs),
+    filters: [{ column: "evergreen.task.id", op: "=", value: taskId }],
+    start_time: getUnixTime(startTs),
   };
 
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(
@@ -91,48 +91,48 @@ export const getHoneycombTaskCostUrl = (
 ): string => {
   const query = {
     calculations: [
-      { op: "MAX", column: "evergreen.task.adjusted_cost" },
-      { op: "MAX", column: "evergreen.task.on_demand_cost" },
+      { column: "evergreen.task.adjusted_cost", op: "MAX" },
+      { column: "evergreen.task.on_demand_cost", op: "MAX" },
       {
-        op: "MAX",
         column: "evergreen.task.s3_cost.adjusted_artifact_put_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.task.s3_cost.on_demand_artifact_put_cost",
-      },
-      { op: "MAX", column: "evergreen.task.s3_cost.adjusted_log_put_cost" },
-      { op: "MAX", column: "evergreen.task.s3_cost.on_demand_log_put_cost" },
-      {
         op: "MAX",
+      },
+      { column: "evergreen.task.s3_cost.adjusted_log_put_cost", op: "MAX" },
+      { column: "evergreen.task.s3_cost.on_demand_log_put_cost", op: "MAX" },
+      {
         column: "evergreen.task.s3_cost.adjusted_artifact_storage_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.task.s3_cost.on_demand_artifact_storage_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.task.s3_cost.adjusted_log_storage_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.task.s3_cost.on_demand_log_storage_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.task.s3_cost.artifact_put_requests",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.task.s3_cost.artifact_upload_bytes",
+        op: "MAX",
       },
-      { op: "MAX", column: "evergreen.task.s3_cost.log_put_requests" },
-      { op: "MAX", column: "evergreen.task.s3_cost.log_upload_bytes" },
+      { column: "evergreen.task.s3_cost.log_put_requests", op: "MAX" },
+      { column: "evergreen.task.s3_cost.log_upload_bytes", op: "MAX" },
     ],
-    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
-    start_time: getUnixTime(startTs),
     end_time: getUnixTime(endTs) + 300,
+    filters: [{ column: "evergreen.task.id", op: "=", value: taskId }],
+    start_time: getUnixTime(startTs),
   };
 
   return buildHoneycombStatUrl("evergreen", query);
@@ -152,54 +152,54 @@ export const getHoneycombVersionCostUrl = (
 ): string => {
   const query = {
     calculations: [
-      { op: "MAX", column: "evergreen.version.adjusted_cost" },
-      { op: "MAX", column: "evergreen.version.on_demand_cost" },
+      { column: "evergreen.version.adjusted_cost", op: "MAX" },
+      { column: "evergreen.version.on_demand_cost", op: "MAX" },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.adjusted_artifact_put_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.on_demand_artifact_put_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.adjusted_log_put_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.on_demand_log_put_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.adjusted_artifact_storage_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.on_demand_artifact_storage_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.adjusted_log_storage_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.on_demand_log_storage_cost",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.artifact_put_requests",
+        op: "MAX",
       },
       {
-        op: "MAX",
         column: "evergreen.version.s3_cost.artifact_upload_bytes",
+        op: "MAX",
       },
-      { op: "MAX", column: "evergreen.version.s3_cost.log_put_requests" },
-      { op: "MAX", column: "evergreen.version.s3_cost.log_upload_bytes" },
+      { column: "evergreen.version.s3_cost.log_put_requests", op: "MAX" },
+      { column: "evergreen.version.s3_cost.log_upload_bytes", op: "MAX" },
     ],
-    filters: [{ op: "=", column: "evergreen.version.id", value: versionId }],
-    start_time: getUnixTime(startTs),
     end_time: getUnixTime(endTs) + 300,
+    filters: [{ column: "evergreen.version.id", op: "=", value: versionId }],
+    start_time: getUnixTime(startTs),
   };
 
   return buildHoneycombStatUrl("evergreen", query);
@@ -232,13 +232,12 @@ export const getHoneycombTaskTimingURL = ({
   }
 
   const query = {
-    time_range: ONE_WEEK_IN_SECONDS,
-    granularity: 0, // 0 yields auto granularity
     calculations: [
-      { op: "HEATMAP", column: metric },
-      { op: "P99", column: metric },
+      { column: metric, op: "HEATMAP" },
+      { column: metric, op: "P99" },
       { op: "COUNT" },
     ],
+    filter_combination: "AND",
     filters: [
       { column: "name", op: "=", value: "task" },
       {
@@ -250,8 +249,9 @@ export const getHoneycombTaskTimingURL = ({
       { column: "evergreen.task.name", op: "=", value: taskName },
       ...configurableFilters,
     ],
-    filter_combination: "AND",
+    granularity: 0, // 0 yields auto granularity
     limit: 1000,
+    time_range: ONE_WEEK_IN_SECONDS,
   };
 
   return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
@@ -271,9 +271,9 @@ export const getHoneycombHistoryUrl = ({
   isDisplayTask: boolean;
 }) => {
   const query = {
-    time_range: ONE_WEEK_IN_SECONDS,
-    granularity: 0,
+    breakdowns: ["evergreen.task.status", "evergreen.version.requester"],
     calculations: [{ op: "COUNT" }],
+    filter_combination: "AND",
     filters: [
       { column: "name", op: "=", value: "task" },
       {
@@ -299,9 +299,9 @@ export const getHoneycombHistoryUrl = ({
         value: taskName,
       },
     ],
-    breakdowns: ["evergreen.task.status", "evergreen.version.requester"],
-    filter_combination: "AND",
+    granularity: 0,
     limit: 1000,
+    time_range: ONE_WEEK_IN_SECONDS,
   };
   return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
 };

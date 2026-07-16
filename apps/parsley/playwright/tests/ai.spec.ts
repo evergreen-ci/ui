@@ -19,11 +19,11 @@ test.describe("Parsley AI", () => {
     // Mock the login endpoint.
     await page.route("http://localhost:8080/login", async (route) => {
       await route.fulfill({
-        status: 200,
         body: JSON.stringify({
           message: "Logged in successfully, you may close this window",
         }),
         contentType: "application/json",
+        status: 200,
       });
     });
 

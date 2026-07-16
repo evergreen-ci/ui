@@ -35,6 +35,13 @@ export default {
 } satisfies CustomMeta<typeof SearchPopover>;
 
 export const Default: CustomStoryObj<typeof SearchPopover> = {
+  args: {
+    disabled: false,
+    onClick: (suggestion: string) => {
+      console.log("Selected suggestion:", suggestion);
+    },
+    searchSuggestions: mockSearchSuggestions,
+  },
   argTypes: {
     disabled: {
       control: "boolean",
@@ -48,13 +55,6 @@ export const Default: CustomStoryObj<typeof SearchPopover> = {
       control: "object",
       description: "Array of grouped search suggestions",
     },
-  },
-  args: {
-    disabled: false,
-    onClick: (suggestion: string) => {
-      console.log("Selected suggestion:", suggestion);
-    },
-    searchSuggestions: mockSearchSuggestions,
   },
 };
 

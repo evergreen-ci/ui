@@ -42,7 +42,7 @@ export const SetPatchVisibility: React.FC<Props> = ({
           "patch.hidden": !isPatchHidden,
         });
         setPatchVisibility({
-          variables: { patchIds: [patchId], hidden: !isPatchHidden },
+          variables: { hidden: !isPatchHidden, patchIds: [patchId] },
         });
       }}
     >

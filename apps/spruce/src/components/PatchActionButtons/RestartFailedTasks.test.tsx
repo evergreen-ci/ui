@@ -191,34 +191,34 @@ const buildVariantsQueryMock: ApolloMock<
     data: {
       version: {
         __typename: "Version",
-        id: patchId,
         buildVariants: [
           {
             __typename: "GroupedBuildVariant",
             displayName: "Ubuntu 18.04",
-            variant: "ubuntu1804",
             tasks: [
               {
                 __typename: "Task",
-                id: "task_1",
-                displayName: "test-task-1",
-                execution: 0,
-                displayStatus: TaskStatus.Failed,
                 baseStatus: TaskStatus.Succeeded,
+                displayName: "test-task-1",
+                displayStatus: TaskStatus.Failed,
+                execution: 0,
+                id: "task_1",
               },
               {
                 __typename: "Task",
-                id: "task_2",
-                displayName: "test-task-2",
-                execution: 0,
-                displayStatus: TaskStatus.Succeeded,
                 baseStatus: TaskStatus.Succeeded,
+                displayName: "test-task-2",
+                displayStatus: TaskStatus.Succeeded,
+                execution: 0,
+                id: "task_2",
               },
             ],
+            variant: "ubuntu1804",
           },
         ],
         childVersions: [],
         generatedTaskCounts: [],
+        id: patchId,
       },
     },
   },
@@ -250,26 +250,26 @@ const buildVariantsQueryMockNoFailedTasks: ApolloMock<
     data: {
       version: {
         __typename: "Version",
-        id: patchId,
         buildVariants: [
           {
             __typename: "GroupedBuildVariant",
             displayName: "Ubuntu 18.04",
-            variant: "ubuntu1804",
             tasks: [
               {
                 __typename: "Task",
-                id: "task_1",
-                displayName: "test-task-1",
-                execution: 0,
-                displayStatus: TaskStatus.Succeeded,
                 baseStatus: TaskStatus.Succeeded,
+                displayName: "test-task-1",
+                displayStatus: TaskStatus.Succeeded,
+                execution: 0,
+                id: "task_1",
               },
             ],
+            variant: "ubuntu1804",
           },
         ],
         childVersions: [],
         generatedTaskCounts: [],
+        id: patchId,
       },
     },
   },
@@ -301,54 +301,54 @@ const buildVariantsQueryMockWithChildVersions: ApolloMock<
     data: {
       version: {
         __typename: "Version",
-        id: patchId,
         buildVariants: [
           {
             __typename: "GroupedBuildVariant",
             displayName: "Ubuntu 18.04",
-            variant: "ubuntu1804",
             tasks: [
               {
                 __typename: "Task",
-                id: "task_1",
-                displayName: "test-task-1",
-                execution: 0,
-                displayStatus: TaskStatus.Failed,
                 baseStatus: TaskStatus.Succeeded,
+                displayName: "test-task-1",
+                displayStatus: TaskStatus.Failed,
+                execution: 0,
+                id: "task_1",
               },
             ],
+            variant: "ubuntu1804",
           },
         ],
         childVersions: [
           {
             __typename: "Version",
+            buildVariants: [
+              {
+                __typename: "GroupedBuildVariant",
+                displayName: "Ubuntu 18.04",
+                tasks: [
+                  {
+                    __typename: "Task",
+                    baseStatus: TaskStatus.Succeeded,
+                    displayName: "child-test-task-1",
+                    displayStatus: TaskStatus.Failed,
+                    execution: 0,
+                    id: "child_task_1",
+                  },
+                ],
+                variant: "ubuntu1804",
+              },
+            ],
+            generatedTaskCounts: [],
             id: "child-version-id",
             projectMetadata: {
               __typename: "Project",
               id: "child-project",
               identifier: "child-project",
             },
-            buildVariants: [
-              {
-                __typename: "GroupedBuildVariant",
-                displayName: "Ubuntu 18.04",
-                variant: "ubuntu1804",
-                tasks: [
-                  {
-                    __typename: "Task",
-                    id: "child_task_1",
-                    displayName: "child-test-task-1",
-                    execution: 0,
-                    displayStatus: TaskStatus.Failed,
-                    baseStatus: TaskStatus.Succeeded,
-                  },
-                ],
-              },
-            ],
-            generatedTaskCounts: [],
           },
         ],
         generatedTaskCounts: [],
+        id: patchId,
       },
     },
   },
@@ -388,14 +388,14 @@ const restartVersionsMutationMock: ApolloMock<
   request: {
     query: RESTART_VERSIONS,
     variables: {
+      abort: false,
       versionId: patchId,
       versionsToRestart: [
         {
-          versionId: patchId,
           taskIds: ["task_1"],
+          versionId: patchId,
         },
       ],
-      abort: false,
     },
   },
   result: {
@@ -404,14 +404,14 @@ const restartVersionsMutationMock: ApolloMock<
         {
           __typename: "Version",
           id: patchId,
-          status: "started",
-          taskStatuses: ["failed", "started"],
           patch: {
             __typename: "Patch",
+            childPatches: [],
             id: patchId,
             status: "started",
-            childPatches: [],
           },
+          status: "started",
+          taskStatuses: ["failed", "started"],
         },
       ],
     },
@@ -425,18 +425,18 @@ const restartVersionsWithChildrenMutationMock: ApolloMock<
   request: {
     query: RESTART_VERSIONS,
     variables: {
+      abort: false,
       versionId: patchId,
       versionsToRestart: [
         {
-          versionId: patchId,
           taskIds: ["task_1"],
+          versionId: patchId,
         },
         {
-          versionId: "child-version-id",
           taskIds: ["child_task_1"],
+          versionId: "child-version-id",
         },
       ],
-      abort: false,
     },
   },
   result: {
@@ -445,14 +445,14 @@ const restartVersionsWithChildrenMutationMock: ApolloMock<
         {
           __typename: "Version",
           id: patchId,
-          status: "started",
-          taskStatuses: ["failed", "started"],
           patch: {
             __typename: "Patch",
+            childPatches: [],
             id: patchId,
             status: "started",
-            childPatches: [],
           },
+          status: "started",
+          taskStatuses: ["failed", "started"],
         },
       ],
     },
@@ -463,18 +463,18 @@ const restartVersionsMutationErrorMock: ApolloMock<
   RestartVersionsMutation,
   RestartVersionsMutationVariables
 > = {
+  error: new GraphQLError("Failed to restart tasks"),
   request: {
     query: RESTART_VERSIONS,
     variables: {
+      abort: false,
       versionId: patchId,
       versionsToRestart: [
         {
-          versionId: patchId,
           taskIds: ["task_1"],
+          versionId: patchId,
         },
       ],
-      abort: false,
     },
   },
-  error: new GraphQLError("Failed to restart tasks"),
 };

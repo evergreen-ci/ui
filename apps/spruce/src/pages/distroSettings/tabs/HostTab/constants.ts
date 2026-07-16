@@ -43,8 +43,8 @@ export const bootstrapMethodToCopy = {
 
 export const communicationMethodToCopy = {
   [CommunicationMethod.LegacySsh]: "Legacy SSH",
-  [CommunicationMethod.Ssh]: "SSH",
   [CommunicationMethod.Rpc]: "RPC",
+  [CommunicationMethod.Ssh]: "SSH",
 };
 
 export const feedbackRuleToCopy = {

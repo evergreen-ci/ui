@@ -37,8 +37,8 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
   const linkProps = (metric: TaskTimingMetric) => ({
     onClick: () =>
       sendEvent({
-        name: "Clicked task timing link",
         metric,
+        name: "Clicked task timing link",
         only_commits: configState.onlyCommits,
         only_successful: configState.onlySuccessful,
       }),

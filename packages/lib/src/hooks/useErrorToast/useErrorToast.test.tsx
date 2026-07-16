@@ -70,8 +70,8 @@ describe("useErrorToast", () => {
     const { rerender } = renderHook(
       ({ error }) => useErrorToast(error, "Unable to load data"),
       {
-        wrapper: Provider,
         initialProps: { error: error1 },
+        wrapper: Provider,
       },
     );
 
@@ -100,8 +100,8 @@ describe("useErrorToast", () => {
       void,
       { err: CombinedGraphQLErrors | undefined }
     >(({ err }) => useErrorToast(err, "Unable to load data"), {
-      wrapper: Provider,
       initialProps: { err: error },
+      wrapper: Provider,
     });
 
     expect(dispatchToast.error).toHaveBeenCalledTimes(1);

@@ -51,9 +51,9 @@ export const useLoadFormSchemaData = (p?: Props) => {
   const noExpirationCheckboxTooltip =
     getNoExpirationCheckboxTooltipCopy({
       disableExpirationCheckbox,
+      isVolume: false,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
-      isVolume: false,
     }) ?? "";
 
   const debugSpawnHostDisabled =
@@ -61,9 +61,9 @@ export const useLoadFormSchemaData = (p?: Props) => {
 
   return {
     formSchemaInput: {
+      debugSpawnHostDisabled,
       disableExpirationCheckbox,
       distros: distrosData?.distros ?? [],
-      debugSpawnHostDisabled,
       myPublicKeys: publicKeysData?.myPublicKeys ?? [],
       noExpirationCheckboxTooltip,
       userAwsRegion: userAwsRegion ?? defaultEC2Region,

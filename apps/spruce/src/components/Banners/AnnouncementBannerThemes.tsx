@@ -7,6 +7,11 @@ export const bannerThemeToLabelMap: Record<BannerTheme, React.ReactNode> = {
       Announcement <Badge variant={Variant.Green}>Green</Badge>
     </>
   ),
+  [BannerTheme.Important]: (
+    <>
+      Urgent <Badge variant={Variant.Red}>Red</Badge>
+    </>
+  ),
   [BannerTheme.Information]: (
     <>
       Information <Badge variant={Variant.Blue}>Blue</Badge>
@@ -15,11 +20,6 @@ export const bannerThemeToLabelMap: Record<BannerTheme, React.ReactNode> = {
   [BannerTheme.Warning]: (
     <>
       Warning <Badge variant={Variant.Yellow}>Yellow</Badge>
-    </>
-  ),
-  [BannerTheme.Important]: (
-    <>
-      Urgent <Badge variant={Variant.Red}>Red</Badge>
     </>
   ),
 };

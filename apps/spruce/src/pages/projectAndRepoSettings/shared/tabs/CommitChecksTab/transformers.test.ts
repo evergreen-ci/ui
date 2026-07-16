@@ -12,30 +12,30 @@ import { CommitChecksFormState } from "./types";
 const { projectBase, repoBase } = data;
 const repoForm: CommitChecksFormState = {
   github: {
-    githubChecksEnabled: true,
     githubChecks: {
-      githubCheckAliasesOverride: true,
       githubCheckAliases: [
         {
-          id: "2",
           alias: AliasNames.GithubCheck,
           description: "",
           gitTag: "",
+          id: "2",
+          parameters: [],
           remotePath: "",
-          variants: {
-            specifier: VariantTaskSpecifier.Tags,
-            variant: "",
-            variantTags: ["vTag"],
-          },
           tasks: {
             specifier: VariantTaskSpecifier.Tags,
             task: "",
             taskTags: ["tTag"],
           },
-          parameters: [],
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: ["vTag"],
+          },
         } satisfies AliasFormType,
       ],
+      githubCheckAliasesOverride: true,
     },
+    githubChecksEnabled: true,
   },
 };
 
@@ -86,11 +86,11 @@ describe("GithubCommitChecksTab transformers", () => {
     it("correctly converts from a form to GQL", () => {
       const projectForm: CommitChecksFormState = {
         github: {
-          githubChecksEnabled: null,
           githubChecks: {
-            githubCheckAliasesOverride: false,
             githubCheckAliases: [],
+            githubCheckAliasesOverride: false,
           },
+          githubChecksEnabled: null,
         },
       };
       const result = formToGql(
@@ -109,11 +109,11 @@ describe("GithubCommitChecksTab transformers", () => {
     it("correctly merges project and repo form states (repo data as read-only)", () => {
       const projectForm: CommitChecksFormState = {
         github: {
-          githubChecksEnabled: null,
           githubChecks: {
-            githubCheckAliasesOverride: false,
             githubCheckAliases: [],
+            githubCheckAliasesOverride: false,
           },
+          githubChecksEnabled: null,
         },
       };
       const merged = mergeProjectRepo(projectForm, repoForm);

@@ -20,10 +20,10 @@ export const Metadata: React.FC<{
           href={metadata.completeLogsURL}
           onClick={() => {
             sendEvent({
-              name: "Clicked complete logs link",
-              "task.id": metadata.taskId,
               execution: metadata.execution,
               "group.id": metadata.groupID,
+              name: "Clicked complete logs link",
+              "task.id": metadata.taskId,
             });
           }}
         >

@@ -153,14 +153,14 @@ test.describe("Spawn Host page", () => {
       await page.getByTestId("distro-option-ubuntu1804-workstation").click();
 
       const expirableHostButton = page.getByRole("radio", {
-        name: "Expirable Host",
         exact: true,
+        name: "Expirable Host",
       });
       await expect(expirableHostButton).toBeEnabled();
 
       const unexpirableHostButton = page.getByRole("radio", {
-        name: "Unexpirable Host",
         exact: true,
+        name: "Unexpirable Host",
       });
       await expect(unexpirableHostButton).toBeDisabled();
 
@@ -365,17 +365,17 @@ test.describe("Spawn Host page", () => {
     const saveButton = page.getByRole("button", { name: "Save" });
 
     // Set a valid near-future date
-    await typeDatePickerDate(page, { year: "2026", month: "06", day: "01" });
+    await typeDatePickerDate(page, { day: "01", month: "06", year: "2026" });
     await expect(saveButton).toHaveAttribute("aria-disabled", "false");
 
     // Set a date in the past
     await clearDatePickerInput(page);
-    await typeDatePickerDate(page, { year: "2025", month: "01", day: "01" });
+    await typeDatePickerDate(page, { day: "01", month: "01", year: "2025" });
     await expect(saveButton).toHaveAttribute("aria-disabled", "true");
 
     // Set a date too far in the future
     await clearDatePickerInput(page);
-    await typeDatePickerDate(page, { year: "2060", month: "01", day: "15" });
+    await typeDatePickerDate(page, { day: "15", month: "01", year: "2060" });
     await expect(saveButton).toHaveAttribute("aria-disabled", "true");
   });
 });

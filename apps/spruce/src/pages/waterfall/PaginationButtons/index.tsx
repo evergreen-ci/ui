@@ -23,14 +23,14 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   } = usePaginationNavigation(pagination);
 
   const onNextClick = () => {
-    sendEvent({ name: "Changed page", direction: "next" });
+    sendEvent({ direction: "next", name: "Changed page" });
     goToNextPage();
   };
 
   const onPrevClick = () => {
     sendEvent({
-      name: "Changed page",
       direction: "previous",
+      name: "Changed page",
     });
     goToPrevPage();
   };

@@ -54,7 +54,6 @@ const columns: LGColumnDef<CostRow>[] = [
   },
   {
     accessorKey: "cost",
-    header: "Cost",
     cell: ({ getValue }) => {
       const cost = getValue() as number | null | undefined;
       return (
@@ -63,6 +62,7 @@ const columns: LGColumnDef<CostRow>[] = [
         </TabularNum>
       );
     },
+    header: "Cost",
   },
 ];
 

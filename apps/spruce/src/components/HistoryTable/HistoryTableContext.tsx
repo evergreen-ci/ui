@@ -61,16 +61,16 @@ interface HistoryTableProviderProps {
 const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   children,
   initialState = {
-    columns: [],
     columnLimit: DEFAULT_COLUMN_LIMIT,
+    columns: [],
     commitCache: new Map(),
     commitCount: 10,
     currentPage: 0,
     historyTableFilters: [],
     loadedCommits: [],
-    processedCommits: [],
-    processedCommitCount: 0,
     pageCount: 0,
+    processedCommitCount: 0,
+    processedCommits: [],
     selectedCommit: null,
     visibleColumns: [],
   },
@@ -101,6 +101,9 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   }, []);
   const historyTableState = useMemo(
     () => ({
+      addColumns: (columns: string[]) =>
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        dispatch({ columns, type: "addColumns" }),
       columnLimit,
       commitCount,
       currentPage,
@@ -108,41 +111,38 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       hasNextPage: currentPage < pageCount - 1,
       hasPreviousPage: currentPage > 0,
       historyTableFilters,
-      isItemLoaded,
-      pageCount,
-      processedCommitCount,
-      processedCommits,
-      selectedCommit,
-      visibleColumns,
-      addColumns: (columns: string[]) =>
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        dispatch({ type: "addColumns", columns }),
       ingestNewCommits: (
         commits: MainlineCommitsForHistoryQuery["mainlineCommits"],
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-      ) => dispatch({ type: "ingestNewCommits", commits }),
+      ) => dispatch({ commits, type: "ingestNewCommits" }),
+      isItemLoaded,
       markSelectedRowVisited: () =>
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         dispatch({ type: "markSelectedRowVisited" }),
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       nextPage: () => dispatch({ type: "nextPageColumns" }),
       onChangeTableWidth,
+      pageCount,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       previousPage: () => dispatch({ type: "prevPageColumns" }),
-      setSelectedCommit: (order: number) =>
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        dispatch({ type: "setSelectedCommit", order }),
+      processedCommitCount,
+      processedCommits,
+      selectedCommit,
       setHistoryTableFilters: (filters: TestFilter[]) =>
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        dispatch({ type: "setHistoryTableFilters", filters }),
+        dispatch({ filters, type: "setHistoryTableFilters" }),
+      setSelectedCommit: (order: number) =>
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        dispatch({ order, type: "setSelectedCommit" }),
       toggleRowExpansion: (rowIndex: number, expanded: boolean) => {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         dispatch({
-          type: "toggleRowExpansion",
-          rowIndex,
           expanded,
+          rowIndex,
+          type: "toggleRowExpansion",
         });
       },
+      visibleColumns,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [visibleColumns, processedCommitCount, historyTableFilters],

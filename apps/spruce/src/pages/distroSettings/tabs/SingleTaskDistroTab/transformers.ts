@@ -5,10 +5,10 @@ export const gqlToForm = (data?: SingleTaskDistroQuery) => {
     data?.spruceConfig?.singleTaskDistro?.projectTasksPairs || []
   )
     .map(({ allowedBVs, allowedTasks, displayName, projectId }) => ({
+      allowedBVs: [...allowedBVs].sort(),
+      allowedTasks: [...allowedTasks].sort(),
       displayTitle: displayName,
       projectId,
-      allowedTasks: [...allowedTasks].sort(),
-      allowedBVs: [...allowedBVs].sort(),
     }))
     .sort((a, b) => a.displayTitle.localeCompare(b.displayTitle));
   return {

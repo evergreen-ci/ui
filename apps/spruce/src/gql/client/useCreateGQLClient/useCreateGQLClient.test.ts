@@ -16,10 +16,10 @@ import { useCreateGQLClient } from ".";
 
 vi.mock("@evg-ui/lib/utils/request", () => ({
   fetchWithRetry: vi.fn() as MockedFunction<typeof fetchWithRetry>,
+  getUserStagingHeader: vi.fn() as MockedFunction<typeof getUserStagingHeader>,
   shouldLogoutAndRedirect: vi.fn() as MockedFunction<
     typeof shouldLogoutAndRedirect
   >,
-  getUserStagingHeader: vi.fn() as MockedFunction<typeof getUserStagingHeader>,
 }));
 
 vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
@@ -42,8 +42,8 @@ describe("useCreateGQLClient", () => {
     mockLogoutAndRedirect = vi.fn();
     mockDispatchAuthenticated = vi.fn();
     (useAuthProviderContext as Mock).mockReturnValue({
-      logoutAndRedirect: mockLogoutAndRedirect,
       dispatchAuthenticated: mockDispatchAuthenticated,
+      logoutAndRedirect: mockLogoutAndRedirect,
     });
 
     vi.clearAllMocks();
@@ -90,8 +90,8 @@ describe("useCreateGQLClient", () => {
     // Simulate auth context providing new function references, as happens
     // when AuthProvider's isAuthenticated state changes.
     (useAuthProviderContext as Mock).mockReturnValue({
-      logoutAndRedirect: vi.fn(),
       dispatchAuthenticated: vi.fn(),
+      logoutAndRedirect: vi.fn(),
     });
 
     rerender();
@@ -108,8 +108,8 @@ describe("useCreateGQLClient", () => {
 
     const initialLogout = vi.fn();
     (useAuthProviderContext as Mock).mockReturnValue({
-      logoutAndRedirect: initialLogout,
       dispatchAuthenticated: vi.fn(),
+      logoutAndRedirect: initialLogout,
     });
 
     const { rerender } = renderHook(() => useCreateGQLClient());
@@ -118,8 +118,8 @@ describe("useCreateGQLClient", () => {
     // fetch error resolves.
     const updatedLogout = vi.fn();
     (useAuthProviderContext as Mock).mockReturnValue({
-      logoutAndRedirect: updatedLogout,
       dispatchAuthenticated: vi.fn(),
+      logoutAndRedirect: updatedLogout,
     });
     rerender();
 

@@ -30,45 +30,45 @@ describe("project data", () => {
 const repoForm: ViewsFormState = {
   parsleyFilters: [
     {
-      displayTitle: "repo-filter",
-      description: "Repo Filter",
-      expression: "repo-filter",
       caseSensitive: false,
+      description: "Repo Filter",
+      displayTitle: "repo-filter",
       exactMatch: false,
+      expression: "repo-filter",
     },
   ],
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
-  repoId: "repo",
   projectRef: {
     id: "repo",
     parsleyFilters: [
       {
-        description: "Repo Filter",
-        expression: "repo-filter",
         caseSensitive: false,
+        description: "Repo Filter",
         exactMatch: false,
+        expression: "repo-filter",
       },
     ],
   },
+  repoId: "repo",
 };
 
 const projectForm: ViewsFormState = {
   parsleyFilters: [
     {
-      displayTitle: "filter_1",
-      description: "Filter One",
-      expression: "filter_1",
       caseSensitive: true,
+      description: "Filter One",
+      displayTitle: "filter_1",
       exactMatch: true,
+      expression: "filter_1",
     },
     {
-      displayTitle: "filter_2",
-      description: "Filter Two",
-      expression: "filter_2",
       caseSensitive: false,
+      description: "Filter Two",
+      displayTitle: "filter_2",
       exactMatch: false,
+      expression: "filter_2",
     },
   ],
 };

@@ -35,12 +35,12 @@ describe("project data", () => {
 
 const projectForm: PatchAliasesFormState = {
   patchAliases: {
-    aliasesOverride: false,
     aliases: [],
+    aliasesOverride: false,
   },
   patchTriggerAliases: {
-    aliasesOverride: false,
     aliases: [],
+    aliasesOverride: false,
   },
 };
 
@@ -48,63 +48,62 @@ const projectResult: Pick<
   ProjectSettingsInput,
   "projectId" | "projectRef" | "aliases"
 > = {
+  aliases: [],
   projectId: "project",
   projectRef: {
+    githubMQTriggerAliases: [],
+    githubPRTriggerAliases: [],
     id: "project",
     patchTriggerAliases: null,
-    githubPRTriggerAliases: [],
-    githubMQTriggerAliases: [],
   },
-  aliases: [],
 };
 
 const repoForm: PatchAliasesFormState = {
   patchAliases: {
-    aliasesOverride: true,
     aliases: [
       {
-        id: "4",
         alias: "my alias name",
         description: "my description",
         displayTitle: "my alias name",
         gitTag: "",
+        id: "4",
+        parameters: [],
         remotePath: "",
-        variants: {
-          specifier: VariantTaskSpecifier.Tags,
-          variant: "",
-          variantTags: ["okay"],
-        },
         tasks: {
           specifier: VariantTaskSpecifier.Tags,
           task: "",
           taskTags: ["hi"],
         },
-        parameters: [],
+        variants: {
+          specifier: VariantTaskSpecifier.Tags,
+          variant: "",
+          variantTags: ["okay"],
+        },
       },
     ],
+    aliasesOverride: true,
   },
   patchTriggerAliases: {
-    aliasesOverride: true,
     aliases: [
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
-        downstreamRevision: "",
-        status: "success",
         displayTitle: "alias1",
-        parentAsModule: "",
+        downstreamRevision: "",
         isGithubMQTriggerAlias: false,
         isGithubPRTriggerAlias: true,
+        parentAsModule: "",
+        status: "success",
         taskSpecifiers: [
           {
-            specifier: TaskSpecifier.PatchAlias,
             patchAlias: "alias2",
+            specifier: TaskSpecifier.PatchAlias,
             taskRegex: "",
             variantRegex: "",
           },
           {
-            specifier: TaskSpecifier.VariantTask,
             patchAlias: "",
+            specifier: TaskSpecifier.VariantTask,
             taskRegex: ".*",
             variantRegex: ".*",
           },
@@ -113,41 +112,59 @@ const repoForm: PatchAliasesFormState = {
       {
         alias: "mq-alias",
         childProjectIdentifier: "spruce",
-        downstreamRevision: "",
-        status: "success",
         displayTitle: "mq-alias",
-        parentAsModule: "",
+        downstreamRevision: "",
         isGithubMQTriggerAlias: true,
         isGithubPRTriggerAlias: false,
+        parentAsModule: "",
+        status: "success",
         taskSpecifiers: [
           {
-            specifier: TaskSpecifier.PatchAlias,
             patchAlias: "alias2",
+            specifier: TaskSpecifier.PatchAlias,
             taskRegex: "",
             variantRegex: "",
           },
           {
-            specifier: TaskSpecifier.VariantTask,
             patchAlias: "",
+            specifier: TaskSpecifier.VariantTask,
             taskRegex: ".*",
             variantRegex: ".*",
           },
         ],
       },
     ],
+    aliasesOverride: true,
   },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
   {
-    repoId: "repo",
+    aliases: [
+      {
+        alias: "my alias name",
+        description: "my description",
+        gitTag: "",
+        id: "4",
+        parameters: [],
+        remotePath: "",
+        task: "",
+        taskTags: ["hi"],
+        variant: "",
+        variantTags: ["okay"],
+      },
+    ],
     projectRef: {
+      githubMQTriggerAliases: ["mq-alias"],
+      githubPRTriggerAliases: ["alias1"],
       id: "repo",
       patchTriggerAliases: [
         {
           alias: "alias1",
           childProjectIdentifier: "spruce",
           downstreamRevision: "",
+          parentAsModule: "",
+          status: "success",
           taskSpecifiers: [
             {
               patchAlias: "alias2",
@@ -160,13 +177,13 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
               variantRegex: ".*",
             },
           ],
-          status: "success",
-          parentAsModule: "",
         },
         {
           alias: "mq-alias",
           childProjectIdentifier: "spruce",
           downstreamRevision: "",
+          parentAsModule: "",
+          status: "success",
           taskSpecifiers: [
             {
               patchAlias: "alias2",
@@ -179,25 +196,8 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
               variantRegex: ".*",
             },
           ],
-          status: "success",
-          parentAsModule: "",
         },
       ],
-      githubPRTriggerAliases: ["alias1"],
-      githubMQTriggerAliases: ["mq-alias"],
     },
-    aliases: [
-      {
-        id: "4",
-        alias: "my alias name",
-        description: "my description",
-        gitTag: "",
-        variant: "",
-        task: "",
-        remotePath: "",
-        parameters: [],
-        variantTags: ["okay"],
-        taskTags: ["hi"],
-      },
-    ],
+    repoId: "repo",
   };

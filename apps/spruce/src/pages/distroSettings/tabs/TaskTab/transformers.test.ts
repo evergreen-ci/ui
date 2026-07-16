@@ -19,31 +19,34 @@ describe("task tab", () => {
 });
 
 const form: TaskFormState = {
+  dispatcherSettings: {
+    version: DispatcherVersion.RevisedWithDependencies,
+  },
   finderSettings: {
     version: FinderVersion.Legacy,
   },
   plannerSettings: {
-    version: PlannerVersion.Tunable,
     tunableOptions: {
-      targetTime: 0,
       commitQueueFactor: 0,
       expectedRuntimeFactor: 0,
       generateTaskFactor: 5,
+      groupVersions: false,
       mainlineTimeInQueueFactor: 0,
       numDependentsFactor: 50,
       patchFactor: 0,
       patchTimeInQueueFactor: 0,
-      groupVersions: false,
+      targetTime: 0,
     },
-  },
-  dispatcherSettings: {
-    version: DispatcherVersion.RevisedWithDependencies,
+    version: PlannerVersion.Tunable,
   },
 };
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const gql: DistroInput = {
   ...distroData,
+  dispatcherSettings: {
+    version: DispatcherVersion.RevisedWithDependencies,
+  },
   finderSettings: {
     version: FinderVersion.Legacy,
   },
@@ -58,8 +61,5 @@ const gql: DistroInput = {
     patchTimeInQueueFactor: 0,
     targetTime: 0,
     version: PlannerVersion.Tunable,
-  },
-  dispatcherSettings: {
-    version: DispatcherVersion.RevisedWithDependencies,
   },
 };

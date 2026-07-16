@@ -24,14 +24,14 @@ describe("walkthrough guide cue", async () => {
 
   const walkthroughSteps: WalkthroughStep[] = [
     {
-      title: "Step 1",
       description: "this is step 1",
       targetId: "step-1",
+      title: "Step 1",
     },
     {
-      title: "Step 2",
       description: "this is step 2",
       targetId: "step-2",
+      title: "Step 2",
     },
   ];
 

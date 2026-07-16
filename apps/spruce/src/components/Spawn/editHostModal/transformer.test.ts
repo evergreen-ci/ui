@@ -10,10 +10,6 @@ describe("edit spawn host modal", () => {
         oldUserTags,
       }),
     ).toStrictEqual({
-      hostId: "host_id",
-      displayName: "new-name",
-      volumeId: "my-volume-id",
-      instanceType: "m4.xlarge",
       addedInstanceTags: [
         { key: "c", value: "e" },
         { key: "newKey", value: "newValue" },
@@ -22,8 +18,16 @@ describe("edit spawn host modal", () => {
         { key: "c", value: "d" },
         { key: "oldKey", value: "oldValue" },
       ],
+      displayName: "new-name",
       expiration: null,
+      hostId: "host_id",
+      instanceType: "m4.xlarge",
       noExpiration: true,
+      publicKey: {
+        key: "key value",
+        name: "a_key",
+      },
+      savePublicKey: false,
       servicePassword: "password-123",
       sleepSchedule: {
         dailyStartTime: "09:00",
@@ -33,16 +37,12 @@ describe("edit spawn host modal", () => {
         timeZone: "America/New_York",
         wholeWeekdaysOff: [0, 5, 6],
       },
-      publicKey: {
-        name: "a_key",
-        key: "key value",
-      },
-      savePublicKey: false,
+      volumeId: "my-volume-id",
     });
   });
 });
 
-const myPublicKeys = [{ name: "a_key", key: "key value" }];
+const myPublicKeys = [{ key: "key value", name: "a_key" }];
 const oldUserTags = [
   { key: "a", value: "b" },
   { key: "c", value: "d" },
@@ -50,36 +50,36 @@ const oldUserTags = [
 ];
 
 const formState = {
-  hostName: "new-name",
   expirationDetails: {
-    noExpiration: true,
     expiration: "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
     hostUptime: {
-      useDefaultUptimeSchedule: false,
-      sleepSchedule: {
-        enabledWeekdays: [false, true, true, true, true, false, false],
-        timeSelection: {
-          startTime: "Fri May 03 2024 09:00:00",
-          stopTime: "Fri May 03 2024 17:00:00",
-          runContinuously: false,
-        },
-      },
       details: {
         timeZone: "America/New_York",
       },
+      sleepSchedule: {
+        enabledWeekdays: [false, true, true, true, true, false, false],
+        timeSelection: {
+          runContinuously: false,
+          startTime: "Fri May 03 2024 09:00:00",
+          stopTime: "Fri May 03 2024 17:00:00",
+        },
+      },
+      useDefaultUptimeSchedule: false,
     },
+    noExpiration: true,
   },
+  hostName: "new-name",
   instanceType: "m4.xlarge",
-  volume: "my-volume-id",
+  publicKeySection: {
+    newPublicKey: "",
+    publicKeyNameDropdown: "a_key",
+    useExisting: true,
+  },
   rdpPassword: "password-123",
   userTags: [
     { key: "a", value: "b" },
     { key: "c", value: "e" },
     { key: "newKey", value: "newValue" },
   ],
-  publicKeySection: {
-    useExisting: true,
-    publicKeyNameDropdown: "a_key",
-    newPublicKey: "",
-  },
+  volume: "my-volume-id",
 };

@@ -14,64 +14,64 @@ import {
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
-    type: "object" as const,
     properties: {
-      jira: {
+      cedar: {
+        properties: cedar.schema,
+        title: "Cedar",
         type: "object" as const,
-        title: "Jira",
-        properties: jira.schema,
-      },
-      slack: {
-        type: "object" as const,
-        title: "Slack",
-        properties: slack.schema,
-      },
-      splunk: {
-        type: "object" as const,
-        title: "Splunk",
-        properties: splunk.schema,
-      },
-      runtimeEnvironments: {
-        type: "object" as const,
-        title: "Runtime Environments",
-        properties: runtimeEnvironments.schema,
-      },
-      testSelection: {
-        type: "object" as const,
-        title: "Test Selection",
-        properties: testSelection.schema,
       },
       fws: {
-        type: "object" as const,
-        title: "Foliage Web Services",
         properties: fws.schema,
+        title: "Foliage Web Services",
+        type: "object" as const,
       },
       graphite: {
-        type: "object" as const,
-        title: "Graphite",
         properties: graphite.schema,
-      },
-      cedar: {
+        title: "Graphite",
         type: "object" as const,
-        title: "Cedar",
-        properties: cedar.schema,
+      },
+      jira: {
+        properties: jira.schema,
+        title: "Jira",
+        type: "object" as const,
+      },
+      runtimeEnvironments: {
+        properties: runtimeEnvironments.schema,
+        title: "Runtime Environments",
+        type: "object" as const,
       },
       sage: {
-        type: "object" as const,
-        title: "Sage",
         properties: sage.schema,
+        title: "Sage",
+        type: "object" as const,
+      },
+      slack: {
+        properties: slack.schema,
+        title: "Slack",
+        type: "object" as const,
+      },
+      splunk: {
+        properties: splunk.schema,
+        title: "Splunk",
+        type: "object" as const,
+      },
+      testSelection: {
+        properties: testSelection.schema,
+        title: "Test Selection",
+        type: "object" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
-    jira: jira.uiSchema,
-    slack: slack.uiSchema,
-    splunk: splunk.uiSchema,
-    runtimeEnvironments: runtimeEnvironments.uiSchema,
-    testSelection: testSelection.uiSchema,
+    cedar: cedar.uiSchema,
     fws: fws.uiSchema,
     graphite: graphite.uiSchema,
-    cedar: cedar.uiSchema,
+    jira: jira.uiSchema,
+    runtimeEnvironments: runtimeEnvironments.uiSchema,
     sage: sage.uiSchema,
+    slack: slack.uiSchema,
+    splunk: splunk.uiSchema,
+    testSelection: testSelection.uiSchema,
   },
 };

@@ -41,8 +41,8 @@ export const ProjectPatches = () => {
       e.target.checked ? "true" : "false",
     );
     analytics.sendEvent({
-      name: "Filtered for patches",
       "filter.commit_queue": e.target.checked,
+      name: "Filtered for patches",
     });
   };
 
@@ -55,22 +55,22 @@ export const ProjectPatches = () => {
     PROJECT_PATCHES,
     projectIdentifier
       ? {
+          pollInterval: DEFAULT_POLL_INTERVAL,
           variables: {
-            projectIdentifier: projectIdentifier,
             patchesInput: {
               ...patchesInput,
               onlyMergeQueue: isGitHubMergeQueueCheckboxChecked,
             },
+            projectIdentifier: projectIdentifier,
           },
-          pollInterval: DEFAULT_POLL_INTERVAL,
         }
       : skipToken,
   );
   useErrorToast(error, "Error while fetching project patches");
   usePolling<ProjectPatchesQuery, ProjectPatchesQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
 
   const { displayName, patches } = data?.project ?? {};

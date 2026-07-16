@@ -30,8 +30,8 @@ describe("usePolling", () => {
 
   beforeEach(() => {
     Object.defineProperty(document, "visibilityState", {
-      value: "visible",
       configurable: true,
+      value: "visible",
     });
     mockedGetItem.mockImplementation(() => "false");
   });
@@ -41,7 +41,7 @@ describe("usePolling", () => {
     const stopPolling = vi.fn();
     const refetch = vi.fn();
     const { result } = renderHook(
-      () => usePolling({ startPolling, stopPolling, refetch }),
+      () => usePolling({ refetch, startPolling, stopPolling }),
       {
         wrapper: Provider,
       },
@@ -59,10 +59,10 @@ describe("usePolling", () => {
       const { result: disabledResult } = renderHook(
         () =>
           usePolling({
+            refetch: noop,
             shouldPollFaster: false,
             startPolling: noop,
             stopPolling: noop,
-            refetch: noop,
           }),
         {
           wrapper: Provider,
@@ -73,10 +73,10 @@ describe("usePolling", () => {
       const { result: enabledResult } = renderHook(
         () =>
           usePolling({
+            refetch: noop,
             shouldPollFaster: true,
             startPolling: noop,
             stopPolling: noop,
-            refetch: noop,
           }),
         {
           wrapper: Provider,
@@ -94,10 +94,10 @@ describe("usePolling", () => {
       const { rerender } = renderHook(
         () =>
           usePolling({
+            refetch,
+            shouldPollFaster,
             startPolling,
             stopPolling,
-            shouldPollFaster,
-            refetch,
           }),
         { wrapper: Provider },
       );
@@ -126,7 +126,7 @@ describe("usePolling", () => {
       const refetch = vi.fn();
 
       const { result } = renderHook(
-        () => usePolling({ startPolling, stopPolling, refetch }),
+        () => usePolling({ refetch, startPolling, stopPolling }),
         { wrapper: Provider },
       );
       expect(result.current).toBe(true);
@@ -144,7 +144,7 @@ describe("usePolling", () => {
       const refetch = vi.fn();
 
       const { result } = renderHook(
-        () => usePolling({ startPolling, stopPolling, refetch }),
+        () => usePolling({ refetch, startPolling, stopPolling }),
         { wrapper: Provider },
       );
       expect(result.current).toBe(true);
@@ -161,7 +161,7 @@ describe("usePolling", () => {
       const refetch = vi.fn();
 
       const { result } = renderHook(
-        () => usePolling({ startPolling, stopPolling, refetch }),
+        () => usePolling({ refetch, startPolling, stopPolling }),
         { wrapper: Provider },
       );
       expect(result.current).toBe(true);
@@ -186,7 +186,7 @@ describe("usePolling", () => {
       const stopPolling = vi.fn();
       const refetch = vi.fn();
       const { result } = renderHook(
-        () => usePolling({ startPolling, stopPolling, refetch }),
+        () => usePolling({ refetch, startPolling, stopPolling }),
         { wrapper: Provider },
       );
       expect(result.current).toBe(true);
@@ -213,7 +213,7 @@ describe("usePolling", () => {
       const refetch = vi.fn();
 
       const { result } = renderHook(
-        () => usePolling({ startPolling, stopPolling, refetch }),
+        () => usePolling({ refetch, startPolling, stopPolling }),
         { wrapper: Provider },
       );
       expect(result.current).toBe(true);
@@ -252,10 +252,10 @@ describe("usePolling", () => {
       const { rerender } = renderHook(
         () =>
           usePolling({
-            startPolling,
-            stopPolling: noop,
             refetch: noop,
             shouldPollFaster,
+            startPolling,
+            stopPolling: noop,
           }),
         { wrapper: Provider },
       );
@@ -274,7 +274,7 @@ describe("usePolling", () => {
       const stopPolling = vi.fn();
       const refetch = vi.fn();
 
-      renderHook(() => usePolling({ startPolling, stopPolling, refetch }), {
+      renderHook(() => usePolling({ refetch, startPolling, stopPolling }), {
         wrapper: Provider,
       });
 

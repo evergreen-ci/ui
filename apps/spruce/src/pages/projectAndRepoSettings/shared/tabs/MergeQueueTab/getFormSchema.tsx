@@ -36,11 +36,11 @@ export const getFormSchema = (
   repoData?: MergeQueueFormState,
 ): ReturnType<GetFormSchema> => {
   const overrideStyling = {
+    "ui:showLabel": false,
     "ui:widget":
       projectType === ProjectType.AttachedProject
         ? widgets.RadioBoxWidget
         : "hidden",
-    "ui:showLabel": false,
   };
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
@@ -49,38 +49,37 @@ export const getFormSchema = (
       githubTriggerAliasField: GithubTriggerAliasField,
     },
     schema: {
-      type: "object" as const,
       properties: {
         mergeQueue: {
-          type: "object" as const,
           title: "",
+          type: "object" as const,
           ...(projectType === ProjectType.Repo && {
             description:
               "If enabled, these settings can only apply to one branch project that also has this feature enabled. They do not apply to untracked branches.",
           }),
           properties: {
-            webhooksStatus: {
-              type: "null" as const,
-              title: "GitHub Webhooks",
-              description: `GitHub webhooks ${
-                githubWebhooksEnabled ? "are" : "are not"
-              } enabled.`,
-            },
-            enabledTitle: {
-              type: "null" as const,
-              title: "Merge Queue",
-            },
             enabled: {
-              type: ["boolean", "null"],
-              title: "",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
                 repoData?.mergeQueue?.enabled ?? undefined,
               ),
+              title: "",
+              type: ["boolean", "null"],
+            },
+            enabledTitle: {
+              title: "Merge Queue",
+              type: "null" as const,
+            },
+            githubMQTriggerAliases: {
+              items: {
+                type: "object" as const,
+              },
+              title: "Merge Queue Trigger Aliases",
+              type: "array" as const,
             },
             patchDefinitions: {
-              type: "object" as const,
               title: "Merge Queue Patch Definitions",
+              type: "object" as const,
               ...overrideRadioBox(
                 "mergeQueueAliases",
                 [
@@ -91,32 +90,48 @@ export const getFormSchema = (
                 aliasArray.schema,
               ),
             },
-            githubMQTriggerAliases: {
-              type: "array" as const,
-              title: "Merge Queue Trigger Aliases",
-              items: {
-                type: "object" as const,
-              },
+            webhooksStatus: {
+              description: `GitHub webhooks ${
+                githubWebhooksEnabled ? "are" : "are not"
+              } enabled.`,
+              title: "GitHub Webhooks",
+              type: "null" as const,
             },
           },
         },
       },
+      type: "object" as const,
     },
     uiSchema: {
       mergeQueue: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "mq-card",
-        "ui:showLabel": false,
         enabled: {
+          "ui:data-cy": "mq-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:data-cy": "mq-enabled-radio-box",
           ...githubConflictErrorStyling(
             githubProjectConflicts?.commitQueueIdentifiers ?? null,
             formData?.mergeQueue?.enabled,
             repoData?.mergeQueue?.enabled ?? false,
             "the Merge Queue",
           ),
+        },
+        githubMQTriggerAliases: {
+          items: {
+            "ui:field": "githubTriggerAliasField",
+            "ui:label": false,
+          },
+          "ui:addable": false,
+          "ui:data-cy": "github-mq-trigger-aliases",
+          "ui:descriptionNode": (
+            <GithubTriggerAliasDescription
+              identifier={identifier}
+              isRepo={projectType === ProjectType.Repo}
+            />
+          ),
+          "ui:orderable": false,
+          "ui:placeholder": "No aliases are scheduled to run for merge queue.",
+          "ui:readonly": true,
+          "ui:removable": false,
         },
         patchDefinitions: {
           ...hideIf(
@@ -133,44 +148,29 @@ export const getFormSchema = (
             repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases ?? [],
             "Merge Queue Patch Definition",
           ),
-          mergeQueueAliasesOverride: {
-            "ui:data-cy": "mq-override-radio-box",
-            ...overrideStyling,
-          },
-          "ui:description": MergeQueueAliasesDescription,
           mergeQueueAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add merge queue patch definition",
               numberedTitle: "Patch Definition",
             }),
           },
+          mergeQueueAliasesOverride: {
+            "ui:data-cy": "mq-override-radio-box",
+            ...overrideStyling,
+          },
           repoData: {
             mergeQueueAliases: {
               ...aliasRowUiSchema({
-                numberedTitle: "Repo Patch Definition",
                 isRepo: true,
+                numberedTitle: "Repo Patch Definition",
               }),
             },
           },
+          "ui:description": MergeQueueAliasesDescription,
         },
-        githubMQTriggerAliases: {
-          "ui:data-cy": "github-mq-trigger-aliases",
-          "ui:addable": false,
-          "ui:orderable": false,
-          "ui:placeholder": "No aliases are scheduled to run for merge queue.",
-          "ui:readonly": true,
-          "ui:removable": false,
-          "ui:descriptionNode": (
-            <GithubTriggerAliasDescription
-              identifier={identifier}
-              isRepo={projectType === ProjectType.Repo}
-            />
-          ),
-          items: {
-            "ui:field": "githubTriggerAliasField",
-            "ui:label": false,
-          },
-        },
+        "ui:data-cy": "mq-card",
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:showLabel": false,
       },
     },
   };

@@ -27,17 +27,22 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
 
   return {
     patchAliases: {
-      aliasesOverride: !isAttachedProject || !!patchAliases.length,
       aliases: patchAliases.map((a) => ({
         ...a,
         displayTitle: a.alias,
       })),
+      aliasesOverride: !isAttachedProject || !!patchAliases.length,
     },
     patchTriggerAliases: {
-      aliasesOverride: !isAttachedProject || !!patchTriggerAliases,
       aliases:
         patchTriggerAliases?.map((p) => ({
           ...p,
+          displayTitle: p.alias,
+          downstreamRevision: p.downstreamRevision ?? "",
+          isGithubMQTriggerAlias: githubMQTriggerAliases?.includes(p.alias),
+          isGithubPRTriggerAlias: githubPRTriggerAliases?.includes(p.alias),
+          parentAsModule: p.parentAsModule ?? "",
+          status: p.status,
           taskSpecifiers:
             p.taskSpecifiers?.map((t) => ({
               ...t,
@@ -45,13 +50,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
                 ? TaskSpecifier.PatchAlias
                 : TaskSpecifier.VariantTask,
             })) ?? [],
-          status: p.status,
-          parentAsModule: p.parentAsModule ?? "",
-          downstreamRevision: p.downstreamRevision ?? "",
-          isGithubMQTriggerAlias: githubMQTriggerAliases?.includes(p.alias),
-          isGithubPRTriggerAlias: githubPRTriggerAliases?.includes(p.alias),
-          displayTitle: p.alias,
         })) ?? [],
+      aliasesOverride: !isAttachedProject || !!patchTriggerAliases,
     },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -80,6 +80,9 @@ export const formToGql = ((
         return {
           alias: a.alias,
           childProjectIdentifier: a.childProjectIdentifier,
+          downstreamRevision: a.downstreamRevision,
+          parentAsModule: a.parentAsModule,
+          status: a.status,
           taskSpecifiers:
             a.taskSpecifiers?.map(
               ({ patchAlias, specifier, taskRegex, variantRegex }) =>
@@ -95,21 +98,18 @@ export const formToGql = ((
                       variantRegex,
                     },
             ) ?? [],
-          status: a.status,
-          parentAsModule: a.parentAsModule,
-          downstreamRevision: a.downstreamRevision,
         };
       })
     : null;
 
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
+    aliases,
     projectRef: {
-      id,
       githubMQTriggerAliases,
       githubPRTriggerAliases,
+      id,
       patchTriggerAliases,
     },
-    aliases,
   };
 }) satisfies FormToGqlFunction<Tab>;

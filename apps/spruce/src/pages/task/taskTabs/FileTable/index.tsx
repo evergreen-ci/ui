@@ -23,8 +23,8 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
     TaskFilesQueryVariables
   >(TASK_FILES, {
     variables: {
-      taskId,
       execution,
+      taskId,
     },
   });
   useErrorToast(error, "Unable to load task files");

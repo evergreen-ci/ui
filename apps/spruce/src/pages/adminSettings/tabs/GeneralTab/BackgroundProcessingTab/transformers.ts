@@ -31,49 +31,49 @@ export const gqlToForm = ((data) => {
   return {
     backgroundProcessing: {
       amboy: {
-        name: name ?? "",
-        singleName: singleName ?? "",
-        poolSizeLocal: poolSizeLocal ?? 0,
-        poolSizeRemote: poolSizeRemote ?? 0,
-        localStorage: localStorage ?? 0,
-        groupDefaultWorkers: groupDefaultWorkers ?? 0,
+        dbName: amboyDB?.database ?? "",
+        dbURL: amboyDB?.url ?? "",
         groupBackgroundCreateFrequencyMinutes:
           groupBackgroundCreateFrequencyMinutes ?? 0,
+        groupDefaultWorkers: groupDefaultWorkers ?? 0,
         groupPruneFrequencyMinutes: groupPruneFrequencyMinutes ?? 0,
         groupTTLMinutes: groupTTLMinutes ?? 0,
+        localStorage: localStorage ?? 0,
         lockTimeoutMinutes: lockTimeoutMinutes ?? 0,
-        sampleSize: sampleSize ?? 0,
+        name: name ?? "",
+        namedQueues:
+          namedQueues?.map((q) => ({
+            lockTimeoutSeconds: q.lockTimeoutSeconds ?? 0,
+            name: q.name ?? "",
+            numWorkers: q.numWorkers ?? 0,
+            regexp: q.regexp ?? "",
+            sampleSize: q.sampleSize ?? 0,
+          })) ?? [],
+        poolSizeLocal: poolSizeLocal ?? 0,
+        poolSizeRemote: poolSizeRemote ?? 0,
         retry: {
-          numWorkers: retry?.numWorkers ?? 0,
           maxCapacity: retry?.maxCapacity ?? 0,
           maxRetryAttempts: retry?.maxRetryAttempts ?? 0,
           maxRetryTimeSeconds: retry?.maxRetryTimeSeconds ?? 0,
+          numWorkers: retry?.numWorkers ?? 0,
           retryBackoffSeconds: retry?.retryBackoffSeconds ?? 0,
           staleRetryingMonitorIntervalSeconds:
             retry?.staleRetryingMonitorIntervalSeconds ?? 0,
         },
-        namedQueues:
-          namedQueues?.map((q) => ({
-            name: q.name ?? "",
-            regexp: q.regexp ?? "",
-            numWorkers: q.numWorkers ?? 0,
-            sampleSize: q.sampleSize ?? 0,
-            lockTimeoutSeconds: q.lockTimeoutSeconds ?? 0,
-          })) ?? [],
-        dbURL: amboyDB?.url ?? "",
-        dbName: amboyDB?.database ?? "",
+        sampleSize: sampleSize ?? 0,
+        singleName: singleName ?? "",
       },
       loggerConfig: {
         buffer: {
-          useAsync: buffer?.useAsync ?? false,
-          durationSeconds: buffer?.durationSeconds ?? 0,
           count: buffer?.count ?? 0,
+          durationSeconds: buffer?.durationSeconds ?? 0,
           incomingBufferFactor: buffer?.incomingBufferFactor ?? 0,
+          useAsync: buffer?.useAsync ?? false,
         },
         defaultLevel: defaultLevel ?? PriorityLevel.Info,
-        thresholdLevel: thresholdLevel ?? PriorityLevel.Info,
         logkeeperURL: logkeeperURL ?? "",
         redactKeys: redactKeys ?? [],
+        thresholdLevel: thresholdLevel ?? PriorityLevel.Info,
       },
       notificationRateLimits: {
         bufferIntervalSeconds: notify?.bufferIntervalSeconds ?? 0,
@@ -98,6 +98,7 @@ export const formToGql = (({ backgroundProcessing }, data) => {
       database: dbName,
       url: dbURL,
     },
+    loggerConfig,
     notify: {
       ses: {
         senderAddress: data?.notify?.ses?.senderAddress ?? "",
@@ -105,6 +106,5 @@ export const formToGql = (({ backgroundProcessing }, data) => {
       ...notificationRateLimits,
     },
     triggers,
-    loggerConfig,
   };
 }) satisfies FormToGqlFunction<Tab>;

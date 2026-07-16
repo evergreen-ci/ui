@@ -26,35 +26,35 @@ const taskWithTestSelection: NonNullable<TaskQuery["task"]> = {
 
 const failingTest: TestResult = {
   id: "1",
-  testFile: "test_1",
-  status: TestStatus.Fail,
   isManuallyQuarantined: false,
   logs: {},
+  status: TestStatus.Fail,
+  testFile: "test_1",
 };
 
 const passingTest: TestResult = {
   id: "2",
-  testFile: "test_2",
-  status: TestStatus.Pass,
   isManuallyQuarantined: false,
   logs: {},
+  status: TestStatus.Pass,
+  testFile: "test_2",
 };
 
 const quarantinedTest: TestResult = {
   id: "3",
-  testFile: "test_3",
-  status: TestStatus.Pass,
   isManuallyQuarantined: true,
   logs: {},
+  status: TestStatus.Pass,
+  testFile: "test_3",
 };
 
 const failingTestOnDisplayTask: TestResult = {
   id: "4",
-  taskId: "execTaskId",
-  testFile: "test_4",
-  status: TestStatus.Fail,
   isManuallyQuarantined: false,
   logs: {},
+  status: TestStatus.Fail,
+  taskId: "execTaskId",
+  testFile: "test_4",
 };
 
 export const TestSelectionDisabled: CustomStoryObj<typeof ActionMenu> = {

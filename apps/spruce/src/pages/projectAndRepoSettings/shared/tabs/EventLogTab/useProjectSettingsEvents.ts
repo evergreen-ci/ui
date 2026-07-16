@@ -32,10 +32,10 @@ export const useProjectSettingsEvents = ({
     PROJECT_EVENT_LOGS,
     projectIdentifier && !isRepo
       ? {
-          variables: { projectIdentifier, limit },
-          fetchPolicy: "no-cache",
           errorPolicy: "all",
+          fetchPolicy: "no-cache",
           notifyOnNetworkStatusChange: true,
+          variables: { limit, projectIdentifier },
         }
       : skipToken,
   );
@@ -53,10 +53,10 @@ export const useProjectSettingsEvents = ({
     REPO_EVENT_LOGS,
     isRepo && repoId
       ? {
-          variables: { repoId, limit },
-          fetchPolicy: "no-cache",
           errorPolicy: "all",
+          fetchPolicy: "no-cache",
           notifyOnNetworkStatusChange: true,
+          variables: { limit, repoId },
         }
       : skipToken,
   );
@@ -78,17 +78,17 @@ export const useProjectSettingsEvents = ({
     () =>
       isRepo
         ? repoFetchMore({
-            variables: { repoId, before: lastEventTimestamp },
             updateQuery: getEventsUpdateQuery<"repoEvents", RepoEventLogsQuery>(
               "repoEvents",
             ),
+            variables: { before: lastEventTimestamp, repoId },
           })
         : projectFetchMore({
-            variables: { projectIdentifier, before: lastEventTimestamp },
             updateQuery: getEventsUpdateQuery<
               "projectEvents",
               ProjectEventLogsQuery
             >("projectEvents"),
+            variables: { before: lastEventTimestamp, projectIdentifier },
           }),
     [
       isRepo,

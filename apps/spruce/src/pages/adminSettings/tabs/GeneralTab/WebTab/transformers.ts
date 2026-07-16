@@ -27,9 +27,33 @@ export const gqlToForm = ((data) => {
   return {
     web: {
       api: {
+        corpUrl: corpUrl ?? "",
         httpListenAddr: apiHttpListenAddr ?? "",
         url: apiUrl ?? "",
-        corpUrl: corpUrl ?? "",
+      },
+      betaFeatures: {},
+      disabledGQLQueries: {
+        queryNames: disabledGQLQueries ?? [],
+      },
+      rateLimitConfig: {
+        elevatedUsers: {
+          elevatedUserIds: rateLimit?.elevatedUserIds ?? [],
+        },
+        graphqlComplexity: {
+          graphqlComplexityLimit: rateLimit?.graphqlComplexityLimit ?? 0,
+        },
+        graphqlLimits: {
+          graphqlServiceBurst: rateLimit?.graphqlServiceBurst ?? 0,
+          graphqlServicePerHour: rateLimit?.graphqlServicePerHour ?? 0,
+          graphqlUserBurst: rateLimit?.graphqlUserBurst ?? 0,
+          graphqlUserPerHour: rateLimit?.graphqlUserPerHour ?? 0,
+        },
+        restLimits: {
+          restServiceBurst: rateLimit?.restServiceBurst ?? 0,
+          restServicePerHour: rateLimit?.restServicePerHour ?? 0,
+          restUserBurst: rateLimit?.restUserBurst ?? 0,
+          restUserPerHour: rateLimit?.restUserPerHour ?? 0,
+        },
       },
       ui: {
         cacheTemplates: cacheTemplates ?? false,
@@ -46,30 +70,6 @@ export const gqlToForm = ((data) => {
         url: uiUrl ?? "",
         userVoice: userVoice ?? "",
       },
-      betaFeatures: {},
-      disabledGQLQueries: {
-        queryNames: disabledGQLQueries ?? [],
-      },
-      rateLimitConfig: {
-        restLimits: {
-          restUserPerHour: rateLimit?.restUserPerHour ?? 0,
-          restUserBurst: rateLimit?.restUserBurst ?? 0,
-          restServicePerHour: rateLimit?.restServicePerHour ?? 0,
-          restServiceBurst: rateLimit?.restServiceBurst ?? 0,
-        },
-        graphqlLimits: {
-          graphqlUserPerHour: rateLimit?.graphqlUserPerHour ?? 0,
-          graphqlUserBurst: rateLimit?.graphqlUserBurst ?? 0,
-          graphqlServicePerHour: rateLimit?.graphqlServicePerHour ?? 0,
-          graphqlServiceBurst: rateLimit?.graphqlServiceBurst ?? 0,
-        },
-        graphqlComplexity: {
-          graphqlComplexityLimit: rateLimit?.graphqlComplexityLimit ?? 0,
-        },
-        elevatedUsers: {
-          elevatedUserIds: rateLimit?.elevatedUserIds ?? [],
-        },
-      },
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -78,24 +78,24 @@ export const formToGql = (({ web }) => {
   const { api, betaFeatures, disabledGQLQueries, rateLimitConfig, ui } = web;
   return {
     api,
+    disabledGQLQueries: disabledGQLQueries.queryNames,
+    rateLimit: {
+      elevatedUserIds: rateLimitConfig.elevatedUsers.elevatedUserIds,
+      graphqlComplexityLimit:
+        rateLimitConfig.graphqlComplexity.graphqlComplexityLimit,
+      graphqlServiceBurst: rateLimitConfig.graphqlLimits.graphqlServiceBurst,
+      graphqlServicePerHour:
+        rateLimitConfig.graphqlLimits.graphqlServicePerHour,
+      graphqlUserBurst: rateLimitConfig.graphqlLimits.graphqlUserBurst,
+      graphqlUserPerHour: rateLimitConfig.graphqlLimits.graphqlUserPerHour,
+      restServiceBurst: rateLimitConfig.restLimits.restServiceBurst,
+      restServicePerHour: rateLimitConfig.restLimits.restServicePerHour,
+      restUserBurst: rateLimitConfig.restLimits.restUserBurst,
+      restUserPerHour: rateLimitConfig.restLimits.restUserPerHour,
+    },
     ui: {
       ...ui,
       betaFeatures,
-    },
-    disabledGQLQueries: disabledGQLQueries.queryNames,
-    rateLimit: {
-      restUserPerHour: rateLimitConfig.restLimits.restUserPerHour,
-      restUserBurst: rateLimitConfig.restLimits.restUserBurst,
-      restServicePerHour: rateLimitConfig.restLimits.restServicePerHour,
-      restServiceBurst: rateLimitConfig.restLimits.restServiceBurst,
-      graphqlUserPerHour: rateLimitConfig.graphqlLimits.graphqlUserPerHour,
-      graphqlUserBurst: rateLimitConfig.graphqlLimits.graphqlUserBurst,
-      graphqlServicePerHour:
-        rateLimitConfig.graphqlLimits.graphqlServicePerHour,
-      graphqlServiceBurst: rateLimitConfig.graphqlLimits.graphqlServiceBurst,
-      graphqlComplexityLimit:
-        rateLimitConfig.graphqlComplexity.graphqlComplexityLimit,
-      elevatedUserIds: rateLimitConfig.elevatedUsers.elevatedUserIds,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

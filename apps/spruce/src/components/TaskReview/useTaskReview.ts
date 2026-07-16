@@ -17,12 +17,12 @@ export const useTaskReview = ({
   const { sendEvent } = useTaskAnalytics();
   const { cache } = useApolloClient();
   const { data } = useFragment<ReviewedTaskFragment>({
+    fragment: REVIEWED_TASK_FRAGMENT,
     from: {
       __typename: "Task",
-      id: taskId,
       execution: execution,
+      id: taskId,
     },
-    fragment: REVIEWED_TASK_FRAGMENT,
   });
 
   const cacheTaskId = cache.identify(data);
@@ -36,7 +36,6 @@ export const useTaskReview = ({
         reviewed: boolean;
       }>(
         {
-          id: cacheTaskId,
           fragment: gql`
             fragment NonDisplayTaskReviewed on Task {
               id
@@ -44,6 +43,7 @@ export const useTaskReview = ({
               reviewed
             }
           `,
+          id: cacheTaskId,
         },
         (existing) => {
           if (!existing) return existing;
@@ -65,8 +65,8 @@ export const useTaskReview = ({
   const updateDisplayTask = useCallback(() => {
     cache.updateFragment<ReviewedTaskFragment>(
       {
-        id: cacheTaskId,
         fragment: REVIEWED_TASK_FRAGMENT,
+        id: cacheTaskId,
       },
       (existing) => {
         if (!existing) return existing;
@@ -83,7 +83,6 @@ export const useTaskReview = ({
         ]);
         return {
           ...existing,
-          reviewed: reviewedUpdate,
           executionTasksFull:
             existing?.executionTasksFull?.map((e) =>
               e?.displayStatus === TaskStatus.Succeeded
@@ -93,6 +92,7 @@ export const useTaskReview = ({
                     reviewed: reviewedUpdate,
                   },
             ) ?? null,
+          reviewed: reviewedUpdate,
         };
       },
     );
@@ -123,7 +123,7 @@ export const useTaskReview = ({
     checked,
     someChecked,
     task: data,
-    updateTask,
     updateDisplayTask,
+    updateTask,
   };
 };

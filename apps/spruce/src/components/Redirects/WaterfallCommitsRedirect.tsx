@@ -23,9 +23,9 @@ export const WaterfallCommitsRedirect: React.FC = () => {
   return (
     <Navigate
       to={getWaterfallRoute(projectIdentifier, {
+        requesterFilters,
         statusFilters,
         taskFilters,
-        requesterFilters,
         variantFilters,
       })}
     />

@@ -124,8 +124,8 @@ describe("CliCommandButton", () => {
         metadata={{
           execution: "1",
           logPath: "AFakeTest",
-          logType: LogTypes.EVERGREEN_TEST_LOGS,
           logsToMerge: ["log-a", "log-b"],
+          logType: LogTypes.EVERGREEN_TEST_LOGS,
           taskID: "spruce_ubuntu_check_codegen_1234",
         }}
       />,

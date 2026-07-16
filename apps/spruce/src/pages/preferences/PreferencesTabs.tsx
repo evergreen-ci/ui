@@ -99,22 +99,22 @@ const getTitle = (
   };
   return (
     {
-      [PreferencesTabRoutes.Profile]: defaultTitle,
-      [PreferencesTabRoutes.Notifications]: {
-        title: "Notifications",
-      },
       [PreferencesTabRoutes.CLI]: {
         title: "CLI & API",
       },
-      [PreferencesTabRoutes.UISettings]: {
-        title: "UI Settings",
+      [PreferencesTabRoutes.Notifications]: {
+        title: "Notifications",
       },
+      [PreferencesTabRoutes.Profile]: defaultTitle,
       [PreferencesTabRoutes.PublicKeys]: {
-        title: "Manage Public Keys",
         subtitle: "These keys will be used to SSH into spawned hosts.",
+        title: "Manage Public Keys",
       },
       [PreferencesTabRoutes.SageBotSettings]: {
         title: "Sage Bot Settings",
+      },
+      [PreferencesTabRoutes.UISettings]: {
+        title: "UI Settings",
       },
     }[tab] ?? defaultTitle
   );

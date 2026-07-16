@@ -176,7 +176,7 @@ export const paste = async (
     pasteFormat?: string;
   },
 ) => {
-  const { pastePayload, pasteFormat = "text/plain" } = pasteOptions;
+  const { pasteFormat = "text/plain", pastePayload } = pasteOptions;
   const data =
     pasteFormat === "application/json"
       ? JSON.stringify(pastePayload)

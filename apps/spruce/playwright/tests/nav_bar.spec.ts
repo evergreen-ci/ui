@@ -4,9 +4,9 @@ const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
 const SPRUCE_URLS = {
   admin: "/admin-settings/general",
-  version: `/version/${PATCH_ID}/tasks`,
-  userPatches: `/user/${USER_ID}/patches`,
   cli: `/preferences/cli`,
+  userPatches: `/user/${USER_ID}/patches`,
+  version: `/version/${PATCH_ID}/tasks`,
 };
 
 test.describe("Nav Bar", () => {
@@ -17,10 +17,10 @@ test.describe("Nav Bar", () => {
   }) => {
     await page.context().addCookies([
       {
-        name: projectCookie,
-        value: "spruce",
         domain: "localhost",
+        name: projectCookie,
         path: "/",
+        value: "spruce",
       },
     ]);
     await page.goto(SPRUCE_URLS.userPatches);
@@ -89,10 +89,10 @@ test.describe("Nav Bar", () => {
   }) => {
     await page.context().addCookies([
       {
-        name: projectCookie,
-        value: "spruce",
         domain: "localhost",
+        name: projectCookie,
         path: "/",
+        value: "spruce",
       },
     ]);
     await page.goto(SPRUCE_URLS.userPatches);

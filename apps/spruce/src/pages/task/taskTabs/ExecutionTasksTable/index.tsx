@@ -118,14 +118,14 @@ const getInitialSorting = (sorts: string): SortingState => {
           direction: SortDirection;
         }
       >(sorts, {
-        sortCategoryEnum: TaskSortCategory,
         sortByKey: "id",
+        sortCategoryEnum: TaskSortCategory,
         sortDirKey: "direction",
       }).map(({ direction, id }) => ({
-        id,
         desc: direction === SortDirection.Desc,
+        id,
       }))
-    : [{ id: TaskSortCategory.Status, desc: false }];
+    : [{ desc: false, id: TaskSortCategory.Status }];
 
   return initialSorting;
 };

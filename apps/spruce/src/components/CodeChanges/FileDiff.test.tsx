@@ -29,9 +29,9 @@ describe("FileDiff", () => {
     });
 
     expect(mockUseFileDiffStream).toHaveBeenCalledWith({
-      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=0",
       containerRef: expect.any(Object),
       fileName: "src/utils.ts",
+      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=0",
     });
   });
 
@@ -85,9 +85,9 @@ describe("FileDiff", () => {
     });
 
     expect(mockUseFileDiffStream).toHaveBeenCalledWith({
-      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=0",
       containerRef: expect.any(Object),
       fileName: "src/utils.ts",
+      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=0",
     });
   });
 
@@ -104,9 +104,9 @@ describe("FileDiff", () => {
     });
 
     expect(mockUseFileDiffStream).toHaveBeenCalledWith({
-      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=2",
       containerRef: expect.any(Object),
       fileName: "src/utils.ts",
+      url: "https://evergreen.example.com/rawdiff/testVersionId/?patch_number=2",
     });
   });
 

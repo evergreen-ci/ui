@@ -27,20 +27,20 @@ describe("project data", () => {
 const form: VariablesFormState = {
   vars: [
     {
-      varName: "test_name",
-      varValue: "{REDACTED}",
-      varDescription: "this is really important",
-      isPrivate: true,
       isAdminOnly: true,
       isDisabled: true,
+      isPrivate: true,
+      varDescription: "this is really important",
+      varName: "test_name",
+      varValue: "{REDACTED}",
     },
     {
-      varName: "test_two",
-      varValue: "val",
-      varDescription: "delete me later",
-      isPrivate: false,
       isAdminOnly: false,
       isDisabled: false,
+      isPrivate: false,
+      varDescription: "delete me later",
+      varName: "test_two",
+      varValue: "val",
     },
   ],
 };
@@ -52,9 +52,9 @@ const result: Pick<ProjectSettingsInput, "projectId" | "projectRef" | "vars"> =
       id: "project",
     },
     vars: {
-      vars: { test_name: "", test_two: "val" },
-      privateVarsList: ["test_name"],
       adminOnlyVarsList: ["test_name"],
+      privateVarsList: ["test_name"],
+      vars: { test_name: "", test_two: "val" },
       varsDescriptions: {
         test_name: "this is really important",
         test_two: "delete me later",

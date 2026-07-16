@@ -35,7 +35,6 @@ export const formToGql = ((formState, isRepo, id) => ({
     privateKey: "",
   },
   projectRef: {
-    id,
     githubDynamicTokenPermissionGroups:
       formState?.permissionGroups?.map((pg) => {
         const permissions: StringMap = {};
@@ -47,5 +46,6 @@ export const formToGql = ((formState, isRepo, id) => ({
           permissions,
         };
       }) ?? [],
+    id,
   },
 })) satisfies FormToGqlFunction<Tab>;

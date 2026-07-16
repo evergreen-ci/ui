@@ -5,48 +5,44 @@ const hostsRoute = "/hosts";
 
 const textFilterTests = [
   {
-    testName: "host ID filter",
-    filterIconDataCy: "host-id-filter",
-    filterValue: "i-0d0ae8b83366d22",
-    filterUrlParam: "hostId=i-0d0ae8b83366d22",
     expectedIds: ["i-0d0ae8b83366d22"],
-  },
-  {
-    testName: "host ID (EC2) filter",
     filterIconDataCy: "host-id-filter",
-    filterValue: "ec2-34-207-222-84.compute-1.amazonaws.com",
-    filterUrlParam: "hostId=ec2-34-207-222-84.compute-1.amazonaws.com",
-    expectedIds: ["i-06f80fa6e28f93b7d"],
+    filterUrlParam: "hostId=i-0d0ae8b83366d22",
+    filterValue: "i-0d0ae8b83366d22",
+    testName: "host ID filter",
   },
   {
-    testName: "distro ID filter",
-    filterIconDataCy: "distro-id-filter",
-    filterValue: "macos-1014",
-    filterUrlParam: "distroId=macos-1014",
+    expectedIds: ["i-06f80fa6e28f93b7d"],
+    filterIconDataCy: "host-id-filter",
+    filterUrlParam: "hostId=ec2-34-207-222-84.compute-1.amazonaws.com",
+    filterValue: "ec2-34-207-222-84.compute-1.amazonaws.com",
+    testName: "host ID (EC2) filter",
+  },
+  {
     expectedIds: [
       "macos-1014-68.macstadium.build.10gen",
       "macos-1014-68.macstadium.build.10gen.c",
       "macos-1014-68.macstadium.build.10gen.cc",
     ],
+    filterIconDataCy: "distro-id-filter",
+    filterUrlParam: "distroId=macos-1014",
+    filterValue: "macos-1014",
+    testName: "distro ID filter",
   },
   {
-    testName: "current task ID filter",
-    filterIconDataCy: "current-task-id-filter",
-    filterValue:
-      "mongodb_mongo_v3.6_debian92_sharding_auth_bc405c72dce4714da604810cdc90c132bd5fbaa1_20_07_20_17_39_20",
-    filterUrlParam:
-      "currentTaskId=mongodb_mongo_v3.6_debian92_sharding_auth_bc405c72dce4714da604810cdc90c132bd5fbaa1_20_07_20_17_39_20",
     expectedIds: [
       "i-0fb9fe0592ea381",
       "i-0fb9fe0592ea3815",
       "i-0fb9fe0592ea38150",
     ],
+    filterIconDataCy: "current-task-id-filter",
+    filterUrlParam:
+      "currentTaskId=mongodb_mongo_v3.6_debian92_sharding_auth_bc405c72dce4714da604810cdc90c132bd5fbaa1_20_07_20_17_39_20",
+    filterValue:
+      "mongodb_mongo_v3.6_debian92_sharding_auth_bc405c72dce4714da604810cdc90c132bd5fbaa1_20_07_20_17_39_20",
+    testName: "current task ID filter",
   },
   {
-    testName: "owner filter",
-    filterIconDataCy: "owner-filter",
-    filterValue: "mci",
-    filterUrlParam: "startedBy=mci",
     expectedIds: [
       "i-06f80fa6e28f93b",
       "i-06f80fa6e28f93b7",
@@ -59,6 +55,10 @@ const textFilterTests = [
       "macos-1014-68.macstadium.build.10gen.cc",
       "ubuntu1804-ppc-3.pic.build.10gen",
     ],
+    filterIconDataCy: "owner-filter",
+    filterUrlParam: "startedBy=mci",
+    filterValue: "mci",
+    testName: "owner filter",
   },
 ];
 

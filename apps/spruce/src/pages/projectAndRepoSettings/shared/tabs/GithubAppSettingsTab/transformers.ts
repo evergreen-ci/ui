@@ -20,8 +20,8 @@ export const gqlToForm = ((data) => {
     },
     tokenPermissionRestrictions: {
       permissionsByRequester: Object.values(Requester).map((r) => ({
-        requesterType: r,
         permissionGroup: githubPermissionGroupByRequester?.[r] ?? "",
+        requesterType: r,
       })),
     },
   };
@@ -41,8 +41,8 @@ export const formToGql = ((formState, isRepo, id) => {
       privateKey: formState?.appCredentials?.githubAppAuth?.privateKey ?? "",
     },
     projectRef: {
-      id,
       githubPermissionGroupByRequester,
+      id,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

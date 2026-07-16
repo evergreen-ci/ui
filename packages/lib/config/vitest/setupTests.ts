@@ -40,18 +40,18 @@ beforeEach(() => {
   // LeafyGreen tables require an IntersectionObserver.
   const mockIntersectionObserver = vi.fn(function () {
     return {
+      disconnect: vi.fn(),
       observe: vi.fn(),
       unobserve: vi.fn(),
-      disconnect: vi.fn(),
     };
   });
   vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
 
   const mockResizeObserver = vi.fn(function () {
     return {
+      disconnect: vi.fn(),
       observe: vi.fn(),
       unobserve: vi.fn(),
-      disconnect: vi.fn(),
     };
   });
   vi.stubGlobal("ResizeObserver", mockResizeObserver);

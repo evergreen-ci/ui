@@ -28,8 +28,8 @@ class WaterfallErrorBoundary extends Component<
   constructor(props: WaterfallErrorBoundaryProps) {
     super(props);
     this.state = {
-      hasError: false,
       error: null,
+      hasError: false,
       redirect: false,
       redirectPath: undefined,
     };
@@ -46,21 +46,21 @@ class WaterfallErrorBoundary extends Component<
   static getDerivedStateFromError(
     error: Error,
   ): Partial<WaterfallErrorBoundaryState> {
-    return { hasError: true, error };
+    return { error, hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({ error });
     reportError(new Error("An error occurred in the Waterfall page.", error), {
-      tags: { component: "Waterfall", project: this.props.projectIdentifier },
       fingerprint: errorInfo.componentStack ? [errorInfo.componentStack] : [],
+      tags: { component: "Waterfall", project: this.props.projectIdentifier },
     }).warning();
   }
 
   resetState = () => {
     this.setState({
-      hasError: false,
       error: null,
+      hasError: false,
       redirect: false,
       redirectPath: undefined,
     });
@@ -68,9 +68,9 @@ class WaterfallErrorBoundary extends Component<
 
   handleResetPage = () => {
     this.setState({
-      redirect: true,
-      hasError: false,
       error: null,
+      hasError: false,
+      redirect: true,
       redirectPath: getWaterfallRoute(this.props.projectIdentifier),
     });
   };

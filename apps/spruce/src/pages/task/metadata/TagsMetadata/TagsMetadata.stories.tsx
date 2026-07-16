@@ -8,51 +8,51 @@ export default {
 } satisfies CustomMeta<typeof TagsMetadata>;
 
 export const Default: CustomStoryObj<typeof TagsMetadata> = {
+  args: {
+    failureMetadataTags: ["failureTag1", "failureTag2"],
+    tags: ["tag1", "tag2", "tag3"],
+  },
   render: (args) => (
     <Container>
       <TagsMetadata {...args} />
     </Container>
   ),
-  args: {
-    tags: ["tag1", "tag2", "tag3"],
-    failureMetadataTags: ["failureTag1", "failureTag2"],
-  },
 };
 
 export const NoTags: CustomStoryObj<typeof TagsMetadata> = {
+  args: {
+    failureMetadataTags: [],
+    tags: [],
+  },
   render: (args) => (
     <Container>
       <TagsMetadata {...args} />
     </Container>
   ),
-  args: {
-    tags: [],
-    failureMetadataTags: [],
-  },
 };
 
 export const OnlyFailureMetadataTags: CustomStoryObj<typeof TagsMetadata> = {
+  args: {
+    failureMetadataTags: ["failureTag1", "failureTag2"],
+    tags: [],
+  },
   render: (args) => (
     <Container>
       <TagsMetadata {...args} />
     </Container>
   ),
-  args: {
-    tags: [],
-    failureMetadataTags: ["failureTag1", "failureTag2"],
-  },
 };
 
 export const OnlyTags: CustomStoryObj<typeof TagsMetadata> = {
+  args: {
+    failureMetadataTags: [],
+    tags: ["tag1", "tag2", "tag3"],
+  },
   render: (args) => (
     <Container>
       <TagsMetadata {...args} />
     </Container>
   ),
-  args: {
-    tags: ["tag1", "tag2", "tag3"],
-    failureMetadataTags: [],
-  },
 };
 
 const Container = styled.div`

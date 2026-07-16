@@ -171,85 +171,85 @@ describe("useSelectRestartTasks", () => {
 
 const groupedBuildVariants = [
   {
-    variant: "lint",
     displayName: "Lint",
     tasks: [
       {
-        id: "evergreen_lint_generate_lint",
-        execution: 0,
         displayName: "generate-lint",
         displayStatus: "success",
+        execution: 0,
+        id: "evergreen_lint_generate_lint",
       },
       {
-        id: "evergreen_lint_lint_service",
-        execution: 0,
         displayName: "lint-service",
         displayStatus: "success",
+        execution: 0,
+        id: "evergreen_lint_lint_service",
       },
     ],
+    variant: "lint",
   },
   {
-    variant: "ubuntu1604",
     displayName: "Ubuntu 16.04",
     tasks: [
       {
-        id: "evergreen_ubuntu1604_js_test",
-        execution: 0,
         displayName: "js-test",
         displayStatus: "success",
+        execution: 0,
+        id: "evergreen_ubuntu1604_js_test",
       },
       {
-        id: "evergreen_ubuntu1604_test_model_distro",
-        execution: 0,
         displayName: "test-model-distro",
         displayStatus: "success",
+        execution: 0,
+        id: "evergreen_ubuntu1604_test_model_distro",
       },
       {
-        id: "evergreen_ubuntu1604_test_model_event",
-        execution: 0,
         displayName: "test-model-event",
         displayStatus: "success",
+        execution: 0,
+        id: "evergreen_ubuntu1604_test_model_event",
       },
       {
-        id: "evergreen_ubuntu1604_test_model_grid",
-        execution: 0,
         displayName: "test-model-grid",
         displayStatus: "success",
+        execution: 0,
+        id: "evergreen_ubuntu1604_test_model_grid",
       },
       {
-        id: "evergreen_ubuntu1604_test_model_host",
-        execution: 0,
         displayName: "test-model-host",
         displayStatus: "success",
+        execution: 0,
+        id: "evergreen_ubuntu1604_test_model_host",
       },
       {
-        id: "evergreen_ubuntu1604_test_service",
-        execution: 0,
+        baseStatus: "success",
         displayName: "test-service",
         displayStatus: "failed",
-        baseStatus: "success",
+        execution: 0,
+        id: "evergreen_ubuntu1604_test_service",
       },
     ],
+    variant: "ubuntu1604",
   },
   {
-    variant: "variant",
     displayName: "Variant",
     tasks: [
       {
-        id: "evergreen_ubuntu1604_89",
-        execution: 0,
         displayName: "test-thirdparty",
         displayStatus: "started",
+        execution: 0,
+        id: "evergreen_ubuntu1604_89",
       },
     ],
+    variant: "variant",
   },
 ];
 
 const version = {
-  id: "mainVersion",
-  projectIdentifier: "projectIdentifier",
   buildVariants: groupedBuildVariants,
   generatedTaskCounts: [],
+  id: "mainVersion",
+  projectIdentifier: "projectIdentifier",
 };
 
 const allTasks = [

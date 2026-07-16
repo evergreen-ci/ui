@@ -10,49 +10,47 @@ export default {
 } satisfies CustomMeta<typeof ToolRenderer>;
 
 const sampleFindings: MergedFindings = {
-  summary: "Two errors and one warning found during task execution.",
-  overallStatus: "failure",
   errors: [
     {
-      line: 42,
-      severity: "error",
-      message: "Null pointer exception",
       evidence: "java.lang.NullPointerException at Foo.bar(Foo.java:42)",
-    },
-    {
-      line: 87,
+      line: 42,
+      message: "Null pointer exception",
       severity: "error",
-      message: "Memory leak detected",
+    },
+    {
       evidence: "Unreleased buffer of 2.3MB",
+      line: 87,
+      message: "Memory leak detected",
+      severity: "error",
     },
     {
-      line: null,
-      severity: "warning",
-      message: "Slow query detected",
       evidence: "Query took 12.4s to complete",
+      line: null,
+      message: "Slow query detected",
+      severity: "warning",
     },
     {
-      line: 120,
-      severity: "info",
-      message: "Retrying upload",
       evidence: "Transient network error, retry 1 of 3",
+      line: 120,
+      message: "Retrying upload",
+      severity: "info",
     },
   ],
   events: [
     {
+      description: "Task started",
       line: 1,
       timestamp: "2026-04-22T14:01:10Z",
-      description: "Task started",
     },
     {
+      description: "First error encountered",
       line: 42,
       timestamp: "2026-04-22T14:02:42Z",
-      description: "First error encountered",
     },
     {
+      description: "Task aborted",
       line: null,
       timestamp: null,
-      description: "Task aborted",
     },
   ],
   metrics: [
@@ -64,23 +62,25 @@ const sampleFindings: MergedFindings = {
     "Network latency was elevated throughout the run.",
     "Two distinct crash signatures were observed.",
   ],
+  overallStatus: "failure",
+  summary: "Two errors and one warning found during task execution.",
 };
 
 export const Default = {
+  args: {
+    state: "output-available",
+    type: "tool-askEvergreenAgentTool",
+  },
   argTypes: {
-    type: {
-      control: { type: "select" },
-      options: Object.keys(renderableToolLabels),
-    },
     state: {
       control: { type: "select" },
       options: Object.values(ToolStateEnum),
       type: "string",
     },
-  },
-  args: {
-    type: "tool-askEvergreenAgentTool",
-    state: "output-available",
+    type: {
+      control: { type: "select" },
+      options: Object.keys(renderableToolLabels),
+    },
   },
 } satisfies CustomStoryObj<typeof ToolRenderer>;
 
@@ -105,44 +105,39 @@ export const AllTools = {
 
 export const AnalyzerProgress = {
   args: {
-    type: "tool-logAnalyzerTool",
-    toolCallId: "call_example",
-    state: ToolStateEnum.InputAvailable,
     input: "analyze logs",
     progress: { percentage: 50, phase: "Refining chunk 3 of 5" },
+    state: ToolStateEnum.InputAvailable,
+    toolCallId: "call_example",
+    type: "tool-logAnalyzerTool",
   },
 } satisfies CustomStoryObj<typeof ToolRenderer>;
 
 export const AnalyzerCompleted = {
   args: {
-    type: "tool-logAnalyzerTool",
-    toolCallId: "call_example",
-    state: ToolStateEnum.OutputAvailable,
     input: "analyze logs",
     output: sampleFindings,
+    state: ToolStateEnum.OutputAvailable,
+    toolCallId: "call_example",
+    type: "tool-logAnalyzerTool",
   },
 } satisfies CustomStoryObj<typeof ToolRenderer>;
 
 export const AnalyzerSuccess = {
   args: {
-    type: "tool-logAnalyzerTool",
-    toolCallId: "call_example",
-    state: ToolStateEnum.OutputAvailable,
     input: "analyze logs",
     output: {
-      summary: "Task completed successfully with no errors.",
-      overallStatus: "success",
       errors: [],
       events: [
         {
+          description: "Task started",
           line: 1,
           timestamp: "2026-04-22T14:01:10Z",
-          description: "Task started",
         },
         {
+          description: "Task succeeded",
           line: 5000,
           timestamp: "2026-04-22T14:05:02Z",
-          description: "Task succeeded",
         },
       ],
       metrics: [
@@ -150,6 +145,11 @@ export const AnalyzerSuccess = {
         { name: "Exit code", value: "0" },
       ],
       observations: ["No anomalies detected."],
+      overallStatus: "success",
+      summary: "Task completed successfully with no errors.",
     } satisfies MergedFindings,
+    state: ToolStateEnum.OutputAvailable,
+    toolCallId: "call_example",
+    type: "tool-logAnalyzerTool",
   },
 } satisfies CustomStoryObj<typeof ToolRenderer>;

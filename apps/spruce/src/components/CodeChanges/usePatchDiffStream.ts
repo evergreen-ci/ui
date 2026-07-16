@@ -22,9 +22,9 @@ export const usePatchDiffStream = ({
   }, []);
 
   return useHTMLStream({
-    url,
     containerRef,
-    spanName: "fetchDiffFile",
     processLine,
+    spanName: "fetchDiffFile",
+    url,
   });
 };

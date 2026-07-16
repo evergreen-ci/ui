@@ -5,13 +5,10 @@ import { defineConfig, mergeConfig } from "vite";
 import { defineConfig as defineTestConfig } from "vitest/config";
 
 const viteConfig = defineConfig({
-  server: {
-    port: 5493,
-  },
   plugins: [
     tanstackRouter({
-      target: "react",
       autoCodeSplitting: true,
+      target: "react",
     }),
     react(),
     sentryVitePlugin({
@@ -28,10 +25,13 @@ const viteConfig = defineConfig({
     }),
   ],
   resolve: {
-    tsconfigPaths: true,
     alias: {
       "@emotion/server": "@emotion/css", // TODO: Delete when LeafyGreen is no longer used in this repo.
     },
+    tsconfigPaths: true,
+  },
+  server: {
+    port: 5493,
   },
 });
 
@@ -39,10 +39,10 @@ const vitestConfig = defineTestConfig({
   test: {
     environment: "jsdom",
     globals: true,
+    include: ["src/**/*.test.{ts,tsx}"],
     outputFile: { junit: "./bin/vitest/junit.xml" },
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
     setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
-    include: ["src/**/*.test.{ts,tsx}"],
   },
 });
 export default mergeConfig(viteConfig, vitestConfig);

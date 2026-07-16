@@ -94,25 +94,6 @@ const tabMap = ({
 }): {
   [key in VersionPageTabs]: React.JSX.Element;
 } => ({
-  [VersionPageTabs.Tasks]: (
-    <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
-      <Tasks
-        setActiveTaskIds={setActiveTaskIds}
-        taskCount={taskCount}
-        versionId={versionId}
-      />
-    </Tab>
-  ),
-  [VersionPageTabs.TaskDuration]: (
-    <Tab
-      key="duration-tab"
-      data-cy="duration-tab"
-      id="duration-tab"
-      name="Task Duration"
-    >
-      <TaskDuration taskCount={taskCount} versionId={versionId} />
-    </Tab>
-  ),
   [VersionPageTabs.Changes]: (
     <Tab
       key="changes-tab"
@@ -135,6 +116,25 @@ const tabMap = ({
       )}
     >
       <DownstreamTasks childPatches={childPatches ?? []} />
+    </Tab>
+  ),
+  [VersionPageTabs.TaskDuration]: (
+    <Tab
+      key="duration-tab"
+      data-cy="duration-tab"
+      id="duration-tab"
+      name="Task Duration"
+    >
+      <TaskDuration taskCount={taskCount} versionId={versionId} />
+    </Tab>
+  ),
+  [VersionPageTabs.Tasks]: (
+    <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
+      <Tasks
+        setActiveTaskIds={setActiveTaskIds}
+        taskCount={taskCount}
+        versionId={versionId}
+      />
     </Tab>
   ),
   [VersionPageTabs.TestAnalysis]: (
@@ -176,13 +176,13 @@ const VersionTabs: React.FC<VersionTabProps> = ({
 
   const tabIsActive = useMemo(
     () => ({
-      [VersionPageTabs.Tasks]: true,
-      [VersionPageTabs.TaskDuration]: true,
-      [VersionPageTabs.VersionTiming]: true,
       [VersionPageTabs.Changes]: isPatch,
       [VersionPageTabs.Downstream]:
         childPatches !== undefined && childPatches !== null,
+      [VersionPageTabs.TaskDuration]: true,
+      [VersionPageTabs.Tasks]: true,
       [VersionPageTabs.TestAnalysis]: status !== PatchStatus.Success,
+      [VersionPageTabs.VersionTiming]: true,
     }),
     [isPatch, childPatches, status],
   );
@@ -198,15 +198,15 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       ? childPatches.filter((c) => c.status === PatchStatus.Success).length
       : 0;
     return tabMap({
-      taskCount: taskCount ?? 0,
       childPatches,
       isMergeQueuePatch,
+      isVariantTimingView: !!queryParams.variant,
       numFailedChildPatches,
       numStartedChildPatches,
       numSuccessChildPatches,
       setActiveTaskIds,
+      taskCount: taskCount ?? 0,
       versionId: version.id,
-      isVariantTimingView: !!queryParams.variant,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

@@ -13,9 +13,9 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe("task timing metadata", () => {
   it.each([
-    { link: "Activated → Finish", expected: "total_time_min" },
-    { link: "Activated → Start", expected: "wait_time_min" },
-    { link: "Start → Finish", expected: "duration_min" },
+    { expected: "total_time_min", link: "Activated → Finish" },
+    { expected: "wait_time_min", link: "Activated → Start" },
+    { expected: "duration_min", link: "Start → Finish" },
   ])("queries the correct column for $link", ({ expected, link }) => {
     render(
       <TaskTimingMetadata
@@ -49,8 +49,8 @@ describe("task timing metadata", () => {
     });
 
     it.each([
-      { label: "Only include successful runs", expected: "success" },
-      { label: "Only include waterfall commits", expected: "gitter_request" },
+      { expected: "success", label: "Only include successful runs" },
+      { expected: "gitter_request", label: "Only include waterfall commits" },
     ])(
       "updates links to include the config parameter $expected",
       async ({ expected, label }) => {

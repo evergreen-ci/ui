@@ -14,9 +14,9 @@ import { TASK_OVERVIEW_POPUP, TASK_TESTS } from "gql/queries";
 import { TaskOverviewPopup } from ".";
 
 export default {
-  title: "Pages/Waterfall/TaskOverviewPopup",
-  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   component: TaskOverviewPopup,
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
+  title: "Pages/Waterfall/TaskOverviewPopup",
 };
 
 const taskId = "spruce_ubuntu1604_test_task";
@@ -43,44 +43,44 @@ const defaultMock: ApolloMock<
 > = {
   request: {
     query: TASK_OVERVIEW_POPUP,
-    variables: { taskId, execution: 0 },
+    variables: { execution: 0, taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
-        execution: 0,
+        annotation: null,
         buildVariant: "ubuntu1604",
         canRestart: true,
-        displayName: "test-task",
-        displayOnly: false,
-        displayStatus: TaskStatus.Succeeded,
-        distroId: "ubuntu1604-small",
-        finishTime: new Date("2024-01-15T10:30:00Z"),
-        status: TaskStatus.Succeeded,
-        timeTaken: 125000,
-        annotation: null,
         details: {
           description: "Running unit tests",
           failingCommand: null,
         },
+        displayName: "test-task",
+        displayOnly: false,
+        displayStatus: TaskStatus.Succeeded,
+        distroId: "ubuntu1604-small",
+        execution: 0,
+        finishTime: new Date("2024-01-15T10:30:00Z"),
+        id: taskId,
+        status: TaskStatus.Succeeded,
+        timeTaken: 125000,
       },
     },
   },
 };
 
 export const Default: StoryObj<typeof TaskOverviewPopup> = {
-  render: (args) => <TaskOverviewPopupWrapper {...args} />,
+  args: {
+    execution: 0,
+    taskId,
+  },
   parameters: {
     apolloClient: {
       mocks: [defaultMock],
     },
   },
-  args: {
-    taskId,
-    execution: 0,
-  },
+  render: (args) => <TaskOverviewPopupWrapper {...args} />,
 };
 
 const withAnnotationsMock: ApolloMock<
@@ -89,40 +89,29 @@ const withAnnotationsMock: ApolloMock<
 > = {
   request: {
     query: TASK_OVERVIEW_POPUP,
-    variables: { taskId, execution: 0 },
+    variables: { execution: 0, taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
-        execution: 0,
-        buildVariant: "ubuntu2004",
-        canRestart: true,
-        displayName: "e2e-test",
-        displayOnly: true,
-        displayStatus: TaskStatus.Failed,
-        distroId: "ubuntu2004-small",
-        finishTime: new Date("2024-01-15T12:00:00Z"),
-        status: TaskStatus.Failed,
-        timeTaken: 256000,
         annotation: {
-          id: "annotation_123",
           createdIssues: [
             {
               issueKey: "EVG-1234",
               url: "https://jira.mongodb.org/browse/EVG-1234",
             },
           ],
+          id: "annotation_123",
           issues: [
             {
               issueKey: "EVG-5678",
-              url: "https://jira.mongodb.org/browse/EVG-5678",
               jiraTicket: {
                 fields: {
                   failingTasks: ["test-task-1", "test-task-2"],
                 },
               },
+              url: "https://jira.mongodb.org/browse/EVG-5678",
             },
           ],
           suspectedIssues: [
@@ -132,27 +121,38 @@ const withAnnotationsMock: ApolloMock<
             },
           ],
         },
+        buildVariant: "ubuntu2004",
+        canRestart: true,
         details: {
           description: "",
           failingCommand:
             "'shell.exec' in function 'pnpm-cypress' (step 11 of 11)",
         },
+        displayName: "e2e-test",
+        displayOnly: true,
+        displayStatus: TaskStatus.Failed,
+        distroId: "ubuntu2004-small",
+        execution: 0,
+        finishTime: new Date("2024-01-15T12:00:00Z"),
+        id: taskId,
+        status: TaskStatus.Failed,
+        timeTaken: 256000,
       },
     },
   },
 };
 
 export const WithAnnotations: StoryObj<typeof TaskOverviewPopup> = {
-  render: (args) => <TaskOverviewPopupWrapper {...args} />,
+  args: {
+    execution: 0,
+    taskId,
+  },
   parameters: {
     apolloClient: {
       mocks: [withAnnotationsMock],
     },
   },
-  args: {
-    taskId,
-    execution: 0,
-  },
+  render: (args) => <TaskOverviewPopupWrapper {...args} />,
 };
 
 const longTaskNameMock: ApolloMock<
@@ -161,46 +161,46 @@ const longTaskNameMock: ApolloMock<
 > = {
   request: {
     query: TASK_OVERVIEW_POPUP,
-    variables: { taskId, execution: 0 },
+    variables: { execution: 0, taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
-        execution: 0,
+        annotation: null,
         buildVariant: "ubuntu2004",
         canRestart: false,
-        displayName:
-          "very-long-task-name-that-should-wrap-or-truncate-properly-in-the-popup",
-        displayOnly: false,
-        displayStatus: TaskStatus.WillRun,
-        distroId: "ubuntu2004-xlarge-with-very-long-distro-name",
-        finishTime: null,
-        status: TaskStatus.WillRun,
-        timeTaken: null,
-        annotation: null,
         details: {
           description:
             "This is a very long description that should demonstrate how the popup handles lengthy text content. It should wrap appropriately within the popup bounds.",
           failingCommand: null,
         },
+        displayName:
+          "very-long-task-name-that-should-wrap-or-truncate-properly-in-the-popup",
+        displayOnly: false,
+        displayStatus: TaskStatus.WillRun,
+        distroId: "ubuntu2004-xlarge-with-very-long-distro-name",
+        execution: 0,
+        finishTime: null,
+        id: taskId,
+        status: TaskStatus.WillRun,
+        timeTaken: null,
       },
     },
   },
 };
 
 export const LongTaskName: StoryObj<typeof TaskOverviewPopup> = {
-  render: (args) => <TaskOverviewPopupWrapper {...args} />,
+  args: {
+    execution: 0,
+    taskId,
+  },
   parameters: {
     apolloClient: {
       mocks: [longTaskNameMock],
     },
   },
-  args: {
-    taskId,
-    execution: 0,
-  },
+  render: (args) => <TaskOverviewPopupWrapper {...args} />,
 };
 
 const failedTaskMock: ApolloMock<
@@ -209,29 +209,29 @@ const failedTaskMock: ApolloMock<
 > = {
   request: {
     query: TASK_OVERVIEW_POPUP,
-    variables: { taskId, execution: 0 },
+    variables: { execution: 0, taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
-        execution: 0,
+        annotation: null,
         buildVariant: "ubuntu1604",
         canRestart: true,
-        displayName: "cypress-test",
-        displayOnly: false,
-        displayStatus: TaskStatus.Failed,
-        distroId: "ubuntu1604-large",
-        finishTime: new Date("2024-01-15T11:45:00Z"),
-        status: TaskStatus.Failed,
-        timeTaken: 98000,
-        annotation: null,
         details: {
           description: null,
           failingCommand:
             "'shell.exec' in function 'pnpm-cypress' (step 11 of 11)",
         },
+        displayName: "cypress-test",
+        displayOnly: false,
+        displayStatus: TaskStatus.Failed,
+        distroId: "ubuntu1604-large",
+        execution: 0,
+        finishTime: new Date("2024-01-15T11:45:00Z"),
+        id: taskId,
+        status: TaskStatus.Failed,
+        timeTaken: 98000,
       },
     },
   },
@@ -241,10 +241,10 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
   request: {
     query: TASK_TESTS,
     variables: {
-      id: taskId,
       execution: 0,
-      statusList: [TestStatus.Fail, TestStatus.SilentFail],
+      id: taskId,
       limitNum: 3,
+      statusList: [TestStatus.Fail, TestStatus.SilentFail],
       testName: "",
     },
   },
@@ -252,15 +252,15 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
         execution: 0,
+        id: taskId,
         tests: {
           filteredTestCount: 5,
           testResults: [
             {
-              id: "test-1",
               baseStatus: null,
               duration: 1234,
+              id: "test-1",
               isManuallyQuarantined: false,
               logs: {
                 lineNum: 42,
@@ -273,9 +273,9 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
               testFile: "tests/integration/auth/test_authentication_flow.py",
             },
             {
-              id: "test-2",
               baseStatus: null,
               duration: 890,
+              id: "test-2",
               isManuallyQuarantined: false,
               logs: {
                 lineNum: 156,
@@ -289,9 +289,9 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
                 "tests/integration/permissions/test_user_permissions.py",
             },
             {
-              id: "test-3",
               baseStatus: null,
               duration: 2345,
+              id: "test-3",
               isManuallyQuarantined: false,
               logs: {
                 lineNum: 89,
@@ -313,16 +313,16 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
 };
 
 export const WithFailingTests: StoryObj<typeof TaskOverviewPopup> = {
-  render: (args) => <TaskOverviewPopupWrapper {...args} />,
+  args: {
+    execution: 0,
+    taskId,
+  },
   parameters: {
     apolloClient: {
       mocks: [failedTaskMock, failingTestsMock],
     },
   },
-  args: {
-    taskId,
-    execution: 0,
-  },
+  render: (args) => <TaskOverviewPopupWrapper {...args} />,
 };
 
 const stepbackCompleteMock: ApolloMock<
@@ -331,47 +331,47 @@ const stepbackCompleteMock: ApolloMock<
 > = {
   request: {
     query: TASK_OVERVIEW_POPUP,
-    variables: { taskId, execution: 0 },
+    variables: { execution: 0, taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
-        execution: 0,
+        annotation: null,
         buildVariant: "ubuntu1604",
         canRestart: true,
-        displayName: "test-task-stepback-complete",
-        displayOnly: false,
-        displayStatus: TaskStatus.Failed,
-        distroId: "ubuntu1604-small",
-        finishTime: new Date("2024-01-15T14:00:00Z"),
-        status: TaskStatus.Failed,
-        timeTaken: 155000,
-        annotation: null,
-        stepbackInfo: {
-          lastFailingStepbackTaskId: "breaking_task_id",
-          nextStepbackTaskId: null,
-        },
         details: {
           description: null,
           failingCommand:
             "'shell.exec' in function 'run-integration-test' (step 3 of 10)",
         },
+        displayName: "test-task-stepback-complete",
+        displayOnly: false,
+        displayStatus: TaskStatus.Failed,
+        distroId: "ubuntu1604-small",
+        execution: 0,
+        finishTime: new Date("2024-01-15T14:00:00Z"),
+        id: taskId,
+        status: TaskStatus.Failed,
+        stepbackInfo: {
+          lastFailingStepbackTaskId: "breaking_task_id",
+          nextStepbackTaskId: null,
+        },
+        timeTaken: 155000,
       },
     },
   },
 };
 
 export const StepbackComplete: StoryObj<typeof TaskOverviewPopup> = {
-  render: (args) => <TaskOverviewPopupWrapper {...args} />,
+  args: {
+    execution: 0,
+    taskId,
+  },
   parameters: {
     apolloClient: {
       mocks: [stepbackCompleteMock],
     },
   },
-  args: {
-    taskId,
-    execution: 0,
-  },
+  render: (args) => <TaskOverviewPopupWrapper {...args} />,
 };

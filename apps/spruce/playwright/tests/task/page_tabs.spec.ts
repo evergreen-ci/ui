@@ -1,33 +1,33 @@
 import { test, expect } from "../../fixtures";
 
 const tasks = {
-  withTests:
-    "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
+  displayTask: "evergreen_ubuntu1604_89",
   noFailedTests:
     "evergreen_ubuntu1604_test_auth_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
   noTests:
     "evergreen_ubuntu1604_test_operations_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
-  displayTask: "evergreen_ubuntu1604_89",
+  withTests:
+    "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
 };
 
 const taskRoute = (id: string) => `/task/${id}`;
 
 const task = {
-  logs: {
-    route: `${taskRoute(tasks.withTests)}/logs`,
-    btn: "task-logs-tab",
-  },
-  tests: {
-    route: `${taskRoute(tasks.withTests)}/tests`,
-    btn: "task-tests-tab",
+  display: {
+    btn: "task-execution-tab",
+    route: `${taskRoute(tasks.displayTask)}/execution-tasks`,
   },
   files: {
-    route: `${taskRoute(tasks.withTests)}/files`,
     btn: "task-files-tab",
+    route: `${taskRoute(tasks.withTests)}/files`,
   },
-  display: {
-    route: `${taskRoute(tasks.displayTask)}/execution-tasks`,
-    btn: "task-execution-tab",
+  logs: {
+    btn: "task-logs-tab",
+    route: `${taskRoute(tasks.withTests)}/logs`,
+  },
+  tests: {
+    btn: "task-tests-tab",
+    route: `${taskRoute(tasks.withTests)}/tests`,
   },
 };
 

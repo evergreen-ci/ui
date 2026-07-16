@@ -25,8 +25,8 @@ export const HTMLLog: React.FC = () => {
         params.execution,
         params.origin,
         {
-          text: true,
           priority: true,
+          text: true,
         },
       );
     } catch {
@@ -35,8 +35,8 @@ export const HTMLLog: React.FC = () => {
   }, [taskId, execution, origin]);
 
   const { error, isLoading } = useHTMLLogStream({
-    url,
     containerRef,
+    url,
   });
 
   if (error) {

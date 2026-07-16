@@ -20,12 +20,12 @@ export const decorators: Decorator[] = [
 ];
 
 const preview: Preview = {
-  tags: ["autodocs"],
   parameters: {
     apolloClient: {
       mocks: [],
     },
   },
+  tags: ["autodocs"],
 };
 
 export default preview;

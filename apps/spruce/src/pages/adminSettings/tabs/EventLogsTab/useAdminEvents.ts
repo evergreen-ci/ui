@@ -15,13 +15,13 @@ export const useAdminEvents = (limit: number = ADMIN_EVENT_LIMIT) => {
     AdminEventsQuery,
     AdminEventsQueryVariables
   >(ADMIN_EVENT_LOG, {
+    fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true,
     variables: {
       opts: {
         limit,
       },
     },
-    fetchPolicy: "no-cache",
-    notifyOnNetworkStatusChange: true,
   });
   useErrorToast(error, "Unable to fetch admin events");
 
@@ -32,15 +32,15 @@ export const useAdminEvents = (limit: number = ADMIN_EVENT_LIMIT) => {
   const handleFetchMore = useCallback(
     () =>
       fetchMore({
-        variables: {
-          opts: {
-            limit,
-            before: lastEventTimestamp,
-          },
-        },
         updateQuery: getEventsUpdateQuery<"adminEvents", AdminEventsQuery>(
           "adminEvents",
         ),
+        variables: {
+          opts: {
+            before: lastEventTimestamp,
+            limit,
+          },
+        },
       }),
     [fetchMore, limit, lastEventTimestamp],
   );

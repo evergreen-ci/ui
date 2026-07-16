@@ -2,13 +2,13 @@ import { spacing, transitionDuration } from "@leafygreen-ui/tokens";
 
 // Should be used for spacing such as margins and padding.
 export const size = {
-  xxs: `${spacing[100]}px`, // 4px
-  xs: `${spacing[200]}px`, // 8px
-  s: `${spacing[400]}px`, // 16px
-  m: `${spacing[600]}px`, // 24px
   l: `${spacing[800]}px`, // 32px
+  m: `${spacing[600]}px`, // 24px
+  s: `${spacing[400]}px`, // 16px
   xl: `${spacing[1600]}px`, // 64px
+  xs: `${spacing[200]}px`, // 8px
   xxl: `${spacing[1800]}px`, // 72px
+  xxs: `${spacing[100]}px`, // 4px
 } as const;
 
 export const fontSize = {

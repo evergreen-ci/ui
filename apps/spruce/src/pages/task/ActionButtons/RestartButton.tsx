@@ -36,7 +36,6 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
     RestartTaskMutation,
     RestartTaskMutationVariables
   >(RESTART_TASK, {
-    refetchQueries: ["TaskAllExecutions"],
     onCompleted: (data) => {
       const { latestExecution, priority } = data.restartTask ?? {};
       if ((priority || 0) < 0) {
@@ -51,6 +50,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
     onError: (err) => {
       dispatchToast.error(`Error restarting task: ${err.message}`);
     },
+    refetchQueries: ["TaskAllExecutions"],
   });
 
   const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
@@ -81,10 +81,10 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
           >
             <MenuItem
               onClick={() => {
-                restartTask({ variables: { taskId, failedOnly: false } });
+                restartTask({ variables: { failedOnly: false, taskId } });
                 taskAnalytics.sendEvent({
-                  name: "Clicked restart task button",
                   allTasks: true,
+                  name: "Clicked restart task button",
                   "task.is_display_task": true,
                 });
               }}
@@ -93,10 +93,10 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                restartTask({ variables: { taskId, failedOnly: true } });
+                restartTask({ variables: { failedOnly: true, taskId } });
                 taskAnalytics.sendEvent({
-                  name: "Clicked restart task button",
                   allTasks: false,
+                  name: "Clicked restart task button",
                   "task.is_display_task": true,
                 });
               }}
@@ -111,7 +111,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
             disabled={disabled}
             loading={loadingRestartTask}
             onClick={() => {
-              restartTask({ variables: { taskId, failedOnly: false } });
+              restartTask({ variables: { failedOnly: false, taskId } });
               taskAnalytics.sendEvent({
                 name: "Clicked restart task button",
                 "task.is_display_task": false,

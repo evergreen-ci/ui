@@ -46,8 +46,8 @@ export const BuildVariantCard: React.FC<Props> = ({
           <StyledRouterLink
             onClick={() =>
               taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
                 "link.type": "build variant history link",
+                name: "Clicked metadata link",
               })
             }
             to={getVariantHistoryRoute(projectIdentifier, buildVariant, {

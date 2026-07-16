@@ -138,8 +138,8 @@ describe("useSections", () => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
     });
     rerender({
-      logType: LogTypes.EVERGREEN_TASK_FILE,
       logs,
+      logType: LogTypes.EVERGREEN_TASK_FILE,
       onInitOpenSectionsContainingLines: undefined,
       renderingType: LogRenderingTypes.Default,
       sectionsEnabled: true,
@@ -283,8 +283,8 @@ describe("useSections", () => {
     InitializeFakeToastContext();
     const { rerender, result } = renderHook((args) => useSections(args), {
       initialProps: {
-        logType: LogTypes.EVERGREEN_TASK_LOGS,
         logs,
+        logType: LogTypes.EVERGREEN_TASK_LOGS,
         onInitOpenSectionsContainingLines: [10],
         renderingType: LogRenderingTypes.Default,
         sectionsEnabled: true,
@@ -307,8 +307,8 @@ describe("useSections", () => {
       expect(result.current.sectionState).toStrictEqual(sectionState);
     });
     rerender({
-      logType: LogTypes.EVERGREEN_TASK_LOGS,
       logs,
+      logType: LogTypes.EVERGREEN_TASK_LOGS,
       onInitOpenSectionsContainingLines: [1, 2],
       renderingType: LogRenderingTypes.Default,
       sectionsEnabled: true,

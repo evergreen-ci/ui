@@ -21,14 +21,14 @@ const groupTestsByName = (
 
       if (!processedTasks.has(taskKey)) {
         const taskInfo: TaskBuildVariantField = {
-          taskName: task.displayName,
           buildVariant: task.buildVariant,
           buildVariantDisplayName: task.buildVariantDisplayName,
-          id: task.id,
           displayStatus: task.displayStatus,
+          id: task.id,
           logs: {
             urlParsley: test.logs.urlParsley || "",
           },
+          taskName: task.displayName,
         };
 
         if (!testMap.has(test.testFile)) {

@@ -21,10 +21,10 @@ export const renderableToolLabels: Record<
   }
 > = {
   "tool-askEvergreenAgentTool": {
-    loadingCopy: "Asking Evergreen Agent for more information",
     completedCopy: "Received information from the Evergreen Agent",
     errorCopy: "Error fetching information from Evergreen Agent",
     glyph: "EvergreenLogo",
+    loadingCopy: "Asking Evergreen Agent for more information",
     renderOutput: (output) => {
       if (typeof output === "string") {
         return output;
@@ -33,10 +33,10 @@ export const renderableToolLabels: Record<
     },
   },
   "tool-logAnalyzerTool": {
-    loadingCopy: "Analyzing logs",
     completedCopy: "Analyzed logs",
     errorCopy: "Error analyzing logs",
     glyph: "File",
+    loadingCopy: "Analyzing logs",
     renderOutput: (output, onLinkClick) =>
       isMergedFindings(output) ? (
         <MergedFindingsView findings={output} onLineClick={onLinkClick} />

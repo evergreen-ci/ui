@@ -33,10 +33,10 @@ const reportError = (
   if (!isInitialized()) {
     return {
       severe: () => {
-        console.error({ err, severity: "severe", context, fingerprint, tags });
+        console.error({ context, err, fingerprint, severity: "severe", tags });
       },
       warning: () => {
-        console.error({ err, severity: "warning", context, fingerprint, tags });
+        console.error({ context, err, fingerprint, severity: "warning", tags });
       },
     };
   }
@@ -78,8 +78,8 @@ const leaveBreadcrumb = (
     console.debug({ message, metadata, type });
   } else {
     const bc: Breadcrumb = {
-      message,
       data: validateMetadata(metadata, type),
+      message,
       // Divide date by 1000 because Sentry wants the timestamp in RFC 3339, or seconds (not milliseconds!) since the Unix epoch.
       timestamp: new Date().getTime() / 1000,
       type,
@@ -113,8 +113,8 @@ const initializeErrorHandling = ({
   if (!isInitialized()) {
     initializeSentry({
       debug: !isProductionBuild,
-      sentryDSN: sentryDSN,
       environment: environment,
+      sentryDSN: sentryDSN,
     });
   }
 };

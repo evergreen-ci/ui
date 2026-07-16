@@ -12,178 +12,178 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as const,
     description:
       "Configure tasks to run at a consistent interval within this project. " +
       "This will create a new version that can be seen on the Spruce commits page, " +
       "regardless of whether or not a new commit has been pushed since the last interval, " +
       "as opposed to batchtime which will activate the tasks on existing commit versions.",
+    type: "object" as const,
     ...overrideRadioBox(
       "periodicBuilds",
       ["Override Repo Commands", "Default to Repo Commands"],
       {
-        type: "array" as const,
         default: [],
         items: {
-          type: "object" as const,
           properties: {
+            alias: {
+              default: "",
+              title: "Alias",
+              type: "string" as const,
+            },
+            configFile: {
+              default: "",
+              format: "noStartingOrTrailingWhitespace",
+              minLength: 1,
+              title: "Config File",
+              type: "string" as const,
+            },
             interval: {
-              type: "object" as const,
-              title: "Interval Specifier",
-              properties: {
-                specifier: {
-                  type: "string" as const,
-                  title: "",
-                  default: IntervalSpecifier.Hours,
-                  oneOf: [
-                    {
-                      type: "string" as const,
-                      title: "Hours",
-                      enum: [IntervalSpecifier.Hours],
-                    },
-                    {
-                      type: "string" as const,
-                      title: "Cron",
-                      enum: [IntervalSpecifier.Cron],
-                    },
-                  ],
-                },
-              },
               dependencies: {
                 specifier: {
                   oneOf: [
                     {
                       properties: {
+                        intervalHours: {
+                          default: 24,
+                          minimum: 1,
+                          title: "Interval",
+                          type: "number" as const,
+                        },
                         specifier: {
                           enum: [IntervalSpecifier.Hours],
-                        },
-                        intervalHours: {
-                          type: "number" as const,
-                          title: "Interval",
-                          minimum: 1,
-                          default: 24,
                         },
                       },
                     },
                     {
                       properties: {
+                        cron: {
+                          title: "Cron Expression",
+                          type: "string" as const,
+                        },
                         specifier: {
                           enum: [IntervalSpecifier.Cron],
-                        },
-                        cron: {
-                          type: "string" as const,
-                          title: "Cron Expression",
                         },
                       },
                     },
                   ],
                 },
               },
-            },
-            configFile: {
-              type: "string" as const,
-              title: "Config File",
-              minLength: 1,
-              default: "",
-              format: "noStartingOrTrailingWhitespace",
-            },
-            alias: {
-              type: "string" as const,
-              title: "Alias",
-              default: "",
+              properties: {
+                specifier: {
+                  default: IntervalSpecifier.Hours,
+                  oneOf: [
+                    {
+                      enum: [IntervalSpecifier.Hours],
+                      title: "Hours",
+                      type: "string" as const,
+                    },
+                    {
+                      enum: [IntervalSpecifier.Cron],
+                      title: "Cron",
+                      type: "string" as const,
+                    },
+                  ],
+                  title: "",
+                  type: "string" as const,
+                },
+              },
+              title: "Interval Specifier",
+              type: "object" as const,
             },
             message: {
-              type: "string" as const,
-              title: "Message",
               default: "",
+              title: "Message",
+              type: "string" as const,
+            },
+            nextRunTime: {
+              default: new Date().toString(),
+              title: "Next Run Time",
+              type: "string" as const,
             },
             timezone: {
-              type: "string" as const,
-              title: "Time Zone",
               default: timezone,
               oneOf: [
                 ...timeZones.map(({ str, value }) => ({
-                  type: "string" as const,
-                  title: str,
                   enum: [value],
+                  title: str,
+                  type: "string" as const,
                 })),
                 {
-                  type: "string" as const,
-                  title: "Local Time",
                   enum: [""],
+                  title: "Local Time",
+                  type: "string" as const,
                 },
               ],
-            },
-            nextRunTime: {
+              title: "Time Zone",
               type: "string" as const,
-              title: "Next Run Time",
-              default: new Date().toString(),
             },
           },
+          type: "object" as const,
         },
+        type: "array" as const,
       },
     ),
   },
   uiSchema: {
-    periodicBuildsOverride: {
-      "ui:widget":
-        projectType === ProjectType.AttachedProject
-          ? widgets.RadioBoxWidget
-          : "hidden",
-      "ui:showLabel": false,
-    },
     periodicBuilds: {
-      "ui:addButtonText": "Add periodic build",
-      "ui:orderable": false,
-      "ui:showLabel": false,
-      "ui:useExpandableCard": true,
       items: {
-        "ui:displayTitle": "New Periodic Build",
-        "ui:label": false,
-        interval: {
-          specifier: {
-            "ui:widget": widgets.SegmentedControlWidget,
-          },
-          intervalHours: {
-            "ui:data-cy": "interval-input",
-            "ui:description": "Number of hours between runs.",
-          },
+        alias: {
+          "ui:optional": true,
+          "ui:placeholder": "my_task_alias",
         },
         configFile: {
           "ui:data-cy": "config-file-input",
           "ui:placeholder": ".evergreen.yml",
         },
-        alias: {
-          "ui:optional": true,
-          "ui:placeholder": "my_task_alias",
+        interval: {
+          intervalHours: {
+            "ui:data-cy": "interval-input",
+            "ui:description": "Number of hours between runs.",
+          },
+          specifier: {
+            "ui:widget": widgets.SegmentedControlWidget,
+          },
         },
         message: {
           "ui:optional": true,
           "ui:placeholder": "A periodic build",
+        },
+        nextRunTime: {
+          "ui:disableBefore": new Date(),
+          "ui:widget": "date-time",
         },
         timezone: {
           "ui:description":
             "Next Run Time is configured using the time zone set in User Preferences.",
           "ui:disabled": true,
         },
-        nextRunTime: {
-          "ui:disableBefore": new Date(),
-          "ui:widget": "date-time",
-        },
+        "ui:displayTitle": "New Periodic Build",
+        "ui:label": false,
       },
+      "ui:addButtonText": "Add periodic build",
+      "ui:orderable": false,
+      "ui:showLabel": false,
+      "ui:useExpandableCard": true,
+    },
+    periodicBuildsOverride: {
+      "ui:showLabel": false,
+      "ui:widget":
+        projectType === ProjectType.AttachedProject
+          ? widgets.RadioBoxWidget
+          : "hidden",
     },
     repoData: {
-      "ui:orderable": false,
-      "ui:readonly": true,
       periodicBuilds: {
-        "ui:showLabel": false,
-        "ui:useExpandableCard": true,
         items: {
           nextRunTime: {
             "ui:widget": "date-time",
           },
         },
+        "ui:showLabel": false,
+        "ui:useExpandableCard": true,
       },
+      "ui:orderable": false,
+      "ui:readonly": true,
     },
   },
 });

@@ -38,8 +38,8 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
     TaskNamesForBuildVariantQueryVariables
   >(TASK_NAMES_FOR_BUILD_VARIANT, {
     variables: {
-      projectIdentifier,
       buildVariant: variantName,
+      projectIdentifier,
     },
   });
 

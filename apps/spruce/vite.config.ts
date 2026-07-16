@@ -18,9 +18,9 @@ process.env.VITE_PROFILE_HEAD = process.env.VITE_PROFILE_HEAD ?? "";
 
 const getProjectConfig = () => {
   const serverConfig = generateBaseHTTPSViteServerConfig({
-    port: 3000,
     appURL: process.env.VITE_SPRUCE_URL ?? "",
     httpsPort: 8443,
+    port: 3000,
     useHTTPS:
       process.env.VITE_RELEASE_STAGE !== "local" &&
       process.env.NO_HTTPS !== "true",
@@ -28,33 +28,13 @@ const getProjectConfig = () => {
 
   // https://vitejs.dev/config/
   const viteConfig = defineConfig({
+    build: {
+      sourcemap: true,
+    },
     define: {
       "globalThis.EMOTION_RUNTIME_AUTO_LABEL": JSON.stringify(
         process.env.NODE_ENV === "development",
       ),
-    },
-    server: serverConfig,
-    build: {
-      sourcemap: true,
-    },
-    resolve: {
-      tsconfigPaths: true,
-      alias: {
-        // Prevent LG from pulling in SSR dependencies.
-        // Can be potentially removed upon the completion of LG-4402.
-        "@emotion/server": "@emotion/css",
-        ...(process.env.PROFILER === "true" && {
-          "react-dom/client": path.resolve(
-            __dirname,
-            "../../node_modules/react-dom/profiling",
-          ),
-          "scheduler/tracing": path.resolve(
-            __dirname,
-            "../../node_modules/scheduler/tracing-profiling",
-          ),
-        }),
-      },
-      extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
     },
     plugins: [
       react({
@@ -79,10 +59,10 @@ const getProjectConfig = () => {
           "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/spruce",
       }),
       sentryVitePlugin({
+        authToken: process.env.SPRUCE_SENTRY_AUTH_TOKEN,
+        disable: process.env.NODE_ENV === "development",
         org: "mongodb-org",
         project: "spruce",
-        disable: process.env.NODE_ENV === "development",
-        authToken: process.env.SPRUCE_SENTRY_AUTH_TOKEN,
         release: {
           name: process.env.npm_package_version,
         },
@@ -91,6 +71,26 @@ const getProjectConfig = () => {
         },
       }),
     ],
+    resolve: {
+      alias: {
+        // Prevent LG from pulling in SSR dependencies.
+        // Can be potentially removed upon the completion of LG-4402.
+        "@emotion/server": "@emotion/css",
+        ...(process.env.PROFILER === "true" && {
+          "react-dom/client": path.resolve(
+            __dirname,
+            "../../node_modules/react-dom/profiling",
+          ),
+          "scheduler/tracing": path.resolve(
+            __dirname,
+            "../../node_modules/scheduler/tracing-profiling",
+          ),
+        }),
+      },
+      extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+      tsconfigPaths: true,
+    },
+    server: serverConfig,
   });
 
   const vitestConfig = defineTestConfig({
@@ -98,10 +98,10 @@ const getProjectConfig = () => {
       environment: "jsdom",
       globals: true,
       globalSetup: "./config/vitest/global-setup.ts",
+      include: ["src/**/*.test.{ts,tsx}"],
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
       setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
-      include: ["src/**/*.test.{ts,tsx}"],
     },
   });
 

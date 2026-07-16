@@ -71,29 +71,29 @@ export const PromoteVariablesModal: React.FC<PromoteVariablesModalProps> = ({
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const handleClickCheckbox = (name) => (e) => {
     setSelected({
-      type: e.target.checked ? "checkCheckbox" : "uncheckCheckbox",
       names: [name],
+      type: e.target.checked ? "checkCheckbox" : "uncheckCheckbox",
     });
   };
 
   const handleSelectAll = () => {
     const names = variables.map(({ name }) => name);
     setSelected({
+      names,
       type:
         selected.size === variables.length
           ? "uncheckCheckbox"
           : "checkCheckbox",
-      names,
     });
   };
 
   const onConfirm = () => {
     promoteVarsToRepo({
+      refetchQueries: ["ProjectSettings", "RepoSettings"],
       variables: {
         projectId,
         varNames: Array.from(selected),
       },
-      refetchQueries: ["ProjectSettings", "RepoSettings"],
     });
     handleClose();
   };

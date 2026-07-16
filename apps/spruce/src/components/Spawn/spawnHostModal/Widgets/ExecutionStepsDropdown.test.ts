@@ -22,16 +22,16 @@ const makeStep = (
 describe("groupExecutionSteps", () => {
   it("groups standalone steps by block and orders blocks correctly", () => {
     const steps = [
-      makeStep({ blockType: "post", stepNumber: "3", displayName: "cleanup" }),
+      makeStep({ blockType: "post", displayName: "cleanup", stepNumber: "3" }),
       makeStep({
         blockType: "pre",
-        stepNumber: "1",
         displayName: "setup env",
+        stepNumber: "1",
       }),
       makeStep({
         blockType: "main",
-        stepNumber: "2",
         displayName: "run tests",
+        stepNumber: "2",
       }),
     ];
 
@@ -40,15 +40,15 @@ describe("groupExecutionSteps", () => {
     expect(result).toStrictEqual([
       {
         label: "BLOCK 'PRE'",
-        steps: [{ stepNumber: "1", displayText: "setup env" }],
+        steps: [{ displayText: "setup env", stepNumber: "1" }],
       },
       {
         label: "BLOCK 'MAIN'",
-        steps: [{ stepNumber: "2", displayText: "run tests" }],
+        steps: [{ displayText: "run tests", stepNumber: "2" }],
       },
       {
         label: "BLOCK 'POST'",
-        steps: [{ stepNumber: "3", displayText: "cleanup" }],
+        steps: [{ displayText: "cleanup", stepNumber: "3" }],
       },
     ]);
   });
@@ -57,22 +57,22 @@ describe("groupExecutionSteps", () => {
     const steps = [
       makeStep({
         blockType: "main",
-        stepNumber: "1",
         displayName: "compile in function 'build' in block 'main'",
         functionName: "build",
         isFunction: true,
+        stepNumber: "1",
       }),
       makeStep({
         blockType: "main",
-        stepNumber: "2",
         displayName: "link in function 'build' in block 'main'",
         functionName: "build",
         isFunction: true,
+        stepNumber: "2",
       }),
       makeStep({
         blockType: "main",
-        stepNumber: "3",
         displayName: "run tests in block 'main'",
+        stepNumber: "3",
       }),
     ];
 
@@ -82,13 +82,13 @@ describe("groupExecutionSteps", () => {
       {
         label: "BLOCK 'MAIN' — FUNCTION: BUILD",
         steps: [
-          { stepNumber: "1", displayText: "compile" },
-          { stepNumber: "2", displayText: "link" },
+          { displayText: "compile", stepNumber: "1" },
+          { displayText: "link", stepNumber: "2" },
         ],
       },
       {
         label: "BLOCK 'MAIN'",
-        steps: [{ stepNumber: "3", displayText: "run tests" }],
+        steps: [{ displayText: "run tests", stepNumber: "3" }],
       },
     ]);
   });

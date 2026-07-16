@@ -22,14 +22,14 @@ const taskOwnerTeamMock: ApolloMock<
 > = {
   request: {
     query: TASK_OWNER_TEAM,
-    variables: { taskId, execution },
+    variables: { execution, taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
         execution,
+        id: taskId,
         taskOwnerTeam: {
           __typename: "TaskOwnerTeam",
           messages: "Assigned based on task history",
@@ -46,14 +46,14 @@ const taskOwnerTeamEmptyMock: ApolloMock<
 > = {
   request: {
     query: TASK_OWNER_TEAM,
-    variables: { taskId, execution },
+    variables: { execution, taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
         execution,
+        id: taskId,
         taskOwnerTeam: null,
       },
     },
@@ -66,14 +66,14 @@ const taskOwnerTeamNoNameMock: ApolloMock<
 > = {
   request: {
     query: TASK_OWNER_TEAM,
-    variables: { taskId, execution },
+    variables: { execution, taskId },
   },
   result: {
     data: {
       task: {
         __typename: "Task",
-        id: taskId,
         execution,
+        id: taskId,
         taskOwnerTeam: {
           __typename: "TaskOwnerTeam",
           messages: "Assigned based on task history",
@@ -90,7 +90,7 @@ const loadingMock: ApolloMock<
 > = {
   request: {
     query: TASK_OWNER_TEAM,
-    variables: { taskId, execution },
+    variables: { execution, taskId },
   },
   result: { data: undefined },
 };
@@ -182,14 +182,14 @@ describe("TaskOwnership", () => {
     > = {
       request: {
         query: TASK_OWNER_TEAM,
-        variables: { taskId: specificTaskId, execution: specificExecution },
+        variables: { execution: specificExecution, taskId: specificTaskId },
       },
       result: {
         data: {
           task: {
             __typename: "Task",
-            id: specificTaskId,
             execution: specificExecution,
+            id: specificTaskId,
             taskOwnerTeam: {
               __typename: "TaskOwnerTeam",
               messages: "Manual assignment",

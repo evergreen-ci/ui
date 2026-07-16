@@ -58,7 +58,7 @@ const TaskQueue = () => {
     val: TaskQueueDistro | TaskQueueDistro[],
   ) => {
     const distro = Array.isArray(val) ? val[0] : val;
-    taskQueueAnalytics.sendEvent({ name: "Changed distro", distro: distro.id });
+    taskQueueAnalytics.sendEvent({ distro: distro.id, name: "Changed distro" });
     navigate(getTaskQueueRoute(distro.id));
   };
 
@@ -107,7 +107,7 @@ const TaskQueue = () => {
           searchFunc={handleSearch}
           searchPlaceholder="Search distros"
           value={
-            selectedDistro ?? { id: distroId ?? "", hostCount: 0, taskCount: 0 }
+            selectedDistro ?? { hostCount: 0, id: distroId ?? "", taskCount: 0 }
           }
           valuePlaceholder="Select a distro"
         />

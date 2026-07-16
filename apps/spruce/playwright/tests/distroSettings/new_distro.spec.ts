@@ -32,7 +32,7 @@ test.describe("Creating a new distro", () => {
       .getByTestId("delete-distro-modal")
       .locator("input")
       .fill(newDistroId);
-    await page.getByRole("button", { name: "Delete", exact: true }).click();
+    await page.getByRole("button", { exact: true, name: "Delete" }).click();
     await validateToast(
       page,
       "success",
@@ -70,7 +70,7 @@ test.describe("Copying a distro", () => {
       .getByTestId("delete-distro-modal")
       .locator("input")
       .fill(copyDistroId);
-    await page.getByRole("button", { name: "Delete", exact: true }).click();
+    await page.getByRole("button", { exact: true, name: "Delete" }).click();
     await validateToast(
       page,
       "success",

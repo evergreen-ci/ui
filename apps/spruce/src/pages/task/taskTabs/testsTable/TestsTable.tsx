@@ -75,15 +75,15 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     TASK_TESTS,
     queryVariables.execution !== null
       ? {
-          variables: queryVariables,
           pollInterval: DEFAULT_POLL_INTERVAL,
+          variables: queryVariables,
         }
       : skipToken,
   );
   usePolling<TaskTestsQuery, TaskTestsQueryVariables>({
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
   });
 
   const clearQueryParams = () => {
@@ -110,8 +110,8 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     });
     setQueryParams(updatedParams);
     sendEvent({
-      name: "Filtered tests table",
       "filter.by": Object.keys(filterState),
+      name: "Filtered tests table",
     });
   };
 
@@ -152,10 +152,6 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
-    state: {
-      columnFilters,
-      sorting,
-    },
     initialState: {
       columnVisibility: {
         actions: task.project?.testSelection?.allowed ?? false,
@@ -164,8 +160,8 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     // Override default requirement for shift-click to multisort.
     isMultiSortEvent: () => true,
     manualFiltering: true,
-    manualSorting: true,
     manualPagination: true,
+    manualSorting: true,
     maxMultiSortColCount: 2,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setColumnFilters,
@@ -175,6 +171,10 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       setSorting,
       tableSortHandler,
     ),
+    state: {
+      columnFilters,
+      sorting,
+    },
   });
 
   return (
@@ -210,8 +210,8 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
 };
 
 const emptyFilterQueryParams = {
-  [RequiredQueryParams.TestName]: undefined,
   [RequiredQueryParams.Statuses]: undefined,
+  [RequiredQueryParams.TestName]: undefined,
 };
 
 const getInitialState = (queryParams: {
@@ -226,16 +226,15 @@ const getInitialState = (queryParams: {
   const initialSorting: SortingState = sorts
     ? parseSortString(sorts, {
         sortByKey: "sortBy",
-        sortDirKey: "direction",
         sortCategoryEnum: TestSortCategory,
+        sortDirKey: "direction",
       }).map(({ direction, sortBy }) => ({
-        id: sortBy,
         desc: direction === SortDirection.Desc,
+        id: sortBy,
       }))
-    : [{ id: TestSortCategory.Status, desc: false }];
+    : [{ desc: false, id: TestSortCategory.Status }];
 
   return {
-    initialSorting,
     initialFilters: Object.entries(mapFilterParamToId).reduce(
       (accum, [param, id]) => {
         if (queryParams[param]?.length) {
@@ -245,6 +244,7 @@ const getInitialState = (queryParams: {
       },
       [] as ColumnFiltersState,
     ),
+    initialSorting,
   };
 };
 
@@ -263,8 +263,8 @@ const getQueryVariables = (
       TestSortCategory,
       TestSortOptions
     >(sorts, {
-      sortCategoryEnum: TestSortCategory,
       sortByKey: "sortBy",
+      sortCategoryEnum: TestSortCategory,
       sortDirKey: "direction",
     });
   }
@@ -276,13 +276,13 @@ const getQueryVariables = (
   ).filter((v): v is string => !!v && v !== ALL_VALUE);
   const execution = queryParams[RequiredQueryParams.Execution];
   return {
-    id: taskId,
     execution: queryParamAsNumber(execution),
-    sort,
+    id: taskId,
     limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
+    pageNum: getPage(queryParams[PaginationQueryParams.Page]),
+    sort,
     statusList,
     testName,
-    pageNum: getPage(queryParams[PaginationQueryParams.Page]),
   };
 };
 

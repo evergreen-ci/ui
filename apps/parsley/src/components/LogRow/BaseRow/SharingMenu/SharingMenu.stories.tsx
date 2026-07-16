@@ -7,8 +7,8 @@ export default {
 } satisfies CustomMeta<typeof SharingMenu>;
 
 export const Default: CustomStoryObj<typeof SharingMenu> = {
-  argTypes: {},
   args: { lineNumber: 0 },
+  argTypes: {},
 
   render: (args) => (
     <MultiLineSelectContextProvider>

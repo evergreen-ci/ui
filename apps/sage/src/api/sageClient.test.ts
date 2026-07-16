@@ -22,9 +22,9 @@ describe("SageClient", () => {
   describe("get", () => {
     it("calls fetch with method GET", async () => {
       const fetchSpy = mockFetch({
+        json: () => Promise.resolve({ id: 1 }),
         ok: true,
         status: 200,
-        json: () => Promise.resolve({ id: 1 }),
       });
       await new SageClient(BASE_URL).get("/agents");
       expect(fetchSpy).toHaveBeenCalledWith(
@@ -37,17 +37,17 @@ describe("SageClient", () => {
   describe("post", () => {
     it("calls fetch with method POST and serialized body", async () => {
       const fetchSpy = mockFetch({
+        json: () => Promise.resolve({ id: 2 }),
         ok: true,
         status: 201,
-        json: () => Promise.resolve({ id: 2 }),
       });
       const body = { name: "my-agent" };
       await new SageClient(BASE_URL).post("/agents", body);
       expect(fetchSpy).toHaveBeenCalledWith(
         "https://sage-api.test/agents",
         expect.objectContaining({
-          method: "POST",
           body: JSON.stringify(body),
+          method: "POST",
         }),
       );
     });
@@ -56,19 +56,19 @@ describe("SageClient", () => {
   it("returns ok=true with parsed JSON on a 2xx response", async () => {
     const data = { agentId: "abc123" };
     mockFetch({
+      json: () => Promise.resolve(data),
       ok: true,
       status: 200,
-      json: () => Promise.resolve(data),
     });
     const result = await new SageClient(BASE_URL).get("/agents/abc123");
-    expect(result).toStrictEqual({ ok: true, data });
+    expect(result).toStrictEqual({ data, ok: true });
   });
 
   it("sends credentials=include on every request", async () => {
     const fetchSpy = mockFetch({
+      json: () => Promise.resolve({}),
       ok: true,
       status: 200,
-      json: () => Promise.resolve({}),
     });
     await new SageClient(BASE_URL).get("/agents");
     expect(fetchSpy).toHaveBeenCalledWith(
@@ -81,9 +81,9 @@ describe("SageClient", () => {
 
   it("sends Content-Type=application/json on POST requests", async () => {
     const fetchSpy = mockFetch({
+      json: () => Promise.resolve({}),
       ok: true,
       status: 201,
-      json: () => Promise.resolve({}),
     });
     await new SageClient(BASE_URL).post("/agents", { name: "a" });
     expect(fetchSpy).toHaveBeenCalledWith(
@@ -115,49 +115,49 @@ describe("SageClient", () => {
   describe("4xx error handling", () => {
     it("falls back to statusText when body has no message field", async () => {
       mockFetch({
+        json: () => Promise.resolve({ error: "something" }),
         ok: false,
         status: 404,
         statusText: "Not Found",
-        json: () => Promise.resolve({ error: "something" }),
       });
       const result = await new SageClient(BASE_URL).get("/agents/missing");
       expect(result).toStrictEqual({
-        ok: false,
-        type: "client",
-        status: 404,
         message: "Not Found",
+        ok: false,
+        status: 404,
+        type: "client",
       });
     });
 
     it("falls back to statusText when body is not JSON", async () => {
       mockFetch({
+        json: () => Promise.reject(new Error("not json")),
         ok: false,
         status: 400,
         statusText: "Bad Request",
-        json: () => Promise.reject(new Error("not json")),
       });
       const result = await new SageClient(BASE_URL).get("/agents/bad");
       expect(result).toStrictEqual({
-        ok: false,
-        type: "client",
-        status: 400,
         message: "Bad Request",
+        ok: false,
+        status: 400,
+        type: "client",
       });
     });
 
     it("returns body message when present", async () => {
       mockFetch({
+        json: () => Promise.resolve({ message: "invalid agent ID format" }),
         ok: false,
         status: 400,
         statusText: "Bad Request",
-        json: () => Promise.resolve({ message: "invalid agent ID format" }),
       });
       const result = await new SageClient(BASE_URL).get("/agents/bad");
       expect(result).toStrictEqual({
-        ok: false,
-        type: "client",
-        status: 400,
         message: "invalid agent ID format",
+        ok: false,
+        status: 400,
+        type: "client",
       });
     });
   });
@@ -165,33 +165,33 @@ describe("SageClient", () => {
   describe("5xx error handling", () => {
     it("returns server error type for 500", async () => {
       mockFetch({
+        json: () => Promise.resolve({}),
         ok: false,
         status: 500,
         statusText: "Internal Server Error",
-        json: () => Promise.resolve({}),
       });
       const result = await new SageClient(BASE_URL).get("/agents");
       expect(result).toStrictEqual({
-        ok: false,
-        type: "server",
-        status: 500,
         message: "Internal Server Error",
+        ok: false,
+        status: 500,
+        type: "server",
       });
     });
 
     it("returns server error type for 503", async () => {
       mockFetch({
+        json: () => Promise.resolve({}),
         ok: false,
         status: 503,
         statusText: "Service Unavailable",
-        json: () => Promise.resolve({}),
       });
       const result = await new SageClient(BASE_URL).get("/agents");
       expect(result).toStrictEqual({
-        ok: false,
-        type: "server",
-        status: 503,
         message: "Service Unavailable",
+        ok: false,
+        status: 503,
+        type: "server",
       });
     });
   });
@@ -201,16 +201,16 @@ describe("SageClient", () => {
       mockFetchError(new Error("Failed to fetch"));
       const result = await new SageClient(BASE_URL).get("/agents");
       expect(result).toStrictEqual({
+        message: "Failed to fetch",
         ok: false,
         type: "network",
-        message: "Failed to fetch",
       });
       expect(reportError).toHaveBeenCalledTimes(1);
     });
   });
 
   it("leaves a breadcrumb on every request", async () => {
-    mockFetch({ ok: true, status: 200, json: () => Promise.resolve({}) });
+    mockFetch({ json: () => Promise.resolve({}), ok: true, status: 200 });
     await new SageClient(BASE_URL).get("/agents");
     expect(leaveBreadcrumb).toHaveBeenCalledWith(
       "sageRequest",

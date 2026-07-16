@@ -26,8 +26,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     // Reset document visibility state
     Object.defineProperty(document, "visibilityState", {
-      value: "visible",
       configurable: true,
+      value: "visible",
     });
   });
 
@@ -77,8 +77,8 @@ describe("usePageVisibilityAnalytics", () => {
     // Change visibility to hidden
     act(() => {
       Object.defineProperty(document, "visibilityState", {
-        value: "hidden",
         configurable: true,
+        value: "hidden",
       });
       document.dispatchEvent(new Event("visibilitychange"));
     });
@@ -96,8 +96,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     // Start with hidden state
     Object.defineProperty(document, "visibilityState", {
-      value: "hidden",
       configurable: true,
+      value: "hidden",
     });
 
     renderHook(() =>
@@ -117,8 +117,8 @@ describe("usePageVisibilityAnalytics", () => {
     // Change visibility to visible
     act(() => {
       Object.defineProperty(document, "visibilityState", {
-        value: "visible",
         configurable: true,
+        value: "visible",
       });
       document.dispatchEvent(new Event("visibilitychange"));
     });
@@ -150,8 +150,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     act(() => {
       Object.defineProperty(document, "visibilityState", {
-        value: "hidden",
         configurable: true,
+        value: "hidden",
       });
       document.dispatchEvent(new Event("visibilitychange"));
     });
@@ -186,8 +186,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     act(() => {
       Object.defineProperty(document, "visibilityState", {
-        value: "hidden",
         configurable: true,
+        value: "hidden",
       });
       document.dispatchEvent(new Event("visibilitychange"));
     });
@@ -196,8 +196,8 @@ describe("usePageVisibilityAnalytics", () => {
     expect(mockSendEvent).toHaveBeenCalledWith(
       expect.objectContaining({
         name: "System Event session ended",
-        "visibility.total_visible_ms": expect.any(Number),
         "visibility.total_hidden_ms": expect.any(Number),
+        "visibility.total_visible_ms": expect.any(Number),
         "visibility.visibility_changes": 1,
       }),
     );
@@ -209,8 +209,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     act(() => {
       Object.defineProperty(document, "visibilityState", {
-        value: "visible",
         configurable: true,
+        value: "visible",
       });
       document.dispatchEvent(new Event("visibilitychange"));
     });
@@ -223,8 +223,8 @@ describe("usePageVisibilityAnalytics", () => {
     expect(mockSendEvent).toHaveBeenCalledWith(
       expect.objectContaining({
         name: "System Event session ended",
-        "visibility.total_visible_ms": expect.any(Number),
         "visibility.total_hidden_ms": expect.any(Number),
+        "visibility.total_visible_ms": expect.any(Number),
         "visibility.visibility_changes": 0,
       }),
     );
@@ -276,8 +276,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     act(() => {
       Object.defineProperty(document, "visibilityState", {
-        value: "hidden",
         configurable: true,
+        value: "hidden",
       });
     });
 
@@ -301,11 +301,11 @@ describe("usePageVisibilityAnalytics", () => {
     const router = createMemoryRouter(
       [
         {
-          element: <NavigationTestComponent />,
           children: [
-            { path: "/", element: <div>Home</div> },
-            { path: "/other", element: <div>Other</div> },
+            { element: <div>Home</div>, path: "/" },
+            { element: <div>Other</div>, path: "/other" },
           ],
+          element: <NavigationTestComponent />,
         },
       ],
       { initialEntries: ["/"] },
@@ -337,8 +337,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     act(() => {
       Object.defineProperty(document, "visibilityState", {
-        value: "hidden",
         configurable: true,
+        value: "hidden",
       });
       document.dispatchEvent(new Event("visibilitychange"));
     });
@@ -360,12 +360,12 @@ describe("usePageVisibilityAnalytics", () => {
     const router = createMemoryRouter(
       [
         {
-          element: <NavigationTestComponent />,
           children: [
-            { path: "/", element: <div>Home</div> },
-            { path: "/page-a", element: <div>Page A</div> },
-            { path: "/page-b", element: <div>Page B</div> },
+            { element: <div>Home</div>, path: "/" },
+            { element: <div>Page A</div>, path: "/page-a" },
+            { element: <div>Page B</div>, path: "/page-b" },
           ],
+          element: <NavigationTestComponent />,
         },
       ],
       { initialEntries: ["/"] },
@@ -404,18 +404,18 @@ describe("usePageVisibilityAnalytics", () => {
     const routeConfig = { home: "/", other: "/other" };
     const Comp: React.FC = () => {
       const { pathname } = useLocation();
-      usePageVisibilityAnalytics({ pathname, routeConfig, minDurationMs: 100 });
+      usePageVisibilityAnalytics({ minDurationMs: 100, pathname, routeConfig });
       return <Outlet />;
     };
 
     const router = createMemoryRouter(
       [
         {
-          element: <Comp />,
           children: [
-            { path: "/", element: <div>Home</div> },
-            { path: "/other", element: <div>Other</div> },
+            { element: <div>Home</div>, path: "/" },
+            { element: <div>Other</div>, path: "/other" },
           ],
+          element: <Comp />,
         },
       ],
       { initialEntries: ["/"] },
@@ -446,9 +446,9 @@ describe("usePageVisibilityAnalytics", () => {
 
     const { unmount } = renderHook(() =>
       usePageVisibilityAnalytics({
+        minDurationMs: 100,
         pathname: "/",
         routeConfig: { home: "/" },
-        minDurationMs: 100,
       }),
     );
     mockSendEvent.mockClear();

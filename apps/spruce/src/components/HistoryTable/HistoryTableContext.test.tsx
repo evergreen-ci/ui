@@ -11,28 +11,28 @@ describe("historyTableContext", () => {
   it("initializes with the default state", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     expect(result.current).toStrictEqual({
+      addColumns: expect.any(Function),
       columnLimit: 7,
       commitCount: 10,
       currentPage: 0,
+      getItem: expect.any(Function),
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
-      pageCount: 0,
-      processedCommitCount: 0,
-      processedCommits: [],
-      selectedCommit: null,
-      visibleColumns: [],
-      addColumns: expect.any(Function),
-      getItem: expect.any(Function),
       ingestNewCommits: expect.any(Function),
       isItemLoaded: expect.any(Function),
-      toggleRowExpansion: expect.any(Function),
       markSelectedRowVisited: expect.any(Function),
       nextPage: expect.any(Function),
       onChangeTableWidth: expect.any(Function),
+      pageCount: 0,
       previousPage: expect.any(Function),
+      processedCommitCount: 0,
+      processedCommits: [],
+      selectedCommit: null,
       setHistoryTableFilters: expect.any(Function),
       setSelectedCommit: expect.any(Function),
+      toggleRowExpansion: expect.any(Function),
+      visibleColumns: [],
     });
   });
   it("should process new commits when they are passed in", () => {
@@ -59,21 +59,21 @@ describe("historyTableContext", () => {
     expect(result.current.isItemLoaded(0)).toBe(true);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
+      type: rowType.DATE_SEPARATOR,
     });
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.isItemLoaded(1)).toBe(true);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(1)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      date: splitMainlineCommitDataPart1.versions[0].version.createTime,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit: splitMainlineCommitDataPart1.versions[0].version,
-
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      date: splitMainlineCommitDataPart1.versions[0].version.createTime,
       selected: false,
+
+      type: rowType.COMMIT,
     });
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.isItemLoaded(2)).toBe(false);
@@ -97,9 +97,9 @@ describe("historyTableContext", () => {
     expect(result.current.isItemLoaded(0)).toBeTruthy();
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
+      type: rowType.DATE_SEPARATOR,
     });
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.isItemLoaded(1)).toBeTruthy();
@@ -115,27 +115,27 @@ describe("historyTableContext", () => {
     expect(result.current.isItemLoaded(2)).toBeTruthy();
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(2)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      date: splitMainlineCommitDataPart2.versions[0].version.createTime,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit: splitMainlineCommitDataPart2.versions[0].version,
-
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      date: splitMainlineCommitDataPart2.versions[0].version.createTime,
       selected: false,
+
+      type: rowType.COMMIT,
     });
   });
   it("should handle calculating the commitCount based off of the passed in values", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     const commitDate1 = {
       ...mainlineCommitData,
-      versions: [mainlineCommitData.versions[0]],
       prevPageOrderNumber: null,
+      versions: [mainlineCommitData.versions[0]],
     };
     const commitDate2 = {
       ...mainlineCommitData,
-      versions: [mainlineCommitData.versions[2]],
       nextPageOrderNumber: null,
       prevPageOrderNumber: 6798,
+      versions: [mainlineCommitData.versions[2]],
     };
     act(() => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -168,21 +168,21 @@ describe("historyTableContext", () => {
     expect(result.current.isItemLoaded(0)).toBeTruthy();
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: commitDate1.versions[0].version.createTime,
+      type: rowType.DATE_SEPARATOR,
     });
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.isItemLoaded(1)).toBeTruthy();
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(1)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      date: commitDate1.versions[0].version.createTime,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit: commitDate1.versions[0].version,
-
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      date: commitDate1.versions[0].version.createTime,
       selected: false,
+
+      type: rowType.COMMIT,
     });
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.isItemLoaded(2)).toBeFalsy();
@@ -194,21 +194,21 @@ describe("historyTableContext", () => {
     expect(result.current.isItemLoaded(2)).toBeTruthy();
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(2)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: commitDate2.versions[0].version.createTime,
+      type: rowType.DATE_SEPARATOR,
     });
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.isItemLoaded(3)).toBeTruthy();
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      date: commitDate2.versions[0].version.createTime,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit: commitDate2.versions[0].version,
-
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      date: commitDate2.versions[0].version.createTime,
       selected: false,
+
+      type: rowType.COMMIT,
     });
   });
   it("should handle expanding rows", () => {
@@ -226,13 +226,13 @@ describe("historyTableContext", () => {
     expect(result.current.isItemLoaded(3)).toBe(true);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
-      type: rowType.FOLDED_COMMITS,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: rolledUpVersions[0].createTime,
+      expanded: false,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       rolledUpCommits: rolledUpVersions,
       selected: false,
-      expanded: false,
+      type: rowType.FOLDED_COMMITS,
     });
     act(() => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -240,13 +240,13 @@ describe("historyTableContext", () => {
     });
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
-      type: rowType.FOLDED_COMMITS,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: rolledUpVersions[0].createTime,
+      expanded: true,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       rolledUpCommits: rolledUpVersions,
       selected: false,
-      expanded: true,
+      type: rowType.FOLDED_COMMITS,
     });
   });
   it("should deduplicate passed in versions", () => {

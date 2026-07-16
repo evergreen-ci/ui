@@ -26,10 +26,10 @@ const commandExists = (commandName: string) => {
  */
 export const findEvergreen = () => {
   if (commandExists("evergreen")) {
-    return { evgExecutable: "evergreen", credentials: "" };
+    return { credentials: "", evgExecutable: "evergreen" };
   }
   if (commandExists("~/evergreen")) {
-    return { evgExecutable: "~/evergreen", credentials: "-c .evergreen.yml" };
+    return { credentials: "-c .evergreen.yml", evgExecutable: "~/evergreen" };
   }
   return null;
 };

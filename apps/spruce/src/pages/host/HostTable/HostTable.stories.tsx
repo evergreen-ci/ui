@@ -7,18 +7,18 @@ import {
 import HostTable from ".";
 
 const data: HostEventLogData = {
-  successful: true,
-  logs: "This is a log message",
   agentBuild: "1.2.3",
   agentRevision: "abc123",
   duration: 1000,
   execution: "execution",
   hostname: "hostname",
   jasperRevision: "abc123",
+  logs: "This is a log message",
   monitorOp: "monitorOp",
   newStatus: "newStatus",
   oldStatus: "oldStatus",
   provisioningMethod: "provisioningMethod",
+  successful: true,
   taskId: "taskId",
   taskPid: "123",
   taskStatus: "failed",
@@ -27,13 +27,13 @@ const data: HostEventLogData = {
 
 const eventLogEntries: HostEventLogEntry[] = Object.values(HostEventType).map(
   (eventType) => ({
-    eventType,
     data,
-    timestamp: new Date("2021-09-01T00:00:00Z"),
+    eventType,
     id: "id",
     processedAt: new Date("2021-09-01T00:00:00Z"),
-    resourceType: "resourceType",
     resourceId: "resourceId",
+    resourceType: "resourceType",
+    timestamp: new Date("2021-09-01T00:00:00Z"),
   }),
 );
 
@@ -42,18 +42,6 @@ export default {
 } satisfies CustomMeta<typeof HostTable>;
 
 export const Default: CustomStoryObj<typeof HostTable> = {
-  render: (args) => (
-    <HostTable
-      error={args.error}
-      eventCount={args.eventCount}
-      eventLogEntries={args.eventLogEntries}
-      eventTypes={args.eventTypes}
-      initialFilters={args.initialFilters}
-      limit={args.limit}
-      loading={args.loading}
-      page={args.page}
-    />
-  ),
   args: {
     error: undefined,
     eventCount: 0,
@@ -70,4 +58,16 @@ export const Default: CustomStoryObj<typeof HostTable> = {
       route: "/task/task-1",
     },
   },
+  render: (args) => (
+    <HostTable
+      error={args.error}
+      eventCount={args.eventCount}
+      eventLogEntries={args.eventLogEntries}
+      eventTypes={args.eventTypes}
+      initialFilters={args.initialFilters}
+      limit={args.limit}
+      loading={args.loading}
+      page={args.page}
+    />
+  ),
 };

@@ -92,10 +92,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   );
 
   useVirtualWorkstationDefaultExpiration({
+    disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
+    formState,
     isVirtualWorkstation: selectedDistro?.isVirtualWorkStation ?? false,
     setFormState,
-    formState,
-    disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
   });
 
   const hostUptimeWarnings = useMemo(() => {
@@ -118,13 +118,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     distroIdQueryParam,
     hostUptimeWarnings,
     isMigration: false,
-    tokenExchangeState,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
     timeZone:
       formState?.expirationDetails?.hostUptime?.details?.timeZone || timeZone,
-    useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
+    tokenExchangeState,
     useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
+    useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
   });
 
   if (loadingFormData) {
@@ -133,18 +133,18 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const spawnHost = () => {
     const mutationInput = formToGql({
-      isVirtualWorkStation: selectedDistro?.isVirtualWorkStation ?? false,
       formData: formState,
+      isVirtualWorkStation: selectedDistro?.isVirtualWorkStation ?? false,
       myPublicKeys: formSchemaInput.myPublicKeys ?? [],
       spawnTaskData: spawnTaskData?.task,
     });
     spawnAnalytics.sendEvent({
-      name: "Created a spawn host",
+      "host.distro.id": selectedDistro?.name || "",
+      "host.is_from_task": !!(taskIdQueryParam && distroIdQueryParam),
+      "host.is_unexpirable": mutationInput?.noExpiration || false,
       "host.is_volume_migration": false,
       "host.is_workstation": selectedDistro?.isVirtualWorkStation || false,
-      "host.distro.id": selectedDistro?.name || "",
-      "host.is_unexpirable": mutationInput?.noExpiration || false,
-      "host.is_from_task": !!(taskIdQueryParam && distroIdQueryParam),
+      name: "Created a spawn host",
     });
     spawnHostMutation({
       variables: { spawnHostInput: mutationInput },
@@ -162,9 +162,9 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       }}
       confirmButtonProps={{
         children: loadingSpawnHost ? "Spawning" : "Spawn a host",
-        onClick: spawnHost,
         disabled:
           hasError || loadingSpawnHost || requiresSpawnHostAuthentication,
+        onClick: spawnHost,
       }}
       data-cy="spawn-host-modal"
       open={open}

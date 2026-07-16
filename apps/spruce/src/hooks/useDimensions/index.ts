@@ -14,7 +14,7 @@ interface DimensionState {
 export const useDimensions = <T extends HTMLElement>(
   ref: MutableRefObject<T> | React.RefObject<T>,
 ) => {
-  const [state, setState] = useState<DimensionState>({ width: 0, height: 0 });
+  const [state, setState] = useState<DimensionState>({ height: 0, width: 0 });
 
   const observer = useMemo(
     () =>
@@ -22,7 +22,7 @@ export const useDimensions = <T extends HTMLElement>(
         requestAnimationFrame(() => {
           const width = entries[0]?.target.clientWidth ?? 0;
           const height = entries[0]?.target.clientHeight ?? 0;
-          setState({ width, height });
+          setState({ height, width });
         });
       }),
     [],

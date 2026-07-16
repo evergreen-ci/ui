@@ -16,7 +16,7 @@ const SentryErrorBoundary: React.FC<{
   children: React.ReactNode;
   homeURL: string;
   FallbackComponent: React.ComponentType<{ homeURL: string }>;
-}> = ({ FallbackComponent, children, homeURL }) => (
+}> = ({ children, FallbackComponent, homeURL }) => (
   <ErrorBoundary
     beforeCapture={(scope) => {
       setScope(scope);

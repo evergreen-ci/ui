@@ -24,8 +24,8 @@ export const OtherTab: React.FC<TabProps> = ({ otherData }) => {
       viewableProjectsData?.viewableProjectRefs
         ?.flatMap((group) => group.projects)
         ?.map((p) => ({
-          id: p.id,
           displayName: `${p.displayName || p.identifier || p.id}${p.enabled ? " (Project)" : " (Disabled Project)"}`,
+          id: p.id,
         }))
         ?.sort((a, b) => a.displayName.localeCompare(b.displayName)) ?? [];
 
@@ -33,8 +33,8 @@ export const OtherTab: React.FC<TabProps> = ({ otherData }) => {
       viewableProjectsData?.viewableProjectRefs
         ?.filter((group) => group.repo != null)
         ?.map((group) => ({
-          id: group.repo!.id,
           displayName: `${group.groupDisplayName || group.repo!.id} (Repository)`,
+          id: group.repo!.id,
         }))
         ?.sort((a, b) => a.displayName.localeCompare(b.displayName)) ?? [];
     return getFormSchema({

@@ -42,25 +42,25 @@ export const gqlToForm = ((data, options) => {
 
   return {
     github: {
-      gitTagVersionsEnabled: gitTagVersionsEnabledForm,
-      users: {
-        gitTagAuthorizedUsersOverride:
-          projectType !== ProjectType.AttachedProject ||
-          !!gitTagAuthorizedUsers,
-        gitTagAuthorizedUsers: gitTagAuthorizedUsers ?? [],
-      },
-      teams: {
-        gitTagAuthorizedTeamsOverride:
-          projectType !== ProjectType.AttachedProject ||
-          !!gitTagAuthorizedTeams,
-        gitTagAuthorizedTeams: gitTagAuthorizedTeams ?? [],
-      },
       gitTags: {
+        gitTagAliases,
         gitTagAliasesOverride: canOverrideForProject(
           options?.projectType,
           gitTagAliases,
         ),
-        gitTagAliases,
+      },
+      gitTagVersionsEnabled: gitTagVersionsEnabledForm,
+      teams: {
+        gitTagAuthorizedTeams: gitTagAuthorizedTeams ?? [],
+        gitTagAuthorizedTeamsOverride:
+          projectType !== ProjectType.AttachedProject ||
+          !!gitTagAuthorizedTeams,
+      },
+      users: {
+        gitTagAuthorizedUsers: gitTagAuthorizedUsers ?? [],
+        gitTagAuthorizedUsersOverride:
+          projectType !== ProjectType.AttachedProject ||
+          !!gitTagAuthorizedUsers,
       },
     },
   };
@@ -69,8 +69,8 @@ export const gqlToForm = ((data, options) => {
 export const formToGql = ((
   {
     github: {
-      gitTagVersionsEnabled,
       gitTags,
+      gitTagVersionsEnabled,
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
     },
@@ -79,14 +79,14 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    id,
-    gitTagVersionsEnabled,
-    gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride
-      ? gitTagAuthorizedUsers
-      : null,
     gitTagAuthorizedTeams: gitTagAuthorizedTeamsOverride
       ? gitTagAuthorizedTeams
       : null,
+    gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride
+      ? gitTagAuthorizedUsers
+      : null,
+    gitTagVersionsEnabled,
+    id,
   };
 
   const gitTagAliases = transformAliases(
@@ -97,7 +97,7 @@ export const formToGql = ((
 
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
-    projectRef,
     aliases: gitTagAliases,
+    projectRef,
   };
 }) satisfies FormToGqlFunction<Tab>;

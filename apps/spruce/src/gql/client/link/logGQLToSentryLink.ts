@@ -11,14 +11,14 @@ export const leaveBreadcrumbMapFn =
     leaveBreadcrumb(
       "Graphql Request",
       {
+        errors: response.errors,
         operationName: operation.operationName,
+        status: !response.errors ? "OK" : "ERROR",
         variables: deleteNestedKey(
           operation.variables,
           secretFields,
           "REDACTED",
         ),
-        status: !response.errors ? "OK" : "ERROR",
-        errors: response.errors,
       },
       SentryBreadcrumbTypes.HTTP,
     );
@@ -30,13 +30,13 @@ export const logGQLToSentryLink = (secretFields: string[]): ApolloLink =>
     (operation, forward) =>
       new Observable((observer) => {
         const subscription = forward(operation).subscribe({
+          complete: observer.complete.bind(observer),
+          error: observer.error.bind(observer),
           next: (result) => {
             observer.next(
               leaveBreadcrumbMapFn(operation, secretFields)(result),
             );
           },
-          error: observer.error.bind(observer),
-          complete: observer.complete.bind(observer),
         });
         return () => subscription.unsubscribe();
       }),

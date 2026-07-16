@@ -148,11 +148,11 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
           <StyledRouterLink
             to={getTriggerRoute({
               triggerType: upstreamProject.triggerType,
-              upstreamTask: upstreamProject.task,
-              upstreamVersion: upstreamProject.version,
-              upstreamRevision: upstreamProject.revision,
               upstreamOwner: upstreamProject.owner,
               upstreamRepo: upstreamProject.repo,
+              upstreamRevision: upstreamProject.revision,
+              upstreamTask: upstreamProject.task,
+              upstreamVersion: upstreamProject.version,
             })}
           >
             {upstreamProject.project}

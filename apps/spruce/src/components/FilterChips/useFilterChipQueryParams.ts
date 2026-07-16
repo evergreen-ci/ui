@@ -26,8 +26,8 @@ const useFilterChipQueryParams = (
 
   const chips: FilterChipType[] = queryParamsList.map((q) => ({
     key: q.key,
-    value: q.value as string,
     title: urlParamToTitleMap?.[q.key] ?? toSentenceCase(q.key),
+    value: q.value as string,
   }));
 
   const handleClearAll = () => {

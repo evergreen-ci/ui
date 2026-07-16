@@ -8,6 +8,13 @@ export default {
 } satisfies CustomMeta<typeof SearchBar>;
 
 export const Default: CustomStoryObj<typeof SearchBar> = {
+  args: {
+    disabled: false,
+    searchSuggestions: [],
+    validator(value) {
+      return value.length > 3;
+    },
+  },
   argTypes: {
     disabled: { control: "boolean", description: "Should disable input" },
     validator: {
@@ -15,13 +22,6 @@ export const Default: CustomStoryObj<typeof SearchBar> = {
       control: "func",
       defaultValue: "() => true",
       description: "Function to validate input",
-    },
-  },
-  args: {
-    disabled: false,
-    searchSuggestions: [],
-    validator(value) {
-      return value.length > 3;
     },
   },
 };
@@ -57,6 +57,13 @@ const mockSearchSuggestions: SearchSuggestionGroup[] = [
 ];
 
 export const WithSearchSuggestions: CustomStoryObj<typeof SearchBar> = {
+  args: {
+    disabled: false,
+    searchSuggestions: mockSearchSuggestions,
+    validator(value) {
+      return value !== "bad";
+    },
+  },
   argTypes: {
     disabled: { control: "boolean", description: "Should disable input" },
     validator: {
@@ -64,13 +71,6 @@ export const WithSearchSuggestions: CustomStoryObj<typeof SearchBar> = {
       control: "func",
       defaultValue: "() => true",
       description: "Function to validate input",
-    },
-  },
-  args: {
-    disabled: false,
-    searchSuggestions: mockSearchSuggestions,
-    validator(value) {
-      return value !== "bad";
     },
   },
 };

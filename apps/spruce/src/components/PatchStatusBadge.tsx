@@ -12,19 +12,19 @@ export const PatchStatusBadge: React.FC<Props> = ({ status }) => (
 );
 
 const statusToBadgeVariant = {
-  unconfigured: Variant.LightGray,
+  [PatchStatus.Aborted]: Variant.LightGray,
   [PatchStatus.Created]: Variant.LightGray,
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
   [PatchStatus.Success]: Variant.Green,
-  [PatchStatus.Aborted]: Variant.LightGray,
+  unconfigured: Variant.LightGray,
 };
 
 const patchStatusToCopy = {
-  unconfigured: "Unconfigured",
+  [PatchStatus.Aborted]: "Aborted",
   [PatchStatus.Created]: "Created",
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",
   [PatchStatus.Success]: "Succeeded",
-  [PatchStatus.Aborted]: "Aborted",
+  unconfigured: "Unconfigured",
 };

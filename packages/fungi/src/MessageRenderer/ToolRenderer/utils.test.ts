@@ -14,23 +14,23 @@ const makeProgressPart = (
   phase: string,
 ): Part =>
   ({
+    data: { percentage, phase, toolCallId },
     type: "data-tool-progress",
-    data: { toolCallId, percentage, phase },
   }) as unknown as Part;
 
 const validFindings: MergedFindings = {
-  summary: "ok",
-  overallStatus: "success",
   errors: [],
   events: [],
   metrics: [],
   observations: [],
+  overallStatus: "success",
+  summary: "ok",
 };
 
 describe("getProgressByToolCallId", () => {
   it("returns an empty map when there are no data-tool-progress parts", () => {
     const parts: Part[] = [
-      { type: "text", text: "hello", state: "done" } as unknown as Part,
+      { state: "done", text: "hello", type: "text" } as unknown as Part,
     ];
     expect(getProgressByToolCallId(parts).size).toBe(0);
   });
@@ -82,7 +82,7 @@ describe("getProgressByToolCallId", () => {
 
   it("ignores parts that are not data-tool-progress", () => {
     const parts: Part[] = [
-      { type: "text", text: "hello", state: "done" } as unknown as Part,
+      { state: "done", text: "hello", type: "text" } as unknown as Part,
       { type: "step-start" } as unknown as Part,
       makeProgressPart("call_1", 80, "Generating final report"),
     ];
@@ -97,16 +97,16 @@ describe("getProgressByToolCallId", () => {
   it("skips data-tool-progress parts with missing required fields", () => {
     const parts: Part[] = [
       {
-        type: "data-tool-progress",
         data: { percentage: 50, phase: "Loading" },
+        type: "data-tool-progress",
       } as unknown as Part,
       {
+        data: { phase: "Loading", toolCallId: "call_1" },
         type: "data-tool-progress",
-        data: { toolCallId: "call_1", phase: "Loading" },
       } as unknown as Part,
       {
+        data: { percentage: 50, toolCallId: "call_1" },
         type: "data-tool-progress",
-        data: { toolCallId: "call_1", percentage: 50 },
       } as unknown as Part,
     ];
     expect(getProgressByToolCallId(parts).size).toBe(0);
@@ -121,28 +121,28 @@ describe("isMergedFindings", () => {
   it("returns true with populated errors, events, metrics, observations", () => {
     expect(
       isMergedFindings({
-        summary: "found issues",
-        overallStatus: "partial_failure",
         errors: [
           {
-            line: 42,
-            severity: "error",
-            message: "NPE",
             evidence: "stack trace",
+            line: 42,
+            message: "NPE",
+            severity: "error",
           },
           {
-            line: null,
-            severity: "warning",
-            message: "slow",
             evidence: null,
+            line: null,
+            message: "slow",
+            severity: "warning",
           },
         ],
         events: [
-          { line: 1, timestamp: "2026-04-22T14:00:00Z", description: "start" },
-          { line: null, timestamp: null, description: "aborted" },
+          { description: "start", line: 1, timestamp: "2026-04-22T14:00:00Z" },
+          { description: "aborted", line: null, timestamp: null },
         ],
         metrics: [{ name: "Duration", value: "3m" }],
         observations: ["noisy network"],
+        overallStatus: "partial_failure",
+        summary: "found issues",
       }),
     ).toBe(true);
   });
@@ -172,7 +172,7 @@ describe("isMergedFindings", () => {
       isMergedFindings({
         ...validFindings,
         errors: [
-          { line: "forty-two", severity: "error", message: "m", evidence: "e" },
+          { evidence: "e", line: "forty-two", message: "m", severity: "error" },
         ],
       }),
     ).toBe(false);
@@ -180,7 +180,7 @@ describe("isMergedFindings", () => {
       isMergedFindings({
         ...validFindings,
         errors: [
-          { line: 1, severity: "critical", message: "m", evidence: "e" },
+          { evidence: "e", line: 1, message: "m", severity: "critical" },
         ],
       }),
     ).toBe(false);
@@ -190,7 +190,7 @@ describe("isMergedFindings", () => {
     expect(
       isMergedFindings({
         ...validFindings,
-        events: [{ line: 1, timestamp: 123, description: "x" }],
+        events: [{ description: "x", line: 1, timestamp: 123 }],
       }),
     ).toBe(false);
   });
@@ -214,41 +214,41 @@ describe("isMergedFindings", () => {
 describe("groupFindingsBySeverity", () => {
   it("groups findings into error/warning/info buckets preserving order", () => {
     const w1 = {
-      line: 1,
-      severity: "warning",
-      message: "w1",
       evidence: "",
+      line: 1,
+      message: "w1",
+      severity: "warning",
     } as const;
     const e1 = {
-      line: 2,
-      severity: "error",
-      message: "e1",
       evidence: "",
+      line: 2,
+      message: "e1",
+      severity: "error",
     } as const;
     const i1 = {
-      line: 3,
-      severity: "info",
-      message: "i1",
       evidence: "",
+      line: 3,
+      message: "i1",
+      severity: "info",
     } as const;
     const e2 = {
-      line: 4,
-      severity: "error",
-      message: "e2",
       evidence: "",
+      line: 4,
+      message: "e2",
+      severity: "error",
     } as const;
     expect(groupFindingsBySeverity([w1, e1, i1, e2])).toEqual({
       error: [e1, e2],
-      warning: [w1],
       info: [i1],
+      warning: [w1],
     });
   });
 
   it("returns empty arrays for each severity when given no findings", () => {
     expect(groupFindingsBySeverity([])).toEqual({
       error: [],
-      warning: [],
       info: [],
+      warning: [],
     });
   });
 });

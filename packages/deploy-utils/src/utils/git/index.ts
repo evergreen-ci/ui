@@ -12,8 +12,8 @@ const push = () => {
   console.log("Pushing to upstream...");
   try {
     execSync(`git push upstream`, {
-      stdio: "inherit",
       encoding: "utf-8",
+      stdio: "inherit",
     });
     console.log("Successfully pushed to upstream.");
   } catch (err) {

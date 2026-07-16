@@ -191,15 +191,15 @@ test.describe("date filter", () => {
     await expect(page).toHaveURL("/project/spruce/waterfall");
 
     await selectDatePickerDate(page, {
-      year: "2022",
-      month: "Feb",
       isoDate: "2022-02-28",
+      month: "Feb",
+      year: "2022",
     });
     await expect(page).toHaveURL(/date=2022-02-28/);
     await validateDatePickerDate(page, "date-picker", {
-      year: "2022",
-      month: "02",
       day: "28",
+      month: "02",
+      year: "2022",
     });
 
     const activeVersion = page.getByTestId("version-label-active").nth(0);
@@ -210,9 +210,9 @@ test.describe("date filter", () => {
   test("date is cleared when paginating", async ({ page }) => {
     await page.goto("/project/spruce/waterfall?date=2022-02-28");
     await validateDatePickerDate(page, "date-picker", {
-      year: "2022",
-      month: "02",
       day: "28",
+      month: "02",
+      year: "2022",
     });
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();
     await expect(page.getByTestId("prev-page-button")).toBeEnabled();

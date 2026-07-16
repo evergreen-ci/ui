@@ -26,8 +26,8 @@ interface HistoryTableProps {
 const HistoryTable: React.FC<HistoryTableProps> = ({
   children: Component,
   finalRowCopy,
-  loadMoreItems,
   loading,
+  loadMoreItems,
 }) => {
   const {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -77,8 +77,8 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
       leaveBreadcrumb(
         "selectedCommit not loaded, loading more items",
         {
-          selectedCommit,
           processedCommitCount,
+          selectedCommit,
         },
         SentryBreadcrumbTypes.UI,
       );

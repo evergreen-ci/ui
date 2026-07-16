@@ -52,7 +52,7 @@ const AnnotationTicketRowWithActions = forwardRef<
               data-cy={`move-btn-${issueKey}`}
               iconGlyph={isIssue ? "ArrowDown" : "ArrowUp"}
               onConfirm={() => {
-                onMove({ url, issueKey, confidenceScore });
+                onMove({ confidenceScore, issueKey, url });
               }}
               userCanModify={userCanModify}
             />

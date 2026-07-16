@@ -43,8 +43,8 @@ const CommitDescription: React.FC<CommitDescriptionProps> = ({
     e.stopPropagation();
     setShowDescription((prev) => {
       sendEvent({
-        name: "Toggled commit description",
         expanded: !prev,
+        name: "Toggled commit description",
       });
       return !prev;
     });

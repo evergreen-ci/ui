@@ -127,8 +127,8 @@ const imagePackagesPageOneMock: ApolloMock<
     variables: {
       imageId: "ubuntu2204",
       opts: {
-        page: 0,
         limit: 10,
+        page: 0,
       },
     },
   },
@@ -218,9 +218,9 @@ const imagePackagesNameFilterMock: ApolloMock<
     variables: {
       imageId: "ubuntu2204",
       opts: {
-        page: 0,
         limit: 10,
         name: "bcrypt",
+        page: 0,
       },
     },
   },
@@ -256,8 +256,8 @@ const imagePackagesPageTwoMock: ApolloMock<
     variables: {
       imageId: "ubuntu2204",
       opts: {
-        page: 1,
         limit: 10,
+        page: 1,
       },
     },
   },

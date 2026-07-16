@@ -73,14 +73,14 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
 
   const handleRemove = (url: string, issueKey: string): void => {
     const apiIssue = {
-      url,
       issueKey,
+      url,
     };
-    removeAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
+    removeAnnotation({ variables: { apiIssue, execution, isIssue, taskId } });
 
     annotationAnalytics.sendEvent({
-      name: "Deleted annotation",
       "annotation.type": isIssue ? "Issue" : "Suspected Issue",
+      name: "Deleted annotation",
     });
   };
 
@@ -89,7 +89,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
     issueKey: string;
     confidenceScore: number;
   }): void => {
-    moveAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
+    moveAnnotation({ variables: { apiIssue, execution, isIssue, taskId } });
 
     setSelectedRowKey(apiIssue.issueKey);
     annotationAnalytics.sendEvent({

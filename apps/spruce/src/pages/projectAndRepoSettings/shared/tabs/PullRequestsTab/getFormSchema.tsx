@@ -28,11 +28,11 @@ export const getFormSchema = (
   repoData?: PullRequestsFormState,
 ): ReturnType<GetFormSchema> => {
   const overrideStyling = {
+    "ui:showLabel": false,
     "ui:widget":
       projectType === ProjectType.AttachedProject
         ? widgets.RadioBoxWidget
         : "hidden",
-    "ui:showLabel": false,
   };
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
@@ -41,50 +41,38 @@ export const getFormSchema = (
       githubTriggerAliasField: GithubTriggerAliasField,
     },
     schema: {
-      type: "object" as const,
       properties: {
         github: {
-          type: "object" as const,
-          title: "",
           properties: {
+            githubPRTriggerAliases: {
+              items: {
+                type: "object" as const,
+              },
+              title: "Pull Request Trigger Aliases",
+              type: "array" as const,
+            },
             githubWebhooksEnabled: {
-              type: "null",
-              title: "GitHub Webhooks",
               description: `GitHub webhooks ${
                 githubWebhooksEnabled ? "are" : "are not"
               } enabled.`,
-            },
-            prTestingEnabledTitle: {
+              title: "GitHub Webhooks",
               type: "null",
-              title: "GitHub Pull Request Testing",
-              ...(projectType === ProjectType.Repo && {
-                description:
-                  "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
-              }),
-            },
-            prTestingEnabled: {
-              type: ["boolean", "null"],
-              title: "Automated Testing",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.github?.prTestingEnabled ?? undefined,
-              ),
             },
             manualPrTestingEnabled: {
-              type: ["boolean", "null"],
-              title: "Manual Testing",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
                 repoData?.github?.manualPrTestingEnabled ?? undefined,
               ),
+              title: "Manual Testing",
+              type: ["boolean", "null"],
             },
             oldestAllowedMergeBase: {
-              type: "string" as const,
               title: "Oldest Allowed Merge Base",
+              type: "string" as const,
             },
             prTesting: {
-              type: "object" as const,
               title: "GitHub Patch Definitions",
+              type: "object" as const,
               ...overrideRadioBox(
                 "githubPrAliases",
                 [
@@ -95,32 +83,44 @@ export const getFormSchema = (
                 aliasArray.schema,
               ),
             },
-            githubPRTriggerAliases: {
-              type: "array" as const,
-              title: "Pull Request Trigger Aliases",
-              items: {
-                type: "object" as const,
-              },
+            prTestingEnabled: {
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.prTestingEnabled ?? undefined,
+              ),
+              title: "Automated Testing",
+              type: ["boolean", "null"],
+            },
+            prTestingEnabledTitle: {
+              title: "GitHub Pull Request Testing",
+              type: "null",
+              ...(projectType === ProjectType.Repo && {
+                description:
+                  "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
+              }),
             },
           },
+          title: "",
+          type: "object" as const,
         },
       },
+      type: "object" as const,
     },
     uiSchema: {
       github: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        prTestingEnabledTitle: {
-          "ui:sectionTitle": true,
-        },
-        prTestingEnabled: {
-          "ui:data-cy": "pr-testing-enabled-radio-box",
-          "ui:widget": widgets.RadioBoxWidget,
-          ...githubConflictErrorStyling(
-            githubProjectConflicts?.prTestingIdentifiers ?? null,
-            formData?.github?.prTestingEnabled ?? null,
-            repoData?.github?.prTestingEnabled ?? false,
-            "PR Testing",
-          ),
+        githubPRTriggerAliases: {
+          items: {
+            "ui:field": "githubTriggerAliasField",
+            "ui:label": false,
+          },
+          "ui:addable": false,
+          "ui:data-cy": "github-pr-trigger-aliases",
+          "ui:description": GithubTriggerAliasDescription,
+          "ui:orderable": false,
+          "ui:placeholder":
+            "No aliases are scheduled to run for pull requests.",
+          "ui:readonly": true,
+          "ui:removable": false,
         },
         manualPrTestingEnabled: {
           "ui:data-cy": "manual-pr-testing-enabled-radio-box",
@@ -167,14 +167,13 @@ export const getFormSchema = (
             repoData?.github?.prTesting?.githubPrAliases ?? [],
             "GitHub Patch Definition",
           ),
-          "ui:description": PRAliasesDescription,
-          githubPrAliasesOverride: overrideStyling,
           githubPrAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add patch definition",
               numberedTitle: "Patch Definition",
             }),
           },
+          githubPrAliasesOverride: overrideStyling,
           repoData: {
             githubPrAliases: {
               ...aliasRowUiSchema({
@@ -183,22 +182,23 @@ export const getFormSchema = (
               }),
             },
           },
+          "ui:description": PRAliasesDescription,
+        },
+        prTestingEnabled: {
+          "ui:data-cy": "pr-testing-enabled-radio-box",
+          "ui:widget": widgets.RadioBoxWidget,
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.prTestingIdentifiers ?? null,
+            formData?.github?.prTestingEnabled ?? null,
+            repoData?.github?.prTestingEnabled ?? false,
+            "PR Testing",
+          ),
+        },
+        prTestingEnabledTitle: {
+          "ui:sectionTitle": true,
         },
 
-        githubPRTriggerAliases: {
-          "ui:data-cy": "github-pr-trigger-aliases",
-          "ui:addable": false,
-          "ui:orderable": false,
-          "ui:placeholder":
-            "No aliases are scheduled to run for pull requests.",
-          "ui:readonly": true,
-          "ui:removable": false,
-          "ui:description": GithubTriggerAliasDescription,
-          items: {
-            "ui:field": "githubTriggerAliasField",
-            "ui:label": false,
-          },
-        },
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
       },
     },
   };

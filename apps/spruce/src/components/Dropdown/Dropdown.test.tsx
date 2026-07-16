@@ -9,9 +9,9 @@ describe("dropdown", () => {
   beforeEach(() => {
     const mockResizeObserver = vi.fn(function () {
       return {
+        disconnect: vi.fn(),
         observe: vi.fn(),
         unobserve: vi.fn(),
-        disconnect: vi.fn(),
       };
     });
     window.ResizeObserver = mockResizeObserver;

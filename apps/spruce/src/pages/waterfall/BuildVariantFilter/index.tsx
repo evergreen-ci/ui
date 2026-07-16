@@ -28,9 +28,9 @@ export const BuildVariantFilter = () => {
         value: filterValue,
       });
       sendEvent({
-        name: "Filtered by build variant",
         "filter.type": filterType,
         "filter.value": filterValue,
+        name: "Filtered by build variant",
       });
     },
     [onSubmit, sendEvent],

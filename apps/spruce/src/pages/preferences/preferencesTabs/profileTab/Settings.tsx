@@ -50,11 +50,11 @@ export const Settings: React.FC<SettingsProps> = ({
 
   const initialState = useMemo(
     () => ({
-      timezone: userSettings?.timezone ?? "",
-      region: userSettings?.region ?? "",
-      githubUser: { lastKnownAs: userSettings?.githubUser?.lastKnownAs || "" },
       dateFormat: userSettings?.dateFormat ?? "",
+      githubUser: { lastKnownAs: userSettings?.githubUser?.lastKnownAs || "" },
+      region: userSettings?.region ?? "",
       timeFormat: userSettings?.timeFormat || TimeFormat.TwelveHour,
+      timezone: userSettings?.timezone ?? "",
     }),
     [userSettings],
   );
@@ -85,59 +85,59 @@ export const Settings: React.FC<SettingsProps> = ({
         }}
         schema={{
           properties: {
-            githubUser: {
-              title: "",
-              properties: {
-                lastKnownAs: {
-                  type: "string",
-                  title: "GitHub Username",
-                },
-              },
-            },
-            timezone: {
-              type: "string" as const,
-              title: "Timezone",
-              oneOf: [
-                ...timeZones.map(({ str, value }) => ({
-                  type: "string" as const,
-                  title: str,
-                  enum: [value],
-                })),
-              ],
-            },
-            region: {
-              type: "string",
-              title: "AWS Region",
-              enum: awsRegions,
-            },
             dateFormat: {
-              type: "string" as const,
-              title: "Date Format",
               oneOf: [
                 ...dateFormats.map(({ str, value }) => ({
-                  type: "string" as const,
-                  title: str,
                   enum: [value],
+                  title: str,
+                  type: "string" as const,
                 })),
               ],
+              title: "Date Format",
+              type: "string" as const,
+            },
+            githubUser: {
+              properties: {
+                lastKnownAs: {
+                  title: "GitHub Username",
+                  type: "string",
+                },
+              },
+              title: "",
+            },
+            region: {
+              enum: awsRegions,
+              title: "AWS Region",
+              type: "string",
             },
             timeFormat: {
-              type: "string",
-              title: "Time Format",
               oneOf: [
                 {
-                  type: "string" as const,
-                  title: "12-hour clock",
                   description: "Display time with AM/PM, e.g. 12:34 PM",
                   enum: [TimeFormat.TwelveHour],
+                  title: "12-hour clock",
+                  type: "string" as const,
                 },
                 {
-                  type: "string" as const,
-                  title: "24-hour clock",
                   description: "Use 24-hour notation, e.g. 13:34",
                   enum: [TimeFormat.TwentyFourHour],
+                  title: "24-hour clock",
+                  type: "string" as const,
                 },
               ],
+              title: "Time Format",
+              type: "string",
+            },
+            timezone: {
+              oneOf: [
+                ...timeZones.map(({ str, value }) => ({
+                  enum: [value],
+                  title: str,
+                  type: "string" as const,
+                })),
+              ],
+              title: "Timezone",
+              type: "string" as const,
             },
           },
         }}
@@ -146,26 +146,26 @@ export const Settings: React.FC<SettingsProps> = ({
           errors.filter((e) => e.name !== "oneOf" && e.name !== "enum")
         }
         uiSchema={{
-          timezone: {
-            "ui:placeholder": "Select a timezone",
-          },
-          region: {
-            "ui:placeholder": "Select an AWS region",
+          dateFormat: {
+            "ui:hideError": true,
+            "ui:placeholder": "Select a date format",
           },
           githubUser: {
             lastKnownAs: {
               "ui:placeholder": "Enter your GitHub username",
             },
           },
-          dateFormat: {
-            "ui:placeholder": "Select a date format",
-            "ui:hideError": true,
+          region: {
+            "ui:placeholder": "Select an AWS region",
           },
           timeFormat: {
-            "ui:widget": "radio",
             "ui:options": {
               bold: true,
             },
+            "ui:widget": "radio",
+          },
+          timezone: {
+            "ui:placeholder": "Select a timezone",
           },
         }}
       />
@@ -182,11 +182,11 @@ export const Settings: React.FC<SettingsProps> = ({
 };
 
 const dateFormats = listOfDateFormatStrings.map((format) => ({
-  value: format,
   str: `${format} - ${getDateCopy("08/31/2022", {
     dateFormat: format,
     dateOnly: true,
   })}`,
+  value: format,
 }));
 
 const ContentWrapper = styled.div`

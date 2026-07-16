@@ -18,8 +18,8 @@ export const PreferenceToggles: React.FC = () => {
 
   const handleOnChangePolling = (c: boolean) => {
     sendEvent({
-      name: "Toggled polling",
       enabled: c,
+      name: "Toggled polling",
     });
     setQueryPollingEnabled(c);
     setLocalStorageBoolean(DISABLE_QUERY_POLLING, !c);
@@ -27,8 +27,8 @@ export const PreferenceToggles: React.FC = () => {
 
   const handleToggleTaskReview = (c: boolean) => {
     sendEvent({
-      name: "Toggled task review",
       enabled: c,
+      name: "Toggled task review",
     });
     setTaskReviewEnabled(c);
     setLocalStorageBoolean(DISABLE_TASK_REVIEW, !c);

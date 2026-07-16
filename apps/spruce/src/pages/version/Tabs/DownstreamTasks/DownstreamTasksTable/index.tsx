@@ -65,27 +65,27 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   const onFilterChange = (filterState: ColumnFiltersState) => {
     filterState.forEach(({ id, value }) => {
       if (id === TaskSortCategory.Name) {
-        dispatch({ type: "setTaskName", task: value as string });
+        dispatch({ task: value as string, type: "setTaskName" });
       } else if (id === TaskSortCategory.Status) {
-        dispatch({ type: "setStatuses", statuses: value as string[] });
+        dispatch({ statuses: value as string[], type: "setStatuses" });
       } else if (id === TaskSortCategory.BaseStatus) {
-        dispatch({ type: "setBaseStatuses", baseStatuses: value as string[] });
+        dispatch({ baseStatuses: value as string[], type: "setBaseStatuses" });
       } else if (id === TaskSortCategory.Variant) {
         dispatch({ type: "setVariant", variant: value as string });
       }
     });
     sendEvent({
-      name: "Filtered downstream tasks table",
       "filter.by": Object.keys(filterState),
+      name: "Filtered downstream tasks table",
     });
   };
 
   const onSortingChange = (sortingState: SortingState) => {
     const updatedSorts = sortingState.map(({ desc, id }) => ({
-      Key: id as TaskSortCategory,
       Direction: desc ? SortDirection.Desc : SortDirection.Asc,
+      Key: id as TaskSortCategory,
     }));
-    dispatch({ type: "setSorts", sorts: updatedSorts });
+    dispatch({ sorts: updatedSorts, type: "setSorts" });
     sendEvent({
       name: "Sorted downstream tasks table",
       "sort.by": sortingState.map(({ id }) => id as TaskSortCategory),
@@ -96,8 +96,8 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
     () =>
       getColumnsTemplate({
         baseStatusOptions,
-        statusOptions,
         isPatch,
+        statusOptions,
       }),
     [baseStatusOptions, statusOptions, isPatch],
   );
@@ -110,17 +110,18 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
         enableMultiSort: true,
         sortDescFirst: false, // Handle bug in sorting order (https://github.com/TanStack/table/issues/4289)
       },
+      getSubRows: (row) => row.executionTasksFull || [],
       initialState: {
         sorting: [
-          { id: TaskSortCategory.Status, desc: false },
-          { id: TaskSortCategory.BaseStatus, desc: true },
+          { desc: false, id: TaskSortCategory.Status },
+          { desc: true, id: TaskSortCategory.BaseStatus },
         ],
       },
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
-      maxMultiSortColCount: 2,
       manualFiltering: true,
       manualPagination: true,
       manualSorting: true,
+      maxMultiSortColCount: 2,
       onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         (f) => getDefaultFiltering(table).onColumnFiltersChange(f),
@@ -131,7 +132,6 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
         (s) => getDefaultSorting(table).onSortingChange(s),
         onSortingChange,
       ),
-      getSubRows: (row) => row.executionTasksFull || [],
     });
 
   return (
@@ -145,9 +145,9 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
             dispatch({ type: "clearAllFilters" });
             table.reset();
           }}
-          onPageChange={(p: number) => dispatch({ type: "setPage", page: p })}
+          onPageChange={(p: number) => dispatch({ page: p, type: "setPage" })}
           onPageSizeChange={(l: number) =>
-            dispatch({ type: "setLimit", limit: l })
+            dispatch({ limit: l, type: "setLimit" })
           }
           page={page}
           totalCount={taskCount}

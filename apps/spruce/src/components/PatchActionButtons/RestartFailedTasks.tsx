@@ -92,8 +92,8 @@ export const RestartFailedTasks = forwardRef<
     const mainVersionTaskIds = collectFailedTasks(buildVariants);
     if (mainVersionTaskIds.length > 0) {
       versionsToRestart.push({
-        versionId: patchId,
         taskIds: mainVersionTaskIds,
+        versionId: patchId,
       });
     }
 
@@ -102,8 +102,8 @@ export const RestartFailedTasks = forwardRef<
       const childTaskIds = collectFailedTasks(childVersion.buildVariants);
       if (childTaskIds.length > 0) {
         versionsToRestart.push({
-          versionId: childVersion.id,
           taskIds: childTaskIds,
+          versionId: childVersion.id,
         });
       }
     });
@@ -125,9 +125,9 @@ export const RestartFailedTasks = forwardRef<
 
     restartVersions({
       variables: {
+        abort: false,
         versionId: patchId,
         versionsToRestart,
-        abort: false,
       },
     });
   };

@@ -7,58 +7,58 @@ import {
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as const,
     properties: {
       expansions: {
-        type: "array" as const,
-        title: "Expansions",
         items: {
-          type: "object" as const,
           properties: {
             key: {
-              type: "string" as const,
-              title: "Key",
               default: "",
               minLength: 1,
+              title: "Key",
+              type: "string" as const,
             },
             value: {
-              type: "string" as const,
-              title: "Value",
               default: "",
               minLength: 1,
+              title: "Value",
+              type: "string" as const,
             },
           },
+          type: "object" as const,
         },
+        title: "Expansions",
+        type: "array" as const,
       },
       validProjects: {
-        type: "array" as const,
-        title: "Valid Projects",
         items: {
-          type: "string" as const,
-          title: "Project ID",
           default: "",
           minLength: 1,
+          title: "Project ID",
+          type: "string" as const,
         },
+        title: "Valid Projects",
+        type: "array" as const,
       },
     },
+    type: "object" as const,
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
     expansions: {
+      items: {
+        "ui:data-cy": "expansion-item",
+        "ui:label": false,
+        "ui:ObjectFieldTemplate": FieldRow,
+      },
       "ui:addButtonText": "Add expansion",
       "ui:orderable": false,
-      items: {
-        "ui:ObjectFieldTemplate": FieldRow,
-        "ui:label": false,
-        "ui:data-cy": "expansion-item",
-      },
     },
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
     validProjects: {
+      items: {
+        "ui:label": false,
+      },
       "ui:addButtonText": "Add project",
       "ui:orderable": false,
-      items: {
-        "ui:label": false,
-      },
     },
   },
 });

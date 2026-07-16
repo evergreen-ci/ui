@@ -9,18 +9,18 @@ describe("getDefaultPageSize", () => {
     originalLocalStorage = globalThis.localStorage;
     let store: Record<string, string> = {};
     globalThis.localStorage = {
-      getItem: vi.fn((key: string) => store[key] ?? null),
-      setItem: vi.fn((key: string, value: string) => {
-        store[key] = value;
-      }),
-      removeItem: vi.fn((key: string) => {
-        delete store[key];
-      }),
       clear: vi.fn(() => {
         store = {};
       }),
+      getItem: vi.fn((key: string) => store[key] ?? null),
       key: vi.fn(),
       length: 0,
+      removeItem: vi.fn((key: string) => {
+        delete store[key];
+      }),
+      setItem: vi.fn((key: string, value: string) => {
+        store[key] = value;
+      }),
     } as unknown as Storage;
   });
 

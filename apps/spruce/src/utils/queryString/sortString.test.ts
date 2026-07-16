@@ -12,18 +12,18 @@ describe("parseSortString", () => {
         "NAME:ASC;STATUS:DESC",
         {
           sortByKey: "Key",
-          sortDirKey: "Direction",
           sortCategoryEnum: TaskSortCategory,
+          sortDirKey: "Direction",
         },
       ),
     ).toStrictEqual([
       {
-        Key: TaskSortCategory.Name,
         Direction: SortDirection.Asc,
+        Key: TaskSortCategory.Name,
       },
       {
-        Key: TaskSortCategory.Status,
         Direction: SortDirection.Desc,
+        Key: TaskSortCategory.Status,
       },
     ]);
   });
@@ -41,8 +41,8 @@ describe("parseSortString", () => {
         { cat: Categories; dir: SortDirection }
       >("apple:ASC;pear:DESC;invalidCat:DESC", {
         sortByKey: "cat",
-        sortDirKey: "dir",
         sortCategoryEnum: Categories,
+        sortDirKey: "dir",
       }),
     ).toStrictEqual([
       {
@@ -64,8 +64,8 @@ describe("parseSortString", () => {
         { cat: Categories; dir: SortDirection }
       >(["apple:ASC", "pear:DESC"], {
         sortByKey: "cat",
-        sortDirKey: "dir",
         sortCategoryEnum: Categories,
+        sortDirKey: "dir",
       }),
     ).toStrictEqual([
       {

@@ -45,8 +45,8 @@ export const PatchesPage: React.FC<Props> = ({
   const handleInputChange = (value: string) => {
     setPatchName(value);
     analytics.sendEvent({
-      name: "Filtered for patches",
       "filter.by": value,
+      name: "Filtered for patches",
     });
   };
 
@@ -62,8 +62,8 @@ export const PatchesPage: React.FC<Props> = ({
     setIsIncludeHiddenCheckboxChecked(e.target.checked);
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
     analytics.sendEvent({
-      name: "Filtered for patches",
       "filter.hidden": e.target.checked,
+      name: "Filtered for patches",
     });
   };
 

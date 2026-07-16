@@ -29,45 +29,57 @@ describe("project data", () => {
 });
 
 const projectForm: PluginsFormState = {
-  performanceSettings: {
-    perfEnabled: true,
-  },
   buildBaronSettings: {
-    ticketCreateProject: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      createProject: null,
-    },
-    ticketCreateIssueType: {
-      issueType: "Epic",
-    },
-    ticketSearchProjects: [],
-    useBuildBaron: false,
     fileTicketWebhook: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       endpoint: null,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       secret: null,
     },
+    ticketCreateIssueType: {
+      issueType: "Epic",
+    },
+    ticketCreateProject: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      createProject: null,
+    },
+    ticketSearchProjects: [],
+    useBuildBaron: false,
   },
   externalLinks: [
     {
-      requesters: ["gitter_request", "patch_request"],
       displayName: "a link display name",
       displayTitle: "a link display name",
+      requesters: ["gitter_request", "patch_request"],
       urlTemplate: "https://a-link-template-{version_id}.com",
     },
     {
-      requesters: ["ad_hoc"],
       displayName: "periodic build link",
       displayTitle: "periodic build link",
+      requesters: ["ad_hoc"],
       urlTemplate: "https://periodic-build-{version_id}.com",
     },
   ],
+  performanceSettings: {
+    perfEnabled: true,
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
   projectId: "project",
   projectRef: {
+    externalLinks: [
+      {
+        displayName: "a link display name",
+        requesters: ["gitter_request", "patch_request"],
+        urlTemplate: "https://a-link-template-{version_id}.com",
+      },
+      {
+        displayName: "periodic build link",
+        requesters: ["ad_hoc"],
+        urlTemplate: "https://periodic-build-{version_id}.com",
+      },
+    ],
     id: "project",
     perfEnabled: true,
     taskAnnotationSettings: {
@@ -78,62 +90,61 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
         secret: null,
       },
     },
-    externalLinks: [
-      {
-        requesters: ["gitter_request", "patch_request"],
-        displayName: "a link display name",
-        urlTemplate: "https://a-link-template-{version_id}.com",
-      },
-      {
-        requesters: ["ad_hoc"],
-        displayName: "periodic build link",
-        urlTemplate: "https://periodic-build-{version_id}.com",
-      },
-    ],
   },
 };
 
 const repoForm: PluginsFormState = {
-  performanceSettings: {
-    perfEnabled: true,
-  },
   buildBaronSettings: {
+    fileTicketWebhook: {
+      endpoint: "endpoint",
+      secret: "secret",
+    },
+    ticketCreateIssueType: {
+      issueType: "Epic",
+    },
+    ticketCreateProject: {
+      createProject: "EVG",
+    },
     ticketSearchProjects: [
       {
         searchProject: "EVG",
       },
     ],
-    ticketCreateProject: {
-      createProject: "EVG",
-    },
-    ticketCreateIssueType: {
-      issueType: "Epic",
-    },
     useBuildBaron: false,
-    fileTicketWebhook: {
-      endpoint: "endpoint",
-      secret: "secret",
-    },
   },
   externalLinks: [
     {
-      requesters: ["gitter_request", "patch_request"],
       displayName: "a link display name",
       displayTitle: "a link display name",
+      requesters: ["gitter_request", "patch_request"],
       urlTemplate: "https://a-link-template-{version_id}.com",
     },
     {
-      requesters: ["ad_hoc"],
       displayName: "periodic build link",
       displayTitle: "periodic build link",
+      requesters: ["ad_hoc"],
       urlTemplate: "https://periodic-build-{version_id}.com",
     },
   ],
+  performanceSettings: {
+    perfEnabled: true,
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
-  repoId: "repo",
   projectRef: {
+    externalLinks: [
+      {
+        displayName: "a link display name",
+        requesters: ["gitter_request", "patch_request"],
+        urlTemplate: "https://a-link-template-{version_id}.com",
+      },
+      {
+        displayName: "periodic build link",
+        requesters: ["ad_hoc"],
+        urlTemplate: "https://periodic-build-{version_id}.com",
+      },
+    ],
     id: "repo",
     perfEnabled: true,
     taskAnnotationSettings: {
@@ -142,17 +153,6 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
         secret: "secret",
       },
     },
-    externalLinks: [
-      {
-        requesters: ["gitter_request", "patch_request"],
-        displayName: "a link display name",
-        urlTemplate: "https://a-link-template-{version_id}.com",
-      },
-      {
-        requesters: ["ad_hoc"],
-        displayName: "periodic build link",
-        urlTemplate: "https://periodic-build-{version_id}.com",
-      },
-    ],
   },
+  repoId: "repo",
 };

@@ -71,14 +71,14 @@ describe("MessageRenderer", () => {
 });
 
 const userMessage: FungiUIMessage = {
+  id: "123",
   parts: [
     {
       state: "done",
-      type: "text",
       text: "Is this the first time this task has failed?",
+      type: "text",
     },
   ],
-  id: "123",
   role: "user",
 };
 
@@ -86,12 +86,12 @@ const assistantMessage = (
   state: "streaming" | "done" | undefined = "done",
 ): FungiUIMessage => ({
   id: "iHbTMI7vnSuBYpQ1",
-  role: "assistant",
   parts: [
     {
       state,
-      type: "text",
       text: 'The task spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12 has not failed before; its status has always been "success" in its history. This is not the first time it has run, but it has not previously failed.',
+      type: "text",
     },
   ],
+  role: "assistant",
 });

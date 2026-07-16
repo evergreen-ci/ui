@@ -18,12 +18,12 @@ export const useDistroEvents = (
     DistroEventsQuery,
     DistroEventsQueryVariables
   >(DISTRO_EVENTS, {
+    fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true,
     variables: {
       distroId,
       limit,
     },
-    fetchPolicy: "no-cache",
-    notifyOnNetworkStatusChange: true,
   });
   useErrorToast(error, "Unable to fetch distro events");
 
@@ -34,13 +34,13 @@ export const useDistroEvents = (
   const handleFetchMore = useCallback(
     () =>
       fetchMore({
-        variables: {
-          distroId,
-          before: lastEventTimestamp,
-        },
         updateQuery: getEventsUpdateQuery<"distroEvents", DistroEventsQuery>(
           "distroEvents",
         ),
+        variables: {
+          before: lastEventTimestamp,
+          distroId,
+        },
       }),
     [distroId, fetchMore, lastEventTimestamp],
   );

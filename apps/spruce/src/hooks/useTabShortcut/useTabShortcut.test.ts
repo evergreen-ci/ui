@@ -7,7 +7,7 @@ describe("useTabShortcut", () => {
     const setSelectedTab = vi.fn();
     let currentTab = 1;
     const { rerender } = renderHook(() =>
-      useTabShortcut({ setSelectedTab, currentTab, numTabs: 4 }),
+      useTabShortcut({ currentTab, numTabs: 4, setSelectedTab }),
     );
     await user.keyboard("{j}");
     expect(setSelectedTab).toHaveBeenCalledWith(2);
@@ -29,7 +29,7 @@ describe("useTabShortcut", () => {
     const setSelectedTab = vi.fn();
     let currentTab = 1;
     const { rerender } = renderHook(() =>
-      useTabShortcut({ setSelectedTab, currentTab, numTabs: 4 }),
+      useTabShortcut({ currentTab, numTabs: 4, setSelectedTab }),
     );
     await user.keyboard("{k}");
     expect(setSelectedTab).toHaveBeenCalledWith(0);
