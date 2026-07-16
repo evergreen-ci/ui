@@ -6,11 +6,11 @@ import disableConflictsPlugin from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
+import perfectionistPlugin from "eslint-plugin-perfectionist";
 import playwrightPlugin from "eslint-plugin-playwright";
 import prettierConfig from "eslint-plugin-prettier/recommended";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
-import sortDestructureKeysPlugin from "eslint-plugin-sort-destructure-keys";
 import storybookPlugin from "eslint-plugin-storybook";
 import testingLibraryPlugin from "eslint-plugin-testing-library";
 import tseslint from "typescript-eslint";
@@ -272,17 +272,16 @@ const jsxA11yConfig = {
   },
 };
 
-// Sort Destructure Keys ESLint (eslint-plugin-sort-destructure-keys) settings.
-const sortDestructureKeysConfig = {
-  name: "sort-destructure-keys/rules",
-  files: ["src/**/*.ts?(x)"],
+const perfectionistConfig = {
+  name: "perfectionist/rules",
+  files: ["**/*.js?(x)", "**/*.ts?(x)"],
   plugins: {
-    "sort-destructure-keys": sortDestructureKeysPlugin,
+    perfectionist: perfectionistPlugin,
   },
   rules: {
-    "sort-destructure-keys/sort-destructure-keys": [
-      errorIfStrict,
-      { caseSensitive: true },
+    "perfectionist/sort-objects": [
+      ERROR,
+      { type: "natural",  order: "asc", ignoreCase: false },
     ],
   },
 };
@@ -462,7 +461,7 @@ export default defineConfig(
   reactConfig,
   reactHooksConfig,
   jsxA11yConfig,
-  sortDestructureKeysConfig,
+  perfectionistConfig,
   testingLibraryConfig,
   jsDocConfig,
   storybookPlugin.configs["flat/recommended"],
