@@ -31,7 +31,7 @@ export const HostTab: React.FC<TabProps> = ({
   );
 };
 
-const validate = ((formData, errors) => {
+export const validate = ((formData, errors) => {
   const {
     containerIsolation,
     setup: { bootstrapMethod, communicationMethod },
