@@ -129,7 +129,6 @@
     "react-virtuoso": "^4.18.3"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.1",
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "@evg-ui/playwright-config": "workspace:*",
