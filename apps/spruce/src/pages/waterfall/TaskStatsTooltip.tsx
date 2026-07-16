@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
-import { Popover, Align } from "@leafygreen-ui/popover";
+import { Align, Popover } from "@leafygreen-ui/popover";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";

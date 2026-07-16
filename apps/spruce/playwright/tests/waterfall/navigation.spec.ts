@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("navigation", () => {
   test("can view the waterfall page", async ({ page }) => {

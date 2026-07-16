@@ -10,14 +10,14 @@ import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { TTLInfo } from "components/404/TTLInfo";
-import { ProjectBanner, ErrorBanner } from "components/Banners";
+import { ErrorBanner, ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
 import {
-  PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
+  PageWrapper,
 } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";

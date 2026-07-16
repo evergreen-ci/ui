@@ -3,13 +3,13 @@ import { getAppToDeploy } from "../utils/environment";
 import {
   assertMainBranch,
   assertWorkingDirectoryClean,
-  getCommitMessages,
-  getCurrentlyDeployedCommit,
   createTagAndPush,
   deleteTag,
+  getCommitMessages,
+  getCurrentlyDeployedCommit,
   getLatestTag,
-  pushTags,
   getReleaseVersion,
+  pushTags,
 } from "../utils/git";
 
 /**

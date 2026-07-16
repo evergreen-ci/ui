@@ -2,9 +2,9 @@ import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import {
+  type AliasFormType,
   AliasNames,
   VariantTaskSpecifier,
-  type AliasFormType,
 } from "../utils/alias";
 import { formToGql, gqlToForm, mergeProjectRepo } from "./transformers";
 import { CommitChecksFormState } from "./types";

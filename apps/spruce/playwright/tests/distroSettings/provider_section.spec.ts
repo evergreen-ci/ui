@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { clickCheckbox, selectOption, validateToast } from "../../helpers";
 import { save } from "./utils";
 

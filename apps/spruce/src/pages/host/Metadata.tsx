@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, WordBreak } from "@evg-ui/lib/components/styles";
 import MetadataCard, { MetadataItem } from "components/MetadataCard";
 import { MCI_USER } from "constants/hosts";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";

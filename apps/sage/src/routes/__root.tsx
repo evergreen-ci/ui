@@ -1,4 +1,4 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { Outlet, createRootRoute } from "@tanstack/react-router";
 import { ErrorBoundary } from "@evg-ui/lib/components/ErrorBoundary";
 import { ErrorFallback } from "@evg-ui/lib/components-via/ErrorFallback";
 import { NavBar } from "components/NavBar";

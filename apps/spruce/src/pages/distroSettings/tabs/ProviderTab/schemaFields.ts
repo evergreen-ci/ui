@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { textAreaCSS, mergeCheckboxCSS, indentCSS } from "./styles";
+import { indentCSS, mergeCheckboxCSS, textAreaCSS } from "./styles";
 import { BuildType } from "./types";
 
 const userData = {

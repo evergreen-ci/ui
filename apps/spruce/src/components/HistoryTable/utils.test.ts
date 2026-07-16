@@ -1,5 +1,5 @@
 import { mainlineCommitData } from "./testData";
-import { rowType, CommitRowType } from "./types";
+import { CommitRowType, rowType } from "./types";
 import { calcColumnLimitFromWidth, processCommits } from "./utils";
 
 describe("historyTable utils", () => {

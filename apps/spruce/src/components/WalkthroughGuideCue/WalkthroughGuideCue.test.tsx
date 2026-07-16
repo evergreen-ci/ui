@@ -8,8 +8,8 @@ import {
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import {
   WalkthroughGuideCue,
-  WalkthroughStep,
   WalkthroughGuideCueProps,
+  WalkthroughStep,
 } from ".";
 
 describe("walkthrough guide cue", async () => {

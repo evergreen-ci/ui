@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  ColumnFiltersState,
+  BaseTable,
   ColumnFiltering,
+  ColumnFiltersState,
+  LGColumnDef,
   RowSelectionState,
   RowSorting,
   SortingState,
-  useLeafyGreenTable,
-  BaseTable,
   onChangeHandler,
-  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";

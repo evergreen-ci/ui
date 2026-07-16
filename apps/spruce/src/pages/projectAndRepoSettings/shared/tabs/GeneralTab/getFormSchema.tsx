@@ -4,10 +4,10 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import {
   debugSpawnHostsDocumentationUrl,
-  versionControlDocumentationUrl,
   runEveryMainlineCommitDocumentationUrl,
+  versionControlDocumentationUrl,
 } from "constants/externalResources";
-import { form, ProjectType } from "../utils";
+import { ProjectType, form } from "../utils";
 import {
   DeactivateStepbackTaskField,
   DeleteProjectField,

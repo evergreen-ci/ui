@@ -4,10 +4,10 @@ import {
   AddFavoriteProjectMutationVariables,
   ProjectsQuery,
   ProjectsQueryVariables,
-  ViewableProjectRefsQuery,
-  ViewableProjectRefsQueryVariables,
   RemoveFavoriteProjectMutation,
   RemoveFavoriteProjectMutationVariables,
+  ViewableProjectRefsQuery,
+  ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";

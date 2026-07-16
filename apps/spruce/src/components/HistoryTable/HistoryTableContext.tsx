@@ -1,9 +1,9 @@
 import {
-  useContext,
   createContext,
-  useReducer,
-  useMemo,
   useCallback,
+  useContext,
+  useMemo,
+  useReducer,
 } from "react";
 import {
   MainlineCommitsForHistoryQuery,

@@ -1,4 +1,4 @@
-import { StoryObj, Meta } from "@storybook/react-vite";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { DocumentNode, GraphQLError } from "graphql";
 
 /**

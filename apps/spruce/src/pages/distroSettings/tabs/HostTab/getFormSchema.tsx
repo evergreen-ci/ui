@@ -4,12 +4,12 @@ import { nonWindowsArchitectures, windowsArchitectures } from "./constants";
 import {
   allocation as allocationProperties,
   bootstrap as bootstrapProperties,
-  setup,
-  sshConfig as sshConfigProperties,
   icecreamConfigPath,
   icecreamSchedulerHost,
   isVirtualWorkStation,
   rootDir,
+  setup,
+  sshConfig as sshConfigProperties,
 } from "./schemaFields";
 
 type FormSchemaParams = {

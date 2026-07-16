@@ -1,6 +1,6 @@
 import {
-  MyPublicKeysQuery,
   EditSpawnHostMutationVariables,
+  MyPublicKeysQuery,
 } from "gql/generated/types";
 import { string } from "utils";
 import { getSleepSchedule } from "../utils";

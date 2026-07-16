@@ -1,7 +1,7 @@
 import {
   Chip,
-  TruncationLocation,
   Variant as ChipVariant,
+  TruncationLocation,
 } from "@leafygreen-ui/chip";
 
 interface FilterChipType {

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import {
-  Skeleton,
   ListSkeleton,
-  TableSkeleton,
   Size,
+  Skeleton,
+  TableSkeleton,
 } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {

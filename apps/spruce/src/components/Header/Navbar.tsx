@@ -18,8 +18,8 @@ import {
   routes,
   slugs,
 } from "constants/routes";
-import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
-import { USER, SPRUCE_CONFIG } from "gql/queries";
+import { SpruceConfigQuery, UserQuery } from "gql/generated/types";
+import { SPRUCE_CONFIG, USER } from "gql/queries";
 import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
