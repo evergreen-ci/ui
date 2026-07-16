@@ -10,9 +10,11 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
+import { getTableMode, TableMode } from "constants/featureFlags";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
 import { getBaseTaskCell } from "./BaseTask";
+import { getPreviousRunCell } from "./PreviousRun";
 import { ReviewedCheckbox } from "./ReviewedCheckbox";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
@@ -142,6 +144,16 @@ export const getColumnsTemplate = ({
     enableSorting: true,
     size: 80,
   },
+  ...(getTableMode() === TableMode.NewColumn
+    ? [
+        {
+          id: "ok",
+          accessorKey: "baseTask.prevTaskCompleted",
+          header: "Last Run Status",
+          cell: getPreviousRunCell,
+        },
+      ]
+    : []),
   {
     accessorKey: "buildVariantDisplayName",
     id: TaskSortCategory.Variant,

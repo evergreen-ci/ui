@@ -2706,6 +2706,10 @@ export enum PreferredAuthType {
   Okta = "OKTA",
 }
 
+export type PrevTaskOptions = {
+  skipOnParentCompleted?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
 export enum PriorityLevel {
   Alert = "ALERT",
   Critical = "CRITICAL",
@@ -4160,6 +4164,11 @@ export type Task = {
   totalTestCount: Scalars["Int"]["output"];
   version: VersionLite;
   versionMetadata: Version;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskPrevTaskCompletedArgs = {
+  prevTaskOptions?: InputMaybe<PrevTaskOptions>;
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
@@ -9003,26 +9012,6 @@ export type SuspectedIssuesQuery = {
   } | null;
 };
 
-export type LastCompletedTaskQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type LastCompletedTaskQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    execution: number;
-    prevTaskCompleted?: {
-      __typename?: "Task";
-      id: string;
-      displayStatus: string;
-      execution: number;
-    } | null;
-  } | null;
-};
-
 export type MainlineCommitsForHistoryQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptions: BuildVariantOptions;
@@ -12033,11 +12022,19 @@ export type VersionTasksQuery = {
         errors?: Array<string> | null;
         execution: number;
         reviewed?: boolean | null;
+        status: string;
         baseTask?: {
           __typename?: "Task";
           id: string;
           displayStatus: string;
           execution: number;
+          prevTaskCompleted?: {
+            __typename?: "Task";
+            id: string;
+            displayStatus: string;
+            execution: number;
+            finishTime?: Date | null;
+          } | null;
         } | null;
         dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
         executionTasksFull?: Array<{
@@ -12054,6 +12051,13 @@ export type VersionTasksQuery = {
             id: string;
             displayStatus: string;
             execution: number;
+            prevTaskCompleted?: {
+              __typename?: "Task";
+              id: string;
+              displayStatus: string;
+              execution: number;
+              finishTime?: Date | null;
+            } | null;
           } | null;
           project?: {
             __typename?: "Project";

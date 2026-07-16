@@ -1,5 +1,7 @@
 import { gql } from "@apollo/client";
 
+// prevTaskCompleted(prevTaskOptions: { skipOnParentCompleted: true } ) {
+//
 export const VERSION_TASKS = gql`
   query VersionTasks(
     $versionId: String!
@@ -17,6 +19,12 @@ export const VERSION_TASKS = gql`
             id
             displayStatus
             execution
+            prevTaskCompleted {
+              id
+              displayStatus
+              execution
+              finishTime
+            }
           }
           blocked
           buildVariant
@@ -34,6 +42,12 @@ export const VERSION_TASKS = gql`
               id
               displayStatus
               execution
+              prevTaskCompleted {
+                id
+                displayStatus
+                execution
+                finishTime
+              }
             }
             buildVariant
             buildVariantDisplayName
@@ -51,6 +65,7 @@ export const VERSION_TASKS = gql`
             identifier
           }
           reviewed @client
+          status
         }
       }
     }

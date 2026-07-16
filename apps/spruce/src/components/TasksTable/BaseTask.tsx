@@ -1,30 +1,21 @@
-import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
+import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Overline } from "@leafygreen-ui/typography";
+import { formatRelative } from "date-fns";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import Icon from "@evg-ui/lib/components/Icon";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { statusColorMap } from "components/TaskBox";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
-import {
-  LastCompletedTaskQuery,
-  LastCompletedTaskQueryVariables,
-} from "gql/generated/types";
-import { LAST_COMPLETED_TASK } from "gql/queries";
+import { getTableMode, TableMode } from "constants/featureFlags";
+import { getTaskRoute } from "constants/routes";
 import { TaskTableInfo } from "./types";
 
 const { gray } = palette;
-
-const uncompletedStatuses = new Set([
-  TaskStatus.Started,
-  TaskStatus.Undispatched,
-  TaskStatus.Unstarted,
-  TaskStatus.Unscheduled,
-  TaskStatus.Dispatched,
-  TaskStatus.WillRun,
-  TaskStatus.Inactive,
-]);
 
 export const getBaseTaskCell = (({
   getValue,
@@ -33,25 +24,21 @@ export const getBaseTaskCell = (({
   },
 }) => {
   const baseTaskStatus = getValue() as TaskStatus;
-  const isInProgress = uncompletedStatuses.has(baseTaskStatus);
+  const isInProgress =
+    baseTaskStatus !== TaskStatus.Succeeded &&
+    baseTaskStatus !== TaskStatus.Failed;
 
-  const { data } = useQuery<
-    LastCompletedTaskQuery,
-    LastCompletedTaskQueryVariables
-  >(
-    LAST_COMPLETED_TASK,
-    isInProgress && baseTask
-      ? {
-          variables: { taskId: baseTask.id, execution: baseTask.execution },
-        }
-      : skipToken,
-  );
+  const tableMode = getTableMode();
 
   if (!baseTask) {
     return <TaskStatusBadge status={getValue() as TaskStatus} />;
   }
 
-  if (isInProgress && data?.task?.prevTaskCompleted) {
+  if (
+    isInProgress &&
+    baseTask?.prevTaskCompleted &&
+    tableMode === TableMode.Inline
+  ) {
     return (
       <Container>
         <TaskStatusBadgeWithLink
@@ -59,14 +46,40 @@ export const getBaseTaskCell = (({
           id={baseTask?.id}
           status={getValue() as TaskStatus}
         />
-        <Icon
-          fill={
-            statusColorMap[
-              data?.task?.prevTaskCompleted?.displayStatus as TaskStatus
-            ] ?? gray.base
+        <Tooltip
+          align="top"
+          darkMode
+          data-cy="copy-ssh-tooltip"
+          trigger={
+            <IconButton aria-label="GitHub Commit Link" data-cy="github-link">
+              <Icon
+                fill={
+                  statusColorMap[
+                    baseTask?.prevTaskCompleted?.displayStatus as TaskStatus
+                  ] ?? gray.base
+                }
+                glyph="Clock"
+              />
+            </IconButton>
           }
-          glyph="Clock"
-        />
+          triggerEvent="click"
+        >
+          <Overline>Last completed</Overline>
+          <div>
+            <TaskStatusBadge
+              status={baseTask.prevTaskCompleted.displayStatus as TaskStatus}
+            />{" "}
+            {baseTask.prevTaskCompleted.finishTime &&
+              formatRelative(baseTask.prevTaskCompleted.finishTime, new Date())}
+          </div>
+          <StyledRouterLink
+            to={getTaskRoute(baseTask.prevTaskCompleted.id, {
+              execution: baseTask.prevTaskCompleted.execution,
+            })}
+          >
+            View last run
+          </StyledRouterLink>
+        </Tooltip>
       </Container>
     );
   }
