@@ -12022,12 +12022,12 @@ export type VersionTasksQuery = {
         errors?: Array<string> | null;
         execution: number;
         reviewed?: boolean | null;
-        status: string;
         baseTask?: {
           __typename?: "Task";
           id: string;
           displayStatus: string;
           execution: number;
+          status: string;
           prevTaskCompleted?: {
             __typename?: "Task";
             id: string;
@@ -12051,6 +12051,7 @@ export type VersionTasksQuery = {
             id: string;
             displayStatus: string;
             execution: number;
+            status: string;
             prevTaskCompleted?: {
               __typename?: "Task";
               id: string;

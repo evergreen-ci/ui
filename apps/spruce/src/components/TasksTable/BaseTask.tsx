@@ -13,10 +13,9 @@ export const getBaseTaskCell = (({
     original: { baseTask },
   },
 }) => {
-  const baseTaskStatus = getValue() as TaskStatus;
   const isInProgress =
-    baseTaskStatus !== TaskStatus.Succeeded &&
-    baseTaskStatus !== TaskStatus.Failed;
+    baseTask?.status !== TaskStatus.Succeeded &&
+    baseTask?.status !== TaskStatus.Failed;
 
   const tableMode = getTableMode();
 

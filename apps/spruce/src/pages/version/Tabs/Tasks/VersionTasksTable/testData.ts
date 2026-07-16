@@ -47,6 +47,7 @@ export const versionTasks: { data: VersionTasksQuery } = {
             baseTask: {
               id: "evergreen_ui_spruce_snapshots_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
               __typename: "Task",
             },
@@ -56,7 +57,6 @@ export const versionTasks: { data: VersionTasksQuery } = {
             dependsOn: null,
             displayName: "snapshots",
             displayStatus: "failed",
-            status: "failed",
             execution: 0,
             executionTasksFull: null,
             project: {
@@ -72,6 +72,7 @@ export const versionTasks: { data: VersionTasksQuery } = {
             baseTask: {
               id: "evergreen_ui_spruce_test_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
               __typename: "Task",
             },
@@ -81,7 +82,6 @@ export const versionTasks: { data: VersionTasksQuery } = {
             dependsOn: null,
             displayName: "test",
             displayStatus: "success",
-            status: "success",
             execution: 0,
             executionTasksFull: null,
             project: {
@@ -97,6 +97,7 @@ export const versionTasks: { data: VersionTasksQuery } = {
             baseTask: {
               id: "evergreen_ui_spruce_type_check_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
               __typename: "Task",
             },
@@ -106,7 +107,6 @@ export const versionTasks: { data: VersionTasksQuery } = {
             dependsOn: null,
             displayName: "type_check",
             displayStatus: "success",
-            status: "success",
             execution: 0,
             executionTasksFull: null,
             project: {
@@ -126,7 +126,6 @@ export const versionTasks: { data: VersionTasksQuery } = {
             dependsOn: null,
             displayName: "e2e_parallel",
             displayStatus: "failed",
-            status: "failed",
             execution: 0,
             executionTasksFull: [
               {

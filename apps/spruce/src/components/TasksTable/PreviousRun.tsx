@@ -9,10 +9,9 @@ export const getPreviousRunCell = (({
     original: { baseTask },
   },
 }) => {
-  const baseTaskStatus = baseTask?.displayStatus;
   const isInProgress =
-    baseTaskStatus !== TaskStatus.Succeeded &&
-    baseTaskStatus !== TaskStatus.Failed;
+    baseTask?.status !== TaskStatus.Succeeded &&
+    baseTask?.status !== TaskStatus.Failed;
 
   const prevTaskCompleted = getValue() as NonNullable<
     TaskTableInfo["baseTask"]

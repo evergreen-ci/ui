@@ -147,10 +147,10 @@ export const getColumnsTemplate = ({
   ...(getTableMode() === "new-column"
     ? [
         {
-          id: "ok",
           accessorKey: "baseTask.prevTaskCompleted",
           header: "Last Run Status",
           cell: getPreviousRunCell,
+          enableColumnFilter: false,
         },
       ]
     : []),

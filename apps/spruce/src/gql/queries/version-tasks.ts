@@ -25,6 +25,7 @@ export const VERSION_TASKS = gql`
               execution
               finishTime
             }
+            status
           }
           blocked
           buildVariant
@@ -48,6 +49,7 @@ export const VERSION_TASKS = gql`
                 execution
                 finishTime
               }
+              status
             }
             buildVariant
             buildVariantDisplayName
@@ -65,7 +67,6 @@ export const VERSION_TASKS = gql`
             identifier
           }
           reviewed @client
-          status
         }
       }
     }
