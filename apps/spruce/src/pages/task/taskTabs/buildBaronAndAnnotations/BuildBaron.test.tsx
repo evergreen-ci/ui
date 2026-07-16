@@ -62,8 +62,7 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    expect(screen.getByDataCy("bb-content")).toBeInTheDocument();
-    expect(screen.queryByDataCy("bb-error")).toBeNull();
+    expect(screen.getByDataCy("build-baron-content")).toBeInTheDocument();
   });
 
   it("clicking on file a new ticket dispatches a toast", async () => {
@@ -148,6 +147,7 @@ const buildBaronQuery: BuildBaronQuery = {
     bbTicketCreationDefined: true,
     searchReturnInfo: {
       __typename: "SearchReturnInfo",
+      search: "test search string",
       issues: [
         {
           __typename: "JiraTicket",
@@ -201,10 +201,6 @@ const buildBaronQuery: BuildBaronQuery = {
           },
         },
       ],
-      search:
-        '(project in (EVG)) and ( text~"docker\\\\-cleanup" ) order by updatedDate desc',
-      source: "JIRA",
-      featuresURL: "",
     },
   },
 };

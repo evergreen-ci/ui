@@ -7,14 +7,18 @@ import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
 import { HostFormState, TabProps } from "./types";
 
-export const HostTab: React.FC<TabProps> = ({ distroData, provider }) => {
+export const HostTab: React.FC<TabProps> = ({
+  distroData,
+  isSingleTaskDistro,
+  provider,
+}) => {
   const { getTab } = useDistroSettingsContext();
   const { formData } = getTab(DistroSettingsTabRoutes.Host);
   const architecture = formData?.setup?.arch;
 
   const formSchema = useMemo(
-    () => getFormSchema({ architecture, provider }),
-    [architecture, provider],
+    () => getFormSchema({ architecture, isSingleTaskDistro, provider }),
+    [architecture, isSingleTaskDistro, provider],
   );
 
   return (

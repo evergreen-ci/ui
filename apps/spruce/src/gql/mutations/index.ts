@@ -32,7 +32,6 @@ export { REMOVE_FAVORITE_PROJECT } from "./remove-favorite-project";
 export { REMOVE_PUBLIC_KEY } from "./remove-public-key";
 export { REMOVE_VOLUME } from "./remove-volume";
 export { REPROVISION_TO_NEW } from "./reprovision-to-new";
-export { RESET_USER_API_KEY } from "./reset-user-api-key";
 export { RESTART_ADMIN_TASKS } from "./restart-admin-tasks";
 export { RESTART_JASPER } from "./restart-jasper";
 export { RESTART_TASK } from "./restart-task";

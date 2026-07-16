@@ -1,5 +1,10 @@
 import { act, render, renderHook } from "@testing-library/react";
-import { createMemoryRouter, Outlet, RouterProvider } from "react-router-dom";
+import {
+  createMemoryRouter,
+  Outlet,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
 import { useAnalyticsRoot } from "./useAnalyticsRoot";
 import { usePageVisibilityAnalytics } from "./usePageVisibilityAnalytics";
 
@@ -391,5 +396,93 @@ describe("usePageVisibilityAnalytics", () => {
         (call[0] as { name: string }).name === "System Event session ended",
     );
     expect(sessionEndedCalls).toHaveLength(0);
+  });
+
+  it("emits per-route active duration on route change when route info is provided", () => {
+    vi.useFakeTimers();
+
+    const routeConfig = { home: "/", other: "/other" };
+    const Comp: React.FC = () => {
+      const { pathname } = useLocation();
+      usePageVisibilityAnalytics({ pathname, routeConfig, minDurationMs: 100 });
+      return <Outlet />;
+    };
+
+    const router = createMemoryRouter(
+      [
+        {
+          element: <Comp />,
+          children: [
+            { path: "/", element: <div>Home</div> },
+            { path: "/other", element: <div>Other</div> },
+          ],
+        },
+      ],
+      { initialEntries: ["/"] },
+    );
+
+    render(<RouterProvider router={router} />);
+    mockSendEvent.mockClear();
+
+    act(() => {
+      vi.advanceTimersByTime(200);
+    });
+
+    act(() => {
+      router.navigate("/other");
+    });
+
+    expect(mockSendEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: "System Event route active",
+        "page.route_name": "home",
+        "visibility.duration_ms": 200,
+      }),
+    );
+  });
+
+  it("emits per-route active duration on unmount", () => {
+    vi.useFakeTimers();
+
+    const { unmount } = renderHook(() =>
+      usePageVisibilityAnalytics({
+        pathname: "/",
+        routeConfig: { home: "/" },
+        minDurationMs: 100,
+      }),
+    );
+    mockSendEvent.mockClear();
+
+    act(() => {
+      vi.advanceTimersByTime(300);
+    });
+
+    unmount();
+
+    expect(mockSendEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: "System Event route active",
+        "page.route_name": "home",
+        "visibility.duration_ms": 300,
+      }),
+    );
+  });
+
+  it("does not emit per-route active duration without route info", () => {
+    vi.useFakeTimers();
+
+    const { unmount } = renderHook(() =>
+      usePageVisibilityAnalytics({ minDurationMs: 100 }),
+    );
+
+    act(() => {
+      vi.advanceTimersByTime(300);
+    });
+
+    unmount();
+
+    expect(mockSendEvent).not.toHaveBeenCalledWith(
+      expect.objectContaining({ name: "System Event route active" }),
+    );
   });
 });

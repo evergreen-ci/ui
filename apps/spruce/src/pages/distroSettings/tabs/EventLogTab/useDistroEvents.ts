@@ -1,5 +1,7 @@
+import { useCallback } from "react";
 import { useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
+import { getEventsUpdateQuery } from "components/Settings/EventLog/useEvents";
 import {
   DistroEventsQuery,
   DistroEventsQueryVariables,
@@ -12,7 +14,7 @@ export const useDistroEvents = (
   distroId: string,
   limit: number = DISTRO_EVENT_LIMIT,
 ) => {
-  const { data, error, fetchMore, loading, previousData } = useQuery<
+  const { data, error, fetchMore, loading } = useQuery<
     DistroEventsQuery,
     DistroEventsQueryVariables
   >(DISTRO_EVENTS, {
@@ -20,17 +22,33 @@ export const useDistroEvents = (
       distroId,
       limit,
     },
+    fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
   });
   useErrorToast(error, "Unable to fetch distro events");
 
   const events = data?.distroEvents?.eventLogEntries ?? [];
 
+  const lastEventTimestamp = events[events.length - 1]?.timestamp;
+
+  const handleFetchMore = useCallback(
+    () =>
+      fetchMore({
+        variables: {
+          distroId,
+          before: lastEventTimestamp,
+        },
+        updateQuery: getEventsUpdateQuery<"distroEvents", DistroEventsQuery>(
+          "distroEvents",
+        ),
+      }),
+    [distroId, fetchMore, lastEventTimestamp],
+  );
+
   return {
-    count: data?.distroEvents?.count,
     events,
-    fetchMore,
+    handleFetchMore,
+    lastFetchedCount: data?.distroEvents?.count,
     loading,
-    previousCount: previousData?.distroEvents?.count ?? 0,
   };
 };

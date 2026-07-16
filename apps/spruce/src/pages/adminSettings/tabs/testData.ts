@@ -49,6 +49,9 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     stepbackTaskFactor: 1,
     targetTimeSeconds: 1,
     taskFinder: FinderVersion.Parallel,
+    translateProjectConcurrencyLimit: 1,
+    translateProjectCacheBytesLimit: 1,
+    translateProjectCacheTTLSeconds: 1,
   },
   taskLimits: {
     maxConcurrentLargeParserProjectTasks: 1,

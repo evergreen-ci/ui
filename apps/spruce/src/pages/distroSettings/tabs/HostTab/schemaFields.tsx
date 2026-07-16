@@ -111,10 +111,14 @@ const userSpawnAllowed = {
     type: "boolean" as const,
     title: "Spawnable",
   },
-  uiSchema: (hasStaticProvider: boolean) => ({
+  uiSchema: (hasStaticProvider: boolean, isSingleTaskDistro: boolean) => ({
     ...(hasStaticProvider && {
       "ui:disabled": true,
       "ui:tooltipDescription": "Static distros are not spawnable.",
+    }),
+    ...(isSingleTaskDistro && {
+      "ui:disabled": true,
+      "ui:tooltipDescription": "Single task distros are not spawnable.",
     }),
     "ui:description": "Allow users to spawn these hosts for personal use.",
     "ui:bold": true,
@@ -548,11 +552,12 @@ const maximumHosts = {
   }),
 };
 
-const acceptableHostIdleTime = {
+const acceptableHostIdleTimeSeconds = {
   schema: {
     type: "number" as const,
-    title: "Acceptable Host Idle Time (ms)",
+    title: "Acceptable Host Idle Time (secs)",
     minimum: 0,
+    multipleOf: 1,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
     "ui:data-cy": "idle-time-input",
@@ -586,7 +591,11 @@ export const setup = {
     mountpoints: mountpoints.schema,
     userSpawnAllowed: userSpawnAllowed.schema,
   },
-  uiSchema: (architecture: Arch, hasStaticProvider: boolean) => ({
+  uiSchema: (
+    architecture: Arch,
+    hasStaticProvider: boolean,
+    isSingleTaskDistro: boolean,
+  ) => ({
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     bootstrapMethod: bootstrapMethod.uiSchema,
     communicationMethod: communicationMethod.uiSchema,
@@ -595,7 +604,10 @@ export const setup = {
     workDir: workDir.uiSchema,
     setupScript: setupScript.uiSchema,
     mountpoints: mountpoints.uiSchema,
-    userSpawnAllowed: userSpawnAllowed.uiSchema(hasStaticProvider),
+    userSpawnAllowed: userSpawnAllowed.uiSchema(
+      hasStaticProvider,
+      isSingleTaskDistro,
+    ),
     isVirtualWorkStation: isVirtualWorkStation.uiSchema(architecture),
     icecreamSchedulerHost: icecreamSchedulerHost.uiSchema,
     icecreamConfigPath: icecreamConfigPath.uiSchema,
@@ -663,7 +675,7 @@ export const allocation = {
     minimumHosts: minimumHosts.schema,
     maximumHosts: maximumHosts.schema,
     autoTuneMaximumHosts: autoTuneMaximumHosts.schema,
-    acceptableHostIdleTime: acceptableHostIdleTime.schema,
+    acceptableHostIdleTimeSeconds: acceptableHostIdleTimeSeconds.schema,
     futureHostFraction: futureHostFraction.schema,
   },
   uiSchema: (hasEC2Provider: boolean, hasStaticProvider: boolean) => ({
@@ -675,7 +687,8 @@ export const allocation = {
     minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
     maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
     autoTuneMaximumHosts: autoTuneMaximumHosts.uiSchema(hasEC2Provider),
-    acceptableHostIdleTime: acceptableHostIdleTime.uiSchema(hasEC2Provider),
+    acceptableHostIdleTimeSeconds:
+      acceptableHostIdleTimeSeconds.uiSchema(hasEC2Provider),
     futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
   }),
 };

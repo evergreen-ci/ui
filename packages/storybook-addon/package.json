@@ -17,13 +17,14 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.18.0",
-    "storybook": "^10.1.10"
+    "storybook": "^10.5.0"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "eslint": "^9.39.1",
-    "typescript": "~6.0.2"
+    "typescript": "npm:@typescript/typescript6@~6.0.2",
+    "typescript-7": "npm:typescript@~7.0.2"
   },
   "peerDependencies": {
     "@storybook/addon-docs": "^10.1.10",

@@ -20,7 +20,7 @@ import { gqlToFormMap } from "./tabs/transformers";
 import { FormStateMap } from "./tabs/types";
 
 interface Props {
-  distro: DistroQuery["distro"];
+  distro: NonNullable<DistroQuery["distro"]>;
 }
 
 export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
@@ -50,7 +50,6 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           element={
             <GeneralTab
               distroData={tabData[DistroSettingsTabRoutes.General]}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               minimumHosts={distro.hostAllocatorSettings.minimumHosts}
             />
           }
@@ -69,7 +68,6 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           element={
             <TaskTab
               distroData={tabData[DistroSettingsTabRoutes.Task]}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               provider={distro.provider}
             />
           }
@@ -79,7 +77,7 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           element={
             <HostTab
               distroData={tabData[DistroSettingsTabRoutes.Host]}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              isSingleTaskDistro={distro.singleTaskDistro}
               provider={distro.provider}
             />
           }

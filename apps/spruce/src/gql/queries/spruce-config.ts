@@ -24,7 +24,6 @@ export const SPRUCE_CONFIG = gql`
       }
       serviceFlags {
         debugSpawnHostDisabled
-        jwtTokenForCLIDisabled
       }
       slack {
         name

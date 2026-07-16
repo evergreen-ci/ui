@@ -30,7 +30,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   userCanModify,
 }) => {
   const title = isIssue ? "Issues" : "Suspected Issues";
-  const buttonText = isIssue ? "Add Issue" : "Add Suspected Issue";
+  const buttonText = isIssue ? "Add issue" : "Add suspected issue";
   const [isAddAnnotationModalVisible, setIsAddAnnotationModalVisible] =
     useState<boolean>(false);
 

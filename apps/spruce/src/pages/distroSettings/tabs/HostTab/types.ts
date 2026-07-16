@@ -61,12 +61,13 @@ export interface HostFormState {
     minimumHosts: number;
     maximumHosts: number;
     autoTuneMaximumHosts: boolean;
-    acceptableHostIdleTime: number;
+    acceptableHostIdleTimeSeconds: number;
     futureHostFraction: number;
   };
 }
 
 export type TabProps = {
   distroData: HostFormState;
+  isSingleTaskDistro: boolean;
   provider: Provider;
 };

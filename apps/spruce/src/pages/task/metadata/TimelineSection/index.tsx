@@ -2,7 +2,6 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { TaskQuery } from "gql/generated/types";
 import { msToDuration } from "utils/string";
-import { ETATimer } from "./ETATimer";
 import { RuntimeTimer } from "./RuntimeTimer";
 import { Timeline } from "./Timeline";
 
@@ -14,13 +13,10 @@ interface TimelineProps {
 
 export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
   const {
-    activatedTime,
     baseTask,
     displayStatus,
     estimatedStart,
-    expectedDuration,
     finishTime,
-    ingestTime,
     startTime,
     timeTaken,
   } = task;
@@ -29,21 +25,13 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
 
   return (
     <MetadataSection title="Timeline">
-      <Timeline
-        activatedTime={activatedTime}
-        finishTime={finishTime}
-        ingestTime={ingestTime}
-        startTime={startTime}
-      />
+      <Timeline task={task} />
       {estimatedStart && estimatedStart > 0 ? (
         <MetadataItem label="Estimated time to start">
           <span data-cy="task-metadata-estimated-start">
             {msToDuration(estimatedStart)}
           </span>
         </MetadataItem>
-      ) : null}
-      {displayStatus === TaskStatus.Started && startTime && expectedDuration ? (
-        <ETATimer expectedDuration={expectedDuration} startTime={startTime} />
       ) : null}
       {displayStatus === TaskStatus.Started && startTime && (
         <RuntimeTimer startTime={startTime} />

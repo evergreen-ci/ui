@@ -110,8 +110,8 @@ export const MetadataItem: React.FC<ItemProps> = ({
 );
 
 interface MetadataSectionProps {
-  title: string;
   children?: React.ReactNode;
+  title?: string;
 }
 
 export const MetadataSection: React.FC<MetadataSectionProps> = ({
@@ -121,8 +121,12 @@ export const MetadataSection: React.FC<MetadataSectionProps> = ({
   if (Children.toArray(children).length === 0) return null;
   return (
     <div>
-      <Header>{title}</Header>
-      <Divider margin={`${size.xxs} 0`} />
+      {title && (
+        <>
+          <Header>{title}</Header>
+          <Divider margin={`${size.xxs} 0`} />
+        </>
+      )}
       <ItemsContainer>{children}</ItemsContainer>
     </div>
   );

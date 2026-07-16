@@ -59,18 +59,11 @@ export const useLoadFormSchemaData = (p?: Props) => {
   const debugSpawnHostDisabled =
     spruceConfig?.serviceFlags?.debugSpawnHostDisabled ?? false;
 
-  // Default to true because that means to not force the user to perform the authenticate spawn hosts flow.
-  const jwtTokenForCLIDisabled =
-    spruceConfig?.serviceFlags?.jwtTokenForCLIDisabled ?? true;
-  const jiraHost = spruceConfig?.jira?.host ?? "";
-
   return {
     formSchemaInput: {
       disableExpirationCheckbox,
       distros: distrosData?.distros ?? [],
       debugSpawnHostDisabled,
-      jiraHost,
-      jwtTokenForCLIDisabled,
       myPublicKeys: publicKeysData?.myPublicKeys ?? [],
       noExpirationCheckboxTooltip,
       userAwsRegion: userAwsRegion ?? defaultEC2Region,

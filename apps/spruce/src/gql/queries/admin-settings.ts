@@ -92,18 +92,33 @@ export const ADMIN_SETTINGS = gql`
           secret
         }
         logBucket {
+          expirationDays
+          lifecycleLastSyncedAt
+          lifecycleSyncError
           name
           roleARN
           testResultsPrefix
+          transitionToGlacierDays
+          transitionToIADays
         }
         logBucketFailedTasks {
+          expirationDays
+          lifecycleLastSyncedAt
+          lifecycleSyncError
           name
+          transitionToGlacierDays
+          transitionToIADays
         }
         logBucketLongRetention {
+          expirationDays
+          lifecycleLastSyncedAt
+          lifecycleSyncError
           name
+          transitionToGlacierDays
+          transitionToIADays
         }
         longRetentionProjects
-        retryFailedLogMoveLookbackMonths
+        retryFailedLogMoveLookbackDays
         retryFailedLogMoveMaxJobsPerRun
         testResultsBucket {
           name
@@ -130,6 +145,7 @@ export const ADMIN_SETTINGS = gql`
           ebsDiscount
         }
         financeFormula
+        hiddenCostProjects
         onDemandDiscount
         s3Cost {
           storage {
@@ -276,6 +292,18 @@ export const ADMIN_SETTINGS = gql`
           apiVersion
         }
       }
+      rateLimit {
+        elevatedUserIds
+        graphqlComplexityLimit
+        graphqlServiceBurst
+        graphqlServicePerHour
+        graphqlUserBurst
+        graphqlUserPerHour
+        restServiceBurst
+        restServicePerHour
+        restUserBurst
+        restUserPerHour
+      }
       releaseMode {
         distroMaxHostsFactor
         idleTimeSecondsOverride
@@ -313,6 +341,9 @@ export const ADMIN_SETTINGS = gql`
         stepbackTaskFactor
         targetTimeSeconds
         taskFinder
+        translateProjectCacheBytesLimit
+        translateProjectCacheTTLSeconds
+        translateProjectConcurrencyLimit
       }
 
       shutdownWaitSeconds

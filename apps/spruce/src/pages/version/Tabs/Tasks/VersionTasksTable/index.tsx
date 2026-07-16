@@ -83,10 +83,11 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         statusOptions,
         isPatch,
         loading,
-        onClickTaskLink: (taskId: string) =>
+        onClickTaskLink: (taskId: string, status?: string) =>
           sendEvent({
             name: "Clicked task table task link",
             "task.id": taskId,
+            "task.status": status ?? "",
           }),
       }),
     [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],

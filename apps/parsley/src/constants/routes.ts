@@ -27,5 +27,12 @@ const routes = {
   upload: paths.upload,
 };
 
-export { slugs };
+// Route patterns augmented with the groupID param so group-scoped deep links
+// resolve to one route name. Shared so the span processor and analytics agree.
+const observabilityRouteConfig = {
+  ...routes,
+  testLogs: `${routes.testLogs}/:${slugs.groupID}?`,
+};
+
+export { slugs, observabilityRouteConfig };
 export default routes;

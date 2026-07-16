@@ -40,6 +40,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
   ...tool
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
   const toolLabel = renderableToolLabels[tool.type];
   if (!toolLabel) return null;
 

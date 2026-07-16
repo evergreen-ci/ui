@@ -25,8 +25,6 @@ import {
   MyPublicKeysQueryVariables,
   SpawnTaskQuery,
   SpawnTaskQueryVariables,
-  SpruceConfigQuery,
-  SpruceConfigQueryVariables,
 } from "gql/generated/types";
 import {
   getSpruceConfigMock,
@@ -107,23 +105,8 @@ const spawnTaskMock: ApolloMock<SpawnTaskQuery, SpawnTaskQueryVariables> = {
   },
 };
 
-const strictJwtSpruceConfigMock = {
-  ...getSpruceConfigMock,
-  result: {
-    data: {
-      spruceConfig: {
-        ...getSpruceConfigMock.result!.data!.spruceConfig!,
-        serviceFlags: {
-          ...getSpruceConfigMock.result!.data!.spruceConfig!.serviceFlags,
-          jwtTokenForCLIDisabled: false,
-        },
-      },
-    },
-  },
-} satisfies ApolloMock<SpruceConfigQuery, SpruceConfigQueryVariables>;
-
 const baseMocks = [
-  strictJwtSpruceConfigMock,
+  getSpruceConfigMock,
   getUserSettingsMock,
   distrosMock,
   myPublicKeysMock,
@@ -155,7 +138,7 @@ describe("SpawnHostModal token gate", () => {
     window.ResizeObserver = originalResizeObserver;
   });
 
-  it("disables Spawn when load-task-data is checked, strict JWT is on, and the user has no valid token", async () => {
+  it("disables Spawn when load-task-data is checked and the user has no valid token", async () => {
     const { Component } = RenderFakeToastContext(
       <SpawnHostModal open setOpen={() => {}} />,
     );
