@@ -106,7 +106,6 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
       loading={tasksData.length === 0 && loading}
       page={page ?? 0}
       tasks={tasksData}
-      totalCount={taskCount}
       versionId={versionId}
     />
   );
