@@ -56,23 +56,6 @@ export const cache = new InMemoryCache({
       keyFields: false,
     },
     User: {
-      keyFields: ["userId"],
-      fields: {
-        displayName: {
-          read(existing, { readField }) {
-            // Return userId if displayName is not set so that displayName is always populated
-            return existing || readField("userId");
-          },
-        },
-        userId: {
-          read(existing, { readField }) {
-            // Service users don't have userIds, just displayNames. Make sure both fields are set.
-            return existing || readField("displayName");
-          },
-        },
-      },
-    },
-    UserLite: {
       keyFields: ["id"],
       fields: {
         displayName: {

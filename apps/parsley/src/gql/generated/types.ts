@@ -2519,9 +2519,8 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
-  /** @deprecated Use userLite instead. */
   user: User;
-  userLite: UserLite;
+  userLite: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
@@ -3152,7 +3151,7 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
-  userLite: UserLite;
+  userLite: User;
   variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
@@ -4762,29 +4761,23 @@ export type UseSpruceOptionsInput = {
   spruceV1?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
-/**
- * User is returned by the user query.
- * It contains information about a user's id, name, email, and permissions.
- */
+/** User maps to the user.DBUser type. */
 export type User = {
   __typename?: "User";
   betaFeatures?: Maybe<BetaFeatures>;
   displayName?: Maybe<Scalars["String"]["output"]>;
   emailAddress?: Maybe<Scalars["String"]["output"]>;
   hasTokenExchangePending: Scalars["Boolean"]["output"];
+  id: Scalars["String"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patches?: Maybe<Patches>;
   permissions?: Maybe<Permissions>;
   settings?: Maybe<UserSettings>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
-  userId: Scalars["String"]["output"];
 };
 
-/**
- * User is returned by the user query.
- * It contains information about a user's id, name, email, and permissions.
- */
+/** User maps to the user.DBUser type. */
 export type UserPatchesArgs = {
   patchesInput: PatchesInput;
 };
@@ -4803,33 +4796,6 @@ export type UserConfig = {
   oauth_issuer: Scalars["String"]["output"];
   ui_server_host: Scalars["String"]["output"];
   user: Scalars["String"]["output"];
-};
-
-/**
- * UserLite replaces User by sidestepping the APIDBUser API model and binding directly to the
- * service-layer user model. New clients should query UserLite instead of User.
- */
-export type UserLite = {
-  __typename?: "UserLite";
-  betaFeatures?: Maybe<BetaFeatures>;
-  displayName?: Maybe<Scalars["String"]["output"]>;
-  emailAddress?: Maybe<Scalars["String"]["output"]>;
-  hasTokenExchangePending: Scalars["Boolean"]["output"];
-  id: Scalars["String"]["output"];
-  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
-  patches?: Maybe<Patches>;
-  permissions?: Maybe<Permissions>;
-  settings?: Maybe<UserSettings>;
-  subscriptions?: Maybe<Array<GeneralSubscription>>;
-  tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
-};
-
-/**
- * UserLite replaces User by sidestepping the APIDBUser API model and binding directly to the
- * service-layer user model. New clients should query UserLite instead of User.
- */
-export type UserLitePatchesArgs = {
-  patchesInput: PatchesInput;
 };
 
 export type UserServiceFlags = {
@@ -4934,9 +4900,8 @@ export type Version = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
-  /** @deprecated Use userLite instead. */
   user: User;
-  userLite: UserLite;
+  userLite: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
@@ -4991,7 +4956,7 @@ export type VersionLite = {
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
   taskStatusStats?: Maybe<TaskStats>;
-  user: UserLite;
+  user: User;
   warnings: Array<Scalars["String"]["output"]>;
 };
 
@@ -5259,7 +5224,7 @@ export type UserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserQuery = {
   __typename?: "Query";
-  user: { __typename?: "UserLite"; userId: string };
+  user: { __typename?: "User"; userId: string };
 };
 
 export type ProjectFiltersQueryVariables = Exact<{

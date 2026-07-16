@@ -58,7 +58,7 @@ describe("createDuplicateProjectField", () => {
       result: {
         data: {
           user: {
-            __typename: "UserLite",
+            __typename: "User",
             userId: "string",
             permissions: {
               __typename: "Permissions",
@@ -203,7 +203,7 @@ const permissionsMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         userId: "string",
         permissions: {
           __typename: "Permissions",

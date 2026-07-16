@@ -189,7 +189,7 @@ const adminUser: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         userId: "admin",
         permissions: {
           __typename: "Permissions",
@@ -216,7 +216,7 @@ const basicUser: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         userId: "basic",
         permissions: {
           __typename: "Permissions",
