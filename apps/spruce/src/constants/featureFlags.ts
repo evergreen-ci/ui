@@ -1,18 +1,21 @@
-/* eslint-disable */
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "@evg-ui/lib/utils/localStorage";
 import { isEndUserProduction } from "utils/environmentVariables";
-import { getLocalStorageString } from "@evg-ui/lib/utils/localStorage";
 
-const TABLE_MODE_KEY = "table-mode"
+const TABLE_MODE_KEY = "table-mode";
 
-export enum TableMode {
-  Inline = "inline",
-  NewColumn = "new-column",
-}
+export type TableMode = "inline" | "new-column" | "default";
 
-export const getTableMode = (): TableMode | null => {
+export const getTableMode = (): TableMode => {
   if (isEndUserProduction()) {
-    return null;
+    return "default";
   }
 
-  return getLocalStorageString(TABLE_MODE_KEY) as TableMode ?? TableMode.Inline;
-}
+  return (getLocalStorageString(TABLE_MODE_KEY) as TableMode) ?? "default";
+};
+
+export const setTableMode = (mode: TableMode) => {
+  setLocalStorageString(TABLE_MODE_KEY, mode);
+};

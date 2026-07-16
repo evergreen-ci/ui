@@ -10,7 +10,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
-import { getTableMode, TableMode } from "constants/featureFlags";
+import { getTableMode } from "constants/featureFlags";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
 import { getBaseTaskCell } from "./BaseTask";
@@ -144,7 +144,7 @@ export const getColumnsTemplate = ({
     enableSorting: true,
     size: 80,
   },
-  ...(getTableMode() === TableMode.NewColumn
+  ...(getTableMode() === "new-column"
     ? [
         {
           id: "ok",

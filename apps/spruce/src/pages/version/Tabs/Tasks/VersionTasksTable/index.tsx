@@ -15,12 +15,15 @@ import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { taskReviewStyles } from "components/TasksTable/styles";
+import { TableModeToggle } from "components/TasksTable/TableModeToggle";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
+import { getTableMode } from "constants/featureFlags";
 import { TableQueryParams } from "constants/queryParams";
 import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useTaskStatuses, useTableSort } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
+import { isEndUserProduction } from "utils/environmentVariables";
 import { parseSortString } from "utils/queryString";
 import {
   mapIdToFilterParam,
@@ -75,6 +78,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
     useTaskStatuses({ versionId });
 
   const { initialFilters, initialSorting } = getInitialState(queryParams);
+  const [tableMode, setTableMode] = useState(getTableMode);
 
   const columns = useMemo(
     () =>
@@ -90,7 +94,9 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             "task.status": status ?? "",
           }),
       }),
-    [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
+    // TODO: Remove lint disabling upon deleting tableMode.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [baseStatusOptions, statusOptions, isPatch, sendEvent, loading, tableMode],
   );
 
   const [columnFilters, setColumnFilters] =
@@ -154,38 +160,44 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
     });
 
   return (
-    <TableWrapper
-      controls={
-        <TableControl
-          filteredCount={filteredCount}
-          label="tasks"
-          limit={limit}
-          onClear={() => {
-            setColumnFilters([]);
-            setSorting(defaultSorting);
-            clearQueryParams();
-          }}
-          onPageSizeChange={(size: number) =>
-            sendEvent({ name: "Changed page size", "page.size": size })
-          }
-          page={page}
-          totalCount={totalCount}
+    <>
+      {!isEndUserProduction() && (
+        <TableModeToggle setTableMode={setTableMode} tableMode={tableMode} />
+      )}
+      <TableWrapper
+        controls={
+          <TableControl
+            filteredCount={filteredCount}
+            label="tasks"
+            limit={limit}
+            onClear={() => {
+              setColumnFilters([]);
+              setSorting(defaultSorting);
+              clearQueryParams();
+            }}
+            onPageSizeChange={(size: number) =>
+              sendEvent({ name: "Changed page size", "page.size": size })
+            }
+            page={page}
+            totalCount={totalCount}
+          />
+        }
+        shouldShowBottomTableControl={limit > 10}
+      >
+        <BaseTable
+          key={tableMode}
+          css={taskReviewEnabled && taskReviewStyles}
+          data-cy="tasks-table"
+          data-cy-row="tasks-table-row"
+          data-loading={loading}
+          emptyComponent={<TablePlaceholder message="No tasks found." />}
+          loading={loading}
+          loadingRows={limit}
+          shouldAlternateRowColor
+          table={table}
         />
-      }
-      shouldShowBottomTableControl={limit > 10}
-    >
-      <BaseTable
-        css={taskReviewEnabled && taskReviewStyles}
-        data-cy="tasks-table"
-        data-cy-row="tasks-table-row"
-        data-loading={loading}
-        emptyComponent={<TablePlaceholder message="No tasks found." />}
-        loading={loading}
-        loadingRows={limit}
-        shouldAlternateRowColor
-        table={table}
-      />
-    </TableWrapper>
+      </TableWrapper>
+    </>
   );
 };
 
