@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { css as classNameCss } from "@emotion/css";
+import { css as classNameCss } from "@emotion/css"; // Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
