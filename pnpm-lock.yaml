@@ -688,9 +688,6 @@ importers:
         specifier: ^4.18.3
         version: 4.18.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@eslint/compat':
-        specifier: ^2.0.1
-        version: 2.0.5(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
       '@evg-ui/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -890,6 +887,9 @@ importers:
 
   packages/eslint-config:
     dependencies:
+      '@eslint/js':
+        specifier: ^10.0.1
+        version: 10.0.1(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
       '@graphql-eslint/eslint-plugin':
         specifier: ^4.4.0
         version: 4.4.0(@types/node@26.1.1)(@typescript/typescript6@6.0.2)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(graphql@16.12.0)
@@ -947,16 +947,6 @@ importers:
       typescript-eslint:
         specifier: ^8.59.1
         version: 8.59.3(@types/eslint@9.6.1)(@typescript/typescript6@6.0.2)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
-    devDependencies:
-      '@eslint/compat':
-        specifier: ^2.0.1
-        version: 2.0.5(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
-      '@eslint/eslintrc':
-        specifier: ^3.3.3
-        version: 3.3.5
-      '@eslint/js':
-        specifier: ^10.0.1
-        version: 10.0.1(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
 
   packages/fungi:
     dependencies:

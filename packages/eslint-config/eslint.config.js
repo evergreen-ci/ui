@@ -1,7 +1,6 @@
-import { fixupPluginRules } from "@eslint/compat";
-import stylisticPlugin from "@stylistic/eslint-plugin";
 import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
+import stylisticPlugin from "@stylistic/eslint-plugin";
 import { defineConfig } from "eslint/config";
 import disableConflictsPlugin from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
