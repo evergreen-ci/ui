@@ -9,8 +9,8 @@ import {
 } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  MockedProvider,
   fireEvent,
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,

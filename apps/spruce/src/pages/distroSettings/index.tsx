@@ -17,10 +17,10 @@ import {
 import { SideNavItemLink } from "components/styles/SideNav";
 import {
   DistroSettingsTabRoutes,
-  ImageTabRoutes,
   getDistroSettingsRoute,
   getImageRoute,
   getTaskQueueRoute,
+  ImageTabRoutes,
   slugs,
 } from "constants/routes";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";

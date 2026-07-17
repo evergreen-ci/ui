@@ -1,10 +1,10 @@
 import type { Context } from "@sentry/core";
 import {
-  type Scope,
-  type SeverityLevel,
   captureException,
   init,
+  type Scope,
   setTags,
+  type SeverityLevel,
   withScope,
 } from "@sentry/react";
 import { ErrorInput } from "./types";

@@ -1,4 +1,4 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { SageProvider } from "context/SageProvider";
 import { routeTree } from "./routeTree.gen";
 

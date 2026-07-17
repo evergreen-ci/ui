@@ -1,20 +1,20 @@
 import {
-  ReactNode,
   createContext,
+  ReactNode,
   useCallback,
   useContext,
   useMemo,
 } from "react";
 import {
   ToastProvider as LGToastProvider,
-  Variant,
   useToast,
+  Variant,
 } from "@leafygreen-ui/toast";
 import { WordBreak } from "../../components/styles";
 import {
-  TOAST_TIMEOUT,
   mapLeafyGreenVariantToTitle,
   mapLeafyGreenVariantToToast,
+  TOAST_TIMEOUT,
 } from "./constants";
 import { DispatchToast, DispatchToastWithProgress, ToastParams } from "./types";
 

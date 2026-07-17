@@ -5,11 +5,11 @@ import {
   ColumnFiltering,
   ColumnFiltersState,
   LeafyGreenTable,
+  onChangeHandler,
   RowSorting,
   SortingState,
   TableControl,
   TableWrapper,
-  onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";

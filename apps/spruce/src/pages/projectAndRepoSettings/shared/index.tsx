@@ -15,9 +15,9 @@ import {
   SideNavPageWrapper,
 } from "components/styles";
 import {
-  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
   getRepoSettingsRoute,
+  ProjectSettingsTabRoutes,
   slugs,
 } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";

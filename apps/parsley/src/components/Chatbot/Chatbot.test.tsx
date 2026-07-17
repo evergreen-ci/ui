@@ -9,7 +9,7 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { LogContextProvider } from "context/LogContext";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
-import { ChatProvider, Chatbot } from ".";
+import { Chatbot, ChatProvider } from ".";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;

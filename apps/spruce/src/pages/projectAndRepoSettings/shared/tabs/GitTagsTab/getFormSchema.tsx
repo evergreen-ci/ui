@@ -4,11 +4,11 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { gitTagAliasesDocumentationUrl } from "constants/externalResources";
 import {
-  ProjectType,
   alias,
   fieldDisabled,
   form,
   hideIf,
+  ProjectType,
   sectionHasError,
 } from "../utils";
 import { GitTagsFormState } from "./types";

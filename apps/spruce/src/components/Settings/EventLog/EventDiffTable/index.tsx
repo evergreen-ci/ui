@@ -11,8 +11,8 @@ import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../types";
 import { getEventDiffLines } from "./utils";
 import {
-  CustomKeyValueRenderConfig,
   applyCustomKeyValueRender,
+  CustomKeyValueRenderConfig,
 } from "./utils/keyRenderer";
 
 type TableProps = {

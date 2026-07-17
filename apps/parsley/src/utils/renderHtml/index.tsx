@@ -1,7 +1,7 @@
 import parse, {
   DOMNode,
-  HTMLReactParserOptions,
   domToReact,
+  HTMLReactParserOptions,
 } from "html-react-parser";
 import { escapeTags } from "utils/escapeTags";
 

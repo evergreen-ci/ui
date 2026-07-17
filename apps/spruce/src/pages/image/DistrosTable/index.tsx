@@ -14,7 +14,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { amazonEC2InstanceTypeDocumentationUrl } from "constants/externalResources";
-import { MCI_USER, defaultEC2Region } from "constants/hosts";
+import { defaultEC2Region, MCI_USER } from "constants/hosts";
 import { getAllHostsRoute, getDistroSettingsRoute } from "constants/routes";
 import {
   ImageDistrosQuery,

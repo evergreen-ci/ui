@@ -1,7 +1,7 @@
 import {
   AllByAttribute,
-  GetErrorFunction,
   buildQueries,
+  GetErrorFunction,
   queryHelpers,
 } from "@testing-library/react";
 

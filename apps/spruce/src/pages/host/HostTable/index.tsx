@@ -6,8 +6,8 @@ import Pagination from "@evg-ui/lib/components/Pagination";
 import {
   BaseTable,
   ColumnFiltersState,
-  LGColumnDef,
   LeafyGreenTable,
+  LGColumnDef,
   onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
@@ -17,7 +17,7 @@ import { useQueryParams } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
-import { HostEventType, HostEventsQuery } from "gql/generated/types";
+import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { HostCard } from "pages/host/HostCard";
 import HostEventString, {

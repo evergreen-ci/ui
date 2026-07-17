@@ -7,8 +7,8 @@ import {
 } from "@apollo/client";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
-  SentryBreadcrumbTypes,
   leaveBreadcrumb,
+  SentryBreadcrumbTypes,
 } from "@evg-ui/lib/utils/errorReporting";
 import {
   fetchWithRetry,

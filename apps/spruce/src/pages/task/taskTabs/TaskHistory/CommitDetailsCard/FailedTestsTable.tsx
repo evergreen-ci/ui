@@ -8,9 +8,9 @@ import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   ColumnFiltersState,
-  LGColumnDef,
   filterFns,
   getFilteredRowModel,
+  LGColumnDef,
   onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";

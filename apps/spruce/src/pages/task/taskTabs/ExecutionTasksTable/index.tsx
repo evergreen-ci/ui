@@ -2,10 +2,10 @@ import { useEffect, useMemo } from "react";
 import {
   BaseTable,
   LeafyGreenTable,
+  onChangeHandler,
   RowSorting,
   SortingState,
   TablePlaceholder,
-  onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParam } from "@evg-ui/lib/hooks";

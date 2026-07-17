@@ -8,17 +8,17 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
-  SentryBreadcrumbTypes,
   leaveBreadcrumb,
+  SentryBreadcrumbTypes,
 } from "@evg-ui/lib/utils/errorReporting";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { ProjectBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import {
   ColumnPaginationButtons,
-  HistoryTableTestSearch,
   constants,
   context,
+  HistoryTableTestSearch,
   hooks,
 } from "components/HistoryTable";
 import HistoryTable from "components/HistoryTable/HistoryTable";

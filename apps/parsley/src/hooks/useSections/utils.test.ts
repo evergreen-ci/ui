@@ -4,12 +4,12 @@ import {
   sectionStateAllOpen,
 } from "./testData";
 import {
-  SectionData,
   getOpenSectionStateBasedOnLineNumbers,
   parseSections,
   populateSectionState,
   processLine,
   reduceFn,
+  SectionData,
 } from "./utils";
 
 describe("processLine", () => {

@@ -5,10 +5,10 @@ import {
   BaseTable,
   ColumnFiltersState,
   LeafyGreenTable,
+  onChangeHandler,
   SortingState,
   TableControl,
   TableWrapper,
-  onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
@@ -29,9 +29,9 @@ import {
 import { TASK_TESTS } from "gql/queries";
 import { usePolling, useTableSort } from "hooks";
 import {
-  RequiredQueryParams,
   mapFilterParamToId,
   mapIdToFilterParam,
+  RequiredQueryParams,
 } from "types/task";
 import { queryString } from "utils";
 import { getColumnsTemplate } from "./getColumnsTemplate";

@@ -5,9 +5,9 @@ import { FileRejection, useDropzone } from "react-dropzone";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
-  SentryBreadcrumbTypes,
   leaveBreadcrumb,
   reportError,
+  SentryBreadcrumbTypes,
 } from "@evg-ui/lib/utils/errorReporting";
 import { decodeStream } from "@evg-ui/lib/utils/streams";
 import { useLogDropAnalytics } from "analytics";

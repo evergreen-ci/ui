@@ -14,12 +14,12 @@ import {
 import { CollapsibleFinding } from "./CollapsibleFinding";
 import {
   FindingSeverity,
+  groupFindingsBySeverity,
   MergedFinding,
   MergedFindingEvent,
   MergedFindingMetric,
   MergedFindings,
   OverallStatus,
-  groupFindingsBySeverity,
 } from "./utils";
 
 const severityOrder: FindingSeverity[] = ["error", "warning", "info"];

@@ -1,8 +1,8 @@
 import { expect, test } from "../../../fixtures";
 import { selectOption, validateToast } from "../../../helpers";
 import {
-  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
 } from "../constants";
 import { expectSaveButtonEnabled, save } from "../utils";
 

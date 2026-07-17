@@ -10,9 +10,9 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   ImageEventEntryAction,
-  ImageEventType,
   ImageEventsQuery,
   ImageEventsQueryVariables,
+  ImageEventType,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
 import { EventLogTab } from "./EventLogTab";

@@ -5,7 +5,7 @@ import { ExpiringAnnouncementTooltip } from "@evg-ui/lib/components/ExpiringAnno
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
-import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
+import { getPreferencesRoute, PreferencesTabRoutes } from "constants/routes";
 
 export const AnnouncementPopover: React.FC<{ loading?: boolean }> = ({
   loading = false,

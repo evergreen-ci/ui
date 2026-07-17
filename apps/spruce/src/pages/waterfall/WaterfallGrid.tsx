@@ -33,9 +33,9 @@ import { InactiveVersionsButton } from "./InactiveVersions";
 import { OnboardingTutorial } from "./OnboardingTutorial";
 import {
   BuildVariantTitle,
+  gridGroupCss,
   InactiveVersion,
   Row,
-  gridGroupCss,
 } from "./styles";
 import { Pagination, Version, WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";

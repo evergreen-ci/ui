@@ -1,5 +1,5 @@
 import { Suspense, useCallback, useRef, useState } from "react";
-import { Global, css } from "@emotion/react";
+import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";

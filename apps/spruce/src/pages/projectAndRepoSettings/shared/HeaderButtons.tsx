@@ -7,8 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
 import {
-  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
   slugs,
 } from "constants/routes";
 import {

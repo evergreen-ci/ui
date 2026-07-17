@@ -1,8 +1,8 @@
-import { type PropsWithChildren, createElement } from "react";
+import { createElement, type PropsWithChildren } from "react";
 import {
+  fireEvent,
   MockedProvider,
   type MockedResponse,
-  fireEvent,
   renderHook,
   waitFor,
 } from "@evg-ui/lib/test_utils";
@@ -10,9 +10,9 @@ import { TokenExchangeState } from "components/Spawn/spawnHostModal/constants";
 import { UserTokenExchangeQuery } from "gql/generated/types";
 import { USER_TOKEN_EXCHANGE } from "gql/queries";
 import {
-  SPAWN_HOST_ACCESS_TOKEN_BUFFER_MS,
   getSpawnHostTokenExchangeState,
   isTokenValid,
+  SPAWN_HOST_ACCESS_TOKEN_BUFFER_MS,
   useUserTokenExchange,
 } from "./useUserTokenExchange";
 

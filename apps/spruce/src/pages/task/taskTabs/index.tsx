@@ -13,7 +13,7 @@ import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getHoneycombHistoryUrl } from "constants/externalResources/honeycomb";
-import { GetTaskRouteOptions, getTaskRoute, slugs } from "constants/routes";
+import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import {
   TaskPerfPluginEnabledQuery,
   TaskPerfPluginEnabledQueryVariables,

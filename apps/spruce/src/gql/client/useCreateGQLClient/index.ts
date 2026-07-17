@@ -3,8 +3,8 @@ import { ApolloClient, HttpLink } from "@apollo/client";
 import { LocalState } from "@apollo/client/local-state";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
-  SentryBreadcrumbTypes,
   leaveBreadcrumb,
+  SentryBreadcrumbTypes,
 } from "@evg-ui/lib/utils/errorReporting";
 import {
   fetchWithRetry,
@@ -13,8 +13,8 @@ import {
 } from "@evg-ui/lib/utils/request";
 import { cache } from "gql/client/cache";
 import {
-  authLink,
   authenticateIfSuccessfulLink,
+  authLink,
   logGQLErrorsLink,
   logGQLToSentryLink,
   pausePollingLink,

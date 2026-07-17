@@ -1,7 +1,7 @@
 import queryString from "query-string";
 import {
-  Origin,
   constructEvergreenTaskLogURL,
+  Origin,
 } from "@evg-ui/lib/constants/logURLTemplates";
 import { Task as TaskType } from "gql/generated/types";
 import { evergreenURL } from "utils/environmentVariables";

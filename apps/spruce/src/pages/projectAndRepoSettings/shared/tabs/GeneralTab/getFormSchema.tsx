@@ -7,7 +7,7 @@ import {
   runEveryMainlineCommitDocumentationUrl,
   versionControlDocumentationUrl,
 } from "constants/externalResources";
-import { ProjectType, form } from "../utils";
+import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
   DeleteProjectField,

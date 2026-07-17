@@ -13,7 +13,7 @@ import { projectTriggers } from "constants/triggers";
 import { BannerTheme } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { projectSubscriptionMethods as subscriptionMethods } from "types/subscription";
-import { ProjectType, form } from "../utils";
+import { form, ProjectType } from "../utils";
 import { NotificationsFormState } from "./types";
 
 const { radioBoxOptions } = form;

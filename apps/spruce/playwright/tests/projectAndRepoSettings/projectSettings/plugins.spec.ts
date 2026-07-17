@@ -1,7 +1,7 @@
-import { Page, expect, test } from "../../../fixtures";
+import { expect, Page, test } from "../../../fixtures";
 import {
-  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
 } from "../constants";
 import { save } from "../utils";

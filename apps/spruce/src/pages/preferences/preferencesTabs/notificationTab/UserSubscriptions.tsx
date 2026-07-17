@@ -7,10 +7,10 @@ import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import {
   BaseTable,
-  LGColumnDef,
   filterFns,
   getFacetedUniqueValues,
   getFilteredRowModel,
+  LGColumnDef,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";

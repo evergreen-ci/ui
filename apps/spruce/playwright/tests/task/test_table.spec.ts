@@ -1,4 +1,4 @@
-import { Page, expect, test } from "../../fixtures";
+import { expect, Page, test } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const TESTS_ROUTE =

@@ -14,7 +14,7 @@ import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { Requester, isWaterfallRequester } from "constants/requesters";
+import { isWaterfallRequester, Requester } from "constants/requesters";
 import {
   TaskHistoryDirection,
   TaskHistoryQuery,

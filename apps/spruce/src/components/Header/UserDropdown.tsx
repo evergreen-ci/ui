@@ -2,9 +2,9 @@ import { useQuery } from "@apollo/client/react";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
 import {
-  PreferencesTabRoutes,
   getAdminSettingsRoute,
   getPreferencesRoute,
+  PreferencesTabRoutes,
 } from "constants/routes";
 import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";

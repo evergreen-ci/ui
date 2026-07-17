@@ -1,8 +1,8 @@
 import {
+  context,
   Exception,
   Span,
   SpanStatusCode,
-  context,
   trace,
 } from "@opentelemetry/api";
 

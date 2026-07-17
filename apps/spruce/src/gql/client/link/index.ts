@@ -3,8 +3,8 @@ import { ServerError, ServerParseError } from "@apollo/client/errors";
 import { ErrorLink } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
 import {
-  SentryBreadcrumbTypes,
   leaveBreadcrumb,
+  SentryBreadcrumbTypes,
 } from "@evg-ui/lib/utils/errorReporting";
 import { shouldLogoutAndRedirect } from "@evg-ui/lib/utils/request";
 

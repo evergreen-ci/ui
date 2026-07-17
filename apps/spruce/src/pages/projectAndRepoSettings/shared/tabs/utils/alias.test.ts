@@ -2,8 +2,8 @@ import {
   AliasFormType,
   AliasNames,
   GitTagSpecifier,
-  VariantTaskSpecifier,
   transformAliases,
+  VariantTaskSpecifier,
 } from "./alias";
 
 describe("transformAliases", () => {

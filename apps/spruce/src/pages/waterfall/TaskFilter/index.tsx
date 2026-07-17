@@ -7,8 +7,8 @@ import { useWaterfallAnalytics } from "analytics";
 import TupleSelect from "components/TupleSelect";
 import { useUpsertQueryParams } from "hooks";
 import {
-  TASK_FILTER_SETTING_KEY,
   stringFilterTooltipText,
+  TASK_FILTER_SETTING_KEY,
   tupleSelectOptions,
 } from "../constants";
 import { FilterType, WaterfallFilterOptions } from "../types";

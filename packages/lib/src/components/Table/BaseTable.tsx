@@ -1,4 +1,4 @@
-import { ForwardedRef, Fragment, forwardRef } from "react";
+import { ForwardedRef, forwardRef, Fragment } from "react";
 import { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
@@ -8,14 +8,15 @@ import {
   Cell,
   ExpandedContent,
   ExpandedContentProps,
+  flexRender,
   Header,
   HeaderCell,
   HeaderRow,
-  type LGRowData,
-  LGTableDataType,
   LeafyGreenTable,
   LeafyGreenTableRow,
   LeafyGreenVirtualTable,
+  type LGRowData,
+  LGTableDataType,
   Row,
   type RowData,
   Table,
@@ -23,7 +24,6 @@ import {
   TableHead,
   type TableProps,
   VirtualItem,
-  flexRender,
 } from "@leafygreen-ui/table";
 import { size, tableColumnOffset } from "../../constants/tokens";
 import { conditionalToArray } from "../../utils/array";

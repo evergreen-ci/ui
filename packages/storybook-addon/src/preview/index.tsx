@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing/react";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { Decorator, Parameters, Preview } from "@storybook/react-vite";
-import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
 const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

@@ -21,9 +21,9 @@ import {
 } from "components/styles";
 import { slugs } from "constants/routes";
 import {
-  HostEventType,
   HostEventsQuery,
   HostEventsQueryVariables,
+  HostEventType,
   HostQuery,
   HostQueryVariables,
 } from "gql/generated/types";

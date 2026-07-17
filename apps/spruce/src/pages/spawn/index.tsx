@@ -7,7 +7,7 @@ import {
   SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
-import { SpawnTab, routes, slugs } from "constants/routes";
+import { routes, slugs, SpawnTab } from "constants/routes";
 import { SpawnHost } from "./SpawnHost";
 import { SpawnVolume } from "./SpawnVolume";
 

@@ -1,4 +1,4 @@
-import { Page, expect, test } from "../../fixtures";
+import { expect, Page, test } from "../../fixtures";
 import { clickCheckbox, validateToast } from "../../helpers";
 
 const hostsRoute = "/hosts";

@@ -3,7 +3,7 @@ import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
-import { ProjectType, findDuplicateIndices } from "../utils";
+import { findDuplicateIndices, ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PromoteVariablesModalButton } from "./PromoteVariablesModal";
 import { TabProps, VariablesFormState } from "./types";

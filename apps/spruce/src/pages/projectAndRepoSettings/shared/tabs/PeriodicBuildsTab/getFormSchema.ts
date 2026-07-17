@@ -1,7 +1,7 @@
 import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { timeZones } from "constants/time";
-import { ProjectType, form } from "../utils";
+import { form, ProjectType } from "../utils";
 import { IntervalSpecifier } from "./types";
 
 const { overrideRadioBox } = form;

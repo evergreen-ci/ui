@@ -10,9 +10,9 @@ import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   LGColumnDef,
+  onChangeHandler,
   RowSelectionState,
   TablePlaceholder,
-  onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { Unpacked } from "@evg-ui/lib/types/utils";

@@ -2,8 +2,8 @@ import { InMemoryCache } from "@apollo/client";
 import { getTestUtils } from "@leafygreen-ui/checkbox";
 import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
 import {
-  MockedProvider,
   fireEvent,
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
@@ -16,7 +16,7 @@ import { getVariantHistoryRoute } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
 import { versionTasks } from "./testData";
-import { VersionTasksTable, getInitialState } from ".";
+import { getInitialState, VersionTasksTable } from ".";
 
 vi.spyOn(db, "setItem");
 vi.spyOn(db, "setItems");

@@ -2,9 +2,9 @@ import { useMemo } from "react";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
-  LGColumnDef,
   filterFns,
   getFilteredRowModel,
+  LGColumnDef,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";

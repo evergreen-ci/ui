@@ -1,6 +1,6 @@
 import { getUnixTime } from "date-fns";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Requester, mainlineRequesters } from "constants/requesters";
+import { mainlineRequesters, Requester } from "constants/requesters";
 import { getHoneycombBaseURL } from "utils/environmentVariables";
 
 /**

@@ -4,7 +4,7 @@ import {
   isInitialized,
   setTags,
 } from "@sentry/react";
-import { SentryBreadcrumbTypes, leaveBreadcrumb, reportError } from ".";
+import { leaveBreadcrumb, reportError, SentryBreadcrumbTypes } from ".";
 
 vi.mock("@sentry/react", async () => {
   // Grab original module to keep other Sentry functions intact

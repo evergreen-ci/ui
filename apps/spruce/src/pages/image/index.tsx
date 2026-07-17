@@ -9,7 +9,7 @@ import {
   SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
-import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
+import { getImageRoute, ImageTabRoutes, slugs } from "constants/routes";
 import { useFirstImage } from "hooks";
 import { ImageSelect } from "./ImageSelect";
 import { ImageTabs } from "./Tabs";

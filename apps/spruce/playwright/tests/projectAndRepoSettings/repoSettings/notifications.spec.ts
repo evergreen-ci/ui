@@ -1,9 +1,9 @@
 import { expect, test } from "../../../fixtures";
 import { selectOption, validateToast } from "../../../helpers";
 import {
-  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
   getRepoSettingsRoute,
+  ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
   repo,
 } from "../constants";

@@ -5,8 +5,8 @@ import {
   BaseTable,
   ColumnFiltersState,
   LGColumnDef,
-  PaginationState,
   onChangeHandler,
+  PaginationState,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";

@@ -9,8 +9,8 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { getUserStagingKey, isStaging } from "../../utils/environmentVariables";
 import {
-  SentryBreadcrumbTypes,
   leaveBreadcrumb,
+  SentryBreadcrumbTypes,
 } from "../../utils/errorReporting";
 import { fetchWithRetry, getUserStagingHeader } from "../../utils/request";
 

@@ -1,7 +1,7 @@
 import { HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
 import {
-  InstrumentationConfigMap,
   getWebAutoInstrumentations,
+  InstrumentationConfigMap,
 } from "@opentelemetry/auto-instrumentations-web";
 import ReactRouterSpanProcessor from "./ReactRouterSpanProcessor";
 import { RouteConfig } from "./ReactRouterSpanProcessor/types";

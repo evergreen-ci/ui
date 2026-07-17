@@ -1,5 +1,5 @@
 import { render, screen } from "@evg-ui/lib/test_utils";
-import { CustomKeyValueRenderConfig, applyCustomKeyValueRender } from ".";
+import { applyCustomKeyValueRender, CustomKeyValueRenderConfig } from ".";
 
 describe("applyCustomKeyValueRender", () => {
   const mockCustomRenderConfig: CustomKeyValueRenderConfig = {

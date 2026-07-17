@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { useImageAnalytics } from "analytics";
 import { SideNavItem } from "components/styles";
-import { ImageTabRoutes, getImageRoute } from "constants/routes";
+import { getImageRoute, ImageTabRoutes } from "constants/routes";
 import { useTopmostVisibleElement } from "hooks";
 import { tocItems } from "./constants";
 

@@ -7,9 +7,9 @@ import { useWaterfallAnalytics } from "analytics";
 import TupleSelect from "components/TupleSelect";
 import { useUpsertQueryParams } from "hooks";
 import {
-  VARIANT_FILTER_SETTING_KEY,
   stringFilterTooltipText,
   tupleSelectOptions,
+  VARIANT_FILTER_SETTING_KEY,
 } from "../constants";
 import { FilterType, WaterfallFilterOptions } from "../types";
 import { getFilterType, makeExactFilter } from "../utils";

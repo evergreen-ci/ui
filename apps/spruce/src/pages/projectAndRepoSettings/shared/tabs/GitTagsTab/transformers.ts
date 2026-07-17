@@ -2,9 +2,9 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import {
-  ProjectType,
   alias as aliasUtils,
   canOverrideForProject,
+  ProjectType,
 } from "../utils";
 import { GitTagsFormState } from "./types";
 

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Size, glyphs } from "components/Icon";
+import { glyphs, Size } from "components/Icon";
 import { size } from "constants/tokens";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import IconWithTooltip from ".";

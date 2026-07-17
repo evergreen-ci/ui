@@ -9,8 +9,8 @@ import {
 } from "components/SpruceForm/FieldTemplates";
 import { githubTokenPermissionRestrictionsUrl } from "constants/externalResources";
 import {
-  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
 import { form } from "../utils";

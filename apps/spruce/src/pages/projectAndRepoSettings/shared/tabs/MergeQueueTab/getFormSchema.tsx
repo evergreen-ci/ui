@@ -5,19 +5,19 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { mergeQueueAliasesDocumentationUrl } from "constants/externalResources";
 import {
-  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
   getRepoSettingsRoute,
+  ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "../../getTabTitle";
 import {
-  ProjectType,
   alias,
   fieldDisabled,
   form,
   githubConflictErrorStyling,
   hideIf,
+  ProjectType,
   sectionHasError,
 } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";

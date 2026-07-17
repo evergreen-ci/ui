@@ -17,10 +17,10 @@ import { useBuildVariantContext } from "./BuildVariantContext";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import {
   BuildVariantTitle,
-  InactiveVersion,
-  Row,
   columnBasis,
   gridGroupCss,
+  InactiveVersion,
+  Row,
 } from "./styles";
 import { Build, BuildVariant, GroupedVersion } from "./types";
 import { WaterfallTask } from "./WaterfallTask";

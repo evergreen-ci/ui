@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import {
+  createBrowserRouter,
   Outlet,
   RouterProvider,
-  createBrowserRouter,
   useLocation,
 } from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks";

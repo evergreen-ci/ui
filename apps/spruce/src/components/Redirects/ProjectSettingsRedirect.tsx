@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client/react";
 import { Navigate } from "react-router-dom";
 import {
-  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
 } from "constants/routes";
 import {
   ViewableProjectRefsQuery,

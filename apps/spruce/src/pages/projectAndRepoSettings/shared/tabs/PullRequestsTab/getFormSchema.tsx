@@ -5,12 +5,12 @@ import widgets from "components/SpruceForm/Widgets";
 import { pullRequestAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
 import {
-  ProjectType,
   alias,
   fieldDisabled,
   form,
   githubConflictErrorStyling,
   hideIf,
+  ProjectType,
   sectionHasError,
 } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";

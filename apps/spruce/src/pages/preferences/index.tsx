@@ -10,8 +10,8 @@ import {
   SideNavPageWrapper,
 } from "components/styles";
 import {
-  PreferencesTabRoutes,
   getPreferencesRoute,
+  PreferencesTabRoutes,
   slugs,
 } from "constants/routes";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";

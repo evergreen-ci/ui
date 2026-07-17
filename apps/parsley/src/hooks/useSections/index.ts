@@ -3,10 +3,10 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
-  SectionData,
   getOpenSectionStateBasedOnLineNumbers,
   parseSections,
   populateSectionState,
+  SectionData,
 } from "./utils";
 
 export type SectionState = {

@@ -1,4 +1,4 @@
-import { Page, expect } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 
 export const addFilter = async (page: Page, filter: string) => {
   await expect(page.getByTestId("searchbar-select")).toBeEnabled();

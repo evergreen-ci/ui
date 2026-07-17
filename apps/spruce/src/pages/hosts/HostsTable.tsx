@@ -6,10 +6,10 @@ import {
   ColumnFiltering,
   ColumnFiltersState,
   LGColumnDef,
+  onChangeHandler,
   RowSelectionState,
   RowSorting,
   SortingState,
-  onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";

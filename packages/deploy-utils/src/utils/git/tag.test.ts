@@ -3,10 +3,10 @@ import process from "process";
 import { getAppToDeploy } from "../environment";
 import { countdownTimer, execTrim, green, underline } from "../shell";
 import {
-  ReleaseVersion,
   createTagAndPush,
   getLatestTag,
   getReleaseVersion,
+  ReleaseVersion,
   tagIsValid,
 } from ".";
 import * as gitIndex from "./index";

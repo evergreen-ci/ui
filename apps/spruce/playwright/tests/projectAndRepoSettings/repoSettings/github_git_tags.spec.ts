@@ -1,8 +1,8 @@
 import { expect, test } from "../../../fixtures";
 import { clickRadio, validateToast } from "../../../helpers";
 import {
-  ProjectSettingsTabRoutes,
   getRepoSettingsRoute,
+  ProjectSettingsTabRoutes,
   repo,
 } from "../constants";
 import { expectSaveButtonEnabled, save } from "../utils";

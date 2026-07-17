@@ -1,4 +1,4 @@
-import { Size, createIconComponent, glyphs } from "@leafygreen-ui/icon";
+import { createIconComponent, glyphs, Size } from "@leafygreen-ui/icon";
 import AnimatedIcon from "./AnimatedIcon";
 import * as icons from "./icons";
 import { FallLogo } from "./icons/logos/FallLogo";

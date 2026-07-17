@@ -1,4 +1,4 @@
-import { Page, expect } from "../../fixtures";
+import { expect, Page } from "../../fixtures";
 
 export const save = async (page: Page) => {
   const saveButton = page.getByTestId("save-settings-button");

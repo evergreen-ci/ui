@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { BaseTab } from "../BaseTab";
-import { ProjectType, findDuplicateIndices } from "../utils";
+import { findDuplicateIndices, ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PermissionGroupsFormState, TabProps } from "./types";
 

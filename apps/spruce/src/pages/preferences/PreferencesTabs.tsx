@@ -3,8 +3,8 @@ import { Body, H2 } from "@leafygreen-ui/typography";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
-  PreferencesTabRoutes,
   getPreferencesRoute,
+  PreferencesTabRoutes,
   slugs,
 } from "constants/routes";
 import { CliTab } from "./preferencesTabs/CliTab";

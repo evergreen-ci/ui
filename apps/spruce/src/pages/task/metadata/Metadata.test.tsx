@@ -7,7 +7,7 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { getUserMock } from "gql/mocks/getUser";
-import { TaskQueryType, taskQuery } from "gql/mocks/taskData";
+import { taskQuery, TaskQueryType } from "gql/mocks/taskData";
 import { Metadata } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

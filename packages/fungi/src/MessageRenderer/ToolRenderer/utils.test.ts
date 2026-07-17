@@ -1,9 +1,9 @@
 import { UIDataTypes, UIMessagePart, UITools } from "ai";
 import {
-  MergedFindings,
   getProgressByToolCallId,
   groupFindingsBySeverity,
   isMergedFindings,
+  MergedFindings,
 } from "./utils";
 
 type Part = UIMessagePart<UIDataTypes, UITools>;

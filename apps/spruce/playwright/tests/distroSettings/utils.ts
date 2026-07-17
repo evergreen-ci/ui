@@ -1,4 +1,4 @@
-import { Page, expect } from "../../fixtures";
+import { expect, Page } from "../../fixtures";
 import { clickRadio } from "../../helpers";
 
 type onSaveOptions = "NONE" | "DECOMMISSION" | "RESTART_JASPER" | "REPROVISION";

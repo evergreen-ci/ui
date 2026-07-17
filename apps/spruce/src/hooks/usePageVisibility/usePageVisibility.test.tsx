@@ -1,4 +1,4 @@
-import { MockedProvider, act, renderHook } from "@evg-ui/lib/test_utils";
+import { act, MockedProvider, renderHook } from "@evg-ui/lib/test_utils";
 import { getUserMock } from "gql/mocks/getUser";
 import { usePageVisibility } from ".";
 

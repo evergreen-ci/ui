@@ -8,8 +8,8 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SpruceForm } from "components/SpruceForm";
 import {
-  SUBSCRIPTION_METHOD,
   getNotificationTriggerCookie,
+  SUBSCRIPTION_METHOD,
 } from "constants/cookies";
 import { regexBuildVariant, regexDisplayName } from "constants/triggers";
 import {

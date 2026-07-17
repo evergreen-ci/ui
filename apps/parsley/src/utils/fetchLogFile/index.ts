@@ -1,7 +1,7 @@
 import { Exception, SpanStatusCode, trace } from "@opentelemetry/api";
 import {
-  StreamedFetchOptions,
   streamedFetch,
+  StreamedFetchOptions,
 } from "@evg-ui/lib/utils/request/streamedFetch";
 import { decodeStream } from "@evg-ui/lib/utils/streams";
 

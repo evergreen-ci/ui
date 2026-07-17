@@ -11,7 +11,7 @@ import {
   debugSpawnHostsDocumentationUrl,
   getSpawnHostTokenExchangeAuthorizeUrl,
 } from "constants/externalResources";
-import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
+import { getPreferencesRoute, PreferencesTabRoutes } from "constants/routes";
 import {
   MyPublicKeysQuery,
   MyVolumesQuery,

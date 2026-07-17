@@ -5,20 +5,20 @@ import {
   MockedProviderProps,
 } from "@apollo/client/testing/react";
 import {
-  type RenderOptions,
-  type RenderResult,
   act,
   fireEvent,
   queries,
   render,
   renderHook,
+  type RenderOptions,
+  type RenderResult,
   screen,
   waitFor,
   waitForElementToBeRemoved,
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import * as customQueries from "./custom-queries";
 
 type QueriesType = typeof queries;

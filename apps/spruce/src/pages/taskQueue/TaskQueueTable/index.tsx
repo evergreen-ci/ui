@@ -15,7 +15,7 @@ import {
   useLeafyGreenVirtualTable,
 } from "@evg-ui/lib/components/Table";
 import { useTaskQueueAnalytics } from "analytics";
-import { Requester, isWaterfallRequester } from "constants/requesters";
+import { isWaterfallRequester, Requester } from "constants/requesters";
 import {
   getProjectPatchesRoute,
   getTaskRoute,

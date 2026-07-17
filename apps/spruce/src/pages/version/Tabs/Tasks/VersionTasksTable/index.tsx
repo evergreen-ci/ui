@@ -3,11 +3,11 @@ import {
   BaseTable,
   ColumnFiltersState,
   LeafyGreenTable,
+  onChangeHandler,
   SortingState,
   TableControl,
   TablePlaceholder,
   TableWrapper,
-  onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";

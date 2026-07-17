@@ -1,7 +1,6 @@
 import prompts from "prompts";
 import { getAppToDeploy } from "../utils/environment";
 import {
-  ReleaseVersion,
   assertMainBranch,
   assertWorkingDirectoryClean,
   createTagAndPush,
@@ -11,6 +10,7 @@ import {
   getLatestTag,
   getReleaseVersion,
   pushTags,
+  ReleaseVersion,
 } from "../utils/git";
 import { prepareProdDeploy } from ".";
 

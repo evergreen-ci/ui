@@ -13,7 +13,7 @@ import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useOpenSectionAndScrollToLine } from "hooks/useOpenSectionAndScrollToLine";
-import { UseSectionsResult, useSections } from "hooks/useSections";
+import { useSections, UseSectionsResult } from "hooks/useSections";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import filterLogs from "utils/filterLogs";
 import { getMatchingLines } from "utils/matchingLines";

@@ -6,7 +6,7 @@ import { diff } from "deep-object-diff";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
-import { TimeFormat, listOfDateFormatStrings, timeZones } from "constants/time";
+import { listOfDateFormatStrings, TimeFormat, timeZones } from "constants/time";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,

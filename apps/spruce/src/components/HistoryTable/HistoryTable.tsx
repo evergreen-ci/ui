@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef } from "react";
 import throttle from "lodash.throttle";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import {
-  SentryBreadcrumbTypes,
   leaveBreadcrumb,
+  SentryBreadcrumbTypes,
 } from "@evg-ui/lib/utils/errorReporting";
 import { useDimensions } from "hooks/useDimensions";
 import { useHistoryTable } from "./HistoryTableContext";

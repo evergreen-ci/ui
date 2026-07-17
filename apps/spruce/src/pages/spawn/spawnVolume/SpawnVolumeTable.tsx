@@ -6,8 +6,8 @@ import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   ExpandedState,
-  LGColumnDef,
   LeafyGreenTableRow,
+  LGColumnDef,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
