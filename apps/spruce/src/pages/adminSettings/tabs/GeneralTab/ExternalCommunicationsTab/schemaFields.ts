@@ -2,8 +2,8 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PriorityLevel } from "gql/generated/types";
 import {
-  nestedObjectGridCss,
   fullWidthCss,
+  nestedObjectGridCss,
   objectGridCss,
 } from "../../sharedStyles";
 

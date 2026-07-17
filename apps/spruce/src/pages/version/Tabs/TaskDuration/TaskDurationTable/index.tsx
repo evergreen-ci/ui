@@ -5,14 +5,14 @@ import {
   BaseTable,
   ColumnFiltering,
   ColumnFiltersState,
-  getFacetedMinMaxValues,
-  LeafyGreenTable,
   LGColumnDef,
+  LeafyGreenTable,
   OnChangeFn,
-  onChangeHandler,
   RowSorting,
   SortingState,
   TablePlaceholder,
+  getFacetedMinMaxValues,
+  onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
@@ -24,9 +24,9 @@ import { TaskLink } from "components/TasksTable/TaskLink";
 import { TableQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
 import {
-  VersionTaskDurationsQuery,
   SortDirection,
   TaskSortCategory,
+  VersionTaskDurationsQuery,
 } from "gql/generated/types";
 import { useTableSort, useTaskStatuses } from "hooks";
 import { PatchTasksQueryParams } from "types/task";

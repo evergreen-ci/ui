@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Project Patches Page", () => {
   const adminPatchesRoute = "/user/admin/patches";

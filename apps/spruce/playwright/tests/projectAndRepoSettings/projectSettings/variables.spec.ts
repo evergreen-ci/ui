@@ -1,5 +1,5 @@
-import { test, expect } from "../../../fixtures";
-import { validateToast, clickCheckbox } from "../../../helpers";
+import { expect, test } from "../../../fixtures";
+import { clickCheckbox, validateToast } from "../../../helpers";
 import { getProjectSettingsRoute, project } from "../constants";
 import { expectSaveButtonEnabled, save } from "../utils";
 

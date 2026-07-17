@@ -2,12 +2,12 @@ import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react-vite";
 import { InactiveVersion } from "../styles";
 import {
-  inactiveVersion,
   inactiveBrokenVersion,
+  inactiveVersion,
   version,
+  versionBroken,
   versionWithGitTag,
   versionWithUpstreamProject,
-  versionBroken,
 } from "../testData";
 import { InactiveVersionsButton } from ".";
 

@@ -7,18 +7,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
 import {
-  getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
+  getProjectSettingsRoute,
   slugs,
 } from "constants/routes";
 import {
+  ProjectSettingsInput,
   ProjectSettingsSection,
+  RepoSettingsInput,
   SaveProjectSettingsForSectionMutation,
   SaveProjectSettingsForSectionMutationVariables,
   SaveRepoSettingsForSectionMutation,
   SaveRepoSettingsForSectionMutationVariables,
-  ProjectSettingsInput,
-  RepoSettingsInput,
 } from "gql/generated/types";
 import {
   SAVE_PROJECT_SETTINGS_FOR_SECTION,

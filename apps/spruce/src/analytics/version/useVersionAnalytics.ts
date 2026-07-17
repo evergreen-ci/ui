@@ -2,9 +2,9 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import {
+  TaskSortCategory,
   VersionQuery,
   VersionQueryVariables,
-  TaskSortCategory,
 } from "gql/generated/types";
 import { VERSION } from "gql/queries";
 

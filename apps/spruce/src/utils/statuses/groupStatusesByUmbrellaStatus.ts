@@ -5,7 +5,7 @@ import {
   mapTaskToBarchartColor,
   sortedUmbrellaStatus,
 } from "constants/task";
-import { toArray, deduplicatedAppend } from "utils/array";
+import { deduplicatedAppend, toArray } from "utils/array";
 
 type ColorCount = {
   count: number;

@@ -1,4 +1,4 @@
-import { Page, test, expect } from "../../fixtures";
+import { Page, expect, test } from "../../fixtures";
 import { clickCheckbox, selectOption } from "../../helpers";
 
 /**

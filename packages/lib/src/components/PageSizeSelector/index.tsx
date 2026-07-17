@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import {
-  Select,
   Option,
+  Select,
   SelectProps,
   Size as SelectSize,
 } from "@leafygreen-ui/select";

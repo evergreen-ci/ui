@@ -1,4 +1,3 @@
-/* eslint-disable check-file/filename-naming-convention */
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { Field } from "@rjsf/core";
 import { StyledLink } from "@evg-ui/lib/components/styles";

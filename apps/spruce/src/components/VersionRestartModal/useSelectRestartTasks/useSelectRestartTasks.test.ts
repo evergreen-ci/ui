@@ -1,4 +1,4 @@
-import { renderHook, act, waitFor } from "@evg-ui/lib/test_utils";
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { useSelectRestartTasks } from ".";
 
 describe("useSelectRestartTasks", () => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { TreeSelect, TreeSelectProps } from "./TreeSelect";
 
 export default {

@@ -3,13 +3,13 @@ import { NotificationMethods } from "types/subscription";
 import {
   ExtraField,
   ExtraFieldKey,
+  ProjectTriggers,
   RegexSelector,
   ResourceType,
+  TaskTriggers,
   Trigger,
   TriggerType,
-  TaskTriggers,
   VersionTriggers,
-  ProjectTriggers,
 } from "types/triggers";
 import { Requester } from "./requesters";
 

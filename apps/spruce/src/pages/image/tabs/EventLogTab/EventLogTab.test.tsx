@@ -3,16 +3,16 @@ import {
   MockedProvider,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
   within,
-  userEvent,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
+  ImageEventEntryAction,
   ImageEventType,
   ImageEventsQuery,
   ImageEventsQueryVariables,
-  ImageEventEntryAction,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
 import { EventLogTab } from "./EventLogTab";

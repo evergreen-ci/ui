@@ -1,8 +1,8 @@
 import {
-  userEvent,
+  createWrapper,
   render,
   screen,
-  createWrapper,
+  userEvent,
 } from "@evg-ui/lib/test_utils";
 import { ChatProvider, ChatProviderProps, ContextChip } from "#Context";
 import { ChatFeed } from ".";

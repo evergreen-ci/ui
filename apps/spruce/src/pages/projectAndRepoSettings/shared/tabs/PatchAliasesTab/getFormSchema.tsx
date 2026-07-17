@@ -6,7 +6,7 @@ import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { patchAliasesDocumentationUrl } from "constants/externalResources";
 import { PatchStatus } from "types/patch";
-import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";
+import { PatchTriggerAliasStatus, ProjectType, alias, form } from "../utils";
 import { TaskSpecifier } from "./types";
 
 const {

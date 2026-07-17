@@ -6,8 +6,8 @@ import {
   screen,
   stubGetClientRects,
   userEvent,
-  within,
   waitFor,
+  within,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { defaultSleepSchedule } from "components/Spawn/utils";

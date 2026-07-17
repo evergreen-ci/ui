@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { siderCardWidth } from "components/styles/Layout";
 import TagsMetadata from ".";
 

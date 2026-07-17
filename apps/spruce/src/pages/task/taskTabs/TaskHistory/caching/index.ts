@@ -1,7 +1,7 @@
 import { FieldMergeFunction, FieldReadFunction } from "@apollo/client";
-import { TaskHistoryQuery, TaskHistoryDirection } from "gql/generated/types";
+import { TaskHistoryDirection, TaskHistoryQuery } from "gql/generated/types";
 import { ACTIVATED_TASKS_LIMIT } from "../constants";
-import { TaskHistoryTask, TaskHistoryPagination } from "../types";
+import { TaskHistoryPagination, TaskHistoryTask } from "../types";
 import { isAllInactive } from "./utils";
 
 type TaskHistoryCache = TaskHistoryQuery["taskHistory"] & {

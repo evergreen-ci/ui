@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { InlineCode } from "@leafygreen-ui/typography";
 import {
-  DownloadCard,
   AuthenticationCard,
-  VerifyCard,
+  DownloadCard,
   NodeList,
+  VerifyCard,
 } from "./cliTab/index";
 
 export const CliTab = () => (

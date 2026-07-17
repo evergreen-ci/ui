@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParams, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import GanttChart from "components/GanttChart";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -25,8 +25,8 @@ import { PatchTasksQueryParams } from "types/task";
 import { applyStrictRegex } from "utils/string";
 import { useQueryVariables } from "../useQueryVariables";
 import {
-  transformTaskDurationDataToVariantGanttChartData,
   transformTaskDurationDataToTaskGanttChartData,
+  transformTaskDurationDataToVariantGanttChartData,
 } from "./utils";
 
 interface Props {

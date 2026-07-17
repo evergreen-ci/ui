@@ -2,11 +2,11 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { objectGridCss } from "../../sharedStyles";
 import {
-  notify,
-  taskLimits,
   hostInit,
-  scheduler,
+  notify,
   repotracker,
+  scheduler,
+  taskLimits,
 } from "./schemaFields";
 
 export const formSchema: ReturnType<GetFormSchema> = {

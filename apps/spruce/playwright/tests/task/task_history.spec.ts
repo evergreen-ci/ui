@@ -1,10 +1,10 @@
 import { palette } from "@leafygreen-ui/palette";
 import { SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL } from "constants/cookies";
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import {
-  validateToast,
-  validateDatePickerDate,
   selectDatePickerDate,
+  validateDatePickerDate,
+  validateToast,
 } from "../../helpers";
 
 const { blue, gray, green } = palette;

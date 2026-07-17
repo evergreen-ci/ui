@@ -8,12 +8,12 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
-  SetVersionPriorityMutation,
-  SetVersionPriorityMutationVariables,
   SetTaskPrioritiesMutation,
   SetTaskPrioritiesMutationVariables,
+  SetVersionPriorityMutation,
+  SetVersionPriorityMutationVariables,
 } from "gql/generated/types";
-import { SET_VERSION_PRIORITY, SET_TASK_PRIORITIES } from "gql/mutations";
+import { SET_TASK_PRIORITIES, SET_VERSION_PRIORITY } from "gql/mutations";
 import SetPriority from ".";
 
 describe("setPriority", () => {

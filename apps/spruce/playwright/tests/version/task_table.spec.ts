@@ -1,5 +1,5 @@
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
-import { Page, test, expect } from "../../fixtures";
+import { Page, expect, test } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";

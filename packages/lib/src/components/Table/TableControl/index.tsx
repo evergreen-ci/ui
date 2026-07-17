@@ -5,7 +5,7 @@ import usePagination from "../../../hooks/usePagination";
 import PageSizeSelector from "../../PageSizeSelector";
 import Pagination from "../../Pagination";
 import { ResultCountLabel } from "./ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "./styles";
+import { TableControlInnerRow, TableControlOuterRow } from "./styles";
 
 interface Props {
   filteredCount: number;

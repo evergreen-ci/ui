@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import {
   LGColumnDef,
   useLeafyGreenTable,
   useLeafyGreenVirtualTable,
 } from "@leafygreen-ui/table";
-import { CustomStoryObj, CustomMeta } from "../../test_utils/types";
+import { CustomMeta, CustomStoryObj } from "../../test_utils/types";
 import { WordBreak } from "../styles";
 import { BaseTable } from "./BaseTable";
 

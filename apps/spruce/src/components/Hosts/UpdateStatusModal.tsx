@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { Select, Option } from "@leafygreen-ui/select";
+import { Option, Select } from "@leafygreen-ui/select";
 import { TextArea } from "@leafygreen-ui/text-area";
 import { Body } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";

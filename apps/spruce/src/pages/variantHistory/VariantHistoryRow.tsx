@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
-import { context, Cell, types, hooks } from "components/HistoryTable";
+import { Cell, context, hooks, types } from "components/HistoryTable";
 import BaseRow from "components/HistoryTable/HistoryTableRow/BaseRow";
 import { array } from "utils";
 

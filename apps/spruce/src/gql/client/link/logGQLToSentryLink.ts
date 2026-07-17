@@ -1,7 +1,7 @@
 import { ApolloLink, Observable } from "@apollo/client";
 import {
-  leaveBreadcrumb,
   SentryBreadcrumbTypes,
+  leaveBreadcrumb,
 } from "@evg-ui/lib/utils/errorReporting";
 import { deleteNestedKey } from "@evg-ui/lib/utils/object";
 

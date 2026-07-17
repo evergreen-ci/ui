@@ -1,14 +1,14 @@
 import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
 import { TaskTab } from "types/task";
 import {
-  getTaskRoute,
-  getVersionRoute,
-  getSpawnHostRoute,
   getPatchRoute,
-  getVariantHistoryRoute,
   getProjectPatchesRoute,
-  getWaterfallRoute,
+  getSpawnHostRoute,
+  getTaskRoute,
+  getVariantHistoryRoute,
   getVersionDiffRoute,
+  getVersionRoute,
+  getWaterfallRoute,
 } from "./routes";
 
 const identifierWithSpecialCharacters = "!?identifier@";

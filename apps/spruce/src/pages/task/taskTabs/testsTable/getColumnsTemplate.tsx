@@ -5,7 +5,7 @@ import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { testStatusesFilterTreeData } from "constants/test";
-import { TestSortCategory, TaskQuery, TestResult } from "gql/generated/types";
+import { TaskQuery, TestResult, TestSortCategory } from "gql/generated/types";
 import { string } from "utils";
 import { ActionMenu } from "./ActionMenu";
 import { LogsColumn } from "./LogsColumn";

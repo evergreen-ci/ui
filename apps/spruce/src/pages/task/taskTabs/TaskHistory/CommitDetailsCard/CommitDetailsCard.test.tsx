@@ -1,10 +1,10 @@
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProviderProps,
   renderWithRouterMatch,
   screen,
   userEvent,
   waitFor,
-  MockedProviderProps,
 } from "@evg-ui/lib/src/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {

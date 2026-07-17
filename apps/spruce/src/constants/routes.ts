@@ -3,7 +3,7 @@ import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
-import { TestStatus, HistoryQueryParams } from "types/history";
+import { HistoryQueryParams, TestStatus } from "types/history";
 import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
 import { LogTypes, TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";

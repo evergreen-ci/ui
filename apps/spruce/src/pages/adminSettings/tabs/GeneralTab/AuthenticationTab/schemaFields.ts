@@ -5,8 +5,8 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PreferredAuthType } from "gql/generated/types";
 import {
-  gridWrapCss,
   fullWidthCss,
+  gridWrapCss,
   nestedObjectGridCss,
 } from "../../sharedStyles";
 

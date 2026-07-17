@@ -12,7 +12,7 @@ import {
   UserPatchesQueryVariables,
 } from "gql/generated/types";
 import { USER_PATCHES } from "gql/queries";
-import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
+import { useGetUserPatchesPageTitleAndLink, usePolling } from "hooks";
 
 export const UserPatches = () => {
   const { [slugs.userId]: userId } = useParams();

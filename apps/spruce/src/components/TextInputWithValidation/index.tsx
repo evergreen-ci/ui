@@ -1,4 +1,4 @@
-import { useState, forwardRef, useEffect } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";

@@ -1,5 +1,5 @@
 import { SEEN_WATERFALL_ONBOARDING_TUTORIAL } from "constants/cookies";
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("onboarding", () => {
   test("can go through all steps of the walkthrough", async ({

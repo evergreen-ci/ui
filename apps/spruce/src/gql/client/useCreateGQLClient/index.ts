@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { HttpLink, ApolloClient } from "@apollo/client";
+import { ApolloClient, HttpLink } from "@apollo/client";
 import { LocalState } from "@apollo/client/local-state";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
-  leaveBreadcrumb,
   SentryBreadcrumbTypes,
+  leaveBreadcrumb,
 } from "@evg-ui/lib/utils/errorReporting";
 import {
   fetchWithRetry,
@@ -13,12 +13,12 @@ import {
 } from "@evg-ui/lib/utils/request";
 import { cache } from "gql/client/cache";
 import {
-  authenticateIfSuccessfulLink,
   authLink,
-  logGQLToSentryLink,
+  authenticateIfSuccessfulLink,
   logGQLErrorsLink,
-  retryLink,
+  logGQLToSentryLink,
   pausePollingLink,
+  retryLink,
 } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";

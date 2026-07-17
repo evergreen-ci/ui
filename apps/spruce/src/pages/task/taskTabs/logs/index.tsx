@@ -18,7 +18,7 @@ import { getTaskHTMLLogRoute } from "constants/routes";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { LogTypes, QueryParams } from "types/task";
-import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
+import { AgentLog, AllLog, EventLog, SystemLog, TaskLog } from "./LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 const FADE_OVERLAY_HEIGHT = 100;

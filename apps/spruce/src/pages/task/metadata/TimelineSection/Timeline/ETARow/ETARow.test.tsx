@@ -1,4 +1,4 @@
-import { render, screen, waitFor, act } from "@evg-ui/lib/test_utils";
+import { act, render, screen, waitFor } from "@evg-ui/lib/test_utils";
 import { ETARow } from ".";
 
 describe("ETARow", () => {

@@ -5,7 +5,7 @@ import { ExtractAnalyticsSendEvent } from "@evg-ui/lib/analytics/hooks/types";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
-import { DoesNotExpire, DetailsCard } from "components/Spawn";
+import { DetailsCard, DoesNotExpire } from "components/Spawn";
 import { getIdeUrl } from "constants/externalResources";
 import { getHostRoute, getSpawnVolumeRoute } from "constants/routes";
 import { useDateFormat } from "hooks";

@@ -17,14 +17,14 @@ import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getProjectPatchesRoute, getVersionRoute } from "constants/routes";
 import {
-  SchedulePatchMutation,
-  PatchConfigure,
-  SchedulePatchMutationVariables,
-  VariantTasks,
   ChildPatchAlias,
   ConfigurePatchQuery,
-  ProjectBuildVariant,
+  PatchConfigure,
   PatchConfigureGeneratedTaskCountsQuery,
+  ProjectBuildVariant,
+  SchedulePatchMutation,
+  SchedulePatchMutationVariables,
+  VariantTasks,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";

@@ -1,12 +1,12 @@
 import { shortenGithash, trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { TimeFormat } from "constants/time";
 import {
-  msToDuration,
-  getDateCopy,
   applyStrictRegex,
-  joinWithConjunction,
-  stripNewLines,
+  getDateCopy,
   getTicketFromJiraURL,
+  joinWithConjunction,
+  msToDuration,
+  stripNewLines,
 } from ".";
 
 describe("msToDuration", () => {

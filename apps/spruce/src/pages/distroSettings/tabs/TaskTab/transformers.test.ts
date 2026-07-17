@@ -1,8 +1,8 @@
 import {
+  DispatcherVersion,
   DistroInput,
   FinderVersion,
   PlannerVersion,
-  DispatcherVersion,
 } from "gql/generated/types";
 import { distroData } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";

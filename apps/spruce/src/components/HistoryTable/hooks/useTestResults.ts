@@ -1,9 +1,9 @@
 import { useCallback, useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import {
+  TaskTestResultSample,
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
-  TaskTestResultSample,
 } from "gql/generated/types";
 import { TASK_TEST_SAMPLE } from "gql/queries";
 import { array } from "utils";

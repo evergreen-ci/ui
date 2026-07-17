@@ -1,6 +1,6 @@
-import { addBreadcrumb, Breadcrumb, isInitialized } from "@sentry/react";
+import { Breadcrumb, addBreadcrumb, isInitialized } from "@sentry/react";
 import { initializeSentry, sendError as sentrySendError } from "../sentry";
-import { SentryBreadcrumbTypes, ErrorInput } from "../sentry/types";
+import { ErrorInput, SentryBreadcrumbTypes } from "../sentry/types";
 import { validateMetadata } from "../sentry/utils";
 
 interface reportErrorResult {

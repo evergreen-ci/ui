@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 const tasks = {
   displayTask: "evergreen_ubuntu1604_89",

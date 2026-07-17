@@ -4,11 +4,11 @@ import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
 import {
   MockedProvider,
   fireEvent,
-  waitFor,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
   userEvent,
+  waitFor,
   within,
 } from "@evg-ui/lib/test_utils";
 import * as db from "components/TaskReview/db";

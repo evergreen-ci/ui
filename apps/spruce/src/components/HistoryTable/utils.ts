@@ -1,8 +1,8 @@
 import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "./constants";
 import {
+  CommitRowType,
   MainlineCommitsForHistoryMainlineCommitsVersions,
   MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions,
-  CommitRowType,
   rowType,
 } from "./types";
 

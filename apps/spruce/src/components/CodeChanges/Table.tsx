@@ -1,8 +1,8 @@
-import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
   BaseTable,
   LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useVersionAnalytics } from "analytics";
 import { getFileDiffRoute } from "constants/routes";

@@ -1,6 +1,6 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias as aliasUtils, ProjectType } from "../utils";
+import { ProjectType, alias as aliasUtils } from "../utils";
 import { TaskSpecifier } from "./types";
 
 const { sortAliases, transformAliases } = aliasUtils;

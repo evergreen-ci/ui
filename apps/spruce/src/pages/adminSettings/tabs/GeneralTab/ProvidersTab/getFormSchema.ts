@@ -1,5 +1,5 @@
 import { GetFormSchema } from "components/SpruceForm";
-import { containerPools, aws, docker } from "./schemaFields";
+import { aws, containerPools, docker } from "./schemaFields";
 
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},

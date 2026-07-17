@@ -1,10 +1,10 @@
-import { test, expect } from "../../../fixtures";
+import { expect, test } from "../../../fixtures";
 import { clickCheckbox, clickRadio, validateToast } from "../../../helpers";
 import {
+  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
   getRepoSettingsRoute,
   project,
-  ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
   repo,
 } from "../constants";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SplitButton } from "@leafygreen-ui/split-button";
-import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
+import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import { DropdownItem } from "components/ButtonDropdown";
 import { VersionRestartModal } from "components/VersionRestartModal";
 import { RestartFailedTasks } from "./RestartFailedTasks";

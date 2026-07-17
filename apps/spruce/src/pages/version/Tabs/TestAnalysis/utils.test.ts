@@ -1,5 +1,5 @@
-import { TestAnalysisQueryTasks, TaskBuildVariantField } from "./types";
-import { groupTestsByName, filterGroupedTests, countTotalTests } from "./utils";
+import { TaskBuildVariantField, TestAnalysisQueryTasks } from "./types";
+import { countTotalTests, filterGroupedTests, groupTestsByName } from "./utils";
 
 const groupedTests = new Map<string, TaskBuildVariantField[]>([
   [

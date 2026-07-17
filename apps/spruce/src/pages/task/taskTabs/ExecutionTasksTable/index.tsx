@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from "react";
 import {
-  TablePlaceholder,
+  BaseTable,
   LeafyGreenTable,
   RowSorting,
   SortingState,
-  useLeafyGreenTable,
-  BaseTable,
+  TablePlaceholder,
   onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
@@ -17,9 +17,9 @@ import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
 import {
+  SortDirection,
   TaskQuery,
   TaskSortCategory,
-  SortDirection,
 } from "gql/generated/types";
 import { useTableSort } from "hooks";
 import { parseSortString } from "utils/queryString";

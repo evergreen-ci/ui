@@ -3,10 +3,10 @@ import { defaultEC2Region } from "constants/hosts";
 import {
   DistrosQuery,
   DistrosQueryVariables,
+  MyHostsQueryVariables,
   MyPublicKeysQuery,
   MyPublicKeysQueryVariables,
   MyVolumesQuery,
-  MyHostsQueryVariables,
 } from "gql/generated/types";
 import { DISTROS, MY_PUBLIC_KEYS, MY_VOLUMES } from "gql/queries";
 import {

@@ -1,7 +1,7 @@
-import { useQuery, skipToken } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
@@ -17,10 +17,10 @@ import {
 import { SideNavItemLink } from "components/styles/SideNav";
 import {
   DistroSettingsTabRoutes,
+  ImageTabRoutes,
   getDistroSettingsRoute,
   getImageRoute,
   getTaskQueueRoute,
-  ImageTabRoutes,
   slugs,
 } from "constants/routes";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";

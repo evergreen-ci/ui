@@ -119,6 +119,7 @@ const eslintConfig = {
     ],
     "prefer-regex-literals": [ERROR, { disallowRedundantWrapping: true }],
     "prefer-template": ERROR,
+    "sort-imports": [ERROR, { ignoreDeclarationSort: true }],
     radix: ERROR,
     yoda: ERROR,
   },

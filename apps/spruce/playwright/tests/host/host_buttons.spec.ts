@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 test.describe("Host page restart jasper, reprovision, and update host status buttons", () => {

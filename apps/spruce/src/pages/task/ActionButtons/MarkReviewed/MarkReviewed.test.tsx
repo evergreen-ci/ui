@@ -10,7 +10,7 @@ import * as db from "components/TaskReview/db";
 import { REVIEWED_TASK_FRAGMENT } from "gql/fragments/reviewedTask";
 import { TaskQuery } from "gql/generated/types";
 import { TASK } from "gql/queries";
-import { taskData, displayTaskData } from "./taskData";
+import { displayTaskData, taskData } from "./taskData";
 import { MarkReviewed } from ".";
 
 vi.spyOn(db, "setItem");

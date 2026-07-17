@@ -2,14 +2,14 @@ import * as ts from "typescript";
 import * as fs from "fs";
 import * as path from "path";
 import {
-  EXCLUDED_FILES,
-  ACTION_TYPE_NAME,
-  USE_ANALYTICS_ROOT_HOOK,
   ACTION_NAME_PROPERTY,
+  ACTION_TYPE_NAME,
+  EXCLUDED_FILES,
   TSCONFIG_FILE_NAME,
   TYPESCRIPT_SOURCE_EXTENSIONS,
+  USE_ANALYTICS_ROOT_HOOK,
 } from "./constants.ts";
-import type { ActionProperty, Action, IdentifierData } from "./types.ts";
+import type { Action, ActionProperty, IdentifierData } from "./types.ts";
 
 /**
  * Extracts TypeScript type as a string representation

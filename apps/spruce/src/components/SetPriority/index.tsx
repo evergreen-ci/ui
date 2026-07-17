@@ -10,14 +10,14 @@ import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm, { Align, Justify } from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useVersionAnalytics, useTaskAnalytics } from "analytics";
+import { useTaskAnalytics, useVersionAnalytics } from "analytics";
 import {
-  SetVersionPriorityMutation,
-  SetVersionPriorityMutationVariables,
   SetTaskPrioritiesMutation,
   SetTaskPrioritiesMutationVariables,
+  SetVersionPriorityMutation,
+  SetVersionPriorityMutationVariables,
 } from "gql/generated/types";
-import { SET_VERSION_PRIORITY, SET_TASK_PRIORITIES } from "gql/mutations";
+import { SET_TASK_PRIORITIES, SET_VERSION_PRIORITY } from "gql/mutations";
 
 const { gray, red, yellow } = palette;
 

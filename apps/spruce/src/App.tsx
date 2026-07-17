@@ -1,8 +1,8 @@
 import * as React from "react";
 import {
-  createBrowserRouter,
   Outlet,
   RouterProvider,
+  createBrowserRouter,
   useLocation,
 } from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks";

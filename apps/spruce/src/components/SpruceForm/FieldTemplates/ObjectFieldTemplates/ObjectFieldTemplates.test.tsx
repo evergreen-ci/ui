@@ -1,6 +1,6 @@
 import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { SpruceForm } from "components/SpruceForm";
-import { FieldRow, CardFieldTemplate, AccordionFieldTemplate } from ".";
+import { AccordionFieldTemplate, CardFieldTemplate, FieldRow } from ".";
 
 const ObjectSchema = {
   properties: {

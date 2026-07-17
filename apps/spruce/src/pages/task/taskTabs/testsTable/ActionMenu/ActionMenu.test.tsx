@@ -11,9 +11,9 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import {
   QuarantineTestMutation,
   QuarantineTestMutationVariables,
+  TestResult,
   UnquarantineTestMutation,
   UnquarantineTestMutationVariables,
-  TestResult,
 } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
