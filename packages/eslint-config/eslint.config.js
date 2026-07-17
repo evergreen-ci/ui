@@ -275,7 +275,12 @@ const jsxA11yConfig = {
 const perfectionistConfig = {
   files: ["**/*.js?(x)", "**/*.ts?(x)"],
   // In form schema files, we define fields in a specific display order, and we don't want to sort them.
-  ignores: ["**/getFormSchema.ts?(x)", "**/schemaFields.ts?(x)"],
+  ignores: [
+    "**/getFormSchema.ts?(x)",
+    "**/schemaFields.ts?(x)",
+    "**/formSchema.ts?(x)",
+    "**/*Schema.ts?(x)",
+  ],
   name: "perfectionist/rules",
   plugins: {
     perfectionist: perfectionistPlugin,

@@ -7,18 +7,18 @@ defaultTime.setHours(0);
 defaultTime.setMinutes(0);
 
 export const initialFormState = {
+  start: {
+    startDate: "",
+    startTime: defaultTime.toString(), // 00:00
+  },
   end: {
     endDate: "",
     endTime: defaultTime.toString(), // 00:00
   },
   includeTasks: {
-    includeSetupFailed: true,
-    includeSystemFailed: true,
     includeTestFailed: true,
-  },
-  start: {
-    startDate: "",
-    startTime: defaultTime.toString(), // 00:00
+    includeSystemFailed: true,
+    includeSetupFailed: true,
   },
 };
 
@@ -32,70 +32,82 @@ const dateTimeCSS = css`
 
 export const restartTasksForm = {
   schema: {
+    type: "object" as const,
     properties: {
-      end: {
-        properties: {
-          endDate: {
-            minLength: 1,
-            title: "End Date",
-            type: "string" as const,
-          },
-          endTime: {
-            minLength: 1,
-            title: "End Time",
-            type: "string" as const,
-          },
-        },
-        title: "",
-        type: "object" as const,
-      },
-      includeTasks: {
-        properties: {
-          includeSetupFailed: {
-            title: "Include Setup Failed Tasks",
-            type: "boolean" as const,
-          },
-          includeSystemFailed: {
-            title: "Include System Failed Tasks",
-            type: "boolean" as const,
-          },
-          includeTestFailed: {
-            title: "Include Failed Tasks",
-            type: "boolean" as const,
-          },
-        },
-        title: "",
-        type: "object" as const,
-      },
       start: {
+        type: "object" as const,
+        title: "",
         properties: {
           startDate: {
-            minLength: 1,
-            title: "Start Date",
             type: "string" as const,
+            title: "Start Date",
+            minLength: 1,
           },
           startTime: {
-            minLength: 1,
-            title: "Start Time",
             type: "string" as const,
+            title: "Start Time",
+            minLength: 1,
           },
         },
-        title: "",
+      },
+      end: {
         type: "object" as const,
+        title: "",
+        properties: {
+          endDate: {
+            type: "string" as const,
+            title: "End Date",
+            minLength: 1,
+          },
+          endTime: {
+            type: "string" as const,
+            title: "End Time",
+            minLength: 1,
+          },
+        },
+      },
+      includeTasks: {
+        type: "object" as const,
+        title: "",
+        properties: {
+          includeTestFailed: {
+            type: "boolean" as const,
+            title: "Include Failed Tasks",
+          },
+          includeSystemFailed: {
+            type: "boolean" as const,
+            title: "Include System Failed Tasks",
+          },
+          includeSetupFailed: {
+            type: "boolean" as const,
+            title: "Include Setup Failed Tasks",
+          },
+        },
       },
     },
-    type: "object" as const,
   },
   uiSchema: {
-    end: {
-      endDate: {
-        "ui:data-cy": "end-date-picker",
+    "ui:description":
+      "Restart failed tasks that started and finished between two times. Uses Eastern timezone regardless of configured timezone.",
+    start: {
+      "ui:fieldCss": dateTimeCSS,
+      startDate: {
         "ui:widget": widgets.DateWidget,
+        "ui:data-cy": "start-date-picker",
+      },
+      startTime: {
+        "ui:widget": widgets.TimeWidget,
+      },
+    },
+    end: {
+      "ui:fieldCss": dateTimeCSS,
+      endDate: {
+        "ui:widget": widgets.DateWidget,
+        "ui:data-cy": "end-date-picker",
       },
       endTime: {
         "ui:widget": widgets.TimeWidget,
       },
-      "ui:fieldCss": dateTimeCSS,
     },
     includeTasks: {
       "ui:fieldCss": css`
@@ -106,17 +118,5 @@ export const restartTasksForm = {
         }
       `,
     },
-    start: {
-      startDate: {
-        "ui:data-cy": "start-date-picker",
-        "ui:widget": widgets.DateWidget,
-      },
-      startTime: {
-        "ui:widget": widgets.TimeWidget,
-      },
-      "ui:fieldCss": dateTimeCSS,
-    },
-    "ui:description":
-      "Restart failed tasks that started and finished between two times. Uses Eastern timezone regardless of configured timezone.",
   },
 };

@@ -4,34 +4,34 @@ import { SpawnTaskQuery } from "gql/generated/types";
 import { TokenExchangeState } from "./constants";
 import { getFormSchema } from "./getFormSchema";
 
-const myPublicKeys = [{ name: "key1", key: "ssh-rsa aaa" }];
+const myPublicKeys = [{ key: "ssh-rsa aaa", name: "key1" }];
 
 const minimalDistros = [
   {
-    name: "distro-a",
     adminOnly: false,
-    isVirtualWorkStation: false,
     availableRegions: ["us-east-1"],
+    isVirtualWorkStation: false,
+    name: "distro-a",
   },
 ];
 
 const taskForLoadDataBanner: NonNullable<SpawnTaskQuery["task"]> = {
   __typename: "Task",
-  id: "t1",
-  displayName: "my-task",
   buildVariant: "ubuntu",
   buildVariantDisplayName: "Ubuntu",
-  execution: 0,
-  revision: "abc1234",
-  displayStatus: "success",
-  executionSteps: null,
   details: null,
+  displayName: "my-task",
+  displayStatus: "success",
+  execution: 0,
+  executionSteps: null,
+  id: "t1",
   project: {
     __typename: "Project",
+    debugSpawnHostsDisabled: false,
     id: "proj",
     spawnHostScriptPath: "",
-    debugSpawnHostsDisabled: false,
   },
+  revision: "abc1234",
 };
 
 const baseSchemaInput = {
@@ -46,8 +46,8 @@ const baseSchemaInput = {
   spawnTaskData: taskForLoadDataBanner,
   timeZone: "America/New_York",
   useProjectSetupScript: false,
-  useSetupScript: false,
   userAwsRegion: "us-east-1",
+  useSetupScript: false,
   volumes: [],
 };
 

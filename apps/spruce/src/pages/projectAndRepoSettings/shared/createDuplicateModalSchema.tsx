@@ -5,10 +5,10 @@ import { backstageS3BucketUrl } from "constants/externalResources";
 
 export const projectName = {
   schema: {
-    format: "noSpecialCharacters",
-    minLength: 1,
-    title: "Project Name",
     type: "string" as const,
+    title: "Project Name",
+    minLength: 1,
+    format: "noSpecialCharacters",
   },
   uiSchema: {
     "ui:data-cy": "project-name-input",
@@ -17,9 +17,9 @@ export const projectName = {
 
 const enablePerformanceTooling = {
   schema: {
-    default: false,
-    title: "Enable performance tooling",
     type: "boolean" as const,
+    title: "Enable performance tooling",
+    default: false,
   },
   uiSchema: {
     "ui:data-cy": "enable-performance-tooling",
