@@ -72,7 +72,9 @@ test.describe("Task table", () => {
 
   test("Task count displays total tasks", async ({ page }) => {
     await page.goto(pathTasks);
-    await expect(page.getByTestId("total-count").first()).toContainText("49");
+    await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
+    const topPagination = page.getByTestId("pagination").first();
+    await expect(topPagination.getByText(/47 items/)).toBeVisible();
   });
 
   test.describe("Changing page number", () => {
@@ -86,7 +88,11 @@ test.describe("Task table", () => {
         .getByTestId("tasks-table-row")
         .first()
         .textContent();
-      await page.getByTestId("next-page-button").click();
+      const topPagination = page.getByTestId("pagination").first();
+      const nextPageButton = topPagination.getByRole("button", {
+        name: "Next page",
+      });
+      await nextPageButton.click();
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
       const secondPageText = page.getByTestId("tasks-table-row").first();
       await expect(secondPageText).not.toHaveText(firstPageText!);
@@ -101,7 +107,11 @@ test.describe("Task table", () => {
         .getByTestId("tasks-table-row")
         .first()
         .textContent();
-      await page.getByTestId("prev-page-button").click();
+      const topPagination = page.getByTestId("pagination").first();
+      const prevPageButton = topPagination.getByRole("button", {
+        name: "Previous page",
+      });
+      await prevPageButton.click();
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
       const firstPageText = page.getByTestId("tasks-table-row").first();
       await expect(firstPageText).not.toHaveText(secondPageText!);
@@ -112,7 +122,11 @@ test.describe("Task table", () => {
     }) => {
       await page.goto(`${pathTasks}?page=0`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
-      await expect(page.getByTestId("prev-page-button")).toBeDisabled();
+      const topPagination = page.getByTestId("pagination").first();
+      const prevPageButton = topPagination.getByRole("button", {
+        name: "Previous page",
+      });
+      await expect(prevPageButton).toBeDisabled();
     });
 
     test("Does not update results or URL when right arrow is clicked and next page does not exist", async ({
@@ -120,7 +134,11 @@ test.describe("Task table", () => {
     }) => {
       await page.goto(`${pathTasks}?page=4`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
-      await expect(page.getByTestId("next-page-button")).toBeDisabled();
+      const topPagination = page.getByTestId("pagination").first();
+      const nextPageButton = topPagination.getByRole("button", {
+        name: "Next page",
+      });
+      await expect(nextPageButton).toBeDisabled();
     });
   });
 
