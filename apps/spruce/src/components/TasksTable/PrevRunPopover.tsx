@@ -53,7 +53,11 @@ export const PrevRunPopover: React.FC<{
             statusColorMap[prevTaskCompleted.displayStatus as TaskStatus] ??
             gray.base
           }
-          glyph="Clock"
+          glyph={
+            prevTaskCompleted.displayStatus === TaskStatus.Succeeded
+              ? "ClockCheckmark"
+              : "ClockX"
+          }
         />
       </IconButton>
       <Popover
