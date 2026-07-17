@@ -1,11 +1,11 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { Provider, ContainerPool } from "gql/generated/types";
+import { ContainerPool, Provider } from "gql/generated/types";
 import {
   dockerProviderSettings,
-  staticProviderSettings,
   ec2FleetProviderSettings,
   ec2ProviderAccountField,
+  staticProviderSettings,
   taskHostOverridesFields,
 } from "./schemaFields";
 import { textAreaCSS } from "./styles";

@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Host page title and sidebar", () => {
   const pathWithTask = "/host/i-0fb9fe0592ea3815";

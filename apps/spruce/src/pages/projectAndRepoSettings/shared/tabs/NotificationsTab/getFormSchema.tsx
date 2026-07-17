@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { InlineCode, Description } from "@leafygreen-ui/typography";
+import { Description, InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { bannerThemeToLabelMap } from "components/Banners";
 import {

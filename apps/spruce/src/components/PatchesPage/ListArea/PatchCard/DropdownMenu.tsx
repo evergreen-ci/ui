@@ -2,10 +2,10 @@ import { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
-  UnscheduleTasks,
   RestartPatch,
   ScheduleTasks,
   SetPatchVisibility,
+  UnscheduleTasks,
 } from "components/PatchActionButtons";
 
 interface Props {

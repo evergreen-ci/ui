@@ -2,10 +2,10 @@ import { useMemo } from "react";
 import { Link } from "@leafygreen-ui/typography";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import {
-  TablePlaceholder,
-  LGColumnDef,
-  useLeafyGreenTable,
   BaseTable,
+  LGColumnDef,
+  TablePlaceholder,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { EvergreenTestResult } from "./types";

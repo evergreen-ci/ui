@@ -1,4 +1,4 @@
-import { ApolloLink, execute, gql, ApolloClient } from "@apollo/client";
+import { ApolloClient, ApolloLink, execute, gql } from "@apollo/client";
 import { Observable } from "@apollo/client/utilities";
 import { waitFor } from "@testing-library/react";
 import { MockedFunction } from "vitest";

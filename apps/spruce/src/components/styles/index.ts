@@ -1,20 +1,20 @@
 import { Divider } from "./divider";
 import { FiltersWrapper } from "./filters";
-import { globalStyles, GlobalStyles } from "./GlobalStyles";
+import { GlobalStyles, globalStyles } from "./GlobalStyles";
 import { inactiveElementStyle } from "./inactive";
 import {
   ErrorMessage,
   InputLabel,
   PageButtonRow,
   PageContent,
-  SiteLayout,
   PageLayout,
   PageSider,
+  PageTitle,
+  PageWrapper,
   SettingsPageContent,
   SideNavPageContent,
   SideNavPageWrapper,
-  PageTitle,
-  PageWrapper,
+  SiteLayout,
 } from "./Layout";
 import { ShortenedRouterLink } from "./Link";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";

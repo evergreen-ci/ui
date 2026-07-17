@@ -1,4 +1,4 @@
-import { test, expect } from "../../../fixtures";
+import { expect, test } from "../../../fixtures";
 import { getProjectSettingsRoute, project } from "../constants";
 
 test.describe("Project Triggers page", () => {

@@ -1,16 +1,16 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import {
+  BaseTable,
   ColumnFiltering,
   ColumnFiltersState,
+  LeafyGreenTable,
   RowSorting,
   SortingState,
-  LeafyGreenTable,
-  useLeafyGreenTable,
-  BaseTable,
+  TableControl,
   TableWrapper,
   onChangeHandler,
-  TableControl,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";

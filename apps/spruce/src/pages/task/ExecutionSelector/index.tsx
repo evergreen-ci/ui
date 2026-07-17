@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Select, Size as SelectSize, Option } from "@leafygreen-ui/select";
+import { Option, Select, Size as SelectSize } from "@leafygreen-ui/select";
 import { Body } from "@leafygreen-ui/typography";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { ExecutionStatusIcon } from "components/ExecutionStatusIcon";

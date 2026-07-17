@@ -1,15 +1,15 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { projectTriggers, allowedSelectors } from "constants/triggers";
+import { allowedSelectors, projectTriggers } from "constants/triggers";
 import { SubscriptionInput } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 import { ExtraField } from "types/triggers";
 import {
-  NotificationsFormState,
-  Notification,
   FormExtraFields,
   FormRegexSelector,
+  Notification,
+  NotificationsFormState,
 } from "./types";
-import { getTargetForMethod, generateWebhookSecret } from "./utils";
+import { generateWebhookSecret, getTargetForMethod } from "./utils";
 
 // Converts the form regexSelector into the proper format for GQL payload.
 // We need to check if the trigger has regex selectors because it's possible for data

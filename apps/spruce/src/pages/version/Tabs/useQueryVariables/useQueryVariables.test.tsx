@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import type { MockInstance } from "vitest";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
-import { TaskSortCategory, SortDirection } from "gql/generated/types";
+import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useQueryVariables } from ".";
 
 vi.mock("js-cookie");

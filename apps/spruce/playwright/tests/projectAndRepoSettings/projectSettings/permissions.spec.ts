@@ -1,4 +1,4 @@
-import { test, expect } from "../../../fixtures";
+import { expect, test } from "../../../fixtures";
 import { getProjectSettingsRoute, projectUseRepoEnabled } from "../constants";
 
 test.describe("permissions", () => {

@@ -26,8 +26,8 @@ import {
   getSelectAllCheckboxState,
   getVisibleAliases,
   getVisibleChildPatches,
-  isTaskCheckboxChecked,
   isTaskCheckboxActivated,
+  isTaskCheckboxChecked,
   isTaskCheckboxIndeterminate,
 } from "./utils";
 

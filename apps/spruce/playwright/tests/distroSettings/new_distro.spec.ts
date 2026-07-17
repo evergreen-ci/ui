@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 const distroSettingPage = "/distro/rhel71-power8-large/settings/general";

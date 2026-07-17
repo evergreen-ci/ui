@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client/react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -10,8 +10,8 @@ import {
   SideNavPageWrapper,
 } from "components/styles";
 import {
-  getAdminSettingsRoute,
   AdminSettingsTabRoutes,
+  getAdminSettingsRoute,
   slugs,
 } from "constants/routes";
 import {

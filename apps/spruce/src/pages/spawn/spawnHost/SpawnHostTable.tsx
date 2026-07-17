@@ -4,11 +4,11 @@ import { Badge } from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
+  BaseTable,
   ExpandedState,
+  LGColumnDef,
   LeafyGreenTableRow,
   useLeafyGreenTable,
-  BaseTable,
-  LGColumnDef,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";

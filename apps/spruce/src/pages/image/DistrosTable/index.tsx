@@ -2,19 +2,19 @@ import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
-import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
+import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
-import { StyledRouterLink, StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { amazonEC2InstanceTypeDocumentationUrl } from "constants/externalResources";
-import { defaultEC2Region, MCI_USER } from "constants/hosts";
+import { MCI_USER, defaultEC2Region } from "constants/hosts";
 import { getAllHostsRoute, getDistroSettingsRoute } from "constants/routes";
 import {
   ImageDistrosQuery,

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
@@ -13,7 +13,7 @@ import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getHoneycombHistoryUrl } from "constants/externalResources/honeycomb";
-import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
+import { GetTaskRouteOptions, getTaskRoute, slugs } from "constants/routes";
 import {
   TaskPerfPluginEnabledQuery,
   TaskPerfPluginEnabledQueryVariables,

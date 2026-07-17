@@ -1,4 +1,4 @@
-import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
+import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";

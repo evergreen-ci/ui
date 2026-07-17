@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { expect, test } from "../fixtures";
 
 test.describe("404 Page", () => {
   test("Displays 404 page for routes that do not exist when user is logged in.", async ({

@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client/react";
 import {
-  MyPublicKeysQuery,
-  MyPublicKeysQueryVariables,
   InstanceTypesQuery,
   InstanceTypesQueryVariables,
+  MyPublicKeysQuery,
+  MyPublicKeysQueryVariables,
   MyVolumesQuery,
   MyVolumesQueryVariables,
 } from "gql/generated/types";

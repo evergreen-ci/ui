@@ -1,8 +1,8 @@
 import { act, render, renderHook } from "@testing-library/react";
 import {
-  createMemoryRouter,
   Outlet,
   RouterProvider,
+  createMemoryRouter,
   useLocation,
 } from "react-router-dom";
 import { useAnalyticsRoot } from "./useAnalyticsRoot";
