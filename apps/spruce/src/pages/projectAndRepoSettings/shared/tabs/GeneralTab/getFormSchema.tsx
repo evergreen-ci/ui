@@ -411,7 +411,7 @@ export const getFormSchema = (
         waterfallDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
-            "By default, task activation is considered for all new commits on the waterfall. By disabling this setting, tasks will still appear but will be unscheduled by default.",
+            "When enabled (default), task activation is considered for all new commits on the waterfall. By disabling this setting, tasks will still appear but will be unscheduled by default.",
         },
       },
       scheduling: {
