@@ -7,20 +7,20 @@ import { BuildType } from "./types";
 
 const userData = {
   schema: {
-    title: "User Data",
     type: "string" as const,
+    title: "User Data",
   },
   uiSchema: {
+    "ui:widget": "textarea",
     "ui:elementWrapperCSS": textAreaCSS,
     "ui:rows": 6,
-    "ui:widget": "textarea",
   },
 };
 
 const mergeUserData = {
   schema: {
-    title: "Merge with existing user data",
     type: "boolean" as const,
+    title: "Merge with existing user data",
   },
   uiSchema: {
     "ui:elementWrapperCSS": mergeCheckboxCSS,
@@ -29,9 +29,9 @@ const mergeUserData = {
 
 const doNotAssignPublicIPv4Address = {
   schema: {
-    default: false,
-    title: "Do not assign public IPv4 address",
     type: "boolean" as const,
+    title: "Do not assign public IPv4 address",
+    default: false,
   },
   uiSchema: {
     "ui:bold": true,
@@ -41,9 +41,9 @@ const doNotAssignPublicIPv4Address = {
 
 const elasticIpsEnabled = {
   schema: {
-    default: false,
-    title: "Enable Elastic IPs",
     type: "boolean" as const,
+    title: "Enable Elastic IPs",
+    default: false,
   },
   uiSchema: {
     "ui:bold": true,
@@ -53,39 +53,39 @@ const elasticIpsEnabled = {
 
 const securityGroups = {
   schema: {
+    type: "array" as const,
+    title: "Security Groups",
     items: {
+      type: "string" as const,
+      title: "Security Group ID",
       default: "",
       minLength: 1,
       pattern: "^(s|sg|sg-.*)?$",
-      title: "Security Group ID",
-      type: "string" as const,
     },
-    title: "Security Groups",
-    type: "array" as const,
   },
   uiSchema: {
+    "ui:addButtonText": "Add security group",
+    "ui:orderable": false,
     items: {
       "ui:placeholder": "e.g. sg-xxxx",
     },
-    "ui:addButtonText": "Add security group",
-    "ui:orderable": false,
   },
 };
 
 const hosts = {
   schema: {
+    type: "array" as const,
+    title: "Hosts",
     items: {
+      type: "object" as const,
       properties: {
         name: {
-          minLength: 1,
-          title: "Name",
           type: "string" as const,
+          title: "Name",
+          minLength: 1,
         },
       },
-      type: "object" as const,
     },
-    title: "Hosts",
-    type: "array" as const,
   },
   uiSchema: {
     "ui:addButtonText": "Add host",
@@ -95,11 +95,11 @@ const hosts = {
 
 const imageUrl = {
   schema: {
+    type: "string" as const,
+    title: "Docker Image URL",
     default: "",
     format: "validURL",
     minLength: 1,
-    title: "Docker Image URL",
-    type: "string" as const,
   },
   uiSchema: {
     "ui:description": "Docker image URL to import on host machine.",
@@ -108,21 +108,21 @@ const imageUrl = {
 
 const buildType = {
   schema: {
+    type: "string" as const,
+    title: "Image Build Method",
     default: BuildType.Import,
     oneOf: [
       {
-        enum: [BuildType.Import],
-        title: "Import",
         type: "string" as const,
+        title: "Import",
+        enum: [BuildType.Import],
       },
       {
-        enum: [BuildType.Pull],
-        title: "Pull",
         type: "string" as const,
+        title: "Pull",
+        enum: [BuildType.Pull],
       },
     ],
-    title: "Image Build Method",
-    type: "string" as const,
   },
   uiSchema: {
     "ui:allowDeselect": false,
@@ -131,8 +131,8 @@ const buildType = {
 
 const registryUsername = {
   schema: {
-    title: "Username for Registries",
     type: "string" as const,
+    title: "Username for Registries",
   },
   uiSchema: {
     "ui:optional": true,
@@ -140,19 +140,19 @@ const registryUsername = {
 };
 
 const registryPassword = {
-  schema: { title: "Password for Registries", type: "string" as const },
+  schema: { type: "string" as const, title: "Password for Registries" },
   uiSchema: {
-    "ui:inputType": "password",
     "ui:optional": true,
+    "ui:inputType": "password",
   },
 };
 
 const amiId = {
   schema: {
+    type: "string" as const,
+    title: "EC2 AMI ID",
     default: "",
     minLength: 1,
-    title: "EC2 AMI ID",
-    type: "string" as const,
   },
   uiSchema: {
     "ui:placeholder": "e.g. ami-1ecba176",
@@ -161,8 +161,8 @@ const amiId = {
 
 const instanceType = {
   schema: {
-    title: "Instance Type",
     type: "string" as const,
+    title: "Instance Type",
   },
   uiSchema: {
     "ui:description": "EC2 instance type for the AMI. Must be available.",
@@ -172,8 +172,8 @@ const instanceType = {
 
 const sshKeyName = {
   schema: {
-    title: "SSH Key Name",
     type: "string" as const,
+    title: "SSH Key Name",
   },
   uiSchema: {
     "ui:description": "SSH key to add to the host machine.",
@@ -182,10 +182,10 @@ const sshKeyName = {
 
 const instanceProfileARN = {
   schema: {
+    type: "string" as const,
+    title: "IAM Instance Profile ARN",
     default: "",
     pattern: "^(a|ar|arn|arn:.*)?$",
-    title: "IAM Instance Profile ARN",
-    type: "string" as const,
   },
   uiSchema: {
     "ui:description": "The Amazon Resource Name (ARN) of the instance profile.",
@@ -196,25 +196,34 @@ const instanceProfileARN = {
 
 const vpcOptions = {
   schema: {
+    type: "object" as const,
+    title: "",
+    properties: {
+      useVpc: {
+        type: "boolean" as const,
+        title: "Use security groups in an EC2 VPC",
+        default: false,
+      },
+    },
     dependencies: {
       useVpc: {
         oneOf: [
           {
             properties: {
+              useVpc: {
+                enum: [true],
+              },
               subnetId: {
+                type: "string" as const,
+                title: "Default VPC Subnet ID",
                 default: "",
                 minLength: 1,
                 pattern: "^subnet-.*",
-                title: "Default VPC Subnet ID",
-                type: "string" as const,
               },
               subnetPrefix: {
-                default: "",
-                title: "VPC Subnet Prefix",
                 type: "string" as const,
-              },
-              useVpc: {
-                enum: [true],
+                title: "VPC Subnet Prefix",
+                default: "",
               },
             },
           },
@@ -228,20 +237,14 @@ const vpcOptions = {
         ],
       },
     },
-    properties: {
-      useVpc: {
-        default: false,
-        title: "Use security groups in an EC2 VPC",
-        type: "boolean" as const,
-      },
-    },
-    title: "",
-    type: "object" as const,
   },
   uiSchema: {
+    useVpc: {
+      "ui:data-cy": "use-vpc",
+    },
     subnetId: {
-      "ui:elementWrapperCSS": indentCSS,
       "ui:placeholder": "e.g. subnet-xxxx",
+      "ui:elementWrapperCSS": indentCSS,
     },
     subnetPrefix: {
       "ui:description":
@@ -249,73 +252,70 @@ const vpcOptions = {
       "ui:elementWrapperCSS": indentCSS,
       "ui:optional": true,
     },
-    useVpc: {
-      "ui:data-cy": "use-vpc",
-    },
   },
 };
 
 const mountPoints = {
   schema: {
+    type: "array" as const,
+    title: "Mount Points",
     items: {
+      type: "object" as const,
       properties: {
         deviceName: {
+          type: "string" as const,
+          title: "Device Name",
           default: "",
           minLength: 1,
-          title: "Device Name",
-          type: "string" as const,
-        },
-        iops: {
-          title: "IOPS",
-          type: "number" as const,
-        },
-        size: {
-          title: "Size (GB)",
-          type: "number" as const,
-        },
-        throughput: {
-          title: "Throughput (MiB/s)",
-          type: "number" as const,
         },
         virtualName: {
-          title: "Virtual Name",
           type: "string" as const,
+          title: "Virtual Name",
         },
         volumeType: {
-          title: "Volume Type",
           type: "string" as const,
+          title: "Volume Type",
+        },
+        iops: {
+          type: "number" as const,
+          title: "IOPS",
+        },
+        throughput: {
+          type: "number" as const,
+          title: "Throughput (MiB/s)",
+        },
+        size: {
+          type: "number" as const,
+          title: "Size (GB)",
         },
       },
-      type: "object" as const,
     },
-    title: "Mount Points",
-    type: "array" as const,
   },
   uiSchema: {
-    items: {
-      "ui:defaultOpen": true,
-      "ui:numberedTitle": "Mount Point",
-      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-    },
-    "ui:addButtonText": "Add mount point",
     "ui:data-cy": "mount-points",
+    "ui:addButtonText": "Add mount point",
     "ui:orderable": false,
     "ui:topAlignDelete": true,
+    items: {
+      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+      "ui:defaultOpen": true,
+      "ui:numberedTitle": "Mount Point",
+    },
   },
 };
 
 export const staticProviderSettings = {
   schema: {
-    hosts: hosts.schema,
     mergeUserData: mergeUserData.schema,
-    securityGroups: securityGroups.schema,
     userData: userData.schema,
+    securityGroups: securityGroups.schema,
+    hosts: hosts.schema,
   },
   uiSchema: {
-    hosts: hosts.uiSchema,
     mergeUserData: mergeUserData.uiSchema,
-    securityGroups: securityGroups.uiSchema,
     userData: userData.uiSchema,
+    securityGroups: securityGroups.uiSchema,
+    hosts: hosts.uiSchema,
   },
 };
 
@@ -323,60 +323,69 @@ export const dockerProviderSettings = {
   schema: {
     buildType: buildType.schema,
     imageUrl: imageUrl.schema,
-    mergeUserData: mergeUserData.schema,
-    registryPassword: registryPassword.schema,
     registryUsername: registryUsername.schema,
-    securityGroups: securityGroups.schema,
+    registryPassword: registryPassword.schema,
+    mergeUserData: mergeUserData.schema,
     userData: userData.schema,
+    securityGroups: securityGroups.schema,
   },
   uiSchema: {
     buildType: buildType.uiSchema,
     imageUrl: imageUrl.uiSchema,
-    mergeUserData: mergeUserData.uiSchema,
-    registryPassword: registryPassword.uiSchema,
     registryUsername: registryUsername.uiSchema,
-    securityGroups: securityGroups.uiSchema,
+    registryPassword: registryPassword.uiSchema,
+    mergeUserData: mergeUserData.uiSchema,
     userData: userData.uiSchema,
+    securityGroups: securityGroups.uiSchema,
   },
 };
 
 export const ec2FleetProviderSettings = {
   schema: {
     amiId: amiId.schema,
+    instanceType: instanceType.schema,
+    sshKeyName: sshKeyName.schema,
+    instanceProfileARN: instanceProfileARN.schema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
     elasticIpsEnabled: elasticIpsEnabled.schema,
-    instanceProfileARN: instanceProfileARN.schema,
-    instanceType: instanceType.schema,
     mergeUserData: mergeUserData.schema,
-    mountPoints: mountPoints.schema,
-    securityGroups: securityGroups.schema,
-    sshKeyName: sshKeyName.schema,
     userData: userData.schema,
+    securityGroups: securityGroups.schema,
     vpcOptions: vpcOptions.schema,
+    mountPoints: mountPoints.schema,
   },
   uiSchema: {
     amiId: amiId.uiSchema,
+    instanceType: instanceType.uiSchema,
+    sshKeyName: sshKeyName.uiSchema,
+    instanceProfileARN: instanceProfileARN.uiSchema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
     elasticIpsEnabled: elasticIpsEnabled.uiSchema,
-    instanceProfileARN: instanceProfileARN.uiSchema,
-    instanceType: instanceType.uiSchema,
     mergeUserData: mergeUserData.uiSchema,
-    mountPoints: mountPoints.uiSchema,
-    securityGroups: securityGroups.uiSchema,
-    sshKeyName: sshKeyName.uiSchema,
     userData: userData.uiSchema,
+    securityGroups: securityGroups.uiSchema,
     vpcOptions: vpcOptions.uiSchema,
+    mountPoints: mountPoints.uiSchema,
   },
 };
 
 export const ec2ProviderAccountField = {
-  default: "",
-  title: "Provider Account",
   type: "string" as const,
+  title: "Provider Account",
+  default: "",
 };
 
 export const taskHostOverridesFields = {
   schema: {
+    type: "object" as const,
+    title: "Task Host Overrides",
+    properties: {
+      enableTaskHostOverrides: {
+        type: "boolean" as const,
+        title: "Enable task host overrides",
+        default: false,
+      },
+    },
     dependencies: {
       enableTaskHostOverrides: {
         oneOf: [
@@ -389,36 +398,26 @@ export const taskHostOverridesFields = {
           },
           {
             properties: {
-              doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.schema,
               enableTaskHostOverrides: {
                 enum: [true],
               },
-              iamInstanceProfileArn: instanceProfileARN.schema,
               providerAccount: ec2ProviderAccountField,
-              securityGroupIds: securityGroups.schema,
+              iamInstanceProfileArn: instanceProfileARN.schema,
               subnetId: {
+                type: "string" as const,
+                title: "Subnet ID",
                 default: "",
                 pattern: "^(s|su|sub|subn|subne|subnet|subnet-.*)?$",
-                title: "Subnet ID",
-                type: "string" as const,
               },
+              securityGroupIds: securityGroups.schema,
+              doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.schema,
             },
           },
         ],
       },
     },
-    properties: {
-      enableTaskHostOverrides: {
-        default: false,
-        title: "Enable task host overrides",
-        type: "boolean" as const,
-      },
-    },
-    title: "Task Host Overrides",
-    type: "object" as const,
   },
   uiSchema: {
-    doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.uiSchema,
     enableTaskHostOverrides: {
       "ui:data-cy": "enable-task-host-overrides",
       "ui:description":
@@ -430,15 +429,16 @@ export const taskHostOverridesFields = {
       `,
       "ui:widget": widgets.ToggleWidget,
     },
-    iamInstanceProfileArn: instanceProfileARN.uiSchema,
     providerAccount: {
       "ui:elementWrapperCSS": css`
         margin-top: ${size.s};
       `,
     },
-    securityGroupIds: securityGroups.uiSchema,
+    iamInstanceProfileArn: instanceProfileARN.uiSchema,
     subnetId: {
       "ui:placeholder": "e.g. subnet-xxxx",
     },
+    securityGroupIds: securityGroups.uiSchema,
+    doNotAssignPublicIpv4Address: doNotAssignPublicIPv4Address.uiSchema,
   },
 };

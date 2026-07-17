@@ -30,40 +30,50 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      dependencies: {
+      type: "object" as const,
+      properties: {
         setup: {
-          oneOf: [
-            {
-              properties: {
-                allocation,
-                setup: {
+          type: "object" as const,
+          title: "Host Setup",
+          properties: setup.schema,
+          dependencies: {
+            userSpawnAllowed: {
+              oneOf: [
+                {
                   properties: {
-                    bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
+                    userSpawnAllowed: { enum: [false] },
                   },
                 },
-                sshConfig,
-              },
-            },
-            {
-              properties: {
-                allocation,
-                bootstrapSettings,
-                setup: {
+                {
                   properties: {
-                    bootstrapMethod: {
-                      enum: [BootstrapMethod.Ssh, BootstrapMethod.UserData],
+                    userSpawnAllowed: { enum: [true] },
+                    isVirtualWorkStation: isVirtualWorkStation.schema,
+                  },
+                  dependencies: {
+                    isVirtualWorkStation: {
+                      oneOf: [
+                        {
+                          properties: {
+                            isVirtualWorkStation: {
+                              enum: [false],
+                            },
+                          },
+                        },
+                        {
+                          properties: {
+                            isVirtualWorkStation: {
+                              enum: [true],
+                            },
+                            icecreamSchedulerHost: icecreamSchedulerHost.schema,
+                            icecreamConfigPath: icecreamConfigPath.schema,
+                          },
+                        },
+                      ],
                     },
                   },
                 },
-                sshConfig,
-              },
+              ],
             },
-          ],
-        },
-      },
-      properties: {
-        setup: {
-          dependencies: {
             arch: {
               oneOf: [
                 {
@@ -79,87 +89,77 @@ export const getFormSchema = ({
                 },
               ],
             },
-            userSpawnAllowed: {
-              oneOf: [
-                {
-                  properties: {
-                    userSpawnAllowed: { enum: [false] },
-                  },
-                },
-                {
-                  dependencies: {
-                    isVirtualWorkStation: {
-                      oneOf: [
-                        {
-                          properties: {
-                            isVirtualWorkStation: {
-                              enum: [false],
-                            },
-                          },
-                        },
-                        {
-                          properties: {
-                            icecreamConfigPath: icecreamConfigPath.schema,
-                            icecreamSchedulerHost: icecreamSchedulerHost.schema,
-                            isVirtualWorkStation: {
-                              enum: [true],
-                            },
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  properties: {
-                    isVirtualWorkStation: isVirtualWorkStation.schema,
-                    userSpawnAllowed: { enum: [true] },
-                  },
-                },
-              ],
-            },
           },
-          properties: setup.schema,
-          title: "Host Setup",
-          type: "object" as const,
         },
       },
-      type: "object" as const,
+      dependencies: {
+        setup: {
+          oneOf: [
+            {
+              properties: {
+                setup: {
+                  properties: {
+                    bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
+                  },
+                },
+                sshConfig,
+                allocation,
+              },
+            },
+            {
+              properties: {
+                setup: {
+                  properties: {
+                    bootstrapMethod: {
+                      enum: [BootstrapMethod.Ssh, BootstrapMethod.UserData],
+                    },
+                  },
+                },
+                bootstrapSettings,
+                sshConfig,
+                allocation,
+              },
+            },
+          ],
+        },
+      },
     },
     uiSchema: {
-      allocation: allocationProperties.uiSchema(
-        hasEC2Provider,
-        hasStaticProvider,
-      ),
-      bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       setup: setup.uiSchema(
         architecture,
         hasStaticProvider,
         isSingleTaskDistro,
       ),
+      bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
+      allocation: allocationProperties.uiSchema(
+        hasEC2Provider,
+        hasStaticProvider,
+      ),
     },
   };
 };
 
 const bootstrapSettings = {
-  properties: bootstrapProperties.schema,
-  title: "Bootstrap Settings",
   type: "object" as const,
+  title: "Bootstrap Settings",
+  properties: bootstrapProperties.schema,
 };
 
 const sshConfig = {
-  properties: sshConfigProperties.schema,
-  title: "User and SSH Configuration",
   type: "object" as const,
+  title: "User and SSH Configuration",
+  properties: sshConfigProperties.schema,
 };
 
 const allocation = {
-  properties: allocationProperties.schema,
+  type: "object" as const,
+  title: "Host Allocation",
   required: [
     "minimumHosts",
     "maximumHosts",
     "acceptableHostIdleTimeSeconds",
     "futureHostFraction",
   ],
-  title: "Host Allocation",
-  type: "object" as const,
+  properties: allocationProperties.schema,
 };

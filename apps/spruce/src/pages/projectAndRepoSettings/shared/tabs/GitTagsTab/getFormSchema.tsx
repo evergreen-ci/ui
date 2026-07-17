@@ -4,11 +4,11 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { gitTagAliasesDocumentationUrl } from "constants/externalResources";
 import {
+  ProjectType,
   alias,
   fieldDisabled,
   form,
   hideIf,
-  ProjectType,
   sectionHasError,
 } from "../utils";
 import { GitTagsFormState } from "./types";
@@ -24,26 +24,83 @@ export const getFormSchema = (
   repoData?: GitTagsFormState,
 ): ReturnType<GetFormSchema> => {
   const overrideStyling = {
-    "ui:showLabel": false,
     "ui:widget":
       projectType === ProjectType.AttachedProject
         ? widgets.RadioBoxWidget
         : "hidden",
+    "ui:showLabel": false,
   };
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
   return {
     fields: {},
     schema: {
+      type: "object" as const,
       properties: {
         github: {
+          type: "object" as const,
+          title: "",
           properties: {
             githubWebhooksEnabled: {
+              type: "null",
+              title: "GitHub Webhooks",
               description: `GitHub webhooks ${
                 githubWebhooksEnabled ? "are" : "are not"
               } enabled.`,
-              title: "GitHub Webhooks",
+            },
+            gitTagVersionsTitle: {
               type: "null",
+              title: "Trigger Versions With Git Tags",
+              description: `If an authorized user pushes a tag that matches a specific regex, then a version will be created from this alias. Note that project admins are not authorized by default; they must explicitly be given this permission. ${
+                projectType === ProjectType.Repo
+                  ? "This setting will not be applied to untracked branches."
+                  : ""
+              }`,
+            },
+            gitTagVersionsEnabled: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.gitTagVersionsEnabled ?? undefined,
+              ),
+            },
+            users: {
+              title: "Authorized Users",
+              description:
+                "This must be a list of authorized GitHub user or bot names. This authorization can alternatively be provisioned on this project's MANA resource.",
+              ...overrideRadioBox(
+                "gitTagAuthorizedUsers",
+                ["Override Repo Users", "Default to Repo Users"],
+                {
+                  type: "array" as const,
+                  items: {
+                    type: "string" as const,
+                    title: "Username",
+                    default: "",
+                    minLength: 1,
+                    format: "noStartingOrTrailingWhitespace",
+                  },
+                },
+              ),
+            },
+            teams: {
+              title: "Authorized Teams",
+              description:
+                "This must be the team slug, i.e. the team name with dashes instead of spaces. For example, the team Evergreen Users would be evergreen-users. This authorization can also be provisioned on this project's MANA resource.",
+              ...overrideRadioBox(
+                "gitTagAuthorizedTeams",
+                ["Override Repo Teams", "Default to Repo Teams"],
+                {
+                  type: "array" as const,
+                  items: {
+                    type: "string" as const,
+                    title: "Team",
+                    default: "",
+                    minLength: 1,
+                    format: "noStartingOrTrailingWhitespace",
+                  },
+                },
+              ),
             },
             gitTags: {
               title: "Git Tag Version Definitions",
@@ -54,69 +111,35 @@ export const getFormSchema = (
                 gitTagArray.schema,
               ),
             },
-            gitTagVersionsEnabled: {
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.github?.gitTagVersionsEnabled ?? undefined,
-              ),
-              type: ["boolean", "null"],
-            },
-            gitTagVersionsTitle: {
-              description: `If an authorized user pushes a tag that matches a specific regex, then a version will be created from this alias. Note that project admins are not authorized by default; they must explicitly be given this permission. ${
-                projectType === ProjectType.Repo
-                  ? "This setting will not be applied to untracked branches."
-                  : ""
-              }`,
-              title: "Trigger Versions With Git Tags",
-              type: "null",
-            },
-            teams: {
-              description:
-                "This must be the team slug, i.e. the team name with dashes instead of spaces. For example, the team Evergreen Users would be evergreen-users. This authorization can also be provisioned on this project's MANA resource.",
-              title: "Authorized Teams",
-              ...overrideRadioBox(
-                "gitTagAuthorizedTeams",
-                ["Override Repo Teams", "Default to Repo Teams"],
-                {
-                  items: {
-                    default: "",
-                    format: "noStartingOrTrailingWhitespace",
-                    minLength: 1,
-                    title: "Team",
-                    type: "string" as const,
-                  },
-                  type: "array" as const,
-                },
-              ),
-            },
-            users: {
-              description:
-                "This must be a list of authorized GitHub user or bot names. This authorization can alternatively be provisioned on this project's MANA resource.",
-              title: "Authorized Users",
-              ...overrideRadioBox(
-                "gitTagAuthorizedUsers",
-                ["Override Repo Users", "Default to Repo Users"],
-                {
-                  items: {
-                    default: "",
-                    format: "noStartingOrTrailingWhitespace",
-                    minLength: 1,
-                    title: "Username",
-                    type: "string" as const,
-                  },
-                  type: "array" as const,
-                },
-              ),
-            },
           },
-          title: "",
-          type: "object" as const,
         },
       },
-      type: "object" as const,
     },
     uiSchema: {
       github: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        gitTagVersionsTitle: {
+          "ui:sectionTitle": true,
+        },
+        gitTagVersionsEnabled: {
+          "ui:data-cy": "git-tag-enabled-radio-box",
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+        },
+        users: userTeamStyling(
+          "gitTagAuthorizedUsers",
+          "Add User",
+          repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled ?? false,
+        ),
+        teams: userTeamStyling(
+          "gitTagAuthorizedTeams",
+          "Add Team",
+          repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled ?? false,
+        ),
         gitTags: {
           ...hideIf(
             fieldDisabled(
@@ -131,51 +154,28 @@ export const getFormSchema = (
             repoData?.github?.gitTags?.gitTagAliases ?? [],
             "Git Tag Version Definition",
           ),
-          gitTagAliases: gitTagArray.uiSchema,
           gitTagAliasesOverride: overrideStyling,
+          "ui:description": GitTagAliasesDescription,
+          gitTagAliases: gitTagArray.uiSchema,
           repoData: {
             gitTagAliases: {
               ...gitTagArray.uiSchema,
+              "ui:readonly": true,
               items: {
                 ...gitTagArray.uiSchema.items,
                 "ui:numberedTitle": "Repo Git Tag",
               },
-              "ui:readonly": true,
             },
           },
-          "ui:description": GitTagAliasesDescription,
         },
-        gitTagVersionsEnabled: {
-          "ui:data-cy": "git-tag-enabled-radio-box",
-          "ui:showLabel": false,
-          "ui:widget": widgets.RadioBoxWidget,
-        },
-        gitTagVersionsTitle: {
-          "ui:sectionTitle": true,
-        },
-        teams: userTeamStyling(
-          "gitTagAuthorizedTeams",
-          "Add Team",
-          repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
-          formData?.github?.gitTagVersionsEnabled,
-          repoData?.github?.gitTagVersionsEnabled ?? false,
-        ),
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        users: userTeamStyling(
-          "gitTagAuthorizedUsers",
-          "Add User",
-          repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
-          formData?.github?.gitTagVersionsEnabled,
-          repoData?.github?.gitTagVersionsEnabled ?? false,
-        ),
       },
     },
   };
 };
 
 const overrideStyling = (isMissingRepoField: boolean) => ({
-  "ui:showLabel": false,
   "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,
+  "ui:showLabel": false,
 });
 
 const userTeamStyling = (

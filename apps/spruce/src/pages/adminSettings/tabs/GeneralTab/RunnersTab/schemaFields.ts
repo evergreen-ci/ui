@@ -10,9 +10,9 @@ import { fullWidthCss } from "../../sharedStyles";
 export const notify = {
   schema: {
     sesEmail: {
-      format: "validEmail",
-      title: "SES Email",
       type: "string" as const,
+      title: "SES Email",
+      format: "validEmail",
     },
   },
   uiSchema: {},
@@ -20,57 +20,57 @@ export const notify = {
 
 export const taskLimits = {
   schema: {
-    maxConcurrentLargeParserProjectTasks: {
-      title: "Max Concurrent Large Parser Project Tasks",
+    maxTasksPerVersion: {
       type: "number" as const,
-    },
-    maxDailyAutomaticRestarts: {
-      title: "Max Daily Automatic Restarts Per Project",
-      type: "number" as const,
-    },
-    maxDegradedModeConcurrentLargeParserProjectTasks: {
-      title: "CPU Degraded Concurrent Large Parser Project Tasks",
-      type: "number" as const,
-    },
-    maxDegradedModeParserProjectSize: {
-      title: "CPU Degraded Parser Project Limit (MB)",
-      type: "number" as const,
-    },
-    maxExecTimeoutSecs: {
-      title: "Max Task Exec Timeout (secs)",
-      type: "number" as const,
-    },
-    maxGenerateTaskJSONSize: {
-      title: "Generate Task JSON Limit (MB)",
-      type: "number" as const,
-    },
-    maxHourlyPatchTasks: {
-      title: "Max Hourly Patch Tasks Per User",
-      type: "number" as const,
+      title: "Max Tasks Per Version",
     },
     maxIncludesPerVersion: {
+      type: "number" as const,
       title: "Max Includes Per Version",
-      type: "number" as const,
-    },
-    maxParserProjectSize: {
-      title: "Max Parser Project Size (MB)",
-      type: "number" as const,
     },
     maxPendingGeneratedTasks: {
+      type: "number" as const,
       title: "Max Pending Generated Tasks",
-      type: "number" as const,
     },
-    maxScheduledTasksPerDistro: {
-      title: "Max Scheduled Tasks Per Distro",
+    maxHourlyPatchTasks: {
       type: "number" as const,
+      title: "Max Hourly Patch Tasks Per User",
+    },
+    maxGenerateTaskJSONSize: {
+      type: "number" as const,
+      title: "Generate Task JSON Limit (MB)",
+    },
+    maxDegradedModeParserProjectSize: {
+      type: "number" as const,
+      title: "CPU Degraded Parser Project Limit (MB)",
+    },
+    maxConcurrentLargeParserProjectTasks: {
+      type: "number" as const,
+      title: "Max Concurrent Large Parser Project Tasks",
+    },
+    maxDegradedModeConcurrentLargeParserProjectTasks: {
+      type: "number" as const,
+      title: "CPU Degraded Concurrent Large Parser Project Tasks",
+    },
+    maxParserProjectSize: {
+      type: "number" as const,
+      title: "Max Parser Project Size (MB)",
+    },
+    maxExecTimeoutSecs: {
+      type: "number" as const,
+      title: "Max Task Exec Timeout (secs)",
     },
     maxTaskExecution: {
+      type: "number" as const,
       title: "Max Task Execution Number (zero based)",
-      type: "number" as const,
     },
-    maxTasksPerVersion: {
-      title: "Max Tasks Per Version",
+    maxDailyAutomaticRestarts: {
       type: "number" as const,
+      title: "Max Daily Automatic Restarts Per Project",
+    },
+    maxScheduledTasksPerDistro: {
+      type: "number" as const,
+      title: "Max Scheduled Tasks Per Distro",
     },
   },
   uiSchema: {
@@ -83,21 +83,21 @@ export const taskLimits = {
 
 export const hostInit = {
   schema: {
-    cloudStatusBatchSize: {
-      title: "Cloud Status Batch Size",
-      type: "number" as const,
-    },
     hostThrottle: {
+      type: "number" as const,
       title: "Host Creation Throttle (num hosts)",
-      type: "number" as const,
-    },
-    maxTotalDynamicHosts: {
-      title: "Max Total Dynamic Hosts",
-      type: "number" as const,
     },
     provisioningThrottle: {
-      title: "Host Provisioning Throttle (num hosts)",
       type: "number" as const,
+      title: "Host Provisioning Throttle (num hosts)",
+    },
+    cloudStatusBatchSize: {
+      type: "number" as const,
+      title: "Cloud Status Batch Size",
+    },
+    maxTotalDynamicHosts: {
+      type: "number" as const,
+      title: "Max Total Dynamic Hosts",
     },
   },
   uiSchema: {},
@@ -106,198 +106,227 @@ export const hostInit = {
 const boundsDescription = "Value should range from 0 to 100 inclusive.";
 const finderOptions = [
   {
-    enum: [FinderVersion.Legacy],
+    type: "string" as const,
     title: "Legacy",
-    type: "string" as const,
+    enum: [FinderVersion.Legacy],
   },
   {
-    enum: [FinderVersion.Parallel],
+    type: "string" as const,
     title: "Parallel",
-    type: "string" as const,
+    enum: [FinderVersion.Parallel],
   },
   {
-    enum: [FinderVersion.Alternate],
+    type: "string" as const,
     title: "Alternate",
-    type: "string" as const,
+    enum: [FinderVersion.Alternate],
   },
   {
-    enum: [FinderVersion.Pipeline],
-    title: "Pipeline",
     type: "string" as const,
+    title: "Pipeline",
+    enum: [FinderVersion.Pipeline],
   },
 ];
 const hostAllocatorOptions = [
   {
-    enum: [HostAllocatorVersion.Utilization],
-    title: "Utilization",
     type: "string" as const,
+    title: "Utilization",
+    enum: [HostAllocatorVersion.Utilization],
   },
 ];
 const roundingOptions = [
   {
-    enum: [RoundingRule.Down],
-    title: "Round down",
     type: "string" as const,
+    title: "Round down",
+    enum: [RoundingRule.Down],
   },
   {
-    enum: [RoundingRule.Up],
-    title: "Round up",
     type: "string" as const,
+    title: "Round up",
+    enum: [RoundingRule.Up],
   },
 ];
 
 const feedbackOptions = [
   {
-    enum: [FeedbackRule.NoFeedback],
-    title: "No feedback",
     type: "string" as const,
+    title: "No feedback",
+    enum: [FeedbackRule.NoFeedback],
   },
   {
-    enum: [FeedbackRule.WaitsOverThresh],
-    title: "Wait over threshold",
     type: "string" as const,
+    title: "Wait over threshold",
+    enum: [FeedbackRule.WaitsOverThresh],
   },
 ];
 
 const overallocatedOptions = [
   {
-    enum: [OverallocatedRule.Ignore],
-    title: "No terminations when overallocated",
     type: "string" as const,
+    title: "No terminations when overallocated",
+    enum: [OverallocatedRule.Ignore],
   },
   {
-    enum: [OverallocatedRule.Terminate],
-    title: "Terminate hosts when overallocated",
     type: "string" as const,
+    title: "Terminate hosts when overallocated",
+    enum: [OverallocatedRule.Terminate],
   },
 ];
 
 export const scheduler = {
   schema: {
-    acceptableHostIdleTimeSeconds: {
-      title: "Acceptable Host Idle Time (secs)",
-      type: "number" as const,
-    },
-    cacheDurationSeconds: {
-      title: "Cache Schedules in API (secs)",
-      type: "number" as const,
-    },
-    commitQueueFactor: {
-      default: 0,
-      maximum: 100,
-      minimum: 0,
-      title: "Commit Queue Factor",
-      type: "number" as const,
-    },
-    expectedRuntimeFactor: {
-      default: 0,
-      maximum: 100,
-      minimum: 0,
-      title: "Expected Runtime Factor",
-      type: "number" as const,
-    },
-    futureHostFraction: {
-      maximum: 1,
-      minimum: 0,
-      title: "Default Future Host Fraction",
-      type: "number" as const,
-    },
-    generateTaskFactor: {
-      default: 0,
-      maximum: 100,
-      minimum: 0,
-      title: "Generate Task Factor",
-      type: "number" as const,
-    },
-    groupVersions: {
-      title: "Group Versions",
-      type: "boolean" as const,
+    taskFinder: {
+      type: "string" as const,
+      title: "Task Finder",
+      oneOf: finderOptions,
     },
     hostAllocator: {
-      oneOf: hostAllocatorOptions,
+      type: "string" as const,
       title: "Host Allocator",
-      type: "string" as const,
-    },
-    hostAllocatorFeedbackRule: {
-      oneOf: feedbackOptions,
-      title: "Feedback Rule",
-      type: "string" as const,
+      oneOf: hostAllocatorOptions,
     },
     hostAllocatorRoundingRule: {
-      oneOf: roundingOptions,
-      title: "Rounding Rule",
       type: "string" as const,
+      title: "Rounding Rule",
+      oneOf: roundingOptions,
+    },
+    hostAllocatorFeedbackRule: {
+      type: "string" as const,
+      title: "Feedback Rule",
+      oneOf: feedbackOptions,
     },
     hostsOverallocatedRule: {
-      oneOf: overallocatedOptions,
-      title: "Overallocation Rule",
       type: "string" as const,
+      title: "Overallocation Rule",
+      oneOf: overallocatedOptions,
     },
-    mainlineTimeInQueueFactor: {
-      default: 0,
-      maximum: 100,
-      minimum: 0,
-      title: "Mainline Time In Queue Factor",
+    futureHostFraction: {
       type: "number" as const,
+      title: "Default Future Host Fraction",
+      minimum: 0,
+      maximum: 1,
     },
-    numDependentsFactor: {
-      default: 0,
-      maximum: 100,
-      minimum: 0,
-      title: "Num Dependents Factor",
+    cacheDurationSeconds: {
       type: "number" as const,
-    },
-    patchFactor: {
-      default: 0,
-      maximum: 100,
-      minimum: 0,
-      title: "Patch Factor",
-      type: "number" as const,
-    },
-    patchTimeInQueueFactor: {
-      default: 0,
-      maximum: 100,
-      minimum: 0,
-      title: "Patch Time In Queue Factor",
-      type: "number" as const,
-    },
-    stepbackTaskFactor: {
-      default: 0,
-      maximum: 100,
-      minimum: 0,
-      title: "Stepback Task Factor",
-      type: "number" as const,
+      title: "Cache Schedules in API (secs)",
     },
     targetTimeSeconds: {
+      type: "number" as const,
       title: "Target Time (secs)",
+    },
+    acceptableHostIdleTimeSeconds: {
       type: "number" as const,
+      title: "Acceptable Host Idle Time (secs)",
     },
-    taskFinder: {
-      oneOf: finderOptions,
-      title: "Task Finder",
-      type: "string" as const,
-    },
-    translateProjectCacheBytesLimit: {
+    patchFactor: {
+      type: "number" as const,
+      title: "Patch Factor",
       default: 0,
       minimum: 0,
-      title: "Translate Project Cache Bytes Limit",
-      type: "number" as const,
+      maximum: 100,
     },
-    translateProjectCacheTTLSeconds: {
+    patchTimeInQueueFactor: {
+      type: "number" as const,
+      title: "Patch Time In Queue Factor",
       default: 0,
       minimum: 0,
-      title: "Translate Project Cache TTL (secs)",
+      maximum: 100,
+    },
+    commitQueueFactor: {
       type: "number" as const,
+      title: "Commit Queue Factor",
+      default: 0,
+      minimum: 0,
+      maximum: 100,
+    },
+    mainlineTimeInQueueFactor: {
+      type: "number" as const,
+      title: "Mainline Time In Queue Factor",
+      default: 0,
+      minimum: 0,
+      maximum: 100,
+    },
+    expectedRuntimeFactor: {
+      type: "number" as const,
+      title: "Expected Runtime Factor",
+      default: 0,
+      minimum: 0,
+      maximum: 100,
+    },
+    generateTaskFactor: {
+      type: "number" as const,
+      title: "Generate Task Factor",
+      default: 0,
+      minimum: 0,
+      maximum: 100,
+    },
+    stepbackTaskFactor: {
+      type: "number" as const,
+      title: "Stepback Task Factor",
+      default: 0,
+      minimum: 0,
+      maximum: 100,
+    },
+    numDependentsFactor: {
+      type: "number" as const,
+      title: "Num Dependents Factor",
+      default: 0,
+      minimum: 0,
+      maximum: 100,
     },
     translateProjectConcurrencyLimit: {
+      type: "number" as const,
+      title: "Translate Project Concurrency Limit",
       default: 0,
       minimum: 0,
-      title: "Translate Project Concurrency Limit",
+    },
+    translateProjectCacheBytesLimit: {
       type: "number" as const,
+      title: "Translate Project Cache Bytes Limit",
+      default: 0,
+      minimum: 0,
+    },
+    translateProjectCacheTTLSeconds: {
+      type: "number" as const,
+      title: "Translate Project Cache TTL (secs)",
+      default: 0,
+      minimum: 0,
+    },
+    groupVersions: {
+      type: "boolean" as const,
+      title: "Group Versions",
     },
   },
   uiSchema: {
+    taskFinder: {
+      "ui:allowDeselect": false,
+      "ui:fieldCss": fullWidthCss,
+    },
+    hostAllocator: {
+      "ui:allowDeselect": false,
+      "ui:fieldCss": fullWidthCss,
+    },
+    hostAllocatorRoundingRule: {
+      "ui:allowDeselect": false,
+      "ui:fieldCss": fullWidthCss,
+    },
+    hostAllocatorFeedbackRule: {
+      "ui:allowDeselect": false,
+      "ui:fieldCss": fullWidthCss,
+    },
+    hostsOverallocatedRule: {
+      "ui:allowDeselect": false,
+      "ui:fieldCss": fullWidthCss,
+    },
+    patchFactor: {
+      "ui:description": boundsDescription,
+    },
+    patchTimeInQueueFactor: {
+      "ui:description": boundsDescription,
+    },
     commitQueueFactor: {
+      "ui:description": boundsDescription,
+    },
+    mainlineTimeInQueueFactor: {
       "ui:description": boundsDescription,
     },
     expectedRuntimeFactor: {
@@ -306,45 +335,15 @@ export const scheduler = {
     generateTaskFactor: {
       "ui:description": boundsDescription,
     },
-    groupVersions: {
-      "ui:description":
-        "Groups tasks by their version ID in the underlying planning queue.",
-      "ui:fieldCss": fullWidthCss,
-    },
-    hostAllocator: {
-      "ui:allowDeselect": false,
-      "ui:fieldCss": fullWidthCss,
-    },
-    hostAllocatorFeedbackRule: {
-      "ui:allowDeselect": false,
-      "ui:fieldCss": fullWidthCss,
-    },
-    hostAllocatorRoundingRule: {
-      "ui:allowDeselect": false,
-      "ui:fieldCss": fullWidthCss,
-    },
-    hostsOverallocatedRule: {
-      "ui:allowDeselect": false,
-      "ui:fieldCss": fullWidthCss,
-    },
-    mainlineTimeInQueueFactor: {
+    stepbackTaskFactor: {
       "ui:description": boundsDescription,
     },
     numDependentsFactor: {
       "ui:description": boundsDescription,
     },
-    patchFactor: {
-      "ui:description": boundsDescription,
-    },
-    patchTimeInQueueFactor: {
-      "ui:description": boundsDescription,
-    },
-    stepbackTaskFactor: {
-      "ui:description": boundsDescription,
-    },
-    taskFinder: {
-      "ui:allowDeselect": false,
-      "ui:fieldCss": fullWidthCss,
+    translateProjectConcurrencyLimit: {
+      "ui:description":
+        "Maximum number of project configs translated concurrently. 0 means unlimited.",
     },
     translateProjectCacheBytesLimit: {
       "ui:description":
@@ -354,26 +353,27 @@ export const scheduler = {
       "ui:description":
         "Lifetime of each project translation cache entry, in seconds. 0 uses the built-in default. Changing this rebuilds the cache.",
     },
-    translateProjectConcurrencyLimit: {
+    groupVersions: {
+      "ui:fieldCss": fullWidthCss,
       "ui:description":
-        "Maximum number of project configs translated concurrently. 0 means unlimited.",
+        "Groups tasks by their version ID in the underlying planning queue.",
     },
   },
 };
 
 export const repotracker = {
   schema: {
-    maxConcurrentRequests: {
-      title: "Max Concurrent Requests",
+    numNewRepoRevisionsToFetch: {
       type: "number" as const,
+      title: "New Revisions to Fetch",
     },
     maxRepoRevisionsToSearch: {
+      type: "number" as const,
       title: "Max Revisions to Search",
-      type: "number" as const,
     },
-    numNewRepoRevisionsToFetch: {
-      title: "New Revisions to Fetch",
+    maxConcurrentRequests: {
       type: "number" as const,
+      title: "Max Concurrent Requests",
     },
   },
   uiSchema: {},

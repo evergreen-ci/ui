@@ -25,6 +25,39 @@ export const getFormSchema = ({
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
+    type: "object" as const,
+    properties: {
+      provider: {
+        type: "object" as const,
+        title: "",
+        properties: {
+          providerName: {
+            type: "string" as const,
+            title: "Provider",
+            oneOf: [
+              {
+                type: "string" as const,
+                title: "Static IP/VM",
+                enum: [Provider.Static],
+              },
+              {
+                type: "string" as const,
+                title: "Docker",
+                enum: [Provider.Docker],
+              },
+              {
+                type: "string" as const,
+                title: "EC2 Fleet",
+                enum: [Provider.Ec2Fleet],
+              },
+            ],
+          },
+          ...(isEC2Provider && {
+            providerAccount: ec2ProviderAccountField,
+          }),
+        },
+      },
+    },
     dependencies: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       provider: {
@@ -39,35 +72,14 @@ export const getFormSchema = ({
                 },
               },
               staticProviderSettings: {
-                properties: staticProviderSettings.schema,
-                title: "",
                 type: "object" as const,
+                title: "",
+                properties: staticProviderSettings.schema,
               },
             },
           },
           {
             properties: {
-              dockerProviderSettings: {
-                properties: {
-                  containerPoolId: {
-                    default: "",
-                    oneOf: pools.map((p) => ({
-                      enum: [p.id],
-                      title: p.id,
-                      type: "string" as const,
-                    })),
-                    title: "Container Pool ID",
-                    type: "string" as const,
-                  },
-                  poolMappingInfo: {
-                    title: "Pool Mapping Information",
-                    type: "string" as const,
-                  },
-                  ...dockerProviderSettings.schema,
-                },
-                title: "",
-                type: "object" as const,
-              },
               provider: {
                 properties: {
                   providerName: {
@@ -75,35 +87,56 @@ export const getFormSchema = ({
                   },
                 },
               },
+              dockerProviderSettings: {
+                type: "object" as const,
+                title: "",
+                properties: {
+                  containerPoolId: {
+                    type: "string" as const,
+                    title: "Container Pool ID",
+                    default: "",
+                    oneOf: pools.map((p) => ({
+                      type: "string" as const,
+                      title: p.id,
+                      enum: [p.id],
+                    })),
+                  },
+                  poolMappingInfo: {
+                    type: "string" as const,
+                    title: "Pool Mapping Information",
+                  },
+                  ...dockerProviderSettings.schema,
+                },
+              },
             },
           },
           {
             properties: {
-              ec2FleetProviderSettings: {
-                items: {
-                  properties: {
-                    region: {
-                      default: "",
-                      oneOf: awsRegions.map((r) => ({
-                        enum: [r],
-                        title: r,
-                        type: "string" as const,
-                      })),
-                      title: "Region",
-                      type: "string" as const,
-                    },
-                    ...ec2FleetProviderSettings.schema,
-                  },
-                  type: "object" as const,
-                },
-                minItems: 1,
-                title: "",
-                type: "array" as const,
-              },
               provider: {
                 properties: {
                   providerName: {
                     enum: [Provider.Ec2Fleet],
+                  },
+                },
+              },
+              ec2FleetProviderSettings: {
+                type: "array" as const,
+                minItems: 1,
+                title: "",
+                items: {
+                  type: "object" as const,
+                  properties: {
+                    region: {
+                      type: "string" as const,
+                      title: "Region",
+                      default: "",
+                      oneOf: awsRegions.map((r) => ({
+                        type: "string" as const,
+                        title: r,
+                        enum: [r],
+                      })),
+                    },
+                    ...ec2FleetProviderSettings.schema,
                   },
                 },
               },
@@ -113,88 +146,55 @@ export const getFormSchema = ({
         ],
       },
     },
-    properties: {
-      provider: {
-        properties: {
-          providerName: {
-            oneOf: [
-              {
-                enum: [Provider.Static],
-                title: "Static IP/VM",
-                type: "string" as const,
-              },
-              {
-                enum: [Provider.Docker],
-                title: "Docker",
-                type: "string" as const,
-              },
-              {
-                enum: [Provider.Ec2Fleet],
-                title: "EC2 Fleet",
-                type: "string" as const,
-              },
-            ],
-            title: "Provider",
-            type: "string" as const,
-          },
-          ...(isEC2Provider && {
-            providerAccount: ec2ProviderAccountField,
-          }),
-        },
-        title: "",
-        type: "object" as const,
-      },
-    },
-    type: "object" as const,
   },
   uiSchema: {
-    dockerProviderSettings: {
-      containerPoolId: {
-        "ui:allowDeselect": false,
-        "ui:placeholder": "Select a pool",
-      },
-      poolMappingInfo: {
-        "ui:elementWrapperCSS": textAreaCSS,
-        "ui:placeholder": poolMappingInfo,
-        "ui:readonly": true,
-        "ui:rows": 6,
-        "ui:widget": poolMappingInfo.length > 0 ? "textarea" : "hidden",
-      },
-      "ui:data-cy": "docker-provider-settings",
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      ...dockerProviderSettings.uiSchema,
-    },
-    ec2FleetProviderSettings: {
-      items: {
-        region: {
-          "ui:allowDeselect": false,
-          "ui:data-cy": "region-select",
-          "ui:enumDisabled": fleetRegionsInUse,
-        },
-        "ui:displayTitle": "New AWS Region",
-        ...ec2FleetProviderSettings.uiSchema,
-      },
-      "ui:addable": fleetRegionsInUse.length < awsRegions.length,
-      "ui:addButtonText": "Add region settings",
-      "ui:data-cy": "ec2-fleet-provider-settings",
-      "ui:orderable": false,
-      "ui:useExpandableCard": true,
-    },
     provider: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       providerName: {
         "ui:allowDeselect": false,
         "ui:data-cy": "provider-select",
       },
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
     },
     staticProviderSettings: {
       "ui:data-cy": "static-provider-settings",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       ...staticProviderSettings.uiSchema,
     },
-    taskHostOverrides: {
-      "ui:data-cy": "task-host-overrides",
+    dockerProviderSettings: {
+      "ui:data-cy": "docker-provider-settings",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      containerPoolId: {
+        "ui:allowDeselect": false,
+        "ui:placeholder": "Select a pool",
+      },
+      poolMappingInfo: {
+        "ui:widget": poolMappingInfo.length > 0 ? "textarea" : "hidden",
+        "ui:placeholder": poolMappingInfo,
+        "ui:elementWrapperCSS": textAreaCSS,
+        "ui:rows": 6,
+        "ui:readonly": true,
+      },
+      ...dockerProviderSettings.uiSchema,
+    },
+    ec2FleetProviderSettings: {
+      "ui:data-cy": "ec2-fleet-provider-settings",
+      "ui:useExpandableCard": true,
+      "ui:addButtonText": "Add region settings",
+      "ui:addable": fleetRegionsInUse.length < awsRegions.length,
+      "ui:orderable": false,
+      items: {
+        "ui:displayTitle": "New AWS Region",
+        region: {
+          "ui:data-cy": "region-select",
+          "ui:allowDeselect": false,
+          "ui:enumDisabled": fleetRegionsInUse,
+        },
+        ...ec2FleetProviderSettings.uiSchema,
+      },
+    },
+    taskHostOverrides: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:data-cy": "task-host-overrides",
       ...taskHostOverridesFields.uiSchema,
     },
   },

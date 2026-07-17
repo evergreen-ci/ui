@@ -11,73 +11,73 @@ import {
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
+    type: "object" as const,
     properties: {
       backgroundProcessing: {
+        type: "object" as const,
+        title: "",
         default: {},
         properties: {
           amboy: {
+            type: "object" as const,
+            title: "Amboy",
             default: {},
             properties: {
               ...amboy.schema,
             },
-            title: "Amboy",
-            type: "object" as const,
           },
           loggerConfig: {
+            type: "object" as const,
+            title: "Logger",
             default: {},
             properties: {
               ...loggerConfig.schema,
             },
-            title: "Logger",
-            type: "object" as const,
           },
           notificationRateLimits: {
+            type: "object" as const,
+            title: "Notification Rate Limits",
             default: {},
             properties: {
               ...notificationRateLimits.schema,
             },
-            title: "Notification Rate Limits",
-            type: "object" as const,
           },
           triggers: {
+            type: "object" as const,
+            title: "Triggers",
             default: {},
             properties: {
               ...triggers.schema,
             },
-            title: "Triggers",
-            type: "object" as const,
           },
         },
-        title: "",
-        type: "object" as const,
       },
     },
-    type: "object" as const,
   },
   uiSchema: {
     backgroundProcessing: {
       amboy: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "amboy",
         "ui:objectFieldCss": objectGridCss,
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
         ...amboy.uiSchema,
       },
       loggerConfig: {
-        "ui:data-cy": "logger",
-        "ui:objectFieldCss": objectGridCss,
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": objectGridCss,
+        "ui:data-cy": "logger",
         ...loggerConfig.uiSchema,
       },
       notificationRateLimits: {
-        "ui:data-cy": "notification-rate-limits",
-        "ui:objectFieldCss": objectGridCss,
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": objectGridCss,
+        "ui:data-cy": "notification-rate-limits",
         ...notificationRateLimits.uiSchema,
       },
       triggers: {
-        "ui:data-cy": "triggers",
-        "ui:objectFieldCss": objectGridCss,
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": objectGridCss,
+        "ui:data-cy": "triggers",
         ...triggers.uiSchema,
       },
     },

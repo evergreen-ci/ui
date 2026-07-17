@@ -14,64 +14,64 @@ import {
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
+    type: "object" as const,
     properties: {
-      cedar: {
-        properties: cedar.schema,
-        title: "Cedar",
-        type: "object" as const,
-      },
-      fws: {
-        properties: fws.schema,
-        title: "Foliage Web Services",
-        type: "object" as const,
-      },
-      graphite: {
-        properties: graphite.schema,
-        title: "Graphite",
-        type: "object" as const,
-      },
       jira: {
-        properties: jira.schema,
+        type: "object" as const,
         title: "Jira",
-        type: "object" as const,
-      },
-      runtimeEnvironments: {
-        properties: runtimeEnvironments.schema,
-        title: "Runtime Environments",
-        type: "object" as const,
-      },
-      sage: {
-        properties: sage.schema,
-        title: "Sage",
-        type: "object" as const,
+        properties: jira.schema,
       },
       slack: {
-        properties: slack.schema,
-        title: "Slack",
         type: "object" as const,
+        title: "Slack",
+        properties: slack.schema,
       },
       splunk: {
-        properties: splunk.schema,
-        title: "Splunk",
         type: "object" as const,
+        title: "Splunk",
+        properties: splunk.schema,
+      },
+      runtimeEnvironments: {
+        type: "object" as const,
+        title: "Runtime Environments",
+        properties: runtimeEnvironments.schema,
       },
       testSelection: {
-        properties: testSelection.schema,
-        title: "Test Selection",
         type: "object" as const,
+        title: "Test Selection",
+        properties: testSelection.schema,
+      },
+      fws: {
+        type: "object" as const,
+        title: "Foliage Web Services",
+        properties: fws.schema,
+      },
+      graphite: {
+        type: "object" as const,
+        title: "Graphite",
+        properties: graphite.schema,
+      },
+      cedar: {
+        type: "object" as const,
+        title: "Cedar",
+        properties: cedar.schema,
+      },
+      sage: {
+        type: "object" as const,
+        title: "Sage",
+        properties: sage.schema,
       },
     },
-    type: "object" as const,
   },
   uiSchema: {
-    cedar: cedar.uiSchema,
-    fws: fws.uiSchema,
-    graphite: graphite.uiSchema,
     jira: jira.uiSchema,
-    runtimeEnvironments: runtimeEnvironments.uiSchema,
-    sage: sage.uiSchema,
     slack: slack.uiSchema,
     splunk: splunk.uiSchema,
+    runtimeEnvironments: runtimeEnvironments.uiSchema,
     testSelection: testSelection.uiSchema,
+    fws: fws.uiSchema,
+    graphite: graphite.uiSchema,
+    cedar: cedar.uiSchema,
+    sage: sage.uiSchema,
   },
 };

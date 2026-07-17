@@ -13,79 +13,79 @@ import {
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
+    type: "object" as const,
     properties: {
       web: {
+        type: "object" as const,
+        title: "",
         properties: {
           api: {
+            type: "object" as const,
+            title: "API Settings",
             properties: {
               ...api.schema,
             },
-            title: "API Settings",
-            type: "object" as const,
-          },
-          betaFeatures: {
-            properties: {
-              ...betaFeatures.schema,
-            },
-            title: "Beta Features",
-            type: "object" as const,
-          },
-          disabledGQLQueries: {
-            properties: {
-              ...disabledGQLQueries.schema,
-            },
-            title: "Disabled GraphQL Queries",
-            type: "object" as const,
           },
           rateLimitConfig: {
-            properties: rateLimitConfig.schema,
-            title: "API Rate Limit Config",
             type: "object" as const,
+            title: "API Rate Limit Config",
+            properties: rateLimitConfig.schema,
           },
           ui: {
+            type: "object" as const,
+            title: "UI Settings",
             properties: {
               ...ui.schema,
             },
-            title: "UI Settings",
+          },
+          betaFeatures: {
             type: "object" as const,
+            title: "Beta Features",
+            properties: {
+              ...betaFeatures.schema,
+            },
+          },
+          disabledGQLQueries: {
+            type: "object" as const,
+            title: "Disabled GraphQL Queries",
+            properties: {
+              ...disabledGQLQueries.schema,
+            },
           },
         },
-        title: "",
-        type: "object" as const,
       },
     },
-    type: "object" as const,
   },
   uiSchema: {
     web: {
       api: {
-        "ui:data-cy": "api-settings",
-        "ui:objectFieldCss": objectGridCss,
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": objectGridCss,
+        "ui:data-cy": "api-settings",
         ...api.uiSchema,
       },
+      ui: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": objectGridCss,
+        "ui:data-cy": "ui-settings",
+        ...ui.uiSchema,
+      },
       betaFeatures: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "beta-features",
         "ui:objectFieldCss": css`
           [data-cy="beta-features"]:empty {
             display: none;
           }
         `,
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
         ...betaFeatures.uiSchema,
       },
       disabledGQLQueries: {
-        "ui:data-cy": "disabled-gql-queries",
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:data-cy": "disabled-gql-queries",
         ...disabledGQLQueries.uiSchema,
       },
       rateLimitConfig: rateLimitConfig.uiSchema,
-      ui: {
-        "ui:data-cy": "ui-settings",
-        "ui:objectFieldCss": objectGridCss,
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        ...ui.uiSchema,
-      },
     },
   },
 };

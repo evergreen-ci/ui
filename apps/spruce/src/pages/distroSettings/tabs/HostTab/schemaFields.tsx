@@ -26,16 +26,16 @@ const indentCSS = css`
 
 const enumSelect = (enumObject: Record<string, string>) =>
   Object.entries(enumObject).map(([key, title]) => ({
-    enum: [key],
-    title,
     type: "string" as const,
+    title,
+    enum: [key],
   }));
 
 const bootstrapMethod = {
   schema: {
-    oneOf: enumSelect(bootstrapMethodToCopy),
-    title: "Host Bootstrap Method",
     type: "string" as const,
+    title: "Host Bootstrap Method",
+    oneOf: enumSelect(bootstrapMethodToCopy),
   },
   uiSchema: {
     "ui:allowDeselect": false,
@@ -44,9 +44,9 @@ const bootstrapMethod = {
 
 const communicationMethod = {
   schema: {
-    oneOf: enumSelect(communicationMethodToCopy),
-    title: "Host Communication Method",
     type: "string" as const,
+    title: "Host Communication Method",
+    oneOf: enumSelect(communicationMethodToCopy),
   },
   uiSchema: {
     "ui:allowDeselect": false,
@@ -55,9 +55,9 @@ const communicationMethod = {
 
 const arch = {
   schema: {
-    oneOf: enumSelect(architectureToCopy),
-    title: "Agent Architecture",
     type: "string" as const,
+    title: "Agent Architecture",
+    oneOf: enumSelect(architectureToCopy),
   },
   uiSchema: {
     "ui:allowDeselect": false,
@@ -66,9 +66,9 @@ const arch = {
 
 const workDir = {
   schema: {
-    minLength: 1,
-    title: "Working Directory",
     type: "string" as const,
+    title: "Working Directory",
+    minLength: 1,
   },
   uiSchema: {
     "ui:description":
@@ -78,8 +78,8 @@ const workDir = {
 
 const setupAsSudo = {
   schema: {
-    title: "Run script as sudo",
     type: "boolean" as const,
+    title: "Run script as sudo",
   },
   uiSchema: {
     "ui:elementWrapperCSS": css`
@@ -92,8 +92,8 @@ const setupAsSudo = {
 
 const setupScript = {
   schema: {
-    title: "Setup Script",
     type: "string" as const,
+    title: "Setup Script",
   },
   uiSchema: {
     "ui:elementWrapperCSS": css`
@@ -108,8 +108,8 @@ const setupScript = {
 
 const userSpawnAllowed = {
   schema: {
-    title: "Spawnable",
     type: "boolean" as const,
+    title: "Spawnable",
   },
   uiSchema: (hasStaticProvider: boolean, isSingleTaskDistro: boolean) => ({
     ...(hasStaticProvider && {
@@ -120,15 +120,15 @@ const userSpawnAllowed = {
       "ui:disabled": true,
       "ui:tooltipDescription": "Single task distros are not spawnable.",
     }),
-    "ui:bold": true,
     "ui:description": "Allow users to spawn these hosts for personal use.",
+    "ui:bold": true,
   }),
 };
 
 export const isVirtualWorkStation = {
   schema: {
-    title: "Virtual Workstations",
     type: "boolean" as const,
+    title: "Virtual Workstations",
   },
   uiSchema: (architecture: Arch) => ({
     ...(!linuxArchitectures.includes(architecture) && {
@@ -137,16 +137,16 @@ export const isVirtualWorkStation = {
         "Only Linux distros may be configured as virtual workstations.",
     }),
 
-    "ui:bold": true,
     "ui:description":
       "Allow spawned hosts of this distro to be used as virtual workstations.",
+    "ui:bold": true,
   }),
 };
 
 export const icecreamSchedulerHost = {
   schema: {
-    title: "Icecream Scheduler Host",
     type: "string" as const,
+    title: "Icecream Scheduler Host",
   },
   uiSchema: {
     "ui:description": "Host name to connect to the icecream scheduler",
@@ -156,8 +156,8 @@ export const icecreamSchedulerHost = {
 
 export const icecreamConfigPath = {
   schema: {
-    title: "Icecream Config File Path",
     type: "string" as const,
+    title: "Icecream Config File Path",
   },
   uiSchema: {
     "ui:description": "Path to the icecream config file",
@@ -167,37 +167,37 @@ export const icecreamConfigPath = {
 
 export const rootDir = {
   schema: {
-    title: "Root Directory",
     type: "string" as const,
+    title: "Root Directory",
   },
   uiSchema: {},
 };
 
 export const mountpoints = {
   schema: {
+    type: "array" as const,
+    title: "Mountpoints",
     items: {
+      type: "string" as const,
+      title: "Mountpoint",
       default: "",
       minLength: 1,
-      title: "Mountpoint",
-      type: "string" as const,
     },
-    title: "Mountpoints",
-    type: "array" as const,
   },
   uiSchema: {
-    items: {
-      "ui:placeholder": "/data",
-    },
     "ui:addButtonText": "Add mountpoint",
     "ui:description": "Mointpoints configured on the host.",
     "ui:orderable": false,
+    items: {
+      "ui:placeholder": "/data",
+    },
   },
 };
 
 const serviceUser = {
   schema: {
-    title: "Service User",
     type: "string" as const,
+    title: "Service User",
   },
   uiSchema: (architecture: Arch) => ({
     "ui:description": "Username for setting up Evergreen services",
@@ -210,9 +210,9 @@ const serviceUser = {
 
 const jasperBinaryDir = {
   schema: {
-    minLength: 1,
-    title: "Jasper Binary Directory",
     type: "string" as const,
+    title: "Jasper Binary Directory",
+    minLength: 1,
   },
   uiSchema: {
     "ui:description":
@@ -222,9 +222,9 @@ const jasperBinaryDir = {
 
 export const jasperCredentialsPath = {
   schema: {
-    minLength: 1,
-    title: "Jasper Credentials Path",
     type: "string" as const,
+    title: "Jasper Credentials Path",
+    minLength: 1,
   },
   uiSchema: {
     "ui:description":
@@ -234,9 +234,9 @@ export const jasperCredentialsPath = {
 
 const clientDir = {
   schema: {
-    minLength: 1,
-    title: "Client Directory",
     type: "string" as const,
+    title: "Client Directory",
+    minLength: 1,
   },
   uiSchema: {
     "ui:description":
@@ -246,9 +246,9 @@ const clientDir = {
 
 const shellPath = {
   schema: {
-    minLength: 1,
-    title: "Shell Path",
     type: "string" as const,
+    title: "Shell Path",
+    minLength: 1,
   },
   uiSchema: {
     "ui:description": "Absolute native path to the shell binary file (bash)",
@@ -257,17 +257,17 @@ const shellPath = {
 
 const homeVolumeFormatCommand = {
   schema: {
-    title: "Home Volume Format Command",
     type: "string" as const,
+    title: "Home Volume Format Command",
   },
   uiSchema: {},
 };
 
 const numFiles = {
   schema: {
-    minimum: -1,
-    title: "Number of Files",
     type: "number" as const,
+    title: "Number of Files",
+    minimum: -1,
   },
   uiSchema: {
     "ui:description": "Max number of open file handles. Set -1 for unlimited.",
@@ -276,9 +276,9 @@ const numFiles = {
 
 const numTasks = {
   schema: {
-    minimum: -1,
-    title: "Number of CGroup Tasks",
     type: "number" as const,
+    title: "Number of CGroup Tasks",
+    minimum: -1,
   },
   uiSchema: {
     "ui:description":
@@ -288,9 +288,9 @@ const numTasks = {
 
 const numProcesses = {
   schema: {
-    minimum: -1,
-    title: "Number of Processes",
     type: "number" as const,
+    title: "Number of Processes",
+    minimum: -1,
   },
   uiSchema: {
     "ui:description": "Max number of processes. Set -1 for unlimited.",
@@ -299,9 +299,9 @@ const numProcesses = {
 
 const lockedMemoryKb = {
   schema: {
-    minimum: -1,
-    title: "Locked Memory",
     type: "number" as const,
+    title: "Locked Memory",
+    minimum: -1,
   },
   uiSchema: {
     "ui:description":
@@ -311,9 +311,9 @@ const lockedMemoryKb = {
 
 const virtualMemoryKb = {
   schema: {
-    minimum: -1,
-    title: "Virtual Memory",
     type: "number" as const,
+    title: "Virtual Memory",
+    minimum: -1,
   },
   uiSchema: {
     "ui:description":
@@ -323,60 +323,66 @@ const virtualMemoryKb = {
 
 const env = {
   schema: {
+    type: "array" as const,
+    title: "Environment Variables",
     items: {
+      type: "object" as const,
       properties: {
         key: {
+          type: "string" as const,
+          title: "Key",
           default: "",
           minLength: 1,
-          title: "Key",
-          type: "string" as const,
         },
         value: {
+          type: "string" as const,
+          title: "Value",
           default: "",
           minLength: 1,
-          title: "Value",
-          type: "string" as const,
         },
       },
-      type: "object" as const,
     },
-    title: "Environment Variables",
-    type: "array" as const,
   },
   uiSchema: {
-    items: {
-      "ui:ObjectFieldTemplate": FieldRow,
-    },
     "ui:addButtonText": "Add variable",
     "ui:fullWidth": true,
     "ui:orderable": false,
+    items: {
+      "ui:ObjectFieldTemplate": FieldRow,
+    },
   },
 };
 
 const preconditionScripts = {
   schema: {
+    type: "array" as const,
+    title: "Precondition Scripts",
     items: {
+      type: "object" as const,
       properties: {
         path: {
+          type: "string" as const,
+          title: "Path",
           default: "",
           minLength: 1,
-          title: "Path",
-          type: "string" as const,
         },
         script: {
+          type: "string" as const,
+          title: "Script",
           default: "",
           minLength: 1,
-          title: "Script",
-          type: "string" as const,
         },
       },
-      type: "object" as const,
     },
-    title: "Precondition Scripts",
-    type: "array" as const,
   },
   uiSchema: {
+    "ui:addButtonText": "Add script",
+    "ui:fullWidth": true,
+    "ui:orderable": false,
+    "ui:topAlignDelete": true,
     items: {
+      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+      "ui:numberedTitle": "Precondition Script",
       path: {
         "ui:description": "Absolute path where the script will be placed.",
       },
@@ -391,21 +397,15 @@ const preconditionScripts = {
         "ui:rows": 8,
         "ui:widget": "textarea",
       },
-      "ui:numberedTitle": "Precondition Script",
-      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
     },
-    "ui:addButtonText": "Add script",
-    "ui:fullWidth": true,
-    "ui:orderable": false,
-    "ui:topAlignDelete": true,
   },
 };
 
 const user = {
   schema: {
-    minLength: 1,
-    title: "SSH User",
     type: "string" as const,
+    title: "SSH User",
+    minLength: 1,
   },
   uiSchema: {
     "ui:description": "Username with which to SSH into the host machine.",
@@ -414,8 +414,8 @@ const user = {
 
 const execUser = {
   schema: {
-    title: "Exec User",
     type: "string" as const,
+    title: "Exec User",
   },
   uiSchema: {
     "ui:description": (
@@ -430,8 +430,8 @@ const execUser = {
 
 const authorizedKeysFile = {
   schema: {
-    title: "Authorized Keys File",
     type: "string" as const,
+    title: "Authorized Keys File",
   },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:data-cy": "authorized-keys-input",
@@ -443,19 +443,16 @@ const authorizedKeysFile = {
 
 const sshOptions = {
   schema: {
+    type: "array" as const,
+    title: "SSH Options",
     items: {
+      type: "string" as const,
+      title: "SSH Option",
       default: "",
       minLength: 1,
-      title: "SSH Option",
-      type: "string" as const,
     },
-    title: "SSH Options",
-    type: "array" as const,
   },
   uiSchema: {
-    items: {
-      "ui:placeholder": "ConnectTimeout=10",
-    },
     "ui:addButtonText": "Add SSH option",
     "ui:description": (
       <>
@@ -464,14 +461,17 @@ const sshOptions = {
       </>
     ),
     "ui:orderable": false,
+    items: {
+      "ui:placeholder": "ConnectTimeout=10",
+    },
   },
 };
 
 const version = {
   schema: {
-    oneOf: enumSelect(hostAllocatorVersionToCopy),
-    title: "Host Allocator Version",
     type: "string" as const,
+    title: "Host Allocator Version",
+    oneOf: enumSelect(hostAllocatorVersionToCopy),
   },
   uiSchema: {
     "ui:allowDeselect": false,
@@ -480,9 +480,9 @@ const version = {
 
 const roundingRule = {
   schema: {
-    oneOf: enumSelect(roundingRuleToCopy),
-    title: "Host Allocator Rounding Rule",
     type: "string" as const,
+    title: "Host Allocator Rounding Rule",
+    oneOf: enumSelect(roundingRuleToCopy),
   },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:allowDeselect": false,
@@ -493,9 +493,9 @@ const roundingRule = {
 
 const feedbackRule = {
   schema: {
-    oneOf: enumSelect(feedbackRuleToCopy),
-    title: "Host Allocator Feedback Rule",
     type: "string" as const,
+    title: "Host Allocator Feedback Rule",
+    oneOf: enumSelect(feedbackRuleToCopy),
   },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:allowDeselect": false,
@@ -506,9 +506,9 @@ const feedbackRule = {
 
 const hostsOverallocatedRule = {
   schema: {
-    oneOf: enumSelect(overallocatedRuleToCopy),
-    title: "Host Overallocation Rule",
     type: "string" as const,
+    title: "Host Overallocation Rule",
+    oneOf: enumSelect(overallocatedRuleToCopy),
   },
   uiSchema: {
     "ui:allowDeselect": false,
@@ -517,9 +517,9 @@ const hostsOverallocatedRule = {
 
 const autoTuneMaximumHosts = {
   schema: {
-    default: false,
-    title: "Auto Tune Maximum Hosts",
     type: "boolean" as const,
+    title: "Auto Tune Maximum Hosts",
+    default: false,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
     "ui:description":
@@ -530,9 +530,9 @@ const autoTuneMaximumHosts = {
 
 const minimumHosts = {
   schema: {
-    minimum: 0,
-    title: "Minimum Number of Hosts Allowed",
     type: "number" as const,
+    title: "Minimum Number of Hosts Allowed",
+    minimum: 0,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
     "ui:data-cy": "minimum-hosts-input",
@@ -542,9 +542,9 @@ const minimumHosts = {
 
 const maximumHosts = {
   schema: {
-    minimum: 0,
-    title: "Maximum Number of Hosts Allowed",
     type: "number" as const,
+    title: "Maximum Number of Hosts Allowed",
+    minimum: 0,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
     "ui:data-cy": "maximum-hosts-input",
@@ -554,10 +554,10 @@ const maximumHosts = {
 
 const acceptableHostIdleTimeSeconds = {
   schema: {
+    type: "number" as const,
+    title: "Acceptable Host Idle Time (secs)",
     minimum: 0,
     multipleOf: 1,
-    title: "Acceptable Host Idle Time (secs)",
-    type: "number" as const,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
     "ui:data-cy": "idle-time-input",
@@ -568,10 +568,10 @@ const acceptableHostIdleTimeSeconds = {
 
 const futureHostFraction = {
   schema: {
-    maximum: 1,
-    minimum: 0,
-    title: "Future Host Fraction",
     type: "number" as const,
+    title: "Future Host Fraction",
+    minimum: 0,
+    maximum: 1,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
     "ui:data-cy": "future-fraction-input",
@@ -582,54 +582,49 @@ const futureHostFraction = {
 
 export const setup = {
   schema: {
-    arch: arch.schema,
     bootstrapMethod: bootstrapMethod.schema,
     communicationMethod: communicationMethod.schema,
-    mountpoints: mountpoints.schema,
+    arch: arch.schema,
+    workDir: workDir.schema,
     setupAsSudo: setupAsSudo.schema,
     setupScript: setupScript.schema,
+    mountpoints: mountpoints.schema,
     userSpawnAllowed: userSpawnAllowed.schema,
-    workDir: workDir.schema,
   },
   uiSchema: (
     architecture: Arch,
     hasStaticProvider: boolean,
     isSingleTaskDistro: boolean,
   ) => ({
-    arch: arch.uiSchema,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
     bootstrapMethod: bootstrapMethod.uiSchema,
     communicationMethod: communicationMethod.uiSchema,
-    icecreamConfigPath: icecreamConfigPath.uiSchema,
-    icecreamSchedulerHost: icecreamSchedulerHost.uiSchema,
-    isVirtualWorkStation: isVirtualWorkStation.uiSchema(architecture),
-    mountpoints: mountpoints.uiSchema,
+    arch: arch.uiSchema,
     setupAsSudo: setupAsSudo.uiSchema,
+    workDir: workDir.uiSchema,
     setupScript: setupScript.uiSchema,
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    mountpoints: mountpoints.uiSchema,
     userSpawnAllowed: userSpawnAllowed.uiSchema(
       hasStaticProvider,
       isSingleTaskDistro,
     ),
-    workDir: workDir.uiSchema,
+    isVirtualWorkStation: isVirtualWorkStation.uiSchema(architecture),
+    icecreamSchedulerHost: icecreamSchedulerHost.uiSchema,
+    icecreamConfigPath: icecreamConfigPath.uiSchema,
   }),
 };
 
 export const bootstrap = {
   schema: {
-    clientDir: clientDir.schema,
-    env: env.schema,
-    homeVolumeFormatCommand: homeVolumeFormatCommand.schema,
     jasperBinaryDir: jasperBinaryDir.schema,
     jasperCredentialsPath: jasperCredentialsPath.schema,
-    preconditionScripts: preconditionScripts.schema,
+    clientDir: clientDir.schema,
+    shellPath: shellPath.schema,
+    homeVolumeFormatCommand: homeVolumeFormatCommand.schema,
+    serviceUser: serviceUser.schema,
     resourceLimits: {
-      properties: {
-        lockedMemoryKb: lockedMemoryKb.schema,
-        numFiles: numFiles.schema,
-        numProcesses: numProcesses.schema,
-        numTasks: numTasks.schema,
-        virtualMemoryKb: virtualMemoryKb.schema,
-      },
+      type: "object" as const,
+      title: "Resource Limits",
       required: [
         "numFiles",
         "numTasks",
@@ -637,74 +632,79 @@ export const bootstrap = {
         "lockedMemoryKb",
         "virtualMemoryKb",
       ],
-      title: "Resource Limits",
-      type: "object" as const,
+      properties: {
+        numFiles: numFiles.schema,
+        numTasks: numTasks.schema,
+        numProcesses: numProcesses.schema,
+        lockedMemoryKb: lockedMemoryKb.schema,
+        virtualMemoryKb: virtualMemoryKb.schema,
+      },
     },
-    serviceUser: serviceUser.schema,
-    shellPath: shellPath.schema,
+    env: env.schema,
+    preconditionScripts: preconditionScripts.schema,
   },
   uiSchema: (architecture: Arch) => ({
-    clientDir: clientDir.uiSchema,
-    env: env.uiSchema,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    serviceUser: serviceUser.uiSchema(architecture),
     jasperBinaryDir: jasperBinaryDir.uiSchema,
     jasperCredentialsPath: jasperCredentialsPath.uiSchema,
-    preconditionScripts: preconditionScripts.uiSchema,
+    clientDir: clientDir.uiSchema,
+    shellPath: shellPath.uiSchema,
     resourceLimits: {
       // Only visible for Linux
       ...(!linuxArchitectures.includes(architecture) && {
         "ui:widget": "hidden",
       }),
-      lockedMemoryKb: lockedMemoryKb.uiSchema,
       numFiles: numFiles.uiSchema,
-      numProcesses: numProcesses.uiSchema,
       numTasks: numTasks.uiSchema,
+      numProcesses: numProcesses.uiSchema,
+      lockedMemoryKb: lockedMemoryKb.uiSchema,
       virtualMemoryKb: virtualMemoryKb.uiSchema,
     },
-    serviceUser: serviceUser.uiSchema(architecture),
-    shellPath: shellPath.uiSchema,
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    env: env.uiSchema,
+    preconditionScripts: preconditionScripts.uiSchema,
   }),
 };
 
 export const allocation = {
   schema: {
-    acceptableHostIdleTimeSeconds: acceptableHostIdleTimeSeconds.schema,
-    autoTuneMaximumHosts: autoTuneMaximumHosts.schema,
-    feedbackRule: feedbackRule.schema,
-    futureHostFraction: futureHostFraction.schema,
-    hostsOverallocatedRule: hostsOverallocatedRule.schema,
-    maximumHosts: maximumHosts.schema,
-    minimumHosts: minimumHosts.schema,
-    roundingRule: roundingRule.schema,
     version: version.schema,
+    roundingRule: roundingRule.schema,
+    feedbackRule: feedbackRule.schema,
+    hostsOverallocatedRule: hostsOverallocatedRule.schema,
+    minimumHosts: minimumHosts.schema,
+    maximumHosts: maximumHosts.schema,
+    autoTuneMaximumHosts: autoTuneMaximumHosts.schema,
+    acceptableHostIdleTimeSeconds: acceptableHostIdleTimeSeconds.schema,
+    futureHostFraction: futureHostFraction.schema,
   },
   uiSchema: (hasEC2Provider: boolean, hasStaticProvider: boolean) => ({
-    acceptableHostIdleTimeSeconds:
-      acceptableHostIdleTimeSeconds.uiSchema(hasEC2Provider),
-    autoTuneMaximumHosts: autoTuneMaximumHosts.uiSchema(hasEC2Provider),
-    feedbackRule: feedbackRule.uiSchema(hasStaticProvider),
-    futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
-    hostsOverallocatedRule: hostsOverallocatedRule.uiSchema,
-    maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
-    minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
-    roundingRule: roundingRule.uiSchema(hasStaticProvider),
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     version: version.uiSchema,
+    roundingRule: roundingRule.uiSchema(hasStaticProvider),
+    feedbackRule: feedbackRule.uiSchema(hasStaticProvider),
+    hostsOverallocatedRule: hostsOverallocatedRule.uiSchema,
+    minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
+    maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
+    autoTuneMaximumHosts: autoTuneMaximumHosts.uiSchema(hasEC2Provider),
+    acceptableHostIdleTimeSeconds:
+      acceptableHostIdleTimeSeconds.uiSchema(hasEC2Provider),
+    futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
   }),
 };
 
 export const sshConfig = {
   schema: {
-    authorizedKeysFile: authorizedKeysFile.schema,
-    execUser: execUser.schema,
-    sshOptions: sshOptions.schema,
     user: user.schema,
+    execUser: execUser.schema,
+    authorizedKeysFile: authorizedKeysFile.schema,
+    sshOptions: sshOptions.schema,
   },
   uiSchema: (hasStaticProvider: boolean) => ({
-    authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
-    execUser: execUser.uiSchema,
-    sshOptions: sshOptions.uiSchema,
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     user: user.uiSchema,
+    execUser: execUser.uiSchema,
+    authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
+    sshOptions: sshOptions.uiSchema,
   }),
 };

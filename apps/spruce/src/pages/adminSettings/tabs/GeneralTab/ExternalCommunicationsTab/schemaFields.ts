@@ -10,105 +10,119 @@ import {
 export const jira = {
   schema: {
     email: {
-      title: "Email",
       type: "string" as const,
+      title: "Email",
     },
     host: {
-      title: "Host",
       type: "string" as const,
+      title: "Host",
     },
     personalAccessToken: {
-      title: "Personal Access Token",
       type: "string" as const,
+      title: "Personal Access Token",
     },
   },
   uiSchema: {
+    "ui:fieldCss": nestedObjectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "jira",
+    "ui:objectFieldCss": objectGridCss,
     personalAccessToken: {
+      "ui:widget": widgets.TextWidget,
       "ui:options": {
         inputType: "password",
       },
-      "ui:widget": widgets.TextWidget,
     },
-    "ui:data-cy": "jira",
-    "ui:fieldCss": nestedObjectGridCss,
-    "ui:objectFieldCss": objectGridCss,
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const slack = {
   schema: {
-    allFields: {
-      title: "All Fields",
-      type: "boolean" as const,
+    token: {
+      type: "string" as const,
+      title: "Token",
     },
-    basicMetadata: {
-      title: "Add basic metadata",
-      type: "boolean" as const,
+    name: {
+      type: "string" as const,
+      title: "App Name",
+    },
+    level: {
+      type: "string" as const,
+      title: "Priority Level",
+      oneOf: [
+        {
+          type: "string" as const,
+          title: "None",
+          enum: [""],
+        },
+        ...Object.keys(PriorityLevel).map((p) => ({
+          type: "string" as const,
+          title: p,
+          enum: [p.toUpperCase()],
+        })),
+      ],
+      default: "",
     },
     channel: {
-      title: "Channel",
       type: "string" as const,
+      title: "Channel",
     },
-    fields: {
-      title: "Use fields",
-      type: "boolean" as const,
+    hostname: {
+      type: "string" as const,
+      title: "Hostname",
+    },
+    optionsName: {
+      type: "string" as const,
+      title: "Name",
+    },
+    username: {
+      type: "string" as const,
+      title: "Username",
     },
     fieldsSet: {
+      type: "array" as const,
+      title: "Fields To Set",
       default: [],
       items: {
+        type: "string" as const,
         properties: {
           value: {
             type: "string" as const,
           },
         },
-        type: "string" as const,
       },
-      title: "Fields To Set",
-      type: "array" as const,
     },
-    hostname: {
-      title: "Hostname",
-      type: "string" as const,
+    basicMetadata: {
+      type: "boolean" as const,
+      title: "Add basic metadata",
     },
-    level: {
-      default: "",
-      oneOf: [
-        {
-          enum: [""],
-          title: "None",
-          type: "string" as const,
-        },
-        ...Object.keys(PriorityLevel).map((p) => ({
-          enum: [p.toUpperCase()],
-          title: p,
-          type: "string" as const,
-        })),
-      ],
-      title: "Priority Level",
-      type: "string" as const,
+    fields: {
+      type: "boolean" as const,
+      title: "Use fields",
     },
-    name: {
-      title: "App Name",
-      type: "string" as const,
-    },
-    optionsName: {
-      title: "Name",
-      type: "string" as const,
-    },
-    token: {
-      title: "Token",
-      type: "string" as const,
-    },
-    username: {
-      title: "Username",
-      type: "string" as const,
+    allFields: {
+      type: "boolean" as const,
+      title: "All Fields",
     },
   },
   uiSchema: {
-    allFields: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "slack",
+    token: {
+      "ui:widget": widgets.TextWidget,
+      "ui:options": {
+        inputType: "password",
+      },
+    },
+    level: {
+      "ui:allowDeselect": false,
+    },
+    fieldsSet: {
+      "ui:widget": widgets.ChipInputWidget,
       "ui:description":
-        "Appends all field information to the message, overriding Fields To Set.",
+        "If you specify a list of field names here, only those fields will be attached to the message. Note that this behavior does not apply if All Fields is checked below.",
+      "ui:fieldCss": fullWidthCss,
     },
     basicMetadata: {
       "ui:description": "Appends priority and host information to the message.",
@@ -116,54 +130,40 @@ export const slack = {
     fields: {
       "ui:description": "Appends field information to the message.",
     },
-    fieldsSet: {
+    allFields: {
       "ui:description":
-        "If you specify a list of field names here, only those fields will be attached to the message. Note that this behavior does not apply if All Fields is checked below.",
-      "ui:fieldCss": fullWidthCss,
-      "ui:widget": widgets.ChipInputWidget,
+        "Appends all field information to the message, overriding Fields To Set.",
     },
-    level: {
-      "ui:allowDeselect": false,
-    },
-    token: {
-      "ui:options": {
-        inputType: "password",
-      },
-      "ui:widget": widgets.TextWidget,
-    },
-    "ui:data-cy": "slack",
-    "ui:objectFieldCss": objectGridCss,
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 const splunkConnectionInfo = {
   schema: {
+    type: "object" as const,
+    title: "Splunk Connection Info",
     properties: {
-      channel: {
-        title: "Channel",
-        type: "string" as const,
-      },
       serverUrl: {
-        title: "Server URL",
         type: "string" as const,
+        title: "Server URL",
       },
       token: {
-        title: "Token",
         type: "string" as const,
+        title: "Token",
+      },
+      channel: {
+        type: "string" as const,
+        title: "Channel",
       },
     },
-    title: "Splunk Connection Info",
-    type: "object" as const,
   },
   uiSchema: {
+    "ui:fieldCss": nestedObjectGridCss,
     token: {
+      "ui:widget": widgets.TextWidget,
       "ui:options": {
         inputType: "password",
       },
-      "ui:widget": widgets.TextWidget,
     },
-    "ui:fieldCss": nestedObjectGridCss,
   },
 };
 
@@ -172,49 +172,49 @@ export const splunk = {
     splunkConnectionInfo: splunkConnectionInfo.schema,
   },
   uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "splunk",
     splunkConnectionInfo: {
       ...splunkConnectionInfo.uiSchema,
     },
-    "ui:data-cy": "splunk",
-    "ui:objectFieldCss": objectGridCss,
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const runtimeEnvironments = {
   schema: {
-    apiKey: {
-      title: "API Key",
-      type: "string" as const,
-    },
     baseUrl: {
-      title: "Base URL",
       type: "string" as const,
+      title: "Base URL",
+    },
+    apiKey: {
+      type: "string" as const,
+      title: "API Key",
     },
   },
   uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "runtime-environments",
     apiKey: {
+      "ui:widget": widgets.TextWidget,
       "ui:options": {
         inputType: "password",
       },
-      "ui:widget": widgets.TextWidget,
     },
-    "ui:data-cy": "runtime-environments",
-    "ui:objectFieldCss": objectGridCss,
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const testSelection = {
   schema: {
     url: {
-      title: "URL",
       type: "string" as const,
+      title: "URL",
     },
   },
   uiSchema: {
-    "ui:data-cy": "test-selection",
     "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "test-selection",
     url: {
       "ui:fullWidth": true,
     },
@@ -224,13 +224,13 @@ export const testSelection = {
 export const fws = {
   schema: {
     url: {
-      title: "URL",
       type: "string" as const,
+      title: "URL",
     },
   },
   uiSchema: {
-    "ui:data-cy": "fws",
     "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "fws",
     url: {
       "ui:fullWidth": true,
     },
@@ -240,67 +240,67 @@ export const fws = {
 export const graphite = {
   schema: {
     ciOptimizationToken: {
-      title: "CI Optimization Token",
       type: "string" as const,
+      title: "CI Optimization Token",
     },
     serverUrl: {
-      title: "Server URL",
       type: "string" as const,
+      title: "Server URL",
     },
   },
   uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "graphite",
     ciOptimizationToken: {
+      "ui:widget": widgets.TextWidget,
       "ui:options": {
         inputType: "password",
       },
-      "ui:widget": widgets.TextWidget,
     },
-    "ui:data-cy": "graphite",
-    "ui:objectFieldCss": objectGridCss,
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
 export const cedar = {
   schema: {
-    dbName: {
-      title: "Database Name",
-      type: "string" as const,
-    },
     dbUrl: {
-      title: "Database URL",
       type: "string" as const,
+      title: "Database URL",
+    },
+    dbName: {
+      type: "string" as const,
+      title: "Database Name",
     },
     spsKanopyUrl: {
-      title: "SPS Kanopy URL",
       type: "string" as const,
+      title: "SPS Kanopy URL",
     },
     spsUrl: {
-      title: "SPS URL (Vanity, for hosts only)",
       type: "string" as const,
+      title: "SPS URL (Vanity, for hosts only)",
     },
   },
   uiSchema: {
-    "ui:data-cy": "cedar",
-    "ui:objectFieldCss": objectGridCss,
     "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "cedar",
   },
 };
 
 export const sage = {
   schema: {
     baseUrl: {
-      title: "Base URL",
       type: "string" as const,
+      title: "Base URL",
     },
   },
   uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "sage",
     baseUrl: {
+      "ui:fullWidth": true,
       "ui:description":
         "The base URL for Sage API (e.g., https://sage.prod.corp.mongodb.com)",
-      "ui:fullWidth": true,
     },
-    "ui:data-cy": "sage",
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };

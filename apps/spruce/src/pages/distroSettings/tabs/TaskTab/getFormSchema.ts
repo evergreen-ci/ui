@@ -18,162 +18,156 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
+      type: "object" as const,
       properties: {
-        dispatcherSettings: {
-          properties: {
-            version: {
-              oneOf: [
-                {
-                  enum: [DispatcherVersion.RevisedWithDependencies],
-                  title: "Revised with dependencies",
-                  type: "string" as const,
-                },
-              ],
-              title: "Task Dispatcher Version",
-              type: "string" as const,
-            },
-          },
-          title: "Task Dispatcher",
-          type: "object" as const,
-        },
         finderSettings: {
+          type: "object" as const,
+          title: "Task Finder",
           properties: {
             version: {
+              type: "string" as const,
+              title: "Task Finder Version",
               oneOf: [
                 {
-                  enum: [FinderVersion.Legacy],
+                  type: "string" as const,
                   title: "Legacy",
-                  type: "string" as const,
+                  enum: [FinderVersion.Legacy],
                 },
                 {
-                  enum: [FinderVersion.Parallel],
+                  type: "string" as const,
                   title: "Parallel",
-                  type: "string" as const,
+                  enum: [FinderVersion.Parallel],
                 },
                 {
-                  enum: [FinderVersion.Pipeline],
+                  type: "string" as const,
                   title: "Pipeline",
-                  type: "string" as const,
+                  enum: [FinderVersion.Pipeline],
                 },
                 {
-                  enum: [FinderVersion.Alternate],
-                  title: "Alternate",
                   type: "string" as const,
+                  title: "Alternate",
+                  enum: [FinderVersion.Alternate],
                 },
               ],
-              title: "Task Finder Version",
-              type: "string" as const,
             },
           },
-          title: "Task Finder",
-          type: "object" as const,
         },
         plannerSettings: {
+          type: "object" as const,
+          title: "Task Planner",
+          properties: {
+            version: {
+              type: "string" as const,
+              title: "Task Planner Version",
+              oneOf: [
+                {
+                  type: "string" as const,
+                  title: "Tunable",
+                  enum: [PlannerVersion.Tunable],
+                },
+              ],
+            },
+          },
           dependencies: {
             version: {
               oneOf: [
                 {
                   properties: {
-                    tunableOptions: {
-                      properties: {
-                        commitQueueFactor: {
-                          default: 0,
-                          maximum: 100,
-                          minimum: 0,
-                          title: "Commit Queue Factor",
-                          type: "number" as const,
-                        },
-                        expectedRuntimeFactor: {
-                          default: 0,
-                          maximum: 100,
-                          minimum: 0,
-                          title: "Expected Runtime Factor",
-                          type: "number" as const,
-                        },
-                        generateTaskFactor: {
-                          default: 0,
-                          maximum: 100,
-                          minimum: 0,
-                          title: "Generate Task Factor",
-                          type: "number" as const,
-                        },
-                        groupVersions: {
-                          default: false,
-                          title: "Group versions",
-                          type: "boolean" as const,
-                        },
-                        mainlineTimeInQueueFactor: {
-                          default: 0,
-                          maximum: 100,
-                          minimum: 0,
-                          title: "Mainline Time in Queue Factor",
-                          type: "number" as const,
-                        },
-                        numDependentsFactor: {
-                          default: 0,
-                          maximum: 100,
-                          minimum: 0,
-                          title: "Number of Dependents Factor",
-                          type: "number" as const,
-                        },
-                        patchFactor: {
-                          default: 0,
-                          maximum: 100,
-                          minimum: 0,
-                          title: "Patch Factor",
-                          type: "number" as const,
-                        },
-                        patchTimeInQueueFactor: {
-                          default: 0,
-                          maximum: 100,
-                          minimum: 0,
-                          title: "Patch Time in Queue Factor",
-                          type: "number" as const,
-                        },
-                        targetTime: {
-                          default: 0,
-                          minimum: 0,
-                          title: "Target Time (ms)",
-                          type: "number" as const,
-                        },
-                      },
-                      title: "",
-                      type: "object" as const,
-                    },
                     version: {
                       enum: [PlannerVersion.Tunable],
+                    },
+                    tunableOptions: {
+                      type: "object" as const,
+                      title: "",
+                      properties: {
+                        targetTime: {
+                          type: "number" as const,
+                          title: "Target Time (ms)",
+                          default: 0,
+                          minimum: 0,
+                        },
+                        patchFactor: {
+                          type: "number" as const,
+                          title: "Patch Factor",
+                          default: 0,
+                          minimum: 0,
+                          maximum: 100,
+                        },
+                        patchTimeInQueueFactor: {
+                          type: "number" as const,
+                          title: "Patch Time in Queue Factor",
+                          default: 0,
+                          minimum: 0,
+                          maximum: 100,
+                        },
+                        mainlineTimeInQueueFactor: {
+                          type: "number" as const,
+                          title: "Mainline Time in Queue Factor",
+                          default: 0,
+                          minimum: 0,
+                          maximum: 100,
+                        },
+                        commitQueueFactor: {
+                          type: "number" as const,
+                          title: "Commit Queue Factor",
+                          default: 0,
+                          minimum: 0,
+                          maximum: 100,
+                        },
+                        expectedRuntimeFactor: {
+                          type: "number" as const,
+                          title: "Expected Runtime Factor",
+                          default: 0,
+                          minimum: 0,
+                          maximum: 100,
+                        },
+                        generateTaskFactor: {
+                          type: "number" as const,
+                          title: "Generate Task Factor",
+                          default: 0,
+                          minimum: 0,
+                          maximum: 100,
+                        },
+                        numDependentsFactor: {
+                          type: "number" as const,
+                          title: "Number of Dependents Factor",
+                          default: 0,
+                          minimum: 0,
+                          maximum: 100,
+                        },
+                        groupVersions: {
+                          type: "boolean" as const,
+                          title: "Group versions",
+                          default: false,
+                        },
+                      },
                     },
                   },
                 },
               ],
             },
           },
+        },
+        dispatcherSettings: {
+          type: "object" as const,
+          title: "Task Dispatcher",
           properties: {
             version: {
+              type: "string" as const,
+              title: "Task Dispatcher Version",
               oneOf: [
                 {
-                  enum: [PlannerVersion.Tunable],
-                  title: "Tunable",
                   type: "string" as const,
+                  title: "Revised with dependencies",
+                  enum: [DispatcherVersion.RevisedWithDependencies],
                 },
               ],
-              title: "Task Planner Version",
-              type: "string" as const,
             },
           },
-          title: "Task Planner",
-          type: "object" as const,
         },
       },
-      type: "object" as const,
     },
     uiSchema: {
-      dispatcherSettings: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        version: {
-          "ui:allowDeselect": false,
-        },
-      },
       finderSettings: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         version: {
@@ -181,9 +175,25 @@ export const getFormSchema = ({
         },
       },
       plannerSettings: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        version: {
+          "ui:allowDeselect": false,
+        },
         tunableOptions: {
           "ui:field-data-cy": "tunable-options",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
+          patchFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
+          patchTimeInQueueFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
+          mainlineTimeInQueueFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
           commitQueueFactor: {
             "ui:description":
               "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
@@ -196,23 +206,13 @@ export const getFormSchema = ({
             "ui:description":
               "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },
-          mainlineTimeInQueueFactor: {
-            "ui:description":
-              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
-          },
           numDependentsFactor: {
             "ui:description":
               "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },
-          patchFactor: {
-            "ui:description":
-              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
-          },
-          patchTimeInQueueFactor: {
-            "ui:description":
-              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
-          },
         },
+      },
+      dispatcherSettings: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         version: {
           "ui:allowDeselect": false,

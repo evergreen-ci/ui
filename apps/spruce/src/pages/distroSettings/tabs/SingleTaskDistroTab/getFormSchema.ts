@@ -3,56 +3,56 @@ import { GetFormSchema } from "components/SpruceForm";
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
+    type: "object" as const,
     properties: {
       projectTasksPairs: {
+        type: "array" as const,
+        title: "Allowed Tasks and Build Variants",
         items: {
+          type: "object" as const,
           properties: {
-            allowedBVs: {
-              items: {
-                title: "Build Variant",
-                type: "string" as const,
-              },
-              title: "Build Variants",
-              type: "array" as const,
+            projectId: {
+              type: "string" as const,
+              title: "Project ID / Repo ID",
             },
             allowedTasks: {
+              type: "array" as const,
+              title: "Tasks",
               items: {
                 title: "Task Regex",
                 type: "string" as const,
               },
-              title: "Tasks",
-              type: "array" as const,
             },
-            projectId: {
-              title: "Project ID / Repo ID",
-              type: "string" as const,
+            allowedBVs: {
+              type: "array" as const,
+              title: "Build Variants",
+              items: {
+                title: "Build Variant",
+                type: "string" as const,
+              },
             },
           },
-          type: "object" as const,
         },
-        title: "Allowed Tasks and Build Variants",
-        type: "array" as const,
       },
     },
-    type: "object" as const,
   },
   uiSchema: {
     projectTasksPairs: {
+      "ui:readonly": true,
+      "ui:orderable": false,
+      "ui:useExpandableCard": true,
+      "ui:description":
+        "This list is shared between all single task distros. Only Evergreen admins can add/edit/delete allowed tasks and build variants. Please file a DEVPROD ticket to request any changes to this list.",
       items: {
-        allowedBVs: {
-          "ui:orderable": false,
-          "ui:placeholder": "No build variants.",
-        },
         allowedTasks: {
           "ui:orderable": false,
           "ui:placeholder": "No tasks.",
         },
+        allowedBVs: {
+          "ui:orderable": false,
+          "ui:placeholder": "No build variants.",
+        },
       },
-      "ui:description":
-        "This list is shared between all single task distros. Only Evergreen admins can add/edit/delete allowed tasks and build variants. Please file a DEVPROD ticket to request any changes to this list.",
-      "ui:orderable": false,
-      "ui:readonly": true,
-      "ui:useExpandableCard": true,
     },
   },
 });

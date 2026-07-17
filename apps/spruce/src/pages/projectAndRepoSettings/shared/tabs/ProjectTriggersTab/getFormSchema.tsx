@@ -2,7 +2,7 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { ProjectTriggerLevel } from "types/triggers";
-import { form, ProjectType } from "../utils";
+import { ProjectType, form } from "../utils";
 
 const { overrideRadioBox } = form;
 
@@ -11,119 +11,145 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
+    type: "object" as const,
     description:
       "Configure upstream projects to cause tasks in this project to run.",
-    type: "object" as const,
     ...overrideRadioBox(
       "triggers",
       ["Override Repo Triggers", "Default to Repo Triggers"],
       {
+        type: "array" as const,
         default: [],
         items: {
+          type: "object" as const,
           properties: {
-            alias: {
-              default: "",
-              title: "Alias",
+            project: {
               type: "string" as const,
-            },
-            buildVariantRegex: {
+              title: "Project",
               default: "",
-              title: "Variant Regex",
-              type: "string" as const,
+              minLength: 1,
+              format: "noStartingOrTrailingWhitespace",
             },
             configFile: {
-              default: "",
-              format: "noStartingOrTrailingWhitespace",
-              minLength: 1,
-              title: "Config File",
               type: "string" as const,
-            },
-            dateCutoff: {
-              minimum: 0,
-              title: "Date Cutoff",
-              type: ["number", "null"],
+              title: "Config File",
+              default: "",
+              minLength: 1,
+              format: "noStartingOrTrailingWhitespace",
             },
             level: {
+              type: "string" as const,
+              title: "Level",
               default: ProjectTriggerLevel.TASK,
               oneOf: [
                 {
-                  enum: [ProjectTriggerLevel.TASK],
+                  type: "string" as const,
                   title: "Task",
-                  type: "string" as const,
+                  enum: [ProjectTriggerLevel.TASK],
                 },
                 {
-                  enum: [ProjectTriggerLevel.BUILD],
+                  type: "string" as const,
                   title: "Build",
-                  type: "string" as const,
+                  enum: [ProjectTriggerLevel.BUILD],
                 },
                 {
-                  enum: [ProjectTriggerLevel.PUSH],
-                  title: "Push",
                   type: "string" as const,
+                  title: "Push",
+                  enum: [ProjectTriggerLevel.PUSH],
                 },
               ],
-              title: "Level",
-              type: "string" as const,
-            },
-            project: {
-              default: "",
-              format: "noStartingOrTrailingWhitespace",
-              minLength: 1,
-              title: "Project",
-              type: "string" as const,
             },
             status: {
+              type: "string" as const,
+              title: "Status",
               default: "",
               oneOf: [
                 {
-                  enum: [""],
+                  type: "string" as const,
                   title: "All",
-                  type: "string" as const,
+                  enum: [""],
                 },
                 {
-                  enum: [TaskStatus.Succeeded],
+                  type: "string" as const,
                   title: "Success",
-                  type: "string" as const,
+                  enum: [TaskStatus.Succeeded],
                 },
                 {
-                  enum: [TaskStatus.Failed],
-                  title: "Failure",
                   type: "string" as const,
+                  title: "Failure",
+                  enum: [TaskStatus.Failed],
                 },
               ],
-              title: "Status",
+            },
+            dateCutoff: {
+              type: ["number", "null"],
+              title: "Date Cutoff",
+              minimum: 0,
+            },
+            buildVariantRegex: {
               type: "string" as const,
+              title: "Variant Regex",
+              default: "",
             },
             taskRegex: {
-              default: "",
-              title: "Task Regex",
               type: "string" as const,
+              title: "Task Regex",
+              default: "",
+            },
+            alias: {
+              type: "string" as const,
+              title: "Alias",
+              default: "",
             },
             unscheduleDownstreamVersions: {
-              title: "Unschedule Downstream Versions",
               type: "boolean" as const,
+              title: "Unschedule Downstream Versions",
             },
           },
-          type: "object" as const,
         },
-        type: "array" as const,
       },
     ),
   },
   uiSchema: {
-    repoData: {
-      triggers: {
-        "ui:showLabel": false,
-        "ui:useExpandableCard": true,
-      },
-      "ui:orderable": false,
-      "ui:readonly": true,
+    triggersOverride: {
+      "ui:widget":
+        projectType === ProjectType.AttachedProject
+          ? widgets.RadioBoxWidget
+          : "hidden",
+      "ui:showLabel": false,
     },
     triggers: {
+      "ui:addButtonText": "Add project trigger",
+      "ui:orderable": false,
+      "ui:showLabel": false,
+      "ui:useExpandableCard": true,
       items: {
-        alias: {
+        "ui:displayTitle": "New Project Trigger",
+        "ui:label": false,
+        project: {
           "ui:description":
-            "Patch alias to filter variants/tasks in this project.",
+            "The upstream project identifier to listen to for commits",
+          "ui:data-cy": "project-input",
+        },
+        configFile: {
+          "ui:description":
+            "The path to the downstream project's config file. This may be the same as the main project configuration file but does not have to be.",
+          "ui:data-cy": "config-file-input",
+          "ui:placeholder": ".evergreen.yml",
+        },
+        level: {
+          "ui:description":
+            "Task and build levels will trigger based on the completion of a task or a build in the upstream project. Push level triggers will trigger once a commit is pushed to the upstream project. This is helpful if the upstream project does not regularly run or create commit tasks.",
+          "ui:allowDeselect": false,
+        },
+        status: {
+          "ui:description":
+            "Specify which status of the upstream build or task should trigger a downstream version. This applicable to build and task level triggers only.",
+          "ui:allowDeselect": false,
+        },
+        dateCutoff: {
+          "ui:description":
+            "Commits older than this number of days will not invoke trigger.",
           "ui:optional": true,
         },
         buildVariantRegex: {
@@ -131,57 +157,31 @@ export const getFormSchema = (
             "Only matching variants in the upstream project will invoke trigger.",
           "ui:optional": true,
         },
-        configFile: {
-          "ui:data-cy": "config-file-input",
-          "ui:description":
-            "The path to the downstream project's config file. This may be the same as the main project configuration file but does not have to be.",
-          "ui:placeholder": ".evergreen.yml",
-        },
-        dateCutoff: {
-          "ui:description":
-            "Commits older than this number of days will not invoke trigger.",
-          "ui:optional": true,
-        },
-        level: {
-          "ui:allowDeselect": false,
-          "ui:description":
-            "Task and build levels will trigger based on the completion of a task or a build in the upstream project. Push level triggers will trigger once a commit is pushed to the upstream project. This is helpful if the upstream project does not regularly run or create commit tasks.",
-        },
-        project: {
-          "ui:data-cy": "project-input",
-          "ui:description":
-            "The upstream project identifier to listen to for commits",
-        },
-        status: {
-          "ui:allowDeselect": false,
-          "ui:description":
-            "Specify which status of the upstream build or task should trigger a downstream version. This applicable to build and task level triggers only.",
-        },
         taskRegex: {
           "ui:description":
             "Only matching tasks in the upstream project will invoke trigger.",
           "ui:optional": true,
         },
-        "ui:displayTitle": "New Project Trigger",
-        "ui:label": false,
+        alias: {
+          "ui:description":
+            "Patch alias to filter variants/tasks in this project.",
+          "ui:optional": true,
+        },
         unscheduleDownstreamVersions: {
-          "ui:bold": true,
           "ui:description":
             "Downstream versions created by this trigger will be deactivated by default",
           "ui:optional": true,
+          "ui:bold": true,
         },
       },
-      "ui:addButtonText": "Add project trigger",
-      "ui:orderable": false,
-      "ui:showLabel": false,
-      "ui:useExpandableCard": true,
     },
-    triggersOverride: {
-      "ui:showLabel": false,
-      "ui:widget":
-        projectType === ProjectType.AttachedProject
-          ? widgets.RadioBoxWidget
-          : "hidden",
+    repoData: {
+      "ui:orderable": false,
+      "ui:readonly": true,
+      triggers: {
+        "ui:showLabel": false,
+        "ui:useExpandableCard": true,
+      },
     },
   },
 });

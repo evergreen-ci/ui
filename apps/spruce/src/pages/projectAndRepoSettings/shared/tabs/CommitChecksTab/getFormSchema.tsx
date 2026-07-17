@@ -5,12 +5,12 @@ import widgets from "components/SpruceForm/Widgets";
 import { githubChecksAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
 import {
+  ProjectType,
   alias,
   fieldDisabled,
   form,
   githubConflictErrorStyling,
   hideIf,
-  ProjectType,
   sectionHasError,
 } from "../utils";
 import { CommitChecksFormState } from "./types";
@@ -31,9 +31,30 @@ export const getFormSchema = (
   return {
     fields: {},
     schema: {
+      type: "object" as const,
       properties: {
         github: {
+          type: "object" as const,
+          title: "",
           properties: {
+            githubWebhooksEnabled: {
+              type: "null",
+              title: "GitHub Webhooks",
+              description: `GitHub webhooks ${
+                githubWebhooksEnabled ? "are" : "are not"
+              } enabled.`,
+            },
+            githubChecksEnabledTitle: {
+              type: "null",
+              title: "GitHub Commit Checks",
+            },
+            githubChecksEnabled: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.githubChecksEnabled ?? undefined,
+              ),
+            },
             githubChecks: {
               title: "Commit Check Definitions",
               ...overrideRadioBox(
@@ -43,33 +64,28 @@ export const getFormSchema = (
                 aliasArray.schema,
               ),
             },
-            githubChecksEnabled: {
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.github?.githubChecksEnabled ?? undefined,
-              ),
-              type: ["boolean", "null"],
-            },
-            githubChecksEnabledTitle: {
-              title: "GitHub Commit Checks",
-              type: "null",
-            },
-            githubWebhooksEnabled: {
-              description: `GitHub webhooks ${
-                githubWebhooksEnabled ? "are" : "are not"
-              } enabled.`,
-              title: "GitHub Webhooks",
-              type: "null",
-            },
           },
-          title: "",
-          type: "object" as const,
         },
       },
-      type: "object" as const,
     },
     uiSchema: {
       github: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        githubChecksEnabledTitle: {
+          "ui:sectionTitle": true,
+          "ui:description": GitHubChecksAliasesDescription(projectType),
+        },
+        githubChecksEnabled: {
+          "ui:data-cy": "github-checks-enabled-radio-box",
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.commitCheckIdentifiers ?? null,
+            formData?.github?.githubChecksEnabled ?? null,
+            repoData?.github?.githubChecksEnabled ?? false,
+            "Commit Checks",
+          ),
+        },
         githubChecks: {
           ...hideIf(
             fieldDisabled(
@@ -84,17 +100,17 @@ export const getFormSchema = (
             repoData?.github?.githubChecks?.githubCheckAliases ?? [],
             "Commit Check Definition",
           ),
-          githubCheckAliases: aliasRowUiSchema({
-            addButtonText: "Add definition",
-            numberedTitle: "Commit Check Definition",
-          }),
           githubCheckAliasesOverride: {
-            "ui:showLabel": false,
             "ui:widget":
               projectType === ProjectType.AttachedProject
                 ? widgets.RadioBoxWidget
                 : "hidden",
+            "ui:showLabel": false,
           },
+          githubCheckAliases: aliasRowUiSchema({
+            addButtonText: "Add definition",
+            numberedTitle: "Commit Check Definition",
+          }),
           repoData: {
             githubCheckAliases: aliasRowUiSchema({
               isRepo: true,
@@ -102,22 +118,6 @@ export const getFormSchema = (
             }),
           },
         },
-        githubChecksEnabled: {
-          "ui:data-cy": "github-checks-enabled-radio-box",
-          "ui:showLabel": false,
-          "ui:widget": widgets.RadioBoxWidget,
-          ...githubConflictErrorStyling(
-            githubProjectConflicts?.commitCheckIdentifiers ?? null,
-            formData?.github?.githubChecksEnabled ?? null,
-            repoData?.github?.githubChecksEnabled ?? false,
-            "Commit Checks",
-          ),
-        },
-        githubChecksEnabledTitle: {
-          "ui:description": GitHubChecksAliasesDescription(projectType),
-          "ui:sectionTitle": true,
-        },
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
       },
     },
   };

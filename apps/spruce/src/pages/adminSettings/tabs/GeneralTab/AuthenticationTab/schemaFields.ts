@@ -31,119 +31,118 @@ export const usersGridCss = css`
 
 export const globalConfig = {
   schema: {
-    allowServiceUsers: {
-      title: "Allow Service Users",
-      type: "boolean" as const,
+    preferredType: {
+      type: "string" as const,
+      title: "Preferred Authentication Type",
+      oneOf: Object.entries(PreferredAuthType).map(([key, value]) => ({
+        type: "string" as const,
+        title: key,
+        enum: [value],
+      })),
     },
     backgroundReauthMinutes: {
-      title: "Background Reauthentication (Mins)",
       type: "number" as const,
+      title: "Background Reauthentication (Mins)",
     },
-    preferredType: {
-      oneOf: Object.entries(PreferredAuthType).map(([key, value]) => ({
-        enum: [value],
-        title: key,
-        type: "string" as const,
-      })),
-      title: "Preferred Authentication Type",
-      type: "string" as const,
+    allowServiceUsers: {
+      type: "boolean" as const,
+      title: "Allow Service Users",
     },
   },
   uiSchema: {
+    "ui:fieldCss": nestedObjectGridCss,
+    preferredType: {
+      "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.RadioWidget,
+      "ui:options": {
+        inline: true,
+        elementWrapperCSS: radioCSS,
+      },
+    },
     allowServiceUsers: {
       "ui:fieldCss": fullWidthCss,
+      "ui:widget": widgets.CheckboxWidget,
       "ui:options": {
         bold: true,
       },
-      "ui:widget": widgets.CheckboxWidget,
     },
-    preferredType: {
-      "ui:fieldCss": fullWidthCss,
-      "ui:options": {
-        elementWrapperCSS: radioCSS,
-        inline: true,
-      },
-      "ui:widget": widgets.RadioWidget,
-    },
-    "ui:fieldCss": nestedObjectGridCss,
   },
 };
 
 export const okta = {
   schema: {
     clientId: {
-      title: "Client ID",
       type: "string" as const,
+      title: "Client ID",
     },
     clientSecret: {
-      title: "Client Secret",
       type: "string" as const,
-    },
-    expireAfterMinutes: {
-      title: "Expire After (Mins)",
-      type: "number" as const,
+      title: "Client Secret",
     },
     issuer: {
-      title: "Issuer",
       type: "string" as const,
+      title: "Issuer",
+    },
+    userGroup: {
+      type: "string" as const,
+      title: "User Group",
+    },
+    expireAfterMinutes: {
+      type: "number" as const,
+      title: "Expire After (Mins)",
     },
     scopes: {
+      type: "array" as const,
+      title: "Scopes",
       items: {
         type: "string" as const,
       },
-      title: "Scopes",
-      type: "array" as const,
-    },
-    userGroup: {
-      title: "User Group",
-      type: "string" as const,
     },
   },
   uiSchema: {
+    "ui:fieldCss": nestedObjectGridCss,
     scopes: {
+      "ui:widget": widgets.ChipInputWidget,
+      "ui:fieldCss": fullWidthCss,
       "ui:elementWrapperCSS": css`
         margin-bottom: 0;
       `,
-      "ui:fieldCss": fullWidthCss,
-      "ui:widget": widgets.ChipInputWidget,
     },
-    "ui:fieldCss": nestedObjectGridCss,
   },
 };
 
 export const naive = {
   schema: {
     users: {
+      type: "array" as const,
+      title: "Users",
       items: {
+        type: "object" as const,
         properties: {
           displayName: {
-            title: "Display Name",
             type: "string" as const,
+            title: "Display Name",
           },
           email: {
-            title: "Email",
             type: "string" as const,
+            title: "Email",
           },
           password: {
-            title: "Password",
             type: "string" as const,
+            title: "Password",
           },
           username: {
-            title: "Username",
             type: "string" as const,
+            title: "Username",
           },
         },
-        type: "object" as const,
       },
-      title: "Users",
-      type: "array" as const,
     },
   },
   uiSchema: {
     users: {
-      items: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-      },
+      "ui:fullWidth": true,
+      "ui:orderable": false,
       "ui:addButtonText": "Add user",
       "ui:arrayCSS": css`
         margin-bottom: 0;
@@ -153,8 +152,9 @@ export const naive = {
           margin-bottom: ${size.m};
         }
       `,
-      "ui:fullWidth": true,
-      "ui:orderable": false,
+      items: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+      },
     },
   },
 };
@@ -162,45 +162,45 @@ export const naive = {
 export const github = {
   schema: {
     appId: {
-      title: "App ID",
       type: "number" as const,
+      title: "App ID",
     },
     clientId: {
-      title: "Client ID",
       type: "string" as const,
+      title: "Client ID",
     },
     clientSecret: {
-      title: "Client Secret",
       type: "string" as const,
+      title: "Client Secret",
     },
     defaultOwner: {
-      title: "Default Owner",
       type: "string" as const,
+      title: "Default Owner",
     },
     defaultRepo: {
-      title: "Default Repository",
       type: "string" as const,
+      title: "Default Repository",
     },
     organization: {
-      title: "Organization",
       type: "string" as const,
+      title: "Organization",
     },
     users: {
+      type: "array" as const,
+      title: "Users",
       items: {
         type: "string" as const,
       },
-      title: "Users",
-      type: "array" as const,
     },
   },
   uiSchema: {
     "ui:fieldCss": nestedObjectGridCss,
     users: {
+      "ui:widget": widgets.ChipInputWidget,
+      "ui:fieldCss": fullWidthCss,
       "ui:elementWrapperCSS": css`
         margin-bottom: 0;
       `,
-      "ui:fieldCss": fullWidthCss,
-      "ui:widget": widgets.ChipInputWidget,
     },
   },
 };
@@ -208,16 +208,16 @@ export const github = {
 export const oauth = {
   schema: {
     clientId: {
+      type: "string" as const,
       title: "Client ID",
-      type: "string" as const,
-    },
-    connectorId: {
-      title: "Connector ID",
-      type: "string" as const,
     },
     issuer: {
-      title: "Issuer",
       type: "string" as const,
+      title: "Issuer",
+    },
+    connectorId: {
+      type: "string" as const,
+      title: "Connector ID",
     },
   },
   uiSchema: {
@@ -233,43 +233,43 @@ const validMultiOptions = [
 
 const multiOptions = [
   ...validMultiOptions.map((key) => ({
-    enum: [key.toLowerCase()],
-    title: toSentenceCase(key),
     type: "string" as const,
+    title: toSentenceCase(key),
+    enum: [key.toLowerCase()],
   })),
 ];
 
 export const multi = {
   schema: {
-    readOnly: {
-      items: {
-        anyOf: multiOptions,
-        type: "string" as const,
-      },
-      title: "Read Only",
-      type: "array" as const,
-      uniqueItems: true,
-    },
     readWrite: {
-      items: {
-        anyOf: multiOptions,
-        type: "string" as const,
-      },
-      title: "Read Write",
       type: "array" as const,
+      title: "Read Write",
       uniqueItems: true,
+      items: {
+        type: "string" as const,
+        anyOf: multiOptions,
+      },
+    },
+    readOnly: {
+      type: "array" as const,
+      title: "Read Only",
+      uniqueItems: true,
+      items: {
+        type: "string" as const,
+        anyOf: multiOptions,
+      },
     },
   },
   uiSchema: {
-    readOnly: {
-      "ui:data-cy": "multi-read-only",
-      "ui:fieldCss": fullWidthCss,
-      "ui:widget": widgets.MultiSelectWidget,
-    },
     readWrite: {
       "ui:data-cy": "multi-read-write",
-      "ui:fieldCss": fullWidthCss,
       "ui:widget": widgets.MultiSelectWidget,
+      "ui:fieldCss": fullWidthCss,
+    },
+    readOnly: {
+      "ui:data-cy": "multi-read-only",
+      "ui:widget": widgets.MultiSelectWidget,
+      "ui:fieldCss": fullWidthCss,
     },
   },
 };
@@ -277,16 +277,16 @@ export const multi = {
 export const kanopy = {
   schema: {
     headerName: {
-      title: "Header Name",
       type: "string" as const,
+      title: "Header Name",
     },
     issuer: {
-      title: "Issuer",
       type: "string" as const,
+      title: "Issuer",
     },
     keysetURL: {
-      title: "Keyset URL",
       type: "string" as const,
+      title: "Keyset URL",
     },
   },
   uiSchema: {
