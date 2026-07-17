@@ -52,7 +52,9 @@ export const Pagination: React.FC<Props> = ({
   };
 
   const numTotalItems =
-    countLimit && totalResults >= countLimit ? undefined : totalResults;
+    countLimit !== undefined && totalResults >= countLimit
+      ? undefined
+      : totalResults;
 
   return (
     <StyledPagination
