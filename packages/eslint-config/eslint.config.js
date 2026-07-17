@@ -29,7 +29,6 @@ const errorIfCI = process.env.CI ? ERROR : OFF;
 const errorIfStrict = process.env.STRICT ? ERROR : WARN;
 
 const globalIgnores = {
-  name: "Globally Ignored Files",
   ignores: [
     "**/bin",
     "**/build",
@@ -41,10 +40,10 @@ const globalIgnores = {
     "**/storybook-static",
     "**/routeTree.gen.ts",
   ],
+  name: "Globally Ignored Files",
 };
 
 const languageOptions = {
-  name: "Language Options",
   languageOptions: {
     parserOptions: {
       ecmaFeatures: {
@@ -52,6 +51,7 @@ const languageOptions = {
       },
     },
   },
+  name: "Language Options",
   settings: {
     react: {
       version: "detect",
@@ -61,11 +61,11 @@ const languageOptions = {
 
 // ESLint (@eslint/js) settings.
 const eslintConfig = {
+  files: ["**/*.js?(x)", "**/*.ts?(x)"],
   name: "@eslint/js/rules",
   plugins: {
     "@eslint/js": eslint,
   },
-  files: ["**/*.js?(x)", "**/*.ts?(x)"],
   rules: {
     ...eslint.configs.recommended.rules,
     "array-callback-return": [ERROR, { allowImplicit: true }],
@@ -76,7 +76,7 @@ const eslintConfig = {
         requireReturnForObjectLiteral: false,
       },
     ],
-    camelcase: [ERROR, { properties: "never", ignoreDestructuring: false }],
+    camelcase: [ERROR, { ignoreDestructuring: false, properties: "never" }],
     "consistent-return": OFF,
     curly: [errorIfStrict, "multi-line"],
     "default-case": ERROR,
@@ -106,20 +106,19 @@ const eslintConfig = {
     "prefer-destructuring": [
       ERROR,
       {
-        VariableDeclarator: {
-          array: false,
-          object: true,
-        },
         AssignmentExpression: {
           array: true,
           object: false,
+        },
+        VariableDeclarator: {
+          array: false,
+          object: true,
         },
       },
       { enforceForRenamedProperties: false },
     ],
     "prefer-regex-literals": [ERROR, { disallowRedundantWrapping: true }],
     "prefer-template": ERROR,
-    "sort-imports": [ERROR, { ignoreDeclarationSort: true }],
     radix: ERROR,
     yoda: ERROR,
   },
@@ -127,11 +126,11 @@ const eslintConfig = {
 
 // Stylistic (@stylistic/eslint-plugin) settings.
 const stylisticConfig = {
+  files: ["**/*.js?(x)", "**/*.ts?(x)"],
   name: "@stylistic/rules",
   plugins: {
     "@stylistic": stylisticPlugin,
   },
-  files: ["**/*.js?(x)", "**/*.ts?(x)"],
   rules: {
     ...stylisticPlugin.configs.recommended.rules,
     "@stylistic/spaced-comment": [ERROR, "always", { markers: ["/"] }],
@@ -140,7 +139,6 @@ const stylisticConfig = {
 
 // TypeScript ESLint (typescript-eslint) settings.
 const tsEslintConfig = {
-  name: "typescript-eslint/rules",
   files: ["**/*.ts?(x)"],
   ignores: [
     "**/.storybook/**",
@@ -149,9 +147,8 @@ const tsEslintConfig = {
     "**/playwright/**",
   ],
   languageOptions: {
-    parser: tseslint.parser,
     ecmaVersion: "latest",
-    sourceType: "module",
+    parser: tseslint.parser,
     parserOptions: {
       ecmaFeatures: {
         jsx: true,
@@ -162,7 +159,9 @@ const tsEslintConfig = {
       ],
       tsConfigRootDir: monorepoRoot,
     },
+    sourceType: "module",
   },
+  name: "typescript-eslint/rules",
   plugins: {
     "typescript-eslint": tseslint,
   },
@@ -181,9 +180,9 @@ const tsEslintConfig = {
       {
         args: "after-used",
         argsIgnorePattern: "^_",
+        caughtErrors: "none",
         ignoreRestSiblings: true,
         vars: "all",
-        caughtErrors: "none",
       },
     ],
     "@typescript-eslint/no-use-before-define": [
@@ -197,8 +196,8 @@ const tsEslintConfig = {
 const reactConfig = {
   ...reactPlugin.configs.flat.recommended,
   ...reactPlugin.configs.flat["jsx-runtime"], // Need to use this config if using React 17+.
-  name: "react/rules",
   files: ["src/**/*.ts?(x)"],
+  name: "react/rules",
   rules: {
     ...reactPlugin.configs.flat.recommended.rules,
     ...reactPlugin.configs.flat["jsx-runtime"].rules,
@@ -212,7 +211,7 @@ const reactConfig = {
     "react/jsx-boolean-value": [ERROR, "never", { always: [] }],
     "react/jsx-curly-brace-presence": [
       ERROR,
-      { props: "never", children: "never" },
+      { children: "never", props: "never" },
     ],
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
     "react/jsx-no-constructed-context-values": ERROR,
@@ -243,8 +242,8 @@ const reactConfig = {
 
 // React Hooks ESLint (eslint-plugin-react-hooks) settings
 const reactHooksConfig = {
-  name: "react-hooks/rules",
   files: ["src/**/*.ts?(x)"],
+  name: "react-hooks/rules",
   plugins: {
     "react-hooks": reactHooksPlugin,
   },
@@ -258,8 +257,8 @@ const reactHooksConfig = {
 // JSX A11y ESLint (eslint-plugin-jsx-a11y) settings.
 const jsxA11yConfig = {
   ...jsxA11yPlugin.flatConfigs.recommended,
-  name: "jsx-a11y/rules",
   files: ["src/**/*.ts?(x)"],
+  name: "jsx-a11y/rules",
   rules: {
     ...jsxA11yPlugin.flatConfigs.recommended.rules,
     "jsx-a11y/anchor-is-valid": errorIfStrict,
@@ -274,15 +273,19 @@ const jsxA11yConfig = {
 };
 
 const perfectionistConfig = {
-  name: "perfectionist/rules",
   files: ["**/*.js?(x)", "**/*.ts?(x)"],
+  name: "perfectionist/rules",
   plugins: {
     perfectionist: perfectionistPlugin,
   },
   rules: {
+    "perfectionist/sort-named-imports": [
+      ERROR,
+      { ignoreCase: false, order: "asc", type: "natural" },
+    ],
     "perfectionist/sort-objects": [
       ERROR,
-      { type: "natural",  order: "asc", ignoreCase: false },
+      { ignoreCase: false, order: "asc", type: "natural" },
     ],
   },
 };
@@ -290,15 +293,15 @@ const perfectionistConfig = {
 // React Testing Library ESLint (eslint-plugin-testing-library) settings.
 const testingLibraryConfig = {
   ...testingLibraryPlugin.configs["flat/react"],
-  name: "testing-library/rules",
   files: ["src/**/*.test.ts?(x)"],
+  name: "testing-library/rules",
 };
 
 // JSDoc ESLint (eslint-plugin-jsdoc) settings.
 const jsDocConfig = {
   ...jsdocPlugin.configs["flat/recommended-typescript-error"],
-  name: "jsdoc/rules",
   files: ["**/*.js?(x)", "**/*.ts?(x)"],
+  name: "jsdoc/rules",
   settings: {
     jsdoc: {
       ignoreInternal: true,
@@ -308,8 +311,8 @@ const jsDocConfig = {
 
 // Storybook ESLint (eslint-plugin-storybook) settings.
 const storyBookConfig = {
-  name: "storybook/rules",
   files: ["src/**/*.stories.ts?(x)"],
+  name: "storybook/rules",
   rules: {
     "storybook/no-stories-of": ERROR,
   },
@@ -317,8 +320,8 @@ const storyBookConfig = {
 
 // Playwright ESLint (eslint-plugin-playwright) settings.
 const playwrightConfig = {
-  name: "playwright/rules",
   files: ["playwright/**/*.ts"],
+  name: "playwright/rules",
   plugins: {
     playwright: playwrightPlugin,
   },
@@ -332,19 +335,19 @@ const playwrightConfig = {
 // The processor extracts GraphQL from gql tagged template literals in .ts
 // files and creates virtual .graphql documents that the rules config applies to.
 const graphQLProcessorConfig = {
-  name: "@graphql-eslint/processor",
   files: ["src/gql/**/*.ts"],
   ignores: ["**/*.test.ts", "**/*.test.tsx"],
+  name: "@graphql-eslint/processor",
   processor: graphqlPlugin.processor,
 };
 
 const graphQLConfig = {
-  name: "@graphql-eslint/rules",
   // Matches virtual .graphql documents extracted by the processor from gql tagged templates.
   files: ["src/gql/**/*.graphql"],
   languageOptions: {
     parser: graphqlPlugin.parser,
   },
+  name: "@graphql-eslint/rules",
   plugins: {
     "@graphql-eslint": graphqlPlugin,
   },
@@ -353,8 +356,8 @@ const graphQLConfig = {
     "@graphql-eslint/alphabetize": [
       errorIfStrict,
       {
-        selections: ["OperationDefinition", "FragmentDefinition"],
         groups: ["...", "id", "*"],
+        selections: ["OperationDefinition", "FragmentDefinition"],
       },
     ],
     "@graphql-eslint/known-directives": [
@@ -364,10 +367,10 @@ const graphQLConfig = {
     "@graphql-eslint/no-deprecated": ERROR,
     "@graphql-eslint/selection-set-depth": [ERROR, { maxDepth: 8 }],
 
+    "@graphql-eslint/unique-fragment-name": OFF,
     // The following two rules are disabled because Spruce and Parsley could have
     // identical fragment and operation names.
     "@graphql-eslint/unique-operation-name": OFF,
-    "@graphql-eslint/unique-fragment-name": OFF,
   },
 };
 
@@ -376,20 +379,13 @@ const importConfig = {
   ...importPlugin.flatConfigs.recommended,
   ...importPlugin.flatConfigs.typescript,
   name: "import/rules",
-  settings: {
-    "import/resolver": {
-      typescript: true,
-      node: true,
-    },
-    "import/ignore": ["node_modules"],
-  },
   rules: {
     ...importPlugin.flatConfigs.recommended.rules,
     ...importPlugin.flatConfigs.typescript.rules,
     "import/first": ERROR,
     "import/newline-after-import": ERROR,
-    "import/no-dynamic-require": ERROR,
     "import/no-duplicates": [ERROR, { "prefer-inline": true }],
+    "import/no-dynamic-require": ERROR,
     "import/no-extraneous-dependencies": OFF,
     "import/no-unresolved": OFF,
     "import/no-useless-path-segments": ERROR,
@@ -435,6 +431,13 @@ const importConfig = {
       },
     ],
     "import/prefer-default-export": OFF,
+  },
+  settings: {
+    "import/ignore": ["node_modules"],
+    "import/resolver": {
+      node: true,
+      typescript: true,
+    },
   },
 };
 
