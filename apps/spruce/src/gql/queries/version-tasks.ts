@@ -1,7 +1,5 @@
 import { gql } from "@apollo/client";
 
-// prevTaskCompleted(prevTaskOptions: { skipOnParentCompleted: true } ) {
-//
 export const VERSION_TASKS = gql`
   query VersionTasks(
     $versionId: String!
@@ -19,7 +17,9 @@ export const VERSION_TASKS = gql`
             id
             displayStatus
             execution
-            prevTaskCompleted {
+            prevTaskCompleted(
+              prevTaskOptions: { skipOnParentCompleted: true }
+            ) {
               id
               displayStatus
               execution
@@ -43,7 +43,9 @@ export const VERSION_TASKS = gql`
               id
               displayStatus
               execution
-              prevTaskCompleted {
+              prevTaskCompleted(
+                prevTaskOptions: { skipOnParentCompleted: true }
+              ) {
                 id
                 displayStatus
                 execution
