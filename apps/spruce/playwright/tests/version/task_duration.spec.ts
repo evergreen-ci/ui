@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 test.describe("Task Duration Tab", () => {

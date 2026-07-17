@@ -1,14 +1,14 @@
 import type {
-  IdentifierData,
-  AnalyticsVisualizerOptions,
   Action,
+  AnalyticsVisualizerOptions,
+  IdentifierData,
 } from "../types.ts";
 import {
   escapeHtml,
-  generateHoneycombUrl,
-  generateHoneycombIdentifierUrl,
-  generateGitHubSearchUrl,
   generateGitHubFileUrl,
+  generateGitHubSearchUrl,
+  generateHoneycombIdentifierUrl,
+  generateHoneycombUrl,
   toSlug,
 } from "../utils.ts";
 

@@ -1,5 +1,5 @@
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { mocks } from "./testData";
 import { ScheduleTasks } from ".";
 

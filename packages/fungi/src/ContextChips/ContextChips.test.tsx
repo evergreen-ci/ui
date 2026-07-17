@@ -1,4 +1,4 @@
-import { userEvent, render, screen } from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { ContextChip } from "#Context";
 import { ContextChips } from ".";
 

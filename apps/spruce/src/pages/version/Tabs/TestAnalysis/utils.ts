@@ -1,7 +1,7 @@
 import {
-  TestAnalysisQueryTasks,
-  TaskBuildVariantField,
   GroupedTestMap,
+  TaskBuildVariantField,
+  TestAnalysisQueryTasks,
 } from "./types";
 
 /**

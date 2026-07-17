@@ -9,15 +9,15 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
-  UserProjectSettingsPermissionsQuery,
-  UserProjectSettingsPermissionsQueryVariables,
-  GithubOrgsQuery,
-  GithubOrgsQueryVariables,
   CopyProjectMutation,
   CopyProjectMutationVariables,
+  GithubOrgsQuery,
+  GithubOrgsQueryVariables,
+  UserProjectSettingsPermissionsQuery,
+  UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
-import { USER_PROJECT_SETTINGS_PERMISSIONS, GITHUB_ORGS } from "gql/queries";
+import { GITHUB_ORGS, USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";
 

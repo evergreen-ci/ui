@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { fontFamilies, BaseFontSize } from "@leafygreen-ui/tokens";
+import { BaseFontSize, fontFamilies } from "@leafygreen-ui/tokens";
 
 export const resetStyles = css`
   /* Reset styles, usage recommended by LeafyGreen. */

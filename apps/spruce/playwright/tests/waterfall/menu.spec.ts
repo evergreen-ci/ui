@@ -1,9 +1,9 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import {
-  selectOption,
-  validateToast,
   clickCheckbox,
   mockGraphQLResponse,
+  selectOption,
+  validateToast,
 } from "../../helpers";
 
 test.describe("Waterfall menu settings", () => {

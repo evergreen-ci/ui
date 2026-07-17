@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, Fragment } from "react";
+import { ForwardedRef, Fragment, forwardRef } from "react";
 import { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
@@ -7,25 +7,25 @@ import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,
   ExpandedContent,
-  flexRender,
+  ExpandedContentProps,
+  Header,
   HeaderCell,
   HeaderRow,
+  type LGRowData,
+  LGTableDataType,
+  LeafyGreenTable,
+  LeafyGreenTableRow,
+  LeafyGreenVirtualTable,
   Row,
   type RowData,
   Table,
   TableBody,
-  type TableProps,
   TableHead,
+  type TableProps,
   VirtualItem,
-  LeafyGreenTableRow,
-  LeafyGreenTable,
-  LeafyGreenVirtualTable,
-  Header,
-  LGTableDataType,
-  type LGRowData,
-  ExpandedContentProps,
+  flexRender,
 } from "@leafygreen-ui/table";
-import { tableColumnOffset, size } from "../../constants/tokens";
+import { size, tableColumnOffset } from "../../constants/tokens";
 import { conditionalToArray } from "../../utils/array";
 import { TreeDataEntry } from "../TreeSelect";
 import TableLoader from "./TableLoader";

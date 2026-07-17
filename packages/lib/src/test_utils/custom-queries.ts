@@ -1,8 +1,8 @@
 import {
-  queryHelpers,
-  buildQueries,
   AllByAttribute,
   GetErrorFunction,
+  buildQueries,
+  queryHelpers,
 } from "@testing-library/react";
 
 type OmitFirstArg<F> = F extends (...args: infer Args) => infer R

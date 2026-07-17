@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { clickCheckbox, mockGraphQLResponse } from "../../helpers";
 
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";

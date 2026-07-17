@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { skipToken, useQuery, useMutation } from "@apollo/client/react";
+import { skipToken, useMutation, useQuery } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useLocation } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -10,12 +10,12 @@ import {
   validator,
 } from "components/Spawn";
 import {
+  FormState,
+  TokenExchangeState,
   formToGql,
   getFormSchema,
-  TokenExchangeState,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
-  FormState,
 } from "components/Spawn/spawnHostModal";
 import { SpruceForm } from "components/SpruceForm";
 import {

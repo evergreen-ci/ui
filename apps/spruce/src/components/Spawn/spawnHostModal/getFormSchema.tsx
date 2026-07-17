@@ -14,8 +14,8 @@ import {
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
   MyPublicKeysQuery,
-  SpawnTaskQuery,
   MyVolumesQuery,
+  SpawnTaskQuery,
 } from "gql/generated/types";
 import { isFailedTaskStatus } from "utils/statuses";
 import {

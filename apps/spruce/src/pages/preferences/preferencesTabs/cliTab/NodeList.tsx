@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { formatZeroIndexForDisplay } from "utils/numbers";
-import { NodeType, Node } from "./nodeList/Node";
+import { Node, NodeType } from "./nodeList/Node";
 
 const { gray } = palette;
 interface NodeListProps {

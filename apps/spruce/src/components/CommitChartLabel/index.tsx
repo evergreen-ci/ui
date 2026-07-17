@@ -6,9 +6,9 @@ import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import ExpandedText from "components/ExpandedText";
-import { getVersionRoute, getTriggerRoute } from "constants/routes";
-import { UpstreamProjectFragment, GitTag } from "gql/generated/types";
-import { useSpruceConfig, useDateFormat } from "hooks";
+import { getTriggerRoute, getVersionRoute } from "constants/routes";
+import { GitTag, UpstreamProjectFragment } from "gql/generated/types";
+import { useDateFormat, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 
 const { gray } = palette;

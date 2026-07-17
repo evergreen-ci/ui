@@ -8,12 +8,12 @@ import {
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import {
   getAppVersion,
-  getReleaseStage,
-  isDevelopmentBuild,
-  getSentryDSN,
-  sageAPIURL,
   getHoneycombEndpoint,
   getHoneycombIngestKey,
+  getReleaseStage,
+  getSentryDSN,
+  isDevelopmentBuild,
+  sageAPIURL,
 } from "utils/environmentVariables";
 import App from "./App";
 

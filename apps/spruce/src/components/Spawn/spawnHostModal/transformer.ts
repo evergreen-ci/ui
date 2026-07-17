@@ -1,8 +1,8 @@
 import { defaultEC2Region } from "constants/hosts";
 import {
   MyPublicKeysQuery,
-  SpawnTaskQuery,
   SpawnHostMutationVariables,
+  SpawnTaskQuery,
 } from "gql/generated/types";
 import { stripNewLines } from "utils/string";
 import { getSleepSchedule } from "../utils";

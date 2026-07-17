@@ -1,7 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-// Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
-// eslint-disable-next-line @emotion/no-vanilla
-import { css as classNameCss } from "@emotion/css";
+import { css as classNameCss } from "@emotion/css"; // Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
@@ -19,10 +17,10 @@ import { useBuildVariantContext } from "./BuildVariantContext";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import {
   BuildVariantTitle,
-  columnBasis,
-  gridGroupCss,
   InactiveVersion,
   Row,
+  columnBasis,
+  gridGroupCss,
 } from "./styles";
 import { Build, BuildVariant, GroupedVersion } from "./types";
 import { WaterfallTask } from "./WaterfallTask";

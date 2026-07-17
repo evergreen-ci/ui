@@ -4,10 +4,10 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import {
-  gridWrapCss,
   fullWidthCss,
-  objectGridCss,
+  gridWrapCss,
   nestedObjectGridCss,
+  objectGridCss,
 } from "../../sharedStyles";
 
 const { gray } = palette;

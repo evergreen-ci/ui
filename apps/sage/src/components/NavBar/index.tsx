@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { createLink } from "@tanstack/react-router";
-import { size, palette } from "@evg-ui/lib/constants/tokens-via";
+import { palette, size } from "@evg-ui/lib/constants/tokens-via";
 
 export const NavBar: React.FC = () => (
   <NavContainer>

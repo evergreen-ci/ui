@@ -4,9 +4,9 @@ import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
 import {
-  VersionTasksQueryVariables,
   SortOrder,
   TaskSortCategory,
+  VersionTasksQueryVariables,
 } from "gql/generated/types";
 import { PatchTasksQueryParams } from "types/task";
 import { parseSortString } from "utils/queryString";
