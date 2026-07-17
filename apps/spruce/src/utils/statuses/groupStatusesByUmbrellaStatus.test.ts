@@ -3,7 +3,7 @@ import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { groupStatusesByUmbrellaStatus } from "./groupStatusesByUmbrellaStatus";
 
-const { gray, green, purple, red, yellow } = palette;
+const { blue, gray, green, purple, red, yellow } = palette;
 
 describe("groupStatusesByUmbrellaStatus", () => {
   it("separates statuses into groups based on umbrella status", () => {
@@ -146,7 +146,7 @@ describe("groupStatusesByUmbrellaStatus", () => {
         {
           count: 3,
           statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
-          color: purple.light2,
+          color: blue.base,
           umbrellaStatus: TaskStatus.SetupFailed,
           statusCounts: { [TaskStatus.SetupFailed]: 3 },
         },
