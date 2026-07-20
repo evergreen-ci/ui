@@ -57,7 +57,7 @@ const baseVersion: Version = {
   },
   upstreamProject: null,
   user: {
-    __typename: "UserLite",
+    __typename: "User",
     displayName: "Test User",
     userId: "testuser",
   },
