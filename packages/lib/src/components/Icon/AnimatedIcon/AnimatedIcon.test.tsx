@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { render, screen, fireEvent } from "test_utils";
+import { fireEvent, render, screen } from "test_utils";
 import AnimatedIcon from ".";
 
 // Mock an SVG component to be passed as the icon prop

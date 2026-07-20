@@ -1,9 +1,9 @@
 import {
+  DateTimeRange,
   GANTT_CHART_COLUMN_HEADERS,
   GanttChartData,
   GanttChartDataRow,
   TaskDurationData,
-  DateTimeRange,
 } from "./types";
 
 export const transformTaskDurationDataToTaskGanttChartData = (

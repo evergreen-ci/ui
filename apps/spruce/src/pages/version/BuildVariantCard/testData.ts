@@ -70,6 +70,16 @@ const mocks: ApolloMock<
                   status: "started",
                   __typename: "StatusCount",
                 },
+                {
+                  count: 1,
+                  status: "setup-failed",
+                  __typename: "StatusCount",
+                },
+                {
+                  count: 2,
+                  status: "system-failed",
+                  __typename: "StatusCount",
+                },
               ],
               variant: "variant",
               __typename: "GroupedTaskStatusCount",

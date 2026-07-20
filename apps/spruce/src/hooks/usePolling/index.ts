@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { OperationVariables, ApolloClient } from "@apollo/client";
+import { ApolloClient, OperationVariables } from "@apollo/client";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
-import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
+import { DEFAULT_POLL_INTERVAL, FASTER_POLL_INTERVAL } from "constants/index";
 import { useNetworkStatus } from "hooks/useNetworkStatus";
 import { usePageVisibility } from "hooks/usePageVisibility";
 

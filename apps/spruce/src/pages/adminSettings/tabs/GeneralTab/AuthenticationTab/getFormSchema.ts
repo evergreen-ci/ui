@@ -2,13 +2,13 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { fullWidthCss, objectGridCss } from "../../sharedStyles";
 import {
-  globalConfig,
-  okta,
-  naive,
   github,
-  multi,
+  globalConfig,
   kanopy,
+  multi,
+  naive,
   oauth,
+  okta,
 } from "./schemaFields";
 
 export const formSchema: ReturnType<GetFormSchema> = {

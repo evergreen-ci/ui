@@ -5,10 +5,10 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import {
-  TaskQuery,
-  TestResult,
   QuarantineTestMutation,
   QuarantineTestMutationVariables,
+  TaskQuery,
+  TestResult,
   UnquarantineTestMutation,
   UnquarantineTestMutationVariables,
 } from "gql/generated/types";

@@ -1,4 +1,4 @@
-import { defineConfig, type ServerOptions } from "vite";
+import { type ServerOptions, defineConfig } from "vite";
 import dns from "dns";
 import * as fs from "fs";
 import path from "path";

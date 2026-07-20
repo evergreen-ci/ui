@@ -1,4 +1,4 @@
-import { RECENT_PAGE_SIZE_KEY, DEFAULT_PAGE_SIZE } from "constants/pagination";
+import { DEFAULT_PAGE_SIZE, RECENT_PAGE_SIZE_KEY } from "constants/pagination";
 import { getDefaultPageSize } from "./index";
 
 describe("getDefaultPageSize", () => {

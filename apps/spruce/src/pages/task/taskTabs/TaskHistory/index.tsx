@@ -5,16 +5,16 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import {
+  useErrorToast,
   useQueryParam,
   useQueryParams,
-  useErrorToast,
 } from "@evg-ui/lib/hooks";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { isWaterfallRequester, Requester } from "constants/requesters";
+import { Requester, isWaterfallRequester } from "constants/requesters";
 import {
   TaskHistoryDirection,
   TaskHistoryQuery,

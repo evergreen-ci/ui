@@ -1,6 +1,6 @@
 import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
-import { alias, ProjectType } from "../utils";
+import { ProjectType, alias } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
 import { PatchAliasesFormState, TaskSpecifier } from "./types";
 

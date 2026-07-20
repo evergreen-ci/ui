@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Task Queue", () => {
   test("Sets first distro in list as default if no distro in url", async ({

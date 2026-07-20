@@ -1,11 +1,11 @@
-import { test, expect } from "../../../fixtures";
-import { validateToast, clickRadio } from "../../../helpers";
+import { expect, test } from "../../../fixtures";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
+  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
   project,
-  ProjectSettingsTabRoutes,
 } from "../constants";
-import { save, expectSaveButtonEnabled } from "../utils";
+import { expectSaveButtonEnabled, save } from "../utils";
 
 test.describe("Git Tags project settings when GitHub webhooks are disabled", () => {
   const origin = getProjectSettingsRoute(

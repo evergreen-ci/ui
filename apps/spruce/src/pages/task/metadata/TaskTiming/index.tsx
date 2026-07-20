@@ -7,8 +7,8 @@ import MetadataCard, {
   MetadataItem,
 } from "components/MetadataCard";
 import {
-  getHoneycombTaskTimingURL,
   TaskTimingMetric,
+  getHoneycombTaskTimingURL,
 } from "constants/externalResources/honeycomb";
 import { TASK_TIMING_CONFIG_KEY } from "constants/index";
 import { setObject } from "utils/localStorage";

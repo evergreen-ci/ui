@@ -1,4 +1,4 @@
-import { omit, getObjectValueByPath, omitTypename, isObject } from ".";
+import { getObjectValueByPath, isObject, omit, omitTypename } from ".";
 
 describe("omit", () => {
   it("returns an object without the supplied key(s)", () => {

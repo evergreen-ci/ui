@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { spacing } from "@leafygreen-ui/tokens";
-import { Message, ActionCardState } from "@lg-chat/message";
+import { ActionCardState, Message } from "@lg-chat/message";
 import { ToolUIPart } from "ai";
 import { AnimatedEllipsis } from "#AnimatedEllipsis";
 import { ToolState, ToolStateEnum } from "../types";

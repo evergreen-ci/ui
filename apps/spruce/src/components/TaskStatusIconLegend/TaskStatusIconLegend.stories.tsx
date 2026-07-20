@@ -1,5 +1,5 @@
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { TaskStatusIconLegend, LegendContent } from ".";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { LegendContent, TaskStatusIconLegend } from ".";
 
 export default {
   component: TaskStatusIconLegend,

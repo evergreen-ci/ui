@@ -5,7 +5,7 @@ import {
   WalkthroughGuideCueRef,
 } from "components/WalkthroughGuideCue";
 import { SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL } from "constants/cookies";
-import { walkthroughSteps, taskHistoryGuideId } from "../constants";
+import { taskHistoryGuideId, walkthroughSteps } from "../constants";
 
 type OnboardingTutorialProps = {
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;

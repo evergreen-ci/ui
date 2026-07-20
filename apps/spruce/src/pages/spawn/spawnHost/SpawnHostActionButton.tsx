@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMutation, useLazyQuery } from "@apollo/client/react";
+import { useLazyQuery, useMutation } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
@@ -10,11 +10,11 @@ import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useSpawnAnalytics } from "analytics";
 import { isSleepScheduleActive } from "components/Spawn";
 import {
-  UpdateSpawnHostStatusMutation,
-  UpdateSpawnHostStatusMutationVariables,
-  SpawnHostStatusActions,
   MyHostsQuery,
   MyHostsQueryVariables,
+  SpawnHostStatusActions,
+  UpdateSpawnHostStatusMutation,
+  UpdateSpawnHostStatusMutationVariables,
 } from "gql/generated/types";
 import { UPDATE_SPAWN_HOST_STATUS } from "gql/mutations";
 import { MY_HOSTS } from "gql/queries";

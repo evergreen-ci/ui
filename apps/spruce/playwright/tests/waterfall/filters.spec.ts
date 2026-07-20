@@ -1,5 +1,5 @@
-import { test, expect } from "../../fixtures";
-import { validateDatePickerDate, selectDatePickerDate } from "../../helpers";
+import { expect, test } from "../../fixtures";
+import { selectDatePickerDate, validateDatePickerDate } from "../../helpers";
 
 test.describe("status filtering", () => {
   test.beforeEach(async ({ page }) => {

@@ -1,14 +1,14 @@
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
-  ScheduleTasks,
-  RestartPatch,
-  UnscheduleTasks,
   AddNotification,
   DisableTasks,
-  ScheduleUndispatchedBaseTasks,
   IncludeNeverActivatedTasksToggle,
   RefreshGitHubStatuses,
+  RestartPatch,
+  ScheduleTasks,
+  ScheduleUndispatchedBaseTasks,
+  UnscheduleTasks,
 } from "components/PatchActionButtons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";

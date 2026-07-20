@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { H2, Body } from "@leafygreen-ui/typography";
-import { size, fontSize } from "@evg-ui/lib/constants/tokens";
+import { Body, H2 } from "@leafygreen-ui/typography";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 
 const { gray, red } = palette;
 

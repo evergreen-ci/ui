@@ -3,8 +3,8 @@ import { fontFamilies } from "@leafygreen-ui/tokens";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
-  CardFieldTemplate,
   AccordionFieldTemplate,
+  CardFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
 import { Arch } from "gql/generated/types";

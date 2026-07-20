@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Routes, Route, Navigate, useParams } from "react-router-dom";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { AdminSettingsTabRoutes, slugs } from "constants/routes";
 import { Header } from "./Header";
 import { EventLogsTab } from "./tabs/EventLogsTab/EventLogsTab";

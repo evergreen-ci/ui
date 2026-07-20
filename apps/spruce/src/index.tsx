@@ -9,12 +9,12 @@ import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { observabilityRouteConfig } from "constants/routes";
 import {
   getAppVersion,
-  getReleaseStage,
   getEvergreenUrl,
-  isDevelopmentBuild,
-  getHoneycombIngestKey,
   getHoneycombEndpoint,
+  getHoneycombIngestKey,
+  getReleaseStage,
   getSentryDSN,
+  isDevelopmentBuild,
 } from "utils/environmentVariables";
 import App from "./App";
 

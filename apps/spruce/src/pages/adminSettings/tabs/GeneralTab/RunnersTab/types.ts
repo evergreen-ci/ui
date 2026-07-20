@@ -1,6 +1,6 @@
 import {
-  FinderVersion,
   FeedbackRule,
+  FinderVersion,
   HostAllocatorVersion,
   OverallocatedRule,
   RoundingRule,

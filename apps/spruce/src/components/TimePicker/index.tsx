@@ -4,7 +4,7 @@ import { DateType } from "@leafygreen-ui/date-utils";
 import { FormField, FormFieldInputContainer } from "@leafygreen-ui/form-field";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { Popover, Align, Justify } from "@leafygreen-ui/popover";
+import { Align, Justify, Popover } from "@leafygreen-ui/popover";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";

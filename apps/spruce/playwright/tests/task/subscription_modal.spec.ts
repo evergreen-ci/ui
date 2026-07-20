@@ -1,8 +1,8 @@
-import { Page, test, expect } from "../../fixtures";
+import { Page, expect, test } from "../../fixtures";
 import {
+  mockGraphQLResponse,
   selectOption,
   validateToast,
-  mockGraphQLResponse,
 } from "../../helpers";
 
 const TASK_ROUTE =

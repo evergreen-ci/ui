@@ -7,9 +7,9 @@ import {
 import {
   getTaskStatsMock,
   version,
+  versionBroken,
   versionWithGitTag,
   versionWithUpstreamProject,
-  versionBroken,
 } from "../testData";
 import { getVersionUpstreamProjectMock } from "./testData";
 import { VersionLabel, VersionLabelView } from ".";

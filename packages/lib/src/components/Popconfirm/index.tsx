@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Size, Variant } from "@leafygreen-ui/button";
-import { Tooltip, TooltipProps, Align, Justify } from "@leafygreen-ui/tooltip";
+import { Align, Justify, Tooltip, TooltipProps } from "@leafygreen-ui/tooltip";
 import { size } from "../../constants/tokens";
 import { wordBreakCss } from "../styles";
 

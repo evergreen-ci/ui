@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { Popover, Align, Justify } from "@leafygreen-ui/popover";
+import { Align, Justify, Popover } from "@leafygreen-ui/popover";
 import {
   SearchInput,
   Size as SearchInputSize,

@@ -1,8 +1,8 @@
 import React, {
-  useEffect,
-  useRef,
   ForwardRefExoticComponent,
   RefAttributes,
+  useEffect,
+  useRef,
 } from "react";
 
 interface AnimatedIconProps {

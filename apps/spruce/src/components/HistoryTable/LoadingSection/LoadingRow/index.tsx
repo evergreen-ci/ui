@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { LoadingCell, LabelCellContainer } from "components/HistoryTable/Cell";
+import { LabelCellContainer, LoadingCell } from "components/HistoryTable/Cell";
 
 interface LoadingRowProps {
   numVisibleCols: number;

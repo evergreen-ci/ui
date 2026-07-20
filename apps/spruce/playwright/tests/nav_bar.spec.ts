@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { expect, test } from "../fixtures";
 
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
