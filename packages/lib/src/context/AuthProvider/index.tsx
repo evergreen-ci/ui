@@ -190,7 +190,7 @@ const AuthProvider: React.FC<{
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        query: "{\n  userLite {\n    id\n  }\n}",
+        query: "{\n  user {\n    id\n  }\n}",
         variables: {},
       }),
       method: "POST",

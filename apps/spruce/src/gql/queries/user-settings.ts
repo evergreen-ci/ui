@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const USER_SETTINGS = gql`
   query UserSettings {
-    user: userLite {
+    user {
       settings {
         dateFormat
         githubUser {
