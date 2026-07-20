@@ -50,12 +50,16 @@ test.describe("Tests Table", () => {
     const topPagination = page.getByTestId("pagination").first();
     await expect(topPagination.getByText(/20 items/)).toBeVisible();
 
+    const totalCount = page.getByTestId("total-count").first();
+    await expect(totalCount).toContainText("20");
+
     await page.getByTestId("status-treeselect").click();
     const silentFailCheckbox = page.getByRole("checkbox", {
       name: "Silent Fail",
     });
     await clickCheckbox(silentFailCheckbox);
     await expect(topPagination.getByText(/1 item/)).toBeVisible();
+    await expect(totalCount).toContainText("20");
 
     await page.getByTestId("test-name-filter").click();
     const testNameInput = page.getByPlaceholder("Test name regex");
@@ -63,6 +67,7 @@ test.describe("Tests Table", () => {
     await testNameInput.press("Enter");
 
     await expect(topPagination.getByText(/0 items/)).toBeVisible();
+    await expect(totalCount).toContainText("20");
   });
 
   test("Automatically sorts by status in ascending order on page load", async ({

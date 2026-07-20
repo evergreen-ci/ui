@@ -73,6 +73,10 @@ test.describe("Task table", () => {
   test("Task count displays total tasks", async ({ page }) => {
     await page.goto(pathTasks);
     await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
+
+    const totalCount = page.getByTestId("total-count").first();
+    await expect(totalCount).toContainText("49");
+
     const topPagination = page.getByTestId("pagination").first();
     await expect(topPagination.getByText(/47 items/)).toBeVisible();
   });

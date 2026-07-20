@@ -41,7 +41,11 @@ const TableControl: React.FC<Props> = ({
   return (
     <TableControlOuterRow>
       <FlexContainer>
-        <Chip label={`Total count: ${totalCount}`} variant={ChipVariant.Gray} />
+        <Chip
+          data-cy="total-count"
+          label={`Total count: ${totalCount}`}
+          variant={ChipVariant.Gray}
+        />
         <Button
           data-cy="clear-all-filters"
           disabled={disabled}
