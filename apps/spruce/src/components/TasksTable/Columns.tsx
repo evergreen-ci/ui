@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
@@ -10,11 +11,8 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
-import { getTableMode } from "constants/featureFlags";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
-import { getBaseTaskCell } from "./BaseTask";
-import { getPreviousRunCell } from "./PreviousRun";
 import { ReviewedCheckbox } from "./ReviewedCheckbox";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
@@ -134,7 +132,21 @@ export const getColumnsTemplate = ({
     id: TaskSortCategory.BaseStatus,
     accessorKey: "baseTask.displayStatus",
     header: `${isPatch ? "Base" : "Previous"} Status`,
-    cell: getBaseTaskCell,
+    cell: ({
+      getValue,
+      row: {
+        original: { baseTask },
+      },
+    }) =>
+      baseTask ? (
+        <TaskStatusBadgeWithLink
+          execution={baseTask?.execution}
+          id={baseTask?.id}
+          status={getValue() as TaskStatus}
+        />
+      ) : (
+        <TaskStatusBadge status={getValue() as TaskStatus} />
+      ),
     meta: {
       treeSelect: {
         "data-cy": "base-status-filter",
@@ -144,16 +156,28 @@ export const getColumnsTemplate = ({
     enableSorting: true,
     size: 80,
   },
-  ...(getTableMode() === "new-column"
-    ? [
-        {
-          accessorKey: "baseTask.prevTaskCompleted",
-          header: "Last Run Status",
-          cell: getPreviousRunCell,
-          enableColumnFilter: false,
-        },
-      ]
-    : []),
+  {
+    accessorKey: "baseTask.prevTaskCompleted",
+    header: "Last Run Status",
+    cell: ({ getValue }) => {
+      const prevTaskCompleted = getValue() as NonNullable<
+        TaskTableInfo["baseTask"]
+      >["prevTaskCompleted"];
+
+      if (prevTaskCompleted) {
+        return (
+          <TaskStatusBadgeWithLink
+            execution={prevTaskCompleted.execution}
+            id={prevTaskCompleted.id}
+            status={prevTaskCompleted.displayStatus as TaskStatus}
+          />
+        );
+      }
+
+      return null;
+    },
+    enableColumnFilter: false,
+  },
   {
     accessorKey: "buildVariantDisplayName",
     id: TaskSortCategory.Variant,
