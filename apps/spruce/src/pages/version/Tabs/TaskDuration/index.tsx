@@ -1,9 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast, useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -21,9 +19,10 @@ import { useQueryVariables } from "../useQueryVariables";
 import TaskDurationTable from "./TaskDurationTable";
 
 interface Props {
+  taskCount: number;
   versionId: string;
 }
-const TaskDuration: React.FC<Props> = ({ versionId }) => {
+const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
   const queryVariables = useQueryVariables(versionId);
@@ -94,6 +93,8 @@ const TaskDuration: React.FC<Props> = ({ versionId }) => {
         }}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         page={page}
+        shouldShowBottomTableControl={shouldShowBottomTableControl}
+        totalCount={taskCount}
       />
       <TaskDurationTable
         loading={loading}
@@ -101,31 +102,9 @@ const TaskDuration: React.FC<Props> = ({ versionId }) => {
         numLoadingRows={limit}
         tasks={tasksData}
       />
-      {shouldShowBottomTableControl && (
-        <TableControlWrapper>
-          <TableControl
-            filteredCount={count}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            limit={limit}
-            onClear={clearQueryParams}
-            onPageSizeChange={(l) => {
-              versionAnalytics.sendEvent({
-                name: "Changed page size",
-                "page.size": l,
-              });
-            }}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            page={page}
-          />
-        </TableControlWrapper>
-      )}
     </>
   );
 };
-const TableControlWrapper = styled.div`
-  padding-top: ${size.xs};
-  margin-bottom: ${size.l};
-`;
 
 export default TaskDuration;
 

@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
+import { size } from "../../../constants/tokens";
 import { Pagination } from "../Pagination";
-import { TableControlOuterRow, TableControlInnerRow } from "./styles";
+import { TableControlInnerRow, TableControlOuterRow } from "./styles";
 
 interface Props {
   disabled?: boolean;
+  totalCount: number;
   filteredCount: number;
   limit?: number;
   onClear: () => void;
@@ -21,6 +24,7 @@ const TableControl: React.FC<Props> = ({
   onPageChange,
   onPageSizeChange,
   page,
+  totalCount,
 }) => {
   const handlePageSizeChange = (pageSize: number) => {
     onPageSizeChange?.(pageSize);
@@ -37,6 +41,7 @@ const TableControl: React.FC<Props> = ({
   return (
     <TableControlOuterRow>
       <FlexContainer>
+        <Chip label={`Total count: ${totalCount}`} variant={ChipVariant.Gray} />
         <Button
           data-cy="clear-all-filters"
           disabled={disabled}
@@ -62,6 +67,7 @@ const TableControl: React.FC<Props> = ({
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: ${size.xs};
 `;
 
 const PaginationContainer = styled(TableControlInnerRow)`

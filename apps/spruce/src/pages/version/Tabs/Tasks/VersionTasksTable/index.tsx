@@ -52,6 +52,7 @@ interface VersionTasksTableProps {
   loading: boolean;
   page: number;
   tasks: TaskTableInfo[];
+  totalCount: number;
   versionId: string;
 }
 
@@ -63,6 +64,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   loading,
   page,
   tasks,
+  totalCount,
   versionId,
 }) => {
   const [queryParams, setQueryParams] = useQueryParams();
@@ -166,6 +168,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             sendEvent({ name: "Changed page size", "page.size": size })
           }
           page={page}
+          totalCount={totalCount}
         />
       }
       shouldShowBottomTableControl={limit > 10}

@@ -32,6 +32,7 @@ interface DownstreamTasksTableProps {
   limit: number;
   loading: boolean;
   page: number;
+  taskCount: number;
   tasks: TaskTableInfo[];
 }
 
@@ -43,6 +44,7 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   limit,
   loading,
   page,
+  taskCount,
   tasks,
 }) => {
   const { [slugs.versionId]: versionId } = useParams<{
@@ -147,6 +149,7 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
             dispatch({ type: "setLimit", limit: l })
           }
           page={page}
+          totalCount={taskCount}
         />
       }
     >

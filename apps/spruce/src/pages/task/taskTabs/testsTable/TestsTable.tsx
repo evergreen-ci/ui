@@ -125,7 +125,11 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
 
   const { task: taskData } = data ?? {};
   const { tests } = taskData ?? {};
-  const { filteredTestCount = 0, testResults } = tests ?? {};
+  const {
+    filteredTestCount = 0,
+    testResults,
+    totalTestCount = 0,
+  } = tests ?? {};
   const isLoading = !testResults && loading; // TODO: Re-evaluate in DEVPROD-33191.
 
   const columns = useMemo(
@@ -186,6 +190,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
           }}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           page={pageNum}
+          totalCount={totalTestCount}
         />
       }
       shouldShowBottomTableControl={filteredTestCount > 10}

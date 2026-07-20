@@ -31,11 +31,12 @@ import {
 
 interface Props {
   versionId: string;
+  taskCount: number;
 }
 
 const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
 
-const VersionTiming: React.FC<Props> = ({ versionId }) => {
+const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
   const navigate = useNavigate();
 
   const [queryParams, setQueryParams] = useQueryParams();
@@ -124,7 +125,7 @@ const VersionTiming: React.FC<Props> = ({ versionId }) => {
       <TableControl
         disabled={!isVariantTimingView}
         filteredCount={isVariantTimingView ? count : chartData.length - 1}
-        limit={limit ?? 0}
+        limit={isVariantTimingView ? limit || 0 : chartData.length - 1}
         onClear={clearQueryParams}
         onPageSizeChange={(l: number) => {
           versionAnalytics.sendEvent({
@@ -133,6 +134,7 @@ const VersionTiming: React.FC<Props> = ({ versionId }) => {
           });
         }}
         page={isVariantTimingView ? page || 0 : 0}
+        totalCount={isVariantTimingView ? taskCount : chartData.length - 1}
       />
       <GanttChart
         data={chartData}

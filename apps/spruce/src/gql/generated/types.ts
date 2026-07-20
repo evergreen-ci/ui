@@ -4950,6 +4950,7 @@ export type VersionLite = {
   createTime: Scalars["Time"]["output"];
   errors: Array<Scalars["String"]["output"]>;
   finishTime?: Maybe<Scalars["Time"]["output"]>;
+  gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
@@ -4965,6 +4966,7 @@ export type VersionLite = {
   taskStatusStats?: Maybe<TaskStats>;
   user: User;
   warnings: Array<Scalars["String"]["output"]>;
+  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 export type VersionTasks = {
@@ -5019,6 +5021,7 @@ export type Waterfall = {
   __typename?: "Waterfall";
   flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
+  versions: Array<VersionLite>;
 };
 
 export type WaterfallBuild = {
@@ -12088,6 +12091,7 @@ export type VersionQuery = {
         id: string;
         githash: string;
         status: string;
+        taskCount?: number | null;
         parameters: Array<{
           __typename?: "Parameter";
           key: string;
