@@ -10,7 +10,7 @@ import { BuildVariant, Version } from "./types";
 export const version: Version = {
   activated: true,
   user: {
-    userId: "sophie.stadler",
+    id: "sophie.stadler",
     displayName: "Sophie Stadler",
   },
   createTime: new Date("2024-09-19T14:56:08Z"),
@@ -27,7 +27,7 @@ export const version: Version = {
 export const versionWithGitTag: Version = {
   activated: true,
   user: {
-    userId: "sophie.stadler",
+    id: "sophie.stadler",
     displayName: "Sophie Stadler",
   },
   createTime: new Date("2024-09-19T16:14:10Z"),
@@ -47,7 +47,7 @@ export const versionWithGitTag: Version = {
 export const versionWithUpstreamProject: Version = {
   activated: true,
   user: {
-    userId: "sophie.stadler",
+    id: "sophie.stadler",
     displayName: "Sophie Stadler",
   },
   createTime: new Date("2024-09-19T16:06:54Z"),
@@ -67,7 +67,7 @@ export const versionWithUpstreamProject: Version = {
 export const versionBroken: Version = {
   activated: true,
   user: {
-    userId: "sophie.stadler",
+    id: "sophie.stadler",
     displayName: "Sophie Stadler",
   },
   createTime: new Date("2024-09-19T14:56:08Z"),
@@ -84,7 +84,7 @@ export const versionBroken: Version = {
 export const inactiveVersion: Version = {
   activated: false,
   user: {
-    userId: "sophie.stadler",
+    id: "sophie.stadler",
     displayName: "Sophie Stadler",
   },
   createTime: new Date("2024-10-24T14:56:08Z"),
@@ -100,7 +100,7 @@ export const inactiveVersion: Version = {
 export const inactiveBrokenVersion: Version = {
   activated: false,
   user: {
-    userId: "sophie.stadler",
+    id: "sophie.stadler",
     displayName: "Sophie Stadler",
   },
   createTime: new Date("2024-10-25T14:56:08Z"),
@@ -253,7 +253,7 @@ export const versions: Version[] = [
   {
     id: "a",
     user: {
-      userId: "sophie.stadler",
+      id: "sophie.stadler",
       displayName: "Sophie Stadler",
     },
     activated: false,
@@ -268,7 +268,7 @@ export const versions: Version[] = [
   {
     id: "b",
     user: {
-      userId: "sophie.stadler",
+      id: "sophie.stadler",
       displayName: "Sophie Stadler",
     },
     activated: true,
@@ -318,7 +318,7 @@ export const versions: Version[] = [
   {
     id: "c",
     user: {
-      userId: "sophie.stadler",
+      id: "sophie.stadler",
       displayName: "Sophie Stadler",
     },
     activated: true,
@@ -354,7 +354,7 @@ export const versions: Version[] = [
   {
     id: "d",
     user: {
-      userId: "sophie.stadler",
+      id: "sophie.stadler",
       displayName: "Sophie Stadler",
     },
     activated: false,
@@ -368,7 +368,7 @@ export const versions: Version[] = [
   {
     id: "e",
     user: {
-      userId: "sophie.stadler",
+      id: "sophie.stadler",
       displayName: "Sophie Stadler",
     },
     activated: false,
@@ -382,7 +382,7 @@ export const versions: Version[] = [
   {
     id: "f",
     user: {
-      userId: "sophie.stadler",
+      id: "sophie.stadler",
       displayName: "Sophie Stadler",
     },
     activated: true,

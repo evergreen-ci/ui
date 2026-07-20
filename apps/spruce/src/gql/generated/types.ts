@@ -4985,6 +4985,7 @@ export type VersionLite = {
   createTime: Scalars["Time"]["output"];
   errors: Array<Scalars["String"]["output"]>;
   finishTime?: Maybe<Scalars["Time"]["output"]>;
+  gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
@@ -5000,6 +5001,7 @@ export type VersionLite = {
   taskStatusStats?: Maybe<TaskStats>;
   user: UserLite;
   warnings: Array<Scalars["String"]["output"]>;
+  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 export type VersionTasks = {
@@ -5054,6 +5056,7 @@ export type Waterfall = {
   __typename?: "Waterfall";
   flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
+  versions: Array<VersionLite>;
 };
 
 export type WaterfallBuild = {
@@ -12271,8 +12274,8 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
-    flattenedVersions: Array<{
-      __typename?: "Version";
+    versions: Array<{
+      __typename?: "VersionLite";
       id: string;
       activated?: boolean | null;
       createTime: Date;
@@ -12284,8 +12287,8 @@ export type WaterfallQuery = {
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
       user: {
         __typename?: "UserLite";
+        id: string;
         displayName?: string | null;
-        userId: string;
       };
       waterfallBuilds?: Array<{
         __typename?: "WaterfallBuild";

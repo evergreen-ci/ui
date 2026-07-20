@@ -3,7 +3,15 @@ import { gql } from "@apollo/client";
 export const WATERFALL = gql`
   query Waterfall($options: WaterfallOptions!) {
     waterfall(options: $options) {
-      flattenedVersions {
+      pagination {
+        activeVersionIds
+        hasNextPage
+        hasPrevPage
+        mostRecentVersionOrder
+        nextPageOrder
+        prevPageOrder
+      }
+      versions {
         id
         activated
         createTime
@@ -15,9 +23,9 @@ export const WATERFALL = gql`
         order
         requester
         revision
-        user: userLite {
+        user {
+          id
           displayName
-          userId: id
         }
         waterfallBuilds {
           id
@@ -31,14 +39,6 @@ export const WATERFALL = gql`
             execution
           }
         }
-      }
-      pagination {
-        activeVersionIds
-        hasNextPage
-        hasPrevPage
-        mostRecentVersionOrder
-        nextPageOrder
-        prevPageOrder
       }
     }
   }

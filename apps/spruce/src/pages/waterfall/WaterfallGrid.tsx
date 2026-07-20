@@ -212,7 +212,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     activeVersionIds: dataIsComplete
       ? data.waterfall.pagination.activeVersionIds
       : [],
-    flattenedVersions: dataIsComplete ? data.waterfall.flattenedVersions : [],
+    flattenedVersions: dataIsComplete ? data.waterfall.versions : [],
     omitInactiveBuilds,
     pins,
   });
