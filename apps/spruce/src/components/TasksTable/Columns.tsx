@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { palette } from "@leafygreen-ui/palette";
 import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
@@ -105,7 +106,7 @@ export const getColumnsTemplate = ({
       }
 
       return (
-        <TaskBadgeWrapper>
+        <FlexWrapper>
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
@@ -116,7 +117,7 @@ export const getColumnsTemplate = ({
               {errors.join(", ")}
             </IconWithTooltip>
           )}
-        </TaskBadgeWrapper>
+        </FlexWrapper>
       );
     },
     meta: {
@@ -158,7 +159,15 @@ export const getColumnsTemplate = ({
   },
   {
     accessorKey: "baseTask.prevTaskCompleted",
-    header: "Last Run Status",
+    header: () => (
+      <FlexWrapper>
+        Last Run Status
+        <InfoSprinkle>
+          For base tasks that have not finished running, this column links to
+          the most recent completed commit.
+        </InfoSprinkle>
+      </FlexWrapper>
+    ),
     cell: ({ getValue }) => {
       const prevTaskCompleted = getValue() as NonNullable<
         TaskTableInfo["baseTask"]
@@ -210,7 +219,7 @@ export const getColumnsTemplate = ({
   },
 ];
 
-const TaskBadgeWrapper = styled.div`
+const FlexWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
