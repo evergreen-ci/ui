@@ -10,7 +10,7 @@ const createCacheWithUser = (currentUserId: string = "admin") => {
     query: USER,
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         userId: currentUserId,
         displayName: "Evergreen Admin",
         emailAddress: "admin@example.com",
