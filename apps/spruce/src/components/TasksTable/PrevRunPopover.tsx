@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import {
-  Popover,
   Align,
   Justify,
-  ToggleEvent,
+  Popover,
   RenderMode,
+  ToggleEvent,
 } from "@leafygreen-ui/popover";
 import { Overline } from "@leafygreen-ui/typography";
 import { formatRelative } from "date-fns";

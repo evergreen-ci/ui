@@ -6,8 +6,8 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
-  setTableMode as setTableModeStorage,
   TableMode,
+  setTableMode as setTableModeStorage,
 } from "constants/featureFlags";
 
 export const TableModeToggle: React.FC<{
