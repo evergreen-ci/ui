@@ -163,8 +163,8 @@ export const getColumnsTemplate = ({
       <FlexWrapper>
         Last Run Status
         <InfoSprinkle>
-          For base tasks that have not finished running, this column links to
-          the most recent completed commit.
+          For {isPatch ? "base" : "previous"} tasks that have not finished
+          running, this column links to the most recent completed commit.
         </InfoSprinkle>
       </FlexWrapper>
     ),

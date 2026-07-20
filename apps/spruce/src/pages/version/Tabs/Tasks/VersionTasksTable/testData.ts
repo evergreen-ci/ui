@@ -49,6 +49,13 @@ export const versionTasks: { data: VersionTasksQuery } = {
               displayStatus: "success",
               status: "success",
               execution: 0,
+              prevTaskCompleted: {
+                id: "evergreen_ui_spruce_snapshots_previous",
+                displayStatus: "failed",
+                execution: 1,
+                finishTime: new Date("2025-07-01T15:00:00Z"),
+                __typename: "Task",
+              },
               __typename: "Task",
             },
             blocked: false,
