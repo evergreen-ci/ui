@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { TableControl } from "@evg-ui/lib/components/Table";
+import { TableControl, TableWrapper } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { useErrorToast, useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
@@ -79,30 +79,33 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const shouldShowBottomTableControl = tasksData.length > 10;
 
   return (
-    <>
-      <TableControl
-        filteredCount={count}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        limit={limit}
-        onClear={clearQueryParams}
-        onPageSizeChange={(l) => {
-          versionAnalytics.sendEvent({
-            name: "Changed page size",
-            "page.size": l,
-          });
-        }}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        page={page}
-        shouldShowBottomTableControl={shouldShowBottomTableControl}
-        totalCount={taskCount}
-      />
+    <TableWrapper
+      controls={
+        <TableControl
+          filteredCount={count}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          limit={limit}
+          onClear={clearQueryParams}
+          onPageSizeChange={(l) => {
+            versionAnalytics.sendEvent({
+              name: "Changed page size",
+              "page.size": l,
+            });
+          }}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          page={page}
+          totalCount={taskCount}
+        />
+      }
+      shouldShowBottomTableControl={shouldShowBottomTableControl}
+    >
       <TaskDurationTable
         loading={loading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         numLoadingRows={limit}
         tasks={tasksData}
       />
-    </>
+    </TableWrapper>
   );
 };
 
