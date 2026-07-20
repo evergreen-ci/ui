@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 const versionId = "5ecedafb562343215a7ff297";
 const versionRoute = `/version/${versionId}`;

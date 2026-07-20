@@ -1,5 +1,5 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectInput, type PatchTriggerAlias } from "gql/generated/types";
+import { type PatchTriggerAlias, ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, canOverrideForProject } from "../utils";
 import { MergeQueueFormState } from "./types";

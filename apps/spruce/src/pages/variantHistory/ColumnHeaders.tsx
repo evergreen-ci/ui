@@ -5,7 +5,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
-import { context, Cell, hooks } from "components/HistoryTable";
+import { Cell, context, hooks } from "components/HistoryTable";
 import {
   TaskNamesForBuildVariantQuery,
   TaskNamesForBuildVariantQueryVariables,

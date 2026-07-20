@@ -3,14 +3,14 @@ import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
+  BaseTable,
   ColumnFiltersState,
-  useLeafyGreenTable,
   LGColumnDef,
   filterFns,
-  getFilteredRowModel,
   getFacetedUniqueValues,
-  BaseTable,
+  getFilteredRowModel,
   onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";

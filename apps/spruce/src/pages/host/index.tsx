@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useQuery, skipToken } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Code } from "@leafygreen-ui/code";
 import { useParams } from "react-router-dom";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
@@ -14,18 +14,18 @@ import { RestartJasper } from "components/Hosts/RestartJasper";
 import HostStatusBadge from "components/HostStatusBadge";
 import PageTitle from "components/PageTitle";
 import {
-  PageWrapper,
-  PageSider,
-  PageLayout,
   PageContent,
+  PageLayout,
+  PageSider,
+  PageWrapper,
 } from "components/styles";
 import { slugs } from "constants/routes";
 import {
-  HostQuery,
-  HostQueryVariables,
+  HostEventType,
   HostEventsQuery,
   HostEventsQueryVariables,
-  HostEventType,
+  HostQuery,
+  HostQueryVariables,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
 import { HostStatus } from "types/host";

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Text, TextStyle, Link } from "@via-ds/components/typography";
+import { Link, Text, TextStyle } from "@via-ds/components/typography";
 import errorPage from "../../components/ErrorBoundary/ErrorFallback/errorPage.svg";
 import { palette } from "../../constants/tokens-via";
 

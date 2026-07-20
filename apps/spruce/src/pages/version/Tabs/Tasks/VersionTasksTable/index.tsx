@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import {
-  useLeafyGreenTable,
-  LeafyGreenTable,
-  ColumnFiltersState,
-  SortingState,
   BaseTable,
-  TableWrapper,
-  onChangeHandler,
+  ColumnFiltersState,
+  LeafyGreenTable,
+  SortingState,
   TableControl,
   TablePlaceholder,
+  TableWrapper,
+  onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
@@ -20,15 +20,15 @@ import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { getTableMode } from "constants/featureFlags";
 import { TableQueryParams } from "constants/queryParams";
-import { TaskSortCategory, SortDirection } from "gql/generated/types";
-import { useTaskStatuses, useTableSort } from "hooks";
+import { SortDirection, TaskSortCategory } from "gql/generated/types";
+import { useTableSort, useTaskStatuses } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 import { isEndUserProduction } from "utils/environmentVariables";
 import { parseSortString } from "utils/queryString";
 import {
-  mapIdToFilterParam,
-  emptyFilterQueryParams,
   defaultSorting,
+  emptyFilterQueryParams,
+  mapIdToFilterParam,
 } from "./constants";
 
 // Create a more specific enum because duration is not a valid category to sort / filter by in the tasks table.

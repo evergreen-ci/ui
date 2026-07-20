@@ -5,10 +5,10 @@ import { LeafyGreenTableRow } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { convertFromFamilyTrigger } from "constants/triggers";
 import {
-  UserSubscriptionsQuery,
-  UserSubscriptionsQueryVariables,
   GeneralSubscription,
   Selector,
+  UserSubscriptionsQuery,
+  UserSubscriptionsQueryVariables,
 } from "gql/generated/types";
 import { USER_SUBSCRIPTIONS } from "gql/queries";
 

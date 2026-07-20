@@ -14,8 +14,8 @@ import { DateFilter } from "components/DateFilter";
 import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";
 import {
   walkthroughDateFilterProps,
-  walkthroughJumpButtonProps,
   walkthroughInactiveViewProps,
+  walkthroughJumpButtonProps,
 } from "../constants";
 import { useTaskHistoryContext } from "../context";
 import { TaskHistoryOptions, ViewOptions } from "../types";

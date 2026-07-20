@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { AjvError } from "@rjsf/core";
@@ -7,11 +7,11 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import {
-  UpdatePublicKeyMutation,
-  UpdatePublicKeyMutationVariables,
   CreatePublicKeyMutation,
   CreatePublicKeyMutationVariables,
   PublicKey,
+  UpdatePublicKeyMutation,
+  UpdatePublicKeyMutationVariables,
 } from "gql/generated/types";
 import { CREATE_PUBLIC_KEY, UPDATE_PUBLIC_KEY } from "gql/mutations";
 import { string } from "utils";

@@ -7,7 +7,7 @@ import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { useAnnotationAnalytics } from "analytics";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { TicketFields } from "gql/generated/types";
-import { useSpruceConfig, useDateFormat } from "hooks";
+import { useDateFormat, useSpruceConfig } from "hooks";
 
 interface JiraTicketRowProps {
   jiraKey: string;

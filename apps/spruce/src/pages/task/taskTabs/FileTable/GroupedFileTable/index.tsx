@@ -1,18 +1,18 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
+import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { processFilesWithAssociatedLinks } from "./AssociatedLinks";
-import { GroupedFilesFile, FileTableRow } from "./types";
+import { FileTableRow, GroupedFilesFile } from "./types";
 
 const getColumns = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,

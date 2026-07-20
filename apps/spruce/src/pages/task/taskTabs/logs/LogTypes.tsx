@@ -4,29 +4,29 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { size, fontSize } from "@evg-ui/lib/constants/tokens";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
-  TaskEventLogsQuery,
-  TaskEventLogsQueryVariables,
-  SystemLogsQuery,
-  SystemLogsQueryVariables,
   AgentLogsQuery,
   AgentLogsQueryVariables,
-  TaskLogsQuery,
-  TaskLogsQueryVariables,
   AllLogsQuery,
   AllLogsQueryVariables,
-  TaskEventLogEntry,
   LogMessageFragment,
+  SystemLogsQuery,
+  SystemLogsQueryVariables,
+  TaskEventLogEntry,
+  TaskEventLogsQuery,
+  TaskEventLogsQueryVariables,
+  TaskLogsQuery,
+  TaskLogsQueryVariables,
 } from "gql/generated/types";
 import {
   AGENT_LOGS,
-  TASK_EVENT_LOGS,
-  SYSTEM_LOGS,
-  TASK_LOGS,
   ALL_LOGS,
+  SYSTEM_LOGS,
+  TASK_EVENT_LOGS,
+  TASK_LOGS,
 } from "gql/queries";
 import { usePolling } from "hooks";
 import { LogMessageLine } from "./logTypes/LogMessageLine";

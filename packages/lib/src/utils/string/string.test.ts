@@ -1,10 +1,10 @@
 import {
-  toSentenceCase,
-  toEscapedRegex,
+  copyToClipboard,
   shortenGithash,
+  toEscapedRegex,
+  toSentenceCase,
   trimLogLineToMaxSize,
   trimStringFromMiddle,
-  copyToClipboard,
 } from ".";
 
 describe("toSentenceCase", () => {

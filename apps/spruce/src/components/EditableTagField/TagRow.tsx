@@ -1,12 +1,12 @@
-import { useReducer, useMemo } from "react";
+import { useMemo, useReducer } from "react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { TextArea } from "@leafygreen-ui/text-area";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { PlusButton } from "components/Buttons";
-import { ParameterInput, InstanceTag } from "gql/generated/types";
-import { reducer, getInitialState } from "./tagRowReducer";
+import { InstanceTag, ParameterInput } from "gql/generated/types";
+import { getInitialState, reducer } from "./tagRowReducer";
 
 type Tag = InstanceTag | ParameterInput;
 

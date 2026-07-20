@@ -1,4 +1,4 @@
-import { Page, test, expect } from "../../fixtures";
+import { Page, expect, test } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const patch = { id: "5e4ff3abe3c3317e352062e4" };

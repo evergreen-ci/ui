@@ -8,8 +8,8 @@ import { defineConfig as defineTestConfig } from "vitest/config";
 import path from "path";
 import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
-  generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
+  generateBaseHTTPSViteServerConfig,
 } from "@evg-ui/vite-utils";
 
 process.env.VITE_APP_VERSION = process.env.npm_package_version ?? "0.0.0";

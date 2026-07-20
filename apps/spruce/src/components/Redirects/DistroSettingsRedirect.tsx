@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import {
-  getDistroSettingsRoute,
   DistroSettingsTabRoutes,
+  getDistroSettingsRoute,
 } from "constants/routes";
 import { useFirstDistro } from "hooks";
 

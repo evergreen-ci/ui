@@ -4,7 +4,7 @@ import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
-import { ProjectType, ErrorType, getVersionControlError } from "../utils";
+import { ErrorType, ProjectType, getVersionControlError } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { GitTagsFormState, TabProps } from "./types";

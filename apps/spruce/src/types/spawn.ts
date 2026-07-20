@@ -1,4 +1,4 @@
-import { MyVolumesQuery, MyHostsQuery } from "gql/generated/types";
+import { MyHostsQuery, MyVolumesQuery } from "gql/generated/types";
 
 export type MyVolume = MyVolumesQuery["myVolumes"][0];
 export type TableVolume = MyVolume;

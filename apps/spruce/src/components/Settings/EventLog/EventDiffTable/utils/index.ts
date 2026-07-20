@@ -1,5 +1,5 @@
 import { diff } from "deep-object-diff";
-import { isObject, omitTypename, getObjectValueByPath } from "utils/object";
+import { getObjectValueByPath, isObject, omitTypename } from "utils/object";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../../types";
 

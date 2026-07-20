@@ -7,8 +7,8 @@ import { GetFormSchema } from "components/SpruceForm";
 import { FieldRow } from "components/SpruceForm/FieldTemplates";
 import { githubPermissionsDocumentationUrl } from "constants/externalResources";
 import {
-  getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
+  getProjectSettingsRoute,
 } from "constants/routes";
 import { ArrayFieldTemplate } from "./FieldTemplates";
 

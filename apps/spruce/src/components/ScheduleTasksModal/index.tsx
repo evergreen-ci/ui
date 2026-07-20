@@ -1,5 +1,5 @@
-import { useReducer, useEffect } from "react";
-import { useMutation, useLazyQuery } from "@apollo/client/react";
+import { useEffect, useReducer } from "react";
+import { useLazyQuery, useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
@@ -11,10 +11,10 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import {
-  UndispatchedTasksQuery,
-  UndispatchedTasksQueryVariables,
   ScheduleTasksMutation,
   ScheduleTasksMutationVariables,
+  UndispatchedTasksQuery,
+  UndispatchedTasksQueryVariables,
 } from "gql/generated/types";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { UNSCHEDULED_TASKS } from "gql/queries";

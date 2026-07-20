@@ -1,4 +1,4 @@
-import { useParams, Link, Route, Routes, Navigate } from "react-router-dom";
+import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import {
   SideNav,
@@ -7,7 +7,7 @@ import {
   SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
-import { routes, SpawnTab, slugs } from "constants/routes";
+import { SpawnTab, routes, slugs } from "constants/routes";
 import { SpawnHost } from "./SpawnHost";
 import { SpawnVolume } from "./SpawnVolume";
 

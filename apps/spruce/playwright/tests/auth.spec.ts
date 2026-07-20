@@ -1,5 +1,5 @@
 import { users } from "@evg-ui/playwright-config/constants";
-import { test, expect } from "../fixtures";
+import { expect, test } from "../fixtures";
 
 test.describe("Auth", () => {
   test.describe("unauthenticated", () => {

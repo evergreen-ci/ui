@@ -1,11 +1,11 @@
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { useNavbarAnalytics } from "analytics";
 import {
-  routes,
-  redirectRoutes,
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
+  redirectRoutes,
+  routes,
 } from "constants/routes";
 import { NavDropdown } from "./NavDropdown";
 

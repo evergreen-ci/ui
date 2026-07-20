@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import GanttChart from "components/GanttChart";
 import {
+  GANTT_CHART_COLUMN_HEADERS,
   GanttChartData,
   GanttChartDataRow,
-  GANTT_CHART_COLUMN_HEADERS,
 } from "components/GanttChart/types";
 import { getTaskRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";

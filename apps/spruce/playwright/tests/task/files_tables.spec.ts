@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("files table", () => {
   const FILES_ROUTE = "/task/evergreen_ubuntu1604_89/files";

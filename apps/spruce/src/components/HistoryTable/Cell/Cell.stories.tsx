@@ -1,5 +1,5 @@
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { TaskCell, EmptyCell, LoadingCell, ColumnHeaderCell } from ".";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { ColumnHeaderCell, EmptyCell, LoadingCell, TaskCell } from ".";
 
 export default {
   component: TaskCell,

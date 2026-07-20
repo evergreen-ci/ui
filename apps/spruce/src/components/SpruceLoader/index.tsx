@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 
 export const loadable = <

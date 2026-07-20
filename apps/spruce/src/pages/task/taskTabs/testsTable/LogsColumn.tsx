@@ -7,7 +7,7 @@ import { downloadFile } from "@evg-ui/lib/utils/request";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { getTaskRoute, getTestHTMLLogRoute } from "constants/routes";
-import { TestResult, TaskQuery } from "gql/generated/types";
+import { TaskQuery, TestResult } from "gql/generated/types";
 import { TaskTab } from "types/task";
 import { TaskHistoryOptions } from "../TaskHistory/types";
 import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";

@@ -6,7 +6,7 @@ import {
 } from "gql/generated/types";
 import { TASK_TESTS_FOR_JOB_LOGS } from "gql/queries";
 import { EvergreenTestResult, JobLogsMetadata } from "./types";
-import { getFormattedTestResults, getTitle, getMetadata } from "./utils";
+import { getFormattedTestResults, getMetadata, getTitle } from "./utils";
 
 interface UseJobLogsPageParams {
   taskId?: string;
