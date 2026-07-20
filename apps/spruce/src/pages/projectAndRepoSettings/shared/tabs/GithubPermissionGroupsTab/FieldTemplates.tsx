@@ -5,9 +5,9 @@ import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import Icon from "@evg-ui/lib/components/Icon";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";

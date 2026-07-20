@@ -1,26 +1,26 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { css } from "@leafygreen-ui/emotion";
 import { Body } from "@leafygreen-ui/typography";
 import {
-  WordBreak,
   StyledRouterLink,
+  WordBreak,
   wordBreakCss,
 } from "@evg-ui/lib/components/styles";
 import {
-  LGColumnDef,
-  useLeafyGreenVirtualTable,
   BaseTable,
+  LGColumnDef,
   TablePlaceholder,
+  useLeafyGreenVirtualTable,
 } from "@evg-ui/lib/components/Table";
 import { useTaskQueueAnalytics } from "analytics";
-import { isWaterfallRequester, Requester } from "constants/requesters";
+import { Requester, isWaterfallRequester } from "constants/requesters";
 import {
-  getVersionRoute,
+  getProjectPatchesRoute,
   getTaskRoute,
   getUserPatchesRoute,
-  getProjectPatchesRoute,
+  getVersionRoute,
 } from "constants/routes";
 import { TaskQueueItem } from "gql/generated/types";
 import { formatZeroIndexForDisplay } from "utils/numbers";

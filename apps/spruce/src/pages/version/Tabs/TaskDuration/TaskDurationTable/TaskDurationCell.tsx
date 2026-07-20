@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { Description } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
-  mapTaskToBarchartColor,
   mapTaskStatusToUmbrellaStatus,
+  mapTaskToBarchartColor,
 } from "constants/task";
 import { string } from "utils";
 

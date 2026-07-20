@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("GitHub username banner", () => {
   test("should show the banner on the my patches page if user doesn't have a github username", async ({

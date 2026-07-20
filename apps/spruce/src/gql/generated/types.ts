@@ -2705,6 +2705,10 @@ export enum PreferredAuthType {
   Okta = "OKTA",
 }
 
+export type PrevTaskOptions = {
+  skipOnParentCompleted?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
 export enum PriorityLevel {
   Alert = "ALERT",
   Critical = "CRITICAL",
@@ -4159,6 +4163,11 @@ export type Task = {
   totalTestCount: Scalars["Int"]["output"];
   version: VersionLite;
   versionMetadata: Version;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskPrevTaskCompletedArgs = {
+  prevTaskOptions?: InputMaybe<PrevTaskOptions>;
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */

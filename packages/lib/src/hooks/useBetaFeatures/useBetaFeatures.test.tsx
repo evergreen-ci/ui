@@ -14,8 +14,8 @@ import {
 import { ApolloMock } from "test_utils/types";
 import {
   useAdminBetaFeatures,
-  useUserBetaFeatures,
   useMergedBetaFeatures,
+  useUserBetaFeatures,
 } from ".";
 
 interface ProviderProps {

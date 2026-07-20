@@ -7,7 +7,7 @@ const ordering = [
     TaskStatus.TestTimedOut,
     TaskStatus.TaskTimedOut,
   ]),
-  // lavender
+  // blue
   new Set([TaskStatus.SetupFailed]),
   // purple
   new Set([

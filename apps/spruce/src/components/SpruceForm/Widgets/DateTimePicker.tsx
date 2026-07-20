@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import {
-  setToUTCMidnight,
   DateType,
   isInvalidDateObject,
+  setToUTCMidnight,
 } from "@leafygreen-ui/date-utils";
 import { Description, Label } from "@leafygreen-ui/typography";
-import { toZonedTime, fromZonedTime } from "date-fns-tz";
+import { fromZonedTime, toZonedTime } from "date-fns-tz";
 import { size } from "@evg-ui/lib/constants/tokens";
 import LGTimePicker from "components/TimePicker";
 import { useUserTimeZone } from "hooks/useUserTimeZone";

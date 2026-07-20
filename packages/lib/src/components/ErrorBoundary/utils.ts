@@ -1,6 +1,6 @@
 import {
-  leaveBreadcrumb,
   SentryBreadcrumbTypes,
+  leaveBreadcrumb,
 } from "../../utils/errorReporting";
 
 /**

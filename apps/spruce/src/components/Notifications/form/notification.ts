@@ -2,8 +2,8 @@ import { FieldRow } from "components/SpruceForm/FieldTemplates";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import { JiraTicketType } from "types/jira";
 import {
-  SubscriptionMethodOption,
   NotificationMethods,
+  SubscriptionMethodOption,
 } from "types/subscription";
 
 /**

@@ -8,7 +8,7 @@ import {
   UserDistroSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import { USER_DISTRO_SETTINGS_PERMISSIONS } from "gql/queries";
-import { usePopulateForm, useDistroSettingsContext } from "../Context";
+import { useDistroSettingsContext, usePopulateForm } from "../Context";
 import { FormStateMap, WritableDistroSettingsType } from "./types";
 
 type BaseTabProps<T extends WritableDistroSettingsType> = {

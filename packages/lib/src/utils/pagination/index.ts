@@ -1,6 +1,6 @@
 import {
-  PAGE_SIZES,
   DEFAULT_PAGE_SIZE,
+  PAGE_SIZES,
   RECENT_PAGE_SIZE_KEY,
 } from "../../constants/pagination";
 

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import {
-  RECENT_PAGE_SIZE_KEY,
   PaginationQueryParams,
+  RECENT_PAGE_SIZE_KEY,
 } from "../../constants/pagination";
 import { getDefaultPageSize } from "../../utils/pagination";
 import { useQueryParam, useQueryParams } from "../useQueryParam";

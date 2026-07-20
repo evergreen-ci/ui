@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DisplayModal } from "components/DisplayModal";
 import { MetadataItem } from "components/MetadataCard";

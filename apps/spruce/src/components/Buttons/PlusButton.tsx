@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Button as LeafyGreenButton, ButtonProps } from "@leafygreen-ui/button";
+import { ButtonProps, Button as LeafyGreenButton } from "@leafygreen-ui/button";
 import Icon from "@evg-ui/lib/components/Icon";
 
 export const PlusButton = forwardRef<HTMLDivElement, ButtonProps>(

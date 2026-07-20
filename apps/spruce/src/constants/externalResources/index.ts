@@ -1,5 +1,5 @@
 import { LogTypes } from "types/task";
-import { getParsleyUrl, getEvergreenUrl } from "utils/environmentVariables";
+import { getEvergreenUrl, getParsleyUrl } from "utils/environmentVariables";
 
 export const wikiBaseUrl =
   "https://docs.devprod.prod.corp.mongodb.com/evergreen";

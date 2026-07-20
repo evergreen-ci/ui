@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
-import { Select, Option } from "@leafygreen-ui/select";
+import { Option, Select } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import TextInput from "components/TextInputWithValidation";

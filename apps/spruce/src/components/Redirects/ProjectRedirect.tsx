@@ -1,4 +1,4 @@
-import { Navigate, useParams, useLocation, Params } from "react-router-dom";
+import { Navigate, Params, useLocation, useParams } from "react-router-dom";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 
 interface ProjectRedirectProps {

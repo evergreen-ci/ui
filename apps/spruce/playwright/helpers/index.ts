@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 
 /**
  * Selects an option from a LeafyGreen select component

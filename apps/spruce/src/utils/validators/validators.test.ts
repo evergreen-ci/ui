@@ -6,8 +6,8 @@ import {
   validateNoStartingOrTrailingWhitespace,
   validateObjectId,
   validateRegexp,
-  validateSlack,
   validateSSHPublicKey,
+  validateSlack,
   validateURL,
 } from ".";
 

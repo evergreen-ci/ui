@@ -1,24 +1,24 @@
 import { Description } from "@leafygreen-ui/typography";
-import { StyledRouterLink, StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { mergeQueueAliasesDocumentationUrl } from "constants/externalResources";
 import {
+  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
   getRepoSettingsRoute,
-  ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "../../getTabTitle";
 import {
-  alias,
-  form,
   ProjectType,
-  githubConflictErrorStyling,
-  sectionHasError,
-  hideIf,
+  alias,
   fieldDisabled,
+  form,
+  githubConflictErrorStyling,
+  hideIf,
+  sectionHasError,
 } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { MergeQueueFormState } from "./types";

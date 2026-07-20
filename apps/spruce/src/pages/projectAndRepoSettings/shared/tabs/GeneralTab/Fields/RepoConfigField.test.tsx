@@ -20,8 +20,8 @@ import {
   GithubOrgsQueryVariables,
 } from "gql/generated/types";
 import {
-  ATTACH_PROJECT_TO_REPO,
   ATTACH_PROJECT_TO_NEW_REPO,
+  ATTACH_PROJECT_TO_REPO,
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
 import { GITHUB_ORGS } from "gql/queries";

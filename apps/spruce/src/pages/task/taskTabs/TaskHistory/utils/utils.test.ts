@@ -1,13 +1,13 @@
 import {
-  tasks,
   collapsedGroupedTasks,
   expandedGroupedTasks,
+  tasks,
 } from "../testData";
 import {
-  getPrevPageCursor,
-  getNextPageCursor,
-  groupTasks,
   areDatesOnSameDay,
+  getNextPageCursor,
+  getPrevPageCursor,
+  groupTasks,
 } from ".";
 
 describe("groupTasks", () => {

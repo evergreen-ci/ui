@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { selectOption } from "../../helpers";
 
 test.describe("distroSettings/navigation", () => {

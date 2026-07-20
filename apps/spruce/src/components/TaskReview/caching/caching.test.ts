@@ -1,4 +1,4 @@
-import { StoreObject, FieldFunctionOptions } from "@apollo/client";
+import { FieldFunctionOptions, StoreObject } from "@apollo/client";
 import { waitFor } from "@evg-ui/lib/test_utils";
 import { readTaskReviewed } from ".";
 
