@@ -4,7 +4,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
-import { GroupedFilesFile, FileTableRow } from "./types";
+import { FileTableRow, GroupedFilesFile } from "./types";
 
 export const processFilesWithAssociatedLinks = (
   files: GroupedFilesFile[],

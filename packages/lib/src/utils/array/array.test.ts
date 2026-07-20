@@ -1,6 +1,6 @@
 import {
-  arraySymmetricDifference,
   arraySetDifference,
+  arraySymmetricDifference,
   conditionalToArray,
 } from ".";
 

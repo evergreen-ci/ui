@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import * as helpers from "../../helpers";
 
 const logLink =
@@ -87,6 +87,18 @@ test.describe("Searching", () => {
 
     await previousButton.click();
     await expect(page.getByTestId("search-count")).toContainText("1/4");
+  });
+
+  test("bookmarking should add all lines containing the search term", async ({
+    page,
+  }) => {
+    await helpers.addBookmark(page, "fsevents");
+    await expect(page).toHaveURL(/bookmarks=0,24,25,26,27,297/);
+    const bookmarkList = page.getByTestId("bookmark-list");
+    await expect(bookmarkList).toContainText("24");
+    await expect(bookmarkList).toContainText("25");
+    await expect(bookmarkList).toContainText("26");
+    await expect(bookmarkList).toContainText("27");
   });
 
   test("should not reset search index when a bookmark is applied", async ({

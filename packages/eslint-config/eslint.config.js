@@ -1,7 +1,6 @@
-import * as emotionPlugin from "@emotion/eslint-plugin";
-import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
+import stylisticPlugin from "@stylistic/eslint-plugin";
 import { defineConfig } from "eslint/config";
 import disableConflictsPlugin from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
@@ -40,6 +39,7 @@ const globalIgnores = {
     "**/sdlschema",
     "**/gql/generated/types.ts",
     "**/storybook-static",
+    "**/routeTree.gen.ts",
   ],
 };
 
@@ -119,9 +119,22 @@ const eslintConfig = {
     ],
     "prefer-regex-literals": [ERROR, { disallowRedundantWrapping: true }],
     "prefer-template": ERROR,
+    "sort-imports": [ERROR, { ignoreDeclarationSort: true }],
     radix: ERROR,
-    "spaced-comment": [ERROR, "always", { markers: ["/"] }], // TODO: This rule is deprecated - fix in DEVPROD-15014.
     yoda: ERROR,
+  },
+};
+
+// Stylistic (@stylistic/eslint-plugin) settings.
+const stylisticConfig = {
+  name: "@stylistic/rules",
+  plugins: {
+    "@stylistic": stylisticPlugin,
+  },
+  files: ["**/*.js?(x)", "**/*.ts?(x)"],
+  rules: {
+    ...stylisticPlugin.configs.recommended.rules,
+    "@stylistic/spaced-comment": [ERROR, "always", { markers: ["/"] }],
   },
 };
 
@@ -260,23 +273,6 @@ const jsxA11yConfig = {
   },
 };
 
-// Emotion ESLint (@emotion/eslint-plugin) settings.
-// Emotion doesn't actually support FlatConfig yet so we're using a conversion utility.
-const emotionConfig = {
-  name: "@emotion/rules",
-  files: ["src/**/*.ts?(x)"],
-  plugins: {
-    "@emotion": fixupPluginRules(emotionPlugin),
-  },
-  rules: {
-    "@emotion/import-from-emotion": ERROR,
-    "@emotion/no-vanilla": errorIfStrict,
-    "@emotion/pkg-renaming": ERROR,
-    "@emotion/styled-import": ERROR,
-    "@emotion/syntax-preference": [errorIfStrict, "string"],
-  },
-};
-
 // Sort Destructure Keys ESLint (eslint-plugin-sort-destructure-keys) settings.
 const sortDestructureKeysConfig = {
   name: "sort-destructure-keys/rules",
@@ -368,7 +364,6 @@ const graphQLConfig = {
     ],
     "@graphql-eslint/no-deprecated": ERROR,
     "@graphql-eslint/selection-set-depth": [ERROR, { maxDepth: 8 }],
-    "spaced-comment": OFF,
 
     // The following two rules are disabled because Spruce and Parsley could have
     // identical fragment and operation names.
@@ -462,12 +457,12 @@ export default defineConfig(
   globalIgnores,
   languageOptions,
   eslintConfig,
+  stylisticConfig,
   tseslint.configs.recommended,
   tsEslintConfig,
   reactConfig,
   reactHooksConfig,
   jsxA11yConfig,
-  emotionConfig,
   sortDestructureKeysConfig,
   testingLibraryConfig,
   jsDocConfig,

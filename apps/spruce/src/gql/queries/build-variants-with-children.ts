@@ -32,8 +32,10 @@ export const BUILD_VARIANTS_WITH_CHILDREN = gql`
           estimatedTasks
           taskId
         }
-        project
-        projectIdentifier
+        projectMetadata {
+          id
+          identifier
+        }
       }
       generatedTaskCounts {
         estimatedTasks

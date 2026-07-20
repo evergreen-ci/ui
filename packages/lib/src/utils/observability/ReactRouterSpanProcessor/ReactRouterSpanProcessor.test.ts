@@ -17,7 +17,39 @@ describe("ReactRouterSpanProcessor", () => {
     spanProcessor = new ReactRouterSpanProcessor(mockRouteConfig);
   });
 
+  afterEach(() => {
+    window.AttributeStore = null;
+  });
+
   describe("onStart", () => {
+    it("applies global attributes from the AttributeStore to every span", () => {
+      const mockSpan = {
+        setAttribute: vi.fn(),
+      } as unknown as Span;
+
+      window.AttributeStore = {
+        getGlobalAttributes: () => ({
+          "user.id": "john.doe",
+          "version.is_patch": true,
+        }),
+        getGlobalAttribute: vi.fn(),
+        setGlobalAttribute: vi.fn(),
+        removeGlobalAttribute: vi.fn(),
+      };
+
+      Object.defineProperty(window, "location", {
+        value: { pathname: "/unknown" },
+        writable: true,
+      });
+
+      spanProcessor.onStart(mockSpan, ROOT_CONTEXT);
+
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith("user.id", "john.doe");
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "version.is_patch",
+        true,
+      );
+    });
     it("should set attributes on the span for a fully matched route", () => {
       const mockSpan = {
         setAttribute: vi.fn(),

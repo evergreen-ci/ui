@@ -11,22 +11,22 @@ export const PATCHES_PAGE_PATCHES = gql`
       description
       hidden
       invalidatedByUpstream
-      projectIdentifier
       projectMetadata {
         id
+        identifier
         owner
         repo
       }
       status
-      user {
+      user: userLite {
         displayName
-        userId
+        userId: id
       }
-      versionFull {
+      version {
         id
         requester
         status
-        taskStatusStats(options: {}) {
+        taskStatusStats {
           counts {
             count
             status

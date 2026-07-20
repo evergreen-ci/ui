@@ -2,9 +2,9 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import {
+  TaskSortCategory,
   VersionQuery,
   VersionQueryVariables,
-  TaskSortCategory,
 } from "gql/generated/types";
 import { VERSION } from "gql/queries";
 
@@ -25,7 +25,11 @@ type Action =
     }
   | { name: "Clicked metadata previous version link" }
   | { name: "Clicked metadata project patches link" }
-  | { name: "Clicked task table task link"; "task.id": string }
+  | {
+      name: "Clicked task table task link";
+      "task.id": string;
+      "task.status": string;
+    }
   | { name: "Deleted all filters" }
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
   | { name: "Filtered tasks table"; "filter.by": string | string[] }
@@ -71,6 +75,11 @@ type Action =
       num_reoccurring_tests: number;
       num_tests: number;
       num_failed_tasks: number;
+    }
+  | {
+      name: "Clicked code changes diff link";
+      "diff.type": "file" | "patch";
+      "diff.format": "html" | "raw";
     };
 
 export const useVersionAnalytics = (id: string) => {

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
@@ -13,7 +13,7 @@ import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getHoneycombHistoryUrl } from "constants/externalResources/honeycomb";
-import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
+import { GetTaskRouteOptions, getTaskRoute, slugs } from "constants/routes";
 import {
   TaskPerfPluginEnabledQuery,
   TaskPerfPluginEnabledQueryVariables,
@@ -78,7 +78,9 @@ const useTabConfig = (
   });
 
   const tabIsActive: Record<TaskTab, boolean> = {
-    [TaskTab.Logs]: !isDisplayTask,
+    // Display tasks have no execution logs, but the Logs tab still surfaces
+    // their event log (e.g. created Jira tickets, restarts).
+    [TaskTab.Logs]: true,
     [TaskTab.ExecutionTasks]: isDisplayTask,
     [TaskTab.Tests]: true,
     [TaskTab.Files]: true,
@@ -92,7 +94,12 @@ const useTabConfig = (
   const tabMap: Record<TaskTab, React.JSX.Element> = {
     [TaskTab.Logs]: (
       <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
-        <Logs execution={execution} logLinks={logLinks} taskId={id} />
+        <Logs
+          execution={execution}
+          isDisplayTask={isDisplayTask}
+          logLinks={logLinks}
+          taskId={id}
+        />
       </Tab>
     ),
     [TaskTab.Tests]: (

@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { textAreaCSS, mergeCheckboxCSS, indentCSS } from "./styles";
+import { indentCSS, mergeCheckboxCSS, textAreaCSS } from "./styles";
 import { BuildType } from "./types";
 
 const userData = {
@@ -341,35 +341,6 @@ export const dockerProviderSettings = {
 };
 
 export const ec2FleetProviderSettings = {
-  schema: {
-    amiId: amiId.schema,
-    instanceType: instanceType.schema,
-    sshKeyName: sshKeyName.schema,
-    instanceProfileARN: instanceProfileARN.schema,
-    doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
-    elasticIpsEnabled: elasticIpsEnabled.schema,
-    mergeUserData: mergeUserData.schema,
-    userData: userData.schema,
-    securityGroups: securityGroups.schema,
-    vpcOptions: vpcOptions.schema,
-    mountPoints: mountPoints.schema,
-  },
-  uiSchema: {
-    amiId: amiId.uiSchema,
-    instanceType: instanceType.uiSchema,
-    sshKeyName: sshKeyName.uiSchema,
-    instanceProfileARN: instanceProfileARN.uiSchema,
-    doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
-    elasticIpsEnabled: elasticIpsEnabled.uiSchema,
-    mergeUserData: mergeUserData.uiSchema,
-    userData: userData.uiSchema,
-    securityGroups: securityGroups.uiSchema,
-    vpcOptions: vpcOptions.uiSchema,
-    mountPoints: mountPoints.uiSchema,
-  },
-};
-
-export const ec2OnDemandProviderSettings = {
   schema: {
     amiId: amiId.schema,
     instanceType: instanceType.schema,

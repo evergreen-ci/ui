@@ -27,7 +27,7 @@ const useEffectDebugger = (
   dependencies: DependencyList,
   dependencyNames: string[] = [],
 ) => {
-  if (process.env.NODE_ENV !== "development") {
+  if (import.meta.env.MODE !== "development") {
     console.warn(
       "[use-effect-debugger] This hook should only be used in development!",
     );

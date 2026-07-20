@@ -1,4 +1,4 @@
-import { ApolloLink, execute, gql, ApolloClient } from "@apollo/client";
+import { ApolloClient, ApolloLink, execute, gql } from "@apollo/client";
 import { Observable } from "@apollo/client/utilities";
 import { waitFor } from "@testing-library/react";
 import { MockedFunction } from "vitest";
@@ -151,6 +151,33 @@ describe("pausePollingLink", () => {
     expect(mockForward).toHaveBeenCalled();
     await waitFor(() => {
       expect(observer.next).toHaveBeenCalled();
+    });
+  });
+
+  it("delays a TaskHistory request when tab is inactive", async () => {
+    documentHiddenSpy.mockReturnValue(true);
+    navigatorOnlineSpy.mockReturnValue(true);
+
+    const observer = { next: vi.fn(), error: vi.fn(), complete: vi.fn() };
+
+    execute(
+      ApolloLink.from([pausePollingLink, mockHttpLink]),
+      {
+        query: gql`
+          query TaskHistory {
+            someData {
+              id
+              name
+            }
+          }
+        `,
+      },
+      { client: mockClient },
+    ).subscribe(observer);
+
+    expect(mockForward).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(observer.next).not.toHaveBeenCalled();
     });
   });
 

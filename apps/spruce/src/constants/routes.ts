@@ -3,7 +3,7 @@ import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
-import { TestStatus, HistoryQueryParams } from "types/history";
+import { HistoryQueryParams, TestStatus } from "types/history";
 import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
 import { LogTypes, TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
@@ -175,6 +175,19 @@ export const routes = {
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
   version: `${paths.version}/:${slugs.versionId}/:${slugs.tab}?`,
   waterfall: `${paths.project}/:${slugs.projectIdentifier}/waterfall`,
+};
+
+// Route patterns augmented with optional tab/param segments so deep links resolve
+// to one route name. Shared so the span processor and analytics agree.
+export const observabilityRouteConfig = {
+  ...routes,
+  projectSettings: `${routes.projectSettings}/:${slugs.tab}?`,
+  image: `${routes.image}/:${slugs.tab}?`,
+  distroSettings: `${routes.distroSettings}/:${slugs.tab}?`,
+  preferences: `${routes.preferences}/:${slugs.tab}?`,
+  spawn: `${routes.spawn}/:${slugs.tab}?`,
+  jobLogs: `${routes.jobLogs}/:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`,
+  patchRedirect: redirectRoutes.patch,
 };
 
 export const getUserPatchesRoute = (userId: string): string =>

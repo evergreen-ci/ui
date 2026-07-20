@@ -1,12 +1,12 @@
 import { test as setup } from "@playwright/test";
 import { users } from "@evg-ui/playwright-config/constants";
 import {
-  SLACK_NOTIFICATION_BANNER,
-  SEEN_WATERFALL_ONBOARDING_TUTORIAL,
+  SEEN_GITHUB_NAV_GUIDE_CUE,
   SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
   SEEN_TASK_REVIEW_TOOLTIP,
   SEEN_TEST_SELECTION_GUIDE_CUE,
-  SEEN_GITHUB_NAV_GUIDE_CUE,
+  SEEN_WATERFALL_ONBOARDING_TUTORIAL,
+  SLACK_NOTIFICATION_BANNER,
 } from "constants/cookies";
 
 const bannerCookie = "This is an important notification";

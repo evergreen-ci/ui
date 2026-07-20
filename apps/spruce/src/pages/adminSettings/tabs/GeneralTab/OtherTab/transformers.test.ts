@@ -12,6 +12,25 @@ describe("other tab transformers", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
 
+  it("converts lifecycleLastSyncedAt values arriving as ISO strings", () => {
+    const isoString = "2026-07-06T12:00:00.000Z";
+    const adminSettingsWithSyncTime: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        logBucket: {
+          ...mockAdminSettings.buckets?.logBucket,
+          lifecycleLastSyncedAt: isoString as unknown as Date,
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithSyncTime);
+    expect(loaded?.other.bucketConfig.logBucketLifecycleLastSyncedAt).toBe(
+      isoString,
+    );
+  });
+
   it("round-trips S3 storage account ID lists from admin settings", () => {
     const adminSettingsWithS3Lists: AdminSettingsData = {
       ...mockAdminSettings,
@@ -206,6 +225,7 @@ const expectedForm: OtherFormState = {
         financeFormula: 0.5,
         savingsPlanDiscount: 0.1,
         onDemandDiscount: 0.05,
+        hiddenCostProjects: [],
         s3Cost: {
           uploadCostDiscount: 0,
           standardStorageCostDiscount: 0,
@@ -235,7 +255,17 @@ const expectedForm: OtherFormState = {
     },
     bucketConfig: {
       defaultLogBucket: "evergreen-logs",
+      logBucketExpirationDays: 0,
+      logBucketTransitionToIADays: 0,
+      logBucketTransitionToGlacierDays: 0,
+      logBucketLifecycleLastSyncedAt: "",
+      logBucketLifecycleSyncError: "",
       logBucketLongRetentionName: "logBucketLongRetention",
+      logBucketLongRetentionExpirationDays: 0,
+      logBucketLongRetentionTransitionToIADays: 0,
+      logBucketLongRetentionTransitionToGlacierDays: 0,
+      logBucketLongRetentionLifecycleLastSyncedAt: "",
+      logBucketLongRetentionLifecycleSyncError: "",
       longRetentionProjects: ["project1", "project2"],
       testResultsBucketName: "evergreen-test-results",
       testResultsBucketTestResultsPrefix: "results/",
@@ -244,7 +274,12 @@ const expectedForm: OtherFormState = {
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
       failedTasksLogBucketName: "evergreen-failed-tasks",
-      retryFailedLogMoveLookbackMonths: 0,
+      failedTasksLogBucketExpirationDays: 0,
+      failedTasksLogBucketTransitionToIADays: 0,
+      failedTasksLogBucketTransitionToGlacierDays: 0,
+      failedTasksLogBucketLifecycleLastSyncedAt: "",
+      failedTasksLogBucketLifecycleSyncError: "",
+      retryFailedLogMoveLookbackDays: 0,
       retryFailedLogMoveMaxJobsPerRun: 0,
     },
     sshPairs: {
@@ -367,7 +402,7 @@ const expectedGql: AdminSettingsInput = {
       name: "logBucketLongRetention",
     },
     longRetentionProjects: ["project1", "project2"],
-    retryFailedLogMoveLookbackMonths: undefined,
+    retryFailedLogMoveLookbackDays: undefined,
     retryFailedLogMoveMaxJobsPerRun: undefined,
     testResultsBucket: {
       name: "evergreen-test-results",
@@ -421,6 +456,7 @@ const expectedGql: AdminSettingsInput = {
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
+    hiddenCostProjects: [],
     s3Cost: {
       upload: {
         uploadCostDiscount: 0,

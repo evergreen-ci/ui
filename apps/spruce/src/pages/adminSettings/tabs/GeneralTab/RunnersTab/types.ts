@@ -1,6 +1,6 @@
 import {
-  FinderVersion,
   FeedbackRule,
+  FinderVersion,
   HostAllocatorVersion,
   OverallocatedRule,
   RoundingRule,
@@ -24,6 +24,7 @@ export interface RunnersFormState {
       maxExecTimeoutSecs: number;
       maxTaskExecution: number;
       maxDailyAutomaticRestarts: number;
+      maxScheduledTasksPerDistro: number;
     };
     hostInit: {
       hostThrottle: number;
@@ -49,6 +50,9 @@ export interface RunnersFormState {
       generateTaskFactor: number;
       stepbackTaskFactor: number;
       numDependentsFactor: number;
+      translateProjectConcurrencyLimit: number;
+      translateProjectCacheBytesLimit: number;
+      translateProjectCacheTTLSeconds: number;
       groupVersions: boolean;
     };
     repotracker: {

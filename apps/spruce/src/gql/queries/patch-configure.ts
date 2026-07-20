@@ -11,7 +11,10 @@ export const PATCH_CONFIGURE = gql`
       }
       childPatches {
         id
-        projectIdentifier
+        projectMetadata {
+          id
+          identifier
+        }
         variantsTasks {
           name
           tasks
@@ -36,11 +39,14 @@ export const PATCH_CONFIGURE = gql`
           tasks
         }
       }
-      projectIdentifier
+      projectMetadata {
+        id
+        identifier
+      }
       time {
         submittedAt
       }
-      versionFull {
+      version {
         id
       }
     }

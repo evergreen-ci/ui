@@ -33,9 +33,9 @@ import { InactiveVersionsButton } from "./InactiveVersions";
 import { OnboardingTutorial } from "./OnboardingTutorial";
 import {
   BuildVariantTitle,
-  gridGroupCss,
   InactiveVersion,
   Row,
+  gridGroupCss,
 } from "./styles";
 import { Pagination, Version, WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
@@ -227,7 +227,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     dataIsComplete &&
     data?.waterfall?.pagination?.activeVersionIds?.length === 0
   ) {
-    return <EmptyState />;
+    return <EmptyState pagination={data.waterfall.pagination} />;
   }
 
   return (

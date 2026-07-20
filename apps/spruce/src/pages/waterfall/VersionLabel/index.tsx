@@ -10,7 +10,7 @@ import { useWaterfallAnalytics } from "analytics";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
-import { useSpruceConfig, useDateFormat } from "hooks";
+import { useDateFormat, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";

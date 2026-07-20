@@ -1,11 +1,10 @@
 import { useBreadcrumbAnalytics } from "analytics";
 import { getWaterfallRoute } from "constants/routes";
-import { User } from "gql/generated/types";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const useBreadcrumbRoot = (
   isPatch: boolean,
-  user: Pick<User, "displayName" | "userId">,
+  user: { displayName?: string | null; userId: string },
   projectIdentifier: string,
 ) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();

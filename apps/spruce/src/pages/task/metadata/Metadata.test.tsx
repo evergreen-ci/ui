@@ -7,7 +7,7 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { getUserMock } from "gql/mocks/getUser";
-import { taskQuery, TaskQueryType } from "gql/mocks/taskData";
+import { TaskQueryType, taskQuery } from "gql/mocks/taskData";
 import { Metadata } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -28,7 +28,7 @@ describe("metadata", () => {
     expect(
       screen.queryByDataCy("task-metadata-estimated-start"),
     ).toHaveTextContent("1s");
-    expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
+    expect(screen.queryByDataCy("eta-timer")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-started")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
   });
@@ -53,7 +53,7 @@ describe("metadata", () => {
       wrapper,
     });
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
-    expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
+    expect(screen.queryByDataCy("eta-timer")).toBeNull();
     expect(screen.getByDataCy("task-metadata-started")).toBeInTheDocument();
     expect(screen.getByDataCy("task-metadata-finished")).toBeInTheDocument();
     expect(screen.getByDataCy("task-trace-link")).toBeInTheDocument();
@@ -84,7 +84,7 @@ describe("metadata", () => {
     expect(screen.getByText("other failing command")).toBeVisible();
   });
 
-  it("HidesCostDetailsButtonWhenTaskIsRunning", () => {
+  it("hides cost detail button when task is running", () => {
     render(<Metadata loading={false} task={taskWithCost.task} />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
@@ -93,7 +93,7 @@ describe("metadata", () => {
     expect(screen.queryByDataCy("cost-details-button")).not.toBeInTheDocument();
   });
 
-  it("ShowsCostDetailsButtonWhenTaskIsComplete", () => {
+  it("shows cost detail button when task is complete", () => {
     render(<Metadata loading={false} task={taskWithCostAndFinishTime.task} />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
@@ -102,7 +102,7 @@ describe("metadata", () => {
     expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
   });
 
-  it("CanReopenCostModalAfterClosing", async () => {
+  it("can reopen cost modal after closing", async () => {
     const user = userEvent.setup();
     render(<Metadata loading={false} task={taskWithCostAndFinishTime.task} />, {
       route: `/task/${taskId}`,

@@ -1,5 +1,5 @@
-import { test, expect } from "../../fixtures";
-import { validateDatePickerDate, selectDatePickerDate } from "../../helpers";
+import { expect, test } from "../../fixtures";
+import { selectDatePickerDate, validateDatePickerDate } from "../../helpers";
 
 test.describe("status filtering", () => {
   test.beforeEach(async ({ page }) => {
@@ -34,6 +34,10 @@ test.describe("requester filtering", () => {
     await page.getByTestId("requester-filter").click();
     await page.getByTestId("ad_hoc-option").click();
     await expect(page.getByText("No Results Found")).toBeVisible();
+    await expect(
+      page.getByText("Evergreen found no builds matching the applied filters."),
+    ).toBeVisible();
+    await expect(page.getByTestId("search-older-commits-button")).toBeHidden();
   });
 
   test("filters on git tags and fetches more from the server", async ({

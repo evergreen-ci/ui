@@ -1,8 +1,8 @@
 import { AuthStateContext } from "@evg-ui/lib/context/AuthProvider";
 import {
   ApolloMock,
-  CustomStoryObj,
   CustomMeta,
+  CustomStoryObj,
 } from "@evg-ui/lib/test_utils/types";
 import {
   SpruceConfigQuery,
@@ -10,7 +10,7 @@ import {
   UserQuery,
   UserQueryVariables,
 } from "gql/generated/types";
-import { USER, SPRUCE_CONFIG } from "gql/queries";
+import { SPRUCE_CONFIG, USER } from "gql/queries";
 import { Navbar } from "./Navbar";
 
 const userMock: ApolloMock<UserQuery, UserQueryVariables> = {
@@ -48,7 +48,6 @@ const spruceConfigMock: ApolloMock<
         serviceFlags: {
           __typename: "UserServiceFlags",
           debugSpawnHostDisabled: false,
-          jwtTokenForCLIDisabled: false,
         },
         slack: null,
         spawnHost: {

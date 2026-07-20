@@ -21,5 +21,5 @@ export const isInStepback = (
     stepbackInfo.nextStepbackTaskId.length > 0;
 
   // If the task is in stepback or beginning stepback, it is counted as in stepback.
-  return hasLastStepback || isBeginningStepback;
+  return !!(hasLastStepback || isBeginningStepback);
 };

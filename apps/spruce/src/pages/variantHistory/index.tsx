@@ -8,18 +8,18 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
-  leaveBreadcrumb,
   SentryBreadcrumbTypes,
+  leaveBreadcrumb,
 } from "@evg-ui/lib/utils/errorReporting";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { ProjectBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import {
-  context,
   ColumnPaginationButtons,
   HistoryTableTestSearch,
-  hooks,
   constants,
+  context,
+  hooks,
 } from "components/HistoryTable";
 import HistoryTable from "components/HistoryTable/HistoryTable";
 import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
@@ -135,7 +135,6 @@ const VariantHistoryContents: React.FC = () => {
 
   return (
     <PageWrapper>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <CenterPage>
         <PageHeader>

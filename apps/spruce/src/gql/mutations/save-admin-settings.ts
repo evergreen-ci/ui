@@ -15,6 +15,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
           ebsDiscount
         }
         financeFormula
+        hiddenCostProjects
         onDemandDiscount
         s3Cost {
           storage {
@@ -74,6 +75,9 @@ export const SAVE_ADMIN_SETTINGS = gql`
         stepbackTaskFactor
         targetTimeSeconds
         taskFinder
+        translateProjectCacheBytesLimit
+        translateProjectCacheTTLSeconds
+        translateProjectConcurrencyLimit
       }
       taskLimits {
         maxConcurrentLargeParserProjectTasks
@@ -86,6 +90,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
         maxIncludesPerVersion
         maxParserProjectSize
         maxPendingGeneratedTasks
+        maxScheduledTasksPerDistro
         maxTaskExecution
         maxTasksPerVersion
       }

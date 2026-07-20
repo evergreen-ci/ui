@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 const prioritySuccessBannerText = "Priority updated for 1 task.";

@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
@@ -28,8 +29,14 @@ const Search: React.FC = () => {
 
   const [filters, setFilters] = useFilterParam();
   const [highlights, setHighlights] = useHighlightParam();
+  const [bookmarks, setBookmarks] = useQueryParam<number[]>(
+    QueryParams.Bookmarks,
+    [],
+    urlParseOptions,
+  );
   const [searchParams, setSearchParams] = useQueryParams(urlParseOptions);
   const {
+    getLinesBySearch,
     hasLogs,
     logMetadata,
     paginate,
@@ -56,6 +63,17 @@ const Search: React.FC = () => {
   );
   const { project } = data || {};
   const { parsleyFilters } = project || {};
+
+  useEffect(() => {
+    if (!project) return;
+    sendEvent({
+      name: "System Event loaded project filters",
+      "project.has_parsley_filters": (parsleyFilters?.length ?? 0) > 0,
+      "project.id": project.id,
+      "project.parsley_filters_count": parsleyFilters?.length ?? 0,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [project?.id]);
 
   const handleOnSubmit = (selected: string, value: string) => {
     addToHistory(value);
@@ -112,6 +130,26 @@ const Search: React.FC = () => {
           );
         }
         break;
+      case SearchBarActions.Bookmark: {
+        const matchingLines = getLinesBySearch(value);
+        if (matchingLines.length > 0) {
+          setSearch("");
+          const newBookmarks = Array.from(
+            new Set([...bookmarks, ...matchingLines]),
+          ).sort((a, b) => a - b);
+          setBookmarks(newBookmarks);
+          sendEvent({
+            "bookmark.expression": value,
+            name: "Created bookmarks by search",
+          });
+          leaveBreadcrumb(
+            "Bookmarked lines by search",
+            { matchCount: matchingLines.length, searchExpression: value },
+            SentryBreadcrumbTypes.User,
+          );
+        }
+        break;
+      }
       default:
         throw new Error("Invalid search action");
     }

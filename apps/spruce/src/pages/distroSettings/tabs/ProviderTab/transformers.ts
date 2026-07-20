@@ -1,7 +1,7 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { Provider } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { gqlProviderSettings, formProviderSettings } from "./transformerUtils";
+import { formProviderSettings, gqlProviderSettings } from "./transformerUtils";
 import { ProviderFormState } from "./types";
 
 type Tab = DistroSettingsTabRoutes.Provider;
@@ -46,10 +46,6 @@ export const gqlToForm = ((data) => {
     },
     ec2FleetProviderSettings: providerSettingsList.map((p) => ({
       ...formProviderSettings(p).ec2FleetProviderSettings,
-      displayTitle: p.region,
-    })),
-    ec2OnDemandProviderSettings: providerSettingsList.map((p) => ({
-      ...formProviderSettings(p).ec2OnDemandProviderSettings,
       displayTitle: p.region,
     })),
     taskHostOverrides: {
@@ -102,17 +98,6 @@ export const formToGql = ((data, distro) => {
         providerAccount: data.provider.providerAccount,
         providerSettingsList: data.ec2FleetProviderSettings.map((p) => ({
           ...gqlProviderSettings(p).ec2FleetProviderSettings,
-        })),
-        containerPool: "",
-        taskHostOverrides: toTaskHostOverridesInput(data.taskHostOverrides),
-      };
-    case Provider.Ec2OnDemand:
-      return {
-        ...distro,
-        provider: Provider.Ec2OnDemand,
-        providerAccount: data.provider.providerAccount,
-        providerSettingsList: data.ec2OnDemandProviderSettings.map((p) => ({
-          ...gqlProviderSettings(p).ec2OnDemandProviderSettings,
         })),
         containerPool: "",
         taskHostOverrides: toTaskHostOverridesInput(data.taskHostOverrides),

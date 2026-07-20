@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 const knownIssueTask = 'a[data-tooltip="test-cloud - Known Issue"]';
 const knownIssueTaskId =

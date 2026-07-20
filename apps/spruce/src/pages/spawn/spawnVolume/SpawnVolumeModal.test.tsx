@@ -2,10 +2,10 @@ import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
   MockedResponse,
-  userEvent,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
+  userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
@@ -259,7 +259,7 @@ const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
           ],
           noExpiration: false,
           persistentDnsName: "",
-          provider: "ec2-ondemand",
+          provider: "ec2-fleet",
           status: "running",
           startedBy: "arst.arst",
           tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
@@ -347,7 +347,7 @@ const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
           ],
           noExpiration: false,
           persistentDnsName: "",
-          provider: "ec2-ondemand",
+          provider: "ec2-fleet",
           status: "running",
           startedBy: "asrt.arsts",
           tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",

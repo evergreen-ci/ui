@@ -55,32 +55,6 @@ export type ProviderFormState = {
     mergeUserData: boolean;
     securityGroups: string[];
   }>;
-  ec2OnDemandProviderSettings: Array<{
-    displayTitle: string;
-    region: string;
-    amiId: string;
-    instanceType: string;
-    sshKeyName: string;
-    instanceProfileARN: string;
-    elasticIpsEnabled: boolean;
-    doNotAssignPublicIPv4Address: boolean;
-    vpcOptions: {
-      useVpc: boolean;
-      subnetId: string;
-      subnetPrefix: string;
-    };
-    mountPoints: Array<{
-      deviceName: string;
-      virtualName: string;
-      volumeType: string;
-      iops: number;
-      throughput: number;
-      size: number;
-    }>;
-    userData: string;
-    mergeUserData: boolean;
-    securityGroups: string[];
-  }>;
   taskHostOverrides: {
     enableTaskHostOverrides: boolean;
     doNotAssignPublicIpv4Address: boolean;

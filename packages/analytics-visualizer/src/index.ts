@@ -28,7 +28,7 @@ import type { AnalyticsVisualizerOptions } from "./types.ts";
  *     analyticsVisualizer({
  *       analyticsDir: "src/analytics",
  *       appName: "Parsley",
- *       honeycombBaseUrl: `${process.env.REACT_APP_HONEYCOMB_BASE_URL}/datasets/parsley`,
+ *       honeycombBaseUrl: `${import.meta.env.VITE_HONEYCOMB_BASE_URL}/datasets/parsley`,
  *     }),
  *   ],
  * });

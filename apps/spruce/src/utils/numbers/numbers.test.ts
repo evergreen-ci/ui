@@ -1,4 +1,4 @@
-import { roundDecimal, cryptoRandom, roundMax, formatCost } from ".";
+import { cryptoRandom, formatCost, roundDecimal, roundMax } from ".";
 
 describe("roundDecimal", () => {
   it("correctly rounds a decimal to the specified number of places", () => {

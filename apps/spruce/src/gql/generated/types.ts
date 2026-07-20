@@ -178,6 +178,7 @@ export type AdminSettings = {
   pprofPort?: Maybe<Scalars["String"]["output"]>;
   projectCreation?: Maybe<ProjectCreationConfig>;
   providers?: Maybe<CloudProviderConfig>;
+  rateLimit?: Maybe<RateLimitConfig>;
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
@@ -236,6 +237,7 @@ export type AdminSettingsInput = {
   pprofPort?: InputMaybe<Scalars["String"]["input"]>;
   projectCreation?: InputMaybe<ProjectCreationConfigInput>;
   providers?: InputMaybe<CloudProviderConfigInput>;
+  rateLimit?: InputMaybe<RateLimitConfigInput>;
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
@@ -466,9 +468,14 @@ export type BootstrapSettingsInput = {
 
 export type BucketConfig = {
   __typename?: "BucketConfig";
+  expirationDays?: Maybe<Scalars["Int"]["output"]>;
+  lifecycleLastSyncedAt?: Maybe<Scalars["Time"]["output"]>;
+  lifecycleSyncError?: Maybe<Scalars["String"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
   roleARN?: Maybe<Scalars["String"]["output"]>;
   testResultsPrefix?: Maybe<Scalars["String"]["output"]>;
+  transitionToGlacierDays?: Maybe<Scalars["Int"]["output"]>;
+  transitionToIADays?: Maybe<Scalars["Int"]["output"]>;
   type?: Maybe<Scalars["String"]["output"]>;
 };
 
@@ -487,6 +494,7 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
+  retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
@@ -499,6 +507,7 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
@@ -527,22 +536,12 @@ export type BuildBaron = {
 
 export type BuildBaronSettings = {
   __typename?: "BuildBaronSettings";
-  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionPassword?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionServer?: Maybe<Scalars["String"]["output"]>;
-  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
-  bfSuggestionUsername?: Maybe<Scalars["String"]["output"]>;
   ticketCreateIssueType: Scalars["String"]["output"];
   ticketCreateProject: Scalars["String"]["output"];
   ticketSearchProjects?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
 export type BuildBaronSettingsInput = {
-  bfSuggestionFeaturesURL?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionPassword?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
-  bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
-  bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateIssueType?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -693,6 +692,7 @@ export type CostConfig = {
   __typename?: "CostConfig";
   ebsCost?: Maybe<EbsCostConfig>;
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
+  hiddenCostProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
   s3Cost?: Maybe<S3CostConfig>;
   savingsPlanDiscount?: Maybe<Scalars["Float"]["output"]>;
@@ -701,6 +701,7 @@ export type CostConfig = {
 export type CostConfigInput = {
   ebsCost?: InputMaybe<EbsCostConfigInput>;
   financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
+  hiddenCostProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   s3Cost?: InputMaybe<S3CostConfigInput>;
   savingsPlanDiscount?: InputMaybe<Scalars["Float"]["input"]>;
@@ -1808,28 +1809,6 @@ export type LoggerConfigInput = {
   thresholdLevel: PriorityLevel;
 };
 
-export type LogkeeperBuild = {
-  __typename?: "LogkeeperBuild";
-  buildNum: Scalars["Int"]["output"];
-  builder: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  task: Task;
-  taskExecution: Scalars["Int"]["output"];
-  taskId: Scalars["String"]["output"];
-  tests: Array<LogkeeperTest>;
-};
-
-export type LogkeeperTest = {
-  __typename?: "LogkeeperTest";
-  buildId: Scalars["String"]["output"];
-  command: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-  phase: Scalars["String"]["output"];
-  taskExecution: Scalars["Int"]["output"];
-  taskId: Scalars["String"]["output"];
-};
-
 export type MainlineCommitVersion = {
   __typename?: "MainlineCommitVersion";
   rolledUpVersions?: Maybe<Array<Version>>;
@@ -1958,7 +1937,6 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
-  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -2532,8 +2510,6 @@ export type Patch = {
   /** Aggregated predicted cost for the patch's version. */
   predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
-  projectID: Scalars["String"]["output"];
-  projectIdentifier: Scalars["String"]["output"];
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
   taskCount?: Maybe<Scalars["Int"]["output"]>;
@@ -2541,6 +2517,7 @@ export type Patch = {
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
   user: User;
+  userLite: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
@@ -2727,6 +2704,10 @@ export enum PreferredAuthType {
   Naive = "NAIVE",
   Okta = "OKTA",
 }
+
+export type PrevTaskOptions = {
+  skipOnParentCompleted?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
 
 export enum PriorityLevel {
   Alert = "ALERT",
@@ -3095,7 +3076,6 @@ export type PromoteVarsToRepoInput = {
 export enum Provider {
   Docker = "DOCKER",
   Ec2Fleet = "EC2_FLEET",
-  Ec2OnDemand = "EC2_ON_DEMAND",
   Static = "STATIC",
 }
 
@@ -3150,7 +3130,6 @@ export type Query = {
   images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
   isRepo: Scalars["Boolean"]["output"];
-  logkeeperBuildMetadata: LogkeeperBuild;
   mainlineCommits?: Maybe<MainlineCommits>;
   myHosts: Array<Host>;
   myPublicKeys: Array<PublicKey>;
@@ -3173,6 +3152,7 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
+  userLite: User;
   variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
@@ -3249,10 +3229,6 @@ export type QueryIsRepoArgs = {
   projectOrRepoId: Scalars["String"]["input"];
 };
 
-export type QueryLogkeeperBuildMetadataArgs = {
-  buildId: Scalars["String"]["input"];
-};
-
 export type QueryMainlineCommitsArgs = {
   buildVariantOptions?: InputMaybe<BuildVariantOptions>;
   options: MainlineCommitsOptions;
@@ -3318,6 +3294,10 @@ export type QueryUserArgs = {
   userId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type QueryUserLiteArgs = {
+  userId?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type QueryVariantQuarantineStatusArgs = {
   buildVariant: Scalars["String"]["input"];
   projectIdentifier: Scalars["String"]["input"];
@@ -3329,6 +3309,33 @@ export type QueryVersionArgs = {
 
 export type QueryWaterfallArgs = {
   options: WaterfallOptions;
+};
+
+export type RateLimitConfig = {
+  __typename?: "RateLimitConfig";
+  elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
+  graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
+  graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
+  graphqlUserPerHour?: Maybe<Scalars["Int"]["output"]>;
+  restServiceBurst?: Maybe<Scalars["Int"]["output"]>;
+  restServicePerHour?: Maybe<Scalars["Int"]["output"]>;
+  restUserBurst?: Maybe<Scalars["Int"]["output"]>;
+  restUserPerHour?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type RateLimitConfigInput = {
+  elevatedUserIds: Array<Scalars["String"]["input"]>;
+  graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlServiceBurst: Scalars["Int"]["input"];
+  graphqlServicePerHour: Scalars["Int"]["input"];
+  graphqlUserBurst: Scalars["Int"]["input"];
+  graphqlUserPerHour: Scalars["Int"]["input"];
+  restServiceBurst: Scalars["Int"]["input"];
+  restServicePerHour: Scalars["Int"]["input"];
+  restUserBurst: Scalars["Int"]["input"];
+  restUserPerHour: Scalars["Int"]["input"];
 };
 
 export type RefreshGitHubStatusesInput = {
@@ -3721,6 +3728,9 @@ export type SchedulerConfig = {
   stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   taskFinder?: Maybe<FinderVersion>;
+  translateProjectCacheBytesLimit?: Maybe<Scalars["Int"]["output"]>;
+  translateProjectCacheTTLSeconds?: Maybe<Scalars["Int"]["output"]>;
+  translateProjectConcurrencyLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type SchedulerConfigInput = {
@@ -3742,11 +3752,13 @@ export type SchedulerConfigInput = {
   stepbackTaskFactor: Scalars["Int"]["input"];
   targetTimeSeconds: Scalars["Int"]["input"];
   taskFinder: FinderVersion;
+  translateProjectCacheBytesLimit?: InputMaybe<Scalars["Int"]["input"]>;
+  translateProjectCacheTTLSeconds?: InputMaybe<Scalars["Int"]["input"]>;
+  translateProjectConcurrencyLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type SearchReturnInfo = {
   __typename?: "SearchReturnInfo";
-  featuresURL: Scalars["String"]["output"];
   issues: Array<JiraTicket>;
   search: Scalars["String"]["output"];
   source: Scalars["String"]["output"];
@@ -4128,8 +4140,6 @@ export type Task = {
   prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
-  projectId: Scalars["String"]["output"];
-  projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
   reviewed?: Maybe<Scalars["Boolean"]["output"]>;
@@ -4153,6 +4163,11 @@ export type Task = {
   totalTestCount: Scalars["Int"]["output"];
   version: VersionLite;
   versionMetadata: Version;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskPrevTaskCompletedArgs = {
+  prevTaskOptions?: InputMaybe<PrevTaskOptions>;
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
@@ -4325,6 +4340,7 @@ export type TaskLimitsConfig = {
   maxIncludesPerVersion?: Maybe<Scalars["Int"]["output"]>;
   maxParserProjectSize?: Maybe<Scalars["Int"]["output"]>;
   maxPendingGeneratedTasks?: Maybe<Scalars["Int"]["output"]>;
+  maxScheduledTasksPerDistro?: Maybe<Scalars["Int"]["output"]>;
   maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
   maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
 };
@@ -4340,6 +4356,7 @@ export type TaskLimitsConfigInput = {
   maxIncludesPerVersion: Scalars["Int"]["input"];
   maxParserProjectSize: Scalars["Int"]["input"];
   maxPendingGeneratedTasks: Scalars["Int"]["input"];
+  maxScheduledTasksPerDistro: Scalars["Int"]["input"];
   maxTaskExecution: Scalars["Int"]["input"];
   maxTasksPerVersion: Scalars["Int"]["input"];
 };
@@ -4751,42 +4768,36 @@ export type UseSpruceOptionsInput = {
   spruceV1?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
-/**
- * User is returned by the user query.
- * It contains information about a user's id, name, email, and permissions.
- */
+/** User maps to the user.DBUser type. */
 export type User = {
   __typename?: "User";
   betaFeatures?: Maybe<BetaFeatures>;
   displayName?: Maybe<Scalars["String"]["output"]>;
   emailAddress?: Maybe<Scalars["String"]["output"]>;
   hasTokenExchangePending: Scalars["Boolean"]["output"];
+  id: Scalars["String"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patches?: Maybe<Patches>;
   permissions?: Maybe<Permissions>;
   settings?: Maybe<UserSettings>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
-  userId: Scalars["String"]["output"];
 };
 
-/**
- * User is returned by the user query.
- * It contains information about a user's id, name, email, and permissions.
- */
+/** User maps to the user.DBUser type. */
 export type UserPatchesArgs = {
   patchesInput: PatchesInput;
 };
 
 /**
  * UserConfig is returned by the userConfig query.
- * It contains configuration information such as the user's api key for the Evergreen CLI and a user's
- * preferred UI (legacy vs Spruce).
+ * It contains configuration information for the Evergreen CLI.
  */
 export type UserConfig = {
   __typename?: "UserConfig";
   api_key: Scalars["String"]["output"];
   api_server_host: Scalars["String"]["output"];
+  corp_api_server_host: Scalars["String"]["output"];
   oauth_client_id: Scalars["String"]["output"];
   oauth_connector_id: Scalars["String"]["output"];
   oauth_issuer: Scalars["String"]["output"];
@@ -4794,19 +4805,9 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
-/** UserLite replaces User by sidestepping the APIUser field. It does not contain all fields at this time. */
-export type UserLite = {
-  __typename?: "UserLite";
-  displayName?: Maybe<Scalars["String"]["output"]>;
-  emailAddress?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["String"]["output"];
-};
-
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
   debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /**
@@ -4895,8 +4896,6 @@ export type Version = {
   patch?: Maybe<Patch>;
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
-  project: Scalars["String"]["output"];
-  projectIdentifier: Scalars["String"]["output"];
   projectMetadata?: Maybe<Project>;
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
@@ -4909,6 +4908,7 @@ export type Version = {
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
   user: User;
+  userLite: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
@@ -4943,6 +4943,7 @@ export type VersionTasksArgs = {
 export type VersionLite = {
   __typename?: "VersionLite";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
+  baseVersion?: Maybe<VersionLite>;
   branch: Scalars["String"]["output"];
   childVersions?: Maybe<Array<VersionLite>>;
   cost?: Maybe<Cost>;
@@ -4952,6 +4953,7 @@ export type VersionLite = {
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
+  isPatch: Scalars["Boolean"]["output"];
   message: Scalars["String"]["output"];
   order: Scalars["Int"]["output"];
   project?: Maybe<ProjectLite>;
@@ -4961,7 +4963,7 @@ export type VersionLite = {
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
   taskStatusStats?: Maybe<TaskStats>;
-  user: UserLite;
+  user: User;
   warnings: Array<Scalars["String"]["output"]>;
 };
 
@@ -5247,9 +5249,9 @@ export type BasePatchFragment = {
   activated: boolean;
   alias?: string | null;
   description: string;
-  projectID: string;
   status: string;
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+  projectMetadata?: { __typename?: "Project"; id: string } | null;
   user: { __typename?: "User"; displayName?: string | null; userId: string };
   variantsTasks: Array<{
     __typename?: "VariantTask";
@@ -5353,17 +5355,17 @@ export type PatchesPagePatchesFragment = {
     description: string;
     hidden: boolean;
     invalidatedByUpstream: boolean;
-    projectIdentifier: string;
     status: string;
     projectMetadata?: {
       __typename?: "Project";
       id: string;
+      identifier: string;
       owner: string;
       repo: string;
     } | null;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
-    versionFull?: {
-      __typename?: "Version";
+    version?: {
+      __typename?: "VersionLite";
       id: string;
       requester: string;
       status: string;
@@ -6985,17 +6987,6 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
-export type ResetUserApiKeyMutationVariables = Exact<{ [key: string]: never }>;
-
-export type ResetUserApiKeyMutation = {
-  __typename?: "Mutation";
-  resetAPIKey?: {
-    __typename?: "UserConfig";
-    api_key: string;
-    user: string;
-  } | null;
-};
-
 export type RestartAdminTasksMutationVariables = Exact<{
   opts: RestartAdminTasksOptions;
 }>;
@@ -7084,6 +7075,7 @@ export type SaveAdminSettingsMutation = {
     cost?: {
       __typename?: "CostConfig";
       financeFormula?: number | null;
+      hiddenCostProjects?: Array<string> | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
       ebsCost?: {
@@ -7150,6 +7142,9 @@ export type SaveAdminSettingsMutation = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectCacheBytesLimit?: number | null;
+      translateProjectCacheTTLSeconds?: number | null;
+      translateProjectConcurrencyLimit?: number | null;
     } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
@@ -7163,6 +7158,7 @@ export type SaveAdminSettingsMutation = {
       maxIncludesPerVersion?: number | null;
       maxParserProjectSize?: number | null;
       maxPendingGeneratedTasks?: number | null;
+      maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
@@ -7254,14 +7250,14 @@ export type SchedulePatchMutation = {
     activated: boolean;
     alias?: string | null;
     description: string;
-    projectID: string;
     status: string;
-    versionFull?: {
-      __typename?: "Version";
+    version?: {
+      __typename?: "VersionLite";
       id: string;
-      childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
+      childVersions?: Array<{ __typename?: "VersionLite"; id: string }> | null;
     } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    projectMetadata?: { __typename?: "Project"; id: string } | null;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
@@ -7469,9 +7465,9 @@ export type UpdatePatchDescriptionMutation = {
     activated: boolean;
     alias?: string | null;
     description: string;
-    projectID: string;
     status: string;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    projectMetadata?: { __typename?: "Project"; id: string } | null;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
@@ -7660,7 +7656,7 @@ export type AdminSettingsQuery = {
     buckets?: {
       __typename?: "BucketsConfig";
       longRetentionProjects?: Array<string> | null;
-      retryFailedLogMoveLookbackMonths?: number | null;
+      retryFailedLogMoveLookbackDays?: number | null;
       retryFailedLogMoveMaxJobsPerRun?: number | null;
       credentials?: {
         __typename?: "S3Credentials";
@@ -7669,17 +7665,32 @@ export type AdminSettingsQuery = {
       } | null;
       logBucket?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
         roleARN?: string | null;
         testResultsPrefix?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       logBucketFailedTasks?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       logBucketLongRetention?: {
         __typename?: "BucketConfig";
+        expirationDays?: number | null;
+        lifecycleLastSyncedAt?: Date | null;
+        lifecycleSyncError?: string | null;
         name?: string | null;
+        transitionToGlacierDays?: number | null;
+        transitionToIADays?: number | null;
       } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";
@@ -7707,6 +7718,7 @@ export type AdminSettingsQuery = {
     cost?: {
       __typename?: "CostConfig";
       financeFormula?: number | null;
+      hiddenCostProjects?: Array<string> | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
       ebsCost?: {
@@ -7864,6 +7876,19 @@ export type AdminSettingsQuery = {
         apiVersion?: string | null;
       } | null;
     } | null;
+    rateLimit?: {
+      __typename?: "RateLimitConfig";
+      elevatedUserIds?: Array<string> | null;
+      graphqlComplexityLimit?: number | null;
+      graphqlServiceBurst?: number | null;
+      graphqlServicePerHour?: number | null;
+      graphqlUserBurst?: number | null;
+      graphqlUserPerHour?: number | null;
+      restServiceBurst?: number | null;
+      restServicePerHour?: number | null;
+      restUserBurst?: number | null;
+      restUserPerHour?: number | null;
+    } | null;
     releaseMode?: {
       __typename?: "ReleaseModeConfig";
       distroMaxHostsFactor?: number | null;
@@ -7902,6 +7927,9 @@ export type AdminSettingsQuery = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
+      translateProjectCacheBytesLimit?: number | null;
+      translateProjectCacheTTLSeconds?: number | null;
+      translateProjectConcurrencyLimit?: number | null;
     } | null;
     singleTaskDistro?: {
       __typename?: "SingleTaskDistroConfig";
@@ -7973,6 +8001,7 @@ export type AdminSettingsQuery = {
       maxIncludesPerVersion?: number | null;
       maxParserProjectSize?: number | null;
       maxPendingGeneratedTasks?: number | null;
+      maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
@@ -8091,7 +8120,6 @@ export type BaseVersionAndTaskQuery = {
     displayName: string;
     displayStatus: string;
     execution: number;
-    projectIdentifier?: string | null;
     baseTask?: {
       __typename?: "Task";
       id: string;
@@ -8099,6 +8127,7 @@ export type BaseVersionAndTaskQuery = {
       execution: number;
       order: number;
     } | null;
+    project?: { __typename?: "Project"; id: string; identifier: string } | null;
     versionMetadata: {
       __typename?: "Version";
       id: string;
@@ -8135,9 +8164,7 @@ export type BuildBaronQuery = {
     buildBaronConfigured: boolean;
     searchReturnInfo?: {
       __typename?: "SearchReturnInfo";
-      featuresURL: string;
       search: string;
-      source: string;
       issues: Array<{
         __typename?: "JiraTicket";
         key: string;
@@ -8204,8 +8231,6 @@ export type BuildVariantsWithChildrenQuery = {
     childVersions?: Array<{
       __typename?: "Version";
       id: string;
-      project: string;
-      projectIdentifier: string;
       buildVariants?: Array<{
         __typename?: "GroupedBuildVariant";
         displayName: string;
@@ -8224,6 +8249,11 @@ export type BuildVariantsWithChildrenQuery = {
         estimatedTasks: number;
         taskId?: string | null;
       }>;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
     }> | null;
     generatedTaskCounts: Array<{
       __typename?: "GeneratedTaskCountResults";
@@ -9121,12 +9151,10 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
-    projectIdentifier: string;
     id: string;
     activated: boolean;
     alias?: string | null;
     description: string;
-    projectID: string;
     status: string;
     childPatchAliases?: Array<{
       __typename?: "ChildPatchAlias";
@@ -9136,7 +9164,11 @@ export type ConfigurePatchQuery = {
     childPatches?: Array<{
       __typename?: "Patch";
       id: string;
-      projectIdentifier: string;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
       variantsTasks: Array<{
         __typename?: "VariantTask";
         name: string;
@@ -9167,8 +9199,13 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     } | null;
+    projectMetadata?: {
+      __typename?: "Project";
+      id: string;
+      identifier: string;
+    } | null;
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
@@ -9189,14 +9226,17 @@ export type PatchQuery = {
     __typename?: "Patch";
     githash: string;
     patchNumber: number;
-    projectID: string;
-    projectIdentifier: string;
     id: string;
     activated: boolean;
     alias?: string | null;
     description: string;
     status: string;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    projectMetadata?: {
+      __typename?: "Project";
+      id: string;
+      identifier: string;
+    } | null;
+    version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
@@ -9712,11 +9752,11 @@ export type ProjectPatchesQuery = {
         description: string;
         hidden: boolean;
         invalidatedByUpstream: boolean;
-        projectIdentifier: string;
         status: string;
         projectMetadata?: {
           __typename?: "Project";
           id: string;
+          identifier: string;
           owner: string;
           repo: string;
         } | null;
@@ -9725,8 +9765,8 @@ export type ProjectPatchesQuery = {
           displayName?: string | null;
           userId: string;
         };
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           requester: string;
           status: string;
@@ -10816,7 +10856,6 @@ export type SpruceConfigQuery = {
     serviceFlags: {
       __typename?: "UserServiceFlags";
       debugSpawnHostDisabled?: boolean | null;
-      jwtTokenForCLIDisabled?: boolean | null;
     };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
@@ -11037,11 +11076,7 @@ export type TaskHistoryQuery = {
         __typename?: "VersionLite";
         id: string;
         message: string;
-        user: {
-          __typename?: "UserLite";
-          id: string;
-          displayName?: string | null;
-        };
+        user: { __typename?: "User"; id: string; displayName?: string | null };
       };
     }>;
   };
@@ -11437,7 +11472,11 @@ export type TaskQuery = {
       revision?: string | null;
       status: string;
       timeTaken?: number | null;
-      versionMetadata: { __typename?: "Version"; id: string; revision: string };
+      versionMetadata: {
+        __typename?: "VersionLite";
+        id: string;
+        revision: string;
+      };
     } | null;
     dependsOn?: Array<{
       __typename?: "Dependency";
@@ -11484,10 +11523,14 @@ export type TaskQuery = {
       displayStatus: string;
       execution: number;
       finishTime?: Date | null;
-      projectIdentifier?: string | null;
       reviewed?: boolean | null;
       startTime?: Date | null;
       revision?: string | null;
+      project?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
     logs: {
@@ -11527,14 +11570,17 @@ export type TaskQuery = {
       total?: number | null;
     } | null;
     versionMetadata: {
-      __typename?: "Version";
+      __typename?: "VersionLite";
       id: string;
       isPatch: boolean;
       message: string;
       order: number;
-      project: string;
-      projectIdentifier: string;
       revision: string;
+      projectMetadata?: {
+        __typename?: "ProjectLite";
+        id: string;
+        identifier: string;
+      } | null;
       user: {
         __typename?: "User";
         displayName?: string | null;
@@ -11616,8 +11662,8 @@ export type UserConfigQuery = {
   __typename?: "Query";
   userConfig?: {
     __typename?: "UserConfig";
-    api_key: string;
     api_server_host: string;
+    corp_api_server_host: string;
     oauth_client_id: string;
     oauth_connector_id: string;
     oauth_issuer: string;
@@ -11671,11 +11717,11 @@ export type UserPatchesQuery = {
         description: string;
         hidden: boolean;
         invalidatedByUpstream: boolean;
-        projectIdentifier: string;
         status: string;
         projectMetadata?: {
           __typename?: "Project";
           id: string;
+          identifier: string;
           owner: string;
           repo: string;
         } | null;
@@ -11684,8 +11730,8 @@ export type UserPatchesQuery = {
           displayName?: string | null;
           userId: string;
         };
-        versionFull?: {
-          __typename?: "Version";
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           requester: string;
           status: string;
@@ -11912,7 +11958,6 @@ export type VersionTasksQuery = {
         displayStatus: string;
         errors?: Array<string> | null;
         execution: number;
-        projectIdentifier?: string | null;
         reviewed?: boolean | null;
         baseTask?: {
           __typename?: "Task";
@@ -11929,7 +11974,6 @@ export type VersionTasksQuery = {
           displayName: string;
           displayStatus: string;
           execution: number;
-          projectIdentifier?: string | null;
           reviewed?: boolean | null;
           baseTask?: {
             __typename?: "Task";
@@ -11937,7 +11981,17 @@ export type VersionTasksQuery = {
             displayStatus: string;
             execution: number;
           } | null;
+          project?: {
+            __typename?: "Project";
+            id: string;
+            identifier: string;
+          } | null;
         }> | null;
+        project?: {
+          __typename?: "Project";
+          id: string;
+          identifier: string;
+        } | null;
       }>;
     };
   };
@@ -11984,8 +12038,6 @@ export type VersionQuery = {
     isPatch: boolean;
     message: string;
     order: number;
-    project: string;
-    projectIdentifier: string;
     repo: string;
     requester: string;
     revision: string;
@@ -12035,18 +12087,23 @@ export type VersionQuery = {
         __typename?: "Patch";
         id: string;
         githash: string;
-        projectIdentifier: string;
         status: string;
+        taskCount?: number | null;
         parameters: Array<{
           __typename?: "Parameter";
           key: string;
           value: string;
         }>;
-        versionFull?: {
-          __typename?: "Version";
+        projectMetadata?: {
+          __typename?: "Project";
+          id: string;
+          identifier: string;
+        } | null;
+        version?: {
+          __typename?: "VersionLite";
           id: string;
           status: string;
-          baseVersion?: { __typename?: "Version"; id: string } | null;
+          baseVersion?: { __typename?: "VersionLite"; id: string } | null;
         } | null;
       }> | null;
       cost?: {
@@ -12074,6 +12131,7 @@ export type VersionQuery = {
       __typename?: "Project";
       id: string;
       branch: string;
+      identifier: string;
       owner: string;
       repo: string;
     } | null;

@@ -40,10 +40,16 @@ export const VERSION_TASKS = gql`
             displayName
             displayStatus
             execution
-            projectIdentifier
+            project {
+              id
+              identifier
+            }
             reviewed @client
           }
-          projectIdentifier
+          project {
+            id
+            identifier
+          }
           reviewed @client
         }
       }

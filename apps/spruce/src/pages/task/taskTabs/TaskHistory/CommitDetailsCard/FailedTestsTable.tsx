@@ -6,13 +6,13 @@ import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import Icon from "@evg-ui/lib/components/Icon";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
+  BaseTable,
   ColumnFiltersState,
+  LGColumnDef,
   filterFns,
   getFilteredRowModel,
-  LGColumnDef,
-  useLeafyGreenTable,
-  BaseTable,
   onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -115,6 +115,7 @@ const TableContainer = styled.div`
   flex-direction: column;
   gap: ${size.xxs};
   margin-top: ${size.xxs};
+  overflow-x: auto;
 `;
 
 const getColumns = ({

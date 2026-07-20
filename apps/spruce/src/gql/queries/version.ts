@@ -58,9 +58,13 @@ export const VERSION = gql`
             key
             value
           }
-          projectIdentifier
+          projectMetadata {
+            id
+            identifier
+          }
           status
-          versionFull {
+          taskCount
+          version {
             id
             baseVersion {
               id
@@ -86,11 +90,10 @@ export const VERSION = gql`
         id
         revision
       }
-      project
-      projectIdentifier
       projectMetadata {
         id
         branch
+        identifier
         owner
         repo
       }
@@ -102,9 +105,9 @@ export const VERSION = gql`
       taskCount(
         options: { includeNeverActivatedTasks: $includeNeverActivatedTasks }
       )
-      user {
+      user: userLite {
         displayName
-        userId
+        userId: id
       }
       versionTiming {
         makespan

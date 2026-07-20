@@ -11,8 +11,10 @@ export const patchQuery: ConfigurePatchQuery = {
     __typename: "Patch",
     id: "version",
     description: "test",
-    projectIdentifier: "spruce",
-    projectID: "spruce",
+    projectMetadata: {
+      id: "spruce",
+      identifier: "spruce",
+    },
     user: {
       userId: "mohamed.khelif",
       displayName: "Mohamed Khelif",

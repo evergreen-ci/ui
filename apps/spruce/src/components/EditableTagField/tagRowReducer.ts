@@ -1,4 +1,4 @@
-import { ParameterInput, InstanceTag } from "gql/generated/types";
+import { InstanceTag, ParameterInput } from "gql/generated/types";
 
 type Tag = InstanceTag | ParameterInput;
 

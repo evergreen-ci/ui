@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import { ProjectBanner } from "components/Banners";
 import { PatchesPage } from "components/PatchesPage";
@@ -77,7 +77,6 @@ export const ProjectPatches = () => {
 
   return (
     <>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <PatchesPage
         filterComp={
@@ -102,7 +101,7 @@ export const ProjectPatches = () => {
             />
           </>
         }
-        loading={loading}
+        loading={loading && !patches}
         pageTitle={`${displayName ?? ""} Patches`}
         pageType="project"
         patches={patches}

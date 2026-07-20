@@ -1,4 +1,4 @@
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import SpawnHostCard from "./SpawnHostCard";
 
 export default {
@@ -52,7 +52,7 @@ const host = {
   volumes: [],
   noExpiration: true,
   persistentDnsName: "mohamed-khelif-abc.workstations.build.10gen.cc",
-  provider: "ec2-ondemand",
+  provider: "ec2-fleet",
   status: "running",
   startedBy: "mohamed.khelif",
   tag: "evg-ubuntu1804-workstation-20200615111044-7227428564029203",

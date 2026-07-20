@@ -7,15 +7,17 @@ export {
   isProduction,
   isProductionBuild,
   isDevelopmentBuild,
-  isTest,
   getEvergreenUrl,
   getSignalProcessingUrl,
   getApiUrl,
-  getSentryDSN,
   getSpruceURL,
   getGQLUrl,
   getParsleyUrl,
   getAppVersion,
   getHoneycombBaseURL,
   getLoginDomain,
+  getHoneycombIngestKey,
+  getHoneycombEndpoint,
 } from "@evg-ui/lib/utils/environmentVariables";
+
+export const getSentryDSN = () => import.meta.env.VITE_SPRUCE_SENTRY_DSN || "";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useMutation, skipToken } from "@apollo/client/react";
+import { skipToken, useMutation, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
@@ -139,7 +139,7 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               {childVersions?.map((v) => (
                 <Accordion
                   key={v?.id}
-                  title={<b>{v?.projectIdentifier ?? v?.project}</b>}
+                  title={<b>{v?.projectMetadata?.identifier}</b>}
                 >
                   <DownstreamTasksContainer>
                     <VersionTasks

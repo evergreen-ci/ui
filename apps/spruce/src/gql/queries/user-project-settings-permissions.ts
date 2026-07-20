@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const USER_PROJECT_SETTINGS_PERMISSIONS = gql`
   query UserProjectSettingsPermissions($projectIdentifier: String!) {
-    user {
+    user: userLite {
       permissions {
         canCreateProject
         projectPermissions(options: { projectIdentifier: $projectIdentifier }) {
@@ -10,7 +10,7 @@ export const USER_PROJECT_SETTINGS_PERMISSIONS = gql`
           edit
         }
       }
-      userId
+      userId: id
     }
   }
 `;

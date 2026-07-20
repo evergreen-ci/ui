@@ -1,10 +1,12 @@
-import { useEffect, createElement } from "react";
+import { createElement, useEffect } from "react";
 import { MockLink } from "@apollo/client/testing";
 import {
   MockedProvider,
   MockedProviderProps,
 } from "@apollo/client/testing/react";
 import {
+  type RenderOptions,
+  type RenderResult,
   act,
   fireEvent,
   queries,
@@ -12,10 +14,8 @@ import {
   renderHook,
   screen,
   waitFor,
-  within,
   waitForElementToBeRemoved,
-  type RenderOptions,
-  type RenderResult,
+  within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";

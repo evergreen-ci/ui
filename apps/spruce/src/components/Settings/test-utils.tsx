@@ -1,9 +1,9 @@
 import { useContext, useMemo } from "react";
 import {
+  SettingsState,
   createSettingsContext,
   getUseHasUnsavedTab,
   getUsePopulateForm,
-  SettingsState,
   useSettingsState,
 } from "./Context";
 

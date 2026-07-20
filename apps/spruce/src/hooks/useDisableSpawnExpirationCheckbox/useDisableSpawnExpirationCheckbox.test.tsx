@@ -7,7 +7,7 @@ import {
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { MY_VOLUMES, MY_HOSTS } from "gql/queries";
+import { MY_HOSTS, MY_VOLUMES } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -178,7 +178,7 @@ const host = {
       __typename: "Volume",
     },
   ],
-  provider: "ec2-ondemand",
+  provider: "ec2-fleet",
   status: "running",
   startedBy: "admin",
   tag: "evg-ubuntu1804-workstation-20200615111044-7227428564029203",
@@ -231,7 +231,7 @@ const myHostBase: Omit<
   instanceType: "m5.xlarge",
   instanceTags: [],
   volumes: [],
-  provider: "ec2-ondemand",
+  provider: "ec2-fleet",
   status: "running",
   startedBy: "ta.arst",
   tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",

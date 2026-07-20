@@ -14,6 +14,10 @@ import {
 import { CODE_CHANGES } from "gql/queries";
 import { CodeChanges } from ".";
 
+vi.mock("analytics", () => ({
+  useVersionAnalytics: () => ({ sendEvent: vi.fn() }),
+}));
+
 vi.mock("constants/routes", () => ({
   getVersionDiffRoute: vi.fn(
     (versionId: string, moduleIndex: number) =>

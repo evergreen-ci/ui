@@ -1,6 +1,6 @@
 import { useUserSettings } from "hooks/useUserSettings";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { getDateCopy, DateCopyOptions } from "utils/string";
+import { DateCopyOptions, getDateCopy } from "utils/string";
 
 /**
  * `useDateFormat` is a custom hook that formats a date string or Date object into a user-friendly format.

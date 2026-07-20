@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TTLInfo } from "components/404/TTLInfo";
-import { ProjectBanner, WarningBanner, ErrorBanner } from "components/Banners";
+import { ErrorBanner, ProjectBanner, WarningBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import {
-  PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
+  PageWrapper,
 } from "components/styles";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { slugs } from "constants/routes";
@@ -57,6 +57,20 @@ export const VersionPage: React.FC = () => {
     refetch,
   });
 
+  // Patches and mainline share the /version route, so stamp is_patch to let
+  // page views be split by type.
+  useEffect(() => {
+    const { AttributeStore } = window;
+    const isPatch = versionData?.version?.isPatch;
+    if (!AttributeStore || isPatch === undefined) {
+      return;
+    }
+    AttributeStore.setGlobalAttribute("version.is_patch", isPatch);
+    return () => {
+      AttributeStore.removeGlobalAttribute("version.is_patch");
+    };
+  }, [versionData?.version?.isPatch]);
+
   const [activeTaskIds, setActiveTaskIds] = useState<string[]>([]);
 
   if (!versionData && versionLoading) {
@@ -81,14 +95,13 @@ export const VersionPage: React.FC = () => {
     message,
     order,
     patch,
-    projectIdentifier,
+    projectMetadata,
     requester,
     revision,
     status,
     warnings,
   } = version || {};
   const { patchNumber } = patch || {};
-
   const versionText = shortenGithash(revision || versionId);
   const pageTitle = isPatch
     ? `Patch - ${patchNumber}`
@@ -102,7 +115,7 @@ export const VersionPage: React.FC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      <ProjectBanner projectIdentifier={projectIdentifier} />
+      <ProjectBanner projectIdentifier={projectMetadata?.identifier} />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
       {ignored && <IgnoredBanner />}

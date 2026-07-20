@@ -1,16 +1,16 @@
 import prompts from "prompts";
 import { getAppToDeploy } from "../utils/environment";
 import {
+  ReleaseVersion,
   assertMainBranch,
   assertWorkingDirectoryClean,
-  getCommitMessages,
-  getCurrentlyDeployedCommit,
   createTagAndPush,
   deleteTag,
+  getCommitMessages,
+  getCurrentlyDeployedCommit,
   getLatestTag,
-  pushTags,
   getReleaseVersion,
-  ReleaseVersion,
+  pushTags,
 } from "../utils/git";
 import { prepareProdDeploy } from ".";
 

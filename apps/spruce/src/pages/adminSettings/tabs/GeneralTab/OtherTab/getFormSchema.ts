@@ -1,20 +1,20 @@
 import { GetFormSchema } from "components/SpruceForm";
 import {
-  miscSettings,
-  oktaServiceConfig,
-  getSingleTaskDistroSchema,
   bucketConfig,
-  sshPairs,
+  debugSpawnHostsConfig,
+  diagnosticsConfig,
   expansions,
+  getSingleTaskDistroSchema,
+  githubCheckRunConfigurations,
   hostJasper,
   jiraNotificationsFields,
-  spawnHost,
-  debugSpawnHostsConfig,
-  sleepSchedule,
-  tracerConfiguration,
+  miscSettings,
+  oktaServiceConfig,
   projectCreationSettings,
-  githubCheckRunConfigurations,
-  diagnosticsConfig,
+  sleepSchedule,
+  spawnHost,
+  sshPairs,
+  tracerConfiguration,
 } from "./schemaFields";
 
 export const getFormSchema = ({

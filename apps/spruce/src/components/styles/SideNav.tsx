@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import {
   SideNav as LGSideNav,
+  SideNavGroup as LGSideNavGroup,
   SideNavItem as LGSideNavItem,
   SideNavItemProps as LGSideNavItemProps,
-  SideNavGroup as LGSideNavGroup,
 } from "@leafygreen-ui/side-nav";
 import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";

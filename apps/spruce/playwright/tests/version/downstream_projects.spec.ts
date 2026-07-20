@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 const DOWNSTREAM_ROUTE =
   "/version/5f74d99ab2373627c047c5e5/downstream-projects";

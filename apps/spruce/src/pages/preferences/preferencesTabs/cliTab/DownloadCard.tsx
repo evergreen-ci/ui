@@ -4,21 +4,21 @@ import { Button } from "@leafygreen-ui/button";
 import { Card } from "@leafygreen-ui/card";
 import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
-  InlineCode,
-  Subtitle,
   Body,
   Disclaimer,
+  InlineCode,
+  Subtitle,
 } from "@leafygreen-ui/typography";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size, fontSize } from "@evg-ui/lib/constants/tokens";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { cliDocumentationUrl } from "constants/externalResources";
 import {
+  ClientBinary,
   ClientConfigQuery,
   ClientConfigQueryVariables,
-  ClientBinary,
 } from "gql/generated/types";
 import { CLIENT_CONFIG } from "gql/queries";
 

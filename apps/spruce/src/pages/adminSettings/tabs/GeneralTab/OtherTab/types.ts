@@ -20,6 +20,7 @@ export interface OtherFormState {
         financeFormula: number;
         savingsPlanDiscount: number;
         onDemandDiscount: number;
+        hiddenCostProjects: string[];
         s3Cost: {
           archiveStorageCostDiscount: number;
           artifactAwsAccountsWithoutLifecycleRules: string[];
@@ -50,7 +51,17 @@ export interface OtherFormState {
 
     bucketConfig: {
       defaultLogBucket: string;
+      logBucketExpirationDays: number;
+      logBucketTransitionToIADays: number;
+      logBucketTransitionToGlacierDays: number;
+      logBucketLifecycleLastSyncedAt: string;
+      logBucketLifecycleSyncError: string;
       logBucketLongRetentionName: string;
+      logBucketLongRetentionExpirationDays: number;
+      logBucketLongRetentionTransitionToIADays: number;
+      logBucketLongRetentionTransitionToGlacierDays: number;
+      logBucketLongRetentionLifecycleLastSyncedAt: string;
+      logBucketLongRetentionLifecycleSyncError: string;
       longRetentionProjects: string[];
       testResultsBucketName: string;
       testResultsBucketTestResultsPrefix: string;
@@ -59,7 +70,12 @@ export interface OtherFormState {
       credentialsKey: string;
       credentialsSecret: string;
       failedTasksLogBucketName: string;
-      retryFailedLogMoveLookbackMonths: number;
+      failedTasksLogBucketExpirationDays: number;
+      failedTasksLogBucketTransitionToIADays: number;
+      failedTasksLogBucketTransitionToGlacierDays: number;
+      failedTasksLogBucketLifecycleLastSyncedAt: string;
+      failedTasksLogBucketLifecycleSyncError: string;
+      retryFailedLogMoveLookbackDays: number;
       retryFailedLogMoveMaxJobsPerRun: number;
     };
 

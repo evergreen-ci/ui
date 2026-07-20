@@ -10,27 +10,25 @@ import { Event } from "./types";
 import { useEvents } from "./useEvents";
 
 type EventLogProps = {
-  count: number | undefined;
   eventRenderer?: (event: Event) => React.ReactNode;
   events: Event[];
   handleFetchMore: () => void;
+  lastFetchedCount: number | undefined;
   limit: number;
   loading: boolean;
-  previousCount: number;
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
 const EventLog: React.FC<EventLogProps> = ({
-  count,
   customKeyValueRenderConfig,
   eventRenderer,
   events,
   handleFetchMore,
+  lastFetchedCount,
   limit,
   loading,
-  previousCount,
 }) => {
-  const { allEventsFetched } = useEvents(limit, count, previousCount, loading);
+  const { allEventsFetched } = useEvents(limit, lastFetchedCount, loading);
   const allEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
 

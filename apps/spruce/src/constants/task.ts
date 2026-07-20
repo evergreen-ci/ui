@@ -3,7 +3,7 @@ import { ALL_VALUE, TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 
-const { gray, green, purple, red, yellow } = palette;
+const { blue, gray, green, purple, red, yellow } = palette;
 
 const taskStatuses: TreeDataEntry[] = [
   {
@@ -181,9 +181,9 @@ export const mapUmbrellaStatusColors: Record<string, ColorScheme> = {
     text: yellow.dark2,
   },
   [TaskStatusUmbrella.SystemFailure]: {
-    fill: purple.dark2,
-    border: purple.dark3,
-    text: purple.light3,
+    border: purple.light2,
+    fill: purple.light3,
+    text: purple.dark2,
   },
   [TaskStatusUmbrella.Scheduled]: {
     fill: gray.dark1,
@@ -201,9 +201,9 @@ export const mapUmbrellaStatusColors: Record<string, ColorScheme> = {
     text: green.dark2,
   },
   [TaskStatus.SetupFailed]: {
-    fill: purple.light2,
-    border: purple.base,
-    text: purple.dark2,
+    fill: blue.light3,
+    border: blue.light2,
+    text: blue.dark1,
   },
 };
 
@@ -214,7 +214,7 @@ export const mapTaskToBarchartColor = {
   [TaskStatusUmbrella.Scheduled]: gray.base,
   [TaskStatusUmbrella.Failed]: red.base,
   [TaskStatus.Succeeded]: green.dark1,
-  [TaskStatus.SetupFailed]: purple.light2,
+  [TaskStatus.SetupFailed]: blue.base,
 };
 
 // Represents order for waterfall barchart

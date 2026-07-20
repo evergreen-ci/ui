@@ -1,11 +1,19 @@
-import { Text, TextStyle } from "@via-ds/components/typography";
-import { TestComponent } from "components/TestComponent";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { SageProvider } from "context/SageProvider";
+import { routeTree } from "./routeTree.gen";
+
+const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 const App = () => (
-  <div>
-    <Text textStyle={TextStyle.heading1}>This is the Sage UI</Text>
-    <TestComponent />
-  </div>
+  <SageProvider>
+    <RouterProvider router={router} />
+  </SageProvider>
 );
 
 export default App;

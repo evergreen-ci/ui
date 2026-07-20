@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
-import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, E2E_PARALLEL_COUNT, Tasks } from "./constants.js"
+import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, E2E_PARALLEL_COUNT } from "./constants.js"
 import { hasChangesInDirectoryOrFile } from "./git-utils.js";
 
 const ALWAYS_GENERATE_TASKS_REQUESTERS = ["trigger", "patch", "commit"];
@@ -144,7 +144,7 @@ const generateParallelPlaywrightTasks = (bv) => {
   const bvTasks = e2eTasks.map(({ name }) => ({ name }));
   const displayTasks = [
     {
-      name: Tasks.E2EParallel,
+      name: "e2e_parallel",
       execution_tasks: e2eTasks.map(({ name }) => name),
     }
   ]

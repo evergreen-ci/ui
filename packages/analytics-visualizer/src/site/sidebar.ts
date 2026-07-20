@@ -1,4 +1,4 @@
-import type { IdentifierData, AnalyticsVisualizerOptions } from "../types.ts";
+import type { AnalyticsVisualizerOptions, IdentifierData } from "../types.ts";
 import { escapeHtml, toSlug } from "../utils.ts";
 
 /**

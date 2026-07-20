@@ -5,16 +5,16 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { useUserPatchesAnalytics, useProjectPatchesAnalytics } from "analytics";
+import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { unlinkedPRUsers } from "constants/patch";
 import { Requester } from "constants/requesters";
 import {
-  getProjectPatchesRoute,
-  getVersionRoute,
-  getUserPatchesRoute,
   getPatchRoute,
+  getProjectPatchesRoute,
+  getUserPatchesRoute,
+  getVersionRoute,
 } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
@@ -44,15 +44,15 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     hidden,
     id,
     invalidatedByUpstream,
-    projectIdentifier,
     projectMetadata,
     status,
     user,
-    versionFull,
+    version,
   } = patch;
+  const projectIdentifier = projectMetadata?.identifier;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const createDate = new Date(createTime);
-  const { id: versionId, requester, taskStatusStats } = versionFull || {};
+  const { id: versionId, requester, taskStatusStats } = version || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? [],
   );
@@ -120,9 +120,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         <PatchBadgeContainer>
           <PatchStatusBadge
             status={
-              activated
-                ? (versionFull?.status ?? status)
-                : PatchStatus.Unconfigured
+              activated ? (version?.status ?? status) : PatchStatus.Unconfigured
             }
           />
         </PatchBadgeContainer>

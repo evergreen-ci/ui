@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 
 export const addFilter = async (page: Page, filter: string) => {
   await expect(page.getByTestId("searchbar-select")).toBeEnabled();
@@ -19,6 +19,17 @@ export const addHighlight = async (page: Page, highlight: string) => {
   await expect(searchbarInput).toBeEnabled();
   await searchbarInput.focus();
   await searchbarInput.fill(highlight);
+  await searchbarInput.press("Control+Enter");
+};
+
+export const addBookmark = async (page: Page, search: string) => {
+  await expect(page.getByTestId("searchbar-select")).toBeEnabled();
+  await page.getByTestId("searchbar-select").click();
+  await page.getByTestId("bookmark-option").click();
+  const searchbarInput = page.getByTestId("searchbar-input");
+  await expect(searchbarInput).toBeEnabled();
+  await searchbarInput.focus();
+  await searchbarInput.fill(search);
   await searchbarInput.press("Control+Enter");
 };
 

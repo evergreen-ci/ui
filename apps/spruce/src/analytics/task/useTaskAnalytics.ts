@@ -15,7 +15,7 @@ import {
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
 import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
-import { RequiredQueryParams, LogTypes } from "types/task";
+import { LogTypes, RequiredQueryParams } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley" | "download";
 type Action =
@@ -42,6 +42,9 @@ type Action =
     }
   | { name: "Clicked schedule task button" }
   | { name: "Clicked abort task button" }
+  | { name: "Clicked disable task button" }
+  | { name: "Clicked enable task button" }
+  | { name: "Clicked override dependencies button" }
   | { name: "Changed task priority"; "task.priority": number }
   | { name: "Clicked unschedule task button" }
   | { name: "Changed page size" }

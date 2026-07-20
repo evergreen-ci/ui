@@ -1,6 +1,6 @@
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
-import { test, expect } from "../../fixtures";
-import { validateToast, clickCheckbox } from "../../helpers";
+import { expect, test } from "../../fixtures";
+import { clickCheckbox, validateToast } from "../../helpers";
 
 const patchWithoutVersion = "test meee";
 const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
