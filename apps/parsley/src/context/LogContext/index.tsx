@@ -5,7 +5,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
 } from "react";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { PaginatedVirtualListRef } from "components/PaginatedVirtualList/types";
@@ -108,9 +107,6 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const { expandableRows, filterLogic, sectionsEnabled } = preferences;
 
   const { dispatch, state } = useLogState(initialLogLines);
-  const [processedLogLines, setProcessedLogLines] = useState<ProcessedLogLines>(
-    [],
-  );
   const listRef = useRef<PaginatedVirtualListRef>(null);
 
   const stringifiedFilters = JSON.stringify(filters);
@@ -138,36 +134,20 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     sectionsEnabled,
   });
 
-  const stringifiedProcessedLogLines = useMemo(
+  const processedLogLines = useMemo<ProcessedLogLines>(
     () =>
-      `${processedLogLines.length}-${stringifiedFilters}-${stringifiedBookmarks}-${stringifiedExpandedLines}-${expandableRows}-${sectioning.sectioningEnabled}`,
-    [
-      processedLogLines.length,
-      stringifiedFilters,
-      stringifiedBookmarks,
-      stringifiedExpandedLines,
-      expandableRows,
-      sectioning.sectioningEnabled,
-    ],
-  );
-
-  useEffect(
-    () => {
-      setProcessedLogLines(
-        filterLogs({
-          bookmarks,
-          expandableRows,
-          expandedLines: state.expandedLines,
-          failingLine: state.failingLine,
-          logLines: state.logs,
-          matchingLines,
-          sectionData: sectioning.sectionData,
-          sectionState: sectioning.sectionState,
-          sectioningEnabled: sectioning.sectioningEnabled,
-          shareLine,
-        }),
-      );
-    },
+      filterLogs({
+        bookmarks,
+        expandableRows,
+        expandedLines: state.expandedLines,
+        failingLine: state.failingLine,
+        logLines: state.logs,
+        matchingLines,
+        sectionData: sectioning.sectionData,
+        sectionState: sectioning.sectionState,
+        sectioningEnabled: sectioning.sectioningEnabled,
+        shareLine,
+      }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       state.logs.length,
@@ -216,30 +196,32 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     listRef.current?.scrollToIndex(lineNumber);
   }, []);
 
-  const searchResults = useMemo(() => {
-    const results = state.searchState.searchTerm
-      ? searchLogs({
-          getLine,
-          lowerBound: lowerRange,
-          processedLogLines,
-          searchRegex: state.searchState.searchTerm,
-          upperBound: upperRange,
-        })
-      : [];
+  const searchResults = useMemo(
+    () =>
+      state.searchState.searchTerm
+        ? searchLogs({
+            getLine,
+            lowerBound: lowerRange,
+            processedLogLines,
+            searchRegex: state.searchState.searchTerm,
+            upperBound: upperRange,
+          })
+        : [],
+    [
+      state.searchState.searchTerm,
+      upperRange,
+      lowerRange,
+      getLine,
+      processedLogLines,
+    ],
+  );
+
+  useEffect(() => {
     dispatch({
-      matchCount: results.length,
-      type: "SET_MATCH_COUNT",
+      hasMatches: searchResults.length > 0,
+      type: "RESET_SEARCH_INDEX",
     });
-    return results;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    state.searchState.searchTerm,
-    upperRange,
-    lowerRange,
-    getLine,
-    dispatch,
-    stringifiedProcessedLogLines, // Use stringifiedProcessedLogLines instead of processedLogLines to avoid expensive array comparisons.
-  ]);
+  }, [dispatch, searchResults]);
 
   const openSectionAndScrollToLine = useOpenSectionAndScrollToLine(
     processedLogLines,
@@ -258,6 +240,14 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     state.searchState.searchIndex !== undefined
       ? searchResults[state.searchState.searchIndex]
       : undefined;
+  const searchState = useMemo<SearchState>(
+    () => ({
+      ...state.searchState,
+      hasSearch: !!state.searchState.searchTerm,
+      searchRange: searchResults.length || undefined,
+    }),
+    [searchResults.length, state.searchState],
+  );
 
   // Re-trigger search when caseSensitive changes
   useEffect(() => {
@@ -309,7 +299,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
         upperRange,
       },
       searchLine,
-      searchState: state.searchState,
+      searchState,
 
       clearExpandedLines: () => dispatch({ type: "CLEAR_EXPANDED_LINES" }),
       clearLogs: () => dispatch({ type: "CLEAR_LOGS" }),
@@ -323,7 +313,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
       openSectionAndScrollToLine,
       paginate: (direction: DIRECTION) => {
-        const { searchIndex, searchRange } = state.searchState;
+        const { searchIndex, searchRange } = searchState;
         if (searchIndex !== undefined && searchRange !== undefined) {
           const nextPage = getNextPage(searchIndex, searchRange, direction);
           dispatch({ nextPage, type: "PAGINATE" });
@@ -356,7 +346,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       state.hasLogs,
       state.logMetadata,
       state.logs.length,
-      state.searchState,
+      searchState,
       upperRange,
       dispatch,
       getLine,
