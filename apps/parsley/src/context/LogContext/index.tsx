@@ -221,7 +221,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       hasMatches: searchResults.length > 0,
       type: "RESET_SEARCH_INDEX",
     });
-  }, [dispatch, searchResults]);
+  }, [dispatch, searchResults.length, state.searchState.searchTerm]);
 
   const openSectionAndScrollToLine = useOpenSectionAndScrollToLine(
     processedLogLines,
