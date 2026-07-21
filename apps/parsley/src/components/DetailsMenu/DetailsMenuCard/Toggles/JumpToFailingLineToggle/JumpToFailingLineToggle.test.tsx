@@ -22,7 +22,7 @@ describe("jump to failing line toggle", () => {
 
   it("defaults to 'true' when localStorage is unset", () => {
     render(<JumpToFailingLineToggle />, { wrapper });
-    const jumpToFailingLineToggle = screen.getByDataCy(
+    const jumpToFailingLineToggle = screen.getByDataTestId(
       "jump-to-failing-line-toggle",
     );
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-checked", "true");
@@ -31,7 +31,7 @@ describe("jump to failing line toggle", () => {
   it("reads from localStorage when set to 'false'", () => {
     localStorage.setItem(JUMP_TO_FAILING_LINE_ENABLED, "false");
     render(<JumpToFailingLineToggle />, { wrapper });
-    const jumpToFailingLineToggle = screen.getByDataCy(
+    const jumpToFailingLineToggle = screen.getByDataTestId(
       "jump-to-failing-line-toggle",
     );
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-checked", "false");
@@ -46,7 +46,7 @@ describe("jump to failing line toggle", () => {
     act(() => {
       hook.current.setLogMetadata({ logType: LogTypes.EVERGREEN_TEST_LOGS });
     });
-    const jumpToFailingLineToggle = screen.getByDataCy(
+    const jumpToFailingLineToggle = screen.getByDataTestId(
       "jump-to-failing-line-toggle",
     );
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-disabled", "true");
@@ -61,7 +61,7 @@ describe("jump to failing line toggle", () => {
     act(() => {
       hook.current.setLogMetadata({ logType: LogTypes.EVERGREEN_TASK_LOGS });
     });
-    const jumpToFailingLineToggle = screen.getByDataCy(
+    const jumpToFailingLineToggle = screen.getByDataTestId(
       "jump-to-failing-line-toggle",
     );
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-disabled", "false");
@@ -79,7 +79,7 @@ describe("jump to failing line toggle", () => {
       hook.current.setLogMetadata({ logType: LogTypes.EVERGREEN_TASK_LOGS });
     });
 
-    const jumpToFailingLineToggle = screen.getByDataCy(
+    const jumpToFailingLineToggle = screen.getByDataTestId(
       "jump-to-failing-line-toggle",
     );
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-checked", "true");

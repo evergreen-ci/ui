@@ -26,7 +26,7 @@ const WordWrapFormatToggle: React.FC = () => {
   };
   return (
     <BaseToggle
-      data-cy="word-wrap-format-toggle"
+      data-testid="word-wrap-format-toggle"
       disabled={!wrap}
       label="Aggressive Word Wrap"
       leftLabel="OFF"

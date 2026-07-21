@@ -19,12 +19,12 @@ describe("buttonRow", () => {
       renderWithRouterMatch(<ButtonRow />, {
         wrapper: logContextWrapper(logLines),
       });
-      expect(screen.getByDataCy("copy-text-button")).toHaveAttribute(
+      expect(screen.getByDataTestId("copy-text-button")).toHaveAttribute(
         "aria-disabled",
         "true",
       );
       // Tooltip should appear only if button is disabled.
-      await user.hover(screen.getByDataCy("copy-text-button"));
+      await user.hover(screen.getByDataTestId("copy-text-button"));
       await waitFor(() => {
         expect(screen.getByText("No bookmarks to copy.")).toBeInTheDocument();
       });
@@ -36,14 +36,14 @@ describe("buttonRow", () => {
         route: "?bookmarks=0,2",
         wrapper: logContextWrapper(logLines),
       });
-      const copyButton = screen.getByDataCy("copy-text-button");
+      const copyButton = screen.getByDataTestId("copy-text-button");
       expect(copyButton).toBeEnabled();
       expect(copyButton).toHaveTextContent("Copy Jira");
 
       // Button text should change after clicking on the button.
       await user.click(copyButton);
       await waitFor(() => {
-        expect(screen.getByDataCy("copy-text-button")).toHaveTextContent(
+        expect(screen.getByDataTestId("copy-text-button")).toHaveTextContent(
           "Copied",
         );
       });
@@ -56,7 +56,7 @@ describe("buttonRow", () => {
         wrapper: logContextWrapper(logLines),
       });
 
-      const copyButton = screen.getByDataCy("copy-text-button");
+      const copyButton = screen.getByDataTestId("copy-text-button");
       expect(copyButton).toBeEnabled();
 
       await user.click(copyButton);
@@ -85,7 +85,7 @@ describe("buttonRow", () => {
         `${logLines[0]}\n...\n${logLines[2]}\n...\n${logLines[5]}\n`,
       );
 
-      const copyButton = screen.getByDataCy("copy-text-button");
+      const copyButton = screen.getByDataTestId("copy-text-button");
       expect(copyButton).toHaveTextContent("Copied");
 
       await waitFor(
@@ -102,7 +102,7 @@ describe("buttonRow", () => {
       renderWithRouterMatch(<ButtonRow />, {
         wrapper: logContextWrapper(logLines),
       });
-      expect(screen.getByDataCy("download-log-button")).toHaveAttribute(
+      expect(screen.getByDataTestId("download-log-button")).toHaveAttribute(
         "aria-disabled",
         "true",
       );

@@ -26,20 +26,20 @@ describe("sticky headers toggle", () => {
   it("defaults to 'false' if stored value is unset", () => {
     localStorage.clear();
     render(<StickyHeadersToggle />, { wrapper });
-    const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
+    const stickyHeadersToggle = screen.getByDataTestId("sticky-headers-toggle");
     expect(stickyHeadersToggle).toHaveAttribute("aria-checked", "false");
   });
 
   it("should read from localStorage properly", () => {
     render(<StickyHeadersToggle />, { wrapper });
-    const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
+    const stickyHeadersToggle = screen.getByDataTestId("sticky-headers-toggle");
     expect(stickyHeadersToggle).toHaveAttribute("aria-checked", "true");
   });
 
   it("should not update the URL when clicked", async () => {
     const user = userEvent.setup();
     const { router } = render(<StickyHeadersToggle />, { wrapper });
-    const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
+    const stickyHeadersToggle = screen.getByDataTestId("sticky-headers-toggle");
     expect(stickyHeadersToggle).toHaveAttribute("aria-checked", "true");
     await user.click(stickyHeadersToggle);
     expect(router.state.location.search).toBe("");
@@ -61,7 +61,9 @@ describe("sticky headers toggle", () => {
       expect(hook.current.sectioning.sectioningEnabled).toBe(true);
     });
     await waitFor(() => {
-      const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
+      const stickyHeadersToggle = screen.getByDataTestId(
+        "sticky-headers-toggle",
+      );
       expect(stickyHeadersToggle).toHaveAttribute("aria-disabled", "false");
     });
   });
@@ -83,7 +85,9 @@ describe("sticky headers toggle", () => {
       expect(hook.current.sectioning.sectioningEnabled).toBe(false);
     });
     await waitFor(() => {
-      const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
+      const stickyHeadersToggle = screen.getByDataTestId(
+        "sticky-headers-toggle",
+      );
       expect(stickyHeadersToggle).toHaveAttribute("aria-disabled", "true");
     });
   });

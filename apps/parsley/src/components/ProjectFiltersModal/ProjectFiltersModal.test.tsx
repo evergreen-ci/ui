@@ -48,7 +48,7 @@ describe("projectFiltersModal", () => {
       hook.current.setLogMetadata(logMetadata);
     });
     await waitForModalLoad();
-    expect(screen.getByDataCy("no-filters-message")).toBeInTheDocument();
+    expect(screen.getByDataTestId("no-filters-message")).toBeInTheDocument();
   });
 
   it("lists all of a project's filters", async () => {
@@ -163,11 +163,11 @@ describe("projectFiltersModal", () => {
 
 const waitForModalLoad = async () => {
   await waitFor(() =>
-    expect(screen.queryByDataCy("project-filters-modal")).toBeVisible(),
+    expect(screen.queryByDataTestId("project-filters-modal")).toBeVisible(),
   );
   await waitFor(() =>
     expect(
-      screen.queryByDataCy("table-loader-loading-row"),
+      screen.queryByDataTestId("table-loader-loading-row"),
     ).not.toBeInTheDocument(),
   );
 };

@@ -51,7 +51,7 @@ const SearchRangeInput: React.FC = () => {
         <RangeInputWrapper>
           <RangeInput
             aria-labelledby="Range Lower Bound"
-            data-cy="range-lower-bound"
+            data-testid="range-lower-bound"
             min={0}
             onChange={(e) => updateLowerBound(e.target.value)}
             placeholder="0"
@@ -62,7 +62,7 @@ const SearchRangeInput: React.FC = () => {
           />
           <RangeInput
             aria-labelledby="Range Upper Bound"
-            data-cy="range-upper-bound"
+            data-testid="range-upper-bound"
             min={0}
             onChange={(e) => updateUpperBound(e.target.value)}
             placeholder="100"
@@ -73,7 +73,7 @@ const SearchRangeInput: React.FC = () => {
           />
         </RangeInputWrapper>
         {hasError && (
-          <ErrorMessage data-cy="range-error-message">
+          <ErrorMessage data-testid="range-error-message">
             Specified range is not valid.
           </ErrorMessage>
         )}

@@ -147,7 +147,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <StyledSelect
         allowDeselect={false}
         aria-labelledby="searchbar-select"
-        data-cy="searchbar-select"
+        data-testid="searchbar-select"
         disabled={disabled}
         dropdownWidthBasis="option"
         onChange={handleChangeSelect}
@@ -155,21 +155,21 @@ const SearchBar: React.FC<SearchBarProps> = ({
       >
         <Option
           key={SearchBarActions.Filter}
-          data-cy="filter-option"
+          data-testid="filter-option"
           value={SearchBarActions.Filter}
         >
           Filter
         </Option>
         <Option
           key={SearchBarActions.Highlight}
-          data-cy="highlight-option"
+          data-testid="highlight-option"
           value={SearchBarActions.Highlight}
         >
           Highlight
         </Option>
         <Option
           key={SearchBarActions.Bookmark}
-          data-cy="bookmark-option"
+          data-testid="bookmark-option"
           value={SearchBarActions.Bookmark}
         >
           Bookmark
@@ -203,7 +203,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <StyledInput
           ref={inputRef}
           aria-labelledby="searchbar-input"
-          data-cy="searchbar-input"
+          data-testid="searchbar-input"
           disabled={disabled}
           errorMessage={validatorMessage}
           onChange={(e) => handleOnChange(e.target.value)}
@@ -233,7 +233,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         >
           <IconButton
             aria-label="Select plus"
-            data-cy="searchbar-submit"
+            data-testid="searchbar-submit"
             disabled={disabled || input.length === 0 || !isValid}
             onClick={handleOnSubmit}
           >
@@ -281,7 +281,7 @@ const StyledInput = styled(TextInputWithGlyph)`
   }
 
   /* This reflect the side dropdown width */
-  input[data-cy="searchbar-input"] {
+  input[data-testid="searchbar-input"] {
     padding-left: 42px;
   }
 

@@ -34,24 +34,24 @@ const [
   getMissingErrorDataCy,
 );
 
-const queryAllByDataTestid: OmitFirstArg<AllByAttribute> = (...args) =>
+const queryAllByDataTestId: OmitFirstArg<AllByAttribute> = (...args) =>
   queryHelpers.queryAllByAttribute("data-testid", ...args);
 
-const getMultipleErrorDataTestid: GetErrorFunction = (_, dataTestidValue) =>
+const getMultipleErrorDataTestId: GetErrorFunction = (_, dataTestidValue) =>
   `Found multiple elements with the data-testid attribute of: ${dataTestidValue}`;
-const getMissingErrorDataTestid: GetErrorFunction = (_, dataTestidValue) =>
+const getMissingErrorDataTestId: GetErrorFunction = (_, dataTestidValue) =>
   `Unable to find an element with the data-testid attribute of: ${dataTestidValue}`;
 
 const [
-  queryByDataTestid,
-  getAllByDataTestid,
-  getByDataTestid,
-  findAllByDataTestid,
-  findByDataTestid,
+  queryByDataTestId,
+  getAllByDataTestId,
+  getByDataTestId,
+  findAllByDataTestId,
+  findByDataTestId,
 ] = buildQueries(
-  queryAllByDataTestid,
-  getMultipleErrorDataTestid,
-  getMissingErrorDataTestid,
+  queryAllByDataTestId,
+  getMultipleErrorDataTestId,
+  getMissingErrorDataTestId,
 );
 
 export {
@@ -61,10 +61,10 @@ export {
   getAllByDataCy,
   findAllByDataCy,
   findByDataCy,
-  queryByDataTestid,
-  queryAllByDataTestid,
-  getByDataTestid,
-  getAllByDataTestid,
-  findAllByDataTestid,
-  findByDataTestid,
+  queryByDataTestId,
+  queryAllByDataTestId,
+  getByDataTestId,
+  getAllByDataTestId,
+  findAllByDataTestId,
+  findByDataTestId,
 };

@@ -17,6 +17,8 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   </ToastProvider>
 );
 
+const toastDataTestId = "lg-toast";
+
 describe("toast", () => {
   const closeIconLabel = "Close Message";
 
@@ -44,7 +46,7 @@ describe("toast", () => {
   it("should not display a toast by default", () => {
     const { Component } = renderComponentWithHook(useToastContext, <div />);
     render(<Component />, { wrapper });
-    expect(screen.queryByDataCy("toast")).toBeNull();
+    expect(screen.queryByDataCy(toastDataTestId)).toBeNull();
   });
 
   it("should be able to set a custom title for a toast", async () => {
@@ -75,7 +77,7 @@ describe("toast", () => {
       act(() => {
         hook.current.success("test string");
       });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
       expect(screen.getByText("Success!")).toBeInTheDocument();
       expect(screen.getByText("test string")).toBeInTheDocument();
     });
@@ -91,7 +93,7 @@ describe("toast", () => {
       act(() => {
         hook.current.error("test string");
       });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
       expect(screen.getByText("Error!")).toBeInTheDocument();
       expect(screen.getByText("test string")).toBeInTheDocument();
     });
@@ -107,7 +109,7 @@ describe("toast", () => {
       act(() => {
         hook.current.warning("test string");
       });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
       expect(screen.getByText("Warning!")).toBeInTheDocument();
       expect(screen.getByText("test string")).toBeInTheDocument();
     });
@@ -123,7 +125,7 @@ describe("toast", () => {
       act(() => {
         hook.current.info("test string");
       });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
       expect(screen.getByText("Something Happened!")).toBeInTheDocument();
       expect(screen.getByText("test string")).toBeInTheDocument();
     });
@@ -139,7 +141,7 @@ describe("toast", () => {
       act(() => {
         hook.current.progress("test string", 0.8);
       });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
       expect(screen.getByText("Loading...")).toBeInTheDocument();
       expect(screen.getByText("test string")).toBeInTheDocument();
 
@@ -162,10 +164,10 @@ describe("toast", () => {
         hook.current.info("test string");
       });
 
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
       await user.click(screen.getByLabelText(closeIconLabel));
       await waitFor(() => {
-        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
+        expect(screen.queryByDataCy(toastDataTestId)).not.toBeInTheDocument();
       });
     });
 
@@ -180,7 +182,7 @@ describe("toast", () => {
       act(() => {
         hook.current.info("test string", false);
       });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
       expect(screen.queryByLabelText(closeIconLabel)).toBeNull();
     });
 
@@ -198,10 +200,10 @@ describe("toast", () => {
         hook.current.info("test string", true, { onClose });
       });
 
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
       await user.click(screen.getByLabelText(closeIconLabel));
       await waitFor(() => {
-        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
+        expect(screen.queryByDataCy(toastDataTestId)).not.toBeInTheDocument();
       });
       expect(onClose).toHaveBeenCalledTimes(1);
     });
@@ -217,14 +219,14 @@ describe("toast", () => {
       act(() => {
         hook.current.info("test string");
       });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy(toastDataTestId)).toBeInTheDocument();
 
       // Advance timer so that the timeout is triggered.
       act(() => {
         vi.advanceTimersByTime(TOAST_TIMEOUT);
       });
       await waitFor(() => {
-        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
+        expect(screen.queryByDataCy(toastDataTestId)).not.toBeInTheDocument();
       });
     });
   });

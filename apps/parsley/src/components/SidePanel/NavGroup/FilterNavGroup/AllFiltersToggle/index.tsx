@@ -24,7 +24,7 @@ const AllFiltersToggle: React.FC = () => {
     <StyledToggle
       aria-labelledby="Show or hide all filters toggle"
       checked={showFilters}
-      data-cy="all-filters-toggle"
+      data-testid="all-filters-toggle"
       onChange={onChange}
       size={ToggleSize.XSmall}
     />

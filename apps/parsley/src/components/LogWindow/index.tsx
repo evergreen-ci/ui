@@ -61,7 +61,7 @@ const LogWindow: React.FC = () => {
   );
 
   return (
-    <Container data-cy="log-window">
+    <Container data-testid="log-window">
       <SidePanel
         clearExpandedLines={clearExpandedLines}
         collapseLines={collapseLines}

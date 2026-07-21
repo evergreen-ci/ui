@@ -35,11 +35,11 @@ describe("shortcutModal", () => {
       route: "/",
       wrapper: wrapper(),
     });
-    expect(screen.getByDataCy("shortcut-modal")).not.toBeVisible();
+    expect(screen.getByDataTestId("shortcut-modal")).not.toBeVisible();
 
     await user.keyboard("{Shift>}{?}{/Shift}");
     await waitFor(() => {
-      expect(screen.getByDataCy("shortcut-modal")).toBeVisible();
+      expect(screen.getByDataTestId("shortcut-modal")).toBeVisible();
     });
   });
 
@@ -50,16 +50,16 @@ describe("shortcutModal", () => {
       route: "/",
       wrapper: wrapper(),
     });
-    expect(screen.getByDataCy("shortcut-modal")).not.toBeVisible();
+    expect(screen.getByDataTestId("shortcut-modal")).not.toBeVisible();
 
     await user.keyboard("{Shift>}{?}{/Shift}");
     await waitFor(() => {
-      expect(screen.getByDataCy("shortcut-modal")).toBeVisible();
+      expect(screen.getByDataTestId("shortcut-modal")).toBeVisible();
     });
 
     await user.click(document.body as HTMLElement);
     await waitFor(() => {
-      expect(screen.getByDataCy("shortcut-modal")).not.toBeVisible();
+      expect(screen.getByDataTestId("shortcut-modal")).not.toBeVisible();
     });
   });
 
@@ -87,7 +87,7 @@ describe("shortcutModal", () => {
 
     await user.keyboard("{Shift>}{?}{/Shift}");
     await waitFor(() => {
-      expect(screen.getByDataCy("shortcut-modal")).toBeVisible();
+      expect(screen.getByDataTestId("shortcut-modal")).toBeVisible();
     });
 
     expect(
@@ -119,7 +119,7 @@ describe("shortcutModal", () => {
 
     await user.keyboard("{Shift>}{?}{/Shift}");
     await waitFor(() => {
-      expect(screen.getByDataCy("shortcut-modal")).toBeVisible();
+      expect(screen.getByDataTestId("shortcut-modal")).toBeVisible();
     });
 
     expect(

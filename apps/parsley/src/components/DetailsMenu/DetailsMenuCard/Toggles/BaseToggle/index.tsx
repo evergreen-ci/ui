@@ -9,7 +9,7 @@ import { DetailRow, DetailsLabel } from "../../styles";
 const { gray } = palette;
 
 interface BaseToggleProps {
-  ["data-cy"]?: string;
+  ["data-testid"]?: string;
   disabled?: boolean;
   leftLabel?: string;
   rightLabel?: string;
@@ -22,7 +22,7 @@ interface BaseToggleProps {
 const BaseToggle = forwardRef<HTMLDivElement, BaseToggleProps>(
   (
     {
-      "data-cy": dataCy,
+      "data-testid": dataTestId,
       disabled = false,
       label,
       leftLabel = "OFF",
@@ -41,7 +41,7 @@ const BaseToggle = forwardRef<HTMLDivElement, BaseToggleProps>(
           <Toggle
             aria-labelledby={`${label} Toggle`}
             checked={value}
-            data-cy={dataCy}
+            data-testid={dataTestId}
             disabled={disabled}
             onChange={onChange}
             size={ToggleSize.Small}
