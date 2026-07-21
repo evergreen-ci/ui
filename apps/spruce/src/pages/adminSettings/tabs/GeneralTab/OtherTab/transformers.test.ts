@@ -71,6 +71,19 @@ describe("other tab transformers", () => {
       },
     });
   });
+
+  it("uses legacy lookback days when the duration is not set", () => {
+    const loaded = gqlToForm({
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        retryFailedLogMoveLookback: null,
+        retryFailedLogMoveLookbackDays: 5,
+      },
+    });
+
+    expect(loaded?.other.bucketConfig.retryFailedLogMoveLookback).toBe("5d");
+  });
 });
 
 const mockAdminSettings: AdminSettingsData = {
@@ -121,6 +134,8 @@ const mockAdminSettings: AdminSettingsData = {
       name: "logBucketLongRetention",
     },
     longRetentionProjects: ["project1", "project2"],
+    retryFailedLogMoveLookback: "2h30m",
+    retryFailedLogMoveLookbackDays: 14,
     testResultsBucket: {
       name: "evergreen-test-results",
       testResultsPrefix: "results/",
@@ -279,7 +294,7 @@ const expectedForm: OtherFormState = {
       failedTasksLogBucketTransitionToGlacierDays: 0,
       failedTasksLogBucketLifecycleLastSyncedAt: "",
       failedTasksLogBucketLifecycleSyncError: "",
-      retryFailedLogMoveLookbackDays: 0,
+      retryFailedLogMoveLookback: "2h30m",
       retryFailedLogMoveMaxJobsPerRun: 0,
     },
     sshPairs: {
@@ -402,7 +417,7 @@ const expectedGql: AdminSettingsInput = {
       name: "logBucketLongRetention",
     },
     longRetentionProjects: ["project1", "project2"],
-    retryFailedLogMoveLookbackDays: undefined,
+    retryFailedLogMoveLookback: "2h30m",
     retryFailedLogMoveMaxJobsPerRun: undefined,
     testResultsBucket: {
       name: "evergreen-test-results",

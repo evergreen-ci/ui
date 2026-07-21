@@ -1,4 +1,5 @@
 import { validators } from "utils";
+import { validateAdminDuration } from "./DurationField/utils";
 
 const {
   validateDuration,
@@ -16,6 +17,7 @@ const {
 } = validators;
 
 export const customFormats = (jiraHost: string) => ({
+  adminDuration: validateAdminDuration,
   noSpecialCharacters: validateNoSpecialCharacters,
   // Permit empty string but disallow whitespace
   noSpaces: /^$|^\S+$/,

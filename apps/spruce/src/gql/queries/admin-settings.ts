@@ -118,6 +118,8 @@ export const ADMIN_SETTINGS = gql`
           transitionToIADays
         }
         longRetentionProjects
+        retryFailedLogMoveLookback
+        # TODO (DEVPROD-37602): Remove this after the admin duration migration is complete.
         retryFailedLogMoveLookbackDays
         retryFailedLogMoveMaxJobsPerRun
         testResultsBucket {

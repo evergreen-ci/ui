@@ -75,7 +75,7 @@ export interface OtherFormState {
       failedTasksLogBucketTransitionToGlacierDays: number;
       failedTasksLogBucketLifecycleLastSyncedAt: string;
       failedTasksLogBucketLifecycleSyncError: string;
-      retryFailedLogMoveLookbackDays: number;
+      retryFailedLogMoveLookback: string;
       retryFailedLogMoveMaxJobsPerRun: number;
     };
 

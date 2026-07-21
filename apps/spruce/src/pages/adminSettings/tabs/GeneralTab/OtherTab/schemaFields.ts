@@ -477,9 +477,10 @@ export const bucketConfig = {
       title: "Failed Tasks Log Bucket Lifecycle Sync Error",
       readOnly: true,
     },
-    retryFailedLogMoveLookbackDays: {
-      type: "number" as const,
-      title: "Retry Failed Log Move Lookback Days",
+    retryFailedLogMoveLookback: {
+      type: "string" as const,
+      title: "Retry Failed Log Move Lookback",
+      format: "adminDuration",
     },
     retryFailedLogMoveMaxJobsPerRun: {
       type: "number" as const,
@@ -509,6 +510,17 @@ export const bucketConfig = {
     failedTasksLogBucketTransitionToGlacierDays: { "ui:readonly": true },
     failedTasksLogBucketLifecycleLastSyncedAt: { "ui:readonly": true },
     failedTasksLogBucketLifecycleSyncError: { "ui:readonly": true },
+    retryFailedLogMoveLookback: {
+      "ui:field": "DurationField",
+      "ui:fieldCss": fullWidthCss,
+      "ui:options": {
+        allowDisabled: true,
+        "data-cy": "retry-failed-log-move-lookback",
+        defaultDuration: "7d",
+        defaultLabel: "7 days",
+        disabledDescription: "The retry failed log move job will be skipped.",
+      },
+    },
   },
 };
 

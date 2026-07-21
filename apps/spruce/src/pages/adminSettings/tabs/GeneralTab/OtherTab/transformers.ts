@@ -1,3 +1,4 @@
+import { adminDurationFromLegacy } from "components/SpruceForm/DurationField/utils";
 import { AdminSettingsGeneralSection } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../../types";
 import { OtherFormState } from "./types";
@@ -162,8 +163,12 @@ export const gqlToForm = ((data) => {
           : "",
         failedTasksLogBucketLifecycleSyncError:
           buckets?.logBucketFailedTasks?.lifecycleSyncError ?? "",
-        retryFailedLogMoveLookbackDays:
-          buckets?.retryFailedLogMoveLookbackDays ?? 0,
+        // TODO (DEVPROD-37602): Use retryFailedLogMoveLookback directly after removing the legacy field.
+        retryFailedLogMoveLookback: adminDurationFromLegacy(
+          buckets?.retryFailedLogMoveLookback,
+          buckets?.retryFailedLogMoveLookbackDays,
+          "d",
+        ),
         retryFailedLogMoveMaxJobsPerRun:
           buckets?.retryFailedLogMoveMaxJobsPerRun ?? 0,
       },
@@ -383,8 +388,8 @@ export const formToGql = ((form: OtherFormState) => {
         key: bucketConfig.credentialsKey || undefined,
         secret: bucketConfig.credentialsSecret || undefined,
       },
-      retryFailedLogMoveLookbackDays:
-        bucketConfig.retryFailedLogMoveLookbackDays || undefined,
+      retryFailedLogMoveLookback:
+        bucketConfig.retryFailedLogMoveLookback || undefined,
       retryFailedLogMoveMaxJobsPerRun:
         bucketConfig.retryFailedLogMoveMaxJobsPerRun || undefined,
     },
