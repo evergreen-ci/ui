@@ -80,7 +80,7 @@ describe("filterChips - queryParams", () => {
 
     const chip = screen.queryByDataCy("filter-chip");
     expect(chip).toHaveTextContent("Variant: variant1");
-    const closeChip = screen.getByDataTestid("chip-dismiss-button");
+    const closeChip = screen.getByDataTestId("chip-dismiss-button");
     expect(closeChip).toBeInTheDocument();
     await user.click(closeChip);
 
@@ -98,7 +98,7 @@ describe("filterChips - queryParams", () => {
     let chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(2);
     expect(screen.getByText("Variant: variant1")).toBeInTheDocument();
-    const closeChip = screen.getAllByDataTestid("chip-dismiss-button")[0];
+    const closeChip = screen.getAllByDataTestId("chip-dismiss-button")[0];
     await user.click(closeChip);
     chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(1);
