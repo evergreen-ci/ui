@@ -27,7 +27,7 @@ const ResmokeRow: React.FC<ResmokeRowProps> = ({
   return lineContent !== undefined ? (
     <BaseRow
       color={lineColor}
-      data-cy="resmoke-row"
+      data-testid="resmoke-row"
       lineNumber={lineNumber}
       {...rest}
     >

@@ -41,13 +41,13 @@ describe("bookmarks bar", () => {
         route: "?bookmarks=1&shareLine=5",
       },
     );
-    const { children } = screen.getByDataCy("bookmark-list");
+    const { children } = screen.getByDataTestId("bookmark-list");
     expect(children).toHaveLength(3);
     expect((children.item(0) as Element).textContent).toContain("1");
     expect((children.item(1) as Element).textContent).toContain("3");
     expect((children.item(2) as Element).textContent).toContain("5");
     expect((children.item(2) as Element).children.item(1)).toStrictEqual(
-      screen.getByDataCy("link-icon"),
+      screen.getByDataTestId("link-icon"),
     );
   });
 
@@ -59,7 +59,7 @@ describe("bookmarks bar", () => {
         route: "?bookmarks=1,3&shareLine=5",
       },
     );
-    await user.click(screen.getByDataCy("clear-bookmarks"));
+    await user.click(screen.getByDataTestId("clear-bookmarks"));
     await waitFor(() => {
       expect(
         screen.queryByText("Are you sure you want to clear all bookmarks?"),
@@ -78,7 +78,7 @@ describe("bookmarks bar", () => {
         route: "?bookmarks=1,3",
       },
     );
-    await user.click(screen.getByDataCy("bookmark-3"));
+    await user.click(screen.getByDataTestId("bookmark-3"));
     expect(scrollToLine).toHaveBeenCalledTimes(1);
     expect(scrollToLine).toHaveBeenCalledWith(3);
   });

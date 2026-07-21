@@ -84,8 +84,8 @@ describe("SectionControls", () => {
       },
     }));
     renderWithRouterMatch(<SubsectionControls {...props} />, { wrapper });
-    expect(screen.getByDataCy("open-subsections-btn")).toBeVisible();
-    await user.click(screen.getByDataCy("open-subsections-btn"));
+    expect(screen.getByDataTestId("open-subsections-btn")).toBeVisible();
+    await user.click(screen.getByDataTestId("open-subsections-btn"));
     expect(sendEventMock).toHaveBeenCalledOnce();
     expect(sendEventMock).toHaveBeenCalledWith({
       name: "Clicked open subsections button",
@@ -98,7 +98,7 @@ describe("SectionControls", () => {
       "function-1",
       true,
     );
-    await user.click(screen.getByDataCy("close-subsections-btn"));
+    await user.click(screen.getByDataTestId("close-subsections-btn"));
     await waitFor(() =>
       expect(toggleAllCommandsInFunctionMock).toHaveBeenCalledWith(
         "function-1",

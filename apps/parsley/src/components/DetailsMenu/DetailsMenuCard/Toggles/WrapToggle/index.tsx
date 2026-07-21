@@ -8,7 +8,7 @@ const WrapToggle: React.FC = () => {
   const { setWrap, wrap } = preferences;
   return (
     <BaseToggle
-      data-cy="wrap-toggle"
+      data-testid="wrap-toggle"
       label="Wrap"
       onChange={(value) => {
         setWrap(value);

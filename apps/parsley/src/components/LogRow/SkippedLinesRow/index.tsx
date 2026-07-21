@@ -54,7 +54,7 @@ const SkippedLinesRow: React.FC<SkippedLinesRowProps> = ({
   };
 
   return (
-    <LineWrapper data-cy={`skipped-lines-row-${start}-${lineEndInclusive}`}>
+    <LineWrapper data-testid={`skipped-lines-row-${start}-${lineEndInclusive}`}>
       <StyledBody>{lineText}</StyledBody>
       <ButtonContainer>
         <Button

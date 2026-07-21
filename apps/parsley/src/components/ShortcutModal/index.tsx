@@ -94,7 +94,7 @@ const ShortcutModal: React.FC<ShortcutModalProps> = ({ open, setOpen }) => {
   });
 
   return (
-    <Modal data-cy="shortcut-modal" open={open} setOpen={setOpen}>
+    <Modal data-testid="shortcut-modal" open={open} setOpen={setOpen}>
       <div ref={modalRef}>
         <ModalTitle>
           <H3>Parsley Keyboard Shortcuts</H3>

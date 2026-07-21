@@ -22,14 +22,14 @@ describe("sections toggle", () => {
 
   it("defaults to 'true' when localStorage is unset", () => {
     render(<SectionsToggle />, { wrapper });
-    const sectionsToggle = screen.getByDataCy("sections-toggle");
+    const sectionsToggle = screen.getByDataTestId("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-checked", "true");
   });
 
   it("reads from localStorage when set to 'false'", () => {
     localStorage.setItem(SECTIONS_ENABLED, "false");
     render(<SectionsToggle />, { wrapper });
-    const sectionsToggle = screen.getByDataCy("sections-toggle");
+    const sectionsToggle = screen.getByDataTestId("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-checked", "false");
   });
 
@@ -44,7 +44,7 @@ describe("sections toggle", () => {
         logType: LogTypes.EVERGREEN_COMPLETE_LOGS,
       });
     });
-    const sectionsToggle = screen.getByDataCy("sections-toggle");
+    const sectionsToggle = screen.getByDataTestId("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -57,7 +57,7 @@ describe("sections toggle", () => {
     act(() => {
       hook.current.setLogMetadata({ logType: LogTypes.EVERGREEN_TASK_LOGS });
     });
-    const sectionsToggle = screen.getByDataCy("sections-toggle");
+    const sectionsToggle = screen.getByDataTestId("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-disabled", "false");
   });
 
@@ -73,7 +73,7 @@ describe("sections toggle", () => {
       hook.current.setLogMetadata({ logType: LogTypes.EVERGREEN_TASK_LOGS });
     });
 
-    const sectionsToggle = screen.getByDataCy("sections-toggle");
+    const sectionsToggle = screen.getByDataTestId("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-checked", "true");
     await user.click(sectionsToggle);
     expect(sectionsToggle).toHaveAttribute("aria-checked", "false");

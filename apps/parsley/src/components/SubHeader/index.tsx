@@ -21,7 +21,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ setSidePanelCollapsed }) => {
     logMetadata || {};
 
   return (
-    <Container data-cy="log-header">
+    <Container data-testid="log-header">
       {isUploadedLog ? (
         <Header>
           <Icon glyph="File" size="large" />

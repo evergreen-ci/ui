@@ -45,6 +45,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
     <StyledBadge
       key={status}
       data-cy="task-status-badge"
+      data-testid="task-status-badge"
       variant={mapTaskStatusToBadgeVariant[status]}
       {...customBadgeColors(status)}
     >

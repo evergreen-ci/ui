@@ -15,7 +15,7 @@ const CliCommandButton: React.FC = () => {
 
   return (
     <StyledCopyable
-      data-cy="cli-command-copyable"
+      data-testid="cli-command-copyable"
       label="Fetch the log via Evergreen CLI"
     >
       {command}
