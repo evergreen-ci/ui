@@ -71,7 +71,7 @@ describe("ToolRenderer", () => {
         }}
       />,
     );
-    expect(screen.queryByDataCy("tool-use-chip")).not.toBeInTheDocument();
+    expect(screen.queryByDataTestId("tool-use-chip")).not.toBeInTheDocument();
   });
 
   it("renders a tool with an error state if the output is an error", () => {
@@ -208,7 +208,7 @@ describe("ToolRenderer", () => {
       />,
     );
     expect(screen.getByText("Analyzed logs")).toBeInTheDocument();
-    expect(screen.queryByDataCy("tool-output")).not.toBeInTheDocument();
+    expect(screen.queryByDataTestId("tool-output")).not.toBeInTheDocument();
     await user.click(
       screen.getByRole("button", { name: /expand additional content/i }),
     );
@@ -244,7 +244,7 @@ describe("ToolRenderer", () => {
     );
     expect(screen.getByText("Analyzed logs")).toBeInTheDocument();
     expect(screen.queryByText("analysis complete")).not.toBeInTheDocument();
-    expect(screen.queryByDataCy("tool-output")).not.toBeInTheDocument();
+    expect(screen.queryByDataTestId("tool-output")).not.toBeInTheDocument();
   });
 
   it("does not render expandable content for askEvergreenAgentTool", () => {
