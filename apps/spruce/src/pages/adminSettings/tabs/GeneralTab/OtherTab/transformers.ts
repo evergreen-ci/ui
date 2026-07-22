@@ -106,6 +106,7 @@ export const gqlToForm = ((data) => {
         projectTasksPairs:
           singleTaskDistro?.projectTasksPairs?.map((pair) => ({
             projectId: pair.projectId ?? "",
+            isRegex: pair.isRegex ?? false,
             allowedTasks: pair.allowedTasks ?? [],
             allowedBVs: pair.allowedBVs ?? [],
           })) ?? [],
@@ -353,6 +354,7 @@ export const formToGql = ((form: OtherFormState) => {
         .filter((pair) => pair.projectId)
         .map((pair) => ({
           projectID: pair.projectId,
+          isRegex: pair.isRegex ?? false,
           allowedTasks: pair.allowedTasks || [],
           allowedBVs: pair.allowedBVs || [],
         })),
