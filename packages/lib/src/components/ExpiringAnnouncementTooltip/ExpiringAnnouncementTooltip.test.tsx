@@ -73,7 +73,7 @@ describe("ExpiringAnnouncementTooltip", () => {
       await waitFor(() => {
         expect(screen.getByText("New Release")).toBeVisible();
       });
-      await user.click(screen.getByDataCy("announcement-tooltip-trigger"));
+      await user.click(screen.getByDataTestId("announcement-tooltip-trigger"));
       await waitFor(() => {
         expect(screen.queryByText("New Release")).not.toBeVisible();
       });
@@ -141,7 +141,7 @@ describe("ExpiringAnnouncementTooltip", () => {
       expect(mockedGet).toHaveBeenCalledOnce();
       expect(screen.queryByText("New Release")).not.toBeInTheDocument();
 
-      await user.click(screen.getByDataCy("announcement-tooltip-trigger"));
+      await user.click(screen.getByDataTestId("announcement-tooltip-trigger"));
       await waitFor(() => {
         expect(screen.getByText("New Release")).toBeVisible();
       });

@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import {
+  Button,
+  Size as ButtonSize,
+  Variant as ButtonVariant,
+} from "@leafygreen-ui/button";
 import { size } from "../../../constants/tokens";
 
 interface Props {
@@ -13,17 +17,16 @@ export const FilterInputControls: React.FC<Props> = ({
   onClickSubmit,
   submitButtonCopy = "Filter",
 }) => (
-  <ButtonsWrapper data-cy="filter-input-controls">
+  <ButtonsWrapper>
     <ButtonWrapper>
-      <Button data-cy="reset-button" onClick={onClickReset} size="small">
+      <Button onClick={onClickReset} size={ButtonSize.Small}>
         Reset
       </Button>
     </ButtonWrapper>
     <Button
-      data-cy="filter-button"
       onClick={onClickSubmit}
-      size="small"
-      variant="primary"
+      size={ButtonSize.Small}
+      variant={ButtonVariant.Primary}
     >
       {submitButtonCopy}
     </Button>

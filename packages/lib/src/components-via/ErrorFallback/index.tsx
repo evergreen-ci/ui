@@ -8,7 +8,7 @@ interface ErrorFallbackProps {
 }
 
 export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ homeURL }) => (
-  <Center data-cy="error-fallback">
+  <Center data-testid="error-fallback">
     <Paragraph>
       <WhiteText textStyle={TextStyle.heading1}>
         Ouch! That&apos;s gotta hurt,
