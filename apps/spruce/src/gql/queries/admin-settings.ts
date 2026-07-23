@@ -264,11 +264,6 @@ export const ADMIN_SETTINGS = gql`
           allowedInstanceTypes
           allowedRegions
           defaultSecurityGroup
-          ec2Keys {
-            key
-            name
-            secret
-          }
           elasticIPUsageRate
           ipamPoolID
           maxVolumeSizePerUser

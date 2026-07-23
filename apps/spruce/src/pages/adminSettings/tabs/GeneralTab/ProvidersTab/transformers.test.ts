@@ -42,8 +42,6 @@ const form: ProvidersFormState = {
           subnetId: "subnet-67890",
         },
       ],
-      ec2Key: "test-ec2-key",
-      ec2Secret: "test-ec2-secret",
       parameterStorePrefix: "/evergreen/test",
       persistentDNS: {
         hostedZoneID: "Z123456789",
@@ -116,13 +114,6 @@ const gql: AdminSettingsInput = {
       allowedInstanceTypes: ["m5.large", "m5.xlarge", "c5.large"],
       allowedRegions: ["us-east-1", "us-west-2"],
       defaultSecurityGroup: "sg-default123",
-      ec2Keys: [
-        {
-          name: "default",
-          key: "test-ec2-key",
-          secret: "test-ec2-secret",
-        },
-      ],
       elasticIPUsageRate: 0.8,
       ipamPoolID: "ipam-pool-123",
       maxVolumeSizePerUser: 100,
@@ -192,13 +183,6 @@ const testAdminSettings = {
       allowedInstanceTypes: ["m5.large", "m5.xlarge", "c5.large"],
       allowedRegions: ["us-east-1", "us-west-2"],
       defaultSecurityGroup: "sg-default123",
-      ec2Keys: [
-        {
-          name: "default",
-          key: "test-ec2-key",
-          secret: "test-ec2-secret",
-        },
-      ],
       elasticIPUsageRate: 0.8,
       ipamPoolID: "ipam-pool-123",
       maxVolumeSizePerUser: 100,
