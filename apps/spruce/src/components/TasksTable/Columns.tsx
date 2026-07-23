@@ -14,6 +14,7 @@ import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
+import { TaskTab } from "types/task";
 import { ReviewedCheckbox } from "./ReviewedCheckbox";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
@@ -179,6 +180,7 @@ export const getColumnsTemplate = ({
             execution={prevTaskCompleted.execution}
             id={prevTaskCompleted.id}
             status={prevTaskCompleted.displayStatus as TaskStatus}
+            tab={TaskTab.History}
           />
         );
       }

@@ -9,21 +9,33 @@ interface TaskStatusBadgeWithLinkProps extends React.ComponentProps<
 > {
   id: string;
   execution: number;
+  tab?: TaskTab;
 }
+
 const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
   execution,
   id,
   status,
+  tab,
   ...rest
-}) => (
-  <Link
-    to={getTaskRoute(id, {
-      execution,
-      tab: status === TaskStatus.KnownIssue ? TaskTab.Annotations : undefined,
-    })}
-  >
-    <TaskStatusBadge status={status as TaskStatus} {...rest} />
-  </Link>
-);
+}) => {
+  let linkedTab;
+  if (tab) {
+    linkedTab = tab;
+  } else if (status === TaskStatus.KnownIssue) {
+    linkedTab = TaskTab.Annotations;
+  }
+
+  return (
+    <Link
+      to={getTaskRoute(id, {
+        execution,
+        tab: linkedTab,
+      })}
+    >
+      <TaskStatusBadge status={status as TaskStatus} {...rest} />
+    </Link>
+  );
+};
 
 export default TaskStatusBadgeWithLink;
