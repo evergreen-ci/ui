@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
-import { useMutation, useSuspenseQuery } from "@apollo/client/react";
+import { useMutation, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
+import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -9,6 +10,7 @@ import { SpruceForm } from "components/SpruceForm";
 import {
   ServiceFlagInput,
   ServiceFlagsListQuery,
+  ServiceFlagsListQueryVariables,
   SetServiceFlagsMutation,
   SetServiceFlagsMutationVariables,
 } from "gql/generated/types";
@@ -16,11 +18,31 @@ import { SET_SERVICE_FLAGS } from "gql/mutations";
 import { SERVICE_FLAGS_LIST } from "gql/queries";
 import { getFormSchema } from "./getFormSchema";
 
-export const ServiceFlagsTab: React.FC = () => {
-  const dispatchToast = useToastContext();
+type ServiceFlag = NonNullable<
+  NonNullable<ServiceFlagsListQuery["adminSettings"]>["serviceFlagsList"]
+>[number];
 
-  const { data } = useSuspenseQuery<ServiceFlagsListQuery>(SERVICE_FLAGS_LIST);
-  const serviceFlagsList = data.adminSettings?.serviceFlagsList ?? [];
+export const ServiceFlagsTab: React.FC = () => {
+  const { data, loading } = useQuery<
+    ServiceFlagsListQuery,
+    ServiceFlagsListQueryVariables
+  >(SERVICE_FLAGS_LIST);
+
+  if (loading) {
+    return <FormSkeleton data-cy="admin-settings-skeleton" />;
+  }
+
+  return (
+    <ServiceFlagsForm
+      serviceFlagsList={data?.adminSettings?.serviceFlagsList ?? []}
+    />
+  );
+};
+
+const ServiceFlagsForm: React.FC<{ serviceFlagsList: ServiceFlag[] }> = ({
+  serviceFlagsList,
+}) => {
+  const dispatchToast = useToastContext();
 
   const { fields, schema, uiSchema } = useMemo(
     () => getFormSchema(serviceFlagsList.map(({ name }) => name)),
