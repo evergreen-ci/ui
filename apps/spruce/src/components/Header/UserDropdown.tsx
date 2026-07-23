@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client/react";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
 import {
+  AdminSettingsTabRoutes,
   PreferencesTabRoutes,
   getAdminSettingsRoute,
   getPreferencesRoute,
@@ -44,7 +45,7 @@ export const UserDropdown = () => {
     menuItems.splice(-1, 0, {
       "data-cy": "admin-link",
       text: "Admin",
-      href: getAdminSettingsRoute(),
+      to: getAdminSettingsRoute(AdminSettingsTabRoutes.ServiceFlags),
       onClick: () => sendEvent({ name: "Clicked admin settings link" }),
     });
   }
