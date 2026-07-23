@@ -21,7 +21,6 @@ import { RunnersTab } from "./RunnersTab/RunnersTab";
 import { WebTab } from "./WebTab/WebTab";
 
 export const GeneralTab: React.FC = () => {
-  const { setInitialData } = useAdminSettingsContext();
   const { data, loading } = useQuery<
     AdminSettingsQuery,
     AdminSettingsQueryVariables
@@ -33,14 +32,6 @@ export const GeneralTab: React.FC = () => {
     [adminSettings],
   );
 
-  useEffect(() => {
-    if (tabData) {
-      setInitialData(tabData);
-    }
-  }, [setInitialData, tabData]);
-
-  useScrollToAnchor();
-
   if (loading) {
     return <FormSkeleton data-cy="admin-settings-skeleton" />;
   }
@@ -48,6 +39,20 @@ export const GeneralTab: React.FC = () => {
   if (!tabData) {
     return null;
   }
+
+  return <GeneralTabContent tabData={tabData} />;
+};
+
+const GeneralTabContent: React.FC<{ tabData: FormStateMap }> = ({
+  tabData,
+}) => {
+  const { setInitialData } = useAdminSettingsContext();
+
+  useEffect(() => {
+    setInitialData(tabData);
+  }, [setInitialData, tabData]);
+
+  useScrollToAnchor();
 
   return (
     <>
