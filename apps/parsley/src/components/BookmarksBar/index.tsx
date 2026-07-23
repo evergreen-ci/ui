@@ -62,7 +62,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
   return (
     <Container>
       <Popconfirm
-        data-cy="clear-bookmarks-popconfirm"
+        data-testid="clear-bookmarks-popconfirm"
         onConfirm={() => {
           setBookmarks([]);
           sendEvent({ name: "Deleted all bookmarks" });
@@ -77,7 +77,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
         trigger={
           <StyledButton
             ref={clearButtonRef}
-            data-cy="clear-bookmarks"
+            data-testid="clear-bookmarks"
             onClick={() => setClearButtonConfirmationOpen(true)}
             size="xsmall"
           >
@@ -87,11 +87,11 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
       >
         Clear all bookmarks
       </Tooltip>
-      <LogLineContainer data-cy="bookmark-list">
+      <LogLineContainer data-testid="bookmark-list">
         {lineNumbers.map((l) => (
           <LogLineNumber
             key={`bookmark-${l}`}
-            data-cy={`bookmark-${l}`}
+            data-testid={`bookmark-${l}`}
             failed={l === failingLine}
             onClick={() => {
               sendEvent({ name: "Used bookmark to navigate to a line" });
@@ -100,7 +100,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
           >
             <span data-bookmark={l}>{l}</span>
             {l === shareLine && (
-              <StyledIcon data-cy="link-icon" glyph="Link" size="small" />
+              <StyledIcon data-testid="link-icon" glyph="Link" size="small" />
             )}
           </LogLineNumber>
         ))}

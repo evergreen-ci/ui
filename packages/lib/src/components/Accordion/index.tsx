@@ -75,6 +75,7 @@ const Accordion: React.FC<AccordionProps> = ({
     <div className={className} data-cy={dataCy}>
       <AccordionToggle
         data-cy="accordion-toggle"
+        data-testid="accordion-toggle"
         onClick={toggleAccordionHandler}
         role="button"
       >
@@ -91,6 +92,7 @@ const Accordion: React.FC<AccordionProps> = ({
       <AnimatedAccordion
         aria-expanded={accordionOpen}
         data-cy="accordion-collapse-container"
+        data-testid="accordion-collapse-container"
         disableAnimations={disableAnimations}
         hide={!accordionOpen}
       >

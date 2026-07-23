@@ -92,11 +92,11 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
 
   const breadcrumbs = [
     {
-      "data-cy": "project-breadcrumb",
+      "data-testid": "project-breadcrumb",
       text: projectIdentifier,
     },
     {
-      "data-cy": "version-breadcrumb",
+      "data-testid": "version-breadcrumb",
       text: isPatch ? (
         `Patch ${patchNumber}`
       ) : (
@@ -105,7 +105,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
       tooltipText: message,
     },
     {
-      "data-cy": "task-breadcrumb",
+      "data-testid": "task-breadcrumb",
       href: getEvergreenTaskURL(taskID, taskExecution),
       onClick: () => {
         sendEvent({ name: "Clicked task link" });
@@ -121,7 +121,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     ...(testID
       ? [
           {
-            "data-cy": "test-breadcrumb",
+            "data-testid": "test-breadcrumb",
             text: (
               <>
                 {trimStringFromMiddle(currentTest?.testFile ?? "Test", 80)}{" "}
@@ -138,7 +138,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     ...(fileName
       ? [
           {
-            "data-cy": "file-breadcrumb",
+            "data-testid": "file-breadcrumb",
             text: fileName,
           },
         ]
@@ -146,7 +146,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     ...(groupID
       ? [
           {
-            "data-cy": "group-breadcrumb",
+            "data-testid": "group-breadcrumb",
             text: groupID,
           },
         ]

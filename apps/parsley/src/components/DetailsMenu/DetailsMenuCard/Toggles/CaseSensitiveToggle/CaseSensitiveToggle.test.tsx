@@ -18,14 +18,14 @@ describe("case sensitivity toggle", () => {
 
   it("defaults to 'false' if stored value is unset", () => {
     render(<CaseSensitiveToggle />, { wrapper });
-    const caseSensitiveToggle = screen.getByDataCy("case-sensitive-toggle");
+    const caseSensitiveToggle = screen.getByDataTestId("case-sensitive-toggle");
     expect(caseSensitiveToggle).toHaveAttribute("aria-checked", "false");
   });
 
   it("should read from localStorage properly", () => {
     localStorage.setItem(CASE_SENSITIVE, "true");
     render(<CaseSensitiveToggle />, { wrapper });
-    const caseSensitiveToggle = screen.getByDataCy("case-sensitive-toggle");
+    const caseSensitiveToggle = screen.getByDataTestId("case-sensitive-toggle");
     expect(caseSensitiveToggle).toHaveAttribute("aria-checked", "true");
   });
 
@@ -33,7 +33,7 @@ describe("case sensitivity toggle", () => {
     const user = userEvent.setup();
     localStorage.setItem(CASE_SENSITIVE, "true");
     const { router } = render(<CaseSensitiveToggle />, { wrapper });
-    const caseSensitiveToggle = screen.getByDataCy("case-sensitive-toggle");
+    const caseSensitiveToggle = screen.getByDataTestId("case-sensitive-toggle");
 
     await user.click(caseSensitiveToggle);
     expect(caseSensitiveToggle).toHaveAttribute("aria-checked", "false");

@@ -58,7 +58,7 @@ const ToastProviderCore: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       return pushToast({
         // @ts-expect-error: data-cy doesn't exist as a prop on Toast but it will be propagated correctly.
-        "data-cy": "toast",
+        "data-cy": "lg-toast",
         "data-variant": mapLeafyGreenVariantToToast[variant],
         description: <WordBreak>{message}</WordBreak>,
         dismissible: closable,

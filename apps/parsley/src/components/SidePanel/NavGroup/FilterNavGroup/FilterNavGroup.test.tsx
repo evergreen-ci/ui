@@ -19,7 +19,9 @@ describe("filters", () => {
 
   it("shows a message when no filters have been applied", () => {
     render(<FilterNavGroup {...props} />, { wrapper });
-    expect(screen.getByDataCy("filters-default-message")).toBeInTheDocument();
+    expect(
+      screen.getByDataTestId("filters-default-message"),
+    ).toBeInTheDocument();
   });
 
   it("filters should properly display based on the URL", () => {
@@ -36,7 +38,7 @@ describe("filters", () => {
       route: "?filters=100one,100two,100three,100four",
       wrapper,
     });
-    const navGroupHeader = screen.getByDataCy("filters-nav-group-header");
+    const navGroupHeader = screen.getByDataTestId("filters-nav-group-header");
     expect(within(navGroupHeader).getByText("4")).toBeInTheDocument();
   });
 
@@ -47,8 +49,11 @@ describe("filters", () => {
     });
     // Edit the first filter.
     await user.click(screen.getAllByLabelText("Edit filter")[0]);
-    await user.clear(screen.getAllByDataCy("edit-filter-name")[0]);
-    await user.type(screen.getAllByDataCy("edit-filter-name")[0], "newFilter");
+    await user.clear(screen.getAllByDataTestId("edit-filter-name")[0]);
+    await user.type(
+      screen.getAllByDataTestId("edit-filter-name")[0],
+      "newFilter",
+    );
     const confirmButton = screen.getByRole("button", {
       name: "Apply",
     });
@@ -69,8 +74,11 @@ describe("filters", () => {
     });
     // Edit the first filter.
     await user.click(screen.getAllByLabelText("Edit filter")[0]);
-    await user.clear(screen.getAllByDataCy("edit-filter-name")[0]);
-    await user.type(screen.getAllByDataCy("edit-filter-name")[0], "filter2");
+    await user.clear(screen.getAllByDataTestId("edit-filter-name")[0]);
+    await user.type(
+      screen.getAllByDataTestId("edit-filter-name")[0],
+      "filter2",
+    );
     const confirmButton = screen.getByRole("button", {
       name: "Apply",
     });
@@ -88,8 +96,11 @@ describe("filters", () => {
     });
     // Edit the first filter.
     await user.click(screen.getAllByLabelText("Edit filter")[0]);
-    await user.clear(screen.getAllByDataCy("edit-filter-name")[0]);
-    await user.type(screen.getAllByDataCy("edit-filter-name")[0], "newFilter");
+    await user.clear(screen.getAllByDataTestId("edit-filter-name")[0]);
+    await user.type(
+      screen.getAllByDataTestId("edit-filter-name")[0],
+      "newFilter",
+    );
     const cancelButton = screen.getByRole("button", {
       name: "Cancel",
     });

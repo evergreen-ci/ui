@@ -10,11 +10,11 @@ describe("search range input", () => {
     const user = userEvent.setup();
     const { router } = render(<SearchRangeInput />);
 
-    const lowerBound = screen.getByDataCy("range-lower-bound");
+    const lowerBound = screen.getByDataTestId("range-lower-bound");
     await user.type(lowerBound, "99");
     expect(router.state.location.search).toBe("?lower=99");
 
-    const upperBound = screen.getByDataCy("range-upper-bound");
+    const upperBound = screen.getByDataTestId("range-upper-bound");
     await user.type(upperBound, "100");
     expect(router.state.location.search).toBe("?lower=99&upper=100");
   });
@@ -23,7 +23,7 @@ describe("search range input", () => {
     const user = userEvent.setup();
     const { router } = render(<SearchRangeInput />);
 
-    const lowerBound = screen.getByDataCy("range-lower-bound");
+    const lowerBound = screen.getByDataTestId("range-lower-bound");
     await user.type(lowerBound, "99");
 
     expect(router.state.location.search).toBe("?lower=99");
@@ -36,12 +36,12 @@ describe("search range input", () => {
     const user = userEvent.setup();
     render(<SearchRangeInput />);
 
-    const upperBound = screen.getByDataCy("range-upper-bound");
+    const upperBound = screen.getByDataTestId("range-upper-bound");
     await user.type(upperBound, "8");
 
-    const lowerBound = screen.getByDataCy("range-lower-bound");
+    const lowerBound = screen.getByDataTestId("range-lower-bound");
     await user.type(lowerBound, "9");
 
-    expect(screen.getByDataCy("range-error-message")).toBeInTheDocument();
+    expect(screen.getByDataTestId("range-error-message")).toBeInTheDocument();
   });
 });

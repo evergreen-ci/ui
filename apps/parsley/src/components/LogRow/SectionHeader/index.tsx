@@ -33,7 +33,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     <div
       aria-expanded={open}
       css={sectionHeaderWrapperStyle}
-      data-cy="section-header"
+      data-testid="section-header"
     >
       <CaretToggle
         onClick={() => {

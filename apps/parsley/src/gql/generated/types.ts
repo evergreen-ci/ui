@@ -2356,6 +2356,7 @@ export type OktaConfig = {
   __typename?: "OktaConfig";
   clientId?: Maybe<Scalars["String"]["output"]>;
   clientSecret?: Maybe<Scalars["String"]["output"]>;
+  expectedEmailDomains?: Maybe<Array<Scalars["String"]["output"]>>;
   expireAfterMinutes?: Maybe<Scalars["Int"]["output"]>;
   issuer?: Maybe<Scalars["String"]["output"]>;
   scopes: Array<Scalars["String"]["output"]>;
@@ -2365,6 +2366,7 @@ export type OktaConfig = {
 export type OktaConfigInput = {
   clientId?: InputMaybe<Scalars["String"]["input"]>;
   clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  expectedEmailDomains?: InputMaybe<Array<Scalars["String"]["input"]>>;
   expireAfterMinutes?: InputMaybe<Scalars["Int"]["input"]>;
   issuer?: InputMaybe<Scalars["String"]["input"]>;
   scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -2488,6 +2490,7 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
+  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
   builds: Array<Build>;

@@ -8,7 +8,7 @@ import AllFiltersToggle from ".";
 describe("all filters toggle", () => {
   it("defaults to 'true'", () => {
     render(<AllFiltersToggle />);
-    const allFiltersToggle = screen.getByDataCy("all-filters-toggle");
+    const allFiltersToggle = screen.getByDataTestId("all-filters-toggle");
     expect(allFiltersToggle).toHaveAttribute("aria-checked", "true");
   });
 
@@ -17,7 +17,7 @@ describe("all filters toggle", () => {
     const { router } = render(<AllFiltersToggle />, {
       route: "?filters=100abc,100def,100ghi",
     });
-    const allFiltersToggle = screen.getByDataCy("all-filters-toggle");
+    const allFiltersToggle = screen.getByDataTestId("all-filters-toggle");
 
     await user.click(allFiltersToggle);
     expect(allFiltersToggle).toHaveAttribute("aria-checked", "false");

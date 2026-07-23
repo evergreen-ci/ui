@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.1.122",
+  "version": "3.1.123",
   "private": true,
   "type": "module",
   "scripts": {
@@ -93,7 +93,6 @@
   },
   "devDependencies": {
     "@emotion/css": "11.13.5",
-    "@eslint/compat": "^2.0.1",
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "@evg-ui/playwright-config": "workspace:*",
@@ -121,7 +120,6 @@
     "env-cmd": "10.1.0",
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-sort-keys-plus": "^1.5.0",
     "prettier": "3.7.4",
     "rollup-plugin-visualizer": "7.0.1",
     "serve": "^14.2.5",
