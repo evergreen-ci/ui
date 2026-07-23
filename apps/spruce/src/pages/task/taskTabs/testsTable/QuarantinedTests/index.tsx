@@ -16,11 +16,11 @@ import { TASK_QUARANTINED_TESTS_SAMPLE } from "gql/queries";
 import { QueryParams } from "types/task";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import {
-  buildQuarantinedTestsJson,
-  downloadJsonBlob,
   FULL_LIST_LIMIT,
   MODAL_DISPLAY_LIMIT,
   QuarantinedTestsSample,
+  buildQuarantinedTestsJson,
+  downloadJsonBlob,
 } from "./utils";
 
 type QuarantinedTestEntry = QuarantinedTestsSample["quarantinedTests"][number];

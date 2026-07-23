@@ -34,8 +34,8 @@ export const QuarantinedTestsSkipped: React.FC<Props> = ({
     <MetadataItem as="div" label="Tests skipped by TSS">
       <BadgeWrapper data-cy="quarantined-test-skips">
         <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
-          Tests skipped by TSS when this execution ran. This snapshot may
-          differ from what TSS would skip now.
+          Tests skipped by TSS when this execution ran. This snapshot may differ
+          from what TSS would skip now.
         </InfoSprinkle>
         {count === 0 ? (
           <Badge
