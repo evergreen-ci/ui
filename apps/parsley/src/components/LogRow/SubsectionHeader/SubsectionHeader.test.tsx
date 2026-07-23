@@ -58,7 +58,7 @@ describe("SubsectionHeader", () => {
         wrapper,
       },
     );
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
@@ -68,7 +68,7 @@ describe("SubsectionHeader", () => {
     renderWithRouterMatch(<SubsectionHeader {...subsectionHeaderProps} />, {
       wrapper,
     });
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
@@ -92,7 +92,7 @@ describe("SubsectionHeader", () => {
     renderWithRouterMatch(<SubsectionHeader {...subsectionHeaderProps} />, {
       wrapper,
     });
-    const openButton = screen.getByDataCy("caret-toggle");
+    const openButton = screen.getByDataTestId("caret-toggle");
     await user.click(openButton);
     expect(toggleFunctionSectionMock).toHaveBeenCalledTimes(1);
     expect(toggleFunctionSectionMock).toHaveBeenCalledWith({
@@ -116,7 +116,7 @@ describe("SubsectionHeader", () => {
       <SubsectionHeader {...subsectionHeaderProps} />,
       { wrapper },
     );
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
@@ -126,12 +126,12 @@ describe("SubsectionHeader", () => {
         subsectionHeaderLine={{ ...baseSubsectionHeaderLine, isOpen: true }}
       />,
     );
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
     rerender(<SubsectionHeader {...subsectionHeaderProps} />);
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
@@ -148,7 +148,7 @@ describe("SubsectionHeader", () => {
       />,
       { wrapper },
     );
-    expect(screen.getByDataCy("section-status-pass")).toBeVisible();
+    expect(screen.getByDataTestId("section-status-pass")).toBeVisible();
     rerender(
       <SubsectionHeader
         {...subsectionHeaderProps}
@@ -159,9 +159,11 @@ describe("SubsectionHeader", () => {
         }}
       />,
     );
-    expect(screen.getByDataCy("section-status-fail")).toBeVisible();
+    expect(screen.getByDataTestId("section-status-fail")).toBeVisible();
     rerender(<SubsectionHeader {...subsectionHeaderProps} />);
-    expect(screen.queryByDataCy("section-status-pass")).not.toBeInTheDocument();
+    expect(
+      screen.queryByDataTestId("section-status-pass"),
+    ).not.toBeInTheDocument();
   });
 });
 

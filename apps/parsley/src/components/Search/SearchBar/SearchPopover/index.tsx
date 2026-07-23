@@ -88,7 +88,7 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
       <IconButton
         ref={buttonRef}
         aria-labelledby="View search suggestions"
-        data-cy="search-suggestion-button"
+        data-testid="search-suggestion-button"
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
         title="View search suggestions"
@@ -98,7 +98,7 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
           <Icon fill={gray.base} glyph="CaretDown" />
         </>
       </IconButton>
-      <Popover active={isOpen} data-cy="search-suggestion-popover">
+      <Popover active={isOpen} data-testid="search-suggestion-popover">
         <div
           ref={popoverRef}
           aria-label="Search suggestions"

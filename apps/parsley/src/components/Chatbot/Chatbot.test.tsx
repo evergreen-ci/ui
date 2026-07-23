@@ -50,14 +50,14 @@ describe("ToggleChatbotButton", () => {
     await waitFor(() => {
       expect(screen.getByRole("button", { name: "Parsley AI" })).toBeVisible();
     });
-    expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
+    expect(screen.getByDataTestId("chat-drawer")).toHaveAttribute(
       "aria-hidden",
       "true",
     );
     await user.click(screen.getByRole("button", { name: "Parsley AI" }));
     expect(screen.getByPlaceholderText("Type your message here")).toBeVisible();
     await waitFor(() => {
-      expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
+      expect(screen.getByDataTestId("chat-drawer")).toHaveAttribute(
         "aria-hidden",
         "false",
       );

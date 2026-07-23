@@ -23,7 +23,7 @@ const singleGroupSuggestions: SearchSuggestionGroup[] = [
 describe("search popover", () => {
   it("disables properly", () => {
     render(<SearchPopover disabled searchSuggestions={[]} />);
-    expect(screen.getByDataCy("search-suggestion-button")).toHaveAttribute(
+    expect(screen.getByDataTestId("search-suggestion-button")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -38,22 +38,24 @@ describe("search popover", () => {
         searchSuggestions={mockSearchSuggestions}
       />,
     );
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
     await user.click(screen.getByRole("menuitem", { name: "apple" }));
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("apple");
-    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+    expect(
+      screen.getByDataTestId("search-suggestion-popover"),
+    ).not.toBeVisible();
   });
 
   it("should display group titles and suggestions with proper structure", async () => {
     const user = userEvent.setup();
     render(<SearchPopover searchSuggestions={mockSearchSuggestions} />);
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
 
     // Check group titles are displayed
@@ -80,9 +82,9 @@ describe("search popover", () => {
         searchSuggestions={singleGroupSuggestions}
       />,
     );
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
     const menuItem = screen.getByRole("menuitem", { name: "apple" });
     menuItem.focus();
@@ -90,7 +92,9 @@ describe("search popover", () => {
     await user.keyboard("{Enter}");
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("apple");
-    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+    expect(
+      screen.getByDataTestId("search-suggestion-popover"),
+    ).not.toBeVisible();
   });
 
   it("should be able to submit an option with spacebar", async () => {
@@ -102,9 +106,9 @@ describe("search popover", () => {
         searchSuggestions={singleGroupSuggestions}
       />,
     );
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
     const menuItem = screen.getByRole("menuitem", { name: "apple" });
     menuItem.focus();
@@ -112,15 +116,17 @@ describe("search popover", () => {
     await user.keyboard(" ");
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("apple");
-    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+    expect(
+      screen.getByDataTestId("search-suggestion-popover"),
+    ).not.toBeVisible();
   });
 
   it("should indicate if there are no search suggestions", async () => {
     const user = userEvent.setup();
     render(<SearchPopover searchSuggestions={[]} />);
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
     expect(
       screen.getByText(/No suggestions available for this project/),
@@ -130,12 +136,14 @@ describe("search popover", () => {
   it("should close when user clicks outside of popover", async () => {
     const user = userEvent.setup();
     render(<SearchPopover searchSuggestions={[]} />);
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
     await user.click(document.body as HTMLElement);
-    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+    expect(
+      screen.getByDataTestId("search-suggestion-popover"),
+    ).not.toBeVisible();
   });
 
   it("should navigate options with arrow keys and select with enter across groups", async () => {
@@ -147,9 +155,9 @@ describe("search popover", () => {
         searchSuggestions={singleGroupSuggestions}
       />,
     );
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
 
     const menu = screen.getByRole("menu");
@@ -163,7 +171,9 @@ describe("search popover", () => {
 
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("banana");
-    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+    expect(
+      screen.getByDataTestId("search-suggestion-popover"),
+    ).not.toBeVisible();
   });
 
   it("should navigate across multiple groups with arrow keys", async () => {
@@ -175,9 +185,9 @@ describe("search popover", () => {
         searchSuggestions={mockSearchSuggestions}
       />,
     );
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
 
     const menu = screen.getByRole("menu");
@@ -192,7 +202,9 @@ describe("search popover", () => {
 
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("carrot");
-    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+    expect(
+      screen.getByDataTestId("search-suggestion-popover"),
+    ).not.toBeVisible();
   });
 
   it("should wrap around when navigating with arrow keys", async () => {
@@ -204,9 +216,9 @@ describe("search popover", () => {
         searchSuggestions={mockSearchSuggestions}
       />,
     );
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
 
     const menu = screen.getByRole("menu");
@@ -219,15 +231,17 @@ describe("search popover", () => {
 
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("lettuce");
-    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+    expect(
+      screen.getByDataTestId("search-suggestion-popover"),
+    ).not.toBeVisible();
   });
 
   it("should maintain focus within the menu when using keyboard navigation", async () => {
     const user = userEvent.setup();
     render(<SearchPopover searchSuggestions={mockSearchSuggestions} />);
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
 
     const menu = screen.getByRole("menu");

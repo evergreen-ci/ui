@@ -47,6 +47,8 @@ export const cache = new InMemoryCache({
       keyFields: false,
     },
     AdminSettings: {
+      // AdminSettings is a singleton type with no identifying field
+      keyFields: [],
       merge: true,
     },
     Project: {

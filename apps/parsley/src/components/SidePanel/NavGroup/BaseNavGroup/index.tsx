@@ -10,7 +10,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 const { green } = palette;
 
 interface BaseNavGroupProps<T> {
-  ["data-cy"]: string;
+  ["data-testid"]: string;
   children: ReactNode;
   glyph: keyof typeof glyphs;
   items: T[];
@@ -23,7 +23,7 @@ interface BaseNavGroupProps<T> {
 const BaseNavGroup = <T,>({
   additionalHeaderText,
   children,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   defaultMessage,
   glyph,
   items,
@@ -33,7 +33,7 @@ const BaseNavGroup = <T,>({
     glyph={<Icon fill={green.dark2} glyph={glyph} />}
     hasActiveItem={items.length > 0}
     header={
-      <NavGroupHeader data-cy={`${dataCy}-nav-group-header`}>
+      <NavGroupHeader data-testid={`${dataTestId}-nav-group-header`}>
         <NavGroupTitle>{navGroupTitle}</NavGroupTitle>
         <Badge variant={Variant.Green}>{items.length}</Badge>
         {additionalHeaderText}
@@ -43,7 +43,7 @@ const BaseNavGroup = <T,>({
     {items.length ? (
       children
     ) : (
-      <DefaultMessageWrapper data-cy={`${dataCy}-default-message`}>
+      <DefaultMessageWrapper data-testid={`${dataTestId}-default-message`}>
         <Body>{defaultMessage}</Body>
       </DefaultMessageWrapper>
     )}

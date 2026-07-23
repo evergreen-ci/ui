@@ -26,7 +26,7 @@ const ExcludeTimestampsToggle: React.FC = () => {
 
   return (
     <BaseToggle
-      data-cy="exclude-timestamps-toggle"
+      data-testid="exclude-timestamps-toggle"
       disabled={!isSupported}
       label="Exclude Timestamps"
       onChange={(value) => {

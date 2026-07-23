@@ -3,7 +3,7 @@ import { expect, test } from "../fixtures";
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
 const SPRUCE_URLS = {
-  admin: "/admin-settings/general",
+  admin: "/admin-settings/service-flags",
   version: `/version/${PATCH_ID}/tasks`,
   userPatches: `/user/${USER_ID}/patches`,
   cli: `/preferences/cli`,

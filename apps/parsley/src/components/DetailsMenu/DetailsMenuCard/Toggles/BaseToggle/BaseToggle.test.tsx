@@ -9,7 +9,7 @@ describe("base toggle", () => {
   it("properly renders labels", () => {
     render(
       <BaseToggle
-        data-cy="toggle"
+        data-testid="toggle"
         label="Test Label"
         leftLabel="Left"
         onChange={vi.fn()}
@@ -28,14 +28,14 @@ describe("base toggle", () => {
     const toggleFunc = vi.fn();
     render(
       <BaseToggle
-        data-cy="toggle"
+        data-testid="toggle"
         label="test"
         onChange={toggleFunc}
         tooltip="test tooltip"
         value={false}
       />,
     );
-    const toggle = screen.getByDataCy("toggle");
+    const toggle = screen.getByDataTestId("toggle");
     await user.click(toggle);
 
     expect(toggleFunc).toHaveBeenCalledTimes(1);
@@ -46,7 +46,7 @@ describe("base toggle", () => {
   it("should be possible to disable the toggle", () => {
     render(
       <BaseToggle
-        data-cy="toggle"
+        data-testid="toggle"
         disabled
         label="Test Label"
         leftLabel="Left"
@@ -56,6 +56,6 @@ describe("base toggle", () => {
         value
       />,
     );
-    expect(screen.getByDataCy("toggle")).toBeDisabled();
+    expect(screen.getByDataTestId("toggle")).toBeDisabled();
   });
 });
