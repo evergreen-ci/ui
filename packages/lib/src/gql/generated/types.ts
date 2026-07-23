@@ -3106,6 +3106,13 @@ export type QuarantineVariantInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
+/** QuarantinedTest represents a test skipped because it was quarantined in TSS at execution time. */
+export type QuarantinedTest = {
+  __typename?: "QuarantinedTest";
+  displayTestName?: Maybe<Scalars["String"]["output"]>;
+  testName: Scalars["String"]["output"];
+};
+
 export type Query = {
   __typename?: "Query";
   adminEvents: AdminEventsPayload;
@@ -4138,6 +4145,8 @@ export type Task = {
   prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
+  /** quarantinedTestsSkippedCount is the number of tests this execution skipped because they were quarantined in TSS at execution time. */
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
   revision?: Maybe<Scalars["String"]["output"]>;
@@ -4406,6 +4415,18 @@ export type TaskQuarantineEntry = {
   __typename?: "TaskQuarantineEntry";
   taskName: Scalars["String"]["output"];
   tests: Array<TestQuarantineEntry>;
+};
+
+/**
+ * TaskQuarantinedTestsSample is the return value for Version.taskQuarantinedTestsSample.
+ * It contains the execution-time snapshot of tests skipped because they were quarantined in TSS.
+ */
+export type TaskQuarantinedTestsSample = {
+  __typename?: "TaskQuarantinedTestsSample";
+  execution: Scalars["Int"]["output"];
+  quarantinedTests: Array<QuarantinedTest>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
+  taskId: Scalars["String"]["output"];
 };
 
 /**
@@ -4900,6 +4921,8 @@ export type Version = {
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
   taskCount?: Maybe<Scalars["Int"]["output"]>;
+  /** Returns up to limit (default 50) TSS-quarantined tests per task; quarantinedTestsSkippedCount is authoritative because stored samples may be truncated. */
+  taskQuarantinedTestsSample?: Maybe<Array<TaskQuarantinedTestsSample>>;
   taskStatusStats?: Maybe<TaskStats>;
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
@@ -4924,6 +4947,12 @@ export type VersionBuildVariantsArgs = {
 /** Version models a commit within a project. */
 export type VersionTaskCountArgs = {
   options?: InputMaybe<TaskCountOptions>;
+};
+
+/** Version models a commit within a project. */
+export type VersionTaskQuarantinedTestsSampleArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  taskIds: Array<Scalars["String"]["input"]>;
 };
 
 /** Version models a commit within a project. */
