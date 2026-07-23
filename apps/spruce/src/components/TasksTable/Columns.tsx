@@ -160,6 +160,7 @@ export const getColumnsTemplate = ({
   },
   {
     accessorKey: "baseTask.prevTaskCompleted",
+    id: "last-run-status",
     header: () => (
       <FlexWrapper>
         Last Run Status

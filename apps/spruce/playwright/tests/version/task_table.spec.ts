@@ -102,13 +102,13 @@ test.describe("Task table", () => {
     const checkCodegenRow = page
       .getByTestId("tasks-table-row")
       .filter({ hasText: "check_codegen" });
-    const lastCompletedTask = checkCodegenRow.getByRole("link", {
-      name: "Failed",
-    });
-
-    await expect(lastCompletedTask).toHaveAttribute(
+    const lastCompletedTask = checkCodegenRow.locator(
+      "[data-column='last-run-status']",
+    );
+    const link = lastCompletedTask.getByRole("link");
+    await expect(link).toHaveAttribute(
       "href",
-      "/task/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35?execution=0",
+      "/task/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/history?execution=0",
     );
   });
 

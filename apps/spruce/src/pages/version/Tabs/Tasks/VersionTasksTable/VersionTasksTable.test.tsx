@@ -15,6 +15,7 @@ import * as db from "components/TaskReview/db";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
+import { TaskTab } from "types/task";
 import { versionTasks } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
 
@@ -102,19 +103,21 @@ describe("VersionTasksTable", () => {
       </MockedProvider>,
     );
     const prevTaskCompleted = tasks[0].baseTask?.prevTaskCompleted;
-    const firstRow = within(screen.getAllByDataCy("tasks-table-row")[0]);
     const expectedHref = getTaskRoute(prevTaskCompleted?.id ?? "", {
       execution: prevTaskCompleted?.execution,
+      tab: TaskTab.History,
     });
 
+    const firstRow = screen.getAllByDataCy("tasks-table-row")[0];
+    const lastRunStatusCell = within(
+      firstRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
+    );
+
     expect(screen.getByText("Last Run Status")).toBeVisible();
-    expect(
-      firstRow
-        .getAllByRole("link", {
-          name: new RegExp(prevTaskCompleted?.displayStatus ?? "", "i"),
-        })
-        .some((link) => link.getAttribute("href") === expectedHref),
-    ).toBe(true);
+    expect(lastRunStatusCell.getByRole("link")).toHaveAttribute(
+      "href",
+      expectedHref,
+    );
   });
 
   it("leaves the last completed run status empty when none exists", () => {
@@ -123,9 +126,11 @@ describe("VersionTasksTable", () => {
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
-    const secondRow = within(screen.getAllByDataCy("tasks-table-row")[1]);
-
-    expect(secondRow.queryByRole("link", { name: /failed/i })).toBeNull();
+    const secondRow = screen.getAllByDataCy("tasks-table-row")[1];
+    const lastRunStatusCell = within(
+      secondRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
+    );
+    expect(lastRunStatusCell.queryByRole("link")).toBeNull();
   });
 
   it("calls clearQueryParams function when button is clicked", async () => {
