@@ -11,7 +11,7 @@ import {
 } from "./NavGroup";
 
 interface SidePanelProps {
-  ["data-cy"]?: string;
+  ["data-testid"]?: string;
   expandedLines: ExpandedLines;
   collapseLines: (idx: number) => void;
   clearExpandedLines: () => void;
@@ -22,7 +22,7 @@ interface SidePanelProps {
 const SidePanel: React.FC<SidePanelProps> = ({
   clearExpandedLines,
   collapseLines,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   expandedLines,
   panelCollapsed,
   setPanelCollapsed,
@@ -30,7 +30,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
   <StyledSideNav
     aria-label="Side panel"
     collapsed={panelCollapsed}
-    data-cy={dataCy}
+    data-testid={dataTestId}
     setCollapsed={(collapse) => {
       // panelCollapsed represents the initial state of the sidenav
       setLocalStorageBoolean(DRAWER_OPENED, !panelCollapsed);

@@ -13,6 +13,6 @@ export const SectionStatusIcon: React.FC<Props> = ({ status }) => {
   const glyph =
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
   return (
-    <Icon data-cy={`section-status-${status}`} fill={fill} glyph={glyph} />
+    <Icon data-testid={`section-status-${status}`} fill={fill} glyph={glyph} />
   );
 };

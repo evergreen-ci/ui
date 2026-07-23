@@ -24,7 +24,7 @@ const SearchBarGuideCue: React.FC = () => {
   return (
     <GuideCue
       currentStep={1}
-      data-cy="searchbar-guide-cue"
+      data-testid="searchbar-guide-cue"
       numberOfSteps={1}
       onPrimaryButtonClick={onHideCue}
       open={openGuideCue}

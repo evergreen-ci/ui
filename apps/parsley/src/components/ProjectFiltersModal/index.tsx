@@ -142,7 +142,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
         disabled: !hasNewFilters,
         onClick: handleConfirm,
       }}
-      data-cy="project-filters-modal"
+      data-testid="project-filters-modal"
       open={open}
       setOpen={setOpen}
       // @ts-expect-error - size is not a valid prop for ConfirmationModal but it is valid for the underlying Modal component
@@ -155,7 +155,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
           .filter(isRowDisabled)}
         emptyComponent={
           <TablePlaceholder
-            data-cy="no-filters-message"
+            data-testid="no-filters-message"
             glyph="MagnifyingGlass"
             message={
               <p>

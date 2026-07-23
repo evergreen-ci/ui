@@ -20,14 +20,14 @@ describe("filter logic toggle", () => {
 
   it("defaults to 'and' if stored value is unset", () => {
     render(<FilterLogicToggle />, { wrapper });
-    const filterLogicToggle = screen.getByDataCy("filter-logic-toggle");
+    const filterLogicToggle = screen.getByDataTestId("filter-logic-toggle");
     expect(filterLogicToggle).toHaveAttribute("aria-checked", "false");
   });
 
   it("should read from localStorage properly", () => {
     localStorage.setItem(FILTER_LOGIC, "or");
     render(<FilterLogicToggle />, { wrapper });
-    const filterLogicToggle = screen.getByDataCy("filter-logic-toggle");
+    const filterLogicToggle = screen.getByDataTestId("filter-logic-toggle");
     expect(filterLogicToggle).toHaveAttribute("aria-checked", "true");
   });
 
@@ -38,7 +38,7 @@ describe("filter logic toggle", () => {
       wrapper,
     });
 
-    const filterLogicToggle = screen.getByDataCy("filter-logic-toggle");
+    const filterLogicToggle = screen.getByDataTestId("filter-logic-toggle");
     expect(filterLogicToggle).toHaveAttribute("aria-checked", "true");
 
     await user.click(filterLogicToggle);
@@ -56,7 +56,7 @@ describe("filter logic toggle", () => {
       route: "?filterLogic=and",
       wrapper,
     });
-    const filterLogicToggle = screen.getByDataCy("filter-logic-toggle");
+    const filterLogicToggle = screen.getByDataTestId("filter-logic-toggle");
     expect(filterLogicToggle).toHaveAttribute("aria-checked", "false");
   });
 });

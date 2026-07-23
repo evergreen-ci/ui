@@ -5,7 +5,7 @@ const logLink =
   "/evergreen/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/task";
 
 const getTargetSelector = (rowIndex: number) =>
-  `[data-index='${rowIndex}'] >  [data-cy='section-header']`;
+  `[data-index='${rowIndex}'] >  [data-testid='section-header']`;
 
 test.describe("Sectioning", () => {
   test.beforeEach(async ({ page }) => {
@@ -19,7 +19,7 @@ test.describe("Sectioning", () => {
   }) => {
     // Check that sections is toggled.
     await helpers.toggleDetailsPanel(page, true);
-    await page.locator("button[data-cy='log-viewing-tab']").click();
+    await page.locator("button[data-testid='log-viewing-tab']").click();
     await expect(page.getByTestId("sections-toggle")).toBeChecked();
     await helpers.toggleDetailsPanel(page, false);
     // Assert sections are visible.
@@ -65,12 +65,12 @@ test.describe("Sectioning", () => {
     }
 
     const openLineNumbers = [0, 1, 2, 8, 9, 9616, 9617, 9618, 9619];
-    const visibleRows = page.locator("[data-cy^='log-row-']");
+    const visibleRows = page.locator("[data-testid^='log-row-']");
     await expect(visibleRows).toHaveCount(openLineNumbers.length);
     const logRows = await visibleRows.all();
     for (const row of logRows) {
-      const dataCy = await row.getAttribute("data-cy");
-      expect(dataCy).toMatch(/log-row-(0|1|2|8|9|9616|9617|9618|9619)/);
+      const dataTestId = await row.getAttribute("data-testid");
+      expect(dataTestId).toMatch(/log-row-(0|1|2|8|9|9616|9617|9618|9619)/);
     }
   });
 
@@ -81,7 +81,7 @@ test.describe("Sectioning", () => {
       "Function: f_expansions_write",
     );
     await page
-      .locator(`${getTargetSelector(3)} > [data-cy='caret-toggle']`)
+      .locator(`${getTargetSelector(3)} > [data-testid='caret-toggle']`)
       .click();
     await expect(page.locator(getTargetSelector(4))).toContainText(
       "Command: expansions.update (step 1 of 2)",
@@ -95,7 +95,7 @@ test.describe("Sectioning", () => {
       "Command: expansions.write (step 2.1 of 2)",
     );
     await page
-      .locator(`${getTargetSelector(8)} > [data-cy='caret-toggle']`)
+      .locator(`${getTargetSelector(8)} > [data-testid='caret-toggle']`)
       .click();
     await expect(page.locator("[data-index='9']")).toContainText(
       "[2024/03/12 11:18:36.035] Running task commands failed: running command: command failed: process encountered problem: exit code 1",
@@ -140,7 +140,7 @@ test.describe("Sectioning", () => {
     });
     await openAllSectionsButton.click();
     await page.getByTestId("bookmark-9614").click();
-    await expect(page.locator("[data-cy='line-index-9614']")).toBeVisible();
+    await expect(page.locator("[data-testid='line-index-9614']")).toBeVisible();
     await expect(page.getByTestId("sticky-headers")).toBeVisible();
     await expect(page.getByTestId("sticky-headers")).toContainText(
       "Function: run tests",

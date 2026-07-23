@@ -60,7 +60,7 @@ describe("sharingMenu", () => {
   it("should render an open menu after clicking the trigger", async () => {
     const user = userEvent.setup();
     renderSharingMenu();
-    await user.click(screen.getByDataCy("log-link-1"));
+    await user.click(screen.getByDataTestId("log-link-1"));
     expect(
       screen.getByText("Copy share link to selected line"),
     ).toBeInTheDocument();
@@ -105,7 +105,7 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(1, false);
     });
-    await user.click(screen.getByDataCy("log-link-1"));
+    await user.click(screen.getByDataTestId("log-link-1"));
 
     expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
     await user.click(screen.getByText("Copy selected contents"));
@@ -138,7 +138,7 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(1, false);
     });
-    await user.click(screen.getByDataCy("log-link-1"));
+    await user.click(screen.getByDataTestId("log-link-1"));
 
     expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
     await user.click(screen.getByText("Copy selected contents"));
@@ -249,7 +249,7 @@ describe("sharingMenu", () => {
   it("should show 'Add to Parsley AI' for non-uploaded logs", async () => {
     const user = userEvent.setup();
     renderSharingMenu();
-    await user.click(screen.getByDataCy("log-link-1"));
+    await user.click(screen.getByDataTestId("log-link-1"));
     expect(screen.getByText("Add to Parsley AI")).toBeInTheDocument();
   });
 });
