@@ -14,10 +14,10 @@ import {
 } from "gql/generated/types";
 import { TASK_QUARANTINED_TESTS_SAMPLE } from "gql/queries";
 import {
-  buildQuarantinedTestsJson,
-  downloadJsonBlob,
   FULL_LIST_LIMIT,
   MODAL_DISPLAY_LIMIT,
+  buildQuarantinedTestsJson,
+  downloadJsonBlob,
 } from "pages/task/taskTabs/testsTable/QuarantinedTests/utils";
 import { TaskTab } from "types/task";
 
@@ -137,7 +137,7 @@ export const VersionQuarantinedTestsModal: React.FC<
       setOpen={setOpen}
       subtitle={`${totalCount} ${pluralize("test", totalCount)} ${
         totalCount === 1 ? "was" : "were"
-      } quarantined in TSS when this version's tasks ran. This snapshot may not match the current quarantine state.`}
+      } skipped by TSS when this version's tasks ran. This snapshot may differ from what TSS would skip now.`}
       totalCount={totalCount}
     />
   );
