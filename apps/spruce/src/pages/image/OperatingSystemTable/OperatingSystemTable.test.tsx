@@ -34,13 +34,13 @@ describe("operating system table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("os-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(10);
     });
     const expectedNames = (
       imageOperatingSystemMock.result?.data?.image?.operatingSystem.data || []
     ).map(({ name }) => name);
 
-    const rows = screen.getAllByDataCy("os-table-row");
+    const rows = screen.getAllByTestId("os-table-row");
     expectedNames.forEach((expectedName, i) => {
       expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
         expectedName,
@@ -54,13 +54,13 @@ describe("operating system table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("os-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(10);
     });
     const expectedVersions = (
       imageOperatingSystemMock.result?.data?.image?.operatingSystem.data || []
     ).map(({ version }) => version);
 
-    const rows = screen.getAllByDataCy("os-table-row");
+    const rows = screen.getAllByTestId("os-table-row");
     expectedVersions.forEach((expectedVersion, i) => {
       expect(within(rows[i]).getAllByRole("cell")[1]).toHaveTextContent(
         expectedVersion,
@@ -75,15 +75,15 @@ describe("operating system table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("os-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByDataCy("os-name-filter"));
+    await user.click(screen.getByDataTestId("os-name-filter"));
     await user.type(
       screen.getByPlaceholderText("Name regex"),
       "^Kernel{enter}",
     );
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("os-table-row")).toHaveLength(1);
+      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("1 - 1 of 1 item")).toBeInTheDocument();
   });
@@ -95,11 +95,11 @@ describe("operating system table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("os-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(10);
     });
     await user.click(screen.getByTestId("lg-pagination-next-button"));
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("os-table-row")).toHaveLength(1);
+      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("11 - 11 of 11 items")).toBeInTheDocument();
   });

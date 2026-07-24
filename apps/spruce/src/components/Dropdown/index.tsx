@@ -16,7 +16,7 @@ interface DropdownProps {
   buttonRenderer?: () => React.ReactNode;
   buttonText?: string;
   children?: React.ReactNode;
-  ["data-cy"]?: string;
+  ["data-testid"]?: string;
   disabled?: boolean;
   id?: string;
   isOpen: boolean;
@@ -28,7 +28,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   buttonRenderer,
   buttonText,
   children,
-  "data-cy": dataCy = "dropdown-button",
+  "data-testid": dataTestId = "dropdown-button",
   disabled = false,
   id,
   isOpen,
@@ -54,7 +54,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     <Container id={id}>
       <StyledButton
         ref={menuButtonRef}
-        data-cy={dataCy}
+        data-testid={dataTestId}
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
         rightGlyph={<Icon glyph="CaretDown" />}
@@ -64,7 +64,9 @@ const Dropdown: React.FC<DropdownProps> = ({
             {buttonRenderer ? (
               buttonRenderer()
             ) : (
-              <OverflowBody data-cy="dropdown-value">{buttonText}</OverflowBody>
+              <OverflowBody data-testid="dropdown-value">
+                {buttonText}
+              </OverflowBody>
             )}
           </LabelWrapper>
         </ButtonContent>
@@ -72,7 +74,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       <Menu
         active={isOpen}
         adjustOnMutation
-        data-cy={`${dataCy}-options`}
+        data-testid={`${dataTestId}-options`}
         onClick={(e) => e.stopPropagation()}
         refEl={menuButtonRef}
         style={{

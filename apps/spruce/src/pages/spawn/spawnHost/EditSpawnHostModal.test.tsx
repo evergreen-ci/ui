@@ -43,7 +43,7 @@ describe("editSpawnHostModal", () => {
         <Component />
       </MockedProvider>,
     );
-    expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+    expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
   });
 
   it("disables save button when no changes have been made", () => {
@@ -55,7 +55,7 @@ describe("editSpawnHostModal", () => {
         <Component />
       </MockedProvider>,
     );
-    expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+    expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
     expect(screen.getByRole("button", { name: "Save" })).toHaveAttribute(
       "aria-disabled",
       "true",
@@ -72,7 +72,7 @@ describe("editSpawnHostModal", () => {
           <Component />
         </MockedProvider>,
       );
-      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
       expect(
         screen.queryByLabelText("Use default host uptime schedule", {
           exact: false,
@@ -89,8 +89,8 @@ describe("editSpawnHostModal", () => {
           <Component />
         </MockedProvider>,
       );
-      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
-      within(screen.getByDataCy("daypicker"))
+      expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
+      within(screen.getByDataTestId("daypicker"))
         .getAllByRole("checkbox")
         .forEach((day) => {
           expect(day).toBeDisabled();
@@ -106,7 +106,7 @@ describe("editSpawnHostModal", () => {
           <Component />
         </MockedProvider>,
       );
-      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
       expect(screen.queryByLabelText("M")).toHaveAttribute(
         "aria-checked",
         "true",
@@ -136,14 +136,14 @@ describe("editSpawnHostModal", () => {
           <Component />
         </MockedProvider>,
       );
-      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
 
-      const hourInputs = screen.getAllByDataCy("hour-input");
+      const hourInputs = screen.getAllByTestId("hour-input");
       expect(hourInputs).toHaveLength(2);
       expect(hourInputs[0]).toBeDisabled();
       expect(hourInputs[1]).toBeDisabled();
 
-      const minuteInputs = screen.getAllByDataCy("minute-input");
+      const minuteInputs = screen.getAllByTestId("minute-input");
       expect(minuteInputs).toHaveLength(2);
       expect(minuteInputs[0]).toBeDisabled();
       expect(minuteInputs[1]).toBeDisabled();
@@ -169,29 +169,29 @@ describe("editSpawnHostModal", () => {
           <Component />
         </MockedProvider>,
       );
-      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
       expect(screen.getByText("Central Time")).toBeVisible();
       await user.click(
         screen.getByText("Use default host uptime schedule", {
           exact: false,
         }),
       );
-      within(screen.getByDataCy("daypicker"))
+      within(screen.getByDataTestId("daypicker"))
         .getAllByRole("checkbox")
         .forEach((day) => {
           expect(day).not.toBeDisabled();
         });
 
-      await user.click(screen.getAllByDataCy("hour-input")[0]);
+      await user.click(screen.getAllByTestId("hour-input")[0]);
       await waitFor(() => {
-        expect(screen.getByDataCy("hour-options")).toBeVisible();
+        expect(screen.getByDataTestId("hour-options")).toBeVisible();
       });
       await user.click(
-        within(screen.getByDataCy("hour-options")).getByText("07"),
+        within(screen.getByDataTestId("hour-options")).getByText("07"),
       );
-      await user.click(screen.getByDataCy("edit-spawn-host-modal"));
-      expect(screen.getAllByDataCy("hour-input")[0]).toHaveValue("07");
-      expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
+      await user.click(screen.getByDataTestId("edit-spawn-host-modal"));
+      expect(screen.getAllByTestId("hour-input")[0]).toHaveValue("07");
+      expect(screen.queryByDataTestId("host-uptime-details")).toHaveTextContent(
         "65",
       );
     }, 30000);
@@ -206,7 +206,7 @@ describe("editSpawnHostModal", () => {
           <Component />
         </MockedProvider>,
       );
-      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
       await user.click(
         screen.getByText("Use default host uptime schedule", {
           exact: false,
@@ -214,7 +214,7 @@ describe("editSpawnHostModal", () => {
       );
       await user.click(screen.getByTitle("Sunday"));
       await user.click(screen.getByText("Run continuously for enabled days"));
-      expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
+      expect(screen.queryByDataTestId("host-uptime-details")).toHaveTextContent(
         "144",
       );
       expect(
@@ -232,7 +232,7 @@ describe("editSpawnHostModal", () => {
           <Component />
         </MockedProvider>,
       );
-      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
       await user.click(
         screen.getByText("Use default host uptime schedule", {
           exact: false,
@@ -241,7 +241,7 @@ describe("editSpawnHostModal", () => {
       await user.click(screen.getByTitle("Sunday"));
       await user.click(screen.getByTitle("Saturday"));
       await user.click(screen.getByText("Run continuously for enabled days"));
-      expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
+      expect(screen.queryByDataTestId("host-uptime-details")).toHaveTextContent(
         "168",
       );
       expect(
@@ -278,7 +278,7 @@ describe("editSpawnHostModal", () => {
           <Component />
         </MockedProvider>,
       );
-      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      expect(screen.queryByDataTestId("edit-spawn-host-modal")).toBeVisible();
 
       expect(screen.getByDisplayValue("2020")).toBeVisible();
       expect(screen.getByDisplayValue("01")).toBeVisible();

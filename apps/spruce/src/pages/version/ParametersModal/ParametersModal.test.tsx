@@ -9,19 +9,19 @@ const parameters = [
 describe("parameters modal", () => {
   it("modal is closed by default", () => {
     render(<ParametersModal parameters={parameters} />);
-    expect(screen.queryByDataCy("parameters-modal")).not.toBeVisible();
+    expect(screen.queryByDataTestId("parameters-modal")).not.toBeVisible();
   });
 
   it("link does not render if there are no parameters", () => {
     render(<ParametersModal parameters={[]} />);
-    expect(screen.queryByDataCy("parameters-link")).toBeNull();
+    expect(screen.queryByDataTestId("parameters-link")).toBeNull();
   });
 
   it("can click the link to open the modal and view parameters", async () => {
     const user = userEvent.setup();
     render(<ParametersModal parameters={parameters} />);
-    await user.click(screen.getByDataCy("parameters-link"));
-    await screen.findByDataCy("parameters-modal");
+    await user.click(screen.getByDataTestId("parameters-link"));
+    await screen.findByDataTestId("parameters-modal");
     expect(screen.getByText(parameters[0].key)).toBeInTheDocument();
     expect(screen.getByText(parameters[0].value)).toBeInTheDocument();
     expect(screen.getByText(parameters[1].key)).toBeInTheDocument();

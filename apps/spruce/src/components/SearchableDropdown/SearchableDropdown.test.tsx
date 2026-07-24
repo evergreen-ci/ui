@@ -50,16 +50,16 @@ describe("searchableDropdown", () => {
       }),
     );
     expect(
-      screen.queryByDataCy("searchable-dropdown-options"),
+      screen.queryByDataTestId("searchable-dropdown-options"),
     ).not.toBeInTheDocument();
-    await user.click(screen.getByDataCy("searchable-dropdown"));
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
     expect(
-      screen.getByDataCy("searchable-dropdown-options"),
+      screen.getByDataTestId("searchable-dropdown-options"),
     ).toBeInTheDocument();
-    await user.click(screen.getByDataCy("searchable-dropdown"));
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
     await waitFor(() => {
       expect(
-        screen.queryByDataCy("searchable-dropdown-options"),
+        screen.queryByDataTestId("searchable-dropdown-options"),
       ).not.toBeInTheDocument();
     });
   });
@@ -74,20 +74,20 @@ describe("searchableDropdown", () => {
       }),
     );
     expect(
-      screen.queryByDataCy("searchable-dropdown-options"),
+      screen.queryByDataTestId("searchable-dropdown-options"),
     ).not.toBeInTheDocument();
-    await user.click(screen.getByDataCy("searchable-dropdown"));
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
     expect(
-      screen.getByDataCy("searchable-dropdown-options"),
+      screen.getByDataTestId("searchable-dropdown-options"),
     ).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Search")).toBeInTheDocument();
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2,
-    );
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(2);
     await user.type(screen.getByPlaceholderText("Search"), "spru");
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      1,
-    );
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(1);
   });
 
   it("should reset the search input and options after SearchableDropdown closes", async () => {
@@ -100,21 +100,21 @@ describe("searchableDropdown", () => {
       }),
     );
     // use text input to filter and click on document body (which closes the dropdown).
-    await user.click(screen.getByDataCy("searchable-dropdown"));
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2,
-    );
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(2);
     await user.type(screen.getByPlaceholderText("Search"), "spru");
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      1,
-    );
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(1);
     await user.click(screen.getByText("spruce"));
 
     // when reopening the dropdown, the text input should be cleared and all options should be visible.
-    await user.click(screen.getByDataCy("searchable-dropdown"));
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2,
-    );
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(2);
     expect(screen.getByPlaceholderText("Search")).toHaveValue("");
   });
 
@@ -132,7 +132,7 @@ describe("searchableDropdown", () => {
         searchFunc,
       }),
     );
-    await user.click(screen.getByDataCy("searchable-dropdown"));
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
 
     expect(screen.getByPlaceholderText("Search")).toBeInTheDocument();
     await user.type(screen.getByPlaceholderText("Search"), "spruce");
@@ -154,17 +154,17 @@ describe("searchableDropdown", () => {
       }),
     );
     expect(
-      screen.queryByDataCy("searchable-dropdown-options"),
+      screen.queryByDataTestId("searchable-dropdown-options"),
     ).not.toBeInTheDocument();
-    await user.click(screen.getByDataCy("searchable-dropdown"));
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
     expect(
-      screen.getByDataCy("searchable-dropdown-options"),
+      screen.getByDataTestId("searchable-dropdown-options"),
     ).toBeInTheDocument();
     await user.click(screen.getByText("spruce"));
     expect(onChange).toHaveBeenCalledWith("spruce");
     await waitFor(() => {
       expect(
-        screen.queryByDataCy("searchable-dropdown-options"),
+        screen.queryByDataTestId("searchable-dropdown-options"),
       ).not.toBeInTheDocument();
     });
 
@@ -188,21 +188,21 @@ describe("searchableDropdown", () => {
       }),
     );
     // use text input to filter and select an option.
-    await user.click(screen.getByDataCy("searchable-dropdown"));
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2,
-    );
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(2);
     await user.type(screen.getByPlaceholderText("Search"), "spru");
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      1,
-    );
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(1);
     await user.click(screen.getByText("spruce"));
 
     // when reopening the dropdown, the text input should be cleared and all options should be visible.
-    await user.click(screen.getByDataCy("searchable-dropdown"));
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2,
-    );
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(2);
     expect(screen.getByPlaceholderText("Search")).toHaveValue("");
   });
 
@@ -215,11 +215,11 @@ describe("searchableDropdown", () => {
         options: ["evergreen", "spruce"],
       }),
     );
-    await user.click(screen.getByDataCy("searchable-dropdown"));
-    expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2,
-    );
-    expect(screen.queryByDataCy("checkmark")).toBeNull();
+    await user.click(screen.getByDataTestId("searchable-dropdown"));
+    expect(
+      screen.queryAllByDataTestId("searchable-dropdown-option"),
+    ).toHaveLength(2);
+    expect(screen.queryByDataTestId("checkmark")).toBeNull();
   });
 
   describe("when using custom render options", () => {
@@ -251,7 +251,7 @@ describe("searchableDropdown", () => {
           ),
         }),
       );
-      await user.click(screen.getByDataCy("searchable-dropdown"));
+      await user.click(screen.getByDataTestId("searchable-dropdown"));
       expect(screen.getByText("Evergreen")).toBeInTheDocument();
       expect(screen.getByText("Spruce")).toBeInTheDocument();
       expect(screen.queryByText("Evergreen")).toBeInstanceOf(HTMLButtonElement);
@@ -287,7 +287,7 @@ describe("searchableDropdown", () => {
           ),
         }),
       );
-      await user.click(screen.getByDataCy("searchable-dropdown"));
+      await user.click(screen.getByDataTestId("searchable-dropdown"));
 
       expect(screen.getByText("Spruce")).toBeInTheDocument();
       await user.click(screen.getByText("Spruce"));

@@ -38,10 +38,10 @@ describe("deactivateStepbackTask", () => {
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);
     expect(
-      screen.getByDataCy("deactivate-stepback-button"),
+      screen.getByDataTestId("deactivate-stepback-button"),
     ).toBeInTheDocument();
     expect(
-      screen.queryByDataCy("deactivate-stepback-modal"),
+      screen.queryByDataTestId("deactivate-stepback-modal"),
     ).not.toBeInTheDocument();
   });
 
@@ -49,10 +49,16 @@ describe("deactivateStepbackTask", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);
-    await user.click(screen.getByDataCy("deactivate-stepback-button"));
-    expect(screen.getByDataCy("deactivate-stepback-modal")).toBeInTheDocument();
-    expect(screen.getByDataCy("deactivate-variant-name-input")).toHaveValue("");
-    expect(screen.getByDataCy("deactivate-task-name-input")).toHaveValue("");
+    await user.click(screen.getByDataTestId("deactivate-stepback-button"));
+    expect(
+      screen.getByDataTestId("deactivate-stepback-modal"),
+    ).toBeInTheDocument();
+    expect(screen.getByDataTestId("deactivate-variant-name-input")).toHaveValue(
+      "",
+    );
+    expect(screen.getByDataTestId("deactivate-task-name-input")).toHaveValue(
+      "",
+    );
     const confirmButton = screen.getByRole("button", {
       name: "Confirm",
     });
@@ -63,15 +69,17 @@ describe("deactivateStepbackTask", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(<Field />);
     render(<Component />);
-    await user.click(screen.getByDataCy("deactivate-stepback-button"));
-    expect(screen.getByDataCy("deactivate-stepback-modal")).toBeInTheDocument();
+    await user.click(screen.getByDataTestId("deactivate-stepback-button"));
+    expect(
+      screen.getByDataTestId("deactivate-stepback-modal"),
+    ).toBeInTheDocument();
 
     await user.type(
-      screen.getByDataCy("deactivate-variant-name-input"),
+      screen.getByDataTestId("deactivate-variant-name-input"),
       "ubuntu1604",
     );
     await user.type(
-      screen.getByDataCy("deactivate-task-name-input"),
+      screen.getByDataTestId("deactivate-task-name-input"),
       "js-test",
     );
     const confirmButton = screen.getByRole("button", {

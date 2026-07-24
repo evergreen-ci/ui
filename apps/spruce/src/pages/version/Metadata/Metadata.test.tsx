@@ -104,18 +104,18 @@ describe("version metadata sections", () => {
     expect(screen.getByText("Execution")).toBeInTheDocument();
     expect(screen.getByText("External Links")).toBeInTheDocument();
     expect(
-      screen.getByDataCy("version-metadata-submitted-at"),
+      screen.getByDataTestId("version-metadata-submitted-at"),
     ).toHaveTextContent("Submitted");
-    expect(screen.getByDataCy("version-metadata-started")).toHaveTextContent(
-      "Started",
-    );
-    expect(screen.getByDataCy("version-metadata-finished")).toHaveTextContent(
-      "Finished",
-    );
+    expect(
+      screen.getByDataTestId("version-metadata-started"),
+    ).toHaveTextContent("Started");
+    expect(
+      screen.getByDataTestId("version-metadata-finished"),
+    ).toHaveTextContent("Finished");
     expect(screen.getByText("Makespan:")).toBeInTheDocument();
     expect(screen.getByText("Time taken:")).toBeInTheDocument();
-    expect(screen.getByDataCy("parameters-link")).toBeInTheDocument();
-    expect(screen.getByDataCy("external-link")).toHaveTextContent(
+    expect(screen.getByDataTestId("parameters-link")).toBeInTheDocument();
+    expect(screen.getByDataTestId("external-link")).toHaveTextContent(
       "Evergreen Docs",
     );
   });
@@ -273,7 +273,9 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    expect(screen.queryByDataCy("cost-details-button")).not.toBeInTheDocument();
+    expect(
+      screen.queryByDataTestId("cost-details-button"),
+    ).not.toBeInTheDocument();
   });
 
   it("shows cost detail button when version is complete", () => {
@@ -291,7 +293,7 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
+    expect(screen.getByDataTestId("cost-details-button")).toBeInTheDocument();
   });
 
   it("shows patch cost total in modal for patches", async () => {
@@ -320,9 +322,9 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    await user.click(screen.getByDataCy("cost-details-button"));
+    await user.click(screen.getByDataTestId("cost-details-button"));
     // Total row in the modal uses patch.cost.total (3.75), not cost.total (1.5).
-    const modal = screen.getByDataCy("cost-modal");
+    const modal = screen.getByDataTestId("cost-modal");
     expect(within(modal).getByText("$3.75")).toBeInTheDocument();
   });
 
@@ -342,11 +344,11 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    await user.click(screen.getByDataCy("cost-details-button"));
-    expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
+    await user.click(screen.getByDataTestId("cost-details-button"));
+    expect(screen.getByDataTestId("cost-modal")).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "Close modal" }));
-    expect(screen.queryByDataCy("cost-modal")).not.toBeInTheDocument();
-    await user.click(screen.getByDataCy("cost-details-button"));
-    expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
+    expect(screen.queryByDataTestId("cost-modal")).not.toBeInTheDocument();
+    await user.click(screen.getByDataTestId("cost-details-button"));
+    expect(screen.getByDataTestId("cost-modal")).toBeInTheDocument();
   });
 });

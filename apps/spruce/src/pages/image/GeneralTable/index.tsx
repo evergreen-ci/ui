@@ -81,7 +81,7 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
 
   return (
     <BaseTable
-      data-cy-row="general-table-row"
+      data-testid-row="general-table-row"
       loading={loading}
       loadingRows={4}
       shouldAlternateRowColor

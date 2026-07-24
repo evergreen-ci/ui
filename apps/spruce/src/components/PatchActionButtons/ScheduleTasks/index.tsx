@@ -21,7 +21,7 @@ export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
       sendEvent({ name: "Viewed schedule tasks modal" });
       setOpen(true);
     },
-    "data-cy": "schedule-patch",
+    "data-testid": "schedule-patch",
   };
 
   const modalOpenerComp = isButton ? (

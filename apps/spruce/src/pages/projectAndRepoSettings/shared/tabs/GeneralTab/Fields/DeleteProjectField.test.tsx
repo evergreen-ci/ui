@@ -32,8 +32,8 @@ describe("deleteProject", () => {
   it("renders the button properly", () => {
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);
-    expect(screen.getByDataCy("delete-project-button")).toBeInTheDocument();
-    expect(screen.queryByDataCy("delete-project-modal")).not.toBeVisible();
+    expect(screen.getByDataTestId("delete-project-button")).toBeInTheDocument();
+    expect(screen.queryByDataTestId("delete-project-modal")).not.toBeVisible();
   });
 
   it("clicking confirm deletes the project", async () => {
@@ -44,8 +44,8 @@ describe("deleteProject", () => {
       path: "/project/:projectIdentifier/settings",
       route: "/project/evergreen/settings",
     });
-    await user.click(screen.getByDataCy("delete-project-button"));
-    expect(screen.getByDataCy("delete-project-modal")).toBeInTheDocument();
+    await user.click(screen.getByDataTestId("delete-project-button"));
+    expect(screen.getByDataTestId("delete-project-modal")).toBeInTheDocument();
     const deleteButton = screen.getByRole("button", {
       name: "Delete",
     });

@@ -51,7 +51,7 @@ describe("copyProjectField", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);
 
-    expect(screen.queryByDataCy("copy-project-modal")).not.toBeVisible();
+    expect(screen.queryByDataTestId("copy-project-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {
@@ -60,7 +60,7 @@ describe("copyProjectField", () => {
 
     expect(screen.queryByText("Duplicate “evergreen”")).toBeVisible();
 
-    expect(screen.getByDataCy("copy-project-modal")).toBeInTheDocument();
+    expect(screen.getByDataTestId("copy-project-modal")).toBeInTheDocument();
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",
     });
@@ -70,13 +70,15 @@ describe("copyProjectField", () => {
   it("shows warning banner for performance tooling", async () => {
     const { Component } = RenderFakeToastContext(<Modal />);
     render(<Component />);
-    expect(screen.queryByDataCy("performance-tooling-banner")).toBeVisible();
+    expect(
+      screen.queryByDataTestId("performance-tooling-banner"),
+    ).toBeVisible();
   });
 
   it("shows info banner for S3 bucket setup", () => {
     const { Component } = RenderFakeToastContext(<Modal />);
     render(<Component />);
-    expect(screen.queryByDataCy("s3-bucket-info-banner")).toBeVisible();
+    expect(screen.queryByDataTestId("s3-bucket-info-banner")).toBeVisible();
   });
 
   it("submits the modal when a project name is provided", async () => {
@@ -85,7 +87,7 @@ describe("copyProjectField", () => {
     render(<Component />);
 
     await user.type(
-      screen.getByDataCy("project-name-input"),
+      screen.getByDataTestId("project-name-input"),
       newProjectIdentifier,
     );
 
@@ -132,12 +134,12 @@ describe("copyProjectField", () => {
     render(<Component />);
 
     await user.type(
-      screen.getByDataCy("project-name-input"),
+      screen.getByDataTestId("project-name-input"),
       newProjectIdentifier,
     );
 
     // Check performance tooling checkbox.
-    const enablePerformanceTooling = screen.getByDataCy(
+    const enablePerformanceTooling = screen.getByDataTestId(
       "enable-performance-tooling",
     );
     const enablePerformanceToolingLabel = screen.getByText(
@@ -190,7 +192,7 @@ describe("copyProjectField", () => {
     render(<Component />);
 
     await user.type(
-      screen.getByDataCy("project-name-input"),
+      screen.getByDataTestId("project-name-input"),
       newProjectIdentifier,
     );
 
@@ -239,7 +241,7 @@ describe("copyProjectField", () => {
     render(<Component />);
 
     await user.type(
-      screen.getByDataCy("project-name-input"),
+      screen.getByDataTestId("project-name-input"),
       newProjectIdentifier,
     );
 

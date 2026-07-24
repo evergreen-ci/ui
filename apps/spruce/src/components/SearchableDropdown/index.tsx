@@ -18,7 +18,7 @@ const { gray } = palette;
 export interface SearchableDropdownProps<T> {
   buttonRenderer?: (option: T | T[]) => React.ReactNode;
   className?: string;
-  ["data-cy"]?: string;
+  ["data-testid"]?: string;
   disabled?: boolean;
   label?: React.ReactNode;
   onChange: (value: T | T[]) => void;
@@ -40,7 +40,7 @@ export interface SearchableDropdownProps<T> {
 const SearchableDropdown = <T extends {}>({
   buttonRenderer,
   className,
-  "data-cy": dataCy = "searchable-dropdown",
+  "data-testid": dataTestId = "searchable-dropdown",
   disabled = false,
   label,
   onChange,
@@ -139,7 +139,7 @@ const SearchableDropdown = <T extends {}>({
             buttonRenderer ? () => buttonRenderer(value) : undefined
           }
           buttonText={buttonText}
-          data-cy={dataCy}
+          data-testid={dataTestId}
           disabled={disabled}
           id={`searchable-dropdown-${label}`}
           onClose={resetSearch}
@@ -152,7 +152,7 @@ const SearchableDropdown = <T extends {}>({
             className={css`
               padding: 0 ${size.xs};
             `}
-            data-cy={`${dataCy}-search-input`}
+            data-testid={`${dataTestId}-search-input`}
             onChange={handleSearch}
             placeholder={searchPlaceholder}
             value={search}
@@ -178,7 +178,7 @@ export const SearchableDropdownOption = <T extends {}>({
 }: PropsWithChildren<SearchableDropdownOptionProps<T>>) => (
   <Option
     key={`select_${value}`}
-    data-cy="searchable-dropdown-option"
+    data-testid="searchable-dropdown-option"
     onClick={() => onClick(value)}
   >
     {value.toString()}

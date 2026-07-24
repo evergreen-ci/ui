@@ -26,7 +26,7 @@ const InactiveCommitsButton: React.FC<Props> = ({
     <>
       <span>
         <Button
-          data-cy="collapsed-card"
+          data-testid="collapsed-card"
           leftGlyph={
             isExpanded ? (
               <Icon glyph="ChevronDown" />

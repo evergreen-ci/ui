@@ -126,17 +126,17 @@ describe("CommitDetailsCard component", () => {
     );
     renderWithRouterMatch(<Component />, { wrapper });
 
-    const accordionContainer = screen.getByDataCy(
+    const accordionContainer = screen.getByDataTestId(
       "accordion-collapse-container",
     );
     expect(accordionContainer).toHaveAttribute("aria-expanded", "false");
 
-    const accordionIcon = screen.getByDataCy("accordion-toggle");
+    const accordionIcon = screen.getByDataTestId("accordion-toggle");
     await user.click(accordionIcon);
     expect(accordionContainer).toHaveAttribute("aria-expanded", "true");
 
-    expect(screen.getByDataCy("failing-tests-changes-table")).toBeVisible();
-    expect(screen.getAllByDataCy("failing-tests-table-row")).toHaveLength(1);
+    expect(screen.getByDataTestId("failing-tests-changes-table")).toBeVisible();
+    expect(screen.getAllByTestId("failing-tests-table-row")).toHaveLength(1);
   });
 
   it("shows the execution chip with the correct count when the task has prior executions", () => {
@@ -145,7 +145,7 @@ describe("CommitDetailsCard component", () => {
       <CommitDetailsCard isMatching task={taskWithExecutions} />,
     );
     renderWithRouterMatch(<Component />, { wrapper });
-    expect(screen.getByDataCy("execution-chip")).toHaveTextContent(
+    expect(screen.getByDataTestId("execution-chip")).toHaveTextContent(
       "Executions: 4",
     );
   });
@@ -156,7 +156,7 @@ describe("CommitDetailsCard component", () => {
       <CommitDetailsCard isMatching task={taskWithoutExecutions} />,
     );
     renderWithRouterMatch(<Component />, { wrapper });
-    expect(screen.queryByDataCy("execution-chip")).not.toBeInTheDocument();
+    expect(screen.queryByDataTestId("execution-chip")).not.toBeInTheDocument();
   });
 
   it("shows 'This Task' badge if it's the current task", () => {
@@ -168,7 +168,7 @@ describe("CommitDetailsCard component", () => {
       <CommitDetailsCard isMatching task={task} />,
     );
     renderWithRouterMatch(<Component />, { wrapper });
-    const thisTaskBadge = screen.getByDataCy("this-task-badge");
+    const thisTaskBadge = screen.getByDataTestId("this-task-badge");
     expect(thisTaskBadge).toBeVisible();
   });
 
@@ -181,13 +181,13 @@ describe("CommitDetailsCard component", () => {
       <CommitDetailsCard isMatching task={task} />,
     );
     renderWithRouterMatch(<Component />, { wrapper });
-    const githubLink = screen.getByDataCy("github-link");
+    const githubLink = screen.getByDataTestId("github-link");
     expect(githubLink).toHaveAttribute(
       "href",
       `https://github.com/${taskQuery.task?.project?.owner}/${taskQuery.task?.project?.repo}/commit/${task.revision}`,
     );
 
-    const taskLink = screen.getByDataCy("task-link");
+    const taskLink = screen.getByDataTestId("task-link");
     expect(taskLink).toHaveAttribute("href", `/task/${task.id}/history`);
   });
 
@@ -196,7 +196,7 @@ describe("CommitDetailsCard component", () => {
       <CommitDetailsCard isMatching={false} task={currentTask} />,
     );
     renderWithRouterMatch(<Component />, { wrapper });
-    const card = screen.getByDataCy("commit-details-card");
+    const card = screen.getByDataTestId("commit-details-card");
     expect(card).toHaveStyle("opacity: 0.4");
   });
 
@@ -239,7 +239,9 @@ describe("CommitDetailsCard component", () => {
         name: "Restart Task",
       });
       expect(restartButton).toHaveAttribute("aria-disabled", "false");
-      expect(screen.queryByDataCy("execution-chip")).not.toBeInTheDocument();
+      expect(
+        screen.queryByDataTestId("execution-chip"),
+      ).not.toBeInTheDocument();
       await user.click(restartButton);
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(
@@ -256,7 +258,7 @@ describe("CommitDetailsCard component", () => {
       renderWithRouterMatch(<Component />, { wrapper });
       const notifyButton = screen.getByRole("button", { name: "Notify me" });
       await user.click(notifyButton);
-      expect(screen.getByDataCy("task-notification-modal")).toBeVisible();
+      expect(screen.getByDataTestId("task-notification-modal")).toBeVisible();
     });
 
     it("clicking the 'Set Priority' button opens popconfirm and allows entering a value", async () => {
@@ -271,7 +273,7 @@ describe("CommitDetailsCard component", () => {
       );
       renderWithRouterMatch(<Component />, { wrapper });
 
-      expect(screen.queryByDataCy("priority-chip")).not.toBeInTheDocument();
+      expect(screen.queryByDataTestId("priority-chip")).not.toBeInTheDocument();
       const setPriorityButton = screen.getByRole("button", {
         name: "Set priority",
       });

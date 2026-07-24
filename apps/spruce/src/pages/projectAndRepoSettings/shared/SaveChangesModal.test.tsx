@@ -53,7 +53,7 @@ describe("SaveChangesModal", () => {
 
   it("renders the diff table when before and after differ", () => {
     renderModal();
-    expect(screen.getByDataCy("event-diff-table")).toBeInTheDocument();
+    expect(screen.getByDataTestId("event-diff-table")).toBeInTheDocument();
     expect(
       screen.getByText("projectRef.notifyOnBuildFailure"),
     ).toBeInTheDocument();
@@ -61,13 +61,17 @@ describe("SaveChangesModal", () => {
 
   it("renders a no-changes message when before and after are equal", () => {
     renderModal({ after: before });
-    expect(screen.queryByDataCy("event-diff-table")).not.toBeInTheDocument();
+    expect(
+      screen.queryByDataTestId("event-diff-table"),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("No changes detected.")).toBeInTheDocument();
   });
 
   it("renders a no-changes message when both before and after are null", () => {
     renderModal({ after: null, before: null });
-    expect(screen.queryByDataCy("event-diff-table")).not.toBeInTheDocument();
+    expect(
+      screen.queryByDataTestId("event-diff-table"),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("No changes detected.")).toBeInTheDocument();
   });
 
@@ -97,7 +101,7 @@ describe("SaveChangesModal", () => {
 
   it("applies customKeyValueRenderConfig to matching keys", () => {
     const customKeyValueRenderConfig: CustomKeyValueRenderConfig = {
-      "vars.vars": () => <span data-cy="masked-value">REDACTED</span>,
+      "vars.vars": () => <span data-testid="masked-value">REDACTED</span>,
     };
 
     const beforeVars: ProjectSettingsInput = {
@@ -122,13 +126,13 @@ describe("SaveChangesModal", () => {
     });
 
     // Two masked cells (Before + After) rendered through the custom renderer.
-    expect(screen.getAllByDataCy("masked-value")).toHaveLength(2);
+    expect(screen.getAllByTestId("masked-value")).toHaveLength(2);
     expect(screen.queryByText(/old-secret/)).not.toBeInTheDocument();
     expect(screen.queryByText(/new-secret/)).not.toBeInTheDocument();
   });
 
   it("is not rendered when open is false", () => {
     renderModal({ open: false });
-    expect(screen.queryByDataCy("save-changes-modal")).not.toBeVisible();
+    expect(screen.queryByDataTestId("save-changes-modal")).not.toBeVisible();
   });
 });

@@ -35,7 +35,7 @@ export const SaveChangesModal: React.FC<Props> = ({
         children: "Save changes",
         onClick: onConfirm,
       }}
-      data-cy="save-changes-modal"
+      data-testid="save-changes-modal"
       open={open}
       title={`Review changes to ${tabTitle}`}
     >

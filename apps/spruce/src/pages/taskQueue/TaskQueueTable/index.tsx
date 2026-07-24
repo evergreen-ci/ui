@@ -69,7 +69,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     <BaseTable
       ref={tableContainerRef}
       className={virtualScrollingContainerHeight}
-      data-cy="task-queue-table"
+      data-testid="task-queue-table"
       emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
       selectedRowIndexes={selectedRowIndexes}
       shouldAlternateRowColor
@@ -109,7 +109,7 @@ const taskQueueTableColumns = (
         return (
           <TaskCell>
             <StyledRouterLink
-              data-cy="current-task-link"
+              data-testid="current-task-link"
               onClick={() => sendEvent({ name: "Clicked task link" })}
               to={getTaskRoute(id)}
             >

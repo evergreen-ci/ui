@@ -3148,7 +3148,6 @@ export type Query = {
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   taskHistory: TaskHistory;
-  taskHistoryByCreateTime: TaskHistoryByCreateTime;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
@@ -3274,10 +3273,6 @@ export type QueryTaskAllExecutionsArgs = {
 };
 
 export type QueryTaskHistoryArgs = {
-  options: TaskHistoryOpts;
-};
-
-export type QueryTaskHistoryByCreateTimeArgs = {
   options: TaskHistoryOpts;
 };
 
@@ -4269,18 +4264,6 @@ export type TaskHistory = {
   __typename?: "TaskHistory";
   pagination: TaskHistoryPagination;
   tasks: Array<Task>;
-};
-
-export type TaskHistoryByCreateTime = {
-  __typename?: "TaskHistoryByCreateTime";
-  pagination: TaskHistoryByCreateTimePagination;
-  tasks: Array<Task>;
-};
-
-export type TaskHistoryByCreateTimePagination = {
-  __typename?: "TaskHistoryByCreateTimePagination";
-  mostRecentTaskCreateTime: Scalars["Time"]["output"];
-  oldestTaskCreateTime: Scalars["Time"]["output"];
 };
 
 export enum TaskHistoryDirection {

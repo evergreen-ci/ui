@@ -105,12 +105,12 @@ export const getFormSchema = (
     uiSchema: {
       mergeQueue: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "mq-card",
+        "ui:data-testid": "mq-card",
         "ui:showLabel": false,
         enabled: {
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:data-cy": "mq-enabled-radio-box",
+          "ui:data-testid": "mq-enabled-radio-box",
           ...githubConflictErrorStyling(
             githubProjectConflicts?.commitQueueIdentifiers ?? null,
             formData?.mergeQueue?.enabled,
@@ -134,7 +134,7 @@ export const getFormSchema = (
             "Merge Queue Patch Definition",
           ),
           mergeQueueAliasesOverride: {
-            "ui:data-cy": "mq-override-radio-box",
+            "ui:data-testid": "mq-override-radio-box",
             ...overrideStyling,
           },
           "ui:description": MergeQueueAliasesDescription,
@@ -154,7 +154,7 @@ export const getFormSchema = (
           },
         },
         githubMQTriggerAliases: {
-          "ui:data-cy": "github-mq-trigger-aliases",
+          "ui:data-testid": "github-mq-trigger-aliases",
           "ui:addable": false,
           "ui:orderable": false,
           "ui:placeholder": "No aliases are scheduled to run for merge queue.",

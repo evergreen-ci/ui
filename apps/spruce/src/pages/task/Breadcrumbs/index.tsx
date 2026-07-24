@@ -55,7 +55,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
         link: "version",
       });
     },
-    "data-cy": "bc-message",
+    "data-testid": "bc-message",
   };
 
   const displayTaskBreadcrumb = displayTask
@@ -71,14 +71,14 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
               link: "displayTask",
             });
           },
-          "data-cy": "bc-display-task",
+          "data-testid": "bc-display-task",
         },
       ]
     : [];
 
   const taskBreadcrumb = {
     text: taskName,
-    "data-cy": "bc-task",
+    "data-testid": "bc-task",
   };
 
   const breadcrumbs: Breadcrumb[] = [

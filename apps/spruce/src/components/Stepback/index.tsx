@@ -83,7 +83,7 @@ export const Stepback: React.FC<StepbackProps> = ({
             css={css`
               flex-shrink: 0;
             `}
-            data-cy="breaking-task-button"
+            data-testid="breaking-task-button"
             disabled={
               loading || !finished || !breakingTask || currentTaskIsBreaking
             }

@@ -13,7 +13,7 @@ import { ProjectType } from "./tabs/utils";
 
 const NewProjectButton = (
   <PlusButton
-    data-cy="new-project-button"
+    data-testid="new-project-button"
     size={Size.Small}
     variant={Variant.Primary}
   >
@@ -68,13 +68,13 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
         })
       ) : (
         <Menu
-          data-cy="new-project-menu"
+          data-testid="new-project-menu"
           open={menuOpen}
           setOpen={setMenuOpen}
           trigger={NewProjectButton}
         >
           <MenuItem
-            data-cy="create-project-button"
+            data-testid="create-project-button"
             onClick={() => {
               setMenuOpen(false);
               setCreateModalOpen(true);
@@ -83,7 +83,7 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
             Create new project
           </MenuItem>
           <MenuItem
-            data-cy="copy-project-button"
+            data-testid="copy-project-button"
             disabled={!projectPermissions?.edit}
             onClick={() => {
               setMenuOpen(false);

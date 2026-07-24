@@ -65,11 +65,11 @@ export const containerPools = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "container-pools",
+    "ui:data-testid": "container-pools",
     "ui:objectFieldCss": objectGridCss,
     pools: {
       "ui:addButtonText": "Add container pool",
-      "ui:data-cy": "container-pools-list",
+      "ui:data-testid": "container-pools-list",
       "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
@@ -104,7 +104,7 @@ const accountRoles = {
   },
   uiSchema: {
     "ui:addButtonText": "Add account role",
-    "ui:data-cy": "account-roles-list",
+    "ui:data-testid": "account-roles-list",
     "ui:orderable": false,
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,
@@ -138,7 +138,7 @@ const subnets = {
   },
   uiSchema: {
     "ui:addButtonText": "Add subnet",
-    "ui:data-cy": "subnets-list",
+    "ui:data-testid": "subnets-list",
     "ui:orderable": false,
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,
@@ -268,7 +268,7 @@ export const aws = {
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "aws-configuration",
+    "ui:data-testid": "aws-configuration",
     subnets: subnets.uiSchema,
     accountRoles: accountRoles.uiSchema,
     alertableInstanceTypes: {

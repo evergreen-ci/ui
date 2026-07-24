@@ -240,7 +240,7 @@ const vpcOptions = {
   },
   uiSchema: {
     useVpc: {
-      "ui:data-cy": "use-vpc",
+      "ui:data-testid": "use-vpc",
     },
     subnetId: {
       "ui:placeholder": "e.g. subnet-xxxx",
@@ -292,7 +292,7 @@ const mountPoints = {
     },
   },
   uiSchema: {
-    "ui:data-cy": "mount-points",
+    "ui:data-testid": "mount-points",
     "ui:addButtonText": "Add mount point",
     "ui:orderable": false,
     "ui:topAlignDelete": true,
@@ -419,7 +419,7 @@ export const taskHostOverridesFields = {
   },
   uiSchema: {
     enableTaskHostOverrides: {
-      "ui:data-cy": "enable-task-host-overrides",
+      "ui:data-testid": "enable-task-host-overrides",
       "ui:description":
         "When enabled, the values below replace the distro's provider settings for task hosts. Empty values override the distro's settings rather than falling back to them. To remove the overrides, toggle off and save.",
       "ui:elementWrapperCSS": css`

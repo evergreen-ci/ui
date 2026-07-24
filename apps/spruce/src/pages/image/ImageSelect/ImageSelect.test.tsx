@@ -22,7 +22,7 @@ describe("image select", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getByDataCy("images-select")).toBeInTheDocument();
+      expect(screen.getByDataTestId("images-select")).toBeInTheDocument();
     });
     await waitFor(() => {
       expect(screen.getByDisplayValue("ubuntu2204")).toBeVisible();
@@ -41,7 +41,7 @@ describe("image select", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByDataCy("images-select")).toBeInTheDocument();
+      expect(screen.getByDataTestId("images-select")).toBeInTheDocument();
     });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
@@ -62,7 +62,7 @@ describe("image select", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getByDataCy("images-select")).toBeInTheDocument();
+      expect(screen.getByDataTestId("images-select")).toBeInTheDocument();
     });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();

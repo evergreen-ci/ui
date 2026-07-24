@@ -5,7 +5,7 @@ import { transformTitleToId } from "./utils";
 interface ContainerProps {
   objectFieldCss?: string;
   children: React.ReactNode;
-  "data-cy"?: string;
+  "data-testid"?: string;
   description?: React.ReactNode;
   id?: string;
   title?: string;
@@ -14,7 +14,7 @@ interface ContainerProps {
 
 export const SpruceFormContainer: React.FC<ContainerProps> = ({
   children,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   description,
   id,
   objectFieldCss,
@@ -34,6 +34,6 @@ export const SpruceFormContainer: React.FC<ContainerProps> = ({
       </a>
     )}
     {description}
-    <SettingsCard data-cy={dataCy}>{children}</SettingsCard>
+    <SettingsCard data-testid={dataTestId}>{children}</SettingsCard>
   </div>
 );

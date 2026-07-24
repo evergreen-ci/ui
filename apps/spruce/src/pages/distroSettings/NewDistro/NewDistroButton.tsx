@@ -40,12 +40,12 @@ export const NewDistroButton: React.FC = () => {
   return (
     <>
       <Menu
-        data-cy="new-distro-menu"
+        data-testid="new-distro-menu"
         open={menuOpen}
         setOpen={setMenuOpen}
         trigger={
           <StyledButton
-            data-cy="new-distro-button"
+            data-testid="new-distro-button"
             leftGlyph={<Icon glyph="Plus" />}
             size={Size.Small}
             variant={Variant.Primary}
@@ -55,7 +55,7 @@ export const NewDistroButton: React.FC = () => {
         }
       >
         <MenuItem
-          data-cy="create-distro-button"
+          data-testid="create-distro-button"
           onClick={() => {
             setMenuOpen(false);
             setCreateModalOpen(true);
@@ -64,7 +64,7 @@ export const NewDistroButton: React.FC = () => {
           Create new distro
         </MenuItem>
         <MenuItem
-          data-cy="copy-distro-button"
+          data-testid="copy-distro-button"
           onClick={() => {
             setMenuOpen(false);
             setCopyModalOpen(true);

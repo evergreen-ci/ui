@@ -41,7 +41,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
         link: "version",
       });
     },
-    "data-cy": "bc-patch",
+    "data-testid": "bc-patch",
   };
 
   const commitBreadcrumb = {
@@ -52,7 +52,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
         link: "version",
       });
     },
-    "data-cy": "bc-version",
+    "data-testid": "bc-version",
   };
 
   const breadcrumbs: Breadcrumb[] = [

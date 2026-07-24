@@ -21,9 +21,13 @@ describe("errorBanner", () => {
   it("opens modal when clicking on trigger text", async () => {
     const user = userEvent.setup();
     render(<ErrorBanner errors={errors} />);
-    await user.click(screen.getByDataCy("configuration-errors-modal-trigger"));
+    await user.click(
+      screen.getByDataTestId("configuration-errors-modal-trigger"),
+    );
     await waitFor(() => {
-      expect(screen.getByDataCy("configuration-errors-modal")).toBeVisible();
+      expect(
+        screen.getByDataTestId("configuration-errors-modal"),
+      ).toBeVisible();
     });
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });

@@ -26,14 +26,14 @@ describe("objectFieldTemplates", () => {
       person: {
         "ui:ObjectFieldTemplate": FieldRow,
         name: {
-          "ui:data-cy": "name",
+          "ui:data-testid": "name",
         },
         age: {
-          "ui:data-cy": "age",
+          "ui:data-testid": "age",
         },
       },
     };
-    it("applies data-cy attributes", () => {
+    it("applies data-testid attributes", () => {
       const onChange = vi.fn();
       render(
         <SpruceForm
@@ -43,7 +43,7 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      expect(screen.getByDataCy("name")).toBeInTheDocument();
+      expect(screen.getByDataTestId("name")).toBeInTheDocument();
     });
     it("renders all fields", () => {
       render(
@@ -54,8 +54,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      expect(screen.getByDataCy("name")).toBeInTheDocument();
-      expect(screen.getByDataCy("age")).toBeInTheDocument();
+      expect(screen.getByDataTestId("name")).toBeInTheDocument();
+      expect(screen.getByDataTestId("age")).toBeInTheDocument();
     });
 
     it("calls onChange when a field is changed", async () => {
@@ -73,8 +73,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      await user.type(screen.getByDataCy("name"), "Bruce Lee");
-      await user.type(screen.getByDataCy("age"), "32");
+      await user.type(screen.getByDataTestId("name"), "Bruce Lee");
+      await user.type(screen.getByDataTestId("age"), "32");
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });
   });
@@ -84,14 +84,14 @@ describe("objectFieldTemplates", () => {
       person: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         name: {
-          "ui:data-cy": "name",
+          "ui:data-testid": "name",
         },
         age: {
-          "ui:data-cy": "age",
+          "ui:data-testid": "age",
         },
       },
     };
-    it("applies data-cy attributes", () => {
+    it("applies data-testid attributes", () => {
       render(
         <SpruceForm
           formData={{}}
@@ -100,7 +100,7 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      expect(screen.getByDataCy("name")).toBeInTheDocument();
+      expect(screen.getByDataTestId("name")).toBeInTheDocument();
     });
     it("renders all fields in a card", () => {
       render(
@@ -111,8 +111,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      expect(screen.getByDataCy("name")).toBeInTheDocument();
-      expect(screen.getByDataCy("age")).toBeInTheDocument();
+      expect(screen.getByDataTestId("name")).toBeInTheDocument();
+      expect(screen.getByDataTestId("age")).toBeInTheDocument();
     });
     it("calls onChange when a field is changed", async () => {
       let data;
@@ -129,8 +129,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      await user.type(screen.getByDataCy("name"), "Bruce Lee");
-      await user.type(screen.getByDataCy("age"), "32");
+      await user.type(screen.getByDataTestId("name"), "Bruce Lee");
+      await user.type(screen.getByDataTestId("age"), "32");
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });
   });
@@ -139,14 +139,14 @@ describe("objectFieldTemplates", () => {
       person: {
         "ui:ObjectFieldTemplate": AccordionFieldTemplate,
         name: {
-          "ui:data-cy": "name",
+          "ui:data-testid": "name",
         },
         age: {
-          "ui:data-cy": "age",
+          "ui:data-testid": "age",
         },
       },
     };
-    it("applies data-cy attributes", () => {
+    it("applies data-testid attributes", () => {
       render(
         <SpruceForm
           formData={{}}
@@ -155,7 +155,7 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      expect(screen.getByDataCy("name")).toBeInTheDocument();
+      expect(screen.getByDataTestId("name")).toBeInTheDocument();
     });
     it("renders all fields in an accordion", () => {
       render(
@@ -166,8 +166,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      expect(screen.getByDataCy("name")).toBeInTheDocument();
-      expect(screen.getByDataCy("age")).toBeInTheDocument();
+      expect(screen.getByDataTestId("name")).toBeInTheDocument();
+      expect(screen.getByDataTestId("age")).toBeInTheDocument();
     });
     it("calls onChange when a field is changed", async () => {
       let data;
@@ -184,8 +184,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />,
       );
-      await user.type(screen.getByDataCy("name"), "Bruce Lee");
-      await user.type(screen.getByDataCy("age"), "32");
+      await user.type(screen.getByDataTestId("name"), "Bruce Lee");
+      await user.type(screen.getByDataTestId("age"), "32");
 
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });
@@ -199,7 +199,7 @@ describe("objectFieldTemplates", () => {
         />,
       );
       expect(
-        screen.queryByDataCy("accordion-collapse-container"),
+        screen.queryByDataTestId("accordion-collapse-container"),
       ).toHaveAttribute("aria-expanded", "true");
     });
     it("accordion is collapsed by default if defaultOpen is false", () => {
@@ -215,7 +215,7 @@ describe("objectFieldTemplates", () => {
         />,
       );
       expect(
-        screen.queryByDataCy("accordion-collapse-container"),
+        screen.queryByDataTestId("accordion-collapse-container"),
       ).toHaveAttribute("aria-expanded", "false");
     });
   });

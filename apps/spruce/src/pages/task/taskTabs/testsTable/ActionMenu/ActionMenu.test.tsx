@@ -36,9 +36,9 @@ describe("action menu for tests table", () => {
       </MockedProvider>,
     );
     render(<Component />);
-    await user.click(screen.getByDataCy("ellipsis-btn"));
+    await user.click(screen.getByDataTestId("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+      expect(screen.getByDataTestId("card-dropdown")).toBeVisible();
     });
     expect(
       screen.getByText(
@@ -58,11 +58,11 @@ describe("action menu for tests table", () => {
       </MockedProvider>,
     );
     render(<Component />);
-    await user.click(screen.getByDataCy("ellipsis-btn"));
+    await user.click(screen.getByDataTestId("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.getByDataCy("quarantine-test")).toBeVisible();
+      expect(screen.getByDataTestId("quarantine-test")).toBeVisible();
     });
-    await user.click(screen.getByDataCy("quarantine-test"));
+    await user.click(screen.getByDataTestId("quarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
@@ -76,15 +76,15 @@ describe("action menu for tests table", () => {
       </MockedProvider>,
     );
     render(<Component />);
-    await user.click(screen.getByDataCy("ellipsis-btn"));
+    await user.click(screen.getByDataTestId("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.getByDataCy("quarantine-test")).toBeVisible();
+      expect(screen.getByDataTestId("quarantine-test")).toBeVisible();
     });
-    expect(screen.getByDataCy("quarantine-test")).not.toHaveAttribute(
+    expect(screen.getByDataTestId("quarantine-test")).not.toHaveAttribute(
       "aria-disabled",
       "true",
     );
-    await user.click(screen.getByDataCy("quarantine-test"));
+    await user.click(screen.getByDataTestId("quarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
@@ -98,11 +98,11 @@ describe("action menu for tests table", () => {
       </MockedProvider>,
     );
     render(<Component />);
-    await user.click(screen.getByDataCy("ellipsis-btn"));
+    await user.click(screen.getByDataTestId("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.getByDataCy("quarantine-test")).toBeVisible();
+      expect(screen.getByDataTestId("quarantine-test")).toBeVisible();
     });
-    await user.click(screen.getByDataCy("quarantine-test"));
+    await user.click(screen.getByDataTestId("quarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
@@ -116,11 +116,11 @@ describe("action menu for tests table", () => {
       </MockedProvider>,
     );
     render(<Component />);
-    await user.click(screen.getByDataCy("ellipsis-btn"));
+    await user.click(screen.getByDataTestId("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.getByDataCy("unquarantine-test")).toBeVisible();
+      expect(screen.getByDataTestId("unquarantine-test")).toBeVisible();
     });
-    await user.click(screen.getByDataCy("unquarantine-test"));
+    await user.click(screen.getByDataTestId("unquarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });

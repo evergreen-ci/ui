@@ -105,7 +105,7 @@ describe("TaskOwnership", () => {
 
     // Should not find the component while loading
     expect(
-      screen.queryByDataCy("task-metadata-task-ownership"),
+      screen.queryByDataTestId("task-metadata-task-ownership"),
     ).not.toBeInTheDocument();
   });
 
@@ -119,7 +119,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByDataTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
@@ -146,7 +146,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByDataTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
@@ -163,7 +163,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByDataTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
@@ -208,7 +208,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByDataTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 

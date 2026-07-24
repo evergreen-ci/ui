@@ -26,7 +26,7 @@ export const OmitInactiveBuilds: React.FC<OmitInactiveBuildsProps> = ({
     <StyledFocusableMenuItem>
       <StyledCheckbox
         checked={omitInactiveBuilds}
-        data-cy="omit-inactive-builds-checkbox"
+        data-testid="omit-inactive-builds-checkbox"
         description="When filtering, omit build variants with 0 activated tasks."
         label="Omit inactive builds"
         onChange={handleChange}

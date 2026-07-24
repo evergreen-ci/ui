@@ -53,14 +53,14 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
         <MetadataItem label="Timeout type">{details?.timeoutType}</MetadataItem>
       ) : null}
       {priority && priority !== 0 ? (
-        <MetadataItem data-cy="task-metadata-priority" label="Priority">
+        <MetadataItem data-testid="task-metadata-priority" label="Priority">
           {priority} {priority < 0 && `(Disabled)`}
         </MetadataItem>
       ) : null}
       {taskQueuePosition && taskQueuePosition > 0 ? (
         <MetadataItem label="Position in queue">
           <StyledRouterLink
-            data-cy="task-queue-position"
+            data-testid="task-queue-position"
             to={getTaskQueueRoute(distroId, task.id)}
           >
             {taskQueuePosition}

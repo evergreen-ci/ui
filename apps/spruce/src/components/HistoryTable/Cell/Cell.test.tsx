@@ -19,9 +19,11 @@ describe("taskCell", () => {
     );
 
     expect(
-      screen.getByDataCy("history-table-icon").querySelector("[data-status]"),
+      screen
+        .getByDataTestId("history-table-icon")
+        .querySelector("[data-status]"),
     ).toHaveAttribute("data-status", "success");
-    expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
+    expect(screen.getByDataTestId("task-cell")).toBeInTheDocument();
 
     rerender(
       <TaskCell
@@ -33,9 +35,11 @@ describe("taskCell", () => {
       />,
     );
     expect(
-      screen.getByDataCy("history-table-icon").querySelector("[data-status]"),
+      screen
+        .getByDataTestId("history-table-icon")
+        .querySelector("[data-status]"),
     ).toHaveAttribute("data-status", "failed");
-    expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
+    expect(screen.getByDataTestId("task-cell")).toBeInTheDocument();
   });
 
   it("should link to task page history tab", () => {
@@ -65,7 +69,7 @@ describe("taskCell", () => {
         }}
       />,
     );
-    expect(screen.queryByDataCy("task-cell")).toHaveStyle("opacity: 0.4");
+    expect(screen.queryByDataTestId("task-cell")).toHaveStyle("opacity: 0.4");
   });
 
   it("should render a label when one is passed in", () => {
@@ -93,10 +97,9 @@ describe("taskCell", () => {
         }}
       />,
     );
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.hover(screen.queryByDataCy("history-table-icon"));
+    await user.hover(screen.getByDataTestId("history-table-icon"));
     await screen.findByText("some-test");
-    expect(screen.getByDataCy("test-tooltip")).toBeInTheDocument();
+    expect(screen.getByDataTestId("test-tooltip")).toBeInTheDocument();
     expect(screen.getByText("some-test")).toBeInTheDocument();
   });
 });

@@ -221,7 +221,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   return (
     <ButtonRow>
       <Button
-        data-cy="save-settings-button"
+        data-testid="save-settings-button"
         disabled={hasError || !hasChanges}
         onClick={onClick}
         variant="primary"
@@ -242,7 +242,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
       {projectType === ProjectType.AttachedProject && canDefaultToRepo && (
         <>
           <Button
-            data-cy="default-to-repo-button"
+            data-testid="default-to-repo-button"
             disabled={!canEdit}
             onClick={() => setDefaultModalOpen(true)}
             title="Clicking this button will open a confirmation modal with more information."
@@ -268,7 +268,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
             performSave();
           },
         }}
-        data-cy="disable-debug-spawn-hosts-modal"
+        data-testid="disable-debug-spawn-hosts-modal"
         open={debugSpawnHostsModalOpen}
         title="Disable Debug Spawn Hosts?"
         variant="danger"

@@ -8,17 +8,17 @@ const { blue } = palette;
 interface MetadataTimelineRowProps {
   children: React.ReactNode;
   label: string;
-  "data-cy"?: string;
+  "data-testid"?: string;
   isRunning?: boolean;
 }
 
 export const MetadataTimelineRow: React.FC<MetadataTimelineRowProps> = ({
   children,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   isRunning,
   label,
 }) => (
-  <TimelineRow data-cy={dataCy} isRunning={isRunning}>
+  <TimelineRow data-testid={dataTestId} isRunning={isRunning}>
     <Label>{label}</Label>
     <Timestamp isRunning={isRunning}>{children}</Timestamp>
   </TimelineRow>
@@ -27,16 +27,16 @@ export const MetadataTimelineRow: React.FC<MetadataTimelineRowProps> = ({
 interface MetadataTimelineTimestampRowProps {
   label: string;
   timestamp: Date;
-  "data-cy"?: string;
+  "data-testid"?: string;
 }
 
 export const MetadataTimelineTimestampRow: React.FC<
   MetadataTimelineTimestampRowProps
-> = ({ "data-cy": dataCy, label, timestamp }) => {
+> = ({ "data-testid": dataTestId, label, timestamp }) => {
   const getDateCopy = useDateFormat();
 
   return (
-    <MetadataTimelineRow data-cy={dataCy} label={label}>
+    <MetadataTimelineRow data-testid={dataTestId} label={label}>
       <span title={getDateCopy(timestamp)}>
         {getDateCopy(timestamp, { omitSeconds: true })}
       </span>

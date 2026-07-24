@@ -59,7 +59,7 @@ describe("VersionTasksTable", () => {
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
-    expect(screen.queryAllByDataCy("tasks-table-row")).toHaveLength(4);
+    expect(screen.queryAllByDataTestId("tasks-table-row")).toHaveLength(4);
   });
 
   it("opens nested row on click", async () => {
@@ -71,7 +71,7 @@ describe("VersionTasksTable", () => {
     );
     expect(screen.queryByText("e2e_spruce_0")).toBeNull();
     const expandRowButton = within(
-      screen.getAllByDataCy("tasks-table-row")[3],
+      screen.getAllByTestId("tasks-table-row")[3],
     ).getByRole("button");
     await user.click(expandRowButton);
     expect(screen.queryByText("e2e_spruce_0")).toBeVisible();
@@ -84,7 +84,7 @@ describe("VersionTasksTable", () => {
       </MockedProvider>,
     );
     const variantLink = within(
-      screen.getAllByDataCy("tasks-table-row")[0],
+      screen.getAllByTestId("tasks-table-row")[0],
     ).getByRole("link", { name: tasks[0].buildVariantDisplayName ?? "" });
     expect(variantLink).toHaveAttribute(
       "href",
@@ -106,8 +106,8 @@ describe("VersionTasksTable", () => {
         />
       </MockedProvider>,
     );
-    expect(screen.queryAllByDataCy("tasks-table-row")).toHaveLength(4);
-    await user.click(screen.getByDataCy("clear-all-filters"));
+    expect(screen.queryAllByDataTestId("tasks-table-row")).toHaveLength(4);
+    await user.click(screen.getByDataTestId("clear-all-filters"));
     expect(clearQueryParams).toHaveBeenCalledTimes(1);
   });
 

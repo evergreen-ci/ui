@@ -15,7 +15,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ version }) => {
     <MetadataSection title="External Links">
       {externalLinksForMetadata?.map(({ displayName, url }) => (
         <MetadataItem key={displayName}>
-          <StyledLink data-cy="external-link" href={url}>
+          <StyledLink data-testid="external-link" href={url}>
             {displayName}
           </StyledLink>
         </MetadataItem>

@@ -78,7 +78,9 @@ describe("createDuplicateProjectField", () => {
     );
     render(<Component />);
 
-    expect(screen.queryByDataCy("new-project-button")).not.toBeInTheDocument();
+    expect(
+      screen.queryByDataTestId("new-project-button"),
+    ).not.toBeInTheDocument();
   });
 
   describe("when looking at a repo", () => {
@@ -90,11 +92,13 @@ describe("createDuplicateProjectField", () => {
       render(<Component />);
 
       await screen.findByText("New project");
-      await user.click(screen.getByDataCy("new-project-button"));
+      await user.click(screen.getByDataTestId("new-project-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
+        expect(screen.queryByDataTestId("create-project-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+      expect(
+        screen.queryByDataTestId("new-project-menu"),
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -105,9 +109,9 @@ describe("createDuplicateProjectField", () => {
       render(<Component />);
 
       await screen.findByText("New project");
-      await user.click(screen.getByDataCy("new-project-button"));
+      await user.click(screen.getByDataTestId("new-project-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+        expect(screen.queryByDataTestId("new-project-menu")).toBeVisible();
       });
     });
 
@@ -117,15 +121,15 @@ describe("createDuplicateProjectField", () => {
       render(<Component />);
 
       await screen.findByText("New project");
-      await user.click(screen.getByDataCy("new-project-button"));
+      await user.click(screen.getByDataTestId("new-project-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+        expect(screen.queryByDataTestId("new-project-menu")).toBeVisible();
       });
-      await user.click(screen.getByDataCy("create-project-button"));
+      await user.click(screen.getByDataTestId("create-project-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
+        expect(screen.queryByDataTestId("create-project-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeVisible();
+      expect(screen.queryByDataTestId("new-project-menu")).not.toBeVisible();
     });
 
     it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
@@ -160,18 +164,18 @@ describe("createDuplicateProjectField", () => {
       render(<Component />);
 
       await screen.findByText("New project");
-      await user.click(screen.getByDataCy("new-project-button"));
+      await user.click(screen.getByDataTestId("new-project-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+        expect(screen.queryByDataTestId("new-project-menu")).toBeVisible();
       });
-      await user.click(screen.getByDataCy("copy-project-button"));
+      await user.click(screen.getByDataTestId("copy-project-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("copy-project-modal")).toBeVisible();
+        expect(screen.queryByDataTestId("copy-project-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeVisible();
+      expect(screen.queryByDataTestId("new-project-menu")).not.toBeVisible();
 
       await user.type(
-        screen.getByDataCy("project-name-input"),
+        screen.getByDataTestId("project-name-input"),
         "new_identifier",
       );
 

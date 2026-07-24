@@ -6,21 +6,21 @@ const hostsRoute = "/hosts";
 const textFilterTests = [
   {
     testName: "host ID filter",
-    filterIconDataCy: "host-id-filter",
+    filterIconDataTestId: "host-id-filter",
     filterValue: "i-0d0ae8b83366d22",
     filterUrlParam: "hostId=i-0d0ae8b83366d22",
     expectedIds: ["i-0d0ae8b83366d22"],
   },
   {
     testName: "host ID (EC2) filter",
-    filterIconDataCy: "host-id-filter",
+    filterIconDataTestId: "host-id-filter",
     filterValue: "ec2-34-207-222-84.compute-1.amazonaws.com",
     filterUrlParam: "hostId=ec2-34-207-222-84.compute-1.amazonaws.com",
     expectedIds: ["i-06f80fa6e28f93b7d"],
   },
   {
     testName: "distro ID filter",
-    filterIconDataCy: "distro-id-filter",
+    filterIconDataTestId: "distro-id-filter",
     filterValue: "macos-1014",
     filterUrlParam: "distroId=macos-1014",
     expectedIds: [
@@ -31,7 +31,7 @@ const textFilterTests = [
   },
   {
     testName: "current task ID filter",
-    filterIconDataCy: "current-task-id-filter",
+    filterIconDataTestId: "current-task-id-filter",
     filterValue:
       "mongodb_mongo_v3.6_debian92_sharding_auth_bc405c72dce4714da604810cdc90c132bd5fbaa1_20_07_20_17_39_20",
     filterUrlParam:
@@ -44,7 +44,7 @@ const textFilterTests = [
   },
   {
     testName: "owner filter",
-    filterIconDataCy: "owner-filter",
+    filterIconDataTestId: "owner-filter",
     filterValue: "mci",
     filterUrlParam: "startedBy=mci",
     expectedIds: [
@@ -73,7 +73,7 @@ test.describe("Hosts page filtering from table filters", () => {
   textFilterTests.forEach(
     ({
       expectedIds,
-      filterIconDataCy,
+      filterIconDataTestId,
       filterUrlParam,
       filterValue,
       testName,
@@ -81,11 +81,13 @@ test.describe("Hosts page filtering from table filters", () => {
       test(`Filters hosts using table filter for ${testName}`, async ({
         page,
       }) => {
-        const filterIcon = page.getByTestId(filterIconDataCy);
+        const filterIcon = page.getByTestId(filterIconDataTestId);
         await expect(filterIcon).toBeVisible();
         await filterIcon.click();
 
-        const filterWrapper = page.getByTestId(`${filterIconDataCy}-wrapper`);
+        const filterWrapper = page.getByTestId(
+          `${filterIconDataTestId}-wrapper`,
+        );
         await expect(filterWrapper).toBeVisible();
 
         const searchInput = page.locator("input[type='search']");

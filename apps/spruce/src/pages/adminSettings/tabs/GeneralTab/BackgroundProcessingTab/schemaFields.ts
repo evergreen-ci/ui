@@ -78,7 +78,7 @@ const namedQueues = {
   },
   uiSchema: {
     "ui:addButtonText": "Add queue",
-    "ui:data-cy": "named-queue-list",
+    "ui:data-testid": "named-queue-list",
     "ui:orderable": false,
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,

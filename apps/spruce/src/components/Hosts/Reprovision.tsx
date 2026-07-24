@@ -58,7 +58,7 @@ export const Reprovision: React.FC<Props> = ({
   return (
     <HostPopover
       buttonText="Reprovision"
-      data-cy="reprovision-button"
+      data-testid="reprovision-button"
       disabled={selectedHostIds.length === 0 || !canReprovision}
       loading={loadingReprovision}
       onClick={onClickReprovisionConfirm}

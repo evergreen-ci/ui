@@ -18,7 +18,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
 
   return (
     <NotificationModal
-      data-cy="task-notification-modal"
+      data-testid="task-notification-modal"
       onCancel={onCancel}
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>

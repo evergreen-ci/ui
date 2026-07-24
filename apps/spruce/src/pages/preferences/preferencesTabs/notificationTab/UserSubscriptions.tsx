@@ -124,7 +124,7 @@ const SubscriptionsTable: React.FC<{
     <>
       <InteractiveWrapper>
         <Button
-          data-cy="delete-some-button"
+          data-testid="delete-some-button"
           disabled={Object.entries(rowSelection).length === 0}
           leftGlyph={<Icon glyph="Trash" />}
           onClick={onDeleteSubscriptions}
@@ -152,7 +152,7 @@ const SubscriptionsTable: React.FC<{
         </PaginationWrapper>
       </InteractiveWrapper>
       <BaseTable
-        data-cy-row="subscription-row"
+        data-testid-row="subscription-row"
         shouldAlternateRowColor
         table={table}
       />
@@ -176,7 +176,7 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
     header: "Type",
     meta: {
       treeSelect: {
-        "data-cy": "status-filter-popover",
+        "data-testid": "status-filter-popover",
         filterOptions: true,
         options: resourceTypeTreeData,
       },
@@ -215,7 +215,7 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
     filterFn: filterFns.arrIncludesSome,
     meta: {
       treeSelect: {
-        "data-cy": "trigger-filter-popover",
+        "data-testid": "trigger-filter-popover",
         filterOptions: true,
         options: triggerTreeData,
       },

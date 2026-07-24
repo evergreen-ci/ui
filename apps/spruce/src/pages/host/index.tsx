@@ -92,7 +92,7 @@ const Host: React.FC = () => {
   const hostEventTypes = hostEventData?.host?.eventTypes ?? [];
 
   return (
-    <PageWrapper data-cy="host-page">
+    <PageWrapper data-testid="host-page">
       {host && (
         <>
           <PageTitle
@@ -102,7 +102,7 @@ const Host: React.FC = () => {
                 <ButtonsWrapper>
                   <ButtonSpacer>
                     <Button
-                      data-cy="update-status-button"
+                      data-testid="update-status-button"
                       onClick={() => setIsUpdateStatusModalVisible(true)}
                     >
                       Update Status
@@ -145,7 +145,7 @@ const Host: React.FC = () => {
                 loading={hostMetadataLoading}
               />
               {sshAddress && (
-                <Code data-cy="ssh-command" language="shell">
+                <Code data-testid="ssh-command" language="shell">
                   {sshCommand}
                 </Code>
               )}
@@ -169,7 +169,7 @@ const Host: React.FC = () => {
       )}
       <UpdateStatusModal
         closeModal={() => setIsUpdateStatusModalVisible(false)}
-        data-cy="update-host-status-modal"
+        data-testid="update-host-status-modal"
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         hostIds={[hostId]}
         isHostPage

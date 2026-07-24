@@ -52,8 +52,7 @@ describe("foldedCommit", () => {
         />
       </MockedProvider>,
     );
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("Expand 5 inactive"));
+    await user.click(screen.getByText("Expand 5 inactive"));
     expect(screen.queryByText("Expand 5 inactive")).toBeNull();
     expect(screen.getByText("Collapse 5 inactive")).toBeInTheDocument();
     expect(onToggleFoldedCommit).toHaveBeenCalledWith({
@@ -62,7 +61,7 @@ describe("foldedCommit", () => {
       numCommits: 5,
     });
 
-    const foldedCommits = screen.queryAllByDataCy("folded-commit");
+    const foldedCommits = screen.queryAllByDataTestId("folded-commit");
     for (let i = 0; i < foldedCommitData.rolledUpCommits.length; i++) {
       const commit = foldedCommitData.rolledUpCommits[i];
       expect(foldedCommits[i]).toHaveTextContent(commit.message);

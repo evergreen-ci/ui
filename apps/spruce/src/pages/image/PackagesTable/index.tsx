@@ -89,7 +89,7 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
 
   return (
     <BaseTable
-      data-cy-row="packages-table-row"
+      data-testid-row="packages-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
       numTotalItems={numPackages}
@@ -107,7 +107,7 @@ const columns: LGColumnDef<Package>[] = [
     enableColumnFilter: true,
     meta: {
       search: {
-        "data-cy": "package-name-filter",
+        "data-testid": "package-name-filter",
         placeholder: "Name regex",
       },
     },
