@@ -24,6 +24,7 @@ interface AccordionProps {
   children: React.ReactNode;
   className?: string;
   "data-cy"?: string;
+  "data-testid"?: string;
   defaultOpen?: boolean;
   disableAnimations?: boolean;
   onToggle?: (s: { isVisible: boolean }) => void;
@@ -41,6 +42,7 @@ const Accordion: React.FC<AccordionProps> = ({
   children,
   className,
   "data-cy": dataCy,
+  "data-testid": dataTestId,
   defaultOpen = false,
   disableAnimations = true,
   onToggle = () => {},
@@ -72,7 +74,7 @@ const Accordion: React.FC<AccordionProps> = ({
   };
 
   return (
-    <div className={className} data-cy={dataCy}>
+    <div className={className} data-cy={dataCy} data-testid={dataTestId}>
       <AccordionToggle
         data-cy="accordion-toggle"
         data-testid="accordion-toggle"

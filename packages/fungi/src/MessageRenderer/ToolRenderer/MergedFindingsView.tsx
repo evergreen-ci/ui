@@ -217,8 +217,8 @@ export const MergedFindingsView: React.FC<MergedFindingsViewProps> = ({
     <Container>
       <Header>
         <Badge
-          data-cy="merged-findings-status"
           data-status={overallStatus}
+          data-testid="merged-findings-status"
           variant={statusConfig[overallStatus].variant}
         >
           {statusConfig[overallStatus].label}

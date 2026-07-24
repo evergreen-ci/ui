@@ -19,7 +19,7 @@ describe("pagination", () => {
       <Pagination currentPage={0} pageSize={5} totalResults={10} />,
     );
     expect(router.state.location.search).toBe("");
-    expect(screen.queryByDataCy("prev-page-button")).toHaveAttribute(
+    expect(screen.queryByDataTestId("prev-page-button")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -29,7 +29,7 @@ describe("pagination", () => {
       <Pagination currentPage={1} pageSize={5} totalResults={10} />,
     );
     expect(router.state.location.search).toBe("");
-    expect(screen.queryByDataCy("next-page-button")).toHaveAttribute(
+    expect(screen.queryByDataTestId("next-page-button")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -41,7 +41,7 @@ describe("pagination", () => {
     );
 
     expect(router.state.location.search).toBe("");
-    await user.click(screen.getByDataCy("next-page-button"));
+    await user.click(screen.getByDataTestId("next-page-button"));
     expect(router.state.location.search).toBe("?page=1");
   });
   it("paginating backward should update the url with the new page number by default", async () => {
@@ -51,7 +51,7 @@ describe("pagination", () => {
     );
 
     expect(router.state.location.search).toBe("");
-    await user.click(screen.getByDataCy("prev-page-button"));
+    await user.click(screen.getByDataTestId("prev-page-button"));
     expect(router.state.location.search).toBe("?page=0");
   });
 
@@ -66,18 +66,18 @@ describe("pagination", () => {
         totalResults={10}
       />,
     );
-    await user.click(screen.getByDataCy("next-page-button"));
+    await user.click(screen.getByDataTestId("next-page-button"));
     expect(onChange).toHaveBeenCalledWith(1);
   });
   it("should disable pagination if there  is only one page", () => {
     renderWithRouterMatch(
       <Pagination currentPage={0} pageSize={5} totalResults={5} />,
     );
-    expect(screen.queryByDataCy("prev-page-button")).toHaveAttribute(
+    expect(screen.queryByDataTestId("prev-page-button")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
-    expect(screen.queryByDataCy("next-page-button")).toHaveAttribute(
+    expect(screen.queryByDataTestId("next-page-button")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -86,11 +86,11 @@ describe("pagination", () => {
     renderWithRouterMatch(
       <Pagination currentPage={0} pageSize={5} totalResults={5} />,
     );
-    expect(screen.queryByDataCy("prev-page-button")).toHaveAttribute(
+    expect(screen.queryByDataTestId("prev-page-button")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
-    expect(screen.queryByDataCy("next-page-button")).toHaveAttribute(
+    expect(screen.queryByDataTestId("next-page-button")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
