@@ -5,13 +5,13 @@ describe("icon with tooltip", () => {
   it("renders a tooltip when hovered", async () => {
     const user = userEvent.setup();
     render(
-      <IconWithTooltip data-cy="Icon" glyph="Warning">
+      <IconWithTooltip data-testid="Icon" glyph="Warning">
         Some Text
       </IconWithTooltip>,
     );
     expect(screen.queryByText("Some Text")).toBeNull();
 
-    const trigger = await screen.findByDataCy("Icon");
+    const trigger = await screen.findByTestId("Icon");
     await user.hover(trigger);
     await waitFor(() => {
       expect(screen.getByText("Some Text")).toBeVisible();
