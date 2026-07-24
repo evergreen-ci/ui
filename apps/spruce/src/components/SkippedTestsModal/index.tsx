@@ -18,7 +18,7 @@ import {
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
 
-interface QuarantinedTestsModalProps<T extends LGRowData> {
+interface SkippedTestsModalProps<T extends LGRowData> {
   columns: LGColumnDef<T>[];
   dataCyPrefix: string;
   getSearchText: (row: T) => string;
@@ -32,7 +32,7 @@ interface QuarantinedTestsModalProps<T extends LGRowData> {
   totalCount: number;
 }
 
-export const QuarantinedTestsModal = <T extends LGRowData>({
+export const SkippedTestsModal = <T extends LGRowData>({
   columns,
   dataCyPrefix,
   getSearchText,
@@ -44,7 +44,7 @@ export const QuarantinedTestsModal = <T extends LGRowData>({
   setOpen,
   subtitle,
   totalCount,
-}: QuarantinedTestsModalProps<T>) => {
+}: SkippedTestsModalProps<T>) => {
   const [search, setSearch] = useState("");
 
   const visibleRows = useMemo(

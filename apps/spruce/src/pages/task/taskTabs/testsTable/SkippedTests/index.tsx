@@ -5,8 +5,9 @@ import { WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
+import { downloadObjectAsJson } from "@evg-ui/lib/utils/request";
 import { useTaskAnalytics } from "analytics";
-import { QuarantinedTestsModal } from "components/QuarantinedTestsModal";
+import { SkippedTestsModal } from "components/SkippedTestsModal";
 import {
   TaskQuarantinedTestsSampleQuery,
   TaskQuarantinedTestsSampleQueryVariables,
@@ -18,18 +19,17 @@ import { formatZeroIndexForDisplay } from "utils/numbers";
 import {
   FULL_LIST_LIMIT,
   MODAL_DISPLAY_LIMIT,
-  QuarantinedTestsSample,
-  buildQuarantinedTestsJson,
-  downloadJsonBlob,
+  SkippedTestsSample,
+  buildSkippedTestsJson,
 } from "./utils";
 
-type QuarantinedTestEntry = QuarantinedTestsSample["quarantinedTests"][number];
+type SkippedTestEntry = SkippedTestsSample["quarantinedTests"][number];
 
-interface QuarantinedTestsProps {
+interface SkippedTestsProps {
   task: NonNullable<TaskQuery["task"]>;
 }
 
-export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
+export const SkippedTests: React.FC<SkippedTestsProps> = ({ task }) => {
   const { execution, id: taskId, quarantinedTestsSkippedCount: count } = task;
   const versionId = task.versionMetadata.id;
   const dispatchToast = useToastContext();
@@ -37,12 +37,16 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
   const [showModal, setShowModal] = useState(false);
   const [queryParams, setQueryParams] = useQueryParams();
 
-  const { data, loading } = useQuery<
+  const shouldAutoOpen = queryParams[QueryParams.SkippedTests] === true;
+
+  // Only fetch the sample when the user deep-links into the modal; there is no
+  // other entry point, so fetching on every Tests-tab visit would be wasteful.
+  const { data, error, loading } = useQuery<
     TaskQuarantinedTestsSampleQuery,
     TaskQuarantinedTestsSampleQueryVariables
   >(
     TASK_QUARANTINED_TESTS_SAMPLE,
-    count > 0
+    count > 0 && shouldAutoOpen
       ? {
           variables: {
             versionId,
@@ -66,39 +70,44 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
 
   const setModalOpen = (open: boolean) => {
     setShowModal(open);
-    if (!open && queryParams[QueryParams.QuarantinedTests] !== undefined) {
+    if (!open && queryParams[QueryParams.SkippedTests] !== undefined) {
       setQueryParams({
         ...queryParams,
-        [QueryParams.QuarantinedTests]: undefined,
+        [QueryParams.SkippedTests]: undefined,
       });
     }
   };
 
-  const shouldAutoOpen = queryParams[QueryParams.QuarantinedTests] === true;
   useEffect(() => {
     if (!shouldAutoOpen || loading) {
       return;
     }
     if (listAvailable) {
       sendEvent({
-        name: "Viewed quarantined tests modal",
+        name: "Viewed skipped tests modal",
         "tests.skipped_count": count,
       });
       setShowModal(true);
       return;
     }
     setModalOpen(false);
-    if (sample !== undefined && sample.execution !== execution) {
-      dispatchToast.warning(
-        "Quarantined test details are only available for the latest execution of this task.",
+    if (error) {
+      dispatchToast.error(
+        "There was an error loading the skipped test details.",
       );
+      return;
     }
+    dispatchToast.warning(
+      sample === undefined
+        ? "Skipped test details are not available for this execution."
+        : "Skipped test details are only available for the latest execution of this task.",
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldAutoOpen, listAvailable, loading]);
+  }, [shouldAutoOpen, listAvailable, loading, error]);
 
   const handleDownload = async () => {
     sendEvent({
-      name: "Clicked download quarantined tests JSON button",
+      name: "Clicked download skipped tests JSON button",
       "tests.skipped_count": count,
     });
     try {
@@ -107,15 +116,15 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
       });
       const fullSample = fullData?.version.taskQuarantinedTestsSample?.[0];
       if (!fullSample || fullSample.execution !== execution) {
-        throw new Error("no matching quarantined test sample returned");
+        throw new Error("no matching skipped test sample returned");
       }
-      downloadJsonBlob(
-        buildQuarantinedTestsJson(fullSample),
-        `quarantined-tests-${taskId}-${execution}.json`,
+      downloadObjectAsJson(
+        buildSkippedTestsJson(fullSample),
+        `skipped-tests-${taskId}-${execution}.json`,
       );
     } catch {
       dispatchToast.error(
-        "There was an error downloading the quarantined test list.",
+        "There was an error downloading the skipped test list.",
       );
     }
   };
@@ -125,9 +134,9 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
   }
 
   return (
-    <QuarantinedTestsModal
+    <SkippedTestsModal
       columns={columns}
-      dataCyPrefix="quarantined-tests"
+      dataCyPrefix="skipped-tests"
       getSearchText={getEntryName}
       onClickDownload={handleDownload}
       open={showModal}
@@ -147,10 +156,10 @@ export const QuarantinedTests: React.FC<QuarantinedTestsProps> = ({ task }) => {
   );
 };
 
-const getEntryName = ({ displayTestName, testName }: QuarantinedTestEntry) =>
+const getEntryName = ({ displayTestName, testName }: SkippedTestEntry) =>
   displayTestName || testName;
 
-const columns: LGColumnDef<QuarantinedTestEntry>[] = [
+const columns: LGColumnDef<SkippedTestEntry>[] = [
   {
     id: "testName",
     header: "Test Name",

@@ -35,7 +35,7 @@ import {
 } from "types/task";
 import { queryString } from "utils";
 import { getColumnsTemplate } from "./getColumnsTemplate";
-import { QuarantinedTests } from "./QuarantinedTests";
+import { SkippedTests } from "./SkippedTests";
 
 const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
   queryString;
@@ -180,7 +180,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
 
   return (
     <>
-      <QuarantinedTests task={task} />
+      <SkippedTests task={task} />
       <TableWrapper
         controls={
           <TableControl

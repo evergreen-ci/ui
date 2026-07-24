@@ -12,13 +12,15 @@ import { QueryParams, TaskTab } from "types/task";
 type Props = {
   count: number;
   execution: number;
+  latestExecution: number;
   taskId: string;
   testSelectionEnabled: boolean;
 };
 
-export const QuarantinedTestsSkipped: React.FC<Props> = ({
+export const SkippedTestsMetadata: React.FC<Props> = ({
   count,
   execution,
+  latestExecution,
   taskId,
   testSelectionEnabled,
 }) => {
@@ -30,41 +32,43 @@ export const QuarantinedTestsSkipped: React.FC<Props> = ({
     return null;
   }
 
+  const detailsAvailable = count > 0 && execution === latestExecution;
+  const badge = (
+    <Badge
+      data-cy="skipped-tests-metadata-badge"
+      variant={count === 0 ? BadgeVariant.Green : BadgeVariant.Yellow}
+    >
+      {count}
+    </Badge>
+  );
+
   return (
     <MetadataItem as="div" label="Tests skipped by TSS">
-      <BadgeWrapper data-cy="quarantined-test-skips">
+      <BadgeWrapper data-cy="skipped-tests-metadata">
         <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
           Tests skipped by TSS when this execution ran. This snapshot may differ
           from what TSS would skip now.
+          {execution !== latestExecution &&
+            " Test names are only available for the latest execution."}
         </InfoSprinkle>
-        {count === 0 ? (
-          <Badge
-            data-cy="quarantined-test-skips-badge"
-            variant={BadgeVariant.Green}
-          >
-            0
-          </Badge>
-        ) : (
+        {detailsAvailable ? (
           <StyledRouterLink
-            data-cy="quarantined-test-skips-link"
+            data-cy="skipped-tests-metadata-link"
             onClick={() =>
               sendEvent({
-                name: "Clicked quarantined test skips metadata link",
+                name: "Clicked skipped tests metadata link",
               })
             }
             to={getTaskRoute(taskId, {
               execution,
               tab: TaskTab.Tests,
-              [QueryParams.QuarantinedTests]: true,
+              [QueryParams.SkippedTests]: true,
             })}
           >
-            <Badge
-              data-cy="quarantined-test-skips-badge"
-              variant={BadgeVariant.Yellow}
-            >
-              {count}
-            </Badge>
+            {badge}
           </StyledRouterLink>
+        ) : (
+          badge
         )}
       </BadgeWrapper>
     </MetadataItem>

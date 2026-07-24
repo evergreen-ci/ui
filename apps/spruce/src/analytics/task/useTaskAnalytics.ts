@@ -67,14 +67,14 @@ type Action =
       "test.task_id": string;
     }
   | {
-      name: "Viewed quarantined tests modal";
+      name: "Viewed skipped tests modal";
       "tests.skipped_count": number;
     }
   | {
-      name: "Clicked download quarantined tests JSON button";
+      name: "Clicked download skipped tests JSON button";
       "tests.skipped_count": number;
     }
-  | { name: "Clicked quarantined test skips metadata link" }
+  | { name: "Clicked skipped tests metadata link" }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
   | { name: "Viewed notification modal" }

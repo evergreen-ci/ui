@@ -1,7 +1,7 @@
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { QuarantinedTestsModal } from ".";
+import { SkippedTestsModal } from ".";
 
 type StoryRow = {
   testName: string;
@@ -18,18 +18,18 @@ const columns: LGColumnDef<StoryRow>[] = [
 
 const getRows = (count: number): StoryRow[] =>
   Array.from({ length: count }, (_, i) => ({
-    testName: `tests/unit/quarantined_test_${i}.js`,
+    testName: `tests/unit/skipped_test_${i}.js`,
   }));
 
 export default {
-  component: QuarantinedTestsModal,
-} satisfies CustomMeta<typeof QuarantinedTestsModal>;
+  component: SkippedTestsModal,
+} satisfies CustomMeta<typeof SkippedTestsModal>;
 
-export const Default: CustomStoryObj<typeof QuarantinedTestsModal> = {
+export const Default: CustomStoryObj<typeof SkippedTestsModal> = {
   render: () => (
-    <QuarantinedTestsModal
+    <SkippedTestsModal
       columns={columns}
-      dataCyPrefix="story-quarantined-tests"
+      dataCyPrefix="story-skipped-tests"
       getSearchText={({ testName }) => testName}
       onClickDownload={() => {}}
       open
@@ -42,11 +42,11 @@ export const Default: CustomStoryObj<typeof QuarantinedTestsModal> = {
   ),
 };
 
-export const Truncated: CustomStoryObj<typeof QuarantinedTestsModal> = {
+export const Truncated: CustomStoryObj<typeof SkippedTestsModal> = {
   render: () => (
-    <QuarantinedTestsModal
+    <SkippedTestsModal
       columns={columns}
-      dataCyPrefix="story-quarantined-tests"
+      dataCyPrefix="story-skipped-tests"
       getSearchText={({ testName }) => testName}
       onClickDownload={() => {}}
       open

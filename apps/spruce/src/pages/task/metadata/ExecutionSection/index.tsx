@@ -10,7 +10,7 @@ import { TaskQuery } from "gql/generated/types";
 import { isInStepback } from "utils/stepback";
 import { AbortMessage } from "./AbortMessage";
 import { DetailsDescription } from "./DetailsDescription";
-import { QuarantinedTestsSkipped } from "./QuarantinedTestsSkipped";
+import { SkippedTestsMetadata } from "./SkippedTestsMetadata";
 import { TestSelection } from "./TestSelection";
 
 const { red } = palette;
@@ -29,6 +29,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
     details,
     distroId,
     execution,
+    latestExecution,
     minQueuePosition: taskQueuePosition,
     priority,
     resetWhenFinished,
@@ -89,9 +90,10 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
       {testSelectionEnabledForProject && (
         <TestSelection testSelectionEnabled={testSelectionEnabled} />
       )}
-      <QuarantinedTestsSkipped
+      <SkippedTestsMetadata
         count={task.quarantinedTestsSkippedCount}
         execution={execution}
+        latestExecution={latestExecution}
         taskId={task.id}
         testSelectionEnabled={testSelectionEnabled}
       />

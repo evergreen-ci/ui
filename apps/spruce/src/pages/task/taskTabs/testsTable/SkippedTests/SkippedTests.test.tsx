@@ -18,11 +18,11 @@ import { TASK_QUARANTINED_TESTS_SAMPLE } from "gql/queries";
 import {
   FULL_LIST_LIMIT,
   MODAL_DISPLAY_LIMIT,
-  QuarantinedTestsSample,
+  SkippedTestsSample,
 } from "./utils";
-import { QuarantinedTests } from ".";
+import { SkippedTests } from ".";
 
-const quarantinedTask: NonNullable<TaskQuery["task"]> = {
+const taskWithSkippedTests: NonNullable<TaskQuery["task"]> = {
   ...taskQuery.task,
   id: "t1",
   execution: 0,
@@ -33,7 +33,7 @@ const quarantinedTask: NonNullable<TaskQuery["task"]> = {
   },
 };
 
-const sample: QuarantinedTestsSample = {
+const sample: SkippedTestsSample = {
   __typename: "TaskQuarantinedTestsSample",
   execution: 0,
   quarantinedTests: [
@@ -59,7 +59,7 @@ const sample: QuarantinedTestsSample = {
 
 const getSampleMock = (
   limit: number,
-  sampleOverrides: Partial<QuarantinedTestsSample> = {},
+  sampleOverrides: Partial<SkippedTestsSample> = {},
 ): ApolloMock<
   TaskQuarantinedTestsSampleQuery,
   TaskQuarantinedTestsSampleQueryVariables
@@ -79,9 +79,43 @@ const getSampleMock = (
   },
 });
 
+const getEmptySampleMock = (
+  limit: number,
+): ApolloMock<
+  TaskQuarantinedTestsSampleQuery,
+  TaskQuarantinedTestsSampleQueryVariables
+> => ({
+  request: {
+    query: TASK_QUARANTINED_TESTS_SAMPLE,
+    variables: { versionId: "v1", taskIds: ["t1"], limit },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: "v1",
+        taskQuarantinedTestsSample: [],
+      },
+    },
+  },
+});
+
+const getSampleErrorMock = (
+  limit: number,
+): ApolloMock<
+  TaskQuarantinedTestsSampleQuery,
+  TaskQuarantinedTestsSampleQueryVariables
+> => ({
+  request: {
+    query: TASK_QUARANTINED_TESTS_SAMPLE,
+    variables: { versionId: "v1", taskIds: ["t1"], limit },
+  },
+  error: new Error("Failed to load skipped test details"),
+});
+
 const Wrapper = ({
   mocks = [getSampleMock(MODAL_DISPLAY_LIMIT)],
-  task = quarantinedTask,
+  task = taskWithSkippedTests,
 }: {
   mocks?: ApolloMock<
     TaskQuarantinedTestsSampleQuery,
@@ -90,7 +124,7 @@ const Wrapper = ({
   task?: NonNullable<TaskQuery["task"]>;
 }) => (
   <MockedProvider mocks={mocks}>
-    <QuarantinedTests task={task} />
+    <SkippedTests task={task} />
   </MockedProvider>
 );
 
@@ -102,10 +136,10 @@ const routerOptions = {
 };
 const deepLinkOptions = {
   ...routerOptions,
-  route: "/task/t1/tests?execution=0&quarantinedTests=true",
+  route: "/task/t1/tests?execution=0&skippedTests=true",
 };
 
-describe("QuarantinedTests", () => {
+describe("SkippedTests", () => {
   beforeAll(() => {
     stubGetClientRects();
     Object.defineProperty(URL, "createObjectURL", {
@@ -127,38 +161,67 @@ describe("QuarantinedTests", () => {
     const { Component } = RenderFakeToastContext(
       <Wrapper
         mocks={[]}
-        task={{ ...quarantinedTask, quarantinedTestsSkippedCount: 0 }}
+        task={{ ...taskWithSkippedTests, quarantinedTestsSkippedCount: 0 }}
       />,
     );
     render(<Component />, deepLinkOptions);
-    expect(screen.queryByDataCy("quarantined-tests-modal")).toBeNull();
+    expect(screen.queryByDataCy("skipped-tests-modal")).toBeNull();
   });
 
   it("auto-opens the modal from the deep-link param and clears the param on close", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<Wrapper />);
     const { router } = render(<Component />, deepLinkOptions);
-    expect(await screen.findByDataCy("quarantined-tests-modal")).toBeVisible();
+    expect(await screen.findByDataCy("skipped-tests-modal")).toBeVisible();
     expect(screen.getByText("Display One")).toBeVisible();
     await user.click(screen.getByRole("button", { name: "Close modal" }));
     await waitFor(() => {
-      expect(screen.getByDataCy("quarantined-tests-modal")).not.toBeVisible();
+      expect(screen.getByDataCy("skipped-tests-modal")).not.toBeVisible();
     });
-    expect(router.state.location.search).not.toContain("quarantinedTests");
+    expect(router.state.location.search).not.toContain("skippedTests");
   });
 
-  it("does not open when the sample is for a newer execution", async () => {
-    const { Component } = RenderFakeToastContext(
+  it("warns when the sample is for a newer execution", async () => {
+    const { Component, dispatchToast } = RenderFakeToastContext(
       <Wrapper
         mocks={[getSampleMock(MODAL_DISPLAY_LIMIT, { execution: 1 })]}
       />,
     );
     render(<Component />, deepLinkOptions);
-    await expect(
-      screen.findByDataCy("quarantined-tests-modal", undefined, {
-        timeout: 250,
-      }),
-    ).rejects.toThrow();
+    await waitFor(() => {
+      expect(dispatchToast.warning).toHaveBeenCalledWith(
+        "Skipped test details are only available for the latest execution of this task.",
+      );
+    });
+    expect(screen.queryByDataCy("skipped-tests-modal")).toBeNull();
+  });
+
+  it("warns and clears the deep link when no sample is available", async () => {
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <Wrapper mocks={[getEmptySampleMock(MODAL_DISPLAY_LIMIT)]} />,
+    );
+    const { router } = render(<Component />, deepLinkOptions);
+    await waitFor(() => {
+      expect(dispatchToast.warning).toHaveBeenCalledWith(
+        "Skipped test details are not available for this execution.",
+      );
+    });
+    expect(router.state.location.search).not.toContain("skippedTests");
+    expect(screen.queryByDataCy("skipped-tests-modal")).toBeNull();
+  });
+
+  it("shows an error and clears the deep link when the query fails", async () => {
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <Wrapper mocks={[getSampleErrorMock(MODAL_DISPLAY_LIMIT)]} />,
+    );
+    const { router } = render(<Component />, deepLinkOptions);
+    await waitFor(() => {
+      expect(dispatchToast.error).toHaveBeenCalledWith(
+        "There was an error loading the skipped test details.",
+      );
+    });
+    expect(router.state.location.search).not.toContain("skippedTests");
+    expect(screen.queryByDataCy("skipped-tests-modal")).toBeNull();
   });
 
   it("downloads the full list as JSON from the modal", async () => {
@@ -172,8 +235,8 @@ describe("QuarantinedTests", () => {
       />,
     );
     render(<Component />, deepLinkOptions);
-    expect(await screen.findByDataCy("quarantined-tests-modal")).toBeVisible();
-    await user.click(screen.getByDataCy("quarantined-tests-download"));
+    expect(await screen.findByDataCy("skipped-tests-modal")).toBeVisible();
+    await user.click(screen.getByDataCy("skipped-tests-download"));
     await waitFor(() => {
       expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
     });
@@ -181,9 +244,9 @@ describe("QuarantinedTests", () => {
     expect(JSON.parse(await blob.text())).toStrictEqual({
       taskId: "t1",
       execution: 0,
-      quarantinedTestsSkippedCount: 3,
+      skippedTestCount: 3,
       truncated: false,
-      quarantinedTests: [
+      skippedTests: [
         { testName: "test_one", displayTestName: "Display One" },
         { testName: "test_two" },
         { testName: "test_three" },

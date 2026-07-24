@@ -63,7 +63,7 @@ export enum LogTypes {
 
 export enum QueryParams {
   LogType = "logtype",
-  QuarantinedTests = "quarantinedTests",
+  SkippedTests = "skippedTests",
   TaskId = "taskId",
 }
 
