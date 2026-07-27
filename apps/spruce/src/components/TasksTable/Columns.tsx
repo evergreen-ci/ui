@@ -183,8 +183,7 @@ export const getColumnsTemplate = ({
         </InfoSprinkle>
       </FlexWrapper>
     ),
-    cell: ({ column, getValue }) => {
-      console.log(column);
+    cell: ({ getValue }) => {
       const prevTaskCompleted = getValue() as NonNullable<
         TaskTableInfo["baseTask"]
       >["prevTaskCompleted"];
