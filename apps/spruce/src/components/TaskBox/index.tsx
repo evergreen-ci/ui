@@ -40,7 +40,6 @@ const taskBoxStyles = css`
   height: ${DEFAULT_SQUARE_SIZE}px;
   border: ${SQUARE_BORDER}px solid ${white};
   box-sizing: content-box;
-  float: left;
   position: relative;
   cursor: pointer;
 
@@ -106,7 +105,6 @@ export const CollapsedBox = styled.div`
   height: ${DEFAULT_SQUARE_SIZE}px;
   border: ${SQUARE_BORDER}px solid ${white};
   box-sizing: content-box;
-  float: left;
   position: relative;
   min-width: ${DEFAULT_SQUARE_SIZE}px;
   width: fit-content;
