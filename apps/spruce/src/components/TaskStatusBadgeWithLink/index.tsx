@@ -13,12 +13,14 @@ interface TaskStatusBadgeWithLinkProps extends React.ComponentProps<
 > {
   id: string;
   execution: number;
+  onClick?: () => void;
   tab?: TaskTab;
 }
 
 const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
   execution,
   id,
+  onClick,
   status,
   tab,
   ...rest
@@ -32,6 +34,7 @@ const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
 
   return (
     <StyledLink
+      onClick={onClick}
       to={getTaskRoute(id, {
         execution,
         tab: linkedTab,

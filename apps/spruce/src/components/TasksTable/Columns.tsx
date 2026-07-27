@@ -24,6 +24,7 @@ export const getColumnsTemplate = ({
   isPatch = false,
   loading = false,
   onClickTaskLink = () => {},
+  onClickTaskStatusBadge = () => {},
   showTaskExecutionLabel = false,
   statusOptions = [],
 }: {
@@ -31,6 +32,11 @@ export const getColumnsTemplate = ({
   isPatch?: boolean;
   loading?: boolean;
   onClickTaskLink?: (taskId: string, status?: string) => void;
+  onClickTaskStatusBadge?: (
+    taskId: string,
+    status: string,
+    column: string,
+  ) => void;
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
 }): LGColumnDef<TaskTableInfo>[] => [
@@ -77,6 +83,7 @@ export const getColumnsTemplate = ({
     id: TaskSortCategory.Status,
     header: "Task Status",
     cell: ({
+      column,
       getValue,
       row: {
         original: { dependsOn, errors, execution, id },
@@ -95,6 +102,7 @@ export const getColumnsTemplate = ({
                 <TaskStatusBadgeWithLink
                   execution={execution}
                   id={id}
+                  onClick={() => onClickTaskStatusBadge(id, status, column.id)}
                   status={status as TaskStatus}
                 />
               </span>
@@ -111,6 +119,7 @@ export const getColumnsTemplate = ({
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
+            onClick={() => onClickTaskStatusBadge(id, status, column.id)}
             status={status as TaskStatus}
           />
           {hasErrors && (
@@ -135,20 +144,24 @@ export const getColumnsTemplate = ({
     accessorKey: "baseTask.displayStatus",
     header: `${isPatch ? "Base" : "Previous"} Status`,
     cell: ({
+      column,
       getValue,
       row: {
-        original: { baseTask },
+        original: { baseTask, id },
       },
-    }) =>
-      baseTask ? (
+    }) => {
+      const status = getValue() as TaskStatus;
+      return baseTask ? (
         <TaskStatusBadgeWithLink
           execution={baseTask?.execution}
           id={baseTask?.id}
-          status={getValue() as TaskStatus}
+          onClick={() => onClickTaskStatusBadge(id, status, column.id)}
+          status={status}
         />
       ) : (
-        <TaskStatusBadge status={getValue() as TaskStatus} />
-      ),
+        <TaskStatusBadge status={status} />
+      );
+    },
     meta: {
       treeSelect: {
         "data-cy": "base-status-filter",
@@ -170,7 +183,8 @@ export const getColumnsTemplate = ({
         </InfoSprinkle>
       </FlexWrapper>
     ),
-    cell: ({ getValue }) => {
+    cell: ({ column, getValue }) => {
+      console.log(column);
       const prevTaskCompleted = getValue() as NonNullable<
         TaskTableInfo["baseTask"]
       >["prevTaskCompleted"];
