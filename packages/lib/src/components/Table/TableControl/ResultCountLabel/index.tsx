@@ -5,20 +5,27 @@ interface Props {
   denominator: number;
   dataCyNumerator?: string;
   dataCyDenominator?: string;
+  dataTestIdNumerator?: string;
+  dataTestIdDenominator?: string;
   label: string;
 }
 export const ResultCountLabel: React.FC<Props> = ({
   dataCyDenominator,
   dataCyNumerator,
+  dataTestIdDenominator,
+  dataTestIdNumerator,
   denominator,
   label,
   numerator,
 }) => (
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore: FIXME. This component is throwing an invalid type
   <Body>
-    <span data-cy={dataCyNumerator}>{numerator}</span>/
-    <span data-cy={dataCyDenominator}>{denominator}</span>
+    <span data-cy={dataCyNumerator} data-testid={dataTestIdNumerator}>
+      {numerator}
+    </span>
+    /
+    <span data-cy={dataCyDenominator} data-testid={dataTestIdDenominator}>
+      {denominator}
+    </span>
     <span> {label}</span>
   </Body>
 );

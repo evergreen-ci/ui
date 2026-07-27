@@ -20,7 +20,7 @@ const FilterLogicToggle: React.FC = () => {
   };
   return (
     <BaseToggle
-      data-cy="filter-logic-toggle"
+      data-testid="filter-logic-toggle"
       label="Filter Logic"
       leftLabel="AND"
       onChange={onChange}

@@ -9,7 +9,7 @@ const StickyHeadersToggle: React.FC = () => {
 
   return (
     <BaseToggle
-      data-cy="sticky-headers-toggle"
+      data-testid="sticky-headers-toggle"
       disabled={!sectioning.sectioningEnabled}
       label="Sticky Headers"
       onChange={(value) => {

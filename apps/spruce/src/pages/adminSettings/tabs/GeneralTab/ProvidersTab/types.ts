@@ -18,8 +18,6 @@ export interface ProvidersFormState {
         account: string;
         role: string;
       }>;
-      ec2Key: string;
-      ec2Secret: string;
       parameterStorePrefix: string;
       defaultSecurityGroup: string;
       maxVolumeSizePerUser: number;

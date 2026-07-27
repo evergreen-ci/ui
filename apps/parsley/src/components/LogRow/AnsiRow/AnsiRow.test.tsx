@@ -38,11 +38,11 @@ describe("ansiRow", () => {
   });
   it("does not render an ansi row if getLine returns undefined", () => {
     renderRow({ ...ansiProps, lineIndex: 99, lineNumber: 99 }, {});
-    expect(screen.queryByDataCy("ansi-row")).toBeNull();
+    expect(screen.queryByDataTestId("ansi-row")).toBeNull();
   });
   it("renders an ansi row if getLine returns an empty string", () => {
     renderRow({ ...ansiProps, lineIndex: 10, lineNumber: 10 }, {});
-    expect(screen.getByDataCy("ansi-row")).toBeInTheDocument();
+    expect(screen.getByDataTestId("ansi-row")).toBeInTheDocument();
   });
   it("displays a log line and its text for a given index", () => {
     renderRow({ ...ansiProps, lineIndex: 0, lineNumber: 0 }, {});
@@ -69,7 +69,9 @@ describe("ansiRow", () => {
       },
       {},
     );
-    expect(screen.getByDataCy("highlight")).toHaveTextContent("highlight me");
+    expect(screen.getByDataTestId("highlight")).toHaveTextContent(
+      "highlight me",
+    );
   });
   it("should highlight text that have matching highlights", () => {
     renderRow(
@@ -81,7 +83,9 @@ describe("ansiRow", () => {
       },
       {},
     );
-    expect(screen.getByDataCy("highlight")).toHaveTextContent("highlight me");
+    expect(screen.getByDataTestId("highlight")).toHaveTextContent(
+      "highlight me",
+    );
   });
 
   it("should pretty print logs", () => {
@@ -125,7 +129,9 @@ describe("ansiRow", () => {
       expect(
         screen.getByText(priorityLogLines[0].substring(8)),
       ).toBeInTheDocument();
-      expect(screen.getByDataCy("ansi-row")).toHaveStyle(`color: ${rgbBlack}`);
+      expect(screen.getByDataTestId("ansi-row")).toHaveStyle(
+        `color: ${rgbBlack}`,
+      );
     });
 
     it("renders a high-priority line in red", () => {
@@ -140,7 +146,9 @@ describe("ansiRow", () => {
       expect(
         screen.getByText(priorityLogLines[3].substring(8)),
       ).toBeInTheDocument();
-      expect(screen.getByDataCy("ansi-row")).toHaveStyle(`color: ${rgbRed}`);
+      expect(screen.getByDataTestId("ansi-row")).toHaveStyle(
+        `color: ${rgbRed}`,
+      );
     });
   });
 });

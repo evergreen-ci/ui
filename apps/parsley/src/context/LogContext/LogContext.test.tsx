@@ -368,6 +368,42 @@ describe("useLogContext", () => {
       });
       expect(result.current.searchState.searchIndex).toBe(0);
     });
+    it("should reset the search index when the result set changes", () => {
+      const { result } = renderHook(() => useLogContext(), {
+        wrapper: wrapper(["A line 1", "B line 2", "C line 3"]),
+      });
+      act(() => {
+        result.current.setSearch("line");
+      });
+      act(() => {
+        result.current.paginate(DIRECTION.NEXT);
+      });
+      expect(result.current.searchState.searchIndex).toBe(1);
+
+      act(() => {
+        result.current.setSearch("A line");
+      });
+      expect(result.current.searchState.searchIndex).toBe(0);
+      expect(result.current.searchState.searchRange).toBe(1);
+    });
+    it("should preserve the search index when processed lines change without changing the result count", () => {
+      const { result } = renderHook(() => useLogContext(), {
+        wrapper: wrapper(["A line 1", "B line 2", "C line 3"]),
+      });
+      act(() => {
+        result.current.setSearch("line");
+      });
+      act(() => {
+        result.current.paginate(DIRECTION.NEXT);
+      });
+      expect(result.current.searchState.searchIndex).toBe(1);
+
+      act(() => {
+        result.current.expandLines([[0, 1]]);
+      });
+      expect(result.current.searchState.searchIndex).toBe(1);
+      expect(result.current.searchState.searchRange).toBe(3);
+    });
     it("paginating past the searchRange should jump to the opposite end", () => {
       const { result } = renderHook(() => useLogContext(), {
         wrapper: wrapper(["A line 1", "B line 2", "C line 3"]),

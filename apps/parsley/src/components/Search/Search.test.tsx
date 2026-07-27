@@ -32,7 +32,7 @@ const renderSearch = (route?: string) => {
       LogRenderingTypes.Default,
     );
   });
-  expect(screen.getByDataCy("searchbar-input")).not.toBeDisabled();
+  expect(screen.getByDataTestId("searchbar-input")).not.toBeDisabled();
 
   return {
     hook,
@@ -46,13 +46,13 @@ describe("Search", () => {
   });
   it("renders", () => {
     renderSearch();
-    expect(screen.getByDataCy("searchbar-input")).toBeInTheDocument();
+    expect(screen.getByDataTestId("searchbar-input")).toBeInTheDocument();
   });
   it("applying a search should update the search state", async () => {
     const user = userEvent.setup();
     const { hook } = renderSearch();
-    expect(screen.getByDataCy("searchbar-input")).not.toBeDisabled();
-    await user.type(screen.getByDataCy("searchbar-input"), "test");
+    expect(screen.getByDataTestId("searchbar-input")).not.toBeDisabled();
+    await user.type(screen.getByDataTestId("searchbar-input"), "test");
     await waitFor(() => {
       expect(hook.current.searchState.hasSearch).toBe(true);
     });
@@ -62,8 +62,11 @@ describe("Search", () => {
     const user = userEvent.setup();
     const { utils } = renderSearch();
     expect(utils.router.state.location.search).toBe("");
-    await user.type(screen.getByDataCy("searchbar-input"), "test");
-    await user.type(screen.getByDataCy("searchbar-input"), "{Meta>}{enter}");
+    await user.type(screen.getByDataTestId("searchbar-input"), "test");
+    await user.type(
+      screen.getByDataTestId("searchbar-input"),
+      "{Meta>}{enter}",
+    );
     expect(utils.router.state.location.search).toBe(
       `?${QueryParams.Filters}=100test`,
     );
@@ -74,8 +77,11 @@ describe("Search", () => {
     expect(utils.router.state.location.search).toBe("");
     await user.click(screen.getByText("Filter"));
     await user.click(screen.getByText("Highlight"));
-    await user.type(screen.getByDataCy("searchbar-input"), "test");
-    await user.type(screen.getByDataCy("searchbar-input"), "{Meta>}{enter}");
+    await user.type(screen.getByDataTestId("searchbar-input"), "test");
+    await user.type(
+      screen.getByDataTestId("searchbar-input"),
+      "{Meta>}{enter}",
+    );
     expect(utils.router.state.location.search).toBe(
       `?${[QueryParams.Highlights]}=test`,
     );
@@ -88,9 +94,9 @@ describe("Search", () => {
     });
     expect(utils.router.state.location.search).toBe("");
     await user.click(screen.getByText("Filter"));
-    await user.type(screen.getByDataCy("searchbar-input"), "test");
+    await user.type(screen.getByDataTestId("searchbar-input"), "test");
     await user.type(
-      screen.getByDataCy("searchbar-input"),
+      screen.getByDataTestId("searchbar-input"),
       "{Meta>}{enter}",
       {},
     );
@@ -106,8 +112,11 @@ describe("Search", () => {
     });
     expect(utils.router.state.location.search).toBe("?search=test");
     await user.click(screen.getByText("Filter"));
-    await user.type(screen.getByDataCy("searchbar-input"), "test");
-    await user.type(screen.getByDataCy("searchbar-input"), "{Meta>}{enter}");
+    await user.type(screen.getByDataTestId("searchbar-input"), "test");
+    await user.type(
+      screen.getByDataTestId("searchbar-input"),
+      "{Meta>}{enter}",
+    );
     expect(utils.router.state.location.search).toBe(
       `?${QueryParams.Filters}=100test&${QueryParams.Highlights}=test&search=test`,
     );
@@ -115,26 +124,35 @@ describe("Search", () => {
   it("should persist search history", async () => {
     const user = userEvent.setup();
     renderSearch();
-    await user.type(screen.getByDataCy("searchbar-input"), "test");
-    await user.type(screen.getByDataCy("searchbar-input"), "{Meta>}{enter}");
-    await user.type(screen.getByDataCy("searchbar-input"), "test2");
+    await user.type(screen.getByDataTestId("searchbar-input"), "test");
     await user.type(
-      screen.getByDataCy("searchbar-input"),
+      screen.getByDataTestId("searchbar-input"),
+      "{Meta>}{enter}",
+    );
+    await user.type(screen.getByDataTestId("searchbar-input"), "test2");
+    await user.type(
+      screen.getByDataTestId("searchbar-input"),
       "{Meta>}{enter}",
       {},
     );
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     expect(screen.getByText("test2")).toBeInTheDocument();
     expect(screen.getByText("test")).toBeInTheDocument();
   });
   it("selecting a search suggestion should update the search state", async () => {
     const user = userEvent.setup();
     const { hook } = renderSearch();
-    await user.type(screen.getByDataCy("searchbar-input"), "first_search");
-    await user.type(screen.getByDataCy("searchbar-input"), "{Meta>}{enter}");
-    await user.type(screen.getByDataCy("searchbar-input"), "second_search");
-    await user.type(screen.getByDataCy("searchbar-input"), "{Meta>}{enter}");
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.type(screen.getByDataTestId("searchbar-input"), "first_search");
+    await user.type(
+      screen.getByDataTestId("searchbar-input"),
+      "{Meta>}{enter}",
+    );
+    await user.type(screen.getByDataTestId("searchbar-input"), "second_search");
+    await user.type(
+      screen.getByDataTestId("searchbar-input"),
+      "{Meta>}{enter}",
+    );
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     expect(screen.getByText("first_search")).toBeInTheDocument();
     await user.click(screen.getByText("first_search"));
     expect(screen.getByText("first_search")).toBeInTheDocument();

@@ -28,7 +28,7 @@ test.describe("project filters", () => {
     await expect(page).toHaveURL(
       /111%28NETWORK%257CASIO%257CEXECUTOR%257CCONNPOOL%257CREPL_HB%29/,
     );
-    const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+    const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
     await expect(skippedLines).not.toHaveCount(0);
   });
 
@@ -56,7 +56,7 @@ test.describe("project filters", () => {
     await expect(page).toHaveURL(
       /110%2522Connection%2520accepted%2522%252C%2522attr%2522/,
     );
-    const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+    const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
     await expect(skippedLines).not.toHaveCount(0);
   });
 

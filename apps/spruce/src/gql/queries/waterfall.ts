@@ -24,8 +24,8 @@ export const WATERFALL = gql`
         requester
         revision
         user {
-          id
           displayName
+          userId: id
         }
         waterfallBuilds {
           id

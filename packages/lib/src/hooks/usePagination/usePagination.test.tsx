@@ -5,8 +5,9 @@ import { getDefaultPageSize } from "../../utils/pagination";
 import usePagination from "./index";
 
 describe("usePagination", () => {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const wrapper = ({ children }) => <MemoryRouter>{children}</MemoryRouter>;
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
+    <MemoryRouter>{children}</MemoryRouter>
+  );
 
   beforeEach(() => {
     // Mock localStorage

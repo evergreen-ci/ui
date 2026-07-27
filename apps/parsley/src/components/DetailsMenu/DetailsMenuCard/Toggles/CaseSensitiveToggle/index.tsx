@@ -8,7 +8,7 @@ const CaseSensitiveToggle: React.FC = () => {
   const { caseSensitive, setCaseSensitive } = preferences;
   return (
     <BaseToggle
-      data-cy="case-sensitive-toggle"
+      data-testid="case-sensitive-toggle"
       label="Case Sensitive"
       onChange={(value) => {
         setCaseSensitive(value);

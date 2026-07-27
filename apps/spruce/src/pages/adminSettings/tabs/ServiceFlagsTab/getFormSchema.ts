@@ -14,7 +14,7 @@ const zebraCSS = css`
     padding-bottom: ${size.xs};
   }
 
-  :nth-child(even) {
+  :nth-of-type(even) {
     background-color: ${gray.light3};
   }
 `;

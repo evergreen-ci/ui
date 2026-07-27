@@ -2,7 +2,7 @@ import { memo, useMemo } from "react";
 import highlightHtml from "utils/highlightHtml";
 
 interface HighlighterProps {
-  ["data-cy"]?: string;
+  ["data-testid"]?: string;
   children: string;
   color?: string;
   highlights?: RegExp;
@@ -13,7 +13,7 @@ const Highlighter: React.FC<HighlighterProps> = memo((props) => {
   const {
     children: text,
     color,
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     highlights,
     searchTerm,
   } = props;
@@ -24,7 +24,7 @@ const Highlighter: React.FC<HighlighterProps> = memo((props) => {
   );
 
   return (
-    <span data-cy={dataCy} style={{ color }}>
+    <span data-testid={dataTestId} style={{ color }}>
       {htmlToRender}
     </span>
   );

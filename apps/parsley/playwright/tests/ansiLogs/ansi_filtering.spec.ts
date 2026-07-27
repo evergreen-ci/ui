@@ -19,12 +19,12 @@ test.describe("Filtering", () => {
         await expect(page).toHaveURL(/\?bookmarks=0,6,297&shareLine=5/);
         await helpers.addFilter(page, "doesNotMatchAnything");
 
-        const filteredRows = page.locator("[data-cy^='log-row-']");
+        const filteredRows = page.locator("[data-testid^='log-row-']");
         await expect(filteredRows).toHaveCount(4);
         const logRows = await filteredRows.all();
         for (const row of logRows) {
-          const dataCy = await row.getAttribute("data-cy");
-          expect(dataCy).toMatch(/log-row-(0|5|6|297)/);
+          const dataTestId = await row.getAttribute("data-testid");
+          expect(dataTestId).toMatch(/log-row-(0|5|6|297)/);
         }
       });
 
@@ -58,7 +58,7 @@ test.describe("Filtering", () => {
           );
 
           const filteredRows = page.locator(
-            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+            "[data-testid^='log-row-']:not([data-bookmarked=true])",
           );
           await expect(filteredRows).not.toHaveCount(0);
           const logRows = await filteredRows.all();
@@ -82,7 +82,7 @@ test.describe("Filtering", () => {
           );
 
           const filteredRows = page.locator(
-            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+            "[data-testid^='log-row-']:not([data-bookmarked=true])",
           );
           await expect(filteredRows).not.toHaveCount(0);
           const logRows = await filteredRows.all();
@@ -106,7 +106,7 @@ test.describe("Filtering", () => {
           );
 
           const filteredRows = page.locator(
-            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+            "[data-testid^='log-row-']:not([data-bookmarked=true])",
           );
           await expect(filteredRows).not.toHaveCount(0);
           const logRows = await filteredRows.all();
@@ -134,7 +134,9 @@ test.describe("Filtering", () => {
           await expect(page).toHaveURL(
             new RegExp(`filters=010${filter1},001${filter2}`),
           );
-          const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+          const skippedLines = page.locator(
+            "[data-testid^='skipped-lines-row-']",
+          );
           await expect(skippedLines).toHaveCount(0);
         });
       });
@@ -152,7 +154,7 @@ test.describe("Filtering", () => {
           );
 
           const filteredRows = page.locator(
-            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+            "[data-testid^='log-row-']:not([data-bookmarked=true])",
           );
           await expect(filteredRows).not.toHaveCount(0);
           const logRows = await filteredRows.all();
@@ -175,7 +177,7 @@ test.describe("Filtering", () => {
           );
 
           const filteredRows = page.locator(
-            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+            "[data-testid^='log-row-']:not([data-bookmarked=true])",
           );
           await expect(filteredRows).not.toHaveCount(0);
           await expect(
@@ -199,7 +201,7 @@ test.describe("Filtering", () => {
           );
 
           const filteredRows = page.locator(
-            "[data-cy^='log-row-']:not([data-bookmarked=true])",
+            "[data-testid^='log-row-']:not([data-bookmarked=true])",
           );
           await expect(filteredRows).not.toHaveCount(0);
           await expect(
@@ -227,7 +229,9 @@ test.describe("Filtering", () => {
           await expect(page).toHaveURL(
             new RegExp(`filters=010${filter1},001${filter2}`),
           );
-          const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+          const skippedLines = page.locator(
+            "[data-testid^='skipped-lines-row-']",
+          );
           await expect(skippedLines).toHaveCount(0);
         });
       });
@@ -240,7 +244,7 @@ test.describe("Filtering", () => {
     test.beforeEach(async ({ page }) => {
       await page.goto(`${logLink}?filters=100${filter}`);
       await expect(page.getByTestId("ansi-row")).toHaveCount(0);
-      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
       await expect(skippedLines).not.toHaveCount(0);
     });
 
@@ -256,7 +260,7 @@ test.describe("Filtering", () => {
       await expect(page).toHaveURL(/filters=100running/);
 
       const filteredRows = page.locator(
-        "[data-cy^='log-row-']:not([data-bookmarked=true])",
+        "[data-testid^='log-row-']:not([data-bookmarked=true])",
       );
       await expect(filteredRows).not.toHaveCount(0);
       const logRows = await filteredRows.all();
@@ -272,7 +276,7 @@ test.describe("Filtering", () => {
         .getByRole("button", { name: "Delete filter" })
         .click();
       await expect(page).toHaveURL(/^(?!.*filters)/);
-      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
       await expect(skippedLines).toHaveCount(0);
     });
   });
@@ -284,7 +288,7 @@ test.describe("Filtering", () => {
     test("should be able to hide and unhide filters", async ({ page }) => {
       await page.goto(`${logLink}?filters=110${filter1},100${filter2}`);
       await expect(page.getByTestId("ansi-row")).toHaveCount(0);
-      const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+      const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
       await expect(skippedLines).not.toHaveCount(0);
 
       await page.getByTestId("all-filters-toggle").click();

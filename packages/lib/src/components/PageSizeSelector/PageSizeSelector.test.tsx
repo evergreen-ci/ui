@@ -5,13 +5,7 @@ describe("pageSizeSelector", () => {
   it("selecting page size should call onChange prop", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
-    render(
-      <PageSizeSelector
-        data-cy="page-size-selector"
-        onChange={onChange}
-        value={10}
-      />,
-    );
+    render(<PageSizeSelector onChange={onChange} value={10} />);
     await user.click(screen.getByRole("button", { name: "10 / page" }));
     await waitFor(() => {
       expect(screen.queryByText("20 / page")).toBeVisible();

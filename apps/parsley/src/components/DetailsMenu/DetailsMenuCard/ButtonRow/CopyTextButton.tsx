@@ -121,7 +121,7 @@ const Button: React.FC<{ bookmarks: number[] }> = ({ bookmarks }) => {
           }
         }
       `}
-      data-cy="copy-text-button"
+      data-testid="copy-text-button"
       disabled={!bookmarks.length}
       label={copied ? "Copied" : primaryOption.label}
       leftGlyph={<Icon data-testid="copy-glyph" glyph="Copy" />}

@@ -17,14 +17,14 @@ describe("wrap toggle", () => {
   });
   it("defaults to 'false'", () => {
     render(<WrapToggle />, { wrapper });
-    const wrapToggle = screen.getByDataCy("wrap-toggle");
+    const wrapToggle = screen.getByDataTestId("wrap-toggle");
     expect(wrapToggle).toHaveAttribute("aria-checked", "false");
   });
 
   it("should update localStorage but not the URL", async () => {
     const user = userEvent.setup();
     const { router } = render(<WrapToggle />, { wrapper });
-    const wrapToggle = screen.getByDataCy("wrap-toggle");
+    const wrapToggle = screen.getByDataTestId("wrap-toggle");
 
     await user.click(wrapToggle);
     expect(wrapToggle).toHaveAttribute("aria-checked", "true");

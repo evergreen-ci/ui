@@ -10,7 +10,7 @@ import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 const { gray } = palette;
 
 export interface Breadcrumb {
-  "data-cy"?: string;
+  "data-testid"?: string;
   href?: string;
   onClick?: () => void;
   text: ReactNode;
@@ -22,13 +22,13 @@ interface BreadcrumbsProps {
   breadcrumbs: Breadcrumb[];
 }
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => (
-  <Container data-cy="breadcrumb-container">
+  <Container data-testid="breadcrumb-container">
     {breadcrumbs.map((bc, index) => (
-      <Fragment key={`breadcrumb-${bc["data-cy"]}`}>
+      <Fragment key={`breadcrumb-${bc["data-testid"]}`}>
         <BreadcrumbFragment breadcrumb={bc} />
         {breadcrumbs.length - 1 !== index && (
           <Icon
-            data-cy="breadcrumb-chevron"
+            data-testid="breadcrumb-chevron"
             fill={gray.dark2}
             glyph="ChevronRight"
             size="small"
@@ -46,7 +46,7 @@ const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
   breadcrumb,
 }) => {
   const {
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     href,
     onClick,
     text = "",
@@ -62,23 +62,23 @@ const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
   let trigger;
   if (to) {
     trigger = (
-      <StyledRouterLink data-cy={dataCy} onClick={onClick} to={to}>
+      <StyledRouterLink data-testid={dataTestId} onClick={onClick} to={to}>
         {message}
       </StyledRouterLink>
     );
   } else if (href) {
     trigger = (
-      <StyledLink data-cy={dataCy} href={href} onClick={onClick}>
+      <StyledLink data-testid={dataTestId} href={href} onClick={onClick}>
         {message}
       </StyledLink>
     );
   } else {
-    trigger = <div data-cy={dataCy}>{message}</div>;
+    trigger = <div data-testid={dataTestId}>{message}</div>;
   }
 
   return (
     <Tooltip
-      data-cy="breadcrumb-tooltip"
+      data-testid="breadcrumb-tooltip"
       enabled={shouldTrimMessage || !!tooltipText}
       trigger={trigger}
       triggerEvent="hover"
