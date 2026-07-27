@@ -324,6 +324,7 @@ const RenderableRow = <T extends LGRowData>({
             key={cell.id}
             cell={cell}
             className={cellStyle}
+            data-column={cell.column.id}
             style={cellPaddingStyle}
           >
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
