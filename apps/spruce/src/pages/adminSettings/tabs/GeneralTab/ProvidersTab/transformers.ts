@@ -31,8 +31,6 @@ export const gqlToForm = ((data) => {
             account: role.account ?? "",
             role: role.role ?? "",
           })) ?? [],
-        ec2Key: providers?.aws?.ec2Keys?.[0]?.key ?? "",
-        ec2Secret: providers?.aws?.ec2Keys?.[0]?.secret ?? "",
         parameterStorePrefix: parameterStore?.prefix ?? "",
         defaultSecurityGroup: providers?.aws?.defaultSecurityGroup ?? "",
         maxVolumeSizePerUser: providers?.aws?.maxVolumeSizePerUser ?? 0,
@@ -87,13 +85,6 @@ export const formToGql = ((form: ProvidersFormState) => {
         allowedInstanceTypes: aws.allowedInstanceTypes,
         allowedRegions: aws.allowedRegions,
         defaultSecurityGroup: aws.defaultSecurityGroup || undefined,
-        ec2Keys: [
-          {
-            name: "default", // We'll use a default name since we flattened this
-            key: aws.ec2Key,
-            secret: aws.ec2Secret,
-          },
-        ],
         elasticIPUsageRate: aws.elasticIPUsageRate || undefined,
         ipamPoolID: aws.ipamPoolID || undefined,
         maxVolumeSizePerUser: aws.maxVolumeSizePerUser || undefined,

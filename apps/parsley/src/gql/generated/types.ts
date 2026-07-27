@@ -66,7 +66,6 @@ export type AwsConfig = {
   allowedInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedRegions: Array<Scalars["String"]["output"]>;
   defaultSecurityGroup?: Maybe<Scalars["String"]["output"]>;
-  ec2Keys: Array<Ec2Key>;
   elasticIPUsageRate?: Maybe<Scalars["Float"]["output"]>;
   ipamPoolID?: Maybe<Scalars["String"]["output"]>;
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
@@ -81,7 +80,6 @@ export type AwsConfigInput = {
   allowedInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedRegions: Array<Scalars["String"]["input"]>;
   defaultSecurityGroup?: InputMaybe<Scalars["String"]["input"]>;
-  ec2Keys: Array<Ec2KeyInput>;
   elasticIPUsageRate?: InputMaybe<Scalars["Float"]["input"]>;
   ipamPoolID?: InputMaybe<Scalars["String"]["input"]>;
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
@@ -989,12 +987,6 @@ export type Ec2Key = {
   key: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   secret: Scalars["String"]["output"];
-};
-
-export type Ec2KeyInput = {
-  key: Scalars["String"]["input"];
-  name: Scalars["String"]["input"];
-  secret: Scalars["String"]["input"];
 };
 
 /**

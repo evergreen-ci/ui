@@ -18,6 +18,7 @@ const { blue, gray } = palette;
 
 interface TableSearchPopoverProps {
   "data-cy"?: string;
+  "data-testid"?: string;
   onConfirm: (search: string) => void;
   placeholder?: string;
   value: string;
@@ -25,6 +26,7 @@ interface TableSearchPopoverProps {
 
 const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   "data-cy": dataCy,
+  "data-testid": dataTestId,
   onConfirm,
   placeholder,
   value,
@@ -64,6 +66,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         active={active}
         aria-label="Table Search Popover Icon"
         data-cy={dataCy}
+        data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
         <Icon color={iconColor} glyph="MagnifyingGlass" />
@@ -75,13 +78,18 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         refEl={buttonRef}
         spacing={DEFAULT_SPACING}
       >
-        <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
+        <PopoverContainer
+          ref={popoverRef}
+          data-cy={`${dataCy}-wrapper`}
+          data-testid={`${dataTestId}-wrapper`}
+        >
           <InputContainer>
             <Description>Press enter to filter.</Description>
             <SearchInput
               ref={(el) => setInputRef(el)}
               aria-label="Search table"
               data-cy={`${dataCy}-input-filter`}
+              data-testid={`${dataTestId}-input-filter`}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && onEnter()}
               placeholder={placeholder}

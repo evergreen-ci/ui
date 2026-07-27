@@ -2,14 +2,12 @@ import { LeafygreenIconProps } from "../types";
 
 export const Ignored: React.ComponentType<LeafygreenIconProps> = ({
   className,
-  "data-cy": dataCy,
   fill,
   size = 16,
 }) => (
   <svg
     aria-label="Ignored Icon"
     className={className}
-    data-cy={dataCy}
     fill="currentColor"
     height={size}
     width={size}
