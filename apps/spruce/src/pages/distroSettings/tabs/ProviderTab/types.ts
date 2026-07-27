@@ -37,6 +37,7 @@ export type ProviderFormState = {
     sshKeyName: string;
     instanceProfileARN: string;
     elasticIpsEnabled: boolean;
+    enableNestedVirtualization: boolean;
     doNotAssignPublicIPv4Address: boolean;
     vpcOptions: {
       useVpc: boolean;
