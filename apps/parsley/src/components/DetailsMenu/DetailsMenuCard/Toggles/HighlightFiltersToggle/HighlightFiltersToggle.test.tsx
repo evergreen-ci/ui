@@ -17,7 +17,7 @@ describe("highlight filter toggle", () => {
 
   it("defaults to 'false' if stored value is unset", () => {
     render(<HighlightFiltersToggle />, { wrapper });
-    const highlightFiltersToggle = screen.getByDataCy(
+    const highlightFiltersToggle = screen.getByDataTestId(
       "highlight-filters-toggle",
     );
     expect(highlightFiltersToggle).toHaveAttribute("aria-checked", "false");
@@ -26,7 +26,7 @@ describe("highlight filter toggle", () => {
   it("should read from localStorage properly", () => {
     localStorage.setItem(HIGHLIGHT_FILTERS, "true");
     render(<HighlightFiltersToggle />, { wrapper });
-    const highlightFiltersToggle = screen.getByDataCy(
+    const highlightFiltersToggle = screen.getByDataTestId(
       "highlight-filters-toggle",
     );
     expect(highlightFiltersToggle).toHaveAttribute("aria-checked", "true");

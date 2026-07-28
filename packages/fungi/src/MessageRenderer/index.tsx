@@ -50,7 +50,7 @@ export const MessageRenderer: React.FC<
           return (
             <StyledMessage
               key={key}
-              data-cy={`message-${role}`}
+              data-testid={`message-${role}`}
               isSender={isSender}
               messageBody={displayText}
               sourceType={MessageSourceType.Markdown}

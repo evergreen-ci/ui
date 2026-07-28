@@ -68,7 +68,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
 
   return (
     <StyledActionCard
-      data-cy="tool-use-chip"
+      data-testid="tool-use-chip"
       description={description}
       onToggleExpanded={setIsExpanded}
       showExpandButton={!!renderedOutput}
@@ -84,7 +84,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
       ) : (
         renderedOutput &&
         isExpanded && (
-          <RichOutput data-cy="tool-output">{renderedOutput}</RichOutput>
+          <RichOutput data-testid="tool-output">{renderedOutput}</RichOutput>
         )
       )}
     </StyledActionCard>

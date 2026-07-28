@@ -126,7 +126,7 @@ describe("TaskOwnership", () => {
     expect(screen.getByText("Task owner:")).toBeInTheDocument();
     expect(screen.getByText("Evergreen UI Team")).toBeInTheDocument();
 
-    await user.hover(screen.getByDataTestid("info-sprinkle-icon"));
+    await user.hover(screen.getByDataTestId("info-sprinkle-icon"));
 
     await waitFor(() => {
       expect(
@@ -134,7 +134,7 @@ describe("TaskOwnership", () => {
       ).toBeInTheDocument();
     });
 
-    await user.unhover(screen.getByDataTestid("info-sprinkle-icon"));
+    await user.unhover(screen.getByDataTestId("info-sprinkle-icon"));
   });
 
   it("renders fallback text when no team name is available", async () => {

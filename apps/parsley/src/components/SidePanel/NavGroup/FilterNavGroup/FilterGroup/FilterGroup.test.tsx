@@ -31,12 +31,12 @@ describe("filters", () => {
       />,
     );
     await user.click(screen.getByLabelText("Edit filter"));
-    expect(screen.getByDataCy("edit-filter-name")).toBeInTheDocument();
-    expect(screen.getByDataCy("edit-filter-name")).toHaveValue(
+    expect(screen.getByDataTestId("edit-filter-name")).toBeInTheDocument();
+    expect(screen.getByDataTestId("edit-filter-name")).toHaveValue(
       defaultFilter.expression,
     );
 
-    expect(screen.getByDataCy("edit-filter-name")).toHaveFocus();
+    expect(screen.getByDataTestId("edit-filter-name")).toHaveFocus();
     const confirmButton = screen.getByRole("button", {
       name: "Apply",
     });
@@ -55,8 +55,8 @@ describe("filters", () => {
     );
     // Clear the text input and submit a new filter.
     await user.click(screen.getByLabelText("Edit filter"));
-    await user.clear(screen.getByDataCy("edit-filter-name"));
-    await user.type(screen.getByDataCy("edit-filter-name"), "newFilter");
+    await user.clear(screen.getByDataTestId("edit-filter-name"));
+    await user.type(screen.getByDataTestId("edit-filter-name"), "newFilter");
 
     const confirmButton = screen.getByRole("button", {
       name: "Apply",
@@ -83,16 +83,16 @@ describe("filters", () => {
     );
     // Clear the text input and submit a new filter.
     await user.click(screen.getByLabelText("Edit filter"));
-    await user.clear(screen.getByDataCy("edit-filter-name"));
+    await user.clear(screen.getByDataTestId("edit-filter-name"));
     await user.type(
-      screen.getByDataCy("edit-filter-name"),
+      screen.getByDataTestId("edit-filter-name"),
       "some [[invalid regex",
     );
     const confirmButton = screen.getByRole("button", {
       name: "Apply",
     });
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
-    await user.clear(screen.getByDataCy("edit-filter-name"));
+    await user.clear(screen.getByDataTestId("edit-filter-name"));
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -203,8 +203,8 @@ describe("filters", () => {
         filter={{ ...defaultFilter, expression: "invalid (regex" }}
       />,
     );
-    expect(screen.getByDataCy("validation-error-icon")).toBeInTheDocument();
-    await user.hover(screen.getByDataCy("validation-error-icon"));
+    expect(screen.getByDataTestId("validation-error-icon")).toBeInTheDocument();
+    await user.hover(screen.getByDataTestId("validation-error-icon"));
     await expect(
       screen.findByText("Invalid Regular Expression: Unterminated group"),
     ).resolves.toBeInTheDocument();
@@ -242,8 +242,8 @@ describe("filters", () => {
       name: "Apply",
     });
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
-    await user.clear(screen.getByDataCy("edit-filter-name"));
-    await user.type(screen.getByDataCy("edit-filter-name"), "newFilter");
+    await user.clear(screen.getByDataTestId("edit-filter-name"));
+    await user.type(screen.getByDataTestId("edit-filter-name"), "newFilter");
     expect(
       screen.queryByText("Invalid Regular Expression: Unterminated group"),
     ).not.toBeInTheDocument();
@@ -260,17 +260,17 @@ describe("filters", () => {
       />,
     );
     await user.click(screen.getByLabelText("Edit filter"));
-    expect(screen.getByDataCy("edit-filter-name")).toHaveValue(
+    expect(screen.getByDataTestId("edit-filter-name")).toHaveValue(
       defaultFilter.expression,
     );
-    await user.clear(screen.getByDataCy("edit-filter-name"));
+    await user.clear(screen.getByDataTestId("edit-filter-name"));
     expect(screen.getByText("Filter cannot be empty")).toBeInTheDocument();
     const cancelButton = screen.getByRole("button", {
       name: "Cancel",
     });
     await user.click(cancelButton);
     expect(screen.getByText(defaultFilter.expression)).toBeInTheDocument();
-    expect(screen.queryByDataCy("edit-filter-name")).toBeNull();
+    expect(screen.queryByDataTestId("edit-filter-name")).toBeNull();
     expect(screen.queryByText("Filter cannot be empty")).toBeNull();
   });
   it("if the filter group is collapsed, editing should expand it", async () => {
@@ -283,21 +283,18 @@ describe("filters", () => {
         filter={defaultFilter}
       />,
     );
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
-      "aria-expanded",
-      "true",
-    );
-    await user.click(screen.getByDataCy("accordion-toggle"));
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
-      "aria-expanded",
-      "false",
-    );
+    expect(
+      screen.getByDataTestId("accordion-collapse-container"),
+    ).toHaveAttribute("aria-expanded", "true");
+    await user.click(screen.getByDataTestId("accordion-toggle"));
+    expect(
+      screen.getByDataTestId("accordion-collapse-container"),
+    ).toHaveAttribute("aria-expanded", "false");
     await user.click(screen.getByLabelText("Edit filter"));
 
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
-      "aria-expanded",
-      "true",
-    );
+    expect(
+      screen.getByDataTestId("accordion-collapse-container"),
+    ).toHaveAttribute("aria-expanded", "true");
   });
   it("if the user is editing a filter and collapses the group, the edit should be cancelled", async () => {
     const user = userEvent.setup();
@@ -310,17 +307,15 @@ describe("filters", () => {
       />,
     );
     await user.click(screen.getByLabelText("Edit filter"));
-    expect(screen.getByDataCy("edit-filter-name")).toBeInTheDocument();
-    await user.click(screen.getByDataCy("accordion-toggle"));
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
-      "aria-expanded",
-      "false",
-    );
-    await user.click(screen.getByDataCy("accordion-toggle"));
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
-      "aria-expanded",
-      "true",
-    );
-    expect(screen.queryByDataCy("edit-filter-name")).toBeNull();
+    expect(screen.getByDataTestId("edit-filter-name")).toBeInTheDocument();
+    await user.click(screen.getByDataTestId("accordion-toggle"));
+    expect(
+      screen.getByDataTestId("accordion-collapse-container"),
+    ).toHaveAttribute("aria-expanded", "false");
+    await user.click(screen.getByDataTestId("accordion-toggle"));
+    expect(
+      screen.getByDataTestId("accordion-collapse-container"),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(screen.queryByDataTestId("edit-filter-name")).toBeNull();
   });
 });

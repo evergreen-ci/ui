@@ -13,7 +13,7 @@ const SearchCount: React.FC<SearchCountProps> = ({
   matchingSearchCount,
 }) => (
   <StyledBody
-    data-cy="search-count"
+    data-testid="search-count"
     has-matches={`${matchingSearchCount !== 0}`}
   >
     {matchingSearchCount !== 0

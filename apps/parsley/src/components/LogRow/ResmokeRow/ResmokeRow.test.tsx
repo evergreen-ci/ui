@@ -30,12 +30,12 @@ describe("resmokeRow", () => {
   });
   it("does not render a resmoke row if getLine returns undefined", () => {
     renderRow({ ...resmokeProps, lineIndex: 99, lineNumber: 99 }, {});
-    expect(screen.queryByDataCy("resmoke-row")).toBeNull();
+    expect(screen.queryByDataTestId("resmoke-row")).toBeNull();
   });
   it("renders a resmoke row if getLine returns an empty string", () => {
     renderRow({ ...resmokeProps, lineIndex: 9, lineNumber: 9 }, {});
 
-    expect(screen.getByDataCy("resmoke-row")).toBeInTheDocument();
+    expect(screen.getByDataTestId("resmoke-row")).toBeInTheDocument();
   });
   it("displays a log line and its text for a given index", () => {
     renderRow({ ...resmokeProps, lineIndex: 0, lineNumber: 0 }, {});
@@ -53,7 +53,7 @@ describe("resmokeRow", () => {
     );
 
     expect(getResmokeLineColor).toHaveBeenCalledWith(7);
-    expect(screen.getByDataCy("resmoke-row")).toHaveStyle("color: #ff0000");
+    expect(screen.getByDataTestId("resmoke-row")).toHaveStyle("color: #ff0000");
   });
   it("should highlight text that match a search term", () => {
     renderRow(
@@ -61,7 +61,7 @@ describe("resmokeRow", () => {
       {},
     );
 
-    expect(screen.queryByDataCy("highlight")).toHaveTextContent("mongod");
+    expect(screen.queryByDataTestId("highlight")).toHaveTextContent("mongod");
   });
   it("should highlight text that have a matching highlight term", () => {
     renderRow(
@@ -74,7 +74,7 @@ describe("resmokeRow", () => {
       {},
     );
 
-    expect(screen.queryByDataCy("highlight")).toHaveTextContent("mongod");
+    expect(screen.queryByDataTestId("highlight")).toHaveTextContent("mongod");
   });
 
   it("should pretty print logs", () => {

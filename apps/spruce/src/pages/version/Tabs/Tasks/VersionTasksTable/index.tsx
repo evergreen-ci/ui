@@ -89,6 +89,17 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             "task.id": taskId,
             "task.status": status ?? "",
           }),
+        onClickTaskStatusBadge: (
+          taskId: string,
+          status: string,
+          column: string,
+        ) =>
+          sendEvent({
+            name: "Clicked task table status badge",
+            "task.id": taskId,
+            "task.status": status,
+            column: column,
+          }),
       }),
     [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
   );

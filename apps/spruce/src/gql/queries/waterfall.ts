@@ -15,7 +15,7 @@ export const WATERFALL = gql`
         order
         requester
         revision
-        user: userLite {
+        user {
           displayName
           userId: id
         }

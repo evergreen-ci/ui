@@ -114,7 +114,7 @@ test.describe("Searching", () => {
   test("should be able to search on filtered content", async ({ page }) => {
     await helpers.addFilter(page, "conn49");
 
-    const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+    const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
     await expect(skippedLines).toHaveCount(7);
 
     await helpers.addSearch(page, "NETWORK");
@@ -128,7 +128,7 @@ test.describe("Searching", () => {
     const filter = "nonexistent-term";
     await helpers.addFilter(page, filter);
 
-    const skippedLines = page.locator("[data-cy^='skipped-lines-row-']");
+    const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
     await expect(skippedLines).toHaveCount(1);
 
     await helpers.addSearch(page, "conn49");

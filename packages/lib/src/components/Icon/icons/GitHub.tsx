@@ -5,14 +5,12 @@ const { black } = palette;
 
 export const GitHub: React.ComponentType<LeafygreenIconProps> = ({
   className,
-  "data-cy": dataCy,
   fill = black,
   onClick,
 }) => (
   <svg
     aria-label="GitHub Icon"
     className={className}
-    data-cy={dataCy}
     fill="none"
     height={16}
     onClick={onClick}

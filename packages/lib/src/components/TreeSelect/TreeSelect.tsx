@@ -10,6 +10,8 @@ const { gray } = palette;
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
 export interface TreeSelectProps {
+  "data-cy"?: string;
+  "data-testid"?: string;
   isVisible?: boolean;
   onChange: (s: string[]) => void;
   setOptionsLabel?: (v: string) => void;
@@ -17,7 +19,6 @@ export interface TreeSelectProps {
   tData: TreeDataEntry[];
   onReset?: () => void;
   onFilter?: () => void;
-  "data-cy"?: string;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -30,6 +31,7 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 
 export const TreeSelect: React.FC<TreeSelectProps> = ({
   "data-cy": dataCy,
+  "data-testid": dataTestId,
   isVisible = true,
   onChange,
   onFilter,
@@ -48,17 +50,17 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
           // remove children nodes if parent exists in state
           (accum, value) => {
             const { target } = findNode({ value, tData });
-            if (target.children) {
+            if (target?.children) {
+              const { children } = target;
               return accum.filter(
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                (v) => !target.children.find((child) => child.value === v),
+                (v) => !children.find((child) => child.value === v),
               );
             }
             return accum;
           },
           [...filteredState],
         )
-        .map((value) => findNode({ value, tData }).target.title)
+        .map((value) => findNode({ value, tData }).target?.title ?? value)
         .join(", ");
 
   useEffect(() => {
@@ -70,7 +72,10 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   }
 
   return (
-    <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
+    <CheckboxContainer
+      data-cy={dataCy || "tree-select-options"}
+      data-testid={dataTestId || "tree-select-options"}
+    >
       {renderCheckboxes({
         state: filteredState,
         tData,
@@ -97,11 +102,10 @@ const renderCheckboxes = ({
 }: {
   tData: TreeDataEntry[];
   state: string[];
-  onChange: (v: [string]) => void;
+  onChange: (v: string[]) => void;
 }): React.JSX.Element[] => {
   const rows: React.JSX.Element[] = [];
   tData.forEach((entry) => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
   });
   return rows;
@@ -128,7 +132,6 @@ const renderCheckboxesHelper = ({
       <Checkbox
         bold={false}
         checked={state.includes(data.value)}
-        className="cy-checkbox"
         label={data.title}
         onChange={onChangeFn}
       />
@@ -148,7 +151,6 @@ const renderCheckboxesHelper = ({
           <Checkbox
             bold={false}
             checked={state.includes(child.value)}
-            className="cy-checkbox"
             label={child.title}
             onChange={onChangeChildFn}
           />
@@ -172,21 +174,20 @@ const handleOnChange = ({
 }): void => {
   const isAlreadyChecked = state.includes(value); // is checkbox already selected
   const { parent, siblings, target } = findNode({ value, tData });
-  const isParent = target.children;
-  const isAll = target.value === ALL_VALUE; // is all button clicked
   if (!target) {
     onChange([...state]);
+    return;
   }
   // is all button checked
+  const isAll = target.value === ALL_VALUE;
   if (isAll) {
     if (isAlreadyChecked) {
       onChange([]);
     } else {
       onChange(getAllValues(tData));
     }
-  } else if (isParent) {
+  } else if (target.children) {
     // has list of children
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const childrenValues = target.children.map((child) => child.value);
     if (isAlreadyChecked) {
       onChange(
@@ -254,8 +255,8 @@ const adjustAll = ({
 };
 
 interface FindNodeResult {
-  target: TreeDataEntry;
-  parent: TreeDataEntry;
+  target: TreeDataEntry | null;
+  parent: TreeDataEntry | null;
   siblings: TreeDataEntry[] | TreeDataChildEntry[];
 }
 
@@ -270,7 +271,6 @@ const findNode = ({
     if (curr.value === value) {
       return {
         target: curr,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         parent: null,
         siblings: tData.filter((v) => v.value !== value),
       };
@@ -287,9 +287,7 @@ const findNode = ({
     }
   }
   return {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     target: null,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     parent: null,
     siblings: [],
   };
@@ -297,11 +295,10 @@ const findNode = ({
 
 // returns all values in tData from parents and children
 const getAllValues = (tData: TreeDataEntry[]): string[] =>
-  tData.reduce((accum, currNode) => {
+  tData.reduce<string[]>((accum, currNode) => {
     const childrenValues = currNode.children
       ? currNode.children.map((child) => child.value)
       : [];
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     return accum.concat([currNode.value]).concat(childrenValues);
   }, []);
 

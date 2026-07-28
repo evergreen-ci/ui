@@ -22,7 +22,7 @@ describe("pretty print toggle", () => {
 
   it("defaults to 'false'", () => {
     render(<PrettyPrintToggle />, { wrapper });
-    const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
+    const prettyPrintToggle = screen.getByDataTestId("pretty-print-toggle");
     expect(prettyPrintToggle).toHaveAttribute("aria-checked", "false");
   });
 
@@ -36,7 +36,7 @@ describe("pretty print toggle", () => {
     act(() => {
       hook.current.setLogMetadata({ renderingType: LogRenderingTypes.Resmoke });
     });
-    const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
+    const prettyPrintToggle = screen.getByDataTestId("pretty-print-toggle");
 
     await user.click(prettyPrintToggle);
     expect(prettyPrintToggle).toHaveAttribute("aria-checked", "true");

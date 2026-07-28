@@ -25,7 +25,7 @@ describe("evergreen task subheader", () => {
     });
     // check_codegen task should be failing
     expect(screen.getByText("check_codegen")).toBeInTheDocument();
-    expect(screen.getByDataCy("task-status-badge").textContent).toContain(
+    expect(screen.getByDataTestId("task-status-badge").textContent).toContain(
       "Failed",
     );
     // JustAFakeTestInALonelyWorld test should not be in the document

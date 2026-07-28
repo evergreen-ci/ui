@@ -37,7 +37,7 @@ const AnsiRow: React.FC<AnsiRowProps> = ({ getLine, lineNumber, ...rest }) => {
   return (
     <BaseRow
       color={severity ? mapLogLevelToColor[severity] : undefined}
-      data-cy="ansi-row"
+      data-testid="ansi-row"
       lineNumber={lineNumber}
       {...rest}
     >

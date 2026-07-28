@@ -13,4 +13,4 @@ export const users = {
   regular: { username: "regular", password: "password" },
 };
 
-export const toastDataCy = "toast";
+export const toastDataCy = "lg-toast";
