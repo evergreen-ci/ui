@@ -7,13 +7,15 @@ import {
   requesterToTitle,
 } from "constants/requesters";
 
-const RequesterTypeField: Field = ({ formData }: { formData: Requester }) =>
-  requesterToDescription[formData] ? (
+const RequesterTypeField: Field<Requester> = ({ formData }) => {
+  if (!formData) return null;
+  return requesterToDescription[formData] ? (
     <InlineDefinition definition={requesterToDescription[formData]}>
       {requesterToTitle[formData]}
     </InlineDefinition>
   ) : (
     <Body>{requesterToTitle[formData]}</Body>
   );
+};
 
 export default RequesterTypeField;

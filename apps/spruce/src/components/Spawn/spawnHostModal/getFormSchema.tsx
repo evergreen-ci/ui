@@ -128,7 +128,6 @@ export const getFormSchema = ({
               type: "string" as const,
               title: "Distro",
               default: distroIdQueryParam,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               enum: distros?.map(({ name }) => name),
               minLength: 1,
             },
@@ -150,9 +149,7 @@ export const getFormSchema = ({
             },
           },
         },
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         publicKeySection: publicKeys.schema,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         expirationDetails: expirationDetails.schema,
         optionalInformationTitle: {
           title: "Optional Host Details",
@@ -513,9 +510,9 @@ export const getFormSchema = ({
             "ui:customLabel": (
               <>
                 Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b>{" "}
-                {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-                @ <b>{shortenGithash(revision)}</b> onto host at startup (These
-                files will typically be in <InlineCode>/data/mci</InlineCode>)
+                @ <b>{shortenGithash(revision ?? undefined)}</b> onto host at
+                startup (These files will typically be in{" "}
+                <InlineCode>/data/mci</InlineCode>)
               </>
             ),
             "ui:elementWrapperCSS": dropMarginBottomCSS,

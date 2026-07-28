@@ -1,14 +1,16 @@
 import styled from "@emotion/styled";
-import { ArrayFieldTemplateProps } from "@rjsf/utils";
+import {
+  ArrayFieldItemTemplateProps,
+  ArrayFieldTemplateProps,
+} from "@rjsf/utils";
 import {
   BaseTable,
   LGColumnDef,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { tableColumnOffset } from "constants/tokens";
 
-type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;
+type ArrayItem = ArrayFieldTemplateProps["items"][number];
 
 export const ArrayFieldTemplate: React.FC<
   Pick<ArrayFieldTemplateProps, "items">
@@ -34,6 +36,7 @@ const HeaderLabel = styled.span`
 
 const columns: LGColumnDef<ArrayItem>[] = [
   {
+    id: "fields",
     header: () => (
       <>
         <HeaderLabel>Requester Type</HeaderLabel>
@@ -42,7 +45,10 @@ const columns: LGColumnDef<ArrayItem>[] = [
         </HeaderLabel>
       </>
     ),
-    accessorKey: "children",
-    cell: ({ row }) => row.original.children,
+    cell: ({ row }) => row.original as ArrayItem,
   },
 ];
+
+export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
+  children,
+}) => children;

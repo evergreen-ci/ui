@@ -20,7 +20,7 @@ const Field = () => (
     <DeleteProjectField
       {...({} as unknown as FieldProps)}
       uiSchema={{
-        options: {
+        "ui:options": {
           projectId: "evergreen",
         },
       }}

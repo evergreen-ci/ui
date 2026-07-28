@@ -23,6 +23,7 @@ export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
   (
     {
       customFormatFields,
+      customValidate,
       disabled,
       fields,
       formData,
@@ -31,7 +32,6 @@ export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
       schema,
       tagName,
       uiSchema,
-      validate,
       ...args
     },
     ref,
@@ -56,13 +56,13 @@ export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
     return (
       <Form
         ref={ref}
-        customValidate={validate}
+        customValidate={customValidate as never}
         disabled={disabled}
         fields={{ ...baseFields, ...fields }}
         formData={formData}
         liveValidate={liveValidate ? "onChange" : false}
         noHtml5Validate
-        onChange={onChange}
+        onChange={onChange as never}
         schema={schema}
         showErrorList={liveValidate ? false : "top"}
         tagName={tagName}

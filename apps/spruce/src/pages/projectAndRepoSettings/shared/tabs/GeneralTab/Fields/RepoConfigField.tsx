@@ -14,21 +14,20 @@ import { MoveRepoModal } from "./MoveRepoModal";
 
 export const RepoConfigField: Field = ({
   disabled,
+  fieldPathId,
   formData,
   onChange,
   schema,
   uiSchema,
 }) => {
   const {
-    options: {
-      initialOwner,
-      initialRepo,
-      projectId,
-      projectType,
-      repoName,
-      repoOwner,
-    },
-  } = uiSchema;
+    initialOwner,
+    initialRepo,
+    projectId,
+    projectType,
+    repoName,
+    repoOwner,
+  } = uiSchema?.["ui:options"] ?? {};
   const isRepo = projectType === ProjectType.Repo;
   const isAttachedProject = projectType === ProjectType.AttachedProject;
   const [moveModalOpen, setMoveModalOpen] = useState(false);
@@ -46,7 +45,9 @@ export const RepoConfigField: Field = ({
       <SpruceForm
         disabled={disabled || projectType !== ProjectType.Project}
         formData={formData}
-        onChange={({ formData: formUpdate }) => onChange(formUpdate)}
+        onChange={({ formData: formUpdate }) =>
+          onChange(formUpdate, fieldPathId.path)
+        }
         schema={schema}
         tagName="fieldset"
         uiSchema={uiSchema}

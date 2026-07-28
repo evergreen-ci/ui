@@ -66,9 +66,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
 };
 
 export const RepotrackerField: Field = ({ disabled, uiSchema }) => {
-  const {
-    options: { projectId },
-  } = uiSchema;
+  const { projectId } = uiSchema?.["ui:options"] ?? {};
 
   const [open, setOpen] = useState(false);
 

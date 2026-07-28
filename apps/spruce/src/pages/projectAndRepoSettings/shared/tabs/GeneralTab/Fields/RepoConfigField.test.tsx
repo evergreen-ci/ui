@@ -54,7 +54,7 @@ const Field = ({
       {...fieldProps}
       formData={formData}
       uiSchema={{
-        options: {
+        "ui:options": {
           initialOwner: "evergreen-ci",
           initialRepo: "logkeeper",
           repoName: "evergreen",

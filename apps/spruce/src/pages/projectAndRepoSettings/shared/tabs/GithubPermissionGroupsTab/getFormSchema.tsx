@@ -10,7 +10,7 @@ import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
 } from "constants/routes";
-import { ArrayFieldTemplate } from "./FieldTemplates";
+import { ArrayFieldItemTemplate, ArrayFieldTemplate } from "./FieldTemplates";
 
 export const getFormSchema = ({
   defaultsToRepo,
@@ -180,6 +180,7 @@ const itemsUISchema = {
   },
   permissions: {
     "ui:ArrayFieldTemplate": ArrayFieldTemplate,
+    "ui:ArrayFieldItemTemplate": ArrayFieldItemTemplate,
     "ui:addButtonText": "Add permission",
     "ui:addToEnd": true,
     "ui:orderable": false,

@@ -29,7 +29,7 @@ const Field = ({
       <GithubAppActions
         {...({} as unknown as FieldProps)}
         uiSchema={{
-          options: {
+          "ui:options": {
             projectOrRepoId: "evergreen",
             isAppDefined,
             isRepo,

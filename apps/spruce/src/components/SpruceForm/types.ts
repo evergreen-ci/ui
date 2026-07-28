@@ -1,20 +1,30 @@
-import { FormProps } from "@rjsf/core";
+import { FormProps, IChangeEvent } from "@rjsf/core";
 import {
   Field,
+  FieldValidation,
   FormContextType,
-  FormValidation,
   ObjectFieldTemplateProps,
   RJSFSchema,
   StrictRJSFSchema,
 } from "@rjsf/utils";
 
 // typescript utility to recursively iterate through an object and add a method called addError to each property
-export type ValidateProps<T> = (
-  formData: T | undefined,
-  errors: FormValidation<T>,
-) => FormValidation<T>;
+export type RecursivelyAddError<T> = T extends object
+  ? {
+      [K in keyof T]: RecursivelyAddError<T[K]>;
+    } & FieldValidation
+  : FieldValidation;
 
-export type RecursivelyAddError<T> = FormValidation<T>;
+export type ValidateProps<T> = {
+  bivarianceHack(
+    formData: T,
+    errors: RecursivelyAddError<T>,
+  ): RecursivelyAddError<T>;
+}["bivarianceHack"];
+
+export type SpruceChangeEvent<T> = Omit<IChangeEvent<T>, "formData"> & {
+  formData: T;
+};
 
 type CustomFormatFields = {
   jiraHost?: string;
@@ -27,11 +37,16 @@ export type SpruceFormProps<
   S extends StrictRJSFSchema = RJSFSchema,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   F extends FormContextType = any,
-> = Pick<FormProps<T, S, F>, "schema" | "onChange" | "formData"> &
-  Omit<Partial<FormProps<T, S, F>>, "customValidate"> & {
+> = Pick<FormProps<T, S, F>, "schema"> &
+  Omit<
+    Partial<FormProps<T, S, F>>,
+    "customValidate" | "formData" | "onChange"
+  > & {
+    customValidate?: ValidateProps<T>;
     customFormatFields?: CustomFormatFields;
+    formData?: T;
     ObjectFieldTemplate?: React.ComponentType<ObjectFieldTemplateProps>;
-    validate?: ValidateProps<T>;
+    onChange?: (data: SpruceChangeEvent<T>, id?: string) => void;
   };
 
 export type GetFormSchema<T = unknown, P extends unknown[] = never[]> = (

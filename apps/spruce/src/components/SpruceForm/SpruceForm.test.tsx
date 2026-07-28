@@ -79,11 +79,11 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
+                customValidate={validate}
                 formData={formData}
                 onChange={onChange}
                 schema={schema}
                 uiSchema={uiSchema}
-                validate={validate}
               />
             </SpruceFormContainer>,
           );
@@ -174,11 +174,11 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
+                customValidate={validate}
                 formData={formData}
                 onChange={onChange}
                 schema={schema}
                 uiSchema={uiSchema}
-                validate={validate}
               />
             </SpruceFormContainer>,
           );

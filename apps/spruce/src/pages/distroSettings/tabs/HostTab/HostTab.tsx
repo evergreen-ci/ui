@@ -23,10 +23,9 @@ export const HostTab: React.FC<TabProps> = ({
 
   return (
     <BaseTab
+      customValidate={validate}
       formSchema={formSchema}
       initialFormState={distroData}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      validate={validate}
     />
   );
 };

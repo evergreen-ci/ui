@@ -21,7 +21,7 @@ const Field = () => (
     <DeactivateStepbackTaskField
       {...({} as unknown as FieldProps)}
       uiSchema={{
-        options: {
+        "ui:options": {
           projectId: "evergreen",
         },
       }}

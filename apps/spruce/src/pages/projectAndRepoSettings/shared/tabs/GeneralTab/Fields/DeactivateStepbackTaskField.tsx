@@ -84,9 +84,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
 };
 
 export const DeactivateStepbackTaskField: Field = ({ disabled, uiSchema }) => {
-  const {
-    options: { projectId },
-  } = uiSchema;
+  const { projectId } = uiSchema?.["ui:options"] ?? {};
 
   const [open, setOpen] = useState(false);
   const id = "deactivate-stepback-button";
