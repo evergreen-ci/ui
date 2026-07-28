@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { ObjectFieldTemplateProps } from "@rjsf/utils";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getFields } from "components/SpruceForm/utils";
 

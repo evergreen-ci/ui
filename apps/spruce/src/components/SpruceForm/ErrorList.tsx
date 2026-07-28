@@ -1,5 +1,5 @@
 import { Banner, Variant } from "@leafygreen-ui/banner";
-import { ErrorListProps } from "@rjsf/core";
+import { ErrorListProps } from "@rjsf/utils";
 
 export const ErrorList: React.FC<ErrorListProps> = ({ errors }) => (
   <Banner variant={Variant.Danger}>

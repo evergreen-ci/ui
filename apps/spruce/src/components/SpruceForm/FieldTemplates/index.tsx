@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
-import { FieldTemplateProps } from "@rjsf/core";
+import { FieldTemplateProps } from "@rjsf/utils";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TitleField as CustomTitleField } from "../CustomFields";
 import { SpruceWidgetProps } from "../Widgets/types";
@@ -21,7 +21,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   label,
   rawErrors,
   schema,
-  uiSchema,
+  uiSchema = {},
 }) => {
   const isNullType = schema.type === "null";
   const sectionId = uiSchema["ui:sectionId"] ?? "";

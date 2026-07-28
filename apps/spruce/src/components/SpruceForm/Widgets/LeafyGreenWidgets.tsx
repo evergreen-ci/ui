@@ -53,7 +53,7 @@ export const LeafyGreenTextInput: React.FC<
     warnings,
   } = options;
 
-  const { errors, hasError } = processErrors(rawErrors);
+  const { errors, hasError } = processErrors(rawErrors ?? []);
   const emptyValue = options.emptyValue ?? "";
 
   const inputProps = {
@@ -256,7 +256,7 @@ export const LeafyGreenSelect: React.FC<
     optionsLabelMap,
     sizeVariant,
   } = options;
-  const { hasError } = processErrors(rawErrors);
+  const { hasError } = processErrors(rawErrors ?? []);
 
   const isDisabled = disabled || readonly;
   const labelProps: OneOf<{ label: string }, { "aria-labelledby": string }> =
@@ -386,7 +386,7 @@ export const LeafyGreenRadioBox: React.FC<
   } = options;
 
   // Workaround because {ui:widget: hidden} does not play nicely with this widget
-  const hide = uiSchema["ui:hide"] ?? false;
+  const hide = uiSchema?.["ui:hide"] ?? false;
   if (hide) {
     return null;
   }
@@ -469,7 +469,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
     rows,
   } = options;
 
-  const { errors, hasError } = processErrors(rawErrors);
+  const { errors, hasError } = processErrors(rawErrors ?? []);
   const el = useRef<HTMLTextAreaElement>();
 
   useEffect(() => {

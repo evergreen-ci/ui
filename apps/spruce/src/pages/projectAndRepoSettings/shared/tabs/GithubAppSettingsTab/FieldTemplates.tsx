@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ArrayFieldTemplateProps } from "@rjsf/core";
+import { ArrayFieldTemplateProps } from "@rjsf/utils";
 import {
   BaseTable,
   LGColumnDef,

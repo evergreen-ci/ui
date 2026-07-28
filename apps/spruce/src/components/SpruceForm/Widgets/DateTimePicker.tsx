@@ -26,7 +26,7 @@ export const DateTimePicker: React.FC<
     };
   } & SpruceWidgetProps
 > = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
-  const isDisabled = disabled || readonly;
+  const isDisabled = Boolean(disabled || readonly);
   const {
     description,
     disableAfter,
@@ -108,7 +108,7 @@ export const TimePicker: React.FC<SpruceWidgetProps> = ({
   value,
 }) => {
   const { description, elementWrapperCSS } = options;
-  const isDisabled = disabled || readonly;
+  const isDisabled = Boolean(disabled || readonly);
   const currentDateTime = new Date(value || null);
 
   const handleChange = (d?: DateType) => {

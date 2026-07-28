@@ -4,10 +4,12 @@ import { Button } from "@leafygreen-ui/button";
 import { ExpandableCard } from "@leafygreen-ui/expandable-card";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { ArrayFieldTemplateProps } from "@rjsf/core";
+import {
+  ArrayFieldItemTemplateProps,
+  ArrayFieldTemplateProps,
+} from "@rjsf/utils";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { PlusButton } from "components/Buttons";
 import ElementWrapper from "../../ElementWrapper";
 import { STANDARD_FIELD_WIDTH } from "../../utils";
@@ -17,37 +19,39 @@ const { gray } = palette;
 // top of the text box itself.
 const labelOffset = size.m;
 
-const ArrayItem: React.FC<
-  {
-    border: boolean;
-    title: string;
-    topAlignDelete: boolean;
-    useExpandableCard: boolean;
-    arrayItemCss: SerializedStyles;
-  } & Unpacked<ArrayFieldTemplateProps["items"]>
-> = ({
-  arrayItemCss,
-  border,
+export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
+  buttonsProps,
   children,
   disabled,
-  hasMoveDown,
-  hasMoveUp,
-  hasRemove,
   index,
-  onDropIndexClick,
-  onReorderClick,
+  itemKey,
+  parentUiSchema = {},
   readonly,
-  title,
-  topAlignDelete,
-  useExpandableCard,
 }) => {
+  const {
+    hasMoveDown,
+    hasMoveUp,
+    hasRemove,
+    onMoveDownItem,
+    onMoveUpItem,
+    onRemoveItem,
+  } = buttonsProps;
+  const arrayItemCss = parentUiSchema["ui:arrayItemCSS"] as SerializedStyles;
+  const border = parentUiSchema["ui:border"] ?? false;
+  const topAlignDelete = parentUiSchema["ui:topAlignDelete"] ?? false;
+  const useExpandableCard = parentUiSchema["ui:useExpandableCard"] ?? false;
+  const itemUiSchema =
+    typeof parentUiSchema.items === "function"
+      ? {}
+      : (parentUiSchema.items ?? {});
+  const title = itemUiSchema["ui:displayTitle"] ?? "";
   const isDisabled = disabled || readonly;
   const deleteButton = (
     <Button
       data-cy="delete-item-button"
       disabled={isDisabled}
       leftGlyph={<Icon glyph="Trash" />}
-      onClick={onDropIndexClick(index)}
+      onClick={onRemoveItem}
       size="small"
     />
   );
@@ -66,21 +70,26 @@ const ArrayItem: React.FC<
       {children}
     </StyledExpandableCard>
   ) : (
-    <ArrayItemRow key={index} border={border} css={arrayItemCss} index={index}>
+    <ArrayItemRow
+      key={itemKey}
+      border={border}
+      css={arrayItemCss}
+      index={index}
+    >
       {(hasMoveUp || hasMoveDown) && !readonly && (
         <OrderControls topAlignDelete={topAlignDelete}>
           {hasMoveUp && (
             <Button
               data-cy="array-up-button"
               leftGlyph={<Icon glyph="ArrowUp" />}
-              onClick={onReorderClick(index, index - 1)}
+              onClick={onMoveUpItem}
             />
           )}
           {hasMoveDown && (
             <Button
               data-cy="array-down-button"
               leftGlyph={<Icon glyph="ArrowDown" />}
-              onClick={onReorderClick(index, index + 1)}
+              onClick={onMoveDownItem}
             />
           )}
         </OrderControls>
@@ -106,52 +115,31 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
   padding: ${size.m};
     `};
 
-  .field-object {
+  .rjsf-field-object {
     flex-grow: 1;
   }
 `;
 
-/**
- * `ArrayFieldTemplate` is a custom field template for arrays that renders an array of fields.
- * @param props ArrayFieldTemplateProps
- * @param props.canAdd - Whether or not the user can add new items to the array.
- * @param props.DescriptionField - A custom field for rendering the array's description.
- * @param props.disabled - Whether or not the field is disabled.
- * @param props.formData - The form's data.
- * @param props.idSchema - The field's ID schema.
- * @param props.items - An array of items to render.
- * @param props.onAddClick - A callback function for when the user clicks the add button.
- * @param props.readonly - Whether or not the field is readonly. // jsdoc/valid-types is disabled for this file due to // https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/104
- * @param props.required - Whether or not the field is required.
- * @param props.schema - The field's schema.
- * @param props.title - The field's title.
- * @param props.TitleField - A custom field for rendering the array's title.
- * @param props.uiSchema - The field's UI schema.
- * @returns JSX.Element
- */
 export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
-  DescriptionField,
-  TitleField,
   canAdd,
   disabled,
-  formData,
-  idSchema,
+  fieldPathId,
   items,
   onAddClick,
   readonly,
+  registry,
   required,
   schema,
   title,
-  uiSchema,
+  uiSchema = {},
 }) => {
-  const id = idSchema.$id;
+  const id = fieldPathId.$id;
+  const { DescriptionFieldTemplate, TitleFieldTemplate } = registry.templates;
   const description = uiSchema["ui:description"] || schema.description;
-  const border = uiSchema["ui:border"] ?? false;
   const descriptionNode = uiSchema["ui:descriptionNode"];
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const placeholder = uiSchema["ui:placeholder"];
   const showLabel = uiSchema["ui:showLabel"] ?? true;
-  const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
   const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
   const isDisabled = disabled || readonly;
 
@@ -161,12 +149,17 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const arrayDataCy = uiSchema["ui:data-cy"];
 
   const arrayCss = uiSchema["ui:arrayCSS"];
-  const arrayItemCss = uiSchema["ui:arrayItemCSS"];
 
   // Override RJSF's default array behavior; add new elements to beginning of array unless otherwise specified.
   const addToEnd = uiSchema["ui:addToEnd"] ?? false;
   const handleAddClick =
-    items.length && !addToEnd ? items[0].onAddIndexClick(0) : onAddClick;
+    items.length && !addToEnd
+      ? (event?: React.MouseEvent) =>
+          (onAddClick as (event?: React.MouseEvent, index?: number) => void)(
+            event,
+            0,
+          )
+      : onAddClick;
 
   const addButton = (
     <PlusButton
@@ -186,10 +179,23 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   return (
     <>
       {showLabel && (
-        <TitleField id={`${id}__title`} required={required} title={title} />
+        <TitleFieldTemplate
+          id={`${id}__title`}
+          registry={registry}
+          required={required}
+          schema={schema}
+          title={title}
+          uiSchema={uiSchema}
+        />
       )}
       {descriptionNode || (
-        <DescriptionField description={description} id={`${id}__description`} />
+        <DescriptionFieldTemplate
+          description={description ?? ""}
+          id={`${id}__description`}
+          registry={registry}
+          schema={schema}
+          uiSchema={uiSchema}
+        />
       )}
       {buttonAtBeginning && (
         <AddButtonContainer>
@@ -207,20 +213,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         {items.length === 0 && placeholder && (
           <Placeholder>{placeholder}</Placeholder>
         )}
-        {items.map((p, i) => (
-          <ArrayItem
-            {...p}
-            key={p.key}
-            arrayItemCss={arrayItemCss}
-            border={border}
-            title={
-              formData?.[i]?.displayTitle ??
-              uiSchema?.items?.["ui:displayTitle"]
-            }
-            topAlignDelete={topAlignDelete}
-            useExpandableCard={useExpandableCard}
-          />
-        ))}
+        {items}
         {buttonAtEnd && (
           <AddButtonContainer>
             {addButton}

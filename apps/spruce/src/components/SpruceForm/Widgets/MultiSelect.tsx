@@ -54,7 +54,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
             tData={dropdownOptions}
           />
         </Dropdown>
-        {rawErrors?.length > 0 && (
+        {(rawErrors?.length ?? 0) > 0 && (
           <span className="error">{rawErrors?.join(", ")}</span>
         )}
       </Container>

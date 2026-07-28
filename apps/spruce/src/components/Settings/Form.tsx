@@ -19,7 +19,7 @@ export type FormProps<
   validate?: ValidateProps<FormStateMap[T]>;
 } & Omit<
   SpruceFormProps,
-  "fields" | "formData" | "onChange" | "schema" | "uiSchema" | "validate"
+  "fields" | "formData" | "onChange" | "schema" | "uiSchema"
 >;
 
 export const Form = <

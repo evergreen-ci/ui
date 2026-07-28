@@ -1,11 +1,11 @@
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 import { allowedSymbols } from "utils/validators";
 
 export enum Errors {
   Invisible = "invisible",
 }
 
-export const transformErrors = (errors: AjvError[]) =>
+export const transformErrors = (errors: RJSFValidationError[]) =>
   errors
     .map((error) => {
       switch (error.name) {

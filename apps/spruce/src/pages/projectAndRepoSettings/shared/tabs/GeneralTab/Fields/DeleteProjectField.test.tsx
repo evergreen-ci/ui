@@ -1,4 +1,4 @@
-import { FieldProps } from "@rjsf/core";
+import { FieldProps } from "@rjsf/utils";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,

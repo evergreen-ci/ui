@@ -1,6 +1,6 @@
 import { InlineDefinition } from "@leafygreen-ui/inline-definition";
 import { Body } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
+import { Field } from "@rjsf/utils";
 import {
   Requester,
   requesterToDescription,
