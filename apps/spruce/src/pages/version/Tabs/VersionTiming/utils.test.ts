@@ -1,5 +1,11 @@
-import { GANTT_CHART_COLUMN_HEADERS, TaskDurationData } from "./types";
 import {
+  ChildVersionTimingData,
+  GANTT_CHART_COLUMN_HEADERS,
+  TaskDurationData,
+} from "./types";
+import {
+  getDownstreamProjectRowId,
+  getDownstreamVersionId,
   transformTaskDurationDataToTaskGanttChartData,
   transformTaskDurationDataToVariantGanttChartData,
 } from "./utils";
@@ -44,6 +50,49 @@ describe("transformVersionDataToVariantGanttChartData", () => {
   it("should handle empty data", () => {
     const result = transformTaskDurationDataToVariantGanttChartData(undefined);
     expect(result).toEqual([GANTT_CHART_COLUMN_HEADERS]);
+  });
+
+  it("should include completed downstream projects with distinct row IDs", () => {
+    const childVersions = [
+      {
+        id: "child_version",
+        projectMetadata: { identifier: "pine" },
+        startTime: "2025-04-18T01:00:00Z",
+        finishTime: "2025-04-19T02:00:00Z",
+      },
+      {
+        id: "unfinished_child_version",
+        projectMetadata: { identifier: "unfinished" },
+        startTime: "2025-04-18T01:00:00Z",
+        finishTime: null,
+      },
+    ] as unknown as ChildVersionTimingData[];
+
+    const result = transformTaskDurationDataToVariantGanttChartData(
+      undefined,
+      childVersions,
+    );
+
+    expect(result).toEqual([
+      GANTT_CHART_COLUMN_HEADERS,
+      [
+        getDownstreamProjectRowId("child_version"),
+        "pine (downstream)",
+        "",
+        new Date("2025-04-18T01:00:00Z"),
+        new Date("2025-04-19T02:00:00Z"),
+        null,
+        100,
+        null,
+      ],
+    ]);
+    expect(getDownstreamProjectRowId("child_version")).not.toBe(
+      "child_version",
+    );
+    expect(
+      getDownstreamVersionId(getDownstreamProjectRowId("child_version")),
+    ).toBe("child_version");
+    expect(getDownstreamVersionId("parent_variant")).toBeUndefined();
   });
 });
 

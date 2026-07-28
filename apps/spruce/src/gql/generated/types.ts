@@ -11908,6 +11908,17 @@ export type VersionTaskDurationsQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    childVersions?: Array<{
+      __typename?: "Version";
+      id: string;
+      finishTime?: Date | null;
+      startTime?: Date | null;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
+    }> | null;
     tasks: {
       __typename?: "VersionTasks";
       count: number;
