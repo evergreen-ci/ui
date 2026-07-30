@@ -1,555 +1,151 @@
-import { FieldFunctionOptions } from "@apollo/client";
-import { FieldMergeFunctionOptions } from "@apollo/client/cache";
-import { versions } from "../testData";
+import {
+  FieldFunctionOptions,
+  FieldMergeFunctionOptions,
+} from "@apollo/client/cache";
+import { WaterfallQuery } from "gql/generated/types";
 import { mergeVersions, readVersions } from ".";
 
-// @ts-expect-error: we don't need to type the args for this mock
+type Waterfall = WaterfallQuery["waterfall"];
+
+// @ts-expect-error: the cache tests only use plain objects.
 const readField = (field, obj) => obj[field];
 
-describe("mergeVersions", () => {
-  const readFn = {
+const makePage = (orders: number[]) => {
+  const activeVersionIds = orders.map((order) => `version-${order}`);
+  return {
+    pagination: {
+      activeVersionIds,
+      hasNextPage: true,
+      hasPrevPage: true,
+      mostRecentVersionOrder: 20,
+      nextPageOrder: Math.min(...orders) - 1,
+      prevPageOrder: Math.max(...orders) + 1,
+    },
+    versions: orders.map((order) => ({
+      id: `version-${order}`,
+      order,
+    })),
+  } as Waterfall;
+};
+
+const page1 = makePage([20, 19, 18, 17, 16]);
+const page2 = makePage([15, 14, 13, 12, 11]);
+const page3 = makePage([10, 9, 8, 7, 6]);
+
+const mergePage = (
+  existing: Waterfall | undefined,
+  incoming: Waterfall,
+  options: Record<string, unknown> = {},
+) =>
+  mergeVersions(existing, incoming, {
+    args: {
+      options: {
+        limit: 5,
+        projectIdentifier: "mongodb-mongo-master",
+        ...options,
+      },
+    },
     readField,
-    extensions: {},
-    existingData: undefined,
-  } as FieldMergeFunctionOptions;
+  } as unknown as FieldMergeFunctionOptions);
 
-  it("handles undefined existing on first cache write", () => {
-    const pagination = {
-      activeVersionIds: ["b", "c"],
-      nextPageOrder: 0,
-      prevPageOrder: 0,
-      hasNextPage: false,
-      hasPrevPage: false,
-      mostRecentVersionOrder: 5,
-    };
-    expect(
-      mergeVersions(
-        undefined,
-        {
-          pagination,
-          versions: versions.slice(0, 2),
-        },
-        readFn,
+const readPage = (existing: Waterfall, options: Record<string, unknown> = {}) =>
+  readVersions(existing, {
+    args: { options: { limit: 5, ...options } },
+    readField,
+  } as unknown as FieldFunctionOptions);
+
+const getVersionIds = (cache: Waterfall) => cache.versions.map(({ id }) => id);
+
+describe("bounded waterfall cache", () => {
+  it("retains up to two pages of active versions", () => {
+    let cache = mergePage(undefined, page1);
+    cache = mergePage(cache, page2, { maxOrder: 16 });
+
+    expect(getVersionIds(cache)).toStrictEqual([
+      ...getVersionIds(page1),
+      ...getVersionIds(page2),
+    ]);
+  });
+
+  it("retains up to six pages for other projects", () => {
+    const pages = Array.from({ length: 7 }, (_page, pageIndex) =>
+      makePage(
+        Array.from(
+          { length: 5 },
+          (_version, versionIndex) => 35 - pageIndex * 5 - versionIndex,
+        ),
       ),
-    ).toStrictEqual({
-      allActiveVersions: new Set(["b", "c"]),
-      pagination,
-      versions: versions.slice(0, 2),
+    );
+    let cache: Waterfall | undefined;
+    pages.forEach((page, pageIndex) => {
+      cache = mergePage(cache, page, {
+        maxOrder: pageIndex ? 1 : 0,
+        projectIdentifier: "small-project",
+      });
     });
+
+    expect(getVersionIds(cache as Waterfall)).toStrictEqual(
+      pages.slice(1).flatMap(getVersionIds),
+    );
   });
 
-  it("merges version arrays", () => {
-    const pagination = {
-      activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 0,
-      prevPageOrder: 0,
-      hasNextPage: true,
-      hasPrevPage: true,
-      mostRecentVersionOrder: 5,
-    };
-    expect(
-      mergeVersions(
-        {
-          pagination,
-          versions: versions.slice(0, 2),
-        },
-        {
-          pagination,
-          versions: versions.slice(2, -1),
-        },
-        readFn,
-      ),
-    ).toStrictEqual({
-      allActiveVersions: new Set(["b", "c", "f"]),
-      pagination,
-      versions: versions.slice(0, -1),
-    });
+  it("evicts the newest active versions when paginating forward", () => {
+    let cache = mergePage(undefined, page1);
+    cache = mergePage(cache, page2, { maxOrder: 16 });
+    cache = mergePage(cache, page3, { maxOrder: 11 });
+
+    expect(getVersionIds(cache)).toStrictEqual([
+      ...getVersionIds(page2),
+      ...getVersionIds(page3),
+    ]);
   });
 
-  it("merges version when incoming is newer than existing", () => {
-    const pagination = {
-      activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 3,
-      prevPageOrder: 0,
-      hasNextPage: true,
-      hasPrevPage: false,
-      mostRecentVersionOrder: 5,
-    };
-    expect(
-      mergeVersions(
-        {
-          pagination,
-          versions: versions.slice(2, -1),
-        },
-        {
-          pagination,
-          versions: versions.slice(0, 2),
-        },
-        readFn,
-      ),
-    ).toStrictEqual({
-      allActiveVersions: new Set(["b", "c", "f"]),
-      pagination,
-      versions: versions.slice(0, -1),
-    });
+  it("evicts the oldest active versions when paginating backward", () => {
+    let cache = mergePage(undefined, page3, { maxOrder: 11 });
+    cache = mergePage(cache, page2, { minOrder: 10 });
+    cache = mergePage(cache, page1, { minOrder: 15 });
+
+    expect(getVersionIds(cache)).toStrictEqual([
+      ...getVersionIds(page1),
+      ...getVersionIds(page2),
+    ]);
   });
 
-  it("deduplicates versions when merging", () => {
-    const pagination = {
-      activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 0,
-      prevPageOrder: 1,
-      hasNextPage: false,
-      hasPrevPage: true,
-      mostRecentVersionOrder: 5,
-    };
-    expect(
-      mergeVersions(
-        {
-          pagination,
-          versions: versions.slice(0, 4),
-        },
-        {
-          pagination,
-          versions: versions.slice(2),
-        },
-        readFn,
-      ),
-    ).toStrictEqual({
-      allActiveVersions: new Set(["b", "c", "f"]),
-      pagination,
-      versions: versions,
-    });
+  it("does not grow when polling an already cached page", () => {
+    let cache = mergePage(undefined, page1);
+    cache = mergePage(cache, page1);
+
+    expect(getVersionIds(cache)).toStrictEqual(getVersionIds(page1));
   });
 
-  it("returns an identical cache when duplicate data is incoming", () => {
-    const pagination = {
-      activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 0,
-      prevPageOrder: 0,
-      hasNextPage: false,
-      hasPrevPage: false,
-      mostRecentVersionOrder: 5,
-    };
+  it("does not count inactive versions toward the bound", () => {
+    const pageWithInactiveVersion = {
+      ...page3,
+      versions: [{ id: "inactive-version", order: 10.5 }, ...page3.versions],
+    } as Waterfall;
+    let cache = mergePage(undefined, page1);
+    cache = mergePage(cache, page2, { maxOrder: 16 });
+    cache = mergePage(cache, pageWithInactiveVersion, { maxOrder: 11 });
+
+    expect(getVersionIds(cache)).toContain("inactive-version");
     expect(
-      mergeVersions(
-        {
-          pagination,
-          versions: versions,
-        },
-        {
-          pagination,
-          versions: versions,
-        },
-        readFn,
-      ),
-    ).toStrictEqual({
-      allActiveVersions: new Set(["b", "c", "f"]),
-      versions: versions,
-      pagination,
-    });
+      (cache as Waterfall & { allActiveVersions: Set<string> })
+        .allActiveVersions.size,
+    ).toBe(10);
   });
 
-  it("combines lists of active versions", () => {
-    const pagination = {
-      activeVersionIds: ["b", "c", "f"],
-      nextPageOrder: 0,
-      prevPageOrder: 1,
-      hasNextPage: false,
-      hasPrevPage: true,
-      mostRecentVersionOrder: 5,
-    };
-    expect(
-      mergeVersions(
-        {
-          allActiveVersions: new Set(["x", "y", "b"]),
-          versions: versions.slice(0, 4),
-          pagination,
-        },
-        {
-          versions: versions.slice(2),
-          pagination,
-        },
-        readFn,
-      ),
-    ).toStrictEqual({
-      allActiveVersions: new Set(["b", "c", "f", "x", "y"]),
-      versions: versions,
-      pagination,
-    });
-  });
-});
+  it("reads cached versions in either pagination direction", () => {
+    let cache = mergePage(undefined, page1);
+    cache = mergePage(cache, page2, { maxOrder: 16 });
 
-describe("readVersions", () => {
-  it("returns undefined when the cache is empty", () => {
+    expect(getVersionIds(readPage(cache) as Waterfall)).toStrictEqual(
+      getVersionIds(page1),
+    );
     expect(
-      readVersions(
-        undefined,
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: { limit: 5 },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toBe(undefined);
-  });
-
-  it("reads the first page and returns limit active versions", () => {
+      getVersionIds(readPage(cache, { maxOrder: 16 }) as Waterfall),
+    ).toStrictEqual(getVersionIds(page2));
     expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["b", "c", "f"]),
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: { limit: 3, maxOrder: 6 },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions,
-      pagination: {
-        activeVersionIds: ["b", "c", "f"],
-        hasPrevPage: false,
-        hasNextPage: false,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
-        nextPageOrder: 0,
-      },
-    });
-  });
-
-  it("truncates after limit active versions", () => {
-    expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["b", "c", "f"]),
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: { limit: 2, maxOrder: 5 },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions.slice(1, 3),
-      pagination: {
-        activeVersionIds: ["b", "c"],
-        hasPrevPage: true,
-        hasNextPage: true,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 4,
-        nextPageOrder: 3,
-      },
-    });
-  });
-
-  it("correctly reads a page", () => {
-    expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["b", "c", "f"]),
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: {
-              limit: 2,
-              maxOrder: 4,
-            },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions.slice(2),
-      pagination: {
-        activeVersionIds: ["c", "f"],
-        hasPrevPage: true,
-        hasNextPage: false,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 3,
-        nextPageOrder: 0,
-      },
-    });
-  });
-
-  it("reads a page using minOrder", () => {
-    expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["b", "c", "f"]),
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: {
-              limit: 2,
-              minOrder: 2,
-            },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions.slice(0, 3),
-      pagination: {
-        activeVersionIds: ["b", "c"],
-        hasPrevPage: false,
-        hasNextPage: true,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
-        nextPageOrder: 3,
-      },
-    });
-  });
-
-  it("reads a page using minOrder with previous pages", () => {
-    expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["b", "c", "f"]),
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: {
-              limit: 1,
-              minOrder: 2,
-            },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions.slice(2, 3),
-      pagination: {
-        activeVersionIds: ["c"],
-        hasPrevPage: true,
-        hasNextPage: true,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 3,
-        nextPageOrder: 3,
-      },
-    });
-  });
-
-  it("returns undefined when the order is not found in the cache", () => {
-    expect(
-      readVersions(
-        {
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: {
-              limit: 5,
-              minOrder: 8,
-            },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toBe(undefined);
-  });
-
-  it("returns undefined when the number of activated versions found is less than the limit and server has next page", () => {
-    expect(
-      readVersions(
-        {
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-            hasNextPage: true,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: {
-              limit: 3,
-              maxOrder: 4,
-            },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toBe(undefined);
-  });
-
-  it("returns available versions when active versions are less than limit and server has no next page", () => {
-    expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["c", "f"]),
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-            hasNextPage: false,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: {
-              limit: 3,
-              maxOrder: 4,
-            },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions.slice(2),
-      pagination: {
-        activeVersionIds: ["c", "f"],
-        hasPrevPage: true,
-        hasNextPage: false,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 3,
-        nextPageOrder: 0,
-      },
-    });
-  });
-
-  it("returns first page if it exists in cache, even if minOrder and maxOrder are undefined", () => {
-    expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["b", "c", "f"]),
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: {
-              maxOrder: undefined,
-              minOrder: undefined,
-              limit: 3,
-            },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions,
-      pagination: {
-        activeVersionIds: ["b", "c", "f"],
-        hasPrevPage: false,
-        hasNextPage: false,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
-        nextPageOrder: 0,
-      },
-    });
-  });
-
-  it("returns all versions on initial load when project has fewer active versions than limit and no next page", () => {
-    expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["b", "c"]),
-          versions: versions.slice(0, 3),
-          // @ts-expect-error: only mostRecentVersionOrder and hasNextPage affect reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-            hasNextPage: false,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: {
-              limit: 5,
-            },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions.slice(0, 3),
-      pagination: {
-        activeVersionIds: ["b", "c"],
-        hasPrevPage: false,
-        hasNextPage: true,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
-        nextPageOrder: 3,
-      },
-    });
-  });
-
-  it("only applies active versions against the version limit", () => {
-    expect(
-      readVersions(
-        {
-          allActiveVersions: new Set(["b", "c", "f"]),
-          versions: versions,
-          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
-          pagination: {
-            mostRecentVersionOrder: 5,
-          },
-        },
-        // @ts-expect-error: for tests we can omit unused fields from the args
-        {
-          args: {
-            options: { limit: 2 },
-          },
-          readField,
-        } as FieldFunctionOptions,
-      ),
-    ).toStrictEqual({
-      versions: versions.slice(0, 3),
-      pagination: {
-        activeVersionIds: ["b", "c"],
-        hasPrevPage: false,
-        hasNextPage: true,
-        mostRecentVersionOrder: 5,
-        prevPageOrder: 0,
-        nextPageOrder: 3,
-      },
-    });
+      getVersionIds(readPage(cache, { minOrder: 15 }) as Waterfall),
+    ).toStrictEqual(getVersionIds(page1));
   });
 });
