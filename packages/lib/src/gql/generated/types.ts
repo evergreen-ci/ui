@@ -2515,7 +2515,6 @@ export type Patch = {
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
   user: User;
-  userLite: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
@@ -3156,7 +3155,6 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
-  userLite: User;
   variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
@@ -3291,10 +3289,6 @@ export type QueryTaskTestSampleArgs = {
 };
 
 export type QueryUserArgs = {
-  userId?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type QueryUserLiteArgs = {
   userId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -4911,7 +4905,6 @@ export type Version = {
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
   user: User;
-  userLite: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
