@@ -1,4 +1,5 @@
-import { Suspense, useCallback, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useApolloClient } from "@apollo/client/react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
@@ -27,6 +28,7 @@ const Waterfall: React.FC = () => {
   );
 
   const { sendEvent } = useWaterfallAnalytics();
+  const { cache } = useApolloClient();
 
   const [pagination, setPagination] = useState<Pagination>();
 
@@ -38,6 +40,19 @@ const Waterfall: React.FC = () => {
   const restartWalkthrough = useCallback(
     () => guideCueRef.current?.restart(),
     [],
+  );
+
+  useEffect(
+    () =>
+      // Remove waterfall data from cache upon navigation
+      () => {
+        cache.evict({
+          id: "ROOT_QUERY",
+          fieldName: "waterfall",
+        });
+        cache.gc();
+      },
+    [cache],
   );
 
   return (

@@ -19,6 +19,11 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root" style="height: 100%"></div>
+  <script>
+    globalThis[Symbol.for("apollo.cacheSize")] = {
+      "inMemoryCache.executeSelectionSet": 150000,
+    };
+  </script>
   <script type="module" src="/src/index.tsx"></script>
   <!--
         Load LeafyGreen's monospace font dependency via Google Fonts' CDN
