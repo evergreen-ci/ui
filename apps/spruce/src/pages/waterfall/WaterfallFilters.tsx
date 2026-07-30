@@ -100,7 +100,10 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
         restartWalkthrough={restartWalkthrough}
         setOmitInactiveBuilds={setOmitInactiveBuilds}
       />
-      <PaginationButtons pagination={pagination} />
+      <PaginationButtons
+        pagination={pagination}
+        projectIdentifier={projectIdentifier}
+      />
     </Container>
   );
 };

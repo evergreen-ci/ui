@@ -23,7 +23,7 @@ const renderEmptyState = (
 ) =>
   render(
     <>
-      <EmptyState pagination={pagination} />
+      <EmptyState pagination={pagination} projectIdentifier="spruce" />
       <LocationDisplay />
     </>,
     {
