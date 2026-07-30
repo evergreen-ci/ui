@@ -25,10 +25,8 @@ export const readVersions = ((existing, { args, readField }) => {
   }
 
   const existingVersions =
-    readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
-      "flattenedVersions",
-      existing,
-    ) ?? [];
+    readField<WaterfallQuery["waterfall"]["versions"]>("versions", existing) ??
+    [];
 
   const idx = existingVersions.findIndex((v) => {
     const versionOrder = readField<number>("order", v) ?? 0;
@@ -101,20 +99,16 @@ export const readVersions = ((existing, { args, readField }) => {
   }
 
   // Add 1 because slice is [inclusive, exclusive).
-  const flattenedVersions = existingVersions.slice(startIndex, endIndex + 1);
-  const zerothOrder = readField<number>("order", flattenedVersions[0]) ?? 0;
+  const versions = existingVersions.slice(startIndex, endIndex + 1);
+  const zerothOrder = readField<number>("order", versions[0]) ?? 0;
   const prevOrderNumber =
     mostRecentVersionOrder === zerothOrder ? 0 : zerothOrder;
 
   const lastVersionOrder =
-    readField<number>(
-      "order",
-      flattenedVersions[flattenedVersions.length - 1],
-    ) ?? 0;
+    readField<number>("order", versions[versions.length - 1]) ?? 0;
   const nextOrderNumber = lastVersionOrder === 1 ? 0 : lastVersionOrder;
 
   return {
-    flattenedVersions,
     pagination: {
       // Sort is only necessary for consistency in testing
       activeVersionIds: activeVersionIds.sort(),
@@ -124,21 +118,20 @@ export const readVersions = ((existing, { args, readField }) => {
       hasNextPage: nextOrderNumber > 0,
       hasPrevPage: prevOrderNumber > 0,
     },
+    versions,
   };
 }) satisfies FieldReadFunction<WaterfallQuery["waterfall"]>;
 
 export const mergeVersions = ((existing, incoming, { readField }) => {
   const existingVersions = existing
-    ? (readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
-        "flattenedVersions",
+    ? (readField<WaterfallQuery["waterfall"]["versions"]>(
+        "versions",
         existing,
       ) ?? [])
     : [];
   const incomingVersions =
-    readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
-      "flattenedVersions",
-      incoming,
-    ) ?? [];
+    readField<WaterfallQuery["waterfall"]["versions"]>("versions", incoming) ??
+    [];
   const versions = [...existingVersions, ...incomingVersions];
 
   // Use a map to enforce that there are no duplicates.
@@ -173,7 +166,7 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     readField<string[]>("activeVersionIds", pagination) ?? [];
   incomingActiveVersions.forEach((vId) => existingActiveVersions.add(vId));
   return {
-    flattenedVersions: v,
+    versions: v,
     pagination,
     allActiveVersions: existingActiveVersions,
   };

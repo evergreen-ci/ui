@@ -12217,8 +12217,17 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
-    flattenedVersions: Array<{
-      __typename?: "Version";
+    pagination: {
+      __typename?: "WaterfallPagination";
+      activeVersionIds: Array<string>;
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+      mostRecentVersionOrder: number;
+      nextPageOrder: number;
+      prevPageOrder: number;
+    };
+    versions: Array<{
+      __typename?: "VersionLite";
       id: string;
       activated?: boolean | null;
       createTime: Date;
@@ -12248,14 +12257,5 @@ export type WaterfallQuery = {
         }>;
       }> | null;
     }>;
-    pagination: {
-      __typename?: "WaterfallPagination";
-      activeVersionIds: Array<string>;
-      hasNextPage: boolean;
-      hasPrevPage: boolean;
-      mostRecentVersionOrder: number;
-      nextPageOrder: number;
-      prevPageOrder: number;
-    };
   };
 };
