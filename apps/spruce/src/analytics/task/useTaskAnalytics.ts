@@ -74,7 +74,7 @@ type Action =
       name: "Clicked download skipped tests JSON button";
       "tests.skipped_count": number;
     }
-  | { name: "Clicked skipped tests metadata link" }
+  | { name: "Clicked skipped tests details button" }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
   | { name: "Viewed notification modal" }

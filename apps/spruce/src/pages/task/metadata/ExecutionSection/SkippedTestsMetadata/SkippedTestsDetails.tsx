@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react";
-import { skipToken, useLazyQuery, useQuery } from "@apollo/client/react";
+import { useEffect } from "react";
+import { useLazyQuery, useQuery } from "@apollo/client/react";
 import pluralize from "pluralize";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParams } from "@evg-ui/lib/hooks";
 import { downloadObjectAsJson } from "@evg-ui/lib/utils/request";
 import { useTaskAnalytics } from "analytics";
 import { SkippedTestsModal } from "components/SkippedTestsModal";
 import {
   TaskQuarantinedTestsSampleQuery,
   TaskQuarantinedTestsSampleQueryVariables,
-  TaskQuery,
 } from "gql/generated/types";
 import { TASK_QUARANTINED_TESTS_SAMPLE } from "gql/queries";
-import { QueryParams } from "types/task";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import {
   FULL_LIST_LIMIT,
@@ -25,38 +22,34 @@ import {
 
 type SkippedTestEntry = SkippedTestsSample["quarantinedTests"][number];
 
-interface SkippedTestsProps {
-  task: NonNullable<TaskQuery["task"]>;
+interface SkippedTestsDetailsProps {
+  count: number;
+  execution: number;
+  setOpen: (open: boolean) => void;
+  taskId: string;
+  versionId: string;
 }
 
-export const SkippedTests: React.FC<SkippedTestsProps> = ({ task }) => {
-  const { execution, id: taskId, quarantinedTestsSkippedCount: count } = task;
-  const versionId = task.versionMetadata.id;
+export const SkippedTestsDetails: React.FC<SkippedTestsDetailsProps> = ({
+  count,
+  execution,
+  setOpen,
+  taskId,
+  versionId,
+}) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useTaskAnalytics();
-  const [showModal, setShowModal] = useState(false);
-  const [queryParams, setQueryParams] = useQueryParams();
-
-  const shouldAutoOpen = queryParams[QueryParams.SkippedTests] === true;
-
-  // Only fetch the sample when the user deep-links into the modal; there is no
-  // other entry point, so fetching on every Tests-tab visit would be wasteful.
   const { data, error, loading } = useQuery<
     TaskQuarantinedTestsSampleQuery,
     TaskQuarantinedTestsSampleQueryVariables
-  >(
-    TASK_QUARANTINED_TESTS_SAMPLE,
-    count > 0 && shouldAutoOpen
-      ? {
-          variables: {
-            versionId,
-            taskIds: [taskId],
-            limit: MODAL_DISPLAY_LIMIT,
-          },
-          errorPolicy: "all",
-        }
-      : skipToken,
-  );
+  >(TASK_QUARANTINED_TESTS_SAMPLE, {
+    variables: {
+      versionId,
+      taskIds: [taskId],
+      limit: MODAL_DISPLAY_LIMIT,
+    },
+    errorPolicy: "all",
+  });
   const sample = data?.version.taskQuarantinedTestsSample?.[0];
 
   // The sample query always reflects the latest execution, while the count is
@@ -68,18 +61,8 @@ export const SkippedTests: React.FC<SkippedTestsProps> = ({ task }) => {
     TaskQuarantinedTestsSampleQueryVariables
   >(TASK_QUARANTINED_TESTS_SAMPLE);
 
-  const setModalOpen = (open: boolean) => {
-    setShowModal(open);
-    if (!open && queryParams[QueryParams.SkippedTests] !== undefined) {
-      setQueryParams({
-        ...queryParams,
-        [QueryParams.SkippedTests]: undefined,
-      });
-    }
-  };
-
   useEffect(() => {
-    if (!shouldAutoOpen || loading) {
+    if (loading) {
       return;
     }
     if (listAvailable) {
@@ -87,10 +70,9 @@ export const SkippedTests: React.FC<SkippedTestsProps> = ({ task }) => {
         name: "Viewed skipped tests modal",
         "tests.skipped_count": count,
       });
-      setShowModal(true);
       return;
     }
-    setModalOpen(false);
+    setOpen(false);
     if (error) {
       dispatchToast.error(
         "There was an error loading the skipped test details.",
@@ -103,7 +85,7 @@ export const SkippedTests: React.FC<SkippedTestsProps> = ({ task }) => {
         : "Skipped test details are only available for the latest execution of this task.",
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldAutoOpen, listAvailable, loading, error]);
+  }, [listAvailable, loading, error]);
 
   const handleDownload = async () => {
     sendEvent({
@@ -129,29 +111,32 @@ export const SkippedTests: React.FC<SkippedTestsProps> = ({ task }) => {
     }
   };
 
-  if (!listAvailable) {
+  if (!loading && !listAvailable) {
     return null;
   }
+
+  const rows = listAvailable ? sample.quarantinedTests : [];
+  const totalCount = listAvailable
+    ? sample.quarantinedTestsSkippedCount
+    : count;
 
   return (
     <SkippedTestsModal
       columns={columns}
       dataCyPrefix="skipped-tests"
       getSearchText={getEntryName}
+      loading={loading}
       onClickDownload={handleDownload}
-      open={showModal}
-      rows={sample.quarantinedTests}
+      open
+      rows={rows}
       searchPlaceholder="Search test names"
-      setOpen={setModalOpen}
-      subtitle={`${sample.quarantinedTestsSkippedCount} ${pluralize(
-        "test",
-        sample.quarantinedTestsSkippedCount,
-      )} ${
-        sample.quarantinedTestsSkippedCount === 1 ? "was" : "were"
+      setOpen={setOpen}
+      subtitle={`${totalCount} ${pluralize("test", totalCount)} ${
+        totalCount === 1 ? "was" : "were"
       } skipped by TSS when execution ${formatZeroIndexForDisplay(
-        sample.execution,
+        execution,
       )} of this task ran. This snapshot may differ from what TSS would skip now.`}
-      totalCount={sample.quarantinedTestsSkippedCount}
+      totalCount={totalCount}
     />
   );
 };

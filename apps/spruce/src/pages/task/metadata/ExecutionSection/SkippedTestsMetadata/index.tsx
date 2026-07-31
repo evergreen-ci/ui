@@ -1,13 +1,13 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
-import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { MetadataItem } from "components/MetadataCard";
-import { getTaskRoute } from "constants/routes";
-import { QueryParams, TaskTab } from "types/task";
+import { SkippedTestsDetails } from "./SkippedTestsDetails";
 
 type Props = {
   count: number;
@@ -15,6 +15,7 @@ type Props = {
   latestExecution: number;
   taskId: string;
   testSelectionEnabled: boolean;
+  versionId: string;
 };
 
 export const SkippedTestsMetadata: React.FC<Props> = ({
@@ -23,8 +24,10 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
   latestExecution,
   taskId,
   testSelectionEnabled,
+  versionId,
 }) => {
   const { sendEvent } = useTaskAnalytics();
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   // A zero count is only meaningful as a trust signal when test selection
   // actually ran on this task.
@@ -33,49 +36,50 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
   }
 
   const detailsAvailable = count > 0 && execution === latestExecution;
-  const badge = (
-    <Badge
-      data-cy="skipped-tests-metadata-badge"
-      variant={count === 0 ? BadgeVariant.Green : BadgeVariant.Yellow}
-    >
-      {count}
-    </Badge>
-  );
 
   return (
-    <MetadataItem as="div" label="Tests skipped by TSS">
-      <BadgeWrapper data-cy="skipped-tests-metadata">
-        <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
-          Tests skipped by TSS when this execution ran. This snapshot may differ
-          from what TSS would skip now.
-          {execution !== latestExecution &&
-            " Test names are only available for the latest execution."}
-        </InfoSprinkle>
-        {detailsAvailable ? (
-          <StyledRouterLink
-            data-cy="skipped-tests-metadata-link"
-            onClick={() =>
-              sendEvent({
-                name: "Clicked skipped tests metadata link",
-              })
-            }
-            to={getTaskRoute(taskId, {
-              execution,
-              tab: TaskTab.Tests,
-              [QueryParams.SkippedTests]: true,
-            })}
-          >
-            {badge}
-          </StyledRouterLink>
-        ) : (
-          badge
-        )}
-      </BadgeWrapper>
-    </MetadataItem>
+    <>
+      <MetadataItem as="div" label="Tests skipped by TSS">
+        <InlineContent data-cy="skipped-tests-metadata">
+          <span data-cy="skipped-tests-metadata-count">
+            {count} {pluralize("test", count)}
+          </span>
+          {detailsAvailable && (
+            <Button
+              data-cy="skipped-tests-details-button"
+              onClick={() => {
+                sendEvent({
+                  name: "Clicked skipped tests details button",
+                });
+                setDetailsOpen(true);
+              }}
+              size={ButtonSize.XSmall}
+            >
+              Details
+            </Button>
+          )}
+          <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
+            Tests skipped by TSS when this execution ran. This snapshot may
+            differ from what TSS would skip now.
+            {execution !== latestExecution &&
+              " Test names are only available for the latest execution."}
+          </InfoSprinkle>
+        </InlineContent>
+      </MetadataItem>
+      {detailsAvailable && detailsOpen && (
+        <SkippedTestsDetails
+          count={count}
+          execution={execution}
+          setOpen={setDetailsOpen}
+          taskId={taskId}
+          versionId={versionId}
+        />
+      )}
+    </>
   );
 };
 
-const BadgeWrapper = styled.div`
+const InlineContent = styled.div`
   display: inline-flex;
   align-items: center;
   gap: ${size.xxs};

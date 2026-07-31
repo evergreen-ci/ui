@@ -91,11 +91,13 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
         <TestSelection testSelectionEnabled={testSelectionEnabled} />
       )}
       <SkippedTestsMetadata
+        key={`${task.id}-${execution}`}
         count={task.quarantinedTestsSkippedCount}
         execution={execution}
         latestExecution={latestExecution}
         taskId={task.id}
         testSelectionEnabled={testSelectionEnabled}
+        versionId={task.versionMetadata.id}
       />
       {hasCost && (
         <CostSummary

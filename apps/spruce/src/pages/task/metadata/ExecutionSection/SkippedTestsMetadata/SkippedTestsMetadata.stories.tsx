@@ -13,6 +13,7 @@ export const ZeroSkipped: CustomStoryObj<typeof SkippedTestsMetadata> = {
       latestExecution={0}
       taskId="t1"
       testSelectionEnabled
+      versionId="v1"
     />
   ),
 };
@@ -25,6 +26,7 @@ export const SomeSkipped: CustomStoryObj<typeof SkippedTestsMetadata> = {
       latestExecution={0}
       taskId="t1"
       testSelectionEnabled
+      versionId="v1"
     />
   ),
 };
@@ -37,6 +39,7 @@ export const PreviousExecution: CustomStoryObj<typeof SkippedTestsMetadata> = {
       latestExecution={1}
       taskId="t1"
       testSelectionEnabled
+      versionId="v1"
     />
   ),
 };
