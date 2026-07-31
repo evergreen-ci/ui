@@ -71,7 +71,7 @@ const form: ProvidersFormState = {
       ],
       ipamPoolID: "ipam-pool-123",
       elasticIPUsageRate: 0.8,
-      snsTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
     },
     docker: {
       apiVersion: "1.40",
@@ -129,7 +129,7 @@ const gql: AdminSettingsInput = {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
       },
-      snsTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
         {
           az: "us-east-1a",
@@ -199,7 +199,7 @@ const testAdminSettings = {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
       },
-      snsTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
         {
           az: "us-east-1a",

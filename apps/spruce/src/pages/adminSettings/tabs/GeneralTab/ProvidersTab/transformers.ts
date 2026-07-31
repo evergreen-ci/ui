@@ -39,7 +39,7 @@ export const gqlToForm = ((data) => {
         allowedRegions: providers?.aws?.allowedRegions ?? [],
         ipamPoolID: providers?.aws?.ipamPoolID ?? "",
         elasticIPUsageRate: providers?.aws?.elasticIPUsageRate ?? 0,
-        snsTopicARNs: providers?.aws?.snsTopicARNs ?? [],
+        allowedSNSTopicARNs: providers?.aws?.allowedSNSTopicARNs ?? [],
         persistentDNS: {
           hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
           domain: providers?.aws?.persistentDNS?.domain ?? "",
@@ -89,7 +89,7 @@ export const formToGql = ((form: ProvidersFormState) => {
         elasticIPUsageRate: aws.elasticIPUsageRate || undefined,
         ipamPoolID: aws.ipamPoolID || undefined,
         maxVolumeSizePerUser: aws.maxVolumeSizePerUser || undefined,
-        snsTopicARNs: aws.snsTopicARNs,
+        allowedSNSTopicARNs: aws.allowedSNSTopicARNs,
         persistentDNS: {
           hostedZoneID: aws.persistentDNS.hostedZoneID,
           domain: aws.persistentDNS.domain || undefined,

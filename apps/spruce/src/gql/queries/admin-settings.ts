@@ -263,6 +263,7 @@ export const ADMIN_SETTINGS = gql`
           alertableInstanceTypes
           allowedInstanceTypes
           allowedRegions
+          allowedSNSTopicARNs
           defaultSecurityGroup
           elasticIPUsageRate
           ipamPoolID
@@ -278,7 +279,6 @@ export const ADMIN_SETTINGS = gql`
             domain
             hostedZoneID
           }
-          snsTopicARNs
           subnets {
             az
             subnetId

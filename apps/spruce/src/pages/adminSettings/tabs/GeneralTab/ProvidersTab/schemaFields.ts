@@ -206,15 +206,6 @@ export const aws = {
       },
       default: [],
     },
-    snsTopicARNs: {
-      type: "array" as const,
-      title: "SNS Topic ARNs",
-      items: {
-        type: "string" as const,
-        minLength: 1,
-      },
-      default: [],
-    },
     elasticIPUsageRate: {
       type: "number" as const,
       title: "Elastic IP Usage Rate",
@@ -225,6 +216,15 @@ export const aws = {
       type: "string" as const,
       title: "IPAM Pool ID",
       default: "",
+    },
+    allowedSNSTopicARNs: {
+      type: "array" as const,
+      title: "Allowed SNS Topic ARNs",
+      items: {
+        type: "string" as const,
+        minLength: 1,
+      },
+      default: [],
     },
     persistentDNS: {
       type: "object" as const,
@@ -289,7 +289,7 @@ export const aws = {
     allowedRegions: {
       "ui:widget": widgets.ChipInputWidget,
     },
-    snsTopicARNs: {
+    allowedSNSTopicARNs: {
       "ui:widget": widgets.ChipInputWidget,
     },
     persistentDNS: {

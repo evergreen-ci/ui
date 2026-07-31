@@ -62,13 +62,13 @@ export type AwsConfig = {
   alertableInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedRegions: Array<Scalars["String"]["output"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["output"]>;
   defaultSecurityGroup?: Maybe<Scalars["String"]["output"]>;
   elasticIPUsageRate?: Maybe<Scalars["Float"]["output"]>;
   ipamPoolID?: Maybe<Scalars["String"]["output"]>;
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
-  snsTopicARNs: Array<Scalars["String"]["output"]>;
   subnets: Array<Subnet>;
 };
 
@@ -77,13 +77,13 @@ export type AwsConfigInput = {
   alertableInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedRegions: Array<Scalars["String"]["input"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["input"]>;
   defaultSecurityGroup?: InputMaybe<Scalars["String"]["input"]>;
   elasticIPUsageRate?: InputMaybe<Scalars["Float"]["input"]>;
   ipamPoolID?: InputMaybe<Scalars["String"]["input"]>;
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
-  snsTopicARNs: Array<Scalars["String"]["input"]>;
   subnets: Array<SubnetInput>;
 };
 
@@ -7850,7 +7850,7 @@ export type AdminSettingsQuery = {
         elasticIPUsageRate?: number | null;
         ipamPoolID?: string | null;
         maxVolumeSizePerUser?: number | null;
-        snsTopicARNs: Array<string>;
+        allowedSNSTopicARNs: Array<string>;
         accountRoles: Array<{
           __typename?: "AWSAccountRoleMapping";
           account: string;
