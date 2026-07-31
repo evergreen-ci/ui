@@ -1,9 +1,9 @@
 import {
+  GetFormSchema,
   SpruceForm,
   SpruceFormProps,
   SpruceFormRef,
   ValidateProps,
-  GetFormSchema,
 } from "components/SpruceForm";
 import { SettingsState } from "./Context";
 import { SettingsRoutes } from "./types";

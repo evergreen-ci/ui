@@ -4,10 +4,10 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import {
-  gridWrapCss,
   fullWidthCss,
-  objectGridCss,
+  gridWrapCss,
   nestedObjectGridCss,
+  objectGridCss,
 } from "../../sharedStyles";
 
 const { gray } = palette;
@@ -163,16 +163,6 @@ export const aws = {
   schema: {
     subnets: subnets.schema,
     accountRoles: accountRoles.schema,
-    ec2Key: {
-      type: "string" as const,
-      title: "EC2 Key",
-      default: "",
-    },
-    ec2Secret: {
-      type: "string" as const,
-      title: "EC2 Secret",
-      default: "",
-    },
     parameterStorePrefix: {
       type: "string" as const,
       title: "Parameter Store Prefix",

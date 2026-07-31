@@ -1,6 +1,5 @@
 import { InMemoryCache } from "@apollo/client";
 import { readTaskReviewed } from "components/TaskReview/caching";
-import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
 import { mergeTasks, readTasks } from "pages/task/taskTabs/TaskHistory/caching";
 import { mergeVersions, readVersions } from "pages/waterfall/caching";
 
@@ -8,18 +7,6 @@ export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        adminEvents: {
-          keyArgs: false,
-        },
-        distroEvents: {
-          keyArgs: ["$distroId"],
-        },
-        projectEvents: {
-          keyArgs: ["$projectIdentifier"],
-        },
-        repoEvents: {
-          keyArgs: ["$repoId"],
-        },
         hasVersion: {
           keyArgs: ["$patchId"],
         },
@@ -59,101 +46,18 @@ export const cache = new InMemoryCache({
     GeneralSubscription: {
       keyFields: false,
     },
-    DistroEventsPayload: {
-      fields: {
-        count: {
-          merge(existing = 0, incoming = 0) {
-            return existing + incoming;
-          },
-        },
-        eventLogEntries: {
-          merge(existing = [], incoming = []) {
-            return [...existing, ...incoming];
-          },
-        },
-      },
-    },
-    AdminEventsPayload: {
-      fields: {
-        count: {
-          merge(existing = 0, incoming = 0) {
-            return existing + incoming;
-          },
-        },
-        eventLogEntries: {
-          merge(existing = [], incoming = []) {
-            return [...existing, ...incoming];
-          },
-        },
-      },
-    },
     AdminSettings: {
+      // AdminSettings is a singleton type with no identifying field
+      keyFields: [],
       merge: true,
-    },
-    Image: {
-      fields: {
-        events: {
-          keyArgs: ["$imageId"],
-          merge(existing, incoming, { args }) {
-            const {
-              count: existingCount = 0,
-              eventLogEntries: existingEntries = [],
-            } = existing || {};
-            const { count: incomingCount, eventLogEntries: incomingEntries } =
-              incoming;
-            const count = existingCount + incomingCount;
-            const page = args?.page ?? 0;
-            const merged = existingEntries ? existingEntries.slice(0) : [];
-            for (let i = 0; i < incomingEntries.length; ++i) {
-              merged[page * IMAGE_EVENT_LIMIT + i] = incomingEntries[i];
-            }
-            return {
-              count,
-              eventLogEntries: merged,
-            };
-          },
-        },
-      },
     },
     Project: {
-      keyFields: false,
       merge: true,
-    },
-    ProjectEvents: {
-      fields: {
-        count: {
-          merge(existing = 0, incoming = 0) {
-            return existing + incoming;
-          },
-        },
-        eventLogEntries: {
-          merge(existing = [], incoming = []) {
-            return [...existing, ...incoming];
-          },
-        },
-      },
     },
     ProjectAlias: {
       keyFields: false,
     },
     User: {
-      keyFields: ["userId"],
-      fields: {
-        displayName: {
-          read(existing, { readField }) {
-            // Return userId if displayName is not set so that displayName is always populated
-            return existing || readField("userId");
-          },
-        },
-        userId: {
-          read(existing, { readField }) {
-            // Service users don't have userIds, just displayNames. Make sure both fields are set.
-            return existing || readField("displayName");
-          },
-        },
-      },
-    },
-    UserLite: {
       keyFields: ["id"],
       fields: {
         displayName: {
@@ -226,6 +130,17 @@ export const cache = new InMemoryCache({
       keyFields: false,
     },
     Version: {
+      fields: {
+        waterfallBuilds: {
+          merge(existing, incoming) {
+            // Applying a server-side filter causes non-matching versions to return with waterfallBuilds = null.
+            // We don't want to overwrite existing build data for versions that previously matched, so check to see if the new waterfallBuilds is defined before merging it with the cache.
+            return incoming ?? existing;
+          },
+        },
+      },
+    },
+    VersionLite: {
       fields: {
         waterfallBuilds: {
           merge(existing, incoming) {

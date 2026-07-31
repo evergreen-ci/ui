@@ -1,7 +1,7 @@
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  act,
   MockedProvider,
+  act,
   renderWithRouterMatch as render,
   screen,
   userEvent,
@@ -173,7 +173,7 @@ const userTokenExchangeMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         hasTokenExchangePending: false,
         tokenAccessTokenExpiresAt: null,
         userId: "me",

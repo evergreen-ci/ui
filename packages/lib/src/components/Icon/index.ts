@@ -14,3 +14,4 @@ const glyphMap = {
 export { glyphMap as glyphs, Size };
 export default createIconComponent(glyphMap);
 export { AnimatedIcon, PrideLogo, FallLogo, WinterLogo, SpringLogo };
+export { EvergreenLogo, ParsleyLogo } from "./icons";

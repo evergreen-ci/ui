@@ -17,13 +17,13 @@ describe("search bar guide cue", () => {
 
     render(<SearchBarGuideCue />);
     await waitFor(() => {
-      expect(screen.getByDataCy("searchbar-guide-cue")).toBeInTheDocument();
+      expect(screen.getByDataTestId("searchbar-guide-cue")).toBeInTheDocument();
     });
   });
 
   it("does not show the guide cue if the user has seen it before", () => {
     localStorage.setItem(HAS_SEEN_SEARCHBAR_GUIDE_CUE, "true");
     render(<SearchBarGuideCue />);
-    expect(screen.queryByDataCy("searchbar-guide-cue")).toBeNull();
+    expect(screen.queryByDataTestId("searchbar-guide-cue")).toBeNull();
   });
 });

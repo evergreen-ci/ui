@@ -93,7 +93,7 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
             </ModalTrigger>
           </>
         }
-        data-cy="filters"
+        data-testid="filters"
         defaultMessage="No filters have been applied."
         glyph="Filter"
         items={filters}
@@ -102,7 +102,7 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
         {filters.map((filter) => (
           <FilterWrapper
             key={filter.expression}
-            data-cy={`filter-${filter.expression}`}
+            data-testid={`filter-${filter.expression}`}
           >
             <FilterGroup
               deleteFilter={deleteFilter}

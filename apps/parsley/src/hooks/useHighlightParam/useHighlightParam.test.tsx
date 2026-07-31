@@ -88,6 +88,15 @@ describe("useHighlightParam", () => {
     const { result } = renderHook(() => useHighlightJointHook(), { wrapper });
     expect(result.current.highlights).toStrictEqual(["1234567890123456789"]);
   });
+  it("should not crash when a highlight is a malformed URI component", () => {
+    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+      <MemoryRouter initialEntries={["/?highlights=%,failed"]}>
+        {children}
+      </MemoryRouter>
+    );
+    const { result } = renderHook(() => useHighlightJointHook(), { wrapper });
+    expect(result.current.highlights).toStrictEqual(["%", "failed"]);
+  });
   it("should encode special values when there are multiple highlights", () => {
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={[""]}>{children}</MemoryRouter>

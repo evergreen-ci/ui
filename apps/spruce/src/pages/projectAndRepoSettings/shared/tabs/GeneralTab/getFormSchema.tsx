@@ -4,10 +4,10 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import {
   debugSpawnHostsDocumentationUrl,
-  versionControlDocumentationUrl,
   runEveryMainlineCommitDocumentationUrl,
+  versionControlDocumentationUrl,
 } from "constants/externalResources";
-import { form, ProjectType } from "../utils";
+import { ProjectType, form } from "../utils";
 import {
   DeactivateStepbackTaskField,
   DeleteProjectField,
@@ -411,7 +411,7 @@ export const getFormSchema = (
         waterfallDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
-            "Disables automatic task activation on the waterfall. Tasks will still appear but will be unscheduled by default.",
+            "When enabled (default), task activation is considered for all new commits on the waterfall. When this setting is disabled, tasks will still appear but will be unscheduled.",
         },
       },
       scheduling: {

@@ -45,6 +45,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
     <StyledBadge
       key={status}
       data-cy="task-status-badge"
+      data-testid="task-status-badge"
       variant={mapTaskStatusToBadgeVariant[status]}
       {...customBadgeColors(status)}
     >
@@ -68,22 +69,17 @@ const mapTaskStatusToBadgeVariant: Record<string, Variant> = {
   [TaskStatus.TaskTimedOut]: Variant.Red,
   [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.WillRun]: Variant.DarkGray,
+  [TaskStatus.SetupFailed]: Variant.Blue,
 };
 const customBadgeColors = (status: string) => {
   switch (status) {
-    case TaskStatus.SetupFailed:
-      return {
-        border: purple.base,
-        fill: purple.light2,
-        text: purple.dark2,
-      };
     case TaskStatus.SystemFailed:
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
       return {
-        border: purple.dark3,
-        fill: purple.dark2,
-        text: purple.light3,
+        border: purple.light2,
+        fill: purple.light3,
+        text: purple.dark2,
       };
     case TaskStatus.KnownIssue:
       return {

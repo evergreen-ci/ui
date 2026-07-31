@@ -32,13 +32,13 @@ describe("useKeyboardShortcut", () => {
           callback,
         ),
       );
-      render(<input data-cy="test-input" />);
+      render(<input data-testid="test-input" />);
 
-      await user.click(screen.getByDataCy("test-input"));
-      expect(screen.getByDataCy("test-input")).toHaveFocus();
+      await user.click(screen.getByDataTestId("test-input"));
+      expect(screen.getByDataTestId("test-input")).toHaveFocus();
       await user.keyboard("{Control>}{a}{/Control}");
       expect(callback).toHaveBeenCalledTimes(0);
-      expect(screen.getByDataCy("test-input")).toHaveValue("");
+      expect(screen.getByDataTestId("test-input")).toHaveValue("");
     });
   });
 
@@ -59,13 +59,13 @@ describe("useKeyboardShortcut", () => {
       const user = userEvent.setup();
       const callback = vi.fn();
       renderHook(() => useKeyboardShortcut({ charKey: CharKey.A }, callback));
-      render(<input data-cy="test-input" />);
+      render(<input data-testid="test-input" />);
 
-      await user.click(screen.getByDataCy("test-input"));
-      expect(screen.getByDataCy("test-input")).toHaveFocus();
+      await user.click(screen.getByDataTestId("test-input"));
+      expect(screen.getByDataTestId("test-input")).toHaveFocus();
       await user.keyboard("{a}");
       expect(callback).toHaveBeenCalledTimes(0);
-      expect(screen.getByDataCy("test-input")).toHaveValue("a");
+      expect(screen.getByDataTestId("test-input")).toHaveValue("a");
     });
   });
 
@@ -81,9 +81,9 @@ describe("useKeyboardShortcut", () => {
         },
       ),
     );
-    render(<input data-cy="test-input" />);
-    await user.click(screen.getByDataCy("test-input"));
-    expect(screen.getByDataCy("test-input")).toHaveFocus();
+    render(<input data-testid="test-input" />);
+    await user.click(screen.getByDataTestId("test-input"));
+    expect(screen.getByDataTestId("test-input")).toHaveFocus();
     await user.keyboard("{Control>}{a}{/Control}");
     expect(callback).toHaveBeenCalledTimes(1);
   });

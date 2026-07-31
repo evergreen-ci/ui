@@ -1,11 +1,11 @@
 import type { Context } from "@sentry/core";
 import {
+  type Scope,
+  type SeverityLevel,
   captureException,
   init,
   setTags,
   withScope,
-  type Scope,
-  type SeverityLevel,
 } from "@sentry/react";
 import { ErrorInput } from "./types";
 import { processHtmlAttributes } from "./utils";
@@ -34,6 +34,9 @@ const initializeSentry = ({
           const { target } = hint?.event ?? {};
           if (target?.dataset?.cy) {
             breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy="${target.dataset.cy}"]`;
+          }
+          if (target?.dataset?.testid) {
+            breadcrumb.message = `${target.tagName.toLowerCase()}[data-testid="${target.dataset.testid}"]`;
           }
           breadcrumb.data = processHtmlAttributes(target);
         }

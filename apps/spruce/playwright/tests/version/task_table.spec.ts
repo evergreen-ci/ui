@@ -1,8 +1,10 @@
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
-import { Page, test, expect } from "../../fixtures";
+import { Page, expect, test } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
+const lastRunStatusPath =
+  "/version/spruce_2c9056df66d42fb1908d52eed096750a91f1f089/tasks";
 const patchDescriptionTasksExist = "dist";
 
 const waitForTaskTable = async (page: Page) => {
@@ -73,6 +75,41 @@ test.describe("Task table", () => {
   test("Task count displays total tasks", async ({ page }) => {
     await page.goto(pathTasks);
     await expect(page.getByTestId("total-count").first()).toContainText("49");
+  });
+
+  test("Explains the last run status column", async ({ page }) => {
+    await page.goto(pathTasks);
+    await waitForTaskTable(page);
+
+    const lastRunStatusHeader = page.getByRole("columnheader", {
+      name: /Last Run Status/,
+    });
+    await expect(lastRunStatusHeader).toBeVisible();
+    await lastRunStatusHeader.getByRole("button").hover();
+    await expect(
+      page.getByText(
+        /For (base|previous) tasks that have not finished running, this column links to the most recent completed commit\./,
+      ),
+    ).toBeVisible();
+  });
+
+  test("Displays the most recent completed task in the last run status column", async ({
+    page,
+  }) => {
+    await page.goto(lastRunStatusPath);
+    await waitForTaskTable(page);
+
+    const checkCodegenRow = page
+      .getByTestId("tasks-table-row")
+      .filter({ hasText: "check_codegen" });
+    const lastCompletedTask = checkCodegenRow.locator(
+      "[data-column='last-run-status']",
+    );
+    const link = lastCompletedTask.getByRole("link");
+    await expect(link).toHaveAttribute(
+      "href",
+      "/task/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/history?execution=0",
+    );
   });
 
   test.describe("Changing page number", () => {

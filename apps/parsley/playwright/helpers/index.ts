@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 
 export const addFilter = async (page: Page, filter: string) => {
   await expect(page.getByTestId("searchbar-select")).toBeEnabled();
@@ -59,16 +59,16 @@ export const clearBounds = async (page: Page) => {
 
 export const clickToggle = async (
   page: Page,
-  toggleDataCy: string,
+  toggleDataTestId: string,
   enabled: boolean,
   tab: "search-and-filter" | "log-viewing" = "search-and-filter",
 ) => {
   await toggleDetailsPanel(page, true);
   if (tab === "log-viewing") {
-    await page.locator("button[data-cy='log-viewing-tab']").click();
+    await page.locator("button[data-testid='log-viewing-tab']").click();
   }
-  await page.getByTestId(toggleDataCy).click();
-  await expect(page.getByTestId(toggleDataCy)).toHaveAttribute(
+  await page.getByTestId(toggleDataTestId).click();
+  await expect(page.getByTestId(toggleDataTestId)).toHaveAttribute(
     "aria-checked",
     `${enabled}`,
   );

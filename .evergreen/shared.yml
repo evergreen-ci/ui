@@ -170,6 +170,18 @@ functions:
           ${PREPARE_SHELL}
           pnpm build:local
 
+  run-sage-server:
+    command: subprocess.exec
+    params:
+      working_dir: ui/sage
+      binary: bash
+      background: true
+      args:
+        - "-c"
+        - |
+          ${PREPARE_SHELL}
+          pnpm dev
+
   pnpm-playwright:
     command: subprocess.exec
     params:
@@ -306,8 +318,15 @@ tasks:
       - func: pnpm-verify-backend
       - func: pnpm-playwright
 
-  - name: e2e_no_db
+  - name: e2e_sage
     commands:
+      - func: setup-mongodb
+      - func: generate-token
+      - func: run-make-background
+        vars:
+          target: local-evergreen
+      - func: wait-for-evergreen
+      - func: run-sage-server
       - func: pnpm-build
       - func: pnpm-preview
       - func: pnpm-playwright

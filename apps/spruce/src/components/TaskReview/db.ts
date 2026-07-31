@@ -1,4 +1,4 @@
-import { IDBPDatabase, openDB, DBSchema } from "idb";
+import { DBSchema, IDBPDatabase, openDB } from "idb";
 
 const DB_NAME = "spruce-db";
 const STORE_NAME = "task_reviews";

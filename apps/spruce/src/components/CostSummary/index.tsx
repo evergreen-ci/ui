@@ -1,4 +1,4 @@
-import { useState, ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";

@@ -5,7 +5,7 @@ import usePagination from "../../../hooks/usePagination";
 import PageSizeSelector from "../../PageSizeSelector";
 import Pagination from "../../Pagination";
 import { ResultCountLabel } from "./ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "./styles";
+import { TableControlInnerRow, TableControlOuterRow } from "./styles";
 
 interface Props {
   filteredCount: number;
@@ -46,12 +46,15 @@ const TableControl: React.FC<Props> = ({
         <ResultCountLabel
           dataCyDenominator="total-count"
           dataCyNumerator="filtered-count"
+          dataTestIdDenominator="total-count"
+          dataTestIdNumerator="filtered-count"
           denominator={totalCount}
           label={label}
           numerator={filteredCount}
         />
         <PaddedButton
           data-cy="clear-all-filters"
+          data-testid="clear-all-filters"
           disabled={disabled}
           onClick={onClearAll}
           size="small"
@@ -62,13 +65,11 @@ const TableControl: React.FC<Props> = ({
       <TableControlInnerRow>
         <Pagination
           currentPage={page}
-          data-cy="tasks-table-pagination"
           onChange={onPageChange}
           pageSize={limit}
           totalResults={filteredCount}
         />
         <PageSizeSelector
-          data-cy="tasks-table-page-size-selector"
           disabled={disabled}
           onChange={handlePageSizeChange}
           value={limit}

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { Analytics, ActionType, AnalyticsProperties } from "./types";
+import { ActionType, Analytics, AnalyticsProperties } from "./types";
 import { sendEventTrace } from "./utils";
 
 /**

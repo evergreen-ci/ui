@@ -22,7 +22,7 @@ const HighlightNavGroup: React.FC = () => {
 
   return (
     <BaseNavGroup
-      data-cy="highlight"
+      data-testid="highlight"
       defaultMessage="No terms have been highlighted."
       glyph="Highlight"
       items={highlights}
@@ -38,7 +38,7 @@ const HighlightNavGroup: React.FC = () => {
           </IconButton>
           <StyledHighlight
             color={highlightColorList[index % highlightColorList.length]}
-            data-cy="side-nav-highlight"
+            data-testid="side-nav-highlight"
           >
             {highlight}
           </StyledHighlight>

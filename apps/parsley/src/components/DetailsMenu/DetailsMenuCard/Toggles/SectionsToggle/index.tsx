@@ -12,7 +12,7 @@ const SectionsToggle: React.FC = () => {
 
   return (
     <BaseToggle
-      data-cy="sections-toggle"
+      data-testid="sections-toggle"
       disabled={!isTaskLog}
       label="Sections"
       onChange={(value) => {

@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { Popover, Align, Justify } from "@leafygreen-ui/popover";
+import { Align, Justify, Popover } from "@leafygreen-ui/popover";
 import { Body } from "@leafygreen-ui/typography";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
@@ -13,6 +13,7 @@ const { blue, gray } = palette;
 
 interface TableFilterPopoverProps {
   "data-cy"?: string;
+  "data-testid"?: string;
   onConfirm: (filters: string[]) => void;
   options: TreeDataEntry[];
   value: string[];
@@ -20,6 +21,7 @@ interface TableFilterPopoverProps {
 
 const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   "data-cy": dataCy,
+  "data-testid": dataTestId,
   onConfirm,
   options,
   value,
@@ -46,6 +48,7 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
         aria-label="Table Filter Popover Icon"
         data-cy={dataCy}
         data-highlighted={hasFilters}
+        data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
         <Icon color={iconColor} glyph="Filter" />
@@ -57,7 +60,11 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
         refEl={buttonRef}
         spacing={DEFAULT_SPACING}
       >
-        <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
+        <PopoverContainer
+          ref={popoverRef}
+          data-cy={`${dataCy}-wrapper`}
+          data-testid={`${dataTestId}-wrapper`}
+        >
           {options.length > 0 ? (
             <TreeSelect onChange={onChange} state={value} tData={options} />
           ) : (

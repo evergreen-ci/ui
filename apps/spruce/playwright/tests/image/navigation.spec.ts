@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("/image/imageId/random redirect route", () => {
   test("should redirect to the build information page", async ({ page }) => {

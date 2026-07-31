@@ -14,8 +14,8 @@ import {
 import { ApolloMock } from "test_utils/types";
 import {
   useAdminBetaFeatures,
-  useUserBetaFeatures,
   useMergedBetaFeatures,
+  useUserBetaFeatures,
 } from ".";
 
 interface ProviderProps {
@@ -106,7 +106,7 @@ const userBetaFeatures: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         userId: "me",
         betaFeatures: {
           __typename: "BetaFeatures",

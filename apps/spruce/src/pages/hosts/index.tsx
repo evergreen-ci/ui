@@ -7,8 +7,8 @@ import { Disclaimer, H2 } from "@leafygreen-ui/typography";
 import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
 import Pagination from "@evg-ui/lib/components/Pagination";
 import {
-  TableControlOuterRow,
   TableControlInnerRow,
+  TableControlOuterRow,
 } from "@evg-ui/lib/components/Table/TableControl/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";

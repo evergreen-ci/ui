@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client/react";
 import { volumeTypes } from "constants/volumes";
 import {
-  SubnetAvailabilityZonesQuery,
-  SubnetAvailabilityZonesQueryVariables,
   MyHostsQuery,
   MyHostsQueryVariables,
+  SubnetAvailabilityZonesQuery,
+  SubnetAvailabilityZonesQueryVariables,
 } from "gql/generated/types";
-import { SUBNET_AVAILABILITY_ZONES, MY_HOSTS } from "gql/queries";
+import { MY_HOSTS, SUBNET_AVAILABILITY_ZONES } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { getNoExpirationCheckboxTooltipCopy } from "../utils";
 

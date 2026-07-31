@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/client/react";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
+import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
-import { LoadingButton, Size as ButtonSize } from "components/Buttons";
+import { Size as ButtonSize, LoadingButton } from "components/Buttons";
 import { Requester } from "constants/requesters";
 import {
   RestartTaskMutation,

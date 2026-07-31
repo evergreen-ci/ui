@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client/react";
+import { useMutation, useQuery } from "@apollo/client/react";
 import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -6,24 +6,26 @@ import { AdminSettingsTabRoutes, slugs } from "constants/routes";
 import {
   AdminSettingsInput,
   AdminSettingsQuery,
+  AdminSettingsQueryVariables,
   SaveAdminSettingsMutation,
   SaveAdminSettingsMutationVariables,
 } from "gql/generated/types";
 import { SAVE_ADMIN_SETTINGS } from "gql/mutations";
+import { ADMIN_SETTINGS } from "gql/queries";
 import { useAdminSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
 import { AnyFormToGqlFunction } from "./tabs/types";
 
-interface AdminSaveButtonProps {
-  adminSettingsData: NonNullable<AdminSettingsQuery["adminSettings"]>;
-}
-
-export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
-  adminSettingsData,
-}) => {
+export const AdminSaveButton: React.FC = () => {
   const { [slugs.tab]: urlTab } = useParams<{
     [slugs.tab]: AdminSettingsTabRoutes;
   }>();
+
+  // Get the initial data, which should be cached
+  const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
+    ADMIN_SETTINGS,
+  );
+  const adminSettingsData = data?.adminSettings;
 
   const {
     checkHasUnsavedChanges,
@@ -52,6 +54,9 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
   });
 
   const handleSave = () => {
+    if (!adminSettingsData) {
+      return;
+    }
     const { errors, isValid } = validateTabs(changedTabs);
     if (!isValid) {
       const fieldNames = [

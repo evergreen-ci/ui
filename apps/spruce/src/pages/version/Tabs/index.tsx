@@ -1,6 +1,6 @@
-import { useState, useMemo, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
@@ -134,7 +134,7 @@ const tabMap = ({
         numSuccessChildPatches,
       )}
     >
-      <DownstreamTasks childPatches={childPatches} />
+      <DownstreamTasks childPatches={childPatches ?? []} />
     </Tab>
   ),
   [VersionPageTabs.TestAnalysis]: (

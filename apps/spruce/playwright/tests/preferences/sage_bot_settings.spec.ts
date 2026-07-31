@@ -1,7 +1,7 @@
 // TODO: DEVPROD-33674 - Re-enable and update these tests when GitHub OAuth credentials are implemented.
 // The Cursor API key backend endpoints have been removed; the Sage Bot Settings tab will be
 // repurposed for GitHub OAuth credentials.
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 const route = "/preferences/sage-bot-settings";
 

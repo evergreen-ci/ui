@@ -2,18 +2,18 @@ import { SpruceFormProps } from "components/SpruceForm/types";
 import {
   buildRegexSelectors,
   failureTypeSubscriberOptions,
-  requesterSubscriberOptions,
-  taskRegexSelectors,
   regexBuildVariant,
   regexDisplayName,
+  requesterSubscriberOptions,
+  taskRegexSelectors,
 } from "constants/triggers";
 import {
   ExtraFieldKey,
-  RegexSelector,
-  Trigger,
-  TaskTriggers,
-  VersionTriggers,
   ProjectTriggers,
+  RegexSelector,
+  TaskTriggers,
+  Trigger,
+  VersionTriggers,
 } from "types/triggers";
 import { RegexSelectorRow } from "./RegexSelectorRow";
 

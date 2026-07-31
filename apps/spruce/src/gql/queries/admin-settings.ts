@@ -145,6 +145,7 @@ export const ADMIN_SETTINGS = gql`
           ebsDiscount
         }
         financeFormula
+        hiddenCostProjects
         onDemandDiscount
         s3Cost {
           storage {
@@ -263,11 +264,6 @@ export const ADMIN_SETTINGS = gql`
           allowedInstanceTypes
           allowedRegions
           defaultSecurityGroup
-          ec2Keys {
-            key
-            name
-            secret
-          }
           elasticIPUsageRate
           ipamPoolID
           maxVolumeSizePerUser
@@ -340,6 +336,8 @@ export const ADMIN_SETTINGS = gql`
         stepbackTaskFactor
         targetTimeSeconds
         taskFinder
+        translateProjectCacheBytesLimit
+        translateProjectCacheTTLSeconds
         translateProjectConcurrencyLimit
       }
 

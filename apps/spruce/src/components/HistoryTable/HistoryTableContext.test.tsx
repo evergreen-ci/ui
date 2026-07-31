@@ -1,7 +1,7 @@
-import { renderHook, act } from "@evg-ui/lib/test_utils";
+import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
 import { columns, mainlineCommitData } from "./testData";
-import { rowType, CommitRowType } from "./types";
+import { CommitRowType, rowType } from "./types";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const wrapper = ({ children }) => (

@@ -25,7 +25,7 @@ const ButtonRow: React.FC = () => {
           justify="middle"
           trigger={
             <Button
-              data-cy="job-logs-button"
+              data-testid="job-logs-button"
               disabled={!jobLogsURL}
               href={jobLogsURL}
               leftGlyph={<Icon glyph="Export" />}
@@ -42,7 +42,7 @@ const ButtonRow: React.FC = () => {
           justify="middle"
           trigger={
             <Button
-              data-cy="raw-log-button"
+              data-testid="raw-log-button"
               disabled={!rawLogURL}
               href={rawLogURL}
               leftGlyph={<Icon glyph="Export" />}
@@ -59,7 +59,7 @@ const ButtonRow: React.FC = () => {
           justify="middle"
           trigger={
             <Button
-              data-cy="html-log-button"
+              data-testid="html-log-button"
               disabled={!htmlLogURL}
               href={htmlLogURL}
               leftGlyph={<Icon glyph="Export" />}
@@ -76,7 +76,7 @@ const ButtonRow: React.FC = () => {
           justify="middle"
           trigger={
             <Button
-              data-cy="download-log-button"
+              data-testid="download-log-button"
               disabled={!rawLogURL}
               leftGlyph={<Icon glyph="Download" />}
               onClick={() => {

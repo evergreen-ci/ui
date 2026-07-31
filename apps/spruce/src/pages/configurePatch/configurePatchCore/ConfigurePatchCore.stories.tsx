@@ -1,6 +1,6 @@
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { patchQuery, mocks } from "./testData";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { mocks, patchQuery } from "./testData";
 import ConfigurePatchCore from ".";
 
 export default {

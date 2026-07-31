@@ -1,9 +1,9 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import {
+  DispatcherVersion,
   FinderVersion,
   PlannerVersion,
-  DispatcherVersion,
   Provider,
 } from "gql/generated/types";
 

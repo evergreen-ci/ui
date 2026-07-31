@@ -1,8 +1,8 @@
 import {
   MockedProvider,
   renderWithRouterMatch as render,
-  userEvent,
   screen,
+  userEvent,
 } from "@evg-ui/lib/test_utils";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { foldedCommitData } from "./testData";

@@ -18,6 +18,15 @@ export const VERSION_TASKS = gql`
             id
             displayStatus
             execution
+            prevTaskCompleted(
+              prevTaskOptions: { skipOnParentCompleted: true }
+            ) {
+              id
+              displayStatus
+              execution
+              finishTime
+            }
+            status
           }
           blocked
           buildVariant
@@ -35,6 +44,15 @@ export const VERSION_TASKS = gql`
               id
               displayStatus
               execution
+              prevTaskCompleted(
+                prevTaskOptions: { skipOnParentCompleted: true }
+              ) {
+                id
+                displayStatus
+                execution
+                finishTime
+              }
+              status
             }
             buildVariant
             buildVariantDisplayName

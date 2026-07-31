@@ -6,12 +6,12 @@ import { Pagination } from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import {
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  filterFns,
-  useLeafyGreenTable,
   BaseTable,
   LGColumnDef,
+  filterFns,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";

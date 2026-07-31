@@ -5,14 +5,12 @@ const { black } = palette;
 
 export const ArrowWithCircle: React.ComponentType<LeafygreenIconProps> = ({
   className,
-  "data-cy": dataCy,
   fill = black,
   onClick,
 }) => (
   <svg
     aria-label="Arrow With Circle Icon"
     className={className}
-    data-cy={dataCy}
     fill="none"
     height="14"
     onClick={onClick}

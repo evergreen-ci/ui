@@ -1,10 +1,10 @@
 import {
-  FinderVersion,
   AdminSettingsInput,
-  HostAllocatorVersion,
-  RoundingRule,
-  OverallocatedRule,
   FeedbackRule,
+  FinderVersion,
+  HostAllocatorVersion,
+  OverallocatedRule,
+  RoundingRule,
 } from "gql/generated/types";
 import { adminSettings } from "../../testData";
 import { formToGql, gqlToForm } from "./transformers";
@@ -66,6 +66,8 @@ const form: RunnersFormState = {
       numDependentsFactor: 1,
       stepbackTaskFactor: 1,
       translateProjectConcurrencyLimit: 1,
+      translateProjectCacheBytesLimit: 1,
+      translateProjectCacheTTLSeconds: 1,
     },
     repotracker: {
       numNewRepoRevisionsToFetch: 1,
@@ -124,6 +126,8 @@ const gql: AdminSettingsInput = {
     numDependentsFactor: 1,
     stepbackTaskFactor: 1,
     translateProjectConcurrencyLimit: 1,
+    translateProjectCacheBytesLimit: 1,
+    translateProjectCacheTTLSeconds: 1,
   },
   repotracker: {
     numNewRepoRevisionsToFetch: 1,

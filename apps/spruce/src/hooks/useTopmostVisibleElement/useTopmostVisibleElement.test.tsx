@@ -1,4 +1,4 @@
-import { renderHook, render } from "@evg-ui/lib/test_utils";
+import { render, renderHook } from "@evg-ui/lib/test_utils";
 import { scrollPage } from "hooks/test-utils";
 import { useTopmostVisibleElement } from ".";
 

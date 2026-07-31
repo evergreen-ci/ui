@@ -9,17 +9,17 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RepotrackerBanner } from "components/Banners";
 import {
-  UserProjectSettingsPermissionsQuery,
-  UserProjectSettingsPermissionsQueryVariables,
   RepotrackerErrorQuery,
   RepotrackerErrorQueryVariables,
   SetLastRevisionMutation,
   SetLastRevisionMutationVariables,
+  UserProjectSettingsPermissionsQuery,
+  UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import { SET_LAST_REVISION } from "gql/mutations";
 import {
-  USER_PROJECT_SETTINGS_PERMISSIONS,
   REPOTRACKER_ERROR,
+  USER_PROJECT_SETTINGS_PERMISSIONS,
 } from "gql/queries";
 
 describe("repotracker banner", () => {
@@ -189,7 +189,7 @@ const adminUser: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         userId: "admin",
         permissions: {
           __typename: "Permissions",
@@ -216,7 +216,7 @@ const basicUser: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         userId: "basic",
         permissions: {
           __typename: "Permissions",

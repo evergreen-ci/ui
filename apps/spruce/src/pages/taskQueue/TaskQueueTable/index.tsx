@@ -1,26 +1,26 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { css } from "@leafygreen-ui/emotion";
 import { Body } from "@leafygreen-ui/typography";
 import {
-  WordBreak,
   StyledRouterLink,
+  WordBreak,
   wordBreakCss,
 } from "@evg-ui/lib/components/styles";
 import {
-  LGColumnDef,
-  useLeafyGreenVirtualTable,
   BaseTable,
+  LGColumnDef,
   TablePlaceholder,
+  useLeafyGreenVirtualTable,
 } from "@evg-ui/lib/components/Table";
 import { useTaskQueueAnalytics } from "analytics";
-import { isWaterfallRequester, Requester } from "constants/requesters";
+import { Requester, isWaterfallRequester } from "constants/requesters";
 import {
-  getVersionRoute,
+  getProjectPatchesRoute,
   getTaskRoute,
   getUserPatchesRoute,
-  getProjectPatchesRoute,
+  getVersionRoute,
 } from "constants/routes";
 import { TaskQueueItem } from "gql/generated/types";
 import { formatZeroIndexForDisplay } from "utils/numbers";
@@ -100,10 +100,12 @@ const taskQueueTableColumns = (
       ),
       align: "center",
       id: "index",
+      size: 100,
     },
     {
       header: "Task",
       accessorKey: "displayName",
+      size: 400,
       cell: (value) => {
         const { buildVariant, displayName, id } = value.row.original;
         return (
@@ -124,11 +126,13 @@ const taskQueueTableColumns = (
       header: "Est. Runtime",
       accessorKey: "expectedDuration",
       align: "center",
+      size: 120,
       cell: (value) => msToDuration(value.row.original.expectedDuration),
     },
     {
       header: "Project",
       accessorKey: "projectIdentifier",
+      size: NaN,
       cell: (value) => {
         const project =
           value.row.original.projectIdentifier || value.row.original.project;
@@ -145,6 +149,7 @@ const taskQueueTableColumns = (
     {
       header: "Version",
       accessorKey: "version",
+      size: NaN,
       cell: (value) => (
         <StyledRouterLink
           onClick={() => sendEvent({ name: "Clicked version link" })}
@@ -159,6 +164,7 @@ const taskQueueTableColumns = (
       accessorKey: "priority",
       align: "center",
       cell: (value) => <Badge>{value.row.original.priority}</Badge>,
+      size: 60,
     },
     {
       header: "Activated By",

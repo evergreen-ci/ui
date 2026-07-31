@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Tab shortcut", () => {
   test("toggle through tabs with 'j' and 'k' on version page", async ({

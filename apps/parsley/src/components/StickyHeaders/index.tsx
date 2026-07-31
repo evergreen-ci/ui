@@ -36,7 +36,7 @@ const StickyHeaders: React.FC<StickyHeaderProps> = ({
   }, [sectionHeader, subsectionHeader, onHeightChange]);
 
   return (
-    <StickyHeaderContainer ref={containerRef} data-cy="sticky-headers">
+    <StickyHeaderContainer ref={containerRef} data-testid="sticky-headers">
       {isNumber(sectionHeader) &&
         sectionHeaderLine &&
         isSectionHeaderRow(sectionHeaderLine) && (

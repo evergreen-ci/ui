@@ -14,17 +14,15 @@ export const EventLogTab: React.FC<TabProps> = ({
 }) => {
   const { [slugs.distroId]: distroId } = useParams();
 
-  const { count, events, fetchMore, loading, previousCount } = useDistroEvents(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    distroId,
-    limit,
-  );
-
-  const lastEventTimestamp = events[events.length - 1]?.timestamp;
+  const { events, handleFetchMore, lastFetchedCount, loading } =
+    useDistroEvents(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      distroId,
+      limit,
+    );
 
   return (
     <EventLog
-      count={count}
       eventRenderer={({ after, before, data }) =>
         after && before ? (
           <EventDiffTable after={after} before={before} />
@@ -33,17 +31,10 @@ export const EventLogTab: React.FC<TabProps> = ({
         )
       }
       events={events}
-      handleFetchMore={() => {
-        fetchMore({
-          variables: {
-            distroId,
-            before: lastEventTimestamp,
-          },
-        });
-      }}
+      handleFetchMore={handleFetchMore}
+      lastFetchedCount={lastFetchedCount}
       limit={limit}
       loading={loading}
-      previousCount={previousCount}
     />
   );
 };

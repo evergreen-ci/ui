@@ -5,10 +5,10 @@ import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
+  SortDirection,
+  TaskSortCategory,
   VersionTasksQuery,
   VersionTasksQueryVariables,
-  TaskSortCategory,
-  SortDirection,
 } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";

@@ -4,21 +4,23 @@ import { nonWindowsArchitectures, windowsArchitectures } from "./constants";
 import {
   allocation as allocationProperties,
   bootstrap as bootstrapProperties,
-  setup,
-  sshConfig as sshConfigProperties,
   icecreamConfigPath,
   icecreamSchedulerHost,
   isVirtualWorkStation,
   rootDir,
+  setup,
+  sshConfig as sshConfigProperties,
 } from "./schemaFields";
 
 type FormSchemaParams = {
   architecture: Arch;
+  isSingleTaskDistro: boolean;
   provider: Provider;
 };
 
 export const getFormSchema = ({
   architecture,
+  isSingleTaskDistro,
   provider,
 }: FormSchemaParams): ReturnType<GetFormSchema> => {
   const hasStaticProvider = provider === Provider.Static;
@@ -123,7 +125,11 @@ export const getFormSchema = ({
       },
     },
     uiSchema: {
-      setup: setup.uiSchema(architecture, hasStaticProvider),
+      setup: setup.uiSchema(
+        architecture,
+        hasStaticProvider,
+        isSingleTaskDistro,
+      ),
       bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
       allocation: allocationProperties.uiSchema(
@@ -152,7 +158,7 @@ const allocation = {
   required: [
     "minimumHosts",
     "maximumHosts",
-    "acceptableHostIdleTime",
+    "acceptableHostIdleTimeSeconds",
     "futureHostFraction",
   ],
   properties: allocationProperties.schema,

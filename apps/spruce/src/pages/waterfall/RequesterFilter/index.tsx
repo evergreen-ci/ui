@@ -1,7 +1,7 @@
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
-import { requesterToTitle, mainlineRequesters } from "constants/requesters";
+import { mainlineRequesters, requesterToTitle } from "constants/requesters";
 import { WaterfallFilterOptions } from "../types";
 
 export const RequesterFilter = () => {

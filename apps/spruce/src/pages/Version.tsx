@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TTLInfo } from "components/404/TTLInfo";
-import { ProjectBanner, WarningBanner, ErrorBanner } from "components/Banners";
+import { ErrorBanner, ProjectBanner, WarningBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import {
-  PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
+  PageWrapper,
 } from "components/styles";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { slugs } from "constants/routes";

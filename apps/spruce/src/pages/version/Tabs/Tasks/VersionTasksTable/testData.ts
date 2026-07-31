@@ -3,6 +3,7 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   TaskStatusesQuery,
   TaskStatusesQueryVariables,
+  VersionTasksQuery,
 } from "gql/generated/types";
 import { TASK_STATUSES } from "gql/queries";
 
@@ -32,7 +33,7 @@ export const taskStatusesMock: ApolloMock<
   },
 };
 
-export const versionTasks = {
+export const versionTasks: { data: VersionTasksQuery } = {
   data: {
     version: {
       id: "6864459c5b88310007596035",
@@ -46,7 +47,15 @@ export const versionTasks = {
             baseTask: {
               id: "evergreen_ui_spruce_snapshots_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
+              prevTaskCompleted: {
+                id: "evergreen_ui_spruce_snapshots_previous",
+                displayStatus: "failed",
+                execution: 1,
+                finishTime: new Date("2025-07-01T15:00:00Z"),
+                __typename: "Task",
+              },
               __typename: "Task",
             },
             blocked: false,
@@ -57,7 +66,11 @@ export const versionTasks = {
             displayStatus: "failed",
             execution: 0,
             executionTasksFull: null,
-            projectIdentifier: "evergreen-ui",
+            project: {
+              id: "project-id",
+              identifier: "evergreen-ui",
+              __typename: "Project",
+            },
             __typename: "Task",
           },
           {
@@ -66,6 +79,7 @@ export const versionTasks = {
             baseTask: {
               id: "evergreen_ui_spruce_test_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
               __typename: "Task",
             },
@@ -77,7 +91,11 @@ export const versionTasks = {
             displayStatus: "success",
             execution: 0,
             executionTasksFull: null,
-            projectIdentifier: "evergreen-ui",
+            project: {
+              id: "project-id",
+              identifier: "evergreen-ui",
+              __typename: "Project",
+            },
             __typename: "Task",
           },
           {
@@ -86,6 +104,7 @@ export const versionTasks = {
             baseTask: {
               id: "evergreen_ui_spruce_type_check_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
               __typename: "Task",
             },
@@ -97,7 +116,11 @@ export const versionTasks = {
             displayStatus: "success",
             execution: 0,
             executionTasksFull: null,
-            projectIdentifier: "evergreen-ui",
+            project: {
+              id: "project-id",
+              identifier: "evergreen-ui",
+              __typename: "Project",
+            },
             __typename: "Task",
           },
           {
@@ -120,7 +143,11 @@ export const versionTasks = {
                 displayName: "e2e_spruce_0",
                 displayStatus: "failed",
                 execution: 0,
-                projectIdentifier: "evergreen-ui",
+                project: {
+                  id: "project-id",
+                  identifier: "evergreen-ui",
+                  __typename: "Project",
+                },
                 __typename: "Task",
               },
               {
@@ -131,7 +158,11 @@ export const versionTasks = {
                 displayName: "e2e_spruce_1",
                 displayStatus: "failed",
                 execution: 0,
-                projectIdentifier: "evergreen-ui",
+                project: {
+                  id: "project-id",
+                  identifier: "evergreen-ui",
+                  __typename: "Project",
+                },
                 __typename: "Task",
               },
               {
@@ -142,7 +173,11 @@ export const versionTasks = {
                 displayName: "e2e_spruce_2",
                 displayStatus: "failed",
                 execution: 0,
-                projectIdentifier: "evergreen-ui",
+                project: {
+                  id: "project-id",
+                  identifier: "evergreen-ui",
+                  __typename: "Project",
+                },
                 __typename: "Task",
               },
               {
@@ -153,11 +188,19 @@ export const versionTasks = {
                 displayName: "e2e_spruce_3",
                 displayStatus: "success",
                 execution: 0,
-                projectIdentifier: "evergreen-ui",
+                project: {
+                  id: "project-id",
+                  identifier: "evergreen-ui",
+                  __typename: "Project",
+                },
                 __typename: "Task",
               },
             ],
-            projectIdentifier: "evergreen-ui",
+            project: {
+              id: "project-id",
+              identifier: "evergreen-ui",
+              __typename: "Project",
+            },
             __typename: "Task",
           },
         ],

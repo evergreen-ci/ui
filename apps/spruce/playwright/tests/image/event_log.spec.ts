@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Event log page", () => {
   const IMAGE_EVENT_LIMIT = 5;

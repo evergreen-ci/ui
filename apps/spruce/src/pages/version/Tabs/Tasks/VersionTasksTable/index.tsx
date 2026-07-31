@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import {
-  useLeafyGreenTable,
-  LeafyGreenTable,
-  ColumnFiltersState,
-  SortingState,
   BaseTable,
-  TableWrapper,
-  onChangeHandler,
+  ColumnFiltersState,
+  LeafyGreenTable,
+  SortingState,
   TableControl,
   TablePlaceholder,
+  TableWrapper,
+  onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
@@ -18,14 +18,14 @@ import { taskReviewStyles } from "components/TasksTable/styles";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
-import { TaskSortCategory, SortDirection } from "gql/generated/types";
-import { useTaskStatuses, useTableSort } from "hooks";
+import { SortDirection, TaskSortCategory } from "gql/generated/types";
+import { useTableSort, useTaskStatuses } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 import { parseSortString } from "utils/queryString";
 import {
-  mapIdToFilterParam,
-  emptyFilterQueryParams,
   defaultSorting,
+  emptyFilterQueryParams,
+  mapIdToFilterParam,
 } from "./constants";
 
 // Create a more specific enum because duration is not a valid category to sort / filter by in the tasks table.
@@ -93,6 +93,17 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             name: "Clicked task table task link",
             "task.id": taskId,
             "task.status": status ?? "",
+          }),
+        onClickTaskStatusBadge: (
+          taskId: string,
+          status: string,
+          column: string,
+        ) =>
+          sendEvent({
+            name: "Clicked task table status badge",
+            "task.id": taskId,
+            "task.status": status,
+            column: column,
           }),
       }),
     [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
