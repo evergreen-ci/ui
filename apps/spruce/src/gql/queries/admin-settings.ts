@@ -278,6 +278,7 @@ export const ADMIN_SETTINGS = gql`
             domain
             hostedZoneID
           }
+          snsTopicARNs
           subnets {
             az
             subnetId

@@ -68,6 +68,7 @@ export type AwsConfig = {
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
+  snsTopicARNs: Array<Scalars["String"]["output"]>;
   subnets: Array<Subnet>;
 };
 
@@ -82,6 +83,7 @@ export type AwsConfigInput = {
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
+  snsTopicARNs: Array<Scalars["String"]["input"]>;
   subnets: Array<SubnetInput>;
 };
 
@@ -7848,6 +7850,7 @@ export type AdminSettingsQuery = {
         elasticIPUsageRate?: number | null;
         ipamPoolID?: string | null;
         maxVolumeSizePerUser?: number | null;
+        snsTopicARNs: Array<string>;
         accountRoles: Array<{
           __typename?: "AWSAccountRoleMapping";
           account: string;

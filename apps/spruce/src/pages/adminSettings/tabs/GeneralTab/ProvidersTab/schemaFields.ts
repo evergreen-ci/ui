@@ -206,6 +206,15 @@ export const aws = {
       },
       default: [],
     },
+    snsTopicARNs: {
+      type: "array" as const,
+      title: "SNS Topic ARNs",
+      items: {
+        type: "string" as const,
+        minLength: 1,
+      },
+      default: [],
+    },
     elasticIPUsageRate: {
       type: "number" as const,
       title: "Elastic IP Usage Rate",
@@ -278,6 +287,9 @@ export const aws = {
       "ui:widget": widgets.ChipInputWidget,
     },
     allowedRegions: {
+      "ui:widget": widgets.ChipInputWidget,
+    },
+    snsTopicARNs: {
       "ui:widget": widgets.ChipInputWidget,
     },
     persistentDNS: {
