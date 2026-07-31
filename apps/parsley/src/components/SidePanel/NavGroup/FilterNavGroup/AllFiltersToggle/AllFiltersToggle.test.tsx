@@ -16,7 +16,7 @@ describe("all filters toggle", () => {
     render(<AllFiltersToggle />, {
       route: "?filters=000abc,000def",
     });
-    expect(screen.getByDataCy("all-filters-toggle")).toHaveAttribute(
+    expect(screen.getByDataTestId("all-filters-toggle")).toHaveAttribute(
       "aria-checked",
       "false",
     );

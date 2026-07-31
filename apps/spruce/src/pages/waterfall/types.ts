@@ -9,7 +9,7 @@ export type ServerFilters = Pick<
 >;
 
 export type Version = Omit<
-  Unpacked<WaterfallQuery["waterfall"]["flattenedVersions"]>,
+  Unpacked<WaterfallQuery["waterfall"]["versions"]>,
   "buildVariants"
 >;
 
