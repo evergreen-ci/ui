@@ -44,7 +44,14 @@ describe("getPrevPageCursor", () => {
     expect(res).toStrictEqual(tasks[0]);
   });
 
-  it("works with inactive task item", () => {
+  it("prefers the first active task over a leading inactive group", () => {
+    // This window starts with an inactive group (tasks[2]) but contains active tasks; the cursor
+    // must be the first active task, since the inactive list is capped by the backend.
+    const res = getPrevPageCursor(collapsedGroupedTasks.slice(3));
+    expect(res).toStrictEqual(tasks[3]);
+  });
+
+  it("falls back to an inactive task when the window has no active task", () => {
     const res = getPrevPageCursor(collapsedGroupedTasks.slice(9, -3));
     expect(res).toStrictEqual(tasks[6]);
   });
@@ -56,7 +63,13 @@ describe("getNextPageCursor", () => {
     expect(res).toStrictEqual(tasks[10]);
   });
 
-  it("works with inactive task item", () => {
+  it("prefers the last active task over a trailing inactive group", () => {
+    // This window ends with an inactive group (tasks[6..8]) preceded by active task tasks[5].
+    const res = getNextPageCursor(collapsedGroupedTasks.slice(0, 10));
+    expect(res).toStrictEqual(tasks[5]);
+  });
+
+  it("falls back to an inactive task when the window has no active task", () => {
     const res = getNextPageCursor(collapsedGroupedTasks.slice(9, -3));
     expect(res).toStrictEqual(tasks[8]);
   });
