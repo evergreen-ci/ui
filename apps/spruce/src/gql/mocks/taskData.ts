@@ -80,6 +80,7 @@ export const taskQuery: TaskQueryType = {
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
     execution: 0,
+    executionPlatform: "host",
     expectedDuration: 123,
     hostId: "i-0e0e62799806e037d",
     latestExecution: 0,

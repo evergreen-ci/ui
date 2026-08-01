@@ -442,6 +442,7 @@ export type BootstrapSettings = {
   __typename?: "BootstrapSettings";
   clientDir: Scalars["String"]["output"];
   communication: CommunicationMethod;
+  containerIsolation: ContainerIsolationSettings;
   env: Array<EnvVar>;
   jasperBinaryDir: Scalars["String"]["output"];
   jasperCredentialsPath: Scalars["String"]["output"];
@@ -456,6 +457,7 @@ export type BootstrapSettings = {
 export type BootstrapSettingsInput = {
   clientDir: Scalars["String"]["input"];
   communication: CommunicationMethod;
+  containerIsolation: ContainerIsolationSettingsInput;
   env: Array<EnvVarInput>;
   jasperBinaryDir: Scalars["String"]["input"];
   jasperCredentialsPath: Scalars["String"]["input"];
@@ -630,6 +632,29 @@ export enum CommunicationMethod {
   Rpc = "RPC",
   Ssh = "SSH",
 }
+
+/**
+ * ContainerIsolationSettings controls per-task Docker container isolation for a
+ * distro. When enabled, task subprocess calls (shell.exec, subprocess.exec) run
+ * inside an ephemeral Docker container rather than directly on the host.
+ */
+export type ContainerIsolationSettings = {
+  __typename?: "ContainerIsolationSettings";
+  enabled: Scalars["Boolean"]["output"];
+  image: Scalars["String"]["output"];
+  /**
+   * RequireIsolation opts into fail-closed behavior. When true, container
+   * creation or image-pull failure fails the task immediately rather than
+   * degrading to host-mode. Default (false) is fail-open.
+   */
+  requireIsolation: Scalars["Boolean"]["output"];
+};
+
+export type ContainerIsolationSettingsInput = {
+  enabled: Scalars["Boolean"]["input"];
+  image: Scalars["String"]["input"];
+  requireIsolation: Scalars["Boolean"]["input"];
+};
 
 export type ContainerPool = {
   __typename?: "ContainerPool";
@@ -1940,6 +1965,7 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
+  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -4104,6 +4130,12 @@ export type Task = {
   errors?: Maybe<Array<Scalars["String"]["output"]>>;
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
   execution: Scalars["Int"]["output"];
+  /**
+   * executionPlatform indicates the environment the task ran in: "host" for a
+   * task that ran directly on the host, or "container" for a task that ran
+   * inside a Docker container on the host.
+   */
+  executionPlatform: Scalars["String"]["output"];
   executionSteps?: Maybe<Array<TaskExecutionStep>>;
   executionTasks?: Maybe<Array<Scalars["String"]["output"]>>;
   executionTasksFull?: Maybe<Array<Task>>;
@@ -5156,6 +5188,7 @@ export type BaseTaskFragment = {
   displayName: string;
   displayStatus: string;
   execution: number;
+  executionPlatform: string;
   patchNumber?: number | null;
   versionMetadata: {
     __typename?: "VersionLite";
@@ -5184,6 +5217,7 @@ export type TaskQuery = {
     displayName: string;
     displayStatus: string;
     execution: number;
+    executionPlatform: string;
     patchNumber?: number | null;
     details?: {
       __typename?: "TaskEndDetail";
