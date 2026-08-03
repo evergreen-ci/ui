@@ -143,7 +143,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         // Handle bug in sorting order (https://github.com/TanStack/table/issues/4289)
         sortDescFirst: false,
       },
-      getRowId: (originalRow) => originalRow.id,
+      getRowId: (originalRow, _index, parentRow) =>
+        parentRow ? `${parentRow.id}.${originalRow.id}` : originalRow.id,
       initialState: {
         columnVisibility: { reviewed: taskReviewEnabled },
       },
