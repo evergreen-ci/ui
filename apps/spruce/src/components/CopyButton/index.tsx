@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";

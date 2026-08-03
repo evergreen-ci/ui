@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Task page for an aborted task", () => {
   test("Should link to failing task in task metadata should exist for aborted tasks", async ({

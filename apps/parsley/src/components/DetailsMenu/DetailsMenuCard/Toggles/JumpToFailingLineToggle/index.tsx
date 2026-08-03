@@ -11,7 +11,7 @@ const JumpToFailingLineToggle: React.FC = () => {
 
   return (
     <BaseToggle
-      data-cy="jump-to-failing-line-toggle"
+      data-testid="jump-to-failing-line-toggle"
       disabled={!isTaskLog}
       label="Jump to Failing Line"
       onChange={(value) => {

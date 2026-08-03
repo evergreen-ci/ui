@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import {
   AdminBanner,
   ConnectivityBanner,
-  SlackNotificationBanner,
   GithubUsernameBanner,
+  SlackNotificationBanner,
 } from "components/Banners";
 import { Navbar } from "./Navbar";
 

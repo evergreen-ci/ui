@@ -1,9 +1,9 @@
 import { useContext, useMemo } from "react";
 import {
+  SettingsState,
   createSettingsContext,
   getUseHasUnsavedTab,
   getUsePopulateForm,
-  SettingsState,
   useSettingsState,
 } from "components/Settings/Context";
 import { formToGqlMap } from "./tabs/transformers";

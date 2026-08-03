@@ -15,7 +15,6 @@ export const formToGqlMap: {
 } = {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.General]: general.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Host]: host.formToGql,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Project]: project.formToGql,

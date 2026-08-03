@@ -149,7 +149,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   versionMetadata: {
     id: "68795d3e3ec03f0007deb52c",
     user: {
-      __typename: "UserLite",
+      __typename: "User",
       userId: "sophie.stadler",
       displayName: "Sophie Stadler",
     },
@@ -341,7 +341,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   versionMetadata: {
     id: "68795d3e3ec03f0007deb52c",
     user: {
-      __typename: "UserLite",
+      __typename: "User",
       userId: "sophie.stadler",
       displayName: "Sophie Stadler",
     },

@@ -8,10 +8,10 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SpruceForm } from "components/SpruceForm";
 import {
-  getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
+  getNotificationTriggerCookie,
 } from "constants/cookies";
-import { regexDisplayName, regexBuildVariant } from "constants/triggers";
+import { regexBuildVariant, regexDisplayName } from "constants/triggers";
 import {
   SaveSubscriptionForUserMutation,
   SaveSubscriptionForUserMutationVariables,
@@ -23,8 +23,8 @@ import { useUserSettings } from "hooks/useUserSettings";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
-import { FormState, FormRegexSelector } from "./types";
-import { hasInitialError, getGqlPayload } from "./utils";
+import { FormRegexSelector, FormState } from "./types";
+import { getGqlPayload, hasInitialError } from "./utils";
 
 interface NotificationModalProps {
   "data-cy": string;

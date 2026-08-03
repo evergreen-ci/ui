@@ -66,7 +66,7 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
       setIsOpen={setIsOpen}
       {...rest}
     >
-      <DetailsMenuCard ref={detailsMenuRef} data-cy="details-menu" />
+      <DetailsMenuCard ref={detailsMenuRef} data-testid="details-menu" />
     </AnimatedPopoverButton>
   );
 };

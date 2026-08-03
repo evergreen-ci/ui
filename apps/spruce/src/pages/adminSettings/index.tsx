@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/client/react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -10,15 +9,10 @@ import {
   SideNavPageWrapper,
 } from "components/styles";
 import {
-  getAdminSettingsRoute,
   AdminSettingsTabRoutes,
+  getAdminSettingsRoute,
   slugs,
 } from "constants/routes";
-import {
-  AdminSettingsQuery,
-  AdminSettingsQueryVariables,
-} from "gql/generated/types";
-import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
 import { getTabTitle } from "./getTabTitle";
 import { AdminSettingsTabs } from "./Tabs";
@@ -29,10 +23,6 @@ const AdminSettingsPage: React.FC = () => {
     [slugs.tab]: AdminSettingsTabRoutes;
   }>();
 
-  const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
-    ADMIN_SETTINGS,
-  );
-
   return (
     <AdminSettingsProvider>
       <SideNavPageWrapper>
@@ -41,7 +31,7 @@ const AdminSettingsPage: React.FC = () => {
             collapsible
             glyph={<Icon glyph="Settings" />}
             header={getTabTitle(AdminSettingsTabRoutes.General).title}
-            initialCollapsed={false}
+            initialCollapsed
           >
             <SideNavGroup header="Announcements">
               <SideNavItem
@@ -556,9 +546,7 @@ const AdminSettingsPage: React.FC = () => {
           </SideNavItem>
         </SideNav>
         <SettingsPageContent data-cy="admin-settings-page">
-          {data?.adminSettings && (
-            <AdminSettingsTabs data={data.adminSettings} />
-          )}
+          <AdminSettingsTabs />
         </SettingsPageContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>

@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
 import HistoryTable from "./HistoryTable";
 import { mainlineCommitData } from "./testData";

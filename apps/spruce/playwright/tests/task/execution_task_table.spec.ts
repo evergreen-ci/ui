@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Execution task table", () => {
   const pathExecutionTasks =

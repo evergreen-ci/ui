@@ -10,6 +10,11 @@ modules:
     repo: evergreen
     branch: main
     auto_update: true
+  - name: sage
+    owner: evergreen-ci
+    repo: sage
+    branch: main
+    auto_update: true
 
 pre:
   - func: assume-ec2-role
@@ -109,13 +114,20 @@ buildvariants:
       - ".evergreen/**"
     expansions:
       app_dir: apps/sage
+      goroot: /opt/golang/go1.24
+      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.11.0.tgz
+      mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.0.4.tgz
+      mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.3.1-linux-x64.tgz
       node_version: 22.18.0
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small
+    modules:
+      - evergreen
+      - sage
     tasks:
       - name: compile
-      - name: e2e_no_db
+      - name: e2e_sage
       - name: lint
       - name: storybook
       - name: test

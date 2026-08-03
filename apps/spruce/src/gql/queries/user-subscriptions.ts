@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const USER_SUBSCRIPTIONS = gql`
   query UserSubscriptions {
-    user: userLite {
+    user {
       settings {
         notifications {
           buildBreakId

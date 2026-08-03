@@ -1,4 +1,4 @@
-import { DoesNotExpire, DetailsCard } from "components/Spawn";
+import { DetailsCard, DoesNotExpire } from "components/Spawn";
 import { useDateFormat } from "hooks";
 import { TableVolume } from "types/spawn";
 

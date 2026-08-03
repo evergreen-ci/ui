@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { trace, Span } from "@opentelemetry/api";
+import { Span, trace } from "@opentelemetry/api";
 
 const tracer = trace.getTracer("performance");
 

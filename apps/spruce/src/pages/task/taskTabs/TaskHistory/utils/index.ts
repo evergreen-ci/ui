@@ -1,6 +1,6 @@
 import { createRef } from "react";
 import { toZonedTime } from "date-fns-tz";
-import { TaskHistoryTask, GroupedTask } from "../types";
+import { GroupedTask, TaskHistoryTask } from "../types";
 
 /**
  * `getTaskIngestTime` returns the ingest time to use for date sorting and grouping.

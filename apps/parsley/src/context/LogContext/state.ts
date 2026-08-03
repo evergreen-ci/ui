@@ -13,7 +13,7 @@ interface LogState {
   hasLogs: boolean | null;
   logMetadata?: LogMetadata;
   logs: string[];
-  searchState: SearchState;
+  searchState: Omit<SearchState, "hasSearch" | "searchRange">;
 }
 
 type Action =
@@ -27,7 +27,7 @@ type Action =
   | { type: "SET_FILE_NAME"; fileName: string }
   | { type: "SET_LOG_METADATA"; logMetadata: LogMetadata }
   | { type: "SET_SEARCH_TERM"; searchTerm: string; caseSensitive: boolean }
-  | { type: "SET_MATCH_COUNT"; matchCount: number }
+  | { type: "RESET_SEARCH_INDEX"; hasMatches: boolean }
   | { type: "EXPAND_LINES"; expandedLines: ExpandedLines }
   | { type: "COLLAPSE_LINES"; idx: number }
   | { type: "CLEAR_EXPANDED_LINES" }
@@ -38,9 +38,7 @@ const initialState = (initialLogLines?: string[]): LogState => ({
   hasLogs: null,
   logs: initialLogLines || [],
   searchState: {
-    hasSearch: false,
-    searchIndex: 0,
-    searchRange: 0,
+    searchIndex: undefined,
   },
 });
 
@@ -155,26 +153,22 @@ const reducer = (state: LogState, action: Action): LogState => {
         ...state,
         searchState: {
           ...state.searchState,
-          hasSearch,
-          searchIndex: undefined,
-          searchRange: undefined,
+          searchIndex: hasSearch ? 0 : undefined,
           searchTerm: hasSearch ? searchTerm : undefined,
         },
       };
     }
-    case "SET_MATCH_COUNT": {
-      // If the search range has changed, reset the search index to 0
-      let { searchIndex } = state.searchState;
-      const { searchRange } = state.searchState;
-      if (searchRange !== action.matchCount) {
-        searchIndex = action.matchCount ? 0 : undefined;
+    case "RESET_SEARCH_INDEX": {
+      const searchIndex =
+        state.searchState.searchTerm && action.hasMatches ? 0 : undefined;
+      if (state.searchState.searchIndex === searchIndex) {
+        return state;
       }
       return {
         ...state,
         searchState: {
           ...state.searchState,
           searchIndex,
-          searchRange: action.matchCount ? action.matchCount : undefined,
         },
       };
     }

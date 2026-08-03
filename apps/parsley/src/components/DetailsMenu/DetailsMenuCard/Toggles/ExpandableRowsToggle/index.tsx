@@ -8,7 +8,7 @@ const ExpandableRowsToggle: React.FC = () => {
   const { expandableRows, setExpandableRows } = preferences;
   return (
     <BaseToggle
-      data-cy="expandable-rows-toggle"
+      data-testid="expandable-rows-toggle"
       label="Expandable Rows"
       onChange={(value) => {
         setExpandableRows(value);

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useQuery, skipToken } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
@@ -22,17 +22,17 @@ import {
   EventLogTab,
   GeneralTab,
   GitTagsTab,
+  MergeQueueTab,
   NotificationsTab,
   PatchAliasesTab,
   PeriodicBuildsTab,
-  ProjectTriggersTab,
   PluginsTab,
+  ProjectTriggersTab,
   PullRequestsTab,
+  TestSelectionTab,
   VariablesTab,
   ViewsAndFiltersTab,
   VirtualWorkstationTab,
-  MergeQueueTab,
-  TestSelectionTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
 import {

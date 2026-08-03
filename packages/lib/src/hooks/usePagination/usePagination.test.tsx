@@ -1,12 +1,13 @@
 import { MemoryRouter } from "react-router-dom";
-import { renderHook, act } from "test_utils";
+import { act, renderHook } from "test_utils";
 import { RECENT_PAGE_SIZE_KEY } from "../../constants/pagination";
 import { getDefaultPageSize } from "../../utils/pagination";
 import usePagination from "./index";
 
 describe("usePagination", () => {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const wrapper = ({ children }) => <MemoryRouter>{children}</MemoryRouter>;
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
+    <MemoryRouter>{children}</MemoryRouter>
+  );
 
   beforeEach(() => {
     // Mock localStorage

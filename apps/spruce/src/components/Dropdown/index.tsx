@@ -1,4 +1,4 @@
-import { useRef, Component } from "react";
+import { Component, useRef } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";

@@ -4,10 +4,10 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { DisplayModal } from "components/DisplayModal";
 import {
   BannerContainer,
-  TitleWrapper,
-  OrderedList,
   ListItem,
   ModalTriggerText,
+  OrderedList,
+  TitleWrapper,
 } from "../styles";
 
 interface WarningBannerProps {

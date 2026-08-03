@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Navigating to Spawn Host and Spawn Volume pages", () => {
   test("Navigating to /spawn will redirect to /spawn/host", async ({

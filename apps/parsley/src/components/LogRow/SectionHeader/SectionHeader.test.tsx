@@ -37,7 +37,7 @@ describe("SectionHeader", () => {
       <SectionHeader {...sectionHeaderProps} failingLine={15} />,
       { wrapper },
     );
-    expect(screen.getByDataCy("section-status-pass")).toBeVisible();
+    expect(screen.getByDataTestId("section-status-pass")).toBeVisible();
   });
 
   it("displays X icon if status is failing", () => {
@@ -45,7 +45,7 @@ describe("SectionHeader", () => {
       <SectionHeader {...sectionHeaderProps} failingLine={5} />,
       { wrapper },
     );
-    expect(screen.getByDataCy("section-status-fail")).toBeVisible();
+    expect(screen.getByDataTestId("section-status-fail")).toBeVisible();
   });
 
   it("renders as opened if 'open' prop is true", async () => {
@@ -55,7 +55,7 @@ describe("SectionHeader", () => {
         sectionHeaderLine={{ ...baseSectionHeaderLine, isOpen: true }}
       />,
     );
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
@@ -65,7 +65,7 @@ describe("SectionHeader", () => {
     renderWithRouterMatch(<SectionHeader {...sectionHeaderProps} />, {
       wrapper,
     });
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
@@ -89,7 +89,7 @@ describe("SectionHeader", () => {
     renderWithRouterMatch(<SectionHeader {...sectionHeaderProps} />, {
       wrapper,
     });
-    const openButton = screen.getByDataCy("caret-toggle");
+    const openButton = screen.getByDataTestId("caret-toggle");
     await user.click(openButton);
     expect(sendEventMock).toHaveBeenCalledTimes(1);
     expect(sendEventMock).toHaveBeenCalledWith({
@@ -112,7 +112,7 @@ describe("SectionHeader", () => {
       <SectionHeader {...sectionHeaderProps} />,
       { wrapper },
     );
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
@@ -122,12 +122,12 @@ describe("SectionHeader", () => {
         sectionHeaderLine={{ ...baseSectionHeaderLine, isOpen: true }}
       />,
     );
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
     rerender(<SectionHeader {...sectionHeaderProps} />);
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
+    expect(screen.getByDataTestId("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );

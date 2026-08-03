@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { validateToast } from "../../helpers";
 
 test.describe("Variant history", () => {
@@ -77,14 +77,9 @@ test.describe("Variant history", () => {
     await page.goto(
       "/variant-history/spruce/ubuntu1604?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236",
     );
-    const failedIcons = page
-      .getByTestId("history-table-icon")
-      .locator("[data-status=failed]");
-    await expect(failedIcons).toHaveCount(2);
-
-    const firstFailedIcon = failedIcons.first();
-    await expect(firstFailedIcon).toBeVisible();
-    await firstFailedIcon.hover();
+    const failed = page.getByText("1 / 1 Failing Tests");
+    await expect(failed).toBeVisible();
+    await failed.hover();
     await expect(page.getByTestId("test-tooltip")).toBeVisible();
     await expect(page.getByTestId("test-tooltip")).toContainText(
       "JustAFakeTestInALonelyWorld",

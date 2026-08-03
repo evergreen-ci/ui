@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
+  Annotation,
   SuspectedIssuesQuery,
   SuspectedIssuesQueryVariables,
-  Annotation,
 } from "gql/generated/types";
 import { JIRA_SUSPECTED_ISSUES } from "gql/queries";
 import AnnotationTickets from "./AnnotationTickets";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { TreeSelect, TreeSelectProps } from "./TreeSelect";
 
 export default {
@@ -11,10 +11,9 @@ export const Default: CustomStoryObj<typeof TreeSelect> = {
 };
 
 const BaseTreeSelect = (props: TreeSelectProps) => {
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState<string[]>([]);
   return (
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    <TreeSelect onChange={setValue} state={value} tData={treeData} {...props} />
+    <TreeSelect {...props} onChange={setValue} state={value} tData={treeData} />
   );
 };
 

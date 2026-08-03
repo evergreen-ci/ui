@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("Code Changes Table", () => {
   const patchId = "5ecedafb562343215a7ff297";

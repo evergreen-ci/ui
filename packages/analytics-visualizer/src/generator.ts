@@ -3,8 +3,8 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { generateContent } from "./site/content.ts";
 import { generateSidebar } from "./site/sidebar.ts";
-import type { IdentifierData, AnalyticsVisualizerOptions } from "./types.ts";
-import { extractActionPrefixes, escapeHtml, toSlug } from "./utils.ts";
+import type { AnalyticsVisualizerOptions, IdentifierData } from "./types.ts";
+import { escapeHtml, extractActionPrefixes, toSlug } from "./utils.ts";
 
 // Get the directory of the current module
 const __filename = fileURLToPath(import.meta.url);

@@ -4,16 +4,16 @@ import { Badge, Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../types";
 import { getArrayDiffIndices, getEventDiffLines } from "./utils";
 import {
-  applyCustomKeyValueRender,
   CustomKeyValueRenderConfig,
+  applyCustomKeyValueRender,
 } from "./utils/keyRenderer";
 
 type TableProps = {

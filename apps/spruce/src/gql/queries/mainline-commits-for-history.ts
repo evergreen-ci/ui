@@ -23,7 +23,7 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
           message
           order
           revision
-          user: userLite {
+          user {
             displayName
             userId: id
           }
@@ -49,7 +49,7 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
           message
           order
           revision
-          user: userLite {
+          user {
             displayName
             userId: id
           }

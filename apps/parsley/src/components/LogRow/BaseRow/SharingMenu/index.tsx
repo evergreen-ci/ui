@@ -135,13 +135,13 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber, shared }) => {
   return (
     <StyledMenu
       align="right"
-      data-cy="sharing-menu"
+      data-testid="sharing-menu"
       open={open}
       setOpen={setMenuOpen}
       trigger={
         <MenuIcon
           aria-label="Expand share menu"
-          data-cy={`log-link-${lineNumber}`}
+          data-testid={`log-link-${lineNumber}`}
           onClick={setMenuOpen}
         >
           <Icon glyph={shared ? "ArrowWithCircle" : "Ellipsis"} />

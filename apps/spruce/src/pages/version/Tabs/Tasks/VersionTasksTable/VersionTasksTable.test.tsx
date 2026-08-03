@@ -4,17 +4,18 @@ import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
 import {
   MockedProvider,
   fireEvent,
-  waitFor,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
   userEvent,
+  waitFor,
   within,
 } from "@evg-ui/lib/test_utils";
 import * as db from "components/TaskReview/db";
-import { getVariantHistoryRoute } from "constants/routes";
+import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
+import { TaskTab } from "types/task";
 import { versionTasks } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
 
@@ -93,6 +94,43 @@ describe("VersionTasksTable", () => {
         tasks[0].buildVariant,
       ),
     );
+  });
+
+  it("links the last completed run status when one exists", () => {
+    render(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} />
+      </MockedProvider>,
+    );
+    const prevTaskCompleted = tasks[0].baseTask?.prevTaskCompleted;
+    const expectedHref = getTaskRoute(prevTaskCompleted?.id ?? "", {
+      execution: prevTaskCompleted?.execution,
+      tab: TaskTab.History,
+    });
+
+    const firstRow = screen.getAllByDataCy("tasks-table-row")[0];
+    const lastRunStatusCell = within(
+      firstRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
+    );
+
+    expect(screen.getByText("Last Run Status")).toBeVisible();
+    expect(lastRunStatusCell.getByRole("link")).toHaveAttribute(
+      "href",
+      expectedHref,
+    );
+  });
+
+  it("leaves the last completed run status empty when none exists", () => {
+    render(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} />
+      </MockedProvider>,
+    );
+    const secondRow = screen.getAllByDataCy("tasks-table-row")[1];
+    const lastRunStatusCell = within(
+      secondRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
+    );
+    expect(lastRunStatusCell.queryByRole("link")).toBeNull();
   });
 
   it("calls clearQueryParams function when button is clicked", async () => {

@@ -3,8 +3,8 @@ import { fontFamilies } from "@leafygreen-ui/tokens";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
-  CardFieldTemplate,
   AccordionFieldTemplate,
+  CardFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
 import { Arch } from "gql/generated/types";
@@ -552,11 +552,12 @@ const maximumHosts = {
   }),
 };
 
-const acceptableHostIdleTime = {
+const acceptableHostIdleTimeSeconds = {
   schema: {
     type: "number" as const,
-    title: "Acceptable Host Idle Time (ms)",
+    title: "Acceptable Host Idle Time (secs)",
     minimum: 0,
+    multipleOf: 1,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
     "ui:data-cy": "idle-time-input",
@@ -674,7 +675,7 @@ export const allocation = {
     minimumHosts: minimumHosts.schema,
     maximumHosts: maximumHosts.schema,
     autoTuneMaximumHosts: autoTuneMaximumHosts.schema,
-    acceptableHostIdleTime: acceptableHostIdleTime.schema,
+    acceptableHostIdleTimeSeconds: acceptableHostIdleTimeSeconds.schema,
     futureHostFraction: futureHostFraction.schema,
   },
   uiSchema: (hasEC2Provider: boolean, hasStaticProvider: boolean) => ({
@@ -686,7 +687,8 @@ export const allocation = {
     minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
     maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
     autoTuneMaximumHosts: autoTuneMaximumHosts.uiSchema(hasEC2Provider),
-    acceptableHostIdleTime: acceptableHostIdleTime.uiSchema(hasEC2Provider),
+    acceptableHostIdleTimeSeconds:
+      acceptableHostIdleTimeSeconds.uiSchema(hasEC2Provider),
     futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
   }),
 };
