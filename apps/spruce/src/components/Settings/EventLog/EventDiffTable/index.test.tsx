@@ -76,4 +76,28 @@ describe("EventDiffTable", () => {
       screen.queryByText("subscriptions[0].subscriber.type"),
     ).not.toBeInTheDocument();
   });
+
+  it("pretty prints an added object", () => {
+    const addedAlias = {
+      id: "alias-id",
+      alias: "__github",
+      task: "smoke_tests",
+      taskTags: [],
+    };
+    render(
+      <EventDiffTable
+        after={{ aliases: [addedAlias] }}
+        before={{ aliases: [] }}
+      />,
+    );
+
+    expect(screen.getByText("aliases[0]")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        (_, element) =>
+          element?.tagName === "SPAN" &&
+          element.textContent === JSON.stringify(addedAlias, null, 2),
+      ),
+    ).toBeInTheDocument();
+  });
 });

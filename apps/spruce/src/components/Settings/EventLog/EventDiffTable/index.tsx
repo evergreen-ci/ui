@@ -54,7 +54,8 @@ const CellText = styled.span`
   font-family: ${fontFamilies.code};
   font-size: 12px;
   line-height: 16px;
-  word-break: break-all;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 `;
 
 const ArrayValue = styled.span`
@@ -97,7 +98,7 @@ const renderEventValue = (value: JSONValue): string => {
     return JSON.stringify(value).replaceAll(",", ",\n");
   }
 
-  return JSON.stringify(value);
+  return JSON.stringify(value, null, 2);
 };
 
 const renderArrayValue = (
