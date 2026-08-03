@@ -1,11 +1,4 @@
-import { diff } from "deep-object-diff";
-import {
-  formatArrayElements,
-  getArrayDiff,
-  getArrayDiffIndices,
-  getChangedPaths,
-  getEventDiffLines,
-} from ".";
+import { formatArrayElements, getArrayDiffIndices, getEventDiffLines } from ".";
 
 describe("formatArrayElements", () => {
   it("matches on numbers indicating array position", () => {
@@ -19,77 +12,6 @@ describe("formatArrayElements", () => {
 
   it("does not match on numbers in variable names", () => {
     expect(formatArrayElements("foo.test123")).toEqual("foo.test123");
-  });
-});
-
-describe("getChangedPaths", () => {
-  it("returns changed top-level keys", () => {
-    const oldObj = { a: 1, b: 2 };
-    const newObj = { a: 1, b: 3 };
-    const result = diff(oldObj, newObj);
-
-    expect(getChangedPaths(result)).toEqual(["b"]);
-  });
-
-  it("returns nested changed keys in dot notation", () => {
-    const oldObj = {
-      user: {
-        name: "John",
-        location: {
-          city: "NYC",
-        },
-      },
-    };
-    const newObj = {
-      user: {
-        name: "Jane",
-        location: {
-          city: "LA",
-        },
-      },
-    };
-
-    const result = diff(oldObj, newObj);
-    expect(getChangedPaths(result)).toEqual([
-      "user.name",
-      "user.location.city",
-    ]);
-  });
-
-  it("returns added fields as changed paths", () => {
-    const oldObj = {};
-    const newObj = {
-      foo: "bar",
-      nested: { key: 42 },
-    };
-
-    const result = diff(oldObj, newObj);
-    expect(getChangedPaths(result)).toEqual(["foo", "nested.key"]);
-  });
-
-  it("returns deleted fields as changed paths", () => {
-    const oldObj = {
-      foo: "bar",
-      nested: { key: 42 },
-    };
-    const newObj = {};
-
-    const result = diff(oldObj, newObj);
-    // deep-object-diff will return the minimal set of changes
-    // so we only get the top-level keys that were deleted
-    expect(getChangedPaths(result)).toEqual(["foo", "nested"]);
-  });
-
-  it("returns empty array if no changes", () => {
-    const obj = {
-      a: 1,
-      b: {
-        c: 2,
-      },
-    };
-
-    const result = diff(obj, { ...obj });
-    expect(getChangedPaths(result)).toEqual([]);
   });
 });
 
@@ -193,7 +115,7 @@ const exampleDeletion = {
 };
 
 describe("getEventDiffLines", () => {
-  it("should transform updates", () => {
+  it("pairs the sole unmatched objects as an update", () => {
     const diffLines = getEventDiffLines(
       exampleUpdate.before,
       exampleUpdate.after,
@@ -343,6 +265,75 @@ describe("getEventDiffLines", () => {
       },
     ]);
   });
+
+  it("renders ambiguous object changes as one array comparison", () => {
+    const before = {
+      items: [
+        { label: "first", value: "old" },
+        { label: "second", value: "old" },
+      ],
+    };
+    const after = {
+      items: [
+        { label: "first", value: "new" },
+        { label: "second", value: "new" },
+      ],
+    };
+
+    expect(getEventDiffLines(before, after)).toStrictEqual([
+      {
+        key: "items",
+        before: before.items,
+        after: after.items,
+      },
+    ]);
+  });
+
+  it("does not use a weaker identity when a stronger identity changed", () => {
+    const before = {
+      items: [
+        { id: "old-a", name: "first", value: "old" },
+        { id: "old-b", name: "second", value: "old" },
+      ],
+    };
+    const after = {
+      items: [
+        { id: "new-a", name: "first", value: "new" },
+        { id: "new-b", name: "second", value: "new" },
+      ],
+    };
+
+    expect(getEventDiffLines(before, after)).toStrictEqual([
+      {
+        key: "items",
+        before: before.items,
+        after: after.items,
+      },
+    ]);
+  });
+
+  it("renders reordered objects as one array comparison", () => {
+    const before = {
+      items: [
+        { id: "a", value: "first" },
+        { id: "b", value: "second" },
+      ],
+    };
+    const after = {
+      items: [
+        { id: "b", value: "second" },
+        { id: "a", value: "first" },
+      ],
+    };
+
+    expect(getEventDiffLines(before, after)).toStrictEqual([
+      {
+        key: "items",
+        before: before.items,
+        after: after.items,
+      },
+    ]);
+  });
 });
 
 describe("getArrayDiffIndices", () => {
@@ -387,28 +378,6 @@ describe("getArrayDiffIndices", () => {
     ).toStrictEqual({
       before: [],
       after: [0],
-    });
-  });
-
-  it("pairs modified objects with matching identities", () => {
-    expect(
-      getArrayDiff(
-        [{ id: "subscription", trigger: "patch" }],
-        [{ id: "subscription", trigger: "git_tag_request" }],
-      ).matches,
-    ).toContainEqual({
-      beforeIndex: 0,
-      afterIndex: 0,
-    });
-  });
-
-  it("pairs a single modified object without an identity field", () => {
-    expect(
-      getArrayDiff([{ trigger: "patch" }], [{ trigger: "git_tag_request" }])
-        .matches,
-    ).toContainEqual({
-      beforeIndex: 0,
-      afterIndex: 0,
     });
   });
 });

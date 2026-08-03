@@ -33,9 +33,8 @@ const getEventDiffLines = (
 };
 
 /**
- * `getArrayDiff` aligns two arrays using their longest common subsequence. It
- * also pairs modified objects by stable identity so their nested changes can be
- * highlighted.
+ * `getArrayDiff` aligns equal array values using their longest common
+ * subsequence.
  * @param before - The array before the event.
  * @param after - The array after the event.
  * @returns The changed indices for each side of the diff.
@@ -84,70 +83,7 @@ const getArrayDiff = (before: JSONValue[], after: JSONValue[]): ArrayDiff => {
     afterIndex += 1;
   }
 
-  const unmatchedBeforeObjects = arrayDiff.before.filter((index) =>
-    isObject(before[index]),
-  );
-  const unmatchedAfterObjects = new Set(
-    arrayDiff.after.filter((index) => isObject(after[index])),
-  );
-
-  unmatchedBeforeObjects.forEach((unmatchedBeforeIndex) => {
-    const matchingAfterIndex = [...unmatchedAfterObjects].find(
-      (unmatchedAfterIndex) =>
-        !isEqual(before[unmatchedBeforeIndex], after[unmatchedAfterIndex]) &&
-        haveMatchingIdentity(
-          before[unmatchedBeforeIndex],
-          after[unmatchedAfterIndex],
-        ),
-    );
-
-    if (matchingAfterIndex !== undefined) {
-      arrayDiff.matches.push({
-        afterIndex: matchingAfterIndex,
-        beforeIndex: unmatchedBeforeIndex,
-      });
-      unmatchedAfterObjects.delete(matchingAfterIndex);
-    }
-  });
-
-  if (
-    unmatchedBeforeObjects.length === 1 &&
-    unmatchedAfterObjects.size === 1 &&
-    !isEqual(
-      before[unmatchedBeforeObjects[0]],
-      after[[...unmatchedAfterObjects][0]],
-    ) &&
-    !arrayDiff.matches.some(
-      ({ beforeIndex: matchedBeforeIndex }) =>
-        matchedBeforeIndex === unmatchedBeforeObjects[0],
-    )
-  ) {
-    arrayDiff.matches.push({
-      afterIndex: [...unmatchedAfterObjects][0],
-      beforeIndex: unmatchedBeforeObjects[0],
-    });
-  }
-
   return arrayDiff;
-};
-
-const identityKeys = ["id", "_id", "key", "name", "identifier"];
-
-const haveMatchingIdentity = (before: JSONValue, after: JSONValue): boolean => {
-  if (!isObject(before) || !isObject(after)) {
-    return false;
-  }
-
-  return identityKeys.some((key) => {
-    const beforeIdentity = before[key];
-    const afterIdentity = after[key];
-    return (
-      beforeIdentity !== undefined &&
-      beforeIdentity !== null &&
-      typeof beforeIdentity !== "object" &&
-      isEqual(beforeIdentity, afterIdentity)
-    );
-  });
 };
 
 /**
@@ -171,6 +107,79 @@ const getArrayDiffIndices = (
 const isJSONObject = (value: JSONValue): value is JSONObject =>
   isObject(value) && !(value instanceof Date);
 
+const identityKeys = ["id", "_id", "key", "name", "identifier"];
+
+const haveMatchingIdentity = (before: JSONValue, after: JSONValue): boolean => {
+  if (!isJSONObject(before) || !isJSONObject(after)) {
+    return false;
+  }
+
+  for (const key of identityKeys) {
+    const beforeIdentity = before[key];
+    const afterIdentity = after[key];
+    const hasBeforeIdentity =
+      beforeIdentity !== undefined &&
+      beforeIdentity !== null &&
+      typeof beforeIdentity !== "object";
+    const hasAfterIdentity =
+      afterIdentity !== undefined &&
+      afterIdentity !== null &&
+      typeof afterIdentity !== "object";
+
+    if (hasBeforeIdentity || hasAfterIdentity) {
+      return (
+        hasBeforeIdentity &&
+        hasAfterIdentity &&
+        isEqual(beforeIdentity, afterIdentity)
+      );
+    }
+  }
+
+  return false;
+};
+
+const pairModifiedObjects = (
+  before: JSONValue[],
+  after: JSONValue[],
+  unmatchedBefore: number[],
+  unmatchedAfter: number[],
+): ArrayDiffMatch[] => {
+  const beforeObjects = unmatchedBefore.filter((index) =>
+    isJSONObject(before[index]),
+  );
+  const availableAfterObjects = new Set(
+    unmatchedAfter.filter((index) => isJSONObject(after[index])),
+  );
+  const matches: ArrayDiffMatch[] = [];
+
+  beforeObjects.forEach((beforeIndex) => {
+    const afterIndex = [...availableAfterObjects].find(
+      (candidateIndex) =>
+        !isEqual(before[beforeIndex], after[candidateIndex]) &&
+        haveMatchingIdentity(before[beforeIndex], after[candidateIndex]),
+    );
+
+    if (afterIndex !== undefined) {
+      matches.push({ afterIndex, beforeIndex });
+      availableAfterObjects.delete(afterIndex);
+    }
+  });
+
+  const availableBeforeObjects = beforeObjects.filter(
+    (beforeIndex) =>
+      !matches.some((match) => match.beforeIndex === beforeIndex),
+  );
+  if (availableBeforeObjects.length === 1 && availableAfterObjects.size === 1) {
+    const beforeIndex = availableBeforeObjects[0];
+    const afterIndex = [...availableAfterObjects][0];
+    if (!isEqual(before[beforeIndex], after[afterIndex])) {
+      matches.push({ afterIndex, beforeIndex });
+    }
+  }
+
+  return matches;
+};
+
 const createDiffLine = (
   path: string,
   before: JSONValue,
@@ -187,39 +196,39 @@ const getObjectArrayDiffLines = (
   path: string,
 ): EventDiffLine[] => {
   const arrayDiff = getArrayDiff(before, after);
-  const matchedBefore = new Set(
-    arrayDiff.matches.map(({ beforeIndex }) => beforeIndex),
+  const modifiedObjectMatches = pairModifiedObjects(
+    before,
+    after,
+    arrayDiff.before,
+    arrayDiff.after,
   );
-  const matchedAfter = new Set(
-    arrayDiff.matches.map(({ afterIndex }) => afterIndex),
+  const matches = [...arrayDiff.matches, ...modifiedObjectMatches];
+  const matchedBefore = new Set(matches.map(({ beforeIndex }) => beforeIndex));
+  const matchedAfter = new Set(matches.map(({ afterIndex }) => afterIndex));
+  const unmatchedBefore = arrayDiff.before.filter(
+    (index) => !matchedBefore.has(index),
+  );
+  const unmatchedAfter = arrayDiff.after.filter(
+    (index) => !matchedAfter.has(index),
   );
 
-  const matchedDiffLines = arrayDiff.matches.flatMap(
-    ({ afterIndex, beforeIndex }) =>
-      getSemanticDiffLines(
-        before[beforeIndex],
-        after[afterIndex],
-        addDelimiter(path, String(afterIndex)),
-      ),
+  if (unmatchedBefore.length > 0 && unmatchedAfter.length > 0) {
+    return [createDiffLine(path, before, after)];
+  }
+
+  const matchedDiffLines = matches.flatMap(({ afterIndex, beforeIndex }) =>
+    getSemanticDiffLines(
+      before[beforeIndex],
+      after[afterIndex],
+      addDelimiter(path, String(afterIndex)),
+    ),
   );
-  const removedDiffLines = arrayDiff.before
-    .filter((index) => !matchedBefore.has(index))
-    .map((index) =>
-      createDiffLine(
-        addDelimiter(path, String(index)),
-        before[index],
-        undefined,
-      ),
-    );
-  const addedDiffLines = arrayDiff.after
-    .filter((index) => !matchedAfter.has(index))
-    .map((index) =>
-      createDiffLine(
-        addDelimiter(path, String(index)),
-        undefined,
-        after[index],
-      ),
-    );
+  const removedDiffLines = unmatchedBefore.map((index) =>
+    createDiffLine(addDelimiter(path, String(index)), before[index], undefined),
+  );
+  const addedDiffLines = unmatchedAfter.map((index) =>
+    createDiffLine(addDelimiter(path, String(index)), undefined, after[index]),
+  );
 
   return [...matchedDiffLines, ...removedDiffLines, ...addedDiffLines];
 };
@@ -260,25 +269,6 @@ const addDelimiter = (a: string, b: string): string =>
   a.length > 0 ? `${a}.${b}` : b;
 
 /**
- * `getChangedPaths` walks the object returned by `deep-object-diff` and returns an array of strings representing the paths to the changed properties.
- * @param eventObj - The object returned by `deep-object-diff`.
- * @returns - An array of strings representing the paths to the changed properties.
- */
-const getChangedPaths = (eventObj: unknown): string[] => {
-  if (!isObject(eventObj)) {
-    return [];
-  }
-  const recursivelyWalkObject = (obj: object = {}, head = ""): string[] =>
-    Object.entries(obj).reduce<string[]>((event, [key, value]) => {
-      const fullPath = addDelimiter(head, key);
-      return isObject(value)
-        ? event.concat(recursivelyWalkObject(value, fullPath))
-        : event.concat(fullPath);
-    }, []);
-  return recursivelyWalkObject(eventObj);
-};
-
-/**
  * `formatArrayElements` takes a string and replaces the dot notation with array notation.
  * @param eventKey - Takes a string and replaces the dot notation with array notation.
  * @returns - A string with array notation.
@@ -288,10 +278,4 @@ const getChangedPaths = (eventObj: unknown): string[] => {
 const formatArrayElements = (eventKey: string): string =>
   eventKey.replace(/\.(\d+)/g, (_, digits) => `[${digits}]`);
 
-export {
-  getArrayDiff,
-  getArrayDiffIndices,
-  getChangedPaths,
-  formatArrayElements,
-  getEventDiffLines,
-};
+export { getArrayDiffIndices, formatArrayElements, getEventDiffLines };
