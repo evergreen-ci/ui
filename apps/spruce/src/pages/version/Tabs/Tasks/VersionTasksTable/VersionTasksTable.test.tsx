@@ -78,6 +78,48 @@ describe("VersionTasksTable", () => {
     expect(screen.queryByText("e2e_spruce_0")).toBeVisible();
   });
 
+  it("uses unique row identities when an execution task is also a top-level result", async () => {
+    const user = userEvent.setup();
+    const duplicateKeyWarnings: unknown[][] = [];
+    const consoleError = vi
+      .spyOn(console, "error")
+      .mockImplementation((...args) => {
+        if (
+          typeof args[0] === "string" &&
+          args[0].includes("Encountered two children with the same key")
+        ) {
+          duplicateKeyWarnings.push(args);
+        }
+      });
+    const displayTask = tasks[3];
+    const executionTask = displayTask.executionTasksFull?.[0];
+    const filteredTasks = [executionTask, displayTask].filter(
+      (task): task is NonNullable<typeof task> => task !== undefined,
+    );
+    const { rerender } = render(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} tasks={filteredTasks} />
+      </MockedProvider>,
+    );
+
+    const displayTaskRow = screen.getAllByDataCy("tasks-table-row")[1];
+    await user.click(within(displayTaskRow).getByRole("button"));
+    expect(screen.getAllByText("e2e_spruce_0")).toHaveLength(2);
+
+    await user.click(within(displayTaskRow).getByRole("button"));
+    expect(screen.getAllByDataCy("tasks-table-row")).toHaveLength(2);
+
+    rerender(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} tasks={[displayTask]} />
+      </MockedProvider>,
+    );
+    expect(screen.queryByText("e2e_spruce_0")).not.toBeInTheDocument();
+    expect(screen.getAllByDataCy("tasks-table-row")).toHaveLength(1);
+    consoleError.mockRestore();
+    expect(duplicateKeyWarnings).toHaveLength(0);
+  });
+
   it("links the variant column to the variant history page using the task's project identifier", () => {
     render(
       <MockedProvider cache={cache}>
