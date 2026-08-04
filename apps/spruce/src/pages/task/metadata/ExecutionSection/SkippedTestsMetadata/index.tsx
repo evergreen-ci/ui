@@ -6,7 +6,7 @@ import { BaseFontSize } from "@leafygreen-ui/tokens";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
-import { MetadataItem } from "components/MetadataCard";
+import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import { SkippedTestsDetails } from "./SkippedTestsDetails";
 
 type Props = {
@@ -39,11 +39,20 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
 
   return (
     <>
-      <MetadataItem as="div" label="Tests skipped by TSS">
-        <InlineContent data-cy="skipped-tests-metadata">
-          <span data-cy="skipped-tests-metadata-count">
-            {count} {pluralize("test", count)}
-          </span>
+      <MetadataItem as="div">
+        <MetadataContent data-cy="skipped-tests-metadata">
+          <SummaryRow>
+            <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
+            <Count data-cy="skipped-tests-metadata-count">
+              {count} {pluralize("test", count)}
+            </Count>
+            <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
+              Tests skipped by TSS when this execution ran. This snapshot may
+              differ from what TSS would skip now.
+              {execution !== latestExecution &&
+                " Test names are only available for the latest execution."}
+            </InfoSprinkle>
+          </SummaryRow>
           {detailsAvailable && (
             <Button
               data-cy="skipped-tests-details-button"
@@ -58,13 +67,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
               Details
             </Button>
           )}
-          <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
-            Tests skipped by TSS when this execution ran. This snapshot may
-            differ from what TSS would skip now.
-            {execution !== latestExecution &&
-              " Test names are only available for the latest execution."}
-          </InfoSprinkle>
-        </InlineContent>
+        </MetadataContent>
       </MetadataItem>
       {detailsAvailable && detailsOpen && (
         <SkippedTestsDetails
@@ -79,9 +82,21 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
   );
 };
 
-const InlineContent = styled.div`
+const MetadataContent = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ${size.xxs};
+`;
+
+const SummaryRow = styled.span`
   display: inline-flex;
   align-items: center;
-  gap: ${size.xxs};
-  vertical-align: middle;
+  flex-wrap: wrap;
+  column-gap: ${size.xxs};
+  row-gap: ${size.xxs};
+`;
+
+const Count = styled.span`
+  white-space: nowrap;
 `;
