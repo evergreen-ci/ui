@@ -15,6 +15,7 @@ export const Metadata: React.FC<{
   error: Error | undefined;
 }> = ({ error, host, loading }) => {
   const {
+    agentRevision,
     ami,
     distroId,
     hostUrl,
@@ -58,6 +59,11 @@ export const Metadata: React.FC<{
       <MetadataItem label="Started by">{startedBy}</MetadataItem>
       <MetadataItem label="Cloud provider">{provider}</MetadataItem>
       {ami && <MetadataItem label="AMI">{ami}</MetadataItem>}
+      {agentRevision && (
+        <MetadataItem data-cy="host-agent-revision" label="Agent revision">
+          {agentRevision}
+        </MetadataItem>
+      )}
       <MetadataItem label="Distro">
         <StyledLink data-cy="distro-link" href={distroLink}>
           {distroId}
