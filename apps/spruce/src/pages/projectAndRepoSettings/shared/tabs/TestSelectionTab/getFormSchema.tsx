@@ -1,10 +1,43 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { form } from "../utils";
-import { TestSelectionFormState } from "./types";
+import { TaskLevelTestSelection, TestSelectionFormState } from "./types";
 
 const { radioBoxOptions } = form;
+
+const taskLevelLabels: Record<TaskLevelTestSelection, string> = {
+  [TaskLevelTestSelection.Disabled]: "Disabled",
+  [TaskLevelTestSelection.Patches]: "Enabled for patches",
+  [TaskLevelTestSelection.PatchesAndMainline]:
+    "Enabled for patches and mainline commits",
+};
+
+const taskLevelOption = (
+  title: string,
+  value: TaskLevelTestSelection | null,
+): SpruceFormProps["schema"] => ({
+  type: ["string", "null"],
+  title,
+  enum: [value],
+});
+
+const taskLevelOptions = (
+  repoSetting?: TaskLevelTestSelection,
+): Array<SpruceFormProps["schema"]> => [
+  ...Object.entries(taskLevelLabels).map(([value, title]) =>
+    taskLevelOption(title, value as TaskLevelTestSelection),
+  ),
+  ...(repoSetting
+    ? [
+        taskLevelOption(
+          `Default to repo (${taskLevelLabels[repoSetting].toLowerCase()})`,
+          null,
+        ),
+      ]
+    : []),
+];
 
 export const getFormSchema = ({
   canEnableTaskLevel,
@@ -26,13 +59,10 @@ export const getFormSchema = ({
           repoData?.allowed ?? undefined,
         ),
       },
-      defaultEnabled: {
-        type: ["boolean", "null"],
+      taskLevel: {
+        type: ["string", "null"],
         title: "Task-Level Test Selection",
-        oneOf: radioBoxOptions(
-          ["Enabled", "Disabled"],
-          repoData?.defaultEnabled ?? undefined,
-        ),
+        oneOf: taskLevelOptions(repoData?.taskLevel ?? undefined),
       },
     },
   },
@@ -43,10 +73,10 @@ export const getFormSchema = ({
       "ui:description":
         "Sets if the project can use test selection features or not.",
     },
-    defaultEnabled: {
+    taskLevel: {
       "ui:widget": widgets.RadioBoxWidget,
       "ui:description":
-        "If enabled, all tasks in patches run with test selection enabled by default.",
+        "Controls whether test selection is enabled by default for patch tasks, or for both patch and mainline commit tasks.",
       ...(!canEnableTaskLevel && {
         "ui:warnings": [
           "This setting will only have an effect if test selection is enabled for the project.",
