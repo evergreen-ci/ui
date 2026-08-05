@@ -217,6 +217,15 @@ export const aws = {
       title: "IPAM Pool ID",
       default: "",
     },
+    allowedSNSTopicARNs: {
+      type: "array" as const,
+      title: "Allowed SNS Topic ARNs",
+      items: {
+        type: "string" as const,
+        minLength: 1,
+      },
+      default: [],
+    },
     persistentDNS: {
       type: "object" as const,
       title: "Persistent DNS",
@@ -278,6 +287,9 @@ export const aws = {
       "ui:widget": widgets.ChipInputWidget,
     },
     allowedRegions: {
+      "ui:widget": widgets.ChipInputWidget,
+    },
+    allowedSNSTopicARNs: {
       "ui:widget": widgets.ChipInputWidget,
     },
     persistentDNS: {

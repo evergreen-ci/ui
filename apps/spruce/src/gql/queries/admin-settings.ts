@@ -263,6 +263,7 @@ export const ADMIN_SETTINGS = gql`
           alertableInstanceTypes
           allowedInstanceTypes
           allowedRegions
+          allowedSNSTopicARNs
           defaultSecurityGroup
           elasticIPUsageRate
           ipamPoolID
