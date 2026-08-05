@@ -162,6 +162,16 @@ export const docker = {
 export const aws = {
   schema: {
     subnets: subnets.schema,
+    subnetTagName: {
+      type: "string" as const,
+      title: "Subnet Tag Name",
+      default: "",
+    },
+    subnetTagValue: {
+      type: "string" as const,
+      title: "Subnet Tag Value",
+      default: "",
+    },
     accountRoles: accountRoles.schema,
     parameterStorePrefix: {
       type: "string" as const,

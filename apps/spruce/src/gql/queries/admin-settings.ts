@@ -283,6 +283,8 @@ export const ADMIN_SETTINGS = gql`
             az
             subnetId
           }
+          subnetTagName
+          subnetTagValue
         }
         docker {
           apiVersion
