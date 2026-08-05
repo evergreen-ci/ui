@@ -21,7 +21,7 @@ import {
 import {
   FULL_LIST_LIMIT,
   MODAL_DISPLAY_LIMIT,
-} from "pages/task/taskTabs/testsTable/QuarantinedTests/utils";
+} from "pages/task/metadata/ExecutionSection/SkippedTestsMetadata/utils";
 import { QuarantinedTestsSkipped } from ".";
 
 const getVersionTasksMock = (
@@ -231,16 +231,16 @@ describe("version QuarantinedTestsSkipped", () => {
     const blob = vi.mocked(URL.createObjectURL).mock.calls[0][0] as Blob;
     expect(JSON.parse(await blob.text())).toStrictEqual({
       versionId: "v1",
-      quarantinedTestsSkippedCount: 6,
+      skippedTestCount: 6,
       tasks: [
         {
           taskDisplayName: "test_model",
           buildVariantDisplayName: "Ubuntu 16.04",
           taskId: "ta",
           execution: 0,
-          quarantinedTestsSkippedCount: 4,
+          skippedTestCount: 4,
           truncated: true,
-          quarantinedTests: [
+          skippedTests: [
             { testName: "alpha_test", displayTestName: "Alpha Test" },
             { testName: "beta_test" },
           ],
@@ -250,9 +250,9 @@ describe("version QuarantinedTestsSkipped", () => {
           buildVariantDisplayName: "Ubuntu 16.04",
           taskId: "tb",
           execution: 0,
-          quarantinedTestsSkippedCount: 2,
+          skippedTestCount: 2,
           truncated: true,
-          quarantinedTests: [{ testName: "gamma_test" }],
+          skippedTests: [{ testName: "gamma_test" }],
         },
       ],
     });

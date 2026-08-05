@@ -4,8 +4,9 @@ import pluralize from "pluralize";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { downloadObjectAsJson } from "@evg-ui/lib/utils/request";
 import { useVersionAnalytics } from "analytics";
-import { QuarantinedTestsModal } from "components/QuarantinedTestsModal";
+import { SkippedTestsModal } from "components/SkippedTestsModal";
 import { getTaskRoute } from "constants/routes";
 import {
   TaskQuarantinedTestsSampleQuery,
@@ -16,9 +17,8 @@ import { TASK_QUARANTINED_TESTS_SAMPLE } from "gql/queries";
 import {
   FULL_LIST_LIMIT,
   MODAL_DISPLAY_LIMIT,
-  buildQuarantinedTestsJson,
-  downloadJsonBlob,
-} from "pages/task/taskTabs/testsTable/QuarantinedTests/utils";
+  buildSkippedTestsJson,
+} from "pages/task/metadata/ExecutionSection/SkippedTestsMetadata/utils";
 import { TaskTab } from "types/task";
 
 export type VersionQuarantinedTask =
@@ -104,18 +104,18 @@ export const VersionQuarantinedTestsModal: React.FC<
       if (!samples || samples.length === 0) {
         throw new Error("no quarantined test samples returned");
       }
-      downloadJsonBlob(
+      downloadObjectAsJson(
         {
           versionId,
-          quarantinedTestsSkippedCount: totalCount,
+          skippedTestCount: totalCount,
           tasks: samples.map((sample) => ({
             taskDisplayName: taskById.get(sample.taskId)?.displayName ?? "",
             buildVariantDisplayName:
               taskById.get(sample.taskId)?.buildVariantDisplayName ?? "",
-            ...buildQuarantinedTestsJson(sample),
+            ...buildSkippedTestsJson(sample),
           })),
         },
-        `quarantined-tests-${versionId}.json`,
+        `skipped-tests-${versionId}.json`,
       );
     } catch {
       dispatchToast.error(
@@ -125,7 +125,7 @@ export const VersionQuarantinedTestsModal: React.FC<
   };
 
   return (
-    <QuarantinedTestsModal
+    <SkippedTestsModal
       columns={columns}
       dataCyPrefix="version-quarantined-tests"
       getSearchText={getRowSearchText}
