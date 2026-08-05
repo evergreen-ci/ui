@@ -3,7 +3,7 @@ import { CostSummary } from "components/CostSummary";
 import { MetadataSection } from "components/MetadataCard";
 import { VersionQuery } from "gql/generated/types";
 import { ParametersModal } from "../../ParametersModal";
-import { QuarantinedTestsSkipped } from "../QuarantinedTestsSkipped";
+import { SkippedTestsMetadata } from "../SkippedTestsMetadata";
 
 type Version = NonNullable<VersionQuery["version"]>;
 
@@ -23,7 +23,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
 
   return (
     <MetadataSection title="Execution">
-      <QuarantinedTestsSkipped versionId={id} />
+      <SkippedTestsMetadata versionId={id} />
       {hasCost && (
         <CostSummary
           onClickDetailsButton={() =>
