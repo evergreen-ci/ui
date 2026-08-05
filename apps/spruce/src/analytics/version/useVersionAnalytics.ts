@@ -30,15 +30,15 @@ type Action =
       "task.id": string;
       "task.status": string;
     }
-<<<<<<< HEAD
   | {
       name: "Clicked task table status badge";
       "task.id": string;
       "task.status": string;
       column: string;
     }
-  | { name: "Viewed version quarantined tests modal" }
-  | { name: "Clicked download version quarantined tests JSON button" }
+  | { name: "Clicked version skipped tests details button" }
+  | { name: "Viewed version skipped tests modal" }
+  | { name: "Clicked download version skipped tests JSON button" }
   | { name: "Deleted all filters" }
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
   | { name: "Filtered tasks table"; "filter.by": string | string[] }

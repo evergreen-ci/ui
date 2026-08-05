@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { skipToken, useLazyQuery, useQuery } from "@apollo/client/react";
 import pluralize from "pluralize";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
@@ -21,10 +21,10 @@ import {
 } from "pages/task/metadata/ExecutionSection/SkippedTestsMetadata/utils";
 import { TaskTab } from "types/task";
 
-export type VersionQuarantinedTask =
+export type VersionSkippedTestTask =
   VersionQuarantinedTasksQuery["version"]["tasks"]["data"][number];
 
-interface VersionQuarantinedTestRow {
+interface VersionSkippedTestRow {
   buildVariantDisplayName: string;
   execution: number;
   taskDisplayName: string;
@@ -32,30 +32,34 @@ interface VersionQuarantinedTestRow {
   testName: string;
 }
 
-interface VersionQuarantinedTestsModalProps {
+interface VersionSkippedTestsModalProps {
   open: boolean;
-  quarantinedTasks: VersionQuarantinedTask[];
   setOpen: (open: boolean) => void;
+  skippedTestTasks: VersionSkippedTestTask[];
   totalCount: number;
   versionId: string;
 }
 
-export const VersionQuarantinedTestsModal: React.FC<
-  VersionQuarantinedTestsModalProps
-> = ({ open, quarantinedTasks, setOpen, totalCount, versionId }) => {
+export const VersionSkippedTestsModal: React.FC<
+  VersionSkippedTestsModalProps
+> = ({ open, setOpen, skippedTestTasks, totalCount, versionId }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(versionId);
 
   const taskIds = useMemo(
-    () => quarantinedTasks.map((task) => task.id),
-    [quarantinedTasks],
+    () => skippedTestTasks.map((task) => task.id),
+    [skippedTestTasks],
   );
   const taskById = useMemo(
-    () => new Map(quarantinedTasks.map((task) => [task.id, task])),
-    [quarantinedTasks],
+    () => new Map(skippedTestTasks.map((task) => [task.id, task])),
+    [skippedTestTasks],
   );
 
-  const { data: samplesData, loading } = useQuery<
+  const {
+    data: samplesData,
+    error,
+    loading,
+  } = useQuery<
     TaskQuarantinedTestsSampleQuery,
     TaskQuarantinedTestsSampleQueryVariables
   >(
@@ -73,42 +77,62 @@ export const VersionQuarantinedTestsModal: React.FC<
     TaskQuarantinedTestsSampleQueryVariables
   >(TASK_QUARANTINED_TESTS_SAMPLE);
 
-  const rows: VersionQuarantinedTestRow[] = useMemo(
+  const samples = samplesData?.version.taskQuarantinedTestsSample;
+  const detailsAvailable = samples != null && samples.length > 0;
+
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+    if (detailsAvailable) {
+      sendEvent({ name: "Viewed version skipped tests modal" });
+      return;
+    }
+    setOpen(false);
+    if (error) {
+      dispatchToast.error(
+        "There was an error loading the skipped test details.",
+      );
+      return;
+    }
+    dispatchToast.warning(
+      "Skipped test details are not available for this version.",
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [detailsAvailable, loading, error]);
+
+  const rows: VersionSkippedTestRow[] = useMemo(
     () =>
-      (samplesData?.version.taskQuarantinedTestsSample ?? []).flatMap(
-        (sample) => {
-          const task = taskById.get(sample.taskId);
-          return sample.quarantinedTests.map(
-            ({ displayTestName, testName }) => ({
-              buildVariantDisplayName: task?.buildVariantDisplayName ?? "",
-              execution: sample.execution,
-              taskDisplayName: task?.displayName ?? sample.taskId,
-              taskId: sample.taskId,
-              testName: displayTestName || testName,
-            }),
-          );
-        },
-      ),
-    [samplesData, taskById],
+      (samples ?? []).flatMap((sample) => {
+        const task = taskById.get(sample.taskId);
+        return sample.quarantinedTests.map(({ displayTestName, testName }) => ({
+          buildVariantDisplayName: task?.buildVariantDisplayName ?? "",
+          execution: sample.execution,
+          taskDisplayName: task?.displayName ?? sample.taskId,
+          taskId: sample.taskId,
+          testName: displayTestName || testName,
+        }));
+      }),
+    [samples, taskById],
   );
 
   const handleDownload = async () => {
     sendEvent({
-      name: "Clicked download version quarantined tests JSON button",
+      name: "Clicked download version skipped tests JSON button",
     });
     try {
       const { data: fullData } = await fetchFullList({
         variables: { versionId, taskIds, limit: FULL_LIST_LIMIT },
       });
-      const samples = fullData?.version.taskQuarantinedTestsSample;
-      if (!samples || samples.length === 0) {
-        throw new Error("no quarantined test samples returned");
+      const fullSamples = fullData?.version.taskQuarantinedTestsSample;
+      if (!fullSamples || fullSamples.length === 0) {
+        throw new Error("no skipped test samples returned");
       }
       downloadObjectAsJson(
         {
           versionId,
           skippedTestCount: totalCount,
-          tasks: samples.map((sample) => ({
+          tasks: fullSamples.map((sample) => ({
             taskDisplayName: taskById.get(sample.taskId)?.displayName ?? "",
             buildVariantDisplayName:
               taskById.get(sample.taskId)?.buildVariantDisplayName ?? "",
@@ -119,7 +143,7 @@ export const VersionQuarantinedTestsModal: React.FC<
       );
     } catch {
       dispatchToast.error(
-        "There was an error downloading the quarantined test list.",
+        "There was an error downloading the skipped test list.",
       );
     }
   };
@@ -127,7 +151,7 @@ export const VersionQuarantinedTestsModal: React.FC<
   return (
     <SkippedTestsModal
       columns={columns}
-      dataCyPrefix="version-quarantined-tests"
+      dataCyPrefix="version-skipped-tests"
       getSearchText={getRowSearchText}
       loading={loading}
       onClickDownload={handleDownload}
@@ -146,9 +170,9 @@ export const VersionQuarantinedTestsModal: React.FC<
 const getRowSearchText = ({
   taskDisplayName,
   testName,
-}: VersionQuarantinedTestRow) => `${testName} ${taskDisplayName}`;
+}: VersionSkippedTestRow) => `${testName} ${taskDisplayName}`;
 
-const columns: LGColumnDef<VersionQuarantinedTestRow>[] = [
+const columns: LGColumnDef<VersionSkippedTestRow>[] = [
   {
     id: "testName",
     header: "Test Name",
@@ -165,7 +189,7 @@ const columns: LGColumnDef<VersionQuarantinedTestRow>[] = [
       },
     }) => (
       <StyledRouterLink
-        data-cy="version-quarantined-tests-task-link"
+        data-cy="version-skipped-tests-task-link"
         to={getTaskRoute(taskId, {
           execution,
           tab: TaskTab.Tests,
