@@ -78,7 +78,8 @@ export const VersionSkippedTestsModal: React.FC<
   >(TASK_QUARANTINED_TESTS_SAMPLE);
 
   const samples = samplesData?.version.taskQuarantinedTestsSample;
-  const detailsAvailable = samples != null && samples.length > 0;
+  const detailsAvailable =
+    samples != null && samplesMatchTasks(samples, taskById);
 
   useEffect(() => {
     if (loading) {
@@ -103,7 +104,7 @@ export const VersionSkippedTestsModal: React.FC<
 
   const rows: VersionSkippedTestRow[] = useMemo(
     () =>
-      (samples ?? []).flatMap((sample) => {
+      (detailsAvailable ? samples : []).flatMap((sample) => {
         const task = taskById.get(sample.taskId);
         return sample.quarantinedTests.map(({ displayTestName, testName }) => ({
           buildVariantDisplayName: task?.buildVariantDisplayName ?? "",
@@ -113,7 +114,7 @@ export const VersionSkippedTestsModal: React.FC<
           testName: displayTestName || testName,
         }));
       }),
-    [samples, taskById],
+    [detailsAvailable, samples, taskById],
   );
 
   const handleDownload = async () => {
@@ -125,8 +126,10 @@ export const VersionSkippedTestsModal: React.FC<
         variables: { versionId, taskIds, limit: FULL_LIST_LIMIT },
       });
       const fullSamples = fullData?.version.taskQuarantinedTestsSample;
-      if (!fullSamples || fullSamples.length === 0) {
-        throw new Error("no skipped test samples returned");
+      if (!fullSamples || !samplesMatchTasks(fullSamples, taskById)) {
+        throw new Error(
+          "incomplete or mismatched skipped test samples returned",
+        );
       }
       downloadObjectAsJson(
         {
@@ -148,6 +151,10 @@ export const VersionSkippedTestsModal: React.FC<
     }
   };
 
+  if (!loading && !detailsAvailable) {
+    return null;
+  }
+
   return (
     <SkippedTestsModal
       columns={columns}
@@ -166,6 +173,18 @@ export const VersionSkippedTestsModal: React.FC<
     />
   );
 };
+
+const samplesMatchTasks = (
+  samples: NonNullable<
+    TaskQuarantinedTestsSampleQuery["version"]["taskQuarantinedTestsSample"]
+  >,
+  taskById: Map<string, VersionSkippedTestTask>,
+) =>
+  samples.length === taskById.size &&
+  new Set(samples.map(({ taskId }) => taskId)).size === taskById.size &&
+  samples.every(
+    ({ execution, taskId }) => taskById.get(taskId)?.execution === execution,
+  );
 
 const getRowSearchText = ({
   taskDisplayName,

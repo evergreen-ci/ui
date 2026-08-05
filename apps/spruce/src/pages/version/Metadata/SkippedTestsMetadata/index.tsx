@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -23,7 +24,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({ versionId }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     VersionQuarantinedTasksQuery,
     VersionQuarantinedTasksQueryVariables
   >(VERSION_QUARANTINED_TASKS, { variables: { versionId } });
@@ -39,6 +40,17 @@ export const SkippedTestsMetadata: React.FC<Props> = ({ versionId }) => {
     (sum, task) => sum + task.quarantinedTestsSkippedCount,
     0,
   );
+
+  if (loading) {
+    return (
+      <MetadataItem as="div">
+        <SummaryRow data-cy="version-skipped-tests-metadata-loading">
+          <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
+          <Skeleton size={SkeletonSize.Small} />
+        </SummaryRow>
+      </MetadataItem>
+    );
+  }
 
   if (totalCount === 0) {
     return null;
