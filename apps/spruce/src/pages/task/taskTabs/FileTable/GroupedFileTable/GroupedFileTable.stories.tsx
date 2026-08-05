@@ -4,19 +4,19 @@ import GroupedFileTable from ".";
 const files = [
   {
     name: "some_file",
-    link: "some_link",
+    link: "https://example.com/some_file",
     urlParsley: null,
     associatedLinks: [
       {
         name: "Coverage",
-        link: "coverage_link",
+        link: "https://example.com/coverage",
       },
     ],
   },
   {
     name: "another_file",
-    link: "another_link",
-    urlParsley: "parsley_link",
+    link: "https://example.com/another_file",
+    urlParsley: "https://example.com/parsley",
     associatedLinks: [],
   },
 ];
