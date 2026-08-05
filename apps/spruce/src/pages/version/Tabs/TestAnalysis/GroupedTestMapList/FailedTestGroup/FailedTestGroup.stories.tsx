@@ -17,7 +17,7 @@ export const Default: CustomStoryObj<typeof FailedTestGroup> = {
         id: "TaskId",
         displayStatus: "failed",
         logs: {
-          urlParsley: "LogsUrl",
+          urlParsley: "https://example.com/logs",
         },
       },
     ],
@@ -37,7 +37,7 @@ export const LongTestName: CustomStoryObj<typeof FailedTestGroup> = {
         id: "TaskId",
         displayStatus: "failed",
         logs: {
-          urlParsley: "LogsUrl",
+          urlParsley: "https://example.com/logs",
         },
       },
     ],

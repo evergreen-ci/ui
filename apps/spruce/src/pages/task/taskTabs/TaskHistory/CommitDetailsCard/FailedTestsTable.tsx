@@ -17,6 +17,7 @@ import {
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useTaskHistoryAnalytics } from "analytics";
 import { TaskHistoryOptions, TaskHistoryTask } from "../types";
 
@@ -156,28 +157,31 @@ const getColumns = ({
           testFile,
         },
       },
-    }) => (
-      <ButtonContainer>
-        <StyledButton
-          onClick={() => onClickSearchFailure(testFile)}
-          size={ButtonSize.XSmall}
-        >
-          Search Failure
-        </StyledButton>
-        {urlParsley && (
+    }) => {
+      const safeUrlParsley = isValidHttpUrl(urlParsley) ? urlParsley : null;
+      return (
+        <ButtonContainer>
           <StyledButton
-            href={urlParsley}
-            onClick={() => onClickLogs(testFile)}
-            rightGlyph={<Icon glyph="OpenNewTab" />}
+            onClick={() => onClickSearchFailure(testFile)}
             size={ButtonSize.XSmall}
-            target="__blank"
-            title="Parsley logs"
           >
-            Logs
+            Search Failure
           </StyledButton>
-        )}
-      </ButtonContainer>
-    ),
+          {safeUrlParsley && (
+            <StyledButton
+              href={safeUrlParsley}
+              onClick={() => onClickLogs(testFile)}
+              rightGlyph={<Icon glyph="OpenNewTab" />}
+              size={ButtonSize.XSmall}
+              target="__blank"
+              title="Parsley logs"
+            >
+              Logs
+            </StyledButton>
+          )}
+        </ButtonContainer>
+      );
+    },
   },
 ];
 
