@@ -108,6 +108,7 @@ const mockAdminSettings: AdminSettingsData = {
     projectTasksPairs: [
       {
         projectId: "test-project",
+        isRegex: true,
         allowedTasks: ["compile", "test"],
         allowedBVs: ["ubuntu", "windows"],
       },
@@ -248,6 +249,7 @@ const expectedForm: OtherFormState = {
       projectTasksPairs: [
         {
           projectId: "test-project",
+          isRegex: true,
           allowedTasks: ["compile", "test"],
           allowedBVs: ["ubuntu", "windows"],
         },
@@ -389,6 +391,7 @@ const expectedGql: AdminSettingsInput = {
     projectTasksPairs: [
       {
         projectID: "test-project",
+        isRegex: true,
         allowedTasks: ["compile", "test"],
         allowedBVs: ["ubuntu", "windows"],
       },
