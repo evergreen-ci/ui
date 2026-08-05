@@ -22,7 +22,7 @@ import {
   FULL_LIST_LIMIT,
   MODAL_DISPLAY_LIMIT,
 } from "pages/task/metadata/ExecutionSection/SkippedTestsMetadata/utils";
-import { QuarantinedTestsSkipped } from ".";
+import { SkippedTestsMetadata } from ".";
 
 const getVersionTasksMock = (
   counts: [number, number, number],
@@ -127,6 +127,19 @@ const getSamplesMock = (
   },
 });
 
+const getSamplesErrorMock = (
+  limit: number,
+): ApolloMock<
+  TaskQuarantinedTestsSampleQuery,
+  TaskQuarantinedTestsSampleQueryVariables
+> => ({
+  request: {
+    query: TASK_QUARANTINED_TESTS_SAMPLE,
+    variables: { versionId: "v1", taskIds: ["ta", "tb"], limit },
+  },
+  error: new Error("Failed to load skipped test details"),
+});
+
 const defaultMocks = [
   getVersionTasksMock([4, 2, 0]),
   getSamplesMock(MODAL_DISPLAY_LIMIT),
@@ -139,13 +152,13 @@ const Component = ({
   mocks?: typeof defaultMocks;
 }) => (
   <MockedProvider mocks={mocks}>
-    <QuarantinedTestsSkipped versionId="v1" />
+    <SkippedTestsMetadata versionId="v1" />
   </MockedProvider>
 );
 
 const routerOptions = { path: "/version/:id", route: "/version/v1" };
 
-describe("version QuarantinedTestsSkipped", () => {
+describe("version SkippedTestsMetadata", () => {
   beforeAll(() => {
     stubGetClientRects();
     Object.defineProperty(URL, "createObjectURL", {
@@ -169,34 +182,34 @@ describe("version QuarantinedTestsSkipped", () => {
     );
     render(<TestComponent />, routerOptions);
     await expect(
-      screen.findByDataCy("version-quarantined-test-skips", undefined, {
+      screen.findByDataCy("version-skipped-tests-metadata", undefined, {
         timeout: 250,
       }),
     ).rejects.toThrow();
   });
 
-  it("sums the per-task counts into the badge and opens the modal", async () => {
+  it("sums the per-task counts and opens the modal", async () => {
     const user = userEvent.setup();
     const { Component: TestComponent } = RenderFakeToastContext(<Component />);
     render(<TestComponent />, routerOptions);
     expect(
-      await screen.findByDataCy("version-quarantined-test-skips-badge"),
-    ).toHaveTextContent("6");
-    await user.click(screen.getByDataCy("version-quarantined-test-skips-link"));
-    expect(screen.getByDataCy("version-quarantined-tests-modal")).toBeVisible();
+      await screen.findByDataCy("version-skipped-tests-metadata-count"),
+    ).toHaveTextContent("6 tests");
+    await user.click(
+      screen.getByDataCy("version-skipped-tests-details-button"),
+    );
+    expect(screen.getByDataCy("version-skipped-tests-modal")).toBeVisible();
     expect(await screen.findByText("Alpha Test")).toBeVisible();
     expect(screen.getByText("beta_test")).toBeVisible();
     expect(screen.getByText("gamma_test")).toBeVisible();
-    const taskLinks = screen.getAllByDataCy(
-      "version-quarantined-tests-task-link",
-    );
+    const taskLinks = screen.getAllByDataCy("version-skipped-tests-task-link");
     expect(taskLinks).toHaveLength(3);
     const href = taskLinks[0].getAttribute("href");
     expect(href).toContain("/task/ta/tests");
     expect(href).toContain("execution=0");
     expect(href).not.toContain("quarantinedTests");
     expect(
-      screen.getByDataCy("version-quarantined-tests-truncation-note"),
+      screen.getByDataCy("version-skipped-tests-truncation-note"),
     ).toHaveTextContent("Showing the first 3 of 6");
   });
 
@@ -205,7 +218,7 @@ describe("version QuarantinedTestsSkipped", () => {
     const { Component: TestComponent } = RenderFakeToastContext(<Component />);
     render(<TestComponent />, routerOptions);
     await user.click(
-      await screen.findByDataCy("version-quarantined-test-skips-link"),
+      await screen.findByDataCy("version-skipped-tests-details-button"),
     );
     await screen.findByText("Alpha Test");
     await user.type(
@@ -216,15 +229,38 @@ describe("version QuarantinedTestsSkipped", () => {
     expect(screen.queryByText("Alpha Test")).toBeNull();
   });
 
+  it("shows an error when the details query fails", async () => {
+    const user = userEvent.setup();
+    const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
+      <Component
+        mocks={[
+          getVersionTasksMock([4, 2, 0]),
+          getSamplesErrorMock(MODAL_DISPLAY_LIMIT),
+        ]}
+      />,
+    );
+    render(<TestComponent />, routerOptions);
+    await user.click(
+      await screen.findByDataCy("version-skipped-tests-details-button"),
+    );
+
+    await waitFor(() => {
+      expect(dispatchToast.error).toHaveBeenCalledWith(
+        "There was an error loading the skipped test details.",
+      );
+    });
+    expect(screen.queryByDataCy("version-skipped-tests-modal")).toBeNull();
+  });
+
   it("downloads the whole version's list as JSON", async () => {
     const user = userEvent.setup();
     const { Component: TestComponent } = RenderFakeToastContext(<Component />);
     render(<TestComponent />, routerOptions);
     await user.click(
-      await screen.findByDataCy("version-quarantined-test-skips-link"),
+      await screen.findByDataCy("version-skipped-tests-details-button"),
     );
     await screen.findByText("Alpha Test");
-    await user.click(screen.getByDataCy("version-quarantined-tests-download"));
+    await user.click(screen.getByDataCy("version-skipped-tests-download"));
     await waitFor(() => {
       expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
     });
