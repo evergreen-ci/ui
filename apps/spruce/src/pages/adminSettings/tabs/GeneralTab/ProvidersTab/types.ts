@@ -26,6 +26,7 @@ export interface ProvidersFormState {
       allowedRegions: string[];
       ipamPoolID: string;
       elasticIPUsageRate: number;
+      allowedSNSTopicARNs: string[];
 
       persistentDNS: {
         hostedZoneID: string;
