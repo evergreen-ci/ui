@@ -76,6 +76,13 @@ const getVersionTasksMock = (
 
 const getSamplesMock = (
   limit: number,
+  {
+    executions = [0, 0],
+    includeSecondTask = true,
+  }: {
+    executions?: [number, number];
+    includeSecondTask?: boolean;
+  } = {},
 ): ApolloMock<
   TaskQuarantinedTestsSampleQuery,
   TaskQuarantinedTestsSampleQueryVariables
@@ -93,7 +100,7 @@ const getSamplesMock = (
           {
             __typename: "TaskQuarantinedTestsSample",
             taskId: "ta",
-            execution: 0,
+            execution: executions[0],
             quarantinedTestsSkippedCount: 4,
             quarantinedTests: [
               {
@@ -108,19 +115,23 @@ const getSamplesMock = (
               },
             ],
           },
-          {
-            __typename: "TaskQuarantinedTestsSample",
-            taskId: "tb",
-            execution: 0,
-            quarantinedTestsSkippedCount: 2,
-            quarantinedTests: [
-              {
-                __typename: "QuarantinedTest",
-                displayTestName: null,
-                testName: "gamma_test",
-              },
-            ],
-          },
+          ...(includeSecondTask
+            ? [
+                {
+                  __typename: "TaskQuarantinedTestsSample" as const,
+                  taskId: "tb",
+                  execution: executions[1],
+                  quarantinedTestsSkippedCount: 2,
+                  quarantinedTests: [
+                    {
+                      __typename: "QuarantinedTest" as const,
+                      displayTestName: null,
+                      testName: "gamma_test",
+                    },
+                  ],
+                },
+              ]
+            : []),
         ],
       },
     },
@@ -193,6 +204,9 @@ describe("version SkippedTestsMetadata", () => {
     const { Component: TestComponent } = RenderFakeToastContext(<Component />);
     render(<TestComponent />, routerOptions);
     expect(
+      screen.getByDataCy("version-skipped-tests-metadata-loading"),
+    ).toBeVisible();
+    expect(
       await screen.findByDataCy("version-skipped-tests-metadata-count"),
     ).toHaveTextContent("6 tests");
     await user.click(
@@ -252,6 +266,29 @@ describe("version SkippedTestsMetadata", () => {
     expect(screen.queryByDataCy("version-skipped-tests-modal")).toBeNull();
   });
 
+  it("does not show samples from a different task execution", async () => {
+    const user = userEvent.setup();
+    const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
+      <Component
+        mocks={[
+          getVersionTasksMock([4, 2, 0]),
+          getSamplesMock(MODAL_DISPLAY_LIMIT, { executions: [1, 0] }),
+        ]}
+      />,
+    );
+    render(<TestComponent />, routerOptions);
+    await user.click(
+      await screen.findByDataCy("version-skipped-tests-details-button"),
+    );
+
+    await waitFor(() => {
+      expect(dispatchToast.warning).toHaveBeenCalledWith(
+        "Skipped test details are not available for this version.",
+      );
+    });
+    expect(screen.queryByDataCy("version-skipped-tests-modal")).toBeNull();
+  });
+
   it("downloads the whole version's list as JSON", async () => {
     const user = userEvent.setup();
     const { Component: TestComponent } = RenderFakeToastContext(<Component />);
@@ -292,5 +329,31 @@ describe("version SkippedTestsMetadata", () => {
         },
       ],
     });
+  });
+
+  it("does not download an incomplete task list", async () => {
+    const user = userEvent.setup();
+    const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
+      <Component
+        mocks={[
+          getVersionTasksMock([4, 2, 0]),
+          getSamplesMock(MODAL_DISPLAY_LIMIT),
+          getSamplesMock(FULL_LIST_LIMIT, { includeSecondTask: false }),
+        ]}
+      />,
+    );
+    render(<TestComponent />, routerOptions);
+    await user.click(
+      await screen.findByDataCy("version-skipped-tests-details-button"),
+    );
+    await screen.findByText("Alpha Test");
+    await user.click(screen.getByDataCy("version-skipped-tests-download"));
+
+    await waitFor(() => {
+      expect(dispatchToast.error).toHaveBeenCalledWith(
+        "There was an error downloading the skipped test list.",
+      );
+    });
+    expect(URL.createObjectURL).not.toHaveBeenCalled();
   });
 });
