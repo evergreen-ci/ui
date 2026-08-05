@@ -8,6 +8,7 @@ import {
   stringifyQuery,
 } from "@evg-ui/lib/utils/query-string";
 import { useWaterfallAnalytics } from "analytics";
+import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import {
   DEFAULT_POLL_INTERVAL,
@@ -212,7 +213,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     activeVersionIds: dataIsComplete
       ? data.waterfall.pagination.activeVersionIds
       : [],
-    flattenedVersions: dataIsComplete ? data.waterfall.flattenedVersions : [],
+    flattenedVersions: dataIsComplete ? data.waterfall.versions : [],
     omitInactiveBuilds,
     pins,
   });
@@ -297,7 +298,7 @@ const Container = styled.div`
 
 const StickyHeader = styled(Row)<{ showShadow: boolean }>`
   position: sticky;
-  top: -${size.m};
+  top: ${navBarHeight};
   z-index: 1;
 
   background: white;

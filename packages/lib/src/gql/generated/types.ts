@@ -1019,6 +1019,14 @@ export type EnvVarInput = {
   value: Scalars["String"]["input"];
 };
 
+/**
+ * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
+ * It's used to filter a display task's execution tasks.
+ */
+export type ExecutionTasksFilterOptions = {
+  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
 export type Expansion = {
   __typename?: "Expansion";
   key: Scalars["String"]["output"];
@@ -2515,7 +2523,6 @@ export type Patch = {
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
   user: User;
-  userLite: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
@@ -3151,13 +3158,11 @@ export type Query = {
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   taskHistory: TaskHistory;
-  taskHistoryByCreateTime: TaskHistoryByCreateTime;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
-  userLite: User;
   variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
@@ -3280,10 +3285,6 @@ export type QueryTaskHistoryArgs = {
   options: TaskHistoryOpts;
 };
 
-export type QueryTaskHistoryByCreateTimeArgs = {
-  options: TaskHistoryOpts;
-};
-
 export type QueryTaskNamesForBuildVariantArgs = {
   buildVariant: Scalars["String"]["input"];
   projectIdentifier: Scalars["String"]["input"];
@@ -3296,10 +3297,6 @@ export type QueryTaskTestSampleArgs = {
 };
 
 export type QueryUserArgs = {
-  userId?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type QueryUserLiteArgs = {
   userId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -4172,6 +4169,11 @@ export type Task = {
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskExecutionTasksFullArgs = {
+  options?: InputMaybe<ExecutionTasksFilterOptions>;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
 export type TaskPrevTaskCompletedArgs = {
   prevTaskOptions?: InputMaybe<PrevTaskOptions>;
 };
@@ -4271,18 +4273,6 @@ export type TaskHistory = {
   __typename?: "TaskHistory";
   pagination: TaskHistoryPagination;
   tasks: Array<Task>;
-};
-
-export type TaskHistoryByCreateTime = {
-  __typename?: "TaskHistoryByCreateTime";
-  pagination: TaskHistoryByCreateTimePagination;
-  tasks: Array<Task>;
-};
-
-export type TaskHistoryByCreateTimePagination = {
-  __typename?: "TaskHistoryByCreateTimePagination";
-  mostRecentTaskCreateTime: Scalars["Time"]["output"];
-  oldestTaskCreateTime: Scalars["Time"]["output"];
 };
 
 export enum TaskHistoryDirection {
@@ -4928,7 +4918,6 @@ export type Version = {
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
   user: User;
-  userLite: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
