@@ -117,7 +117,7 @@ const HeaderRow = styled.div`
 `;
 
 const OverflowContainer = styled.div`
-  max-height: 600px;
-  overflow-y: scroll;
+  max-height: min(600px, 50vh);
+  overflow-y: auto;
   margin-top: ${size.xs};
 `;
