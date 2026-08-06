@@ -69,6 +69,9 @@ export const gqlToForm = ((data) => {
         elevatedUsers: {
           elevatedUserIds: rateLimit?.elevatedUserIds ?? [],
         },
+        exemptUsers: {
+          exemptUserIds: rateLimit?.exemptUserIds ?? [],
+        },
       },
     },
   };
@@ -96,6 +99,7 @@ export const formToGql = (({ web }) => {
       graphqlComplexityLimit:
         rateLimitConfig.graphqlComplexity.graphqlComplexityLimit,
       elevatedUserIds: rateLimitConfig.elevatedUsers.elevatedUserIds,
+      exemptUserIds: rateLimitConfig.exemptUsers.exemptUserIds,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;
