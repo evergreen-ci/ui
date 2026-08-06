@@ -6,7 +6,6 @@ import {
   BuildBaronQueryVariables,
 } from "gql/generated/types";
 import { BUILD_BARON } from "gql/queries";
-import { usePolling } from "hooks/usePolling";
 import BuildBaronContent from "./BuildBaronContent";
 
 interface Props {
@@ -14,36 +13,37 @@ interface Props {
   execution: number;
   annotation: Annotation;
   userCanModify: boolean;
+  buildBaronConfigured: boolean;
+  bbTicketCreationDefined: boolean;
 }
 
 const BuildBaron: React.FC<Props> = ({
   annotation,
+  bbTicketCreationDefined,
+  buildBaronConfigured,
   execution,
   taskId,
   userCanModify,
 }) => {
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
-    BuildBaronQuery,
-    BuildBaronQueryVariables
-  >(BUILD_BARON, {
-    variables: { taskId, execution },
-  });
-  usePolling<BuildBaronQuery, BuildBaronQueryVariables>({
-    startPolling,
-    stopPolling,
-    refetch,
-  });
+  const { data, loading } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
+    BUILD_BARON,
+    {
+      variables: { taskId, execution },
+    },
+  );
 
-  const { buildBaron } = data || {};
-  const isLoading = !buildBaron && loading; // TODO: Re-evaluate in DEVPROD-33191.
-  if (isLoading || !buildBaron) {
+  const suggestions = data?.task?.buildBaronSuggestions;
+  const isLoading = !data && loading; // TODO: Re-evaluate in DEVPROD-33191.
+  if (isLoading) {
     return <ParagraphSkeleton />;
   }
   return (
     <BuildBaronContent
       annotation={annotation}
-      bbData={buildBaron}
+      bbTicketCreationDefined={bbTicketCreationDefined}
+      buildBaronConfigured={buildBaronConfigured}
       execution={execution}
+      suggestions={suggestions}
       taskId={taskId}
       userCanModify={userCanModify}
     />

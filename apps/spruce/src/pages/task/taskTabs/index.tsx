@@ -65,17 +65,18 @@ const useTabConfig = (
   } = task;
   const baseTaskId = baseTask?.id || "";
   const { fileCount } = files ?? {};
-  const { id: projectId } = project || {};
+  const { id: projectId, identifier: projectIdentifier } = project || {};
 
-  const { showBuildBaron } = useBuildBaronVariables({
-    task: {
-      id,
-      execution,
-      status: displayStatus,
-      canModifyAnnotation,
-      hasAnnotation: !!annotation,
-    },
-  });
+  const { bbTicketCreationDefined, buildBaronConfigured, showBuildBaron } =
+    useBuildBaronVariables({
+      task: {
+        status: displayStatus,
+        canModifyAnnotation,
+        hasAnnotation: !!annotation,
+        projectId,
+        projectIdentifier,
+      },
+    });
 
   const tabIsActive: Record<TaskTab, boolean> = {
     // Display tasks have no execution logs, but the Logs tab still surfaces
@@ -164,6 +165,8 @@ const useTabConfig = (
         <BuildBaron
           /* @ts-expect-error: FIXME. This comment was added by an automated script. */
           annotation={annotation}
+          bbTicketCreationDefined={bbTicketCreationDefined}
+          buildBaronConfigured={buildBaronConfigured}
           execution={execution}
           taskId={id}
           userCanModify={canModifyAnnotation}

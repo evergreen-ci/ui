@@ -1,7 +1,9 @@
 import { CreatedTicketsQuery } from "gql/generated/types";
 import JiraTicketRow from "./JiraTicketRow";
 
-type CreatedTickets = CreatedTicketsQuery["bbGetCreatedTickets"];
+type CreatedTickets = NonNullable<
+  CreatedTicketsQuery["task"]
+>["buildBaronCreatedTickets"];
 
 const JiraTicketList: React.FC<{
   jiraIssues: CreatedTickets;

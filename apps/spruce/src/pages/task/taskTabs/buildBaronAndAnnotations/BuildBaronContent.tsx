@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   Annotation,
-  BuildBaronQuery,
   CreatedTicketsQuery,
   CreatedTicketsQueryVariables,
   CustomCreatedIssuesQuery,
@@ -14,19 +13,24 @@ import AnnotationNote from "./AnnotationNote";
 import { BBCreatedTickets, CustomCreatedTickets } from "./CreatedTicketsTable";
 import { Issues, SuspectedIssues } from "./Issues";
 import JiraIssueTable from "./JiraIssueTable";
+import { BuildBaronSuggestions } from "./types";
 
 interface BuildBaronCoreProps {
-  bbData: BuildBaronQuery["buildBaron"];
+  suggestions: BuildBaronSuggestions;
   taskId: string;
   execution: number;
   annotation: Annotation;
   userCanModify: boolean;
+  buildBaronConfigured: boolean;
+  bbTicketCreationDefined: boolean;
 }
 
 const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   annotation,
-  bbData,
+  bbTicketCreationDefined,
+  buildBaronConfigured,
   execution,
+  suggestions,
   taskId,
   userCanModify,
 }) => {
@@ -47,7 +51,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
     CreatedTicketsQuery,
     CreatedTicketsQueryVariables
   >(CREATED_TICKETS, {
-    variables: { taskId },
+    variables: { taskId, execution },
   });
   useErrorToast(
     bbTicketsError,
@@ -55,12 +59,11 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   );
 
   const customTickets = customCreatedTickets?.task?.annotation?.createdIssues;
-  const bbTickets = bbCreatedTickets?.bbGetCreatedTickets;
-  const canCreateTickets = bbData?.bbTicketCreationDefined;
+  const bbTickets = bbCreatedTickets?.task?.buildBaronCreatedTickets;
 
   return (
     <div data-cy="build-baron-content">
-      {canCreateTickets ? (
+      {bbTicketCreationDefined ? (
         <CustomCreatedTickets
           execution={execution}
           taskId={taskId}
@@ -69,7 +72,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         />
       ) : (
         <BBCreatedTickets
-          buildBaronConfigured={bbData?.buildBaronConfigured}
+          buildBaronConfigured={buildBaronConfigured}
           execution={execution}
           taskId={taskId}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -99,9 +102,8 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         taskId={taskId}
         userCanModify={userCanModify}
       />
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {bbData?.searchReturnInfo?.issues.length > 0 && (
-        <JiraIssueTable bbData={bbData} />
+      {!!suggestions?.issues.length && (
+        <JiraIssueTable suggestions={suggestions} />
       )}
     </div>
   );

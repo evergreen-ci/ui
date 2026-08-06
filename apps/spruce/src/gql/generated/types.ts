@@ -4079,6 +4079,8 @@ export type Task = {
   baseStatus?: Maybe<Scalars["String"]["output"]>;
   baseTask?: Maybe<Task>;
   blocked: Scalars["Boolean"]["output"];
+  buildBaronCreatedTickets: Array<JiraTicket>;
+  buildBaronSuggestions?: Maybe<SearchReturnInfo>;
   buildId: Scalars["String"]["output"];
   buildVariant: Scalars["String"]["output"];
   buildVariantDisplayName?: Maybe<Scalars["String"]["output"]>;
@@ -5397,6 +5399,16 @@ export type PatchesPagePatchesFragment = {
       } | null;
     } | null;
   }>;
+};
+
+export type ProjectBuildBaronSettingsFragment = {
+  __typename?: "Project";
+  id: string;
+  buildBaronSettings: {
+    __typename?: "BuildBaronSettings";
+    ticketCreateProject: string;
+    ticketSearchProjects?: Array<string> | null;
+  };
 };
 
 export type ProjectAccessSettingsFragment = {
@@ -8154,16 +8166,6 @@ export type BaseVersionAndTaskQuery = {
   } | null;
 };
 
-export type BuildBaronConfiguredQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution: Scalars["Int"]["input"];
-}>;
-
-export type BuildBaronConfiguredQuery = {
-  __typename?: "Query";
-  buildBaron: { __typename?: "BuildBaron"; buildBaronConfigured: boolean };
-};
-
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution: Scalars["Int"]["input"];
@@ -8171,11 +8173,11 @@ export type BuildBaronQueryVariables = Exact<{
 
 export type BuildBaronQuery = {
   __typename?: "Query";
-  buildBaron: {
-    __typename?: "BuildBaron";
-    bbTicketCreationDefined: boolean;
-    buildBaronConfigured: boolean;
-    searchReturnInfo?: {
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    buildBaronSuggestions?: {
       __typename?: "SearchReturnInfo";
       search: string;
       issues: Array<{
@@ -8192,7 +8194,7 @@ export type BuildBaronQuery = {
         };
       }>;
     } | null;
-  };
+  } | null;
 };
 
 export type BuildVariantStatsQueryVariables = Exact<{
@@ -8319,23 +8321,29 @@ export type CodeChangesQuery = {
 
 export type CreatedTicketsQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
+  execution: Scalars["Int"]["input"];
 }>;
 
 export type CreatedTicketsQuery = {
   __typename?: "Query";
-  bbGetCreatedTickets: Array<{
-    __typename?: "JiraTicket";
-    key: string;
-    fields: {
-      __typename?: "TicketFields";
-      assigneeDisplayName?: string | null;
-      created: string;
-      resolutionName?: string | null;
-      summary: string;
-      updated: string;
-      status: { __typename?: "JiraStatus"; id: string; name: string };
-    };
-  }>;
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    buildBaronCreatedTickets: Array<{
+      __typename?: "JiraTicket";
+      key: string;
+      fields: {
+        __typename?: "TicketFields";
+        assigneeDisplayName?: string | null;
+        created: string;
+        resolutionName?: string | null;
+        summary: string;
+        updated: string;
+        status: { __typename?: "JiraStatus"; id: string; name: string };
+      };
+    }>;
+  } | null;
 };
 
 export type DistroEventsQueryVariables = Exact<{
@@ -9274,6 +9282,23 @@ export type ProjectBannerQuery = {
       text: string;
       theme: BannerTheme;
     } | null;
+  };
+};
+
+export type ProjectBuildBaronSettingsQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+}>;
+
+export type ProjectBuildBaronSettingsQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    id: string;
+    buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
+      ticketCreateProject: string;
+      ticketSearchProjects?: Array<string> | null;
+    };
   };
 };
 

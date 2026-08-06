@@ -2,10 +2,9 @@ import { gql } from "@apollo/client";
 
 export const BUILD_BARON = gql`
   query BuildBaron($taskId: String!, $execution: Int!) {
-    buildBaron(taskId: $taskId, execution: $execution) {
-      bbTicketCreationDefined
-      buildBaronConfigured
-      searchReturnInfo {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      buildBaronSuggestions {
         issues {
           fields {
             assigneeDisplayName
@@ -22,6 +21,7 @@ export const BUILD_BARON = gql`
         }
         search
       }
+      execution
     }
   }
 `;

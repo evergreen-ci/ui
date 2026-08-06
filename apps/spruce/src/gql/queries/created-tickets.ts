@@ -1,20 +1,24 @@
 import { gql } from "@apollo/client";
 
 export const CREATED_TICKETS = gql`
-  query CreatedTickets($taskId: String!) {
-    bbGetCreatedTickets(taskId: $taskId) {
-      fields {
-        assigneeDisplayName
-        created
-        resolutionName
-        status {
-          id
-          name
+  query CreatedTickets($taskId: String!, $execution: Int!) {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      buildBaronCreatedTickets {
+        fields {
+          assigneeDisplayName
+          created
+          resolutionName
+          status {
+            id
+            name
+          }
+          summary
+          updated
         }
-        summary
-        updated
+        key
       }
-      key
+      execution
     }
   }
 `;

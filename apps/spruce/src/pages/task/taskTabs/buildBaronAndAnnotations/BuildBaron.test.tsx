@@ -49,9 +49,10 @@ describe("buildBaronContent", () => {
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          bbData={buildBaronQuery.buildBaron}
+          bbTicketCreationDefined
+          buildBaronConfigured
           execution={execution}
-          loading={false}
+          suggestions={buildBaronQuery.task?.buildBaronSuggestions}
           taskId={taskId}
           userCanModify
         />
@@ -72,9 +73,10 @@ describe("buildBaronContent", () => {
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          bbData={buildBaronQuery.buildBaron}
+          bbTicketCreationDefined
+          buildBaronConfigured
           execution={execution}
-          loading={false}
+          suggestions={buildBaronQuery.task?.buildBaronSuggestions}
           taskId={taskId}
           userCanModify
         />
@@ -102,9 +104,10 @@ describe("buildBaronContent", () => {
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          bbData={buildBaronQuery.buildBaron}
+          bbTicketCreationDefined
+          buildBaronConfigured
           execution={execution}
-          loading={false}
+          suggestions={buildBaronQuery.task?.buildBaronSuggestions}
           taskId={taskId}
           userCanModify
         />
@@ -141,11 +144,11 @@ describe("buildBaronContent", () => {
 });
 
 const buildBaronQuery: BuildBaronQuery = {
-  buildBaron: {
-    __typename: "BuildBaron",
-    buildBaronConfigured: true,
-    bbTicketCreationDefined: true,
-    searchReturnInfo: {
+  task: {
+    __typename: "Task",
+    id: taskId,
+    execution,
+    buildBaronSuggestions: {
       __typename: "SearchReturnInfo",
       search: "test search string",
       issues: [
@@ -244,11 +247,17 @@ const getJiraTicketsMock: ApolloMock<
     query: CREATED_TICKETS,
     variables: {
       taskId,
+      execution,
     },
   },
   result: {
     data: {
-      bbGetCreatedTickets: [],
+      task: {
+        __typename: "Task",
+        id: taskId,
+        execution,
+        buildBaronCreatedTickets: [],
+      },
     },
   },
 };
