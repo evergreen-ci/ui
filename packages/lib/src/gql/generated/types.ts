@@ -65,6 +65,7 @@ export type AwsConfig = {
   alertableInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedRegions: Array<Scalars["String"]["output"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["output"]>;
   defaultSecurityGroup?: Maybe<Scalars["String"]["output"]>;
   elasticIPUsageRate?: Maybe<Scalars["Float"]["output"]>;
   ipamPoolID?: Maybe<Scalars["String"]["output"]>;
@@ -79,6 +80,7 @@ export type AwsConfigInput = {
   alertableInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedRegions: Array<Scalars["String"]["input"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["input"]>;
   defaultSecurityGroup?: InputMaybe<Scalars["String"]["input"]>;
   elasticIPUsageRate?: InputMaybe<Scalars["Float"]["input"]>;
   ipamPoolID?: InputMaybe<Scalars["String"]["input"]>;
