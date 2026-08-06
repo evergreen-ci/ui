@@ -3319,6 +3319,7 @@ export type QueryWaterfallArgs = {
 export type RateLimitConfig = {
   __typename?: "RateLimitConfig";
   elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  exemptUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
   graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
   graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
@@ -3332,6 +3333,7 @@ export type RateLimitConfig = {
 
 export type RateLimitConfigInput = {
   elevatedUserIds: Array<Scalars["String"]["input"]>;
+  exemptUserIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   graphqlComplexityLimit: Scalars["Int"]["input"];
   graphqlServiceBurst: Scalars["Int"]["input"];
   graphqlServicePerHour: Scalars["Int"]["input"];
@@ -4083,6 +4085,8 @@ export type Task = {
   baseStatus?: Maybe<Scalars["String"]["output"]>;
   baseTask?: Maybe<Task>;
   blocked: Scalars["Boolean"]["output"];
+  buildBaronCreatedTickets: Array<JiraTicket>;
+  buildBaronSuggestions?: Maybe<SearchReturnInfo>;
   buildId: Scalars["String"]["output"];
   buildVariant: Scalars["String"]["output"];
   buildVariantDisplayName?: Maybe<Scalars["String"]["output"]>;
@@ -4924,7 +4928,6 @@ export type Version = {
   user: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
-  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 /** Version models a commit within a project. */
@@ -5038,7 +5041,6 @@ export type VolumeHost = {
 
 export type Waterfall = {
   __typename?: "Waterfall";
-  flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
   versions: Array<VersionLite>;
 };
