@@ -18,7 +18,11 @@ const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
 }) => (
   <>
     <TicketsTitle>Create a New Ticket</TicketsTitle>
-    <FileTicketButton execution={execution} taskId={taskId} />
+    <FileTicketButton
+      execution={execution}
+      refetchQuery="CustomCreatedIssues"
+      taskId={taskId}
+    />
     {!!tickets?.length && (
       <>
         <TicketsTitle margin>Tickets Created From This Task</TicketsTitle>

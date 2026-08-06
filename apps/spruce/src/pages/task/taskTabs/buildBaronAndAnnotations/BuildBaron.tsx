@@ -13,15 +13,13 @@ interface Props {
   execution: number;
   annotation: Annotation;
   userCanModify: boolean;
-  buildBaronConfigured: boolean;
-  bbTicketCreationDefined: boolean;
+  projectId?: string;
 }
 
 const BuildBaron: React.FC<Props> = ({
   annotation,
-  bbTicketCreationDefined,
-  buildBaronConfigured,
   execution,
+  projectId,
   taskId,
   userCanModify,
 }) => {
@@ -40,9 +38,8 @@ const BuildBaron: React.FC<Props> = ({
   return (
     <BuildBaronContent
       annotation={annotation}
-      bbTicketCreationDefined={bbTicketCreationDefined}
-      buildBaronConfigured={buildBaronConfigured}
       execution={execution}
+      projectId={projectId}
       suggestions={suggestions}
       taskId={taskId}
       userCanModify={userCanModify}

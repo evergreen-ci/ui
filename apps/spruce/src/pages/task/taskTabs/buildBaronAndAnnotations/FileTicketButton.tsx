@@ -16,9 +16,15 @@ import { ButtonWrapper } from "./BBComponents";
 interface FileTicketProps {
   taskId: string;
   execution: number;
+  /** The created-tickets operation rendered alongside this button. Only one of the two is active. */
+  refetchQuery: "CreatedTickets" | "CustomCreatedIssues";
 }
 
-const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
+const FileTicketButton: React.FC<FileTicketProps> = ({
+  execution,
+  refetchQuery,
+  taskId,
+}) => {
   const dispatchToast = useToastContext();
 
   const [fileJiraTicket, { loading: loadingFileJiraTicket }] = useMutation<
@@ -34,7 +40,7 @@ const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
         `There was an error filing the ticket: ${error.message}`,
       );
     },
-    refetchQueries: ["CreatedTickets", "CustomCreatedIssues"],
+    refetchQueries: [refetchQuery],
   });
 
   const [buttonText, setButtonText] = useState<string>("File ticket");

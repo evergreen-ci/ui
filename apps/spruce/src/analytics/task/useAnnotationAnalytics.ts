@@ -74,7 +74,7 @@ export const useAnnotationAnalytics = () => {
   const { id: projectId, identifier } = project || {};
   const isLatestExecution = latestExecution === execution;
 
-  const { buildBaronConfigured } = useProjectBuildBaronSettings(projectId);
+  const { buildBaronConfigured } = useProjectBuildBaronSettings({ projectId });
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Annotations", {
     "task.display_status": displayStatus || "",

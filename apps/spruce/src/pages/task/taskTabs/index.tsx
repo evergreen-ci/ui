@@ -24,7 +24,7 @@ import {
 import { TASK_PERF_PLUGIN_ENABLED, TASK_TEST_COUNT } from "gql/queries";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
-import BuildBaron, { useBuildBaronVariables } from "./buildBaronAndAnnotations";
+import BuildBaron, { useShowBuildBaron } from "./buildBaronAndAnnotations";
 import ExecutionTasksTable from "./ExecutionTasksTable";
 import ExecutionTasksTiming from "./ExecutionTasksTiming";
 import FileTable from "./FileTable";
@@ -67,16 +67,13 @@ const useTabConfig = (
   const { fileCount } = files ?? {};
   const { id: projectId, identifier: projectIdentifier } = project || {};
 
-  const { bbTicketCreationDefined, buildBaronConfigured, showBuildBaron } =
-    useBuildBaronVariables({
-      task: {
-        status: displayStatus,
-        canModifyAnnotation,
-        hasAnnotation: !!annotation,
-        projectId,
-        projectIdentifier,
-      },
-    });
+  const showBuildBaron = useShowBuildBaron({
+    status: displayStatus,
+    canModifyAnnotation,
+    hasAnnotation: !!annotation,
+    projectId,
+    projectIdentifier,
+  });
 
   const tabIsActive: Record<TaskTab, boolean> = {
     // Display tasks have no execution logs, but the Logs tab still surfaces
@@ -165,9 +162,8 @@ const useTabConfig = (
         <BuildBaron
           /* @ts-expect-error: FIXME. This comment was added by an automated script. */
           annotation={annotation}
-          bbTicketCreationDefined={bbTicketCreationDefined}
-          buildBaronConfigured={buildBaronConfigured}
           execution={execution}
+          projectId={projectId}
           taskId={id}
           userCanModify={canModifyAnnotation}
         />

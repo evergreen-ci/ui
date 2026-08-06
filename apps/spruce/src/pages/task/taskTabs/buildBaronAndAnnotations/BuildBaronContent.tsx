@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   Annotation,
@@ -9,6 +9,7 @@ import {
   CustomCreatedIssuesQueryVariables,
 } from "gql/generated/types";
 import { CREATED_TICKETS, JIRA_CUSTOM_CREATED_ISSUES } from "gql/queries";
+import { useProjectBuildBaronSettings } from "hooks";
 import AnnotationNote from "./AnnotationNote";
 import { BBCreatedTickets, CustomCreatedTickets } from "./CreatedTicketsTable";
 import { Issues, SuspectedIssues } from "./Issues";
@@ -21,27 +22,29 @@ interface BuildBaronCoreProps {
   execution: number;
   annotation: Annotation;
   userCanModify: boolean;
-  buildBaronConfigured: boolean;
-  bbTicketCreationDefined: boolean;
+  projectId?: string;
 }
 
 const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   annotation,
-  bbTicketCreationDefined,
-  buildBaronConfigured,
   execution,
+  projectId,
   suggestions,
   taskId,
   userCanModify,
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");
+  const { bbTicketCreationDefined } = useProjectBuildBaronSettings({
+    projectId,
+  });
 
   const { data: customCreatedTickets, error: customTicketsError } = useQuery<
     CustomCreatedIssuesQuery,
     CustomCreatedIssuesQueryVariables
-  >(JIRA_CUSTOM_CREATED_ISSUES, {
-    variables: { taskId, execution },
-  });
+  >(
+    JIRA_CUSTOM_CREATED_ISSUES,
+    bbTicketCreationDefined ? { variables: { taskId, execution } } : skipToken,
+  );
   useErrorToast(
     customTicketsError,
     "There was an error loading the ticket information from Jira",
@@ -50,9 +53,10 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const { data: bbCreatedTickets, error: bbTicketsError } = useQuery<
     CreatedTicketsQuery,
     CreatedTicketsQueryVariables
-  >(CREATED_TICKETS, {
-    variables: { taskId, execution },
-  });
+  >(
+    CREATED_TICKETS,
+    bbTicketCreationDefined ? skipToken : { variables: { taskId, execution } },
+  );
   useErrorToast(
     bbTicketsError,
     "There was an error getting tickets created for this task",
@@ -72,8 +76,8 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         />
       ) : (
         <BBCreatedTickets
-          buildBaronConfigured={buildBaronConfigured}
           execution={execution}
+          projectId={projectId}
           taskId={taskId}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           tickets={bbTickets}
