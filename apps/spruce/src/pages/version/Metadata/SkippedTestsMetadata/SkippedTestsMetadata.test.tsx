@@ -74,6 +74,17 @@ const getVersionTasksMock = (
   },
 });
 
+const getVersionTasksErrorMock = (): ApolloMock<
+  VersionQuarantinedTasksQuery,
+  VersionQuarantinedTasksQueryVariables
+> => ({
+  request: {
+    query: VERSION_QUARANTINED_TASKS,
+    variables: { versionId: "v1" },
+  },
+  error: new Error("Failed to load version skipped tests"),
+});
+
 const getSamplesMock = (
   limit: number,
   {
@@ -197,6 +208,26 @@ describe("version SkippedTestsMetadata", () => {
         timeout: 250,
       }),
     ).rejects.toThrow();
+  });
+
+  it("shows an unavailable state and retries when loading version tasks fails", async () => {
+    const user = userEvent.setup();
+    const { Component: TestComponent } = RenderFakeToastContext(
+      <Component
+        mocks={[getVersionTasksErrorMock(), getVersionTasksMock([4, 2, 0])]}
+      />,
+    );
+    render(<TestComponent />, routerOptions);
+
+    expect(
+      await screen.findByDataCy("version-skipped-tests-metadata-error"),
+    ).toHaveTextContent("Unavailable");
+    await user.click(
+      screen.getByDataCy("version-skipped-tests-metadata-retry"),
+    );
+    expect(
+      await screen.findByDataCy("version-skipped-tests-metadata-count"),
+    ).toHaveTextContent("6 tests");
   });
 
   it("sums the per-task counts and opens the modal", async () => {

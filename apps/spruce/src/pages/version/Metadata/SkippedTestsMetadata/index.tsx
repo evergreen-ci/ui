@@ -24,7 +24,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({ versionId }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
-  const { data, loading } = useQuery<
+  const { data, error, loading, refetch } = useQuery<
     VersionQuarantinedTasksQuery,
     VersionQuarantinedTasksQueryVariables
   >(VERSION_QUARANTINED_TASKS, { variables: { versionId } });
@@ -47,6 +47,26 @@ export const SkippedTestsMetadata: React.FC<Props> = ({ versionId }) => {
         <SummaryRow data-cy="version-skipped-tests-metadata-loading">
           <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
           <Skeleton size={SkeletonSize.Small} />
+        </SummaryRow>
+      </MetadataItem>
+    );
+  }
+
+  if (error) {
+    return (
+      <MetadataItem as="div">
+        <SummaryRow data-cy="version-skipped-tests-metadata-error">
+          <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
+          <span>Unavailable</span>
+          <Button
+            data-cy="version-skipped-tests-metadata-retry"
+            onClick={() => {
+              void refetch();
+            }}
+            size={ButtonSize.XSmall}
+          >
+            Retry
+          </Button>
         </SummaryRow>
       </MetadataItem>
     );
