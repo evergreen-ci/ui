@@ -1,7 +1,7 @@
 import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
-import { TestSelectionFormState } from "./types";
+import { TaskLevelTestSelection, TestSelectionFormState } from "./types";
 
 const { projectBase, repoBase } = data;
 
@@ -27,9 +27,77 @@ describe("repo data", () => {
   });
 });
 
+describe("task-level settings", () => {
+  it.each([
+    {
+      defaultEnabled: false,
+      expected: TaskLevelTestSelection.Disabled,
+      mainlineDefaultEnabled: false,
+    },
+    {
+      defaultEnabled: true,
+      expected: TaskLevelTestSelection.Patches,
+      mainlineDefaultEnabled: false,
+    },
+    {
+      defaultEnabled: true,
+      expected: TaskLevelTestSelection.PatchesAndMainline,
+      mainlineDefaultEnabled: true,
+    },
+  ])(
+    "converts defaultEnabled=$defaultEnabled and mainlineDefaultEnabled=$mainlineDefaultEnabled from GQL",
+    ({ defaultEnabled, expected, mainlineDefaultEnabled }) => {
+      const projectRef = repoBase.projectRef!;
+      expect(
+        gqlToForm({
+          ...repoBase,
+          projectRef: {
+            ...projectRef,
+            testSelection: {
+              allowed: true,
+              defaultEnabled,
+              mainlineDefaultEnabled,
+            },
+          },
+        }),
+      ).toMatchObject({ taskLevel: expected });
+    },
+  );
+
+  it.each([
+    {
+      defaultEnabled: false,
+      mainlineDefaultEnabled: false,
+      taskLevel: TaskLevelTestSelection.Disabled,
+    },
+    {
+      defaultEnabled: true,
+      mainlineDefaultEnabled: false,
+      taskLevel: TaskLevelTestSelection.Patches,
+    },
+    {
+      defaultEnabled: true,
+      mainlineDefaultEnabled: true,
+      taskLevel: TaskLevelTestSelection.PatchesAndMainline,
+    },
+  ])(
+    "converts $taskLevel to GQL",
+    ({ defaultEnabled, mainlineDefaultEnabled, taskLevel }) => {
+      expect(
+        formToGql({ allowed: true, taskLevel }, false, "project").projectRef
+          .testSelection,
+      ).toStrictEqual({
+        allowed: true,
+        defaultEnabled,
+        mainlineDefaultEnabled,
+      });
+    },
+  );
+});
+
 const projectForm: TestSelectionFormState = {
   allowed: null,
-  defaultEnabled: null,
+  taskLevel: null,
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -39,13 +107,14 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     testSelection: {
       allowed: null,
       defaultEnabled: null,
+      mainlineDefaultEnabled: null,
     },
   },
 };
 
 const repoForm: TestSelectionFormState = {
   allowed: true,
-  defaultEnabled: true,
+  taskLevel: TaskLevelTestSelection.PatchesAndMainline,
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
@@ -55,6 +124,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     testSelection: {
       allowed: true,
       defaultEnabled: true,
+      mainlineDefaultEnabled: true,
     },
   },
 };
