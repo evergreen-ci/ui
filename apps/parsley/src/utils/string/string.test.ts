@@ -74,7 +74,7 @@ describe("getJiraFormat", () => {
     const ansiLogLines = ["plain line", "[31mremoved[39m [32madded[39m"];
     const getAnsiLine = (lineNumber: number) => ansiLogLines[lineNumber];
     expect(getJiraFormat([0, 1], getAnsiLine)).toBe(
-      `{noformat}\nplain line\n{color:#BB0000}removed{color} {color:#00BB00}added{color}\n{noformat}`,
+      `plain line\n{color:#BB0000}removed{color} {color:#00BB00}added{color}\n`,
     );
   });
 });

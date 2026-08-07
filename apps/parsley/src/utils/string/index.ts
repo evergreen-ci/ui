@@ -58,7 +58,13 @@ export const getJiraFormat = (
     return line === undefined ? undefined : ansiToJiraColorMarkup(line);
   };
 
-  return `{noformat}\n${getRawLines(indices, getJiraLine)}{noformat}`;
+  const rawLines = getRawLines(indices, getLine);
+  const jiraLines = getRawLines(indices, getJiraLine);
+
+  // Jira does not render color macros inside a noformat block.
+  return rawLines.includes("\u001b[") || rawLines.includes("\u241b[")
+    ? jiraLines
+    : `{noformat}\n${jiraLines}{noformat}`;
 };
 
 /**

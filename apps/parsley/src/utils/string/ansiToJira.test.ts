@@ -53,6 +53,16 @@ describe("ansiToJiraColorMarkup", () => {
     );
   });
 
+  it("should convert multiple colors with combined style codes", () => {
+    expect(
+      ansiToJiraColorMarkup(
+        "␛[32;1mcypress:server:appdata ␛[0mpath: /home/ec2-user/.config/Cypress/cy/production/browsers ␛[32m+0ms␛[0m",
+      ),
+    ).toBe(
+      "{color:#00BB00}cypress:server:appdata {color}path: /home/ec2-user/.config/Cypress/cy/production/browsers {color:#00BB00}+0ms{color}",
+    );
+  });
+
   it("should ignore background colors", () => {
     expect(ansiToJiraColorMarkup("[41mred background[49m")).toBe(
       "red background",

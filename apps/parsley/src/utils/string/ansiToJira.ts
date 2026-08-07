@@ -25,6 +25,8 @@ const BRIGHT_COLORS = [
 ];
 
 const CUBE_LEVELS = [0, 95, 135, 175, 215, 255];
+const ESCAPE = "\u001b";
+const VISIBLE_ESCAPE = "\u241b";
 
 const rgbToHex = (r: number, g: number, b: number) =>
   `#${[r, g, b]
@@ -110,9 +112,13 @@ const SGR_REGEX = /\[([0-9;]*)m/g;
  * @returns the line with ANSI colors rewritten as JIRA color tags
  */
 export const ansiToJiraColorMarkup = (line: string): string => {
-  if (!line.includes("")) {
+  if (!line.includes(ESCAPE) && !line.includes(VISIBLE_ESCAPE)) {
     return line;
   }
+
+  // Some log transports replace the ESC control character with its visible
+  // representation before the log reaches the client.
+  const normalizedLine = line.replaceAll(VISIBLE_ESCAPE, ESCAPE);
 
   const runs: { text: string; color: string | undefined }[] = [];
   let color: string | undefined;
@@ -132,12 +138,12 @@ export const ansiToJiraColorMarkup = (line: string): string => {
     }
   };
 
-  for (const match of line.matchAll(SGR_REGEX)) {
-    pushRun(line.slice(cursor, match.index));
+  for (const match of normalizedLine.matchAll(SGR_REGEX)) {
+    pushRun(normalizedLine.slice(cursor, match.index));
     cursor = match.index + match[0].length;
     color = applySgrParams(match[1], color);
   }
-  pushRun(line.slice(cursor));
+  pushRun(normalizedLine.slice(cursor));
 
   return runs
     .map((run) =>
