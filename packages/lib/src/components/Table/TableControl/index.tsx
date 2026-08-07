@@ -43,6 +43,7 @@ const TableControl: React.FC<Props> = ({
       <FlexContainer>
         <Chip
           data-cy="total-count"
+          data-testid="total-count"
           label={`Total count: ${totalCount}`}
           variant={ChipVariant.Gray}
         />
