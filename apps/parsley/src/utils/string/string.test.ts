@@ -71,7 +71,10 @@ describe("getJiraFormat", () => {
   });
 
   it("should convert ANSI colors to JIRA color tags", () => {
-    const ansiLogLines = ["plain line", "[31mremoved[39m [32madded[39m"];
+    const ansiLogLines = [
+      "plain line",
+      "\u001b[31mremoved\u001b[39m \u001b[32madded\u001b[39m",
+    ];
     const getAnsiLine = (lineNumber: number) => ansiLogLines[lineNumber];
     expect(getJiraFormat([0, 1], getAnsiLine)).toBe(
       `plain line\n{color:#BB0000}removed{color} {color:#00BB00}added{color}\n`,

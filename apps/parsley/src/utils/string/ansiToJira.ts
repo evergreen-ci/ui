@@ -65,7 +65,7 @@ const applySgrParams = (
   params: string,
   currentColor: string | undefined,
 ): string | undefined => {
-  // An empty parameter list (e.g. "[m") is equivalent to a reset.
+  // An empty parameter list (e.g. "\u001b[m") is equivalent to a reset.
   const codes = params === "" ? [0] : params.split(";").map(Number);
   let color = currentColor;
   for (let i = 0; i < codes.length; i++) {
@@ -99,8 +99,7 @@ const applySgrParams = (
   return color;
 };
 
-// eslint-disable-next-line no-control-regex
-const SGR_REGEX = /\[([0-9;]*)m/g;
+const SGR_REGEX = new RegExp(`${ESCAPE}\\[([0-9;]*)m`, "g");
 
 /**
  * `ansiToJiraColorMarkup` translates ANSI foreground color escape codes in a
