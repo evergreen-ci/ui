@@ -6,7 +6,7 @@ import {
 import { getUserMock } from "gql/mocks/getUser";
 import AnnotationTicketRow from ".";
 
-const issueKey = "EVG-123";
+const issueKey = "DEVPROD-123";
 
 const renderRow = (url?: string) =>
   render(
@@ -17,18 +17,18 @@ const renderRow = (url?: string) =>
 
 describe("AnnotationTicketRow", () => {
   it("links the issue key when the annotation URL is HTTP(S)", () => {
-    renderRow("https://jira.mongodb.org/browse/EVG-123");
+    renderRow("https://jira.mongodb.org/browse/DEVPROD-123");
 
     expect(screen.getByDataCy(issueKey)).toHaveAttribute(
       "href",
-      "https://jira.mongodb.org/browse/EVG-123",
+      "https://jira.mongodb.org/browse/DEVPROD-123",
     );
   });
 
   // The annotation URL is submitted through a form that only enforces a minimum
   // length, so it can be any string.
   it.each([
-    "javascript:alert(document.domain)//EVG-1",
+    "javascript:alert(document.domain)//DEVPROD-1",
     "data:text/html,<script>alert(document.domain)</script>",
     "vbscript:msgbox(document.domain)",
   ])("renders the issue key unlinked for unsafe URL: %s", (url) => {
