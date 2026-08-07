@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Pagination } from "@leafygreen-ui/pagination";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
-import Icon from "@evg-ui/lib/components/Icon";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
@@ -171,9 +170,7 @@ const getColumns = ({
             <StyledButton
               href={safeUrlParsley}
               onClick={() => onClickLogs(testFile)}
-              rightGlyph={<Icon glyph="OpenNewTab" />}
               size={ButtonSize.XSmall}
-              target="__blank"
               title="Parsley logs"
             >
               Logs
