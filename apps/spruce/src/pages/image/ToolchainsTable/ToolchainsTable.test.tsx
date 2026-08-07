@@ -34,13 +34,13 @@ describe("toolchains table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("toolchains-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("toolchains-table-row")).toHaveLength(10);
     });
     const expectedNames = (
       imageToolchainsMock.result?.data?.image?.toolchains.data || []
     ).map(({ name }) => name);
 
-    const rows = screen.getAllByDataCy("toolchains-table-row");
+    const rows = screen.getAllByTestId("toolchains-table-row");
     expectedNames.forEach((expectedName, i) => {
       expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
         expectedName,
@@ -54,13 +54,13 @@ describe("toolchains table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("toolchains-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("toolchains-table-row")).toHaveLength(10);
     });
     const expectedPaths = (
       imageToolchainsMock.result?.data?.image?.toolchains.data || []
     ).map(({ path }) => path);
 
-    const rows = screen.getAllByDataCy("toolchains-table-row");
+    const rows = screen.getAllByTestId("toolchains-table-row");
     expectedPaths.forEach((expectedPath, i) => {
       expect(within(rows[i]).getAllByRole("cell")[1]).toHaveTextContent(
         expectedPath,
@@ -74,13 +74,13 @@ describe("toolchains table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("toolchains-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("toolchains-table-row")).toHaveLength(10);
     });
     const expectedVersions = (
       imageToolchainsMock.result?.data?.image?.toolchains.data || []
     ).map(({ version }) => version);
 
-    const rows = screen.getAllByDataCy("toolchains-table-row");
+    const rows = screen.getAllByTestId("toolchains-table-row");
     expectedVersions.forEach((expectedVersion, i) => {
       expect(within(rows[i]).getAllByRole("cell")[2]).toHaveTextContent(
         expectedVersion,
@@ -95,12 +95,12 @@ describe("toolchains table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("toolchains-table-row")).toHaveLength(10);
+      expect(screen.getAllByTestId("toolchains-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByDataCy("toolchain-name-filter"));
+    await user.click(screen.getByTestId("toolchain-name-filter"));
     await user.type(screen.getByPlaceholderText("Name regex"), "nodejs{enter}");
     await waitFor(() => {
-      expect(screen.getAllByDataCy("toolchains-table-row")).toHaveLength(1);
+      expect(screen.getAllByTestId("toolchains-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("1 - 1 of 1 item")).toBeInTheDocument();
   });
@@ -112,14 +112,14 @@ describe("toolchains table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("toolchains-table-row")).toHaveLength(10);
+      expect(screen.getAllByTestId("toolchains-table-row")).toHaveLength(10);
     });
 
     const nextPageButton = screen.getByTestId("lg-pagination-next-button");
     expect(nextPageButton).toHaveAttribute("aria-disabled", "false");
     await user.click(nextPageButton);
     await waitFor(() => {
-      expect(screen.getAllByDataCy("toolchains-table-row")).toHaveLength(1);
+      expect(screen.getAllByTestId("toolchains-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("11 - 11 of 11 items")).toBeInTheDocument();
   });

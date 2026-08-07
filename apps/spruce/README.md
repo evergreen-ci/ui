@@ -137,7 +137,7 @@ writing component tests you should import
 [test_utils](https://github.com/evergreen-ci/spruce/blob/main/src/test_utils/index.tsx)
 instead of React Testing Library; `test_utils` is a wrapper around React Testing
 Library which provides a series of helpful utilities for common testing
-scenarios such as `queryByDataCy`, which is a helper for selecting `data-cy`
+scenarios such as `queryByTestId`, which is a helper for selecting `data-cy`
 attributes, or `renderWithRouterMatch`, which is helpful for testing components
 that rely on React Router.
 

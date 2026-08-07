@@ -105,7 +105,7 @@ describe("TaskOwnership", () => {
 
     // Should not find the component while loading
     expect(
-      screen.queryByDataCy("task-metadata-task-ownership"),
+      screen.queryByTestId("task-metadata-task-ownership"),
     ).not.toBeInTheDocument();
   });
 
@@ -119,14 +119,14 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
     expect(screen.getByText("Task owner:")).toBeInTheDocument();
     expect(screen.getByText("Evergreen UI Team")).toBeInTheDocument();
 
-    await user.hover(screen.getByDataTestId("info-sprinkle-icon"));
+    await user.hover(screen.getByTestId("info-sprinkle-icon"));
 
     await waitFor(() => {
       expect(
@@ -134,7 +134,7 @@ describe("TaskOwnership", () => {
       ).toBeInTheDocument();
     });
 
-    await user.unhover(screen.getByDataTestId("info-sprinkle-icon"));
+    await user.unhover(screen.getByTestId("info-sprinkle-icon"));
   });
 
   it("renders fallback text when no team name is available", async () => {
@@ -146,7 +146,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
@@ -163,7 +163,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
@@ -208,7 +208,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
