@@ -4,6 +4,7 @@ import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useAnnotationAnalytics } from "analytics";
 import { JiraTicket } from "gql/generated/types";
 import { useDateFormat } from "hooks";
@@ -38,10 +39,17 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
     updated,
   } = fields ?? {};
 
-  const jiraLink = (
+  const summaryText = (
+    <>
+      {issueKey}
+      {summary && `: ${summary}`}
+    </>
+  );
+
+  const jiraLink = isValidHttpUrl(url) ? (
     <JiraSummaryLink
       data-cy={issueKey}
-      href={url ?? ""}
+      href={url}
       onClick={() =>
         annotationAnalytics.sendEvent({
           name: "Clicked annotation link",
@@ -50,9 +58,10 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
       }
       target="_blank"
     >
-      {issueKey}
-      {summary && `: ${summary}`}
+      {summaryText}
     </JiraSummaryLink>
+  ) : (
+    <UnlinkedJiraSummary data-cy={issueKey}>{summaryText}</UnlinkedJiraSummary>
   );
 
   return (
@@ -110,6 +119,12 @@ const Container = styled.div`
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
+  font-weight: bold;
+  margin-right: ${size.s};
+  ${wordBreakCss};
+`;
+
+const UnlinkedJiraSummary = styled.span`
   font-weight: bold;
   margin-right: ${size.s};
   ${wordBreakCss};

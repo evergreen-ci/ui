@@ -26,6 +26,9 @@ const getColumns = (
     },
     cell: (value) => {
       const { link, name: fileName, urlParsley } = value.row.original;
+      if (link === null) {
+        return fileName;
+      }
       return (
         <StyledLink
           data-cy="file-link"
