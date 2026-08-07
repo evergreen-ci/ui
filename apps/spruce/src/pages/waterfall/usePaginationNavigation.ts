@@ -1,8 +1,12 @@
 import { useCallback } from "react";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { Pagination, WaterfallFilterOptions } from "./types";
+import { startWaterfallNavigationTrace } from "./useWaterfallTrace";
 
-export const usePaginationNavigation = (pagination: Pagination | undefined) => {
+export const usePaginationNavigation = (
+  pagination: Pagination | undefined,
+  projectIdentifier: string,
+) => {
   const [, setQueryParams] = useQueryParams();
 
   const { hasNextPage, hasPrevPage, nextPageOrder, prevPageOrder } =
@@ -24,6 +28,10 @@ export const usePaginationNavigation = (pagination: Pagination | undefined) => {
     prevPageOrder === minOrder || nextPageOrder === maxOrder;
 
   const goToNextPage = useCallback(() => {
+    startWaterfallNavigationTrace({
+      direction: "next",
+      projectIdentifier,
+    });
     setQueryParams((queryParams) => ({
       ...queryParams,
       [WaterfallFilterOptions.Date]: undefined,
@@ -31,9 +39,13 @@ export const usePaginationNavigation = (pagination: Pagination | undefined) => {
       [WaterfallFilterOptions.MinOrder]: undefined,
       [WaterfallFilterOptions.Revision]: undefined,
     }));
-  }, [setQueryParams, nextPageOrder]);
+  }, [setQueryParams, nextPageOrder, projectIdentifier]);
 
   const goToPrevPage = useCallback(() => {
+    startWaterfallNavigationTrace({
+      direction: "previous",
+      projectIdentifier,
+    });
     setQueryParams((queryParams) => ({
       ...queryParams,
       [WaterfallFilterOptions.Date]: undefined,
@@ -41,7 +53,7 @@ export const usePaginationNavigation = (pagination: Pagination | undefined) => {
       [WaterfallFilterOptions.MinOrder]: prevPageOrder,
       [WaterfallFilterOptions.Revision]: undefined,
     }));
-  }, [setQueryParams, prevPageOrder]);
+  }, [setQueryParams, prevPageOrder, projectIdentifier]);
 
   return {
     goToNextPage,

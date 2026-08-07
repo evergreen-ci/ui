@@ -1,73 +1,130 @@
-import { FieldMergeFunction, FieldReadFunction } from "@apollo/client";
+import {
+  FieldFunctionOptions,
+  FieldMergeFunction,
+  FieldReadFunction,
+} from "@apollo/client";
 import { WaterfallQuery } from "gql/generated/types";
 import { VERSION_LIMIT } from "../constants";
 
-export const readVersions = ((existing, { args, readField }) => {
-  if (!existing) {
-    return undefined;
-  }
+const DEFAULT_CACHED_PAGE_LIMIT = 6;
+const MONGODB_MONGO_CACHED_PAGE_LIMIT = 2;
+const MONGODB_MONGO_PROJECT_PREFIX = "mongodb-mongo-";
 
-  const minOrder = args?.options?.minOrder ?? 0;
-  let maxOrder = args?.options?.maxOrder ?? 0;
-  const limit = args?.options?.limit ?? VERSION_LIMIT;
-  const date = args?.options?.date ?? "";
-  const revision = args?.options?.revision ?? "";
+type Waterfall = WaterfallQuery["waterfall"];
+type Version = Waterfall["versions"][number];
+type ReadField = FieldFunctionOptions["readField"];
 
-  const { hasNextPage = true, mostRecentVersionOrder = 0 } =
-    readField<WaterfallQuery["waterfall"]["pagination"]>(
-      "pagination",
-      existing,
-    ) ?? {};
+const getCacheOptions = (args: FieldFunctionOptions["args"]) => ({
+  date: args?.options?.date ?? "",
+  limit: args?.options?.limit ?? VERSION_LIMIT,
+  maxOrder: args?.options?.maxOrder ?? 0,
+  minOrder: args?.options?.minOrder ?? 0,
+  projectIdentifier: args?.options?.projectIdentifier ?? "",
+  revision: args?.options?.revision ?? "",
+});
 
-  // Leverage cache if there are no other query params.
-  if (minOrder === 0 && maxOrder === 0 && !date && !revision) {
-    maxOrder = mostRecentVersionOrder + 1;
-  }
+const getCachedPageLimit = (projectIdentifier: string) =>
+  projectIdentifier.startsWith(MONGODB_MONGO_PROJECT_PREFIX)
+    ? MONGODB_MONGO_CACHED_PAGE_LIMIT
+    : DEFAULT_CACHED_PAGE_LIMIT;
 
-  const existingVersions =
-    readField<WaterfallQuery["waterfall"]["versions"]>("versions", existing) ??
-    [];
+const getVersionId = (version: Version, readField: ReadField) =>
+  readField<string>("id", version) ?? "";
 
-  const idx = existingVersions.findIndex((v) => {
-    const versionOrder = readField<number>("order", v) ?? 0;
-    if (minOrder) {
-      return versionOrder - 1 === minOrder;
-    }
-    if (maxOrder) {
-      return versionOrder + 1 === maxOrder;
-    }
-    return false;
+const getVersionOrder = (version: Version, readField: ReadField) =>
+  readField<number>("order", version) ?? 0;
+
+const deduplicateAndSortVersions = (
+  versions: readonly Version[],
+  readField: ReadField,
+) => {
+  const versionsByOrder = new Map<number, Version>();
+  versions.forEach((version) => {
+    versionsByOrder.set(getVersionOrder(version, readField), version);
   });
+  return [...versionsByOrder.values()].sort(
+    (a, b) => getVersionOrder(b, readField) - getVersionOrder(a, readField),
+  );
+};
 
-  if (idx === -1) {
+const boundVersions = ({
+  activeVersionIds,
+  keepOldest,
+  maxActiveVersions,
+  readField,
+  versions,
+}: {
+  activeVersionIds: Set<string>;
+  keepOldest: boolean;
+  maxActiveVersions: number;
+  readField: ReadField;
+  versions: readonly Version[];
+}) => {
+  const activeVersionIndexes = versions.reduce<number[]>(
+    (indexes, version, index) => {
+      if (activeVersionIds.has(getVersionId(version, readField))) {
+        indexes.push(index);
+      }
+      return indexes;
+    },
+    [],
+  );
+
+  if (activeVersionIndexes.length <= maxActiveVersions) {
+    return [...versions];
+  }
+  if (keepOldest) {
+    const startIndex =
+      activeVersionIndexes[activeVersionIndexes.length - maxActiveVersions];
+    return versions.slice(startIndex);
+  }
+  const endIndex = activeVersionIndexes[maxActiveVersions - 1];
+  return versions.slice(0, endIndex + 1);
+};
+
+const findPageRange = ({
+  activeVersionIds,
+  hasNextPage,
+  limit,
+  maxOrder,
+  minOrder,
+  readField,
+  versions,
+}: {
+  activeVersionIds: Set<string>;
+  hasNextPage: boolean;
+  limit: number;
+  maxOrder: number;
+  minOrder: number;
+  readField: ReadField;
+  versions: readonly Version[];
+}) => {
+  const anchorIndex = versions.findIndex((version) => {
+    const order = getVersionOrder(version, readField);
+    return minOrder ? order - 1 === minOrder : order + 1 === maxOrder;
+  });
+  if (anchorIndex === -1) {
     return undefined;
   }
 
-  let startIndex = maxOrder ? idx : 0;
-  let endIndex = maxOrder ? existingVersions.length : idx;
+  let startIndex = maxOrder ? anchorIndex : 0;
+  let endIndex = maxOrder ? versions.length : anchorIndex;
+  const pageActiveVersionIds: string[] = [];
 
-  const activeVersionIds = [];
-  const allActiveVersions =
-    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
-
-  // Count backwards for paginating backwards.
   if (minOrder) {
     for (let i = endIndex; i >= 0; i--) {
-      const id = readField<string>("id", existingVersions[i]) ?? "";
-      if (allActiveVersions.has(id)) {
-        activeVersionIds.push(id);
-        if (activeVersionIds.length === limit) {
+      const versionId = getVersionId(versions[i], readField);
+      if (activeVersionIds.has(versionId)) {
+        pageActiveVersionIds.push(versionId);
+        if (pageActiveVersionIds.length === limit) {
           startIndex = i;
-          // Handle unmatching leading versions
-          i -= 1;
           while (
-            i >= 0 &&
-            !allActiveVersions.has(
-              readField<string>("id", existingVersions[i]) ?? "",
+            startIndex > 0 &&
+            !activeVersionIds.has(
+              getVersionId(versions[startIndex - 1], readField),
             )
           ) {
-            startIndex = i;
-            i -= 1;
+            startIndex -= 1;
           }
           break;
         }
@@ -75,37 +132,77 @@ export const readVersions = ((existing, { args, readField }) => {
     }
   }
 
-  // Count forwards for paginating forwards.
   if (maxOrder) {
-    for (let i = startIndex; i < existingVersions.length; i++) {
-      const id = readField<string>("id", existingVersions[i]) ?? "";
-      if (allActiveVersions.has(id)) {
-        activeVersionIds.push(id);
-        if (activeVersionIds.length === limit) {
+    for (let i = startIndex; i < versions.length; i++) {
+      const versionId = getVersionId(versions[i], readField);
+      if (activeVersionIds.has(versionId)) {
+        pageActiveVersionIds.push(versionId);
+        if (pageActiveVersionIds.length === limit) {
           endIndex = i;
           break;
         }
       }
     }
-    if (activeVersionIds.length < limit) {
-      // If the server already indicated there are no more pages, return the
-      // data we have rather than triggering an infinite refetch loop.
-      if (!hasNextPage) {
-        endIndex = existingVersions.length - 1;
-      } else {
+    if (pageActiveVersionIds.length < limit) {
+      if (hasNextPage) {
         return undefined;
       }
+      endIndex = versions.length - 1;
     }
   }
 
+  return {
+    activeVersionIds: pageActiveVersionIds,
+    endIndex,
+    startIndex,
+  };
+};
+
+export const readVersions = ((existing, { args, readField }) => {
+  if (!existing) {
+    return undefined;
+  }
+
+  const options = getCacheOptions(args);
+  const { date, limit, minOrder, revision } = options;
+  let { maxOrder } = options;
+
+  const { hasNextPage = true, mostRecentVersionOrder = 0 } =
+    readField<Waterfall["pagination"]>("pagination", existing) ?? {};
+
+  // Leverage cache if there are no other query params.
+  if (minOrder === 0 && maxOrder === 0 && !date && !revision) {
+    maxOrder = mostRecentVersionOrder + 1;
+  }
+
+  const existingVersions =
+    readField<Waterfall["versions"]>("versions", existing) ?? [];
+  const allActiveVersions =
+    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
+  const pageRange = findPageRange({
+    activeVersionIds: allActiveVersions,
+    hasNextPage,
+    limit,
+    maxOrder,
+    minOrder,
+    readField,
+    versions: existingVersions,
+  });
+  if (!pageRange) {
+    return undefined;
+  }
+
+  const { activeVersionIds, endIndex, startIndex } = pageRange;
   // Add 1 because slice is [inclusive, exclusive).
   const versions = existingVersions.slice(startIndex, endIndex + 1);
-  const zerothOrder = readField<number>("order", versions[0]) ?? 0;
+  const zerothOrder = getVersionOrder(versions[0], readField);
   const prevOrderNumber =
     mostRecentVersionOrder === zerothOrder ? 0 : zerothOrder;
 
-  const lastVersionOrder =
-    readField<number>("order", versions[versions.length - 1]) ?? 0;
+  const lastVersionOrder = getVersionOrder(
+    versions[versions.length - 1],
+    readField,
+  );
   const nextOrderNumber = lastVersionOrder === 1 ? 0 : lastVersionOrder;
 
   return {
@@ -120,34 +217,21 @@ export const readVersions = ((existing, { args, readField }) => {
     },
     versions,
   };
-}) satisfies FieldReadFunction<WaterfallQuery["waterfall"]>;
+}) satisfies FieldReadFunction<Waterfall>;
 
-export const mergeVersions = ((existing, incoming, { readField }) => {
+export const mergeVersions = ((existing, incoming, { args, readField }) => {
+  const { limit, maxOrder, projectIdentifier } = getCacheOptions(args);
   const existingVersions = existing
-    ? (readField<WaterfallQuery["waterfall"]["versions"]>(
-        "versions",
-        existing,
-      ) ?? [])
+    ? (readField<Waterfall["versions"]>("versions", existing) ?? [])
     : [];
   const incomingVersions =
-    readField<WaterfallQuery["waterfall"]["versions"]>("versions", incoming) ??
-    [];
-  const versions = [...existingVersions, ...incomingVersions];
+    readField<Waterfall["versions"]>("versions", incoming) ?? [];
+  const mergedVersions = deduplicateAndSortVersions(
+    [...existingVersions, ...incomingVersions],
+    readField,
+  );
 
-  // Use a map to enforce that there are no duplicates.
-  const versionsMap = new Map();
-  versions.forEach((v) => {
-    const order = readField<number>("order", v) ?? 0;
-    versionsMap.set(order, v);
-  });
-
-  const v = Array.from(versionsMap.values()).sort((a, b) => {
-    const aOrder = readField<number>("order", a) ?? 0;
-    const bOrder = readField<number>("order", b) ?? 0;
-    return bOrder - aOrder;
-  });
-
-  const pagination = readField<WaterfallQuery["waterfall"]["pagination"]>(
+  const pagination = readField<Waterfall["pagination"]>(
     "pagination",
     incoming,
   ) ?? {
@@ -159,17 +243,37 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     prevPageOrder: 0,
   };
 
-  const existingActiveVersions = existing
-    ? (readField<Set<string>>("allActiveVersions", existing) ?? new Set())
+  const allActiveVersions = existing
+    ? new Set(readField<Set<string>>("allActiveVersions", existing) ?? [])
     : new Set<string>();
   const incomingActiveVersions =
     readField<string[]>("activeVersionIds", pagination) ?? [];
-  incomingActiveVersions.forEach((vId) => existingActiveVersions.add(vId));
+  incomingActiveVersions.forEach((versionId) =>
+    allActiveVersions.add(versionId),
+  );
+
+  const boundedVersions = boundVersions({
+    activeVersionIds: allActiveVersions,
+    keepOldest: Boolean(maxOrder),
+    maxActiveVersions: limit * getCachedPageLimit(projectIdentifier),
+    readField,
+    versions: mergedVersions,
+  });
+
+  const retainedVersionIds = new Set(
+    boundedVersions.map((version) => getVersionId(version, readField)),
+  );
+  const retainedActiveVersions = new Set(
+    [...allActiveVersions].filter((versionId) =>
+      retainedVersionIds.has(versionId),
+    ),
+  );
+
   return {
-    versions: v,
+    versions: boundedVersions,
     pagination,
-    allActiveVersions: existingActiveVersions,
+    allActiveVersions: retainedActiveVersions,
   };
 }) satisfies FieldMergeFunction<
-  WaterfallQuery["waterfall"] & { allActiveVersions?: Set<string> }
+  Waterfall & { allActiveVersions?: Set<string> }
 >;
