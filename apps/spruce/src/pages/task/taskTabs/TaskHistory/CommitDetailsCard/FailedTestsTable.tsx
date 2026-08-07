@@ -171,6 +171,7 @@ const getColumns = ({
               href={safeUrlParsley}
               onClick={() => onClickLogs(testFile)}
               size={ButtonSize.XSmall}
+              target="_blank"
               title="Parsley logs"
             >
               Logs
