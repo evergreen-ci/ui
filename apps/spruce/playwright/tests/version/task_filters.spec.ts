@@ -150,7 +150,7 @@ test.describe("Tasks filters", () => {
         /statuses=failed-umbrella,failed,known-issue,success/,
       );
       await waitForTaskTable(page);
-      await expect(topPagination.getByText(/43 items/)).toBeVisible();
+      await expect(topPagination.getByText(/44 items/)).toBeVisible();
     });
 
     test("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", async ({
