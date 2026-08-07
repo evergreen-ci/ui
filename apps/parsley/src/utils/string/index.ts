@@ -1,6 +1,40 @@
 import { trimSeverity } from "@evg-ui/lib/utils/string/logs";
 import { ansiToJiraColorMarkup } from "./ansiToJira";
 
+interface FormattedLines {
+  text: string;
+  wasTransformed: boolean;
+}
+
+const formatSelectedLines = (
+  indices: number[],
+  getLine: (lineNumber: number) => string | undefined,
+  transformLine: (line: string) => string,
+): FormattedLines => {
+  let text = "";
+  let wasTransformed = false;
+
+  for (let position = 0; position < indices.length; position++) {
+    const lineNumber = indices[position];
+    const line = getLine(lineNumber);
+
+    if (line === undefined) {
+      break;
+    }
+
+    const transformedLine = transformLine(line);
+    wasTransformed ||= transformedLine !== line;
+    text += `${trimSeverity(transformedLine)}\n`;
+
+    const nextLineNumber = indices[position + 1];
+    if (nextLineNumber !== undefined && lineNumber + 1 !== nextLineNumber) {
+      text += "...\n";
+    }
+  }
+
+  return { text, wasTransformed };
+};
+
 /**
  * `getRawLines` constructs a string with the lines provided.
  * @param indices  - array of numbers representing the line indices you want to copy
@@ -10,32 +44,7 @@ import { ansiToJiraColorMarkup } from "./ansiToJira";
 export const getRawLines = (
   indices: number[],
   getLine: (lineNumber: number) => string | undefined,
-) => {
-  if (indices.length === 0) {
-    return "";
-  }
-
-  let logString = "";
-
-  for (let i = 0; i < indices.length; i++) {
-    const indexLine = indices[i];
-    const logText = getLine(indexLine);
-
-    // If indices are out of bounds, stop processing.
-    if (logText === undefined) {
-      break;
-    }
-
-    logString += `${trimSeverity(logText)}\n`;
-
-    // If the current and next indices are not adjacent to each other, insert an
-    // ellipsis in between them.
-    if (i + 1 !== indices.length && indexLine + 1 !== indices[i + 1]) {
-      logString += "...\n";
-    }
-  }
-  return logString;
-};
+) => formatSelectedLines(indices, getLine, (line) => line).text;
 
 /**
  * `getJiraFormat` constructs a JIRA formatted string with the lines provided.
@@ -53,20 +62,14 @@ export const getJiraFormat = (
     return "";
   }
 
-  let hasAnsi = false;
-  const getJiraLine = (lineNumber: number) => {
-    const line = getLine(lineNumber);
-    if (line === undefined) {
-      return undefined;
-    }
-    hasAnsi = hasAnsi || line.includes("\u001b[") || line.includes("\u241b[");
-    return ansiToJiraColorMarkup(line);
-  };
-
-  const jiraLines = getRawLines(indices, getJiraLine);
+  const { text, wasTransformed } = formatSelectedLines(
+    indices,
+    getLine,
+    ansiToJiraColorMarkup,
+  );
 
   // Jira does not render color macros inside a noformat block.
-  return hasAnsi ? jiraLines : `{noformat}\n${jiraLines}{noformat}`;
+  return wasTransformed ? text : `{noformat}\n${text}{noformat}`;
 };
 
 /**
