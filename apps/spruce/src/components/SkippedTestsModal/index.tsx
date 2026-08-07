@@ -20,7 +20,6 @@ import { DisplayModal } from "components/DisplayModal";
 
 interface SkippedTestsModalProps<T extends LGRowData> {
   columns: LGColumnDef<T>[];
-  dataCyPrefix: string;
   getSearchText: (row: T) => string;
   loading?: boolean;
   onClickDownload: () => void;
@@ -34,7 +33,6 @@ interface SkippedTestsModalProps<T extends LGRowData> {
 
 export const SkippedTestsModal = <T extends LGRowData>({
   columns,
-  dataCyPrefix,
   getSearchText,
   loading = false,
   onClickDownload,
@@ -63,7 +61,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
 
   return (
     <DisplayModal
-      data-cy={`${dataCyPrefix}-modal`}
+      data-testid="skipped-tests-modal"
       open={open}
       setOpen={setOpen}
       size="large"
@@ -73,14 +71,12 @@ export const SkippedTestsModal = <T extends LGRowData>({
       <HeaderRow>
         <SearchInput
           aria-label={searchPlaceholder}
-          data-cy={`${dataCyPrefix}-search`}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={searchPlaceholder}
           size={SearchInputSize.Small}
           value={search}
         />
         <Button
-          data-cy={`${dataCyPrefix}-download`}
           leftGlyph={<Icon glyph="Download" />}
           onClick={onClickDownload}
           size="small"
@@ -89,14 +85,14 @@ export const SkippedTestsModal = <T extends LGRowData>({
         </Button>
       </HeaderRow>
       {!loading && rows.length < totalCount && (
-        <Disclaimer data-cy={`${dataCyPrefix}-truncation-note`}>
+        <Disclaimer>
           Showing the first {rows.length} of {totalCount} tests. Download the
           JSON for all available stored tests.
         </Disclaimer>
       )}
       <OverflowContainer>
         <BaseTable
-          data-cy={`${dataCyPrefix}-table`}
+          data-cy="skipped-tests-table"
           emptyComponent={<TablePlaceholder message="No matching tests." />}
           loading={loading}
           loadingRows={5}

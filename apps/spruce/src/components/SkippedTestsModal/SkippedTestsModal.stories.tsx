@@ -29,7 +29,6 @@ export const Default: CustomStoryObj<typeof SkippedTestsModal> = {
   render: () => (
     <SkippedTestsModal
       columns={columns}
-      dataCyPrefix="story-skipped-tests"
       getSearchText={({ testName }) => testName}
       onClickDownload={() => {}}
       open
@@ -46,7 +45,6 @@ export const Truncated: CustomStoryObj<typeof SkippedTestsModal> = {
   render: () => (
     <SkippedTestsModal
       columns={columns}
-      dataCyPrefix="story-skipped-tests"
       getSearchText={({ testName }) => testName}
       onClickDownload={() => {}}
       open

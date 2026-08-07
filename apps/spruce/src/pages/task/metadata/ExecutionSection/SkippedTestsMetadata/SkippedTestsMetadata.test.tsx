@@ -63,7 +63,7 @@ describe("SkippedTestsMetadata", () => {
       />,
       { wrapper },
     );
-    expect(screen.queryByDataCy("skipped-tests-metadata")).toBeNull();
+    expect(screen.queryByDataTestId("skipped-tests-metadata")).toBeNull();
   });
 
   it("shows a zero count without a Details button when test selection skipped nothing", () => {
@@ -79,9 +79,9 @@ describe("SkippedTestsMetadata", () => {
       { wrapper },
     );
     expect(
-      screen.getByDataCy("skipped-tests-metadata-count"),
+      screen.getByDataTestId("skipped-tests-metadata-count"),
     ).toHaveTextContent("0 tests");
-    expect(screen.queryByDataCy("skipped-tests-details-button")).toBeNull();
+    expect(screen.queryByDataTestId("skipped-tests-details-button")).toBeNull();
   });
 
   it("opens details locally and resets them when the task changes", async () => {
@@ -100,10 +100,11 @@ describe("SkippedTestsMetadata", () => {
       { wrapper },
     );
     expect(
-      screen.getByDataCy("skipped-tests-metadata-count"),
+      screen.getByDataTestId("skipped-tests-metadata-count"),
     ).toHaveTextContent("4 tests");
-    await user.click(screen.getByDataCy("skipped-tests-details-button"));
-    expect(await screen.findByDataCy("skipped-tests-modal")).toBeVisible();
+    const detailsButton = screen.getByRole("button", { name: "Details" });
+    await user.click(detailsButton);
+    expect(await screen.findByDataTestId("skipped-tests-modal")).toBeVisible();
     expect(await screen.findByText("test_one")).toBeVisible();
 
     rerender(
@@ -117,7 +118,7 @@ describe("SkippedTestsMetadata", () => {
         versionId="v2"
       />,
     );
-    expect(screen.queryByDataCy("skipped-tests-modal")).toBeNull();
+    expect(screen.queryByDataTestId("skipped-tests-modal")).toBeNull();
   });
 
   it("shows a nonzero count without a Details button for an older execution", () => {
@@ -133,8 +134,8 @@ describe("SkippedTestsMetadata", () => {
       { wrapper },
     );
     expect(
-      screen.getByDataCy("skipped-tests-metadata-count"),
+      screen.getByDataTestId("skipped-tests-metadata-count"),
     ).toHaveTextContent("4 tests");
-    expect(screen.queryByDataCy("skipped-tests-details-button")).toBeNull();
+    expect(screen.queryByDataTestId("skipped-tests-details-button")).toBeNull();
   });
 });
