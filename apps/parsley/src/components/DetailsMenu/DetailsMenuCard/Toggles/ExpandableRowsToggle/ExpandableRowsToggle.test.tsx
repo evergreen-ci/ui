@@ -18,18 +18,14 @@ describe("expandable rows toggle", () => {
 
   it("defaults to 'true' if stored value is unset", () => {
     render(<ExpandableRowsToggle />, { wrapper });
-    const expandableRowsToggle = screen.getByDataTestId(
-      "expandable-rows-toggle",
-    );
+    const expandableRowsToggle = screen.getByTestId("expandable-rows-toggle");
     expect(expandableRowsToggle).toHaveAttribute("aria-checked", "true");
   });
 
   it("should read from localStorage properly", () => {
     localStorage.setItem(EXPANDABLE_ROWS, "true");
     render(<ExpandableRowsToggle />, { wrapper });
-    const expandableRowsToggle = screen.getByDataTestId(
-      "expandable-rows-toggle",
-    );
+    const expandableRowsToggle = screen.getByTestId("expandable-rows-toggle");
     expect(expandableRowsToggle).toHaveAttribute("aria-checked", "true");
   });
 
@@ -38,9 +34,7 @@ describe("expandable rows toggle", () => {
     localStorage.setItem(EXPANDABLE_ROWS, "true");
     const { router } = render(<ExpandableRowsToggle />, { wrapper });
 
-    const expandableRowsToggle = screen.getByDataTestId(
-      "expandable-rows-toggle",
-    );
+    const expandableRowsToggle = screen.getByTestId("expandable-rows-toggle");
     expect(expandableRowsToggle).toHaveAttribute("aria-checked", "true");
 
     await user.click(expandableRowsToggle);
@@ -54,9 +48,7 @@ describe("expandable rows toggle", () => {
       route: "?expandable=false",
       wrapper,
     });
-    const expandableRowsToggle = screen.getByDataTestId(
-      "expandable-rows-toggle",
-    );
+    const expandableRowsToggle = screen.getByTestId("expandable-rows-toggle");
     expect(expandableRowsToggle).toHaveAttribute("aria-checked", "false");
   });
 });

@@ -4,7 +4,7 @@ import { TreeSelect } from ".";
 describe("treeSelect", () => {
   it("renders each value in the tree", () => {
     render(<TreeSelect onChange={() => {}} state={[]} tData={treeData} />);
-    expect(screen.getByDataTestId("tree-select-options")).toBeInTheDocument();
+    expect(screen.getByTestId("tree-select-options")).toBeInTheDocument();
     for (let i = 0; i < treeData.length; i++) {
       expect(screen.getByText(treeData[i].title)).toBeInTheDocument();
     }
@@ -14,7 +14,7 @@ describe("treeSelect", () => {
     render(
       <TreeSelect onChange={() => {}} state={["pass"]} tData={treeData} />,
     );
-    expect(screen.getByDataTestId("tree-select-options")).toBeInTheDocument();
+    expect(screen.getByTestId("tree-select-options")).toBeInTheDocument();
     const checkbox = screen.queryByLabelText("Pass");
     expect(checkbox).toBeChecked();
   });

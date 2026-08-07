@@ -23,7 +23,7 @@ describe("site banner", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataCy("sitewide-banner-warning")).toBeVisible();
+      expect(screen.queryByTestId("sitewide-banner-warning")).toBeVisible();
     });
   });
 
@@ -38,7 +38,7 @@ describe("site banner", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataCy("sitewide-banner-success")).toBeVisible();
+      expect(screen.queryByTestId("sitewide-banner-success")).toBeVisible();
     });
   });
 
@@ -53,7 +53,7 @@ describe("site banner", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataCy("sitewide-banner-danger")).toBeVisible();
+      expect(screen.queryByTestId("sitewide-banner-danger")).toBeVisible();
     });
   });
 
@@ -68,7 +68,7 @@ describe("site banner", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataCy("sitewide-banner-info")).toBeVisible();
+      expect(screen.queryByTestId("sitewide-banner-info")).toBeVisible();
     });
   });
 
@@ -83,7 +83,7 @@ describe("site banner", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataCy("sitewide-banner-info")).toBeVisible();
+      expect(screen.queryByTestId("sitewide-banner-info")).toBeVisible();
     });
   });
 
@@ -98,7 +98,7 @@ describe("site banner", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataCy("sitewide-banner-info")).toBeVisible();
+      expect(screen.queryByTestId("sitewide-banner-info")).toBeVisible();
     });
   });
 });
