@@ -162,6 +162,16 @@ export const docker = {
 export const aws = {
   schema: {
     subnets: subnets.schema,
+    subnetTagName: {
+      type: "string" as const,
+      title: "Subnet Tag Name",
+      default: "",
+    },
+    subnetTagValue: {
+      type: "string" as const,
+      title: "Subnet Tag Value",
+      default: "",
+    },
     accountRoles: accountRoles.schema,
     parameterStorePrefix: {
       type: "string" as const,
@@ -216,6 +226,15 @@ export const aws = {
       type: "string" as const,
       title: "IPAM Pool ID",
       default: "",
+    },
+    allowedSNSTopicARNs: {
+      type: "array" as const,
+      title: "Allowed SNS Topic ARNs",
+      items: {
+        type: "string" as const,
+        minLength: 1,
+      },
+      default: [],
     },
     persistentDNS: {
       type: "object" as const,
@@ -278,6 +297,9 @@ export const aws = {
       "ui:widget": widgets.ChipInputWidget,
     },
     allowedRegions: {
+      "ui:widget": widgets.ChipInputWidget,
+    },
+    allowedSNSTopicARNs: {
       "ui:widget": widgets.ChipInputWidget,
     },
     persistentDNS: {

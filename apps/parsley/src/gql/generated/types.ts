@@ -65,12 +65,15 @@ export type AwsConfig = {
   alertableInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedRegions: Array<Scalars["String"]["output"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["output"]>;
   defaultSecurityGroup?: Maybe<Scalars["String"]["output"]>;
   elasticIPUsageRate?: Maybe<Scalars["Float"]["output"]>;
   ipamPoolID?: Maybe<Scalars["String"]["output"]>;
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
+  subnetTagName?: Maybe<Scalars["String"]["output"]>;
+  subnetTagValue?: Maybe<Scalars["String"]["output"]>;
   subnets: Array<Subnet>;
 };
 
@@ -79,12 +82,15 @@ export type AwsConfigInput = {
   alertableInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedRegions: Array<Scalars["String"]["input"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["input"]>;
   defaultSecurityGroup?: InputMaybe<Scalars["String"]["input"]>;
   elasticIPUsageRate?: InputMaybe<Scalars["Float"]["input"]>;
   ipamPoolID?: InputMaybe<Scalars["String"]["input"]>;
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
+  subnetTagName?: InputMaybe<Scalars["String"]["input"]>;
+  subnetTagValue?: InputMaybe<Scalars["String"]["input"]>;
   subnets: Array<SubnetInput>;
 };
 
@@ -3316,6 +3322,7 @@ export type QueryWaterfallArgs = {
 export type RateLimitConfig = {
   __typename?: "RateLimitConfig";
   elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  exemptUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
   graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
   graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
@@ -3329,6 +3336,7 @@ export type RateLimitConfig = {
 
 export type RateLimitConfigInput = {
   elevatedUserIds: Array<Scalars["String"]["input"]>;
+  exemptUserIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   graphqlComplexityLimit: Scalars["Int"]["input"];
   graphqlServiceBurst: Scalars["Int"]["input"];
   graphqlServicePerHour: Scalars["Int"]["input"];
@@ -4080,6 +4088,8 @@ export type Task = {
   baseStatus?: Maybe<Scalars["String"]["output"]>;
   baseTask?: Maybe<Task>;
   blocked: Scalars["Boolean"]["output"];
+  buildBaronCreatedTickets: Array<JiraTicket>;
+  buildBaronSuggestions?: Maybe<SearchReturnInfo>;
   buildId: Scalars["String"]["output"];
   buildVariant: Scalars["String"]["output"];
   buildVariantDisplayName?: Maybe<Scalars["String"]["output"]>;
@@ -4920,7 +4930,6 @@ export type Version = {
   user: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
-  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 /** Version models a commit within a project. */
@@ -5034,7 +5043,6 @@ export type VolumeHost = {
 
 export type Waterfall = {
   __typename?: "Waterfall";
-  flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
   versions: Array<VersionLite>;
 };

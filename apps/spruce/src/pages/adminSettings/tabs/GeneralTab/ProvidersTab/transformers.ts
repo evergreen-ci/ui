@@ -26,6 +26,8 @@ export const gqlToForm = ((data) => {
             az: subnet.az ?? "",
             subnetId: subnet.subnetId ?? "",
           })) ?? [],
+        subnetTagName: providers?.aws?.subnetTagName ?? "",
+        subnetTagValue: providers?.aws?.subnetTagValue ?? "",
         accountRoles:
           providers?.aws?.accountRoles?.map((role) => ({
             account: role.account ?? "",
@@ -39,6 +41,7 @@ export const gqlToForm = ((data) => {
         allowedRegions: providers?.aws?.allowedRegions ?? [],
         ipamPoolID: providers?.aws?.ipamPoolID ?? "",
         elasticIPUsageRate: providers?.aws?.elasticIPUsageRate ?? 0,
+        allowedSNSTopicARNs: providers?.aws?.allowedSNSTopicARNs ?? [],
         persistentDNS: {
           hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
           domain: providers?.aws?.persistentDNS?.domain ?? "",
@@ -88,6 +91,7 @@ export const formToGql = ((form: ProvidersFormState) => {
         elasticIPUsageRate: aws.elasticIPUsageRate || undefined,
         ipamPoolID: aws.ipamPoolID || undefined,
         maxVolumeSizePerUser: aws.maxVolumeSizePerUser || undefined,
+        allowedSNSTopicARNs: aws.allowedSNSTopicARNs,
         persistentDNS: {
           hostedZoneID: aws.persistentDNS.hostedZoneID,
           domain: aws.persistentDNS.domain || undefined,
@@ -104,6 +108,8 @@ export const formToGql = ((form: ProvidersFormState) => {
           az: subnet.az,
           subnetId: subnet.subnetId,
         })),
+        subnetTagName: aws.subnetTagName || undefined,
+        subnetTagValue: aws.subnetTagValue || undefined,
       },
       docker: {
         apiVersion: docker.apiVersion || undefined,

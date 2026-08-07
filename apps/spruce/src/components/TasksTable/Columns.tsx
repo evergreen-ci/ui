@@ -183,7 +183,13 @@ export const getColumnsTemplate = ({
         </InfoSprinkle>
       </FlexWrapper>
     ),
-    cell: ({ getValue }) => {
+    cell: ({
+      column,
+      getValue,
+      row: {
+        original: { id },
+      },
+    }) => {
       const prevTaskCompleted = getValue() as NonNullable<
         TaskTableInfo["baseTask"]
       >["prevTaskCompleted"];
@@ -193,6 +199,13 @@ export const getColumnsTemplate = ({
           <TaskStatusBadgeWithLink
             execution={prevTaskCompleted.execution}
             id={prevTaskCompleted.id}
+            onClick={() =>
+              onClickTaskStatusBadge(
+                id,
+                prevTaskCompleted.displayStatus,
+                column.id,
+              )
+            }
             status={prevTaskCompleted.displayStatus as TaskStatus}
             tab={TaskTab.History}
           />
