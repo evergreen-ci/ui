@@ -89,6 +89,17 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             "task.id": taskId,
             "task.status": status ?? "",
           }),
+        onClickTaskStatusBadge: (
+          taskId: string,
+          status: string,
+          column: string,
+        ) =>
+          sendEvent({
+            name: "Clicked task table status badge",
+            "task.id": taskId,
+            "task.status": status,
+            column: column,
+          }),
       }),
     [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
   );
@@ -132,7 +143,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         // Handle bug in sorting order (https://github.com/TanStack/table/issues/4289)
         sortDescFirst: false,
       },
-      getRowId: (originalRow) => originalRow.id,
+      getRowId: (originalRow, _index, parentRow) =>
+        parentRow ? `${parentRow.id}.${originalRow.id}` : originalRow.id,
       initialState: {
         columnVisibility: { reviewed: taskReviewEnabled },
       },

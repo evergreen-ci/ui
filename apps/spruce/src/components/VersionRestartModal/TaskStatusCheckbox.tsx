@@ -58,7 +58,6 @@ const StateItemWrapper = styled.div`
 const TaskBox = styled(BaseTaskBox)`
   width: ${CHECKBOX_SQUARE_SIZE}px;
   height: ${CHECKBOX_SQUARE_SIZE}px;
-  float: none;
   flex-shrink: 0;
 `;
 

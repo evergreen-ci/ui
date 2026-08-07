@@ -161,7 +161,7 @@ const BuildRowInner: React.FC<Props> = ({
         className={buildGroupClassName}
         data-testid="build-group"
         offset={1000}
-        style={{ height: containerHeight }}
+        style={{ minHeight: containerHeight }}
       >
         {buildColumns}
       </VisibilityContainer>
@@ -235,7 +235,10 @@ const calculateBVContainerHeight = ({
   columnWidth: number;
 }) => {
   const numTasks = Math.max(...builds.map((b) => b.tasks.length));
-  const numSquaresInRow = Math.floor(columnWidth / SQUARE_WITH_BORDER);
+  const numSquaresInRow = Math.max(
+    Math.floor(columnWidth / SQUARE_WITH_BORDER),
+    1,
+  );
   const numRows = Math.ceil(numTasks / numSquaresInRow);
   return numRows * SQUARE_WITH_BORDER + containerPaddingAndBorder;
 };
@@ -251,6 +254,10 @@ const buildGroupClassName = classNameCss(buildGroupCss.styles);
 
 const BuildContainer = styled.div`
   ${columnBasis}
+  display: grid;
+  grid-template-columns: repeat(auto-fill, ${SQUARE_WITH_BORDER}px);
+  align-content: start;
+  min-width: 0;
 `;
 
 const StyledIconButton = styled(IconButton)<{ active: boolean }>`

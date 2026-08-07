@@ -12,6 +12,16 @@ describe("all filters toggle", () => {
     expect(allFiltersToggle).toHaveAttribute("aria-checked", "true");
   });
 
+  it("reflects filter visibility from the URL", () => {
+    render(<AllFiltersToggle />, {
+      route: "?filters=000abc,000def",
+    });
+    expect(screen.getByDataTestId("all-filters-toggle")).toHaveAttribute(
+      "aria-checked",
+      "false",
+    );
+  });
+
   it("should update filters in URL appropriately", async () => {
     const user = userEvent.setup();
     const { router } = render(<AllFiltersToggle />, {

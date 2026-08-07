@@ -12,9 +12,10 @@ import {
   within,
 } from "@evg-ui/lib/test_utils";
 import * as db from "components/TaskReview/db";
-import { getVariantHistoryRoute } from "constants/routes";
+import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
+import { TaskTab } from "types/task";
 import { versionTasks } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
 
@@ -77,6 +78,48 @@ describe("VersionTasksTable", () => {
     expect(screen.queryByText("e2e_spruce_0")).toBeVisible();
   });
 
+  it("uses unique row identities when an execution task is also a top-level result", async () => {
+    const user = userEvent.setup();
+    const duplicateKeyWarnings: unknown[][] = [];
+    const consoleError = vi
+      .spyOn(console, "error")
+      .mockImplementation((...args) => {
+        if (
+          typeof args[0] === "string" &&
+          args[0].includes("Encountered two children with the same key")
+        ) {
+          duplicateKeyWarnings.push(args);
+        }
+      });
+    const displayTask = tasks[3];
+    const executionTask = displayTask.executionTasksFull?.[0];
+    const filteredTasks = [executionTask, displayTask].filter(
+      (task): task is NonNullable<typeof task> => task !== undefined,
+    );
+    const { rerender } = render(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} tasks={filteredTasks} />
+      </MockedProvider>,
+    );
+
+    const displayTaskRow = screen.getAllByDataCy("tasks-table-row")[1];
+    await user.click(within(displayTaskRow).getByRole("button"));
+    expect(screen.getAllByText("e2e_spruce_0")).toHaveLength(2);
+
+    await user.click(within(displayTaskRow).getByRole("button"));
+    expect(screen.getAllByDataCy("tasks-table-row")).toHaveLength(2);
+
+    rerender(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} tasks={[displayTask]} />
+      </MockedProvider>,
+    );
+    expect(screen.queryByText("e2e_spruce_0")).not.toBeInTheDocument();
+    expect(screen.getAllByDataCy("tasks-table-row")).toHaveLength(1);
+    consoleError.mockRestore();
+    expect(duplicateKeyWarnings).toHaveLength(0);
+  });
+
   it("links the variant column to the variant history page using the task's project identifier", () => {
     render(
       <MockedProvider cache={cache}>
@@ -93,6 +136,43 @@ describe("VersionTasksTable", () => {
         tasks[0].buildVariant,
       ),
     );
+  });
+
+  it("links the last completed run status when one exists", () => {
+    render(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} />
+      </MockedProvider>,
+    );
+    const prevTaskCompleted = tasks[0].baseTask?.prevTaskCompleted;
+    const expectedHref = getTaskRoute(prevTaskCompleted?.id ?? "", {
+      execution: prevTaskCompleted?.execution,
+      tab: TaskTab.History,
+    });
+
+    const firstRow = screen.getAllByDataCy("tasks-table-row")[0];
+    const lastRunStatusCell = within(
+      firstRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
+    );
+
+    expect(screen.getByText("Last Run Status")).toBeVisible();
+    expect(lastRunStatusCell.getByRole("link")).toHaveAttribute(
+      "href",
+      expectedHref,
+    );
+  });
+
+  it("leaves the last completed run status empty when none exists", () => {
+    render(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} />
+      </MockedProvider>,
+    );
+    const secondRow = screen.getAllByDataCy("tasks-table-row")[1];
+    const lastRunStatusCell = within(
+      secondRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
+    );
+    expect(lastRunStatusCell.queryByRole("link")).toBeNull();
   });
 
   it("calls clearQueryParams function when button is clicked", async () => {

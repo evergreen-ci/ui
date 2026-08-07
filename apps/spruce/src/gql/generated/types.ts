@@ -62,6 +62,7 @@ export type AwsConfig = {
   alertableInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedRegions: Array<Scalars["String"]["output"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["output"]>;
   defaultSecurityGroup?: Maybe<Scalars["String"]["output"]>;
   elasticIPUsageRate?: Maybe<Scalars["Float"]["output"]>;
   ipamPoolID?: Maybe<Scalars["String"]["output"]>;
@@ -76,6 +77,7 @@ export type AwsConfigInput = {
   alertableInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedRegions: Array<Scalars["String"]["input"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["input"]>;
   defaultSecurityGroup?: InputMaybe<Scalars["String"]["input"]>;
   elasticIPUsageRate?: InputMaybe<Scalars["Float"]["input"]>;
   ipamPoolID?: InputMaybe<Scalars["String"]["input"]>;
@@ -1014,6 +1016,14 @@ export type EnvVar = {
 export type EnvVarInput = {
   key: Scalars["String"]["input"];
   value: Scalars["String"]["input"];
+};
+
+/**
+ * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
+ * It's used to filter a display task's execution tasks.
+ */
+export type ExecutionTasksFilterOptions = {
+  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type Expansion = {
@@ -2512,7 +2522,6 @@ export type Patch = {
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
   user: User;
-  userLite: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
@@ -3153,7 +3162,6 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
-  userLite: User;
   variantQuarantineStatus: VariantQuarantineStatus;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
@@ -3288,10 +3296,6 @@ export type QueryTaskTestSampleArgs = {
 };
 
 export type QueryUserArgs = {
-  userId?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type QueryUserLiteArgs = {
   userId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -4165,6 +4169,11 @@ export type Task = {
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskExecutionTasksFullArgs = {
+  options?: InputMaybe<ExecutionTasksFilterOptions>;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
 export type TaskPrevTaskCompletedArgs = {
   prevTaskOptions?: InputMaybe<PrevTaskOptions>;
 };
@@ -4909,7 +4918,6 @@ export type Version = {
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
   user: User;
-  userLite: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
@@ -7851,6 +7859,7 @@ export type AdminSettingsQuery = {
         alertableInstanceTypes: Array<string>;
         allowedInstanceTypes: Array<string>;
         allowedRegions: Array<string>;
+        allowedSNSTopicARNs: Array<string>;
         defaultSecurityGroup?: string | null;
         elasticIPUsageRate?: number | null;
         ipamPoolID?: string | null;
@@ -11213,6 +11222,31 @@ export type TaskPerfPluginEnabledQuery = {
   } | null;
 };
 
+export type TaskQuarantinedTestsSampleQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  taskIds: Array<Scalars["String"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskQuarantinedTestsSampleQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    taskQuarantinedTestsSample?: Array<{
+      __typename?: "TaskQuarantinedTestsSample";
+      execution: number;
+      quarantinedTestsSkippedCount: number;
+      taskId: string;
+      quarantinedTests: Array<{
+        __typename?: "QuarantinedTest";
+        displayTestName?: string | null;
+        testName: string;
+      }>;
+    }> | null;
+  };
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
@@ -11388,6 +11422,7 @@ export type TaskQuery = {
     order: number;
     patchNumber?: number | null;
     priority?: number | null;
+    quarantinedTestsSkippedCount: number;
     requester: string;
     resetWhenFinished: boolean;
     reviewed?: boolean | null;
@@ -11908,6 +11943,17 @@ export type VersionTaskDurationsQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    childVersions?: Array<{
+      __typename?: "Version";
+      id: string;
+      finishTime?: Date | null;
+      startTime?: Date | null;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
+    }> | null;
     tasks: {
       __typename?: "VersionTasks";
       count: number;
@@ -11968,6 +12014,14 @@ export type VersionTasksQuery = {
           id: string;
           displayStatus: string;
           execution: number;
+          status: string;
+          prevTaskCompleted?: {
+            __typename?: "Task";
+            id: string;
+            displayStatus: string;
+            execution: number;
+            finishTime?: Date | null;
+          } | null;
         } | null;
         dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
         executionTasksFull?: Array<{
@@ -11984,6 +12038,14 @@ export type VersionTasksQuery = {
             id: string;
             displayStatus: string;
             execution: number;
+            status: string;
+            prevTaskCompleted?: {
+              __typename?: "Task";
+              id: string;
+              displayStatus: string;
+              execution: number;
+              finishTime?: Date | null;
+            } | null;
           } | null;
           project?: {
             __typename?: "Project";
@@ -12208,8 +12270,17 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
-    flattenedVersions: Array<{
-      __typename?: "Version";
+    pagination: {
+      __typename?: "WaterfallPagination";
+      activeVersionIds: Array<string>;
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+      mostRecentVersionOrder: number;
+      nextPageOrder: number;
+      prevPageOrder: number;
+    };
+    versions: Array<{
+      __typename?: "VersionLite";
       id: string;
       activated?: boolean | null;
       createTime: Date;
@@ -12239,14 +12310,5 @@ export type WaterfallQuery = {
         }>;
       }> | null;
     }>;
-    pagination: {
-      __typename?: "WaterfallPagination";
-      activeVersionIds: Array<string>;
-      hasNextPage: boolean;
-      hasPrevPage: boolean;
-      mostRecentVersionOrder: number;
-      nextPageOrder: number;
-      prevPageOrder: number;
-    };
   };
 };

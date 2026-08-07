@@ -97,8 +97,6 @@ const PageContainer = styled.div`
   flex-direction: column;
   gap: ${size.xs};
   padding: ${size.m};
-  // Setting overflow-x allows floating content to be correctly positioned on the page.
-  overflow-x: hidden;
 `;
 
 /* Safari performance of the waterfall chokes if using overflow-y: scroll, so we need the page to scroll instead.

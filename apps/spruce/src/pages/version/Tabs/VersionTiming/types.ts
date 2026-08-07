@@ -17,3 +17,7 @@ export type DateTimeRange = {
 export type TaskDurationData = Unpacked<
   VersionTaskDurationsQuery["version"]["tasks"]["data"]
 >;
+
+export type ChildVersionTimingData = Unpacked<
+  NonNullable<VersionTaskDurationsQuery["version"]["childVersions"]>
+>;
