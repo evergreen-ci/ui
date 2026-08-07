@@ -22,10 +22,12 @@ describe("warningBanner", () => {
     const user = userEvent.setup();
     render(<WarningBanner warnings={warnings} />);
     await user.click(
-      screen.getByDataCy("configuration-warnings-modal-trigger"),
+      screen.getByDataTestId("configuration-warnings-modal-trigger"),
     );
     await waitFor(() => {
-      expect(screen.getByDataCy("configuration-warnings-modal")).toBeVisible();
+      expect(
+        screen.getByDataTestId("configuration-warnings-modal"),
+      ).toBeVisible();
     });
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
@@ -34,9 +36,11 @@ describe("warningBanner", () => {
     const user = userEvent.setup();
     render(<WarningBanner warnings={warnings} />);
     expect(
-      screen.getByDataCy("configuration-warnings-banner"),
+      screen.getByDataTestId("configuration-warnings-banner"),
     ).toBeInTheDocument();
     await user.click(screen.getByLabelText("X Icon"));
-    expect(screen.queryByDataCy("configuration-warnings-banner")).toBeNull();
+    expect(
+      screen.queryByDataTestId("configuration-warnings-banner"),
+    ).toBeNull();
   });
 });

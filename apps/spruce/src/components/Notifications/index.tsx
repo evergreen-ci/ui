@@ -27,7 +27,7 @@ import { FormRegexSelector, FormState } from "./types";
 import { getGqlPayload, hasInitialError } from "./utils";
 
 interface NotificationModalProps {
-  "data-cy": string;
+  "data-testid": string;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   resourceId: string;
   sendAnalyticsEvent: (
@@ -40,7 +40,7 @@ interface NotificationModalProps {
 }
 
 export const NotificationModal: React.FC<NotificationModalProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   onCancel,
   resourceId,
   sendAnalyticsEvent,
@@ -130,7 +130,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         disabled: hasError,
         onClick: onClickSave,
       }}
-      data-cy={dataCy}
+      data-testid={dataTestId}
       open={visible}
       title="Add Subscription"
     >

@@ -16,7 +16,7 @@ export const EventLogsTab: React.FC = () => {
   }));
 
   if (loading && transformedEvents.length === 0) {
-    return <ParagraphSkeleton data-cy="admin-events-skeleton" />;
+    return <ParagraphSkeleton data-testid="admin-events-skeleton" />;
   }
 
   return (

@@ -22,7 +22,7 @@ describe("configureTasks", () => {
           totalSelectedTaskCount={0}
         />,
       );
-      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(2);
+      expect(screen.queryAllByDataTestId("task-checkbox")).toHaveLength(2);
       expect(screen.getByText("compile")).toBeInTheDocument();
       expect(screen.getByText("test")).toBeInTheDocument();
     });
@@ -46,7 +46,7 @@ describe("configureTasks", () => {
           totalSelectedTaskCount={0}
         />,
       );
-      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(4);
+      expect(screen.queryAllByDataTestId("task-checkbox")).toHaveLength(4);
       expect(screen.getByText("compile")).toBeInTheDocument();
       expect(screen.getByText("test")).toBeInTheDocument();
       expect(screen.getByText("e2e")).toBeInTheDocument();
@@ -72,7 +72,7 @@ describe("configureTasks", () => {
           totalSelectedTaskCount={3}
         />,
       );
-      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(3);
+      expect(screen.queryAllByDataTestId("task-checkbox")).toHaveLength(3);
       expect(screen.getByText("compile")).toBeInTheDocument();
       expect(screen.getByText("test")).toBeInTheDocument();
       expect(screen.getByText("lint")).toBeInTheDocument();
@@ -221,7 +221,7 @@ describe("configureTasks", () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
-      await user.type(screen.getByDataCy("task-filter-input"), "^c");
+      await user.type(screen.getByDataTestId("task-filter-input"), "^c");
       await user.click(screen.getByText("Select all tasks in view"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
         ubuntu2004: { compile: true, test: false },
@@ -248,8 +248,8 @@ describe("configureTasks", () => {
           totalSelectedTaskCount={0}
         />,
       );
-      await user.type(screen.getByDataCy("task-filter-input"), "compile");
-      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(1);
+      await user.type(screen.getByDataTestId("task-filter-input"), "compile");
+      expect(screen.queryAllByDataTestId("task-checkbox")).toHaveLength(1);
       const checkbox = screen.getByLabelText("compile");
       expect(checkbox).toBeInTheDocument();
     });

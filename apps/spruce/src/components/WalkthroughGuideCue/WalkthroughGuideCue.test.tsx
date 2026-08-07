@@ -57,22 +57,22 @@ describe("walkthrough guide cue", async () => {
 
   const guideCueIsVisible = async () =>
     waitFor(() => {
-      expect(screen.getByDataCy("walkthrough-guide-cue")).toBeVisible();
+      expect(screen.getByDataTestId("walkthrough-guide-cue")).toBeVisible();
     });
 
   const backdropIsVisible = async () =>
     waitFor(() => {
-      expect(screen.getByDataCy("walkthrough-backdrop")).toBeVisible();
+      expect(screen.getByDataTestId("walkthrough-backdrop")).toBeVisible();
     });
 
   const guideCueIsNotVisible = async () =>
     waitFor(() => {
-      expect(screen.queryByDataCy("walkthrough-guide-cue")).toBeNull();
+      expect(screen.queryByDataTestId("walkthrough-guide-cue")).toBeNull();
     });
 
   const backdropIsNotVisible = async () =>
     waitFor(() => {
-      expect(screen.queryByDataCy("walkthrough-guide-cue")).toBeNull();
+      expect(screen.queryByDataTestId("walkthrough-guide-cue")).toBeNull();
     });
 
   it("should not open guide cue if defaultOpen is false", async () => {

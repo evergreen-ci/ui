@@ -64,19 +64,21 @@ describe("projectSelect", () => {
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
-        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+        expect(screen.getByDataTestId("project-select")).toBeInTheDocument();
       });
-      expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      await user.click(screen.getByDataCy("project-select"));
-      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+      expect(screen.queryByDataTestId("project-select-options")).toBeNull();
+      await user.click(screen.getByDataTestId("project-select"));
+      expect(
+        screen.getByDataTestId("project-select-options"),
+      ).toBeInTheDocument();
 
-      let options = await screen.findAllByDataCy("project-display-name");
+      let options = await screen.findAllByDataTestId("project-display-name");
       expect(options).toHaveLength(6);
       await user.type(
         screen.getByPlaceholderText("Search projects"),
         "logkeeper",
       );
-      options = await screen.findAllByDataCy("project-display-name");
+      options = await screen.findAllByDataTestId("project-display-name");
       expect(options).toHaveLength(1);
     });
 
@@ -93,17 +95,19 @@ describe("projectSelect", () => {
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
-        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+        expect(screen.getByDataTestId("project-select")).toBeInTheDocument();
       });
-      expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      await user.click(screen.getByDataCy("project-select"));
-      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+      expect(screen.queryByDataTestId("project-select-options")).toBeNull();
+      await user.click(screen.getByDataTestId("project-select"));
+      expect(
+        screen.getByDataTestId("project-select-options"),
+      ).toBeInTheDocument();
 
       await user.type(
         screen.getByPlaceholderText("Search projects"),
         "aaa/totally-different-name",
       );
-      const options = await screen.findAllByDataCy("project-display-name");
+      const options = await screen.findAllByDataTestId("project-display-name");
       expect(options).toHaveLength(2);
       // Repo name should not be a clickable button.
       expect(
@@ -145,19 +149,21 @@ describe("projectSelect", () => {
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
-        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+        expect(screen.getByDataTestId("project-select")).toBeInTheDocument();
       });
-      expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      await user.click(screen.getByDataCy("project-select"));
-      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+      expect(screen.queryByDataTestId("project-select-options")).toBeNull();
+      await user.click(screen.getByDataTestId("project-select"));
+      expect(
+        screen.getByDataTestId("project-select-options"),
+      ).toBeInTheDocument();
 
-      let options = await screen.findAllByDataCy("project-display-name");
+      let options = await screen.findAllByDataTestId("project-display-name");
       expect(options).toHaveLength(5);
       await user.type(
         screen.getByPlaceholderText("Search projects"),
         "evergreen",
       );
-      options = await screen.findAllByDataCy("project-display-name");
+      options = await screen.findAllByDataTestId("project-display-name");
       expect(options).toHaveLength(2);
     });
 
@@ -178,17 +184,19 @@ describe("projectSelect", () => {
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
-        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+        expect(screen.getByDataTestId("project-select")).toBeInTheDocument();
       });
-      expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      await user.click(screen.getByDataCy("project-select"));
-      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+      expect(screen.queryByDataTestId("project-select-options")).toBeNull();
+      await user.click(screen.getByDataTestId("project-select"));
+      expect(
+        screen.getByDataTestId("project-select-options"),
+      ).toBeInTheDocument();
 
       await user.type(
         screen.getByPlaceholderText("Search projects"),
         "aaa/totally-different-name",
       );
-      const options = await screen.findAllByDataCy("project-display-name");
+      const options = await screen.findAllByDataTestId("project-display-name");
       expect(options).toHaveLength(1);
       // Repo name should be a clickable button.
       const repoOption = screen.getByRole("button", {
@@ -215,11 +223,13 @@ describe("projectSelect", () => {
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
-        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+        expect(screen.getByDataTestId("project-select")).toBeInTheDocument();
       });
-      expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      await user.click(screen.getByDataCy("project-select"));
-      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+      expect(screen.queryByDataTestId("project-select-options")).toBeNull();
+      await user.click(screen.getByDataTestId("project-select"));
+      expect(
+        screen.getByDataTestId("project-select-options"),
+      ).toBeInTheDocument();
       // Favorited projects should appear twice.
       expect(screen.getAllByText("logkeeper")).toHaveLength(2);
     });
@@ -238,13 +248,15 @@ describe("projectSelect", () => {
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
-        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+        expect(screen.getByDataTestId("project-select")).toBeInTheDocument();
       });
-      expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      await user.click(screen.getByDataCy("project-select"));
-      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+      expect(screen.queryByDataTestId("project-select-options")).toBeNull();
+      await user.click(screen.getByDataTestId("project-select"));
+      expect(
+        screen.getByDataTestId("project-select-options"),
+      ).toBeInTheDocument();
 
-      const options = await screen.findAllByDataCy("project-display-name");
+      const options = await screen.findAllByDataTestId("project-display-name");
       expect(options).toHaveLength(5);
       // Disabled project appears last
       expect(options[4]).toHaveTextContent("evergreen smoke test");
@@ -265,12 +277,14 @@ describe("projectSelect", () => {
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
-        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+        expect(screen.getByDataTestId("project-select")).toBeInTheDocument();
       });
-      expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      await user.click(screen.getByDataCy("project-select"));
-      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
-      const options = await screen.findAllByDataCy("project-display-name");
+      expect(screen.queryByDataTestId("project-select-options")).toBeNull();
+      await user.click(screen.getByDataTestId("project-select"));
+      expect(
+        screen.getByDataTestId("project-select-options"),
+      ).toBeInTheDocument();
+      const options = await screen.findAllByDataTestId("project-display-name");
       expect(options).toHaveLength(1);
       expect(screen.queryByText("Disabled Projects")).not.toBeInTheDocument();
     });

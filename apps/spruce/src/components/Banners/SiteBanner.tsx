@@ -30,7 +30,7 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
   const variant = mapThemeToVariant[theme?.toLowerCase()] ?? Variant.Info;
   return showBanner ? (
     <Banner
-      data-cy={`sitewide-banner-${variant}`}
+      data-testid={`sitewide-banner-${variant}`}
       dismissible
       image={
         // We want the green banner to align more with legacy Evergreen's announcement banner

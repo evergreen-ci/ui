@@ -28,7 +28,7 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
   <Checkbox
     bold={false}
     checked={checked}
-    data-cy="task-status-checkbox"
+    data-testid="task-status-checkbox"
     label={
       <StateItemWrapper>
         <TaskBox status={status as TaskStatus} />

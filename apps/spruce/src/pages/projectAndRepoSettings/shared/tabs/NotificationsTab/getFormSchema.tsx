@@ -126,10 +126,10 @@ export const getFormSchema = (
           bannerData: {
             text: {
               "ui:placeholder": "Enter banner text",
-              "ui:data-cy": "banner-text",
+              "ui:data-testid": "banner-text",
             },
             theme: {
-              "ui:data-cy": "banner-theme",
+              "ui:data-testid": "banner-theme",
               "ui:allowDeselect": false,
               "ui:optionsLabelMap": bannerThemeToLabelMap,
             },

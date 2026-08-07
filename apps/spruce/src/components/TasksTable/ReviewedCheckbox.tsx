@@ -34,8 +34,8 @@ export const ReviewedCheckbox: React.FC<{
     <StyledCheckbox
       aria-label={`Mark as ${checked ? "un" : ""}reviewed`}
       checked={checked}
-      data-cy={`reviewed-${row.original.id}`}
       data-lgid={`lg-reviewed-${row.original.id}`}
+      data-testid={`reviewed-${row.original.id}`}
       disabled={task.displayStatus === TaskStatus.Succeeded}
       indeterminate={indeterminate}
       onChange={handleClick}

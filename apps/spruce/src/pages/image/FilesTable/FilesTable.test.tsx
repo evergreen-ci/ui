@@ -27,13 +27,13 @@ describe("files table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("files-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("files-table-row")).toHaveLength(10);
     });
     const expectedNames = (
       imageFilesMock.result?.data?.image?.files.data || []
     ).map(({ name }) => name);
 
-    const rows = screen.getAllByDataCy("files-table-row");
+    const rows = screen.getAllByTestId("files-table-row");
     expectedNames.forEach((expectedName, i) => {
       expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
         expectedName,
@@ -47,13 +47,13 @@ describe("files table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("files-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("files-table-row")).toHaveLength(10);
     });
     const expectedPaths = (
       imageFilesMock.result?.data?.image?.files.data || []
     ).map(({ path }) => path);
 
-    const rows = screen.getAllByDataCy("files-table-row");
+    const rows = screen.getAllByTestId("files-table-row");
     expectedPaths.forEach((expectedPath, i) => {
       expect(within(rows[i]).getAllByRole("cell")[1]).toHaveTextContent(
         expectedPath,
@@ -67,13 +67,13 @@ describe("files table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("files-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("files-table-row")).toHaveLength(10);
     });
     const expectedVersions = (
       imageFilesMock.result?.data?.image?.files.data || []
     ).map(({ version }) => version);
 
-    const rows = screen.getAllByDataCy("files-table-row");
+    const rows = screen.getAllByTestId("files-table-row");
     expectedVersions.forEach((expectedVersion, i) => {
       expect(within(rows[i]).getAllByRole("cell")[2]).toHaveTextContent(
         expectedVersion,
@@ -88,15 +88,15 @@ describe("files table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("files-table-row")).toHaveLength(10);
+      expect(screen.getAllByTestId("files-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByDataCy("file-name-filter"));
+    await user.click(screen.getByDataTestId("file-name-filter"));
     await user.type(
       screen.getByPlaceholderText("Name regex"),
       "my-special-cert.pem{enter}",
     );
     await waitFor(() => {
-      expect(screen.getAllByDataCy("files-table-row")).toHaveLength(1);
+      expect(screen.getAllByTestId("files-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("1 - 1 of 1 item")).toBeInTheDocument();
   });
@@ -108,14 +108,14 @@ describe("files table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("files-table-row")).toHaveLength(10);
+      expect(screen.getAllByTestId("files-table-row")).toHaveLength(10);
     });
 
     const nextPageButton = screen.getByTestId("lg-pagination-next-button");
     expect(nextPageButton).toHaveAttribute("aria-disabled", "false");
     await user.click(nextPageButton);
     await waitFor(() => {
-      expect(screen.getAllByDataCy("files-table-row")).toHaveLength(1);
+      expect(screen.getAllByTestId("files-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("11 - 11 of 11 items")).toBeInTheDocument();
   });

@@ -12,7 +12,7 @@ const NavDropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
 );
 
 export interface MenuItemType {
-  "data-cy"?: string;
+  "data-testid"?: string;
   text: string | React.ReactNode;
   href?: string;
   to?: To;
@@ -25,7 +25,7 @@ interface NavDropdownItemType extends MenuItemType {
 
 const NavDropdownItem: React.FC<NavDropdownItemType> = ({
   closeMenu,
-  "data-cy": itemDataCy,
+  "data-testid": itemDataTestId,
   href,
   text,
   to,
@@ -33,25 +33,35 @@ const NavDropdownItem: React.FC<NavDropdownItemType> = ({
   const isInternalLink = to !== undefined;
 
   return isInternalLink ? (
-    <MenuItem as={Link} data-cy={itemDataCy} onClick={closeMenu} to={to}>
+    <MenuItem
+      as={Link}
+      data-testid={itemDataTestId}
+      onClick={closeMenu}
+      to={to}
+    >
       {text}
     </MenuItem>
   ) : (
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    <MenuItem as="a" data-cy={itemDataCy} href={href} onClick={closeMenu}>
+    <MenuItem
+      as="a"
+      data-testid={itemDataTestId}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      href={href}
+      onClick={closeMenu}
+    >
       {text}
     </MenuItem>
   );
 };
 
 interface NavDropdownProps {
-  dataCy?: string;
+  dataTestId?: string;
   menuItems: MenuItemType[];
   title: string;
 }
 
 export const NavDropdown: React.FC<NavDropdownProps> = ({
-  dataCy,
+  dataTestId,
   menuItems,
   title,
 }) => {
@@ -63,7 +73,7 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
       open={openMenu}
       setOpen={setOpenMenu}
       trigger={
-        <NavDropdownTitle data-cy={dataCy}>
+        <NavDropdownTitle data-testid={dataTestId}>
           {title}
           <NavDropdownMenuIcon open={openMenu} />
         </NavDropdownTitle>

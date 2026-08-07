@@ -88,27 +88,27 @@ export const getFormSchema = (
         "ui:label": false,
         options: { repoData },
         varName: {
-          "ui:data-cy": "var-name-input",
+          "ui:data-testid": "var-name-input",
           "ui:elementWrapperCSS": nameCss,
         },
         varValue: {
-          "ui:data-cy": "var-value-input",
+          "ui:data-testid": "var-value-input",
           "ui:elementWrapperCSS": varCSS,
           "ui:widget": widgets.TextareaWidget,
         },
         varDescription: {
-          "ui:data-cy": "var-description-input",
+          "ui:data-testid": "var-description-input",
           "ui:widget": widgets.TextareaWidget,
         },
         isPrivate: {
           "ui:tooltipDescription":
             "Private variables have redacted values on the Project Page and the API and cannot be updated.",
-          "ui:data-cy": "var-private-input",
+          "ui:data-testid": "var-private-input",
         },
         isAdminOnly: {
           "ui:tooltipDescription":
             "Admin only variables can only be used by project admins.",
-          "ui:data-cy": "var-admin-input",
+          "ui:data-testid": "var-admin-input",
         },
       },
     },

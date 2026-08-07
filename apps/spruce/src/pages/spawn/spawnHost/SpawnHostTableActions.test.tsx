@@ -54,12 +54,12 @@ describe("copySSHCommandButton", () => {
       </MockedProvider>,
     );
 
-    const copySSHButton = screen.getByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataTestId("copy-ssh-button");
 
     // Hover over button to trigger tooltip.
     await user.hover(copySSHButton);
     await waitFor(() => {
-      expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+      expect(screen.getByDataTestId("copy-ssh-tooltip")).toBeInTheDocument();
     });
     expect(
       screen.getByText("Must be on VPN to connect to host"),
@@ -94,13 +94,13 @@ describe("copySSHCommandButton", () => {
         />
       </MockedProvider>,
     );
-    const copySSHButton = screen.getByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataTestId("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
     await user.hover(copySSHButton);
     await waitFor(() => {
-      expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+      expect(screen.getByDataTestId("copy-ssh-tooltip")).toBeInTheDocument();
     });
     expect(
       screen.getByText("Host must be running in order to SSH"),
@@ -118,13 +118,13 @@ describe("copySSHCommandButton", () => {
         />
       </MockedProvider>,
     );
-    const copySSHButton = screen.getByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataTestId("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
     await user.hover(copySSHButton);
     await waitFor(() => {
-      expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+      expect(screen.getByDataTestId("copy-ssh-tooltip")).toBeInTheDocument();
     });
     expect(
       screen.getByText("Host must be running in order to SSH"),
@@ -145,11 +145,13 @@ describe("spawn host table", () => {
         <Component />
       </MockedProvider>,
     );
-    await user.click(screen.getByDataCy("pause-unexpirable-host-button"));
+    await user.click(screen.getByDataTestId("pause-unexpirable-host-button"));
     await waitFor(() => {
-      expect(screen.queryByDataCy("pause-sleep-schedule-modal")).toBeVisible();
+      expect(
+        screen.queryByDataTestId("pause-sleep-schedule-modal"),
+      ).toBeVisible();
     });
-    expect(screen.getByDataCy("next-start")).toHaveTextContent(/at 8:00/);
+    expect(screen.getByDataTestId("next-start")).toHaveTextContent(/at 8:00/);
     expect(
       screen.getByRole("button", { name: /Pause host until/ }),
     ).toBeVisible();
@@ -175,7 +177,7 @@ describe("spawn host table", () => {
       </MockedProvider>,
     );
     expect(
-      screen.queryByDataCy("pause-unexpirable-host-button"),
+      screen.queryByDataTestId("pause-unexpirable-host-button"),
     ).not.toBeInTheDocument();
   });
 
@@ -201,7 +203,7 @@ describe("spawn host table", () => {
       </MockedProvider>,
     );
     expect(
-      screen.queryByDataCy("pause-unexpirable-host-button"),
+      screen.queryByDataTestId("pause-unexpirable-host-button"),
     ).not.toBeInTheDocument();
   });
 
@@ -227,9 +229,11 @@ describe("spawn host table", () => {
         <Component />
       </MockedProvider>,
     );
-    await user.click(screen.getByDataCy("pause-unexpirable-host-button"));
+    await user.click(screen.getByDataTestId("pause-unexpirable-host-button"));
     await waitFor(() => {
-      expect(screen.queryByDataCy("pause-sleep-schedule-modal")).toBeVisible();
+      expect(
+        screen.queryByDataTestId("pause-sleep-schedule-modal"),
+      ).toBeVisible();
     });
   });
 
@@ -255,7 +259,7 @@ describe("spawn host table", () => {
       </MockedProvider>,
     );
     expect(
-      screen.queryByDataCy("pause-unexpirable-host-button"),
+      screen.queryByDataTestId("pause-unexpirable-host-button"),
     ).not.toBeInTheDocument();
   });
 });

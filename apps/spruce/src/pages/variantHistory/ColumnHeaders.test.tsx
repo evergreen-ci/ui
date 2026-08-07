@@ -30,7 +30,7 @@ describe("columnHeaders (Variant History)", () => {
     render(<Component />, {
       wrapper: ProviderWrapper,
     });
-    expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(7);
+    expect(screen.queryAllByDataTestId("loading-header-cell")).toHaveLength(7);
   });
 
   it("renders the column headers properly when not loading", async () => {
@@ -51,10 +51,12 @@ describe("columnHeaders (Variant History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataTestId("loading-header-cell")).toHaveLength(
+        0,
+      );
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+      expect(screen.queryAllByDataTestId("header-cell")).toHaveLength(3);
     });
   });
 
@@ -77,10 +79,12 @@ describe("columnHeaders (Variant History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataTestId("loading-header-cell")).toHaveLength(
+        0,
+      );
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+      expect(screen.queryAllByDataTestId("header-cell")).toHaveLength(3);
     });
   });
 
@@ -103,10 +107,12 @@ describe("columnHeaders (Variant History)", () => {
     });
 
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataTestId("loading-header-cell")).toHaveLength(
+        0,
+      );
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(2);
+      expect(screen.queryAllByDataTestId("header-cell")).toHaveLength(2);
     });
     expect(screen.queryByText(longTaskName)).toBeNull();
     expect(screen.queryByText("task2")).toBeVisible();
@@ -131,10 +137,12 @@ describe("columnHeaders (Variant History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataTestId("loading-header-cell")).toHaveLength(
+        0,
+      );
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(1);
+      expect(screen.queryAllByDataTestId("header-cell")).toHaveLength(1);
     });
 
     expect(screen.queryByText(trimmedTaskName)).toBeVisible();

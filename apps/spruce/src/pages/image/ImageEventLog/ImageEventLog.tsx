@@ -45,7 +45,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
       <SearchContainer>
         <SearchInput
           aria-labelledby="event-log-global-search"
-          data-cy="event-log-global-search"
+          data-testid="event-log-global-search"
           onChange={handleGlobalSearchChange}
           onSubmit={() => {
             sendEvent({ name: "Used global search", search: globalSearch });
@@ -54,13 +54,15 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           value={globalSearch}
         />
       </SearchContainer>
-      {initialLoading && <ParagraphSkeleton data-cy="image-events-skeleton" />}
+      {initialLoading && (
+        <ParagraphSkeleton data-testid="image-events-skeleton" />
+      )}
       {events.map((event) => {
         const { amiAfter, amiBefore, entries, timestamp } = event;
         return (
           <ImageEventLogCard
             key={`event_log_${timestamp}`}
-            data-cy="image-event-log-card"
+            data-testid="image-event-log-card"
           >
             <Header
               amiAfter={amiAfter}
@@ -73,7 +75,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
       })}
       {!allEventsFetched && events.length > 0 && (
         <LoadingButton
-          data-cy="load-more-button"
+          data-testid="load-more-button"
           loading={loading}
           onClick={() => {
             sendEvent({ name: "Clicked 'Load more events' button" });

@@ -23,7 +23,7 @@ export const InactiveVersionsModal: React.FC<Props> = ({
 
   return (
     <StyledDisplayModal
-      data-cy="inactive-versions-modal"
+      data-testid="inactive-versions-modal"
       open={open}
       setOpen={setOpen}
       title={`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}

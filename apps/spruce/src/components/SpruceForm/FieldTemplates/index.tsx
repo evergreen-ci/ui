@@ -27,7 +27,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   const sectionId = uiSchema["ui:sectionId"] ?? "";
   const border = uiSchema["ui:border"];
   const showLabel = uiSchema["ui:showLabel"] ?? true;
-  const fieldDataCy = uiSchema["ui:field-data-cy"];
+  const fielddataTestId = uiSchema["ui:field-data-testid"];
   const descriptionNode = uiSchema["ui:descriptionNode"];
   const fieldCss = uiSchema["ui:fieldCss"];
   const errors = uiSchema["ui:errors"] ?? (rawErrors?.length ? rawErrors : []);
@@ -41,12 +41,12 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
       {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
       {isNullType && <>{descriptionNode || description}</>}
       {isNullType && !!errors.length && (
-        <StyledBanner data-cy="error-banner" variant="danger">
+        <StyledBanner data-testid="error-banner" variant="danger">
           {errors.join(", ")}
         </StyledBanner>
       )}
       {isNullType && !!warnings.length && (
-        <StyledBanner data-cy="warning-banner" variant="warning">
+        <StyledBanner data-testid="warning-banner" variant="warning">
           {warnings.map((w, i) =>
             typeof w === "string" || w instanceof String ? (
               <div key={`warning-${i}`}>{w}</div> // eslint-disable-line  react/no-array-index-key
@@ -60,7 +60,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
         border={border}
         className={classNames}
         css={fieldCss}
-        data-cy={fieldDataCy}
+        data-testid={fielddataTestId}
         id={`${sectionId} ${id}`}
       >
         {children}

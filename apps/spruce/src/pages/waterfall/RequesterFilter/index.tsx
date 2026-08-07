@@ -18,7 +18,7 @@ export const RequesterFilter = () => {
 
   return (
     <Combobox
-      data-cy="requester-filter"
+      data-testid="requester-filter"
       dropdownWidthBasis="option"
       initialValue={requesters}
       label="Requesters"
@@ -30,7 +30,7 @@ export const RequesterFilter = () => {
       {mainlineRequesters.map((requester) => (
         <ComboboxOption
           key={`${requester}-option`}
-          data-cy={`${requester}-option`}
+          data-testid={`${requester}-option`}
           displayName={requesterToTitle[requester]}
           value={requester}
         />

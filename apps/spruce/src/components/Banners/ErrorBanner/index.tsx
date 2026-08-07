@@ -23,14 +23,14 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
       : `${errors.length} errors in configuration file`;
 
   return (
-    <BannerContainer data-cy="configuration-errors-banner">
+    <BannerContainer data-testid="configuration-errors-banner">
       <Callout title={errorTitle} variant="warning">
         {errors[0]}
         {errors.length > 1 && (
           <>
             <br />
             <ModalTriggerText
-              data-cy="configuration-errors-modal-trigger"
+              data-testid="configuration-errors-modal-trigger"
               onClick={() => setShowModal(true)}
             >
               See all errors
@@ -39,7 +39,7 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
         )}
       </Callout>
       <DisplayModal
-        data-cy="configuration-errors-modal"
+        data-testid="configuration-errors-modal"
         open={showModal}
         setOpen={setShowModal}
         title={

@@ -4,7 +4,7 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 interface VisibilityContainerProps {
   children: React.ReactNode;
   className?: string;
-  "data-cy"?: string;
+  "data-testid"?: string;
   offset?: number;
   style?: React.CSSProperties;
 }
@@ -15,7 +15,7 @@ interface VisibilityContainerProps {
  * @param props - VisibilityContainerProps
  * @param props.children - The children to render when the component is visible
  * @param props.className - Class name to apply to the outer div element
- * @param props."data-cy" - Optional data-cy property
+ * @param props."data-testid" - Optional data-testid property
  * @param props.offset - An offset in px which defines when to make component visible
  * @param props.style - Inline styles to apply to the outer div element
  * @returns The VisibilityContainer component
@@ -23,7 +23,7 @@ interface VisibilityContainerProps {
 const VisibilityContainer: React.FC<VisibilityContainerProps> = ({
   children,
   className,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   offset = 0,
   style,
 }) => {
@@ -48,7 +48,7 @@ const VisibilityContainer: React.FC<VisibilityContainerProps> = ({
     <div
       ref={containerRef}
       className={className}
-      data-cy={dataCy}
+      data-testid={dataTestId}
       data-visible={isVisible}
       style={style}
     >

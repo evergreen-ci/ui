@@ -59,12 +59,12 @@ describe("SpawnHost", () => {
       </MockedProvider>,
     );
 
-    expect(screen.getByDataCy("spawn-page-skeleton")).toBeInTheDocument();
+    expect(screen.getByDataTestId("spawn-page-skeleton")).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.queryByDataCy("spawn-page-skeleton")).toBeNull();
+      expect(screen.queryByDataTestId("spawn-page-skeleton")).toBeNull();
     });
-    expect(screen.getByDataCy("spawn-host-button")).toBeInTheDocument();
+    expect(screen.getByDataTestId("spawn-host-button")).toBeInTheDocument();
   });
 
   it("keeps the open spawn host modal mounted when a background refetch occurs after returning to the tab", async () => {
@@ -76,8 +76,10 @@ describe("SpawnHost", () => {
       </MockedProvider>,
     );
 
-    await user.click(await screen.findByDataCy("spawn-host-button"));
-    expect(await screen.findByDataCy("spawn-host-modal")).toBeInTheDocument();
+    await user.click(await screen.findByDataTestId("spawn-host-button"));
+    expect(
+      await screen.findByDataTestId("spawn-host-modal"),
+    ).toBeInTheDocument();
 
     // Leaving and returning to the tab triggers usePolling to refetch, which
     // toggles the query's loading state in Apollo Client v4.
@@ -87,9 +89,9 @@ describe("SpawnHost", () => {
     // The skeleton must not re-render during the background refetch, otherwise
     // the modal would be unmounted and lose its open state.
     await waitFor(() => {
-      expect(screen.queryByDataCy("spawn-page-skeleton")).toBeNull();
+      expect(screen.queryByDataTestId("spawn-page-skeleton")).toBeNull();
     });
-    expect(screen.getByDataCy("spawn-host-modal")).toBeInTheDocument();
+    expect(screen.getByDataTestId("spawn-host-modal")).toBeInTheDocument();
   });
 });
 

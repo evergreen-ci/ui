@@ -30,7 +30,7 @@ export const SpawnVolumeButton: React.FC<SpawnVolumeButtonProps> = ({
         justify="middle"
         trigger={
           <PlusButton
-            data-cy="spawn-volume-btn"
+            data-testid="spawn-volume-btn"
             disabled={reachedMaxVolumeSize}
             onClick={() => {
               setOpenModal(true);

@@ -30,9 +30,9 @@ describe("variantTaskGroup", () => {
       path: "/version/:id",
     });
     expect(screen.getByText("Some Variant")).toBeDefined();
-    expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-      2,
-    );
+    expect(
+      screen.queryAllByDataTestId("grouped-task-status-badge"),
+    ).toHaveLength(2);
   });
   describe("variantTaskGroup status badge state", () => {
     it("should render a status badge for each status", () => {
@@ -42,9 +42,9 @@ describe("variantTaskGroup", () => {
         path: "/version/:id",
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
-      expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2,
-      );
+      expect(
+        screen.queryAllByDataTestId("grouped-task-status-badge"),
+      ).toHaveLength(2);
     });
     it("all should be active if no status and variant filters are set", () => {
       render(<Component />, {
@@ -53,12 +53,14 @@ describe("variantTaskGroup", () => {
         path: "/version/:id",
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
-      expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2,
-      );
-      screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
-        expect(badge).toHaveAttribute("aria-selected", "true");
-      });
+      expect(
+        screen.queryAllByDataTestId("grouped-task-status-badge"),
+      ).toHaveLength(2);
+      screen
+        .queryAllByDataTestId("grouped-task-status-badge")
+        .forEach((badge) => {
+          expect(badge).toHaveAttribute("aria-selected", "true");
+        });
     });
     it("all should be active if the variant is selected and there are no status filters", () => {
       render(<Component />, {
@@ -67,12 +69,14 @@ describe("variantTaskGroup", () => {
         path: "/version/:id",
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
-      expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2,
-      );
-      screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
-        expect(badge).toHaveAttribute("aria-selected", "true");
-      });
+      expect(
+        screen.queryAllByDataTestId("grouped-task-status-badge"),
+      ).toHaveLength(2);
+      screen
+        .queryAllByDataTestId("grouped-task-status-badge")
+        .forEach((badge) => {
+          expect(badge).toHaveAttribute("aria-selected", "true");
+        });
     });
     it("all should be active if no variant is selected and there are status filters", () => {
       render(<Component />, {
@@ -81,12 +85,14 @@ describe("variantTaskGroup", () => {
         path: "/version/:id",
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
-      expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2,
-      );
-      screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
-        expect(badge).toHaveAttribute("aria-selected", "true");
-      });
+      expect(
+        screen.queryAllByDataTestId("grouped-task-status-badge"),
+      ).toHaveLength(2);
+      screen
+        .queryAllByDataTestId("grouped-task-status-badge")
+        .forEach((badge) => {
+          expect(badge).toHaveAttribute("aria-selected", "true");
+        });
     });
 
     it("should only be active if the variant is selected and a matching status filter", () => {
@@ -98,14 +104,14 @@ describe("variantTaskGroup", () => {
         path: "/version/:id",
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
-      expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2,
-      );
-      const successBadge = screen.queryAllByDataCy(
+      expect(
+        screen.queryAllByDataTestId("grouped-task-status-badge"),
+      ).toHaveLength(2);
+      const successBadge = screen.queryAllByDataTestId(
         "grouped-task-status-badge",
       )[0];
       expect(successBadge).toHaveTextContent("Succeeded");
-      const failedBadge = screen.queryAllByDataCy(
+      const failedBadge = screen.queryAllByDataTestId(
         "grouped-task-status-badge",
       )[1];
       expect(failedBadge).toHaveTextContent("Failed");
@@ -122,12 +128,14 @@ describe("variantTaskGroup", () => {
         path: "/version/:id",
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
-      expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2,
-      );
-      screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
-        expect(badge).toHaveAttribute("aria-selected", "false");
-      });
+      expect(
+        screen.queryAllByDataTestId("grouped-task-status-badge"),
+      ).toHaveLength(2);
+      screen
+        .queryAllByDataTestId("grouped-task-status-badge")
+        .forEach((badge) => {
+          expect(badge).toHaveAttribute("aria-selected", "false");
+        });
     });
   });
 
@@ -139,7 +147,9 @@ describe("variantTaskGroup", () => {
           route: "/version/1",
           path: "/version/:id",
         });
-        const variantLink = screen.queryByDataCy("build-variant-display-name");
+        const variantLink = screen.queryByDataTestId(
+          "build-variant-display-name",
+        );
         expect(variantLink).toBeDefined();
         expect(variantLink).toHaveTextContent("Some Variant");
         expect(variantLink).toHaveAttribute(
@@ -156,7 +166,9 @@ describe("variantTaskGroup", () => {
           route: `/version/1?variant=${applyStrictRegex("some_other_variant")}`,
           path: "/version/:id",
         });
-        const variantLink = screen.queryByDataCy("build-variant-display-name");
+        const variantLink = screen.queryByDataTestId(
+          "build-variant-display-name",
+        );
         expect(variantLink).toBeDefined();
         expect(variantLink).toHaveTextContent("Some Variant");
         expect(variantLink).toHaveAttribute(
@@ -173,7 +185,9 @@ describe("variantTaskGroup", () => {
           route: `/version/1?variant=${applyStrictRegex("some_variant")}`,
           path: "/version/:id",
         });
-        const variantLink = screen.queryByDataCy("build-variant-display-name");
+        const variantLink = screen.queryByDataTestId(
+          "build-variant-display-name",
+        );
         expect(variantLink).toBeDefined();
         expect(variantLink).toHaveTextContent("Some Variant");
         expect(variantLink).toHaveAttribute(
@@ -193,9 +207,9 @@ describe("variantTaskGroup", () => {
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
-          screen.queryAllByDataCy("grouped-task-status-badge"),
+          screen.queryAllByDataTestId("grouped-task-status-badge"),
         ).toHaveLength(2);
-        const successBadge = screen.queryAllByDataCy(
+        const successBadge = screen.queryAllByDataTestId(
           "grouped-task-status-badge",
         )[0];
         expect(successBadge).toHaveTextContent("Succeeded");
@@ -208,7 +222,7 @@ describe("variantTaskGroup", () => {
           }),
         );
 
-        const failedBadge = screen.queryAllByDataCy(
+        const failedBadge = screen.queryAllByDataTestId(
           "grouped-task-status-badge",
         )[1];
         expect(failedBadge).toHaveTextContent("Failed");
@@ -229,9 +243,9 @@ describe("variantTaskGroup", () => {
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
-          screen.queryAllByDataCy("grouped-task-status-badge"),
+          screen.queryAllByDataTestId("grouped-task-status-badge"),
         ).toHaveLength(2);
-        const successBadge = screen.queryAllByDataCy(
+        const successBadge = screen.queryAllByDataTestId(
           "grouped-task-status-badge",
         )[0];
         expect(successBadge).toHaveTextContent("Succeeded");
@@ -244,7 +258,7 @@ describe("variantTaskGroup", () => {
           }),
         );
 
-        const failedBadge = screen.queryAllByDataCy(
+        const failedBadge = screen.queryAllByDataTestId(
           "grouped-task-status-badge",
         )[1];
         expect(failedBadge).toHaveTextContent("Failed");
@@ -265,9 +279,9 @@ describe("variantTaskGroup", () => {
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
-          screen.queryAllByDataCy("grouped-task-status-badge"),
+          screen.queryAllByDataTestId("grouped-task-status-badge"),
         ).toHaveLength(2);
-        const successBadge = screen.queryAllByDataCy(
+        const successBadge = screen.queryAllByDataTestId(
           "grouped-task-status-badge",
         )[0];
         expect(successBadge).toHaveTextContent("Succeeded");
@@ -280,7 +294,7 @@ describe("variantTaskGroup", () => {
           }),
         );
 
-        const failedBadge = screen.queryAllByDataCy(
+        const failedBadge = screen.queryAllByDataTestId(
           "grouped-task-status-badge",
         )[1];
         expect(failedBadge).toHaveTextContent("Failed");
@@ -303,9 +317,9 @@ describe("variantTaskGroup", () => {
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
-          screen.queryAllByDataCy("grouped-task-status-badge"),
+          screen.queryAllByDataTestId("grouped-task-status-badge"),
         ).toHaveLength(2);
-        const successBadge = screen.queryAllByDataCy(
+        const successBadge = screen.queryAllByDataTestId(
           "grouped-task-status-badge",
         )[0];
         expect(successBadge).toHaveTextContent("Succeeded");

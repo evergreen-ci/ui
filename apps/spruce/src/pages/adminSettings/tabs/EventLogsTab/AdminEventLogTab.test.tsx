@@ -29,17 +29,19 @@ describe("admin event log page", async () => {
     const { Component } = RenderFakeToastContext(<EventLogsTab />);
     render(<Component />, { wrapper: loadingWrapper });
 
-    expect(screen.getByDataCy("admin-events-skeleton")).toBeInTheDocument();
+    expect(screen.getByDataTestId("admin-events-skeleton")).toBeInTheDocument();
   });
 
   it("does not show a load more button when all events are shown", async () => {
     const { Component } = RenderFakeToastContext(<EventLogsTab />);
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(5);
+      expect(screen.queryAllByDataTestId("event-log-card")).toHaveLength(5);
     });
 
-    expect(screen.queryByDataCy("load-more-button")).not.toBeInTheDocument();
+    expect(
+      screen.queryByDataTestId("load-more-button"),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("No more events to show.")).toBeInTheDocument();
   });
 
@@ -47,7 +49,7 @@ describe("admin event log page", async () => {
     const { Component } = RenderFakeToastContext(<EventLogsTab />);
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(5);
+      expect(screen.queryAllByDataTestId("event-log-card")).toHaveLength(5);
     });
 
     const expectedTimestamps = [
@@ -71,7 +73,7 @@ describe("admin event log page", async () => {
     const { Component } = RenderFakeToastContext(<EventLogsTab />);
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(5);
+      expect(screen.queryAllByDataTestId("event-log-card")).toHaveLength(5);
     });
 
     const expectedUsers = [

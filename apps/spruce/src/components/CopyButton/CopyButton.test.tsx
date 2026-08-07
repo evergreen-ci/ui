@@ -6,7 +6,7 @@ describe("copy button", () => {
     const user = userEvent.setup();
     render(<CopyButton textToCopy="hello world" tooltipLabel="Copy me!" />);
 
-    const copyButton = screen.getByDataCy("copy-button");
+    const copyButton = screen.getByDataTestId("copy-button");
     await user.hover(copyButton);
 
     await waitFor(() => {
@@ -22,7 +22,7 @@ describe("copy button", () => {
     const user = userEvent.setup();
     render(<CopyButton textToCopy="hello world" tooltipLabel="Copy me!" />);
 
-    const copyButton = screen.getByDataCy("copy-button");
+    const copyButton = screen.getByDataTestId("copy-button");
     await user.click(copyButton);
 
     const clipboardText = await navigator.clipboard.readText();

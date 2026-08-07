@@ -20,7 +20,7 @@ describe("distro select", () => {
       wrapper,
     });
     await waitFor(() => {
-      expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
+      expect(screen.getByDataTestId("distro-select")).toBeInTheDocument();
     });
     await waitFor(() => {
       expect(screen.getByDisplayValue("localhost")).toBeVisible();
@@ -35,7 +35,7 @@ describe("distro select", () => {
       path: "/distro/:distroId/settings/:tab",
     });
     await waitFor(() => {
-      expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
+      expect(screen.getByDataTestId("distro-select")).toBeInTheDocument();
     });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
@@ -54,7 +54,7 @@ describe("distro select", () => {
       wrapper,
     });
     await waitFor(() => {
-      expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
+      expect(screen.getByDataTestId("distro-select")).toBeInTheDocument();
     });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
@@ -75,7 +75,7 @@ describe("distro select", () => {
       wrapper,
     });
     await waitFor(() => {
-      expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
+      expect(screen.getByDataTestId("distro-select")).toBeInTheDocument();
     });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();

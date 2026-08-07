@@ -88,13 +88,13 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
     <>
       <PortalBanner
         banner={
-          <Banner data-cy="repotracker-error-banner" variant="danger">
+          <Banner data-testid="repotracker-error-banner" variant="danger">
             {isProjectAdmin ? (
               <span>
                 The project was unable to build. Please specify a new base
                 revision by clicking{" "}
                 <ModalTriggerText
-                  data-cy="repotracker-error-trigger"
+                  data-testid="repotracker-error-trigger"
                   onClick={() => setOpenModal(true)}
                 >
                   here
@@ -116,7 +116,7 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
           disabled: baseRevision.length < 40,
           onClick: onConfirm,
         }}
-        data-cy="repotracker-error-modal"
+        data-testid="repotracker-error-modal"
         open={openModal}
         setOpen={setOpenModal}
         title="Enter New Base Revision"

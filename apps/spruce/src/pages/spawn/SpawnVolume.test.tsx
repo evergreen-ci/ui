@@ -48,12 +48,12 @@ describe("SpawnVolume", () => {
       </MockedProvider>,
     );
 
-    expect(screen.getByDataCy("spawn-page-skeleton")).toBeInTheDocument();
+    expect(screen.getByDataTestId("spawn-page-skeleton")).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.queryByDataCy("spawn-page-skeleton")).toBeNull();
+      expect(screen.queryByDataTestId("spawn-page-skeleton")).toBeNull();
     });
-    expect(screen.getByDataCy("spawn-volume-btn")).toBeInTheDocument();
+    expect(screen.getByDataTestId("spawn-volume-btn")).toBeInTheDocument();
   });
 
   it("keeps the open spawn volume modal mounted when a background refetch occurs after returning to the tab", async () => {
@@ -65,8 +65,10 @@ describe("SpawnVolume", () => {
       </MockedProvider>,
     );
 
-    await user.click(await screen.findByDataCy("spawn-volume-btn"));
-    expect(await screen.findByDataCy("spawn-volume-modal")).toBeInTheDocument();
+    await user.click(await screen.findByDataTestId("spawn-volume-btn"));
+    expect(
+      await screen.findByDataTestId("spawn-volume-modal"),
+    ).toBeInTheDocument();
 
     // Leaving and returning to the tab triggers usePolling to refetch, which
     // toggles the query's loading state in Apollo Client v4.
@@ -76,9 +78,9 @@ describe("SpawnVolume", () => {
     // The skeleton must not re-render during the background refetch, otherwise
     // the modal would be unmounted and lose its open state.
     await waitFor(() => {
-      expect(screen.queryByDataCy("spawn-page-skeleton")).toBeNull();
+      expect(screen.queryByDataTestId("spawn-page-skeleton")).toBeNull();
     });
-    expect(screen.getByDataCy("spawn-volume-modal")).toBeInTheDocument();
+    expect(screen.getByDataTestId("spawn-volume-modal")).toBeInTheDocument();
   });
 });
 

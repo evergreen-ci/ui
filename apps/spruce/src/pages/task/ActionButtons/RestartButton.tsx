@@ -70,7 +70,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
           <Menu
             trigger={
               <LoadingButton
-                data-cy="restart-task"
+                data-testid="restart-task"
                 disabled={disabled}
                 loading={loadingRestartTask}
                 size={ButtonSize.Small}
@@ -107,7 +107,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
         ) : (
           <LoadingButton
             key="restart"
-            data-cy="restart-task"
+            data-testid="restart-task"
             disabled={disabled}
             loading={loadingRestartTask}
             onClick={() => {

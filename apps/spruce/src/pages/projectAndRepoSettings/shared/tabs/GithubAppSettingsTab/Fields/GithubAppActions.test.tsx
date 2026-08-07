@@ -48,10 +48,10 @@ describe("githubAppActions", () => {
       );
       render(<Component />);
       expect(
-        screen.getByDataCy("github-app-credentials-banner"),
+        screen.getByDataTestId("github-app-credentials-banner"),
       ).toBeInTheDocument();
       expect(
-        screen.queryByDataCy("replace-app-credentials-button"),
+        screen.queryByDataTestId("replace-app-credentials-button"),
       ).not.toBeInTheDocument();
     });
   });
@@ -61,10 +61,10 @@ describe("githubAppActions", () => {
       const { Component } = RenderFakeToastContext(<Field isAppDefined />);
       render(<Component />);
       expect(
-        screen.getByDataCy("replace-app-credentials-button"),
+        screen.getByDataTestId("replace-app-credentials-button"),
       ).toBeInTheDocument();
       expect(
-        screen.queryByDataCy("github-app-credentials-banner"),
+        screen.queryByDataTestId("github-app-credentials-banner"),
       ).not.toBeInTheDocument();
     });
 
@@ -75,9 +75,11 @@ describe("githubAppActions", () => {
         <Field isAppDefined />,
       );
       render(<Component />);
-      await user.click(screen.getByDataCy("replace-app-credentials-button"));
+      await user.click(
+        screen.getByDataTestId("replace-app-credentials-button"),
+      );
       expect(
-        screen.getByDataCy("replace-github-credentials-modal"),
+        screen.getByDataTestId("replace-github-credentials-modal"),
       ).toBeInTheDocument();
 
       // Replace button should be disabled without input
@@ -87,9 +89,9 @@ describe("githubAppActions", () => {
       expect(replaceButton).toHaveAttribute("aria-disabled", "true");
 
       // Fill in new credentials
-      await user.type(screen.getByDataCy("replace-app-id-input"), "99999");
+      await user.type(screen.getByDataTestId("replace-app-id-input"), "99999");
       await user.type(
-        screen.getByDataCy("replace-private-key-input"),
+        screen.getByDataTestId("replace-private-key-input"),
         "new-private-key",
       );
       expect(replaceButton).not.toHaveAttribute("aria-disabled", "true");

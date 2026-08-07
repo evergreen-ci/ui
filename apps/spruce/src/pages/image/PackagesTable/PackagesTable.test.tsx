@@ -34,13 +34,15 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
+        10,
+      );
     });
     const expectedNames = (
       imagePackagesPageOneMock.result?.data?.image?.packages.data || []
     ).map(({ name }) => name);
 
-    const rows = screen.getAllByDataCy("packages-table-row");
+    const rows = screen.getAllByTestId("packages-table-row");
     expectedNames.forEach((expectedName, i) => {
       expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
         expectedName,
@@ -54,9 +56,11 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
+        10,
+      );
     });
-    const rows = screen.getAllByDataCy("packages-table-row");
+    const rows = screen.getAllByTestId("packages-table-row");
     for (let i = 0; i < 10; i++) {
       expect(within(rows[i]).getAllByRole("cell")[1]).toHaveTextContent(
         "pip 22.0.2 from (python 3.10)",
@@ -70,13 +74,15 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
+        10,
+      );
     });
     const expectedVersions = (
       imagePackagesPageOneMock.result?.data?.image?.packages.data || []
     ).map(({ version }) => version);
 
-    const rows = screen.getAllByDataCy("packages-table-row");
+    const rows = screen.getAllByTestId("packages-table-row");
     expectedVersions.forEach((expectedVersion, i) => {
       expect(within(rows[i]).getAllByRole("cell")[2]).toHaveTextContent(
         expectedVersion,
@@ -91,12 +97,14 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
+        10,
+      );
     });
-    await user.click(screen.getByDataCy("package-name-filter"));
+    await user.click(screen.getByDataTestId("package-name-filter"));
     await user.type(screen.getByPlaceholderText("Name regex"), "bcrypt{enter}");
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(1);
+      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("1 - 1 of 1 item")).toBeInTheDocument();
   });
@@ -108,11 +116,13 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
+      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
+        10,
+      );
     });
     await user.click(screen.getByTestId("lg-pagination-next-button"));
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(5);
+      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(5);
     });
     expect(screen.getByText("11 - 15 of 15 items")).toBeInTheDocument();
   });

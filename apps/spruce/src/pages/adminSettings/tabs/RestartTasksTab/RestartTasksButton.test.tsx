@@ -49,7 +49,7 @@ describe("restartTasksButton", () => {
       <RestartTasks disabled hasTasksToRestart />,
     );
     render(<Component />);
-    const restartTasksButton = screen.getByDataCy("restart-tasks-button");
+    const restartTasksButton = screen.getByDataTestId("restart-tasks-button");
     expect(restartTasksButton).toBeInTheDocument();
     expect(restartTasksButton).toHaveAttribute("aria-disabled", "true");
   });
@@ -60,11 +60,11 @@ describe("restartTasksButton", () => {
       <RestartTasks disabled={false} hasTasksToRestart />,
     );
     render(<Component />);
-    const restartTasksButton = screen.getByDataCy("restart-tasks-button");
+    const restartTasksButton = screen.getByDataTestId("restart-tasks-button");
     expect(restartTasksButton).toBeInTheDocument();
     expect(restartTasksButton).toHaveAttribute("aria-disabled", "false");
     await user.click(restartTasksButton);
-    expect(screen.getByDataCy("restart-tasks-modal")).toBeInTheDocument();
+    expect(screen.getByDataTestId("restart-tasks-modal")).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText("task-1")).toBeInTheDocument();
@@ -82,11 +82,11 @@ describe("restartTasksButton", () => {
       <RestartTasks disabled={false} hasTasksToRestart={false} />,
     );
     render(<Component />);
-    const restartTasksButton = screen.getByDataCy("restart-tasks-button");
+    const restartTasksButton = screen.getByDataTestId("restart-tasks-button");
     expect(restartTasksButton).toBeInTheDocument();
     expect(restartTasksButton).toHaveAttribute("aria-disabled", "false");
     await user.click(restartTasksButton);
-    expect(screen.getByDataCy("restart-tasks-modal")).toBeInTheDocument();
+    expect(screen.getByDataTestId("restart-tasks-modal")).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText("No tasks found.")).toBeInTheDocument();
@@ -101,11 +101,11 @@ describe("restartTasksButton", () => {
       <RestartTasks disabled={false} hasTasksToRestart />,
     );
     render(<Component />);
-    const restartTasksButton = screen.getByDataCy("restart-tasks-button");
+    const restartTasksButton = screen.getByDataTestId("restart-tasks-button");
     expect(restartTasksButton).toBeInTheDocument();
     expect(restartTasksButton).toHaveAttribute("aria-disabled", "false");
     await user.click(restartTasksButton);
-    expect(screen.getByDataCy("restart-tasks-modal")).toBeInTheDocument();
+    expect(screen.getByDataTestId("restart-tasks-modal")).toBeInTheDocument();
 
     const confirmButton = screen.getByRole("button", { name: "Confirm" });
     await waitFor(() => {

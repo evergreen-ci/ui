@@ -155,8 +155,8 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
       }
     >
       <BaseTable
-        data-cy="downstream-tasks-table"
-        data-cy-row="downstream-tasks-table-row"
+        data-testid="downstream-tasks-table"
+        data-testid-row="downstream-tasks-table-row"
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         shouldAlternateRowColor

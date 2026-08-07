@@ -30,10 +30,10 @@ export const CopyButton: React.FC<Props> = ({ textToCopy, tooltipLabel }) => {
 
   return (
     <Tooltip
-      data-cy="copy-button-tooltip"
+      data-testid="copy-button-tooltip"
       trigger={
         <Button
-          data-cy="copy-button"
+          data-testid="copy-button"
           leftGlyph={
             copied ? <Icon glyph="Checkmark" /> : <Icon glyph="Copy" />
           }
