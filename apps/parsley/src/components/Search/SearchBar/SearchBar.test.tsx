@@ -11,7 +11,7 @@ describe("searchbar", () => {
   it("disables properly", () => {
     render(<SearchBar disabled />);
     const { isDisabled } = getTestUtils();
-    expect(screen.getByDataCy("searchbar-select")).toHaveAttribute(
+    expect(screen.getByDataTestId("searchbar-select")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -22,7 +22,7 @@ describe("searchbar", () => {
     const paginate = vi.fn();
     render(<SearchBar paginate={paginate} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
     await user.type(input, "{enter}");
@@ -35,7 +35,7 @@ describe("searchbar", () => {
     const paginate = vi.fn();
     render(<SearchBar paginate={paginate} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
     await user.type(input, "{Shift>}{enter}");
@@ -48,7 +48,7 @@ describe("searchbar", () => {
     const onSubmit = vi.fn();
     render(<SearchBar onSubmit={onSubmit} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
     await user.type(input, "{Control>}{enter}");
@@ -61,10 +61,10 @@ describe("searchbar", () => {
     const onSubmit = vi.fn();
     render(<SearchBar onSubmit={onSubmit} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
-    await user.click(screen.getByDataCy("searchbar-submit"));
+    await user.click(screen.getByDataTestId("searchbar-submit"));
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit).toHaveBeenCalledWith("filter", "test");
   });
@@ -73,12 +73,12 @@ describe("searchbar", () => {
     const onSubmit = vi.fn();
     render(<SearchBar onSubmit={onSubmit} validator={(i) => i.length > 5} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
     const { isError } = getTestUtils();
     expect(isError()).toBe(true);
-    expect(screen.queryByDataCy("searchbar-submit")).toHaveAttribute(
+    expect(screen.queryByDataTestId("searchbar-submit")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -89,7 +89,7 @@ describe("searchbar", () => {
     const onSubmit = vi.fn();
     render(<SearchBar onSubmit={onSubmit} validator={(i) => i.length > 5} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     await user.type(input, "{Control>}{enter}");
     expect(input).toHaveValue("test");
@@ -100,15 +100,15 @@ describe("searchbar", () => {
     const onSubmit = vi.fn();
     render(<SearchBar onSubmit={onSubmit} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
     await user.type(input, "{Control>}{enter}");
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit).toHaveBeenCalledWith("filter", "test");
 
-    await user.click(screen.getByDataCy("searchbar-select"));
-    await user.click(screen.getByDataCy("highlight-option"));
+    await user.click(screen.getByDataTestId("searchbar-select"));
+    await user.click(screen.getByDataTestId("highlight-option"));
     await user.type(input, "test");
     expect(input).toHaveValue("test");
     await user.type(input, "{Control>}{enter}");
@@ -119,9 +119,9 @@ describe("searchbar", () => {
     const onSubmit = vi.fn();
     render(<SearchBar onSubmit={onSubmit} validator={() => true} />);
 
-    const input = screen.getByDataCy("searchbar-input");
-    await user.click(screen.getByDataCy("searchbar-select"));
-    await user.click(screen.getByDataCy("filter-option"));
+    const input = screen.getByDataTestId("searchbar-input");
+    await user.click(screen.getByDataTestId("searchbar-select"));
+    await user.click(screen.getByDataTestId("filter-option"));
     await user.type(input, "test");
     await user.type(input, "{Control>}{enter}");
     expect(input).toHaveValue("");
@@ -133,7 +133,7 @@ describe("searchbar", () => {
     const onChange = vi.fn();
     render(<SearchBar onChange={onChange} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
     vi.advanceTimersByTime(1000);
@@ -146,7 +146,7 @@ describe("searchbar", () => {
     const onChange = vi.fn();
     render(<SearchBar onChange={onChange} validator={(i) => i.length > 4} />);
 
-    const input = screen.getByDataCy("searchbar-input");
+    const input = screen.getByDataTestId("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
     vi.advanceTimersByTime(1000);
@@ -161,7 +161,7 @@ describe("searchbar", () => {
     const user = userEvent.setup();
     render(<SearchBar onSubmit={vi.fn()} />);
 
-    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    const input = screen.getByDataTestId("searchbar-input") as HTMLInputElement;
     const inputText = "input text";
     await user.type(input, inputText);
     await user.click(document.body as HTMLElement);
@@ -176,7 +176,7 @@ describe("searchbar", () => {
     const user = userEvent.setup();
     render(<SearchBar onSubmit={vi.fn()} />);
 
-    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    const input = screen.getByDataTestId("searchbar-input") as HTMLInputElement;
     const inputText = "input text";
     await user.type(input, inputText);
     await user.click(document.body as HTMLElement);
@@ -201,13 +201,13 @@ describe("searchbar", () => {
       <SearchBar onChange={onChange} searchSuggestions={searchSuggestions} />,
     );
 
-    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await user.click(screen.getByDataTestId("search-suggestion-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+      expect(screen.getByDataTestId("search-suggestion-popover")).toBeVisible();
     });
     await user.click(screen.getByText("apple"));
 
-    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    const input = screen.getByDataTestId("searchbar-input") as HTMLInputElement;
     expect(input).toHaveValue("apple");
     expect(input).toHaveFocus();
     vi.advanceTimersByTime(1000);
@@ -227,7 +227,7 @@ describe("searchbar", () => {
       <SearchBar onSubmit={vi.fn()} searchSuggestions={searchSuggestions} />,
     );
 
-    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    const input = screen.getByDataTestId("searchbar-input") as HTMLInputElement;
     await user.type(input, "ap");
     expect(input).toHaveValue("ap");
     expect(screen.getByText("apple")).toBeVisible();
@@ -244,7 +244,7 @@ describe("searchbar", () => {
       <SearchBar onSubmit={vi.fn()} searchSuggestions={searchSuggestions} />,
     );
 
-    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    const input = screen.getByDataTestId("searchbar-input") as HTMLInputElement;
     await user.type(input, "apple");
     expect(input).toHaveValue("apple");
     expect(screen.queryByText("apple")).toBeNull();
@@ -261,7 +261,7 @@ describe("searchbar", () => {
       <SearchBar onSubmit={vi.fn()} searchSuggestions={searchSuggestions} />,
     );
 
-    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    const input = screen.getByDataTestId("searchbar-input") as HTMLInputElement;
     await user.type(input, "ap");
     expect(input).toHaveValue("ap");
     await user.type(input, "{tab}");

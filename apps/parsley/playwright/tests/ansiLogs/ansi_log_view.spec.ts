@@ -17,7 +17,7 @@ test.describe("Basic evergreen log view", () => {
   }) => {
     await expect(page.getByTestId("log-row-22")).toBeVisible();
     await expect(page.getByTestId("log-row-22")).toContainText(longLogLine);
-    await helpers.isNotContainedInViewport(page, "[data-cy=log-row-22]");
+    await helpers.isNotContainedInViewport(page, "[data-testid=log-row-22]");
 
     await page.getByTestId("paginated-virtual-list").evaluate((el) => {
       el.scrollTo(500, 0);
@@ -30,7 +30,7 @@ test.describe("Basic evergreen log view", () => {
     await helpers.clickToggle(page, "wrap-toggle", true, "log-viewing");
     await expect(page.getByTestId("log-row-22")).toBeVisible();
     await expect(page.getByTestId("log-row-22")).toContainText(longLogLine);
-    await helpers.isContainedInViewport(page, "[data-cy=log-row-22]");
+    await helpers.isContainedInViewport(page, "[data-testid=log-row-22]");
   });
 
   test("should still allow horizontal scrolling when there are few logs on screen", async ({
@@ -170,7 +170,7 @@ test.describe("Jump to line", () => {
     page,
   }) => {
     await page.goto(logLink);
-    await expect(page.locator("[data-cy^='log-row-']")).not.toHaveCount(0);
+    await expect(page.locator("[data-testid^='log-row-']")).not.toHaveCount(0);
     await expect(page.getByTestId("log-row-4")).toBeVisible();
     await page.getByTestId("log-row-4").dblclick();
     await expect(page.getByTestId("bookmark-4")).toBeVisible();
@@ -186,7 +186,7 @@ test.describe("Jump to line", () => {
     page,
   }) => {
     await page.goto(`${logLink}?filters=100pass`);
-    await expect(page.locator("[data-cy^='log-row-']")).not.toHaveCount(0);
+    await expect(page.locator("[data-testid^='log-row-']")).not.toHaveCount(0);
     await page.getByTestId("log-row-56").dblclick();
     await expect(page.getByTestId("bookmark-56")).toBeVisible();
 

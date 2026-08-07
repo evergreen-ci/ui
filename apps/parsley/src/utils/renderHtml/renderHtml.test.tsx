@@ -7,44 +7,48 @@ describe("renderHtml", () => {
     expect(screen.getByText("test string")).toBeInTheDocument();
   });
   it("renders a string with html and preserves allowed elements with their props", () => {
-    render(<>{renderHtml("test <span data-cy='element'>string</span>")}</>);
-    expect(screen.queryByDataCy("element")).toHaveTextContent("string");
+    render(<>{renderHtml("test <span data-testid='element'>string</span>")}</>);
+    expect(screen.queryByDataTestId("element")).toHaveTextContent("string");
   });
   it("renders a string with html and escapes disallowed elements", () => {
     const { rerender } = render(
       <>
         {renderHtml(
-          "<span data-cy='log-line'>test <script data-cy='should-not-exist'>alert('test')</script></span>",
+          "<span data-testid='log-line'>test <script data-testid='should-not-exist'>alert('test')</script></span>",
         )}
       </>,
     );
-    expect(screen.queryByDataCy("should-not-exist")).toBeNull();
-    expect(screen.queryByDataCy("log-line")).toHaveTextContent(
-      "test <script data-cy='should-not-exist'>alert('test')</script>",
+    expect(screen.queryByDataTestId("should-not-exist")).toBeNull();
+    expect(screen.queryByDataTestId("log-line")).toHaveTextContent(
+      "test <script data-testid='should-not-exist'>alert('test')</script>",
     );
     rerender(
       <>
-        {renderHtml("<span data-cy='log-line'>test <mongo::<std:lib >></span>")}
+        {renderHtml(
+          "<span data-testid='log-line'>test <mongo::<std:lib >></span>",
+        )}
       </>,
     );
-    expect(screen.queryByDataCy("log-line")).toHaveTextContent(
+    expect(screen.queryByDataTestId("log-line")).toHaveTextContent(
       "test <mongo::<std:lib >>",
     );
   });
   it("replaces a element with a react component if specified", () => {
     const Component = ({ children }: { children: React.ReactElement }) => (
-      <div data-cy="component">✨{children}✨</div>
+      <div data-testid="component">✨{children}✨</div>
     );
     render(
       <>
-        {renderHtml("test <span data-cy='element'>string</span>", {
+        {renderHtml("test <span data-testid='element'>string</span>", {
           // @ts-expect-error - This is expecting a react component but its an Emotion component which are virtually the same thing
           transformNode: { span: Component },
         })}
       </>,
     );
-    expect(screen.queryByDataCy("element")).not.toBeInTheDocument();
-    expect(screen.getByDataCy("component")).toBeInTheDocument();
-    expect(screen.queryByDataCy("component")).toHaveTextContent("✨string✨");
+    expect(screen.queryByDataTestId("element")).not.toBeInTheDocument();
+    expect(screen.getByDataTestId("component")).toBeInTheDocument();
+    expect(screen.queryByDataTestId("component")).toHaveTextContent(
+      "✨string✨",
+    );
   });
 });

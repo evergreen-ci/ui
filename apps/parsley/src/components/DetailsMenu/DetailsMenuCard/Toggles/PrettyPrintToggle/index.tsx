@@ -10,7 +10,7 @@ const PrettyPrintToggle: React.FC = () => {
 
   return (
     <BaseToggle
-      data-cy="pretty-print-toggle"
+      data-testid="pretty-print-toggle"
       label="Pretty Print Bookmarks"
       onChange={(value) => {
         setPrettyPrint(value);

@@ -13,7 +13,6 @@ type PopconfirmProps = Omit<
 > & {
   confirmDisabled?: boolean;
   confirmText?: string;
-  "data-cy"?: string;
   onConfirm?: (e?: React.MouseEvent) => void;
   children: React.ReactNode;
 };
@@ -73,7 +72,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
         <ButtonWrapper>
           <Button
             as="button"
-            data-cy="popconfirm-cancel-button"
+            data-testid="popconfirm-cancel-button"
             onClick={() => {
               onClose();
               setOpen(false);
@@ -85,6 +84,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
           <Button
             as="button"
             data-cy="popconfirm-confirm-button"
+            data-testid="popconfirm-confirm-button"
             disabled={confirmDisabled}
             onClick={(e) => {
               onConfirm(e);

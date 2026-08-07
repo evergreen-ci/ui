@@ -20,7 +20,7 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
 }) => (
   <ChipContainer dismissible={dismissible}>
     {chips.map((chip) => (
-      <SingleChip key={chip.identifier} data-cy={chip.identifier}>
+      <SingleChip key={chip.identifier} data-testid={chip.identifier}>
         <RichLink
           // @ts-expect-error: The types aren't exported from LG
           badgeColor={chip.badgeColor ?? "purple"}

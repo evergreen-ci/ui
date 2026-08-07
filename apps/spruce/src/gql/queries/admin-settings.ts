@@ -263,12 +263,8 @@ export const ADMIN_SETTINGS = gql`
           alertableInstanceTypes
           allowedInstanceTypes
           allowedRegions
+          allowedSNSTopicARNs
           defaultSecurityGroup
-          ec2Keys {
-            key
-            name
-            secret
-          }
           elasticIPUsageRate
           ipamPoolID
           maxVolumeSizePerUser
@@ -287,6 +283,8 @@ export const ADMIN_SETTINGS = gql`
             az
             subnetId
           }
+          subnetTagName
+          subnetTagValue
         }
         docker {
           apiVersion
@@ -294,6 +292,7 @@ export const ADMIN_SETTINGS = gql`
       }
       rateLimit {
         elevatedUserIds
+        exemptUserIds
         graphqlComplexityLimit
         graphqlServiceBurst
         graphqlServicePerHour

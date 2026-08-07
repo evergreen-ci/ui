@@ -57,20 +57,20 @@ describe("detailsMenu", () => {
     const user = userEvent.setup();
 
     renderDetailsMenu();
-    expect(screen.queryByDataCy("details-menu")).not.toBeInTheDocument();
+    expect(screen.queryByDataTestId("details-menu")).not.toBeInTheDocument();
     const detailsButton = screen.getByRole("button", {
       name: "Details",
     });
     expect(detailsButton).toBeEnabled();
     await user.click(detailsButton);
-    expect(screen.getByDataCy("details-menu")).toBeInTheDocument();
+    expect(screen.getByDataTestId("details-menu")).toBeInTheDocument();
   });
 
   it("updating search range should flash the details button", async () => {
     vi.useFakeTimers();
 
     const { hook } = renderDetailsMenu();
-    expect(screen.queryByDataCy("details-menu")).not.toBeInTheDocument();
+    expect(screen.queryByDataTestId("details-menu")).not.toBeInTheDocument();
     const detailsButton = screen.getByRole("button", {
       name: "Details",
     });

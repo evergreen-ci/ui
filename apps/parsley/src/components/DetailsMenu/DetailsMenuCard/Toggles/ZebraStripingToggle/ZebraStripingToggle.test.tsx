@@ -20,20 +20,20 @@ describe("zebra striping toggle", () => {
   it("defaults to 'false' if stored value is unset", () => {
     localStorage.clear();
     render(<ZebraStripingToggle />, { wrapper });
-    const zebraStripingToggle = screen.getByDataCy("zebra-striping-toggle");
+    const zebraStripingToggle = screen.getByDataTestId("zebra-striping-toggle");
     expect(zebraStripingToggle).toHaveAttribute("aria-checked", "false");
   });
 
   it("should read from localStorage properly", () => {
     render(<ZebraStripingToggle />, { wrapper });
-    const zebraStripingToggle = screen.getByDataCy("zebra-striping-toggle");
+    const zebraStripingToggle = screen.getByDataTestId("zebra-striping-toggle");
     expect(zebraStripingToggle).toHaveAttribute("aria-checked", "true");
   });
 
   it("should not update the URL", async () => {
     const user = userEvent.setup();
     const { router } = render(<ZebraStripingToggle />, { wrapper });
-    const zebraStripingToggle = screen.getByDataCy("zebra-striping-toggle");
+    const zebraStripingToggle = screen.getByDataTestId("zebra-striping-toggle");
 
     await user.click(zebraStripingToggle);
     expect(zebraStripingToggle).toHaveAttribute("aria-checked", "false");

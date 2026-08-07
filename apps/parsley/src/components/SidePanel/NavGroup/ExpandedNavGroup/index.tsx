@@ -20,7 +20,7 @@ const ExpandedNavGroup: React.FC<ExpandedNavGroupProps> = ({
 
   return (
     <BaseNavGroup
-      data-cy="expanded-lines"
+      data-testid="expanded-lines"
       defaultMessage="No lines have been expanded."
       glyph="Expand"
       items={expandedLines}
@@ -29,7 +29,7 @@ const ExpandedNavGroup: React.FC<ExpandedNavGroupProps> = ({
       {expandedLines.map((e, idx) => (
         <ExpandedLine
           key={`expanded-row-${e[0]}-to-${e[1]}`}
-          data-cy={`expanded-row-${e[0]}-to-${e[1]}`}
+          data-testid={`expanded-row-${e[0]}-to-${e[1]}`}
         >
           <IconButton
             aria-label="Delete range"

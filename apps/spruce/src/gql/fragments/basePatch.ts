@@ -14,7 +14,7 @@ export const BASE_PATCH = gql`
       id
     }
     status
-    user: userLite {
+    user {
       displayName
       userId: id
     }

@@ -100,10 +100,12 @@ const taskQueueTableColumns = (
       ),
       align: "center",
       id: "index",
+      size: 100,
     },
     {
       header: "Task",
       accessorKey: "displayName",
+      size: 400,
       cell: (value) => {
         const { buildVariant, displayName, id } = value.row.original;
         return (
@@ -124,11 +126,13 @@ const taskQueueTableColumns = (
       header: "Est. Runtime",
       accessorKey: "expectedDuration",
       align: "center",
+      size: 120,
       cell: (value) => msToDuration(value.row.original.expectedDuration),
     },
     {
       header: "Project",
       accessorKey: "projectIdentifier",
+      size: NaN,
       cell: (value) => {
         const project =
           value.row.original.projectIdentifier || value.row.original.project;
@@ -145,6 +149,7 @@ const taskQueueTableColumns = (
     {
       header: "Version",
       accessorKey: "version",
+      size: NaN,
       cell: (value) => (
         <StyledRouterLink
           onClick={() => sendEvent({ name: "Clicked version link" })}
@@ -159,6 +164,7 @@ const taskQueueTableColumns = (
       accessorKey: "priority",
       align: "center",
       cell: (value) => <Badge>{value.row.original.priority}</Badge>,
+      size: 60,
     },
     {
       header: "Activated By",

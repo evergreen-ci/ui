@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { palette } from "@leafygreen-ui/palette";
 import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
@@ -13,6 +14,7 @@ import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
+import { TaskTab } from "types/task";
 import { ReviewedCheckbox } from "./ReviewedCheckbox";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
@@ -22,6 +24,7 @@ export const getColumnsTemplate = ({
   isPatch = false,
   loading = false,
   onClickTaskLink = () => {},
+  onClickTaskStatusBadge = () => {},
   showTaskExecutionLabel = false,
   statusOptions = [],
 }: {
@@ -29,6 +32,11 @@ export const getColumnsTemplate = ({
   isPatch?: boolean;
   loading?: boolean;
   onClickTaskLink?: (taskId: string, status?: string) => void;
+  onClickTaskStatusBadge?: (
+    taskId: string,
+    status: string,
+    column: string,
+  ) => void;
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
 }): LGColumnDef<TaskTableInfo>[] => [
@@ -75,6 +83,7 @@ export const getColumnsTemplate = ({
     id: TaskSortCategory.Status,
     header: "Task Status",
     cell: ({
+      column,
       getValue,
       row: {
         original: { dependsOn, errors, execution, id },
@@ -93,6 +102,7 @@ export const getColumnsTemplate = ({
                 <TaskStatusBadgeWithLink
                   execution={execution}
                   id={id}
+                  onClick={() => onClickTaskStatusBadge(id, status, column.id)}
                   status={status as TaskStatus}
                 />
               </span>
@@ -105,10 +115,11 @@ export const getColumnsTemplate = ({
       }
 
       return (
-        <TaskBadgeWrapper>
+        <FlexWrapper>
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
+            onClick={() => onClickTaskStatusBadge(id, status, column.id)}
             status={status as TaskStatus}
           />
           {hasErrors && (
@@ -116,7 +127,7 @@ export const getColumnsTemplate = ({
               {errors.join(", ")}
             </IconWithTooltip>
           )}
-        </TaskBadgeWrapper>
+        </FlexWrapper>
       );
     },
     meta: {
@@ -133,20 +144,24 @@ export const getColumnsTemplate = ({
     accessorKey: "baseTask.displayStatus",
     header: `${isPatch ? "Base" : "Previous"} Status`,
     cell: ({
+      column,
       getValue,
       row: {
-        original: { baseTask },
+        original: { baseTask, id },
       },
-    }) =>
-      baseTask ? (
+    }) => {
+      const status = getValue() as TaskStatus;
+      return baseTask ? (
         <TaskStatusBadgeWithLink
           execution={baseTask?.execution}
           id={baseTask?.id}
-          status={getValue() as TaskStatus}
+          onClick={() => onClickTaskStatusBadge(id, status, column.id)}
+          status={status}
         />
       ) : (
-        <TaskStatusBadge status={getValue() as TaskStatus} />
-      ),
+        <TaskStatusBadge status={status} />
+      );
+    },
     meta: {
       treeSelect: {
         "data-cy": "base-status-filter",
@@ -155,6 +170,51 @@ export const getColumnsTemplate = ({
     },
     enableSorting: true,
     size: 80,
+  },
+  {
+    accessorKey: "baseTask.prevTaskCompleted",
+    id: "last-run-status",
+    header: () => (
+      <FlexWrapper>
+        Last Run Status
+        <InfoSprinkle>
+          For {isPatch ? "base" : "previous"} tasks that have not finished
+          running, this column links to the most recent completed commit.
+        </InfoSprinkle>
+      </FlexWrapper>
+    ),
+    cell: ({
+      column,
+      getValue,
+      row: {
+        original: { id },
+      },
+    }) => {
+      const prevTaskCompleted = getValue() as NonNullable<
+        TaskTableInfo["baseTask"]
+      >["prevTaskCompleted"];
+
+      if (prevTaskCompleted) {
+        return (
+          <TaskStatusBadgeWithLink
+            execution={prevTaskCompleted.execution}
+            id={prevTaskCompleted.id}
+            onClick={() =>
+              onClickTaskStatusBadge(
+                id,
+                prevTaskCompleted.displayStatus,
+                column.id,
+              )
+            }
+            status={prevTaskCompleted.displayStatus as TaskStatus}
+            tab={TaskTab.History}
+          />
+        );
+      }
+
+      return null;
+    },
+    enableColumnFilter: false,
   },
   {
     accessorKey: "buildVariantDisplayName",
@@ -188,7 +248,7 @@ export const getColumnsTemplate = ({
   },
 ];
 
-const TaskBadgeWrapper = styled.div`
+const FlexWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};

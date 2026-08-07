@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { size } from "../../constants/tokens";
 import usePagination from "../../hooks/usePagination";
@@ -46,13 +46,14 @@ const Pagination: React.FC<Props> = ({
     countLimit && totalResults >= countLimit ? "many" : numPages;
 
   return (
-    <Container data-cy="pagination">
+    <Container data-cy="pagination" data-testid="pagination">
       <StyledButton
         data-cy="prev-page-button"
+        data-testid="prev-page-button"
         disabled={currentPage === 0}
         leftGlyph={<Icon glyph="ChevronLeft" size="small" />}
         onClick={handlePrevClick}
-        size="small"
+        size={ButtonSize.Small}
       />
       <PageLabel>
         <Disclaimer>
@@ -61,10 +62,11 @@ const Pagination: React.FC<Props> = ({
       </PageLabel>
       <StyledButton
         data-cy="next-page-button"
+        data-testid="next-page-button"
         disabled={numPages === 0 || currentPage === numPages - 1}
         leftGlyph={<Icon glyph="ChevronRight" size="small" />}
         onClick={handleNextClick}
-        size="small"
+        size={ButtonSize.Small}
       />
     </Container>
   );

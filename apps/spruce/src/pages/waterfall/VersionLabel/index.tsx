@@ -117,7 +117,9 @@ export const VersionLabel: React.FC<Props> = ({
           });
         })}
       </CommitMessage>
-      {gitTags && <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>}
+      {gitTags?.length ? (
+        <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
+      ) : null}
     </VersionContainer>
   );
 };

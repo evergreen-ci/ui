@@ -33,7 +33,7 @@ const UploadLink: React.FC<UploadLinkProps> = ({ clearLogs, hasLogs }) => {
   return (
     <>
       <StyledRouterLink
-        data-cy="upload-link"
+        data-testid="upload-link"
         onClick={handleClick}
         to={hasLogs ? "#" : routes.upload}
       >
@@ -51,7 +51,7 @@ const UploadLink: React.FC<UploadLinkProps> = ({ clearLogs, hasLogs }) => {
             navigate(routes.upload);
           },
         }}
-        data-cy="confirmation-modal"
+        data-testid="confirmation-modal"
         open={open}
         title="Navigating away will clear your current logs."
         variant="danger"

@@ -27,7 +27,7 @@ const SubsectionControls: React.FC<{
     <>
       {showExpandButton && (
         <Button
-          data-cy="open-subsections-btn"
+          data-testid="open-subsections-btn"
           onClick={() => {
             sendEvent({
               name: "Clicked open subsections button",
@@ -44,7 +44,7 @@ const SubsectionControls: React.FC<{
       )}
       {showCloseButton && (
         <Button
-          data-cy="close-subsections-btn"
+          data-testid="close-subsections-btn"
           onClick={() => {
             toggleAllCommandsInFunction(functionID, false);
             sendEvent({

@@ -48,6 +48,7 @@ const TableControl: React.FC<Props> = ({
         />
         <Button
           data-cy="clear-all-filters"
+          data-testid="clear-all-filters"
           disabled={disabled}
           onClick={onClearAll}
           size={ButtonSize.Small}

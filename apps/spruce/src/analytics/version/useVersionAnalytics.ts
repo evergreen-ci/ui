@@ -30,6 +30,12 @@ type Action =
       "task.id": string;
       "task.status": string;
     }
+  | {
+      name: "Clicked task table status badge";
+      "task.id": string;
+      "task.status": string;
+      column: string;
+    }
   | { name: "Deleted all filters" }
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
   | { name: "Filtered tasks table"; "filter.by": string | string[] }

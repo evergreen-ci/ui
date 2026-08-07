@@ -22,22 +22,22 @@ import {
 } from "./Toggles";
 
 interface DetailsMenuProps {
-  "data-cy"?: string;
+  "data-testid"?: string;
 }
 
 const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
-  ({ "data-cy": dataCy }, ref) => {
+  ({ "data-testid": dataTestId }, ref) => {
     const [selectedTab, setSelectedTab] = useState(0);
 
     return (
-      <Container ref={ref} data-cy={dataCy}>
+      <Container ref={ref} data-testid={dataTestId}>
         <H3>Parsley Settings</H3>
         <Tabs
           aria-label="Details Card Tabs"
           onValueChange={setSelectedTab}
           value={selectedTab}
         >
-          <Tab data-cy="search-and-filter-tab" name="Search & Filter">
+          <Tab data-testid="search-and-filter-tab" name="Search & Filter">
             <Row>
               <Column>
                 <SearchRangeInput />
@@ -49,7 +49,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
             <ButtonRow />
             <CliCommandButton />
           </Tab>
-          <Tab data-cy="log-viewing-tab" name="Log Viewing">
+          <Tab data-testid="log-viewing-tab" name="Log Viewing">
             <Row>
               <Column>
                 <WrapToggle />

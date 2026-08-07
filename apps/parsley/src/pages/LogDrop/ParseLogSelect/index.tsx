@@ -39,7 +39,7 @@ const ParseLogSelect: React.FC<ParseLogSelectProps> = ({
       </Label>
       <Select
         aria-labelledby="parse-log-select"
-        data-cy="parse-log-select"
+        data-testid="parse-log-select"
         onChange={(value) => {
           setLocalStorageString(LAST_SELECTED_LOG_TYPE, value);
           setLogType(value as SelectState);

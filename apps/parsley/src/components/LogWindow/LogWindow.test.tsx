@@ -54,7 +54,7 @@ describe("LogWindow keyboard shortcuts", () => {
 
     // Chat drawer should be closed initially
     await waitFor(() => {
-      expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
+      expect(screen.getByDataTestId("chat-drawer")).toHaveAttribute(
         "aria-hidden",
         "true",
       );
@@ -64,7 +64,7 @@ describe("LogWindow keyboard shortcuts", () => {
     await user.keyboard("{]}");
 
     await waitFor(() => {
-      expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
+      expect(screen.getByDataTestId("chat-drawer")).toHaveAttribute(
         "aria-hidden",
         "false",
       );
@@ -74,7 +74,7 @@ describe("LogWindow keyboard shortcuts", () => {
     await user.keyboard("{]}");
 
     await waitFor(() => {
-      expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
+      expect(screen.getByDataTestId("chat-drawer")).toHaveAttribute(
         "aria-hidden",
         "true",
       );
@@ -105,7 +105,7 @@ describe("LogWindow keyboard shortcuts", () => {
 
     // Chat drawer should be closed initially
     await waitFor(() => {
-      expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
+      expect(screen.getByDataTestId("chat-drawer")).toHaveAttribute(
         "aria-hidden",
         "true",
       );
@@ -120,7 +120,7 @@ describe("LogWindow keyboard shortcuts", () => {
     });
 
     // Drawer should still be closed
-    expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
+    expect(screen.getByDataTestId("chat-drawer")).toHaveAttribute(
       "aria-hidden",
       "true",
     );

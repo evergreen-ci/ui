@@ -41,10 +41,12 @@ declare module "@tanstack/table-core" {
   interface ColumnMeta<TData extends RowData, TValue> {
     search?: {
       "data-cy"?: string;
+      "data-testid"?: string;
       placeholder?: string;
     };
     treeSelect?: {
       "data-cy"?: string;
+      "data-testid"?: string;
       // Configures whether or not the tree select should be filtered to only represent values found in the table.
       // Note that this may not be very performant for large tables.
       filterOptions?: boolean;
@@ -60,7 +62,9 @@ const { blue } = palette;
 
 interface SpruceTableProps<T extends LGRowData> {
   "data-cy-row"?: string;
+  "data-testid-row"?: string;
   "data-cy-table"?: string;
+  "data-testid-table"?: string;
   emptyComponent?: React.ReactNode;
   loading?: boolean;
   /** estimated number of rows the table will have */
@@ -88,6 +92,8 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
     {
       "data-cy-row": dataCyRow,
       "data-cy-table": dataCyTable,
+      "data-testid-row": dataTestIdRow,
+      "data-testid-table": dataTestIdTable,
       disabledRowIndexes = [],
       emptyComponent,
       loading,
@@ -112,6 +118,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
         <Table
           ref={ref}
           data-cy={dataCyTable}
+          data-testid={dataTestIdTable}
           table={table}
           verticalAlignment={verticalAlignment}
           {...args}
@@ -145,6 +152,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                     <RenderableRow
                       key={row.id}
                       dataCyRow={dataCyRow}
+                      dataTestIdRow={dataTestIdRow}
                       disabled={disabledRowIndexes?.includes(row.index)}
                       isSelected={selectedRowIndexes.includes(row.index)}
                       row={row}
@@ -157,6 +165,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                   <RenderableRow
                     key={row.id}
                     dataCyRow={dataCyRow}
+                    dataTestIdRow={dataTestIdRow}
                     disabled={disabledRowIndexes?.includes(row.index)}
                     isSelected={selectedRowIndexes.includes(row.index)}
                     row={row}
@@ -218,6 +227,7 @@ const TableHeaderCell = <T extends LGRowData>({
         (meta?.treeSelect ? (
           <TableFilterPopover
             data-cy={meta.treeSelect?.["data-cy"]}
+            data-testid={meta.treeSelect?.["data-testid"]}
             onConfirm={(value) => {
               header.column.setFilterValue(value);
               if (usePagination) {
@@ -242,6 +252,7 @@ const TableHeaderCell = <T extends LGRowData>({
         ) : (
           <TableSearchPopover
             data-cy={meta?.search?.["data-cy"]}
+            data-testid={meta?.search?.["data-testid"]}
             onConfirm={(value) => {
               header.column.setFilterValue(value);
               if (usePagination) {
@@ -270,6 +281,7 @@ const cellStyle = css`
 
 const RenderableRow = <T extends LGRowData>({
   dataCyRow = "leafygreen-table-row",
+  dataTestIdRow = "leafygreen-table-row",
   disabled = false,
   isSelected = false,
   row,
@@ -277,6 +289,7 @@ const RenderableRow = <T extends LGRowData>({
   virtualRow,
 }: {
   dataCyRow?: string;
+  dataTestIdRow?: string;
   row: LeafyGreenTableRow<T>;
   virtualRow?: VirtualItem;
   isSelected?: boolean;
@@ -299,6 +312,7 @@ const RenderableRow = <T extends LGRowData>({
         data-cy={dataCyRow}
         data-index={row.index}
         data-selected={isSelected}
+        data-testid={dataTestIdRow}
         disabled={disabled}
         row={row}
         virtualRow={virtualRow}
@@ -310,6 +324,7 @@ const RenderableRow = <T extends LGRowData>({
             key={cell.id}
             cell={cell}
             className={cellStyle}
+            data-column={cell.column.id}
             style={cellPaddingStyle}
           >
             {flexRender(cell.column.columnDef.cell, cell.getContext())}

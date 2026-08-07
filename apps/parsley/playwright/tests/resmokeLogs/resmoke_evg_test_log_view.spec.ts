@@ -14,7 +14,7 @@ test.describe("Basic resmoke log view", () => {
     page,
   }) => {
     await expect(page.getByTestId("log-row-16")).toBeVisible();
-    await helpers.isNotContainedInViewport(page, "[data-cy=log-row-16]");
+    await helpers.isNotContainedInViewport(page, "[data-testid=log-row-16]");
 
     await page.getByTestId("paginated-virtual-list").evaluate((el) => {
       el.scrollTo(500, 0);
@@ -26,7 +26,7 @@ test.describe("Basic resmoke log view", () => {
   }) => {
     await helpers.clickToggle(page, "wrap-toggle", true, "log-viewing");
     await expect(page.getByTestId("log-row-16")).toBeVisible();
-    await helpers.isContainedInViewport(page, "[data-cy=log-row-16]");
+    await helpers.isContainedInViewport(page, "[data-testid=log-row-16]");
   });
 
   test("should still allow horizontal scrolling when there are few logs on screen", async ({
@@ -88,7 +88,7 @@ test.describe("Resmoke syntax highlighting", () => {
   test("should not color non-resmoke log lines", async ({ page }) => {
     const resmokeRow = page
       .getByTestId("log-row-0")
-      .locator("[data-cy=resmoke-row]");
+      .locator("[data-testid=resmoke-row]");
     const color = await resmokeRow.evaluate((el) =>
       window.getComputedStyle(el).getPropertyValue("color"),
     );
@@ -105,13 +105,13 @@ test.describe("Resmoke syntax highlighting", () => {
 
     const row20Color = await page
       .getByTestId("log-row-20")
-      .locator("[data-cy=resmoke-row]")
+      .locator("[data-testid=resmoke-row]")
       .evaluate((el) => window.getComputedStyle(el).getPropertyValue("color"));
     expect(row20Color).toBe(colors.blue);
 
     const row21Color = await page
       .getByTestId("log-row-21")
-      .locator("[data-cy=resmoke-row]")
+      .locator("[data-testid=resmoke-row]")
       .evaluate((el) => window.getComputedStyle(el).getPropertyValue("color"));
     expect(row21Color).toBe(colors.blue);
   });
@@ -126,13 +126,13 @@ test.describe("Resmoke syntax highlighting", () => {
 
     const row19Color = await page
       .getByTestId("log-row-19")
-      .locator("[data-cy=resmoke-row]")
+      .locator("[data-testid=resmoke-row]")
       .evaluate((el) => window.getComputedStyle(el).getPropertyValue("color"));
     expect(row19Color).toBe(colors.green);
 
     const row20Color = await page
       .getByTestId("log-row-20")
-      .locator("[data-cy=resmoke-row]")
+      .locator("[data-testid=resmoke-row]")
       .evaluate((el) => window.getComputedStyle(el).getPropertyValue("color"));
     expect(row20Color).toBe(colors.blue);
   });
