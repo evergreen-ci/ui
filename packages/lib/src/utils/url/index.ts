@@ -1,4 +1,24 @@
+import { trace } from "@opentelemetry/api";
+
 const HTTP_PROTOCOLS = new Set(["http:", "https:"]);
+
+const MAX_REPORTED_URL_LENGTH = 256;
+
+const reportedUrls = new Set<string>();
+
+const reportUnparseableUrl = (url: string) => {
+  if (reportedUrls.has(url)) {
+    return;
+  }
+  reportedUrls.add(url);
+
+  const span = trace
+    .getTracer("analytics")
+    .startSpan("System Event rejected unparseable url");
+  span.setAttribute("url.value", url.slice(0, MAX_REPORTED_URL_LENGTH));
+  span.setAttribute("url.is_relative_path", url.startsWith("/"));
+  span.end();
+};
 
 /**
  * Returns whether a URL is an absolute HTTP(S) URL.
@@ -13,6 +33,7 @@ const isValidHttpUrl = (url?: string | null): url is string => {
   try {
     return HTTP_PROTOCOLS.has(new URL(url).protocol);
   } catch {
+    reportUnparseableUrl(url);
     return false;
   }
 };
