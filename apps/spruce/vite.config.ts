@@ -102,7 +102,7 @@ const getProjectConfig = () => {
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
       setupFiles: [
         "@evg-ui/lib/config/vitest/setupTests.ts",
-        "./config/vitest/configureDataTestId.ts", // Temporary, delete this during cleanup.
+        "./config/vitest/configureTestId.ts", // Temporary, delete this during cleanup.
       ],
       include: ["src/**/*.test.{ts,tsx}"],
     },
