@@ -110,7 +110,8 @@ describe("packages table", () => {
     await waitFor(() => {
       expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByTestId("lg-pagination-next-button"));
+    const nextPageButton = screen.getByRole("button", { name: "Next page" });
+    await user.click(nextPageButton);
     await waitFor(() => {
       expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(5);
     });

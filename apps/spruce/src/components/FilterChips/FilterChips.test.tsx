@@ -95,7 +95,9 @@ describe("filterChips", () => {
     render(
       <FilterChips chips={chips} onClearAll={vi.fn()} onRemove={onRemove} />,
     );
-    const closeChip = screen.getAllByTestId("chip-dismiss-button")[0];
+    const closeChip = screen.getByRole("button", {
+      name: "Deselect Test 1: value1",
+    });
     expect(closeChip).toBeInTheDocument();
     await user.click(closeChip);
     expect(onRemove).toHaveBeenCalledWith({

@@ -111,7 +111,7 @@ describe("files table", () => {
       expect(screen.getAllByTestId("files-table-row")).toHaveLength(10);
     });
 
-    const nextPageButton = screen.getByTestId("lg-pagination-next-button");
+    const nextPageButton = screen.getByRole("button", { name: "Next page" });
     expect(nextPageButton).toHaveAttribute("aria-disabled", "false");
     await user.click(nextPageButton);
     await waitFor(() => {

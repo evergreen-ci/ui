@@ -97,7 +97,8 @@ describe("operating system table", () => {
     await waitFor(() => {
       expect(screen.queryAllByTestId("os-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByTestId("lg-pagination-next-button"));
+    const nextPageButton = screen.getByRole("button", { name: "Next page" });
+    await user.click(nextPageButton);
     await waitFor(() => {
       expect(screen.queryAllByTestId("os-table-row")).toHaveLength(1);
     });
