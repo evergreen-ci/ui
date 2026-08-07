@@ -170,7 +170,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       controls={
         <TableControl
           filteredCount={filteredCount}
-          label="tasks"
           limit={limit}
           onClear={() => {
             setColumnFilters([]);
