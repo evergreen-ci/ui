@@ -14,6 +14,8 @@ export interface ProvidersFormState {
         az: string;
         subnetId: string;
       }>;
+      subnetTagName: string;
+      subnetTagValue: string;
       accountRoles: Array<{
         account: string;
         role: string;

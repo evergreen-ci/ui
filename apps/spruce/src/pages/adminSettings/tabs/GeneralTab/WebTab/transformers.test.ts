@@ -57,6 +57,9 @@ const form: WebFormState = {
       elevatedUsers: {
         elevatedUserIds: [],
       },
+      exemptUsers: {
+        exemptUserIds: [],
+      },
     },
   },
 };
@@ -95,5 +98,6 @@ const gql: AdminSettingsInput = {
     graphqlServiceBurst: 0,
     graphqlComplexityLimit: 0,
     elevatedUserIds: [],
+    exemptUserIds: [],
   },
 };
