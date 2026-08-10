@@ -95,6 +95,7 @@ const mockAdminSettings: AdminSettingsData = {
     distroMaxHostsFactor: 2,
     targetTimeSecondsOverride: 300,
     idleTimeSecondsOverride: 600,
+    mergeQueueTargetTimeSecondsOverride: 120,
   },
   cost: {
     ebsCost: {
@@ -219,6 +220,7 @@ const expectedForm: OtherFormState = {
         distroMaxHostsFactor: 2,
         targetTimeSecondsOverride: 300,
         idleTimeSecondsOverride: 600,
+        mergeQueueTargetTimeSecondsOverride: 120,
       },
       cost: {
         ebsDiscount: 0.1,
@@ -384,6 +386,7 @@ const expectedGql: AdminSettingsInput = {
     distroMaxHostsFactor: 2,
     targetTimeSecondsOverride: 300,
     idleTimeSecondsOverride: 600,
+    mergeQueueTargetTimeSecondsOverride: 120,
   },
   singleTaskDistro: {
     projectTasksPairs: [

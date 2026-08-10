@@ -2670,6 +2670,7 @@ export type PlannerSettings = {
   generateTaskFactor: Scalars["Int"]["output"];
   groupVersions: Scalars["Boolean"]["output"];
   mainlineTimeInQueueFactor: Scalars["Int"]["output"];
+  mergeQueueTargetTime: Scalars["Duration"]["output"];
   numDependentsFactor: Scalars["Float"]["output"];
   patchFactor: Scalars["Int"]["output"];
   patchTimeInQueueFactor: Scalars["Int"]["output"];
@@ -2683,6 +2684,7 @@ export type PlannerSettingsInput = {
   generateTaskFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
+  mergeQueueTargetTime?: InputMaybe<Scalars["Int"]["input"]>;
   numDependentsFactor: Scalars["Float"]["input"];
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
@@ -3358,12 +3360,14 @@ export type ReleaseModeConfig = {
   __typename?: "ReleaseModeConfig";
   distroMaxHostsFactor?: Maybe<Scalars["Float"]["output"]>;
   idleTimeSecondsOverride?: Maybe<Scalars["Int"]["output"]>;
+  mergeQueueTargetTimeSecondsOverride?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSecondsOverride?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ReleaseModeConfigInput = {
   distroMaxHostsFactor?: InputMaybe<Scalars["Float"]["input"]>;
   idleTimeSecondsOverride?: InputMaybe<Scalars["Int"]["input"]>;
+  mergeQueueTargetTimeSecondsOverride?: InputMaybe<Scalars["Int"]["input"]>;
   targetTimeSecondsOverride?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
@@ -3729,6 +3733,7 @@ export type SchedulerConfig = {
   hostAllocatorRoundingRule?: Maybe<RoundingRule>;
   hostsOverallocatedRule?: Maybe<OverallocatedRule>;
   mainlineTimeInQueueFactor?: Maybe<Scalars["Int"]["output"]>;
+  mergeQueueTargetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   numDependentsFactor?: Maybe<Scalars["Float"]["output"]>;
   patchFactor?: Maybe<Scalars["Int"]["output"]>;
   patchTimeInQueueFactor?: Maybe<Scalars["Int"]["output"]>;
@@ -3753,6 +3758,7 @@ export type SchedulerConfigInput = {
   hostAllocatorRoundingRule: RoundingRule;
   hostsOverallocatedRule: OverallocatedRule;
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
+  mergeQueueTargetTimeSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   numDependentsFactor: Scalars["Float"]["input"];
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
@@ -7165,6 +7171,7 @@ export type SaveAdminSettingsMutation = {
       patchTimeInQueueFactor?: number | null;
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
+      mergeQueueTargetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
       translateProjectCacheBytesLimit?: number | null;
       translateProjectCacheTTLSeconds?: number | null;
@@ -7915,6 +7922,7 @@ export type AdminSettingsQuery = {
       __typename?: "ReleaseModeConfig";
       distroMaxHostsFactor?: number | null;
       idleTimeSecondsOverride?: number | null;
+      mergeQueueTargetTimeSecondsOverride?: number | null;
       targetTimeSecondsOverride?: number | null;
     } | null;
     repotracker?: {
@@ -7948,6 +7956,7 @@ export type AdminSettingsQuery = {
       patchTimeInQueueFactor?: number | null;
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
+      mergeQueueTargetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
       translateProjectCacheBytesLimit?: number | null;
       translateProjectCacheTTLSeconds?: number | null;
@@ -8492,6 +8501,7 @@ export type DistroQuery = {
       patchFactor: number;
       patchTimeInQueueFactor: number;
       targetTime: number;
+      mergeQueueTargetTime: number;
       version: PlannerVersion;
     };
     taskHostOverrides?: {
