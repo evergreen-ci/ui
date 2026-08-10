@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
-import styled from "@emotion/styled";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Body } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
@@ -191,7 +191,11 @@ const AnimationWrapper = styled.div`
   }
 `;
 
-const StyledBody = styled(Body)`
+// Linaria's styled() cannot infer props from LeafyGreen's polymorphic components,
+// so Body is narrowed to its default rendered element.
+const StyledBody = styled(
+  Body as React.FC<React.ComponentPropsWithoutRef<"p">>,
+)`
   font-size: ${fontSize.l};
 `;
 

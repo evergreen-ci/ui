@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { styled } from "@linaria/react";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Breadcrumbs from "components/Breadcrumbs";
@@ -8,8 +8,6 @@ import { subheaderHeight } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { EvergreenTaskSubHeader } from "./EvergreenTaskSubHeader";
 import { SectionControls } from "./SectionControls";
-
-const { gray } = palette;
 
 interface SubHeaderProps {
   setSidePanelCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
@@ -72,7 +70,7 @@ const Container = styled.div`
   justify-content: space-between;
   height: ${subheaderHeight};
 
-  background-color: ${gray.light3};
+  background-color: ${palette.gray.light3};
   box-shadow: 0 ${size.xxs} ${size.xxs} rgba(0, 0, 0, 0.05);
   padding: 0 ${size.s} 0 ${size.xs};
 `;

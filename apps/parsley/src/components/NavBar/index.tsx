@@ -1,8 +1,9 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
+import { css } from "@linaria/core";
+import { styled } from "@linaria/react";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -16,8 +17,6 @@ import { useLogContext } from "context/LogContext";
 import { isDevelopmentBuild } from "utils/environmentVariables";
 import UploadLink from "./UploadLink";
 
-const { gray, white } = palette;
-
 const NavBar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { clearLogs, hasLogs } = useLogContext();
@@ -27,7 +26,7 @@ const NavBar: React.FC = () => {
     <Container>
       <FlexContainer>
         {/* @ts-expect-error: useStroke is not recognized as a valid prop */}
-        <Logo glyph="ParsleyLogo" size={24} useStroke />
+        <Icon className={logoStyle} glyph="ParsleyLogo" size={24} useStroke />
         <LinkContainer>
           <StyledLink href={`${docsURL}/Home`}>Docs</StyledLink>
           <UploadLink clearLogs={clearLogs} hasLogs={hasLogs} />
@@ -41,7 +40,7 @@ const NavBar: React.FC = () => {
         >
           <Icon glyph="InfoWithCircle" />
         </IconButton>
-        <StyledDetailsMenu disabled={!hasLogs} />
+        <DetailsMenu className={detailsMenuStyle} disabled={!hasLogs} />
         {isDevelopmentBuild() && (
           <Button
             onClick={logoutAndRedirect}
@@ -64,12 +63,12 @@ const Container = styled.nav`
   flex-shrink: 0;
 
   height: ${navbarHeight};
-  background-color: ${white};
-  border-bottom: 1px solid ${gray.light2};
+  background-color: ${palette.white};
+  border-bottom: 1px solid ${palette.gray.light2};
   padding: 0 ${size.s};
 `;
 
-const Logo = styled(Icon)`
+const logoStyle = css`
   margin-right: ${size.m};
 `;
 
@@ -84,7 +83,7 @@ const LinkContainer = styled.div`
   gap: ${size.l};
 `;
 
-const StyledDetailsMenu = styled(DetailsMenu)`
+const detailsMenuStyle = css`
   margin: 0 ${size.xs};
 `;
 

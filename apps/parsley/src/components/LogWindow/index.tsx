@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
-import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
+import { styled } from "@linaria/react";
 import { useBeforeUnload } from "react-router-dom";
 import { useChatContext } from "@evg-ui/fungi";
 import { CharKey } from "@evg-ui/lib/constants/keys";

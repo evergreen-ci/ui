@@ -1,10 +1,38 @@
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { styled } from "@linaria/react";
 
 const { blue, green, purple, red, yellow } = palette;
 
-const Highlight = styled.mark<{ color?: string }>`
-  background-color: ${({ color = red.light2 }) => color};
+interface HighlightProps extends React.ComponentPropsWithoutRef<"mark"> {
+  color?: string;
+}
+
+interface HighlightStyle extends React.CSSProperties {
+  "--highlight-color": string;
+}
+
+const getHighlightStyle = (
+  color: string,
+  style?: React.CSSProperties,
+): HighlightStyle => ({
+  ...style,
+  "--highlight-color": color,
+});
+
+const Highlight: React.FC<HighlightProps> = ({
+  color = palette.red.light2,
+  style,
+  ...props
+}) => (
+  <StyledHighlight
+    {...props}
+    color={color}
+    style={getHighlightStyle(color, style)}
+  />
+);
+
+const StyledHighlight = styled.mark<{ color?: string }>`
+  background-color: var(--highlight-color);
   font-weight: bold;
 `;
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
+import { styled } from "@linaria/react";
 import { actions } from "storybook/actions";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { MockedProvider } from "@evg-ui/lib/test_utils";

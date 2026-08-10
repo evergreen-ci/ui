@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Body, InlineKeyCode } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { DropzoneInputProps } from "react-dropzone";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";

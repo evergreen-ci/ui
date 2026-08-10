@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
+import wyw from "@wyw-in-js/vite";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
@@ -11,6 +12,7 @@ import {
   bareBonesViteConfig,
   generateBaseHTTPSViteServerConfig,
 } from "@evg-ui/vite-utils";
+import { linariaOptions } from "./.storybook/linaria.config.ts";
 
 process.env.VITE_APP_VERSION = process.env.npm_package_version ?? "0.0.0";
 process.env.VITE_GIT_SHA = process.env.VITE_GIT_SHA ?? "unknown";
@@ -28,17 +30,13 @@ const getProjectConfig = () => {
 
   // https://vitejs.dev/config/
   const viteConfig = defineConfig({
-    define: {
-      "globalThis.EMOTION_RUNTIME_AUTO_LABEL": JSON.stringify(
-        process.env.NODE_ENV === "development",
-      ),
-    },
     server: serverConfig,
     build: {
       sourcemap: true,
     },
 
     plugins: [
+      wyw(linariaOptions),
       react({
         // Exclude storybook stories from fast refresh.
         exclude: /\.stories\.tsx?$/,

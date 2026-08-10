@@ -46,7 +46,7 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
   return (
     <div
       aria-expanded={open}
-      css={
+      className={
         isTopLevelCommand
           ? sectionHeaderWrapperStyle
           : subsectionHeaderWrapperStyle

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
   getLocalStorageBoolean,

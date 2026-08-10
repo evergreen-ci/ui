@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";

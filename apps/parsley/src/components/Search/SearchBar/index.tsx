@@ -1,9 +1,9 @@
 import { KeyboardEvent, useMemo, useRef, useState } from "react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
+import { css } from "@linaria/core";
+import { styled } from "@linaria/react";
 import Icon from "@evg-ui/lib/components/Icon";
 import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
@@ -176,11 +176,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         </Option>
       </StyledSelect>
       <InputWrapper>
-        <IconButtonWrapper
-          css={css`
-            left: ${size.xxs};
-          `}
-        >
+        <IconButtonWrapper className={leftIconButtonStyle}>
           <SearchPopover
             disabled={disabled}
             onClick={(suggestion) => {
@@ -226,11 +222,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           type="text"
           value={input}
         />
-        <IconButtonWrapper
-          css={css`
-            right: ${size.xxs};
-          `}
-        >
+        <IconButtonWrapper className={rightIconButtonStyle}>
           <IconButton
             aria-label="Select plus"
             data-testid="searchbar-submit"
@@ -307,6 +299,14 @@ const IconButtonWrapper = styled.div`
   z-index: 1;
   width: ${size.l};
   height: ${textInputHeight};
+`;
+
+const leftIconButtonStyle = css`
+  left: ${size.xxs};
+`;
+
+const rightIconButtonStyle = css`
+  right: ${size.xxs};
 `;
 
 export default SearchBar;

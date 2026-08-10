@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { css } from "@leafygreen-ui/emotion";
+import { css } from "@linaria/core";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";

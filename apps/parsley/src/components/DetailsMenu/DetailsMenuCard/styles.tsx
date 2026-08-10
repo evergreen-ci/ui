@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 
 const DetailRow = styled.div`
@@ -10,7 +10,9 @@ const DetailRow = styled.div`
   margin-bottom: ${size.m};
 `;
 
-const DetailName = styled(Subtitle)`
+const DetailName = styled(
+  Subtitle as React.FC<React.ComponentProps<typeof Subtitle>>,
+)`
   font-size: ${size.s};
   margin-right: ${size.xs};
 `;

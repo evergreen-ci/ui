@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { Button, Size } from "@leafygreen-ui/button";
+import { styled } from "@linaria/react";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";

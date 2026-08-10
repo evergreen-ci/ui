@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
 
@@ -9,14 +9,17 @@ const LineNumber: React.FC<{ lineNumber: number }> = ({ lineNumber }) => {
   };
   return (
     <Index
+      data-line-number={lineNumber}
       data-testid={`line-index-${lineNumber}`}
-      lineNumber={lineNumber}
       onClick={handleClick}
       title="Use shift+click to select multiple lines"
     />
   );
 };
-const Index = styled.pre<{ lineNumber: number }>`
+// The line number is rendered via `content: attr(data-line-number)` rather than a
+// dynamic style interpolation so that no per-row style computation or class
+// generation happens at runtime in this virtualized, potentially-thousands-of-rows list.
+const Index = styled.pre`
   width: ${size.xl};
   margin-top: 0;
   margin-bottom: 0;
@@ -34,7 +37,7 @@ const Index = styled.pre<{ lineNumber: number }>`
     cursor: pointer;
   }
   ::before {
-    ${({ lineNumber }) => `content: "${lineNumber}";`}
+    content: attr(data-line-number);
   }
 `;
 

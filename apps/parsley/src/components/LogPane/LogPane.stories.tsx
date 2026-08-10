@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import styled from "@emotion/styled";
+import { styled } from "@linaria/react";
 import { VirtuosoMockContext } from "react-virtuoso";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { useLogContext } from "context/LogContext";

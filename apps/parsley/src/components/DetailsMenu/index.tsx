@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { styled } from "@linaria/react";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import PopoverButton from "components/PopoverButton";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import DetailsMenuCard from "./DetailsMenuCard";
 
-const { green } = palette;
-
 interface DetailsMenuProps {
+  className?: string;
   disabled?: boolean;
 }
 const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
@@ -79,10 +78,10 @@ const AnimatedPopoverButton = styled(PopoverButton)`
 
   @keyframes glow {
     from {
-      box-shadow: 0 0 0px ${green.base};
+      box-shadow: 0 0 0px ${palette.green.base};
     }
     to {
-      box-shadow: 0 0 20px ${green.base};
+      box-shadow: 0 0 20px ${palette.green.base};
     }
   }
 `;

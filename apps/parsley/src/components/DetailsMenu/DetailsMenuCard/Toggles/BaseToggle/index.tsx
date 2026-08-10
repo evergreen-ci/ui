@@ -1,12 +1,10 @@
 import { forwardRef } from "react";
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Toggle, Size as ToggleSize } from "@leafygreen-ui/toggle";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DetailRow, DetailsLabel } from "../../styles";
-
-const { gray } = palette;
 
 interface BaseToggleProps {
   ["data-testid"]?: string;
@@ -56,7 +54,7 @@ const BaseToggle = forwardRef<HTMLDivElement, BaseToggleProps>(
 BaseToggle.displayName = "BaseToggle";
 
 const ToggleLabel = styled(Disclaimer)`
-  color: ${gray.base};
+  color: ${palette.gray.base};
   margin: 0 ${size.xxs};
 `;
 

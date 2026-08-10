@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import { styled } from "@linaria/react";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import PaginatedVirtualList from ".";
 

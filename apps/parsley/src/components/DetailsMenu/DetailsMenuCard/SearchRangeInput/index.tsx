@@ -1,12 +1,10 @@
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { TextInput } from "@leafygreen-ui/text-input";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { DetailRow, DetailsLabel } from "../styles";
-
-const { red } = palette;
 
 const SearchRangeInput: React.FC = () => {
   const [lowerBound, setLowerBound] = useQueryParam<number | undefined>(
@@ -102,7 +100,7 @@ const RangeInput = styled(TextInput)`
 `;
 
 const ErrorMessage = styled.div`
-  color: ${red.base};
+  color: ${palette.red.base};
   margin-top: ${size.xxs};
   margin-left: ${size.xs};
 `;

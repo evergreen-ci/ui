@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
-import styled from "@emotion/styled";
 import { Modal } from "@leafygreen-ui/modal";
 import { Body, H3, InlineKeyCode } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useKeyboardShortcut, useOnClickOutside } from "@evg-ui/lib/hooks";

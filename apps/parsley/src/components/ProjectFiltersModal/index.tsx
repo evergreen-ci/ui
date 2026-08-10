@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
+import { css } from "@linaria/core";
+import { styled } from "@linaria/react";
 import Icon from "@evg-ui/lib/components/Icon";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   LGColumnDef,
@@ -31,8 +30,6 @@ import { useTaskQuery } from "hooks/useTaskQuery";
 import { Filters } from "types/logs";
 import { parseFilter, stringifyFilter } from "utils/query-string";
 import { convertParsleyFilterToFilter } from "./utils";
-
-const { gray } = palette;
 
 interface ProjectFiltersModalProps {
   open: boolean;
@@ -150,6 +147,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       title="Project Filters"
     >
       <BaseTable
+        className={tableStyle}
         disabledRowIndexes={parsleyFilters
           .map((_, index) => index)
           .filter(isRowDisabled)}
@@ -171,9 +169,6 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
           />
         }
         loading={projectFiltersLoading || taskQueryLoading}
-        rowCss={css`
-          border-bottom: 1px solid ${gray.light2};
-        `}
         shouldAlternateRowColor
         table={table}
         verticalAlignment="top"
@@ -221,10 +216,19 @@ const deduplicateFilters = (existing: Filters, incoming: Filters): Filters => {
   return Array.from(seen).map(parseFilter);
 };
 
+const tableStyle = css`
+  tbody tr {
+    border-bottom: 1px solid ${palette.gray.light2};
+  }
+`;
+
 const FilterExpressionContainer = styled.div`
-  ${wordBreakCss}
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
   cursor: pointer;
 `;
 export default ProjectFiltersModal;

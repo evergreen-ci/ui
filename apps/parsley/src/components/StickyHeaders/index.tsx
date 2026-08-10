@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import SectionHeader from "components/LogRow/SectionHeader";
 import SubsectionHeader from "components/LogRow/SubsectionHeader";
@@ -52,7 +52,7 @@ const StickyHeaders: React.FC<StickyHeaderProps> = ({
         subsectionHeaderLine &&
         isSubsectionHeaderRow(subsectionHeaderLine) && (
           <StickySubsectionWrapper
-            hasParentSection={sectionHeaderLine !== null}
+            data-has-parent-section={sectionHeaderLine !== null}
           >
             <SubsectionHeader
               failingLine={failingLine}
@@ -79,11 +79,15 @@ const StickySectionWrapper = styled.div`
   z-index: ${stickyHeaderZIndex};
 `;
 
-const StickySubsectionWrapper = styled.div<{ hasParentSection: boolean }>`
+const StickySubsectionWrapper = styled.div`
   position: sticky;
-  top: ${({ hasParentSection }) => (hasParentSection ? size.l : "0")};
+  top: 0;
   background-color: ${palette.white};
   z-index: ${stickyHeaderZIndex};
+
+  &[data-has-parent-section="true"] {
+    top: ${size.l};
+  }
 `;
 
 export default StickyHeaders;

@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { Card } from "@leafygreen-ui/card";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Popover } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import Icon from "@evg-ui/lib/components/Icon";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 import { SearchSuggestionGroup } from "./types";
 
-const { blue, gray } = palette;
+const { gray } = palette;
 
 interface SearchPopoverProps {
   disabled?: boolean;
@@ -121,7 +121,7 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
                       return (
                         <SearchSuggestion
                           key={`${group.title}-${suggestion}`}
-                          $isSelected={globalIndex === selectedIndex}
+                          data-selected={globalIndex === selectedIndex}
                           onClick={() => handleClick(suggestion)}
                           role="menuitem"
                         >
@@ -144,7 +144,11 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
   );
 };
 
-const StyledCard = styled(Card)`
+// Linaria's styled() cannot infer props from LeafyGreen's polymorphic components,
+// so Card, Overline, and Body are narrowed to their default rendered elements.
+const StyledCard = styled(
+  Card as React.FC<React.ComponentPropsWithoutRef<"div">>,
+)`
   text-align: left;
   overflow: hidden;
   border-radius: ${size.s};
@@ -159,12 +163,16 @@ const Scrollable = styled.div`
   overflow-y: scroll;
 `;
 
-const Title = styled(Overline)`
+const Title = styled(
+  Overline as React.FC<React.ComponentPropsWithoutRef<"div">>,
+)`
   padding-top: ${size.xs};
   padding-left: ${size.s};
 `;
 
-const StyledBody = styled(Body)`
+const StyledBody = styled(
+  Body as React.FC<React.ComponentPropsWithoutRef<"p">>,
+)`
   padding: ${size.s};
   display: flex;
   justify-content: center;
@@ -172,7 +180,7 @@ const StyledBody = styled(Body)`
 
 const Divider = styled.hr`
   border: 0;
-  border-bottom: 1px solid ${gray.light2};
+  border-bottom: 1px solid ${palette.gray.light2};
   margin: ${size.xxs} 0;
 `;
 
@@ -180,12 +188,12 @@ const GroupContainer = styled.div`
   display: flex;
   flex-direction: column;
   &:not(:last-child) {
-    border-bottom: 1px solid ${gray.light2};
+    border-bottom: 1px solid ${palette.gray.light2};
   }
 `;
 
-const SearchSuggestion = styled.button<{ $isSelected?: boolean }>`
-  // Remove native button styles.
+const SearchSuggestion = styled.button`
+  /* Remove native button styles. */
   border: 0;
   background: none;
   text-align: inherit;
@@ -193,14 +201,19 @@ const SearchSuggestion = styled.button<{ $isSelected?: boolean }>`
 
   padding: ${size.xs} ${size.s};
   word-break: break-all;
-  ${({ $isSelected }) =>
-    $isSelected
-      ? `background-color: ${blue.light3};`
-      : `&:hover, &:focus { 
+
+  &[data-selected="true"] {
+    background-color: ${palette.blue.light3};
+  }
+
+  &[data-selected="false"] {
+    &:hover,
+    &:focus {
       cursor: pointer;
       outline: none;
-      background-color: ${blue.light3}; 
-    }`}
+      background-color: ${palette.blue.light3};
+    }
+  }
 `;
 
 export default SearchPopover;

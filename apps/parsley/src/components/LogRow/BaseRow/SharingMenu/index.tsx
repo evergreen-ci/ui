@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { styled } from "@linaria/react";
 import pluralize from "pluralize";
 import { useChatContext } from "@evg-ui/fungi";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -180,7 +180,11 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber, shared }) => {
   );
 };
 
-const MenuIcon = styled(IconButton)`
+// Linaria's styled() cannot infer props from LeafyGreen's polymorphic components,
+// so IconButton is narrowed to its default rendered element.
+const MenuIcon = styled(
+  IconButton as React.FC<React.ComponentPropsWithoutRef<"button">>,
+)`
   height: 16px;
   width: 16px;
   margin-left: ${size.xxs};

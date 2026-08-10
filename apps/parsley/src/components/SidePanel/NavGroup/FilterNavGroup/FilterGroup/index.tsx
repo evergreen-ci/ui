@@ -1,5 +1,4 @@
 import { MouseEvent, useId, useMemo, useState } from "react";
-import styled from "@emotion/styled";
 import { Button, Variant } from "@leafygreen-ui/button";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -9,7 +8,8 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { Toggle } from "@leafygreen-ui/toggle";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import Accordion, {
   AccordionCaretAlign,
 } from "@evg-ui/lib/components/Accordion";
@@ -95,11 +95,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               {validationMessage}
             </IconWithTooltip>
           )}
-          <FilterExpression
-            aria-expanded={openAccordion}
-            expanded={openAccordion}
-            id={id}
-          >
+          <FilterExpression aria-expanded={openAccordion} id={id}>
             {expression}
           </FilterExpression>
           <IconButtonContainer>
@@ -231,13 +227,21 @@ const AccordionContent = styled.div`
   padding-right: ${size.xxs};
 `;
 
-const FilterExpression = styled(Body)<{ expanded: boolean } & BodyProps>`
+// Linaria's styled() cannot infer props from LeafyGreen's polymorphic components,
+// so Body is narrowed to its default rendered element.
+const FilterExpression = styled(
+  Body as React.FC<React.ComponentPropsWithoutRef<"p">>,
+)`
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: ${({ expanded }) => (expanded ? "unset" : 1)};
+  -webkit-line-clamp: 1;
   overflow: hidden;
   font-weight: medium;
   margin-top: ${size.xxs};
+
+  &[aria-expanded="true"] {
+    -webkit-line-clamp: unset;
+  }
 `;
 
 const IconButtonContainer = styled.div`

@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { SideNav } from "@leafygreen-ui/side-nav";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { setLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { DRAWER_OPENED } from "constants/storageKeys";

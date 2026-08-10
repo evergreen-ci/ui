@@ -1,8 +1,8 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineCode, Label } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
   getLocalStorageString,
@@ -78,7 +78,11 @@ const ButtonContainer = styled.div`
   gap: ${size.xs};
 `;
 
-const StyledInlineCode = styled(InlineCode)`
+// Linaria's styled() cannot infer props from LeafyGreen's polymorphic components,
+// so InlineCode is narrowed to its default rendered element.
+const StyledInlineCode = styled(
+  InlineCode as React.FC<React.ComponentPropsWithoutRef<"code">>,
+)`
   overflow-wrap: anywhere;
 `;
 

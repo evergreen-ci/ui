@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
@@ -12,8 +12,6 @@ import { Filter } from "types/logs";
 import BaseNavGroup from "../BaseNavGroup";
 import AllFiltersToggle from "./AllFiltersToggle";
 import FilterGroup from "./FilterGroup";
-
-const { green } = palette;
 
 interface FilterNavGroupProps {
   clearExpandedLines: () => void;
@@ -121,7 +119,7 @@ const ModalTrigger = styled.div`
   text-transform: none;
   letter-spacing: 0;
   font-weight: normal;
-  color: ${green.dark2};
+  color: ${palette.green.dark2};
   position: absolute;
   right: 0;
   :hover {

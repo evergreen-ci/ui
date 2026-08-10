@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import styled from "@emotion/styled";
+import { styled } from "@linaria/react";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { QueryParams, urlParseOptions } from "constants/queryParams";

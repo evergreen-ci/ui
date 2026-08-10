@@ -1,7 +1,7 @@
 import { useTransition } from "react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
@@ -93,7 +93,11 @@ const LineWrapper = styled.div`
   padding-left: ${size.l};
 `;
 
-const StyledBody = styled(Body)`
+// Linaria's styled() cannot infer props from LeafyGreen's polymorphic components,
+// so Body is narrowed to its default rendered element.
+const StyledBody = styled(
+  Body as React.FC<React.ComponentPropsWithoutRef<"p">>,
+)`
   width: 150px;
 `;
 

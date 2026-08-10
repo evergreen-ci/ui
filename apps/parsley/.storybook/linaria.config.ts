@@ -1,0 +1,96 @@
+export const linariaOptions = {
+  eval: { resolver: "hybrid", strategy: "static" },
+  exclude: [/\.test\.[jt]sx?$/],
+  include: ["**/*.{ts,tsx}"],
+  staticBindings: {
+    "@evg-ui/lib/constants/tokens": {
+      fontSize: {
+        l: "18px",
+        m: "14px",
+        s: "8px",
+      },
+      size: {
+        l: "32px",
+        m: "24px",
+        s: "16px",
+        xl: "64px",
+        xs: "8px",
+        xxl: "72px",
+        xxs: "4px",
+      },
+      tableColumnOffset: "32px",
+      textInputHeight: "36px",
+      transitionDuration: {
+        default: 150,
+        faster: 100,
+        slower: 300,
+        slowest: 500,
+      },
+    },
+    "@leafygreen-ui/palette": {
+      palette: {
+        black: "#001E2B",
+        blue: {
+          base: "#016BF8",
+          dark1: "#1254B7",
+          dark2: "#083C90",
+          dark3: "#0C2657",
+          light1: "#0498EC",
+          light2: "#C3E7FE",
+          light3: "#E1F7FF",
+        },
+        gray: {
+          base: "#889397",
+          dark1: "#5C6C75",
+          dark2: "#3D4F58",
+          dark3: "#1C2D38",
+          dark4: "#112733",
+          light1: "#C1C7C6",
+          light2: "#E8EDEB",
+          light3: "#F9FBFA",
+        },
+        green: {
+          base: "#00ED64",
+          dark1: "#00A35C",
+          dark2: "#00684A",
+          dark3: "#023430",
+          light1: "#71F6BA",
+          light2: "#C0FAE6",
+          light3: "#E3FCF7",
+        },
+        purple: {
+          base: "#B45AF2",
+          dark2: "#5E0C9E",
+          dark3: "#2D0B59",
+          light2: "#F1D4FD",
+          light3: "#F9EBFF",
+        },
+        red: {
+          base: "#DB3030",
+          dark2: "#970606",
+          dark3: "#5B0000",
+          light1: "#FF6960",
+          light2: "#FFCDC7",
+          light3: "#FFEAE5",
+        },
+        transparent: "#FFFFFF00",
+        white: "#FFFFFF",
+        yellow: {
+          base: "#FFC010",
+          dark2: "#944F01",
+          dark3: "#4C2100",
+          light2: "#FFEC9E",
+          light3: "#FEF7DB",
+        },
+      },
+    },
+    "@leafygreen-ui/tokens": {
+      fontFamilies: {
+        code: "'Source Code Pro', Menlo, monospace",
+        default:
+          "'Euclid Circular A', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+        serif: "'MongoDB Value Serif', 'Times New Roman', serif",
+      },
+    },
+  },
+} as const;

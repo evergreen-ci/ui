@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { Copyable } from "@leafygreen-ui/copyable";
+import { styled } from "@linaria/react";
 import { Origin } from "@evg-ui/lib/constants/logURLTemplates";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";

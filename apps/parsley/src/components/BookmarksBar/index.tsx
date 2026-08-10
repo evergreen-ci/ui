@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Tooltip } from "@leafygreen-ui/tooltip";
+import { css } from "@linaria/core";
+import { styled } from "@linaria/react";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
-
-const { gray, green, red } = palette;
 
 interface BookmarksBarProps {
   failingLine?: number;
@@ -91,8 +90,8 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
         {lineNumbers.map((l) => (
           <LogLineNumber
             key={`bookmark-${l}`}
+            data-failed={l === failingLine}
             data-testid={`bookmark-${l}`}
-            failed={l === failingLine}
             onClick={() => {
               sendEvent({ name: "Used bookmark to navigate to a line" });
               scrollToLine(l);
@@ -100,7 +99,12 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
           >
             <span data-bookmark={l}>{l}</span>
             {l === shareLine && (
-              <StyledIcon data-testid="link-icon" glyph="Link" size="small" />
+              <Icon
+                className={iconStyle}
+                data-testid="link-icon"
+                glyph="Link"
+                size="small"
+              />
             )}
           </LogLineNumber>
         ))}
@@ -109,7 +113,9 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
   );
 };
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(
+  Button as React.FC<React.ComponentProps<typeof Button>>,
+)`
   width: 52px;
 `;
 
@@ -121,19 +127,21 @@ const LogLineContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const LogLineNumber = styled.div<{ failed: boolean }>`
+const LogLineNumber = styled.div`
   display: flex;
   align-items: center;
   font-size: 13px;
   line-height: 1.5em;
   font-family: ${fontFamilies.code};
-  :hover {
-    color: ${green.dark1};
+  &[data-failed="true"] {
+    color: ${palette.red.base};
   }
-  ${({ failed }) => failed && `color: ${red.base};`}
+  :hover {
+    color: ${palette.green.dark1};
+  }
 `;
 
-const StyledIcon = styled(Icon)`
+const iconStyle = css`
   vertical-align: text-bottom;
 `;
 
@@ -144,7 +152,7 @@ const Container = styled.div`
 
   min-width: ${size.xl};
   width: fit-content;
-  background-color: ${gray.light3};
+  background-color: ${palette.gray.light3};
   box-shadow: 0 ${size.xxs} ${size.xxs} rgba(0, 0, 0, 0.25);
   padding-top: ${size.s};
 `;

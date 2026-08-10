@@ -1,13 +1,12 @@
 import { useCallback } from "react";
-import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { fontFamilies } from "@leafygreen-ui/tokens";
+import { styled } from "@linaria/react";
 import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
-import { WordWrapFormat } from "constants/enums";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
 import { formatPrettyPrint } from "utils/prettyPrint";
@@ -16,8 +15,6 @@ import { isLineInRange } from "../utils";
 import Highlighter from "./Highlighter";
 import LineNumber from "./LineNumber";
 import SharingMenu from "./SharingMenu";
-
-const { red, yellow } = palette;
 
 interface BaseRowProps extends Omit<LogLineRow, "getLine"> {
   children: string;
@@ -127,16 +124,12 @@ const BaseRow: React.FC<BaseRowProps> = ({
   return (
     <RowContainer
       {...rest}
-      bookmarked={bookmarked}
       data-bookmarked={bookmarked}
       data-failed={failed}
-      data-highlighted={highlighted}
+      data-highlighted={highlighted || isLineBetweenSelectedLines}
       data-shared={shared}
       data-testid={`log-row-${lineNumber}`}
-      failed={failed}
-      highlighted={highlighted || isLineBetweenSelectedLines}
       onDoubleClick={handleDoubleClick}
-      shared={shared}
     >
       {menuPosition === lineNumber ? (
         <SharingMenu lineNumber={lineNumber} shared={shared} />
@@ -150,7 +143,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
         </EllipsisButton>
       )}
       <LineNumber lineNumber={lineNumber} />
-      <StyledPre shouldWrap={wrap} wordWrapFormat={wordWrapFormat}>
+      <StyledPre data-word-wrap-format={wordWrapFormat} data-wrap={wrap}>
         <Highlighter
           color={color}
           data-testid={dataTestId}
@@ -166,12 +159,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
 
 BaseRow.displayName = "BaseRow";
 
-const RowContainer = styled.div<{
-  bookmarked: boolean;
-  failed: boolean;
-  highlighted: boolean;
-  shared: boolean;
-}>`
+const RowContainer = styled.div`
   display: flex;
   align-items: flex-start;
 
@@ -180,10 +168,14 @@ const RowContainer = styled.div<{
   font-size: ${fontSize.m};
   padding-left: 1px;
 
-  ${({ failed }) => failed && `background-color: ${yellow.light3};`}
-  ${({ shared }) => shared && `background-color: ${yellow.light3};`}
-  ${({ bookmarked }) => bookmarked && `background-color: ${yellow.light3};`}
-  ${({ highlighted }) => highlighted && `background-color: ${red.light3};`}
+  &[data-failed="true"],
+  &[data-shared="true"],
+  &[data-bookmarked="true"] {
+    background-color: ${palette.yellow.light3};
+  }
+  &[data-highlighted="true"] {
+    background-color: ${palette.red.light3};
+  }
   width: fit-content;
   // Hover should be an overlay shadow so that the user can see the color underneath.
   :hover {
@@ -196,10 +188,7 @@ const RowContainer = styled.div<{
 // causing unwanted spacing between log lines. To avoid this, we use a <div> and manually
 // apply white-space and wrapping styles to replicate <pre> behavior without the selection quirks.
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1528442
-const StyledPre = styled.div<{
-  shouldWrap: boolean;
-  wordWrapFormat: WordWrapFormat;
-}>`
+const StyledPre = styled.div`
   font-family: ${fontFamilies.code};
   font-size: inherit;
   line-height: inherit;
@@ -207,25 +196,24 @@ const StyledPre = styled.div<{
   padding: 0;
   margin-right: ${size.xs};
 
-  ${({ shouldWrap, wordWrapFormat }) =>
-    shouldWrap &&
-    wordWrapFormat === WordWrapFormat.Aggressive &&
-    `
-      overflow-wrap: anywhere;
-      word-break: break-word;
-    `}
+  &[data-wrap="true"][data-word-wrap-format="aggressive"] {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 
-  ${({ shouldWrap }) =>
-    shouldWrap
-      ? `
-        white-space: break-spaces;
-      `
-      : `
-        white-space: pre;
-      `}
+  &[data-wrap="true"] {
+    white-space: break-spaces;
+  }
+  &[data-wrap="false"] {
+    white-space: pre;
+  }
 `;
 
-const EllipsisButton = styled(IconButton)`
+// Linaria's styled() cannot infer props from LeafyGreen's polymorphic components,
+// so IconButton is narrowed to its default rendered element.
+const EllipsisButton = styled(
+  IconButton as React.FC<React.ComponentPropsWithoutRef<"button">>,
+)`
   height: 16px;
   width: 16px;
   margin-left: ${size.xxs};

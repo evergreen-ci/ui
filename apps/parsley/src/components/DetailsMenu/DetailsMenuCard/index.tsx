@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
-import styled from "@emotion/styled";
 import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import ButtonRow from "./ButtonRow";
 import CliCommandButton from "./CliCommandButton/CliCommandButton";

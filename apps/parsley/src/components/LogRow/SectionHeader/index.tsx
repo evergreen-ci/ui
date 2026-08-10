@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
+import { styled } from "@linaria/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
@@ -32,7 +32,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   return (
     <div
       aria-expanded={open}
-      css={sectionHeaderWrapperStyle}
+      className={sectionHeaderWrapperStyle}
       data-testid="section-header"
     >
       <CaretToggle

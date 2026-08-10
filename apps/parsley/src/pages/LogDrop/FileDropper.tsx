@@ -1,6 +1,6 @@
 import { useCallback, useTransition } from "react";
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { styled } from "@linaria/react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -22,8 +22,6 @@ import FileSelector from "./FileSelector";
 import LoadingAnimation from "./LoadingAnimation";
 import ParseLogSelect from "./ParseLogSelect";
 import useLogDropState from "./state";
-
-const { green } = palette;
 
 const FileDropper: React.FC = () => {
   const dispatchToast = useToastContext();
@@ -182,10 +180,12 @@ const FileDropper: React.FC = () => {
       break;
   }
 
+  const rootProps = getRootProps();
+
   return (
     <Container>
       <BorderBox>
-        <Dropzone {...getRootProps()} data-testid="upload-zone">
+        <Dropzone {...rootProps} data-testid="upload-zone">
           {visibleUI}
         </Dropzone>
       </BorderBox>
@@ -205,7 +205,7 @@ const BorderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: ${size.xxs} dashed ${green.base};
+  border: ${size.xxs} dashed ${palette.green.base};
   border-radius: ${size.s};
   padding: ${size.s};
 `;
