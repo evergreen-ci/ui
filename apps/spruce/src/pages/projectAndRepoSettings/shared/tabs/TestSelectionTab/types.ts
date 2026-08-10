@@ -1,14 +1,9 @@
 import { ProjectType } from "../utils";
 
-export enum TaskLevelTestSelection {
-  Disabled = "disabled",
-  Patches = "patches",
-  PatchesAndMainline = "patches-and-mainline",
-}
-
 export interface TestSelectionFormState {
   allowed: boolean | null;
-  taskLevel: TaskLevelTestSelection | null;
+  defaultEnabled: boolean | null;
+  mainlineDefaultEnabled: boolean | null;
 }
 
 export type TabProps = {

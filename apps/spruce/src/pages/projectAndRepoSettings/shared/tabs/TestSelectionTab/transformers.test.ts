@@ -1,7 +1,7 @@
 import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
-import { TaskLevelTestSelection, TestSelectionFormState } from "./types";
+import { TestSelectionFormState } from "./types";
 
 const { projectBase, repoBase } = data;
 
@@ -31,22 +31,19 @@ describe("task-level settings", () => {
   it.each([
     {
       defaultEnabled: false,
-      expected: TaskLevelTestSelection.Disabled,
       mainlineDefaultEnabled: false,
     },
     {
       defaultEnabled: true,
-      expected: TaskLevelTestSelection.Patches,
       mainlineDefaultEnabled: false,
     },
     {
       defaultEnabled: true,
-      expected: TaskLevelTestSelection.PatchesAndMainline,
       mainlineDefaultEnabled: true,
     },
   ])(
     "converts defaultEnabled=$defaultEnabled and mainlineDefaultEnabled=$mainlineDefaultEnabled from GQL",
-    ({ defaultEnabled, expected, mainlineDefaultEnabled }) => {
+    ({ defaultEnabled, mainlineDefaultEnabled }) => {
       const projectRef = repoBase.projectRef!;
       expect(
         gqlToForm({
@@ -60,7 +57,7 @@ describe("task-level settings", () => {
             },
           },
         }),
-      ).toMatchObject({ taskLevel: expected });
+      ).toMatchObject({ defaultEnabled, mainlineDefaultEnabled });
     },
   );
 
@@ -68,24 +65,24 @@ describe("task-level settings", () => {
     {
       defaultEnabled: false,
       mainlineDefaultEnabled: false,
-      taskLevel: TaskLevelTestSelection.Disabled,
     },
     {
       defaultEnabled: true,
       mainlineDefaultEnabled: false,
-      taskLevel: TaskLevelTestSelection.Patches,
     },
     {
       defaultEnabled: true,
       mainlineDefaultEnabled: true,
-      taskLevel: TaskLevelTestSelection.PatchesAndMainline,
     },
   ])(
-    "converts $taskLevel to GQL",
-    ({ defaultEnabled, mainlineDefaultEnabled, taskLevel }) => {
+    "converts test selection settings to GQL",
+    ({ defaultEnabled, mainlineDefaultEnabled }) => {
       expect(
-        formToGql({ allowed: true, taskLevel }, false, "project").projectRef
-          .testSelection,
+        formToGql(
+          { allowed: true, defaultEnabled, mainlineDefaultEnabled },
+          false,
+          "project",
+        ).projectRef.testSelection,
       ).toStrictEqual({
         allowed: true,
         defaultEnabled,
@@ -97,7 +94,8 @@ describe("task-level settings", () => {
 
 const projectForm: TestSelectionFormState = {
   allowed: null,
-  taskLevel: null,
+  defaultEnabled: null,
+  mainlineDefaultEnabled: null,
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -114,7 +112,8 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
 
 const repoForm: TestSelectionFormState = {
   allowed: true,
-  taskLevel: TaskLevelTestSelection.PatchesAndMainline,
+  defaultEnabled: true,
+  mainlineDefaultEnabled: true,
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
