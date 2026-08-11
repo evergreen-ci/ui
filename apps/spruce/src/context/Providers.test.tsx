@@ -40,6 +40,25 @@ describe("ContextProviders", () => {
     );
   });
 
+  it("leaves absolute and non-http hrefs untouched", () => {
+    renderWithRouterMatch(
+      <ContextProviders>
+        <Link href="https://docs.devprod.mongodb.com/evergreen">Docs</Link>
+        <Link href="mailto:evergreen@mongodb.com">Email</Link>
+      </ContextProviders>,
+      { path: "/*", route: "/version/abc/tasks" },
+    );
+
+    expect(screen.getByRole("link", { name: "Docs" })).toHaveAttribute(
+      "href",
+      "https://docs.devprod.mongodb.com/evergreen",
+    );
+    expect(screen.getByRole("link", { name: "Email" })).toHaveAttribute(
+      "href",
+      "mailto:evergreen@mongodb.com",
+    );
+  });
+
   it("routes Via links through react-router rather than reloading the page", async () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(

@@ -1,7 +1,7 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { ViaProvider } from "@via-ds/components/provider";
 import { ColorScheme } from "@via-ds/components/types";
-import { useHref, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastProvider } from "@evg-ui/lib/context/toast";
 import GQLWrapper from "gql/GQLWrapper";
 
@@ -13,12 +13,13 @@ const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
   return (
     <GQLWrapper>
       <LeafyGreenProvider baseFontSize={14}>
-        {/* Via defaults `navigate` to a full page reload; hand it react-router
-            so Via links navigate client-side. */}
+        {/* Pin Via's browser-derived defaults: left unset, `navigate` does a
+            full page reload, dir/lang follow navigator.language, and Via's
+            light-dark() CSS follows the OS color scheme. */}
         <ViaProvider
           colorScheme={ColorScheme.Light}
-          navigate={(path) => navigate(path)}
-          useHref={useHref}
+          locale="en-US"
+          navigate={navigate}
         >
           <ToastProvider>{children}</ToastProvider>
         </ViaProvider>
