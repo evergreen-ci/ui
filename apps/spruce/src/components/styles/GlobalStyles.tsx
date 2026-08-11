@@ -26,11 +26,6 @@ export const globalStyles = css`
   ${resetStyles}
   ${fontStyles}
 
-  /* Via sets "color-scheme: light dark" at :root; ViaProvider's wrapper class cannot override it. */
-  :root {
-    color-scheme: light;
-  }
-
   /* Used for styling task logs. */
   pre {
     font-family: ${fontFamilies.code};
