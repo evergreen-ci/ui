@@ -13,9 +13,7 @@ const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
   return (
     <GQLWrapper>
       <LeafyGreenProvider baseFontSize={14}>
-        {/* Pin Via's browser-derived defaults: left unset, `navigate` does a
-            full page reload, dir/lang follow navigator.language, and Via's
-            light-dark() CSS follows the OS color scheme. */}
+        {/* Left unset, these props follow the browser: full page reloads, OS color scheme, navigator-derived dir/lang. */}
         <ViaProvider
           colorScheme={ColorScheme.Light}
           locale="en-US"

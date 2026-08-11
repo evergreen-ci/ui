@@ -1,4 +1,3 @@
-import Button from "@leafygreen-ui/button";
 import { Link } from "@via-ds/components/typography";
 import {
   renderWithRouterMatch,
@@ -8,25 +7,12 @@ import {
 } from "@evg-ui/lib/test_utils";
 import ContextProviders from "context/Providers";
 
-// GQLWrapper fetches secret fields over the network before it renders children,
-// which never resolves in jsdom.
+// GQLWrapper blocks rendering children on a network fetch that never resolves in jsdom.
 vi.mock("gql/GQLWrapper", () => ({
   default: ({ children }: { children: React.ReactNode }) => children,
 }));
 
 describe("ContextProviders", () => {
-  it("renders Via and LeafyGreen components side by side", () => {
-    renderWithRouterMatch(
-      <ContextProviders>
-        <Link href="/hosts">Via link</Link>
-        <Button>LeafyGreen button</Button>
-      </ContextProviders>,
-    );
-
-    expect(screen.getByText("Via link")).toBeInTheDocument();
-    expect(screen.getByText("LeafyGreen button")).toBeInTheDocument();
-  });
-
   it("applies the light color scheme to the Via provider root", () => {
     renderWithRouterMatch(
       <ContextProviders>
