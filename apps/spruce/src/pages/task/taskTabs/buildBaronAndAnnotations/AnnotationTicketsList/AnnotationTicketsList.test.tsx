@@ -49,7 +49,7 @@ describe("annotationTicketsList", () => {
       path: "/task/:id",
     });
 
-    await screen.findByDataTestId("loading-annotation-ticket");
+    await screen.findByTestId("loading-annotation-ticket");
     expect(screen.getByText("EVG-1234567")).toBeInTheDocument();
   });
 });

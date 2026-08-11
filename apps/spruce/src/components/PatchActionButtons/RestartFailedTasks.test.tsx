@@ -30,7 +30,7 @@ describe("restartFailedTasks", () => {
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
-    expect(screen.getByDataTestId("restart-failed-tasks")).toBeInTheDocument();
+    expect(screen.getByTestId("restart-failed-tasks")).toBeInTheDocument();
   });
 
   it("is enabled initially since query runs on click", () => {
@@ -40,7 +40,7 @@ describe("restartFailedTasks", () => {
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
-    expect(screen.getByDataTestId("restart-failed-tasks")).toHaveAttribute(
+    expect(screen.getByTestId("restart-failed-tasks")).toHaveAttribute(
       "aria-disabled",
       "false",
     );
@@ -57,7 +57,7 @@ describe("restartFailedTasks", () => {
     );
     renderWithRouterMatch(<Component />);
 
-    await user.click(screen.getByDataTestId("restart-failed-tasks"));
+    await user.click(screen.getByTestId("restart-failed-tasks"));
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
@@ -76,7 +76,7 @@ describe("restartFailedTasks", () => {
     );
     renderWithRouterMatch(<Component />);
 
-    await user.click(screen.getByDataTestId("restart-failed-tasks"));
+    await user.click(screen.getByTestId("restart-failed-tasks"));
 
     await waitFor(() => {
       expect(dispatchToast.warning).toHaveBeenCalledTimes(1);
@@ -95,7 +95,7 @@ describe("restartFailedTasks", () => {
     );
     renderWithRouterMatch(<Component />);
 
-    await user.click(screen.getByDataTestId("restart-failed-tasks"));
+    await user.click(screen.getByTestId("restart-failed-tasks"));
 
     await waitFor(() => {
       expect(dispatchToast.error).toHaveBeenCalledTimes(1);
@@ -116,7 +116,7 @@ describe("restartFailedTasks", () => {
     );
     renderWithRouterMatch(<Component />);
 
-    await user.click(screen.getByDataTestId("restart-failed-tasks"));
+    await user.click(screen.getByTestId("restart-failed-tasks"));
 
     await waitFor(() => {
       expect(dispatchToast.error).toHaveBeenCalledTimes(1);
@@ -140,7 +140,7 @@ describe("restartFailedTasks", () => {
     );
     renderWithRouterMatch(<Component />);
 
-    await user.click(screen.getByDataTestId("restart-failed-tasks"));
+    await user.click(screen.getByTestId("restart-failed-tasks"));
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
@@ -158,7 +158,7 @@ describe("restartFailedTasks", () => {
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
-    expect(screen.getByDataTestId("restart-failed-tasks")).toHaveAttribute(
+    expect(screen.getByTestId("restart-failed-tasks")).toHaveAttribute(
       "aria-disabled",
       "true",
     );

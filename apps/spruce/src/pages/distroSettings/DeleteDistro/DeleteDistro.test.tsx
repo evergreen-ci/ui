@@ -34,13 +34,13 @@ describe("deleteDistro", () => {
       path: "/distro/:distroId/settings/general",
       route: `/distro/${distroToDelete}/settings/general`,
     });
-    const deleteButton = screen.getByDataTestId("delete-distro-button");
+    const deleteButton = screen.getByTestId("delete-distro-button");
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveAttribute("aria-disabled", "true");
     await user.hover(deleteButton);
     await waitFor(
       () => {
-        expect(screen.getByDataTestId("delete-button-tooltip")).toBeVisible();
+        expect(screen.getByTestId("delete-button-tooltip")).toBeVisible();
       },
       { timeout: 2000 },
     );
@@ -52,7 +52,7 @@ describe("deleteDistro", () => {
       path: "/distro/:distroId/settings/general",
       route: `/distro/${distroToDelete}/settings/general`,
     });
-    const deleteButton = screen.getByDataTestId("delete-distro-button");
+    const deleteButton = screen.getByTestId("delete-distro-button");
     await waitFor(() => {
       expect(deleteButton).toHaveAttribute("aria-disabled", "false");
     });
@@ -67,13 +67,13 @@ describe("deleteDistro", () => {
       path: "/distro/:distroId/settings/general",
       route: `/distro/${distroToDelete}/settings/general`,
     });
-    const deleteButton = screen.getByDataTestId("delete-distro-button");
+    const deleteButton = screen.getByTestId("delete-distro-button");
     await waitFor(() => {
       expect(deleteButton).toHaveAttribute("aria-disabled", "false");
     });
 
     await user.click(deleteButton);
-    expect(screen.getByDataTestId("delete-distro-modal")).toBeInTheDocument();
+    expect(screen.getByTestId("delete-distro-modal")).toBeInTheDocument();
 
     const confirmButton = screen.getByRole("button", {
       name: "Delete",
@@ -81,7 +81,7 @@ describe("deleteDistro", () => {
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
     const textInput = within(
-      screen.getByDataTestId("delete-distro-modal"),
+      screen.getByTestId("delete-distro-modal"),
     ).getByRole("textbox");
     await user.type(textInput, distroToDelete);
     expect(confirmButton).toHaveAttribute("aria-disabled", "false");

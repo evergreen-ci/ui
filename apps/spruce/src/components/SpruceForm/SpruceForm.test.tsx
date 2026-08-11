@@ -24,7 +24,7 @@ describe("spruce form", () => {
     );
     expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
-    expect(screen.getByDataTestId("add-button")).toHaveTextContent("New User");
+    expect(screen.getByTestId("add-button")).toHaveTextContent("New User");
     expect(screen.getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
       "Manage Access",
     );
@@ -48,18 +48,13 @@ describe("spruce form", () => {
         />
       </SpruceFormContainer>,
     );
-    await user.clear(screen.getByDataTestId("valid-projects-input"));
-    await user.type(
-      screen.getByDataTestId("valid-projects-input"),
-      "new value",
-    );
-    await user.click(screen.getByDataTestId("add-button"));
-    expect(screen.queryAllByDataTestId("new-user-input")).toHaveLength(2);
+    await user.clear(screen.getByTestId("valid-projects-input"));
+    await user.type(screen.getByTestId("valid-projects-input"), "new value");
+    await user.click(screen.getByTestId("add-button"));
+    expect(screen.queryAllByTestId("new-user-input")).toHaveLength(2);
     await user.type(screen.getAllByTestId("new-user-input")[0], "new-user");
     expect(onChange).toHaveBeenCalled();
-    expect(screen.getByDataTestId("valid-projects-input")).toHaveValue(
-      "new value",
-    );
+    expect(screen.getByTestId("valid-projects-input")).toHaveValue("new value");
     expect(data).toStrictEqual({
       ...basicForm.formData,
       access: null,
@@ -92,9 +87,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          await user.type(screen.getByDataTestId("text-input"), "new value");
-          await user.clear(screen.getByDataTestId("text-input"));
-          expect(screen.getByDataTestId("text-input")).toHaveValue("");
+          await user.type(screen.getByTestId("text-input"), "new value");
+          await user.clear(screen.getByTestId("text-input"));
+          expect(screen.getByTestId("text-input")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
           expect(formErrors).toStrictEqual([{ stack: "textInput: invisible" }]);
@@ -122,9 +117,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          await user.type(screen.getByDataTestId("text-input"), "new value");
-          await user.clear(screen.getByDataTestId("text-input"));
-          expect(screen.getByDataTestId("text-input")).toHaveValue("");
+          await user.type(screen.getByTestId("text-input"), "new value");
+          await user.clear(screen.getByTestId("text-input"));
+          expect(screen.getByTestId("text-input")).toHaveValue("");
           expect(data).toStrictEqual({
             textInput: "",
           });
@@ -149,11 +144,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          await user.type(screen.getByDataTestId("text-input"), "new value");
-          await user.clear(screen.getByDataTestId("text-input"));
-          expect(screen.getByDataTestId("text-input")).toHaveValue(
-            "myEmptyValue",
-          );
+          await user.type(screen.getByTestId("text-input"), "new value");
+          await user.clear(screen.getByTestId("text-input"));
+          expect(screen.getByTestId("text-input")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
             textInput: "myEmptyValue",
           });
@@ -184,9 +177,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          await user.type(screen.getByDataTestId("text-area"), "new value");
-          await user.clear(screen.getByDataTestId("text-area"));
-          expect(screen.getByDataTestId("text-area")).toHaveValue("");
+          await user.type(screen.getByTestId("text-area"), "new value");
+          await user.clear(screen.getByTestId("text-area"));
+          expect(screen.getByTestId("text-area")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
           expect(formErrors).toStrictEqual([{ stack: "textArea: invisible" }]);
@@ -214,9 +207,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          await user.type(screen.getByDataTestId("text-area"), "new value");
-          await user.clear(screen.getByDataTestId("text-area"));
-          expect(screen.getByDataTestId("text-area")).toHaveValue("");
+          await user.type(screen.getByTestId("text-area"), "new value");
+          await user.clear(screen.getByTestId("text-area"));
+          expect(screen.getByTestId("text-area")).toHaveValue("");
           expect(data).toStrictEqual({
             textArea: "",
           });
@@ -241,11 +234,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          await user.type(screen.getByDataTestId("text-area"), "new value");
-          await user.clear(screen.getByDataTestId("text-area"));
-          expect(screen.getByDataTestId("text-area")).toHaveValue(
-            "myEmptyValue",
-          );
+          await user.type(screen.getByTestId("text-area"), "new value");
+          await user.clear(screen.getByTestId("text-area"));
+          expect(screen.getByTestId("text-area")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
             textArea: "myEmptyValue",
           });
@@ -443,9 +434,9 @@ describe("spruce form", () => {
         expect(screen.getByLabelText("day")).toHaveValue("16");
         // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
         await waitFor(() => {
-          expect(screen.getByDataTestId("hour-input")).toHaveValue("11");
+          expect(screen.getByTestId("hour-input")).toHaveValue("11");
         });
-        expect(screen.getByDataTestId("minute-input")).toHaveValue("19");
+        expect(screen.getByTestId("minute-input")).toHaveValue("19");
       });
 
       it("correctly sets the date, preserving time", async () => {
@@ -464,7 +455,7 @@ describe("spruce form", () => {
 
         // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
         await waitFor(() => {
-          expect(screen.getByDataTestId("hour-input")).toHaveValue("11");
+          expect(screen.getByTestId("hour-input")).toHaveValue("11");
         });
 
         await user.clear(screen.getByLabelText("day"));
@@ -496,18 +487,18 @@ describe("spruce form", () => {
 
         // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
         await waitFor(() => {
-          expect(screen.getByDataTestId("hour-input")).toHaveValue("11");
+          expect(screen.getByTestId("hour-input")).toHaveValue("11");
         });
 
         await user.click(screen.getByRole("button", { name: "Clock Icon" }));
         await waitFor(() => {
-          expect(screen.getByDataTestId("time-picker-options")).toBeVisible();
+          expect(screen.getByTestId("time-picker-options")).toBeVisible();
         });
         await user.click(
-          within(screen.getByDataTestId("minute-options")).getByText("56"),
+          within(screen.getByTestId("minute-options")).getByText("56"),
         );
 
-        expect(screen.getByDataTestId("minute-input")).toHaveValue("56");
+        expect(screen.getByTestId("minute-input")).toHaveValue("56");
         expect(onChangeMock).toHaveBeenNthCalledWith(
           2,
           expect.objectContaining({
@@ -564,7 +555,7 @@ const basicForm = {
     validProjects: {
       "ui:widget": "textarea",
       "ui:options": {
-        "data-testid": "valid-projects-input",
+        "data-cy": "valid-projects-input",
         label: false,
       },
     },
@@ -576,7 +567,7 @@ const basicForm = {
       "ui:addButtonText": "New User",
       items: {
         "ui:ariaLabelledBy": "root_access",
-        "ui:data-testid": "new-user-input",
+        "ui:data-cy": "new-user-input",
       },
     },
   },
@@ -597,7 +588,7 @@ const textInput = (emptyValue?: string) => ({
   },
   uiSchema: {
     textInput: {
-      "ui:data-testid": "text-input",
+      "ui:data-cy": "text-input",
       ...(emptyValue && { "ui:emptyValue": emptyValue }),
     },
   },
@@ -619,7 +610,7 @@ const textArea = (emptyValue?: string) => ({
   uiSchema: {
     textArea: {
       "ui:widget": "textarea",
-      "ui:data-testid": "text-area",
+      "ui:data-cy": "text-area",
       ...(emptyValue && { "ui:emptyValue": emptyValue }),
     },
   },

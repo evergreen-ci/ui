@@ -230,6 +230,25 @@ export const rateLimitConfig = {
         },
       },
     },
+    exemptUsers: {
+      type: "object" as const,
+      title: "Exempt Users",
+      properties: {
+        exemptUserIds: {
+          type: "array" as const,
+          title: "User IDs",
+          default: [],
+          items: {
+            type: "string" as const,
+            properties: {
+              value: {
+                type: "string" as const,
+              },
+            },
+          },
+        },
+      },
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
@@ -262,6 +281,16 @@ export const rateLimitConfig = {
         "ui:widget": widgets.ChipInputWidget,
         "ui:fieldCss": fullWidthCss,
         "ui:data-testid": "elevated-user-ids",
+      },
+    },
+    exemptUsers: {
+      "ui:data-cy": "exempt-users",
+      "ui:fieldCss": nestedObjectGridCss,
+      "ui:description": "Users who are not rate limited at all.",
+      exemptUserIds: {
+        "ui:widget": widgets.ChipInputWidget,
+        "ui:fieldCss": fullWidthCss,
+        "ui:data-cy": "exempt-user-ids",
       },
     },
   },

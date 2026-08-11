@@ -63,7 +63,7 @@ describe("navigation warning", () => {
     await user.click(screen.getByRole("link"));
     expect(router.state.location.pathname).toBe("/about");
     expect(
-      screen.queryByDataTestId("navigation-warning-modal"),
+      screen.queryByTestId("navigation-warning-modal"),
     ).not.toBeInTheDocument();
     expect(screen.queryByRole("heading")).toHaveTextContent("About Page");
   });
@@ -80,9 +80,7 @@ describe("navigation warning", () => {
 
     await user.click(screen.getByRole("link"));
     expect(router.state.location.pathname).toBe("/");
-    expect(
-      screen.getByDataTestId("navigation-warning-modal"),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("navigation-warning-modal")).toBeInTheDocument();
     expect(screen.getByText("An Unsaved Page")).toBeInTheDocument();
   });
 
@@ -98,9 +96,7 @@ describe("navigation warning", () => {
 
     await user.click(screen.getByRole("link"));
     expect(router.state.location.pathname).toBe("/");
-    expect(
-      screen.getByDataTestId("navigation-warning-modal"),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("navigation-warning-modal")).toBeInTheDocument();
     expect(screen.getByText("An Unsaved Page")).toBeInTheDocument();
   });
 
@@ -116,9 +112,7 @@ describe("navigation warning", () => {
 
     await user.click(screen.getByRole("link"));
     expect(router.state.location.pathname).toBe("/");
-    expect(
-      screen.getByDataTestId("navigation-warning-modal"),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("navigation-warning-modal")).toBeInTheDocument();
     expect(screen.getByText("An Unsaved Page")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Leave" }));
@@ -138,9 +132,7 @@ describe("navigation warning", () => {
 
     await user.click(screen.getByRole("link"));
     expect(router.state.location.pathname).toBe("/");
-    expect(
-      screen.getByDataTestId("navigation-warning-modal"),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("navigation-warning-modal")).toBeInTheDocument();
     expect(screen.getByText("An Unsaved Page")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Cancel" }));

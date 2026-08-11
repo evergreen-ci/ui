@@ -29,7 +29,7 @@ const RenderCommitChartLabel = ({ version }) => (
 describe("commitChartLabel", () => {
   it("displays author, githash and createTime", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
-    expect(screen.queryByDataTestId("commit-label")).toHaveTextContent(
+    expect(screen.queryByTestId("commit-label")).toHaveTextContent(
       "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal" +
         "Git Tags: v1.2.3, v1.2.3-rc0",
     );
@@ -37,7 +37,7 @@ describe("commitChartLabel", () => {
 
   it("githash links to version page", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
-    expect(screen.queryByDataTestId("githash-link")).toHaveAttribute(
+    expect(screen.queryByTestId("githash-link")).toHaveAttribute(
       "href",
       "/version/123/tasks",
     );
@@ -46,7 +46,7 @@ describe("commitChartLabel", () => {
   it("jira ticket links to Jira website", async () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("jira-link")).toHaveAttribute(
+      expect(screen.queryByTestId("jira-link")).toHaveAttribute(
         "href",
         "https://jira.mongodb.org/browse/SERVER-57332",
       );
@@ -56,7 +56,7 @@ describe("commitChartLabel", () => {
   it("displays shortened commit message and the 'more' button if necessary", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
     expect(screen.getByText("more")).toBeInTheDocument();
-    expect(screen.queryByDataTestId("commit-label")).toHaveTextContent(
+    expect(screen.queryByTestId("commit-label")).toHaveTextContent(
       "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal...more" +
         "Git Tags: v1.2.3, v1.2.3-rc0",
     );
@@ -64,7 +64,7 @@ describe("commitChartLabel", () => {
 
   it("displays entire commit message if it does not break length limit", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
-    expect(screen.queryByDataTestId("commit-label")).toHaveTextContent(
+    expect(screen.queryByTestId("commit-label")).toHaveTextContent(
       "SERVER-57332 Create skeleton Internal",
     );
   });
@@ -73,15 +73,16 @@ describe("commitChartLabel", () => {
     const user = userEvent.setup();
     renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
 
-    expect(screen.queryByDataTestId("long-commit-message-tooltip")).toBeNull();
-    await user.click(screen.getByText("more"));
+    expect(screen.queryByTestId("long-commit-message-tooltip")).toBeNull();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByText("more"));
     await waitFor(() => {
       expect(
-        screen.getByDataTestId("long-commit-message-tooltip"),
+        screen.getByTestId("long-commit-message-tooltip"),
       ).toBeInTheDocument();
     });
     expect(
-      screen.queryByDataTestId("long-commit-message-tooltip"),
+      screen.queryByTestId("long-commit-message-tooltip"),
     ).toHaveTextContent(
       "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     );

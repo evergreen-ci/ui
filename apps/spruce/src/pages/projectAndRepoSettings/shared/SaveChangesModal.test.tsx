@@ -53,7 +53,7 @@ describe("SaveChangesModal", () => {
 
   it("renders the diff table when before and after differ", () => {
     renderModal();
-    expect(screen.getByDataTestId("event-diff-table")).toBeInTheDocument();
+    expect(screen.getByTestId("event-diff-table")).toBeInTheDocument();
     expect(
       screen.getByText("projectRef.notifyOnBuildFailure"),
     ).toBeInTheDocument();
@@ -61,17 +61,13 @@ describe("SaveChangesModal", () => {
 
   it("renders a no-changes message when before and after are equal", () => {
     renderModal({ after: before });
-    expect(
-      screen.queryByDataTestId("event-diff-table"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("event-diff-table")).not.toBeInTheDocument();
     expect(screen.getByText("No changes detected.")).toBeInTheDocument();
   });
 
   it("renders a no-changes message when both before and after are null", () => {
     renderModal({ after: null, before: null });
-    expect(
-      screen.queryByDataTestId("event-diff-table"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("event-diff-table")).not.toBeInTheDocument();
     expect(screen.getByText("No changes detected.")).toBeInTheDocument();
   });
 
@@ -101,7 +97,7 @@ describe("SaveChangesModal", () => {
 
   it("applies customKeyValueRenderConfig to matching keys", () => {
     const customKeyValueRenderConfig: CustomKeyValueRenderConfig = {
-      "vars.vars": () => <span data-testid="masked-value">REDACTED</span>,
+      "vars.vars": () => <span data-cy="masked-value">REDACTED</span>,
     };
 
     const beforeVars: ProjectSettingsInput = {
@@ -133,6 +129,6 @@ describe("SaveChangesModal", () => {
 
   it("is not rendered when open is false", () => {
     renderModal({ open: false });
-    expect(screen.queryByDataTestId("save-changes-modal")).not.toBeVisible();
+    expect(screen.queryByTestId("save-changes-modal")).not.toBeVisible();
   });
 });

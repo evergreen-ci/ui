@@ -40,14 +40,14 @@ describe("create distro modal", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);
 
-    expect(screen.queryByDataTestId("create-distro-modal")).not.toBeVisible();
+    expect(screen.queryByTestId("create-distro-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {
     const { Component } = RenderFakeToastContext(<Modal />);
     render(<Component />);
 
-    expect(screen.getByDataTestId("create-distro-modal")).toBeVisible();
+    expect(screen.getByTestId("create-distro-modal")).toBeVisible();
     expect(screen.queryByText("Create New Distro")).toBeVisible();
 
     const confirmButton = screen.getByRole("button", {
@@ -61,7 +61,8 @@ describe("create distro modal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
     const { router } = render(<Component />);
 
-    await user.type(screen.getByDataTestId("distro-id-input"), newDistroId);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.type(screen.queryByTestId("distro-id-input"), newDistroId);
     await user.click(screen.getByRole("button", { name: "Create" }));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
@@ -79,7 +80,7 @@ describe("create distro modal", () => {
     const { router } = render(<Component />);
 
     await user.type(
-      screen.queryByDataTestId("distro-id-input") as HTMLElement,
+      screen.queryByTestId("distro-id-input") as HTMLElement,
       newDistroId,
     );
     await user.click(screen.getByText("Single Task Distro"));
@@ -98,7 +99,8 @@ describe("create distro modal", () => {
     render(<Component />);
 
     await user.type(
-      screen.getByDataTestId("distro-id-input"),
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      screen.queryByTestId("distro-id-input"),
       "string with spaces",
     );
     expect(
@@ -131,7 +133,8 @@ describe("create distro modal", () => {
     );
     const { router } = render(<Component />);
 
-    await user.type(screen.getByDataTestId("distro-id-input"), newDistroId);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.type(screen.queryByTestId("distro-id-input"), newDistroId);
 
     const confirmButton = screen.getByRole("button", {
       name: "Create",

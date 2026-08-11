@@ -43,9 +43,7 @@ describe("spawnVolumeModal", () => {
         <Component />
       </MockedProvider>,
     );
-    expect(
-      screen.queryByDataTestId("spawn-volume-modal"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("spawn-volume-modal")).not.toBeInTheDocument();
   });
 
   it("form contains default values on initial render", async () => {
@@ -58,15 +56,15 @@ describe("spawnVolumeModal", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataTestId("spawn-volume-modal")).toBeVisible();
+      expect(screen.queryByTestId("spawn-volume-modal")).toBeVisible();
     });
-    expect(screen.queryByDataTestId("volume-size-input")).toHaveValue("256");
-    expect(
-      screen.queryByDataTestId("availability-zone-select"),
-    ).toHaveTextContent("us-east-1a");
-    expect(screen.queryByDataTestId("type-select")).toHaveTextContent("gp3");
+    expect(screen.queryByTestId("volume-size-input")).toHaveValue("256");
+    expect(screen.queryByTestId("availability-zone-select")).toHaveTextContent(
+      "us-east-1a",
+    );
+    expect(screen.queryByTestId("type-select")).toHaveTextContent("gp3");
     expect(screen.queryByLabelText("Never expire")).not.toBeChecked();
-    expect(screen.queryByDataTestId("host-select")).toHaveAttribute(
+    expect(screen.queryByTestId("host-select")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -103,7 +101,7 @@ describe("spawnVolumeModal", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataTestId("spawn-volume-modal")).toBeVisible();
+      expect(screen.queryByTestId("spawn-volume-modal")).toBeVisible();
     });
     expect(screen.queryByLabelText("Never expire")).toBeEnabled();
     await user.click(screen.getByText("Never expire"));
@@ -148,13 +146,15 @@ describe("spawnVolumeModal", () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(screen.queryByDataTestId("spawn-volume-modal")).toBeVisible();
+      expect(screen.queryByTestId("spawn-volume-modal")).toBeVisible();
     });
 
     // Modify form values
-    await user.clear(screen.getByDataTestId("volume-size-input"));
-    await user.type(screen.getByDataTestId("volume-size-input"), "24");
-    expect(screen.queryByDataTestId("volume-size-input")).toHaveValue("24");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.clear(screen.queryByTestId("volume-size-input"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.type(screen.queryByTestId("volume-size-input"), "24");
+    expect(screen.queryByTestId("volume-size-input")).toHaveValue("24");
     await selectLGOption("availability-zone-select", "us-east-1c");
     await selectLGOption("type-select", "st1");
     await selectLGOption("host-select", "i-00b212e96b3f91079");

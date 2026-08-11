@@ -34,7 +34,7 @@ describe("variable row field template", () => {
         uiSchema={mockUiSchema}
       />,
     );
-    expect(screen.getByDataTestId("override-warning")).toBeInTheDocument();
+    expect(screen.getByTestId("override-warning")).toBeInTheDocument();
   });
 
   it("does not show a warning when a duplicate variable does not appear in repo and project", () => {
@@ -46,8 +46,6 @@ describe("variable row field template", () => {
         uiSchema={mockUiSchema}
       />,
     );
-    expect(
-      screen.queryByDataTestId("override-warning"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("override-warning")).not.toBeInTheDocument();
   });
 });

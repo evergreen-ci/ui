@@ -44,7 +44,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    expect(screen.queryByDataTestId("copy-distro-modal")).not.toBeVisible();
+    expect(screen.queryByTestId("copy-distro-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {
@@ -54,7 +54,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    expect(screen.getByDataTestId("copy-distro-modal")).toBeVisible();
+    expect(screen.getByTestId("copy-distro-modal")).toBeVisible();
     expect(screen.queryByText(`Duplicate “${distroIdToCopy}”`)).toBeVisible();
 
     const confirmButton = screen.getByRole("button", {
@@ -71,7 +71,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    await user.type(screen.getByDataTestId("distro-id-input"), newDistroId);
+    await user.type(screen.getByTestId("distro-id-input"), newDistroId);
     await user.click(screen.getByRole("button", { name: "Duplicate" }));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
@@ -90,7 +90,7 @@ describe("copy distro modal", () => {
     });
 
     await user.type(
-      screen.getByDataTestId("distro-id-input"),
+      screen.getByTestId("distro-id-input"),
       "string with spaces",
     );
     expect(
@@ -127,7 +127,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    await user.type(screen.getByDataTestId("distro-id-input"), newDistroId);
+    await user.type(screen.getByTestId("distro-id-input"), newDistroId);
 
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",

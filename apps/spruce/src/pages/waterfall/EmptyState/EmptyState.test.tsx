@@ -5,7 +5,7 @@ import { EmptyState } from ".";
 
 const LocationDisplay: React.FC = () => {
   const location = useLocation();
-  return <div data-testid="location-search">{location.search}</div>;
+  return <div data-cy="location-search">{location.search}</div>;
 };
 
 const basePagination: Pagination = {
@@ -41,7 +41,7 @@ describe("EmptyState", () => {
         /Evergreen found no builds matching the applied filters in the 300 commits searched/,
       ),
     ).toBeVisible();
-    expect(screen.getByDataTestId("search-older-commits-button")).toBeVisible();
+    expect(screen.getByTestId("search-older-commits-button")).toBeVisible();
   });
 
   it("clicking the button searches older commits and clears other pagination params", async () => {
@@ -51,9 +51,9 @@ describe("EmptyState", () => {
       "/project/spruce/waterfall?tasks=initialsync&date=2026-06-01&minOrder=5",
     );
 
-    await user.click(screen.getByDataTestId("search-older-commits-button"));
+    await user.click(screen.getByTestId("search-older-commits-button"));
 
-    const search = screen.getByDataTestId("location-search");
+    const search = screen.getByTestId("location-search");
     expect(search).toHaveTextContent("maxOrder=700");
     expect(search).toHaveTextContent("tasks=initialsync");
     expect(search).not.toHaveTextContent("date");
@@ -65,9 +65,10 @@ describe("EmptyState", () => {
       basePagination,
       "/project/spruce/waterfall?tasks=initialsync&maxOrder=700",
     );
-    expect(
-      screen.getByDataTestId("search-older-commits-button"),
-    ).toHaveAttribute("aria-disabled", "true");
+    expect(screen.getByTestId("search-older-commits-button")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
   });
 
   it("does not offer to search older commits when there is no next page", () => {
@@ -82,7 +83,7 @@ describe("EmptyState", () => {
       ),
     ).toBeVisible();
     expect(
-      screen.queryByDataTestId("search-older-commits-button"),
+      screen.queryByTestId("search-older-commits-button"),
     ).not.toBeInTheDocument();
   });
 
@@ -97,7 +98,7 @@ describe("EmptyState", () => {
       ),
     ).toBeVisible();
     expect(
-      screen.queryByDataTestId("search-older-commits-button"),
+      screen.queryByTestId("search-older-commits-button"),
     ).not.toBeInTheDocument();
   });
 });

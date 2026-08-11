@@ -32,12 +32,10 @@ describe("loading events", () => {
       path: "/project/:projectIdentifier/settings",
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("event-log-card")).toHaveLength(1);
+      expect(screen.queryAllByTestId("event-log-card")).toHaveLength(1);
     });
     await waitFor(() => {
-      expect(
-        screen.queryByDataTestId("load-more-button"),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByTestId("load-more-button")).not.toBeInTheDocument();
     });
     expect(screen.getByText("No more events to show.")).toBeInTheDocument();
   });
@@ -55,9 +53,9 @@ describe("loading events", () => {
       path: "/project/:projectIdentifier/settings",
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("event-log-card")).toHaveLength(1);
+      expect(screen.queryAllByTestId("event-log-card")).toHaveLength(1);
     });
-    expect(screen.getByDataTestId("load-more-button")).toBeInTheDocument();
+    expect(screen.getByTestId("load-more-button")).toBeInTheDocument();
     expect(
       screen.queryByText("No more events to show."),
     ).not.toBeInTheDocument();

@@ -20,9 +20,7 @@ describe("TaskDurationTable", () => {
         <TaskDurationTable loading={false} numLoadingRows={10} tasks={tasks} />
       </MockedProvider>,
     );
-    expect(screen.queryAllByDataTestId("task-duration-table-row")).toHaveLength(
-      2,
-    );
+    expect(screen.queryAllByTestId("task-duration-table-row")).toHaveLength(2);
   });
 
   it("opens nested row on click", async () => {

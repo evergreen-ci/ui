@@ -153,8 +153,7 @@ describe("SpawnHostModal token gate", () => {
       name: /Spawn a host/i,
     });
 
-    const loadDataCheckbox =
-      await screen.findByDataTestId("load-data-checkbox");
+    const loadDataCheckbox = await screen.findByTestId("load-data-checkbox");
 
     // loadDataOntoHostAtStartup defaults to true when spawning from a task.
     await waitFor(() => {
@@ -193,8 +192,7 @@ describe("SpawnHostModal token gate", () => {
       expect(spawnButton.getAttribute("aria-disabled")).not.toBe("true");
     });
 
-    const loadDataCheckbox =
-      await screen.findByDataTestId("load-data-checkbox");
+    const loadDataCheckbox = await screen.findByTestId("load-data-checkbox");
     expect(loadDataCheckbox).toBeChecked();
 
     fireEvent.click(loadDataCheckbox);

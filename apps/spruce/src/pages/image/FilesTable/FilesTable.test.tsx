@@ -27,7 +27,7 @@ describe("files table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("files-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("files-table-row")).toHaveLength(10);
     });
     const expectedNames = (
       imageFilesMock.result?.data?.image?.files.data || []
@@ -47,7 +47,7 @@ describe("files table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("files-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("files-table-row")).toHaveLength(10);
     });
     const expectedPaths = (
       imageFilesMock.result?.data?.image?.files.data || []
@@ -67,7 +67,7 @@ describe("files table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("files-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("files-table-row")).toHaveLength(10);
     });
     const expectedVersions = (
       imageFilesMock.result?.data?.image?.files.data || []
@@ -90,7 +90,7 @@ describe("files table", () => {
     await waitFor(() => {
       expect(screen.getAllByTestId("files-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByDataTestId("file-name-filter"));
+    await user.click(screen.getByTestId("file-name-filter"));
     await user.type(
       screen.getByPlaceholderText("Name regex"),
       "my-special-cert.pem{enter}",
@@ -111,7 +111,7 @@ describe("files table", () => {
       expect(screen.getAllByTestId("files-table-row")).toHaveLength(10);
     });
 
-    const nextPageButton = screen.getByTestId("lg-pagination-next-button");
+    const nextPageButton = screen.getByRole("button", { name: "Next page" });
     expect(nextPageButton).toHaveAttribute("aria-disabled", "false");
     await user.click(nextPageButton);
     await waitFor(() => {

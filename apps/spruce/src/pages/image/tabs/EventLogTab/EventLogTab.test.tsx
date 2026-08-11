@@ -35,14 +35,12 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
 
     // The load more button should not be present on the page because there are no more events.
     await waitFor(() => {
-      expect(screen.getByDataTestId("load-more-button")).toBeInTheDocument();
+      expect(screen.getByTestId("load-more-button")).toBeInTheDocument();
     });
     expect(
       screen.queryByText("No more events to show."),
@@ -55,15 +53,11 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
 
     // Expect correct timestamps on the page.
-    const timestampElements = screen.queryAllByDataTestId(
-      "event-log-timestamp",
-    );
+    const timestampElements = screen.queryAllByTestId("event-log-timestamp");
     expect(timestampElements).toHaveLength(5);
     const expectedTimestamps = [
       "Aug 7, 2024, 9:57:00 PM UTC",
@@ -84,13 +78,11 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
 
     // Expect correct AMI text on the page.
-    const amiElements = screen.queryAllByDataTestId("event-log-ami");
+    const amiElements = screen.queryAllByTestId("event-log-ami");
     expect(amiElements).toHaveLength(5);
     const expectedAmiTexts = [
       "AMI changed from ami-03e245926032896f9 to ami-03bfb241d1718c8a2",
@@ -110,9 +102,7 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
 
     const expectedEmptyMessage =
@@ -120,16 +110,16 @@ describe("image event log page", async () => {
 
     const cards = screen.getAllByTestId("image-event-log-card");
     expect(
-      within(cards[0]).queryByDataTestId("image-event-log-empty-message"),
+      within(cards[0]).queryByTestId("image-event-log-empty-message"),
     ).toBeNull();
 
     expect(
-      within(cards[1]).queryByDataTestId("image-event-log-empty-message"),
+      within(cards[1]).queryByTestId("image-event-log-empty-message"),
     ).toBeNull();
 
     // Expects cards to contain the empty message.
     for (let i = 2; i <= 4; i++) {
-      const emptyMessageElement = within(cards[i]).getByDataTestId(
+      const emptyMessageElement = within(cards[i]).getByTestId(
         "image-event-log-empty-message",
       );
       expect(emptyMessageElement).toHaveTextContent(expectedEmptyMessage);
@@ -142,9 +132,7 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
     const rows = within(card0).getAllByTestId("image-event-log-table-row");
@@ -168,14 +156,10 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
-    await user.click(
-      within(card0).getByDataTestId("image-event-log-name-filter"),
-    );
+    await user.click(within(card0).getByTestId("image-event-log-name-filter"));
     const searchBar = screen.getByPlaceholderText("Search name");
 
     // Filter for golang.
@@ -183,7 +167,7 @@ describe("image event log page", async () => {
     expect(searchBar).toHaveValue("golang");
     await waitFor(() => {
       expect(
-        within(card0).queryAllByDataTestId("image-event-log-table-row"),
+        within(card0).queryAllByTestId("image-event-log-table-row"),
       ).toHaveLength(1);
     });
   });
@@ -195,14 +179,10 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
-    await user.click(
-      within(card0).getByDataTestId("image-event-log-name-filter"),
-    );
+    await user.click(within(card0).getByTestId("image-event-log-name-filter"));
     const searchBar = screen.getByPlaceholderText("Search name");
 
     // Filter for nonexistent item.
@@ -212,7 +192,7 @@ describe("image event log page", async () => {
     });
     await waitFor(() => {
       expect(
-        within(card0).queryAllByDataTestId("image-event-log-table-row"),
+        within(card0).queryAllByTestId("image-event-log-table-row"),
       ).toHaveLength(0);
     });
   });
@@ -223,9 +203,7 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
     const rows = within(card0).getAllByTestId("image-event-log-table-row");
@@ -249,17 +227,11 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
-    await user.click(
-      within(card0).getByDataTestId("image-event-log-type-filter"),
-    );
-    const treeSelectOptions = await screen.findByDataTestId(
-      "tree-select-options",
-    );
+    await user.click(within(card0).getByTestId("image-event-log-type-filter"));
+    const treeSelectOptions = await screen.findByTestId("tree-select-options");
 
     // Set filter to Toolchain.
     await user.click(within(treeSelectOptions).getByText("Toolchain"));
@@ -296,9 +268,7 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
     const rows = within(card0).getAllByTestId("image-event-log-table-row");
@@ -321,9 +291,7 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
     const rows = within(card0).getAllByTestId("image-event-log-table-row");
@@ -346,9 +314,7 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
     const rows = within(card0).getAllByTestId("image-event-log-table-row");
@@ -372,17 +338,13 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
     await user.click(
-      within(card0).getByDataTestId("image-event-log-action-filter"),
+      within(card0).getByTestId("image-event-log-action-filter"),
     );
-    const treeSelectOptions = await screen.findByDataTestId(
-      "tree-select-options",
-    );
+    const treeSelectOptions = await screen.findByTestId("tree-select-options");
 
     // Filter for UPDATED field.
     await user.click(within(treeSelectOptions).getByText("UPDATED"));
@@ -434,9 +396,7 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const searchBar = screen.getByPlaceholderText("Global search by name");
 
@@ -444,9 +404,9 @@ describe("image event log page", async () => {
     await user.type(searchBar, "golang{enter}");
     expect(searchBar).toHaveValue("golang");
     await waitFor(() => {
-      expect(
-        screen.queryAllByDataTestId("image-event-log-table-row"),
-      ).toHaveLength(2);
+      expect(screen.queryAllByTestId("image-event-log-table-row")).toHaveLength(
+        2,
+      );
     });
   });
 
@@ -457,9 +417,7 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const searchBar = screen.getByPlaceholderText("Global search by name");
 
@@ -467,9 +425,9 @@ describe("image event log page", async () => {
     await user.type(searchBar, "blahblah{enter}");
     expect(searchBar).toHaveValue("blahblah");
     await waitFor(() => {
-      expect(
-        screen.queryAllByDataTestId("image-event-log-table-row"),
-      ).toHaveLength(0);
+      expect(screen.queryAllByTestId("image-event-log-table-row")).toHaveLength(
+        0,
+      );
     });
   });
 
@@ -480,14 +438,10 @@ describe("image event log page", async () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("image-event-log-card")).toHaveLength(
-        5,
-      );
+      expect(screen.queryAllByTestId("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByTestId("image-event-log-card")[0];
-    await user.click(
-      within(card0).getByDataTestId("image-event-log-name-filter"),
-    );
+    await user.click(within(card0).getByTestId("image-event-log-name-filter"));
     const searchBar = screen.getByPlaceholderText("Search name");
 
     // Filter for golang.
@@ -495,7 +449,7 @@ describe("image event log page", async () => {
     expect(searchBar).toHaveValue("golang");
     await waitFor(() => {
       expect(
-        within(card0).queryAllByDataTestId("image-event-log-table-row"),
+        within(card0).queryAllByTestId("image-event-log-table-row"),
       ).toHaveLength(1);
     });
 
@@ -506,9 +460,9 @@ describe("image event log page", async () => {
     await user.type(globalSearchBar, "blahblah{enter}");
     expect(globalSearchBar).toHaveValue("blahblah");
     await waitFor(() => {
-      expect(
-        screen.queryAllByDataTestId("image-event-log-table-row"),
-      ).toHaveLength(0);
+      expect(screen.queryAllByTestId("image-event-log-table-row")).toHaveLength(
+        0,
+      );
     });
   });
 });

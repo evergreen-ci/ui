@@ -34,7 +34,7 @@ describe("operating system table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("os-table-row")).toHaveLength(10);
     });
     const expectedNames = (
       imageOperatingSystemMock.result?.data?.image?.operatingSystem.data || []
@@ -54,7 +54,7 @@ describe("operating system table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("os-table-row")).toHaveLength(10);
     });
     const expectedVersions = (
       imageOperatingSystemMock.result?.data?.image?.operatingSystem.data || []
@@ -75,15 +75,15 @@ describe("operating system table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("os-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByDataTestId("os-name-filter"));
+    await user.click(screen.getByTestId("os-name-filter"));
     await user.type(
       screen.getByPlaceholderText("Name regex"),
       "^Kernel{enter}",
     );
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(1);
+      expect(screen.queryAllByTestId("os-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("1 - 1 of 1 item")).toBeInTheDocument();
   });
@@ -95,11 +95,12 @@ describe("operating system table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(10);
+      expect(screen.queryAllByTestId("os-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByTestId("lg-pagination-next-button"));
+    const nextPageButton = screen.getByRole("button", { name: "Next page" });
+    await user.click(nextPageButton);
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("os-table-row")).toHaveLength(1);
+      expect(screen.queryAllByTestId("os-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("11 - 11 of 11 items")).toBeInTheDocument();
   });

@@ -79,7 +79,7 @@ describe("PatchDiff", () => {
       path: "/version/:versionId/diff",
       route: "/version/testVersionId/diff",
     });
-
-    expect(screen.getByTestId("lg-skeleton-list")).toBeInTheDocument();
+    const skeletonList = screen.getByRole("list");
+    expect(skeletonList).toBeInTheDocument();
   });
 });

@@ -13,19 +13,19 @@ const Content = () => {
   return (
     <>
       <input
-        data-testid="category"
+        data-cy="category"
         onChange={(e) => setCategory(e.target.value)}
         type="text"
         value={category}
       />
       <input
-        data-testid="value"
+        data-cy="value"
         onChange={(e) => setValue(e.target.value)}
         type="text"
         value={value}
       />
       <button
-        data-testid="submit"
+        data-cy="submit"
         onClick={() => onSubmit({ category, value })}
         type="button"
       >
@@ -43,12 +43,15 @@ describe("useUpsertQueryParams", () => {
   it("should add input query params to the url if none exist", async () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(<Content />);
-    const category = screen.getByDataTestId("category");
-    const value = screen.getByDataTestId("value");
+    const category = screen.queryByTestId("category");
+    const value = screen.queryByTestId("value");
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value");
-    await user.click(screen.getByDataTestId("submit"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByTestId("submit"));
     expect(router.state.location.search).toBe(`?category=value`);
   });
 
@@ -56,48 +59,66 @@ describe("useUpsertQueryParams", () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(<Content />);
 
-    const category = screen.getByDataTestId("category");
-    const value = screen.getByDataTestId("value");
+    const category = screen.queryByTestId("category");
+    const value = screen.queryByTestId("value");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value1");
-    await user.click(screen.getByDataTestId("submit"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByTestId("submit"));
     expect(router.state.location.search).toBe(`?category=value1`);
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(value);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value2");
-    await user.click(screen.getByDataTestId("submit"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByTestId("submit"));
     expect(router.state.location.search).toBe(`?category=value1,value2`);
   });
 
   it("should not allow duplicate input filters for the same key as query params", async () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(<Content />);
-    const category = screen.getByDataTestId("category");
-    const value = screen.getByDataTestId("value");
+    const category = screen.queryByTestId("category");
+    const value = screen.queryByTestId("value");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value1");
-    await user.click(screen.getByDataTestId("submit"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByTestId("submit"));
     expect(router.state.location.search).toBe(`?category=value1`);
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(value);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value1");
-    await user.click(screen.getByDataTestId("submit"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByTestId("submit"));
     expect(router.state.location.search).toBe(`?category=value1`);
   });
 
   it("should allow multiple input filters for different keys as query params", async () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(<Content />);
-    const category = screen.getByDataTestId("category");
-    const value = screen.getByDataTestId("value");
+    const category = screen.queryByTestId("category");
+    const value = screen.queryByTestId("value");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value1");
-    await user.click(screen.getByDataTestId("submit"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByTestId("submit"));
     expect(router.state.location.search).toBe(`?category=value1`);
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(category);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category2");
-    await user.click(screen.getByDataTestId("submit"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByTestId("submit"));
     expect(router.state.location.search).toBe(
       `?category=value1&category2=value1`,
     );

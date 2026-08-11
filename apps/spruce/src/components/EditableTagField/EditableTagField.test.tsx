@@ -33,7 +33,7 @@ describe("editableTagField", () => {
       />,
     );
 
-    expect(screen.queryAllByDataTestId("user-tag-row")).toHaveLength(3);
+    expect(screen.queryAllByTestId("user-tag-row")).toHaveLength(3);
     expect(screen.queryByText("hiddenField")).toBeNull();
     expect(data).toStrictEqual(defaultData);
   });
@@ -54,16 +54,16 @@ describe("editableTagField", () => {
     );
 
     expect(data).toStrictEqual(defaultData);
-    expect(screen.queryAllByDataTestId("user-tag-trash-icon")[0]).toBeVisible();
+    expect(screen.queryAllByTestId("user-tag-trash-icon")[0]).toBeVisible();
 
-    await user.clear(screen.queryAllByDataTestId("user-tag-value-field")[0]);
+    await user.clear(screen.queryAllByTestId("user-tag-value-field")[0]);
     await user.type(
-      screen.queryAllByDataTestId("user-tag-value-field")[0],
+      screen.queryAllByTestId("user-tag-value-field")[0],
       "new value",
     );
 
-    expect(screen.queryAllByDataTestId("user-tag-edit-icon")[0]).toBeVisible();
-    await user.click(screen.queryAllByDataTestId("user-tag-edit-icon")[0]);
+    expect(screen.queryAllByTestId("user-tag-edit-icon")[0]).toBeVisible();
+    await user.click(screen.queryAllByTestId("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([
       { key: "keyA", value: "new value" },
@@ -91,9 +91,9 @@ describe("editableTagField", () => {
     );
 
     expect(data).toStrictEqual(defaultData);
-    expect(screen.queryAllByDataTestId("user-tag-trash-icon")[0]).toBeVisible();
+    expect(screen.queryAllByTestId("user-tag-trash-icon")[0]).toBeVisible();
 
-    await user.click(screen.queryAllByDataTestId("user-tag-trash-icon")[0]);
+    await user.click(screen.queryAllByTestId("user-tag-trash-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([...defaultData.slice(1, 3)]);
     expect(data).toStrictEqual([...defaultData.slice(1, 3)]);
@@ -116,16 +116,16 @@ describe("editableTagField", () => {
     );
 
     expect(data).toStrictEqual(defaultData);
-    expect(screen.queryAllByDataTestId("user-tag-trash-icon")[0]).toBeVisible();
+    expect(screen.queryAllByTestId("user-tag-trash-icon")[0]).toBeVisible();
 
-    await user.clear(screen.queryAllByDataTestId("user-tag-key-field")[0]);
+    await user.clear(screen.queryAllByTestId("user-tag-key-field")[0]);
     await user.type(
-      screen.queryAllByDataTestId("user-tag-key-field")[0],
+      screen.queryAllByTestId("user-tag-key-field")[0],
       "new key",
     );
 
-    expect(screen.queryAllByDataTestId("user-tag-edit-icon")[0]).toBeVisible();
-    await user.click(screen.queryAllByDataTestId("user-tag-edit-icon")[0]);
+    expect(screen.queryAllByTestId("user-tag-edit-icon")[0]).toBeVisible();
+    await user.click(screen.queryAllByTestId("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([
       { ...defaultData[0], key: "new key" },
@@ -153,29 +153,30 @@ describe("editableTagField", () => {
     );
 
     expect(data).toStrictEqual(defaultData);
-    expect(screen.queryAllByDataTestId("user-tag-row")).toHaveLength(3);
-    expect(screen.queryByDataTestId("add-tag-button")).toBeVisible();
+    expect(screen.queryAllByTestId("user-tag-row")).toHaveLength(3);
+    expect(screen.queryByTestId("add-tag-button")).toBeVisible();
 
-    await user.click(screen.getByDataTestId("add-tag-button"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.click(screen.queryByTestId("add-tag-button"));
 
-    expect(screen.queryByDataTestId("add-tag-button")).toBeNull();
-    expect(screen.queryAllByDataTestId("user-tag-trash-icon")[3]).toBeVisible();
-    expect(screen.queryAllByDataTestId("user-tag-row")).toHaveLength(4);
+    expect(screen.queryByTestId("add-tag-button")).toBeNull();
+    expect(screen.queryAllByTestId("user-tag-trash-icon")[3]).toBeVisible();
+    expect(screen.queryAllByTestId("user-tag-row")).toHaveLength(4);
 
-    await user.clear(screen.queryAllByDataTestId("user-tag-key-field")[3]);
+    await user.clear(screen.queryAllByTestId("user-tag-key-field")[3]);
     await user.type(
-      screen.queryAllByDataTestId("user-tag-key-field")[3],
+      screen.queryAllByTestId("user-tag-key-field")[3],
       "new key",
     );
 
-    await user.clear(screen.queryAllByDataTestId("user-tag-value-field")[3]);
+    await user.clear(screen.queryAllByTestId("user-tag-value-field")[3]);
     await user.type(
-      screen.queryAllByDataTestId("user-tag-value-field")[3],
+      screen.queryAllByTestId("user-tag-value-field")[3],
       "new value",
     );
 
-    expect(screen.queryAllByDataTestId("user-tag-edit-icon")).toHaveLength(1);
-    await user.click(screen.queryAllByDataTestId("user-tag-edit-icon")[0]);
+    expect(screen.queryAllByTestId("user-tag-edit-icon")).toHaveLength(1);
+    await user.click(screen.queryAllByTestId("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledTimes(1);
     expect(data).toStrictEqual([

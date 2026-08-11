@@ -85,11 +85,11 @@ describe("CodeChanges", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByDataTestId("code-changes")).toBeInTheDocument();
+      expect(screen.getByTestId("code-changes")).toBeInTheDocument();
     });
 
     expect(mockGetVersionDiffRoute).toHaveBeenCalledWith(patchId, 0);
-    const htmlButton = screen.getByDataTestId("html-diff-btn");
+    const htmlButton = screen.getByTestId("html-diff-btn");
     expect(htmlButton).toHaveAttribute(
       "href",
       `/version/${patchId}/diff?patch_number=0`,
@@ -166,7 +166,7 @@ describe("CodeChanges", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByDataTestId("code-changes")).toBeInTheDocument();
+      expect(screen.getByTestId("code-changes")).toBeInTheDocument();
     });
 
     expect(mockGetVersionDiffRoute).toHaveBeenCalledTimes(3);

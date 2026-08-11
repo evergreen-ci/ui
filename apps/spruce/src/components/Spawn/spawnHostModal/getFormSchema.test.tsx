@@ -78,7 +78,7 @@ describe("getFormSchema spawn host token exchange callout", () => {
     });
     const node = tokenAuthDescription(uiSchema!);
     render(node);
-    const button = screen.getByDataTestId("spawn-host-authenticate-button");
+    const button = screen.getByTestId("spawn-host-authenticate-button");
     expect(button).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -89,7 +89,7 @@ describe("getFormSchema spawn host token exchange callout", () => {
     });
     const node = tokenAuthDescription(uiSchema!);
     render(node);
-    const button = screen.getByDataTestId("spawn-host-authenticate-button");
+    const button = screen.getByTestId("spawn-host-authenticate-button");
     expect(button).toBeVisible();
     expect(button).not.toHaveAttribute("aria-disabled", "true");
     expect(

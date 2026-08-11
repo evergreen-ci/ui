@@ -11,7 +11,7 @@ describe("TaskStatusBadgeWithLink", () => {
         status={TaskStatus.Succeeded}
       />,
     );
-    expect(screen.getByDataTestId("task-status-badge")).toBeInTheDocument();
+    expect(screen.getByTestId("task-status-badge")).toBeInTheDocument();
     expect(screen.getByRole("link")).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
@@ -26,7 +26,7 @@ describe("TaskStatusBadgeWithLink", () => {
         status={TaskStatus.KnownIssue}
       />,
     );
-    expect(screen.getByDataTestId("task-status-badge")).toBeInTheDocument();
+    expect(screen.getByTestId("task-status-badge")).toBeInTheDocument();
     expect(screen.getByRole("link")).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",

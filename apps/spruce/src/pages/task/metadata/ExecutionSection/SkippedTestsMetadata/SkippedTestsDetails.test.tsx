@@ -173,7 +173,7 @@ describe("SkippedTestsDetails", () => {
       );
     });
     expect(setOpen).toHaveBeenCalledWith(false);
-    expect(screen.queryByDataTestId("skipped-tests-modal")).toBeNull();
+    expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
   });
 
   it("warns when no sample is available", async () => {
@@ -192,7 +192,7 @@ describe("SkippedTestsDetails", () => {
       );
     });
     expect(setOpen).toHaveBeenCalledWith(false);
-    expect(screen.queryByDataTestId("skipped-tests-modal")).toBeNull();
+    expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
   });
 
   it("shows an error when the query fails", async () => {
@@ -211,7 +211,7 @@ describe("SkippedTestsDetails", () => {
       );
     });
     expect(setOpen).toHaveBeenCalledWith(false);
-    expect(screen.queryByDataTestId("skipped-tests-modal")).toBeNull();
+    expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
   });
 
   it("downloads the full list as JSON", async () => {
@@ -227,10 +227,7 @@ describe("SkippedTestsDetails", () => {
     render(<Component />, routerOptions);
 
     expect(await screen.findByText("Display One")).toBeVisible();
-    const downloadButton = screen.getByRole("button", {
-      name: "Download JSON",
-    });
-    await user.click(downloadButton);
+    await user.click(screen.getByTestId("skipped-tests-download"));
     await waitFor(() => {
       expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
     });

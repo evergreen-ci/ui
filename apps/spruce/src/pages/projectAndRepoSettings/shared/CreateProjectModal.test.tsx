@@ -47,10 +47,10 @@ const NewProjectModal = ({
 
 const waitForModalLoad = async () => {
   await waitFor(() =>
-    expect(screen.queryByDataTestId("create-project-modal")).toBeVisible(),
+    expect(screen.queryByTestId("create-project-modal")).toBeVisible(),
   );
   await waitFor(() =>
-    expect(screen.queryByDataTestId("loading-skeleton")).toBeNull(),
+    expect(screen.queryByTestId("loading-skeleton")).toBeNull(),
   );
 };
 
@@ -69,7 +69,7 @@ describe("createProjectField", () => {
     );
     render(<Component />);
 
-    expect(screen.queryByDataTestId("create-project-modal")).not.toBeVisible();
+    expect(screen.queryByTestId("create-project-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render", async () => {
@@ -90,9 +90,7 @@ describe("createProjectField", () => {
     render(<Component />);
 
     await waitForModalLoad();
-    expect(
-      screen.queryByDataTestId("performance-tooling-banner"),
-    ).toBeVisible();
+    expect(screen.queryByTestId("performance-tooling-banner")).toBeVisible();
   });
 
   it("shows info banner for S3 bucket setup", async () => {
@@ -100,7 +98,7 @@ describe("createProjectField", () => {
     render(<Component />);
 
     await waitForModalLoad();
-    expect(screen.queryByDataTestId("s3-bucket-info-banner")).toBeVisible();
+    expect(screen.queryByTestId("s3-bucket-info-banner")).toBeVisible();
   });
 
   it("pre-fills the owner and repo", async () => {
@@ -108,10 +106,10 @@ describe("createProjectField", () => {
     render(<Component />);
     await waitForModalLoad();
 
-    expect(screen.queryByDataTestId("new-owner-select")).toHaveTextContent(
+    expect(screen.queryByTestId("new-owner-select")).toHaveTextContent(
       defaultOwner,
     );
-    expect(screen.queryByDataTestId("new-repo-input")).toHaveValue(defaultRepo);
+    expect(screen.queryByTestId("new-repo-input")).toHaveValue(defaultRepo);
   });
 
   it("disables the confirm button when repo field is missing", async () => {
@@ -121,10 +119,10 @@ describe("createProjectField", () => {
     await waitForModalLoad();
 
     await user.type(
-      screen.getByDataTestId("project-name-input"),
+      screen.getByTestId("project-name-input"),
       "new-project-name-input",
     );
-    await user.clear(screen.getByDataTestId("new-repo-input"));
+    await user.clear(screen.getByTestId("new-repo-input"));
     expect(
       screen.getByRole("button", {
         name: "Create project",
@@ -137,7 +135,7 @@ describe("createProjectField", () => {
     render(<Component />);
     await waitForModalLoad();
 
-    expect(screen.queryByDataTestId("project-name-input")).toHaveValue("");
+    expect(screen.queryByTestId("project-name-input")).toHaveValue("");
     expect(
       screen.getByRole("button", {
         name: "Create project",
@@ -151,7 +149,7 @@ describe("createProjectField", () => {
     render(<Component />);
     await waitForModalLoad();
 
-    await user.type(screen.getByDataTestId("project-name-input"), "my test");
+    await user.type(screen.getByTestId("project-name-input"), "my test");
     expect(
       screen.getByRole("button", {
         name: "Create project",
@@ -192,19 +190,16 @@ describe("createProjectField", () => {
     const { router } = render(<Component />);
     await waitForModalLoad();
 
-    await user.type(
-      screen.getByDataTestId("project-name-input"),
-      "new-project-id",
-    );
+    await user.type(screen.getByTestId("project-name-input"), "new-project-id");
     await selectLGOption("new-owner-select", "10gen");
-    await user.clear(screen.getByDataTestId("new-repo-input"));
-    await user.type(screen.getByDataTestId("new-repo-input"), "new-repo-name");
+    await user.clear(screen.getByTestId("new-repo-input"));
+    await user.type(screen.getByTestId("new-repo-input"), "new-repo-name");
 
     const confirmButton = screen.getByText("Create project");
     expect(confirmButton).toBeEnabled();
 
     // Check performance tooling checkbox.
-    const enablePerformanceTooling = screen.getByDataTestId(
+    const enablePerformanceTooling = screen.getByTestId(
       "enable-performance-tooling",
     );
     const enablePerformanceToolingLabel = screen.getByText(
@@ -253,12 +248,12 @@ describe("createProjectField", () => {
     await waitForModalLoad();
 
     await user.type(
-      screen.getByDataTestId("project-name-input"),
+      screen.getByTestId("project-name-input"),
       "new-project-name",
     );
     await selectLGOption("new-owner-select", "10gen");
-    await user.clear(screen.getByDataTestId("new-repo-input"));
-    await user.type(screen.getByDataTestId("new-repo-input"), "new-repo-name");
+    await user.clear(screen.getByTestId("new-repo-input"));
+    await user.type(screen.getByTestId("new-repo-input"), "new-repo-name");
 
     const confirmButton = screen.getByText("Create project");
     expect(confirmButton).toBeEnabled();

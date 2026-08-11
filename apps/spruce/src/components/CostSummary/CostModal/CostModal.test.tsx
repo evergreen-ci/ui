@@ -14,7 +14,7 @@ describe("CostModal", () => {
 
   it("renders the modal title with task name", () => {
     render(<CostModal {...defaultProps} />);
-    expect(screen.getByDataTestId("modal-title")).toHaveTextContent(
+    expect(screen.getByTestId("modal-title")).toHaveTextContent(
       "Cost breakdown for my-task",
     );
   });

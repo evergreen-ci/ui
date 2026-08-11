@@ -46,7 +46,7 @@ describe("repotracker banner", () => {
       );
       render(<Component />);
       await waitFor(() => {
-        expect(screen.queryByDataTestId("repotracker-error-banner")).toBeNull();
+        expect(screen.queryByTestId("repotracker-error-banner")).toBeNull();
       });
     });
   });
@@ -60,9 +60,7 @@ describe("repotracker banner", () => {
       );
       render(<Component />);
       await waitFor(() => {
-        expect(
-          screen.queryByDataTestId("repotracker-error-banner"),
-        ).toBeVisible();
+        expect(screen.queryByTestId("repotracker-error-banner")).toBeVisible();
       });
     });
 
@@ -74,11 +72,9 @@ describe("repotracker banner", () => {
       );
       render(<Component />);
       await waitFor(() => {
-        expect(
-          screen.queryByDataTestId("repotracker-error-banner"),
-        ).toBeVisible();
+        expect(screen.queryByTestId("repotracker-error-banner")).toBeVisible();
       });
-      expect(screen.queryByDataTestId("repotracker-error-trigger")).toBeNull();
+      expect(screen.queryByTestId("repotracker-error-trigger")).toBeNull();
     });
 
     it("renders modal trigger if user is admin", async () => {
@@ -89,14 +85,10 @@ describe("repotracker banner", () => {
       );
       render(<Component />);
       await waitFor(() => {
-        expect(
-          screen.queryByDataTestId("repotracker-error-banner"),
-        ).toBeVisible();
+        expect(screen.queryByTestId("repotracker-error-banner")).toBeVisible();
       });
       await waitFor(() => {
-        expect(
-          screen.queryByDataTestId("repotracker-error-trigger"),
-        ).toBeVisible();
+        expect(screen.queryByTestId("repotracker-error-trigger")).toBeVisible();
       });
     });
 
@@ -111,22 +103,16 @@ describe("repotracker banner", () => {
       );
       render(<Component />);
       await waitFor(() => {
-        expect(
-          screen.queryByDataTestId("repotracker-error-banner"),
-        ).toBeVisible();
+        expect(screen.queryByTestId("repotracker-error-banner")).toBeVisible();
       });
       await waitFor(() => {
-        expect(
-          screen.queryByDataTestId("repotracker-error-trigger"),
-        ).toBeVisible();
+        expect(screen.queryByTestId("repotracker-error-trigger")).toBeVisible();
       });
 
       // Open modal.
-      await user.click(screen.getByDataTestId("repotracker-error-trigger"));
+      await user.click(screen.getByTestId("repotracker-error-trigger"));
       await waitFor(() => {
-        expect(
-          screen.queryByDataTestId("repotracker-error-modal"),
-        ).toBeVisible();
+        expect(screen.queryByTestId("repotracker-error-modal")).toBeVisible();
       });
 
       // Submit new base revision.

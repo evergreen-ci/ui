@@ -86,7 +86,7 @@ describe("AnnouncementPopover", () => {
         screen.queryByText("New feature: Task Review"),
       ).not.toBeInTheDocument();
 
-      await user.click(screen.getByDataTestId("announcement-tooltip-trigger"));
+      await user.click(screen.getByTestId("announcement-tooltip-trigger"));
       await waitFor(() => {
         expect(screen.getByText("New feature: Task Review")).toBeVisible();
       });

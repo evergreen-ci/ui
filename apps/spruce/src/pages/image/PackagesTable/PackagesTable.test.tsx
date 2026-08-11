@@ -34,9 +34,7 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
-        10,
-      );
+      expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(10);
     });
     const expectedNames = (
       imagePackagesPageOneMock.result?.data?.image?.packages.data || []
@@ -56,9 +54,7 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
-        10,
-      );
+      expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(10);
     });
     const rows = screen.getAllByTestId("packages-table-row");
     for (let i = 0; i < 10; i++) {
@@ -74,9 +70,7 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
-        10,
-      );
+      expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(10);
     });
     const expectedVersions = (
       imagePackagesPageOneMock.result?.data?.image?.packages.data || []
@@ -97,14 +91,12 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
-        10,
-      );
+      expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByDataTestId("package-name-filter"));
+    await user.click(screen.getByTestId("package-name-filter"));
     await user.type(screen.getByPlaceholderText("Name regex"), "bcrypt{enter}");
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(1);
+      expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(1);
     });
     expect(screen.getByText("1 - 1 of 1 item")).toBeInTheDocument();
   });
@@ -116,13 +108,12 @@ describe("packages table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(
-        10,
-      );
+      expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(10);
     });
-    await user.click(screen.getByTestId("lg-pagination-next-button"));
+    const nextPageButton = screen.getByRole("button", { name: "Next page" });
+    await user.click(nextPageButton);
     await waitFor(() => {
-      expect(screen.queryAllByDataTestId("packages-table-row")).toHaveLength(5);
+      expect(screen.queryAllByTestId("packages-table-row")).toHaveLength(5);
     });
     expect(screen.getByText("11 - 15 of 15 items")).toBeInTheDocument();
   });

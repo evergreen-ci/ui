@@ -9,8 +9,9 @@ describe("historyTableIcon", () => {
     render(
       <HistoryTableIcon onClick={onClick} status={TaskStatus.Succeeded} />,
     );
-    const icon = screen.getByDataTestId("history-table-icon");
+    const icon = screen.queryByTestId("history-table-icon");
     expect(icon).toBeInTheDocument();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(icon);
     expect(onClick).toHaveBeenCalledWith();
   });
@@ -18,8 +19,9 @@ describe("historyTableIcon", () => {
   it("hovering over the icon when there no failing tests shouldn't open a tooltip", async () => {
     const user = userEvent.setup();
     render(<HistoryTableIcon status={TaskStatus.Succeeded} />);
-    const icon = screen.getByDataTestId("history-table-icon");
+    const icon = screen.queryByTestId("history-table-icon");
     expect(icon).toBeInTheDocument();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(icon);
     expect(screen.queryByText("test a")).not.toBeInTheDocument();
   });
@@ -32,8 +34,9 @@ describe("historyTableIcon", () => {
         status={TaskStatus.Succeeded}
       />,
     );
-    const icon = screen.getByDataTestId("history-table-icon");
+    const icon = screen.queryByTestId("history-table-icon");
     expect(icon).toBeInTheDocument();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(icon);
     await waitFor(() => {
       expect(screen.queryByText("test a")).toBeVisible();

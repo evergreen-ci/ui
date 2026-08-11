@@ -77,8 +77,8 @@ describe("variantHistoryRow", () => {
           },
         }),
     });
-    expect(screen.queryAllByDataTestId("loading-cell")).toHaveLength(0);
-    expect(screen.queryAllByDataTestId("task-cell")).toHaveLength(7);
+    expect(screen.queryAllByTestId("loading-cell")).toHaveLength(0);
+    expect(screen.queryAllByTestId("task-cell")).toHaveLength(7);
   });
 
   it("amount of cells rendered corresponds to the amount of visibleColumns", () => {
@@ -101,7 +101,7 @@ describe("variantHistoryRow", () => {
           },
         }),
     });
-    expect(screen.queryAllByDataTestId("task-cell")).toHaveLength(3);
+    expect(screen.queryAllByTestId("task-cell")).toHaveLength(3);
   });
 
   it("renders a blank cell when there isn't a matching variant for that column", () => {
@@ -120,8 +120,8 @@ describe("variantHistoryRow", () => {
           },
         }),
     });
-    expect(screen.queryAllByDataTestId("task-cell")).toHaveLength(1);
-    expect(screen.queryAllByDataTestId("empty-cell")).toHaveLength(1);
+    expect(screen.queryAllByTestId("task-cell")).toHaveLength(1);
+    expect(screen.queryAllByTestId("empty-cell")).toHaveLength(1);
   });
 
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
@@ -142,15 +142,15 @@ describe("variantHistoryRow", () => {
           mocks,
         }),
     });
-    expect(screen.queryAllByDataTestId("task-cell")).toHaveLength(1);
-    expect(screen.queryAllByDataTestId("empty-cell")).toHaveLength(0);
+    expect(screen.queryAllByTestId("task-cell")).toHaveLength(1);
+    expect(screen.queryAllByTestId("empty-cell")).toHaveLength(0);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("history-table-icon")).toHaveAttribute(
+      expect(screen.queryByTestId("history-table-icon")).toHaveAttribute(
         "aria-disabled",
         "false",
       );
     });
-    await user.hover(screen.getByDataTestId("history-table-icon"));
+    await user.hover(screen.getByTestId("history-table-icon"));
     await screen.findByText("TestJiraIntegration");
   });
 
@@ -178,24 +178,24 @@ describe("variantHistoryRow", () => {
           mocks,
         }),
     });
-    expect(screen.queryAllByDataTestId("task-cell")).toHaveLength(1);
-    expect(screen.queryAllByDataTestId("empty-cell")).toHaveLength(0);
+    expect(screen.queryAllByTestId("task-cell")).toHaveLength(1);
+    expect(screen.queryAllByTestId("empty-cell")).toHaveLength(0);
 
     await waitFor(() => {
-      expect(screen.queryByDataTestId("task-cell")).toHaveAttribute(
+      expect(screen.queryByTestId("task-cell")).toHaveAttribute(
         "aria-disabled",
         "false",
       );
     });
     await waitFor(() => {
-      expect(screen.queryByDataTestId("history-table-icon")).toHaveAttribute(
+      expect(screen.queryByTestId("history-table-icon")).toHaveAttribute(
         "aria-disabled",
         "false",
       );
     });
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
-    await user.hover(screen.getByDataTestId("history-table-icon"));
+    await user.hover(screen.getByTestId("history-table-icon"));
     await screen.findByText("TestJiraIntegration");
   });
 
@@ -219,9 +219,9 @@ describe("variantHistoryRow", () => {
           mocks,
         }),
     });
-    expect(screen.queryAllByDataTestId("task-cell")).toHaveLength(1);
-    expect(screen.queryAllByDataTestId("empty-cell")).toHaveLength(0);
-    expect(screen.queryByDataTestId("task-cell")).toHaveAttribute(
+    expect(screen.queryAllByTestId("task-cell")).toHaveLength(1);
+    expect(screen.queryAllByTestId("empty-cell")).toHaveLength(0);
+    expect(screen.queryByTestId("task-cell")).toHaveAttribute(
       "aria-disabled",
       "true",
     );

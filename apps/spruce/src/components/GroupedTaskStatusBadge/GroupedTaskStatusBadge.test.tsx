@@ -26,8 +26,9 @@ describe("groupedTaskStatusBadgeIcon", () => {
         route: `/version/${versionId}/tasks`,
       },
     );
-    const badge = screen.getByDataTestId("grouped-task-status-badge");
+    const badge = screen.queryByTestId("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(badge);
     expect(onClick).toHaveBeenCalledWith();
   });
@@ -54,9 +55,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
         status={TaskStatusUmbrella.SystemFailure}
       />,
     );
-    expect(
-      screen.queryByDataTestId("grouped-task-status-badge"),
-    ).toHaveAttribute(
+    expect(screen.queryByTestId("grouped-task-status-badge")).toHaveAttribute(
       "href",
       `/version/${versionId}/tasks?statuses=system-failed`,
     );
@@ -79,13 +78,14 @@ describe("groupedTaskStatusBadgeIcon", () => {
     );
     await waitFor(() => {
       expect(
-        screen.queryByDataTestId("grouped-task-status-badge-tooltip"),
+        screen.queryByTestId("grouped-task-status-badge-tooltip"),
       ).toBeNull();
     });
-    await user.hover(screen.getByDataTestId("grouped-task-status-badge"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.hover(screen.queryByTestId("grouped-task-status-badge"));
     await waitFor(() => {
       expect(
-        screen.getByDataTestId("grouped-task-status-badge-tooltip"),
+        screen.getByTestId("grouped-task-status-badge-tooltip"),
       ).toBeVisible();
     });
     expect(screen.queryByText("30")).toBeVisible();
