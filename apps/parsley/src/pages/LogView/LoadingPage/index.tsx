@@ -21,13 +21,19 @@ interface LoadingPageProps {
   logType: LogTypes;
 }
 
+// GraphQL Int values use the signed 32-bit range.
+const MAX_GRAPHQL_INT = 2 ** 31 - 1;
+
 const parseExecution = (execution?: string): string | undefined => {
   if (!execution || !/^\d+$/.test(execution)) {
     return undefined;
   }
 
   const parsedExecution = Number(execution);
-  if (!Number.isSafeInteger(parsedExecution) || parsedExecution > 2 ** 31 - 1) {
+  if (
+    !Number.isSafeInteger(parsedExecution) ||
+    parsedExecution > MAX_GRAPHQL_INT
+  ) {
     return undefined;
   }
 
