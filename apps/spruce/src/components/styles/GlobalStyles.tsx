@@ -25,11 +25,9 @@ const resetStyles = css`
 export const globalStyles = css`
   ${resetStyles}
   ${fontStyles}
-  background-color: white;
 
-  /* Via's stylesheet sets "color-scheme: light dark" on :root, which makes the
-     browser paint canvas, scrollbars, and form controls per the OS preference.
-     Spruce is light-only. */
+  /* Via's stylesheet sets "color-scheme: light dark" at :root, which
+     ViaProvider's wrapper class cannot override. Spruce is light-only. */
   :root {
     color-scheme: light;
   }
@@ -48,6 +46,7 @@ export const globalStyles = css`
 
   body {
     ${bodyStyles}
+    background-color: white;
 
     /* Added in EVG-18710 to address complaints about newer MongoDB fonts. */
     -webkit-font-smoothing: antialiased; // Chrome, Safari
