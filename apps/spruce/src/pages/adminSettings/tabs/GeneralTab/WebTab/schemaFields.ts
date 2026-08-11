@@ -284,13 +284,13 @@ export const rateLimitConfig = {
       },
     },
     exemptUsers: {
-      "ui:data-cy": "exempt-users",
+      "ui:data-testid": "exempt-users",
       "ui:fieldCss": nestedObjectGridCss,
       "ui:description": "Users who are not rate limited at all.",
       exemptUserIds: {
         "ui:widget": widgets.ChipInputWidget,
         "ui:fieldCss": fullWidthCss,
-        "ui:data-cy": "exempt-user-ids",
+        "ui:data-testid": "exempt-user-ids",
       },
     },
   },

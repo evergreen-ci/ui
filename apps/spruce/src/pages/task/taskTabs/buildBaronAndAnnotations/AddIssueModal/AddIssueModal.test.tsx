@@ -24,7 +24,7 @@ const AddIssueModal = (
 ) => (
   <MockedProvider mocks={[getSpruceConfigMock, addAnnotationMock]}>
     <AddIssueModalToTest
-      data-cy="add-issue-modal"
+      data-testid="add-issue-modal"
       execution={0}
       taskId="1"
       visible

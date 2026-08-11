@@ -92,7 +92,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
       )}
       <OverflowContainer>
         <BaseTable
-          data-cy="skipped-tests-table"
+          data-testid="skipped-tests-table"
           emptyComponent={<TablePlaceholder message="No matching tests." />}
           loading={loading}
           loadingRows={5}

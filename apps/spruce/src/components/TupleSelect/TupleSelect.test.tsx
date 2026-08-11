@@ -17,7 +17,7 @@ const options = [
 const sharedProps = {
   ariaLabel: "Tuple Select",
   id: "tuple-select",
-  "data-cy": "tuple-select",
+  "data-testid": "tuple-select",
   label: "Tuple Select",
 };
 
