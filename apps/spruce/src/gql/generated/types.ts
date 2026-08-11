@@ -7166,12 +7166,12 @@ export type SaveAdminSettingsMutation = {
       hostAllocatorRoundingRule?: RoundingRule | null;
       hostsOverallocatedRule?: OverallocatedRule | null;
       mainlineTimeInQueueFactor?: number | null;
+      mergeQueueTargetTimeSeconds?: number | null;
       numDependentsFactor?: number | null;
       patchFactor?: number | null;
       patchTimeInQueueFactor?: number | null;
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
-      mergeQueueTargetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
       translateProjectCacheBytesLimit?: number | null;
       translateProjectCacheTTLSeconds?: number | null;
@@ -7951,12 +7951,12 @@ export type AdminSettingsQuery = {
       hostAllocatorRoundingRule?: RoundingRule | null;
       hostsOverallocatedRule?: OverallocatedRule | null;
       mainlineTimeInQueueFactor?: number | null;
+      mergeQueueTargetTimeSeconds?: number | null;
       numDependentsFactor?: number | null;
       patchFactor?: number | null;
       patchTimeInQueueFactor?: number | null;
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
-      mergeQueueTargetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
       translateProjectCacheBytesLimit?: number | null;
       translateProjectCacheTTLSeconds?: number | null;
@@ -8497,11 +8497,11 @@ export type DistroQuery = {
       generateTaskFactor: number;
       groupVersions: boolean;
       mainlineTimeInQueueFactor: number;
+      mergeQueueTargetTime: number;
       numDependentsFactor: number;
       patchFactor: number;
       patchTimeInQueueFactor: number;
       targetTime: number;
-      mergeQueueTargetTime: number;
       version: PlannerVersion;
     };
     taskHostOverrides?: {
