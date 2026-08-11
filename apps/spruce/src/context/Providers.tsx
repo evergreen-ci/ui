@@ -13,7 +13,8 @@ const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
   return (
     <GQLWrapper>
       <LeafyGreenProvider baseFontSize={14}>
-        {/* Left unset, these props follow the browser: full page reloads, OS color scheme, navigator-derived dir/lang. */}
+        {/* Without locale, ViaProvider derives the wrapper's dir/lang from
+            navigator.language, so an RTL browser locale flips the whole app. */}
         <ViaProvider
           colorScheme={ColorScheme.Light}
           locale="en-US"

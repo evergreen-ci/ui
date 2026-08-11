@@ -26,8 +26,7 @@ export const globalStyles = css`
   ${resetStyles}
   ${fontStyles}
 
-  /* Via's stylesheet sets "color-scheme: light dark" at :root, which
-     ViaProvider's wrapper class cannot override. Spruce is light-only. */
+  /* Via sets "color-scheme: light dark" at :root; ViaProvider's wrapper class cannot override it. */
   :root {
     color-scheme: light;
   }
