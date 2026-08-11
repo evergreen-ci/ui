@@ -14,16 +14,20 @@ interface ExecutionSectionProps {
 export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   version,
 }) => {
-  const { cost, id, isPatch, parameters, patch } = version;
+  const { cost, id, isPatch, parameters, patch, projectMetadata } = version;
   const { sendEvent } = useVersionAnalytics(id);
 
   const hasParameters = parameters.length > 0;
   const totalCost = isPatch ? patch?.cost?.total : cost?.total;
   const hasCost = totalCost != null && totalCost > 0;
+  const testSelectionEnabled = projectMetadata?.testSelection?.allowed ?? false;
 
   return (
     <MetadataSection title="Execution">
-      <SkippedTestsMetadata versionId={id} />
+      <SkippedTestsMetadata
+        testSelectionEnabled={testSelectionEnabled}
+        versionId={id}
+      />
       {hasCost && (
         <CostSummary
           onClickDetailsButton={() =>

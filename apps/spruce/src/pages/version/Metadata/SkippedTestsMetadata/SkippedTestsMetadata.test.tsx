@@ -170,11 +170,16 @@ const defaultMocks = [
 
 const Component = ({
   mocks = defaultMocks,
+  testSelectionEnabled = true,
 }: {
   mocks?: typeof defaultMocks;
+  testSelectionEnabled?: boolean;
 }) => (
   <MockedProvider mocks={mocks}>
-    <SkippedTestsMetadata versionId="v1" />
+    <SkippedTestsMetadata
+      testSelectionEnabled={testSelectionEnabled}
+      versionId="v1"
+    />
   </MockedProvider>
 );
 
@@ -196,6 +201,18 @@ describe("version SkippedTestsMetadata", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("does not query or show a loading state for projects without TSS", () => {
+    const { Component: TestComponent } = RenderFakeToastContext(
+      <Component mocks={[]} testSelectionEnabled={false} />,
+    );
+    render(<TestComponent />, routerOptions);
+
+    expect(
+      screen.queryByDataCy("version-skipped-tests-metadata-loading"),
+    ).toBeNull();
+    expect(screen.queryByDataCy("version-skipped-tests-metadata")).toBeNull();
   });
 
   it("renders nothing when no tasks skipped tests", async () => {
