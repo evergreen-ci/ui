@@ -102,15 +102,17 @@ export const groupTasks = (
  */
 export const getPrevPageCursor = (items: GroupedTask[]) => {
   // Filter out date separators as they cannot be used as cursors.
-  const item = items.filter((i) => i.date === null)[0];
-  if (!item) {
-    return null;
+  const nonDateItems = items.filter((i) => i.date === null);
+  // Prefer an active task as the cursor: the backend caps the inactive list, so its first/last
+  // entries are not reliable page boundaries. Active tasks always are.
+  const firstActive = nonDateItems.find((i) => i.task)?.task;
+  if (firstActive) {
+    return firstActive;
   }
-  if (item.task) {
-    return item.task;
-  }
-  if (item.inactiveTasks) {
-    return item.inactiveTasks[0];
+  // Fallback (visible window is entirely inactive): use the first available task so paging still advances.
+  const firstInactive = nonDateItems[0]?.inactiveTasks;
+  if (firstInactive && firstInactive.length > 0) {
+    return firstInactive[0];
   }
   return null;
 };
@@ -122,15 +124,16 @@ export const getPrevPageCursor = (items: GroupedTask[]) => {
  */
 export const getNextPageCursor = (items: GroupedTask[]) => {
   // Filter out date separators as they cannot be used as cursors.
-  const item = items.filter((i) => i.date === null).slice(-1)[0];
-  if (!item) {
-    return null;
+  const nonDateItems = items.filter((i) => i.date === null);
+  // Prefer an active task as the cursor (see getPrevPageCursor).
+  const lastActive = [...nonDateItems].reverse().find((i) => i.task)?.task;
+  if (lastActive) {
+    return lastActive;
   }
-  if (item.task) {
-    return item.task;
-  }
-  if (item.inactiveTasks) {
-    return item.inactiveTasks[item.inactiveTasks.length - 1];
+  // Fallback (visible window is entirely inactive): use the last available task.
+  const lastInactive = nonDateItems[nonDateItems.length - 1]?.inactiveTasks;
+  if (lastInactive && lastInactive.length > 0) {
+    return lastInactive[lastInactive.length - 1];
   }
   return null;
 };
