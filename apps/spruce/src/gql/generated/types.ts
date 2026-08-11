@@ -12233,6 +12233,10 @@ export type VersionQuery = {
       identifier: string;
       owner: string;
       repo: string;
+      testSelection?: {
+        __typename?: "TestSelectionSettings";
+        allowed: boolean;
+      } | null;
     } | null;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     versionTiming?: {

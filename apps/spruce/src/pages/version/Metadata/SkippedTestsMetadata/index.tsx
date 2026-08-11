@@ -17,17 +17,24 @@ import { VERSION_QUARANTINED_TASKS } from "gql/queries";
 import { VersionSkippedTestsModal } from "./VersionSkippedTestsModal";
 
 type Props = {
+  testSelectionEnabled: boolean;
   versionId: string;
 };
 
-export const SkippedTestsMetadata: React.FC<Props> = ({ versionId }) => {
+export const SkippedTestsMetadata: React.FC<Props> = ({
+  testSelectionEnabled,
+  versionId,
+}) => {
   const { sendEvent } = useVersionAnalytics(versionId);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const { data, error, loading, refetch } = useQuery<
     VersionQuarantinedTasksQuery,
     VersionQuarantinedTasksQueryVariables
-  >(VERSION_QUARANTINED_TASKS, { variables: { versionId } });
+  >(VERSION_QUARANTINED_TASKS, {
+    skip: !testSelectionEnabled,
+    variables: { versionId },
+  });
 
   const skippedTestTasks = useMemo(
     () =>
@@ -40,6 +47,10 @@ export const SkippedTestsMetadata: React.FC<Props> = ({ versionId }) => {
     (sum, task) => sum + task.quarantinedTestsSkippedCount,
     0,
   );
+
+  if (!testSelectionEnabled) {
+    return null;
+  }
 
   if (loading) {
     return (
