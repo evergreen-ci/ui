@@ -18,13 +18,13 @@ describe("table filter popover", () => {
         value={[]}
       />,
     );
-    expect(screen.queryByDataTestId("test-popover-wrapper")).toBeNull();
+    expect(screen.queryByTestId("test-popover-wrapper")).toBeNull();
     const icon = screen.getByRole("button", {
       name: "Table Filter Popover Icon",
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
   });
 
@@ -43,7 +43,7 @@ describe("table filter popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
     const checkbox = screen.getByLabelText("Success");
     expect(checkbox).toBeChecked();
@@ -65,7 +65,7 @@ describe("table filter popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
 
     const checkboxLabel = screen.getByText("Success"); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
@@ -89,7 +89,7 @@ describe("table filter popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
     expect(screen.getByText("No filters available.")).toBeVisible();
   });

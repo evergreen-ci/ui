@@ -35,7 +35,7 @@ describe("base toggle", () => {
         value={false}
       />,
     );
-    const toggle = screen.getByDataTestId("toggle");
+    const toggle = screen.getByTestId("toggle");
     await user.click(toggle);
 
     expect(toggleFunc).toHaveBeenCalledTimes(1);
@@ -56,6 +56,6 @@ describe("base toggle", () => {
         value
       />,
     );
-    expect(screen.getByDataTestId("toggle")).toBeDisabled();
+    expect(screen.getByTestId("toggle")).toBeDisabled();
   });
 });

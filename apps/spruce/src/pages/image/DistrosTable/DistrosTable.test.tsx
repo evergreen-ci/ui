@@ -26,20 +26,20 @@ describe("distros table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("distro-table-row")).toHaveLength(3);
+      expect(screen.getAllByTestId("distro-table-row")).toHaveLength(3);
     });
 
-    const ubuntuSmall = screen.getAllByDataCy("distro-table-row")[0];
+    const ubuntuSmall = screen.getAllByTestId("distro-table-row")[0];
     expect(within(ubuntuSmall).getAllByRole("link")[0]).toHaveAttribute(
       "href",
       "/distro/ubuntu2204-small/settings/general",
     );
-    const ubuntuLarge = screen.getAllByDataCy("distro-table-row")[1];
+    const ubuntuLarge = screen.getAllByTestId("distro-table-row")[1];
     expect(within(ubuntuLarge).getAllByRole("link")[0]).toHaveAttribute(
       "href",
       "/distro/ubuntu2204-large/settings/general",
     );
-    const ubuntuStatic = screen.getAllByDataCy("distro-table-row")[2];
+    const ubuntuStatic = screen.getAllByTestId("distro-table-row")[2];
     expect(within(ubuntuStatic).getAllByRole("link")[0]).toHaveAttribute(
       "href",
       "/distro/ubuntu2204-static/settings/general",
@@ -52,18 +52,18 @@ describe("distros table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("distro-table-row")).toHaveLength(3);
+      expect(screen.getAllByTestId("distro-table-row")).toHaveLength(3);
     });
 
-    const ubuntuSmall = screen.getAllByDataCy("distro-table-row")[0];
+    const ubuntuSmall = screen.getAllByTestId("distro-table-row")[0];
     expect(within(ubuntuSmall).getAllByRole("cell")[1]).toHaveTextContent(
       "m4.xlarge",
     );
-    const ubuntuLarge = screen.getAllByDataCy("distro-table-row")[1];
+    const ubuntuLarge = screen.getAllByTestId("distro-table-row")[1];
     expect(within(ubuntuLarge).getAllByRole("cell")[1]).toHaveTextContent(
       "m6i.2xlarge",
     );
-    const ubuntuStatic = screen.getAllByDataCy("distro-table-row")[2];
+    const ubuntuStatic = screen.getAllByTestId("distro-table-row")[2];
     expect(within(ubuntuStatic).getAllByRole("cell")[1]).toHaveTextContent(
       "N/A",
     );
@@ -75,16 +75,16 @@ describe("distros table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("distro-table-row")).toHaveLength(3);
+      expect(screen.getAllByTestId("distro-table-row")).toHaveLength(3);
     });
 
-    const ubuntuSmall = screen.getAllByDataCy("distro-table-row")[0];
+    const ubuntuSmall = screen.getAllByTestId("distro-table-row")[0];
     expect(within(ubuntuSmall).getAllByRole("cell")[2]).toHaveTextContent(
       "100",
     );
-    const ubuntuLarge = screen.getAllByDataCy("distro-table-row")[1];
+    const ubuntuLarge = screen.getAllByTestId("distro-table-row")[1];
     expect(within(ubuntuLarge).getAllByRole("cell")[2]).toHaveTextContent("30");
-    const ubuntuStatic = screen.getAllByDataCy("distro-table-row")[2];
+    const ubuntuStatic = screen.getAllByTestId("distro-table-row")[2];
     expect(within(ubuntuStatic).getAllByRole("cell")[2]).toHaveTextContent("2");
   });
 
@@ -94,20 +94,20 @@ describe("distros table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("distro-table-row")).toHaveLength(3);
+      expect(screen.getAllByTestId("distro-table-row")).toHaveLength(3);
     });
 
-    const ubuntuSmall = screen.getAllByDataCy("distro-table-row")[0];
+    const ubuntuSmall = screen.getAllByTestId("distro-table-row")[0];
     expect(within(ubuntuSmall).getAllByRole("link")[1]).toHaveAttribute(
       "href",
       "/hosts?distroId=ubuntu2204-small&startedBy=mci",
     );
-    const ubuntuLarge = screen.getAllByDataCy("distro-table-row")[1];
+    const ubuntuLarge = screen.getAllByTestId("distro-table-row")[1];
     expect(within(ubuntuLarge).getAllByRole("link")[1]).toHaveAttribute(
       "href",
       "/hosts?distroId=ubuntu2204-large&startedBy=mci",
     );
-    const ubuntuStatic = screen.getAllByDataCy("distro-table-row")[2];
+    const ubuntuStatic = screen.getAllByTestId("distro-table-row")[2];
     expect(within(ubuntuStatic).getAllByRole("link")[1]).toHaveAttribute(
       "href",
       "/hosts?distroId=ubuntu2204-static&startedBy=mci",

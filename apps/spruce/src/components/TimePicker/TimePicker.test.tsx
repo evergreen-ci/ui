@@ -25,9 +25,9 @@ describe("time picker", () => {
         value={new Date("2025-01-01T12:33:00Z")}
       />,
     );
-    const hourInput = screen.getByDataCy("hour-input");
+    const hourInput = screen.getByTestId("hour-input");
     expect(hourInput).toHaveValue("12");
-    const minuteInput = screen.getByDataCy("minute-input");
+    const minuteInput = screen.getByTestId("minute-input");
     expect(minuteInput).toHaveValue("33");
   });
 
@@ -44,11 +44,11 @@ describe("time picker", () => {
     const iconButton = screen.getByRole("button", { name: "Clock Icon" });
     await user.click(iconButton);
     await waitFor(() => {
-      expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+      expect(screen.getByTestId("time-picker-options")).toBeVisible();
     });
     await user.click(iconButton);
     await waitForElementToBeRemoved(
-      screen.queryByDataCy("time-picker-options"),
+      screen.queryByTestId("time-picker-options"),
     );
   });
 
@@ -84,7 +84,7 @@ describe("time picker", () => {
 
     const iconButton = screen.getByRole("button", { name: "Clock Icon" });
     await user.click(iconButton);
-    const menuOptions = screen.getByDataCy("time-picker-options");
+    const menuOptions = screen.getByTestId("time-picker-options");
     await waitFor(() => {
       expect(menuOptions).toBeVisible();
     });
@@ -94,7 +94,7 @@ describe("time picker", () => {
       expect(onScroll).toHaveBeenCalledTimes(2);
     });
 
-    const hourOptions = screen.getByDataCy("hour-options");
+    const hourOptions = screen.getByTestId("hour-options");
     await user.click(within(hourOptions).getByText("04"));
     await waitFor(() => {
       expect(onScroll).toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe("time picker", () => {
       new Date("2025-01-01T04:33:00.000Z"),
     );
 
-    const minuteOptions = screen.getByDataCy("minute-options");
+    const minuteOptions = screen.getByTestId("minute-options");
     await user.click(within(minuteOptions).getByText("40"));
     await waitFor(() => {
       expect(onScroll).toHaveBeenCalled();
@@ -124,9 +124,9 @@ describe("time picker", () => {
         value={new Date("2025-01-01T12:33:00Z")}
       />,
     );
-    const hourInput = screen.getByDataCy("hour-input");
+    const hourInput = screen.getByTestId("hour-input");
     expect(hourInput).toBeDisabled();
-    const minuteInput = screen.getByDataCy("minute-input");
+    const minuteInput = screen.getByTestId("minute-input");
     expect(minuteInput).toBeDisabled();
   });
 });

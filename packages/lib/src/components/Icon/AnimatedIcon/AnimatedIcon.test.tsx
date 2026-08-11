@@ -11,7 +11,7 @@ MockIcon.displayName = "MockIcon";
 describe("AnimatedIcon", () => {
   it("renders the icon correctly", () => {
     render(<AnimatedIcon icon={MockIcon} />);
-    const svgElement = screen.getByDataTestId("test-svg");
+    const svgElement = screen.getByTestId("test-svg");
     expect(svgElement).toBeInTheDocument();
   });
 
@@ -66,7 +66,7 @@ describe("AnimatedIcon", () => {
 
     render(<AnimatedIcon icon={MockIconWithAnimations} />);
 
-    const svgElement = screen.getByDataTestId("test-svg");
+    const svgElement = screen.getByTestId("test-svg");
 
     // Mouse enter triggers unpauseAnimations
     fireEvent.mouseEnter(svgElement);

@@ -7,11 +7,11 @@ import { screen, userEvent } from "@evg-ui/lib/test_utils";
  */
 const selectLGOption = async (dataCy: string, option: string) => {
   const user = userEvent.setup();
-  expect(screen.queryByDataCy(dataCy)).not.toBeDisabled();
-  await user.click(screen.getByDataCy(dataCy));
+  expect(screen.queryByTestId(dataCy)).not.toBeDisabled();
+  await user.click(screen.getByTestId(dataCy));
   const selectOption = await screen.findByText(option);
   await user.click(selectOption);
-  expect(screen.queryByDataCy(dataCy)).toHaveTextContent(option);
+  expect(screen.queryByTestId(dataCy)).toHaveTextContent(option);
 };
 
 export { selectLGOption };

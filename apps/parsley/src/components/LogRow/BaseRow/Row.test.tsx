@@ -31,7 +31,7 @@ describe("row", () => {
   it("renders a log line", () => {
     renderRow({ ...rowProps, children: testLog, "data-testid": "test" }, {});
     expect(screen.getByText(testLog)).toBeVisible();
-    expect(screen.getByDataTestId("test")).toBeVisible();
+    expect(screen.getByTestId("test")).toBeVisible();
   });
 
   it("properly escapes a log line with tags and renders its contents", () => {
@@ -96,7 +96,7 @@ describe("row", () => {
         {},
       );
 
-      expect(screen.getByDataTestId("highlight")).toHaveTextContent("Test");
+      expect(screen.getByTestId("highlight")).toHaveTextContent("Test");
     });
     it("should not highlight matching search text if it is outside of range", () => {
       const regexp = /Test/i;
@@ -113,7 +113,7 @@ describe("row", () => {
         {},
       );
 
-      expect(screen.queryByDataTestId("highlight")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("highlight")).not.toBeInTheDocument();
     });
     it("highlighted terms should highlight the matching text", () => {
       const regexp = /Test/i;
@@ -126,7 +126,7 @@ describe("row", () => {
         {},
       );
 
-      expect(screen.getByDataTestId("highlight")).toHaveTextContent("Test");
+      expect(screen.getByTestId("highlight")).toHaveTextContent("Test");
     });
   });
 });
