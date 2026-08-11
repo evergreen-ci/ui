@@ -27,6 +27,13 @@ export const globalStyles = css`
   ${fontStyles}
   background-color: white;
 
+  /* Via's stylesheet sets "color-scheme: light dark" on :root, which makes the
+     browser paint canvas, scrollbars, and form controls per the OS preference.
+     Spruce is light-only. */
+  :root {
+    color-scheme: light;
+  }
+
   /* Used for styling task logs. */
   pre {
     font-family: ${fontFamilies.code};
