@@ -227,7 +227,10 @@ describe("SkippedTestsDetails", () => {
     render(<Component />, routerOptions);
 
     expect(await screen.findByText("Display One")).toBeVisible();
-    await user.click(screen.getByTestId("skipped-tests-download"));
+    const downloadButton = screen.getByRole("button", {
+      name: "Download JSON",
+    });
+    await user.click(downloadButton);
     await waitFor(() => {
       expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
     });

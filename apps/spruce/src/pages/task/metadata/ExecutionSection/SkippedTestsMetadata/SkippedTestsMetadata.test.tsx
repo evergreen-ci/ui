@@ -81,7 +81,8 @@ describe("SkippedTestsMetadata", () => {
     expect(
       screen.getByTestId("skipped-tests-metadata-count"),
     ).toHaveTextContent("0 tests");
-    expect(screen.queryByTestId("skipped-tests-details-button")).toBeNull();
+    const detailsButton = screen.queryByRole("button", { name: "Details" });
+    expect(detailsButton).toBeNull();
   });
 
   it("opens details locally and resets them when the task changes", async () => {
@@ -102,7 +103,8 @@ describe("SkippedTestsMetadata", () => {
     expect(
       screen.getByTestId("skipped-tests-metadata-count"),
     ).toHaveTextContent("4 tests");
-    await user.click(screen.getByTestId("skipped-tests-details-button"));
+    const detailsButton = screen.getByRole("button", { name: "Details" });
+    await user.click(detailsButton);
     expect(await screen.findByTestId("skipped-tests-modal")).toBeVisible();
     expect(await screen.findByText("test_one")).toBeVisible();
 
@@ -135,6 +137,7 @@ describe("SkippedTestsMetadata", () => {
     expect(
       screen.getByTestId("skipped-tests-metadata-count"),
     ).toHaveTextContent("4 tests");
-    expect(screen.queryByTestId("skipped-tests-details-button")).toBeNull();
+    const detailsButton = screen.queryByRole("button", { name: "Details" });
+    expect(detailsButton).toBeNull();
   });
 });
