@@ -62,7 +62,7 @@ export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
 
   return (
     <BaseTable
-      data-cy-row="distro-table-row"
+      data-testid-row="distro-table-row"
       loading={loading}
       shouldAlternateRowColor
       table={table}
@@ -94,7 +94,7 @@ const columns: LGColumnDef<Distro>[] = [
           trigger={
             <IconButton aria-label="Information about instance type">
               <Icon
-                data-cy="instance-type-information"
+                data-testid="instance-type-information"
                 glyph="InfoWithCircle"
               />
             </IconButton>

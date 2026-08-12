@@ -135,7 +135,7 @@ export const RestartFailedTasks = forwardRef<
   return (
     <MenuItem
       ref={ref}
-      data-cy="restart-failed-tasks"
+      data-testid="restart-failed-tasks"
       disabled={disabled || queryLoading || mutationLoading}
       onClick={handleRestartFailedTasks}
     >

@@ -98,7 +98,7 @@ export const DownstreamProjectAccordion: React.FC<
   const { count = 0, data: tasksData = [] } = tasks || {};
 
   return (
-    <Wrapper data-cy="project-accordion">
+    <Wrapper data-testid="project-accordion">
       <Accordion
         defaultOpen={status === PatchStatus.Failed}
         subtitle={
@@ -111,7 +111,7 @@ export const DownstreamProjectAccordion: React.FC<
         title={
           <>
             <ProjectTitleWrapper>
-              <span data-cy="project-title">{projectName}</span>
+              <span data-testid="project-title">{projectName}</span>
             </ProjectTitleWrapper>
             <PatchStatusBadge status={status} />
           </>
@@ -151,7 +151,7 @@ const DownstreamMetadata: React.FC<DownstreamMetadataProps> = ({
       Base commit:{" "}
       <InlineCode
         as={Link}
-        data-cy="downstream-base-commit"
+        data-testid="downstream-base-commit"
         to={getVersionRoute(baseVersionID)}
       >
         {shortenGithash(githash)}

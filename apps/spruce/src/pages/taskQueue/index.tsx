@@ -92,7 +92,7 @@ const TaskQueue = () => {
               </DistroLabel>
             );
           }}
-          data-cy="distro-dropdown"
+          data-testid="distro-dropdown"
           disabled={isDropdownLoading}
           label="Distro"
           onChange={onChangeDistroSelection}

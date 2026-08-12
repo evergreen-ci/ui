@@ -15,7 +15,7 @@ export const modalFormDefinition = {
   },
   uiSchema: {
     newDistroId: {
-      "ui:data-cy": "distro-id-input",
+      "ui:data-testid": "distro-id-input",
     },
   },
 };

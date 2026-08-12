@@ -5,7 +5,7 @@ import Popconfirm, { Align } from "@evg-ui/lib/components/Popconfirm";
 
 interface AnnotationTicketActionProps {
   confirmMessage: string;
-  "data-cy": string;
+  "data-testid": string;
   iconGlyph: string;
   onConfirm: () => void;
   userCanModify: boolean;
@@ -13,7 +13,7 @@ interface AnnotationTicketActionProps {
 
 export const AnnotationTicketAction: React.FC<AnnotationTicketActionProps> = ({
   confirmMessage,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   iconGlyph,
   onConfirm,
   userCanModify,
@@ -24,7 +24,7 @@ export const AnnotationTicketAction: React.FC<AnnotationTicketActionProps> = ({
       onConfirm={onConfirm}
       trigger={
         <Button
-          data-cy={dataCy}
+          data-testid={dataTestId}
           leftGlyph={<Icon glyph={iconGlyph} />}
           size={Size.Small}
         />
@@ -36,7 +36,7 @@ export const AnnotationTicketAction: React.FC<AnnotationTicketActionProps> = ({
     <Tooltip
       trigger={
         <Button
-          data-cy={dataCy}
+          data-testid={dataTestId}
           disabled
           leftGlyph={<Icon glyph={iconGlyph} />}
           size={Size.Small}

@@ -13,7 +13,7 @@ export const Header: React.FC<HeaderProps> = ({ imageId, tab }) => {
   const { title } = getTabTitle(tab);
 
   return (
-    <Container data-cy="image-tab-title">
+    <Container data-testid="image-tab-title">
       <Overline>{title}</Overline>
       <TitleContainer>
         <H2>{imageId}</H2>

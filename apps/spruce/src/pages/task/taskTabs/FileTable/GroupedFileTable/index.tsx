@@ -28,7 +28,7 @@ const getColumns = (
       const { link, name: fileName, urlParsley } = value.row.original;
       return (
         <StyledLink
-          data-cy="file-link"
+          data-testid="file-link"
           href={link}
           onClick={() => {
             taskAnalytics.sendEvent({
@@ -56,7 +56,7 @@ const getColumns = (
           justify={Justify.Middle}
           trigger={
             <Button
-              data-cy="parsley-link"
+              data-testid="parsley-link"
               disabled={row.urlParsley === null}
               href={row.urlParsley ?? undefined}
               onClick={() => {

@@ -242,7 +242,7 @@ export const baseProps = {
       minLength: 1,
     },
     uiSchema: {
-      "ui:data-cy": "alias-input",
+      "ui:data-testid": "alias-input",
     },
   },
   description: {
@@ -264,7 +264,7 @@ export const baseProps = {
       minLength: 1,
     },
     uiSchema: {
-      "ui:data-cy": "git-tag-input",
+      "ui:data-testid": "git-tag-input",
     },
   },
   remotePath: {
@@ -275,7 +275,7 @@ export const baseProps = {
       minLength: 1,
     },
     uiSchema: {
-      "ui:data-cy": "remote-path-input",
+      "ui:data-testid": "remote-path-input",
       "ui:sectionId": "remote-path-field",
     },
   },
@@ -288,7 +288,7 @@ export const baseProps = {
     },
     uiSchema: {
       "ui:ariaLabelledBy": "task-input-control",
-      "ui:data-cy": "task-input",
+      "ui:data-testid": "task-input",
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "task-regex-field",
       "ui:elementWrapperCSS": textAreaCSS,
@@ -315,7 +315,7 @@ export const baseProps = {
       "ui:topAlignDelete": true,
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
-        "ui:data-cy": "task-tags-input",
+        "ui:data-testid": "task-tags-input",
       },
     },
   },
@@ -328,7 +328,7 @@ export const baseProps = {
     },
     uiSchema: {
       "ui:ariaLabelledBy": "variant-input-control",
-      "ui:data-cy": "variant-input",
+      "ui:data-testid": "variant-input",
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "variant-regex-field",
       "ui:elementWrapperCSS": textAreaCSS,
@@ -356,7 +356,7 @@ export const baseProps = {
       "ui:topAlignDelete": true,
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
-        "ui:data-cy": "variant-tags-input",
+        "ui:data-testid": "variant-tags-input",
       },
     },
   },
@@ -422,7 +422,7 @@ const variants = {
   uiSchema: {
     specifier: {
       "ui:widget": widgets.SegmentedControlWidget,
-      "ui:data-cy": "variant-input-control",
+      "ui:data-testid": "variant-input-control",
       "ui:sectionId": "variant-task-field",
       "ui:aria-controls": ["variant-regex-field", "variant-tags-field"],
     },
@@ -480,7 +480,7 @@ const tasks = {
   uiSchema: {
     specifier: {
       "ui:widget": widgets.SegmentedControlWidget,
-      "ui:data-cy": "task-input-control",
+      "ui:data-testid": "task-input-control",
       "ui:aria-controls": ["task-regex-field", "task-tags-field"],
     },
     task: task.uiSchema,
@@ -512,7 +512,7 @@ const parameters = {
     "ui:addButtonText": "Add parameter",
     items: {
       "ui:ObjectFieldTemplate": FieldRow,
-      "ui:data-cy": "parameter-input",
+      "ui:data-testid": "parameter-input",
       key: {
         "ui:placeholder": "Key",
       },

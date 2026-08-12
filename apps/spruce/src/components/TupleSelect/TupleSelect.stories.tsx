@@ -13,7 +13,7 @@ export const Default: CustomStoryObj<typeof TupleSelect> = {
     <>
       <TupleSelect
         ariaLabel="Tuple Select"
-        data-cy="tuple-select"
+        data-testid="tuple-select"
         id="tuple-select"
         label="Tuple Select"
         onSubmit={action("submit")}

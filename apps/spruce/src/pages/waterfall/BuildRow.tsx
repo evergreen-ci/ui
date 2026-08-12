@@ -113,7 +113,7 @@ const BuildRowInner: React.FC<Props> = ({
       buildColumns.push(
         <InactiveVersion
           key={inactiveVersions[0].id}
-          data-cy="inactive-column"
+          data-testid="inactive-column"
         />,
       );
     } else if (version && version.id === builds?.[buildIndex]?.version) {
@@ -139,18 +139,18 @@ const BuildRowInner: React.FC<Props> = ({
 
   return (
     <Row>
-      <BuildVariantTitle data-cy="build-variant-label">
+      <BuildVariantTitle data-testid="build-variant-label">
         <StyledIconButton
           active={pinned}
           aria-label="Pin build variant"
-          data-cy="pin-button"
+          data-testid="pin-button"
           onClick={handlePinClick}
           {...iconButtonProps}
         >
           <Icon glyph="Pin" />
         </StyledIconButton>
         <StyledLink
-          data-cy="build-variant-link"
+          data-testid="build-variant-link"
           href={getVariantHistoryRoute(projectIdentifier, build.id)}
           onClick={handleVariantClick}
         >
@@ -159,7 +159,7 @@ const BuildRowInner: React.FC<Props> = ({
       </BuildVariantTitle>
       <VisibilityContainer
         className={buildGroupClassName}
-        data-cy="build-group"
+        data-testid="build-group"
         offset={1000}
         style={{ minHeight: containerHeight }}
       >

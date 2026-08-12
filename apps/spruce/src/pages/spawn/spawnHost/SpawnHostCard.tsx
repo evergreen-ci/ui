@@ -22,7 +22,7 @@ const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => {
 
   return (
     <DetailsCard
-      data-cy="spawn-host-card"
+      data-testid="spawn-host-card"
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       fieldMaps={spawnHostCardFieldMaps(sendEvent)}
       type={host}

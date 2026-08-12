@@ -13,19 +13,19 @@ const Content = () => {
   return (
     <>
       <input
-        data-cy="category"
+        data-testid="category"
         onChange={(e) => setCategory(e.target.value)}
         type="text"
         value={category}
       />
       <input
-        data-cy="value"
+        data-testid="value"
         onChange={(e) => setValue(e.target.value)}
         type="text"
         value={value}
       />
       <button
-        data-cy="submit"
+        data-testid="submit"
         onClick={() => onSubmit({ category, value })}
         type="button"
       >

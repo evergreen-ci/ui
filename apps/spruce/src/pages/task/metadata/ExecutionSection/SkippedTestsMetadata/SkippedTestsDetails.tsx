@@ -123,7 +123,6 @@ export const SkippedTestsDetails: React.FC<SkippedTestsDetailsProps> = ({
   return (
     <SkippedTestsModal
       columns={columns}
-      dataCyPrefix="skipped-tests"
       getSearchText={getEntryName}
       loading={loading}
       onClickDownload={handleDownload}

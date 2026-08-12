@@ -97,7 +97,7 @@ describe("SaveChangesModal", () => {
 
   it("applies customKeyValueRenderConfig to matching keys", () => {
     const customKeyValueRenderConfig: CustomKeyValueRenderConfig = {
-      "vars.vars": () => <span data-cy="masked-value">REDACTED</span>,
+      "vars.vars": () => <span data-testid="masked-value">REDACTED</span>,
     };
 
     const beforeVars: ProjectSettingsInput = {

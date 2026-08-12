@@ -35,7 +35,7 @@ const JobLogs: React.FC = () => {
         badge={null}
         buttons={
           <Button
-            data-cy="task-link"
+            data-testid="task-link"
             href={getTaskRoute(metadata.taskId, {
               execution: metadata.execution,
             })}

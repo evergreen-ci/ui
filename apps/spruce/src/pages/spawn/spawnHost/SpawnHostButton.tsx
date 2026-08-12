@@ -42,7 +42,7 @@ export const SpawnHostButton: React.FC = () => {
         justify="middle"
         trigger={
           <PlusButton
-            data-cy="spawn-host-button"
+            data-testid="spawn-host-button"
             disabled={reachedMaxNumHosts}
             onClick={() => {
               setOpenModal(true);

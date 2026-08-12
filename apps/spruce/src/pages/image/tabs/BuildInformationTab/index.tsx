@@ -16,42 +16,42 @@ export const BuildInformationTab: React.FC<BuildInformationTabProps> = ({
 }) => (
   <>
     <SpruceFormContainer
-      data-cy="general-card"
+      data-testid="general-card"
       id={tocItems.general.observedElementId}
       title={tocItems.general.title}
     >
       <GeneralTable imageId={imageId} />
     </SpruceFormContainer>
     <SpruceFormContainer
-      data-cy="distros-card"
+      data-testid="distros-card"
       id={tocItems.distros.observedElementId}
       title={tocItems.distros.title}
     >
       <DistrosTable imageId={imageId} />
     </SpruceFormContainer>
     <SpruceFormContainer
-      data-cy="os-card"
+      data-testid="os-card"
       id={tocItems.os.observedElementId}
       title={tocItems.os.title}
     >
       <OperatingSystemTable imageId={imageId} />
     </SpruceFormContainer>
     <SpruceFormContainer
-      data-cy="packages-card"
+      data-testid="packages-card"
       id={tocItems.packages.observedElementId}
       title={tocItems.packages.title}
     >
       <PackagesTable imageId={imageId} />
     </SpruceFormContainer>
     <SpruceFormContainer
-      data-cy="toolchains-card"
+      data-testid="toolchains-card"
       id={tocItems.toolchains.observedElementId}
       title={tocItems.toolchains.title}
     >
       <ToolchainsTable imageId={imageId} />
     </SpruceFormContainer>
     <SpruceFormContainer
-      data-cy="files-card"
+      data-testid="files-card"
       id={tocItems.files.observedElementId}
       title={tocItems.files.title}
     >

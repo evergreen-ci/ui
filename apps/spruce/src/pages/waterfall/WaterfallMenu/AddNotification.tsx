@@ -20,7 +20,7 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
   return (
     <>
       <DropdownItem
-        data-cy="add-notification"
+        data-testid="add-notification"
         glyph={<Icon glyph="Bell" />}
         onClick={() => {
           setIsModalVisible(true);
@@ -29,7 +29,7 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
         Add notification
       </DropdownItem>
       <NotificationModal
-        data-cy="waterfall-notification-modal"
+        data-testid="waterfall-notification-modal"
         onCancel={() => {
           setIsModalVisible(false);
           setMenuOpen(false);

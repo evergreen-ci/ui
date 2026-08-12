@@ -10,7 +10,7 @@ export const RequesterSelector: React.FC = () => {
 
   return (
     <Combobox
-      data-cy="requester-selector"
+      data-testid="requester-selector"
       label=""
       multiselect
       onChange={statusValOnChange}
@@ -21,7 +21,7 @@ export const RequesterSelector: React.FC = () => {
       {options.map(({ displayName, key, value }) => (
         <ComboboxOption
           key={key}
-          data-cy={`${value}-option`}
+          data-testid={`${value}-option`}
           displayName={displayName}
           value={value}
         />

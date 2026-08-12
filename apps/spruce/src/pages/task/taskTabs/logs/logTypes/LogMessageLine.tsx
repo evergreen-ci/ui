@@ -37,7 +37,7 @@ export const LogMessageLine: React.FC<LogMessageFragment> = ({
 
   return (
     <LogLineWrapper color={color}>
-      <span className="cy-log-message-time">{time}</span>
+      <span data-testid="log-message-time">{time}</span>
       {memoizedLogLine}
     </LogLineWrapper>
   );

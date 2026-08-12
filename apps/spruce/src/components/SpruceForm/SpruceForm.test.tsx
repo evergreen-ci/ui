@@ -555,7 +555,7 @@ const basicForm = {
     validProjects: {
       "ui:widget": "textarea",
       "ui:options": {
-        "data-cy": "valid-projects-input",
+        "data-testid": "valid-projects-input",
         label: false,
       },
     },
@@ -567,7 +567,7 @@ const basicForm = {
       "ui:addButtonText": "New User",
       items: {
         "ui:ariaLabelledBy": "root_access",
-        "ui:data-cy": "new-user-input",
+        "ui:data-testid": "new-user-input",
       },
     },
   },
@@ -588,7 +588,7 @@ const textInput = (emptyValue?: string) => ({
   },
   uiSchema: {
     textInput: {
-      "ui:data-cy": "text-input",
+      "ui:data-testid": "text-input",
       ...(emptyValue && { "ui:emptyValue": emptyValue }),
     },
   },
@@ -610,7 +610,7 @@ const textArea = (emptyValue?: string) => ({
   uiSchema: {
     textArea: {
       "ui:widget": "textarea",
-      "ui:data-cy": "text-area",
+      "ui:data-testid": "text-area",
       ...(emptyValue && { "ui:emptyValue": emptyValue }),
     },
   },

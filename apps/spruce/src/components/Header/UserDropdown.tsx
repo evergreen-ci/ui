@@ -36,14 +36,14 @@ export const UserDropdown = () => {
       onClick: () => sendEvent({ name: "Clicked UI settings link" }),
     },
     {
-      "data-cy": "log-out",
+      "data-testid": "log-out",
       text: "Log out",
       onClick: () => logoutAndRedirect(),
     },
   ];
   if (permissions?.canEditAdminSettings) {
     menuItems.splice(-1, 0, {
-      "data-cy": "admin-link",
+      "data-testid": "admin-link",
       text: "Admin",
       to: getAdminSettingsRoute(AdminSettingsTabRoutes.ServiceFlags),
       onClick: () => sendEvent({ name: "Clicked admin settings link" }),
@@ -51,7 +51,7 @@ export const UserDropdown = () => {
   }
   return (
     <NavDropdown
-      dataCy="user-dropdown-link"
+      dataTestId="user-dropdown-link"
       menuItems={menuItems}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       title={displayName}

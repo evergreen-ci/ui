@@ -95,7 +95,7 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
 
   return (
     <BaseTable
-      data-cy-row="os-table-row"
+      data-testid-row="os-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
       numTotalItems={numTotalItems}
@@ -113,7 +113,7 @@ const columns: LGColumnDef<OsInfo>[] = [
     enableColumnFilter: true,
     meta: {
       search: {
-        "data-cy": "os-name-filter",
+        "data-testid": "os-name-filter",
         placeholder: "Name regex",
       },
     },

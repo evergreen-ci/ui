@@ -100,10 +100,7 @@ const getProjectConfig = () => {
       globalSetup: "./config/vitest/global-setup.ts",
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
-      setupFiles: [
-        "@evg-ui/lib/config/vitest/setupTests.ts",
-        "./config/vitest/configureTestId.ts", // Temporary, delete this during cleanup.
-      ],
+      setupFiles: ["@evg-ui/lib/config/vitest/setupTests.ts"],
       include: ["src/**/*.test.{ts,tsx}"],
     },
   });

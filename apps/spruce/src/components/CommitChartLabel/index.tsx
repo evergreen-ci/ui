@@ -55,11 +55,11 @@ const CommitChartLabel: React.FC<Props> = ({
   } = upstreamProject || {};
 
   return (
-    <LabelContainer data-cy="commit-label">
+    <LabelContainer data-testid="commit-label">
       <LabelText>
         <InlineCode
           as={Link}
-          data-cy="githash-link"
+          data-testid="githash-link"
           onClick={onClickGithash}
           to={getVersionRoute(versionId)}
         >
@@ -101,7 +101,10 @@ const CommitChartLabel: React.FC<Props> = ({
         )}
       </LabelText>
       {shortenMessage && (
-        <ExpandedText data-cy="long-commit-message-tooltip" message={message} />
+        <ExpandedText
+          data-testid="long-commit-message-tooltip"
+          message={message}
+        />
       )}
       {gitTags && (
         <LabelText>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</LabelText>

@@ -13,7 +13,7 @@ export interface Breadcrumb {
   text: string;
   to?: string;
   onClick?: () => void;
-  "data-cy"?: string;
+  "data-testid"?: string;
 }
 interface BreadcrumbsProps {
   breadcrumbs: Breadcrumb[];
@@ -25,7 +25,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => (
         <BreadcrumbFragment breadcrumb={bc} />
         {breadcrumbs.length - 1 !== index && (
           <PaddedIcon
-            data-cy="breadcrumb-chevron"
+            data-testid="breadcrumb-chevron"
             fill={gray.dark2}
             glyph="ChevronRight"
             size="small"
@@ -42,24 +42,24 @@ interface BreadcrumbFragmentProps {
 const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
   breadcrumb,
 }) => {
-  const { "data-cy": dataCy, onClick, text = "", to } = breadcrumb;
+  const { "data-testid": dataTestId, onClick, text = "", to } = breadcrumb;
   const shouldTrimMessage = text.length > 30;
   const message = trimStringFromMiddle(text, 30);
   return (
     <Tooltip
       align="top"
-      data-cy="breadcrumb-tooltip"
+      data-testid="breadcrumb-tooltip"
       enabled={shouldTrimMessage}
       justify="middle"
       trigger={
         to ? (
-          <div data-cy={dataCy}>
+          <div data-testid={dataTestId}>
             <StyledRouterLink onClick={onClick} to={to}>
               {message}
             </StyledRouterLink>
           </div>
         ) : (
-          <div data-cy={dataCy}>{message}</div>
+          <div data-testid={dataTestId}>{message}</div>
         )
       }
       triggerEvent="hover"
