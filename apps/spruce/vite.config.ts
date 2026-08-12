@@ -104,9 +104,9 @@ const getProjectConfig = () => {
       include: ["src/**/*.test.{ts,tsx}"],
       server: {
         deps: {
-          // @via-ds/icons imports "lodash-es/kebabCase" without a file
-          // extension, which Node's ESM resolver rejects. Inlining routes it
-          // through Vite's resolver instead.
+          // TODO UXE-711: remove once @via-ds/icons fixes its extensionless
+          // "lodash-es/kebabCase" import, which Node's ESM resolver rejects.
+          // Inlining routes it through Vite's resolver instead.
           inline: [/@via-ds\//],
         },
       },
