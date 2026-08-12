@@ -42,7 +42,7 @@ export const clearDatePickerInput = async (
 /**
  * Validates the values in a date picker component
  * @param page - The Playwright page object
- * @param dataTestId - The data-testid attribute value of the date picker
+ * @param testId - The data-testid attribute value of the date picker
  * @param opts - The expected date values
  * @param opts.year - The expected year value
  * @param opts.month - The expected month value
@@ -50,10 +50,10 @@ export const clearDatePickerInput = async (
  */
 export const validateDatePickerDate = async (
   page: Page | Locator,
-  dataTestId: string,
+  testId: string,
   { year = "", month = "", day = "" } = {},
 ): Promise<void> => {
-  const datePicker = page.getByTestId(dataTestId);
+  const datePicker = page.getByTestId(testId);
 
   await expect(datePicker.locator("input[id='year']")).toHaveValue(year);
   await expect(datePicker.locator("input[id='month']")).toHaveValue(month);
@@ -68,14 +68,14 @@ export const validateDatePickerDate = async (
  * @param opts.year - The year to select (e.g., "2025")
  * @param opts.month - The abbreviated month name to select (e.g., "Feb")
  * @param opts.isoDate - The ISO date string of the day cell to click (e.g., "2025-02-28")
- * @param dataTestId - The data-testid attribute value of the date picker (default: "date-picker")
+ * @param testId - The data-testid attribute value of the date picker (default: "date-picker")
  */
 export const selectDatePickerDate = async (
   page: Page | Locator,
   { year = "", month = "", isoDate = "" } = {},
-  dataTestId = "date-picker",
+  testId = "date-picker",
 ): Promise<void> => {
-  await page.getByTestId(dataTestId).click();
+  await page.getByTestId(testId).click();
 
   const options = page.getByRole("listbox").getByRole("option");
 
@@ -101,14 +101,14 @@ export const selectDatePickerDate = async (
  * @param opts.year - The year to select (e.g., "2025")
  * @param opts.month - The numerical month value to select (e.g., "02")
  * @param opts.day - The day to select (e.g., "28")
- * @param dataTestId - The data-testid attribute value of the date picker (default: "date-picker")
+ * @param testId - The data-testid attribute value of the date picker (default: "date-picker")
  */
 export const typeDatePickerDate = async (
   page: Page | Locator,
   { year = "", month = "", day = "" } = {},
-  dataTestId = "date-picker",
+  testId = "date-picker",
 ): Promise<void> => {
-  const datePicker = page.getByTestId(dataTestId);
+  const datePicker = page.getByTestId(testId);
   const yearInput = datePicker.locator("input[id='year']");
   const monthInput = datePicker.locator("input[id='month']");
   const dayInput = datePicker.locator("input[id='day']");

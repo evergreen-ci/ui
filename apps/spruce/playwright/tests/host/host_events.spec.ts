@@ -5,19 +5,19 @@ import { clickCheckbox, selectOption } from "../../helpers";
  * Helper to select page size and verify URL and table row count
  * @param page - Playwright page object
  * @param pageSize - The page size to select
- * @param dataTestIdTableRows - The data-testid selector for table rows
+ * @param tableRowsTestId - The data-testid selector for table rows
  */
 const selectPageSize = async (
   page: Page,
   pageSize: number,
-  dataTestIdTableRows: string,
+  tableRowsTestId: string,
 ) => {
   await page
     .locator("button[aria-labelledby='page-size-select']")
     .first()
     .click();
   await page.getByText(`${pageSize} / page`).first().click();
-  const tableRows = page.locator(dataTestIdTableRows);
+  const tableRows = page.locator(tableRowsTestId);
   const rowCount = await tableRows.count();
   expect(rowCount).toBeLessThanOrEqual(pageSize);
   await expect(page).toHaveURL(new RegExp(`limit=${pageSize}`));
