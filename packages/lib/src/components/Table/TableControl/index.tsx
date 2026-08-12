@@ -44,8 +44,6 @@ const TableControl: React.FC<Props> = ({
     <TableControlOuterRow>
       <FlexContainer>
         <ResultCountLabel
-          dataCyDenominator="total-count"
-          dataCyNumerator="filtered-count"
           dataTestIdDenominator="total-count"
           dataTestIdNumerator="filtered-count"
           denominator={totalCount}
@@ -53,7 +51,6 @@ const TableControl: React.FC<Props> = ({
           numerator={filteredCount}
         />
         <PaddedButton
-          data-cy="clear-all-filters"
           data-testid="clear-all-filters"
           disabled={disabled}
           onClick={onClearAll}

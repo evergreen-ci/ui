@@ -33,7 +33,4 @@ export default createPlaywrightConfig({
       dependencies: ["setup db", "setup auth"],
     },
   ],
-  use: {
-    testIdAttribute: "data-testid", // TODO: Remove override when we've finished migrating off data-testid attributes.
-  },
 });

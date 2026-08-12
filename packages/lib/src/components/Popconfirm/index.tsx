@@ -83,7 +83,6 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
           </Button>
           <Button
             as="button"
-            data-cy="popconfirm-confirm-button"
             data-testid="popconfirm-confirm-button"
             disabled={confirmDisabled}
             onClick={(e) => {
