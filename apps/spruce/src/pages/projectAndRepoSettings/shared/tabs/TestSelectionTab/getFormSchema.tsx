@@ -2,6 +2,7 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { form } from "../utils";
+import { MAINLINE_REQUIRES_PATCHES_MESSAGE } from "./constants";
 import { TestSelectionFormState } from "./types";
 
 const { radioBoxOptions } = form;
@@ -23,7 +24,7 @@ export const getFormSchema = ({
 }): ReturnType<GetFormSchema> => {
   const taskLevelWarning = getTaskLevelWarning(canEnableTaskLevel);
   const mainlineWarning = mainlineRequiresPatches
-    ? "Test selection cannot be enabled for mainline commits without also being enabled for patches."
+    ? MAINLINE_REQUIRES_PATCHES_MESSAGE
     : undefined;
 
   return {

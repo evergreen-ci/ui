@@ -4,12 +4,11 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
+import { MAINLINE_REQUIRES_PATCHES_MESSAGE } from "./constants";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps, TestSelectionFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.TestSelection;
-const mainlineRequiresPatchesError =
-  "Test selection cannot be enabled for mainline commits without also being enabled for patches.";
 
 export const TestSelectionTab: React.FC<TabProps> = ({
   projectData,
@@ -49,7 +48,7 @@ export const TestSelectionTab: React.FC<TabProps> = ({
 
     if (mainlineEnabled && !patchesEnabled) {
       errors.taskLevel.mainlineDefaultEnabled.addError(
-        mainlineRequiresPatchesError,
+        MAINLINE_REQUIRES_PATCHES_MESSAGE,
       );
     }
 
