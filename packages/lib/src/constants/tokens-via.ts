@@ -10,12 +10,6 @@ export const size = {
   xxl: tokens.space[1800].$value, // 72px
 } as const;
 
-/**
- * Leafygreen-shaped palette backed by Via's numeric color ramps, so existing
- * `palette.gray.dark2`-style call sites keep working. Via's ramp steps carry the
- * same hex values as their Leafygreen counterparts: light3 -> 100 through
- * dark3 -> 700, with gray renamed to neutral.
- */
 export const palette = {
   black: tokens.color.neutral[900].$value,
   white: tokens.color.neutral["000"].$value,
