@@ -11,10 +11,11 @@
 
   <link rel="shortcut icon" href="/favicon.ico" />
 
-  <!-- Via's stylesheet sets `:root { color-scheme: light dark }`, which turns the
-       document canvas dark under a dark OS preference. Spruce is light-only, so pin
-       it here: `html:root` outranks `:root` regardless of load order, and it must be
-       in place at first paint (Emotion styles inject only after React mounts). -->
+  <!-- TODO UXE-712: remove once Via stops setting `:root { color-scheme: light dark }`,
+       which turns the document canvas dark under a dark OS preference. Spruce is
+       light-only, so pin it here: `html:root` outranks `:root` regardless of load
+       order, and it must be in place at first paint (Emotion styles inject only
+       after React mounts). -->
   <style>
     html:root {
       color-scheme: light;
