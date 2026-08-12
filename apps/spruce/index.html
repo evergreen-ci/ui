@@ -11,19 +11,6 @@
 
   <link rel="shortcut icon" href="/favicon.ico" />
 
-  <!--
-        Spruce is light-only, but Via's stylesheet sets `color-scheme: light dark`
-        at `:root`. Pinning it here rather than in GlobalStyles avoids a dark canvas
-        on first paint, since Emotion only injects once React mounts. `html:root`
-        beats Via's `:root` on specificity, which is what makes this hold both in
-        dev (Vite injects Via's CSS after parse) and in prod (it ships as a link).
-      -->
-  <style>
-    html:root {
-      color-scheme: light;
-    }
-  </style>
-
   <title>Evergreen</title>
 </head>
 

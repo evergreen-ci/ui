@@ -622,8 +622,8 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.0.1-canary.0
-        version: 0.0.1-canary.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.6.2
+        version: 0.6.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -1180,11 +1180,11 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.0.1-canary.0
-        version: 0.0.1-canary.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.6.2
+        version: 0.6.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.0.1-canary.0
-        version: 0.0.1-canary.0
+        specifier: 0.3.0
+        version: 0.3.0
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -5373,14 +5373,34 @@ packages:
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
 
+  '@via-ds/components@0.6.2':
+    resolution: {integrity: sha512-nBtPrDbbpVlscHxUzPzP/aJAdNLuO2Oszeht3UTq0wPeLsT8yq62DI9eXc5Zn6qsGfS8i6xMGvIpl/o5VbJHew==}
+    peerDependencies:
+      '@types/react': ^17 || ^18 || ^19
+      '@types/react-dom': ^17 || ^18 || ^19
+      react: ^17 || ^18 || ^19
+      react-dom: ^17 || ^18 || ^19
+
   '@via-ds/icons@0.0.2-canary.0':
     resolution: {integrity: sha512-4zUL/Z2Y1YXe/NIrEJ7yEgeZNJnkH+CR07Q7huxUbnXvH90ppVccFF68eTTdpl+LIwR6rIgW4OZFsGTrN94IcA==}
     peerDependencies:
       '@types/react': '*'
       react: ^17 || ^18 || ^19
 
+  '@via-ds/icons@0.1.0':
+    resolution: {integrity: sha512-UgznWInyFlzeLqC8R8vQ8vkfzdnzA3/GA7PuPkB87Nxp/qlxWXPPOC7hXl0YDp0SLrm8iZrChOLUaBMnYc3lRg==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^17 || ^18 || ^19
+
   '@via-ds/tokens@0.0.1-canary.0':
     resolution: {integrity: sha512-bpuCmfpJZ6Jqev35ECRhSuvg7nMOgjcVBkgf8qsFogHkdB2aOPlTSXSkP55WOPeMa2YNsbv932ETzmH8SDCBPg==}
+
+  '@via-ds/tokens@0.3.0':
+    resolution: {integrity: sha512-7npXRYQE8lP8krY4Mtx0v7MxawVjPVDBZSSNS62sHkH+5C6jBO5EGvOmD6ZaUcTqjyr2itRNNF5H/HcGCy0cEw==}
+
+  '@via-ds/types@0.0.1':
+    resolution: {integrity: sha512-AwR55vxMSbN9tFb+YQIVNVMv+2bxlPZcc0OWFdyY969r0NjwfGsws3Lz1XwfC54fFHHbQZSArtJ6/CrigtAAgw==}
 
   '@via-ds/types@0.0.1-canary.0':
     resolution: {integrity: sha512-0Lom+24J3ly/fh+fAZsv2c/b7ReaHhj6ZpAyTBf4A9KyK2iIitt02lIFkPFi1VEhv0ufHx0/v2TiERCDaeaaDA==}
@@ -14696,7 +14716,80 @@ snapshots:
       react-intersection-observer: 10.0.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       use-sync-external-store: 1.6.0(react@18.3.1)
 
+  '@via-ds/components@0.6.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@floating-ui/react': 0.26.28(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@floating-ui/react-dom': 2.1.8(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@internationalized/date': 3.12.1
+      '@react-aria/button': 3.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/collections': 3.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/dialog': 3.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/focus': 3.22.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/i18n': 3.13.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/interactions': 3.28.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/link': 3.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/numberfield': 3.13.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/overlays': 3.32.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/ssr': 3.10.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/steplist': 3.0.0-alpha.24(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/switch': 3.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/tabs': 3.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/textfield': 3.19.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/tooltip': 3.10.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/utils': 3.34.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/visually-hidden': 3.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-spectrum/provider': 3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-spectrum/utils': 3.13.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-stately/collections': 3.13.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-stately/numberfield': 3.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-stately/overlays': 3.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-stately/steplist': 3.0.0-alpha.20(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-stately/tabs': 3.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-stately/toggle': 3.10.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-stately/tooltip': 3.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-stately/utils': 3.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/button': 3.16.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/dialog': 3.6.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/link': 3.7.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/listbox': 3.8.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/overlays': 3.10.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/provider': 3.9.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      '@react-types/shared': 3.34.0(react@18.3.1)
+      '@react-types/switch': 3.6.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/tabs': 3.4.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/textfield': 3.13.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/tooltip': 3.6.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-table': 8.21.3(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-virtual': 3.13.24(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/lodash-es': 4.17.12
+      '@types/react': 18.3.12
+      '@types/react-dom': 18.3.1
+      '@types/use-sync-external-store': 1.5.0
+      '@via-ds/icons': 0.1.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@via-ds/tokens': 0.3.0
+      '@via-ds/types': 0.0.1
+      clsx: 2.1.1
+      lodash-es: 4.17.22
+      react: 18.3.1
+      react-aria-components: 1.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-dom: 18.3.1(react@18.3.1)
+      react-fast-compare: 3.2.2
+      react-hot-toast: 2.6.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-intersection-observer: 10.0.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      use-sync-external-store: 1.6.0(react@18.3.1)
+
   '@via-ds/icons@0.0.2-canary.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@react-aria/utils': 3.34.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/lodash-es': 4.17.12
+      '@types/react': 18.3.12
+      clsx: 2.1.1
+      lodash-es: 4.17.22
+      react: 18.3.1
+    transitivePeerDependencies:
+      - react-dom
+
+  '@via-ds/icons@0.1.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@react-aria/utils': 3.34.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/lodash-es': 4.17.12
@@ -14711,6 +14804,13 @@ snapshots:
     dependencies:
       '@types/lodash-es': 4.17.12
       lodash-es: 4.17.22
+
+  '@via-ds/tokens@0.3.0':
+    dependencies:
+      '@types/lodash-es': 4.17.12
+      lodash-es: 4.17.22
+
+  '@via-ds/types@0.0.1': {}
 
   '@via-ds/types@0.0.1-canary.0': {}
 

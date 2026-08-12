@@ -25,6 +25,7 @@ const resetStyles = css`
 export const globalStyles = css`
   ${resetStyles}
   ${fontStyles}
+  background-color: white;
 
   /* Used for styling task logs. */
   pre {
@@ -40,7 +41,6 @@ export const globalStyles = css`
 
   body {
     ${bodyStyles}
-    background-color: white;
 
     /* Added in EVG-18710 to address complaints about newer MongoDB fonts. */
     -webkit-font-smoothing: antialiased; // Chrome, Safari
