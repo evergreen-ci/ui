@@ -57,7 +57,9 @@ describe("task-level settings", () => {
             },
           },
         }),
-      ).toMatchObject({ defaultEnabled, mainlineDefaultEnabled });
+      ).toMatchObject({
+        taskLevel: { defaultEnabled, mainlineDefaultEnabled },
+      });
     },
   );
 
@@ -79,7 +81,10 @@ describe("task-level settings", () => {
     ({ defaultEnabled, mainlineDefaultEnabled }) => {
       expect(
         formToGql(
-          { allowed: true, defaultEnabled, mainlineDefaultEnabled },
+          {
+            projectLevel: { allowed: true },
+            taskLevel: { defaultEnabled, mainlineDefaultEnabled },
+          },
           false,
           "project",
         ).projectRef.testSelection,
@@ -93,9 +98,13 @@ describe("task-level settings", () => {
 });
 
 const projectForm: TestSelectionFormState = {
-  allowed: null,
-  defaultEnabled: null,
-  mainlineDefaultEnabled: null,
+  projectLevel: {
+    allowed: null,
+  },
+  taskLevel: {
+    defaultEnabled: null,
+    mainlineDefaultEnabled: null,
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -111,9 +120,13 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
 };
 
 const repoForm: TestSelectionFormState = {
-  allowed: true,
-  defaultEnabled: true,
-  mainlineDefaultEnabled: true,
+  projectLevel: {
+    allowed: true,
+  },
+  taskLevel: {
+    defaultEnabled: true,
+    mainlineDefaultEnabled: true,
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {

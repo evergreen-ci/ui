@@ -23,15 +23,15 @@ export const TestSelectionTab: React.FC<TabProps> = ({
 
   const canEnableTaskLevel =
     ((projectType === ProjectType.AttachedProject &&
-      formData?.allowed === null &&
-      repoData?.allowed) ||
-      formData?.allowed) ??
+      formData?.projectLevel.allowed === null &&
+      repoData?.projectLevel.allowed) ||
+      formData?.projectLevel.allowed) ??
     false;
 
-  const isPatchTestSelectionEnabled =
-    formData?.defaultEnabled ??
-    initialFormState?.defaultEnabled ??
-    repoData?.defaultEnabled ??
+  const canEnableMainline =
+    formData?.taskLevel.defaultEnabled ??
+    initialFormState?.taskLevel.defaultEnabled ??
+    repoData?.taskLevel.defaultEnabled ??
     false;
 
   const validate: ValidateProps<TestSelectionFormState> = (
@@ -39,14 +39,18 @@ export const TestSelectionTab: React.FC<TabProps> = ({
     errors,
   ) => {
     const patchesEnabled =
-      settings.defaultEnabled ?? repoData?.defaultEnabled ?? false;
+      settings.taskLevel.defaultEnabled ??
+      repoData?.taskLevel.defaultEnabled ??
+      false;
     const mainlineEnabled =
-      settings.mainlineDefaultEnabled ??
-      repoData?.mainlineDefaultEnabled ??
+      settings.taskLevel.mainlineDefaultEnabled ??
+      repoData?.taskLevel.mainlineDefaultEnabled ??
       false;
 
     if (mainlineEnabled && !patchesEnabled) {
-      errors.mainlineDefaultEnabled.addError(mainlineRequiresPatchesError);
+      errors.taskLevel.mainlineDefaultEnabled.addError(
+        mainlineRequiresPatchesError,
+      );
     }
 
     return errors;
@@ -58,9 +62,9 @@ export const TestSelectionTab: React.FC<TabProps> = ({
         repoData:
           projectType === ProjectType.AttachedProject ? repoData : undefined,
         canEnableTaskLevel,
-        mainlineRequiresPatches: !isPatchTestSelectionEnabled,
+        mainlineRequiresPatches: !canEnableMainline,
       }),
-    [projectType, canEnableTaskLevel, isPatchTestSelectionEnabled, repoData],
+    [projectType, canEnableTaskLevel, canEnableMainline, repoData],
   );
 
   if (!initialFormState) {

@@ -75,6 +75,7 @@ const TitleContainer = styled.div`
  * @param props.uiSchema."ui:description" - description
  * @param props.uiSchema."ui:title" - title
  * @param props.uiSchema."ui:objectFieldCss" - css style
+ * @param props.uiSchema."ui:warnings" - warning messages
  * @returns JSX.Element
  */
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
@@ -88,6 +89,7 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
     "ui:description": uiDescription,
     "ui:objectFieldCss": objectFieldCss,
     "ui:title": uiTitle,
+    "ui:warnings": warnings = [],
   },
 }) => {
   const description = uiDescription || schema.description;
@@ -107,6 +109,11 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
       scrollMarginTop={cardScrollMarginTop}
       title={uiTitle || title}
     >
+      {!!warnings.length && (
+        <StyledBanner data-cy="warning-banner" variant="warning">
+          {warnings.join(", ")}
+        </StyledBanner>
+      )}
       {properties.map((prop) => prop.content)}
     </SpruceFormContainer>
   );

@@ -1,20 +1,14 @@
 import { GetFormSchema } from "components/SpruceForm";
+import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { form } from "../utils";
-import { TestSelectionCardFieldTemplate } from "./TestSelectionCardFieldTemplate";
 import { TestSelectionFormState } from "./types";
 
 const { radioBoxOptions } = form;
 
-const getTaskLevelWarning = (
-  canEnableTaskLevel: boolean,
-  mainlineRequiresPatches: boolean,
-) => {
+const getTaskLevelWarning = (canEnableTaskLevel: boolean) => {
   if (!canEnableTaskLevel) {
     return "Test selection must be enabled for the project before it can be enabled for patches or mainline commits.";
-  }
-  if (mainlineRequiresPatches) {
-    return "Test selection cannot be enabled for mainline commits without also being enabled for patches.";
   }
 };
 
@@ -27,10 +21,10 @@ export const getFormSchema = ({
   canEnableTaskLevel: boolean;
   mainlineRequiresPatches: boolean;
 }): ReturnType<GetFormSchema> => {
-  const taskLevelWarning = getTaskLevelWarning(
-    canEnableTaskLevel,
-    mainlineRequiresPatches,
-  );
+  const taskLevelWarning = getTaskLevelWarning(canEnableTaskLevel);
+  const mainlineWarning = mainlineRequiresPatches
+    ? "Test selection cannot be enabled for mainline commits without also being enabled for patches."
+    : undefined;
 
   return {
     fields: {},
@@ -38,49 +32,72 @@ export const getFormSchema = ({
       type: "object" as const,
       title: "",
       properties: {
-        allowed: {
-          type: ["boolean", "null"],
+        projectLevel: {
+          type: "object" as const,
           title: "Project-Level Test Selection",
-          oneOf: radioBoxOptions(
-            ["Enabled", "Disabled"],
-            repoData?.allowed ?? undefined,
-          ),
+          description:
+            "Sets if the project can use test selection features or not.",
+          properties: {
+            allowed: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.projectLevel.allowed ?? undefined,
+              ),
+            },
+          },
         },
-        defaultEnabled: {
-          type: ["boolean", "null"],
-          title: "Run Test Selection on Patches",
-          oneOf: radioBoxOptions(
-            ["Enabled", "Disabled"],
-            repoData?.defaultEnabled ?? undefined,
-          ),
-        },
-        mainlineDefaultEnabled: {
-          type: ["boolean", "null"],
-          title: "Run Test Selection on Mainline",
-          oneOf: radioBoxOptions(
-            ["Enabled", "Disabled"],
-            repoData?.mainlineDefaultEnabled ?? undefined,
-          ),
+        taskLevel: {
+          type: "object" as const,
+          title: "Task-Level Test Selection",
+          description:
+            "Controls whether test selection is enabled by default for patch tasks and mainline commit tasks.",
+          properties: {
+            defaultEnabled: {
+              type: ["boolean", "null"],
+              title: "Run Test Selection on Patches",
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.taskLevel.defaultEnabled ?? undefined,
+              ),
+            },
+            mainlineDefaultEnabled: {
+              type: ["boolean", "null"],
+              title: "Run Test Selection on Mainline",
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.taskLevel.mainlineDefaultEnabled ?? undefined,
+              ),
+            },
+          },
         },
       },
     },
     uiSchema: {
-      "ui:ObjectFieldTemplate": TestSelectionCardFieldTemplate,
-      ...(taskLevelWarning && {
-        "ui:warnings": [taskLevelWarning],
-      }),
-      allowed: {
-        "ui:widget": widgets.RadioBoxWidget,
-        "ui:showLabel": false,
+      projectLevel: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        allowed: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:showLabel": false,
+        },
       },
-      defaultEnabled: {
-        "ui:widget": widgets.RadioBoxWidget,
-      },
-      mainlineDefaultEnabled: {
-        "ui:widget": widgets.RadioBoxWidget,
-        ...(mainlineRequiresPatches && {
-          "ui:enumDisabled": [true],
+      taskLevel: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        ...(taskLevelWarning && {
+          "ui:warnings": [taskLevelWarning],
         }),
+        defaultEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+        },
+        mainlineDefaultEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          ...(mainlineWarning && {
+            "ui:warnings": [mainlineWarning],
+          }),
+          ...(mainlineRequiresPatches && {
+            "ui:enumDisabled": [true],
+          }),
+        },
       },
     },
   };

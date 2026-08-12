@@ -4,9 +4,13 @@ import { getFormSchema } from "./getFormSchema";
 import { TestSelectionFormState } from "./types";
 
 const formData: TestSelectionFormState = {
-  allowed: true,
-  defaultEnabled: true,
-  mainlineDefaultEnabled: false,
+  projectLevel: {
+    allowed: true,
+  },
+  taskLevel: {
+    defaultEnabled: true,
+    mainlineDefaultEnabled: false,
+  },
 };
 
 const renderForm = (
