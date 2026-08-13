@@ -29,7 +29,7 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
       <Checkbox
         bold
         checked={matchingTasks === taskLength}
-        data-cy="variant-checkbox-select-all"
+        data-testid="variant-checkbox-select-all"
         indeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
         label={displayName}
         onChange={() =>
@@ -40,14 +40,14 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
         }
       />
       <BadgeWrapper>
-        <Badge data-cy="task-status-badge">
+        <Badge data-testid="task-status-badge">
           {matchingTasks} of {taskLength} Selected
         </Badge>
       </BadgeWrapper>
     </>
   );
   return (
-    <Wrapper data-cy="variant-accordion">
+    <Wrapper data-testid="variant-accordion">
       <Accordion title={variantTitle} titleTag={FlexContainer}>
         <TaskStatusCheckboxContainer
           selectedTasks={selectedTasks}

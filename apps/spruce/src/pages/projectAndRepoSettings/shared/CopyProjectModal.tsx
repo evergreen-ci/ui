@@ -109,7 +109,7 @@ export const CopyProjectModal: React.FC<Props> = ({
         disabled: hasError,
         onClick: onConfirm,
       }}
-      data-cy="copy-project-modal"
+      data-testid="copy-project-modal"
       open={open}
       title={`Duplicate “${label}”`}
     >

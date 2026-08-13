@@ -16,10 +16,10 @@ const { gray, green } = palette;
 interface FavoriteStarProps {
   projectIdentifier: string;
   isFavorite: boolean;
-  ["data-cy"]?: string;
+  ["data-testid"]?: string;
 }
 export const FavoriteStar: React.FC<FavoriteStarProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   isFavorite,
   projectIdentifier,
 }) => {
@@ -62,7 +62,7 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
     <div>
       <IconButton
         aria-label="Add To Favorites"
-        data-cy={dataCy}
+        data-testid={dataTestId}
         onClick={onClick}
       >
         <Icon

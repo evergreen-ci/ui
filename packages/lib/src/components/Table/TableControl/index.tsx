@@ -42,13 +42,11 @@ const TableControl: React.FC<Props> = ({
     <TableControlOuterRow>
       <FlexContainer>
         <Chip
-          data-cy="total-count"
           data-testid="total-count"
           label={`Total count: ${totalCount}`}
           variant={ChipVariant.Gray}
         />
         <Button
-          data-cy="clear-all-filters"
           data-testid="clear-all-filters"
           disabled={disabled}
           onClick={onClearAll}

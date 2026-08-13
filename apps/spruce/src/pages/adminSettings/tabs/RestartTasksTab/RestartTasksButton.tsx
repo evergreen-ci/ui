@@ -74,7 +74,7 @@ const RestartTasksModal: React.FC<RestartTasksModalProps> = ({
         disabled: !hasTasksToRestart,
         onClick: onConfirm,
       }}
-      data-cy="restart-tasks-modal"
+      data-testid="restart-tasks-modal"
       open={open}
       title="Submit Restart Tasks"
     >
@@ -90,7 +90,7 @@ const RestartTasksModal: React.FC<RestartTasksModalProps> = ({
               <Description>
                 The following {tasksToRestart.length} tasks will be restarted:
               </Description>
-              <ul data-cy="restart-tasks-list">
+              <ul data-testid="restart-tasks-list">
                 {tasksToRestart.map((t) => (
                   <li key={t.id}>
                     <TaskLink to={getTaskRoute(t.id)}>{t.id}</TaskLink>
@@ -151,7 +151,7 @@ export const RestartTasksButton: React.FC<RestartTasksButtonProps> = ({
         restartOpts={restartOpts}
       />
       <Button
-        data-cy="restart-tasks-button"
+        data-testid="restart-tasks-button"
         disabled={disabled}
         onClick={() => setModalOpen(true)}
         variant={ButtonVariant.Primary}

@@ -8,7 +8,7 @@ describe("highlighter", () => {
         Test blah test blah
       </Highlighter>,
     );
-    expect(screen.getByDataTestId("test-row")).toHaveStyle(
+    expect(screen.getByTestId("test-row")).toHaveStyle(
       `color: rgb(250, 128, 114)`,
     );
   });
@@ -19,8 +19,8 @@ describe("highlighter", () => {
       renderWithRouterMatch(
         <Highlighter searchTerm={regexp}>Test blah test blah</Highlighter>,
       );
-      expect(screen.queryAllByDataTestId("highlight")).toHaveLength(2);
-      screen.getAllByDataTestId("highlight").forEach((highlight) => {
+      expect(screen.queryAllByTestId("highlight")).toHaveLength(2);
+      screen.getAllByTestId("highlight").forEach((highlight) => {
         expect(highlight).toHaveTextContent(/test/i);
       });
     });
@@ -28,11 +28,11 @@ describe("highlighter", () => {
       const { rerender } = renderWithRouterMatch(
         <Highlighter searchTerm={/test/gi}>Test blah test blah</Highlighter>,
       );
-      expect(screen.queryAllByDataTestId("highlight")).toHaveLength(2);
+      expect(screen.queryAllByTestId("highlight")).toHaveLength(2);
       rerender(
         <Highlighter searchTerm={/test/g}>Test blah test blah</Highlighter>,
       );
-      expect(screen.queryAllByDataTestId("highlight")).toHaveLength(1);
+      expect(screen.queryAllByTestId("highlight")).toHaveLength(1);
     });
   });
 
@@ -42,8 +42,8 @@ describe("highlighter", () => {
       renderWithRouterMatch(
         <Highlighter highlights={regexp}>Test blah test blah</Highlighter>,
       );
-      expect(screen.queryAllByDataTestId("highlight")).toHaveLength(4);
-      screen.getAllByDataTestId("highlight").forEach((highlight) => {
+      expect(screen.queryAllByTestId("highlight")).toHaveLength(4);
+      screen.getAllByTestId("highlight").forEach((highlight) => {
         expect(highlight).toHaveTextContent(/test|blah/i);
       });
     });

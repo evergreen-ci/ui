@@ -89,7 +89,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
       break;
     case TaskEventType.TaskScheduled:
       message = (
-        <span className="cy-event-scheduled">
+        <span data-testid="event-scheduled">
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           Scheduled at {getDateCopy(timestamp)}
         </span>
@@ -119,7 +119,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
   return (
     <Row>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      <Timestamp className="cy-event-ts">{getDateCopy(timestamp)}</Timestamp>
+      <Timestamp data-testid="event-ts">{getDateCopy(timestamp)}</Timestamp>
       {message}
     </Row>
   );

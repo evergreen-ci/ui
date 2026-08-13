@@ -28,13 +28,13 @@ export const NavigationWarningModal: React.FC<NavigationModalProps> = ({
         children: "Leave",
         onClick: () => blocker.proceed?.(),
       }}
-      data-cy="navigation-warning-modal"
+      data-testid="navigation-warning-modal"
       open
       title="You have unsaved changes that will be discarded. Are you sure you want to leave?"
       variant="danger"
     >
       <Body>Unsaved changes are present on the following pages:</Body>
-      <ol data-cy="unsaved-pages">
+      <ol data-testid="unsaved-pages">
         {unsavedTabs.map(({ title, value }) => (
           <li key={value}>{title}</li>
         ))}

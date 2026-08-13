@@ -49,12 +49,12 @@ const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
       <Popconfirm
         align="right"
         confirmDisabled={loadingFileJiraTicket}
-        data-cy="file-ticket-popconfirm"
+        data-testid="file-ticket-popconfirm"
         onConfirm={onClickFile}
         trigger={
           <ButtonWrapper>
             <Button
-              data-cy="file-ticket-button"
+              data-testid="file-ticket-button"
               size={Size.XSmall}
               variant={Variant.Primary}
             >

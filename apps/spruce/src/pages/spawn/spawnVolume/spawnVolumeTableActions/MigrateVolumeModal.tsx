@@ -190,7 +190,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
         disabled: hasError || loadingMigration || volume.migrating,
         onClick: onConfirm,
       }}
-      data-cy="migrate-modal"
+      data-testid="migrate-modal"
       open={open}
       title={title}
     >

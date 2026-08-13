@@ -20,7 +20,7 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
   const { expandedTasksMap } = useTaskHistoryContext();
 
   return (
-    <CommitList data-cy="commit-details-list">
+    <CommitList data-testid="commit-details-list">
       {loading ? (
         <ParagraphSkeleton />
       ) : (

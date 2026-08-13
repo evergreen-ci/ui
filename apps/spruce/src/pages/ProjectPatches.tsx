@@ -95,7 +95,7 @@ export const ProjectPatches = () => {
             />
             <GitHubMergeQueueCheckbox
               checked={isGitHubMergeQueueCheckboxChecked}
-              data-cy="github-merge-queue-checkbox"
+              data-testid="github-merge-queue-checkbox"
               label="Only show GitHub Merge Queue patches"
               onChange={gitHubMergeQueueCheckboxOnChange}
             />

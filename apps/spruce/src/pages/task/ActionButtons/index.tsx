@@ -137,7 +137,7 @@ export const ActionButtons: React.FC<Props> = ({
   const dropdownItems = [
     <DropdownItem
       key="unschedule"
-      data-cy="unschedule-task"
+      data-testid="unschedule-task"
       disabled={disabled || !canUnschedule}
       onClick={() => {
         unscheduleTask({ variables: { taskId } });
@@ -148,7 +148,7 @@ export const ActionButtons: React.FC<Props> = ({
     </DropdownItem>,
     <DropdownItem
       key="abort"
-      data-cy="abort-task"
+      data-testid="abort-task"
       disabled={disabled || !canAbort}
       onClick={() => {
         abortTask({ variables: { taskId } });
@@ -159,7 +159,7 @@ export const ActionButtons: React.FC<Props> = ({
     </DropdownItem>,
     <DropdownItem
       key="disable-task"
-      data-cy="disable-enable"
+      data-testid="disable-enable"
       disabled={disabled || !canDisable}
       onClick={() => {
         setTaskPriority({
@@ -192,7 +192,7 @@ export const ActionButtons: React.FC<Props> = ({
     />,
     <DropdownItem
       key="override-dependencies"
-      data-cy="override-dependencies"
+      data-testid="override-dependencies"
       disabled={disabled || !canOverrideDependencies}
       onClick={() => {
         overrideTaskDependencies({ variables: { taskId } });
@@ -211,7 +211,7 @@ export const ActionButtons: React.FC<Props> = ({
       {!isExecutionTask && <StepbackMenu task={task} />}
       <LoadingButton
         key="schedule"
-        data-cy="schedule-task"
+        data-testid="schedule-task"
         disabled={disabled || !canSchedule}
         loading={loadingScheduleTask}
         onClick={() => {

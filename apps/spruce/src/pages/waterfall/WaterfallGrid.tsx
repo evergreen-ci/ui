@@ -236,7 +236,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       <div ref={headerScrollRef} />
       <StickyHeader showShadow={showShadow}>
         <BuildVariantTitle />
-        <Versions data-cy="version-labels">
+        <Versions data-testid="version-labels">
           {versions.map(({ inactiveVersions, version }, versionIndex) => {
             if (version) {
               return (

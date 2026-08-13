@@ -54,7 +54,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
       justify={Justify.Middle}
       trigger={
         <Button
-          data-cy={`detach-btn-${volume.displayName || volume.id}`}
+          data-testid={`detach-btn-${volume.displayName || volume.id}`}
           disabled
           size={Size.XSmall}
         >
@@ -68,7 +68,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
   ) : (
     <Popconfirm
       align={Align.Left}
-      data-cy="unmount-volume-popconfirm"
+      data-testid="unmount-volume-popconfirm"
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Changed unmounted volume on host",
@@ -79,7 +79,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
       trigger={
         <Button
           as="button"
-          data-cy={`detach-btn-${volume.displayName || volume.id}`}
+          data-testid={`detach-btn-${volume.displayName || volume.id}`}
           disabled={loadingDetachVolume || volume.migrating}
           onClick={(e) => {
             e.stopPropagation();

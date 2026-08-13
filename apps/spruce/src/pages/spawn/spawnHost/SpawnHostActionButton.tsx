@@ -113,7 +113,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       }) && action === SpawnHostStatusActions.Stop ? (
         <>
           <Button
-            data-cy="pause-unexpirable-host-button"
+            data-testid="pause-unexpirable-host-button"
             disabled={loading || host.status === HostStatus.Stopping}
             leftGlyph={<Icon glyph={glyph} />}
             onClick={() => setSleepModalOpen((o) => !o)}

@@ -9,7 +9,7 @@ export const RegexSelectorRow: React.FC<
   const [regexSelect, regexInput] = getFields(properties, formData.isDisabled);
 
   return (
-    <RowContainer data-cy="regex-selector-row">
+    <RowContainer data-testid="regex-selector-row">
       <LeftColumn>{regexSelect}</LeftColumn>
       <MiddleText>matches</MiddleText>
       <RightColumn>{regexInput}</RightColumn>

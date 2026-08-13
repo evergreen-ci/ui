@@ -30,7 +30,7 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
   value,
 }) => {
   const {
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     elementWrapperCSS,
     executionSteps,
     failingStepNumber,
@@ -49,7 +49,7 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
     <ElementWrapper css={elementWrapperCSS}>
       <Combobox
         clearable
-        data-cy={dataCy}
+        data-testid={dataTestId}
         description="The task will run up to but not including the selected step."
         label={label}
         onChange={(v: string | null) => onChange(v ?? "")}
@@ -71,7 +71,7 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
       {showFailingCheckbox && (
         <StyledCheckbox
           checked={isChecked}
-          data-cy="default-to-failing-task-checkbox"
+          data-testid="default-to-failing-task-checkbox"
           label="Default to Failing Task"
           onChange={(e) => onChange(e.target.checked ? failingStepNumber : "")}
         />

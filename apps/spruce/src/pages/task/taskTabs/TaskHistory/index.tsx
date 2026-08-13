@@ -177,7 +177,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
       isPatch={isPatch}
       task={task}
     >
-      <Container data-cy="task-history">
+      <Container data-testid="task-history">
         <div ref={headerScrollRef} data-header-observer />
         <StickyHeader showShadow={showShadow}>
           <Controls

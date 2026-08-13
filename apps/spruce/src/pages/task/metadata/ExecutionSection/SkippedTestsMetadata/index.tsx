@@ -40,10 +40,10 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
   return (
     <>
       <MetadataItem as="div">
-        <MetadataContent data-cy="skipped-tests-metadata">
+        <MetadataContent data-testid="skipped-tests-metadata">
           <SummaryRow>
             <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
-            <Count data-cy="skipped-tests-metadata-count">
+            <Count data-testid="skipped-tests-metadata-count">
               {count} {pluralize("test", count)}
             </Count>
             <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
@@ -55,7 +55,6 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
           </SummaryRow>
           {detailsAvailable && (
             <Button
-              data-cy="skipped-tests-details-button"
               onClick={() => {
                 sendEvent({
                   name: "Clicked skipped tests details button",

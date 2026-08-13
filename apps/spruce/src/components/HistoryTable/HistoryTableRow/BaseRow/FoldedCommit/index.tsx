@@ -45,7 +45,7 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
   );
 
   const commits = rolledUpCommits.map((commit) => (
-    <StyledRowContainer key={commit.id} data-cy="folded-commit">
+    <StyledRowContainer key={commit.id} data-testid="folded-commit">
       <LabelCellContainer>
         <CommitChartLabel
           author={commit.user.displayName!}

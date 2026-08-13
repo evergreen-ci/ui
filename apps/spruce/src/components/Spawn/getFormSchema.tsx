@@ -234,7 +234,7 @@ const getHostUptimeSchema = ({
 const Details: React.FC<{ totalUptimeHours: number }> = ({
   totalUptimeHours,
 }) => (
-  <DetailsDiv data-cy="host-uptime-details">
+  <DetailsDiv data-testid="host-uptime-details">
     • {totalUptimeHours} host uptime hours per week
   </DetailsDiv>
 );
@@ -328,7 +328,7 @@ export const getExpirationDetailsSchema = ({
           : [],
       noExpiration: {
         "ui:enumDisabled": disableExpirationCheckbox ? [true] : null,
-        "ui:data-cy": "expirable-radio-box",
+        "ui:data-testid": "expirable-radio-box",
         "ui:widget": widgets.RadioBoxWidget,
       },
       hostUptime: hostUptime.uiSchema,
@@ -469,7 +469,7 @@ export const getPublicKeySchema = ({
     },
     publicKeyNameDropdown: {
       "ui:elementWrapperCSS": dropdownWrapperClassName,
-      "ui:data-cy": "key-select",
+      "ui:data-testid": "key-select",
       "ui:allowDeselect": false,
       "ui:disabled": myPublicKeys?.length === 0,
       "ui:description":
@@ -480,7 +480,7 @@ export const getPublicKeySchema = ({
     newPublicKey: {
       "ui:widget": "textarea",
       "ui:elementWrapperCSS": textAreaWrapperClassName,
-      "ui:data-cy": "key-value-text-area",
+      "ui:data-testid": "key-value-text-area",
     },
   },
 });

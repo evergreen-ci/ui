@@ -35,7 +35,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
         <div>
           <Link
             aria-selected={isActive}
-            data-cy="grouped-task-status-badge"
+            data-testid="grouped-task-status-badge"
             onClick={() => onClick()}
             to={href}
           >
@@ -53,7 +53,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
       }
       triggerEvent="hover"
     >
-      <div data-cy="grouped-task-status-badge-tooltip">
+      <div data-testid="grouped-task-status-badge-tooltip">
         {statusCounts &&
           Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
             <Row key={taskStatus}>

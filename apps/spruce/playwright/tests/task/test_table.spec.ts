@@ -294,7 +294,7 @@ test.describe("Tests Table", () => {
         await option.click();
 
         const rowCount = await page
-          .locator("[data-cy=tests-table] tr td:first-child")
+          .locator("[data-testid=tests-table] tr td:first-child")
           .count();
         expect(rowCount).toBeLessThanOrEqual(pageSize);
         await expect(page).toHaveURL(new RegExp(`limit=${pageSize}`));

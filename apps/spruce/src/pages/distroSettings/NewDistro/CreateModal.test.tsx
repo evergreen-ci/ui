@@ -40,14 +40,14 @@ describe("create distro modal", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);
 
-    expect(screen.queryByDataCy("create-distro-modal")).not.toBeVisible();
+    expect(screen.queryByTestId("create-distro-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {
     const { Component } = RenderFakeToastContext(<Modal />);
     render(<Component />);
 
-    expect(screen.getByDataCy("create-distro-modal")).toBeVisible();
+    expect(screen.getByTestId("create-distro-modal")).toBeVisible();
     expect(screen.queryByText("Create New Distro")).toBeVisible();
 
     const confirmButton = screen.getByRole("button", {
@@ -62,7 +62,7 @@ describe("create distro modal", () => {
     const { router } = render(<Component />);
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    await user.type(screen.queryByTestId("distro-id-input"), newDistroId);
     await user.click(screen.getByRole("button", { name: "Create" }));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
@@ -80,7 +80,7 @@ describe("create distro modal", () => {
     const { router } = render(<Component />);
 
     await user.type(
-      screen.queryByDataCy("distro-id-input") as HTMLElement,
+      screen.queryByTestId("distro-id-input") as HTMLElement,
       newDistroId,
     );
     await user.click(screen.getByText("Single Task Distro"));
@@ -100,7 +100,7 @@ describe("create distro modal", () => {
 
     await user.type(
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      screen.queryByDataCy("distro-id-input"),
+      screen.queryByTestId("distro-id-input"),
       "string with spaces",
     );
     expect(
@@ -134,7 +134,7 @@ describe("create distro modal", () => {
     const { router } = render(<Component />);
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    await user.type(screen.queryByTestId("distro-id-input"), newDistroId);
 
     const confirmButton = screen.getByRole("button", {
       name: "Create",

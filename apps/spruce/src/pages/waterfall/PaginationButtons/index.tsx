@@ -38,13 +38,13 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   return (
     <ButtonContainer>
       <Button
-        data-cy="prev-page-button"
+        data-testid="prev-page-button"
         disabled={!hasPrevPage || isNavigatingToPage}
         leftGlyph={<Icon glyph="ChevronLeft" />}
         onClick={onPrevClick}
       />
       <Button
-        data-cy="next-page-button"
+        data-testid="next-page-button"
         disabled={!hasNextPage || isNavigatingToPage}
         leftGlyph={<Icon glyph="ChevronRight" />}
         onClick={onNextClick}
