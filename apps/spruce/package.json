@@ -85,7 +85,7 @@
     "@leafygreen-ui/menu": "^33.1.0",
     "@leafygreen-ui/modal": "^21.0.0",
     "@leafygreen-ui/number-input": "^5.0.12",
-    "@leafygreen-ui/pagination": "^4.2.0",
+    "@leafygreen-ui/pagination": "^4.3.2",
     "@leafygreen-ui/palette": "^5.0.2",
     "@leafygreen-ui/popover": "^14.2.0",
     "@leafygreen-ui/radio-box-group": "^15.0.10",

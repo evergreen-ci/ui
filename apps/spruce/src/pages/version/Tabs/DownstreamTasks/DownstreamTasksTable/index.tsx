@@ -139,7 +139,6 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
       controls={
         <TableControl
           filteredCount={count}
-          label="tasks"
           limit={limit}
           onClear={() => {
             dispatch({ type: "clearAllFilters" });
