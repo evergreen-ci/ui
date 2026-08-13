@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { size } from "../../../constants/tokens";
-import { Pagination } from "../Pagination";
+import { Pagination } from "../../Pagination";
 import { TableControlInnerRow, TableControlOuterRow } from "./styles";
 
 interface Props {
