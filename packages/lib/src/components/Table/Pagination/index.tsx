@@ -59,7 +59,7 @@ export const Pagination: React.FC<Props> = ({
   return (
     <StyledPagination
       currentPage={currentPage + 1}
-      data-cy="pagination"
+      data-testid="pagination"
       itemsPerPage={pageSize || PAGE_SIZES[0]}
       itemsPerPageOptions={PAGE_SIZES}
       numTotalItems={numTotalItems}
