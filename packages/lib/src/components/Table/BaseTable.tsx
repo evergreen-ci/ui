@@ -40,12 +40,10 @@ declare module "@tanstack/table-core" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
     search?: {
-      "data-cy"?: string;
       "data-testid"?: string;
       placeholder?: string;
     };
     treeSelect?: {
-      "data-cy"?: string;
       "data-testid"?: string;
       // Configures whether or not the tree select should be filtered to only represent values found in the table.
       // Note that this may not be very performant for large tables.
@@ -61,9 +59,7 @@ declare module "@tanstack/table-core" {
 const { blue } = palette;
 
 interface SpruceTableProps<T extends LGRowData> {
-  "data-cy-row"?: string;
   "data-testid-row"?: string;
-  "data-cy-table"?: string;
   "data-testid-table"?: string;
   emptyComponent?: React.ReactNode;
   loading?: boolean;
@@ -90,8 +86,6 @@ type BaseTableProps<T extends LGRowData = LGRowData> = SpruceTableProps<T> &
 export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
   <T extends LGRowData>(
     {
-      "data-cy-row": dataCyRow,
-      "data-cy-table": dataCyTable,
       "data-testid-row": dataTestIdRow,
       "data-testid-table": dataTestIdTable,
       disabledRowIndexes = [],
@@ -117,7 +111,6 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
       <>
         <Table
           ref={ref}
-          data-cy={dataCyTable}
           data-testid={dataTestIdTable}
           table={table}
           verticalAlignment={verticalAlignment}
@@ -151,7 +144,6 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                   return (
                     <RenderableRow
                       key={row.id}
-                      dataCyRow={dataCyRow}
                       dataTestIdRow={dataTestIdRow}
                       disabled={disabledRowIndexes?.includes(row.index)}
                       isSelected={selectedRowIndexes.includes(row.index)}
@@ -164,7 +156,6 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
               : rows.map((row) => (
                   <RenderableRow
                     key={row.id}
-                    dataCyRow={dataCyRow}
                     dataTestIdRow={dataTestIdRow}
                     disabled={disabledRowIndexes?.includes(row.index)}
                     isSelected={selectedRowIndexes.includes(row.index)}
@@ -226,7 +217,6 @@ const TableHeaderCell = <T extends LGRowData>({
       {header.column.getCanFilter() &&
         (meta?.treeSelect ? (
           <TableFilterPopover
-            data-cy={meta.treeSelect?.["data-cy"]}
             data-testid={meta.treeSelect?.["data-testid"]}
             onConfirm={(value) => {
               header.column.setFilterValue(value);
@@ -251,7 +241,6 @@ const TableHeaderCell = <T extends LGRowData>({
           />
         ) : (
           <TableSearchPopover
-            data-cy={meta?.search?.["data-cy"]}
             data-testid={meta?.search?.["data-testid"]}
             onConfirm={(value) => {
               header.column.setFilterValue(value);
@@ -280,7 +269,6 @@ const cellStyle = css`
 `;
 
 const RenderableRow = <T extends LGRowData>({
-  dataCyRow = "leafygreen-table-row",
   dataTestIdRow = "leafygreen-table-row",
   disabled = false,
   isSelected = false,
@@ -288,7 +276,6 @@ const RenderableRow = <T extends LGRowData>({
   rowCss,
   virtualRow,
 }: {
-  dataCyRow?: string;
   dataTestIdRow?: string;
   row: LeafyGreenTableRow<T>;
   virtualRow?: VirtualItem;
@@ -309,7 +296,6 @@ const RenderableRow = <T extends LGRowData>({
            font-weight:bold;
            `}
         `}
-        data-cy={dataCyRow}
         data-index={row.index}
         data-selected={isSelected}
         data-testid={dataTestIdRow}

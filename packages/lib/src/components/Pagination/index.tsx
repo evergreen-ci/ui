@@ -46,9 +46,8 @@ const Pagination: React.FC<Props> = ({
     countLimit && totalResults >= countLimit ? "many" : numPages;
 
   return (
-    <Container data-cy="pagination" data-testid="pagination">
+    <Container data-testid="pagination">
       <StyledButton
-        data-cy="prev-page-button"
         data-testid="prev-page-button"
         disabled={currentPage === 0}
         leftGlyph={<Icon glyph="ChevronLeft" size="small" />}
@@ -61,7 +60,6 @@ const Pagination: React.FC<Props> = ({
         </Disclaimer>
       </PageLabel>
       <StyledButton
-        data-cy="next-page-button"
         data-testid="next-page-button"
         disabled={numPages === 0 || currentPage === numPages - 1}
         leftGlyph={<Icon glyph="ChevronRight" size="small" />}

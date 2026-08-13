@@ -9,13 +9,11 @@ import {
 import Icon from "../Icon";
 
 interface IconWithTooltipProps extends React.ComponentProps<typeof Icon> {
-  ["data-cy"]?: string;
   ["data-testid"]?: string;
 }
 
 const IconWithTooltip: React.FC<IconWithTooltipProps> = ({
   children,
-  "data-cy": dataCy,
   "data-testid": dataTestId,
   ...rest
 }) => (
@@ -23,7 +21,7 @@ const IconWithTooltip: React.FC<IconWithTooltipProps> = ({
     align={Align.Top}
     justify={Justify.Middle}
     trigger={
-      <IconWrapper data-cy={dataCy} data-testid={dataTestId}>
+      <IconWrapper data-testid={dataTestId}>
         <Icon {...rest} />
       </IconWrapper>
     }
