@@ -100,6 +100,11 @@ export const miscSettings = {
           type: "number" as const,
           title: "Idle Time Override (secs)",
         },
+        mergeQueueTargetTimeSecondsOverride: {
+          type: "number" as const,
+          title: "Merge Queue Target Time Override (secs)",
+          minimum: 0,
+        },
       },
     },
     cost: {
@@ -213,6 +218,9 @@ export const miscSettings = {
       idleTimeSecondsOverride: {
         "ui:description":
           "Override for the acceptable host idle time (ignored if 0).",
+      },
+      mergeQueueTargetTimeSecondsOverride: {
+        "ui:description": "Overrides the merge queue target time.",
       },
     },
     cost: {

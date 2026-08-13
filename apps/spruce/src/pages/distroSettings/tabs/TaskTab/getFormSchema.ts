@@ -86,6 +86,12 @@ export const getFormSchema = ({
                           default: 0,
                           minimum: 0,
                         },
+                        mergeQueueTargetTime: {
+                          type: "number" as const,
+                          title: "Merge Queue Target Time (ms)",
+                          default: 0,
+                          minimum: 0,
+                        },
                         patchFactor: {
                           type: "number" as const,
                           title: "Patch Factor",
@@ -182,6 +188,9 @@ export const getFormSchema = ({
         tunableOptions: {
           "ui:field-data-testid": "tunable-options",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
+          mergeQueueTargetTime: {
+            "ui:description": "Shorter target time for merge queue tasks.",
+          },
           patchFactor: {
             "ui:description":
               "Set 0 to use global default. Value should range from 0 to 100 inclusive.",

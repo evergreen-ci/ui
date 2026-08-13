@@ -306,6 +306,7 @@ export const ADMIN_SETTINGS = gql`
       releaseMode {
         distroMaxHostsFactor
         idleTimeSecondsOverride
+        mergeQueueTargetTimeSecondsOverride
         targetTimeSecondsOverride
       }
 
@@ -334,6 +335,7 @@ export const ADMIN_SETTINGS = gql`
         hostAllocatorRoundingRule
         hostsOverallocatedRule
         mainlineTimeInQueueFactor
+        mergeQueueTargetTimeSeconds
         numDependentsFactor
         patchFactor
         patchTimeInQueueFactor
