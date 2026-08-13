@@ -20,7 +20,7 @@ export const StatusSelector: React.FC = () => {
             statusVal.map((v) => statusValToCopy[v]).join(", ")
           : noFilterMessage
       }`}
-      data-cy="my-patch-status-select"
+      data-testid="my-patch-status-select"
     >
       <TreeSelect
         onChange={statusValOnChange}

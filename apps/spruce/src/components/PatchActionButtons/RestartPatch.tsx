@@ -43,7 +43,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         trigger={
           isButton ? (
             <SplitButton
-              data-cy="restart-version"
+              data-testid="restart-version"
               disabled={disabled}
               label="Restart"
               menuItems={[
@@ -60,7 +60,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
           ) : (
             <span>
               <DropdownItem
-                data-cy="restart-version"
+                data-testid="restart-version"
                 disabled={disabled}
                 onClick={onClick}
               >

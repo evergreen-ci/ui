@@ -30,10 +30,10 @@ describe("loading events", () => {
       path: "/distro/:distroId/settings",
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(2);
+      expect(screen.queryAllByTestId("event-log-card")).toHaveLength(2);
     });
     await waitFor(() => {
-      expect(screen.queryByDataCy("load-more-button")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("load-more-button")).not.toBeInTheDocument();
     });
     expect(screen.getByText("No more events to show.")).toBeInTheDocument();
   });
@@ -50,9 +50,9 @@ describe("loading events", () => {
       path: "/distro/:distroId/settings",
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(2);
+      expect(screen.queryAllByTestId("event-log-card")).toHaveLength(2);
     });
-    expect(screen.getByDataCy("load-more-button")).toBeInTheDocument();
+    expect(screen.getByTestId("load-more-button")).toBeInTheDocument();
     expect(
       screen.queryByText("No more events to show."),
     ).not.toBeInTheDocument();
@@ -69,10 +69,10 @@ describe("loading events", () => {
       path: "/distro/:distroId/settings",
     });
     await waitFor(() => {
-      expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(2);
+      expect(screen.queryAllByTestId("event-log-card")).toHaveLength(2);
     });
-    expect(screen.queryAllByDataCy("event-diff-table")).toHaveLength(1);
-    expect(screen.queryAllByDataCy("legacy-event")).toHaveLength(1);
+    expect(screen.queryAllByTestId("event-diff-table")).toHaveLength(1);
+    expect(screen.queryAllByTestId("legacy-event")).toHaveLength(1);
   });
 });
 

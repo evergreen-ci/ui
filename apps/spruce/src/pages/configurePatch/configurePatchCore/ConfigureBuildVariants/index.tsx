@@ -88,10 +88,13 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
       }
     };
   return (
-    <DisableWrapper data-cy="build-variant-select-wrapper" disabled={disabled}>
+    <DisableWrapper
+      data-testid="build-variant-select-wrapper"
+      disabled={disabled}
+    >
       <UserSelectWrapper isHotKeyPressed={state.numButtonsPressed !== 0}>
         <BuildVariantCard
-          data-cy="build-variant-list-item"
+          data-testid="build-variant-list-item"
           menuItems={variants}
           onClick={getClickVariantHandler}
           selectedMenuItems={selectedBuildVariants}
@@ -100,7 +103,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {aliases?.length > 0 && (
           <BuildVariantCard
-            data-cy="trigger-alias-list-item"
+            data-testid="trigger-alias-list-item"
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             menuItems={aliases}
             onClick={getClickVariantHandler}

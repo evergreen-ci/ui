@@ -25,7 +25,7 @@ export const DependsOn: React.FC<Props> = ({
   <DependsOnWrapper>
     <LeftContainer>{metStatusToIcon[metStatus]}</LeftContainer>
     <RightContainer>
-      <StyledRouterLink data-cy="depends-on-link" to={getTaskRoute(taskId)}>
+      <StyledRouterLink data-testid="depends-on-link" to={getTaskRoute(taskId)}>
         {name}
       </StyledRouterLink>
       <Subtitle>in {buildVariant}</Subtitle>

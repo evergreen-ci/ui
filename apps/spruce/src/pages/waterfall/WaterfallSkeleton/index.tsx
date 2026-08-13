@@ -10,7 +10,7 @@ const WaterfallSkeleton: React.FC<TableSkeletonProps> = ({
   ...rest
 }) => (
   <TableSkeleton
-    data-cy="waterfall-skeleton"
+    data-testid="waterfall-skeleton"
     numCols={numCols}
     numRows={numRows}
     {...rest}

@@ -34,7 +34,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
     announcements: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       banner: {
-        "ui:data-cy": "banner-text",
+        "ui:data-testid": "banner-text",
         "ui:widget": "textarea",
         "ui:rows": 2,
       },

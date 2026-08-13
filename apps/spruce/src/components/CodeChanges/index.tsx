@@ -45,14 +45,14 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
 
   if (!moduleCodeChanges?.length) {
     return (
-      <Body className="cy-no-code-changes">
+      <Body data-testid="no-code-changes">
         No code changes were applied, or the code changes are too large to
         display.
       </Body>
     );
   }
   return (
-    <div data-cy="code-changes">
+    <div data-testid="code-changes">
       {moduleCodeChanges?.map((modCodeChange, index) => {
         const { branchName, fileDiffs, rawLink } = modCodeChange;
 
@@ -81,7 +81,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
               {!disableDiffLinks && (
                 <>
                   <Button
-                    data-cy="html-diff-btn"
+                    data-testid="html-diff-btn"
                     href={getVersionDiffRoute(patchId, index)}
                     onClick={() =>
                       sendEvent({
@@ -96,7 +96,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
                     HTML
                   </Button>
                   <Button
-                    data-cy="raw-diff-btn"
+                    data-testid="raw-diff-btn"
                     href={rawLink}
                     onClick={() =>
                       sendEvent({

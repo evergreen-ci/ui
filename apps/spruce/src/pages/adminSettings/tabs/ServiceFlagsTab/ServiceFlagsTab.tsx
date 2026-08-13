@@ -29,7 +29,7 @@ export const ServiceFlagsTab: React.FC = () => {
   >(SERVICE_FLAGS_LIST);
 
   if (loading) {
-    return <FormSkeleton data-cy="admin-settings-skeleton" />;
+    return <FormSkeleton data-testid="admin-settings-skeleton" />;
   }
 
   return (
@@ -81,7 +81,7 @@ const ServiceFlagsForm: React.FC<{ serviceFlagsList: ServiceFlag[] }> = ({
           Checked means <InlineCode>true</InlineCode> in database.
         </em>
         <Button
-          data-cy="save-settings-button"
+          data-testid="save-settings-button"
           disabled={changedFlags.length === 0 || loading}
           isLoading={loading}
           onClick={() =>

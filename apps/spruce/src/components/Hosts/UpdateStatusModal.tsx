@@ -19,7 +19,7 @@ import { UpdateHostStatus } from "types/host";
 
 interface Props {
   visible: boolean;
-  "data-cy": string;
+  "data-testid": string;
   hostIds: string[];
   closeModal: () => void;
   isHostPage: boolean;
@@ -27,7 +27,7 @@ interface Props {
 
 export const UpdateStatusModal: React.FC<Props> = ({
   closeModal,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   hostIds,
   isHostPage,
   visible,
@@ -98,7 +98,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
         disabled: !status || loadingUpdateHostStatus,
         onClick: onClickUpdate,
       }}
-      data-cy={dataCy}
+      data-testid={dataTestId}
       open={visible}
       title="Update Host Status"
     >
@@ -107,7 +107,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
       </StyledBody>
 
       <StyledSelect
-        data-cy="host-status-select"
+        data-testid="host-status-select"
         label="Host Status"
         onChange={(s) => {
           setHostStatus(s as UpdateHostStatus);
@@ -115,20 +115,23 @@ export const UpdateStatusModal: React.FC<Props> = ({
         value={status}
       >
         {hostStatuses.map(({ key, title, value }) => (
-          <Option key={key} data-cy={`${value}-option`} value={value}>
+          <Option key={key} data-testid={`${value}-option`} value={value}>
             {title}
           </Option>
         ))}
       </StyledSelect>
 
       {statusDescription && (
-        <StatusBanner data-cy="host-status-description" variant={Variant.Info}>
+        <StatusBanner
+          data-testid="host-status-description"
+          variant={Variant.Info}
+        >
           {statusDescription}
         </StatusBanner>
       )}
 
       <TextArea
-        data-cy="host-status-notes"
+        data-testid="host-status-notes"
         label="Add Notes"
         onChange={(e) => setNotesValue(e.target.value)}
         rows={6}

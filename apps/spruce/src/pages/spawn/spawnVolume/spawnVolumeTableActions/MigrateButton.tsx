@@ -15,7 +15,7 @@ export const MigrateButton: React.FC<Props> = ({ volume }) => {
       <Button
         ref={triggerRef}
         as="button"
-        data-cy={`migrate-btn-${volume.displayName || volume.id}`}
+        data-testid={`migrate-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {
           e.stopPropagation();

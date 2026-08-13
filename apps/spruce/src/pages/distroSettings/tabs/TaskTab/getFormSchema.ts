@@ -186,7 +186,7 @@ export const getFormSchema = ({
           "ui:allowDeselect": false,
         },
         tunableOptions: {
-          "ui:field-data-cy": "tunable-options",
+          "ui:field-data-testid": "tunable-options",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
           mergeQueueTargetTime: {
             "ui:description": "Shorter target time for merge queue tasks.",

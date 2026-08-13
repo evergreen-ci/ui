@@ -28,7 +28,7 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
       <Timeline task={task} />
       {estimatedStart && estimatedStart > 0 ? (
         <MetadataItem label="Estimated time to start">
-          <span data-cy="task-metadata-estimated-start">
+          <span data-testid="task-metadata-estimated-start">
             {msToDuration(estimatedStart)}
           </span>
         </MetadataItem>
@@ -37,13 +37,13 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
         <RuntimeTimer startTime={startTime} />
       )}
       {finishTime && timeTaken && timeTaken > 0 ? (
-        <MetadataItem data-cy="task-metadata-duration" label="Duration">
+        <MetadataItem data-testid="task-metadata-duration" label="Duration">
           {msToDuration(timeTaken)}
         </MetadataItem>
       ) : null}
       {baseTaskDuration ? (
         <MetadataItem
-          data-cy="task-metadata-base-commit-duration"
+          data-testid="task-metadata-base-commit-duration"
           label="Base commit duration"
         >
           {msToDuration(baseTaskDuration)}

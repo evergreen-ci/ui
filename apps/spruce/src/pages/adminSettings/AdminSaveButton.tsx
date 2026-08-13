@@ -91,7 +91,7 @@ export const AdminSaveButton: React.FC = () => {
 
   return saveable ? (
     <Button
-      data-cy="save-settings-button"
+      data-testid="save-settings-button"
       disabled={!hasUnsavedChanges || loading}
       isLoading={loading}
       onClick={handleSave}

@@ -18,10 +18,10 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <StyledHeader>
-      <Subtitle data-cy="event-log-timestamp">
+      <Subtitle data-testid="event-log-timestamp">
         {getDateCopy(timestamp)}
       </Subtitle>
-      <Disclaimer data-cy="event-log-ami">
+      <Disclaimer data-testid="event-log-ami">
         AMI changed from {amiBefore} to {amiAfter}
       </Disclaimer>
     </StyledHeader>

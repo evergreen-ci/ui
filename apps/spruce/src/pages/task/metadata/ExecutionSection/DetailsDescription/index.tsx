@@ -26,7 +26,7 @@ export const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
   return (
     <>
       <MetadataItem
-        data-cy="task-metadata-command"
+        data-testid="task-metadata-command"
         label={isFailingTask ? "Failing command" : "Command"}
         labelColor={isFailingTask ? red.base : undefined}
       >
@@ -35,7 +35,7 @@ export const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
             {truncatedText}{" "}
             <ExpandedText
               align="right"
-              data-cy="task-metadata-command-tooltip"
+              data-testid="task-metadata-command-tooltip"
               justify="end"
               message={description ?? ""}
             />
@@ -45,9 +45,9 @@ export const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
         )}
       </MetadataItem>
       {otherFailingCommands.length > 0 ? (
-        <MetadataItem data-cy="task-metadata-other-failing-commands">
+        <MetadataItem data-testid="task-metadata-other-failing-commands">
           <details>
-            <MetadataSummary data-cy="other-failing-commands-summary">
+            <MetadataSummary data-testid="other-failing-commands-summary">
               <MetadataLabel>
                 Other Failing Commands ({otherFailingCommands.length})
               </MetadataLabel>

@@ -25,10 +25,10 @@ describe("general table", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getAllByDataCy("general-table-row")).toHaveLength(4);
+      expect(screen.getAllByTestId("general-table-row")).toHaveLength(4);
     });
 
-    const lastDeployed = screen.getAllByDataCy("general-table-row")[0];
+    const lastDeployed = screen.getAllByTestId("general-table-row")[0];
     expect(within(lastDeployed).getAllByRole("cell")[0]).toHaveTextContent(
       "Last deployed",
     );
@@ -36,7 +36,7 @@ describe("general table", () => {
       "Aug 7, 2021, 9:57:00 PM UTC",
     );
 
-    const ami = screen.getAllByDataCy("general-table-row")[1];
+    const ami = screen.getAllByTestId("general-table-row")[1];
     expect(within(ami).getAllByRole("cell")[0]).toHaveTextContent(
       "Amazon Machine Image (AMI)",
     );
@@ -44,7 +44,7 @@ describe("general table", () => {
       "ami-9809871715289206",
     );
 
-    const latestTask = screen.getAllByDataCy("general-table-row")[2];
+    const latestTask = screen.getAllByTestId("general-table-row")[2];
     expect(within(latestTask).getAllByRole("cell")[0]).toHaveTextContent(
       "Latest task",
     );
@@ -53,7 +53,7 @@ describe("general table", () => {
       "/task/evergreen_ui_spruce_check_codegen_patch_b01dd570dbb2d060bf56d853e9eb1a71d60a6464_66be78cc4f92ba0007d94fcf_24_08_15_21_53_20",
     );
 
-    const latestTaskTime = screen.getAllByDataCy("general-table-row")[3];
+    const latestTaskTime = screen.getAllByTestId("general-table-row")[3];
     expect(within(latestTaskTime).getAllByRole("cell")[0]).toHaveTextContent(
       "Latest task time",
     );

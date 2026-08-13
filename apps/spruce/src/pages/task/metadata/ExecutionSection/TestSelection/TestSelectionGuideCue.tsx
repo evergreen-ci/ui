@@ -29,7 +29,7 @@ export const TestSelectionGuideCue: React.FC<{
   return (
     <GuideCue
       currentStep={1}
-      data-cy="test-selection-guide-cue"
+      data-testid="test-selection-guide-cue"
       enabled={enabled}
       numberOfSteps={1}
       onPrimaryButtonClick={closeGuideCue}

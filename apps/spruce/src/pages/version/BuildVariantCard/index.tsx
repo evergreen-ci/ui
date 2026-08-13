@@ -44,7 +44,7 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
 
   return (
     <StickyMetadataCard
-      data-cy="build-variants"
+      data-testid="build-variants"
       error={error}
       loading={loading && !data}
       title="Build Variants"

@@ -58,7 +58,7 @@ export const RestartJasper: React.FC<Props> = ({
   return (
     <HostPopover
       buttonText="Restart Jasper"
-      data-cy="restart-jasper-button"
+      data-testid="restart-jasper-button"
       disabled={selectedHostIds.length === 0 || !canRestartJasper}
       loading={loadingRestartJasper}
       onClick={onClickRestartJasperConfirm}

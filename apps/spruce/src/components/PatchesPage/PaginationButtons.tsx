@@ -39,7 +39,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         totalResults={filteredPatchCount}
       />
       <PageSizeSelector
-        data-cy="my-patches-page-size-selector"
+        data-testid="my-patches-page-size-selector"
         onChange={handlePageSizeChange}
         value={limit}
       />
