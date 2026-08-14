@@ -9,4 +9,5 @@ export const GitHub = createGlyph(
     fill="currentColor"
     fillRule="evenodd"
   />,
+  "GitHub Icon",
 );

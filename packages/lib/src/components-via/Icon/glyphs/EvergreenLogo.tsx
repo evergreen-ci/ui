@@ -1,5 +1,8 @@
 import createGlyph from "./createGlyph";
 
+// Unlike the legacy LG-side EvergreenLogo (which defaulted to green), this
+// follows the Via glyph contract and draws with currentColor — consumers set
+// the color.
 export const EvergreenLogo = createGlyph(
   "EvergreenLogo",
   "0 0 258 258",

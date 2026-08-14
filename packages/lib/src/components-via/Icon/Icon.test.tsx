@@ -1,3 +1,4 @@
+import { IconContextProvider } from "@via-ds/icons";
 import { render, screen } from "test_utils";
 import { Icon } from ".";
 
@@ -11,7 +12,7 @@ describe("via icon wrapper", () => {
       </>,
     );
     expect(screen.getByLabelText("Evergreen Logo Icon")).toBeInTheDocument();
-    expect(screen.getByLabelText("Git Hub Icon")).toBeInTheDocument();
+    expect(screen.getByLabelText("GitHub Icon")).toBeInTheDocument();
     expect(screen.getByLabelText("Known Failure Icon")).toBeInTheDocument();
   });
 
@@ -31,6 +32,17 @@ describe("via icon wrapper", () => {
     expect(screen.getByTestId("preset")).toHaveAttribute("width", "20");
     expect(screen.getByTestId("numeric")).toHaveAttribute("width", "32");
     expect(screen.getByTestId("default")).toHaveAttribute("width", "16");
+  });
+
+  it("applies the skeleton loading contract to local glyphs", () => {
+    render(
+      <IconContextProvider className="shimmer" isLoading>
+        <Icon data-testid="loading-local" glyph="EvergreenLogo" />
+      </IconContextProvider>,
+    );
+    const icon = screen.getByTestId("loading-local");
+    expect(icon).toHaveAttribute("inert");
+    expect(icon).toHaveClass("shimmer");
   });
 
   it("renders a title element and hides decorative icons", () => {

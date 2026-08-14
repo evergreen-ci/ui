@@ -1,5 +1,8 @@
 import createGlyph from "./createGlyph";
 
+// Unlike the legacy LG-side KnownFailure (which defaulted to red), this
+// follows the Via glyph contract and draws with currentColor — consumers set
+// the color.
 export const KnownFailure = createGlyph(
   "KnownFailure",
   "0 0 16 16",

@@ -7,8 +7,16 @@ import {
 } from "@via-ds/icons";
 import styles from "./glyphs.module.css";
 
+export interface GlyphProps extends IconProps {
+  /**
+   * React 18's prop types lack `inert`; pre-19 React renders a true boolean
+   * attribute as an empty string.
+   */
+  inert?: string;
+}
+
 export type GlyphComponent = React.ForwardRefExoticComponent<
-  IconProps & React.RefAttributes<SVGSVGElement>
+  GlyphProps & React.RefAttributes<SVGSVGElement>
 > & { isGlyph: boolean };
 
 /**
@@ -19,20 +27,24 @@ export type GlyphComponent = React.ForwardRefExoticComponent<
  * @param name - Glyph name, used for the display name and accessible label.
  * @param viewBox - The SVG viewBox matching the glyph's path coordinates.
  * @param content - The SVG contents, drawn with `currentColor`.
+ * @param label - Default accessible label, for names the auto-generated
+ * "camel case split + Icon" label mangles (e.g. "GitHub" → "Git Hub Icon").
  * @returns The glyph component.
  */
 const createGlyph = (
   name: string,
   viewBox: string,
   content: React.ReactNode,
+  label?: string,
 ): GlyphComponent => {
-  const Glyph = forwardRef<SVGSVGElement, IconProps>(
+  const Glyph = forwardRef<SVGSVGElement, GlyphProps>(
     (
       {
-        "aria-label": ariaLabel,
+        "aria-label": ariaLabel = label,
         "aria-labelledby": ariaLabelledby,
         className,
         fill,
+        inert,
         role = "img",
         size,
         slot = "icon",
@@ -58,9 +70,10 @@ const createGlyph = (
           viewBox={viewBox}
           width={computedSize}
           xmlns="http://www.w3.org/2000/svg"
-          // React 18's SVG prop types omit `slot`, which react-aria-components
-          // uses to place icons inside components like Button.
-          {...({ slot } as React.SVGProps<SVGSVGElement>)}
+          // React 18's SVG prop types omit `slot` (used by
+          // react-aria-components to place icons inside components like
+          // Button) and `inert`, so both go through a cast.
+          {...({ inert, slot } as React.SVGProps<SVGSVGElement>)}
           {...generateAccessibleProps(role, name, {
             "aria-label": ariaLabel,
             "aria-labelledby": ariaLabelledby,
