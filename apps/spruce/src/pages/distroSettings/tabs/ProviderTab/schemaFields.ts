@@ -277,13 +277,13 @@ const vpcOptions = {
     },
     subnetTagName: {
       "ui:description":
-        "Overrides the subnet tag name in the admin settings to look up the subnets available to this distro. Must be set along with the subnet tag value.",
+        "Tag name used to look up the subnets available to this distro. Must be set along with the subnet tag value.",
       "ui:elementWrapperCSS": indentCSS,
       "ui:optional": true,
     },
     subnetTagValue: {
       "ui:description":
-        "Overrides the subnet tag value in the admin settings to look up the subnets available to this distro. Must be set along with the subnet tag name.",
+        "Tag value used to up the subnets available to this distro. Must be set along with the subnet tag name.",
       "ui:elementWrapperCSS": indentCSS,
       "ui:optional": true,
     },
