@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
-  ColumnFiltersState,
-  PaginationState,
   BaseTable,
+  ColumnFiltersState,
+  LGColumnDef,
+  PaginationState,
   onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import {
-  Package,
   ImagePackagesQuery,
   ImagePackagesQueryVariables,
+  Package,
 } from "gql/generated/types";
 import { IMAGE_PACKAGES } from "gql/queries";
 
@@ -89,7 +89,7 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
 
   return (
     <BaseTable
-      data-cy-row="packages-table-row"
+      data-testid-row="packages-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
       numTotalItems={numPackages}
@@ -107,7 +107,7 @@ const columns: LGColumnDef<Package>[] = [
     enableColumnFilter: true,
     meta: {
       search: {
-        "data-cy": "package-name-filter",
+        "data-testid": "package-name-filter",
         placeholder: "Name regex",
       },
     },

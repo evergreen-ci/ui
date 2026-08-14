@@ -11,7 +11,7 @@ describe("uploadLink", () => {
     const clearLogs = vi.fn();
     render(<UploadLink clearLogs={clearLogs} hasLogs={false} />);
     expect(screen.getByText("Upload")).toBeInTheDocument();
-    expect(screen.queryByDataCy("upload-link")).toHaveAttribute(
+    expect(screen.queryByTestId("upload-link")).toHaveAttribute(
       "href",
       "/upload",
     );
@@ -22,10 +22,10 @@ describe("uploadLink", () => {
     const clearLogs = vi.fn();
     render(<UploadLink clearLogs={clearLogs} hasLogs />);
     expect(screen.getByText("Upload")).toBeInTheDocument();
-    expect(screen.queryByDataCy("upload-link")).toHaveAttribute("href", "/");
+    expect(screen.queryByTestId("upload-link")).toHaveAttribute("href", "/");
     await user.click(screen.getByText("Upload"));
     await waitFor(() => {
-      expect(screen.queryByDataCy("confirmation-modal")).toBeVisible();
+      expect(screen.queryByTestId("confirmation-modal")).toBeVisible();
     });
   });
 
@@ -35,7 +35,7 @@ describe("uploadLink", () => {
     render(<UploadLink clearLogs={clearLogs} hasLogs />);
     await user.click(screen.getByText("Upload"));
     await waitFor(() => {
-      expect(screen.queryByDataCy("confirmation-modal")).toBeVisible();
+      expect(screen.queryByTestId("confirmation-modal")).toBeVisible();
     });
 
     const cancelButton = screen.getByRole("button", {
@@ -43,7 +43,7 @@ describe("uploadLink", () => {
     });
     await user.click(cancelButton);
     await waitFor(() => {
-      expect(screen.queryByDataCy("confirmation-modal")).not.toBeVisible();
+      expect(screen.queryByTestId("confirmation-modal")).not.toBeVisible();
     });
     expect(clearLogs).not.toHaveBeenCalled();
   });
@@ -57,14 +57,14 @@ describe("uploadLink", () => {
     });
     await user.click(screen.getByText("Upload"));
     await waitFor(() => {
-      expect(screen.queryByDataCy("confirmation-modal")).toBeVisible();
+      expect(screen.queryByTestId("confirmation-modal")).toBeVisible();
     });
     const confirmButton = screen.getByRole("button", {
       name: "Confirm",
     });
     await user.click(confirmButton);
     await waitFor(() => {
-      expect(screen.queryByDataCy("confirmation-modal")).not.toBeVisible();
+      expect(screen.queryByTestId("confirmation-modal")).not.toBeVisible();
     });
     expect(router.state.location.pathname).toBe("/upload");
     expect(clearLogs).toHaveBeenCalledTimes(1);

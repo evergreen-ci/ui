@@ -26,8 +26,8 @@ import {
   getSelectAllCheckboxState,
   getVisibleAliases,
   getVisibleChildPatches,
-  isTaskCheckboxChecked,
   isTaskCheckboxActivated,
+  isTaskCheckboxChecked,
   isTaskCheckboxIndeterminate,
 } from "./utils";
 
@@ -194,14 +194,14 @@ const ConfigureTasks: React.FC<Props> = ({
         <StyledTextInput
           ref={searchRef}
           aria-labelledby="search-tasks"
-          data-cy="task-filter-input"
+          data-testid="task-filter-input"
           onChange={(v) => setSearch(v)}
           placeholder="Search tasks regex"
           validator={validateRegexp}
         />
         <InlineCheckbox
           checked={selectAllCheckboxState === CheckboxState.Checked}
-          data-cy="select-all-checkbox"
+          data-testid="select-all-checkbox"
           disabled={
             (activated && Object.entries(currentAliases).length > 0) ||
             shouldShowChildPatchTasks
@@ -245,18 +245,18 @@ const ConfigureTasks: React.FC<Props> = ({
         />
       </Actions>
 
-      <StyledDisclaimer data-cy="selected-task-disclaimer">
+      <StyledDisclaimer data-testid="selected-task-disclaimer">
         {taskDisclaimerCopy}
       </StyledDisclaimer>
 
       {/* Tasks */}
-      <TaskLayoutGrid data-cy="configurePatch-tasks">
+      <TaskLayoutGrid data-testid="configurePatch-tasks">
         {sortedVisibleTasks.map(([name, state]) => (
           <Checkbox
             key={name}
             aria-label={name}
             checked={isTaskCheckboxChecked(state)}
-            data-cy="task-checkbox"
+            data-testid="task-checkbox"
             indeterminate={isTaskCheckboxIndeterminate(state)}
             label={name}
             onChange={onClickCheckbox(name)}
@@ -272,7 +272,7 @@ const ConfigureTasks: React.FC<Props> = ({
               <Checkbox
                 key={name}
                 checked={status === CheckboxState.Checked}
-                data-cy="alias-checkbox"
+                data-testid="alias-checkbox"
                 disabled={activated}
                 indeterminate={status === CheckboxState.Indeterminate}
                 label={name}
@@ -284,7 +284,7 @@ const ConfigureTasks: React.FC<Props> = ({
               <Checkbox
                 key={alias}
                 checked
-                data-cy="child-patch-checkbox"
+                data-testid="child-patch-checkbox"
                 disabled
                 label={alias}
               />
@@ -294,14 +294,14 @@ const ConfigureTasks: React.FC<Props> = ({
       )}
       {shouldShowChildPatchTasks && (
         <DisabledVariantTasksList
-          data-cy="child-patch-task-checkbox"
+          data-testid="child-patch-task-checkbox"
           status={CheckboxState.Checked}
           variantTasks={currentChildPatches[0].variantsTasks}
         />
       )}
       {shouldShowAliasTasks && (
         <DisabledVariantTasksList
-          data-cy="alias-task-checkbox"
+          data-testid="alias-task-checkbox"
           status={currentAliases[currentAliasTasks[0].alias]}
           variantTasks={currentAliasTasks[0].variantsTasks}
         />

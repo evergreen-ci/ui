@@ -1,7 +1,7 @@
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  act,
   MockedProvider,
+  act,
   renderWithRouterMatch as render,
   screen,
   userEvent,
@@ -59,12 +59,12 @@ describe("SpawnHost", () => {
       </MockedProvider>,
     );
 
-    expect(screen.getByDataCy("spawn-page-skeleton")).toBeInTheDocument();
+    expect(screen.getByTestId("spawn-page-skeleton")).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.queryByDataCy("spawn-page-skeleton")).toBeNull();
+      expect(screen.queryByTestId("spawn-page-skeleton")).toBeNull();
     });
-    expect(screen.getByDataCy("spawn-host-button")).toBeInTheDocument();
+    expect(screen.getByTestId("spawn-host-button")).toBeInTheDocument();
   });
 
   it("keeps the open spawn host modal mounted when a background refetch occurs after returning to the tab", async () => {
@@ -76,8 +76,8 @@ describe("SpawnHost", () => {
       </MockedProvider>,
     );
 
-    await user.click(await screen.findByDataCy("spawn-host-button"));
-    expect(await screen.findByDataCy("spawn-host-modal")).toBeInTheDocument();
+    await user.click(await screen.findByTestId("spawn-host-button"));
+    expect(await screen.findByTestId("spawn-host-modal")).toBeInTheDocument();
 
     // Leaving and returning to the tab triggers usePolling to refetch, which
     // toggles the query's loading state in Apollo Client v4.
@@ -87,9 +87,9 @@ describe("SpawnHost", () => {
     // The skeleton must not re-render during the background refetch, otherwise
     // the modal would be unmounted and lose its open state.
     await waitFor(() => {
-      expect(screen.queryByDataCy("spawn-page-skeleton")).toBeNull();
+      expect(screen.queryByTestId("spawn-page-skeleton")).toBeNull();
     });
-    expect(screen.getByDataCy("spawn-host-modal")).toBeInTheDocument();
+    expect(screen.getByTestId("spawn-host-modal")).toBeInTheDocument();
   });
 });
 
@@ -173,7 +173,7 @@ const userTokenExchangeMock: ApolloMock<
   result: {
     data: {
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         hasTokenExchangePending: false,
         tokenAccessTokenExpiresAt: null,
         userId: "me",

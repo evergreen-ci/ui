@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 const chart = "[id^=reactgooglegraph]";
 
@@ -23,12 +23,16 @@ test.describe("Version Timing Tab without a variant selected", () => {
   });
 
   test("has disabled pagination functionality", async ({ page }) => {
-    await expect(
-      page.locator("button[aria-labelledby='page-size-select']"),
-    ).toHaveAttribute("aria-disabled", "true");
-    await expect(page.getByTestId("next-page-button")).toBeDisabled();
-    await expect(page.getByTestId("prev-page-button")).toBeDisabled();
     await expect(page.getByTestId("clear-all-filters")).toBeDisabled();
+    const topPagination = page.getByTestId("pagination").first();
+    const nextPageButton = topPagination.getByRole("button", {
+      name: "Next page",
+    });
+    await expect(nextPageButton).toBeDisabled();
+    const prevPageButton = topPagination.getByRole("button", {
+      name: "Previous page",
+    });
+    await expect(prevPageButton).toBeDisabled();
   });
 });
 
@@ -94,13 +98,20 @@ test.describe("Version Timing Tab with a variant selected", () => {
   test("shows a paginated chart of all tasks in the variant", async ({
     page,
   }) => {
+    const topPagination = page.getByTestId("pagination").first();
+    const nextPageButton = topPagination.getByRole("button", {
+      name: "Next page",
+    });
+    const prevPageButton = topPagination.getByRole("button", {
+      name: "Previous page",
+    });
     for (const pageTasks of expectedTasks.slice(0, -1)) {
       for (const task of pageTasks) {
         await expect(
           page.locator(chart).getByText(task, { exact: true }),
         ).toBeVisible();
       }
-      await page.getByTestId("next-page-button").click();
+      await nextPageButton.click();
     }
     for (const task of expectedTasks.at(-1)!) {
       await expect(
@@ -115,7 +126,7 @@ test.describe("Version Timing Tab with a variant selected", () => {
           page.locator(chart).getByText(task, { exact: true }),
         ).toBeVisible();
       }
-      await page.getByTestId("prev-page-button").click();
+      await prevPageButton.click();
     }
     for (const task of reversedTasks.at(-1)!) {
       await expect(
@@ -128,7 +139,11 @@ test.describe("Version Timing Tab with a variant selected", () => {
     await page.goto(
       "/version/5e4ff3abe3c3317e352062e4/version-timing?taskName=agent&variant=^ubuntu1604%24",
     );
-    await expect(page.getByTestId("next-page-button")).toBeDisabled();
+    const topPagination = page.getByTestId("pagination").first();
+    const nextPageButton = topPagination.getByRole("button", {
+      name: "Next page",
+    });
+    await expect(nextPageButton).toBeDisabled();
     await expect(
       page.locator(chart).getByText("test-agent", { exact: true }),
     ).toBeVisible();
@@ -151,8 +166,15 @@ test.describe("Version Timing Tab with a variant selected", () => {
   });
 
   test("allows the user to change the page size", async ({ page }) => {
-    await page.locator("button[aria-labelledby='page-size-select']").click();
-    await page.getByText("50 / page").first().click();
+    const topPagination = page.getByTestId("pagination").first();
+    const itemsPerPageSelect = topPagination.getByRole("button", {
+      name: /Items per page/,
+    });
+    await itemsPerPageSelect.click();
+    const listbox = page.getByRole("listbox");
+    await expect(listbox).toBeVisible();
+    const option = listbox.getByRole("option").filter({ hasText: "50" });
+    await option.click();
     await expect(page).toHaveURL(/limit=50/);
     for (const task of expectedTasks.flat()) {
       await expect(

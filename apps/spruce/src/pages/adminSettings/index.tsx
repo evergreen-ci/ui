@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/client/react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -10,15 +9,10 @@ import {
   SideNavPageWrapper,
 } from "components/styles";
 import {
-  getAdminSettingsRoute,
   AdminSettingsTabRoutes,
+  getAdminSettingsRoute,
   slugs,
 } from "constants/routes";
-import {
-  AdminSettingsQuery,
-  AdminSettingsQueryVariables,
-} from "gql/generated/types";
-import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
 import { getTabTitle } from "./getTabTitle";
 import { AdminSettingsTabs } from "./Tabs";
@@ -29,10 +23,6 @@ const AdminSettingsPage: React.FC = () => {
     [slugs.tab]: AdminSettingsTabRoutes;
   }>();
 
-  const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
-    ADMIN_SETTINGS,
-  );
-
   return (
     <AdminSettingsProvider>
       <SideNavPageWrapper>
@@ -41,12 +31,12 @@ const AdminSettingsPage: React.FC = () => {
             collapsible
             glyph={<Icon glyph="Settings" />}
             header={getTabTitle(AdminSettingsTabRoutes.General).title}
-            initialCollapsed={false}
+            initialCollapsed
           >
             <SideNavGroup header="Announcements">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-announcements"
+                data-testid="navitem-admin-announcements"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "announcements",
@@ -58,7 +48,7 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Runners">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-notify"
+                data-testid="navitem-admin-notify"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "notify",
@@ -68,7 +58,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-task-limits"
+                data-testid="navitem-admin-task-limits"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "task-limits",
@@ -78,7 +68,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-host-init"
+                data-testid="navitem-admin-host-init"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "host-init",
@@ -88,7 +78,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-scheduler"
+                data-testid="navitem-admin-scheduler"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "scheduler",
@@ -98,7 +88,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-repotracker"
+                data-testid="navitem-admin-repotracker"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "repotracker",
@@ -110,7 +100,7 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Web">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-api-settings"
+                data-testid="navitem-admin-api-settings"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "api-settings",
@@ -120,7 +110,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-rate-limiting"
+                data-testid="navitem-admin-rate-limiting"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "api-rate-limit-config",
@@ -130,7 +120,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-ui"
+                data-testid="navitem-admin-ui"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "ui-settings",
@@ -140,7 +130,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-beta-features"
+                data-testid="navitem-admin-beta-features"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "beta-features",
@@ -150,7 +140,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-disabled-graphql-queries"
+                data-testid="navitem-admin-disabled-graphql-queries"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "disabled-graphql-queries",
@@ -162,7 +152,7 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Authentication">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-global-config"
+                data-testid="navitem-admin-global-config"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "global-config",
@@ -172,7 +162,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-okta"
+                data-testid="navitem-admin-okta"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "okta",
@@ -182,7 +172,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-naive-authentication"
+                data-testid="navitem-admin-naive-authentication"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "naive-authentication",
@@ -192,7 +182,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-kanopy-authentication"
+                data-testid="navitem-admin-kanopy-authentication"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "kanopy-authentication",
@@ -202,7 +192,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-oauth-authentication"
+                data-testid="navitem-admin-oauth-authentication"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "oauth-authentication",
@@ -212,7 +202,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-github-authentication"
+                data-testid="navitem-admin-github-authentication"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "github-authentication",
@@ -222,7 +212,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-multi-authentication"
+                data-testid="navitem-admin-multi-authentication"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "multi-authentication",
@@ -234,7 +224,7 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="External Communications">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-jira"
+                data-testid="navitem-admin-jira"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "jira",
@@ -244,7 +234,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-slack"
+                data-testid="navitem-admin-slack"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "slack",
@@ -254,7 +244,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-splunk"
+                data-testid="navitem-admin-splunk"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "splunk",
@@ -264,7 +254,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-runtime-environment"
+                data-testid="navitem-admin-runtime-environment"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "runtime-environments",
@@ -274,7 +264,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-test-selection"
+                data-testid="navitem-admin-test-selection"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "test-selection",
@@ -284,7 +274,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-foliage-web-services"
+                data-testid="navitem-foliage-web-services"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "foliage-web-services",
@@ -294,7 +284,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-graphite"
+                data-testid="navitem-admin-graphite"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "graphite",
@@ -304,7 +294,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-cedar"
+                data-testid="navitem-admin-cedar"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "cedar",
@@ -314,7 +304,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-sage"
+                data-testid="navitem-admin-sage"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "sage",
@@ -326,7 +316,7 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Background Processing">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-amboy"
+                data-testid="navitem-admin-amboy"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "amboy",
@@ -336,7 +326,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-logger"
+                data-testid="navitem-admin-logger"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "logger",
@@ -346,7 +336,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-notification-rate-limits"
+                data-testid="navitem-admin-notification-rate-limits"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "notification-rate-limits",
@@ -356,7 +346,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-triggers"
+                data-testid="navitem-admin-triggers"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "triggers",
@@ -368,7 +358,7 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Providers">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-container-pools"
+                data-testid="navitem-admin-container-pools"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "container-pools",
@@ -378,7 +368,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-aws"
+                data-testid="navitem-admin-aws"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "aws-configuration",
@@ -388,7 +378,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-docker"
+                data-testid="navitem-admin-docker"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "docker",
@@ -400,7 +390,7 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Other">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-okta-service-config"
+                data-testid="navitem-admin-okta-service-config"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "okta-service-config",
@@ -410,7 +400,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-misc-settings"
+                data-testid="navitem-admin-misc-settings"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "misc-settings",
@@ -420,7 +410,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-bucket-config"
+                data-testid="navitem-admin-bucket-config"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "bucket-config",
@@ -430,7 +420,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-ssh-keys"
+                data-testid="navitem-admin-ssh-keys"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "ssh-keys",
@@ -440,7 +430,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-expansions"
+                data-testid="navitem-admin-expansions"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "expansions",
@@ -450,7 +440,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-host-jasper"
+                data-testid="navitem-admin-host-jasper"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "host-jasper",
@@ -460,7 +450,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-jira-notifications"
+                data-testid="navitem-admin-jira-notifications"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "jira-notifications",
@@ -470,7 +460,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-spawn-host"
+                data-testid="navitem-admin-spawn-host"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "spawn-host",
@@ -480,7 +470,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-sleep-schedule"
+                data-testid="navitem-admin-sleep-schedule"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "sleep-schedule",
@@ -490,7 +480,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-tracer-config"
+                data-testid="navitem-admin-tracer-config"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "tracer-config",
@@ -500,7 +490,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-project-creation"
+                data-testid="navitem-admin-project-creation"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "project-creation",
@@ -510,7 +500,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-github-check-run-config"
+                data-testid="navitem-admin-github-check-run-config"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "github-check-run-config",
@@ -520,7 +510,7 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-single-task-host-configuration"
+                data-testid="navitem-admin-single-task-host-configuration"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "single-task-distro-configuration",
@@ -533,7 +523,7 @@ const AdminSettingsPage: React.FC = () => {
           <SideNavItem
             active={tab === AdminSettingsTabRoutes.ServiceFlags}
             as={Link}
-            data-cy="navitem-admin-feature-flags"
+            data-testid="navitem-admin-feature-flags"
             to={getAdminSettingsRoute(AdminSettingsTabRoutes.ServiceFlags)}
           >
             {getTabTitle(AdminSettingsTabRoutes.ServiceFlags).title}
@@ -541,7 +531,7 @@ const AdminSettingsPage: React.FC = () => {
           <SideNavItem
             active={tab === AdminSettingsTabRoutes.RestartTasks}
             as={Link}
-            data-cy="navitem-admin-restart-tasks"
+            data-testid="navitem-admin-restart-tasks"
             to={getAdminSettingsRoute(AdminSettingsTabRoutes.RestartTasks)}
           >
             {getTabTitle(AdminSettingsTabRoutes.RestartTasks).title}
@@ -549,16 +539,14 @@ const AdminSettingsPage: React.FC = () => {
           <SideNavItem
             active={tab === AdminSettingsTabRoutes.EventLog}
             as={Link}
-            data-cy="navitem-admin-event-logs"
+            data-testid="navitem-admin-event-logs"
             to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
           >
             {getTabTitle(AdminSettingsTabRoutes.EventLog).title}
           </SideNavItem>
         </SideNav>
-        <SettingsPageContent data-cy="admin-settings-page">
-          {data?.adminSettings && (
-            <AdminSettingsTabs data={data.adminSettings} />
-          )}
+        <SettingsPageContent data-testid="admin-settings-page">
+          <AdminSettingsTabs />
         </SettingsPageContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>

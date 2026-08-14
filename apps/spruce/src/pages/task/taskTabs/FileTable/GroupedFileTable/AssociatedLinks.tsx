@@ -4,7 +4,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
-import { GroupedFilesFile, FileTableRow } from "./types";
+import { FileTableRow, GroupedFilesFile } from "./types";
 
 export const processFilesWithAssociatedLinks = (
   files: GroupedFilesFile[],
@@ -21,13 +21,13 @@ export const processFilesWithAssociatedLinks = (
       return {
         ...baseRow,
         renderExpandedContent: () => (
-          <AssociatedLinksContainer data-cy="associated-links-container">
+          <AssociatedLinksContainer data-testid="associated-links-container">
             <Disclaimer>Associated Links</Disclaimer>
             <AssociatedLinksList>
               {file.associatedLinks.map((link) => (
                 <AssociatedLinkItem key={link.link}>
                   <StyledLink
-                    data-cy="associated-link"
+                    data-testid="associated-link"
                     href={link.link}
                     onClick={() => {
                       taskAnalytics.sendEvent({

@@ -15,7 +15,7 @@ import {
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
 import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
-import { RequiredQueryParams, LogTypes } from "types/task";
+import { LogTypes, RequiredQueryParams } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley" | "download";
 type Action =
@@ -66,6 +66,15 @@ type Action =
       "test.name": string;
       "test.task_id": string;
     }
+  | {
+      name: "Viewed skipped tests modal";
+      "tests.skipped_count": number;
+    }
+  | {
+      name: "Clicked download skipped tests JSON button";
+      "tests.skipped_count": number;
+    }
+  | { name: "Clicked skipped tests details button" }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
   | { name: "Viewed notification modal" }

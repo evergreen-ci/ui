@@ -89,7 +89,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           {showTooltip && (
             <IconWithTooltip
               color={red.base}
-              data-cy="validation-error-icon"
+              data-testid="validation-error-icon"
               glyph="ImportantWithCircle"
             >
               {validationMessage}
@@ -149,7 +149,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               aria-label="Edit filter name"
               aria-labelledby="Edit filter name"
               autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-              data-cy="edit-filter-name"
+              data-testid="edit-filter-name"
               errorMessage={isNewExpressionValid ? "" : validationMessage}
               onChange={(e) => {
                 setNewFilterExpression(e.target.value);

@@ -1,9 +1,9 @@
-import { test, expect } from "../../../fixtures";
+import { expect, test } from "../../../fixtures";
 import {
-  validateToast,
-  validateDatePickerDate,
   clearDatePickerInput,
   typeDatePickerDate,
+  validateDatePickerDate,
+  validateToast,
 } from "../../../helpers";
 import { getProjectSettingsRoute, project } from "../constants";
 import { expectSaveButtonEnabled, save } from "../utils";

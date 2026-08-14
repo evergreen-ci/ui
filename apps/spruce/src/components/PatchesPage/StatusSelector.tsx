@@ -3,9 +3,9 @@ import Dropdown from "components/Dropdown";
 import { noFilterMessage } from "constants/strings";
 import { useStatusesFilter } from "hooks";
 import {
+  ALL_PATCH_STATUS,
   PatchPageQueryParams,
   PatchStatus,
-  ALL_PATCH_STATUS,
 } from "types/patch";
 
 export const StatusSelector: React.FC = () => {
@@ -20,7 +20,7 @@ export const StatusSelector: React.FC = () => {
             statusVal.map((v) => statusValToCopy[v]).join(", ")
           : noFilterMessage
       }`}
-      data-cy="my-patch-status-select"
+      data-testid="my-patch-status-select"
     >
       <TreeSelect
         onChange={statusValOnChange}

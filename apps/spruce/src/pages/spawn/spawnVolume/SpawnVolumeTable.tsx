@@ -2,13 +2,13 @@ import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
+  BaseTable,
   ExpandedState,
+  LGColumnDef,
   LeafyGreenTableRow,
   useLeafyGreenTable,
-  BaseTable,
-  LGColumnDef,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -87,7 +87,7 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
     accessorFn: ({ displayName, id }) => displayName || id,
     enableSorting: true,
     cell: ({ getValue }) => (
-      <WordBreak data-cy="vol-name">{getValue() as string}</WordBreak>
+      <WordBreak data-testid="vol-name">{getValue() as string}</WordBreak>
     ),
   },
   {
@@ -99,7 +99,7 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
       return (
         hostId && (
           <StyledRouterLink
-            data-cy="host-link"
+            data-testid="host-link"
             to={getSpawnHostRoute({ host: hostId })}
           >
             <WordBreak>{getValue() as string}</WordBreak>

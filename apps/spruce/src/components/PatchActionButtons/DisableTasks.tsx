@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
@@ -40,7 +40,7 @@ export const DisableTasks: React.FC<Props> = ({
       <div ref={menuItemRef}>
         <MenuItem
           active={open}
-          data-cy="disable"
+          data-testid="disable"
           onClick={() => setOpen(!open)}
         >
           Disable all tasks

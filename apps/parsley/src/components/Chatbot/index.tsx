@@ -146,7 +146,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           }}
         />
       }
-      data-cy="chat-drawer"
+      data-testid="chat-drawer"
     >
       {children}
     </ChatDrawer>

@@ -1,16 +1,16 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import {
+  BaseTable,
   ColumnFiltering,
   ColumnFiltersState,
+  LeafyGreenTable,
   RowSorting,
   SortingState,
-  LeafyGreenTable,
-  useLeafyGreenTable,
-  BaseTable,
+  TableControl,
   TableWrapper,
   onChangeHandler,
-  TableControl,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
@@ -139,7 +139,6 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
       controls={
         <TableControl
           filteredCount={count}
-          label="tasks"
           limit={limit}
           onClear={() => {
             dispatch({ type: "clearAllFilters" });
@@ -155,8 +154,8 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
       }
     >
       <BaseTable
-        data-cy="downstream-tasks-table"
-        data-cy-row="downstream-tasks-table-row"
+        data-testid="downstream-tasks-table"
+        data-testid-row="downstream-tasks-table-row"
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         shouldAlternateRowColor

@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { Popover, Align, Justify } from "@leafygreen-ui/popover";
+import { Align, Justify, Popover } from "@leafygreen-ui/popover";
 import {
   SearchInput,
   Size as SearchInputSize,
@@ -17,14 +17,14 @@ import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 const { blue, gray } = palette;
 
 interface TableSearchPopoverProps {
-  "data-cy"?: string;
+  "data-testid"?: string;
   onConfirm: (search: string) => void;
   placeholder?: string;
   value: string;
 }
 
 const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   onConfirm,
   placeholder,
   value,
@@ -63,7 +63,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         ref={buttonRef}
         active={active}
         aria-label="Table Search Popover Icon"
-        data-cy={dataCy}
+        data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
         <Icon color={iconColor} glyph="MagnifyingGlass" />
@@ -75,13 +75,16 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         refEl={buttonRef}
         spacing={DEFAULT_SPACING}
       >
-        <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
+        <PopoverContainer
+          ref={popoverRef}
+          data-testid={`${dataTestId}-wrapper`}
+        >
           <InputContainer>
             <Description>Press enter to filter.</Description>
             <SearchInput
               ref={(el) => setInputRef(el)}
               aria-label="Search table"
-              data-cy={`${dataCy}-input-filter`}
+              data-testid={`${dataTestId}-input-filter`}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && onEnter()}
               placeholder={placeholder}

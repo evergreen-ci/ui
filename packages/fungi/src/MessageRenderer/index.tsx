@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import {
   Message,
-  MessageSourceType,
   MessageActionsProps,
+  MessageSourceType,
 } from "@lg-chat/message";
-import { UIMessagePart, UIDataTypes, UITools, ToolUIPart } from "ai";
+import { ToolUIPart, UIDataTypes, UIMessagePart, UITools } from "ai";
 import { ContextChip } from "#Context";
 import { ContextChips } from "#ContextChips";
 import { ToolRenderer } from "./ToolRenderer";
@@ -50,7 +50,7 @@ export const MessageRenderer: React.FC<
           return (
             <StyledMessage
               key={key}
-              data-cy={`message-${role}`}
+              data-testid={`message-${role}`}
               isSender={isSender}
               messageBody={displayText}
               sourceType={MessageSourceType.Markdown}

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import { ProjectBanner } from "components/Banners";
 import { PatchesPage } from "components/PatchesPage";
@@ -95,7 +95,7 @@ export const ProjectPatches = () => {
             />
             <GitHubMergeQueueCheckbox
               checked={isGitHubMergeQueueCheckboxChecked}
-              data-cy="github-merge-queue-checkbox"
+              data-testid="github-merge-queue-checkbox"
               label="Only show GitHub Merge Queue patches"
               onChange={gitHubMergeQueueCheckboxOnChange}
             />

@@ -40,7 +40,7 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
   return loading ? null : (
     <Combobox
       clearable={false}
-      data-cy="distro-select"
+      data-testid="distro-select"
       filteredOptions={filteredOptions}
       label="Distro"
       // @ts-expect-error: FIXME. This comment was added by an automated script.

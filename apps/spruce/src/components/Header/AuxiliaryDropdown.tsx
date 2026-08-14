@@ -1,11 +1,11 @@
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { useNavbarAnalytics } from "analytics";
 import {
-  routes,
-  redirectRoutes,
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
+  redirectRoutes,
+  routes,
 } from "constants/routes";
 import { NavDropdown } from "./NavDropdown";
 
@@ -30,19 +30,19 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       onClick: () => sendEvent({ name: "Clicked task queue link" }),
     },
     {
-      "data-cy": "auxiliary-dropdown-distro-settings",
+      "data-testid": "auxiliary-dropdown-distro-settings",
       to: redirectRoutes.distroSettings,
       text: "Distro Settings",
       onClick: () => sendEvent({ name: "Clicked distro settings link" }),
     },
     {
-      "data-cy": "auxiliary-dropdown-project-patches",
+      "data-testid": "auxiliary-dropdown-project-patches",
       to: getProjectPatchesRoute(projectIdentifier),
       text: "Project Patches",
       onClick: () => sendEvent({ name: "Clicked project patches link" }),
     },
     {
-      "data-cy": "auxiliary-dropdown-merge-queue",
+      "data-testid": "auxiliary-dropdown-merge-queue",
       to: {
         pathname: getProjectPatchesRoute(projectIdentifier),
         search: stringifyQuery({ mergeQueue: true }),
@@ -51,7 +51,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       onClick: () => sendEvent({ name: "Clicked merge queue link" }),
     },
     {
-      "data-cy": "auxiliary-dropdown-project-settings",
+      "data-testid": "auxiliary-dropdown-project-settings",
       text: "Project Settings",
       to: getProjectSettingsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Clicked project settings link" }),
@@ -60,7 +60,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
 
   return (
     <NavDropdown
-      dataCy="auxiliary-dropdown-link"
+      dataTestId="auxiliary-dropdown-link"
       menuItems={menuItems}
       title="More"
     />

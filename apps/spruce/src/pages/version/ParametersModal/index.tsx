@@ -2,9 +2,9 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DisplayModal } from "components/DisplayModal";
 import { MetadataItem } from "components/MetadataCard";
@@ -29,7 +29,7 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
         <MetadataItem>
           {/* @ts-expect-error: Links should have hrefs. */}
           <StyledLink
-            data-cy="parameters-link"
+            data-testid="parameters-link"
             onClick={() => setShowModal(true)}
           >
             Patch Parameters
@@ -37,7 +37,7 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
         </MetadataItem>
       )}
       <DisplayModal
-        data-cy="parameters-modal"
+        data-testid="parameters-modal"
         open={showModal}
         setOpen={setShowModal}
         size="large"

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -117,7 +117,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             {projectType === ProjectType.AttachedProject && repoId && (
               <StyledRouterLink
                 arrowAppearance="persist"
-                data-cy="attached-repo-link"
+                data-testid="attached-repo-link"
                 to={getRepoSettingsRoute(
                   repoId,
                   tab && projectOnlyTabs.has(tab)
@@ -187,7 +187,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
         </SideNav>
 
         <SettingsPageContent
-          data-cy={isRepo ? "repo-settings-page" : "project-settings-page"}
+          data-testid={isRepo ? "repo-settings-page" : "project-settings-page"}
         >
           {hasLoaded ? (
             <ProjectSettingsTabs
@@ -213,7 +213,7 @@ const SharedSettingsNavItem: React.FC<{
   <SideNavItem
     active={tab === currentTab}
     as={Link}
-    data-cy={`navitem-${tab}`}
+    data-testid={`navitem-${tab}`}
     to={getRoute(id, tab)}
   >
     {getTabTitle(tab).title}

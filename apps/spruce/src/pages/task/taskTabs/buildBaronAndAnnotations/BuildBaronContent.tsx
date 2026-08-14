@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
-  BuildBaronQuery,
   Annotation,
-  CustomCreatedIssuesQuery,
-  CustomCreatedIssuesQueryVariables,
+  BuildBaronQuery,
   CreatedTicketsQuery,
   CreatedTicketsQueryVariables,
+  CustomCreatedIssuesQuery,
+  CustomCreatedIssuesQueryVariables,
 } from "gql/generated/types";
 import { CREATED_TICKETS, JIRA_CUSTOM_CREATED_ISSUES } from "gql/queries";
 import AnnotationNote from "./AnnotationNote";
@@ -59,7 +59,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const canCreateTickets = bbData?.bbTicketCreationDefined;
 
   return (
-    <div data-cy="build-baron-content">
+    <div data-testid="build-baron-content">
       {canCreateTickets ? (
         <CustomCreatedTickets
           execution={execution}

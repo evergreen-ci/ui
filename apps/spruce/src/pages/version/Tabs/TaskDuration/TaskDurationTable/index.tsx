@@ -5,14 +5,14 @@ import {
   BaseTable,
   ColumnFiltering,
   ColumnFiltersState,
-  getFacetedMinMaxValues,
-  LeafyGreenTable,
   LGColumnDef,
+  LeafyGreenTable,
   OnChangeFn,
-  onChangeHandler,
   RowSorting,
   SortingState,
   TablePlaceholder,
+  getFacetedMinMaxValues,
+  onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
@@ -24,9 +24,9 @@ import { TaskLink } from "components/TasksTable/TaskLink";
 import { TableQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
 import {
-  VersionTaskDurationsQuery,
   SortDirection,
   TaskSortCategory,
+  VersionTaskDurationsQuery,
 } from "gql/generated/types";
 import { useTableSort, useTaskStatuses } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
@@ -149,8 +149,8 @@ const TaskDurationTable: React.FC<Props> = ({
 
   return (
     <BaseTable
-      data-cy="task-duration-table"
-      data-cy-row="task-duration-table-row"
+      data-testid="task-duration-table"
+      data-testid-row="task-duration-table-row"
       emptyComponent={<TablePlaceholder message="No tasks found." />}
       loading={loading}
       loadingRows={numLoadingRows}
@@ -184,7 +184,7 @@ const getColumns = (
     ),
     meta: {
       search: {
-        "data-cy": "task-name-filter-popover",
+        "data-testid": "task-name-filter-popover",
         placeholder: "Task name regex",
       },
     },
@@ -201,7 +201,7 @@ const getColumns = (
     ),
     meta: {
       treeSelect: {
-        "data-cy": "status-filter-popover",
+        "data-testid": "status-filter-popover",
         options: statusOptions,
       },
     },
@@ -215,7 +215,7 @@ const getColumns = (
     enableSorting: true,
     meta: {
       search: {
-        "data-cy": "build-variant-filter-popover",
+        "data-testid": "build-variant-filter-popover",
         placeholder: "Build variant regex",
       },
     },

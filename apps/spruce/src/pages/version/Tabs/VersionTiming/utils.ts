@@ -1,10 +1,21 @@
 import {
+  ChildVersionTimingData,
+  DateTimeRange,
   GANTT_CHART_COLUMN_HEADERS,
   GanttChartData,
   GanttChartDataRow,
   TaskDurationData,
-  DateTimeRange,
 } from "./types";
+
+const downstreamProjectRowPrefix = "downstream-project:";
+
+export const getDownstreamProjectRowId = (versionId: string) =>
+  `${downstreamProjectRowPrefix}${versionId}`;
+
+export const getDownstreamVersionId = (rowId: string) =>
+  rowId.startsWith(downstreamProjectRowPrefix)
+    ? rowId.slice(downstreamProjectRowPrefix.length)
+    : undefined;
 
 export const transformTaskDurationDataToTaskGanttChartData = (
   data?: TaskDurationData[],
@@ -37,6 +48,7 @@ export const transformTaskDurationDataToTaskGanttChartData = (
 
 export const transformTaskDurationDataToVariantGanttChartData = (
   data?: TaskDurationData[],
+  childVersions?: ChildVersionTimingData[],
 ): GanttChartData => {
   const variantsWithStartAndFinishTimes = (data || []).reduce<{
     [key: string]: DateTimeRange;
@@ -85,5 +97,32 @@ export const transformTaskDurationDataToVariantGanttChartData = (
     100,
     null,
   ]);
-  return [GANTT_CHART_COLUMN_HEADERS, ...chartDataRows];
+
+  const downstreamProjectRows = (childVersions || []).reduce<
+    GanttChartDataRow[]
+  >((acc, childVersion) => {
+    const { finishTime, id, projectMetadata, startTime } = childVersion;
+    if (!projectMetadata?.identifier || !startTime || !finishTime) {
+      return acc;
+    }
+
+    acc.push([
+      getDownstreamProjectRowId(id),
+      `${projectMetadata.identifier} (downstream)`,
+      "",
+      new Date(startTime),
+      new Date(finishTime),
+      null,
+      100,
+      null,
+    ]);
+
+    return acc;
+  }, []);
+
+  return [
+    GANTT_CHART_COLUMN_HEADERS,
+    ...chartDataRows,
+    ...downstreamProjectRows,
+  ];
 };

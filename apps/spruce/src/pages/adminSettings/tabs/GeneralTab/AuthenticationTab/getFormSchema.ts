@@ -2,13 +2,13 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { fullWidthCss, objectGridCss } from "../../sharedStyles";
 import {
-  globalConfig,
-  okta,
-  naive,
   github,
-  multi,
+  globalConfig,
   kanopy,
+  multi,
+  naive,
   oauth,
+  okta,
 } from "./schemaFields";
 
 export const formSchema: ReturnType<GetFormSchema> = {
@@ -63,43 +63,43 @@ export const formSchema: ReturnType<GetFormSchema> = {
     authentication: {
       globalConfig: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "globalConfig",
+        "ui:data-testid": "globalConfig",
         "ui:objectFieldCss": objectGridCss,
         ...globalConfig.uiSchema,
       },
       okta: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "okta",
+        "ui:data-testid": "okta",
         "ui:objectFieldCss": objectGridCss,
         ...okta.uiSchema,
       },
       naive: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "naive",
+        "ui:data-testid": "naive",
         "ui:objectFieldCss": fullWidthCss,
         ...naive.uiSchema,
       },
       kanopy: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "kanopy",
+        "ui:data-testid": "kanopy",
         "ui:objectFieldCss": objectGridCss,
         ...kanopy.uiSchema,
       },
       github: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "github",
+        "ui:data-testid": "github",
         "ui:objectFieldCss": objectGridCss,
         ...github.uiSchema,
       },
       oauth: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "oauth",
+        "ui:data-testid": "oauth",
         "ui:objectFieldCss": objectGridCss,
         ...oauth.uiSchema,
       },
       multi: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "multi",
+        "ui:data-testid": "multi",
         "ui:objectFieldCss": objectGridCss,
         ...multi.uiSchema,
       },

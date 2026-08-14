@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
-  ColumnFiltersState,
-  PaginationState,
   BaseTable,
+  ColumnFiltersState,
+  LGColumnDef,
+  PaginationState,
   onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import {
-  OsInfo,
   ImageOperatingSystemQuery,
   ImageOperatingSystemQueryVariables,
+  OsInfo,
 } from "gql/generated/types";
 import { IMAGE_OPERATING_SYSTEM } from "gql/queries";
 
@@ -95,7 +95,7 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
 
   return (
     <BaseTable
-      data-cy-row="os-table-row"
+      data-testid-row="os-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
       numTotalItems={numTotalItems}
@@ -113,7 +113,7 @@ const columns: LGColumnDef<OsInfo>[] = [
     enableColumnFilter: true,
     meta: {
       search: {
-        "data-cy": "os-name-filter",
+        "data-testid": "os-name-filter",
         placeholder: "Name regex",
       },
     },

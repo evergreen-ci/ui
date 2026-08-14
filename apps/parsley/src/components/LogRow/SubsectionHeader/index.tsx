@@ -51,7 +51,7 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
           ? sectionHeaderWrapperStyle
           : subsectionHeaderWrapperStyle
       }
-      data-cy="section-header"
+      data-testid="section-header"
     >
       <CaretToggle
         onClick={() => {

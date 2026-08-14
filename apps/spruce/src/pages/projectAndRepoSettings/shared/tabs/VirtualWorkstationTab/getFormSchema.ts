@@ -1,7 +1,7 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { form, ProjectType } from "../utils";
+import { ProjectType, form } from "../utils";
 import { CommandRow } from "./CommandRow";
 import { VWFormState } from "./types";
 
@@ -60,7 +60,7 @@ export const getFormSchema = (
     },
     commands: {
       setupCommandsOverride: {
-        "ui:data-cy": "commands-override-radio-box",
+        "ui:data-testid": "commands-override-radio-box",
         "ui:widget":
           projectType === ProjectType.AttachedProject
             ? widgets.RadioBoxWidget
@@ -77,11 +77,11 @@ export const getFormSchema = (
           "ui:ObjectFieldTemplate": CommandRow,
           "ui:label": false,
           command: {
-            "ui:data-cy": "command-input",
+            "ui:data-testid": "command-input",
             "ui:widget": widgets.TextareaWidget,
           },
           directory: {
-            "ui:data-cy": "directory-input",
+            "ui:data-testid": "directory-input",
             "ui:optional": true,
           },
         },

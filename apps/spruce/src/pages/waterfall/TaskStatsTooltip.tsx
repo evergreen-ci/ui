@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
-import { Popover, Align } from "@leafygreen-ui/popover";
+import { Align, Popover } from "@leafygreen-ui/popover";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
@@ -64,7 +64,7 @@ export const TaskStatsTooltip: React.FC<
           ref={buttonRef}
           active={open}
           aria-label="Show task stats"
-          data-cy="task-stats-tooltip-button"
+          data-testid="task-stats-tooltip-button"
           onClick={() => setOpen((o) => !o)}
           {...buttonContainerProps}
         >
@@ -77,7 +77,7 @@ export const TaskStatsTooltip: React.FC<
         align={Align.Right}
         refEl={buttonRef}
       >
-        <FixedWidthContainer data-cy="task-stats-tooltip">
+        <FixedWidthContainer data-testid="task-stats-tooltip">
           {isLoading ? (
             <Skeleton size={SkeletonSize.Small} />
           ) : (

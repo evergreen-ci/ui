@@ -229,7 +229,7 @@ describe("logPane", () => {
       render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
         wrapper,
       });
-      expect(screen.getByDataCy("sticky-headers")).toBeInTheDocument();
+      expect(screen.getByTestId("sticky-headers")).toBeInTheDocument();
     });
 
     it("should not render sticky headers when stickyHeaders is disabled", () => {
@@ -254,7 +254,7 @@ describe("logPane", () => {
       render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
         wrapper,
       });
-      expect(screen.queryByDataCy("sticky-headers")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("sticky-headers")).not.toBeInTheDocument();
     });
 
     it("should not render sticky headers when sectioning is disabled", () => {
@@ -279,7 +279,7 @@ describe("logPane", () => {
       render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
         wrapper,
       });
-      expect(screen.queryByDataCy("sticky-headers")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("sticky-headers")).not.toBeInTheDocument();
     });
   });
 });

@@ -5,8 +5,8 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PreferredAuthType } from "gql/generated/types";
 import {
-  gridWrapCss,
   fullWidthCss,
+  gridWrapCss,
   nestedObjectGridCss,
 } from "../../sharedStyles";
 
@@ -262,12 +262,12 @@ export const multi = {
   },
   uiSchema: {
     readWrite: {
-      "ui:data-cy": "multi-read-write",
+      "ui:data-testid": "multi-read-write",
       "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },
     readOnly: {
-      "ui:data-cy": "multi-read-only",
+      "ui:data-testid": "multi-read-only",
       "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },

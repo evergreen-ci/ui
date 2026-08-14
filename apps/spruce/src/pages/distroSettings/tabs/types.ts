@@ -1,5 +1,5 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
-import { DistroQuery, DistroInput } from "gql/generated/types";
+import { DistroInput, DistroQuery } from "gql/generated/types";
 import { GeneralFormState } from "./GeneralTab/types";
 import { HostFormState } from "./HostTab/types";
 import { ProjectFormState } from "./ProjectTab/types";

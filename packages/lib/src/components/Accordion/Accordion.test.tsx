@@ -9,15 +9,15 @@ describe("accordion", () => {
         accordion content
       </Accordion>,
     );
-    await user.click(screen.getByDataCy("accordion-toggle"));
+    await user.click(screen.getByTestId("accordion-toggle"));
     expect(screen.getByText("expanded")).toBeInTheDocument();
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+    expect(screen.getByTestId("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
-    await user.click(screen.getByDataCy("accordion-toggle"));
+    await user.click(screen.getByTestId("accordion-toggle"));
     expect(screen.getByText("collapsed")).toBeInTheDocument();
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+    expect(screen.getByTestId("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
@@ -29,7 +29,7 @@ describe("accordion", () => {
         accordion content
       </Accordion>,
     );
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+    expect(screen.getByTestId("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
@@ -43,14 +43,14 @@ describe("accordion", () => {
         accordion content
       </Accordion>,
     );
-    await user.click(screen.getByDataCy("accordion-toggle"));
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+    await user.click(screen.getByTestId("accordion-toggle"));
+    expect(screen.getByTestId("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
     expect(onToggle).toHaveBeenCalledTimes(1);
-    await user.click(screen.getByDataCy("accordion-toggle"));
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+    await user.click(screen.getByTestId("accordion-toggle"));
+    expect(screen.getByTestId("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
@@ -58,13 +58,13 @@ describe("accordion", () => {
   });
 
   it("uses titleTag if provided", () => {
-    const titleTag = () => <span data-cy="my-custom-tag" />;
+    const titleTag = () => <span data-testid="my-custom-tag" />;
     render(
       <Accordion title="accordion title" titleTag={titleTag}>
         accordion content
       </Accordion>,
     );
-    expect(screen.getByDataCy("my-custom-tag")).toBeInTheDocument();
+    expect(screen.getByTestId("my-custom-tag")).toBeInTheDocument();
   });
   it("when controlled, accordion should be open if open prop is true", () => {
     const { rerender } = render(
@@ -72,7 +72,7 @@ describe("accordion", () => {
         accordion content
       </Accordion>,
     );
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+    expect(screen.getByTestId("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
@@ -81,7 +81,7 @@ describe("accordion", () => {
         accordion content
       </Accordion>,
     );
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+    expect(screen.getByTestId("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
@@ -94,11 +94,11 @@ describe("accordion", () => {
         accordion content
       </Accordion>,
     );
-    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+    expect(screen.getByTestId("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
-    await user.click(screen.getByDataCy("accordion-toggle"));
+    await user.click(screen.getByTestId("accordion-toggle"));
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
 });

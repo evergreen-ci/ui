@@ -15,7 +15,7 @@ export const AddNotification: React.FC<Props> = ({ patchId }) => {
   return (
     <>
       <Button
-        data-cy="notify-patch"
+        data-testid="notify-patch"
         onClick={() => {
           sendEvent({ name: "Viewed notification modal" });
           setIsVisibleModal(true);

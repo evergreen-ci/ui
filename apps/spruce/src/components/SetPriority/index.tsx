@@ -10,14 +10,14 @@ import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm, { Align, Justify } from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useVersionAnalytics, useTaskAnalytics } from "analytics";
+import { useTaskAnalytics, useVersionAnalytics } from "analytics";
 import {
-  SetVersionPriorityMutation,
-  SetVersionPriorityMutationVariables,
   SetTaskPrioritiesMutation,
   SetTaskPrioritiesMutationVariables,
+  SetVersionPriorityMutation,
+  SetVersionPriorityMutationVariables,
 } from "gql/generated/types";
-import { SET_VERSION_PRIORITY, SET_TASK_PRIORITIES } from "gql/mutations";
+import { SET_TASK_PRIORITIES, SET_VERSION_PRIORITY } from "gql/mutations";
 
 const { gray, red, yellow } = palette;
 
@@ -127,7 +127,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       {isButton ? (
         <Button
           ref={menuItemRef}
-          data-cy="set-priority-button"
+          data-testid="set-priority-button"
           disabled={disableButton}
           onClick={() => setOpen(!open)}
           size={ButtonSize.XSmall}
@@ -138,7 +138,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         <MenuItem
           ref={menuItemRef}
           active={open}
-          data-cy="set-priority-menu-item"
+          data-testid="set-priority-menu-item"
           disabled={disableButton}
           onClick={() => setOpen(!open)}
         >
@@ -149,7 +149,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       <Popconfirm
         align={popconfirmAlign}
         confirmText="Set"
-        data-cy={`set-${label}-priority-popconfirm`}
+        data-testid={`set-${label}-priority-popconfirm`}
         justify={popconfirmJustify}
         onConfirm={onConfirm}
         open={open}
@@ -158,7 +158,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       >
         <PriorityInput
           ref={(el) => setInputRef(el)}
-          data-cy={`${label}-priority-input`}
+          data-testid={`${label}-priority-input`}
           inputClassName="priority-input"
           label="Set New Priority"
           min={-1}
@@ -172,7 +172,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           value={priority.toString()}
         />
         {priority >= 0 && priority < 50 && (
-          <Message data-cy="priority-default-message" type="default">
+          <Message data-testid="priority-default-message" type="default">
             <StyledIcon glyph="InfoWithCircle" />
             <span>
               Use with discretion for tasks you&apos;re actively waiting on.
@@ -180,13 +180,13 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           </Message>
         )}
         {priority >= 50 && priority < 100 && (
-          <Message data-cy="priority-warning-message" type="warning">
+          <Message data-testid="priority-warning-message" type="warning">
             <StyledIcon glyph="ImportantWithCircle" />
             <span>Please ensure that this is a high priority change.</span>
           </Message>
         )}
         {priority >= 100 && (
-          <Message data-cy="priority-admin-message" type="admin">
+          <Message data-testid="priority-admin-message" type="admin">
             <StyledIcon glyph="Warning" />
             <span>
               This is admin-restricted and should only be used in emergencies.

@@ -9,6 +9,7 @@ export const taskQuery: TaskQueryType = {
   task: {
     __typename: "Task",
     id: "someTaskId",
+    quarantinedTestsSkippedCount: 0,
     generatedByName: null,
     generatedBy: null,
     activatedTime: null,
@@ -118,7 +119,7 @@ export const taskQuery: TaskQueryType = {
       __typename: "VersionLite",
       id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
       user: {
-        __typename: "UserLite",
+        __typename: "User",
         userId: "mohamed.khelif",
         displayName: "Mohamed Khelif",
       },

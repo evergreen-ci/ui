@@ -7,9 +7,9 @@ import { useWaterfallAnalytics } from "analytics";
 import TupleSelect from "components/TupleSelect";
 import { useUpsertQueryParams } from "hooks";
 import {
+  VARIANT_FILTER_SETTING_KEY,
   stringFilterTooltipText,
   tupleSelectOptions,
-  VARIANT_FILTER_SETTING_KEY,
 } from "../constants";
 import { FilterType, WaterfallFilterOptions } from "../types";
 import { getFilterType, makeExactFilter } from "../utils";
@@ -45,7 +45,7 @@ export const BuildVariantFilter = () => {
   return (
     <TupleSelect
       ariaLabel="Build Variant Filter"
-      data-cy="build-variant-filter"
+      data-testid="build-variant-filter"
       defaultOption={defaultFilterType}
       id="build-variant-filter"
       label={

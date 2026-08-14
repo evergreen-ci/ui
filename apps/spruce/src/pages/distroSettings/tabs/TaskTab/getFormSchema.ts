@@ -1,9 +1,9 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import {
+  DispatcherVersion,
   FinderVersion,
   PlannerVersion,
-  DispatcherVersion,
   Provider,
 } from "gql/generated/types";
 
@@ -83,6 +83,12 @@ export const getFormSchema = ({
                         targetTime: {
                           type: "number" as const,
                           title: "Target Time (ms)",
+                          default: 0,
+                          minimum: 0,
+                        },
+                        mergeQueueTargetTime: {
+                          type: "number" as const,
+                          title: "Merge Queue Target Time (ms)",
                           default: 0,
                           minimum: 0,
                         },
@@ -180,8 +186,11 @@ export const getFormSchema = ({
           "ui:allowDeselect": false,
         },
         tunableOptions: {
-          "ui:field-data-cy": "tunable-options",
+          "ui:field-data-testid": "tunable-options",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
+          mergeQueueTargetTime: {
+            "ui:description": "Shorter target time for merge queue tasks.",
+          },
           patchFactor: {
             "ui:description":
               "Set 0 to use global default. Value should range from 0 to 100 inclusive.",

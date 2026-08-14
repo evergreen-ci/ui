@@ -1,10 +1,10 @@
 import { palette } from "@leafygreen-ui/palette";
 import { SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL } from "constants/cookies";
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import {
-  validateToast,
-  validateDatePickerDate,
   selectDatePickerDate,
+  validateDatePickerDate,
+  validateToast,
 } from "../../helpers";
 
 const { green, gray, blue } = palette;
@@ -159,9 +159,9 @@ test.describe("task history", () => {
       // changes from an inactive collapsed task to an active will-run task.
       const taskBoxes = page
         .getByTestId("task-timeline")
-        .locator("div[data-cy]:not([data-cy='date-separator'])");
+        .locator("div[data-testid]:not([data-testid='date-separator'])");
       const taskBox = taskBoxes.nth(2);
-      await expect(taskBox).toHaveAttribute("data-cy", "collapsed-box");
+      await expect(taskBox).toHaveAttribute("data-testid", "collapsed-box");
 
       await page.getByText("1 Inactive Commit").click();
       const taskCard = page.getByTestId("commit-details-card").nth(2);
@@ -172,7 +172,7 @@ test.describe("task history", () => {
       // Re-query for the task box after DOM updates
       const updatedTaskBox = taskBoxes.nth(2);
       await expect(updatedTaskBox).not.toHaveAttribute(
-        "data-cy",
+        "data-testid",
         "collapsed-box",
       );
 

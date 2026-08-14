@@ -1,4 +1,4 @@
-import { UIMessagePart, UIDataTypes, UITools } from "ai";
+import { UIDataTypes, UIMessagePart, UITools } from "ai";
 
 export type ProgressUpdate = {
   percentage: number;

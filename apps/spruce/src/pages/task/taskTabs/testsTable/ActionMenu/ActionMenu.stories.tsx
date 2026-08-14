@@ -11,7 +11,7 @@ export default {
   decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   play: async ({ canvasElement }) => {
     const trigger = canvasElement.querySelector<HTMLElement>(
-      '[data-cy="ellipsis-btn"]',
+      '[data-testid="ellipsis-btn"]',
     );
     if (trigger) {
       await userEvent.click(trigger);

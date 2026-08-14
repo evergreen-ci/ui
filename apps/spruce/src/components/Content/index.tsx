@@ -1,11 +1,11 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import {
   DistroSettingsRedirect,
   PatchRedirect,
+  ProjectRedirect,
   ProjectSettingsRedirect,
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
-  ProjectRedirect,
 } from "components/Redirects";
 import {
   getProjectPatchesRoute,

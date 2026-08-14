@@ -5,7 +5,7 @@ import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { testStatusesFilterTreeData } from "constants/test";
-import { TestSortCategory, TaskQuery, TestResult } from "gql/generated/types";
+import { TaskQuery, TestResult, TestSortCategory } from "gql/generated/types";
 import { string } from "utils";
 import { ActionMenu } from "./ActionMenu";
 import { LogsColumn } from "./LogsColumn";
@@ -27,7 +27,7 @@ export const getColumnsTemplate = ({
       <NameCell>
         <WordBreak>{getValue() as string}</WordBreak>
         {row.original.isManuallyQuarantined && (
-          <Badge data-cy="quarantined-badge" variant={Variant.Yellow}>
+          <Badge data-testid="quarantined-badge" variant={Variant.Yellow}>
             Quarantined
           </Badge>
         )}
@@ -37,7 +37,7 @@ export const getColumnsTemplate = ({
     enableSorting: true,
     meta: {
       search: {
-        "data-cy": "test-name-filter",
+        "data-testid": "test-name-filter",
         placeholder: "Test name regex",
       },
       width: "50%",
@@ -52,7 +52,7 @@ export const getColumnsTemplate = ({
     cell: ({ getValue }) => <TestStatusBadge status={getValue() as string} />,
     meta: {
       treeSelect: {
-        "data-cy": "status-treeselect",
+        "data-testid": "status-treeselect",
         options: testStatusesFilterTreeData,
       },
       width: "10%",

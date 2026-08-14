@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useMutation, skipToken } from "@apollo/client/react";
+import { skipToken, useMutation, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
@@ -8,17 +8,17 @@ import { InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
-  UserProjectSettingsPermissionsQuery,
-  UserProjectSettingsPermissionsQueryVariables,
   RepotrackerErrorQuery,
   RepotrackerErrorQueryVariables,
   SetLastRevisionMutation,
   SetLastRevisionMutationVariables,
+  UserProjectSettingsPermissionsQuery,
+  UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import { SET_LAST_REVISION } from "gql/mutations";
 import {
-  USER_PROJECT_SETTINGS_PERMISSIONS,
   REPOTRACKER_ERROR,
+  USER_PROJECT_SETTINGS_PERMISSIONS,
 } from "gql/queries";
 import { PortalBanner } from "../PortalBanner";
 
@@ -88,13 +88,13 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
     <>
       <PortalBanner
         banner={
-          <Banner data-cy="repotracker-error-banner" variant="danger">
+          <Banner data-testid="repotracker-error-banner" variant="danger">
             {isProjectAdmin ? (
               <span>
                 The project was unable to build. Please specify a new base
                 revision by clicking{" "}
                 <ModalTriggerText
-                  data-cy="repotracker-error-trigger"
+                  data-testid="repotracker-error-trigger"
                   onClick={() => setOpenModal(true)}
                 >
                   here
@@ -116,7 +116,7 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
           disabled: baseRevision.length < 40,
           onClick: onConfirm,
         }}
-        data-cy="repotracker-error-modal"
+        data-testid="repotracker-error-modal"
         open={openModal}
         setOpen={setOpenModal}
         title="Enter New Base Revision"

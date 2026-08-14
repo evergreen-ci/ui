@@ -19,7 +19,7 @@ export const NotifyMeButton: React.FC<Props> = ({
     <>
       <Button
         key="notifications"
-        data-cy="notify-task"
+        data-testid="notify-task"
         onClick={() => {
           taskAnalytics.sendEvent({ name: "Viewed notification modal" });
           setIsVisibleModal(true);

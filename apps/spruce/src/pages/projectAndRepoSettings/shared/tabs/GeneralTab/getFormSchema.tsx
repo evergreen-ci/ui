@@ -4,10 +4,10 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import {
   debugSpawnHostsDocumentationUrl,
-  versionControlDocumentationUrl,
   runEveryMainlineCommitDocumentationUrl,
+  versionControlDocumentationUrl,
 } from "constants/externalResources";
-import { form, ProjectType } from "../utils";
+import { ProjectType, form } from "../utils";
 import {
   DeactivateStepbackTaskField,
   DeleteProjectField,
@@ -291,7 +291,7 @@ export const getFormSchema = (
       enabled: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:showLabel": false,
-        "ui:data-cy": "enabled-radio-box",
+        "ui:data-testid": "enabled-radio-box",
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
@@ -309,7 +309,7 @@ export const getFormSchema = (
           ),
         },
         repo: {
-          "ui:data-cy": "repo-input",
+          "ui:data-testid": "repo-input",
           ...placeholderIf(
             repoData?.generalConfiguration?.repositoryInfo?.repo,
           ),
@@ -320,7 +320,7 @@ export const getFormSchema = (
       },
       other: {
         displayName: {
-          "ui:data-cy": "display-name-input",
+          "ui:data-testid": "display-name-input",
         },
         projectID: {
           "ui:widget": widgets.CopyableWidget,
@@ -328,7 +328,7 @@ export const getFormSchema = (
             "Immutable ID for use in project configuration, such as setting up AWS roles.",
         },
         identifier: {
-          "ui:data-cy": "identifier-input",
+          "ui:data-testid": "identifier-input",
           ...(identifierHasChanges && {
             "ui:warnings": [
               "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.",
@@ -338,7 +338,7 @@ export const getFormSchema = (
         batchTime: {
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
-          "ui:data-cy": "batch-time-input",
+          "ui:data-testid": "batch-time-input",
           ...placeholderIf(
             repoData?.generalConfiguration?.other?.batchTime === null
               ? "0"
@@ -353,7 +353,7 @@ export const getFormSchema = (
         spawnHostScriptPath: {
           "ui:description":
             "This is the bash setup script to optionally run on spawn hosts created from tasks.",
-          "ui:data-cy": "spawn-host-input",
+          "ui:data-testid": "spawn-host-input",
           "ui:optional": true,
           ...placeholderIf(
             repoData?.generalConfiguration?.other?.spawnHostScriptPath,
@@ -404,14 +404,14 @@ export const getFormSchema = (
           options: { projectId },
         },
         runEveryMainlineCommit: {
-          "ui:data-cy": "run-every-mainline-commit-radio-box",
+          "ui:data-testid": "run-every-mainline-commit-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description": RunEveryMainlineCommitDescription,
         },
         waterfallDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
-            "Disables automatic task activation on the waterfall. Tasks will still appear but will be unscheduled by default.",
+            "When enabled (default), task activation is considered for all new commits on the waterfall. When this setting is disabled, tasks will still appear but will be unscheduled.",
         },
       },
       scheduling: {
@@ -429,7 +429,7 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Bisection will cause your stepback to activate the midway task between the last failing task and last passing task.",
-          "ui:data-cy": "stepback-bisect-group",
+          "ui:data-testid": "stepback-bisect-group",
         },
         deactivateStepback: {
           "ui:field": "deactivateStepbackTask",

@@ -21,7 +21,7 @@ const { red, yellow } = palette;
 
 interface BaseRowProps extends Omit<LogLineRow, "getLine"> {
   children: string;
-  "data-cy"?: string;
+  "data-testid"?: string;
   color?: string;
 }
 
@@ -30,7 +30,7 @@ interface BaseRowProps extends Omit<LogLineRow, "getLine"> {
  * It is responsible for handling any highlights for the row, as well as rendering line counts and bookmarks.
  * @param BaseRowProps - props to be passed to the BaseRow component
  * @param BaseRowProps.children - the text to be rendered
- * @param BaseRowProps."data-cy" - data-cy attribute to be added to the row
+ * @param BaseRowProps."data-testid" - data-testid attribute to be added to the row
  * @param BaseRowProps.lineIndex - the index of the line in the log
  * @param BaseRowProps.failingLine - the failing log line number
  * @param BaseRowProps.highlightRegex - the regex to be highlighted
@@ -47,7 +47,7 @@ interface BaseRowProps extends Omit<LogLineRow, "getLine"> {
 const BaseRow: React.FC<BaseRowProps> = ({
   children,
   color,
-  "data-cy": dataCyText,
+  "data-testid": dataTestId,
   failingLine,
   highlightRegex,
   lineIndex,
@@ -129,10 +129,10 @@ const BaseRow: React.FC<BaseRowProps> = ({
       {...rest}
       bookmarked={bookmarked}
       data-bookmarked={bookmarked}
-      data-cy={`log-row-${lineNumber}`}
       data-failed={failed}
       data-highlighted={highlighted}
       data-shared={shared}
+      data-testid={`log-row-${lineNumber}`}
       failed={failed}
       highlighted={highlighted || isLineBetweenSelectedLines}
       onDoubleClick={handleDoubleClick}
@@ -143,7 +143,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
       ) : (
         <EllipsisButton
           aria-label="Expand share menu"
-          data-cy={`log-link-${lineNumber}`}
+          data-testid={`log-link-${lineNumber}`}
           onClick={handleEllipsisClick}
         >
           <Icon glyph={shared ? "ArrowWithCircle" : "Ellipsis"} />
@@ -153,7 +153,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
       <StyledPre shouldWrap={wrap} wordWrapFormat={wordWrapFormat}>
         <Highlighter
           color={color}
-          data-cy={dataCyText}
+          data-testid={dataTestId}
           highlights={highlightRegex}
           searchTerm={inRange ? searchTerm : undefined}
         >

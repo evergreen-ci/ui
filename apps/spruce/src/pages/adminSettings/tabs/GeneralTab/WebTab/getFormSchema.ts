@@ -61,20 +61,20 @@ export const formSchema: ReturnType<GetFormSchema> = {
       api: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "api-settings",
+        "ui:data-testid": "api-settings",
         ...api.uiSchema,
       },
       ui: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "ui-settings",
+        "ui:data-testid": "ui-settings",
         ...ui.uiSchema,
       },
       betaFeatures: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "beta-features",
+        "ui:data-testid": "beta-features",
         "ui:objectFieldCss": css`
-          [data-cy="beta-features"]:empty {
+          [data-testid="beta-features"]:empty {
             display: none;
           }
         `,
@@ -82,7 +82,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
       },
       disabledGQLQueries: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "disabled-gql-queries",
+        "ui:data-testid": "disabled-gql-queries",
         ...disabledGQLQueries.uiSchema,
       },
       rateLimitConfig: rateLimitConfig.uiSchema,

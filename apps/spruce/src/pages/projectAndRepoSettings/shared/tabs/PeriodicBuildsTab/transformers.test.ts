@@ -2,7 +2,7 @@ import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
-import { PeriodicBuildsFormState, IntervalSpecifier } from "./types";
+import { IntervalSpecifier, PeriodicBuildsFormState } from "./types";
 
 const { projectBase, repoBase } = data;
 

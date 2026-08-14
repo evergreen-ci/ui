@@ -5,13 +5,13 @@ import widgets from "components/SpruceForm/Widgets";
 import { pullRequestAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
 import {
-  fieldDisabled,
-  hideIf,
-  alias,
-  form,
   ProjectType,
-  sectionHasError,
+  alias,
+  fieldDisabled,
+  form,
   githubConflictErrorStyling,
+  hideIf,
+  sectionHasError,
 } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { PullRequestsFormState } from "./types";
@@ -113,7 +113,7 @@ export const getFormSchema = (
           "ui:sectionTitle": true,
         },
         prTestingEnabled: {
-          "ui:data-cy": "pr-testing-enabled-radio-box",
+          "ui:data-testid": "pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
           ...githubConflictErrorStyling(
             githubProjectConflicts?.prTestingIdentifiers ?? null,
@@ -123,7 +123,7 @@ export const getFormSchema = (
           ),
         },
         manualPrTestingEnabled: {
-          "ui:data-cy": "manual-pr-testing-enabled-radio-box",
+          "ui:data-testid": "manual-pr-testing-enabled-radio-box",
           "ui:description":
             "Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled; The ‘--alias’ flag is also available to allow users to overwrite the default PR configuration.",
           "ui:widget": widgets.RadioBoxWidget,
@@ -186,7 +186,7 @@ export const getFormSchema = (
         },
 
         githubPRTriggerAliases: {
-          "ui:data-cy": "github-pr-trigger-aliases",
+          "ui:data-testid": "github-pr-trigger-aliases",
           "ui:addable": false,
           "ui:orderable": false,
           "ui:placeholder":

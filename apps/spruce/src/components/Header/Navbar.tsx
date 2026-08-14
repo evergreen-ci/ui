@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
-import Icon, { AnimatedIcon, PrideLogo } from "@evg-ui/lib/components/Icon";
+import Icon, { EvergreenLogo } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
@@ -18,8 +18,8 @@ import {
   routes,
   slugs,
 } from "constants/routes";
-import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
-import { USER, SPRUCE_CONFIG } from "gql/queries";
+import { SpruceConfigQuery, UserQuery } from "gql/generated/types";
+import { SPRUCE_CONFIG, USER } from "gql/queries";
 import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
@@ -70,10 +70,10 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <AnimatedIcon icon={PrideLogo} />
+          <EvergreenLogo size={36} />
         </LogoLink>
         <PrimaryLink
-          data-cy="waterfall-link"
+          data-testid="waterfall-link"
           onClick={() => sendEvent({ name: "Clicked waterfall link" })}
           to={getWaterfallRoute(projectIdentifier)}
         >

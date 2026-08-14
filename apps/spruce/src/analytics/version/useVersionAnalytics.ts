@@ -2,9 +2,9 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import {
+  TaskSortCategory,
   VersionQuery,
   VersionQueryVariables,
-  TaskSortCategory,
 } from "gql/generated/types";
 import { VERSION } from "gql/queries";
 
@@ -29,6 +29,12 @@ type Action =
       name: "Clicked task table task link";
       "task.id": string;
       "task.status": string;
+    }
+  | {
+      name: "Clicked task table status badge";
+      "task.id": string;
+      "task.status": string;
+      column: string;
     }
   | { name: "Deleted all filters" }
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }

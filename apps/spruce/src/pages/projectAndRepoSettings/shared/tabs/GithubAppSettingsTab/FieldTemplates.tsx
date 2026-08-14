@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { tableColumnOffset } from "constants/tokens";
@@ -22,7 +22,7 @@ export const ArrayFieldTemplate: React.FC<
   });
   return (
     <BaseTable
-      data-cy="github-token-permissions-restrictions-table"
+      data-testid="github-token-permissions-restrictions-table"
       table={table}
     />
   );

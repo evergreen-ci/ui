@@ -51,10 +51,10 @@ const replaceFormSchema: SpruceFormProps = {
   },
   uiSchema: {
     appId: {
-      "ui:data-cy": "replace-app-id-input",
+      "ui:data-testid": "replace-app-id-input",
     },
     privateKey: {
-      "ui:data-cy": "replace-private-key-input",
+      "ui:data-testid": "replace-private-key-input",
       "ui:widget": "textarea",
     },
   },
@@ -162,7 +162,7 @@ const ReplaceAppCredentialsButton: React.FC<{
           disabled: loading || hasFormError,
           onClick: handleReplace,
         }}
-        data-cy="replace-github-credentials-modal"
+        data-testid="replace-github-credentials-modal"
         open={open}
         title="Replace GitHub app credentials"
       >
@@ -177,7 +177,7 @@ const ReplaceAppCredentialsButton: React.FC<{
         />
       </ConfirmationModal>
       <Button
-        data-cy="replace-app-credentials-button"
+        data-testid="replace-app-credentials-button"
         disabled={disabled}
         onClick={() => setOpen(true)}
       >
@@ -215,7 +215,7 @@ const GithubAppActions: Field = ({ disabled, uiSchema }) => {
     />
   ) : (
     <Banner
-      data-cy="github-app-credentials-banner"
+      data-testid="github-app-credentials-banner"
       variant={BannerVariant.Warning}
     >
       App ID and key must be saved in order for token permissions restrictions

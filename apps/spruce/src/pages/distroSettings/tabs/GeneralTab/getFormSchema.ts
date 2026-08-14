@@ -155,7 +155,7 @@ export const getFormSchema = (
         "ui:description":
           "Hosts will run only one task or task group before terminating.",
         "ui:warnings": singleTaskDistroWarnings,
-        "ui:data-cy-banner": "single-task-banner",
+        "ui:data-testid-banner": "single-task-banner",
       },
       note: {
         "ui:rows": 7,

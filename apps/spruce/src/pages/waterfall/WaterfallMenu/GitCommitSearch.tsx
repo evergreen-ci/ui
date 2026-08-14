@@ -39,7 +39,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
   return (
     <>
       <DropdownItem
-        data-cy="git-commit-search"
+        data-testid="git-commit-search"
         glyph={<Icon glyph="Code" />}
         onClick={() => {
           setModalOpen(true);
@@ -56,7 +56,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
           onClick: onConfirm,
           disabled: commitHash.trim().length < 7,
         }}
-        data-cy="git-commit-search-modal"
+        data-testid="git-commit-search-modal"
         open={modalOpen}
         title="Search by Git Commit Hash"
       >

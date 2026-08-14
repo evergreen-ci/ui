@@ -1,14 +1,14 @@
-import { useQuery, useMutation } from "@apollo/client/react";
+import { useMutation, useQuery } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import {
-  MyHostsQuery,
-  MyHostsQueryVariables,
   DetachVolumeFromHostMutation,
   DetachVolumeFromHostMutationVariables,
+  MyHostsQuery,
+  MyHostsQueryVariables,
 } from "gql/generated/types";
 import { DETACH_VOLUME } from "gql/mutations";
 import { MY_HOSTS } from "gql/queries";
@@ -54,7 +54,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
       justify={Justify.Middle}
       trigger={
         <Button
-          data-cy={`detach-btn-${volume.displayName || volume.id}`}
+          data-testid={`detach-btn-${volume.displayName || volume.id}`}
           disabled
           size={Size.XSmall}
         >
@@ -68,7 +68,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
   ) : (
     <Popconfirm
       align={Align.Left}
-      data-cy="unmount-volume-popconfirm"
+      data-testid="unmount-volume-popconfirm"
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Changed unmounted volume on host",
@@ -79,7 +79,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
       trigger={
         <Button
           as="button"
-          data-cy={`detach-btn-${volume.displayName || volume.id}`}
+          data-testid={`detach-btn-${volume.displayName || volume.id}`}
           disabled={loadingDetachVolume || volume.migrating}
           onClick={(e) => {
             e.stopPropagation();

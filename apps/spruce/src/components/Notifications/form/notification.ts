@@ -2,8 +2,8 @@ import { FieldRow } from "components/SpruceForm/FieldTemplates";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import { JiraTicketType } from "types/jira";
 import {
-  SubscriptionMethodOption,
   NotificationMethods,
+  SubscriptionMethodOption,
 } from "types/subscription";
 
 /**
@@ -171,56 +171,56 @@ export const getNotificationSchema = (
   },
   uiSchema: {
     notificationSelect: {
-      "ui:data-cy": "notification-method-select",
+      "ui:data-testid": "notification-method-select",
       "ui:allowDeselect": false,
     },
     jiraCommentInput: {
       "ui:placeholder": "ABC-123",
-      "ui:data-cy": "jira-comment-input",
+      "ui:data-testid": "jira-comment-input",
     },
     slackInput: {
       "ui:description":
         "Notifications can be sent to a Slack channel, @user, or member ID represented as an alphanumeric string.",
       "ui:placeholder": "#channel, @user, or MEMBERID",
-      "ui:data-cy": "slack-input",
+      "ui:data-testid": "slack-input",
     },
     emailInput: {
       "ui:placeholder": "someone@example.com",
-      "ui:data-cy": "email-input",
+      "ui:data-testid": "email-input",
     },
     jiraIssueInput: {
       projectInput: {
         "ui:placeholder": "ABC",
-        "ui:data-cy": "project-input",
+        "ui:data-testid": "project-input",
       },
       issueInput: {
         "ui:placeholder": JiraTicketType.BuildFailure,
-        "ui:data-cy": "issue-input",
+        "ui:data-testid": "issue-input",
       },
     },
     webhookInput: {
       urlInput: {
         "ui:placeholder": "https://example.com",
-        "ui:data-cy": "url-input",
+        "ui:data-testid": "url-input",
       },
       secretInput: {
         "ui:readonly": true,
         "ui:placeholder":
           "The secret will be shown upon saving the subscription.",
-        "ui:data-cy": "secret-input",
+        "ui:data-testid": "secret-input",
       },
       retryInput: {
-        "ui:data-cy": "retry-input",
+        "ui:data-testid": "retry-input",
         "ui:placeholder": "Defaults to 0 if unset.",
         "ui:optional": true,
       },
       minDelayInput: {
-        "ui:data-cy": "min-delay-input",
+        "ui:data-testid": "min-delay-input",
         "ui:placeholder": "Defaults to 500 if unset.",
         "ui:optional": true,
       },
       timeoutInput: {
-        "ui:data-cy": "timeout-input",
+        "ui:data-testid": "timeout-input",
         "ui:placeholder": "Defaults to 10000 if unset.",
         "ui:optional": true,
       },

@@ -1,8 +1,10 @@
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
-import { Page, test, expect } from "../../fixtures";
+import { Page, expect, test } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
+const lastRunStatusPath =
+  "/version/spruce_2c9056df66d42fb1908d52eed096750a91f1f089/tasks";
 const patchDescriptionTasksExist = "dist";
 
 const waitForTaskTable = async (page: Page) => {
@@ -72,7 +74,48 @@ test.describe("Task table", () => {
 
   test("Task count displays total tasks", async ({ page }) => {
     await page.goto(pathTasks);
-    await expect(page.getByTestId("total-count").first()).toContainText("49");
+    await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
+
+    const totalCount = page.getByTestId("total-count").first();
+    await expect(totalCount).toContainText("49");
+
+    const topPagination = page.getByTestId("pagination").first();
+    await expect(topPagination.getByText(/47 items/)).toBeVisible();
+  });
+
+  test("Explains the last run status column", async ({ page }) => {
+    await page.goto(pathTasks);
+    await waitForTaskTable(page);
+
+    const lastRunStatusHeader = page.getByRole("columnheader", {
+      name: /Last Run Status/,
+    });
+    await expect(lastRunStatusHeader).toBeVisible();
+    await lastRunStatusHeader.getByRole("button").hover();
+    await expect(
+      page.getByText(
+        /For (base|previous) tasks that have not finished running, this column links to the most recent completed commit\./,
+      ),
+    ).toBeVisible();
+  });
+
+  test("Displays the most recent completed task in the last run status column", async ({
+    page,
+  }) => {
+    await page.goto(lastRunStatusPath);
+    await waitForTaskTable(page);
+
+    const checkCodegenRow = page
+      .getByTestId("tasks-table-row")
+      .filter({ hasText: "check_codegen" });
+    const lastCompletedTask = checkCodegenRow.locator(
+      "[data-column='last-run-status']",
+    );
+    const link = lastCompletedTask.getByRole("link");
+    await expect(link).toHaveAttribute(
+      "href",
+      "/task/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/history?execution=0",
+    );
   });
 
   test.describe("Changing page number", () => {
@@ -86,7 +129,11 @@ test.describe("Task table", () => {
         .getByTestId("tasks-table-row")
         .first()
         .textContent();
-      await page.getByTestId("next-page-button").click();
+      const topPagination = page.getByTestId("pagination").first();
+      const nextPageButton = topPagination.getByRole("button", {
+        name: "Next page",
+      });
+      await nextPageButton.click();
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
       const secondPageText = page.getByTestId("tasks-table-row").first();
       await expect(secondPageText).not.toHaveText(firstPageText!);
@@ -101,7 +148,11 @@ test.describe("Task table", () => {
         .getByTestId("tasks-table-row")
         .first()
         .textContent();
-      await page.getByTestId("prev-page-button").click();
+      const topPagination = page.getByTestId("pagination").first();
+      const prevPageButton = topPagination.getByRole("button", {
+        name: "Previous page",
+      });
+      await prevPageButton.click();
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
       const firstPageText = page.getByTestId("tasks-table-row").first();
       await expect(firstPageText).not.toHaveText(secondPageText!);
@@ -112,7 +163,11 @@ test.describe("Task table", () => {
     }) => {
       await page.goto(`${pathTasks}?page=0`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
-      await expect(page.getByTestId("prev-page-button")).toBeDisabled();
+      const topPagination = page.getByTestId("pagination").first();
+      const prevPageButton = topPagination.getByRole("button", {
+        name: "Previous page",
+      });
+      await expect(prevPageButton).toBeDisabled();
     });
 
     test("Does not update results or URL when right arrow is clicked and next page does not exist", async ({
@@ -120,7 +175,11 @@ test.describe("Task table", () => {
     }) => {
       await page.goto(`${pathTasks}?page=4`);
       await expect(page.getByTestId("tasks-table-row").first()).toBeVisible();
-      await expect(page.getByTestId("next-page-button")).toBeDisabled();
+      const topPagination = page.getByTestId("pagination").first();
+      const nextPageButton = topPagination.getByRole("button", {
+        name: "Next page",
+      });
+      await expect(nextPageButton).toBeDisabled();
     });
   });
 

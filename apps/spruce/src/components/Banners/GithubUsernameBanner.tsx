@@ -1,6 +1,6 @@
 import { Banner } from "@leafygreen-ui/banner";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { getPreferencesRoute, PreferencesTabRoutes } from "constants/routes";
+import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { useUserSettings } from "hooks";
 
 export const GithubUsernameBanner = () => {
@@ -10,7 +10,7 @@ export const GithubUsernameBanner = () => {
   const hasNoGithubUser = lastKnownAs === "";
 
   return hasNoGithubUser ? (
-    <Banner data-cy="github-username-banner" variant="warning">
+    <Banner data-testid="github-username-banner" variant="warning">
       Please set your GitHub username on the{" "}
       <StyledRouterLink to={getPreferencesRoute(PreferencesTabRoutes.Profile)}>
         settings page

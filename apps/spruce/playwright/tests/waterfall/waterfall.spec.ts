@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 
 test.describe("waterfall page", () => {
   test.beforeEach(async ({ page }) => {
@@ -22,7 +22,7 @@ test.describe("waterfall page", () => {
       const inactiveButton = versionLabels.nth(2).getByRole("button");
 
       await expect(inactiveButton).toHaveAttribute(
-        "data-cy",
+        "data-testid",
         "inactive-versions-button",
       );
       await expect(page.getByTestId("broken-versions-badge")).toBeVisible();
@@ -30,7 +30,7 @@ test.describe("waterfall page", () => {
         "1 broken",
       );
       await expect(buildGroups.nth(2)).toHaveAttribute(
-        "data-cy",
+        "data-testid",
         "inactive-column",
       );
     });

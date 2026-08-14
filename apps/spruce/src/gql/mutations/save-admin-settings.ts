@@ -69,6 +69,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
         hostAllocatorRoundingRule
         hostsOverallocatedRule
         mainlineTimeInQueueFactor
+        mergeQueueTargetTimeSeconds
         numDependentsFactor
         patchFactor
         patchTimeInQueueFactor

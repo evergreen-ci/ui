@@ -4,7 +4,7 @@ import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { H3 } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { useNavbarAnalytics } from "analytics";
 import { MCI_USER } from "constants/hosts";
 import { getAllHostsRoute, getDistroSettingsRoute } from "constants/routes";
@@ -51,7 +51,7 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
           View hosts
         </StyledRouterLink>
         <StyledRouterLink
-          data-cy="distro-settings-link"
+          data-testid="distro-settings-link"
           onClick={() =>
             sendNavbarEvent({ name: "Clicked distro settings link" })
           }

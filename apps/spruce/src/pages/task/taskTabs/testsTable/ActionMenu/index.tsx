@@ -5,10 +5,10 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import {
-  TaskQuery,
-  TestResult,
   QuarantineTestMutation,
   QuarantineTestMutationVariables,
+  TaskQuery,
+  TestResult,
   UnquarantineTestMutation,
   UnquarantineTestMutationVariables,
 } from "gql/generated/types";
@@ -91,7 +91,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     dropdownItems = [
       <DropdownItem
         key="unquarantine"
-        data-cy="unquarantine-test"
+        data-testid="unquarantine-test"
         description="Allow this test to run in future task runs."
         onClick={onUnquarantineTest}
       >
@@ -102,7 +102,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     dropdownItems = [
       <DropdownItem
         key="quarantine"
-        data-cy="quarantine-test"
+        data-testid="quarantine-test"
         description="Quarantine test so that it does not run in future task runs."
         onClick={onQuarantineTest}
       >

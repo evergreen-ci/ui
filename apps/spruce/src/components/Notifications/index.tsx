@@ -8,10 +8,10 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SpruceForm } from "components/SpruceForm";
 import {
-  getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
+  getNotificationTriggerCookie,
 } from "constants/cookies";
-import { regexDisplayName, regexBuildVariant } from "constants/triggers";
+import { regexBuildVariant, regexDisplayName } from "constants/triggers";
 import {
   SaveSubscriptionForUserMutation,
   SaveSubscriptionForUserMutationVariables,
@@ -23,11 +23,11 @@ import { useUserSettings } from "hooks/useUserSettings";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
-import { FormState, FormRegexSelector } from "./types";
-import { hasInitialError, getGqlPayload } from "./utils";
+import { FormRegexSelector, FormState } from "./types";
+import { getGqlPayload, hasInitialError } from "./utils";
 
 interface NotificationModalProps {
-  "data-cy": string;
+  "data-testid": string;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   resourceId: string;
   sendAnalyticsEvent: (
@@ -40,7 +40,7 @@ interface NotificationModalProps {
 }
 
 export const NotificationModal: React.FC<NotificationModalProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   onCancel,
   resourceId,
   sendAnalyticsEvent,
@@ -130,7 +130,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         disabled: hasError,
         onClick: onClickSave,
       }}
-      data-cy={dataCy}
+      data-testid={dataTestId}
       open={visible}
       title="Add Subscription"
     >

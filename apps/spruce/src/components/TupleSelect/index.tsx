@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
-import { Select, Option } from "@leafygreen-ui/select";
+import { Option, Select } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import TextInput from "components/TextInputWithValidation";
@@ -14,7 +14,7 @@ type Option<T extends string = string> = {
 
 interface TupleSelectProps<T extends string = string> {
   ariaLabel: string;
-  "data-cy": string;
+  "data-testid": string;
   defaultOption?: T;
   id: string;
   label: React.ReactNode;
@@ -28,7 +28,7 @@ interface TupleSelectProps<T extends string = string> {
 
 const TupleSelect: React.FC<TupleSelectProps> = ({
   ariaLabel,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   defaultOption,
   id,
   label,
@@ -65,7 +65,7 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
         <GroupedSelect
           allowDeselect={false}
           aria-labelledby={`${ariaLabel} Select`}
-          data-cy={`${dataCy}-select`}
+          data-testid={`${dataTestId}-select`}
           dropdownWidthBasis="option"
           onChange={handleChange}
           value={selected}
@@ -80,7 +80,7 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           aria-label={`${ariaLabel} Input`}
           aria-labelledby={`${ariaLabel} Input`}
           clearOnSubmit
-          data-cy={`${dataCy}-input`}
+          data-testid={`${dataTestId}-input`}
           id={id}
           onSubmit={handleOnSubmit}
           placeholder={placeholder || selectedOption.placeholderText}

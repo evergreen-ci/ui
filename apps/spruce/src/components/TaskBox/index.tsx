@@ -1,7 +1,5 @@
 import { forwardRef } from "react";
-// Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
-// eslint-disable-next-line @emotion/no-vanilla
-import { css as classNameCss } from "@emotion/css";
+import { css as classNameCss } from "@emotion/css"; // Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -42,7 +40,6 @@ const taskBoxStyles = css`
   height: ${DEFAULT_SQUARE_SIZE}px;
   border: ${SQUARE_BORDER}px solid ${white};
   box-sizing: content-box;
-  float: left;
   position: relative;
   cursor: pointer;
 
@@ -108,7 +105,6 @@ export const CollapsedBox = styled.div`
   height: ${DEFAULT_SQUARE_SIZE}px;
   border: ${SQUARE_BORDER}px solid ${white};
   box-sizing: content-box;
-  float: left;
   position: relative;
   min-width: ${DEFAULT_SQUARE_SIZE}px;
   width: fit-content;

@@ -1,10 +1,10 @@
 import {
-  FinderVersion,
   AdminSettingsInput,
-  HostAllocatorVersion,
-  RoundingRule,
-  OverallocatedRule,
   FeedbackRule,
+  FinderVersion,
+  HostAllocatorVersion,
+  OverallocatedRule,
+  RoundingRule,
 } from "gql/generated/types";
 import { adminSettings } from "../../testData";
 import { formToGql, gqlToForm } from "./transformers";
@@ -55,6 +55,7 @@ const form: RunnersFormState = {
       futureHostFraction: 1,
       cacheDurationSeconds: 1,
       targetTimeSeconds: 1,
+      mergeQueueTargetTimeSeconds: 1,
       acceptableHostIdleTimeSeconds: 1,
       groupVersions: false,
       patchFactor: 1,
@@ -115,6 +116,7 @@ const gql: AdminSettingsInput = {
     futureHostFraction: 1,
     cacheDurationSeconds: 1,
     targetTimeSeconds: 1,
+    mergeQueueTargetTimeSeconds: 1,
     acceptableHostIdleTimeSeconds: 1,
     groupVersions: false,
     patchFactor: 1,

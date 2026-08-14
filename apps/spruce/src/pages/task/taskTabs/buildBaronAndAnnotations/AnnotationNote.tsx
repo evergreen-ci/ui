@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Button, Variant, Size } from "@leafygreen-ui/button";
+import { Button, Size, Variant } from "@leafygreen-ui/button";
 import { TextArea } from "@leafygreen-ui/text-area";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -83,7 +83,7 @@ const AnnotationNote: React.FC<Props> = ({
         trigger={
           <ButtonWrapper>
             <Button
-              data-cy="edit-annotation-button"
+              data-testid="edit-annotation-button"
               disabled={originalMessage === newMessage || !userCanModify}
               onClick={saveAnnotationNote}
               size={Size.XSmall}

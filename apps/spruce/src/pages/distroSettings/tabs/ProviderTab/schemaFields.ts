@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { textAreaCSS, mergeCheckboxCSS, indentCSS } from "./styles";
+import { indentCSS, mergeCheckboxCSS, textAreaCSS } from "./styles";
 import { BuildType } from "./types";
 
 const userData = {
@@ -48,6 +48,19 @@ const elasticIpsEnabled = {
   uiSchema: {
     "ui:bold": true,
     "ui:description": "Use elastic IPs instead of AWS-provided IPs",
+  },
+};
+
+const enableNestedVirtualization = {
+  schema: {
+    type: "boolean" as const,
+    title: "Enable nested virtualization",
+    default: false,
+  },
+  uiSchema: {
+    "ui:bold": true,
+    "ui:description":
+      "Supported by EC2 8th-generation Intel instances (c8i, m8i, r8i, and flex variants). Required for workloads such as Firecracker.",
   },
 };
 
@@ -240,7 +253,7 @@ const vpcOptions = {
   },
   uiSchema: {
     useVpc: {
-      "ui:data-cy": "use-vpc",
+      "ui:data-testid": "use-vpc",
     },
     subnetId: {
       "ui:placeholder": "e.g. subnet-xxxx",
@@ -292,7 +305,7 @@ const mountPoints = {
     },
   },
   uiSchema: {
-    "ui:data-cy": "mount-points",
+    "ui:data-testid": "mount-points",
     "ui:addButtonText": "Add mount point",
     "ui:orderable": false,
     "ui:topAlignDelete": true,
@@ -348,6 +361,7 @@ export const ec2FleetProviderSettings = {
     instanceProfileARN: instanceProfileARN.schema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
     elasticIpsEnabled: elasticIpsEnabled.schema,
+    enableNestedVirtualization: enableNestedVirtualization.schema,
     mergeUserData: mergeUserData.schema,
     userData: userData.schema,
     securityGroups: securityGroups.schema,
@@ -361,6 +375,7 @@ export const ec2FleetProviderSettings = {
     instanceProfileARN: instanceProfileARN.uiSchema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
     elasticIpsEnabled: elasticIpsEnabled.uiSchema,
+    enableNestedVirtualization: enableNestedVirtualization.uiSchema,
     mergeUserData: mergeUserData.uiSchema,
     userData: userData.uiSchema,
     securityGroups: securityGroups.uiSchema,
@@ -419,7 +434,7 @@ export const taskHostOverridesFields = {
   },
   uiSchema: {
     enableTaskHostOverrides: {
-      "ui:data-cy": "enable-task-host-overrides",
+      "ui:data-testid": "enable-task-host-overrides",
       "ui:description":
         "When enabled, the values below replace the distro's provider settings for task hosts. Empty values override the distro's settings rather than falling back to them. To remove the overrides, toggle off and save.",
       "ui:elementWrapperCSS": css`

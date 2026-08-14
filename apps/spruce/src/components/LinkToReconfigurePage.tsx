@@ -1,6 +1,6 @@
-import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
+import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
-import { useVersionAnalytics, usePatchAnalytics } from "analytics";
+import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { getPatchRoute } from "constants/routes";
 
@@ -22,7 +22,7 @@ export const LinkToReconfigurePage: React.FC<{
         <span>
           <DropdownItem
             as={Link}
-            data-cy="reconfigure-link"
+            data-testid="reconfigure-link"
             disabled={disabled}
             onClick={() => {
               if (!disabled) {

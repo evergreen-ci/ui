@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import {
-  useLeafyGreenTable,
-  LeafyGreenTable,
-  ColumnFiltersState,
-  SortingState,
   BaseTable,
-  TableWrapper,
-  onChangeHandler,
+  ColumnFiltersState,
+  LeafyGreenTable,
+  SortingState,
   TableControl,
   TablePlaceholder,
+  TableWrapper,
+  onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
@@ -18,14 +18,14 @@ import { taskReviewStyles } from "components/TasksTable/styles";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
-import { TaskSortCategory, SortDirection } from "gql/generated/types";
-import { useTaskStatuses, useTableSort } from "hooks";
+import { SortDirection, TaskSortCategory } from "gql/generated/types";
+import { useTableSort, useTaskStatuses } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 import { parseSortString } from "utils/queryString";
 import {
-  mapIdToFilterParam,
-  emptyFilterQueryParams,
   defaultSorting,
+  emptyFilterQueryParams,
+  mapIdToFilterParam,
 } from "./constants";
 
 // Create a more specific enum because duration is not a valid category to sort / filter by in the tasks table.
@@ -89,6 +89,17 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             "task.id": taskId,
             "task.status": status ?? "",
           }),
+        onClickTaskStatusBadge: (
+          taskId: string,
+          status: string,
+          column: string,
+        ) =>
+          sendEvent({
+            name: "Clicked task table status badge",
+            "task.id": taskId,
+            "task.status": status,
+            column: column,
+          }),
       }),
     [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
   );
@@ -132,7 +143,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         // Handle bug in sorting order (https://github.com/TanStack/table/issues/4289)
         sortDescFirst: false,
       },
-      getRowId: (originalRow) => originalRow.id,
+      getRowId: (originalRow, _index, parentRow) =>
+        parentRow ? `${parentRow.id}.${originalRow.id}` : originalRow.id,
       initialState: {
         columnVisibility: { reviewed: taskReviewEnabled },
       },
@@ -158,7 +170,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       controls={
         <TableControl
           filteredCount={filteredCount}
-          label="tasks"
           limit={limit}
           onClear={() => {
             setColumnFilters([]);
@@ -176,9 +187,9 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
     >
       <BaseTable
         css={taskReviewEnabled && taskReviewStyles}
-        data-cy="tasks-table"
-        data-cy-row="tasks-table-row"
         data-loading={loading}
+        data-testid="tasks-table"
+        data-testid-row="tasks-table-row"
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         loadingRows={limit}

@@ -4,11 +4,11 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { gitTagAliasesDocumentationUrl } from "constants/externalResources";
 import {
+  ProjectType,
   alias,
   fieldDisabled,
   form,
   hideIf,
-  ProjectType,
   sectionHasError,
 } from "../utils";
 import { GitTagsFormState } from "./types";
@@ -122,7 +122,7 @@ export const getFormSchema = (
           "ui:sectionTitle": true,
         },
         gitTagVersionsEnabled: {
-          "ui:data-cy": "git-tag-enabled-radio-box",
+          "ui:data-testid": "git-tag-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
         },

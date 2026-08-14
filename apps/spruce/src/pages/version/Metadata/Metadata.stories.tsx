@@ -55,7 +55,7 @@ const version: Version = {
   taskCount: null,
   upstreamProject: null,
   user: {
-    __typename: "UserLite",
+    __typename: "User",
     displayName: "Test User",
     userId: "testuser",
   },

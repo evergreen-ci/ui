@@ -1,11 +1,10 @@
 import { useBreadcrumbAnalytics } from "analytics";
 import { getWaterfallRoute } from "constants/routes";
-import { User } from "gql/generated/types";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const useBreadcrumbRoot = (
   isPatch: boolean,
-  user: Pick<User, "displayName" | "userId">,
+  user: { displayName?: string | null; userId: string },
   projectIdentifier: string,
 ) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
@@ -23,7 +22,7 @@ export const useBreadcrumbRoot = (
             link: "myPatches",
           });
         },
-        "data-cy": "bc-my-patches",
+        "data-testid": "bc-my-patches",
       }
     : {
         to: getWaterfallRoute(projectIdentifier),
@@ -34,6 +33,6 @@ export const useBreadcrumbRoot = (
             link: "waterfall",
           });
         },
-        "data-cy": "bc-waterfall",
+        "data-testid": "bc-waterfall",
       };
 };

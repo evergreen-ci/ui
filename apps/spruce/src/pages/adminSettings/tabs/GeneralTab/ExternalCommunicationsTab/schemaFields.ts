@@ -2,8 +2,8 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PriorityLevel } from "gql/generated/types";
 import {
-  nestedObjectGridCss,
   fullWidthCss,
+  nestedObjectGridCss,
   objectGridCss,
 } from "../../sharedStyles";
 
@@ -25,7 +25,7 @@ export const jira = {
   uiSchema: {
     "ui:fieldCss": nestedObjectGridCss,
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "jira",
+    "ui:data-testid": "jira",
     "ui:objectFieldCss": objectGridCss,
     personalAccessToken: {
       "ui:widget": widgets.TextWidget,
@@ -108,7 +108,7 @@ export const slack = {
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "slack",
+    "ui:data-testid": "slack",
     token: {
       "ui:widget": widgets.TextWidget,
       "ui:options": {
@@ -174,7 +174,7 @@ export const splunk = {
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "splunk",
+    "ui:data-testid": "splunk",
     splunkConnectionInfo: {
       ...splunkConnectionInfo.uiSchema,
     },
@@ -195,7 +195,7 @@ export const runtimeEnvironments = {
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "runtime-environments",
+    "ui:data-testid": "runtime-environments",
     apiKey: {
       "ui:widget": widgets.TextWidget,
       "ui:options": {
@@ -214,7 +214,7 @@ export const testSelection = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "test-selection",
+    "ui:data-testid": "test-selection",
     url: {
       "ui:fullWidth": true,
     },
@@ -230,7 +230,7 @@ export const fws = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "fws",
+    "ui:data-testid": "fws",
     url: {
       "ui:fullWidth": true,
     },
@@ -251,7 +251,7 @@ export const graphite = {
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "graphite",
+    "ui:data-testid": "graphite",
     ciOptimizationToken: {
       "ui:widget": widgets.TextWidget,
       "ui:options": {
@@ -283,7 +283,7 @@ export const cedar = {
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "cedar",
+    "ui:data-testid": "cedar",
   },
 };
 
@@ -296,7 +296,7 @@ export const sage = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "sage",
+    "ui:data-testid": "sage",
     baseUrl: {
       "ui:fullWidth": true,
       "ui:description":

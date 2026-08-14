@@ -14,12 +14,12 @@ export interface ProvidersFormState {
         az: string;
         subnetId: string;
       }>;
+      subnetTagName: string;
+      subnetTagValue: string;
       accountRoles: Array<{
         account: string;
         role: string;
       }>;
-      ec2Key: string;
-      ec2Secret: string;
       parameterStorePrefix: string;
       defaultSecurityGroup: string;
       maxVolumeSizePerUser: number;
@@ -28,6 +28,7 @@ export interface ProvidersFormState {
       allowedRegions: string[];
       ipamPoolID: string;
       elasticIPUsageRate: number;
+      allowedSNSTopicARNs: string[];
 
       persistentDNS: {
         hostedZoneID: string;

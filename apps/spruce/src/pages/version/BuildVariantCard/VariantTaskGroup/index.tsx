@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatusUmbrella } from "@evg-ui/lib/types/task";
@@ -10,7 +10,7 @@ import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { StatusCount } from "gql/generated/types";
 import { PatchTasksQueryParams } from "types/task";
-import { string, statuses } from "utils";
+import { statuses, string } from "utils";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
 const { applyStrictRegex } = string;
@@ -53,10 +53,10 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   };
 
   return (
-    <div data-cy="patch-build-variant">
+    <div data-testid="patch-build-variant">
       <StyledRouterLink
         css={wordBreakCss}
-        data-cy="build-variant-display-name"
+        data-testid="build-variant-display-name"
         onClick={() =>
           sendEvent({
             name: "Filtered by build variant group",

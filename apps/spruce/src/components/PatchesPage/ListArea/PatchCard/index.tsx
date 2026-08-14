@@ -5,16 +5,16 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { useUserPatchesAnalytics, useProjectPatchesAnalytics } from "analytics";
+import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { unlinkedPRUsers } from "constants/patch";
 import { Requester } from "constants/requesters";
 import {
-  getProjectPatchesRoute,
-  getVersionRoute,
-  getUserPatchesRoute,
   getPatchRoute,
+  getProjectPatchesRoute,
+  getUserPatchesRoute,
+  getVersionRoute,
 } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
@@ -64,7 +64,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
       user.displayName
     ) : (
       <StyledRouterLink
-        data-cy="user-patches-link"
+        data-testid="user-patches-link"
         to={getUserPatchesRoute(user.userId)}
       >
         <strong>{user.displayName}</strong>
@@ -73,7 +73,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   } else if (projectIdentifier) {
     patchProject = (
       <StyledRouterLink
-        data-cy="project-patches-link"
+        data-testid="project-patches-link"
         to={getProjectPatchesRoute(projectIdentifier)}
       >
         <strong>{projectIdentifier}</strong>
@@ -98,10 +98,10 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     />
   ));
   return (
-    <CardWrapper data-cy="patch-card">
+    <CardWrapper data-testid="patch-card">
       <Left>
         <DescriptionLink
-          data-cy="patch-card-patch-link"
+          data-testid="patch-card-patch-link"
           onClick={() => analytics.sendEvent({ name: "Clicked patch link" })}
           to={
             activated
@@ -139,7 +139,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         {hidden && (
           <ChipContainer>
             <Chip
-              data-cy="hidden-badge"
+              data-testid="hidden-badge"
               label="Hidden"
               variant={ChipVariant.Gray}
             />

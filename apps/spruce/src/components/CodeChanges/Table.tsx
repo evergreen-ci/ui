@@ -1,8 +1,8 @@
-import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
   BaseTable,
   LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useVersionAnalytics } from "analytics";
 import { getFileDiffRoute } from "constants/routes";
@@ -31,8 +31,8 @@ export const Table: React.FC<TableProps> = ({
 
   return (
     <BaseTable
-      data-cy="code-changes-table"
-      data-cy-row="code-changes-table-row"
+      data-testid="code-changes-table"
+      data-testid-row="code-changes-table-row"
       shouldAlternateRowColor
       table={table}
     />
@@ -62,7 +62,7 @@ const getColumns = ({
     }) => {
       if (disableDiffLinks) {
         return (
-          <span data-cy="file-link">
+          <span data-testid="file-link">
             <WordBreak>{getValue() as string}</WordBreak>
           </span>
         );
@@ -70,7 +70,7 @@ const getColumns = ({
       const fileDiffRoute = getFileDiffRoute(patchId, fileName, moduleIndex);
       return (
         <StyledLink
-          data-cy="file-link"
+          data-testid="file-link"
           href={fileDiffRoute}
           onClick={() =>
             sendEvent({

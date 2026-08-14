@@ -1,6 +1,6 @@
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { action } from "storybook/actions";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 
 import TupleSelect from ".";
 
@@ -13,7 +13,7 @@ export const Default: CustomStoryObj<typeof TupleSelect> = {
     <>
       <TupleSelect
         ariaLabel="Tuple Select"
-        data-cy="tuple-select"
+        data-testid="tuple-select"
         id="tuple-select"
         label="Tuple Select"
         onSubmit={action("submit")}

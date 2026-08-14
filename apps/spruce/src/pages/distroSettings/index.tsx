@@ -1,7 +1,7 @@
-import { useQuery, skipToken } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
@@ -17,10 +17,10 @@ import {
 import { SideNavItemLink } from "components/styles/SideNav";
 import {
   DistroSettingsTabRoutes,
+  ImageTabRoutes,
   getDistroSettingsRoute,
   getImageRoute,
   getTaskQueueRoute,
-  ImageTabRoutes,
   slugs,
 } from "constants/routes";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
@@ -79,7 +79,7 @@ const DistroSettings: React.FC = () => {
                   key={tab}
                   active={tab === currentTab}
                   as={Link}
-                  data-cy={`navitem-${tab}`}
+                  data-testid={`navitem-${tab}`}
                   to={getDistroSettingsRoute(distroId ?? "", tab)}
                 >
                   {getTabTitle(tab).title}
@@ -91,7 +91,7 @@ const DistroSettings: React.FC = () => {
               key={DistroSettingsTabRoutes.SingleTaskDistros}
               active={DistroSettingsTabRoutes.SingleTaskDistros === currentTab}
               as={Link}
-              data-cy={`navitem-${DistroSettingsTabRoutes.SingleTaskDistros}`}
+              data-testid={`navitem-${DistroSettingsTabRoutes.SingleTaskDistros}`}
               to={getDistroSettingsRoute(
                 distroId ?? "",
                 DistroSettingsTabRoutes.SingleTaskDistros,
@@ -100,7 +100,7 @@ const DistroSettings: React.FC = () => {
               {getTabTitle(DistroSettingsTabRoutes.SingleTaskDistros).title}
             </SideNavItem>
             <SideNavItemLink
-              data-cy="navitem-task-queue-link"
+              data-testid="navitem-task-queue-link"
               onClick={() =>
                 sendEvent({ name: "Clicked link", link: "Task Queue" })
               }
@@ -111,7 +111,7 @@ const DistroSettings: React.FC = () => {
             </SideNavItemLink>
             {imageId && (
               <SideNavItemLink
-                data-cy="navitem-image-build-information-link"
+                data-testid="navitem-image-build-information-link"
                 onClick={() =>
                   sendEvent({
                     name: "Clicked link",
@@ -125,7 +125,7 @@ const DistroSettings: React.FC = () => {
             )}
             {imageId && (
               <SideNavItemLink
-                data-cy="navitem-image-event-log-link"
+                data-testid="navitem-image-event-log-link"
                 onClick={() =>
                   sendEvent({
                     name: "Clicked link",
@@ -139,7 +139,7 @@ const DistroSettings: React.FC = () => {
             )}
           </SideNavGroup>
         </SideNav>
-        <SettingsPageContent data-cy="distro-settings-page">
+        <SettingsPageContent data-testid="distro-settings-page">
           {!loading && data?.distro && (
             <DistroSettingsTabs distro={data.distro} />
           )}

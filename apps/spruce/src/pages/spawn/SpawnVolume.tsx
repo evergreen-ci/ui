@@ -3,7 +3,7 @@ import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
+import { BadgeWrapper, Title, TitleContainer } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { MY_VOLUMES } from "gql/queries";
@@ -56,11 +56,11 @@ export const SpawnVolume = () => {
         <Title>Volumes</Title>
         <BadgeWrapper>
           <Badge
-            data-cy="mounted-badge"
+            data-testid="mounted-badge"
             variant={Variant.Green}
           >{`${mountedCount} Mounted`}</Badge>
           <Badge
-            data-cy="free-badge"
+            data-testid="free-badge"
             variant={Variant.Blue}
           >{`${unmountedCount} Free`}</Badge>
         </BadgeWrapper>

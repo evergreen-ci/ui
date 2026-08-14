@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TreeSelect, ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
+import { ALL_VALUE, TreeSelect } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
 import ElementWrapper from "../ElementWrapper";
@@ -13,7 +13,11 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   rawErrors,
   value,
 }) => {
-  const { "data-cy": dataCy, elementWrapperCSS, enumOptions = [] } = options;
+  const {
+    "data-testid": dataTestId,
+    elementWrapperCSS,
+    enumOptions = [],
+  } = options;
 
   const dropdownOptions = [
     {
@@ -44,7 +48,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
           buttonText={`${label}: ${
             value.length ? value.join(", ") : "No options selected."
           }`}
-          data-cy={dataCy}
+          data-testid={dataTestId}
           disabled={disabled}
           id={`${label}-multiselect`}
         >

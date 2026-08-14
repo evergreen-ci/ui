@@ -6,9 +6,9 @@ import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import ExpandedText from "components/ExpandedText";
-import { getVersionRoute, getTriggerRoute } from "constants/routes";
-import { UpstreamProjectFragment, GitTag } from "gql/generated/types";
-import { useSpruceConfig, useDateFormat } from "hooks";
+import { getTriggerRoute, getVersionRoute } from "constants/routes";
+import { GitTag, UpstreamProjectFragment } from "gql/generated/types";
+import { useDateFormat, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 
 const { gray } = palette;
@@ -55,11 +55,11 @@ const CommitChartLabel: React.FC<Props> = ({
   } = upstreamProject || {};
 
   return (
-    <LabelContainer data-cy="commit-label">
+    <LabelContainer data-testid="commit-label">
       <LabelText>
         <InlineCode
           as={Link}
-          data-cy="githash-link"
+          data-testid="githash-link"
           onClick={onClickGithash}
           to={getVersionRoute(versionId)}
         >
@@ -101,7 +101,10 @@ const CommitChartLabel: React.FC<Props> = ({
         )}
       </LabelText>
       {shortenMessage && (
-        <ExpandedText data-cy="long-commit-message-tooltip" message={message} />
+        <ExpandedText
+          data-testid="long-commit-message-tooltip"
+          message={message}
+        />
       )}
       {gitTags && (
         <LabelText>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</LabelText>

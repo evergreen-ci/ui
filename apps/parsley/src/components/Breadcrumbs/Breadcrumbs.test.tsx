@@ -9,26 +9,28 @@ import Breadcrumbs from ".";
 
 describe("breadcrumbs", () => {
   it("should render an individual breadcrumb", () => {
-    render(<Breadcrumbs breadcrumbs={[{ "data-cy": "bc", text: "test" }]} />);
+    render(
+      <Breadcrumbs breadcrumbs={[{ "data-testid": "bc", text: "test" }]} />,
+    );
     expect(screen.getByText("test")).toBeInTheDocument();
-    expect(screen.queryByDataCy("breadcrumb-chevron")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("breadcrumb-chevron")).not.toBeInTheDocument();
   });
 
   it("should render many breadcrumbs separated by chevrons", () => {
     const breadcrumbs = [
-      { "data-cy": "bc-1", text: "test 1" },
-      { "data-cy": "bc-2", text: "test 2" },
+      { "data-testid": "bc-1", text: "test 1" },
+      { "data-testid": "bc-2", text: "test 2" },
     ];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText("test 1")).toBeInTheDocument();
     expect(screen.getByText("test 2")).toBeInTheDocument();
-    expect(screen.queryAllByDataCy("breadcrumb-chevron")).toHaveLength(1);
+    expect(screen.queryAllByTestId("breadcrumb-chevron")).toHaveLength(1);
   });
 
   it("breadcrumbs with long text should be collapsed to 30 characters by default and viewable with a tooltip", async () => {
     const user = userEvent.setup();
     const longMessage = "some really long string that could be a patch title";
-    const breadcrumbs = [{ "data-cy": "bc", text: longMessage }];
+    const breadcrumbs = [{ "data-testid": "bc", text: longMessage }];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.queryByText(longMessage)).not.toBeInTheDocument();
 
@@ -37,7 +39,7 @@ describe("breadcrumbs", () => {
     ).toBeInTheDocument();
     await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
     await waitFor(() => {
-      expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
+      expect(screen.getByTestId("breadcrumb-tooltip")).toBeInTheDocument();
     });
     expect(screen.getByText(longMessage)).toBeInTheDocument();
   });
@@ -46,7 +48,7 @@ describe("breadcrumbs", () => {
     const user = userEvent.setup();
     const longMessage = "some really long string that could be a patch title";
     const breadcrumbs = [
-      { "data-cy": "bc", text: longMessage, trimLength: 25 },
+      { "data-testid": "bc", text: longMessage, trimLength: 25 },
     ];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.queryByText(longMessage)).not.toBeInTheDocument();
@@ -56,7 +58,7 @@ describe("breadcrumbs", () => {
     ).toBeInTheDocument();
     await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 25)));
     await waitFor(() => {
-      expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
+      expect(screen.getByTestId("breadcrumb-tooltip")).toBeInTheDocument();
     });
     expect(screen.getByText(longMessage)).toBeInTheDocument();
   });
@@ -64,13 +66,13 @@ describe("breadcrumbs", () => {
   it("should not display a tooltip if the text is short", async () => {
     const user = userEvent.setup();
     const shortMessage = "short";
-    const breadcrumbs = [{ "data-cy": "bc", text: shortMessage }];
+    const breadcrumbs = [{ "data-testid": "bc", text: shortMessage }];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText(shortMessage)).toBeInTheDocument();
     await user.hover(screen.getByText(shortMessage));
     await waitFor(() => {
       expect(
-        screen.queryByDataCy("breadcrumb-tooltip"),
+        screen.queryByTestId("breadcrumb-tooltip"),
       ).not.toBeInTheDocument();
     });
   });
@@ -78,7 +80,9 @@ describe("breadcrumbs", () => {
   it("clicking on a tooltip with a link and event handler should call the event", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    const breadcrumbs = [{ "data-cy": "bc", onClick, text: "test", to: "/" }];
+    const breadcrumbs = [
+      { "data-testid": "bc", onClick, text: "test", to: "/" },
+    ];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText("test")).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute("href", "/");
@@ -92,7 +96,7 @@ describe("breadcrumbs", () => {
     const user = userEvent.setup();
     const breadcrumbs = [
       {
-        "data-cy": "bc",
+        "data-testid": "bc",
         text: "My Breadcrumb",
         tooltipText: "My Tooltip Text",
       },

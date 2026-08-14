@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Body, H2 } from "@leafygreen-ui/typography";
-import { Route, Routes, useParams, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
   PreferencesTabRoutes,
@@ -25,7 +25,7 @@ export const PreferencesTabs: React.FC = () => {
   return (
     <>
       <TitleContainer>
-        <H2 data-cy="preferences-tab-title">{title}</H2>
+        <H2 data-testid="preferences-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </TitleContainer>
       <Routes>

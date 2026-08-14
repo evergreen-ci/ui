@@ -3,8 +3,8 @@ import { fontFamilies } from "@leafygreen-ui/tokens";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
-  CardFieldTemplate,
   AccordionFieldTemplate,
+  CardFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
 import { Arch } from "gql/generated/types";
@@ -434,7 +434,7 @@ const authorizedKeysFile = {
     title: "Authorized Keys File",
   },
   uiSchema: (hasStaticProvider: boolean) => ({
-    "ui:data-cy": "authorized-keys-input",
+    "ui:data-testid": "authorized-keys-input",
     "ui:description": "Path to file containing authorized SSH keys",
     "ui:placeholder": "~/.ssh/authorized_keys",
     ...(!hasStaticProvider && { "ui:widget": "hidden" }),
@@ -486,7 +486,7 @@ const roundingRule = {
   },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:allowDeselect": false,
-    "ui:data-cy": "rounding-rule-select",
+    "ui:data-testid": "rounding-rule-select",
     ...(hasStaticProvider && { "ui:widget": "hidden" }),
   }),
 };
@@ -499,7 +499,7 @@ const feedbackRule = {
   },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:allowDeselect": false,
-    "ui:data-cy": "feedback-rule-select",
+    "ui:data-testid": "feedback-rule-select",
     ...(hasStaticProvider && { "ui:widget": "hidden" }),
   }),
 };
@@ -535,7 +535,7 @@ const minimumHosts = {
     minimum: 0,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
-    "ui:data-cy": "minimum-hosts-input",
+    "ui:data-testid": "minimum-hosts-input",
     ...(!hasEC2Provider && { "ui:widget": "hidden" }),
   }),
 };
@@ -547,19 +547,20 @@ const maximumHosts = {
     minimum: 0,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
-    "ui:data-cy": "maximum-hosts-input",
+    "ui:data-testid": "maximum-hosts-input",
     ...(!hasEC2Provider && { "ui:widget": "hidden" }),
   }),
 };
 
-const acceptableHostIdleTime = {
+const acceptableHostIdleTimeSeconds = {
   schema: {
     type: "number" as const,
-    title: "Acceptable Host Idle Time (ms)",
+    title: "Acceptable Host Idle Time (secs)",
     minimum: 0,
+    multipleOf: 1,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
-    "ui:data-cy": "idle-time-input",
+    "ui:data-testid": "idle-time-input",
     "ui:description": "Set 0 to use global default.",
     ...(!hasEC2Provider && { "ui:widget": "hidden" }),
   }),
@@ -573,7 +574,7 @@ const futureHostFraction = {
     maximum: 1,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
-    "ui:data-cy": "future-fraction-input",
+    "ui:data-testid": "future-fraction-input",
     "ui:description": "Set 0 to use global default.",
     ...(!hasEC2Provider && { "ui:widget": "hidden" }),
   }),
@@ -674,7 +675,7 @@ export const allocation = {
     minimumHosts: minimumHosts.schema,
     maximumHosts: maximumHosts.schema,
     autoTuneMaximumHosts: autoTuneMaximumHosts.schema,
-    acceptableHostIdleTime: acceptableHostIdleTime.schema,
+    acceptableHostIdleTimeSeconds: acceptableHostIdleTimeSeconds.schema,
     futureHostFraction: futureHostFraction.schema,
   },
   uiSchema: (hasEC2Provider: boolean, hasStaticProvider: boolean) => ({
@@ -686,7 +687,8 @@ export const allocation = {
     minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
     maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
     autoTuneMaximumHosts: autoTuneMaximumHosts.uiSchema(hasEC2Provider),
-    acceptableHostIdleTime: acceptableHostIdleTime.uiSchema(hasEC2Provider),
+    acceptableHostIdleTimeSeconds:
+      acceptableHostIdleTimeSeconds.uiSchema(hasEC2Provider),
     futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
   }),
 };

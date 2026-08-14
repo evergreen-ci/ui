@@ -2,18 +2,18 @@ import { SpruceFormProps } from "components/SpruceForm/types";
 import {
   buildRegexSelectors,
   failureTypeSubscriberOptions,
-  requesterSubscriberOptions,
-  taskRegexSelectors,
   regexBuildVariant,
   regexDisplayName,
+  requesterSubscriberOptions,
+  taskRegexSelectors,
 } from "constants/triggers";
 import {
   ExtraFieldKey,
-  RegexSelector,
-  Trigger,
-  TaskTriggers,
-  VersionTriggers,
   ProjectTriggers,
+  RegexSelector,
+  TaskTriggers,
+  Trigger,
+  VersionTriggers,
 } from "types/triggers";
 import { RegexSelectorRow } from "./RegexSelectorRow";
 
@@ -426,35 +426,35 @@ export const getEventSchema = (
   },
   uiSchema: {
     eventSelect: {
-      "ui:data-cy": "event-trigger-select",
+      "ui:data-testid": "event-trigger-select",
       "ui:allowDeselect": false,
     },
     extraFields: {
       "ui:showLabel": false,
       [ExtraFieldKey.TASK_PERCENT_CHANGE]: {
-        "ui:data-cy": "percent-change-input",
+        "ui:data-testid": "percent-change-input",
       },
       [ExtraFieldKey.VERSION_PERCENT_CHANGE]: {
-        "ui:data-cy": "percent-change-input",
+        "ui:data-testid": "percent-change-input",
       },
       [ExtraFieldKey.TASK_DURATION_SECS]: {
-        "ui:data-cy": "duration-secs-input",
+        "ui:data-testid": "duration-secs-input",
       },
       [ExtraFieldKey.VERSION_DURATION_SECS]: {
-        "ui:data-cy": "duration-secs-input",
+        "ui:data-testid": "duration-secs-input",
       },
       [ExtraFieldKey.RENOTIFY_INTERVAL]: {
-        "ui:data-cy": "renotify-interval-input",
+        "ui:data-testid": "renotify-interval-input",
       },
       [ExtraFieldKey.TEST_REGEX]: {
-        "ui:data-cy": "test-regex-input",
+        "ui:data-testid": "test-regex-input",
       },
       [ExtraFieldKey.BUILD_INITIATOR]: {
-        "ui:data-cy": "build-initiator-select",
+        "ui:data-testid": "build-initiator-select",
         "ui:allowDeselect": false,
       },
       [ExtraFieldKey.FAILURE_TYPE]: {
-        "ui:data-cy": "failure-type-select",
+        "ui:data-testid": "failure-type-select",
         "ui:allowDeselect": false,
       },
     },
@@ -469,12 +469,12 @@ export const getEventSchema = (
         "ui:ObjectFieldTemplate": RegexSelectorRow,
         "ui:label": false,
         regexSelect: {
-          "ui:data-cy": "regex-select",
+          "ui:data-testid": "regex-select",
           "ui:enumDisabled": regexEnumsToDisable,
           "ui:allowDeselect": false,
         },
         regexInput: {
-          "ui:data-cy": "regex-input",
+          "ui:data-testid": "regex-input",
         },
       },
     },

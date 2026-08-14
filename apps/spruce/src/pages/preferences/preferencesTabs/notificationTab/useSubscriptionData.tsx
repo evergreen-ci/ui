@@ -5,10 +5,10 @@ import { LeafyGreenTableRow } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { convertFromFamilyTrigger } from "constants/triggers";
 import {
-  UserSubscriptionsQuery,
-  UserSubscriptionsQueryVariables,
   GeneralSubscription,
   Selector,
+  UserSubscriptionsQuery,
+  UserSubscriptionsQueryVariables,
 } from "gql/generated/types";
 import { USER_SUBSCRIPTIONS } from "gql/queries";
 
@@ -73,14 +73,14 @@ const processSubscriptionData = (
               renderExpandedContent: (
                 row: LeafyGreenTableRow<GeneralSubscription>,
               ) => (
-                <ExpandedBlock data-cy="expanded-block">
+                <ExpandedBlock data-testid="expanded-block">
                   {hasTriggerData && (
-                    <div data-cy="trigger-data">
+                    <div data-testid="trigger-data">
                       {JSON.stringify(row.original.triggerData, null, 2)}
                     </div>
                   )}
                   {hasRegexSelectors && (
-                    <div data-cy="regex-selectors">
+                    <div data-testid="regex-selectors">
                       {JSON.stringify(
                         formatRegexSelectors(row.original.regexSelectors),
                         null,

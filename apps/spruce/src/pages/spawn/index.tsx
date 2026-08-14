@@ -1,4 +1,4 @@
-import { useParams, Link, Route, Routes, Navigate } from "react-router-dom";
+import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import {
   SideNav,
@@ -7,7 +7,7 @@ import {
   SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
-import { routes, SpawnTab, slugs } from "constants/routes";
+import { SpawnTab, routes, slugs } from "constants/routes";
 import { SpawnHost } from "./SpawnHost";
 import { SpawnVolume } from "./SpawnVolume";
 
@@ -22,7 +22,7 @@ const Spawn: React.FC = () => {
           <SideNavItem
             active={tab === SpawnTab.Host}
             as={Link}
-            data-cy="host-nav-tab"
+            data-testid="host-nav-tab"
             onClick={() =>
               spawnAnalytics.sendEvent({
                 name: "Changed tab",
@@ -36,7 +36,7 @@ const Spawn: React.FC = () => {
           <SideNavItem
             active={tab === SpawnTab.Volume}
             as={Link}
-            data-cy="volume-nav-tab"
+            data-testid="volume-nav-tab"
             onClick={() =>
               spawnAnalytics.sendEvent({
                 name: "Changed tab",

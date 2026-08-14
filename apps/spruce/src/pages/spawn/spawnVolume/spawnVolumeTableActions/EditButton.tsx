@@ -15,7 +15,7 @@ export const EditButton: React.FC<Props> = ({ maxSpawnableLimit, volume }) => {
     <>
       <Button
         as="button"
-        data-cy={`edit-btn-${volume.displayName || volume.id}`}
+        data-testid={`edit-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {
           e.stopPropagation();

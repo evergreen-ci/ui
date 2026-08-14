@@ -3,10 +3,10 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Code } from "@leafygreen-ui/code";
 import { css } from "@leafygreen-ui/emotion";
-import { Popover, Align, DismissMode } from "@leafygreen-ui/popover";
+import { Align, DismissMode, Popover } from "@leafygreen-ui/popover";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -89,14 +89,14 @@ export const TaskOverviewPopup: React.FC<Props> = ({
       dismissMode={DismissMode.Manual}
       refEl={taskBoxRef}
     >
-      <PopoverCard data-cy="task-overview-popup">
+      <PopoverCard data-testid="task-overview-popup">
         {isLoading ? (
           <ListSkeleton />
         ) : (
           <>
             <span>
               <TaskPageLink
-                data-cy="task-link"
+                data-testid="task-link"
                 to={getTaskRoute(taskId, { execution })}
               >
                 {displayName}
@@ -117,7 +117,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
               <div>
                 <b>Distro: </b>
                 <RouterLink
-                  data-cy="task-distro-link"
+                  data-testid="task-distro-link"
                   to={getDistroSettingsRoute(distroId)}
                 >
                   {distroId}

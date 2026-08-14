@@ -26,13 +26,13 @@ export const gqlToForm = ((data) => {
             az: subnet.az ?? "",
             subnetId: subnet.subnetId ?? "",
           })) ?? [],
+        subnetTagName: providers?.aws?.subnetTagName ?? "",
+        subnetTagValue: providers?.aws?.subnetTagValue ?? "",
         accountRoles:
           providers?.aws?.accountRoles?.map((role) => ({
             account: role.account ?? "",
             role: role.role ?? "",
           })) ?? [],
-        ec2Key: providers?.aws?.ec2Keys?.[0]?.key ?? "",
-        ec2Secret: providers?.aws?.ec2Keys?.[0]?.secret ?? "",
         parameterStorePrefix: parameterStore?.prefix ?? "",
         defaultSecurityGroup: providers?.aws?.defaultSecurityGroup ?? "",
         maxVolumeSizePerUser: providers?.aws?.maxVolumeSizePerUser ?? 0,
@@ -41,6 +41,7 @@ export const gqlToForm = ((data) => {
         allowedRegions: providers?.aws?.allowedRegions ?? [],
         ipamPoolID: providers?.aws?.ipamPoolID ?? "",
         elasticIPUsageRate: providers?.aws?.elasticIPUsageRate ?? 0,
+        allowedSNSTopicARNs: providers?.aws?.allowedSNSTopicARNs ?? [],
         persistentDNS: {
           hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
           domain: providers?.aws?.persistentDNS?.domain ?? "",
@@ -87,16 +88,10 @@ export const formToGql = ((form: ProvidersFormState) => {
         allowedInstanceTypes: aws.allowedInstanceTypes,
         allowedRegions: aws.allowedRegions,
         defaultSecurityGroup: aws.defaultSecurityGroup || undefined,
-        ec2Keys: [
-          {
-            name: "default", // We'll use a default name since we flattened this
-            key: aws.ec2Key,
-            secret: aws.ec2Secret,
-          },
-        ],
         elasticIPUsageRate: aws.elasticIPUsageRate || undefined,
         ipamPoolID: aws.ipamPoolID || undefined,
         maxVolumeSizePerUser: aws.maxVolumeSizePerUser || undefined,
+        allowedSNSTopicARNs: aws.allowedSNSTopicARNs,
         persistentDNS: {
           hostedZoneID: aws.persistentDNS.hostedZoneID,
           domain: aws.persistentDNS.domain || undefined,
@@ -113,6 +108,8 @@ export const formToGql = ((form: ProvidersFormState) => {
           az: subnet.az,
           subnetId: subnet.subnetId,
         })),
+        subnetTagName: aws.subnetTagName || undefined,
+        subnetTagValue: aws.subnetTagValue || undefined,
       },
       docker: {
         apiVersion: docker.apiVersion || undefined,

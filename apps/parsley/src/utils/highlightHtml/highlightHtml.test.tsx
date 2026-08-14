@@ -6,13 +6,13 @@ describe("highlightHtml", () => {
     render(
       <>
         {highlightHtml(
-          "<a href='https://donthighlightme.com'>highlight me</a> highlight me <span data-cy='dont-highlight-me'>highlight me</span>",
+          "<a href='https://donthighlightme.com'>highlight me</a> highlight me <span data-testid='dont-highlight-me'>highlight me</span>",
           /highlight/gi,
         )}
       </>,
     );
-    expect(screen.queryAllByDataCy("highlight")).toHaveLength(3);
-    expect(screen.getByDataCy("dont-highlight-me")).toBeInTheDocument();
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(3);
+    expect(screen.getByTestId("dont-highlight-me")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "highlight me" })).toHaveAttribute(
       "href",
       "https://donthighlightme.com",
@@ -22,19 +22,19 @@ describe("highlightHtml", () => {
     render(
       <>
         {highlightHtml(
-          "<blah blah> <span data-cy='dont-highlight-me'>blah blah</span>",
+          "<blah blah> <span data-testid='dont-highlight-me'>blah blah</span>",
           /</gi,
         )}
       </>,
     );
-    expect(screen.queryAllByDataCy("highlight")).toHaveLength(1);
-    expect(screen.queryByDataCy("highlight")).toHaveTextContent("<");
-    expect(screen.getByDataCy("dont-highlight-me")).toBeInTheDocument();
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(1);
+    expect(screen.queryByTestId("highlight")).toHaveTextContent("<");
+    expect(screen.getByTestId("dont-highlight-me")).toBeInTheDocument();
   });
   it("highlights the content inside of <> if it's not a valid HTML tag", () => {
     render(<>{highlightHtml("<Downloading package...>", /Downloading/gi)}</>);
-    expect(screen.queryAllByDataCy("highlight")).toHaveLength(1);
-    expect(screen.getByDataCy("highlight")).toHaveTextContent("Downloading");
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(1);
+    expect(screen.getByTestId("highlight")).toHaveTextContent("Downloading");
   });
   it("applies multiple highlights with different colors", () => {
     render(
@@ -46,7 +46,7 @@ describe("highlightHtml", () => {
         )}
       </>,
     );
-    const highlights = screen.queryAllByDataCy("highlight");
+    const highlights = screen.queryAllByTestId("highlight");
     expect(highlights).toHaveLength(3);
     const colors = new Set(highlights.map((el) => el.getAttribute("color")));
     expect(colors.size).toBe(3);
@@ -54,8 +54,8 @@ describe("highlightHtml", () => {
   it("should deduplicate highlights and searches", () => {
     const regexp = /test/i;
     render(<>{highlightHtml("This is a test", regexp, regexp)}</>);
-    expect(screen.queryAllByDataCy("highlight")).toHaveLength(1);
-    expect(screen.getByDataCy("highlight")).toHaveTextContent("test");
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(1);
+    expect(screen.getByTestId("highlight")).toHaveTextContent("test");
   });
   it("should show both highlights and searches if they are on the same line", () => {
     render(
@@ -67,8 +67,8 @@ describe("highlightHtml", () => {
         )}
       </>,
     );
-    expect(screen.queryAllByDataCy("highlight")).toHaveLength(2);
-    screen.getAllByDataCy("highlight").forEach((highlight) => {
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(2);
+    screen.getAllByTestId("highlight").forEach((highlight) => {
       expect(highlight).toHaveTextContent(/building|production/i);
     });
   });

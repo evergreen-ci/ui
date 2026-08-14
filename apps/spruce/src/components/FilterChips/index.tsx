@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button, Variant, Size } from "@leafygreen-ui/button";
+import { Button, Size, Variant } from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
 import FilterChip, { FilterChipType } from "./FilterChip";
 import { SeeMoreModal } from "./SeeMoreModal";
@@ -54,7 +54,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
       )}
       {chips.length > 0 && (
         <Button
-          data-cy="clear-filters"
+          data-testid="clear-filters"
           onClick={handleClearAll}
           size={Size.XSmall}
           variant={Variant.Default}

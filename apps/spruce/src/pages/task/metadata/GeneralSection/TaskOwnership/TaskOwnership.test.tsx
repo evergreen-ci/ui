@@ -2,8 +2,8 @@ import {
   MockedProvider,
   renderWithRouterMatch as render,
   screen,
-  waitFor,
   userEvent,
+  waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
@@ -105,7 +105,7 @@ describe("TaskOwnership", () => {
 
     // Should not find the component while loading
     expect(
-      screen.queryByDataCy("task-metadata-task-ownership"),
+      screen.queryByTestId("task-metadata-task-ownership"),
     ).not.toBeInTheDocument();
   });
 
@@ -119,14 +119,15 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
     expect(screen.getByText("Task owner:")).toBeInTheDocument();
     expect(screen.getByText("Evergreen UI Team")).toBeInTheDocument();
 
-    await user.hover(screen.getByDataTestid("info-sprinkle-icon"));
+    const infoSprinkle = screen.getByRole("button", { name: "more info" });
+    await user.hover(infoSprinkle);
 
     await waitFor(() => {
       expect(
@@ -134,7 +135,7 @@ describe("TaskOwnership", () => {
       ).toBeInTheDocument();
     });
 
-    await user.unhover(screen.getByDataTestid("info-sprinkle-icon"));
+    await user.unhover(infoSprinkle);
   });
 
   it("renders fallback text when no team name is available", async () => {
@@ -146,7 +147,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
@@ -163,7 +164,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 
@@ -208,7 +209,7 @@ describe("TaskOwnership", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByDataCy("task-metadata-task-ownership"),
+        screen.getByTestId("task-metadata-task-ownership"),
       ).toBeInTheDocument();
     });
 

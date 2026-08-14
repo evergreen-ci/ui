@@ -1,7 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-// Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
-// eslint-disable-next-line @emotion/no-vanilla
-import { css as classNameCss } from "@emotion/css";
+import { css as classNameCss } from "@emotion/css"; // Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
@@ -19,10 +17,10 @@ import { useBuildVariantContext } from "./BuildVariantContext";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import {
   BuildVariantTitle,
-  columnBasis,
-  gridGroupCss,
   InactiveVersion,
   Row,
+  columnBasis,
+  gridGroupCss,
 } from "./styles";
 import { Build, BuildVariant, GroupedVersion } from "./types";
 import { WaterfallTask } from "./WaterfallTask";
@@ -115,7 +113,7 @@ const BuildRowInner: React.FC<Props> = ({
       buildColumns.push(
         <InactiveVersion
           key={inactiveVersions[0].id}
-          data-cy="inactive-column"
+          data-testid="inactive-column"
         />,
       );
     } else if (version && version.id === builds?.[buildIndex]?.version) {
@@ -141,18 +139,18 @@ const BuildRowInner: React.FC<Props> = ({
 
   return (
     <Row>
-      <BuildVariantTitle data-cy="build-variant-label">
+      <BuildVariantTitle data-testid="build-variant-label">
         <StyledIconButton
           active={pinned}
           aria-label="Pin build variant"
-          data-cy="pin-button"
+          data-testid="pin-button"
           onClick={handlePinClick}
           {...iconButtonProps}
         >
           <Icon glyph="Pin" />
         </StyledIconButton>
         <StyledLink
-          data-cy="build-variant-link"
+          data-testid="build-variant-link"
           href={getVariantHistoryRoute(projectIdentifier, build.id)}
           onClick={handleVariantClick}
         >
@@ -161,9 +159,9 @@ const BuildRowInner: React.FC<Props> = ({
       </BuildVariantTitle>
       <VisibilityContainer
         className={buildGroupClassName}
-        data-cy="build-group"
+        data-testid="build-group"
         offset={1000}
-        style={{ height: containerHeight }}
+        style={{ minHeight: containerHeight }}
       >
         {buildColumns}
       </VisibilityContainer>
@@ -237,7 +235,10 @@ const calculateBVContainerHeight = ({
   columnWidth: number;
 }) => {
   const numTasks = Math.max(...builds.map((b) => b.tasks.length));
-  const numSquaresInRow = Math.floor(columnWidth / SQUARE_WITH_BORDER);
+  const numSquaresInRow = Math.max(
+    Math.floor(columnWidth / SQUARE_WITH_BORDER),
+    1,
+  );
   const numRows = Math.ceil(numTasks / numSquaresInRow);
   return numRows * SQUARE_WITH_BORDER + containerPaddingAndBorder;
 };
@@ -253,6 +254,10 @@ const buildGroupClassName = classNameCss(buildGroupCss.styles);
 
 const BuildContainer = styled.div`
   ${columnBasis}
+  display: grid;
+  grid-template-columns: repeat(auto-fill, ${SQUARE_WITH_BORDER}px);
+  align-content: start;
+  min-width: 0;
 `;
 
 const StyledIconButton = styled(IconButton)<{ active: boolean }>`

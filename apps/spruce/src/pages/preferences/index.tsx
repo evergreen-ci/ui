@@ -1,5 +1,5 @@
 import { Icon } from "@leafygreen-ui/icon";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { usePreferencesAnalytics } from "analytics";
 import {
@@ -30,7 +30,7 @@ const Preferences: React.FC = () => {
           <SideNavItem
             active={tab === PreferencesTabRoutes.Profile}
             as={Link}
-            data-cy="profile-nav-tab"
+            data-testid="profile-nav-tab"
             onClick={() =>
               sendEvent({
                 name: "Changed tab",
@@ -44,7 +44,7 @@ const Preferences: React.FC = () => {
           <SideNavItem
             active={tab === PreferencesTabRoutes.Notifications}
             as={Link}
-            data-cy="notifications-nav-tab"
+            data-testid="notifications-nav-tab"
             onClick={() =>
               sendEvent({
                 name: "Changed tab",
@@ -58,7 +58,7 @@ const Preferences: React.FC = () => {
           <SideNavItem
             active={tab === PreferencesTabRoutes.CLI}
             as={Link}
-            data-cy="cli-nav-tab"
+            data-testid="cli-nav-tab"
             onClick={() =>
               sendEvent({
                 name: "Changed tab",
@@ -72,7 +72,7 @@ const Preferences: React.FC = () => {
           <SideNavItem
             active={tab === PreferencesTabRoutes.PublicKeys}
             as={Link}
-            data-cy="publickeys-nav-tab"
+            data-testid="publickeys-nav-tab"
             onClick={() =>
               sendEvent({
                 name: "Changed tab",
@@ -86,7 +86,7 @@ const Preferences: React.FC = () => {
           <SideNavItem
             active={tab === PreferencesTabRoutes.UISettings}
             as={Link}
-            data-cy="ui-settings-nav-tab"
+            data-testid="ui-settings-nav-tab"
             onClick={() =>
               sendEvent({
                 name: "Changed tab",
@@ -101,7 +101,7 @@ const Preferences: React.FC = () => {
           <SideNavItem
             active={tab === PreferencesTabRoutes.SageBotSettings}
             as={Link}
-            data-cy="sage-bot-settings-nav-tab"
+            data-testid="sage-bot-settings-nav-tab"
             onClick={() =>
               sendEvent({
                 name: "Changed tab",

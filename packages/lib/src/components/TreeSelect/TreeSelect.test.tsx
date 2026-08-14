@@ -4,7 +4,7 @@ import { TreeSelect } from ".";
 describe("treeSelect", () => {
   it("renders each value in the tree", () => {
     render(<TreeSelect onChange={() => {}} state={[]} tData={treeData} />);
-    expect(screen.getByDataCy("tree-select-options")).toBeInTheDocument();
+    expect(screen.getByTestId("tree-select-options")).toBeInTheDocument();
     for (let i = 0; i < treeData.length; i++) {
       expect(screen.getByText(treeData[i].title)).toBeInTheDocument();
     }
@@ -14,7 +14,7 @@ describe("treeSelect", () => {
     render(
       <TreeSelect onChange={() => {}} state={["pass"]} tData={treeData} />,
     );
-    expect(screen.getByDataCy("tree-select-options")).toBeInTheDocument();
+    expect(screen.getByTestId("tree-select-options")).toBeInTheDocument();
     const checkbox = screen.queryByLabelText("Pass");
     expect(checkbox).toBeChecked();
   });
@@ -24,8 +24,7 @@ describe("treeSelect", () => {
     const onChange = vi.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("Pass")).toBeInTheDocument();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("Pass"));
+    await user.click(screen.getByText("Pass"));
     expect(onChange).toHaveBeenCalledWith(["pass"]);
   });
 
@@ -34,8 +33,7 @@ describe("treeSelect", () => {
     const onChange = vi.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("All")).toBeInTheDocument();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("All"));
+    await user.click(screen.getByText("All"));
     expect(onChange).toHaveBeenCalledWith([
       "all",
       "pass",
@@ -67,8 +65,7 @@ describe("treeSelect", () => {
     expect(screen.queryByLabelText("Failing Umbrella")).toBeChecked();
     expect(screen.queryByLabelText("System Failure")).toBeChecked();
     expect(screen.queryByLabelText("Fail")).toBeChecked();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("Fail"));
+    await user.click(screen.getByText("Fail"));
     expect(onChange).toHaveBeenCalledWith(["system-failure"]);
   });
 
@@ -79,8 +76,7 @@ describe("treeSelect", () => {
       <TreeSelect onChange={onChange} state={[]} tData={nestedTreeData} />,
     );
     expect(screen.getByText("Failing Umbrella")).toBeInTheDocument();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("Failing Umbrella"));
+    await user.click(screen.getByText("Failing Umbrella"));
     expect(onChange).toHaveBeenCalledWith([
       "failing-umbrella",
       "system-failure",

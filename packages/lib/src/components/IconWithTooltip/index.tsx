@@ -1,25 +1,31 @@
 import styled from "@emotion/styled";
-import { Tooltip, TooltipProps } from "@leafygreen-ui/tooltip";
+import {
+  Align,
+  Justify,
+  Tooltip,
+  TooltipProps,
+  TriggerEvent,
+} from "@leafygreen-ui/tooltip";
 import Icon from "../Icon";
 
 interface IconWithTooltipProps extends React.ComponentProps<typeof Icon> {
-  ["data-cy"]?: string;
+  ["data-testid"]?: string;
 }
 
 const IconWithTooltip: React.FC<IconWithTooltipProps> = ({
   children,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   ...rest
 }) => (
   <StyledTooltip
-    align="top"
-    justify="middle"
+    align={Align.Top}
+    justify={Justify.Middle}
     trigger={
-      <IconWrapper data-cy={dataCy}>
+      <IconWrapper data-testid={dataTestId}>
         <Icon {...rest} />
       </IconWrapper>
     }
-    triggerEvent="hover"
+    triggerEvent={TriggerEvent.Hover}
   >
     {children}
   </StyledTooltip>

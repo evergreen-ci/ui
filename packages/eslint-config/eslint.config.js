@@ -1,8 +1,6 @@
-import * as emotionPlugin from "@emotion/eslint-plugin";
-import { fixupPluginRules } from "@eslint/compat";
-import stylisticPlugin from "@stylistic/eslint-plugin";
 import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
+import stylisticPlugin from "@stylistic/eslint-plugin";
 import { defineConfig } from "eslint/config";
 import disableConflictsPlugin from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
@@ -121,6 +119,7 @@ const eslintConfig = {
     ],
     "prefer-regex-literals": [ERROR, { disallowRedundantWrapping: true }],
     "prefer-template": ERROR,
+    "sort-imports": [ERROR, { ignoreDeclarationSort: true }],
     radix: ERROR,
     yoda: ERROR,
   },
@@ -271,23 +270,6 @@ const jsxA11yConfig = {
       { some: ["nesting", "id"] },
     ],
     "jsx-a11y/no-autofocus": ERROR,
-  },
-};
-
-// Emotion ESLint (@emotion/eslint-plugin) settings.
-// Emotion doesn't actually support FlatConfig yet so we're using a conversion utility.
-const emotionConfig = {
-  name: "@emotion/rules",
-  files: ["src/**/*.ts?(x)"],
-  plugins: {
-    "@emotion": fixupPluginRules(emotionPlugin),
-  },
-  rules: {
-    "@emotion/import-from-emotion": ERROR,
-    "@emotion/no-vanilla": errorIfStrict,
-    "@emotion/pkg-renaming": ERROR,
-    "@emotion/styled-import": ERROR,
-    "@emotion/syntax-preference": [errorIfStrict, "string"],
   },
 };
 
@@ -481,7 +463,6 @@ export default defineConfig(
   reactConfig,
   reactHooksConfig,
   jsxA11yConfig,
-  emotionConfig,
   sortDestructureKeysConfig,
   testingLibraryConfig,
   jsDocConfig,

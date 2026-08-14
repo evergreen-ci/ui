@@ -8,7 +8,7 @@ const ZebraStripingToggle: React.FC = () => {
   const { setZebraStriping, zebraStriping } = preferences;
   return (
     <BaseToggle
-      data-cy="zebra-striping-toggle"
+      data-testid="zebra-striping-toggle"
       label="Zebra Striping"
       onChange={(value) => {
         setZebraStriping(value);

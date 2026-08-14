@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { InlineCode, Description } from "@leafygreen-ui/typography";
+import { Description, InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { bannerThemeToLabelMap } from "components/Banners";
 import {
@@ -126,10 +126,10 @@ export const getFormSchema = (
           bannerData: {
             text: {
               "ui:placeholder": "Enter banner text",
-              "ui:data-cy": "banner-text",
+              "ui:data-testid": "banner-text",
             },
             theme: {
-              "ui:data-cy": "banner-theme",
+              "ui:data-testid": "banner-theme",
               "ui:allowDeselect": false,
               "ui:optionsLabelMap": bannerThemeToLabelMap,
             },

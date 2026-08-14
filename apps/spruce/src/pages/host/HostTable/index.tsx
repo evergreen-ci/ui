@@ -4,12 +4,12 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
 import Pagination from "@evg-ui/lib/components/Pagination";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
-  ColumnFiltersState,
-  LeafyGreenTable,
   BaseTable,
+  ColumnFiltersState,
+  LGColumnDef,
+  LeafyGreenTable,
   onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -17,7 +17,7 @@ import { useQueryParams } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
-import { HostEventsQuery, HostEventType } from "gql/generated/types";
+import { HostEventType, HostEventsQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { HostCard } from "pages/host/HostCard";
 import HostEventString, {
@@ -126,21 +126,21 @@ const HostTable: React.FC<HostTableProps> = ({
         <PaginationWrapper>
           <Pagination
             currentPage={page}
-            data-cy="host-event-table-pagination"
+            data-testid="host-event-table-pagination"
             pageSize={limit}
             totalResults={eventCount}
           />
           <PageSizeSelector
-            data-cy="host-event-table-page-size-selector"
+            data-testid="host-event-table-page-size-selector"
             onChange={handlePageSizeChange}
             value={limit}
           />
         </PaginationWrapper>
       </TableTitle>
       <BaseTable
-        data-cy-row="host-events-table-row"
-        data-cy-table="host-events-table"
         data-loading={loading}
+        data-testid-row="host-events-table-row"
+        data-testid-table="host-events-table"
         loading={loading}
         loadingRows={limit}
         shouldAlternateRowColor
@@ -175,7 +175,7 @@ const getColumns = (
     enableColumnFilter: true,
     meta: {
       treeSelect: {
-        "data-cy": "event-type-filter",
+        "data-testid": "event-type-filter",
         options: eventTypeFilterOptions,
       },
     },

@@ -2,10 +2,10 @@ import { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
-  UnscheduleTasks,
   RestartPatch,
   ScheduleTasks,
   SetPatchVisibility,
+  UnscheduleTasks,
 } from "components/PatchActionButtons";
 
 interface Props {
@@ -53,7 +53,7 @@ export const DropdownMenu: React.FC<Props> = ({
 
   return (
     <ButtonDropdown
-      data-cy="patch-card-dropdown"
+      data-testid="patch-card-dropdown"
       dropdownItems={dropdownItems}
     />
   );

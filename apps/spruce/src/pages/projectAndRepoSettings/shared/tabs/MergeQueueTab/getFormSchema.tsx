@@ -1,24 +1,24 @@
 import { Description } from "@leafygreen-ui/typography";
-import { StyledRouterLink, StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { mergeQueueAliasesDocumentationUrl } from "constants/externalResources";
 import {
+  ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
   getRepoSettingsRoute,
-  ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "../../getTabTitle";
 import {
-  alias,
-  form,
   ProjectType,
-  githubConflictErrorStyling,
-  sectionHasError,
-  hideIf,
+  alias,
   fieldDisabled,
+  form,
+  githubConflictErrorStyling,
+  hideIf,
+  sectionHasError,
 } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { MergeQueueFormState } from "./types";
@@ -105,12 +105,12 @@ export const getFormSchema = (
     uiSchema: {
       mergeQueue: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "mq-card",
+        "ui:data-testid": "mq-card",
         "ui:showLabel": false,
         enabled: {
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:data-cy": "mq-enabled-radio-box",
+          "ui:data-testid": "mq-enabled-radio-box",
           ...githubConflictErrorStyling(
             githubProjectConflicts?.commitQueueIdentifiers ?? null,
             formData?.mergeQueue?.enabled,
@@ -134,7 +134,7 @@ export const getFormSchema = (
             "Merge Queue Patch Definition",
           ),
           mergeQueueAliasesOverride: {
-            "ui:data-cy": "mq-override-radio-box",
+            "ui:data-testid": "mq-override-radio-box",
             ...overrideStyling,
           },
           "ui:description": MergeQueueAliasesDescription,
@@ -154,7 +154,7 @@ export const getFormSchema = (
           },
         },
         githubMQTriggerAliases: {
-          "ui:data-cy": "github-mq-trigger-aliases",
+          "ui:data-testid": "github-mq-trigger-aliases",
           "ui:addable": false,
           "ui:orderable": false,
           "ui:placeholder": "No aliases are scheduled to run for merge queue.",

@@ -13,10 +13,10 @@ import { useTaskAnalytics } from "analytics";
 import { ExecutionStatusIcon } from "components/ExecutionStatusIcon";
 import { getTaskRoute } from "constants/routes";
 import {
-  TaskQuery,
   StepbackTasksQuery,
   StepbackTasksQueryVariables,
   Task,
+  TaskQuery,
 } from "gql/generated/types";
 import { STEPBACK_TASKS } from "gql/queries";
 import { CommitType } from "./types";

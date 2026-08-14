@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Select, Size as SelectSize, Option } from "@leafygreen-ui/select";
+import { Option, Select, Size as SelectSize } from "@leafygreen-ui/select";
 import { Body } from "@leafygreen-ui/typography";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { ExecutionStatusIcon } from "components/ExecutionStatusIcon";
@@ -40,7 +40,7 @@ const ExecutionSelector: React.FC<ExecutionSelectorProps> = ({
       key={currentExecution}
       allowDeselect={false}
       aria-label="Execution Select"
-      data-cy="execution-select"
+      data-testid="execution-select"
       disabled={loading}
       onChange={(val: string) => {
         updateExecution(Number(val));
@@ -62,7 +62,7 @@ const ExecutionSelector: React.FC<ExecutionSelectorProps> = ({
           return (
             <Option
               key={execution}
-              data-cy={`execution-${execution}`}
+              data-testid={`execution-${execution}`}
               description={dateCopy}
               glyph={<ExecutionStatusIcon status={displayStatus} />}
               value={execution.toString()}

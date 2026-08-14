@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures";
+import { expect, test } from "../../fixtures";
 import { clickCheckbox, validateToast } from "../../helpers";
 
 const path = "/version/5ecedafb562343215a7ff297";

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const USER = gql`
   query User {
-    user: userLite {
+    user {
       displayName
       emailAddress
       permissions {

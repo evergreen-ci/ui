@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParams, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import GanttChart from "components/GanttChart";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -25,8 +25,9 @@ import { PatchTasksQueryParams } from "types/task";
 import { applyStrictRegex } from "utils/string";
 import { useQueryVariables } from "../useQueryVariables";
 import {
-  transformTaskDurationDataToVariantGanttChartData,
+  getDownstreamVersionId,
   transformTaskDurationDataToTaskGanttChartData,
+  transformTaskDurationDataToVariantGanttChartData,
 } from "./utils";
 
 interface Props {
@@ -88,13 +89,17 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
     refetch,
   });
   const { version } = data || {};
-  const { tasks } = version || {};
+  const { childVersions: childVersionsData, tasks } = version || {};
+  const childVersions = childVersionsData ?? [];
   const { count = 0, data: tasksData = [] } = tasks || {};
   const { limit, page } = queryVariables.taskFilterOptions;
 
   const chartData = isVariantTimingView
     ? transformTaskDurationDataToTaskGanttChartData(tasksData)
-    : transformTaskDurationDataToVariantGanttChartData(tasksData);
+    : transformTaskDurationDataToVariantGanttChartData(
+        tasksData,
+        childVersions,
+      );
 
   const taskFilterDescription = queryVariables.taskFilterOptions.taskName ? (
     <>
@@ -111,11 +116,10 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
       This page is showing a timeline view of task run times in the{" "}
       <b>{queryVariables.taskFilterOptions.variant}</b> variant
       {taskFilterDescription}. This is a Gantt chart showing when each task
-      started and finished running. You can click on a task to visit the task
-      page.
+      started and finished running. Click on a task to visit the task page.
     </>
   ) : (
-    "This page is showing a timeline view of variant run times in this version. This is a Gantt chart showing when each variant started and finished running. You can click on a variant to see a view of the tasks that ran."
+    "This page is showing a timeline view of variant and downstream project run times in this version. You can click on a variant or downstream project to see a more detailed timing view."
   );
 
   return (
@@ -125,7 +129,6 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
       <TableControl
         disabled={!isVariantTimingView}
         filteredCount={isVariantTimingView ? count : chartData.length - 1}
-        label={isVariantTimingView ? "tasks" : "variants"}
         limit={isVariantTimingView ? limit || 0 : chartData.length - 1}
         onClear={clearQueryParams}
         onPageSizeChange={(l: number) => {
@@ -144,10 +147,13 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
           if (isVariantTimingView) {
             navigate(getTaskRoute(selectedId));
           } else {
+            const downstreamVersionId = getDownstreamVersionId(selectedId);
             navigate(
-              getVersionRoute(versionId, {
+              getVersionRoute(downstreamVersionId ?? versionId, {
                 tab: VersionPageTabs.VersionTiming,
-                variant: applyStrictRegex(selectedId),
+                variant: downstreamVersionId
+                  ? undefined
+                  : applyStrictRegex(selectedId),
               }),
             );
           }

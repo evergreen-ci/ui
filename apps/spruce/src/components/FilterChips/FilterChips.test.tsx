@@ -20,7 +20,7 @@ describe("filterChips", () => {
     render(
       <FilterChips chips={[]} onClearAll={onClearAll} onRemove={onRemove} />,
     );
-    expect(screen.queryAllByDataCy("filter-chip")).toHaveLength(0);
+    expect(screen.queryAllByTestId("filter-chip")).toHaveLength(0);
   });
 
   it("should render chips if there are some passed in", () => {
@@ -31,7 +31,7 @@ describe("filterChips", () => {
         onRemove={vi.fn()}
       />,
     );
-    expect(screen.queryAllByDataCy("filter-chip")).toHaveLength(1);
+    expect(screen.queryAllByTestId("filter-chip")).toHaveLength(1);
     expect(screen.getByText("Test 1: value1")).toBeInTheDocument();
   });
 
@@ -43,7 +43,7 @@ describe("filterChips", () => {
         onRemove={vi.fn()}
       />,
     );
-    expect(screen.queryAllByDataCy("filter-chip")).toHaveLength(2);
+    expect(screen.queryAllByTestId("filter-chip")).toHaveLength(2);
     expect(screen.getByText("Test 1: value1")).toBeInTheDocument();
     expect(screen.getByText("Test 2: value2")).toBeInTheDocument();
   });
@@ -52,7 +52,7 @@ describe("filterChips", () => {
     render(
       <FilterChips chips={chips} onClearAll={vi.fn()} onRemove={vi.fn()} />,
     );
-    expect(screen.queryAllByDataCy("filter-chip")).toHaveLength(8);
+    expect(screen.queryAllByTestId("filter-chip")).toHaveLength(8);
     expect(screen.getByText("Test 1: value1")).toBeInTheDocument();
     expect(screen.getByText("Test 8: value8")).toBeInTheDocument();
     expect(screen.getByText("see 2 more")).toBeInTheDocument();
@@ -64,15 +64,15 @@ describe("filterChips", () => {
       <FilterChips chips={chips} onClearAll={vi.fn()} onRemove={vi.fn()} />,
     );
     await user.click(screen.getByText("see 2 more"));
-    expect(screen.getByDataCy("see-more-modal")).toBeInTheDocument();
+    expect(screen.getByTestId("see-more-modal")).toBeInTheDocument();
     expect(
-      within(screen.getByDataCy("see-more-modal")).queryAllByDataCy(
+      within(screen.getByTestId("see-more-modal")).queryAllByTestId(
         "filter-chip",
       ),
     ).toHaveLength(10);
     for (let i = 0; i < 10; i++) {
       expect(
-        within(screen.getByDataCy("see-more-modal")).getByText(
+        within(screen.getByTestId("see-more-modal")).getByText(
           `Test ${i + 1}: value${i + 1}`,
         ),
       ).toBeInTheDocument();
@@ -95,7 +95,9 @@ describe("filterChips", () => {
     render(
       <FilterChips chips={chips} onClearAll={vi.fn()} onRemove={onRemove} />,
     );
-    const closeChip = screen.getAllByDataTestid("chip-dismiss-button")[0];
+    const closeChip = screen.getByRole("button", {
+      name: "Deselect Test 1: value1",
+    });
     expect(closeChip).toBeInTheDocument();
     await user.click(closeChip);
     expect(onRemove).toHaveBeenCalledWith({

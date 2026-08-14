@@ -6,9 +6,9 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
 import { getEnabledHoursCount, getHostUptimeWarnings } from "components/Spawn";
 import {
+  TokenExchangeState,
   formToGql,
   getFormSchema,
-  TokenExchangeState,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
 } from "components/Spawn/spawnHostModal";
@@ -21,7 +21,7 @@ import { MIGRATE_VOLUME } from "gql/mutations";
 import { useUserTimeZone } from "hooks";
 import { AZToRegion } from "pages/spawn/utils";
 import { TableVolume } from "types/spawn";
-import { initialState, Page, reducer } from "./migrateVolumeReducer";
+import { Page, initialState, reducer } from "./migrateVolumeReducer";
 
 interface MigrateVolumeModalProps {
   volume: TableVolume;
@@ -190,7 +190,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
         disabled: hasError || loadingMigration || volume.migrating,
         onClick: onConfirm,
       }}
-      data-cy="migrate-modal"
+      data-testid="migrate-modal"
       open={open}
       title={title}
     >

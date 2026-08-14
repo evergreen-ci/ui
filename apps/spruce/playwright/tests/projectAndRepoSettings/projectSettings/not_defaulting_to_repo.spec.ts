@@ -1,4 +1,4 @@
-import { test, expect } from "../../../fixtures";
+import { expect, test } from "../../../fixtures";
 import { validateToast } from "../../../helpers";
 import { getProjectSettingsRoute, project } from "../constants";
 import { expectSaveButtonEnabled } from "../utils";

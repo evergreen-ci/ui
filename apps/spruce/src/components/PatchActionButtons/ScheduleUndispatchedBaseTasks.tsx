@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { MenuItem } from "@leafygreen-ui/menu";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
@@ -53,7 +53,7 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
       </div>
       <Popconfirm
         align="left"
-        data-cy="schedule-undispatched-base-popconfirm"
+        data-testid="schedule-undispatched-base-popconfirm"
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}

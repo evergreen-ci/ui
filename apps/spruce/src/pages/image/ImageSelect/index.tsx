@@ -29,7 +29,7 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
     return (
       <Combobox
         clearable={false}
-        data-cy="images-select"
+        data-testid="images-select"
         disabled={loading}
         label="Images"
         // @ts-expect-error: onChange expects type string | null

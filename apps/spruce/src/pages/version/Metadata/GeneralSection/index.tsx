@@ -1,4 +1,4 @@
-import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
+import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
@@ -73,7 +73,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
       </MetadataItem>
       <MetadataItem label="Submitted by">
         <StyledRouterLink
-          data-cy="user-patches-link"
+          data-testid="user-patches-link"
           to={getUserPatchesRoute(user.userId)}
         >
           {user.userId}
@@ -92,7 +92,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
         <MetadataItem label="Previous commit">
           <InlineCode
             as={Link}
-            data-cy="version-previous-commit"
+            data-testid="version-previous-commit"
             onClick={() =>
               sendEvent({ name: "Clicked metadata previous version link" })
             }
@@ -105,7 +105,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
       {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
         <MetadataItem label="GitHub PR commit">
           <InlineCode
-            data-cy="github-pr-commit"
+            data-testid="github-pr-commit"
             href={getGithubPRUrl(owner, repo, prNumber, headHash)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
@@ -118,7 +118,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
       {isGithubMergePatch && hasOwnerAndRepo && branch && (
         <MetadataItem>
           <StyledLink
-            data-cy="github-merge-queue-link"
+            data-testid="github-merge-queue-link"
             hideExternalIcon={false}
             href={getGithubMergeQueueUrl(owner, repo, branch)}
           >
@@ -129,7 +129,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
       {!isPatch && hasOwnerAndRepo && revision && (
         <MetadataItem label="GitHub commit">
           <InlineCode
-            data-cy="version-github-commit"
+            data-testid="version-github-commit"
             href={getGithubCommitUrl(owner, repo, revision)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
@@ -190,13 +190,13 @@ const BaseCommitMetadata: React.FC<BaseCommitMetadataProps> = ({
   return (
     <MetadataItem label="Base commit">
       {isBaseVersionPending ? (
-        <InlineCode data-cy="patch-base-commit">
+        <InlineCode data-testid="patch-base-commit">
           {shortenGithash(revision)}
         </InlineCode>
       ) : (
         <InlineCode
           as={Link}
-          data-cy="patch-base-commit"
+          data-testid="patch-base-commit"
           onClick={onClick}
           to={getVersionRoute(baseVersionId)}
         >

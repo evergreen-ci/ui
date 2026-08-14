@@ -185,7 +185,7 @@ const FileDropper: React.FC = () => {
   return (
     <Container>
       <BorderBox>
-        <Dropzone {...getRootProps()} data-cy="upload-zone">
+        <Dropzone {...getRootProps()} data-testid="upload-zone">
           {visibleUI}
         </Dropzone>
       </BorderBox>

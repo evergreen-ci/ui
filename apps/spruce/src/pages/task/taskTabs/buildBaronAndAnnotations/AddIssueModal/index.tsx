@@ -101,7 +101,7 @@ export const AddIssueModal: React.FC<Props> = ({
         disabled: !canSubmit,
         onClick: handleSubmit,
       }}
-      data-cy="add-issue-modal"
+      data-testid="add-issue-modal"
       open={visible}
       title={title}
     >
@@ -150,13 +150,13 @@ const addIssueModalSchema: SpruceFormProps = {
   },
   uiSchema: {
     url: {
-      "ui:data-cy": "issue-url",
+      "ui:data-testid": "issue-url",
     },
     advancedOptions: {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,
       "ui:displayTitle": "Advanced Options",
       confidenceScore: {
-        "ui:data-cy": "confidence-level",
+        "ui:data-testid": "confidence-level",
         "ui:description":
           "The confidence score of the issue. This is a number between 0 and 100 representing a percentage.",
         "ui:optional": true,

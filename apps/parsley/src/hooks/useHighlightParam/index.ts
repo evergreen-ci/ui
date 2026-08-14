@@ -14,7 +14,13 @@ const useHighlightParam = () => {
   const parsedHighlights = useMemo(
     () =>
       (conditionalToArray(searchParams.highlights ?? [], true) as string[]).map(
-        (h) => decodeURIComponent(h),
+        (h) => {
+          try {
+            return decodeURIComponent(h);
+          } catch {
+            return h;
+          }
+        },
       ),
     [searchParams.highlights],
   );

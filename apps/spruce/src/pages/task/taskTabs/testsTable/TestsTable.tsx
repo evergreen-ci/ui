@@ -2,14 +2,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { useLocation } from "react-router-dom";
 import {
+  BaseTable,
   ColumnFiltersState,
   LeafyGreenTable,
   SortingState,
-  useLeafyGreenTable,
-  BaseTable,
+  TableControl,
   TableWrapper,
   onChangeHandler,
-  TableControl,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
@@ -18,16 +18,16 @@ import { useTaskAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { TableQueryParams } from "constants/queryParams";
 import {
+  SortDirection,
+  TaskQuery,
   TaskTestsQuery,
   TaskTestsQueryVariables,
-  SortDirection,
-  TestSortCategory,
   TestResult,
-  TaskQuery,
+  TestSortCategory,
   TestSortOptions,
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
-import { useTableSort, usePolling } from "hooks";
+import { usePolling, useTableSort } from "hooks";
 import {
   RequiredQueryParams,
   mapFilterParamToId,
@@ -182,7 +182,6 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       controls={
         <TableControl
           filteredCount={filteredTestCount}
-          label="tests"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           limit={limitNum}
           onClear={clearQueryParams}
@@ -197,8 +196,8 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       shouldShowBottomTableControl={filteredTestCount > 10}
     >
       <BaseTable
-        data-cy="tests-table"
         data-loading={isLoading}
+        data-testid="tests-table"
         loading={isLoading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         loadingRows={limitNum}

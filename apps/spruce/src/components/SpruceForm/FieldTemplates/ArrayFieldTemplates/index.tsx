@@ -44,7 +44,7 @@ const ArrayItem: React.FC<
   const isDisabled = disabled || readonly;
   const deleteButton = (
     <Button
-      data-cy="delete-item-button"
+      data-testid="delete-item-button"
       disabled={isDisabled}
       leftGlyph={<Icon glyph="Trash" />}
       onClick={onDropIndexClick(index)}
@@ -53,12 +53,14 @@ const ArrayItem: React.FC<
   );
   return useExpandableCard ? (
     <StyledExpandableCard
-      data-cy="expandable-card"
+      data-testid="expandable-card"
       defaultOpen={!isDisabled}
       // Override LeafyGreen's string typing for title so we can include buttons. (LG-2193)
       title={
         <>
-          <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>
+          <TitleWrapper data-testid="expandable-card-title">
+            {title}
+          </TitleWrapper>
           {hasRemove && !readonly && deleteButton}
         </>
       }
@@ -71,14 +73,14 @@ const ArrayItem: React.FC<
         <OrderControls topAlignDelete={topAlignDelete}>
           {hasMoveUp && (
             <Button
-              data-cy="array-up-button"
+              data-testid="array-up-button"
               leftGlyph={<Icon glyph="ArrowUp" />}
               onClick={onReorderClick(index, index - 1)}
             />
           )}
           {hasMoveDown && (
             <Button
-              data-cy="array-down-button"
+              data-testid="array-down-button"
               leftGlyph={<Icon glyph="ArrowDown" />}
               onClick={onReorderClick(index, index + 1)}
             />
@@ -158,7 +160,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
   const addButtonText = uiSchema["ui:addButtonText"] || "Add";
   const secondaryButton = uiSchema["ui:secondaryButton"];
-  const arrayDataCy = uiSchema["ui:data-cy"];
+  const arraydataTestId = uiSchema["ui:data-testid"];
 
   const arrayCss = uiSchema["ui:arrayCSS"];
   const arrayItemCss = uiSchema["ui:arrayItemCSS"];
@@ -170,7 +172,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
 
   const addButton = (
     <PlusButton
-      data-cy="add-button"
+      data-testid="add-button"
       disabled={isDisabled}
       onClick={handleAddClick}
       size={addButtonSize}
@@ -199,7 +201,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
       )}
       <ArrayContainer
         css={arrayCss}
-        data-cy={arrayDataCy}
+        data-testid={arraydataTestId}
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
         id={id}

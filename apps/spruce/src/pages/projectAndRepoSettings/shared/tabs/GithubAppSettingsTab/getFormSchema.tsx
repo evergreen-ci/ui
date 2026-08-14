@@ -9,8 +9,8 @@ import {
 } from "components/SpruceForm/FieldTemplates";
 import { githubTokenPermissionRestrictionsUrl } from "constants/externalResources";
 import {
-  getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
+  getProjectSettingsRoute,
 } from "constants/routes";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
 import { form } from "../utils";
@@ -135,13 +135,13 @@ export const getFormSchema = ({
           align-items: flex-start;
         `,
         appId: {
-          "ui:data-cy": "github-app-id-input",
+          "ui:data-testid": "github-app-id-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
           ...placeholderIf(repoData?.appCredentials?.githubAppAuth?.appId),
         },
         privateKey: {
-          "ui:data-cy": "github-private-key-input",
+          "ui:data-testid": "github-private-key-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
           "ui:widget": "textarea",
@@ -228,7 +228,7 @@ const permissionsByRequesterUISchema = {
     permissionGroup: {
       "ui:allowDeselect": false,
       "ui:ariaLabelledBy": "Permission Group",
-      "ui:data-cy": "permission-group-input",
+      "ui:data-testid": "permission-group-input",
       "ui:elementWrapperCSS": tokenFieldCss,
       "ui:sizeVariant": "small",
     },

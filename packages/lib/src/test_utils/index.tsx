@@ -1,57 +1,28 @@
-import { useEffect, createElement } from "react";
+import { createElement, useEffect } from "react";
 import { MockLink } from "@apollo/client/testing";
 import {
   MockedProvider,
   MockedProviderProps,
 } from "@apollo/client/testing/react";
 import {
+  type RenderOptions,
   act,
   fireEvent,
-  queries,
   render,
   renderHook,
   screen,
   waitFor,
-  within,
   waitForElementToBeRemoved,
-  type RenderOptions,
-  type RenderResult,
+  within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import * as customQueries from "./custom-queries";
 
-type QueriesType = typeof queries;
-type CustomQueriesType = typeof customQueries;
-type CustomRenderType = CustomQueriesType & QueriesType;
-type CustomRenderOptions = RenderOptions<CustomRenderType>;
-
-interface RenderWithRouterMatchOptions extends CustomRenderOptions {
+interface RenderWithRouterMatchOptions extends RenderOptions {
   route?: string;
   history?: unknown;
   path?: string;
 }
-
-// Bind our custom queries to screen.
-// https://github.com/testing-library/dom-testing-library/issues/516
-const boundQueries = within<typeof customQueries>(document.body, customQueries);
-const customScreen = { ...screen, ...boundQueries };
-
-/**
- * `customRender` or `render` takes an instance of react-testing-library's render method
- *  and adds additional selectors for querying components in tests.
- * @param ui - React Component to render
- * @param options - Options to pass to render
- * @returns RenderResult with custom queries bound to screen
- */
-const customRender = (ui: React.ReactElement, options?: CustomRenderOptions) =>
-  render(ui, {
-    queries: { ...queries, ...customQueries },
-    ...options,
-  }) as RenderResult<CustomRenderType>;
-
-const customWithin = (ui: HTMLElement) =>
-  within(ui, { ...queries, ...customQueries });
 
 /**
  * `renderWithRouterMatch` implements the `customRender` method and wraps a component
@@ -85,7 +56,7 @@ const renderWithRouterMatch = (
 
   const memoryRouter = getMemoryRouter(ui);
 
-  const { rerender, ...renderRest } = customRender(
+  const { rerender, ...renderRest } = render(
     <RouterProvider router={memoryRouter} />,
     {
       ...rest,
@@ -167,15 +138,15 @@ type MockedResponse = MockLink.MockedResponse;
 export {
   act,
   fireEvent,
-  customRender as render,
+  render,
   renderHook,
   renderWithRouterMatch,
   renderComponentWithHook,
-  customScreen as screen,
+  screen,
   userEvent,
   waitFor,
   waitForElementToBeRemoved,
-  customWithin as within,
+  within,
   stubGetClientRects,
   createWrapper,
   MockedProvider,

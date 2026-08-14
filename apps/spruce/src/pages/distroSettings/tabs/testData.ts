@@ -76,7 +76,7 @@ const distroData: DistroQuery["distro"] = {
     formatCommand: "",
   },
   hostAllocatorSettings: {
-    acceptableHostIdleTime: 0,
+    acceptableHostIdleTime: 60000,
     autoTuneMaximumHosts: true,
     feedbackRule: FeedbackRule.Default,
     futureHostFraction: 0,
@@ -105,6 +105,7 @@ const distroData: DistroQuery["distro"] = {
     patchFactor: 0,
     patchTimeInQueueFactor: 0,
     targetTime: 0,
+    mergeQueueTargetTime: 0,
     numDependentsFactor: 50,
     version: PlannerVersion.Tunable,
   },

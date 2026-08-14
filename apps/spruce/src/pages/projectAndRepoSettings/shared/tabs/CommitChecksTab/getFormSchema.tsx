@@ -5,12 +5,12 @@ import widgets from "components/SpruceForm/Widgets";
 import { githubChecksAliasesDocumentationUrl } from "constants/externalResources";
 import { GithubProjectConflicts } from "gql/generated/types";
 import {
-  fieldDisabled,
-  hideIf,
-  alias,
-  form,
   ProjectType,
+  alias,
+  fieldDisabled,
+  form,
   githubConflictErrorStyling,
+  hideIf,
   sectionHasError,
 } from "../utils";
 import { CommitChecksFormState } from "./types";
@@ -76,7 +76,7 @@ export const getFormSchema = (
           "ui:description": GitHubChecksAliasesDescription(projectType),
         },
         githubChecksEnabled: {
-          "ui:data-cy": "github-checks-enabled-radio-box",
+          "ui:data-testid": "github-checks-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
           ...githubConflictErrorStyling(

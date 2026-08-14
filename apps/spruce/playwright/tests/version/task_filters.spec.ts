@@ -1,4 +1,4 @@
-import { Page, test, expect } from "../../fixtures";
+import { Page, expect, test } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
 const patch = { id: "5e4ff3abe3c3317e352062e4" };
@@ -71,7 +71,9 @@ test.describe("Tasks filters", () => {
       await expect(page.getByTestId("variant-filter-wrapper")).toHaveCount(0);
       await expect(page).toHaveURL(new RegExp(variantInputValue));
       await waitForTaskTable(page);
-      await expect(page.getByTestId("filtered-count")).toContainText("2");
+
+      const topPagination = page.getByTestId("pagination").first();
+      await expect(topPagination.getByText(/2 items/)).toBeVisible();
 
       await page.getByTestId("variant-filter").click();
       await variantInput.focus();
@@ -80,7 +82,7 @@ test.describe("Tasks filters", () => {
       await expect(page.getByTestId("variant-filter-wrapper")).toHaveCount(0);
       await expect(page).not.toHaveURL(/variant=/);
       await waitForTaskTable(page);
-      await expect(page.getByTestId("filtered-count")).toContainText("47");
+      await expect(topPagination.getByText(/47 items/)).toBeVisible();
     });
   });
 
@@ -103,7 +105,9 @@ test.describe("Tasks filters", () => {
       await expect(page.getByTestId("task-name-filter-wrapper")).toHaveCount(0);
       await expect(page).toHaveURL(new RegExp(taskNameInputValue));
       await waitForTaskTable(page);
-      await expect(page.getByTestId("filtered-count")).toContainText("1");
+
+      const topPagination = page.getByTestId("pagination").first();
+      await expect(topPagination.getByText(/1 item/)).toBeVisible();
 
       await page.getByTestId("task-name-filter").click();
       await taskNameInput.focus();
@@ -112,7 +116,7 @@ test.describe("Tasks filters", () => {
       await expect(page.getByTestId("task-name-filter-wrapper")).toHaveCount(0);
       await expect(page).not.toHaveURL(/taskName=/);
       await waitForTaskTable(page);
-      await expect(page.getByTestId("filtered-count")).toContainText("47");
+      await expect(topPagination.getByText(/47 items/)).toBeVisible();
     });
   });
 
@@ -134,7 +138,9 @@ test.describe("Tasks filters", () => {
       await clickCheckbox(failedCheckbox);
       await expect(page).toHaveURL(/statuses=failed/);
       await waitForTaskTable(page);
-      await expect(page.getByTestId("filtered-count")).toHaveText("2");
+
+      const topPagination = page.getByTestId("pagination").first();
+      await expect(topPagination.getByText(/2 items/)).toBeVisible();
 
       const succeededCheckbox = options.getByRole("checkbox", {
         name: "Succeeded",
@@ -144,7 +150,7 @@ test.describe("Tasks filters", () => {
         /statuses=failed-umbrella,failed,known-issue,success/,
       );
       await waitForTaskTable(page);
-      await expect(page.getByTestId("filtered-count")).not.toHaveText("2");
+      await expect(topPagination.getByText(/44 items/)).toBeVisible();
     });
 
     test("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", async ({
@@ -196,12 +202,14 @@ test.describe("Tasks filters", () => {
       await clickCheckbox(succeededCheckbox);
       await expect(page).toHaveURL(/baseStatuses=success/);
       await waitForTaskTable(page);
-      await expect(page.getByTestId("filtered-count")).toHaveText("44");
+
+      const topPagination = page.getByTestId("pagination").first();
+      await expect(topPagination.getByText(/44 items/)).toBeVisible();
 
       await clickCheckbox(succeededCheckbox);
       await expect(page).not.toHaveURL(/baseStatuses/);
       await waitForTaskTable(page);
-      await expect(page.getByTestId("filtered-count")).toHaveText("47");
+      await expect(topPagination.getByText(/47 items/)).toBeVisible();
     });
 
     test("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", async ({

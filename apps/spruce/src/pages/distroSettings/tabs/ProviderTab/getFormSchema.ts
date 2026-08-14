@@ -1,11 +1,11 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { Provider, ContainerPool } from "gql/generated/types";
+import { ContainerPool, Provider } from "gql/generated/types";
 import {
   dockerProviderSettings,
-  staticProviderSettings,
   ec2FleetProviderSettings,
   ec2ProviderAccountField,
+  staticProviderSettings,
   taskHostOverridesFields,
 } from "./schemaFields";
 import { textAreaCSS } from "./styles";
@@ -152,16 +152,16 @@ export const getFormSchema = ({
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       providerName: {
         "ui:allowDeselect": false,
-        "ui:data-cy": "provider-select",
+        "ui:data-testid": "provider-select",
       },
     },
     staticProviderSettings: {
-      "ui:data-cy": "static-provider-settings",
+      "ui:data-testid": "static-provider-settings",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       ...staticProviderSettings.uiSchema,
     },
     dockerProviderSettings: {
-      "ui:data-cy": "docker-provider-settings",
+      "ui:data-testid": "docker-provider-settings",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       containerPoolId: {
         "ui:allowDeselect": false,
@@ -177,7 +177,7 @@ export const getFormSchema = ({
       ...dockerProviderSettings.uiSchema,
     },
     ec2FleetProviderSettings: {
-      "ui:data-cy": "ec2-fleet-provider-settings",
+      "ui:data-testid": "ec2-fleet-provider-settings",
       "ui:useExpandableCard": true,
       "ui:addButtonText": "Add region settings",
       "ui:addable": fleetRegionsInUse.length < awsRegions.length,
@@ -185,7 +185,7 @@ export const getFormSchema = ({
       items: {
         "ui:displayTitle": "New AWS Region",
         region: {
-          "ui:data-cy": "region-select",
+          "ui:data-testid": "region-select",
           "ui:allowDeselect": false,
           "ui:enumDisabled": fleetRegionsInUse,
         },
@@ -194,7 +194,7 @@ export const getFormSchema = ({
     },
     taskHostOverrides: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:data-cy": "task-host-overrides",
+      "ui:data-testid": "task-host-overrides",
       ...taskHostOverridesFields.uiSchema,
     },
   },

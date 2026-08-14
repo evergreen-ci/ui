@@ -6,7 +6,7 @@ import { BaseTab } from "../BaseTab";
 import { ProjectType, findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PromoteVariablesModalButton } from "./PromoteVariablesModal";
-import { VariablesFormState, TabProps } from "./types";
+import { TabProps, VariablesFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Variables;
 

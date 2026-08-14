@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
@@ -55,11 +55,11 @@ export const CopySSHCommandButton: React.FC<{
     >
       <Tooltip
         align="top"
-        data-cy="copy-ssh-tooltip"
+        data-testid="copy-ssh-tooltip"
         justify="middle"
         trigger={
           <Button
-            data-cy="copy-ssh-button"
+            data-testid="copy-ssh-button"
             disabled={!canSSH}
             leftGlyph={<Icon glyph="Copy" />}
             onClick={(event: React.MouseEvent) => {

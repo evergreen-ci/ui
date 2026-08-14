@@ -38,7 +38,7 @@ describe("filterChips - queryParams", () => {
       route: "/project/evergreen/waterfall",
       path: "/project/:projectId/waterfall",
     });
-    expect(screen.queryByDataCy("filter-chip")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("filter-chip")).not.toBeInTheDocument();
   });
 
   it("should render a singular filter chip if there is only one query param", () => {
@@ -46,7 +46,7 @@ describe("filterChips - queryParams", () => {
       route: "/project/evergreen/waterfall?buildVariants=variant1",
       path: "/project/:projectId/waterfall",
     });
-    expect(screen.queryAllByDataCy("filter-chip")).toHaveLength(1);
+    expect(screen.queryAllByTestId("filter-chip")).toHaveLength(1);
   });
 
   it("should render multiple filter chips with the same key but different values", () => {
@@ -54,7 +54,7 @@ describe("filterChips - queryParams", () => {
       route: "/project/evergreen/waterfall?buildVariants=variant1,variant2",
       path: "/project/:projectId/waterfall",
     });
-    const chips = screen.queryAllByDataCy("filter-chip");
+    const chips = screen.queryAllByTestId("filter-chip");
     expect(chips).toHaveLength(2);
     expect(chips[0]).toHaveTextContent("Variant: variant1");
     expect(chips[1]).toHaveTextContent("Variant: variant2");
@@ -65,7 +65,7 @@ describe("filterChips - queryParams", () => {
       route: "/project/evergreen/waterfall?buildVariants=variant1&tests=test1",
       path: "/project/:projectId/waterfall",
     });
-    const chips = screen.queryAllByDataCy("filter-chip");
+    const chips = screen.queryAllByTestId("filter-chip");
     expect(chips).toHaveLength(2);
     expect(chips[0]).toHaveTextContent("Variant: variant1");
     expect(chips[1]).toHaveTextContent("Test: test1");
@@ -78,13 +78,15 @@ describe("filterChips - queryParams", () => {
       path: "/project/:projectId/waterfall",
     });
 
-    const chip = screen.queryByDataCy("filter-chip");
+    const chip = screen.queryByTestId("filter-chip");
     expect(chip).toHaveTextContent("Variant: variant1");
-    const closeChip = screen.getByDataTestid("chip-dismiss-button");
+    const closeChip = screen.getByRole("button", {
+      name: "Deselect Variant: variant1",
+    });
     expect(closeChip).toBeInTheDocument();
     await user.click(closeChip);
 
-    expect(screen.queryByDataCy("filter-chip")).toBeNull();
+    expect(screen.queryByTestId("filter-chip")).toBeNull();
     expect(router.state.location.search).toBe("");
   });
 
@@ -95,16 +97,18 @@ describe("filterChips - queryParams", () => {
       path: "/project/:projectId/waterfall",
     });
 
-    let chips = screen.queryAllByDataCy("filter-chip");
+    let chips = screen.queryAllByTestId("filter-chip");
     expect(chips).toHaveLength(2);
     expect(screen.getByText("Variant: variant1")).toBeInTheDocument();
-    const closeChip = screen.getAllByDataTestid("chip-dismiss-button")[0];
+    const closeChip = screen.getByRole("button", {
+      name: "Deselect Variant: variant1",
+    });
     await user.click(closeChip);
-    chips = screen.queryAllByDataCy("filter-chip");
+    chips = screen.queryAllByTestId("filter-chip");
     expect(chips).toHaveLength(1);
     expect(screen.queryByText("Variant: variant1")).toBeNull();
 
-    expect(screen.queryAllByDataCy("filter-chip")).toHaveLength(1);
+    expect(screen.queryAllByTestId("filter-chip")).toHaveLength(1);
     expect(router.state.location.search).toBe("?buildVariants=variant2");
   });
 
@@ -116,11 +120,11 @@ describe("filterChips - queryParams", () => {
       path: "/project/:projectId/waterfall",
     });
 
-    let chips = screen.queryAllByDataCy("filter-chip");
+    let chips = screen.queryAllByTestId("filter-chip");
     expect(chips).toHaveLength(4);
 
-    await user.click(screen.getByDataCy("clear-filters"));
-    chips = screen.queryAllByDataCy("filter-chip");
+    await user.click(screen.getByTestId("clear-filters"));
+    chips = screen.queryAllByTestId("filter-chip");
     expect(chips).toHaveLength(0);
 
     expect(router.state.location.search).toBe("");
@@ -134,11 +138,11 @@ describe("filterChips - queryParams", () => {
       path: "/project/:projectId/waterfall",
     });
 
-    let chips = screen.queryAllByDataCy("filter-chip");
+    let chips = screen.queryAllByTestId("filter-chip");
     expect(chips).toHaveLength(4);
 
-    await user.click(screen.getByDataCy("clear-filters"));
-    chips = screen.queryAllByDataCy("filter-chip");
+    await user.click(screen.getByTestId("clear-filters"));
+    chips = screen.queryAllByTestId("filter-chip");
     expect(chips).toHaveLength(0);
 
     expect(router.state.location.search).toBe("?notRelated=notRelated");

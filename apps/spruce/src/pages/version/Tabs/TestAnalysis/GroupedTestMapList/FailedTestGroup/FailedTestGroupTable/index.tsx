@@ -3,9 +3,9 @@ import { Button } from "@leafygreen-ui/button";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
@@ -29,7 +29,7 @@ const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
   });
   return (
     <BaseTable
-      data-cy="failed-test-grouped-table"
+      data-testid="failed-test-grouped-table"
       shouldAlternateRowColor
       table={table}
     />
@@ -67,7 +67,7 @@ const getColumns = (): LGColumnDef<TaskBuildVariantField>[] => [
     meta: { width: "10%" },
     cell: ({ row }) => (
       <Button
-        data-cy="failed-test-group-parsley-btn"
+        data-testid="failed-test-group-parsley-btn"
         href={row.original.logs.urlParsley}
         size="xsmall"
       >

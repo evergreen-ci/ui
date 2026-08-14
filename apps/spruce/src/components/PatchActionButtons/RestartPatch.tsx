@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SplitButton } from "@leafygreen-ui/split-button";
-import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
+import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import { DropdownItem } from "components/ButtonDropdown";
 import { VersionRestartModal } from "components/VersionRestartModal";
 import { RestartFailedTasks } from "./RestartFailedTasks";
@@ -43,7 +43,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         trigger={
           isButton ? (
             <SplitButton
-              data-cy="restart-version"
+              data-testid="restart-version"
               disabled={disabled}
               label="Restart"
               menuItems={[
@@ -60,7 +60,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
           ) : (
             <span>
               <DropdownItem
-                data-cy="restart-version"
+                data-testid="restart-version"
                 disabled={disabled}
                 onClick={onClick}
               >

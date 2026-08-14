@@ -14,8 +14,8 @@ import { DateFilter } from "components/DateFilter";
 import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";
 import {
   walkthroughDateFilterProps,
-  walkthroughJumpButtonProps,
   walkthroughInactiveViewProps,
+  walkthroughJumpButtonProps,
 } from "../constants";
 import { useTaskHistoryContext } from "../context";
 import { TaskHistoryOptions, ViewOptions } from "../types";
@@ -40,7 +40,7 @@ export const Controls: React.FC<ControlsProps> = ({
       <LeftContainer>
         <Subtitle>Task History Overview</Subtitle>
         <DateFilter
-          dataCyProps={walkthroughDateFilterProps}
+          dataProps={walkthroughDateFilterProps}
           onChange={(newDate) => {
             sendEvent({
               name: "Filtered by date",
@@ -58,7 +58,7 @@ export const Controls: React.FC<ControlsProps> = ({
           value={date}
         />
         <Button
-          data-cy="jump-to-this-task-button"
+          data-testid="jump-to-this-task-button"
           onClick={() => {
             sendEvent({
               name: "Clicked jump to this task button",
@@ -78,7 +78,7 @@ export const Controls: React.FC<ControlsProps> = ({
         </Button>
       </LeftContainer>
       <SegmentedControl
-        aria-controls="[data-cy='task-timeline']"
+        aria-controls="[data-testid='task-timeline']"
         label="Inactive Commits"
         onChange={(t) => {
           sendEvent({
@@ -93,13 +93,13 @@ export const Controls: React.FC<ControlsProps> = ({
         {...walkthroughInactiveViewProps}
       >
         <SegmentedControlOption
-          data-cy="collapsed-option"
+          data-testid="collapsed-option"
           value={ViewOptions.Collapsed}
         >
           Collapse
         </SegmentedControlOption>
         <SegmentedControlOption
-          data-cy="expanded-option"
+          data-testid="expanded-option"
           value={ViewOptions.Expanded}
         >
           Expand

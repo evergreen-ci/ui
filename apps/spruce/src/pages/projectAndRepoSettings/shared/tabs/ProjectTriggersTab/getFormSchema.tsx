@@ -2,7 +2,7 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { ProjectTriggerLevel } from "types/triggers";
-import { form, ProjectType } from "../utils";
+import { ProjectType, form } from "../utils";
 
 const { overrideRadioBox } = form;
 
@@ -129,12 +129,12 @@ export const getFormSchema = (
         project: {
           "ui:description":
             "The upstream project identifier to listen to for commits",
-          "ui:data-cy": "project-input",
+          "ui:data-testid": "project-input",
         },
         configFile: {
           "ui:description":
             "The path to the downstream project's config file. This may be the same as the main project configuration file but does not have to be.",
-          "ui:data-cy": "config-file-input",
+          "ui:data-testid": "config-file-input",
           "ui:placeholder": ".evergreen.yml",
         },
         level: {

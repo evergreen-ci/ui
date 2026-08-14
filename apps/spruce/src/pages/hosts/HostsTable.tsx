@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  ColumnFiltersState,
+  BaseTable,
   ColumnFiltering,
+  ColumnFiltersState,
+  LGColumnDef,
   RowSelectionState,
   RowSorting,
   SortingState,
-  useLeafyGreenTable,
-  BaseTable,
   onChangeHandler,
-  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -135,8 +135,8 @@ export const HostsTable: React.FC<Props> = ({
 
   return (
     <BaseTable
-      data-cy="hosts-table"
       data-loading={loading}
+      data-testid="hosts-table"
       loading={loading}
       loadingRows={limit}
       shouldAlternateRowColor
@@ -158,7 +158,7 @@ const columns: LGColumnDef<Host>[] = [
     cell: ({ getValue }): React.JSX.Element => {
       const id = getValue() as string;
       return (
-        <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
+        <StyledRouterLink data-testid="host-id-link" to={getHostRoute(id)}>
           <WordBreak>{id}</WordBreak>
         </StyledRouterLink>
       );
@@ -167,7 +167,7 @@ const columns: LGColumnDef<Host>[] = [
     enableSorting: true,
     meta: {
       search: {
-        "data-cy": "host-id-filter",
+        "data-testid": "host-id-filter",
         placeholder: "Search ID or DNS name",
       },
       width: "17%",
@@ -181,7 +181,7 @@ const columns: LGColumnDef<Host>[] = [
     enableSorting: true,
     meta: {
       search: {
-        "data-cy": "distro-id-filter",
+        "data-testid": "distro-id-filter",
         placeholder: "Search distro regex",
       },
       width: "15%",
@@ -195,7 +195,7 @@ const columns: LGColumnDef<Host>[] = [
     enableSorting: true,
     meta: {
       treeSelect: {
-        "data-cy": "statuses-filter",
+        "data-testid": "statuses-filter",
         options: hostStatuses,
       },
       width: "10%",
@@ -209,7 +209,7 @@ const columns: LGColumnDef<Host>[] = [
       const task = getValue() as Host["runningTask"];
       return task?.id ? (
         <StyledRouterLink
-          data-cy="current-task-link"
+          data-testid="current-task-link"
           to={getTaskRoute(task.id)}
         >
           <WordBreak all>{task?.name}</WordBreak>
@@ -222,7 +222,7 @@ const columns: LGColumnDef<Host>[] = [
     enableSorting: true,
     meta: {
       search: {
-        "data-cy": "current-task-id-filter",
+        "data-testid": "current-task-id-filter",
         placeholder: "Search by task ID",
       },
       width: "18%",
@@ -278,7 +278,7 @@ const columns: LGColumnDef<Host>[] = [
     enableSorting: true,
     meta: {
       search: {
-        "data-cy": "owner-filter",
+        "data-testid": "owner-filter",
       },
       width: "10%",
     },

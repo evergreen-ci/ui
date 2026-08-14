@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client/react";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
 import {
+  AdminSettingsTabRoutes,
   PreferencesTabRoutes,
   getAdminSettingsRoute,
   getPreferencesRoute,
@@ -35,22 +36,22 @@ export const UserDropdown = () => {
       onClick: () => sendEvent({ name: "Clicked UI settings link" }),
     },
     {
-      "data-cy": "log-out",
+      "data-testid": "log-out",
       text: "Log out",
       onClick: () => logoutAndRedirect(),
     },
   ];
   if (permissions?.canEditAdminSettings) {
     menuItems.splice(-1, 0, {
-      "data-cy": "admin-link",
+      "data-testid": "admin-link",
       text: "Admin",
-      href: getAdminSettingsRoute(),
+      to: getAdminSettingsRoute(AdminSettingsTabRoutes.ServiceFlags),
       onClick: () => sendEvent({ name: "Clicked admin settings link" }),
     });
   }
   return (
     <NavDropdown
-      dataCy="user-dropdown-link"
+      dataTestId="user-dropdown-link"
       menuItems={menuItems}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       title={displayName}

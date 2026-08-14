@@ -3,16 +3,16 @@ import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../types";
 import { getEventDiffLines } from "./utils";
 import {
-  applyCustomKeyValueRender,
   CustomKeyValueRenderConfig,
+  applyCustomKeyValueRender,
 } from "./utils/keyRenderer";
 
 type TableProps = {
@@ -41,8 +41,8 @@ const EventDiffTable: React.FC<TableProps> = ({
 
   return (
     <BaseTable
-      data-cy="event-diff-table"
-      data-cy-row="event-log-table-row"
+      data-testid="event-diff-table"
+      data-testid-row="event-log-table-row"
       shouldAlternateRowColor
       table={table}
     />

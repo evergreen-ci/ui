@@ -1,7 +1,7 @@
 import {
   SortDirection,
-  TaskSortCategory,
   SortOrder,
+  TaskSortCategory,
 } from "gql/generated/types";
 import { parseSortString } from "./sortString";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { spacing } from "@leafygreen-ui/tokens";
-import { Message, ActionCardState } from "@lg-chat/message";
+import { ActionCardState, Message } from "@lg-chat/message";
 import { ToolUIPart } from "ai";
 import { AnimatedEllipsis } from "#AnimatedEllipsis";
 import { ToolState, ToolStateEnum } from "../types";
@@ -68,7 +68,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
 
   return (
     <StyledActionCard
-      data-cy="tool-use-chip"
+      data-testid="tool-use-chip"
       description={description}
       onToggleExpanded={setIsExpanded}
       showExpandButton={!!renderedOutput}
@@ -84,7 +84,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
       ) : (
         renderedOutput &&
         isExpanded && (
-          <RichOutput data-cy="tool-output">{renderedOutput}</RichOutput>
+          <RichOutput data-testid="tool-output">{renderedOutput}</RichOutput>
         )
       )}
     </StyledActionCard>

@@ -6,7 +6,7 @@ import { diff } from "deep-object-diff";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
-import { listOfDateFormatStrings, timeZones, TimeFormat } from "constants/time";
+import { TimeFormat, listOfDateFormatStrings, timeZones } from "constants/time";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
@@ -170,7 +170,7 @@ export const Settings: React.FC<SettingsProps> = ({
         }}
       />
       <Button
-        data-cy="save-profile-changes-button"
+        data-testid="save-profile-changes-button"
         disabled={!hasChanges}
         onClick={handleSubmit}
         variant={ButtonVariant.Primary}

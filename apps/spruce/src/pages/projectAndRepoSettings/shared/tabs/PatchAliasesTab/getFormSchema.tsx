@@ -6,7 +6,7 @@ import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { patchAliasesDocumentationUrl } from "constants/externalResources";
 import { PatchStatus } from "types/patch";
-import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";
+import { PatchTriggerAliasStatus, ProjectType, alias, form } from "../utils";
 import { TaskSpecifier } from "./types";
 
 const {
@@ -168,7 +168,7 @@ export const getFormSchema = (
             ? widgets.RadioBoxWidget
             : "hidden",
         "ui:showLabel": false,
-        "ui:data-cy": "patch-aliases-override-radio-box",
+        "ui:data-testid": "patch-aliases-override-radio-box",
       },
       "ui:description": PatchAliasesDescription,
       aliases: patchAliasArray.uiSchema,
@@ -183,7 +183,7 @@ export const getFormSchema = (
             ? widgets.RadioBoxWidget
             : "hidden",
         "ui:showLabel": false,
-        "ui:data-cy": "patch-trigger-aliases-override-radio-box",
+        "ui:data-testid": "patch-trigger-aliases-override-radio-box",
       },
       aliases: aliasesUiSchema,
       repoData: {
@@ -205,14 +205,14 @@ const aliasesUiSchema = {
     "ui:displayTitle": "New Patch Trigger Alias",
     "ui:label": false,
     alias: {
-      "ui:data-cy": "pta-alias-input",
+      "ui:data-testid": "pta-alias-input",
     },
     childProjectIdentifier: {
-      "ui:data-cy": "project-input",
+      "ui:data-testid": "project-input",
     },
     parentAsModule: {
       "ui:optional": true,
-      "ui:data-cy": "module-input",
+      "ui:data-testid": "module-input",
       "ui:description":
         "If you want tests to include the parent project's changes, add the parent project as a module.",
     },
@@ -232,25 +232,25 @@ const aliasesUiSchema = {
           "ui:aria-controls": ["patchAlias", "taskRegex", "variantRegex"],
         },
         patchAlias: {
-          "ui:data-cy": "patch-alias-input",
+          "ui:data-testid": "patch-alias-input",
         },
         taskRegex: {
-          "ui:data-cy": "task-regex-input",
+          "ui:data-testid": "task-regex-input",
         },
         variantRegex: {
-          "ui:data-cy": "variant-regex-input",
+          "ui:data-testid": "variant-regex-input",
         },
       },
     },
     isGithubPRTriggerAlias: {
       "ui:border": "top",
-      "ui:data-cy": "github-pr-trigger-alias-checkbox",
+      "ui:data-testid": "github-pr-trigger-alias-checkbox",
       "ui:elementWrapperCSS": css`
         margin-bottom: ${size.xs};
       `,
     },
     isGithubMQTriggerAlias: {
-      "ui:data-cy": "github-mq-trigger-alias-checkbox",
+      "ui:data-testid": "github-mq-trigger-alias-checkbox",
       "ui:elementWrapperCSS": css`
         margin-bottom: 0;
       `,

@@ -1,9 +1,9 @@
 import {
-  useState,
-  useRef,
   forwardRef,
-  useImperativeHandle,
   useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
 } from "react";
 import styled from "@emotion/styled";
 import {
@@ -113,7 +113,7 @@ export const WalkthroughGuideCue = forwardRef<
             : "Next"
         }
         currentStep={currentStepIdx + 1}
-        data-cy="walkthrough-guide-cue"
+        data-testid="walkthrough-guide-cue"
         numberOfSteps={walkthroughSteps.length}
         onDismiss={() => {
           onClose();
@@ -129,7 +129,7 @@ export const WalkthroughGuideCue = forwardRef<
       >
         {currentStep.description}
       </GuideCue>
-      {active && <Backdrop data-cy="walkthrough-backdrop" />}
+      {active && <Backdrop data-testid="walkthrough-backdrop" />}
     </>
   );
 });

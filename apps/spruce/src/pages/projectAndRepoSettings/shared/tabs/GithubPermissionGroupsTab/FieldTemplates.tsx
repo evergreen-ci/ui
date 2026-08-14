@@ -5,9 +5,9 @@ import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import Icon from "@evg-ui/lib/components/Icon";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -35,7 +35,7 @@ export const ArrayFieldTemplate: React.FC<
   return (
     <>
       <BaseTable
-        data-cy="github-permissions-table"
+        data-testid="github-permissions-table"
         emptyComponent={
           <Body style={{ marginLeft: tableColumnOffset, marginTop: size.xs }}>
             No permission groups added yet.
@@ -45,7 +45,7 @@ export const ArrayFieldTemplate: React.FC<
       />
       <ButtonWrapper>
         <PlusButton
-          data-cy="add-permission-button"
+          data-testid="add-permission-button"
           disabled={isDisabled}
           onClick={onAddClick}
           size={ButtonSize.Small}
@@ -82,7 +82,7 @@ const getColumns = (disabled: boolean): LGColumnDef<ArrayItem>[] => [
     header: "Action",
     cell: ({ row }) => (
       <Button
-        data-cy="delete-permission-button"
+        data-testid="delete-permission-button"
         disabled={disabled}
         leftGlyph={<Icon glyph="Trash" />}
         onClick={row.original.onDropIndexClick(row.index)}

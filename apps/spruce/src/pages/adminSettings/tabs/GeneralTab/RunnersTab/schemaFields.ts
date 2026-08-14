@@ -213,6 +213,11 @@ export const scheduler = {
       type: "number" as const,
       title: "Target Time (secs)",
     },
+    mergeQueueTargetTimeSeconds: {
+      type: "number" as const,
+      title: "Merge Queue Target Time (secs)",
+      minimum: 0,
+    },
     acceptableHostIdleTimeSeconds: {
       type: "number" as const,
       title: "Acceptable Host Idle Time (secs)",
@@ -316,6 +321,9 @@ export const scheduler = {
     hostsOverallocatedRule: {
       "ui:allowDeselect": false,
       "ui:fieldCss": fullWidthCss,
+    },
+    mergeQueueTargetTimeSeconds: {
+      "ui:description": "Shorter target time for merge queue tasks.",
     },
     patchFactor: {
       "ui:description": boundsDescription,

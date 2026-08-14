@@ -62,7 +62,7 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    expect(screen.getByDataCy("build-baron-content")).toBeInTheDocument();
+    expect(screen.getByTestId("build-baron-content")).toBeInTheDocument();
   });
 
   it("clicking on file a new ticket dispatches a toast", async () => {
@@ -84,9 +84,9 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    await user.click(screen.getByDataCy("file-ticket-button"));
+    await user.click(screen.getByTestId("file-ticket-button"));
     await waitFor(() => {
-      expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
+      expect(screen.getByTestId("file-ticket-popconfirm")).toBeVisible();
     });
     await user.click(screen.getByRole("button", { name: "Yes" }));
     await waitFor(() => {
@@ -115,26 +115,26 @@ describe("buildBaronContent", () => {
       path: "/task/:id",
     });
 
-    expect(screen.queryAllByDataCy("jira-ticket-row")).toHaveLength(3);
+    expect(screen.queryAllByTestId("jira-ticket-row")).toHaveLength(3);
 
-    expect(screen.getByDataCy("EVG-12345")).toBeInTheDocument();
-    expect(screen.getByDataCy("EVG-12346")).toBeInTheDocument();
-    expect(screen.getByDataCy("EVG-12347")).toBeInTheDocument();
+    expect(screen.getByTestId("EVG-12345")).toBeInTheDocument();
+    expect(screen.getByTestId("EVG-12346")).toBeInTheDocument();
+    expect(screen.getByTestId("EVG-12347")).toBeInTheDocument();
 
-    expect(screen.queryByDataCy("EVG-12345-badge")).toHaveTextContent(
+    expect(screen.queryByTestId("EVG-12345-badge")).toHaveTextContent(
       "Resolved",
     );
-    expect(screen.queryByDataCy("EVG-12345-metadata")).toHaveTextContent(
+    expect(screen.queryByTestId("EVG-12345-metadata")).toHaveTextContent(
       "Created: 09/23/2020Updated: 09/23/2020Unassigned",
     );
 
-    expect(screen.queryByDataCy("EVG-12346-badge")).toHaveTextContent("Closed");
-    expect(screen.queryByDataCy("EVG-12346-metadata")).toHaveTextContent(
+    expect(screen.queryByTestId("EVG-12346-badge")).toHaveTextContent("Closed");
+    expect(screen.queryByTestId("EVG-12346-metadata")).toHaveTextContent(
       "Created: 09/18/2020Updated: 09/18/2020Assignee: Some Name",
     );
 
-    expect(screen.queryByDataCy("EVG-12347-badge")).toHaveTextContent("Open");
-    expect(screen.queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
+    expect(screen.queryByTestId("EVG-12347-badge")).toHaveTextContent("Open");
+    expect(screen.queryByTestId("EVG-12347-metadata")).toHaveTextContent(
       "Created: 09/18/2020Updated: 09/18/2020Assignee: Backlog - Evergreen Team",
     );
   });

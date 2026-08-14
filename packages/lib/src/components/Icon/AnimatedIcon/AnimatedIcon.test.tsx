@@ -1,17 +1,17 @@
 import { forwardRef } from "react";
-import { render, screen, fireEvent } from "test_utils";
+import { fireEvent, render, screen } from "test_utils";
 import AnimatedIcon from ".";
 
 // Mock an SVG component to be passed as the icon prop
 const MockIcon = forwardRef<SVGSVGElement>((props, ref) => (
-  <svg ref={ref} data-cy="test-svg" {...props} />
+  <svg ref={ref} data-testid="test-svg" {...props} />
 ));
 MockIcon.displayName = "MockIcon";
 
 describe("AnimatedIcon", () => {
   it("renders the icon correctly", () => {
     render(<AnimatedIcon icon={MockIcon} />);
-    const svgElement = screen.getByDataCy("test-svg");
+    const svgElement = screen.getByTestId("test-svg");
     expect(svgElement).toBeInTheDocument();
   });
 
@@ -56,7 +56,7 @@ describe("AnimatedIcon", () => {
             else if (ref) ref.current = el;
           }
         }}
-        data-cy="test-svg"
+        data-testid="test-svg"
         {...props}
       >
         <animate />
@@ -66,7 +66,7 @@ describe("AnimatedIcon", () => {
 
     render(<AnimatedIcon icon={MockIconWithAnimations} />);
 
-    const svgElement = screen.getByDataCy("test-svg");
+    const svgElement = screen.getByTestId("test-svg");
 
     // Mouse enter triggers unpauseAnimations
     fireEvent.mouseEnter(svgElement);

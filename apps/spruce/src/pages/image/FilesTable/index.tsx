@@ -2,20 +2,20 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
-  ColumnFiltersState,
-  PaginationState,
   BaseTable,
+  ColumnFiltersState,
+  LGColumnDef,
+  PaginationState,
   onChangeHandler,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import {
+  ImageFile,
   ImageFilesQuery,
   ImageFilesQueryVariables,
-  ImageFile,
 } from "gql/generated/types";
 import { IMAGE_FILES } from "gql/queries";
 
@@ -87,7 +87,7 @@ export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
 
   return (
     <BaseTable
-      data-cy-row="files-table-row"
+      data-testid-row="files-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
       numTotalItems={numTotalItems}
@@ -105,7 +105,7 @@ const columns: LGColumnDef<ImageFile>[] = [
     enableColumnFilter: true,
     meta: {
       search: {
-        "data-cy": "file-name-filter",
+        "data-testid": "file-name-filter",
         placeholder: "Name regex",
       },
     },

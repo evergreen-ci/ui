@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
+  LGColumnDef,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { DisplayModal } from "components/DisplayModal";
 import { MetadataItem } from "components/MetadataCard";
@@ -31,7 +31,7 @@ const IncludedLocalModules: React.FC<Props> = ({ includedLocalModules }) => {
           <MetadataItem>
             {/* @ts-expect-error: Links should have hrefs. */}
             <StyledLink
-              data-cy="included-local-modules-link"
+              data-testid="included-local-modules-link"
               onClick={() => setShowModal(true)}
             >
               View included modules ({includedLocalModules.length})
@@ -39,7 +39,7 @@ const IncludedLocalModules: React.FC<Props> = ({ includedLocalModules }) => {
           </MetadataItem>
         )}
       <DisplayModal
-        data-cy="included-local-modules-modal"
+        data-testid="included-local-modules-modal"
         open={showModal}
         setOpen={setShowModal}
         size="large"

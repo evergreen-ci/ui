@@ -12,19 +12,19 @@ describe("table filter popover", () => {
     const user = userEvent.setup();
     render(
       <TableFilterPopover
-        data-cy="test-popover"
+        data-testid="test-popover"
         onConfirm={vi.fn()}
         options={options}
         value={[]}
       />,
     );
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeNull();
+    expect(screen.queryByTestId("test-popover-wrapper")).toBeNull();
     const icon = screen.getByRole("button", {
       name: "Table Filter Popover Icon",
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
   });
 
@@ -32,7 +32,7 @@ describe("table filter popover", () => {
     const user = userEvent.setup();
     render(
       <TableFilterPopover
-        data-cy="test-popover"
+        data-testid="test-popover"
         onConfirm={vi.fn()}
         options={options}
         value={["success"]}
@@ -43,7 +43,7 @@ describe("table filter popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
     const checkbox = screen.getByLabelText("Success");
     expect(checkbox).toBeChecked();
@@ -54,7 +54,7 @@ describe("table filter popover", () => {
     const onConfirm = vi.fn();
     render(
       <TableFilterPopover
-        data-cy="test-popover"
+        data-testid="test-popover"
         onConfirm={onConfirm}
         options={options}
         value={[]}
@@ -65,7 +65,7 @@ describe("table filter popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
 
     const checkboxLabel = screen.getByText("Success"); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
@@ -78,7 +78,7 @@ describe("table filter popover", () => {
     const user = userEvent.setup();
     render(
       <TableFilterPopover
-        data-cy="test-popover"
+        data-testid="test-popover"
         onConfirm={vi.fn()}
         options={[]}
         value={[]}
@@ -89,7 +89,7 @@ describe("table filter popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
     expect(screen.getByText("No filters available.")).toBeVisible();
   });

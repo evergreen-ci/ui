@@ -16,7 +16,7 @@ export const Metadata: React.FC<{
       )}
       <MetadataItem>
         <StyledLink
-          data-cy="complete-test-logs-link"
+          data-testid="complete-test-logs-link"
           href={metadata.completeLogsURL}
           onClick={() => {
             sendEvent({

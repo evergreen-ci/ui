@@ -3,8 +3,8 @@ import { PROJECT_ACCESS_SETTINGS } from "./access";
 import { ALIAS } from "./aliases";
 import { PROJECT_GENERAL_SETTINGS } from "./general";
 import {
-  PROJECT_GITHUB_SETTINGS,
   PROJECT_EVENT_GITHUB_SECTIONS,
+  PROJECT_GITHUB_SETTINGS,
 } from "./github";
 import { PROJECT_NOTIFICATION_SETTINGS, SUBSCRIPTIONS } from "./notifications";
 import { PROJECT_PATCH_ALIAS_SETTINGS } from "./patchAliases";

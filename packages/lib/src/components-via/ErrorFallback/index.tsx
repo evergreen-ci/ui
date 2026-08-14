@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Text, TextStyle, Link } from "@via-ds/components/typography";
+import { Link, Text, TextStyle } from "@via-ds/components/typography";
 import errorPage from "../../components/ErrorBoundary/ErrorFallback/errorPage.svg";
 import { palette } from "../../constants/tokens-via";
 
@@ -8,7 +8,7 @@ interface ErrorFallbackProps {
 }
 
 export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ homeURL }) => (
-  <Center data-cy="error-fallback">
+  <Center data-testid="error-fallback">
     <Paragraph>
       <WhiteText textStyle={TextStyle.heading1}>
         Ouch! That&apos;s gotta hurt,

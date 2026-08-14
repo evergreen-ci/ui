@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import {
   Button,
@@ -17,14 +17,14 @@ interface Props {
   loading: boolean;
   disabled: boolean;
   onClick: () => void;
-  "data-cy"?: string;
+  "data-testid"?: string;
   showTooltip: boolean;
   tooltipMessage: string;
 }
 
 export const HostPopover: React.FC<Props> = ({
   buttonText,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   disabled = false,
   loading,
   onClick,
@@ -42,7 +42,7 @@ export const HostPopover: React.FC<Props> = ({
   return showTooltip ? (
     <Tooltip
       trigger={
-        <Button data-cy={dataCy} disabled>
+        <Button data-testid={dataTestId} disabled>
           {buttonText}
         </Button>
       }
@@ -54,14 +54,18 @@ export const HostPopover: React.FC<Props> = ({
     <>
       <ButtonWrapper ref={buttonRef}>
         <Button
-          data-cy={dataCy}
+          data-testid={dataTestId}
           disabled={disabled}
           onClick={() => setActive((curr) => !curr)}
         >
           {buttonText}
         </Button>
       </ButtonWrapper>
-      <Popover active={active} align="bottom" data-cy={`${dataCy}-popover`}>
+      <Popover
+        active={active}
+        align="bottom"
+        data-testid={`${dataTestId}-popover`}
+      >
         <PopoverContainer ref={popoverRef}>
           {titleText}
 

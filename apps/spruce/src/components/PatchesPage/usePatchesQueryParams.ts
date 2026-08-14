@@ -3,7 +3,7 @@ import { useQueryParam } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesInput } from "gql/generated/types";
-import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
+import { ALL_PATCH_STATUS, PatchPageQueryParams } from "types/patch";
 
 /**
  * usePatchesQueryParams is used alongside the Patches Page to transform URL state

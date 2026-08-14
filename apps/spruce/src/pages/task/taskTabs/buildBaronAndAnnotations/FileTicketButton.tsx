@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Button, Variant, Size } from "@leafygreen-ui/button";
+import { Button, Size, Variant } from "@leafygreen-ui/button";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -49,12 +49,12 @@ const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
       <Popconfirm
         align="right"
         confirmDisabled={loadingFileJiraTicket}
-        data-cy="file-ticket-popconfirm"
+        data-testid="file-ticket-popconfirm"
         onConfirm={onClickFile}
         trigger={
           <ButtonWrapper>
             <Button
-              data-cy="file-ticket-button"
+              data-testid="file-ticket-button"
               size={Size.XSmall}
               variant={Variant.Primary}
             >

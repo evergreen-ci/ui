@@ -1,7 +1,7 @@
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Mock } from "vitest";
 import { useAuthProviderContext } from "../../context/AuthProvider";
-import { render, screen, fireEvent } from "../../test_utils";
+import { fireEvent, render, screen } from "../../test_utils";
 import LoginPage from ".";
 
 vi.mock("../../context/AuthProvider", () => ({
@@ -52,13 +52,13 @@ describe("LoginPage", () => {
         <Routes>
           <Route element={<LoginPage />} path="/login" />
           <Route
-            element={<div data-cy="waterfall">Waterfall</div>}
+            element={<div data-testid="waterfall">Waterfall</div>}
             path="/waterfall"
           />
         </Routes>
       </MemoryRouter>,
     );
 
-    expect(screen.getByDataCy("waterfall")).toBeInTheDocument();
+    expect(screen.getByTestId("waterfall")).toBeInTheDocument();
   });
 });

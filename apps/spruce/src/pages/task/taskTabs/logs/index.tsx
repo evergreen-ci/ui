@@ -18,7 +18,7 @@ import { getTaskHTMLLogRoute } from "constants/routes";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { LogTypes, QueryParams } from "types/task";
-import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
+import { AgentLog, AllLog, EventLog, SystemLog, TaskLog } from "./LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 const FADE_OVERLAY_HEIGHT = 100;
@@ -33,11 +33,11 @@ const options = {
 };
 
 const logTypeOptions: { id: string; label: string; value: LogTypes }[] = [
-  { id: "cy-task-option", label: "Task Logs", value: LogTypes.Task },
-  { id: "cy-agent-option", label: "Agent Logs", value: LogTypes.Agent },
-  { id: "cy-system-option", label: "System Logs", value: LogTypes.System },
-  { id: "cy-event-option", label: "Event Logs", value: LogTypes.Event },
-  { id: "cy-all-option", label: "Combined", value: LogTypes.All },
+  { id: "task-option", label: "Task Logs", value: LogTypes.Task },
+  { id: "agent-option", label: "Agent Logs", value: LogTypes.Agent },
+  { id: "system-option", label: "System Logs", value: LogTypes.System },
+  { id: "event-option", label: "Event Logs", value: LogTypes.Event },
+  { id: "all-option", label: "Combined", value: LogTypes.All },
 ];
 
 interface Props {
@@ -138,7 +138,7 @@ const Logs: React.FC<Props> = ({
             <FloatingButtonContainer>
               {parsleyLink && (
                 <Button
-                  data-cy="parsley-log-btn"
+                  data-testid="parsley-log-btn"
                   disabled={noLogs}
                   href={parsleyLink}
                   onClick={() =>
@@ -155,7 +155,7 @@ const Logs: React.FC<Props> = ({
               )}
               {htmlLink && (
                 <Button
-                  data-cy="html-log-btn"
+                  data-testid="html-log-btn"
                   disabled={noLogs}
                   href={htmlLink}
                   onClick={() =>
@@ -171,7 +171,7 @@ const Logs: React.FC<Props> = ({
               )}
               {rawLink && (
                 <Button
-                  data-cy="raw-log-btn"
+                  data-testid="raw-log-btn"
                   disabled={noLogs}
                   href={rawLink}
                   onClick={() =>
@@ -187,7 +187,7 @@ const Logs: React.FC<Props> = ({
               )}
               {rawLink && (
                 <Button
-                  data-cy="download-log-btn"
+                  data-testid="download-log-btn"
                   disabled={noLogs}
                   onClick={() => {
                     downloadFile(rawLink, `${taskId}_${currentLog}.log`, () => {
