@@ -28,14 +28,10 @@ export interface IconProps extends Omit<DynamicIconProps, "glyph"> {
   glyph: GlyphName | LocalGlyphName;
 }
 
-/**
- * Shared wrapper around the Via `Icon` that also renders the glyphs Via
- * lacks (EvergreenLogo, GitHub, KnownFailure) from local SVGs.
- */
+/** Via `Icon` that also renders local glyphs Via lacks. */
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
   ({ className, glyph, ...rest }, ref) => {
-    // Mirror the Via Icon's skeleton handling for local glyphs: shimmer class
-    // plus `inert` while an ancestor Skeleton is loading.
+    // Mirror the Via Icon's internal skeleton handling for local glyphs.
     const { className: skeletonClass, isLoading } = useIconSkeleton();
     if (isLocalGlyph(glyph)) {
       const LocalGlyph = localGlyphs[glyph];
@@ -57,4 +53,4 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
 );
 Icon.displayName = "Icon";
 
-export { EvergreenLogo, GitHub, KnownFailure, SizeValue };
+export { EvergreenLogo, SizeValue };

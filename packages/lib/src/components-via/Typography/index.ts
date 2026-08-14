@@ -1,6 +1,5 @@
-// Shared wrapper: apps import Via primitives from here rather than @via-ds
-// directly, so cross-cutting changes land in one place. Deprecated aliases
-// (ErrorText, subtitle/overline text styles) are intentionally not exported.
+// Deprecated aliases (ErrorText, subtitle/overline text styles) are
+// intentionally not exported.
 export {
   Body,
   Code,
