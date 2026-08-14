@@ -68,7 +68,9 @@ const MetadataCard: React.FC<Props> = ({
     )}
     {loading && !error && <ListSkeleton />}
     {error && !loading && (
-      <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
+      <ErrorWrapper data-testid="metadata-card-error">
+        {error.message}
+      </ErrorWrapper>
     )}
     {!loading && !error && <ItemsContainer>{children}</ItemsContainer>}
   </SiderCard>
@@ -77,7 +79,7 @@ const MetadataCard: React.FC<Props> = ({
 interface ItemProps {
   as?: BodyProps["as"];
   children: React.ReactNode;
-  "data-cy"?: string;
+  "data-testid"?: string;
   label?: string;
   labelColor?: string;
   tooltipDescription?: string;
@@ -86,18 +88,18 @@ interface ItemProps {
 export const MetadataItem: React.FC<ItemProps> = ({
   as = "p",
   children,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   label,
   labelColor,
   tooltipDescription,
 }) => (
   <MetadataItemWrapper>
     {label ? (
-      <Item as={as} data-cy={dataCy}>
+      <Item as={as} data-testid={dataTestId}>
         <MetadataLabel color={labelColor}>{label}:</MetadataLabel> {children}
       </Item>
     ) : (
-      <Item as={as} data-cy={dataCy}>
+      <Item as={as} data-testid={dataTestId}>
         {children}
       </Item>
     )}

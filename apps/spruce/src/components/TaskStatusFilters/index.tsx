@@ -31,7 +31,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
               ? selectedStatuses.join(", ")
               : noFilterMessage
           }`}
-          data-cy="task-status-filter"
+          data-testid="task-status-filter"
         >
           <TreeSelect
             onChange={onChangeStatusFilter}
@@ -47,7 +47,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
               ? selectedBaseStatuses.join(", ")
               : noFilterMessage
           }`}
-          data-cy="base-task-status-filter"
+          data-testid="base-task-status-filter"
         >
           <TreeSelect
             onChange={onChangeBaseStatusFilter}

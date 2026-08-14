@@ -20,7 +20,7 @@ describe("TaskDurationTable", () => {
         <TaskDurationTable loading={false} numLoadingRows={10} tasks={tasks} />
       </MockedProvider>,
     );
-    expect(screen.queryAllByDataCy("task-duration-table-row")).toHaveLength(2);
+    expect(screen.queryAllByTestId("task-duration-table-row")).toHaveLength(2);
   });
 
   it("opens nested row on click", async () => {
@@ -32,7 +32,7 @@ describe("TaskDurationTable", () => {
     );
     expect(screen.queryByText("check_codegen_execution_task")).toBeNull();
     const expandRowButton = within(
-      screen.getAllByDataCy("task-duration-table-row")[0],
+      screen.getAllByTestId("task-duration-table-row")[0],
     ).getByRole("button");
     await user.click(expandRowButton);
     expect(screen.queryByText("check_codegen_execution_task")).toBeVisible();

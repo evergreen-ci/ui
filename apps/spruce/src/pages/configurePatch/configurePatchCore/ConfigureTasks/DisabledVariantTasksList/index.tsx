@@ -5,13 +5,13 @@ import { TaskLayoutGrid } from "../styles";
 import { CheckboxState } from "../types";
 
 interface DisabledVariantTasksListProps {
-  "data-cy": string;
+  "data-testid": string;
   status: CheckboxState;
   variantTasks: VariantTask[];
 }
 
 const DisabledVariantTasksList: React.FC<DisabledVariantTasksListProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   status,
   variantTasks,
 }) => (
@@ -24,7 +24,7 @@ const DisabledVariantTasksList: React.FC<DisabledVariantTasksListProps> = ({
             <Checkbox
               key={`${name}-${taskName}`}
               checked={status === CheckboxState.Checked}
-              data-cy={dataCy}
+              data-testid={dataTestId}
               disabled
               label={taskName}
             />

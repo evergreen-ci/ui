@@ -27,9 +27,7 @@ describe("word wrap format toggle", () => {
     );
     render(<Component />, { wrapper });
     expect(hook.current.preferences.wrap).toBe(false);
-    const wordWrapFormatToggle = screen.getByDataTestId(
-      "word-wrap-format-toggle",
-    );
+    const wordWrapFormatToggle = screen.getByTestId("word-wrap-format-toggle");
     act(() => {
       hook.current.preferences.setWrap(true);
     });
@@ -43,9 +41,7 @@ describe("word wrap format toggle", () => {
     );
     render(<Component />, { wrapper });
     expect(hook.current.preferences.wordWrapFormat).toBe("standard");
-    const wordWrapFormatToggle = screen.getByDataTestId(
-      "word-wrap-format-toggle",
-    );
+    const wordWrapFormatToggle = screen.getByTestId("word-wrap-format-toggle");
     expect(wordWrapFormatToggle).toHaveAttribute("aria-checked", "false");
   });
 
@@ -55,9 +51,7 @@ describe("word wrap format toggle", () => {
       <WordWrapFormatToggle />,
     );
     render(<Component />, { wrapper });
-    const wordWrapFormatToggle = screen.getByDataTestId(
-      "word-wrap-format-toggle",
-    );
+    const wordWrapFormatToggle = screen.getByTestId("word-wrap-format-toggle");
     expect(wordWrapFormatToggle).toHaveAttribute("aria-checked", "false");
   });
 
@@ -71,9 +65,7 @@ describe("word wrap format toggle", () => {
     act(() => {
       hook.current.preferences.setWrap(true);
     });
-    const wordWrapFormatToggle = screen.getByDataTestId(
-      "word-wrap-format-toggle",
-    );
+    const wordWrapFormatToggle = screen.getByTestId("word-wrap-format-toggle");
 
     await user.click(wordWrapFormatToggle);
     expect(wordWrapFormatToggle).toHaveAttribute("aria-checked", "true");

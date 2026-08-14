@@ -40,6 +40,7 @@ export interface RunnersFormState {
       hostsOverallocatedRule: OverallocatedRule;
       futureHostFraction: number;
       cacheDurationSeconds: number;
+      mergeQueueTargetTimeSeconds: number;
       targetTimeSeconds: number;
       acceptableHostIdleTimeSeconds: number;
       patchFactor: number;

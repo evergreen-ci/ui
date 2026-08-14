@@ -24,7 +24,7 @@ const AddIssueModal = (
 ) => (
   <MockedProvider mocks={[getSpruceConfigMock, addAnnotationMock]}>
     <AddIssueModalToTest
-      data-cy="add-issue-modal"
+      data-testid="add-issue-modal"
       execution={0}
       taskId="1"
       visible
@@ -51,7 +51,7 @@ describe("addIssueModal", () => {
       checkModalVisibility();
     });
 
-    expect(screen.queryByDataCy("issue-url")).toHaveValue("");
+    expect(screen.queryByTestId("issue-url")).toHaveValue("");
     expect(
       screen.getByRole("button", {
         name: "Add issue",
@@ -74,10 +74,9 @@ describe("addIssueModal", () => {
       checkModalVisibility();
     });
 
-    expect(screen.queryByDataCy("issue-url")).toHaveValue("");
+    expect(screen.getByTestId("issue-url")).toHaveValue("");
     await user.type(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      screen.queryByDataCy("issue-url"),
+      screen.getByTestId("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123",
     );
     expect(
@@ -102,10 +101,9 @@ describe("addIssueModal", () => {
       checkModalVisibility();
     });
 
-    expect(screen.queryByDataCy("issue-url")).toHaveValue("");
+    expect(screen.getByTestId("issue-url")).toHaveValue("");
     await user.type(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      screen.queryByDataCy("issue-url"),
+      screen.getByTestId("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123",
     );
 
@@ -113,20 +111,15 @@ describe("addIssueModal", () => {
       name: "Add issue",
     });
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("confidence-level"), "not a number");
+    await user.type(screen.getByTestId("confidence-level"), "not a number");
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.clear(screen.queryByDataCy("confidence-level"));
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("confidence-level"), "110");
+    await user.clear(screen.getByTestId("confidence-level"));
+    await user.type(screen.getByTestId("confidence-level"), "110");
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.clear(screen.queryByDataCy("confidence-level"));
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("confidence-level"), "80");
+    await user.clear(screen.getByTestId("confidence-level"));
+    await user.type(screen.getByTestId("confidence-level"), "80");
     expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
   }, 15000);
 
@@ -147,12 +140,10 @@ describe("addIssueModal", () => {
     });
 
     await user.type(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      screen.queryByDataCy("issue-url"),
+      screen.getByTestId("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123",
     );
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("confidence-level"), "12");
+    await user.type(screen.getByTestId("confidence-level"), "12");
 
     const confirmButton = screen.getByRole("button", {
       name: "Add issue",
@@ -167,9 +158,9 @@ describe("addIssueModal", () => {
 });
 
 const checkModalVisibility = () => {
-  expect(screen.getByDataCy("add-issue-modal")).toBeVisible();
-  expect(screen.getByDataCy("issue-url")).toBeVisible();
-  expect(screen.getByDataCy("confidence-level")).toBeVisible();
+  expect(screen.getByTestId("add-issue-modal")).toBeVisible();
+  expect(screen.getByTestId("issue-url")).toBeVisible();
+  expect(screen.getByTestId("confidence-level")).toBeVisible();
 };
 
 const addAnnotationMock: ApolloMock<

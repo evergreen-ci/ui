@@ -170,7 +170,7 @@ export const Settings: React.FC<SettingsProps> = ({
         }}
       />
       <Button
-        data-cy="save-profile-changes-button"
+        data-testid="save-profile-changes-button"
         disabled={!hasChanges}
         onClick={handleSubmit}
         variant={ButtonVariant.Primary}

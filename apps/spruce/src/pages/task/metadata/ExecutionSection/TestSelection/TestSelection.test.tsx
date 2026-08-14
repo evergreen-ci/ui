@@ -24,7 +24,7 @@ describe("test selection", () => {
     it("guide cue will not display", async () => {
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("test-selection-guide-cue"),
+          screen.queryByTestId("test-selection-guide-cue"),
         ).not.toBeInTheDocument();
       });
     });
@@ -39,7 +39,7 @@ describe("test selection", () => {
     it("guide cue will display if cookie is 'false'", () => {
       render(<TestSelection testSelectionEnabled />);
       expect(
-        screen.getByDataCy("test-selection-guide-cue"),
+        screen.getByTestId("test-selection-guide-cue"),
       ).toBeInTheDocument();
     });
 
@@ -48,7 +48,7 @@ describe("test selection", () => {
       render(<TestSelection testSelectionEnabled />);
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("test-selection-guide-cue"),
+          screen.queryByTestId("test-selection-guide-cue"),
         ).not.toBeInTheDocument();
       });
     });

@@ -89,14 +89,14 @@ export const TaskOverviewPopup: React.FC<Props> = ({
       dismissMode={DismissMode.Manual}
       refEl={taskBoxRef}
     >
-      <PopoverCard data-cy="task-overview-popup">
+      <PopoverCard data-testid="task-overview-popup">
         {isLoading ? (
           <ListSkeleton />
         ) : (
           <>
             <span>
               <TaskPageLink
-                data-cy="task-link"
+                data-testid="task-link"
                 to={getTaskRoute(taskId, { execution })}
               >
                 {displayName}
@@ -117,7 +117,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
               <div>
                 <b>Distro: </b>
                 <RouterLink
-                  data-cy="task-distro-link"
+                  data-testid="task-distro-link"
                   to={getDistroSettingsRoute(distroId)}
                 >
                   {distroId}

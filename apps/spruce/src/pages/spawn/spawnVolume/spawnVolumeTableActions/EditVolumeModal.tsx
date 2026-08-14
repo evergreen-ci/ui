@@ -105,7 +105,7 @@ export const EditVolumeModal: React.FC<Props> = ({
         disabled: loading || !hasChanges || !!formErrors.length,
         onClick: updateVolume,
       }}
-      data-cy="update-volume-modal"
+      data-testid="update-volume-modal"
       open={visible}
       title="Edit Volume"
     >

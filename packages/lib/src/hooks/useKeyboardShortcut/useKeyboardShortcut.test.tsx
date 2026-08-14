@@ -34,11 +34,11 @@ describe("useKeyboardShortcut", () => {
       );
       render(<input data-testid="test-input" />);
 
-      await user.click(screen.getByDataTestId("test-input"));
-      expect(screen.getByDataTestId("test-input")).toHaveFocus();
+      await user.click(screen.getByTestId("test-input"));
+      expect(screen.getByTestId("test-input")).toHaveFocus();
       await user.keyboard("{Control>}{a}{/Control}");
       expect(callback).toHaveBeenCalledTimes(0);
-      expect(screen.getByDataTestId("test-input")).toHaveValue("");
+      expect(screen.getByTestId("test-input")).toHaveValue("");
     });
   });
 
@@ -61,11 +61,11 @@ describe("useKeyboardShortcut", () => {
       renderHook(() => useKeyboardShortcut({ charKey: CharKey.A }, callback));
       render(<input data-testid="test-input" />);
 
-      await user.click(screen.getByDataTestId("test-input"));
-      expect(screen.getByDataTestId("test-input")).toHaveFocus();
+      await user.click(screen.getByTestId("test-input"));
+      expect(screen.getByTestId("test-input")).toHaveFocus();
       await user.keyboard("{a}");
       expect(callback).toHaveBeenCalledTimes(0);
-      expect(screen.getByDataTestId("test-input")).toHaveValue("a");
+      expect(screen.getByTestId("test-input")).toHaveValue("a");
     });
   });
 
@@ -82,8 +82,8 @@ describe("useKeyboardShortcut", () => {
       ),
     );
     render(<input data-testid="test-input" />);
-    await user.click(screen.getByDataTestId("test-input"));
-    expect(screen.getByDataTestId("test-input")).toHaveFocus();
+    await user.click(screen.getByTestId("test-input"));
+    expect(screen.getByTestId("test-input")).toHaveFocus();
     await user.keyboard("{Control>}{a}{/Control}");
     expect(callback).toHaveBeenCalledTimes(1);
   });

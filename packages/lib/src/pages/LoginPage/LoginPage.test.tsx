@@ -59,6 +59,6 @@ describe("LoginPage", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByDataTestId("waterfall")).toBeInTheDocument();
+    expect(screen.getByTestId("waterfall")).toBeInTheDocument();
   });
 });

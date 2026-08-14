@@ -83,7 +83,7 @@ const AnnotationNote: React.FC<Props> = ({
         trigger={
           <ButtonWrapper>
             <Button
-              data-cy="edit-annotation-button"
+              data-testid="edit-annotation-button"
               disabled={originalMessage === newMessage || !userCanModify}
               onClick={saveAnnotationNote}
               size={Size.XSmall}

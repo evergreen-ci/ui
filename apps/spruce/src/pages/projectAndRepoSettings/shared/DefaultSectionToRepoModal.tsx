@@ -59,7 +59,7 @@ export const DefaultSectionToRepoModal = ({
           handleClose();
         },
       }}
-      data-cy="default-to-repo-modal"
+      data-testid="default-to-repo-modal"
       open={open}
       requiredInputText="confirm"
       title="Are you sure you want to default all settings in this section to the repo settings?"

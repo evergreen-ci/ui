@@ -35,13 +35,13 @@ export const InactiveVersionsButton: React.FC<Props> = ({
         versions={versions}
       />
       {brokenVersionsCount > 0 && (
-        <StyledBadge data-cy="broken-versions-badge" variant={Variant.Red}>
+        <StyledBadge data-testid="broken-versions-badge" variant={Variant.Red}>
           {brokenVersionsCount} broken
         </StyledBadge>
       )}
       <StyledButton
         aria-label="Open inactive versions modal"
-        data-cy="inactive-versions-button"
+        data-testid="inactive-versions-button"
         leftGlyph={<Icon fill={gray.base} glyph="List" />}
         onClick={() => {
           setModalOpen(true);

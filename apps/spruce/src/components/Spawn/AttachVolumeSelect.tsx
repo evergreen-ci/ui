@@ -74,19 +74,19 @@ export const AttachVolumeSelect = ({
       <InputLabel htmlFor="hostDropdown">{label || "Host Name"}</InputLabel>
       <Select
         aria-labelledby="host-select"
-        data-cy="host-select"
+        data-testid="host-select"
         id="hostDropdown"
         onChange={onChange}
         style={{ width: 200 }}
         value={selectedHostId}
       >
         {!autofill && (
-          <Option key="clear" data-cy="clear-option" value="">
+          <Option key="clear" data-testid="clear-option" value="">
             {" "}
           </Option>
         )}
         {hostDropdownOptions.map(({ displayName, id }) => (
-          <Option key={id} data-cy={`${id}-option`} value={id}>
+          <Option key={id} data-testid={`${id}-option`} value={id}>
             {displayName}
           </Option>
         ))}

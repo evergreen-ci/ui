@@ -60,7 +60,7 @@ export const getFormSchema = (
     },
     commands: {
       setupCommandsOverride: {
-        "ui:data-cy": "commands-override-radio-box",
+        "ui:data-testid": "commands-override-radio-box",
         "ui:widget":
           projectType === ProjectType.AttachedProject
             ? widgets.RadioBoxWidget
@@ -77,11 +77,11 @@ export const getFormSchema = (
           "ui:ObjectFieldTemplate": CommandRow,
           "ui:label": false,
           command: {
-            "ui:data-cy": "command-input",
+            "ui:data-testid": "command-input",
             "ui:widget": widgets.TextareaWidget,
           },
           directory: {
-            "ui:data-cy": "directory-input",
+            "ui:data-testid": "directory-input",
             "ui:optional": true,
           },
         },

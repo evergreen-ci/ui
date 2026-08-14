@@ -58,7 +58,7 @@ test.describe("Waterfall menu settings", () => {
 
 test.describe("Waterfall subscription modal", () => {
   const route = "/project/spruce/waterfall";
-  const dataCyModal = "waterfall-notification-modal";
+  const modalTestId = "waterfall-notification-modal";
   const errorTextRegex = "Value should be a valid regex expression.";
   const successText = "Your subscription has been added";
 
@@ -71,7 +71,7 @@ test.describe("Waterfall subscription modal", () => {
   }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
-    await expect(page.getByTestId(dataCyModal)).toBeVisible();
+    await expect(page.getByTestId(modalTestId)).toBeVisible();
 
     await selectOption(page, "Event", "Any version finishes");
     await selectOption(page, "Notification Method", "JIRA issue");
@@ -89,7 +89,7 @@ test.describe("Waterfall subscription modal", () => {
   }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
-    await expect(page.getByTestId(dataCyModal)).toBeVisible();
+    await expect(page.getByTestId(modalTestId)).toBeVisible();
 
     await selectOption(page, "Event", "Any build finishes");
     await page.getByTestId("add-button").click();
@@ -124,7 +124,7 @@ test.describe("Waterfall subscription modal", () => {
 
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
-    await expect(page.getByTestId(dataCyModal)).toBeVisible();
+    await expect(page.getByTestId(modalTestId)).toBeVisible();
 
     await selectOption(page, "Event", "Any version finishes");
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
@@ -135,9 +135,9 @@ test.describe("Waterfall subscription modal", () => {
   test("Hides the modal after clicking the cancel button", async ({ page }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
-    await expect(page.getByTestId(dataCyModal)).toBeVisible();
+    await expect(page.getByTestId(modalTestId)).toBeVisible();
     await page.getByRole("button", { name: "Cancel" }).click();
-    await expect(page.getByTestId(dataCyModal)).toBeHidden();
+    await expect(page.getByTestId(modalTestId)).toBeHidden();
   });
 
   test("Pulls initial values from cookies", async ({ page, context }) => {
@@ -161,7 +161,7 @@ test.describe("Waterfall subscription modal", () => {
     await page.reload();
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("add-notification").click();
-    await expect(page.getByTestId(dataCyModal)).toBeVisible();
+    await expect(page.getByTestId(modalTestId)).toBeVisible();
     await expect(page.getByText("Any build fails")).toBeVisible();
     await expect(
       page.getByTestId("notification-method-select").getByText("Slack message"),

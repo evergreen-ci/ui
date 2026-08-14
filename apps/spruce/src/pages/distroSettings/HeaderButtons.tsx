@@ -19,7 +19,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
   return (
     <>
       <Button
-        data-cy="save-settings-button"
+        data-testid="save-settings-button"
         disabled={hasError || !hasChanges}
         onClick={() => setModalOpen(true)}
         variant="primary"

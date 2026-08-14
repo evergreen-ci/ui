@@ -57,7 +57,7 @@ const getColumns = (myPublicKeys: PublicKey[]): LGColumnDef<PublicKey>[] => [
       },
     },
     cell: ({ getValue }) => (
-      <WordBreak data-cy="table-key-name">{getValue() as string}</WordBreak>
+      <WordBreak data-testid="table-key-name">{getValue() as string}</WordBreak>
     ),
   },
   {
