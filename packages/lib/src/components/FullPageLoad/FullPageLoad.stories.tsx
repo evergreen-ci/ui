@@ -5,4 +5,6 @@ export default {
   component: FullPageLoad,
 } satisfies CustomMeta<typeof FullPageLoad>;
 
-export const Default: CustomStoryObj<typeof FullPageLoad> = {};
+export const Default: CustomStoryObj<typeof FullPageLoad> = {
+  parameters: { layout: "fullscreen" },
+};

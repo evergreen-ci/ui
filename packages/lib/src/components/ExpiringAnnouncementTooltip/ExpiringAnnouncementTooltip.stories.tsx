@@ -14,9 +14,12 @@ export const Default: CustomStoryObj<typeof ExpiringAnnouncementTooltip> = {
     cookieName,
     title: "New Release",
   },
+  parameters: {
+    // GuideCue opens its popover on a 400ms timeout + JS fade; don't shrink.
+    chromatic: { delay: 1500 },
+  },
   render: (args) => {
-    // Dismissing the tooltip persists a cookie; clear it so the story always
-    // shows the first-view (open) state.
+    // A prior dismissal persists a 365-day cookie that hides the tooltip.
     Cookies.remove(cookieName);
     return <ExpiringAnnouncementTooltip {...args} />;
   },
