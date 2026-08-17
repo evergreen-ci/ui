@@ -10,6 +10,27 @@ import { TabProps, TestSelectionFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.TestSelection;
 
+const getValidate =
+  (repoData: TabProps["repoData"]): ValidateProps<TestSelectionFormState> =>
+  (settings, errors) => {
+    const patchesEnabled =
+      settings.taskLevel.defaultEnabled ??
+      repoData?.taskLevel.defaultEnabled ??
+      false;
+    const mainlineEnabled =
+      settings.taskLevel.mainlineDefaultEnabled ??
+      repoData?.taskLevel.mainlineDefaultEnabled ??
+      false;
+
+    if (mainlineEnabled && !patchesEnabled) {
+      errors.taskLevel.mainlineDefaultEnabled.addError(
+        MAINLINE_REQUIRES_PATCHES_MESSAGE,
+      );
+    }
+
+    return errors;
+  };
+
 export const TestSelectionTab: React.FC<TabProps> = ({
   projectData,
   projectType,
@@ -33,28 +54,6 @@ export const TestSelectionTab: React.FC<TabProps> = ({
     repoData?.taskLevel.defaultEnabled ??
     false;
 
-  const validate: ValidateProps<TestSelectionFormState> = (
-    settings,
-    errors,
-  ) => {
-    const patchesEnabled =
-      settings.taskLevel.defaultEnabled ??
-      repoData?.taskLevel.defaultEnabled ??
-      false;
-    const mainlineEnabled =
-      settings.taskLevel.mainlineDefaultEnabled ??
-      repoData?.taskLevel.mainlineDefaultEnabled ??
-      false;
-
-    if (mainlineEnabled && !patchesEnabled) {
-      errors.taskLevel.mainlineDefaultEnabled.addError(
-        MAINLINE_REQUIRES_PATCHES_MESSAGE,
-      );
-    }
-
-    return errors;
-  };
-
   const formSchema = useMemo(
     () =>
       getFormSchema({
@@ -74,7 +73,7 @@ export const TestSelectionTab: React.FC<TabProps> = ({
       formSchema={formSchema}
       initialFormState={initialFormState}
       tab={tab}
-      validate={validate}
+      validate={getValidate(repoData)}
     />
   );
 };
