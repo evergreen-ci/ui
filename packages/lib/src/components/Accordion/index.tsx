@@ -73,8 +73,6 @@ const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div className={className} data-testid={dataTestId}>
-      {/* The a11y violations predate the CSS modules conversion; the styled
-          component simply hid them from the linter. */}
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus */}
       <div
         className={styles.toggle}

@@ -1,5 +1,4 @@
-// Plain CSS string so Emotion consumers (Spruce/Parsley global styles) can
-// interpolate it while packages/lib itself stays off Emotion.
+// Plain CSS string so Emotion consumers (Spruce/Parsley) can interpolate it.
 export const fontStyles = `
   /*
    * Euclid
