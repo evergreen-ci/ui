@@ -1,0 +1,24 @@
+.pageWrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px; /* size.s */
+
+  width: 400px;
+  padding: 32px 24px; /* size.l size.m */
+  background-color: #e3fcf7; /* palette.green.light3 */
+  border-radius: 24px; /* size.m */
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */
+.submitButton.submitButton {
+  align-self: flex-end;
+}

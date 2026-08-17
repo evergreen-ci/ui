@@ -1,0 +1,17 @@
+.checkboxWrapper {
+  padding-top: 4px; /* size.xxs */
+  padding-bottom: 4px; /* size.xxs */
+}
+
+.checkboxWrapperNested {
+  padding-left: 1em;
+}
+
+.checkboxWrapperAll {
+  border-bottom: 1px solid #e8edeb; /* palette.gray.light2 */
+}
+
+.checkboxContainer {
+  min-width: 150px; /* need to set this as side effect of getPopupContainer */
+  font-weight: normal; /* need to set this as side effect of getPopupContainer */
+}

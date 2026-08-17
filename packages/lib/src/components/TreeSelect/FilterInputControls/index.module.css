@@ -1,0 +1,10 @@
+.buttonsWrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  margin-top: 32px; /* size.l */
+}
+
+.buttonWrapper {
+  margin-right: 8px; /* size.xs */
+}

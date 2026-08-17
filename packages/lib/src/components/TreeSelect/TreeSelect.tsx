@@ -1,11 +1,8 @@
 import { useEffect } from "react";
-import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
-import { palette } from "@leafygreen-ui/palette";
-import { size } from "../../constants/tokens";
+import { cx } from "../../utils/css";
 import { FilterInputControls } from "./FilterInputControls";
-
-const { gray } = palette;
+import styles from "./TreeSelect.module.css";
 
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
@@ -70,7 +67,10 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   }
 
   return (
-    <CheckboxContainer data-testid={dataTestId || "tree-select-options"}>
+    <div
+      className={styles.checkboxContainer}
+      data-testid={dataTestId || "tree-select-options"}
+    >
       {renderCheckboxes({
         state: filteredState,
         tData,
@@ -83,7 +83,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
           submitButtonCopy="Filter"
         />
       )}
-    </CheckboxContainer>
+    </div>
   );
 };
 
@@ -123,14 +123,20 @@ const renderCheckboxesHelper = ({
   const onChangeFn = (): void =>
     handleOnChange({ state, value: data.value, onChange, tData });
   rows.push(
-    <CheckboxWrapper key={data.key} isAll={data.value === ALL_VALUE} level={0}>
+    <div
+      key={data.key}
+      className={cx(
+        styles.checkboxWrapper,
+        data.value === ALL_VALUE && styles.checkboxWrapperAll,
+      )}
+    >
       <Checkbox
         bold={false}
         checked={state.includes(data.value)}
         label={data.title}
         onChange={onChangeFn}
       />
-    </CheckboxWrapper>,
+    </div>,
   );
   // then examine children
   if (data.children) {
@@ -138,10 +144,13 @@ const renderCheckboxesHelper = ({
       const onChangeChildFn = (): void =>
         handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
-        <CheckboxWrapper
+        <div
           key={`${data.key}-${child.key}`}
-          isAll={child.value === ALL_VALUE}
-          level={1}
+          className={cx(
+            styles.checkboxWrapper,
+            styles.checkboxWrapperNested,
+            child.value === ALL_VALUE && styles.checkboxWrapperAll,
+          )}
         >
           <Checkbox
             bold={false}
@@ -149,7 +158,7 @@ const renderCheckboxesHelper = ({
             label={child.title}
             onChange={onChangeChildFn}
           />
-        </CheckboxWrapper>,
+        </div>,
       );
     });
   }
@@ -296,15 +305,3 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
       : [];
     return accum.concat([currNode.value]).concat(childrenValues);
   }, []);
-
-const CheckboxWrapper = styled.div<{ level: number; isAll: boolean }>`
-  padding-left: ${({ level }) => `${level}em`};
-  padding-top: ${size.xxs};
-  padding-bottom: ${size.xxs};
-  ${({ isAll }) => isAll && `border-bottom: 1px solid ${gray.light2};`}
-`;
-
-const CheckboxContainer = styled.div`
-  min-width: 150px; // need to set this as side effect of getPopupContainer
-  font-weight: normal; // need to set this as side effect of getPopupContainer
-`;
