@@ -13,13 +13,10 @@ const formData: TestSelectionFormState = {
   },
 };
 
-const renderForm = (
-  canEnableTaskLevel: boolean,
-  mainlineRequiresPatches = false,
-) => {
+const renderForm = (canEnableTaskLevel: boolean, canEnableMainline = true) => {
   const { fields, schema, uiSchema } = getFormSchema({
     canEnableTaskLevel,
-    mainlineRequiresPatches,
+    canEnableMainline,
   });
 
   return render(
@@ -62,7 +59,7 @@ describe("getFormSchema", () => {
   });
 
   it("explains that mainline test selection requires patch test selection", () => {
-    renderForm(true, true);
+    renderForm(true, false);
 
     expect(
       screen.getByText(

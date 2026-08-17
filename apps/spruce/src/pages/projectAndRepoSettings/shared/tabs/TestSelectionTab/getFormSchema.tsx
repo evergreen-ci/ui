@@ -7,23 +7,19 @@ import { TestSelectionFormState } from "./types";
 
 const { radioBoxOptions } = form;
 
-const getTaskLevelWarning = (canEnableTaskLevel: boolean) => {
-  if (!canEnableTaskLevel) {
-    return "Test selection must be enabled for the project before it can be enabled for patches or mainline commits.";
-  }
-};
-
 export const getFormSchema = ({
+  canEnableMainline,
   canEnableTaskLevel,
-  mainlineRequiresPatches,
   repoData,
 }: {
   repoData?: TestSelectionFormState;
   canEnableTaskLevel: boolean;
-  mainlineRequiresPatches: boolean;
+  canEnableMainline: boolean;
 }): ReturnType<GetFormSchema> => {
-  const taskLevelWarning = getTaskLevelWarning(canEnableTaskLevel);
-  const mainlineWarning = mainlineRequiresPatches
+  const taskLevelWarning = !canEnableTaskLevel
+    ? "Test selection must be enabled for the project before it can be enabled for patches or mainline commits."
+    : undefined;
+  const mainlineWarning = !canEnableMainline
     ? MAINLINE_REQUIRES_PATCHES_MESSAGE
     : undefined;
 
@@ -36,8 +32,6 @@ export const getFormSchema = ({
         projectLevel: {
           type: "object" as const,
           title: "Project-Level Test Selection",
-          description:
-            "Sets if the project can use test selection features or not.",
           properties: {
             allowed: {
               type: ["boolean", "null"],
@@ -51,8 +45,6 @@ export const getFormSchema = ({
         taskLevel: {
           type: "object" as const,
           title: "Task-Level Test Selection",
-          description:
-            "Controls whether test selection is enabled by default for patch tasks and mainline commit tasks.",
           properties: {
             defaultEnabled: {
               type: ["boolean", "null"],
@@ -77,6 +69,8 @@ export const getFormSchema = ({
     uiSchema: {
       projectLevel: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:description":
+          "Sets if the project can use test selection features or not.",
         allowed: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:showLabel": false,
@@ -84,6 +78,8 @@ export const getFormSchema = ({
       },
       taskLevel: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:description":
+          "Controls whether test selection is enabled by default for patch tasks and mainline commit tasks.",
         ...(taskLevelWarning && {
           "ui:warnings": [taskLevelWarning],
         }),
@@ -95,7 +91,7 @@ export const getFormSchema = ({
           ...(mainlineWarning && {
             "ui:warnings": [mainlineWarning],
           }),
-          ...(mainlineRequiresPatches && {
+          ...(!canEnableMainline && {
             "ui:enumDisabled": [true],
           }),
         },

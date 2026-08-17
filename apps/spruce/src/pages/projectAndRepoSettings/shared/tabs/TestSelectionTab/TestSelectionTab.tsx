@@ -60,7 +60,7 @@ export const TestSelectionTab: React.FC<TabProps> = ({
         repoData:
           projectType === ProjectType.AttachedProject ? repoData : undefined,
         canEnableTaskLevel,
-        mainlineRequiresPatches: !canEnableMainline,
+        canEnableMainline,
       }),
     [projectType, canEnableTaskLevel, canEnableMainline, repoData],
   );
