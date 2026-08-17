@@ -162,15 +162,15 @@ const renderCellValue = (
     return customRenderedValue;
   }
 
-  if (Array.isArray(before) || Array.isArray(after)) {
-    return renderArrayValue(
-      Array.isArray(before) ? before : [],
-      Array.isArray(after) ? after : [],
-      side,
-    );
+  if (!Array.isArray(value)) {
+    return customRenderedValue;
   }
 
-  return customRenderedValue;
+  return renderArrayValue(
+    Array.isArray(before) ? before : [],
+    Array.isArray(after) ? after : [],
+    side,
+  );
 };
 
 const columns = (
