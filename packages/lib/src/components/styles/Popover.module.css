@@ -1,0 +1,11 @@
+.popoverContainer {
+  background-color: #ffffff; /* palette.white */
+  border-radius: 16px; /* size.s */
+  box-shadow: 0px 2px 4px -1px #889397; /* palette.gray.base */
+  display: flex;
+  flex-direction: column;
+  padding: 16px; /* size.s */
+
+  max-height: 400px;
+  overflow-y: scroll;
+}

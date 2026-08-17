@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
-
-export const fontStyles = css`
+// Plain CSS string so Emotion consumers (Spruce/Parsley global styles) can
+// interpolate it while packages/lib itself stays off Emotion.
+export const fontStyles = `
   /*
    * Euclid
   /*

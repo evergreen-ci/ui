@@ -1,0 +1,7 @@
+/* Override LeafyGreen's font declarations for Link. The doubled selector
+   outranks LeafyGreen's runtime-injected Emotion styles. */
+.link.link {
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}

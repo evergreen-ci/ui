@@ -1,7 +1,9 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { cx } from "../../utils/css";
+import styles from "./Typography.module.css";
 
-export const wordBreakCss = css`
+// Plain CSS string so Emotion consumers (Spruce/Parsley) can interpolate it
+// while packages/lib itself stays off Emotion.
+export const wordBreakCss = `
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
@@ -9,7 +11,17 @@ export const wordBreakCss = css`
   overflow-wrap: anywhere;
 `;
 
-export const WordBreak = styled.span<{ all?: boolean }>`
-  ${wordBreakCss};
-  ${({ all }) => all && "overflow-wrap: anywhere; word-break: break-all;"}
-`;
+type WordBreakProps = React.ComponentPropsWithoutRef<"span"> & {
+  all?: boolean;
+};
+
+export const WordBreak: React.FC<WordBreakProps> = ({
+  all = false,
+  className,
+  ...rest
+}) => (
+  <span
+    className={cx(styles.wordBreak, all && styles.breakAll, className)}
+    {...rest}
+  />
+);
