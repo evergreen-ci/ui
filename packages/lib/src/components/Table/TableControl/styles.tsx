@@ -1,12 +1,14 @@
-import styled from "@emotion/styled";
-import { size } from "../../../constants/tokens";
+import { cx } from "../../../utils/css";
+import styles from "./styles.module.css";
 
-export const TableControlInnerRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+type DivProps = React.ComponentPropsWithoutRef<"div">;
 
-export const TableControlOuterRow = styled(TableControlInnerRow)`
-  padding-bottom: ${size.xs};
-`;
+export const TableControlInnerRow: React.FC<DivProps> = ({
+  className,
+  ...rest
+}) => <div className={cx(styles.innerRow, className)} {...rest} />;
+
+export const TableControlOuterRow: React.FC<DivProps> = ({
+  className,
+  ...rest
+}) => <div className={cx(styles.outerRow, className)} {...rest} />;

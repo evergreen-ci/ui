@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
+import { css } from "@leafygreen-ui/emotion";
 import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -171,7 +171,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
           />
         }
         loading={projectFiltersLoading || taskQueryLoading}
-        rowCss={css`
+        rowClassName={css`
           border-bottom: 1px solid ${gray.light2};
         `}
         shouldAlternateRowColor

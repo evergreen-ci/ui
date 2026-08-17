@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { size } from "../../../constants/tokens";
+import { cx } from "../../../utils/css";
 import Icon, { glyphs } from "../../Icon";
+import styles from "./index.module.css";
 
 interface Props {
   message: string | React.ReactNode;
@@ -14,29 +14,12 @@ export const TablePlaceholder: React.FC<Props> = ({
   spin = false,
   ...props
 }) => (
-  <PlaceholderWrapper {...props}>
-    <SpinningIcon glyph={glyph} size="large" spin={spin ? "spin" : "no-spin"} />
+  <div className={styles.placeholderWrapper} {...props}>
+    <Icon
+      className={cx(spin && styles.spinningIcon)}
+      glyph={glyph}
+      size="large"
+    />
     <div>{message}</div>
-  </PlaceholderWrapper>
+  </div>
 );
-
-const PlaceholderWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${size.xs};
-  padding: ${size.l} 0;
-  opacity: 50%;
-`;
-
-const SpinningIcon = styled(Icon)<{ spin: string }>`
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  ${({ spin }) => spin === "spin" && `animation: spin 1s linear infinite`};
-`;

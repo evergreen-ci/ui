@@ -1,0 +1,10 @@
+.innerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.outerRow {
+  composes: innerRow;
+  padding-bottom: 8px; /* size.xs */
+}

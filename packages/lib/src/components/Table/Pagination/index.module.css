@@ -1,0 +1,10 @@
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */
+.pagination.pagination {
+  gap: 24px; /* size.m */
+  width: fit-content;
+}
+
+/* Prevent the inner items from shrinking in a flexbox. */
+.pagination.pagination * {
+  min-width: fit-content;
+}

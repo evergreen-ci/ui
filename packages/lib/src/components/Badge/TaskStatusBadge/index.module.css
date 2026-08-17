@@ -1,0 +1,17 @@
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles. */
+.badge.badge {
+  width: max-content;
+}
+
+/* Statuses whose colors are not supported by LeafyGreen badge variants. */
+.systemFailed.systemFailed {
+  border-color: #f1d4fd !important; /* palette.purple.light2 */
+  background-color: #f9ebff !important; /* palette.purple.light3 */
+  color: #5e0c9e !important; /* palette.purple.dark2 */
+}
+
+.knownIssue.knownIssue {
+  border-color: #ffcdc7 !important; /* palette.red.light2 */
+  background-color: #ffffff !important; /* palette.white */
+  color: #970606 !important; /* palette.red.dark2 */
+}

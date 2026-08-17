@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
 import { Pagination as LGPagination } from "@leafygreen-ui/pagination";
 import { PAGE_SIZES } from "../../../constants/pagination";
-import { size } from "../../../constants/tokens";
 import usePagination from "../../../hooks/usePagination";
+import styles from "./index.module.css";
 
 interface Props {
   countLimit?: number;
@@ -57,7 +56,8 @@ export const Pagination: React.FC<Props> = ({
       : totalResults;
 
   return (
-    <StyledPagination
+    <LGPagination
+      className={styles.pagination}
       currentPage={currentPage + 1}
       data-testid="pagination"
       itemsPerPage={pageSize || PAGE_SIZES[0]}
@@ -74,12 +74,3 @@ export const Pagination: React.FC<Props> = ({
     />
   );
 };
-
-const StyledPagination = styled(LGPagination)`
-  gap: ${size.m};
-  width: fit-content;
-  // Prevent the inner items from shrinking in a flexbox.
-  * {
-    min-width: fit-content;
-  }
-`;

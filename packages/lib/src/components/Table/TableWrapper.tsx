@@ -1,5 +1,4 @@
-import styled from "@emotion/styled";
-import { size } from "../../constants/tokens";
+import styles from "./TableWrapper.module.css";
 
 interface TableWrapperProps {
   children: React.ReactNode;
@@ -15,14 +14,9 @@ const TableWrapper: React.FC<TableWrapperProps> = ({
     {controls}
     {children}
     {shouldShowBottomTableControl && (
-      <TableControlWrapper>{controls}</TableControlWrapper>
+      <div className={styles.tableControlWrapper}>{controls}</div>
     )}
   </>
 );
-
-const TableControlWrapper = styled.div`
-  padding-top: ${size.xs};
-  margin-bottom: ${size.l};
-`;
 
 export default TableWrapper;
