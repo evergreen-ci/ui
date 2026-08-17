@@ -8,7 +8,7 @@ export const CommandRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   const [command, directory] = properties;
 
   return (
-    <RowContainer data-cy="command-row">
+    <RowContainer data-testid="command-row">
       <LeftColumn>{command.content}</LeftColumn>
       <div>{directory.content}</div>
     </RowContainer>

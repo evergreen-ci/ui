@@ -26,7 +26,7 @@ export const PublicKeysTab: React.FC = () => {
   return (
     <div>
       <PlusButton
-        data-cy="add-key-button"
+        data-testid="add-key-button"
         onClick={() => {
           setVisible(true);
         }}

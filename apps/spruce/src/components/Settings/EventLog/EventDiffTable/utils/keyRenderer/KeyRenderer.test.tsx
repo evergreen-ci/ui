@@ -4,10 +4,10 @@ import { CustomKeyValueRenderConfig, applyCustomKeyValueRender } from ".";
 describe("applyCustomKeyValueRender", () => {
   const mockCustomRenderConfig: CustomKeyValueRenderConfig = {
     prefix1: (value: string) => (
-      <span data-cy="custom-render">{value} - rendered by prefix1</span>
+      <span data-testid="custom-render">{value} - rendered by prefix1</span>
     ),
     prefix2: (value: string) => (
-      <div data-cy="custom-render">{value} - rendered by prefix2</div>
+      <div data-testid="custom-render">{value} - rendered by prefix2</div>
     ),
   };
 

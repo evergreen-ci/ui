@@ -87,8 +87,8 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
   return (
     <TableContainer>
       <BaseTable
-        data-cy="failing-tests-changes-table"
-        data-cy-row="failing-tests-table-row"
+        data-testid="failing-tests-changes-table"
+        data-testid-row="failing-tests-table-row"
         shouldAlternateRowColor
         table={table}
       />
@@ -132,7 +132,7 @@ const getColumns = ({
     filterFn: filterFns.includesString,
     meta: {
       search: {
-        "data-cy": "test-name-filter",
+        "data-testid": "test-name-filter",
         placeholder: "Test name",
       },
       width: "60%",

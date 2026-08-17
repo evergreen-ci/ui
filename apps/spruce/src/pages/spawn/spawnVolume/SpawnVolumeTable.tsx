@@ -87,7 +87,7 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
     accessorFn: ({ displayName, id }) => displayName || id,
     enableSorting: true,
     cell: ({ getValue }) => (
-      <WordBreak data-cy="vol-name">{getValue() as string}</WordBreak>
+      <WordBreak data-testid="vol-name">{getValue() as string}</WordBreak>
     ),
   },
   {
@@ -99,7 +99,7 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
       return (
         hostId && (
           <StyledRouterLink
-            data-cy="host-link"
+            data-testid="host-link"
             to={getSpawnHostRoute({ host: hostId })}
           >
             <WordBreak>{getValue() as string}</WordBreak>

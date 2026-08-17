@@ -30,7 +30,7 @@ const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
   });
   return (
     <BaseTable
-      data-cy="failed-test-grouped-table"
+      data-testid="failed-test-grouped-table"
       shouldAlternateRowColor
       table={table}
     />
@@ -70,7 +70,7 @@ const getColumns = (): LGColumnDef<TaskBuildVariantField>[] => [
       const { urlParsley } = row.original.logs;
       return isValidHttpUrl(urlParsley) ? (
         <Button
-          data-cy="failed-test-group-parsley-btn"
+          data-testid="failed-test-group-parsley-btn"
           href={urlParsley}
           size="xsmall"
         >

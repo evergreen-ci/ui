@@ -25,13 +25,13 @@ export const processFilesWithAssociatedLinks = (
       return {
         ...baseRow,
         renderExpandedContent: () => (
-          <AssociatedLinksContainer data-cy="associated-links-container">
+          <AssociatedLinksContainer data-testid="associated-links-container">
             <Disclaimer>Associated Links</Disclaimer>
             <AssociatedLinksList>
               {associatedLinks.map((link) => (
                 <AssociatedLinkItem key={link.link}>
                   <StyledLink
-                    data-cy="associated-link"
+                    data-testid="associated-link"
                     href={link.link}
                     onClick={() => {
                       taskAnalytics.sendEvent({

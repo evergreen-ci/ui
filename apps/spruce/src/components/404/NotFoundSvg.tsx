@@ -1,7 +1,7 @@
 const NotFoundSvg: React.FC = () => (
   <svg
     aria-label="Page not found"
-    data-cy="404"
+    data-testid="404"
     id="e1jpemtt30051"
     preserveAspectRatio="xMinYMin slice"
     shapeRendering="geometricPrecision"

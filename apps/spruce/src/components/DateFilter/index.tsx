@@ -6,7 +6,7 @@ import { StringMap } from "@evg-ui/lib/types/utils";
 import { isProduction } from "utils/environmentVariables";
 
 interface DateFilterProps {
-  dataCyProps?: StringMap;
+  dataProps?: StringMap;
   onChange: (v: string) => void;
   showLabel?: boolean;
   size?: Size;
@@ -14,7 +14,7 @@ interface DateFilterProps {
 }
 
 export const DateFilter: React.FC<DateFilterProps> = ({
-  dataCyProps,
+  dataProps,
   onChange,
   showLabel = false,
   size = Size.Default,
@@ -34,7 +34,7 @@ export const DateFilter: React.FC<DateFilterProps> = ({
   return (
     <DatePicker
       aria-label="Go to date"
-      data-cy="date-picker"
+      data-testid="date-picker"
       label={showLabel ? "Go to Date" : ""}
       max={today}
       // Testing environments should not have a minimum date restriction due to static test data.
@@ -42,7 +42,7 @@ export const DateFilter: React.FC<DateFilterProps> = ({
       onDateChange={handleChange}
       size={size}
       value={value.length ? new Date(value) : undefined}
-      {...dataCyProps}
+      {...dataProps}
     />
   );
 };

@@ -64,7 +64,7 @@ describe("time picker", () => {
     };
     return (
       <LeafyGreenTimePicker
-        data-cy="leafygreen-time-picker"
+        data-testid="leafygreen-time-picker"
         disabled={false}
         label=""
         onDateChange={handleChange}

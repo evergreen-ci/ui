@@ -19,7 +19,7 @@ describe("AnnotationTicketRow", () => {
   it("links the issue key when the annotation URL is HTTP(S)", () => {
     renderRow("https://jira.mongodb.org/browse/DEVPROD-123");
 
-    expect(screen.getByDataCy(issueKey)).toHaveAttribute(
+    expect(screen.getByTestId(issueKey)).toHaveAttribute(
       "href",
       "https://jira.mongodb.org/browse/DEVPROD-123",
     );
@@ -34,7 +34,7 @@ describe("AnnotationTicketRow", () => {
   ])("renders the issue key unlinked for unsafe URL: %s", (url) => {
     renderRow(url);
 
-    const summary = screen.getByDataCy(issueKey);
+    const summary = screen.getByTestId(issueKey);
     expect(summary).toBeVisible();
     expect(summary).not.toHaveAttribute("href");
     expect(summary.tagName).toBe("SPAN");
@@ -43,6 +43,6 @@ describe("AnnotationTicketRow", () => {
   it("renders the issue key unlinked when the annotation has no URL", () => {
     renderRow();
 
-    expect(screen.getByDataCy(issueKey)).not.toHaveAttribute("href");
+    expect(screen.getByTestId(issueKey)).not.toHaveAttribute("href");
   });
 });

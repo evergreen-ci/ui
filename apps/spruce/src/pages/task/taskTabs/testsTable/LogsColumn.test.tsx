@@ -32,15 +32,15 @@ describe("LogsColumn", () => {
       urlRaw: "http://example.com/raw",
     });
 
-    expect(screen.getByDataCy("test-table-parsley-btn")).toHaveAttribute(
+    expect(screen.getByTestId("test-table-parsley-btn")).toHaveAttribute(
       "href",
       "https://example.com/parsley",
     );
-    expect(screen.getByDataCy("test-table-raw-btn")).toHaveAttribute(
+    expect(screen.getByTestId("test-table-raw-btn")).toHaveAttribute(
       "href",
       "http://example.com/raw",
     );
-    expect(screen.getByDataCy("test-table-download-btn")).toBeVisible();
+    expect(screen.getByTestId("test-table-download-btn")).toBeVisible();
   });
 
   it("does not render controls for unsafe log URLs", () => {
@@ -50,11 +50,11 @@ describe("LogsColumn", () => {
     });
 
     expect(
-      screen.queryByDataCy("test-table-parsley-btn"),
+      screen.queryByTestId("test-table-parsley-btn"),
     ).not.toBeInTheDocument();
-    expect(screen.queryByDataCy("test-table-raw-btn")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("test-table-raw-btn")).not.toBeInTheDocument();
     expect(
-      screen.queryByDataCy("test-table-download-btn"),
+      screen.queryByTestId("test-table-download-btn"),
     ).not.toBeInTheDocument();
   });
 });

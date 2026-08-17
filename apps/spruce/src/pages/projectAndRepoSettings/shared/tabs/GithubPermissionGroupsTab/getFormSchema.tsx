@@ -109,7 +109,7 @@ export const getFormSchema = ({
   uiSchema: {
     permissionGroups: {
       "ui:addButtonText": "Add permission group",
-      "ui:data-cy": "permission-group-list",
+      "ui:data-testid": "permission-group-list",
       "ui:descriptionNode": (
         <>
           <StyledDescription>
@@ -152,7 +152,7 @@ export const getFormSchema = ({
           </StyledDescription>
         ),
         "ui:addable": false,
-        "ui:data-cy": "permission-group-list",
+        "ui:data-testid": "permission-group-list",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
         "ui:placeholder": "There are no permission groups defined in the repo.",
@@ -168,11 +168,11 @@ const permissionCss = css`
 `;
 
 const itemsUISchema = {
-  "ui:data-cy": "permission-group",
+  "ui:data-testid": "permission-group",
   "ui:displayTitle": "New Permission Group",
   name: {
     "ui:ariaLabelledBy": "Permission Group Name",
-    "ui:data-cy": "permission-group-title-input",
+    "ui:data-testid": "permission-group-title-input",
     "ui:elementWrapperCSS": css`
       max-width: unset;
       width: 90%;
@@ -190,13 +190,13 @@ const itemsUISchema = {
       "ui:ObjectFieldTemplate": FieldRow,
       type: {
         "ui:ariaLabelledBy": "GitHub Permission Type",
-        "ui:data-cy": "permission-type-input",
+        "ui:data-testid": "permission-type-input",
         "ui:elementWrapperCSS": permissionCss,
       },
       value: {
         "ui:allowDeselect": false,
         "ui:ariaLabelledBy": "GitHub Permission Value",
-        "ui:data-cy": "permission-value-input",
+        "ui:data-testid": "permission-value-input",
         "ui:elementWrapperCSS": permissionCss,
       },
     },

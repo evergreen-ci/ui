@@ -23,21 +23,21 @@ export const Timeline: React.FC<TimelineProps> = ({ version }) => {
     <MetadataTimelineContainer>
       {createTime && (
         <MetadataTimelineTimestampRow
-          data-cy="version-metadata-submitted-at"
+          data-testid="version-metadata-submitted-at"
           label="Submitted"
           timestamp={createTime}
         />
       )}
       {startTime && (
         <MetadataTimelineTimestampRow
-          data-cy="version-metadata-started"
+          data-testid="version-metadata-started"
           label="Started"
           timestamp={startTime}
         />
       )}
       {finishTime && (
         <MetadataTimelineTimestampRow
-          data-cy="version-metadata-finished"
+          data-testid="version-metadata-finished"
           label="Finished"
           timestamp={finishTime}
         />

@@ -114,9 +114,9 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
 
   return (
     <BaseTable
-      data-cy-row="image-event-log-table-row"
+      data-testid-row="image-event-log-table-row"
       emptyComponent={
-        <DefaultEmptyMessage data-cy="image-event-log-empty-message">
+        <DefaultEmptyMessage data-testid="image-event-log-empty-message">
           {emptyMessage}
         </DefaultEmptyMessage>
       }
@@ -134,7 +134,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     filterFn: filterFns.includesString,
     meta: {
       search: {
-        "data-cy": "image-event-log-name-filter",
+        "data-testid": "image-event-log-name-filter",
         placeholder: "Search name",
       },
       width: "25%",
@@ -152,7 +152,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     filterFn: filterFns.arrIncludesSome,
     meta: {
       treeSelect: {
-        "data-cy": "image-event-log-type-filter",
+        "data-testid": "image-event-log-type-filter",
         filterOptions: true,
         options: imageEventTypeTreeData,
       },
@@ -176,7 +176,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     filterFn: filterFns.arrIncludesSome,
     meta: {
       treeSelect: {
-        "data-cy": "image-event-log-action-filter",
+        "data-testid": "image-event-log-action-filter",
         filterOptions: true,
         options: imageEventEntryActionTreeData,
       },

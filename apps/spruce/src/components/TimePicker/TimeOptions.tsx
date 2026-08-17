@@ -9,7 +9,7 @@ const { blue, gray } = palette;
 
 interface TimePickerOptionsProps {
   currentDateTime: Date;
-  "data-cy": string;
+  "data-testid": string;
   onDateChange: (newDate: DateType) => void;
   options: string[];
   type: TimepickerType;
@@ -18,7 +18,7 @@ interface TimePickerOptionsProps {
 
 const TimePickerOptions: React.FC<TimePickerOptionsProps> = ({
   currentDateTime,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   onDateChange,
   options,
   type,
@@ -38,7 +38,7 @@ const TimePickerOptions: React.FC<TimePickerOptionsProps> = ({
   }, [optionRefs]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <TimeOptions data-cy={dataCy}>
+    <TimeOptions data-testid={dataTestId}>
       {options.map((o) => (
         <TimePickerOption
           key={`${type}-${o}`}

@@ -26,14 +26,14 @@ describe("objectFieldTemplates", () => {
       person: {
         "ui:ObjectFieldTemplate": FieldRow,
         name: {
-          "ui:data-cy": "name",
+          "ui:data-testid": "name",
         },
         age: {
-          "ui:data-cy": "age",
+          "ui:data-testid": "age",
         },
       },
     };
-    it("applies data-cy attributes", () => {
+    it("applies data-testid attributes", () => {
       const onChange = vi.fn();
       render(
         <SpruceForm
@@ -84,14 +84,14 @@ describe("objectFieldTemplates", () => {
       person: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         name: {
-          "ui:data-cy": "name",
+          "ui:data-testid": "name",
         },
         age: {
-          "ui:data-cy": "age",
+          "ui:data-testid": "age",
         },
       },
     };
-    it("applies data-cy attributes", () => {
+    it("applies data-testid attributes", () => {
       render(
         <SpruceForm
           formData={{}}
@@ -139,14 +139,14 @@ describe("objectFieldTemplates", () => {
       person: {
         "ui:ObjectFieldTemplate": AccordionFieldTemplate,
         name: {
-          "ui:data-cy": "name",
+          "ui:data-testid": "name",
         },
         age: {
-          "ui:data-cy": "age",
+          "ui:data-testid": "age",
         },
       },
     };
-    it("applies data-cy attributes", () => {
+    it("applies data-testid attributes", () => {
       render(
         <SpruceForm
           formData={{}}

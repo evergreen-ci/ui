@@ -53,10 +53,10 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   };
 
   return (
-    <div data-cy="patch-build-variant">
+    <div data-testid="patch-build-variant">
       <StyledRouterLink
         css={wordBreakCss}
-        data-cy="build-variant-display-name"
+        data-testid="build-variant-display-name"
         onClick={() =>
           sendEvent({
             name: "Filtered by build variant group",

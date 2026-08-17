@@ -5,7 +5,7 @@ import { EmptyState } from ".";
 
 const LocationDisplay: React.FC = () => {
   const location = useLocation();
-  return <div data-cy="location-search">{location.search}</div>;
+  return <div data-testid="location-search">{location.search}</div>;
 };
 
 const basePagination: Pagination = {

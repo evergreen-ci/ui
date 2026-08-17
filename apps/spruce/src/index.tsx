@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "@via-ds/components/index.css";
 import { initializeErrorHandling } from "@evg-ui/lib/utils/errorReporting";
 import {
   initializeHoneycomb,

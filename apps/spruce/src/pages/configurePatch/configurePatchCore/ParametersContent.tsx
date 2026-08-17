@@ -19,7 +19,7 @@ export const ParametersContent: React.FC<Props> = ({
   <ParamsContainer>
     {patchActivated ? (
       <>
-        <Body data-cy="parameters-disclaimer">
+        <Body data-testid="parameters-disclaimer">
           Parameters cannot be added or modified once a patch is configured.
         </Body>
         {patchParameters && (
@@ -27,7 +27,7 @@ export const ParametersContent: React.FC<Props> = ({
             {patchParameters?.map((param) => (
               <StyledBadge
                 key={`param_${param.key}`}
-                data-cy={`badge-${param.key}`}
+                data-testid={`badge-${param.key}`}
               >
                 {param.key}: {param.value}
               </StyledBadge>

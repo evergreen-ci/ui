@@ -79,7 +79,7 @@ export const VersionPage: React.FC = () => {
 
   if (!versionData) {
     return (
-      <PageWrapper data-cy="version-page" omitPadding>
+      <PageWrapper data-testid="version-page" omitPadding>
         <TTLInfo>
           <PageDoesNotExist />
         </TTLInfo>
@@ -114,7 +114,7 @@ export const VersionPage: React.FC = () => {
   );
 
   return (
-    <PageWrapper data-cy="version-page">
+    <PageWrapper data-testid="version-page">
       <ProjectBanner projectIdentifier={projectMetadata?.identifier} />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
