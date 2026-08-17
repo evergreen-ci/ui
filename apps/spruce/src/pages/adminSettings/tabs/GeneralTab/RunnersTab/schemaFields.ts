@@ -72,11 +72,19 @@ export const taskLimits = {
       type: "number" as const,
       title: "Max Scheduled Tasks Per Distro",
     },
+    taskQueueFlushThreshold: {
+      type: "number" as const,
+      title: "Task Queue Flush Threshold (num tasks)",
+    },
   },
   uiSchema: {
     maxScheduledTasksPerDistro: {
       "ui:description":
         "Maximum number of tasks the scheduler materializes into a single distro's task queue per pass. 0 means no limit.",
+    },
+    taskQueueFlushThreshold: {
+      "ui:description":
+        "Planned distro queue length above which the scheduler unschedules the patch tasks overflowing past it. Set well above Max Scheduled Tasks Per Distro, since it unschedules real work. 0 disables the flush.",
     },
   },
 };

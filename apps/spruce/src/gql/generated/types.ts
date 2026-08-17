@@ -4354,6 +4354,7 @@ export type TaskLimitsConfig = {
   maxScheduledTasksPerDistro?: Maybe<Scalars["Int"]["output"]>;
   maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
   maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
+  taskQueueFlushThreshold?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type TaskLimitsConfigInput = {
@@ -4370,6 +4371,7 @@ export type TaskLimitsConfigInput = {
   maxScheduledTasksPerDistro: Scalars["Int"]["input"];
   maxTaskExecution: Scalars["Int"]["input"];
   maxTasksPerVersion: Scalars["Int"]["input"];
+  taskQueueFlushThreshold: Scalars["Int"]["input"];
 };
 
 export type TaskLogLinks = {
@@ -7200,6 +7202,7 @@ export type SaveAdminSettingsMutation = {
       maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+      taskQueueFlushThreshold?: number | null;
     } | null;
     ui?: {
       __typename?: "UIConfig";
@@ -8043,6 +8046,7 @@ export type AdminSettingsQuery = {
       maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+      taskQueueFlushThreshold?: number | null;
     } | null;
     testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
     tracer?: {

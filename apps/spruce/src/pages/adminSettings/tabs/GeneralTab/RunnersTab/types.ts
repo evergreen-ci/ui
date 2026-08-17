@@ -25,6 +25,7 @@ export interface RunnersFormState {
       maxTaskExecution: number;
       maxDailyAutomaticRestarts: number;
       maxScheduledTasksPerDistro: number;
+      taskQueueFlushThreshold: number;
     };
     hostInit: {
       hostThrottle: number;
