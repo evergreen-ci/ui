@@ -36,6 +36,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.TestSelection]: {
         title: "Test Selection",
       },
+      [ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]: {
+        title: "Task Ownership", // Omit Foliage since this won't be implemented until longer-term.
+      },
       [ProjectSettingsTabRoutes.Plugins]: {
         title: "Plugins",
       },

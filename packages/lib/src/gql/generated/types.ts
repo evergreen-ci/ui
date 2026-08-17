@@ -2785,6 +2785,7 @@ export type Project = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
+  taskOwnership?: Maybe<TaskOwnershipSettings>;
   testSelection?: Maybe<TestSelectionSettings>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2936,6 +2937,7 @@ export type ProjectInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3044,6 +3046,7 @@ export enum ProjectSettingsSection {
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
   PullRequests = "PULL_REQUESTS",
+  TaskOwnershipAndFoliage = "TASK_OWNERSHIP_AND_FOLIAGE",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -3442,6 +3445,7 @@ export type RepoRef = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
+  taskOwnership?: Maybe<RepoTaskOwnershipSettings>;
   testSelection?: Maybe<RepoTestSelectionSettings>;
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
@@ -3491,6 +3495,7 @@ export type RepoRefInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3522,6 +3527,12 @@ export type RepoSettingsInput = {
   repoId: Scalars["String"]["input"];
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
+};
+
+export type RepoTaskOwnershipSettings = {
+  __typename?: "RepoTaskOwnershipSettings";
+  defaultMothraTeam: Scalars["String"]["output"];
+  defaultMothraTeamForBreakingCommit: Scalars["String"]["output"];
 };
 
 export type RepoTestSelectionSettings = {
@@ -4406,6 +4417,17 @@ export type TaskOwnerTeam = {
   jiraProject: Scalars["String"]["output"];
   messages: Scalars["String"]["output"];
   teamName: Scalars["String"]["output"];
+};
+
+export type TaskOwnershipSettings = {
+  __typename?: "TaskOwnershipSettings";
+  defaultMothraTeam?: Maybe<Scalars["String"]["output"]>;
+  defaultMothraTeamForBreakingCommit?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type TaskOwnershipSettingsInput = {
+  defaultMothraTeam?: InputMaybe<Scalars["String"]["input"]>;
+  defaultMothraTeamForBreakingCommit?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type TaskPriority = {

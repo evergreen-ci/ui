@@ -12,6 +12,7 @@ import * as periodicBuilds from "./PeriodicBuildsTab/transformers";
 import * as plugins from "./PluginsTab/transformers";
 import * as projectTriggers from "./ProjectTriggersTab/transformers";
 import * as pullRequests from "./PullRequestsTab/transformers";
+import * as taskOwnership from "./TaskOwnershipAndFoliageTab/transformers";
 import * as testSelection from "./TestSelectionTab/transformers";
 import {
   FormToGqlFunction,
@@ -47,6 +48,7 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.gqlToForm,
+  [ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]: taskOwnership.gqlToForm,
 };
 
 export const formToGqlMap: {
@@ -69,4 +71,5 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.formToGql,
+  [ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]: taskOwnership.formToGql,
 };
