@@ -1,11 +1,6 @@
-import styled from "@emotion/styled";
-import {
-  Option,
-  Select,
-  SelectProps,
-  Size as SelectSize,
-} from "@leafygreen-ui/select";
+import { Option, Select, Size as SelectSize } from "@leafygreen-ui/select";
 import { PAGE_SIZES } from "../../constants/pagination";
+import styles from "./index.module.css";
 
 interface Props {
   value: number;
@@ -28,9 +23,10 @@ const PageSizeSelector: React.FC<Props> = ({
   value,
   ...rest
 }) => (
-  <StyledSelect
+  <Select
     allowDeselect={false}
     aria-labelledby="page-size-select"
+    className={styles.select}
     disabled={disabled}
     onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
     size={SelectSize.Small}
@@ -40,13 +36,7 @@ const PageSizeSelector: React.FC<Props> = ({
     {PAGE_SIZES.map((limit) => (
       <Option key={limit} value={limit.toString()}>{`${limit} / page`}</Option>
     ))}
-  </StyledSelect>
+  </Select>
 );
-
-const StyledSelect = styled(
-  Select as unknown as React.ComponentType<Partial<SelectProps>>,
-)`
-  width: 120px;
-`;
 
 export default PageSizeSelector;

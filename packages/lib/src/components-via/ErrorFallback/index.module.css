@@ -1,0 +1,21 @@
+.center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paragraph {
+  position: absolute;
+  top: 25%;
+}
+
+/* Doubled selectors outrank the Via components' own styles. */
+.whiteText.whiteText {
+  color: #ffffff; /* palette.white */
+}
+
+.whiteLink.whiteLink {
+  color: #ffffff; /* palette.white */
+  text-decoration: underline;
+}

@@ -1,9 +1,8 @@
-import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { size } from "../../constants/tokens";
 import usePagination from "../../hooks/usePagination";
 import Icon from "../Icon";
+import styles from "./index.module.css";
 
 interface Props {
   countLimit?: number;
@@ -46,44 +45,30 @@ const Pagination: React.FC<Props> = ({
     countLimit && totalResults >= countLimit ? "many" : numPages;
 
   return (
-    <Container data-testid="pagination">
-      <StyledButton
+    <div className={styles.container} data-testid="pagination">
+      <Button
+        className={styles.button}
         data-testid="prev-page-button"
         disabled={currentPage === 0}
         leftGlyph={<Icon glyph="ChevronLeft" size="small" />}
         onClick={handlePrevClick}
         size={ButtonSize.Small}
       />
-      <PageLabel>
+      <div className={styles.pageLabel}>
         <Disclaimer>
           {numPages > 0 ? currentPage + 1 : 0} / {denominator}
         </Disclaimer>
-      </PageLabel>
-      <StyledButton
+      </div>
+      <Button
+        className={styles.button}
         data-testid="next-page-button"
         disabled={numPages === 0 || currentPage === numPages - 1}
         leftGlyph={<Icon glyph="ChevronRight" size="small" />}
         onClick={handleNextClick}
         size={ButtonSize.Small}
       />
-    </Container>
+    </div>
   );
 };
-
-const StyledButton = styled(Button)`
-  margin-right: ${size.xxs};
-  margin-left: ${size.xxs};
-`;
-
-const PageLabel = styled.div`
-  width: 48px;
-  text-align: center;
-`;
-
-const Container = styled.div`
-  align-items: center;
-  display: flex;
-  flex-shrink: 0;
-`;
 
 export default Pagination;

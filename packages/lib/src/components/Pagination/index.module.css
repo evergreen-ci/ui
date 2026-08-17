@@ -1,0 +1,16 @@
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */
+.button.button {
+  margin-right: 4px; /* size.xxs */
+  margin-left: 4px; /* size.xxs */
+}
+
+.pageLabel {
+  width: 48px;
+  text-align: center;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+}

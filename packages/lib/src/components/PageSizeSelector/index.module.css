@@ -1,0 +1,4 @@
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */
+.select.select {
+  width: 120px;
+}
