@@ -54,7 +54,7 @@ const Image: React.FC = () => {
           key={ImageTabRoutes.EventLog}
           active={ImageTabRoutes.EventLog === currentTab}
           as={Link}
-          data-cy={`navitem-${ImageTabRoutes.EventLog}`}
+          data-testid={`navitem-${ImageTabRoutes.EventLog}`}
           indentLevel={0}
           onClick={() =>
             sendEvent({ name: "Changed tab", tab: ImageTabRoutes.EventLog })

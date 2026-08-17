@@ -20,8 +20,7 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
         key={key}
         bold={false}
         checked={value.includes(checkboxValue)}
-        className="cy-checkbox"
-        data-cy={title}
+        data-testid={title}
         label={title}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e, key)}
       />

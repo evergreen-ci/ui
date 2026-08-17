@@ -30,7 +30,7 @@ export const DistroDropdown: React.FC<DistroEnum & EnumSpruceWidgetProps> = ({
 }) => {
   const {
     ariaLabelledBy,
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     distros: distroList,
     elementWrapperCSS,
   } = options;
@@ -39,7 +39,7 @@ export const DistroDropdown: React.FC<DistroEnum & EnumSpruceWidgetProps> = ({
   return (
     <StyledElementWrapper css={elementWrapperCSS}>
       <SearchableDropdown
-        data-cy={dataCy}
+        data-testid={dataTestId}
         label={ariaLabelledBy ? undefined : label}
         onChange={onChange}
         optionRenderer={({ distros, title }, onClick) => (
@@ -107,7 +107,7 @@ const DropdownOption: React.FC<{
         {distros.map((d) => (
           <Option
             key={d}
-            data-cy={`distro-option-${d}`}
+            data-testid={`distro-option-${d}`}
             onClick={() => onClick(d)}
           >
             {d}

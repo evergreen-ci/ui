@@ -96,7 +96,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
           betaFeatures: {
             // Example for future beta features:
             // newFeature: radioUiSchema({
-            //   dataCy: "new-feature",
+            //   dataTestId: "new-feature",
             //   isAdminEnabled: adminBetaSettings?.newFeature ?? false,
             // }),
             "ui:description": (
@@ -117,7 +117,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
       />
       {hasActiveBetaFeatures && (
         <Button
-          data-cy="save-beta-features-button"
+          data-testid="save-beta-features-button"
           disabled={!hasChanges}
           onClick={handleSubmit}
           variant={ButtonVariant.Primary}
@@ -150,13 +150,13 @@ const radioSchema = ({ title }: { title: string }) => ({
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioUiSchema = ({
-  dataCy,
+  dataTestId,
   isAdminEnabled,
 }: {
-  dataCy: string;
+  dataTestId: string;
   isAdminEnabled: boolean;
 }) => ({
-  "ui:data-cy": dataCy,
+  "ui:data-testid": dataTestId,
   "ui:widget": isAdminEnabled ? "radio" : "hidden",
   "ui:options": {
     inline: true,

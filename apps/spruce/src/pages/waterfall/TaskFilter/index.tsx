@@ -45,7 +45,7 @@ export const TaskFilter = () => {
   return (
     <TupleSelect
       ariaLabel="Task Filter"
-      data-cy="task-filter"
+      data-testid="task-filter"
       defaultOption={defaultFilterType}
       id="task-filter"
       label={

@@ -7,12 +7,12 @@ import { NavDropdown } from ".";
 
 const menuItems = [
   {
-    "data-cy": "item-1",
+    "data-testid": "item-1",
     text: "Item 1",
     href: "/item1",
   },
   {
-    "data-cy": "item-2",
+    "data-testid": "item-2",
     text: "Item 2",
     to: "/item2",
   },
@@ -51,7 +51,7 @@ describe("navDropdown", () => {
       <NavDropdown
         menuItems={[
           {
-            "data-cy": "item-1",
+            "data-testid": "item-1",
             text: "Item 1",
             href: "/item1",
             onClick: mockCallback,

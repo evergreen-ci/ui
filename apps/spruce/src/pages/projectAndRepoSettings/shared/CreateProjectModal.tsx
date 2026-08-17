@@ -121,7 +121,7 @@ export const CreateProjectModal: React.FC<Props> = ({
         disabled: hasError,
         onClick: onConfirm,
       }}
-      data-cy="create-project-modal"
+      data-testid="create-project-modal"
       open={open}
       title="Create New Project"
     >
@@ -136,7 +136,7 @@ export const CreateProjectModal: React.FC<Props> = ({
           uiSchema={form.uiSchema}
         />
       ) : (
-        <FormSkeleton data-cy="loading-skeleton" />
+        <FormSkeleton data-testid="loading-skeleton" />
       )}
     </ConfirmationModal>
   );
@@ -170,11 +170,11 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
   uiSchema: {
     projectName: projectName.uiSchema,
     owner: {
-      "ui:data-cy": "new-owner-select",
+      "ui:data-testid": "new-owner-select",
       "ui:allowDeselect": false,
     },
     repo: {
-      "ui:data-cy": "new-repo-input",
+      "ui:data-testid": "new-repo-input",
     },
     ...performanceTooling.uiSchema,
     s3BucketInfo: s3BucketInfo.uiSchema,

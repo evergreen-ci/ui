@@ -42,8 +42,8 @@ const form: ProvidersFormState = {
           subnetId: "subnet-67890",
         },
       ],
-      subnetTagName: "SubnetGroupName",
-      subnetTagValue: "workloads",
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
       parameterStorePrefix: "/evergreen/test",
       persistentDNS: {
         hostedZoneID: "Z123456789",
@@ -142,8 +142,8 @@ const gql: AdminSettingsInput = {
           subnetId: "subnet-67890",
         },
       ],
-      subnetTagName: "SubnetGroupName",
-      subnetTagValue: "workloads",
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
     },
     docker: {
       apiVersion: "1.40",
@@ -214,8 +214,8 @@ const testAdminSettings = {
           subnetId: "subnet-67890",
         },
       ],
-      subnetTagName: "SubnetGroupName",
-      subnetTagValue: "workloads",
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
     },
     docker: {
       apiVersion: "1.40",

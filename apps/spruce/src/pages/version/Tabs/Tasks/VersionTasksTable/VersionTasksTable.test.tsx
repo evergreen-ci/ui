@@ -60,7 +60,7 @@ describe("VersionTasksTable", () => {
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
-    expect(screen.queryAllByDataCy("tasks-table-row")).toHaveLength(4);
+    expect(screen.queryAllByTestId("tasks-table-row")).toHaveLength(4);
   });
 
   it("opens nested row on click", async () => {
@@ -72,7 +72,7 @@ describe("VersionTasksTable", () => {
     );
     expect(screen.queryByText("e2e_spruce_0")).toBeNull();
     const expandRowButton = within(
-      screen.getAllByDataCy("tasks-table-row")[3],
+      screen.getAllByTestId("tasks-table-row")[3],
     ).getByRole("button");
     await user.click(expandRowButton);
     expect(screen.queryByText("e2e_spruce_0")).toBeVisible();
@@ -102,12 +102,12 @@ describe("VersionTasksTable", () => {
       </MockedProvider>,
     );
 
-    const displayTaskRow = screen.getAllByDataCy("tasks-table-row")[1];
+    const displayTaskRow = screen.getAllByTestId("tasks-table-row")[1];
     await user.click(within(displayTaskRow).getByRole("button"));
     expect(screen.getAllByText("e2e_spruce_0")).toHaveLength(2);
 
     await user.click(within(displayTaskRow).getByRole("button"));
-    expect(screen.getAllByDataCy("tasks-table-row")).toHaveLength(2);
+    expect(screen.getAllByTestId("tasks-table-row")).toHaveLength(2);
 
     rerender(
       <MockedProvider cache={cache}>
@@ -115,7 +115,7 @@ describe("VersionTasksTable", () => {
       </MockedProvider>,
     );
     expect(screen.queryByText("e2e_spruce_0")).not.toBeInTheDocument();
-    expect(screen.getAllByDataCy("tasks-table-row")).toHaveLength(1);
+    expect(screen.getAllByTestId("tasks-table-row")).toHaveLength(1);
     consoleError.mockRestore();
     expect(duplicateKeyWarnings).toHaveLength(0);
   });
@@ -127,7 +127,7 @@ describe("VersionTasksTable", () => {
       </MockedProvider>,
     );
     const variantLink = within(
-      screen.getAllByDataCy("tasks-table-row")[0],
+      screen.getAllByTestId("tasks-table-row")[0],
     ).getByRole("link", { name: tasks[0].buildVariantDisplayName ?? "" });
     expect(variantLink).toHaveAttribute(
       "href",
@@ -150,7 +150,7 @@ describe("VersionTasksTable", () => {
       tab: TaskTab.History,
     });
 
-    const firstRow = screen.getAllByDataCy("tasks-table-row")[0];
+    const firstRow = screen.getAllByTestId("tasks-table-row")[0];
     const lastRunStatusCell = within(
       firstRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
     );
@@ -168,7 +168,7 @@ describe("VersionTasksTable", () => {
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
-    const secondRow = screen.getAllByDataCy("tasks-table-row")[1];
+    const secondRow = screen.getAllByTestId("tasks-table-row")[1];
     const lastRunStatusCell = within(
       secondRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
     );
@@ -186,8 +186,8 @@ describe("VersionTasksTable", () => {
         />
       </MockedProvider>,
     );
-    expect(screen.queryAllByDataCy("tasks-table-row")).toHaveLength(4);
-    await user.click(screen.getByDataCy("clear-all-filters"));
+    expect(screen.queryAllByTestId("tasks-table-row")).toHaveLength(4);
+    await user.click(screen.getByTestId("clear-all-filters"));
     expect(clearQueryParams).toHaveBeenCalledTimes(1);
   });
 

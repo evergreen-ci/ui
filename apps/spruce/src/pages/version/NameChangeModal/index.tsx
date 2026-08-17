@@ -47,7 +47,7 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
     <>
       <StyledIconButton
         aria-label="name-change-modal-trigger"
-        data-cy="name-change-modal-trigger"
+        data-testid="name-change-modal-trigger"
         onClick={() => setIsOpen(true)}
       >
         <Icon glyph="Edit" />

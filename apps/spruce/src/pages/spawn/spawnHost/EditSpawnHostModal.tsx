@@ -181,7 +181,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         disabled: !hasChanges || hasError || loadingSpawnHost,
         onClick: onSubmit,
       }}
-      data-cy="edit-spawn-host-modal"
+      data-testid="edit-spawn-host-modal"
       open={visible}
       title="Edit Host Details"
     >

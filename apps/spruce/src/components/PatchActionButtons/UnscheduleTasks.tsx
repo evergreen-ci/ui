@@ -58,7 +58,7 @@ export const UnscheduleTasks: React.FC<props> = ({
       <div ref={menuItemRef}>
         <MenuItem
           active={open}
-          data-cy="unschedule-patch"
+          data-testid="unschedule-patch"
           disabled={disabled || loadingUnscheduleVersionTasks}
           onClick={() => setOpen(!open)}
         >
@@ -67,7 +67,7 @@ export const UnscheduleTasks: React.FC<props> = ({
       </div>
       <Popconfirm
         align="left"
-        data-cy="unschedule-patch-popconfirm"
+        data-testid="unschedule-patch-popconfirm"
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}
@@ -76,7 +76,7 @@ export const UnscheduleTasks: React.FC<props> = ({
         <Body weight="medium">Unschedule all tasks?</Body>
         <Checkbox
           checked={abort}
-          data-cy="abort-checkbox"
+          data-testid="abort-checkbox"
           label="Abort tasks that have already started"
           onChange={() => setAbort(!abort)}
         />

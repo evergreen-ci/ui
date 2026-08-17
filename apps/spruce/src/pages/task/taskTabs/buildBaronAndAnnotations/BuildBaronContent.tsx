@@ -66,7 +66,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const bbTickets = bbCreatedTickets?.task?.buildBaronCreatedTickets;
 
   return (
-    <div data-cy="build-baron-content">
+    <div data-testid="build-baron-content">
       {bbTicketCreationDefined ? (
         <CustomCreatedTickets
           execution={execution}

@@ -46,7 +46,7 @@ export const CostSummary: React.FC<CostSummaryProps> = ({
         ${formatCost(totalCost)}
         {showDetails && (
           <CostDetailsButton
-            data-cy="cost-details-button"
+            data-testid="cost-details-button"
             onClick={() => {
               onClickDetailsButton();
               setCostModalOpen(true);

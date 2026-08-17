@@ -12,7 +12,6 @@ export const Default: CustomStoryObj<typeof TableControl> = {
     totalCount: 100,
     limit: 20,
     page: 0,
-    label: "items",
     disabled: false,
     onClear: () => console.log("Clear filters"),
     onPageSizeChange: (pageSize: number) =>

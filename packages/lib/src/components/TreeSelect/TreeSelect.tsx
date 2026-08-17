@@ -10,7 +10,6 @@ const { gray } = palette;
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
 export interface TreeSelectProps {
-  "data-cy"?: string;
   "data-testid"?: string;
   isVisible?: boolean;
   onChange: (s: string[]) => void;
@@ -30,7 +29,6 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 }
 
 export const TreeSelect: React.FC<TreeSelectProps> = ({
-  "data-cy": dataCy,
   "data-testid": dataTestId,
   isVisible = true,
   onChange,
@@ -72,10 +70,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   }
 
   return (
-    <CheckboxContainer
-      data-cy={dataCy || "tree-select-options"}
-      data-testid={dataTestId || "tree-select-options"}
-    >
+    <CheckboxContainer data-testid={dataTestId || "tree-select-options"}>
       {renderCheckboxes({
         state: filteredState,
         tData,

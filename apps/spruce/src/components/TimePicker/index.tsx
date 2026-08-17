@@ -17,7 +17,7 @@ import { TimepickerType } from "./types";
 const { gray } = palette;
 
 interface TimePickerProps {
-  "data-cy"?: string;
+  "data-testid"?: string;
   disabled: boolean;
   label?: string;
   onDateChange: (newDate: DateType) => void;
@@ -25,7 +25,7 @@ interface TimePickerProps {
 }
 
 const TimePicker: React.FC<TimePickerProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   disabled = false,
   label = "",
   onDateChange,
@@ -45,7 +45,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
       <FormField
         ref={formRef}
         aria-label="Time picker form"
-        data-cy={dataCy}
+        data-testid={dataTestId}
         disabled={disabled}
         label={label}
       >
@@ -65,14 +65,14 @@ const TimePicker: React.FC<TimePickerProps> = ({
         >
           <ContentWrapper>
             <TimeInput
-              data-cy="hour-input"
+              data-testid="hour-input"
               disabled={disabled}
               setPopoverOpen={setPopoverOpen}
               value={hourValue}
             />
             <Colon>:</Colon>
             <TimeInput
-              data-cy="minute-input"
+              data-testid="minute-input"
               disabled={disabled}
               setPopoverOpen={setPopoverOpen}
               value={minuteValue}
@@ -87,10 +87,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
         refEl={formRef}
         spacing={0}
       >
-        <MenuList ref={popoverRef} data-cy="time-picker-options">
+        <MenuList ref={popoverRef} data-testid="time-picker-options">
           <TimePickerOptions
             currentDateTime={value}
-            data-cy="hour-options"
+            data-testid="hour-options"
             onDateChange={onDateChange}
             options={hourOptions}
             type={TimepickerType.Hour}
@@ -99,7 +99,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
           <VerticalLine />
           <TimePickerOptions
             currentDateTime={value}
-            data-cy="minute-options"
+            data-testid="minute-options"
             onDateChange={onDateChange}
             options={minuteOptions}
             type={TimepickerType.Minute}

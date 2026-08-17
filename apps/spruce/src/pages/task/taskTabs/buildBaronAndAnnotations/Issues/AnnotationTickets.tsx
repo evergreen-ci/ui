@@ -44,7 +44,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
         enabled={!userCanModify}
         trigger={
           <StyledButton
-            data-cy={
+            data-testid={
               isIssue ? "add-issue-button" : "add-suspected-issue-button"
             }
             disabled={!userCanModify}
@@ -70,7 +70,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
       )}
       <AddIssueModal
         closeModal={() => setIsAddAnnotationModalVisible(false)}
-        data-cy="addIssueModal"
+        data-testid="addIssueModal"
         execution={execution}
         isIssue={isIssue}
         setSelectedRowKey={setSelectedRowKey}

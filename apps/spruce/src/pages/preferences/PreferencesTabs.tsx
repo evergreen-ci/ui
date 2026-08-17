@@ -25,7 +25,7 @@ export const PreferencesTabs: React.FC = () => {
   return (
     <>
       <TitleContainer>
-        <H2 data-cy="preferences-tab-title">{title}</H2>
+        <H2 data-testid="preferences-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </TitleContainer>
       <Routes>

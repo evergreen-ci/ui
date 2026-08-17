@@ -71,7 +71,7 @@ const LogBody: React.FC<{
     return <ParagraphSkeleton />;
   }
   if (noLogs) {
-    return <div data-cy="cy-no-logs">No logs found</div>;
+    return <div data-testid="no-logs">No logs found</div>;
   }
 
   const isEventLog = data.some((d) => d.kind === "taskEventLogEntry");

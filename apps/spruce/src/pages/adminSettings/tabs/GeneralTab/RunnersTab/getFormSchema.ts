@@ -61,31 +61,31 @@ export const formSchema: ReturnType<GetFormSchema> = {
     runners: {
       notify: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "notify",
+        "ui:data-testid": "notify",
         ...notify.uiSchema,
       },
       taskLimits: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "task-limits",
+        "ui:data-testid": "task-limits",
         ...taskLimits.uiSchema,
       },
       hostInit: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "host-init",
+        "ui:data-testid": "host-init",
         ...hostInit.uiSchema,
       },
       scheduler: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "scheduler",
+        "ui:data-testid": "scheduler",
         ...scheduler.uiSchema,
       },
       repotracker: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "repotracker",
+        "ui:data-testid": "repotracker",
         ...repotracker.uiSchema,
       },
     },

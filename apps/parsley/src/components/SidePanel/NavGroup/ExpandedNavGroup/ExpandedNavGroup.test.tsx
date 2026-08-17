@@ -10,7 +10,7 @@ describe("expanded lines", () => {
   it("shows a message when no lines have been expanded", () => {
     render(<ExpandedNavGroup {...props} />);
     expect(
-      screen.getByDataTestId("expanded-lines-default-message"),
+      screen.getByTestId("expanded-lines-default-message"),
     ).toBeInTheDocument();
   });
 
@@ -40,7 +40,7 @@ describe("expanded lines", () => {
         ]}
       />,
     );
-    const navGroupHeader = screen.getByDataTestId(
+    const navGroupHeader = screen.getByTestId(
       "expanded-lines-nav-group-header",
     );
     expect(within(navGroupHeader).getByText("4")).toBeInTheDocument();

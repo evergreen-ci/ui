@@ -22,7 +22,7 @@ const Spawn: React.FC = () => {
           <SideNavItem
             active={tab === SpawnTab.Host}
             as={Link}
-            data-cy="host-nav-tab"
+            data-testid="host-nav-tab"
             onClick={() =>
               spawnAnalytics.sendEvent({
                 name: "Changed tab",
@@ -36,7 +36,7 @@ const Spawn: React.FC = () => {
           <SideNavItem
             active={tab === SpawnTab.Volume}
             as={Link}
-            data-cy="volume-nav-tab"
+            data-testid="volume-nav-tab"
             onClick={() =>
               spawnAnalytics.sendEvent({
                 name: "Changed tab",

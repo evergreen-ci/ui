@@ -59,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
         children: "Delete",
         onClick: onConfirm,
       }}
-      data-cy="delete-distro-modal"
+      data-testid="delete-distro-modal"
       open={open}
       requiredInputText={distroId}
       title={`Delete “${distroId}”?`}
@@ -99,11 +99,11 @@ export const DeleteDistro: React.FC = () => {
         </Description>
       </ElementWrapper>
       <Tooltip
-        data-cy="delete-button-tooltip"
+        data-testid="delete-button-tooltip"
         enabled={!isAdmin}
         trigger={
           <Button
-            data-cy={id}
+            data-testid={id}
             disabled={!isAdmin}
             id={id}
             onClick={() => setOpen(true)}

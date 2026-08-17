@@ -34,21 +34,21 @@ export const Timeline: React.FC<TimelineProps> = ({ task }) => {
     <MetadataTimelineContainer>
       {ingestTime && (
         <MetadataTimelineTimestampRow
-          data-cy="task-metadata-submitted-at"
+          data-testid="task-metadata-submitted-at"
           label="Submitted"
           timestamp={ingestTime}
         />
       )}
       {activatedTime && (
         <MetadataTimelineTimestampRow
-          data-cy="task-metadata-activated-at"
+          data-testid="task-metadata-activated-at"
           label="Activated"
           timestamp={activatedTime}
         />
       )}
       {startTime && (
         <MetadataTimelineTimestampRow
-          data-cy="task-metadata-started"
+          data-testid="task-metadata-started"
           label="Started"
           timestamp={startTime}
         />
@@ -58,7 +58,7 @@ export const Timeline: React.FC<TimelineProps> = ({ task }) => {
       ) : null}
       {finishTime && (
         <MetadataTimelineTimestampRow
-          data-cy="task-metadata-finished"
+          data-testid="task-metadata-finished"
           label="Finished"
           timestamp={finishTime}
         />

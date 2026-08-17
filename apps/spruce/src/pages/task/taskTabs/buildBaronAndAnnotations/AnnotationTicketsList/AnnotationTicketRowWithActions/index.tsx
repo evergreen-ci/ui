@@ -49,7 +49,7 @@ const AnnotationTicketRowWithActions = forwardRef<
           <ButtonContainer>
             <AnnotationTicketAction
               confirmMessage={`Do you want to move this ${issueString} to ${isIssue ? "suspected issues" : "issues"}?`}
-              data-cy={`move-btn-${issueKey}`}
+              data-testid={`move-btn-${issueKey}`}
               iconGlyph={isIssue ? "ArrowDown" : "ArrowUp"}
               onConfirm={() => {
                 onMove({ url, issueKey, confidenceScore });
@@ -58,7 +58,7 @@ const AnnotationTicketRowWithActions = forwardRef<
             />
             <AnnotationTicketAction
               confirmMessage={`Do you want to delete this ${issueString}?`}
-              data-cy={`${issueKey}-delete-btn`}
+              data-testid={`${issueKey}-delete-btn`}
               iconGlyph="Trash"
               onConfirm={() => {
                 onRemove(url, issueKey);

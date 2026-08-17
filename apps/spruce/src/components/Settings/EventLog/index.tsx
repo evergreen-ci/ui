@@ -33,11 +33,14 @@ const EventLog: React.FC<EventLogProps> = ({
     events.length > 0 ? "No more events to show." : "No events to show.";
 
   return (
-    <Container data-cy="event-log">
+    <Container data-testid="event-log">
       {events.map((event) => {
         const { after, before, section, timestamp, user } = event;
         return (
-          <EventLogCard key={`event_log_${timestamp}`} data-cy="event-log-card">
+          <EventLogCard
+            key={`event_log_${timestamp}`}
+            data-testid="event-log-card"
+          >
             <Header section={section} timestamp={timestamp} user={user} />
             {eventRenderer ? (
               eventRenderer(event)
@@ -53,7 +56,7 @@ const EventLog: React.FC<EventLogProps> = ({
       })}
       {!allEventsFetched && !!events.length && (
         <LoadingButton
-          data-cy="load-more-button"
+          data-testid="load-more-button"
           loading={loading}
           onClick={handleFetchMore}
           variant="primary"

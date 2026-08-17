@@ -49,7 +49,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
   return (
     <Container>
       <Combobox
-        data-cy="task-selector"
+        data-testid="task-selector"
         disabled={loading}
         label="Tasks"
         multiselect

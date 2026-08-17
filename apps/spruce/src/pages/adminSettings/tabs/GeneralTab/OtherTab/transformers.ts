@@ -68,6 +68,8 @@ export const gqlToForm = ((data) => {
           targetTimeSecondsOverride:
             releaseMode?.targetTimeSecondsOverride ?? 0,
           idleTimeSecondsOverride: releaseMode?.idleTimeSecondsOverride ?? 0,
+          mergeQueueTargetTimeSecondsOverride:
+            releaseMode?.mergeQueueTargetTimeSecondsOverride ?? 0,
         },
         cost: {
           ebsDiscount: cost?.ebsCost?.ebsDiscount ?? 0,
@@ -307,6 +309,9 @@ export const formToGql = ((form: OtherFormState) => {
         miscSettings.releaseMode.targetTimeSecondsOverride || undefined,
       idleTimeSecondsOverride:
         miscSettings.releaseMode.idleTimeSecondsOverride || undefined,
+      mergeQueueTargetTimeSecondsOverride:
+        miscSettings.releaseMode.mergeQueueTargetTimeSecondsOverride ||
+        undefined,
     },
 
     cost: {

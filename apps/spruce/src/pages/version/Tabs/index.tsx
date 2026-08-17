@@ -36,7 +36,7 @@ const getDownstreamTabName = (
       <TabLabelWithBadge
         badgeText={numFailedChildPatches}
         badgeVariant="red"
-        dataCyBadge="downstream-tab-badge"
+        dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
     );
@@ -46,7 +46,7 @@ const getDownstreamTabName = (
       <TabLabelWithBadge
         badgeText={numStartedChildPatches}
         badgeVariant="yellow"
-        dataCyBadge="downstream-tab-badge"
+        dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
     );
@@ -56,7 +56,7 @@ const getDownstreamTabName = (
       <TabLabelWithBadge
         badgeText={numSuccessChildPatches}
         badgeVariant="green"
-        dataCyBadge="downstream-tab-badge"
+        dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
     );
@@ -65,7 +65,7 @@ const getDownstreamTabName = (
     <TabLabelWithBadge
       badgeText={0}
       badgeVariant="lightgray"
-      dataCyBadge="downstream-tab-badge"
+      dataTestIdBadge="downstream-tab-badge"
       tabLabel="Downstream Projects"
     />
   );
@@ -95,7 +95,7 @@ const tabMap = ({
   [key in VersionPageTabs]: React.JSX.Element;
 } => ({
   [VersionPageTabs.Tasks]: (
-    <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
+    <Tab key="tasks-tab" data-testid="task-tab" id="task-tab" name="Tasks">
       <Tasks
         setActiveTaskIds={setActiveTaskIds}
         taskCount={taskCount}
@@ -106,7 +106,7 @@ const tabMap = ({
   [VersionPageTabs.TaskDuration]: (
     <Tab
       key="duration-tab"
-      data-cy="duration-tab"
+      data-testid="duration-tab"
       id="duration-tab"
       name="Task Duration"
     >
@@ -116,7 +116,7 @@ const tabMap = ({
   [VersionPageTabs.Changes]: (
     <Tab
       key="changes-tab"
-      data-cy="changes-tab"
+      data-testid="changes-tab"
       id="changes-tab"
       name="Changes"
     >
@@ -126,7 +126,7 @@ const tabMap = ({
   [VersionPageTabs.Downstream]: (
     <Tab
       key="downstream-tab"
-      data-cy="downstream-tab"
+      data-testid="downstream-tab"
       id="downstream-tab"
       name={getDownstreamTabName(
         numFailedChildPatches,
@@ -140,7 +140,7 @@ const tabMap = ({
   [VersionPageTabs.TestAnalysis]: (
     <Tab
       key="test-analysis-tab"
-      data-cy="test-analysis-tab"
+      data-testid="test-analysis-tab"
       id="test-analysis-tab"
       name="Test Analysis"
     >
@@ -150,7 +150,7 @@ const tabMap = ({
   [VersionPageTabs.VersionTiming]: (
     <Tab
       key="version-timing-tab"
-      data-cy="version-timing-tab"
+      data-testid="version-timing-tab"
       id="version-timing-tab"
       name={isVariantTimingView ? "Variant Timing" : "Version Timing"}
     >

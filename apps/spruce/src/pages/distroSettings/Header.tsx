@@ -32,7 +32,7 @@ export const Header: React.FC<Props> = ({ distro, tab }) => {
     <>
       <div ref={headerScrollRef} />
       <StickyHeaderContainer saveable={saveable} showShadow={showShadow}>
-        <H2 data-cy="distro-settings-tab-title">{title}</H2>
+        <H2 data-testid="distro-settings-tab-title">{title}</H2>
         {saveable && (
           <HeaderButtons
             distro={distro}

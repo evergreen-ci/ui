@@ -40,7 +40,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
   const jiraLink = (
     <JiraSummaryLink
-      data-cy={issueKey}
+      data-testid={issueKey}
       href={url ?? ""}
       onClick={() =>
         annotationAnalytics.sendEvent({
@@ -56,31 +56,31 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   );
 
   return (
-    <Container data-cy="annotation-ticket-row">
+    <Container data-testid="annotation-ticket-row">
       {loading ? (
         <>
           {jiraLink}
-          <Skeleton data-cy="loading-annotation-ticket" />
+          <Skeleton data-testid="loading-annotation-ticket" />
         </>
       ) : (
         <>
           {jiraLink}
           {jiraTicket && (
-            <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
+            <StyledBadge data-testid={`${issueKey}-badge`} variant="lightgray">
               {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
               {status.name}
             </StyledBadge>
           )}
           {confidenceScore !== undefined && (
             <StyledBadge
-              data-cy={`${issueKey}-confidence-badge`}
+              data-testid={`${issueKey}-confidence-badge`}
               variant="blue"
             >
               {roundDecimal(toPercent(confidenceScore), 2)}% Confident in
               suggestion
             </StyledBadge>
           )}
-          <BottomMetadataWrapper data-cy={`${issueKey}-metadata`}>
+          <BottomMetadataWrapper data-testid={`${issueKey}-metadata`}>
             {created && (
               <Disclaimer>
                 Created: {getDateCopy(created, { dateOnly: true })}

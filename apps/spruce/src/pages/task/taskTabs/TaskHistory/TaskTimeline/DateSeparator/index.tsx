@@ -23,7 +23,7 @@ const DateSeparator: React.FC<DateSeparatorProps> = ({ date, timezone }) => {
     <Container
       aria-label="Date Separator for Task Timeline"
       className="date-separator"
-      data-cy="date-separator"
+      data-testid="date-separator"
     >
       <StyledBadge className="date-badge">{dateString}</StyledBadge>
       <Dot className="date-dot" />

@@ -82,7 +82,7 @@ export const DebugSpawnHostGuideCue: React.FC<DebugSpawnHostGuideCueProps> = ({
       </GuideCue>
       <span ref={refEl}>
         <StyledRouterLink
-          data-cy="task-spawn-host-link"
+          data-testid="task-spawn-host-link"
           onClick={() => {
             closeGuideCue();
             sendEvent({

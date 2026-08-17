@@ -34,7 +34,7 @@ const ProjectOption: React.FC<OptionProps> = ({
       isFavorite={isFavorite}
       projectIdentifier={projectIdentifier}
     />
-    <Label bolded={isSelected ? 1 : 0} data-cy="project-display-name">
+    <Label bolded={isSelected ? 1 : 0} data-testid="project-display-name">
       {displayName || projectIdentifier}
     </Label>
     {isSelected && <CheckmarkIcon fill={blue.base} glyph="Checkmark" />}

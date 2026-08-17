@@ -24,21 +24,24 @@ export const SpawnVolumeTableActions: React.FC<Props> = ({
       }}
     >
       <DeleteVolumeButton
-        data-cy={`trash-${displayName || id}`}
+        data-testid={`trash-${displayName || id}`}
         volume={volume}
       />
       {homeVolume && <MigrateButton volume={volume} />}
       {host && !homeVolume && (
         <UnmountButton
-          data-cy={`unmount-${displayName || id}`}
+          data-testid={`unmount-${displayName || id}`}
           volume={volume}
         />
       )}
       {!host && !homeVolume && (
-        <AttachButton data-cy={`attach-${displayName || id}`} volume={volume} />
+        <AttachButton
+          data-testid={`attach-${displayName || id}`}
+          volume={volume}
+        />
       )}
       <EditButton
-        data-cy={`edit-${displayName || id}`}
+        data-testid={`edit-${displayName || id}`}
         maxSpawnableLimit={maxSpawnableLimit}
         volume={volume}
       />

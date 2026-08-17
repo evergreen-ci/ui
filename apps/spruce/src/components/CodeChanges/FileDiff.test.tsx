@@ -152,7 +152,8 @@ describe("FileDiff", () => {
       route: "/version/testVersionId/file-diff?file_name=src/utils.ts",
     });
 
-    expect(screen.getByTestId("lg-skeleton-list")).toBeInTheDocument();
+    const skeletonList = screen.getByRole("list");
+    expect(skeletonList).toBeInTheDocument();
   });
 
   it("displays error when file_name parameter is omitted", () => {
