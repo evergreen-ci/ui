@@ -18,7 +18,7 @@ export const AbortMessage: React.FC<AbortInfo> = ({
         <span>
           because of failing task{" "}
           <StyledRouterLink
-            data-cy="abort-message-failing-task"
+            data-testid="abort-message-failing-task"
             to={getTaskRoute(taskID)}
           >
             {`${buildVariantDisplayName}: ${taskDisplayName}`}
@@ -29,7 +29,7 @@ export const AbortMessage: React.FC<AbortInfo> = ({
         <span>
           because of a new version{" "}
           <StyledRouterLink
-            data-cy="abort-message-new-version"
+            data-testid="abort-message-new-version"
             to={getVersionRoute(newVersion)}
           >
             {newVersion}

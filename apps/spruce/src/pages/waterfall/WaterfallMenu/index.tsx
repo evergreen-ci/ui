@@ -26,7 +26,7 @@ export const WaterfallMenu: React.FC<Props> = ({
 
   return (
     <ButtonDropdown
-      data-cy="waterfall-menu"
+      data-testid="waterfall-menu"
       open={menuOpen}
       renderDarkMenu={false}
       setOpen={setMenuOpen}
@@ -43,7 +43,7 @@ export const WaterfallMenu: React.FC<Props> = ({
       />
       <DropdownItem
         key="restart-walkthrough"
-        data-cy="restart-walkthrough"
+        data-testid="restart-walkthrough"
         glyph={<Icon glyph="Bulb" />}
         onClick={() => {
           setMenuOpen(false);

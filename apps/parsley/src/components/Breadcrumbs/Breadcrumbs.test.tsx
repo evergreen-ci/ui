@@ -13,9 +13,7 @@ describe("breadcrumbs", () => {
       <Breadcrumbs breadcrumbs={[{ "data-testid": "bc", text: "test" }]} />,
     );
     expect(screen.getByText("test")).toBeInTheDocument();
-    expect(
-      screen.queryByDataTestId("breadcrumb-chevron"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("breadcrumb-chevron")).not.toBeInTheDocument();
   });
 
   it("should render many breadcrumbs separated by chevrons", () => {
@@ -26,7 +24,7 @@ describe("breadcrumbs", () => {
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText("test 1")).toBeInTheDocument();
     expect(screen.getByText("test 2")).toBeInTheDocument();
-    expect(screen.queryAllByDataTestId("breadcrumb-chevron")).toHaveLength(1);
+    expect(screen.queryAllByTestId("breadcrumb-chevron")).toHaveLength(1);
   });
 
   it("breadcrumbs with long text should be collapsed to 30 characters by default and viewable with a tooltip", async () => {
@@ -41,7 +39,7 @@ describe("breadcrumbs", () => {
     ).toBeInTheDocument();
     await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
     await waitFor(() => {
-      expect(screen.getByDataTestId("breadcrumb-tooltip")).toBeInTheDocument();
+      expect(screen.getByTestId("breadcrumb-tooltip")).toBeInTheDocument();
     });
     expect(screen.getByText(longMessage)).toBeInTheDocument();
   });
@@ -60,7 +58,7 @@ describe("breadcrumbs", () => {
     ).toBeInTheDocument();
     await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 25)));
     await waitFor(() => {
-      expect(screen.getByDataTestId("breadcrumb-tooltip")).toBeInTheDocument();
+      expect(screen.getByTestId("breadcrumb-tooltip")).toBeInTheDocument();
     });
     expect(screen.getByText(longMessage)).toBeInTheDocument();
   });
@@ -74,7 +72,7 @@ describe("breadcrumbs", () => {
     await user.hover(screen.getByText(shortMessage));
     await waitFor(() => {
       expect(
-        screen.queryByDataTestId("breadcrumb-tooltip"),
+        screen.queryByTestId("breadcrumb-tooltip"),
       ).not.toBeInTheDocument();
     });
   });

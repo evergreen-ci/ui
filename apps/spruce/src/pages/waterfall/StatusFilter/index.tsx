@@ -19,7 +19,7 @@ export const StatusFilter = () => {
 
   return (
     <Combobox
-      data-cy="status-filter"
+      data-testid="status-filter"
       initialValue={statuses}
       label="Task Status"
       multiselect
@@ -30,7 +30,7 @@ export const StatusFilter = () => {
       {SortedTaskStatus.map((ts) => (
         <ComboboxOption
           key={`${ts}-option`}
-          data-cy={`${ts}-option`}
+          data-testid={`${ts}-option`}
           displayName={taskStatusToCopy[ts]}
           value={ts}
         />

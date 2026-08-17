@@ -35,10 +35,10 @@ export const TagRow: React.FC<TagRowProps> = ({
   return (
     <>
       {shouldShowNewTag && (
-        <FlexContainer data-cy="user-tag-row">
+        <FlexContainer data-testid="user-tag-row">
           <FlexColumnContainer>
             <TextArea
-              data-cy="user-tag-key-field"
+              data-testid="user-tag-key-field"
               id={`tag_key_${tagId}`}
               label="Key"
               onChange={(e) =>
@@ -50,7 +50,7 @@ export const TagRow: React.FC<TagRowProps> = ({
           </FlexColumnContainer>
           <FlexColumnContainer>
             <TextArea
-              data-cy="user-tag-value-field"
+              data-testid="user-tag-value-field"
               id={`tag_value_${tagId}`}
               label="Value"
               onChange={(e) =>
@@ -70,7 +70,7 @@ export const TagRow: React.FC<TagRowProps> = ({
               }
             >
               <Icon
-                data-cy="user-tag-edit-icon"
+                data-testid="user-tag-edit-icon"
                 glyph="Checkmark"
                 onClick={() => {
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -89,7 +89,7 @@ export const TagRow: React.FC<TagRowProps> = ({
           ) : (
             <IconButton aria-label="Delete Tag">
               <Icon
-                data-cy="user-tag-trash-icon"
+                data-testid="user-tag-trash-icon"
                 glyph="Trash"
                 onClick={
                   isNewTag
@@ -106,7 +106,7 @@ export const TagRow: React.FC<TagRowProps> = ({
       {!shouldShowNewTag && (
         <ButtonContainer>
           <PlusButton
-            data-cy="add-tag-button"
+            data-testid="add-tag-button"
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             onClick={() => dispatch({ type: "newTag" })}
           >

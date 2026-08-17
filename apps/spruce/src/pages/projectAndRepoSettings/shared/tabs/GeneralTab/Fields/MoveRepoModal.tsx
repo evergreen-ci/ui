@@ -89,7 +89,7 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
         disabled: hasError,
         onClick: onConfirm,
       }}
-      data-cy="move-repo-modal"
+      data-testid="move-repo-modal"
       open={open}
       title="Move to New Repo"
       variant="danger"
@@ -148,11 +148,11 @@ const moveRepoForm = (githubOrgs: string[]) => ({
   },
   uiSchema: {
     owner: {
-      "ui:data-cy": "new-owner-select",
+      "ui:data-testid": "new-owner-select",
       "ui:allowDeselect": false,
     },
     repo: {
-      "ui:data-cy": "new-repo-input",
+      "ui:data-testid": "new-repo-input",
     },
   },
 });

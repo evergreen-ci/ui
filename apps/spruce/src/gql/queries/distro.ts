@@ -80,6 +80,7 @@ export const DISTRO = gql`
         generateTaskFactor
         groupVersions
         mainlineTimeInQueueFactor
+        mergeQueueTargetTime
         numDependentsFactor
         patchFactor
         patchTimeInQueueFactor

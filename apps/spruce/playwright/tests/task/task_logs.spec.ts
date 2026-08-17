@@ -4,11 +4,11 @@ test.describe("task logs", () => {
   const LOGS_ROUTE =
     "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs";
 
-  const taskLogsButton = "button[id='cy-task-option']";
-  const agentLogsButton = "button[id='cy-agent-option']";
-  const systemLogsButton = "button[id='cy-system-option']";
-  const eventLogsButton = "button[id='cy-event-option']";
-  const allLogsButton = "button[id='cy-all-option']";
+  const taskLogsButton = "button[id='task-option']";
+  const agentLogsButton = "button[id='agent-option']";
+  const systemLogsButton = "button[id='system-option']";
+  const eventLogsButton = "button[id='event-option']";
+  const allLogsButton = "button[id='all-option']";
 
   test.beforeEach(async ({ page }) => {
     await page.goto(LOGS_ROUTE);
@@ -27,7 +27,7 @@ test.describe("task logs", () => {
     page,
   }) => {
     await expect(
-      page.getByTestId("cy-no-logs").getByText("No logs"),
+      page.getByTestId("no-logs").getByText("No logs"),
     ).toBeVisible();
     await expect(page.getByTestId("parsley-log-btn")).toHaveAttribute(
       "aria-disabled",

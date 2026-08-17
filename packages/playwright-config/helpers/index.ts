@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { evergreenUrl, toastDataCy, users } from "./constants";
+import { evergreenUrl, toastTestId, users } from "./constants";
 
 /**
  * Logs in a user via API request
@@ -36,22 +36,22 @@ export const validateToast = async (
   message: string,
   shouldClose?: boolean,
 ) => {
-  await expect(page.getByTestId(toastDataCy)).toBeVisible();
-  await expect(page.getByTestId(toastDataCy)).toHaveAttribute(
+  await expect(page.getByTestId(toastTestId)).toBeVisible();
+  await expect(page.getByTestId(toastTestId)).toHaveAttribute(
     "data-variant",
     status,
   );
 
   if (message) {
-    await expect(page.getByTestId(toastDataCy)).toContainText(message);
+    await expect(page.getByTestId(toastTestId)).toContainText(message);
   }
 
   if (shouldClose) {
     await page
-      .getByTestId(toastDataCy)
+      .getByTestId(toastTestId)
       .locator("button[aria-label='Close Message']")
       .click();
-    await expect(page.getByTestId(toastDataCy)).toBeHidden();
+    await expect(page.getByTestId(toastTestId)).toBeHidden();
   }
 };
 

@@ -42,8 +42,8 @@ const EventDiffTable: React.FC<TableProps> = ({
 
   return (
     <BaseTable
-      data-cy="event-diff-table"
-      data-cy-row="event-log-table-row"
+      data-testid="event-diff-table"
+      data-testid-row="event-log-table-row"
       shouldAlternateRowColor
       table={table}
     />

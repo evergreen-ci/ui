@@ -16,7 +16,7 @@ import type { MenuItemProps } from "./types";
 const { green } = palette;
 
 interface BuildVariantCardProps {
-  "data-cy": string;
+  "data-testid": string;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   onClick: (variantName: string) => (e) => void;
   menuItems: MenuItemProps[];
@@ -25,7 +25,7 @@ interface BuildVariantCardProps {
 }
 
 const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   menuItems,
   onClick,
   selectedMenuItems,
@@ -61,8 +61,8 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
           return (
             <BuildVariant
               key={name}
-              data-cy={dataCy}
               data-selected={isSelected}
+              data-testid={dataTestId}
               isSelected={isSelected}
               onClick={onClick(name)}
             >
@@ -75,7 +75,7 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
               </VariantName>
               {taskCount > 0 && (
                 <StyledBadge
-                  data-cy="task-count-badge"
+                  data-testid="task-count-badge"
                   variant={isSelected ? Variant.DarkGray : Variant.LightGray}
                 >
                   {taskCount}

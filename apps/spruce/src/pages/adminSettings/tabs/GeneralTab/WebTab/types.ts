@@ -43,6 +43,9 @@ export interface WebFormState {
       elevatedUsers: {
         elevatedUserIds: string[];
       };
+      exemptUsers: {
+        exemptUserIds: string[];
+      };
     };
   };
 }

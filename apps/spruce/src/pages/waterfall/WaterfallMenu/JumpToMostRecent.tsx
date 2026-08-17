@@ -26,7 +26,7 @@ export const JumpToMostRecent: React.FC<Props> = ({ setMenuOpen }) => {
 
   return (
     <DropdownItem
-      data-cy="jump-to-most-recent"
+      data-testid="jump-to-most-recent"
       glyph={<Icon glyph="ClockWithArrow" />}
       onClick={handleClick}
     >

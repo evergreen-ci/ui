@@ -42,7 +42,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
     <ButtonWrapper>
       {urlParsley && (
         <Button
-          data-cy="test-table-parsley-btn"
+          data-testid="test-table-parsley-btn"
           href={urlParsley}
           onClick={() =>
             sendEvent({
@@ -59,7 +59,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
       )}
       {testHTMLLogRoute && (
         <Button
-          data-cy="test-table-html-btn"
+          data-testid="test-table-html-btn"
           href={testHTMLLogRoute}
           onClick={() =>
             sendEvent({
@@ -76,7 +76,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
       )}
       {urlRaw && (
         <Button
-          data-cy="test-table-raw-btn"
+          data-testid="test-table-raw-btn"
           href={urlRaw}
           onClick={() =>
             sendEvent({
@@ -93,7 +93,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
       )}
       {urlRaw && (
         <Button
-          data-cy="test-table-download-btn"
+          data-testid="test-table-download-btn"
           onClick={() => {
             const sanitized = testFile.replace(/[^a-zA-Z0-9._-]/g, "_");
             downloadFile(urlRaw, `${taskId}_${sanitized}.log`, () => {

@@ -43,7 +43,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   return (
     <ButtonContainer>
       <Button
-        data-cy="edit-btn"
+        data-testid="edit-btn"
         leftGlyph={<Icon glyph="Edit" />}
         onClick={() => setVisible(true)}
         size={ButtonSize.Small}
@@ -62,7 +62,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
         }}
         trigger={
           <Button
-            data-cy="delete-btn"
+            data-testid="delete-btn"
             disabled={loadingRemovePublicKey}
             size={ButtonSize.Small}
           >

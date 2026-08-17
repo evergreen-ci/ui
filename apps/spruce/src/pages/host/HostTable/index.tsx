@@ -126,21 +126,21 @@ const HostTable: React.FC<HostTableProps> = ({
         <PaginationWrapper>
           <Pagination
             currentPage={page}
-            data-cy="host-event-table-pagination"
+            data-testid="host-event-table-pagination"
             pageSize={limit}
             totalResults={eventCount}
           />
           <PageSizeSelector
-            data-cy="host-event-table-page-size-selector"
+            data-testid="host-event-table-page-size-selector"
             onChange={handlePageSizeChange}
             value={limit}
           />
         </PaginationWrapper>
       </TableTitle>
       <BaseTable
-        data-cy-row="host-events-table-row"
-        data-cy-table="host-events-table"
         data-loading={loading}
+        data-testid-row="host-events-table-row"
+        data-testid-table="host-events-table"
         loading={loading}
         loadingRows={limit}
         shouldAlternateRowColor
@@ -175,7 +175,7 @@ const getColumns = (
     enableColumnFilter: true,
     meta: {
       treeSelect: {
-        "data-cy": "event-type-filter",
+        "data-testid": "event-type-filter",
         options: eventTypeFilterOptions,
       },
     },

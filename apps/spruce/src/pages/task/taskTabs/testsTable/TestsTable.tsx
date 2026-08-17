@@ -182,7 +182,6 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       controls={
         <TableControl
           filteredCount={filteredTestCount}
-          label="tests"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           limit={limitNum}
           onClear={clearQueryParams}
@@ -197,8 +196,8 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       shouldShowBottomTableControl={filteredTestCount > 10}
     >
       <BaseTable
-        data-cy="tests-table"
         data-loading={isLoading}
+        data-testid="tests-table"
         loading={isLoading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         loadingRows={limitNum}

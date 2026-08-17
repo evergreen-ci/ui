@@ -53,7 +53,7 @@ export const DropdownMenu: React.FC<Props> = ({
 
   return (
     <ButtonDropdown
-      data-cy="patch-card-dropdown"
+      data-testid="patch-card-dropdown"
       dropdownItems={dropdownItems}
     />
   );

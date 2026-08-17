@@ -64,7 +64,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
       user.displayName
     ) : (
       <StyledRouterLink
-        data-cy="user-patches-link"
+        data-testid="user-patches-link"
         to={getUserPatchesRoute(user.userId)}
       >
         <strong>{user.displayName}</strong>
@@ -73,7 +73,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   } else if (projectIdentifier) {
     patchProject = (
       <StyledRouterLink
-        data-cy="project-patches-link"
+        data-testid="project-patches-link"
         to={getProjectPatchesRoute(projectIdentifier)}
       >
         <strong>{projectIdentifier}</strong>
@@ -98,10 +98,10 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     />
   ));
   return (
-    <CardWrapper data-cy="patch-card">
+    <CardWrapper data-testid="patch-card">
       <Left>
         <DescriptionLink
-          data-cy="patch-card-patch-link"
+          data-testid="patch-card-patch-link"
           onClick={() => analytics.sendEvent({ name: "Clicked patch link" })}
           to={
             activated
@@ -139,7 +139,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         {hidden && (
           <ChipContainer>
             <Chip
-              data-cy="hidden-badge"
+              data-testid="hidden-badge"
               label="Hidden"
               variant={ChipVariant.Gray}
             />

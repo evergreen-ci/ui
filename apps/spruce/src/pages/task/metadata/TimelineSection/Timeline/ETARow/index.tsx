@@ -22,7 +22,7 @@ export const ETARow: React.FC<ETARowProps> = ({
   const eta = expectedDuration - runningTime;
   if (eta < 0) return null;
   return (
-    <MetadataTimelineRow data-cy="eta-timer" isRunning label="ETA">
+    <MetadataTimelineRow data-testid="eta-timer" isRunning label="ETA">
       {msToDuration(eta)}
     </MetadataTimelineRow>
   );

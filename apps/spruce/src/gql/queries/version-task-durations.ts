@@ -7,6 +7,15 @@ export const VERSION_TASK_DURATIONS = gql`
   ) {
     version(versionId: $versionId) {
       id
+      childVersions {
+        id
+        finishTime
+        projectMetadata {
+          id
+          identifier
+        }
+        startTime
+      }
       tasks(options: $taskFilterOptions) {
         count
         data {

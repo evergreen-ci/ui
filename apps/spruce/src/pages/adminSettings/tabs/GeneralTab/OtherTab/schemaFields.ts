@@ -35,7 +35,7 @@ export const oktaServiceConfig = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "okta-service-config",
+    "ui:data-testid": "okta-service-config",
     "ui:objectFieldCss": objectGridCss,
     "ui:description":
       "Settings for the Okta Services app. Used exclusively for machine-to-machine authentication, e.g. the token exchange grant used in the spawn host workflow.",
@@ -99,6 +99,11 @@ export const miscSettings = {
         idleTimeSecondsOverride: {
           type: "number" as const,
           title: "Idle Time Override (secs)",
+        },
+        mergeQueueTargetTimeSecondsOverride: {
+          type: "number" as const,
+          title: "Merge Queue Target Time Override (secs)",
+          minimum: 0,
         },
       },
     },
@@ -191,7 +196,7 @@ export const miscSettings = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "misc-settings",
+    "ui:data-testid": "misc-settings",
     "ui:objectFieldCss": objectGridCss,
     githubOrgs: {
       "ui:widget": widgets.ChipInputWidget,
@@ -213,6 +218,9 @@ export const miscSettings = {
       idleTimeSecondsOverride: {
         "ui:description":
           "Override for the acceptable host idle time (ignored if 0).",
+      },
+      mergeQueueTargetTimeSecondsOverride: {
+        "ui:description": "Overrides the merge queue target time.",
       },
     },
     cost: {
@@ -332,11 +340,11 @@ export const getSingleTaskDistroSchema = ({
     },
     uiSchema: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:data-cy": "single-task-host",
+      "ui:data-testid": "single-task-host",
       "ui:objectFieldCss": objectGridCss,
       projectTasksPairs: {
         "ui:addButtonText": "Add project tasks pair",
-        "ui:data-cy": "project-tasks-pairs-list",
+        "ui:data-testid": "project-tasks-pairs-list",
         "ui:orderable": false,
         "ui:fullWidth": true,
         "ui:fieldCss": fullWidthCss,
@@ -488,7 +496,7 @@ export const bucketConfig = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "bucket-config",
+    "ui:data-testid": "bucket-config",
     "ui:objectFieldCss": objectGridCss,
     logBucketExpirationDays: { "ui:readonly": true },
     logBucketTransitionToIADays: { "ui:readonly": true },
@@ -545,14 +553,14 @@ export const sshPairs = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "ssh-pairs",
+    "ui:data-testid": "ssh-pairs",
     "ui:objectFieldCss": objectGridCss,
     taskHostKey: {
-      "ui:data-cy": "task-host-key",
+      "ui:data-testid": "task-host-key",
       "ui:fieldCss": nestedObjectGridCss,
     },
     spawnHostKey: {
-      "ui:data-cy": "spawn-host-key",
+      "ui:data-testid": "spawn-host-key",
       "ui:fieldCss": nestedObjectGridCss,
     },
   },
@@ -580,7 +588,7 @@ export const expansions = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "expansions-list",
+    "ui:data-testid": "expansions-list",
     "ui:fullWidth": true,
     expansionValues: {
       "ui:orderable": false,
@@ -589,7 +597,7 @@ export const expansions = {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
-        "ui:data-cy": "expansion-item",
+        "ui:data-testid": "expansion-item",
         value: {
           "ui:widget": "textarea",
         },
@@ -624,7 +632,7 @@ export const hostJasper = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "host-jasper",
+    "ui:data-testid": "host-jasper",
     "ui:objectFieldCss": objectGridCss,
   },
 };
@@ -678,21 +686,21 @@ export const jiraNotificationsFields = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "jira-notifications",
+    "ui:data-testid": "jira-notifications",
     "ui:objectFieldCss": objectGridCss,
     customFields: {
       "ui:addButtonText": "Add new Jira project",
-      "ui:data-cy": "jira-custom-fields-list",
+      "ui:data-testid": "jira-custom-fields-list",
       "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
-        "ui:data-cy": "jira-custom-field-item",
+        "ui:data-testid": "jira-custom-field-item",
         fields: {
           "ui:addButtonText": "Add custom field",
           "ui:placeholder": "No custom fields defined.",
-          "ui:data-cy": "jira-fields-list",
+          "ui:data-testid": "jira-fields-list",
           "ui:orderable": false,
           "ui:fullWidth": true,
           "ui:fieldCss": fullWidthCss,
@@ -726,7 +734,7 @@ export const spawnHost = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "spawn-host",
+    "ui:data-testid": "spawn-host",
     "ui:objectFieldCss": objectGridCss,
   },
 };
@@ -740,7 +748,7 @@ export const debugSpawnHostsConfig = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "debug-spawn-hosts-config",
+    "ui:data-testid": "debug-spawn-hosts-config",
     setupScript: {
       "ui:widget": "textarea",
       "ui:fieldCss": fullWidthCss,
@@ -761,7 +769,7 @@ export const sleepSchedule = {
     },
   },
   uiSchema: {
-    "ui:data-cy": "sleep-schedule",
+    "ui:data-testid": "sleep-schedule",
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
     permanentlyExemptHosts: {
@@ -796,7 +804,7 @@ export const tracerConfiguration = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "tracer-configuration",
+    "ui:data-testid": "tracer-configuration",
     "ui:objectFieldCss": objectGridCss,
     enabled: {
       "ui:fieldCss": fullWidthCss,
@@ -839,17 +847,17 @@ export const projectCreationSettings = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "project-creation-settings",
+    "ui:data-testid": "project-creation-settings",
     "ui:objectFieldCss": objectGridCss,
     repoExceptions: {
       "ui:addButtonText": "Add repository exception",
-      "ui:data-cy": "repo-exceptions-list",
+      "ui:data-testid": "repo-exceptions-list",
       "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
-        "ui:data-cy": "repo-exception-item",
+        "ui:data-testid": "repo-exception-item",
       },
     },
   },
@@ -868,7 +876,7 @@ export const diagnosticsConfig = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "diagnostics-config",
+    "ui:data-testid": "diagnostics-config",
     "ui:objectFieldCss": objectGridCss,
     s3BucketName: {
       "ui:description": "The S3 bucket where diagnostics data is stored.",
@@ -889,7 +897,7 @@ export const githubCheckRunConfigurations = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "github-check-run-configurations",
+    "ui:data-testid": "github-check-run-configurations",
     "ui:objectFieldCss": objectGridCss,
   },
 };

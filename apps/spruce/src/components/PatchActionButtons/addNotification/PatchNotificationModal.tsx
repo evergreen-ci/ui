@@ -20,7 +20,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
 
   return (
     <NotificationModal
-      data-cy="patch-notification-modal"
+      data-testid="patch-notification-modal"
       onCancel={onCancel}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       resourceId={versionId}

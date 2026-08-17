@@ -39,7 +39,7 @@ export const PauseSleepScheduleModal: React.FC<{
           setOpen(false);
         },
       }}
-      data-cy="pause-sleep-schedule-modal"
+      data-testid="pause-sleep-schedule-modal"
       open={open}
       setOpen={setOpen}
       title="Configure Host Pause"
@@ -57,7 +57,7 @@ export const PauseSleepScheduleModal: React.FC<{
       >
         <Radio value="false">
           Start host at its next scheduled time&nbsp;
-          <span data-cy="next-start">
+          <span data-testid="next-start">
             ({nextStartDay}
             {nextStartTime && ` at ${nextStartTime}`})
           </span>

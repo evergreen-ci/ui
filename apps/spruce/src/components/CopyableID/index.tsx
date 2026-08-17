@@ -4,17 +4,17 @@ import { CopyButton } from "components/CopyButton";
 import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 
 interface CopyableIDProps {
-  "data-cy"?: string;
+  "data-testid"?: string;
   textToCopy: string;
   tooltipLabel: string;
 }
 
 export const CopyableID: React.FC<CopyableIDProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   textToCopy,
   tooltipLabel,
 }) => (
-  <MetadataItem as="div" data-cy={dataCy}>
+  <MetadataItem as="div" data-testid={dataTestId}>
     <Container>
       <LabelWrapper>
         <MetadataLabel>ID: </MetadataLabel>
