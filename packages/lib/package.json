@@ -53,6 +53,7 @@
     "react-router-dom": "6.18.0"
   },
   "devDependencies": {
+    "@emotion/react": "11.14.0",
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "@evg-ui/storybook-addon": "workspace:*",
