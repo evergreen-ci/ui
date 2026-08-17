@@ -43,6 +43,8 @@ export type ProviderFormState = {
       useVpc: boolean;
       subnetId: string;
       subnetPrefix: string;
+      subnetTagName: string;
+      subnetTagValue: string;
     };
     mountPoints: Array<{
       deviceName: string;

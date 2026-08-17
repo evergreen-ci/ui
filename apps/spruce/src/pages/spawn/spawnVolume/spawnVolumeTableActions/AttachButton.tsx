@@ -14,7 +14,7 @@ export const AttachButton: React.FC<Props> = ({ volume }) => {
     <>
       <Button
         as="button"
-        data-cy={`attach-btn-${volume.displayName || volume.id}`}
+        data-testid={`attach-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {
           e.stopPropagation();

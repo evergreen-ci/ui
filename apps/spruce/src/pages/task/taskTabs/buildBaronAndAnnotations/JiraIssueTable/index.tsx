@@ -21,7 +21,7 @@ const JiraIssueTable: React.FC<JiraIssueTableProps> = ({ bbData }) => {
     <>
       <TicketsTitle>
         Related tickets from JIRA
-        <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
+        <StyledLink data-testid="jira-search-link" href={jiraSearchLink}>
           {" "}
           (JIRA Search)
         </StyledLink>

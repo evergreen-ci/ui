@@ -93,7 +93,7 @@ const useTabConfig = (
 
   const tabMap: Record<TaskTab, React.JSX.Element> = {
     [TaskTab.Logs]: (
-      <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
+      <Tab key="task-logs-tab" data-testid="task-logs-tab" name="Logs">
         <Logs
           execution={execution}
           isDisplayTask={isDisplayTask}
@@ -105,13 +105,13 @@ const useTabConfig = (
     [TaskTab.Tests]: (
       <Tab
         key="task-tests-tab"
-        data-cy="task-tests-tab"
+        data-testid="task-tests-tab"
         name={
           failedTestCount ? (
             <TabLabelWithBadge
               badgeText={failedTestCount}
               badgeVariant={Variant.Red}
-              dataCyBadge="tests-tab-badge"
+              dataTestIdBadge="tests-tab-badge"
               tabLabel="Tests"
             />
           ) : (
@@ -125,7 +125,7 @@ const useTabConfig = (
     [TaskTab.ExecutionTasks]: (
       <Tab
         key="execution-tasks-tab"
-        data-cy="task-execution-tab"
+        data-testid="task-execution-tab"
         name="Execution Tasks"
       >
         <ExecutionTasksTable
@@ -138,13 +138,13 @@ const useTabConfig = (
     [TaskTab.Files]: (
       <Tab
         key="task-files-tab"
-        data-cy="task-files-tab"
+        data-testid="task-files-tab"
         name={
           fileCount !== undefined ? (
             <TabLabelWithBadge
               badgeText={fileCount}
               badgeVariant={Variant.LightGray}
-              dataCyBadge="files-tab-badge"
+              dataTestIdBadge="files-tab-badge"
               tabLabel="Files"
             />
           ) : (
@@ -158,7 +158,7 @@ const useTabConfig = (
     [TaskTab.Annotations]: (
       <Tab
         key="task-build-baron-tab"
-        data-cy="task-build-baron-tab"
+        data-testid="task-build-baron-tab"
         name="Failure Details"
       >
         <BuildBaron
@@ -173,7 +173,7 @@ const useTabConfig = (
     [TaskTab.TrendCharts]: (
       <Tab
         key="trend-charts-tab"
-        data-cy="trend-charts-tab"
+        data-testid="trend-charts-tab"
         name="Trend Charts"
       >
         <TrendChartsPlugin taskId={id} />
@@ -182,7 +182,7 @@ const useTabConfig = (
     [TaskTab.History]: (
       <Tab
         key="task-history-tab"
-        data-cy="task-history-tab"
+        data-testid="task-history-tab"
         name="History"
         {...walkthroughHistoryTabProps}
       >
@@ -216,7 +216,7 @@ const useTabConfig = (
     [TaskTab.ExecutionTasksTiming]: (
       <Tab
         key="execution-tasks-timing-tab"
-        data-cy="execution-tasks-timing-tab"
+        data-testid="execution-tasks-timing-tab"
         name="Execution Tasks Timing"
       >
         <ExecutionTasksTiming

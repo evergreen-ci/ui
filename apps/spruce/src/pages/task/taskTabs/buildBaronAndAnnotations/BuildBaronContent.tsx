@@ -59,7 +59,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const canCreateTickets = bbData?.bbTicketCreationDefined;
 
   return (
-    <div data-cy="build-baron-content">
+    <div data-testid="build-baron-content">
       {canCreateTickets ? (
         <CustomCreatedTickets
           execution={execution}

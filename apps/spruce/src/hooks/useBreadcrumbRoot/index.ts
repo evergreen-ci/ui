@@ -22,7 +22,7 @@ export const useBreadcrumbRoot = (
             link: "myPatches",
           });
         },
-        "data-cy": "bc-my-patches",
+        "data-testid": "bc-my-patches",
       }
     : {
         to: getWaterfallRoute(projectIdentifier),
@@ -33,6 +33,6 @@ export const useBreadcrumbRoot = (
             link: "waterfall",
           });
         },
-        "data-cy": "bc-waterfall",
+        "data-testid": "bc-waterfall",
       };
 };

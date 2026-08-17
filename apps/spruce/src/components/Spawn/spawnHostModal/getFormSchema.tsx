@@ -420,7 +420,7 @@ export const getFormSchema = ({
             hasValidTask && !isDebugDisabled
               ? widgets.CheckboxWidget
               : "hidden",
-          "ui:data-cy": "is-debug-toggle",
+          "ui:data-testid": "is-debug-toggle",
           "ui:customLabel": (
             <>
               Spawn host in{" "}
@@ -450,7 +450,7 @@ export const getFormSchema = ({
                 "ui:isFailedTask": isFailedTask,
               }
             : {}),
-          "ui:data-cy": "setup-step-number-input",
+          "ui:data-testid": "setup-step-number-input",
           "ui:placeholder": "Select spawn end point",
         },
       },
@@ -458,11 +458,11 @@ export const getFormSchema = ({
         distro: {
           "ui:widget": DistroDropdown,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
-          "ui:data-cy": "distro-input",
+          "ui:data-testid": "distro-input",
           "ui:distros": distros,
         },
         region: {
-          "ui:data-cy": "region-select",
+          "ui:data-testid": "region-select",
           "ui:disabled": isMigration || availableRegions.length === 0,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
           "ui:placeholder": "Select a region",
@@ -474,13 +474,13 @@ export const getFormSchema = ({
         userdataScript: {
           "ui:widget": LeafyGreenTextArea,
           "ui:elementWrapperCSS": textAreaWrapperClassName,
-          "ui:data-cy": "user-data-script-text-area",
+          "ui:data-testid": "user-data-script-text-area",
         },
       },
       setupScriptSection: {
         defineSetupScriptCheckbox: {
           "ui:disabled": useProjectSetupScript,
-          "ui:data-cy": "setup-script-checkbox",
+          "ui:data-testid": "setup-script-checkbox",
         },
         warningBanner: {
           "ui:showLabel": false,
@@ -501,7 +501,7 @@ export const getFormSchema = ({
         setupScript: {
           "ui:widget": LeafyGreenTextArea,
           "ui:elementWrapperCSS": textAreaWrapperClassName,
-          "ui:data-cy": "setup-script-text-area",
+          "ui:data-testid": "setup-script-text-area",
         },
       },
       expirationDetails: expirationDetails.uiSchema,
@@ -519,7 +519,7 @@ export const getFormSchema = ({
               </>
             ),
             "ui:elementWrapperCSS": dropMarginBottomCSS,
-            "ui:data-cy": "load-data-checkbox",
+            "ui:data-testid": "load-data-checkbox",
           },
           runProjectSpecificSetupScript: {
             "ui:widget":
@@ -527,7 +527,7 @@ export const getFormSchema = ({
                 ? widgets.CheckboxWidget
                 : "hidden",
             "ui:disabled": useSetupScript,
-            "ui:data-cy": "project-setup-script-checkbox",
+            "ui:data-testid": "project-setup-script-checkbox",
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           startHosts: {
@@ -536,18 +536,18 @@ export const getFormSchema = ({
           },
           spawnHostTokenAuthBanner: {
             "ui:showLabel": false,
-            "ui:field-data-cy": "spawn-host-token-auth-banner",
+            "ui:field-data-testid": "spawn-host-token-auth-banner",
             "ui:descriptionNode": (
               <Banner
-                data-cy="spawn-host-token-auth-banner"
+                data-testid="spawn-host-token-auth-banner"
                 variant={Variant.Warning}
               >
-                <div data-cy="spawn-host-token-auth-banner-copy">
+                <div data-testid="spawn-host-token-auth-banner-copy">
                   Spawn hosts require an additional authentication step to load
                   task data.
                 </div>
                 <Button
-                  data-cy="spawn-host-authenticate-button"
+                  data-testid="spawn-host-authenticate-button"
                   disabled={
                     tokenExchangeState === TokenExchangeState.TokenValid
                   }
@@ -582,7 +582,7 @@ export const getFormSchema = ({
           },
           volumeSelect: {
             "ui:allowDeselect": false,
-            "ui:data-cy": "volume-select",
+            "ui:data-testid": "volume-select",
             "ui:disabled": availableVolumes?.length === 0,
             "ui:enumDisabled": (volumes || [])
               .filter((v) => !!v.hostID)

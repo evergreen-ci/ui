@@ -58,7 +58,7 @@ const Waterfall: React.FC = () => {
   return (
     <>
       <Global styles={navbarStyles} />
-      <PageContainer data-cy="waterfall-page" id={waterfallPageContainerId}>
+      <PageContainer data-testid="waterfall-page" id={waterfallPageContainerId}>
         <ProjectBanner projectIdentifier={projectIdentifier ?? ""} />
         <RepotrackerBanner projectIdentifier={projectIdentifier ?? ""} />
         <WaterfallFilters

@@ -69,7 +69,7 @@ export const CopyModal: React.FC<Props> = ({ handleClose, open }) => {
         disabled: hasError,
         onClick: onConfirm,
       }}
-      data-cy="copy-distro-modal"
+      data-testid="copy-distro-modal"
       open={open}
       title={`Duplicate “${distroId}”`}
     >

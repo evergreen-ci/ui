@@ -26,6 +26,8 @@ export const gqlToForm = ((data) => {
             az: subnet.az ?? "",
             subnetId: subnet.subnetId ?? "",
           })) ?? [],
+        subnetTagName: providers?.aws?.subnetTagName ?? "",
+        subnetTagValue: providers?.aws?.subnetTagValue ?? "",
         accountRoles:
           providers?.aws?.accountRoles?.map((role) => ({
             account: role.account ?? "",
@@ -106,6 +108,8 @@ export const formToGql = ((form: ProvidersFormState) => {
           az: subnet.az,
           subnetId: subnet.subnetId,
         })),
+        subnetTagName: aws.subnetTagName || undefined,
+        subnetTagValue: aws.subnetTagValue || undefined,
       },
       docker: {
         apiVersion: docker.apiVersion || undefined,

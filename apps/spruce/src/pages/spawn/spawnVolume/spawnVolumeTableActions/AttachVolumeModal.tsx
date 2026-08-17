@@ -70,7 +70,7 @@ export const AttachVolumeModal: React.FC<Props> = ({
         disabled: !selectedHostId || loadingAttachVolume,
         onClick: onConfirm,
       }}
-      data-cy="attach-volume-modal"
+      data-testid="attach-volume-modal"
       open={visible}
       title="Attach Volume to Host"
     >

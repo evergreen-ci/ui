@@ -114,22 +114,22 @@ const Hosts: React.FC = () => {
 
   const { limit, page } = usePagination();
   return (
-    <PageWrapper data-cy="hosts-page">
+    <PageWrapper data-testid="hosts-page">
       <H2>Evergreen Hosts</H2>
       <TableControlOuterRow>
         <SubtitleDataWrapper>
-          <Disclaimer data-cy="filtered-hosts-count">
+          <Disclaimer data-testid="filtered-hosts-count">
             {`Showing ${
               hasFilters ? filteredHostCount : totalHostsCount
             } of ${totalHostsCount}`}
           </Disclaimer>
           <HostsSelectionWrapper>
-            <Badge data-cy="hosts-selection-badge" variant={Variant.Blue}>
+            <Badge data-testid="hosts-selection-badge" variant={Variant.Blue}>
               {selectedHostIds.length} Selected
             </Badge>
             <ButtonWrapper>
               <Button
-                data-cy="update-status-button"
+                data-testid="update-status-button"
                 disabled={selectedHostIds.length === 0}
                 onClick={() => setIsUpdateStatusModalVisible(true)}
               >
@@ -155,12 +155,12 @@ const Hosts: React.FC = () => {
         <TableControlInnerRow>
           <Pagination
             currentPage={page}
-            data-cy="hosts-table-pagination"
+            data-testid="hosts-table-pagination"
             pageSize={limit}
             totalResults={hasFilters ? filteredHostCount : totalHostsCount}
           />
           <PageSizeSelector
-            data-cy="hosts-table-page-size-selector"
+            data-testid="hosts-table-page-size-selector"
             onChange={handlePageSizeChange}
             value={limit}
           />
@@ -176,7 +176,7 @@ const Hosts: React.FC = () => {
       />
       <UpdateStatusModal
         closeModal={() => setIsUpdateStatusModalVisible(false)}
-        data-cy="update-host-status-modal"
+        data-testid="update-host-status-modal"
         hostIds={selectedHostIds}
         isHostPage={false}
         visible={isUpdateStatusModalVisible}

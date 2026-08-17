@@ -54,7 +54,7 @@ const PageTitle: React.FC<Props> = ({
       <PageHeader size={size}>
         <TitleWrapper size={size}>
           <TitleTypography size={size}>
-            <span data-cy="page-title">{title}</span>
+            <span data-testid="page-title">{title}</span>
             {children}
             <BadgeWrapper size={size}>{badge}</BadgeWrapper>
           </TitleTypography>

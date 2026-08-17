@@ -25,7 +25,7 @@ const FilterChip: React.FC<FilterChipProps> = ({
   <Chip
     chipCharacterLimit={truncateChipLength}
     chipTruncationLocation={TruncationLocation.Middle}
-    data-cy="filter-chip"
+    data-testid="filter-chip"
     label={showValueOnly ? chip.value : `${chip.title}: ${chip.value}`}
     onDismiss={onClose}
     variant={ChipVariant.Gray}

@@ -41,7 +41,7 @@ const TaskCell: React.FC<TaskCellProps> = ({
 }) => (
   <Cell
     aria-disabled={inactive}
-    data-cy="task-cell"
+    data-testid="task-cell"
     inactive={inactive}
     title={taskStatusToCopy[task.displayStatus as TaskStatus]}
   >
@@ -65,7 +65,7 @@ const TaskCell: React.FC<TaskCellProps> = ({
 );
 
 const EmptyCell = () => (
-  <Cell data-cy="empty-cell">
+  <Cell data-testid="empty-cell">
     <EmptySquare />
   </Cell>
 );
@@ -75,11 +75,11 @@ interface LoadingCellProps {
 }
 const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) =>
   isHeader ? (
-    <HeaderCell data-cy="loading-header-cell">
+    <HeaderCell data-testid="loading-header-cell">
       <Skeleton size={Size.Small} />
     </HeaderCell>
   ) : (
-    <Cell data-cy="loading-cell">
+    <Cell data-testid="loading-cell">
       <IconSkeleton />
     </Cell>
   );
@@ -95,7 +95,7 @@ const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
   onClick,
   trimmedDisplayName,
 }) => (
-  <HeaderCell data-cy="header-cell">
+  <HeaderCell data-testid="header-cell">
     {trimmedDisplayName !== fullDisplayName ? (
       <Tooltip
         align={Align.Top}

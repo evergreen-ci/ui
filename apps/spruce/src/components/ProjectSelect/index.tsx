@@ -103,7 +103,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   return (
     <SearchableDropdown
       className={className}
-      data-cy="project-select"
+      data-testid="project-select"
       disabled={loading}
       label={showLabel ? "Project" : null}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

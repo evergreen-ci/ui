@@ -32,9 +32,6 @@ const initializeSentry = ({
       beforeBreadcrumb: (breadcrumb, hint) => {
         if (breadcrumb?.category?.startsWith("ui")) {
           const { target } = hint?.event ?? {};
-          if (target?.dataset?.cy) {
-            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy="${target.dataset.cy}"]`;
-          }
           if (target?.dataset?.testid) {
             breadcrumb.message = `${target.tagName.toLowerCase()}[data-testid="${target.dataset.testid}"]`;
           }

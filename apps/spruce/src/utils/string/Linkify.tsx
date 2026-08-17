@@ -22,7 +22,7 @@ const jiraLinkify = (
   reactStringReplace(unlinkified, /([A-Z]{1,10}-\d{1,6})/g, (match, i) => (
     <StyledLink
       key={`${match}${i}`}
-      data-cy="jira-link"
+      data-testid="jira-link"
       href={getJiraTicketUrl(jiraHost, match)}
       onClick={onClick}
     >

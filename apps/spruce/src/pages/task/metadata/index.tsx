@@ -99,7 +99,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           {hostId && (
             <MetadataItem label="ID">
               <StyledLink
-                data-cy="task-host-link"
+                data-testid="task-host-link"
                 href={getHostRoute(hostId)}
                 onClick={() =>
                   taskAnalytics.sendEvent({
@@ -115,7 +115,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           {distroId && (
             <MetadataItem label="Distro">
               <StyledRouterLink
-                data-cy="task-distro-link"
+                data-testid="task-distro-link"
                 onClick={() =>
                   taskAnalytics.sendEvent({
                     name: "Clicked metadata link",
@@ -131,7 +131,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           {imageId && (
             <MetadataItem label="Image">
               <StyledRouterLink
-                data-cy="task-image-link"
+                data-testid="task-image-link"
                 onClick={() =>
                   taskAnalytics.sendEvent({
                     name: "Clicked metadata link",
@@ -145,7 +145,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </MetadataItem>
           )}
           {ami && (
-            <MetadataItem data-cy="task-metadata-ami" label="AMI">
+            <MetadataItem data-testid="task-metadata-ami" label="AMI">
               {ami}
             </MetadataItem>
           )}

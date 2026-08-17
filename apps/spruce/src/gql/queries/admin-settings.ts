@@ -283,6 +283,8 @@ export const ADMIN_SETTINGS = gql`
             az
             subnetId
           }
+          subnetTagName
+          subnetTagValue
         }
         docker {
           apiVersion
@@ -290,6 +292,7 @@ export const ADMIN_SETTINGS = gql`
       }
       rateLimit {
         elevatedUserIds
+        exemptUserIds
         graphqlComplexityLimit
         graphqlServiceBurst
         graphqlServicePerHour
@@ -303,6 +306,7 @@ export const ADMIN_SETTINGS = gql`
       releaseMode {
         distroMaxHostsFactor
         idleTimeSecondsOverride
+        mergeQueueTargetTimeSecondsOverride
         targetTimeSecondsOverride
       }
 
@@ -331,6 +335,7 @@ export const ADMIN_SETTINGS = gql`
         hostAllocatorRoundingRule
         hostsOverallocatedRule
         mainlineTimeInQueueFactor
+        mergeQueueTargetTimeSeconds
         numDependentsFactor
         patchFactor
         patchTimeInQueueFactor

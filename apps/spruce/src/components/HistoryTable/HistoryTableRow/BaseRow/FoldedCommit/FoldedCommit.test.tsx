@@ -62,7 +62,7 @@ describe("foldedCommit", () => {
       numCommits: 5,
     });
 
-    const foldedCommits = screen.queryAllByDataCy("folded-commit");
+    const foldedCommits = screen.queryAllByTestId("folded-commit");
     for (let i = 0; i < foldedCommitData.rolledUpCommits.length; i++) {
       const commit = foldedCommitData.rolledUpCommits[i];
       expect(foldedCommits[i]).toHaveTextContent(commit.message);

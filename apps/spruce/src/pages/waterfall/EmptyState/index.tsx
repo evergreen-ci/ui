@@ -36,7 +36,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         graphic={<EmptyGraphic />}
         primaryButton={
           <Button
-            data-cy="search-older-commits-button"
+            data-testid="search-older-commits-button"
             disabled={isNavigatingToPage}
             onClick={() => {
               sendEvent({ name: "Clicked search older commits button" });

@@ -58,7 +58,7 @@ describe("new distro button", () => {
       route: `/distro/${distroId}/settings/general`,
     });
 
-    expect(screen.queryByDataCy("new-distro-button")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("new-distro-button")).not.toBeInTheDocument();
   });
 
   describe("when user has create distro permissions", () => {
@@ -71,9 +71,9 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      await user.click(screen.getByDataCy("new-distro-button"));
+      await user.click(screen.getByTestId("new-distro-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+        expect(screen.queryByTestId("new-distro-menu")).toBeVisible();
       });
     });
 
@@ -86,15 +86,15 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      await user.click(screen.getByDataCy("new-distro-button"));
+      await user.click(screen.getByTestId("new-distro-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+        expect(screen.queryByTestId("new-distro-menu")).toBeVisible();
       });
-      await user.click(screen.getByDataCy("create-distro-button"));
+      await user.click(screen.getByTestId("create-distro-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("create-distro-modal")).toBeVisible();
+        expect(screen.queryByTestId("create-distro-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-distro-menu")).not.toBeVisible();
+      expect(screen.queryByTestId("new-distro-menu")).not.toBeVisible();
     });
 
     it("clicking the 'Copy distro' button opens the create distro modal and closes the menu", async () => {
@@ -106,15 +106,15 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      await user.click(screen.getByDataCy("new-distro-button"));
+      await user.click(screen.getByTestId("new-distro-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+        expect(screen.queryByTestId("new-distro-menu")).toBeVisible();
       });
-      await user.click(screen.getByDataCy("copy-distro-button"));
+      await user.click(screen.getByTestId("copy-distro-button"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("copy-distro-modal")).toBeVisible();
+        expect(screen.queryByTestId("copy-distro-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-distro-menu")).not.toBeVisible();
+      expect(screen.queryByTestId("new-distro-menu")).not.toBeVisible();
     });
   });
 });
