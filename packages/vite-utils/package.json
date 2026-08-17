@@ -13,7 +13,7 @@
     "eslint:strict": "STRICT=1 eslint ."
   },
   "dependencies": {
-    "vite": "8.0.13"
+    "vite": "8.0.16"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "workspace:*",
