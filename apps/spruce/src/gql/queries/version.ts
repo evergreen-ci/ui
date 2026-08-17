@@ -96,6 +96,7 @@ export const VERSION = gql`
           allowed
         }
       }
+      quarantinedTestsSkippedCount
       repo
       requester
       revision
