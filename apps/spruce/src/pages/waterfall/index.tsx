@@ -12,6 +12,7 @@ import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { slugs } from "constants/routes";
+import { evictWaterfallCache } from "./caching/evictWaterfallCache";
 import { waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
@@ -42,18 +43,7 @@ const Waterfall: React.FC = () => {
     [],
   );
 
-  useEffect(
-    () =>
-      // Remove waterfall data from cache upon navigation
-      () => {
-        cache.evict({
-          id: "ROOT_QUERY",
-          fieldName: "waterfall",
-        });
-        cache.gc();
-      },
-    [cache],
-  );
+  useEffect(() => () => evictWaterfallCache(cache), [cache]);
 
   return (
     <>

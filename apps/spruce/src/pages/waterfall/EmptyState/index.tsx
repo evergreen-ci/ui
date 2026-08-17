@@ -9,16 +9,12 @@ import { EmptyGraphic } from "./EmptyGraphic";
 
 interface EmptyStateProps {
   pagination: Pagination;
-  projectIdentifier: string;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({
-  pagination,
-  projectIdentifier,
-}) => {
+export const EmptyState: React.FC<EmptyStateProps> = ({ pagination }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const { goToNextPage, hasNextPage, isNavigatingToPage } =
-    usePaginationNavigation(pagination, projectIdentifier);
+    usePaginationNavigation(pagination);
 
   const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
   const [statuses] = useQueryParam<string[]>(

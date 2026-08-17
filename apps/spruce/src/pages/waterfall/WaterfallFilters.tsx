@@ -7,6 +7,7 @@ import { DateFilter } from "components/DateFilter";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { BuildVariantFilter } from "./BuildVariantFilter";
+import { evictWaterfallCache } from "./caching/evictWaterfallCache";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
@@ -80,13 +81,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
         <ProjectSelect
           getProjectRoute={projectSelectRoute}
           onSubmit={(project: string) => {
-            cache.evict({
-              // Avoid refreshing active queries when switching projects
-              broadcast: false,
-              id: "ROOT_QUERY",
-              fieldName: "waterfall",
-            });
-            cache.gc();
+            evictWaterfallCache(cache, { broadcast: false });
 
             sendEvent({
               name: "Changed project",
@@ -102,10 +97,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
         restartWalkthrough={restartWalkthrough}
         setOmitInactiveBuilds={setOmitInactiveBuilds}
       />
-      <PaginationButtons
-        pagination={pagination}
-        projectIdentifier={projectIdentifier}
-      />
+      <PaginationButtons pagination={pagination} />
     </Container>
   );
 };

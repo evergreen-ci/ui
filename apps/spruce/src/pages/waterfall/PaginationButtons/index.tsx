@@ -8,12 +8,10 @@ import { usePaginationNavigation } from "../usePaginationNavigation";
 
 interface PaginationButtonsProps {
   pagination: Pagination | undefined;
-  projectIdentifier: string;
 }
 
 export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   pagination,
-  projectIdentifier,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const {
@@ -22,7 +20,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     hasNextPage,
     hasPrevPage,
     isNavigatingToPage,
-  } = usePaginationNavigation(pagination, projectIdentifier);
+  } = usePaginationNavigation(pagination);
 
   const onNextClick = () => {
     sendEvent({ name: "Changed page", direction: "next" });

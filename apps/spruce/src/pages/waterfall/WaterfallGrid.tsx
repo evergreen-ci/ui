@@ -191,7 +191,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
   const dataIsComplete = dataState === "complete";
   useWaterfallNavigationTrace({
-    data: dataState === "complete" ? data : undefined,
+    data: dataIsComplete ? data : undefined,
   });
 
   useEffect(() => {
@@ -234,12 +234,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     dataIsComplete &&
     data?.waterfall?.pagination?.activeVersionIds?.length === 0
   ) {
-    return (
-      <EmptyState
-        pagination={data.waterfall.pagination}
-        projectIdentifier={projectIdentifier}
-      />
-    );
+    return <EmptyState pagination={data.waterfall.pagination} />;
   }
 
   return (

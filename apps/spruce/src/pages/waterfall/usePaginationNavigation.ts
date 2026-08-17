@@ -1,12 +1,12 @@
 import { useCallback } from "react";
+import { useParams } from "react-router-dom";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
+import { slugs } from "constants/routes";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import { startWaterfallNavigationTrace } from "./useWaterfallTrace";
 
-export const usePaginationNavigation = (
-  pagination: Pagination | undefined,
-  projectIdentifier: string,
-) => {
+export const usePaginationNavigation = (pagination: Pagination | undefined) => {
+  const { [slugs.projectIdentifier]: projectIdentifier = "" } = useParams();
   const [, setQueryParams] = useQueryParams();
 
   const { hasNextPage, hasPrevPage, nextPageOrder, prevPageOrder } =
