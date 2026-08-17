@@ -1,4 +1,4 @@
 .iconContainer {
   cursor: pointer;
-  padding-left: 4px; /* size.xxs */
+  padding-left: var(--via-space-100, 4px);
 }

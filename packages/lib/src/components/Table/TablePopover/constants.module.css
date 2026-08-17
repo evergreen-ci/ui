@@ -1,4 +1,4 @@
 .filterWrapper {
-  margin-top: 4px; /* size.xxs */
-  margin-left: 4px; /* size.xxs */
+  margin-top: var(--via-space-100, 4px);
+  margin-left: var(--via-space-100, 4px);
 }

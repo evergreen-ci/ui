@@ -1,12 +1,12 @@
 /* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles. */
 .header.header,
 .subtitle.subtitle {
-  color: #ffffff; /* palette.white */
+  color: var(--via-color-neutral-000, #ffffff);
 }
 
 .link {
-  padding-top: 64px; /* size.xl */
-  color: #ffffff; /* palette.white */
+  padding-top: var(--via-space-1600, 64px);
+  color: var(--via-color-neutral-000, #ffffff);
   text-decoration: underline;
 }
 

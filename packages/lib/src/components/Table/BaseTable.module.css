@@ -1,8 +1,8 @@
 /* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles. */
 
 .cell.cell {
-  padding-top: 4px; /* size.xxs */
-  padding-bottom: 4px; /* size.xxs */
+  padding-top: var(--via-space-100, 4px);
+  padding-bottom: var(--via-space-100, 4px);
 }
 
 /* Force the nested div wrapping the cell content to take up full width. */
@@ -11,20 +11,20 @@
 }
 
 .selectedRow.selectedRow {
-  background-color: #e1f7ff !important; /* palette.blue.light3 */
+  background-color: var(--via-color-blue-100, #e1f7ff) !important;
   font-weight: bold;
 }
 
 .emptyMessage {
-  margin-top: 16px; /* size.s */
-  margin-left: 32px; /* tableColumnOffset */
+  margin-top: var(--via-space-400, 16px);
+  margin-left: var(--via-space-800, 32px);
 }
 
 .expandedContent.expandedContent > td {
-  padding: 8px 0; /* size.xs */
-  background-color: #f9fbfa; /* palette.gray.light3 */
+  padding: var(--via-space-200, 8px) 0;
+  background-color: var(--via-color-neutral-100, #f9fbfa);
 }
 
 .pagination.pagination {
-  margin-top: 8px; /* size.xs */
+  margin-top: var(--via-space-200, 8px);
 }

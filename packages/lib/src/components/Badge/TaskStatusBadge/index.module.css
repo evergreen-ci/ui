@@ -5,13 +5,13 @@
 
 /* Statuses whose colors are not supported by LeafyGreen badge variants. */
 .systemFailed.systemFailed {
-  border-color: #f1d4fd !important; /* palette.purple.light2 */
-  background-color: #f9ebff !important; /* palette.purple.light3 */
-  color: #5e0c9e !important; /* palette.purple.dark2 */
+  border-color: var(--via-color-purple-200, #f1d4fd) !important;
+  background-color: var(--via-color-purple-100, #f9ebff) !important;
+  color: var(--via-color-purple-600, #5e0c9e) !important;
 }
 
 .knownIssue.knownIssue {
-  border-color: #ffcdc7 !important; /* palette.red.light2 */
-  background-color: #ffffff !important; /* palette.white */
-  color: #970606 !important; /* palette.red.dark2 */
+  border-color: var(--via-color-red-200, #ffcdc7) !important;
+  background-color: var(--via-color-neutral-000, #ffffff) !important;
+  color: var(--via-color-red-600, #970606) !important;
 }

@@ -10,12 +10,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px; /* size.s */
+  gap: var(--via-space-400, 16px);
 
   width: 400px;
-  padding: 32px 24px; /* size.l size.m */
-  background-color: #e3fcf7; /* palette.green.light3 */
-  border-radius: 24px; /* size.m */
+  padding: var(--via-space-800, 32px) var(--via-space-600, 24px);
+  background-color: var(--via-color-green-100, #e3fcf7);
+  border-radius: var(--via-space-600, 24px);
 }
 
 /* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */

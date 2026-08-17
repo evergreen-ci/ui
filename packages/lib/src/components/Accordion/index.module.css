@@ -41,7 +41,7 @@
   margin-left: 26px;
 
   /* Handle input focus borders which get cut off due to overflow: hidden */
-  padding: 0 4px; /* size.xxs */
+  padding: 0 var(--via-space-100, 4px);
 }
 
 .subtitle {

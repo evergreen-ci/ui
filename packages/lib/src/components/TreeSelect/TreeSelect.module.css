@@ -1,6 +1,6 @@
 .checkboxWrapper {
-  padding-top: 4px; /* size.xxs */
-  padding-bottom: 4px; /* size.xxs */
+  padding-top: var(--via-space-100, 4px);
+  padding-bottom: var(--via-space-100, 4px);
 }
 
 .checkboxWrapperNested {
@@ -8,7 +8,7 @@
 }
 
 .checkboxWrapperAll {
-  border-bottom: 1px solid #e8edeb; /* palette.gray.light2 */
+  border-bottom: 1px solid var(--via-color-neutral-200, #e8edeb);
 }
 
 .checkboxContainer {

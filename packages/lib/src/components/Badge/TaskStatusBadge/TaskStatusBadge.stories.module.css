@@ -1,5 +1,5 @@
 .container {
   display: flex;
-  gap: 8px; /* size.xs */
+  gap: var(--via-space-200, 8px);
   flex-wrap: wrap;
 }

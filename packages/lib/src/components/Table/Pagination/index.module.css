@@ -1,6 +1,6 @@
 /* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */
 .pagination.pagination {
-  gap: 24px; /* size.m */
+  gap: var(--via-space-600, 24px);
   width: fit-content;
 }
 

@@ -12,10 +12,10 @@
 
 /* Doubled selectors outrank the Via components' own styles. */
 .whiteText.whiteText {
-  color: #ffffff; /* palette.white */
+  color: var(--via-color-neutral-000, #ffffff);
 }
 
 .whiteLink.whiteLink {
-  color: #ffffff; /* palette.white */
+  color: var(--via-color-neutral-000, #ffffff);
   text-decoration: underline;
 }

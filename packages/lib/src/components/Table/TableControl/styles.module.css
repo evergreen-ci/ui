@@ -6,5 +6,5 @@
 
 .outerRow {
   composes: innerRow;
-  padding-bottom: 8px; /* size.xs */
+  padding-bottom: var(--via-space-200, 8px);
 }
