@@ -111,6 +111,26 @@ describe("pagination", () => {
     });
   });
 
+  describe("prevTotalResults", () => {
+    it("should persist the page count when totalResults becomes 0", () => {
+      const { rerender } = renderWithRouterMatch(
+        <Pagination currentPage={0} pageSize={10} totalResults={50} />,
+      );
+      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+      rerender(<Pagination currentPage={0} pageSize={10} totalResults={0} />);
+      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+    });
+
+    it("should update the page count when totalResults changes to a new positive value", () => {
+      const { rerender } = renderWithRouterMatch(
+        <Pagination currentPage={0} pageSize={10} totalResults={50} />,
+      );
+      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+      rerender(<Pagination currentPage={0} pageSize={10} totalResults={30} />);
+      expect(screen.getByText(/1 - 10 of 30/)).toBeInTheDocument();
+    });
+  });
+
   describe("countLimit", () => {
     it("should display 'many' when totalResults >= countLimit", () => {
       renderWithRouterMatch(

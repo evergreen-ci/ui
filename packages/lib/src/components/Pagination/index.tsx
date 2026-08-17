@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { Pagination as LGPagination } from "@leafygreen-ui/pagination";
 import { PAGE_SIZES } from "../../constants/pagination";
@@ -34,6 +35,11 @@ export const Pagination: React.FC<Props> = ({
 }) => {
   const { setLimit, setPage } = usePagination();
 
+  const [prevTotalResults, setPrevTotalResults] = useState(totalResults);
+  if (totalResults > 0 && totalResults !== prevTotalResults) {
+    setPrevTotalResults(totalResults);
+  }
+
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     onPageChange?.(newPage);
@@ -52,9 +58,9 @@ export const Pagination: React.FC<Props> = ({
   };
 
   const numTotalItems =
-    countLimit !== undefined && totalResults >= countLimit
+    countLimit !== undefined && prevTotalResults >= countLimit
       ? undefined
-      : totalResults;
+      : prevTotalResults;
 
   return (
     <StyledPagination
