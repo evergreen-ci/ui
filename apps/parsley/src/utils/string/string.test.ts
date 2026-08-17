@@ -69,6 +69,17 @@ describe("getJiraFormat", () => {
       `{noformat}\n${logLines[0]}\n...\n${logLines[2]}\n...\n${logLines[4]}\n${logLines[5]}\n{noformat}`,
     );
   });
+
+  it("should convert ANSI colors to JIRA color tags", () => {
+    const ansiLogLines = [
+      "plain line",
+      "\u001b[31mremoved\u001b[39m \u001b[32madded\u001b[39m",
+    ];
+    const getAnsiLine = (lineNumber: number) => ansiLogLines[lineNumber];
+    expect(getJiraFormat([0, 1], getAnsiLine)).toBe(
+      `plain line\n{color:#BB0000}removed{color} {color:#00BB00}added{color}\n`,
+    );
+  });
 });
 
 describe("stringIntersection", () => {
