@@ -7,7 +7,7 @@ import { DateFilter } from "components/DateFilter";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { BuildVariantFilter } from "./BuildVariantFilter";
-import { evictWaterfallCache } from "./caching/evictWaterfallCache";
+import { evictWaterfallCache } from "./caching/utils";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";

@@ -12,7 +12,7 @@ import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { slugs } from "constants/routes";
-import { evictWaterfallCache } from "./caching/evictWaterfallCache";
+import { evictWaterfallCache } from "./caching/utils";
 import { waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
