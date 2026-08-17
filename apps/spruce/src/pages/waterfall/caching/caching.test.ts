@@ -36,17 +36,20 @@ const mergePage = (
   existing: Waterfall | undefined,
   incoming: Waterfall,
   options: Record<string, unknown> = {},
-) =>
-  mergeVersions(existing, incoming, {
+) => {
+  const { cache, ...cacheOptions } = options;
+  return mergeVersions(existing, incoming, {
     args: {
       options: {
         limit: 5,
         projectIdentifier: "mongodb-mongo-master",
-        ...options,
+        ...cacheOptions,
       },
     },
+    cache,
     readField,
   } as unknown as FieldMergeFunctionOptions);
+};
 
 const readPage = (existing: Waterfall, options: Record<string, unknown> = {}) =>
   readVersions(existing, {
@@ -109,6 +112,30 @@ describe("bounded waterfall cache", () => {
       ...getVersionIds(page1),
       ...getVersionIds(page2),
     ]);
+  });
+
+  it("evicts waterfall builds from discarded versions", async () => {
+    const cache = {
+      evict: vi.fn(),
+      gc: vi.fn(),
+      identify: ({ __typename, id }: { __typename: string; id: string }) =>
+        `${__typename}:${id}`,
+    };
+    let waterfallCache = mergePage(undefined, page1);
+    waterfallCache = mergePage(waterfallCache, page2, { maxOrder: 16 });
+    mergePage(waterfallCache, page3, {
+      cache,
+      maxOrder: 11,
+    });
+
+    expect(cache.evict).toHaveBeenCalledTimes(page1.versions.length);
+    expect(cache.evict).toHaveBeenCalledWith({
+      broadcast: false,
+      fieldName: "waterfallBuilds",
+      id: "VersionLite:version-20",
+    });
+    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    expect(cache.gc).toHaveBeenCalledWith({ resetResultCache: true });
   });
 
   it("does not grow when polling an already cached page", () => {

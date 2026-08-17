@@ -81,6 +81,8 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           getProjectRoute={projectSelectRoute}
           onSubmit={(project: string) => {
             cache.evict({
+              // Avoid refreshing active queries when switching projects
+              broadcast: false,
               id: "ROOT_QUERY",
               fieldName: "waterfall",
             });

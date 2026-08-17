@@ -82,6 +82,53 @@ const boundVersions = ({
   return versions.slice(0, endIndex + 1);
 };
 
+const evictBuildsForVersions = ({
+  cache,
+  discardedVersions,
+  readField,
+  storage,
+}: {
+  cache: FieldFunctionOptions["cache"] | undefined;
+  discardedVersions: readonly Version[];
+  readField: ReadField;
+  storage: FieldFunctionOptions["storage"] | undefined;
+}) => {
+  if (!cache) {
+    return;
+  }
+
+  if (discardedVersions.length === 0) {
+    return;
+  }
+
+  discardedVersions.forEach((version) => {
+    const versionCacheId = cache.identify({
+      __typename: "VersionLite",
+      id: getVersionId(version, readField),
+    });
+    if (versionCacheId) {
+      cache.evict({
+        broadcast: false,
+        fieldName: "waterfallBuilds",
+        id: versionCacheId,
+      });
+    }
+  });
+
+  if (storage?.pendingGarbageCollection) {
+    return;
+  }
+  if (storage) {
+    storage.pendingGarbageCollection = true;
+  }
+  queueMicrotask(() => {
+    if (storage) {
+      storage.pendingGarbageCollection = false;
+    }
+    cache.gc({ resetResultCache: true });
+  });
+};
+
 const findPageRange = ({
   activeVersionIds,
   hasNextPage,
@@ -219,7 +266,11 @@ export const readVersions = ((existing, { args, readField }) => {
   };
 }) satisfies FieldReadFunction<Waterfall>;
 
-export const mergeVersions = ((existing, incoming, { args, readField }) => {
+export const mergeVersions = ((
+  existing,
+  incoming,
+  { args, cache, readField, storage },
+) => {
   const { limit, maxOrder, projectIdentifier } = getCacheOptions(args);
   const existingVersions = existing
     ? (readField<Waterfall["versions"]>("versions", existing) ?? [])
@@ -263,11 +314,20 @@ export const mergeVersions = ((existing, incoming, { args, readField }) => {
   const retainedVersionIds = new Set(
     boundedVersions.map((version) => getVersionId(version, readField)),
   );
+  const discardedVersions = mergedVersions.filter(
+    (version) => !retainedVersionIds.has(getVersionId(version, readField)),
+  );
   const retainedActiveVersions = new Set(
     [...allActiveVersions].filter((versionId) =>
       retainedVersionIds.has(versionId),
     ),
   );
+  evictBuildsForVersions({
+    cache,
+    discardedVersions,
+    readField,
+    storage,
+  });
 
   return {
     versions: boundedVersions,
