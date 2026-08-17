@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
-import { useQuery } from "@apollo/client/react";
+import { useLazyQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
 import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import {
@@ -17,24 +17,24 @@ import { VERSION_QUARANTINED_TASKS } from "gql/queries";
 import { VersionSkippedTestsModal } from "./VersionSkippedTestsModal";
 
 type Props = {
+  skippedTestsCount: number;
   testSelectionEnabled: boolean;
   versionId: string;
 };
 
 export const SkippedTestsMetadata: React.FC<Props> = ({
+  skippedTestsCount,
   testSelectionEnabled,
   versionId,
 }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
+  const dispatchToast = useToastContext();
   const [detailsOpen, setDetailsOpen] = useState(false);
 
-  const { data, error, loading, refetch } = useQuery<
+  const [fetchQuarantinedTasks, { data }] = useLazyQuery<
     VersionQuarantinedTasksQuery,
     VersionQuarantinedTasksQueryVariables
-  >(VERSION_QUARANTINED_TASKS, {
-    skip: !testSelectionEnabled,
-    variables: { versionId },
-  });
+  >(VERSION_QUARANTINED_TASKS);
 
   const skippedTestTasks = useMemo(
     () =>
@@ -43,47 +43,8 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
       ),
     [data],
   );
-  const totalCount = skippedTestTasks.reduce(
-    (sum, task) => sum + task.quarantinedTestsSkippedCount,
-    0,
-  );
 
-  if (!testSelectionEnabled) {
-    return null;
-  }
-
-  if (loading) {
-    return (
-      <MetadataItem as="div">
-        <SummaryRow data-cy="version-skipped-tests-metadata-loading">
-          <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
-          <Skeleton size={SkeletonSize.Small} />
-        </SummaryRow>
-      </MetadataItem>
-    );
-  }
-
-  if (error) {
-    return (
-      <MetadataItem as="div">
-        <SummaryRow data-cy="version-skipped-tests-metadata-error">
-          <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
-          <span>Unavailable</span>
-          <Button
-            data-cy="version-skipped-tests-metadata-retry"
-            onClick={() => {
-              void refetch();
-            }}
-            size={ButtonSize.XSmall}
-          >
-            Retry
-          </Button>
-        </SummaryRow>
-      </MetadataItem>
-    );
-  }
-
-  if (totalCount === 0) {
+  if (!testSelectionEnabled || skippedTestsCount === 0) {
     return null;
   }
 
@@ -94,7 +55,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
           <SummaryRow>
             <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
             <Count data-cy="version-skipped-tests-metadata-count">
-              {totalCount} {pluralize("test", totalCount)}
+              {skippedTestsCount} {pluralize("test", skippedTestsCount)}
             </Count>
             <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
               Tests skipped by TSS across this version&apos;s tasks when they
@@ -103,11 +64,23 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
           </SummaryRow>
           <Button
             data-cy="version-skipped-tests-details-button"
-            onClick={() => {
+            onClick={async () => {
               sendEvent({
                 name: "Clicked version skipped tests details button",
               });
-              setDetailsOpen(true);
+              try {
+                const { data: taskData } = await fetchQuarantinedTasks({
+                  variables: { versionId },
+                });
+                if (!taskData?.version) {
+                  throw new Error("missing version skipped test details");
+                }
+                setDetailsOpen(true);
+              } catch {
+                dispatchToast.error(
+                  "There was an error loading the skipped test details.",
+                );
+              }
             }}
             size={ButtonSize.XSmall}
           >
@@ -120,7 +93,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
           open={detailsOpen}
           setOpen={setDetailsOpen}
           skippedTestTasks={skippedTestTasks}
-          totalCount={totalCount}
+          totalCount={skippedTestsCount}
           versionId={versionId}
         />
       )}

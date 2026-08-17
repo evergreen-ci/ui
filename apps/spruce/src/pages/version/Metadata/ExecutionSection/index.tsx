@@ -14,7 +14,15 @@ interface ExecutionSectionProps {
 export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   version,
 }) => {
-  const { cost, id, isPatch, parameters, patch, projectMetadata } = version;
+  const {
+    cost,
+    id,
+    isPatch,
+    parameters,
+    patch,
+    projectMetadata,
+    quarantinedTestsSkippedCount,
+  } = version;
   const { sendEvent } = useVersionAnalytics(id);
 
   const hasParameters = parameters.length > 0;
@@ -25,6 +33,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   return (
     <MetadataSection title="Execution">
       <SkippedTestsMetadata
+        skippedTestsCount={quarantinedTestsSkippedCount}
         testSelectionEnabled={testSelectionEnabled}
         versionId={id}
       />
