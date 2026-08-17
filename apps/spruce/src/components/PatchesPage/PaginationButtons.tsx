@@ -8,12 +8,14 @@ import { usePatchesQueryParams } from "./usePatchesQueryParams";
 const PATCH_COUNT_LIMIT = 10000;
 
 interface PaginationButtonsProps {
-  pageType: "project" | "user";
   filteredPatchCount?: number;
+  loading?: boolean;
+  pageType: "project" | "user";
 }
 
 export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   filteredPatchCount = 0,
+  loading,
   pageType,
 }) => {
   const userPatchesAnalytics = useUserPatchesAnalytics();
@@ -28,6 +30,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
       <Pagination
         countLimit={PATCH_COUNT_LIMIT}
         currentPage={page}
+        loading={loading}
         onPageChange={(newPage) =>
           sendEvent({
             name: "Changed page",

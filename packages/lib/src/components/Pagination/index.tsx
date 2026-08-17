@@ -8,6 +8,7 @@ import usePagination from "../../hooks/usePagination";
 interface Props {
   countLimit?: number;
   currentPage: number;
+  loading?: boolean;
   onPageChange?: (i: number) => void;
   onPageSizeChange?: (i: number) => void;
   pageSize?: number;
@@ -19,6 +20,7 @@ interface Props {
  * @param props - React props passed to the component
  * @param props.countLimit - optional count for the max value that was queried for. Used to display "many" instead of an exact number
  * @param props.currentPage - the current page
+ * @param props.loading - whether the data is currently loading. When true, the previous total results count is preserved to prevent flickering
  * @param props.onPageChange - callback function to be called when the page changes
  * @param props.onPageSizeChange - callback function to be called when the page size changes
  * @param props.pageSize - maximum number of results per page
@@ -28,6 +30,7 @@ interface Props {
 export const Pagination: React.FC<Props> = ({
   countLimit,
   currentPage,
+  loading = false,
   onPageChange,
   onPageSizeChange,
   pageSize,
@@ -36,7 +39,7 @@ export const Pagination: React.FC<Props> = ({
   const { setLimit, setPage } = usePagination();
 
   const [prevTotalResults, setPrevTotalResults] = useState(totalResults);
-  if (totalResults > 0 && totalResults !== prevTotalResults) {
+  if (!loading && totalResults !== prevTotalResults) {
     setPrevTotalResults(totalResults);
   }
 

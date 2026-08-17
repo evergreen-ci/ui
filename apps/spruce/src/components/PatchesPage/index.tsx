@@ -93,6 +93,7 @@ export const PatchesPage: React.FC<Props> = ({
       </FiltersWrapperSpaceBetween>
       <PaginationButtons
         filteredPatchCount={filteredCount}
+        loading={loading}
         pageType={pageType}
       />
       <ListArea

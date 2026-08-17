@@ -10,6 +10,7 @@ interface Props {
   totalCount: number;
   filteredCount: number;
   limit?: number;
+  loading?: boolean;
   onClear: () => void;
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
@@ -20,6 +21,7 @@ const TableControl: React.FC<Props> = ({
   disabled = false,
   filteredCount,
   limit,
+  loading,
   onClear,
   onPageChange,
   onPageSizeChange,
@@ -58,6 +60,7 @@ const TableControl: React.FC<Props> = ({
       <PaginationContainer>
         <Pagination
           currentPage={page}
+          loading={loading}
           onPageChange={handlePageChange}
           onPageSizeChange={handlePageSizeChange}
           pageSize={limit}

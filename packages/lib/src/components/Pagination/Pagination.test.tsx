@@ -112,22 +112,57 @@ describe("pagination", () => {
   });
 
   describe("prevTotalResults", () => {
-    it("should persist the page count when totalResults becomes 0", () => {
+    it("should persist the page count while loading", () => {
       const { rerender } = renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={50} />,
       );
       expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
-      rerender(<Pagination currentPage={0} pageSize={10} totalResults={0} />);
+      rerender(
+        <Pagination currentPage={0} loading pageSize={10} totalResults={0} />,
+      );
       expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
     });
 
-    it("should update the page count when totalResults changes to a new positive value", () => {
+    it("should update the page count to 0 when not loading", () => {
+      const { rerender } = renderWithRouterMatch(
+        <Pagination currentPage={0} pageSize={10} totalResults={50} />,
+      );
+      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+      rerender(
+        <Pagination
+          currentPage={0}
+          loading={false}
+          pageSize={10}
+          totalResults={0}
+        />,
+      );
+      expect(screen.getByText(/0 - 0 of 0 items/)).toBeInTheDocument();
+    });
+
+    it("should update the page count when totalResults changes to a new value", () => {
       const { rerender } = renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={50} />,
       );
       expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
       rerender(<Pagination currentPage={0} pageSize={10} totalResults={30} />);
       expect(screen.getByText(/1 - 10 of 30/)).toBeInTheDocument();
+    });
+
+    it("should update the page count after loading completes", () => {
+      const { rerender } = renderWithRouterMatch(
+        <Pagination currentPage={0} pageSize={10} totalResults={50} />,
+      );
+      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+
+      // Start loading — count should be preserved.
+      rerender(
+        <Pagination currentPage={0} loading pageSize={10} totalResults={0} />,
+      );
+      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+
+      // Loading completes with new results.
+      rerender(<Pagination currentPage={0} pageSize={10} totalResults={20} />);
+      expect(screen.getByText(/1 - 10 of 20/)).toBeInTheDocument();
     });
   });
 

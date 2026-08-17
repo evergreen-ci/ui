@@ -146,6 +146,7 @@ const Hosts: React.FC = () => {
           <Pagination
             currentPage={page}
             data-testid="hosts-table-pagination"
+            loading={loading}
             onPageChange={(newPage) =>
               sendEvent({
                 name: "Changed page",
