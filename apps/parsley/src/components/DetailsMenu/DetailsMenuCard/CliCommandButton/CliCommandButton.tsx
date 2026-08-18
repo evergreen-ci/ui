@@ -30,6 +30,9 @@ const originToCLIType: Record<Origin, string> = {
   [Origin.Task]: "task_log",
 };
 
+const quoteForShell = (value: string | number): string =>
+  `'${String(value).replaceAll("'", "'\"'\"'")}'`;
+
 // Based on documentation at https://docs.devprod.prod.corp.mongodb.com/parsley/Downloading-Logs.
 const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   if (!logMetadata) {
@@ -43,15 +46,26 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
     const origin = (logMetadata?.origin?.toLowerCase() ||
       Origin.Task) as Origin;
     const taskType = originToCLIType[origin];
-    return `evergreen task build TaskLogs --task_id ${taskID} --execution ${execution} --type ${taskType} --o output.txt`;
+    return `evergreen task build TaskLogs --task_id ${quoteForShell(taskID)} --execution ${quoteForShell(execution)} --type ${taskType} --o output.txt`;
   }
   if (logType === LogTypes.EVERGREEN_TEST_LOGS) {
     if (!logPath) {
       return null;
     }
     const logsToMergeFlags =
-      logsToMerge?.map((l) => `--logs_to_merge ${l}`).join(" ") ?? "";
-    return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --log_path ${logPath} ${logsToMergeFlags} --o output.txt`;
+      logsToMerge?.flatMap((log) => ["--logs_to_merge", quoteForShell(log)]) ??
+      [];
+    return [
+      "evergreen task build TestLogs",
+      "--task_id",
+      quoteForShell(taskID),
+      "--execution",
+      quoteForShell(execution),
+      "--log_path",
+      quoteForShell(logPath),
+      ...logsToMergeFlags,
+      "--o output.txt",
+    ].join(" ");
   }
   // Unsupported log type.
   return null;

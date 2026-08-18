@@ -91,12 +91,11 @@ export const PatchesPage: React.FC<Props> = ({
           onChange={includeHiddenCheckboxOnChange}
         />
       </FiltersWrapperSpaceBetween>
-      {patches?.patches?.length && (
-        <PaginationButtons
-          filteredPatchCount={filteredCount}
-          pageType={pageType}
-        />
-      )}
+      <PaginationButtons
+        filteredPatchCount={filteredCount}
+        loading={loading}
+        pageType={pageType}
+      />
       <ListArea
         loading={loading}
         pageType={pageType}
