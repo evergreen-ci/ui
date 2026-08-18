@@ -4,15 +4,18 @@ packages:
 # Supply-chain cooldown: wait 3 days (value is in minutes) after a version is
 # published before installing it, so compromised releases can be caught/yanked first.
 minimumReleaseAge: 4320
-# @opentelemetry/instrumentation-user-interaction regressed between
-# 0.62.0 and 0.65.0, switching its internal patched-listener tracking from a Map to
-# a WeakMap. @honeycombio/opentelemetry-web's bundled WebVitalsInstrumentation calls
-# a bare `addEventListener(...)` (not `window.addEventListener(...)`), which under
-# strict-mode ESM resolves `this` to `undefined`; the WeakMap-based tracker then
-# throws "TypeError: Invalid value used as weak map key" during HoneycombWebSDK
-# construction. Remove this override once upstream fixes the regression.
+# DEVPROD-41675: a regression in @opentelemetry/instrumentation-user-interaction
+# 0.65.0 was crashing the Honeycomb SDK on startup in Spruce and Parsley, silently
+# disabling all telemetry (fetch/page-load/web-vitals spans) in both apps.
+# We don't depend on this package directly -- it's pulled in transitively by
+# @opentelemetry/auto-instrumentations-web. Only version 0.65.0 itself is broken;
+# already fixed upstream, not yet released:
+# https://github.com/open-telemetry/opentelemetry-js-contrib/issues/3639#issuecomment-5180625704
+# Excluding just that one version (rather than pinning to an old one) lets this
+# self-resolve to the fixed release once it ships, with no manual bump needed.
+# Safe to remove once 0.65.0 is no longer the latest/only broken version in range.
 overrides:
-  '@opentelemetry/instrumentation-user-interaction': 0.62.0
+  '@opentelemetry/instrumentation-user-interaction': '<0.65.0 || >0.65.0'
 allowBuilds:
   '@sentry/cli': false
   core-js-pure: false
