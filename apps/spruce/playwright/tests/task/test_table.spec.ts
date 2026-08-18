@@ -1,5 +1,5 @@
 import { Page, expect, test } from "../../fixtures";
-import { clickCheckbox } from "../../helpers";
+import { clickCheckbox, selectPageSize } from "../../helpers";
 
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
@@ -280,19 +280,7 @@ test.describe("Tests Table", () => {
     }) => {
       for (const pageSize of [20, 50, 100]) {
         await visitAndWait(page, TESTS_ROUTE);
-        const topPagination = page.getByTestId("pagination").first();
-        const itemsPerPageSelect = topPagination.getByRole("button", {
-          name: /Items per page/,
-        });
-        await itemsPerPageSelect.click();
-
-        const listbox = page.getByRole("listbox");
-        await expect(listbox).toBeVisible();
-        const option = listbox
-          .getByRole("option")
-          .filter({ hasText: `${pageSize}` });
-        await option.click();
-
+        await selectPageSize(page, pageSize);
         const rowCount = await page
           .locator("[data-testid=tests-table] tr td:first-child")
           .count();

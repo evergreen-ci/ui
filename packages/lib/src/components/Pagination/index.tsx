@@ -1,73 +1,86 @@
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { useState } from "react";
+import { Pagination as LGPagination } from "@leafygreen-ui/pagination";
+import { PAGE_SIZES } from "../../constants/pagination";
 import usePagination from "../../hooks/usePagination";
-import Icon from "../Icon";
 import styles from "./index.module.css";
 
 interface Props {
   countLimit?: number;
   currentPage: number;
-  onChange?: (i: number) => void;
+  loading?: boolean;
+  onPageChange?: (i: number) => void;
+  onPageSizeChange?: (i: number) => void;
+  pageSize?: number;
   totalResults: number;
-  pageSize: number;
 }
 
 /**
- * Pagination component for navigating between pages of data
- * By default it will update the page query param in the URL
+ * Pagination component for navigating between pages of data. By default, it will update the page query param in the URL.
  * @param props - React props passed to the component
  * @param props.countLimit - optional count for the max value that was queried for. Used to display "many" instead of an exact number
  * @param props.currentPage - the current page
- * @param props.onChange - optional callback for when the page changes (Will override the default behavior of updating the URL query param)
- * @param props.totalResults - total number of results
+ * @param props.loading - whether the data is currently loading. When true, the previous total results count is preserved to prevent flickering
+ * @param props.onPageChange - callback function to be called when the page changes
+ * @param props.onPageSizeChange - callback function to be called when the page size changes
  * @param props.pageSize - maximum number of results per page
+ * @param props.totalResults - total number of results
  * @returns The Pagination component
  */
-const Pagination: React.FC<Props> = ({
+export const Pagination: React.FC<Props> = ({
   countLimit,
   currentPage,
-  onChange,
+  loading = false,
+  onPageChange,
+  onPageSizeChange,
   pageSize,
   totalResults,
 }) => {
-  const { setPage } = usePagination();
-  const handleChange = onChange || setPage;
-  const numPages = Math.ceil(totalResults / pageSize);
+  const { setLimit, setPage } = usePagination();
+
+  const [prevTotalResults, setPrevTotalResults] = useState(totalResults);
+  if (!loading && totalResults !== prevTotalResults) {
+    setPrevTotalResults(totalResults);
+  }
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    onPageChange?.(newPage);
+  };
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setLimit(newPageSize);
+    onPageSizeChange?.(newPageSize);
+  };
 
   const handlePrevClick = () => {
-    handleChange(currentPage - 1);
+    handlePageChange(currentPage - 1);
   };
   const handleNextClick = () => {
-    handleChange(currentPage + 1);
+    handlePageChange(currentPage + 1);
   };
 
-  const denominator =
-    countLimit && totalResults >= countLimit ? "many" : numPages;
+  const numTotalItems =
+    countLimit !== undefined && prevTotalResults >= countLimit
+      ? undefined
+      : prevTotalResults;
 
   return (
-    <div className={styles.container} data-testid="pagination">
-      <Button
-        className={styles.button}
-        data-testid="prev-page-button"
-        disabled={currentPage === 0}
-        leftGlyph={<Icon glyph="ChevronLeft" size="small" />}
-        onClick={handlePrevClick}
-        size={ButtonSize.Small}
-      />
-      <div className={styles.pageLabel}>
-        <Disclaimer>
-          {numPages > 0 ? currentPage + 1 : 0} / {denominator}
-        </Disclaimer>
-      </div>
-      <Button
-        className={styles.button}
-        data-testid="next-page-button"
-        disabled={numPages === 0 || currentPage === numPages - 1}
-        leftGlyph={<Icon glyph="ChevronRight" size="small" />}
-        onClick={handleNextClick}
-        size={ButtonSize.Small}
-      />
-    </div>
+    <LGPagination
+      className={styles.pagination}
+      currentPage={currentPage + 1}
+      data-testid="pagination"
+      itemsPerPage={pageSize || PAGE_SIZES[0]}
+      itemsPerPageOptions={PAGE_SIZES}
+      numTotalItems={numTotalItems}
+      onBackArrowClick={handlePrevClick}
+      onCurrentPageOptionChange={(value: string) => {
+        handlePageChange(parseInt(value, 10) - 1);
+      }}
+      onForwardArrowClick={handleNextClick}
+      onItemsPerPageOptionChange={(value: string) => {
+        handlePageSizeChange(parseInt(value, 10));
+      }}
+    />
   );
 };
 
