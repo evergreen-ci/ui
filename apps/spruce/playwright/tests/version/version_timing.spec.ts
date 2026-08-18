@@ -1,4 +1,5 @@
 import { expect, test } from "../../fixtures";
+import { selectPageSize } from "../../helpers";
 
 const chart = "[id^=reactgooglegraph]";
 
@@ -166,15 +167,7 @@ test.describe("Version Timing Tab with a variant selected", () => {
   });
 
   test("allows the user to change the page size", async ({ page }) => {
-    const topPagination = page.getByTestId("pagination").first();
-    const itemsPerPageSelect = topPagination.getByRole("button", {
-      name: /Items per page/,
-    });
-    await itemsPerPageSelect.click();
-    const listbox = page.getByRole("listbox");
-    await expect(listbox).toBeVisible();
-    const option = listbox.getByRole("option").filter({ hasText: "50" });
-    await option.click();
+    await selectPageSize(page, 50);
     await expect(page).toHaveURL(/limit=50/);
     for (const task of expectedTasks.flat()) {
       await expect(

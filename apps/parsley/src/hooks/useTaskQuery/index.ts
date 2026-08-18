@@ -42,7 +42,7 @@ export const useTaskQuery = ({
     TaskQueryVariables
   >(
     GET_TASK,
-    taskID
+    taskID && execution !== undefined
       ? {
           errorPolicy: "all",
           variables: {

@@ -4,8 +4,7 @@ import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Button } from "@leafygreen-ui/button";
 import { Disclaimer, H2 } from "@leafygreen-ui/typography";
-import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
-import Pagination from "@evg-ui/lib/components/Pagination";
+import { Pagination } from "@evg-ui/lib/components/Pagination";
 import {
   TableControlInnerRow,
   TableControlOuterRow,
@@ -27,9 +26,8 @@ import { getFilters, getSorting, useQueryVariables } from "./utils";
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
 
 const Hosts: React.FC = () => {
-  const hostsTableAnalytics = useHostsTableAnalytics();
+  const { sendEvent } = useHostsTableAnalytics();
   usePageTitle("Hosts");
-  const { setLimit } = usePagination();
   const queryVariables = useQueryVariables();
   const { currentTaskId, distroId, hostId, startedBy, statuses } =
     queryVariables;
@@ -85,14 +83,6 @@ const Hosts: React.FC = () => {
       selectedHostIds: hostIds,
     };
   }, [selectedHosts]);
-
-  const handlePageSizeChange = (pageSize: number): void => {
-    setLimit(pageSize);
-    hostsTableAnalytics.sendEvent({
-      name: "Changed page size",
-      "page.size": pageSize,
-    });
-  };
 
   // UPDATE STATUS MODAL VISIBILITY STATE
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
@@ -156,13 +146,21 @@ const Hosts: React.FC = () => {
           <Pagination
             currentPage={page}
             data-testid="hosts-table-pagination"
+            loading={loading}
+            onPageChange={(newPage) =>
+              sendEvent({
+                name: "Changed page",
+                "page.number": newPage,
+              })
+            }
+            onPageSizeChange={(newPageSize) =>
+              sendEvent({
+                name: "Changed page size",
+                "page.size": newPageSize,
+              })
+            }
             pageSize={limit}
             totalResults={hasFilters ? filteredHostCount : totalHostsCount}
-          />
-          <PageSizeSelector
-            data-testid="hosts-table-page-size-selector"
-            onChange={handlePageSizeChange}
-            value={limit}
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
