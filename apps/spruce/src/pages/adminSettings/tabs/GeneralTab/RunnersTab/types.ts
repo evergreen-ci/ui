@@ -25,6 +25,10 @@ export interface RunnersFormState {
       maxTaskExecution: number;
       maxDailyAutomaticRestarts: number;
       maxScheduledTasksPerDistro: number;
+      hourlyPatchTaskOverrides: Array<{
+        projectOrRepoId: string;
+        maxHourlyPatchTasks: number;
+      }>;
     };
     hostInit: {
       hostThrottle: number;

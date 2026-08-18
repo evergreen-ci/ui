@@ -5,7 +5,7 @@ import {
   OverallocatedRule,
   RoundingRule,
 } from "gql/generated/types";
-import { fullWidthCss } from "../../sharedStyles";
+import { arrayItemCSS, fullWidthCss } from "../../sharedStyles";
 
 export const notify = {
   schema: {
@@ -72,11 +72,39 @@ export const taskLimits = {
       type: "number" as const,
       title: "Max Scheduled Tasks Per Distro",
     },
+    hourlyPatchTaskOverrides: {
+      type: "array" as const,
+      title: "Hourly Patch Task Limit Overrides",
+      items: {
+        type: "object" as const,
+        properties: {
+          projectOrRepoId: {
+            type: "string" as const,
+            title: "Project/Repo ID",
+            default: "",
+          },
+          maxHourlyPatchTasks: {
+            type: "number" as const,
+            title: "Max Hourly Patch Tasks Per User",
+          },
+        },
+      },
+    },
   },
   uiSchema: {
     maxScheduledTasksPerDistro: {
       "ui:description":
         "Maximum number of tasks the scheduler materializes into a single distro's task queue per pass. 0 means no limit.",
+    },
+    hourlyPatchTaskOverrides: {
+      "ui:description":
+        "Overrides Max Hourly Patch Tasks Per User for one branch project or repo. These limits are separate from a user's default scheduling limits.",
+      "ui:addButtonText": "Add override",
+      "ui:data-testid": "hourly-patch-task-overrides-list",
+      "ui:orderable": false,
+      "ui:fullWidth": true,
+      "ui:fieldCss": fullWidthCss,
+      "ui:arrayItemCSS": arrayItemCSS,
     },
   },
 };
