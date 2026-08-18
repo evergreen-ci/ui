@@ -21,6 +21,12 @@ export const Default: CustomStoryObj<typeof ExpiringAnnouncementTooltip> = {
   render: (args) => {
     // A prior dismissal persists a 365-day cookie that hides the tooltip.
     Cookies.remove(cookieName);
-    return <ExpiringAnnouncementTooltip {...args} />;
+    return (
+      // The anchor div is display: block; without a flex parent (as in app
+      // usage) it spans full width and the popover centers on the page.
+      <div style={{ display: "flex" }}>
+        <ExpiringAnnouncementTooltip {...args} />
+      </div>
+    );
   },
 };
