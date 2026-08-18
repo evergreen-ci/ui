@@ -114,6 +114,23 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByTestId("name")).toBeInTheDocument();
       expect(screen.getByTestId("age")).toBeInTheDocument();
     });
+    it("renders card warnings", () => {
+      render(
+        <SpruceForm
+          formData={{}}
+          onChange={vi.fn()}
+          schema={ObjectSchema}
+          uiSchema={{
+            ...uiSchema,
+            person: {
+              ...uiSchema.person,
+              "ui:warnings": ["Example warning"],
+            },
+          }}
+        />,
+      );
+      expect(screen.getByText("Example warning")).toBeInTheDocument();
+    });
     it("calls onChange when a field is changed", async () => {
       let data;
       const onChange = vi.fn(({ formData }) => {

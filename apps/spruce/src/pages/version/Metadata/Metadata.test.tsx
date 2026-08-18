@@ -65,6 +65,16 @@ const baseVersion: Version = {
 };
 
 describe("version metadata sections", () => {
+  it("hides Execution when no execution data exists", () => {
+    render(<Metadata version={baseVersion} />, {
+      route: "/version/version123",
+      path: "/version/:id",
+      wrapper,
+    });
+
+    expect(screen.queryByText("Execution")).not.toBeInTheDocument();
+  });
+
   it("ShowsSectionsAndTimeline", () => {
     render(
       <Metadata
