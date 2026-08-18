@@ -18,7 +18,8 @@
   border-radius: var(--via-space-600, 24px);
 }
 
-/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
 .submitButton.submitButton {
   align-self: flex-end;
 }

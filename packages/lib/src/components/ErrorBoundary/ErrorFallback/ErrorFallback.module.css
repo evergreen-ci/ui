@@ -1,4 +1,5 @@
-/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles. */
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
 .header.header,
 .subtitle.subtitle {
   color: var(--via-color-neutral-000, #ffffff);

@@ -8,7 +8,8 @@
   cursor: pointer;
 }
 
-/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
 .icon.icon {
   flex-shrink: 0;
   transform: unset;
