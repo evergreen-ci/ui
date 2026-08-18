@@ -210,9 +210,9 @@ describe("version SkippedTestsMetadata", () => {
     render(<TestComponent />, routerOptions);
 
     expect(
-      screen.queryByDataCy("version-skipped-tests-metadata-loading"),
+      screen.queryByTestId("version-skipped-tests-metadata-loading"),
     ).toBeNull();
-    expect(screen.queryByDataCy("version-skipped-tests-metadata")).toBeNull();
+    expect(screen.queryByTestId("version-skipped-tests-metadata")).toBeNull();
   });
 
   it("renders nothing when no tasks skipped tests", async () => {
@@ -221,7 +221,7 @@ describe("version SkippedTestsMetadata", () => {
     );
     render(<TestComponent />, routerOptions);
     await expect(
-      screen.findByDataCy("version-skipped-tests-metadata", undefined, {
+      screen.findByTestId("version-skipped-tests-metadata", undefined, {
         timeout: 250,
       }),
     ).rejects.toThrow();
@@ -237,13 +237,13 @@ describe("version SkippedTestsMetadata", () => {
     render(<TestComponent />, routerOptions);
 
     expect(
-      await screen.findByDataCy("version-skipped-tests-metadata-error"),
+      await screen.findByTestId("version-skipped-tests-metadata-error"),
     ).toHaveTextContent("Unavailable");
     await user.click(
-      screen.getByDataCy("version-skipped-tests-metadata-retry"),
+      screen.getByTestId("version-skipped-tests-metadata-retry"),
     );
     expect(
-      await screen.findByDataCy("version-skipped-tests-metadata-count"),
+      await screen.findByTestId("version-skipped-tests-metadata-count"),
     ).toHaveTextContent("6 tests");
   });
 
@@ -252,26 +252,26 @@ describe("version SkippedTestsMetadata", () => {
     const { Component: TestComponent } = RenderFakeToastContext(<Component />);
     render(<TestComponent />, routerOptions);
     expect(
-      screen.getByDataCy("version-skipped-tests-metadata-loading"),
+      screen.getByTestId("version-skipped-tests-metadata-loading"),
     ).toBeVisible();
     expect(
-      await screen.findByDataCy("version-skipped-tests-metadata-count"),
+      await screen.findByTestId("version-skipped-tests-metadata-count"),
     ).toHaveTextContent("6 tests");
     await user.click(
-      screen.getByDataCy("version-skipped-tests-details-button"),
+      screen.getByTestId("version-skipped-tests-details-button"),
     );
-    expect(screen.getByDataCy("version-skipped-tests-modal")).toBeVisible();
+    expect(screen.getByTestId("version-skipped-tests-modal")).toBeVisible();
     expect(await screen.findByText("Alpha Test")).toBeVisible();
     expect(screen.getByText("beta_test")).toBeVisible();
     expect(screen.getByText("gamma_test")).toBeVisible();
-    const taskLinks = screen.getAllByDataCy("version-skipped-tests-task-link");
+    const taskLinks = screen.getAllByTestId("version-skipped-tests-task-link");
     expect(taskLinks).toHaveLength(3);
     const href = taskLinks[0].getAttribute("href");
     expect(href).toContain("/task/ta/tests");
     expect(href).toContain("execution=0");
     expect(href).not.toContain("quarantinedTests");
     expect(
-      screen.getByDataCy("version-skipped-tests-truncation-note"),
+      screen.getByTestId("version-skipped-tests-truncation-note"),
     ).toHaveTextContent("Showing the first 3 of 6");
   });
 
@@ -280,7 +280,7 @@ describe("version SkippedTestsMetadata", () => {
     const { Component: TestComponent } = RenderFakeToastContext(<Component />);
     render(<TestComponent />, routerOptions);
     await user.click(
-      await screen.findByDataCy("version-skipped-tests-details-button"),
+      await screen.findByTestId("version-skipped-tests-details-button"),
     );
     await screen.findByText("Alpha Test");
     await user.type(
@@ -303,7 +303,7 @@ describe("version SkippedTestsMetadata", () => {
     );
     render(<TestComponent />, routerOptions);
     await user.click(
-      await screen.findByDataCy("version-skipped-tests-details-button"),
+      await screen.findByTestId("version-skipped-tests-details-button"),
     );
 
     await waitFor(() => {
@@ -311,7 +311,7 @@ describe("version SkippedTestsMetadata", () => {
         "There was an error loading the skipped test details.",
       );
     });
-    expect(screen.queryByDataCy("version-skipped-tests-modal")).toBeNull();
+    expect(screen.queryByTestId("version-skipped-tests-modal")).toBeNull();
   });
 
   it("does not show samples from a different task execution", async () => {
@@ -326,7 +326,7 @@ describe("version SkippedTestsMetadata", () => {
     );
     render(<TestComponent />, routerOptions);
     await user.click(
-      await screen.findByDataCy("version-skipped-tests-details-button"),
+      await screen.findByTestId("version-skipped-tests-details-button"),
     );
 
     await waitFor(() => {
@@ -334,7 +334,7 @@ describe("version SkippedTestsMetadata", () => {
         "Skipped test details are not available for this version.",
       );
     });
-    expect(screen.queryByDataCy("version-skipped-tests-modal")).toBeNull();
+    expect(screen.queryByTestId("version-skipped-tests-modal")).toBeNull();
   });
 
   it("downloads the whole version's list as JSON", async () => {
@@ -342,10 +342,10 @@ describe("version SkippedTestsMetadata", () => {
     const { Component: TestComponent } = RenderFakeToastContext(<Component />);
     render(<TestComponent />, routerOptions);
     await user.click(
-      await screen.findByDataCy("version-skipped-tests-details-button"),
+      await screen.findByTestId("version-skipped-tests-details-button"),
     );
     await screen.findByText("Alpha Test");
-    await user.click(screen.getByDataCy("version-skipped-tests-download"));
+    await user.click(screen.getByTestId("version-skipped-tests-download"));
     await waitFor(() => {
       expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
     });
@@ -392,10 +392,10 @@ describe("version SkippedTestsMetadata", () => {
     );
     render(<TestComponent />, routerOptions);
     await user.click(
-      await screen.findByDataCy("version-skipped-tests-details-button"),
+      await screen.findByTestId("version-skipped-tests-details-button"),
     );
     await screen.findByText("Alpha Test");
-    await user.click(screen.getByDataCy("version-skipped-tests-download"));
+    await user.click(screen.getByTestId("version-skipped-tests-download"));
 
     await waitFor(() => {
       expect(dispatchToast.error).toHaveBeenCalledWith(

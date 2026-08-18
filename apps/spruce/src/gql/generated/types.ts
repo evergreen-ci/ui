@@ -12245,7 +12245,7 @@ export type VersionQuery = {
       repo: string;
       testSelection?: {
         __typename?: "TestSelectionSettings";
-        allowed: boolean;
+        allowed?: boolean | null;
       } | null;
     } | null;
     user: { __typename?: "User"; displayName?: string | null; userId: string };

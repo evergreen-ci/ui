@@ -20,6 +20,7 @@ import { DisplayModal } from "components/DisplayModal";
 
 interface SkippedTestsModalProps<T extends LGRowData> {
   columns: LGColumnDef<T>[];
+  dataTestIdPrefix?: string;
   getSearchText: (row: T) => string;
   loading?: boolean;
   onClickDownload: () => void;
@@ -33,6 +34,7 @@ interface SkippedTestsModalProps<T extends LGRowData> {
 
 export const SkippedTestsModal = <T extends LGRowData>({
   columns,
+  dataTestIdPrefix = "skipped-tests",
   getSearchText,
   loading = false,
   onClickDownload,
@@ -61,7 +63,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
 
   return (
     <DisplayModal
-      data-testid="skipped-tests-modal"
+      data-testid={`${dataTestIdPrefix}-modal`}
       open={open}
       setOpen={setOpen}
       size="large"
@@ -77,6 +79,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
           value={search}
         />
         <Button
+          data-testid={`${dataTestIdPrefix}-download`}
           leftGlyph={<Icon glyph="Download" />}
           onClick={onClickDownload}
           size="small"
@@ -85,14 +88,14 @@ export const SkippedTestsModal = <T extends LGRowData>({
         </Button>
       </HeaderRow>
       {!loading && rows.length < totalCount && (
-        <Disclaimer>
+        <Disclaimer data-testid={`${dataTestIdPrefix}-truncation-note`}>
           Showing the first {rows.length} of {totalCount} tests. Download the
           JSON for all available stored tests.
         </Disclaimer>
       )}
       <OverflowContainer>
         <BaseTable
-          data-testid="skipped-tests-table"
+          data-testid={`${dataTestIdPrefix}-table`}
           emptyComponent={<TablePlaceholder message="No matching tests." />}
           loading={loading}
           loadingRows={5}

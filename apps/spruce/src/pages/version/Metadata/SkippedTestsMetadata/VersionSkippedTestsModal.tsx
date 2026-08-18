@@ -158,7 +158,7 @@ export const VersionSkippedTestsModal: React.FC<
   return (
     <SkippedTestsModal
       columns={columns}
-      dataCyPrefix="version-skipped-tests"
+      dataTestIdPrefix="version-skipped-tests"
       getSearchText={getRowSearchText}
       loading={loading}
       onClickDownload={handleDownload}
@@ -208,7 +208,7 @@ const columns: LGColumnDef<VersionSkippedTestRow>[] = [
       },
     }) => (
       <StyledRouterLink
-        data-cy="version-skipped-tests-task-link"
+        data-testid="version-skipped-tests-task-link"
         to={getTaskRoute(taskId, {
           execution,
           tab: TaskTab.Tests,

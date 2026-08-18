@@ -55,7 +55,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
   if (loading) {
     return (
       <MetadataItem as="div">
-        <SummaryRow data-cy="version-skipped-tests-metadata-loading">
+        <SummaryRow data-testid="version-skipped-tests-metadata-loading">
           <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
           <Skeleton size={SkeletonSize.Small} />
         </SummaryRow>
@@ -66,11 +66,11 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
   if (error) {
     return (
       <MetadataItem as="div">
-        <SummaryRow data-cy="version-skipped-tests-metadata-error">
+        <SummaryRow data-testid="version-skipped-tests-metadata-error">
           <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
           <span>Unavailable</span>
           <Button
-            data-cy="version-skipped-tests-metadata-retry"
+            data-testid="version-skipped-tests-metadata-retry"
             onClick={() => {
               void refetch();
             }}
@@ -90,10 +90,10 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
   return (
     <>
       <MetadataItem as="div">
-        <MetadataContent data-cy="version-skipped-tests-metadata">
+        <MetadataContent data-testid="version-skipped-tests-metadata">
           <SummaryRow>
             <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
-            <Count data-cy="version-skipped-tests-metadata-count">
+            <Count data-testid="version-skipped-tests-metadata-count">
               {totalCount} {pluralize("test", totalCount)}
             </Count>
             <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
@@ -102,7 +102,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
             </InfoSprinkle>
           </SummaryRow>
           <Button
-            data-cy="version-skipped-tests-details-button"
+            data-testid="version-skipped-tests-details-button"
             onClick={() => {
               sendEvent({
                 name: "Clicked version skipped tests details button",
