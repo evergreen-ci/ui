@@ -358,5 +358,4 @@ const SpringLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
 
 SpringLogoInner.displayName = "SpringLogo";
 
-/** @deprecated Seasonal logos are not yet routed through the dynamic Icon glyph map. */
 export const SpringLogo = Object.assign(SpringLogoInner, { isGlyph: true });

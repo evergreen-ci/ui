@@ -195,5 +195,4 @@ const WinterLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
 
 WinterLogoInner.displayName = "WinterLogo";
 
-/** @deprecated Seasonal logos are not yet routed through the dynamic Icon glyph map. */
 export const WinterLogo = Object.assign(WinterLogoInner, { isGlyph: true });

@@ -106,5 +106,4 @@ const FallLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
 
 FallLogoInner.displayName = "FallLogo";
 
-/** @deprecated Seasonal logos are not yet routed through the dynamic Icon glyph map. */
 export const FallLogo = Object.assign(FallLogoInner, { isGlyph: true });

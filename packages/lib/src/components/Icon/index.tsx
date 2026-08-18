@@ -11,10 +11,6 @@ import "@via-ds/icons/styles.css";
 import AnimatedIcon from "./AnimatedIcon";
 import { glyphs } from "./glyphs";
 import * as icons from "./icons";
-import { FallLogo } from "./icons/logos/FallLogo";
-import { PrideLogo } from "./icons/logos/PrideLogo";
-import { SpringLogo } from "./icons/logos/SpringLogo";
-import { WinterLogo } from "./icons/logos/WinterLogo";
 
 const localGlyphs = {
   EvergreenLogo: icons.EvergreenLogo,
@@ -25,6 +21,10 @@ const localGlyphs = {
   ArrowWithCircle: icons.ArrowWithCircle,
   ClosedEye: icons.ClosedEye,
   Ignored: icons.Ignored,
+  PrideLogo: icons.PrideLogo,
+  FallLogo: icons.FallLogo,
+  WinterLogo: icons.WinterLogo,
+  SpringLogo: icons.SpringLogo,
 } as const;
 
 export type LocalGlyphName = keyof typeof localGlyphs;
@@ -103,7 +103,7 @@ export { sizeMap };
 // every available icon.
 export { glyphs };
 
-export { AnimatedIcon, PrideLogo, FallLogo, WinterLogo, SpringLogo };
+export { AnimatedIcon };
 export { EvergreenLogo, ParsleyLogo } from "./icons";
 
 export default Icon;

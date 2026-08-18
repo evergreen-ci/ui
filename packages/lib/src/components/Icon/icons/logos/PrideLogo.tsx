@@ -240,5 +240,4 @@ const PrideLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
 ));
 PrideLogoInner.displayName = "PrideLogo";
 
-/** @deprecated Seasonal logos are not yet routed through the dynamic Icon glyph map. */
 export const PrideLogo = Object.assign(PrideLogoInner, { isGlyph: true });
