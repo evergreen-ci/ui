@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Size, glyphs } from "components/Icon";
+import { glyphs } from "components/Icon";
 import { size } from "constants/tokens";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import IconWithTooltip from ".";
@@ -8,10 +8,10 @@ import IconWithTooltip from ".";
 const { green } = palette;
 
 const Sizes = {
-  [Size.Small]: 14,
-  [Size.Default]: 16,
-  [Size.Large]: 20,
-  [Size.XLarge]: 24,
+  small: 14,
+  medium: 16,
+  large: 20,
+  xlarge: 24,
 };
 
 export default {
@@ -33,12 +33,12 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
   },
   args: {
     fill: green.dark3,
-    size: Sizes[Size.Default],
+    size: Sizes.medium,
     children: "Tooltip Text",
   },
   render: ({ children, ...rest }) => (
     <Container>
-      {Object.keys(glyphs).map((name) => (
+      {(Object.keys(glyphs) as Array<keyof typeof glyphs>).map((name) => (
         <IconContainer key={name}>
           <IconWithTooltip {...rest} glyph={name}>
             {children}

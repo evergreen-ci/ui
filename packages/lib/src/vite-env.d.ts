@@ -1,6 +1,8 @@
 /// <reference types="vite/client" />
 import { AttributeStore } from "./utils/observability/AttributeStore/types";
 
+declare module "@via-ds/icons/styles.css" {}
+
 declare global {
   module "*.svg" {
     const content: string;

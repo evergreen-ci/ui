@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-export const WinterLogo = forwardRef<SVGSVGElement>((props, ref) => (
+const WinterLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
   <svg
     ref={ref}
     {...props}
@@ -193,4 +193,7 @@ export const WinterLogo = forwardRef<SVGSVGElement>((props, ref) => (
   </svg>
 ));
 
-WinterLogo.displayName = "WinterLogo";
+WinterLogoInner.displayName = "WinterLogo";
+
+/** @deprecated Seasonal logos are not yet routed through the dynamic Icon glyph map. */
+export const WinterLogo = Object.assign(WinterLogoInner, { isGlyph: true });

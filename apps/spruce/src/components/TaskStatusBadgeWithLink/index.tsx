@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { Icon } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import { Icon } from "@evg-ui/lib/components/Icon";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";

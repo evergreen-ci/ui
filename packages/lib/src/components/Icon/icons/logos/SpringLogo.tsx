@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-export const SpringLogo = forwardRef<SVGSVGElement>((props, ref) => (
+const SpringLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
   <svg
     ref={ref}
     {...props}
@@ -356,4 +356,7 @@ export const SpringLogo = forwardRef<SVGSVGElement>((props, ref) => (
   </svg>
 ));
 
-SpringLogo.displayName = "SpringLogo";
+SpringLogoInner.displayName = "SpringLogo";
+
+/** @deprecated Seasonal logos are not yet routed through the dynamic Icon glyph map. */
+export const SpringLogo = Object.assign(SpringLogoInner, { isGlyph: true });

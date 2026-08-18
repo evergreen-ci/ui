@@ -100,6 +100,21 @@ const getProjectConfig = () => {
       globalSetup: "./config/vitest/global-setup.ts",
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+      server: {
+        deps: {
+          // UXE-711: inline ESM-only packages so Vitest can resolve them
+          // without tripping over extensionless Node ESM imports.
+          inline: [
+            "@via-ds/icons",
+            "@leafygreen-ui/checkbox",
+            "@leafygreen-ui/icon",
+            "@leafygreen-ui/icon-button",
+            "@leafygreen-ui/loading-overlay",
+            "@leafygreen-ui/segmented-control",
+            "@leafygreen-ui/toggle",
+          ],
+        },
+      },
       setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
       include: ["src/**/*.test.{ts,tsx}"],
     },

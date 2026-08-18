@@ -1,23 +1,12 @@
-import { LeafygreenIconProps } from "../types";
+import createGlyph from "./createGlyph";
 
-export const Ignored: React.ComponentType<LeafygreenIconProps> = ({
-  className,
-  fill,
-  size = 16,
-}) => (
-  <svg
-    aria-label="Ignored Icon"
-    className={className}
+export const Ignored = createGlyph(
+  "Ignored",
+  "0 0 16 16",
+  <path
+    clipRule="evenodd"
+    d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"
     fill="currentColor"
-    height={size}
-    width={size}
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      clipRule="evenodd"
-      d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"
-      fill={fill}
-      fillRule="evenodd"
-    />
-  </svg>
+    fillRule="evenodd"
+  />,
 );

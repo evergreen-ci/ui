@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { size, transitionDuration } from "../../constants/tokens";
+import { Icon } from "../Icon";
 
 const { gray } = palette;
 

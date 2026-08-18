@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Align, Justify, Popover } from "@leafygreen-ui/popover";
@@ -11,6 +10,7 @@ import {
 import { Description } from "@leafygreen-ui/typography";
 import { size } from "../../../../constants/tokens";
 import { useOnClickOutside } from "../../../../hooks";
+import { Icon } from "../../../Icon";
 import { PopoverContainer } from "../../../styles/Popover";
 import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 
@@ -69,7 +69,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
-        <Icon color={iconColor} glyph="MagnifyingGlass" />
+        <Icon fill={iconColor} glyph="MagnifyingGlass" />
       </IconButton>
       <Popover
         active={active}
