@@ -110,7 +110,7 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
       title={uiTitle || title}
     >
       {!!warnings.length && (
-        <StyledBanner data-cy="warning-banner" variant="warning">
+        <StyledBanner data-testid="warning-banner" variant="warning">
           {warnings.join(", ")}
         </StyledBanner>
       )}

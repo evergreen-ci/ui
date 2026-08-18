@@ -377,7 +377,6 @@ export const LeafyGreenRadioBox: React.FC<
   } & EnumSpruceWidgetProps
 > = ({ disabled, id, label, onChange, options, uiSchema, value }) => {
   const {
-    "data-cy": dataCy,
     "data-testid": dataTestId,
     description,
     elementWrapperCSS,
@@ -418,7 +417,6 @@ export const LeafyGreenRadioBox: React.FC<
         </StyledBanner>
       )}
       <StyledRadioBoxGroup
-        data-cy={dataCy}
         data-testid={dataTestId}
         id={id}
         name={label}
