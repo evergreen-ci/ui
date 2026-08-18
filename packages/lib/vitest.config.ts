@@ -10,6 +10,14 @@ const vitestConfig = defineTestConfig({
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
     include: ["src/**/*.test.{ts,tsx}"],
+    server: {
+      deps: {
+        // TODO UXE-711: remove once @via-ds/icons fixes its extensionless
+        // "lodash-es/kebabCase" import, which Node's ESM resolver rejects.
+        // Inlining routes it through Vite's resolver instead.
+        inline: [/@via-ds\//],
+      },
+    },
   },
   resolve: {
     tsconfigPaths: true,
