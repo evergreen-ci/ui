@@ -173,7 +173,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       <CommitCard
         key={taskId}
         ref={ref}
-        data-cy="commit-details-card"
+        data-testid="commit-details-card"
         id={`commit-card-${taskId}`}
         isMatching={isMatching}
         onMouseEnter={() => setHoveredTask(taskId)}
@@ -185,7 +185,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
         <TopLabel>
           <InlineCode
             as={Link}
-            data-cy="task-link"
+            data-testid="task-link"
             onClick={() =>
               sendEvent({
                 name: "Clicked task link",
@@ -198,7 +198,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
           </InlineCode>
           <IconButton
             aria-label="GitHub Commit Link"
-            data-cy="github-link"
+            data-testid="github-link"
             href={githubCommitUrl}
             target="__blank"
           >
@@ -206,7 +206,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
           </IconButton>
           {activated ? (
             <Button
-              data-cy="restart-button"
+              data-testid="restart-button"
               disabled={!canRestart}
               onClick={() => {
                 sendEvent({
@@ -221,7 +221,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
             </Button>
           ) : (
             <Button
-              data-cy="schedule-button"
+              data-testid="schedule-button"
               disabled={!canSchedule}
               onClick={() => {
                 sendEvent({
@@ -237,7 +237,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
           )}
           <NotifyMeButton buttonSize={ButtonSize.XSmall} taskId={taskId} />
           {isCurrentTask && (
-            <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
+            <Badge data-testid="this-task-badge" variant={BadgeVariant.Blue}>
               {isPatch ? "Base" : "This"} Task
             </Badge>
           )}
@@ -251,7 +251,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
           </DateContainer>
           {execution > 0 ? (
             <Chip
-              data-cy="execution-chip"
+              data-testid="execution-chip"
               label={`Executions: ${execution + 1}`}
               variant={ChipVariant.Gray}
             />
@@ -275,7 +275,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
             />
             {priority && priority > 0 ? (
               <Chip
-                data-cy="priority-chip"
+                data-testid="priority-chip"
                 label={`Priority: ${priority}`}
                 variant={ChipVariant.Gray}
               />

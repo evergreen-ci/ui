@@ -93,7 +93,7 @@ export const restartTasksForm = {
       "ui:fieldCss": dateTimeCSS,
       startDate: {
         "ui:widget": widgets.DateWidget,
-        "ui:data-cy": "start-date-picker",
+        "ui:data-testid": "start-date-picker",
       },
       startTime: {
         "ui:widget": widgets.TimeWidget,
@@ -103,7 +103,7 @@ export const restartTasksForm = {
       "ui:fieldCss": dateTimeCSS,
       endDate: {
         "ui:widget": widgets.DateWidget,
-        "ui:data-cy": "end-date-picker",
+        "ui:data-testid": "end-date-picker",
       },
       endTime: {
         "ui:widget": widgets.TimeWidget,

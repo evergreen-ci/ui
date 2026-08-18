@@ -165,6 +165,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
     revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
     __typename: "VersionLite",
   },
+  quarantinedTestsSkippedCount: 0,
   testSelectionEnabled: false,
 };
 
@@ -357,5 +358,6 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
     revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
     __typename: "VersionLite",
   },
+  quarantinedTestsSkippedCount: 0,
   testSelectionEnabled: false,
 };

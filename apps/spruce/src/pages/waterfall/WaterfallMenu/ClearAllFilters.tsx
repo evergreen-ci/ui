@@ -30,7 +30,7 @@ export const ClearAllFilters: React.FC<ClearAllFiltersProps> = ({
 
   return (
     <DropdownItem
-      data-cy="clear-all-filters"
+      data-testid="clear-all-filters"
       glyph={<Icon glyph="NoFilter" />}
       onClick={handleClick}
     >

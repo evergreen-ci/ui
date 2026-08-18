@@ -1,5 +1,5 @@
 import { Page, expect, test } from "../../fixtures";
-import { clickCheckbox } from "../../helpers";
+import { clickCheckbox, selectPageSize } from "../../helpers";
 
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
@@ -47,27 +47,27 @@ test.describe("Tests Table", () => {
     const nameSortControl = page.getByRole("button", { name: "Sort by Name" });
     await nameSortControl.click();
 
-    const filteredCount = page.getByTestId("filtered-count").first();
-    const totalCount = page.getByTestId("total-count").first();
+    const topPagination = page.getByTestId("pagination").first();
+    await expect(topPagination.getByText(/20 items/)).toBeVisible();
 
-    await expect(filteredCount.getByText("20")).toBeVisible();
-    await expect(totalCount.getByText("20")).toBeVisible();
+    const totalCount = page.getByTestId("total-count").first();
+    await expect(totalCount).toContainText("20");
 
     await page.getByTestId("status-treeselect").click();
     const silentFailCheckbox = page.getByRole("checkbox", {
       name: "Silent Fail",
     });
     await clickCheckbox(silentFailCheckbox);
-    await expect(filteredCount.getByText("1")).toBeVisible();
-    await expect(totalCount.getByText("20")).toBeVisible();
+    await expect(topPagination.getByText(/1 item/)).toBeVisible();
+    await expect(totalCount).toContainText("20");
 
     await page.getByTestId("test-name-filter").click();
     const testNameInput = page.getByPlaceholder("Test name regex");
     await testNameInput.fill("hello");
     await testNameInput.press("Enter");
 
-    await expect(filteredCount.getByText("0")).toBeVisible();
-    await expect(totalCount.getByText("20")).toBeVisible();
+    await expect(topPagination.getByText(/0 items/)).toBeVisible();
+    await expect(totalCount).toContainText("20");
   });
 
   test("Automatically sorts by status in ascending order on page load", async ({
@@ -147,12 +147,12 @@ test.describe("Tests Table", () => {
     });
 
     const statuses = [
-      { label: "Pass", key: "pass" },
+      { key: "pass", label: "Pass" },
       {
-        label: "Silent Fail",
         key: "silentfail",
+        label: "Silent Fail",
       },
-      { label: "Skip", key: "skip" },
+      { key: "skip", label: "Skip" },
     ];
 
     test("Checking multiple statuses adds them all to the URL", async ({
@@ -194,10 +194,15 @@ test.describe("Tests Table", () => {
       page,
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10`);
-      await expect(
-        page.getByTestId("pagination").first().getByText("1 / 2"),
-      ).toBeVisible();
-      const nextPageButton = page.getByTestId("next-page-button").first();
+      const topPagination = page.getByTestId("pagination").first();
+      const pageSelect = topPagination.getByRole("button", {
+        name: /current page/,
+      });
+      await expect(pageSelect).toHaveText("1");
+
+      const nextPageButton = topPagination.getByRole("button", {
+        name: "Next page",
+      });
       await nextPageButton.click();
       for (const displayName of secondPageDisplayNames) {
         await expect(page.getByText(displayName).first()).toBeVisible();
@@ -209,10 +214,16 @@ test.describe("Tests Table", () => {
       page,
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=1`);
-      await expect(
-        page.getByTestId("pagination").first().getByText("2 / 2"),
-      ).toBeVisible();
-      await expect(page.getByTestId("next-page-button").first()).toBeDisabled();
+      const topPagination = page.getByTestId("pagination").first();
+      const pageSelect = topPagination.getByRole("button", {
+        name: /current page/,
+      });
+      await expect(pageSelect).toHaveText("2");
+
+      const nextPageButton = topPagination.getByRole("button", {
+        name: "Next page",
+      });
+      await expect(nextPageButton).toBeDisabled();
       for (const displayName of secondPageDisplayNames) {
         const exactMatchRegex = new RegExp(`^${displayName}$`);
         await expect(page.getByText(exactMatchRegex)).toBeVisible();
@@ -224,10 +235,15 @@ test.describe("Tests Table", () => {
       page,
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=1`);
-      await expect(
-        page.getByTestId("pagination").first().getByText("2 / 2"),
-      ).toBeVisible();
-      const prevPageButton = page.getByTestId("prev-page-button").first();
+      const topPagination = page.getByTestId("pagination").first();
+      const pageSelect = topPagination.getByRole("button", {
+        name: /current page/,
+      });
+      await expect(pageSelect).toHaveText("2");
+
+      const prevPageButton = topPagination.getByRole("button", {
+        name: "Previous page",
+      });
       await prevPageButton.click();
       for (const displayName of firstPageDisplayNames) {
         const exactMatchRegex = new RegExp(`^${displayName}$`);
@@ -240,10 +256,16 @@ test.describe("Tests Table", () => {
       page,
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=0`);
-      await expect(
-        page.getByTestId("pagination").first().getByText("1 / 2"),
-      ).toBeVisible();
-      await expect(page.getByTestId("prev-page-button").first()).toBeDisabled();
+      const topPagination = page.getByTestId("pagination").first();
+      const pageSelect = topPagination.getByRole("button", {
+        name: /current page/,
+      });
+      await expect(pageSelect).toHaveText("1");
+
+      const prevPageButton = topPagination.getByRole("button", {
+        name: "Previous page",
+      });
+      await expect(prevPageButton).toBeDisabled();
       for (const displayName of firstPageDisplayNames) {
         const exactMatchRegex = new RegExp(`^${displayName}$`);
         await expect(page.getByText(exactMatchRegex)).toBeVisible();
@@ -258,13 +280,9 @@ test.describe("Tests Table", () => {
     }) => {
       for (const pageSize of [20, 50, 100]) {
         await visitAndWait(page, TESTS_ROUTE);
-        await page
-          .locator("button[aria-labelledby='page-size-select']")
-          .first()
-          .click();
-        await page.getByText(`${pageSize} / page`).first().click();
+        await selectPageSize(page, pageSize);
         const rowCount = await page
-          .locator("[data-cy=tests-table] tr td:first-child")
+          .locator("[data-testid=tests-table] tr td:first-child")
           .count();
         expect(rowCount).toBeLessThanOrEqual(pageSize);
         await expect(page).toHaveURL(new RegExp(`limit=${pageSize}`));

@@ -100,23 +100,16 @@ const getProjectConfig = () => {
       globalSetup: "./config/vitest/global-setup.ts",
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+      setupFiles: ["@evg-ui/lib/config/vitest/setupTests.ts"],
+      include: ["src/**/*.test.{ts,tsx}"],
       server: {
         deps: {
-          // UXE-711: inline ESM-only packages so Vitest can resolve them
-          // without tripping over extensionless Node ESM imports.
-          inline: [
-            "@via-ds/icons",
-            "@leafygreen-ui/checkbox",
-            "@leafygreen-ui/icon",
-            "@leafygreen-ui/icon-button",
-            "@leafygreen-ui/loading-overlay",
-            "@leafygreen-ui/segmented-control",
-            "@leafygreen-ui/toggle",
-          ],
+          // TODO UXE-711: remove once @via-ds/icons fixes its extensionless
+          // "lodash-es/kebabCase" import, which Node's ESM resolver rejects.
+          // Inlining routes it through Vite's resolver instead.
+          inline: [/@via-ds\//],
         },
       },
-      setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
-      include: ["src/**/*.test.{ts,tsx}"],
     },
   });
 

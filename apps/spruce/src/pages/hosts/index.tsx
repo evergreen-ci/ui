@@ -4,8 +4,7 @@ import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Button } from "@leafygreen-ui/button";
 import { Disclaimer, H2 } from "@leafygreen-ui/typography";
-import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
-import Pagination from "@evg-ui/lib/components/Pagination";
+import { Pagination } from "@evg-ui/lib/components/Pagination";
 import {
   TableControlInnerRow,
   TableControlOuterRow,
@@ -27,9 +26,8 @@ import { getFilters, getSorting, useQueryVariables } from "./utils";
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
 
 const Hosts: React.FC = () => {
-  const hostsTableAnalytics = useHostsTableAnalytics();
+  const { sendEvent } = useHostsTableAnalytics();
   usePageTitle("Hosts");
-  const { setLimit } = usePagination();
   const queryVariables = useQueryVariables();
   const { currentTaskId, distroId, hostId, startedBy, statuses } =
     queryVariables;
@@ -86,14 +84,6 @@ const Hosts: React.FC = () => {
     };
   }, [selectedHosts]);
 
-  const handlePageSizeChange = (pageSize: number): void => {
-    setLimit(pageSize);
-    hostsTableAnalytics.sendEvent({
-      name: "Changed page size",
-      "page.size": pageSize,
-    });
-  };
-
   // UPDATE STATUS MODAL VISIBILITY STATE
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
     useState<boolean>(false);
@@ -114,22 +104,22 @@ const Hosts: React.FC = () => {
 
   const { limit, page } = usePagination();
   return (
-    <PageWrapper data-cy="hosts-page">
+    <PageWrapper data-testid="hosts-page">
       <H2>Evergreen Hosts</H2>
       <TableControlOuterRow>
         <SubtitleDataWrapper>
-          <Disclaimer data-cy="filtered-hosts-count">
+          <Disclaimer data-testid="filtered-hosts-count">
             {`Showing ${
               hasFilters ? filteredHostCount : totalHostsCount
             } of ${totalHostsCount}`}
           </Disclaimer>
           <HostsSelectionWrapper>
-            <Badge data-cy="hosts-selection-badge" variant={Variant.Blue}>
+            <Badge data-testid="hosts-selection-badge" variant={Variant.Blue}>
               {selectedHostIds.length} Selected
             </Badge>
             <ButtonWrapper>
               <Button
-                data-cy="update-status-button"
+                data-testid="update-status-button"
                 disabled={selectedHostIds.length === 0}
                 onClick={() => setIsUpdateStatusModalVisible(true)}
               >
@@ -155,14 +145,22 @@ const Hosts: React.FC = () => {
         <TableControlInnerRow>
           <Pagination
             currentPage={page}
-            data-cy="hosts-table-pagination"
+            data-testid="hosts-table-pagination"
+            loading={loading}
+            onPageChange={(newPage) =>
+              sendEvent({
+                name: "Changed page",
+                "page.number": newPage,
+              })
+            }
+            onPageSizeChange={(newPageSize) =>
+              sendEvent({
+                name: "Changed page size",
+                "page.size": newPageSize,
+              })
+            }
             pageSize={limit}
             totalResults={hasFilters ? filteredHostCount : totalHostsCount}
-          />
-          <PageSizeSelector
-            data-cy="hosts-table-page-size-selector"
-            onChange={handlePageSizeChange}
-            value={limit}
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
@@ -176,7 +174,7 @@ const Hosts: React.FC = () => {
       />
       <UpdateStatusModal
         closeModal={() => setIsUpdateStatusModalVisible(false)}
-        data-cy="update-host-status-modal"
+        data-testid="update-host-status-modal"
         hostIds={selectedHostIds}
         isHostPage={false}
         visible={isUpdateStatusModalVisible}

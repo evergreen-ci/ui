@@ -24,7 +24,7 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
       : `${warnings.length} warnings in configuration file`;
 
   return showBanner ? (
-    <BannerContainer data-cy="configuration-warnings-banner">
+    <BannerContainer data-testid="configuration-warnings-banner">
       <Banner
         dismissible
         onClose={() => setShowBanner(false)}
@@ -35,7 +35,7 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
         <span>
           See all warnings{" "}
           <ModalTriggerText
-            data-cy="configuration-warnings-modal-trigger"
+            data-testid="configuration-warnings-modal-trigger"
             onClick={() => setShowModal(true)}
           >
             here
@@ -43,7 +43,7 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
         </span>
       </Banner>
       <DisplayModal
-        data-cy="configuration-warnings-modal"
+        data-testid="configuration-warnings-modal"
         open={showModal}
         setOpen={setShowModal}
         title={

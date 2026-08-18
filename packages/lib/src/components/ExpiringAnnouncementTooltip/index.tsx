@@ -50,7 +50,6 @@ export const ExpiringAnnouncementTooltip: React.FC<
     <>
       <IconContainer ref={infoRef}>
         <Icon
-          data-cy="announcement-tooltip-trigger"
           data-testid="announcement-tooltip-trigger"
           fill={palette.gray.dark2}
           glyph="InfoWithCircle"

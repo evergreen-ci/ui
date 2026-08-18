@@ -9,7 +9,7 @@ import {
 type Props = {
   children?: React.ReactNode;
   disabled?: boolean;
-  "data-cy"?: string;
+  "data-testid"?: string;
   dropdownItems?: React.ReactNode[];
   loading?: boolean;
   size?: ButtonSize;
@@ -18,7 +18,7 @@ type Props = {
 
 export const ButtonDropdown: React.FC<Props> = ({
   children,
-  "data-cy": dataCy = "ellipsis-btn",
+  "data-testid": dataTestId = "ellipsis-btn",
   disabled = false,
   dropdownItems,
   loading = false,
@@ -30,13 +30,13 @@ export const ButtonDropdown: React.FC<Props> = ({
 }) => (
   <Menu
     adjustOnMutation
-    data-cy="card-dropdown"
+    data-testid="card-dropdown"
     open={open}
     setOpen={setOpen}
     {...menuProps}
     trigger={
       <LoadingButton
-        data-cy={dataCy}
+        data-testid={dataTestId}
         disabled={disabled}
         loading={loading}
         size={size}

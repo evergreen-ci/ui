@@ -48,6 +48,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     patchTimeInQueueFactor: 1,
     stepbackTaskFactor: 1,
     targetTimeSeconds: 1,
+    mergeQueueTargetTimeSeconds: 1,
     taskFinder: FinderVersion.Parallel,
     translateProjectConcurrencyLimit: 1,
     translateProjectCacheBytesLimit: 1,

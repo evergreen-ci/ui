@@ -139,8 +139,8 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
       controls={
         <TableControl
           filteredCount={count}
-          label="tasks"
           limit={limit}
+          loading={loading}
           onClear={() => {
             dispatch({ type: "clearAllFilters" });
             table.reset();
@@ -155,8 +155,8 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
       }
     >
       <BaseTable
-        data-cy="downstream-tasks-table"
-        data-cy-row="downstream-tasks-table-row"
+        data-testid="downstream-tasks-table"
+        data-testid-row="downstream-tasks-table-row"
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         shouldAlternateRowColor

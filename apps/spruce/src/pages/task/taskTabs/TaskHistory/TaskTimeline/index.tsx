@@ -81,7 +81,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
         </IconButton>
         <Timeline
           ref={ref}
-          data-cy="task-timeline"
+          data-testid="task-timeline"
           {...walkthroughTimelineProps}
         >
           {loading ? (
@@ -105,7 +105,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                     <TaskBoxWrapper key={task.id} className="square">
                       <TaskBox
                         active={isHoveredTask || isSelectedTask}
-                        data-cy="timeline-box"
+                        data-testid="timeline-box"
                         id={`task-box-${task.id}`}
                         onClick={() => {
                           sendEvent({
@@ -137,7 +137,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                     <CollapsedBox
                       key={inactiveTasks[0].id}
                       className="square"
-                      data-cy="collapsed-box"
+                      data-testid="collapsed-box"
                     >
                       {inactiveTasks.length}
                     </CollapsedBox>

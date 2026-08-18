@@ -91,7 +91,7 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
 
   return (
     <BaseTable
-      data-cy-row="toolchains-table-row"
+      data-testid-row="toolchains-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
       numTotalItems={numTotalItems}
@@ -109,7 +109,7 @@ const columns: LGColumnDef<Toolchain>[] = [
     enableColumnFilter: true,
     meta: {
       search: {
-        "data-cy": "toolchain-name-filter",
+        "data-testid": "toolchain-name-filter",
         placeholder: "Name regex",
       },
     },

@@ -60,7 +60,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
       </RequesterFilterItem>
       <DateFilterItem>
         <DateFilter
-          dataCyProps={{ [waterfallGuideId]: walkthroughSteps[3].targetId }}
+          dataProps={{ [waterfallGuideId]: walkthroughSteps[3].targetId }}
           onChange={(newDate) => {
             setQueryParams({
               ...queryParams,

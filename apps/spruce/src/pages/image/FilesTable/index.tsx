@@ -87,7 +87,7 @@ export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
 
   return (
     <BaseTable
-      data-cy-row="files-table-row"
+      data-testid-row="files-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
       numTotalItems={numTotalItems}
@@ -105,7 +105,7 @@ const columns: LGColumnDef<ImageFile>[] = [
     enableColumnFilter: true,
     meta: {
       search: {
-        "data-cy": "file-name-filter",
+        "data-testid": "file-name-filter",
         placeholder: "Name regex",
       },
     },

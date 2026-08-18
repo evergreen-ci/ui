@@ -115,7 +115,7 @@ export const CostModal: React.FC<CostModalProps> = ({
 
   return (
     <DisplayModal
-      data-cy="cost-modal"
+      data-testid="cost-modal"
       open={open}
       setOpen={setOpen}
       title={`Cost breakdown for ${name}`}
@@ -124,10 +124,10 @@ export const CostModal: React.FC<CostModalProps> = ({
         <StyledLink hideExternalIcon={false} href={costDocumentationUrl}>
           Evergreen cost documentation
         </StyledLink>
-        <BaseTable data-cy="cost-breakdown-table" table={table} />
+        <BaseTable data-testid="cost-breakdown-table" table={table} />
         {taskId && startTs && endTs && (
           <StyledLink
-            data-cy="task-cost-link"
+            data-testid="task-cost-link"
             hideExternalIcon={false}
             href={getHoneycombTaskCostUrl(taskId, startTs, endTs)}
           >
@@ -136,7 +136,7 @@ export const CostModal: React.FC<CostModalProps> = ({
         )}
         {versionId && startTs && endTs && (
           <StyledLink
-            data-cy="version-cost-link"
+            data-testid="version-cost-link"
             hideExternalIcon={false}
             href={getHoneycombVersionCostUrl(versionId, startTs, endTs)}
           >

@@ -51,7 +51,7 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
           View hosts
         </StyledRouterLink>
         <StyledRouterLink
-          data-cy="distro-settings-link"
+          data-testid="distro-settings-link"
           onClick={() =>
             sendNavbarEvent({ name: "Clicked distro settings link" })
           }

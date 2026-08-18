@@ -109,7 +109,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         disabled: loadingSpawnVolume || !canSubmit,
         onClick: spawnVolume,
       }}
-      data-cy="spawn-volume-modal"
+      data-testid="spawn-volume-modal"
       open={visible}
       title="Spawn New Volume"
     >

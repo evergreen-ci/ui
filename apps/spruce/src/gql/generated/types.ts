@@ -62,12 +62,15 @@ export type AwsConfig = {
   alertableInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedInstanceTypes: Array<Scalars["String"]["output"]>;
   allowedRegions: Array<Scalars["String"]["output"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["output"]>;
   defaultSecurityGroup?: Maybe<Scalars["String"]["output"]>;
   elasticIPUsageRate?: Maybe<Scalars["Float"]["output"]>;
   ipamPoolID?: Maybe<Scalars["String"]["output"]>;
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
+  subnetTagName?: Maybe<Scalars["String"]["output"]>;
+  subnetTagValue?: Maybe<Scalars["String"]["output"]>;
   subnets: Array<Subnet>;
 };
 
@@ -76,12 +79,15 @@ export type AwsConfigInput = {
   alertableInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedInstanceTypes: Array<Scalars["String"]["input"]>;
   allowedRegions: Array<Scalars["String"]["input"]>;
+  allowedSNSTopicARNs: Array<Scalars["String"]["input"]>;
   defaultSecurityGroup?: InputMaybe<Scalars["String"]["input"]>;
   elasticIPUsageRate?: InputMaybe<Scalars["Float"]["input"]>;
   ipamPoolID?: InputMaybe<Scalars["String"]["input"]>;
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
+  subnetTagName?: InputMaybe<Scalars["String"]["input"]>;
+  subnetTagValue?: InputMaybe<Scalars["String"]["input"]>;
   subnets: Array<SubnetInput>;
 };
 
@@ -2664,6 +2670,7 @@ export type PlannerSettings = {
   generateTaskFactor: Scalars["Int"]["output"];
   groupVersions: Scalars["Boolean"]["output"];
   mainlineTimeInQueueFactor: Scalars["Int"]["output"];
+  mergeQueueTargetTime: Scalars["Duration"]["output"];
   numDependentsFactor: Scalars["Float"]["output"];
   patchFactor: Scalars["Int"]["output"];
   patchTimeInQueueFactor: Scalars["Int"]["output"];
@@ -2677,6 +2684,7 @@ export type PlannerSettingsInput = {
   generateTaskFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
+  mergeQueueTargetTime?: InputMaybe<Scalars["Int"]["input"]>;
   numDependentsFactor: Scalars["Float"]["input"];
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
@@ -3313,6 +3321,7 @@ export type QueryWaterfallArgs = {
 export type RateLimitConfig = {
   __typename?: "RateLimitConfig";
   elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  exemptUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
   graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
   graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
@@ -3326,6 +3335,7 @@ export type RateLimitConfig = {
 
 export type RateLimitConfigInput = {
   elevatedUserIds: Array<Scalars["String"]["input"]>;
+  exemptUserIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   graphqlComplexityLimit: Scalars["Int"]["input"];
   graphqlServiceBurst: Scalars["Int"]["input"];
   graphqlServicePerHour: Scalars["Int"]["input"];
@@ -3350,12 +3360,14 @@ export type ReleaseModeConfig = {
   __typename?: "ReleaseModeConfig";
   distroMaxHostsFactor?: Maybe<Scalars["Float"]["output"]>;
   idleTimeSecondsOverride?: Maybe<Scalars["Int"]["output"]>;
+  mergeQueueTargetTimeSecondsOverride?: Maybe<Scalars["Int"]["output"]>;
   targetTimeSecondsOverride?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ReleaseModeConfigInput = {
   distroMaxHostsFactor?: InputMaybe<Scalars["Float"]["input"]>;
   idleTimeSecondsOverride?: InputMaybe<Scalars["Int"]["input"]>;
+  mergeQueueTargetTimeSecondsOverride?: InputMaybe<Scalars["Int"]["input"]>;
   targetTimeSecondsOverride?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
@@ -3513,6 +3525,7 @@ export type RepoTestSelectionSettings = {
   __typename?: "RepoTestSelectionSettings";
   allowed: Scalars["Boolean"]["output"];
   defaultEnabled: Scalars["Boolean"]["output"];
+  mainlineDefaultEnabled: Scalars["Boolean"]["output"];
 };
 
 export type RepoWorkstationConfig = {
@@ -3721,6 +3734,7 @@ export type SchedulerConfig = {
   hostAllocatorRoundingRule?: Maybe<RoundingRule>;
   hostsOverallocatedRule?: Maybe<OverallocatedRule>;
   mainlineTimeInQueueFactor?: Maybe<Scalars["Int"]["output"]>;
+  mergeQueueTargetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
   numDependentsFactor?: Maybe<Scalars["Float"]["output"]>;
   patchFactor?: Maybe<Scalars["Int"]["output"]>;
   patchTimeInQueueFactor?: Maybe<Scalars["Int"]["output"]>;
@@ -3745,6 +3759,7 @@ export type SchedulerConfigInput = {
   hostAllocatorRoundingRule: RoundingRule;
   hostsOverallocatedRule: OverallocatedRule;
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
+  mergeQueueTargetTimeSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   numDependentsFactor: Scalars["Float"]["input"];
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
@@ -4077,6 +4092,8 @@ export type Task = {
   baseStatus?: Maybe<Scalars["String"]["output"]>;
   baseTask?: Maybe<Task>;
   blocked: Scalars["Boolean"]["output"];
+  buildBaronCreatedTickets: Array<JiraTicket>;
+  buildBaronSuggestions?: Maybe<SearchReturnInfo>;
   buildId: Scalars["String"]["output"];
   buildVariant: Scalars["String"]["output"];
   buildVariantDisplayName?: Maybe<Scalars["String"]["output"]>;
@@ -4574,11 +4591,13 @@ export type TestSelectionSettings = {
   __typename?: "TestSelectionSettings";
   allowed?: Maybe<Scalars["Boolean"]["output"]>;
   defaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  mainlineDefaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TestSelectionSettingsInput = {
   allowed?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  mainlineDefaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum TestSortCategory {
@@ -4918,7 +4937,6 @@ export type Version = {
   user: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
-  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 /** Version models a commit within a project. */
@@ -5032,7 +5050,6 @@ export type VolumeHost = {
 
 export type Waterfall = {
   __typename?: "Waterfall";
-  flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
   versions: Array<VersionLite>;
 };
@@ -5712,6 +5729,7 @@ export type ProjectSettingsFieldsFragment = {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
+      mainlineDefaultEnabled?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -5920,6 +5938,7 @@ export type RepoSettingsFieldsFragment = {
       __typename?: "RepoTestSelectionSettings";
       allowed: boolean;
       defaultEnabled: boolean;
+      mainlineDefaultEnabled: boolean;
     } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -6325,6 +6344,7 @@ export type ProjectEventSettingsFragment = {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
+      mainlineDefaultEnabled?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6471,6 +6491,7 @@ export type ProjectTestSelectionSettingsFragment = {
     __typename?: "TestSelectionSettings";
     allowed?: boolean | null;
     defaultEnabled?: boolean | null;
+    mainlineDefaultEnabled?: boolean | null;
   } | null;
 };
 
@@ -6481,6 +6502,7 @@ export type RepoTestSelectionSettingsFragment = {
     __typename?: "RepoTestSelectionSettings";
     allowed: boolean;
     defaultEnabled: boolean;
+    mainlineDefaultEnabled: boolean;
   } | null;
 };
 
@@ -7152,6 +7174,7 @@ export type SaveAdminSettingsMutation = {
       hostAllocatorRoundingRule?: RoundingRule | null;
       hostsOverallocatedRule?: OverallocatedRule | null;
       mainlineTimeInQueueFactor?: number | null;
+      mergeQueueTargetTimeSeconds?: number | null;
       numDependentsFactor?: number | null;
       patchFactor?: number | null;
       patchTimeInQueueFactor?: number | null;
@@ -7857,10 +7880,13 @@ export type AdminSettingsQuery = {
         alertableInstanceTypes: Array<string>;
         allowedInstanceTypes: Array<string>;
         allowedRegions: Array<string>;
+        allowedSNSTopicARNs: Array<string>;
         defaultSecurityGroup?: string | null;
         elasticIPUsageRate?: number | null;
         ipamPoolID?: string | null;
         maxVolumeSizePerUser?: number | null;
+        subnetTagName?: string | null;
+        subnetTagValue?: string | null;
         accountRoles: Array<{
           __typename?: "AWSAccountRoleMapping";
           account: string;
@@ -7889,6 +7915,7 @@ export type AdminSettingsQuery = {
     rateLimit?: {
       __typename?: "RateLimitConfig";
       elevatedUserIds?: Array<string> | null;
+      exemptUserIds?: Array<string> | null;
       graphqlComplexityLimit?: number | null;
       graphqlServiceBurst?: number | null;
       graphqlServicePerHour?: number | null;
@@ -7903,6 +7930,7 @@ export type AdminSettingsQuery = {
       __typename?: "ReleaseModeConfig";
       distroMaxHostsFactor?: number | null;
       idleTimeSecondsOverride?: number | null;
+      mergeQueueTargetTimeSecondsOverride?: number | null;
       targetTimeSecondsOverride?: number | null;
     } | null;
     repotracker?: {
@@ -7931,6 +7959,7 @@ export type AdminSettingsQuery = {
       hostAllocatorRoundingRule?: RoundingRule | null;
       hostsOverallocatedRule?: OverallocatedRule | null;
       mainlineTimeInQueueFactor?: number | null;
+      mergeQueueTargetTimeSeconds?: number | null;
       numDependentsFactor?: number | null;
       patchFactor?: number | null;
       patchTimeInQueueFactor?: number | null;
@@ -8476,6 +8505,7 @@ export type DistroQuery = {
       generateTaskFactor: number;
       groupVersions: boolean;
       mainlineTimeInQueueFactor: number;
+      mergeQueueTargetTime: number;
       numDependentsFactor: number;
       patchFactor: number;
       patchTimeInQueueFactor: number;
@@ -9401,6 +9431,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
+            mainlineDefaultEnabled?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -9624,6 +9655,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
+            mainlineDefaultEnabled?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -9912,6 +9944,7 @@ export type ProjectSettingsQuery = {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
         defaultEnabled?: boolean | null;
+        mainlineDefaultEnabled?: boolean | null;
       } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -10183,6 +10216,7 @@ export type RepoEventLogsQuery = {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
+            mainlineDefaultEnabled?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10406,6 +10440,7 @@ export type RepoEventLogsQuery = {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
+            mainlineDefaultEnabled?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10634,6 +10669,7 @@ export type RepoSettingsQuery = {
         __typename?: "RepoTestSelectionSettings";
         allowed: boolean;
         defaultEnabled: boolean;
+        mainlineDefaultEnabled: boolean;
       } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";
@@ -11219,6 +11255,31 @@ export type TaskPerfPluginEnabledQuery = {
   } | null;
 };
 
+export type TaskQuarantinedTestsSampleQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  taskIds: Array<Scalars["String"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskQuarantinedTestsSampleQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    taskQuarantinedTestsSample?: Array<{
+      __typename?: "TaskQuarantinedTestsSample";
+      execution: number;
+      quarantinedTestsSkippedCount: number;
+      taskId: string;
+      quarantinedTests: Array<{
+        __typename?: "QuarantinedTest";
+        displayTestName?: string | null;
+        testName: string;
+      }>;
+    }> | null;
+  };
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
@@ -11394,6 +11455,7 @@ export type TaskQuery = {
     order: number;
     patchNumber?: number | null;
     priority?: number | null;
+    quarantinedTestsSkippedCount: number;
     requester: string;
     resetWhenFinished: boolean;
     reviewed?: boolean | null;
@@ -11914,6 +11976,17 @@ export type VersionTaskDurationsQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    childVersions?: Array<{
+      __typename?: "Version";
+      id: string;
+      finishTime?: Date | null;
+      startTime?: Date | null;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
+    }> | null;
     tasks: {
       __typename?: "VersionTasks";
       count: number;

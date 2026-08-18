@@ -1,41 +1,41 @@
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { size } from "../../../constants/tokens";
-import usePagination from "../../../hooks/usePagination";
-import PageSizeSelector from "../../PageSizeSelector";
-import Pagination from "../../Pagination";
-import { ResultCountLabel } from "./ResultCountLabel";
+import { Pagination } from "../../Pagination";
 import { TableControlInnerRow, TableControlOuterRow } from "./styles";
 
 interface Props {
-  filteredCount: number;
-  totalCount: number;
-  limit: number;
-  page: number;
-  label: string;
   disabled?: boolean;
+  totalCount: number;
+  filteredCount: number;
+  limit?: number;
+  loading?: boolean;
   onClear: () => void;
-  onPageSizeChange?: (pageSize: number) => void;
   onPageChange?: (page: number) => void;
+  onPageSizeChange?: (pageSize: number) => void;
+  page: number;
 }
 
 const TableControl: React.FC<Props> = ({
   disabled = false,
   filteredCount,
-  label,
   limit,
+  loading,
   onClear,
   onPageChange,
   onPageSizeChange,
   page,
   totalCount,
 }) => {
-  const { setLimit } = usePagination();
-
   const handlePageSizeChange = (pageSize: number) => {
-    setLimit(pageSize);
     onPageSizeChange?.(pageSize);
   };
+
+  const handlePageChange = (newPage: number) => {
+    onPageChange?.(newPage);
+  };
+
   const onClearAll = () => {
     onClear();
   };
@@ -43,38 +43,30 @@ const TableControl: React.FC<Props> = ({
   return (
     <TableControlOuterRow>
       <FlexContainer>
-        <ResultCountLabel
-          dataCyDenominator="total-count"
-          dataCyNumerator="filtered-count"
-          dataTestIdDenominator="total-count"
-          dataTestIdNumerator="filtered-count"
-          denominator={totalCount}
-          label={label}
-          numerator={filteredCount}
+        <Chip
+          data-testid="total-count"
+          label={`Total count: ${totalCount}`}
+          variant={ChipVariant.Gray}
         />
-        <PaddedButton
-          data-cy="clear-all-filters"
+        <Button
           data-testid="clear-all-filters"
           disabled={disabled}
           onClick={onClearAll}
-          size="small"
+          size={ButtonSize.Small}
         >
           Clear all filters
-        </PaddedButton>
+        </Button>
       </FlexContainer>
-      <TableControlInnerRow>
+      <PaginationContainer>
         <Pagination
           currentPage={page}
-          onChange={onPageChange}
+          loading={loading}
+          onPageChange={handlePageChange}
+          onPageSizeChange={handlePageSizeChange}
           pageSize={limit}
           totalResults={filteredCount}
         />
-        <PageSizeSelector
-          disabled={disabled}
-          onChange={handlePageSizeChange}
-          value={limit}
-        />
-      </TableControlInnerRow>
+      </PaginationContainer>
     </TableControlOuterRow>
   );
 };
@@ -82,10 +74,13 @@ const TableControl: React.FC<Props> = ({
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: ${size.xs};
 `;
 
-const PaddedButton = styled(Button)`
-  margin-left: ${size.m};
+const PaginationContainer = styled(TableControlInnerRow)`
+  * {
+    min-width: fit-content;
+  }
 `;
 
 export default TableControl;

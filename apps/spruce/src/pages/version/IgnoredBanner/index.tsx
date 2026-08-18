@@ -5,7 +5,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { ignoredFilesDocumentationUrl } from "constants/externalResources";
 
 export const IgnoredBanner: React.FC = () => (
-  <BannerContainer data-cy="ignored-banner">
+  <BannerContainer data-testid="ignored-banner">
     <Banner variant={Variant.Info}>
       This revision will not be automatically scheduled, because only{" "}
       <StyledLink href={ignoredFilesDocumentationUrl} target="_blank">

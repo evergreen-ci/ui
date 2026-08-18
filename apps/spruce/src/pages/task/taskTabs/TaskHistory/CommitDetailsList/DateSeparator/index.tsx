@@ -10,7 +10,7 @@ interface DateSeparatorProps {
 const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
   const getDateCopy = useDateFormat();
   return (
-    <Container data-cy="horizontal-date-separator">
+    <Container data-testid="horizontal-date-separator">
       <Badge>
         {getDateCopy(date, {
           dateOnly: true,

@@ -42,9 +42,9 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
   return (
     <MetadataSection>
       <CopyableID textToCopy={task.id} tooltipLabel="Copy task ID" />
-      <MetadataItem data-cy="task-metadata-project" label="Project">
+      <MetadataItem data-testid="task-metadata-project" label="Project">
         <StyledRouterLink
-          data-cy="project-link"
+          data-testid="project-link"
           onClick={() =>
             taskAnalytics.sendEvent({
               name: "Clicked metadata link",
@@ -86,7 +86,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
         <MetadataItem label="Base commit">
           <InlineCode
             as={Link}
-            data-cy="base-task-link"
+            data-testid="base-task-link"
             onClick={() =>
               taskAnalytics.sendEvent({
                 name: "Clicked metadata link",

@@ -98,8 +98,8 @@ const ExecutionTasksTable: React.FC<Props> = ({
   return (
     <BaseTable
       css={taskReviewEnabled && taskReviewStyles}
-      data-cy="execution-tasks-table"
-      data-cy-row="execution-tasks-table-row"
+      data-testid="execution-tasks-table"
+      data-testid-row="execution-tasks-table-row"
       emptyComponent={<TablePlaceholder message="No execution tasks found." />}
       shouldAlternateRowColor
       table={table}

@@ -17,7 +17,6 @@ import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 const { blue, gray } = palette;
 
 interface TableSearchPopoverProps {
-  "data-cy"?: string;
   "data-testid"?: string;
   onConfirm: (search: string) => void;
   placeholder?: string;
@@ -25,7 +24,6 @@ interface TableSearchPopoverProps {
 }
 
 const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
-  "data-cy": dataCy,
   "data-testid": dataTestId,
   onConfirm,
   placeholder,
@@ -65,7 +63,6 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         ref={buttonRef}
         active={active}
         aria-label="Table Search Popover Icon"
-        data-cy={dataCy}
         data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
@@ -80,7 +77,6 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
       >
         <PopoverContainer
           ref={popoverRef}
-          data-cy={`${dataCy}-wrapper`}
           data-testid={`${dataTestId}-wrapper`}
         >
           <InputContainer>
@@ -88,7 +84,6 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
             <SearchInput
               ref={(el) => setInputRef(el)}
               aria-label="Search table"
-              data-cy={`${dataCy}-input-filter`}
               data-testid={`${dataTestId}-input-filter`}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && onEnter()}

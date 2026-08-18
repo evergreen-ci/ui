@@ -23,6 +23,38 @@ export const shouldLogoutAndRedirect = (statusCode: number) =>
   statusCode === 401;
 
 /**
+ * saveBlobToFile triggers a browser download of an in-memory blob.
+ * @param blob - the blob to save
+ * @param filename - the name of the file to save
+ */
+const saveBlobToFile = (blob: Blob, filename: string) => {
+  const objectURL = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = objectURL;
+  a.download = filename;
+  a.style.display = "none";
+  document.body.append(a);
+  a.click();
+  setTimeout(() => {
+    URL.revokeObjectURL(objectURL);
+    a.remove();
+  }, 1000);
+};
+
+/**
+ * downloadObjectAsJson serializes a value to pretty-printed JSON and triggers a
+ * browser download of it as a .json file.
+ * @param data - the value to serialize
+ * @param filename - the name of the file to save
+ */
+export const downloadObjectAsJson = (data: unknown, filename: string) => {
+  saveBlobToFile(
+    new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }),
+    filename,
+  );
+};
+
+/**
  * downloadFile downloads a file from a given URL and saves it to the user's filesystem.
  * @param url - the URL of the file to download
  * @param filename - the name of the file to save
@@ -52,18 +84,7 @@ export const downloadFile = async (
       const writable = await handle.createWritable();
       await response.body!.pipeTo(writable);
     } else {
-      const blob = await response.blob();
-      const objectURL = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = objectURL;
-      a.download = filename;
-      a.style.display = "none";
-      document.body.append(a);
-      a.click();
-      setTimeout(() => {
-        URL.revokeObjectURL(objectURL);
-        a.remove();
-      }, 1000);
+      saveBlobToFile(await response.blob(), filename);
     }
     onDownloadComplete?.();
   } catch (e) {

@@ -15,9 +15,9 @@ export const DisplayModal: React.FC<DisplayModalProps> = ({
   ...rest
 }) => (
   <Modal {...rest}>
-    {title && <H3 data-cy="modal-title">{title}</H3>}
+    {title && <H3 data-testid="modal-title">{title}</H3>}
     {subtitle && (
-      <StyledSubtitle data-cy="modal-subtitle">{subtitle}</StyledSubtitle>
+      <StyledSubtitle data-testid="modal-subtitle">{subtitle}</StyledSubtitle>
     )}
     {children}
   </Modal>

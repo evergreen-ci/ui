@@ -43,7 +43,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ ignoreAuthCheck }) => {
         }}
       >
         <TextInput
-          data-cy="login-username"
           data-testid="login-username"
           label="Username"
           onChange={(e) => setUsername(e.target.value)}
@@ -51,7 +50,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ ignoreAuthCheck }) => {
           value={username}
         />
         <TextInput
-          data-cy="login-password"
           data-testid="login-password"
           label="Password"
           onChange={(e) => setPassword(e.target.value)}
@@ -59,7 +57,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ ignoreAuthCheck }) => {
           value={password}
         />
         <StyledButton
-          data-cy="login-submit"
           data-testid="login-submit"
           onClick={() => localLogin({ password, username })}
           type="submit"

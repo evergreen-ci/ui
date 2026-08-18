@@ -77,10 +77,10 @@ export const getFormSchema = ({
   },
   uiSchema: {
     name: {
-      "ui:data-cy": "volume-name-input",
+      "ui:data-testid": "volume-name-input",
     },
     size: {
-      "ui:data-cy": "volume-size-input",
+      "ui:data-testid": "volume-size-input",
       "ui:description": `The max volume size is ${maxSpawnableLimit} GiB. Volume size can only be updated once every 6 hours, and cannot be decreased.`,
     },
     expirationDetails: {

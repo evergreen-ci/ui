@@ -143,7 +143,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         // Handle bug in sorting order (https://github.com/TanStack/table/issues/4289)
         sortDescFirst: false,
       },
-      getRowId: (originalRow) => originalRow.id,
+      getRowId: (originalRow, _index, parentRow) =>
+        parentRow ? `${parentRow.id}.${originalRow.id}` : originalRow.id,
       initialState: {
         columnVisibility: { reviewed: taskReviewEnabled },
       },
@@ -169,8 +170,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       controls={
         <TableControl
           filteredCount={filteredCount}
-          label="tasks"
           limit={limit}
+          loading={loading}
           onClear={() => {
             setColumnFilters([]);
             setSorting(defaultSorting);
@@ -187,9 +188,9 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
     >
       <BaseTable
         css={taskReviewEnabled && taskReviewStyles}
-        data-cy="tasks-table"
-        data-cy-row="tasks-table-row"
         data-loading={loading}
+        data-testid="tasks-table"
+        data-testid-row="tasks-table-row"
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         loadingRows={limit}

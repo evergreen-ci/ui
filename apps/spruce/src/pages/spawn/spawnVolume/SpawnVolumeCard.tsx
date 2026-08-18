@@ -8,7 +8,7 @@ interface Props {
 
 export const SpawnVolumeCard: React.FC<Props> = ({ volume }) => (
   <DetailsCard
-    data-cy={`spawn-volume-card-${volume.displayName || volume.id}`}
+    data-testid={`spawn-volume-card-${volume.displayName || volume.id}`}
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     fieldMaps={spawnVolumeCardFields}
     type={volume}

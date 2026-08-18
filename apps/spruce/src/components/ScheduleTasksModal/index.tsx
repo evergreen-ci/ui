@@ -101,21 +101,21 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
           });
         },
       }}
-      data-cy="schedule-tasks-modal"
+      data-testid="schedule-tasks-modal"
       open={open}
       title="Schedule Tasks"
     >
       <TaskSchedulingWarningBanner totalTasks={estimatedActivatedTasksCount} />
       <ContentWrapper>
         {loadingTaskData ? (
-          <FormSkeleton data-cy="loading-skeleton" />
+          <FormSkeleton data-testid="loading-skeleton" />
         ) : (
           <>
             {sortedBuildVariantGroups.length ? (
               <Checkbox
                 bold
                 checked={selectedTasks.size === allTasks.length}
-                data-cy="select-all-tasks"
+                data-testid="select-all-tasks"
                 indeterminate={
                   selectedTasks.size > 0 && selectedTasks.size < allTasks.length
                 }
@@ -139,12 +139,12 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                 return (
                   <Wrapper key={buildVariant}>
                     <Accordion
-                      data-cy="build-variant-accordion"
+                      data-testid="build-variant-accordion"
                       title={
                         <Checkbox
                           bold
                           checked={allTasksSelected}
-                          data-cy={`${buildVariant}-variant-checkbox`}
+                          data-testid={`${buildVariant}-variant-checkbox`}
                           indeterminate={!allTasksSelected && someTasksSelected}
                           label={buildVariantDisplayName}
                           name={buildVariant}
@@ -162,9 +162,9 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                           key={id}
                           bold={false}
                           checked={selectedTasks.has(id)}
-                          data-cy={`${buildVariant}-${displayName}-task-checkbox`}
+                          data-testid={`${buildVariant}-${displayName}-task-checkbox`}
                           label={
-                            <span data-cy="task-checkbox-label">
+                            <span data-testid="task-checkbox-label">
                               {displayName}
                             </span>
                           }

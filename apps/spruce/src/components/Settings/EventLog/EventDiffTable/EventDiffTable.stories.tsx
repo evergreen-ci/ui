@@ -44,3 +44,54 @@ export const Default: CustomStoryObj<typeof EventDiffTable> = {
     },
   },
 };
+
+export const ShiftedList: CustomStoryObj<typeof EventDiffTable> = {
+  args: {
+    before: {
+      projectRef: {
+        admins: [
+          "jonathan.brill",
+          "annie.black",
+          "mohamed.khelif",
+          "sophie.stadler",
+          "chaya.malik",
+        ],
+      },
+    },
+    after: {
+      projectRef: {
+        admins: [
+          "bynn.lee",
+          "jonathan.brill",
+          "annie.black",
+          "mohamed.khelif",
+          "sophie.stadler",
+          "chaya.malik",
+        ],
+      },
+    },
+  },
+};
+
+export const UpdatedArrayObject: CustomStoryObj<typeof EventDiffTable> = {
+  args: {
+    before: {
+      subscriptions: [
+        {
+          id: "668c0cafd004f70007891cf1",
+          subscriber: { type: "email" },
+          trigger: { requesters: ["patch"] },
+        },
+      ],
+    },
+    after: {
+      subscriptions: [
+        {
+          id: "668c0cafd004f70007891cf1",
+          subscriber: { type: "email" },
+          trigger: { requesters: ["git_tag_request"] },
+        },
+      ],
+    },
+  },
+};
