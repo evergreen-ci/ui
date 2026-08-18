@@ -196,9 +196,12 @@ const ChipContainer = styled.div`
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`
-  font-size: ${fontSize.l};
-  font-weight: 500;
-  padding-bottom: ${size.xs};
+  /* && outranks the lib link's font override */
+  && {
+    font-size: ${fontSize.l};
+    font-weight: 500;
+    padding-bottom: ${size.xs};
+  }
 `;
 
 const PatchBadgeContainer = styled.div`

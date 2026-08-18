@@ -26,7 +26,10 @@ const IssueLinks: React.FC<{
   );
 
 const AnnotationLink = styled(StyledLink)`
-  font-weight: bold;
+  /* && outranks the lib link's font override */
+  && {
+    font-weight: bold;
+  }
   ${wordBreakCss};
 `;
 
