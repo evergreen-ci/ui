@@ -74,18 +74,6 @@ const initializeHoneycomb = ({
         "@opentelemetry/instrumentation-document-load": {
           ignoreNetworkEvents: true,
         },
-        // Disabled: incompatible with the WebVitalsInstrumentation bundled by
-        // @honeycombio/opentelemetry-web. Since v0.65.0 this instrumentation tracks
-        // patched listeners in a WeakMap keyed by the addEventListener call's `this`.
-        // The bundled web-vitals code calls a bare `addEventListener(...)` (not
-        // `window.addEventListener(...)`), which under strict-mode ESM resolves
-        // `this` to `undefined`, so `WeakMap.set(undefined, ...)` throws inside
-        // WebVitalsInstrumentation's constructor -- aborting the entire SDK's
-        // start() before any instrumentation (including this one) gets enabled.
-        // See DEVPROD-41675.
-        "@opentelemetry/instrumentation-user-interaction": {
-          enabled: false,
-        },
         "@opentelemetry/instrumentation-fetch": {
           // Add GraphQL operation name as an attribute to HTTP traces.
           applyCustomAttributesOnSpan: (span, request) => {
