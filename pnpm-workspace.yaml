@@ -4,15 +4,13 @@ packages:
 # Supply-chain cooldown: wait 3 days (value is in minutes) after a version is
 # published before installing it, so compromised releases can be caught/yanked first.
 minimumReleaseAge: 4320
-# DEVPROD-41675: @opentelemetry/instrumentation-user-interaction regressed between
+# @opentelemetry/instrumentation-user-interaction regressed between
 # 0.62.0 and 0.65.0, switching its internal patched-listener tracking from a Map to
 # a WeakMap. @honeycombio/opentelemetry-web's bundled WebVitalsInstrumentation calls
 # a bare `addEventListener(...)` (not `window.addEventListener(...)`), which under
 # strict-mode ESM resolves `this` to `undefined`; the WeakMap-based tracker then
 # throws "TypeError: Invalid value used as weak map key" during HoneycombWebSDK
-# construction, aborting SDK startup entirely (no instrumentation ever gets
-# enabled). Pinned to the last version confirmed to still use Map. Remove this
-# override once upstream fixes the regression.
+# construction. Remove this override once upstream fixes the regression.
 overrides:
   '@opentelemetry/instrumentation-user-interaction': 0.62.0
 allowBuilds:
