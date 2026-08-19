@@ -25,8 +25,6 @@ describe("AnnotationTicketRow", () => {
     );
   });
 
-  // The annotation URL is submitted through a form that only enforces a minimum
-  // length, so it can be any string.
   it.each([
     "javascript:alert(document.domain)//DEVPROD-1",
     "data:text/html,<script>alert(document.domain)</script>",

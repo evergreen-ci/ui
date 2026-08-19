@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Button } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
@@ -69,11 +69,7 @@ const getColumns = (): LGColumnDef<TaskBuildVariantField>[] => [
     cell: ({ row }) => {
       const { urlParsley } = row.original.logs;
       return isValidHttpUrl(urlParsley) ? (
-        <Button
-          data-testid="failed-test-group-parsley-btn"
-          href={urlParsley}
-          size="xsmall"
-        >
+        <Button href={urlParsley} size={ButtonSize.XSmall}>
           Parsley
         </Button>
       ) : null;
