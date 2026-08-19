@@ -24,7 +24,7 @@ export const ArrayFieldTemplate: React.FC<
     "items" | "onAddClick" | "disabled" | "readonly"
   >
 > = ({ disabled, items, onAddClick, readonly }) => {
-  const isDisabled = Boolean(readonly || disabled);
+  const isDisabled = readonly || disabled;
   const columns = useMemo(() => getColumns(), []);
   const table = useLeafyGreenTable<ArrayItem>({
     columns,
@@ -93,7 +93,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
     {buttonsProps.hasRemove && (
       <Button
         data-testid="delete-permission-button"
-        disabled={Boolean(disabled || readonly)}
+        disabled={disabled || readonly}
         leftGlyph={<Icon glyph="Trash" />}
         onClick={buttonsProps.onRemoveItem}
         size={ButtonSize.Small}

@@ -16,8 +16,17 @@ import {
 import { GetFormSchema, SpruceFormProps, ValidateProps } from "./types";
 import widgets from "./Widgets";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SpruceFormRef = Form<any>;
+export type SpruceFormRef = InstanceType<typeof Form>;
+
+const templates: SpruceFormProps["templates"] = {
+  ArrayFieldItemTemplate,
+  ArrayFieldTemplate,
+  DescriptionFieldTemplate: DescriptionField,
+  ErrorListTemplate: ErrorList,
+  FieldTemplate: DefaultFieldTemplate,
+  ObjectFieldTemplate,
+  TitleFieldTemplate: TitleField,
+};
 
 export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
   (
@@ -43,15 +52,6 @@ export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
         }),
       [customFormatFields?.jiraHost],
     );
-    const templates = {
-      ArrayFieldItemTemplate,
-      ArrayFieldTemplate,
-      DescriptionFieldTemplate: DescriptionField,
-      ErrorListTemplate: ErrorList,
-      FieldTemplate: DefaultFieldTemplate,
-      ObjectFieldTemplate,
-      TitleFieldTemplate: TitleField,
-    };
 
     return (
       <Form

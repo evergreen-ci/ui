@@ -178,7 +178,7 @@ const ReplaceAppCredentialsButton: React.FC<{
       </ConfirmationModal>
       <Button
         data-testid="replace-app-credentials-button"
-        disabled={Boolean(disabled)}
+        disabled={disabled}
         onClick={() => setOpen(true)}
       >
         Replace key
@@ -207,7 +207,7 @@ const GithubAppActions: Field = ({ disabled, uiSchema }) => {
 
   return isAppDefined ? (
     <ReplaceAppCredentialsButton
-      disabled={Boolean(disabled)}
+      disabled={disabled ?? false}
       githubPermissionGroupByRequester={githubPermissionGroupByRequester}
       isRepo={isRepo}
       projectId={projectOrRepoId}
