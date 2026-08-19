@@ -6,6 +6,7 @@ playwright/.auth/
 
 # artifacts
 /src/**/*.css
+!/src/**/*.module.css
 
 # misc
 .DS_Store
