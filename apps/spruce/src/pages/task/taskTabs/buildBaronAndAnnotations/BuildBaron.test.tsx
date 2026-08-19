@@ -13,10 +13,6 @@ import {
   BuildBaronCreateTicketMutationVariables,
   BuildBaronQuery,
   BuildBaronQueryVariables,
-  CreatedTicketsQuery,
-  CreatedTicketsQueryVariables,
-  CustomCreatedIssuesQuery,
-  CustomCreatedIssuesQueryVariables,
   SuspectedIssuesQuery,
   SuspectedIssuesQueryVariables,
 } from "gql/generated/types";
@@ -26,14 +22,9 @@ import {
 } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { FILE_JIRA_TICKET } from "gql/mutations";
-import {
-  BUILD_BARON,
-  CREATED_TICKETS,
-  JIRA_CUSTOM_CREATED_ISSUES,
-  JIRA_ISSUES,
-  JIRA_SUSPECTED_ISSUES,
-} from "gql/queries";
+import { BUILD_BARON, JIRA_ISSUES, JIRA_SUSPECTED_ISSUES } from "gql/queries";
 import { MockedProvider } from "test_utils/graphql";
+import BuildBaron from "./BuildBaron";
 import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
@@ -80,6 +71,7 @@ describe("buildBaronContent", () => {
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
+          bbTicketCreationDefined
           execution={execution}
           projectId={projectId}
           suggestions={buildBaronQuery.task?.buildBaronSuggestions}
@@ -101,12 +93,12 @@ describe("buildBaronContent", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks}>
-        <BuildBaronContent
+        <BuildBaron
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
+          bbTicketCreationDefined
           execution={execution}
           projectId={projectId}
-          suggestions={buildBaronQuery.task?.buildBaronSuggestions}
           taskId={taskId}
           userCanModify
         />
@@ -115,6 +107,9 @@ describe("buildBaronContent", () => {
     render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
+    });
+    await waitFor(() => {
+      expect(screen.getByTestId("file-ticket-button")).toBeVisible();
     });
     await user.click(screen.getByTestId("file-ticket-button"));
     await waitFor(() => {
@@ -135,6 +130,7 @@ describe("buildBaronContent", () => {
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
+          bbTicketCreationDefined
           execution={execution}
           projectId={projectId}
           suggestions={buildBaronQuery.task?.buildBaronSuggestions}
@@ -158,17 +154,17 @@ describe("buildBaronContent", () => {
       "Resolved",
     );
     expect(screen.queryByTestId("EVG-12345-metadata")).toHaveTextContent(
-      "Created: 09/23/2020Updated: 09/23/2020Unassigned",
+      "Unassigned",
     );
 
     expect(screen.queryByTestId("EVG-12346-badge")).toHaveTextContent("Closed");
     expect(screen.queryByTestId("EVG-12346-metadata")).toHaveTextContent(
-      "Created: 09/18/2020Updated: 09/18/2020Assignee: Some Name",
+      "Assignee: Some Name",
     );
 
     expect(screen.queryByTestId("EVG-12347-badge")).toHaveTextContent("Open");
     expect(screen.queryByTestId("EVG-12347-metadata")).toHaveTextContent(
-      "Created: 09/18/2020Updated: 09/18/2020Assignee: Backlog - Evergreen Team",
+      "Assignee: Backlog - Evergreen Team",
     );
   });
 
@@ -176,12 +172,12 @@ describe("buildBaronContent", () => {
     seedProjectSettings({ ticketCreateProject: "" });
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks}>
-        <BuildBaronContent
+        <BuildBaron
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
+          bbTicketCreationDefined={false}
           execution={execution}
           projectId={projectId}
-          suggestions={null}
           taskId={taskId}
           userCanModify
         />
@@ -203,6 +199,25 @@ const buildBaronQuery: BuildBaronQuery = {
     __typename: "Task",
     id: taskId,
     execution,
+    buildBaronCreatedTickets: [
+      {
+        __typename: "JiraTicket",
+        key: "EVG-1000",
+        fields: {
+          __typename: "TicketFields",
+          summary: "This ticket was created from this task",
+          assigneeDisplayName: null,
+          resolutionName: null,
+          created: "2020-09-23T15:31:33.000+0000",
+          updated: "2020-09-23T15:33:02.000+0000",
+          status: {
+            __typename: "JiraStatus",
+            id: "1",
+            name: "Open",
+          },
+        },
+      },
+    ],
     buildBaronSuggestions: {
       __typename: "SearchReturnInfo",
       search: "test search string",
@@ -270,12 +285,41 @@ const getBuildBaronMock: ApolloMock<BuildBaronQuery, BuildBaronQueryVariables> =
       variables: {
         taskId,
         execution,
+        includeAnnotationCreatedIssues: false,
+        includeCreatedTickets: true,
       },
     },
     result: {
       data: buildBaronQuery,
     },
   };
+
+const getCustomBuildBaronMock: ApolloMock<
+  BuildBaronQuery,
+  BuildBaronQueryVariables
+> = {
+  request: {
+    query: BUILD_BARON,
+    variables: {
+      taskId,
+      execution,
+      includeAnnotationCreatedIssues: true,
+      includeCreatedTickets: false,
+    },
+  },
+  result: {
+    data: {
+      task: {
+        ...buildBaronQuery.task!,
+        annotation: {
+          __typename: "Annotation",
+          id: "annotation",
+          createdIssues: [],
+        },
+      },
+    },
+  },
+};
 
 const fileJiraTicketMock: ApolloMock<
   BuildBaronCreateTicketMutation,
@@ -294,69 +338,6 @@ const fileJiraTicketMock: ApolloMock<
     },
   },
 };
-const getJiraTicketsMock: ApolloMock<
-  CreatedTicketsQuery,
-  CreatedTicketsQueryVariables
-> = {
-  request: {
-    query: CREATED_TICKETS,
-    variables: {
-      taskId,
-      execution,
-    },
-  },
-  result: {
-    data: {
-      task: {
-        __typename: "Task",
-        id: taskId,
-        execution,
-        buildBaronCreatedTickets: [
-          {
-            __typename: "JiraTicket",
-            key: "EVG-1000",
-            fields: {
-              __typename: "TicketFields",
-              summary: "This ticket was created from this task",
-              assigneeDisplayName: null,
-              resolutionName: null,
-              created: "2020-09-23T15:31:33.000+0000",
-              updated: "2020-09-23T15:33:02.000+0000",
-              status: {
-                __typename: "JiraStatus",
-                id: "1",
-                name: "Open",
-              },
-            },
-          },
-        ],
-      },
-    },
-  },
-};
-
-const customCreatedIssuesMock: ApolloMock<
-  CustomCreatedIssuesQuery,
-  CustomCreatedIssuesQueryVariables
-> = {
-  request: {
-    query: JIRA_CUSTOM_CREATED_ISSUES,
-    variables: {
-      taskId,
-      execution,
-    },
-  },
-  result: {
-    data: {
-      task: {
-        id: taskId,
-        execution,
-        annotation: null,
-      },
-    },
-  },
-};
-
 const suspectedIssueMock: ApolloMock<
   SuspectedIssuesQuery,
   SuspectedIssuesQueryVariables
@@ -402,10 +383,12 @@ const jiraIssuesMock: ApolloMock<
 };
 
 const buildBaronMocks = [
-  customCreatedIssuesMock,
   fileJiraTicketMock,
   getBuildBaronMock,
-  getJiraTicketsMock,
+  {
+    ...getCustomBuildBaronMock,
+    maxUsageCount: Number.POSITIVE_INFINITY,
+  },
   getSpruceConfigMock,
   getUserSettingsMock,
   getUserMock,

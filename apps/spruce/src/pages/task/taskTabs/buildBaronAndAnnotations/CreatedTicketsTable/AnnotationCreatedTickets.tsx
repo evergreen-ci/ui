@@ -5,24 +5,20 @@ import AnnotationTicketRow from "../AnnotationTicketsList/AnnotationTicketRow";
 import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
 
-interface CustomCreatedTicketProps {
+interface AnnotationCreatedTicketProps {
   taskId: string;
   execution: number;
   tickets: IssueLink[];
 }
 
-const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
+const AnnotationCreatedTickets: React.FC<AnnotationCreatedTicketProps> = ({
   execution,
   taskId,
   tickets,
 }) => (
   <>
     <TicketsTitle>Create a New Ticket</TicketsTitle>
-    <FileTicketButton
-      execution={execution}
-      refetchQuery="CustomCreatedIssues"
-      taskId={taskId}
-    />
+    <FileTicketButton execution={execution} taskId={taskId} />
     {!!tickets?.length && (
       <>
         <TicketsTitle margin>Tickets Created From This Task</TicketsTitle>
@@ -52,4 +48,4 @@ const TicketContainer = styled.div`
   gap: ${size.s};
 `;
 
-export default CustomCreatedTickets;
+export default AnnotationCreatedTickets;

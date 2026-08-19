@@ -10,7 +10,6 @@ export { BUILD_VARIANT_STATS as BUILD_VARIANTS_STATS } from "./build-variant-sta
 export { BUILD_VARIANTS_WITH_CHILDREN } from "./build-variants-with-children";
 export { CLIENT_CONFIG } from "./client-config";
 export { CODE_CHANGES } from "./code-changes";
-export { CREATED_TICKETS } from "./created-tickets";
 export { DISTRO } from "./distro";
 export { DISTRO_EVENTS } from "./distro-events";
 export { DISTRO_TASK_QUEUE } from "./distro-task-queue";
@@ -30,7 +29,6 @@ export { IMAGE_PACKAGES } from "./image-packages";
 export { IMAGE_TOOLCHAINS } from "./image-toolchains";
 export { IMAGES } from "./images";
 export { INSTANCE_TYPES } from "./instance-types";
-export { JIRA_CUSTOM_CREATED_ISSUES } from "./jira-custom-created-issues";
 export { JIRA_ISSUES } from "./jira-issues";
 export { JIRA_SUSPECTED_ISSUES } from "./jira-suspected-issues";
 export { MAINLINE_COMMITS_FOR_HISTORY } from "./mainline-commits-for-history";

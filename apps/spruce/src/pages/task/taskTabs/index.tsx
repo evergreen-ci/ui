@@ -71,11 +71,12 @@ const useTabConfig = (
   const { fileCount } = files ?? {};
   const { id: projectId, identifier: projectIdentifier } = project || {};
   const isFailedTask = isFailedTaskStatus(displayStatus);
-  const { buildBaronConfigured } = useProjectBuildBaronSettings({
-    projectId,
-    projectIdentifier,
-    shouldFetch: isFailedTask,
-  });
+  const { bbTicketCreationDefined, buildBaronConfigured } =
+    useProjectBuildBaronSettings({
+      projectId,
+      projectIdentifier,
+      shouldFetch: isFailedTask,
+    });
   const showBuildBaron =
     isFailedTask &&
     (buildBaronConfigured || !!annotation || canModifyAnnotation);
@@ -167,6 +168,7 @@ const useTabConfig = (
         <BuildBaron
           /* @ts-expect-error: FIXME. This comment was added by an automated script. */
           annotation={annotation}
+          bbTicketCreationDefined={bbTicketCreationDefined}
           execution={execution}
           projectId={projectId}
           taskId={id}

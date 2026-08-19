@@ -24,11 +24,7 @@ const BBCreatedTickets: React.FC<CreatedTicketsProps> = ({
       {buildBaronConfigured && (
         <>
           <TicketsTitle>Create a New Ticket</TicketsTitle>
-          <FileTicketButton
-            execution={execution}
-            refetchQuery="CreatedTickets"
-            taskId={taskId}
-          />
+          <FileTicketButton execution={execution} taskId={taskId} />
         </>
       )}
       {tickets?.length > 0 && (

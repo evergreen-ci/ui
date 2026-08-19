@@ -1,12 +1,14 @@
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { getJiraSearchUrl } from "constants/externalResources";
+import { BuildBaronQuery } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { TicketsTitle } from "../BBComponents";
 import JiraTicketList from "../JiraTicketList";
-import { BuildBaronSuggestions } from "../types";
 
 interface JiraIssueTableProps {
-  suggestions: NonNullable<BuildBaronSuggestions>;
+  suggestions: NonNullable<
+    NonNullable<BuildBaronQuery["task"]>["buildBaronSuggestions"]
+  >;
 }
 const JiraIssueTable: React.FC<JiraIssueTableProps> = ({ suggestions }) => {
   const spruceConfig = useSpruceConfig();
