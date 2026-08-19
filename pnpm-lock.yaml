@@ -176,8 +176,8 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/tokens':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.3.1
+        version: 0.3.1
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -369,8 +369,8 @@ importers:
         specifier: 0.0.2-canary.0
         version: 0.0.2-canary.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.3.1
+        version: 0.3.1
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -634,8 +634,8 @@ importers:
         specifier: 0.8.1
         version: 0.8.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.3.1
+        version: 0.3.1
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -1060,8 +1060,8 @@ importers:
         specifier: ^16.3.0
         version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.3.1
+        version: 0.3.1
       chromatic:
         specifier: ^16.0.0
         version: 16.0.0
