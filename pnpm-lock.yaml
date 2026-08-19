@@ -1192,8 +1192,8 @@ importers:
         specifier: 0.8.1
         version: 0.8.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.3.1
+        version: 0.3.1
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -5546,9 +5546,6 @@ packages:
 
   '@via-ds/tokens@0.0.1-canary.0':
     resolution: {integrity: sha512-bpuCmfpJZ6Jqev35ECRhSuvg7nMOgjcVBkgf8qsFogHkdB2aOPlTSXSkP55WOPeMa2YNsbv932ETzmH8SDCBPg==}
-
-  '@via-ds/tokens@0.3.0':
-    resolution: {integrity: sha512-7npXRYQE8lP8krY4Mtx0v7MxawVjPVDBZSSNS62sHkH+5C6jBO5EGvOmD6ZaUcTqjyr2itRNNF5H/HcGCy0cEw==}
 
   '@via-ds/tokens@0.3.1':
     resolution: {integrity: sha512-8RFKgcFH+6zBxtAXeb4PJ6Gh2tFychsauV7mywJiDAVs3Wr7v6+IFgj+kxY4VQ8wWWlEMkX/tdUM/uhWUadioA==}
@@ -15119,11 +15116,6 @@ snapshots:
       - react-dom
 
   '@via-ds/tokens@0.0.1-canary.0':
-    dependencies:
-      '@types/lodash-es': 4.17.12
-      lodash-es: 4.17.22
-
-  '@via-ds/tokens@0.3.0':
     dependencies:
       '@types/lodash-es': 4.17.12
       lodash-es: 4.17.22
