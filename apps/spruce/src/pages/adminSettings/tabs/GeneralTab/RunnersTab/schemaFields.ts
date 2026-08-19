@@ -100,7 +100,6 @@ export const taskLimits = {
       "ui:description":
         "Overrides Max Hourly Patch Tasks Per User for one branch project or repo. These limits are separate from a user's default scheduling limits.",
       "ui:addButtonText": "Add override",
-      "ui:data-testid": "hourly-patch-task-overrides-list",
       "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,

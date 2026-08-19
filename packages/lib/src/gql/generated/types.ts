@@ -4351,7 +4351,7 @@ export type TaskInfo = {
 
 export type TaskLimitsConfig = {
   __typename?: "TaskLimitsConfig";
-  hourlyPatchTaskOverrides?: Maybe<Array<HourlyPatchTaskOverride>>;
+  hourlyPatchTaskOverrides: Array<HourlyPatchTaskOverride>;
   maxConcurrentLargeParserProjectTasks?: Maybe<Scalars["Int"]["output"]>;
   maxDailyAutomaticRestarts?: Maybe<Scalars["Int"]["output"]>;
   maxDegradedModeConcurrentLargeParserProjectTasks?: Maybe<

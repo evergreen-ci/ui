@@ -4349,7 +4349,7 @@ export type TaskInfo = {
 
 export type TaskLimitsConfig = {
   __typename?: "TaskLimitsConfig";
-  hourlyPatchTaskOverrides?: Maybe<Array<HourlyPatchTaskOverride>>;
+  hourlyPatchTaskOverrides: Array<HourlyPatchTaskOverride>;
   maxConcurrentLargeParserProjectTasks?: Maybe<Scalars["Int"]["output"]>;
   maxDailyAutomaticRestarts?: Maybe<Scalars["Int"]["output"]>;
   maxDegradedModeConcurrentLargeParserProjectTasks?: Maybe<
@@ -7205,11 +7205,11 @@ export type SaveAdminSettingsMutation = {
       maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
-      hourlyPatchTaskOverrides?: Array<{
+      hourlyPatchTaskOverrides: Array<{
         __typename?: "HourlyPatchTaskOverride";
         maxHourlyPatchTasks?: number | null;
         projectOrRepoId?: string | null;
-      }> | null;
+      }>;
     } | null;
     ui?: {
       __typename?: "UIConfig";
@@ -8053,11 +8053,11 @@ export type AdminSettingsQuery = {
       maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
-      hourlyPatchTaskOverrides?: Array<{
+      hourlyPatchTaskOverrides: Array<{
         __typename?: "HourlyPatchTaskOverride";
         maxHourlyPatchTasks?: number | null;
         projectOrRepoId?: string | null;
-      }> | null;
+      }>;
     } | null;
     testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
     tracer?: {
