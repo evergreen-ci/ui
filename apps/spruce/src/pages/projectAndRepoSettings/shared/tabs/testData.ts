@@ -80,6 +80,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     testSelection: {
       allowed: null,
       defaultEnabled: null,
+      mainlineDefaultEnabled: null,
     },
     buildBaronSettings: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -259,6 +260,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     testSelection: {
       allowed: true,
       defaultEnabled: true,
+      mainlineDefaultEnabled: true,
     },
     buildBaronSettings: {
       ticketCreateProject: "EVG",

