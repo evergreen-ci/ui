@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -9,10 +8,10 @@ import {
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
 import { Description } from "@leafygreen-ui/typography";
-import { size } from "../../../../constants/tokens";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
 import { DEFAULT_SPACING, FilterWrapper } from "../constants";
+import styles from "./index.module.css";
 
 const { blue, gray } = palette;
 
@@ -79,7 +78,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
           ref={popoverRef}
           data-testid={`${dataTestId}-wrapper`}
         >
-          <InputContainer>
+          <div className={styles.inputContainer}>
             <Description>Press enter to filter.</Description>
             <SearchInput
               ref={(el) => setInputRef(el)}
@@ -91,7 +90,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
               size={SearchInputSize.Small}
               value={input}
             />
-          </InputContainer>
+          </div>
         </PopoverContainer>
       </Popover>
     </FilterWrapper>
@@ -99,13 +98,3 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
 };
 
 export default TableSearchPopover;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-  min-width: 200px;
-  * {
-    box-sizing: content-box;
-  }
-`;

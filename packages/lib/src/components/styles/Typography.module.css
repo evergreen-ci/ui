@@ -1,0 +1,12 @@
+.wordBreak {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.breakAll {
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}

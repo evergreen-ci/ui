@@ -85,6 +85,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
           filteredCount={count}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           limit={limit}
+          loading={loading}
           onClear={clearQueryParams}
           onPageSizeChange={(l) => {
             versionAnalytics.sendEvent({

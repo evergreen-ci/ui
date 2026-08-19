@@ -1,0 +1,31 @@
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+
+.cell.cell {
+  padding-top: var(--via-space-100);
+  padding-bottom: var(--via-space-100);
+}
+
+/* Force the nested div wrapping the cell content to take up full width. */
+.cell.cell > div > div > div {
+  width: 100%;
+}
+
+.selectedRow.selectedRow {
+  background-color: var(--via-color-blue-100) !important;
+  font-weight: bold;
+}
+
+.emptyMessage {
+  margin-top: var(--via-space-400);
+  margin-left: var(--via-space-800);
+}
+
+.expandedContent.expandedContent > td {
+  padding: var(--via-space-200) 0;
+  background-color: var(--via-color-neutral-100);
+}
+
+.pagination.pagination {
+  margin-top: var(--via-space-200);
+}

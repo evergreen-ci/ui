@@ -413,6 +413,7 @@ export const ADMIN_SETTINGS = gql`
         maxScheduledTasksPerDistro
         maxTaskExecution
         maxTasksPerVersion
+        taskQueueAutoUnscheduleThreshold
       }
       testSelection {
         url

@@ -72,6 +72,10 @@ export const taskLimits = {
       type: "number" as const,
       title: "Max Scheduled Tasks Per Distro",
     },
+    taskQueueAutoUnscheduleThreshold: {
+      type: "number" as const,
+      title: "Task Queue Auto Unschedule Threshold (num tasks)",
+    },
     hourlyPatchTaskOverrides: {
       type: "array" as const,
       title: "Hourly Patch Task Limit Overrides",
@@ -95,6 +99,10 @@ export const taskLimits = {
     maxScheduledTasksPerDistro: {
       "ui:description":
         "Maximum number of tasks the scheduler materializes into a single distro's task queue per pass. 0 means no limit.",
+    },
+    taskQueueAutoUnscheduleThreshold: {
+      "ui:description":
+        "The maximum number of tasks allowed in distro task queues. The scheduler will unschedule all CLI patch tasks beyond this limit. Set well above Max Scheduled Tasks Per Distro, since it unschedules real work. 0 disables auto unscheduling.",
     },
     hourlyPatchTaskOverrides: {
       "ui:description":

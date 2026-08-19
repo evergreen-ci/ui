@@ -72,6 +72,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     maxScheduledTasksPerDistro: 1,
     maxTaskExecution: 1,
     maxTasksPerVersion: 1,
+    taskQueueAutoUnscheduleThreshold: 1,
   },
   amboy: {
     name: "amboy",

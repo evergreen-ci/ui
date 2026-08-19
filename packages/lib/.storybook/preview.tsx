@@ -1,8 +1,8 @@
-import { Global, css } from "@emotion/react";
 import { Decorator, Preview } from "@storybook/react-vite";
+import "@via-ds/tokens/tokens.css";
 import { bodyStyles, fontStyles, resetStyles } from "components/styles";
 
-export const globalStyles = css`
+export const globalStyles = `
   ${resetStyles}
   ${fontStyles}
   body {
@@ -13,7 +13,7 @@ export const globalStyles = css`
 export const decorators: Decorator[] = [
   (Story: () => JSX.Element) => (
     <>
-      <Global styles={globalStyles} />
+      <style>{globalStyles}</style>
       <Story />
     </>
   ),

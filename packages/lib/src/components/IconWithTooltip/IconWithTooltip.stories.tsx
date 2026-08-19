@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Size, glyphs } from "components/Icon";
-import { size } from "constants/tokens";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
+import styles from "./IconWithTooltip.stories.module.css";
 import IconWithTooltip from ".";
 
 const { green } = palette;
@@ -37,38 +36,15 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
     children: "Tooltip Text",
   },
   render: ({ children, ...rest }) => (
-    <Container>
+    <div className={styles.container}>
       {Object.keys(glyphs).map((name) => (
-        <IconContainer key={name}>
+        <div key={name} className={styles.iconContainer}>
           <IconWithTooltip {...rest} glyph={name}>
             {children}
           </IconWithTooltip>
           <span>{name}</span>
-        </IconContainer>
+        </div>
       ))}
-    </Container>
+    </div>
   ),
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const IconContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  gap: ${size.xxs};
-
-  width: 150px;
-  height: 70px;
-
-  border: 1px solid #babdbe;
-  border-radius: ${size.xxs};
-  margin: 0.5rem;
-
-  text-align: center;
-`;

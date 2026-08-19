@@ -9,6 +9,7 @@
     "vitest.d.ts"
   ],
   "compilerOptions": {
+    "jsxImportSource": "react",
     "paths": {
       "*": ["./src/*"]
     }

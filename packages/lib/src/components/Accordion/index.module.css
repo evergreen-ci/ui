@@ -1,0 +1,50 @@
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.toggle:hover {
+  cursor: pointer;
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.icon.icon {
+  flex-shrink: 0;
+  transform: unset;
+  transition-property: transform;
+  transition-duration: 150ms; /* transitionDuration.default */
+}
+
+.icon.iconOpen {
+  transform: rotate(90deg);
+}
+
+.collapseContainer {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.collapseContainerHidden {
+  grid-template-rows: 0fr;
+}
+
+.collapseContainerAnimated {
+  transition: grid-template-rows 150ms ease; /* transitionDuration.default */
+}
+
+.contents {
+  overflow: hidden;
+}
+
+.contentsIndented {
+  margin-left: 26px;
+
+  /* Handle input focus borders which get cut off due to overflow: hidden */
+  padding: 0 var(--via-space-100);
+}
+
+.subtitle {
+  margin-left: 30px;
+}

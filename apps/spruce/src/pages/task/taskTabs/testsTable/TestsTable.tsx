@@ -184,6 +184,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
           filteredCount={filteredTestCount}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           limit={limitNum}
+          loading={loading}
           onClear={clearQueryParams}
           onPageSizeChange={() => {
             sendEvent({ name: "Changed page size" });

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Button } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
@@ -8,6 +8,7 @@ import {
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { getTaskRoute } from "constants/routes";
 import { TaskBuildVariantField } from "pages/version/Tabs/TestAnalysis/types";
 import { TaskTab } from "types/task";
@@ -65,15 +66,14 @@ const getColumns = (): LGColumnDef<TaskBuildVariantField>[] => [
   {
     header: "Logs",
     meta: { width: "10%" },
-    cell: ({ row }) => (
-      <Button
-        data-testid="failed-test-group-parsley-btn"
-        href={row.original.logs.urlParsley}
-        size="xsmall"
-      >
-        Parsley
-      </Button>
-    ),
+    cell: ({ row }) => {
+      const { urlParsley } = row.original.logs;
+      return isValidHttpUrl(urlParsley) ? (
+        <Button href={urlParsley} size={ButtonSize.XSmall}>
+          Parsley
+        </Button>
+      ) : null;
+    },
   },
 ];
 
