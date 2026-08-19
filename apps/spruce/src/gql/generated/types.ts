@@ -1507,6 +1507,17 @@ export type HostsResponse = {
   totalHostsCount: Scalars["Int"]["output"];
 };
 
+export type HourlyPatchTaskOverride = {
+  __typename?: "HourlyPatchTaskOverride";
+  maxHourlyPatchTasks?: Maybe<Scalars["Int"]["output"]>;
+  projectOrRepoId?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type HourlyPatchTaskOverrideInput = {
+  maxHourlyPatchTasks: Scalars["Int"]["input"];
+  projectOrRepoId: Scalars["String"]["input"];
+};
+
 export type IceCreamSettings = {
   __typename?: "IceCreamSettings";
   configPath: Scalars["String"]["output"];
@@ -4339,6 +4350,7 @@ export type TaskInfo = {
 
 export type TaskLimitsConfig = {
   __typename?: "TaskLimitsConfig";
+  hourlyPatchTaskOverrides: Array<HourlyPatchTaskOverride>;
   maxConcurrentLargeParserProjectTasks?: Maybe<Scalars["Int"]["output"]>;
   maxDailyAutomaticRestarts?: Maybe<Scalars["Int"]["output"]>;
   maxDegradedModeConcurrentLargeParserProjectTasks?: Maybe<
@@ -4354,9 +4366,11 @@ export type TaskLimitsConfig = {
   maxScheduledTasksPerDistro?: Maybe<Scalars["Int"]["output"]>;
   maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
   maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
+  taskQueueAutoUnscheduleThreshold?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type TaskLimitsConfigInput = {
+  hourlyPatchTaskOverrides?: InputMaybe<Array<HourlyPatchTaskOverrideInput>>;
   maxConcurrentLargeParserProjectTasks: Scalars["Int"]["input"];
   maxDailyAutomaticRestarts: Scalars["Int"]["input"];
   maxDegradedModeConcurrentLargeParserProjectTasks: Scalars["Int"]["input"];
@@ -4370,6 +4384,7 @@ export type TaskLimitsConfigInput = {
   maxScheduledTasksPerDistro: Scalars["Int"]["input"];
   maxTaskExecution: Scalars["Int"]["input"];
   maxTasksPerVersion: Scalars["Int"]["input"];
+  taskQueueAutoUnscheduleThreshold?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type TaskLogLinks = {
@@ -7200,6 +7215,12 @@ export type SaveAdminSettingsMutation = {
       maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+      taskQueueAutoUnscheduleThreshold?: number | null;
+      hourlyPatchTaskOverrides: Array<{
+        __typename?: "HourlyPatchTaskOverride";
+        maxHourlyPatchTasks?: number | null;
+        projectOrRepoId?: string | null;
+      }>;
     } | null;
     ui?: {
       __typename?: "UIConfig";
@@ -8043,6 +8064,12 @@ export type AdminSettingsQuery = {
       maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+      taskQueueAutoUnscheduleThreshold?: number | null;
+      hourlyPatchTaskOverrides: Array<{
+        __typename?: "HourlyPatchTaskOverride";
+        maxHourlyPatchTasks?: number | null;
+        projectOrRepoId?: string | null;
+      }>;
     } | null;
     testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
     tracer?: {

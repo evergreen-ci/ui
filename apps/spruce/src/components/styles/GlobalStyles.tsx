@@ -1,4 +1,5 @@
 import { Global, css } from "@emotion/react";
+import "@via-ds/tokens/tokens.css";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import {
   bodyStyles,

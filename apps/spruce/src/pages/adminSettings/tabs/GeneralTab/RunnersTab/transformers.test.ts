@@ -39,6 +39,11 @@ const form: RunnersFormState = {
       maxTaskExecution: 1,
       maxDailyAutomaticRestarts: 1,
       maxScheduledTasksPerDistro: 1,
+      taskQueueAutoUnscheduleThreshold: 1,
+      hourlyPatchTaskOverrides: [
+        { projectOrRepoId: "boosted_project", maxHourlyPatchTasks: 40 },
+        { projectOrRepoId: "boosted_repo", maxHourlyPatchTasks: 30 },
+      ],
     },
     hostInit: {
       hostThrottle: 1,
@@ -100,6 +105,11 @@ const gql: AdminSettingsInput = {
     maxTaskExecution: 1,
     maxDailyAutomaticRestarts: 1,
     maxScheduledTasksPerDistro: 1,
+    taskQueueAutoUnscheduleThreshold: 1,
+    hourlyPatchTaskOverrides: [
+      { projectOrRepoId: "boosted_project", maxHourlyPatchTasks: 40 },
+      { projectOrRepoId: "boosted_repo", maxHourlyPatchTasks: 30 },
+    ],
   },
   hostInit: {
     hostThrottle: 1,

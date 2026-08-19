@@ -1,0 +1,4 @@
+.iconContainer {
+  cursor: pointer;
+  padding-left: var(--via-space-100);
+}

@@ -17,7 +17,7 @@ const ManifestBlob: React.FC<Props> = ({ manifest }) => {
       <StyledLink
         data-testid="manifest-link"
         href={URL.createObjectURL(blob)}
-        target="__blank"
+        target="_blank"
       >
         Version Manifest
       </StyledLink>

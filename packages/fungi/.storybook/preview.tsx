@@ -1,4 +1,5 @@
 import { Global, css } from "@emotion/react";
+import "@via-ds/tokens/tokens.css";
 import { Decorator, Preview } from "@storybook/react-vite";
 import { bodyStyles, resetStyles } from "@evg-ui/lib/components/styles";
 

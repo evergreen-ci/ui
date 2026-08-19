@@ -4,6 +4,17 @@ packages:
 # Supply-chain cooldown: wait 3 days (value is in minutes) after a version is
 # published before installing it, so compromised releases can be caught/yanked first.
 minimumReleaseAge: 4320
+# Fix from DEVPROD-41675. A regression in @opentelemetry/instrumentation-user-interaction
+# 0.65.0 was crashing the Honeycomb SDK on startup in Spruce and Parsley, silently
+# disabling all telemetry.
+# We don't depend on this package directly, it's pulled in transitively by
+# @opentelemetry/auto-instrumentations-web. Only version 0.65.0 itself is broken;
+# already fixed upstream, not yet released:
+# https://github.com/open-telemetry/opentelemetry-js-contrib/issues/3639#issuecomment-5180625704
+# Should be removed once the fix is released and we can verify in pnpm.lock that
+# we're using the fixed version.
+overrides:
+  '@opentelemetry/instrumentation-user-interaction': '<0.65.0 || >0.65.0'
 allowBuilds:
   '@sentry/cli': false
   core-js-pure: false
