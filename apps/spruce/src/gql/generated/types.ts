@@ -3525,6 +3525,7 @@ export type RepoTestSelectionSettings = {
   __typename?: "RepoTestSelectionSettings";
   allowed: Scalars["Boolean"]["output"];
   defaultEnabled: Scalars["Boolean"]["output"];
+  mainlineDefaultEnabled: Scalars["Boolean"]["output"];
 };
 
 export type RepoWorkstationConfig = {
@@ -4353,6 +4354,7 @@ export type TaskLimitsConfig = {
   maxScheduledTasksPerDistro?: Maybe<Scalars["Int"]["output"]>;
   maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
   maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
+  taskQueueAutoUnscheduleThreshold?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type TaskLimitsConfigInput = {
@@ -4369,6 +4371,7 @@ export type TaskLimitsConfigInput = {
   maxScheduledTasksPerDistro: Scalars["Int"]["input"];
   maxTaskExecution: Scalars["Int"]["input"];
   maxTasksPerVersion: Scalars["Int"]["input"];
+  taskQueueAutoUnscheduleThreshold?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type TaskLogLinks = {
@@ -4590,11 +4593,13 @@ export type TestSelectionSettings = {
   __typename?: "TestSelectionSettings";
   allowed?: Maybe<Scalars["Boolean"]["output"]>;
   defaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  mainlineDefaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TestSelectionSettingsInput = {
   allowed?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  mainlineDefaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum TestSortCategory {
@@ -5726,6 +5731,7 @@ export type ProjectSettingsFieldsFragment = {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
+      mainlineDefaultEnabled?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -5934,6 +5940,7 @@ export type RepoSettingsFieldsFragment = {
       __typename?: "RepoTestSelectionSettings";
       allowed: boolean;
       defaultEnabled: boolean;
+      mainlineDefaultEnabled: boolean;
     } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -6339,6 +6346,7 @@ export type ProjectEventSettingsFragment = {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
+      mainlineDefaultEnabled?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6485,6 +6493,7 @@ export type ProjectTestSelectionSettingsFragment = {
     __typename?: "TestSelectionSettings";
     allowed?: boolean | null;
     defaultEnabled?: boolean | null;
+    mainlineDefaultEnabled?: boolean | null;
   } | null;
 };
 
@@ -6495,6 +6504,7 @@ export type RepoTestSelectionSettingsFragment = {
     __typename?: "RepoTestSelectionSettings";
     allowed: boolean;
     defaultEnabled: boolean;
+    mainlineDefaultEnabled: boolean;
   } | null;
 };
 
@@ -7192,6 +7202,7 @@ export type SaveAdminSettingsMutation = {
       maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+      taskQueueAutoUnscheduleThreshold?: number | null;
     } | null;
     ui?: {
       __typename?: "UIConfig";
@@ -8035,6 +8046,7 @@ export type AdminSettingsQuery = {
       maxScheduledTasksPerDistro?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+      taskQueueAutoUnscheduleThreshold?: number | null;
     } | null;
     testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
     tracer?: {
@@ -9423,6 +9435,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
+            mainlineDefaultEnabled?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -9646,6 +9659,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
+            mainlineDefaultEnabled?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -9934,6 +9948,7 @@ export type ProjectSettingsQuery = {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
         defaultEnabled?: boolean | null;
+        mainlineDefaultEnabled?: boolean | null;
       } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -10205,6 +10220,7 @@ export type RepoEventLogsQuery = {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
+            mainlineDefaultEnabled?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10428,6 +10444,7 @@ export type RepoEventLogsQuery = {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
+            mainlineDefaultEnabled?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10656,6 +10673,7 @@ export type RepoSettingsQuery = {
         __typename?: "RepoTestSelectionSettings";
         allowed: boolean;
         defaultEnabled: boolean;
+        mainlineDefaultEnabled: boolean;
       } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";

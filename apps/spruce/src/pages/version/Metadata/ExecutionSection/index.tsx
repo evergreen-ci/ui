@@ -20,6 +20,10 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   const totalCost = isPatch ? patch?.cost?.total : cost?.total;
   const hasCost = totalCost != null && totalCost > 0;
 
+  if (!hasCost && !hasParameters) {
+    return null;
+  }
+
   return (
     <MetadataSection title="Execution">
       {hasCost && (
