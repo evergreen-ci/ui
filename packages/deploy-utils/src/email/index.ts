@@ -74,7 +74,6 @@ export const sendEmail = async () => {
 };
 
 const appDisplayNames: Record<DeployableApp, string> = {
-  sage: "Sage UI",
   spruce: "Spruce",
   parsley: "Parsley",
 };
