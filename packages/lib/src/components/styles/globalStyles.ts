@@ -1,6 +1,5 @@
 import { BaseFontSize, fontFamilies } from "@leafygreen-ui/tokens";
 
-// Plain CSS strings so Emotion consumers (Spruce/Parsley) can interpolate them.
 export const resetStyles = `
   /* Reset styles, usage recommended by LeafyGreen. */
   *,

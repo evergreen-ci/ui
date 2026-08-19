@@ -9,13 +9,13 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  gap: var(--via-space-100, 4px);
+  gap: var(--via-space-100);
 
   width: 150px;
   height: 70px;
 
   border: 1px solid #babdbe;
-  border-radius: var(--via-space-100, 4px);
+  border-radius: var(--via-space-100);
   margin: 0.5rem;
 
   text-align: center;

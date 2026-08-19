@@ -426,7 +426,6 @@ export const getFormSchema = ({
               Spawn host in{" "}
               <StyledLink
                 css={css`
-                  /* && outranks the lib link's font override */
                   && {
                     font-weight: bold;
                     text-decoration: underline;

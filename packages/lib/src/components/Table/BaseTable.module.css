@@ -2,8 +2,8 @@
    Remove when this component migrates to Via. */
 
 .cell.cell {
-  padding-top: var(--via-space-100, 4px);
-  padding-bottom: var(--via-space-100, 4px);
+  padding-top: var(--via-space-100);
+  padding-bottom: var(--via-space-100);
 }
 
 /* Force the nested div wrapping the cell content to take up full width. */
@@ -12,20 +12,20 @@
 }
 
 .selectedRow.selectedRow {
-  background-color: var(--via-color-blue-100, #e1f7ff) !important;
+  background-color: var(--via-color-blue-100) !important;
   font-weight: bold;
 }
 
 .emptyMessage {
-  margin-top: var(--via-space-400, 16px);
-  margin-left: var(--via-space-800, 32px);
+  margin-top: var(--via-space-400);
+  margin-left: var(--via-space-800);
 }
 
 .expandedContent.expandedContent > td {
-  padding: var(--via-space-200, 8px) 0;
-  background-color: var(--via-color-neutral-100, #f9fbfa);
+  padding: var(--via-space-200) 0;
+  background-color: var(--via-color-neutral-100);
 }
 
 .pagination.pagination {
-  margin-top: var(--via-space-200, 8px);
+  margin-top: var(--via-space-200);
 }

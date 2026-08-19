@@ -9,7 +9,6 @@
     "vitest.d.ts"
   ],
   "compilerOptions": {
-    // packages/lib is off Emotion (CSS modules); use the plain React JSX runtime.
     "jsxImportSource": "react",
     "paths": {
       "*": ["./src/*"]

@@ -1,5 +1,4 @@
 import { Global, css } from "@emotion/react";
-// Defines the --via-* custom properties that @evg-ui/lib CSS modules consume.
 import "@via-ds/tokens/tokens.css";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import {

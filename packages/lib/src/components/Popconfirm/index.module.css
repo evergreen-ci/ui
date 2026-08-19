@@ -1,7 +1,7 @@
 .contentWrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--via-space-200, 8px);
+  gap: var(--via-space-200);
 
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -13,6 +13,6 @@
 .buttonWrapper {
   display: flex;
   align-self: flex-end;
-  margin-top: var(--via-space-200, 8px);
-  gap: var(--via-space-100, 4px);
+  margin-top: var(--via-space-200);
+  gap: var(--via-space-100);
 }

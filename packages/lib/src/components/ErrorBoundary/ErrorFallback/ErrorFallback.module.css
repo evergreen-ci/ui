@@ -2,12 +2,12 @@
    Remove when this component migrates to Via. */
 .header.header,
 .subtitle.subtitle {
-  color: var(--via-color-neutral-000, #ffffff);
+  color: var(--via-color-neutral-000);
 }
 
 .link {
-  padding-top: var(--via-space-1600, 64px);
-  color: var(--via-color-neutral-000, #ffffff);
+  padding-top: var(--via-space-1600);
+  color: var(--via-color-neutral-000);
   text-decoration: underline;
 }
 

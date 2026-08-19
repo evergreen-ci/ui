@@ -1,4 +1,3 @@
-// Plain CSS string so Emotion consumers (Spruce/Parsley) can interpolate it.
 export const fontStyles = `
   /*
    * Euclid

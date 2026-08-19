@@ -12,10 +12,10 @@
 
 /* Doubled selectors win the import-order tie against Via's own static CSS. */
 .whiteText.whiteText {
-  color: var(--via-color-neutral-000, #ffffff);
+  color: var(--via-color-neutral-000);
 }
 
 .whiteLink.whiteLink {
-  color: var(--via-color-neutral-000, #ffffff);
+  color: var(--via-color-neutral-000);
   text-decoration: underline;
 }

@@ -25,7 +25,6 @@ export const MetadataTitleWithAPILink: React.FC<MetadataTitleWithLinkProps> = ({
     <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
     <StyledLink
       css={css`
-        /* && outranks the lib link's font override */
         && {
           font-size: 12px;
         }

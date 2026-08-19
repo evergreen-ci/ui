@@ -196,7 +196,6 @@ const ChipContainer = styled.div`
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`
-  /* && outranks the lib link's font override */
   && {
     font-size: ${fontSize.l};
     font-weight: 500;

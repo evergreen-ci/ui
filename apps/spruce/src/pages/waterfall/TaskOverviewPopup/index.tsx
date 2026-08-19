@@ -166,7 +166,6 @@ const RouterLink = styled(StyledRouterLink)`
 `;
 
 const TaskPageLink = styled(RouterLink)`
-  /* && outranks the lib link's font override */
   && {
     font-weight: bold;
     font-size: 18px;

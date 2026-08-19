@@ -26,7 +26,6 @@ const IssueLinks: React.FC<{
   );
 
 const AnnotationLink = styled(StyledLink)`
-  /* && outranks the lib link's font override */
   && {
     font-weight: bold;
   }

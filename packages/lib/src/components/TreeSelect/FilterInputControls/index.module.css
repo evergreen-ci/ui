@@ -2,9 +2,9 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
-  margin-top: var(--via-space-800, 32px);
+  margin-top: var(--via-space-800);
 }
 
 .buttonWrapper {
-  margin-right: var(--via-space-200, 8px);
+  margin-right: var(--via-space-200);
 }

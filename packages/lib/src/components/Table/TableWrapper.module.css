@@ -1,4 +1,4 @@
 .tableControlWrapper {
-  padding-top: var(--via-space-200, 8px);
-  margin-bottom: var(--via-space-800, 32px);
+  padding-top: var(--via-space-200);
+  margin-bottom: var(--via-space-800);
 }

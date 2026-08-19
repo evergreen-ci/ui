@@ -1,7 +1,6 @@
 import { cx } from "../../utils/css";
 import styles from "./Typography.module.css";
 
-// Plain CSS string so Emotion consumers (Spruce/Parsley) can interpolate it.
 export const wordBreakCss = `
   overflow-wrap: break-word;
   word-wrap: break-word;

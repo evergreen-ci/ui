@@ -110,7 +110,6 @@ const Container = styled.div`
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
-  /* && outranks the lib link's font override */
   && {
     font-weight: bold;
   }
