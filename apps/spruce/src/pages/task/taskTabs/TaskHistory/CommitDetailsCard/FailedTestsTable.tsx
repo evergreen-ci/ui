@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Pagination } from "@leafygreen-ui/pagination";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
-import Icon from "@evg-ui/lib/components/Icon";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
@@ -17,6 +16,7 @@ import {
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useTaskHistoryAnalytics } from "analytics";
 import { TaskHistoryOptions, TaskHistoryTask } from "../types";
 
@@ -156,28 +156,30 @@ const getColumns = ({
           testFile,
         },
       },
-    }) => (
-      <ButtonContainer>
-        <StyledButton
-          onClick={() => onClickSearchFailure(testFile)}
-          size={ButtonSize.XSmall}
-        >
-          Search Failure
-        </StyledButton>
-        {urlParsley && (
+    }) => {
+      const safeUrlParsley = isValidHttpUrl(urlParsley) ? urlParsley : null;
+      return (
+        <ButtonContainer>
           <StyledButton
-            href={urlParsley}
-            onClick={() => onClickLogs(testFile)}
-            rightGlyph={<Icon glyph="OpenNewTab" />}
+            onClick={() => onClickSearchFailure(testFile)}
             size={ButtonSize.XSmall}
-            target="__blank"
-            title="Parsley logs"
           >
-            Logs
+            Search Failure
           </StyledButton>
-        )}
-      </ButtonContainer>
-    ),
+          {safeUrlParsley && (
+            <StyledButton
+              href={safeUrlParsley}
+              onClick={() => onClickLogs(testFile)}
+              size={ButtonSize.XSmall}
+              target="_blank"
+              title="Parsley logs"
+            >
+              Logs
+            </StyledButton>
+          )}
+        </ButtonContainer>
+      );
+    },
   },
 ];
 

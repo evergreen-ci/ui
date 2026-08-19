@@ -166,8 +166,10 @@ const RouterLink = styled(StyledRouterLink)`
 `;
 
 const TaskPageLink = styled(RouterLink)`
-  font-weight: bold;
-  font-size: 18px;
+  && {
+    font-weight: bold;
+    font-size: 18px;
+  }
   margin-right: ${size.xs};
 `;
 

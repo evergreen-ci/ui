@@ -25,7 +25,9 @@ export const MetadataTitleWithAPILink: React.FC<MetadataTitleWithLinkProps> = ({
     <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
     <StyledLink
       css={css`
-        font-size: 12px;
+        && {
+          font-size: 12px;
+        }
       `}
       hideExternalIcon={false}
       href={href}

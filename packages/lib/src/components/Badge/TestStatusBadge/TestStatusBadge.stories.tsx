@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
-import { size } from "constants/tokens";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { TestStatus } from "types/test";
+import styles from "./TestStatusBadge.stories.module.css";
 import TestStatusBadge from ".";
 
 export default {
@@ -23,16 +22,10 @@ export const Default: CustomStoryObj<typeof TestStatusBadge> = {
 
 export const AllBadges: CustomStoryObj<typeof TestStatusBadge> = {
   render: () => (
-    <Container>
+    <div className={styles.container}>
       {Object.values(TestStatus).map((status) => (
         <TestStatusBadge key={status} status={status} />
       ))}
-    </Container>
+    </div>
   ),
 };
-
-const Container = styled.div`
-  display: flex;
-  gap: ${size.xs};
-  flex-wrap: wrap;
-`;

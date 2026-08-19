@@ -55,6 +55,10 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     translateProjectCacheTTLSeconds: 1,
   },
   taskLimits: {
+    hourlyPatchTaskOverrides: [
+      { projectOrRepoId: "boosted_project", maxHourlyPatchTasks: 40 },
+      { projectOrRepoId: "boosted_repo", maxHourlyPatchTasks: 30 },
+    ],
     maxConcurrentLargeParserProjectTasks: 1,
     maxDailyAutomaticRestarts: 1,
     maxDegradedModeConcurrentLargeParserProjectTasks: 1,
@@ -68,6 +72,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     maxScheduledTasksPerDistro: 1,
     maxTaskExecution: 1,
     maxTasksPerVersion: 1,
+    taskQueueAutoUnscheduleThreshold: 1,
   },
   amboy: {
     name: "amboy",

@@ -416,7 +416,7 @@ export const LeafyGreenRadioBox: React.FC<
           {warnings.join(", ")}
         </StyledBanner>
       )}
-      <RadioBoxGroup
+      <StyledRadioBoxGroup
         data-testid={dataTestId}
         id={id}
         name={label}
@@ -435,7 +435,7 @@ export const LeafyGreenRadioBox: React.FC<
             </StyledRadioBox>
           );
         })}
-      </RadioBoxGroup>
+      </StyledRadioBoxGroup>
     </ElementWrapper>
   );
 };
@@ -450,6 +450,10 @@ const LabelContainer = styled.div`
 
 const StyledRadioBox = styled(RadioBox)`
   line-height: 1.25;
+`;
+
+const StyledRadioBoxGroup = styled(RadioBoxGroup)`
+  flex-wrap: wrap;
 `;
 
 export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({

@@ -5,6 +5,6 @@ export type GroupedFilesFile = Unpacked<NonNullable<GroupedFiles["files"]>>;
 
 export type FileTableRow = {
   name: string;
-  link: string;
+  link: string | null;
   urlParsley: string | null;
 };

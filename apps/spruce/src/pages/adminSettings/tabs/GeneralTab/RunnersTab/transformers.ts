@@ -16,6 +16,7 @@ export const gqlToForm = ((data) => {
   const { hostInit, notify, repotracker, scheduler, taskLimits } = data;
 
   const {
+    hourlyPatchTaskOverrides,
     maxConcurrentLargeParserProjectTasks,
     maxDailyAutomaticRestarts,
     maxDegradedModeConcurrentLargeParserProjectTasks,
@@ -29,6 +30,7 @@ export const gqlToForm = ((data) => {
     maxScheduledTasksPerDistro,
     maxTaskExecution,
     maxTasksPerVersion,
+    taskQueueAutoUnscheduleThreshold,
   } = taskLimits ?? {};
 
   const {
@@ -90,6 +92,11 @@ export const gqlToForm = ((data) => {
         maxTaskExecution: maxTaskExecution ?? 0,
         maxDailyAutomaticRestarts: maxDailyAutomaticRestarts ?? 0,
         maxScheduledTasksPerDistro: maxScheduledTasksPerDistro ?? 0,
+        taskQueueAutoUnscheduleThreshold: taskQueueAutoUnscheduleThreshold ?? 0,
+        hourlyPatchTaskOverrides: (hourlyPatchTaskOverrides ?? []).map((o) => ({
+          projectOrRepoId: o.projectOrRepoId ?? "",
+          maxHourlyPatchTasks: o.maxHourlyPatchTasks ?? 0,
+        })),
       },
       hostInit: {
         hostThrottle: hostThrottle ?? 0,

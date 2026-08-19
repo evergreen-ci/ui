@@ -1,0 +1,37 @@
+.textInputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.textInputWrapper.textInputWrapper input {
+  padding-right: var(--via-space-600);
+}
+
+.persistentPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  height: 36px; /* textInputHeight */
+  color: var(--via-color-neutral-500);
+  opacity: 0.5;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.iconWrapper {
+  align-items: center;
+  display: flex;
+  bottom: 0;
+  height: 36px; /* textInputHeight */
+  position: absolute;
+  right: var(--via-space-100);
+  width: var(--via-space-800);
+  justify-content: center;
+}

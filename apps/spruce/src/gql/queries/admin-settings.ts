@@ -396,6 +396,10 @@ export const ADMIN_SETTINGS = gql`
         }
       }
       taskLimits {
+        hourlyPatchTaskOverrides {
+          maxHourlyPatchTasks
+          projectOrRepoId
+        }
         maxConcurrentLargeParserProjectTasks
         maxDailyAutomaticRestarts
         maxDegradedModeConcurrentLargeParserProjectTasks
@@ -409,6 +413,7 @@ export const ADMIN_SETTINGS = gql`
         maxScheduledTasksPerDistro
         maxTaskExecution
         maxTasksPerVersion
+        taskQueueAutoUnscheduleThreshold
       }
       testSelection {
         url

@@ -81,6 +81,10 @@ export const SAVE_ADMIN_SETTINGS = gql`
         translateProjectConcurrencyLimit
       }
       taskLimits {
+        hourlyPatchTaskOverrides {
+          maxHourlyPatchTasks
+          projectOrRepoId
+        }
         maxConcurrentLargeParserProjectTasks
         maxDailyAutomaticRestarts
         maxDegradedModeConcurrentLargeParserProjectTasks
@@ -94,6 +98,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
         maxScheduledTasksPerDistro
         maxTaskExecution
         maxTasksPerVersion
+        taskQueueAutoUnscheduleThreshold
       }
       ui {
         betaFeatures {

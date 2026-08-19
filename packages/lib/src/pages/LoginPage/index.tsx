@@ -1,14 +1,10 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
-import { palette } from "@leafygreen-ui/palette";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";
 import { FullPageLoad } from "../../components/FullPageLoad";
-import { size } from "../../constants/tokens";
 import { useAuthProviderContext } from "../../context/AuthProvider";
-
-const { green } = palette;
+import styles from "./index.module.css";
 
 const getReferrer = (location: Location): string => {
   const state = location.state as { referrer?: string };
@@ -35,8 +31,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ ignoreAuthCheck }) => {
   return isAuthenticated ? (
     <Navigate to={getReferrer(location)} />
   ) : (
-    <PageWrapper>
-      <LoginForm
+    <div className={styles.pageWrapper}>
+      <form
+        className={styles.loginForm}
         onSubmit={(e) => {
           e.preventDefault();
           localLogin({ password, username });
@@ -56,41 +53,18 @@ const LoginPage: React.FC<LoginPageProps> = ({ ignoreAuthCheck }) => {
           type="password"
           value={password}
         />
-        <StyledButton
+        <Button
+          className={styles.submitButton}
           data-testid="login-submit"
           onClick={() => localLogin({ password, username })}
           type="submit"
           variant="baseGreen"
         >
           Login
-        </StyledButton>
-      </LoginForm>
-    </PageWrapper>
+        </Button>
+      </form>
+    </div>
   );
 };
-
-const PageWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const LoginForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: ${size.s};
-
-  width: 400px;
-  padding: ${size.l} ${size.m};
-  background-color: ${green.light3};
-  border-radius: ${size.m};
-`;
-
-const StyledButton = styled(Button)`
-  align-self: flex-end;
-`;
 
 export default LoginPage;

@@ -200,7 +200,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
             aria-label="GitHub Commit Link"
             data-testid="github-link"
             href={githubCommitUrl}
-            target="__blank"
+            target="_blank"
           >
             <Icon glyph="GitHub" />
           </IconButton>
