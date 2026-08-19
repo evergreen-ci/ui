@@ -33,7 +33,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
 }) => {
   const title = isIssue ? "Issues" : "Suspected Issues";
   const description = isIssue
-    ? "This section displays tickets that are explicitly linked to this task, marking it as a Known Issue."
+    ? "This section displays tickets that are explicitly linked to this task. If a ticket is linked here, the task will be marked as a Known Issue."
     : "This section displays tickets that are linked to similar failures. Reviewing similar failures can help you determine whether this task shares the same underlying symptoms.";
   const buttonText = isIssue ? "Add issue" : "Add suspected issue";
 
