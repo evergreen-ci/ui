@@ -27,6 +27,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
   itemKey,
   parentUiSchema = {},
   readonly,
+  uiSchema = {},
 }) => {
   const {
     hasMoveDown,
@@ -44,7 +45,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
     typeof parentUiSchema.items === "function"
       ? {}
       : (parentUiSchema.items ?? {});
-  const title = itemUiSchema["ui:displayTitle"] ?? "";
+  const title = uiSchema["ui:title"] ?? itemUiSchema["ui:title"] ?? "";
   const isDisabled = disabled || readonly;
   const deleteButton = (
     <Button

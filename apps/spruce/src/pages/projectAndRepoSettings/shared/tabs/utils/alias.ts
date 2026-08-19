@@ -632,11 +632,11 @@ export const aliasRowUiSchema = ({
   "ui:orderable": false,
   ...(addButtonText && { "ui:addButtonText": addButtonText }),
   ...(isRepo && { "ui:readonly": true }),
-  items: {
+  items: (itemData?: { displayTitle?: string }) => ({
+    "ui:title": itemData?.displayTitle || displayTitle || "",
     ...(!useExpandableCard && {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,
     }),
-    ...(displayTitle && { "ui:displayTitle": displayTitle }),
     ...(numberedTitle && { "ui:numberedTitle": numberedTitle }),
     "ui:useExpandableCard": useExpandableCard,
     ...(!aliasHidden && {
@@ -646,7 +646,7 @@ export const aliasRowUiSchema = ({
     variants: variants.uiSchema,
     tasks: tasks.uiSchema,
     parameters: parameters.uiSchema,
-  },
+  }),
 });
 
 export const patchAliasArray = {

@@ -128,7 +128,7 @@ export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 }) => {
   const isDisabled = disabled || readonly;
   const defaultOpen = uiSchema["ui:defaultOpen"] ?? !isDisabled;
-  const displayTitle = uiSchema["ui:displayTitle"];
+  const uiTitle = uiSchema["ui:title"];
   const numberedTitle = uiSchema["ui:numberedTitle"];
   const index = getIndex(fieldPathId.$id);
 
@@ -138,7 +138,7 @@ export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
       title={
         numberedTitle && index !== null
           ? `${numberedTitle} ${index + 1}`
-          : displayTitle || title
+          : uiTitle || title
       }
       titleTag={AccordionTitle}
     >

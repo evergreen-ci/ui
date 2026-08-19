@@ -201,8 +201,8 @@ const aliasesUiSchema = {
   "ui:orderable": false,
   "ui:showLabel": false,
   "ui:useExpandableCard": true,
-  items: {
-    "ui:displayTitle": "New Patch Trigger Alias",
+  items: (itemData?: { displayTitle?: string }) => ({
+    "ui:title": itemData?.displayTitle || "New Patch Trigger Alias",
     "ui:label": false,
     alias: {
       "ui:data-testid": "pta-alias-input",
@@ -255,7 +255,7 @@ const aliasesUiSchema = {
         margin-bottom: 0;
       `,
     },
-  },
+  }),
 };
 
 const PatchAliasesDescription = (
