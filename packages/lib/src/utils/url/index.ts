@@ -26,7 +26,6 @@ const reportUnparseableUrl = (url: string) => {
  * This intentionally rejects valid non-HTTP(S) URLs, including relative routes,
  * blob URLs, and mailto links. Only use it where the destination must be an
  * external HTTP(S) URL.
- *
  * @param url - URL to validate.
  * @returns Whether the URL uses the HTTP or HTTPS protocol.
  */
