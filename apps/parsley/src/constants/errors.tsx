@@ -12,7 +12,7 @@ export const LOG_FILE_DOWNLOAD_TOO_LARGE_WARNING = (
     Parsley was only able to partially download this log. Use the Evergreen CLI
     command in the Details panel to download the full log. See other download
     methods{" "}
-    <StyledLink href={`${docsURL}/Downloading-Logs`} target="__blank">
+    <StyledLink href={`${docsURL}/Downloading-Logs`} target="_blank">
       here
     </StyledLink>
     .

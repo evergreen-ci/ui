@@ -4356,6 +4356,7 @@ export type TaskLimitsConfig = {
   maxScheduledTasksPerDistro?: Maybe<Scalars["Int"]["output"]>;
   maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
   maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
+  taskQueueAutoUnscheduleThreshold?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type TaskLimitsConfigInput = {
@@ -4372,6 +4373,7 @@ export type TaskLimitsConfigInput = {
   maxScheduledTasksPerDistro: Scalars["Int"]["input"];
   maxTaskExecution: Scalars["Int"]["input"];
   maxTasksPerVersion: Scalars["Int"]["input"];
+  taskQueueAutoUnscheduleThreshold?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type TaskLogLinks = {
