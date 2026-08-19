@@ -124,10 +124,11 @@ export const MetadataSection: React.FC<MetadataSectionProps> = ({
   );
 };
 
-export const MetadataLabel: React.FC<
-  { color?: string } & React.ComponentPropsWithoutRef<"b">
-> = ({ color, style, ...rest }) => (
-  <b style={color ? { color, ...style } : style} {...rest} />
+export const MetadataLabel: React.FC<{
+  children?: React.ReactNode;
+  color?: string;
+}> = ({ children, color }) => (
+  <b style={color ? { color } : undefined}>{children}</b>
 );
 
 export const MetadataCardTitle: React.FC<BodyProps> = ({
