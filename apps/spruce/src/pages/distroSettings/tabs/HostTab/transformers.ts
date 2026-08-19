@@ -12,6 +12,7 @@ export const gqlToForm = ((data) => {
     bootstrapSettings: {
       clientDir,
       communication,
+      containerIsolation,
       env,
       jasperBinaryDir,
       jasperCredentialsPath,
@@ -65,6 +66,7 @@ export const gqlToForm = ((data) => {
       env,
       preconditionScripts,
     },
+    containerIsolation,
     sshConfig: {
       user,
       execUser,
@@ -80,7 +82,7 @@ export const gqlToForm = ((data) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
-  { allocation, bootstrapSettings, setup, sshConfig },
+  { allocation, bootstrapSettings, containerIsolation, setup, sshConfig },
   distro,
 ) => {
   const { acceptableHostIdleTimeSeconds, ...hostAllocatorSettings } =
@@ -92,6 +94,7 @@ export const formToGql = ((
     bootstrapSettings: {
       clientDir: bootstrapSettings.clientDir,
       communication: setup.communicationMethod,
+      containerIsolation,
       env: bootstrapSettings.env,
       jasperBinaryDir: bootstrapSettings.jasperBinaryDir,
       jasperCredentialsPath: bootstrapSettings.jasperCredentialsPath,

@@ -23,6 +23,11 @@ const distroData: DistroQuery["distro"] = {
   bootstrapSettings: {
     clientDir: "/home/evg/client",
     communication: CommunicationMethod.LegacySsh,
+    containerIsolation: {
+      enabled: false,
+      image: "",
+      requireIsolation: false,
+    },
     env: [
       {
         key: "foo",

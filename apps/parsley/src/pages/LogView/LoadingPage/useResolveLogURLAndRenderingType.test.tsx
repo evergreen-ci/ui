@@ -951,6 +951,7 @@ const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
         displayName: "check_codegen",
         displayStatus: "failed",
         execution: 0,
+        executionPlatform: "host",
         id: "a-task-id",
         logs: {
           agentLogLink: "agent-link.com?type=E",

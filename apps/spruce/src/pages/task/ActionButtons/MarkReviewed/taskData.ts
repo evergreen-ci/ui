@@ -92,6 +92,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   displayTask: null,
   distroId: "ubuntu2204-large",
   estimatedStart: 0,
+  executionPlatform: "host",
   executionTasksFull: null,
   expectedDuration: 129456,
   files: {
@@ -231,6 +232,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   displayTask: null,
   distroId: "",
   estimatedStart: 0,
+  executionPlatform: "host",
   executionTasksFull: [
     {
       id: "evergreen_ui_spruce_e2e_spruce_0_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51",

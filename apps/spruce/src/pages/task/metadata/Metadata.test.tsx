@@ -102,6 +102,31 @@ describe("metadata", () => {
     expect(screen.getByTestId("cost-details-button")).toBeInTheDocument();
   });
 
+  it("shows a Container badge when the task ran in a container", () => {
+    render(<Metadata loading={false} task={taskInContainer.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(
+      screen.getByDataCy("task-metadata-execution-platform"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByDataCy("task-metadata-execution-platform"),
+    ).toHaveTextContent("Container");
+  });
+
+  it("does not show a Container badge when the task ran on a host", () => {
+    render(<Metadata loading={false} task={taskQuery.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(
+      screen.queryByDataCy("task-metadata-execution-platform"),
+    ).not.toBeInTheDocument();
+  });
+
   it("can reopen cost modal after closing", async () => {
     const user = userEvent.setup();
     render(<Metadata loading={false} task={taskWithCostAndFinishTime.task} />, {
@@ -187,5 +212,12 @@ const taskWithCostAndFinishTime: TaskQueryType = {
     ...taskWithCost.task,
     finishTime: new Date("2024-01-02"),
     status: "succeeded",
+  },
+};
+
+const taskInContainer: TaskQueryType = {
+  task: {
+    ...taskQuery.task,
+    executionPlatform: "container",
   },
 };

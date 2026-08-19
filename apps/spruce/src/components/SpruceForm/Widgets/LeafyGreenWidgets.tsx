@@ -108,6 +108,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   label,
   onChange,
   options,
+  rawErrors,
   readonly,
   value,
 }) => {
@@ -121,6 +122,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
     tooltipDescription,
     warnings,
   } = options;
+  const { errors, hasError } = processErrors(rawErrors);
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <Checkbox
@@ -149,6 +151,11 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
         }
         onChange={(e) => onChange(e.target.checked)}
       />
+      {hasError ? (
+        <StyledBanner data-cy="error-banner" variant="danger">
+          {errors.join(", ")}
+        </StyledBanner>
+      ) : null}
       {warnings?.length ? (
         <StyledBanner
           data-testid={dataTestIdBanner || "warning-banner"}
