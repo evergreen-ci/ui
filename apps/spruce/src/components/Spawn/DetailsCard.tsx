@@ -32,16 +32,16 @@ type FieldMap<T> = {
 
 interface DetailsCardProps {
   type: MyHost | TableVolume;
-  ["data-cy"]?: string;
+  ["data-testid"]?: string;
   fieldMaps: FieldMap<MyHost | TableVolume>;
 }
 
 export const DetailsCard: React.FC<DetailsCardProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   fieldMaps,
   type,
 }) => (
-  <CardContainer data-cy={dataCy}>
+  <CardContainer data-testid={dataTestId}>
     {Object.keys(fieldMaps).map((key) => (
       <CardField
         key={`${key}_${type.id}`}

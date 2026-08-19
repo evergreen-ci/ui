@@ -64,7 +64,7 @@ export const TaskStatsTooltip: React.FC<
           ref={buttonRef}
           active={open}
           aria-label="Show task stats"
-          data-cy="task-stats-tooltip-button"
+          data-testid="task-stats-tooltip-button"
           onClick={() => setOpen((o) => !o)}
           {...buttonContainerProps}
         >
@@ -77,7 +77,7 @@ export const TaskStatsTooltip: React.FC<
         align={Align.Right}
         refEl={buttonRef}
       >
-        <FixedWidthContainer data-cy="task-stats-tooltip">
+        <FixedWidthContainer data-testid="task-stats-tooltip">
           {isLoading ? (
             <Skeleton size={SkeletonSize.Small} />
           ) : (

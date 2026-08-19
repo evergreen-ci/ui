@@ -263,6 +263,7 @@ export const ADMIN_SETTINGS = gql`
           alertableInstanceTypes
           allowedInstanceTypes
           allowedRegions
+          allowedSNSTopicARNs
           defaultSecurityGroup
           elasticIPUsageRate
           ipamPoolID
@@ -282,6 +283,8 @@ export const ADMIN_SETTINGS = gql`
             az
             subnetId
           }
+          subnetTagName
+          subnetTagValue
         }
         docker {
           apiVersion
@@ -289,6 +292,7 @@ export const ADMIN_SETTINGS = gql`
       }
       rateLimit {
         elevatedUserIds
+        exemptUserIds
         graphqlComplexityLimit
         graphqlServiceBurst
         graphqlServicePerHour
@@ -302,6 +306,7 @@ export const ADMIN_SETTINGS = gql`
       releaseMode {
         distroMaxHostsFactor
         idleTimeSecondsOverride
+        mergeQueueTargetTimeSecondsOverride
         targetTimeSecondsOverride
       }
 
@@ -330,6 +335,7 @@ export const ADMIN_SETTINGS = gql`
         hostAllocatorRoundingRule
         hostsOverallocatedRule
         mainlineTimeInQueueFactor
+        mergeQueueTargetTimeSeconds
         numDependentsFactor
         patchFactor
         patchTimeInQueueFactor
@@ -390,6 +396,10 @@ export const ADMIN_SETTINGS = gql`
         }
       }
       taskLimits {
+        hourlyPatchTaskOverrides {
+          maxHourlyPatchTasks
+          projectOrRepoId
+        }
         maxConcurrentLargeParserProjectTasks
         maxDailyAutomaticRestarts
         maxDegradedModeConcurrentLargeParserProjectTasks
@@ -403,6 +413,7 @@ export const ADMIN_SETTINGS = gql`
         maxScheduledTasksPerDistro
         maxTaskExecution
         maxTasksPerVersion
+        taskQueueAutoUnscheduleThreshold
       }
       testSelection {
         url

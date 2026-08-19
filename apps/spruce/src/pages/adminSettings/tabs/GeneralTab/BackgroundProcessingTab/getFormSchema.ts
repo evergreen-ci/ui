@@ -58,26 +58,26 @@ export const formSchema: ReturnType<GetFormSchema> = {
     backgroundProcessing: {
       amboy: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "amboy",
+        "ui:data-testid": "amboy",
         "ui:objectFieldCss": objectGridCss,
         ...amboy.uiSchema,
       },
       loggerConfig: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "logger",
+        "ui:data-testid": "logger",
         ...loggerConfig.uiSchema,
       },
       notificationRateLimits: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "notification-rate-limits",
+        "ui:data-testid": "notification-rate-limits",
         ...notificationRateLimits.uiSchema,
       },
       triggers: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "triggers",
+        "ui:data-testid": "triggers",
         ...triggers.uiSchema,
       },
     },

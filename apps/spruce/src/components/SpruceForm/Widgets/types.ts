@@ -7,11 +7,11 @@ export interface SpruceWidgetProps extends WidgetProps {
   options: Partial<{
     "aria-controls": string[];
     ariaLabel: string;
-    "data-cy": string;
+    "data-testid": string;
     ariaLabelledBy: string;
     bold: boolean;
     customLabel: string;
-    "data-cy-banner": string;
+    "data-testid-banner": string;
     description: string;
     descriptionNode: React.ReactElement;
     elementWrapperCSS: SerializedStyles;

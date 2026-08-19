@@ -33,7 +33,7 @@ export const GeneralTab: React.FC = () => {
   );
 
   if (loading) {
-    return <FormSkeleton data-cy="admin-settings-skeleton" />;
+    return <FormSkeleton data-testid="admin-settings-skeleton" />;
   }
 
   if (!tabData) {

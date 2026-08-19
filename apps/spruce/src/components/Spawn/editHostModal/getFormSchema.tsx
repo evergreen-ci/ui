@@ -147,7 +147,7 @@ export const getFormSchema = ({
         "ui:description": (
           <>
             Password should match the criteria defined{" "}
-            <StyledLink href={windowsPasswordRulesURL} target="__blank">
+            <StyledLink href={windowsPasswordRulesURL} target="_blank">
               here.
             </StyledLink>
           </>

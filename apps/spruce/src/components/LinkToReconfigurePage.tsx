@@ -22,7 +22,7 @@ export const LinkToReconfigurePage: React.FC<{
         <span>
           <DropdownItem
             as={Link}
-            data-cy="reconfigure-link"
+            data-testid="reconfigure-link"
             disabled={disabled}
             onClick={() => {
               if (!disabled) {

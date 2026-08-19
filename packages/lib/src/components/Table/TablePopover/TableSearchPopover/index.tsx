@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -9,15 +8,14 @@ import {
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
 import { Description } from "@leafygreen-ui/typography";
-import { size } from "../../../../constants/tokens";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
 import { DEFAULT_SPACING, FilterWrapper } from "../constants";
+import styles from "./index.module.css";
 
 const { blue, gray } = palette;
 
 interface TableSearchPopoverProps {
-  "data-cy"?: string;
   "data-testid"?: string;
   onConfirm: (search: string) => void;
   placeholder?: string;
@@ -25,7 +23,6 @@ interface TableSearchPopoverProps {
 }
 
 const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
-  "data-cy": dataCy,
   "data-testid": dataTestId,
   onConfirm,
   placeholder,
@@ -65,7 +62,6 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         ref={buttonRef}
         active={active}
         aria-label="Table Search Popover Icon"
-        data-cy={dataCy}
         data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
@@ -80,15 +76,13 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
       >
         <PopoverContainer
           ref={popoverRef}
-          data-cy={`${dataCy}-wrapper`}
           data-testid={`${dataTestId}-wrapper`}
         >
-          <InputContainer>
+          <div className={styles.inputContainer}>
             <Description>Press enter to filter.</Description>
             <SearchInput
               ref={(el) => setInputRef(el)}
               aria-label="Search table"
-              data-cy={`${dataCy}-input-filter`}
               data-testid={`${dataTestId}-input-filter`}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && onEnter()}
@@ -96,7 +90,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
               size={SearchInputSize.Small}
               value={input}
             />
-          </InputContainer>
+          </div>
         </PopoverContainer>
       </Popover>
     </FilterWrapper>
@@ -104,13 +98,3 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
 };
 
 export default TableSearchPopover;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-  min-width: 200px;
-  * {
-    box-sizing: content-box;
-  }
-`;

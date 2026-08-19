@@ -57,7 +57,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
         disabled: loading,
         onClick: onConfirm,
       }}
-      data-cy="delete-project-modal"
+      data-testid="delete-project-modal"
       open={open}
       title={`Delete “${identifier}”?`}
       variant="danger"
@@ -84,7 +84,7 @@ export const DeleteProjectField: Field = ({ disabled, uiSchema }) => {
         after deletion.
       </Description>
       <StyledButton
-        data-cy="delete-project-button"
+        data-testid="delete-project-button"
         disabled={disabled}
         onClick={() => setOpen(true)}
         variant="danger"

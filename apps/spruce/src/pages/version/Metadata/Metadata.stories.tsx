@@ -75,6 +75,27 @@ export const WithTimeline: CustomStoryObj<typeof Metadata> = {
   ),
 };
 
+export const WithExecutionData: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          cost: { __typename: "Cost", total: 12.34 },
+          parameters: [
+            {
+              __typename: "Parameter",
+              key: "run_tests",
+              value: "true",
+            },
+          ],
+        }}
+      />
+    </Container>
+  ),
+};
+
 const Container = styled.div`
   width: 275px;
 `;

@@ -10,8 +10,13 @@ export const gqlToForm = ((data) => {
   const { testSelection } = projectRef ?? {};
 
   return {
-    allowed: testSelection?.allowed ?? null,
-    defaultEnabled: testSelection?.defaultEnabled ?? null,
+    projectLevel: {
+      allowed: testSelection?.allowed ?? null,
+    },
+    taskLevel: {
+      defaultEnabled: testSelection?.defaultEnabled ?? null,
+      mainlineDefaultEnabled: testSelection?.mainlineDefaultEnabled ?? null,
+    },
   };
 }) satisfies GqlToFormFunction<Tab>;
 
@@ -20,8 +25,9 @@ export const formToGql = ((formState, isRepo, id) => ({
   projectRef: {
     id,
     testSelection: {
-      allowed: formState.allowed,
-      defaultEnabled: formState.defaultEnabled,
+      allowed: formState.projectLevel.allowed,
+      defaultEnabled: formState.taskLevel.defaultEnabled,
+      mainlineDefaultEnabled: formState.taskLevel.mainlineDefaultEnabled,
     },
   },
 })) satisfies FormToGqlFunction<Tab>;

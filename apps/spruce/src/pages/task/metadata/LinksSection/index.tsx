@@ -28,7 +28,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
         metadataLinks.map((link) => (
           <MetadataItem key={link.text}>
             <StyledLink
-              data-cy="task-metadata-link"
+              data-testid="task-metadata-link"
               href={link.url}
               onClick={() =>
                 taskAnalytics.sendEvent({
@@ -46,7 +46,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
           <HoneycombLinkContainer>
             {taskTrace && (
               <StyledLink
-                data-cy="task-trace-link"
+                data-testid="task-trace-link"
                 hideExternalIcon={false}
                 href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
                 onClick={() => {
@@ -60,7 +60,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
               </StyledLink>
             )}
             <StyledLink
-              data-cy="task-metrics-link"
+              data-testid="task-metrics-link"
               hideExternalIcon={false}
               href={getHoneycombSystemMetricsUrl(
                 task.id,

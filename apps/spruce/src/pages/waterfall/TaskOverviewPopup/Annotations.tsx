@@ -26,7 +26,9 @@ const IssueLinks: React.FC<{
   );
 
 const AnnotationLink = styled(StyledLink)`
-  font-weight: bold;
+  && {
+    font-weight: bold;
+  }
   ${wordBreakCss};
 `;
 

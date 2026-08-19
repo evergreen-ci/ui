@@ -20,10 +20,12 @@ export const ObjectFieldTemplate = ({
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
   const dataCy = uiSchema["ui:data-cy"];
+  const dataTestId = uiSchema["ui:data-testid"];
   return (
     <fieldset
       css={uiSchema["ui:elementWrapperCSS"]}
       data-cy={dataCy}
+      data-testid={dataTestId}
       id={fieldPathId.$id}
     >
       {(uiSchema["ui:title"] || title) && (
@@ -48,12 +50,12 @@ export const ObjectFieldTemplate = ({
         />
       )}
       {!!errors.length && (
-        <StyledBanner data-cy="error-banner" variant="danger">
+        <StyledBanner data-testid="error-banner" variant="danger">
           {errors.join(", ")}
         </StyledBanner>
       )}
       {!!warnings.length && (
-        <StyledBanner data-cy="warning-banner" variant="warning">
+        <StyledBanner data-testid="warning-banner" variant="warning">
           {warnings.join(", ")}
         </StyledBanner>
       )}
@@ -77,16 +79,17 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   uiSchema = {},
 }) => {
   const {
-    "ui:data-cy": dataCy,
+    "ui:data-testid": dataTestId,
     "ui:description": uiDescription,
     "ui:objectFieldCss": objectFieldCss,
     "ui:title": uiTitle,
+    "ui:warnings": warnings = [],
   } = uiSchema;
   const { DescriptionFieldTemplate } = registry.templates;
   const description = uiDescription || schema.description;
   return (
     <SpruceFormContainer
-      data-cy={dataCy}
+      data-testid={dataTestId}
       description={
         description && (
           <DescriptionFieldTemplate
@@ -103,6 +106,11 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
       scrollMarginTop={cardScrollMarginTop}
       title={uiTitle || title}
     >
+      {!!warnings.length && (
+        <StyledBanner data-testid="warning-banner" variant="warning">
+          {warnings.join(", ")}
+        </StyledBanner>
+      )}
       {properties.map((prop) => prop.content)}
     </SpruceFormContainer>
   );
@@ -150,12 +158,12 @@ export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 export const FieldRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
-  const dataCy = uiSchema?.["ui:data-cy"];
+  const dataTestId = uiSchema?.["ui:data-testid"];
   const css = uiSchema?.["ui:elementWrapperCSS"];
   const fields = getFields(properties, formData?.isDisabled ?? false);
 
   return (
-    <RowContainer css={css} data-cy={dataCy}>
+    <RowContainer css={css} data-testid={dataTestId}>
       {fields}
     </RowContainer>
   );

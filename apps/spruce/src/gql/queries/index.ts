@@ -68,6 +68,7 @@ export { TASK_NAMES_FOR_BUILD_VARIANT } from "./task-names-for-build-variant";
 export { TASK_OVERVIEW_POPUP } from "./task-overview-popup";
 export { TASK_OWNER_TEAM } from "./task-owner-team";
 export { TASK_PERF_PLUGIN_ENABLED } from "./task-perf-plugin-enabled";
+export { TASK_QUARANTINED_TESTS_SAMPLE } from "./task-quarantined-tests-sample";
 export { TASK_QUEUE_DISTROS } from "./task-queue-distros";
 export { TASK_STATUSES } from "./task-statuses";
 export { TASK_TEST_COUNT } from "./task-test-count";

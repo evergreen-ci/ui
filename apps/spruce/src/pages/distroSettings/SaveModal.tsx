@@ -127,7 +127,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
           handleSave();
         },
       }}
-      data-cy="save-modal"
+      data-testid="save-modal"
       open={open}
       title="Save page"
     >

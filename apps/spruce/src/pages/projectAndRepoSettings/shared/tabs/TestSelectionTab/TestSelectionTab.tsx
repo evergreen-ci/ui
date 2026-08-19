@@ -1,12 +1,35 @@
 import { useMemo } from "react";
+import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
+import { MAINLINE_REQUIRES_PATCHES_MESSAGE } from "./constants";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { TabProps, TestSelectionFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.TestSelection;
+
+const getValidate =
+  (repoData: TabProps["repoData"]): ValidateProps<TestSelectionFormState> =>
+  (settings, errors) => {
+    const patchesEnabled =
+      settings.taskLevel.defaultEnabled ??
+      repoData?.taskLevel.defaultEnabled ??
+      false;
+    const mainlineEnabled =
+      settings.taskLevel.mainlineDefaultEnabled ??
+      repoData?.taskLevel.mainlineDefaultEnabled ??
+      false;
+
+    if (mainlineEnabled && !patchesEnabled) {
+      errors.taskLevel.mainlineDefaultEnabled.addError(
+        MAINLINE_REQUIRES_PATCHES_MESSAGE,
+      );
+    }
+
+    return errors;
+  };
 
 export const TestSelectionTab: React.FC<TabProps> = ({
   projectData,
@@ -16,14 +39,20 @@ export const TestSelectionTab: React.FC<TabProps> = ({
   const { getTab } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 
+  const initialFormState = projectData || repoData;
+
   const canEnableTaskLevel =
     ((projectType === ProjectType.AttachedProject &&
-      formData?.allowed === null &&
-      repoData?.allowed) ||
-      formData?.allowed) ??
+      formData?.projectLevel.allowed === null &&
+      repoData?.projectLevel.allowed) ||
+      formData?.projectLevel.allowed) ??
     false;
 
-  const initialFormState = projectData || repoData;
+  const canEnableMainline =
+    formData?.taskLevel.defaultEnabled ??
+    initialFormState?.taskLevel.defaultEnabled ??
+    repoData?.taskLevel.defaultEnabled ??
+    false;
 
   const formSchema = useMemo(
     () =>
@@ -31,8 +60,9 @@ export const TestSelectionTab: React.FC<TabProps> = ({
         repoData:
           projectType === ProjectType.AttachedProject ? repoData : undefined,
         canEnableTaskLevel,
+        canEnableMainline,
       }),
-    [projectType, canEnableTaskLevel, repoData],
+    [projectType, canEnableTaskLevel, canEnableMainline, repoData],
   );
 
   if (!initialFormState) {
@@ -43,6 +73,7 @@ export const TestSelectionTab: React.FC<TabProps> = ({
       formSchema={formSchema}
       initialFormState={initialFormState}
       tab={tab}
+      validate={getValidate(repoData)}
     />
   );
 };

@@ -25,7 +25,7 @@ describe("setPriority", () => {
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
-      expect(screen.getByDataCy("set-priority-button")).toBeInTheDocument();
+      expect(screen.getByTestId("set-priority-button")).toBeInTheDocument();
     });
 
     it("renders a menu item when isButton is false", () => {
@@ -35,7 +35,7 @@ describe("setPriority", () => {
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
-      expect(screen.getByDataCy("set-priority-menu-item")).toBeInTheDocument();
+      expect(screen.getByTestId("set-priority-menu-item")).toBeInTheDocument();
     });
   });
 
@@ -49,15 +49,15 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-patch-priority-popconfirm"),
+          screen.queryByTestId("set-patch-priority-popconfirm"),
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
-      await user.type(screen.getByDataCy("patch-priority-input"), "9");
-      expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
+      expect(screen.queryByTestId("priority-default-message")).toBeVisible();
+      await user.type(screen.getByTestId("patch-priority-input"), "9");
+      expect(screen.queryByTestId("priority-default-message")).toBeVisible();
     });
 
     it("shows warning message", async () => {
@@ -69,15 +69,15 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-patch-priority-popconfirm"),
+          screen.queryByTestId("set-patch-priority-popconfirm"),
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("priority-warning-message")).toBeNull();
-      await user.type(screen.getByDataCy("patch-priority-input"), "99");
-      expect(screen.queryByDataCy("priority-warning-message")).toBeVisible();
+      expect(screen.queryByTestId("priority-warning-message")).toBeNull();
+      await user.type(screen.getByTestId("patch-priority-input"), "99");
+      expect(screen.queryByTestId("priority-warning-message")).toBeVisible();
     });
 
     it("shows admin message", async () => {
@@ -89,15 +89,15 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-patch-priority-popconfirm"),
+          screen.queryByTestId("set-patch-priority-popconfirm"),
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("priority-admin-message")).toBeNull();
-      await user.type(screen.getByDataCy("patch-priority-input"), "999");
-      expect(screen.queryByDataCy("priority-admin-message")).toBeVisible();
+      expect(screen.queryByTestId("priority-admin-message")).toBeNull();
+      await user.type(screen.getByTestId("patch-priority-input"), "999");
+      expect(screen.queryByTestId("priority-admin-message")).toBeVisible();
     });
 
     it("successfully sets priority", async () => {
@@ -109,13 +109,13 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-patch-priority-popconfirm"),
+          screen.queryByTestId("set-patch-priority-popconfirm"),
         ).toBeVisible();
       });
-      await user.type(screen.getByDataCy("patch-priority-input"), "99");
+      await user.type(screen.getByTestId("patch-priority-input"), "99");
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledTimes(1);
@@ -133,13 +133,13 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-task-priority-popconfirm"),
+          screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("task-priority-input")).toHaveValue(10);
+      expect(screen.queryByTestId("task-priority-input")).toHaveValue(10);
     });
 
     it("shows default message", async () => {
@@ -151,15 +151,15 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-task-priority-popconfirm"),
+          screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
-      await user.type(screen.getByDataCy("task-priority-input"), "9");
-      expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
+      expect(screen.queryByTestId("priority-default-message")).toBeVisible();
+      await user.type(screen.getByTestId("task-priority-input"), "9");
+      expect(screen.queryByTestId("priority-default-message")).toBeVisible();
     });
 
     it("shows warning message", async () => {
@@ -171,15 +171,15 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-task-priority-popconfirm"),
+          screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("priority-warning-message")).toBeNull();
-      await user.type(screen.getByDataCy("task-priority-input"), "99");
-      expect(screen.queryByDataCy("priority-warning-message")).toBeVisible();
+      expect(screen.queryByTestId("priority-warning-message")).toBeNull();
+      await user.type(screen.getByTestId("task-priority-input"), "99");
+      expect(screen.queryByTestId("priority-warning-message")).toBeVisible();
     });
 
     it("shows admin message", async () => {
@@ -191,15 +191,15 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-task-priority-popconfirm"),
+          screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("priority-admin-message")).toBeNull();
-      await user.type(screen.getByDataCy("task-priority-input"), "999");
-      expect(screen.queryByDataCy("priority-admin-message")).toBeVisible();
+      expect(screen.queryByTestId("priority-admin-message")).toBeNull();
+      await user.type(screen.getByTestId("task-priority-input"), "999");
+      expect(screen.queryByTestId("priority-admin-message")).toBeVisible();
     });
 
     it("successfully sets priority", async () => {
@@ -211,13 +211,13 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-task-priority-popconfirm"),
+          screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      await user.type(screen.getByDataCy("task-priority-input"), "99");
+      await user.type(screen.getByTestId("task-priority-input"), "99");
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1),
@@ -238,13 +238,13 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("set-priority-menu-item"));
+      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
-          screen.queryByDataCy("set-task-priority-popconfirm"),
+          screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      await user.type(screen.getByDataCy("task-priority-input"), "99");
+      await user.type(screen.getByTestId("task-priority-input"), "99");
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1),

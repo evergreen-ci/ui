@@ -1,23 +1,19 @@
 import { Page, expect, test } from "../../fixtures";
-import { clickCheckbox, selectOption } from "../../helpers";
+import { clickCheckbox, selectOption, selectPageSize } from "../../helpers";
 
 /**
  * Helper to select page size and verify URL and table row count
  * @param page - Playwright page object
  * @param pageSize - The page size to select
- * @param dataCyTableRows - The data-cy selector for table rows
+ * @param tableRowsTestId - The data-testid selector for table rows
  */
-const selectPageSize = async (
+const checkPageSize = async (
   page: Page,
   pageSize: number,
-  dataCyTableRows: string,
+  tableRowsTestId: string,
 ) => {
-  await page
-    .locator("button[aria-labelledby='page-size-select']")
-    .first()
-    .click();
-  await page.getByText(`${pageSize} / page`).first().click();
-  const tableRows = page.locator(dataCyTableRows);
+  await selectPageSize(page, pageSize);
+  const tableRows = page.locator(tableRowsTestId);
   const rowCount = await tableRows.count();
   expect(rowCount).toBeLessThanOrEqual(pageSize);
   await expect(page).toHaveURL(new RegExp(`limit=${pageSize}`));
@@ -25,7 +21,7 @@ const selectPageSize = async (
 
 test.describe("Host events", () => {
   const pathWithEvents = "/host/i-0f81a2d39744003dd";
-  const dataCyTableRows = "[data-cy=host-events-table]";
+  const tableRows = "[data-testid=host-events-table]";
 
   test.beforeEach(async ({ context }) => {
     await context.addInitScript(() => {
@@ -35,7 +31,7 @@ test.describe("Host events", () => {
 
   test("host events display the correct text", async ({ page }) => {
     await page.goto(pathWithEvents);
-    await selectPageSize(page, 100, dataCyTableRows);
+    await checkPageSize(page, 100, tableRows);
 
     const hostTypes = [
       {
@@ -188,7 +184,7 @@ test.describe("Host events", () => {
       },
     ];
     await page.goto(pathWithEvents);
-    await selectPageSize(page, 100, dataCyTableRows);
+    await checkPageSize(page, 100, tableRows);
 
     for (const { hostType, logsTitle, text, index } of hostTypes) {
       const eventElement = page
@@ -214,7 +210,7 @@ test.describe("Host events", () => {
     page,
   }) => {
     await page.goto(pathWithEvents);
-    await selectPageSize(page, 100, dataCyTableRows);
+    await checkPageSize(page, 100, tableRows);
     const statusChangedElement = page
       .getByTestId("host-status-changed")
       .filter({ hasText: "Status changed from running to stopping" })
@@ -226,7 +222,7 @@ test.describe("Host events", () => {
 
   test("host event links get displayed", async ({ page }) => {
     await page.goto(pathWithEvents);
-    await selectPageSize(page, 100, dataCyTableRows);
+    await checkPageSize(page, 100, tableRows);
     const hostTypes = [
       "host-running-task-set-link",
       "host-running-task-cleared-link",

@@ -33,14 +33,14 @@ export const VariableRow: React.FC<
       <Name showWarning={inRepo || isReserved}>
         {variableName}
         {inRepo && (
-          <span data-cy="override-warning">
+          <span data-testid="override-warning">
             <OverrideIcon glyph="ImportantWithCircle" size={Size.Small} />
             This will override the variable of the same name defined in the
             repo.
           </span>
         )}
         {isReserved && (
-          <span data-cy="reserved-warning">
+          <span data-testid="reserved-warning">
             <OverrideIcon glyph="ImportantWithCircle" size={Size.Small} />
             This variable name is reserved for Backstage.
           </span>

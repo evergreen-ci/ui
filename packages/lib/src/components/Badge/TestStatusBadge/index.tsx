@@ -29,7 +29,6 @@ const TestStatusBadge: React.FC<TestStatusBadgeProps> = ({ status }) => {
   return (
     <Badge
       key={status}
-      data-cy="test-status-badge"
       data-testid="test-status-badge"
       variant={statusToBadgeColor[testStatus] || Variant.LightGray}
     >

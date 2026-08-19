@@ -71,11 +71,11 @@ export const PatchesPage: React.FC<Props> = ({
 
   return (
     <PageWrapper>
-      <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
+      <PageTitle data-testid="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <TextInputWithValidation
           aria-label="Search patch descriptions"
-          data-cy="patch-description-input"
+          data-testid="patch-description-input"
           onChange={handleInputChange}
           placeholder="Patch description regex"
           validator={validateRegexp}
@@ -86,17 +86,16 @@ export const PatchesPage: React.FC<Props> = ({
         {filterComp}
         <HiddenCheckbox
           checked={includeHiddenCheckboxChecked}
-          data-cy="include-hidden-checkbox"
+          data-testid="include-hidden-checkbox"
           label="Include hidden"
           onChange={includeHiddenCheckboxOnChange}
         />
       </FiltersWrapperSpaceBetween>
-      {patches?.patches?.length && (
-        <PaginationButtons
-          filteredPatchCount={filteredCount}
-          pageType={pageType}
-        />
-      )}
+      <PaginationButtons
+        filteredPatchCount={filteredCount}
+        loading={loading}
+        pageType={pageType}
+      />
       <ListArea
         loading={loading}
         pageType={pageType}

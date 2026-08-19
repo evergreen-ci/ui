@@ -71,7 +71,7 @@ export const DateTimePicker: React.FC<
       <DateTimeContainer>
         <DatePicker
           aria-label="date-picker"
-          data-cy="date-picker"
+          data-testid="date-picker"
           disabled={isDisabled}
           max={disableAfter ? setToUTCMidnight(disableAfter) : undefined}
           min={disableBefore ? setToUTCMidnight(disableBefore) : undefined}
@@ -81,7 +81,7 @@ export const DateTimePicker: React.FC<
         {/* TODO: Replace with official component following completion of LG-3931.
          * Additionally, uninstall @leafygreen-ui/form-field. */}
         <LGTimePicker
-          data-cy="time-picker"
+          data-testid="time-picker"
           disabled={isDisabled}
           onDateChange={handleChange(Caller.Time)}
           value={currentDateTime}
@@ -123,7 +123,7 @@ export const TimePicker: React.FC<SpruceWidgetProps> = ({
       {/* TODO: Replace with official component following completion of LG-3931.
        * Additionally, uninstall @leafygreen-ui/form-field. */}
       <LGTimePicker
-        data-cy="time-picker"
+        data-testid="time-picker"
         disabled={isDisabled}
         label={label}
         onDateChange={handleChange}

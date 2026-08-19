@@ -120,7 +120,7 @@ export const betaFeatures = {
     // Example for future beta features:
     // newFeature: {
     //   "ui:widget": widgets.RadioWidget,
-    //   "ui:data-cy": "new-feature",
+    //   "ui:data-testid": "new-feature",
     //   "ui:options": {
     //     inline: true,
     //     elementWrapperCSS: radioCSS, // import from "../../sharedStyles"
@@ -230,20 +230,39 @@ export const rateLimitConfig = {
         },
       },
     },
+    exemptUsers: {
+      type: "object" as const,
+      title: "Exempt Users",
+      properties: {
+        exemptUserIds: {
+          type: "array" as const,
+          title: "User IDs",
+          default: [],
+          items: {
+            type: "string" as const,
+            properties: {
+              value: {
+                type: "string" as const,
+              },
+            },
+          },
+        },
+      },
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "rate-limit-config",
+    "ui:data-testid": "rate-limit-config",
     "ui:objectFieldCss": objectGridCss,
     "ui:description": "A limit of 0 means no limit is applied.",
     restLimits: {
-      "ui:data-cy": "rest-limits",
+      "ui:data-testid": "rest-limits",
       "ui:description":
         "The burst limit cannot exceed the per hour limit for each user type.",
       "ui:fieldCss": nestedObjectGridCss,
     },
     graphqlLimits: {
-      "ui:data-cy": "graphql-limits",
+      "ui:data-testid": "graphql-limits",
       "ui:description":
         "The burst limit cannot exceed the per hour limit for each user type.",
       "ui:fieldCss": nestedObjectGridCss,
@@ -254,14 +273,24 @@ export const rateLimitConfig = {
       "ui:fieldCss": nestedObjectGridCss,
     },
     elevatedUsers: {
-      "ui:data-cy": "elevated-users",
+      "ui:data-testid": "elevated-users",
       "ui:fieldCss": nestedObjectGridCss,
       "ui:description":
         "Users who receive 2x their baseline rate and query complexity limits.",
       elevatedUserIds: {
         "ui:widget": widgets.ChipInputWidget,
         "ui:fieldCss": fullWidthCss,
-        "ui:data-cy": "elevated-user-ids",
+        "ui:data-testid": "elevated-user-ids",
+      },
+    },
+    exemptUsers: {
+      "ui:data-testid": "exempt-users",
+      "ui:fieldCss": nestedObjectGridCss,
+      "ui:description": "Users who are not rate limited at all.",
+      exemptUserIds: {
+        "ui:widget": widgets.ChipInputWidget,
+        "ui:fieldCss": fullWidthCss,
+        "ui:data-testid": "exempt-user-ids",
       },
     },
   },

@@ -96,7 +96,7 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
         children: shouldAttach ? "Attach" : "Detach",
         onClick: onConfirm,
       }}
-      data-cy="attach-repo-modal"
+      data-testid="attach-repo-modal"
       open={open}
       title={`Are you sure you want to ${
         shouldAttach ? "attach to" : "detach from"

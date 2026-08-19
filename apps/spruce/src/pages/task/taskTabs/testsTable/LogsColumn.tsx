@@ -5,6 +5,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { downloadFile } from "@evg-ui/lib/utils/request";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useTaskAnalytics } from "analytics";
 import { getTaskRoute, getTestHTMLLogRoute } from "constants/routes";
 import { TaskQuery, TestResult } from "gql/generated/types";
@@ -27,6 +28,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const isExecutionTask = displayTask !== null;
 
   const execution = testExecution ?? taskExecution ?? 0;
+  const safeUrlParsley = isValidHttpUrl(urlParsley) ? urlParsley : null;
+  const safeUrlRaw = isValidHttpUrl(urlRaw) ? urlRaw : null;
   const testHTMLLogRoute =
     taskId && testName
       ? getTestHTMLLogRoute(
@@ -40,10 +43,10 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
 
   return (
     <ButtonWrapper>
-      {urlParsley && (
+      {safeUrlParsley && (
         <Button
-          data-cy="test-table-parsley-btn"
-          href={urlParsley}
+          data-testid="test-table-parsley-btn"
+          href={safeUrlParsley}
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",
@@ -59,7 +62,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
       )}
       {testHTMLLogRoute && (
         <Button
-          data-cy="test-table-html-btn"
+          data-testid="test-table-html-btn"
           href={testHTMLLogRoute}
           onClick={() =>
             sendEvent({
@@ -74,10 +77,10 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           HTML
         </Button>
       )}
-      {urlRaw && (
+      {safeUrlRaw && (
         <Button
-          data-cy="test-table-raw-btn"
-          href={urlRaw}
+          data-testid="test-table-raw-btn"
+          href={safeUrlRaw}
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",
@@ -91,12 +94,12 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           Raw
         </Button>
       )}
-      {urlRaw && (
+      {safeUrlRaw && (
         <Button
-          data-cy="test-table-download-btn"
+          data-testid="test-table-download-btn"
           onClick={() => {
             const sanitized = testFile.replace(/[^a-zA-Z0-9._-]/g, "_");
-            downloadFile(urlRaw, `${taskId}_${sanitized}.log`, () => {
+            downloadFile(safeUrlRaw, `${taskId}_${sanitized}.log`, () => {
               success("Log downloaded started");
             });
             sendEvent({

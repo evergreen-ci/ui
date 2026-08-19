@@ -59,8 +59,8 @@ export const VersionLabel: React.FC<Props> = ({
     <VersionContainer
       activated={activated}
       className={className}
-      data-cy={`version-label-${commitType}`}
       data-highlighted={highlighted}
+      data-testid={`version-label-${commitType}`}
       highlighted={highlighted}
       shouldDisableText={shouldDisableText}
       view={view}
@@ -117,7 +117,9 @@ export const VersionLabel: React.FC<Props> = ({
           });
         })}
       </CommitMessage>
-      {gitTags && <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>}
+      {gitTags?.length ? (
+        <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
+      ) : null}
     </VersionContainer>
   );
 };

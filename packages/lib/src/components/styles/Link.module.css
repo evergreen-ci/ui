@@ -1,0 +1,11 @@
+/* Override LeafyGreen's font declarations for Link. 0-1-1 specificity
+   outranks LG Link's own single-class styles but still yields to contextual
+   styling like LG Banner's descendant links and to consumers' && overrides.
+   LG Link renders an anchor with href and a span without one.
+   Remove when links migrate to Via. */
+a.link,
+span.link {
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}

@@ -6,17 +6,17 @@ interface Props {
   tabLabel: string;
   badgeText: string | number;
   badgeVariant: Variant;
-  dataCyBadge?: string;
+  dataTestIdBadge?: string;
 }
 export const TabLabelWithBadge: React.FC<Props> = ({
   badgeText,
   badgeVariant,
-  dataCyBadge,
+  dataTestIdBadge,
   tabLabel,
 }) => (
   <>
     {tabLabel}{" "}
-    <StyledBadge data-cy={dataCyBadge} variant={badgeVariant}>
+    <StyledBadge data-testid={dataTestIdBadge} variant={badgeVariant}>
       {badgeText}
     </StyledBadge>
   </>

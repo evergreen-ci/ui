@@ -71,7 +71,7 @@ export const getColumnsTemplate = ({
     ),
     meta: {
       search: {
-        "data-cy": "task-name-filter",
+        "data-testid": "task-name-filter",
         placeholder: "Task name regex",
       },
     },
@@ -95,7 +95,7 @@ export const getColumnsTemplate = ({
       if (dependsOn?.length && getValue() === TaskStatus.Blocked) {
         return (
           <Tooltip
-            data-cy="depends-on-tooltip"
+            data-testid="depends-on-tooltip"
             justify={Justify.Middle}
             trigger={
               <span>
@@ -132,7 +132,7 @@ export const getColumnsTemplate = ({
     },
     meta: {
       treeSelect: {
-        "data-cy": "status-filter",
+        "data-testid": "status-filter",
         options: statusOptions,
       },
     },
@@ -164,7 +164,7 @@ export const getColumnsTemplate = ({
     },
     meta: {
       treeSelect: {
-        "data-cy": "base-status-filter",
+        "data-testid": "base-status-filter",
         options: baseStatusOptions,
       },
     },
@@ -183,7 +183,13 @@ export const getColumnsTemplate = ({
         </InfoSprinkle>
       </FlexWrapper>
     ),
-    cell: ({ getValue }) => {
+    cell: ({
+      column,
+      getValue,
+      row: {
+        original: { id },
+      },
+    }) => {
       const prevTaskCompleted = getValue() as NonNullable<
         TaskTableInfo["baseTask"]
       >["prevTaskCompleted"];
@@ -193,6 +199,13 @@ export const getColumnsTemplate = ({
           <TaskStatusBadgeWithLink
             execution={prevTaskCompleted.execution}
             id={prevTaskCompleted.id}
+            onClick={() =>
+              onClickTaskStatusBadge(
+                id,
+                prevTaskCompleted.displayStatus,
+                column.id,
+              )
+            }
             status={prevTaskCompleted.displayStatus as TaskStatus}
             tab={TaskTab.History}
           />
@@ -226,7 +239,7 @@ export const getColumnsTemplate = ({
     },
     meta: {
       search: {
-        "data-cy": "variant-filter",
+        "data-testid": "variant-filter",
         placeholder: "Variant name regex",
       },
     },

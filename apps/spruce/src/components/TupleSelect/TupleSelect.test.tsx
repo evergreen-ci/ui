@@ -17,7 +17,7 @@ const options = [
 const sharedProps = {
   ariaLabel: "Tuple Select",
   id: "tuple-select",
-  "data-cy": "tuple-select",
+  "data-testid": "tuple-select",
   label: "Tuple Select",
 };
 
@@ -47,7 +47,7 @@ describe("tupleSelect", () => {
   it("does not crash when onSubmit is not provided", async () => {
     const user = userEvent.setup();
     render(<TupleSelect {...sharedProps} options={options} />);
-    const input = screen.getByDataCy("tuple-select-input");
+    const input = screen.getByTestId("tuple-select-input");
     await user.type(input, "some-filter");
     await user.type(input, "{enter}");
     expect(input).toHaveValue("");
@@ -66,7 +66,7 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.queryByDataCy("tuple-select-input");
+    const input = screen.queryByTestId("tuple-select-input");
     const dropdown = screen.queryByText("Build Variant");
     expect(dropdown).toBeInTheDocument();
     expect(input).toBeInTheDocument();
@@ -88,7 +88,7 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.getByDataCy("tuple-select-input");
+    const input = screen.getByTestId("tuple-select-input");
     expect(input).toHaveValue("");
     await user.type(input, "some-filter");
     await user.type(input, "{enter}");
@@ -109,7 +109,7 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.getByDataCy("tuple-select-input");
+    const input = screen.getByTestId("tuple-select-input");
 
     expect(input).toHaveValue("");
     await user.type(input, "bad");

@@ -166,7 +166,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         disabled:
           hasError || loadingSpawnHost || requiresSpawnHostAuthentication,
       }}
-      data-cy="spawn-host-modal"
+      data-testid="spawn-host-modal"
       open={open}
       title="Spawn New Host"
     >

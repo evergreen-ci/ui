@@ -11,13 +11,13 @@ describe("table search popover", () => {
         value=""
       />,
     );
-    expect(screen.queryByDataTestId("test-popover-wrapper")).toBeNull();
+    expect(screen.queryByTestId("test-popover-wrapper")).toBeNull();
     const icon = screen.getByRole("button", {
       name: "Table Search Popover Icon",
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
   });
 
@@ -35,7 +35,7 @@ describe("table search popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
     const input = screen.getByPlaceholderText("Search");
     expect(input).toHaveValue("test_value");
@@ -56,7 +56,7 @@ describe("table search popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
     const input = screen.getByPlaceholderText("Search");
     await user.type(input, "test_value{enter}");
@@ -79,7 +79,7 @@ describe("table search popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
     const input = screen.getByPlaceholderText("Search");
     expect(input).toHaveFocus();
@@ -99,7 +99,7 @@ describe("table search popover", () => {
     });
     await user.click(icon);
     await waitFor(() => {
-      expect(screen.queryByDataTestId("test-popover-wrapper")).toBeVisible();
+      expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
     const input = screen.getByPlaceholderText("Search");
     expect(input).toHaveSelection("test_value");

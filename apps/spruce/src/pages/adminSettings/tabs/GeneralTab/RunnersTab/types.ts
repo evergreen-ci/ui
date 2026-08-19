@@ -25,6 +25,11 @@ export interface RunnersFormState {
       maxTaskExecution: number;
       maxDailyAutomaticRestarts: number;
       maxScheduledTasksPerDistro: number;
+      taskQueueAutoUnscheduleThreshold: number;
+      hourlyPatchTaskOverrides: Array<{
+        projectOrRepoId: string;
+        maxHourlyPatchTasks: number;
+      }>;
     };
     hostInit: {
       hostThrottle: number;
@@ -40,6 +45,7 @@ export interface RunnersFormState {
       hostsOverallocatedRule: OverallocatedRule;
       futureHostFraction: number;
       cacheDurationSeconds: number;
+      mergeQueueTargetTimeSeconds: number;
       targetTimeSeconds: number;
       acceptableHostIdleTimeSeconds: number;
       patchFactor: number;

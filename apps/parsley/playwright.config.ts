@@ -20,7 +20,4 @@ export default createPlaywrightConfig({
       dependencies: ["setup"],
     },
   ],
-  use: {
-    testIdAttribute: "data-testid", // TODO: Remove override when we've finished migrating off data-cy attributes.
-  },
 });

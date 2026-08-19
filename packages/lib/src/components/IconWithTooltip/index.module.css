@@ -1,0 +1,10 @@
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.tooltip.tooltip {
+  max-width: 300px;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+}

@@ -15,9 +15,9 @@ const ManifestBlob: React.FC<Props> = ({ manifest }) => {
   return (
     <MetadataItem>
       <StyledLink
-        data-cy="manifest-link"
+        data-testid="manifest-link"
         href={URL.createObjectURL(blob)}
-        target="__blank"
+        target="_blank"
       >
         Version Manifest
       </StyledLink>

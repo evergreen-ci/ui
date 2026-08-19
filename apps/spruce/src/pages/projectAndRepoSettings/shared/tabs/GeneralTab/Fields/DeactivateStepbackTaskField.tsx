@@ -62,7 +62,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
         disabled: hasError || loading,
         onClick: onConfirm,
       }}
-      data-cy="deactivate-stepback-modal"
+      data-testid="deactivate-stepback-modal"
       open={open}
       title="Deactivate Scheduled Stepback Task"
     >
@@ -106,7 +106,7 @@ export const DeactivateStepbackTaskField: Field = ({ disabled, uiSchema }) => {
         </Description>
         <div>
           <Button
-            data-cy={id}
+            data-testid={id}
             disabled={disabled}
             id={id}
             onClick={() => setOpen(true)}
@@ -145,11 +145,11 @@ const deactivateStepbackForm = {
   },
   uiSchema: {
     buildVariantName: {
-      "ui:data-cy": "deactivate-variant-name-input",
+      "ui:data-testid": "deactivate-variant-name-input",
       "ui:placeholder": "ex. ubuntu1604",
     },
     taskName: {
-      "ui:data-cy": "deactivate-task-name-input",
+      "ui:data-testid": "deactivate-task-name-input",
       "ui:placeholder": "ex. dist",
     },
   },

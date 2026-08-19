@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { GuideCue, GuideCueProps } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
 import { differenceInDays } from "date-fns";
 import Cookies from "js-cookie";
-import { size } from "../../constants/tokens";
 import Icon from "../Icon";
+import styles from "./index.module.css";
 
 type Props = {
   activeDays?: number;
@@ -48,15 +47,14 @@ export const ExpiringAnnouncementTooltip: React.FC<
     (neverSeenTooltip ||
       differenceInDays(now, seenTooltipDate) < activeDays) ? (
     <>
-      <IconContainer ref={infoRef}>
+      <div ref={infoRef} className={styles.iconContainer}>
         <Icon
-          data-cy="announcement-tooltip-trigger"
           data-testid="announcement-tooltip-trigger"
           fill={palette.gray.dark2}
           glyph="InfoWithCircle"
           onClick={() => setOpen((o) => !o)}
         />
-      </IconContainer>
+      </div>
       <GuideCue
         currentStep={1}
         numberOfSteps={1}
@@ -70,8 +68,3 @@ export const ExpiringAnnouncementTooltip: React.FC<
     </>
   ) : null;
 };
-
-const IconContainer = styled.div`
-  cursor: pointer;
-  padding-left: ${size.xxs};
-`;

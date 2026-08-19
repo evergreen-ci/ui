@@ -42,6 +42,8 @@ const form: ProvidersFormState = {
           subnetId: "subnet-67890",
         },
       ],
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
       parameterStorePrefix: "/evergreen/test",
       persistentDNS: {
         hostedZoneID: "Z123456789",
@@ -71,6 +73,7 @@ const form: ProvidersFormState = {
       ],
       ipamPoolID: "ipam-pool-123",
       elasticIPUsageRate: 0.8,
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
     },
     docker: {
       apiVersion: "1.40",
@@ -128,6 +131,7 @@ const gql: AdminSettingsInput = {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
       },
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
         {
           az: "us-east-1a",
@@ -138,6 +142,8 @@ const gql: AdminSettingsInput = {
           subnetId: "subnet-67890",
         },
       ],
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
     },
     docker: {
       apiVersion: "1.40",
@@ -197,6 +203,7 @@ const testAdminSettings = {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
       },
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
         {
           az: "us-east-1a",
@@ -207,6 +214,8 @@ const testAdminSettings = {
           subnetId: "subnet-67890",
         },
       ],
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
     },
     docker: {
       apiVersion: "1.40",

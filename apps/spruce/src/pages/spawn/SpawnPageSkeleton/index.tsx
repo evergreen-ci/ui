@@ -3,7 +3,7 @@ import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 
 const SpawnPageSkeleton = () => (
-  <div data-cy="spawn-page-skeleton">
+  <div data-testid="spawn-page-skeleton">
     <HeaderSkeleton />
     <ButtonSkeleton />
     <StyledTableSkeleton />

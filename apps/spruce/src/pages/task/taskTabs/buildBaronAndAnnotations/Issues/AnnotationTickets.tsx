@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Description } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { PlusButton } from "components/Buttons";
+import { Divider } from "components/styles";
 import { IssueLink } from "gql/generated/types";
 import { AddIssueModal } from "../AddIssueModal";
 import AnnotationTicketsList from "../AnnotationTicketsList";
@@ -30,7 +32,11 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   userCanModify,
 }) => {
   const title = isIssue ? "Issues" : "Suspected Issues";
+  const description = isIssue
+    ? "This section displays tickets that are explicitly linked to this task. If a ticket is linked here, the task will be marked as a Known Issue."
+    : "This section displays tickets that are linked to similar failures. Reviewing similar failures can help you determine whether this task shares the same underlying symptoms.";
   const buttonText = isIssue ? "Add issue" : "Add suspected issue";
+
   const [isAddAnnotationModalVisible, setIsAddAnnotationModalVisible] =
     useState<boolean>(false);
 
@@ -40,11 +46,12 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   return (
     <>
       <TicketsTitle>{title}</TicketsTitle>
+      <Description>{description}</Description>
       <Tooltip
         enabled={!userCanModify}
         trigger={
           <StyledButton
-            data-cy={
+            data-testid={
               isIssue ? "add-issue-button" : "add-suspected-issue-button"
             }
             disabled={!userCanModify}
@@ -70,13 +77,14 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
       )}
       <AddIssueModal
         closeModal={() => setIsAddAnnotationModalVisible(false)}
-        data-cy="addIssueModal"
+        data-testid="addIssueModal"
         execution={execution}
         isIssue={isIssue}
         setSelectedRowKey={setSelectedRowKey}
         taskId={taskId}
         visible={isAddAnnotationModalVisible}
       />
+      <Divider />
     </>
   );
 };

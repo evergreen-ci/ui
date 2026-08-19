@@ -24,7 +24,7 @@ export const Header: React.FC<Props> = ({ tab }) => {
     <>
       <div ref={headerScrollRef} />
       <StickyHeaderContainer saveable={saveable} showShadow={showShadow}>
-        <H2 data-cy="admin-settings-tab-title">{title}</H2>
+        <H2 data-testid="admin-settings-tab-title">{title}</H2>
         {saveable && <AdminSaveButton />}
       </StickyHeaderContainer>
     </>

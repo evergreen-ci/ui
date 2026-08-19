@@ -56,7 +56,7 @@ export const groupInactiveVersions = (
 };
 
 export const groupBuildVariants = (
-  versions: WaterfallQuery["waterfall"]["flattenedVersions"],
+  versions: WaterfallQuery["waterfall"]["versions"],
 ): BuildVariant[] => {
   const bvs: Map<string, BuildVariant> = new Map();
   versions.forEach(({ activated, id, waterfallBuilds }) => {

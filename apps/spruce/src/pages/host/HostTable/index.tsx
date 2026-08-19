@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
-import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
-import Pagination from "@evg-ui/lib/components/Pagination";
+import { Pagination } from "@evg-ui/lib/components/Pagination";
 import {
   BaseTable,
   ColumnFiltersState,
@@ -14,7 +13,6 @@ import {
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
-import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import { HostEventType, HostEventsQuery } from "gql/generated/types";
@@ -50,8 +48,7 @@ const HostTable: React.FC<HostTableProps> = ({
   loading,
   page,
 }) => {
-  const hostsTableAnalytics = useHostsTableAnalytics(true);
-  const { setLimit } = usePagination();
+  const { sendEvent } = useHostsTableAnalytics(true);
   const getDateCopy = useDateFormat();
   const [columnFilters, setColumnFilters] =
     useState<ColumnFiltersState>(initialFilters);
@@ -67,14 +64,6 @@ const HostTable: React.FC<HostTableProps> = ({
       updatedParams[id] = value;
     });
     setQueryParams(updatedParams);
-  };
-
-  const handlePageSizeChange = (pageSize: number): void => {
-    setLimit(pageSize);
-    hostsTableAnalytics.sendEvent({
-      name: "Changed page size",
-      "page.size": pageSize,
-    });
   };
 
   const eventTypeFilterOptions = useMemo(
@@ -126,21 +115,29 @@ const HostTable: React.FC<HostTableProps> = ({
         <PaginationWrapper>
           <Pagination
             currentPage={page}
-            data-cy="host-event-table-pagination"
+            data-testid="host-event-table-pagination"
+            loading={loading}
+            onPageChange={(newPage) =>
+              sendEvent({
+                name: "Changed page",
+                "page.number": newPage,
+              })
+            }
+            onPageSizeChange={(newPageSize) =>
+              sendEvent({
+                name: "Changed page size",
+                "page.size": newPageSize,
+              })
+            }
             pageSize={limit}
             totalResults={eventCount}
-          />
-          <PageSizeSelector
-            data-cy="host-event-table-page-size-selector"
-            onChange={handlePageSizeChange}
-            value={limit}
           />
         </PaginationWrapper>
       </TableTitle>
       <BaseTable
-        data-cy-row="host-events-table-row"
-        data-cy-table="host-events-table"
         data-loading={loading}
+        data-testid-row="host-events-table-row"
+        data-testid-table="host-events-table"
         loading={loading}
         loadingRows={limit}
         shouldAlternateRowColor
@@ -175,7 +172,7 @@ const getColumns = (
     enableColumnFilter: true,
     meta: {
       treeSelect: {
-        "data-cy": "event-type-filter",
+        "data-testid": "event-type-filter",
         options: eventTypeFilterOptions,
       },
     },

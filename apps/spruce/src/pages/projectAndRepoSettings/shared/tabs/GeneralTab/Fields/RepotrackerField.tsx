@@ -81,7 +81,7 @@ export const RepotrackerField: Field = ({ disabled, uiSchema }) => {
       )}
       <ElementWrapper>
         <Button
-          data-cy="force-repotracker-run-button"
+          data-testid="force-repotracker-run-button"
           disabled={disabled}
           onClick={() => setOpen(true)}
           size="small"

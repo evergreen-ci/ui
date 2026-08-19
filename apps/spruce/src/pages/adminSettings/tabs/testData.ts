@@ -48,12 +48,17 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     patchTimeInQueueFactor: 1,
     stepbackTaskFactor: 1,
     targetTimeSeconds: 1,
+    mergeQueueTargetTimeSeconds: 1,
     taskFinder: FinderVersion.Parallel,
     translateProjectConcurrencyLimit: 1,
     translateProjectCacheBytesLimit: 1,
     translateProjectCacheTTLSeconds: 1,
   },
   taskLimits: {
+    hourlyPatchTaskOverrides: [
+      { projectOrRepoId: "boosted_project", maxHourlyPatchTasks: 40 },
+      { projectOrRepoId: "boosted_repo", maxHourlyPatchTasks: 30 },
+    ],
     maxConcurrentLargeParserProjectTasks: 1,
     maxDailyAutomaticRestarts: 1,
     maxDegradedModeConcurrentLargeParserProjectTasks: 1,
@@ -67,6 +72,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     maxScheduledTasksPerDistro: 1,
     maxTaskExecution: 1,
     maxTasksPerVersion: 1,
+    taskQueueAutoUnscheduleThreshold: 1,
   },
   amboy: {
     name: "amboy",

@@ -37,7 +37,7 @@ export const ArrayFieldTemplate: React.FC<
   return (
     <>
       <BaseTable
-        data-cy="github-permissions-table"
+        data-testid="github-permissions-table"
         emptyComponent={
           <Body style={{ marginLeft: tableColumnOffset, marginTop: size.xs }}>
             No permission groups added yet.
@@ -47,7 +47,7 @@ export const ArrayFieldTemplate: React.FC<
       />
       <ButtonWrapper>
         <PlusButton
-          data-cy="add-permission-button"
+          data-testid="add-permission-button"
           disabled={isDisabled}
           onClick={onAddClick}
           size={ButtonSize.Small}
@@ -92,7 +92,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
     {children}
     {buttonsProps.hasRemove && (
       <Button
-        data-cy="delete-permission-button"
+        data-testid="delete-permission-button"
         disabled={Boolean(disabled || readonly)}
         leftGlyph={<Icon glyph="Trash" />}
         onClick={buttonsProps.onRemoveItem}

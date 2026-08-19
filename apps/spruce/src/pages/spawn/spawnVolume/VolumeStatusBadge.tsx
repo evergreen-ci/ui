@@ -8,7 +8,7 @@ interface Props {
 export const VolumeStatusBadge: React.FC<Props> = ({ hostId, migrating }) => {
   const { text, variant } = getBadge(migrating, hostId);
   return (
-    <Badge data-cy="volume-status-badge" variant={variant}>
+    <Badge data-testid="volume-status-badge" variant={variant}>
       {text}
     </Badge>
   );

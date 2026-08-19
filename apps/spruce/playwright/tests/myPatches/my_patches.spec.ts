@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { clickCheckbox } from "../../helpers";
+import { clickCheckbox, selectPageSize } from "../../helpers";
 
 const MY_PATCHES_ROUTE = "/user/admin/patches";
 const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
@@ -119,11 +119,7 @@ test.describe("My Patches Page", () => {
   }) => {
     await page.goto(`${MY_PATCHES_ROUTE}?limit=10`);
     for (const pageSize of [20, 10, 50, 100]) {
-      await page
-        .locator("button[aria-labelledby='page-size-select']")
-        .first()
-        .click();
-      await page.getByText(`${pageSize} / page`).click();
+      await selectPageSize(page, pageSize);
       const patchCards = page.getByTestId("patch-card");
       const count = await patchCards.count();
       expect(count).toBeLessThanOrEqual(pageSize);
@@ -138,9 +134,12 @@ test.describe("My Patches Page", () => {
       await page.goto(`${MY_PATCHES_ROUTE}?limit=10`);
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
 
-      const nextPageBtn = page.getByTestId("next-page-button").first();
-      await expect(nextPageBtn).toBeEnabled();
-      await nextPageBtn.click();
+      const topPagination = page.getByTestId("pagination").first();
+      const nextPageButton = topPagination.getByRole("button", {
+        name: "Next page",
+      });
+      await expect(nextPageButton).toBeEnabled();
+      await nextPageButton.click();
 
       for (const displayName of secondPageDisplayNames) {
         await expect(page.getByText(displayName).first()).toBeVisible();
@@ -154,9 +153,12 @@ test.describe("My Patches Page", () => {
       await page.goto(`${MY_PATCHES_ROUTE}?limit=10&page=1`);
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
 
-      const prevPageBtn = page.getByTestId("prev-page-button").first();
-      await expect(prevPageBtn).toBeEnabled();
-      await prevPageBtn.click();
+      const topPagination = page.getByTestId("pagination").first();
+      const prevPageButton = topPagination.getByRole("button", {
+        name: "Previous page",
+      });
+      await expect(prevPageButton).toBeEnabled();
+      await prevPageButton.click();
 
       for (const displayName of firstPageDisplayNames) {
         await expect(page.getByText(displayName).first()).toBeVisible();
@@ -170,14 +172,20 @@ test.describe("My Patches Page", () => {
       await page.goto(`${MY_PATCHES_ROUTE}?limit=10`);
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
 
-      const prevPageBtn = page.getByTestId("prev-page-button").first();
-      await expect(prevPageBtn).toBeDisabled();
+      const topPagination = page.getByTestId("pagination").first();
+      const prevPageButton = topPagination.getByRole("button", {
+        name: "Previous page",
+      });
+      const nextPageButton = topPagination.getByRole("button", {
+        name: "Next page",
+      });
+
+      await expect(prevPageButton).toBeDisabled();
 
       await page.goto(`${MY_PATCHES_ROUTE}?page=2`);
       await expect(page.getByTestId("patch-card")).toHaveCount(6);
 
-      const nextPageBtn = page.getByTestId("next-page-button").first();
-      await expect(nextPageBtn).toBeDisabled();
+      await expect(nextPageButton).toBeDisabled();
     });
   });
 

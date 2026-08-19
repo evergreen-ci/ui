@@ -35,7 +35,7 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
         key={ImageTabRoutes.BuildInformation}
         active={tabIsActive}
         as={Link}
-        data-cy={`navitem-${ImageTabRoutes.BuildInformation}`}
+        data-testid={`navitem-${ImageTabRoutes.BuildInformation}`}
         indentLevel={0}
         onClick={() =>
           sendEvent({
@@ -62,7 +62,7 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
               }
             `}
             data-active={isActive}
-            data-cy={`navitem-${item.id}`}
+            data-testid={`navitem-${item.id}`}
             indentLevel={3}
             onClick={() =>
               sendEvent({

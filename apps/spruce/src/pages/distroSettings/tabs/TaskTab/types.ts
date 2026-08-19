@@ -17,6 +17,7 @@ export interface TaskFormState {
       generateTaskFactor: number;
       groupVersions: boolean;
       mainlineTimeInQueueFactor: number;
+      mergeQueueTargetTime: number;
       numDependentsFactor: number;
       patchFactor: number;
       patchTimeInQueueFactor: number;

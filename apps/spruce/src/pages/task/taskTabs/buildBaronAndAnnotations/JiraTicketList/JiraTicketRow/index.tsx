@@ -22,9 +22,9 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
   const { assigneeDisplayName, created, status, summary, updated } =
     fields ?? {};
   return (
-    <Container data-cy="jira-ticket-row">
+    <Container data-testid="jira-ticket-row">
       <JiraSummaryLink
-        data-cy={jiraKey}
+        data-testid={jiraKey}
         href={url}
         onClick={() =>
           annotationAnalytics.sendEvent({
@@ -36,11 +36,11 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
         {jiraKey}: {trimStringFromMiddle(summary, 80)}
       </JiraSummaryLink>
 
-      <Badge data-cy={`${jiraKey}-badge`} variant="lightgray">
+      <Badge data-testid={`${jiraKey}-badge`} variant="lightgray">
         {status.name}
       </Badge>
 
-      <BottomMetadataWrapper data-cy={`${jiraKey}-metadata`}>
+      <BottomMetadataWrapper data-testid={`${jiraKey}-metadata`}>
         <Disclaimer>
           Created: {getDateCopy(created, { dateOnly: true })}
         </Disclaimer>
@@ -68,7 +68,9 @@ const BottomMetadataWrapper = styled.div`
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
-  font-weight: bold;
+  && {
+    font-weight: bold;
+  }
   margin-right: ${size.s};
 `;
 

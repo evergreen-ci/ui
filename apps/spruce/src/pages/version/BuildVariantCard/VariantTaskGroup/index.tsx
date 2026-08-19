@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { StyledRouterLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -53,10 +54,12 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   };
 
   return (
-    <div data-cy="patch-build-variant">
+    <div data-testid="patch-build-variant">
       <StyledRouterLink
-        css={wordBreakCss}
-        data-cy="build-variant-display-name"
+        css={css`
+          ${wordBreakCss}
+        `}
+        data-testid="build-variant-display-name"
         onClick={() =>
           sendEvent({
             name: "Filtered by build variant group",

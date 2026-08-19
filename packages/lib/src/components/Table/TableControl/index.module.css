@@ -1,0 +1,9 @@
+.flexContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-200);
+}
+
+.paginationContainer * {
+  min-width: fit-content;
+}

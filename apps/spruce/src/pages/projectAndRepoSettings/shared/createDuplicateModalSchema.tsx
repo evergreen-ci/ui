@@ -11,7 +11,7 @@ export const projectName = {
     format: "noSpecialCharacters",
   },
   uiSchema: {
-    "ui:data-cy": "project-name-input",
+    "ui:data-testid": "project-name-input",
   },
 };
 
@@ -22,13 +22,13 @@ const enablePerformanceTooling = {
     default: false,
   },
   uiSchema: {
-    "ui:data-cy": "enable-performance-tooling",
+    "ui:data-testid": "enable-performance-tooling",
   },
 };
 
 const PerformanceToolingBanner: Field = () => (
   <Banner
-    data-cy="performance-tooling-banner"
+    data-testid="performance-tooling-banner"
     style={{ marginBottom: "20px" }}
     variant="warning"
   >
@@ -55,7 +55,7 @@ export const performanceTooling = {
 
 const S3BucketInfoBanner: Field = () => (
   <Banner
-    data-cy="s3-bucket-info-banner"
+    data-testid="s3-bucket-info-banner"
     style={{ marginBottom: "20px" }}
     variant={Variant.Info}
   >

@@ -58,7 +58,7 @@ export const RepoConfigField: Field = ({
             {isAttachedProject && !!githubOrgs.length && (
               <>
                 <Button
-                  data-cy="move-repo-button"
+                  data-testid="move-repo-button"
                   disabled={disabled}
                   onClick={() => setMoveModalOpen(true)}
                   size="small"
@@ -77,12 +77,12 @@ export const RepoConfigField: Field = ({
             )}
             <Tooltip
               align="top"
-              data-cy="attach-repo-disabled-tooltip"
+              data-testid="attach-repo-disabled-tooltip"
               enabled={ownerOrRepoHasChanges}
               justify="middle"
               trigger={
                 <Button
-                  data-cy="attach-repo-button"
+                  data-testid="attach-repo-button"
                   disabled={ownerOrRepoHasChanges || disabled}
                   onClick={() => setAttachModalOpen(true)}
                   size="small"

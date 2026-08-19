@@ -24,7 +24,7 @@ export const ArrayFieldTemplate: React.FC<
   });
   return (
     <BaseTable
-      data-cy="github-token-permissions-restrictions-table"
+      data-testid="github-token-permissions-restrictions-table"
       table={table}
     />
   );
