@@ -9,11 +9,8 @@ import { PROJECT_BUILD_BARON_SETTINGS } from "gql/queries";
 
 interface UseProjectBuildBaronSettingsOptions {
   projectId?: string;
-  /**
-   * Passing an identifier opts into fetching the settings when the cache doesn't already have them.
-   * Omit it to read whatever is cached without issuing a request.
-   */
   projectIdentifier?: string;
+  shouldFetch?: boolean;
 }
 
 /**
@@ -22,13 +19,15 @@ interface UseProjectBuildBaronSettingsOptions {
  * by anything that has already read these fields, such as the project settings page.
  * @param options - the options object
  * @param options.projectId - the id of the project whose settings to read
- * @param options.projectIdentifier - the identifier to fetch settings by, when fetching is wanted
+ * @param options.projectIdentifier - the identifier to fetch settings by
+ * @param options.shouldFetch - whether to fetch settings that are not already cached
  * @returns whether Build Baron is configured and whether the project defines a Jira project for
  * ticket creation
  */
 export const useProjectBuildBaronSettings = ({
   projectId,
   projectIdentifier,
+  shouldFetch = true,
 }: UseProjectBuildBaronSettingsOptions) => {
   const { complete, data: cached } =
     useFragment<ProjectBuildBaronSettingsFragment>({
@@ -41,7 +40,7 @@ export const useProjectBuildBaronSettings = ({
     ProjectBuildBaronSettingsQueryVariables
   >(
     PROJECT_BUILD_BARON_SETTINGS,
-    !complete && projectIdentifier
+    shouldFetch && !complete && projectIdentifier
       ? { variables: { projectIdentifier } }
       : skipToken,
   );

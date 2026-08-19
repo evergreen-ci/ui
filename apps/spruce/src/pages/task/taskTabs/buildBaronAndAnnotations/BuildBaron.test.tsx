@@ -193,7 +193,7 @@ describe("buildBaronContent", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByDataCy("EVG-1000")).toBeInTheDocument();
+      expect(screen.getByTestId("EVG-1000")).toBeInTheDocument();
     });
   });
 });
