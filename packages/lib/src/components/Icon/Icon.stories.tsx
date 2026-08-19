@@ -1,7 +1,7 @@
 import { palette } from "@leafygreen-ui/palette";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import styles from "./Icon.stories.module.css";
-import Icon, { Size, glyphs } from ".";
+import Icon, { glyphs } from ".";
 
 const { green } = palette;
 
@@ -32,7 +32,7 @@ export const Default: CustomStoryObj<typeof Icon> = {
   },
   render: (args) => (
     <div className={styles.container}>
-      {Object.keys(glyphs).map((name) => (
+      {(Object.keys(glyphs) as Array<keyof typeof glyphs>).map((name) => (
         <div key={name} className={styles.iconContainer}>
           <Icon {...args} glyph={name} />
           <span>{name}</span>

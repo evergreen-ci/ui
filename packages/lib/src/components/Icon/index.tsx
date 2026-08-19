@@ -11,6 +11,10 @@ import "@via-ds/icons/styles.css";
 import AnimatedIcon from "./AnimatedIcon";
 import { glyphs } from "./glyphs";
 import * as icons from "./icons";
+import { FallLogo } from "./icons/logos/FallLogo";
+import { PrideLogo } from "./icons/logos/PrideLogo";
+import { SpringLogo } from "./icons/logos/SpringLogo";
+import { WinterLogo } from "./icons/logos/WinterLogo";
 
 const localGlyphs = {
   EvergreenLogo: icons.EvergreenLogo,
@@ -103,7 +107,7 @@ export { sizeMap };
 // every available icon.
 export { glyphs };
 
-export { AnimatedIcon };
+export { AnimatedIcon, PrideLogo, FallLogo, WinterLogo, SpringLogo };
 export { EvergreenLogo, ParsleyLogo } from "./icons";
 
 export default Icon;
