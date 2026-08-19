@@ -1,9 +1,5 @@
 import { ForwardedRef, Fragment, forwardRef } from "react";
-import { SerializedStyles } from "@emotion/react";
-import styled from "@emotion/styled";
-import { css } from "@leafygreen-ui/emotion";
 import { Pagination } from "@leafygreen-ui/pagination";
-import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,
   ExpandedContent,
@@ -25,14 +21,13 @@ import {
   VirtualItem,
   flexRender,
 } from "@leafygreen-ui/table";
-import { size, tableColumnOffset } from "../../constants/tokens";
 import { conditionalToArray } from "../../utils/array";
+import { cx } from "../../utils/css";
 import { TreeDataEntry } from "../TreeSelect";
+import styles from "./BaseTable.module.css";
 import TableLoader from "./TableLoader";
 import TableFilterPopover from "./TablePopover/TableFilterPopover";
 import TableSearchPopover from "./TablePopover/TableSearchPopover";
-
-const { gray } = palette;
 
 // Define typing of columns' meta field
 // https://tanstack.com/table/v8/docs/api/core/column-def#meta
@@ -56,8 +51,6 @@ declare module "@tanstack/table-core" {
   }
 }
 
-const { blue } = palette;
-
 interface SpruceTableProps<T extends LGRowData> {
   "data-testid-row"?: string;
   "data-testid-table"?: string;
@@ -75,8 +68,8 @@ interface SpruceTableProps<T extends LGRowData> {
   usePagination?: boolean;
   /** Object returned from the useLeafyGreenTable or useLeafyGreenVirtualTable hook */
   table: LeafyGreenVirtualTable<T> | LeafyGreenTable<T>;
-  /** CSS to apply to the table rows */
-  rowCss?: SerializedStyles;
+  /** Class name to apply to the table rows */
+  rowClassName?: string;
 }
 
 type BaseTableProps<T extends LGRowData = LGRowData> = SpruceTableProps<T> &
@@ -93,7 +86,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
       loading,
       loadingRows = 5,
       numTotalItems,
-      rowCss,
+      rowClassName,
       selectedRowIndexes = [],
       table,
       usePagination = false,
@@ -148,7 +141,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                       disabled={disabledRowIndexes?.includes(row.index)}
                       isSelected={selectedRowIndexes.includes(row.index)}
                       row={row}
-                      rowCss={rowCss}
+                      rowClassName={rowClassName}
                       virtualRow={vr}
                     />
                   );
@@ -160,7 +153,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                     disabled={disabledRowIndexes?.includes(row.index)}
                     isSelected={selectedRowIndexes.includes(row.index)}
                     row={row}
-                    rowCss={rowCss}
+                    rowClassName={rowClassName}
                   />
                 ))}
           </TableBody>
@@ -168,10 +161,11 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
         {!loading &&
           rows.length === 0 &&
           (emptyComponent || (
-            <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
+            <div className={styles.emptyMessage}>No data to display</div>
           ))}
         {usePagination && table && (
-          <StyledPagination
+          <Pagination
+            className={styles.pagination}
             currentPage={table.getState().pagination.pageIndex + 1}
             itemsPerPage={table.getState().pagination.pageSize}
             numTotalItems={numTotalItems}
@@ -256,24 +250,12 @@ const TableHeaderCell = <T extends LGRowData>({
   );
 };
 
-const cellPaddingStyle = {
-  paddingBottom: size.xxs,
-  paddingTop: size.xxs,
-};
-
-const cellStyle = css`
-  /* Force the nested div wrapping the cell content to take up full width. */
-  > div > div > div {
-    width: 100%;
-  }
-`;
-
 const RenderableRow = <T extends LGRowData>({
   dataTestIdRow = "leafygreen-table-row",
   disabled = false,
   isSelected = false,
   row,
-  rowCss,
+  rowClassName,
   virtualRow,
 }: {
   dataTestIdRow?: string;
@@ -281,21 +263,14 @@ const RenderableRow = <T extends LGRowData>({
   virtualRow?: VirtualItem;
   isSelected?: boolean;
   disabled?: boolean;
-  rowCss?: SerializedStyles;
+  rowClassName?: string;
 }) => (
   <Fragment key={row.id}>
     {!row.isExpandedContent && (
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore: This is a workaround to fix the type error
       <Row
-        className={css`
-          ${rowCss}
-          ${isSelected &&
-          `
-           background-color: ${blue.light3} !important;
-           font-weight:bold;
-           `}
-        `}
+        className={cx(rowClassName, isSelected && styles.selectedRow)}
         data-index={row.index}
         data-selected={isSelected}
         data-testid={dataTestIdRow}
@@ -309,9 +284,8 @@ const RenderableRow = <T extends LGRowData>({
           <Cell
             key={cell.id}
             cell={cell}
-            className={cellStyle}
+            className={styles.cell}
             data-column={cell.column.id}
-            style={cellPaddingStyle}
           >
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
           </Cell>
@@ -319,25 +293,14 @@ const RenderableRow = <T extends LGRowData>({
       </Row>
     )}
     {row.isExpandedContent && (
-      <StyledExpandedContent row={row as LeafyGreenTableRow<unknown>} />
+      <TypedExpandedContent
+        className={styles.expandedContent}
+        row={row as LeafyGreenTableRow<unknown>}
+      />
     )}
   </Fragment>
 );
 
-const DefaultEmptyMessage = styled.div`
-  margin-top: ${size.s};
-  margin-left: ${tableColumnOffset};
-`;
-
-const StyledExpandedContent = styled(
-  ExpandedContent as React.ComponentType<ExpandedContentProps<LGRowData>>,
-)`
-  > td {
-    padding: ${size.xs} 0;
-    background-color: ${gray.light3};
-  }
-`;
-
-const StyledPagination = styled(Pagination)`
-  margin-top: ${size.xs};
-`;
+const TypedExpandedContent = ExpandedContent as React.ComponentType<
+  ExpandedContentProps<LGRowData>
+>;

@@ -121,7 +121,9 @@ const Container = styled.div`
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
-  font-weight: bold;
+  && {
+    font-weight: bold;
+  }
   margin-right: ${size.s};
   ${wordBreakCss};
 `;

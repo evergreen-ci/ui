@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { css } from "@leafygreen-ui/emotion";
 import {
   LGColumnDef,
   useLeafyGreenTable,
@@ -8,6 +7,7 @@ import {
 import { CustomMeta, CustomStoryObj } from "../../test_utils/types";
 import { WordBreak } from "../styles";
 import { BaseTable } from "./BaseTable";
+import styles from "./BaseTable.stories.module.css";
 
 export default {
   component: BaseTable,
@@ -58,15 +58,11 @@ export const LongContent: CustomStoryObj<typeof BaseTable> = {
     darkMode: false,
   },
 };
-const virtualScrollingContainerHeight = css`
-  height: 500px;
-`;
-
 export const VirtualTable: CustomStoryObj<typeof BaseTable> = {
   render: (args) => (
     <TemplateComponent
       {...args}
-      className={virtualScrollingContainerHeight}
+      className={styles.virtualScrollingContainer}
       data={virtualRows}
       useVirtualScrolling
     />

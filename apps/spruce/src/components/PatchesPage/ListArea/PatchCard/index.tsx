@@ -196,9 +196,11 @@ const ChipContainer = styled.div`
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`
-  font-size: ${fontSize.l};
-  font-weight: 500;
-  padding-bottom: ${size.xs};
+  && {
+    font-size: ${fontSize.l};
+    font-weight: 500;
+    padding-bottom: ${size.xs};
+  }
 `;
 
 const PatchBadgeContainer = styled.div`
