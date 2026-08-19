@@ -29,6 +29,7 @@ export const MetadataTitleWithAPILink: React.FC<MetadataTitleWithLinkProps> = ({
 );
 
 interface Props {
+  className?: string;
   error?: Error;
   loading?: boolean;
   title?: React.ReactNode;
