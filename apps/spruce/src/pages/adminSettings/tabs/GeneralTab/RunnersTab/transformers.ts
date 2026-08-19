@@ -29,6 +29,7 @@ export const gqlToForm = ((data) => {
     maxScheduledTasksPerDistro,
     maxTaskExecution,
     maxTasksPerVersion,
+    taskQueueAutoUnscheduleThreshold,
   } = taskLimits ?? {};
 
   const {
@@ -90,6 +91,7 @@ export const gqlToForm = ((data) => {
         maxTaskExecution: maxTaskExecution ?? 0,
         maxDailyAutomaticRestarts: maxDailyAutomaticRestarts ?? 0,
         maxScheduledTasksPerDistro: maxScheduledTasksPerDistro ?? 0,
+        taskQueueAutoUnscheduleThreshold: taskQueueAutoUnscheduleThreshold ?? 0,
       },
       hostInit: {
         hostThrottle: hostThrottle ?? 0,
