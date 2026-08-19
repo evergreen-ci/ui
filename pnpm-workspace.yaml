@@ -4,7 +4,6 @@ packages:
 # Supply-chain cooldown: wait 3 days (value is in minutes) after a version is
 # published before installing it, so compromised releases can be caught/yanked first.
 minimumReleaseAge: 4320
-# First-party MongoDB packages the Via migration consumes day-of-release.
 minimumReleaseAgeExclude:
   - '@via-ds/components'
   - '@via-ds/icons'
