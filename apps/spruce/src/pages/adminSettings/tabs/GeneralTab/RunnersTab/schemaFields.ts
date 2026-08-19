@@ -5,7 +5,7 @@ import {
   OverallocatedRule,
   RoundingRule,
 } from "gql/generated/types";
-import { fullWidthCss } from "../../sharedStyles";
+import { arrayItemCSS, fullWidthCss } from "../../sharedStyles";
 
 export const notify = {
   schema: {
@@ -76,6 +76,24 @@ export const taskLimits = {
       type: "number" as const,
       title: "Task Queue Auto Unschedule Threshold (num tasks)",
     },
+    hourlyPatchTaskOverrides: {
+      type: "array" as const,
+      title: "Hourly Patch Task Limit Overrides",
+      items: {
+        type: "object" as const,
+        properties: {
+          projectOrRepoId: {
+            type: "string" as const,
+            title: "Project/Repo ID",
+            default: "",
+          },
+          maxHourlyPatchTasks: {
+            type: "number" as const,
+            title: "Max Hourly Patch Tasks Per User",
+          },
+        },
+      },
+    },
   },
   uiSchema: {
     maxScheduledTasksPerDistro: {
@@ -85,6 +103,15 @@ export const taskLimits = {
     taskQueueAutoUnscheduleThreshold: {
       "ui:description":
         "The maximum number of tasks allowed in distro task queues. The scheduler will unschedule all CLI patch tasks beyond this limit. Set well above Max Scheduled Tasks Per Distro, since it unschedules real work. 0 disables auto unscheduling.",
+    },
+    hourlyPatchTaskOverrides: {
+      "ui:description":
+        "Overrides Max Hourly Patch Tasks Per User for one branch project or repo. These limits are separate from a user's default scheduling limits.",
+      "ui:addButtonText": "Add override",
+      "ui:orderable": false,
+      "ui:fullWidth": true,
+      "ui:fieldCss": fullWidthCss,
+      "ui:arrayItemCSS": arrayItemCSS,
     },
   },
 };
