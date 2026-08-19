@@ -39,7 +39,7 @@ const form: RunnersFormState = {
       maxTaskExecution: 1,
       maxDailyAutomaticRestarts: 1,
       maxScheduledTasksPerDistro: 1,
-      taskQueueFlushThreshold: 1,
+      taskQueueAutoUnscheduleThreshold: 1,
     },
     hostInit: {
       hostThrottle: 1,
@@ -101,7 +101,7 @@ const gql: AdminSettingsInput = {
     maxTaskExecution: 1,
     maxDailyAutomaticRestarts: 1,
     maxScheduledTasksPerDistro: 1,
-    taskQueueFlushThreshold: 1,
+    taskQueueAutoUnscheduleThreshold: 1,
   },
   hostInit: {
     hostThrottle: 1,

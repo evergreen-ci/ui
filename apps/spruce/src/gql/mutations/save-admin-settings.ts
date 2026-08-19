@@ -94,7 +94,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
         maxScheduledTasksPerDistro
         maxTaskExecution
         maxTasksPerVersion
-        taskQueueFlushThreshold
+        taskQueueAutoUnscheduleThreshold
       }
       ui {
         betaFeatures {
