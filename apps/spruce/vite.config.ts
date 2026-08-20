@@ -102,14 +102,6 @@ const getProjectConfig = () => {
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
       setupFiles: ["@evg-ui/lib/config/vitest/setupTests.ts"],
       include: ["src/**/*.test.{ts,tsx}"],
-      server: {
-        deps: {
-          // TODO UXE-711: remove once @via-ds/icons fixes its extensionless
-          // "lodash-es/kebabCase" import, which Node's ESM resolver rejects.
-          // Inlining routes it through Vite's resolver instead.
-          inline: [/@via-ds\//],
-        },
-      },
     },
   });
 
