@@ -330,11 +330,9 @@ describe("version SkippedTestsMetadata", () => {
     );
 
     await waitFor(() => {
-      expect(dispatchToast.warning).toHaveBeenCalledWith(
-        "Skipped test details are not available for this version.",
-      );
+      expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
     });
-    expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
+    expect(dispatchToast.warning).not.toHaveBeenCalled();
   });
 
   it("downloads the whole version's list as JSON", async () => {

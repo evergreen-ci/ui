@@ -91,10 +91,6 @@ export const VersionSkippedTestsModal: React.FC<
         dispatchToast.error(
           "There was an error loading the skipped test details.",
         );
-      } else {
-        dispatchToast.warning(
-          "Skipped test details are not available for this version.",
-        );
       }
       return;
     }
