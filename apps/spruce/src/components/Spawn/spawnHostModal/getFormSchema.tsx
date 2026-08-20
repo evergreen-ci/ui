@@ -426,9 +426,11 @@ export const getFormSchema = ({
               Spawn host in{" "}
               <StyledLink
                 css={css`
-                  font-weight: bold;
-                  text-decoration: underline;
-                  color: inherit;
+                  && {
+                    font-weight: bold;
+                    text-decoration: underline;
+                    color: inherit;
+                  }
                 `}
                 hideExternalIcon={false}
                 href={debugSpawnHostsDocumentationUrl}

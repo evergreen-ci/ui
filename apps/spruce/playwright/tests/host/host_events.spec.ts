@@ -1,5 +1,5 @@
 import { Page, expect, test } from "../../fixtures";
-import { clickCheckbox, selectOption } from "../../helpers";
+import { clickCheckbox, selectOption, selectPageSize } from "../../helpers";
 
 /**
  * Helper to select page size and verify URL and table row count
@@ -7,16 +7,12 @@ import { clickCheckbox, selectOption } from "../../helpers";
  * @param pageSize - The page size to select
  * @param tableRowsTestId - The data-testid selector for table rows
  */
-const selectPageSize = async (
+const checkPageSize = async (
   page: Page,
   pageSize: number,
   tableRowsTestId: string,
 ) => {
-  await page
-    .locator("button[aria-labelledby='page-size-select']")
-    .first()
-    .click();
-  await page.getByText(`${pageSize} / page`).first().click();
+  await selectPageSize(page, pageSize);
   const tableRows = page.locator(tableRowsTestId);
   const rowCount = await tableRows.count();
   expect(rowCount).toBeLessThanOrEqual(pageSize);
@@ -35,7 +31,7 @@ test.describe("Host events", () => {
 
   test("host events display the correct text", async ({ page }) => {
     await page.goto(pathWithEvents);
-    await selectPageSize(page, 100, tableRows);
+    await checkPageSize(page, 100, tableRows);
 
     const hostTypes = [
       {
@@ -188,7 +184,7 @@ test.describe("Host events", () => {
       },
     ];
     await page.goto(pathWithEvents);
-    await selectPageSize(page, 100, tableRows);
+    await checkPageSize(page, 100, tableRows);
 
     for (const { hostType, logsTitle, text, index } of hostTypes) {
       const eventElement = page
@@ -214,7 +210,7 @@ test.describe("Host events", () => {
     page,
   }) => {
     await page.goto(pathWithEvents);
-    await selectPageSize(page, 100, tableRows);
+    await checkPageSize(page, 100, tableRows);
     const statusChangedElement = page
       .getByTestId("host-status-changed")
       .filter({ hasText: "Status changed from running to stopping" })
@@ -226,7 +222,7 @@ test.describe("Host events", () => {
 
   test("host event links get displayed", async ({ page }) => {
     await page.goto(pathWithEvents);
-    await selectPageSize(page, 100, tableRows);
+    await checkPageSize(page, 100, tableRows);
     const hostTypes = [
       "host-running-task-set-link",
       "host-running-task-cleared-link",

@@ -1,6 +1,4 @@
-import { css } from "@emotion/react";
-
-export const fontStyles = css`
+export const fontStyles = `
   /*
    * Euclid
   /*

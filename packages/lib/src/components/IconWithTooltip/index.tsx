@@ -1,12 +1,6 @@
-import styled from "@emotion/styled";
-import {
-  Align,
-  Justify,
-  Tooltip,
-  TooltipProps,
-  TriggerEvent,
-} from "@leafygreen-ui/tooltip";
+import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import Icon from "../Icon";
+import styles from "./index.module.css";
 
 interface IconWithTooltipProps extends React.ComponentProps<typeof Icon> {
   ["data-testid"]?: string;
@@ -17,29 +11,19 @@ const IconWithTooltip: React.FC<IconWithTooltipProps> = ({
   "data-testid": dataTestId,
   ...rest
 }) => (
-  <StyledTooltip
+  <Tooltip
     align={Align.Top}
+    className={styles.tooltip}
     justify={Justify.Middle}
     trigger={
-      <IconWrapper data-testid={dataTestId}>
+      <div className={styles.iconWrapper} data-testid={dataTestId}>
         <Icon {...rest} />
-      </IconWrapper>
+      </div>
     }
     triggerEvent={TriggerEvent.Hover}
   >
     {children}
-  </StyledTooltip>
+  </Tooltip>
 );
-
-const StyledTooltip = styled(
-  Tooltip as React.ComponentType<Partial<TooltipProps>>,
-)`
-  max-width: 300px;
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 export default IconWithTooltip;

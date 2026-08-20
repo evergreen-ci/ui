@@ -1,0 +1,5 @@
+.container {
+  display: flex;
+  gap: var(--via-space-200);
+  flex-wrap: wrap;
+}
