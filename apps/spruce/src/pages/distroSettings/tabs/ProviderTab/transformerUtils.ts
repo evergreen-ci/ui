@@ -22,7 +22,10 @@ interface ProviderSettingsList {
   is_vpc: boolean;
   subnet_id: string;
   vpc_name: string;
+  subnet_tag_name: string;
+  subnet_tag_value: string;
   elastic_ips_enabled: boolean;
+  enable_nested_virtualization: boolean;
   mount_points: Array<{
     device_name: string;
     virtual_name: string;
@@ -64,10 +67,14 @@ export const formProviderSettings = (
     doNotAssignPublicIPv4Address:
       providerSettings.do_not_assign_public_ipv4_address ?? false,
     elasticIpsEnabled: providerSettings.elastic_ips_enabled ?? false,
+    enableNestedVirtualization:
+      providerSettings.enable_nested_virtualization ?? false,
     vpcOptions: {
       useVpc: providerSettings.is_vpc ?? false,
       subnetId: providerSettings.subnet_id ?? "",
       subnetPrefix: providerSettings.vpc_name ?? "",
+      subnetTagName: providerSettings.subnet_tag_name ?? "",
+      subnetTagValue: providerSettings.subnet_tag_value ?? "",
     },
     mountPoints:
       providerSettings.mount_points?.map((mp) => ({
@@ -121,8 +128,15 @@ export const gqlProviderSettings = (
         providerSettings.doNotAssignPublicIPv4Address,
       is_vpc: vpcOptions?.useVpc,
       elastic_ips_enabled: providerSettings.elasticIpsEnabled,
+      enable_nested_virtualization: providerSettings.enableNestedVirtualization,
       subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
       vpc_name: vpcOptions?.useVpc ? vpcOptions?.subnetPrefix : undefined,
+      subnet_tag_name: vpcOptions?.useVpc
+        ? vpcOptions?.subnetTagName
+        : undefined,
+      subnet_tag_value: vpcOptions?.useVpc
+        ? vpcOptions?.subnetTagValue
+        : undefined,
       mount_points:
         providerSettings.mountPoints?.map((mp) => ({
           device_name: mp.deviceName,

@@ -1,15 +1,7 @@
-import styled from "@emotion/styled";
+import styles from "./index.module.css";
 
 export const FullPageLoad: React.FC = () => (
-  <FullPage data-cy="loading-page">
+  <div className={styles.fullPage}>
     <div>LOADING...</div>
-  </FullPage>
+  </div>
 );
-
-const FullPage = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;

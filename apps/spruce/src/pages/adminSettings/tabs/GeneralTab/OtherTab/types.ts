@@ -14,6 +14,7 @@ export interface OtherFormState {
         distroMaxHostsFactor: number;
         targetTimeSecondsOverride: number;
         idleTimeSecondsOverride: number;
+        mergeQueueTargetTimeSecondsOverride: number;
       };
       cost: {
         ebsDiscount: number;

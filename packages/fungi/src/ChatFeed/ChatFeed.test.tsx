@@ -27,7 +27,7 @@ describe("ChatFeed", () => {
 
     await user.type(textarea, message);
     await user.click(screen.getByRole("button"));
-    expect(screen.queryByDataCy("message-user")).toHaveTextContent(message);
+    expect(screen.queryByTestId("message-user")).toHaveTextContent(message);
   });
 
   describe("prompt suggestions", () => {
@@ -63,7 +63,7 @@ describe("ChatFeed", () => {
       expect(screen.getByText("Bar")).toBeVisible();
       await user.click(screen.getByRole("button", { name: "Bar" }));
       expect(screen.queryByText("Suggested Prompts")).not.toBeInTheDocument();
-      expect(screen.queryByDataCy("message-user")).toHaveTextContent("Bar");
+      expect(screen.queryByTestId("message-user")).toHaveTextContent("Bar");
     });
   });
 
@@ -89,7 +89,7 @@ describe("ChatFeed", () => {
       expect(mockTransformMessage).toHaveBeenCalledWith(message, {
         pendingChips: [],
       });
-      expect(screen.queryByDataCy("message-user")).toHaveTextContent(message);
+      expect(screen.queryByTestId("message-user")).toHaveTextContent(message);
     });
   });
 
@@ -116,8 +116,8 @@ describe("ChatFeed", () => {
           appName: "Parsley AI Test",
         }),
       });
-      expect(screen.queryByDataCy(chip1.identifier)).not.toBeInTheDocument();
-      expect(screen.queryByDataCy(chip2.identifier)).not.toBeInTheDocument();
+      expect(screen.queryByTestId(chip1.identifier)).not.toBeInTheDocument();
+      expect(screen.queryByTestId(chip2.identifier)).not.toBeInTheDocument();
     });
 
     it("displays chips if they are present", () => {
@@ -127,8 +127,8 @@ describe("ChatFeed", () => {
           initialChips: chipMap,
         }),
       });
-      expect(screen.getByDataCy(chip1.identifier)).toBeInTheDocument();
-      expect(screen.getByDataCy(chip2.identifier)).toBeInTheDocument();
+      expect(screen.getByTestId(chip1.identifier)).toBeInTheDocument();
+      expect(screen.getByTestId(chip2.identifier)).toBeInTheDocument();
     });
 
     it("allows dismissing chips via dismiss button", async () => {
@@ -143,8 +143,8 @@ describe("ChatFeed", () => {
         name: "Dismiss chip",
       });
       await user.click(dismissButtons[0]);
-      expect(screen.queryByDataCy(chip1.identifier)).not.toBeInTheDocument();
-      expect(screen.getByDataCy(chip2.identifier)).toBeInTheDocument();
+      expect(screen.queryByTestId(chip1.identifier)).not.toBeInTheDocument();
+      expect(screen.getByTestId(chip2.identifier)).toBeInTheDocument();
     });
 
     it("clears chips after sending a message", async () => {
@@ -156,8 +156,8 @@ describe("ChatFeed", () => {
         }),
       });
 
-      expect(screen.getByDataCy(chip1.identifier)).toBeInTheDocument();
-      expect(screen.getByDataCy(chip2.identifier)).toBeInTheDocument();
+      expect(screen.getByTestId(chip1.identifier)).toBeInTheDocument();
+      expect(screen.getByTestId(chip2.identifier)).toBeInTheDocument();
       expect(
         screen.getAllByRole("button", {
           name: "Dismiss chip",
@@ -170,8 +170,8 @@ describe("ChatFeed", () => {
       await user.click(screen.getByRole("button", { name: "Send message" }));
 
       // Note: the chips are still going to be present because they get rendered alongside the message.
-      expect(screen.getByDataCy(chip1.identifier)).toBeInTheDocument();
-      expect(screen.getByDataCy(chip2.identifier)).toBeInTheDocument();
+      expect(screen.getByTestId(chip1.identifier)).toBeInTheDocument();
+      expect(screen.getByTestId(chip2.identifier)).toBeInTheDocument();
       expect(
         screen.queryAllByRole("button", {
           name: "Dismiss chip",

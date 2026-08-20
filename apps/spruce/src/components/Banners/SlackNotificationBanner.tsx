@@ -89,7 +89,7 @@ export const SlackNotificationBanner = () => {
 
   return shouldShowSlackBanner ? (
     <Banner
-      data-cy="slack-notification-banner"
+      data-testid="slack-notification-banner"
       dismissible
       onClose={hideBanner}
       variant="info"
@@ -100,14 +100,14 @@ export const SlackNotificationBanner = () => {
         confirmText="Save"
         onConfirm={() => saveNotificationSettings()}
         trigger={
-          <SubscribeButton data-cy="subscribe-to-notifications">
+          <SubscribeButton data-testid="subscribe-to-notifications">
             Subscribe
           </SubscribeButton>
         }
       >
         <TextInput
           autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-          data-cy="slack-username-input"
+          data-testid="slack-username-input"
           label="Slack Username"
           onChange={(e) => setSlackUsername(e.target.value)}
           onKeyDown={(e) =>

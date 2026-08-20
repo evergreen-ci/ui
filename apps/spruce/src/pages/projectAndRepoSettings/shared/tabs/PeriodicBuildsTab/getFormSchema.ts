@@ -145,12 +145,12 @@ export const getFormSchema = (
             "ui:widget": widgets.SegmentedControlWidget,
           },
           intervalHours: {
-            "ui:data-cy": "interval-input",
+            "ui:data-testid": "interval-input",
             "ui:description": "Number of hours between runs.",
           },
         },
         configFile: {
-          "ui:data-cy": "config-file-input",
+          "ui:data-testid": "config-file-input",
           "ui:placeholder": ".evergreen.yml",
         },
         alias: {

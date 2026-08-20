@@ -56,11 +56,11 @@ export const SpawnVolume = () => {
         <Title>Volumes</Title>
         <BadgeWrapper>
           <Badge
-            data-cy="mounted-badge"
+            data-testid="mounted-badge"
             variant={Variant.Green}
           >{`${mountedCount} Mounted`}</Badge>
           <Badge
-            data-cy="free-badge"
+            data-testid="free-badge"
             variant={Variant.Blue}
           >{`${unmountedCount} Free`}</Badge>
         </BadgeWrapper>

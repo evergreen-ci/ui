@@ -31,7 +31,6 @@ export const createPlaywrightConfig = ({
       screenshot: process.env.CI ? "only-on-failure" : "off",
       trace: process.env.CI ? "retain-on-failure-and-retries" : "off",
       permissions: ["clipboard-read", "clipboard-write"],
-      testIdAttribute: "data-cy",
       ...use,
     },
     reporter: reporter ?? [

@@ -76,7 +76,7 @@ export const getFormSchema = (
           "ui:description": GitHubChecksAliasesDescription(projectType),
         },
         githubChecksEnabled: {
-          "ui:data-cy": "github-checks-enabled-radio-box",
+          "ui:data-testid": "github-checks-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
           ...githubConflictErrorStyling(

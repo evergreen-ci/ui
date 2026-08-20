@@ -108,7 +108,7 @@ export const PromoteVariablesModal: React.FC<PromoteVariablesModalProps> = ({
         disabled: selected.size === 0,
         onClick: onConfirm,
       }}
-      data-cy="promote-vars-modal"
+      data-testid="promote-vars-modal"
       open={open}
       title="Move Variables to Repo"
     >
@@ -126,7 +126,7 @@ export const PromoteVariablesModal: React.FC<PromoteVariablesModalProps> = ({
         <Checkbox
           key={name}
           checked={selected.has(name)}
-          data-cy="promote-var-checkbox"
+          data-testid="promote-var-checkbox"
           label={
             <>
               {name}
@@ -147,10 +147,10 @@ const getButtonText = (selectedCount: number) =>
 
 const DuplicateVarTooltip: React.FC = () => (
   <Tooltip
-    data-cy="duplicate-var-tooltip"
+    data-testid="duplicate-var-tooltip"
     justify="middle"
     trigger={
-      <IconContainer data-cy="duplicate-var-icon">
+      <IconContainer data-testid="duplicate-var-icon">
         <Icon glyph="ImportantWithCircle" size="small" />
       </IconContainer>
     }
@@ -186,7 +186,7 @@ export const PromoteVariablesModalButton: React.FC<
         />
       )}
       <Button
-        data-cy="promote-vars-button"
+        data-testid="promote-vars-button"
         disabled={!canEdit}
         onClick={() => setModalOpen(true)}
         size={Size.Small}

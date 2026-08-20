@@ -115,7 +115,7 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
         disabled: selectedTotal === 0 || mutationLoading,
         onClick: handlePatchRestart,
       }}
-      data-cy="version-restart-modal"
+      data-testid="version-restart-modal"
       open={visible}
       title="Modify Version"
     >
@@ -129,9 +129,9 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
             version={version}
           />
           {childVersions && (
-            <div data-cy="select-downstream">
+            <div data-testid="select-downstream">
               <ConfirmationMessage
-                data-cy="confirmation-message"
+                data-testid="confirmation-message"
                 weight="medium"
               >
                 Downstream Tasks
@@ -152,7 +152,10 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               <br />
             </div>
           )}
-          <ConfirmationMessage data-cy="confirmation-message" weight="medium">
+          <ConfirmationMessage
+            data-testid="confirmation-message"
+            weight="medium"
+          >
             Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>
           <Checkbox

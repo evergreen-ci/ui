@@ -262,12 +262,12 @@ export const multi = {
   },
   uiSchema: {
     readWrite: {
-      "ui:data-cy": "multi-read-write",
+      "ui:data-testid": "multi-read-write",
       "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },
     readOnly: {
-      "ui:data-cy": "multi-read-only",
+      "ui:data-testid": "multi-read-only",
       "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },

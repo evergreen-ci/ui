@@ -28,7 +28,7 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
   <Checkbox
     bold={false}
     checked={checked}
-    data-cy="task-status-checkbox"
+    data-testid="task-status-checkbox"
     label={
       <StateItemWrapper>
         <TaskBox status={status as TaskStatus} />
@@ -58,7 +58,6 @@ const StateItemWrapper = styled.div`
 const TaskBox = styled(BaseTaskBox)`
   width: ${CHECKBOX_SQUARE_SIZE}px;
   height: ${CHECKBOX_SQUARE_SIZE}px;
-  float: none;
   flex-shrink: 0;
 `;
 

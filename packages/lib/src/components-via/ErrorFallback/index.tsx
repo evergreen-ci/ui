@@ -1,43 +1,25 @@
-import styled from "@emotion/styled";
 import { Link, Text, TextStyle } from "@via-ds/components/typography";
 import errorPage from "../../components/ErrorBoundary/ErrorFallback/errorPage.svg";
-import { palette } from "../../constants/tokens-via";
+import styles from "./index.module.css";
 
 interface ErrorFallbackProps {
   homeURL: string;
 }
 
 export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ homeURL }) => (
-  <Center data-cy="error-fallback">
-    <Paragraph>
-      <WhiteText textStyle={TextStyle.heading1}>
+  <div className={styles.center} data-testid="error-fallback">
+    <div className={styles.paragraph}>
+      <Text className={styles.whiteText} textStyle={TextStyle.heading1}>
         Ouch! That&apos;s gotta hurt,
         <br /> sorry about that!
-      </WhiteText>
-      <WhiteText textStyle={TextStyle.body}>Something went wrong.</WhiteText>
-      <WhiteLink href={homeURL}>Back To Home</WhiteLink>
-    </Paragraph>
+      </Text>
+      <Text className={styles.whiteText} textStyle={TextStyle.body}>
+        Something went wrong.
+      </Text>
+      <Link className={styles.whiteLink} href={homeURL}>
+        Back To Home
+      </Link>
+    </div>
     <img alt="Error Background" src={errorPage} />
-  </Center>
+  </div>
 );
-
-const Center = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Paragraph = styled.div`
-  position: absolute;
-  top: 25%;
-`;
-
-const WhiteText = styled(Text)`
-  color: ${palette.white};
-`;
-
-const WhiteLink = styled(Link)`
-  color: ${palette.white};
-  text-decoration: underline;
-`;

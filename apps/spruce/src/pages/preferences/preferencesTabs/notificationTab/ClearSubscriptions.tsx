@@ -41,7 +41,7 @@ export const ClearSubscriptions: React.FC = () => {
   return (
     <>
       <Button
-        data-cy="clear-subscriptions-button"
+        data-testid="clear-subscriptions-button"
         onClick={() => setShowModal(true)}
         variant={Variant.Danger}
       >

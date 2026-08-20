@@ -1,22 +1,17 @@
-import styled from "@emotion/styled";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
-import { size } from "../../../constants/tokens";
+import styles from "./LoadingRow.module.css";
 
 interface LoadingRowProps {
   numColumns: number;
 }
 const LoadingRow: React.FC<LoadingRowProps> = ({ numColumns }) => (
-  <tr data-cy="table-loader-loading-row" data-testid="table-loader-loading-row">
+  <tr data-testid="table-loader-loading-row">
     {Array.from({ length: numColumns }, (_, i) => (
-      <LoadingCell key={i}>
+      <td key={i} className={styles.loadingCell}>
         <Skeleton size="small" />
-      </LoadingCell>
+      </td>
     ))}
   </tr>
 );
-
-const LoadingCell = styled.td`
-  padding: ${size.xs} ${size.xs};
-`;
 
 export default LoadingRow;

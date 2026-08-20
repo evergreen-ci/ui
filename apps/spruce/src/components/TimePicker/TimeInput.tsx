@@ -5,20 +5,20 @@ import { size } from "@evg-ui/lib/constants/tokens";
 const { blue } = palette;
 
 interface TimeInputProps {
-  "data-cy": string;
+  "data-testid": string;
   value: string;
   disabled: boolean;
   setPopoverOpen: (val: boolean) => void;
 }
 
 const TimeInput: React.FC<TimeInputProps> = ({
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   disabled,
   setPopoverOpen,
   value,
 }) => (
   <StyledInput
-    data-cy={dataCy}
+    data-testid={dataTestId}
     disabled={disabled}
     maxLength={2}
     onClick={() => setPopoverOpen(true)}

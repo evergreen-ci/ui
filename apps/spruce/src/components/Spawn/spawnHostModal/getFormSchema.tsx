@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { Button } from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
@@ -23,6 +22,7 @@ import {
   getPublicKeySchema,
 } from "../getFormSchema";
 import { DEFAULT_VOLUME_SIZE, TokenExchangeState } from "./constants";
+import styles from "./getFormSchema.module.css";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 import {
@@ -420,16 +420,12 @@ export const getFormSchema = ({
             hasValidTask && !isDebugDisabled
               ? widgets.CheckboxWidget
               : "hidden",
-          "ui:data-cy": "is-debug-toggle",
+          "ui:data-testid": "is-debug-toggle",
           "ui:customLabel": (
             <>
               Spawn host in{" "}
               <StyledLink
-                css={css`
-                  font-weight: bold;
-                  text-decoration: underline;
-                  color: inherit;
-                `}
+                className={styles.debugModeLink}
                 hideExternalIcon={false}
                 href={debugSpawnHostsDocumentationUrl}
                 target="_blank"
@@ -450,21 +446,21 @@ export const getFormSchema = ({
                 "ui:isFailedTask": isFailedTask,
               }
             : {}),
-          "ui:data-cy": "setup-step-number-input",
+          "ui:data-testid": "setup-step-number-input",
           "ui:placeholder": "Select spawn end point",
         },
       },
       requiredSection: {
         distro: {
           "ui:widget": DistroDropdown,
-          "ui:elementWrapperCSS": dropdownWrapperClassName,
-          "ui:data-cy": "distro-input",
+          "ui:elementWrapperCSS": dropdownWrapperCSS,
+          "ui:data-testid": "distro-input",
           "ui:distros": distros,
         },
         region: {
-          "ui:data-cy": "region-select",
+          "ui:data-testid": "region-select",
           "ui:disabled": isMigration || availableRegions.length === 0,
-          "ui:elementWrapperCSS": dropdownWrapperClassName,
+          "ui:elementWrapperCSS": dropdownWrapperCSS,
           "ui:placeholder": "Select a region",
           "ui:allowDeselect": false,
         },
@@ -473,14 +469,14 @@ export const getFormSchema = ({
       userdataScriptSection: {
         userdataScript: {
           "ui:widget": LeafyGreenTextArea,
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
-          "ui:data-cy": "user-data-script-text-area",
+          "ui:elementWrapperCSS": textAreaWrapperCSS,
+          "ui:data-testid": "user-data-script-text-area",
         },
       },
       setupScriptSection: {
         defineSetupScriptCheckbox: {
           "ui:disabled": useProjectSetupScript,
-          "ui:data-cy": "setup-script-checkbox",
+          "ui:data-testid": "setup-script-checkbox",
         },
         warningBanner: {
           "ui:showLabel": false,
@@ -500,8 +496,8 @@ export const getFormSchema = ({
         },
         setupScript: {
           "ui:widget": LeafyGreenTextArea,
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
-          "ui:data-cy": "setup-script-text-area",
+          "ui:elementWrapperCSS": textAreaWrapperCSS,
+          "ui:data-testid": "setup-script-text-area",
         },
       },
       expirationDetails: expirationDetails.uiSchema,
@@ -519,7 +515,7 @@ export const getFormSchema = ({
               </>
             ),
             "ui:elementWrapperCSS": dropMarginBottomCSS,
-            "ui:data-cy": "load-data-checkbox",
+            "ui:data-testid": "load-data-checkbox",
           },
           runProjectSpecificSetupScript: {
             "ui:widget":
@@ -527,7 +523,7 @@ export const getFormSchema = ({
                 ? widgets.CheckboxWidget
                 : "hidden",
             "ui:disabled": useSetupScript,
-            "ui:data-cy": "project-setup-script-checkbox",
+            "ui:data-testid": "project-setup-script-checkbox",
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           startHosts: {
@@ -536,18 +532,18 @@ export const getFormSchema = ({
           },
           spawnHostTokenAuthBanner: {
             "ui:showLabel": false,
-            "ui:field-data-cy": "spawn-host-token-auth-banner",
+            "ui:field-data-testid": "spawn-host-token-auth-banner",
             "ui:descriptionNode": (
               <Banner
-                data-cy="spawn-host-token-auth-banner"
+                data-testid="spawn-host-token-auth-banner"
                 variant={Variant.Warning}
               >
-                <div data-cy="spawn-host-token-auth-banner-copy">
+                <div data-testid="spawn-host-token-auth-banner-copy">
                   Spawn hosts require an additional authentication step to load
                   task data.
                 </div>
                 <Button
-                  data-cy="spawn-host-authenticate-button"
+                  data-testid="spawn-host-authenticate-button"
                   disabled={
                     tokenExchangeState === TokenExchangeState.TokenValid
                   }
@@ -582,7 +578,7 @@ export const getFormSchema = ({
           },
           volumeSelect: {
             "ui:allowDeselect": false,
-            "ui:data-cy": "volume-select",
+            "ui:data-testid": "volume-select",
             "ui:disabled": availableVolumes?.length === 0,
             "ui:enumDisabled": (volumes || [])
               .filter((v) => !!v.hostID)
@@ -597,22 +593,12 @@ export const getFormSchema = ({
   };
 };
 
-const dropdownWrapperClassName = css`
-  max-width: 500px;
-`;
-const textAreaWrapperClassName = css`
-  max-width: 675px;
-`;
-const indentCSS = css`
-  margin-left: 16px;
-`;
-const dropMarginBottomCSS = css`
-  margin-bottom: 0px;
-`;
-const childCheckboxCSS = css`
-  ${indentCSS}
-  ${dropMarginBottomCSS}
-`;
-const loadDataFieldSetCSS = css`
-  margin-bottom: 20px;
-`;
+/* SpruceForm applies "ui:elementWrapperCSS" through Emotion css props, which
+   reject plain class name strings, so these stay object styles until
+   SpruceForm itself converts off Emotion. */
+const dropdownWrapperCSS = { maxWidth: "500px" };
+const textAreaWrapperCSS = { maxWidth: "675px" };
+const indentCSS = { marginLeft: "16px" };
+const dropMarginBottomCSS = { marginBottom: "0px" };
+const childCheckboxCSS = { ...indentCSS, ...dropMarginBottomCSS };
+const loadDataFieldSetCSS = { marginBottom: "20px" };

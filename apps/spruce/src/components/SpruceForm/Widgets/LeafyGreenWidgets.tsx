@@ -45,7 +45,7 @@ export const LeafyGreenTextInput: React.FC<
   const {
     ariaLabel,
     ariaLabelledBy,
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     description,
     elementWrapperCSS,
     inputType,
@@ -68,7 +68,7 @@ export const LeafyGreenTextInput: React.FC<
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         autoComplete="off"
-        data-cy={dataCy}
+        data-testid={dataTestId}
         description={description}
         disabled={disabled || readonly}
         label={label}
@@ -82,7 +82,9 @@ export const LeafyGreenTextInput: React.FC<
         {...inputProps}
       />
       {!!warnings?.length && (
-        <WarningText data-cy="input-warning">{warnings.join(", ")}</WarningText>
+        <WarningText data-testid="input-warning">
+          {warnings.join(", ")}
+        </WarningText>
       )}
     </ElementWrapper>
   );
@@ -112,8 +114,8 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   const {
     bold,
     customLabel,
-    "data-cy": dataCy,
-    "data-cy-banner": dataCyBanner,
+    "data-testid": dataTestId,
+    "data-testid-banner": dataTestIdBanner,
     description,
     elementWrapperCSS,
     tooltipDescription,
@@ -124,7 +126,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
       <Checkbox
         bold={bold || false}
         checked={value}
-        data-cy={dataCy}
+        data-testid={dataTestId}
         description={description}
         disabled={disabled || readonly}
         label={
@@ -149,7 +151,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
       />
       {warnings?.length ? (
         <StyledBanner
-          data-cy={dataCyBanner || "warning-banner"}
+          data-testid={dataTestIdBanner || "warning-banner"}
           variant="warning"
         >
           {warnings.join(", ")}
@@ -191,7 +193,7 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
 }) => {
   const {
     customLabel,
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     description,
     descriptionNode,
     elementWrapperCSS,
@@ -202,7 +204,7 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
         <Toggle
           aria-labelledby={`${id}-label`}
           checked={value}
-          data-cy={dataCy}
+          data-testid={dataTestId}
           disabled={disabled || readonly}
           id={id}
           onChange={(checked) => onChange(checked)}
@@ -248,7 +250,7 @@ export const LeafyGreenSelect: React.FC<
   const {
     allowDeselect,
     ariaLabelledBy,
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     description,
     elementWrapperCSS,
     enumDisabled,
@@ -270,10 +272,10 @@ export const LeafyGreenSelect: React.FC<
         disabled={isDisabled}
         value={value}
         {...labelProps}
-        data-cy={dataCy}
+        data-testid={dataTestId}
         errorMessage={hasError ? rawErrors?.join(", ") : ""}
-        id={dataCy}
-        name={dataCy}
+        id={dataTestId}
+        name={dataTestId}
         onChange={(v: string) => onChange(v)}
         placeholder={placeholder}
         size={sizeVariant as SelectSize}
@@ -304,7 +306,7 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
 }) => {
   const {
     bold,
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     elementWrapperCSS,
     enumDisabled,
     enumOptions,
@@ -343,7 +345,7 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
               `
             : ""
         }
-        data-cy={dataCy}
+        data-testid={dataTestId}
         id={id}
         name={label}
         onChange={(e) => onChange(valueMap[Number(e.target.value)])}
@@ -375,7 +377,7 @@ export const LeafyGreenRadioBox: React.FC<
   } & EnumSpruceWidgetProps
 > = ({ disabled, id, label, onChange, options, uiSchema, value }) => {
   const {
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     description,
     elementWrapperCSS,
     enumDisabled,
@@ -405,17 +407,17 @@ export const LeafyGreenRadioBox: React.FC<
         </LabelContainer>
       )}
       {!!errors && (
-        <StyledBanner data-cy="error-banner" variant="danger">
+        <StyledBanner data-testid="error-banner" variant="danger">
           {errors.join(", ")}
         </StyledBanner>
       )}
       {!!warnings && (
-        <StyledBanner data-cy="warning-banner" variant="warning">
+        <StyledBanner data-testid="warning-banner" variant="warning">
           {warnings.join(", ")}
         </StyledBanner>
       )}
-      <RadioBoxGroup
-        data-cy={dataCy}
+      <StyledRadioBoxGroup
+        data-testid={dataTestId}
         id={id}
         name={label}
         onChange={(e) => onChange(valueMap[Number(e.target.value)])}
@@ -433,7 +435,7 @@ export const LeafyGreenRadioBox: React.FC<
             </StyledRadioBox>
           );
         })}
-      </RadioBoxGroup>
+      </StyledRadioBoxGroup>
     </ElementWrapper>
   );
 };
@@ -450,6 +452,10 @@ const StyledRadioBox = styled(RadioBox)`
   line-height: 1.25;
 `;
 
+const StyledRadioBoxGroup = styled(RadioBoxGroup)`
+  flex-wrap: wrap;
+`;
+
 export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
   disabled,
   label,
@@ -461,7 +467,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
   value,
 }) => {
   const {
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     description,
     elementWrapperCSS,
     emptyValue = "",
@@ -488,7 +494,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
       <TextArea
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         ref={el}
-        data-cy={dataCy}
+        data-testid={dataTestId}
         description={description}
         disabled={disabled || readonly}
         errorMessage={hasError ? errors.join(", ") : null}
@@ -515,7 +521,7 @@ export const LeafyGreenSegmentedControl: React.FC<EnumSpruceWidgetProps> = ({
 }) => {
   const {
     "aria-controls": ariaControls,
-    "data-cy": dataCy,
+    "data-testid": dataTestId,
     elementWrapperCSS,
     enumDisabled,
     enumOptions,
@@ -528,7 +534,7 @@ export const LeafyGreenSegmentedControl: React.FC<EnumSpruceWidgetProps> = ({
     <ElementWrapper css={elementWrapperCSS}>
       <StyledSegmentedControl
         aria-controls={ariaControls?.join(" ")}
-        data-cy={dataCy}
+        data-testid={dataTestId}
         label={label}
         onChange={onChange}
         size={sizeVariant as SegmentedControlProps["size"]}
@@ -565,7 +571,7 @@ export const LeafyGreenDatePicker: React.FC<
   } & SpruceWidgetProps
 > = ({ disabled, label, onChange, options, readonly, value = "" }) => {
   const {
-    "data-cy": dataCy = "date-picker",
+    "data-testid": dataTestId = "date-picker",
     description,
     disableAfter,
     disableBefore,
@@ -577,7 +583,7 @@ export const LeafyGreenDatePicker: React.FC<
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <DatePicker
-        data-cy={dataCy}
+        data-testid={dataTestId}
         description={description}
         disabled={isDisabled}
         label={label}
@@ -599,7 +605,7 @@ export const LeafyGreenCombobox: React.FC<EnumSpruceWidgetProps> = ({
   value,
 }) => {
   const {
-    "data-cy": dataCy = "combobox",
+    "data-testid": dataTestId = "combobox",
     description,
     elementWrapperCSS,
     enumOptions = [],
@@ -611,7 +617,7 @@ export const LeafyGreenCombobox: React.FC<EnumSpruceWidgetProps> = ({
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <Combobox
         clearable={false}
-        data-cy={dataCy}
+        data-testid={dataTestId}
         description={description}
         disabled={isDisabled}
         label={label}

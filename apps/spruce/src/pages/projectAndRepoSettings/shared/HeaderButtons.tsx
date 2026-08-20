@@ -42,13 +42,17 @@ const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.GithubPermissionGroups,
 ]);
 
-interface Props {
+interface Props<T extends WritableProjectSettingsType> {
   id: string;
   projectType: ProjectType;
-  tab: WritableProjectSettingsType;
+  tab: T;
 }
 
-export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
+export const HeaderButtons = <T extends WritableProjectSettingsType>({
+  id,
+  projectType,
+  tab,
+}: Props<T>) => {
   const { sendEvent } = useProjectSettingsAnalytics();
   const dispatchToast = useToastContext();
 
@@ -60,6 +64,9 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
   const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [savePayload, setSavePayload] = useState<
+    ProjectSettingsInput | RepoSettingsInput | null
+  >(null);
   const [debugSpawnHostsModalOpen, setDebugSpawnHostsModalOpen] =
     useState(false);
 
@@ -111,10 +118,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     refetchQueries: ["RepoSettings", "ViewableProjectRefs"],
   });
 
-  const performSave = () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
-    const newData = formToGql(formData, isRepo, id);
+  const performSave = (newData: ProjectSettingsInput | RepoSettingsInput) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const save = (update, section) =>
       isRepo
@@ -133,6 +137,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
 
     const section = mapRouteToSection[tab];
     save(newData, section);
+    setSavePayload(null);
     sendEvent({
       section,
       name: isRepo ? "Saved repo settings" : "Saved project settings",
@@ -144,7 +149,6 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
       return false;
     }
     const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const newData = formToGql(formData, isRepo, id);
     const wasDisabled =
       initialData?.projectRef?.debugSpawnHostsDisabled === true;
@@ -155,29 +159,28 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
 
   const onSaveConfirm = () => {
     setSaveModalOpen(false);
+    if (!savePayload) {
+      return;
+    }
     if (isDisablingDebugSpawnHosts()) {
       setDebugSpawnHostsModalOpen(true);
     } else {
-      performSave();
+      performSave(savePayload);
     }
   };
 
   const onClick = () => {
+    const formToGql = formToGqlMap[tab];
+    const newData = formToGql(formData, isRepo, id);
+    setSavePayload(newData);
     setSaveModalOpen(true);
   };
 
-  // Only compute the diff payload while the modal is open so that tab
-  // transformers aren't invoked against partially-loaded form state on
-  // every render.
   let diffPayload: {
     after: ProjectSettingsInput | RepoSettingsInput;
     before: ProjectSettingsInput | RepoSettingsInput | null;
   } | null = null;
-  if (saveModalOpen) {
-    const formToGql = formToGqlMap[tab];
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const afterData = formToGql(formData, isRepo, id);
-
+  if (savePayload) {
     // Normalize beforeData to match afterData's shape.
     let beforeData: ProjectSettingsInput | RepoSettingsInput | null = null;
     if (initialData) {
@@ -198,7 +201,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
       }
     }
     diffPayload = {
-      after: afterData,
+      after: savePayload,
       before: beforeData,
     };
   }
@@ -221,7 +224,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   return (
     <ButtonRow>
       <Button
-        data-cy="save-settings-button"
+        data-testid="save-settings-button"
         disabled={hasError || !hasChanges}
         onClick={onClick}
         variant="primary"
@@ -233,7 +236,10 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           after={diffPayload.after}
           before={diffPayload.before}
           customKeyValueRenderConfig={getDiffRenderConfig(tab)}
-          onCancel={() => setSaveModalOpen(false)}
+          onCancel={() => {
+            setSaveModalOpen(false);
+            setSavePayload(null);
+          }}
           onConfirm={onSaveConfirm}
           open={saveModalOpen}
           tabTitle={getTabTitle(tab).title}
@@ -242,7 +248,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
       {projectType === ProjectType.AttachedProject && canDefaultToRepo && (
         <>
           <Button
-            data-cy="default-to-repo-button"
+            data-testid="default-to-repo-button"
             disabled={!canEdit}
             onClick={() => setDefaultModalOpen(true)}
             title="Clicking this button will open a confirmation modal with more information."
@@ -265,10 +271,12 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           children: "Yes, save",
           onClick: () => {
             setDebugSpawnHostsModalOpen(false);
-            performSave();
+            if (savePayload) {
+              performSave(savePayload);
+            }
           },
         }}
-        data-cy="disable-debug-spawn-hosts-modal"
+        data-testid="disable-debug-spawn-hosts-modal"
         open={debugSpawnHostsModalOpen}
         title="Disable Debug Spawn Hosts?"
         variant="danger"
@@ -308,6 +316,8 @@ const mapRouteToSection: Record<
     ProjectSettingsSection.GithubPermissions,
   [ProjectSettingsTabRoutes.TestSelection]:
     ProjectSettingsSection.TestSelection,
+  [ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]:
+    ProjectSettingsSection.TaskOwnershipAndFoliage,
 };
 
 const ButtonRow = styled.div`

@@ -47,7 +47,15 @@ export const versionTasks: { data: VersionTasksQuery } = {
             baseTask: {
               id: "evergreen_ui_spruce_snapshots_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
+              prevTaskCompleted: {
+                id: "evergreen_ui_spruce_snapshots_previous",
+                displayStatus: "failed",
+                execution: 1,
+                finishTime: new Date("2025-07-01T15:00:00Z"),
+                __typename: "Task",
+              },
               __typename: "Task",
             },
             blocked: false,
@@ -71,6 +79,7 @@ export const versionTasks: { data: VersionTasksQuery } = {
             baseTask: {
               id: "evergreen_ui_spruce_test_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
               __typename: "Task",
             },
@@ -95,6 +104,7 @@ export const versionTasks: { data: VersionTasksQuery } = {
             baseTask: {
               id: "evergreen_ui_spruce_type_check_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27",
               displayStatus: "success",
+              status: "success",
               execution: 0,
               __typename: "Task",
             },

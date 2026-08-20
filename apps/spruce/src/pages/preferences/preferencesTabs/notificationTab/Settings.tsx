@@ -83,7 +83,7 @@ export const Settings: React.FC<SettingsProps> = ({
         uiSchema={uiSchema}
       />
       <Button
-        data-cy="save-profile-changes-button"
+        data-testid="save-profile-changes-button"
         disabled={formErrors.length > 0 || !hasChanges || updateLoading}
         onClick={handleSave}
         variant={Variant.Primary}
@@ -190,13 +190,13 @@ const radioUISchema = {
 const uiSchema = {
   slackUsername: {
     "ui:placeholder": "e.g. john.smith",
-    "ui:data-cy": "slack-username-field",
+    "ui:data-testid": "slack-username-field",
   },
   slackMemberId: {
     "ui:description":
       "Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'.",
     "ui:placeholder": "e.g. U12345678",
-    "ui:data-cy": "slack-member-id-field",
+    "ui:data-testid": "slack-member-id-field",
   },
   notifications: {
     "ui:fieldCss": zebraCSS,

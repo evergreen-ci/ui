@@ -1,0 +1,21 @@
+.placeholderWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--via-space-200);
+  padding: var(--via-space-800) 0;
+  opacity: 50%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinningIcon {
+  animation: spin 1s linear infinite;
+}

@@ -65,11 +65,11 @@ export const containerPools = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "container-pools",
+    "ui:data-testid": "container-pools",
     "ui:objectFieldCss": objectGridCss,
     pools: {
       "ui:addButtonText": "Add container pool",
-      "ui:data-cy": "container-pools-list",
+      "ui:data-testid": "container-pools-list",
       "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
@@ -104,7 +104,7 @@ const accountRoles = {
   },
   uiSchema: {
     "ui:addButtonText": "Add account role",
-    "ui:data-cy": "account-roles-list",
+    "ui:data-testid": "account-roles-list",
     "ui:orderable": false,
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,
@@ -138,7 +138,7 @@ const subnets = {
   },
   uiSchema: {
     "ui:addButtonText": "Add subnet",
-    "ui:data-cy": "subnets-list",
+    "ui:data-testid": "subnets-list",
     "ui:orderable": false,
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,
@@ -162,17 +162,17 @@ export const docker = {
 export const aws = {
   schema: {
     subnets: subnets.schema,
+    subnetTagName: {
+      type: "string" as const,
+      title: "Subnet Tag Name",
+      default: "",
+    },
+    subnetTagValue: {
+      type: "string" as const,
+      title: "Subnet Tag Value",
+      default: "",
+    },
     accountRoles: accountRoles.schema,
-    ec2Key: {
-      type: "string" as const,
-      title: "EC2 Key",
-      default: "",
-    },
-    ec2Secret: {
-      type: "string" as const,
-      title: "EC2 Secret",
-      default: "",
-    },
     parameterStorePrefix: {
       type: "string" as const,
       title: "Parameter Store Prefix",
@@ -227,6 +227,15 @@ export const aws = {
       title: "IPAM Pool ID",
       default: "",
     },
+    allowedSNSTopicARNs: {
+      type: "array" as const,
+      title: "Allowed SNS Topic ARNs",
+      items: {
+        type: "string" as const,
+        minLength: 1,
+      },
+      default: [],
+    },
     persistentDNS: {
       type: "object" as const,
       title: "Persistent DNS",
@@ -278,7 +287,7 @@ export const aws = {
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "aws-configuration",
+    "ui:data-testid": "aws-configuration",
     subnets: subnets.uiSchema,
     accountRoles: accountRoles.uiSchema,
     alertableInstanceTypes: {
@@ -288,6 +297,9 @@ export const aws = {
       "ui:widget": widgets.ChipInputWidget,
     },
     allowedRegions: {
+      "ui:widget": widgets.ChipInputWidget,
+    },
+    allowedSNSTopicARNs: {
       "ui:widget": widgets.ChipInputWidget,
     },
     persistentDNS: {

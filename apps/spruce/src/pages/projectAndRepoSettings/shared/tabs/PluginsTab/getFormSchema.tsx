@@ -208,7 +208,7 @@ export const getFormSchema = (
       useBuildBaron: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:showLabel": false,
-        "ui:data-cy": "enabled-radio-box",
+        "ui:data-testid": "enabled-radio-box",
       },
       ticketSearchProjects: {
         "ui:description":
@@ -264,17 +264,17 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Metadata Link",
-        "ui:data-cy": "metadata-link",
+        "ui:data-testid": "metadata-link",
         requesters: {
           "ui:widget": widgets.MultiSelectWidget,
-          "ui:data-cy": "requesters-input",
+          "ui:data-testid": "requesters-input",
         },
         displayName: {
-          "ui:data-cy": "display-name-input",
+          "ui:data-testid": "display-name-input",
         },
         urlTemplate: {
           "ui:placeholder": "https://example.com/{version_id}",
-          "ui:data-cy": "url-template-input",
+          "ui:data-testid": "url-template-input",
           "ui:description":
             "Include {version_id} in the URL template and it will be replaced by an actual version ID.",
         },

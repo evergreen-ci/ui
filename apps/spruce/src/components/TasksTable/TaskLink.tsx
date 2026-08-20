@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import { getTaskRoute } from "constants/routes";
@@ -20,14 +19,10 @@ export const TaskLink: React.FC<TaskLinkProps> = ({
   taskName,
 }) => (
   <StyledRouterLink onClick={onClick} to={getTaskRoute(taskId, { execution })}>
-    <WordBreakAll>{taskName}</WordBreakAll>
+    <WordBreak all>{taskName}</WordBreak>
     {showTaskExecutionLabel && (
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       <Body>Execution {formatZeroIndexForDisplay(execution)}</Body>
     )}
   </StyledRouterLink>
 );
-
-const WordBreakAll = styled(WordBreak)`
-  word-break: break-all;
-`;

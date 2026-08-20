@@ -42,8 +42,8 @@ const form: ProvidersFormState = {
           subnetId: "subnet-67890",
         },
       ],
-      ec2Key: "test-ec2-key",
-      ec2Secret: "test-ec2-secret",
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
       parameterStorePrefix: "/evergreen/test",
       persistentDNS: {
         hostedZoneID: "Z123456789",
@@ -73,6 +73,7 @@ const form: ProvidersFormState = {
       ],
       ipamPoolID: "ipam-pool-123",
       elasticIPUsageRate: 0.8,
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
     },
     docker: {
       apiVersion: "1.40",
@@ -116,13 +117,6 @@ const gql: AdminSettingsInput = {
       allowedInstanceTypes: ["m5.large", "m5.xlarge", "c5.large"],
       allowedRegions: ["us-east-1", "us-west-2"],
       defaultSecurityGroup: "sg-default123",
-      ec2Keys: [
-        {
-          name: "default",
-          key: "test-ec2-key",
-          secret: "test-ec2-secret",
-        },
-      ],
       elasticIPUsageRate: 0.8,
       ipamPoolID: "ipam-pool-123",
       maxVolumeSizePerUser: 100,
@@ -137,6 +131,7 @@ const gql: AdminSettingsInput = {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
       },
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
         {
           az: "us-east-1a",
@@ -147,6 +142,8 @@ const gql: AdminSettingsInput = {
           subnetId: "subnet-67890",
         },
       ],
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
     },
     docker: {
       apiVersion: "1.40",
@@ -192,13 +189,6 @@ const testAdminSettings = {
       allowedInstanceTypes: ["m5.large", "m5.xlarge", "c5.large"],
       allowedRegions: ["us-east-1", "us-west-2"],
       defaultSecurityGroup: "sg-default123",
-      ec2Keys: [
-        {
-          name: "default",
-          key: "test-ec2-key",
-          secret: "test-ec2-secret",
-        },
-      ],
       elasticIPUsageRate: 0.8,
       ipamPoolID: "ipam-pool-123",
       maxVolumeSizePerUser: 100,
@@ -213,6 +203,7 @@ const testAdminSettings = {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
       },
+      allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
         {
           az: "us-east-1a",
@@ -223,6 +214,8 @@ const testAdminSettings = {
           subnetId: "subnet-67890",
         },
       ],
+      subnetTagName: "subnet-tag-name",
+      subnetTagValue: "subnet-tag-value",
     },
     docker: {
       apiVersion: "1.40",

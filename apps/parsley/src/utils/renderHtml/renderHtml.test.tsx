@@ -8,7 +8,7 @@ describe("renderHtml", () => {
   });
   it("renders a string with html and preserves allowed elements with their props", () => {
     render(<>{renderHtml("test <span data-testid='element'>string</span>")}</>);
-    expect(screen.queryByDataTestId("element")).toHaveTextContent("string");
+    expect(screen.queryByTestId("element")).toHaveTextContent("string");
   });
   it("renders a string with html and escapes disallowed elements", () => {
     const { rerender } = render(
@@ -18,8 +18,8 @@ describe("renderHtml", () => {
         )}
       </>,
     );
-    expect(screen.queryByDataTestId("should-not-exist")).toBeNull();
-    expect(screen.queryByDataTestId("log-line")).toHaveTextContent(
+    expect(screen.queryByTestId("should-not-exist")).toBeNull();
+    expect(screen.queryByTestId("log-line")).toHaveTextContent(
       "test <script data-testid='should-not-exist'>alert('test')</script>",
     );
     rerender(
@@ -29,7 +29,7 @@ describe("renderHtml", () => {
         )}
       </>,
     );
-    expect(screen.queryByDataTestId("log-line")).toHaveTextContent(
+    expect(screen.queryByTestId("log-line")).toHaveTextContent(
       "test <mongo::<std:lib >>",
     );
   });
@@ -45,10 +45,8 @@ describe("renderHtml", () => {
         })}
       </>,
     );
-    expect(screen.queryByDataTestId("element")).not.toBeInTheDocument();
-    expect(screen.getByDataTestId("component")).toBeInTheDocument();
-    expect(screen.queryByDataTestId("component")).toHaveTextContent(
-      "✨string✨",
-    );
+    expect(screen.queryByTestId("element")).not.toBeInTheDocument();
+    expect(screen.getByTestId("component")).toBeInTheDocument();
+    expect(screen.queryByTestId("component")).toHaveTextContent("✨string✨");
   });
 });

@@ -17,7 +17,26 @@ export const Default: CustomStoryObj<typeof FailedTestGroup> = {
         id: "TaskId",
         displayStatus: "failed",
         logs: {
-          urlParsley: "LogsUrl",
+          urlParsley: "https://example.com/logs",
+        },
+      },
+    ],
+  },
+};
+
+export const MaliciousLogsUrl: CustomStoryObj<typeof FailedTestGroup> = {
+  render: (args) => <FailedTestGroup {...args} />,
+  argTypes: {},
+  args: {
+    testName: "TestName",
+    tasks: [
+      {
+        taskName: "TaskName",
+        buildVariant: "BuildVariant",
+        id: "TaskId",
+        displayStatus: "failed",
+        logs: {
+          urlParsley: "javascript:alert(document.domain)",
         },
       },
     ],
@@ -37,7 +56,7 @@ export const LongTestName: CustomStoryObj<typeof FailedTestGroup> = {
         id: "TaskId",
         displayStatus: "failed",
         logs: {
-          urlParsley: "LogsUrl",
+          urlParsley: "https://example.com/logs",
         },
       },
     ],

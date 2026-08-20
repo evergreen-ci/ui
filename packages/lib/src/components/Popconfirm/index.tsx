@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { Button, Size, Variant } from "@leafygreen-ui/button";
 import { Align, Justify, Tooltip, TooltipProps } from "@leafygreen-ui/tooltip";
-import { size } from "../../constants/tokens";
-import { wordBreakCss } from "../styles";
+import styles from "./index.module.css";
 
 export { Align, Justify };
 
@@ -13,7 +11,6 @@ type PopconfirmProps = Omit<
 > & {
   confirmDisabled?: boolean;
   confirmText?: string;
-  "data-cy"?: string;
   onConfirm?: (e?: React.MouseEvent) => void;
   children: React.ReactNode;
 };
@@ -68,12 +65,12 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
       triggerEvent="click"
       {...props}
     >
-      <ContentWrapper ref={popoverRef}>
+      <div ref={popoverRef} className={styles.contentWrapper}>
         {children}
-        <ButtonWrapper>
+        <div className={styles.buttonWrapper}>
           <Button
             as="button"
-            data-cy="popconfirm-cancel-button"
+            data-testid="popconfirm-cancel-button"
             onClick={() => {
               onClose();
               setOpen(false);
@@ -84,7 +81,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
           </Button>
           <Button
             as="button"
-            data-cy="popconfirm-confirm-button"
+            data-testid="popconfirm-confirm-button"
             disabled={confirmDisabled}
             onClick={(e) => {
               onConfirm(e);
@@ -95,25 +92,10 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
           >
             {confirmText}
           </Button>
-        </ButtonWrapper>
-      </ContentWrapper>
+        </div>
+      </div>
     </Tooltip>
   );
 };
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xs};
-
-  ${wordBreakCss}
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-self: flex-end;
-  margin-top: ${size.xs};
-  gap: ${size.xxs};
-`;
 
 export default Popconfirm;

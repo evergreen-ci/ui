@@ -11,8 +11,8 @@ describe("highlightHtml", () => {
         )}
       </>,
     );
-    expect(screen.queryAllByDataTestId("highlight")).toHaveLength(3);
-    expect(screen.getByDataTestId("dont-highlight-me")).toBeInTheDocument();
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(3);
+    expect(screen.getByTestId("dont-highlight-me")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "highlight me" })).toHaveAttribute(
       "href",
       "https://donthighlightme.com",
@@ -27,16 +27,14 @@ describe("highlightHtml", () => {
         )}
       </>,
     );
-    expect(screen.queryAllByDataTestId("highlight")).toHaveLength(1);
-    expect(screen.queryByDataTestId("highlight")).toHaveTextContent("<");
-    expect(screen.getByDataTestId("dont-highlight-me")).toBeInTheDocument();
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(1);
+    expect(screen.queryByTestId("highlight")).toHaveTextContent("<");
+    expect(screen.getByTestId("dont-highlight-me")).toBeInTheDocument();
   });
   it("highlights the content inside of <> if it's not a valid HTML tag", () => {
     render(<>{highlightHtml("<Downloading package...>", /Downloading/gi)}</>);
-    expect(screen.queryAllByDataTestId("highlight")).toHaveLength(1);
-    expect(screen.getByDataTestId("highlight")).toHaveTextContent(
-      "Downloading",
-    );
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(1);
+    expect(screen.getByTestId("highlight")).toHaveTextContent("Downloading");
   });
   it("applies multiple highlights with different colors", () => {
     render(
@@ -48,7 +46,7 @@ describe("highlightHtml", () => {
         )}
       </>,
     );
-    const highlights = screen.queryAllByDataTestId("highlight");
+    const highlights = screen.queryAllByTestId("highlight");
     expect(highlights).toHaveLength(3);
     const colors = new Set(highlights.map((el) => el.getAttribute("color")));
     expect(colors.size).toBe(3);
@@ -56,8 +54,8 @@ describe("highlightHtml", () => {
   it("should deduplicate highlights and searches", () => {
     const regexp = /test/i;
     render(<>{highlightHtml("This is a test", regexp, regexp)}</>);
-    expect(screen.queryAllByDataTestId("highlight")).toHaveLength(1);
-    expect(screen.getByDataTestId("highlight")).toHaveTextContent("test");
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(1);
+    expect(screen.getByTestId("highlight")).toHaveTextContent("test");
   });
   it("should show both highlights and searches if they are on the same line", () => {
     render(
@@ -69,8 +67,8 @@ describe("highlightHtml", () => {
         )}
       </>,
     );
-    expect(screen.queryAllByDataTestId("highlight")).toHaveLength(2);
-    screen.getAllByDataTestId("highlight").forEach((highlight) => {
+    expect(screen.queryAllByTestId("highlight")).toHaveLength(2);
+    screen.getAllByTestId("highlight").forEach((highlight) => {
       expect(highlight).toHaveTextContent(/building|production/i);
     });
   });

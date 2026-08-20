@@ -1,16 +1,15 @@
 import { Children } from "react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Body, BodyProps, Overline } from "@leafygreen-ui/typography";
-import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
+import styles from "./index.module.css";
 
 interface MetadataTitleWithLinkProps {
   href: string;
@@ -21,27 +20,16 @@ export const MetadataTitleWithAPILink: React.FC<MetadataTitleWithLinkProps> = ({
   href,
   title,
 }) => (
-  <TitleWrapper>
+  <div className={styles.titleWrapper}>
     <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
-    <StyledLink
-      css={css`
-        font-size: 12px;
-      `}
-      hideExternalIcon={false}
-      href={href}
-    >
+    <StyledLink className={styles.apiLink} hideExternalIcon={false} href={href}>
       Open in API
     </StyledLink>
-  </TitleWrapper>
+  </div>
 );
 
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 interface Props {
+  className?: string;
   error?: Error;
   loading?: boolean;
   title?: React.ReactNode;
@@ -68,16 +56,20 @@ const MetadataCard: React.FC<Props> = ({
     )}
     {loading && !error && <ListSkeleton />}
     {error && !loading && (
-      <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
+      <ErrorWrapper data-testid="metadata-card-error">
+        {error.message}
+      </ErrorWrapper>
     )}
-    {!loading && !error && <ItemsContainer>{children}</ItemsContainer>}
+    {!loading && !error && (
+      <div className={styles.itemsContainer}>{children}</div>
+    )}
   </SiderCard>
 );
 
 interface ItemProps {
   as?: BodyProps["as"];
   children: React.ReactNode;
-  "data-cy"?: string;
+  "data-testid"?: string;
   label?: string;
   labelColor?: string;
   tooltipDescription?: string;
@@ -86,27 +78,27 @@ interface ItemProps {
 export const MetadataItem: React.FC<ItemProps> = ({
   as = "p",
   children,
-  "data-cy": dataCy,
+  "data-testid": dataTestId,
   label,
   labelColor,
   tooltipDescription,
 }) => (
-  <MetadataItemWrapper>
+  <span className={styles.itemWrapper}>
     {label ? (
-      <Item as={as} data-cy={dataCy}>
+      <Body as={as} className={styles.item} data-testid={dataTestId}>
         <MetadataLabel color={labelColor}>{label}:</MetadataLabel> {children}
-      </Item>
+      </Body>
     ) : (
-      <Item as={as} data-cy={dataCy}>
+      <Body as={as} className={styles.item} data-testid={dataTestId}>
         {children}
-      </Item>
+      </Body>
     )}
     {tooltipDescription && (
       <InfoSprinkle align="right" baseFontSize={BaseFontSize.Body1}>
         {tooltipDescription}
       </InfoSprinkle>
     )}
-  </MetadataItemWrapper>
+  </span>
 );
 
 interface MetadataSectionProps {
@@ -123,52 +115,25 @@ export const MetadataSection: React.FC<MetadataSectionProps> = ({
     <div>
       {title && (
         <>
-          <Header>{title}</Header>
+          <Overline className={styles.header}>{title}</Overline>
           <Divider margin={`${size.xxs} 0`} />
         </>
       )}
-      <ItemsContainer>{children}</ItemsContainer>
+      <div className={styles.itemsContainer}>{children}</div>
     </div>
   );
 };
 
-const Header = styled(Overline)`
-  color: ${palette.gray.dark1};
-`;
+export const MetadataLabel: React.FC<{
+  children?: React.ReactNode;
+  color?: string;
+}> = ({ children, color }) => (
+  <b style={color ? { color } : undefined}>{children}</b>
+);
 
-export const MetadataLabel = styled.b<{ color?: string }>`
-  ${({ color }) => color && `color: ${color};`}
-`;
-export const MetadataCardTitle = styled(Body)`
-  font-size: 15px;
-`;
-
-const Item = styled(Body)`
-  ${wordBreakCss}
-  font-size: 12px;
-  line-height: 14px;
-
-  // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18183
-  // Override LG's fixed line height
-  a {
-    line-height: 14px;
-  }
-
-  width: fit-content;
-`;
-
-const ItemsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const MetadataItemWrapper = styled.span`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: ${size.xxs};
-  line-height: 14px;
-`;
+export const MetadataCardTitle: React.FC<BodyProps> = ({
+  className,
+  ...rest
+}) => <Body className={cx(styles.cardTitle, className)} {...rest} />;
 
 export default MetadataCard;

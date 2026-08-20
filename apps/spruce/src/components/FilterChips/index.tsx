@@ -54,7 +54,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
       )}
       {chips.length > 0 && (
         <Button
-          data-cy="clear-filters"
+          data-testid="clear-filters"
           onClick={handleClearAll}
           size={Size.XSmall}
           variant={Variant.Default}

@@ -73,7 +73,7 @@ export const Navbar: React.FC = () => {
           <EvergreenLogo size={36} />
         </LogoLink>
         <PrimaryLink
-          data-cy="waterfall-link"
+          data-testid="waterfall-link"
           onClick={() => sendEvent({ name: "Clicked waterfall link" })}
           to={getWaterfallRoute(projectIdentifier)}
         >

@@ -37,11 +37,14 @@ export type ProviderFormState = {
     sshKeyName: string;
     instanceProfileARN: string;
     elasticIpsEnabled: boolean;
+    enableNestedVirtualization: boolean;
     doNotAssignPublicIPv4Address: boolean;
     vpcOptions: {
       useVpc: boolean;
       subnetId: string;
       subnetPrefix: string;
+      subnetTagName: string;
+      subnetTagValue: string;
     };
     mountPoints: Array<{
       deviceName: string;

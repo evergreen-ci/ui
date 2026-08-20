@@ -307,45 +307,6 @@ test.describe("admin settings save properly", () => {
       );
     });
 
-    test("saves AWS EC2 Keys parameter store values independently", async ({
-      page,
-    }) => {
-      await expect(page.getByTestId("save-settings-button")).toBeDisabled();
-
-      const awsConfiguration = page.getByTestId("aws-configuration");
-      await awsConfiguration.getByLabel("EC2 Key").clear();
-      await awsConfiguration.getByLabel("EC2 Key").fill("test-ec2-key");
-      await awsConfiguration.getByLabel("EC2 Secret").clear();
-      await awsConfiguration.getByLabel("EC2 Secret").fill("test-ec2-secret");
-
-      await save(page);
-      await validateToast(page, "success", "Settings saved successfully");
-      await page.reload();
-
-      await expect(awsConfiguration.getByLabel("EC2 Key")).toHaveValue(
-        "test-ec2-key",
-      );
-      await expect(awsConfiguration.getByLabel("EC2 Secret")).toHaveValue(
-        "test-ec2-secret",
-      );
-
-      const bannerText = page.getByTestId("banner-text");
-      await bannerText.clear();
-      await bannerText.fill("AWS EC2 param store test");
-
-      await save(page);
-      await validateToast(page, "success", "Settings saved successfully");
-      await page.reload();
-
-      await expect(bannerText).toHaveValue("AWS EC2 param store test");
-      await expect(awsConfiguration.getByLabel("EC2 Key")).toHaveValue(
-        "test-ec2-key",
-      );
-      await expect(awsConfiguration.getByLabel("EC2 Secret")).toHaveValue(
-        "test-ec2-secret",
-      );
-    });
-
     test("saves S3 Keys parameter store values independently", async ({
       page,
     }) => {

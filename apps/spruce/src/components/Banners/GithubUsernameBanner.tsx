@@ -10,7 +10,7 @@ export const GithubUsernameBanner = () => {
   const hasNoGithubUser = lastKnownAs === "";
 
   return hasNoGithubUser ? (
-    <Banner data-cy="github-username-banner" variant="warning">
+    <Banner data-testid="github-username-banner" variant="warning">
       Please set your GitHub username on the{" "}
       <StyledRouterLink to={getPreferencesRoute(PreferencesTabRoutes.Profile)}>
         settings page

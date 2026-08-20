@@ -14,6 +14,7 @@ import {
   SideNavItem,
   SideNavPageWrapper,
 } from "components/styles";
+import { showTaskOwnershipTab } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -67,6 +68,9 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.ProjectTriggers,
     ProjectSettingsTabRoutes.PeriodicBuilds,
     ProjectSettingsTabRoutes.TestSelection,
+    ...(showTaskOwnershipTab
+      ? [ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]
+      : []),
     ProjectSettingsTabRoutes.Plugins,
   ];
   const githubTabs: ProjectSettingsTabRoutes[] = [
@@ -117,7 +121,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             {projectType === ProjectType.AttachedProject && repoId && (
               <StyledRouterLink
                 arrowAppearance="persist"
-                data-cy="attached-repo-link"
+                data-testid="attached-repo-link"
                 to={getRepoSettingsRoute(
                   repoId,
                   tab && projectOnlyTabs.has(tab)
@@ -187,7 +191,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
         </SideNav>
 
         <SettingsPageContent
-          data-cy={isRepo ? "repo-settings-page" : "project-settings-page"}
+          data-testid={isRepo ? "repo-settings-page" : "project-settings-page"}
         >
           {hasLoaded ? (
             <ProjectSettingsTabs
@@ -213,7 +217,7 @@ const SharedSettingsNavItem: React.FC<{
   <SideNavItem
     active={tab === currentTab}
     as={Link}
-    data-cy={`navitem-${tab}`}
+    data-testid={`navitem-${tab}`}
     to={getRoute(id, tab)}
   >
     {getTabTitle(tab).title}

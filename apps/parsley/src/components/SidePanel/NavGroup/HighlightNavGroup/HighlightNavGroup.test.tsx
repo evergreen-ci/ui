@@ -9,9 +9,7 @@ import HighlightNavGroup from ".";
 describe("highlights", () => {
   it("shows a message when there are no highlighted terms", () => {
     render(<HighlightNavGroup />);
-    expect(
-      screen.getByDataTestId("highlight-default-message"),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("highlight-default-message")).toBeInTheDocument();
   });
 
   it("highlighted terms should properly display based on the URL", () => {
@@ -26,7 +24,7 @@ describe("highlights", () => {
     render(<HighlightNavGroup />, {
       route: "?highlights=one,two,three,four",
     });
-    const navGroupHeader = screen.getByDataTestId("highlight-nav-group-header");
+    const navGroupHeader = screen.getByTestId("highlight-nav-group-header");
     expect(within(navGroupHeader).getByText("4")).toBeInTheDocument();
   });
 

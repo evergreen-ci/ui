@@ -98,7 +98,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           {taskStatuses.map((status) => (
             <ComboboxOption
               key={status}
-              data-cy={`task-status-${status}-option`}
+              data-testid={`task-status-${status}-option`}
               displayName={taskStatusToCopy[status as TaskStatus]}
               value={status}
             />
@@ -122,7 +122,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           {buildVariants.map((bv) => (
             <ComboboxOption
               key={bv.buildVariant}
-              data-cy={`build-variant-${bv.buildVariant}-option`}
+              data-testid={`build-variant-${bv.buildVariant}-option`}
               displayName={bv.buildVariantDisplayName}
               value={bv.buildVariant}
             />
@@ -136,7 +136,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             {pluralize("Test", totalFilteredTestCount)}
           </Body>
           <Button
-            data-cy="clear-filter-button"
+            data-testid="clear-filter-button"
             disabled={!hasFiltersApplied}
             onClick={() => {
               setQueryParams({

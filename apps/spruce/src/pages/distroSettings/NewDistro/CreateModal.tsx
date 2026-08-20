@@ -67,7 +67,7 @@ export const CreateModal: React.FC<Props> = ({ handleClose, open }) => {
         disabled: hasError,
         onClick: onConfirm,
       }}
-      data-cy="create-distro-modal"
+      data-testid="create-distro-modal"
       open={open}
       title="Create New Distro"
     >

@@ -52,13 +52,13 @@ describe("LoginPage", () => {
         <Routes>
           <Route element={<LoginPage />} path="/login" />
           <Route
-            element={<div data-cy="waterfall">Waterfall</div>}
+            element={<div data-testid="waterfall">Waterfall</div>}
             path="/waterfall"
           />
         </Routes>
       </MemoryRouter>,
     );
 
-    expect(screen.getByDataCy("waterfall")).toBeInTheDocument();
+    expect(screen.getByTestId("waterfall")).toBeInTheDocument();
   });
 });

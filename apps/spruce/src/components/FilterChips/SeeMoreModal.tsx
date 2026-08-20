@@ -29,7 +29,7 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
         see {notVisibleCount} more
       </Link>
       <DisplayModal
-        data-cy="see-more-modal"
+        data-testid="see-more-modal"
         open={open}
         setOpen={setOpen}
         size="large"

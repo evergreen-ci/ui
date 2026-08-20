@@ -1,0 +1,10 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-100);
+  min-width: 200px;
+}
+
+.inputContainer * {
+  box-sizing: content-box;
+}

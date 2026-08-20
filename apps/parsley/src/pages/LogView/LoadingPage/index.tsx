@@ -21,15 +21,36 @@ interface LoadingPageProps {
   logType: LogTypes;
 }
 
+// GraphQL Int values use the signed 32-bit range.
+const MAX_GRAPHQL_INT = 2 ** 31 - 1;
+
+const parseExecution = (execution?: string): string | undefined => {
+  if (!execution || !/^\d+$/.test(execution)) {
+    return undefined;
+  }
+
+  const parsedExecution = Number(execution);
+  if (
+    !Number.isSafeInteger(parsedExecution) ||
+    parsedExecution > MAX_GRAPHQL_INT
+  ) {
+    return undefined;
+  }
+
+  return String(parsedExecution);
+};
+
 const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
   const {
-    [slugs.execution]: execution,
+    [slugs.execution]: unvalidatedExecution,
     [slugs.fileName]: fileName,
     [slugs.groupID]: groupID,
     [slugs.origin]: origin,
     [slugs.testID]: testID,
     [slugs.taskID]: taskID,
   } = useParams();
+  const execution = parseExecution(unvalidatedExecution);
+  const isExecutionValid = execution !== undefined;
   const dispatchToast = useToastContext();
   const { ingestLines, preferences, setLogMetadata } = useLogContext();
   const { excludeTimestamps } = preferences;
@@ -56,6 +77,9 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
 
   const onComplete = useCallback(
     (logs: string[]) => {
+      if (!isExecutionValid) {
+        return;
+      }
       leaveBreadcrumb(
         "ingest-log-lines",
         { logType },
@@ -85,6 +109,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
       groupID,
       htmlLogURL,
       ingestLines,
+      isExecutionValid,
       jobLogsURL,
       logPath,
       logType,
@@ -113,6 +138,14 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
       dispatchToast.error(error);
     }
   }, [dispatchToast, error]);
+
+  if (!isExecutionValid) {
+    return (
+      <Container>
+        <NotFound />
+      </Container>
+    );
+  }
 
   if (isLoadingLog || isLoadingEvergreen) {
     return (
