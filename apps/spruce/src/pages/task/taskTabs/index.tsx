@@ -169,8 +169,8 @@ const useTabConfig = (
           /* @ts-expect-error: FIXME. This comment was added by an automated script. */
           annotation={annotation}
           bbTicketCreationDefined={bbTicketCreationDefined}
+          buildBaronConfigured={buildBaronConfigured}
           execution={execution}
-          projectId={projectId}
           taskId={id}
           userCanModify={canModifyAnnotation}
         />

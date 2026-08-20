@@ -6,8 +6,6 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { cache } from "gql/client/cache";
-import { PROJECT_BUILD_BARON_SETTINGS_FRAGMENT } from "gql/fragments/projectBuildBaronSettings";
 import {
   BuildBaronCreateTicketMutation,
   BuildBaronCreateTicketMutationVariables,
@@ -30,34 +28,6 @@ import BuildBaronContent from "./BuildBaronContent";
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
 const execution = 0;
-const projectId = "spruce";
-
-/**
- * seedProjectSettings writes the project's Build Baron settings to the cache, which is where the
- * Failure Details components read them from rather than receiving them as props.
- * @param options - the options object
- * @param options.ticketCreateProject - the Jira project used for filing tickets, empty when the
- * project has no ticket creation project configured
- */
-const seedProjectSettings = ({
-  ticketCreateProject,
-}: {
-  ticketCreateProject: string;
-}) => {
-  cache.writeFragment({
-    id: cache.identify({ __typename: "Project", id: projectId }),
-    fragment: PROJECT_BUILD_BARON_SETTINGS_FRAGMENT,
-    data: {
-      __typename: "Project",
-      id: projectId,
-      buildBaronSettings: {
-        __typename: "BuildBaronSettings",
-        ticketCreateProject,
-        ticketSearchProjects: ["EVG"],
-      },
-    },
-  });
-};
 
 describe("buildBaronContent", () => {
   afterEach(() => {
@@ -65,15 +35,14 @@ describe("buildBaronContent", () => {
   });
 
   it("the BuildBaron component renders without crashing.", () => {
-    seedProjectSettings({ ticketCreateProject: "EVG" });
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           bbTicketCreationDefined
+          buildBaronConfigured
           execution={execution}
-          projectId={projectId}
           suggestions={buildBaronQuery.task?.buildBaronSuggestions}
           taskId={taskId}
           userCanModify
@@ -89,7 +58,6 @@ describe("buildBaronContent", () => {
   });
 
   it("clicking on file a new ticket dispatches a toast", async () => {
-    seedProjectSettings({ ticketCreateProject: "EVG" });
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks}>
@@ -97,8 +65,8 @@ describe("buildBaronContent", () => {
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           bbTicketCreationDefined
+          buildBaronConfigured
           execution={execution}
-          projectId={projectId}
           taskId={taskId}
           userCanModify
         />
@@ -124,15 +92,14 @@ describe("buildBaronContent", () => {
   });
 
   it("the correct JiraTicket rows are rendered in the component", () => {
-    seedProjectSettings({ ticketCreateProject: "EVG" });
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           bbTicketCreationDefined
+          buildBaronConfigured
           execution={execution}
-          projectId={projectId}
           suggestions={buildBaronQuery.task?.buildBaronSuggestions}
           taskId={taskId}
           userCanModify
@@ -169,15 +136,14 @@ describe("buildBaronContent", () => {
   });
 
   it("renders tickets created by Build Baron when the project has no ticket creation project", async () => {
-    seedProjectSettings({ ticketCreateProject: "" });
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks}>
         <BuildBaron
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           bbTicketCreationDefined={false}
+          buildBaronConfigured
           execution={execution}
-          projectId={projectId}
           taskId={taskId}
           userCanModify
         />

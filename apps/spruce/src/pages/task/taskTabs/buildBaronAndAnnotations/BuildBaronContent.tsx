@@ -21,17 +21,17 @@ interface BuildBaronCoreProps {
   execution: number;
   annotation: Annotation;
   bbTicketCreationDefined: boolean;
+  buildBaronConfigured: boolean;
   userCanModify: boolean;
-  projectId?: string;
 }
 
 const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   annotation,
   annotationCreatedIssues,
   bbTicketCreationDefined,
+  buildBaronConfigured,
   createdTickets,
   execution,
-  projectId,
   suggestions,
   taskId,
   userCanModify,
@@ -49,8 +49,8 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         />
       ) : (
         <BBCreatedTickets
+          buildBaronConfigured={buildBaronConfigured}
           execution={execution}
-          projectId={projectId}
           taskId={taskId}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           tickets={createdTickets}
