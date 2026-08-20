@@ -31,7 +31,7 @@ type CustomFormatFields = {
 };
 
 export type SpruceFormProps<
-  // RJSF's form-data type is inferred at concrete consumers.
+  // Keep the default compatible with RJSF's generic FormProps.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T = any,
   S extends StrictRJSFSchema = RJSFSchema,

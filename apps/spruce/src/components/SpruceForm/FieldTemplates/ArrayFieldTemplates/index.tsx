@@ -155,14 +155,13 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
 
   // Override RJSF's default array behavior; add new elements to beginning of array unless otherwise specified.
   const addToEnd = uiSchema["ui:addToEnd"] ?? false;
-  const handleAddClick =
-    items.length && !addToEnd
-      ? (event?: React.MouseEvent) =>
-          (onAddClick as (event?: React.MouseEvent, index?: number) => void)(
-            event,
-            0,
-          )
-      : onAddClick;
+  const handleAddClick = (event?: React.MouseEvent) => {
+    const addIndex = items.length && !addToEnd ? 0 : undefined;
+    (onAddClick as (event?: React.MouseEvent, index?: number) => void)(
+      event,
+      addIndex,
+    );
+  };
 
   const addButton = (
     <PlusButton
