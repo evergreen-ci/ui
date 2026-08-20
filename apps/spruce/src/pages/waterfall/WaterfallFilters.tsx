@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useApolloClient } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
@@ -6,6 +7,7 @@ import { DateFilter } from "components/DateFilter";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { BuildVariantFilter } from "./BuildVariantFilter";
+import { evictWaterfallCache } from "./caching/utils";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
@@ -30,6 +32,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   setOmitInactiveBuilds,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
+  const { cache } = useApolloClient();
 
   const [queryParams, setQueryParams] = useQueryParams();
   const [statuses] = useQueryParam<string[]>(
@@ -78,6 +81,8 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
         <ProjectSelect
           getProjectRoute={projectSelectRoute}
           onSubmit={(project: string) => {
+            evictWaterfallCache(cache, { broadcast: false });
+
             sendEvent({
               name: "Changed project",
               project,
