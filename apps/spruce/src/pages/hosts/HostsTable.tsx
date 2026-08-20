@@ -175,7 +175,7 @@ const columns: LGColumnDef<Host>[] = [
   },
   {
     header: "Distro",
-    accessorKey: "distroId",
+    accessorKey: "distro.id",
     id: HostSortBy.Distro,
     enableColumnFilter: true,
     enableSorting: true,
@@ -226,19 +226,6 @@ const columns: LGColumnDef<Host>[] = [
         placeholder: "Search by task ID",
       },
       width: "18%",
-    },
-  },
-  {
-    header: "Elapsed",
-    accessorKey: "elapsed",
-    id: HostSortBy.Elapsed,
-    cell: ({ getValue }) => {
-      const elapsed = getValue() as Date;
-      return elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A";
-    },
-    enableSorting: true,
-    meta: {
-      width: "10%",
     },
   },
   {

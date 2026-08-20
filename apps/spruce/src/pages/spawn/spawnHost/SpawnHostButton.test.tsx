@@ -69,10 +69,10 @@ const baseSpawnHost: Omit<MyHost, "id" | "status"> = {
   expiration: new Date("2021-10-28T22:37:40Z"),
   distro: {
     isVirtualWorkStation: true,
+    isWindows: false,
     id: "ubuntu1804-workstation",
     user: "ubuntu",
     workDir: "/home/ubuntu",
-    isWindows: false,
     __typename: "DistroInfo",
   },
   hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",

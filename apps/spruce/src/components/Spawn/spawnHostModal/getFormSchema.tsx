@@ -102,7 +102,7 @@ export const getFormSchema = ({
   const isDebugDisabled =
     debugSpawnHostDisabled || !!project?.debugSpawnHostsDisabled;
   const availableVolumes = volumes
-    ? volumes.filter((v) => v.homeVolume && !v.hostID)
+    ? volumes.filter((v) => v.homeVolume && !v.host)
     : [];
 
   const expirationDetails = getExpirationDetailsSchema({
@@ -587,7 +587,7 @@ export const getFormSchema = ({
             "ui:data-testid": "volume-select",
             "ui:disabled": availableVolumes?.length === 0,
             "ui:enumDisabled": (volumes || [])
-              .filter((v) => !!v.hostID)
+              .filter((v) => !!v.host)
               .map((v) => v.id),
           },
           volumeSize: {
