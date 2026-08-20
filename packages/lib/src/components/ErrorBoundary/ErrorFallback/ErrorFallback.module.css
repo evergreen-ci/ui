@@ -10,7 +10,8 @@
   top: 25%;
 }
 
-/* Doubled selectors win the import-order tie against Via's own static CSS. */
+/* Doubled selectors win the import-order tie against Via's own static CSS.
+   Remove once Via typography no longer sets color via static CSS. */
 .whiteText.whiteText {
   color: var(--via-color-neutral-000);
 }
