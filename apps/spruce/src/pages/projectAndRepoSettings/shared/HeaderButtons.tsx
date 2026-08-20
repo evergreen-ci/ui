@@ -316,6 +316,8 @@ const mapRouteToSection: Record<
     ProjectSettingsSection.GithubPermissions,
   [ProjectSettingsTabRoutes.TestSelection]:
     ProjectSettingsSection.TestSelection,
+  [ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]:
+    ProjectSettingsSection.TaskOwnershipAndFoliage,
 };
 
 const ButtonRow = styled.div`
