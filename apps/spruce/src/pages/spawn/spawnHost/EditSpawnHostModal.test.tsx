@@ -311,10 +311,10 @@ const baseSpawnHost: MyHost = {
   id: "i-0e2424677dfab890e",
   distro: {
     isVirtualWorkStation: true,
-    isWindows: false,
     id: "ubuntu1804-workstation",
     user: "ubuntu",
     workDir: "/home/ubuntu",
+    isWindows: false,
     __typename: "DistroInfo",
   },
   expiration: new Date("2024-05-06T20:27:43.024Z"),
