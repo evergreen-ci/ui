@@ -261,6 +261,11 @@ describe("version SkippedTestsMetadata", () => {
       screen.getByTestId("version-skipped-tests-details-button"),
     );
     expect(screen.getByTestId("skipped-tests-modal")).toBeVisible();
+    expect(
+      screen.getByTestId("version-skipped-tests-restart-warning"),
+    ).toHaveTextContent(
+      "If a task restarts after this page loads, displayed details and downloaded JSON may not match the skipped test count. Refresh the page before relying on them.",
+    );
     expect(await screen.findByText("Alpha Test")).toBeVisible();
     expect(screen.getByText("beta_test")).toBeVisible();
     expect(screen.getByText("gamma_test")).toBeVisible();
@@ -314,9 +319,9 @@ describe("version SkippedTestsMetadata", () => {
     expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
   });
 
-  it("does not show samples from a different task execution", async () => {
+  it("shows samples from the current task execution", async () => {
     const user = userEvent.setup();
-    const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
+    const { Component: TestComponent } = RenderFakeToastContext(
       <Component
         mocks={[
           getVersionTasksMock([4, 2, 0]),
@@ -329,10 +334,12 @@ describe("version SkippedTestsMetadata", () => {
       await screen.findByTestId("version-skipped-tests-details-button"),
     );
 
-    await waitFor(() => {
-      expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
-    });
-    expect(dispatchToast.warning).not.toHaveBeenCalled();
+    expect(await screen.findByText("Alpha Test")).toBeVisible();
+    expect(
+      screen
+        .getAllByTestId("version-skipped-tests-task-link")[0]
+        .getAttribute("href"),
+    ).toContain("execution=1");
   });
 
   it("downloads the whole version's list as JSON", async () => {
@@ -377,7 +384,7 @@ describe("version SkippedTestsMetadata", () => {
     });
   });
 
-  it("does not download an incomplete task list", async () => {
+  it("downloads available samples from an incomplete task list", async () => {
     const user = userEvent.setup();
     const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
       <Component
@@ -396,10 +403,16 @@ describe("version SkippedTestsMetadata", () => {
     await user.click(screen.getByTestId("skipped-tests-download"));
 
     await waitFor(() => {
-      expect(dispatchToast.error).toHaveBeenCalledWith(
-        "There was an error downloading the skipped test list.",
-      );
+      expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
     });
-    expect(URL.createObjectURL).not.toHaveBeenCalled();
+    expect(dispatchToast.error).not.toHaveBeenCalled();
+    const blob = vi.mocked(URL.createObjectURL).mock.calls[0][0] as Blob;
+    const json = JSON.parse(await blob.text());
+    expect(json).toMatchObject({
+      versionId: "v1",
+      skippedTestCount: 6,
+      tasks: [{ taskId: "ta", execution: 0, skippedTestCount: 4 }],
+    });
+    expect(json.tasks).toHaveLength(1);
   });
 });

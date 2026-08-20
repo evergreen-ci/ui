@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { skipToken, useLazyQuery, useQuery } from "@apollo/client/react";
+import { Callout } from "@leafygreen-ui/callout";
 import pluralize from "pluralize";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
@@ -78,8 +79,7 @@ export const VersionSkippedTestsModal: React.FC<
   >(TASK_QUARANTINED_TESTS_SAMPLE);
 
   const samples = samplesData?.version.taskQuarantinedTestsSample;
-  const detailsAvailable =
-    samples != null && samplesMatchTasks(samples, taskById);
+  const detailsAvailable = samples != null;
 
   useEffect(() => {
     if (loading) {
@@ -121,10 +121,8 @@ export const VersionSkippedTestsModal: React.FC<
         variables: { versionId, taskIds, limit: FULL_LIST_LIMIT },
       });
       const fullSamples = fullData?.version.taskQuarantinedTestsSample;
-      if (!fullSamples || !samplesMatchTasks(fullSamples, taskById)) {
-        throw new Error(
-          "incomplete or mismatched skipped test samples returned",
-        );
+      if (!fullSamples) {
+        throw new Error("no skipped test samples returned");
       }
       downloadObjectAsJson(
         {
@@ -164,21 +162,20 @@ export const VersionSkippedTestsModal: React.FC<
         totalCount === 1 ? "was" : "were"
       } skipped by TSS when this version's tasks ran. This snapshot may differ from what TSS would skip now.`}
       totalCount={totalCount}
+      warning={
+        <Callout
+          data-testid="version-skipped-tests-restart-warning"
+          title="Restarted tasks can affect these details"
+          variant="warning"
+        >
+          If a task restarts after this page loads, displayed details and
+          downloaded JSON may not match the skipped test count. Refresh the page
+          before relying on them.
+        </Callout>
+      }
     />
   );
 };
-
-const samplesMatchTasks = (
-  samples: NonNullable<
-    TaskQuarantinedTestsSampleQuery["version"]["taskQuarantinedTestsSample"]
-  >,
-  taskById: Map<string, VersionSkippedTestTask>,
-) =>
-  samples.length === taskById.size &&
-  new Set(samples.map(({ taskId }) => taskId)).size === taskById.size &&
-  samples.every(
-    ({ execution, taskId }) => taskById.get(taskId)?.execution === execution,
-  );
 
 const getRowSearchText = ({
   taskDisplayName,
