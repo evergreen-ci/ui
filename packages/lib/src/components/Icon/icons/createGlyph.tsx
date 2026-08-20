@@ -13,10 +13,6 @@ export type GlyphComponent = React.ForwardRefExoticComponent<
 > & { isGlyph: boolean };
 
 interface CreateGlyphOptions {
-  /**
-   * Default accessible label, for names the auto-generated
-   * "camel case split + Icon" label mangles (e.g. "GitHub" → "Git Hub Icon").
-   */
   label?: string;
   /**
    * Default color applied when the consumer does not pass a `fill` prop.
@@ -24,12 +20,6 @@ interface CreateGlyphOptions {
    * currentColor overrides.
    */
   defaultFill?: string;
-  /**
-   * Set to true for glyphs that control their own colors (logos, seasonal
-   * animations). When true, the `fill` prop is ignored and paths are not
-   * forced to `currentColor`.
-   */
-  preserveColors?: boolean;
 }
 
 /**
@@ -49,7 +39,7 @@ const createGlyph = (
   content: React.ReactNode,
   options: CreateGlyphOptions = {},
 ): GlyphComponent => {
-  const { defaultFill, label, preserveColors = false } = options;
+  const { defaultFill, label } = options;
   const Glyph = forwardRef<SVGSVGElement, GlyphProps>(
     (
       {
@@ -78,7 +68,7 @@ const createGlyph = (
           height={computedSize}
           role={role}
           style={
-            !preserveColors && (fill != null || defaultFill != null)
+            fill != null || defaultFill != null
               ? { ...style, color: fill ?? defaultFill }
               : style
           }

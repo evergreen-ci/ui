@@ -1,17 +1,10 @@
 import { palette } from "@leafygreen-ui/palette";
-import { glyphs } from "components/Icon";
+import { glyphs, sizeMap } from "components/Icon";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import styles from "./IconWithTooltip.stories.module.css";
 import IconWithTooltip from ".";
 
 const { green } = palette;
-
-const Sizes = {
-  small: 14,
-  medium: 16,
-  large: 20,
-  xlarge: 24,
-};
 
 export default {
   component: IconWithTooltip,
@@ -24,7 +17,7 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
     },
     size: {
       control: { type: "select" },
-      options: Object.values(Sizes),
+      options: Object.values(sizeMap),
     },
     children: {
       control: { type: "text" },
@@ -32,7 +25,7 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
   },
   args: {
     fill: green.dark3,
-    size: Sizes.medium,
+    size: sizeMap.medium,
     children: "Tooltip Text",
   },
   render: ({ children, ...rest }) => (

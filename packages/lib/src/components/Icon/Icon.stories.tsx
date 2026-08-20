@@ -1,16 +1,9 @@
 import { palette } from "@leafygreen-ui/palette";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import styles from "./Icon.stories.module.css";
-import Icon, { glyphs } from ".";
+import Icon, { glyphs, sizeMap } from ".";
 
 const { green } = palette;
-
-const Sizes = {
-  small: 14,
-  medium: 16,
-  large: 20,
-  xlarge: 24,
-};
 
 export default {
   component: Icon,
@@ -23,12 +16,12 @@ export const Default: CustomStoryObj<typeof Icon> = {
     },
     size: {
       control: { type: "select" },
-      options: Object.values(Sizes),
+      options: Object.values(sizeMap),
     },
   },
   args: {
     fill: green.dark3,
-    size: Sizes.medium,
+    size: sizeMap.medium,
   },
   render: (args) => (
     <div className={styles.container}>
