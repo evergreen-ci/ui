@@ -260,7 +260,7 @@ describe("version SkippedTestsMetadata", () => {
     await user.click(
       screen.getByTestId("version-skipped-tests-details-button"),
     );
-    expect(screen.getByTestId("version-skipped-tests-modal")).toBeVisible();
+    expect(screen.getByTestId("skipped-tests-modal")).toBeVisible();
     expect(await screen.findByText("Alpha Test")).toBeVisible();
     expect(screen.getByText("beta_test")).toBeVisible();
     expect(screen.getByText("gamma_test")).toBeVisible();
@@ -271,7 +271,7 @@ describe("version SkippedTestsMetadata", () => {
     expect(href).toContain("execution=0");
     expect(href).not.toContain("quarantinedTests");
     expect(
-      screen.getByTestId("version-skipped-tests-truncation-note"),
+      screen.getByTestId("skipped-tests-truncation-note"),
     ).toHaveTextContent("Showing the first 3 of 6");
   });
 
@@ -311,7 +311,7 @@ describe("version SkippedTestsMetadata", () => {
         "There was an error loading the skipped test details.",
       );
     });
-    expect(screen.queryByTestId("version-skipped-tests-modal")).toBeNull();
+    expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
   });
 
   it("does not show samples from a different task execution", async () => {
@@ -334,7 +334,7 @@ describe("version SkippedTestsMetadata", () => {
         "Skipped test details are not available for this version.",
       );
     });
-    expect(screen.queryByTestId("version-skipped-tests-modal")).toBeNull();
+    expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
   });
 
   it("downloads the whole version's list as JSON", async () => {
@@ -345,7 +345,7 @@ describe("version SkippedTestsMetadata", () => {
       await screen.findByTestId("version-skipped-tests-details-button"),
     );
     await screen.findByText("Alpha Test");
-    await user.click(screen.getByTestId("version-skipped-tests-download"));
+    await user.click(screen.getByTestId("skipped-tests-download"));
     await waitFor(() => {
       expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
     });
@@ -395,7 +395,7 @@ describe("version SkippedTestsMetadata", () => {
       await screen.findByTestId("version-skipped-tests-details-button"),
     );
     await screen.findByText("Alpha Test");
-    await user.click(screen.getByTestId("version-skipped-tests-download"));
+    await user.click(screen.getByTestId("skipped-tests-download"));
 
     await waitFor(() => {
       expect(dispatchToast.error).toHaveBeenCalledWith(

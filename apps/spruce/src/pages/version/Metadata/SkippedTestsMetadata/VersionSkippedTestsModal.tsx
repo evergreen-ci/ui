@@ -158,7 +158,6 @@ export const VersionSkippedTestsModal: React.FC<
   return (
     <SkippedTestsModal
       columns={columns}
-      dataTestIdPrefix="version-skipped-tests"
       getSearchText={getRowSearchText}
       loading={loading}
       onClickDownload={handleDownload}

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
@@ -36,12 +36,8 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
     variables: { versionId },
   });
 
-  const skippedTestTasks = useMemo(
-    () =>
-      (data?.version.tasks.data ?? []).filter(
-        (task) => task.quarantinedTestsSkippedCount > 0,
-      ),
-    [data],
+  const skippedTestTasks = (data?.version.tasks.data ?? []).filter(
+    (task) => task.quarantinedTestsSkippedCount > 0,
   );
   const totalCount = skippedTestTasks.reduce(
     (sum, task) => sum + task.quarantinedTestsSkippedCount,
