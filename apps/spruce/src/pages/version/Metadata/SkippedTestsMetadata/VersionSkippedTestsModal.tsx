@@ -85,22 +85,21 @@ export const VersionSkippedTestsModal: React.FC<
     if (loading) {
       return;
     }
-    if (detailsAvailable) {
-      sendEvent({ name: "Viewed version skipped tests modal" });
+    if (!detailsAvailable) {
+      setOpen(false);
+      if (error) {
+        dispatchToast.error(
+          "There was an error loading the skipped test details.",
+        );
+      } else {
+        dispatchToast.warning(
+          "Skipped test details are not available for this version.",
+        );
+      }
       return;
     }
-    setOpen(false);
-    if (error) {
-      dispatchToast.error(
-        "There was an error loading the skipped test details.",
-      );
-      return;
-    }
-    dispatchToast.warning(
-      "Skipped test details are not available for this version.",
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [detailsAvailable, loading, error]);
+    sendEvent({ name: "Viewed version skipped tests modal" });
+  }, [detailsAvailable, dispatchToast, error, loading, sendEvent, setOpen]);
 
   const rows: VersionSkippedTestRow[] = useMemo(
     () =>
