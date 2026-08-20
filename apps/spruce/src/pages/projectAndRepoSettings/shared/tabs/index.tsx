@@ -14,3 +14,4 @@ export { VariablesTab } from "./VariablesTab/VariablesTab";
 export { ViewsAndFiltersTab } from "./ViewsAndFiltersTab/ViewsAndFiltersTab";
 export { VirtualWorkstationTab } from "./VirtualWorkstationTab/VirtualWorkstationTab";
 export { TestSelectionTab } from "./TestSelectionTab/TestSelectionTab";
+export { TaskOwnershipAndFoliageTab } from "./TaskOwnershipAndFoliageTab/TaskOwnershipAndFoliageTab";
