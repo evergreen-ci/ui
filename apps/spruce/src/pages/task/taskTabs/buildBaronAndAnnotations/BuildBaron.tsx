@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useErrorToast } from "@evg-ui/lib/hooks";
@@ -5,11 +6,31 @@ import {
   Annotation,
   BuildBaronQuery,
   BuildBaronQueryVariables,
+  IssueLink,
+  JiraTicket,
 } from "gql/generated/types";
 import { BUILD_BARON } from "gql/queries";
-import BuildBaronContent from "./BuildBaronContent";
+import AnnotationNote from "./AnnotationNote";
+import {
+  AnnotationCreatedTickets,
+  BBCreatedTickets,
+} from "./CreatedTicketsTable";
+import { Issues, SuspectedIssues } from "./Issues";
+import JiraIssueTable from "./JiraIssueTable";
 
 interface Props {
+  taskId: string;
+  execution: number;
+  annotation: Annotation;
+  bbTicketCreationDefined: boolean;
+  buildBaronConfigured: boolean;
+  userCanModify: boolean;
+}
+
+interface BuildBaronCoreProps {
+  suggestions: NonNullable<BuildBaronQuery["task"]>["buildBaronSuggestions"];
+  createdTickets?: JiraTicket[];
+  annotationCreatedIssues?: IssueLink[];
   taskId: string;
   execution: number;
   annotation: Annotation;
@@ -59,6 +80,67 @@ const BuildBaron: React.FC<Props> = ({
       taskId={taskId}
       userCanModify={userCanModify}
     />
+  );
+};
+
+const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
+  annotation,
+  annotationCreatedIssues,
+  bbTicketCreationDefined,
+  buildBaronConfigured,
+  createdTickets,
+  execution,
+  suggestions,
+  taskId,
+  userCanModify,
+}) => {
+  const [selectedRowKey, setSelectedRowKey] = useState("");
+
+  return (
+    <div data-testid="build-baron-content">
+      {bbTicketCreationDefined ? (
+        <AnnotationCreatedTickets
+          execution={execution}
+          taskId={taskId}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          tickets={annotationCreatedIssues}
+        />
+      ) : (
+        <BBCreatedTickets
+          buildBaronConfigured={buildBaronConfigured}
+          execution={execution}
+          taskId={taskId}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          tickets={createdTickets}
+        />
+      )}
+      <AnnotationNote
+        execution={execution}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        note={annotation?.note}
+        taskId={taskId}
+        userCanModify={userCanModify}
+      />
+      <Issues
+        annotation={annotation}
+        execution={execution}
+        selectedRowKey={selectedRowKey}
+        setSelectedRowKey={setSelectedRowKey}
+        taskId={taskId}
+        userCanModify={userCanModify}
+      />
+      <SuspectedIssues
+        annotation={annotation}
+        execution={execution}
+        selectedRowKey={selectedRowKey}
+        setSelectedRowKey={setSelectedRowKey}
+        taskId={taskId}
+        userCanModify={userCanModify}
+      />
+      {!!suggestions?.issues.length && (
+        <JiraIssueTable suggestions={suggestions} />
+      )}
+    </div>
   );
 };
 

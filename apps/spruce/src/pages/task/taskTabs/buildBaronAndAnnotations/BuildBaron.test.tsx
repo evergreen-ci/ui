@@ -23,7 +23,6 @@ import { FILE_JIRA_TICKET } from "gql/mutations";
 import { BUILD_BARON, JIRA_ISSUES, JIRA_SUSPECTED_ISSUES } from "gql/queries";
 import { MockedProvider } from "test_utils/graphql";
 import BuildBaron from "./BuildBaron";
-import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
@@ -34,16 +33,15 @@ describe("buildBaronContent", () => {
     vi.restoreAllMocks();
   });
 
-  it("the BuildBaron component renders without crashing.", () => {
+  it("the BuildBaron component renders without crashing.", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks}>
-        <BuildBaronContent
+        <BuildBaron
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           bbTicketCreationDefined
           buildBaronConfigured
           execution={execution}
-          suggestions={buildBaronQuery.task?.buildBaronSuggestions}
           taskId={taskId}
           userCanModify
         />
@@ -54,7 +52,9 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    expect(screen.getByTestId("build-baron-content")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId("build-baron-content")).toBeInTheDocument();
+    });
   });
 
   it("clicking on file a new ticket dispatches a toast", async () => {
@@ -91,16 +91,15 @@ describe("buildBaronContent", () => {
     });
   });
 
-  it("the correct JiraTicket rows are rendered in the component", () => {
+  it("the correct JiraTicket rows are rendered in the component", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks}>
-        <BuildBaronContent
+        <BuildBaron
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           bbTicketCreationDefined
           buildBaronConfigured
           execution={execution}
-          suggestions={buildBaronQuery.task?.buildBaronSuggestions}
           taskId={taskId}
           userCanModify
         />
@@ -111,7 +110,9 @@ describe("buildBaronContent", () => {
       path: "/task/:id",
     });
 
-    expect(screen.queryAllByTestId("jira-ticket-row")).toHaveLength(3);
+    await waitFor(() => {
+      expect(screen.queryAllByTestId("jira-ticket-row")).toHaveLength(3);
+    });
 
     expect(screen.getByTestId("EVG-12345")).toBeInTheDocument();
     expect(screen.getByTestId("EVG-12346")).toBeInTheDocument();
