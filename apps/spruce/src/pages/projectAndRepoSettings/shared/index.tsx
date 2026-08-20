@@ -14,6 +14,7 @@ import {
   SideNavItem,
   SideNavPageWrapper,
 } from "components/styles";
+import { showTaskOwnershipTab } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -67,6 +68,9 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.ProjectTriggers,
     ProjectSettingsTabRoutes.PeriodicBuilds,
     ProjectSettingsTabRoutes.TestSelection,
+    ...(showTaskOwnershipTab
+      ? [ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]
+      : []),
     ProjectSettingsTabRoutes.Plugins,
   ];
   const githubTabs: ProjectSettingsTabRoutes[] = [
