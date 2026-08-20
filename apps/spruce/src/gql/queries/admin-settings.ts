@@ -396,6 +396,10 @@ export const ADMIN_SETTINGS = gql`
         }
       }
       taskLimits {
+        hourlyPatchTaskOverrides {
+          maxHourlyPatchTasks
+          projectOrRepoId
+        }
         maxConcurrentLargeParserProjectTasks
         maxDailyAutomaticRestarts
         maxDegradedModeConcurrentLargeParserProjectTasks

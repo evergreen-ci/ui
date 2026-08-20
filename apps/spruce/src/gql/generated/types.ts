@@ -1507,6 +1507,17 @@ export type HostsResponse = {
   totalHostsCount: Scalars["Int"]["output"];
 };
 
+export type HourlyPatchTaskOverride = {
+  __typename?: "HourlyPatchTaskOverride";
+  maxHourlyPatchTasks?: Maybe<Scalars["Int"]["output"]>;
+  projectOrRepoId?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type HourlyPatchTaskOverrideInput = {
+  maxHourlyPatchTasks: Scalars["Int"]["input"];
+  projectOrRepoId: Scalars["String"]["input"];
+};
+
 export type IceCreamSettings = {
   __typename?: "IceCreamSettings";
   configPath: Scalars["String"]["output"];
@@ -2782,6 +2793,7 @@ export type Project = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
+  taskOwnership?: Maybe<TaskOwnershipSettings>;
   testSelection?: Maybe<TestSelectionSettings>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2933,6 +2945,7 @@ export type ProjectInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3041,6 +3054,7 @@ export enum ProjectSettingsSection {
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
   PullRequests = "PULL_REQUESTS",
+  TaskOwnershipAndFoliage = "TASK_OWNERSHIP_AND_FOLIAGE",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -3439,6 +3453,7 @@ export type RepoRef = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
+  taskOwnership?: Maybe<RepoTaskOwnershipSettings>;
   testSelection?: Maybe<RepoTestSelectionSettings>;
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
@@ -3488,6 +3503,7 @@ export type RepoRefInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3519,6 +3535,12 @@ export type RepoSettingsInput = {
   repoId: Scalars["String"]["input"];
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
+};
+
+export type RepoTaskOwnershipSettings = {
+  __typename?: "RepoTaskOwnershipSettings";
+  defaultMothraTeam: Scalars["String"]["output"];
+  defaultMothraTeamForBreakingCommit: Scalars["String"]["output"];
 };
 
 export type RepoTestSelectionSettings = {
@@ -4339,6 +4361,7 @@ export type TaskInfo = {
 
 export type TaskLimitsConfig = {
   __typename?: "TaskLimitsConfig";
+  hourlyPatchTaskOverrides: Array<HourlyPatchTaskOverride>;
   maxConcurrentLargeParserProjectTasks?: Maybe<Scalars["Int"]["output"]>;
   maxDailyAutomaticRestarts?: Maybe<Scalars["Int"]["output"]>;
   maxDegradedModeConcurrentLargeParserProjectTasks?: Maybe<
@@ -4358,6 +4381,7 @@ export type TaskLimitsConfig = {
 };
 
 export type TaskLimitsConfigInput = {
+  hourlyPatchTaskOverrides?: InputMaybe<Array<HourlyPatchTaskOverrideInput>>;
   maxConcurrentLargeParserProjectTasks: Scalars["Int"]["input"];
   maxDailyAutomaticRestarts: Scalars["Int"]["input"];
   maxDegradedModeConcurrentLargeParserProjectTasks: Scalars["Int"]["input"];
@@ -4407,6 +4431,17 @@ export type TaskOwnerTeam = {
   jiraProject: Scalars["String"]["output"];
   messages: Scalars["String"]["output"];
   teamName: Scalars["String"]["output"];
+};
+
+export type TaskOwnershipSettings = {
+  __typename?: "TaskOwnershipSettings";
+  defaultMothraTeam?: Maybe<Scalars["String"]["output"]>;
+  defaultMothraTeamForBreakingCommit?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type TaskOwnershipSettingsInput = {
+  defaultMothraTeam?: InputMaybe<Scalars["String"]["input"]>;
+  defaultMothraTeamForBreakingCommit?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type TaskPriority = {
@@ -7203,6 +7238,11 @@ export type SaveAdminSettingsMutation = {
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
       taskQueueAutoUnscheduleThreshold?: number | null;
+      hourlyPatchTaskOverrides: Array<{
+        __typename?: "HourlyPatchTaskOverride";
+        maxHourlyPatchTasks?: number | null;
+        projectOrRepoId?: string | null;
+      }>;
     } | null;
     ui?: {
       __typename?: "UIConfig";
@@ -8047,6 +8087,11 @@ export type AdminSettingsQuery = {
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
       taskQueueAutoUnscheduleThreshold?: number | null;
+      hourlyPatchTaskOverrides: Array<{
+        __typename?: "HourlyPatchTaskOverride";
+        maxHourlyPatchTasks?: number | null;
+        projectOrRepoId?: string | null;
+      }>;
     } | null;
     testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
     tracer?: {

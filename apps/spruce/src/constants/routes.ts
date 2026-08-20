@@ -49,6 +49,7 @@ export enum ProjectSettingsTabRoutes {
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
   TestSelection = "test-selection",
+  TaskOwnershipAndFoliage = "task-ownership-and-foliage",
   Plugins = "plugins",
   PullRequests = "pull-requests",
   CommitChecks = "commit-checks",

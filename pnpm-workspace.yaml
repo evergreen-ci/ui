@@ -4,6 +4,9 @@ packages:
 # Supply-chain cooldown: wait 3 days (value is in minutes) after a version is
 # published before installing it, so compromised releases can be caught/yanked first.
 minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - '@via-ds/components'
+  - '@via-ds/icons'
 # Fix from DEVPROD-41675. A regression in @opentelemetry/instrumentation-user-interaction
 # 0.65.0 was crashing the Honeycomb SDK on startup in Spruce and Parsley, silently
 # disabling all telemetry.
