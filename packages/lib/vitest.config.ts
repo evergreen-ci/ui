@@ -12,9 +12,9 @@ const vitestConfig = defineTestConfig({
     include: ["src/**/*.test.{ts,tsx}"],
     server: {
       deps: {
-        // TODO UXE-711: remove once @via-ds/icons fixes its extensionless
-        // "lodash-es/kebabCase" import, which Node's ESM resolver rejects.
-        // Inlining routes it through Vite's resolver instead.
+        // Inlining @via-ds routes its modules through Vite's resolver; without
+        // it, each test worker loads the full via glyph set through Node's ESM
+        // resolver, which is slow enough to starve the worker pool.
         inline: [/@via-ds\//],
       },
     },

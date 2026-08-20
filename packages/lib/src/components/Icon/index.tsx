@@ -5,16 +5,10 @@ import {
   Icon as ViaIcon,
   sizeMap,
 } from "@via-ds/icons";
-// Via's flex-shrink rule for glyphs; imported here so every consumer of the
-// barrel gets it without a separate app-entry import.
 import "@via-ds/icons/styles.css";
 import AnimatedIcon from "./AnimatedIcon";
 import { glyphs } from "./glyphs";
 import * as icons from "./icons";
-import { FallLogo } from "./icons/logos/FallLogo";
-import { PrideLogo } from "./icons/logos/PrideLogo";
-import { SpringLogo } from "./icons/logos/SpringLogo";
-import { WinterLogo } from "./icons/logos/WinterLogo";
 
 const localGlyphs = {
   EvergreenLogo: icons.EvergreenLogo,
@@ -48,53 +42,18 @@ export enum Size {
   XLarge = "xlarge",
 }
 
-/** Size values accepted by the Icon component. */
-type IconSize = number | Size | "small" | "medium" | "large" | "xlarge";
-
-export interface IconProps extends Omit<DynamicIconProps, "glyph" | "size"> {
+export interface IconProps extends Omit<DynamicIconProps, "glyph"> {
   glyph: GlyphName | LocalGlyphName;
-  /**
-   * Via 0.0.2-canary.0 does not include an `xlarge` preset, but LeafyGreen
-   * consumers rely on it. We accept it and map it to 24px below.
-   */
-  size?: IconSize;
 }
 
 /** Via-backed Icon that also renders local glyphs Via lacks. */
-const xlargeSize = 24;
-
-const resolveSize = (
-  size: IconSize | undefined,
-): number | "small" | "medium" | "large" | undefined => {
-  if ((size as string) === Size.XLarge || (size as string) === "xlarge") {
-    return xlargeSize;
-  }
-  return size as number | "small" | "medium" | "large" | undefined;
-};
-
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
-  ({ className, glyph, size, ...rest }, ref) => {
-    const resolvedSize = resolveSize(size);
+  ({ glyph, ...rest }, ref) => {
     if (glyph in localGlyphs) {
       const LocalGlyph = localGlyphs[glyph as LocalGlyphName];
-      return (
-        <LocalGlyph
-          ref={ref}
-          className={className}
-          size={resolvedSize}
-          {...rest}
-        />
-      );
+      return <LocalGlyph ref={ref} {...rest} />;
     }
-    return (
-      <ViaIcon
-        ref={ref}
-        className={className}
-        glyph={glyph as GlyphName}
-        size={resolvedSize}
-        {...rest}
-      />
-    );
+    return <ViaIcon ref={ref} glyph={glyph as GlyphName} {...rest} />;
   },
 );
 Icon.displayName = "Icon";
@@ -107,7 +66,14 @@ export { sizeMap };
 // every available icon.
 export { glyphs };
 
-export { AnimatedIcon, PrideLogo, FallLogo, WinterLogo, SpringLogo };
-export { EvergreenLogo, ParsleyLogo } from "./icons";
+export { AnimatedIcon };
+export {
+  EvergreenLogo,
+  ParsleyLogo,
+  PrideLogo,
+  FallLogo,
+  WinterLogo,
+  SpringLogo,
+} from "./icons";
 
 export default Icon;
