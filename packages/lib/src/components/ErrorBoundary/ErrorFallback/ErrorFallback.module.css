@@ -1,26 +1,21 @@
-/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
-   Remove when this component migrates to Via. */
-.header.header,
-.subtitle.subtitle {
+.center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paragraph {
+  position: absolute;
+  top: 25%;
+}
+
+/* Doubled selectors win the import-order tie against Via's own static CSS. */
+.whiteText.whiteText {
   color: var(--via-color-neutral-000);
 }
 
-.link {
-  padding-top: var(--via-space-1600);
+.whiteLink.whiteLink {
   color: var(--via-color-neutral-000);
   text-decoration: underline;
-}
-
-.text {
-  position: absolute;
-  color: white;
-  margin-left: 5%;
-  margin-top: 10%;
-}
-
-.center {
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  background-color: #5bbf7d; /* Green Color from image */
 }
