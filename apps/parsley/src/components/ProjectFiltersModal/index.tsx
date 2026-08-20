@@ -182,10 +182,17 @@ const columns: LGColumnDef<
     accessorKey: "expression",
     cell: ({ getValue, row }) => (
       <>
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div
           className={styles.filterExpression}
           onClick={() => row.toggleSelected()}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              row.toggleSelected();
+            }
+          }}
+          role="button"
+          tabIndex={0}
           title={getValue() as string}
         >
           {getValue() as string}
