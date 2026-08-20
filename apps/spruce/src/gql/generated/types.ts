@@ -12068,6 +12068,7 @@ export type VersionTaskDurationsQuery = {
 export type VersionTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
+  executionTaskOptions?: InputMaybe<ExecutionTasksFilterOptions>;
 }>;
 
 export type VersionTasksQuery = {
