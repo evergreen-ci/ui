@@ -51,8 +51,6 @@ export const useProjectBuildBaronSettings = ({
 
   return {
     bbTicketCreationDefined: !!settings?.ticketCreateProject,
-    // Visibility follows the project's current settings. Tasks whose Build Baron configuration only
-    // exists in a historical version's project YAML no longer surface the tab on that basis alone.
     buildBaronConfigured: (settings?.ticketSearchProjects ?? []).length > 0,
   };
 };
