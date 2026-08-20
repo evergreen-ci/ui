@@ -1,5 +1,5 @@
 import { useCallback, useContext, useMemo, useRef } from "react";
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 import {
   SettingsState,
   createSettingsContext,
@@ -46,17 +46,13 @@ const AdminSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   const validateTabs = useCallback(
     (
       tabsToValidate: WritableAdminSettingsType[],
-    ): { errors: AjvError[]; isValid: boolean } => {
+    ): { errors: RJSFValidationError[]; isValid: boolean } => {
       const allErrors = tabsToValidate.flatMap((tab) => {
         const formRef = formRefsMap.current[tab];
         if (!formRef) return [];
         const { formData } = getTab(tab);
-        const { errorSchema, errors } = formRef.validate(formData);
-        if (errors.length > 0) {
-          // Set RJSF's internal error state to show inline field errors.
-          formRef.setState({ errors, errorSchema });
-        }
-        return errors;
+        formRef.validateFormWithFormData(formData);
+        return formRef.state.errors;
       });
       return { errors: allErrors, isValid: allErrors.length === 0 };
     },
@@ -119,7 +115,7 @@ type AdminSettingsContextType = SettingsState<
     ref: SpruceFormRef | null,
   ) => void;
   validateTabs: (tabs: WritableAdminSettingsType[]) => {
-    errors: AjvError[];
+    errors: RJSFValidationError[];
     isValid: boolean;
   };
 };

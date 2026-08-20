@@ -56,13 +56,14 @@ export const GeneralTab: React.FC<TabProps> = ({
     ],
   );
 
+  if (!initialFormState) return null;
+
   return (
     <BaseTab
+      customValidate={validate(projectType)}
       formSchema={formSchema}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       initialFormState={initialFormState}
       tab={tab}
-      validate={validate(projectType)}
     />
   );
 };

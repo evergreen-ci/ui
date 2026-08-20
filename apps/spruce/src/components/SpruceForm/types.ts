@@ -1,4 +1,12 @@
-import { Field, FieldValidation, FormProps } from "@rjsf/core";
+import { FormProps, IChangeEvent } from "@rjsf/core";
+import {
+  Field,
+  FieldValidation,
+  FormContextType,
+  ObjectFieldTemplateProps,
+  RJSFSchema,
+  StrictRJSFSchema,
+} from "@rjsf/utils";
 
 // typescript utility to recursively iterate through an object and add a method called addError to each property
 export type RecursivelyAddError<T> = T extends object
@@ -7,25 +15,41 @@ export type RecursivelyAddError<T> = T extends object
     } & FieldValidation
   : FieldValidation;
 
-/** typescript utility to coerce `@rjsf/core` validate prop signature to more accurately represent the shape of the actual validate function signature  */
-export type ValidateProps<T> = (
-  FormState: T,
-  errors: RecursivelyAddError<T>,
-) => RecursivelyAddError<T>;
+export type ValidateProps<T> = {
+  bivarianceHack(
+    formData: T,
+    errors: RecursivelyAddError<T>,
+  ): RecursivelyAddError<T>;
+}["bivarianceHack"];
+
+export type SpruceChangeEvent<T> = Omit<IChangeEvent<T>, "formData"> & {
+  formData: T;
+};
 
 type CustomFormatFields = {
   jiraHost?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SpruceFormProps<A = any> = Pick<
-  FormProps<A>,
-  "schema" | "onChange" | "formData"
-> &
-  Partial<FormProps<A>> & { customFormatFields?: CustomFormatFields };
+export type SpruceFormProps<
+  // RJSF's form-data type is inferred at concrete consumers.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  T = any,
+  S extends StrictRJSFSchema = RJSFSchema,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  F extends FormContextType = any,
+> = Pick<FormProps<T, S, F>, "schema"> &
+  Omit<
+    Partial<FormProps<T, S, F>>,
+    "customValidate" | "formData" | "onChange"
+  > & {
+    customValidate?: ValidateProps<T>;
+    customFormatFields?: CustomFormatFields;
+    formData?: T;
+    ObjectFieldTemplate?: React.ComponentType<ObjectFieldTemplateProps>;
+    onChange?: (data: SpruceChangeEvent<T>, id?: string) => void;
+  };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type GetFormSchema<T = any, P extends any[] = any[]> = (
+export type GetFormSchema<T = unknown, P extends unknown[] = never[]> = (
   ...params: P
 ) => {
   fields: Record<string, Field>;

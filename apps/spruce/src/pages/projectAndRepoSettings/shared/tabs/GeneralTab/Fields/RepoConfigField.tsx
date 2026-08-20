@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import { Field } from "@rjsf/core";
+import { Field } from "@rjsf/utils";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { SpruceForm } from "components/SpruceForm";
 import { GithubOrgsQuery } from "gql/generated/types";
@@ -14,21 +14,20 @@ import { MoveRepoModal } from "./MoveRepoModal";
 
 export const RepoConfigField: Field = ({
   disabled,
+  fieldPathId,
   formData,
   onChange,
   schema,
   uiSchema,
 }) => {
   const {
-    options: {
-      initialOwner,
-      initialRepo,
-      projectId,
-      projectType,
-      repoName,
-      repoOwner,
-    },
-  } = uiSchema;
+    initialOwner,
+    initialRepo,
+    projectId,
+    projectType,
+    repoName,
+    repoOwner,
+  } = uiSchema?.["ui:options"] ?? {};
   const isRepo = projectType === ProjectType.Repo;
   const isAttachedProject = projectType === ProjectType.AttachedProject;
   const [moveModalOpen, setMoveModalOpen] = useState(false);
@@ -46,7 +45,9 @@ export const RepoConfigField: Field = ({
       <SpruceForm
         disabled={disabled || projectType !== ProjectType.Project}
         formData={formData}
-        onChange={({ formData: formUpdate }) => onChange(formUpdate)}
+        onChange={({ formData: formUpdate }) =>
+          onChange(formUpdate, fieldPathId.path)
+        }
         schema={schema}
         tagName="fieldset"
         uiSchema={uiSchema}

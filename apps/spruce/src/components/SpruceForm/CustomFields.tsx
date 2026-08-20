@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Description, H3, Subtitle } from "@leafygreen-ui/typography";
-import { Field, FieldProps } from "@rjsf/core";
+import { Field, FieldProps } from "@rjsf/utils";
 import { size } from "@evg-ui/lib/constants/tokens";
 
 type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;

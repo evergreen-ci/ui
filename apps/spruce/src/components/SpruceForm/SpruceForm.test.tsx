@@ -79,11 +79,11 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
+                customValidate={validate}
                 formData={formData}
                 onChange={onChange}
                 schema={schema}
                 uiSchema={uiSchema}
-                validate={validate}
               />
             </SpruceFormContainer>,
           );
@@ -92,7 +92,12 @@ describe("spruce form", () => {
           expect(screen.getByTestId("text-input")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
-          expect(formErrors).toStrictEqual([{ stack: "textInput: invisible" }]);
+          expect(formErrors).toEqual([
+            expect.objectContaining({
+              message: "invisible",
+              property: ".textInput",
+            }),
+          ]);
           expect(screen.queryByText("invisible")).toBeNull();
         });
       });
@@ -169,11 +174,11 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
+                customValidate={validate}
                 formData={formData}
                 onChange={onChange}
                 schema={schema}
                 uiSchema={uiSchema}
-                validate={validate}
               />
             </SpruceFormContainer>,
           );
@@ -182,7 +187,12 @@ describe("spruce form", () => {
           expect(screen.getByTestId("text-area")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
-          expect(formErrors).toStrictEqual([{ stack: "textArea: invisible" }]);
+          expect(formErrors).toEqual([
+            expect.objectContaining({
+              message: "invisible",
+              property: ".textArea",
+            }),
+          ]);
           expect(screen.queryByText("invisible")).toBeNull();
         });
       });
@@ -468,6 +478,7 @@ describe("spruce form", () => {
                 "Fri Sep 19 2025 15:19:00 GMT+0000 (Coordinated Universal Time)",
             },
           }),
+          "root_dateTime",
         );
       });
 
@@ -507,6 +518,7 @@ describe("spruce form", () => {
                 "Tue Sep 16 2025 15:56:00 GMT+0000 (Coordinated Universal Time)",
             },
           }),
+          "root_dateTime",
         );
       });
     });

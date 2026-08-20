@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import { Button, Variant } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 import isEqual from "lodash.isequal";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -30,7 +30,7 @@ export const Settings: React.FC<SettingsProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = usePreferencesAnalytics();
-  const [formErrors, setFormErrors] = useState<AjvError[]>([]);
+  const [formErrors, setFormErrors] = useState<RJSFValidationError[]>([]);
 
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,

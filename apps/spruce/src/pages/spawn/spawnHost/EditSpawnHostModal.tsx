@@ -186,6 +186,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       title="Edit Host Details"
     >
       <SpruceForm
+        customValidate={validator(!!host?.sleepSchedule?.permanentlyExempt)}
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
@@ -193,8 +194,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         }}
         schema={schema}
         uiSchema={uiSchema}
-        // @ts-expect-error rjsf v4 has insufficient typing for its validator
-        validate={validator(!!host?.sleepSchedule?.permanentlyExempt)}
       />
     </ConfirmationModal>
   );

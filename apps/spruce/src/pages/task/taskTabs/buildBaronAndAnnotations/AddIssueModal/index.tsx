@@ -154,7 +154,7 @@ const addIssueModalSchema: SpruceFormProps = {
     },
     advancedOptions: {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-      "ui:displayTitle": "Advanced Options",
+      "ui:title": "Advanced Options",
       confidenceScore: {
         "ui:data-testid": "confidence-level",
         "ui:description":

@@ -64,6 +64,9 @@ export const getFormSchema = (
         "ui:description": getAdminsDescription(projectType),
         "ui:orderable": false,
         "ui:showLabel": false,
+        items: {
+          "ui:title": "Username",
+        },
       },
     },
   },

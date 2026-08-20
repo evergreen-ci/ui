@@ -295,7 +295,7 @@ export const getFormSchema = (
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
-        options: {
+        "ui:options": {
           initialOwner,
           initialRepo,
           projectId,
@@ -401,7 +401,7 @@ export const getFormSchema = (
         forceRun: {
           "ui:field": "repotrackerField",
           "ui:showLabel": false,
-          options: { projectId },
+          "ui:options": { projectId },
         },
         runEveryMainlineCommit: {
           "ui:data-testid": "run-every-mainline-commit-radio-box",
@@ -434,7 +434,7 @@ export const getFormSchema = (
         deactivateStepback: {
           "ui:field": "deactivateStepbackTask",
           "ui:showLabel": false,
-          options: { projectId },
+          "ui:options": { projectId },
         },
       },
       patch: {
@@ -459,7 +459,7 @@ export const getFormSchema = (
       deleteProject: {
         "ui:field": "deleteProjectField",
         "ui:showLabel": false,
-        options: { projectId },
+        "ui:options": { projectId },
       },
     },
   },

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 import { diff } from "deep-object-diff";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
@@ -66,7 +66,7 @@ export const EditVolumeModal: React.FC<Props> = ({
     [volume],
   );
   const [formState, setFormState] = useState<FormState>(initialState);
-  const [formErrors, setFormErrors] = useState<AjvError[]>([]);
+  const [formErrors, setFormErrors] = useState<RJSFValidationError[]>([]);
 
   const updateVolume = () => {
     const mutationInput = formToGql(initialState, formState, volume.id);

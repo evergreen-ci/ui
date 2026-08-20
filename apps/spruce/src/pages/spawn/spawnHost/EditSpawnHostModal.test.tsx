@@ -245,13 +245,15 @@ describe("editSpawnHostModal", () => {
         "168",
       );
       expect(
-        screen.queryByText(
+        await screen.findByText(
           "Please pause your host for at least 1 day per week.",
         ),
       ).toBeVisible();
-      expect(screen.queryByRole("button", { name: "Save" })).toHaveAttribute(
-        "aria-disabled",
-        "true",
+      await waitFor(() =>
+        expect(screen.getByRole("button", { name: "Save" })).toHaveAttribute(
+          "aria-disabled",
+          "true",
+        ),
       );
     }, 15000);
   });

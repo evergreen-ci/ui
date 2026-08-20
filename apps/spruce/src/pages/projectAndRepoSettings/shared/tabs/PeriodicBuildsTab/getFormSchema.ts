@@ -138,7 +138,7 @@ export const getFormSchema = (
       "ui:showLabel": false,
       "ui:useExpandableCard": true,
       items: {
-        "ui:displayTitle": "New Periodic Build",
+        "ui:title": "New Periodic Build",
         "ui:label": false,
         interval: {
           specifier: {

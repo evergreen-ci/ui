@@ -10,7 +10,7 @@ import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
 } from "constants/routes";
-import { ArrayFieldTemplate } from "./FieldTemplates";
+import { ArrayFieldItemTemplate, ArrayFieldTemplate } from "./FieldTemplates";
 
 export const getFormSchema = ({
   defaultsToRepo,
@@ -169,7 +169,7 @@ const permissionCss = css`
 
 const itemsUISchema = {
   "ui:data-testid": "permission-group",
-  "ui:displayTitle": "New Permission Group",
+  "ui:title": "New Permission Group",
   name: {
     "ui:ariaLabelledBy": "Permission Group Name",
     "ui:data-testid": "permission-group-title-input",
@@ -180,6 +180,7 @@ const itemsUISchema = {
   },
   permissions: {
     "ui:ArrayFieldTemplate": ArrayFieldTemplate,
+    "ui:ArrayFieldItemTemplate": ArrayFieldItemTemplate,
     "ui:addButtonText": "Add permission",
     "ui:addToEnd": true,
     "ui:orderable": false,
