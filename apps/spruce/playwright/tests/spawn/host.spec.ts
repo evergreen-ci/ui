@@ -264,7 +264,13 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      await page.getByTestId("distro-input").click();
+      const modal = page.getByTestId("spawn-host-modal");
+      await expect(modal).toBeVisible();
+      const distroInput = modal.getByTestId("distro-input");
+      await expect(distroInput.getByTestId("dropdown-value")).toContainText(
+        distroId,
+      );
+      await distroInput.click();
       await expect(page.getByText("Admin-only distros")).toHaveCount(0);
       await page.getByTestId("distro-option-ubuntu1804-workstation").click();
       await expect(page.getByTestId("volume-select")).toBeDisabled();
@@ -307,17 +313,20 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      const setupScriptInput = page.getByRole("textbox", {
+      const modal = page.getByTestId("spawn-host-modal");
+      await expect(modal).toBeVisible();
+
+      const setupScriptInput = modal.getByRole("textbox", {
         name: "Setup Script",
       });
-      await expect(setupScriptInput).toHaveCount(0);
-
-      const projectSetupScriptCheckbox = page.getByRole("checkbox", {
+      const projectSetupScriptCheckbox = modal.getByRole("checkbox", {
         name: projectSetupCheckboxLabel,
       });
+      await expect(projectSetupScriptCheckbox).toBeChecked();
+      await expect(setupScriptInput).toHaveCount(0);
       await clickCheckbox(projectSetupScriptCheckbox);
 
-      const setupScriptCheckbox = page.getByRole("checkbox", {
+      const setupScriptCheckbox = modal.getByRole("checkbox", {
         name: setupScriptCheckboxLabel,
       });
       await expect(setupScriptCheckbox).toBeEnabled();
@@ -331,10 +340,13 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      const projectCheckbox = page.getByRole("checkbox", {
+      const modal = page.getByTestId("spawn-host-modal");
+      await expect(modal).toBeVisible();
+
+      const projectCheckbox = modal.getByRole("checkbox", {
         name: projectSetupCheckboxLabel,
       });
-      const setupCheckbox = page.getByRole("checkbox", {
+      const setupCheckbox = modal.getByRole("checkbox", {
         name: setupScriptCheckboxLabel,
       });
 

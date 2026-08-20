@@ -29,14 +29,12 @@ export const DayPicker: React.FC<{
 
   const handleClick = useCallback(
     (selectedIndex: number) => {
-      setSelectedDays((prev) => {
-        const newState = [...prev];
-        newState[selectedIndex] = !prev[selectedIndex];
-        onChange?.(newState);
-        return newState;
-      });
+      const newState = [...selectedDays];
+      newState[selectedIndex] = !selectedDays[selectedIndex];
+      setSelectedDays(newState);
+      onChange?.(newState);
     },
-    [onChange],
+    [onChange, selectedDays],
   );
 
   return (
