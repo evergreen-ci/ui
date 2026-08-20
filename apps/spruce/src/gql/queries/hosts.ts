@@ -30,6 +30,7 @@ export const HOSTS = gql`
           id
           bootstrapMethod
         }
+        elapsed
         hostUrl
         noExpiration
         provider

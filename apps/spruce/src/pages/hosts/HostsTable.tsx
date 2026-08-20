@@ -229,6 +229,19 @@ const columns: LGColumnDef<Host>[] = [
     },
   },
   {
+    header: "Elapsed",
+    accessorKey: "elapsed",
+    id: HostSortBy.Elapsed,
+    cell: ({ getValue }) => {
+      const elapsed = getValue() as Date;
+      return elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A";
+    },
+    enableSorting: true,
+    meta: {
+      width: "10%",
+    },
+  },
+  {
     header: "Uptime",
     accessorKey: "uptime",
     id: HostSortBy.Uptime,

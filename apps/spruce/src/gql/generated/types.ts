@@ -8717,6 +8717,7 @@ export type HostsQuery = {
     hosts: Array<{
       __typename?: "Host";
       id: string;
+      elapsed?: Date | null;
       hostUrl: string;
       noExpiration: boolean;
       provider: string;
