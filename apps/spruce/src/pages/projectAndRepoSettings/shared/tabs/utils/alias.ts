@@ -53,8 +53,6 @@ export type AliasFormType = {
   }[];
 };
 
-type AliasFields = Omit<ProjectAlias, "requiredLabels">;
-
 const aliasToForm = ({
   alias,
   description,
@@ -66,7 +64,7 @@ const aliasToForm = ({
   taskTags,
   variant,
   variantTags,
-}: AliasFields): AliasFormType => ({
+}: ProjectAlias): AliasFormType => ({
   id,
   alias,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -96,7 +94,7 @@ const aliasToForm = ({
 
 // Bucket aliases according to their "alias" field
 export const sortAliases = (
-  aliases: AliasFields[],
+  aliases: ProjectAlias[],
 ): Record<string, AliasFormType[]> =>
   aliases.reduce(
     (o, a) => {
