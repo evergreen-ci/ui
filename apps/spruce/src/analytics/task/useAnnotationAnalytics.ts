@@ -5,14 +5,13 @@ import { useQueryParam } from "@evg-ui/lib/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import {
-  BuildBaronQuery,
-  BuildBaronQueryVariables,
   TaskQuery,
   TaskQueryVariables,
   TaskTestCountQuery,
   TaskTestCountQueryVariables,
 } from "gql/generated/types";
-import { BUILD_BARON, TASK, TASK_TEST_COUNT } from "gql/queries";
+import { TASK, TASK_TEST_COUNT } from "gql/queries";
+import { useProjectBuildBaronSettings } from "hooks";
 import { RequiredQueryParams } from "types/task";
 
 type Action =
@@ -40,14 +39,6 @@ export const useAnnotationAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
 
-  const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
-    BUILD_BARON,
-    {
-      variables: { taskId: taskId || "", execution },
-      fetchPolicy: "cache-first",
-    },
-  );
-
   const { data: taskData } = useQuery<TaskQuery, TaskQueryVariables>(
     TASK,
     taskId
@@ -70,7 +61,6 @@ export const useAnnotationAnalytics = () => {
     fetchPolicy: "cache-first",
   });
   const { failedTestCount } = taskTestCountData?.task || {};
-  const { buildBaronConfigured } = bbData?.buildBaron || {};
 
   const {
     displayName,
@@ -81,8 +71,10 @@ export const useAnnotationAnalytics = () => {
     status: taskStatus,
     versionMetadata: { isPatch } = { isPatch: false },
   } = taskData?.task || {};
-  const { identifier } = project || {};
+  const { id: projectId, identifier } = project || {};
   const isLatestExecution = latestExecution === execution;
+
+  const { buildBaronConfigured } = useProjectBuildBaronSettings({ projectId });
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Annotations", {
     "task.display_status": displayStatus || "",
@@ -95,6 +87,6 @@ export const useAnnotationAnalytics = () => {
     "task.status": taskStatus || "",
     "version.is_patch": isPatch,
     "version.requester": requester,
-    "task.build_baron_configured": buildBaronConfigured || false,
+    "task.build_baron_configured": buildBaronConfigured,
   });
 };
