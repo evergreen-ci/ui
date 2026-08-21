@@ -2817,6 +2817,7 @@ export type ProjectAlias = {
   id: Scalars["String"]["output"];
   parameters: Array<Parameter>;
   remotePath: Scalars["String"]["output"];
+  requiredLabels: Array<Scalars["String"]["output"]>;
   task: Scalars["String"]["output"];
   taskTags: Array<Scalars["String"]["output"]>;
   variant: Scalars["String"]["output"];
@@ -2830,6 +2831,7 @@ export type ProjectAliasInput = {
   id: Scalars["String"]["input"];
   parameters?: InputMaybe<Array<ParameterInput>>;
   remotePath: Scalars["String"]["input"];
+  requiredLabels?: InputMaybe<Array<Scalars["String"]["input"]>>;
   task: Scalars["String"]["input"];
   taskTags: Array<Scalars["String"]["input"]>;
   variant: Scalars["String"]["input"];
