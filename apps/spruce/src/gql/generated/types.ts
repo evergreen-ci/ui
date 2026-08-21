@@ -2814,6 +2814,7 @@ export type ProjectAlias = {
   id: Scalars["String"]["output"];
   parameters: Array<Parameter>;
   remotePath: Scalars["String"]["output"];
+  requiredLabels: Array<Scalars["String"]["output"]>;
   task: Scalars["String"]["output"];
   taskTags: Array<Scalars["String"]["output"]>;
   variant: Scalars["String"]["output"];
@@ -2827,6 +2828,7 @@ export type ProjectAliasInput = {
   id: Scalars["String"]["input"];
   parameters?: InputMaybe<Array<ParameterInput>>;
   remotePath: Scalars["String"]["input"];
+  requiredLabels?: InputMaybe<Array<Scalars["String"]["input"]>>;
   task: Scalars["String"]["input"];
   taskTags: Array<Scalars["String"]["input"]>;
   variant: Scalars["String"]["input"];
@@ -5472,6 +5474,7 @@ export type AliasFragment = {
   description?: string | null;
   gitTag: string;
   remotePath: string;
+  requiredLabels: Array<string>;
   task: string;
   taskTags: Array<string>;
   variant: string;
@@ -5668,6 +5671,7 @@ export type ProjectSettingsFieldsFragment = {
     description?: string | null;
     gitTag: string;
     remotePath: string;
+    requiredLabels: Array<string>;
     task: string;
     taskTags: Array<string>;
     variant: string;
@@ -5882,6 +5886,7 @@ export type RepoSettingsFieldsFragment = {
     description?: string | null;
     gitTag: string;
     remotePath: string;
+    requiredLabels: Array<string>;
     task: string;
     taskTags: Array<string>;
     variant: string;
@@ -6283,6 +6288,7 @@ export type ProjectEventSettingsFragment = {
     description?: string | null;
     gitTag: string;
     remotePath: string;
+    requiredLabels: Array<string>;
     task: string;
     taskTags: Array<string>;
     variant: string;
@@ -9378,6 +9384,7 @@ export type ProjectEventLogsQuery = {
           description?: string | null;
           gitTag: string;
           remotePath: string;
+          requiredLabels: Array<string>;
           task: string;
           taskTags: Array<string>;
           variant: string;
@@ -9602,6 +9609,7 @@ export type ProjectEventLogsQuery = {
           description?: string | null;
           gitTag: string;
           remotePath: string;
+          requiredLabels: Array<string>;
           task: string;
           taskTags: Array<string>;
           variant: string;
@@ -9891,6 +9899,7 @@ export type ProjectSettingsQuery = {
       description?: string | null;
       gitTag: string;
       remotePath: string;
+      requiredLabels: Array<string>;
       task: string;
       taskTags: Array<string>;
       variant: string;
@@ -10163,6 +10172,7 @@ export type RepoEventLogsQuery = {
           description?: string | null;
           gitTag: string;
           remotePath: string;
+          requiredLabels: Array<string>;
           task: string;
           taskTags: Array<string>;
           variant: string;
@@ -10387,6 +10397,7 @@ export type RepoEventLogsQuery = {
           description?: string | null;
           gitTag: string;
           remotePath: string;
+          requiredLabels: Array<string>;
           task: string;
           taskTags: Array<string>;
           variant: string;
@@ -10621,6 +10632,7 @@ export type RepoSettingsQuery = {
       description?: string | null;
       gitTag: string;
       remotePath: string;
+      requiredLabels: Array<string>;
       task: string;
       taskTags: Array<string>;
       variant: string;
