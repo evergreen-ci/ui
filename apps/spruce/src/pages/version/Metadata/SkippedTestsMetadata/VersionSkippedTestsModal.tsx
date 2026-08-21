@@ -25,6 +25,10 @@ import { TaskTab } from "types/task";
 export type VersionSkippedTestTask =
   VersionQuarantinedTasksQuery["version"]["tasks"]["data"][number];
 
+type VersionSkippedTestSample = NonNullable<
+  TaskQuarantinedTestsSampleQuery["version"]["taskQuarantinedTestsSample"]
+>[number];
+
 interface VersionSkippedTestRow {
   buildVariantDisplayName: string;
   execution: number;
@@ -97,19 +101,9 @@ export const VersionSkippedTestsModal: React.FC<
     sendEvent({ name: "Viewed version skipped tests modal" });
   }, [detailsAvailable, dispatchToast, error, loading, sendEvent, setOpen]);
 
-  const rows: VersionSkippedTestRow[] = useMemo(
-    () =>
-      (detailsAvailable ? samples : []).flatMap((sample) => {
-        const task = taskById.get(sample.taskId);
-        return sample.quarantinedTests.map(({ displayTestName, testName }) => ({
-          buildVariantDisplayName: task?.buildVariantDisplayName ?? "",
-          execution: sample.execution,
-          taskDisplayName: task?.displayName ?? sample.taskId,
-          taskId: sample.taskId,
-          testName: displayTestName || testName,
-        }));
-      }),
-    [detailsAvailable, samples, taskById],
+  const rows = useMemo(
+    () => buildVersionSkippedTestRows(samples ?? [], taskById),
+    [samples, taskById],
   );
 
   const handleDownload = async () => {
@@ -176,6 +170,22 @@ export const VersionSkippedTestsModal: React.FC<
     />
   );
 };
+
+const buildVersionSkippedTestRows = (
+  samples: VersionSkippedTestSample[],
+  taskById: ReadonlyMap<string, VersionSkippedTestTask>,
+): VersionSkippedTestRow[] =>
+  samples.flatMap((sample) => {
+    const task = taskById.get(sample.taskId);
+
+    return sample.quarantinedTests.map(({ displayTestName, testName }) => ({
+      buildVariantDisplayName: task?.buildVariantDisplayName ?? "",
+      execution: sample.execution,
+      taskDisplayName: task?.displayName ?? sample.taskId,
+      taskId: sample.taskId,
+      testName: displayTestName || testName,
+    }));
+  });
 
 const getRowSearchText = ({
   taskDisplayName,
