@@ -10,7 +10,7 @@
     "dev": "env-cmd -e devLocal pnpm vite",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint --concurrency=auto",
-    "eslint:strict": "STRICT=1 eslint --concurrency=auto .",
+    "eslint:strict": "STRICT=1 eslint --concurrency=auto --max-warnings=0 .",
     "playwright:test": "playwright test",
     "playwright:ui": "playwright test --ui",
     "preview": "serve -s dist -p 5493",
