@@ -5474,6 +5474,7 @@ export type AliasFragment = {
   description?: string | null;
   gitTag: string;
   remotePath: string;
+  requiredLabels: Array<string>;
   task: string;
   taskTags: Array<string>;
   variant: string;
@@ -5670,6 +5671,7 @@ export type ProjectSettingsFieldsFragment = {
     description?: string | null;
     gitTag: string;
     remotePath: string;
+    requiredLabels: Array<string>;
     task: string;
     taskTags: Array<string>;
     variant: string;
@@ -5884,6 +5886,7 @@ export type RepoSettingsFieldsFragment = {
     description?: string | null;
     gitTag: string;
     remotePath: string;
+    requiredLabels: Array<string>;
     task: string;
     taskTags: Array<string>;
     variant: string;
@@ -6285,6 +6288,7 @@ export type ProjectEventSettingsFragment = {
     description?: string | null;
     gitTag: string;
     remotePath: string;
+    requiredLabels: Array<string>;
     task: string;
     taskTags: Array<string>;
     variant: string;
@@ -9380,6 +9384,7 @@ export type ProjectEventLogsQuery = {
           description?: string | null;
           gitTag: string;
           remotePath: string;
+          requiredLabels: Array<string>;
           task: string;
           taskTags: Array<string>;
           variant: string;
@@ -9604,6 +9609,7 @@ export type ProjectEventLogsQuery = {
           description?: string | null;
           gitTag: string;
           remotePath: string;
+          requiredLabels: Array<string>;
           task: string;
           taskTags: Array<string>;
           variant: string;
@@ -9893,6 +9899,7 @@ export type ProjectSettingsQuery = {
       description?: string | null;
       gitTag: string;
       remotePath: string;
+      requiredLabels: Array<string>;
       task: string;
       taskTags: Array<string>;
       variant: string;
@@ -10165,6 +10172,7 @@ export type RepoEventLogsQuery = {
           description?: string | null;
           gitTag: string;
           remotePath: string;
+          requiredLabels: Array<string>;
           task: string;
           taskTags: Array<string>;
           variant: string;
@@ -10389,6 +10397,7 @@ export type RepoEventLogsQuery = {
           description?: string | null;
           gitTag: string;
           remotePath: string;
+          requiredLabels: Array<string>;
           task: string;
           taskTags: Array<string>;
           variant: string;
@@ -10623,6 +10632,7 @@ export type RepoSettingsQuery = {
       description?: string | null;
       gitTag: string;
       remotePath: string;
+      requiredLabels: Array<string>;
       task: string;
       taskTags: Array<string>;
       variant: string;
