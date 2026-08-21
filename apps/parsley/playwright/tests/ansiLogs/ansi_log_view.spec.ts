@@ -37,10 +37,13 @@ test.describe("Basic evergreen log view", () => {
     page,
   }) => {
     await helpers.addFilter(page, "Putting spruce/");
-
     await page.getByTestId("paginated-virtual-list").evaluate((el) => {
       el.scrollTo(el.scrollWidth, 0);
     });
+    const scrollLeft = await page
+      .getByTestId("paginated-virtual-list")
+      .evaluate((el) => el.scrollLeft);
+    expect(scrollLeft).toBeGreaterThan(0);
   });
 
   test("log header should show the task breadcrumbs and status and link to Spruce", async ({
