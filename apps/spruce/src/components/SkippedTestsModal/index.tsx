@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import {
@@ -29,6 +29,7 @@ interface SkippedTestsModalProps<T extends LGRowData> {
   setOpen: (open: boolean) => void;
   subtitle: string;
   totalCount: number;
+  warning?: ReactNode;
 }
 
 export const SkippedTestsModal = <T extends LGRowData>({
@@ -42,6 +43,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
   setOpen,
   subtitle,
   totalCount,
+  warning,
 }: SkippedTestsModalProps<T>) => {
   const [search, setSearch] = useState("");
 
@@ -77,6 +79,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
           value={search}
         />
         <Button
+          data-testid="skipped-tests-download"
           leftGlyph={<Icon glyph="Download" />}
           onClick={onClickDownload}
           size="small"
@@ -84,8 +87,9 @@ export const SkippedTestsModal = <T extends LGRowData>({
           Download JSON
         </Button>
       </HeaderRow>
+      {warning && <WarningContainer>{warning}</WarningContainer>}
       {!loading && rows.length < totalCount && (
-        <Disclaimer>
+        <Disclaimer data-testid="skipped-tests-truncation-note">
           Showing the first {rows.length} of {totalCount} tests. Download the
           JSON for all available stored tests.
         </Disclaimer>
@@ -109,6 +113,10 @@ const HeaderRow = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: ${size.xs};
+  margin-bottom: ${size.xs};
+`;
+
+const WarningContainer = styled.div`
   margin-bottom: ${size.xs};
 `;
 

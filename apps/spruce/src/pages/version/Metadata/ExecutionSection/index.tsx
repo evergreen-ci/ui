@@ -3,6 +3,7 @@ import { CostSummary } from "components/CostSummary";
 import { MetadataSection } from "components/MetadataCard";
 import { VersionQuery } from "gql/generated/types";
 import { ParametersModal } from "../../ParametersModal";
+import { SkippedTestsMetadata } from "../SkippedTestsMetadata";
 
 type Version = NonNullable<VersionQuery["version"]>;
 
@@ -13,12 +14,13 @@ interface ExecutionSectionProps {
 export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   version,
 }) => {
-  const { cost, id, isPatch, parameters, patch } = version;
+  const { cost, id, isPatch, parameters, patch, projectMetadata } = version;
   const { sendEvent } = useVersionAnalytics(id);
 
   const hasParameters = parameters.length > 0;
   const totalCost = isPatch ? patch?.cost?.total : cost?.total;
   const hasCost = totalCost != null && totalCost > 0;
+  const testSelectionEnabled = projectMetadata?.testSelection?.allowed ?? false;
 
   if (!hasCost && !hasParameters) {
     return null;
@@ -26,6 +28,10 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
 
   return (
     <MetadataSection title="Execution">
+      <SkippedTestsMetadata
+        testSelectionEnabled={testSelectionEnabled}
+        versionId={id}
+      />
       {hasCost && (
         <CostSummary
           onClickDetailsButton={() =>
