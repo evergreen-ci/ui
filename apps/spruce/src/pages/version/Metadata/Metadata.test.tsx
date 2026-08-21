@@ -55,6 +55,7 @@ const baseVersion: Version = {
     owner: "evergreen-ci",
     repo: "evergreen",
   },
+  quarantinedTestsSkippedCount: 0,
   upstreamProject: null,
   user: {
     __typename: "User",

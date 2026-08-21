@@ -4961,6 +4961,7 @@ export type Version = {
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   projectMetadata?: Maybe<Project>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
@@ -12027,6 +12028,30 @@ export type UserQuery = {
   };
 };
 
+export type VersionQuarantinedTasksQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type VersionQuarantinedTasksQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    tasks: {
+      __typename?: "VersionTasks";
+      count: number;
+      data: Array<{
+        __typename?: "Task";
+        id: string;
+        buildVariantDisplayName?: string | null;
+        displayName: string;
+        execution: number;
+        quarantinedTestsSkippedCount: number;
+      }>;
+    };
+  };
+};
+
 export type VersionTaskDurationsQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
@@ -12198,6 +12223,7 @@ export type VersionQuery = {
     isPatch: boolean;
     message: string;
     order: number;
+    quarantinedTestsSkippedCount: number;
     repo: string;
     requester: string;
     revision: string;
@@ -12294,6 +12320,10 @@ export type VersionQuery = {
       identifier: string;
       owner: string;
       repo: string;
+      testSelection?: {
+        __typename?: "TestSelectionSettings";
+        allowed: boolean;
+      } | null;
     } | null;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     versionTiming?: {

@@ -47,6 +47,7 @@ const version: Version = {
     owner: "evergreen-ci",
     repo: "evergreen",
   },
+  quarantinedTestsSkippedCount: 0,
   repo: "evergreen",
   requester: "gitter_request",
   revision: "abc123def456",
