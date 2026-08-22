@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-export const SpringLogo = forwardRef<SVGSVGElement>((props, ref) => (
+const SpringLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
   <svg
     ref={ref}
     {...props}
@@ -356,4 +356,6 @@ export const SpringLogo = forwardRef<SVGSVGElement>((props, ref) => (
   </svg>
 ));
 
-SpringLogo.displayName = "SpringLogo";
+SpringLogoInner.displayName = "SpringLogo";
+
+export const SpringLogo = Object.assign(SpringLogoInner, { isGlyph: true });

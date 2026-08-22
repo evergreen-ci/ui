@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-export const PrideLogo = forwardRef<SVGSVGElement>((props, ref) => (
+const PrideLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
   <svg
     ref={ref}
     fill="none"
@@ -238,4 +238,6 @@ export const PrideLogo = forwardRef<SVGSVGElement>((props, ref) => (
     </g>
   </svg>
 ));
-PrideLogo.displayName = "PrideLogo";
+PrideLogoInner.displayName = "PrideLogo";
+
+export const PrideLogo = Object.assign(PrideLogoInner, { isGlyph: true });

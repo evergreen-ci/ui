@@ -10,6 +10,14 @@ const vitestConfig = defineTestConfig({
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
     include: ["src/**/*.test.{ts,tsx}"],
+    server: {
+      deps: {
+        // Inlining @via-ds routes its modules through Vite's resolver; without
+        // it, each test worker loads the full via glyph set through Node's ESM
+        // resolver, which is slow enough to starve the worker pool.
+        inline: [/@via-ds\//],
+      },
+    },
   },
   resolve: {
     tsconfigPaths: true,

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-export const FallLogo = forwardRef<SVGSVGElement>((props, ref) => (
+const FallLogoInner = forwardRef<SVGSVGElement>((props, ref) => (
   <svg
     ref={ref}
     fill="none"
@@ -104,4 +104,6 @@ export const FallLogo = forwardRef<SVGSVGElement>((props, ref) => (
   </svg>
 ));
 
-FallLogo.displayName = "FallLogo";
+FallLogoInner.displayName = "FallLogo";
+
+export const FallLogo = Object.assign(FallLogoInner, { isGlyph: true });

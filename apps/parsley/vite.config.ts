@@ -103,6 +103,24 @@ const getProjectConfig = () => {
       globals: true,
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+      server: {
+        deps: {
+          // The @leafygreen-ui/* packages still have extensionless lodash ESM
+          // imports upstream, which Node's resolver rejects outright.
+          // @via-ds/icons is inlined for performance: without it each Vitest
+          // worker loads the full via glyph set through Node's ESM resolver,
+          // which is slow enough to starve the worker pool.
+          inline: [
+            "@via-ds/icons",
+            "@leafygreen-ui/checkbox",
+            "@leafygreen-ui/icon",
+            "@leafygreen-ui/icon-button",
+            "@leafygreen-ui/loading-overlay",
+            "@leafygreen-ui/segmented-control",
+            "@leafygreen-ui/toggle",
+          ],
+        },
+      },
       setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
       include: ["src/**/*.test.{ts,tsx}"],
     },
