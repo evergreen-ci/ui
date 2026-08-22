@@ -48,12 +48,22 @@ export interface IconProps extends Omit<DynamicIconProps, "glyph"> {
 
 /** Via-backed Icon that also renders local glyphs Via lacks. */
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
-  ({ glyph, ...rest }, ref) => {
+  ({ glyph, size, ...rest }, ref) => {
     if (glyph in localGlyphs) {
       const LocalGlyph = localGlyphs[glyph as LocalGlyphName];
-      return <LocalGlyph ref={ref} {...rest} />;
+      return <LocalGlyph ref={ref} size={size} {...rest} />;
     }
-    return <ViaIcon ref={ref} glyph={glyph as GlyphName} {...rest} />;
+    // Via glyphs inherit size from a surrounding IconContext (e.g. inside Via
+    // Buttons); LeafyGreen glyphs had no such behavior. Pinning the default
+    // keeps this barrel visually identical to the LG one it replaced.
+    return (
+      <ViaIcon
+        ref={ref}
+        glyph={glyph as GlyphName}
+        size={size ?? 16}
+        {...rest}
+      />
+    );
   },
 );
 Icon.displayName = "Icon";

@@ -1,3 +1,4 @@
+import { IconContextProvider } from "@via-ds/icons";
 import { render, screen } from "test_utils";
 import { Icon } from ".";
 
@@ -5,6 +6,22 @@ describe("Icon", () => {
   it("renders a Via glyph", () => {
     render(<Icon data-testid="via-glyph" glyph="Checkmark" />);
     expect(screen.getByTestId("via-glyph")).toBeInTheDocument();
+  });
+
+  it("defaults to 16px", () => {
+    render(<Icon data-testid="default" glyph="Checkmark" />);
+    expect(screen.getByTestId("default")).toHaveAttribute("width", "16");
+  });
+
+  it("ignores IconContext size, matching LeafyGreen behavior", () => {
+    render(
+      <IconContextProvider size="large">
+        <Icon data-testid="default" glyph="Checkmark" />
+        <Icon data-testid="explicit" glyph="Checkmark" size="small" />
+      </IconContextProvider>,
+    );
+    expect(screen.getByTestId("default")).toHaveAttribute("width", "16");
+    expect(screen.getByTestId("explicit")).toHaveAttribute("width", "14");
   });
 
   it("renders a local glyph", () => {
