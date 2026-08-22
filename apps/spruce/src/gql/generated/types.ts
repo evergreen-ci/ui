@@ -5766,6 +5766,11 @@ export type ProjectSettingsFieldsFragment = {
         secret: string;
       };
     };
+    taskOwnership?: {
+      __typename?: "TaskOwnershipSettings";
+      defaultMothraTeam?: string | null;
+      defaultMothraTeamForBreakingCommit?: string | null;
+    } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
@@ -5976,6 +5981,11 @@ export type RepoSettingsFieldsFragment = {
         secret: string;
       };
     };
+    taskOwnership?: {
+      __typename?: "RepoTaskOwnershipSettings";
+      defaultMothraTeam: string;
+      defaultMothraTeamForBreakingCommit: string;
+    } | null;
     testSelection?: {
       __typename?: "RepoTestSelectionSettings";
       allowed: boolean;
@@ -6383,6 +6393,11 @@ export type ProjectEventSettingsFragment = {
         secret: string;
       };
     };
+    taskOwnership?: {
+      __typename?: "TaskOwnershipSettings";
+      defaultMothraTeam?: string | null;
+      defaultMothraTeamForBreakingCommit?: string | null;
+    } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
@@ -6525,6 +6540,26 @@ export type RepoTriggersSettingsFragment = {
     taskRegex: string;
     unscheduleDownstreamVersions?: boolean | null;
   }>;
+};
+
+export type ProjectTaskOwnershipAndFoliageSettingsFragment = {
+  __typename?: "Project";
+  id: string;
+  taskOwnership?: {
+    __typename?: "TaskOwnershipSettings";
+    defaultMothraTeam?: string | null;
+    defaultMothraTeamForBreakingCommit?: string | null;
+  } | null;
+};
+
+export type RepoTaskOwnershipAndFoliageSettingsFragment = {
+  __typename?: "RepoRef";
+  id: string;
+  taskOwnership?: {
+    __typename?: "RepoTaskOwnershipSettings";
+    defaultMothraTeam: string;
+    defaultMothraTeamForBreakingCommit: string;
+  } | null;
 };
 
 export type ProjectTestSelectionSettingsFragment = {
@@ -9483,6 +9518,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          taskOwnership?: {
+            __typename?: "TaskOwnershipSettings";
+            defaultMothraTeam?: string | null;
+            defaultMothraTeamForBreakingCommit?: string | null;
+          } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
@@ -9708,6 +9748,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          taskOwnership?: {
+            __typename?: "TaskOwnershipSettings";
+            defaultMothraTeam?: string | null;
+            defaultMothraTeamForBreakingCommit?: string | null;
+          } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
@@ -9998,6 +10043,11 @@ export type ProjectSettingsQuery = {
           secret: string;
         };
       };
+      taskOwnership?: {
+        __typename?: "TaskOwnershipSettings";
+        defaultMothraTeam?: string | null;
+        defaultMothraTeamForBreakingCommit?: string | null;
+      } | null;
       testSelection?: {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
@@ -10271,6 +10321,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          taskOwnership?: {
+            __typename?: "TaskOwnershipSettings";
+            defaultMothraTeam?: string | null;
+            defaultMothraTeamForBreakingCommit?: string | null;
+          } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
@@ -10496,6 +10551,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          taskOwnership?: {
+            __typename?: "TaskOwnershipSettings";
+            defaultMothraTeam?: string | null;
+            defaultMothraTeamForBreakingCommit?: string | null;
+          } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
@@ -10726,6 +10786,11 @@ export type RepoSettingsQuery = {
           secret: string;
         };
       };
+      taskOwnership?: {
+        __typename?: "RepoTaskOwnershipSettings";
+        defaultMothraTeam: string;
+        defaultMothraTeamForBreakingCommit: string;
+      } | null;
       testSelection?: {
         __typename?: "RepoTestSelectionSettings";
         allowed: boolean;

@@ -136,5 +136,10 @@ export const buildHostPostConfigRepoURL =
 export const sageBotDocumentationUrl =
   "https://docs.devprod.prod.corp.mongodb.com/sage/sage-bot/";
 
-export const backstageS3BucketUrl =
-  "https://app.backstage.prod.corp.mongodb.com/autoflow";
+const backstageUrl = "https://app.backstage.prod.corp.mongodb.com";
+
+export const backstageS3BucketUrl = `${backstageUrl}/autoflow`;
+
+export const backstageCatalogUrl = `${backstageUrl}/catalog`;
+
+export const backstageCatalogGroupsUrl = `${backstageCatalogUrl}?filters%5Bkind%5D=group`;
