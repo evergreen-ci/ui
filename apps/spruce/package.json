@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.1.163",
+  "version": "6.1.166",
   "private": true,
   "type": "module",
   "scripts": {
@@ -23,7 +23,7 @@
     "dev": "env-cmd -e devLocal pnpm start",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint --concurrency=auto",
-    "eslint:strict": "STRICT=1 eslint --concurrency=auto .",
+    "eslint:strict": "STRICT=1 eslint --max-warnings=0 --concurrency=auto .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "playwright:test": "pnpm evg-db-ops --reseed-and-dump; playwright test",
     "playwright:ui": "pnpm evg-db-ops --reseed-and-dump; playwright test --ui",
@@ -140,7 +140,7 @@
     "@graphql-codegen/typescript": "5.0.10",
     "@graphql-codegen/typescript-operations": "5.1.0",
     "@playwright/test": "^1.58.2",
-    "@sentry/vite-plugin": "^5.1.1",
+    "@sentry/vite-plugin": "^5.4.0",
     "@storybook/addon-docs": "^10.5.0",
     "@storybook/addon-links": "^10.5.0",
     "@storybook/react-vite": "^10.5.0",

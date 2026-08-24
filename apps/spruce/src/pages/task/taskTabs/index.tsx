@@ -22,9 +22,11 @@ import {
   TaskTestCountQueryVariables,
 } from "gql/generated/types";
 import { TASK_PERF_PLUGIN_ENABLED, TASK_TEST_COUNT } from "gql/queries";
+import { useProjectBuildBaronSettings } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
-import BuildBaron, { useBuildBaronVariables } from "./buildBaronAndAnnotations";
+import { statuses } from "utils";
+import BuildBaron from "./buildBaronAndAnnotations";
 import ExecutionTasksTable from "./ExecutionTasksTable";
 import ExecutionTasksTiming from "./ExecutionTasksTiming";
 import FileTable from "./FileTable";
@@ -33,6 +35,8 @@ import TaskHistory from "./TaskHistory";
 import { walkthroughHistoryTabProps } from "./TaskHistory/constants";
 import TestsTable from "./testsTable/TestsTable";
 import { getDefaultTab } from "./utils/getDefaultTab";
+
+const { isFailedTaskStatus } = statuses;
 
 interface TaskTabProps {
   isDisplayTask: boolean;
@@ -65,17 +69,17 @@ const useTabConfig = (
   } = task;
   const baseTaskId = baseTask?.id || "";
   const { fileCount } = files ?? {};
-  const { id: projectId } = project || {};
-
-  const { showBuildBaron } = useBuildBaronVariables({
-    task: {
-      id,
-      execution,
-      status: displayStatus,
-      canModifyAnnotation,
-      hasAnnotation: !!annotation,
-    },
-  });
+  const { id: projectId, identifier: projectIdentifier } = project || {};
+  const isFailedTask = isFailedTaskStatus(displayStatus);
+  const { bbTicketCreationDefined, buildBaronConfigured } =
+    useProjectBuildBaronSettings({
+      projectId,
+      projectIdentifier,
+      shouldFetch: isFailedTask,
+    });
+  const showBuildBaron =
+    isFailedTask &&
+    (buildBaronConfigured || !!annotation || canModifyAnnotation);
 
   const tabIsActive: Record<TaskTab, boolean> = {
     // Display tasks have no execution logs, but the Logs tab still surfaces
@@ -164,6 +168,8 @@ const useTabConfig = (
         <BuildBaron
           /* @ts-expect-error: FIXME. This comment was added by an automated script. */
           annotation={annotation}
+          bbTicketCreationDefined={bbTicketCreationDefined}
+          buildBaronConfigured={buildBaronConfigured}
           execution={execution}
           taskId={id}
           userCanModify={canModifyAnnotation}
