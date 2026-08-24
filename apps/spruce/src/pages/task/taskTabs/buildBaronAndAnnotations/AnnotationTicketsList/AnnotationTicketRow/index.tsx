@@ -1,14 +1,13 @@
-import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useAnnotationAnalytics } from "analytics";
 import { JiraTicket } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { numbers } from "utils";
+import styles from "./index.module.css";
 
 const { roundDecimal, toPercent } = numbers;
 
@@ -47,7 +46,8 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   );
 
   const jiraLink = isValidHttpUrl(url) ? (
-    <JiraSummaryLink
+    <StyledLink
+      className={styles.jiraSummaryLink}
       data-testid={issueKey}
       href={url}
       onClick={() =>
@@ -59,15 +59,15 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
       target="_blank"
     >
       {summaryText}
-    </JiraSummaryLink>
+    </StyledLink>
   ) : (
-    <UnlinkedJiraSummary data-testid={issueKey}>
+    <span className={styles.unlinkedJiraSummary} data-testid={issueKey}>
       {summaryText}
-    </UnlinkedJiraSummary>
+    </span>
   );
 
   return (
-    <Container data-testid="annotation-ticket-row">
+    <div className={styles.container} data-testid="annotation-ticket-row">
       {loading ? (
         <>
           {jiraLink}
@@ -77,21 +77,29 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
         <>
           {jiraLink}
           {jiraTicket && (
-            <StyledBadge data-testid={`${issueKey}-badge`} variant="lightgray">
+            <Badge
+              className={styles.badge}
+              data-testid={`${issueKey}-badge`}
+              variant="lightgray"
+            >
               {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
               {status.name}
-            </StyledBadge>
+            </Badge>
           )}
           {confidenceScore !== undefined && (
-            <StyledBadge
+            <Badge
+              className={styles.badge}
               data-testid={`${issueKey}-confidence-badge`}
               variant="blue"
             >
               {roundDecimal(toPercent(confidenceScore), 2)}% Confident in
               suggestion
-            </StyledBadge>
+            </Badge>
           )}
-          <BottomMetadataWrapper data-testid={`${issueKey}-metadata`}>
+          <div
+            className={styles.bottomMetadataWrapper}
+            data-testid={`${issueKey}-metadata`}
+          >
             {created && (
               <Disclaimer>
                 Created: {getDateCopy(created, { dateOnly: true })}
@@ -110,39 +118,12 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
             {assignedTeam && (
               <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>
             )}
-          </BottomMetadataWrapper>
+          </div>
         </>
       )}
-    </Container>
+    </div>
   );
 };
-const Container = styled.div`
-  width: 100%;
-`;
-
-const JiraSummaryLink = styled(StyledLink)`
-  && {
-    font-weight: bold;
-  }
-  margin-right: ${size.s};
-  ${wordBreakCss};
-`;
-
-const UnlinkedJiraSummary = styled.span`
-  font-weight: bold;
-  margin-right: ${size.s};
-  ${wordBreakCss};
-`;
-
-const StyledBadge = styled(Badge)`
-  margin-right: ${size.s};
-`;
-
-const BottomMetadataWrapper = styled.div`
-  display: flex;
-  gap: ${size.s};
-  margin-top: ${size.xs};
-`;
 
 export default AnnotationTicketRow;
 export type { AnnotationTicketRowProps };
