@@ -124,7 +124,7 @@ export const makeEmail = ({
 
       const commitMessage =
         hash.length === 7
-          ? `<a href="${githubURL}/commit/${escapeHtml(hash)}">${escapedCommit}</a>`
+          ? `<a href="${githubURL}/commit/${hash}">${escapedCommit}</a>`
           : escapedCommit;
 
       return `<li>${commitMessage}</li>`;
