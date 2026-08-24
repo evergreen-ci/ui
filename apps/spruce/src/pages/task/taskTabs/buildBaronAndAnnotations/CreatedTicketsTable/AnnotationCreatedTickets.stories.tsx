@@ -1,14 +1,14 @@
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import CustomCreatedTickets from "./CustomCreatedTickets";
+import AnnotationCreatedTickets from "./AnnotationCreatedTickets";
 
 export default {
-  component: CustomCreatedTickets,
+  component: AnnotationCreatedTickets,
   decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
-} satisfies CustomMeta<typeof CustomCreatedTickets>;
+} satisfies CustomMeta<typeof AnnotationCreatedTickets>;
 
-export const Default: CustomStoryObj<typeof CustomCreatedTickets> = {
-  render: (args) => <CustomCreatedTickets {...args} />,
+export const Default: CustomStoryObj<typeof AnnotationCreatedTickets> = {
+  render: (args) => <AnnotationCreatedTickets {...args} />,
   argTypes: {},
   args: {
     execution: 0,

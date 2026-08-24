@@ -5453,6 +5453,16 @@ export type PatchesPagePatchesFragment = {
   }>;
 };
 
+export type ProjectBuildBaronSettingsFragment = {
+  __typename?: "Project";
+  id: string;
+  buildBaronSettings: {
+    __typename?: "BuildBaronSettings";
+    ticketCreateProject: string;
+    ticketSearchProjects?: Array<string> | null;
+  };
+};
+
 export type ProjectAccessSettingsFragment = {
   __typename?: "Project";
   id: string;
@@ -8235,28 +8245,63 @@ export type BaseVersionAndTaskQuery = {
   } | null;
 };
 
-export type BuildBaronConfiguredQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution: Scalars["Int"]["input"];
-}>;
-
-export type BuildBaronConfiguredQuery = {
-  __typename?: "Query";
-  buildBaron: { __typename?: "BuildBaron"; buildBaronConfigured: boolean };
-};
-
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution: Scalars["Int"]["input"];
+  includeCreatedTickets: Scalars["Boolean"]["input"];
+  includeAnnotationCreatedIssues: Scalars["Boolean"]["input"];
 }>;
 
 export type BuildBaronQuery = {
   __typename?: "Query";
-  buildBaron: {
-    __typename?: "BuildBaron";
-    bbTicketCreationDefined: boolean;
-    buildBaronConfigured: boolean;
-    searchReturnInfo?: {
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    annotation?: {
+      __typename?: "Annotation";
+      id: string;
+      createdIssues?: Array<{
+        __typename?: "IssueLink";
+        confidenceScore?: number | null;
+        issueKey?: string | null;
+        url?: string | null;
+        jiraTicket?: {
+          __typename?: "JiraTicket";
+          key: string;
+          fields: {
+            __typename?: "TicketFields";
+            assignedTeam?: string | null;
+            assigneeDisplayName?: string | null;
+            created: string;
+            resolutionName?: string | null;
+            summary: string;
+            updated: string;
+            status: { __typename?: "JiraStatus"; id: string; name: string };
+          };
+        } | null;
+        source?: {
+          __typename?: "Source";
+          author: string;
+          requester: string;
+          time: Date;
+        } | null;
+      }> | null;
+    } | null;
+    buildBaronCreatedTickets?: Array<{
+      __typename?: "JiraTicket";
+      key: string;
+      fields: {
+        __typename?: "TicketFields";
+        assigneeDisplayName?: string | null;
+        created: string;
+        resolutionName?: string | null;
+        summary: string;
+        updated: string;
+        status: { __typename?: "JiraStatus"; id: string; name: string };
+      };
+    }>;
+    buildBaronSuggestions?: {
       __typename?: "SearchReturnInfo";
       search: string;
       issues: Array<{
@@ -8273,7 +8318,7 @@ export type BuildBaronQuery = {
         };
       }>;
     } | null;
-  };
+  } | null;
 };
 
 export type BuildVariantStatsQueryVariables = Exact<{
@@ -8396,27 +8441,6 @@ export type CodeChangesQuery = {
       }>;
     }>;
   };
-};
-
-export type CreatedTicketsQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-}>;
-
-export type CreatedTicketsQuery = {
-  __typename?: "Query";
-  bbGetCreatedTickets: Array<{
-    __typename?: "JiraTicket";
-    key: string;
-    fields: {
-      __typename?: "TicketFields";
-      assigneeDisplayName?: string | null;
-      created: string;
-      resolutionName?: string | null;
-      summary: string;
-      updated: string;
-      status: { __typename?: "JiraStatus"; id: string; name: string };
-    };
-  }>;
 };
 
 export type DistroEventsQueryVariables = Exact<{
@@ -8924,50 +8948,6 @@ export type InstanceTypesQuery = {
   instanceTypes: Array<string>;
 };
 
-export type CustomCreatedIssuesQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type CustomCreatedIssuesQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    execution: number;
-    annotation?: {
-      __typename?: "Annotation";
-      id: string;
-      createdIssues?: Array<{
-        __typename?: "IssueLink";
-        confidenceScore?: number | null;
-        issueKey?: string | null;
-        url?: string | null;
-        jiraTicket?: {
-          __typename?: "JiraTicket";
-          key: string;
-          fields: {
-            __typename?: "TicketFields";
-            assignedTeam?: string | null;
-            assigneeDisplayName?: string | null;
-            created: string;
-            resolutionName?: string | null;
-            summary: string;
-            updated: string;
-            status: { __typename?: "JiraStatus"; id: string; name: string };
-          };
-        } | null;
-        source?: {
-          __typename?: "Source";
-          author: string;
-          requester: string;
-          time: Date;
-        } | null;
-      }> | null;
-    } | null;
-  } | null;
-};
-
 export type IssuesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -9356,6 +9336,23 @@ export type ProjectBannerQuery = {
       text: string;
       theme: BannerTheme;
     } | null;
+  };
+};
+
+export type ProjectBuildBaronSettingsQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+}>;
+
+export type ProjectBuildBaronSettingsQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    id: string;
+    buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
+      ticketCreateProject: string;
+      ticketSearchProjects?: Array<string> | null;
+    };
   };
 };
 
