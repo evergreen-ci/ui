@@ -10,11 +10,17 @@ test.describe("version/restart_modal", () => {
     }) => {
       await page.goto("/version/5f74d99ab2373627c047c5e5");
       await page.getByTestId("restart-version").click();
-      await page
+      const toggle = page
         .getByTestId("select-downstream")
-        .getByText("evergreen")
-        .first()
-        .click();
+        .getByTestId("accordion-toggle")
+        .first();
+      const collapseContainer = page
+        .getByTestId("select-downstream")
+        .getByTestId("accordion-collapse-container")
+        .first();
+      await expect(collapseContainer).toHaveAttribute("aria-expanded", "false");
+      await toggle.click();
+      await expect(collapseContainer).toHaveAttribute("aria-expanded", "true");
     });
   });
 
