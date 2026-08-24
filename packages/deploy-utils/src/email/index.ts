@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { readFileSync } from "fs";
 import { DeployableApp } from "utils/types";
 import { getAppToDeploy, isRunningOnCI, isTest } from "../utils/environment";
@@ -9,7 +9,7 @@ import {
   getLatestTag,
 } from "../utils/git";
 import { execTrim } from "../utils/shell";
-import { findEvergreen, formatDate } from "./utils";
+import { escapeHtml, findEvergreen, formatDate } from "./utils";
 
 const githubURL = "https://github.com/evergreen-ci/ui";
 
@@ -117,15 +117,15 @@ export const makeEmail = ({
 
   const commitsHTML = commitsString
     .trim()
-    .replaceAll("'", "’")
     .split("\n")
     .map((commit) => {
       const [hash] = commit.split(" ");
+      const escapedCommit = escapeHtml(commit);
 
       const commitMessage =
         hash.length === 7
-          ? `<a href="${githubURL}/commit/${hash}">${commit}</a>`
-          : commit;
+          ? `<a href="${githubURL}/commit/${escapeHtml(hash)}">${escapedCommit}</a>`
+          : escapedCommit;
 
       return `<li>${commitMessage}</li>`;
     })
@@ -138,7 +138,7 @@ export const makeEmail = ({
 
   const appName = appDisplayNames[app];
   const subject = `${formatDate(new Date())} ${appName} Deploy to ${commitLabel}${isRevert ? " (Revert)" : ""}`;
-  const body = `<ul>${commitsHTML}</ul>${previousTag ? `<p><b>To revert, rerun task from previous release tag (${previousTag})</b></p>` : ""}`;
+  const body = `<ul>${commitsHTML}</ul>${previousTag ? `<p><b>To revert, rerun task from previous release tag (${escapeHtml(previousTag)})</b></p>` : ""}`;
 
   return { body, from, recipients, subject };
 };
@@ -152,7 +152,7 @@ export const makeEmail = ({
  * @param emailFields.subject - dated subject line
  * @throws {Error} if Evergreen CLI is not found
  */
-const evergreenNotify = async (emailFields: EmailFields) => {
+export const evergreenNotify = async (emailFields: EmailFields) => {
   const { body, from, recipients, subject } = emailFields;
   const evgConfig = findEvergreen();
   if (!evgConfig) {
@@ -161,10 +161,22 @@ const evergreenNotify = async (emailFields: EmailFields) => {
 
   const { credentials, evgExecutable } = evgConfig;
 
-  const emailCmd = `${evgExecutable} ${credentials} notify email -f ${from} -r ${recipients} -s '${subject}' -b '${body}'`;
+  const emailArgs = [
+    ...credentials,
+    "notify",
+    "email",
+    "-f",
+    from,
+    "-r",
+    recipients,
+    "-s",
+    subject,
+    "-b",
+    body,
+  ];
   if (isTest) {
-    console.log(emailCmd);
+    console.log(evgExecutable, emailArgs);
   } else {
-    execSync(emailCmd);
+    execFileSync(evgExecutable, emailArgs);
   }
 };
