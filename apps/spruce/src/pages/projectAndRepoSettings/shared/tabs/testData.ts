@@ -142,6 +142,10 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       gitter_request: "permission-group-1",
       trigger_request: "permission-group-2",
     },
+    taskOwnership: {
+      defaultMothraTeam: "my-team",
+      defaultMothraTeamForBreakingCommit: "other-team",
+    },
   },
   vars: {
     vars: { test_name: "", test_two: "val" },
@@ -359,6 +363,10 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         exactMatch: false,
       },
     ],
+    taskOwnership: {
+      defaultMothraTeam: "my-team",
+      defaultMothraTeamForBreakingCommit: "other-team",
+    },
   },
   vars: {
     vars: { repo_name: "repo_value" },
