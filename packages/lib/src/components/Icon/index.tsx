@@ -49,9 +49,12 @@ export interface IconProps extends Omit<DynamicIconProps, "glyph"> {
 /** Via-backed Icon that also renders local glyphs Via lacks. */
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
   ({ glyph, size, ...rest }, ref) => {
+    // LG's IconButton cloneElements icon children with its own size, using the
+    // legacy LG key "default". Via's sizeMap calls that size "medium".
+    const normalizedSize = (size as string) === "default" ? "medium" : size;
     if (glyph in localGlyphs) {
       const LocalGlyph = localGlyphs[glyph as LocalGlyphName];
-      return <LocalGlyph ref={ref} size={size} {...rest} />;
+      return <LocalGlyph ref={ref} size={normalizedSize} {...rest} />;
     }
     // Via glyphs inherit size from a surrounding IconContext (e.g. inside Via
     // Buttons); LeafyGreen glyphs had no such behavior. Pinning the default
@@ -60,7 +63,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
       <ViaIcon
         ref={ref}
         glyph={glyph as GlyphName}
-        size={size ?? 16}
+        size={normalizedSize ?? 16}
         {...rest}
       />
     );

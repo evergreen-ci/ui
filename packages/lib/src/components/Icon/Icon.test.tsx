@@ -24,6 +24,17 @@ describe("Icon", () => {
     expect(screen.getByTestId("explicit")).toHaveAttribute("width", "14");
   });
 
+  it('maps the legacy LG "default" size key to 16px (injected by LG IconButton via cloneElement)', () => {
+    render(
+      <>
+        <Icon data-testid="via" glyph="Checkmark" size={"default" as never} />
+        <Icon data-testid="local" glyph="GitHub" size={"default" as never} />
+      </>,
+    );
+    expect(screen.getByTestId("via")).toHaveAttribute("width", "16");
+    expect(screen.getByTestId("local")).toHaveAttribute("width", "16");
+  });
+
   it("renders a local glyph", () => {
     render(<Icon data-testid="local-glyph" glyph="GitHub" />);
     expect(screen.getByTestId("local-glyph")).toBeInTheDocument();
