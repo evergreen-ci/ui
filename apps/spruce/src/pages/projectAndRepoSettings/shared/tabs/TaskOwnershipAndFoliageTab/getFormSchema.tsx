@@ -50,8 +50,8 @@ export const getFormSchema = (
             <StyledLink href={backstageCatalogGroupsUrl}>
               Backstage Catalog
             </StyledLink>{" "}
-            . Look for the Evergreen Tags field. For example, the Evergreen UI
-            team name would be equal to{" "}
+            . Look for the &ldquo;Evergreen Tags&rdquo; field. For example,
+            Evergreen UI&apos;s Mothra team would be equal to{" "}
             <InlineCode>devprod_evergreen_ui</InlineCode> according to{" "}
             <StyledLink
               href={`${backstageCatalogUrl}/default/group/mothra-devprod-evergreen-ui`}
