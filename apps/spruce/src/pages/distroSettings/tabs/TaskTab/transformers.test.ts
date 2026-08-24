@@ -10,13 +10,25 @@ import { TaskFormState } from "./types";
 
 describe("task tab", () => {
   it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(distroData)).toStrictEqual(form);
+    expect(gqlToForm(taskDistroData)).toStrictEqual(form);
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(form, distroData)).toStrictEqual(gql);
+    expect(formToGql(form, taskDistroData)).toStrictEqual(gql);
   });
 });
+
+const TARGET_TIME_MILLISECONDS = 180_000;
+const TARGET_TIME_NANOSECONDS = TARGET_TIME_MILLISECONDS * 1_000_000;
+
+const taskDistroData = {
+  ...distroData!,
+  plannerSettings: {
+    ...distroData!.plannerSettings,
+    targetTime: TARGET_TIME_MILLISECONDS,
+    mergeQueueTargetTime: TARGET_TIME_MILLISECONDS,
+  },
+};
 
 const form: TaskFormState = {
   finderSettings: {
@@ -25,8 +37,8 @@ const form: TaskFormState = {
   plannerSettings: {
     version: PlannerVersion.Tunable,
     tunableOptions: {
-      targetTime: 0,
-      mergeQueueTargetTime: 0,
+      targetTimeNanoseconds: TARGET_TIME_NANOSECONDS,
+      mergeQueueTargetTimeNanoseconds: TARGET_TIME_NANOSECONDS,
       commitQueueFactor: 0,
       expectedRuntimeFactor: 0,
       generateTaskFactor: 5,
@@ -42,9 +54,8 @@ const form: TaskFormState = {
   },
 };
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
 const gql: DistroInput = {
-  ...distroData,
+  ...taskDistroData,
   finderSettings: {
     version: FinderVersion.Legacy,
   },
@@ -57,8 +68,8 @@ const gql: DistroInput = {
     numDependentsFactor: 50,
     patchFactor: 0,
     patchTimeInQueueFactor: 0,
-    targetTime: 0,
-    mergeQueueTargetTime: 0,
+    targetTime: TARGET_TIME_MILLISECONDS,
+    mergeQueueTargetTime: TARGET_TIME_MILLISECONDS,
     version: PlannerVersion.Tunable,
   },
   dispatcherSettings: {
