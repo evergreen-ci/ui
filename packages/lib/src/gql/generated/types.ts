@@ -529,18 +529,6 @@ export type Build = {
   status: Scalars["String"]["output"];
 };
 
-/**
- * Build Baron is a service that can be integrated into a project (see Confluence Wiki for more details).
- * This type is returned from the buildBaron query, and contains information about Build Baron configurations and suggested
- * tickets from JIRA for a given task on a given execution.
- */
-export type BuildBaron = {
-  __typename?: "BuildBaron";
-  bbTicketCreationDefined: Scalars["Boolean"]["output"];
-  buildBaronConfigured: Scalars["Boolean"]["output"];
-  searchReturnInfo?: Maybe<SearchReturnInfo>;
-};
-
 export type BuildBaronSettings = {
   __typename?: "BuildBaronSettings";
   ticketCreateIssueType: Scalars["String"]["output"];
@@ -3150,8 +3138,6 @@ export type Query = {
   adminSettings?: Maybe<AdminSettings>;
   adminTasksToRestart: AdminTasksToRestartPayload;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
-  bbGetCreatedTickets: Array<JiraTicket>;
-  buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
   distro?: Maybe<Distro>;
@@ -3199,15 +3185,6 @@ export type QueryAdminEventsArgs = {
 
 export type QueryAdminTasksToRestartArgs = {
   opts: RestartAdminTasksOptions;
-};
-
-export type QueryBbGetCreatedTicketsArgs = {
-  taskId: Scalars["String"]["input"];
-};
-
-export type QueryBuildBaronArgs = {
-  execution: Scalars["Int"]["input"];
-  taskId: Scalars["String"]["input"];
 };
 
 export type QueryBuildVariantsForTaskNameArgs = {
