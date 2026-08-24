@@ -244,7 +244,7 @@ describe("version SkippedTestsMetadata", () => {
     );
     expect(
       await screen.findByTestId("version-skipped-tests-metadata-count"),
-    ).toHaveTextContent("6 tests");
+    ).toHaveTextContent("6");
   });
 
   it("sums the per-task counts and opens the modal", async () => {
@@ -256,16 +256,11 @@ describe("version SkippedTestsMetadata", () => {
     ).toBeVisible();
     expect(
       await screen.findByTestId("version-skipped-tests-metadata-count"),
-    ).toHaveTextContent("6 tests");
+    ).toHaveTextContent("6");
     await user.click(
       screen.getByTestId("version-skipped-tests-details-button"),
     );
     expect(screen.getByTestId("skipped-tests-modal")).toBeVisible();
-    expect(
-      screen.getByTestId("version-skipped-tests-restart-warning"),
-    ).toHaveTextContent(
-      "Task restarts can make these details stale. Refresh the page before relying on them.",
-    );
     expect(await screen.findByText("Alpha Test")).toBeVisible();
     expect(screen.getByText("beta_test")).toBeVisible();
     expect(screen.getByText("gamma_test")).toBeVisible();

@@ -5,7 +5,6 @@ import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
-import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics } from "analytics";
 import { MetadataItem, MetadataLabel } from "components/MetadataCard";
@@ -90,7 +89,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
           <SummaryRow>
             <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
             <Count data-testid="version-skipped-tests-metadata-count">
-              {totalCount} {pluralize("test", totalCount)}
+              {totalCount}
             </Count>
             <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
               Tests skipped by TSS across this version&apos;s tasks when they
@@ -126,9 +125,10 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
 
 const MetadataContent = styled.span`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: ${size.xxs};
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: ${size.xxs};
+  row-gap: ${size.xxs};
 `;
 
 const SummaryRow = styled.span`

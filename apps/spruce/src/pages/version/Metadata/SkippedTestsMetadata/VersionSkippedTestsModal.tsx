@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from "react";
 import { skipToken, useLazyQuery, useQuery } from "@apollo/client/react";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
@@ -156,12 +155,6 @@ export const VersionSkippedTestsModal: React.FC<
         totalCount === 1 ? "was" : "were"
       } skipped by TSS when this version's tasks ran. This snapshot may differ from what TSS would skip now.`}
       totalCount={totalCount}
-      warning={
-        <Disclaimer data-testid="version-skipped-tests-restart-warning">
-          Task restarts can make these details stale. Refresh the page before
-          relying on them.
-        </Disclaimer>
-      }
     />
   );
 };
