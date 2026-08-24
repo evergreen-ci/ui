@@ -171,6 +171,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         <TableControl
           filteredCount={filteredCount}
           limit={limit}
+          loading={loading}
           onClear={() => {
             setColumnFilters([]);
             setSorting(defaultSorting);

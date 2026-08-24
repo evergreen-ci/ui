@@ -1,9 +1,6 @@
-import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
-import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -22,9 +19,9 @@ import { useDateFormat } from "hooks";
 import { PatchStatus } from "types/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 import { DropdownMenu } from "./DropdownMenu";
+import styles from "./index.module.css";
 
 type PatchType = Unpacked<PatchesPagePatchesFragment["patches"]>;
-const { gray } = palette;
 
 interface PatchCardProps {
   pageType: "project" | "user";
@@ -98,9 +95,10 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     />
   ));
   return (
-    <CardWrapper data-testid="patch-card">
-      <Left>
-        <DescriptionLink
+    <div className={styles.cardWrapper} data-testid="patch-card">
+      <div className={styles.left}>
+        <StyledRouterLink
+          className={styles.descriptionLink}
           data-testid="patch-card-patch-link"
           onClick={() => analytics.sendEvent({ name: "Clicked patch link" })}
           to={
@@ -110,40 +108,40 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
           }
         >
           {description || "no description"}
-        </DescriptionLink>
-        <TimeAndProject>
+        </StyledRouterLink>
+        <div className={styles.timeAndProject}>
           {getDateCopy(createDate)} {pageType === "project" ? "by" : "on"}{" "}
           {patchProject}
-        </TimeAndProject>
-      </Left>
-      <Center>
-        <PatchBadgeContainer>
+        </div>
+      </div>
+      <div className={styles.center}>
+        <div className={styles.patchBadgeContainer}>
           <PatchStatusBadge
             status={
               activated ? (version?.status ?? status) : PatchStatus.Unconfigured
             }
           />
-        </PatchBadgeContainer>
-        <TaskBadgeContainer>{badges}</TaskBadgeContainer>
-      </Center>
-      <Right>
+        </div>
+        <div className={styles.taskBadgeContainer}>{badges}</div>
+      </div>
+      <div className={styles.right}>
         {invalidatedByUpstream && (
-          <ChipContainer>
+          <div className={styles.chipContainer}>
             <Chip
               glyph={<Icon glyph="Refresh" />}
               label="Merge Queue Aborted"
               variant={ChipVariant.Gray}
             />
-          </ChipContainer>
+          </div>
         )}
         {hidden && (
-          <ChipContainer>
+          <div className={styles.chipContainer}>
             <Chip
               data-testid="hidden-badge"
               label="Hidden"
               variant={ChipVariant.Gray}
             />
-          </ChipContainer>
+          </div>
         )}
         <DropdownMenu
           hasVersion={!!versionId}
@@ -151,63 +149,9 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
           isPatchHidden={hidden}
           patchId={id}
         />
-      </Right>
-    </CardWrapper>
+      </div>
+    </div>
   );
 };
-
-const TaskBadgeContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  > * {
-    margin-right: ${size.s};
-  }
-  flex-wrap: wrap;
-`;
-
-const CardWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: ${size.s} ${size.xxs};
-  border-bottom: 1px solid ${gray.light2};
-`;
-
-const Center = styled.div`
-  display: flex;
-  flex: 1 1 0;
-`;
-
-const Left = styled(Center)`
-  flex-direction: column;
-  padding-right: ${size.m};
-`;
-
-const Right = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  gap: ${size.xs};
-`;
-
-const ChipContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 28px;
-`;
-
-const DescriptionLink = styled(StyledRouterLink)`
-  font-size: ${fontSize.l};
-  font-weight: 500;
-  padding-bottom: ${size.xs};
-`;
-
-const PatchBadgeContainer = styled.div`
-  margin-right: ${size.m};
-  min-width: ${size.xxl};
-`;
-
-const TimeAndProject = styled.div`
-  color: ${gray.base};
-`;
 
 export default PatchCard;

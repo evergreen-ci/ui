@@ -1,10 +1,9 @@
-import styled from "@emotion/styled";
 import {
   Button,
   Size as ButtonSize,
   Variant as ButtonVariant,
 } from "@leafygreen-ui/button";
-import { size } from "../../../constants/tokens";
+import styles from "./index.module.css";
 
 interface Props {
   onClickReset: () => void;
@@ -17,12 +16,12 @@ export const FilterInputControls: React.FC<Props> = ({
   onClickSubmit,
   submitButtonCopy = "Filter",
 }) => (
-  <ButtonsWrapper>
-    <ButtonWrapper>
+  <div className={styles.buttonsWrapper}>
+    <div className={styles.buttonWrapper}>
       <Button onClick={onClickReset} size={ButtonSize.Small}>
         Reset
       </Button>
-    </ButtonWrapper>
+    </div>
     <Button
       onClick={onClickSubmit}
       size={ButtonSize.Small}
@@ -30,15 +29,5 @@ export const FilterInputControls: React.FC<Props> = ({
     >
       {submitButtonCopy}
     </Button>
-  </ButtonsWrapper>
+  </div>
 );
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
-  margin-top: ${size.l};
-`;
-const ButtonWrapper = styled.div`
-  margin-right: ${size.xs};
-`;

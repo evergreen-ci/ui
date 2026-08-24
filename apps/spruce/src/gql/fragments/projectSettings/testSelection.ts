@@ -6,6 +6,7 @@ export const PROJECT_TEST_SELECTION_SETTINGS = gql`
     testSelection {
       allowed
       defaultEnabled
+      mainlineDefaultEnabled
     }
   }
 `;
@@ -16,6 +17,7 @@ export const REPO_TEST_SELECTION_SETTINGS = gql`
     testSelection {
       allowed
       defaultEnabled
+      mainlineDefaultEnabled
     }
   }
 `;

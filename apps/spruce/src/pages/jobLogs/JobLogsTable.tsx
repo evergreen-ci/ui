@@ -7,6 +7,7 @@ import {
   TablePlaceholder,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
+import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { EvergreenTestResult } from "./types";
 
@@ -70,6 +71,9 @@ const ParsleyLink = ({
   testName: string;
 }) => {
   const { sendEvent } = useJobLogsAnalytics();
+  if (!isValidHttpUrl(parsleyUrl)) {
+    return testName;
+  }
   return (
     <Link
       hideExternalIcon

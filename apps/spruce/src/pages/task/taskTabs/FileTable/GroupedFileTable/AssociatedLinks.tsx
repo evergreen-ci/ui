@@ -3,6 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { isValidHttpOrT2Url, isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useTaskAnalytics } from "analytics";
 import { FileTableRow, GroupedFilesFile } from "./types";
 
@@ -11,20 +12,24 @@ export const processFilesWithAssociatedLinks = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,
 ): FileTableRow[] =>
   files.map((file) => {
+    const associatedLinks =
+      file.associatedLinks?.filter(({ link }) => isValidHttpOrT2Url(link)) ??
+      [];
+    const { link: artifactLink, urlParsley } = file;
     const baseRow: FileTableRow = {
       name: file.name,
-      link: file.link,
-      urlParsley: file.urlParsley ?? null,
+      link: isValidHttpUrl(artifactLink) ? artifactLink : null,
+      urlParsley: isValidHttpUrl(urlParsley) ? urlParsley : null,
     };
 
-    if (file.associatedLinks && file.associatedLinks.length > 0) {
+    if (associatedLinks.length > 0) {
       return {
         ...baseRow,
         renderExpandedContent: () => (
           <AssociatedLinksContainer data-testid="associated-links-container">
             <Disclaimer>Associated Links</Disclaimer>
             <AssociatedLinksList>
-              {file.associatedLinks.map((link) => (
+              {associatedLinks.map((link) => (
                 <AssociatedLinkItem key={link.link}>
                   <StyledLink
                     data-testid="associated-link"

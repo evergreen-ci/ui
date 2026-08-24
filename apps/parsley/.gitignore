@@ -1,5 +1,4 @@
 # artifacts
-/src/**/*.css
 build.txt
 build.txt-e
 build-storybook.log

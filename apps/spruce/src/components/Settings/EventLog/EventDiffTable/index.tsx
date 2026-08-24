@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
+import { palette } from "@leafygreen-ui/palette";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import {
   BaseTable,
@@ -9,7 +10,7 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../types";
-import { getEventDiffLines } from "./utils";
+import { getArrayDiffIndices, getEventDiffLines } from "./utils";
 import {
   CustomKeyValueRenderConfig,
   applyCustomKeyValueRender,
@@ -53,7 +54,28 @@ const CellText = styled.span`
   font-family: ${fontFamilies.code};
   font-size: 12px;
   line-height: 16px;
-  word-break: break-all;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+`;
+
+const ArrayValue = styled.span`
+  display: block;
+  white-space: pre-wrap;
+`;
+
+const ArrayItem = styled.span`
+  display: block;
+  padding-left: 12px;
+`;
+
+const AddedArrayItem = styled.ins`
+  background-color: ${palette.green.light3};
+  border-radius: 2px;
+`;
+
+const RemovedArrayItem = styled.del`
+  background-color: ${palette.red.light3};
+  border-radius: 2px;
 `;
 
 const renderEventValue = (value: JSONValue): string => {
@@ -76,7 +98,79 @@ const renderEventValue = (value: JSONValue): string => {
     return JSON.stringify(value).replaceAll(",", ",\n");
   }
 
-  return JSON.stringify(value);
+  return JSON.stringify(value, null, 2);
+};
+
+const renderArrayValue = (
+  before: JSONValue[],
+  after: JSONValue[],
+  side: "after" | "before",
+) => {
+  const changedIndices = getArrayDiffIndices(before, after);
+  const value = side === "before" ? before : after;
+  const changedIndexSet = new Set(changedIndices[side]);
+  const itemOccurrences = new Map<string, number>();
+
+  return (
+    <ArrayValue>
+      [
+      {value.map((item, index) => {
+        const formattedValue = renderEventValue(item);
+        const displayValue = `${formattedValue}${
+          index < value.length - 1 ? "," : ""
+        }`;
+        const occurrence = itemOccurrences.get(formattedValue) ?? 0;
+        itemOccurrences.set(formattedValue, occurrence + 1);
+        const key = `${formattedValue}-${occurrence}`;
+        let renderedValue: React.ReactNode = displayValue;
+
+        if (changedIndexSet.has(index)) {
+          renderedValue =
+            side === "before" ? (
+              <RemovedArrayItem aria-label={`Removed ${formattedValue}`}>
+                {displayValue}
+              </RemovedArrayItem>
+            ) : (
+              <AddedArrayItem aria-label={`Added ${formattedValue}`}>
+                {displayValue}
+              </AddedArrayItem>
+            );
+        }
+
+        return <ArrayItem key={key}>{renderedValue}</ArrayItem>;
+      })}
+      ]
+    </ArrayValue>
+  );
+};
+
+const renderCellValue = (
+  key: string,
+  before: JSONValue,
+  after: JSONValue,
+  side: "after" | "before",
+  customKeyValueRenderConfig: CustomKeyValueRenderConfig,
+) => {
+  const value = side === "before" ? before : after;
+  const customRenderedValue = applyCustomKeyValueRender(
+    key,
+    renderEventValue(value),
+    customKeyValueRenderConfig,
+  );
+
+  if (typeof customRenderedValue !== "string") {
+    return customRenderedValue;
+  }
+
+  if (!Array.isArray(value)) {
+    return customRenderedValue;
+  }
+
+  return renderArrayValue(
+    Array.isArray(before) ? before : [],
+    Array.isArray(after) ? after : [],
+    side,
+  );
 };
 
 const columns = (
@@ -93,9 +187,11 @@ const columns = (
     accessorKey: "before",
     cell: ({ getValue, row }) => (
       <CellText>
-        {applyCustomKeyValueRender(
+        {renderCellValue(
           row.original.key,
-          renderEventValue(getValue() as JSONValue),
+          getValue() as JSONValue,
+          row.original.after,
+          "before",
           customKeyValueRenderConfig,
         )}
       </CellText>
@@ -109,10 +205,11 @@ const columns = (
         <Badge variant={Variant.Red}>Deleted</Badge>
       ) : (
         <CellText>
-          {" "}
-          {applyCustomKeyValueRender(
+          {renderCellValue(
             row.original.key,
-            renderEventValue(getValue() as JSONValue),
+            row.original.before,
+            getValue() as JSONValue,
+            "after",
             customKeyValueRenderConfig,
           )}
         </CellText>
