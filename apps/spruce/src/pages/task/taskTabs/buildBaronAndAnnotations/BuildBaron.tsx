@@ -19,23 +19,11 @@ import { Issues, SuspectedIssues } from "./Issues";
 import JiraIssueTable from "./JiraIssueTable";
 
 interface Props {
-  taskId: string;
-  execution: number;
   annotation: Annotation;
   bbTicketCreationDefined: boolean;
   buildBaronConfigured: boolean;
-  userCanModify: boolean;
-}
-
-interface BuildBaronCoreProps {
-  suggestions: NonNullable<BuildBaronQuery["task"]>["buildBaronSuggestions"];
-  createdTickets?: JiraTicket[];
-  annotationCreatedIssues?: IssueLink[];
-  taskId: string;
   execution: number;
-  annotation: Annotation;
-  bbTicketCreationDefined: boolean;
-  buildBaronConfigured: boolean;
+  taskId: string;
   userCanModify: boolean;
 }
 
@@ -82,6 +70,18 @@ const BuildBaron: React.FC<Props> = ({
     />
   );
 };
+
+interface BuildBaronCoreProps {
+  annotation: Annotation;
+  annotationCreatedIssues?: IssueLink[];
+  bbTicketCreationDefined: boolean;
+  buildBaronConfigured: boolean;
+  createdTickets?: JiraTicket[];
+  execution: number;
+  suggestions: NonNullable<BuildBaronQuery["task"]>["buildBaronSuggestions"];
+  taskId: string;
+  userCanModify: boolean;
+}
 
 const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   annotation,
