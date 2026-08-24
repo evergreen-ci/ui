@@ -1,3 +1,4 @@
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
@@ -37,6 +38,28 @@ export const Default: CustomStoryObj<typeof SkippedTestsModal> = {
       setOpen={() => {}}
       subtitle="8 tests were skipped by TSS when this task ran. This snapshot may differ from what TSS would skip now."
       totalCount={8}
+    />
+  ),
+};
+
+export const WithRestartWarning: CustomStoryObj<typeof SkippedTestsModal> = {
+  render: () => (
+    <SkippedTestsModal
+      columns={columns}
+      getSearchText={({ testName }) => testName}
+      onClickDownload={() => {}}
+      open
+      rows={getRows(8)}
+      searchPlaceholder="Search test names"
+      setOpen={() => {}}
+      subtitle="8 tests were skipped by TSS when this version's tasks ran. This snapshot may differ from what TSS would skip now."
+      totalCount={8}
+      warning={
+        <Disclaimer>
+          Task restarts can make these details stale. Refresh the page before
+          relying on them.
+        </Disclaimer>
+      }
     />
   ),
 };

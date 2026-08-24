@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { skipToken, useLazyQuery, useQuery } from "@apollo/client/react";
-import { Callout } from "@leafygreen-ui/callout";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
@@ -157,15 +157,10 @@ export const VersionSkippedTestsModal: React.FC<
       } skipped by TSS when this version's tasks ran. This snapshot may differ from what TSS would skip now.`}
       totalCount={totalCount}
       warning={
-        <Callout
-          data-testid="version-skipped-tests-restart-warning"
-          title="Restarted tasks can affect these details"
-          variant="warning"
-        >
-          If a task restarts after this page loads, displayed details and
-          downloaded JSON may not match the skipped test count. Refresh the page
-          before relying on them.
-        </Callout>
+        <Disclaimer data-testid="version-skipped-tests-restart-warning">
+          Task restarts can make these details stale. Refresh the page before
+          relying on them.
+        </Disclaimer>
       }
     />
   );

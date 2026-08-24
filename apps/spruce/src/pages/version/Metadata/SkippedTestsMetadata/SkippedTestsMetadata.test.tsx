@@ -264,7 +264,7 @@ describe("version SkippedTestsMetadata", () => {
     expect(
       screen.getByTestId("version-skipped-tests-restart-warning"),
     ).toHaveTextContent(
-      "If a task restarts after this page loads, displayed details and downloaded JSON may not match the skipped test count. Refresh the page before relying on them.",
+      "Task restarts can make these details stale. Refresh the page before relying on them.",
     );
     expect(await screen.findByText("Alpha Test")).toBeVisible();
     expect(screen.getByText("beta_test")).toBeVisible();
