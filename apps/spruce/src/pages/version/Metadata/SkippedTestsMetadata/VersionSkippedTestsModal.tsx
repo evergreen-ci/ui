@@ -88,13 +88,15 @@ export const VersionSkippedTestsModal: React.FC<
     if (loading) {
       return;
     }
+    if (error) {
+      setOpen(false);
+      dispatchToast.error(
+        "There was an error loading the skipped test details.",
+      );
+      return;
+    }
     if (!detailsAvailable) {
       setOpen(false);
-      if (error) {
-        dispatchToast.error(
-          "There was an error loading the skipped test details.",
-        );
-      }
       return;
     }
     sendEvent({ name: "Viewed version skipped tests modal" });
@@ -110,12 +112,19 @@ export const VersionSkippedTestsModal: React.FC<
       name: "Clicked download version skipped tests JSON button",
     });
     try {
-      const { data: fullData } = await fetchFullList({
+      const result = await fetchFullList({
         variables: { versionId, taskIds, limit: FULL_LIST_LIMIT },
       });
-      const fullSamples = fullData?.version.taskQuarantinedTestsSample;
-      if (!fullSamples) {
-        throw new Error("no skipped test samples returned");
+      if (result.error) {
+        dispatchToast.error(
+          "There was an error downloading the skipped test list.",
+        );
+        return;
+      }
+      const fullSamples = result.data?.version.taskQuarantinedTestsSample;
+      if (fullSamples == null) {
+        dispatchToast.warning("No skipped test details were returned.");
+        return;
       }
       downloadObjectAsJson(
         {

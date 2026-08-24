@@ -162,6 +162,27 @@ const getSamplesErrorMock = (
   error: new Error("Failed to load skipped test details"),
 });
 
+const getSamplesNoDataMock = (
+  limit: number,
+): ApolloMock<
+  TaskQuarantinedTestsSampleQuery,
+  TaskQuarantinedTestsSampleQueryVariables
+> => ({
+  request: {
+    query: TASK_QUARANTINED_TESTS_SAMPLE,
+    variables: { versionId: "v1", taskIds: ["ta", "tb"], limit },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: "v1",
+        taskQuarantinedTestsSample: null,
+      },
+    },
+  },
+});
+
 const defaultMocks = [
   getVersionTasksMock([4, 2, 0]),
   getSamplesMock(MODAL_DISPLAY_LIMIT),
@@ -314,6 +335,27 @@ describe("version SkippedTestsMetadata", () => {
     expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
   });
 
+  it("closes without an error when no details are returned", async () => {
+    const user = userEvent.setup();
+    const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
+      <Component
+        mocks={[
+          getVersionTasksMock([4, 2, 0]),
+          getSamplesNoDataMock(MODAL_DISPLAY_LIMIT),
+        ]}
+      />,
+    );
+    render(<TestComponent />, routerOptions);
+    await user.click(
+      await screen.findByTestId("version-skipped-tests-details-button"),
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("skipped-tests-modal")).toBeNull();
+    });
+    expect(dispatchToast.error).not.toHaveBeenCalled();
+  });
+
   it("shows samples from the current task execution", async () => {
     const user = userEvent.setup();
     const { Component: TestComponent } = RenderFakeToastContext(
@@ -335,6 +377,58 @@ describe("version SkippedTestsMetadata", () => {
         .getAllByTestId("version-skipped-tests-task-link")[0]
         .getAttribute("href"),
     ).toContain("execution=1");
+  });
+
+  it("shows an error when downloading the full list fails", async () => {
+    const user = userEvent.setup();
+    const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
+      <Component
+        mocks={[
+          getVersionTasksMock([4, 2, 0]),
+          getSamplesMock(MODAL_DISPLAY_LIMIT),
+          getSamplesErrorMock(FULL_LIST_LIMIT),
+        ]}
+      />,
+    );
+    render(<TestComponent />, routerOptions);
+    await user.click(
+      await screen.findByTestId("version-skipped-tests-details-button"),
+    );
+    await screen.findByText("Alpha Test");
+    await user.click(screen.getByTestId("skipped-tests-download"));
+
+    await waitFor(() => {
+      expect(dispatchToast.error).toHaveBeenCalledWith(
+        "There was an error downloading the skipped test list.",
+      );
+    });
+    expect(URL.createObjectURL).not.toHaveBeenCalled();
+  });
+
+  it("shows a warning when no details are returned for the full list", async () => {
+    const user = userEvent.setup();
+    const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
+      <Component
+        mocks={[
+          getVersionTasksMock([4, 2, 0]),
+          getSamplesMock(MODAL_DISPLAY_LIMIT),
+          getSamplesNoDataMock(FULL_LIST_LIMIT),
+        ]}
+      />,
+    );
+    render(<TestComponent />, routerOptions);
+    await user.click(
+      await screen.findByTestId("version-skipped-tests-details-button"),
+    );
+    await screen.findByText("Alpha Test");
+    await user.click(screen.getByTestId("skipped-tests-download"));
+
+    await waitFor(() => {
+      expect(dispatchToast.warning).toHaveBeenCalledWith(
+        "No skipped test details were returned.",
+      );
+    });
+    expect(URL.createObjectURL).not.toHaveBeenCalled();
   });
 
   it("downloads the whole version's list as JSON", async () => {
