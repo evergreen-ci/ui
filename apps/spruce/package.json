@@ -83,7 +83,7 @@
     "@leafygreen-ui/leafygreen-provider": "^5.0.4",
     "@leafygreen-ui/loading-indicator": "^5.1.0",
     "@leafygreen-ui/menu": "^33.1.0",
-    "@leafygreen-ui/modal": "^21.0.0",
+    "@leafygreen-ui/modal": "^22.0.1",
     "@leafygreen-ui/number-input": "^5.0.12",
     "@leafygreen-ui/pagination": "^4.3.2",
     "@leafygreen-ui/palette": "^5.0.2",
