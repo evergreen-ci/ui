@@ -63,24 +63,15 @@ export const getFormSchema = (
         ),
         defaultMothraTeam: {
           "ui:data-testid": "default-mothra-team",
-          "ui:description": (
-            <span>
-              The default team that will be used for labeling task owners in
-              Evergreen and for Foliage Jira ticket assignments.
-            </span>
-          ),
+          "ui:description":
+            "The default team that will be used for labeling task owners in Evergreen and for Foliage Jira ticket assignments.",
           "ui:optional": true,
           ...placeholderIf(repoData?.taskOwnership?.mothra?.defaultMothraTeam),
         },
         defaultMothraTeamForBreakingCommit: {
           "ui:data-testid": "default-mothra-team-for-breaking-commit",
-          "ui:description": (
-            <span>
-              Foliage will alert breaking commits to the Slack channel defined
-              for this team in Mothra. If not defined, it will fall back to the
-              value above.
-            </span>
-          ),
+          "ui:description":
+            "Foliage will alert breaking commits to the Slack channel defined for this team in Mothra. If not defined, it will fall back to the value above.",
           "ui:optional": true,
           ...placeholderIf(
             repoData?.taskOwnership?.mothra?.defaultMothraTeamForBreakingCommit,
