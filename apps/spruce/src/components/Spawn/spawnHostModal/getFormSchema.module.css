@@ -1,0 +1,7 @@
+/* Doubled selector outranks lib's static a.link/span.link override.
+   Remove when links migrate to Via. */
+.debugModeLink.debugModeLink {
+  font-weight: bold;
+  text-decoration: underline;
+  color: inherit;
+}

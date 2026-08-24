@@ -3,7 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
+import { isValidHttpOrT2Url, isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useTaskAnalytics } from "analytics";
 import { FileTableRow, GroupedFilesFile } from "./types";
 
@@ -13,7 +13,8 @@ export const processFilesWithAssociatedLinks = (
 ): FileTableRow[] =>
   files.map((file) => {
     const associatedLinks =
-      file.associatedLinks?.filter(({ link }) => isValidHttpUrl(link)) ?? [];
+      file.associatedLinks?.filter(({ link }) => isValidHttpOrT2Url(link)) ??
+      [];
     const { link: artifactLink, urlParsley } = file;
     const baseRow: FileTableRow = {
       name: file.name,
