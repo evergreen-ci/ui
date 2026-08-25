@@ -6,7 +6,6 @@ import styles from "./Layout.module.css";
 
 export const navBarHeight = size.xl;
 
-// Top-level layout for the entire site. Manages positioning of navbar.
 export const SiteLayout = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
@@ -15,7 +14,6 @@ export const SiteLayout = forwardRef<
 ));
 SiteLayout.displayName = "SiteLayout";
 
-// Layout elements for pages with a LeafyGreen SideNav
 export const SideNavPageWrapper = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
@@ -61,7 +59,6 @@ interface PageWrapperProps extends ComponentPropsWithoutRef<"div"> {
   omitPadding?: boolean;
 }
 
-// Layout elements for non-LG SideNav pages
 export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(
   ({ className, omitPadding, ...rest }, ref) => (
     <div
