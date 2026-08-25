@@ -526,18 +526,6 @@ export type Build = {
   status: Scalars["String"]["output"];
 };
 
-/**
- * Build Baron is a service that can be integrated into a project (see Confluence Wiki for more details).
- * This type is returned from the buildBaron query, and contains information about Build Baron configurations and suggested
- * tickets from JIRA for a given task on a given execution.
- */
-export type BuildBaron = {
-  __typename?: "BuildBaron";
-  bbTicketCreationDefined: Scalars["Boolean"]["output"];
-  buildBaronConfigured: Scalars["Boolean"]["output"];
-  searchReturnInfo?: Maybe<SearchReturnInfo>;
-};
-
 export type BuildBaronSettings = {
   __typename?: "BuildBaronSettings";
   ticketCreateIssueType: Scalars["String"]["output"];
@@ -3147,8 +3135,6 @@ export type Query = {
   adminSettings?: Maybe<AdminSettings>;
   adminTasksToRestart: AdminTasksToRestartPayload;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
-  bbGetCreatedTickets: Array<JiraTicket>;
-  buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
   distro?: Maybe<Distro>;
@@ -3196,15 +3182,6 @@ export type QueryAdminEventsArgs = {
 
 export type QueryAdminTasksToRestartArgs = {
   opts: RestartAdminTasksOptions;
-};
-
-export type QueryBbGetCreatedTicketsArgs = {
-  taskId: Scalars["String"]["input"];
-};
-
-export type QueryBuildBaronArgs = {
-  execution: Scalars["Int"]["input"];
-  taskId: Scalars["String"]["input"];
 };
 
 export type QueryBuildVariantsForTaskNameArgs = {
@@ -5453,6 +5430,16 @@ export type PatchesPagePatchesFragment = {
   }>;
 };
 
+export type ProjectBuildBaronSettingsFragment = {
+  __typename?: "Project";
+  id: string;
+  buildBaronSettings: {
+    __typename?: "BuildBaronSettings";
+    ticketCreateProject: string;
+    ticketSearchProjects?: Array<string> | null;
+  };
+};
+
 export type ProjectAccessSettingsFragment = {
   __typename?: "Project";
   id: string;
@@ -5766,6 +5753,11 @@ export type ProjectSettingsFieldsFragment = {
         secret: string;
       };
     };
+    taskOwnership?: {
+      __typename?: "TaskOwnershipSettings";
+      defaultMothraTeam?: string | null;
+      defaultMothraTeamForBreakingCommit?: string | null;
+    } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
@@ -5976,6 +5968,11 @@ export type RepoSettingsFieldsFragment = {
         secret: string;
       };
     };
+    taskOwnership?: {
+      __typename?: "RepoTaskOwnershipSettings";
+      defaultMothraTeam: string;
+      defaultMothraTeamForBreakingCommit: string;
+    } | null;
     testSelection?: {
       __typename?: "RepoTestSelectionSettings";
       allowed: boolean;
@@ -6383,6 +6380,11 @@ export type ProjectEventSettingsFragment = {
         secret: string;
       };
     };
+    taskOwnership?: {
+      __typename?: "TaskOwnershipSettings";
+      defaultMothraTeam?: string | null;
+      defaultMothraTeamForBreakingCommit?: string | null;
+    } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
@@ -6525,6 +6527,26 @@ export type RepoTriggersSettingsFragment = {
     taskRegex: string;
     unscheduleDownstreamVersions?: boolean | null;
   }>;
+};
+
+export type ProjectTaskOwnershipAndFoliageSettingsFragment = {
+  __typename?: "Project";
+  id: string;
+  taskOwnership?: {
+    __typename?: "TaskOwnershipSettings";
+    defaultMothraTeam?: string | null;
+    defaultMothraTeamForBreakingCommit?: string | null;
+  } | null;
+};
+
+export type RepoTaskOwnershipAndFoliageSettingsFragment = {
+  __typename?: "RepoRef";
+  id: string;
+  taskOwnership?: {
+    __typename?: "RepoTaskOwnershipSettings";
+    defaultMothraTeam: string;
+    defaultMothraTeamForBreakingCommit: string;
+  } | null;
 };
 
 export type ProjectTestSelectionSettingsFragment = {
@@ -8235,28 +8257,63 @@ export type BaseVersionAndTaskQuery = {
   } | null;
 };
 
-export type BuildBaronConfiguredQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution: Scalars["Int"]["input"];
-}>;
-
-export type BuildBaronConfiguredQuery = {
-  __typename?: "Query";
-  buildBaron: { __typename?: "BuildBaron"; buildBaronConfigured: boolean };
-};
-
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution: Scalars["Int"]["input"];
+  includeCreatedTickets: Scalars["Boolean"]["input"];
+  includeAnnotationCreatedIssues: Scalars["Boolean"]["input"];
 }>;
 
 export type BuildBaronQuery = {
   __typename?: "Query";
-  buildBaron: {
-    __typename?: "BuildBaron";
-    bbTicketCreationDefined: boolean;
-    buildBaronConfigured: boolean;
-    searchReturnInfo?: {
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    annotation?: {
+      __typename?: "Annotation";
+      id: string;
+      createdIssues?: Array<{
+        __typename?: "IssueLink";
+        confidenceScore?: number | null;
+        issueKey?: string | null;
+        url?: string | null;
+        jiraTicket?: {
+          __typename?: "JiraTicket";
+          key: string;
+          fields: {
+            __typename?: "TicketFields";
+            assignedTeam?: string | null;
+            assigneeDisplayName?: string | null;
+            created: string;
+            resolutionName?: string | null;
+            summary: string;
+            updated: string;
+            status: { __typename?: "JiraStatus"; id: string; name: string };
+          };
+        } | null;
+        source?: {
+          __typename?: "Source";
+          author: string;
+          requester: string;
+          time: Date;
+        } | null;
+      }> | null;
+    } | null;
+    buildBaronCreatedTickets?: Array<{
+      __typename?: "JiraTicket";
+      key: string;
+      fields: {
+        __typename?: "TicketFields";
+        assigneeDisplayName?: string | null;
+        created: string;
+        resolutionName?: string | null;
+        summary: string;
+        updated: string;
+        status: { __typename?: "JiraStatus"; id: string; name: string };
+      };
+    }>;
+    buildBaronSuggestions?: {
       __typename?: "SearchReturnInfo";
       search: string;
       issues: Array<{
@@ -8273,7 +8330,7 @@ export type BuildBaronQuery = {
         };
       }>;
     } | null;
-  };
+  } | null;
 };
 
 export type BuildVariantStatsQueryVariables = Exact<{
@@ -8396,27 +8453,6 @@ export type CodeChangesQuery = {
       }>;
     }>;
   };
-};
-
-export type CreatedTicketsQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-}>;
-
-export type CreatedTicketsQuery = {
-  __typename?: "Query";
-  bbGetCreatedTickets: Array<{
-    __typename?: "JiraTicket";
-    key: string;
-    fields: {
-      __typename?: "TicketFields";
-      assigneeDisplayName?: string | null;
-      created: string;
-      resolutionName?: string | null;
-      summary: string;
-      updated: string;
-      status: { __typename?: "JiraStatus"; id: string; name: string };
-    };
-  }>;
 };
 
 export type DistroEventsQueryVariables = Exact<{
@@ -8924,50 +8960,6 @@ export type InstanceTypesQuery = {
   instanceTypes: Array<string>;
 };
 
-export type CustomCreatedIssuesQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type CustomCreatedIssuesQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    execution: number;
-    annotation?: {
-      __typename?: "Annotation";
-      id: string;
-      createdIssues?: Array<{
-        __typename?: "IssueLink";
-        confidenceScore?: number | null;
-        issueKey?: string | null;
-        url?: string | null;
-        jiraTicket?: {
-          __typename?: "JiraTicket";
-          key: string;
-          fields: {
-            __typename?: "TicketFields";
-            assignedTeam?: string | null;
-            assigneeDisplayName?: string | null;
-            created: string;
-            resolutionName?: string | null;
-            summary: string;
-            updated: string;
-            status: { __typename?: "JiraStatus"; id: string; name: string };
-          };
-        } | null;
-        source?: {
-          __typename?: "Source";
-          author: string;
-          requester: string;
-          time: Date;
-        } | null;
-      }> | null;
-    } | null;
-  } | null;
-};
-
 export type IssuesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -9359,6 +9351,23 @@ export type ProjectBannerQuery = {
   };
 };
 
+export type ProjectBuildBaronSettingsQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+}>;
+
+export type ProjectBuildBaronSettingsQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    id: string;
+    buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
+      ticketCreateProject: string;
+      ticketSearchProjects?: Array<string> | null;
+    };
+  };
+};
+
 export type ProjectEventLogsQueryVariables = Exact<{
   projectIdentifier: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -9483,6 +9492,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          taskOwnership?: {
+            __typename?: "TaskOwnershipSettings";
+            defaultMothraTeam?: string | null;
+            defaultMothraTeamForBreakingCommit?: string | null;
+          } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
@@ -9708,6 +9722,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          taskOwnership?: {
+            __typename?: "TaskOwnershipSettings";
+            defaultMothraTeam?: string | null;
+            defaultMothraTeamForBreakingCommit?: string | null;
+          } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
@@ -9998,6 +10017,11 @@ export type ProjectSettingsQuery = {
           secret: string;
         };
       };
+      taskOwnership?: {
+        __typename?: "TaskOwnershipSettings";
+        defaultMothraTeam?: string | null;
+        defaultMothraTeamForBreakingCommit?: string | null;
+      } | null;
       testSelection?: {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
@@ -10271,6 +10295,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          taskOwnership?: {
+            __typename?: "TaskOwnershipSettings";
+            defaultMothraTeam?: string | null;
+            defaultMothraTeamForBreakingCommit?: string | null;
+          } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
@@ -10496,6 +10525,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          taskOwnership?: {
+            __typename?: "TaskOwnershipSettings";
+            defaultMothraTeam?: string | null;
+            defaultMothraTeamForBreakingCommit?: string | null;
+          } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
@@ -10726,6 +10760,11 @@ export type RepoSettingsQuery = {
           secret: string;
         };
       };
+      taskOwnership?: {
+        __typename?: "RepoTaskOwnershipSettings";
+        defaultMothraTeam: string;
+        defaultMothraTeamForBreakingCommit: string;
+      } | null;
       testSelection?: {
         __typename?: "RepoTestSelectionSettings";
         allowed: boolean;

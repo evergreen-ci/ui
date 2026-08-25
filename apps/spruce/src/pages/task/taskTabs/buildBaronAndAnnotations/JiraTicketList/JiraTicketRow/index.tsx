@@ -1,13 +1,12 @@
-import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { useAnnotationAnalytics } from "analytics";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { TicketFields } from "gql/generated/types";
 import { useDateFormat, useSpruceConfig } from "hooks";
+import styles from "./index.module.css";
 
 interface JiraTicketRowProps {
   jiraKey: string;
@@ -22,8 +21,9 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
   const { assigneeDisplayName, created, status, summary, updated } =
     fields ?? {};
   return (
-    <Container data-testid="jira-ticket-row">
-      <JiraSummaryLink
+    <div className={styles.container} data-testid="jira-ticket-row">
+      <StyledLink
+        className={styles.jiraSummaryLink}
         data-testid={jiraKey}
         href={url}
         onClick={() =>
@@ -34,13 +34,16 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
         title={summary}
       >
         {jiraKey}: {trimStringFromMiddle(summary, 80)}
-      </JiraSummaryLink>
+      </StyledLink>
 
       <Badge data-testid={`${jiraKey}-badge`} variant="lightgray">
         {status.name}
       </Badge>
 
-      <BottomMetadataWrapper data-testid={`${jiraKey}-metadata`}>
+      <div
+        className={styles.bottomMetadataWrapper}
+        data-testid={`${jiraKey}-metadata`}
+      >
         <Disclaimer>
           Created: {getDateCopy(created, { dateOnly: true })}
         </Disclaimer>
@@ -52,26 +55,9 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
             ? `Assignee: ${assigneeDisplayName}`
             : "Unassigned"}
         </Disclaimer>
-      </BottomMetadataWrapper>
-    </Container>
+      </div>
+    </div>
   );
 };
-
-const Container = styled.div`
-  padding: ${size.xs};
-`;
-
-const BottomMetadataWrapper = styled.div`
-  margin-top: ${size.xs};
-  display: flex;
-  gap: ${size.s};
-`;
-
-const JiraSummaryLink = styled(StyledLink)`
-  && {
-    font-weight: bold;
-  }
-  margin-right: ${size.s};
-`;
 
 export default JiraTicketRow;

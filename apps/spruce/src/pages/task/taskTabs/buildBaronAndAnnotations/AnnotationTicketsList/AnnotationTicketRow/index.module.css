@@ -1,0 +1,38 @@
+.container {
+  width: 100%;
+}
+
+/* Doubled selector outranks lib's static a.link/span.link override.
+   Remove when links migrate to Via. */
+.jiraSummaryLink.jiraSummaryLink {
+  font-weight: bold;
+}
+
+.jiraSummaryLink {
+  margin-right: var(--via-space-400);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.unlinkedJiraSummary {
+  font-weight: bold;
+  margin-right: var(--via-space-400);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.badge {
+  margin-right: var(--via-space-400);
+}
+
+.bottomMetadataWrapper {
+  display: flex;
+  gap: var(--via-space-400);
+  margin-top: var(--via-space-200);
+}
