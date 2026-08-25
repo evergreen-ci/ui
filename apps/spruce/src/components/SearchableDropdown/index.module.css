@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--via-color-neutral-700);
+  margin-bottom: var(--via-space-100);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.searchInput.searchInput {
+  padding: 0 var(--via-space-200);
+}
+
+.scrollableList {
+  margin-top: var(--via-space-100);
+  overflow: scroll;
+  max-height: 400px;
+}
+
+.option {
+  /* Remove native button styles. */
+  border: 0;
+  background: none;
+  text-align: inherit;
+  font: inherit;
+
+  width: 100%;
+  word-break: break-word; /* Safari */
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  padding: var(--via-space-200) var(--via-space-200);
+
+  :hover,
+  :focus {
+    outline: none;
+    background-color: var(--via-color-neutral-200);
+  }
+}

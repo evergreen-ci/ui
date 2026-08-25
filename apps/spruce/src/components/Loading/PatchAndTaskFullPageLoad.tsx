@@ -1,11 +1,9 @@
-import styled from "@emotion/styled";
 import {
   ListSkeleton,
   Size,
   Skeleton,
   TableSkeleton,
 } from "@leafygreen-ui/skeleton-loader";
-import { size } from "@evg-ui/lib/constants/tokens";
 import {
   PageContent,
   PageLayout,
@@ -13,12 +11,13 @@ import {
   PageWrapper,
   SiderCard,
 } from "components/styles";
+import styles from "./PatchAndTaskFullPageLoad.module.css";
 
 export const PatchAndTaskFullPageLoad: React.FC = () => (
   <PageWrapper>
-    <BreadCrumbSkeleton size={Size.Small} />
+    <Skeleton className={styles.breadcrumbSkeleton} size={Size.Small} />
     <Skeleton />
-    <StyledPageLayout hasSider>
+    <PageLayout className={styles.pageLayout} hasSider>
       <PageSider>
         <SiderCard>
           <ListSkeleton />
@@ -30,15 +29,6 @@ export const PatchAndTaskFullPageLoad: React.FC = () => (
       <PageContent>
         <TableSkeleton numRows={10} />
       </PageContent>
-    </StyledPageLayout>
+    </PageLayout>
   </PageWrapper>
 );
-
-const StyledPageLayout = styled(PageLayout)`
-  margin-top: ${size.s};
-`;
-
-const BreadCrumbSkeleton = styled(Skeleton)`
-  width: 300px;
-  margin-bottom: ${size.s};
-`;

@@ -1,9 +1,8 @@
-import styled from "@emotion/styled";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
-import { size as tokenSize } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./index.module.css";
 
 type Size = "large" | "medium";
 
@@ -46,50 +45,38 @@ const PageTitle: React.FC<Props> = ({
   usePageTitle(pageTitle);
 
   return loading ? (
-    <PageHeader size={size}>
+    <div
+      className={cx(styles.pageHeader, size === "large" && styles.headerLarge)}
+    >
       <Skeleton />
-    </PageHeader>
+    </div>
   ) : (
-    <Container size={size}>
-      <PageHeader size={size}>
-        <TitleWrapper size={size}>
+    <div className={cx(styles.container, size === "medium" && styles.medium)}>
+      <div
+        className={cx(
+          styles.pageHeader,
+          size === "large" && styles.headerLarge,
+        )}
+      >
+        <span className={styles.titleWrapper}>
           <TitleTypography size={size}>
             <span data-testid="page-title">{title}</span>
             {children}
-            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
+            <div
+              className={cx(
+                styles.badgeWrapper,
+                size === "large" && styles.badgeWrapperLarge,
+              )}
+            >
+              {badge}
+            </div>
           </TitleTypography>
-        </TitleWrapper>
+        </span>
         {buttons ?? null}
-      </PageHeader>
+      </div>
       {subtitle}
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div<TitleTypographyProps>`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: ${(props) =>
-    props.size === "medium" ? tokenSize.m : tokenSize.l};
-`;
-const BadgeWrapper = styled.div<TitleTypographyProps>`
-  display: inline-flex;
-  margin-left: ${({ size }) => (size === "large" ? tokenSize.m : tokenSize.s)};
-  vertical-align: ${({ size }) =>
-    size === "large" ? "middle" : "text-bottom"};
-`;
-
-const PageHeader = styled.div<TitleTypographyProps>`
-  ${({ size }) => size === "large" && `margin-top: ${tokenSize.s};`}
-  display: flex;
-  align-items: flex-start;
-  gap: ${tokenSize.m};
-`;
-
-const TitleWrapper = styled.span<TitleTypographyProps>`
-  ${wordBreakCss}
-  flex: 1;
-  min-width: 0;
-`;
 
 export default PageTitle;

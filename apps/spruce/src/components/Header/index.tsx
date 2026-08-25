@@ -1,32 +1,20 @@
-import styled from "@emotion/styled";
 import {
   AdminBanner,
   ConnectivityBanner,
   GithubUsernameBanner,
   SlackNotificationBanner,
 } from "components/Banners";
+import styles from "./index.module.css";
 import { Navbar } from "./Navbar";
 
 export const Header: React.FC = () => (
-  <StyledHeader>
+  <header className={styles.header}>
     <Navbar />
-    <BannerContainer id="banner-container">
+    <div className={styles.bannerContainer} id="banner-container">
       <AdminBanner />
       <ConnectivityBanner />
       <GithubUsernameBanner />
       <SlackNotificationBanner />
-    </BannerContainer>
-  </StyledHeader>
+    </div>
+  </header>
 );
-
-const StyledHeader = styled.header`
-  position: sticky;
-  top: 0;
-  width: 100%;
-`;
-
-const BannerContainer = styled.div`
-  > * {
-    margin: 12px;
-  }
-`;

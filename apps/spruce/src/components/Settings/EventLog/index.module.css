@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150%;
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.eventLogCard.eventLogCard {
+  width: 100%;
+  margin-bottom: var(--via-space-800);
+  padding: var(--via-space-600);
+}
