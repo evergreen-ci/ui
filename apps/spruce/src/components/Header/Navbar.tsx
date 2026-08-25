@@ -1,15 +1,11 @@
 import { useEffect } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import Icon, { EvergreenLogo } from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
+import { cx } from "@evg-ui/lib/utils/css";
 import { useNavbarAnalytics } from "analytics";
-import { navBarHeight } from "components/styles/Layout";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import {
@@ -22,11 +18,10 @@ import { SpruceConfigQuery, UserQuery } from "gql/generated/types";
 import { SPRUCE_CONFIG, USER } from "gql/queries";
 import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
+import styles from "./Navbar.module.css";
 import { UserDropdown } from "./UserDropdown";
 
 const { validateObjectId } = validators;
-
-const { blue, gray, white } = palette;
 
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthProviderContext();
@@ -64,98 +59,54 @@ export const Navbar: React.FC = () => {
     return null;
   }
   return (
-    <StyledNav>
-      <NavActionContainer>
-        <LogoLink
+    <nav className={styles.navbar}>
+      <div className={styles.navActionContainer}>
+        <Link
+          className={styles.logoLink}
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
           <EvergreenLogo size={36} />
-        </LogoLink>
-        <PrimaryLink
+        </Link>
+        <Link
+          className={styles.primaryLink}
           data-testid="waterfall-link"
           onClick={() => sendEvent({ name: "Clicked waterfall link" })}
           to={getWaterfallRoute(projectIdentifier)}
         >
           Waterfall
-        </PrimaryLink>
-        <PrimaryLink
+        </Link>
+        <Link
+          className={styles.primaryLink}
           onClick={() => sendEvent({ name: "Clicked my patches link" })}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getUserPatchesRoute(userId)}
         >
           My Patches
-        </PrimaryLink>
-        <PrimaryLink
+        </Link>
+        <Link
+          className={styles.primaryLink}
           onClick={() => sendEvent({ name: "Clicked my hosts link" })}
           to={routes.spawnHost}
         >
           My Hosts
-        </PrimaryLink>
+        </Link>
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <AuxiliaryDropdown projectIdentifier={projectIdentifier} />
-      </NavActionContainer>
-      <NavActionContainer>
-        <PrimaryAWithIcon
+      </div>
+      <div className={styles.navActionContainer}>
+        <a
+          className={cx(styles.primaryLink, styles.primaryAWithIcon)}
           href={wikiUrl}
           onClick={() => sendEvent({ name: "Clicked EVG wiki link" })}
+          rel="noreferrer"
           target="_blank"
         >
           <Icon glyph="QuestionMarkWithCircle" />
           Documentation
-        </PrimaryAWithIcon>
+        </a>
         <UserDropdown />
-      </NavActionContainer>
-    </StyledNav>
+      </div>
+    </nav>
   );
 };
-
-const StyledNav = styled.nav`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${size.xxl};
-  background-color: ${gray.dark3};
-  height: ${navBarHeight};
-  line-height: ${navBarHeight};
-  padding: 0 ${size.l};
-`;
-
-const LogoLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  margin-bottom: ${size.xxs};
-`;
-
-const NavActionContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: ${size.l};
-`;
-
-const primaryLinkStyle = css`
-  color: ${white};
-  transition: all 100ms ease-in;
-  flex-shrink: 0;
-
-  :hover {
-    color: ${blue.light1};
-  }
-`;
-
-const PrimaryLink = styled(Link)`
-  ${primaryLinkStyle}
-`;
-
-const PrimaryA = styled.a`
-  ${primaryLinkStyle}
-`;
-
-const PrimaryAWithIcon = styled(PrimaryA)`
-  display: flex;
-  align-items: center;
-  > svg {
-    margin-right: ${size.xxs};
-  }
-`;

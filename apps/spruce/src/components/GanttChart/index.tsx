@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import Chart from "react-google-charts";
+import styles from "./index.module.css";
 import { GanttChartData } from "./types";
 
 const { black, green } = palette;
@@ -23,9 +23,9 @@ const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
 
   if (!data || data.length === 1) {
     return (
-      <Container>
+      <div className={styles.container}>
         <p>No data available</p>
-      </Container>
+      </div>
     );
   }
 
@@ -90,12 +90,5 @@ const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
     />
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: ${MINIMUM_CHART_HEIGHT_IN_PIXELS}px;
-`;
 
 export default GanttChart;
