@@ -22,7 +22,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   const hasCost = totalCost != null && totalCost > 0;
   const testSelectionEnabled = projectMetadata?.testSelection?.allowed ?? false;
 
-  if (!hasCost && !hasParameters) {
+  if (!hasCost && !hasParameters && !testSelectionEnabled) {
     return null;
   }
 
