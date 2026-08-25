@@ -131,6 +131,11 @@ const versionSkippedTestsMock: ApolloMock<
   },
 };
 
+const versionSkippedTestsLoadingMock = {
+  ...versionSkippedTestsMock,
+  delay: Infinity,
+};
+
 export const WithTimeline: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
@@ -148,6 +153,19 @@ export const WithSkippedTests: CustomStoryObj<typeof Metadata> = {
   parameters: {
     apolloClient: {
       mocks: [versionMock, versionSkippedTestsMock],
+    },
+  },
+};
+
+export const WithSkippedTestsLoading: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata {...args} version={versionWithSkippedTests} />
+    </Container>
+  ),
+  parameters: {
+    apolloClient: {
+      mocks: [versionMock, versionSkippedTestsLoadingMock],
     },
   },
 };

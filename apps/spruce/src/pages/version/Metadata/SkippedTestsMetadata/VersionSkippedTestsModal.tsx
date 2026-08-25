@@ -122,7 +122,7 @@ export const VersionSkippedTestsModal: React.FC<
         return;
       }
       const fullSamples = result.data?.version.taskQuarantinedTestsSample;
-      if (fullSamples == null) {
+      if (!fullSamples) {
         dispatchToast.warning("No skipped test details were returned.");
         return;
       }

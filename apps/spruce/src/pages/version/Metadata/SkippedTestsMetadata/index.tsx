@@ -52,7 +52,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
       <MetadataItem as="div">
         <SummaryRow data-testid="version-skipped-tests-metadata-loading">
           <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
-          <Skeleton size={SkeletonSize.Small} />
+          <CountSkeleton size={SkeletonSize.Small} />
         </SummaryRow>
       </MetadataItem>
     );
@@ -141,4 +141,8 @@ const SummaryRow = styled.span`
 
 const Count = styled.span`
   white-space: nowrap;
+`;
+
+const CountSkeleton = styled(Skeleton)`
+  width: ${size.m};
 `;
