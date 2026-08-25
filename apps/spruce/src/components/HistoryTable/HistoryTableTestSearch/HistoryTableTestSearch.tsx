@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
 import TextInput from "components/TextInputWithValidation";
 import { useUpsertQueryParams } from "hooks";
 import { TestStatus } from "types/history";
 import { validators } from "utils";
+import styles from "./HistoryTableTestSearch.module.css";
 
 const { validateRegexp } = validators;
 
@@ -21,7 +21,7 @@ export const HistoryTableTestSearch: React.FC<HistoryTableTestSearchProps> = ({
   };
 
   return (
-    <ContentWrapper>
+    <div className={styles.contentWrapper}>
       <TextInput
         aria-label="history-table-test-search-input"
         clearOnSubmit
@@ -32,13 +32,6 @@ export const HistoryTableTestSearch: React.FC<HistoryTableTestSearchProps> = ({
         validator={validateRegexp}
         validatorErrorMessage="Invalid regular expression"
       />
-    </ContentWrapper>
+    </div>
   );
 };
-
-const ContentWrapper = styled.div`
-  width: 40%;
-  min-width: 200px; //temporary
-  margin-right: 30px;
-  position: relative;
-`;

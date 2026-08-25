@@ -1,0 +1,23 @@
+.verticalLine {
+  border-left: 1px solid var(--via-color-neutral-200);
+}
+
+.colon {
+  font-family: inherit;
+}
+
+/* Doubled selector keeps this override ahead of PopoverContainer's own
+   static rules regardless of module load order. */
+.menuList.menuList {
+  display: flex;
+  flex-direction: row;
+
+  height: 230px;
+  padding: 0;
+  padding-top: var(--via-space-200);
+}
+
+.contentWrapper {
+  display: flex;
+  align-items: center;
+}

@@ -1,17 +1,16 @@
 import { useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Align, Justify, Popover } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import { PopoverContainer } from "components/styles/Popover";
 import { TaskBox } from "components/TaskBox";
 import { walkthroughSteps, waterfallGuideId } from "pages/waterfall/constants";
+import styles from "./index.module.css";
 
 const waterfallGroupedStatuses = [
   {
@@ -57,40 +56,19 @@ const waterfallGroupedStatuses = [
 ];
 
 export const LegendContent: React.FC = () => (
-  <Container>
+  <div className={styles.container}>
     {waterfallGroupedStatuses.map(({ icon, statuses }) => (
-      <Row key={statuses.join()}>
-        <LegendIcon>{icon}</LegendIcon>
-        <LegendLabel>
+      <div key={statuses.join()} className={styles.row}>
+        <div className={styles.legendIcon}>{icon}</div>
+        <div>
           {statuses.map((status) => (
             <Body key={status}>{taskStatusToCopy[status as TaskStatus]}</Body>
           ))}
-        </LegendLabel>
-      </Row>
+        </div>
+      </div>
     ))}
-  </Container>
+  </div>
 );
-
-const Container = styled.div`
-  width: 420px;
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: ${size.xs};
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.xxs};
-`;
-
-const LegendIcon = styled.div`
-  flex-shrink: 0;
-`;
-
-const LegendLabel = styled.div``;
 
 const legendProps = { [waterfallGuideId]: walkthroughSteps[1].targetId };
 
@@ -126,8 +104,8 @@ export const TaskStatusIconLegend: React.FC = () => {
         justify={Justify.End}
         refEl={buttonRef}
       >
-        <StyledPopoverContainer>
-          <TitleContainer>
+        <PopoverContainer className={styles.legendPopover}>
+          <div className={styles.titleContainer}>
             <Overline>Icon Legend</Overline>
             <IconButton
               aria-label="Close task status icon legend"
@@ -141,22 +119,10 @@ export const TaskStatusIconLegend: React.FC = () => {
             >
               <Icon glyph="X" />
             </IconButton>
-          </TitleContainer>
+          </div>
           <LegendContent />
-        </StyledPopoverContainer>
+        </PopoverContainer>
       </Popover>
     </div>
   );
 };
-
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${size.s};
-`;
-
-const StyledPopoverContainer = styled(PopoverContainer)`
-  border-radius: ${size.m};
-  padding: ${size.m};
-`;

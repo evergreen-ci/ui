@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
 import { Description, H3, Subtitle } from "@leafygreen-ui/typography";
 import { Field, FieldProps } from "@rjsf/core";
-import { size } from "@evg-ui/lib/constants/tokens";
+import styles from "./CustomFields.module.css";
 
 type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
 
@@ -11,25 +10,20 @@ export const TitleField: React.FC<TitleFieldProps> = ({
   uiSchema,
 }) => {
   const isSectionTitle = uiSchema?.["ui:sectionTitle"] ?? false;
-  const Component = isSectionTitle ? StyledH3 : StyledSubtitle;
-  return <Component id={id}>{title}</Component>;
+  return isSectionTitle ? (
+    <H3 className={styles.h3} id={id}>
+      {title}
+    </H3>
+  ) : (
+    <Subtitle className={styles.subtitle} id={id}>
+      {title}
+    </Subtitle>
+  );
 };
-
-const StyledH3 = styled(H3)`
-  margin-top: ${size.m};
-  margin-bottom: 12px;
-`;
-
-const StyledSubtitle = styled(Subtitle)`
-  margin-top: ${size.s};
-  margin-bottom: 12px;
-`;
 
 export const DescriptionField: Field = ({ description, id }) =>
   description ? (
-    <StyledDescription id={id}>{description}</StyledDescription>
+    <Description className={styles.description} id={id}>
+      {description}
+    </Description>
   ) : null;
-
-const StyledDescription = styled(Description)`
-  margin-bottom: 12px;
-`;

@@ -1,0 +1,6 @@
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.checkbox.checkbox {
+  float: right;
+  width: fit-content;
+}

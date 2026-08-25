@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { skipToken, useMutation, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
 import Accordion from "@evg-ui/lib/components/Accordion";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
@@ -21,6 +19,7 @@ import {
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
 import { sumActivatedTasksInSelectedTasks } from "utils/tasks/estimatedActivatedTasks";
+import styles from "./index.module.css";
 import { SelectedTasksMap } from "./types";
 import VersionTasks from "./VersionTasks";
 
@@ -130,34 +129,36 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
           />
           {childVersions && (
             <div data-testid="select-downstream">
-              <ConfirmationMessage
+              <Body
+                className={styles.confirmationMessage}
                 data-testid="confirmation-message"
                 weight="medium"
               >
                 Downstream Tasks
-              </ConfirmationMessage>
+              </Body>
               {childVersions?.map((v) => (
                 <Accordion
                   key={v?.id}
                   title={<b>{v?.projectMetadata?.identifier}</b>}
                 >
-                  <DownstreamTasksContainer>
+                  <div className={styles.downstreamTasksContainer}>
                     <VersionTasks
                       setSelectedTasksMap={setSelectedTasksMap}
                       version={v}
                     />
-                  </DownstreamTasksContainer>
+                  </div>
                 </Accordion>
               ))}
               <br />
             </div>
           )}
-          <ConfirmationMessage
+          <Body
+            className={styles.confirmationMessage}
             data-testid="confirmation-message"
             weight="medium"
           >
             Are you sure you want to restart the {selectedTotal} selected tasks?
-          </ConfirmationMessage>
+          </Body>
           <Checkbox
             bold={false}
             checked={shouldAbortInProgressTasks}
@@ -179,11 +180,3 @@ const getTaskIds = (selectedTasks: SelectedTasksMap) =>
       taskIds: Array.from(tasks),
     }))
     .filter(({ taskIds }) => taskIds.length > 0);
-
-const ConfirmationMessage = styled(Body)`
-  padding: ${size.s} 0;
-`;
-
-const DownstreamTasksContainer = styled.div`
-  margin-top: ${size.xxs};
-`;

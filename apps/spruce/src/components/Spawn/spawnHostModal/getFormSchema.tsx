@@ -593,9 +593,9 @@ export const getFormSchema = ({
   };
 };
 
-/* SpruceForm applies "ui:elementWrapperCSS" through Emotion css props, which
-   reject plain class name strings, so these stay object styles until
-   SpruceForm itself converts off Emotion. */
+/* SpruceForm registers "ui:elementWrapperCSS" through its Emotion bridge
+   (SpruceForm/utils), so these stay object styles until the page-level
+   consumers migrate off Emotion. */
 const dropdownWrapperCSS = { maxWidth: "500px" };
 const textAreaWrapperCSS = { maxWidth: "675px" };
 const indentCSS = { marginLeft: "16px" };

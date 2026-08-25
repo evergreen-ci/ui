@@ -1,0 +1,59 @@
+.warningText {
+  color: var(--via-color-yellow-600);
+  line-height: 1.2;
+  margin-top: var(--via-space-200);
+}
+
+.iconContainer {
+  margin-left: var(--via-space-100);
+  top: 1px;
+  vertical-align: text-top;
+}
+
+.toggleWrapper {
+  align-items: center;
+  display: flex;
+  gap: var(--via-space-200);
+}
+
+.labelContainer {
+  margin-bottom: var(--via-space-200);
+}
+
+.inlineLabelContainer {
+  margin-bottom: 0;
+}
+
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
+   Remove when these components migrate to Via. */
+.textInput.textInput p {
+  /* Fixes positioning of "Optional" label */
+  margin: 0;
+}
+
+.toggleDescription.toggleDescription {
+  margin-top: var(--via-space-100);
+}
+
+.banner.banner {
+  margin-bottom: var(--via-space-400);
+}
+
+.radioGroupInline.radioGroupInline {
+  display: flex;
+  flex-direction: row;
+  gap: var(--via-space-800);
+}
+
+.radioBox.radioBox {
+  line-height: 1.25;
+}
+
+.radioBoxGroup.radioBoxGroup {
+  flex-wrap: wrap;
+}
+
+.segmentedControl.segmentedControl {
+  box-sizing: border-box;
+  margin-bottom: var(--via-space-400);
+}
