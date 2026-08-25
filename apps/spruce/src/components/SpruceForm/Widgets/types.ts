@@ -1,3 +1,5 @@
+// SerializedStyles remains the uiSchema contract (elementWrapperCSS) until
+// page-level consumers migrate off Emotion; SpruceForm/utils bridges the values.
 import { SerializedStyles } from "@emotion/react";
 import { TextInputType } from "@leafygreen-ui/text-input";
 import { WidgetProps } from "@rjsf/core";

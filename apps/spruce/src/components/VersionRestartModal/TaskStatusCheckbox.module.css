@@ -1,0 +1,20 @@
+.stateItemWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--via-space-100);
+  white-space: nowrap;
+}
+
+/* Doubled selector outranks TaskBox's own module styles regardless of CSS
+   bundle order. Remove when this override is no longer needed. */
+.taskBox.taskBox {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.emptyCell {
+  width: 16px;
+  flex-shrink: 0;
+}

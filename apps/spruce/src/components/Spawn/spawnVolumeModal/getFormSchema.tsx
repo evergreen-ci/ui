@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { add } from "date-fns";
 import { DEFAULT_VOLUME_SIZE } from "components/Spawn/spawnHostModal/constants";
 import { GetFormSchema } from "components/SpruceForm/types";
@@ -169,8 +168,9 @@ export const getFormSchema = ({
   },
 });
 
-const checkboxCSS = css`
-  margin-bottom: 0;
-`;
+/* SpruceForm registers "ui:elementWrapperCSS" through its Emotion bridge
+   (SpruceForm/utils), so these stay object styles until the page-level
+   consumers migrate off Emotion. */
+const checkboxCSS = { marginBottom: "0px" };
 
 const today = new Date();

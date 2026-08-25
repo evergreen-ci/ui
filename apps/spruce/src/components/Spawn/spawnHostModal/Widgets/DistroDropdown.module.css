@@ -1,0 +1,32 @@
+.elementWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.overline.overline {
+  color: var(--via-color-neutral-500);
+  padding: var(--via-space-100) var(--via-space-200);
+}
+
+.listContainer {
+  margin: 0;
+  padding: 0;
+}
+
+.option {
+  word-break: normal;
+  overflow-wrap: anywhere;
+  padding: var(--via-space-200) var(--via-space-400);
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
+  transition-behavior: normal;
+  transition-property: background-color, color;
+}
+
+.option:hover {
+  cursor: pointer;
+  background-color: var(--via-color-neutral-200);
+}

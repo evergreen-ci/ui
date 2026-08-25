@@ -1,13 +1,9 @@
-import { css } from "@emotion/react";
-import { palette } from "@leafygreen-ui/palette";
-import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { transitionDuration } from "@evg-ui/lib/constants/tokens";
 
-const { gray } = palette;
-
-export const hoverStyles = css`
+export const hoverStyles = `
   :hover {
     cursor: pointer;
-    background-color: ${gray.light2};
+    background-color: var(--via-color-neutral-200);
   }
   transition-duration: ${transitionDuration.default}ms;
   transition-timing-function: ease-in-out;
@@ -16,7 +12,7 @@ export const hoverStyles = css`
   transition-property: background-color, color;
 `;
 
-export const overlineStyles = css`
-  color: ${gray.dark1};
-  padding: ${size.xxs} ${size.xs};
+export const overlineStyles = `
+  color: var(--via-color-neutral-500);
+  padding: var(--via-space-100) var(--via-space-200);
 `;

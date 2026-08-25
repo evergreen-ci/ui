@@ -1,0 +1,15 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--via-space-800);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.styledBody.styledBody {
+  white-space: nowrap;
+  color: var(--via-color-neutral-600);
+  text-transform: uppercase;
+}

@@ -1,0 +1,9 @@
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.body.body {
+  color: inherit;
+
+  &:not(:last-of-type) {
+    margin-bottom: var(--via-space-200);
+  }
+}

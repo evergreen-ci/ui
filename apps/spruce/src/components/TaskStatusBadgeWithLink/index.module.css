@@ -1,0 +1,16 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--via-space-100);
+  text-decoration: none;
+
+  :global(.link-icon) {
+    opacity: 0;
+    transition: opacity 150ms ease-in; /* transitionDuration.default */
+    flex-shrink: 0;
+  }
+
+  &:hover :global(.link-icon) {
+    opacity: 1;
+  }
+}

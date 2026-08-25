@@ -1,11 +1,8 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useDateFormat } from "hooks";
 import { DashedLine } from "../styles";
+import styles from "./index.module.css";
 
-const { gray } = palette;
 interface DateSeparatorProps {
   date: Date;
 }
@@ -13,25 +10,13 @@ interface DateSeparatorProps {
 const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
   const getDateCopy = useDateFormat();
   return (
-    <Container>
-      <DateWrapper>{getDateCopy(date, { dateOnly: true })}</DateWrapper>
+    <div className={styles.container}>
+      <Body className={styles.dateWrapper}>
+        {getDateCopy(date, { dateOnly: true })}
+      </Body>
       <DashedLine />
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  width: 100%;
-  padding-right: ${size.l};
-  display: flex;
-  align-items: center;
-`;
-
-const DateWrapper = styled(Body)`
-  white-space: nowrap;
-  padding-right: ${size.m};
-  text-transform: uppercase;
-  color: ${gray.dark2};
-`;
 
 export default DateSeparator;
