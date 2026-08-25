@@ -20,10 +20,7 @@ export const ShortenedRouterLink = forwardRef<
   HTMLSpanElement,
   ShortenedRouterLinkProps & LinkProps<"span"> & RouterLinkProps
 >(({ baseWidth, className, responsiveBreakpoint, style, ...rest }, ref) => {
-  // max() reproduces the old media query when baseWidth is set: the two
-  // expressions are equal at exactly the breakpoint, so clamping is
-  // identical to switching rules. Without baseWidth the old media rule
-  // emitted an invalid max-width, so only the bare calc applied.
+  // max() clamps the viewport-relative width at baseWidth (replaces the old media query).
   let maxWidth = `${baseWidth ?? 200}px`;
   if (responsiveBreakpoint) {
     maxWidth =
