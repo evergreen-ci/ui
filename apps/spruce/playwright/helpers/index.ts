@@ -118,6 +118,24 @@ export const typeDatePickerDate = async (
   await dayInput.fill(day);
 };
 
+/**
+ * Selects page size from LeafyGreen Pagination component.
+ * @param page - Playwright page object
+ * @param pageSize - The page size to select
+ */
+export const selectPageSize = async (page: Page, pageSize: number) => {
+  const topPagination = page.getByTestId("pagination").first();
+  const itemsPerPageSelect = topPagination.getByRole("button", {
+    name: /Items per page/,
+  });
+  await itemsPerPageSelect.click();
+  const listbox = page.getByRole("listbox");
+  const option = listbox
+    .getByRole("option")
+    .filter({ hasText: new RegExp(`^${pageSize}$`) });
+  await option.click();
+};
+
 // Re-export shared helpers from the playwright-config package.
 export {
   validateToast,

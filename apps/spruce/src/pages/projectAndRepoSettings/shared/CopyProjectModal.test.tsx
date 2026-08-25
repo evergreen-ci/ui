@@ -386,6 +386,7 @@ const projectSettingsMock: ApolloMock<
             variant: "ubuntu[0-9]+04",
             task: "arst",
             remotePath: "",
+            requiredLabels: [],
             variantTags: [],
             parameters: [],
             taskTags: [],

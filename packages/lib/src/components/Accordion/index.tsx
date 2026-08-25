@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { size, transitionDuration } from "../../constants/tokens";
+import { cx } from "../../utils/css";
+import styles from "./index.module.css";
 
 const { gray } = palette;
 
@@ -73,74 +73,40 @@ const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div className={className} data-testid={dataTestId}>
-      <AccordionToggle
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus */}
+      <div
+        className={styles.toggle}
         data-testid="accordion-toggle"
         onClick={toggleAccordionHandler}
         role="button"
       >
-        <AccordionIcon
+        <IconButton
           aria-label="Accordion icon"
-          open={accordionOpen}
+          className={cx(styles.icon, accordionOpen && styles.iconOpen)}
           style={{ alignSelf: caretAlign }}
         >
           <Icon fill={gray.dark1} glyph={`${caretIcon}Right`} />
-        </AccordionIcon>
+        </IconButton>
         {titleComp}
-      </AccordionToggle>
-      {subtitle && <SubtitleContainer>{subtitle}</SubtitleContainer>}
-      <AnimatedAccordion
+      </div>
+      {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
+      <div
         aria-expanded={accordionOpen}
+        className={cx(
+          styles.collapseContainer,
+          !accordionOpen && styles.collapseContainerHidden,
+          !disableAnimations && styles.collapseContainerAnimated,
+        )}
         data-testid="accordion-collapse-container"
-        disableAnimations={disableAnimations}
-        hide={!accordionOpen}
       >
-        <ContentsContainer useIndent={useIndent}>{children}</ContentsContainer>
-      </AnimatedAccordion>
+        <div
+          className={cx(styles.contents, useIndent && styles.contentsIndented)}
+        >
+          {children}
+        </div>
+      </div>
     </div>
   );
 };
-
-const AccordionToggle = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const AccordionIcon = styled(IconButton)<{ open: boolean }>`
-  flex-shrink: 0;
-  transform: ${({ open }) => (open ? "rotate(90deg)" : "unset")};
-  transition-property: transform;
-  transition-duration: ${transitionDuration.default}ms;
-`;
-
-const AnimatedAccordion = styled.div<{
-  hide: boolean;
-  disableAnimations: boolean;
-}>`
-  display: grid;
-  grid-template-rows: ${({ hide }): string => (hide ? "0fr" : "1fr")};
-  ${({ disableAnimations }) =>
-    !disableAnimations &&
-    `transition: grid-template-rows ${transitionDuration.default}ms ease;`}
-`;
-
-const ContentsContainer = styled.div<{ useIndent: boolean }>`
-  overflow: hidden;
-  ${({ useIndent }) =>
-    useIndent &&
-    `
-      margin-left: 26px;
-
-      /* Handle input focus borders which get cut off due to overflow: hidden */
-      padding: 0 ${size.xxs};
-    `}
-`;
-
-const SubtitleContainer = styled.div`
-  margin-left: 30px;
-`;
 
 export default Accordion;

@@ -10,7 +10,7 @@
     "check-types": "tsc -p tsconfig.node.json",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
-    "eslint:strict": "STRICT=1 eslint ."
+    "eslint:strict": "STRICT=1 eslint --max-warnings=0 ."
   },
   "dependencies": {
     "vite": "8.0.13"

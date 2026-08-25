@@ -1,12 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   LGColumnDef,
@@ -30,9 +26,8 @@ import { useFilterParam } from "hooks/useFilterParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { Filters } from "types/logs";
 import { parseFilter, stringifyFilter } from "utils/query-string";
+import styles from "./index.module.css";
 import { convertParsleyFilterToFilter } from "./utils";
-
-const { gray } = palette;
 
 interface ProjectFiltersModalProps {
   open: boolean;
@@ -171,9 +166,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
           />
         }
         loading={projectFiltersLoading || taskQueryLoading}
-        rowCss={css`
-          border-bottom: 1px solid ${gray.light2};
-        `}
+        rowClassName={styles.row}
         shouldAlternateRowColor
         table={table}
         verticalAlignment="top"
@@ -189,12 +182,21 @@ const columns: LGColumnDef<
     accessorKey: "expression",
     cell: ({ getValue, row }) => (
       <>
-        <FilterExpressionContainer
+        <div
+          className={styles.filterExpression}
           onClick={() => row.toggleSelected()}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              row.toggleSelected();
+            }
+          }}
+          role="button"
+          tabIndex={0}
           title={getValue() as string}
         >
           {getValue() as string}
-        </FilterExpressionContainer>
+        </div>
         <Disclaimer>{row.original.description}</Disclaimer>
       </>
     ),
@@ -221,10 +223,4 @@ const deduplicateFilters = (existing: Filters, incoming: Filters): Filters => {
   return Array.from(seen).map(parseFilter);
 };
 
-const FilterExpressionContainer = styled.div`
-  ${wordBreakCss}
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-  cursor: pointer;
-`;
 export default ProjectFiltersModal;

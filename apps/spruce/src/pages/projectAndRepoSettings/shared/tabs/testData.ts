@@ -80,6 +80,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     testSelection: {
       allowed: null,
       defaultEnabled: null,
+      mainlineDefaultEnabled: null,
     },
     buildBaronSettings: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -141,6 +142,10 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       gitter_request: "permission-group-1",
       trigger_request: "permission-group-2",
     },
+    taskOwnership: {
+      defaultMothraTeam: "my-team",
+      defaultMothraTeamForBreakingCommit: "other-team",
+    },
   },
   vars: {
     vars: { test_name: "", test_two: "val" },
@@ -160,6 +165,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       variant: ".*",
       task: ".*",
       remotePath: "",
+      requiredLabels: [],
       variantTags: [],
       taskTags: [],
       parameters: [],
@@ -172,6 +178,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       variant: "^ubuntu1604$",
       task: "^lint$",
       remotePath: "",
+      requiredLabels: [],
       variantTags: [],
       taskTags: [],
       parameters: [],
@@ -184,6 +191,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       variant: "",
       task: "",
       remotePath: "./evergreen.yml",
+      requiredLabels: [],
       variantTags: [],
       taskTags: [],
       parameters: [],
@@ -259,6 +267,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     testSelection: {
       allowed: true,
       defaultEnabled: true,
+      mainlineDefaultEnabled: true,
     },
     buildBaronSettings: {
       ticketCreateProject: "EVG",
@@ -354,6 +363,10 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         exactMatch: false,
       },
     ],
+    taskOwnership: {
+      defaultMothraTeam: "my-team",
+      defaultMothraTeamForBreakingCommit: "other-team",
+    },
   },
   vars: {
     vars: { repo_name: "repo_value" },
@@ -370,6 +383,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       variant: "",
       task: "",
       remotePath: "",
+      requiredLabels: [],
       variantTags: ["vTag"],
       taskTags: ["tTag"],
       parameters: [],
@@ -382,6 +396,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       variant: "",
       task: "",
       remotePath: "",
+      requiredLabels: [],
       variantTags: ["okay"],
       taskTags: ["hi"],
       parameters: [],

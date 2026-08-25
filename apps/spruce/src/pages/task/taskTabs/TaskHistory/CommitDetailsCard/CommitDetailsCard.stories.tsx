@@ -123,7 +123,7 @@ const testResults: TestResult[] = Array.from({ length: 15 }, (_, idx) => ({
   testFile: `e2e_test_${idx}`,
   status: idx % 3 === 0 ? TestStatus.SilentFail : TestStatus.Fail,
   isManuallyQuarantined: false,
-  logs: { urlParsley: `${idx}-parsley-url.mongodb.com` },
+  logs: { urlParsley: `https://${idx}-parsley-url.mongodb.com` },
 }));
 
 const getStoryTask = (args: TemplateProps) => {

@@ -11,14 +11,14 @@
     "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
-    "eslint:strict": "STRICT=1 eslint .",
+    "eslint:strict": "STRICT=1 eslint --max-warnings=0 .",
     "storybook": "storybook dev -p 6009",
     "storybook:build": "storybook build",
     "test": "vitest",
     "chromatic": "npx chromatic --project-token=chpt_e1e0e3c7dd24944 --build-script-name storybook:build"
   },
   "dependencies": {
-    "@ai-sdk/react": "^3.0.0",
+    "@ai-sdk/react": "^4.0.61",
     "@emotion/styled": "11.14.1",
     "@leafygreen-ui/badge": "^10.2.4",
     "@leafygreen-ui/button": "^25.2.1",
@@ -36,7 +36,7 @@
     "@lg-chat/message-prompts": "^4.2.0",
     "@lg-chat/message-rating": "^7.1.0",
     "@lg-chat/rich-links": "^4.0.7",
-    "ai": "^6.0.168",
+    "ai": "^7.0.58",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "zod": "^4.1.11"
@@ -54,6 +54,7 @@
     "@testing-library/react": "^16.3.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
+    "@via-ds/tokens": "0.3.1",
     "chromatic": "^16.0.0",
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",

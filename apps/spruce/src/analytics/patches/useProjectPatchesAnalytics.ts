@@ -4,7 +4,8 @@ import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 
 type Action =
-  | { name: "Changed page size" }
+  | { name: "Changed page"; "page.number": number }
+  | { name: "Changed page size"; "page.size": number }
   | { name: "Changed project"; "project.identifier": string }
   | { name: "Clicked patch link" }
   | {

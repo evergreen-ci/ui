@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
-import { size } from "../../../constants/tokens";
-import { Pagination } from "../Pagination";
+import { Pagination } from "../../Pagination";
+import styles from "./index.module.css";
 import { TableControlInnerRow, TableControlOuterRow } from "./styles";
 
 interface Props {
@@ -10,6 +9,7 @@ interface Props {
   totalCount: number;
   filteredCount: number;
   limit?: number;
+  loading?: boolean;
   onClear: () => void;
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
@@ -20,6 +20,7 @@ const TableControl: React.FC<Props> = ({
   disabled = false,
   filteredCount,
   limit,
+  loading,
   onClear,
   onPageChange,
   onPageSizeChange,
@@ -40,7 +41,7 @@ const TableControl: React.FC<Props> = ({
 
   return (
     <TableControlOuterRow>
-      <FlexContainer>
+      <div className={styles.flexContainer}>
         <Chip
           data-testid="total-count"
           label={`Total count: ${totalCount}`}
@@ -54,30 +55,19 @@ const TableControl: React.FC<Props> = ({
         >
           Clear all filters
         </Button>
-      </FlexContainer>
-      <PaginationContainer>
+      </div>
+      <TableControlInnerRow className={styles.paginationContainer}>
         <Pagination
           currentPage={page}
+          loading={loading}
           onPageChange={handlePageChange}
           onPageSizeChange={handlePageSizeChange}
           pageSize={limit}
           totalResults={filteredCount}
         />
-      </PaginationContainer>
+      </TableControlInnerRow>
     </TableControlOuterRow>
   );
 };
-
-const FlexContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
-`;
-
-const PaginationContainer = styled(TableControlInnerRow)`
-  * {
-    min-width: fit-content;
-  }
-`;
 
 export default TableControl;
