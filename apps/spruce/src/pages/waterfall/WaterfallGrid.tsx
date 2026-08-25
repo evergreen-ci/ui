@@ -40,7 +40,10 @@ import {
 } from "./styles";
 import { Pagination, Version, WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
-import { useWaterfallTrace } from "./useWaterfallTrace";
+import {
+  useWaterfallNavigationTrace,
+  useWaterfallTrace,
+} from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type ServerFilters = Pick<
@@ -187,6 +190,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   });
   // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
   const dataIsComplete = dataState === "complete";
+  useWaterfallNavigationTrace({
+    data: dataIsComplete ? data : undefined,
+  });
 
   useEffect(() => {
     if (dataIsComplete) {
