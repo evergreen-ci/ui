@@ -1,5 +1,9 @@
-import styled from "@emotion/styled";
+import { forwardRef } from "react";
+import { LinkProps } from "@leafygreen-ui/typography";
+import { LinkProps as RouterLinkProps } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./Link.module.css";
 
 interface ShortenedRouterLinkProps {
   baseWidth?: number;
@@ -12,21 +16,33 @@ interface ShortenedRouterLinkProps {
  * @param props.responsiveBreakpoint The breakpoint at which the link should set it's width based on screen width.
  * @returns A styled link that truncates the text and adds an ellipsis if it overflows.
  */
-export const ShortenedRouterLink = styled(
-  StyledRouterLink,
-)<ShortenedRouterLinkProps>`
-  span {
-    display: inline-block;
-    vertical-align: bottom;
-    ${({ baseWidth, responsiveBreakpoint }) =>
-      responsiveBreakpoint
-        ? `@media (max-width: ${responsiveBreakpoint}px) { max-width: ${baseWidth}px; }`
-        : null};
-    max-width: ${({ baseWidth, responsiveBreakpoint }) =>
-      responsiveBreakpoint
-        ? `calc(100vw - ${responsiveBreakpoint - (baseWidth ?? 200)}px)`
-        : `${baseWidth ?? 200}px`};
-    overflow: hidden;
-    text-overflow: ellipsis;
+export const ShortenedRouterLink = forwardRef<
+  HTMLSpanElement,
+  ShortenedRouterLinkProps & LinkProps<"span"> & RouterLinkProps
+>(({ baseWidth, className, responsiveBreakpoint, style, ...rest }, ref) => {
+  // max() reproduces the old media query when baseWidth is set: the two
+  // expressions are equal at exactly the breakpoint, so clamping is
+  // identical to switching rules. Without baseWidth the old media rule
+  // emitted an invalid max-width, so only the bare calc applied.
+  let maxWidth = `${baseWidth ?? 200}px`;
+  if (responsiveBreakpoint) {
+    maxWidth =
+      baseWidth !== undefined
+        ? `max(${baseWidth}px, calc(100vw - ${responsiveBreakpoint - baseWidth}px))`
+        : `calc(100vw - ${responsiveBreakpoint - 200}px)`;
   }
-`;
+  return (
+    <StyledRouterLink
+      ref={ref}
+      className={cx(styles.shortened, className)}
+      style={
+        {
+          "--shortened-max-width": maxWidth,
+          ...style,
+        } as React.CSSProperties
+      }
+      {...rest}
+    />
+  );
+});
+ShortenedRouterLink.displayName = "ShortenedRouterLink";

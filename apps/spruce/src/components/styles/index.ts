@@ -1,6 +1,5 @@
 import { Divider } from "./divider";
 import { FiltersWrapper } from "./filters";
-import { GlobalStyles, globalStyles } from "./GlobalStyles";
 import { inactiveElementStyle } from "./inactive";
 import {
   ErrorMessage,
@@ -41,6 +40,4 @@ export {
   SideNavPageWrapper,
   SiderCard,
   SettingsPageContent,
-  globalStyles,
-  GlobalStyles,
 };

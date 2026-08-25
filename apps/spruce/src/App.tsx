@@ -13,7 +13,7 @@ import LoginPage from "@evg-ui/lib/pages/LoginPage";
 import { FileDiff } from "components/CodeChanges/FileDiff";
 import { PatchDiff } from "components/CodeChanges/PatchDiff";
 import { Content } from "components/Content";
-import { GlobalStyles } from "components/styles";
+import "components/styles/global.css";
 import { observabilityRouteConfig, routes } from "constants/routes";
 import ContextProviders from "context/Providers";
 import { HTMLLog } from "pages/task/logs/HTMLLog";
@@ -86,11 +86,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App: React.FC = () => (
-  <>
-    <GlobalStyles />
-    <RouterProvider router={router} />
-  </>
-);
+const App: React.FC = () => <RouterProvider router={router} />;
 
 export default App;
