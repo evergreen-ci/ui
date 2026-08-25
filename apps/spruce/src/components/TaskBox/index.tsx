@@ -18,8 +18,6 @@ type PolymorphicProps<E extends React.ElementType> = TaskBoxProps & {
   as?: E;
 } & Omit<React.ComponentPropsWithoutRef<E>, keyof TaskBoxProps>;
 
-// Status and tooltip styles live in index.module.css so that we don't need to
-// interpolate a box's status via runtime styling to apply the style.
 export const taskBoxClassName = styles.taskBox;
 
 export const TaskBox = forwardRef<
