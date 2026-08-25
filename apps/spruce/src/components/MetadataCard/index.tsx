@@ -8,7 +8,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { cx } from "@evg-ui/lib/utils/css";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
-import { Divider } from "components/styles/divider";
+import { Divider } from "components/styles/Divider";
 import styles from "./index.module.css";
 
 interface MetadataTitleWithLinkProps {
