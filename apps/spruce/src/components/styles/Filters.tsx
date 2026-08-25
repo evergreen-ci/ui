@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import { cx } from "@evg-ui/lib/utils/css";
-import styles from "./filters.module.css";
+import styles from "./Filters.module.css";
 
 export const FiltersWrapper = forwardRef<
   HTMLDivElement,

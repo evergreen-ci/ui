@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Divider } from "components/styles/divider";
+import { Divider } from "components/styles/Divider";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { BuildVariantsWithChildrenQuery } from "gql/generated/types";
 import { BuildVariantAccordion } from "./BuildVariantAccordion";

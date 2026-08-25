@@ -7,7 +7,7 @@ import {
 import { Body, Description } from "@leafygreen-ui/typography";
 import { cx } from "@evg-ui/lib/utils/css";
 import { SiderCard } from "components/styles";
-import { Divider } from "components/styles/divider";
+import { Divider } from "components/styles/Divider";
 import styles from "./BuildVariantCard.module.css";
 import type { MenuItemProps } from "./types";
 

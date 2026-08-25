@@ -1,5 +1,5 @@
-import { Divider } from "./divider";
-import { FiltersWrapper } from "./filters";
+import { Divider } from "./Divider";
+import { FiltersWrapper } from "./Filters";
 import { inactiveElementStyle } from "./inactive";
 import {
   ErrorMessage,

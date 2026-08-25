@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import { cx } from "@evg-ui/lib/utils/css";
-import styles from "./divider.module.css";
+import styles from "./Divider.module.css";
 
 interface DividerProps extends ComponentPropsWithoutRef<"hr"> {
   margin?: string;
