@@ -1,7 +1,4 @@
 @import "@via-ds/tokens/tokens.css";
-
-/* CSS-first twin of the string exports in ./globalStyles.ts and ./fonts.ts;
-   those die when parsley converts off Emotion. */
 *,
 *:before,
 *:after {

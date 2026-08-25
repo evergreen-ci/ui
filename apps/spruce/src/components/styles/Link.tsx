@@ -20,7 +20,6 @@ export const ShortenedRouterLink = forwardRef<
   HTMLSpanElement,
   ShortenedRouterLinkProps & LinkProps<"span"> & RouterLinkProps
 >(({ baseWidth, className, responsiveBreakpoint, style, ...rest }, ref) => {
-  // max() clamps the viewport-relative width at baseWidth (replaces the old media query).
   let maxWidth = `${baseWidth ?? 200}px`;
   if (responsiveBreakpoint) {
     maxWidth =
