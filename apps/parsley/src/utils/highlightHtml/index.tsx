@@ -2,7 +2,6 @@ import parse from "html-react-parser";
 import Highlight, { highlightColorList } from "components/Highlight";
 import { escapeTags } from "utils/escapeTags";
 import { hasOverlappingRegex } from "utils/regex";
-import renderHtml from "utils/renderHtml";
 import { highlighter } from "./highlighter";
 
 /**
@@ -22,39 +21,47 @@ const highlightHtml = (
   return parse(escapedHtml, {
     replace: (domNode) => {
       if (domNode.type === "text") {
-        let highlightedText = domNode.data;
+        let searchMatchIndex = 0;
+        const searchedText = searchTerm
+          ? highlighter(searchTerm, domNode.data, (match) => {
+              const key = `search-${searchMatchIndex}`;
+              searchMatchIndex += 1;
+              return (
+                <Highlight key={key} data-testid="highlight">
+                  {match}
+                </Highlight>
+              );
+            })
+          : [domNode.data];
 
-        if (searchTerm) {
-          highlightedText = highlighter(
-            searchTerm,
-            highlightedText,
-            (match) => `<mark data-testid="highlight">${match}</mark>`,
-          );
-        }
-
-        if (
+        const shouldApplyHighlights =
           highlights &&
-          !hasOverlappingRegex(searchTerm, highlights, domNode.data)
-        ) {
-          highlightedText = highlighter(
-            highlights,
-            highlightedText,
-            (match, index) =>
-              `<mark data-testid="highlight" color="${
-                highlightColorList[index % highlightColorList.length]
-              }">${match}</mark>`,
-          );
-        }
-
-        const highlightedHtml = renderHtml(highlightedText, {
-          preserveAttributes: ["mark"],
-          transformNode: {
-            mark: Highlight as unknown as React.ReactNode,
-          },
-        });
+          !hasOverlappingRegex(searchTerm, highlights, domNode.data);
+        let highlightMatchIndex = 0;
+        const highlightedText = shouldApplyHighlights
+          ? searchedText.flatMap((node) =>
+              typeof node === "string"
+                ? highlighter(highlights, node, (match, index) => {
+                    const key = `highlight-${highlightMatchIndex}`;
+                    highlightMatchIndex += 1;
+                    return (
+                      <Highlight
+                        key={key}
+                        color={
+                          highlightColorList[index % highlightColorList.length]
+                        }
+                        data-testid="highlight"
+                      >
+                        {match}
+                      </Highlight>
+                    );
+                  })
+                : node,
+            )
+          : searchedText;
 
         // eslint-disable-next-line react/jsx-no-useless-fragment
-        return <>{highlightedHtml}</>;
+        return <>{highlightedText}</>;
       }
     },
   });

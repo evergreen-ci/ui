@@ -72,4 +72,30 @@ describe("highlightHtml", () => {
       expect(highlight).toHaveTextContent(/building|production/i);
     });
   });
+  it.each([
+    {
+      encoding: "raw",
+      maliciousLogLine:
+        '<mark data-testid="injected-mark" color="red;}body{background-image:url(https://example.com)">malicious</mark>',
+    },
+    {
+      encoding: "entity-encoded",
+      maliciousLogLine:
+        '&lt;mark data-testid="injected-mark" color="red;}body{background-image:url(https://example.com)"&gt;malicious&lt;/mark&gt;',
+    },
+  ])("does not render $encoding markup", ({ maliciousLogLine }) => {
+    render(<>{highlightHtml(maliciousLogLine)}</>);
+
+    expect(screen.queryByTestId("injected-mark")).not.toBeInTheDocument();
+    expect(screen.getByText(/<mark data-testid="injected-mark"/)).toBeVisible();
+  });
+  it("does not pass entity-encoded style attributes to React", () => {
+    const malformedStyle =
+      '&lt;mark style="color: red"&gt;malicious&lt;/mark&gt;';
+
+    expect(() => render(<>{highlightHtml(malformedStyle)}</>)).not.toThrow();
+    expect(
+      screen.getByText('<mark style="color: red">malicious</mark>'),
+    ).toBeVisible();
+  });
 });
