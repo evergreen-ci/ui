@@ -1,9 +1,9 @@
 import { Component } from "react";
+import ErrorFallback from "./ErrorFallback/ErrorFallback";
 
 type DefaultErrorBoundaryProps = {
   children: React.ReactNode;
   homeURL: string;
-  FallbackComponent: React.ComponentType<{ homeURL: string }>;
 };
 
 /**
@@ -36,8 +36,7 @@ class DefaultErrorBoundary extends Component<
   render() {
     const { hasError } = this.state;
     if (hasError) {
-      const { FallbackComponent, homeURL } = this.props;
-      return <FallbackComponent homeURL={homeURL} />;
+      return <ErrorFallback homeURL={this.props.homeURL} />;
     }
     const { children } = this.props;
     return children;

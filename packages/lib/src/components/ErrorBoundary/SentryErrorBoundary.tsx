@@ -1,5 +1,6 @@
 import { ErrorBoundary } from "@sentry/react";
 import { setScope } from "../../utils/sentry";
+import ErrorFallback from "./ErrorFallback/ErrorFallback";
 import { refreshOnOldBundleError } from "./utils";
 /**
  * DO NOT USE THIS COMPONENT DIRECTLY INSTEAD USE `ErrorBoundary`.
@@ -9,19 +10,17 @@ import { refreshOnOldBundleError } from "./utils";
  * @param param0 - The props
  * @param param0.children - The children
  * @param param0.homeURL - The home URL of the application.
- * @param param0.FallbackComponent - Custom fallback component.
  * @returns - The wrapped component.
  */
 const SentryErrorBoundary: React.FC<{
   children: React.ReactNode;
   homeURL: string;
-  FallbackComponent: React.ComponentType<{ homeURL: string }>;
-}> = ({ FallbackComponent, children, homeURL }) => (
+}> = ({ children, homeURL }) => (
   <ErrorBoundary
     beforeCapture={(scope) => {
       setScope(scope);
     }}
-    fallback={<FallbackComponent homeURL={homeURL} />}
+    fallback={<ErrorFallback homeURL={homeURL} />}
     onError={(error) => refreshOnOldBundleError(error as Error)}
   >
     {children}
