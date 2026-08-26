@@ -39,7 +39,6 @@ export interface IconProps extends Omit<DynamicIconProps, "glyph"> {
   glyph: GlyphName | LocalGlyphName;
 }
 
-/** Via-backed Icon that also renders local glyphs Via lacks. */
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
   ({ glyph, size, ...rest }, ref) => {
     // LG's IconButton cloneElements icons with the legacy "default" size key;
