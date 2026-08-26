@@ -20,6 +20,13 @@ interface CreateGlyphOptions {
    * currentColor overrides.
    */
   defaultFill?: string;
+  /**
+   * Size rendered when the consumer passes no `size`, for glyphs with an
+   * intrinsic designed size (logos). Defaults to Via's medium (16px).
+   */
+  defaultSize?: number;
+  /** Extra attributes spread onto the root svg (e.g. shapeRendering). */
+  svgProps?: React.SVGProps<SVGSVGElement>;
 }
 
 /**
@@ -39,7 +46,7 @@ const createGlyph = (
   content: React.ReactNode,
   options: CreateGlyphOptions = {},
 ): GlyphComponent => {
-  const { defaultFill, label } = options;
+  const { defaultFill, defaultSize, label, svgProps } = options;
   const Glyph = forwardRef<SVGSVGElement, GlyphProps>(
     (
       {
@@ -57,7 +64,7 @@ const createGlyph = (
       ref,
     ) => {
       const titleId = useId();
-      const resolvedSize = size ?? sizeMap.medium;
+      const resolvedSize = size ?? defaultSize ?? sizeMap.medium;
       const computedSize =
         typeof resolvedSize === "number" ? resolvedSize : sizeMap[resolvedSize];
       return (
@@ -79,6 +86,7 @@ const createGlyph = (
           // react-aria-components to place icons inside components like
           // Button), so it goes through a cast.
           {...({ slot } as React.SVGProps<SVGSVGElement>)}
+          {...svgProps}
           {...generateAccessibleProps(role, name, {
             "aria-label": ariaLabel,
             "aria-labelledby": ariaLabelledby,

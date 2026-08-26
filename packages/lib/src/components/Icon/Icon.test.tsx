@@ -35,6 +35,22 @@ describe("Icon", () => {
     expect(screen.getByTestId("local")).toHaveAttribute("width", "16");
   });
 
+  it("renders seasonal logos at their intrinsic default size with artwork intact", () => {
+    render(<Icon data-testid="spring" glyph="SpringLogo" />);
+    const svg = screen.getByTestId("spring");
+    expect(svg).toHaveAttribute("width", "75");
+    expect(svg).toHaveAttribute("height", "75");
+    expect(svg).toHaveAttribute("viewBox", "0 -10 359 445");
+    // SMIL animation and custom fills survive createGlyph's content passthrough
+    expect(svg.querySelector("animate")).not.toBeNull();
+    expect(svg.querySelector('[fill="#00A35C"]')).not.toBeNull();
+  });
+
+  it("honors explicit sizes on seasonal logos", () => {
+    render(<Icon data-testid="winter" glyph="WinterLogo" size={32} />);
+    expect(screen.getByTestId("winter")).toHaveAttribute("width", "32");
+  });
+
   it("renders a local glyph", () => {
     render(<Icon data-testid="local-glyph" glyph="GitHub" />);
     expect(screen.getByTestId("local-glyph")).toBeInTheDocument();

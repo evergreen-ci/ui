@@ -1,9 +1,7 @@
 #!/usr/bin/env node
-/**
- * Regenerates src/components/Icon/glyphs.ts, the runtime+type registry the
- * Icon stories enumerate. (@via-ds/icons ships no runtime name list, so we
- * keep our own.) Run from packages/lib: node scripts/update-glyphs.mjs
- */
+// Regenerates src/components/Icon/glyphs.ts (Via ships no runtime
+// glyph-name list to import). Run from packages/lib after bumping
+// @via-ds/icons or adding a local icon.
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
