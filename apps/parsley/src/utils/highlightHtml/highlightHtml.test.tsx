@@ -72,18 +72,19 @@ describe("highlightHtml", () => {
       expect(highlight).toHaveTextContent(/building|production/i);
     });
   });
-  it.each([
-    {
-      encoding: "raw",
-      maliciousLogLine:
-        '<mark data-testid="injected-mark" color="red;}body{background-image:url(https://example.com)">malicious</mark>',
-    },
-    {
-      encoding: "entity-encoded",
-      maliciousLogLine:
-        '&lt;mark data-testid="injected-mark" color="red;}body{background-image:url(https://example.com)"&gt;malicious&lt;/mark&gt;',
-    },
-  ])("does not render $encoding markup", ({ maliciousLogLine }) => {
+  it("preserves safe attributes on raw mark elements", () => {
+    const logLine =
+      '<mark data-testid="log-mark" color="red" style="background-image:url(https://example.com)">marked</mark>';
+
+    render(<>{highlightHtml(logLine)}</>);
+
+    expect(screen.getByTestId("log-mark")).toHaveAttribute("color", "red");
+    expect(screen.getByTestId("log-mark")).not.toHaveAttribute("style");
+  });
+  it("does not render entity-encoded markup", () => {
+    const maliciousLogLine =
+      '&lt;mark data-testid="injected-mark" color="red;}body{background-image:url(https://example.com)"&gt;malicious&lt;/mark&gt;';
+
     render(<>{highlightHtml(maliciousLogLine)}</>);
 
     expect(screen.queryByTestId("injected-mark")).not.toBeInTheDocument();

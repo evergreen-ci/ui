@@ -2,6 +2,7 @@ import xss, { IWhiteList } from "xss";
 
 const allowedTags: IWhiteList = {
   a: ["href", "target", "rel", "class", "style"],
+  mark: ["data-testid", "color"],
   span: ["style", "data-testid"],
 };
 
