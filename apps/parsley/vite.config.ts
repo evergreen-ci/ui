@@ -112,10 +112,8 @@ const getProjectConfig = () => {
           // which is slow enough to starve the worker pool.
           inline: [
             "@via-ds/icons",
-            "@leafygreen-ui/checkbox",
             "@leafygreen-ui/icon",
             "@leafygreen-ui/icon-button",
-            "@leafygreen-ui/loading-overlay",
             "@leafygreen-ui/segmented-control",
             "@leafygreen-ui/toggle",
           ],

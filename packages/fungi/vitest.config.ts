@@ -9,16 +9,15 @@ const vitestConfig = defineTestConfig({
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
     server: {
       deps: {
-        // UXE-711: inline ESM-only packages so Vitest can resolve them
-        // without tripping over extensionless Node ESM imports.
+        // The @leafygreen-ui/* packages still have extensionless lodash ESM
+        // imports upstream, which Node's resolver rejects outright.
+        // @via-ds/icons is inlined for performance: without it each Vitest
+        // worker loads the full via glyph set through Node's ESM resolver,
+        // which is slow enough to starve the worker pool.
         inline: [
           "@via-ds/icons",
-          "@leafygreen-ui/checkbox",
           "@leafygreen-ui/icon",
           "@leafygreen-ui/icon-button",
-          "@leafygreen-ui/loading-overlay",
-          "@leafygreen-ui/segmented-control",
-          "@leafygreen-ui/toggle",
         ],
       },
     },
