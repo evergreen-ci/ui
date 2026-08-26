@@ -27,14 +27,7 @@ const localGlyphs = {
 
 export type LocalGlyphName = keyof typeof localGlyphs;
 
-/**
- * LeafyGreen-compatible Size enum. Values map to Via size strings and resolve
- * to the same pixel dimensions as before:
- *  - Small  -> 14px
- *  - Default / medium -> 16px
- *  - Large  -> 20px
- *  - XLarge -> 24px
- */
+/** LeafyGreen-compatible size enum; values are Via size strings. */
 export enum Size {
   Small = "small",
   Default = "medium",
@@ -49,16 +42,15 @@ export interface IconProps extends Omit<DynamicIconProps, "glyph"> {
 /** Via-backed Icon that also renders local glyphs Via lacks. */
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
   ({ glyph, size, ...rest }, ref) => {
-    // LG's IconButton cloneElements icon children with its own size, using the
-    // legacy LG key "default". Via's sizeMap calls that size "medium".
+    // LG's IconButton cloneElements icons with the legacy "default" size key;
+    // Via calls that size "medium".
     const normalizedSize = (size as string) === "default" ? "medium" : size;
     if (glyph in localGlyphs) {
       const LocalGlyph = localGlyphs[glyph as LocalGlyphName];
       return <LocalGlyph ref={ref} size={normalizedSize} {...rest} />;
     }
-    // Via glyphs inherit size from a surrounding IconContext (e.g. inside Via
-    // Buttons); LeafyGreen glyphs had no such behavior. Pinning the default
-    // keeps this barrel visually identical to the LG one it replaced.
+    // Pin the default so Via's IconContext can't resize glyphs (LG had no
+    // context); keeps this barrel identical to the LG one it replaced.
     return (
       <ViaIcon
         ref={ref}
@@ -71,13 +63,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
 );
 Icon.displayName = "Icon";
 
-// Re-export the Via size map for consumers that need the underlying
-// contract.
-export { sizeMap };
-
-// Re-export the glyph name registry so stories and type guards can enumerate
-// every available icon.
-export { glyphs };
+export { sizeMap, glyphs };
 
 export { AnimatedIcon };
 export {

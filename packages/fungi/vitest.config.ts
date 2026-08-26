@@ -9,11 +9,9 @@ const vitestConfig = defineTestConfig({
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
     server: {
       deps: {
-        // The @leafygreen-ui/* packages still have extensionless lodash ESM
-        // imports upstream, which Node's resolver rejects outright.
-        // @via-ds/icons is inlined for performance: without it each Vitest
-        // worker loads the full via glyph set through Node's ESM resolver,
-        // which is slow enough to starve the worker pool.
+        // Inlining works around extensionless lodash ESM imports in the LG
+        // packages (rejected by Node's resolver) and keeps @via-ds/icons on
+        // Vite's faster resolver (188 glyph modules starve the worker pool).
         inline: [
           "@via-ds/icons",
           "@leafygreen-ui/icon",
