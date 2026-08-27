@@ -7129,16 +7129,11 @@ export type RestartVersionsMutation = {
     id: string;
     status: string;
     taskStatuses: Array<string>;
-    patch?: {
-      __typename?: "Patch";
+    childVersions?: Array<{
+      __typename?: "Version";
       id: string;
       status: string;
-      childPatches?: Array<{
-        __typename?: "Patch";
-        id: string;
-        status: string;
-      }> | null;
-    } | null;
+    }> | null;
   }> | null;
 };
 
@@ -12253,6 +12248,24 @@ export type VersionQuery = {
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
+    childVersions?: Array<{
+      __typename?: "Version";
+      id: string;
+      revision: string;
+      status: string;
+      taskCount?: number | null;
+      baseVersion?: { __typename?: "Version"; id: string } | null;
+      parameters: Array<{
+        __typename?: "Parameter";
+        key: string;
+        value: string;
+      }>;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
+    }> | null;
     cost?: {
       __typename?: "Cost";
       adjustedEBSStorageCost?: number | null;
@@ -12290,29 +12303,6 @@ export type VersionQuery = {
       id: string;
       alias?: string | null;
       patchNumber: number;
-      childPatches?: Array<{
-        __typename?: "Patch";
-        id: string;
-        githash: string;
-        status: string;
-        taskCount?: number | null;
-        parameters: Array<{
-          __typename?: "Parameter";
-          key: string;
-          value: string;
-        }>;
-        projectMetadata?: {
-          __typename?: "Project";
-          id: string;
-          identifier: string;
-        } | null;
-        version?: {
-          __typename?: "VersionLite";
-          id: string;
-          status: string;
-          baseVersion?: { __typename?: "VersionLite"; id: string } | null;
-        } | null;
-      }> | null;
       cost?: {
         __typename?: "Cost";
         childPatchesTotalCost?: number | null;
