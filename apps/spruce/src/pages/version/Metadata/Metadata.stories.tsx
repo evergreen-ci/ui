@@ -1,6 +1,16 @@
 import styled from "@emotion/styled";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { VersionQuery } from "gql/generated/types";
+import {
+  ApolloMock,
+  CustomMeta,
+  CustomStoryObj,
+} from "@evg-ui/lib/test_utils/types";
+import {
+  VersionQuarantinedTasksQuery,
+  VersionQuarantinedTasksQueryVariables,
+  VersionQuery,
+  VersionQueryVariables,
+} from "gql/generated/types";
+import { VERSION, VERSION_QUARANTINED_TASKS } from "gql/queries";
 import { PatchStatus } from "types/patch";
 import { Metadata } from ".";
 
@@ -46,6 +56,7 @@ const version: Version = {
     identifier: "evergreen",
     owner: "evergreen-ci",
     repo: "evergreen",
+    testSelection: null,
   },
   repo: "evergreen",
   requester: "gitter_request",
@@ -67,12 +78,96 @@ const version: Version = {
   warnings: [],
 };
 
+const versionMock: ApolloMock<VersionQuery, VersionQueryVariables> = {
+  request: {
+    query: VERSION,
+    variables: { id: version.id, includeNeverActivatedTasks: false },
+  },
+  result: {
+    data: { version },
+  },
+};
+
+const versionWithSkippedTests: Version = {
+  ...version,
+  projectMetadata: {
+    ...version.projectMetadata!,
+    testSelection: {
+      __typename: "TestSelectionSettings",
+      allowed: true,
+    },
+  },
+};
+
+const versionSkippedTestsMock: ApolloMock<
+  VersionQuarantinedTasksQuery,
+  VersionQuarantinedTasksQueryVariables
+> = {
+  request: {
+    query: VERSION_QUARANTINED_TASKS,
+    variables: { versionId: version.id },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: version.id,
+        tasks: {
+          __typename: "VersionTasks",
+          count: 1,
+          data: [
+            {
+              __typename: "Task",
+              id: "task123",
+              buildVariantDisplayName: "Ubuntu 22.04",
+              displayName: "test_task",
+              execution: 0,
+              quarantinedTestsSkippedCount: 12,
+            },
+          ],
+        },
+      },
+    },
+  },
+};
+
+const versionSkippedTestsLoadingMock = {
+  ...versionSkippedTestsMock,
+  delay: Infinity,
+};
+
 export const WithTimeline: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
       <Metadata {...args} version={version} />
     </Container>
   ),
+};
+
+export const WithSkippedTests: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata {...args} version={versionWithSkippedTests} />
+    </Container>
+  ),
+  parameters: {
+    apolloClient: {
+      mocks: [versionMock, versionSkippedTestsMock],
+    },
+  },
+};
+
+export const WithSkippedTestsLoading: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata {...args} version={versionWithSkippedTests} />
+    </Container>
+  ),
+  parameters: {
+    apolloClient: {
+      mocks: [versionMock, versionSkippedTestsLoadingMock],
+    },
+  },
 };
 
 export const WithExecutionData: CustomStoryObj<typeof Metadata> = {

@@ -520,27 +520,6 @@ export type BucketsConfigInput = {
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
-export type Build = {
-  __typename?: "Build";
-  actualMakespan: Scalars["Duration"]["output"];
-  buildVariant: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  predictedMakespan: Scalars["Duration"]["output"];
-  status: Scalars["String"]["output"];
-};
-
-/**
- * Build Baron is a service that can be integrated into a project (see Confluence Wiki for more details).
- * This type is returned from the buildBaron query, and contains information about Build Baron configurations and suggested
- * tickets from JIRA for a given task on a given execution.
- */
-export type BuildBaron = {
-  __typename?: "BuildBaron";
-  bbTicketCreationDefined: Scalars["Boolean"]["output"];
-  buildBaronConfigured: Scalars["Boolean"]["output"];
-  searchReturnInfo?: Maybe<SearchReturnInfo>;
-};
-
 export type BuildBaronSettings = {
   __typename?: "BuildBaronSettings";
   ticketCreateIssueType: Scalars["String"]["output"];
@@ -2508,16 +2487,12 @@ export type Patch = {
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
   aliases?: Maybe<Array<Scalars["String"]["output"]>>;
-  author: Scalars["String"]["output"];
-  authorDisplayName: Scalars["String"]["output"];
-  builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
   /** Aggregated actual cost for the patch's version, when cost data exists. */
   cost?: Maybe<Cost>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
-  duration?: Maybe<PatchDuration>;
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
   githubPatchData?: Maybe<GithubPatch>;
@@ -2536,14 +2511,12 @@ export type Patch = {
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
   taskCount?: Maybe<Scalars["Int"]["output"]>;
-  taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
   user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
-  versionFull?: Maybe<Version>;
 };
 
 /**
@@ -2555,13 +2528,6 @@ export type PatchConfigure = {
   parameters?: InputMaybe<Array<ParameterInput>>;
   patchTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variantsTasks: Array<VariantTasks>;
-};
-
-export type PatchDuration = {
-  __typename?: "PatchDuration";
-  makespan?: Maybe<Scalars["String"]["output"]>;
-  time?: Maybe<PatchTime>;
-  timeTaken?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type PatchProject = {
@@ -2800,6 +2766,7 @@ export type Project = {
   testSelection?: Maybe<TestSelectionSettings>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  virtualTasksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
 };
@@ -2817,6 +2784,7 @@ export type ProjectAlias = {
   id: Scalars["String"]["output"];
   parameters: Array<Parameter>;
   remotePath: Scalars["String"]["output"];
+  requiredLabels: Array<Scalars["String"]["output"]>;
   task: Scalars["String"]["output"];
   taskTags: Array<Scalars["String"]["output"]>;
   variant: Scalars["String"]["output"];
@@ -2830,6 +2798,7 @@ export type ProjectAliasInput = {
   id: Scalars["String"]["input"];
   parameters?: InputMaybe<Array<ParameterInput>>;
   remotePath: Scalars["String"]["input"];
+  requiredLabels?: InputMaybe<Array<Scalars["String"]["input"]>>;
   task: Scalars["String"]["input"];
   taskTags: Array<Scalars["String"]["input"]>;
   variant: Scalars["String"]["input"];
@@ -2952,6 +2921,7 @@ export type ProjectInput = {
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  virtualTasksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
@@ -3070,12 +3040,14 @@ export type ProjectTasksPair = {
   allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
   displayName: Scalars["String"]["output"];
+  isRegex?: Maybe<Scalars["Boolean"]["output"]>;
   projectId: Scalars["String"]["output"];
 };
 
 export type ProjectTasksPairInput = {
   allowedBVs: Array<Scalars["String"]["input"]>;
   allowedTasks: Array<Scalars["String"]["input"]>;
+  isRegex?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectID: Scalars["String"]["input"];
 };
 
@@ -3148,8 +3120,6 @@ export type Query = {
   adminSettings?: Maybe<AdminSettings>;
   adminTasksToRestart: AdminTasksToRestartPayload;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
-  bbGetCreatedTickets: Array<JiraTicket>;
-  buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
   distro?: Maybe<Distro>;
@@ -3197,15 +3167,6 @@ export type QueryAdminEventsArgs = {
 
 export type QueryAdminTasksToRestartArgs = {
   opts: RestartAdminTasksOptions;
-};
-
-export type QueryBbGetCreatedTicketsArgs = {
-  taskId: Scalars["String"]["input"];
-};
-
-export type QueryBuildBaronArgs = {
-  execution: Scalars["Int"]["input"];
-  taskId: Scalars["String"]["input"];
 };
 
 export type QueryBuildVariantsForTaskNameArgs = {
@@ -3460,6 +3421,7 @@ export type RepoRef = {
   testSelection?: Maybe<RepoTestSelectionSettings>;
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
+  virtualTasksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
 };
@@ -3510,6 +3472,7 @@ export type RepoRefInput = {
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  virtualTasksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };

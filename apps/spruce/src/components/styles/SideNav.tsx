@@ -1,47 +1,48 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
+import { forwardRef } from "react";
 import {
   SideNav as LGSideNav,
-  SideNavGroup as LGSideNavGroup,
-  SideNavItem as LGSideNavItem,
-  SideNavItemProps as LGSideNavItemProps,
+  SideNavGroup,
+  SideNavItem,
+  SideNavProps,
 } from "@leafygreen-ui/side-nav";
 import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./SideNav.module.css";
 
-const { blue } = palette;
+const SideNav = forwardRef<HTMLDivElement, SideNavProps>(
+  ({ className, ...rest }, ref) => (
+    <LGSideNav ref={ref} className={cx(styles.sideNav, className)} {...rest} />
+  ),
+);
+SideNav.displayName = "SideNav";
 
-export const SideNav = styled(LGSideNav)`
-  flex-shrink: 0;
-  flex-grow: 0;
-`;
-
-export const SideNavGroup = LGSideNavGroup;
-
-export const SideNavItem = LGSideNavItem;
-
-interface SideNavItemProps extends Omit<LGSideNavItemProps, "as"> {
-  to?: string;
-  href?: string;
+interface SideNavItemLinkProps {
+  children?: React.ReactNode;
+  className?: string;
   glyph?: React.ReactNode;
+  href?: string;
+  onClick?: React.MouseEventHandler<HTMLElement>;
+  to: string;
+  [dataAttr: `data-${string}`]: string | undefined;
 }
-export const SideNavItemLink: React.FC<SideNavItemProps> = ({
+export const SideNavItemLink: React.FC<SideNavItemLinkProps> = ({
   children,
+  className,
   glyph,
   ...props
 }) => (
-  <StyledSideNavItemLink as={Link} {...props}>
-    <StyledBody weight="medium">{children}</StyledBody>
+  <SideNavItem
+    as={Link}
+    className={cx(styles.sideNavItemLink, className)}
+    {...props}
+  >
+    <Body className={styles.body} weight="medium">
+      {children}
+    </Body>
     <Icon glyph="ArrowRight" />
-  </StyledSideNavItemLink>
+  </SideNavItem>
 );
 
-const StyledSideNavItemLink = styled(LGSideNavItem)`
-  color: ${blue.base};
-`;
-const StyledBody = styled(Body)`
-  color: ${blue.base};
-  margin-right: ${size.xxs};
-`;
+export { SideNav, SideNavGroup, SideNavItem };

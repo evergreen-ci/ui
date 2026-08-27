@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.1.132",
+  "version": "3.1.136",
   "private": true,
   "type": "module",
   "scripts": {
@@ -24,7 +24,7 @@
     "dev": "env-cmd -e devLocal vite",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint --concurrency=3",
-    "eslint:strict": "STRICT=1 eslint --concurrency=3 .",
+    "eslint:strict": "STRICT=1 eslint --concurrency=3 --max-warnings=0 .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "postversion": "pnpm deploy-utils-postversion",
     "prepare": "pnpm --dir ../.. prepare",
@@ -103,7 +103,7 @@
     "@graphql-codegen/typescript": "5.0.10",
     "@graphql-codegen/typescript-operations": "5.1.0",
     "@playwright/test": "^1.58.2",
-    "@sentry/vite-plugin": "^5.1.1",
+    "@sentry/vite-plugin": "^5.4.0",
     "@storybook/addon-docs": "^10.5.0",
     "@storybook/addon-links": "^10.5.0",
     "@storybook/react-vite": "^10.5.0",

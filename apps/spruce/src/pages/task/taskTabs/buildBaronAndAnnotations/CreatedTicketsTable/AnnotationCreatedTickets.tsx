@@ -5,13 +5,13 @@ import AnnotationTicketRow from "../AnnotationTicketsList/AnnotationTicketRow";
 import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
 
-interface CustomCreatedTicketProps {
+interface AnnotationCreatedTicketProps {
   taskId: string;
   execution: number;
   tickets: IssueLink[];
 }
 
-const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
+const AnnotationCreatedTickets: React.FC<AnnotationCreatedTicketProps> = ({
   execution,
   taskId,
   tickets,
@@ -48,4 +48,4 @@ const TicketContainer = styled.div`
   gap: ${size.s};
 `;
 
-export default CustomCreatedTickets;
+export default AnnotationCreatedTickets;

@@ -6,7 +6,7 @@ import {
 } from "@leafygreen-ui/chip";
 import { size } from "@evg-ui/lib/constants/tokens";
 import MetadataCard, { MetadataCardTitle } from "components/MetadataCard";
-import { Divider } from "components/styles/divider";
+import { Divider } from "components/styles/Divider";
 
 interface TagsMetadataProps {
   tags?: string[];
