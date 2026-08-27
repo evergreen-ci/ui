@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--via-space-600);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.paddedIcon.paddedIcon {
+  margin: 0 var(--via-space-100);
+}

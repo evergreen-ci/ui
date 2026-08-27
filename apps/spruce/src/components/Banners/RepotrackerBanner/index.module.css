@@ -1,0 +1,14 @@
+.modalDescription {
+  margin-bottom: var(--via-space-200);
+}
+
+.modalTriggerText {
+  font-weight: bold;
+  text-decoration-line: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 2px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

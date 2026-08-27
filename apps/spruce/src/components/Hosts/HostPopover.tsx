@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import styled from "@emotion/styled";
 import {
   Button,
   Size as ButtonSize,
@@ -7,9 +6,9 @@ import {
 } from "@leafygreen-ui/button";
 import { Popover } from "@leafygreen-ui/popover";
 import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
+import styles from "./HostPopover.module.css";
 
 interface Props {
   buttonText: string;
@@ -52,7 +51,7 @@ export const HostPopover: React.FC<Props> = ({
     </Tooltip>
   ) : (
     <>
-      <ButtonWrapper ref={buttonRef}>
+      <div ref={buttonRef} className={styles.buttonWrapper}>
         <Button
           data-testid={dataTestId}
           disabled={disabled}
@@ -60,7 +59,7 @@ export const HostPopover: React.FC<Props> = ({
         >
           {buttonText}
         </Button>
-      </ButtonWrapper>
+      </div>
       <Popover
         active={active}
         align="bottom"
@@ -69,8 +68,8 @@ export const HostPopover: React.FC<Props> = ({
         <PopoverContainer ref={popoverRef}>
           {titleText}
 
-          <ButtonContainer>
-            <ButtonSpacer>
+          <div className={styles.buttonContainer}>
+            <div className={styles.buttonSpacer}>
               <Button
                 disabled={loading}
                 onClick={() => setActive(false)}
@@ -78,8 +77,8 @@ export const HostPopover: React.FC<Props> = ({
               >
                 No
               </Button>
-            </ButtonSpacer>
-            <ButtonSpacer>
+            </div>
+            <div className={styles.buttonSpacer}>
               <Button
                 disabled={loading}
                 onClick={() => {
@@ -91,22 +90,10 @@ export const HostPopover: React.FC<Props> = ({
               >
                 Yes
               </Button>
-            </ButtonSpacer>
-          </ButtonContainer>
+            </div>
+          </div>
         </PopoverContainer>
       </Popover>
     </>
   );
 };
-
-const ButtonWrapper = styled.div`
-  white-space: nowrap; // prevent button collapse when screen is small
-`;
-const ButtonContainer = styled.div`
-  margin-top: ${size.xs};
-  display: flex;
-  justify-content: flex-end;
-`;
-const ButtonSpacer = styled.div`
-  margin-left: ${size.xs};
-`;

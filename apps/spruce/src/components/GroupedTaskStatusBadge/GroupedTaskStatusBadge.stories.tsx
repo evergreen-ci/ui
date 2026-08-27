@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
 import { action } from "storybook/actions";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 
+import styles from "./GroupedTaskStatusBadge.stories.module.css";
 import { GroupedTaskStatusBadge } from ".";
 
 export default {
@@ -11,7 +11,7 @@ export default {
 
 export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
   render: () => (
-    <Container>
+    <div className={styles.container}>
       {groupedTaskStats.map((item) => (
         <GroupedTaskStatusBadge
           key={item.status}
@@ -22,7 +22,7 @@ export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
           statusCounts={statusCounts}
         />
       ))}
-    </Container>
+    </div>
   ),
 };
 
@@ -37,12 +37,6 @@ const groupedTaskStats = [
   { status: TaskStatusUmbrella.Undispatched, count: 5 },
   { status: TaskStatusUmbrella.Scheduled, count: 5 },
 ];
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-`;
 
 const statusCounts = {
   [TaskStatus.Started]: 30,

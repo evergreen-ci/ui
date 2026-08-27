@@ -39,7 +39,6 @@ const globalIgnores = {
     "**/sdlschema",
     "**/gql/generated/types.ts",
     "**/storybook-static",
-    "**/routeTree.gen.ts",
   ],
 };
 

@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
 import { Pagination } from "@evg-ui/lib/components/Pagination";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
+import styles from "./PaginationButtons.module.css";
 import { usePatchesQueryParams } from "./usePatchesQueryParams";
 
 // For performance reasons, we stop counting the number of patches at 10000
@@ -26,7 +25,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   const { limit, page } = usePatchesQueryParams();
 
   return (
-    <PaginationRow>
+    <div className={styles.paginationRow}>
       <Pagination
         countLimit={PATCH_COUNT_LIMIT}
         currentPage={page}
@@ -46,12 +45,6 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         pageSize={limit}
         totalResults={filteredPatchCount}
       />
-    </PaginationRow>
+    </div>
   );
 };
-
-const PaginationRow = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: ${size.s};
-`;

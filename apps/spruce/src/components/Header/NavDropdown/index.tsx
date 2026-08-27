@@ -1,11 +1,8 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { Icon } from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { palette } from "@leafygreen-ui/palette";
 import { Link, To } from "react-router-dom";
-
-const { white } = palette;
+import styles from "./index.module.css";
 
 const NavDropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
@@ -73,10 +70,10 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
       open={openMenu}
       setOpen={setOpenMenu}
       trigger={
-        <NavDropdownTitle data-testid={dataTestId}>
+        <span className={styles.navDropdownTitle} data-testid={dataTestId}>
           {title}
           <NavDropdownMenuIcon open={openMenu} />
-        </NavDropdownTitle>
+        </span>
       }
     >
       {menuItems.map((menuItem) => (
@@ -92,12 +89,3 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
     </Menu>
   );
 };
-
-const NavDropdownTitle = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: ${white};
-  cursor: pointer;
-`;

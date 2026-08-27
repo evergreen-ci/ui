@@ -1,0 +1,6 @@
+.flexColumnContainer {
+  display: flex;
+  flex-direction: column;
+  margin-right: var(--via-space-200);
+  max-width: 100%;
+}

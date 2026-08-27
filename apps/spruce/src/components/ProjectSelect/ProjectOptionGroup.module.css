@@ -1,0 +1,61 @@
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
+   Remove when these components migrate to Via. */
+.label.label {
+  font-weight: normal;
+}
+
+.labelSelected.labelSelected {
+  font-weight: bold;
+}
+
+.checkmarkIcon.checkmarkIcon {
+  margin-left: auto;
+  margin-right: var(--via-space-200);
+}
+
+.optionContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+  padding: var(--via-space-100);
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
+  transition-behavior: normal;
+  transition-property: background-color, color;
+}
+
+.optionContainer:hover {
+  cursor: pointer;
+  background-color: var(--via-color-neutral-200);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.groupHeader.groupHeader {
+  color: var(--via-color-neutral-500);
+  padding: var(--via-space-100) var(--via-space-200);
+}
+
+.groupHeaderClickable {
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
+  transition-behavior: normal;
+  transition-property: background-color, color;
+}
+
+.groupHeaderClickable:hover {
+  cursor: pointer;
+  background-color: var(--via-color-neutral-200);
+}
+
+.listContainer {
+  margin: 0;
+  padding: 0;
+}
+
+.optionGroupContainer {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}

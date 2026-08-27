@@ -1,0 +1,7 @@
+.content {
+  padding: var(--via-space-100) 0;
+}
+
+.tabularNum {
+  font-variant-numeric: tabular-nums;
+}
