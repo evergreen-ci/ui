@@ -1,0 +1,6 @@
+.chipContainer {
+  display: flex;
+  gap: var(--via-space-200);
+  flex-wrap: wrap;
+  margin: var(--via-space-400) 0;
+}

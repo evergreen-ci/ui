@@ -1,13 +1,10 @@
 import { useQuery } from "@apollo/client/react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Link } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
 import {
@@ -15,6 +12,7 @@ import {
   StepbackTasksQueryVariables,
 } from "gql/generated/types";
 import { STEPBACK_TASKS } from "gql/queries";
+import styles from "./index.module.css";
 
 interface StepbackStatusProps {
   finished: boolean;
@@ -65,8 +63,8 @@ export const Stepback: React.FC<StepbackProps> = ({
   const finished = !!breakingTask;
 
   return (
-    <StepbackLabel>
-      <BoldLabel>Stepback: </BoldLabel>
+    <div className={styles.stepbackLabel}>
+      <b className={styles.boldLabel}>Stepback: </b>
       <StepbackStatus finished={finished} isLoading={loading} />
       {!isPopup && (
         <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
@@ -80,9 +78,7 @@ export const Stepback: React.FC<StepbackProps> = ({
         ) : (
           <Button
             as={Link}
-            css={css`
-              flex-shrink: 0;
-            `}
+            className={styles.breakingTaskButton}
             data-testid="breaking-task-button"
             disabled={
               loading || !finished || !breakingTask || currentTaskIsBreaking
@@ -99,16 +95,6 @@ export const Stepback: React.FC<StepbackProps> = ({
             Go to breaking task
           </Button>
         ))}
-    </StepbackLabel>
+    </div>
   );
 };
-
-const BoldLabel = styled.b`
-  flex-shrink: 0;
-`;
-
-const StepbackLabel = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;

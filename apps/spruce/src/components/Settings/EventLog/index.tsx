@@ -1,11 +1,10 @@
-import styled from "@emotion/styled";
 import { Card } from "@leafygreen-ui/card";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";
 import EventDiffTable from "./EventDiffTable";
 import { CustomKeyValueRenderConfig } from "./EventDiffTable/utils/keyRenderer";
 import { Header } from "./Header";
+import styles from "./index.module.css";
 import { Event } from "./types";
 import { useEvents } from "./useEvents";
 
@@ -33,12 +32,13 @@ const EventLog: React.FC<EventLogProps> = ({
     events.length > 0 ? "No more events to show." : "No events to show.";
 
   return (
-    <Container data-testid="event-log">
+    <div className={styles.container} data-testid="event-log">
       {events.map((event) => {
         const { after, before, section, timestamp, user } = event;
         return (
-          <EventLogCard
+          <Card
             key={`event_log_${timestamp}`}
+            className={styles.eventLogCard}
             data-testid="event-log-card"
           >
             <Header section={section} timestamp={timestamp} user={user} />
@@ -51,7 +51,7 @@ const EventLog: React.FC<EventLogProps> = ({
                 customKeyValueRenderConfig={customKeyValueRenderConfig}
               />
             )}
-          </EventLogCard>
+          </Card>
         );
       })}
       {!allEventsFetched && !!events.length && (
@@ -65,21 +65,8 @@ const EventLog: React.FC<EventLogProps> = ({
         </LoadingButton>
       )}
       {allEventsFetched && <Subtitle>{allEventsFetchedCopy}</Subtitle>}
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 150%;
-`;
-
-const EventLogCard = styled(Card)`
-  width: 100%;
-  margin-bottom: ${size.l};
-  padding: ${size.m};
-`;
 
 export default EventLog;

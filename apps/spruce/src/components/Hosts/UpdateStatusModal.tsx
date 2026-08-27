@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Option, Select } from "@leafygreen-ui/select";
 import { TextArea } from "@leafygreen-ui/text-area";
 import { Body } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
 import {
@@ -16,6 +14,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_HOST_STATUS } from "gql/mutations";
 import { UpdateHostStatus } from "types/host";
+import styles from "./UpdateStatusModal.module.css";
 
 interface Props {
   visible: boolean;
@@ -102,11 +101,12 @@ export const UpdateStatusModal: React.FC<Props> = ({
       open={visible}
       title="Update Host Status"
     >
-      <StyledBody>
+      <Body className={styles.body}>
         {`Choose how Evergreen should treat the selected ${pluralize("host", hostIds.length)}.`}
-      </StyledBody>
+      </Body>
 
-      <StyledSelect
+      <Select
+        className={styles.select}
         data-testid="host-status-select"
         label="Host Status"
         onChange={(s) => {
@@ -119,15 +119,16 @@ export const UpdateStatusModal: React.FC<Props> = ({
             {title}
           </Option>
         ))}
-      </StyledSelect>
+      </Select>
 
       {statusDescription && (
-        <StatusBanner
+        <Banner
+          className={styles.statusBanner}
           data-testid="host-status-description"
           variant={Variant.Info}
         >
           {statusDescription}
-        </StatusBanner>
+        </Banner>
       )}
 
       <TextArea
@@ -140,18 +141,6 @@ export const UpdateStatusModal: React.FC<Props> = ({
     </ConfirmationModal>
   );
 };
-
-const StyledSelect = styled(Select)`
-  margin-bottom: ${size.xs};
-`;
-
-const StyledBody = styled(Body)`
-  margin-bottom: ${size.xs};
-`;
-
-const StatusBanner = styled(Banner)`
-  margin-bottom: ${size.xs};
-`;
 
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
 interface Status {

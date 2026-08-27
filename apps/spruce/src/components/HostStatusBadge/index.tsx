@@ -1,10 +1,8 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { HostStatus } from "types/host";
+import styles from "./index.module.css";
 
 const { red } = palette;
 
@@ -13,17 +11,21 @@ interface Props {
 }
 
 const HostStatusBadge: React.FC<Props> = ({ status }) => (
-  <HostStatusWrapper>
+  <div className={styles.hostStatusWrapper}>
     <Badge variant={statusToBadgeVariant[status]}>
       {hostStatusToCopy[status]}
     </Badge>
     {status === HostStatus.Terminated && (
-      <IconWithTooltip css={iconMargin} fill={red.base} glyph="InfoWithCircle">
+      <IconWithTooltip
+        className={styles.iconWithTooltip}
+        fill={red.base}
+        glyph="InfoWithCircle"
+      >
         Terminated hosts will disappear in 5 minutes. See Event Log for more
         details.
       </IconWithTooltip>
     )}
-  </HostStatusWrapper>
+  </div>
 );
 
 const statusToBadgeVariant = {
@@ -61,14 +63,5 @@ const hostStatusToCopy = {
   [HostStatus.Failed]: "Failed",
   [HostStatus.ExternalUserName]: "External",
 };
-
-const HostStatusWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const iconMargin = css`
-  margin-left: ${size.xxs};
-`;
 
 export default HostStatusBadge;
