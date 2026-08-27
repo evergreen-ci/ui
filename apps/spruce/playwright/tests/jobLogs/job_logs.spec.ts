@@ -28,6 +28,7 @@ test.describe("Job logs page", () => {
   test("name links to Parsley", async ({ page }) => {
     const parsleyLink = page
       .getByTestId("leafygreen-table-row")
+      .filter({ has: page.getByRole("link") })
       .first()
       .getByRole("link");
     await expect(parsleyLink).toHaveAttribute("href", /^https?:\/\//);
