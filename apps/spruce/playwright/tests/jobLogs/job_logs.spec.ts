@@ -18,6 +18,21 @@ test.describe("Job logs page", () => {
     );
   });
 
+  test("task page button links to the task", async ({ page }) => {
+    await expect(page.getByTestId("task-link")).toHaveAttribute(
+      "href",
+      new RegExp(`/task/${taskIdWithResmokeLogs}/0`),
+    );
+  });
+
+  test("name links to Parsley", async ({ page }) => {
+    const parsleyLink = page
+      .getByTestId("leafygreen-table-row")
+      .first()
+      .getByRole("link");
+    await expect(parsleyLink).toHaveAttribute("href", /^https?:\/\//);
+  });
+
   test("visiting an invalid job logs page shows an error toast", async ({
     page,
   }) => {
