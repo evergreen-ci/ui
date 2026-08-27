@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Link } from "@leafygreen-ui/typography";
+import { Link } from "@via-ds/components/typography";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import {
   BaseTable,
@@ -76,8 +76,8 @@ const ParsleyLink = ({
   }
   return (
     <Link
-      hideExternalIcon
       href={parsleyUrl}
+      linkStyle="internal"
       onClick={() => {
         sendEvent({
           name: "Clicked Parsley test log link",
