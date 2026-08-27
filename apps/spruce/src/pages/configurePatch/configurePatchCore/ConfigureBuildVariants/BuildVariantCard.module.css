@@ -52,12 +52,12 @@
   max-height: 60vh;
 
   /* Styles to always show scrollbar */
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     -webkit-appearance: none;
     width: var(--via-space-200);
   }
 
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     border-radius: var(--via-space-100);
     background-color: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
