@@ -39,6 +39,11 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setInput(value);
+  }, [value]);
+
   const onEnter = () => {
     onConfirm(input);
     setActive(false);
@@ -76,7 +81,6 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
           <div className={styles.inputContainer}>
             <Description>Press enter to filter.</Description>
             <SearchInput
-              key={value}
               ref={(el) => setInputRef(el)}
               aria-label="Search table"
               data-testid={`${dataTestId}-input-filter`}
