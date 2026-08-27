@@ -83,6 +83,8 @@ const ParsleyLink = ({
           name: "Clicked Parsley test log link",
         });
       }}
+      rel="noopener noreferrer"
+      target="_blank"
     >
       {testName}
     </Link>
