@@ -1,0 +1,7 @@
+.subscribeButton {
+  text-decoration: underline;
+  text-decoration-color: var(--via-color-blue-600);
+  cursor: pointer;
+  color: var(--via-color-blue-600);
+  font-size: 14px;
+}

@@ -1,0 +1,27 @@
+.cellText {
+  font-family: "Source Code Pro", Menlo, monospace;
+  font-size: 12px;
+  line-height: 16px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.arrayValue {
+  display: block;
+  white-space: pre-wrap;
+}
+
+.arrayItem {
+  display: block;
+  padding-left: 12px;
+}
+
+.addedArrayItem {
+  background-color: var(--via-color-green-100);
+  border-radius: 2px;
+}
+
+.removedArrayItem {
+  background-color: var(--via-color-red-100);
+  border-radius: 2px;
+}

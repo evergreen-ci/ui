@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 
 import { HostStatus } from "types/host";
+import styles from "./HostStatusBadge.stories.module.css";
 import HostStatusBadge from ".";
 
 export default {
@@ -11,22 +10,13 @@ export default {
 
 export const Default: CustomStoryObj<typeof HostStatusBadge> = {
   render: () => (
-    <Container>
+    <div className={styles.container}>
       {Object.keys(HostStatus).map((status) => (
-        <Wrapper key={`badge_${status}`}>
+        <div key={`badge_${status}`} className={styles.wrapper}>
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <HostStatusBadge status={HostStatus[status]} />
-        </Wrapper>
+        </div>
       ))}
-    </Container>
+    </div>
   ),
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-const Wrapper = styled.div`
-  padding: ${size.xxs};
-`;

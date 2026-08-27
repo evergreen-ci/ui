@@ -1,11 +1,10 @@
 import { ComponentProps, useState } from "react";
-import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { MetadataItem } from "components/MetadataCard";
 import { TaskQuery, VersionQuery } from "gql/generated/types";
 import { formatCost } from "utils/numbers";
 import { CostModal } from "./CostModal";
+import styles from "./index.module.css";
 
 type Task = NonNullable<TaskQuery["task"]>;
 type Version = NonNullable<VersionQuery["version"]>;
@@ -45,7 +44,8 @@ export const CostSummary: React.FC<CostSummaryProps> = ({
       <MetadataItem label="Cost" tooltipDescription={tooltipDescription}>
         ${formatCost(totalCost)}
         {showDetails && (
-          <CostDetailsButton
+          <Button
+            className={styles.costDetailsButton}
             data-testid="cost-details-button"
             onClick={() => {
               onClickDetailsButton();
@@ -54,7 +54,7 @@ export const CostSummary: React.FC<CostSummaryProps> = ({
             size={ButtonSize.XSmall}
           >
             Cost Details
-          </CostDetailsButton>
+          </Button>
         )}
       </MetadataItem>
       {showDetails && costModalOpen && (
@@ -67,10 +67,6 @@ export const CostSummary: React.FC<CostSummaryProps> = ({
     </>
   );
 };
-
-const CostDetailsButton = styled(Button)`
-  margin-left: ${size.xxs};
-`;
 
 type CostModalProps = Omit<
   ComponentProps<typeof CostModal>,
