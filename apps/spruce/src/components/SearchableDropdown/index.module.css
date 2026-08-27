@@ -36,8 +36,8 @@
   cursor: pointer;
   padding: var(--via-space-200) var(--via-space-200);
 
-  :hover,
-  :focus {
+  &:hover,
+  &:focus {
     outline: none;
     background-color: var(--via-color-neutral-200);
   }

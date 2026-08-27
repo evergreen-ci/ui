@@ -17,7 +17,7 @@
 
   transition: all 150ms ease-in-out;
 
-  :hover {
+  &:hover {
     background-color: var(--via-color-neutral-000);
     border: 1px solid var(--via-color-neutral-300);
     opacity: 1;

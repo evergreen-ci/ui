@@ -3,14 +3,14 @@
 .settingsCardTitle.settingsCardTitle {
   margin: var(--via-space-600) 0 var(--via-space-400) 0;
 
-  :hover {
-    ::after {
+  &:hover {
+    &::after {
       opacity: 1;
       transition: opacity 150ms ease-in-out; /* transitionDuration.default */
     }
   }
 
-  ::after {
+  &::after {
     color: var(--via-color-neutral-600);
     content: "#";
     margin-left: var(--via-space-200);

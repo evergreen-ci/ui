@@ -22,7 +22,7 @@
   text-underline-offset: 2px;
   text-decoration-thickness: 2px;
 
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 }
