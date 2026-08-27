@@ -3,7 +3,7 @@
   align-items: flex-start;
   gap: var(--via-space-200);
 
-  :not(:last-of-type) {
+  &:not(:last-of-type) {
     margin-bottom: var(--via-space-400);
   }
 }

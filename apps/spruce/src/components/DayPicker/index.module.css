@@ -18,7 +18,7 @@
     cursor: pointer;
     background-color: var(--via-color-neutral-200);
 
-    :hover {
+    &:hover {
       background-color: var(--via-color-neutral-300);
     }
   }
