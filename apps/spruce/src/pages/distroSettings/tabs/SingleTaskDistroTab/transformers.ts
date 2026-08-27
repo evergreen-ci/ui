@@ -7,7 +7,7 @@ export const gqlToForm = (data?: SingleTaskDistroQuery) => {
     .map(({ allowedBVs, allowedTasks, displayName, isRegex, projectId }) => ({
       displayTitle: displayName,
       projectId,
-      isRegex,
+      isRegex: isRegex ?? false,
       allowedTasks: [...allowedTasks].sort(),
       allowedBVs: [...allowedBVs].sort(),
     }))
