@@ -3062,12 +3062,14 @@ export type ProjectTasksPair = {
   allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
   displayName: Scalars["String"]["output"];
+  isRegex?: Maybe<Scalars["Boolean"]["output"]>;
   projectId: Scalars["String"]["output"];
 };
 
 export type ProjectTasksPairInput = {
   allowedBVs: Array<Scalars["String"]["input"]>;
   allowedTasks: Array<Scalars["String"]["input"]>;
+  isRegex?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectID: Scalars["String"]["input"];
 };
 
