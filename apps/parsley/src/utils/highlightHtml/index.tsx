@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import parse from "html-react-parser";
 import Highlight, { highlightColorList } from "components/Highlight";
 import { escapeTags } from "utils/escapeTags";
@@ -20,49 +21,56 @@ const highlightHtml = (
 
   return parse(escapedHtml, {
     replace: (domNode) => {
-      if (domNode.type === "text") {
-        let searchMatchIndex = 0;
-        const searchedText = searchTerm
-          ? highlighter(searchTerm, domNode.data, (match) => {
-              const key = `search-${searchMatchIndex}`;
-              searchMatchIndex += 1;
-              return (
-                <Highlight key={key} data-testid="highlight">
-                  {match}
-                </Highlight>
-              );
-            })
-          : [domNode.data];
-
-        const shouldApplyHighlights =
-          highlights &&
-          !hasOverlappingRegex(searchTerm, highlights, domNode.data);
-        let highlightMatchIndex = 0;
-        const highlightedText = shouldApplyHighlights
-          ? searchedText.flatMap((node) =>
-              typeof node === "string"
-                ? highlighter(highlights, node, (match, index) => {
-                    const key = `highlight-${highlightMatchIndex}`;
-                    highlightMatchIndex += 1;
-                    return (
-                      <Highlight
-                        key={key}
-                        color={
-                          highlightColorList[index % highlightColorList.length]
-                        }
-                        data-testid="highlight"
-                      >
-                        {match}
-                      </Highlight>
-                    );
-                  })
-                : node,
-            )
-          : searchedText;
-
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        return <>{highlightedText}</>;
+      if (domNode.type !== "text") {
+        return;
       }
+
+      let searchedText: ReactNode[] = [domNode.data];
+      if (searchTerm) {
+        let searchMatchIndex = 0;
+        searchedText = highlighter(searchTerm, domNode.data, (match) => {
+          const key = `search-${searchMatchIndex}`;
+          searchMatchIndex += 1;
+          return (
+            <Highlight key={key} data-testid="highlight">
+              {match}
+            </Highlight>
+          );
+        });
+      }
+
+      const shouldApplyHighlights =
+        highlights &&
+        !hasOverlappingRegex(searchTerm, highlights, domNode.data);
+
+      if (!shouldApplyHighlights) {
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        return <>{searchedText}</>;
+      }
+
+      let highlightMatchIndex = 0;
+      const highlightedText = searchedText.flatMap((node) => {
+        if (typeof node !== "string") {
+          return node;
+        }
+
+        return highlighter(highlights, node, (match, index) => {
+          const key = `highlight-${highlightMatchIndex}`;
+          highlightMatchIndex += 1;
+          return (
+            <Highlight
+              key={key}
+              color={highlightColorList[index % highlightColorList.length]}
+              data-testid="highlight"
+            >
+              {match}
+            </Highlight>
+          );
+        });
+      });
+
+      // eslint-disable-next-line react/jsx-no-useless-fragment
+      return <>{highlightedText}</>;
     },
   });
 };
