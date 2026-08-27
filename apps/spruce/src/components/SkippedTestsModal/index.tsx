@@ -77,6 +77,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
           value={search}
         />
         <Button
+          data-testid="skipped-tests-download"
           leftGlyph={<Icon glyph="Download" />}
           onClick={onClickDownload}
           size="small"
@@ -85,7 +86,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
         </Button>
       </HeaderRow>
       {!loading && rows.length < totalCount && (
-        <Disclaimer>
+        <Disclaimer data-testid="skipped-tests-truncation-note">
           Showing the first {rows.length} of {totalCount} tests. Download the
           JSON for all available stored tests.
         </Disclaimer>

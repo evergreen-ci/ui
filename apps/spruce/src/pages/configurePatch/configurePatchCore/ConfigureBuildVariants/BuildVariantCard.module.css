@@ -1,0 +1,65 @@
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardSidePadding {
+  padding-left: var(--via-space-200);
+  padding-right: var(--via-space-200);
+}
+
+/* Tripled selector stays ahead of SiderCard's doubled padding rule
+   regardless of module load order. Remove when SiderCard migrates to Via. */
+.siderCardNoSidePadding.siderCardNoSidePadding.siderCardNoSidePadding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.buildVariant {
+  display: flex;
+  align-items: center;
+  min-height: var(--via-space-800);
+  cursor: pointer;
+  padding-top: var(--via-space-200);
+  padding-bottom: var(--via-space-200);
+  border-left: 3px solid white;
+  border-left-color: white;
+}
+
+.selected {
+  background-color: var(--via-color-green-100);
+  border-left-color: var(--via-color-green-400);
+}
+
+.variantName {
+  word-break: break-all;
+  white-space: normal;
+}
+
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
+   Remove when these components migrate to Via. */
+.badge.badge {
+  margin-left: var(--via-space-200);
+}
+
+.searchInput.searchInput {
+  margin: var(--via-space-200) 0;
+}
+
+.scrollableContainer {
+  overflow: scroll;
+  max-height: 60vh;
+
+  /* Styles to always show scrollbar */
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: var(--via-space-200);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: var(--via-space-100);
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+  }
+}

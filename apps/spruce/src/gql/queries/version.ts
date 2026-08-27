@@ -96,6 +96,9 @@ export const VERSION = gql`
         identifier
         owner
         repo
+        testSelection {
+          allowed
+        }
       }
       repo
       requester
