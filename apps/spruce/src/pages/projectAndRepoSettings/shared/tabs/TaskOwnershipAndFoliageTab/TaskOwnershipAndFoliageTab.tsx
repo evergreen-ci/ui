@@ -24,7 +24,7 @@ export const TaskOwnershipAndFoliageTab: React.FC<TabProps> = ({
     [projectData, repoData],
   );
 
-  const formSchema = useMemo(() => getFormSchema(), []);
+  const formSchema = useMemo(() => getFormSchema(repoData), [repoData]);
 
   return (
     <BaseTab

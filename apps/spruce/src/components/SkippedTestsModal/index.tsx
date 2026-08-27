@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import {
   SearchInput,
@@ -15,8 +14,8 @@ import {
   TablePlaceholder,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
+import styles from "./index.module.css";
 
 interface SkippedTestsModalProps<T extends LGRowData> {
   columns: LGColumnDef<T>[];
@@ -68,7 +67,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
       subtitle={subtitle}
       title="Tests skipped by TSS"
     >
-      <HeaderRow>
+      <div className={styles.headerRow}>
         <SearchInput
           aria-label={searchPlaceholder}
           onChange={(e) => setSearch(e.target.value)}
@@ -77,20 +76,21 @@ export const SkippedTestsModal = <T extends LGRowData>({
           value={search}
         />
         <Button
+          data-testid="skipped-tests-download"
           leftGlyph={<Icon glyph="Download" />}
           onClick={onClickDownload}
           size="small"
         >
           Download JSON
         </Button>
-      </HeaderRow>
+      </div>
       {!loading && rows.length < totalCount && (
-        <Disclaimer>
+        <Disclaimer data-testid="skipped-tests-truncation-note">
           Showing the first {rows.length} of {totalCount} tests. Download the
           JSON for all available stored tests.
         </Disclaimer>
       )}
-      <OverflowContainer>
+      <div className={styles.overflowContainer}>
         <BaseTable
           data-testid="skipped-tests-table"
           emptyComponent={<TablePlaceholder message="No matching tests." />}
@@ -99,21 +99,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
           shouldAlternateRowColor
           table={table}
         />
-      </OverflowContainer>
+      </div>
     </DisplayModal>
   );
 };
-
-const HeaderRow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${size.xs};
-  margin-bottom: ${size.xs};
-`;
-
-const OverflowContainer = styled.div`
-  max-height: min(600px, 50vh);
-  overflow-y: auto;
-  margin-top: ${size.xs};
-`;

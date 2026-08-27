@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
 import { Badge as LGBadge } from "@leafygreen-ui/badge";
-import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./Badge.module.css";
 
 interface Props {
   additions: number;
@@ -23,21 +22,14 @@ interface FileDiffTextProps {
 export const FileDiffText: React.FC<FileDiffTextProps> = ({ type, value }) => {
   const hasValue = value > 0;
   return (
-    <FileDiffTextContainer hasValue={hasValue} type={type}>
+    <span
+      className={cx(
+        styles.fileDiffText,
+        hasValue && (type === "+" ? styles.addition : styles.deletion),
+      )}
+    >
       {hasValue && type}
       {value}
-    </FileDiffTextContainer>
+    </span>
   );
 };
-
-const { green, red } = palette;
-
-const FileDiffTextContainer = styled("span")`
-  ${(props: { type: string; hasValue: boolean }): string =>
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    props.hasValue &&
-    (props.type === "+" ? `color: ${green.dark1};` : `color: ${red.base};`)}
-  &:nth-of-type(2) {
-    margin-left: ${size.xs};
-  }
-`;

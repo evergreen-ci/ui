@@ -1,5 +1,11 @@
-import styled from "@emotion/styled";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./index.module.css";
 
-export const ErrorWrapper = styled.div`
-  word-wrap: break-word;
-`;
+export const ErrorWrapper = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>(({ className, ...rest }, ref) => (
+  <div ref={ref} className={cx(styles.errorWrapper, className)} {...rest} />
+));
+ErrorWrapper.displayName = "ErrorWrapper";

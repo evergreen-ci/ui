@@ -1,11 +1,10 @@
 import { Fragment } from "react";
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
+import styles from "./index.module.css";
 
 const { gray } = palette;
 
@@ -19,12 +18,13 @@ interface BreadcrumbsProps {
   breadcrumbs: Breadcrumb[];
 }
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => (
-  <Container>
+  <nav className={styles.container}>
     {breadcrumbs.map((bc, index) => (
       <Fragment key={`breadcrumb-${bc.text}`}>
         <BreadcrumbFragment breadcrumb={bc} />
         {breadcrumbs.length - 1 !== index && (
-          <PaddedIcon
+          <Icon
+            className={styles.paddedIcon}
             data-testid="breadcrumb-chevron"
             fill={gray.dark2}
             glyph="ChevronRight"
@@ -33,7 +33,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => (
         )}
       </Fragment>
     ))}
-  </Container>
+  </nav>
 );
 
 interface BreadcrumbFragmentProps {
@@ -68,15 +68,5 @@ const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
     </Tooltip>
   );
 };
-
-const Container = styled.nav`
-  display: flex;
-  align-items: center;
-  margin-bottom: ${size.m};
-`;
-
-const PaddedIcon = styled(Icon)`
-  margin: 0 ${size.xxs};
-`;
 
 export default Breadcrumbs;

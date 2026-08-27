@@ -1,0 +1,38 @@
+.speechBubble {
+  position: fixed;
+  top: 45%;
+  left: 55%;
+  margin: 0.5rem auto;
+  padding: 1.25rem;
+  width: 24rem;
+  border-radius: 3rem;
+  transform: rotate(6deg) rotateY(15deg);
+  background: var(--via-color-green-200);
+  text-align: center;
+
+  &:before,
+  &:after {
+    position: absolute;
+    z-index: -1;
+    content: "";
+  }
+
+  &:after {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: inherit;
+    transform: rotate(2deg) translate(0.35rem, -0.15rem) scale(1.02);
+    background: var(--via-color-green-100);
+  }
+
+  &:before {
+    border-right: solid 6rem var(--via-color-green-100);
+    border-bottom: solid 1rem var(--via-color-green-200);
+    bottom: 0.25rem;
+    left: 12rem;
+    height: 1.5rem;
+    transform: rotate(105deg) skewX(75deg);
+  }
+}

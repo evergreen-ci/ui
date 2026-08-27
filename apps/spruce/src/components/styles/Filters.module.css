@@ -1,0 +1,5 @@
+.filtersWrapper {
+  display: flex;
+  margin-bottom: var(--via-space-400);
+  align-items: center;
+}

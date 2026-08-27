@@ -1,0 +1,15 @@
+.header {
+  padding-bottom: var(--via-space-400);
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-400);
+}
+
+.sectionLabel {
+  font-size: 12px;
+  color: var(--via-color-neutral-500);
+  font-style: italic;
+}

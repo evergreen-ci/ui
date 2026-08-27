@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--via-space-200);
+}
+
+.labelWrapper {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.copyButtonWrapper {
+  height: var(--via-space-400);
+  position: relative;
+  bottom: 3px;
+}

@@ -1,15 +1,5 @@
-import { Global } from "@emotion/react";
-import { Decorator, Preview } from "@storybook/react-vite";
-import { globalStyles } from "components/styles";
-
-export const decorators: Decorator[] = [
-  (Story: () => JSX.Element) => (
-    <>
-      <Global styles={globalStyles} />
-      <Story />
-    </>
-  ),
-];
+import { Preview } from "@storybook/react-vite";
+import "components/styles/global.css";
 
 const preview: Preview = {
   tags: ["autodocs"],
