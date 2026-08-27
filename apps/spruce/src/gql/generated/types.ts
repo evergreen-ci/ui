@@ -2785,6 +2785,7 @@ export type Project = {
   testSelection?: Maybe<TestSelectionSettings>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  virtualTasksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
 };
@@ -2939,6 +2940,7 @@ export type ProjectInput = {
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  virtualTasksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
@@ -3057,12 +3059,14 @@ export type ProjectTasksPair = {
   allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
   displayName: Scalars["String"]["output"];
+  isRegex?: Maybe<Scalars["Boolean"]["output"]>;
   projectId: Scalars["String"]["output"];
 };
 
 export type ProjectTasksPairInput = {
   allowedBVs: Array<Scalars["String"]["input"]>;
   allowedTasks: Array<Scalars["String"]["input"]>;
+  isRegex?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectID: Scalars["String"]["input"];
 };
 
@@ -3436,6 +3440,7 @@ export type RepoRef = {
   testSelection?: Maybe<RepoTestSelectionSettings>;
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
+  virtualTasksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
 };
@@ -3486,6 +3491,7 @@ export type RepoRefInput = {
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  virtualTasksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
@@ -4106,6 +4112,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
+  config?: Maybe<TaskConfig>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
   details?: Maybe<TaskEndDetail>;
@@ -4206,6 +4213,31 @@ export type TaskAnnotationSettings = {
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
+};
+
+export type TaskConfig = {
+  __typename?: "TaskConfig";
+  activate?: Maybe<Scalars["Boolean"]["output"]>;
+  allowForGitTag?: Maybe<Scalars["Boolean"]["output"]>;
+  allowedBranches?: Maybe<Array<Scalars["String"]["output"]>>;
+  allowedRequesters?: Maybe<Array<Scalars["String"]["output"]>>;
+  batchTime?: Maybe<Scalars["Int"]["output"]>;
+  cronBatchTime?: Maybe<Scalars["String"]["output"]>;
+  dependsOn?: Maybe<Array<TaskUnitDependency>>;
+  disable?: Maybe<Scalars["Boolean"]["output"]>;
+  execTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
+  gitTagOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  groupName?: Maybe<Scalars["String"]["output"]>;
+  ignoredBranches?: Maybe<Array<Scalars["String"]["output"]>>;
+  isGroup?: Maybe<Scalars["Boolean"]["output"]>;
+  isPartOfGroup?: Maybe<Scalars["Boolean"]["output"]>;
+  name: Scalars["String"]["output"];
+  patchOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  patchable?: Maybe<Scalars["Boolean"]["output"]>;
+  priority?: Maybe<Scalars["Int"]["output"]>;
+  ps?: Maybe<Scalars["String"]["output"]>;
+  runOn?: Maybe<Array<Scalars["String"]["output"]>>;
+  stepback?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
@@ -4530,6 +4562,15 @@ export type TaskTestResultSample = {
   matchingFailedTestNames: Array<Scalars["String"]["output"]>;
   taskId: Scalars["String"]["output"];
   totalTestCount: Scalars["Int"]["output"];
+};
+
+export type TaskUnitDependency = {
+  __typename?: "TaskUnitDependency";
+  name: Scalars["String"]["output"];
+  omitGeneratedTasks?: Maybe<Scalars["Boolean"]["output"]>;
+  patchOptional?: Maybe<Scalars["Boolean"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  variant?: Maybe<Scalars["String"]["output"]>;
 };
 
 /**
@@ -11103,6 +11144,50 @@ export type TaskAllExecutionsQuery = {
     execution: number;
     ingestTime?: Date | null;
   }>;
+};
+
+export type TaskConfigQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskConfigQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    config?: {
+      __typename?: "TaskConfig";
+      activate?: boolean | null;
+      allowedBranches?: Array<string> | null;
+      allowedRequesters?: Array<string> | null;
+      allowForGitTag?: boolean | null;
+      batchTime?: number | null;
+      cronBatchTime?: string | null;
+      disable?: boolean | null;
+      execTimeoutSecs?: number | null;
+      gitTagOnly?: boolean | null;
+      groupName?: string | null;
+      isGroup?: boolean | null;
+      isPartOfGroup?: boolean | null;
+      name: string;
+      patchable?: boolean | null;
+      patchOnly?: boolean | null;
+      priority?: number | null;
+      ps?: string | null;
+      runOn?: Array<string> | null;
+      stepback?: boolean | null;
+      dependsOn?: Array<{
+        __typename?: "TaskUnitDependency";
+        name: string;
+        omitGeneratedTasks?: boolean | null;
+        patchOptional?: boolean | null;
+        status?: string | null;
+        variant?: string | null;
+      }> | null;
+    } | null;
+  } | null;
 };
 
 export type TaskEventLogsQueryVariables = Exact<{
