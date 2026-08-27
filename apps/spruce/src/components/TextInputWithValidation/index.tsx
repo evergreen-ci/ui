@@ -86,7 +86,7 @@ const TextInputWithValidation = forwardRef<
             disabled={disabled}
             onClick={handleOnSubmit}
           >
-            <Plus />
+            <Plus size="medium" />
           </IconButton>
         ) : (
           <IconWithTooltip

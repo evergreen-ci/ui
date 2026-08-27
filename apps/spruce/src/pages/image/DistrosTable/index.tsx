@@ -93,7 +93,10 @@ const columns: LGColumnDef<Distro>[] = [
           justify={Justify.Middle}
           trigger={
             <IconButton aria-label="Information about instance type">
-              <InfoWithCircle data-testid="instance-type-information" />
+              <InfoWithCircle
+                data-testid="instance-type-information"
+                size="medium"
+              />
             </IconButton>
           }
           triggerEvent="click"

@@ -53,7 +53,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
                 setPopoverOpen(!popoverOpen);
               }}
             >
-              <Clock />
+              <Clock size="medium" />
             </IconButton>
           }
           role="combobox"

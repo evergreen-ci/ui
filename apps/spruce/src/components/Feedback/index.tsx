@@ -26,7 +26,7 @@ export const Feedback: React.FC = () => {
       justify="end"
       trigger={
         <IconButton aria-label="Show Feedback form">
-          <Megaphone color={green.dark1} />
+          <Megaphone color={green.dark1} size="medium" />
         </IconButton>
       }
       triggerEvent="click"

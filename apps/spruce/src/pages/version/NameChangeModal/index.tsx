@@ -50,7 +50,7 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
         data-testid="name-change-modal-trigger"
         onClick={() => setIsOpen(true)}
       >
-        <Edit />
+        <Edit size="medium" />
       </StyledIconButton>
       <ConfirmationModal
         cancelButtonProps={{

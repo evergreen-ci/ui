@@ -147,7 +147,7 @@ const BuildRowInner: React.FC<Props> = ({
           onClick={handlePinClick}
           {...iconButtonProps}
         >
-          <Pin />
+          <Pin size="medium" />
         </StyledIconButton>
         <StyledLink
           data-testid="build-variant-link"
