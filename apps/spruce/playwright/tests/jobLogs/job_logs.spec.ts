@@ -21,7 +21,7 @@ test.describe("Job logs page", () => {
   test("task page button links to the task", async ({ page }) => {
     await expect(page.getByTestId("task-link")).toHaveAttribute(
       "href",
-      new RegExp(`/task/${taskIdWithResmokeLogs}/0`),
+      new RegExp(`^/task/${taskIdWithResmokeLogs}\\?execution=0$`),
     );
   });
 
