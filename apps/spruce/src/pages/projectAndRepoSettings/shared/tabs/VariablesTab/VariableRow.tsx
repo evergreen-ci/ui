@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
-import Icon from "@evg-ui/lib/components/Icon";
+import ImportantWithCircle from "@via-ds/icons/ImportantWithCircle";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getFields } from "components/SpruceForm/utils";
 import { VariablesFormState } from "./types";
@@ -34,14 +34,14 @@ export const VariableRow: React.FC<
         {variableName}
         {inRepo && (
           <span data-testid="override-warning">
-            <OverrideIcon glyph="ImportantWithCircle" size="small" />
+            <OverrideIcon size="small" />
             This will override the variable of the same name defined in the
             repo.
           </span>
         )}
         {isReserved && (
           <span data-testid="reserved-warning">
-            <OverrideIcon glyph="ImportantWithCircle" size="small" />
+            <OverrideIcon size="small" />
             This variable name is reserved for Backstage.
           </span>
         )}
@@ -58,7 +58,7 @@ export const VariableRow: React.FC<
   );
 };
 
-const OverrideIcon = styled(Icon)`
+const OverrideIcon = styled(ImportantWithCircle)`
   margin-right: ${size.xxs};
   margin-top: 1px;
   vertical-align: text-top;

@@ -17,7 +17,7 @@ import { TextInput, State as TextInputState } from "@leafygreen-ui/text-input";
 import { Toggle } from "@leafygreen-ui/toggle";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import InfoWithCircle from "@via-ds/icons/InfoWithCircle";
 import { OneOf } from "@evg-ui/lib/types/utils";
 import { cx } from "@evg-ui/lib/utils/css";
 import ElementWrapper from "../ElementWrapper";
@@ -121,7 +121,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
                 justify="middle"
                 trigger={
                   <span className={styles.iconContainer}>
-                    <Icon glyph="InfoWithCircle" size="small" />
+                    <InfoWithCircle size="small" />
                   </span>
                 }
                 triggerEvent="hover"

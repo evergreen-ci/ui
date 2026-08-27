@@ -3,7 +3,7 @@ import { DateType } from "@leafygreen-ui/date-utils";
 import { FormField, FormFieldInputContainer } from "@leafygreen-ui/form-field";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Align, Justify, Popover } from "@leafygreen-ui/popover";
-import Icon from "@evg-ui/lib/components/Icon";
+import Clock from "@via-ds/icons/Clock";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 import { PopoverContainer } from "components/styles/Popover";
 import { hourOptions, minuteOptions } from "./constants";
@@ -53,7 +53,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
                 setPopoverOpen(!popoverOpen);
               }}
             >
-              <Icon glyph="Clock" />
+              <Clock />
             </IconButton>
           }
           role="combobox"

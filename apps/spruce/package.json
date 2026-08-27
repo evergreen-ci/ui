@@ -108,6 +108,7 @@
     "@rjsf/core": "4.2.3",
     "@tanstack/react-table": "^8.20.5",
     "@via-ds/components": "0.8.1",
+    "@via-ds/icons": "0.1.2",
     "@via-ds/tokens": "0.3.1",
     "ansi_up": "6.0.6",
     "date-fns": "4.1.0",

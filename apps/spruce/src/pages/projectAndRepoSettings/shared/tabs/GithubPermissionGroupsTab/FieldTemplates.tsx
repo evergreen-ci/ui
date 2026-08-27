@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
-import Icon from "@evg-ui/lib/components/Icon";
+import Trash from "@via-ds/icons/Trash";
 import {
   BaseTable,
   LGColumnDef,
@@ -84,7 +84,7 @@ const getColumns = (disabled: boolean): LGColumnDef<ArrayItem>[] => [
       <Button
         data-testid="delete-permission-button"
         disabled={disabled}
-        leftGlyph={<Icon glyph="Trash" />}
+        leftGlyph={<Trash />}
         onClick={row.original.onDropIndexClick(row.index)}
         size={ButtonSize.Small}
       />

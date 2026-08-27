@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { RichLink } from "@lg-chat/rich-links";
-import Icon from "@evg-ui/lib/components/Icon";
+import X from "@via-ds/icons/X";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { ContextChip } from "#Context";
 
@@ -35,7 +35,7 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
             aria-label="Dismiss chip"
             onClick={() => onDismiss?.(chip)}
           >
-            <Icon glyph="X" onClick={() => onDismiss?.(chip)} />
+            <X onClick={() => onDismiss?.(chip)} size="medium" />
           </IconButton>
         )}
       </SingleChip>

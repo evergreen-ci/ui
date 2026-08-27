@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import Checkmark from "@via-ds/icons/Checkmark";
 import {
   BaseTable,
   LGColumnDef,
@@ -207,12 +207,12 @@ const columns: LGColumnDef<
   },
   {
     accessorKey: "caseSensitive",
-    cell: ({ getValue }) => getValue() === true && <Icon glyph="Checkmark" />,
+    cell: ({ getValue }) => getValue() === true && <Checkmark />,
     header: "Case Sensitive",
   },
   {
     accessorKey: "exactMatch",
-    cell: ({ getValue }) => getValue() === true && <Icon glyph="Checkmark" />,
+    cell: ({ getValue }) => getValue() === true && <Checkmark />,
     header: "Exact Match",
   },
 ];

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { Icon } from "@evg-ui/lib/components/Icon";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import { transitionDuration } from "@evg-ui/lib/constants/tokens";
 
 const { gray } = palette;
@@ -16,11 +16,11 @@ const CaretToggle: React.FC<Props> = ({ onClick, open }) => (
     data-testid="caret-toggle"
     onClick={onClick}
   >
-    <AnimatedIcon fill={gray.dark1} glyph="ChevronRight" open={open} />
+    <AnimatedIcon fill={gray.dark1} open={open} />
   </IconButton>
 );
 
-const AnimatedIcon = styled(Icon)<{ open: boolean }>`
+const AnimatedIcon = styled(ChevronRight)<{ open: boolean }>`
   transform: ${({ open }): string => (open ? "rotate(90deg)" : "unset")};
   transition-property: transform;
   transition-duration: ${transitionDuration.default}ms;

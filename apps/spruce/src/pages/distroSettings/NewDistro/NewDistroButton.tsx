@@ -3,8 +3,8 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import Plus from "@via-ds/icons/Plus";
 import { useParams } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { slugs } from "constants/routes";
 import {
   UserDistroSettingsPermissionsQuery,
@@ -46,7 +46,7 @@ export const NewDistroButton: React.FC = () => {
         trigger={
           <StyledButton
             data-testid="new-distro-button"
-            leftGlyph={<Icon glyph="Plus" />}
+            leftGlyph={<Plus />}
             size={Size.Small}
             variant={Variant.Primary}
           >

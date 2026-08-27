@@ -6,7 +6,7 @@ import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import ImportantWithCircle from "@via-ds/icons/ImportantWithCircle";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
@@ -151,7 +151,7 @@ const DuplicateVarTooltip: React.FC = () => (
     justify="middle"
     trigger={
       <IconContainer data-testid="duplicate-var-icon">
-        <Icon glyph="ImportantWithCircle" size="small" />
+        <ImportantWithCircle size="small" />
       </IconContainer>
     }
     triggerEvent="hover"

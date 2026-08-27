@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import Download from "@via-ds/icons/Download";
+import Export from "@via-ds/icons/Export";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { downloadFile } from "@evg-ui/lib/utils/request";
@@ -28,7 +29,7 @@ const ButtonRow: React.FC = () => {
               data-testid="job-logs-button"
               disabled={!jobLogsURL}
               href={jobLogsURL}
-              leftGlyph={<Icon glyph="Export" />}
+              leftGlyph={<Export />}
               onClick={() => sendEvent({ name: "Clicked job logs link" })}
             >
               Job logs
@@ -45,7 +46,7 @@ const ButtonRow: React.FC = () => {
               data-testid="raw-log-button"
               disabled={!rawLogURL}
               href={rawLogURL}
-              leftGlyph={<Icon glyph="Export" />}
+              leftGlyph={<Export />}
               onClick={() => sendEvent({ name: "Clicked raw logs link" })}
             >
               Raw
@@ -62,7 +63,7 @@ const ButtonRow: React.FC = () => {
               data-testid="html-log-button"
               disabled={!htmlLogURL}
               href={htmlLogURL}
-              leftGlyph={<Icon glyph="Export" />}
+              leftGlyph={<Export />}
               onClick={() => sendEvent({ name: "Clicked HTML logs link" })}
             >
               HTML
@@ -78,7 +79,7 @@ const ButtonRow: React.FC = () => {
             <Button
               data-testid="download-log-button"
               disabled={!rawLogURL}
-              leftGlyph={<Icon glyph="Download" />}
+              leftGlyph={<Download />}
               onClick={() => {
                 if (rawLogURL) {
                   const { fileName, taskID, testID } = logMetadata ?? {};

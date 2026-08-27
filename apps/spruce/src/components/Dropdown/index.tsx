@@ -2,7 +2,7 @@ import { Component, useRef } from "react";
 import { Button } from "@leafygreen-ui/button";
 import { Popover } from "@leafygreen-ui/popover";
 import { Body } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import CaretDown from "@via-ds/icons/CaretDown";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { useDimensions } from "hooks/useDimensions";
@@ -54,7 +54,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         data-testid={dataTestId}
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
-        rightGlyph={<Icon glyph="CaretDown" />}
+        rightGlyph={<CaretDown />}
       >
         <div className={styles.buttonContent}>
           <div className={styles.labelWrapper}>
