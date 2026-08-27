@@ -1,7 +1,6 @@
 import {
   ChangeEvent,
   PropsWithChildren,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -52,19 +51,26 @@ const SearchableDropdown = <T extends {}>({
   valuePlaceholder = "Select an element",
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [search, setSearch] = useState("");
-  const [visibleOptions, setVisibleOptions] = useState(options ?? []);
   const dropdownRef = useRef(null);
 
-  // Sometimes options come from a query and we have to wait for the query to complete to know what to show in
-  // the dropdown. This hook is used to refresh the options.
-  useEffect(() => {
-    setVisibleOptions(options ?? []);
-  }, [options]);
+  const visibleOptions = useMemo(() => {
+    if (!options || search === "") {
+      return options ?? [];
+    }
+    if (searchFunc) {
+      return searchFunc(options as T[], search);
+    }
+    if (typeof options[0] === "string") {
+      return (options as string[]).filter((o) =>
+        o.toLowerCase().includes(search.toLowerCase()),
+      );
+    }
+    return [];
+  }, [options, search, searchFunc]);
 
   // Clear search text input and reset visible options to show every option.
   const resetSearch = () => {
     setSearch("");
-    setVisibleOptions(options ?? []);
   };
 
   const onClick = (v: T) => {
@@ -87,33 +93,9 @@ const SearchableDropdown = <T extends {}>({
         />
       );
 
-  const handleSearch = useMemo(
-    () => (e: ChangeEvent<HTMLInputElement>) => {
-      const { value: searchTerm } = e.target;
-      setSearch(searchTerm);
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      let filteredOptions = [];
-
-      if (options) {
-        if (searchFunc) {
-          // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
-          filteredOptions = searchFunc(options as T[], searchTerm);
-        } else if (typeof options[0] === "string") {
-          filteredOptions = (options as string[]).filter(
-            (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1,
-          );
-        } else {
-          console.error(
-            "A searchFunc must be supplied when options is not of type string[]",
-          );
-        }
-      }
-
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setVisibleOptions(filteredOptions);
-    },
-    [searchFunc, options],
-  );
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
 
   let buttonText = valuePlaceholder;
   if (value) {
@@ -158,6 +140,7 @@ const SearchableDropdown = <T extends {}>({
             value={search}
           />
           <ScrollableList>
+            {/* eslint-disable-next-line react-hooks/refs */}
             {(visibleOptions as T[])?.map((o) => option(o))}
           </ScrollableList>
         </Dropdown>
