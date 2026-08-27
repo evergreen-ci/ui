@@ -61,6 +61,8 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
   },
 );
 Icon.displayName = "Icon";
+// LG components (SideNavGroup, etc.) gate glyph slots on the isGlyph marker.
+Object.assign(Icon, { isGlyph: true });
 
 export { sizeMap, glyphs };
 

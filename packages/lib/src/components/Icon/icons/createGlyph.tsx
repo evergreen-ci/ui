@@ -29,17 +29,8 @@ interface CreateGlyphOptions {
   svgProps?: React.SVGProps<SVGSVGElement>;
 }
 
-/**
- * Builds a glyph component matching the contract of `@via-ds/icons`' generated
- * glyphs (context-aware size resolution, accessible props, `slot="icon"`,
- * `isGlyph` marker), so local SVGs behave identically to Via's own inside
- * Via components.
- * @param name - Glyph name, used for the display name and accessible label.
- * @param viewBox - The SVG viewBox matching the glyph's path coordinates.
- * @param content - The SVG contents.
- * @param options - Optional label override, default fill, and color-preservation flag.
- * @returns The glyph component.
- */
+// Builds a glyph matching @via-ds/icons' generated-glyph contract (sizeMap
+// resolution, accessible props, slot="icon", isGlyph) for local SVGs.
 const createGlyph = (
   name: string,
   viewBox: string,

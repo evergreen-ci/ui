@@ -1,4 +1,4 @@
-import { IconContextProvider } from "@via-ds/icons";
+import { IconContextProvider, isComponentGlyph } from "@via-ds/icons";
 import { render, screen } from "test_utils";
 import { Icon } from ".";
 
@@ -6,6 +6,11 @@ describe("Icon", () => {
   it("renders a Via glyph", () => {
     render(<Icon data-testid="via-glyph" glyph="Checkmark" />);
     expect(screen.getByTestId("via-glyph")).toBeInTheDocument();
+  });
+
+  it("carries the isGlyph marker so LG glyph-slot components (SideNavGroup etc.) accept it", () => {
+    expect(isComponentGlyph(<Icon glyph="Expand" />)).toBe(true);
+    expect(isComponentGlyph(<Icon glyph="Checkmark" />)).toBe(true);
   });
 
   it("defaults to 16px", () => {
