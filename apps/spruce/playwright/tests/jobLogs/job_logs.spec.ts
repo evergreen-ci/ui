@@ -10,7 +10,7 @@ test.describe("Job logs page", () => {
   });
 
   test("renders a table with test links", async ({ page }) => {
-    await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(655);
+    await expect(page.getByTestId("via-table-row")).toHaveCount(655);
     const completeTestLogsLink = page.getByTestId("complete-test-logs-link");
     const href = await completeTestLogsLink.getAttribute("href");
     expect(href).toContain(
@@ -27,7 +27,7 @@ test.describe("Job logs page", () => {
 
   test("name links to Parsley", async ({ page }) => {
     const parsleyLink = page
-      .getByTestId("leafygreen-table-row")
+      .getByTestId("via-table-row")
       .filter({ has: page.getByRole("link") })
       .first()
       .getByRole("link");
@@ -38,7 +38,7 @@ test.describe("Job logs page", () => {
     page,
   }) => {
     await page.goto(`/job-logs/DNE/0/job0`);
-    await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(0);
+    await expect(page.getByTestId("via-table-row")).toHaveCount(0);
     await validateToast(
       page,
       "error",

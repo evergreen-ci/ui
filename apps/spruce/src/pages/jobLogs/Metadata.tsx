@@ -1,4 +1,4 @@
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { Link } from "@via-ds/components/typography";
 import { useJobLogsAnalytics } from "analytics";
 import MetadataCard, { MetadataItem } from "components/MetadataCard";
 import { JobLogsMetadata } from "./types";
@@ -15,10 +15,10 @@ export const Metadata: React.FC<{
         <MetadataItem label="Group">{metadata.groupID}</MetadataItem>
       )}
       <MetadataItem>
-        <StyledLink
+        <Link
           data-testid="complete-test-logs-link"
           href={metadata.completeLogsURL}
-          onClick={() => {
+          onPress={() => {
             sendEvent({
               name: "Clicked complete logs link",
               "task.id": metadata.taskId,
@@ -28,7 +28,7 @@ export const Metadata: React.FC<{
           }}
         >
           Complete logs for all tests in this job
-        </StyledLink>
+        </Link>
       </MetadataItem>
     </MetadataCard>
   );
