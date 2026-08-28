@@ -35,11 +35,10 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
       image={
         // We want the green banner to align more with legacy Evergreen's announcement banner
         variant === Variant.Success ? (
-          <span
-            className={styles.styledIcon}
-            data-testid="sitewide-banner-icon"
-          >
-            <Icon color={green.dark1} glyph="Megaphone" />
+          <span data-testid="sitewide-banner-icon">
+            <span className={styles.styledIcon}>
+              <Icon color={green.dark1} glyph="Megaphone" />
+            </span>
           </span>
         ) : undefined
       }

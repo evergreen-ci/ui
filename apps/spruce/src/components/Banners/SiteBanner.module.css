@@ -2,6 +2,7 @@
   display: flex;
   width: 16px;
   height: 16px;
+  margin: 8px 0;
 }
 
 .styledIcon svg {

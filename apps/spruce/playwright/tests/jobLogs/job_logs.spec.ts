@@ -12,10 +12,11 @@ test.describe("Job logs page", () => {
   test("renders the announcement icon at its intended size", async ({
     page,
   }) => {
-    await expect(page.getByRole("img", { name: "Megaphone Icon" })).toHaveCSS(
-      "width",
-      "16px",
-    );
+    const icon = page.getByTestId("sitewide-banner-icon");
+    await expect(icon).toHaveCSS("height", "32px");
+    await expect(icon).toHaveCSS("width", "32px");
+    await expect(icon.locator("span")).toHaveCSS("margin-bottom", "8px");
+    await expect(icon.locator("span")).toHaveCSS("margin-top", "8px");
   });
 
   test("renders a table with test links", async ({ page }) => {
