@@ -36,9 +36,14 @@ export const HostPopover: React.FC<Props> = ({
   return showTooltip ? (
     <TooltipRoot>
       <TooltipTrigger>
-        <Button data-testid={dataTestId} isDisabled>
-          {buttonText}
-        </Button>
+        {/* Disabled buttons suppress pointer events, so the hover handlers
+            live on the wrapper span and the button is pointer-events: none
+            for the tooltip to show. */}
+        <span className={styles.tooltipTrigger}>
+          <Button data-testid={dataTestId} isDisabled>
+            {buttonText}
+          </Button>
+        </span>
       </TooltipTrigger>
       <Tooltip>{tooltipMessage}</Tooltip>
     </TooltipRoot>
