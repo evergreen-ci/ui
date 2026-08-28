@@ -54,8 +54,10 @@ export const HostPopover: React.FC<Props> = ({
           {buttonText}
         </Button>
       </div>
-      <Popover data-testid={`${dataTestId}-popover`}>
-        <PopoverContainer>
+      <Popover>
+        {/* Via's Popover stamps its own data-testid, so the identifying
+            testid lives on the content container instead. */}
+        <PopoverContainer data-testid={`${dataTestId}-popover`}>
           {titleText}
 
           <div className={styles.buttonContainer}>
