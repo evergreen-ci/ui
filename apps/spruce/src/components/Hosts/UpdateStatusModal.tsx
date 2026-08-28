@@ -1,10 +1,20 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Banner, Variant } from "@leafygreen-ui/banner";
-import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { Option, Select } from "@leafygreen-ui/select";
-import { TextArea } from "@leafygreen-ui/text-area";
-import { Body } from "@leafygreen-ui/typography";
+import {
+  Banner,
+  BannerVariant,
+  Body,
+  Button,
+  Content,
+  Dialog,
+  DialogRoot,
+  Footer,
+  Header,
+  Select,
+  SelectItem,
+  Text,
+  TextArea,
+} from "@via-ds/components";
 import pluralize from "pluralize";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
@@ -88,57 +98,72 @@ export const UpdateStatusModal: React.FC<Props> = ({
     status != null ? statusDescriptions[status] : undefined;
 
   return (
-    <ConfirmationModal
-      cancelButtonProps={{
-        onClick: onClickCancel,
+    <DialogRoot
+      isOpen={visible}
+      onOpenChange={(open) => {
+        if (!open) {
+          closeModal();
+        }
       }}
-      confirmButtonProps={{
-        children: "Update",
-        disabled: !status || loadingUpdateHostStatus,
-        onClick: onClickUpdate,
-      }}
-      data-testid={dataTestId}
-      open={visible}
-      title="Update Host Status"
     >
-      <Body className={styles.body}>
-        {`Choose how Evergreen should treat the selected ${pluralize("host", hostIds.length)}.`}
-      </Body>
+      <Dialog data-testid={dataTestId}>
+        <Header>
+          <Text slot="title">Update Host Status</Text>
+        </Header>
+        <Content>
+          <Body className={styles.body}>
+            {`Choose how Evergreen should treat the selected ${pluralize("host", hostIds.length)}.`}
+          </Body>
 
-      <Select
-        className={styles.select}
-        data-testid="host-status-select"
-        label="Host Status"
-        onChange={(s) => {
-          setHostStatus(s as UpdateHostStatus);
-        }}
-        value={status}
-      >
-        {hostStatuses.map(({ key, title, value }) => (
-          <Option key={key} data-testid={`${value}-option`} value={value}>
-            {title}
-          </Option>
-        ))}
-      </Select>
+          <Select
+            className={styles.select}
+            data-testid="host-status-select"
+            label="Host Status"
+            onSelectionChange={(s) => {
+              setHostStatus(s as UpdateHostStatus);
+            }}
+            placeholder="Select"
+            selectedKey={status}
+          >
+            {hostStatuses.map(({ key, title, value }) => (
+              <SelectItem key={key} data-testid={`${value}-option`} id={value}>
+                {title}
+              </SelectItem>
+            ))}
+          </Select>
 
-      {statusDescription && (
-        <Banner
-          className={styles.statusBanner}
-          data-testid="host-status-description"
-          variant={Variant.Info}
-        >
-          {statusDescription}
-        </Banner>
-      )}
+          {statusDescription && (
+            <Banner
+              className={styles.statusBanner}
+              data-testid="host-status-description"
+              variant={BannerVariant.Info}
+            >
+              {statusDescription}
+            </Banner>
+          )}
 
-      <TextArea
-        data-testid="host-status-notes"
-        label="Add Notes"
-        onChange={(e) => setNotesValue(e.target.value)}
-        rows={6}
-        value={notes}
-      />
-    </ConfirmationModal>
+          <TextArea
+            className={styles.notes}
+            data-testid="host-status-notes"
+            label="Add Notes"
+            onChange={setNotesValue}
+            value={notes}
+          />
+        </Content>
+        <Footer>
+          <Button onPress={onClickCancel} slot="cancel">
+            Cancel
+          </Button>
+          <Button
+            isDisabled={!status || loadingUpdateHostStatus}
+            onPress={onClickUpdate}
+            variant="primary"
+          >
+            Update
+          </Button>
+        </Footer>
+      </Dialog>
+    </DialogRoot>
   );
 };
 
