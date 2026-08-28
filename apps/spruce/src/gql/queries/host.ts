@@ -10,7 +10,6 @@ export const HOST = gql`
         id
         bootstrapMethod
       }
-      distroId
       lastCommunicationTime
       runningTask {
         id

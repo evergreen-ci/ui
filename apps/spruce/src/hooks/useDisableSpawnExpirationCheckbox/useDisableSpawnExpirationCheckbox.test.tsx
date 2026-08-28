@@ -103,8 +103,6 @@ const myVolumesBase: Omit<
   availabilityZone: "us-east-1d",
   size: 200,
   expiration: new Date("2020-11-12T18:19:39Z"),
-  deviceName: null,
-  hostID: "i-0d5d29bf2e7ee342d",
   host: {
     displayName: "hai",
     id: "i-0d5d29bf2e7ee342d",
@@ -198,8 +196,6 @@ const volume = {
     "bcc3edcc1ecf38f75c2d62a8a50c99337509bd80a7f42db062efcda148bf6ff7",
   size: 1000,
   expiration: new Date("2020-06-06T15:44:11Z"),
-  deviceName: null,
-  hostID: "c04d193c4de174376167746bc268426a4085bffb364c4740e0564ca3eeee6875",
   host: {
     displayName: "",
     id: "c04d193c4de174376167746bc268426a4085bffb364c4740e0564ca3eeee6875",
