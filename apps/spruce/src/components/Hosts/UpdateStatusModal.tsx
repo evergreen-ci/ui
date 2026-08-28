@@ -89,11 +89,6 @@ export const UpdateStatusModal: React.FC<Props> = ({
     updateHostStatus({ variables: { hostIds, status, notes } });
   };
 
-  const onClickCancel = () => {
-    closeModal();
-    resetForm();
-  };
-
   const statusDescription =
     status != null ? statusDescriptions[status] : undefined;
 
@@ -101,8 +96,11 @@ export const UpdateStatusModal: React.FC<Props> = ({
     <DialogRoot
       isOpen={visible}
       onOpenChange={(open) => {
+        // User-initiated closes (cancel, X, Escape) reset the form; the
+        // mutation callbacks call closeModal directly on success/error.
         if (!open) {
           closeModal();
+          resetForm();
         }
       }}
     >
@@ -151,9 +149,10 @@ export const UpdateStatusModal: React.FC<Props> = ({
           />
         </Content>
         <Footer>
-          <Button onPress={onClickCancel} slot="cancel">
-            Cancel
-          </Button>
+          <Button slot="cancel">Cancel</Button>
+          {/* No slot="action" on Update: that slot injects an immediate
+              close, but this dialog stays open until the mutation resolves
+              (matching the old ConfirmationModal semantics). */}
           <Button
             isDisabled={!status || loadingUpdateHostStatus}
             onPress={onClickUpdate}
