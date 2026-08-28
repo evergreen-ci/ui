@@ -1,4 +1,5 @@
 import { expect, test } from "../../fixtures";
+import { selectPageSize } from "../../helpers";
 
 const hostsRoute = "/hosts";
 
@@ -80,6 +81,45 @@ test.describe("Hosts page pagination", () => {
     const rows2 = page.getByTestId("leafygreen-table-row");
     for (let i = 0; i < allHosts.length; i++) {
       await expect(rows2.nth(i)).toContainText(allHosts[i]);
+    }
+  });
+
+  test("Clicking the next page arrow shows the next page of hosts and updates the URL", async ({
+    page,
+  }) => {
+    await page.goto(`${hostsRoute}?limit=10&page=0`);
+    const rows = page.getByTestId("leafygreen-table-row");
+    await expect(rows.first()).toContainText(defaultHostsFirstPage[0]);
+
+    const pagination = page.getByTestId("pagination");
+    const nextPageButton = pagination.getByRole("button", {
+      name: "Next page",
+    });
+    await expect(nextPageButton).toBeEnabled();
+    await nextPageButton.click();
+
+    await expect(page).toHaveURL(/page=1/);
+    for (let i = 0; i < hostsSecondPageWithLimitOfTen.length; i++) {
+      await expect(rows.nth(i)).toContainText(hostsSecondPageWithLimitOfTen[i]);
+    }
+  });
+
+  test("Changing page size updates the URL and shows more hosts", async ({
+    page,
+  }) => {
+    await page.goto(`${hostsRoute}?limit=10&page=0`);
+    const rows = page.getByTestId("leafygreen-table-row");
+    await expect(rows).toHaveCount(defaultHostsFirstPage.length);
+
+    await selectPageSize(page, 20);
+
+    await expect(page).toHaveURL(/limit=20/);
+    const allHosts = [
+      ...defaultHostsFirstPage,
+      ...hostsSecondPageWithLimitOfTen,
+    ];
+    for (let i = 0; i < allHosts.length; i++) {
+      await expect(rows.nth(i)).toContainText(allHosts[i]);
     }
   });
 });

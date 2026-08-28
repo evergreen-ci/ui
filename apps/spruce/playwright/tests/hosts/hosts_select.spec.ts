@@ -63,7 +63,10 @@ test.describe("Select hosts in hosts page table", () => {
 
     await page.getByTestId("host-status-select").click();
     await page.getByTestId("terminated-option").click();
-    await page.getByTestId("host-status-notes").fill("notes");
+    await page
+      .getByTestId("host-status-notes")
+      .locator("textarea")
+      .fill("notes");
 
     const modal = page.getByTestId("update-host-status-modal");
     await expect(modal).toBeVisible();
