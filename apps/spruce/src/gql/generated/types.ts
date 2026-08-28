@@ -7378,8 +7378,6 @@ export type SchedulePatchMutation = {
   __typename?: "Mutation";
   schedulePatch: {
     __typename?: "Patch";
-    tasks: Array<string>;
-    variants: Array<string>;
     id: string;
     activated: boolean;
     alias?: string | null;
