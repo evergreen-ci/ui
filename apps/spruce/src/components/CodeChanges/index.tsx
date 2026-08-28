@@ -1,9 +1,7 @@
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics } from "analytics";
 import { getVersionDiffRoute } from "constants/routes";
 import {
@@ -12,6 +10,7 @@ import {
 } from "gql/generated/types";
 import { CODE_CHANGES } from "gql/queries";
 import { Badge } from "./Badge";
+import styles from "./index.module.css";
 import { Table } from "./Table";
 
 interface CodeChangesProps {
@@ -34,7 +33,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
   if (loading) {
     return (
       <>
-        <StyledSkeleton />
+        <Skeleton className={styles.skeleton} />
         <TableSkeleton numCols={3} />
       </>
     );
@@ -76,7 +75,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
 
         return (
           <div key={branchName}>
-            <TitleContainer>
+            <div className={styles.titleContainer}>
               <Body weight="medium">Changes on {branchName}:</Body>
               {!disableDiffLinks && (
                 <>
@@ -113,7 +112,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
                 </>
               )}
               <Badge additions={additions} deletions={deletions} />
-            </TitleContainer>
+            </div>
             {codeChanges}
           </div>
         );
@@ -121,14 +120,3 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
     </div>
   );
 };
-
-const StyledSkeleton = styled(Skeleton)`
-  width: 400px;
-`;
-
-const TitleContainer = styled.div`
-  align-items: baseline;
-  display: flex;
-  gap: ${size.xs};
-  margin: ${size.m} 0 ${size.xs} 0;
-`;

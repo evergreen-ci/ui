@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
-import { size } from "@evg-ui/lib/constants/tokens";
+import styles from "./CheckboxGroup.module.css";
 
 interface CheckboxesProps {
   data: TreeDataEntry[];
@@ -14,28 +13,17 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
   onChange = () => undefined,
   value,
 }) => (
-  <CheckboxesWrapper>
+  <div className={styles.checkboxesWrapper}>
     {data.map(({ key, title, value: checkboxValue }) => (
-      <StyledCheckbox
+      <Checkbox
         key={key}
         bold={false}
         checked={value.includes(checkboxValue)}
+        className={styles.styledCheckbox}
         data-testid={title}
         label={title}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e, key)}
       />
     ))}
-  </CheckboxesWrapper>
+  </div>
 );
-
-const CheckboxesWrapper = styled.div`
-  padding: ${size.xxs};
-`;
-
-const StyledCheckbox = styled(Checkbox)`
-  margin-bottom: ${size.xs};
-
-  :last-of-type {
-    margin-bottom: 0;
-  }
-`;

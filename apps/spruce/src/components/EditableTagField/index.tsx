@@ -1,8 +1,7 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
 import { array } from "utils";
+import styles from "./index.module.css";
 import { TagRow } from "./TagRow";
 
 const { convertArrayToObject } = array;
@@ -55,7 +54,7 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
   };
 
   return (
-    <FlexColumnContainer id={id}>
+    <div className={styles.flexColumnContainer} id={id}>
       {visibleTags.map((tag) => (
         <TagRow
           key={tag.key}
@@ -74,13 +73,6 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         onUpdateTag={updateTagHandler}
       />
-    </FlexColumnContainer>
+    </div>
   );
 };
-
-const FlexColumnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: ${size.xs};
-  max-width: 100%;
-`;

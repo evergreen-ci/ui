@@ -186,14 +186,21 @@ describe("version metadata cost display", () => {
         version={{
           ...baseVersion,
           isPatch: true,
+          childVersions: [
+            {
+              __typename: "Version",
+              id: "child1",
+              revision: "abc",
+              status: "started",
+              taskCount: 1,
+              baseVersion: null,
+              parameters: [],
+              projectMetadata: null,
+            },
+          ],
           patch: {
             __typename: "Patch",
             cost: { __typename: "Cost", total: 50 },
-            childPatches: [
-              { __typename: "Patch", id: "child1" } as unknown as NonNullable<
-                NonNullable<Version["patch"]>["childPatches"]
-              >[number],
-            ],
             githubPatchData: null,
             includedLocalModules: null,
           } as unknown as Version["patch"],
@@ -220,14 +227,21 @@ describe("version metadata cost display", () => {
         version={{
           ...baseVersion,
           isPatch: true,
+          childVersions: [
+            {
+              __typename: "Version",
+              id: "child1",
+              revision: "abc",
+              status: "created",
+              taskCount: 1,
+              baseVersion: null,
+              parameters: [],
+              projectMetadata: null,
+            },
+          ],
           patch: {
             __typename: "Patch",
             cost: { __typename: "Cost", total: 50 },
-            childPatches: [
-              { __typename: "Patch", id: "child1" } as unknown as NonNullable<
-                NonNullable<Version["patch"]>["childPatches"]
-              >[number],
-            ],
             githubPatchData: null,
             includedLocalModules: null,
           } as unknown as Version["patch"],
@@ -315,7 +329,7 @@ describe("version metadata cost display", () => {
           patch: {
             __typename: "Patch",
             cost: { __typename: "Cost", total: 3.75 },
-            childPatches: null,
+
             githubPatchData: null,
             includedLocalModules: [],
             id: "child-patch",

@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
 import { Button, Size, Variant } from "@leafygreen-ui/button";
-import { size } from "@evg-ui/lib/constants/tokens";
 import FilterChip, { FilterChipType } from "./FilterChip";
+import styles from "./index.module.css";
 import { SeeMoreModal } from "./SeeMoreModal";
 import useFilterChipQueryParams from "./useFilterChipQueryParams";
 
@@ -30,7 +29,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
   const visibleChips = chips.slice(0, 8);
   const notVisibleCount = chips.slice(8, chips.length).length;
   return (
-    <Container>
+    <div className={styles.container}>
       {visibleChips.map((c) => (
         <FilterChip
           key={`filter_chip_${c.key}_${c.value}`}
@@ -62,20 +61,9 @@ const FilterChips: React.FC<FilterChipsProps> = ({
           Clear all
         </Button>
       )}
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  gap: ${size.xs};
-  flex-wrap: wrap;
-
-  /* height of 1 row of chips, to avoid layout shift (equal to height of XSmall button) */
-  min-height: 22px;
-
-  overflow: hidden;
-`;
 
 export default FilterChips;
 export { useFilterChipQueryParams };

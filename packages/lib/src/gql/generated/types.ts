@@ -448,6 +448,7 @@ export type BootstrapSettings = {
   __typename?: "BootstrapSettings";
   clientDir: Scalars["String"]["output"];
   communication: CommunicationMethod;
+  containerIsolation: ContainerIsolationSettings;
   env: Array<EnvVar>;
   jasperBinaryDir: Scalars["String"]["output"];
   jasperCredentialsPath: Scalars["String"]["output"];
@@ -462,6 +463,7 @@ export type BootstrapSettings = {
 export type BootstrapSettingsInput = {
   clientDir: Scalars["String"]["input"];
   communication: CommunicationMethod;
+  containerIsolation?: InputMaybe<ContainerIsolationSettingsInput>;
   env: Array<EnvVarInput>;
   jasperBinaryDir: Scalars["String"]["input"];
   jasperCredentialsPath: Scalars["String"]["input"];
@@ -504,6 +506,8 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
+  sourceCacheBucket?: Maybe<BucketConfig>;
+  sourceCacheProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -517,16 +521,9 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
+  sourceCacheBucket?: InputMaybe<BucketConfigInput>;
+  sourceCacheProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
-};
-
-export type Build = {
-  __typename?: "Build";
-  actualMakespan: Scalars["Duration"]["output"];
-  buildVariant: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  predictedMakespan: Scalars["Duration"]["output"];
-  status: Scalars["String"]["output"];
 };
 
 export type BuildBaronSettings = {
@@ -624,6 +621,33 @@ export enum CommunicationMethod {
   Rpc = "RPC",
   Ssh = "SSH",
 }
+
+/**
+ * ContainerIsolationSettings controls per-task Docker container isolation for a
+ * distro. When enabled, task subprocess calls (shell.exec, subprocess.exec) run
+ * inside an ephemeral Docker container rather than directly on the host.
+ */
+export type ContainerIsolationSettings = {
+  __typename?: "ContainerIsolationSettings";
+  cpus: Scalars["Int"]["output"];
+  enabled: Scalars["Boolean"]["output"];
+  image: Scalars["String"]["output"];
+  memoryMb: Scalars["Int"]["output"];
+  /**
+   * RequireIsolation opts into fail-closed behavior. When true, container
+   * creation or image-pull failure fails the task immediately rather than
+   * degrading to host-mode. Default (false) is fail-open.
+   */
+  requireIsolation: Scalars["Boolean"]["output"];
+};
+
+export type ContainerIsolationSettingsInput = {
+  cpus: Scalars["Int"]["input"];
+  enabled: Scalars["Boolean"]["input"];
+  image: Scalars["String"]["input"];
+  memoryMb: Scalars["Int"]["input"];
+  requireIsolation: Scalars["Boolean"]["input"];
+};
 
 export type ContainerPool = {
   __typename?: "ContainerPool";
@@ -1012,6 +1036,12 @@ export type EnvVarInput = {
   key: Scalars["String"]["input"];
   value: Scalars["String"]["input"];
 };
+
+export enum ExecutionPlatform {
+  Container = "CONTAINER",
+  Host = "HOST",
+  Virtual = "VIRTUAL",
+}
 
 /**
  * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
@@ -2496,16 +2526,12 @@ export type Patch = {
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
   aliases?: Maybe<Array<Scalars["String"]["output"]>>;
-  author: Scalars["String"]["output"];
-  authorDisplayName: Scalars["String"]["output"];
-  builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
   /** Aggregated actual cost for the patch's version, when cost data exists. */
   cost?: Maybe<Cost>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
-  duration?: Maybe<PatchDuration>;
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
   githubPatchData?: Maybe<GithubPatch>;
@@ -2524,14 +2550,12 @@ export type Patch = {
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
   taskCount?: Maybe<Scalars["Int"]["output"]>;
-  taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
   user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
-  versionFull?: Maybe<Version>;
 };
 
 /**
@@ -2543,13 +2567,6 @@ export type PatchConfigure = {
   parameters?: InputMaybe<Array<ParameterInput>>;
   patchTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variantsTasks: Array<VariantTasks>;
-};
-
-export type PatchDuration = {
-  __typename?: "PatchDuration";
-  makespan?: Maybe<Scalars["String"]["output"]>;
-  time?: Maybe<PatchTime>;
-  timeTaken?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type PatchProject = {
@@ -2788,6 +2805,7 @@ export type Project = {
   testSelection?: Maybe<TestSelectionSettings>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  virtualTasksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
 };
@@ -2942,6 +2960,7 @@ export type ProjectInput = {
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  virtualTasksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
@@ -3060,12 +3079,14 @@ export type ProjectTasksPair = {
   allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
   displayName: Scalars["String"]["output"];
+  isRegex?: Maybe<Scalars["Boolean"]["output"]>;
   projectId: Scalars["String"]["output"];
 };
 
 export type ProjectTasksPairInput = {
   allowedBVs: Array<Scalars["String"]["input"]>;
   allowedTasks: Array<Scalars["String"]["input"]>;
+  isRegex?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectID: Scalars["String"]["input"];
 };
 
@@ -3439,6 +3460,7 @@ export type RepoRef = {
   testSelection?: Maybe<RepoTestSelectionSettings>;
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
+  virtualTasksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
 };
@@ -3489,6 +3511,7 @@ export type RepoRefInput = {
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  virtualTasksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   waterfallDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
@@ -4122,6 +4145,12 @@ export type Task = {
   errors?: Maybe<Array<Scalars["String"]["output"]>>;
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
   execution: Scalars["Int"]["output"];
+  /**
+   * executionPlatform indicates the environment the task ran in: HOST for a
+   * task that ran directly on the host, or CONTAINER for a task that ran inside
+   * a Docker container on the host.
+   */
+  executionPlatform: ExecutionPlatform;
   executionSteps?: Maybe<Array<TaskExecutionStep>>;
   executionTasks?: Maybe<Array<Scalars["String"]["output"]>>;
   executionTasksFull?: Maybe<Array<Task>>;

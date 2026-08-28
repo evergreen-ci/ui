@@ -35,7 +35,7 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
   const spawnAnalytics = useSpawnAnalytics();
 
   const [checkboxAcknowledged, setCheckboxAcknowledged] = useState(
-    !volume.hostID,
+    !volume.host,
   );
 
   return (
@@ -64,7 +64,7 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
       }
     >
       Delete volume “{volumeName}”?
-      {volume.hostID && (
+      {volume.host && (
         <Checkbox
           checked={checkboxAcknowledged}
           data-testid="abort-checkbox"

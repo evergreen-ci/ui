@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import styled from "@emotion/styled";
 import { action } from "storybook/actions";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 
+import styles from "./VisibilityContainer.stories.module.css";
 import VisibilityContainer from ".";
 
 export default {
@@ -14,13 +14,13 @@ export const Default: CustomStoryObj<typeof VisibilityContainer> = {
     <>
       Scroll the below container out of view and observe the component mounting
       and unmounting
-      <ScrollableContainer>
-        <InnerContainer>
+      <div className={styles.scrollableContainer}>
+        <div className={styles.innerContainer}>
           <VisibilityContainer>
             <RenderedContent />
           </VisibilityContainer>
-        </InnerContainer>
-      </ScrollableContainer>
+        </div>
+      </div>
     </>
   ),
 };
@@ -34,13 +34,3 @@ const RenderedContent = () => {
   }, []);
   return <div>Visible content</div>;
 };
-
-const ScrollableContainer = styled.div`
-  height: 100px;
-  overflow: scroll;
-  background-color: gray;
-`;
-
-const InnerContainer = styled.div`
-  height: 200px;
-`;

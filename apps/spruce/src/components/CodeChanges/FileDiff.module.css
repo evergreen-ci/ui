@@ -1,0 +1,37 @@
+.container {
+  padding: var(--via-space-600);
+}
+
+.fileNameContainer {
+  margin-bottom: var(--via-space-400);
+  padding-bottom: var(--via-space-200);
+  border-bottom: 1px solid var(--via-color-neutral-200);
+}
+
+/* Streamed lines are created imperatively by useHTMLStream, so these
+   selectors must stay global (previously injected via Emotion's Global). */
+:global(.selected-line) {
+  background-color: #ffc !important;
+}
+
+:global(.selected-line) :global(.line-link) {
+  opacity: 1 !important;
+}
+
+:global(.line) {
+  display: flex;
+  align-items: center;
+}
+
+:global(.line-link) {
+  cursor: pointer;
+  margin-right: 8px;
+  padding: 0 4px;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  user-select: none;
+}
+
+:global(.line-link):hover {
+  opacity: 1;
+}
