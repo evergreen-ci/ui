@@ -35,12 +35,12 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
       image={
         // We want the green banner to align more with legacy Evergreen's announcement banner
         variant === Variant.Success ? (
-          // It's unclear why using the size prop on the component doesn't work, but we can do this instead.
-          <Icon
+          <span
             className={styles.styledIcon}
-            color={green.dark1}
-            glyph="Megaphone"
-          />
+            data-testid="sitewide-banner-icon"
+          >
+            <Icon color={green.dark1} glyph="Megaphone" />
+          </span>
         ) : undefined
       }
       onClose={hideBanner}

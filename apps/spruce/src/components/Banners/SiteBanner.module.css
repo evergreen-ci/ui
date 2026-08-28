@@ -1,6 +1,10 @@
-/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
-   Remove when this component migrates to Via. */
-.styledIcon.styledIcon {
+.styledIcon {
+  display: flex;
+  width: 16px;
+  height: 16px;
+}
+
+.styledIcon svg {
   width: 16px;
   height: 16px;
 }

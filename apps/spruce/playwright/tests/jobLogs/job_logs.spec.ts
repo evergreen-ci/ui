@@ -9,6 +9,15 @@ test.describe("Job logs page", () => {
     await page.goto(`/job-logs/${taskIdWithResmokeLogs}/0/job0`);
   });
 
+  test("renders the announcement icon at its intended size", async ({
+    page,
+  }) => {
+    await expect(page.getByRole("img", { name: "Megaphone Icon" })).toHaveCSS(
+      "width",
+      "16px",
+    );
+  });
+
   test("renders a table with test links", async ({ page }) => {
     await expect(page.getByTestId("via-table-row")).toHaveCount(655);
     const completeTestLogsLink = page.getByTestId("complete-test-logs-link");
