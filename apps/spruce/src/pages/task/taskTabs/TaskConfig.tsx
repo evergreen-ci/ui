@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   LGColumnDef,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { PartialRecord } from "@evg-ui/lib/types/utils";
+import { projectConfigFilesDocumentationUrl } from "constants/externalResources";
 import {
   TaskConfig,
   TaskConfigQuery,
@@ -53,7 +55,7 @@ export const TaskConfigTab = ({
         ([key, value]) => {
           if (
             !isTaskConfigKey(key) ||
-            value == null ||
+            !value ||
             (Array.isArray(value) && value.length === 0) ||
             tableLabels[key] === undefined
           ) {
@@ -74,8 +76,11 @@ export const TaskConfigTab = ({
   return (
     <>
       The following config options were applied to the task when it was
-      scheduled. These values were derived from the project&apos;s YAML config
-      and do not include any modifications made by generated tasks.
+      scheduled. See{" "}
+      <StyledLink href={projectConfigFilesDocumentationUrl}>
+        Project Configuration Files
+      </StyledLink>{" "}
+      for details.
       <BaseTable shouldAlternateRowColor table={table} />
     </>
   );
@@ -104,10 +109,6 @@ const isTaskConfigKey = (key: string): key is keyof TaskConfig =>
   key in tableLabels;
 
 const formatConfigValue = (value: unknown): string => {
-  if (value === null || value === undefined) {
-    return "";
-  }
-
   if (typeof value === "object") {
     return JSON.stringify(value, null, 2);
   }
