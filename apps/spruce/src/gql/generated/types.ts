@@ -8744,7 +8744,6 @@ export type HostQuery = {
   host?: {
     __typename?: "Host";
     ami?: string | null;
-    distroId?: string | null;
     lastCommunicationTime?: Date | null;
     id: string;
     hostUrl: string;
@@ -8789,7 +8788,6 @@ export type HostsQuery = {
     hosts: Array<{
       __typename?: "Host";
       id: string;
-      distroId?: string | null;
       elapsed?: Date | null;
       hostUrl: string;
       noExpiration: boolean;
@@ -9223,11 +9221,9 @@ export type MyVolumesQuery = {
     availabilityZone: string;
     createdBy: string;
     creationTime?: Date | null;
-    deviceName?: string | null;
     displayName: string;
     expiration?: Date | null;
     homeVolume: boolean;
-    hostID: string;
     migrating: boolean;
     noExpiration: boolean;
     size: number;
