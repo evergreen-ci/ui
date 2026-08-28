@@ -7378,8 +7378,6 @@ export type SchedulePatchMutation = {
   __typename?: "Mutation";
   schedulePatch: {
     __typename?: "Patch";
-    tasks: Array<string>;
-    variants: Array<string>;
     id: string;
     activated: boolean;
     alias?: string | null;
@@ -9258,6 +9256,7 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
+    createTime?: Date | null;
     id: string;
     activated: boolean;
     alias?: string | null;
@@ -9311,7 +9310,6 @@ export type ConfigurePatchQuery = {
       id: string;
       identifier: string;
     } | null;
-    time?: { __typename?: "PatchTime"; submittedAt: string } | null;
     version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: { __typename?: "User"; displayName?: string | null; userId: string };

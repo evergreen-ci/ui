@@ -27,6 +27,7 @@ import {
   VariantTasks,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
+import { useDateFormat } from "hooks/useDateFormat";
 import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
@@ -52,17 +53,18 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
 }) => {
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
+  const getDateCopy = useDateFormat();
 
   const {
     activated,
     childPatchAliases,
     childPatches,
+    createTime,
     githubPatchData,
     id,
     patchTriggerAliases,
     project,
     projectMetadata,
-    time,
     user,
     variantsTasks,
     version,
@@ -224,9 +226,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
         <PageSider>
           <MetadataCard title="Patch Metadata">
             <MetadataItem label="Submitted by">{user.userId}</MetadataItem>
-            <MetadataItem label="Submitted at">
-              {time?.submittedAt}
-            </MetadataItem>
+            {createTime && (
+              <MetadataItem label="Submitted at">
+                {getDateCopy(createTime, { omitSeconds: true })}
+              </MetadataItem>
+            )}
             <MetadataItem label="Project">
               <StyledRouterLink
                 to={getProjectPatchesRoute(projectIdentifier || projectID)}

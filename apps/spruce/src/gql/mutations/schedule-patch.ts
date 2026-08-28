@@ -5,8 +5,6 @@ export const SCHEDULE_PATCH = gql`
   mutation SchedulePatch($patchId: String!, $configure: PatchConfigure!) {
     schedulePatch(patchId: $patchId, configure: $configure) {
       ...BasePatch
-      tasks
-      variants
       version {
         id
         childVersions {
