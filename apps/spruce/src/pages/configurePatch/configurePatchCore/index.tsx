@@ -228,7 +228,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
             <MetadataItem label="Submitted by">{user.userId}</MetadataItem>
             {createTime && (
               <MetadataItem label="Submitted at">
-                {getDateCopy(createTime)}
+                {getDateCopy(createTime, { omitSeconds: true })}
               </MetadataItem>
             )}
             <MetadataItem label="Project">
