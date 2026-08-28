@@ -55,7 +55,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <Row key={row.id} data-testid="job-logs-table-row" row={row}>
+              <Row key={row.id} row={row}>
                 {row.getVisibleCells().map((cell) => (
                   <Cell key={cell.id} cell={cell}>
                     {TanStack.flexRender(
