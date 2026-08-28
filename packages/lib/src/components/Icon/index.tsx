@@ -7,7 +7,6 @@ import {
 } from "@via-ds/icons";
 import "@via-ds/icons/styles.css";
 import AnimatedIcon from "./AnimatedIcon";
-import { glyphs } from "./glyphs";
 import * as icons from "./icons";
 
 const localGlyphs = {
@@ -64,7 +63,7 @@ Icon.displayName = "Icon";
 // LG components (SideNavGroup, etc.) gate glyph slots on the isGlyph marker.
 Object.assign(Icon, { isGlyph: true });
 
-export { sizeMap, glyphs };
+export { sizeMap, localGlyphs };
 
 export { AnimatedIcon };
 export {

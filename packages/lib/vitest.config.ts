@@ -12,10 +12,10 @@ const vitestConfig = defineTestConfig({
     include: ["src/**/*.test.{ts,tsx}"],
     server: {
       deps: {
-        // Inlining @via-ds routes its modules through Vite's resolver; without
-        // it, each test worker loads the full via glyph set through Node's ESM
-        // resolver, which is slow enough to starve the worker pool.
-        inline: [/@via-ds\//],
+        // Inlining keeps @via-ds/icons on Vite's resolver; without it each
+        // worker Node-loads all 188 glyph modules and the pool starves.
+        // Remove once UXE-807 (standalone imports) lands.
+        inline: ["@via-ds/icons"],
       },
     },
   },

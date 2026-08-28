@@ -1,9 +1,17 @@
 import { palette } from "@leafygreen-ui/palette";
+import * as via from "@via-ds/icons";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import styles from "./Icon.stories.module.css";
-import Icon, { glyphs, sizeMap } from ".";
+import Icon, { IconProps, localGlyphs, sizeMap } from ".";
 
 const { green } = palette;
+
+const glyphNames: IconProps["glyph"][] = [
+  ...Object.entries(via)
+    .filter(([, component]) => (component as via.IconComponent).isGlyph)
+    .map(([name]) => name as IconProps["glyph"]),
+  ...(Object.keys(localGlyphs) as IconProps["glyph"][]),
+].sort();
 
 export default {
   component: Icon,
@@ -25,7 +33,7 @@ export const Default: CustomStoryObj<typeof Icon> = {
   },
   render: (args) => (
     <div className={styles.container}>
-      {(Object.keys(glyphs) as Array<keyof typeof glyphs>).map((name) => (
+      {glyphNames.map((name) => (
         <div key={name} className={styles.iconContainer}>
           <Icon {...args} glyph={name} />
           <span>{name}</span>
