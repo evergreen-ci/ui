@@ -448,6 +448,7 @@ export type BootstrapSettings = {
   __typename?: "BootstrapSettings";
   clientDir: Scalars["String"]["output"];
   communication: CommunicationMethod;
+  containerIsolation: ContainerIsolationSettings;
   env: Array<EnvVar>;
   jasperBinaryDir: Scalars["String"]["output"];
   jasperCredentialsPath: Scalars["String"]["output"];
@@ -462,6 +463,7 @@ export type BootstrapSettings = {
 export type BootstrapSettingsInput = {
   clientDir: Scalars["String"]["input"];
   communication: CommunicationMethod;
+  containerIsolation?: InputMaybe<ContainerIsolationSettingsInput>;
   env: Array<EnvVarInput>;
   jasperBinaryDir: Scalars["String"]["input"];
   jasperCredentialsPath: Scalars["String"]["input"];
@@ -504,6 +506,8 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
+  sourceCacheBucket?: Maybe<BucketConfig>;
+  sourceCacheProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -517,6 +521,8 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
+  sourceCacheBucket?: InputMaybe<BucketConfigInput>;
+  sourceCacheProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -615,6 +621,33 @@ export enum CommunicationMethod {
   Rpc = "RPC",
   Ssh = "SSH",
 }
+
+/**
+ * ContainerIsolationSettings controls per-task Docker container isolation for a
+ * distro. When enabled, task subprocess calls (shell.exec, subprocess.exec) run
+ * inside an ephemeral Docker container rather than directly on the host.
+ */
+export type ContainerIsolationSettings = {
+  __typename?: "ContainerIsolationSettings";
+  cpus: Scalars["Int"]["output"];
+  enabled: Scalars["Boolean"]["output"];
+  image: Scalars["String"]["output"];
+  memoryMb: Scalars["Int"]["output"];
+  /**
+   * RequireIsolation opts into fail-closed behavior. When true, container
+   * creation or image-pull failure fails the task immediately rather than
+   * degrading to host-mode. Default (false) is fail-open.
+   */
+  requireIsolation: Scalars["Boolean"]["output"];
+};
+
+export type ContainerIsolationSettingsInput = {
+  cpus: Scalars["Int"]["input"];
+  enabled: Scalars["Boolean"]["input"];
+  image: Scalars["String"]["input"];
+  memoryMb: Scalars["Int"]["input"];
+  requireIsolation: Scalars["Boolean"]["input"];
+};
 
 export type ContainerPool = {
   __typename?: "ContainerPool";
@@ -1003,6 +1036,12 @@ export type EnvVarInput = {
   key: Scalars["String"]["input"];
   value: Scalars["String"]["input"];
 };
+
+export enum ExecutionPlatform {
+  Container = "CONTAINER",
+  Host = "HOST",
+  Virtual = "VIRTUAL",
+}
 
 /**
  * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
@@ -4093,6 +4132,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
+  config?: Maybe<TaskConfig>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
   details?: Maybe<TaskEndDetail>;
@@ -4106,6 +4146,12 @@ export type Task = {
   errors?: Maybe<Array<Scalars["String"]["output"]>>;
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
   execution: Scalars["Int"]["output"];
+  /**
+   * executionPlatform indicates the environment the task ran in: HOST for a
+   * task that ran directly on the host, or CONTAINER for a task that ran inside
+   * a Docker container on the host.
+   */
+  executionPlatform: ExecutionPlatform;
   executionSteps?: Maybe<Array<TaskExecutionStep>>;
   executionTasks?: Maybe<Array<Scalars["String"]["output"]>>;
   executionTasksFull?: Maybe<Array<Task>>;
@@ -4192,6 +4238,31 @@ export type TaskAnnotationSettings = {
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
+};
+
+export type TaskConfig = {
+  __typename?: "TaskConfig";
+  activate?: Maybe<Scalars["Boolean"]["output"]>;
+  allowForGitTag?: Maybe<Scalars["Boolean"]["output"]>;
+  allowedBranches?: Maybe<Array<Scalars["String"]["output"]>>;
+  allowedRequesters?: Maybe<Array<Scalars["String"]["output"]>>;
+  batchTime?: Maybe<Scalars["Int"]["output"]>;
+  cronBatchTime?: Maybe<Scalars["String"]["output"]>;
+  dependsOn?: Maybe<Array<TaskUnitDependency>>;
+  disable?: Maybe<Scalars["Boolean"]["output"]>;
+  execTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
+  gitTagOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  groupName?: Maybe<Scalars["String"]["output"]>;
+  ignoredBranches?: Maybe<Array<Scalars["String"]["output"]>>;
+  isGroup?: Maybe<Scalars["Boolean"]["output"]>;
+  isPartOfGroup?: Maybe<Scalars["Boolean"]["output"]>;
+  name: Scalars["String"]["output"];
+  patchOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  patchable?: Maybe<Scalars["Boolean"]["output"]>;
+  priority?: Maybe<Scalars["Int"]["output"]>;
+  ps?: Maybe<Scalars["String"]["output"]>;
+  runOn?: Maybe<Array<Scalars["String"]["output"]>>;
+  stepback?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
@@ -4516,6 +4587,15 @@ export type TaskTestResultSample = {
   matchingFailedTestNames: Array<Scalars["String"]["output"]>;
   taskId: Scalars["String"]["output"];
   totalTestCount: Scalars["Int"]["output"];
+};
+
+export type TaskUnitDependency = {
+  __typename?: "TaskUnitDependency";
+  name: Scalars["String"]["output"];
+  omitGeneratedTasks?: Maybe<Scalars["Boolean"]["output"]>;
+  patchOptional?: Maybe<Scalars["Boolean"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  variant?: Maybe<Scalars["String"]["output"]>;
 };
 
 /**

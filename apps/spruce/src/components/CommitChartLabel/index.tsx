@@ -1,17 +1,14 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import ExpandedText from "components/ExpandedText";
 import { getTriggerRoute, getVersionRoute } from "constants/routes";
 import { GitTag, UpstreamProjectFragment } from "gql/generated/types";
 import { useDateFormat, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
+import styles from "./index.module.css";
 
-const { gray } = palette;
 const MAX_CHAR = 40;
 interface Props {
   githash: string;
@@ -55,8 +52,8 @@ const CommitChartLabel: React.FC<Props> = ({
   } = upstreamProject || {};
 
   return (
-    <LabelContainer data-testid="commit-label">
-      <LabelText>
+    <div className={styles.labelContainer} data-testid="commit-label">
+      <Body className={styles.labelText}>
         <InlineCode
           as={Link}
           data-testid="githash-link"
@@ -68,9 +65,9 @@ const CommitChartLabel: React.FC<Props> = ({
         <b title={getDateCopy(createDate)}>
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
         </b>{" "}
-      </LabelText>
+      </Body>
       {upstreamProject && (
-        <LabelText>
+        <Body className={styles.labelText}>
           Triggered from:{" "}
           <StyledRouterLink
             onClick={onClickUpstreamProject}
@@ -89,17 +86,17 @@ const CommitChartLabel: React.FC<Props> = ({
           >
             {upstreamProjectIdentifier}
           </StyledRouterLink>
-        </LabelText>
+        </Body>
       )}
-      <LabelText>{author} -</LabelText>
-      <LabelText>
+      <Body className={styles.labelText}>{author} -</Body>
+      <Body className={styles.labelText}>
         {jiraLinkify(
           shortenMessage ? shortenedMessage : message,
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           jiraHost,
           onClickJiraTicket,
         )}
-      </LabelText>
+      </Body>
       {shortenMessage && (
         <ExpandedText
           data-testid="long-commit-message-tooltip"
@@ -107,27 +104,12 @@ const CommitChartLabel: React.FC<Props> = ({
         />
       )}
       {gitTags && (
-        <LabelText>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</LabelText>
+        <Body className={styles.labelText}>
+          Git Tags: {gitTags.map((g) => g.tag).join(", ")}
+        </Body>
       )}
-    </LabelContainer>
+    </div>
   );
 };
-
-const LabelContainer = styled.div`
-  min-width: 100%;
-  display: flex;
-  margin-top: ${size.xs};
-  margin-bottom: ${size.s};
-  flex-direction: column;
-  align-items: flex-start;
-  word-break: normal;
-  overflow-wrap: anywhere;
-`;
-
-const LabelText = styled(Body)`
-  color: ${gray.dark2};
-  width: 100%;
-  font-size: 12px;
-`;
 
 export default CommitChartLabel;

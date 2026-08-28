@@ -1,0 +1,13 @@
+.fileDiffText {
+  &:nth-of-type(2) {
+    margin-left: var(--via-space-200);
+  }
+}
+
+.addition {
+  color: var(--via-color-green-500);
+}
+
+.deletion {
+  color: var(--via-color-red-400);
+}

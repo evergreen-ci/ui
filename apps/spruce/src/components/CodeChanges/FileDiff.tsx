@@ -1,12 +1,8 @@
 import { useRef } from "react";
-import { Global } from "@emotion/react";
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
 import { useParams, useSearchParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { styles } from "hooks/useHTMLStream/utils";
+import styles from "./FileDiff.module.css";
 import { useFileDiffStream } from "./useFileDiffStream";
 import { getRawDiffUrl } from "./utils";
 
@@ -27,40 +23,29 @@ export const FileDiff: React.FC = () => {
 
   if (!fileName) {
     return (
-      <Container>
+      <div className={styles.container}>
         <div>Error: file_name parameter is required</div>
-      </Container>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Container>
+      <div className={styles.container}>
         <div>Error loading file diff: {error.message}</div>
-      </Container>
+      </div>
     );
   }
 
   return (
-    <Container>
+    <div className={styles.container}>
       {fileName && (
-        <FileNameContainer>
+        <div className={styles.fileNameContainer}>
           <Body weight="medium">{fileName}</Body>
-        </FileNameContainer>
+        </div>
       )}
       {isLoading && <ListSkeleton />}
-      <Global styles={styles} />
       <pre ref={containerRef} />
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  padding: ${size.m};
-`;
-
-const FileNameContainer = styled.div`
-  margin-bottom: ${size.s};
-  padding-bottom: ${size.xs};
-  border-bottom: 1px solid ${palette.gray.light2};
-`;

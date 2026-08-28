@@ -1,11 +1,7 @@
 import { useCallback, useState } from "react";
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
-import { transitionDuration } from "@leafygreen-ui/tokens";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
 import { days } from "constants/time";
-
-const { gray, white } = palette;
+import styles from "./index.module.css";
 
 const emptyState = new Array(days.length).fill(false);
 
@@ -40,7 +36,7 @@ export const DayPicker: React.FC<{
   );
 
   return (
-    <Container data-testid="daypicker">
+    <div className={styles.container} data-testid="daypicker">
       {days.map((day, i) => (
         <Day
           key={day}
@@ -50,14 +46,9 @@ export const DayPicker: React.FC<{
           selected={selectedDays[i]}
         />
       ))}
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  gap: ${size.s};
-`;
 
 const Day: React.FC<{
   day: string;
@@ -65,56 +56,19 @@ const Day: React.FC<{
   handleClick: () => void;
   selected: boolean;
 }> = ({ day, disabled, handleClick, selected }) => (
-  <Circle htmlFor={day} selected={selected} title={day}>
-    <InvisibleInput
+  <label
+    className={cx(styles.circle, selected && styles.selected)}
+    htmlFor={day}
+    title={day}
+  >
+    <input
       aria-checked={selected}
+      className={styles.invisibleInput}
       disabled={disabled}
       id={day}
       onChange={handleClick}
       type="checkbox"
     />
     {day.charAt(0)}
-  </Circle>
+  </label>
 );
-
-const Circle = styled.label<{ selected: boolean }>`
-  all: unset;
-  align-items: center;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  display: flex;
-  font-weight: bold;
-  height: 2rem;
-  justify-content: center;
-  transition: ${transitionDuration.default}ms all ease-in-out;
-
-  :has(:enabled) {
-    cursor: pointer;
-
-    ${({ selected }) =>
-      selected
-        ? `
-/* !important allows the selected color to override the :hover color upon clicking */
-background-color: ${gray.dark3} !important;
-color: ${white};
-`
-        : `background-color: ${gray.light2};`}
-
-    :hover {
-      background-color: ${gray.light1};
-    }
-  }
-
-  :has(:disabled) {
-    ${({ selected }) => selected && `background-color: ${gray.light2}`};
-
-    color: ${gray.light1};
-    cursor: not-allowed;
-  }
-`;
-
-const InvisibleInput = styled.input`
-  opacity: 0;
-  position: absolute;
-  pointer-events: none;
-`;
