@@ -1,5 +1,6 @@
 import { Decorator, Preview } from "@storybook/react-vite";
 import "@via-ds/tokens/tokens.css";
+import "@via-ds/components/index.css";
 import { bodyStyles, fontStyles, resetStyles } from "components/styles";
 
 export const globalStyles = `
