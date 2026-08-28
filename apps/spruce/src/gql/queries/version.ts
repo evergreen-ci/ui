@@ -10,6 +10,23 @@ export const VERSION = gql`
       baseVersion {
         id
       }
+      childVersions {
+        id
+        baseVersion {
+          id
+        }
+        parameters {
+          key
+          value
+        }
+        projectMetadata {
+          id
+          identifier
+        }
+        revision
+        status
+        taskCount
+      }
       cost {
         adjustedEBSStorageCost
         adjustedEBSThroughputCost
@@ -51,27 +68,6 @@ export const VERSION = gql`
       patch {
         id
         alias
-        childPatches {
-          id
-          githash
-          parameters {
-            key
-            value
-          }
-          projectMetadata {
-            id
-            identifier
-          }
-          status
-          taskCount
-          version {
-            id
-            baseVersion {
-              id
-            }
-            status
-          }
-        }
         cost {
           childPatchesTotalCost
           total
