@@ -174,8 +174,8 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
+    const infoSprinkle = screen.getByRole("button", { name: "More info" });
+    await user.click(infoSprinkle);
     await screen.findByText("Estimated cost of completed tasks so far.");
   });
 
@@ -206,8 +206,8 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
+    const infoSprinkle = screen.getByRole("button", { name: "More info" });
+    await user.click(infoSprinkle);
     await screen.findByText(
       "Estimated cost of completed tasks so far, including child patches.",
     );
@@ -240,8 +240,8 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
+    const infoSprinkle = screen.getByRole("button", { name: "More info" });
+    await user.click(infoSprinkle);
     await screen.findByText(
       "Total cost of all tasks, including child patches.",
     );
@@ -263,8 +263,8 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
+    const infoSprinkle = screen.getByRole("button", { name: "More info" });
+    await user.click(infoSprinkle);
     await screen.findByText("Total cost of all tasks.");
   });
 
