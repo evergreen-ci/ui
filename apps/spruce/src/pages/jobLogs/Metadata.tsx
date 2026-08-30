@@ -18,6 +18,7 @@ export const Metadata: React.FC<{
         <Link
           data-testid="complete-test-logs-link"
           href={metadata.completeLogsURL}
+          linkStyle="internal"
           onPress={() => {
             sendEvent({
               name: "Clicked complete logs link",
@@ -26,6 +27,8 @@ export const Metadata: React.FC<{
               "group.id": metadata.groupID,
             });
           }}
+          rel="noopener noreferrer"
+          target="_blank"
         >
           Complete logs for all tests in this job
         </Link>
