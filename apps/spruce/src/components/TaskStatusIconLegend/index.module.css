@@ -24,8 +24,6 @@
   margin-bottom: var(--via-space-400);
 }
 
-/* Doubled selector keeps this override ahead of PopoverContainer's own
-   static rules regardless of module load order. */
 .legendPopover.legendPopover {
   border-radius: var(--via-space-600);
   padding: var(--via-space-600);

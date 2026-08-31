@@ -6,8 +6,6 @@
   white-space: nowrap;
 }
 
-/* Doubled selector outranks TaskBox's own module styles regardless of CSS
-   bundle order. Remove when this override is no longer needed. */
 .taskBox.taskBox {
   width: 14px;
   height: 14px;

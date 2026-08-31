@@ -11,8 +11,6 @@
   gap: var(--via-space-800);
 }
 
-/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
-   Remove when these components migrate to Via. */
 .accordionTitle.accordionTitle {
   font-size: 18px;
   margin: var(--via-space-200) 0;
