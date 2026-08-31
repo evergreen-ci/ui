@@ -245,6 +245,7 @@ test.describe("Host events", () => {
   }) => {
     await page.goto(`${pathWithEvents}?limit=10&page=0`);
     const firstRow = page.getByTestId("host-events-table-row").first();
+    await expect(firstRow).not.toBeEmpty();
     const firstRowText = await firstRow.textContent();
 
     const pagination = page.getByTestId("pagination");
@@ -257,7 +258,7 @@ test.describe("Host events", () => {
     await expect(page).toHaveURL(/page=1/);
     await expect(
       page.getByTestId("host-events-table-row").first(),
-    ).not.toHaveText(firstRowText ?? "");
+    ).not.toHaveText(firstRowText as string);
   });
 
   test("host events are displayed in the right timezone", async ({ page }) => {
