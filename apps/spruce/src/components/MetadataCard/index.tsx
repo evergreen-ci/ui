@@ -108,7 +108,9 @@ export const MetadataItem: React.FC<ItemProps> = ({
         <Label style={labelColor ? { color: labelColor } : undefined}>
           {label}:
         </Label>
-        <Body elementType="span">{children}</Body>
+        <Body elementType={elementType === "div" ? "div" : "span"}>
+          {children}
+        </Body>
       </LabeledValue>
     ) : (
       <Body
