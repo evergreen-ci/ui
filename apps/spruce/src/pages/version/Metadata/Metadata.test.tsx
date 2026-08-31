@@ -328,11 +328,9 @@ describe("version metadata cost display", () => {
           cost: { __typename: "Cost", total: 1.5 },
           patch: {
             __typename: "Patch",
-            cost: { __typename: "Cost", total: 3.75 },
-
             githubPatchData: null,
             includedLocalModules: [],
-            id: "child-patch",
+            id: "patch",
             patchNumber: 123,
           },
           finishTime: new Date("2024-01-02"),
