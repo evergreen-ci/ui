@@ -73,7 +73,6 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
     if (!groupID) {
       return null;
     }
-    console.log(groupID);
     return [
       "evergreen task build TestLogs",
       "--task_id",
