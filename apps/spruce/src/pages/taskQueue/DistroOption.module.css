@@ -1,0 +1,31 @@
+.optionWrapper {
+  display: flex;
+  align-items: start;
+  padding: var(--via-space-200);
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
+  transition-behavior: normal;
+  transition-property: background-color, color;
+}
+
+.optionWrapper:hover {
+  cursor: pointer;
+  background-color: var(--via-color-neutral-200);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.badge.badge {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 90px;
+  margin-right: var(--via-space-200);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.distroName.distroName {
+  margin-left: var(--via-space-400);
+}
