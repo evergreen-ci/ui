@@ -1,12 +1,10 @@
-import styled from "@emotion/styled";
-import { Badge } from "@leafygreen-ui/badge";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
+import { Disclaimer } from "@via-ds/components/typography";
 import pluralize from "pluralize";
 import { Link } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { hoverStyles } from "components/styles/SearchableDropdown";
 import { getTaskQueueRoute } from "constants/routes";
 import { TaskQueueDistro } from "gql/generated/types";
+import styles from "./DistroOption.module.css";
 
 interface DistroOptionProps {
   option: TaskQueueDistro;
@@ -20,29 +18,15 @@ export const DistroOption: React.FC<DistroOptionProps> = ({
   const { hostCount, id, taskCount } = option;
   return (
     <Link onClick={() => onClick(option)} to={getTaskQueueRoute(id)}>
-      <OptionWrapper>
-        <StyledBadge>{pluralize("task", taskCount, true)}</StyledBadge>
-        <StyledBadge>{pluralize("host", hostCount, true)}</StyledBadge>
-        <DistroName>{id}</DistroName>
-      </OptionWrapper>
+      <div className={styles.optionWrapper}>
+        <Badge className={styles.badge} variant={BadgeVariant.Status}>
+          {pluralize("task", taskCount, true)}
+        </Badge>
+        <Badge className={styles.badge} variant={BadgeVariant.Status}>
+          {pluralize("host", hostCount, true)}
+        </Badge>
+        <Disclaimer className={styles.distroName}>{id}</Disclaimer>
+      </div>
     </Link>
   );
 };
-
-const OptionWrapper = styled.div`
-  display: flex;
-  padding: ${size.xs};
-  align-items: start;
-  ${hoverStyles};
-`;
-
-const StyledBadge = styled(Badge)`
-  display: flex;
-  flex-shrink: 0;
-  justify-content: center;
-  width: 90px;
-  margin-right: ${size.xs};
-`;
-const DistroName = styled(Disclaimer)`
-  margin-left: ${size.s};
-`;

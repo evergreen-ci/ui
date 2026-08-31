@@ -1,0 +1,27 @@
+.optionWrapper {
+  display: flex;
+  padding: var(--via-space-200);
+  align-items: start;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
+  transition-behavior: normal;
+  transition-property: background-color, color;
+}
+
+.optionWrapper:hover {
+  cursor: pointer;
+  background-color: var(--via-color-neutral-200);
+}
+
+.badge {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 90px;
+  margin-right: var(--via-space-200);
+}
+
+.distroName {
+  margin-left: var(--via-space-400);
+}

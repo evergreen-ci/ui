@@ -1,0 +1,18 @@
+.virtualScrollingContainer {
+  max-height: 100vh;
+  width: 100%;
+}
+
+.taskCell {
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.indexCell {
+  font-weight: 500;
+}
