@@ -1,8 +1,8 @@
-import { Code } from "@leafygreen-ui/code";
 import Accordion, {
   AccordionCaretIcon,
 } from "@evg-ui/lib/components/Accordion";
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
+import { CodeViewer } from "components/CodeViewer";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData, HostEventType } from "gql/generated/types";
@@ -318,7 +318,7 @@ export const HostEventLog: React.FC<{
     title={title}
   >
     <span data-testid="host-event-log-content">
-      {isCode ? <Code language="shell">{logs}</Code> : logs}
+      {isCode ? <CodeViewer language="shell">{logs}</CodeViewer> : logs}
     </span>
   </Accordion>
 );

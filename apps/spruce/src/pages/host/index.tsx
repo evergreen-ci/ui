@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
-import { Code } from "@leafygreen-ui/code";
+import { Button } from "@via-ds/components";
 import { useParams } from "react-router-dom";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
+import { CodeViewer } from "components/CodeViewer";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
@@ -31,6 +29,7 @@ import { HOST, HOST_EVENTS } from "gql/queries/index";
 import { HostStatus } from "types/host";
 import { HostQueryParams } from "./constants";
 import HostTable from "./HostTable";
+import styles from "./index.module.css";
 import { Metadata } from "./Metadata";
 
 const Host: React.FC = () => {
@@ -99,16 +98,16 @@ const Host: React.FC = () => {
             badge={<HostStatusBadge status={status} />}
             buttons={
               <div>
-                <ButtonsWrapper>
-                  <ButtonSpacer>
+                <div className={styles.buttonsWrapper}>
+                  <span className={styles.buttonSpacer}>
                     <Button
                       data-testid="update-status-button"
-                      onClick={() => setIsUpdateStatusModalVisible(true)}
+                      onPress={() => setIsUpdateStatusModalVisible(true)}
                     >
                       Update Status
                     </Button>
-                  </ButtonSpacer>
-                  <ButtonSpacer>
+                  </span>
+                  <span className={styles.buttonSpacer}>
                     <RestartJasper
                       canRestartJasper={canRestartJasperOrReprovision}
                       hostUrl={hostUrl}
@@ -117,8 +116,8 @@ const Host: React.FC = () => {
                       // @ts-expect-error: FIXME. This comment was added by an automated script.
                       selectedHostIds={[hostId]}
                     />
-                  </ButtonSpacer>
-                  <ButtonSpacer>
+                  </span>
+                  <span className={styles.buttonSpacer}>
                     <Reprovision
                       canReprovision={canRestartJasperOrReprovision}
                       hostUrl={hostUrl}
@@ -127,8 +126,8 @@ const Host: React.FC = () => {
                       // @ts-expect-error: FIXME. This comment was added by an automated script.
                       selectedHostIds={[hostId]}
                     />
-                  </ButtonSpacer>
-                </ButtonsWrapper>
+                  </span>
+                </div>
               </div>
             }
             loading={hostMetadataLoading}
@@ -145,9 +144,9 @@ const Host: React.FC = () => {
                 loading={hostMetadataLoading}
               />
               {sshAddress && (
-                <Code data-testid="ssh-command" language="shell">
+                <CodeViewer data-testid="ssh-command" language="shell">
                   {sshCommand}
-                </Code>
+                </CodeViewer>
               )}
             </PageSider>
             <PageContent>
@@ -178,14 +177,5 @@ const Host: React.FC = () => {
     </PageWrapper>
   );
 };
-const ButtonSpacer = styled.span`
-  margin-right: ${size.l};
-`;
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-`;
 
 export default Host;

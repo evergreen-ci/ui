@@ -1,0 +1,4 @@
+.eventContainer {
+  margin-bottom: var(--via-space-600);
+  border: 1px solid green;
+}
