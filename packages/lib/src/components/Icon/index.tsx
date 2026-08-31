@@ -26,14 +26,6 @@ const localGlyphs = {
 
 export type LocalGlyphName = keyof typeof localGlyphs;
 
-/** LeafyGreen-compatible size enum; values are Via size strings. */
-export enum Size {
-  Small = "small",
-  Default = "medium",
-  Large = "large",
-  XLarge = "xlarge",
-}
-
 export interface IconProps extends Omit<DynamicIconProps, "glyph"> {
   glyph: GlyphName | LocalGlyphName;
 }
