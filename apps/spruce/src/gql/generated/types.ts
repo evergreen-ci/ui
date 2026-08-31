@@ -5002,6 +5002,7 @@ export type Version = {
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   projectMetadata?: Maybe<Project>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
