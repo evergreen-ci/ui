@@ -38,7 +38,9 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   if (!logMetadata) {
     return null;
   }
-  const { execution, logPath, logType, logsToMerge, taskID } = logMetadata;
+  const { execution, groupID, logPath, logType, logsToMerge, taskID } =
+    logMetadata;
+
   if (!logType || !taskID || execution == null) {
     return null;
   }
@@ -64,6 +66,22 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
       "--log_path",
       quoteForShell(logPath),
       ...logsToMergeFlags,
+      "--o output.txt",
+    ].join(" ");
+  }
+  if (logType === LogTypes.EVERGREEN_COMPLETE_LOGS) {
+    if (!groupID) {
+      return null;
+    }
+    console.log(groupID);
+    return [
+      "evergreen task build TestLogs",
+      "--task_id",
+      quoteForShell(taskID),
+      "--execution",
+      quoteForShell(execution),
+      "--log_path",
+      quoteForShell(groupID),
       "--o output.txt",
     ].join(" ");
   }
