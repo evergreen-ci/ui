@@ -8106,6 +8106,7 @@ export type AdminSettingsQuery = {
         __typename?: "ProjectTasksPair";
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
+        isRegex?: boolean | null;
         projectId: string;
       }>;
     } | null;
@@ -10981,6 +10982,7 @@ export type SingleTaskDistroQuery = {
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
         displayName: string;
+        isRegex?: boolean | null;
         projectId: string;
       }>;
     } | null;
