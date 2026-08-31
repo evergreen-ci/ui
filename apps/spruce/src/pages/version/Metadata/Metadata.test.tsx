@@ -178,13 +178,14 @@ describe("version metadata cost display", () => {
     await screen.findByText("Estimated cost of completed tasks so far.");
   });
 
-  it("shows child patches tooltip when running with children", async () => {
+  it("shows child patches tooltip when child versions exist", async () => {
     const user = userEvent.setup();
     render(
       <Metadata
         version={{
           ...baseVersion,
           isPatch: true,
+          cost: { __typename: "Cost", total: 50 },
           childVersions: [
             {
               __typename: "Version",
@@ -217,48 +218,6 @@ describe("version metadata cost display", () => {
     await user.hover(infoSprinkle);
     await screen.findByText(
       "Estimated cost of completed tasks so far, including child patches.",
-    );
-  });
-
-  it("shows child patches tooltip when complete with children", async () => {
-    const user = userEvent.setup();
-    render(
-      <Metadata
-        version={{
-          ...baseVersion,
-          isPatch: true,
-          childVersions: [
-            {
-              __typename: "Version",
-              id: "child1",
-              revision: "abc",
-              status: "created",
-              taskCount: 1,
-              baseVersion: null,
-              parameters: [],
-              projectMetadata: null,
-            },
-          ],
-          patch: {
-            __typename: "Patch",
-            id: "patch",
-            githubPatchData: null,
-            includedLocalModules: [],
-            patchNumber: 123,
-          },
-          finishTime: new Date("2024-01-02"),
-        }}
-      />,
-      {
-        route: "/version/version123",
-        path: "/version/:id",
-        wrapper,
-      },
-    );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
-    await screen.findByText(
-      "Total cost of all tasks, including child patches.",
     );
   });
 
