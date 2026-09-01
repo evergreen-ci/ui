@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { SortedTaskStatus, TaskStatus } from "@evg-ui/lib/types/task";
+import styles from "./TaskBox.stories.module.css";
 import { TaskBox } from ".";
 
 export default {
@@ -26,7 +25,7 @@ type TemplateProps = {
 };
 
 const Template = (args: TemplateProps) => (
-  <Container>
+  <div className={styles.container}>
     {SortedTaskStatus.map((s) => (
       <TaskBox
         key={s}
@@ -34,15 +33,5 @@ const Template = (args: TemplateProps) => (
         status={s as TaskStatus}
       />
     ))}
-  </Container>
+  </div>
 );
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: ${size.xs};
-
-  height: 90vh;
-  width: 100vw;
-`;

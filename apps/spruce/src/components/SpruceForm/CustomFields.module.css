@@ -1,0 +1,13 @@
+.h3.h3 {
+  margin-top: var(--via-space-600);
+  margin-bottom: 12px;
+}
+
+.subtitle.subtitle {
+  margin-top: var(--via-space-400);
+  margin-bottom: 12px;
+}
+
+.description.description {
+  margin-bottom: 12px;
+}

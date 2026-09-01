@@ -848,6 +848,7 @@ export type Distro = {
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
   availableRegions: Array<Scalars["String"]["output"]>;
+  bootstrapMethod: Scalars["String"]["output"];
   bootstrapSettings: BootstrapSettings;
   containerPool: Scalars["String"]["output"];
   costData?: Maybe<CostData>;
@@ -860,9 +861,11 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
+  id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
+  isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
@@ -902,16 +905,6 @@ export type DistroEventsPayload = {
   __typename?: "DistroEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<DistroEvent>;
-};
-
-export type DistroInfo = {
-  __typename?: "DistroInfo";
-  bootstrapMethod?: Maybe<Scalars["String"]["output"]>;
-  id?: Maybe<Scalars["String"]["output"]>;
-  isVirtualWorkStation?: Maybe<Scalars["Boolean"]["output"]>;
-  isWindows?: Maybe<Scalars["Boolean"]["output"]>;
-  user?: Maybe<Scalars["String"]["output"]>;
-  workDir?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type DistroInput = {
@@ -1318,7 +1311,8 @@ export type Host = {
   ami?: Maybe<Scalars["String"]["output"]>;
   availabilityZone?: Maybe<Scalars["String"]["output"]>;
   displayName?: Maybe<Scalars["String"]["output"]>;
-  distro?: Maybe<DistroInfo>;
+  distro?: Maybe<Distro>;
+  /** @deprecated Use distro.id instead */
   distroId?: Maybe<Scalars["String"]["output"]>;
   elapsed?: Maybe<Scalars["Time"]["output"]>;
   eventTypes: Array<HostEventType>;
@@ -4389,8 +4383,8 @@ export type TaskHostOverridesInput = {
 
 export type TaskInfo = {
   __typename?: "TaskInfo";
-  id?: Maybe<Scalars["ID"]["output"]>;
-  name?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
 };
 
 export type TaskLimitsConfig = {
@@ -5002,6 +4996,7 @@ export type Version = {
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   projectMetadata?: Maybe<Project>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
@@ -5106,11 +5101,11 @@ export type Volume = {
   availabilityZone: Scalars["String"]["output"];
   createdBy: Scalars["String"]["output"];
   creationTime?: Maybe<Scalars["Time"]["output"]>;
-  deviceName?: Maybe<Scalars["String"]["output"]>;
   displayName: Scalars["String"]["output"];
   expiration?: Maybe<Scalars["Time"]["output"]>;
   homeVolume: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
+  /** @deprecated Use host.id instead */
   hostID: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   migrating: Scalars["Boolean"]["output"];
@@ -5393,12 +5388,12 @@ export type BaseSpawnHostFragment = {
   uptime?: Date | null;
   user?: string | null;
   distro?: {
-    __typename?: "DistroInfo";
-    id?: string | null;
-    isVirtualWorkStation?: boolean | null;
-    isWindows?: boolean | null;
-    user?: string | null;
-    workDir?: string | null;
+    __typename?: "Distro";
+    id: string;
+    isVirtualWorkStation: boolean;
+    isWindows: boolean;
+    user: string;
+    workDir: string;
   } | null;
   homeVolume?: {
     __typename?: "Volume";
@@ -6978,12 +6973,12 @@ export type EditSpawnHostMutation = {
     uptime?: Date | null;
     user?: string | null;
     distro?: {
-      __typename?: "DistroInfo";
-      id?: string | null;
-      isVirtualWorkStation?: boolean | null;
-      isWindows?: boolean | null;
-      user?: string | null;
-      workDir?: string | null;
+      __typename?: "Distro";
+      id: string;
+      isVirtualWorkStation: boolean;
+      isWindows: boolean;
+      user: string;
+      workDir: string;
     } | null;
     homeVolume?: {
       __typename?: "Volume";
@@ -7211,16 +7206,11 @@ export type RestartVersionsMutation = {
     id: string;
     status: string;
     taskStatuses: Array<string>;
-    patch?: {
-      __typename?: "Patch";
+    childVersions?: Array<{
+      __typename?: "Version";
       id: string;
       status: string;
-      childPatches?: Array<{
-        __typename?: "Patch";
-        id: string;
-        status: string;
-      }> | null;
-    } | null;
+    }> | null;
   }> | null;
 };
 
@@ -7420,8 +7410,6 @@ export type SchedulePatchMutation = {
   __typename?: "Mutation";
   schedulePatch: {
     __typename?: "Patch";
-    tasks: Array<string>;
-    variants: Array<string>;
     id: string;
     activated: boolean;
     alias?: string | null;
@@ -8113,6 +8101,7 @@ export type AdminSettingsQuery = {
         __typename?: "ProjectTasksPair";
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
+        isRegex?: boolean | null;
         projectId: string;
       }>;
     } | null;
@@ -8781,7 +8770,6 @@ export type HostQuery = {
   host?: {
     __typename?: "Host";
     ami?: string | null;
-    distroId?: string | null;
     lastCommunicationTime?: Date | null;
     id: string;
     hostUrl: string;
@@ -8793,15 +8781,11 @@ export type HostQuery = {
     uptime?: Date | null;
     user?: string | null;
     distro?: {
-      __typename?: "DistroInfo";
-      id?: string | null;
-      bootstrapMethod?: string | null;
+      __typename?: "Distro";
+      id: string;
+      bootstrapMethod: string;
     } | null;
-    runningTask?: {
-      __typename?: "TaskInfo";
-      id?: string | null;
-      name?: string | null;
-    } | null;
+    runningTask?: { __typename?: "TaskInfo"; id: string; name: string } | null;
   } | null;
 };
 
@@ -8826,7 +8810,6 @@ export type HostsQuery = {
     hosts: Array<{
       __typename?: "Host";
       id: string;
-      distroId?: string | null;
       elapsed?: Date | null;
       hostUrl: string;
       noExpiration: boolean;
@@ -8837,14 +8820,14 @@ export type HostsQuery = {
       totalIdleTime?: number | null;
       uptime?: Date | null;
       distro?: {
-        __typename?: "DistroInfo";
-        id?: string | null;
-        bootstrapMethod?: string | null;
+        __typename?: "Distro";
+        id: string;
+        bootstrapMethod: string;
       } | null;
       runningTask?: {
         __typename?: "TaskInfo";
-        id?: string | null;
-        name?: string | null;
+        id: string;
+        name: string;
       } | null;
     }>;
   };
@@ -9223,12 +9206,12 @@ export type MyHostsQuery = {
       wholeWeekdaysOff: Array<number>;
     } | null;
     distro?: {
-      __typename?: "DistroInfo";
-      id?: string | null;
-      isVirtualWorkStation?: boolean | null;
-      isWindows?: boolean | null;
-      user?: string | null;
-      workDir?: string | null;
+      __typename?: "Distro";
+      id: string;
+      isVirtualWorkStation: boolean;
+      isWindows: boolean;
+      user: string;
+      workDir: string;
     } | null;
     homeVolume?: {
       __typename?: "Volume";
@@ -9260,11 +9243,9 @@ export type MyVolumesQuery = {
     availabilityZone: string;
     createdBy: string;
     creationTime?: Date | null;
-    deviceName?: string | null;
     displayName: string;
     expiration?: Date | null;
     homeVolume: boolean;
-    hostID: string;
     migrating: boolean;
     noExpiration: boolean;
     size: number;
@@ -9304,6 +9285,7 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
+    createTime?: Date | null;
     id: string;
     activated: boolean;
     alias?: string | null;
@@ -9357,7 +9339,6 @@ export type ConfigurePatchQuery = {
       id: string;
       identifier: string;
     } | null;
-    time?: { __typename?: "PatchTime"; submittedAt: string } | null;
     version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
@@ -10992,6 +10973,7 @@ export type SingleTaskDistroQuery = {
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
         displayName: string;
+        isRegex?: boolean | null;
         projectId: string;
       }>;
     } | null;
@@ -12335,6 +12317,24 @@ export type VersionQuery = {
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
+    childVersions?: Array<{
+      __typename?: "Version";
+      id: string;
+      revision: string;
+      status: string;
+      taskCount?: number | null;
+      baseVersion?: { __typename?: "Version"; id: string } | null;
+      parameters: Array<{
+        __typename?: "Parameter";
+        key: string;
+        value: string;
+      }>;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
+    }> | null;
     cost?: {
       __typename?: "Cost";
       adjustedEBSStorageCost?: number | null;
@@ -12344,6 +12344,7 @@ export type VersionQuery = {
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
+      childPatchesTotalCost?: number | null;
       total?: number | null;
     } | null;
     externalLinksForMetadata: Array<{
@@ -12372,34 +12373,6 @@ export type VersionQuery = {
       id: string;
       alias?: string | null;
       patchNumber: number;
-      childPatches?: Array<{
-        __typename?: "Patch";
-        id: string;
-        githash: string;
-        status: string;
-        taskCount?: number | null;
-        parameters: Array<{
-          __typename?: "Parameter";
-          key: string;
-          value: string;
-        }>;
-        projectMetadata?: {
-          __typename?: "Project";
-          id: string;
-          identifier: string;
-        } | null;
-        version?: {
-          __typename?: "VersionLite";
-          id: string;
-          status: string;
-          baseVersion?: { __typename?: "VersionLite"; id: string } | null;
-        } | null;
-      }> | null;
-      cost?: {
-        __typename?: "Cost";
-        childPatchesTotalCost?: number | null;
-        total?: number | null;
-      } | null;
       githubPatchData?: {
         __typename?: "GithubPatch";
         headHash?: string | null;

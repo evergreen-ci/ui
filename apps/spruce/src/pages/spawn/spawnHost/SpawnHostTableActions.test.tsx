@@ -268,7 +268,7 @@ const baseSpawnHost: MyHost = {
     user: "ubuntu",
     workDir: "/home/ubuntu",
     isWindows: false,
-    __typename: "DistroInfo",
+    __typename: "Distro",
   },
   expiration: new Date("2024-05-06T20:27:43.024Z"),
   hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
