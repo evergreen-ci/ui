@@ -131,6 +131,7 @@ const imageDistrosMock: ApolloMock<
         distros: [
           {
             __typename: "Distro",
+            id: "ubuntu2204-small",
             name: "ubuntu2204-small",
             provider: Provider.Ec2Fleet,
             providerSettingsList: [
@@ -144,6 +145,7 @@ const imageDistrosMock: ApolloMock<
           },
           {
             __typename: "Distro",
+            id: "ubuntu2204-large",
             name: "ubuntu2204-large",
             provider: Provider.Ec2Fleet,
             providerSettingsList: [
@@ -157,6 +159,7 @@ const imageDistrosMock: ApolloMock<
           },
           {
             __typename: "Distro",
+            id: "ubuntu2204-static",
             name: "ubuntu2204-static",
             provider: Provider.Static,
             providerSettingsList: [{ hosts: ["host-1", "host-2"] }],
