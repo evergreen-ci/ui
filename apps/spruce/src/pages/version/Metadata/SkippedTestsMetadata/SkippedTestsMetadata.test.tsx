@@ -268,6 +268,29 @@ describe("version SkippedTestsMetadata", () => {
     });
   });
 
+  it("opens the modal while loading task details", async () => {
+    const user = userEvent.setup();
+    const loadingTasksMock = {
+      ...getVersionTasksMock([4, 2, 0]),
+      delay: Infinity,
+    };
+    const { Component: TestComponent } = RenderFakeToastContext(
+      <Component mocks={[loadingTasksMock]} />,
+    );
+    render(<TestComponent />, routerOptions);
+
+    await user.click(
+      screen.getByTestId("version-skipped-tests-details-button"),
+    );
+
+    expect(screen.getByTestId("skipped-tests-modal")).toBeVisible();
+    expect(screen.getByTestId("skipped-tests-download")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    expect(screen.queryByText("No matching tests.")).toBeNull();
+  });
+
   it("uses the version skipped test count and opens the modal", async () => {
     const user = userEvent.setup();
     const { Component: TestComponent } = RenderFakeToastContext(
