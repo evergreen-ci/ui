@@ -286,84 +286,74 @@ export const miscSettings = {
   },
 };
 
-export const getSingleTaskDistroSchema = ({
-  projectRefs = [],
-  repoRefs = [],
-}: {
-  projectRefs?: Array<{ id: string; displayName: string }>;
-  repoRefs?: Array<{ id: string; displayName: string }>;
-}) => {
-  const projectRepoOptions = [
-    ...projectRefs.map((p) => ({
-      type: "string" as const,
-      title: p.displayName,
-      enum: [p.id],
-    })),
-    ...repoRefs.map((r) => ({
-      type: "string" as const,
-      title: r.displayName,
-      enum: [r.id],
-    })),
-  ];
-
-  return {
-    schema: {
-      projectTasksPairs: {
-        type: "array" as const,
-        title: "Project Tasks Pairs",
-        items: {
-          type: "object" as const,
-          properties: {
-            projectId: {
-              type: "string" as const,
-              title: "Project ID / Repo ID",
-              oneOf: projectRepoOptions,
-              default: "",
-            },
-            allowedTasks: {
-              type: "array" as const,
-              title: "Allowed Tasks",
-              items: {
-                type: "string" as const,
-              },
-            },
-            allowedBVs: {
-              type: "array" as const,
-              title: "Allowed Build Variants",
-              items: {
-                type: "string" as const,
-              },
-            },
-          },
-        },
-      },
-    },
-    uiSchema: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:data-testid": "single-task-host",
-      "ui:objectFieldCss": objectGridCss,
-      projectTasksPairs: {
-        "ui:addButtonText": "Add project tasks pair",
-        "ui:data-testid": "project-tasks-pairs-list",
-        "ui:orderable": false,
-        "ui:fullWidth": true,
-        "ui:fieldCss": fullWidthCss,
-        "ui:arrayItemCSS": arrayItemCSS,
-        items: {
+export const getSingleTaskDistroSchema = () => ({
+  schema: {
+    projectTasksPairs: {
+      type: "array" as const,
+      title: "Project Tasks Pairs",
+      items: {
+        type: "object" as const,
+        properties: {
           projectId: {
-            "ui:widget": widgets.ComboboxWidget,
+            type: "string" as const,
+            title: "Project",
+            default: "",
+          },
+          isRegex: {
+            type: "boolean" as const,
+            title: "Treat as regular expression",
+            default: false,
           },
           allowedTasks: {
-            "ui:widget": widgets.ChipInputWidget,
+            type: "array" as const,
+            title: "Allowed Tasks",
+            items: {
+              type: "string" as const,
+            },
           },
           allowedBVs: {
-            "ui:widget": widgets.ChipInputWidget,
+            type: "array" as const,
+            title: "Allowed Build Variants",
+            items: {
+              type: "string" as const,
+            },
           },
         },
       },
     },
-  };
-};
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-testid": "single-task-host",
+    "ui:objectFieldCss": objectGridCss,
+    projectTasksPairs: {
+      "ui:addButtonText": "Add project tasks pair",
+      "ui:data-testid": "project-tasks-pairs-list",
+      "ui:orderable": false,
+      "ui:fullWidth": true,
+      "ui:fieldCss": fullWidthCss,
+      "ui:arrayItemCSS": arrayItemCSS,
+      items: {
+        "ui:order": ["projectId", "allowedTasks", "isRegex", "allowedBVs"],
+        projectId: {
+          "ui:description":
+            "An exact project ID or identifier. Enable 'Treat as regular expression' to match project identifiers by pattern instead.",
+          "ui:data-testid": "project-id-input",
+        },
+        isRegex: {
+          "ui:widget": widgets.CheckboxWidget,
+          "ui:data-testid": "project-is-regex",
+        },
+        allowedTasks: {
+          "ui:widget": widgets.ChipInputWidget,
+        },
+        allowedBVs: {
+          "ui:widget": widgets.ChipInputWidget,
+        },
+      },
+    },
+  },
+});
 
 export const bucketConfig = {
   schema: {

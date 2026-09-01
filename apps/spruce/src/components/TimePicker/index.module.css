@@ -6,8 +6,6 @@
   font-family: inherit;
 }
 
-/* Doubled selector keeps this override ahead of PopoverContainer's own
-   static rules regardless of module load order. */
 .menuList.menuList {
   display: flex;
   flex-direction: row;

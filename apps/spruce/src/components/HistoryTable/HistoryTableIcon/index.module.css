@@ -5,8 +5,6 @@
   cursor: pointer;
 }
 
-/* Doubled selector keeps this width/height override ahead of TaskBox's own
-   static rules regardless of module load order. */
 .taskBox.taskBox {
   width: 24px;
   height: 24px;

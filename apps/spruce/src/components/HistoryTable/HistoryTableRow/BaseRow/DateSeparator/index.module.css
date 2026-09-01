@@ -5,8 +5,6 @@
   align-items: center;
 }
 
-/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
-   Remove when this component migrates to Via. */
 .dateWrapper.dateWrapper {
   white-space: nowrap;
   padding-right: var(--via-space-600);

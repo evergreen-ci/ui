@@ -5,8 +5,6 @@
   flex-shrink: 0;
 }
 
-/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
-   Remove when this component migrates to Via. */
 .button.button {
   margin-right: var(--via-space-100);
   margin-left: var(--via-space-100);
