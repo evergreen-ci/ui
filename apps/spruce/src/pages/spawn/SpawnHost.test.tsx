@@ -140,6 +140,7 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
     data: {
       distros: [
         {
+          id: "test-distro",
           name: "test-distro",
           adminOnly: false,
           aliases: [],
