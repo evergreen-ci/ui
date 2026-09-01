@@ -45,6 +45,7 @@ export interface OtherFormState {
     singleTaskDistro: {
       projectTasksPairs: Array<{
         projectId: string;
+        isRegex: boolean;
         allowedTasks: string[];
         allowedBVs: string[];
       }>;

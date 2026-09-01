@@ -503,6 +503,8 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
+  sourceCacheBucket?: Maybe<BucketConfig>;
+  sourceCacheProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -516,6 +518,8 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
+  sourceCacheBucket?: InputMaybe<BucketConfigInput>;
+  sourceCacheProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -4125,6 +4129,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
+  config?: Maybe<TaskConfig>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
   details?: Maybe<TaskEndDetail>;
@@ -4231,6 +4236,31 @@ export type TaskAnnotationSettings = {
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
+};
+
+export type TaskConfig = {
+  __typename?: "TaskConfig";
+  activate?: Maybe<Scalars["Boolean"]["output"]>;
+  allowForGitTag?: Maybe<Scalars["Boolean"]["output"]>;
+  allowedBranches?: Maybe<Array<Scalars["String"]["output"]>>;
+  allowedRequesters?: Maybe<Array<Scalars["String"]["output"]>>;
+  batchTime?: Maybe<Scalars["Int"]["output"]>;
+  cronBatchTime?: Maybe<Scalars["String"]["output"]>;
+  dependsOn?: Maybe<Array<TaskUnitDependency>>;
+  disable?: Maybe<Scalars["Boolean"]["output"]>;
+  execTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
+  gitTagOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  groupName?: Maybe<Scalars["String"]["output"]>;
+  ignoredBranches?: Maybe<Array<Scalars["String"]["output"]>>;
+  isGroup?: Maybe<Scalars["Boolean"]["output"]>;
+  isPartOfGroup?: Maybe<Scalars["Boolean"]["output"]>;
+  name: Scalars["String"]["output"];
+  patchOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  patchable?: Maybe<Scalars["Boolean"]["output"]>;
+  priority?: Maybe<Scalars["Int"]["output"]>;
+  ps?: Maybe<Scalars["String"]["output"]>;
+  runOn?: Maybe<Array<Scalars["String"]["output"]>>;
+  stepback?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
@@ -4555,6 +4585,15 @@ export type TaskTestResultSample = {
   matchingFailedTestNames: Array<Scalars["String"]["output"]>;
   taskId: Scalars["String"]["output"];
   totalTestCount: Scalars["Int"]["output"];
+};
+
+export type TaskUnitDependency = {
+  __typename?: "TaskUnitDependency";
+  name: Scalars["String"]["output"];
+  omitGeneratedTasks?: Maybe<Scalars["Boolean"]["output"]>;
+  patchOptional?: Maybe<Scalars["Boolean"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  variant?: Maybe<Scalars["String"]["output"]>;
 };
 
 /**
@@ -4963,6 +5002,7 @@ export type Version = {
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   projectMetadata?: Maybe<Project>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
@@ -5107,6 +5147,8 @@ export type WaterfallBuild = {
 
 export type WaterfallOptions = {
   date?: InputMaybe<Scalars["Time"]["input"]>;
+  /** Return all builds and tasks for each matching version instead of applying the waterfall filters to them. */
+  includeAllBuildsAndTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
@@ -7170,16 +7212,11 @@ export type RestartVersionsMutation = {
     id: string;
     status: string;
     taskStatuses: Array<string>;
-    patch?: {
-      __typename?: "Patch";
+    childVersions?: Array<{
+      __typename?: "Version";
       id: string;
       status: string;
-      childPatches?: Array<{
-        __typename?: "Patch";
-        id: string;
-        status: string;
-      }> | null;
-    } | null;
+    }> | null;
   }> | null;
 };
 
@@ -7379,8 +7416,6 @@ export type SchedulePatchMutation = {
   __typename?: "Mutation";
   schedulePatch: {
     __typename?: "Patch";
-    tasks: Array<string>;
-    variants: Array<string>;
     id: string;
     activated: boolean;
     alias?: string | null;
@@ -8072,6 +8107,7 @@ export type AdminSettingsQuery = {
         __typename?: "ProjectTasksPair";
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
+        isRegex?: boolean | null;
         projectId: string;
       }>;
     } | null;
@@ -8740,7 +8776,6 @@ export type HostQuery = {
   host?: {
     __typename?: "Host";
     ami?: string | null;
-    distroId?: string | null;
     lastCommunicationTime?: Date | null;
     id: string;
     hostUrl: string;
@@ -8785,7 +8820,6 @@ export type HostsQuery = {
     hosts: Array<{
       __typename?: "Host";
       id: string;
-      distroId?: string | null;
       elapsed?: Date | null;
       hostUrl: string;
       noExpiration: boolean;
@@ -9219,11 +9253,9 @@ export type MyVolumesQuery = {
     availabilityZone: string;
     createdBy: string;
     creationTime?: Date | null;
-    deviceName?: string | null;
     displayName: string;
     expiration?: Date | null;
     homeVolume: boolean;
-    hostID: string;
     migrating: boolean;
     noExpiration: boolean;
     size: number;
@@ -9263,6 +9295,7 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
+    createTime?: Date | null;
     id: string;
     activated: boolean;
     alias?: string | null;
@@ -9316,7 +9349,6 @@ export type ConfigurePatchQuery = {
       id: string;
       identifier: string;
     } | null;
-    time?: { __typename?: "PatchTime"; submittedAt: string } | null;
     version?: { __typename?: "VersionLite"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
@@ -10951,6 +10983,7 @@ export type SingleTaskDistroQuery = {
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
         displayName: string;
+        isRegex?: boolean | null;
         projectId: string;
       }>;
     } | null;
@@ -12294,6 +12327,24 @@ export type VersionQuery = {
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
+    childVersions?: Array<{
+      __typename?: "Version";
+      id: string;
+      revision: string;
+      status: string;
+      taskCount?: number | null;
+      baseVersion?: { __typename?: "Version"; id: string } | null;
+      parameters: Array<{
+        __typename?: "Parameter";
+        key: string;
+        value: string;
+      }>;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+      } | null;
+    }> | null;
     cost?: {
       __typename?: "Cost";
       adjustedEBSStorageCost?: number | null;
@@ -12303,6 +12354,7 @@ export type VersionQuery = {
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
+      childPatchesTotalCost?: number | null;
       total?: number | null;
     } | null;
     externalLinksForMetadata: Array<{
@@ -12331,34 +12383,6 @@ export type VersionQuery = {
       id: string;
       alias?: string | null;
       patchNumber: number;
-      childPatches?: Array<{
-        __typename?: "Patch";
-        id: string;
-        githash: string;
-        status: string;
-        taskCount?: number | null;
-        parameters: Array<{
-          __typename?: "Parameter";
-          key: string;
-          value: string;
-        }>;
-        projectMetadata?: {
-          __typename?: "Project";
-          id: string;
-          identifier: string;
-        } | null;
-        version?: {
-          __typename?: "VersionLite";
-          id: string;
-          status: string;
-          baseVersion?: { __typename?: "VersionLite"; id: string } | null;
-        } | null;
-      }> | null;
-      cost?: {
-        __typename?: "Cost";
-        childPatchesTotalCost?: number | null;
-        total?: number | null;
-      } | null;
       githubPatchData?: {
         __typename?: "GithubPatch";
         headHash?: string | null;

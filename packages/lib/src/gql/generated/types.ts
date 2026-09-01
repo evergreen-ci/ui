@@ -506,6 +506,8 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackDays?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
+  sourceCacheBucket?: Maybe<BucketConfig>;
+  sourceCacheProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -519,6 +521,8 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackDays?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
+  sourceCacheBucket?: InputMaybe<BucketConfigInput>;
+  sourceCacheProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -4128,6 +4132,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
+  config?: Maybe<TaskConfig>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
   details?: Maybe<TaskEndDetail>;
@@ -4233,6 +4238,31 @@ export type TaskAnnotationSettings = {
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
+};
+
+export type TaskConfig = {
+  __typename?: "TaskConfig";
+  activate?: Maybe<Scalars["Boolean"]["output"]>;
+  allowForGitTag?: Maybe<Scalars["Boolean"]["output"]>;
+  allowedBranches?: Maybe<Array<Scalars["String"]["output"]>>;
+  allowedRequesters?: Maybe<Array<Scalars["String"]["output"]>>;
+  batchTime?: Maybe<Scalars["Int"]["output"]>;
+  cronBatchTime?: Maybe<Scalars["String"]["output"]>;
+  dependsOn?: Maybe<Array<TaskUnitDependency>>;
+  disable?: Maybe<Scalars["Boolean"]["output"]>;
+  execTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
+  gitTagOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  groupName?: Maybe<Scalars["String"]["output"]>;
+  ignoredBranches?: Maybe<Array<Scalars["String"]["output"]>>;
+  isGroup?: Maybe<Scalars["Boolean"]["output"]>;
+  isPartOfGroup?: Maybe<Scalars["Boolean"]["output"]>;
+  name: Scalars["String"]["output"];
+  patchOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  patchable?: Maybe<Scalars["Boolean"]["output"]>;
+  priority?: Maybe<Scalars["Int"]["output"]>;
+  ps?: Maybe<Scalars["String"]["output"]>;
+  runOn?: Maybe<Array<Scalars["String"]["output"]>>;
+  stepback?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
@@ -4557,6 +4587,15 @@ export type TaskTestResultSample = {
   matchingFailedTestNames: Array<Scalars["String"]["output"]>;
   taskId: Scalars["String"]["output"];
   totalTestCount: Scalars["Int"]["output"];
+};
+
+export type TaskUnitDependency = {
+  __typename?: "TaskUnitDependency";
+  name: Scalars["String"]["output"];
+  omitGeneratedTasks?: Maybe<Scalars["Boolean"]["output"]>;
+  patchOptional?: Maybe<Scalars["Boolean"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  variant?: Maybe<Scalars["String"]["output"]>;
 };
 
 /**
@@ -4965,6 +5004,7 @@ export type Version = {
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   projectMetadata?: Maybe<Project>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
@@ -5109,6 +5149,8 @@ export type WaterfallBuild = {
 
 export type WaterfallOptions = {
   date?: InputMaybe<Scalars["Time"]["input"]>;
+  /** Return all builds and tasks for each matching version instead of applying the waterfall filters to them. */
+  includeAllBuildsAndTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;

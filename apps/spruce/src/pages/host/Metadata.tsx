@@ -16,7 +16,7 @@ export const Metadata: React.FC<{
 }> = ({ error, host, loading }) => {
   const {
     ami,
-    distroId,
+    distro,
     hostUrl,
     lastCommunicationTime,
     persistentDnsName,
@@ -28,6 +28,7 @@ export const Metadata: React.FC<{
   } = host ?? {};
 
   const { id: runningTaskId, name: runningTaskName } = runningTask ?? {};
+  const distroId = distro?.id;
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const taskLink = getTaskRoute(runningTaskId);
