@@ -105,6 +105,10 @@ export const SaveModal: React.FC<SaveModalProps> = ({
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
       const changes = formToGql(formData, distro);
+      // Tab transformers spread the queried distro into the input; DistroInput
+      // rejects the query-only id/__typename fields, so strip them before saving.
+      delete (changes as Record<string, unknown>).__typename;
+      delete (changes as Record<string, unknown>).id;
       saveDistro({
         variables: {
           distro: changes,
