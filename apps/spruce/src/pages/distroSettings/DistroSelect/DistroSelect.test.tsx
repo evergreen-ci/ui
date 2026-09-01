@@ -104,7 +104,6 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
       distros: [
         {
           __typename: "Distro",
-          id: "localhost",
           adminOnly: false,
           aliases: [],
           availableRegions: [],
@@ -113,7 +112,6 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
         },
         {
           __typename: "Distro",
-          id: "localhost2",
           adminOnly: true,
           aliases: [],
           availableRegions: [],
@@ -122,7 +120,6 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
         },
         {
           __typename: "Distro",
-          id: "abc",
           aliases: ["alphabetical"],
           adminOnly: true,
           availableRegions: [],

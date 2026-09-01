@@ -3,7 +3,6 @@ import { gql } from "@apollo/client";
 export const DISTRO = gql`
   query Distro($distroId: String!) {
     distro(distroId: $distroId) {
-      id
       adminOnly
       aliases
       arch

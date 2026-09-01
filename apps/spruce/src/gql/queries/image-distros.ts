@@ -5,7 +5,6 @@ export const IMAGE_DISTROS = gql`
     image(imageId: $imageId) {
       id
       distros {
-        id
         hostAllocatorSettings {
           maximumHosts
         }

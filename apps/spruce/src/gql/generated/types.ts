@@ -7358,7 +7358,7 @@ export type SaveDistroMutation = {
   saveDistro: {
     __typename?: "SaveDistroPayload";
     hostCount: number;
-    distro: { __typename?: "Distro"; id: string; name: string };
+    distro: { __typename?: "Distro"; name: string };
   };
 };
 
@@ -8561,7 +8561,6 @@ export type DistroQuery = {
   __typename?: "Query";
   distro?: {
     __typename?: "Distro";
-    id: string;
     adminOnly: boolean;
     aliases: Array<string>;
     arch: Arch;
@@ -8678,7 +8677,6 @@ export type DistrosQuery = {
   __typename?: "Query";
   distros: Array<{
     __typename?: "Distro";
-    id: string;
     adminOnly: boolean;
     aliases: Array<string>;
     availableRegions: Array<string>;
@@ -8846,7 +8844,6 @@ export type ImageDistrosQuery = {
     id: string;
     distros: Array<{
       __typename?: "Distro";
-      id: string;
       name: string;
       provider: Provider;
       providerSettingsList: Array<any>;
