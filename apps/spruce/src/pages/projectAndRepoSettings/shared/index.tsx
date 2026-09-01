@@ -206,7 +206,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
   );
 };
 
-const dividerMargin = `${size.xs} ${size.xs} 0 ${size.xs} ${size.xs}`;
+const dividerMargin = `${size.xs} ${size.xs} 0 ${size.xs}`;
 
 const SharedSettingsNavItem: React.FC<{
   currentTab: ProjectSettingsTabRoutes;
