@@ -1,5 +1,19 @@
+import { css as registerEmotionCss } from "@emotion/css";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import { Unpacked } from "@evg-ui/lib/types/utils";
+
+/**
+ * Bridges consumers that still supply Emotion styles (css`` values or object
+ * styles) through uiSchema (e.g. ui:elementWrapperCSS, ui:fieldCss,
+ * ui:objectFieldCss) by registering the styles and returning the generated
+ * class name. Remove once those consumers migrate off Emotion.
+ * @param emotionCss - the externally supplied Emotion styles
+ * @returns the generated class name, or undefined when no styles were supplied
+ */
+export const emotionCssToClassName = (
+  emotionCss?: Parameters<typeof registerEmotionCss>[0],
+): string | undefined =>
+  emotionCss ? registerEmotionCss(emotionCss) : undefined;
 
 // Modify a field such that its internal disabled prop is true.
 const disableField = (

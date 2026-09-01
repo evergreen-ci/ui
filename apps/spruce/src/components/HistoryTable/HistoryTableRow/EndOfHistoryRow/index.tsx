@@ -1,34 +1,18 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { DashedLine } from "../BaseRow/styles";
-
-const { gray } = palette;
+import styles from "./index.module.css";
 
 interface EndOfHistoryRowProps {
   children: string;
 }
 const EndOfHistoryRow: React.FC<EndOfHistoryRowProps> = ({ children }) => (
-  <Row>
+  <div className={styles.row}>
     <DashedLine />
-    <StyledBody weight="medium">{children}</StyledBody>
+    <Body className={styles.styledBody} weight="medium">
+      {children}
+    </Body>
     <DashedLine />
-  </Row>
+  </div>
 );
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: ${size.l};
-`;
-
-const StyledBody = styled(Body)`
-  white-space: nowrap;
-  color: ${gray.dark2};
-  text-transform: uppercase;
-`;
 
 export default EndOfHistoryRow;

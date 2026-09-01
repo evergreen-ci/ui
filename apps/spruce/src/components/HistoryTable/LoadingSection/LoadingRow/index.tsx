@@ -1,12 +1,12 @@
-import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { LabelCellContainer, LoadingCell } from "components/HistoryTable/Cell";
+import styles from "./index.module.css";
 
 interface LoadingRowProps {
   numVisibleCols: number;
 }
 const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
-  <Container>
+  <div className={styles.container}>
     <LabelCellContainer>
       <ListSkeleton />
     </LabelCellContainer>
@@ -14,13 +14,7 @@ const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
       // Disabling key index rules since there is nothing unique about these rows
       <LoadingCell key={`loading_row_${index}`} /> // eslint-disable-line react/no-array-index-key
     ))}
-  </Container>
+  </div>
 );
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
 
 export default LoadingRow;
