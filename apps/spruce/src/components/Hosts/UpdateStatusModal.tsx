@@ -117,11 +117,11 @@ export const UpdateStatusModal: React.FC<Props> = ({
             className={styles.select}
             data-testid="host-status-select"
             label="Host Status"
-            onSelectionChange={(s) => {
+            onChange={(s) => {
               setHostStatus(s as UpdateHostStatus);
             }}
             placeholder="Select"
-            selectedKey={status}
+            value={status}
           >
             {hostStatuses.map(({ key, title, value }) => (
               <SelectItem key={key} data-testid={`${value}-option`} id={value}>
