@@ -119,7 +119,6 @@ test.describe("Patch Aliases page", () => {
     await validateToast(page, "success", "Successfully updated repo");
     await expectSaveButtonEnabled(page, false);
 
-    await page.getByRole("button", { name: "GitHub" }).click();
     await page.getByTestId("navitem-pull-requests").click();
 
     const prTriggerAliases = page.getByTestId("github-pr-trigger-aliases");
