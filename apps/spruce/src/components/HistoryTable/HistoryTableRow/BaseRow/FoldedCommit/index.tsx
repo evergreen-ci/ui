@@ -1,14 +1,11 @@
 import { useMemo } from "react";
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import Accordion from "@evg-ui/lib/components/Accordion";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
 import CommitChartLabel from "components/CommitChartLabel";
 import { EmptyCell, LabelCellContainer } from "components/HistoryTable/Cell";
 import { FoldedCommitsRow } from "components/HistoryTable/types";
 import { RowContainer } from "../styles";
-
-const { blue } = palette;
+import styles from "./index.module.css";
 
 interface FoldedCommitProps {
   index: number;
@@ -45,7 +42,11 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
   );
 
   const commits = rolledUpCommits.map((commit) => (
-    <StyledRowContainer key={commit.id} data-testid="folded-commit">
+    <RowContainer
+      key={commit.id}
+      className={styles.foldedRow}
+      data-testid="folded-commit"
+    >
       <LabelCellContainer>
         <CommitChartLabel
           author={commit.user.displayName!}
@@ -59,12 +60,13 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
         />
       </LabelCellContainer>
       {columns}
-    </StyledRowContainer>
+    </RowContainer>
   ));
 
   return (
-    <Column selected={selected}>
-      <StyledAccordion
+    <div className={cx(styles.column, selected && styles.columnSelected)}>
+      <Accordion
+        className={styles.accordion}
         defaultOpen={defaultOpen}
         onToggle={({ isVisible }) => {
           onToggleFoldedCommit({ expanded: isVisible, index, numCommits });
@@ -75,29 +77,13 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
         useIndent={false}
       >
         {commits}
-      </StyledAccordion>
-    </Column>
+      </Accordion>
+    </div>
   );
 };
 
-const Column = styled.div<{ selected: boolean }>`
-  display: flex;
-  flex-direction: column;
-  ${({ selected }) => selected && `background-color: ${blue.light3}`};
-`;
-
-const StyledAccordion = styled(Accordion)`
-  margin: ${size.xs} 0;
-`;
-
-const AccordionTitle = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-`;
-
-const StyledRowContainer = styled(RowContainer)`
-  opacity: 60%;
-`;
+const AccordionTitle: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => <div className={styles.accordionTitle}>{children}</div>;
 
 export default FoldedCommit;

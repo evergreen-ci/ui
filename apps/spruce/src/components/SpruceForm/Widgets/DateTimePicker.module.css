@@ -1,0 +1,8 @@
+.dateTimeContainer {
+  display: flex;
+  align-items: center;
+}
+
+.dateTimeContainer > :not(:last-of-type) {
+  margin-right: var(--via-space-200);
+}

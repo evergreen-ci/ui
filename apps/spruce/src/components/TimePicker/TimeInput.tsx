@@ -1,8 +1,4 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
-
-const { blue } = palette;
+import styles from "./TimeInput.module.css";
 
 interface TimeInputProps {
   "data-testid": string;
@@ -17,7 +13,8 @@ const TimeInput: React.FC<TimeInputProps> = ({
   setPopoverOpen,
   value,
 }) => (
-  <StyledInput
+  <input
+    className={styles.input}
     data-testid={dataTestId}
     disabled={disabled}
     maxLength={2}
@@ -28,22 +25,5 @@ const TimeInput: React.FC<TimeInputProps> = ({
   />
 );
 TimeInput.displayName = "TimeInput";
-
-const StyledInput = styled.input`
-  font-family: inherit;
-  font-size: inherit;
-  font-variant-numeric: tabular-nums;
-  text-align: center;
-
-  padding: 0;
-  margin: 0;
-  border: none;
-  outline: none;
-  width: ${size.m};
-
-  :focus {
-    background-color: ${blue.light3};
-  }
-`;
 
 export default TimeInput;

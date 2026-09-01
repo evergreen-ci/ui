@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Accordion from "@evg-ui/lib/components/Accordion";
-import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { getFields } from "components/SpruceForm/utils";
+import { cx } from "@evg-ui/lib/utils/css";
+import { emotionCssToClassName, getFields } from "components/SpruceForm/utils";
 import { SpruceFormContainer } from "../../Container";
+import styles from "./index.module.css";
 
 export const ObjectFieldTemplate = ({
   DescriptionField,
@@ -22,18 +22,18 @@ export const ObjectFieldTemplate = ({
   const dataTestId = uiSchema["ui:data-testid"];
   return (
     <fieldset
-      css={uiSchema["ui:elementWrapperCSS"]}
+      className={emotionCssToClassName(uiSchema["ui:elementWrapperCSS"])}
       data-testid={dataTestId}
       id={idSchema.$id}
     >
       {(uiSchema["ui:title"] || title) && (
-        <TitleContainer>
+        <div className={styles.titleContainer}>
           <TitleField
             id={`${idSchema.$id}__title`}
             required={required}
             title={title || uiSchema["ui:title"]}
           />
-        </TitleContainer>
+        </div>
       )}
       {description && (
         <DescriptionField
@@ -42,25 +42,27 @@ export const ObjectFieldTemplate = ({
         />
       )}
       {!!errors.length && (
-        <StyledBanner data-testid="error-banner" variant="danger">
+        <Banner
+          className={styles.banner}
+          data-testid="error-banner"
+          variant="danger"
+        >
           {errors.join(", ")}
-        </StyledBanner>
+        </Banner>
       )}
       {!!warnings.length && (
-        <StyledBanner data-testid="warning-banner" variant="warning">
+        <Banner
+          className={styles.banner}
+          data-testid="warning-banner"
+          variant="warning"
+        >
           {warnings.join(", ")}
-        </StyledBanner>
+        </Banner>
       )}
       {properties.map((prop) => prop.content)}
     </fieldset>
   );
 };
-
-const TitleContainer = styled.div`
-  align-items: baseline;
-  display: flex;
-  gap: ${size.xs};
-`;
 
 /**
  * `CardFieldTemplate` is a custom ObjectFieldTemplate that renders a card with a title and a list of properties.
@@ -110,9 +112,13 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
       title={uiTitle || title}
     >
       {!!warnings.length && (
-        <StyledBanner data-testid="warning-banner" variant="warning">
+        <Banner
+          className={styles.banner}
+          data-testid="warning-banner"
+          variant="warning"
+        >
           {warnings.join(", ")}
-        </StyledBanner>
+        </Banner>
       )}
       {properties.map((prop) => prop.content)}
     </SpruceFormContainer>
@@ -171,31 +177,22 @@ export const FieldRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
   const dataTestId = uiSchema?.["ui:data-testid"];
-  const css = uiSchema?.["ui:elementWrapperCSS"];
+  const rowCss = uiSchema?.["ui:elementWrapperCSS"];
   const fields = getFields(properties, formData.isDisabled);
 
   return (
-    <RowContainer css={css} data-testid={dataTestId}>
+    <div
+      className={cx(styles.rowContainer, emotionCssToClassName(rowCss))}
+      data-testid={dataTestId}
+    >
       {fields}
-    </RowContainer>
+    </div>
   );
 };
 
-const RowContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: ${size.l};
-`;
-
-const AccordionTitle = styled(Subtitle)`
-  font-size: ${fontSize.l};
-  margin: ${size.xs} 0;
-`;
-
-const StyledBanner = styled(Banner)`
-  margin-bottom: ${size.s};
-`;
+const AccordionTitle: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => <Subtitle className={styles.accordionTitle}>{children}</Subtitle>;
 
 // Extract index of the current field via its ID
 const getIndex = (id: string): number => {

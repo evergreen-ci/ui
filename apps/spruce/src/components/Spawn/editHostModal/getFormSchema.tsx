@@ -1,7 +1,5 @@
-import { css } from "@emotion/react";
 import { Label } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm/types";
 import { windowsPasswordRulesURL } from "constants/externalResources";
 import { MyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
@@ -162,19 +160,17 @@ export const getFormSchema = ({
         ),
         "ui:orderable": false,
         items: {
-          "ui:elementWrapperCSS": css`
-            display: flex;
-            gap: ${size.s};
-          `,
+          "ui:elementWrapperCSS": userTagWrapperCSS,
         },
       },
       expirationDetails: {
         ...expirationDetails.uiSchema,
-        "ui:elementWrapperCSS": css`
-          margin-bottom: ${size.s};
-        `,
+        "ui:elementWrapperCSS": expirationDetailsWrapperCSS,
       },
       publicKeySection: publicKeys.uiSchema,
     },
   };
 };
+
+const userTagWrapperCSS = { display: "flex", gap: "16px" };
+const expirationDetailsWrapperCSS = { marginBottom: "16px" };

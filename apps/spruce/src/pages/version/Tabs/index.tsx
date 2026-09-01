@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQueryParams } from "@evg-ui/lib/hooks";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -17,10 +18,9 @@ import Tasks from "./Tasks";
 import TestAnalysis from "./TestAnalysis";
 import { VersionTiming } from "./VersionTiming";
 
-type ChildPatches = NonNullable<
-  VersionQuery["version"]["patch"]
->["childPatches"];
-
+type ChildVersion = Unpacked<
+  NonNullable<NonNullable<VersionQuery["version"]["childVersions"]>>
+>;
 interface VersionTabProps {
   setActiveTaskIds: React.Dispatch<React.SetStateAction<string[]>>;
   version: VersionQuery["version"];
@@ -72,7 +72,7 @@ const getDownstreamTabName = (
 };
 
 const tabMap = ({
-  childPatches,
+  childVersions,
   isMergeQueuePatch,
   isVariantTimingView,
   numFailedChildPatches,
@@ -82,8 +82,8 @@ const tabMap = ({
   taskCount,
   versionId,
 }: {
+  childVersions: ChildVersion[];
   taskCount: number;
-  childPatches: ChildPatches;
   isMergeQueuePatch: boolean;
   numFailedChildPatches: number;
   numStartedChildPatches: number;
@@ -134,7 +134,7 @@ const tabMap = ({
         numSuccessChildPatches,
       )}
     >
-      <DownstreamTasks childPatches={childPatches ?? []} />
+      <DownstreamTasks childVersions={childVersions ?? []} />
     </Tab>
   ),
   [VersionPageTabs.TestAnalysis]: (
@@ -170,8 +170,8 @@ const VersionTabs: React.FC<VersionTabProps> = ({
   const navigate = useNavigate();
   const [queryParams] = useQueryParams();
 
-  const { isPatch, patch, requester, status, taskCount } = version || {};
-  const { childPatches } = patch || {};
+  const { childVersions, isPatch, requester, status, taskCount } =
+    version || {};
   const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
 
   const tabIsActive = useMemo(
@@ -181,25 +181,25 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       [VersionPageTabs.VersionTiming]: true,
       [VersionPageTabs.Changes]: isPatch,
       [VersionPageTabs.Downstream]:
-        childPatches !== undefined && childPatches !== null,
+        childVersions !== undefined && childVersions !== null,
       [VersionPageTabs.TestAnalysis]: status !== PatchStatus.Success,
     }),
-    [isPatch, childPatches, status],
+    [isPatch, childVersions, status],
   );
 
   const allTabs = useMemo(() => {
-    const numFailedChildPatches = childPatches
-      ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
+    const numFailedChildPatches = childVersions
+      ? childVersions.filter((c) => c.status === PatchStatus.Failed).length
       : 0;
-    const numStartedChildPatches = childPatches
-      ? childPatches.filter((c) => c.status === PatchStatus.Started).length
+    const numStartedChildPatches = childVersions
+      ? childVersions.filter((c) => c.status === PatchStatus.Started).length
       : 0;
-    const numSuccessChildPatches = childPatches
-      ? childPatches.filter((c) => c.status === PatchStatus.Success).length
+    const numSuccessChildPatches = childVersions
+      ? childVersions.filter((c) => c.status === PatchStatus.Success).length
       : 0;
     return tabMap({
       taskCount: taskCount ?? 0,
-      childPatches,
+      childVersions: childVersions ?? [],
       isMergeQueuePatch,
       numFailedChildPatches,
       numStartedChildPatches,
@@ -211,7 +211,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     taskCount,
-    childPatches,
+    childVersions,
     isMergeQueuePatch,
     version.id,
     queryParams.variant,

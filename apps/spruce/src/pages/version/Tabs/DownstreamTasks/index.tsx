@@ -2,34 +2,34 @@ import { Unpacked } from "@evg-ui/lib/types/utils";
 import { VersionQuery } from "gql/generated/types";
 import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
 
-type ChildPatch = Unpacked<
-  NonNullable<NonNullable<VersionQuery["version"]["patch"]>["childPatches"]>
+type ChildVersion = Unpacked<
+  NonNullable<NonNullable<VersionQuery["version"]["childVersions"]>>
 >;
 
 interface DownstreamTasksProps {
-  childPatches: ChildPatch[];
+  childVersions: ChildVersion[];
 }
 
-const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childPatches }) => (
+const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childVersions }) => (
   <>
-    {childPatches.map(
+    {childVersions.map(
       ({
-        githash,
+        baseVersion,
         id,
         parameters,
         projectMetadata,
+        revision,
         status,
         taskCount,
-        version,
       }) => (
         <DownstreamProjectAccordion
           key={`downstream_project_${id}`}
-          baseVersionID={version?.baseVersion?.id ?? ""}
+          baseVersionID={baseVersion?.id ?? ""}
           childPatchId={id}
-          githash={githash}
+          githash={revision}
           parameters={parameters}
           projectName={projectMetadata?.identifier ?? ""}
-          status={version?.status ?? status}
+          status={status}
           taskCount={taskCount ?? 0}
         />
       ),
