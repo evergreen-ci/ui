@@ -1,0 +1,7 @@
+.body.body {
+  color: inherit;
+
+  &:not(:last-of-type) {
+    margin-bottom: var(--via-space-200);
+  }
+}

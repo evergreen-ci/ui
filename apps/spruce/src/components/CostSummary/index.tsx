@@ -95,24 +95,13 @@ const getTaskConfig = (task: Task): CostConfig => {
 };
 
 const getVersionConfig = (version: Version, totalCost: number): CostConfig => {
-  const {
-    childVersions,
-    cost,
-    finishTime,
-    id,
-    isPatch,
-    message,
-    patch,
-    startTime,
-  } = version;
+  const { childVersions, cost, finishTime, id, message, startTime } = version;
   const isVersionComplete = !!finishTime;
   const hasChildPatches = (childVersions?.length ?? 0) > 0;
   return {
     modalProps: {
       ...cost,
-      childPatchesTotalCost: isPatch
-        ? patch?.cost?.childPatchesTotalCost
-        : null,
+      childPatchesTotalCost: cost?.childPatchesTotalCost,
       endTs: finishTime ?? undefined,
       name: message ?? id,
       startTs: startTime ?? undefined,

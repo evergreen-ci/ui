@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
 import { action } from "storybook/actions";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import styles from "./HistoryTableIcon.stories.module.css";
 import { HistoryTableIcon } from "./index";
 
 export default {
@@ -11,7 +11,7 @@ export default {
 
 export const ActiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
   render: () => (
-    <Container>
+    <div className={styles.container}>
       {data.map(({ label, status }) => (
         <HistoryTableIcon
           key={`${status}_history_table`}
@@ -22,13 +22,13 @@ export const ActiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
           status={status}
         />
       ))}
-    </Container>
+    </div>
   ),
 };
 
 export const InactiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
   render: () => (
-    <Container>
+    <div className={styles.container}>
       {data.map(({ status }) => (
         <HistoryTableIcon
           key={`${status}_history_table_inactive`}
@@ -36,7 +36,7 @@ export const InactiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
           status={status}
         />
       ))}
-    </Container>
+    </div>
   ),
 };
 
@@ -61,8 +61,3 @@ const data = [
   { status: TaskStatus.WillRun },
   { status: TaskStatus.Inactive },
 ];
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-`;

@@ -104,7 +104,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
     if (formToGqlMap.hasOwnProperty(tab)) {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
-      const changes = formToGql(formData, distro);
+      const { id: _id, ...changes } = formToGql(formData, distro);
       saveDistro({
         variables: {
           distro: changes,

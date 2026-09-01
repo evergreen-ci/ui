@@ -1,6 +1,5 @@
-import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { SpruceFormProps } from "components/SpruceForm/types";
+import styles from "./ExpirationRow.module.css";
 
 export const ExpirationRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   properties,
@@ -8,16 +7,10 @@ export const ExpirationRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   const [expiration, noExpiration] = properties;
 
   return (
-    <ExpirationContainer>
+    <div className={styles.expirationContainer}>
       <div>{expiration.content}</div>
       <div>or</div>
       <div>{noExpiration.content}</div>
-    </ExpirationContainer>
+    </div>
   );
 };
-
-const ExpirationContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
-`;

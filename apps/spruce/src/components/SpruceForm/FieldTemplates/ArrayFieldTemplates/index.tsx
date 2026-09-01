@@ -1,21 +1,15 @@
 import { SerializedStyles } from "@emotion/react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { ExpandableCard } from "@leafygreen-ui/expandable-card";
-import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
+import { cx } from "@evg-ui/lib/utils/css";
 import { PlusButton } from "components/Buttons";
 import ElementWrapper from "../../ElementWrapper";
-import { STANDARD_FIELD_WIDTH } from "../../utils";
-
-const { gray } = palette;
-// Total pixel count above a text field with a label. Used to align buttons to the
-// top of the text box itself.
-const labelOffset = size.m;
+import { emotionCssToClassName } from "../../utils";
+import styles from "./index.module.css";
 
 const ArrayItem: React.FC<
   {
@@ -52,25 +46,42 @@ const ArrayItem: React.FC<
     />
   );
   return useExpandableCard ? (
-    <StyledExpandableCard
+    <ExpandableCard
+      className={styles.expandableCard}
       data-testid="expandable-card"
       defaultOpen={!isDisabled}
       // Override LeafyGreen's string typing for title so we can include buttons. (LG-2193)
       title={
         <>
-          <TitleWrapper data-testid="expandable-card-title">
+          <span
+            className={styles.titleWrapper}
+            data-testid="expandable-card-title"
+          >
             {title}
-          </TitleWrapper>
+          </span>
           {hasRemove && !readonly && deleteButton}
         </>
       }
     >
       {children}
-    </StyledExpandableCard>
+    </ExpandableCard>
   ) : (
-    <ArrayItemRow key={index} border={border} css={arrayItemCss} index={index}>
+    <div
+      key={index}
+      className={cx(
+        styles.arrayItemRow,
+        border && index === 0 && styles.firstBordered,
+        border && styles.bordered,
+        emotionCssToClassName(arrayItemCss),
+      )}
+    >
       {(hasMoveUp || hasMoveDown) && !readonly && (
-        <OrderControls topAlignDelete={topAlignDelete}>
+        <div
+          className={cx(
+            styles.orderControls,
+            topAlignDelete && styles.topAligned,
+          )}
+        >
           {hasMoveUp && (
             <Button
               data-testid="array-up-button"
@@ -85,33 +96,22 @@ const ArrayItem: React.FC<
               onClick={onReorderClick(index, index + 1)}
             />
           )}
-        </OrderControls>
+        </div>
       )}
       {children}
       {hasRemove && !useExpandableCard && !readonly && (
-        <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
+        <ElementWrapper
+          className={cx(
+            styles.deleteButtonWrapper,
+            topAlignDelete && styles.topAligned,
+          )}
+        >
           {deleteButton}
-        </DeleteButtonWrapper>
+        </ElementWrapper>
       )}
-    </ArrayItemRow>
+    </div>
   );
 };
-
-const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
-  display: flex;
-  ${({ border, index }) =>
-    border && index === 0 && `border-top: 1px solid ${gray.light1}`};
-  ${({ border }) =>
-    border &&
-    `border-bottom: 1px solid ${gray.light1};
-  margin: 0 -${size.m};
-  padding: ${size.m};
-    `};
-
-  .field-object {
-    flex-grow: 1;
-  }
-`;
 
 /**
  * `ArrayFieldTemplate` is a custom field template for arrays that renders an array of fields.
@@ -194,20 +194,23 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         <DescriptionField description={description} id={`${id}__description`} />
       )}
       {buttonAtBeginning && (
-        <AddButtonContainer>
+        <ElementWrapper className={styles.addButtonContainer}>
           {addButton}
           {secondaryButton}
-        </AddButtonContainer>
+        </ElementWrapper>
       )}
-      <ArrayContainer
-        css={arrayCss}
+      <div
+        className={cx(
+          styles.arrayContainer,
+          (fullWidth || useExpandableCard) && styles.fullWidth,
+          !!items?.length && styles.hasChildren,
+          emotionCssToClassName(arrayCss),
+        )}
         data-testid={arraydataTestId}
-        fullWidth={fullWidth || useExpandableCard}
-        hasChildren={!!items?.length}
         id={id}
       >
         {items.length === 0 && placeholder && (
-          <Placeholder>{placeholder}</Placeholder>
+          <Body className={styles.placeholder}>{placeholder}</Body>
         )}
         {items.map((p, i) => (
           <ArrayItem
@@ -224,63 +227,12 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
           />
         ))}
         {buttonAtEnd && (
-          <AddButtonContainer>
+          <ElementWrapper className={styles.addButtonContainer}>
             {addButton}
             {secondaryButton}
-          </AddButtonContainer>
+          </ElementWrapper>
         )}
-      </ArrayContainer>
+      </div>
     </>
   );
 };
-
-const AddButtonContainer = styled(ElementWrapper)`
-  margin-top: ${size.s};
-  display: flex;
-
-  > :not(:last-of-type) {
-    margin-right: ${size.xs};
-  }
-`;
-
-type ArrayContainerProps = {
-  hasChildren: boolean;
-  fullWidth?: boolean;
-};
-
-const ArrayContainer = styled.div<ArrayContainerProps>`
-  ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
-  min-width: min-content;
-  ${({ fullWidth }) =>
-    fullWidth ? "max-width: unset" : `max-width: ${STANDARD_FIELD_WIDTH}px;`}
-`;
-
-const DeleteButtonWrapper = styled(ElementWrapper)`
-  margin-left: ${size.s};
-  // Align button with top of input unless it should specifically align to the top of the ArrayItemRow
-  margin-top: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
-    topAlignDelete ? "0px" : labelOffset};
-`;
-
-const StyledExpandableCard = styled(ExpandableCard)`
-  margin-bottom: ${size.l};
-`;
-
-const OrderControls = styled.div<{ topAlignDelete: boolean }>`
-  display: flex;
-  flex-direction: column;
-  margin-right: ${size.s};
-  margin-top: ${({ topAlignDelete }) => (topAlignDelete ? "0px" : labelOffset)};
-
-  > :not(:last-of-type) {
-    margin-bottom: ${size.xs};
-  }
-`;
-
-const TitleWrapper = styled.span`
-  margin-right: ${size.s};
-`;
-
-const Placeholder = styled(Body)`
-  margin-bottom: ${size.m};
-`;

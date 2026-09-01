@@ -1,0 +1,72 @@
+.arrayItemRow {
+  display: flex;
+}
+
+.arrayItemRow :global(.field-object) {
+  flex-grow: 1;
+}
+
+.firstBordered {
+  border-top: 1px solid var(--via-color-neutral-300);
+}
+
+.bordered {
+  border-bottom: 1px solid var(--via-color-neutral-300);
+  margin: 0 calc(-1 * var(--via-space-600));
+  padding: var(--via-space-600);
+}
+
+.addButtonContainer {
+  margin-top: var(--via-space-400);
+  display: flex;
+}
+
+.addButtonContainer > :not(:last-of-type) {
+  margin-right: var(--via-space-200);
+}
+
+.arrayContainer {
+  min-width: min-content;
+  max-width: 400px;
+}
+
+.fullWidth {
+  max-width: unset;
+}
+
+.hasChildren {
+  margin-bottom: var(--via-space-600);
+}
+
+.deleteButtonWrapper {
+  margin-left: var(--via-space-400);
+  /* Align button with top of input unless it should specifically align to the top of the ArrayItemRow */
+  margin-top: var(--via-space-600);
+}
+
+.orderControls {
+  display: flex;
+  flex-direction: column;
+  margin-right: var(--via-space-400);
+  margin-top: var(--via-space-600);
+}
+
+.topAligned {
+  margin-top: 0;
+}
+
+.orderControls > :not(:last-of-type) {
+  margin-bottom: var(--via-space-200);
+}
+
+.titleWrapper {
+  margin-right: var(--via-space-400);
+}
+
+.expandableCard.expandableCard {
+  margin-bottom: var(--via-space-800);
+}
+
+.placeholder.placeholder {
+  margin-bottom: var(--via-space-600);
+}

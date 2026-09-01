@@ -851,6 +851,7 @@ export type Distro = {
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
   availableRegions: Array<Scalars["String"]["output"]>;
+  bootstrapMethod: Scalars["String"]["output"];
   bootstrapSettings: BootstrapSettings;
   containerPool: Scalars["String"]["output"];
   costData?: Maybe<CostData>;
@@ -863,9 +864,11 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
+  id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
+  isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
@@ -905,16 +908,6 @@ export type DistroEventsPayload = {
   __typename?: "DistroEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<DistroEvent>;
-};
-
-export type DistroInfo = {
-  __typename?: "DistroInfo";
-  bootstrapMethod?: Maybe<Scalars["String"]["output"]>;
-  id?: Maybe<Scalars["String"]["output"]>;
-  isVirtualWorkStation?: Maybe<Scalars["Boolean"]["output"]>;
-  isWindows?: Maybe<Scalars["Boolean"]["output"]>;
-  user?: Maybe<Scalars["String"]["output"]>;
-  workDir?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type DistroInput = {
@@ -1321,7 +1314,8 @@ export type Host = {
   ami?: Maybe<Scalars["String"]["output"]>;
   availabilityZone?: Maybe<Scalars["String"]["output"]>;
   displayName?: Maybe<Scalars["String"]["output"]>;
-  distro?: Maybe<DistroInfo>;
+  distro?: Maybe<Distro>;
+  /** @deprecated Use distro.id instead */
   distroId?: Maybe<Scalars["String"]["output"]>;
   elapsed?: Maybe<Scalars["Time"]["output"]>;
   eventTypes: Array<HostEventType>;
@@ -4391,8 +4385,8 @@ export type TaskHostOverridesInput = {
 
 export type TaskInfo = {
   __typename?: "TaskInfo";
-  id?: Maybe<Scalars["ID"]["output"]>;
-  name?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
 };
 
 export type TaskLimitsConfig = {
@@ -5004,6 +4998,7 @@ export type Version = {
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   projectMetadata?: Maybe<Project>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
@@ -5108,11 +5103,11 @@ export type Volume = {
   availabilityZone: Scalars["String"]["output"];
   createdBy: Scalars["String"]["output"];
   creationTime?: Maybe<Scalars["Time"]["output"]>;
-  deviceName?: Maybe<Scalars["String"]["output"]>;
   displayName: Scalars["String"]["output"];
   expiration?: Maybe<Scalars["Time"]["output"]>;
   homeVolume: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
+  /** @deprecated Use host.id instead */
   hostID: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   migrating: Scalars["Boolean"]["output"];
@@ -5148,6 +5143,8 @@ export type WaterfallBuild = {
 
 export type WaterfallOptions = {
   date?: InputMaybe<Scalars["Time"]["input"]>;
+  /** Return all builds and tasks for each matching version instead of applying the waterfall filters to them. */
+  includeAllBuildsAndTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;

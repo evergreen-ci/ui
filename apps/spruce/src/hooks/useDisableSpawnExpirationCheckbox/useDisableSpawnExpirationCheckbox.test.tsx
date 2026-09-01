@@ -216,7 +216,6 @@ const myHostBase: Omit<
     user: "ubuntu",
     workDir: "/home/ubuntu",
     isWindows: false,
-    __typename: "DistroInfo",
   },
   hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
   homeVolumeID: "vol-07fa9f6b5c2067e34",
