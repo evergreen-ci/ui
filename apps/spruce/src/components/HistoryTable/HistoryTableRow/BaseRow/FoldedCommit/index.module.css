@@ -1,0 +1,22 @@
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnSelected {
+  background-color: var(--via-color-blue-100);
+}
+
+.accordion {
+  margin: var(--via-space-200) 0;
+}
+
+.accordionTitle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.foldedRow {
+  opacity: 60%;
+}

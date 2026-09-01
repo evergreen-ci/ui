@@ -17,14 +17,8 @@ import {
   tracerConfiguration,
 } from "./schemaFields";
 
-export const getFormSchema = ({
-  projectRefs = [],
-  repoRefs = [],
-}: {
-  projectRefs?: Array<{ id: string; displayName: string }>;
-  repoRefs?: Array<{ id: string; displayName: string }>;
-}): ReturnType<GetFormSchema> => {
-  const singleTaskDistro = getSingleTaskDistroSchema({ projectRefs, repoRefs });
+export const getFormSchema = (): ReturnType<GetFormSchema> => {
+  const singleTaskDistro = getSingleTaskDistroSchema();
   return {
     fields: {},
     schema: {
