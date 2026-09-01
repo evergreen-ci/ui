@@ -261,7 +261,7 @@ describe("spruce form", () => {
             validate={validate}
           />,
         );
-        expect(screen.getByDataCy("error-banner")).toHaveTextContent(
+        expect(screen.getByTestId("error-banner")).toHaveTextContent(
           "Some error",
         );
       });
@@ -276,7 +276,7 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />,
         );
-        expect(screen.queryByDataCy("error-banner")).not.toBeInTheDocument();
+        expect(screen.queryByTestId("error-banner")).not.toBeInTheDocument();
       });
     });
 

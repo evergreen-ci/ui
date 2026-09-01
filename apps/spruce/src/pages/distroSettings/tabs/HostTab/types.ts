@@ -48,8 +48,10 @@ export interface HostFormState {
     }>;
   };
   containerIsolation: {
+    cpus: number;
     enabled: boolean;
     image: string;
+    memoryMb: number;
     requireIsolation: boolean;
   };
   sshConfig: {

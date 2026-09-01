@@ -6,6 +6,7 @@ import {
   stubGetClientRects,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { ExecutionPlatform } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
 import { TaskQueryType, taskQuery } from "gql/mocks/taskData";
 import { Metadata } from ".";
@@ -109,10 +110,10 @@ describe("metadata", () => {
       wrapper,
     });
     expect(
-      screen.getByDataCy("task-metadata-execution-platform"),
+      screen.getByTestId("task-metadata-execution-platform"),
     ).toBeInTheDocument();
     expect(
-      screen.getByDataCy("task-metadata-execution-platform"),
+      screen.getByTestId("task-metadata-execution-platform"),
     ).toHaveTextContent("Container");
   });
 
@@ -123,7 +124,7 @@ describe("metadata", () => {
       wrapper,
     });
     expect(
-      screen.queryByDataCy("task-metadata-execution-platform"),
+      screen.queryByTestId("task-metadata-execution-platform"),
     ).not.toBeInTheDocument();
   });
 
@@ -218,6 +219,6 @@ const taskWithCostAndFinishTime: TaskQueryType = {
 const taskInContainer: TaskQueryType = {
   task: {
     ...taskQuery.task,
-    executionPlatform: "container",
+    executionPlatform: ExecutionPlatform.Container,
   },
 };

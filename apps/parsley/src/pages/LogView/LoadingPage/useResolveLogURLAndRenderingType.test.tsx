@@ -3,6 +3,7 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogTypes } from "constants/enums";
 import {
+  ExecutionPlatform,
   TaskFilesQuery,
   TaskFilesQueryVariables,
   TaskQuery,
@@ -951,7 +952,7 @@ const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
         displayName: "check_codegen",
         displayStatus: "failed",
         execution: 0,
-        executionPlatform: "host",
+        executionPlatform: ExecutionPlatform.Host,
         id: "a-task-id",
         logs: {
           agentLogLink: "agent-link.com?type=E",

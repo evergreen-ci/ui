@@ -5250,6 +5250,7 @@ export type BaseTaskFragment = {
   displayName: string;
   displayStatus: string;
   execution: number;
+  executionPlatform: ExecutionPlatform;
   patchNumber?: number | null;
   versionMetadata: {
     __typename?: "VersionLite";
@@ -5278,6 +5279,7 @@ export type TaskQuery = {
     displayName: string;
     displayStatus: string;
     execution: number;
+    executionPlatform: ExecutionPlatform;
     patchNumber?: number | null;
     details?: {
       __typename?: "TaskEndDetail";

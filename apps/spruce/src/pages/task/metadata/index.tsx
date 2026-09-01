@@ -11,7 +11,7 @@ import {
   getHostRoute,
   getImageRoute,
 } from "constants/routes";
-import { TaskQuery } from "gql/generated/types";
+import { ExecutionPlatform, TaskQuery } from "gql/generated/types";
 import { isFailedTaskStatus } from "utils/statuses";
 import { BuildVariantCard } from "./BuildVariant";
 import { DebugSpawnHostGuideCue } from "./DebugSpawnHostGuideCue";
@@ -98,8 +98,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
       {!isDisplayTask && (
         <MetadataCard title="Host Information">
-          {executionPlatform === "container" && (
-            <MetadataItem data-cy="task-metadata-execution-platform">
+          {executionPlatform === ExecutionPlatform.Container && (
+            <MetadataItem
+              as="div"
+              data-testid="task-metadata-execution-platform"
+            >
               <Badge variant={Variant.Blue}>Container</Badge>
             </MetadataItem>
           )}

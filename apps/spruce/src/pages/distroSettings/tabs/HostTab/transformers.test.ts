@@ -68,8 +68,10 @@ const form: HostFormState = {
     preconditionScripts: [],
   },
   containerIsolation: {
+    cpus: 0,
     enabled: false,
     image: "",
+    memoryMb: 0,
     requireIsolation: false,
   },
   sshConfig: {

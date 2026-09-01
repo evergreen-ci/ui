@@ -7,6 +7,7 @@ import {
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   AbortInfo,
+  ExecutionPlatform,
   MetStatus,
   RequiredStatus,
   TaskOwnerTeamsForTaskQuery,
@@ -35,7 +36,7 @@ export const RanInContainer: CustomStoryObj<typeof Metadata> = {
         {...args}
         task={{
           ...taskQuery.task,
-          executionPlatform: "container",
+          executionPlatform: ExecutionPlatform.Container,
         }}
       />
     </Container>

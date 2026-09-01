@@ -13,6 +13,7 @@ import Breadcrumbs from "components/Breadcrumbs";
 import { LogTypes } from "constants/enums";
 import { getEvergreenTaskURL } from "constants/externalURLTemplates";
 import {
+  ExecutionPlatform,
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
@@ -116,9 +117,9 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
         <>
           {trimStringFromMiddle(displayName, 30)}{" "}
           <TaskStatusBadge status={displayStatus as TaskStatus} />{" "}
-          {executionPlatform === "container" && (
+          {executionPlatform === ExecutionPlatform.Container && (
             <Badge
-              data-cy="task-execution-platform-badge"
+              data-testid="task-execution-platform-badge"
               variant={Variant.Blue}
             >
               Container

@@ -12,8 +12,10 @@ export const DISTRO = gql`
         clientDir
         communication
         containerIsolation {
+          cpus
           enabled
           image
+          memoryMb
           requireIsolation
         }
         env {

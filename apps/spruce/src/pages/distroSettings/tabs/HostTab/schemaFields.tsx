@@ -746,8 +746,10 @@ export const sshConfig = {
 
 export const containerIsolation = {
   schema: {
+    cpus: { type: "integer" as const },
     enabled: containerIsolationEnabled.schema,
     image: containerIsolationImage.schema,
+    memoryMb: { type: "integer" as const },
     requireIsolation: containerIsolationRequireIsolation.schema,
   },
   uiSchema: (architecture: Arch) => ({
@@ -758,6 +760,8 @@ export const containerIsolation = {
     }),
     enabled: containerIsolationEnabled.uiSchema,
     image: containerIsolationImage.uiSchema,
+    cpus: { "ui:widget": "hidden" },
+    memoryMb: { "ui:widget": "hidden" },
     requireIsolation: containerIsolationRequireIsolation.uiSchema,
   }),
 };

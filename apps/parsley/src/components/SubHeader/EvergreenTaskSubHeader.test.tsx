@@ -6,7 +6,11 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
-import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
+import {
+  ExecutionPlatform,
+  TaskQuery,
+  TaskQueryVariables,
+} from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 import { evergreenTaskMock } from "test_data/task";
 import { EvergreenTaskSubHeader } from "./EvergreenTaskSubHeader";
@@ -49,7 +53,7 @@ describe("evergreen task subheader", () => {
       expect(screen.getByText("check_codegen")).toBeInTheDocument();
     });
     expect(
-      screen.queryByDataCy("task-execution-platform-badge"),
+      screen.queryByTestId("task-execution-platform-badge"),
     ).not.toBeInTheDocument();
   });
 
@@ -74,7 +78,7 @@ describe("evergreen task subheader", () => {
             displayName: "check_codegen",
             displayStatus: "failed",
             execution: 0,
-            executionPlatform: "container",
+            executionPlatform: ExecutionPlatform.Container,
             id: "a-container-task-id",
             logs: {
               agentLogLink: "log-link.com?type=E",
@@ -107,10 +111,10 @@ describe("evergreen task subheader", () => {
       expect(screen.getByText("check_codegen")).toBeInTheDocument();
     });
     expect(
-      screen.getByDataCy("task-execution-platform-badge"),
+      screen.getByTestId("task-execution-platform-badge"),
     ).toBeInTheDocument();
     expect(
-      screen.getByDataCy("task-execution-platform-badge"),
+      screen.getByTestId("task-execution-platform-badge"),
     ).toHaveTextContent("Container");
   });
 });

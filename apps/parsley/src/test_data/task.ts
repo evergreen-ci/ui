@@ -1,5 +1,9 @@
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
+import {
+  ExecutionPlatform,
+  TaskQuery,
+  TaskQueryVariables,
+} from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 
 export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
@@ -23,7 +27,7 @@ export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
         displayName: "check_codegen",
         displayStatus: "failed",
         execution: 0,
-        executionPlatform: "host",
+        executionPlatform: ExecutionPlatform.Host,
         id: "spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35",
         logs: {
           agentLogLink: "log-link.com?type=E",
