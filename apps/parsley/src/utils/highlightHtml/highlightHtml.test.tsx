@@ -90,6 +90,20 @@ describe("highlightHtml", () => {
     expect(screen.queryByTestId("injected-mark")).not.toBeInTheDocument();
     expect(screen.getByText(/<mark data-testid="injected-mark"/)).toBeVisible();
   });
+  it("keeps decoded markup as text when highlighting its contents", () => {
+    const maliciousLogLine =
+      '&lt;mark data-testid="injected-mark" color="malicious"&gt;hello&lt;/mark&gt;';
+
+    const { container } = render(
+      <>{highlightHtml(maliciousLogLine, /hello/g)}</>,
+    );
+
+    expect(screen.queryByTestId("injected-mark")).not.toBeInTheDocument();
+    expect(screen.getByTestId("highlight")).toHaveTextContent("hello");
+    expect(container.textContent).toBe(
+      '<mark data-testid="injected-mark" color="malicious">hello</mark>',
+    );
+  });
   it("does not pass entity-encoded style attributes to React", () => {
     const malformedStyle =
       '&lt;mark style="color: red"&gt;malicious&lt;/mark&gt;';

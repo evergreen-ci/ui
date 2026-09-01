@@ -25,4 +25,16 @@ describe("highlighter", () => {
     const result = highlighter(regexp, text, replaceFunction);
     expect(result).toEqual(["", "0", " ", "1", " ", "2", ""]);
   });
+  it("keeps unmatched text separate from replacement elements", () => {
+    const text = '<mark color="malicious">hello</mark>';
+    const replacement = <mark>hello</mark>;
+
+    const result = highlighter(/hello/g, text, () => replacement);
+
+    expect(result).toEqual([
+      '<mark color="malicious">',
+      replacement,
+      "</mark>",
+    ]);
+  });
 });

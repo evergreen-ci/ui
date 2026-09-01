@@ -25,6 +25,9 @@ const highlightHtml = (
         return;
       }
 
+      // Keep decoded log content as text nodes and insert only application-created
+      // highlights as elements. Reparsing a combined HTML string could interpret
+      // entity-encoded log content as markup.
       let searchedText: ReactNode[] = [domNode.data];
       if (searchTerm) {
         let searchMatchIndex = 0;
