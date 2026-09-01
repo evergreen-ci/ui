@@ -14,11 +14,11 @@ import {
 } from "gql/generated/types";
 
 const distroData: DistroQuery["distro"] = {
-  __typename: "Distro",
   adminOnly: false,
   aliases: ["rhel71-power8", "rhel71-power8-build"],
   arch: Arch.Linux_64Bit,
   authorizedKeysFile: "",
+  id: "rhel71-power8",
   imageId: "rhel71-power8",
   bootstrapSettings: {
     clientDir: "/home/evg/client",

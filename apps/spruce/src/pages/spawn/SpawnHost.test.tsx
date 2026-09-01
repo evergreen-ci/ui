@@ -101,7 +101,6 @@ const baseSpawnHost: Omit<MyHost, "id" | "status"> = {
     user: "ubuntu",
     workDir: "/home/ubuntu",
     isWindows: false,
-    __typename: "DistroInfo",
   },
   hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
   homeVolumeID: "vol-07fa9f6b5c2067e34",
@@ -141,7 +140,7 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
     data: {
       distros: [
         {
-          __typename: "Distro",
+          id: "test-distro",
           name: "test-distro",
           adminOnly: false,
           aliases: [],
