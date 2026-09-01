@@ -426,12 +426,6 @@ export enum BannerTheme {
   Warning = "WARNING",
 }
 
-export type BaseTaskInfo = {
-  __typename?: "BaseTaskInfo";
-  Id?: Maybe<Scalars["String"]["output"]>;
-  Status?: Maybe<Scalars["String"]["output"]>;
-};
-
 export type BetaFeatures = {
   __typename?: "BetaFeatures";
   spruceWaterfallEnabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -842,12 +836,6 @@ export enum DispatcherVersion {
 }
 
 export type DisplayTask = {
-  __typename?: "DisplayTask";
-  ExecutionTasks: Array<Scalars["String"]["output"]>;
-  Name?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type DisplayTaskInput = {
   ExecTasks: Array<Scalars["String"]["input"]>;
   Name: Scalars["String"]["input"];
 };
@@ -1914,12 +1902,6 @@ export type MetadataLink = {
 export type MetadataLinkInput = {
   text: Scalars["String"]["input"];
   url: Scalars["String"]["input"];
-};
-
-export type Module = {
-  __typename?: "Module";
-  Issue?: Maybe<Scalars["String"]["output"]>;
-  Module?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type ModuleCodeChange = {
@@ -4894,11 +4876,6 @@ export type UseSpruceOptionsInput = {
 /** User maps to the user.DBUser type. */
 export type User = {
   __typename?: "User";
-  DisplayName?: Maybe<Scalars["String"]["output"]>;
-  EmailAddress?: Maybe<Scalars["String"]["output"]>;
-  OnlyApi: Scalars["Boolean"]["output"];
-  Roles: Array<Scalars["String"]["output"]>;
-  UserID?: Maybe<Scalars["String"]["output"]>;
   betaFeatures?: Maybe<BetaFeatures>;
   displayName?: Maybe<Scalars["String"]["output"]>;
   emailAddress?: Maybe<Scalars["String"]["output"]>;
@@ -4990,7 +4967,7 @@ export type VariantTask = {
 };
 
 export type VariantTasks = {
-  displayTasks: Array<DisplayTaskInput>;
+  displayTasks: Array<DisplayTask>;
   tasks: Array<Scalars["String"]["input"]>;
   variant: Scalars["String"]["input"];
 };
@@ -5170,6 +5147,8 @@ export type WaterfallBuild = {
 
 export type WaterfallOptions = {
   date?: InputMaybe<Scalars["Time"]["input"]>;
+  /** Return all builds and tasks for each matching version instead of applying the waterfall filters to them. */
+  includeAllBuildsAndTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
