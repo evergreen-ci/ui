@@ -25,9 +25,11 @@ const columns: LGColumnDef<ConfigRow>[] = [
   {
     accessorKey: "key",
     header: "Field Name",
+    cell: ({ getValue }) => <pre>{getValue() as string}</pre>,
   },
   {
     accessorKey: "value",
+    header: "Value",
     cell: ({ getValue }) => <pre>{getValue() as string}</pre>,
   },
 ];
@@ -39,7 +41,7 @@ export const TaskConfigTab = ({
   execution: number;
   taskId: string;
 }) => {
-  const { data } = useQuery<TaskConfigQuery, TaskConfigQueryVariables>(
+  const { data, loading } = useQuery<TaskConfigQuery, TaskConfigQueryVariables>(
     TASK_CONFIG,
     {
       variables: {
@@ -53,16 +55,11 @@ export const TaskConfigTab = ({
     () =>
       Object.entries(omitTypename(data?.task?.config ?? {})).flatMap(
         ([key, value]) => {
-          if (
-            !isTaskConfigKey(key) ||
-            !value ||
-            (Array.isArray(value) && value.length === 0) ||
-            tableLabels[key] === undefined
-          ) {
-            return [];
-          }
+          const label = isTaskConfigKey(key) ? tableLabels[key] : undefined;
 
-          return [{ key: tableLabels[key], value: formatConfigValue(value) }];
+          return label && !shouldOmitValue(value)
+            ? [{ key: label, value: formatConfigValue(value) }]
+            : [];
         },
       ),
     [data?.task?.config],
@@ -75,13 +72,13 @@ export const TaskConfigTab = ({
 
   return (
     <>
-      The following config options were applied to the task when it was
-      scheduled. See{" "}
+      The following YAML config options were applied to the task when it was
+      scheduled. See documentation on{" "}
       <StyledLink href={projectConfigFilesDocumentationUrl}>
         Project Configuration Files
       </StyledLink>{" "}
       for details.
-      <BaseTable shouldAlternateRowColor table={table} />
+      <BaseTable loading={loading} shouldAlternateRowColor table={table} />
     </>
   );
 };
@@ -107,6 +104,14 @@ const tableLabels: PartialRecord<keyof TaskConfig, string> = {
 
 const isTaskConfigKey = (key: string): key is keyof TaskConfig =>
   key in tableLabels;
+
+// Keep false but omit other falsy values (unset booleans should come back as null)
+const shouldOmitValue = (value: unknown): boolean =>
+  value === null ||
+  value === undefined ||
+  value === "" ||
+  value === 0 ||
+  (Array.isArray(value) && value.length === 0);
 
 const formatConfigValue = (value: unknown): string => {
   if (typeof value === "object") {
