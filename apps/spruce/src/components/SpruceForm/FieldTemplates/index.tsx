@@ -1,15 +1,13 @@
-import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
-import { palette } from "@leafygreen-ui/palette";
 import { FieldTemplateProps } from "@rjsf/core";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
 import { TitleField as CustomTitleField } from "../CustomFields";
+import { emotionCssToClassName } from "../utils";
 import { SpruceWidgetProps } from "../Widgets/types";
+import styles from "./index.module.css";
 
 export * from "./ArrayFieldTemplates";
 export * from "./ObjectFieldTemplates";
-
-const { gray } = palette;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
@@ -41,12 +39,20 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
       {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
       {isNullType && <>{descriptionNode || description}</>}
       {isNullType && !!errors.length && (
-        <StyledBanner data-testid="error-banner" variant="danger">
+        <Banner
+          className={styles.banner}
+          data-testid="error-banner"
+          variant="danger"
+        >
           {errors.join(", ")}
-        </StyledBanner>
+        </Banner>
       )}
       {isNullType && !!warnings.length && (
-        <StyledBanner data-testid="warning-banner" variant="warning">
+        <Banner
+          className={styles.banner}
+          data-testid="warning-banner"
+          variant="warning"
+        >
           {warnings.map((w, i) =>
             typeof w === "string" || w instanceof String ? (
               <div key={`warning-${i}`}>{w}</div> // eslint-disable-line  react/no-array-index-key
@@ -54,28 +60,21 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
               w
             ),
           )}
-        </StyledBanner>
+        </Banner>
       )}
-      <DefaultFieldContainer
-        border={border}
-        className={classNames}
-        css={fieldCss}
+      <div
+        className={cx(
+          styles.defaultFieldContainer,
+          border === "top" && styles.borderTop,
+          border === "bottom" && styles.borderBottom,
+          emotionCssToClassName(fieldCss),
+          classNames,
+        )}
         data-testid={fielddataTestId}
         id={`${sectionId} ${id}`}
       >
         {children}
-      </DefaultFieldContainer>
+      </div>
     </>
   ) : null;
 };
-
-const DefaultFieldContainer = styled.div<{ border?: "top" | "bottom" }>`
-  ${({ border }) =>
-    border &&
-    `border-${border}: 1px solid ${gray.light1}; padding-${border}: ${size.s};`}
-  width: 100%;
-`;
-
-const StyledBanner = styled(Banner)`
-  margin: ${size.xs} 0;
-`;

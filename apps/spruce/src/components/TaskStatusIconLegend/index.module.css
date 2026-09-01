@@ -1,0 +1,30 @@
+.container {
+  width: 420px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--via-space-200);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--via-space-100);
+}
+
+.legendIcon {
+  flex-shrink: 0;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--via-space-400);
+}
+
+.legendPopover.legendPopover {
+  border-radius: var(--via-space-600);
+  padding: var(--via-space-600);
+}
