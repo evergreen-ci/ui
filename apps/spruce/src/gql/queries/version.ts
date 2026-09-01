@@ -35,6 +35,7 @@ export const VERSION = gql`
         adjustedS3ArtifactStorageCost
         adjustedS3LogPutCost
         adjustedS3LogStorageCost
+        childPatchesTotalCost
         total
       }
       createTime
@@ -68,10 +69,6 @@ export const VERSION = gql`
       patch {
         id
         alias
-        cost {
-          childPatchesTotalCost
-          total
-        }
         githubPatchData {
           headHash
           prNumber

@@ -1,0 +1,30 @@
+.labelCellContainer {
+  min-width: 200px;
+  padding-right: 40px;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rowContainerSelected {
+  background-color: var(--via-color-blue-100);
+}
+
+.dashedLine {
+  margin-top: 2px;
+  height: 1px;
+  background:
+    linear-gradient(to right, transparent 50%, white 50%),
+    linear-gradient(
+      to right,
+      var(--via-color-neutral-300),
+      var(--via-color-neutral-300)
+    );
+  background-size:
+    var(--via-space-400) 2px,
+    100% 2px;
+  width: 100%;
+}

@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import styles from "./TaskStatusBadgeWithLink.stories.module.css";
 import TaskStatusBadgeWithLink from ".";
 
 export default {
@@ -12,22 +11,13 @@ export const Default: CustomStoryObj<typeof TaskStatusBadgeWithLink> = {
   render: () => {
     const taskStatuses = Object.values(TaskStatus);
     return (
-      <Container>
+      <div className={styles.container}>
         {taskStatuses.map((status) => (
-          <Wrapper key={`badge_${status}`}>
+          <div key={`badge_${status}`} className={styles.wrapper}>
             <TaskStatusBadgeWithLink execution={0} id="1" status={status} />
-          </Wrapper>
+          </div>
         ))}
-      </Container>
+      </div>
     );
   },
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-const Wrapper = styled.div`
-  padding: ${size.xxs};
-`;

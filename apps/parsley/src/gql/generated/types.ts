@@ -5004,6 +5004,7 @@ export type Version = {
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   projectMetadata?: Maybe<Project>;
+  quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
@@ -5148,6 +5149,8 @@ export type WaterfallBuild = {
 
 export type WaterfallOptions = {
   date?: InputMaybe<Scalars["Time"]["input"]>;
+  /** Return all builds and tasks for each matching version instead of applying the waterfall filters to them. */
+  includeAllBuildsAndTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;

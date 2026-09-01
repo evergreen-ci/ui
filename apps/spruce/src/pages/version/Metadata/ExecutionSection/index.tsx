@@ -17,16 +17,14 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   const {
     cost,
     id,
-    isPatch,
     parameters,
-    patch,
     projectMetadata,
     quarantinedTestsSkippedCount,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
 
   const hasParameters = parameters.length > 0;
-  const totalCost = isPatch ? patch?.cost?.total : cost?.total;
+  const totalCost = cost?.total;
   const hasCost = totalCost != null && totalCost > 0;
   const testSelectionEnabled = projectMetadata?.testSelection?.allowed ?? false;
   const hasSkippedTests =

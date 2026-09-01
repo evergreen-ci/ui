@@ -8107,6 +8107,7 @@ export type AdminSettingsQuery = {
         __typename?: "ProjectTasksPair";
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
+        isRegex?: boolean | null;
         projectId: string;
       }>;
     } | null;
@@ -10982,6 +10983,7 @@ export type SingleTaskDistroQuery = {
         allowedBVs: Array<string>;
         allowedTasks: Array<string>;
         displayName: string;
+        isRegex?: boolean | null;
         projectId: string;
       }>;
     } | null;
@@ -12353,6 +12355,7 @@ export type VersionQuery = {
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
       adjustedS3LogStorageCost?: number | null;
+      childPatchesTotalCost?: number | null;
       total?: number | null;
     } | null;
     externalLinksForMetadata: Array<{
@@ -12381,11 +12384,6 @@ export type VersionQuery = {
       id: string;
       alias?: string | null;
       patchNumber: number;
-      cost?: {
-        __typename?: "Cost";
-        childPatchesTotalCost?: number | null;
-        total?: number | null;
-      } | null;
       githubPatchData?: {
         __typename?: "GithubPatch";
         headHash?: string | null;

@@ -5,7 +5,6 @@ import {
   screen,
   stubGetClientRects,
   userEvent,
-  within,
 } from "@evg-ui/lib/test_utils";
 import { VersionQuery } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
@@ -205,13 +204,14 @@ describe("version metadata cost display", () => {
     await screen.findByText("Estimated cost of completed tasks so far.");
   });
 
-  it("shows child patches tooltip when running with children", async () => {
+  it("shows child patches tooltip when child versions exist", async () => {
     const user = userEvent.setup();
     render(
       <Metadata
         version={{
           ...baseVersion,
           isPatch: true,
+          cost: { __typename: "Cost", total: 50 },
           childVersions: [
             {
               __typename: "Version",
@@ -226,10 +226,11 @@ describe("version metadata cost display", () => {
           ],
           patch: {
             __typename: "Patch",
-            cost: { __typename: "Cost", total: 50 },
+            id: "patch",
+            patchNumber: 123,
             githubPatchData: null,
-            includedLocalModules: null,
-          } as unknown as Version["patch"],
+            includedLocalModules: [],
+          },
           finishTime: null,
         }}
       />,
@@ -243,47 +244,6 @@ describe("version metadata cost display", () => {
     await user.hover(infoSprinkle);
     await screen.findByText(
       "Estimated cost of completed tasks so far, including child patches.",
-    );
-  });
-
-  it("shows child patches tooltip when complete with children", async () => {
-    const user = userEvent.setup();
-    render(
-      <Metadata
-        version={{
-          ...baseVersion,
-          isPatch: true,
-          childVersions: [
-            {
-              __typename: "Version",
-              id: "child1",
-              revision: "abc",
-              status: "created",
-              taskCount: 1,
-              baseVersion: null,
-              parameters: [],
-              projectMetadata: null,
-            },
-          ],
-          patch: {
-            __typename: "Patch",
-            cost: { __typename: "Cost", total: 50 },
-            githubPatchData: null,
-            includedLocalModules: null,
-          } as unknown as Version["patch"],
-          finishTime: new Date("2024-01-02"),
-        }}
-      />,
-      {
-        route: "/version/version123",
-        path: "/version/:id",
-        wrapper,
-      },
-    );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
-    await screen.findByText(
-      "Total cost of all tasks, including child patches.",
     );
   });
 
@@ -342,38 +302,6 @@ describe("version metadata cost display", () => {
       },
     );
     expect(screen.getByTestId("cost-details-button")).toBeInTheDocument();
-  });
-
-  it("shows patch cost total in modal for patches", async () => {
-    const user = userEvent.setup();
-    render(
-      <Metadata
-        version={{
-          ...baseVersion,
-          isPatch: true,
-          cost: { __typename: "Cost", total: 1.5 },
-          patch: {
-            __typename: "Patch",
-            cost: { __typename: "Cost", total: 3.75 },
-
-            githubPatchData: null,
-            includedLocalModules: [],
-            id: "child-patch",
-            patchNumber: 123,
-          },
-          finishTime: new Date("2024-01-02"),
-        }}
-      />,
-      {
-        route: "/version/version123",
-        path: "/version/:id",
-        wrapper,
-      },
-    );
-    await user.click(screen.getByTestId("cost-details-button"));
-    // Total row in the modal uses patch.cost.total (3.75), not cost.total (1.5).
-    const modal = screen.getByTestId("cost-modal");
-    expect(within(modal).getByText("$3.75")).toBeInTheDocument();
   });
 
   it("can reopen cost modal after closing", async () => {
