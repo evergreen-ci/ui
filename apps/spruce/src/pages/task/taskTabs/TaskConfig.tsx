@@ -68,6 +68,7 @@ export const TaskConfigTab = ({
   const table = useLeafyGreenTable({
     columns,
     data: tableData ?? [],
+    enableColumnFilters: false,
   });
 
   return (
