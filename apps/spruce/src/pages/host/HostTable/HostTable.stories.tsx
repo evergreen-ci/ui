@@ -1,4 +1,3 @@
-import "@via-ds/components/index.css";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import {
   HostEventLogData,
