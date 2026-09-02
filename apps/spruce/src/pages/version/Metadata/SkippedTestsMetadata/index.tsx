@@ -28,7 +28,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
 
   return (
     <>
-      <MetadataItem as="div">
+      <MetadataItem elementType="div">
         <MetadataContent data-testid="version-skipped-tests-metadata">
           <SummaryRow>
             <MetadataLabel>Tests skipped by TSS:</MetadataLabel>

@@ -1,0 +1,10 @@
+.pageLayout {
+  padding-top: var(--via-space-600);
+}
+
+.subtitleContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: var(--via-space-400);
+}
