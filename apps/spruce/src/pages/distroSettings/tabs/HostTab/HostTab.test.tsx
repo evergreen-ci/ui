@@ -1,5 +1,9 @@
 import { FieldValidation } from "@rjsf/core";
-import { BootstrapMethod, CommunicationMethod } from "gql/generated/types";
+import {
+  Arch,
+  BootstrapMethod,
+  CommunicationMethod,
+} from "gql/generated/types";
 import { validate } from "./HostTab";
 import { HostFormState } from "./types";
 
@@ -19,6 +23,7 @@ const makeErrors = () => ({
 
 const baseFormData: HostFormState = {
   setup: {
+    arch: Arch.Linux_64Bit,
     bootstrapMethod: BootstrapMethod.Ssh,
     communicationMethod: CommunicationMethod.Ssh,
   },
@@ -102,6 +107,26 @@ describe("host tab validate", () => {
       containerIsolation: {
         enabled: true,
         image: "some-image",
+        requireIsolation: true,
+      },
+    } as unknown as HostFormState;
+    validate(formData, errors as unknown as Parameters<typeof validate>[1]);
+    expect(errors.sshConfig.execUser.addError).not.toHaveBeenCalled();
+    expect(errors.containerIsolation.image.addError).not.toHaveBeenCalled();
+    expect(
+      errors.containerIsolation.requireIsolation.addError,
+    ).not.toHaveBeenCalled();
+  });
+
+  it("ignores stale container isolation state for non-Linux architectures", () => {
+    const errors = makeErrors();
+    const formData = {
+      ...baseFormData,
+      setup: { ...baseFormData.setup, arch: Arch.Windows_64Bit },
+      sshConfig: { execUser: "" },
+      containerIsolation: {
+        enabled: true,
+        image: "",
         requireIsolation: true,
       },
     } as unknown as HostFormState;

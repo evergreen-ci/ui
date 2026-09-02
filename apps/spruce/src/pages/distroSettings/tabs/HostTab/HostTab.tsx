@@ -4,6 +4,7 @@ import { DistroSettingsTabRoutes } from "constants/routes";
 import { BootstrapMethod, CommunicationMethod } from "gql/generated/types";
 import { useDistroSettingsContext } from "pages/distroSettings/Context";
 import { BaseTab } from "../BaseTab";
+import { linuxArchitectures } from "./constants";
 import { getFormSchema } from "./getFormSchema";
 import { HostFormState, TabProps } from "./types";
 
@@ -34,9 +35,10 @@ export const HostTab: React.FC<TabProps> = ({
 export const validate = ((formData, errors) => {
   const {
     containerIsolation,
-    setup: { bootstrapMethod, communicationMethod },
+    setup: { arch, bootstrapMethod, communicationMethod },
     sshConfig,
   } = formData;
+  const supportsContainerIsolation = linuxArchitectures.includes(arch);
 
   // Ensure either Legacy SSH or non-legacy methods are used for both communication and bootstrapping.
   if (
@@ -52,19 +54,31 @@ export const validate = ((formData, errors) => {
 
   // Container isolation requires an exec user to scope between-task process
   // cleanup inside the container's PID namespace.
-  if (containerIsolation?.enabled && !sshConfig?.execUser) {
+  if (
+    supportsContainerIsolation &&
+    containerIsolation?.enabled &&
+    !sshConfig?.execUser
+  ) {
     errors.sshConfig.execUser.addError(
       "Exec User is required when Container Isolation is enabled.",
     );
   }
 
-  if (containerIsolation?.enabled && !containerIsolation?.image) {
+  if (
+    supportsContainerIsolation &&
+    containerIsolation?.enabled &&
+    !containerIsolation?.image
+  ) {
     errors.containerIsolation.image.addError(
       "Container Image is required when Container Isolation is enabled.",
     );
   }
 
-  if (containerIsolation?.requireIsolation && !containerIsolation?.enabled) {
+  if (
+    supportsContainerIsolation &&
+    containerIsolation?.requireIsolation &&
+    !containerIsolation?.enabled
+  ) {
     errors.containerIsolation.requireIsolation.addError(
       "Require Isolation has no effect when Container Isolation is not enabled.",
     );
