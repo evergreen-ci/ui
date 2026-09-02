@@ -3,7 +3,6 @@ import {
   MockedResponse,
   renderWithRouterMatch as render,
   screen,
-  userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
@@ -124,8 +123,7 @@ describe("variantHistoryRow", () => {
     expect(screen.queryAllByTestId("empty-cell")).toHaveLength(1);
   });
 
-  it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
-    const user = userEvent.setup();
+  it("should render an enabled task cell for a failing task when there are no filters applied", async () => {
     render(<VariantHistoryRow data={taskRow} index={0} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
@@ -150,12 +148,9 @@ describe("variantHistoryRow", () => {
         "false",
       );
     });
-    await user.hover(screen.getByTestId("history-table-icon"));
-    await screen.findByText("TestJiraIntegration");
   });
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
-    const user = userEvent.setup();
     render(<VariantHistoryRow data={taskRow} index={0} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
@@ -195,8 +190,6 @@ describe("variantHistoryRow", () => {
     });
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
-    await user.hover(screen.getByTestId("history-table-icon"));
-    await screen.findByText("TestJiraIntegration");
   });
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {

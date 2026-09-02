@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { Combobox, ComboboxItem } from "@via-ds/components/combobox";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import {
@@ -9,6 +8,7 @@ import {
 } from "gql/generated/types";
 import { TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { HistoryQueryParams } from "types/history";
+import styles from "./TaskSelector.module.css";
 
 interface TaskSelectorProps {
   projectIdentifier: string;
@@ -36,38 +36,32 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
     },
   });
 
-  const onChange = (selectedTasks: string[]) => {
-    sendEvent({
-      name: "Filtered by task",
-    });
-
-    setVisibleColumns(selectedTasks);
-  };
-
   const { taskNamesForBuildVariant } = data || {};
 
   return (
-    <Container>
-      <Combobox
+    <div className={styles.container}>
+      <Combobox<object, "multiple">
         data-testid="task-selector"
-        disabled={loading}
+        isDisabled={loading}
+        isLoading={loading}
         label="Tasks"
-        multiselect
-        onChange={onChange}
-        overflow="scroll-x"
+        menuTriggerAriaLabel="Tasks"
+        onChange={(keys) => {
+          sendEvent({ name: "Filtered by task" });
+          setVisibleColumns(keys.map(String));
+        }}
         placeholder="Select tasks"
+        selectionMode="multiple"
         value={visibleColumns}
       >
-        {taskNamesForBuildVariant?.map((taskName) => (
-          <ComboboxOption key={taskName} value={taskName} />
+        {(taskNamesForBuildVariant ?? []).map((taskName) => (
+          <ComboboxItem key={taskName} id={taskName}>
+            {taskName}
+          </ComboboxItem>
         ))}
       </Combobox>
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  width: 300px;
-`;
 
 export default TaskSelector;

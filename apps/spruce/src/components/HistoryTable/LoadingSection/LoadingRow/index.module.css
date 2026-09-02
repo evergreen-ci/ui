@@ -3,3 +3,8 @@
   flex-direction: row;
   align-items: center;
 }
+
+.listSkeletonLine {
+  height: var(--via-space-200);
+  margin-bottom: var(--via-space-100);
+}
