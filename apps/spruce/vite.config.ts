@@ -35,6 +35,15 @@ const getProjectConfig = () => {
     },
     server: serverConfig,
     build: {
+      // Target browsers that support CSS `light-dark()`. Vite 8 minifies CSS
+      // with Lightning CSS, which lowers `light-dark()` for older targets. When
+      // it appears inside a custom property (as Via's semantic color tokens do,
+      // e.g. `--via-color-text-onsuccess`), the lowering produces an invalid
+      // concatenated value, so the token resolves to nothing and text/links/
+      // borders fall back to inherited colors (UXE-684 prod regression). Pinning
+      // a light-dark()-capable target keeps the function intact. Baseline:
+      // Chrome/Edge 123, Firefox 120, Safari 17.5.
+      cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"],
       sourcemap: true,
     },
     resolve: {
