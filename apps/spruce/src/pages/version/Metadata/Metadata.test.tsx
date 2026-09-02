@@ -1,3 +1,4 @@
+import { ToastContext } from "@evg-ui/lib/context/toast";
 import {
   MockedProvider,
   renderWithRouterMatch as render,
@@ -12,8 +13,18 @@ import { Metadata } from ".";
 
 type Version = NonNullable<VersionQuery["version"]>;
 
+const toastContextValue = {
+  error: vi.fn(),
+  info: vi.fn(),
+  progress: vi.fn(),
+  success: vi.fn(),
+  warning: vi.fn(),
+};
+
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
+  <ToastContext.Provider value={toastContextValue}>
+    <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
+  </ToastContext.Provider>
 );
 
 const baseVersion: Version = {
@@ -54,6 +65,7 @@ const baseVersion: Version = {
     owner: "evergreen-ci",
     repo: "evergreen",
   },
+  quarantinedTestsSkippedCount: 0,
   upstreamProject: null,
   user: {
     __typename: "User",
@@ -64,12 +76,26 @@ const baseVersion: Version = {
 };
 
 describe("version metadata sections", () => {
-  it("hides Execution when no execution data exists", () => {
-    render(<Metadata version={baseVersion} />, {
-      route: "/version/version123",
-      path: "/version/:id",
-      wrapper,
-    });
+  it("hides Execution when TSS is enabled but no tests were skipped", () => {
+    render(
+      <Metadata
+        version={{
+          ...baseVersion,
+          projectMetadata: {
+            ...baseVersion.projectMetadata!,
+            testSelection: {
+              __typename: "TestSelectionSettings",
+              allowed: true,
+            },
+          },
+        }}
+      />,
+      {
+        route: "/version/version123",
+        path: "/version/:id",
+        wrapper,
+      },
+    );
 
     expect(screen.queryByText("Execution")).not.toBeInTheDocument();
   });
@@ -173,8 +199,8 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
+    const infoSprinkle = screen.getByRole("button", { name: "More info" });
+    await user.click(infoSprinkle);
     await screen.findByText("Estimated cost of completed tasks so far.");
   });
 
@@ -214,8 +240,8 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
+    const infoSprinkle = screen.getByRole("button", { name: "More info" });
+    await user.click(infoSprinkle);
     await screen.findByText(
       "Estimated cost of completed tasks so far, including child patches.",
     );
@@ -237,8 +263,8 @@ describe("version metadata cost display", () => {
         wrapper,
       },
     );
-    const infoSprinkle = screen.getByRole("button", { name: "more info" });
-    await user.hover(infoSprinkle);
+    const infoSprinkle = screen.getByRole("button", { name: "More info" });
+    await user.click(infoSprinkle);
     await screen.findByText("Total cost of all tasks.");
   });
 

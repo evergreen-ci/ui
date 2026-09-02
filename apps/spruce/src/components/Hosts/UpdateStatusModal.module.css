@@ -1,13 +1,16 @@
-/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
-   Remove when these components migrate to Via. */
-.select.select {
+.select {
   margin-bottom: var(--via-space-200);
 }
 
-.body.body {
+.body {
   margin-bottom: var(--via-space-200);
 }
 
-.statusBanner.statusBanner {
+.statusBanner {
   margin-bottom: var(--via-space-200);
+}
+
+/* Approximates the 6-row height the LeafyGreen TextArea had. */
+.notes textarea {
+  min-height: 140px;
 }

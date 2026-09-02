@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import styles from "./ColumnPaginationButtons.module.css";
 import { useHistoryTable } from "./HistoryTableContext";
 
 interface ColumnPaginationButtonProps {
@@ -37,8 +36,9 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
     previousPage();
   };
   return (
-    <Container>
-      <StyledButton
+    <div className={styles.container}>
+      <Button
+        className={styles.button}
         data-testid="prev-page-button"
         disabled={!hasPreviousPage}
         leftGlyph={<Icon glyph="ChevronLeft" />}
@@ -47,26 +47,15 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
       <Disclaimer>
         {currentPage + 1} / {pageCount}
       </Disclaimer>
-      <StyledButton
+      <Button
+        className={styles.button}
         data-testid="next-page-button"
         disabled={!hasNextPage}
         leftGlyph={<Icon glyph="ChevronRight" />}
         onClick={handleOnClickNext}
       />
-    </Container>
+    </div>
   );
 };
-
-const StyledButton = styled(Button)`
-  margin-right: ${size.xxs};
-  margin-left: ${size.xxs};
-`;
-
-const Container = styled.div`
-  align-self: flex-start;
-  align-items: center;
-  display: flex;
-  flex-shrink: 0;
-`;
 
 export default ColumnPaginationButtons;

@@ -191,13 +191,16 @@ const defaultMocks = [
 
 const Component = ({
   mocks = defaultMocks,
+  skippedTestsCount = 6,
   testSelectionEnabled = true,
 }: {
   mocks?: typeof defaultMocks;
+  skippedTestsCount?: number;
   testSelectionEnabled?: boolean;
 }) => (
   <MockedProvider mocks={mocks}>
     <SkippedTestsMetadata
+      skippedTestsCount={skippedTestsCount}
       testSelectionEnabled={testSelectionEnabled}
       versionId="v1"
     />
@@ -238,7 +241,7 @@ describe("version SkippedTestsMetadata", () => {
 
   it("renders nothing when no tasks skipped tests", async () => {
     const { Component: TestComponent } = RenderFakeToastContext(
-      <Component mocks={[getVersionTasksMock([0, 0, 0])]} />,
+      <Component mocks={[]} skippedTestsCount={0} />,
     );
     render(<TestComponent />, routerOptions);
     await expect(
@@ -248,40 +251,59 @@ describe("version SkippedTestsMetadata", () => {
     ).rejects.toThrow();
   });
 
-  it("shows an unavailable state and retries when loading version tasks fails", async () => {
+  it("shows an error when loading task details fails", async () => {
     const user = userEvent.setup();
-    const { Component: TestComponent } = RenderFakeToastContext(
-      <Component
-        mocks={[getVersionTasksErrorMock(), getVersionTasksMock([4, 2, 0])]}
-      />,
+    const { Component: TestComponent, dispatchToast } = RenderFakeToastContext(
+      <Component mocks={[getVersionTasksErrorMock()]} />,
     );
     render(<TestComponent />, routerOptions);
 
-    expect(
-      await screen.findByTestId("version-skipped-tests-metadata-error"),
-    ).toHaveTextContent("Unavailable");
-    await user.click(
-      screen.getByTestId("version-skipped-tests-metadata-retry"),
-    );
-    expect(
-      await screen.findByTestId("version-skipped-tests-metadata-count"),
-    ).toHaveTextContent("6");
-  });
-
-  it("sums the per-task counts and opens the modal", async () => {
-    const user = userEvent.setup();
-    const { Component: TestComponent } = RenderFakeToastContext(<Component />);
-    render(<TestComponent />, routerOptions);
-    expect(
-      screen.getByTestId("version-skipped-tests-metadata-loading"),
-    ).toBeVisible();
-    expect(
-      await screen.findByTestId("version-skipped-tests-metadata-count"),
-    ).toHaveTextContent("6");
     await user.click(
       screen.getByTestId("version-skipped-tests-details-button"),
     );
+    await waitFor(() => {
+      expect(dispatchToast.error).toHaveBeenCalledWith(
+        "There was an error loading the skipped test details.",
+      );
+    });
+  });
+
+  it("opens the modal while loading task details", async () => {
+    const user = userEvent.setup();
+    const loadingTasksMock = {
+      ...getVersionTasksMock([4, 2, 0]),
+      delay: Infinity,
+    };
+    const { Component: TestComponent } = RenderFakeToastContext(
+      <Component mocks={[loadingTasksMock]} />,
+    );
+    render(<TestComponent />, routerOptions);
+
+    await user.click(
+      screen.getByTestId("version-skipped-tests-details-button"),
+    );
+
     expect(screen.getByTestId("skipped-tests-modal")).toBeVisible();
+    expect(screen.getByTestId("skipped-tests-download")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    expect(screen.queryByText("No matching tests.")).toBeNull();
+  });
+
+  it("uses the version skipped test count and opens the modal", async () => {
+    const user = userEvent.setup();
+    const { Component: TestComponent } = RenderFakeToastContext(
+      <Component skippedTestsCount={7} />,
+    );
+    render(<TestComponent />, routerOptions);
+    expect(
+      screen.getByTestId("version-skipped-tests-metadata-count"),
+    ).toHaveTextContent("7");
+    await user.click(
+      screen.getByTestId("version-skipped-tests-details-button"),
+    );
+    expect(await screen.findByTestId("skipped-tests-modal")).toBeVisible();
     expect(await screen.findByText("Alpha Test")).toBeVisible();
     expect(screen.getByText("beta_test")).toBeVisible();
     expect(screen.getByText("gamma_test")).toBeVisible();
@@ -293,7 +315,7 @@ describe("version SkippedTestsMetadata", () => {
     expect(href).not.toContain("quarantinedTests");
     expect(
       screen.getByTestId("skipped-tests-truncation-note"),
-    ).toHaveTextContent("Showing the first 3 of 6");
+    ).toHaveTextContent("Showing the first 3 of 7");
   });
 
   it("filters rows by test or task name", async () => {

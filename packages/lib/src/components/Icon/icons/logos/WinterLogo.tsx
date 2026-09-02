@@ -1,15 +1,9 @@
-import { forwardRef } from "react";
+import createGlyph from "../createGlyph";
 
-export const WinterLogo = forwardRef<SVGSVGElement>((props, ref) => (
-  <svg
-    ref={ref}
-    {...props}
-    height="54"
-    shapeRendering="geometricPrecision"
-    textRendering="geometricPrecision"
-    viewBox="0 0 40 39"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+export const WinterLogo = createGlyph(
+  "WinterLogo",
+  "0 0 40 39",
+  <>
     <path
       d="M7.781 32.258C2.992 32.57.105 34.3.04 35.727c-.066 1.421 3.219 1.457 6.41 1.996 3.188.543 6.832.078 9.364.078 2.527 0 4.816.398 7.43-.649 3.05-1.222 3.214-.636 6.804-.636 3.164 0 9.668-.18 9.945-1.93.102-.652-2.285-3.258-10.351-1.285-2.563.629-3.922-.633-6.246-.832-3.43-.293-3.93.781-5.625.636-5.61-.48-6.395-1.082-9.989-.847Zm0 0"
       fill="#e3fcf7"
@@ -190,7 +184,12 @@ export const WinterLogo = forwardRef<SVGSVGElement>((props, ref) => (
         values="7.06478,-1.047214; 5.746688,32.417428; 5.746688,32.417428"
       />
     </path>
-  </svg>
-));
-
-WinterLogo.displayName = "WinterLogo";
+  </>,
+  {
+    defaultSize: 54,
+    svgProps: {
+      shapeRendering: "geometricPrecision",
+      textRendering: "geometricPrecision",
+    },
+  },
+);

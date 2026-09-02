@@ -1,14 +1,9 @@
-import { forwardRef } from "react";
+import createGlyph from "../createGlyph";
 
-export const FallLogo = forwardRef<SVGSVGElement>((props, ref) => (
-  <svg
-    ref={ref}
-    fill="none"
-    viewBox="0 0 359 445"
-    width="58"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+export const FallLogo = createGlyph(
+  "FallLogo",
+  "0 0 359 445",
+  <>
     <path
       clipRule="evenodd"
       d="m234.463 173.995-51.596-77.938c-1.819-2.746-5.848-2.741-7.667.006l-51.423 77.943c-4.003 6.062.348 14.142 7.613 14.142h5.469l-37.23 52.079c-4.003 6.062.348 14.142 7.613 14.142h9.773l-46.492 58.28c-4.002 6.063.35 14.142 7.613 14.142H157v10.608c0 10.266 8.335 18.601 18.601 18.601h7.798c10.266 0 18.601-8.335 18.601-18.601v-10.608h78.312c7.27 0 11.621-8.09 7.608-14.153l-45.864-58.269h8.711c7.27 0 11.621-8.091 7.608-14.153v-.006l-37.005-52.062h5.48c7.269 0 11.62-8.09 7.607-14.153h.006Z"
@@ -101,7 +96,6 @@ export const FallLogo = forwardRef<SVGSVGElement>((props, ref) => (
         </stop>
       </linearGradient>
     </defs>
-  </svg>
-));
-
-FallLogo.displayName = "FallLogo";
+  </>,
+  { defaultSize: 72 },
+);

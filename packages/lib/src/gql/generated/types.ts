@@ -851,6 +851,7 @@ export type Distro = {
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
   availableRegions: Array<Scalars["String"]["output"]>;
+  bootstrapMethod: Scalars["String"]["output"];
   bootstrapSettings: BootstrapSettings;
   containerPool: Scalars["String"]["output"];
   costData?: Maybe<CostData>;
@@ -863,9 +864,11 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
+  id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
+  isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
@@ -905,16 +908,6 @@ export type DistroEventsPayload = {
   __typename?: "DistroEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<DistroEvent>;
-};
-
-export type DistroInfo = {
-  __typename?: "DistroInfo";
-  bootstrapMethod?: Maybe<Scalars["String"]["output"]>;
-  id?: Maybe<Scalars["String"]["output"]>;
-  isVirtualWorkStation?: Maybe<Scalars["Boolean"]["output"]>;
-  isWindows?: Maybe<Scalars["Boolean"]["output"]>;
-  user?: Maybe<Scalars["String"]["output"]>;
-  workDir?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type DistroInput = {
@@ -1321,7 +1314,8 @@ export type Host = {
   ami?: Maybe<Scalars["String"]["output"]>;
   availabilityZone?: Maybe<Scalars["String"]["output"]>;
   displayName?: Maybe<Scalars["String"]["output"]>;
-  distro?: Maybe<DistroInfo>;
+  distro?: Maybe<Distro>;
+  /** @deprecated Use distro.id instead */
   distroId?: Maybe<Scalars["String"]["output"]>;
   elapsed?: Maybe<Scalars["Time"]["output"]>;
   eventTypes: Array<HostEventType>;
@@ -2525,11 +2519,9 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
-  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
-  childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
-  childPatches?: Maybe<Array<Patch>>;
-  /** Aggregated actual cost for the patch's version, when cost data exists. */
-  cost?: Maybe<Cost>;
+  aliases: Array<Scalars["String"]["output"]>;
+  childPatchAliases: Array<ChildPatchAlias>;
+  childPatches: Array<Patch>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
@@ -2544,14 +2536,10 @@ export type Patch = {
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
-  /** Aggregated predicted cost for the patch's version. */
-  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
-  taskCount?: Maybe<Scalars["Int"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
-  time?: Maybe<PatchTime>;
   user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
@@ -4391,8 +4379,8 @@ export type TaskHostOverridesInput = {
 
 export type TaskInfo = {
   __typename?: "TaskInfo";
-  id?: Maybe<Scalars["ID"]["output"]>;
-  name?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
 };
 
 export type TaskLimitsConfig = {
@@ -5109,11 +5097,11 @@ export type Volume = {
   availabilityZone: Scalars["String"]["output"];
   createdBy: Scalars["String"]["output"];
   creationTime?: Maybe<Scalars["Time"]["output"]>;
-  deviceName?: Maybe<Scalars["String"]["output"]>;
   displayName: Scalars["String"]["output"];
   expiration?: Maybe<Scalars["Time"]["output"]>;
   homeVolume: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
+  /** @deprecated Use host.id instead */
   hostID: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   migrating: Scalars["Boolean"]["output"];

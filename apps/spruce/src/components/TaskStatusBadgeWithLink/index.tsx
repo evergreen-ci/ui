@@ -1,12 +1,11 @@
-import styled from "@emotion/styled";
-import { Icon } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { Icon } from "@evg-ui/lib/components/Icon";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
+import styles from "./index.module.css";
 
 interface TaskStatusBadgeWithLinkProps extends React.ComponentProps<
   typeof TaskStatusBadge
@@ -33,7 +32,8 @@ const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
   }
 
   return (
-    <StyledLink
+    <Link
+      className={styles.link}
       onClick={onClick}
       to={getTaskRoute(id, {
         execution,
@@ -42,24 +42,8 @@ const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
     >
       <TaskStatusBadge status={status as TaskStatus} {...rest} />
       <Icon className="link-icon" fill={palette.blue.base} glyph="OpenNewTab" />
-    </StyledLink>
+    </Link>
   );
 };
-
-const StyledLink = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  gap: ${size.xxs};
-  text-decoration: none;
-
-  .link-icon {
-    opacity: 0;
-    transition: opacity ${transitionDuration.default}ms ease-in;
-    flex-shrink: 0;
-  }
-  :hover .link-icon {
-    opacity: 1;
-  }
-`;
 
 export default TaskStatusBadgeWithLink;

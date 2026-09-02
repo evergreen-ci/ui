@@ -848,6 +848,7 @@ export type Distro = {
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
   availableRegions: Array<Scalars["String"]["output"]>;
+  bootstrapMethod: Scalars["String"]["output"];
   bootstrapSettings: BootstrapSettings;
   containerPool: Scalars["String"]["output"];
   costData?: Maybe<CostData>;
@@ -860,9 +861,11 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
+  id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
+  isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
@@ -902,16 +905,6 @@ export type DistroEventsPayload = {
   __typename?: "DistroEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<DistroEvent>;
-};
-
-export type DistroInfo = {
-  __typename?: "DistroInfo";
-  bootstrapMethod?: Maybe<Scalars["String"]["output"]>;
-  id?: Maybe<Scalars["String"]["output"]>;
-  isVirtualWorkStation?: Maybe<Scalars["Boolean"]["output"]>;
-  isWindows?: Maybe<Scalars["Boolean"]["output"]>;
-  user?: Maybe<Scalars["String"]["output"]>;
-  workDir?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type DistroInput = {
@@ -1318,7 +1311,8 @@ export type Host = {
   ami?: Maybe<Scalars["String"]["output"]>;
   availabilityZone?: Maybe<Scalars["String"]["output"]>;
   displayName?: Maybe<Scalars["String"]["output"]>;
-  distro?: Maybe<DistroInfo>;
+  distro?: Maybe<Distro>;
+  /** @deprecated Use distro.id instead */
   distroId?: Maybe<Scalars["String"]["output"]>;
   elapsed?: Maybe<Scalars["Time"]["output"]>;
   eventTypes: Array<HostEventType>;
@@ -2522,11 +2516,9 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
-  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
-  childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
-  childPatches?: Maybe<Array<Patch>>;
-  /** Aggregated actual cost for the patch's version, when cost data exists. */
-  cost?: Maybe<Cost>;
+  aliases: Array<Scalars["String"]["output"]>;
+  childPatchAliases: Array<ChildPatchAlias>;
+  childPatches: Array<Patch>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
@@ -2541,14 +2533,10 @@ export type Patch = {
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
-  /** Aggregated predicted cost for the patch's version. */
-  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
-  taskCount?: Maybe<Scalars["Int"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
-  time?: Maybe<PatchTime>;
   user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
@@ -4389,8 +4377,8 @@ export type TaskHostOverridesInput = {
 
 export type TaskInfo = {
   __typename?: "TaskInfo";
-  id?: Maybe<Scalars["ID"]["output"]>;
-  name?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
 };
 
 export type TaskLimitsConfig = {
@@ -5107,11 +5095,11 @@ export type Volume = {
   availabilityZone: Scalars["String"]["output"];
   createdBy: Scalars["String"]["output"];
   creationTime?: Maybe<Scalars["Time"]["output"]>;
-  deviceName?: Maybe<Scalars["String"]["output"]>;
   displayName: Scalars["String"]["output"];
   expiration?: Maybe<Scalars["Time"]["output"]>;
   homeVolume: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
+  /** @deprecated Use host.id instead */
   hostID: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   migrating: Scalars["Boolean"]["output"];
@@ -5394,12 +5382,12 @@ export type BaseSpawnHostFragment = {
   uptime?: Date | null;
   user?: string | null;
   distro?: {
-    __typename?: "DistroInfo";
-    id?: string | null;
-    isVirtualWorkStation?: boolean | null;
-    isWindows?: boolean | null;
-    user?: string | null;
-    workDir?: string | null;
+    __typename?: "Distro";
+    id: string;
+    isVirtualWorkStation: boolean;
+    isWindows: boolean;
+    user: string;
+    workDir: string;
   } | null;
   homeVolume?: {
     __typename?: "Volume";
@@ -6979,12 +6967,12 @@ export type EditSpawnHostMutation = {
     uptime?: Date | null;
     user?: string | null;
     distro?: {
-      __typename?: "DistroInfo";
-      id?: string | null;
-      isVirtualWorkStation?: boolean | null;
-      isWindows?: boolean | null;
-      user?: string | null;
-      workDir?: string | null;
+      __typename?: "Distro";
+      id: string;
+      isVirtualWorkStation: boolean;
+      isWindows: boolean;
+      user: string;
+      workDir: string;
     } | null;
     homeVolume?: {
       __typename?: "Volume";
@@ -7364,7 +7352,7 @@ export type SaveDistroMutation = {
   saveDistro: {
     __typename?: "SaveDistroPayload";
     hostCount: number;
-    distro: { __typename?: "Distro"; name: string };
+    distro: { __typename?: "Distro"; id: string; name: string };
   };
 };
 
@@ -8567,6 +8555,7 @@ export type DistroQuery = {
   __typename?: "Query";
   distro?: {
     __typename?: "Distro";
+    id: string;
     adminOnly: boolean;
     aliases: Array<string>;
     arch: Arch;
@@ -8683,6 +8672,7 @@ export type DistrosQuery = {
   __typename?: "Query";
   distros: Array<{
     __typename?: "Distro";
+    id: string;
     adminOnly: boolean;
     aliases: Array<string>;
     availableRegions: Array<string>;
@@ -8787,15 +8777,11 @@ export type HostQuery = {
     uptime?: Date | null;
     user?: string | null;
     distro?: {
-      __typename?: "DistroInfo";
-      id?: string | null;
-      bootstrapMethod?: string | null;
+      __typename?: "Distro";
+      id: string;
+      bootstrapMethod: string;
     } | null;
-    runningTask?: {
-      __typename?: "TaskInfo";
-      id?: string | null;
-      name?: string | null;
-    } | null;
+    runningTask?: { __typename?: "TaskInfo"; id: string; name: string } | null;
   } | null;
 };
 
@@ -8830,14 +8816,14 @@ export type HostsQuery = {
       totalIdleTime?: number | null;
       uptime?: Date | null;
       distro?: {
-        __typename?: "DistroInfo";
-        id?: string | null;
-        bootstrapMethod?: string | null;
+        __typename?: "Distro";
+        id: string;
+        bootstrapMethod: string;
       } | null;
       runningTask?: {
         __typename?: "TaskInfo";
-        id?: string | null;
-        name?: string | null;
+        id: string;
+        name: string;
       } | null;
     }>;
   };
@@ -8854,6 +8840,7 @@ export type ImageDistrosQuery = {
     id: string;
     distros: Array<{
       __typename?: "Distro";
+      id: string;
       name: string;
       provider: Provider;
       providerSettingsList: Array<any>;
@@ -9216,12 +9203,12 @@ export type MyHostsQuery = {
       wholeWeekdaysOff: Array<number>;
     } | null;
     distro?: {
-      __typename?: "DistroInfo";
-      id?: string | null;
-      isVirtualWorkStation?: boolean | null;
-      isWindows?: boolean | null;
-      user?: string | null;
-      workDir?: string | null;
+      __typename?: "Distro";
+      id: string;
+      isVirtualWorkStation: boolean;
+      isWindows: boolean;
+      user: string;
+      workDir: string;
     } | null;
     homeVolume?: {
       __typename?: "Volume";
@@ -9301,12 +9288,12 @@ export type ConfigurePatchQuery = {
     alias?: string | null;
     description: string;
     status: string;
-    childPatchAliases?: Array<{
+    childPatchAliases: Array<{
       __typename?: "ChildPatchAlias";
       alias: string;
       patchId: string;
-    }> | null;
-    childPatches?: Array<{
+    }>;
+    childPatches: Array<{
       __typename?: "Patch";
       id: string;
       projectMetadata?: {
@@ -9319,7 +9306,7 @@ export type ConfigurePatchQuery = {
         name: string;
         tasks: Array<string>;
       }>;
-    }> | null;
+    }>;
     githubPatchData?: {
       __typename?: "GithubPatch";
       prNumber?: number | null;
@@ -12319,6 +12306,7 @@ export type VersionQuery = {
     isPatch: boolean;
     message: string;
     order: number;
+    quarantinedTestsSkippedCount: number;
     repo: string;
     requester: string;
     revision: string;
