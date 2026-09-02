@@ -49,7 +49,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
 
   if (loading) {
     return (
-      <MetadataItem as="div">
+      <MetadataItem elementType="div">
         <SummaryRow data-testid="version-skipped-tests-metadata-loading">
           <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
           <CountSkeleton size={SkeletonSize.Small} />
@@ -60,7 +60,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
 
   if (error) {
     return (
-      <MetadataItem as="div">
+      <MetadataItem elementType="div">
         <SummaryRow data-testid="version-skipped-tests-metadata-error">
           <MetadataLabel>Tests skipped by TSS:</MetadataLabel>
           <span>Unavailable</span>
@@ -84,7 +84,7 @@ export const SkippedTestsMetadata: React.FC<Props> = ({
 
   return (
     <>
-      <MetadataItem as="div">
+      <MetadataItem elementType="div">
         <MetadataContent data-testid="version-skipped-tests-metadata">
           <SummaryRow>
             <MetadataLabel>Tests skipped by TSS:</MetadataLabel>

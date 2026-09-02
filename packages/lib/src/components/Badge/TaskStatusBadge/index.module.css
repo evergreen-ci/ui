@@ -1,18 +1,3 @@
-/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
-   Remove when this component migrates to Via. */
-.badge.badge {
+.badge {
   width: max-content;
-}
-
-/* Statuses whose colors are not supported by LeafyGreen badge variants. */
-.systemFailed.systemFailed {
-  border-color: var(--via-color-purple-200) !important;
-  background-color: var(--via-color-purple-100) !important;
-  color: var(--via-color-purple-600) !important;
-}
-
-.knownIssue.knownIssue {
-  border-color: var(--via-color-red-200) !important;
-  background-color: var(--via-color-neutral-000) !important;
-  color: var(--via-color-red-600) !important;
 }

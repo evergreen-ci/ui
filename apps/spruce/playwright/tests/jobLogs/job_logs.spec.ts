@@ -10,7 +10,7 @@ test.describe("Job logs page", () => {
   });
 
   test("renders a table with test links", async ({ page }) => {
-    await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(655);
+    await expect(page.getByTestId("via-table-row")).toHaveCount(655);
     const completeTestLogsLink = page.getByTestId("complete-test-logs-link");
     const href = await completeTestLogsLink.getAttribute("href");
     expect(href).toContain(
@@ -18,11 +18,27 @@ test.describe("Job logs page", () => {
     );
   });
 
+  test("task page button links to the task", async ({ page }) => {
+    await expect(page.getByTestId("task-link")).toHaveAttribute(
+      "href",
+      new RegExp(`^/task/${taskIdWithResmokeLogs}\\?execution=0$`),
+    );
+  });
+
+  test("name links to Parsley", async ({ page }) => {
+    const parsleyLink = page
+      .getByTestId("via-table-row")
+      .filter({ has: page.getByRole("link") })
+      .first()
+      .getByRole("link");
+    await expect(parsleyLink).toHaveAttribute("href", /^https?:\/\//);
+  });
+
   test("visiting an invalid job logs page shows an error toast", async ({
     page,
   }) => {
     await page.goto(`/job-logs/DNE/0/job0`);
-    await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(0);
+    await expect(page.getByTestId("via-table-row")).toHaveCount(0);
     await validateToast(
       page,
       "error",
