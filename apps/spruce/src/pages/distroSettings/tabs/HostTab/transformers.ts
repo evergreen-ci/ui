@@ -1,5 +1,6 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { linuxArchitectures } from "./constants";
 
 type Tab = DistroSettingsTabRoutes.Host;
 
@@ -87,6 +88,15 @@ export const formToGql = ((
 ) => {
   const { acceptableHostIdleTimeSeconds, ...hostAllocatorSettings } =
     allocation;
+  const containerIsolationInput = linuxArchitectures.includes(setup.arch)
+    ? containerIsolation
+    : {
+        cpus: 0,
+        enabled: false,
+        image: "",
+        memoryMb: 0,
+        requireIsolation: false,
+      };
   return {
     ...(distro as NonNullable<typeof distro>),
     arch: setup.arch,
@@ -94,7 +104,7 @@ export const formToGql = ((
     bootstrapSettings: {
       clientDir: bootstrapSettings.clientDir,
       communication: setup.communicationMethod,
-      containerIsolation,
+      containerIsolation: containerIsolationInput,
       env: bootstrapSettings.env,
       jasperBinaryDir: bootstrapSettings.jasperBinaryDir,
       jasperCredentialsPath: bootstrapSettings.jasperCredentialsPath,

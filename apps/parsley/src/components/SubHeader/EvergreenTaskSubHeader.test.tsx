@@ -4,14 +4,8 @@ import {
   screen,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
-import {
-  ExecutionPlatform,
-  TaskQuery,
-  TaskQueryVariables,
-} from "gql/generated/types";
-import { GET_TASK } from "gql/queries";
+import { ExecutionPlatform } from "gql/generated/types";
 import { evergreenTaskMock } from "test_data/task";
 import { EvergreenTaskSubHeader } from "./EvergreenTaskSubHeader";
 
@@ -58,46 +52,24 @@ describe("evergreen task subheader", () => {
   });
 
   it("renders a Container badge for a task that ran in a container", async () => {
-    const containerTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
+    const { data } = evergreenTaskMock.result!;
+    const containerTaskMock = {
+      ...evergreenTaskMock,
       request: {
-        query: GET_TASK,
+        ...evergreenTaskMock.request,
         variables: {
-          execution: 0,
+          ...evergreenTaskMock.request.variables,
           taskId: "a-container-task-id",
         },
       },
       result: {
+        ...evergreenTaskMock.result,
         data: {
+          ...data,
           task: {
-            __typename: "Task",
-            details: {
-              description: "",
-              failingCommand: "",
-              status: "success",
-            },
-            displayName: "check_codegen",
-            displayStatus: "failed",
-            execution: 0,
+            ...data!.task,
             executionPlatform: ExecutionPlatform.Container,
             id: "a-container-task-id",
-            logs: {
-              agentLogLink: "log-link.com?type=E",
-              allLogLink: "log-link.com?type=ALL",
-              systemLogLink: "log-link.com?type=S",
-              taskLogLink: "log-link.com?type=T",
-            },
-            patchNumber: 1236,
-            versionMetadata: {
-              __typename: "VersionLite",
-              id: "spruce_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
-              isPatch: false,
-              message: "v2.28.5",
-              projectMetadata: {
-                id: "spruce",
-                identifier: "spruce",
-              },
-              revision: "d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
-            },
           },
         },
       },
