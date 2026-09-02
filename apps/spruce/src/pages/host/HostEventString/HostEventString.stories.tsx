@@ -1,4 +1,5 @@
 import { Body } from "@via-ds/components";
+import "@via-ds/components/index.css";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { HostEventLogData, HostEventType } from "gql/generated/types";
 import styles from "./HostEventString.stories.module.css";
