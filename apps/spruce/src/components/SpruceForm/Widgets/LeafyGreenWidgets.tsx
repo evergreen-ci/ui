@@ -136,9 +136,13 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
         onChange={(e) => onChange(e.target.checked)}
       />
       {hasError ? (
-        <StyledBanner data-testid="error-banner" variant="danger">
+        <Banner
+          className={styles.banner}
+          data-testid="error-banner"
+          variant="danger"
+        >
           {errors.join(", ")}
-        </StyledBanner>
+        </Banner>
       ) : null}
       {warnings?.length ? (
         <Banner

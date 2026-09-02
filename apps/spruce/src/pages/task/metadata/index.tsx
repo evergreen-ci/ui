@@ -100,8 +100,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         <MetadataCard title="Host Information">
           {executionPlatform === ExecutionPlatform.Container && (
             <MetadataItem
-              as="div"
               data-testid="task-metadata-execution-platform"
+              elementType="div"
             >
               <Badge variant={Variant.Blue}>Container</Badge>
             </MetadataItem>
