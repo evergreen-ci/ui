@@ -68,7 +68,7 @@ export const TaskStatsTooltip: React.FC<
           onClick={() => setOpen((o) => !o)}
           {...buttonContainerProps}
         >
-          <Icon glyph="Charts" />
+          <Icon glyph="Chart" />
         </IconButton>
       </BtnContainer>
       <Popover
