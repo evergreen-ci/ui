@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
+import { Code } from "@leafygreen-ui/code"; // TODO(UXE-616): swap to Via CodeEditor
 import { Button } from "@via-ds/components";
 import { useParams } from "react-router-dom";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
-import { CodeViewer } from "components/CodeViewer";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
@@ -144,9 +144,9 @@ const Host: React.FC = () => {
                 loading={hostMetadataLoading}
               />
               {sshAddress && (
-                <CodeViewer data-testid="ssh-command" language="shell">
+                <Code data-testid="ssh-command" language="shell">
                   {sshCommand}
-                </CodeViewer>
+                </Code>
               )}
             </PageSider>
             <PageContent>
