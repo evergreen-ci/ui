@@ -12306,6 +12306,7 @@ export type VersionQuery = {
     isPatch: boolean;
     message: string;
     order: number;
+    quarantinedTestsSkippedCount: number;
     repo: string;
     requester: string;
     revision: string;
