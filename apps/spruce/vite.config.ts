@@ -35,7 +35,6 @@ const getProjectConfig = () => {
     },
     server: serverConfig,
     build: {
-      // Pin light-dark()-capable targets so Lightning CSS keeps Via's color tokens valid (UXE-684).
       cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"],
       sourcemap: true,
     },
