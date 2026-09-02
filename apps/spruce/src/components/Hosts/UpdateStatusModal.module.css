@@ -1,0 +1,16 @@
+.select {
+  margin-bottom: var(--via-space-200);
+}
+
+.body {
+  margin-bottom: var(--via-space-200);
+}
+
+.statusBanner {
+  margin-bottom: var(--via-space-200);
+}
+
+/* Approximates the 6-row height the LeafyGreen TextArea had. */
+.notes textarea {
+  min-height: 140px;
+}

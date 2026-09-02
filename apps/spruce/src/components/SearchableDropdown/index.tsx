@@ -6,14 +6,10 @@ import {
   useRef,
   useState,
 } from "react";
-import styled from "@emotion/styled";
-import { css } from "@leafygreen-ui/emotion";
-import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
 import Dropdown from "components/Dropdown";
-
-const { gray } = palette;
+import styles from "./index.module.css";
 
 export interface SearchableDropdownProps<T> {
   buttonRenderer?: (option: T | T[]) => React.ReactNode;
@@ -125,13 +121,16 @@ const SearchableDropdown = <T extends {}>({
   }
 
   return (
-    <Container className={className}>
+    <div className={cx(styles.container, className)}>
       {label && (
-        <StyledLabel htmlFor={`searchable-dropdown-${label}`}>
+        <label
+          className={styles.label}
+          htmlFor={`searchable-dropdown-${label}`}
+        >
           {label}
-        </StyledLabel>
+        </label>
       )}
-      <Wrapper>
+      <div>
         <Dropdown
           ref={dropdownRef}
           aria-disabled={disabled}
@@ -149,20 +148,19 @@ const SearchableDropdown = <T extends {}>({
             aria-label="Search for options"
             aria-labelledby={label ? `searchable-dropdown-${label}` : undefined}
             autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-            className={css`
-              padding: 0 ${size.xs};
-            `}
+            className={styles.searchInput}
             data-testid={`${dataTestId}-search-input`}
             onChange={handleSearch}
             placeholder={searchPlaceholder}
             value={search}
           />
-          <ScrollableList>
+          <div className={styles.scrollableList}>
+            {/* eslint-disable-next-line react-hooks/refs -- pre-existing violation, surfaced by the Emotion conversion */}
             {(visibleOptions as T[])?.map((o) => option(o))}
-          </ScrollableList>
+          </div>
         </Dropdown>
-      </Wrapper>
-    </Container>
+      </div>
+    </div>
   );
 };
 
@@ -176,56 +174,15 @@ export const SearchableDropdownOption = <T extends {}>({
   onClick,
   value,
 }: PropsWithChildren<SearchableDropdownOptionProps<T>>) => (
-  <Option
+  // eslint-disable-next-line react/button-has-type -- pre-existing violation, surfaced by the Emotion conversion
+  <button
     key={`select_${value}`}
+    className={styles.option}
     data-testid="searchable-dropdown-option"
     onClick={() => onClick(value)}
   >
     {value.toString()}
-  </Option>
+  </button>
 );
-
-const ScrollableList = styled.div`
-  margin-top: ${size.xxs};
-  overflow: scroll;
-  max-height: 400px;
-`;
-
-const Wrapper = styled.div`
-  width: ${(props: { width?: string }): string =>
-    props.width ? props.width : ""};
-`;
-
-const Option = styled.button`
-  // Remove native button styles.
-  border: 0;
-  background: none;
-  text-align: inherit;
-  font: inherit;
-
-  width: 100%;
-  word-break: break-word; // Safari
-  overflow-wrap: anywhere;
-  cursor: pointer;
-  padding: ${size.xs} ${size.xs};
-  :hover,
-  :focus {
-    outline: none;
-    background-color: ${gray.light2};
-  }
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledLabel = styled.label`
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  color: ${gray.dark3};
-  margin-bottom: ${size.xxs};
-`;
 
 export default SearchableDropdown;

@@ -85,6 +85,7 @@ export { USER_SETTINGS } from "./user-settings";
 export { USER_SUBSCRIPTIONS } from "./user-subscriptions";
 export { USER_TOKEN_EXCHANGE } from "./user-token-exchange";
 export { VERSION } from "./version";
+export { VERSION_QUARANTINED_TASKS } from "./version-quarantined-tasks";
 export { VERSION_TASK_DURATIONS } from "./version-task-durations";
 export { VERSION_TASKS } from "./version-tasks";
 export { VERSION_UPSTREAM_PROJECT } from "./version-upstream-project";

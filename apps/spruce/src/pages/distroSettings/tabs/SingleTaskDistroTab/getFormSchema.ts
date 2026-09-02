@@ -1,4 +1,5 @@
 import { GetFormSchema } from "components/SpruceForm";
+import widgets from "components/SpruceForm/Widgets";
 
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -13,7 +14,11 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           properties: {
             projectId: {
               type: "string" as const,
-              title: "Project ID / Repo ID",
+              title: "Project ID / Identifier / Repo ID",
+            },
+            isRegex: {
+              type: "boolean" as const,
+              title: "Regex",
             },
             allowedTasks: {
               type: "array" as const,
@@ -44,6 +49,11 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:description":
         "This list is shared between all single task distros. Only Evergreen admins can add/edit/delete allowed tasks and build variants. Please file a DEVPROD ticket to request any changes to this list.",
       items: {
+        isRegex: {
+          "ui:widget": widgets.CheckboxWidget,
+          "ui:description":
+            "When enabled, the project value is a regular expression matched against project identifiers.",
+        },
         allowedTasks: {
           "ui:orderable": false,
           "ui:placeholder": "No tasks.",

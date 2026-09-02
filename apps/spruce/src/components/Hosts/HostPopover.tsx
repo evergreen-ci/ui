@@ -1,15 +1,14 @@
-import { useRef, useState } from "react";
-import styled from "@emotion/styled";
+import { useState } from "react";
 import {
   Button,
-  Size as ButtonSize,
-  Variant as ButtonVariant,
-} from "@leafygreen-ui/button";
-import { Popover } from "@leafygreen-ui/popover";
-import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useOnClickOutside } from "@evg-ui/lib/hooks";
+  Popover,
+  PopoverRoot,
+  Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@via-ds/components";
 import { PopoverContainer } from "components/styles/Popover";
+import styles from "./HostPopover.module.css";
 
 interface Props {
   buttonText: string;
@@ -33,80 +32,60 @@ export const HostPopover: React.FC<Props> = ({
   tooltipMessage,
 }) => {
   const [active, setActive] = useState(false);
-  const buttonRef = useRef(null);
-  const popoverRef = useRef(null);
-
-  // Handle onClickOutside
-  useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
   return showTooltip ? (
-    <Tooltip
-      trigger={
-        <Button data-testid={dataTestId} disabled>
-          {buttonText}
-        </Button>
-      }
-      triggerEvent={TriggerEvent.Hover}
-    >
-      {tooltipMessage}
-    </Tooltip>
+    <TooltipRoot>
+      <TooltipTrigger>
+        {/* Disabled buttons suppress pointer events, so the hover handlers
+            live on the wrapper span and the button is pointer-events: none
+            for the tooltip to show. */}
+        <span className={styles.tooltipTrigger}>
+          <Button data-testid={dataTestId} isDisabled>
+            {buttonText}
+          </Button>
+        </span>
+      </TooltipTrigger>
+      <Tooltip>{tooltipMessage}</Tooltip>
+    </TooltipRoot>
   ) : (
-    <>
-      <ButtonWrapper ref={buttonRef}>
-        <Button
-          data-testid={dataTestId}
-          disabled={disabled}
-          onClick={() => setActive((curr) => !curr)}
-        >
+    <PopoverRoot isOpen={active} onOpenChange={setActive} triggerType="dialog">
+      <div className={styles.buttonWrapper}>
+        <Button data-testid={dataTestId} isDisabled={disabled}>
           {buttonText}
         </Button>
-      </ButtonWrapper>
-      <Popover
-        active={active}
-        align="bottom"
-        data-testid={`${dataTestId}-popover`}
-      >
-        <PopoverContainer ref={popoverRef}>
+      </div>
+      <Popover>
+        {/* Via's Popover stamps its own data-testid, so the identifying
+            testid lives on the content container instead. */}
+        <PopoverContainer data-testid={`${dataTestId}-popover`}>
           {titleText}
 
-          <ButtonContainer>
-            <ButtonSpacer>
+          <div className={styles.buttonContainer}>
+            <div className={styles.buttonSpacer}>
               <Button
-                disabled={loading}
-                onClick={() => setActive(false)}
-                size={ButtonSize.XSmall}
+                isDisabled={loading}
+                onPress={() => setActive(false)}
+                size="small"
               >
                 No
               </Button>
-            </ButtonSpacer>
-            <ButtonSpacer>
+            </div>
+            <div className={styles.buttonSpacer}>
               <Button
-                disabled={loading}
-                onClick={() => {
+                isDisabled={loading}
+                onPress={() => {
                   onClick();
                   setActive(false);
                 }}
-                size={ButtonSize.XSmall}
-                variant={ButtonVariant.Primary}
+                size="small"
+                variant="primary"
               >
                 Yes
               </Button>
-            </ButtonSpacer>
-          </ButtonContainer>
+            </div>
+          </div>
         </PopoverContainer>
       </Popover>
-    </>
+    </PopoverRoot>
   );
 };
-
-const ButtonWrapper = styled.div`
-  white-space: nowrap; // prevent button collapse when screen is small
-`;
-const ButtonContainer = styled.div`
-  margin-top: ${size.xs};
-  display: flex;
-  justify-content: flex-end;
-`;
-const ButtonSpacer = styled.div`
-  margin-left: ${size.xs};
-`;

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
-import { Divider } from "components/styles/divider";
+import { Divider } from "components/styles/Divider";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { BuildVariantsWithChildrenQuery } from "gql/generated/types";
 import { BuildVariantAccordion } from "./BuildVariantAccordion";
 import { SelectedTasksMap } from "./types";
 import { useSelectRestartTasks } from "./useSelectRestartTasks";
+import styles from "./VersionTasks.module.css";
 
 interface VersionTasksProps {
   version: BuildVariantsWithChildrenQuery["version"];
@@ -70,7 +70,7 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
         selectedStatuses={statusFilters}
         versionId={versionId}
       />
-      <ContentWrapper>
+      <div className={styles.contentWrapper}>
         {[...buildVariants]
           .sort((a, b) => a.displayName.localeCompare(b.displayName))
           .map((patchBuildVariant) => (
@@ -84,15 +84,9 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
             />
           ))}
         <Divider />
-      </ContentWrapper>
+      </div>
     </>
   ) : null;
 };
-
-// 425px represents the height to subtract to prevent an overflow on the modal
-const ContentWrapper = styled.div`
-  max-height: calc(100vh - 425px);
-  overflow-y: auto;
-`;
 
 export default VersionTasks;

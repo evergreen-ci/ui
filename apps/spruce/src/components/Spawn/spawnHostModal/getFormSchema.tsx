@@ -102,7 +102,7 @@ export const getFormSchema = ({
   const isDebugDisabled =
     debugSpawnHostDisabled || !!project?.debugSpawnHostsDisabled;
   const availableVolumes = volumes
-    ? volumes.filter((v) => v.homeVolume && !v.hostID)
+    ? volumes.filter((v) => v.homeVolume && !v.host)
     : [];
 
   const expirationDetails = getExpirationDetailsSchema({
@@ -581,7 +581,7 @@ export const getFormSchema = ({
             "ui:data-testid": "volume-select",
             "ui:disabled": availableVolumes?.length === 0,
             "ui:enumDisabled": (volumes || [])
-              .filter((v) => !!v.hostID)
+              .filter((v) => !!v.host)
               .map((v) => v.id),
           },
           volumeSize: {
@@ -593,9 +593,6 @@ export const getFormSchema = ({
   };
 };
 
-/* SpruceForm applies "ui:elementWrapperCSS" through Emotion css props, which
-   reject plain class name strings, so these stay object styles until
-   SpruceForm itself converts off Emotion. */
 const dropdownWrapperCSS = { maxWidth: "500px" };
 const textAreaWrapperCSS = { maxWidth: "675px" };
 const indentCSS = { marginLeft: "16px" };

@@ -63,12 +63,41 @@ test.describe("Select hosts in hosts page table", () => {
 
     await page.getByTestId("host-status-select").click();
     await page.getByTestId("terminated-option").click();
-    await page.getByTestId("host-status-notes").fill("notes");
+    await page
+      .getByTestId("host-status-notes")
+      .locator("textarea")
+      .fill("notes");
 
     const modal = page.getByTestId("update-host-status-modal");
     await expect(modal).toBeVisible();
     await modal.getByRole("button", { name: "Update" }).click();
     await expect(modal).toBeHidden();
     await validateToast(page, "success", "Status was changed to terminated");
+  });
+
+  test("Closing the update status modal resets the form", async ({ page }) => {
+    await selectAllHosts(page);
+    await page.getByTestId("update-status-button").click();
+
+    const modal = page.getByTestId("update-host-status-modal");
+    await expect(modal).toBeVisible();
+    await page.getByTestId("host-status-select").click();
+    await page.getByTestId("terminated-option").click();
+    await page
+      .getByTestId("host-status-notes")
+      .locator("textarea")
+      .fill("notes");
+
+    await modal.getByRole("button", { name: "Close dialog" }).click();
+    await expect(modal).toBeHidden();
+
+    await page.getByTestId("update-status-button").click();
+    await expect(modal).toBeVisible();
+    await expect(page.getByTestId("host-status-select")).toContainText(
+      "Select",
+    );
+    await expect(
+      page.getByTestId("host-status-notes").locator("textarea"),
+    ).toHaveValue("");
   });
 });

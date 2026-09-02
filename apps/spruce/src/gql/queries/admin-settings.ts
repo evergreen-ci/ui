@@ -352,6 +352,7 @@ export const ADMIN_SETTINGS = gql`
         projectTasksPairs {
           allowedBVs
           allowedTasks
+          isRegex
           projectId
         }
       }

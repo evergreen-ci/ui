@@ -175,7 +175,7 @@ const columns: LGColumnDef<Host>[] = [
   },
   {
     header: "Distro",
-    accessorKey: "distroId",
+    accessorKey: "distro.id",
     id: HostSortBy.Distro,
     enableColumnFilter: true,
     enableSorting: true,

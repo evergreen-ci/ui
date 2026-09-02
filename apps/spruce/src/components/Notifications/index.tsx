@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import { Button, ButtonProps } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import Cookies from "js-cookie";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { cx } from "@evg-ui/lib/utils/css";
 import { SpruceForm } from "components/SpruceForm";
 import {
   SUBSCRIPTION_METHOD,
@@ -23,6 +22,7 @@ import { useUserSettings } from "hooks/useUserSettings";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
+import styles from "./index.module.css";
 import { FormRegexSelector, FormState } from "./types";
 import { getGqlPayload, hasInitialError } from "./utils";
 
@@ -161,6 +161,9 @@ const getRegexEnumsToDisable = (regexForm: FormRegexSelector[]) => {
   return regexEnumsToDisable;
 };
 
-export const LeftButton = styled(Button)`
-  margin-right: ${size.s};
-`;
+export const LeftButton = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, ...rest }, ref) => (
+    <Button ref={ref} className={cx(styles.leftButton, className)} {...rest} />
+  ),
+);
+LeftButton.displayName = "LeftButton";

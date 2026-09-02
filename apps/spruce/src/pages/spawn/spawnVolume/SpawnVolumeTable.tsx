@@ -76,7 +76,7 @@ const renderExpandedContent = (row: LeafyGreenTableRow<TableVolume>) => (
 );
 
 const getHostDisplayName = (v: TableVolume) =>
-  v?.host?.displayName ? v.host.displayName : v.hostID;
+  v.host?.displayName || v.host?.id || "";
 
 const sortByHost = (a: TableVolume, b: TableVolume) =>
   getHostDisplayName(a).localeCompare(getHostDisplayName(b));
@@ -92,10 +92,10 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
   },
   {
     header: "Mounted On",
-    accessorFn: ({ host, hostID }) => host?.displayName || hostID,
+    accessorFn: ({ host }) => host?.displayName || host?.id,
     enableSorting: true,
     cell: ({ getValue, row }) => {
-      const hostId = row.original.hostID;
+      const hostId = row.original.host?.id;
       return (
         hostId && (
           <StyledRouterLink
@@ -110,7 +110,7 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
   },
   {
     header: "Status",
-    accessorKey: "hostID",
+    accessorKey: "host.id",
     enableSorting: true,
     cell: ({ getValue, row }) => {
       const hostId = getValue() as string;
@@ -130,7 +130,7 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
       return (
         <>
           {isUnexpirable ? DoesNotExpire : formatDistanceToNow(expiration)}
-          {!isUnexpirable && row.original.hostID && (
+          {!isUnexpirable && row.original.host && (
             <InfoContainer>
               <InfoSprinkle>
                 Expiration is not applicable to mounted volumes.

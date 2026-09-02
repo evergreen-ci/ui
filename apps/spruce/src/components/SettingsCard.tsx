@@ -1,34 +1,25 @@
-import styled from "@emotion/styled";
-import { Card } from "@leafygreen-ui/card";
-import { palette } from "@leafygreen-ui/palette";
-import { transitionDuration } from "@leafygreen-ui/tokens";
+import { forwardRef } from "react";
+import { Card, CardProps } from "@leafygreen-ui/card";
 import { H3, H3Props } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./SettingsCard.module.css";
 
-const { gray } = palette;
-
-export const SettingsCardTitle = styled(H3)<H3Props>`
-  margin: ${size.m} 0 ${size.s} 0;
-  :hover {
-    ::after {
-      opacity: 1;
-      transition: opacity ${transitionDuration.default}ms ease-in-out;
-    }
-  }
-
-  ::after {
-    color: ${gray.dark2};
-    content: "#";
-    margin-left: ${size.xs};
-    opacity: 0;
-    transition: opacity ${transitionDuration.default}ms ease-in-out;
-  }
-`;
+export const SettingsCardTitle = forwardRef<HTMLHeadingElement, H3Props>(
+  ({ className, ...rest }, ref) => (
+    <H3
+      ref={ref}
+      className={cx(styles.settingsCardTitle, className)}
+      {...rest}
+    />
+  ),
+);
+SettingsCardTitle.displayName = "SettingsCardTitle";
 
 export const formComponentSpacingCSS = "margin-bottom: 48px;";
 
-export const SettingsCard = styled(Card)`
-  padding: ${size.m};
-
-  ${formComponentSpacingCSS}
-`;
+export const SettingsCard = forwardRef<HTMLDivElement, CardProps>(
+  ({ className, ...rest }, ref) => (
+    <Card ref={ref} className={cx(styles.settingsCard, className)} {...rest} />
+  ),
+);
+SettingsCard.displayName = "SettingsCard";

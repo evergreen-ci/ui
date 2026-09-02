@@ -1,0 +1,17 @@
+.buttonContainer {
+  margin-top: var(--via-space-600);
+}
+
+.flexContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.flexColumnContainer {
+  display: flex;
+  flex-direction: column;
+  margin-right: var(--via-space-200);
+  margin-top: var(--via-space-600);
+  flex-grow: 1;
+}
