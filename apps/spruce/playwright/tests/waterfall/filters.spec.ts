@@ -131,6 +131,18 @@ test.describe("task filtering", () => {
     );
   });
 
+  test("searches older commits from an empty result", async ({ page }) => {
+    await page.getByTestId("task-filter-input").fill("no-such-task");
+    await page.getByTestId("task-filter-input").press("Enter");
+
+    const searchOlderButton = page.getByTestId("search-older-commits-button");
+    await expect(searchOlderButton).toBeVisible();
+    await searchOlderButton.click();
+
+    await expect(page).toHaveURL(/maxOrder=/);
+    await expect(page).toHaveURL(/tasks=/);
+  });
+
   test("with regex match, filters grid squares, removes inactive build variants, creates a badge, and updates the url", async ({
     page,
   }) => {
