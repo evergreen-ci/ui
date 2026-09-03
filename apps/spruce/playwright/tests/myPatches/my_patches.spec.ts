@@ -87,7 +87,10 @@ test.describe("My Patches Page", () => {
       page,
     }) => {
       await page.goto(MY_PATCHES_ROUTE);
-      await page.getByTestId("requester-selector").click();
+      await page
+        .getByTestId("requester-selector")
+        .getByRole("button", { name: "Show suggestions" })
+        .click();
       const cliPatchTitle = "main: EVG-7823 add a commit queue message (#4048)";
       const prPatchTitle =
         "evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
