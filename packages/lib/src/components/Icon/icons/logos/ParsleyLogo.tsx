@@ -1,12 +1,15 @@
 import { forwardRef, useId } from "react";
 import { palette } from "@leafygreen-ui/palette";
-import { generateAccessibleProps, sizeMap } from "@via-ds/icons";
-import { GlyphProps } from "../createGlyph";
+import {
+  type IconProps,
+  generateAccessibleProps,
+  sizeMap,
+} from "@via-ds/icons";
 import styles from "../glyphs.module.css";
 
 const { green } = palette;
 
-interface ParsleyLogoProps extends GlyphProps {
+interface ParsleyLogoProps extends IconProps {
   leftFill?: string;
   leftStroke?: string;
   rightFill?: string;

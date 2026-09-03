@@ -46,7 +46,7 @@ describe("Icon", () => {
     expect(svg).toHaveAttribute("width", "75");
     expect(svg).toHaveAttribute("height", "75");
     expect(svg).toHaveAttribute("viewBox", "0 -10 359 445");
-    // SMIL animation and custom fills survive createGlyph's content passthrough
+    // SMIL animation and custom fills survive the factory's content passthrough
     expect(svg.querySelector("animate")).not.toBeNull();
     expect(svg.querySelector('[fill="#00A35C"]')).not.toBeNull();
   });
