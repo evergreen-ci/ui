@@ -1,4 +1,4 @@
-import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@via-ds/components";
 import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -55,14 +55,12 @@ export const PatchesPage: React.FC<Props> = ({
       PatchPageQueryParams.Hidden,
       Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     );
-  const includeHiddenCheckboxOnChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    setIsIncludeHiddenCheckboxChecked(e.target.checked);
-    Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
+  const includeHiddenCheckboxOnChange = (isSelected: boolean): void => {
+    setIsIncludeHiddenCheckboxChecked(isSelected);
+    Cookies.set(INCLUDE_HIDDEN_PATCHES, isSelected ? "true" : "false");
     analytics.sendEvent({
       name: "Filtered for patches",
-      "filter.hidden": e.target.checked,
+      "filter.hidden": isSelected,
     });
   };
 
@@ -84,12 +82,13 @@ export const PatchesPage: React.FC<Props> = ({
         <StatusSelector />
         {filterComp}
         <Checkbox
-          checked={includeHiddenCheckboxChecked}
           className={styles.hiddenCheckbox}
           data-testid="include-hidden-checkbox"
-          label="Include hidden"
+          isSelected={includeHiddenCheckboxChecked}
           onChange={includeHiddenCheckboxOnChange}
-        />
+        >
+          Include hidden
+        </Checkbox>
       </FiltersWrapper>
       <PaginationButtons
         filteredPatchCount={filteredCount}

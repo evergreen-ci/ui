@@ -1,4 +1,4 @@
-import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { Combobox, ComboboxItem } from "@via-ds/components";
 import { Requester } from "constants/requesters";
 import { requesterSubscriberOptions } from "constants/triggers";
 import { useStatusesFilter } from "hooks";
@@ -10,21 +10,24 @@ export const RequesterSelector: React.FC = () => {
 
   return (
     <Combobox
+      aria-label="Patch submission"
       data-testid="requester-selector"
-      label=""
-      multiselect
-      onChange={statusValOnChange}
-      overflow="scroll-x"
+      onChange={(selectedKeys) =>
+        statusValOnChange(selectedKeys.map((key) => key.toString()))
+      }
       placeholder="Patch submission"
+      selectionMode="multiple"
       value={statusVal}
     >
-      {options.map(({ displayName, key, value }) => (
-        <ComboboxOption
-          key={key}
+      {options.map(({ displayName, value }) => (
+        <ComboboxItem
+          key={value}
           data-testid={`${value}-option`}
-          displayName={displayName}
-          value={value}
-        />
+          id={value}
+          textValue={displayName}
+        >
+          {displayName}
+        </ComboboxItem>
       ))}
     </Combobox>
   );
