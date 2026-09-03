@@ -37,11 +37,9 @@ const options = [
   {
     displayName: requesterSubscriberOptions[Requester.GitHubPR],
     value: Requester.GitHubPR,
-    key: Requester.GitHubPR,
   },
   {
     displayName: requesterSubscriberOptions[Requester.Patch],
     value: Requester.Patch,
-    key: Requester.Patch,
   },
 ];
