@@ -22,11 +22,7 @@ export const InactiveVersionsModal: React.FC<Props> = ({
 
   return (
     <DialogRoot isOpen={open} onOpenChange={setOpen}>
-      <Dialog
-        className={styles.dialog}
-        data-testid="inactive-versions-modal"
-        size="large"
-      >
+      <Dialog className={styles.dialog} data-testid="inactive-versions-modal">
         <Header>
           <Text slot="title">
             {`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}

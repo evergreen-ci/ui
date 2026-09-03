@@ -3,6 +3,10 @@
   box-shadow: 0 0 10px var(--via-color-blue-300);
 }
 
+.button {
+  position: relative;
+}
+
 @keyframes glow {
   from {
     box-shadow: 0 0 0 var(--via-color-blue-300);

@@ -16,6 +16,7 @@
 }
 
 .pinButton {
+  position: relative;
   top: calc(-1 * var(--via-space-100));
 }
 
