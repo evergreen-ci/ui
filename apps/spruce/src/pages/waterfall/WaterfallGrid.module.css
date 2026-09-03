@@ -1,0 +1,24 @@
+.container {
+  overflow-y: clip;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: var(--via-space-1600);
+  z-index: 1;
+  background: var(--via-color-neutral-000);
+  margin: var(--via-space-100) calc(-1 * var(--via-space-600));
+  padding: var(--via-space-200) var(--via-space-600);
+  box-shadow: unset;
+  transition: box-shadow 150ms ease-in-out;
+}
+
+.stickyHeader[data-show-shadow="true"] {
+  box-shadow: 0 4px 4px -4px rgb(0 0 0 / 50%);
+}
+
+.versions {
+  display: flex;
+  gap: var(--via-space-400);
+  flex-grow: 1;
+}

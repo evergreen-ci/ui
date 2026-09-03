@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useSuspenseQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
+import { cx } from "@evg-ui/lib/utils/css";
 import {
   parseQueryString,
   stringifyQuery,
 } from "@evg-ui/lib/utils/query-string";
 import { useWaterfallAnalytics } from "analytics";
-import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import {
   DEFAULT_POLL_INTERVAL,
@@ -32,12 +30,7 @@ import { EmptyState } from "./EmptyState";
 import { FetchMoreLoader } from "./FetchMoreLoader";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import { OnboardingTutorial } from "./OnboardingTutorial";
-import {
-  BuildVariantTitle,
-  InactiveVersion,
-  Row,
-  gridGroupCss,
-} from "./styles";
+import sharedStyles from "./styles.module.css";
 import { Pagination, Version, WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
 import {
@@ -45,6 +38,7 @@ import {
   useWaterfallTrace,
 } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
+import styles from "./WaterfallGrid.module.css";
 
 type ServerFilters = Pick<
   WaterfallOptions,
@@ -238,11 +232,14 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   }
 
   return (
-    <Container>
+    <div className={styles.container}>
       <div ref={headerScrollRef} />
-      <StickyHeader showShadow={showShadow}>
-        <BuildVariantTitle />
-        <Versions data-testid="version-labels">
+      <div
+        className={cx(sharedStyles.row, styles.stickyHeader)}
+        data-show-shadow={showShadow}
+      >
+        <div className={sharedStyles.buildVariantTitle} />
+        <div className={styles.versions} data-testid="version-labels">
           {versions.map(({ inactiveVersions, version }, versionIndex) => {
             if (version) {
               return (
@@ -259,7 +256,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
               (inactiveVersion, i) => isHighlighted(inactiveVersion, i),
             );
             return (
-              <InactiveVersion key={inactiveVersions?.[0].id}>
+              <div
+                key={inactiveVersions?.[0].id}
+                className={sharedStyles.inactiveVersion}
+              >
                 <InactiveVersionsButton
                   highlightedIndex={
                     highlightedIndex !== undefined && highlightedIndex > -1
@@ -268,14 +268,14 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
                   }
                   versions={inactiveVersions ?? []}
                 />
-              </InactiveVersion>
+              </div>
             );
           })}
           {isPending && activeVersionIds.length < VERSION_LIMIT && (
             <FetchMoreLoader />
           )}
-        </Versions>
-      </StickyHeader>
+        </div>
+      </div>
       <BuildVariantProvider>
         {buildVariants.map((b, i) => {
           const isPinned = pins.includes(b.id);
@@ -294,29 +294,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         })}
       </BuildVariantProvider>
       <OnboardingTutorial guideCueRef={guideCueRef} />
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  overflow-y: clip;
-`;
-
-const StickyHeader = styled(Row)<{ showShadow: boolean }>`
-  position: sticky;
-  top: ${navBarHeight};
-  z-index: 1;
-
-  background: white;
-  margin: ${size.xxs} -${size.m};
-  padding: ${size.xs} ${size.m};
-  ${({ showShadow }) =>
-    showShadow
-      ? "box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5);"
-      : "box-shadow: unset;"}
-  transition: box-shadow ${transitionDuration.default}ms ease-in-out;
-`;
-
-const Versions = styled.div`
-  ${gridGroupCss}
-`;

@@ -1,0 +1,22 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-200);
+  padding: var(--via-space-600);
+}
+
+/* Safari performance suffers when the grid owns vertical scrolling, so the page
+   scrolls and the navbar layout changes only while Waterfall is mounted. */
+:global(body):has(.pageContainer) :global(header) {
+  position: unset !important;
+}
+
+:global(body):has(.pageContainer) :global(#banner-container) {
+  padding-top: var(--via-space-1600);
+}
+
+:global(body):has(.pageContainer) :global(nav) {
+  position: fixed !important;
+  width: 100%;
+  z-index: 1;
+}
