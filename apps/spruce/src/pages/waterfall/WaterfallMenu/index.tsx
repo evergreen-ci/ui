@@ -98,6 +98,7 @@ export const WaterfallMenu: React.FC<Props> = ({
                 <Text slot="heading">Settings</Text>
               </Header>
               <MenuItem
+                aria-label={`Omit inactive builds: ${omitInactiveBuilds ? "on" : "off"}`}
                 id="omit-inactive-builds"
                 onAction={() => {
                   const newValue = !omitInactiveBuilds;
