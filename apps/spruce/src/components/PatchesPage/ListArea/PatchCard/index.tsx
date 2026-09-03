@@ -1,4 +1,4 @@
-import { Chip, ChipVariant } from "@via-ds/components";
+import { Chip, ChipGroup, ChipVariant } from "@via-ds/components";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -125,19 +125,26 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         <div className={styles.taskBadgeContainer}>{badges}</div>
       </div>
       <div className={styles.right}>
-        {invalidatedByUpstream && (
-          <div className={styles.chipContainer}>
-            <Chip variant={ChipVariant.Gray}>
-              <Icon glyph="Refresh" /> Merge Queue Aborted
-            </Chip>
-          </div>
-        )}
-        {hidden && (
-          <div className={styles.chipContainer}>
-            <Chip data-testid="hidden-badge" variant={ChipVariant.Gray}>
-              Hidden
-            </Chip>
-          </div>
+        {(invalidatedByUpstream || hidden) && (
+          <ChipGroup
+            aria-label="Patch attributes"
+            className={styles.chipContainer}
+          >
+            {invalidatedByUpstream && (
+              <Chip id="merge-queue-aborted" variant={ChipVariant.Gray}>
+                <Icon glyph="Refresh" /> Merge Queue Aborted
+              </Chip>
+            )}
+            {hidden && (
+              <Chip
+                data-testid="hidden-badge"
+                id="hidden"
+                variant={ChipVariant.Gray}
+              >
+                Hidden
+              </Chip>
+            )}
+          </ChipGroup>
         )}
         <DropdownMenu
           hasVersion={!!versionId}

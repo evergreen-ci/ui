@@ -17,6 +17,7 @@ export const RequesterSelector: React.FC = () => {
       }
       placeholder="Patch submission"
       selectionMode="multiple"
+      showChips={false}
       value={statusVal}
     >
       {options.map(({ displayName, value }) => (
