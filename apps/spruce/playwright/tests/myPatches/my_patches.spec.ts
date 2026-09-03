@@ -82,6 +82,30 @@ test.describe("My Patches Page", () => {
     );
   });
 
+  test("Clicking an activated patch's description link navigates to the version page", async ({
+    page,
+  }) => {
+    await page.goto(MY_PATCHES_ROUTE);
+    await page
+      .getByTestId("patch-card")
+      .filter({ hasText: "main: EVG-7823 add a commit queue message (#4048)" })
+      .getByTestId("patch-card-patch-link")
+      .click();
+    await expect(page).toHaveURL(/\/version\//);
+  });
+
+  test("Clicking an unconfigured patch's description link navigates to the configure page", async ({
+    page,
+  }) => {
+    await page.goto(MY_PATCHES_ROUTE);
+    await page
+      .getByTestId("patch-card")
+      .filter({ hasText: "test meee" })
+      .getByTestId("patch-card-patch-link")
+      .click();
+    await expect(page).toHaveURL(/\/patch\/.*\/configure/);
+  });
+
   test.describe("Patch submission selector", () => {
     test("Clicking the patch submission selector updates the URL, and renders patches", async ({
       page,
