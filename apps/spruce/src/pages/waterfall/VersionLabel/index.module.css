@@ -1,0 +1,40 @@
+.versionContainer {
+  flex-basis: calc(100% / 5);
+}
+
+.versionContainer[data-view="waterfall"] :is(div, p) {
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.versionContainer[data-disabled="true"] > * {
+  color: var(--via-color-neutral-400);
+}
+
+.versionContainer p {
+  overflow-wrap: anywhere;
+}
+
+.versionContainer[data-highlighted="true"] {
+  background-color: var(--via-color-blue-100);
+}
+
+.commitMessage[data-view="waterfall"] {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.badge {
+  margin-left: var(--via-space-200);
+}
+
+.headerLine {
+  align-items: center;
+  display: flex;
+}
+
+.headerLine > p {
+  flex-grow: 1;
+}

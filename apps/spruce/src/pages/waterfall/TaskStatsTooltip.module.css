@@ -1,0 +1,16 @@
+.buttonContainer {
+  align-self: flex-start;
+}
+
+.popover {
+  width: 180px;
+}
+
+.cell {
+  padding: 0 var(--via-space-100);
+}
+
+.count {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}

@@ -1,0 +1,7 @@
+.dialog {
+  text-align: left;
+}
+
+.versionLabel {
+  padding-top: var(--via-space-200);
+}

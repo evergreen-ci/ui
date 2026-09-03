@@ -1,0 +1,9 @@
+.label {
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  color: var(--via-color-neutral-500);
+  font-size: 12px;
+}

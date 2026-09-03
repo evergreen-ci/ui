@@ -1,6 +1,5 @@
-import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react-vite";
-import { InactiveVersion } from "../styles";
+import sharedStyles from "../styles.module.css";
 import {
   inactiveBrokenVersion,
   inactiveVersion,
@@ -9,6 +8,7 @@ import {
   versionWithGitTag,
   versionWithUpstreamProject,
 } from "../testData";
+import styles from "./InactiveVersionsModal.stories.module.css";
 import { InactiveVersionsButton } from ".";
 
 export default {
@@ -17,11 +17,11 @@ export default {
 };
 
 const render: StoryObj<typeof InactiveVersionsButton>["render"] = (args) => (
-  <Container>
-    <InactiveVersion>
+  <div className={styles.container}>
+    <div className={sharedStyles.inactiveVersion}>
       <InactiveVersionsButton {...args} />
-    </InactiveVersion>
-  </Container>
+    </div>
+  </div>
 );
 
 export const Default: StoryObj<typeof InactiveVersionsButton> = {
@@ -63,7 +63,3 @@ export const Filtered: StoryObj<typeof InactiveVersionsButton> = {
     ],
   },
 };
-
-const Container = styled.div`
-  display: flex;
-`;
