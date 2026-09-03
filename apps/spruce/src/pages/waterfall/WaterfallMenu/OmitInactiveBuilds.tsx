@@ -1,4 +1,5 @@
-import { Checkbox } from "@via-ds/components";
+import { Text } from "@via-ds/components";
+import Icon from "@evg-ui/lib/components/Icon";
 import styles from "./OmitInactiveBuilds.module.css";
 
 interface OmitInactiveBuildsProps {
@@ -8,16 +9,19 @@ interface OmitInactiveBuildsProps {
 export const OmitInactiveBuilds: React.FC<OmitInactiveBuildsProps> = ({
   omitInactiveBuilds,
 }) => (
-  <Checkbox
-    data-testid="omit-inactive-builds-checkbox"
-    isReadOnly
-    isSelected={omitInactiveBuilds}
-  >
-    <span className={styles.label}>
-      <span>Omit inactive builds</span>
-      <span className={styles.description}>
-        When filtering, omit build variants with 0 activated tasks.
-      </span>
+  <>
+    <span
+      aria-hidden="true"
+      className={styles.indicator}
+      data-selected={omitInactiveBuilds}
+      data-testid="omit-inactive-builds-indicator"
+      slot="icon"
+    >
+      {omitInactiveBuilds && <Icon glyph="Checkmark" size="small" />}
     </span>
-  </Checkbox>
+    <Text slot="label">Omit inactive builds</Text>
+    <Text slot="description">
+      When filtering, omit build variants with 0 activated tasks.
+    </Text>
+  </>
 );

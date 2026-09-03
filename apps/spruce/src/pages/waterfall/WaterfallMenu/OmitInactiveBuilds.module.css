@@ -1,9 +1,15 @@
-.label {
+.indicator {
+  align-items: center;
+  border: 1px solid var(--via-color-border-primary);
+  border-radius: 2px;
   display: flex;
-  flex-direction: column;
-}
+  height: 16px;
+  justify-content: center;
+  width: 16px;
 
-.description {
-  color: var(--via-color-neutral-500);
-  font-size: 12px;
+  &[data-selected="true"] {
+    background-color: var(--via-color-background-selected-primary);
+    border-color: var(--via-color-border-selected);
+    color: var(--via-color-icon-inverse-primary);
+  }
 }

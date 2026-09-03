@@ -75,7 +75,6 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   return (
     <PopoverRoot
-      isNonModal
       isOpen={open}
       onOpenChange={setOpen}
       referenceElement={taskBoxRef}
