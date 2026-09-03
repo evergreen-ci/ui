@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
-import styled from "@emotion/styled";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { H4 } from "@via-ds/components";
 import { Pagination } from "@evg-ui/lib/components/Pagination";
 import {
   BaseTable,
@@ -11,7 +10,6 @@ import {
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
@@ -22,6 +20,7 @@ import HostEventString, {
   formatHostFilterOption,
 } from "pages/host/HostEventString";
 import { HostQueryParams } from "../constants";
+import styles from "./index.module.css";
 
 type HostEvent = Unpacked<
   NonNullable<HostEventsQuery["host"]>["events"]["eventLogEntries"]
@@ -109,10 +108,10 @@ const HostTable: React.FC<HostTableProps> = ({
   });
 
   return (
-    <HostCard error={error} loading={loading} metaData={false}>
-      <TableTitle>
-        <Subtitle>Recent Events</Subtitle>
-        <PaginationWrapper>
+    <HostCard error={error} loading={loading}>
+      <div className={styles.tableTitle}>
+        <H4>Recent Events</H4>
+        <div className={styles.paginationWrapper}>
           <Pagination
             currentPage={page}
             data-testid="host-event-table-pagination"
@@ -132,8 +131,8 @@ const HostTable: React.FC<HostTableProps> = ({
             pageSize={limit}
             totalResults={eventCount}
           />
-        </PaginationWrapper>
-      </TableTitle>
+        </div>
+      </div>
       <BaseTable
         data-loading={loading}
         data-testid-row="host-events-table-row"
@@ -178,17 +177,5 @@ const getColumns = (
     },
   },
 ];
-
-const TableTitle = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  margin: ${size.s} 0;
-`;
-
-const PaginationWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 export default HostTable;
