@@ -175,6 +175,9 @@ importers:
       '@types/react-dom':
         specifier: 18.3.1
         version: 18.3.1
+      '@via-ds/components':
+        specifier: 0.8.3
+        version: 0.8.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
         specifier: 0.3.2
         version: 0.3.2
@@ -15199,7 +15202,7 @@ snapshots:
 
   dom-helpers@5.2.1:
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.7
       csstype: 3.2.3
 
   dom-serializer@3.1.1:
@@ -17586,7 +17589,7 @@ snapshots:
 
   react-transition-group@4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.29.7
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
