@@ -1,6 +1,6 @@
-import createGlyph from "../createGlyph";
+import { createGlyphComponent } from "@via-ds/icons";
 
-export const FallLogo = createGlyph(
+export const FallLogo = createGlyphComponent(
   "FallLogo",
   "0 0 359 445",
   <>
