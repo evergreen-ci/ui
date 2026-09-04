@@ -28,7 +28,7 @@ export const InactiveVersionsModal: React.FC<Props> = ({
             {`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}
           </Text>
         </Header>
-        <Content>
+        <Content className={styles.content}>
           {versions?.map((version, i) => (
             <VersionLabel
               key={version.id}
