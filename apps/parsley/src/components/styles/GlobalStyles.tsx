@@ -27,9 +27,6 @@ export const globalStyles = css`
     }
   }
 
-  /* ViaProvider renders an unstyled wrapper div. Parsley's page chrome is a
-     flex column of fixed viewport height, so that div would swallow
-     PageLayout's "flex: 1" and collapse the log pane to its content height. */
   [data-via-provider] {
     display: contents;
   }
