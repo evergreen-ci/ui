@@ -56,6 +56,7 @@ const usePaginatedVirtualList = ({
   // Reset the page to 0 if the row count is less than a page length, but we're not on the first page (e.g. if a filter is applied that significantly shortens the row count).
   useEffect(() => {
     if (rowCount < paginationThreshold && currentPage !== 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrentPage(0);
     }
   }, [currentPage, paginationThreshold, rowCount]);

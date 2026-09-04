@@ -39,8 +39,8 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
-  // If the value from the props has changed, update the input.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setInput(value);
   }, [value]);
 
