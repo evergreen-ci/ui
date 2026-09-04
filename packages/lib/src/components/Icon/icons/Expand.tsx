@@ -1,9 +1,9 @@
 import { palette } from "@leafygreen-ui/palette";
-import createGlyph from "./createGlyph";
+import { createGlyphComponent } from "@via-ds/icons";
 
 const { black } = palette;
 
-export const Expand = createGlyph(
+export const Expand = createGlyphComponent(
   "Expand",
   "0 0 16 16",
   <>

@@ -1,6 +1,6 @@
-import createGlyph from "../createGlyph";
+import { createGlyphComponent } from "@via-ds/icons";
 
-export const SpringLogo = createGlyph(
+export const SpringLogo = createGlyphComponent(
   "SpringLogo",
   "0 -10 359 445",
   <>

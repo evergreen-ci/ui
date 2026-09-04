@@ -244,6 +244,42 @@ describe("spruce form", () => {
       });
     });
 
+    describe("checkbox", () => {
+      it("renders an error banner when validation fails", () => {
+        const validate = vi.fn((_formData, err) => {
+          err.enabled.addError("Some error");
+          return err;
+        });
+
+        const { formData, schema, uiSchema } = checkbox;
+        render(
+          <SpruceForm
+            formData={formData}
+            onChange={vi.fn()}
+            schema={schema}
+            uiSchema={uiSchema}
+            validate={validate}
+          />,
+        );
+        expect(screen.getByTestId("error-banner")).toHaveTextContent(
+          "Some error",
+        );
+      });
+
+      it("does not render an error banner when there are no errors", () => {
+        const { formData, schema, uiSchema } = checkbox;
+        render(
+          <SpruceForm
+            formData={formData}
+            onChange={vi.fn()}
+            schema={schema}
+            uiSchema={uiSchema}
+          />,
+        );
+        expect(screen.queryByTestId("error-banner")).not.toBeInTheDocument();
+      });
+    });
+
     describe("select", () => {
       it("renders with the specified default selected", () => {
         const { formData, schema, uiSchema } = select;
@@ -615,6 +651,24 @@ const textArea = (emptyValue?: string) => ({
     },
   },
 });
+
+const checkbox = {
+  formData: { enabled: false },
+  schema: {
+    type: "object" as const,
+    properties: {
+      enabled: {
+        type: "boolean" as const,
+        title: "Enabled",
+      },
+    },
+  },
+  uiSchema: {
+    enabled: {
+      "ui:data-cy": "enabled-checkbox",
+    },
+  },
+};
 
 const select = {
   formData: {},

@@ -1,6 +1,6 @@
-import createGlyph from "./createGlyph";
+import { createGlyphComponent } from "@via-ds/icons";
 
-export const Ignored = createGlyph(
+export const Ignored = createGlyphComponent(
   "Ignored",
   "0 0 16 16",
   <path

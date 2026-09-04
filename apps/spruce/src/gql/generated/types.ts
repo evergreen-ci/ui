@@ -2517,6 +2517,7 @@ export type Patch = {
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
   aliases: Array<Scalars["String"]["output"]>;
+  buildVariants: Array<Scalars["String"]["output"]>;
   childPatchAliases: Array<ChildPatchAlias>;
   childPatches: Array<Patch>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
@@ -2538,7 +2539,6 @@ export type Patch = {
   status: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
   user: User;
-  variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
 };
@@ -8592,6 +8592,14 @@ export type DistroQuery = {
       rootDir: string;
       serviceUser: string;
       shellPath: string;
+      containerIsolation: {
+        __typename?: "ContainerIsolationSettings";
+        cpus: number;
+        enabled: boolean;
+        image: string;
+        memoryMb: number;
+        requireIsolation: boolean;
+      };
       env: Array<{ __typename?: "EnvVar"; key: string; value: string }>;
       preconditionScripts: Array<{
         __typename?: "PreconditionScript";
@@ -11587,6 +11595,7 @@ export type TaskQuery = {
     distroId: string;
     errors?: Array<string> | null;
     estimatedStart?: number | null;
+    executionPlatform: ExecutionPlatform;
     expectedDuration?: number | null;
     finishTime?: Date | null;
     generatedBy?: string | null;

@@ -27,6 +27,10 @@ export const globalStyles = css`
     }
   }
 
+  [data-via-provider] {
+    display: contents;
+  }
+
   /* Ensure toasts appear above the side panel (z-index: 2) */
   .parsley-toast-portal {
     z-index: 10;

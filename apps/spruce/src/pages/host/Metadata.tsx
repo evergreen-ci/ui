@@ -1,13 +1,10 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { formatDistanceToNow } from "date-fns";
 import { StyledLink, WordBreak } from "@evg-ui/lib/components/styles";
 import MetadataCard, { MetadataItem } from "components/MetadataCard";
 import { MCI_USER } from "constants/hosts";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
-
-const { gray } = palette;
+import styles from "./Metadata.module.css";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -71,14 +68,10 @@ export const Metadata: React.FC<{
               <WordBreak all>{runningTaskName}</WordBreak>
             </StyledLink>
           ) : (
-            <Italic>none</Italic>
+            <i className={styles.emptyValue}>none</i>
           )}
         </MetadataItem>
       )}
     </MetadataCard>
   );
 };
-
-const Italic = styled.i`
-  color: ${gray.light1};
-`;
