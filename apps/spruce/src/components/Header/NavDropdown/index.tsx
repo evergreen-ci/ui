@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Icon } from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { Link, To } from "react-router-dom";
+import { Icon } from "@evg-ui/lib/components/Icon";
 import styles from "./index.module.css";
 
 const NavDropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (

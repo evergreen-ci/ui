@@ -1,15 +1,9 @@
-import { forwardRef } from "react";
+import createGlyph from "../createGlyph";
 
-export const SpringLogo = forwardRef<SVGSVGElement>((props, ref) => (
-  <svg
-    ref={ref}
-    {...props}
-    height="75"
-    shapeRendering="geometricPrecision"
-    textRendering="geometricPrecision"
-    viewBox="0 -10 359 445"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+export const SpringLogo = createGlyph(
+  "SpringLogo",
+  "0 -10 359 445",
+  <>
     <path
       clipRule="evenodd"
       d="M179 326.791H78.136c-7.264 0-11.615-8.079-7.613-14.142l50.485-63.286H179v77.428Z"
@@ -353,7 +347,12 @@ export const SpringLogo = forwardRef<SVGSVGElement>((props, ref) => (
         values="M261.337 214.149L252.934 214.253C247.421 214.766 252.636 219.001 255.932 221.054C257.788 222.077 262.103 223.13 264.511 219.154C266.92 215.179 263.399 214.161 261.337 214.149Z;M266.193 216.339L258.219 218.995C253.124 221.161 259.38 223.608 263.145 224.561C265.224 224.971 269.654 224.661 270.739 220.141C271.824 215.622 268.16 215.723 266.193 216.339Z;M261.337 214.149L252.934 214.253C247.421 214.766 252.636 219.001 255.932 221.054C257.788 222.077 262.103 223.13 264.511 219.154C266.92 215.179 263.399 214.161 261.337 214.149Z"
       />
     </path>
-  </svg>
-));
-
-SpringLogo.displayName = "SpringLogo";
+  </>,
+  {
+    defaultSize: 75,
+    svgProps: {
+      shapeRendering: "geometricPrecision",
+      textRendering: "geometricPrecision",
+    },
+  },
+);

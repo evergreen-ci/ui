@@ -2516,11 +2516,10 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
-  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
-  childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
-  childPatches?: Maybe<Array<Patch>>;
-  /** Aggregated actual cost for the patch's version, when cost data exists. */
-  cost?: Maybe<Cost>;
+  aliases: Array<Scalars["String"]["output"]>;
+  buildVariants: Array<Scalars["String"]["output"]>;
+  childPatchAliases: Array<ChildPatchAlias>;
+  childPatches: Array<Patch>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
@@ -2535,16 +2534,11 @@ export type Patch = {
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
-  /** Aggregated predicted cost for the patch's version. */
-  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
-  taskCount?: Maybe<Scalars["Int"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
-  time?: Maybe<PatchTime>;
   user: User;
-  variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
 };
@@ -8598,6 +8592,14 @@ export type DistroQuery = {
       rootDir: string;
       serviceUser: string;
       shellPath: string;
+      containerIsolation: {
+        __typename?: "ContainerIsolationSettings";
+        cpus: number;
+        enabled: boolean;
+        image: string;
+        memoryMb: number;
+        requireIsolation: boolean;
+      };
       env: Array<{ __typename?: "EnvVar"; key: string; value: string }>;
       preconditionScripts: Array<{
         __typename?: "PreconditionScript";
@@ -9294,12 +9296,12 @@ export type ConfigurePatchQuery = {
     alias?: string | null;
     description: string;
     status: string;
-    childPatchAliases?: Array<{
+    childPatchAliases: Array<{
       __typename?: "ChildPatchAlias";
       alias: string;
       patchId: string;
-    }> | null;
-    childPatches?: Array<{
+    }>;
+    childPatches: Array<{
       __typename?: "Patch";
       id: string;
       projectMetadata?: {
@@ -9312,7 +9314,7 @@ export type ConfigurePatchQuery = {
         name: string;
         tasks: Array<string>;
       }>;
-    }> | null;
+    }>;
     githubPatchData?: {
       __typename?: "GithubPatch";
       prNumber?: number | null;
@@ -11593,6 +11595,7 @@ export type TaskQuery = {
     distroId: string;
     errors?: Array<string> | null;
     estimatedStart?: number | null;
+    executionPlatform: ExecutionPlatform;
     expectedDuration?: number | null;
     finishTime?: Date | null;
     generatedBy?: string | null;
@@ -12312,6 +12315,7 @@ export type VersionQuery = {
     isPatch: boolean;
     message: string;
     order: number;
+    quarantinedTestsSkippedCount: number;
     repo: string;
     requester: string;
     revision: string;

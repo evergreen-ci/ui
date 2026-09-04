@@ -1,0 +1,6 @@
+.hostCard {
+  padding: var(--via-space-400) var(--via-space-600);
+  margin-right: var(--via-space-600);
+  margin-bottom: var(--via-space-800);
+  margin-left: var(--via-space-600);
+}

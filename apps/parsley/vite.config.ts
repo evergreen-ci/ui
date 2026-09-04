@@ -35,6 +35,7 @@ const getProjectConfig = () => {
     },
     server: serverConfig,
     build: {
+      cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"],
       sourcemap: true,
     },
 
@@ -103,6 +104,20 @@ const getProjectConfig = () => {
       globals: true,
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+      server: {
+        deps: {
+          // Inlining works around extensionless lodash ESM imports in the LG
+          // packages (rejected by Node's resolver) and keeps @via-ds/icons on
+          // Vite's faster resolver (188 glyph modules starve the worker pool).
+          inline: [
+            "@via-ds/icons",
+            "@leafygreen-ui/icon",
+            "@leafygreen-ui/icon-button",
+            "@leafygreen-ui/segmented-control",
+            "@leafygreen-ui/toggle",
+          ],
+        },
+      },
       setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
       include: ["src/**/*.test.{ts,tsx}"],
     },

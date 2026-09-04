@@ -1,0 +1,4 @@
+/* Mirrors the class @via-ds/icons applies to its own glyphs. */
+.icon {
+  flex-shrink: 0;
+}
