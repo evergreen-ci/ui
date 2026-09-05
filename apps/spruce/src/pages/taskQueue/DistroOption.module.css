@@ -1,7 +1,7 @@
 .optionWrapper {
   display: flex;
-  align-items: start;
   padding: var(--via-space-200);
+  align-items: start;
   transition-duration: 150ms;
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
@@ -14,7 +14,7 @@
   background-color: var(--via-color-neutral-200);
 }
 
-.badge.badge {
+.badge {
   display: flex;
   flex-shrink: 0;
   justify-content: center;
@@ -22,6 +22,6 @@
   margin-right: var(--via-space-200);
 }
 
-.distroName.distroName {
+.distroName {
   margin-left: var(--via-space-400);
 }

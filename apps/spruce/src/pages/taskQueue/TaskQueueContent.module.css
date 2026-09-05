@@ -1,0 +1,6 @@
+.tableHeader {
+  display: flex;
+  align-items: center;
+  margin: var(--via-space-600) 0 var(--via-space-400) 0;
+  gap: var(--via-space-400);
+}
