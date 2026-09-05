@@ -25,3 +25,16 @@ export const UserPatchCard: CustomStoryObj<typeof PatchCard> = {
     patch: patchData,
   },
 };
+
+export const HiddenAndAbortedPatchCard: CustomStoryObj<typeof PatchCard> = {
+  render: (args) => <PatchCard {...args} />,
+  argTypes: {},
+  args: {
+    pageType: "project",
+    patch: {
+      ...patchData,
+      hidden: true,
+      invalidatedByUpstream: true,
+    },
+  },
+};

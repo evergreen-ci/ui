@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { Skeleton } from "@leafygreen-ui/skeleton-loader";
+import { Body, Skeleton } from "@via-ds/components";
 import { useNavigate } from "react-router-dom";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import SearchableDropdown from "components/SearchableDropdown";
@@ -92,7 +92,11 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   };
 
   if (allProjects.length === 0 || loading) {
-    return <Skeleton />;
+    return (
+      <Skeleton isLoading>
+        <Body>Loading projects</Body>
+      </Skeleton>
+    );
   }
 
   const value =

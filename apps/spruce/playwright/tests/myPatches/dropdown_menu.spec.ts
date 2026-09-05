@@ -1,6 +1,6 @@
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { expect, test } from "../../fixtures";
-import { clickCheckbox, validateToast } from "../../helpers";
+import { validateToast } from "../../helpers";
 
 const patchWithoutVersion = "test meee";
 const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
@@ -96,6 +96,11 @@ test.describe("Dropdown Menu of Patch Actions", () => {
   });
 
   test("Toggle patch visibility", async ({ page }) => {
+    // Via's Checkbox has no label[for] hook for clickCheckbox; click the
+    // root label (which carries the testid) to toggle the input.
+    const includeHiddenCheckboxLabel = page.getByTestId(
+      "include-hidden-checkbox",
+    );
     // "Include hidden" checkbox is not checked and patch is visible
     const includeHiddenCheckbox = page.getByRole("checkbox", {
       name: "Include hidden",
@@ -115,7 +120,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(targetPatchCard).toBeHidden();
 
     // Check "Include hidden" checkbox and unhide patch card.
-    await clickCheckbox(includeHiddenCheckbox);
+    await includeHiddenCheckboxLabel.click();
     const cookies = await page.context().cookies();
     const hiddenCookie = cookies.find((c) => c.name === INCLUDE_HIDDEN_PATCHES);
     expect(hiddenCookie?.value).toBe("true");
@@ -147,7 +152,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(targetPatchCard.getByTestId("hidden-badge")).toBeHidden();
 
     // Uncheck "Include hidden" and verify patch card is visible.
-    await clickCheckbox(includeHiddenCheckbox);
+    await includeHiddenCheckboxLabel.click();
     const cookiesAfterUncheck = await page.context().cookies();
     const hiddenCookieAfterUncheck = cookiesAfterUncheck.find(
       (c) => c.name === INCLUDE_HIDDEN_PATCHES,

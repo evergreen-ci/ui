@@ -1,3 +1,4 @@
+import { INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES } from "constants/cookies";
 import { expect, test } from "../../fixtures";
 
 test.describe("Project Patches Page", () => {
@@ -32,5 +33,39 @@ test.describe("Project Patches Page", () => {
       .filter({ hasText: "Spruce" })
       .click();
     await expect(page).toHaveURL("/project/spruce/patches");
+  });
+
+  test("Toggling the GitHub Merge Queue checkbox updates the URL and cookie", async ({
+    page,
+  }) => {
+    await page.goto(evergreenPatchesRoute);
+    const mergeQueueCheckboxLabel = page.getByTestId(
+      "github-merge-queue-checkbox",
+    );
+    const mergeQueueCheckbox = page.getByRole("checkbox", {
+      name: "Only show GitHub Merge Queue patches",
+    });
+    await expect(mergeQueueCheckbox).not.toBeChecked();
+    await expect(page).not.toHaveURL(/mergeQueue/);
+
+    // Check the checkbox.
+    await mergeQueueCheckboxLabel.click();
+    await expect(mergeQueueCheckbox).toBeChecked();
+    await expect(page).toHaveURL(/mergeQueue=true/);
+    let cookies = await page.context().cookies();
+    expect(
+      cookies.find((c) => c.name === INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES)
+        ?.value,
+    ).toBe("true");
+
+    // Uncheck the checkbox.
+    await mergeQueueCheckboxLabel.click();
+    await expect(mergeQueueCheckbox).not.toBeChecked();
+    await expect(page).toHaveURL(/mergeQueue=false/);
+    cookies = await page.context().cookies();
+    expect(
+      cookies.find((c) => c.name === INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES)
+        ?.value,
+    ).toBe("false");
   });
 });
