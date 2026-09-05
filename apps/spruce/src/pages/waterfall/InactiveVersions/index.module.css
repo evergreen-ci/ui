@@ -1,0 +1,31 @@
+.button[data-highlighted="true"] {
+  animation: glow 1s ease-in-out 5 alternate;
+  box-shadow: 0 0 10px var(--via-color-blue-300);
+}
+
+.button {
+  position: relative;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 0 var(--via-color-blue-300);
+  }
+
+  to {
+    box-shadow: 0 0 10px var(--via-color-blue-300);
+  }
+}
+
+.inactiveVersionLine {
+  border-left: 2px dashed var(--via-color-neutral-500);
+  height: 200vh;
+  position: absolute;
+  margin-left: 50%;
+  top: 30px;
+  z-index: 1;
+}
+
+.badge {
+  margin-bottom: var(--via-space-200);
+}

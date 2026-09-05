@@ -1,7 +1,7 @@
+import { MenuItem, Text } from "@via-ds/components";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
-import { DropdownItem } from "components/ButtonDropdown";
 import { WaterfallFilterOptions } from "../types";
 
 interface Props {
@@ -25,12 +25,14 @@ export const JumpToMostRecent: React.FC<Props> = ({ setMenuOpen }) => {
   };
 
   return (
-    <DropdownItem
+    <MenuItem
       data-testid="jump-to-most-recent"
-      glyph={<Icon glyph="ClockWithArrow" />}
-      onClick={handleClick}
+      id="jump-to-most-recent"
+      onAction={handleClick}
+      textValue="Jump to most recent commit"
     >
-      Jump to most recent commit
-    </DropdownItem>
+      <Icon glyph="ClockWithArrow" slot="icon" />
+      <Text>Jump to most recent commit</Text>
+    </MenuItem>
   );
 };

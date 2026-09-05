@@ -65,10 +65,7 @@ describe("EmptyState", () => {
       basePagination,
       "/project/spruce/waterfall?tasks=initialsync&maxOrder=700",
     );
-    expect(screen.getByTestId("search-older-commits-button")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    expect(screen.getByTestId("search-older-commits-button")).toBeDisabled();
   });
 
   it("does not offer to search older commits when there is no next page", () => {

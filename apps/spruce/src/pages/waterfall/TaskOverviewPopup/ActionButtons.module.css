@@ -1,0 +1,9 @@
+.buttonRow {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+}
+
+.disabledTooltipTrigger > button {
+  pointer-events: none;
+}

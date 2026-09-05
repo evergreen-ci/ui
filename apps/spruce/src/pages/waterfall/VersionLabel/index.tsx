@@ -1,10 +1,5 @@
-import styled from "@emotion/styled";
-import { Badge, Variant } from "@leafygreen-ui/badge";
-import { color } from "@leafygreen-ui/tokens";
-import { Body, InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
-import { size as sizeToken } from "@evg-ui/lib/constants/tokens";
+import { Badge, BadgeVariant, Body, Link, Text } from "@via-ds/components";
+import { cx } from "@evg-ui/lib/utils/css";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useWaterfallAnalytics } from "analytics";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
@@ -12,9 +7,9 @@ import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
 import { useDateFormat, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
-import { columnBasis } from "../styles";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
+import styles from "./index.module.css";
 
 export enum VersionLabelView {
   Modal = "modal",
@@ -56,19 +51,19 @@ export const VersionLabel: React.FC<Props> = ({
   const commitType = activated ? "active" : "inactive";
 
   return (
-    <VersionContainer
-      activated={activated}
-      className={className}
+    <div
+      className={cx(styles.versionContainer, className)}
+      data-disabled={
+        view !== VersionLabelView.Waterfall && !activated && shouldDisableText
+      }
       data-highlighted={highlighted}
       data-testid={`version-label-${commitType}`}
-      highlighted={highlighted}
-      shouldDisableText={shouldDisableText}
-      view={view}
+      data-view={view}
     >
-      <HeaderLine>
+      <div className={styles.headerLine}>
         <Body>
-          <InlineCode
-            as={Link}
+          <Link
+            href={getVersionRoute(id)}
             onClick={() => {
               sendEvent({
                 name: "Clicked commit label",
@@ -76,22 +71,25 @@ export const VersionLabel: React.FC<Props> = ({
                 link: "githash",
               });
             }}
-            to={getVersionRoute(id)}
           >
-            {shortenGithash(revision)}
-          </InlineCode>{" "}
+            <Text textStyle="inlineCode">{shortenGithash(revision)}</Text>
+          </Link>{" "}
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
           {commitType === "inactive" && (
-            <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>
+            <Badge className={styles.badge} variant={BadgeVariant.Status}>
+              Inactive
+            </Badge>
           )}
           {errors.length > 0 && (
-            <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
+            <Badge className={styles.badge} variant={BadgeVariant.Error}>
+              Broken
+            </Badge>
           )}
         </Body>
         {view === VersionLabelView.Waterfall && (
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
-      </HeaderLine>
+      </div>
       <UpstreamProjectLink
         isTrigger={requester === Requester.Trigger}
         onClick={() => {
@@ -103,10 +101,10 @@ export const VersionLabel: React.FC<Props> = ({
         }}
         versionId={id}
       />
-      <CommitMessage
-        /* @ts-expect-error - the native title attribute works here */
+      <Body
+        className={styles.commitMessage}
+        data-view={view}
         title={view === VersionLabelView.Waterfall ? message : undefined}
-        view={view}
       >
         <strong>{user.displayName}</strong> &bull;{" "}
         {jiraLinkify(message, jiraHost, () => {
@@ -116,58 +114,10 @@ export const VersionLabel: React.FC<Props> = ({
             link: "jira",
           });
         })}
-      </CommitMessage>
+      </Body>
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}
-    </VersionContainer>
+    </div>
   );
 };
-
-const VersionContainer = styled.div<
-  Pick<Version, "activated"> &
-    Pick<Props, "shouldDisableText" | "view"> & { highlighted: boolean }
->`
-  ${columnBasis}
-  ${({ activated, shouldDisableText, view }) =>
-    view === VersionLabelView.Waterfall
-      ? `
-          div, p {
-            font-size: 12px;
-            line-height: 1.3;
-          }
-    `
-      : !activated &&
-        shouldDisableText &&
-        `> * {
-      color: ${color.light.text.disabled.default};}`}
-
-  p {
-    ${wordBreakCss}
-  }
-  ${({ highlighted }) =>
-    highlighted && `background-color: ${color.light.background.primary.focus};`}
-`;
-
-const CommitMessage = styled(Body)<{ view: VersionLabelView }>`
-  ${({ view }) =>
-    view === VersionLabelView.Waterfall &&
-    `
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    `}
-`;
-
-const StyledBadge = styled(Badge)`
-  margin-left: ${sizeToken.xs};
-`;
-
-const HeaderLine = styled.div`
-  align-items: center;
-  display: flex;
-  > p {
-    flex-grow: 1;
-  }
-`;

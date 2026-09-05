@@ -1,11 +1,8 @@
-import { useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { Code } from "@leafygreen-ui/code";
-import { Align, DismissMode, Popover } from "@leafygreen-ui/popover";
-import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { Code } from "@leafygreen-ui/code"; // TODO(UXE-616): swap to Via CodeEditor
+import { Body, Popover, PopoverRoot, Skeleton } from "@via-ds/components";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { cx } from "@evg-ui/lib/utils/css";
 import MetadataCard from "components/MetadataCard";
@@ -41,10 +38,6 @@ export const TaskOverviewPopup: React.FC<Props> = ({
   taskBoxRef,
   taskId,
 }) => {
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside([taskBoxRef, popoverRef], () => setOpen(false));
-
   const { data, loading } = useQuery<
     TaskOverviewPopupQuery,
     TaskOverviewPopupQueryVariables
@@ -81,76 +74,82 @@ export const TaskOverviewPopup: React.FC<Props> = ({
   const showStepback = isInStepback(stepbackInfo);
 
   return (
-    <Popover
-      ref={popoverRef}
-      active={open}
-      align={isRightmostBuild ? Align.Left : Align.Right}
-      dismissMode={DismissMode.Manual}
-      refEl={taskBoxRef}
+    <PopoverRoot
+      isOpen={open}
+      onOpenChange={setOpen}
+      referenceElement={taskBoxRef}
+      side={isRightmostBuild ? "left" : "right"}
+      triggerType="dialog"
     >
-      <MetadataCard
-        className={styles.popoverCard}
-        data-testid="task-overview-popup"
-      >
-        {isLoading ? (
-          <ListSkeleton />
-        ) : (
-          <>
-            <span>
-              <StyledRouterLink
-                className={cx(styles.routerLink, styles.taskPageLink)}
-                data-testid="task-link"
-                to={getTaskRoute(taskId, { execution })}
-              >
-                {displayName}
-              </StyledRouterLink>
-              <TaskStatusBadge status={displayStatus as TaskStatus} />
-            </span>
-            {finishTime && timeTaken && timeTaken > 0 ? (
-              <div>Duration: {msToDuration(timeTaken)}</div>
-            ) : null}
-            <ActionButtons setOpen={setOpen} task={task} />
-            {priority && priority > 0 ? (
-              <div>
-                <b>Priority: </b>
-                {priority}
-              </div>
-            ) : null}
-            {distroId && (
-              <div>
-                <b>Distro: </b>
+      <Popover>
+        <MetadataCard
+          className={styles.popoverCard}
+          data-testid="task-overview-popup"
+        >
+          {isLoading ? (
+            <Skeleton isLoading>
+              <Body>Loading task details</Body>
+              <Body>Loading task details</Body>
+              <Body>Loading task details</Body>
+            </Skeleton>
+          ) : (
+            <>
+              <span>
                 <StyledRouterLink
-                  className={styles.routerLink}
-                  data-testid="task-distro-link"
-                  to={getDistroSettingsRoute(distroId)}
+                  className={cx(styles.routerLink, styles.taskPageLink)}
+                  data-testid="task-link"
+                  to={getTaskRoute(taskId, { execution })}
                 >
-                  {distroId}
+                  {displayName}
                 </StyledRouterLink>
-              </div>
-            )}
-            {command && (
-              <div className={styles.commandBlock}>
-                <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
-                <Code className={styles.codeBlock} language="none">
-                  {command}
-                </Code>
-              </div>
-            )}
-            {isFailingTask && (
-              <FailingTests execution={execution} taskId={taskId} />
-            )}
-            {showStepback && (
-              <Stepback
-                execution={execution}
-                isPopup
-                status={status ?? ""}
-                taskId={taskId}
-              />
-            )}
-            <Annotations annotation={annotation} displayName={displayName} />
-          </>
-        )}
-      </MetadataCard>
-    </Popover>
+                <TaskStatusBadge status={displayStatus as TaskStatus} />
+              </span>
+              {finishTime && timeTaken && timeTaken > 0 ? (
+                <div>Duration: {msToDuration(timeTaken)}</div>
+              ) : null}
+              <ActionButtons setOpen={setOpen} task={task} />
+              {priority && priority > 0 ? (
+                <div>
+                  <b>Priority: </b>
+                  {priority}
+                </div>
+              ) : null}
+              {distroId && (
+                <div>
+                  <b>Distro: </b>
+                  <StyledRouterLink
+                    className={styles.routerLink}
+                    data-testid="task-distro-link"
+                    to={getDistroSettingsRoute(distroId)}
+                  >
+                    {distroId}
+                  </StyledRouterLink>
+                </div>
+              )}
+              {command && (
+                <div className={styles.commandBlock}>
+                  <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
+                  <Code className={styles.codeBlock} language="none">
+                    {command}
+                  </Code>
+                </div>
+              )}
+              {isFailingTask && (
+                <FailingTests execution={execution} taskId={taskId} />
+              )}
+              {showStepback && (
+                <Stepback
+                  execution={execution}
+                  isPopup
+                  status={status ?? ""}
+                  taskId={taskId}
+                />
+              )}
+              <Annotations annotation={annotation} displayName={displayName} />
+            </>
+          )}
+        </MetadataCard>
+      </Popover>
+    </PopoverRoot>
   );
 };

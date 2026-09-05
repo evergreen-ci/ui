@@ -1,5 +1,7 @@
-import { TooltipJustify } from "@leafygreen-ui/guide-cue";
-import { WalkthroughStep } from "components/WalkthroughGuideCue";
+import {
+  TooltipJustify,
+  WalkthroughStep,
+} from "components/WalkthroughGuideCue";
 import { validators } from "utils";
 import { FilterType, ServerFilters } from "./types";
 

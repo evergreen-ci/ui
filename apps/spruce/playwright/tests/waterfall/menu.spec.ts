@@ -1,6 +1,5 @@
 import { expect, test } from "../../fixtures";
 import {
-  clickCheckbox,
   mockGraphQLResponse,
   selectOption,
   validateToast,
@@ -15,18 +14,21 @@ test.describe("Waterfall menu settings", () => {
     page,
   }) => {
     await page.getByTestId("waterfall-menu").click();
-    const omitInactiveBuildsCheckbox = page.getByRole("checkbox", {
-      name: "Omit inactive builds",
+    const omitInactiveBuildsItem = page.getByRole("menuitem", {
+      name: "Omit inactive builds: off",
     });
-    await expect(omitInactiveBuildsCheckbox).not.toBeChecked();
-    await clickCheckbox(omitInactiveBuildsCheckbox);
-    await expect(omitInactiveBuildsCheckbox).toBeChecked();
+    const indicator = page.getByTestId("omit-inactive-builds-indicator");
+    await expect(indicator).toHaveAttribute("data-selected", "false");
+    await omitInactiveBuildsItem.click();
 
     await page.reload();
     await page.getByTestId("waterfall-menu").click();
-    await expect(omitInactiveBuildsCheckbox).toBeChecked();
+    const selectedOmitInactiveBuildsItem = page.getByRole("menuitem", {
+      name: "Omit inactive builds: on",
+    });
+    await expect(indicator).toHaveAttribute("data-selected", "true");
 
-    await clickCheckbox(omitInactiveBuildsCheckbox);
+    await selectedOmitInactiveBuildsItem.click();
   });
 
   test("omits inactive build variants when filter is applied and setting is enabled", async ({
@@ -38,10 +40,10 @@ test.describe("Waterfall menu settings", () => {
 
     await page.getByTestId("waterfall-menu").click();
 
-    const omitInactiveBuildsCheckbox = page.getByRole("checkbox", {
-      name: "Omit inactive builds",
+    const omitInactiveBuildsItem = page.getByRole("menuitem", {
+      name: "Omit inactive builds: off",
     });
-    await clickCheckbox(omitInactiveBuildsCheckbox);
+    await omitInactiveBuildsItem.click();
     await page.locator("body").click();
 
     await page.getByTestId("build-variant-filter-input").clear();
@@ -52,7 +54,9 @@ test.describe("Waterfall menu settings", () => {
     expect(count).toBeGreaterThanOrEqual(1);
 
     await page.getByTestId("waterfall-menu").click();
-    await clickCheckbox(omitInactiveBuildsCheckbox);
+    await page
+      .getByRole("menuitem", { name: "Omit inactive builds: on" })
+      .click();
   });
 });
 

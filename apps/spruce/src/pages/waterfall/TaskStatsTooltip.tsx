@@ -1,16 +1,16 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { Align, Popover } from "@leafygreen-ui/popover";
-import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
+import {
+  Button,
+  Popover,
+  PopoverRoot,
+  Skeleton,
+  Text,
+} from "@via-ds/components";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Divider } from "components/styles";
-import { PopoverContainer } from "components/styles/Popover";
 import { TaskBox } from "components/TaskBox";
 import {
   WaterfallTaskStatsQuery,
@@ -18,6 +18,7 @@ import {
 } from "gql/generated/types";
 import { WATERFALL_TASK_STATS } from "gql/queries";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
+import styles from "./TaskStatsTooltip.module.css";
 import { Version } from "./types";
 
 export const TaskStatsTooltip: React.FC<
@@ -42,11 +43,6 @@ export const TaskStatsTooltip: React.FC<
 
   const isLoading = loading && !data;
 
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside([buttonRef, popoverRef], () => setOpen(false));
-
   const totalTaskCount =
     data?.version?.taskStatusStats?.counts?.reduce(
       (total, { count }) => total + count,
@@ -58,79 +54,66 @@ export const TaskStatsTooltip: React.FC<
     : {};
 
   return (
-    <>
-      <BtnContainer>
-        <IconButton
-          ref={buttonRef}
-          active={open}
+    <PopoverRoot
+      align="end"
+      isOpen={open}
+      onOpenChange={setOpen}
+      side="right"
+      triggerType="dialog"
+    >
+      <div className={styles.buttonContainer}>
+        <Button
           aria-label="Show task stats"
           data-testid="task-stats-tooltip-button"
-          onClick={() => setOpen((o) => !o)}
+          size="small"
+          variant="tertiary"
           {...buttonContainerProps}
         >
           <Icon glyph="Chart" />
-        </IconButton>
-      </BtnContainer>
-      <Popover
-        ref={popoverRef}
-        active={open}
-        align={Align.Right}
-        refEl={buttonRef}
-      >
-        <FixedWidthContainer data-testid="task-stats-tooltip">
+        </Button>
+      </div>
+      <Popover>
+        <div className={styles.popover} data-testid="task-stats-tooltip">
           {isLoading ? (
-            <Skeleton size={SkeletonSize.Small} />
+            <Skeleton isLoading>
+              <Text>Loading task stats</Text>
+            </Skeleton>
           ) : (
-            <Table>
-              <Tbody>
+            <table>
+              <tbody>
                 {data?.version?.taskStatusStats?.counts?.map(
                   ({ count, status }) => (
-                    <Row key={`task_stats_row_${status}`}>
-                      <Count>{count}</Count>
-                      <Cell>
+                    <tr key={`task_stats_row_${status}`}>
+                      <td className={`${styles.cell} ${styles.count}`}>
+                        {count}
+                      </td>
+                      <td className={styles.cell}>
                         <TaskBox status={status as TaskStatus} />
-                      </Cell>
-                      <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
-                    </Row>
+                      </td>
+                      <td className={styles.cell}>
+                        {taskStatusToCopy[status as TaskStatus]}
+                      </td>
+                    </tr>
                   ),
                 )}
-                <Row>
-                  <Cell colSpan={3}>
+                <tr>
+                  <td className={styles.cell} colSpan={3}>
                     <Divider />
-                  </Cell>
-                </Row>
-                <Row>
-                  <Count>{totalTaskCount}</Count>
-                  <Cell colSpan={2}>Total tasks</Cell>
-                </Row>
-              </Tbody>
-            </Table>
+                  </td>
+                </tr>
+                <tr>
+                  <td className={`${styles.cell} ${styles.count}`}>
+                    {totalTaskCount}
+                  </td>
+                  <td className={styles.cell} colSpan={2}>
+                    Total tasks
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           )}
-        </FixedWidthContainer>
+        </div>
       </Popover>
-    </>
+    </PopoverRoot>
   );
 };
-
-const BtnContainer = styled.div`
-  align-self: flex-start;
-`;
-
-const FixedWidthContainer = styled(PopoverContainer)`
-  width: 180px;
-`;
-
-const Table = styled.table``;
-
-const Tbody = styled.tbody``;
-
-const Row = styled.tr``;
-
-const Cell = styled.td`
-  padding: 0 ${size.xxs};
-`;
-
-const Count = styled(Cell)`
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-`;
