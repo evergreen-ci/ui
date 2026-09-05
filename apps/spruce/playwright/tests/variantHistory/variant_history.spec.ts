@@ -58,16 +58,18 @@ test.describe("Variant history", () => {
 
     const tasksInput = page.getByRole("textbox", { name: "Tasks" });
     await tasksInput.click();
-    await page.locator("[aria-label='compile']").click();
-    await page.locator("[aria-label='e2e_test']").click();
-    await tasksInput.click();
+    await tasksInput.press("ArrowDown");
+    await page.getByRole("option", { name: "compile" }).click();
+    await page.getByRole("option", { name: "e2e_test" }).click();
+    await page.keyboard.press("Escape");
     await expect(page.getByTestId("header-cell")).toHaveCount(2);
 
     // Removing column header filters should restore all columns.
     await tasksInput.click();
-    await page.locator("[aria-label='compile']").click();
-    await page.locator("[aria-label='e2e_test']").click();
-    await tasksInput.click();
+    await tasksInput.press("ArrowDown");
+    await page.getByRole("option", { name: "compile" }).click();
+    await page.getByRole("option", { name: "e2e_test" }).click();
+    await page.keyboard.press("Escape");
     await expect(page.getByTestId("header-cell")).toHaveCount(6);
   });
 
@@ -84,6 +86,16 @@ test.describe("Variant history", () => {
     await expect(page.getByTestId("test-tooltip")).toContainText(
       "JustAFakeTestInALonelyWorld",
     );
+  });
+
+  test("clicking a task cell navigates to the task history tab", async ({
+    page,
+  }) => {
+    await page.goto("/variant-history/spruce/ubuntu1604");
+    const taskCell = page.getByTestId("task-cell").first();
+    await expect(taskCell).toBeVisible();
+    await taskCell.getByRole("link").click();
+    await expect(page).toHaveURL(/\/task\/.*\/history/);
   });
 
   test.describe("applying a test filter", () => {
@@ -119,6 +131,11 @@ test.describe("Variant history", () => {
       await expect(page.getByTestId("test-tooltip")).toContainText(
         "JustAFakeTestInALonelyWorld",
       );
+    });
+
+    test("should clear all applied test filters", async ({ page }) => {
+      await page.getByTestId("clear-filters").click();
+      await expect(page.getByTestId("filter-chip")).toHaveCount(0);
     });
   });
 });

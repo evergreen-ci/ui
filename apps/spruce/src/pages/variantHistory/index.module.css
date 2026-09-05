@@ -1,0 +1,43 @@
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.variantMetadata {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+  margin-top: var(--via-space-100);
+  padding-left: var(--via-space-100);
+}
+
+.displayNamePlaceholder {
+  width: 200px;
+}
+
+.pageHeaderContent {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 28px;
+}
+
+.paginationFilterWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--via-space-400);
+}
+
+.badgeWrapper {
+  padding-bottom: var(--via-space-400);
+}
+
+.tableWrapper {
+  height: 80vh;
+}
+
+.centerPage {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

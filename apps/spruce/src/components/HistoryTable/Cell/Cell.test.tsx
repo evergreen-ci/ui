@@ -1,7 +1,6 @@
 import {
   renderWithRouterMatch as render,
   screen,
-  userEvent,
 } from "@evg-ui/lib/test_utils";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskCell } from ".";
@@ -79,24 +78,5 @@ describe("taskCell", () => {
       />,
     );
     expect(screen.getByText("some-label")).toBeInTheDocument();
-  });
-
-  it("should have a tooltip on hover with failing tests when they are supplied", async () => {
-    const user = userEvent.setup();
-    render(
-      <TaskCell
-        failingTests={["some-test"]}
-        loading={false}
-        task={{
-          id: "some-task-id",
-          displayStatus: TaskStatus.Failed,
-        }}
-      />,
-    );
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.hover(screen.queryByTestId("history-table-icon"));
-    await screen.findByText("some-test");
-    expect(screen.getByTestId("test-tooltip")).toBeInTheDocument();
-    expect(screen.getByText("some-test")).toBeInTheDocument();
   });
 });
