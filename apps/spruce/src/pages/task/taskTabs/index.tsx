@@ -31,6 +31,7 @@ import ExecutionTasksTable from "./ExecutionTasksTable";
 import ExecutionTasksTiming from "./ExecutionTasksTiming";
 import FileTable from "./FileTable";
 import Logs from "./logs";
+import { TaskConfigTab } from "./TaskConfig";
 import TaskHistory from "./TaskHistory";
 import { walkthroughHistoryTabProps } from "./TaskHistory/constants";
 import TestsTable from "./testsTable/TestsTable";
@@ -93,6 +94,7 @@ const useTabConfig = (
     [TaskTab.History]: true,
     [TaskTab.ExecutionTasksTiming]:
       isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
+    [TaskTab.Config]: true,
   };
 
   const tabMap: Record<TaskTab, React.JSX.Element> = {
@@ -229,6 +231,21 @@ const useTabConfig = (
           executionTasksFull={executionTasksFull}
           taskName={displayName}
         />
+      </Tab>
+    ),
+    [TaskTab.Config]: (
+      <Tab
+        key="task-config-tab"
+        data-testid="task-config-tab"
+        name={
+          <TabLabelWithBadge
+            badgeText="New"
+            badgeVariant={Variant.Blue}
+            tabLabel="Task Config"
+          />
+        }
+      >
+        <TaskConfigTab execution={execution} taskId={id} />
       </Tab>
     ),
   };

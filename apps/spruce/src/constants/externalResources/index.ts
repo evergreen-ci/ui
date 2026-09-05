@@ -9,6 +9,8 @@ export const wikiUrl = `${wikiBaseUrl}/Home`;
 const projectSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration`;
 const hostsDocumentationUrl = `${wikiBaseUrl}/Hosts`;
 
+export const projectConfigFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files`;
+
 export const amazonEC2InstanceTypeDocumentationUrl =
   "https://aws.amazon.com/ec2/instance-types/";
 
