@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import InfoWithCircle from "@via-ds/icons/InfoWithCircle";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
@@ -93,9 +93,9 @@ const columns: LGColumnDef<Distro>[] = [
           justify={Justify.Middle}
           trigger={
             <IconButton aria-label="Information about instance type">
-              <Icon
+              <InfoWithCircle
                 data-testid="instance-type-information"
-                glyph="InfoWithCircle"
+                size="medium"
               />
             </IconButton>
           }

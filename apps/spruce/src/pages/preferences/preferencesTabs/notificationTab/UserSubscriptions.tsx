@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Pagination } from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
+import Trash from "@via-ds/icons/Trash";
 import {
   BaseTable,
   LGColumnDef,
@@ -126,7 +126,7 @@ const SubscriptionsTable: React.FC<{
         <Button
           data-testid="delete-some-button"
           disabled={Object.entries(rowSelection).length === 0}
-          leftGlyph={<Icon glyph="Trash" />}
+          leftGlyph={<Trash />}
           onClick={onDeleteSubscriptions}
           size="small"
         >

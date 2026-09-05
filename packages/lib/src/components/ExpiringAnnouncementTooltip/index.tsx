@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { GuideCue, GuideCueProps } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
+import InfoWithCircle from "@via-ds/icons/InfoWithCircle";
 import { differenceInDays } from "date-fns";
 import Cookies from "js-cookie";
-import Icon from "../Icon";
 import styles from "./index.module.css";
 
 type Props = {
@@ -48,10 +48,9 @@ export const ExpiringAnnouncementTooltip: React.FC<
       differenceInDays(now, seenTooltipDate) < activeDays) ? (
     <>
       <div ref={infoRef} className={styles.iconContainer}>
-        <Icon
+        <InfoWithCircle
           data-testid="announcement-tooltip-trigger"
           fill={palette.gray.dark2}
-          glyph="InfoWithCircle"
           onClick={() => setOpen((o) => !o)}
         />
       </div>

@@ -1,6 +1,6 @@
 import { Size as ButtonSize } from "@leafygreen-ui/button";
 import { Menu, MenuItem, MenuProps } from "@leafygreen-ui/menu";
-import { Icon } from "@evg-ui/lib/components/Icon";
+import Ellipsis from "@via-ds/icons/Ellipsis";
 import {
   LoadingButton,
   LoadingButtonProps,
@@ -42,7 +42,7 @@ export const ButtonDropdown: React.FC<Props> = ({
         size={size}
         {...triggerProps}
       >
-        <Icon glyph="Ellipsis" />
+        <Ellipsis />
       </LoadingButton>
     }
   >

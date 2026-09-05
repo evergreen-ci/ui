@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Banner } from "@leafygreen-ui/banner";
-import Icon from "@evg-ui/lib/components/Icon";
+import ImportantWithCircle from "@via-ds/icons/ImportantWithCircle";
 import { DisplayModal } from "components/DisplayModal";
 import {
   BannerContainer,
@@ -48,7 +48,7 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
         setOpen={setShowModal}
         title={
           <TitleWrapper>
-            <Icon glyph="ImportantWithCircle" size="xlarge" />
+            <ImportantWithCircle size="xlarge" />
             <span>{warningTitle}</span>
           </TitleWrapper>
         }

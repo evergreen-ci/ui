@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import Copy from "@via-ds/icons/Copy";
+import Export from "@via-ds/icons/Export";
+import MagnifyingGlass from "@via-ds/icons/MagnifyingGlass";
+import Sparkle from "@via-ds/icons/Sparkle";
+import Trash from "@via-ds/icons/Trash";
 import pluralize from "pluralize";
 import { useChatContext } from "@evg-ui/fungi";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -149,31 +154,22 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ lineNumber, shared }) => {
       }
     >
       {isParsleyAIAvailable && (
-        <MenuItem
-          glyph={<Icon glyph="Sparkle" />}
-          onClick={handleAddToParsleyAI}
-        >
+        <MenuItem glyph={<Sparkle />} onClick={handleAddToParsleyAI}>
           Add to Parsley AI
         </MenuItem>
       )}
-      <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
+      <MenuItem glyph={<Copy />} onClick={handleCopySelectedLines}>
         Copy selected contents
       </MenuItem>
       {!isUploadedLog && (
-        <MenuItem
-          glyph={<Icon glyph="Export" />}
-          onClick={handleShareLinkToSelectedLines}
-        >
+        <MenuItem glyph={<Export />} onClick={handleShareLinkToSelectedLines}>
           Copy share link to selected {pluralize("line", lineCount)}
         </MenuItem>
       )}
-      <MenuItem
-        glyph={<Icon glyph="MagnifyingGlass" />}
-        onClick={handleOnlySearchOnRange}
-      >
+      <MenuItem glyph={<MagnifyingGlass />} onClick={handleOnlySearchOnRange}>
         Only search on range
       </MenuItem>
-      <MenuItem glyph={<Icon glyph="Trash" />} onClick={clearSelection}>
+      <MenuItem glyph={<Trash />} onClick={clearSelection}>
         Clear selection
       </MenuItem>
     </StyledMenu>

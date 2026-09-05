@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Align, Justify, Popover } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import QuestionMarkWithCircle from "@via-ds/icons/QuestionMarkWithCircle";
+import X from "@via-ds/icons/X";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -95,7 +96,7 @@ export const TaskStatusIconLegend: React.FC = () => {
           setOpen(!open);
         }}
       >
-        <Icon glyph="QuestionMarkWithCircle" />
+        <QuestionMarkWithCircle size="medium" />
       </IconButton>
       <Popover
         ref={popoverRef}
@@ -117,7 +118,7 @@ export const TaskStatusIconLegend: React.FC = () => {
                 setOpen(false);
               }}
             >
-              <Icon glyph="X" />
+              <X size="medium" />
             </IconButton>
           </div>
           <LegendContent />

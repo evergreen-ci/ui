@@ -5,9 +5,9 @@ import {
   SegmentedControl,
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
+import Download from "@via-ds/icons/Download";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { downloadFile } from "@evg-ui/lib/utils/request";
@@ -200,7 +200,7 @@ const Logs: React.FC<Props> = ({
                     });
                   }}
                 >
-                  <Icon glyph="Download" />
+                  <Download />
                 </Button>
               )}
             </FloatingButtonContainer>

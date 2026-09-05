@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
+import QuestionMarkWithCircle from "@via-ds/icons/QuestionMarkWithCircle";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
-import Icon, { EvergreenLogo } from "@evg-ui/lib/components/Icon";
+import { EvergreenLogo } from "@evg-ui/lib/components/Icon";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useNavbarAnalytics } from "analytics";
@@ -102,7 +103,7 @@ export const Navbar: React.FC = () => {
           rel="noreferrer"
           target="_blank"
         >
-          <Icon glyph="QuestionMarkWithCircle" />
+          <QuestionMarkWithCircle />
           Documentation
         </a>
         <UserDropdown />

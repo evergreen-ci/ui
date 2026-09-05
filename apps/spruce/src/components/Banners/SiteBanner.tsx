@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
+import Megaphone from "@via-ds/icons/Megaphone";
 import Cookies from "js-cookie";
-import Icon from "@evg-ui/lib/components/Icon";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 import styles from "./SiteBanner.module.css";
@@ -36,11 +36,7 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
         // We want the green banner to align more with legacy Evergreen's announcement banner
         variant === Variant.Success ? (
           // It's unclear why using the size prop on the component doesn't work, but we can do this instead.
-          <Icon
-            className={styles.styledIcon}
-            color={green.dark1}
-            glyph="Megaphone"
-          />
+          <Megaphone className={styles.styledIcon} color={green.dark1} />
         ) : undefined
       }
       onClose={hideBanner}

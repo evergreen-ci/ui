@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { Description } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import Code from "@via-ds/icons/Code";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics/waterfall/useWaterfallAnalytics";
@@ -40,7 +40,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
     <>
       <DropdownItem
         data-testid="git-commit-search"
-        glyph={<Icon glyph="Code" />}
+        glyph={<Code />}
         onClick={() => {
           setModalOpen(true);
         }}

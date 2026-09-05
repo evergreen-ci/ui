@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
+import List from "@via-ds/icons/List";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Version } from "../types";
 import { InactiveVersionsModal } from "./InactiveVersionsModal";
@@ -42,7 +42,7 @@ export const InactiveVersionsButton: React.FC<Props> = ({
       <StyledButton
         aria-label="Open inactive versions modal"
         data-testid="inactive-versions-button"
-        leftGlyph={<Icon fill={gray.base} glyph="List" />}
+        leftGlyph={<List fill={gray.base} />}
         onClick={() => {
           setModalOpen(true);
         }}

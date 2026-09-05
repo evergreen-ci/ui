@@ -178,6 +178,9 @@ importers:
       '@via-ds/components':
         specifier: 0.8.3
         version: 0.8.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@via-ds/icons':
+        specifier: 0.1.2
+        version: 0.1.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
         specifier: 0.3.2
         version: 0.3.2
@@ -533,6 +536,9 @@ importers:
       '@via-ds/components':
         specifier: 0.8.3
         version: 0.8.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@via-ds/icons':
+        specifier: 0.1.2
+        version: 0.1.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
         specifier: 0.3.2
         version: 0.3.2
@@ -959,6 +965,9 @@ importers:
       '@testing-library/react':
         specifier: ^16.3.0
         version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@via-ds/icons':
+        specifier: 0.1.2
+        version: 0.1.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
         specifier: 0.3.1
         version: 0.3.1
@@ -5011,6 +5020,12 @@ packages:
       '@types/react-dom': ^17 || ^18 || ^19
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
+
+  '@via-ds/icons@0.1.2':
+    resolution: {integrity: sha512-iXmfxySdY0YylhidVV38MsusRwDJNEPE3xwkH3GldQJxdUOZpHY892URwniXuppak1N4gjJU9tHbf/XVcqeYSQ==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^17 || ^18 || ^19
 
   '@via-ds/icons@0.1.3':
     resolution: {integrity: sha512-EfKZx86DjUBxN3DPFiPc1ecXCNtAbLTEvJlDmqicbeyTie8H1gYY5caUcKDhgPEsxLF1yjAv/OyU7InwotZb7A==}
@@ -14233,6 +14248,17 @@ snapshots:
       react-intersection-observer: 10.0.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-stately: 3.49.0(react@18.3.1)
       use-sync-external-store: 1.6.0(react@18.3.1)
+
+  '@via-ds/icons@0.1.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@react-aria/utils': 3.34.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/lodash-es': 4.17.12
+      '@types/react': 18.3.12
+      clsx: 2.1.1
+      lodash-es: 4.17.22
+      react: 18.3.1
+    transitivePeerDependencies:
+      - react-dom
 
   '@via-ds/icons@0.1.3(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:

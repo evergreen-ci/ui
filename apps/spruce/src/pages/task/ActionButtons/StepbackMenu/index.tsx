@@ -4,8 +4,8 @@ import { Button, Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem, MenuItemProps } from "@leafygreen-ui/menu";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { InlineCode } from "@leafygreen-ui/typography";
+import CaretDown from "@via-ds/icons/CaretDown";
 import { Link } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
@@ -58,11 +58,7 @@ export const StepbackMenu: React.FC<StepbackMenuProps> = ({ task }) => {
       <Tooltip
         justify="middle"
         trigger={
-          <Button
-            disabled
-            rightGlyph={<Icon glyph="CaretDown" />}
-            size={Size.Small}
-          >
+          <Button disabled rightGlyph={<CaretDown />} size={Size.Small}>
             Stepback
           </Button>
         }
@@ -76,7 +72,7 @@ export const StepbackMenu: React.FC<StepbackMenuProps> = ({ task }) => {
     <Menu
       renderDarkMenu={false}
       trigger={
-        <Button rightGlyph={<Icon glyph="CaretDown" />} size={Size.Small}>
+        <Button rightGlyph={<CaretDown />} size={Size.Small}>
           Stepback
         </Button>
       }

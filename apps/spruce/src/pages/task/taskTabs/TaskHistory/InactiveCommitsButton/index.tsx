@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "@leafygreen-ui/button";
 import { Size } from "@leafygreen-ui/tokens";
+import ChevronDown from "@via-ds/icons/ChevronDown";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import pluralize from "pluralize";
-import { Icon } from "@evg-ui/lib/components/Icon";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import CommitDetailsCard from "../CommitDetailsCard";
 import { useTaskHistoryContext } from "../context";
@@ -27,13 +28,7 @@ const InactiveCommitsButton: React.FC<Props> = ({
       <span>
         <Button
           data-testid="collapsed-card"
-          leftGlyph={
-            isExpanded ? (
-              <Icon glyph="ChevronDown" />
-            ) : (
-              <Icon glyph="ChevronRight" />
-            )
-          }
+          leftGlyph={isExpanded ? <ChevronDown /> : <ChevronRight />}
           onClick={() => {
             const newMap = new Map(expandedTasksMap);
             inactiveTasks.forEach((i) => {

@@ -1,4 +1,4 @@
-import Icon from "@evg-ui/lib/components/Icon";
+import NoFilter from "@via-ds/icons/NoFilter";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
@@ -31,7 +31,7 @@ export const ClearAllFilters: React.FC<ClearAllFiltersProps> = ({
   return (
     <DropdownItem
       data-testid="clear-all-filters"
-      glyph={<Icon glyph="NoFilter" />}
+      glyph={<NoFilter />}
       onClick={handleClick}
     >
       Clear all filters

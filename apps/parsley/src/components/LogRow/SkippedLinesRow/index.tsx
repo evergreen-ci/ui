@@ -2,7 +2,9 @@ import { useTransition } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import CaretDown from "@via-ds/icons/CaretDown";
+import CaretUp from "@via-ds/icons/CaretUp";
+import UpDownCarets from "@via-ds/icons/UpDownCarets";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { ExpandedLines, Range } from "types/logs";
@@ -57,22 +59,18 @@ const SkippedLinesRow: React.FC<SkippedLinesRowProps> = ({
     <LineWrapper data-testid={`skipped-lines-row-${start}-${lineEndInclusive}`}>
       <StyledBody>{lineText}</StyledBody>
       <ButtonContainer>
-        <Button
-          leftGlyph={<Icon glyph="UpDownCarets" />}
-          onClick={expandAll}
-          size="xsmall"
-        >
+        <Button leftGlyph={<UpDownCarets />} onClick={expandAll} size="xsmall">
           All
         </Button>
         <Button
-          leftGlyph={<Icon glyph="CaretUp" />}
+          leftGlyph={<CaretUp />}
           onClick={() => expand("above")}
           size="xsmall"
         >
           {SKIP_NUMBER} Above
         </Button>
         <Button
-          leftGlyph={<Icon glyph="CaretDown" />}
+          leftGlyph={<CaretDown />}
           onClick={() => expand("below")}
           size="xsmall"
         >

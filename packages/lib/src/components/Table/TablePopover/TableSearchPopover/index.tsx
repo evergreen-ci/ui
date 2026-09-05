@@ -7,8 +7,8 @@ import {
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
 import { Description } from "@leafygreen-ui/typography";
+import MagnifyingGlass from "@via-ds/icons/MagnifyingGlass";
 import { useOnClickOutside } from "../../../../hooks";
-import { Icon } from "../../../Icon";
 import { PopoverContainer } from "../../../styles/Popover";
 import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 import styles from "./index.module.css";
@@ -65,7 +65,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
-        <Icon fill={iconColor} glyph="MagnifyingGlass" />
+        <MagnifyingGlass fill={iconColor} size="medium" />
       </IconButton>
       <Popover
         active={active}

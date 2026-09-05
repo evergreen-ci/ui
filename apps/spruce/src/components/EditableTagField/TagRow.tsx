@@ -1,7 +1,8 @@
 import { useMemo, useReducer } from "react";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { TextArea } from "@leafygreen-ui/text-area";
-import Icon from "@evg-ui/lib/components/Icon";
+import Checkmark from "@via-ds/icons/Checkmark";
+import Trash from "@via-ds/icons/Trash";
 import { PlusButton } from "components/Buttons";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
 import styles from "./TagRow.module.css";
@@ -68,9 +69,8 @@ export const TagRow: React.FC<TagRowProps> = ({
                 ((isNewTag || key !== tag.key) && !isValidKey(key))
               }
             >
-              <Icon
+              <Checkmark
                 data-testid="user-tag-edit-icon"
-                glyph="Checkmark"
                 onClick={() => {
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
                   dispatch({
@@ -83,13 +83,13 @@ export const TagRow: React.FC<TagRowProps> = ({
                     !isNewTag && key !== tag.key ? tag.key : undefined,
                   );
                 }}
+                size="medium"
               />
             </IconButton>
           ) : (
             <IconButton aria-label="Delete Tag">
-              <Icon
+              <Trash
                 data-testid="user-tag-trash-icon"
-                glyph="Trash"
                 onClick={
                   isNewTag
                     ? // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -97,6 +97,7 @@ export const TagRow: React.FC<TagRowProps> = ({
                     : // @ts-expect-error: FIXME. This comment was added by an automated script.
                       () => onDelete(tag.key)
                 }
+                size="medium"
               />
             </IconButton>
           )}
