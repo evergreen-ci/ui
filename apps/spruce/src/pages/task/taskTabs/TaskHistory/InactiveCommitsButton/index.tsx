@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button } from "@leafygreen-ui/button";
-import { Icon } from "@leafygreen-ui/icon";
 import { Size } from "@leafygreen-ui/tokens";
 import pluralize from "pluralize";
+import { Icon } from "@evg-ui/lib/components/Icon";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import CommitDetailsCard from "../CommitDetailsCard";
 import { useTaskHistoryContext } from "../context";

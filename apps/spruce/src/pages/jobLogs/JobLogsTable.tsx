@@ -1,12 +1,20 @@
 import { useMemo } from "react";
-import { Link } from "@leafygreen-ui/typography";
-import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import {
-  BaseTable,
-  LGColumnDef,
-  TablePlaceholder,
-  useLeafyGreenTable,
-} from "@evg-ui/lib/components/Table";
+  Cell,
+  HeaderCell,
+  HeaderRow,
+  Link,
+  Row,
+  Skeleton,
+  Table,
+  TableBody,
+  TableHead,
+  TanStack,
+  ViaColumnDef,
+  useTable,
+} from "@via-ds/components";
+import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
+import { TablePlaceholder } from "@evg-ui/lib/components/Table";
 import { isValidHttpUrl } from "@evg-ui/lib/utils/url";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { EvergreenTestResult } from "./types";
@@ -20,28 +28,55 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   loading,
   tests,
 }) => {
-  const columns: LGColumnDef<EvergreenTestResult>[] = useMemo(
+  const columns = useMemo<Array<ViaColumnDef<EvergreenTestResult>>>(
     () => getColumns(),
     [],
   );
+  const table = useTable({ columns, data: tests });
+  const { rows } = table.getRowModel();
 
-  const table = useLeafyGreenTable<EvergreenTestResult>({
-    columns,
-    data: tests,
-  });
   return (
-    <BaseTable
-      emptyComponent={
+    <>
+      <Skeleton isLoading={loading}>
+        <Table shouldAlternateRowColor table={table}>
+          <TableHead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <HeaderRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <HeaderCell key={header.id} header={header}>
+                    {TanStack.flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
+                  </HeaderCell>
+                ))}
+              </HeaderRow>
+            ))}
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <Row key={row.id} row={row}>
+                {row.getVisibleCells().map((cell) => (
+                  <Cell key={cell.id} cell={cell}>
+                    {TanStack.flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext(),
+                    )}
+                  </Cell>
+                ))}
+              </Row>
+            ))}
+          </TableBody>
+        </Table>
+      </Skeleton>
+      {!loading && rows.length === 0 && (
         <TablePlaceholder message="No logs found for this job." />
-      }
-      loading={loading}
-      shouldAlternateRowColor
-      table={table}
-    />
+      )}
+    </>
   );
 };
 
-const getColumns = (): LGColumnDef<EvergreenTestResult>[] => [
+const getColumns = (): Array<ViaColumnDef<EvergreenTestResult>> => [
   {
     header: "Test Name",
     accessorKey: "testFile",
@@ -76,13 +111,15 @@ const ParsleyLink = ({
   }
   return (
     <Link
-      hideExternalIcon
       href={parsleyUrl}
-      onClick={() => {
+      linkStyle="internal"
+      onPress={() => {
         sendEvent({
           name: "Clicked Parsley test log link",
         });
       }}
+      rel="noopener noreferrer"
+      target="_blank"
     >
       {testName}
     </Link>

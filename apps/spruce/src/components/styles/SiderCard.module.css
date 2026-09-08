@@ -1,9 +1,7 @@
-/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
-   Remove when this component migrates to Via. */
-.siderCard.siderCard {
-  padding: var(--via-space-400) var(--via-space-400);
+.siderCard {
+  padding: var(--via-space-400);
+}
 
-  &:not(:last-of-type) {
-    margin-bottom: var(--via-space-600);
-  }
+.siderCard:not(:last-of-type) {
+  margin-bottom: var(--via-space-600);
 }

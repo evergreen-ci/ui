@@ -83,7 +83,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
         </MetadataItem>
       )}
       {showStepback && (
-        <MetadataItem as="div">
+        <MetadataItem elementType="div">
           <Stepback execution={execution} status={status} taskId={task.id} />
         </MetadataItem>
       )}

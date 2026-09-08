@@ -58,6 +58,7 @@ const version: Version = {
     repo: "evergreen",
     testSelection: null,
   },
+  quarantinedTestsSkippedCount: 0,
   repo: "evergreen",
   requester: "gitter_request",
   revision: "abc123def456",
@@ -90,6 +91,7 @@ const versionMock: ApolloMock<VersionQuery, VersionQueryVariables> = {
 
 const versionWithSkippedTests: Version = {
   ...version,
+  quarantinedTestsSkippedCount: 12,
   projectMetadata: {
     ...version.projectMetadata!,
     testSelection: {
@@ -131,11 +133,6 @@ const versionSkippedTestsMock: ApolloMock<
   },
 };
 
-const versionSkippedTestsLoadingMock = {
-  ...versionSkippedTestsMock,
-  delay: Infinity,
-};
-
 export const WithTimeline: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
@@ -153,19 +150,6 @@ export const WithSkippedTests: CustomStoryObj<typeof Metadata> = {
   parameters: {
     apolloClient: {
       mocks: [versionMock, versionSkippedTestsMock],
-    },
-  },
-};
-
-export const WithSkippedTestsLoading: CustomStoryObj<typeof Metadata> = {
-  render: (args) => (
-    <Container>
-      <Metadata {...args} version={versionWithSkippedTests} />
-    </Container>
-  ),
-  parameters: {
-    apolloClient: {
-      mocks: [versionMock, versionSkippedTestsLoadingMock],
     },
   },
 };

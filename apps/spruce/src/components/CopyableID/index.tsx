@@ -13,7 +13,7 @@ export const CopyableID: React.FC<CopyableIDProps> = ({
   textToCopy,
   tooltipLabel,
 }) => (
-  <MetadataItem as="div" data-testid={dataTestId}>
+  <MetadataItem data-testid={dataTestId} elementType="div">
     <div className={styles.container}>
       <span className={styles.labelWrapper}>
         <MetadataLabel>ID: </MetadataLabel>

@@ -1,5 +1,5 @@
-import { Icon } from "@leafygreen-ui/icon";
 import { Link, useParams } from "react-router-dom";
+import { Icon } from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { usePreferencesAnalytics } from "analytics";
 import {

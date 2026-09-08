@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "include": [
     "../lib/vitest.d.ts",
+    "../lib/src/vite-env.d.ts",
     "src",
     "test_utils/index.tsx",
     "test_utils/custom-queries.ts",

@@ -74,6 +74,7 @@ export const useSections = ({
         dispatchToast.error("An error occurred while parsing log sections.");
         reportError(e as Error).severe();
       }
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSectionData(parseResult);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,6 +82,7 @@ export const useSections = ({
 
   useEffect(() => {
     if (sectionData && sectionState === undefined) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSectionState(
         populateSectionState({
           openSectionsContainingLines: onInitOpenSectionsContainingLines,

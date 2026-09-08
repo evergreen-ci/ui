@@ -1,5 +1,5 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { TaskQuery } from "gql/generated/types";
+import { ExecutionPlatform, TaskQuery } from "gql/generated/types";
 
 export type TaskQueryType = {
   task: NonNullable<TaskQuery["task"]>;
@@ -81,6 +81,7 @@ export const taskQuery: TaskQueryType = {
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
     execution: 0,
+    executionPlatform: ExecutionPlatform.Host,
     expectedDuration: 123,
     hostId: "i-0e0e62799806e037d",
     latestExecution: 0,
