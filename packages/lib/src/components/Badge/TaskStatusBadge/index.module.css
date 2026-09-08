@@ -1,3 +1,21 @@
 .badge {
   width: max-content;
 }
+
+.systemFailed.systemFailed {
+  border-color: var(--via-color-purple-200);
+  background-color: var(--via-color-purple-100);
+  color: var(--via-color-purple-600);
+}
+
+.knownIssue.knownIssue {
+  border-color: var(--via-color-red-200);
+  background-color: var(--via-color-neutral-000);
+  color: var(--via-color-red-600);
+}
+
+.willRun.willRun {
+  border-color: var(--via-color-neutral-700);
+  background-color: var(--via-color-neutral-600);
+  color: var(--via-color-neutral-000);
+}

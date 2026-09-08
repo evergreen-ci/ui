@@ -1,6 +1,7 @@
 import { Badge, BadgeVariant } from "@via-ds/components/badge";
 import { taskStatusToCopy } from "../../../constants/task";
 import { TaskStatus, TaskStatusUmbrella } from "../../../types/task";
+import { cx } from "../../../utils/css";
 import styles from "./index.module.css";
 
 interface TaskStatusBadgeProps {
@@ -22,13 +23,28 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   return (
     <Badge
       key={status}
-      className={styles.badge}
+      className={cx(styles.badge, customBadgeColorClass(status))}
       data-testid="task-status-badge"
       variant={mapTaskStatusToBadgeVariant[status]}
     >
       {badgeCopy}
     </Badge>
   );
+};
+
+const customBadgeColorClass = (status: string) => {
+  switch (status) {
+    case TaskStatus.SystemFailed:
+    case TaskStatus.SystemUnresponsive:
+    case TaskStatus.SystemTimedOut:
+      return styles.systemFailed;
+    case TaskStatus.KnownIssue:
+      return styles.knownIssue;
+    case TaskStatus.WillRun:
+      return styles.willRun;
+    default:
+      return undefined;
+  }
 };
 
 const mapTaskStatusToBadgeVariant: Record<string, BadgeVariant> = {
