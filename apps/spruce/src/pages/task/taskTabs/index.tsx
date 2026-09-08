@@ -94,7 +94,7 @@ const useTabConfig = (
     [TaskTab.History]: true,
     [TaskTab.ExecutionTasksTiming]:
       isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
-    [TaskTab.Config]: true,
+    [TaskTab.Config]: !isDisplayTask,
   };
 
   const tabMap: Record<TaskTab, React.JSX.Element> = {

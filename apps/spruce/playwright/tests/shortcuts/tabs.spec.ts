@@ -97,7 +97,6 @@ test.describe("Tab shortcut", () => {
     const executionTasksTimingTab = page.getByTestId(
       "execution-tasks-timing-tab",
     );
-    const taskConfigTab = page.getByTestId("task-config-tab");
 
     await expect(taskExecutionTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("j");
@@ -117,9 +116,6 @@ test.describe("Tab shortcut", () => {
     );
     await page.locator("body").press("j");
 
-    await expect(taskConfigTab).toHaveAttribute("aria-selected", "true");
-    await page.locator("body").press("j");
-
     await expect(taskLogsTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("j");
 
@@ -127,9 +123,6 @@ test.describe("Tab shortcut", () => {
     await page.locator("body").press("k");
 
     await expect(taskLogsTab).toHaveAttribute("aria-selected", "true");
-    await page.locator("body").press("k");
-
-    await expect(taskConfigTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("k");
 
     await expect(executionTasksTimingTab).toHaveAttribute(

@@ -6,6 +6,7 @@ import {
   LGColumnDef,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { PartialRecord } from "@evg-ui/lib/types/utils";
 import { projectConfigFilesDocumentationUrl } from "constants/externalResources";
 import {
@@ -41,15 +42,16 @@ export const TaskConfigTab = ({
   execution: number;
   taskId: string;
 }) => {
-  const { data, loading } = useQuery<TaskConfigQuery, TaskConfigQueryVariables>(
-    TASK_CONFIG,
-    {
-      variables: {
-        taskId,
-        execution,
-      },
+  const { data, error, loading } = useQuery<
+    TaskConfigQuery,
+    TaskConfigQueryVariables
+  >(TASK_CONFIG, {
+    variables: {
+      taskId,
+      execution,
     },
-  );
+  });
+  useErrorToast(error, "Unable to load task config");
 
   const tableData = useMemo(
     () =>
@@ -67,7 +69,7 @@ export const TaskConfigTab = ({
 
   const table = useLeafyGreenTable({
     columns,
-    data: tableData ?? [],
+    data: tableData,
     enableColumnFilters: false,
   });
 
