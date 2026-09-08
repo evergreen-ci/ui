@@ -15,7 +15,7 @@ test.describe("Waterfall menu settings", () => {
   }) => {
     await page.getByTestId("waterfall-menu").click();
     const omitInactiveBuildsItem = page.getByRole("menuitem", {
-      name: "Omit inactive builds: off",
+      name: "Omit inactive builds",
     });
     const indicator = page.getByTestId("omit-inactive-builds-indicator");
     await expect(indicator).toHaveAttribute("data-selected", "false");
@@ -23,12 +23,9 @@ test.describe("Waterfall menu settings", () => {
 
     await page.reload();
     await page.getByTestId("waterfall-menu").click();
-    const selectedOmitInactiveBuildsItem = page.getByRole("menuitem", {
-      name: "Omit inactive builds: on",
-    });
     await expect(indicator).toHaveAttribute("data-selected", "true");
 
-    await selectedOmitInactiveBuildsItem.click();
+    await omitInactiveBuildsItem.click();
   });
 
   test("omits inactive build variants when filter is applied and setting is enabled", async ({
@@ -41,7 +38,7 @@ test.describe("Waterfall menu settings", () => {
     await page.getByTestId("waterfall-menu").click();
 
     const omitInactiveBuildsItem = page.getByRole("menuitem", {
-      name: "Omit inactive builds: off",
+      name: "Omit inactive builds",
     });
     await omitInactiveBuildsItem.click();
     await page.locator("body").click();
@@ -54,9 +51,7 @@ test.describe("Waterfall menu settings", () => {
     expect(count).toBeGreaterThanOrEqual(1);
 
     await page.getByTestId("waterfall-menu").click();
-    await page
-      .getByRole("menuitem", { name: "Omit inactive builds: on" })
-      .click();
+    await omitInactiveBuildsItem.click();
   });
 });
 
