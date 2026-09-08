@@ -112,7 +112,7 @@ const repoForm: PluginsFormState = {
     useBuildBaron: false,
     fileTicketWebhook: {
       endpoint: "endpoint",
-      secret: "{REDACTED}",
+      secret: "secret",
     },
   },
   externalLinks: [
@@ -139,7 +139,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     taskAnnotationSettings: {
       fileTicketWebhook: {
         endpoint: "endpoint",
-        secret: "{REDACTED}",
+        secret: "secret",
       },
     },
     externalLinks: [

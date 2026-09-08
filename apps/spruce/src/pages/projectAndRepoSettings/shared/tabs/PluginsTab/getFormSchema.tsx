@@ -249,14 +249,9 @@ export const getFormSchema = (
         endpoint: placeholderIf(
           repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
         ),
-        secret: {
-          ...(repoData?.buildBaronSettings?.fileTicketWebhook?.secret && {
-            "ui:placeholder": "Secret configured (default from repo)",
-          }),
-          "ui:description":
-            "Stored secrets are never shown. Enter a value to set or replace the secret.",
-          "ui:inputType": "password",
-        },
+        secret: placeholderIf(
+          repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
+        ),
       },
     },
     externalLinks: {

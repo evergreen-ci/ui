@@ -2,29 +2,24 @@ import { getFormSchema } from "./getFormSchema";
 import { PluginsFormState } from "./types";
 
 describe("getFormSchema", () => {
-  it("renders the webhook secret as a write-only password", () => {
+  it("renders the webhook secret as a normal text input", () => {
     const { uiSchema } = getFormSchema(false);
     const secretField = uiSchema?.buildBaronSettings.fileTicketWebhook.secret;
 
-    expect(secretField).toMatchObject({
-      "ui:description":
-        "Stored secrets are never shown. Enter a value to set or replace the secret.",
-      "ui:inputType": "password",
-    });
+    expect(secretField).toBeUndefined();
   });
 
-  it("does not expose an inherited secret in the placeholder", () => {
+  it("shows an inherited secret in the placeholder", () => {
     const repoData = {
       buildBaronSettings: {
-        fileTicketWebhook: { secret: "sensitive-value" },
+        fileTicketWebhook: { secret: "inherited-secret" },
       },
     } as PluginsFormState;
     const { uiSchema } = getFormSchema(false, undefined, repoData);
     const secretField = uiSchema?.buildBaronSettings.fileTicketWebhook.secret;
 
     expect(secretField?.["ui:placeholder"]).toBe(
-      "Secret configured (default from repo)",
+      "inherited-secret (Default from repo)",
     );
-    expect(JSON.stringify(secretField)).not.toContain("sensitive-value");
   });
 });
