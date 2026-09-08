@@ -256,6 +256,7 @@ export const getFormSchema = (
           "ui:description":
             "Stored secrets are never shown. Enter a value to set or replace the secret.",
           "ui:inputType": "password",
+          "ui:selectOnFocus": true,
         },
       },
     },

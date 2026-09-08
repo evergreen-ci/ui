@@ -46,6 +46,7 @@ export const LeafyGreenTextInput: React.FC<
     elementWrapperCSS,
     inputType,
     optional,
+    selectOnFocus,
     warnings,
   } = options;
 
@@ -72,6 +73,9 @@ export const LeafyGreenTextInput: React.FC<
         onChange={({ target }) =>
           target.value === "" ? onChange(emptyValue) : onChange(target.value)
         }
+        onFocus={({ currentTarget }) => {
+          if (selectOnFocus) currentTarget.select();
+        }}
         optional={optional}
         placeholder={placeholder || undefined}
         type={inputType}
