@@ -277,7 +277,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     taskAnnotationSettings: {
       fileTicketWebhook: {
         endpoint: "endpoint",
-        secret: "secret",
+        secret: "{REDACTED}",
       },
     },
     patchTriggerAliases: [
