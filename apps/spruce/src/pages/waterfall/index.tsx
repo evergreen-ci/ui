@@ -1,5 +1,4 @@
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { useApolloClient } from "@apollo/client/react";
+import { Suspense, useCallback, useRef, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
@@ -12,7 +11,6 @@ import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { slugs } from "constants/routes";
-import { evictWaterfallCache } from "./caching/utils";
 import { waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
@@ -29,7 +27,6 @@ const Waterfall: React.FC = () => {
   );
 
   const { sendEvent } = useWaterfallAnalytics();
-  const { cache } = useApolloClient();
 
   const [pagination, setPagination] = useState<Pagination>();
 
@@ -42,8 +39,6 @@ const Waterfall: React.FC = () => {
     () => guideCueRef.current?.restart(),
     [],
   );
-
-  useEffect(() => () => evictWaterfallCache(cache), [cache]);
 
   return (
     <>

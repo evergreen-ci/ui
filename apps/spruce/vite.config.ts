@@ -35,6 +35,7 @@ const getProjectConfig = () => {
     },
     server: serverConfig,
     build: {
+      cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"],
       sourcemap: true,
     },
     resolve: {

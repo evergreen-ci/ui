@@ -2520,6 +2520,7 @@ export type Patch = {
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
   aliases: Array<Scalars["String"]["output"]>;
+  buildVariants: Array<Scalars["String"]["output"]>;
   childPatchAliases: Array<ChildPatchAlias>;
   childPatches: Array<Patch>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
@@ -2541,7 +2542,6 @@ export type Patch = {
   status: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
   user: User;
-  variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
 };

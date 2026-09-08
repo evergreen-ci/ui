@@ -1,6 +1,6 @@
-import createGlyph from "../createGlyph";
+import { createGlyphComponent } from "@via-ds/icons";
 
-export const PrideLogo = createGlyph(
+export const PrideLogo = createGlyphComponent(
   "PrideLogo",
   "0 0 359 445",
   <g id="1">

@@ -78,6 +78,7 @@ export const TASK = gql`
       distroId
       errors
       estimatedStart
+      executionPlatform
       executionTasksFull {
         ...BaseTask
         id
