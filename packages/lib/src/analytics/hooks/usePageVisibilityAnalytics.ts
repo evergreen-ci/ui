@@ -58,10 +58,11 @@ export const usePageVisibilityAnalytics = ({
   routeConfig,
 }: PageVisibilityAnalyticsOptions = {}) => {
   // Memoize attributes to prevent sendEvent recreation on every render
+  const attributesKey = JSON.stringify(attributes);
   const stableAttributes = useMemo(
     () => attributes,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [JSON.stringify(attributes)],
+    [attributesKey],
   );
 
   const { sendEvent } = useAnalyticsRoot<Action, string>(
@@ -78,6 +79,7 @@ export const usePageVisibilityAnalytics = ({
   const sessionStarted = useRef(false);
   const sessionEnded = useRef(false);
 
+  // TODO DEVPROD-42206: convert event handlers to useEffectEvent once on React 19.
   useEffect(() => {
     if (!enabled) return;
 
