@@ -1,6 +1,3 @@
-import "@evg-ui/lib/components/styles/global.css";
-import "components/styles/global.css";
-
 import * as React from "react";
 import {
   Outlet,
@@ -16,6 +13,7 @@ import LoginPage from "@evg-ui/lib/pages/LoginPage";
 import { FileDiff } from "components/CodeChanges/FileDiff";
 import { PatchDiff } from "components/CodeChanges/PatchDiff";
 import { Content } from "components/Content";
+import "components/styles/global.css";
 import { observabilityRouteConfig, routes } from "constants/routes";
 import ContextProviders from "context/Providers";
 import { HTMLLog } from "pages/task/logs/HTMLLog";
