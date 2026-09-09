@@ -26,12 +26,12 @@ export const useHTMLStream = ({
   const { hash } = useLocation();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
-  const batchRef = useRef(performance.now());
+  const batchRef = useRef<number | null>(null);
 
   // Determine whether batchTime has passed since the last animation frame render
   const shouldPaint = () => {
     const now = performance.now();
-    if (now - batchRef.current > BATCH_TIME_MS) {
+    if (batchRef.current === null || now - batchRef.current > BATCH_TIME_MS) {
       batchRef.current = now;
       return true;
     }

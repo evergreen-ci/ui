@@ -1,6 +1,6 @@
-import createGlyph from "../createGlyph";
+import { createGlyphComponent } from "@via-ds/icons";
 
-export const WinterLogo = createGlyph(
+export const WinterLogo = createGlyphComponent(
   "WinterLogo",
   "0 0 40 39",
   <>
