@@ -58,6 +58,20 @@ const getProjectConfig = () => {
       extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
     },
     plugins: [
+      // Rewrite @evg-ui/lib paths in CSS @import before the CSS processor runs.
+      {
+        name: "resolve-css-package-imports",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.endsWith(".css") && code.includes("@evg-ui/lib/")) {
+            const libSrcPath = path.resolve(
+              import.meta.dirname,
+              "../../packages/lib/src",
+            );
+            return code.replaceAll("@evg-ui/lib/", `${libSrcPath}/`);
+          }
+        },
+      },
       react({
         // exclude storybook stories
         exclude: [/\.stories\.tsx?$/],

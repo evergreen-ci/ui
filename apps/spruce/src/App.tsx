@@ -1,6 +1,3 @@
-import "@evg-ui/lib/components/styles/global.css";
-import "components/styles/global.css";
-
 import * as React from "react";
 import {
   Outlet,
@@ -25,6 +22,8 @@ import {
   getSpruceURL,
   isLocal,
 } from "utils/environmentVariables";
+
+import "components/styles/global.css";
 
 const AppContents: React.FC = () => {
   const { pathname } = useLocation();
