@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client/react";
 import { Button } from "@leafygreen-ui/button";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
-import { Callout } from "@via-ds/components";
+import { Callout, CalloutVariant } from "@via-ds/components";
 import { useVersionAnalytics } from "analytics";
 import { getVersionDiffRoute } from "constants/routes";
 import {
@@ -81,8 +81,12 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
         return (
           <div key={branchName}>
             {disableDiffLinks && (
-              <Callout>
-                {`Diff links are disabled since diffs cannot be displayed ${isMergeQueuePatch ? "for merge queue patches" : "if more than 300 files were modified"}.`}
+              <Callout variant={CalloutVariant.Important}>
+                Diff links are disabled since diffs cannot be displayed{" "}
+                {isMergeQueuePatch
+                  ? "for merge queue patches"
+                  : "if more than 300 files were modified"}
+                .
               </Callout>
             )}
             <div className={styles.titleContainer}>
