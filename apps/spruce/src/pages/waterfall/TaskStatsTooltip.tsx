@@ -76,47 +76,49 @@ export const TaskStatsTooltip: React.FC<
           <Icon glyph="Chart" />
         </Button>
       </div>
-      <Popover data-testid="task-stats-tooltip">
-        <PopoverFrameWithArrow className={styles.popover}>
-          {isLoading ? (
-            <Skeleton isLoading>
-              <Text>Loading task stats</Text>
-            </Skeleton>
-          ) : (
-            <table>
-              <tbody>
-                {data?.version?.taskStatusStats?.counts?.map(
-                  ({ count, status }) => (
-                    <tr key={`task_stats_row_${status}`}>
-                      <td className={`${styles.cell} ${styles.count}`}>
-                        {count}
-                      </td>
-                      <td className={styles.cell}>
-                        <TaskBox status={status as TaskStatus} />
-                      </td>
-                      <td className={styles.cell}>
-                        {taskStatusToCopy[status as TaskStatus]}
-                      </td>
-                    </tr>
-                  ),
-                )}
-                <tr>
-                  <td className={styles.cell} colSpan={3}>
-                    <Divider />
-                  </td>
-                </tr>
-                <tr>
-                  <td className={`${styles.cell} ${styles.count}`}>
-                    {totalTaskCount}
-                  </td>
-                  <td className={styles.cell} colSpan={2}>
-                    Total tasks
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          )}
-        </PopoverFrameWithArrow>
+      <Popover>
+        <div data-testid="task-stats-tooltip">
+          <PopoverFrameWithArrow className={styles.popover}>
+            {isLoading ? (
+              <Skeleton isLoading>
+                <Text>Loading task stats</Text>
+              </Skeleton>
+            ) : (
+              <table>
+                <tbody>
+                  {data?.version?.taskStatusStats?.counts?.map(
+                    ({ count, status }) => (
+                      <tr key={`task_stats_row_${status}`}>
+                        <td className={`${styles.cell} ${styles.count}`}>
+                          {count}
+                        </td>
+                        <td className={styles.cell}>
+                          <TaskBox status={status as TaskStatus} />
+                        </td>
+                        <td className={styles.cell}>
+                          {taskStatusToCopy[status as TaskStatus]}
+                        </td>
+                      </tr>
+                    ),
+                  )}
+                  <tr>
+                    <td className={styles.cell} colSpan={3}>
+                      <Divider />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={`${styles.cell} ${styles.count}`}>
+                      {totalTaskCount}
+                    </td>
+                    <td className={styles.cell} colSpan={2}>
+                      Total tasks
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            )}
+          </PopoverFrameWithArrow>
+        </div>
       </Popover>
     </PopoverRoot>
   );
