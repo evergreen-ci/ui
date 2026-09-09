@@ -132,7 +132,7 @@ describe("bounded waterfall cache", () => {
     expect(cache.evict).toHaveBeenCalledWith({
       broadcast: false,
       fieldName: "waterfallBuilds",
-      id: "VersionLite:version-20",
+      id: "Version:version-20",
     });
     await new Promise<void>((resolve) => queueMicrotask(resolve));
     expect(cache.gc).toHaveBeenCalledWith({ resetResultCache: true });
