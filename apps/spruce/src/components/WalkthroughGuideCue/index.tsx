@@ -115,6 +115,7 @@ export const WalkthroughGuideCue = forwardRef<
   return (
     <>
       <GuideCue
+        key={currentStepIdx}
         beaconAlign={currentStep.beaconAlign ?? BeaconAlign.CenterHorizontal}
         buttonText={
           currentStepIdx + 1 === walkthroughSteps.length

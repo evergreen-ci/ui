@@ -19,7 +19,9 @@ export const OmitInactiveBuilds: React.FC<OmitInactiveBuildsProps> = ({
     >
       {omitInactiveBuilds && <Icon glyph="Checkmark" size="small" />}
     </span>
-    <Text slot="label">Omit inactive builds</Text>
+    <Text slot="label">
+      Omit inactive builds: {omitInactiveBuilds ? "on" : "off"}
+    </Text>
     <Text slot="description">
       When filtering, omit build variants with 0 activated tasks.
     </Text>

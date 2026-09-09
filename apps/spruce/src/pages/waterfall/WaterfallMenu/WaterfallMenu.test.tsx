@@ -65,8 +65,11 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: off")).toBeVisible();
     });
+    expect(
+      screen.getByRole("menuitem", { name: "Omit inactive builds: off" }),
+    ).toBeVisible();
   });
 
   it("calls setOmitInactiveBuilds and updates localStorage when checkbox is toggled on", async () => {
@@ -79,10 +82,10 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: off")).toBeVisible();
     });
 
-    await user.click(screen.getByText("Omit inactive builds"));
+    await user.click(screen.getByText("Omit inactive builds: off"));
 
     expect(setOmitInactiveBuilds).toHaveBeenCalledWith(true);
     expect(localStorageSpy).toHaveBeenCalledWith(
@@ -103,10 +106,10 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: on")).toBeVisible();
     });
 
-    await user.click(screen.getByText("Omit inactive builds"));
+    await user.click(screen.getByText("Omit inactive builds: on"));
 
     expect(setOmitInactiveBuilds).toHaveBeenCalledWith(false);
     expect(localStorageSpy).toHaveBeenCalledWith(

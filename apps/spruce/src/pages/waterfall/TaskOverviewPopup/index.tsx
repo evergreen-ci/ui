@@ -81,7 +81,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
       side={isRightmostBuild ? "left" : "right"}
       triggerType="dialog"
     >
-      <Popover>
+      <Popover aria-label="Task overview" role="dialog">
         <MetadataCard
           className={styles.popoverCard}
           data-testid="task-overview-popup"

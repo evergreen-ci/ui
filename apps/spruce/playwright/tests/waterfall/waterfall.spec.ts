@@ -134,7 +134,7 @@ test.describe("waterfall page", () => {
       await expect(buildVariantLinks.nth(0)).toHaveText("Ubuntu 16.04");
       await page.reload();
       await expect(buildVariantLinks.nth(0)).toHaveText("Ubuntu 16.04");
-      await page.getByTestId("pin-button").nth(1).click();
+      await page.getByTestId("pin-button").nth(0).click();
       await expect(buildVariantLinks.nth(0)).toHaveText("Lint");
     });
   });

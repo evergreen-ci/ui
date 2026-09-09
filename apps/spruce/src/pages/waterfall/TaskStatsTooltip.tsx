@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import {
   Button,
   Popover,
+  PopoverFrameWithArrow,
   PopoverRoot,
   Skeleton,
   Text,
@@ -27,6 +28,7 @@ export const TaskStatsTooltip: React.FC<
   }
 > = ({ id, isFirstVersion }) => {
   const [open, setOpen] = useState(false);
+  const arrowRef = useRef<SVGSVGElement>(null);
 
   const { data, loading } = useQuery<
     WaterfallTaskStatsQuery,
@@ -56,6 +58,8 @@ export const TaskStatsTooltip: React.FC<
   return (
     <PopoverRoot
       align="end"
+      arrowRef={arrowRef}
+      isNonModal
       isOpen={open}
       onOpenChange={setOpen}
       side="right"
@@ -73,7 +77,10 @@ export const TaskStatsTooltip: React.FC<
         </Button>
       </div>
       <Popover>
-        <div className={styles.popover} data-testid="task-stats-tooltip">
+        <PopoverFrameWithArrow
+          className={styles.popover}
+          data-testid="task-stats-tooltip"
+        >
           {isLoading ? (
             <Skeleton isLoading>
               <Text>Loading task stats</Text>
@@ -112,7 +119,7 @@ export const TaskStatsTooltip: React.FC<
               </tbody>
             </table>
           )}
-        </div>
+        </PopoverFrameWithArrow>
       </Popover>
     </PopoverRoot>
   );
