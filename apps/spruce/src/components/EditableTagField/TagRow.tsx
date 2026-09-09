@@ -68,37 +68,33 @@ export const TagRow: React.FC<TagRowProps> = ({
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 ((isNewTag || key !== tag.key) && !isValidKey(key))
               }
+              onClick={() => {
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                dispatch({
+                  type: isNewTag ? "cancelNewTag" : "inActive",
+                });
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                onUpdateTag(
+                  { key, value },
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  !isNewTag && key !== tag.key ? tag.key : undefined,
+                );
+              }}
             >
-              <Checkmark
-                data-testid="user-tag-edit-icon"
-                onClick={() => {
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  dispatch({
-                    type: isNewTag ? "cancelNewTag" : "inActive",
-                  });
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  onUpdateTag(
-                    { key, value },
-                    // @ts-expect-error: FIXME. This comment was added by an automated script.
-                    !isNewTag && key !== tag.key ? tag.key : undefined,
-                  );
-                }}
-                size="medium"
-              />
+              <Checkmark data-testid="user-tag-edit-icon" size="medium" />
             </IconButton>
           ) : (
-            <IconButton aria-label="Delete Tag">
-              <Trash
-                data-testid="user-tag-trash-icon"
-                onClick={
-                  isNewTag
-                    ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      () => dispatch({ type: "cancelNewTag" })
-                    : // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      () => onDelete(tag.key)
-                }
-                size="medium"
-              />
+            <IconButton
+              aria-label="Delete Tag"
+              onClick={
+                isNewTag
+                  ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+                    () => dispatch({ type: "cancelNewTag" })
+                  : // @ts-expect-error: FIXME. This comment was added by an automated script.
+                    () => onDelete(tag.key)
+              }
+            >
+              <Trash data-testid="user-tag-trash-icon" size="medium" />
             </IconButton>
           )}
         </div>

@@ -63,7 +63,8 @@ describe("editableTagField", () => {
     );
 
     expect(screen.queryAllByTestId("user-tag-edit-icon")[0]).toBeVisible();
-    await user.click(screen.queryAllByTestId("user-tag-edit-icon")[0]);
+    screen.getByRole("button", { name: "Update tag" }).focus();
+    await user.keyboard("{Enter}");
 
     expect(updateData).toHaveBeenCalledWith([
       { key: "keyA", value: "new value" },
@@ -93,7 +94,8 @@ describe("editableTagField", () => {
     expect(data).toStrictEqual(defaultData);
     expect(screen.queryAllByTestId("user-tag-trash-icon")[0]).toBeVisible();
 
-    await user.click(screen.queryAllByTestId("user-tag-trash-icon")[0]);
+    screen.getAllByRole("button", { name: "Delete Tag" })[0].focus();
+    await user.keyboard("{Enter}");
 
     expect(updateData).toHaveBeenCalledWith([...defaultData.slice(1, 3)]);
     expect(data).toStrictEqual([...defaultData.slice(1, 3)]);

@@ -35,7 +35,7 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
             aria-label="Dismiss chip"
             onClick={() => onDismiss?.(chip)}
           >
-            <X onClick={() => onDismiss?.(chip)} size="medium" />
+            <X size="medium" />
           </IconButton>
         )}
       </SingleChip>
