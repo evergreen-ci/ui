@@ -1,0 +1,16 @@
+.skeletonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-100);
+  min-width: 240px;
+}
+
+.skeletonLabel {
+  width: 48px;
+}
+
+.skeletonControl {
+  display: block;
+  line-height: 32px;
+  width: 100%;
+}

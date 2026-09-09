@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { Body, Skeleton } from "@via-ds/components";
+import { Skeleton, Text } from "@via-ds/components";
 import { useNavigate } from "react-router-dom";
 import { Unpacked } from "@evg-ui/lib/types/utils";
+import { cx } from "@evg-ui/lib/utils/css";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
   ProjectsQuery,
@@ -11,6 +12,7 @@ import {
   ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
+import styles from "./index.module.css";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 interface ProjectSelectProps {
@@ -93,9 +95,12 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
 
   if (allProjects.length === 0 || loading) {
     return (
-      <Skeleton isLoading>
-        <Body>Loading projects</Body>
-      </Skeleton>
+      <div className={cx(styles.skeletonContainer, className)}>
+        <Skeleton isLoading>
+          {showLabel && <Text className={styles.skeletonLabel}>Project</Text>}
+          <Text className={styles.skeletonControl}>Select a project</Text>
+        </Skeleton>
+      </div>
     );
   }
 
