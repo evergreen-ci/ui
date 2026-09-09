@@ -55,7 +55,7 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
     }
   };
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Prevent favorite changes from selecting the project.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Prevent selecting the project.
     <div onClick={(e) => e.stopPropagation()}>
       <Button
         aria-label="Add To Favorites"
