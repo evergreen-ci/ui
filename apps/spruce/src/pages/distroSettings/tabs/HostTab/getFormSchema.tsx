@@ -4,6 +4,7 @@ import { nonWindowsArchitectures, windowsArchitectures } from "./constants";
 import {
   allocation as allocationProperties,
   bootstrap as bootstrapProperties,
+  containerIsolation as containerIsolationProperties,
   icecreamConfigPath,
   icecreamSchedulerHost,
   isVirtualWorkStation,
@@ -103,6 +104,7 @@ export const getFormSchema = ({
                   },
                 },
                 sshConfig,
+                containerIsolation,
                 allocation,
               },
             },
@@ -117,6 +119,7 @@ export const getFormSchema = ({
                 },
                 bootstrapSettings,
                 sshConfig,
+                containerIsolation,
                 allocation,
               },
             },
@@ -132,6 +135,7 @@ export const getFormSchema = ({
       ),
       bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
+      containerIsolation: containerIsolationProperties.uiSchema(architecture),
       allocation: allocationProperties.uiSchema(
         hasEC2Provider,
         hasStaticProvider,
@@ -150,6 +154,12 @@ const sshConfig = {
   type: "object" as const,
   title: "User and SSH Configuration",
   properties: sshConfigProperties.schema,
+};
+
+const containerIsolation = {
+  type: "object" as const,
+  title: "Container Isolation",
+  properties: containerIsolationProperties.schema,
 };
 
 const allocation = {

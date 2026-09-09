@@ -1,9 +1,16 @@
 import { Children } from "react";
-import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { BaseFontSize } from "@leafygreen-ui/tokens";
-import { Body, BodyProps, Overline } from "@leafygreen-ui/typography";
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import {
+  Align,
+  Body,
+  H5,
+  H6,
+  InfoSprinkle,
+  Label,
+  LabeledValue,
+  Link,
+  Skeleton,
+  TextAliasProps,
+} from "@via-ds/components";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { cx } from "@evg-ui/lib/utils/css";
 import { ErrorWrapper } from "components/ErrorWrapper";
@@ -21,10 +28,10 @@ export const MetadataTitleWithAPILink: React.FC<MetadataTitleWithLinkProps> = ({
   title,
 }) => (
   <div className={styles.titleWrapper}>
-    <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
-    <StyledLink className={styles.apiLink} hideExternalIcon={false} href={href}>
+    <MetadataCardTitle>{title}</MetadataCardTitle>
+    <Link className={styles.apiLink} href={href}>
       Open in API
-    </StyledLink>
+    </Link>
   </div>
 );
 
@@ -47,14 +54,22 @@ const MetadataCard: React.FC<Props> = ({
     {title && (
       <>
         {typeof title === "string" ? (
-          <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
+          <MetadataCardTitle>{title}</MetadataCardTitle>
         ) : (
           title
         )}
         <Divider />
       </>
     )}
-    {loading && !error && <ListSkeleton />}
+    {loading && !error && (
+      <Skeleton isLoading>
+        <div className={styles.itemsContainer}>
+          <Body>Loading metadata</Body>
+          <Body>Loading metadata</Body>
+          <Body>Loading metadata</Body>
+        </div>
+      </Skeleton>
+    )}
     {error && !loading && (
       <ErrorWrapper data-testid="metadata-card-error">
         {error.message}
@@ -67,38 +82,49 @@ const MetadataCard: React.FC<Props> = ({
 );
 
 interface ItemProps {
-  as?: BodyProps["as"];
   children: React.ReactNode;
   "data-testid"?: string;
+  elementType?: "p" | "div";
   label?: string;
   labelColor?: string;
   tooltipDescription?: string;
 }
 
 export const MetadataItem: React.FC<ItemProps> = ({
-  as = "p",
   children,
   "data-testid": dataTestId,
+  elementType = "p",
   label,
   labelColor,
   tooltipDescription,
 }) => (
-  <span className={styles.itemWrapper}>
+  <div className={styles.itemWrapper}>
     {label ? (
-      <Body as={as} className={styles.item} data-testid={dataTestId}>
-        <MetadataLabel color={labelColor}>{label}:</MetadataLabel> {children}
-      </Body>
+      <LabeledValue
+        className={styles.item}
+        data-testid={dataTestId}
+        orientation="horizontal"
+      >
+        <Label style={labelColor ? { color: labelColor } : undefined}>
+          {label}:
+        </Label>
+        <Body elementType={elementType === "div" ? "div" : "span"}>
+          {children}
+        </Body>
+      </LabeledValue>
     ) : (
-      <Body as={as} className={styles.item} data-testid={dataTestId}>
+      <Body
+        className={styles.item}
+        data-testid={dataTestId}
+        elementType={elementType}
+      >
         {children}
       </Body>
     )}
     {tooltipDescription && (
-      <InfoSprinkle align="right" baseFontSize={BaseFontSize.Body1}>
-        {tooltipDescription}
-      </InfoSprinkle>
+      <InfoSprinkle align={Align.End}>{tooltipDescription}</InfoSprinkle>
     )}
-  </span>
+  </div>
 );
 
 interface MetadataSectionProps {
@@ -115,7 +141,7 @@ export const MetadataSection: React.FC<MetadataSectionProps> = ({
     <div>
       {title && (
         <>
-          <Overline className={styles.header}>{title}</Overline>
+          <H6 className={styles.header}>{title}</H6>
           <Divider margin={`${size.xxs} 0`} />
         </>
       )}
@@ -128,12 +154,12 @@ export const MetadataLabel: React.FC<{
   children?: React.ReactNode;
   color?: string;
 }> = ({ children, color }) => (
-  <b style={color ? { color } : undefined}>{children}</b>
+  <strong style={color ? { color } : undefined}>{children}</strong>
 );
 
-export const MetadataCardTitle: React.FC<BodyProps> = ({
+export const MetadataCardTitle: React.FC<TextAliasProps> = ({
   className,
   ...rest
-}) => <Body className={cx(styles.cardTitle, className)} {...rest} />;
+}) => <H5 className={cx(styles.cardTitle, className)} {...rest} />;
 
 export default MetadataCard;

@@ -4,35 +4,24 @@
   justify-content: space-between;
 }
 
-/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
-   Remove when these components migrate to Via. */
-.apiLink.apiLink {
+.apiLink {
   font-size: 12px;
 }
 
-.header.header {
+.header {
   color: var(--via-color-neutral-500);
 }
 
-.cardTitle.cardTitle {
+.cardTitle {
   font-size: 15px;
 }
 
-.item.item {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
-  word-break: normal;
+.item {
   overflow-wrap: anywhere;
+  hyphens: auto;
   font-size: 12px;
   line-height: 14px;
   width: fit-content;
-}
-
-/* TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18183
-   Override LG's fixed line height */
-.item.item a {
-  line-height: 14px;
 }
 
 .itemsContainer {

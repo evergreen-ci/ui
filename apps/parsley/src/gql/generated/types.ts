@@ -2519,11 +2519,10 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
-  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
-  childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
-  childPatches?: Maybe<Array<Patch>>;
-  /** Aggregated actual cost for the patch's version, when cost data exists. */
-  cost?: Maybe<Cost>;
+  aliases: Array<Scalars["String"]["output"]>;
+  buildVariants: Array<Scalars["String"]["output"]>;
+  childPatchAliases: Array<ChildPatchAlias>;
+  childPatches: Array<Patch>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
@@ -2538,16 +2537,11 @@ export type Patch = {
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
-  /** Aggregated predicted cost for the patch's version. */
-  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
-  taskCount?: Maybe<Scalars["Int"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
-  time?: Maybe<PatchTime>;
   user: User;
-  variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
 };
@@ -5250,6 +5244,7 @@ export type BaseTaskFragment = {
   displayName: string;
   displayStatus: string;
   execution: number;
+  executionPlatform: ExecutionPlatform;
   patchNumber?: number | null;
   versionMetadata: {
     __typename?: "VersionLite";
@@ -5278,6 +5273,7 @@ export type TaskQuery = {
     displayName: string;
     displayStatus: string;
     execution: number;
+    executionPlatform: ExecutionPlatform;
     patchNumber?: number | null;
     details?: {
       __typename?: "TaskEndDetail";

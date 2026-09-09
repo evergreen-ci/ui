@@ -1,7 +1,6 @@
-import { Badge, Variant } from "@leafygreen-ui/badge";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
 import { taskStatusToCopy } from "../../../constants/task";
 import { TaskStatus, TaskStatusUmbrella } from "../../../types/task";
-import { cx } from "../../../utils/css";
 import styles from "./index.module.css";
 
 interface TaskStatusBadgeProps {
@@ -23,7 +22,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   return (
     <Badge
       key={status}
-      className={cx(styles.badge, customBadgeColorClass(status))}
+      className={styles.badge}
       data-testid="task-status-badge"
       variant={mapTaskStatusToBadgeVariant[status]}
     >
@@ -32,35 +31,26 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   );
 };
 
-const mapTaskStatusToBadgeVariant: Record<string, Variant> = {
-  [TaskStatus.Inactive]: Variant.LightGray,
-  [TaskStatus.Unstarted]: Variant.LightGray,
-  [TaskStatus.Undispatched]: Variant.LightGray,
-  [TaskStatus.Blocked]: Variant.LightGray,
-  [TaskStatus.Pending]: Variant.LightGray,
-  [TaskStatus.Unscheduled]: Variant.LightGray,
-  [TaskStatus.Aborted]: Variant.LightGray,
-  [TaskStatus.Started]: Variant.Yellow,
-  [TaskStatus.Dispatched]: Variant.Yellow,
-  [TaskStatus.Failed]: Variant.Red,
-  [TaskStatus.TestTimedOut]: Variant.Red,
-  [TaskStatus.TaskTimedOut]: Variant.Red,
-  [TaskStatus.Succeeded]: Variant.Green,
-  [TaskStatus.WillRun]: Variant.DarkGray,
-  [TaskStatus.SetupFailed]: Variant.Blue,
-};
-// only use for statuses whose color is not supported by leafygreen badge variants
-const customBadgeColorClass = (status: string) => {
-  switch (status) {
-    case TaskStatus.SystemFailed:
-    case TaskStatus.SystemUnresponsive:
-    case TaskStatus.SystemTimedOut:
-      return styles.systemFailed;
-    case TaskStatus.KnownIssue:
-      return styles.knownIssue;
-    default:
-      return undefined;
-  }
+const mapTaskStatusToBadgeVariant: Record<string, BadgeVariant> = {
+  [TaskStatus.Inactive]: BadgeVariant.Status,
+  [TaskStatus.Unstarted]: BadgeVariant.Status,
+  [TaskStatus.Undispatched]: BadgeVariant.Status,
+  [TaskStatus.Blocked]: BadgeVariant.Status,
+  [TaskStatus.Pending]: BadgeVariant.Status,
+  [TaskStatus.Unscheduled]: BadgeVariant.Status,
+  [TaskStatus.Aborted]: BadgeVariant.Status,
+  [TaskStatus.Started]: BadgeVariant.Warning,
+  [TaskStatus.Dispatched]: BadgeVariant.Warning,
+  [TaskStatus.Failed]: BadgeVariant.Error,
+  [TaskStatus.TestTimedOut]: BadgeVariant.Error,
+  [TaskStatus.TaskTimedOut]: BadgeVariant.Error,
+  [TaskStatus.SystemFailed]: BadgeVariant.Error,
+  [TaskStatus.SystemUnresponsive]: BadgeVariant.Error,
+  [TaskStatus.SystemTimedOut]: BadgeVariant.Error,
+  [TaskStatus.KnownIssue]: BadgeVariant.Error,
+  [TaskStatus.Succeeded]: BadgeVariant.Success,
+  [TaskStatus.WillRun]: BadgeVariant.Status,
+  [TaskStatus.SetupFailed]: BadgeVariant.Info,
 };
 
 export default TaskStatusBadge;

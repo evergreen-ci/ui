@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Body } from "@via-ds/components";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { HostEventLogData, HostEventType } from "gql/generated/types";
+import styles from "./HostEventString.stories.module.css";
 import HostEventString from ".";
 
 export default {
@@ -13,11 +12,11 @@ export const Default: CustomStoryObj<typeof HostEventString> = {
   render: () => (
     <>
       {Object.values(HostEventType).map((eventType) => (
-        <div key={eventType.toString()}>
+        <div key={eventType.toString()} className={styles.eventRow}>
           <Body>{eventType}</Body>
-          <EventContainer>
+          <div className={styles.eventContainer}>
             <HostEventString data={data} eventType={eventType} />
-          </EventContainer>
+          </div>
         </div>
       ))}
     </>
@@ -26,10 +25,6 @@ export const Default: CustomStoryObj<typeof HostEventString> = {
   args: {},
 };
 
-const EventContainer = styled.div`
-  margin-bottom: ${size.m};
-  border: 1px solid green;
-`;
 const data: HostEventLogData = {
   successful: true,
   logs: "This is a log message",

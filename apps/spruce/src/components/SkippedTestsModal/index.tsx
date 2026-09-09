@@ -77,6 +77,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
         />
         <Button
           data-testid="skipped-tests-download"
+          disabled={loading}
           leftGlyph={<Icon glyph="Download" />}
           onClick={onClickDownload}
           size="small"

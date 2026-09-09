@@ -2516,11 +2516,10 @@ export type Patch = {
   __typename?: "Patch";
   activated: Scalars["Boolean"]["output"];
   alias?: Maybe<Scalars["String"]["output"]>;
-  aliases?: Maybe<Array<Scalars["String"]["output"]>>;
-  childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
-  childPatches?: Maybe<Array<Patch>>;
-  /** Aggregated actual cost for the patch's version, when cost data exists. */
-  cost?: Maybe<Cost>;
+  aliases: Array<Scalars["String"]["output"]>;
+  buildVariants: Array<Scalars["String"]["output"]>;
+  childPatchAliases: Array<ChildPatchAlias>;
+  childPatches: Array<Patch>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
@@ -2535,16 +2534,11 @@ export type Patch = {
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
   patchTriggerAliases: Array<PatchTriggerAlias>;
-  /** Aggregated predicted cost for the patch's version. */
-  predictedCost?: Maybe<Cost>;
   project?: Maybe<PatchProject>;
   projectMetadata?: Maybe<Project>;
   status: Scalars["String"]["output"];
-  taskCount?: Maybe<Scalars["Int"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
-  time?: Maybe<PatchTime>;
   user: User;
-  variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   version?: Maybe<VersionLite>;
 };
@@ -8598,6 +8592,14 @@ export type DistroQuery = {
       rootDir: string;
       serviceUser: string;
       shellPath: string;
+      containerIsolation: {
+        __typename?: "ContainerIsolationSettings";
+        cpus: number;
+        enabled: boolean;
+        image: string;
+        memoryMb: number;
+        requireIsolation: boolean;
+      };
       env: Array<{ __typename?: "EnvVar"; key: string; value: string }>;
       preconditionScripts: Array<{
         __typename?: "PreconditionScript";
@@ -9294,12 +9296,12 @@ export type ConfigurePatchQuery = {
     alias?: string | null;
     description: string;
     status: string;
-    childPatchAliases?: Array<{
+    childPatchAliases: Array<{
       __typename?: "ChildPatchAlias";
       alias: string;
       patchId: string;
-    }> | null;
-    childPatches?: Array<{
+    }>;
+    childPatches: Array<{
       __typename?: "Patch";
       id: string;
       projectMetadata?: {
@@ -9312,7 +9314,7 @@ export type ConfigurePatchQuery = {
         name: string;
         tasks: Array<string>;
       }>;
-    }> | null;
+    }>;
     githubPatchData?: {
       __typename?: "GithubPatch";
       prNumber?: number | null;
@@ -11156,6 +11158,50 @@ export type TaskAllExecutionsQuery = {
   }>;
 };
 
+export type TaskConfigQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskConfigQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    config?: {
+      __typename?: "TaskConfig";
+      activate?: boolean | null;
+      allowedBranches?: Array<string> | null;
+      allowedRequesters?: Array<string> | null;
+      allowForGitTag?: boolean | null;
+      batchTime?: number | null;
+      cronBatchTime?: string | null;
+      disable?: boolean | null;
+      execTimeoutSecs?: number | null;
+      gitTagOnly?: boolean | null;
+      groupName?: string | null;
+      isGroup?: boolean | null;
+      isPartOfGroup?: boolean | null;
+      name: string;
+      patchable?: boolean | null;
+      patchOnly?: boolean | null;
+      priority?: number | null;
+      ps?: string | null;
+      runOn?: Array<string> | null;
+      stepback?: boolean | null;
+      dependsOn?: Array<{
+        __typename?: "TaskUnitDependency";
+        name: string;
+        omitGeneratedTasks?: boolean | null;
+        patchOptional?: boolean | null;
+        status?: string | null;
+        variant?: string | null;
+      }> | null;
+    } | null;
+  } | null;
+};
+
 export type TaskEventLogsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -11593,6 +11639,7 @@ export type TaskQuery = {
     distroId: string;
     errors?: Array<string> | null;
     estimatedStart?: number | null;
+    executionPlatform: ExecutionPlatform;
     expectedDuration?: number | null;
     finishTime?: Date | null;
     generatedBy?: string | null;
@@ -12312,6 +12359,7 @@ export type VersionQuery = {
     isPatch: boolean;
     message: string;
     order: number;
+    quarantinedTestsSkippedCount: number;
     repo: string;
     requester: string;
     revision: string;

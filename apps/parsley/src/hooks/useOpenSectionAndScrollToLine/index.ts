@@ -35,6 +35,7 @@ const useOpenSectionAndScrollToLine = (
       if (!hasDiff) {
         const scrollIndex = findLineIndex(processedLogLines, lineNumbers[0]);
         scrollToLine(scrollIndex);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLineNumbers(undefined);
       }
     }
@@ -49,6 +50,7 @@ const useOpenSectionAndScrollToLine = (
     if (lineNumbers !== undefined) {
       const scrollIndex = findLineIndex(processedLogLines, lineNumbers[0]);
       scrollToLine(scrollIndex);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLineNumbers(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

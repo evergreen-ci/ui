@@ -1,12 +1,12 @@
 import { Button, Size } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import Icon, { IconProps } from "@evg-ui/lib/components/Icon";
 import Popconfirm, { Align } from "@evg-ui/lib/components/Popconfirm";
 
 interface AnnotationTicketActionProps {
   confirmMessage: string;
   "data-testid": string;
-  iconGlyph: string;
+  iconGlyph: IconProps["glyph"];
   onConfirm: () => void;
   userCanModify: boolean;
 }
