@@ -1,9 +1,9 @@
 import { palette } from "@leafygreen-ui/palette";
-import createGlyph from "./createGlyph";
+import { createGlyphComponent } from "@via-ds/icons";
 
 const { black } = palette;
 
-export const ArrowWithCircle = createGlyph(
+export const ArrowWithCircle = createGlyphComponent(
   "ArrowWithCircle",
   "0 0 14 14",
   <path

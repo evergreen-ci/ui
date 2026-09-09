@@ -1,5 +1,6 @@
 import { IconContextProvider, isComponentGlyph } from "@via-ds/icons";
 import { render, screen } from "test_utils";
+import { ParsleyLogo } from "./icons";
 import { Icon } from ".";
 
 describe("Icon", () => {
@@ -46,7 +47,7 @@ describe("Icon", () => {
     expect(svg).toHaveAttribute("width", "75");
     expect(svg).toHaveAttribute("height", "75");
     expect(svg).toHaveAttribute("viewBox", "0 -10 359 445");
-    // SMIL animation and custom fills survive createGlyph's content passthrough
+    // SMIL animation and custom fills survive the factory's content passthrough
     expect(svg.querySelector("animate")).not.toBeNull();
     expect(svg.querySelector('[fill="#00A35C"]')).not.toBeNull();
   });
@@ -59,6 +60,29 @@ describe("Icon", () => {
   it("renders a local glyph", () => {
     render(<Icon data-testid="local-glyph" glyph="GitHub" />);
     expect(screen.getByTestId("local-glyph")).toBeInTheDocument();
+  });
+
+  it("preserves custom Parsley logo colors", () => {
+    render(
+      <ParsleyLogo
+        data-testid="parsley-logo"
+        leftFill="#001100"
+        leftStroke="#002200"
+        rightFill="#003300"
+        stroke="#004400"
+        useStroke
+      />,
+    );
+    const svg = screen.getByTestId("parsley-logo");
+    expect(svg.style.getPropertyValue("--parsley-left-base-fill")).toBe(
+      "#001100",
+    );
+    expect(svg.style.getPropertyValue("--parsley-left-stroke")).toBe("#002200");
+    expect(svg.style.getPropertyValue("--parsley-right-base-fill")).toBe(
+      "#003300",
+    );
+    expect(svg.style.getPropertyValue("--parsley-left-fill")).toBe("#004400");
+    expect(svg.style.getPropertyValue("--parsley-right-fill")).toBe("#004400");
   });
 
   it("resolves preset and numeric sizes for Via glyphs", () => {

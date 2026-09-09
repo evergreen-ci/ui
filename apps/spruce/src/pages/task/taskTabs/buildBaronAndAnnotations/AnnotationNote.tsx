@@ -33,6 +33,7 @@ const AnnotationNote: React.FC<Props> = ({
   const dispatchToast = useToastContext();
   const [newMessage, setMessage] = useState(originalMessage);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMessage(originalMessage);
   }, [originalMessage]);
 

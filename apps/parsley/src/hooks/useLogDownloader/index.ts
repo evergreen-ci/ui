@@ -56,6 +56,7 @@ const useLogDownloader = ({
     const timeStart = Date.now();
 
     if (url) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoading(true);
       fetchLogFile(url, {
         abortController,
