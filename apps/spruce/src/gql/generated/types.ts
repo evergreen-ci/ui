@@ -11158,6 +11158,50 @@ export type TaskAllExecutionsQuery = {
   }>;
 };
 
+export type TaskConfigQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskConfigQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    config?: {
+      __typename?: "TaskConfig";
+      activate?: boolean | null;
+      allowedBranches?: Array<string> | null;
+      allowedRequesters?: Array<string> | null;
+      allowForGitTag?: boolean | null;
+      batchTime?: number | null;
+      cronBatchTime?: string | null;
+      disable?: boolean | null;
+      execTimeoutSecs?: number | null;
+      gitTagOnly?: boolean | null;
+      groupName?: string | null;
+      isGroup?: boolean | null;
+      isPartOfGroup?: boolean | null;
+      name: string;
+      patchable?: boolean | null;
+      patchOnly?: boolean | null;
+      priority?: number | null;
+      ps?: string | null;
+      runOn?: Array<string> | null;
+      stepback?: boolean | null;
+      dependsOn?: Array<{
+        __typename?: "TaskUnitDependency";
+        name: string;
+        omitGeneratedTasks?: boolean | null;
+        patchOptional?: boolean | null;
+        status?: string | null;
+        variant?: string | null;
+      }> | null;
+    } | null;
+  } | null;
+};
+
 export type TaskEventLogsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;

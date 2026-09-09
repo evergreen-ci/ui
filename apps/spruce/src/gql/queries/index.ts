@@ -58,6 +58,7 @@ export { SUBNET_AVAILABILITY_ZONES } from "./subnet-availability-zones";
 export { SYSTEM_LOGS } from "./system-logs";
 export { TASK } from "./task";
 export { TASK_ALL_EXECUTIONS } from "./task-all-executions";
+export { TASK_CONFIG } from "./task-config";
 export { TASK_EVENT_LOGS } from "./task-event-logs";
 export { TASK_FILES } from "./task-files";
 export { TASK_HISTORY } from "./task-history";

@@ -89,6 +89,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       },
       {} as RowSelectionState,
     );
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRowSelection(initialSelection);
   }, [isRowDisabled, parsleyFilters]);
 
