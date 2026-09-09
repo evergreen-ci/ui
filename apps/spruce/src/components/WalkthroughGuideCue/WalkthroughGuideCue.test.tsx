@@ -182,6 +182,39 @@ describe("walkthrough guide cue", async () => {
     await backdropIsNotVisible();
   });
 
+  it("closes controls opened by walkthrough steps", async () => {
+    const user = userEvent.setup();
+    const onTargetClick = vi.fn();
+    render(
+      <div>
+        <div data-guide-cue-id="step-1">div</div>
+        <button
+          data-guide-cue-id="step-2"
+          onClick={onTargetClick}
+          type="button"
+        >
+          toggle
+        </button>
+        <WalkthroughGuideCue
+          dataAttributeName="data-guide-cue-id"
+          defaultOpen
+          onClose={vi.fn()}
+          walkthroughSteps={[
+            walkthroughSteps[0],
+            { ...walkthroughSteps[1], shouldClick: true },
+          ]}
+        />
+      </div>,
+    );
+
+    await user.click(await screen.findByRole("button", { name: "Next" }));
+    await waitFor(() => expect(onTargetClick).toHaveBeenCalledTimes(1));
+    await user.click(
+      await screen.findByRole("button", { name: "Get started" }),
+    );
+    await waitFor(() => expect(onTargetClick).toHaveBeenCalledTimes(2));
+  });
+
   it("closes the walkthrough if the next step cannot be found", async () => {
     const consoleErrorSpy = vi
       .spyOn(console, "error")

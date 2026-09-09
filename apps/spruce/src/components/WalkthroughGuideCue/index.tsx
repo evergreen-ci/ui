@@ -46,7 +46,14 @@ export const WalkthroughGuideCue = forwardRef<
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const currentStepRef = useRef<HTMLElement | null>(null);
 
+  const closeCurrentStepTarget = () => {
+    if (walkthroughSteps[currentStepIdx].shouldClick) {
+      currentStepRef.current?.click();
+    }
+  };
+
   const endWalkthrough = () => {
+    closeCurrentStepTarget();
     onClose();
     setActive(false);
     setOpen(false);
@@ -73,7 +80,8 @@ export const WalkthroughGuideCue = forwardRef<
       nextTargetElement.click();
     }
     setCurrentStepIdx(nextStepIdx);
-    setOpen(true);
+    // Let an opened target enter the top layer before placing the guide above it.
+    setTimeout(() => setOpen(true), 0);
   };
 
   // Exposes a function via the ref to restart the walkthrough.
@@ -89,6 +97,7 @@ export const WalkthroughGuideCue = forwardRef<
     if (nextStepIdx === walkthroughSteps.length) {
       endWalkthrough();
     } else {
+      closeCurrentStepTarget();
       goToNextStep(nextStepIdx);
     }
   };
@@ -116,6 +125,7 @@ export const WalkthroughGuideCue = forwardRef<
         data-testid="walkthrough-guide-cue"
         numberOfSteps={walkthroughSteps.length}
         onDismiss={() => {
+          closeCurrentStepTarget();
           onClose();
           setActive(false);
         }}
