@@ -40,6 +40,7 @@ const customBadgeColorClass = (status: string) => {
       return styles.systemFailed;
     case TaskStatus.KnownIssue:
       return styles.knownIssue;
+    case TaskStatus.Undispatched:
     case TaskStatus.WillRun:
       return styles.willRun;
     default:
