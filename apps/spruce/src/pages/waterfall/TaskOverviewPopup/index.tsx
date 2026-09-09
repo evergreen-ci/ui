@@ -21,6 +21,8 @@ import { Annotations } from "./Annotations";
 import { FailingTests } from "./FailingTests";
 import styles from "./index.module.css";
 
+/* eslint-disable jsx-a11y/no-autofocus -- Via's prop moves focus into this dialog popover. */
+
 interface Props {
   execution: number;
   isRightmostBuild?: boolean;
@@ -75,6 +77,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   return (
     <PopoverRoot
+      autoFocus
       isOpen={open}
       onOpenChange={setOpen}
       referenceElement={taskBoxRef}

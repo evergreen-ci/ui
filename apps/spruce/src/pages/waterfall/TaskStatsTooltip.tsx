@@ -76,11 +76,8 @@ export const TaskStatsTooltip: React.FC<
           <Icon glyph="Chart" />
         </Button>
       </div>
-      <Popover>
-        <PopoverFrameWithArrow
-          className={styles.popover}
-          data-testid="task-stats-tooltip"
-        >
+      <Popover data-testid="task-stats-tooltip">
+        <PopoverFrameWithArrow className={styles.popover}>
           {isLoading ? (
             <Skeleton isLoading>
               <Text>Loading task stats</Text>
