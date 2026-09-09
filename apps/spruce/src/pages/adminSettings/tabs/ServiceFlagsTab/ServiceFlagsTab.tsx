@@ -43,13 +43,14 @@ const ServiceFlagsForm: React.FC<{ serviceFlagsList: ServiceFlag[] }> = ({
   serviceFlagsList,
 }) => {
   const dispatchToast = useToastContext();
+  const serviceFlagNames = serviceFlagsList.map(({ name }) => name).join(",");
 
   const { fields, schema, uiSchema } = useMemo(
     () => getFormSchema(serviceFlagsList.map(({ name }) => name)),
     // Schema only needs to change if the set of flag names changes, which
     // happens when new flags are added to the backend.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [serviceFlagsList.map(({ name }) => name).join(",")],
+    [serviceFlagNames],
   );
 
   const [formData, setFormData] = useState<Record<string, boolean>>(() =>
