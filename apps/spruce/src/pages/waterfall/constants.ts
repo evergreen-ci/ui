@@ -54,7 +54,6 @@ export const walkthroughSteps: WalkthroughStep[] = [
     description:
       "Explore other filtering options in the menu, such as search by git hash.",
     targetId: "search-git-hash",
-    shouldClick: true,
   },
   {
     title: "Summary View",
