@@ -1,10 +1,4 @@
 import {
-  ListSkeleton,
-  Size,
-  Skeleton,
-  TableSkeleton,
-} from "@leafygreen-ui/skeleton-loader";
-import {
   PageContent,
   PageLayout,
   PageSider,
@@ -15,19 +9,19 @@ import styles from "./PatchAndTaskFullPageLoad.module.css";
 
 export const PatchAndTaskFullPageLoad: React.FC = () => (
   <PageWrapper>
-    <Skeleton className={styles.breadcrumbSkeleton} size={Size.Small} />
-    <Skeleton />
+    <div className={styles.breadcrumbSkeleton} />
+    <div />
     <PageLayout className={styles.pageLayout} hasSider>
       <PageSider>
         <SiderCard>
-          <ListSkeleton />
+          <div />
         </SiderCard>
         <SiderCard>
-          <ListSkeleton />
+          <div />
         </SiderCard>
       </PageSider>
       <PageContent>
-        <TableSkeleton numRows={10} />
+        <div />
       </PageContent>
     </PageLayout>
   </PageWrapper>

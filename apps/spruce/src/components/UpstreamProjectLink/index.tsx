@@ -1,5 +1,5 @@
 import { skipToken, useQuery } from "@apollo/client/react";
-import { Body } from "@leafygreen-ui/typography";
+import { Body } from "@via-ds/components/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { getTriggerRoute } from "constants/routes";
 import {

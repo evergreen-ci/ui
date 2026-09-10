@@ -1,5 +1,5 @@
-import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
+import { Tooltip, TooltipRoot, TooltipTrigger } from "@via-ds/components/tooltip";
+import { useNavigate } from "react-router-dom";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { getPatchRoute } from "constants/routes";
@@ -9,37 +9,34 @@ export const LinkToReconfigurePage: React.FC<{
   disabled?: boolean;
   hasVersion?: boolean;
 }> = ({ disabled, hasVersion = true, patchId }) => {
+  const navigate = useNavigate();
   const { sendEvent } = (hasVersion ? useVersionAnalytics : usePatchAnalytics)(
     patchId,
   );
 
   return (
-    <Tooltip
-      align={Align.Left}
-      enabled={disabled}
-      justify={Justify.End}
-      trigger={
+    <TooltipRoot side="left" align="end" isDisabled={!disabled}>
+      <TooltipTrigger>
         <span>
           <DropdownItem
-            as={Link}
             data-testid="reconfigure-link"
-            disabled={disabled}
-            onClick={() => {
+            isDisabled={disabled}
+            onAction={() => {
               if (!disabled) {
                 sendEvent({ name: "Clicked patch reconfigure link" });
+                navigate(getPatchRoute(patchId, { configure: true }));
               }
             }}
-            to={getPatchRoute(patchId, { configure: true })}
           >
             Reconfigure tasks/variants
           </DropdownItem>
         </span>
-      }
-      triggerEvent="hover"
-    >
-      {disabled
-        ? "This is not a reconfigurable patch. Use the Schedule button instead to schedule tasks."
-        : ""}
-    </Tooltip>
+      </TooltipTrigger>
+      <Tooltip>
+        {disabled
+          ? "This is not a reconfigurable patch. Use the Schedule button instead to schedule tasks."
+          : ""}
+      </Tooltip>
+    </TooltipRoot>
   );
 };

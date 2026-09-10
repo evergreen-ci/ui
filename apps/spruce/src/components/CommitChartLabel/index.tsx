@@ -1,5 +1,4 @@
-import { Body, InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Body, InlineCode } from "@via-ds/components/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import ExpandedText from "components/ExpandedText";
@@ -54,14 +53,14 @@ const CommitChartLabel: React.FC<Props> = ({
   return (
     <div className={styles.labelContainer} data-testid="commit-label">
       <Body className={styles.labelText}>
-        <InlineCode
-          as={Link}
-          data-testid="githash-link"
+        <StyledRouterLink
           onClick={onClickGithash}
           to={getVersionRoute(versionId)}
         >
-          {shortenGithash(githash)}
-        </InlineCode>{" "}
+          <InlineCode data-testid="githash-link">
+            {shortenGithash(githash)}
+          </InlineCode>
+        </StyledRouterLink>{" "}
         <b title={getDateCopy(createDate)}>
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
         </b>{" "}
