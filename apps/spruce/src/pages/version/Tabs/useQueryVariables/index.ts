@@ -60,5 +60,6 @@ export const useQueryVariables = (
       page,
       includeNeverActivatedTasks,
     },
+    executionTaskOptions: { statuses },
   };
 };

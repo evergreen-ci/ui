@@ -94,6 +94,11 @@ export const cache = new InMemoryCache({
             return readTaskReviewed(...args);
           },
         },
+        executionTasksFull: {
+          // Share one cache entry across filtered and unfiltered reads so review
+          // fragments see the same subtasks as the version tasks query.
+          keyArgs: false,
+        },
         taskLogs: {
           merge(_, incoming) {
             return incoming;
