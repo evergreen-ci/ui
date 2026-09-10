@@ -1,4 +1,4 @@
-import { Variant } from "@leafygreen-ui/button";
+import { ButtonVariant } from "@via-ds/components";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LoadingButton } from ".";
 
@@ -10,11 +10,11 @@ export const Default: CustomStoryObj<typeof LoadingButton> = {
   render: (args) => <LoadingButton {...args}>Button text</LoadingButton>,
   args: {
     loading: false,
-    variant: Variant.Default,
+    variant: ButtonVariant.Default,
   },
   argTypes: {
     variant: {
-      options: Object.values(Variant),
+      options: Object.values(ButtonVariant),
       control: { type: "select" },
     },
   },

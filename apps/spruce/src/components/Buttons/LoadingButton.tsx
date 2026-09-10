@@ -1,17 +1,25 @@
-import { forwardRef } from "react";
-import { ButtonProps, Button as LeafyGreenButton } from "@leafygreen-ui/button";
-import { Spinner } from "@leafygreen-ui/loading-indicator/spinner";
+import { ComponentProps, forwardRef } from "react";
+import { Button, Size as ViaSize } from "@via-ds/components";
 
-export type LoadingButtonProps = Omit<ButtonProps, "isLoading"> & {
+type ViaButtonProps = ComponentProps<typeof Button>;
+
+export type LoadingButtonProps = Omit<
+  ViaButtonProps,
+  "isPending" | "isDisabled" | "title" | "size"
+> & {
   loading?: boolean;
+  disabled?: boolean;
+  title?: string;
+  size?: string;
 };
 
-export const LoadingButton = forwardRef<HTMLElement, LoadingButtonProps>(
-  ({ loading = false, ...rest }, ref) => (
-    <LeafyGreenButton
+export const LoadingButton = forwardRef<HTMLButtonElement, LoadingButtonProps>(
+  ({ disabled = false, loading = false, size, ...rest }, ref) => (
+    <Button
       ref={ref}
-      isLoading={loading}
-      loadingIndicator={<Spinner />}
+      isDisabled={disabled}
+      isPending={loading}
+      size={size as ViaSize}
       {...rest}
     />
   ),
