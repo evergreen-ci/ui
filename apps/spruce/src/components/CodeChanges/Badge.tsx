@@ -1,4 +1,4 @@
-import { Badge as LGBadge } from "@leafygreen-ui/badge";
+import { Badge } from "@via-ds/components/badge";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./Badge.module.css";
 
@@ -8,10 +8,10 @@ interface Props {
 }
 
 export const Badge: React.FC<Props> = ({ additions, deletions }) => (
-  <LGBadge>
+  <Badge>
     <FileDiffText type="+" value={additions} />
     <FileDiffText type="-" value={deletions} />
-  </LGBadge>
+  </Badge>
 );
 
 interface FileDiffTextProps {

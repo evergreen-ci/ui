@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body } from "@leafygreen-ui/typography";
+import { Body } from "@via-ds/components";
 import { useParams, useSearchParams } from "react-router-dom";
 import styles from "./FileDiff.module.css";
 import { useFileDiffStream } from "./useFileDiffStream";

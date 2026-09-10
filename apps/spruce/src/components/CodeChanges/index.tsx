@@ -1,8 +1,7 @@
 import { useQuery } from "@apollo/client/react";
 import { Button } from "@leafygreen-ui/button";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body } from "@leafygreen-ui/typography";
-import { Callout, CalloutVariant } from "@via-ds/components";
+import { Body, Callout, CalloutVariant } from "@via-ds/components";
 import { useVersionAnalytics } from "analytics";
 import { getVersionDiffRoute } from "constants/routes";
 import {
