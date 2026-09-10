@@ -1,3 +1,5 @@
 .container {
   width: 300px;
+  /* Allow the multi-select chip area to render below the input without clipping */
+  overflow: visible;
 }

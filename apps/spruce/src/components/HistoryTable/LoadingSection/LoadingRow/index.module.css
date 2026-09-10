@@ -5,6 +5,6 @@
 }
 
 .listSkeletonLine {
-  height: var(--via-space-200);
+  height: var(--via-space-400);
   margin-bottom: var(--via-space-100);
 }
