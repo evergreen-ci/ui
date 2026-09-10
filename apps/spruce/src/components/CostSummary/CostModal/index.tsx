@@ -1,4 +1,4 @@
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Disclaimer } from "@via-ds/components";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,

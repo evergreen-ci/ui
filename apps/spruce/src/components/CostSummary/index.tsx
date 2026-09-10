@@ -1,5 +1,5 @@
 import { ComponentProps, useState } from "react";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button } from "@via-ds/components";
 import { MetadataItem } from "components/MetadataCard";
 import { TaskQuery, VersionQuery } from "gql/generated/types";
 import { formatCost } from "utils/numbers";
@@ -47,11 +47,11 @@ export const CostSummary: React.FC<CostSummaryProps> = ({
           <Button
             className={styles.costDetailsButton}
             data-testid="cost-details-button"
-            onClick={() => {
+            onPress={() => {
               onClickDetailsButton();
               setCostModalOpen(true);
             }}
-            size={ButtonSize.XSmall}
+            size="small"
           >
             Cost Details
           </Button>
