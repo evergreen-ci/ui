@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Banner } from "@leafygreen-ui/banner";
-import { TextInput } from "@leafygreen-ui/text-input";
+import { Banner } from "@via-ds/components/banner";
+import { TextField } from "@via-ds/components/text-field";
 import Cookies from "js-cookie";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { CharKey } from "@evg-ui/lib/constants/keys";
@@ -86,7 +86,6 @@ export const SlackNotificationBanner = () => {
   return shouldShowSlackBanner ? (
     <Banner
       data-testid="slack-notification-banner"
-      dismissible
       onClose={hideBanner}
       variant="info"
     >
@@ -104,16 +103,16 @@ export const SlackNotificationBanner = () => {
           </span>
         }
       >
-        <TextInput
+        <TextField
+          // This is an autoFocus usage within a popover, acceptable per accessibility guidelines.
           autoFocus // eslint-disable-line jsx-a11y/no-autofocus
           data-testid="slack-username-input"
           label="Slack Username"
-          onChange={(e) => setSlackUsername(e.target.value)}
-          onKeyDown={(e) =>
+          onChange={(val: string) => setSlackUsername(val)}
+          onKeyDown={(e: React.KeyboardEvent) =>
             e.key === CharKey.Enter && saveNotificationSettings()
           }
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          value={slackUsername}
+          value={slackUsername ?? ""}
         />
       </Popconfirm>
     </Banner>

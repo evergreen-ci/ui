@@ -1,4 +1,4 @@
-import { Banner } from "@leafygreen-ui/banner";
+import { Banner } from "@via-ds/components/banner";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { useUserSettings } from "hooks";

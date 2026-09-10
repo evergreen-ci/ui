@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { skipToken, useMutation, useQuery } from "@apollo/client/react";
-import { Banner } from "@leafygreen-ui/banner";
-import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { TextInput } from "@leafygreen-ui/text-input";
-import { InlineCode } from "@leafygreen-ui/typography";
+import { Banner } from "@via-ds/components/banner";
+import { Button, Content, Dialog, DialogRoot, Footer, Header } from "@via-ds/components";
+import { Text } from "@via-ds/components/typography";
+import { TextField } from "@via-ds/components/text-field";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   RepotrackerErrorQuery,
@@ -108,36 +108,40 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
           </Banner>
         }
       />
-      <ConfirmationModal
-        cancelButtonProps={{
-          onClick: resetModal,
-        }}
-        confirmButtonProps={{
-          children: "Confirm",
-          disabled: baseRevision.length < 40,
-          onClick: onConfirm,
-        }}
-        data-testid="repotracker-error-modal"
-        open={openModal}
-        setOpen={setOpenModal}
-        title="Enter New Base Revision"
-      >
-        <div className={styles.modalDescription}>
-          The current base revision{" "}
-          <InlineCode>
-            {repotrackerData?.project?.repotrackerError?.invalidRevision}
-          </InlineCode>{" "}
-          cannot be found on branch &apos;{repotrackerData?.project?.branch}
-          &apos;. In order to resume tracking the repository, please enter a new
-          base revision.
-        </div>
-        <TextInput
-          description="Specify a full 40 character hash."
-          label="Base Revision"
-          onChange={(e) => setBaseRevision(e.target.value)}
-          value={baseRevision}
-        />
-      </ConfirmationModal>
+      <DialogRoot isOpen={openModal} onOpenChange={setOpenModal}>
+        <Dialog>
+          <Header>
+            <Text slot="title">Enter New Base Revision</Text>
+          </Header>
+          <Content>
+            <div className={styles.modalDescription}>
+              The current base revision{" "}
+              <Text elementType="code" textStyle="inlineCode">
+                {repotrackerData?.project?.repotrackerError?.invalidRevision}
+              </Text>{" "}
+              cannot be found on branch &apos;{repotrackerData?.project?.branch}
+              &apos;. In order to resume tracking the repository, please enter a
+              new base revision.
+            </div>
+            <TextField
+              description="Specify a full 40 character hash."
+              label="Base Revision"
+              onChange={(val: string) => setBaseRevision(val)}
+              value={baseRevision}
+            />
+          </Content>
+          <Footer>
+            <Button onPress={resetModal}>Cancel</Button>
+            <Button
+              isDisabled={baseRevision.length < 40}
+              onPress={onConfirm}
+              variant="primary"
+            >
+              Confirm
+            </Button>
+          </Footer>
+        </Dialog>
+      </DialogRoot>
     </>
   );
 };

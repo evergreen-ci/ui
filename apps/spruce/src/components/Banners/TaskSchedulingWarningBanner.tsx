@@ -1,4 +1,4 @@
-import { Banner } from "@leafygreen-ui/banner";
+import { Banner } from "@via-ds/components/banner";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { taskSchedulingLimitsDocumentationUrl } from "constants/externalResources";
 
