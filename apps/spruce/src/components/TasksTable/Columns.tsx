@@ -1,5 +1,4 @@
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { palette } from "@via-ds/tokens";
 import {
   Tooltip,
   TooltipRoot,
@@ -95,7 +94,7 @@ export const getColumnsTemplate = ({
       const status = getValue() as string;
       const hasErrors = errors && errors.length > 0;
 
-if (dependsOn?.length && getValue() === TaskStatus.Blocked) {
+      if (dependsOn?.length && getValue() === TaskStatus.Blocked) {
         return (
           <TooltipRoot align="center" side="top">
             <TooltipTrigger>
@@ -125,7 +124,7 @@ if (dependsOn?.length && getValue() === TaskStatus.Blocked) {
             status={status as TaskStatus}
           />
           {hasErrors && (
-            <IconWithTooltip color={palette.red.base} glyph="Warning">
+            <IconWithTooltip color="var(--via-color-red-600)" glyph="Warning">
               {errors.join(", ")}
             </IconWithTooltip>
           )}

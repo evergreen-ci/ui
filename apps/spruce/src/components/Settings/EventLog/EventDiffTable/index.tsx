@@ -184,7 +184,7 @@ const columns = (
     accessorKey: "after",
     cell: ({ getValue, row }) =>
       getValue() === null || getValue() === undefined ? (
-        <Badge variant={BadgeVariant.Red}>Deleted</Badge>
+        <Badge variant={BadgeVariant.Error}>Deleted</Badge>
       ) : (
         <span className={styles.cellText}>
           {renderCellValue(
