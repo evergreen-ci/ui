@@ -1,6 +1,10 @@
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { palette } from "@leafygreen-ui/palette";
-import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
+import { palette } from "@via-ds/tokens";
+import {
+  Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@via-ds/components/tooltip";
 import pluralize from "pluralize";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
@@ -91,12 +95,10 @@ export const getColumnsTemplate = ({
       const status = getValue() as string;
       const hasErrors = errors && errors.length > 0;
 
-      if (dependsOn?.length && getValue() === TaskStatus.Blocked) {
+if (dependsOn?.length && getValue() === TaskStatus.Blocked) {
         return (
-          <Tooltip
-            data-testid="depends-on-tooltip"
-            justify={Justify.Middle}
-            trigger={
+          <TooltipRoot align="center" side="top">
+            <TooltipTrigger>
               <span>
                 <TaskStatusBadgeWithLink
                   execution={execution}
@@ -105,11 +107,12 @@ export const getColumnsTemplate = ({
                   status={status as TaskStatus}
                 />
               </span>
-            }
-          >
-            Depends on {pluralize("task", dependsOn.length)}:{" "}
-            {dependsOn.map(({ name }) => `“${name}”`).join(", ")}
-          </Tooltip>
+            </TooltipTrigger>
+            <Tooltip data-testid="depends-on-tooltip">
+              Depends on {pluralize("task", dependsOn.length)}:{" "}
+              {dependsOn.map(({ name }) => `\u201c${name}\u201d`).join(", ")}
+            </Tooltip>
+          </TooltipRoot>
         );
       }
 

@@ -1,4 +1,4 @@
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Subtitle } from "@via-ds/components/typography";
 import { useDateFormat } from "hooks";
 import styles from "./Header.module.css";
 

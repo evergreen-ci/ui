@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@via-ds/components/button";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
 import pluralize from "pluralize";

@@ -1,5 +1,5 @@
 import { Card } from "@leafygreen-ui/card";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Subtitle } from "@via-ds/components/typography";
 import { LoadingButton } from "components/Buttons";
 import EventDiffTable from "./EventDiffTable";
 import { CustomKeyValueRenderConfig } from "./EventDiffTable/utils/keyRenderer";
