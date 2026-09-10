@@ -8,6 +8,10 @@
   border-bottom: 1px solid var(--via-color-neutral-200);
 }
 
+.fileNameText {
+  font-weight: 600;
+}
+
 /* Streamed lines are created imperatively by useHTMLStream, so these
    selectors must stay global (previously injected via Emotion's Global). */
 :global(.selected-line) {

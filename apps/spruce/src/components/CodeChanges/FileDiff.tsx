@@ -41,7 +41,7 @@ export const FileDiff: React.FC = () => {
     <div className={styles.container}>
       {fileName && (
         <div className={styles.fileNameContainer}>
-          <Body weight="medium">{fileName}</Body>
+          <Body className={styles.fileNameText}>{fileName}</Body>
         </div>
       )}
       {isLoading && <ListSkeleton />}

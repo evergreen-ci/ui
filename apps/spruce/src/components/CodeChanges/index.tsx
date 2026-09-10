@@ -89,7 +89,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
               </Callout>
             )}
             <div className={styles.titleContainer}>
-              <Body weight="medium">Changes on {branchName}:</Body>
+              <Body className={styles.titleText}>Changes on {branchName}:</Body>
               {!disableDiffLinks && (
                 <>
                   <Button
