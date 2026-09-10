@@ -4,7 +4,7 @@ export const WATERFALL_TASK_STATS = gql`
   query WaterfallTaskStats($versionId: String!) {
     version(versionId: $versionId) {
       id
-      taskStatusStats(options: {}) {
+      taskStatusStats {
         counts {
           count
           status
