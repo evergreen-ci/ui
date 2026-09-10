@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
+import { BadgeVariant } from "@via-ds/components/badge";
 import { useNavigate, useParams } from "react-router-dom";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -116,7 +116,7 @@ const useTabConfig = (
           failedTestCount ? (
             <TabLabelWithBadge
               badgeText={failedTestCount}
-              badgeVariant={Variant.Red}
+              badgeVariant={BadgeVariant.Error}
               dataTestIdBadge="tests-tab-badge"
               tabLabel="Tests"
             />
@@ -149,7 +149,7 @@ const useTabConfig = (
           fileCount !== undefined ? (
             <TabLabelWithBadge
               badgeText={fileCount}
-              badgeVariant={Variant.LightGray}
+              badgeVariant={BadgeVariant.Status}
               dataTestIdBadge="files-tab-badge"
               tabLabel="Files"
             />
@@ -240,7 +240,7 @@ const useTabConfig = (
         name={
           <TabLabelWithBadge
             badgeText="New"
-            badgeVariant={Variant.Blue}
+            badgeVariant={BadgeVariant.Info}
             tabLabel="Task Config"
           />
         }
