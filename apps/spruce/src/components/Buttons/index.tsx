@@ -1,5 +1,5 @@
-import { Size, Variant } from "@leafygreen-ui/button";
+import { ButtonVariant, Size } from "@via-ds/components";
 
 export { LoadingButton } from "./LoadingButton";
 export { PlusButton } from "./PlusButton";
-export { Size, Variant };
+export { ButtonVariant as Variant, Size };
