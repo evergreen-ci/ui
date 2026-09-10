@@ -1,5 +1,13 @@
-import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { Body } from "@leafygreen-ui/typography";
+import {
+  AlertDialog,
+  Body,
+  Button,
+  Content,
+  DialogRoot,
+  Footer,
+  Header,
+  Text,
+} from "@via-ds/components";
 import {
   unstable_BlockerFunction as BlockerFunction,
   unstable_useBlocker as useBlocker,
@@ -20,25 +28,35 @@ export const NavigationWarningModal: React.FC<NavigationModalProps> = ({
   const blocker = useBlocker(shouldBlock);
 
   return blocker.state === "blocked" ? (
-    <ConfirmationModal
-      cancelButtonProps={{
-        onClick: () => blocker.reset?.(),
-      }}
-      confirmButtonProps={{
-        children: "Leave",
-        onClick: () => blocker.proceed?.(),
-      }}
-      data-testid="navigation-warning-modal"
-      open
-      title="You have unsaved changes that will be discarded. Are you sure you want to leave?"
-      variant="danger"
-    >
-      <Body>Unsaved changes are present on the following pages:</Body>
-      <ol data-testid="unsaved-pages">
-        {unsavedTabs.map(({ title, value }) => (
-          <li key={value}>{title}</li>
-        ))}
-      </ol>
-    </ConfirmationModal>
+    <DialogRoot isOpen onOpenChange={() => blocker.reset?.()}>
+      <AlertDialog data-testid="navigation-warning-modal" variant="danger">
+        <Header>
+          <Text slot="title">
+            You have unsaved changes that will be discarded. Are you sure you
+            want to leave?
+          </Text>
+        </Header>
+        <Content>
+          <Body>Unsaved changes are present on the following pages:</Body>
+          <ol data-testid="unsaved-pages">
+            {unsavedTabs.map(({ title, value }) => (
+              <li key={value}>{title}</li>
+            ))}
+          </ol>
+        </Content>
+        <Footer>
+          <Button onPress={() => blocker.reset?.()} slot="cancel">
+            Cancel
+          </Button>
+          <Button
+            onPress={() => blocker.proceed?.()}
+            slot="action"
+            variant="danger"
+          >
+            Leave
+          </Button>
+        </Footer>
+      </AlertDialog>
+    </DialogRoot>
   ) : null;
 };

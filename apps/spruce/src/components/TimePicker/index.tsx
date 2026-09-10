@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
-import { DateType } from "@leafygreen-ui/date-utils";
-import { FormField, FormFieldInputContainer } from "@leafygreen-ui/form-field";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { Align, Justify, Popover } from "@leafygreen-ui/popover";
+
+import { Button } from "@via-ds/components/button";
+import { Popover, PopoverRoot } from "@via-ds/components/popover";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 import { PopoverContainer } from "components/styles/Popover";
@@ -16,7 +15,7 @@ interface TimePickerProps {
   "data-testid"?: string;
   disabled: boolean;
   label?: string;
-  onDateChange: (newDate: DateType) => void;
+  onDateChange: (newDate: Date) => void;
   value: Date;
 }
 
@@ -37,28 +36,19 @@ const TimePicker: React.FC<TimePickerProps> = ({
   useOnClickOutside([formRef, popoverRef], () => setPopoverOpen(false));
 
   return (
-    <>
-      <FormField
-        ref={formRef}
-        aria-label="Time picker form"
-        data-testid={dataTestId}
-        disabled={disabled}
-        label={label}
+    <div
+      ref={formRef}
+      aria-label={label || "Time picker form"}
+      data-testid={dataTestId}
+    >
+      {label && <label>{label}</label>}
+      <PopoverRoot
+        isNonModal
+        isOpen={popoverOpen}
+        onOpenChange={setPopoverOpen}
+        triggerType="dialog"
       >
-        <FormFieldInputContainer
-          contentEnd={
-            <IconButton
-              aria-label="Clock Icon"
-              onClick={() => {
-                setPopoverOpen(!popoverOpen);
-              }}
-            >
-              <Icon glyph="Clock" />
-            </IconButton>
-          }
-          role="combobox"
-          tabIndex={-1}
-        >
+        <div style={{ display: "flex", alignItems: "center" }}>
           <div className={styles.contentWrapper}>
             <TimeInput
               data-testid="hour-input"
@@ -74,40 +64,40 @@ const TimePicker: React.FC<TimePickerProps> = ({
               value={minuteValue}
             />
           </div>
-        </FormFieldInputContainer>
-      </FormField>
-      <Popover
-        active={popoverOpen}
-        align={Align.Bottom}
-        justify={Justify.Start}
-        refEl={formRef}
-        spacing={0}
-      >
-        <PopoverContainer
-          ref={popoverRef}
-          className={styles.menuList}
-          data-testid="time-picker-options"
-        >
-          <TimePickerOptions
-            currentDateTime={value}
-            data-testid="hour-options"
-            onDateChange={onDateChange}
-            options={hourOptions}
-            type={TimepickerType.Hour}
-            value={hourValue}
-          />
-          <div className={styles.verticalLine} />
-          <TimePickerOptions
-            currentDateTime={value}
-            data-testid="minute-options"
-            onDateChange={onDateChange}
-            options={minuteOptions}
-            type={TimepickerType.Minute}
-            value={minuteValue}
-          />
-        </PopoverContainer>
-      </Popover>
-    </>
+          <Button
+            aria-label="Clock Icon"
+            onPress={() => setPopoverOpen(!popoverOpen)}
+            variant="tertiary"
+          >
+            <Icon glyph="Clock" />
+          </Button>
+        </div>
+        <Popover ref={popoverRef}>
+          <PopoverContainer
+            className={styles.menuList}
+            data-testid="time-picker-options"
+          >
+            <TimePickerOptions
+              currentDateTime={value}
+              data-testid="hour-options"
+              onDateChange={onDateChange}
+              options={hourOptions}
+              type={TimepickerType.Hour}
+              value={hourValue}
+            />
+            <div className={styles.verticalLine} />
+            <TimePickerOptions
+              currentDateTime={value}
+              data-testid="minute-options"
+              onDateChange={onDateChange}
+              options={minuteOptions}
+              type={TimepickerType.Minute}
+              value={minuteValue}
+            />
+          </PopoverContainer>
+        </Popover>
+      </PopoverRoot>
+    </div>
   );
 };
 

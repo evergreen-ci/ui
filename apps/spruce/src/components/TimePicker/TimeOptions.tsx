@@ -1,5 +1,4 @@
 import { createRef, forwardRef, useLayoutEffect } from "react";
-import { DateType } from "@leafygreen-ui/date-utils";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./TimeOptions.module.css";
 import { RefMap, TimepickerType } from "./types";
@@ -7,7 +6,7 @@ import { RefMap, TimepickerType } from "./types";
 interface TimePickerOptionsProps {
   currentDateTime: Date;
   "data-testid": string;
-  onDateChange: (newDate: DateType) => void;
+  onDateChange: (newDate: Date) => void;
   options: string[];
   type: TimepickerType;
   value: string;

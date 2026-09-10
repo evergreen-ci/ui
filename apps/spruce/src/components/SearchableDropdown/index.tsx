@@ -1,11 +1,5 @@
-import {
-  ChangeEvent,
-  PropsWithChildren,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { SearchInput } from "@leafygreen-ui/search-input";
+import { PropsWithChildren, useMemo, useRef, useState } from "react";
+import { SearchField } from "@via-ds/components/search-field";
 import { cx } from "@evg-ui/lib/utils/css";
 import Dropdown from "components/Dropdown";
 import styles from "./index.module.css";
@@ -89,8 +83,8 @@ const SearchableDropdown = <T extends {}>({
         />
       );
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+  const handleSearch = (searchValue: string) => {
+    setSearch(searchValue);
   };
 
   let buttonText = valuePlaceholder;
@@ -126,7 +120,7 @@ const SearchableDropdown = <T extends {}>({
           onClose={resetSearch}
           useHorizontalPadding={false}
         >
-          <SearchInput
+          <SearchField
             aria-label="Search for options"
             aria-labelledby={label ? `searchable-dropdown-${label}` : undefined}
             autoFocus // eslint-disable-line jsx-a11y/no-autofocus

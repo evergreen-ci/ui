@@ -1,11 +1,8 @@
 import { useMemo, useState } from "react";
-import { Button } from "@leafygreen-ui/button";
-import {
-  SearchInput,
-  Size as SearchInputSize,
-} from "@leafygreen-ui/search-input";
 import { LGTableDataType } from "@leafygreen-ui/table";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Button } from "@via-ds/components/button";
+import { SearchField } from "@via-ds/components/search-field";
+import { Disclaimer } from "@via-ds/components/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import {
   BaseTable,
@@ -68,20 +65,20 @@ export const SkippedTestsModal = <T extends LGRowData>({
       title="Tests skipped by TSS"
     >
       <div className={styles.headerRow}>
-        <SearchInput
+        <SearchField
           aria-label={searchPlaceholder}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(v) => setSearch(v)}
           placeholder={searchPlaceholder}
-          size={SearchInputSize.Small}
+          size="small"
           value={search}
         />
         <Button
           data-testid="skipped-tests-download"
-          disabled={loading}
-          leftGlyph={<Icon glyph="Download" />}
-          onClick={onClickDownload}
+          isDisabled={loading}
+          onPress={onClickDownload}
           size="small"
         >
+          <Icon glyph="Download" />
           Download JSON
         </Button>
       </div>

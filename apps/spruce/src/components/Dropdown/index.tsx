@@ -1,10 +1,9 @@
 import { Component, useRef } from "react";
-import { Button } from "@leafygreen-ui/button";
-import { Popover } from "@leafygreen-ui/popover";
-import { Body } from "@leafygreen-ui/typography";
+import { Button, Popover, PopoverRoot } from "@via-ds/components";
+import { Body } from "@via-ds/components/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useOnClickOutside } from "@evg-ui/lib/hooks";
+
 import { useDimensions } from "hooks/useDimensions";
 import styles from "./index.module.css";
 
@@ -38,53 +37,54 @@ const Dropdown: React.FC<DropdownProps> = ({
   const menuSize = useDimensions(menuButtonRef);
   const menuWidth = menuSize?.width ?? 0;
 
-  const handleClickOutside = () => {
-    setIsOpen(false);
-    onClose();
-  };
-
-  // Handle onClickOutside
-  useOnClickOutside([listMenuRef, menuButtonRef], handleClickOutside);
-
   return (
     <div className={styles.container} id={id}>
-      <Button
-        ref={menuButtonRef}
-        className={styles.button}
-        data-testid={dataTestId}
-        disabled={disabled}
-        onClick={() => setIsOpen(!isOpen)}
-        rightGlyph={<Icon glyph="CaretDown" />}
-      >
-        <div className={styles.buttonContent}>
-          <div className={styles.labelWrapper}>
-            {buttonRenderer ? (
-              buttonRenderer()
-            ) : (
-              <Body
-                className={styles.overflowBody}
-                data-testid="dropdown-value"
-              >
-                {buttonText}
-              </Body>
-            )}
-          </div>
-        </div>
-      </Button>
-      <Popover
-        active={isOpen}
-        adjustOnMutation
-        className={styles.menu}
-        data-testid={`${dataTestId}-options`}
-        onClick={(e) => e.stopPropagation()}
-        refEl={menuButtonRef}
-        style={{
-          width: menuWidth,
-          padding: useHorizontalPadding ? size.xs : `${size.xs} 0`,
+      <PopoverRoot
+        isNonModal
+        isOpen={isOpen}
+        onOpenChange={(nextOpen) => {
+          if (!nextOpen) {
+            setIsOpen(false);
+            onClose();
+          }
         }}
+        triggerType="dialog"
       >
-        <div ref={listMenuRef}>{children}</div>
-      </Popover>
+        <Button
+          ref={menuButtonRef}
+          className={styles.button}
+          data-testid={dataTestId}
+          isDisabled={disabled}
+          onPress={() => setIsOpen(!isOpen)}
+        >
+          <div className={styles.buttonContent}>
+            <div className={styles.labelWrapper}>
+              {buttonRenderer ? (
+                buttonRenderer()
+              ) : (
+                <Body
+                  className={styles.overflowBody}
+                  data-testid="dropdown-value"
+                >
+                  {buttonText}
+                </Body>
+              )}
+            </div>
+          </div>
+          <Icon glyph="CaretDown" />
+        </Button>
+        <Popover
+          className={styles.menu}
+          data-testid={`${dataTestId}-options`}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: menuWidth,
+            padding: useHorizontalPadding ? size.xs : `${size.xs} 0`,
+          }}
+        >
+          <div ref={listMenuRef}>{children}</div>
+        </Popover>
+      </PopoverRoot>
     </div>
   );
 };

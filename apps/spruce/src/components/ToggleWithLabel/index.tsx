@@ -1,5 +1,5 @@
-import { Toggle, ToggleProps, Size as ToggleSize } from "@leafygreen-ui/toggle";
-import { Description, Label } from "@leafygreen-ui/typography";
+import { Switch } from "@via-ds/components/switch";
+import { Description, Label } from "@via-ds/components/typography";
 import styles from "./index.module.css";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   disabled?: boolean;
   id: string;
   label: string;
-  onChange: ToggleProps["onChange"];
+  onChange: (isSelected: boolean) => void;
 }
 
 export const ToggleWithLabel: React.FC<Props> = ({
@@ -20,13 +20,13 @@ export const ToggleWithLabel: React.FC<Props> = ({
   onChange,
 }) => (
   <div className={styles.toggleContainer}>
-    <Toggle
+    <Switch
       aria-labelledby={`${id}-label`}
-      checked={checked}
-      disabled={disabled}
       id={id}
+      isDisabled={disabled}
+      isSelected={checked}
       onChange={onChange}
-      size={ToggleSize.Small}
+      size="small"
     />
     <div>
       <Label htmlFor={id} id={`${id}-label`}>

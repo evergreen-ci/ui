@@ -1,4 +1,4 @@
-import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@via-ds/components/checkbox";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import styles from "./CheckboxGroup.module.css";
 
@@ -17,13 +17,21 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
     {data.map(({ key, title, value: checkboxValue }) => (
       <Checkbox
         key={key}
-        bold={false}
-        checked={value.includes(checkboxValue)}
         className={styles.styledCheckbox}
         data-testid={title}
-        label={title}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e, key)}
-      />
+        isSelected={value.includes(checkboxValue)}
+        onChange={(isSelected: boolean) =>
+          // Create a synthetic change event to maintain the same interface
+          onChange(
+            {
+              target: { checked: isSelected },
+            } as React.ChangeEvent<HTMLInputElement>,
+            key,
+          )
+        }
+      >
+        {title}
+      </Checkbox>
     ))}
   </div>
 );

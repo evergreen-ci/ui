@@ -1,6 +1,6 @@
 import { useMemo, useReducer } from "react";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { TextArea } from "@leafygreen-ui/text-area";
+import { Button } from "@via-ds/components/button";
+import { TextArea } from "@via-ds/components/text-area";
 import Icon from "@evg-ui/lib/components/Icon";
 import { PlusButton } from "components/Buttons";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
@@ -60,45 +60,43 @@ export const TagRow: React.FC<TagRowProps> = ({
             />
           </div>
           {canSave ? (
-            <IconButton
+            <Button
               aria-label="Update tag"
-              disabled={
+              isDisabled={
                 !isInputValid ||
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 ((isNewTag || key !== tag.key) && !isValidKey(key))
               }
+              onPress={() => {
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                dispatch({
+                  type: isNewTag ? "cancelNewTag" : "inActive",
+                });
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                onUpdateTag(
+                  { key, value },
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  !isNewTag && key !== tag.key ? tag.key : undefined,
+                );
+              }}
+              variant="tertiary"
             >
-              <Icon
-                data-testid="user-tag-edit-icon"
-                glyph="Checkmark"
-                onClick={() => {
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  dispatch({
-                    type: isNewTag ? "cancelNewTag" : "inActive",
-                  });
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  onUpdateTag(
-                    { key, value },
-                    // @ts-expect-error: FIXME. This comment was added by an automated script.
-                    !isNewTag && key !== tag.key ? tag.key : undefined,
-                  );
-                }}
-              />
-            </IconButton>
+              <Icon data-testid="user-tag-edit-icon" glyph="Checkmark" />
+            </Button>
           ) : (
-            <IconButton aria-label="Delete Tag">
-              <Icon
-                data-testid="user-tag-trash-icon"
-                glyph="Trash"
-                onClick={
-                  isNewTag
-                    ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      () => dispatch({ type: "cancelNewTag" })
-                    : // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      () => onDelete(tag.key)
-                }
-              />
-            </IconButton>
+            <Button
+              aria-label="Delete Tag"
+              onPress={() =>
+                isNewTag
+                  ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+                    dispatch({ type: "cancelNewTag" })
+                  : // @ts-expect-error: FIXME. This comment was added by an automated script.
+                    onDelete(tag.key)
+              }
+              variant="tertiary"
+            >
+              <Icon data-testid="user-tag-trash-icon" glyph="Trash" />
+            </Button>
           )}
         </div>
       )}

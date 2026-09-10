@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
+import { Button } from "@via-ds/components/button";
+import {
+  Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@via-ds/components/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 
@@ -29,21 +33,20 @@ export const CopyButton: React.FC<Props> = ({ textToCopy, tooltipLabel }) => {
   };
 
   return (
-    <Tooltip
-      data-testid="copy-button-tooltip"
-      trigger={
+    <TooltipRoot>
+      <TooltipTrigger>
         <Button
+          aria-label="Copy"
           data-testid="copy-button"
-          leftGlyph={
-            copied ? <Icon glyph="Checkmark" /> : <Icon glyph="Copy" />
-          }
-          onClick={copyText}
-          size={ButtonSize.XSmall}
-        />
-      }
-      triggerEvent={TriggerEvent.Hover}
-    >
-      {copied ? "Copied!" : tooltipLabel}
-    </Tooltip>
+          onPress={copyText}
+          size="small"
+        >
+          {copied ? <Icon glyph="Checkmark" /> : <Icon glyph="Copy" />}
+        </Button>
+      </TooltipTrigger>
+      <Tooltip data-testid="copy-button-tooltip">
+        {copied ? "Copied!" : tooltipLabel}
+      </Tooltip>
+    </TooltipRoot>
   );
 };
