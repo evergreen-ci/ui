@@ -1,5 +1,10 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
-import { Body, BodyProps, H2, H2Props } from "@leafygreen-ui/typography";
+import {
+  Body,
+  H2,
+  SizableTextAliasProps,
+  TextAliasProps,
+} from "@via-ds/components";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./Layout.module.css";
@@ -119,7 +124,7 @@ export const PageContent = forwardRef<
 ));
 PageContent.displayName = "PageContent";
 
-export const PageTitle = forwardRef<HTMLHeadingElement, H2Props>(
+export const PageTitle = forwardRef<HTMLHeadingElement, TextAliasProps>(
   ({ className, ...rest }, ref) => (
     <H2 ref={ref} className={cx(styles.pageTitle, className)} {...rest} />
   ),
@@ -143,7 +148,7 @@ export const InputLabel = forwardRef<
 ));
 InputLabel.displayName = "InputLabel";
 
-export const ErrorMessage = forwardRef<HTMLElement, BodyProps>(
+export const ErrorMessage = forwardRef<HTMLElement, SizableTextAliasProps>(
   ({ className, ...rest }, ref) => (
     <Body ref={ref} className={cx(styles.errorMessage, className)} {...rest} />
   ),
