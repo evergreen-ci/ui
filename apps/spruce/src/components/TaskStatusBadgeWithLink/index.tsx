@@ -1,4 +1,4 @@
-import { palette } from "@leafygreen-ui/palette";
+import tokens from "@via-ds/tokens";
 import { Link } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { Icon } from "@evg-ui/lib/components/Icon";
@@ -41,7 +41,7 @@ const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
       })}
     >
       <TaskStatusBadge status={status as TaskStatus} {...rest} />
-      <Icon className="link-icon" fill={palette.blue.base} glyph="OpenNewTab" />
+      <Icon className="link-icon" fill={tokens.color.blue["400"].$value} glyph="OpenNewTab" />
     </Link>
   );
 };

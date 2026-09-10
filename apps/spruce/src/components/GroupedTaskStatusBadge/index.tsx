@@ -1,4 +1,4 @@
-import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Tooltip, TooltipRoot, TooltipTrigger } from "@via-ds/components";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -24,48 +24,49 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
 }) => {
   const { border, fill, text } = mapUmbrellaStatusColors[status];
 
-  return (
-    <Tooltip
-      align="top"
-      darkMode
-      enabled={!!statusCounts}
-      justify="middle"
-      trigger={
-        <div>
-          <Link
-            aria-selected={isActive}
-            data-testid="grouped-task-status-badge"
-            onClick={() => onClick()}
-            to={href}
-          >
-            <div
-              className={styles.badgeContainer}
-              style={{
-                borderColor: border,
-                backgroundColor: fill,
-                color: text,
-                opacity: isActive === false ? 0.4 : undefined,
-              }}
-            >
-              <span className={styles.number}>{count}</span>
-              <span className={styles.status}>
-                {taskStatusToCopy[status as TaskStatus]}
-              </span>
-            </div>
-          </Link>
+  const trigger = (
+    <div>
+      <Link
+        aria-selected={isActive}
+        data-testid="grouped-task-status-badge"
+        onClick={() => onClick()}
+        to={href}
+      >
+        <div
+          className={styles.badgeContainer}
+          style={{
+            borderColor: border,
+            backgroundColor: fill,
+            color: text,
+            opacity: isActive === false ? 0.4 : undefined,
+          }}
+        >
+          <span className={styles.number}>{count}</span>
+          <span className={styles.status}>
+            {taskStatusToCopy[status as TaskStatus]}
+          </span>
         </div>
-      }
-      triggerEvent="hover"
-    >
-      <div data-testid="grouped-task-status-badge-tooltip">
-        {statusCounts &&
-          Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
+      </Link>
+    </div>
+  );
+
+  if (!statusCounts) {
+    return trigger;
+  }
+
+  return (
+    <TooltipRoot side="top" align="center">
+      <TooltipTrigger>{trigger}</TooltipTrigger>
+      <Tooltip>
+        <div data-testid="grouped-task-status-badge-tooltip">
+          {Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
             <div key={taskStatus} className={styles.row}>
               <span className={styles.count}>{taskCount}</span>{" "}
               {taskStatusToCopy[taskStatus as TaskStatus] ?? taskStatus}
             </div>
           ))}
-      </div>
-    </Tooltip>
+        </div>
+      </Tooltip>
+    </TooltipRoot>
   );
 };

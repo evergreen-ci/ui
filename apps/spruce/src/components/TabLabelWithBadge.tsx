@@ -1,10 +1,10 @@
-import { Badge, Variant } from "@leafygreen-ui/badge";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
 import styles from "./TabLabelWithBadge.module.css";
 
 interface Props {
   tabLabel: string;
   badgeText: string | number;
-  badgeVariant: Variant;
+  badgeVariant: BadgeVariant;
   dataTestIdBadge?: string;
 }
 export const TabLabelWithBadge: React.FC<Props> = ({

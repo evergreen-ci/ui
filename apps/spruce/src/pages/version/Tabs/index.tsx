@@ -7,6 +7,7 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { BadgeVariant } from "@via-ds/components/badge";
 import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
@@ -35,7 +36,7 @@ const getDownstreamTabName = (
     return (
       <TabLabelWithBadge
         badgeText={numFailedChildPatches}
-        badgeVariant="red"
+        badgeVariant={BadgeVariant.Error}
         dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
@@ -45,7 +46,7 @@ const getDownstreamTabName = (
     return (
       <TabLabelWithBadge
         badgeText={numStartedChildPatches}
-        badgeVariant="yellow"
+        badgeVariant={BadgeVariant.Warning}
         dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
@@ -55,7 +56,7 @@ const getDownstreamTabName = (
     return (
       <TabLabelWithBadge
         badgeText={numSuccessChildPatches}
-        badgeVariant="green"
+        badgeVariant={BadgeVariant.Success}
         dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
@@ -64,7 +65,7 @@ const getDownstreamTabName = (
   return (
     <TabLabelWithBadge
       badgeText={0}
-      badgeVariant="lightgray"
+      badgeVariant={BadgeVariant.Status}
       dataTestIdBadge="downstream-tab-badge"
       tabLabel="Downstream Projects"
     />
