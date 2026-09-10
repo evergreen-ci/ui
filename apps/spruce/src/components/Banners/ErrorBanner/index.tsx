@@ -27,18 +27,20 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
     <BannerContainer data-testid="configuration-errors-banner">
       <Callout variant="warning">
         <Text slot="title">{errorTitle}</Text>
-        {errors[0]}
-        {errors.length > 1 && (
-          <>
-            <br />
-            <ModalTriggerText
-              data-testid="configuration-errors-modal-trigger"
-              onClick={() => setShowModal(true)}
-            >
-              See all errors
-            </ModalTriggerText>
-          </>
-        )}
+        <Text>
+          {errors[0]}
+          {errors.length > 1 && (
+            <>
+              <br />
+              <ModalTriggerText
+                data-testid="configuration-errors-modal-trigger"
+                onClick={() => setShowModal(true)}
+              >
+                See all errors
+              </ModalTriggerText>
+            </>
+          )}
+        </Text>
       </Callout>
       <DisplayModal
         data-testid="configuration-errors-modal"

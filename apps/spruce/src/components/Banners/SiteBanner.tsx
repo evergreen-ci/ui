@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Banner, BannerVariant } from "@via-ds/components/banner";
+import { Text } from "@via-ds/components/typography";
 import Cookies from "js-cookie";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
@@ -29,7 +30,7 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
       onClose={hideBanner}
       variant={variant}
     >
-      {jiraLinkify(text, jiraHost ?? "")}
+      <Text>{jiraLinkify(text, jiraHost ?? "")}</Text>
     </Banner>
   ) : null;
 };

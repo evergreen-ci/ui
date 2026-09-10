@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Banner } from "@via-ds/components/banner";
+import { Text } from "@via-ds/components/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { DisplayModal } from "components/DisplayModal";
 import {
@@ -25,13 +26,9 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
 
   return showBanner ? (
     <BannerContainer data-testid="configuration-warnings-banner">
-      <Banner
-        onClose={() => setShowBanner(false)}
-        variant="warning"
-      >
-        <b>{warningTitle}</b>
-        <br />
-        <span>
+      <Banner onClose={() => setShowBanner(false)} variant="warning">
+        <Text slot="title">{warningTitle}</Text>
+        <Text>
           See all warnings{" "}
           <ModalTriggerText
             data-testid="configuration-warnings-modal-trigger"
@@ -39,7 +36,7 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
           >
             here
           </ModalTriggerText>
-        </span>
+        </Text>
       </Banner>
       <DisplayModal
         data-testid="configuration-warnings-modal"

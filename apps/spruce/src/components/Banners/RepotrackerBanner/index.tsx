@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { skipToken, useMutation, useQuery } from "@apollo/client/react";
+import {
+  Button,
+  Content,
+  Dialog,
+  DialogRoot,
+  Footer,
+  Header,
+  Text,
+} from "@via-ds/components";
 import { Banner } from "@via-ds/components/banner";
-import { Button, Content, Dialog, DialogRoot, Footer, Header } from "@via-ds/components";
-import { Text } from "@via-ds/components/typography";
 import { TextField } from "@via-ds/components/text-field";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
