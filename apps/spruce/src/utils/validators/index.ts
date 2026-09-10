@@ -59,9 +59,20 @@ const validateURL = (url: string): boolean => {
   if (!url) {
     return true;
   }
-  const validateUrlRegex =
-    /(^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?)|(http:\/\/localhost:\d+)/;
-  return validateUrlRegex.test(url);
+
+  const protocol = /(?:https?|ftp):\/\//;
+  const optionalWww = /(?:www\.)?/;
+  const hostname = /[0-9A-Za-z\-.@:%_+~#=]+/;
+  const domain = /(?:\.[a-zA-Z]{2,3})+/;
+  const path = /(?:\/[^\s?]*)?/;
+  const query = /(?:\?[^\s]*)?/;
+
+  const standardUrl = new RegExp(
+    `^(?:${protocol.source}${optionalWww.source}|www\\.)${hostname.source}${domain.source}${path.source}${query.source}$`,
+  );
+  const localhost = /http:\/\/localhost:\d+/;
+
+  return standardUrl.test(url) || localhost.test(url);
 };
 
 /**

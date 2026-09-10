@@ -82,39 +82,28 @@ describe("validateSSHPublicKey", () => {
 });
 
 describe("validateJiraURL", () => {
+  const jiraURL = "jira\\.example\\.com";
   it("validates jira urls", () => {
     expect(
-      validateJiraURL(
-        "jira.example.com",
-        "https://jira.example.com/browse/TEST-1",
-      ),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/TEST-1"),
     ).toBeTruthy();
     expect(
-      validateJiraURL(
-        "jira.example.com",
-        "https://jira.example.com/browse/EVG-1",
-      ),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/EVG-1"),
     ).toBeTruthy();
     expect(
-      validateJiraURL(
-        "jira.example.com",
-        "https://jira.example.com/browse/PD-1234",
-      ),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/PD-1234"),
     ).toBeTruthy();
     expect(
-      validateJiraURL(
-        "jira.example.com",
-        "https://jira.example.com/browse/PD-1234",
-      ),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/PD-1234"),
     ).toBeTruthy();
-    expect(validateJiraURL("jira.example.com", "")).toBeFalsy();
-    expect(validateJiraURL("jira.example.com", "jira.example.com")).toBeFalsy();
+    expect(validateJiraURL(jiraURL, "")).toBeFalsy();
+    expect(validateJiraURL(jiraURL, "jira.example.com")).toBeFalsy();
     expect(
-      validateJiraURL("jira.example.com", "https://jira.example.com/browse/"),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/"),
     ).toBeFalsy();
     expect(
       validateJiraURL(
-        "jira.example.com",
+        jiraURL,
         "https://jira.example.com/browse/EVG-1/some/path",
       ),
     ).toBeFalsy();
@@ -161,6 +150,15 @@ describe("validateURL", () => {
   });
   it("returns true for empty strings", () => {
     expect(validateURL("")).toBe(true);
+  });
+
+  it("should not experience catastrophic backtracking", () => {
+    const maliciousInput = `https://www.${"a".repeat(100)}!`;
+    const start = performance.now();
+    const result = validateURL(maliciousInput);
+    const elapsed = performance.now() - start;
+    expect(result).toBe(false);
+    expect(elapsed).toBeLessThan(50);
   });
 });
 
