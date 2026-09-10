@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body } from "@leafygreen-ui/typography";
+import { Body } from "@via-ds/components";
 import { useParams, useSearchParams } from "react-router-dom";
 import styles from "./FileDiff.module.css";
 import { useFileDiffStream } from "./useFileDiffStream";
@@ -41,7 +41,7 @@ export const FileDiff: React.FC = () => {
     <div className={styles.container}>
       {fileName && (
         <div className={styles.fileNameContainer}>
-          <Body weight="medium">{fileName}</Body>
+          <Body className={styles.fileNameText}>{fileName}</Body>
         </div>
       )}
       {isLoading && <ListSkeleton />}
