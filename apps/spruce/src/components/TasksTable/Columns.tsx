@@ -4,7 +4,7 @@ import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -26,6 +26,7 @@ export const getColumnsTemplate = ({
   onClickTaskStatusBadge = () => {},
   showTaskExecutionLabel = false,
   statusOptions = [],
+  useTaskInspector = false,
 }: {
   baseStatusOptions?: TreeDataEntry[];
   isPatch?: boolean;
@@ -38,6 +39,7 @@ export const getColumnsTemplate = ({
   ) => void;
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
+  useTaskInspector?: boolean;
 }): LGColumnDef<TaskTableInfo>[] => [
   {
     header: () => (
@@ -59,15 +61,18 @@ export const getColumnsTemplate = ({
       row: {
         original: { displayStatus, execution, id },
       },
-    }): React.JSX.Element => (
-      <TaskLink
-        execution={execution}
-        onClick={() => onClickTaskLink(id, displayStatus)}
-        showTaskExecutionLabel={showTaskExecutionLabel}
-        taskId={id}
-        taskName={getValue() as string}
-      />
-    ),
+    }): React.JSX.Element =>
+      useTaskInspector ? (
+        <WordBreak all>{getValue() as string}</WordBreak>
+      ) : (
+        <TaskLink
+          execution={execution}
+          onClick={() => onClickTaskLink(id, displayStatus)}
+          showTaskExecutionLabel={showTaskExecutionLabel}
+          taskId={id}
+          taskName={getValue() as string}
+        />
+      ),
     meta: {
       search: {
         "data-testid": "task-name-filter",
@@ -80,7 +85,7 @@ export const getColumnsTemplate = ({
   {
     accessorKey: "displayStatus",
     id: TaskSortCategory.Status,
-    header: "Task Status",
+    header: "Current",
     cell: ({
       column,
       getValue,
@@ -98,12 +103,18 @@ export const getColumnsTemplate = ({
             justify={Justify.Middle}
             trigger={
               <span>
-                <TaskStatusBadgeWithLink
-                  execution={execution}
-                  id={id}
-                  onClick={() => onClickTaskStatusBadge(id, status, column.id)}
-                  status={status as TaskStatus}
-                />
+                {useTaskInspector ? (
+                  <TaskStatusBadge status={status as TaskStatus} />
+                ) : (
+                  <TaskStatusBadgeWithLink
+                    execution={execution}
+                    id={id}
+                    onClick={() =>
+                      onClickTaskStatusBadge(id, status, column.id)
+                    }
+                    status={status as TaskStatus}
+                  />
+                )}
               </span>
             }
           >
@@ -115,12 +126,16 @@ export const getColumnsTemplate = ({
 
       return (
         <div className={styles.flexWrapper}>
-          <TaskStatusBadgeWithLink
-            execution={execution}
-            id={id}
-            onClick={() => onClickTaskStatusBadge(id, status, column.id)}
-            status={status as TaskStatus}
-          />
+          {useTaskInspector ? (
+            <TaskStatusBadge status={status as TaskStatus} />
+          ) : (
+            <TaskStatusBadgeWithLink
+              execution={execution}
+              id={id}
+              onClick={() => onClickTaskStatusBadge(id, status, column.id)}
+              status={status as TaskStatus}
+            />
+          )}
           {hasErrors && (
             <IconWithTooltip color={palette.red.base} glyph="Warning">
               {errors.join(", ")}
@@ -141,7 +156,7 @@ export const getColumnsTemplate = ({
   {
     id: TaskSortCategory.BaseStatus,
     accessorKey: "baseTask.displayStatus",
-    header: `${isPatch ? "Base" : "Previous"} Status`,
+    header: isPatch ? "Base" : "Previous",
     cell: ({
       column,
       getValue,
@@ -150,7 +165,7 @@ export const getColumnsTemplate = ({
       },
     }) => {
       const status = getValue() as TaskStatus;
-      return baseTask ? (
+      return baseTask && !useTaskInspector ? (
         <TaskStatusBadgeWithLink
           execution={baseTask?.execution}
           id={baseTask?.id}
@@ -175,7 +190,7 @@ export const getColumnsTemplate = ({
     id: "last-run-status",
     header: () => (
       <div className={styles.flexWrapper}>
-        Last Run Status
+        Last run
         <InfoSprinkle>
           For {isPatch ? "base" : "previous"} tasks that have not finished
           running, this column links to the most recent completed commit.
@@ -194,7 +209,11 @@ export const getColumnsTemplate = ({
       >["prevTaskCompleted"];
 
       if (prevTaskCompleted) {
-        return (
+        return useTaskInspector ? (
+          <TaskStatusBadge
+            status={prevTaskCompleted.displayStatus as TaskStatus}
+          />
+        ) : (
           <TaskStatusBadgeWithLink
             execution={prevTaskCompleted.execution}
             id={prevTaskCompleted.id}

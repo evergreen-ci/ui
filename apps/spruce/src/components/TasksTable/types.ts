@@ -17,4 +17,5 @@ export type TaskTableInfo = Pick<
   | "project"
   | "reviewed"
   | "errors"
->;
+> &
+  Partial<Pick<Task, "timeTaken">>;

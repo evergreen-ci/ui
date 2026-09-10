@@ -53,7 +53,6 @@ export const versionTasks: { data: VersionTasksQuery } = {
                 id: "evergreen_ui_spruce_snapshots_previous",
                 displayStatus: "failed",
                 execution: 1,
-                finishTime: new Date("2025-07-01T15:00:00Z"),
                 __typename: "Task",
               },
               __typename: "Task",
@@ -71,6 +70,7 @@ export const versionTasks: { data: VersionTasksQuery } = {
               identifier: "evergreen-ui",
               __typename: "Project",
             },
+            timeTaken: 815000,
             __typename: "Task",
           },
           {

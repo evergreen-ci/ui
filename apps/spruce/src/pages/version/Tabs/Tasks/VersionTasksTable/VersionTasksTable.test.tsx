@@ -14,7 +14,7 @@ import {
 import * as db from "components/TaskReview/db";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
-import { VERSION_TASKS } from "gql/queries";
+import { TASK_ALL_EXECUTIONS, VERSION_TASKS } from "gql/queries";
 import { TaskTab } from "types/task";
 import { versionTasks } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
@@ -138,7 +138,8 @@ describe("VersionTasksTable", () => {
     );
   });
 
-  it("links the last completed run status when one exists", () => {
+  it("links the last completed run from the inspector when one exists", async () => {
+    const user = userEvent.setup();
     render(
       <MockedProvider cache={cache}>
         <VersionTasksTable {...sharedProps} />
@@ -155,11 +156,71 @@ describe("VersionTasksTable", () => {
       firstRow.querySelector('[data-column="last-run-status"]') as HTMLElement,
     );
 
-    expect(screen.getByText("Last Run Status")).toBeVisible();
-    expect(lastRunStatusCell.getByRole("link")).toHaveAttribute(
-      "href",
-      expectedHref,
+    expect(screen.getByText("Last run")).toBeVisible();
+    expect(lastRunStatusCell.queryByRole("link")).toBeNull();
+
+    await user.click(lastRunStatusCell.getByTestId("task-status-badge"));
+    expect(
+      within(screen.getByTestId("task-inspector")).getByRole("link", {
+        name: "Open last run task",
+      }),
+    ).toHaveAttribute("href", expectedHref);
+  });
+
+  it("selects a row and links its current and base tasks from the inspector", async () => {
+    const user = userEvent.setup();
+    render(
+      <MockedProvider cache={cache}>
+        <VersionTasksTable {...sharedProps} />
+      </MockedProvider>,
     );
+
+    const firstRow = screen.getAllByTestId("tasks-table-row")[0];
+    await user.click(
+      firstRow.querySelector('[data-column="NAME"]') as HTMLElement,
+    );
+
+    expect(firstRow).toHaveAttribute("data-selected", "true");
+    const inspector = within(screen.getByTestId("task-inspector"));
+    expect(inspector.getByText(tasks[0].displayName)).toBeVisible();
+    expect(
+      inspector.getByRole("link", { name: "Open current task" }),
+    ).toHaveAttribute(
+      "href",
+      getTaskRoute(tasks[0].id, { execution: tasks[0].execution }),
+    );
+    expect(
+      inspector.getByRole("link", { name: "Open previous task" }),
+    ).toHaveAttribute(
+      "href",
+      getTaskRoute(tasks[0].baseTask?.id ?? "", {
+        execution: tasks[0].baseTask?.execution,
+      }),
+    );
+  });
+
+  it("shows earlier executions for the selected current task", async () => {
+    const user = userEvent.setup();
+    const taskWithRetries = { ...tasks[0], execution: 2 };
+    render(
+      <MockedProvider cache={cache} mocks={[taskAllExecutionsMock]}>
+        <VersionTasksTable {...sharedProps} tasks={[taskWithRetries]} />
+      </MockedProvider>,
+    );
+
+    await user.click(
+      screen
+        .getByTestId("tasks-table-row")
+        .querySelector('[data-column="NAME"]') as HTMLElement,
+    );
+
+    expect(await screen.findByText("Earlier executions")).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Open execution 2" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Open execution 1" }),
+    ).toBeVisible();
   });
 
   it("leaves the last completed run status empty when none exists", () => {
@@ -331,6 +392,43 @@ const sharedProps = {
   tasks,
   totalCount: tasks.length,
   versionId,
+};
+
+const taskAllExecutionsMock = {
+  request: {
+    query: TASK_ALL_EXECUTIONS,
+    variables: { taskId: tasks[0].id },
+  },
+  result: {
+    data: {
+      taskAllExecutions: [
+        {
+          __typename: "Task" as const,
+          activatedTime: null,
+          displayStatus: "failed",
+          execution: 0,
+          id: tasks[0].id,
+          ingestTime: null,
+        },
+        {
+          __typename: "Task" as const,
+          activatedTime: null,
+          displayStatus: "success",
+          execution: 1,
+          id: tasks[0].id,
+          ingestTime: null,
+        },
+        {
+          __typename: "Task" as const,
+          activatedTime: null,
+          displayStatus: "failed",
+          execution: 2,
+          id: tasks[0].id,
+          ingestTime: null,
+        },
+      ],
+    },
+  },
 };
 
 describe("getInitialState", () => {

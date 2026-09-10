@@ -12220,18 +12220,20 @@ export type VersionTasksQuery = {
         errors?: Array<string> | null;
         execution: number;
         reviewed?: boolean | null;
+        timeTaken?: number | null;
         baseTask?: {
           __typename?: "Task";
           id: string;
           displayStatus: string;
           execution: number;
           status: string;
+          timeTaken?: number | null;
           prevTaskCompleted?: {
             __typename?: "Task";
             id: string;
             displayStatus: string;
             execution: number;
-            finishTime?: Date | null;
+            timeTaken?: number | null;
           } | null;
         } | null;
         dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
@@ -12244,18 +12246,20 @@ export type VersionTasksQuery = {
           displayStatus: string;
           execution: number;
           reviewed?: boolean | null;
+          timeTaken?: number | null;
           baseTask?: {
             __typename?: "Task";
             id: string;
             displayStatus: string;
             execution: number;
             status: string;
+            timeTaken?: number | null;
             prevTaskCompleted?: {
               __typename?: "Task";
               id: string;
               displayStatus: string;
               execution: number;
-              finishTime?: Date | null;
+              timeTaken?: number | null;
             } | null;
           } | null;
           project?: {

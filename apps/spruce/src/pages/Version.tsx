@@ -30,6 +30,7 @@ import { IgnoredBanner } from "./version/IgnoredBanner";
 import { Metadata } from "./version/Metadata";
 import { NameChangeModal } from "./version/NameChangeModal";
 import VersionTabs from "./version/Tabs";
+import styles from "./Version.module.css";
 
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
@@ -148,7 +149,7 @@ export const VersionPage: React.FC = () => {
           <Metadata version={version} />
           <BuildVariantCard versionId={versionId} />
         </PageSider>
-        <PageContent>
+        <PageContent className={styles.pageContent}>
           <VersionTabs setActiveTaskIds={setActiveTaskIds} version={version} />
         </PageContent>
       </PageLayout>

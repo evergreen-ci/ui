@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   BaseTable,
   ColumnFiltersState,
@@ -15,6 +15,7 @@ import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { taskReviewStyles } from "components/TasksTable/styles";
+import { TaskInspector } from "components/TasksTable/TaskInspector";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
@@ -27,6 +28,7 @@ import {
   emptyFilterQueryParams,
   mapIdToFilterParam,
 } from "./constants";
+import styles from "./index.module.css";
 
 // Create a more specific enum because duration is not a valid category to sort / filter by in the tasks table.
 enum VersionTaskCategory {
@@ -68,6 +70,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   versionId,
 }) => {
   const [queryParams, setQueryParams] = useQueryParams();
+  const [selectedRowId, setSelectedRowId] = useState<string>();
   const { sendEvent } = useVersionAnalytics(versionId);
   const taskReviewEnabled = !getLocalStorageBoolean(DISABLE_TASK_REVIEW, false);
 
@@ -76,32 +79,46 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 
   const { initialFilters, initialSorting } = getInitialState(queryParams);
 
+  const onClickTaskLink = useCallback(
+    (taskId: string, status?: string) =>
+      sendEvent({
+        name: "Clicked task table task link",
+        "task.id": taskId,
+        "task.status": status ?? "",
+      }),
+    [sendEvent],
+  );
+
+  const onClickTaskStatusBadge = useCallback(
+    (taskId: string, status: string, column: string) =>
+      sendEvent({
+        name: "Clicked task table status badge",
+        "task.id": taskId,
+        "task.status": status,
+        column,
+      }),
+    [sendEvent],
+  );
+
   const columns = useMemo(
     () =>
       getColumnsTemplate({
         baseStatusOptions,
         statusOptions,
+        useTaskInspector: true,
         isPatch,
         loading,
-        onClickTaskLink: (taskId: string, status?: string) =>
-          sendEvent({
-            name: "Clicked task table task link",
-            "task.id": taskId,
-            "task.status": status ?? "",
-          }),
-        onClickTaskStatusBadge: (
-          taskId: string,
-          status: string,
-          column: string,
-        ) =>
-          sendEvent({
-            name: "Clicked task table status badge",
-            "task.id": taskId,
-            "task.status": status,
-            column: column,
-          }),
+        onClickTaskLink,
+        onClickTaskStatusBadge,
       }),
-    [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
+    [
+      baseStatusOptions,
+      statusOptions,
+      isPatch,
+      loading,
+      onClickTaskLink,
+      onClickTaskStatusBadge,
+    ],
   );
 
   const [columnFilters, setColumnFilters] =
@@ -165,39 +182,56 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       getSubRows: (row) => row.executionTasksFull || [],
     });
 
+  const selectedTask = table
+    .getRowModel()
+    .flatRows.find(({ id }) => id === selectedRowId)?.original;
+
   return (
-    <TableWrapper
-      controls={
-        <TableControl
-          filteredCount={filteredCount}
-          limit={limit}
-          loading={loading}
-          onClear={() => {
-            setColumnFilters([]);
-            setSorting(defaultSorting);
-            clearQueryParams();
-          }}
-          onPageSizeChange={(size: number) =>
-            sendEvent({ name: "Changed page size", "page.size": size })
+    <div className={styles.workspace}>
+      <div className={styles.tableRegion}>
+        <TableWrapper
+          controls={
+            <TableControl
+              filteredCount={filteredCount}
+              limit={limit}
+              loading={loading}
+              onClear={() => {
+                setColumnFilters([]);
+                setSorting(defaultSorting);
+                clearQueryParams();
+              }}
+              onPageSizeChange={(size: number) =>
+                sendEvent({ name: "Changed page size", "page.size": size })
+              }
+              page={page}
+              totalCount={totalCount}
+            />
           }
-          page={page}
-          totalCount={totalCount}
-        />
-      }
-      shouldShowBottomTableControl={limit > 10}
-    >
-      <BaseTable
-        css={taskReviewEnabled && taskReviewStyles}
-        data-loading={loading}
-        data-testid="tasks-table"
-        data-testid-row="tasks-table-row"
-        emptyComponent={<TablePlaceholder message="No tasks found." />}
-        loading={loading}
-        loadingRows={limit}
-        shouldAlternateRowColor
-        table={table}
+          shouldShowBottomTableControl={limit > 10}
+        >
+          <BaseTable
+            css={taskReviewEnabled && taskReviewStyles}
+            data-loading={loading}
+            data-testid="tasks-table"
+            data-testid-row="tasks-table-row"
+            emptyComponent={<TablePlaceholder message="No tasks found." />}
+            loading={loading}
+            loadingRows={limit}
+            onRowClick={(row) => setSelectedRowId(row.id)}
+            selectedRowIds={selectedRowId ? [selectedRowId] : []}
+            shouldAlternateRowColor
+            stickyHeader
+            table={table}
+          />
+        </TableWrapper>
+      </div>
+      <TaskInspector
+        isPatch={isPatch}
+        onClickTaskLink={onClickTaskLink}
+        onClickTaskStatusBadge={onClickTaskStatusBadge}
+        task={selectedTask}
       />
-    </TableWrapper>
+    </div>
   );
 };
 

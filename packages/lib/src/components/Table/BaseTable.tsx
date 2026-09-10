@@ -58,10 +58,21 @@ interface SpruceTableProps<T extends LGRowData> {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
+  /** Called when a non-interactive part of a row is activated. */
+  onRowClick?: (
+    row: LeafyGreenTableRow<T>,
+    event:
+      | React.KeyboardEvent<HTMLTableRowElement>
+      | React.MouseEvent<HTMLTableRowElement>,
+  ) => void;
   /** number of total items the table will have */
   numTotalItems?: number;
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
+  /** Row IDs that will have a blue tint to represent that they are selected. */
+  selectedRowIds?: string[];
+  /** Whether the table header remains visible while its scroll container scrolls. */
+  stickyHeader?: boolean;
   /** rows that will have a disabled style */
   disabledRowIndexes?: number[];
   /** whether the table is paginated */
@@ -86,8 +97,11 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
       loading,
       loadingRows = 5,
       numTotalItems,
+      onRowClick,
       rowClassName,
+      selectedRowIds = [],
       selectedRowIndexes = [],
+      stickyHeader = false,
       table,
       usePagination = false,
       verticalAlignment = "middle",
@@ -109,7 +123,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
           verticalAlignment={verticalAlignment}
           {...args}
         >
-          <TableHead isSticky={hasVirtualRows}>
+          <TableHead isSticky={hasVirtualRows || stickyHeader}>
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -139,7 +153,11 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                       key={row.id}
                       dataTestIdRow={dataTestIdRow}
                       disabled={disabledRowIndexes?.includes(row.index)}
-                      isSelected={selectedRowIndexes.includes(row.index)}
+                      isSelected={
+                        selectedRowIndexes.includes(row.index) ||
+                        selectedRowIds.includes(row.id)
+                      }
+                      onRowClick={onRowClick}
                       row={row}
                       rowClassName={rowClassName}
                       virtualRow={vr}
@@ -151,7 +169,11 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                     key={row.id}
                     dataTestIdRow={dataTestIdRow}
                     disabled={disabledRowIndexes?.includes(row.index)}
-                    isSelected={selectedRowIndexes.includes(row.index)}
+                    isSelected={
+                      selectedRowIndexes.includes(row.index) ||
+                      selectedRowIds.includes(row.id)
+                    }
+                    onRowClick={onRowClick}
                     row={row}
                     rowClassName={rowClassName}
                   />
@@ -254,6 +276,7 @@ const RenderableRow = <T extends LGRowData>({
   dataTestIdRow = "leafygreen-table-row",
   disabled = false,
   isSelected = false,
+  onRowClick,
   row,
   rowClassName,
   virtualRow,
@@ -262,44 +285,76 @@ const RenderableRow = <T extends LGRowData>({
   row: LeafyGreenTableRow<T>;
   virtualRow?: VirtualItem;
   isSelected?: boolean;
+  onRowClick?: (
+    row: LeafyGreenTableRow<T>,
+    event:
+      | React.KeyboardEvent<HTMLTableRowElement>
+      | React.MouseEvent<HTMLTableRowElement>,
+  ) => void;
   disabled?: boolean;
   rowClassName?: string;
-}) => (
-  <Fragment key={row.id}>
-    {!row.isExpandedContent && (
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore: This is a workaround to fix the type error
-      <Row
-        className={cx(rowClassName, isSelected && styles.selectedRow)}
-        data-index={row.index}
-        data-selected={isSelected}
-        data-testid={dataTestIdRow}
-        disabled={disabled}
-        row={row}
-        virtualRow={virtualRow}
-      >
-        {row.getVisibleCells().map((cell) => (
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore: This is a workaround to fix the type error
-          <Cell
-            key={cell.id}
-            cell={cell}
-            className={styles.cell}
-            data-column={cell.column.id}
-          >
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-          </Cell>
-        ))}
-      </Row>
-    )}
-    {row.isExpandedContent && (
-      <TypedExpandedContent
-        className={styles.expandedContent}
-        row={row as LeafyGreenTableRow<unknown>}
-      />
-    )}
-  </Fragment>
-);
+}) => {
+  const isInteractiveTarget = (target: EventTarget) =>
+    (target as HTMLElement).closest(
+      'a, button, input, label, select, textarea, [role="button"], [role="checkbox"]',
+    );
+
+  const handleClick = (event: React.MouseEvent<HTMLTableRowElement>) => {
+    if (isInteractiveTarget(event.target)) {
+      return;
+    }
+    onRowClick?.(row, event);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTableRowElement>) => {
+    if (isInteractiveTarget(event.target)) {
+      return;
+    }
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onRowClick?.(row, event);
+    }
+  };
+
+  return (
+    <Fragment key={row.id}>
+      {!row.isExpandedContent && (
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore: This is a workaround to fix the type error
+        <Row
+          className={cx(rowClassName, isSelected && styles.selectedRow)}
+          data-index={row.index}
+          data-selected={isSelected}
+          data-testid={dataTestIdRow}
+          disabled={disabled}
+          onClick={onRowClick ? handleClick : undefined}
+          onKeyDown={onRowClick ? handleKeyDown : undefined}
+          row={row}
+          virtualRow={virtualRow}
+        >
+          {row.getVisibleCells().map((cell) => (
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore: This is a workaround to fix the type error
+            <Cell
+              key={cell.id}
+              cell={cell}
+              className={styles.cell}
+              data-column={cell.column.id}
+            >
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </Cell>
+          ))}
+        </Row>
+      )}
+      {row.isExpandedContent && (
+        <TypedExpandedContent
+          className={styles.expandedContent}
+          row={row as LeafyGreenTableRow<unknown>}
+        />
+      )}
+    </Fragment>
+  );
+};
 
 const TypedExpandedContent = ExpandedContent as React.ComponentType<
   ExpandedContentProps<LGRowData>

@@ -23,9 +23,10 @@ export const VERSION_TASKS = gql`
               id
               displayStatus
               execution
-              finishTime
+              timeTaken
             }
             status
+            timeTaken
           }
           blocked
           buildVariant
@@ -49,9 +50,10 @@ export const VERSION_TASKS = gql`
                 id
                 displayStatus
                 execution
-                finishTime
+                timeTaken
               }
               status
+              timeTaken
             }
             buildVariant
             buildVariantDisplayName
@@ -63,12 +65,14 @@ export const VERSION_TASKS = gql`
               identifier
             }
             reviewed @client
+            timeTaken
           }
           project {
             id
             identifier
           }
           reviewed @client
+          timeTaken
         }
       }
     }
