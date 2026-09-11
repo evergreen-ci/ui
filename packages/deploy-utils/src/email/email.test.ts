@@ -6,7 +6,18 @@ import { makeEmail } from ".";
 
 vi.mock("child_process", async (importOriginal) => ({
   ...(await importOriginal()),
-  execFileSync: vi.fn(),
+  execFileSync: vi
+    .fn()
+    .mockImplementation((executable: string, args: string[]) => {
+      if (executable.includes("evergreen")) return "";
+      if (executable === "git") {
+        if (args.includes("rev-parse")) return "abc1234";
+        if (args.includes("describe")) return "spruce/v1.0.0";
+        if (args.includes("log")) return "abc1234 some commit";
+        if (args.includes("show")) return "abc1234 revert commit";
+      }
+      return "";
+    }),
 }));
 
 vi.mock("../utils/environment", async (importOriginal) => ({

@@ -1,5 +1,5 @@
 import { test as base } from "@playwright/test";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import * as helpers from "./helpers";
 
 const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
@@ -38,10 +38,10 @@ export const test = base.extend({
           console.log(
             "A mutation that creates an Amboy job was detected. Restoring Amboy.",
           );
-          execSync("pnpm evg-db-ops --restore amboy");
+          execFileSync("pnpm", ["evg-db-ops", "--restore", "amboy"]);
         }
         console.log("A mutation was detected. Restoring Evergreen.");
-        execSync("pnpm evg-db-ops --restore evergreen");
+        execFileSync("pnpm", ["evg-db-ops", "--restore", "evergreen"]);
       } catch (e) {
         console.error("Failed to restore database:", e);
       }

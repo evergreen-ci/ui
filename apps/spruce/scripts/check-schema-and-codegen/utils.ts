@@ -1,5 +1,5 @@
 import { generate } from "@graphql-codegen/cli";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import fs from "fs";
 import os from "os";
 import process from "process";
@@ -41,7 +41,7 @@ export const checkIsAncestor = async (commit: string): Promise<boolean> => {
   const originalDir = process.cwd();
   try {
     process.chdir(localSchemaSymlink);
-    execSync(`git merge-base --is-ancestor ${commit} HEAD`);
+    execFileSync("git", ["merge-base", "--is-ancestor", commit, "HEAD"]);
     process.chdir(originalDir);
     return true;
   } catch (error) {

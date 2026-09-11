@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { homedir } from "os";
 import { resolve } from "path";
 
@@ -22,32 +22,24 @@ export const escapeHtml = (text: string) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
-const commandExists = (commandName: string) => {
-  try {
-    // Prior art from command-exists package
-    // https://github.com/mathisonian/command-exists/blob/742a73d75e6ff737c35aa7c88d0828cbb0455811/lib/command-exists.js#L84-L87
-    const stdout = execSync(
-      `command -v ${commandName} 2>/dev/null && { echo >&1 ${commandName}; exit 0; }`,
-    );
-    return !!stdout;
-  } catch (error) {
-    return false;
-  }
-};
-
 /**
  * findEvergreen finds the path and config file of the Evergreen executable
  * @returns - object with the Evergreen executable and credential arguments, or null if Evergreen could not be found.
  */
 export const findEvergreen = () => {
-  if (commandExists("evergreen")) {
+  try {
+    execFileSync("evergreen", ["--version"], { stdio: "ignore" });
     return { evgExecutable: "evergreen", credentials: [] };
-  }
-  if (commandExists("~/evergreen")) {
+  } catch {}
+
+  try {
+    const homePath = resolve(homedir(), "evergreen");
+    execFileSync(homePath, ["--version"], { stdio: "ignore" });
     return {
-      evgExecutable: resolve(homedir(), "evergreen"),
+      evgExecutable: homePath,
       credentials: ["-c", ".evergreen.yml"],
     };
-  }
+  } catch {}
+
   return null;
 };

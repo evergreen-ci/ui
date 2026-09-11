@@ -46,7 +46,12 @@ export const sendEmail = async () => {
   if (isRevert) {
     const emailFields = makeEmail({
       app,
-      commitsString: execTrim(`git show --oneline -s ${previousDeployCommit}`),
+      commitsString: execTrim("git", [
+        "show",
+        "--oneline",
+        "-s",
+        previousDeployCommit,
+      ]),
       commitToDeploy: previousDeployCommit,
       isRevert,
     });
@@ -110,7 +115,7 @@ export const makeEmail = ({
 
   const from = isRunningOnCI()
     ? process.env.AUTHOR_EMAIL
-    : execTrim("git config user.email");
+    : execTrim("git", ["config", "user.email"]);
   if (!from) {
     throw Error("Author email not configured");
   }
