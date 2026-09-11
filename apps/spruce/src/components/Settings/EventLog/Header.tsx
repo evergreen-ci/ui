@@ -1,4 +1,4 @@
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Description } from "@via-ds/components/typography";
 import { useDateFormat } from "hooks";
 import styles from "./Header.module.css";
 
@@ -13,7 +13,7 @@ export const Header: React.FC<Props> = ({ section, timestamp, user }) => {
 
   return (
     <div className={styles.header}>
-      <Subtitle>{getDateCopy(timestamp)}</Subtitle>
+      <Description>{getDateCopy(timestamp)}</Description>
       <div className={styles.userSection}>
         <div>{user}</div>
         {section && (

@@ -1,5 +1,5 @@
-import { Checkbox } from "@leafygreen-ui/checkbox";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table";
+import { Checkbox } from "@via-ds/components/checkbox";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskReview } from "components/TaskReview/useTaskReview";
 import styles from "./ReviewedCheckbox.module.css";
@@ -33,12 +33,12 @@ export const ReviewedCheckbox: React.FC<{
   return (
     <Checkbox
       aria-label={`Mark as ${checked ? "un" : ""}reviewed`}
-      checked={checked}
       className={styles.checkbox}
       data-lgid={`lg-reviewed-${row.original.id}`}
       data-testid={`reviewed-${row.original.id}`}
-      disabled={task.displayStatus === TaskStatus.Succeeded}
-      indeterminate={indeterminate}
+      isDisabled={task.displayStatus === TaskStatus.Succeeded}
+      isIndeterminate={indeterminate}
+      isSelected={checked}
       onChange={handleClick}
     />
   );

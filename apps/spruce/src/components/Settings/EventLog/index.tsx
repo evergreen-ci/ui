@@ -1,5 +1,5 @@
 import { Card } from "@leafygreen-ui/card";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Disclaimer } from "@via-ds/components/typography";
 import { LoadingButton } from "components/Buttons";
 import EventDiffTable from "./EventDiffTable";
 import { CustomKeyValueRenderConfig } from "./EventDiffTable/utils/keyRenderer";
@@ -64,7 +64,7 @@ const EventLog: React.FC<EventLogProps> = ({
           Load more events
         </LoadingButton>
       )}
-      {allEventsFetched && <Subtitle>{allEventsFetchedCopy}</Subtitle>}
+      {allEventsFetched && <Disclaimer>{allEventsFetchedCopy}</Disclaimer>}
     </div>
   );
 };

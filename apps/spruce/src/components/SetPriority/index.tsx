@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
+import { Button } from "@via-ds/components/button";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm, { Align, Justify } from "@evg-ui/lib/components/Popconfirm";
@@ -125,9 +125,8 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         <Button
           ref={menuItemRef}
           data-testid="set-priority-button"
-          disabled={disableButton}
+          isDisabled={disableButton}
           onClick={() => setOpen(!open)}
-          size={ButtonSize.XSmall}
         >
           Set priority
         </Button>

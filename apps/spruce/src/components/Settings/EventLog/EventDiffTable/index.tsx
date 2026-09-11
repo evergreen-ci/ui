@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Badge, Variant } from "@leafygreen-ui/badge";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
 import {
   BaseTable,
   LGColumnDef,
@@ -184,7 +184,7 @@ const columns = (
     accessorKey: "after",
     cell: ({ getValue, row }) =>
       getValue() === null || getValue() === undefined ? (
-        <Badge variant={Variant.Red}>Deleted</Badge>
+        <Badge variant={BadgeVariant.Error}>Deleted</Badge>
       ) : (
         <span className={styles.cellText}>
           {renderCellValue(
