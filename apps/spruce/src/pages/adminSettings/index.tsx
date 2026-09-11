@@ -1,5 +1,5 @@
+import Settings from "@via-ds/icons/Settings";
 import { Link, useParams } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
   SettingsPageContent,
@@ -29,7 +29,7 @@ const AdminSettingsPage: React.FC = () => {
         <SideNav aria-label="Admin Settings" widthOverride={250}>
           <SideNavGroup
             collapsible
-            glyph={<Icon glyph="Settings" />}
+            glyph={<Settings />}
             header={getTabTitle(AdminSettingsTabRoutes.General).title}
             initialCollapsed
           >

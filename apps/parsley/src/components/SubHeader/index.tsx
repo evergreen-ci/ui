@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
+import File from "@via-ds/icons/File";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Breadcrumbs from "components/Breadcrumbs";
 import { ToggleChatbotButton } from "components/Chatbot/ToggleChatbotButton";
@@ -24,7 +24,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ setSidePanelCollapsed }) => {
     <Container data-testid="log-header">
       {isUploadedLog ? (
         <Header>
-          <Icon glyph="File" size="large" />
+          <File size="large" />
           <Breadcrumbs
             breadcrumbs={
               fileName

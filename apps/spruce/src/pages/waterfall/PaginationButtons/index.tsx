@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
-import Icon from "@evg-ui/lib/components/Icon";
+import ChevronLeft from "@via-ds/icons/ChevronLeft";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { Pagination } from "../types";
@@ -40,13 +41,13 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
       <Button
         data-testid="prev-page-button"
         disabled={!hasPrevPage || isNavigatingToPage}
-        leftGlyph={<Icon glyph="ChevronLeft" />}
+        leftGlyph={<ChevronLeft />}
         onClick={onPrevClick}
       />
       <Button
         data-testid="next-page-button"
         disabled={!hasNextPage || isNavigatingToPage}
-        leftGlyph={<Icon glyph="ChevronRight" />}
+        leftGlyph={<ChevronRight />}
         onClick={onNextClick}
       />
     </ButtonContainer>

@@ -3,7 +3,9 @@ import { Button } from "@leafygreen-ui/button";
 import { ExpandableCard } from "@leafygreen-ui/expandable-card";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
-import Icon from "@evg-ui/lib/components/Icon";
+import ArrowDown from "@via-ds/icons/ArrowDown";
+import ArrowUp from "@via-ds/icons/ArrowUp";
+import Trash from "@via-ds/icons/Trash";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { cx } from "@evg-ui/lib/utils/css";
 import { PlusButton } from "components/Buttons";
@@ -40,7 +42,7 @@ const ArrayItem: React.FC<
     <Button
       data-testid="delete-item-button"
       disabled={isDisabled}
-      leftGlyph={<Icon glyph="Trash" />}
+      leftGlyph={<Trash />}
       onClick={onDropIndexClick(index)}
       size="small"
     />
@@ -85,14 +87,14 @@ const ArrayItem: React.FC<
           {hasMoveUp && (
             <Button
               data-testid="array-up-button"
-              leftGlyph={<Icon glyph="ArrowUp" />}
+              leftGlyph={<ArrowUp />}
               onClick={onReorderClick(index, index - 1)}
             />
           )}
           {hasMoveDown && (
             <Button
               data-testid="array-down-button"
-              leftGlyph={<Icon glyph="ArrowDown" />}
+              leftGlyph={<ArrowDown />}
               onClick={onReorderClick(index, index + 1)}
             />
           )}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
-import Icon from "@evg-ui/lib/components/Icon";
+import Trash from "@via-ds/icons/Trash";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
@@ -59,7 +59,7 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
           }}
           size={Size.XSmall}
         >
-          <Icon glyph="Trash" />
+          <Trash />
         </Button>
       }
     >

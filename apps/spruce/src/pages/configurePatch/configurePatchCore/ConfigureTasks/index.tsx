@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import InfoWithCircle from "@via-ds/icons/InfoWithCircle";
 import pluralize from "pluralize";
-import Icon from "@evg-ui/lib/components/Icon";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
@@ -215,7 +215,7 @@ const ConfigureTasks: React.FC<Props> = ({
                   justify="middle"
                   trigger={
                     <IconContainer>
-                      <Icon glyph="InfoWithCircle" />
+                      <InfoWithCircle />
                     </IconContainer>
                   }
                   triggerEvent="hover"
@@ -228,7 +228,7 @@ const ConfigureTasks: React.FC<Props> = ({
                   justify="middle"
                   trigger={
                     <IconContainer>
-                      <Icon glyph="InfoWithCircle" />
+                      <InfoWithCircle />
                     </IconContainer>
                   }
                   triggerEvent="hover"

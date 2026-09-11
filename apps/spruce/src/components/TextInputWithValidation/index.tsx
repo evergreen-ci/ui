@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
+import Plus from "@via-ds/icons/Plus";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import {
   TextInputWithGlyph,
@@ -86,7 +86,7 @@ const TextInputWithValidation = forwardRef<
             disabled={disabled}
             onClick={handleOnSubmit}
           >
-            <Icon glyph="Plus" />
+            <Plus size="medium" />
           </IconButton>
         ) : (
           <IconWithTooltip

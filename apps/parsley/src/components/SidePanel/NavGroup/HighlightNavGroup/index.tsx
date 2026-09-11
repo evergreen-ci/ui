@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
-import Icon from "@evg-ui/lib/components/Icon";
+import X from "@via-ds/icons/X";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import Highlight, { highlightColorList } from "components/Highlight";
@@ -34,7 +34,7 @@ const HighlightNavGroup: React.FC = () => {
             aria-label="Delete highlight"
             onClick={() => deleteHighlight(highlight)}
           >
-            <Icon glyph="X" />
+            <X size="medium" />
           </IconButton>
           <StyledHighlight
             color={highlightColorList[index % highlightColorList.length]}

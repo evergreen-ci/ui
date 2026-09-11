@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Icon } from "../Icon";
+import MagnifyingGlass from "@via-ds/icons/MagnifyingGlass";
 import { TextInputWithGlyph } from ".";
 
 export default {
@@ -15,7 +15,7 @@ export const Default: StoryObj<typeof TextInputWithGlyph> = {
     return (
       <TextInputWithGlyph
         {...args}
-        icon={<Icon glyph="MagnifyingGlass" />}
+        icon={<MagnifyingGlass />}
         onChange={(e) => setValue(e.target.value)}
         value={value}
       />

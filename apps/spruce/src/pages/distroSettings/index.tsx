@@ -1,8 +1,8 @@
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
+import LinkIcon from "@via-ds/icons/Link";
 import { Link, Navigate, useParams } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -86,7 +86,7 @@ const DistroSettings: React.FC = () => {
                 </SideNavItem>
               ))}
           </SideNavGroup>
-          <SideNavGroup glyph={<Icon glyph="Link" />} header="Resources">
+          <SideNavGroup glyph={<LinkIcon />} header="Resources">
             <SideNavItem
               key={DistroSettingsTabRoutes.SingleTaskDistros}
               active={DistroSettingsTabRoutes.SingleTaskDistros === currentTab}

@@ -2,7 +2,7 @@ import { RefObject, useCallback, useRef } from "react";
 import { Button, ButtonProps } from "@leafygreen-ui/button";
 import { Card } from "@leafygreen-ui/card";
 import { Popover } from "@leafygreen-ui/popover";
-import Icon from "@evg-ui/lib/components/Icon";
+import CaretDown from "@via-ds/icons/CaretDown";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 
 interface PopoverButtonProps extends Omit<ButtonProps, "children"> {
@@ -45,7 +45,7 @@ const PopoverButton: React.FC<PopoverButtonProps> = ({
       ref={buttonRef}
       data-variant={variant}
       onClick={handleClick}
-      rightGlyph={<Icon glyph="CaretDown" />}
+      rightGlyph={<CaretDown />}
       size="small"
       variant={variant}
       {...rest}

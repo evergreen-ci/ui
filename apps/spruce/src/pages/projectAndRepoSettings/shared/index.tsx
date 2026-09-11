@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
+import List from "@via-ds/icons/List";
 import { Link, Navigate, useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
@@ -175,7 +176,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
           </div>
 
           <Divider margin={dividerMargin} />
-          <SideNavGroup glyph={<Icon glyph="List" />} header="Changelog">
+          <SideNavGroup glyph={<List />} header="Changelog">
             {otherTabs.map((v) => (
               <SharedSettingsNavItem
                 key={v}

@@ -1,4 +1,4 @@
-import Icon from "@evg-ui/lib/components/Icon";
+import ClockWithArrow from "@via-ds/icons/ClockWithArrow";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
@@ -27,7 +27,7 @@ export const JumpToMostRecent: React.FC<Props> = ({ setMenuOpen }) => {
   return (
     <DropdownItem
       data-testid="jump-to-most-recent"
-      glyph={<Icon glyph="ClockWithArrow" />}
+      glyph={<ClockWithArrow />}
       onClick={handleClick}
     >
       Jump to most recent commit

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Icon from "@evg-ui/lib/components/Icon";
+import Bell from "@via-ds/icons/Bell";
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { NotificationModal } from "components/Notifications";
@@ -21,7 +21,7 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
     <>
       <DropdownItem
         data-testid="add-notification"
-        glyph={<Icon glyph="Bell" />}
+        glyph={<Bell />}
         onClick={() => {
           setIsModalVisible(true);
         }}

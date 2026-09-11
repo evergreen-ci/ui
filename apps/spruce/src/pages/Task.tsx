@@ -3,9 +3,9 @@ import { CombinedGraphQLErrors } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
+import Refresh from "@via-ds/icons/Refresh";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import Icon from "@evg-ui/lib/components/Icon";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
@@ -140,7 +140,7 @@ export const Task = () => {
             )}
             {invalidatedByUpstream && (
               <Chip
-                glyph={<Icon glyph="Refresh" />}
+                glyph={<Refresh />}
                 label="Merge Queue Aborted"
                 variant={ChipVariant.Gray}
               />

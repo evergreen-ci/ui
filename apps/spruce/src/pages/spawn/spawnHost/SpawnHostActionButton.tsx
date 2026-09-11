@@ -3,6 +3,8 @@ import { useLazyQuery, useMutation } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import Refresh from "@via-ds/icons/Refresh";
+import Trash from "@via-ds/icons/Trash";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -150,7 +152,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
             }}
             size={Size.XSmall}
           >
-            <Icon glyph="Refresh" />
+            <Refresh />
           </Button>
         }
       >
@@ -172,7 +174,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
             }}
             size={Size.XSmall}
           >
-            <Icon glyph="Trash" />
+            <Trash />
           </Button>
         }
       >

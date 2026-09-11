@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
-import Icon from "@evg-ui/lib/components/Icon";
+import ChevronLeft from "@via-ds/icons/ChevronLeft";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -77,7 +78,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
             }
           }}
         >
-          <Icon glyph="ChevronLeft" />
+          <ChevronLeft size="medium" />
         </IconButton>
         <Timeline
           ref={ref}
@@ -169,7 +170,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
             }
           }}
         >
-          <Icon glyph="ChevronRight" />
+          <ChevronRight size="medium" />
         </IconButton>
       </Container>
     );
