@@ -1,25 +1,25 @@
-import { Badge, Variant } from "@leafygreen-ui/badge";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
 import { BannerTheme } from "gql/generated/types";
 
 export const bannerThemeToLabelMap: Record<BannerTheme, React.ReactNode> = {
   [BannerTheme.Announcement]: (
     <>
-      Announcement <Badge variant={Variant.Green}>Green</Badge>
+      Announcement <Badge variant={BadgeVariant.Success}>Green</Badge>
     </>
   ),
   [BannerTheme.Information]: (
     <>
-      Information <Badge variant={Variant.Blue}>Blue</Badge>
+      Information <Badge variant={BadgeVariant.Info}>Blue</Badge>
     </>
   ),
   [BannerTheme.Warning]: (
     <>
-      Warning <Badge variant={Variant.Yellow}>Yellow</Badge>
+      Warning <Badge variant={BadgeVariant.Warning}>Yellow</Badge>
     </>
   ),
   [BannerTheme.Important]: (
     <>
-      Urgent <Badge variant={Variant.Red}>Red</Badge>
+      Urgent <Badge variant={BadgeVariant.Error}>Red</Badge>
     </>
   ),
 };

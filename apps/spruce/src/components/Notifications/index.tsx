@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client/react";
-import { Button, ButtonProps } from "@leafygreen-ui/button";
-import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
+import { Button, ButtonProps } from "@via-ds/components/button";
+import { Content, Dialog, DialogRoot, Footer, Header, Text } from "@via-ds/components";
 import Cookies from "js-cookie";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { cx } from "@evg-ui/lib/utils/css";
@@ -28,7 +28,7 @@ import { getGqlPayload, hasInitialError } from "./utils";
 
 interface NotificationModalProps {
   "data-testid": string;
-  onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  onCancel: () => void;
   resourceId: string;
   sendAnalyticsEvent: (
     subscription: SaveSubscriptionForUserMutationVariables["subscription"],
@@ -121,33 +121,36 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   );
 
   return (
-    <ConfirmationModal
-      cancelButtonProps={{
-        onClick: onCancel,
-      }}
-      confirmButtonProps={{
-        children: "Save",
-        disabled: hasError,
-        onClick: onClickSave,
-      }}
-      data-testid={dataTestId}
-      open={visible}
-      title="Add Subscription"
-    >
-      <SpruceForm
-        formData={formState}
-        onChange={({ errors, formData }) => {
-          // Update event cookie when it changes.
-          updateEventCookie(formData.event.eventSelect);
-          // Update notification cookie when it changes.
-          updateNotificationCookie(formData.notification.notificationSelect);
-          setFormState(formData);
-          setHasError(errors.length !== 0);
-        }}
-        schema={schema}
-        uiSchema={uiSchema}
-      />
-    </ConfirmationModal>
+    <DialogRoot isOpen={visible} onOpenChange={(open) => { if (!open) onCancel(); }}>
+      <Dialog>
+        <Header>
+          <Text slot="title">Add Subscription</Text>
+        </Header>
+        <Content>
+          <SpruceForm
+            formData={formState}
+            onChange={({ errors, formData }) => {
+              // Update event cookie when it changes.
+              updateEventCookie(formData.event.eventSelect);
+              // Update notification cookie when it changes.
+              updateNotificationCookie(
+                formData.notification.notificationSelect,
+              );
+              setFormState(formData);
+              setHasError(errors.length !== 0);
+            }}
+            schema={schema}
+            uiSchema={uiSchema}
+          />
+        </Content>
+        <Footer>
+          <Button onPress={onCancel}>Cancel</Button>
+          <Button isDisabled={hasError} onPress={onClickSave} variant="primary">
+            Save
+          </Button>
+        </Footer>
+      </Dialog>
+    </DialogRoot>
   );
 };
 

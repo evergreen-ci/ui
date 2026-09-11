@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Banner } from "@leafygreen-ui/banner";
-import { TextInput } from "@leafygreen-ui/text-input";
+import { Banner } from "@via-ds/components/banner";
+import { TextField } from "@via-ds/components/text-field";
+import { Text } from "@via-ds/components/typography";
 import Cookies from "js-cookie";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { CharKey } from "@evg-ui/lib/constants/keys";
@@ -86,36 +87,37 @@ export const SlackNotificationBanner = () => {
   return shouldShowSlackBanner ? (
     <Banner
       data-testid="slack-notification-banner"
-      dismissible
       onClose={hideBanner}
       variant="info"
     >
-      You can receive a Slack notification when your patch is ready.{" "}
-      <Popconfirm
-        confirmDisabled={!slackUsername || loadingUpdateUserSettings}
-        confirmText="Save"
-        onConfirm={() => saveNotificationSettings()}
-        trigger={
-          <span
-            className={styles.subscribeButton}
-            data-testid="subscribe-to-notifications"
-          >
-            Subscribe
-          </span>
-        }
-      >
-        <TextInput
-          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-          data-testid="slack-username-input"
-          label="Slack Username"
-          onChange={(e) => setSlackUsername(e.target.value)}
-          onKeyDown={(e) =>
-            e.key === CharKey.Enter && saveNotificationSettings()
+      <Text>
+        You can receive a Slack notification when your patch is ready.{" "}
+        <Popconfirm
+          confirmDisabled={!slackUsername || loadingUpdateUserSettings}
+          confirmText="Save"
+          onConfirm={() => saveNotificationSettings()}
+          trigger={
+            <span
+              className={styles.subscribeButton}
+              data-testid="subscribe-to-notifications"
+            >
+              Subscribe
+            </span>
           }
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          value={slackUsername}
-        />
-      </Popconfirm>
+        >
+          <TextField
+            // This is an autoFocus usage within a popover, acceptable per accessibility guidelines.
+            autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+            data-testid="slack-username-input"
+            label="Slack Username"
+            onChange={(val: string) => setSlackUsername(val)}
+            onKeyDown={(e: React.KeyboardEvent) =>
+              e.key === CharKey.Enter && saveNotificationSettings()
+            }
+            value={slackUsername ?? ""}
+          />
+        </Popconfirm>
+      </Text>
     </Banner>
   ) : null;
 };

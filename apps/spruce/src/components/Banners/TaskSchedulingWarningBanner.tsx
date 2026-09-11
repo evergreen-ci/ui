@@ -1,5 +1,5 @@
-import { Banner } from "@leafygreen-ui/banner";
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { Banner } from "@via-ds/components/banner";
+import { Link, Text } from "@via-ds/components/typography";
 import { taskSchedulingLimitsDocumentationUrl } from "constants/externalResources";
 
 interface TaskSchedulingWarningBannerProps {
@@ -12,9 +12,17 @@ export const TaskSchedulingWarningBanner: React.FC<
 > = ({ totalTasks }) =>
   totalTasks >= largeNumFinalizedTasksThreshold ? (
     <Banner variant="warning">
-      This is a large operation, expected to schedule {totalTasks} tasks. Please
-      confirm that this number of tasks is necessary before continuing. For more
-      information, please refer to our{" "}
-      <StyledLink href={taskSchedulingLimitsDocumentationUrl}>docs.</StyledLink>
+      <Text>
+        This is a large operation, expected to schedule {totalTasks} tasks.
+        Please confirm that this number of tasks is necessary before continuing.
+        For more information, please refer to our{" "}
+        <Link
+          href={taskSchedulingLimitsDocumentationUrl}
+          isStandalone={false}
+          linkStyle="external"
+        >
+          docs.
+        </Link>
+      </Text>
     </Banner>
   ) : null;

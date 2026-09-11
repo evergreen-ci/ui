@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Callout } from "@leafygreen-ui/callout";
+import { Callout } from "@via-ds/components/callout";
+import { Text } from "@via-ds/components/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { DisplayModal } from "components/DisplayModal";
 import {
@@ -24,19 +25,22 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
 
   return (
     <BannerContainer data-testid="configuration-errors-banner">
-      <Callout title={errorTitle} variant="warning">
-        {errors[0]}
-        {errors.length > 1 && (
-          <>
-            <br />
-            <ModalTriggerText
-              data-testid="configuration-errors-modal-trigger"
-              onClick={() => setShowModal(true)}
-            >
-              See all errors
-            </ModalTriggerText>
-          </>
-        )}
+      <Callout variant="warning">
+        <Text slot="title">{errorTitle}</Text>
+        <Text>
+          {errors[0]}
+          {errors.length > 1 && (
+            <>
+              <br />
+              <ModalTriggerText
+                data-testid="configuration-errors-modal-trigger"
+                onClick={() => setShowModal(true)}
+              >
+                See all errors
+              </ModalTriggerText>
+            </>
+          )}
+        </Text>
       </Callout>
       <DisplayModal
         data-testid="configuration-errors-modal"
