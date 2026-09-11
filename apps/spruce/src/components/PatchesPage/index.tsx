@@ -1,10 +1,10 @@
-import { Checkbox } from "@via-ds/components";
+import { useState } from "react";
+import { Checkbox, SearchField } from "@via-ds/components";
 import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import { FiltersWrapper, PageTitle, PageWrapper } from "components/styles";
-import TextInputWithValidation from "components/TextInputWithValidation";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchPageQueryParams } from "types/patch";
@@ -39,9 +39,19 @@ export const PatchesPage: React.FC<Props> = ({
     PatchPageQueryParams.PatchName,
     "",
   );
+  const [invalidPatchNameInput, setInvalidPatchNameInput] = useState<
+    string | null
+  >(null);
+  const patchNameInput = invalidPatchNameInput ?? patchName;
 
   // Handle filtering by patch description.
   const handleInputChange = (value: string) => {
+    if (!validateRegexp(value)) {
+      setInvalidPatchNameInput(value);
+      return;
+    }
+
+    setInvalidPatchNameInput(null);
     setPatchName(value);
     analytics.sendEvent({
       name: "Filtered for patches",
@@ -70,14 +80,14 @@ export const PatchesPage: React.FC<Props> = ({
     <PageWrapper>
       <PageTitle data-testid="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapper className={styles.filtersWrapperSpaceBetween}>
-        <TextInputWithValidation
+        <SearchField
           aria-label="Search patch descriptions"
           data-testid="patch-description-input"
+          errorMessage="Invalid regex"
+          isInvalid={!validateRegexp(patchNameInput)}
           onChange={handleInputChange}
           placeholder="Patch description regex"
-          validator={validateRegexp}
-          validatorErrorMessage="Invalid regex"
-          value={`${patchName}`}
+          value={patchNameInput}
         />
         <StatusSelector />
         {filterComp}

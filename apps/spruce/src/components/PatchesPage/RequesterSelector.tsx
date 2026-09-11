@@ -12,12 +12,12 @@ export const RequesterSelector: React.FC = () => {
     <Combobox
       aria-label="Patch submission"
       data-testid="requester-selector"
+      multipleSelectionPlaceholder={null}
       onChange={(selectedKeys) =>
         statusValOnChange(selectedKeys.map((key) => key.toString()))
       }
       placeholder="Patch submission"
       selectionMode="multiple"
-      showChips={false}
       value={statusVal}
     >
       {options.map(({ displayName, value }) => (
