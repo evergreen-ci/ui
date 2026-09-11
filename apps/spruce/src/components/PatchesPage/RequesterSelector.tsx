@@ -12,6 +12,9 @@ export const RequesterSelector: React.FC = () => {
   const selectedOptions = options.filter(({ value }) =>
     statusVal.includes(value),
   );
+  const onRemove = (keys: Set<React.Key>) => {
+    statusValOnChange(statusVal.filter((value) => !keys.has(value)));
+  };
 
   return (
     <div className={styles.comboboxFilter} data-testid="requester-selector">
@@ -37,7 +40,7 @@ export const RequesterSelector: React.FC = () => {
         ))}
       </Combobox>
       {selectedOptions.length > 0 && (
-        <ChipGroup aria-label="Selected patch submissions">
+        <ChipGroup aria-label="Selected patch submissions" onRemove={onRemove}>
           {selectedOptions.map(({ displayName, value }) => (
             <Chip key={value} id={value}>
               {displayName}

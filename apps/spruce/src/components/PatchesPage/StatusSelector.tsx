@@ -36,6 +36,18 @@ export const StatusSelector: React.FC = () => {
   const selectedOptions = statusOptions.filter(({ value }) =>
     statusVal.includes(value),
   );
+  const onRemove = (keys: Set<React.Key>) => {
+    if (keys.has(ALL_PATCH_STATUS)) {
+      statusValOnChange([]);
+      return;
+    }
+
+    statusValOnChange(
+      statusVal.filter(
+        (value) => value !== ALL_PATCH_STATUS && !keys.has(value),
+      ),
+    );
+  };
 
   return (
     <div className={styles.comboboxFilter} data-testid="my-patch-status-select">
@@ -59,7 +71,7 @@ export const StatusSelector: React.FC = () => {
         ))}
       </Combobox>
       {selectedOptions.length > 0 && (
-        <ChipGroup aria-label="Selected patch statuses">
+        <ChipGroup aria-label="Selected patch statuses" onRemove={onRemove}>
           {selectedOptions.map(({ label, value }) => (
             <Chip key={value} id={value}>
               {label}
