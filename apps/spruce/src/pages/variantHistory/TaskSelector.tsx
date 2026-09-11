@@ -45,7 +45,6 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
         isDisabled={loading}
         isLoading={loading}
         label="Tasks"
-        maxWidth={500}
         menuTriggerAriaLabel="Tasks"
         onChange={(keys) => {
           sendEvent({ name: "Filtered by task" });
