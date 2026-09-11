@@ -160,7 +160,7 @@ test.describe("My Patches Page", () => {
       );
       await page.keyboard.press("Escape");
       await expect(
-        page.getByTestId("requester-selector").getByText("Patch", {
+        page.getByLabel("Selected patch submissions").getByText("Patch", {
           exact: true,
         }),
       ).toBeVisible();
