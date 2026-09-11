@@ -80,8 +80,7 @@ export const WalkthroughGuideCue = forwardRef<
       nextTargetElement.click();
     }
     setCurrentStepIdx(nextStepIdx);
-    // Let an opened target enter the top layer before placing the guide above it.
-    setTimeout(() => setOpen(true), 0);
+    setOpen(true);
   };
 
   // Exposes a function via the ref to restart the walkthrough.
