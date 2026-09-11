@@ -1,68 +1,109 @@
-import { TreeSelect } from "@evg-ui/lib/components/TreeSelect";
-import Dropdown from "components/Dropdown";
-import { noFilterMessage } from "constants/strings";
+import { Chip, ChipGroup, Combobox, ComboboxItem } from "@via-ds/components";
 import { useStatusesFilter } from "hooks";
 import {
   ALL_PATCH_STATUS,
   PatchPageQueryParams,
   PatchStatus,
 } from "types/patch";
+import styles from "./index.module.css";
 
 export const StatusSelector: React.FC = () => {
   const { inputValue: statusVal, setAndSubmitInputValue: statusValOnChange } =
     useStatusesFilter({ urlParam: PatchPageQueryParams.Statuses });
 
+  const onChange = (selectedKeys: React.Key[]) => {
+    const nextStatuses = selectedKeys.map((key) => key.toString());
+    const selectedAll = nextStatuses.includes(ALL_PATCH_STATUS);
+    const previouslySelectedAll = statusVal.includes(ALL_PATCH_STATUS);
+
+    if (selectedAll && !previouslySelectedAll) {
+      statusValOnChange(statusValues);
+    } else if (!selectedAll && previouslySelectedAll) {
+      statusValOnChange([]);
+    } else if (
+      selectedAll &&
+      previouslySelectedAll &&
+      nextStatuses.length < statusValues.length
+    ) {
+      statusValOnChange(
+        nextStatuses.filter((status) => status !== ALL_PATCH_STATUS),
+      );
+    } else {
+      statusValOnChange(nextStatuses);
+    }
+  };
+
+  const selectedOptions = statusOptions.filter(({ value }) =>
+    statusVal.includes(value),
+  );
+  const onRemove = (keys: Set<React.Key>) => {
+    if (keys.has(ALL_PATCH_STATUS)) {
+      statusValOnChange([]);
+      return;
+    }
+
+    statusValOnChange(
+      statusVal.filter(
+        (value) => value !== ALL_PATCH_STATUS && !keys.has(value),
+      ),
+    );
+  };
+
   return (
-    <Dropdown
-      buttonText={`Patch Status: ${
-        statusVal.length
-          ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-            statusVal.map((v) => statusValToCopy[v]).join(", ")
-          : noFilterMessage
-      }`}
-      data-testid="my-patch-status-select"
-    >
-      <TreeSelect
-        onChange={statusValOnChange}
-        state={statusVal}
-        tData={treeData}
-      />
-    </Dropdown>
+    <div className={styles.comboboxFilter} data-testid="my-patch-status-select">
+      <Combobox
+        aria-label="Patch status"
+        onChange={onChange}
+        placeholder="Patch Status"
+        selectionMode="multiple"
+        showChips={false}
+        value={statusVal}
+      >
+        {statusOptions.map(({ label, value }) => (
+          <ComboboxItem
+            key={value}
+            data-testid={`${value}-option`}
+            id={value}
+            textValue={label}
+          >
+            {label}
+          </ComboboxItem>
+        ))}
+      </Combobox>
+      {selectedOptions.length > 0 && (
+        <ChipGroup aria-label="Selected patch statuses" onRemove={onRemove}>
+          {selectedOptions.map(({ label, value }) => (
+            <Chip key={value} id={value}>
+              {label}
+            </Chip>
+          ))}
+        </ChipGroup>
+      )}
+    </div>
   );
 };
 
-const statusValToCopy = {
-  [ALL_PATCH_STATUS]: "All",
-  [PatchStatus.Created]: "Created/Unconfigured",
-  [PatchStatus.Success]: "Succeeded",
-  [PatchStatus.Failed]: "Failed",
-  [PatchStatus.Started]: "Running",
-};
-
-const treeData = [
+const statusOptions = [
   {
-    title: statusValToCopy[ALL_PATCH_STATUS],
+    label: "All",
     value: ALL_PATCH_STATUS,
-    key: ALL_PATCH_STATUS,
   },
   {
-    title: statusValToCopy[PatchStatus.Success],
+    label: "Succeeded",
     value: PatchStatus.Success,
-    key: PatchStatus.Success,
   },
   {
-    title: statusValToCopy[PatchStatus.Created],
+    label: "Created/Unconfigured",
     value: PatchStatus.Created,
-    key: PatchStatus.Created,
   },
   {
-    title: statusValToCopy[PatchStatus.Started],
+    label: "Running",
     value: PatchStatus.Started,
-    key: PatchStatus.Started,
   },
   {
-    title: statusValToCopy[PatchStatus.Failed],
+    label: "Failed",
     value: PatchStatus.Failed,
-    key: PatchStatus.Failed,
   },
 ];
+
+const statusValues = statusOptions.map(({ value }) => value);

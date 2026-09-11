@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { clickCheckbox, selectPageSize } from "../../helpers";
+import { selectPageSize } from "../../helpers";
 
 const MY_PATCHES_ROUTE = "/user/admin/patches";
 const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
@@ -46,7 +46,9 @@ test.describe("My Patches Page", () => {
     page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
-    const patchDescriptionInput = page.getByTestId("patch-description-input");
+    const patchDescriptionInput = page.getByRole("searchbox", {
+      name: "Search patch descriptions",
+    });
     const inputVal = "testtest";
     await patchDescriptionInput.fill(inputVal);
     await expect(page).toHaveURL(new RegExp(`patchName=${inputVal}`));
@@ -55,17 +57,35 @@ test.describe("My Patches Page", () => {
 
   test("Inputting a number successfully searches patches", async ({ page }) => {
     await page.goto(MY_PATCHES_ROUTE);
-    const patchDescriptionInput = page.getByTestId("patch-description-input");
+    const patchDescriptionInput = page.getByRole("searchbox", {
+      name: "Search patch descriptions",
+    });
     await patchDescriptionInput.fill("3186");
     await expect(page.getByTestId("patch-card")).toHaveCount(1);
     await patchDescriptionInput.clear();
+  });
+
+  test("An invalid patch description regex shows an error without updating the URL", async ({
+    page,
+  }) => {
+    await page.goto(MY_PATCHES_ROUTE);
+    const patchDescriptionInput = page.getByRole("searchbox", {
+      name: "Search patch descriptions",
+    });
+
+    await patchDescriptionInput.fill("[");
+
+    await expect(page.getByText("Invalid regex")).toBeVisible();
+    await expect(page).not.toHaveURL(/patchName/);
   });
 
   test("Searching for a nonexistent patch shows 'No patches found'", async ({
     page,
   }) => {
     await page.goto(MY_PATCHES_ROUTE);
-    const patchDescriptionInput = page.getByTestId("patch-description-input");
+    const patchDescriptionInput = page.getByRole("searchbox", {
+      name: "Search patch descriptions",
+    });
     await patchDescriptionInput.fill("satenarstharienht");
     await expect(page.getByText("No patches found")).toBeVisible();
   });
@@ -82,12 +102,39 @@ test.describe("My Patches Page", () => {
     );
   });
 
+  test("Clicking an activated patch's description link navigates to the version page", async ({
+    page,
+  }) => {
+    await page.goto(MY_PATCHES_ROUTE);
+    await page
+      .getByTestId("patch-card")
+      .filter({ hasText: "main: EVG-7823 add a commit queue message (#4048)" })
+      .getByTestId("patch-card-patch-link")
+      .click();
+    await expect(page).toHaveURL(/\/version\//);
+  });
+
+  test("Clicking an unconfigured patch's description link navigates to the configure page", async ({
+    page,
+  }) => {
+    await page.goto(MY_PATCHES_ROUTE);
+    await page
+      .getByTestId("patch-card")
+      .filter({ hasText: "test meee" })
+      .getByTestId("patch-card-patch-link")
+      .click();
+    await expect(page).toHaveURL(/\/patch\/.*\/configure/);
+  });
+
   test.describe("Patch submission selector", () => {
     test("Clicking the patch submission selector updates the URL, and renders patches", async ({
       page,
     }) => {
       await page.goto(MY_PATCHES_ROUTE);
-      await page.getByTestId("requester-selector").click();
+      await page
+        .getByTestId("requester-selector")
+        .getByRole("button", { name: "Show suggestions" })
+        .click();
       const cliPatchTitle = "main: EVG-7823 add a commit queue message (#4048)";
       const prPatchTitle =
         "evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
@@ -111,6 +158,12 @@ test.describe("My Patches Page", () => {
       await expect(page.getByTestId("patch-card").nth(0)).toContainText(
         cliPatchTitle,
       );
+      await page.keyboard.press("Escape");
+      await expect(
+        page.getByLabel("Selected patch submissions").getByText("Patch", {
+          exact: true,
+        }),
+      ).toBeVisible();
     });
   });
 
@@ -193,7 +246,10 @@ test.describe("My Patches Page", () => {
     test.beforeEach(async ({ page }) => {
       await page.goto(MY_PATCHES_ROUTE);
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
-      await page.getByTestId("my-patch-status-select").click();
+      await page
+        .getByTestId("my-patch-status-select")
+        .getByRole("button", { name: "Show suggestions" })
+        .click();
     });
 
     const statuses = [
@@ -212,11 +268,11 @@ test.describe("My Patches Page", () => {
     test("Clicking on a status checkbox applies the status and clicking again removes it", async ({
       page,
     }) => {
-      for (const { key, label } of statuses) {
-        const checkbox = page.getByRole("checkbox", { name: label });
-        await clickCheckbox(checkbox); // Click to check status checkbox.
+      for (const { key } of statuses) {
+        const option = page.getByTestId(`${key}-option`);
+        await option.click();
         await expect(page).toHaveURL(new RegExp(`statuses=${key}`));
-        await clickCheckbox(checkbox); // Click to uncheck status checkbox.
+        await option.click();
         await expect(page).not.toHaveURL(/statuses/);
       }
     });
@@ -224,12 +280,12 @@ test.describe("My Patches Page", () => {
     test("Clicking on All status checkbox applies all of the statuses and clicking again removes them", async ({
       page,
     }) => {
-      const allCheckbox = page.getByRole("checkbox", { name: "All" });
-      await clickCheckbox(allCheckbox); // Click to check status checkbox.
+      const allOption = page.getByTestId("all-option");
+      await allOption.click();
       await expect(page).toHaveURL(
         /statuses=all,success,created,started,failed/,
       );
-      await clickCheckbox(allCheckbox); // Click to uncheck status checkbox.
+      await allOption.click();
       await expect(page).not.toHaveURL(/statuses/);
     });
   });

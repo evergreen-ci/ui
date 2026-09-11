@@ -1,6 +1,5 @@
 import { skipToken, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@via-ds/components";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
@@ -19,6 +18,7 @@ import {
 import { PROJECT_PATCHES } from "gql/queries";
 import { usePolling } from "hooks";
 import { PatchPageQueryParams } from "types/patch";
+import styles from "./ProjectPatches.module.css";
 
 export const ProjectPatches = () => {
   const analytics = useProjectPatchesAnalytics();
@@ -32,17 +32,15 @@ export const ProjectPatches = () => {
     Cookies.get(INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES) === "true",
   );
 
-  const gitHubMergeQueueCheckboxOnChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    setIsGitHubMergeQueueCheckboxChecked(e.target.checked);
+  const gitHubMergeQueueCheckboxOnChange = (isSelected: boolean): void => {
+    setIsGitHubMergeQueueCheckboxChecked(isSelected);
     Cookies.set(
       INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
-      e.target.checked ? "true" : "false",
+      isSelected ? "true" : "false",
     );
     analytics.sendEvent({
       name: "Filtered for patches",
-      "filter.commit_queue": e.target.checked,
+      "filter.commit_queue": isSelected,
     });
   };
 
@@ -93,12 +91,14 @@ export const ProjectPatches = () => {
               selectedProjectIdentifier={projectIdentifier}
               showLabel={false}
             />
-            <GitHubMergeQueueCheckbox
-              checked={isGitHubMergeQueueCheckboxChecked}
+            <Checkbox
+              className={styles.mergeQueueCheckbox}
               data-testid="github-merge-queue-checkbox"
-              label="Only show GitHub Merge Queue patches"
+              isSelected={isGitHubMergeQueueCheckboxChecked}
               onChange={gitHubMergeQueueCheckboxOnChange}
-            />
+            >
+              Only show GitHub Merge Queue patches
+            </Checkbox>
           </>
         }
         loading={loading && !patches}
@@ -109,7 +109,3 @@ export const ProjectPatches = () => {
     </>
   );
 };
-
-const GitHubMergeQueueCheckbox = styled(Checkbox)`
-  justify-content: flex-end;
-`;
