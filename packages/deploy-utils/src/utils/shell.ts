@@ -1,16 +1,20 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 
 /**
- * execTrim converts the result of execSync to a string and trims it to avoid the included newlines.
- * @param args - matches args of Node's child_process.execSync
- * @returns - plain string representing the execSync command's output.
+ * execTrim runs a command using execFileSync (no shell) and returns trimmed output.
+ * @param executable - the executable to run (git, npm, etc)
+ * @param args - array of arguments
+ * @param options - optional execFileSync options
+ * @returns - trimmed string output
  */
-export const execTrim = (...args: Parameters<typeof execSync>) => {
-  const [command, options = {}] = args;
-  return execSync(command, { encoding: "utf8", ...options })
+export const execTrim = (
+  executable: string,
+  args: string[],
+  options: Parameters<typeof execFileSync>[2] = {},
+) =>
+  execFileSync(executable, args, { encoding: "utf8", ...options })
     .toString()
     .trim();
-};
 
 /**
  * countdownTimer counts down a given number of seconds and writes a message to the shell in 1 second increments. The messages overwrite each other

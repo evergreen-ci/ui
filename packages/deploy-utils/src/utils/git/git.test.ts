@@ -1,5 +1,5 @@
 import { Mocked } from "vitest";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { get } from "https";
 import Stream from "stream";
 import {
@@ -29,7 +29,7 @@ const errorMock: Mocked<typeof get> = (_, cb) => {
 };
 
 vi.mock("child_process", () => ({
-  execSync: vi.fn(),
+  execFileSync: vi.fn(),
 }));
 
 vi.mock("https", () => ({
@@ -73,9 +73,9 @@ describe("getCurrentlyDeployedCommit", () => {
 
   it("returns a valid local commit", async () => {
     vi.mocked(get).mockImplementation(errorMock);
-    vi.mocked(execSync).mockReturnValue("spruce/v1.0.0");
+    vi.mocked(execFileSync).mockReturnValue("spruce/v1.0.0");
     expect(await getCurrentlyDeployedCommit("spruce")).toEqual("spruce/v1.0.0");
-    expect(vi.mocked(execSync)).toHaveBeenCalledOnce();
+    expect(vi.mocked(execFileSync)).toHaveBeenCalledOnce();
   });
 
   it("errors with invalid remote and local commits", async () => {

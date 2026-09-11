@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { writeFileSync } from "fs";
 import { getCurrentCommit } from "../utils/git";
 import { pushToS3 } from "../utils/s3";
@@ -9,7 +9,10 @@ import { pushToS3 } from "../utils/s3";
  */
 export const buildAndPush = (bucket: string) => {
   // Disable script mode to let vite build the project
-  execSync("VITE_SCRIPT_MODE=0 pnpm build", { stdio: "inherit" });
+  execFileSync("pnpm", ["build"], {
+    stdio: "inherit",
+    env: { ...process.env, VITE_SCRIPT_MODE: "0" },
+  });
 
   const currentCommit = getCurrentCommit();
   writeFileSync("dist/commit.txt", currentCommit);
