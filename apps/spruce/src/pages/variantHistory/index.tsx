@@ -1,10 +1,8 @@
 import { useEffect, useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
-import { Body, H2 } from "@leafygreen-ui/typography";
+import { Skeleton } from "@via-ds/components/skeleton";
+import { Body, H2 } from "@via-ds/components/typography";
 import { useParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -32,6 +30,7 @@ import {
 import { MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
+import styles from "./index.module.css";
 import TaskSelector from "./TaskSelector";
 import VariantHistoryRow from "./VariantHistoryRow";
 
@@ -136,23 +135,27 @@ const VariantHistoryContents: React.FC = () => {
   return (
     <PageWrapper>
       <ProjectBanner projectIdentifier={projectIdentifier} />
-      <CenterPage>
-        <PageHeader>
+      <div className={styles.centerPage}>
+        <div className={styles.pageHeader}>
           <H2>Variant History</H2>
-          <VariantMetadata>
+          <div className={styles.variantMetadata}>
             <Body>
-              <b>Identifier:</b> {variantName}
+              <strong>Identifier:</strong> {variantName}
             </Body>
             <Body> | </Body>
             {variantDisplayName ? (
               <Body>
-                <b>Display Name:</b> {variantDisplayName}
+                <strong>Display Name:</strong> {variantDisplayName}
               </Body>
             ) : (
-              <DisplayNamePlaceholder size={SkeletonSize.Small} />
+              <Skeleton isLoading>
+                <Body className={styles.displayNamePlaceholder}>
+                  Loading display name
+                </Body>
+              </Skeleton>
             )}
-          </VariantMetadata>
-          <PageHeaderContent>
+          </div>
+          <div className={styles.pageHeaderContent}>
             <HistoryTableTestSearch
               onSubmit={() => {
                 sendEvent({
@@ -166,10 +169,10 @@ const VariantHistoryContents: React.FC = () => {
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               projectIdentifier={projectIdentifier}
             />
-          </PageHeaderContent>
-        </PageHeader>
-        <PaginationFilterWrapper>
-          <BadgeWrapper>
+          </div>
+        </div>
+        <div className={styles.paginationFilterWrapper}>
+          <div className={styles.badgeWrapper}>
             <FilterChips
               chips={chips}
               onClearAll={() => {
@@ -181,7 +184,7 @@ const VariantHistoryContents: React.FC = () => {
                 handleOnRemove(b);
               }}
             />
-          </BadgeWrapper>
+          </div>
           <ColumnPaginationButtons
             onClickNext={() =>
               sendEvent({ name: "Changed page", direction: "next" })
@@ -190,7 +193,7 @@ const VariantHistoryContents: React.FC = () => {
               sendEvent({ name: "Changed page", direction: "previous" })
             }
           />
-        </PaginationFilterWrapper>
+        </div>
         <div>
           <ColumnHeaders
             // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -198,7 +201,7 @@ const VariantHistoryContents: React.FC = () => {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             variantName={variantName}
           />
-          <TableWrapper>
+          <div className={styles.tableWrapper}>
             <HistoryTable
               finalRowCopy="End of variant history"
               loading={loading}
@@ -207,9 +210,9 @@ const VariantHistoryContents: React.FC = () => {
               {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
               {VariantHistoryRow}
             </HistoryTable>
-          </TableWrapper>
+          </div>
         </div>
-      </CenterPage>
+      </div>
     </PageWrapper>
   );
 };
@@ -219,49 +222,5 @@ const VariantHistory = () => (
     <VariantHistoryContents />
   </HistoryTableProvider>
 );
-
-const PageHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const VariantMetadata = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-  margin-top: ${size.xxs};
-  padding-left: ${size.xxs};
-`;
-
-const DisplayNamePlaceholder = styled(Skeleton)`
-  width: 200px;
-`;
-
-const PageHeaderContent = styled.div`
-  display: flex;
-  align-items: flex-end;
-  padding-top: 28px;
-`;
-
-const PaginationFilterWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-top: ${size.s};
-`;
-
-const BadgeWrapper = styled.div`
-  padding-bottom: ${size.s};
-`;
-
-const TableWrapper = styled.div`
-  height: 80vh;
-`;
-
-const CenterPage = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
 
 export default VariantHistory;

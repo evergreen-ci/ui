@@ -1,4 +1,4 @@
-import { Body } from "@leafygreen-ui/typography";
+import { Body } from "@via-ds/components/typography";
 import { useDateFormat } from "hooks";
 import { DashedLine } from "../styles";
 import styles from "./index.module.css";

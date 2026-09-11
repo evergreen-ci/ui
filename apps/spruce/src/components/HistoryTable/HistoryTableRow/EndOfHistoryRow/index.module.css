@@ -10,4 +10,5 @@
   white-space: nowrap;
   color: var(--via-color-neutral-600);
   text-transform: uppercase;
+  font-weight: 500;
 }

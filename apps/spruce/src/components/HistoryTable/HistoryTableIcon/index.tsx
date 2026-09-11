@@ -1,6 +1,10 @@
-import { Size, Skeleton } from "@leafygreen-ui/skeleton-loader";
-import { Tooltip } from "@leafygreen-ui/tooltip";
-import { Body } from "@leafygreen-ui/typography";
+import { Skeleton, SkeletonWrapper } from "@via-ds/components/skeleton";
+import {
+  Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@via-ds/components/tooltip";
+import { Body } from "@via-ds/components/typography";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox } from "components/TaskBox";
 import styles from "./index.module.css";
@@ -21,34 +25,43 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   loadingTestResults,
   onClick = () => {},
   status,
-}) => (
-  <Tooltip
-    align="right"
-    enabled={!inactive && (loadingTestResults || failingTests.length > 0)}
-    justify="middle"
-    trigger={
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- pre-existing violation, surfaced by the Emotion conversion
-      <div
-        aria-disabled={inactive}
-        className={styles.container}
-        data-testid="history-table-icon"
-        onClick={() => onClick()}
-      >
-        <TaskBox className={styles.taskBox} status={status} />
-        {!inactive && <Body>{label}</Body>}
-      </div>
-    }
-    triggerEvent="hover"
-  >
-    <div data-testid="test-tooltip">
-      {failingTests.map((testName) => (
-        <div key={testName} className={styles.testName}>
-          {testName}
+}) => {
+  const showTooltip =
+    !inactive && (!!loadingTestResults || failingTests.length > 0);
+
+  return (
+    <TooltipRoot align="center" isDisabled={!showTooltip} side="right">
+      <TooltipTrigger>
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- pre-existing violation, surfaced by the Emotion conversion */}
+        <div
+          aria-disabled={inactive}
+          className={styles.container}
+          data-testid="history-table-icon"
+          onClick={() => onClick()}
+        >
+          <TaskBox className={styles.taskBox} status={status} />
+          {!inactive && <Body>{label}</Body>}
         </div>
-      ))}
-      {loadingTestResults && (
-        <Skeleton data-testid="history-tooltip-skeleton" size={Size.Small} />
-      )}
-    </div>
-  </Tooltip>
-);
+      </TooltipTrigger>
+      <Tooltip>
+        <div data-testid="test-tooltip">
+          {failingTests.map((testName) => (
+            <div key={testName} className={styles.testName}>
+              {testName}
+            </div>
+          ))}
+          {loadingTestResults && (
+            <Skeleton isLoading>
+              <SkeletonWrapper>
+                <div
+                  className={styles.tooltipSkeleton}
+                  data-testid="history-tooltip-skeleton"
+                />
+              </SkeletonWrapper>
+            </Skeleton>
+          )}
+        </div>
+      </Tooltip>
+    </TooltipRoot>
+  );
+};
