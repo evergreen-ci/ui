@@ -182,6 +182,38 @@ describe("walkthrough guide cue", async () => {
     await backdropIsNotVisible();
   });
 
+  it("reports the current target while the walkthrough is active", async () => {
+    const user = userEvent.setup();
+    const onCurrentStepChange = vi.fn();
+    render(
+      <div>
+        <div data-guide-cue-id="step-1">first target</div>
+        <div data-guide-cue-id="step-2">second target</div>
+        <WalkthroughGuideCue
+          dataAttributeName="data-guide-cue-id"
+          defaultOpen
+          onClose={vi.fn()}
+          onCurrentStepChange={onCurrentStepChange}
+          walkthroughSteps={walkthroughSteps}
+        />
+      </div>,
+    );
+
+    await waitFor(() => {
+      expect(onCurrentStepChange).toHaveBeenLastCalledWith("step-1");
+    });
+    await guideCueIsVisible();
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    await waitFor(() => {
+      expect(onCurrentStepChange).toHaveBeenLastCalledWith("step-2");
+    });
+    await guideCueIsVisible();
+    await user.click(screen.getByRole("button", { name: "Get started" }));
+    await waitFor(() => {
+      expect(onCurrentStepChange).toHaveBeenLastCalledWith(null);
+    });
+  });
+
   it("closes controls opened by walkthrough steps", async () => {
     const user = userEvent.setup();
     const onTargetClick = vi.fn();

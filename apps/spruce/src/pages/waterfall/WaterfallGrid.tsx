@@ -48,6 +48,7 @@ type ServerFilters = Pick<
 type WaterfallGridProps = {
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
   omitInactiveBuilds: boolean;
+  onWalkthroughStepChange: (targetId: string | null) => void;
   projectIdentifier: string;
   setPagination: (pagination: Pagination) => void;
 };
@@ -62,6 +63,7 @@ const resetFilterState: ServerFilters = {
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   guideCueRef,
   omitInactiveBuilds,
+  onWalkthroughStepChange,
   projectIdentifier,
   setPagination,
 }) => {
@@ -293,7 +295,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           );
         })}
       </BuildVariantProvider>
-      <OnboardingTutorial guideCueRef={guideCueRef} />
+      <OnboardingTutorial
+        guideCueRef={guideCueRef}
+        onCurrentStepChange={onWalkthroughStepChange}
+      />
     </div>
   );
 };

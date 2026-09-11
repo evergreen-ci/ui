@@ -30,6 +30,7 @@ export type WalkthroughGuideCueProps = {
   dataAttributeName: string;
   defaultOpen: boolean;
   onClose: () => void;
+  onCurrentStepChange?: (targetId: string | null) => void;
   walkthroughSteps: WalkthroughStep[];
 };
 
@@ -40,7 +41,14 @@ export interface WalkthroughGuideCueRef {
 export const WalkthroughGuideCue = forwardRef<
   WalkthroughGuideCueRef,
   WalkthroughGuideCueProps
->(({ dataAttributeName, defaultOpen, onClose, walkthroughSteps }, ref) => {
+>((props, ref) => {
+  const {
+    dataAttributeName,
+    defaultOpen,
+    onClose,
+    onCurrentStepChange,
+    walkthroughSteps,
+  } = props;
   const [open, setOpen] = useState(defaultOpen);
   const [active, setActive] = useState(defaultOpen);
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
@@ -54,6 +62,7 @@ export const WalkthroughGuideCue = forwardRef<
 
   const endWalkthrough = () => {
     closeCurrentStepTarget();
+    onCurrentStepChange?.(null);
     onClose();
     setActive(false);
     setOpen(false);
@@ -76,6 +85,7 @@ export const WalkthroughGuideCue = forwardRef<
       endWalkthrough();
       return;
     }
+    onCurrentStepChange?.(nextStep.targetId);
     if (nextStep.shouldClick) {
       nextTargetElement.click();
     }
@@ -109,7 +119,10 @@ export const WalkthroughGuideCue = forwardRef<
       dataAttributeName,
       targetId: currentStep.targetId,
     });
-  }, [dataAttributeName, currentStep.targetId]);
+    if (active) {
+      onCurrentStepChange?.(currentStep.targetId);
+    }
+  }, [active, dataAttributeName, currentStep.targetId, onCurrentStepChange]);
 
   return (
     <>
@@ -126,6 +139,7 @@ export const WalkthroughGuideCue = forwardRef<
         numberOfSteps={walkthroughSteps.length}
         onDismiss={() => {
           closeCurrentStepTarget();
+          onCurrentStepChange?.(null);
           onClose();
           setActive(false);
         }}

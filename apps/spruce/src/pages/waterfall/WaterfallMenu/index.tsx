@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Button,
   Header,
@@ -21,6 +21,7 @@ import { JumpToMostRecent } from "./JumpToMostRecent";
 import { OmitInactiveBuilds } from "./OmitInactiveBuilds";
 
 type Props = {
+  isWalkthroughMenuStep: boolean;
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
   restartWalkthrough: () => void;
@@ -28,6 +29,7 @@ type Props = {
 };
 
 export const WaterfallMenu: React.FC<Props> = ({
+  isWalkthroughMenuStep,
   omitInactiveBuilds,
   projectIdentifier,
   restartWalkthrough,
@@ -35,12 +37,27 @@ export const WaterfallMenu: React.FC<Props> = ({
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const [menuOpen, setMenuOpen] = useState(false);
+  const wasWalkthroughMenuStep = useRef(false);
   const [gitCommitModalOpen, setGitCommitModalOpen] = useState(false);
   const [notificationModalOpen, setNotificationModalOpen] = useState(false);
 
+  useEffect(() => {
+    if (wasWalkthroughMenuStep.current && !isWalkthroughMenuStep) {
+      setMenuOpen(false);
+    }
+    wasWalkthroughMenuStep.current = isWalkthroughMenuStep;
+  }, [isWalkthroughMenuStep]);
+
   return (
     <>
-      <MenuRoot isOpen={menuOpen} onOpenChange={setMenuOpen}>
+      <MenuRoot
+        isOpen={menuOpen}
+        onOpenChange={(isOpen) => {
+          if (isOpen || !isWalkthroughMenuStep) {
+            setMenuOpen(isOpen);
+          }
+        }}
+      >
         <Button
           aria-label="Waterfall menu"
           data-testid="waterfall-menu"
@@ -50,7 +67,7 @@ export const WaterfallMenu: React.FC<Props> = ({
         >
           <Icon glyph="Ellipsis" />
         </Button>
-        <MenuPopover>
+        <MenuPopover isNonModal={isWalkthroughMenuStep}>
           <Menu aria-label="Waterfall actions">
             <MenuItem
               data-testid="git-commit-search"

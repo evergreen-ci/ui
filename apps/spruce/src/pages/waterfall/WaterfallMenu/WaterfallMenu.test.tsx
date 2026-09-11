@@ -17,12 +17,14 @@ const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 const renderWaterfallMenu = (props: {
+  isWalkthroughMenuStep?: boolean;
   omitInactiveBuilds?: boolean;
   projectIdentifier?: string;
   restartWalkthrough?: () => void;
   setOmitInactiveBuilds?: (value: boolean) => void;
 }) => {
   const {
+    isWalkthroughMenuStep = false,
     omitInactiveBuilds = false,
     projectIdentifier = "spruce",
     restartWalkthrough = vi.fn(),
@@ -32,6 +34,7 @@ const renderWaterfallMenu = (props: {
   const { Component } = RenderFakeToastContext(
     <MockedProvider>
       <WaterfallMenu
+        isWalkthroughMenuStep={isWalkthroughMenuStep}
         omitInactiveBuilds={omitInactiveBuilds}
         projectIdentifier={projectIdentifier}
         restartWalkthrough={restartWalkthrough}
