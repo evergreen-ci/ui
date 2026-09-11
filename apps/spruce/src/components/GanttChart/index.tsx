@@ -1,10 +1,8 @@
-import { palette } from "@leafygreen-ui/palette";
-import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
+import tokens from "@via-ds/tokens";
 import Chart from "react-google-charts";
 import styles from "./index.module.css";
 import { GanttChartData } from "./types";
 
-const { black, green } = palette;
 const CHART_ROW_HEIGHT_IN_PIXELS = 42;
 const MINIMUM_CHART_HEIGHT_IN_PIXELS = 400;
 const DEFAULT_LABEL_MAX_WIDTH = 300;
@@ -18,7 +16,7 @@ interface Props {
 
 const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
   if (loading) {
-    return <ListSkeleton />;
+    return <div>Loading...</div>;
   }
 
   if (!data || data.length === 1) {
@@ -79,9 +77,9 @@ const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
           },
           palette: [
             {
-              dark: green.dark1,
-              light: green.dark1,
-              color: black,
+              dark: tokens.color.green["600"].$value,
+              light: tokens.color.green["600"].$value,
+              color: tokens.color.neutral["900"].$value,
             },
           ],
         },

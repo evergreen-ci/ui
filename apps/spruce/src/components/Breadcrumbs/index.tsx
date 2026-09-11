@@ -1,12 +1,12 @@
 import { Fragment } from "react";
-import { palette } from "@leafygreen-ui/palette";
-import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Tooltip, TooltipRoot, TooltipTrigger } from "@via-ds/components/tooltip";
+import tokens from "@via-ds/tokens";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import styles from "./index.module.css";
 
-const { gray } = palette;
+
 
 export interface Breadcrumb {
   text: string;
@@ -26,7 +26,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => (
           <Icon
             className={styles.paddedIcon}
             data-testid="breadcrumb-chevron"
-            fill={gray.dark2}
+            fill={tokens.color.neutral["700"].$value}
             glyph="ChevronRight"
             size="small"
           />
@@ -46,13 +46,9 @@ const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
   const shouldTrimMessage = text.length > 30;
   const message = trimStringFromMiddle(text, 30);
   return (
-    <Tooltip
-      align="top"
-      data-testid="breadcrumb-tooltip"
-      enabled={shouldTrimMessage}
-      justify="middle"
-      trigger={
-        to ? (
+    <TooltipRoot side="top" align="start" isDisabled={!shouldTrimMessage}>
+      <TooltipTrigger>
+        {to ? (
           <div data-testid={dataTestId}>
             <StyledRouterLink onClick={onClick} to={to}>
               {message}
@@ -60,12 +56,10 @@ const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
           </div>
         ) : (
           <div data-testid={dataTestId}>{message}</div>
-        )
-      }
-      triggerEvent="hover"
-    >
-      {text}
-    </Tooltip>
+        )}
+      </TooltipTrigger>
+      <Tooltip>{text}</Tooltip>
+    </TooltipRoot>
   );
 };
 

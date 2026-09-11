@@ -1,10 +1,10 @@
-import { forwardRef } from "react";
-import { Card, CardProps } from "@leafygreen-ui/card";
-import { H3, H3Props } from "@leafygreen-ui/typography";
+import { ComponentProps, forwardRef } from "react";
+import { Card, CardProps } from "@via-ds/components/card";
+import { H3 } from "@via-ds/components/typography";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./SettingsCard.module.css";
 
-export const SettingsCardTitle = forwardRef<HTMLHeadingElement, H3Props>(
+export const SettingsCardTitle = forwardRef<HTMLHeadingElement, ComponentProps<typeof H3>>(
   ({ className, ...rest }, ref) => (
     <H3
       ref={ref}

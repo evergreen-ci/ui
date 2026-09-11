@@ -1,10 +1,8 @@
 import { useQuery } from "@apollo/client/react";
-import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
-import { BaseFontSize } from "@leafygreen-ui/tokens";
-import { Link } from "react-router-dom";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
+import { LinkButton } from "@via-ds/components/button";
+import { InfoSprinkle } from "@via-ds/components/info-sprinkle";
+import { Skeleton } from "@via-ds/components/skeleton";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
 import {
@@ -24,12 +22,12 @@ const StepbackStatus: React.FC<StepbackStatusProps> = ({
   isLoading,
 }) => {
   if (isLoading) {
-    return <Skeleton size={SkeletonSize.Small} />;
+    return <Skeleton isLoading><span /></Skeleton>;
   }
   if (!finished) {
-    return <Badge variant={BadgeVariant.LightGray}>In progress</Badge>;
+    return <Badge variant={BadgeVariant.Info}>In progress</Badge>;
   }
-  return <Badge variant={BadgeVariant.Green}>Complete</Badge>;
+  return <Badge variant={BadgeVariant.Success}>Complete</Badge>;
 };
 
 interface StepbackProps {
@@ -67,7 +65,7 @@ export const Stepback: React.FC<StepbackProps> = ({
       <b className={styles.boldLabel}>Stepback: </b>
       <StepbackStatus finished={finished} isLoading={loading} />
       {!isPopup && (
-        <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
+        <InfoSprinkle>
           When Stepback is completed you can access the breaking commit via the
           Stepback dropdown.
         </InfoSprinkle>
@@ -76,15 +74,14 @@ export const Stepback: React.FC<StepbackProps> = ({
         (currentTaskIsBreaking ? (
           <em>Current task is breaking</em>
         ) : (
-          <Button
-            as={Link}
+          <LinkButton
             className={styles.breakingTaskButton}
             data-testid="breaking-task-button"
-            disabled={
+            isDisabled={
               loading || !finished || !breakingTask || currentTaskIsBreaking
             }
-            size={ButtonSize.Small}
-            to={
+            size="small"
+            href={
               breakingTask
                 ? getTaskRoute(breakingTask.id, {
                     execution: breakingTask.execution,
@@ -93,7 +90,7 @@ export const Stepback: React.FC<StepbackProps> = ({
             }
           >
             Go to breaking task
-          </Button>
+          </LinkButton>
         ))}
     </div>
   );

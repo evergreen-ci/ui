@@ -1,5 +1,4 @@
-import { TooltipAlign } from "@leafygreen-ui/guide-cue";
-import { Body } from "@leafygreen-ui/typography";
+import { Body } from "@via-ds/components/typography";
 import { ExpiringAnnouncementTooltip } from "@evg-ui/lib/components/ExpiringAnnouncementTooltip";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
@@ -13,7 +12,8 @@ export const AnnouncementPopover: React.FC<{ loading?: boolean }> = ({
     cookieName={SEEN_TASK_REVIEW_TOOLTIP}
     loading={loading}
     title="New feature: Task Review"
-    tooltipAlign={TooltipAlign.Right}
+    // @ts-expect-error -- ExpiringAnnouncementTooltip still uses LG GuideCueProps type; Via's Align "end" is the semantic equivalent of LG TooltipAlign.Right
+    tooltipAlign="end"
   >
     <Body className={styles.body}>
       Mark unsuccessful tasks as reviewed when you&apos;re done looking at them.
