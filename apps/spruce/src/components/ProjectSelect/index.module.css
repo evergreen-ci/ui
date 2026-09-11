@@ -14,3 +14,9 @@
   line-height: 32px;
   width: 100%;
 }
+
+.skeletonLabel > span,
+.skeletonControl > span {
+  display: block;
+  width: 100%;
+}

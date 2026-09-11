@@ -29,3 +29,11 @@
 .skeletonAction {
   width: 100%;
 }
+
+.skeletonDescription > span,
+.skeletonMetadata > span,
+.skeletonStatus > span,
+.skeletonAction > span {
+  display: block;
+  width: 100%;
+}
