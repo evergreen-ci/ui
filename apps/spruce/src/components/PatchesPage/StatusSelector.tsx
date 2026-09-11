@@ -1,10 +1,11 @@
-import { Combobox, ComboboxItem } from "@via-ds/components";
+import { Chip, ChipGroup, Combobox, ComboboxItem } from "@via-ds/components";
 import { useStatusesFilter } from "hooks";
 import {
   ALL_PATCH_STATUS,
   PatchPageQueryParams,
   PatchStatus,
 } from "types/patch";
+import styles from "./index.module.css";
 
 export const StatusSelector: React.FC = () => {
   const { inputValue: statusVal, setAndSubmitInputValue: statusValOnChange } =
@@ -32,27 +33,41 @@ export const StatusSelector: React.FC = () => {
     }
   };
 
+  const selectedOptions = statusOptions.filter(({ value }) =>
+    statusVal.includes(value),
+  );
+
   return (
-    <Combobox
-      aria-label="Patch status"
-      data-testid="my-patch-status-select"
-      multipleSelectionPlaceholder={null}
-      onChange={onChange}
-      placeholder="Patch Status"
-      selectionMode="multiple"
-      value={statusVal}
-    >
-      {statusOptions.map(({ label, value }) => (
-        <ComboboxItem
-          key={value}
-          data-testid={`${value}-option`}
-          id={value}
-          textValue={label}
-        >
-          {label}
-        </ComboboxItem>
-      ))}
-    </Combobox>
+    <div className={styles.comboboxFilter} data-testid="my-patch-status-select">
+      <Combobox
+        aria-label="Patch status"
+        onChange={onChange}
+        placeholder="Patch Status"
+        selectionMode="multiple"
+        showChips={false}
+        value={statusVal}
+      >
+        {statusOptions.map(({ label, value }) => (
+          <ComboboxItem
+            key={value}
+            data-testid={`${value}-option`}
+            id={value}
+            textValue={label}
+          >
+            {label}
+          </ComboboxItem>
+        ))}
+      </Combobox>
+      {selectedOptions.length > 0 && (
+        <ChipGroup aria-label="Selected patch statuses">
+          {selectedOptions.map(({ label, value }) => (
+            <Chip key={value} id={value}>
+              {label}
+            </Chip>
+          ))}
+        </ChipGroup>
+      )}
+    </div>
   );
 };
 

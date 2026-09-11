@@ -7,3 +7,9 @@
 .hiddenCheckbox {
   justify-content: flex-end;
 }
+
+.comboboxFilter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-100);
+}
