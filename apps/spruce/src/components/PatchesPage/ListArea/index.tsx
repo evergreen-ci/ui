@@ -1,7 +1,5 @@
 import { BasicEmptyState, Skeleton, Text } from "@via-ds/components";
-import { cx } from "@evg-ui/lib/utils/css";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
-import styles from "./index.module.css";
 import PatchCard from "./PatchCard";
 import patchCardStyles from "./PatchCard/index.module.css";
 
@@ -15,31 +13,27 @@ const ListArea: React.FC<ListAreaProps> = ({ loading, pageType, patches }) => {
   if (loading) {
     return (
       <Skeleton isLoading>
-        <div className={styles.skeletonList}>
-          {Array.from({ length: 5 }, (_, index) => (
-            <div key={index} className={patchCardStyles.cardWrapper}>
-              <div className={patchCardStyles.left}>
-                <Text
-                  className={cx(
-                    styles.skeletonDescription,
-                    patchCardStyles.descriptionLink,
-                  )}
-                >
-                  Patch description placeholder
-                </Text>
-                <Text className={styles.skeletonMetadata}>
-                  Patch metadata placeholder
-                </Text>
+        {Array.from({ length: 5 }, (_, index) => (
+          <div key={index} className={patchCardStyles.cardWrapper}>
+            <div className={patchCardStyles.left}>
+              <Text className={patchCardStyles.descriptionLink}>
+                evergreen-ci/ui pull request #1930: Migrate PatchesPage to Via
+              </Text>
+              <Text>Sep 11, 2026 by Evergreen User</Text>
+            </div>
+            <div className={patchCardStyles.center}>
+              <div className={patchCardStyles.patchBadgeContainer}>
+                <Text>Created/Unconfigured</Text>
               </div>
-              <div className={patchCardStyles.center}>
-                <Text className={styles.skeletonStatus}>Patch status</Text>
-              </div>
-              <div className={patchCardStyles.right}>
-                <Text className={styles.skeletonAction}>Actions</Text>
+              <div className={patchCardStyles.taskBadgeContainer}>
+                <Text>3 succeeded, 1 failed</Text>
               </div>
             </div>
-          ))}
-        </div>
+            <div className={patchCardStyles.right}>
+              <Text>Actions</Text>
+            </div>
+          </div>
+        ))}
       </Skeleton>
     );
   }
