@@ -22,21 +22,15 @@
   padding-top: 28px;
 }
 
-.searchColumn {
-  width: 40%;
-  min-width: 200px;
-  margin-right: 30px;
-}
-
 .paginationFilterWrapper {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-top: var(--via-space-400);
 }
 
 .badgeWrapper {
-  margin-top: var(--via-space-200);
+  padding-bottom: var(--via-space-400);
 }
 
 .tableWrapper {

@@ -156,28 +156,13 @@ const VariantHistoryContents: React.FC = () => {
             )}
           </div>
           <div className={styles.pageHeaderContent}>
-            <div className={styles.searchColumn}>
-              <HistoryTableTestSearch
-                onSubmit={() => {
-                  sendEvent({
-                    name: "Filtered failed tests",
-                  });
-                }}
-              />
-              <div className={styles.badgeWrapper}>
-                <FilterChips
-                  chips={chips}
-                  onClearAll={() => {
-                    sendEvent({ name: "Deleted all badges" });
-                    handleClearAll();
-                  }}
-                  onRemove={(b) => {
-                    sendEvent({ name: "Deleted a badge" });
-                    handleOnRemove(b);
-                  }}
-                />
-              </div>
-            </div>
+            <HistoryTableTestSearch
+              onSubmit={() => {
+                sendEvent({
+                  name: "Filtered failed tests",
+                });
+              }}
+            />
             <TaskSelector
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               buildVariant={variantName}
@@ -187,6 +172,19 @@ const VariantHistoryContents: React.FC = () => {
           </div>
         </div>
         <div className={styles.paginationFilterWrapper}>
+          <div className={styles.badgeWrapper}>
+            <FilterChips
+              chips={chips}
+              onClearAll={() => {
+                sendEvent({ name: "Deleted all badges" });
+                handleClearAll();
+              }}
+              onRemove={(b) => {
+                sendEvent({ name: "Deleted a badge" });
+                handleOnRemove(b);
+              }}
+            />
+          </div>
           <ColumnPaginationButtons
             onClickNext={() =>
               sendEvent({ name: "Changed page", direction: "next" })
