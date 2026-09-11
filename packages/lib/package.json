@@ -47,7 +47,7 @@
     "@via-ds/tokens": "0.3.2",
     "date-fns": "4.1.0",
     "graphql": "16.12.0",
-    "js-cookie": "3.0.5",
+    "js-cookie": "3.0.8",
     "query-string": "9.1.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -81,7 +81,7 @@
     "storybook-addon-apollo-client": "^10.0.0",
     "typescript": "npm:@typescript/typescript6@~6.0.2",
     "typescript-7": "npm:typescript@~7.0.2",
-    "vite": "8.0.13",
+    "vite": "8.2.2",
     "vitest": "^4.1.6",
     "vitest-canvas-mock": "1.1.3"
   }
