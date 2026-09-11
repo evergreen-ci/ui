@@ -55,7 +55,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
         value={visibleColumns}
       >
         {(taskNamesForBuildVariant ?? []).map((taskName) => (
-          <ComboboxItem key={taskName} id={taskName}>
+          <ComboboxItem key={taskName} id={taskName} textValue={taskName}>
             {taskName}
           </ComboboxItem>
         ))}
