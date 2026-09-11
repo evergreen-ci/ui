@@ -214,6 +214,29 @@ describe("walkthrough guide cue", async () => {
     });
   });
 
+  it("clears the current target when the walkthrough unmounts", async () => {
+    const onCurrentStepChange = vi.fn();
+    const { unmount } = render(
+      <div>
+        <div data-guide-cue-id="step-1">first target</div>
+        <div data-guide-cue-id="step-2">second target</div>
+        <WalkthroughGuideCue
+          dataAttributeName="data-guide-cue-id"
+          defaultOpen
+          onClose={vi.fn()}
+          onCurrentStepChange={onCurrentStepChange}
+          walkthroughSteps={walkthroughSteps}
+        />
+      </div>,
+    );
+    await waitFor(() => {
+      expect(onCurrentStepChange).toHaveBeenLastCalledWith("step-1");
+    });
+
+    unmount();
+    expect(onCurrentStepChange).toHaveBeenLastCalledWith(null);
+  });
+
   it("closes controls opened by walkthrough steps", async () => {
     const user = userEvent.setup();
     const onTargetClick = vi.fn();

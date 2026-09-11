@@ -124,6 +124,13 @@ export const WalkthroughGuideCue = forwardRef<
     }
   }, [active, dataAttributeName, currentStep.targetId, onCurrentStepChange]);
 
+  useEffect(
+    () => () => {
+      onCurrentStepChange?.(null);
+    },
+    [onCurrentStepChange],
+  );
+
   return (
     <>
       <GuideCue
