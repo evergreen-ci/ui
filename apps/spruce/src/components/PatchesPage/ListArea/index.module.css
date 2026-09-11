@@ -3,20 +3,6 @@
   flex-direction: column;
 }
 
-.skeletonCard {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(144px, 1fr) 64px;
-  gap: var(--via-space-600);
-  padding: var(--via-space-400) var(--via-space-100);
-  border-bottom: 1px solid var(--via-color-neutral-200);
-}
-
-.skeletonContent {
-  display: flex;
-  flex-direction: column;
-  gap: var(--via-space-200);
-}
-
 .skeletonDescription {
   width: 80%;
 }
@@ -25,9 +11,12 @@
   width: 50%;
 }
 
-.skeletonStatus,
+.skeletonStatus {
+  width: 80%;
+}
+
 .skeletonAction {
-  width: 100%;
+  width: 64px;
 }
 
 .skeletonDescription > span,

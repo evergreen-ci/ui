@@ -2,6 +2,7 @@ import { BasicEmptyState, Skeleton, Text } from "@via-ds/components";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import styles from "./index.module.css";
 import PatchCard from "./PatchCard";
+import patchCardStyles from "./PatchCard/index.module.css";
 
 type ListAreaProps = {
   patches: PatchesPagePatchesFragment["patches"];
@@ -15,8 +16,8 @@ const ListArea: React.FC<ListAreaProps> = ({ loading, pageType, patches }) => {
       <Skeleton isLoading>
         <div className={styles.skeletonList}>
           {Array.from({ length: 5 }, (_, index) => (
-            <div key={index} className={styles.skeletonCard}>
-              <div className={styles.skeletonContent}>
+            <div key={index} className={patchCardStyles.cardWrapper}>
+              <div className={patchCardStyles.left}>
                 <Text className={styles.skeletonDescription}>
                   Patch description placeholder
                 </Text>
@@ -24,8 +25,12 @@ const ListArea: React.FC<ListAreaProps> = ({ loading, pageType, patches }) => {
                   Patch metadata placeholder
                 </Text>
               </div>
-              <Text className={styles.skeletonStatus}>Patch status</Text>
-              <Text className={styles.skeletonAction}>Actions</Text>
+              <div className={patchCardStyles.center}>
+                <Text className={styles.skeletonStatus}>Patch status</Text>
+              </div>
+              <div className={patchCardStyles.right}>
+                <Text className={styles.skeletonAction}>Actions</Text>
+              </div>
             </div>
           ))}
         </div>
