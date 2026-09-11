@@ -249,10 +249,14 @@ test.describe("revision filtering", () => {
   test("filters by git commit", async ({ page }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("git-commit-search").click();
-    await expect(page.getByTestId("git-commit-search-modal")).toBeVisible();
-    await page.getByLabel("Git Commit Hash").fill("ab49443");
-    await page.getByLabel("Git Commit Hash").press("Enter");
-    await expect(page.getByTestId("git-commit-search-modal")).toBeHidden();
+    const modal = page.getByTestId("git-commit-search-modal");
+    await expect(modal).toBeVisible();
+    const commitHashInput = modal.getByRole("textbox", {
+      name: "Git Commit Hash",
+    });
+    await commitHashInput.fill("ab49443");
+    await commitHashInput.press("Enter");
+    await expect(modal).toBeHidden();
 
     const targetVersion = page.getByTestId("version-label-active").nth(1);
     await expect(targetVersion.getByText("ab49443")).toBeVisible();
@@ -276,11 +280,11 @@ test.describe("project selection", () => {
     await page.goto("/project/spruce/waterfall");
     await page.getByTestId("status-filter").click();
     await page.getByTestId("test-timed-out-option").click();
-    await page.locator("body").click();
+    await page.keyboard.press("Escape");
     await page.getByTestId("project-select").click();
     await page
-      .getByTestId("project-select-options")
-      .getByText("evergreen smoke test")
+      .getByTestId("project-display-name")
+      .getByText("evergreen smoke test", { exact: true })
       .click();
     await expect(page).toHaveURL(
       "/project/evergreen/waterfall?statuses=test-timed-out",

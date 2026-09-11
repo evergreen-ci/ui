@@ -1,0 +1,8 @@
+.skeleton {
+  display: grid;
+  grid-template-columns: repeat(
+    var(--waterfall-skeleton-columns),
+    minmax(0, 1fr)
+  );
+  gap: var(--via-space-200) var(--via-space-400);
+}

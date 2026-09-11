@@ -1,9 +1,8 @@
-import styled from "@emotion/styled";
+import { Content, Dialog, DialogRoot, Header, Text } from "@via-ds/components";
 import pluralize from "pluralize";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { DisplayModal } from "components/DisplayModal";
 import { Version } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
+import styles from "./InactiveVersionsModal.module.css";
 
 type Props = {
   highlightedIndex: number | undefined;
@@ -22,30 +21,27 @@ export const InactiveVersionsModal: React.FC<Props> = ({
     versions?.some(({ activated }) => activated) ?? false;
 
   return (
-    <StyledDisplayModal
-      data-testid="inactive-versions-modal"
-      open={open}
-      setOpen={setOpen}
-      title={`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}
-    >
-      {versions?.map((version, i) => (
-        <StyledVersionLabel
-          key={version.id}
-          highlighted={highlightedIndex === i}
-          isFirstVersion={false}
-          shouldDisableText={hasUnmatchingVersions}
-          view={VersionLabelView.Modal}
-          {...version}
-        />
-      ))}
-    </StyledDisplayModal>
+    <DialogRoot isOpen={open} onOpenChange={setOpen}>
+      <Dialog className={styles.dialog} data-testid="inactive-versions-modal">
+        <Header>
+          <Text slot="title">
+            {`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}
+          </Text>
+        </Header>
+        <Content className={styles.content}>
+          {versions?.map((version, i) => (
+            <VersionLabel
+              key={version.id}
+              className={styles.versionLabel}
+              highlighted={highlightedIndex === i}
+              isFirstVersion={false}
+              shouldDisableText={hasUnmatchingVersions}
+              view={VersionLabelView.Modal}
+              {...version}
+            />
+          ))}
+        </Content>
+      </Dialog>
+    </DialogRoot>
   );
 };
-
-const StyledDisplayModal = styled(DisplayModal)`
-  text-align: left;
-`;
-
-const StyledVersionLabel = styled(VersionLabel)`
-  padding-top: ${size.xs};
-`;

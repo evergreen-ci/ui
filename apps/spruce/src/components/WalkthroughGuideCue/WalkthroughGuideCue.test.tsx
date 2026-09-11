@@ -182,6 +182,94 @@ describe("walkthrough guide cue", async () => {
     await backdropIsNotVisible();
   });
 
+  it("reports the current target while the walkthrough is active", async () => {
+    const user = userEvent.setup();
+    const onCurrentStepChange = vi.fn();
+    render(
+      <div>
+        <div data-guide-cue-id="step-1">first target</div>
+        <div data-guide-cue-id="step-2">second target</div>
+        <WalkthroughGuideCue
+          dataAttributeName="data-guide-cue-id"
+          defaultOpen
+          onClose={vi.fn()}
+          onCurrentStepChange={onCurrentStepChange}
+          walkthroughSteps={walkthroughSteps}
+        />
+      </div>,
+    );
+
+    await waitFor(() => {
+      expect(onCurrentStepChange).toHaveBeenLastCalledWith("step-1");
+    });
+    await guideCueIsVisible();
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    await waitFor(() => {
+      expect(onCurrentStepChange).toHaveBeenLastCalledWith("step-2");
+    });
+    await guideCueIsVisible();
+    await user.click(screen.getByRole("button", { name: "Get started" }));
+    await waitFor(() => {
+      expect(onCurrentStepChange).toHaveBeenLastCalledWith(null);
+    });
+  });
+
+  it("clears the current target when the walkthrough unmounts", async () => {
+    const onCurrentStepChange = vi.fn();
+    const { unmount } = render(
+      <div>
+        <div data-guide-cue-id="step-1">first target</div>
+        <div data-guide-cue-id="step-2">second target</div>
+        <WalkthroughGuideCue
+          dataAttributeName="data-guide-cue-id"
+          defaultOpen
+          onClose={vi.fn()}
+          onCurrentStepChange={onCurrentStepChange}
+          walkthroughSteps={walkthroughSteps}
+        />
+      </div>,
+    );
+    await waitFor(() => {
+      expect(onCurrentStepChange).toHaveBeenLastCalledWith("step-1");
+    });
+
+    unmount();
+    expect(onCurrentStepChange).toHaveBeenLastCalledWith(null);
+  });
+
+  it("closes controls opened by walkthrough steps", async () => {
+    const user = userEvent.setup();
+    const onTargetClick = vi.fn();
+    render(
+      <div>
+        <div data-guide-cue-id="step-1">div</div>
+        <button
+          data-guide-cue-id="step-2"
+          onClick={onTargetClick}
+          type="button"
+        >
+          toggle
+        </button>
+        <WalkthroughGuideCue
+          dataAttributeName="data-guide-cue-id"
+          defaultOpen
+          onClose={vi.fn()}
+          walkthroughSteps={[
+            walkthroughSteps[0],
+            { ...walkthroughSteps[1], shouldClick: true },
+          ]}
+        />
+      </div>,
+    );
+
+    await user.click(await screen.findByRole("button", { name: "Next" }));
+    await waitFor(() => expect(onTargetClick).toHaveBeenCalledTimes(1));
+    await user.click(
+      await screen.findByRole("button", { name: "Get started" }),
+    );
+    await waitFor(() => expect(onTargetClick).toHaveBeenCalledTimes(2));
+  });
+
   it("closes the walkthrough if the next step cannot be found", async () => {
     const consoleErrorSpy = vi
       .spyOn(console, "error")

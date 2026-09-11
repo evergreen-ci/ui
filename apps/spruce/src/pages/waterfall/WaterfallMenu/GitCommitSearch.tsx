@@ -1,31 +1,32 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
-import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { TextInput } from "@leafygreen-ui/text-input";
-import { Description } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import {
+  AlertDialog,
+  Button,
+  DialogRoot,
+  Text,
+  TextField,
+} from "@via-ds/components";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics/waterfall/useWaterfallAnalytics";
-import { DropdownItem } from "components/ButtonDropdown";
 import { WaterfallFilterOptions } from "../types";
+import styles from "./GitCommitSearch.module.css";
 
 interface GitCommitSearchProps {
-  setMenuOpen: (open: boolean) => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
-  setMenuOpen,
+  open,
+  setOpen,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const [, setQueryParams] = useQueryParams();
 
-  const [modalOpen, setModalOpen] = useState(false);
   const [commitHash, setCommitHash] = useState("");
 
   const onCancel = () => {
-    setModalOpen(false);
-    setMenuOpen(false);
+    setOpen(false);
   };
 
   const onConfirm = () => {
@@ -37,44 +38,32 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
   };
 
   return (
-    <>
-      <DropdownItem
-        data-testid="git-commit-search"
-        glyph={<Icon glyph="Code" />}
-        onClick={() => {
-          setModalOpen(true);
-        }}
-      >
-        Search by git hash
-      </DropdownItem>
-      <ConfirmationModal
-        cancelButtonProps={{
-          onClick: onCancel,
-        }}
-        confirmButtonProps={{
-          children: "Submit",
-          onClick: onConfirm,
-          disabled: commitHash.trim().length < 7,
-        }}
-        data-testid="git-commit-search-modal"
-        open={modalOpen}
-        title="Search by Git Commit Hash"
-      >
-        <StyledDescription>
+    <DialogRoot isOpen={open} onOpenChange={setOpen}>
+      <AlertDialog data-testid="git-commit-search-modal" variant="primary">
+        <Text slot="title">Search by Git Commit Hash</Text>
+        <Text className={styles.description} textStyle="description">
           Searching for a git hash will jump to the commit in the waterfall. If
           the commit is not found, the waterfall will be reset.
-        </StyledDescription>
-        <TextInput
+        </Text>
+        <TextField
           label="Git Commit Hash"
-          onChange={(e) => setCommitHash(e.target.value.trim())}
-          onKeyDown={(e) => e.key === "Enter" && onConfirm()}
+          onChange={(value) => setCommitHash(value.trim())}
+          onKeyDown={(e) =>
+            e.key === "Enter" && commitHash.length >= 7 && onConfirm()
+          }
           value={commitHash}
         />
-      </ConfirmationModal>
-    </>
+        <Button onPress={onCancel} slot="cancel">
+          Cancel
+        </Button>
+        <Button
+          isDisabled={commitHash.length < 7}
+          onPress={onConfirm}
+          slot="action"
+        >
+          Submit
+        </Button>
+      </AlertDialog>
+    </DialogRoot>
   );
 };
-
-const StyledDescription = styled(Description)`
-  margin-bottom: ${size.xs};
-`;

@@ -1,11 +1,11 @@
-import { Button } from "@leafygreen-ui/button";
-import { BasicEmptyState } from "@leafygreen-ui/empty-state";
+import { BasicEmptyState, Button, Text } from "@via-ds/components";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { VERSION_SEARCH_LIMIT } from "../constants";
 import { Pagination, WaterfallFilterOptions } from "../types";
 import { usePaginationNavigation } from "../usePaginationNavigation";
 import { EmptyGraphic } from "./EmptyGraphic";
+import styles from "./index.module.css";
 
 interface EmptyStateProps {
   pagination: Pagination;
@@ -28,30 +28,40 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ pagination }) => {
   if (searchIsWindowLimited && hasNextPage) {
     return (
       <BasicEmptyState
-        description={`Evergreen found no builds matching the applied filters in the ${VERSION_SEARCH_LIMIT} commits searched. Older commits may still contain matching builds.`}
-        graphic={<EmptyGraphic />}
-        primaryButton={
-          <Button
-            data-testid="search-older-commits-button"
-            disabled={isNavigatingToPage}
-            onClick={() => {
-              sendEvent({ name: "Clicked search older commits button" });
-              goToNextPage();
-            }}
-          >
-            Search older commits
-          </Button>
-        }
-        title="No Results Found"
-      />
+        className={styles.emptyState}
+        data-testid="waterfall-empty-state"
+      >
+        <div className={styles.graphic} slot="graphic">
+          <EmptyGraphic />
+        </div>
+        <Text slot="title">No Results Found</Text>
+        <Text slot="description">
+          {`Evergreen found no builds matching the applied filters in the ${VERSION_SEARCH_LIMIT} commits searched. Older commits may still contain matching builds.`}
+        </Text>
+        <Button
+          data-testid="search-older-commits-button"
+          isDisabled={isNavigatingToPage}
+          onPress={() => {
+            sendEvent({ name: "Clicked search older commits button" });
+            goToNextPage();
+          }}
+          slot="primaryAction"
+        >
+          Search older commits
+        </Button>
+      </BasicEmptyState>
     );
   }
 
   return (
-    <BasicEmptyState
-      description="Evergreen found no builds matching the applied filters."
-      graphic={<EmptyGraphic />}
-      title="No Results Found"
-    />
+    <BasicEmptyState className={styles.emptyState}>
+      <div className={styles.graphic} slot="graphic">
+        <EmptyGraphic />
+      </div>
+      <Text slot="title">No Results Found</Text>
+      <Text slot="description">
+        Evergreen found no builds matching the applied filters.
+      </Text>
+    </BasicEmptyState>
   );
 };

@@ -1,0 +1,31 @@
+.columnBasis {
+  flex-basis: calc(100% / 5);
+}
+
+.gridGroup {
+  display: flex;
+  gap: var(--via-space-400);
+  flex-grow: 1;
+}
+
+.buildVariantTitle {
+  overflow-wrap: anywhere;
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  gap: var(--via-space-100);
+  height: min-content;
+  width: 200px;
+}
+
+.row {
+  display: flex;
+  gap: var(--via-space-200);
+  margin-bottom: var(--via-space-400);
+}
+
+.inactiveVersion {
+  flex-shrink: 0;
+  flex-basis: 80px;
+  text-align: center;
+}

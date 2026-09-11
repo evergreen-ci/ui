@@ -1,9 +1,11 @@
 import { useMutation } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Tooltip } from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
+import {
+  Button,
+  LinkButton,
+  Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@via-ds/components";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { getParsleyTaskLogLink } from "constants/externalResources";
@@ -16,6 +18,7 @@ import {
 import { RESTART_TASK } from "gql/mutations";
 import { LogTypes, TaskTab } from "types/task";
 import { WaterfallFilterOptions } from "../types";
+import styles from "./ActionButtons.module.css";
 
 interface ActionButtonsProps {
   task: NonNullable<TaskOverviewPopupQuery["task"]>;
@@ -67,52 +70,45 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   };
 
   return (
-    <ButtonRow>
+    <div className={styles.buttonRow}>
       <Button
-        disabled={!canRestart}
-        onClick={handleRestartClick}
-        size={ButtonSize.Small}
+        isDisabled={!canRestart}
+        onPress={handleRestartClick}
+        size="small"
       >
         Restart
       </Button>
-      <Button onClick={handleFilterClick} size={ButtonSize.Small}>
+      <Button onPress={handleFilterClick} size="small">
         Filter
       </Button>
       {displayOnly ? (
-        <Tooltip
-          trigger={
-            <Button disabled size={ButtonSize.Small}>
-              Logs
-            </Button>
-          }
-        >
-          Display tasks do not have logs.
-        </Tooltip>
+        <TooltipRoot>
+          <TooltipTrigger>
+            <span className={styles.disabledTooltipTrigger}>
+              <Button isDisabled size="small">
+                Logs
+              </Button>
+            </span>
+          </TooltipTrigger>
+          <Tooltip>Display tasks do not have logs.</Tooltip>
+        </TooltipRoot>
       ) : (
-        <Button
-          as={Link}
-          size={ButtonSize.Small}
-          to={getParsleyTaskLogLink(LogTypes.Task, taskId, execution)}
+        <LinkButton
+          href={getParsleyTaskLogLink(LogTypes.Task, taskId, execution)}
+          size="small"
         >
           Logs
-        </Button>
+        </LinkButton>
       )}
-      <Button
-        as={Link}
-        size={ButtonSize.Small}
-        to={getTaskRoute(taskId, {
+      <LinkButton
+        href={getTaskRoute(taskId, {
           execution,
           tab: TaskTab.History,
         })}
+        size="small"
       >
         History
-      </Button>
-    </ButtonRow>
+      </LinkButton>
+    </div>
   );
 };
-
-const ButtonRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;

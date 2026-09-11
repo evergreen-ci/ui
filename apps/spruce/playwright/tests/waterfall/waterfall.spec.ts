@@ -10,6 +10,26 @@ test.describe("waterfall page", () => {
       const versionLabels = page.getByTestId("version-labels").locator("> *");
       await expect(versionLabels.nth(4)).toContainText("Git Tags: v2.28.5");
     });
+
+    test("navigates to a version from its git hash", async ({ page }) => {
+      await page
+        .getByTestId("version-label-active")
+        .first()
+        .getByRole("link")
+        .first()
+        .click();
+
+      await expect(page).toHaveURL(/\/version\//);
+    });
+
+    test("renders Jira tickets in commit messages as links", async ({
+      page,
+    }) => {
+      await expect(page.getByTestId("jira-link").first()).toHaveAttribute(
+        "href",
+        /\/browse\/[A-Z]+-\d+$/,
+      );
+    });
   });
 
   test.describe("inactive commits", () => {
@@ -62,6 +82,17 @@ test.describe("waterfall page", () => {
       await expect(buildGroups.nth(4).getByRole("link")).toHaveCount(8);
       await expect(buildGroups.nth(5).getByRole("link")).toHaveCount(8);
     });
+
+    test("navigates to a task when clicking a task box", async ({ page }) => {
+      await page
+        .getByTestId("build-group")
+        .first()
+        .locator("a[data-tooltip]")
+        .first()
+        .click();
+
+      await expect(page).toHaveURL(/\/task\//);
+    });
   });
 
   test.describe("task stats tooltip", () => {
@@ -79,6 +110,16 @@ test.describe("waterfall page", () => {
     });
   });
 
+  test("opens and closes the task status legend", async ({ page }) => {
+    await page.getByRole("button", { name: "Task status icon legend" }).click();
+    await expect(page.getByText("Icon Legend")).toBeVisible();
+
+    await page
+      .getByRole("button", { name: "Close task status icon legend" })
+      .click();
+    await expect(page.getByText("Icon Legend")).toBeHidden();
+  });
+
   test.describe("pinned build variants", () => {
     test.beforeEach(async ({ page }) => {
       await page.goto("/project/evergreen/waterfall");
@@ -93,7 +134,7 @@ test.describe("waterfall page", () => {
       await expect(buildVariantLinks.nth(0)).toHaveText("Ubuntu 16.04");
       await page.reload();
       await expect(buildVariantLinks.nth(0)).toHaveText("Ubuntu 16.04");
-      await page.getByTestId("pin-button").nth(1).click();
+      await page.getByTestId("pin-button").nth(0).click();
       await expect(buildVariantLinks.nth(0)).toHaveText("Lint");
     });
   });
