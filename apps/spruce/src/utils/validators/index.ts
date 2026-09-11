@@ -1,3 +1,5 @@
+import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+
 /**
  * `validateDuration` tests if a provided string is a valid duration
  * @param duration - the duration to validate
@@ -47,8 +49,12 @@ const validateJira = (v: string) => new RegExp(jiraTicketNumberRegex).test(v);
  * @param url - the url to test
  * @returns - true if the provided url is a valid jira url, false otherwise
  */
-const validateJiraURL = (jiraURL: string, url: string): boolean =>
-  new RegExp(`^https://${jiraURL}/browse/${jiraTicketNumberRegex}$`).test(url);
+const validateJiraURL = (jiraURL: string, url: string): boolean => {
+  const escapedURL = toEscapedRegex(jiraURL);
+  return new RegExp(
+    `^https://${escapedURL}/browse/${jiraTicketNumberRegex}$`,
+  ).test(url);
+};
 
 /**
  * `validateURL` tests if a provided url is a valid url

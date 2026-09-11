@@ -82,7 +82,7 @@ describe("validateSSHPublicKey", () => {
 });
 
 describe("validateJiraURL", () => {
-  const jiraURL = "jira\\.example\\.com";
+  const jiraURL = "jira.example.com";
   it("validates jira urls", () => {
     expect(
       validateJiraURL(jiraURL, "https://jira.example.com/browse/TEST-1"),
@@ -96,6 +96,9 @@ describe("validateJiraURL", () => {
     expect(
       validateJiraURL(jiraURL, "https://jira.example.com/browse/PD-1234"),
     ).toBeTruthy();
+    expect(
+      validateJiraURL(jiraURL, "https://jiraxexamplexcom/browse/EVG-1"),
+    ).toBeFalsy();
     expect(validateJiraURL(jiraURL, "")).toBeFalsy();
     expect(validateJiraURL(jiraURL, "jira.example.com")).toBeFalsy();
     expect(
