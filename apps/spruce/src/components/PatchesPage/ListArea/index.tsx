@@ -1,4 +1,5 @@
 import { BasicEmptyState, Skeleton, Text } from "@via-ds/components";
+import { cx } from "@evg-ui/lib/utils/css";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import styles from "./index.module.css";
 import PatchCard from "./PatchCard";
@@ -18,7 +19,12 @@ const ListArea: React.FC<ListAreaProps> = ({ loading, pageType, patches }) => {
           {Array.from({ length: 5 }, (_, index) => (
             <div key={index} className={patchCardStyles.cardWrapper}>
               <div className={patchCardStyles.left}>
-                <Text className={styles.skeletonDescription}>
+                <Text
+                  className={cx(
+                    styles.skeletonDescription,
+                    patchCardStyles.descriptionLink,
+                  )}
+                >
                   Patch description placeholder
                 </Text>
                 <Text className={styles.skeletonMetadata}>
