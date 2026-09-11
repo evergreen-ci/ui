@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client/react";
-import { Button, ButtonVariant } from "@via-ds/components";
+import { IconButton } from "@leafygreen-ui/icon-button";
+import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
@@ -9,6 +10,8 @@ import {
   RemoveFavoriteProjectMutationVariables,
 } from "gql/generated/types";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
+
+const { gray, green } = palette;
 
 interface FavoriteStarProps {
   projectIdentifier: string;
@@ -47,7 +50,8 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
     },
   });
 
-  const onPress = (): void => {
+  const onClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (isFavorite) {
       removeFavoriteProject({ variables: { projectIdentifier } });
     } else {
@@ -55,23 +59,17 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
     }
   };
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Prevent selecting the project.
-    <div onClick={(e) => e.stopPropagation()}>
-      <Button
+    <div>
+      <IconButton
         aria-label="Add To Favorites"
         data-testid={dataTestId}
-        onPress={onPress}
-        variant={ButtonVariant.Tertiary}
+        onClick={onClick}
       >
         <Icon
-          fill={
-            isFavorite
-              ? "var(--via-color-green-500)"
-              : "var(--via-color-neutral-500)"
-          }
+          fill={isFavorite ? green.dark1 : gray.dark1}
           glyph={isFavorite ? "Favorite" : "OutlineFavorite"}
         />
-      </Button>
+      </IconButton>
     </div>
   );
 };
