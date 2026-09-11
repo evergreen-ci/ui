@@ -1,9 +1,6 @@
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { H3 } from "@leafygreen-ui/typography";
+import { H3 } from "@via-ds/components/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { useNavbarAnalytics } from "analytics";
 import { MCI_USER } from "constants/hosts";
@@ -14,6 +11,7 @@ import {
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { QueryParams } from "types/task";
+import styles from "./TaskQueueContent.module.css";
 import TaskQueueTable from "./TaskQueueTable";
 
 type TaskQueueContentProps = {
@@ -42,7 +40,7 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
 
   return (
     <>
-      <TableHeader>
+      <div className={styles.tableHeader}>
         <H3>{distroId}</H3>
         <StyledRouterLink
           onClick={() => sendNavbarEvent({ name: "Clicked all hosts link" })}
@@ -59,24 +57,14 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
         >
           Distro settings
         </StyledRouterLink>
-      </TableHeader>
-      {loadingTaskQueueItems ? (
-        <TableSkeleton numCols={8} numRows={10} />
-      ) : (
-        <TaskQueueTable
-          taskId={taskId}
-          taskQueue={taskQueueItemsData?.distroTaskQueue ?? []}
-        />
-      )}
+      </div>
+      <TaskQueueTable
+        loading={loadingTaskQueueItems}
+        taskId={taskId}
+        taskQueue={taskQueueItemsData?.distroTaskQueue ?? []}
+      />
     </>
   );
 };
-
-const TableHeader = styled.div`
-  display: flex;
-  align-items: center;
-  margin: ${size.m} 0 ${size.s} 0;
-  gap: ${size.s};
-`;
 
 export default TaskQueueContent;

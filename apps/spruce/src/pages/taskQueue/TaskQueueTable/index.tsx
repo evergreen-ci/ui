@@ -1,13 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import styled from "@emotion/styled";
-import { Badge } from "@leafygreen-ui/badge";
-import { css } from "@leafygreen-ui/emotion";
-import { Body } from "@leafygreen-ui/typography";
-import {
-  StyledRouterLink,
-  WordBreak,
-  wordBreakCss,
-} from "@evg-ui/lib/components/styles";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
+import { Body } from "@via-ds/components/typography";
+import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   LGColumnDef,
@@ -25,15 +19,18 @@ import {
 import { TaskQueueItem } from "gql/generated/types";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import { msToDuration } from "utils/string";
+import styles from "./index.module.css";
 
 type TaskQueueColumnData = Omit<TaskQueueItem, "revision">;
 interface TaskQueueTableProps {
   taskQueue: TaskQueueColumnData[];
   taskId?: string;
+  loading?: boolean;
 }
 const estimateSize = () => 65;
 
 const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
+  loading = false,
   taskId,
   taskQueue = [],
 }) => {
@@ -68,26 +65,17 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   return (
     <BaseTable
       ref={tableContainerRef}
-      className={virtualScrollingContainerHeight}
+      className={styles.virtualScrollingContainer}
       data-testid="task-queue-table"
       emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
+      loading={loading}
+      loadingRows={10}
       selectedRowIndexes={selectedRowIndexes}
       shouldAlternateRowColor
       table={table}
     />
   );
 };
-
-const virtualScrollingContainerHeight = css`
-  max-height: 100vh;
-  width: 100%;
-`;
-
-const TaskCell = styled.div`
-  display: flex;
-  flex-direction: column;
-  ${wordBreakCss};
-`;
 
 const taskQueueTableColumns = (
   sendEvent: ReturnType<typeof useTaskQueueAnalytics>["sendEvent"],
@@ -96,7 +84,9 @@ const taskQueueTableColumns = (
     {
       header: "",
       cell: ({ row }) => (
-        <Body weight="medium">{formatZeroIndexForDisplay(row.index)}</Body>
+        <Body className={styles.indexCell}>
+          {formatZeroIndexForDisplay(row.index)}
+        </Body>
       ),
       align: "center",
       id: "index",
@@ -109,7 +99,7 @@ const taskQueueTableColumns = (
       cell: (value) => {
         const { buildVariant, displayName, id } = value.row.original;
         return (
-          <TaskCell>
+          <div className={styles.taskCell}>
             <StyledRouterLink
               data-testid="current-task-link"
               onClick={() => sendEvent({ name: "Clicked task link" })}
@@ -118,7 +108,7 @@ const taskQueueTableColumns = (
               {displayName}
             </StyledRouterLink>
             <Body>{buildVariant}</Body>
-          </TaskCell>
+          </div>
         );
       },
     },
@@ -163,7 +153,11 @@ const taskQueueTableColumns = (
       header: "Priority",
       accessorKey: "priority",
       align: "center",
-      cell: (value) => <Badge>{value.row.original.priority}</Badge>,
+      cell: (value) => (
+        <Badge variant={BadgeVariant.Status}>
+          {value.row.original.priority}
+        </Badge>
+      ),
       size: 60,
     },
     {
@@ -186,7 +180,7 @@ const taskQueueTableColumns = (
         const copy = isWaterfallRequester(requester as Requester)
           ? "Commit"
           : "Patch";
-        return <Badge>{copy}</Badge>;
+        return <Badge variant={BadgeVariant.Status}>{copy}</Badge>;
       },
     },
   ];
