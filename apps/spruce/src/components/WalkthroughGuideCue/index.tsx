@@ -1,5 +1,6 @@
 import {
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -30,6 +31,7 @@ export type WalkthroughGuideCueProps = {
   dataAttributeName: string;
   defaultOpen: boolean;
   onClose: () => void;
+  onCurrentTargetChange?: (targetId: string | null) => void;
   walkthroughSteps: WalkthroughStep[];
 };
 
@@ -40,13 +42,30 @@ export interface WalkthroughGuideCueRef {
 export const WalkthroughGuideCue = forwardRef<
   WalkthroughGuideCueRef,
   WalkthroughGuideCueProps
->(({ dataAttributeName, defaultOpen, onClose, walkthroughSteps }, ref) => {
+>((props, ref) => {
+  const {
+    dataAttributeName,
+    defaultOpen,
+    onClose,
+    onCurrentTargetChange,
+    walkthroughSteps,
+  } = props;
   const [open, setOpen] = useState(defaultOpen);
   const [active, setActive] = useState(defaultOpen);
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const currentStepRef = useRef<HTMLElement | null>(null);
+  const openedControlRef = useRef<HTMLElement | null>(null);
+  const onCurrentTargetChangeRef = useRef(onCurrentTargetChange);
+
+  onCurrentTargetChangeRef.current = onCurrentTargetChange;
+
+  const closeOpenedControl = useCallback(() => {
+    openedControlRef.current?.click();
+    openedControlRef.current = null;
+  }, []);
 
   const endWalkthrough = () => {
+    closeOpenedControl();
     onClose();
     setActive(false);
     setOpen(false);
@@ -69,8 +88,10 @@ export const WalkthroughGuideCue = forwardRef<
       endWalkthrough();
       return;
     }
+    closeOpenedControl();
     if (nextStep.shouldClick) {
       nextTargetElement.click();
+      openedControlRef.current = nextTargetElement;
     }
     setCurrentStepIdx(nextStepIdx);
     setOpen(true);
@@ -95,6 +116,18 @@ export const WalkthroughGuideCue = forwardRef<
 
   const currentStep = walkthroughSteps[currentStepIdx];
 
+  useEffect(() => {
+    onCurrentTargetChange?.(active ? currentStep.targetId : null);
+  }, [active, currentStep.targetId, onCurrentTargetChange]);
+
+  useEffect(
+    () => () => {
+      closeOpenedControl();
+      onCurrentTargetChangeRef.current?.(null);
+    },
+    [closeOpenedControl],
+  );
+
   // Update the ref when the current step changes
   useEffect(() => {
     currentStepRef.current = getTargetElement({
@@ -116,6 +149,7 @@ export const WalkthroughGuideCue = forwardRef<
         data-testid="walkthrough-guide-cue"
         numberOfSteps={walkthroughSteps.length}
         onDismiss={() => {
+          closeOpenedControl();
           onClose();
           setActive(false);
         }}
