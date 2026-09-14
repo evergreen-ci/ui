@@ -167,20 +167,16 @@ export const WalkthroughGuideCue = forwardRef<
               tooltipAlign={step.tooltipAlign}
               tooltipSide={step.tooltipSide}
             >
-              <div slot="header">
-                <Text data-testid="walkthrough-guide-cue" slot="title">
-                  {step.title}
-                </Text>
-              </div>
+              <Text data-testid="walkthrough-guide-cue" slot="title">
+                {step.title}
+              </Text>
               <Text slot="content">{step.description}</Text>
-              <div slot="footer">
-                <Text slot="steps">
-                  {i + 1} of {walkthroughSteps.length}
-                </Text>
-                <Button onPress={onPrimaryButtonClick} slot="primary">
-                  {i + 1 === walkthroughSteps.length ? "Get started" : "Next"}
-                </Button>
-              </div>
+              <Text slot="steps">
+                {i + 1} of {walkthroughSteps.length}
+              </Text>
+              <Button onPress={onPrimaryButtonClick} slot="primary">
+                {i + 1 === walkthroughSteps.length ? "Get started" : "Next"}
+              </Button>
             </GuideCueStep>
           ))}
         </GuideCue>
