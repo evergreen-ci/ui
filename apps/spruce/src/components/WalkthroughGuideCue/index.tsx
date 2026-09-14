@@ -7,11 +7,13 @@ import {
   useState,
 } from "react";
 import {
+  Align,
+  Button,
   GuideCue,
-  TooltipAlign,
-  TooltipJustify,
-} from "@leafygreen-ui/guide-cue";
-import { Align as BeaconAlign } from "@leafygreen-ui/popover";
+  GuideCueStep,
+  Side,
+  Text,
+} from "@via-ds/components";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import styles from "./index.module.css";
 
@@ -20,12 +22,12 @@ export type WalkthroughStep = {
   description: string | React.ReactElement;
   targetId: string;
   shouldClick?: boolean;
-  beaconAlign?: BeaconAlign;
-  tooltipAlign?: TooltipAlign;
-  tooltipJustify?: TooltipJustify;
+  beaconAlign?: Align;
+  tooltipAlign?: Align;
+  tooltipSide?: Side;
 };
 
-export { BeaconAlign, TooltipAlign, TooltipJustify };
+export { Align, Side };
 
 export type WalkthroughGuideCueProps = {
   dataAttributeName: string;
@@ -50,10 +52,11 @@ export const WalkthroughGuideCue = forwardRef<
     onCurrentTargetChange,
     walkthroughSteps,
   } = props;
-  const [open, setOpen] = useState(defaultOpen);
   const [active, setActive] = useState(defaultOpen);
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
-  const currentStepRef = useRef<HTMLElement | null>(null);
+  const targetRefs = useRef(
+    walkthroughSteps.map(() => ({ current: null as HTMLElement | null })),
+  );
   const openedControlRef = useRef<HTMLElement | null>(null);
   const onCurrentTargetChangeRef = useRef(onCurrentTargetChange);
   const reportedTargetRef = useRef<string | null>(null);
@@ -69,7 +72,6 @@ export const WalkthroughGuideCue = forwardRef<
     closeOpenedControl();
     onClose();
     setActive(false);
-    setOpen(false);
   };
 
   const goToNextStep = (nextStepIdx: number) => {
@@ -95,7 +97,6 @@ export const WalkthroughGuideCue = forwardRef<
       openedControlRef.current = nextTargetElement;
     }
     setCurrentStepIdx(nextStepIdx);
-    setOpen(true);
   };
 
   // Exposes a function via the ref to restart the walkthrough.
@@ -136,41 +137,53 @@ export const WalkthroughGuideCue = forwardRef<
     [closeOpenedControl],
   );
 
-  // Update the ref when the current step changes
   useEffect(() => {
-    currentStepRef.current = getTargetElement({
-      dataAttributeName,
-      targetId: currentStep.targetId,
+    walkthroughSteps.forEach((step, i) => {
+      targetRefs.current[i].current = getTargetElement({
+        dataAttributeName,
+        targetId: step.targetId,
+      });
     });
-  }, [dataAttributeName, currentStep.targetId]);
+  }, [dataAttributeName, walkthroughSteps]);
 
   return (
     <>
-      <GuideCue
-        beaconAlign={currentStep.beaconAlign ?? BeaconAlign.CenterHorizontal}
-        buttonText={
-          currentStepIdx + 1 === walkthroughSteps.length
-            ? "Get started"
-            : "Next"
-        }
-        currentStep={currentStepIdx + 1}
-        data-testid="walkthrough-guide-cue"
-        numberOfSteps={walkthroughSteps.length}
-        onDismiss={() => {
-          closeOpenedControl();
-          onClose();
-          setActive(false);
-        }}
-        onPrimaryButtonClick={onPrimaryButtonClick}
-        open={open}
-        refEl={currentStepRef}
-        setOpen={setOpen}
-        title={currentStep.title}
-        tooltipAlign={currentStep.tooltipAlign ?? TooltipAlign.Top}
-        tooltipJustify={currentStep.tooltipJustify ?? TooltipJustify.Middle}
-      >
-        {currentStep.description}
-      </GuideCue>
+      {active && (
+        <GuideCue
+          currentStep={currentStepIdx + 1}
+          isOpen
+          onOpenChange={(isOpen) => {
+            if (!isOpen) {
+              endWalkthrough();
+            }
+          }}
+        >
+          {walkthroughSteps.map((step, i) => (
+            <GuideCueStep
+              key={step.targetId}
+              beaconAlign={step.beaconAlign}
+              referenceElement={targetRefs.current[i]}
+              tooltipAlign={step.tooltipAlign}
+              tooltipSide={step.tooltipSide}
+            >
+              <div slot="header">
+                <Text data-testid="walkthrough-guide-cue" slot="title">
+                  {step.title}
+                </Text>
+              </div>
+              <div slot="content">{step.description}</div>
+              <div slot="footer">
+                <Text slot="steps">
+                  {i + 1} of {walkthroughSteps.length}
+                </Text>
+                <Button onPress={onPrimaryButtonClick} slot="primary">
+                  {i + 1 === walkthroughSteps.length ? "Get started" : "Next"}
+                </Button>
+              </div>
+            </GuideCueStep>
+          ))}
+        </GuideCue>
+      )}
       {active && (
         <div className={styles.backdrop} data-testid="walkthrough-backdrop" />
       )}

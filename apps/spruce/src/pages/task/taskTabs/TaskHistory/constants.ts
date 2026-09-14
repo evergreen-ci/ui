@@ -1,8 +1,4 @@
-import {
-  BeaconAlign,
-  TooltipAlign,
-  WalkthroughStep,
-} from "components/WalkthroughGuideCue";
+import { Align, Side, WalkthroughStep } from "components/WalkthroughGuideCue";
 
 export const ACTIVATED_TASKS_LIMIT = 50;
 
@@ -20,8 +16,8 @@ export const walkthroughSteps: WalkthroughStep[] = [
     description:
       "The timeline shows this task's previous runs. Paginate to view additional history.",
     targetId: "task-timeline",
-    beaconAlign: BeaconAlign.Left,
-    tooltipAlign: TooltipAlign.Left,
+    beaconAlign: Align.Start,
+    tooltipSide: Side.Left,
   },
   {
     title: "View Options",
@@ -34,16 +30,16 @@ export const walkthroughSteps: WalkthroughStep[] = [
     description:
       "Each card represents a task in the timeline and contains additional commit information.",
     targetId: "commit-details",
-    beaconAlign: BeaconAlign.Left,
-    tooltipAlign: TooltipAlign.Left,
+    beaconAlign: Align.Start,
+    tooltipSide: Side.Left,
   },
   {
     title: "Search Test Failures",
     description:
       "Search for specific tests to identify common failures across different task runs.",
     targetId: "search-test-failures",
-    beaconAlign: BeaconAlign.Left,
-    tooltipAlign: TooltipAlign.Left,
+    beaconAlign: Align.Start,
+    tooltipSide: Side.Left,
   },
   {
     title: "Filter by Date",

@@ -48,7 +48,7 @@ describe("walkthrough guide cue", async () => {
       <div data-guide-cue-id="step-2">div</div>
       <WalkthroughGuideCue
         dataAttributeName="data-guide-cue-id"
-        defaultOpen
+        defaultOpen={props.defaultOpen}
         onClose={props.onClose}
         onCurrentTargetChange={props.onCurrentTargetChange}
         walkthroughSteps={props.walkthroughSteps}
@@ -73,7 +73,7 @@ describe("walkthrough guide cue", async () => {
 
   const backdropIsNotVisible = async () =>
     waitFor(() => {
-      expect(screen.queryByTestId("walkthrough-guide-cue")).toBeNull();
+      expect(screen.queryByTestId("walkthrough-backdrop")).toBeNull();
     });
 
   it("should not open guide cue if defaultOpen is false", async () => {
@@ -140,7 +140,7 @@ describe("walkthrough guide cue", async () => {
     );
     await guideCueIsVisible();
     await backdropIsVisible();
-    const dismissButton = screen.getByRole("button", { name: "Close Tooltip" });
+    const dismissButton = screen.getByRole("button", { name: "Close" });
     await user.click(dismissButton);
     await guideCueIsNotVisible();
     await backdropIsNotVisible();
@@ -258,7 +258,7 @@ describe("walkthrough guide cue", async () => {
         await user.click(screen.getByRole("button", { name: "Next" }));
       } else if (exit === "dismissed") {
         await guideCueIsVisible();
-        await user.click(screen.getByRole("button", { name: "Close Tooltip" }));
+        await user.click(screen.getByRole("button", { name: "Close" }));
       } else if (exit === "completed") {
         await guideCueIsVisible();
         await user.click(screen.getByRole("button", { name: "Get started" }));

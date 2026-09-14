@@ -753,7 +753,7 @@ test.describe("task history", () => {
         page.getByText("Introducing the Task History Tab"),
       ).toBeVisible();
 
-      const closeButton = page.getByLabel("Close Tooltip");
+      const closeButton = page.getByLabel("Close");
       await expect(closeButton).toBeVisible();
       await closeButton.click();
       await expect(page.getByTestId("walkthrough-guide-cue")).toBeHidden();
