@@ -56,6 +56,7 @@ export const WalkthroughGuideCue = forwardRef<
   const currentStepRef = useRef<HTMLElement | null>(null);
   const openedControlRef = useRef<HTMLElement | null>(null);
   const onCurrentTargetChangeRef = useRef(onCurrentTargetChange);
+  const reportedTargetRef = useRef<string | null>(null);
 
   onCurrentTargetChangeRef.current = onCurrentTargetChange;
 
@@ -115,15 +116,22 @@ export const WalkthroughGuideCue = forwardRef<
   };
 
   const currentStep = walkthroughSteps[currentStepIdx];
+  const currentTargetId = active ? currentStep.targetId : null;
 
   useEffect(() => {
-    onCurrentTargetChange?.(active ? currentStep.targetId : null);
-  }, [active, currentStep.targetId, onCurrentTargetChange]);
+    if (reportedTargetRef.current !== currentTargetId) {
+      reportedTargetRef.current = currentTargetId;
+      onCurrentTargetChangeRef.current?.(currentTargetId);
+    }
+  }, [currentTargetId]);
 
   useEffect(
     () => () => {
       closeOpenedControl();
-      onCurrentTargetChangeRef.current?.(null);
+      if (reportedTargetRef.current !== null) {
+        reportedTargetRef.current = null;
+        onCurrentTargetChangeRef.current?.(null);
+      }
     },
     [closeOpenedControl],
   );

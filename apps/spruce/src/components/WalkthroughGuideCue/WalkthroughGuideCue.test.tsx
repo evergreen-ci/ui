@@ -186,7 +186,7 @@ describe("walkthrough guide cue", async () => {
   it("reports the current target and clears it when the walkthrough ends", async () => {
     const user = userEvent.setup();
     const onCurrentTargetChange = vi.fn();
-    render(
+    const { unmount } = render(
       <GuideCueWalkthroughContent
         defaultOpen
         onClose={vi.fn()}
@@ -208,6 +208,9 @@ describe("walkthrough guide cue", async () => {
     await waitFor(() => {
       expect(onCurrentTargetChange).toHaveBeenLastCalledWith(null);
     });
+    expect(onCurrentTargetChange).toHaveBeenCalledTimes(3);
+    unmount();
+    expect(onCurrentTargetChange).toHaveBeenCalledTimes(3);
   });
 
   it.each(["advanced", "dismissed", "completed", "unmounted"])(
