@@ -17,12 +17,14 @@ const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 const renderWaterfallMenu = (props: {
+  isWalkthroughMenuStep?: boolean;
   omitInactiveBuilds?: boolean;
   projectIdentifier?: string;
   restartWalkthrough?: () => void;
   setOmitInactiveBuilds?: (value: boolean) => void;
 }) => {
   const {
+    isWalkthroughMenuStep = false,
     omitInactiveBuilds = false,
     projectIdentifier = "spruce",
     restartWalkthrough = vi.fn(),
@@ -32,6 +34,7 @@ const renderWaterfallMenu = (props: {
   const { Component } = RenderFakeToastContext(
     <MockedProvider>
       <WaterfallMenu
+        isWalkthroughMenuStep={isWalkthroughMenuStep}
         omitInactiveBuilds={omitInactiveBuilds}
         projectIdentifier={projectIdentifier}
         restartWalkthrough={restartWalkthrough}
@@ -65,8 +68,11 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: off")).toBeVisible();
     });
+    expect(
+      screen.getByRole("menuitem", { name: "Omit inactive builds: off" }),
+    ).toBeVisible();
   });
 
   it("calls setOmitInactiveBuilds and updates localStorage when checkbox is toggled on", async () => {
@@ -79,10 +85,10 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: off")).toBeVisible();
     });
 
-    await user.click(screen.getByText("Omit inactive builds"));
+    await user.click(screen.getByText("Omit inactive builds: off"));
 
     expect(setOmitInactiveBuilds).toHaveBeenCalledWith(true);
     expect(localStorageSpy).toHaveBeenCalledWith(
@@ -103,10 +109,10 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: on")).toBeVisible();
     });
 
-    await user.click(screen.getByText("Omit inactive builds"));
+    await user.click(screen.getByText("Omit inactive builds: on"));
 
     expect(setOmitInactiveBuilds).toHaveBeenCalledWith(false);
     expect(localStorageSpy).toHaveBeenCalledWith(

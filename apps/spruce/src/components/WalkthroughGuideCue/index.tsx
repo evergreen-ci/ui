@@ -30,6 +30,7 @@ export type WalkthroughGuideCueProps = {
   dataAttributeName: string;
   defaultOpen: boolean;
   onClose: () => void;
+  onCurrentStepChange?: (targetId: string | null) => void;
   walkthroughSteps: WalkthroughStep[];
 };
 
@@ -40,13 +41,28 @@ export interface WalkthroughGuideCueRef {
 export const WalkthroughGuideCue = forwardRef<
   WalkthroughGuideCueRef,
   WalkthroughGuideCueProps
->(({ dataAttributeName, defaultOpen, onClose, walkthroughSteps }, ref) => {
+>((props, ref) => {
+  const {
+    dataAttributeName,
+    defaultOpen,
+    onClose,
+    onCurrentStepChange,
+    walkthroughSteps,
+  } = props;
   const [open, setOpen] = useState(defaultOpen);
   const [active, setActive] = useState(defaultOpen);
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const currentStepRef = useRef<HTMLElement | null>(null);
 
+  const closeCurrentStepTarget = () => {
+    if (walkthroughSteps[currentStepIdx].shouldClick) {
+      currentStepRef.current?.click();
+    }
+  };
+
   const endWalkthrough = () => {
+    closeCurrentStepTarget();
+    onCurrentStepChange?.(null);
     onClose();
     setActive(false);
     setOpen(false);
@@ -69,6 +85,7 @@ export const WalkthroughGuideCue = forwardRef<
       endWalkthrough();
       return;
     }
+    onCurrentStepChange?.(nextStep.targetId);
     if (nextStep.shouldClick) {
       nextTargetElement.click();
     }
@@ -89,6 +106,7 @@ export const WalkthroughGuideCue = forwardRef<
     if (nextStepIdx === walkthroughSteps.length) {
       endWalkthrough();
     } else {
+      closeCurrentStepTarget();
       goToNextStep(nextStepIdx);
     }
   };
@@ -101,11 +119,22 @@ export const WalkthroughGuideCue = forwardRef<
       dataAttributeName,
       targetId: currentStep.targetId,
     });
-  }, [dataAttributeName, currentStep.targetId]);
+    if (active) {
+      onCurrentStepChange?.(currentStep.targetId);
+    }
+  }, [active, dataAttributeName, currentStep.targetId, onCurrentStepChange]);
+
+  useEffect(
+    () => () => {
+      onCurrentStepChange?.(null);
+    },
+    [onCurrentStepChange],
+  );
 
   return (
     <>
       <GuideCue
+        key={currentStepIdx}
         beaconAlign={currentStep.beaconAlign ?? BeaconAlign.CenterHorizontal}
         buttonText={
           currentStepIdx + 1 === walkthroughSteps.length
@@ -116,6 +145,8 @@ export const WalkthroughGuideCue = forwardRef<
         data-testid="walkthrough-guide-cue"
         numberOfSteps={walkthroughSteps.length}
         onDismiss={() => {
+          closeCurrentStepTarget();
+          onCurrentStepChange?.(null);
           onClose();
           setActive(false);
         }}

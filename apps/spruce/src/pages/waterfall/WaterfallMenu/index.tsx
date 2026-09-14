@@ -1,7 +1,18 @@
-import { useState } from "react";
-import { MenuGroup, MenuSeparator } from "@leafygreen-ui/menu";
+import { useEffect, useRef, useState } from "react";
+import {
+  Button,
+  Header,
+  Menu,
+  MenuItem,
+  MenuPopover,
+  MenuRoot,
+  MenuSection,
+  MenuSeparator,
+  Text,
+} from "@via-ds/components";
 import Icon from "@evg-ui/lib/components/Icon";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import { useWaterfallAnalytics } from "analytics";
+import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { AddNotification } from "./AddNotification";
 import { ClearAllFilters } from "./ClearAllFilters";
@@ -10,6 +21,7 @@ import { JumpToMostRecent } from "./JumpToMostRecent";
 import { OmitInactiveBuilds } from "./OmitInactiveBuilds";
 
 type Props = {
+  isWalkthroughMenuStep: boolean;
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
   restartWalkthrough: () => void;
@@ -17,51 +29,123 @@ type Props = {
 };
 
 export const WaterfallMenu: React.FC<Props> = ({
+  isWalkthroughMenuStep,
   omitInactiveBuilds,
   projectIdentifier,
   restartWalkthrough,
   setOmitInactiveBuilds,
 }) => {
+  const { sendEvent } = useWaterfallAnalytics();
   const [menuOpen, setMenuOpen] = useState(false);
+  const wasWalkthroughMenuStep = useRef(false);
+  const [gitCommitModalOpen, setGitCommitModalOpen] = useState(false);
+  const [notificationModalOpen, setNotificationModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (wasWalkthroughMenuStep.current && !isWalkthroughMenuStep) {
+      setMenuOpen(false);
+    }
+    wasWalkthroughMenuStep.current = isWalkthroughMenuStep;
+  }, [isWalkthroughMenuStep]);
 
   return (
-    <ButtonDropdown
-      data-testid="waterfall-menu"
-      open={menuOpen}
-      renderDarkMenu={false}
-      setOpen={setMenuOpen}
-      size="default"
-      triggerProps={{ [waterfallGuideId]: walkthroughSteps[4].targetId }}
-    >
-      <GitCommitSearch key="git-commit-search" setMenuOpen={setMenuOpen} />
-      <JumpToMostRecent key="jump-to-most-recent" setMenuOpen={setMenuOpen} />
-      <ClearAllFilters key="clear-all-filters" setMenuOpen={setMenuOpen} />
-      <AddNotification
-        key="add-notification"
-        projectIdentifier={projectIdentifier}
-        setMenuOpen={setMenuOpen}
-      />
-      <DropdownItem
-        key="restart-walkthrough"
-        data-testid="restart-walkthrough"
-        glyph={<Icon glyph="Bulb" />}
-        onClick={() => {
-          setMenuOpen(false);
-          restartWalkthrough();
+    <>
+      <MenuRoot
+        isOpen={menuOpen}
+        onOpenChange={(isOpen) => {
+          if (isOpen || !isWalkthroughMenuStep) {
+            setMenuOpen(isOpen);
+          }
         }}
       >
-        Restart walkthrough
-      </DropdownItem>
+        <Button
+          aria-label="Waterfall menu"
+          data-testid="waterfall-menu"
+          size="small"
+          variant="tertiary"
+          {...{ [waterfallGuideId]: walkthroughSteps[4].targetId }}
+        >
+          <Icon glyph="Ellipsis" />
+        </Button>
+        <MenuPopover isNonModal={isWalkthroughMenuStep}>
+          <Menu aria-label="Waterfall actions">
+            <MenuItem
+              data-testid="git-commit-search"
+              id="git-commit-search"
+              onAction={() => setGitCommitModalOpen(true)}
+              textValue="Search by git hash"
+            >
+              <Icon glyph="Code" slot="icon" />
+              <Text>Search by git hash</Text>
+            </MenuItem>
+            <JumpToMostRecent
+              key="jump-to-most-recent"
+              setMenuOpen={setMenuOpen}
+            />
+            <ClearAllFilters
+              key="clear-all-filters"
+              setMenuOpen={setMenuOpen}
+            />
+            <MenuItem
+              data-testid="add-notification"
+              id="add-notification"
+              onAction={() => setNotificationModalOpen(true)}
+              textValue="Add notification"
+            >
+              <Icon glyph="Bell" slot="icon" />
+              <Text>Add notification</Text>
+            </MenuItem>
+            <MenuItem
+              data-testid="restart-walkthrough"
+              id="restart-walkthrough"
+              onAction={() => {
+                setMenuOpen(false);
+                restartWalkthrough();
+              }}
+              textValue="Restart walkthrough"
+            >
+              <Icon glyph="Bulb" slot="icon" />
+              <Text>Restart walkthrough</Text>
+            </MenuItem>
 
-      <MenuSeparator />
+            <MenuSeparator />
 
-      <MenuGroup glyph={<Icon glyph="Settings" />} title="Settings">
-        <OmitInactiveBuilds
-          key="omit-inactive-builds"
-          omitInactiveBuilds={omitInactiveBuilds}
-          setOmitInactiveBuilds={setOmitInactiveBuilds}
-        />
-      </MenuGroup>
-    </ButtonDropdown>
+            <MenuSection>
+              <Header>
+                <Text slot="heading">Settings</Text>
+              </Header>
+              <MenuItem
+                id="omit-inactive-builds"
+                onAction={() => {
+                  const newValue = !omitInactiveBuilds;
+                  setOmitInactiveBuilds(newValue);
+                  localStorage.setItem(
+                    OMIT_INACTIVE_WATERFALL_BUILDS,
+                    newValue.toString(),
+                  );
+                  sendEvent({
+                    name: "Toggled omit inactive builds",
+                    enabled: newValue,
+                  });
+                }}
+                textValue="Omit inactive builds"
+              >
+                <OmitInactiveBuilds omitInactiveBuilds={omitInactiveBuilds} />
+              </MenuItem>
+            </MenuSection>
+          </Menu>
+        </MenuPopover>
+      </MenuRoot>
+      <GitCommitSearch
+        open={gitCommitModalOpen}
+        setOpen={setGitCommitModalOpen}
+      />
+      <AddNotification
+        open={notificationModalOpen}
+        projectIdentifier={projectIdentifier}
+        setMenuOpen={setMenuOpen}
+        setOpen={setNotificationModalOpen}
+      />
+    </>
   );
 };

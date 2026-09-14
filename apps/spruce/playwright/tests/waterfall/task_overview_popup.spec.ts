@@ -22,13 +22,12 @@ test.describe("task overview popup", () => {
   });
 
   test("closes the popup when clicking outside", async ({ page }) => {
-    const taskElement = page.locator(knownIssueTask);
-    await taskElement.click({ modifiers: ["Alt"] });
+    await page.locator(knownIssueTask).click({ modifiers: ["Alt"] });
     await expect(page.getByTestId("task-overview-popup")).toBeVisible();
-    await taskElement.click({ modifiers: ["Alt"] });
+    await page
+      .getByTestId("waterfall-page")
+      .click({ position: { x: 1, y: 1 } });
     await expect(page.getByTestId("task-overview-popup")).toBeHidden();
-    await taskElement.click({ modifiers: ["Alt"] });
-    await expect(page.getByTestId("task-overview-popup")).toBeVisible();
   });
 
   test("navigates to task page when clicking the task link", async ({

@@ -14,31 +14,34 @@ test.describe("onboarding", () => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
 
     await expect(page.getByTestId("walkthrough-backdrop")).toBeVisible();
-    await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
+    const guideCue = page.getByTestId("walkthrough-guide-cue");
+    await expect(guideCue).toBeVisible();
     await expect(page.getByText("New Layout", { exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await guideCue.getByRole("button", { name: "Next" }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("Reimagined Task Statuses")).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await guideCue.getByRole("button", { name: "Next" }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("Pin Build Variants")).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await guideCue.getByRole("button", { name: "Next" }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("Jump to Date")).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await guideCue.getByRole("button", { name: "Next" }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(
       page.getByText("Search by Git Hash", { exact: true }),
     ).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await expect(page.getByRole("menu")).toBeVisible();
+    await guideCue.getByRole("button", { name: "Next" }).click();
 
+    await expect(page.getByRole("menu")).toBeHidden();
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("Summary View")).toBeVisible();
-    await page.getByRole("button", { name: "Get started" }).click();
+    await guideCue.getByRole("button", { name: "Get started" }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeHidden();
     await expect(page.getByTestId("walkthrough-backdrop")).toBeHidden();
@@ -58,7 +61,11 @@ test.describe("onboarding", () => {
     await expect(page.getByTestId("walkthrough-backdrop")).toBeVisible();
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("New Layout", { exact: true })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Next" })).toBeVisible();
+    await expect(
+      page
+        .getByTestId("walkthrough-guide-cue")
+        .getByRole("button", { name: "Next" }),
+    ).toBeVisible();
   });
 
   test("can end walkthrough early using the dismiss button", async ({

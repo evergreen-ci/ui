@@ -1,13 +1,11 @@
 import React, { Component, ErrorInfo } from "react";
-import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
-import { H1, InlineCode } from "@leafygreen-ui/typography";
+import { Button, H1, Text } from "@via-ds/components";
 import { Navigate } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getWaterfallRoute } from "constants/routes";
 import WaterfallSkeleton from "../WaterfallSkeleton";
+import styles from "./index.module.css";
 
 interface WaterfallErrorBoundaryProps {
   children: React.ReactNode;
@@ -81,24 +79,21 @@ class WaterfallErrorBoundary extends Component<
     if (hasError) {
       return (
         <div>
-          <Container>
-            <InnerContainer>
+          <div className={styles.container}>
+            <div>
               <H1>Oops! Something went wrong.</H1>
-              <InlineCode>
+              <Text textStyle="inlineCode">
                 Error: {error?.message ?? "An unexpected error has occurred."}
-              </InlineCode>
-              <ButtonsContainer>
-                <Button
-                  onClick={this.handleResetPage}
-                  rightGlyph={<Icon glyph="ArrowRight" />}
-                  variant="primary"
-                >
+              </Text>
+              <div className={styles.buttonsContainer}>
+                <Button onPress={this.handleResetPage} variant="primary">
                   Return to waterfall
+                  <Icon glyph="ArrowRight" />
                 </Button>
-              </ButtonsContainer>
-            </InnerContainer>
-          </Container>
-          <WaterfallSkeleton enableAnimations={false} />
+              </div>
+            </div>
+          </div>
+          <WaterfallSkeleton />
         </div>
       );
     }
@@ -109,28 +104,5 @@ class WaterfallErrorBoundary extends Component<
     return this.props.children;
   }
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  padding: ${size.s};
-  box-sizing: border-box;
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
-  width: 98vw;
-`;
-
-const InnerContainer = styled.div`
-  opacity: 1;
-`;
-
-const ButtonsContainer = styled.div`
-  margin-top: ${size.l};
-  display: flex;
-  gap: ${size.s};
-`;
 
 export default WaterfallErrorBoundary;

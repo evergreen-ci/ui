@@ -1,15 +1,9 @@
 import { useState } from "react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { Badge, Variant } from "@leafygreen-ui/badge";
-import { Button } from "@leafygreen-ui/button";
-import { palette } from "@leafygreen-ui/palette";
+import { Badge, BadgeVariant, Button } from "@via-ds/components";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { Version } from "../types";
 import { InactiveVersionsModal } from "./InactiveVersionsModal";
-
-const { blue, gray } = palette;
+import styles from "./index.module.css";
 
 interface Props {
   highlightedIndex: number | undefined;
@@ -35,53 +29,29 @@ export const InactiveVersionsButton: React.FC<Props> = ({
         versions={versions}
       />
       {brokenVersionsCount > 0 && (
-        <StyledBadge data-testid="broken-versions-badge" variant={Variant.Red}>
+        <Badge
+          className={styles.badge}
+          data-testid="broken-versions-badge"
+          variant={BadgeVariant.Error}
+        >
           {brokenVersionsCount} broken
-        </StyledBadge>
+        </Badge>
       )}
-      <StyledButton
+      <Button
         aria-label="Open inactive versions modal"
+        className={styles.button}
+        data-highlighted={highlightedIndex !== undefined}
         data-testid="inactive-versions-button"
-        leftGlyph={<Icon fill={gray.base} glyph="List" />}
-        onClick={() => {
+        onPress={() => {
           setModalOpen(true);
         }}
-        size="xsmall"
+        size="small"
         variant={highlightedIndex !== undefined ? "primary" : "default"}
       >
+        <Icon glyph="List" />
         {versions?.length}
-        <InactiveVersionLine />
-      </StyledButton>
+        <div className={styles.inactiveVersionLine} />
+      </Button>
     </>
   );
 };
-
-const StyledButton = styled(Button)`
-  ${({ variant }) => variant === "primary" && glowButtonStyle}
-`;
-
-const glowButtonStyle = css`
-  animation: glow 1s ease-in-out 5 alternate;
-  box-shadow: 0 0 10px ${blue.light1};
-  @keyframes glow {
-    from {
-      box-shadow: 0 0 0px ${blue.light1};
-    }
-    to {
-      box-shadow: 0 0 10px ${blue.light1};
-    }
-  }
-`;
-
-const InactiveVersionLine = styled.div`
-  border-left: 2px dashed ${gray.base};
-  height: 200vh;
-  position: absolute;
-  margin-left: 50%;
-  top: 30px;
-  z-index: 1;
-`;
-
-const StyledBadge = styled(Badge)`
-  margin-bottom: ${size.xs};
-`;

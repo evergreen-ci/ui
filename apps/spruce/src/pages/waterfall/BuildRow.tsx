@@ -1,31 +1,18 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { css as classNameCss } from "@emotion/css"; // Using non-React Emotion generates a static class, avoiding runtime performance impacts on pages like the waterfall.
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
-import { spacing } from "@leafygreen-ui/tokens";
+import { Button } from "@via-ds/components";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getVariantHistoryRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
+import styles from "./BuildRow.module.css";
 import { useBuildVariantContext } from "./BuildVariantContext";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
-import {
-  BuildVariantTitle,
-  InactiveVersion,
-  Row,
-  columnBasis,
-  gridGroupCss,
-} from "./styles";
+import sharedStyles from "./styles.module.css";
 import { Build, BuildVariant, GroupedVersion } from "./types";
 import { WaterfallTask } from "./WaterfallTask";
-
-const { gray } = palette;
 
 type Props = {
   build: BuildVariant;
@@ -111,8 +98,9 @@ const BuildRowInner: React.FC<Props> = ({
   for (const { inactiveVersions, version } of versions) {
     if (inactiveVersions?.length) {
       buildColumns.push(
-        <InactiveVersion
+        <div
           key={inactiveVersions[0].id}
+          className={sharedStyles.inactiveVersion}
           data-testid="inactive-column"
         />,
       );
@@ -133,22 +121,30 @@ const BuildRowInner: React.FC<Props> = ({
         />,
       );
     } else {
-      buildColumns.push(<BuildContainer key={version?.id} />);
+      buildColumns.push(
+        <div key={version?.id} className={styles.buildContainer} />,
+      );
     }
   }
 
   return (
-    <Row>
-      <BuildVariantTitle data-testid="build-variant-label">
-        <StyledIconButton
-          active={pinned}
+    <div className={sharedStyles.row}>
+      <div
+        className={sharedStyles.buildVariantTitle}
+        data-testid="build-variant-label"
+      >
+        <Button
           aria-label="Pin build variant"
+          className={styles.pinButton}
+          data-active={pinned}
           data-testid="pin-button"
-          onClick={handlePinClick}
+          onPress={handlePinClick}
+          size="small"
+          variant="tertiary"
           {...iconButtonProps}
         >
           <Icon glyph="Pin" />
-        </StyledIconButton>
+        </Button>
         <StyledLink
           data-testid="build-variant-link"
           href={getVariantHistoryRoute(projectIdentifier, build.id)}
@@ -156,16 +152,16 @@ const BuildRowInner: React.FC<Props> = ({
         >
           {displayName}
         </StyledLink>
-      </BuildVariantTitle>
+      </div>
       <VisibilityContainer
-        className={buildGroupClassName}
+        className={styles.buildGroup}
         data-testid="build-group"
         offset={1000}
         style={{ minHeight: containerHeight }}
       >
         {buildColumns}
       </VisibilityContainer>
-    </Row>
+    </div>
   );
 };
 
@@ -187,9 +183,9 @@ const WidthWatcher: React.FC<
   }, [setColumnWidth, columnWidth, width]);
 
   return (
-    <BuildContainer ref={containerRef} {...rest}>
+    <div ref={containerRef} className={styles.buildContainer} {...rest}>
       {children}
-    </BuildContainer>
+    </div>
   );
 };
 
@@ -223,7 +219,7 @@ const BuildGrid: React.FC<{
   </WidthWatcher>
 );
 
-const padding = spacing[200];
+const padding = 8;
 const border = 1;
 const containerPaddingAndBorder = padding * 2 + border * 2;
 
@@ -242,25 +238,3 @@ const calculateBVContainerHeight = ({
   const numRows = Math.ceil(numTasks / numSquaresInRow);
   return numRows * SQUARE_WITH_BORDER + containerPaddingAndBorder;
 };
-
-const buildGroupCss = css`
-  ${gridGroupCss}
-  border: ${border}px solid ${gray.light2};
-  border-radius: ${size.xs};
-  padding: ${padding}px;
-`;
-
-const buildGroupClassName = classNameCss(buildGroupCss.styles);
-
-const BuildContainer = styled.div`
-  ${columnBasis}
-  display: grid;
-  grid-template-columns: repeat(auto-fill, ${SQUARE_WITH_BORDER}px);
-  align-content: start;
-  min-width: 0;
-`;
-
-const StyledIconButton = styled(IconButton)<{ active: boolean }>`
-  top: -${size.xxs};
-  ${({ active }) => active && "transform: rotate(-30deg);"}
-`;
