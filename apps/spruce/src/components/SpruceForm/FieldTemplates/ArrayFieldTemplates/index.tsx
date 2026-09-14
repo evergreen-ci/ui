@@ -6,7 +6,9 @@ import {
   ArrayFieldItemTemplateProps,
   ArrayFieldTemplateProps,
 } from "@rjsf/utils";
-import Icon from "@evg-ui/lib/components/Icon";
+import ArrowDown from "@via-ds/icons/ArrowDown";
+import ArrowUp from "@via-ds/icons/ArrowUp";
+import Trash from "@via-ds/icons/Trash";
 import { cx } from "@evg-ui/lib/utils/css";
 import { PlusButton } from "components/Buttons";
 import ElementWrapper from "../../ElementWrapper";
@@ -45,7 +47,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
     <Button
       data-testid="delete-item-button"
       disabled={isDisabled}
-      leftGlyph={<Icon glyph="Trash" />}
+      leftGlyph={<Trash />}
       onClick={onRemoveItem}
       size="small"
     />
@@ -89,14 +91,14 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
           {hasMoveUp && (
             <Button
               data-testid="array-up-button"
-              leftGlyph={<Icon glyph="ArrowUp" />}
+              leftGlyph={<ArrowUp />}
               onClick={onMoveUpItem}
             />
           )}
           {hasMoveDown && (
             <Button
               data-testid="array-down-button"
-              leftGlyph={<Icon glyph="ArrowDown" />}
+              leftGlyph={<ArrowDown />}
               onClick={onMoveDownItem}
             />
           )}

@@ -6,7 +6,7 @@ import {
   ArrayFieldItemTemplateProps,
   ArrayFieldTemplateProps,
 } from "@rjsf/utils";
-import Icon from "@evg-ui/lib/components/Icon";
+import Trash from "@via-ds/icons/Trash";
 import {
   BaseTable,
   LGColumnDef,
@@ -94,7 +94,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
       <Button
         data-testid="delete-permission-button"
         disabled={disabled || readonly}
-        leftGlyph={<Icon glyph="Trash" />}
+        leftGlyph={<Trash />}
         onClick={buttonsProps.onRemoveItem}
         size={ButtonSize.Small}
       />

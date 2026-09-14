@@ -2,8 +2,8 @@ import React, { Component, ErrorInfo } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { H1, InlineCode } from "@leafygreen-ui/typography";
+import ArrowRight from "@via-ds/icons/ArrowRight";
 import { Navigate } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getWaterfallRoute } from "constants/routes";
@@ -90,7 +90,7 @@ class WaterfallErrorBoundary extends Component<
               <ButtonsContainer>
                 <Button
                   onClick={this.handleResetPage}
-                  rightGlyph={<Icon glyph="ArrowRight" />}
+                  rightGlyph={<ArrowRight />}
                   variant="primary"
                 >
                   Return to waterfall

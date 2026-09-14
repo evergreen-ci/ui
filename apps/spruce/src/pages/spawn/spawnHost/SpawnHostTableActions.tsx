@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import Copy from "@via-ds/icons/Copy";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { useSpawnAnalytics } from "analytics";
@@ -61,7 +61,7 @@ export const CopySSHCommandButton: React.FC<{
           <Button
             data-testid="copy-ssh-button"
             disabled={!canSSH}
-            leftGlyph={<Icon glyph="Copy" />}
+            leftGlyph={<Copy />}
             onClick={(event: React.MouseEvent) => {
               event.stopPropagation();
               copyToClipboard(sshCommand);

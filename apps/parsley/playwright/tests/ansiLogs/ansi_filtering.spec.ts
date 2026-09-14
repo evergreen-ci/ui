@@ -243,9 +243,12 @@ test.describe("Filtering", () => {
 
     test.beforeEach(async ({ page }) => {
       await page.goto(`${logLink}?filters=100${filter}`);
-      await expect(page.getByTestId("ansi-row")).toHaveCount(0);
       const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
       await expect(skippedLines).not.toHaveCount(0);
+      const visibleRows = page.locator(
+        "[data-testid^='log-row-']:not([data-bookmarked=true])",
+      );
+      await expect(visibleRows).toHaveCount(0);
     });
 
     test("should be able to edit a filter", async ({ page }) => {
@@ -287,9 +290,12 @@ test.describe("Filtering", () => {
 
     test("should be able to hide and unhide filters", async ({ page }) => {
       await page.goto(`${logLink}?filters=110${filter1},100${filter2}`);
-      await expect(page.getByTestId("ansi-row")).toHaveCount(0);
       const skippedLines = page.locator("[data-testid^='skipped-lines-row-']");
       await expect(skippedLines).not.toHaveCount(0);
+      const visibleRows = page.locator(
+        "[data-testid^='log-row-']:not([data-bookmarked=true])",
+      );
+      await expect(visibleRows).toHaveCount(0);
 
       await page.getByTestId("all-filters-toggle").click();
       await expect(page.getByTestId("all-filters-toggle")).not.toBeChecked();

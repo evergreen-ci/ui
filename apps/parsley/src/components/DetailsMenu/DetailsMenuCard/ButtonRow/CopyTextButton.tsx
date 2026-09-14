@@ -4,7 +4,7 @@ import { MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
 import { SplitButton } from "@leafygreen-ui/split-button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import Copy from "@via-ds/icons/Copy";
 import { transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
@@ -124,12 +124,12 @@ const Button: React.FC<{ bookmarks: number[] }> = ({ bookmarks }) => {
       data-testid="copy-text-button"
       disabled={!bookmarks.length}
       label={copied ? "Copied" : primaryOption.label}
-      leftGlyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
+      leftGlyph={<Copy data-testid="copy-glyph" />}
       menuItems={Object.values(selectableOptions).map(
         ({ handleClick, label }) => (
           <MenuItem
             key={label}
-            glyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
+            glyph={<Copy data-testid="copy-glyph" />}
             onClick={handleClick}
           >
             {label}
