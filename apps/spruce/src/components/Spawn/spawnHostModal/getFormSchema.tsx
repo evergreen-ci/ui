@@ -138,13 +138,13 @@ export const getFormSchema = ({
                 userAwsRegion && availableRegions.includes(userAwsRegion)
                   ? userAwsRegion
                   : availableRegions[0],
-              oneOf: [
-                ...(availableRegions.map((r) => ({
+              ...(availableRegions.length > 0 && {
+                oneOf: availableRegions.map((r) => ({
                   type: "string" as const,
                   title: r,
                   enum: [r],
-                })) || []),
-              ],
+                })),
+              }),
               minLength: 1,
             },
           },

@@ -239,10 +239,22 @@ describe("editSpawnHostModal", () => {
         }),
       );
       await user.click(screen.getByTitle("Sunday"));
+      await waitFor(() =>
+        expect(screen.getByTestId("host-uptime-details")).toHaveTextContent(
+          "72",
+        ),
+      );
       await user.click(screen.getByTitle("Saturday"));
+      await waitFor(() =>
+        expect(screen.getByTestId("host-uptime-details")).toHaveTextContent(
+          "84",
+        ),
+      );
       await user.click(screen.getByText("Run continuously for enabled days"));
-      expect(screen.queryByTestId("host-uptime-details")).toHaveTextContent(
-        "168",
+      await waitFor(() =>
+        expect(screen.getByTestId("host-uptime-details")).toHaveTextContent(
+          "168",
+        ),
       );
       expect(
         await screen.findByText(
