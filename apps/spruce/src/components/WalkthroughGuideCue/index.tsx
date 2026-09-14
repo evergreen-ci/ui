@@ -91,6 +91,7 @@ export const WalkthroughGuideCue = forwardRef<
       endWalkthrough();
       return;
     }
+    targetRefs.current[nextStepIdx].current = nextTargetElement;
     closeOpenedControl();
     if (nextStep.shouldClick) {
       nextTargetElement.click();
@@ -171,7 +172,7 @@ export const WalkthroughGuideCue = forwardRef<
                   {step.title}
                 </Text>
               </div>
-              <div slot="content">{step.description}</div>
+              <Text slot="content">{step.description}</Text>
               <div slot="footer">
                 <Text slot="steps">
                   {i + 1} of {walkthroughSteps.length}
