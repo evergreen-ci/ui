@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { LinkProps } from "@via-ds/components/typography";
+import { LinkProps } from "@leafygreen-ui/typography";
 import { LinkProps as RouterLinkProps } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { cx } from "@evg-ui/lib/utils/css";
@@ -18,7 +18,7 @@ interface ShortenedRouterLinkProps {
  */
 export const ShortenedRouterLink = forwardRef<
   HTMLSpanElement,
-  ShortenedRouterLinkProps & LinkProps & RouterLinkProps
+  ShortenedRouterLinkProps & LinkProps<"span"> & RouterLinkProps
 >(({ baseWidth, className, responsiveBreakpoint, style, ...rest }, ref) => {
   let maxWidth = `${baseWidth ?? 200}px`;
   if (responsiveBreakpoint) {
