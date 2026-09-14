@@ -106,7 +106,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
     tooltipDescription,
     warnings,
   } = options;
-  const { errors, hasError } = processErrors(rawErrors);
+  const { errors, hasError } = processErrors(rawErrors ?? []);
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <Checkbox

@@ -1,6 +1,6 @@
 import { Banner } from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { ObjectFieldTemplateProps } from "@rjsf/utils";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { cx } from "@evg-ui/lib/utils/css";
 import { emotionCssToClassName, getFields } from "components/SpruceForm/utils";
@@ -8,37 +8,45 @@ import { SpruceFormContainer } from "../../Container";
 import styles from "./index.module.css";
 
 export const ObjectFieldTemplate = ({
-  DescriptionField,
-  TitleField,
   description,
-  idSchema,
+  fieldPathId,
   properties,
+  registry,
   required,
   title,
-  uiSchema,
+  uiSchema = {},
 }: ObjectFieldTemplateProps) => {
+  const { DescriptionFieldTemplate, TitleFieldTemplate } = registry.templates;
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
+  const dataCy = uiSchema["ui:data-cy"];
   const dataTestId = uiSchema["ui:data-testid"];
   return (
     <fieldset
       className={emotionCssToClassName(uiSchema["ui:elementWrapperCSS"])}
+      data-cy={dataCy}
       data-testid={dataTestId}
-      id={idSchema.$id}
+      id={fieldPathId.$id}
     >
       {(uiSchema["ui:title"] || title) && (
         <div className={styles.titleContainer}>
-          <TitleField
-            id={`${idSchema.$id}__title`}
+          <TitleFieldTemplate
+            id={`${fieldPathId.$id}__title`}
+            registry={registry}
             required={required}
-            title={title || uiSchema["ui:title"]}
+            schema={registry.rootSchema}
+            title={title || uiSchema["ui:title"] || ""}
+            uiSchema={uiSchema}
           />
         </div>
       )}
       {description && (
-        <DescriptionField
+        <DescriptionFieldTemplate
           description={description}
-          id={`${idSchema.$id}__description`}
+          id={`${fieldPathId.$id}__description`}
+          registry={registry}
+          schema={registry.rootSchema}
+          uiSchema={uiSchema}
         />
       )}
       {!!errors.length && (
@@ -64,49 +72,36 @@ export const ObjectFieldTemplate = ({
   );
 };
 
-/**
- * `CardFieldTemplate` is a custom ObjectFieldTemplate that renders a card with a title and a list of properties.
- * @param props - ObjectFieldTemplateProps
- * @param props.DescriptionField - DescriptionField
- * @param props.idSchema - idSchema
- * @param props.properties - properties
- * @param props.schema - schema
- * @param props.title - title
- * @param props.uiSchema - uiSchema
- * @param props.uiSchema."ui:data-testid" - data-testid
- * @param props.uiSchema."ui:description" - description
- * @param props.uiSchema."ui:title" - title
- * @param props.uiSchema."ui:objectFieldCss" - css style
- * @param props.uiSchema."ui:warnings" - warning messages
- * @returns JSX.Element
- */
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
-  DescriptionField,
-  idSchema,
+  fieldPathId,
   properties,
+  registry,
   schema,
   title,
-  uiSchema: {
-    "ui:data-testid": dataTestId,
-    "ui:description": uiDescription,
-    "ui:objectFieldCss": objectFieldCss,
-    "ui:title": uiTitle,
-    "ui:warnings": warnings = [],
-  },
+  uiSchema = {},
 }) => {
+  const dataTestId = uiSchema["ui:data-testid"];
+  const uiDescription = uiSchema["ui:description"];
+  const objectFieldCss = uiSchema["ui:objectFieldCss"];
+  const uiTitle = uiSchema["ui:title"];
+  const warnings = uiSchema["ui:warnings"] ?? [];
+  const { DescriptionFieldTemplate } = registry.templates;
   const description = uiDescription || schema.description;
   return (
     <SpruceFormContainer
       data-testid={dataTestId}
       description={
         description && (
-          <DescriptionField
+          <DescriptionFieldTemplate
             description={description}
-            id={`${idSchema.$id}__description`}
+            id={`${fieldPathId.$id}__description`}
+            registry={registry}
+            schema={schema}
+            uiSchema={uiSchema}
           />
         )
       }
-      id={`${idSchema.$id}__title`}
+      id={`${fieldPathId.$id}__title`}
       objectFieldCss={objectFieldCss}
       scrollMarginTop={cardScrollMarginTop}
       title={uiTitle || title}
@@ -127,36 +122,28 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 
 const cardScrollMarginTop = 72;
 
-/**
- * `AccordionFieldTemplate` is a custom ObjectFieldTemplate that renders an accordion with a title and a list of properties.
- * @param props - ObjectFieldTemplateProps
- * @param props.disabled - disabled
- * @param props.idSchema - idSchema
- * @param props.properties - properties
- * @param props.title - title
- * @param props.uiSchema - uiSchema
- * @param props.readonly - readonly property // jsdoc/valid-types is disabled for this file due to // https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/104
- * @returns JSX.Element
- */
 export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   disabled,
-  idSchema,
+  fieldPathId,
   properties,
   readonly,
+  registry: _registry,
   title,
-  uiSchema,
+  uiSchema = {},
 }) => {
   const isDisabled = disabled || readonly;
   const defaultOpen = uiSchema["ui:defaultOpen"] ?? !isDisabled;
-  const displayTitle = uiSchema["ui:displayTitle"];
+  const uiTitle = uiSchema["ui:title"] ?? uiSchema["ui:displayTitle"];
   const numberedTitle = uiSchema["ui:numberedTitle"];
-  const index = getIndex(idSchema.$id);
+  const index = getIndex(fieldPathId.$id);
 
   return (
     <Accordion
       defaultOpen={defaultOpen}
       title={
-        numberedTitle ? `${numberedTitle} ${index + 1}` : displayTitle || title
+        numberedTitle && index !== null
+          ? `${numberedTitle} ${index + 1}`
+          : uiTitle || title
       }
       titleTag={AccordionTitle}
     >
@@ -178,7 +165,7 @@ export const FieldRow: React.FC<
 > = ({ formData, properties, uiSchema }) => {
   const dataTestId = uiSchema?.["ui:data-testid"];
   const rowCss = uiSchema?.["ui:elementWrapperCSS"];
-  const fields = getFields(properties, formData.isDisabled);
+  const fields = getFields(properties, formData?.isDisabled ?? false);
 
   return (
     <div
@@ -195,12 +182,10 @@ const AccordionTitle: React.FC<{ children?: React.ReactNode }> = ({
 }) => <Subtitle className={styles.accordionTitle}>{children}</Subtitle>;
 
 // Extract index of the current field via its ID
-const getIndex = (id: string): number => {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
+const getIndex = (id: string): number | null => {
   if (!id) return null;
 
   const stringIndex = id.substring(id.lastIndexOf("_") + 1);
   const index = Number(stringIndex);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return Number.isInteger(index) ? index : null;
 };

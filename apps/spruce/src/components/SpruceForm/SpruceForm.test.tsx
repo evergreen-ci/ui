@@ -63,7 +63,7 @@ describe("spruce form", () => {
     });
   });
 
-  it.fails("restores defaults when returning to a oneOf option", async () => {
+  it("restores defaults when returning to a oneOf option", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     render(
@@ -315,22 +315,24 @@ describe("spruce form", () => {
     });
 
     describe("checkbox", () => {
-      it("renders an error banner when validation fails", () => {
+      it("renders an error banner when validation fails", async () => {
         const validate = vi.fn((_formData, err) => {
           err.enabled.addError("Some error");
           return err;
         });
 
+        const user = userEvent.setup();
         const { formData, schema, uiSchema } = checkbox;
         render(
           <SpruceForm
+            customValidate={validate}
             formData={formData}
             onChange={vi.fn()}
             schema={schema}
             uiSchema={uiSchema}
-            validate={validate}
           />,
         );
+        await user.click(screen.getByText("Enabled"));
         expect(screen.getByTestId("error-banner")).toHaveTextContent(
           "Some error",
         );
