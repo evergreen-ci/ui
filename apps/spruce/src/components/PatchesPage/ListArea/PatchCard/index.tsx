@@ -1,5 +1,5 @@
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
-import Icon from "@evg-ui/lib/components/Icon";
+import Refresh from "@via-ds/icons/Refresh";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
@@ -128,7 +128,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         {invalidatedByUpstream && (
           <div className={styles.chipContainer}>
             <Chip
-              glyph={<Icon glyph="Refresh" />}
+              glyph={<Refresh />}
               label="Merge Queue Aborted"
               variant={ChipVariant.Gray}
             />

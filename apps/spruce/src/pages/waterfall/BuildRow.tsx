@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
-import Icon from "@evg-ui/lib/components/Icon";
+import Pin from "@via-ds/icons/Pin";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
@@ -147,7 +147,7 @@ const BuildRowInner: React.FC<Props> = ({
           onClick={handlePinClick}
           {...iconButtonProps}
         >
-          <Icon glyph="Pin" />
+          <Pin size="medium" />
         </StyledIconButton>
         <StyledLink
           data-testid="build-variant-link"

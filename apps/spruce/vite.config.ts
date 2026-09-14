@@ -46,11 +46,11 @@ const getProjectConfig = () => {
         "@emotion/server": "@emotion/css",
         ...(process.env.PROFILER === "true" && {
           "react-dom/client": path.resolve(
-            __dirname,
+            import.meta.dirname,
             "../../node_modules/react-dom/profiling",
           ),
           "scheduler/tracing": path.resolve(
-            __dirname,
+            import.meta.dirname,
             "../../node_modules/scheduler/tracing-profiling",
           ),
         }),
