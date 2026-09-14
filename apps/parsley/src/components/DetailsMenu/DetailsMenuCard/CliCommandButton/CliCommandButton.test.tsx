@@ -136,6 +136,23 @@ describe("CliCommandButton", () => {
     expect(screen.getByText(command)).toBeInTheDocument();
   });
 
+  it("renders a copyable Evergreen CLI command for Evergreen complete logs", () => {
+    render(
+      <WithLogMetadata
+        metadata={{
+          execution: "1",
+          groupID: "job0",
+          logType: LogTypes.EVERGREEN_COMPLETE_LOGS,
+          taskID: "spruce_ubuntu_check_codegen_1234",
+        }}
+      />,
+      { wrapper },
+    );
+    const command =
+      "evergreen task build TestLogs --task_id 'spruce_ubuntu_check_codegen_1234' --execution '1' --log_path 'job0' --o output.txt";
+    expect(screen.getByText(command)).toBeInTheDocument();
+  });
+
   it("quotes shell metacharacters in all dynamic command arguments", () => {
     render(
       <WithLogMetadata

@@ -1,11 +1,16 @@
-import styled from "@emotion/styled";
-import { Card } from "@leafygreen-ui/card";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { forwardRef } from "react";
+import { Card, CardProps } from "@via-ds/components/card";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./SiderCard.module.css";
 
-export const SiderCard = styled(Card)`
-  padding: ${size.s} ${size.s};
-
-  :not(:last-of-type) {
-    margin-bottom: ${size.m};
-  }
-`;
+export const SiderCard = forwardRef<HTMLElement, CardProps>(
+  ({ className, density = "compact", ...rest }, ref) => (
+    <Card
+      ref={ref}
+      className={cx(styles.siderCard, className)}
+      density={density}
+      {...rest}
+    />
+  ),
+);
+SiderCard.displayName = "SiderCard";

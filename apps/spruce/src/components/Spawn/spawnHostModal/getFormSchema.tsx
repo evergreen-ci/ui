@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { Button } from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
@@ -23,6 +22,7 @@ import {
   getPublicKeySchema,
 } from "../getFormSchema";
 import { DEFAULT_VOLUME_SIZE, TokenExchangeState } from "./constants";
+import styles from "./getFormSchema.module.css";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 import {
@@ -102,7 +102,7 @@ export const getFormSchema = ({
   const isDebugDisabled =
     debugSpawnHostDisabled || !!project?.debugSpawnHostsDisabled;
   const availableVolumes = volumes
-    ? volumes.filter((v) => v.homeVolume && !v.hostID)
+    ? volumes.filter((v) => v.homeVolume && !v.host)
     : [];
 
   const expirationDetails = getExpirationDetailsSchema({
@@ -422,13 +422,7 @@ export const getFormSchema = ({
             <>
               Spawn host in{" "}
               <StyledLink
-                css={css`
-                  && {
-                    font-weight: bold;
-                    text-decoration: underline;
-                    color: inherit;
-                  }
-                `}
+                className={styles.debugModeLink}
                 hideExternalIcon={false}
                 href={debugSpawnHostsDocumentationUrl}
                 target="_blank"
@@ -456,14 +450,14 @@ export const getFormSchema = ({
       requiredSection: {
         distro: {
           "ui:widget": DistroDropdown,
-          "ui:elementWrapperCSS": dropdownWrapperClassName,
+          "ui:elementWrapperCSS": dropdownWrapperCSS,
           "ui:data-testid": "distro-input",
           "ui:distros": distros,
         },
         region: {
           "ui:data-testid": "region-select",
           "ui:disabled": isMigration || availableRegions.length === 0,
-          "ui:elementWrapperCSS": dropdownWrapperClassName,
+          "ui:elementWrapperCSS": dropdownWrapperCSS,
           "ui:placeholder": "Select a region",
           "ui:allowDeselect": false,
         },
@@ -472,7 +466,7 @@ export const getFormSchema = ({
       userdataScriptSection: {
         userdataScript: {
           "ui:widget": LeafyGreenTextArea,
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:elementWrapperCSS": textAreaWrapperCSS,
           "ui:data-testid": "user-data-script-text-area",
         },
       },
@@ -499,7 +493,7 @@ export const getFormSchema = ({
         },
         setupScript: {
           "ui:widget": LeafyGreenTextArea,
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:elementWrapperCSS": textAreaWrapperCSS,
           "ui:data-testid": "setup-script-text-area",
         },
       },
@@ -584,7 +578,7 @@ export const getFormSchema = ({
             "ui:data-testid": "volume-select",
             "ui:disabled": availableVolumes?.length === 0,
             "ui:enumDisabled": (volumes || [])
-              .filter((v) => !!v.hostID)
+              .filter((v) => !!v.host)
               .map((v) => v.id),
           },
           volumeSize: {
@@ -596,22 +590,9 @@ export const getFormSchema = ({
   };
 };
 
-const dropdownWrapperClassName = css`
-  max-width: 500px;
-`;
-const textAreaWrapperClassName = css`
-  max-width: 675px;
-`;
-const indentCSS = css`
-  margin-left: 16px;
-`;
-const dropMarginBottomCSS = css`
-  margin-bottom: 0px;
-`;
-const childCheckboxCSS = css`
-  ${indentCSS}
-  ${dropMarginBottomCSS}
-`;
-const loadDataFieldSetCSS = css`
-  margin-bottom: 20px;
-`;
+const dropdownWrapperCSS = { maxWidth: "500px" };
+const textAreaWrapperCSS = { maxWidth: "675px" };
+const indentCSS = { marginLeft: "16px" };
+const dropMarginBottomCSS = { marginBottom: "0px" };
+const childCheckboxCSS = { ...indentCSS, ...dropMarginBottomCSS };
+const loadDataFieldSetCSS = { marginBottom: "20px" };

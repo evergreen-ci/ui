@@ -1,0 +1,15 @@
+.fieldContainer {
+  display: flex;
+  width: 100%;
+  margin: var(--via-space-200);
+}
+
+.fieldName {
+  min-width: 150px;
+}
+
+.cardContainer.cardContainer {
+  width: 80%;
+  padding: var(--via-space-400) var(--via-space-800);
+  margin: 0 var(--via-space-600);
+}

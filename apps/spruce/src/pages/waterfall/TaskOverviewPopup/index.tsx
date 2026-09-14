@@ -1,15 +1,13 @@
 import { useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Code } from "@leafygreen-ui/code";
-import { css } from "@leafygreen-ui/emotion";
 import { Align, DismissMode, Popover } from "@leafygreen-ui/popover";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { StyledRouterLink, wordBreakCss } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { cx } from "@evg-ui/lib/utils/css";
 import MetadataCard from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
@@ -24,6 +22,7 @@ import { msToDuration } from "utils/string";
 import { ActionButtons } from "./ActionButtons";
 import { Annotations } from "./Annotations";
 import { FailingTests } from "./FailingTests";
+import styles from "./index.module.css";
 
 interface Props {
   execution: number;
@@ -89,18 +88,22 @@ export const TaskOverviewPopup: React.FC<Props> = ({
       dismissMode={DismissMode.Manual}
       refEl={taskBoxRef}
     >
-      <PopoverCard data-testid="task-overview-popup">
+      <MetadataCard
+        className={styles.popoverCard}
+        data-testid="task-overview-popup"
+      >
         {isLoading ? (
           <ListSkeleton />
         ) : (
           <>
             <span>
-              <TaskPageLink
+              <StyledRouterLink
+                className={cx(styles.routerLink, styles.taskPageLink)}
                 data-testid="task-link"
                 to={getTaskRoute(taskId, { execution })}
               >
                 {displayName}
-              </TaskPageLink>
+              </StyledRouterLink>
               <TaskStatusBadge status={displayStatus as TaskStatus} />
             </span>
             {finishTime && timeTaken && timeTaken > 0 ? (
@@ -116,21 +119,22 @@ export const TaskOverviewPopup: React.FC<Props> = ({
             {distroId && (
               <div>
                 <b>Distro: </b>
-                <RouterLink
+                <StyledRouterLink
+                  className={styles.routerLink}
                   data-testid="task-distro-link"
                   to={getDistroSettingsRoute(distroId)}
                 >
                   {distroId}
-                </RouterLink>
+                </StyledRouterLink>
               </div>
             )}
             {command && (
-              <CommandBlock>
+              <div className={styles.commandBlock}>
                 <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
-                <Code className={codeBlockCss} language="none">
+                <Code className={styles.codeBlock} language="none">
                   {command}
                 </Code>
-              </CommandBlock>
+              </div>
             )}
             {isFailingTask && (
               <FailingTests execution={execution} taskId={taskId} />
@@ -146,42 +150,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
             <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}
-      </PopoverCard>
+      </MetadataCard>
     </Popover>
   );
 };
-
-const PopoverCard = styled(MetadataCard)`
-  width: 350px;
-  max-height: 500px;
-  overflow-y: auto;
-
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xs};
-`;
-
-const RouterLink = styled(StyledRouterLink)`
-  ${wordBreakCss};
-`;
-
-const TaskPageLink = styled(RouterLink)`
-  && {
-    font-weight: bold;
-    font-size: 18px;
-  }
-  margin-right: ${size.xs};
-`;
-
-const CommandBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-`;
-
-// Make words overflow to the next line.
-const codeBlockCss = css`
-  > div > pre {
-    white-space: normal;
-  }
-`;

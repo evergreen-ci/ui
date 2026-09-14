@@ -1,12 +1,11 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { TextInput } from "@leafygreen-ui/text-input";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { FilterChipType } from "./FilterChip";
+import styles from "./FilterChips.stories.module.css";
 import FilterChips from ".";
 
 export default {
@@ -77,11 +76,9 @@ const FilterChipInput = ({
         placeholder="value"
         value={chipValue}
       />
-      <StyledButton onClick={handleAdd}>Add</StyledButton>
+      <Button className={styles.addButton} onClick={handleAdd}>
+        Add
+      </Button>
     </div>
   );
 };
-
-const StyledButton = styled(Button)`
-  margin-top: ${size.s};
-`;

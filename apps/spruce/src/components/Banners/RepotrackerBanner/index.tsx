@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { skipToken, useMutation, useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { InlineCode } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   RepotrackerErrorQuery,
@@ -21,6 +19,7 @@ import {
   USER_PROJECT_SETTINGS_PERMISSIONS,
 } from "gql/queries";
 import { PortalBanner } from "../PortalBanner";
+import styles from "./index.module.css";
 
 interface RepotrackerBannerProps {
   projectIdentifier: string;
@@ -93,12 +92,14 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
               <span>
                 The project was unable to build. Please specify a new base
                 revision by clicking{" "}
-                <ModalTriggerText
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- pre-existing violation, surfaced by the Emotion conversion */}
+                <span
+                  className={styles.modalTriggerText}
                   data-testid="repotracker-error-trigger"
                   onClick={() => setOpenModal(true)}
                 >
                   here
-                </ModalTriggerText>
+                </span>
                 .
               </span>
             ) : (
@@ -121,7 +122,7 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
         setOpen={setOpenModal}
         title="Enter New Base Revision"
       >
-        <ModalDescription>
+        <div className={styles.modalDescription}>
           The current base revision{" "}
           <InlineCode>
             {repotrackerData?.project?.repotrackerError?.invalidRevision}
@@ -129,7 +130,7 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
           cannot be found on branch &apos;{repotrackerData?.project?.branch}
           &apos;. In order to resume tracking the repository, please enter a new
           base revision.
-        </ModalDescription>
+        </div>
         <TextInput
           description="Specify a full 40 character hash."
           label="Base Revision"
@@ -140,17 +141,3 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
     </>
   );
 };
-
-const ModalDescription = styled.div`
-  margin-bottom: ${size.xs};
-`;
-
-const ModalTriggerText = styled.span`
-  font-weight: bold;
-  text-decoration-line: underline;
-  text-underline-offset: 2px;
-  text-decoration-thickness: 2px;
-  :hover {
-    cursor: pointer;
-  }
-`;

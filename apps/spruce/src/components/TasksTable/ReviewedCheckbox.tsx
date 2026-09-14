@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskReview } from "components/TaskReview/useTaskReview";
+import styles from "./ReviewedCheckbox.module.css";
 import { TaskTableInfo } from "./types";
 
 export const ReviewedCheckbox: React.FC<{
@@ -31,9 +31,10 @@ export const ReviewedCheckbox: React.FC<{
   };
 
   return (
-    <StyledCheckbox
+    <Checkbox
       aria-label={`Mark as ${checked ? "un" : ""}reviewed`}
       checked={checked}
+      className={styles.checkbox}
       data-lgid={`lg-reviewed-${row.original.id}`}
       data-testid={`reviewed-${row.original.id}`}
       disabled={task.displayStatus === TaskStatus.Succeeded}
@@ -42,8 +43,3 @@ export const ReviewedCheckbox: React.FC<{
     />
   );
 };
-
-const StyledCheckbox = styled(Checkbox)`
-  float: right;
-  width: fit-content;
-`;

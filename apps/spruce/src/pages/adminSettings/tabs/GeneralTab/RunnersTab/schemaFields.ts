@@ -102,7 +102,7 @@ export const taskLimits = {
     },
     taskQueueAutoUnscheduleThreshold: {
       "ui:description":
-        "The maximum number of tasks allowed in distro task queues. The scheduler will unschedule all CLI patch tasks beyond this limit. Set well above Max Scheduled Tasks Per Distro, since it unschedules real work. 0 disables auto unscheduling.",
+        "The maximum number of tasks allowed in distro task queues. Once Evergreen is beyond this limit, it will unschedule all CLI patch tasks. Set well above Max Scheduled Tasks Per Distro, since it unschedules real work. 0 disables auto unscheduling.",
     },
     hourlyPatchTaskOverrides: {
       "ui:description":

@@ -10,6 +10,7 @@ export enum ProjectSettingsTabRoutes {
   PeriodicBuilds = "periodic-builds",
   Plugins = "plugins",
   ViewsAndFilters = "views-and-filters",
+  TaskOwnershipAndFoliage = "task-ownership-and-foliage",
 
   // GitHub sections.
   GithubAppSettings = "github-app-settings",

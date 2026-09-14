@@ -2,7 +2,10 @@ import { ProjectType } from "../utils";
 
 export interface TaskOwnershipAndFoliageFormState {
   taskOwnership: {
-    dummyPlaceholder: string;
+    mothra: {
+      defaultMothraTeam: string;
+      defaultMothraTeamForBreakingCommit: string;
+    };
   };
 }
 

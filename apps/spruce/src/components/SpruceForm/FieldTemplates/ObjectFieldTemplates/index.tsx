@@ -1,115 +1,124 @@
-import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { ObjectFieldTemplateProps } from "@rjsf/utils";
+import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Accordion from "@evg-ui/lib/components/Accordion";
-import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { getFields } from "components/SpruceForm/utils";
+import { cx } from "@evg-ui/lib/utils/css";
+import { emotionCssToClassName, getFields } from "components/SpruceForm/utils";
 import { SpruceFormContainer } from "../../Container";
+import styles from "./index.module.css";
 
 export const ObjectFieldTemplate = ({
+  DescriptionField,
+  TitleField,
   description,
-  fieldPathId,
+  idSchema,
   properties,
-  registry,
   required,
   title,
-  uiSchema = {},
+  uiSchema,
 }: ObjectFieldTemplateProps) => {
-  const { DescriptionFieldTemplate, TitleFieldTemplate } = registry.templates;
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
-  const dataCy = uiSchema["ui:data-cy"];
   const dataTestId = uiSchema["ui:data-testid"];
   return (
     <fieldset
-      css={uiSchema["ui:elementWrapperCSS"]}
-      data-cy={dataCy}
+      className={emotionCssToClassName(uiSchema["ui:elementWrapperCSS"])}
       data-testid={dataTestId}
-      id={fieldPathId.$id}
+      id={idSchema.$id}
     >
       {(uiSchema["ui:title"] || title) && (
-        <TitleContainer>
-          <TitleFieldTemplate
-            id={`${fieldPathId.$id}__title`}
-            registry={registry}
+        <div className={styles.titleContainer}>
+          <TitleField
+            id={`${idSchema.$id}__title`}
             required={required}
-            schema={registry.rootSchema}
-            title={title || uiSchema["ui:title"] || ""}
-            uiSchema={uiSchema}
+            title={title || uiSchema["ui:title"]}
           />
-        </TitleContainer>
+        </div>
       )}
       {description && (
-        <DescriptionFieldTemplate
+        <DescriptionField
           description={description}
-          id={`${fieldPathId.$id}__description`}
-          registry={registry}
-          schema={registry.rootSchema}
-          uiSchema={uiSchema}
+          id={`${idSchema.$id}__description`}
         />
       )}
       {!!errors.length && (
-        <StyledBanner data-testid="error-banner" variant="danger">
+        <Banner
+          className={styles.banner}
+          data-testid="error-banner"
+          variant="danger"
+        >
           {errors.join(", ")}
-        </StyledBanner>
+        </Banner>
       )}
       {!!warnings.length && (
-        <StyledBanner data-testid="warning-banner" variant="warning">
+        <Banner
+          className={styles.banner}
+          data-testid="warning-banner"
+          variant="warning"
+        >
           {warnings.join(", ")}
-        </StyledBanner>
+        </Banner>
       )}
       {properties.map((prop) => prop.content)}
     </fieldset>
   );
 };
 
-const TitleContainer = styled.div`
-  align-items: baseline;
-  display: flex;
-  gap: ${size.xs};
-`;
-
+/**
+ * `CardFieldTemplate` is a custom ObjectFieldTemplate that renders a card with a title and a list of properties.
+ * @param props - ObjectFieldTemplateProps
+ * @param props.DescriptionField - DescriptionField
+ * @param props.idSchema - idSchema
+ * @param props.properties - properties
+ * @param props.schema - schema
+ * @param props.title - title
+ * @param props.uiSchema - uiSchema
+ * @param props.uiSchema."ui:data-testid" - data-testid
+ * @param props.uiSchema."ui:description" - description
+ * @param props.uiSchema."ui:title" - title
+ * @param props.uiSchema."ui:objectFieldCss" - css style
+ * @param props.uiSchema."ui:warnings" - warning messages
+ * @returns JSX.Element
+ */
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
-  fieldPathId,
+  DescriptionField,
+  idSchema,
   properties,
-  registry,
   schema,
   title,
-  uiSchema = {},
-}) => {
-  const {
+  uiSchema: {
     "ui:data-testid": dataTestId,
     "ui:description": uiDescription,
     "ui:objectFieldCss": objectFieldCss,
     "ui:title": uiTitle,
     "ui:warnings": warnings = [],
-  } = uiSchema;
-  const { DescriptionFieldTemplate } = registry.templates;
+  },
+}) => {
   const description = uiDescription || schema.description;
   return (
     <SpruceFormContainer
       data-testid={dataTestId}
       description={
         description && (
-          <DescriptionFieldTemplate
+          <DescriptionField
             description={description}
-            id={`${fieldPathId.$id}__description`}
-            registry={registry}
-            schema={schema}
-            uiSchema={uiSchema}
+            id={`${idSchema.$id}__description`}
           />
         )
       }
-      id={`${fieldPathId.$id}__title`}
+      id={`${idSchema.$id}__title`}
       objectFieldCss={objectFieldCss}
       scrollMarginTop={cardScrollMarginTop}
       title={uiTitle || title}
     >
       {!!warnings.length && (
-        <StyledBanner data-testid="warning-banner" variant="warning">
+        <Banner
+          className={styles.banner}
+          data-testid="warning-banner"
+          variant="warning"
+        >
           {warnings.join(", ")}
-        </StyledBanner>
+        </Banner>
       )}
       {properties.map((prop) => prop.content)}
     </SpruceFormContainer>
@@ -118,27 +127,36 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 
 const cardScrollMarginTop = 72;
 
+/**
+ * `AccordionFieldTemplate` is a custom ObjectFieldTemplate that renders an accordion with a title and a list of properties.
+ * @param props - ObjectFieldTemplateProps
+ * @param props.disabled - disabled
+ * @param props.idSchema - idSchema
+ * @param props.properties - properties
+ * @param props.title - title
+ * @param props.uiSchema - uiSchema
+ * @param props.readonly - readonly property // jsdoc/valid-types is disabled for this file due to // https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/104
+ * @returns JSX.Element
+ */
 export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   disabled,
-  fieldPathId,
+  idSchema,
   properties,
   readonly,
   title,
-  uiSchema = {},
+  uiSchema,
 }) => {
   const isDisabled = disabled || readonly;
   const defaultOpen = uiSchema["ui:defaultOpen"] ?? !isDisabled;
-  const uiTitle = uiSchema["ui:title"];
+  const displayTitle = uiSchema["ui:displayTitle"];
   const numberedTitle = uiSchema["ui:numberedTitle"];
-  const index = getIndex(fieldPathId.$id);
+  const index = getIndex(idSchema.$id);
 
   return (
     <Accordion
       defaultOpen={defaultOpen}
       title={
-        numberedTitle && index !== null
-          ? `${numberedTitle} ${index + 1}`
-          : uiTitle || title
+        numberedTitle ? `${numberedTitle} ${index + 1}` : displayTitle || title
       }
       titleTag={AccordionTitle}
     >
@@ -159,37 +177,30 @@ export const FieldRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
   const dataTestId = uiSchema?.["ui:data-testid"];
-  const css = uiSchema?.["ui:elementWrapperCSS"];
-  const fields = getFields(properties, formData?.isDisabled ?? false);
+  const rowCss = uiSchema?.["ui:elementWrapperCSS"];
+  const fields = getFields(properties, formData.isDisabled);
 
   return (
-    <RowContainer css={css} data-testid={dataTestId}>
+    <div
+      className={cx(styles.rowContainer, emotionCssToClassName(rowCss))}
+      data-testid={dataTestId}
+    >
       {fields}
-    </RowContainer>
+    </div>
   );
 };
 
-const RowContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: ${size.l};
-`;
-
-const AccordionTitle = styled(Subtitle)`
-  font-size: ${fontSize.l};
-  margin: ${size.xs} 0;
-`;
-
-const StyledBanner = styled(Banner)`
-  margin-bottom: ${size.s};
-`;
+const AccordionTitle: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => <Subtitle className={styles.accordionTitle}>{children}</Subtitle>;
 
 // Extract index of the current field via its ID
-const getIndex = (id: string): number | null => {
+const getIndex = (id: string): number => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!id) return null;
 
   const stringIndex = id.substring(id.lastIndexOf("_") + 1);
   const index = Number(stringIndex);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return Number.isInteger(index) ? index : null;
 };

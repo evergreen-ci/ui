@@ -1,0 +1,16 @@
+.input {
+  font-family: inherit;
+  font-size: inherit;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  width: var(--via-space-600);
+
+  &:focus {
+    background-color: var(--via-color-blue-100);
+  }
+}

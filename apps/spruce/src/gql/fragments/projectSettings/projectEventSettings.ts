@@ -11,6 +11,7 @@ import { PROJECT_PATCH_ALIAS_SETTINGS } from "./patchAliases";
 import { PROJECT_PERIODIC_BUILDS_SETTINGS } from "./periodicBuilds";
 import { PROJECT_PLUGINS_SETTINGS } from "./plugins";
 import { PROJECT_TRIGGERS_SETTINGS } from "./projectTriggers";
+import { PROJECT_TASK_OWNERSHIP_AND_FOLIAGE_SETTINGS } from "./taskOwnershipAndFoliage";
 import { PROJECT_TEST_SELECTION_SETTINGS } from "./testSelection";
 import { VARIABLES } from "./variables";
 import { PROJECT_VIEWS_AND_FILTERS_SETTINGS } from "./viewsAndFilters";
@@ -29,6 +30,7 @@ export const PROJECT_EVENT_SETTINGS = gql`
       ...ProjectPatchAliasSettings
       ...ProjectPeriodicBuildsSettings
       ...ProjectPluginsSettings
+      ...ProjectTaskOwnershipAndFoliageSettings
       ...ProjectTestSelectionSettings
       ...ProjectTriggersSettings
       ...ProjectViewsAndFiltersSettings
@@ -55,6 +57,7 @@ export const PROJECT_EVENT_SETTINGS = gql`
   ${PROJECT_PATCH_ALIAS_SETTINGS}
   ${PROJECT_PERIODIC_BUILDS_SETTINGS}
   ${PROJECT_PLUGINS_SETTINGS}
+  ${PROJECT_TASK_OWNERSHIP_AND_FOLIAGE_SETTINGS}
   ${PROJECT_TEST_SELECTION_SETTINGS}
   ${PROJECT_TRIGGERS_SETTINGS}
   ${PROJECT_VIEWS_AND_FILTERS_SETTINGS}

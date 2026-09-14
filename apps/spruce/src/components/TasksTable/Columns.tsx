@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { palette } from "@leafygreen-ui/palette";
 import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
@@ -8,13 +7,13 @@ import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
 import { TaskTab } from "types/task";
+import styles from "./Columns.module.css";
 import { ReviewedCheckbox } from "./ReviewedCheckbox";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
@@ -115,7 +114,7 @@ export const getColumnsTemplate = ({
       }
 
       return (
-        <FlexWrapper>
+        <div className={styles.flexWrapper}>
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
@@ -127,7 +126,7 @@ export const getColumnsTemplate = ({
               {errors.join(", ")}
             </IconWithTooltip>
           )}
-        </FlexWrapper>
+        </div>
       );
     },
     meta: {
@@ -175,13 +174,13 @@ export const getColumnsTemplate = ({
     accessorKey: "baseTask.prevTaskCompleted",
     id: "last-run-status",
     header: () => (
-      <FlexWrapper>
+      <div className={styles.flexWrapper}>
         Last Run Status
         <InfoSprinkle>
           For {isPatch ? "base" : "previous"} tasks that have not finished
           running, this column links to the most recent completed commit.
         </InfoSprinkle>
-      </FlexWrapper>
+      </div>
     ),
     cell: ({
       column,
@@ -247,9 +246,3 @@ export const getColumnsTemplate = ({
     size: 250,
   },
 ];
-
-const FlexWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;

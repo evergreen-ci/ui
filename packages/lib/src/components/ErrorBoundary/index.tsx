@@ -9,7 +9,7 @@ import SentryErrorBoundary from "./SentryErrorBoundary";
  * @param param0 - The props
  * @param param0.children - The children
  * @param param0.homeURL - The home URL of the application.
- * @param param0.FallbackComponent - Optional custom fallback component. Defaults to the built-in LeafyGreen ErrorFallback.
+ * @param param0.FallbackComponent - Optional custom fallback component. Defaults to the built-in Via ErrorFallback.
  * @returns - The wrapped component.
  */
 export const ErrorBoundary: React.FC<{

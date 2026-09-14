@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { add } from "date-fns";
 import { GetFormSchema } from "components/SpruceForm/types";
 import { ExpirationRow } from "../ExpirationRow";
@@ -99,8 +98,6 @@ export const getFormSchema = ({
   },
 });
 
-const checkboxCSS = css`
-  margin-bottom: 0;
-`;
+const checkboxCSS = { marginBottom: "0px" };
 
 const today = new Date();

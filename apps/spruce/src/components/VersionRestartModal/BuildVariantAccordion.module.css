@@ -1,0 +1,13 @@
+.badgeWrapper {
+  padding-left: var(--via-space-200);
+  flex-shrink: 0;
+}
+
+.wrapper {
+  margin: var(--via-space-200) 0;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+}

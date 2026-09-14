@@ -1,19 +1,15 @@
 import { useMemo, useState } from "react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
-import { palette } from "@leafygreen-ui/palette";
 import {
   SearchInput,
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
 import { Body, Description } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
 import { SiderCard } from "components/styles";
-import { Divider } from "components/styles/divider";
+import { Divider } from "components/styles/Divider";
+import styles from "./BuildVariantCard.module.css";
 import type { MenuItemProps } from "./types";
-
-const { green } = palette;
 
 interface BuildVariantCardProps {
   "data-testid": string;
@@ -39,53 +35,60 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
   );
 
   return (
-    <StyledSiderCard>
-      <Container>
-        <TitleContainer>
+    <SiderCard className={styles.siderCardNoSidePadding}>
+      <div className={styles.cardSidePadding}>
+        <div className={styles.titleContainer}>
           <Body weight="medium">{title} </Body>
-        </TitleContainer>
+        </div>
         <Description>
           Use Shift + Click to edit multiple variants simultaneously.
         </Description>
-        <StyledSearchInput
+        <SearchInput
           aria-labelledby={title}
+          className={styles.searchInput}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="Search build variants regex"
           size={SearchInputSize.Small}
         />
         <Divider />
-      </Container>
-      <ScrollableBuildVariantContainer>
+      </div>
+      <div className={styles.scrollableContainer}>
         {filteredMenuItems.map(({ displayName, name, taskCount }) => {
           const isSelected = selectedMenuItems.includes(name);
           return (
-            <BuildVariant
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- pre-existing violation, surfaced by the Emotion conversion
+            <div
               key={name}
+              className={cx(
+                styles.buildVariant,
+                styles.cardSidePadding,
+                isSelected && styles.selected,
+              )}
               data-selected={isSelected}
               data-testid={dataTestId}
-              isSelected={isSelected}
               onClick={onClick(name)}
             >
-              <VariantName>
+              <div className={styles.variantName}>
                 <Body
                   weight={isSelected || taskCount > 0 ? "medium" : "regular"}
                 >
                   {displayName}
                 </Body>
-              </VariantName>
+              </div>
               {taskCount > 0 && (
-                <StyledBadge
+                <Badge
+                  className={styles.badge}
                   data-testid="task-count-badge"
                   variant={isSelected ? Variant.DarkGray : Variant.LightGray}
                 >
                   {taskCount}
-                </StyledBadge>
+                </Badge>
               )}
-            </BuildVariant>
+            </div>
           );
         })}
-      </ScrollableBuildVariantContainer>
-    </StyledSiderCard>
+      </div>
+    </SiderCard>
   );
 };
 
@@ -103,68 +106,5 @@ const getVisibleItems = (items: MenuItemProps[], filter: string) =>
       );
     }
   });
-
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const cardSidePadding = css`
-  padding-left: ${size.xs};
-  padding-right: ${size.xs};
-`;
-const Container = styled.div`
-  ${cardSidePadding}
-`;
-const StyledSiderCard = styled(SiderCard)`
-  padding-left: 0px;
-  padding-right: 0px;
-`;
-
-type VariantProps = {
-  isSelected: boolean;
-};
-const BuildVariant = styled.div<VariantProps>`
-  display: flex;
-  align-items: center;
-  min-height: ${size.l};
-  cursor: pointer;
-  padding: ${size.xs} 0;
-  ${cardSidePadding}
-  background-color: ${(props: VariantProps): string =>
-    props.isSelected ? green.light3 : "none"};
-  border-left: 3px solid white;
-  border-left-color: ${(props: VariantProps): string =>
-    props.isSelected ? green.base : "none"};
-`;
-const VariantName = styled.div`
-  word-break: break-all;
-  white-space: normal;
-`;
-
-const StyledBadge = styled(Badge)`
-  margin-left: ${size.xs};
-`;
-
-const StyledSearchInput = styled(SearchInput)`
-  margin: ${size.xs} 0;
-`;
-
-const ScrollableBuildVariantContainer = styled.div`
-  overflow: scroll;
-  max-height: 60vh;
-
-  // Styles to always show scrollbar
-  ::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: ${size.xs};
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border-radius: ${size.xxs};
-    background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
-  }
-`;
 
 export default BuildVariantCard;

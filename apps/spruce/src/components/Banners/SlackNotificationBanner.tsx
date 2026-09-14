@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
-import { palette } from "@leafygreen-ui/palette";
 import { TextInput } from "@leafygreen-ui/text-input";
 import Cookies from "js-cookie";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { CharKey } from "@evg-ui/lib/constants/keys";
-import { fontSize } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
 import {
@@ -16,8 +13,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
-
-const { blue } = palette;
+import styles from "./SlackNotificationBanner.module.css";
 
 export const SlackNotificationBanner = () => {
   const dispatchToast = useToastContext();
@@ -100,9 +96,12 @@ export const SlackNotificationBanner = () => {
         confirmText="Save"
         onConfirm={() => saveNotificationSettings()}
         trigger={
-          <SubscribeButton data-testid="subscribe-to-notifications">
+          <span
+            className={styles.subscribeButton}
+            data-testid="subscribe-to-notifications"
+          >
             Subscribe
-          </SubscribeButton>
+          </span>
         }
       >
         <TextInput
@@ -123,11 +122,3 @@ export const SlackNotificationBanner = () => {
 
 const isNotificationSet = (field: string) =>
   field !== "" && field !== undefined;
-
-const SubscribeButton = styled.span`
-  text-decoration: underline;
-  text-decoration-color: ${blue.dark2};
-  cursor: pointer;
-  color: ${blue.dark2};
-  font-size: ${fontSize.m};
-`;

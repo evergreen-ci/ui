@@ -406,12 +406,7 @@ const restartVersionsMutationMock: ApolloMock<
           id: patchId,
           status: "started",
           taskStatuses: ["failed", "started"],
-          patch: {
-            __typename: "Patch",
-            id: patchId,
-            status: "started",
-            childPatches: [],
-          },
+          childVersions: [],
         },
       ],
     },
@@ -447,12 +442,13 @@ const restartVersionsWithChildrenMutationMock: ApolloMock<
           id: patchId,
           status: "started",
           taskStatuses: ["failed", "started"],
-          patch: {
-            __typename: "Patch",
-            id: patchId,
-            status: "started",
-            childPatches: [],
-          },
+          childVersions: [
+            {
+              __typename: "Version",
+              id: "child-version-id",
+              status: "started",
+            },
+          ],
         },
       ],
     },

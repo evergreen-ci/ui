@@ -1,0 +1,52 @@
+/* Doubled selector outranks lib's static a.link/span.link override.
+   Remove when links migrate to Via. */
+.annotationLink.annotationLink {
+  font-weight: bold;
+}
+
+.annotationLink {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.failingTasksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-100);
+}
+
+.failingTasksSummary:hover {
+  cursor: pointer;
+}
+
+.tasksList {
+  margin: 0;
+  margin-top: var(--via-space-200);
+  padding: 0 var(--via-space-400);
+}
+
+.taskListItem {
+  margin-bottom: var(--via-space-100);
+  word-break: break-all;
+  line-height: 1.2;
+}
+
+.annotationsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-100);
+}
+
+.issuesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-100);
+}
+
+.linksContainer {
+  display: flex;
+  gap: var(--via-space-400);
+}

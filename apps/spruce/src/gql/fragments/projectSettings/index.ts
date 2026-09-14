@@ -27,6 +27,10 @@ import {
   REPO_TRIGGERS_SETTINGS,
 } from "./projectTriggers";
 import {
+  PROJECT_TASK_OWNERSHIP_AND_FOLIAGE_SETTINGS,
+  REPO_TASK_OWNERSHIP_AND_FOLIAGE_SETTINGS,
+} from "./taskOwnershipAndFoliage";
+import {
   PROJECT_TEST_SELECTION_SETTINGS,
   REPO_TEST_SELECTION_SETTINGS,
 } from "./testSelection";
@@ -53,6 +57,7 @@ export const PROJECT_SETTINGS_FIELDS = gql`
       ...ProjectPatchAliasSettings
       ...ProjectPeriodicBuildsSettings
       ...ProjectPluginsSettings
+      ...ProjectTaskOwnershipAndFoliageSettings
       ...ProjectTestSelectionSettings
       ...ProjectTriggersSettings
       ...ProjectViewsAndFiltersSettings
@@ -78,6 +83,7 @@ export const PROJECT_SETTINGS_FIELDS = gql`
   ${PROJECT_PATCH_ALIAS_SETTINGS}
   ${PROJECT_PERIODIC_BUILDS_SETTINGS}
   ${PROJECT_PLUGINS_SETTINGS}
+  ${PROJECT_TASK_OWNERSHIP_AND_FOLIAGE_SETTINGS}
   ${PROJECT_TEST_SELECTION_SETTINGS}
   ${PROJECT_TRIGGERS_SETTINGS}
   ${PROJECT_VIEWS_AND_FILTERS_SETTINGS}
@@ -98,6 +104,7 @@ export const REPO_SETTINGS_FIELDS = gql`
       ...RepoPatchAliasSettings
       ...RepoPeriodicBuildsSettings
       ...RepoPluginsSettings
+      ...RepoTaskOwnershipAndFoliageSettings
       ...RepoTestSelectionSettings
       ...RepoTriggersSettings
       ...RepoViewsAndFiltersSettings
@@ -122,6 +129,7 @@ export const REPO_SETTINGS_FIELDS = gql`
   ${REPO_PATCH_ALIAS_SETTINGS}
   ${REPO_PERIODIC_BUILDS_SETTINGS}
   ${REPO_PLUGINS_SETTINGS}
+  ${REPO_TASK_OWNERSHIP_AND_FOLIAGE_SETTINGS}
   ${REPO_TEST_SELECTION_SETTINGS}
   ${REPO_TRIGGERS_SETTINGS}
   ${REPO_VIEWS_AND_FILTERS_SETTINGS}

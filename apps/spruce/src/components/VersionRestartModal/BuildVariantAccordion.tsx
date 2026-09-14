@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Accordion from "@evg-ui/lib/components/Accordion";
-import { size } from "@evg-ui/lib/constants/tokens";
+import styles from "./BuildVariantAccordion.module.css";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
 interface BuildVariantAccordionProps {
@@ -39,15 +38,15 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
           )
         }
       />
-      <BadgeWrapper>
+      <div className={styles.badgeWrapper}>
         <Badge data-testid="task-status-badge">
           {matchingTasks} of {taskLength} Selected
         </Badge>
-      </BadgeWrapper>
+      </div>
     </>
   );
   return (
-    <Wrapper data-testid="variant-accordion">
+    <div className={styles.wrapper} data-testid="variant-accordion">
       <Accordion title={variantTitle} titleTag={FlexContainer}>
         <TaskStatusCheckboxContainer
           selectedTasks={selectedTasks}
@@ -57,7 +56,7 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
           }
         />
       </Accordion>
-    </Wrapper>
+    </div>
   );
 };
 
@@ -74,16 +73,6 @@ const countMatchingTasks = (
   return matchingTasks;
 };
 
-const BadgeWrapper = styled.div`
-  padding-left: ${size.xs};
-  flex-shrink: 0;
-`;
-
-const Wrapper = styled.div`
-  margin: ${size.xs} 0;
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const FlexContainer: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => <div className={styles.flexContainer}>{children}</div>;

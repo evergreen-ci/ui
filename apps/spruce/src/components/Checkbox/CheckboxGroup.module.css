@@ -1,0 +1,13 @@
+.checkboxesWrapper {
+  padding: var(--via-space-100);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.styledCheckbox.styledCheckbox {
+  margin-bottom: var(--via-space-200);
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}

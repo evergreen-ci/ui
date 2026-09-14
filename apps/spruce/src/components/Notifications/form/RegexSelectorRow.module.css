@@ -1,0 +1,20 @@
+.leftColumn {
+  min-width: 200px;
+  padding-right: var(--via-space-400);
+}
+
+.middleText {
+  padding-right: var(--via-space-400);
+  margin-top: var(--via-space-800);
+  white-space: nowrap;
+}
+
+.rightColumn {
+  min-width: 200px;
+}
+
+.rowContainer {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--via-space-400);
+}

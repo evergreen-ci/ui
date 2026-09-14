@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--via-space-800);
+}
+
+.medium {
+  margin-bottom: var(--via-space-600);
+}
+
+.badgeWrapper {
+  display: inline-flex;
+  margin-left: var(--via-space-400);
+  vertical-align: text-bottom;
+}
+
+.badgeWrapperLarge {
+  margin-left: var(--via-space-600);
+  vertical-align: middle;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--via-space-600);
+}
+
+.headerLarge {
+  margin-top: var(--via-space-400);
+}
+
+.titleWrapper {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  flex: 1;
+  min-width: 0;
+}

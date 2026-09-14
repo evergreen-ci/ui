@@ -1,4 +1,4 @@
-import { H1, H2 } from "@leafygreen-ui/typography";
+import { Link, Text, TextStyle } from "@via-ds/components/typography";
 import styles from "./ErrorFallback.module.css";
 import errorPage from "./errorPage.svg";
 
@@ -8,15 +8,17 @@ interface ErrorFallbackProps {
 }
 const ErrorFallback: React.FC<ErrorFallbackProps> = ({ homeURL }) => (
   <div className={styles.center} data-testid="error-fallback">
-    <div className={styles.text}>
-      <H1 className={styles.header}>Error</H1>
-      <H2 className={styles.subtitle}>
+    <div className={styles.paragraph}>
+      <Text className={styles.whiteText} textStyle={TextStyle.heading1}>
         Ouch! That&apos;s gotta hurt,
         <br /> sorry about that!
-      </H2>
-      <a className={styles.link} href={homeURL}>
+      </Text>
+      <Text className={styles.whiteText} textStyle={TextStyle.body}>
+        Something went wrong.
+      </Text>
+      <Link className={styles.whiteLink} href={homeURL}>
         Back To Home
-      </a>
+      </Link>
     </div>
     <img alt="Error Background" src={errorPage} />
   </div>

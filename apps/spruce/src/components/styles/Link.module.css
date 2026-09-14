@@ -1,0 +1,9 @@
+/* Doubled selector outranks lib's static a.link/span.link override.
+   Remove when links migrate to Via. */
+.shortened.shortened span {
+  display: inline-block;
+  vertical-align: bottom;
+  max-width: var(--shortened-max-width, 200px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,56 @@
+import { skipToken, useFragment, useQuery } from "@apollo/client/react";
+import { PROJECT_BUILD_BARON_SETTINGS_FRAGMENT } from "gql/fragments/projectBuildBaronSettings";
+import {
+  ProjectBuildBaronSettingsFragment,
+  ProjectBuildBaronSettingsQuery,
+  ProjectBuildBaronSettingsQueryVariables,
+} from "gql/generated/types";
+import { PROJECT_BUILD_BARON_SETTINGS } from "gql/queries";
+
+interface UseProjectBuildBaronSettingsOptions {
+  projectId?: string;
+  projectIdentifier?: string;
+  shouldFetch?: boolean;
+}
+
+/**
+ * useProjectBuildBaronSettings returns a project's Build Baron settings, preferring the normalized
+ * Project cache entity so that many tasks in the same project share one fetch. The entity is written
+ * by anything that has already read these fields, such as the project settings page.
+ * @param options - the options object
+ * @param options.projectId - the id of the project whose settings to read
+ * @param options.projectIdentifier - the identifier to fetch settings by
+ * @param options.shouldFetch - whether to fetch settings that are not already cached
+ * @returns whether Build Baron is configured and whether the project defines a Jira project for
+ * ticket creation
+ */
+export const useProjectBuildBaronSettings = ({
+  projectId,
+  projectIdentifier,
+  shouldFetch = true,
+}: UseProjectBuildBaronSettingsOptions) => {
+  const { complete, data: cached } =
+    useFragment<ProjectBuildBaronSettingsFragment>({
+      from: projectId ? { __typename: "Project", id: projectId } : null,
+      fragment: PROJECT_BUILD_BARON_SETTINGS_FRAGMENT,
+    });
+
+  const { data: fetched } = useQuery<
+    ProjectBuildBaronSettingsQuery,
+    ProjectBuildBaronSettingsQueryVariables
+  >(
+    PROJECT_BUILD_BARON_SETTINGS,
+    shouldFetch && !complete && projectIdentifier
+      ? { variables: { projectIdentifier } }
+      : skipToken,
+  );
+
+  const settings = complete
+    ? cached.buildBaronSettings
+    : fetched?.project?.buildBaronSettings;
+
+  return {
+    bbTicketCreationDefined: !!settings?.ticketCreateProject,
+    buildBaronConfigured: (settings?.ticketSearchProjects ?? []).length > 0,
+  };
+};

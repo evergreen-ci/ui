@@ -1,27 +1,44 @@
-import styled from "@emotion/styled";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 import { H2 } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./Layout.module.css";
 
 export const Title = H2;
 
-export const TitleContainer = styled.div`
-  align-items: center;
-  display: flex;
-  gap: ${size.s};
-`;
+export const TitleContainer = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>(({ className, ...rest }, ref) => (
+  <div ref={ref} className={cx(styles.titleContainer, className)} {...rest} />
+));
+TitleContainer.displayName = "TitleContainer";
 
-export const BadgeWrapper = styled.div`
-  display: flex;
-  gap: ${size.xs};
-`;
+export const BadgeWrapper = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>(({ className, ...rest }, ref) => (
+  <div ref={ref} className={cx(styles.badgeWrapper, className)} {...rest} />
+));
+BadgeWrapper.displayName = "BadgeWrapper";
 
 export const DoesNotExpire = "Does not expire";
 
-export const ModalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+export const ModalContent = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>(({ className, ...rest }, ref) => (
+  <div ref={ref} className={cx(styles.modalContent, className)} {...rest} />
+));
+ModalContent.displayName = "ModalContent";
 
-export const Section = styled(ModalContent)`
-  margin-top: 20px;
-`;
+export const Section = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>(({ className, ...rest }, ref) => (
+  <div
+    ref={ref}
+    className={cx(styles.modalContent, styles.section, className)}
+    {...rest}
+  />
+));
+Section.displayName = "Section";

@@ -1,0 +1,13 @@
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--via-space-200);
+  margin-bottom: var(--via-space-200);
+}
+
+.overflowContainer {
+  max-height: min(600px, 50vh);
+  overflow-y: auto;
+  margin-top: var(--via-space-200);
+}

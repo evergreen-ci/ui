@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { cx } from "../../utils/css";
+import { Icon } from "../Icon";
 import styles from "./index.module.css";
 
 const { gray } = palette;

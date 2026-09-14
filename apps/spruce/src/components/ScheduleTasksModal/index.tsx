@@ -1,12 +1,10 @@
 import { useEffect, useReducer } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
 import Accordion from "@evg-ui/lib/components/Accordion";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
@@ -19,6 +17,7 @@ import {
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { UNSCHEDULED_TASKS } from "gql/queries";
 import { sumActivatedTasksInSet } from "utils/tasks/estimatedActivatedTasks";
+import styles from "./index.module.css";
 import { initialState, reducer } from "./reducer";
 
 interface ScheduleTasksModalProps {
@@ -106,7 +105,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
       title="Schedule Tasks"
     >
       <TaskSchedulingWarningBanner totalTasks={estimatedActivatedTasksCount} />
-      <ContentWrapper>
+      <div className={styles.contentWrapper}>
         {loadingTaskData ? (
           <FormSkeleton data-testid="loading-skeleton" />
         ) : (
@@ -137,7 +136,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                   selectedTasks.has(id),
                 );
                 return (
-                  <Wrapper key={buildVariant}>
+                  <div key={buildVariant} className={styles.wrapper}>
                     <Accordion
                       data-testid="build-variant-accordion"
                       title={
@@ -175,7 +174,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                         />
                       ))}
                     </Accordion>
-                  </Wrapper>
+                  </div>
                 );
               },
             )}
@@ -184,17 +183,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
         {!loadingTaskData && !sortedBuildVariantGroups.length && (
           <Body>There are no schedulable tasks.</Body>
         )}
-      </ContentWrapper>
+      </div>
     </ConfirmationModal>
   );
 };
-
-// 307px represents the height to subtract to prevent an overflow on the modal
-const ContentWrapper = styled.div`
-  max-height: calc(100vh - 307px);
-  overflow-y: auto;
-`;
-
-const Wrapper = styled.div`
-  margin: ${size.xs} 0;
-`;

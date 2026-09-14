@@ -1,10 +1,7 @@
 import { useRef } from "react";
-import { Global } from "@emotion/react";
-import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useSearchParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { styles } from "hooks/useHTMLStream/utils";
+import styles from "./PatchDiff.module.css";
 import { usePatchDiffStream } from "./usePatchDiffStream";
 import { getRawDiffUrl } from "./utils";
 
@@ -23,21 +20,16 @@ export const PatchDiff: React.FC = () => {
 
   if (error) {
     return (
-      <Container>
+      <div className={styles.container}>
         <div>Error loading diff: {error.message}</div>
-      </Container>
+      </div>
     );
   }
 
   return (
-    <Container>
+    <div className={styles.container}>
       {isLoading && <ListSkeleton />}
-      <Global styles={styles} />
       <pre ref={containerRef} />
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  padding: ${size.m};
-`;

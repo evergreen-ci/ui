@@ -1,7 +1,4 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { StyledRouterLink, wordBreakCss } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
@@ -12,6 +9,7 @@ import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { StatusCount } from "gql/generated/types";
 import { PatchTasksQueryParams } from "types/task";
 import { statuses, string } from "utils";
+import styles from "./index.module.css";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
 const { applyStrictRegex } = string;
@@ -56,9 +54,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   return (
     <div data-testid="patch-build-variant">
       <StyledRouterLink
-        css={css`
-          ${wordBreakCss}
-        `}
+        className={styles.buildVariantLink}
         data-testid="build-variant-display-name"
         onClick={() =>
           sendEvent({
@@ -73,7 +69,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
         {displayName}
       </StyledRouterLink>
 
-      <TaskBadgeContainer>
+      <div className={styles.taskBadgeContainer}>
         {stats.map(
           ({ count, statusCounts: groupedStatusCounts, umbrellaStatus }) => {
             const hasStatusFilterForUmbrellaStatus = isUmbrellaStatusSet(
@@ -120,7 +116,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
             );
           },
         )}
-      </TaskBadgeContainer>
+      </div>
     </div>
   );
 };
@@ -133,13 +129,5 @@ const isUmbrellaStatusSet = (
     mapUmbrellaStatusToQueryParam[status],
     activeStatusSearch,
   ).length === 0;
-
-const TaskBadgeContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: ${size.xxs};
-  margin-top: ${size.xxs};
-`;
 
 export default VariantTaskGroup;

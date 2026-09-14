@@ -1,13 +1,9 @@
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, Overline } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
-import {
-  hoverStyles,
-  overlineStyles,
-} from "components/styles/SearchableDropdown";
+import { cx } from "@evg-ui/lib/utils/css";
 import { FavoriteStar } from "./FavoriteStar";
+import styles from "./ProjectOptionGroup.module.css";
 
 const { blue } = palette;
 
@@ -26,7 +22,9 @@ const ProjectOption: React.FC<OptionProps> = ({
   onClick,
   projectIdentifier,
 }) => (
-  <ProjectOptionContainer
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus -- pre-existing violation, surfaced by the Emotion conversion
+  <div
+    className={styles.optionContainer}
     onClick={() => onClick(projectIdentifier)}
     role="button"
   >
@@ -34,30 +32,21 @@ const ProjectOption: React.FC<OptionProps> = ({
       isFavorite={isFavorite}
       projectIdentifier={projectIdentifier}
     />
-    <Label bolded={isSelected ? 1 : 0} data-testid="project-display-name">
+    <Body
+      className={cx(styles.label, isSelected && styles.labelSelected)}
+      data-testid="project-display-name"
+    >
       {displayName || projectIdentifier}
-    </Label>
-    {isSelected && <CheckmarkIcon fill={blue.base} glyph="Checkmark" />}
-  </ProjectOptionContainer>
+    </Body>
+    {isSelected && (
+      <Icon
+        className={styles.checkmarkIcon}
+        fill={blue.base}
+        glyph="Checkmark"
+      />
+    )}
+  </div>
 );
-
-// bolded is a number because booleans aren't valid props to styled components.
-const Label = styled(Body)<{ bolded: number }>`
-  font-weight: ${({ bolded }) => (bolded ? "bold" : "normal")};
-`;
-
-const CheckmarkIcon = styled(Icon)`
-  margin-left: auto;
-  margin-right: ${size.xs};
-`;
-
-const ProjectOptionContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-  padding: ${size.xxs};
-  ${hoverStyles}
-`;
 
 interface OptionGroupProps {
   canClickOnRepoGroup?: boolean;
@@ -81,16 +70,23 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
 }) => {
   const groupHeaderProps = canClickOnRepoGroup
     ? {
-        css: hoverStyles,
         onClick: () => onClick(repoIdentifier, true),
         role: "button",
       }
     : {};
 
   return (
-    <OptionGroupContainer>
-      <GroupHeader {...groupHeaderProps}>{name}</GroupHeader>
-      <ListContainer>
+    <div className={styles.optionGroupContainer}>
+      <Overline
+        className={cx(
+          styles.groupHeader,
+          canClickOnRepoGroup && styles.groupHeaderClickable,
+        )}
+        {...groupHeaderProps}
+      >
+        {name}
+      </Overline>
+      <div className={styles.listContainer}>
         {projects?.map((project) => (
           <ProjectOption
             key={project.identifier}
@@ -102,21 +98,7 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
             {...project}
           />
         ))}
-      </ListContainer>
-    </OptionGroupContainer>
+      </div>
+    </div>
   );
 };
-
-const GroupHeader = styled(Overline)`
-  ${overlineStyles}
-`;
-
-const ListContainer = styled.div`
-  margin: 0;
-  padding: 0;
-`;
-
-const OptionGroupContainer = styled.div`
-  word-break: normal;
-  overflow-wrap: anywhere;
-`;

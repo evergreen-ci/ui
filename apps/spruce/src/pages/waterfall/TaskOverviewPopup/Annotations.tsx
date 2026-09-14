@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
-import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { TaskOverviewPopupQuery } from "gql/generated/types";
+import styles from "./Annotations.module.css";
 
 type Annotation = NonNullable<TaskOverviewPopupQuery["task"]>["annotation"];
 type Issue = Unpacked<
@@ -19,59 +18,35 @@ const IssueLinks: React.FC<{
 }> = ({ issues }) =>
   issues.map((i) =>
     i?.issueKey && i?.url ? (
-      <AnnotationLink key={i.issueKey} hideExternalIcon={false} href={i.url}>
+      <StyledLink
+        key={i.issueKey}
+        className={styles.annotationLink}
+        hideExternalIcon={false}
+        href={i.url}
+      >
         {i.issueKey}
-      </AnnotationLink>
+      </StyledLink>
     ) : null,
   );
-
-const AnnotationLink = styled(StyledLink)`
-  && {
-    font-weight: bold;
-  }
-  ${wordBreakCss};
-`;
 
 const FailingTasks: React.FC<{
   tasks: string[];
 }> = ({ tasks }) => (
-  <FailingTasksContainer>
+  <div className={styles.failingTasksContainer}>
     <details>
-      <FailingTasksSummary>
+      <summary className={styles.failingTasksSummary}>
         <b>Other Failing Tasks ({tasks.length})</b>
-      </FailingTasksSummary>
-      <TasksList>
+      </summary>
+      <ul className={styles.tasksList}>
         {tasks.map((t) => (
-          <TaskListItem key={t}>{t}</TaskListItem>
+          <li key={t} className={styles.taskListItem}>
+            {t}
+          </li>
         ))}
-      </TasksList>
+      </ul>
     </details>
-  </FailingTasksContainer>
+  </div>
 );
-
-const FailingTasksContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-`;
-
-const FailingTasksSummary = styled.summary`
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const TasksList = styled.ul`
-  margin: 0;
-  margin-top: ${size.xs};
-  padding: 0 ${size.s};
-`;
-
-const TaskListItem = styled.li`
-  margin-bottom: ${size.xxs};
-  word-break: break-all;
-  line-height: 1.2;
-`;
 
 interface AnnotationProps {
   annotation: Annotation;
@@ -102,35 +77,18 @@ export const Annotations: React.FC<AnnotationProps> = ({
       .sort((a, b) => a.localeCompare(b)) ?? [];
 
   return (
-    <AnnotationsContainer>
+    <div className={styles.annotationsContainer}>
       {hasIssues && (
-        <IssuesContainer>
+        <div className={styles.issuesContainer}>
           <b>Associated Issues</b>
-          <LinksContainer>
+          <div className={styles.linksContainer}>
             <IssueLinks issues={allIssues} />
-          </LinksContainer>
-        </IssuesContainer>
+          </div>
+        </div>
       )}
       {otherFailingTasks.length > 0 && (
         <FailingTasks tasks={otherFailingTasks} />
       )}
-    </AnnotationsContainer>
+    </div>
   );
 };
-
-const AnnotationsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-`;
-
-const IssuesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-`;
-
-const LinksContainer = styled.div`
-  display: flex;
-  gap: ${size.s};
-`;

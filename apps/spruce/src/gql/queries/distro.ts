@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 export const DISTRO = gql`
   query Distro($distroId: String!) {
     distro(distroId: $distroId) {
+      id
       adminOnly
       aliases
       arch
@@ -10,6 +11,13 @@ export const DISTRO = gql`
       bootstrapSettings {
         clientDir
         communication
+        containerIsolation {
+          cpus
+          enabled
+          image
+          memoryMb
+          requireIsolation
+        }
         env {
           key
           value

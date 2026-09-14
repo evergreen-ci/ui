@@ -1,0 +1,5 @@
+.expirationContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-200);
+}

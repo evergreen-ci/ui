@@ -1,0 +1,7 @@
+.siderCard {
+  padding: var(--via-space-400);
+}
+
+.siderCard:not(:last-of-type) {
+  margin-bottom: var(--via-space-600);
+}

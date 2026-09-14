@@ -1,0 +1,5 @@
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.tabs.tabs [role="tabpanel"] {
+  margin-top: var(--via-space-400);
+}

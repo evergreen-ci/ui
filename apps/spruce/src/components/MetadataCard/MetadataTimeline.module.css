@@ -1,0 +1,70 @@
+.container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label {
+  width: 60px;
+}
+
+.timestamp {
+  color: var(--via-color-neutral-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.timestampRunning {
+  color: var(--via-color-neutral-400);
+}
+
+.row {
+  font-size: 12px;
+  line-height: var(--via-space-400);
+  padding-left: var(--via-space-400);
+
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--via-space-200);
+
+  /* Dashed lines. */
+  &:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: calc(50% + 5px);
+    bottom: -12px;
+
+    border-left: 1px dashed var(--via-color-blue-400);
+  }
+
+  /* Dots. */
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: var(--via-space-100);
+
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      var(--via-color-blue-400) 20%,
+      transparent 70%
+    );
+  }
+}
+
+.rowRunning::after {
+  background: radial-gradient(
+    circle,
+    var(--via-color-neutral-400) 20%,
+    transparent 70%
+  );
+}

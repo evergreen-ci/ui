@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  gap: var(--via-space-400);
+}
+
+.circle {
+  all: unset;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  display: flex;
+  font-weight: bold;
+  height: 2rem;
+  justify-content: center;
+  transition: 150ms all ease-in-out;
+
+  &:has(:enabled) {
+    cursor: pointer;
+    background-color: var(--via-color-neutral-200);
+
+    &:hover {
+      background-color: var(--via-color-neutral-300);
+    }
+  }
+
+  &:has(:disabled) {
+    color: var(--via-color-neutral-300);
+    cursor: not-allowed;
+  }
+}
+
+.selected {
+  &:has(:enabled) {
+    /* !important allows the selected color to override the :hover color upon clicking */
+    background-color: var(--via-color-neutral-700) !important;
+    color: var(--via-color-neutral-000);
+  }
+
+  &:has(:disabled) {
+    background-color: var(--via-color-neutral-200);
+  }
+}
+
+.invisibleInput {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}

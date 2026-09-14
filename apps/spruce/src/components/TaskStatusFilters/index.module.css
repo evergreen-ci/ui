@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+}
+
+.selectorWrapper {
+  width: 50%;
+}

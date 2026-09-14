@@ -1,4 +1,4 @@
-import { DependencyList, EffectCallback, useEffect, useState } from "react";
+import { DependencyList, EffectCallback, useEffect, useRef } from "react";
 
 /**
  * `usePrevious` is a custom hook that returns the previous value of a given value
@@ -7,13 +7,13 @@ import { DependencyList, EffectCallback, useEffect, useState } from "react";
  * @returns the previous value
  */
 const usePrevious = <T>(value: T, initialValue: T) => {
-  const [previous, setPrevious] = useState(initialValue);
+  const previous = useRef(initialValue);
 
   useEffect(() => {
-    setPrevious(value);
+    previous.current = value;
   }, [value]);
 
-  return previous;
+  return previous.current; // eslint-disable-line react-hooks/refs
 };
 
 /**

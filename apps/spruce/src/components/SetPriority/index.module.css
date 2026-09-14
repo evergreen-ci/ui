@@ -1,0 +1,34 @@
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.priorityInput.priorityInput {
+  :global(.priority-input) {
+    width: 200px;
+  }
+}
+
+.message {
+  width: 200px;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--via-space-100);
+  margin-top: var(--via-space-100);
+}
+
+.messageDefault {
+  color: var(--via-color-neutral-300);
+}
+
+.messageWarning {
+  color: var(--via-color-yellow-400);
+}
+
+.messageAdmin {
+  color: var(--via-color-red-300);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.icon.icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}

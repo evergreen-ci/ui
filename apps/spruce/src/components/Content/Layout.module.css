@@ -1,0 +1,27 @@
+.floatingContent {
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  margin-bottom: var(--via-space-400);
+  margin-right: var(--via-space-400);
+  padding: var(--via-space-100);
+
+  background-color: var(--via-color-neutral-100);
+  border-radius: var(--via-space-600);
+  border: 1px solid transparent;
+  opacity: 0.5;
+
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    background-color: var(--via-color-neutral-000);
+    border: 1px solid var(--via-color-neutral-300);
+    opacity: 1;
+
+    transition: all 150ms ease-in-out;
+  }
+}

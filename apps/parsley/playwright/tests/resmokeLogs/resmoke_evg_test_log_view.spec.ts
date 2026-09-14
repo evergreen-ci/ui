@@ -37,6 +37,10 @@ test.describe("Basic resmoke log view", () => {
     await page.getByTestId("paginated-virtual-list").evaluate((el) => {
       el.scrollTo(el.scrollWidth, 0);
     });
+    const scrollLeft = await page
+      .getByTestId("paginated-virtual-list")
+      .evaluate((el) => el.scrollLeft);
+    expect(scrollLeft).toBeGreaterThan(0);
   });
 
   test("log header should show breadcrumbs, including one for the test name", async ({

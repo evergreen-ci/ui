@@ -1,0 +1,26 @@
+.stickyHeaderContainer {
+  align-items: start;
+  background-color: white;
+  display: flex;
+  gap: var(--via-space-400);
+  justify-content: space-between;
+  margin: 0 calc(-1 * var(--via-space-800));
+  padding: 0 var(--via-space-800) var(--via-space-400) var(--via-space-800);
+
+  z-index: 1;
+  top: 0;
+
+  transition: box-shadow 150ms ease-in-out; /* transitionDuration.default */
+}
+
+.saveable {
+  position: sticky;
+}
+
+.shadow {
+  box-shadow: 0 3px 4px -4px rgba(0, 0, 0, 0.6);
+}
+
+.noShadow {
+  box-shadow: unset;
+}

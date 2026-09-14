@@ -1,10 +1,7 @@
-import { ComponentType } from "react";
-import styled from "@emotion/styled";
 import { Tabs, TabsProps } from "@leafygreen-ui/tabs";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./StyledTabs.module.css";
 
-export const StyledTabs = styled(Tabs)`
-  [role="tabpanel"] {
-    margin-top: ${size.s};
-  }
-` as ComponentType<TabsProps>;
+export const StyledTabs: React.FC<TabsProps> = ({ className, ...rest }) => (
+  <Tabs className={cx(styles.tabs, className)} {...rest} />
+);

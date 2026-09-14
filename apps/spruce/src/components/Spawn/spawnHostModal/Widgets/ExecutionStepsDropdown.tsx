@@ -1,15 +1,14 @@
 import { useMemo } from "react";
-import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import {
   Combobox,
   ComboboxGroup,
   ComboboxOption,
 } from "@leafygreen-ui/combobox";
-import { size } from "@evg-ui/lib/constants/tokens";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { SpawnTaskQuery } from "gql/generated/types";
+import styles from "./ExecutionStepsDropdown.module.css";
 
 type TaskExecutionStep = NonNullable<
   NonNullable<SpawnTaskQuery["task"]>["executionSteps"]
@@ -69,8 +68,9 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
         ))}
       </Combobox>
       {showFailingCheckbox && (
-        <StyledCheckbox
+        <Checkbox
           checked={isChecked}
+          className={styles.checkbox}
           data-testid="default-to-failing-task-checkbox"
           label="Default to Failing Task"
           onChange={(e) => onChange(e.target.checked ? failingStepNumber : "")}
@@ -79,10 +79,6 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
     </ElementWrapper>
   );
 };
-
-const StyledCheckbox = styled(Checkbox)`
-  margin-top: ${size.s};
-`;
 
 interface StepOption {
   stepNumber: string;

@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.labelWrapper {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.buttonContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
+   Remove when these components migrate to Via. */
+
+/* Styles lifted from LeafyGreen
+   https://github.com/mongodb/leafygreen-ui/blob/f38cdc3dca3a82a25884d30f43d87cf79997439d/packages/select/src/ListMenu/ListMenu.styles.ts#L34C5-L39C66 */
+.menu.menu {
+  text-align: left;
+  position: absolute;
+  background-color: var(--via-color-neutral-000);
+  overflow: auto;
+
+  border-radius: 12px;
+  box-shadow: 0 4px 7px 0 var(--via-color-neutral-200);
+  border: 1px solid var(--via-color-neutral-200);
+}
+
+/* Borrow LeafyGreen's styling to un-center button text
+   https://github.com/mongodb/leafygreen-ui/blob/a593238ff5801f82a648c20e3595cfc6de6ec6a8/packages/select/src/MenuButton.tsx#L20-L33 */
+.button.button {
+  background: var(--via-color-neutral-000);
+  width: 100%;
+
+  > *:last-child {
+    grid-template-columns: 1fr 16px;
+    justify-content: flex-start;
+
+    > svg {
+      justify-self: right;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.overflowBody.overflowBody {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

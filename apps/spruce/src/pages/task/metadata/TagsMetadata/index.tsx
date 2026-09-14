@@ -6,7 +6,7 @@ import {
 } from "@leafygreen-ui/chip";
 import { size } from "@evg-ui/lib/constants/tokens";
 import MetadataCard, { MetadataCardTitle } from "components/MetadataCard";
-import { Divider } from "components/styles/divider";
+import { Divider } from "components/styles/Divider";
 
 interface TagsMetadataProps {
   tags?: string[];
@@ -27,7 +27,7 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
     <MetadataCard>
       {hasTags && (
         <div>
-          <MetadataCardTitle weight="medium">Tags</MetadataCardTitle>
+          <MetadataCardTitle>Tags</MetadataCardTitle>
           <Divider />
           <TagsContainer>
             {tags.map((t) => (
@@ -45,9 +45,7 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
 
       {hasFailureMetadataTags && (
         <div>
-          <MetadataCardTitle weight="medium">
-            Failure Metadata Tags
-          </MetadataCardTitle>
+          <MetadataCardTitle>Failure Metadata Tags</MetadataCardTitle>
           <Divider />
           <TagsContainer>
             {failureMetadataTags.map((t) => (

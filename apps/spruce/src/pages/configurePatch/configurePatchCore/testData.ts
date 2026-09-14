@@ -10,6 +10,7 @@ export const patchQuery: ConfigurePatchQuery = {
   patch: {
     __typename: "Patch",
     id: "version",
+    createTime: new Date("2020-08-28T15:00:17Z"),
     description: "test",
     projectMetadata: {
       id: "spruce",
@@ -21,9 +22,6 @@ export const patchQuery: ConfigurePatchQuery = {
     },
     activated: false,
     status: "created",
-    time: {
-      submittedAt: "2020-08-28T15:00:17Z",
-    },
     patchTriggerAliases: [
       {
         alias: "evergreen",

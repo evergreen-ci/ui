@@ -4,9 +4,6 @@
 evg_dump/
 playwright/.auth/
 
-# artifacts
-/src/**/*.css
-
 # misc
 .DS_Store
 .env.local

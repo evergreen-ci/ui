@@ -9,6 +9,8 @@ export const wikiUrl = `${wikiBaseUrl}/Home`;
 const projectSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration`;
 const hostsDocumentationUrl = `${wikiBaseUrl}/Hosts`;
 
+export const projectConfigFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files`;
+
 export const amazonEC2InstanceTypeDocumentationUrl =
   "https://aws.amazon.com/ec2/instance-types/";
 
@@ -136,5 +138,10 @@ export const buildHostPostConfigRepoURL =
 export const sageBotDocumentationUrl =
   "https://docs.devprod.prod.corp.mongodb.com/sage/sage-bot/";
 
-export const backstageS3BucketUrl =
-  "https://app.backstage.prod.corp.mongodb.com/autoflow";
+const backstageUrl = "https://app.backstage.prod.corp.mongodb.com";
+
+export const backstageS3BucketUrl = `${backstageUrl}/autoflow`;
+
+export const backstageCatalogUrl = `${backstageUrl}/catalog`;
+
+export const backstageCatalogGroupsUrl = `${backstageCatalogUrl}?filters%5Bkind%5D=group`;

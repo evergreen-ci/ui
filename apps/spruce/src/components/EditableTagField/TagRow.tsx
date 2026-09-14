@@ -1,11 +1,10 @@
 import { useMemo, useReducer } from "react";
-import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { TextArea } from "@leafygreen-ui/text-area";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { PlusButton } from "components/Buttons";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
+import styles from "./TagRow.module.css";
 import { getInitialState, reducer } from "./tagRowReducer";
 
 type Tag = InstanceTag | ParameterInput;
@@ -35,8 +34,8 @@ export const TagRow: React.FC<TagRowProps> = ({
   return (
     <>
       {shouldShowNewTag && (
-        <FlexContainer data-testid="user-tag-row">
-          <FlexColumnContainer>
+        <div className={styles.flexContainer} data-testid="user-tag-row">
+          <div className={styles.flexColumnContainer}>
             <TextArea
               data-testid="user-tag-key-field"
               id={`tag_key_${tagId}`}
@@ -47,8 +46,8 @@ export const TagRow: React.FC<TagRowProps> = ({
               }
               value={key}
             />
-          </FlexColumnContainer>
-          <FlexColumnContainer>
+          </div>
+          <div className={styles.flexColumnContainer}>
             <TextArea
               data-testid="user-tag-value-field"
               id={`tag_value_${tagId}`}
@@ -59,7 +58,7 @@ export const TagRow: React.FC<TagRowProps> = ({
               }
               value={value}
             />
-          </FlexColumnContainer>
+          </div>
           {canSave ? (
             <IconButton
               aria-label="Update tag"
@@ -101,10 +100,10 @@ export const TagRow: React.FC<TagRowProps> = ({
               />
             </IconButton>
           )}
-        </FlexContainer>
+        </div>
       )}
       {!shouldShowNewTag && (
-        <ButtonContainer>
+        <div className={styles.buttonContainer}>
           <PlusButton
             data-testid="add-tag-button"
             // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -112,24 +111,8 @@ export const TagRow: React.FC<TagRowProps> = ({
           >
             {buttonText}
           </PlusButton>
-        </ButtonContainer>
+        </div>
       )}
     </>
   );
 };
-
-const ButtonContainer = styled.div`
-  margin-top: ${size.m};
-`;
-const FlexContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-`;
-const FlexColumnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: ${size.xs};
-  margin-top: ${size.m};
-  flex-grow: 1;
-`;

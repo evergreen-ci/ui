@@ -1,0 +1,15 @@
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
+   Remove when these components migrate to Via. */
+.sideNav.sideNav {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.sideNavItemLink.sideNavItemLink {
+  color: var(--via-color-blue-400);
+}
+
+.body.body {
+  color: var(--via-color-blue-400);
+  margin-right: var(--via-space-100);
+}

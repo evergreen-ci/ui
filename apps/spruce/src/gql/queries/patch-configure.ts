@@ -20,6 +20,7 @@ export const PATCH_CONFIGURE = gql`
           tasks
         }
       }
+      createTime
       githubPatchData {
         prNumber
       }
@@ -42,9 +43,6 @@ export const PATCH_CONFIGURE = gql`
       projectMetadata {
         id
         identifier
-      }
-      time {
-        submittedAt
       }
       version {
         id

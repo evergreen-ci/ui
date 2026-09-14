@@ -1,10 +1,5 @@
 import { palette } from "@leafygreen-ui/palette";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import redOutlineX from "./RedOutlineX";
-import whiteClockWithArrow from "./WhiteClockWithArrow";
-import whiteGear from "./WhiteGear";
-import whiteWrench from "./WhiteWrench";
-import whiteX from "./WhiteX";
 
 const { blue, gray, green, purple, red, yellow } = palette;
 
@@ -28,15 +23,4 @@ export const statusColorMap: Record<TaskStatus, string> = {
   [TaskStatus.WillRun]: gray.dark1,
   [TaskStatus.Pending]: gray.dark1,
   [TaskStatus.Unstarted]: gray.dark1,
-};
-
-export const statusIconMap: Partial<Record<TaskStatus, string>> = {
-  [TaskStatus.Failed]: whiteX,
-  [TaskStatus.TaskTimedOut]: whiteClockWithArrow,
-  [TaskStatus.TestTimedOut]: whiteClockWithArrow,
-  [TaskStatus.SetupFailed]: whiteWrench,
-  [TaskStatus.KnownIssue]: redOutlineX,
-  [TaskStatus.SystemFailed]: whiteGear,
-  [TaskStatus.SystemTimedOut]: whiteGear,
-  [TaskStatus.SystemUnresponsive]: whiteGear,
 };

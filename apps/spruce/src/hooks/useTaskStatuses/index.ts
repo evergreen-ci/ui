@@ -43,16 +43,14 @@ export const useTaskStatuses = ({
     () => getCurrentStatuses(taskStatuses ?? [], taskStatusesFilterTreeData),
     [taskStatuses],
   );
-  const baseStatuses = useMemo(() => {
-    // Only include statuses that appear in both the base version and the current version
-    const baseTaskStatuses = baseVersion?.taskStatuses.filter((s) =>
-      taskStatuses?.includes(s),
-    );
-    return getCurrentStatuses(
-      baseTaskStatuses ?? [],
-      taskStatusesFilterTreeData,
-    );
-  }, [baseVersion?.taskStatuses, taskStatuses]);
+  const baseStatuses = useMemo(
+    () =>
+      getCurrentStatuses(
+        baseVersion?.taskStatuses ?? [],
+        taskStatusesFilterTreeData,
+      ),
+    [baseVersion?.taskStatuses],
+  );
 
   return { currentStatuses, baseStatuses };
 };

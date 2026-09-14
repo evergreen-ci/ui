@@ -14,6 +14,7 @@ const host = {
   expiration: new Date("2020-08-21T18:00:07Z"),
   distro: {
     isVirtualWorkStation: true,
+    isWindows: false,
     id: "ubuntu1804-workstation",
     user: "ubuntu",
     workDir: "/home/ubuntu",

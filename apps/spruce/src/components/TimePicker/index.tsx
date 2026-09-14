@@ -1,20 +1,16 @@
 import { useRef, useState } from "react";
-import styled from "@emotion/styled";
 import { DateType } from "@leafygreen-ui/date-utils";
 import { FormField, FormFieldInputContainer } from "@leafygreen-ui/form-field";
 import { IconButton } from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
 import { Align, Justify, Popover } from "@leafygreen-ui/popover";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 import { PopoverContainer } from "components/styles/Popover";
 import { hourOptions, minuteOptions } from "./constants";
+import styles from "./index.module.css";
 import TimeInput from "./TimeInput";
 import TimePickerOptions from "./TimeOptions";
 import { TimepickerType } from "./types";
-
-const { gray } = palette;
 
 interface TimePickerProps {
   "data-testid"?: string;
@@ -63,21 +59,21 @@ const TimePicker: React.FC<TimePickerProps> = ({
           role="combobox"
           tabIndex={-1}
         >
-          <ContentWrapper>
+          <div className={styles.contentWrapper}>
             <TimeInput
               data-testid="hour-input"
               disabled={disabled}
               setPopoverOpen={setPopoverOpen}
               value={hourValue}
             />
-            <Colon>:</Colon>
+            <span className={styles.colon}>:</span>
             <TimeInput
               data-testid="minute-input"
               disabled={disabled}
               setPopoverOpen={setPopoverOpen}
               value={minuteValue}
             />
-          </ContentWrapper>
+          </div>
         </FormFieldInputContainer>
       </FormField>
       <Popover
@@ -87,7 +83,11 @@ const TimePicker: React.FC<TimePickerProps> = ({
         refEl={formRef}
         spacing={0}
       >
-        <MenuList ref={popoverRef} data-testid="time-picker-options">
+        <PopoverContainer
+          ref={popoverRef}
+          className={styles.menuList}
+          data-testid="time-picker-options"
+        >
           <TimePickerOptions
             currentDateTime={value}
             data-testid="hour-options"
@@ -96,7 +96,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
             type={TimepickerType.Hour}
             value={hourValue}
           />
-          <VerticalLine />
+          <div className={styles.verticalLine} />
           <TimePickerOptions
             currentDateTime={value}
             data-testid="minute-options"
@@ -105,32 +105,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
             type={TimepickerType.Minute}
             value={minuteValue}
           />
-        </MenuList>
+        </PopoverContainer>
       </Popover>
     </>
   );
 };
-
-const VerticalLine = styled.div`
-  border-left: 1px solid ${gray.light2};
-`;
-
-const Colon = styled.span`
-  font-family: inherit;
-`;
-
-const MenuList = styled(PopoverContainer)`
-  display: flex;
-  flex-direction: row;
-
-  height: 230px;
-  padding: 0;
-  padding-top: ${size.xs};
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 export default TimePicker;

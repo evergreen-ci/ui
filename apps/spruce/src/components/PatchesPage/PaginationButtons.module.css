@@ -1,0 +1,5 @@
+.paginationRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--via-space-400);
+}

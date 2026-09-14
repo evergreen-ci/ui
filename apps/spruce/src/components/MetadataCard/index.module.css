@@ -1,0 +1,39 @@
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.apiLink {
+  font-size: 12px;
+}
+
+.header {
+  color: var(--via-color-neutral-500);
+}
+
+.cardTitle {
+  font-size: 15px;
+}
+
+.item {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  font-size: 12px;
+  line-height: 14px;
+  width: fit-content;
+}
+
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.itemWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--via-space-100);
+  line-height: 14px;
+}

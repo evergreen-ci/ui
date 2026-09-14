@@ -8,6 +8,7 @@ export const SINGLE_TASK_DISTRO = gql`
           allowedBVs
           allowedTasks
           displayName
+          isRegex
           projectId
         }
       }

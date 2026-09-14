@@ -7,7 +7,6 @@ export const MY_VOLUMES = gql`
       availabilityZone
       createdBy
       creationTime
-      deviceName
       displayName
       expiration
       homeVolume
@@ -16,7 +15,6 @@ export const MY_VOLUMES = gql`
         displayName
         noExpiration
       }
-      hostID
       migrating
       noExpiration
       size

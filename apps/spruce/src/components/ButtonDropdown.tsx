@@ -1,6 +1,6 @@
 import { Size as ButtonSize } from "@leafygreen-ui/button";
-import { Icon } from "@leafygreen-ui/icon";
 import { Menu, MenuItem, MenuProps } from "@leafygreen-ui/menu";
+import { Icon } from "@evg-ui/lib/components/Icon";
 import {
   LoadingButton,
   LoadingButtonProps,

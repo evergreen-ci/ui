@@ -7,13 +7,22 @@ export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const { dispatcherSettings, finderSettings, plannerSettings } = data;
-  const { version: plannerVersion, ...rest } = plannerSettings;
+  const {
+    mergeQueueTargetTime,
+    targetTime,
+    version: plannerVersion,
+    ...tunableOptions
+  } = plannerSettings;
 
   return {
     finderSettings,
     plannerSettings: {
       version: plannerVersion,
-      tunableOptions: rest,
+      tunableOptions: {
+        ...tunableOptions,
+        targetTimeNanoseconds: targetTime * 1_000_000,
+        mergeQueueTargetTimeNanoseconds: mergeQueueTargetTime * 1_000_000,
+      },
     },
     dispatcherSettings,
   };
@@ -25,13 +34,20 @@ export const formToGql = ((
   distro,
 ) => {
   const { tunableOptions, version: plannerVersion } = plannerSettings;
+  const {
+    mergeQueueTargetTimeNanoseconds,
+    targetTimeNanoseconds,
+    ...plannerSettingsRest
+  } = tunableOptions;
 
   return {
     ...distro,
     finderSettings,
     plannerSettings: {
       version: plannerVersion,
-      ...tunableOptions,
+      ...plannerSettingsRest,
+      targetTime: targetTimeNanoseconds / 1_000_000,
+      mergeQueueTargetTime: mergeQueueTargetTimeNanoseconds / 1_000_000,
     },
     dispatcherSettings,
   };

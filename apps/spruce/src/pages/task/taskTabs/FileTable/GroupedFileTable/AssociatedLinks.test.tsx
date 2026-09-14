@@ -29,6 +29,24 @@ describe("processFilesWithAssociatedLinks", () => {
     expect(row).toHaveProperty("renderExpandedContent");
   });
 
+  it("preserves T2 associated links", () => {
+    const [row] = processFilesWithAssociatedLinks(
+      [
+        {
+          associatedLinks: [
+            { link: "t2://internal.example.com/artifact", name: "FTDC data" },
+          ],
+          link: "https://example.com/artifact",
+          name: "artifact",
+          urlParsley: null,
+        },
+      ],
+      taskAnalytics,
+    );
+
+    expect(row).toHaveProperty("renderExpandedContent");
+  });
+
   it("removes unsafe artifact URLs", () => {
     const [row] = processFilesWithAssociatedLinks(
       [

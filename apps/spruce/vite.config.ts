@@ -35,6 +35,7 @@ const getProjectConfig = () => {
     },
     server: serverConfig,
     build: {
+      cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"],
       sourcemap: true,
     },
     resolve: {
@@ -45,11 +46,11 @@ const getProjectConfig = () => {
         "@emotion/server": "@emotion/css",
         ...(process.env.PROFILER === "true" && {
           "react-dom/client": path.resolve(
-            __dirname,
+            import.meta.dirname,
             "../../node_modules/react-dom/profiling",
           ),
           "scheduler/tracing": path.resolve(
-            __dirname,
+            import.meta.dirname,
             "../../node_modules/scheduler/tracing-profiling",
           ),
         }),

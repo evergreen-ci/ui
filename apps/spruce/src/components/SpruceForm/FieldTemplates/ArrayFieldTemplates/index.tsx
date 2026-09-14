@@ -1,148 +1,159 @@
 import { SerializedStyles } from "@emotion/react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { ExpandableCard } from "@leafygreen-ui/expandable-card";
-import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import {
-  ArrayFieldItemTemplateProps,
-  ArrayFieldTemplateProps,
-} from "@rjsf/utils";
+import { ArrayFieldTemplateProps } from "@rjsf/core";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Unpacked } from "@evg-ui/lib/types/utils";
+import { cx } from "@evg-ui/lib/utils/css";
 import { PlusButton } from "components/Buttons";
 import ElementWrapper from "../../ElementWrapper";
-import { STANDARD_FIELD_WIDTH } from "../../utils";
+import { emotionCssToClassName } from "../../utils";
+import styles from "./index.module.css";
 
-const { gray } = palette;
-// Total pixel count above a text field with a label. Used to align buttons to the
-// top of the text box itself.
-const labelOffset = size.m;
-
-export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
-  buttonsProps,
+const ArrayItem: React.FC<
+  {
+    border: boolean;
+    title: string;
+    topAlignDelete: boolean;
+    useExpandableCard: boolean;
+    arrayItemCss: SerializedStyles;
+  } & Unpacked<ArrayFieldTemplateProps["items"]>
+> = ({
+  arrayItemCss,
+  border,
   children,
   disabled,
+  hasMoveDown,
+  hasMoveUp,
+  hasRemove,
   index,
-  itemKey,
-  parentUiSchema = {},
+  onDropIndexClick,
+  onReorderClick,
   readonly,
-  uiSchema = {},
+  title,
+  topAlignDelete,
+  useExpandableCard,
 }) => {
-  const {
-    hasMoveDown,
-    hasMoveUp,
-    hasRemove,
-    onMoveDownItem,
-    onMoveUpItem,
-    onRemoveItem,
-  } = buttonsProps;
-  const arrayItemCss = parentUiSchema["ui:arrayItemCSS"] as SerializedStyles;
-  const border = parentUiSchema["ui:border"] ?? false;
-  const topAlignDelete = parentUiSchema["ui:topAlignDelete"] ?? false;
-  const useExpandableCard = parentUiSchema["ui:useExpandableCard"] ?? false;
-  const itemUiSchema =
-    typeof parentUiSchema.items === "function"
-      ? {}
-      : (parentUiSchema.items ?? {});
-  const title = uiSchema["ui:title"] ?? itemUiSchema["ui:title"] ?? "";
   const isDisabled = disabled || readonly;
   const deleteButton = (
     <Button
       data-testid="delete-item-button"
       disabled={isDisabled}
       leftGlyph={<Icon glyph="Trash" />}
-      onClick={onRemoveItem}
+      onClick={onDropIndexClick(index)}
       size="small"
     />
   );
   return useExpandableCard ? (
-    <StyledExpandableCard
+    <ExpandableCard
+      className={styles.expandableCard}
       data-testid="expandable-card"
       defaultOpen={!isDisabled}
       // Override LeafyGreen's string typing for title so we can include buttons. (LG-2193)
       title={
         <>
-          <TitleWrapper data-testid="expandable-card-title">
+          <span
+            className={styles.titleWrapper}
+            data-testid="expandable-card-title"
+          >
             {title}
-          </TitleWrapper>
+          </span>
           {hasRemove && !readonly && deleteButton}
         </>
       }
     >
       {children}
-    </StyledExpandableCard>
+    </ExpandableCard>
   ) : (
-    <ArrayItemRow
-      key={itemKey}
-      border={border}
-      css={arrayItemCss}
-      index={index}
+    <div
+      key={index}
+      className={cx(
+        styles.arrayItemRow,
+        border && index === 0 && styles.firstBordered,
+        border && styles.bordered,
+        emotionCssToClassName(arrayItemCss),
+      )}
     >
       {(hasMoveUp || hasMoveDown) && !readonly && (
-        <OrderControls topAlignDelete={topAlignDelete}>
+        <div
+          className={cx(
+            styles.orderControls,
+            topAlignDelete && styles.topAligned,
+          )}
+        >
           {hasMoveUp && (
             <Button
               data-testid="array-up-button"
               leftGlyph={<Icon glyph="ArrowUp" />}
-              onClick={onMoveUpItem}
+              onClick={onReorderClick(index, index - 1)}
             />
           )}
           {hasMoveDown && (
             <Button
               data-testid="array-down-button"
               leftGlyph={<Icon glyph="ArrowDown" />}
-              onClick={onMoveDownItem}
+              onClick={onReorderClick(index, index + 1)}
             />
           )}
-        </OrderControls>
+        </div>
       )}
       {children}
       {hasRemove && !useExpandableCard && !readonly && (
-        <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
+        <ElementWrapper
+          className={cx(
+            styles.deleteButtonWrapper,
+            topAlignDelete && styles.topAligned,
+          )}
+        >
           {deleteButton}
-        </DeleteButtonWrapper>
+        </ElementWrapper>
       )}
-    </ArrayItemRow>
+    </div>
   );
 };
 
-const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
-  display: flex;
-  ${({ border, index }) =>
-    border && index === 0 && `border-top: 1px solid ${gray.light1}`};
-  ${({ border }) =>
-    border &&
-    `border-bottom: 1px solid ${gray.light1};
-  margin: 0 -${size.m};
-  padding: ${size.m};
-    `};
-
-  .rjsf-field-object {
-    flex-grow: 1;
-  }
-`;
-
+/**
+ * `ArrayFieldTemplate` is a custom field template for arrays that renders an array of fields.
+ * @param props ArrayFieldTemplateProps
+ * @param props.canAdd - Whether or not the user can add new items to the array.
+ * @param props.DescriptionField - A custom field for rendering the array's description.
+ * @param props.disabled - Whether or not the field is disabled.
+ * @param props.formData - The form's data.
+ * @param props.idSchema - The field's ID schema.
+ * @param props.items - An array of items to render.
+ * @param props.onAddClick - A callback function for when the user clicks the add button.
+ * @param props.readonly - Whether or not the field is readonly. // jsdoc/valid-types is disabled for this file due to // https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/104
+ * @param props.required - Whether or not the field is required.
+ * @param props.schema - The field's schema.
+ * @param props.title - The field's title.
+ * @param props.TitleField - A custom field for rendering the array's title.
+ * @param props.uiSchema - The field's UI schema.
+ * @returns JSX.Element
+ */
 export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
+  DescriptionField,
+  TitleField,
   canAdd,
   disabled,
-  fieldPathId,
+  formData,
+  idSchema,
   items,
   onAddClick,
   readonly,
-  registry,
   required,
   schema,
   title,
-  uiSchema = {},
+  uiSchema,
 }) => {
-  const id = fieldPathId.$id;
-  const { DescriptionFieldTemplate, TitleFieldTemplate } = registry.templates;
+  const id = idSchema.$id;
   const description = uiSchema["ui:description"] || schema.description;
+  const border = uiSchema["ui:border"] ?? false;
   const descriptionNode = uiSchema["ui:descriptionNode"];
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const placeholder = uiSchema["ui:placeholder"];
   const showLabel = uiSchema["ui:showLabel"] ?? true;
+  const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
   const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
   const isDisabled = disabled || readonly;
 
@@ -152,16 +163,12 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const arraydataTestId = uiSchema["ui:data-testid"];
 
   const arrayCss = uiSchema["ui:arrayCSS"];
+  const arrayItemCss = uiSchema["ui:arrayItemCSS"];
 
   // Override RJSF's default array behavior; add new elements to beginning of array unless otherwise specified.
   const addToEnd = uiSchema["ui:addToEnd"] ?? false;
-  const handleAddClick = (event?: React.MouseEvent) => {
-    const addIndex = items.length && !addToEnd ? 0 : undefined;
-    (onAddClick as (event?: React.MouseEvent, index?: number) => void)(
-      event,
-      addIndex,
-    );
-  };
+  const handleAddClick =
+    items.length && !addToEnd ? items[0].onAddIndexClick(0) : onAddClick;
 
   const addButton = (
     <PlusButton
@@ -181,99 +188,51 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   return (
     <>
       {showLabel && (
-        <TitleFieldTemplate
-          id={`${id}__title`}
-          registry={registry}
-          required={required}
-          schema={schema}
-          title={title}
-          uiSchema={uiSchema}
-        />
+        <TitleField id={`${id}__title`} required={required} title={title} />
       )}
       {descriptionNode || (
-        <DescriptionFieldTemplate
-          description={description ?? ""}
-          id={`${id}__description`}
-          registry={registry}
-          schema={schema}
-          uiSchema={uiSchema}
-        />
+        <DescriptionField description={description} id={`${id}__description`} />
       )}
       {buttonAtBeginning && (
-        <AddButtonContainer>
+        <ElementWrapper className={styles.addButtonContainer}>
           {addButton}
           {secondaryButton}
-        </AddButtonContainer>
+        </ElementWrapper>
       )}
-      <ArrayContainer
-        css={arrayCss}
+      <div
+        className={cx(
+          styles.arrayContainer,
+          (fullWidth || useExpandableCard) && styles.fullWidth,
+          !!items?.length && styles.hasChildren,
+          emotionCssToClassName(arrayCss),
+        )}
         data-testid={arraydataTestId}
-        fullWidth={fullWidth || useExpandableCard}
-        hasChildren={!!items?.length}
         id={id}
       >
         {items.length === 0 && placeholder && (
-          <Placeholder>{placeholder}</Placeholder>
+          <Body className={styles.placeholder}>{placeholder}</Body>
         )}
-        {items}
+        {items.map((p, i) => (
+          <ArrayItem
+            {...p}
+            key={p.key}
+            arrayItemCss={arrayItemCss}
+            border={border}
+            title={
+              formData?.[i]?.displayTitle ??
+              uiSchema?.items?.["ui:displayTitle"]
+            }
+            topAlignDelete={topAlignDelete}
+            useExpandableCard={useExpandableCard}
+          />
+        ))}
         {buttonAtEnd && (
-          <AddButtonContainer>
+          <ElementWrapper className={styles.addButtonContainer}>
             {addButton}
             {secondaryButton}
-          </AddButtonContainer>
+          </ElementWrapper>
         )}
-      </ArrayContainer>
+      </div>
     </>
   );
 };
-
-const AddButtonContainer = styled(ElementWrapper)`
-  margin-top: ${size.s};
-  display: flex;
-
-  > :not(:last-of-type) {
-    margin-right: ${size.xs};
-  }
-`;
-
-type ArrayContainerProps = {
-  hasChildren: boolean;
-  fullWidth?: boolean;
-};
-
-const ArrayContainer = styled.div<ArrayContainerProps>`
-  ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
-  min-width: min-content;
-  ${({ fullWidth }) =>
-    fullWidth ? "max-width: unset" : `max-width: ${STANDARD_FIELD_WIDTH}px;`}
-`;
-
-const DeleteButtonWrapper = styled(ElementWrapper)`
-  margin-left: ${size.s};
-  // Align button with top of input unless it should specifically align to the top of the ArrayItemRow
-  margin-top: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
-    topAlignDelete ? "0px" : labelOffset};
-`;
-
-const StyledExpandableCard = styled(ExpandableCard)`
-  margin-bottom: ${size.l};
-`;
-
-const OrderControls = styled.div<{ topAlignDelete: boolean }>`
-  display: flex;
-  flex-direction: column;
-  margin-right: ${size.s};
-  margin-top: ${({ topAlignDelete }) => (topAlignDelete ? "0px" : labelOffset)};
-
-  > :not(:last-of-type) {
-    margin-bottom: ${size.xs};
-  }
-`;
-
-const TitleWrapper = styled.span`
-  margin-right: ${size.s};
-`;
-
-const Placeholder = styled(Body)`
-  margin-bottom: ${size.m};
-`;

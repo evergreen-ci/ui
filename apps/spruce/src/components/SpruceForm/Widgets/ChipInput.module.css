@@ -1,0 +1,16 @@
+.chipLayout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-200);
+}
+
+.inputWrapper {
+  min-width: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--via-space-200);
+}
+
+.textInput.textInput {
+  flex-grow: 1;
+}

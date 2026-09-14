@@ -1,9 +1,8 @@
 import { useCallback, useState } from "react";
-import styled from "@emotion/styled";
 import { Option, Select } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
 import TextInput from "components/TextInputWithValidation";
+import styles from "./index.module.css";
 
 type Option<T extends string = string> = {
   value: T;
@@ -57,14 +56,15 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
   );
 
   return (
-    <Container>
+    <div className={styles.container}>
       <Label htmlFor={id}>
-        <LabelContainer>{label}</LabelContainer>
+        <div className={styles.labelContainer}>{label}</div>
       </Label>
-      <InputGroup>
-        <GroupedSelect
+      <div className={styles.inputGroup}>
+        <Select
           allowDeselect={false}
           aria-labelledby={`${ariaLabel} Select`}
+          className={styles.groupedSelect}
           data-testid={`${dataTestId}-select`}
           dropdownWidthBasis="option"
           onChange={handleChange}
@@ -75,10 +75,11 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
               {o.displayName}
             </Option>
           ))}
-        </GroupedSelect>
-        <GroupedTextInput
+        </Select>
+        <TextInput
           aria-label={`${ariaLabel} Input`}
           aria-labelledby={`${ariaLabel} Input`}
+          className={styles.groupedTextInput}
           clearOnSubmit
           data-testid={`${dataTestId}-input`}
           id={id}
@@ -89,45 +90,9 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           validator={validator || selectedOption.validator}
           validatorErrorMessage={validatorErrorMessage}
         />
-      </InputGroup>
-    </Container>
+      </div>
+    </div>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputGroup = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  margin-top: ${size.xxs};
-`;
-
-const LabelContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const GroupedSelect = styled(Select)`
-  /* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
-  button {
-    margin-top: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-right: 0;
-    width: max-content;
-  }
-`;
-
-const GroupedTextInput = styled(TextInput)`
-  /* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
-  > div > div {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-  }
-`;
 
 export default TupleSelect;

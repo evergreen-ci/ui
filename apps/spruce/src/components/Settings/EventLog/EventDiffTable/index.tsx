@@ -1,8 +1,5 @@
 import { useMemo } from "react";
-import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
-import { palette } from "@leafygreen-ui/palette";
-import { fontFamilies } from "@leafygreen-ui/tokens";
 import {
   BaseTable,
   LGColumnDef,
@@ -10,6 +7,7 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../types";
+import styles from "./index.module.css";
 import { getArrayDiffIndices, getEventDiffLines } from "./utils";
 import {
   CustomKeyValueRenderConfig,
@@ -50,34 +48,6 @@ const EventDiffTable: React.FC<TableProps> = ({
   );
 };
 
-const CellText = styled.span`
-  font-family: ${fontFamilies.code};
-  font-size: 12px;
-  line-height: 16px;
-  overflow-wrap: anywhere;
-  white-space: pre-wrap;
-`;
-
-const ArrayValue = styled.span`
-  display: block;
-  white-space: pre-wrap;
-`;
-
-const ArrayItem = styled.span`
-  display: block;
-  padding-left: 12px;
-`;
-
-const AddedArrayItem = styled.ins`
-  background-color: ${palette.green.light3};
-  border-radius: 2px;
-`;
-
-const RemovedArrayItem = styled.del`
-  background-color: ${palette.red.light3};
-  border-radius: 2px;
-`;
-
 const renderEventValue = (value: JSONValue): string => {
   if (value === null || value === undefined) {
     return "";
@@ -112,7 +82,7 @@ const renderArrayValue = (
   const itemOccurrences = new Map<string, number>();
 
   return (
-    <ArrayValue>
+    <span className={styles.arrayValue}>
       [
       {value.map((item, index) => {
         const formattedValue = renderEventValue(item);
@@ -127,20 +97,30 @@ const renderArrayValue = (
         if (changedIndexSet.has(index)) {
           renderedValue =
             side === "before" ? (
-              <RemovedArrayItem aria-label={`Removed ${formattedValue}`}>
+              <del
+                aria-label={`Removed ${formattedValue}`}
+                className={styles.removedArrayItem}
+              >
                 {displayValue}
-              </RemovedArrayItem>
+              </del>
             ) : (
-              <AddedArrayItem aria-label={`Added ${formattedValue}`}>
+              <ins
+                aria-label={`Added ${formattedValue}`}
+                className={styles.addedArrayItem}
+              >
                 {displayValue}
-              </AddedArrayItem>
+              </ins>
             );
         }
 
-        return <ArrayItem key={key}>{renderedValue}</ArrayItem>;
+        return (
+          <span key={key} className={styles.arrayItem}>
+            {renderedValue}
+          </span>
+        );
       })}
       ]
-    </ArrayValue>
+    </span>
   );
 };
 
@@ -179,14 +159,16 @@ const columns = (
   {
     header: "Property",
     accessorKey: "key",
-    cell: ({ getValue }) => <CellText>{getValue() as string}</CellText>,
+    cell: ({ getValue }) => (
+      <span className={styles.cellText}>{getValue() as string}</span>
+    ),
     enableSorting: true,
   },
   {
     header: "Before",
     accessorKey: "before",
     cell: ({ getValue, row }) => (
-      <CellText>
+      <span className={styles.cellText}>
         {renderCellValue(
           row.original.key,
           getValue() as JSONValue,
@@ -194,7 +176,7 @@ const columns = (
           "before",
           customKeyValueRenderConfig,
         )}
-      </CellText>
+      </span>
     ),
   },
   {
@@ -204,7 +186,7 @@ const columns = (
       getValue() === null || getValue() === undefined ? (
         <Badge variant={Variant.Red}>Deleted</Badge>
       ) : (
-        <CellText>
+        <span className={styles.cellText}>
           {renderCellValue(
             row.original.key,
             row.original.before,
@@ -212,7 +194,7 @@ const columns = (
             "after",
             customKeyValueRenderConfig,
           )}
-        </CellText>
+        </span>
       ),
   },
 ];

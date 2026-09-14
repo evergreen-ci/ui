@@ -1,0 +1,15 @@
+.boldLabel {
+  flex-shrink: 0;
+}
+
+.stepbackLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+}
+
+/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
+   Remove when this component migrates to Via. */
+.breakingTaskButton.breakingTaskButton {
+  flex-shrink: 0;
+}

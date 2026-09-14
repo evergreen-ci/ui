@@ -202,7 +202,6 @@ test.describe("Project Settings when defaulting to repo", () => {
 
   test.describe("GitHub Pull Requests page", () => {
     test.beforeEach(async ({ page }) => {
-      await page.getByRole("button", { name: "GitHub" }).click();
       await page.getByTestId("navitem-pull-requests").click();
       await expectSaveButtonEnabled(page, false);
     });
@@ -297,7 +296,6 @@ test.describe("Project Settings when defaulting to repo", () => {
 
   test.describe("GitHub Commit Checks page", () => {
     test.beforeEach(async ({ page }) => {
-      await page.getByRole("button", { name: "GitHub" }).click();
       await page.getByTestId("navitem-commit-checks").click();
       await expectSaveButtonEnabled(page, false);
     });
@@ -335,7 +333,6 @@ test.describe("Project Settings when defaulting to repo", () => {
 
   test.describe("GitHub Git Tags page", () => {
     test.beforeEach(async ({ page }) => {
-      await page.getByRole("button", { name: "GitHub" }).click();
       await page.getByTestId("navitem-git-tags").click();
       await expectSaveButtonEnabled(page, false);
     });
@@ -350,7 +347,6 @@ test.describe("Project Settings when defaulting to repo", () => {
 
   test.describe("GitHub Merge Queue page", () => {
     test.beforeEach(async ({ page }) => {
-      await page.getByRole("button", { name: "GitHub" }).click();
       await page.getByTestId("navitem-merge-queue").click();
       await expectSaveButtonEnabled(page, false);
     });

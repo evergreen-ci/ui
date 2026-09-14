@@ -11,6 +11,7 @@ export const ALIAS = gql`
       value
     }
     remotePath
+    requiredLabels
     task
     taskTags
     variant

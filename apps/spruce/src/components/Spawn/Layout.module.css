@@ -1,0 +1,19 @@
+.titleContainer {
+  align-items: center;
+  display: flex;
+  gap: var(--via-space-400);
+}
+
+.badgeWrapper {
+  display: flex;
+  gap: var(--via-space-200);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  margin-top: 20px;
+}

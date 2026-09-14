@@ -47,7 +47,7 @@ describe("Error boundary", () => {
         </ErrorBoundary>
       );
       render(<TestErrorBoundary />);
-      expect(screen.getByText("Error")).toBeInTheDocument();
+      expect(screen.getByText("Something went wrong.")).toBeInTheDocument();
       expect(console.error).toHaveBeenCalledWith({
         error: err,
         errorInfo: expect.objectContaining({
@@ -95,7 +95,7 @@ describe("Error boundary", () => {
         </ErrorBoundary>
       );
       render(<TestErrorBoundary />);
-      expect(screen.getByText("Error")).toBeInTheDocument();
+      expect(screen.getByText("Something went wrong.")).toBeInTheDocument();
 
       expect(screen.getByTestId("error-fallback")).toBeInTheDocument();
     });
@@ -113,7 +113,7 @@ describe("Error boundary", () => {
         </ErrorBoundary>
       );
       render(<TestErrorBoundary />);
-      expect(screen.getByText("Error")).toBeInTheDocument();
+      expect(screen.getByText("Something went wrong.")).toBeInTheDocument();
       expect(screen.getByTestId("error-fallback")).toBeInTheDocument();
       expect(window.location.reload).toHaveBeenCalled();
     });

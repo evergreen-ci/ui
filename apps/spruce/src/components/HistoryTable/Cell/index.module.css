@@ -1,0 +1,31 @@
+.emptySquare {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--via-color-neutral-300);
+  margin: 0 auto;
+}
+
+.baseCell {
+  display: flex;
+  height: 100%;
+  width: 150px;
+  margin: 0 var(--via-space-200);
+  justify-content: center;
+}
+
+.cell {
+  align-items: center;
+}
+
+.headerCell {
+  word-break: break-all; /* Safari */
+  word-wrap: anywhere;
+  text-align: center;
+  height: var(--via-space-1800);
+  padding: var(--via-space-200) 0;
+}
+
+.labelCellContainer {
+  width: 200px;
+  margin-right: 40px;
+}

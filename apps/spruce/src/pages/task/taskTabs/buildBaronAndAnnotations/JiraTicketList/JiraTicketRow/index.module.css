@@ -1,0 +1,19 @@
+.container {
+  padding: var(--via-space-200);
+}
+
+.bottomMetadataWrapper {
+  margin-top: var(--via-space-200);
+  display: flex;
+  gap: var(--via-space-400);
+}
+
+/* Doubled selector outranks lib's static a.link/span.link override.
+   Remove when links migrate to Via. */
+.jiraSummaryLink.jiraSummaryLink {
+  font-weight: bold;
+}
+
+.jiraSummaryLink {
+  margin-right: var(--via-space-400);
+}

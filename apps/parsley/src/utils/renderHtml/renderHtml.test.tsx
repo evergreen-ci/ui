@@ -40,7 +40,6 @@ describe("renderHtml", () => {
     render(
       <>
         {renderHtml("test <span data-testid='element'>string</span>", {
-          // @ts-expect-error - This is expecting a react component but its an Emotion component which are virtually the same thing
           transformNode: { span: Component },
         })}
       </>,

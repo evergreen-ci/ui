@@ -8,6 +8,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
+  Divider,
   SettingsPageContent,
   SideNav,
   SideNavGroup,
@@ -157,13 +158,9 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             ))}
           </SideNavGroup>
 
+          <Divider margin={dividerMargin} />
           <div ref={githubGroupRef}>
-            <SideNavGroup
-              collapsible
-              glyph={<Icon glyph="GitHub" />}
-              header="GitHub"
-              initialCollapsed={!githubTabs.includes(currentTab)}
-            >
+            <SideNavGroup glyph={<Icon glyph="GitHub" />} header="GitHub">
               {githubTabs.map((v) => (
                 <SharedSettingsNavItem
                   key={v}
@@ -177,6 +174,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             <GithubNavGuideCue refEl={githubGroupRef} />
           </div>
 
+          <Divider margin={dividerMargin} />
           <SideNavGroup glyph={<Icon glyph="List" />} header="Changelog">
             {otherTabs.map((v) => (
               <SharedSettingsNavItem
@@ -207,6 +205,8 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     </ProjectSettingsProvider>
   );
 };
+
+const dividerMargin = `${size.xxs} ${size.xs} -${size.xxs} ${size.xs}`;
 
 const SharedSettingsNavItem: React.FC<{
   currentTab: ProjectSettingsTabRoutes;

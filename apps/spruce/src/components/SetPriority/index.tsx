@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
-import { palette } from "@leafygreen-ui/palette";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm, { Align, Justify } from "@evg-ui/lib/components/Popconfirm";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { cx } from "@evg-ui/lib/utils/css";
 import { useTaskAnalytics, useVersionAnalytics } from "analytics";
 import {
   SetTaskPrioritiesMutation,
@@ -18,8 +16,7 @@ import {
   SetVersionPriorityMutationVariables,
 } from "gql/generated/types";
 import { SET_TASK_PRIORITIES, SET_VERSION_PRIORITY } from "gql/mutations";
-
-const { gray, red, yellow } = palette;
+import styles from "./index.module.css";
 
 export { Align, Justify };
 
@@ -156,8 +153,9 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         refEl={menuItemRef}
         setOpen={setOpen}
       >
-        <PriorityInput
+        <NumberInput
           ref={(el) => setInputRef(el)}
+          className={styles.priorityInput}
           data-testid={`${label}-priority-input`}
           inputClassName="priority-input"
           label="Set New Priority"
@@ -172,55 +170,39 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           value={priority.toString()}
         />
         {priority >= 0 && priority < 50 && (
-          <Message data-testid="priority-default-message" type="default">
-            <StyledIcon glyph="InfoWithCircle" />
+          <div
+            className={cx(styles.message, styles.messageDefault)}
+            data-testid="priority-default-message"
+          >
+            <Icon className={styles.icon} glyph="InfoWithCircle" />
             <span>
               Use with discretion for tasks you&apos;re actively waiting on.
             </span>
-          </Message>
+          </div>
         )}
         {priority >= 50 && priority < 100 && (
-          <Message data-testid="priority-warning-message" type="warning">
-            <StyledIcon glyph="ImportantWithCircle" />
+          <div
+            className={cx(styles.message, styles.messageWarning)}
+            data-testid="priority-warning-message"
+          >
+            <Icon className={styles.icon} glyph="ImportantWithCircle" />
             <span>Please ensure that this is a high priority change.</span>
-          </Message>
+          </div>
         )}
         {priority >= 100 && (
-          <Message data-testid="priority-admin-message" type="admin">
-            <StyledIcon glyph="Warning" />
+          <div
+            className={cx(styles.message, styles.messageAdmin)}
+            data-testid="priority-admin-message"
+          >
+            <Icon className={styles.icon} glyph="Warning" />
             <span>
               This is admin-restricted and should only be used in emergencies.
             </span>
-          </Message>
+          </div>
         )}
       </Popconfirm>
     </>
   );
 };
-
-const inputWidth = "200px";
-
-const PriorityInput = styled(NumberInput)`
-  .priority-input {
-    width: ${inputWidth};
-  }
-`;
-
-const Message = styled.div<{ type: "default" | "warning" | "admin" }>`
-  width: ${inputWidth};
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.xxs};
-  margin-top: ${size.xxs};
-
-  color: ${({ type }) => type === "default" && gray.light1};
-  color: ${({ type }) => type === "warning" && yellow.base};
-  color: ${({ type }) => type === "admin" && red.light1};
-`;
-
-const StyledIcon = styled(Icon)`
-  flex-shrink: 0;
-  margin-top: 2px;
-`;
 
 export default SetPriority;

@@ -1,16 +1,28 @@
-import styled from "@emotion/styled";
-import { STANDARD_FIELD_WIDTH } from "./utils";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
+import { SerializedStyles } from "@emotion/react";
+import { cx } from "@evg-ui/lib/utils/css";
+import styles from "./ElementWrapper.module.css";
+import { emotionCssToClassName } from "./utils";
 
-type ElementWrapperProps = {
+interface ElementWrapperProps extends ComponentPropsWithoutRef<"div"> {
+  css?: SerializedStyles | string;
   limitMaxWidth?: boolean;
-};
+}
 
-const ElementWrapper = styled.div<ElementWrapperProps>`
-  margin-bottom: 20px;
-  max-width: 800px;
-
-  ${({ limitMaxWidth }) =>
-    limitMaxWidth && `max-width: ${STANDARD_FIELD_WIDTH}px;`}
-`;
+const ElementWrapper = forwardRef<HTMLDivElement, ElementWrapperProps>(
+  ({ className, css: cssProp, limitMaxWidth, ...rest }, ref) => (
+    <div
+      ref={ref}
+      className={cx(
+        styles.elementWrapper,
+        limitMaxWidth && styles.limitMaxWidth,
+        emotionCssToClassName(cssProp),
+        className,
+      )}
+      {...rest}
+    />
+  ),
+);
+ElementWrapper.displayName = "ElementWrapper";
 
 export default ElementWrapper;

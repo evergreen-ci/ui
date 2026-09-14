@@ -1,0 +1,11 @@
+.tableTitle {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: var(--via-space-400) 0;
+}
+
+.paginationWrapper {
+  display: flex;
+  align-items: center;
+}

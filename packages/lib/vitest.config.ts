@@ -10,6 +10,14 @@ const vitestConfig = defineTestConfig({
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
     include: ["src/**/*.test.{ts,tsx}"],
+    server: {
+      deps: {
+        // Inlining keeps @via-ds/icons on Vite's resolver; without it each
+        // worker Node-loads all 188 glyph modules and the pool starves.
+        // Remove once UXE-807 (standalone imports) lands.
+        inline: ["@via-ds/icons"],
+      },
+    },
   },
   resolve: {
     tsconfigPaths: true,

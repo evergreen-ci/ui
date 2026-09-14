@@ -1,0 +1,14 @@
+.row {
+  border-bottom: 1px solid var(--via-color-neutral-200);
+}
+
+.filterExpression {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  cursor: pointer;
+}

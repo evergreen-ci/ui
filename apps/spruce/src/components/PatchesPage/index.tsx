@@ -1,7 +1,5 @@
-import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
@@ -11,6 +9,7 @@ import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchPageQueryParams } from "types/patch";
 import { validateRegexp } from "utils/validators";
+import styles from "./index.module.css";
 import ListArea from "./ListArea";
 import { PaginationButtons } from "./PaginationButtons";
 import { StatusSelector } from "./StatusSelector";
@@ -72,7 +71,7 @@ export const PatchesPage: React.FC<Props> = ({
   return (
     <PageWrapper>
       <PageTitle data-testid="patches-page-title">{pageTitle}</PageTitle>
-      <FiltersWrapperSpaceBetween>
+      <FiltersWrapper className={styles.filtersWrapperSpaceBetween}>
         <TextInputWithValidation
           aria-label="Search patch descriptions"
           data-testid="patch-description-input"
@@ -84,13 +83,14 @@ export const PatchesPage: React.FC<Props> = ({
         />
         <StatusSelector />
         {filterComp}
-        <HiddenCheckbox
+        <Checkbox
           checked={includeHiddenCheckboxChecked}
+          className={styles.hiddenCheckbox}
           data-testid="include-hidden-checkbox"
           label="Include hidden"
           onChange={includeHiddenCheckboxOnChange}
         />
-      </FiltersWrapperSpaceBetween>
+      </FiltersWrapper>
       <PaginationButtons
         filteredPatchCount={filteredCount}
         loading={loading}
@@ -110,13 +110,3 @@ export const PatchesPage: React.FC<Props> = ({
     </PageWrapper>
   );
 };
-
-const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) auto;
-  grid-column-gap: ${size.s};
-`;
-
-const HiddenCheckbox = styled(Checkbox)`
-  justify-content: flex-end;
-`;

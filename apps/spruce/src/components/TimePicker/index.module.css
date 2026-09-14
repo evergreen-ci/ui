@@ -1,0 +1,21 @@
+.verticalLine {
+  border-left: 1px solid var(--via-color-neutral-200);
+}
+
+.colon {
+  font-family: inherit;
+}
+
+.menuList.menuList {
+  display: flex;
+  flex-direction: row;
+
+  height: 230px;
+  padding: 0;
+  padding-top: var(--via-space-200);
+}
+
+.contentWrapper {
+  display: flex;
+  align-items: center;
+}

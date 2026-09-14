@@ -27,7 +27,7 @@ test.describe("Downstream Projects Tab", () => {
       page.getByTestId("downstream-base-commit").first(),
     ).toHaveAttribute(
       "href",
-      /\/version\/logkeeper_e3579537e848d14f0c3e5c25ef745fd0f10702d4/,
+      /\/version\/evergreen_33016573166a36bd5f46b4111151899d5c4e95b1/,
     );
   });
 

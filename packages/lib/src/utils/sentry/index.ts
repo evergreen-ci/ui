@@ -2,6 +2,7 @@ import type { Context } from "@sentry/core";
 import {
   type Scope,
   type SeverityLevel,
+  browserSessionIntegration,
   captureException,
   init,
   setTags,
@@ -44,6 +45,7 @@ const initializeSentry = ({
       debug: debug,
       dsn: sentryDSN,
       environment: environment || "development",
+      integrations: [browserSessionIntegration({ lifecycle: "page" })],
       maxValueLength: 500,
       normalizeDepth: 5,
     });

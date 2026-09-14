@@ -1,0 +1,22 @@
+.timeOptions {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+
+.item {
+  all: unset;
+  font-family: inherit;
+  padding: var(--via-space-200) 20px;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out; /* transitionDuration.default */
+}
+
+.item:not(.itemSelected):hover {
+  background-color: var(--via-color-neutral-200);
+}
+
+.itemSelected {
+  background-color: var(--via-color-blue-100);
+}

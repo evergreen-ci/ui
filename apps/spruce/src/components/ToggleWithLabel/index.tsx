@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
 import { Toggle, ToggleProps, Size as ToggleSize } from "@leafygreen-ui/toggle";
 import { Description, Label } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import styles from "./index.module.css";
 
 interface Props {
   checked: boolean;
@@ -20,7 +19,7 @@ export const ToggleWithLabel: React.FC<Props> = ({
   label,
   onChange,
 }) => (
-  <ToggleContainer>
+  <div className={styles.toggleContainer}>
     <Toggle
       aria-labelledby={`${id}-label`}
       checked={checked}
@@ -35,15 +34,5 @@ export const ToggleWithLabel: React.FC<Props> = ({
       </Label>
       <Description>{description}</Description>
     </div>
-  </ToggleContainer>
+  </div>
 );
-
-const ToggleContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.xs};
-
-  :not(:last-of-type) {
-    margin-bottom: ${size.s};
-  }
-`;

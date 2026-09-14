@@ -36,6 +36,9 @@ type Action =
       "task.status": string;
       column: string;
     }
+  | { name: "Clicked version skipped tests details button" }
+  | { name: "Viewed version skipped tests modal" }
+  | { name: "Clicked download version skipped tests JSON button" }
   | { name: "Deleted all filters" }
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
   | { name: "Filtered tasks table"; "filter.by": string | string[] }

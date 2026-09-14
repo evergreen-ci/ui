@@ -1,0 +1,58 @@
+.cardWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--via-space-400) var(--via-space-100);
+  border-bottom: 1px solid var(--via-color-neutral-200);
+}
+
+.center {
+  display: flex;
+  flex: 1 1 0;
+}
+
+.left {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  padding-right: var(--via-space-600);
+}
+
+.right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--via-space-200);
+}
+
+.chipContainer {
+  display: flex;
+  align-items: center;
+  height: 28px;
+}
+
+/* Doubled selector outranks lib's static a.link/span.link override.
+   Remove when links migrate to Via. */
+.descriptionLink.descriptionLink {
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: var(--via-space-200);
+}
+
+.patchBadgeContainer {
+  margin-right: var(--via-space-600);
+  min-width: var(--via-space-1800);
+}
+
+.taskBadgeContainer {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.taskBadgeContainer > * {
+  margin-right: var(--via-space-400);
+}
+
+.timeAndProject {
+  color: var(--via-color-neutral-400);
+}

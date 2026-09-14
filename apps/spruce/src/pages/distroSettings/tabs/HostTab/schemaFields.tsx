@@ -428,6 +428,41 @@ const execUser = {
   },
 };
 
+const containerIsolationEnabled = {
+  schema: {
+    type: "boolean" as const,
+    title: "Enabled",
+  },
+  uiSchema: {
+    "ui:description":
+      "Run task subprocess calls (shell.exec, subprocess.exec) inside an ephemeral Docker container instead of directly on the host. Requires Exec User to be set in the User and SSH Configuration section.",
+    "ui:bold": true,
+  },
+};
+
+const containerIsolationImage = {
+  schema: {
+    type: "string" as const,
+    title: "Container Image",
+  },
+  uiSchema: {
+    "ui:description": "ECR image URI used to create the task container.",
+    "ui:placeholder":
+      "557821124784.dkr.ecr.us-east-1.amazonaws.com/repository:tag",
+  },
+};
+
+const containerIsolationRequireIsolation = {
+  schema: {
+    type: "boolean" as const,
+    title: "Require Isolation",
+  },
+  uiSchema: {
+    "ui:description":
+      "When on, a task fails immediately if its container cannot start. When off (the default), a task falls back to running directly on the host if the container cannot start.",
+  },
+};
+
 const authorizedKeysFile = {
   schema: {
     type: "string" as const,
@@ -706,5 +741,27 @@ export const sshConfig = {
     execUser: execUser.uiSchema,
     authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
     sshOptions: sshOptions.uiSchema,
+  }),
+};
+
+export const containerIsolation = {
+  schema: {
+    cpus: { type: "integer" as const },
+    enabled: containerIsolationEnabled.schema,
+    image: containerIsolationImage.schema,
+    memoryMb: { type: "integer" as const },
+    requireIsolation: containerIsolationRequireIsolation.schema,
+  },
+  uiSchema: (architecture: Arch) => ({
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    // Container isolation is only supported on Linux.
+    ...(!linuxArchitectures.includes(architecture) && {
+      "ui:widget": "hidden",
+    }),
+    enabled: containerIsolationEnabled.uiSchema,
+    image: containerIsolationImage.uiSchema,
+    cpus: { "ui:widget": "hidden" },
+    memoryMb: { "ui:widget": "hidden" },
+    requireIsolation: containerIsolationRequireIsolation.uiSchema,
   }),
 };

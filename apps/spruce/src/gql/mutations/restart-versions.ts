@@ -12,12 +12,8 @@ export const RESTART_VERSIONS = gql`
       versionsToRestart: $versionsToRestart
     ) {
       id
-      patch {
+      childVersions {
         id
-        childPatches {
-          id
-          status
-        }
         status
       }
       status

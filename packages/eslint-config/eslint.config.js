@@ -39,7 +39,6 @@ const globalIgnores = {
     "**/sdlschema",
     "**/gql/generated/types.ts",
     "**/storybook-static",
-    "**/routeTree.gen.ts",
   ],
 };
 
@@ -326,6 +325,29 @@ const playwrightConfig = {
   rules: {
     ...playwrightPlugin.configs.recommended.rules,
     "no-await-in-loop": "off",
+    "playwright/expect-expect": [
+      errorIfStrict,
+      {
+        assertFunctionNames: [
+          "validateToast",
+          "expectSaveButtonEnabled",
+          "assertValueCopiedToClipboard",
+        ],
+      },
+    ],
+  },
+};
+
+// Playwright setup files don't need to follow the same rules as test files.
+const playwrightSetupConfig = {
+  name: "playwright/setup-overrides",
+  files: [
+    "playwright/**/auth.setup.ts",
+    "playwright/**/global-setup.ts",
+    "playwright/**/global-teardown.ts",
+  ],
+  rules: {
+    "playwright/expect-expect": OFF,
   },
 };
 
@@ -469,6 +491,7 @@ export default defineConfig(
   storybookPlugin.configs["flat/recommended"],
   storyBookConfig,
   playwrightConfig,
+  playwrightSetupConfig,
   graphQLProcessorConfig,
   graphQLConfig,
   importConfig,

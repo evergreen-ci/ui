@@ -1,9 +1,7 @@
-import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
-import { H3 } from "@leafygreen-ui/typography";
+import { LinkButton } from "@via-ds/components/button";
+import { H3 } from "@via-ds/components/typography";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { size } from "@evg-ui/lib/constants/tokens";
 import PageTitle from "components/PageTitle";
 import {
   PageContent,
@@ -12,6 +10,7 @@ import {
   PageWrapper,
 } from "components/styles";
 import { getTaskRoute, slugs } from "constants/routes";
+import styles from "./index.module.css";
 import { JobLogsTable } from "./JobLogsTable";
 import { Metadata } from "./Metadata";
 import useJobLogsPageData from "./useJobLogs";
@@ -34,47 +33,37 @@ const JobLogs: React.FC = () => {
       <PageTitle
         badge={null}
         buttons={
-          <Button
+          <LinkButton
             data-testid="task-link"
             href={getTaskRoute(metadata.taskId, {
               execution: metadata.execution,
             })}
           >
             Task page
-          </Button>
+          </LinkButton>
         }
         loading={loading}
         pageTitle={`Job Logs - ${title}`}
         size="large"
         subtitle={
-          <SubtitleContainer>
+          <div className={styles.subtitleContainer}>
             <H3>{metadata.displayName}</H3>
             <TaskStatusBadge status={metadata.taskStatus} />
-          </SubtitleContainer>
+          </div>
         }
         title="Job Logs"
       />
 
-      <StyledPageLayout hasSider>
+      <PageLayout className={styles.pageLayout} hasSider>
         <PageSider>
           <Metadata loading={loading} metadata={metadata} />
         </PageSider>
         <PageContent>
           <JobLogsTable loading={loading} tests={resultsToRender} />
         </PageContent>
-      </StyledPageLayout>
+      </PageLayout>
     </PageWrapper>
   );
 };
 
-const StyledPageLayout = styled(PageLayout)`
-  padding-top: ${size.m};
-`;
-
-const SubtitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: ${size.s};
-`;
 export default JobLogs;

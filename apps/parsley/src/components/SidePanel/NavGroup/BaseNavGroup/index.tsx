@@ -4,7 +4,7 @@ import { Badge, Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { SideNavGroup } from "@leafygreen-ui/side-nav";
 import { Body } from "@leafygreen-ui/typography";
-import Icon, { glyphs } from "@evg-ui/lib/components/Icon";
+import Icon, { IconProps } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 
 const { green } = palette;
@@ -12,7 +12,7 @@ const { green } = palette;
 interface BaseNavGroupProps<T> {
   ["data-testid"]: string;
   children: ReactNode;
-  glyph: keyof typeof glyphs;
+  glyph: IconProps["glyph"];
   items: T[];
   navGroupTitle: string;
   defaultMessage: string;

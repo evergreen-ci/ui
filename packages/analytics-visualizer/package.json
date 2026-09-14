@@ -10,7 +10,7 @@
     "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
-    "eslint:strict": "STRICT=1 eslint .",
+    "eslint:strict": "STRICT=1 eslint --max-warnings=0 .",
     "test": "vitest run"
   },
   "devDependencies": {
@@ -21,7 +21,7 @@
     "prettier": "3.7.4",
     "typescript": "npm:@typescript/typescript6@~6.0.2",
     "typescript-7": "npm:typescript@~7.0.2",
-    "vite": "8.0.13",
+    "vite": "8.2.2",
     "vitest": "^4.1.6"
   }
 }

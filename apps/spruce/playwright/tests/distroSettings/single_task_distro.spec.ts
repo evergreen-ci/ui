@@ -20,17 +20,26 @@ test.describe("single task distro", () => {
     });
 
     await cards.nth(0).click();
-    const inputs = page.getByTestId("expandable-card").locator("input");
-    await expect(inputs.nth(0)).toHaveValue("evergreen");
-    await expect(inputs.nth(1)).toHaveValue("compile");
-    await expect(inputs.nth(2)).toHaveValue("test");
-    await expect(inputs.nth(3)).toHaveValue("ubuntu1604");
-    await expect(inputs.nth(4)).toHaveValue("windows");
+    const firstCard = page.getByTestId("expandable-card").nth(0);
+    const firstCardInputs = firstCard.locator('input[type="text"]');
+    await expect(firstCardInputs.nth(0)).toHaveValue("evergreen");
+    await expect(firstCardInputs.nth(1)).toHaveValue("compile");
+    await expect(firstCardInputs.nth(2)).toHaveValue("test");
+    await expect(firstCardInputs.nth(3)).toHaveValue("ubuntu1604");
+    await expect(firstCardInputs.nth(4)).toHaveValue("windows");
+    await expect(
+      firstCard.getByRole("checkbox", { name: "Regex" }),
+    ).not.toBeChecked();
 
     await cards.nth(1).click();
-    await expect(inputs.nth(5)).toHaveValue("spruce");
-    await expect(inputs.nth(6)).toHaveValue("lint");
-    await expect(inputs.nth(7)).toHaveValue("storybook");
+    const secondCard = page.getByTestId("expandable-card").nth(1);
+    const secondCardInputs = secondCard.locator('input[type="text"]');
+    await expect(secondCardInputs.nth(0)).toHaveValue("spruce");
+    await expect(secondCardInputs.nth(1)).toHaveValue("lint");
+    await expect(secondCardInputs.nth(2)).toHaveValue("storybook");
+    await expect(
+      secondCard.getByRole("checkbox", { name: "Regex" }),
+    ).not.toBeChecked();
   });
 
   test("disables spawnable checkbox when distro is a single task distro", async ({

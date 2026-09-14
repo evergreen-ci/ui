@@ -127,9 +127,15 @@ test.describe("other", () => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
     await page.getByRole("button", { name: "Add project tasks pair" }).click();
-    await page.getByLabel("Project ID / Repo").first().click();
-    await expect(page.locator('[role="listbox"]')).toBeVisible();
-    await page.locator('[role="option"]').last().click();
+    await page
+      .getByTestId("project-id-input")
+      .first()
+      .fill("mongodb-mongo-v.*");
+    await clickCheckbox(
+      page
+        .getByRole("checkbox", { name: "Treat as regular expression" })
+        .first(),
+    );
 
     await page.getByLabel("Allowed Tasks").first().fill("compile");
     await page.getByLabel("Allowed Tasks").first().press("Enter");
@@ -140,7 +146,15 @@ test.describe("other", () => {
     await validateToast(page, "success", "Settings saved successfully");
     await page.reload();
 
-    await expect(page.getByLabel("Project ID / Repo")).toHaveCount(3);
+    await expect(page.getByTestId("project-id-input")).toHaveCount(3);
+    await expect(page.getByTestId("project-id-input").first()).toHaveValue(
+      "mongodb-mongo-v.*",
+    );
+    await expect(
+      page
+        .getByRole("checkbox", { name: "Treat as regular expression" })
+        .first(),
+    ).toBeChecked();
   });
 
   test("can save bucket config changes", async ({ page }) => {

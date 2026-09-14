@@ -80,15 +80,15 @@ export const getFormSchema = ({
                       type: "object" as const,
                       title: "",
                       properties: {
-                        targetTime: {
+                        targetTimeNanoseconds: {
                           type: "number" as const,
-                          title: "Target Time (ms)",
+                          title: "Target Time (ns)",
                           default: 0,
                           minimum: 0,
                         },
-                        mergeQueueTargetTime: {
+                        mergeQueueTargetTimeNanoseconds: {
                           type: "number" as const,
-                          title: "Merge Queue Target Time (ms)",
+                          title: "Merge Queue Target Time (ns)",
                           default: 0,
                           minimum: 0,
                         },
@@ -188,7 +188,7 @@ export const getFormSchema = ({
         tunableOptions: {
           "ui:field-data-testid": "tunable-options",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
-          mergeQueueTargetTime: {
+          mergeQueueTargetTimeNanoseconds: {
             "ui:description": "Shorter target time for merge queue tasks.",
           },
           patchFactor: {

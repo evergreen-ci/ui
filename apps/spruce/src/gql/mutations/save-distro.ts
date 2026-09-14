@@ -4,6 +4,7 @@ export const SAVE_DISTRO = gql`
   mutation SaveDistro($distro: DistroInput!, $onSave: DistroOnSaveOperation!) {
     saveDistro(opts: { distro: $distro, onSave: $onSave }) {
       distro {
+        id
         name
       }
       hostCount

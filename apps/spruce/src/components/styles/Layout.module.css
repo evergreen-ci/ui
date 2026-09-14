@@ -1,0 +1,83 @@
+.siteLayout {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+.sideNavPageWrapper {
+  display: flex;
+  overflow: hidden;
+  height: calc(100vh - var(--via-space-1600));
+}
+
+.sideNavPageContent {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  flex-grow: 1;
+  padding: var(--via-space-600);
+}
+
+.settingsPageContent {
+  padding-top: 0;
+  margin-top: var(--via-space-600);
+}
+
+.pageWrapper {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: var(--via-space-600) var(--via-space-800);
+}
+
+.omitPadding {
+  padding: 0;
+}
+
+.pageLayout {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.hasSider {
+  flex-direction: row;
+}
+
+.pageSider {
+  max-width: 275px;
+  min-width: 275px;
+  width: 275px;
+}
+
+.pageContent {
+  flex: auto;
+  margin-left: var(--via-space-400);
+  overflow: hidden;
+}
+
+.pageButtonRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--via-space-200);
+}
+
+.pageButtonRow > * {
+  min-width: fit-content;
+}
+
+.inputLabel {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--via-color-neutral-600);
+}
+
+/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
+   Remove when these components migrate to Via. */
+.pageTitle.pageTitle {
+  margin-bottom: var(--via-space-400);
+}
+
+.errorMessage.errorMessage {
+  color: var(--via-color-red-400);
+}

@@ -1,16 +1,12 @@
 import { Component, useRef } from "react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
-import { palette } from "@leafygreen-ui/palette";
 import { Popover } from "@leafygreen-ui/popover";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { useDimensions } from "hooks/useDimensions";
-
-const { gray, white } = palette;
+import styles from "./index.module.css";
 
 interface DropdownProps {
   buttonRenderer?: () => React.ReactNode;
@@ -51,29 +47,34 @@ const Dropdown: React.FC<DropdownProps> = ({
   useOnClickOutside([listMenuRef, menuButtonRef], handleClickOutside);
 
   return (
-    <Container id={id}>
-      <StyledButton
+    <div className={styles.container} id={id}>
+      <Button
         ref={menuButtonRef}
+        className={styles.button}
         data-testid={dataTestId}
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
         rightGlyph={<Icon glyph="CaretDown" />}
       >
-        <ButtonContent>
-          <LabelWrapper>
+        <div className={styles.buttonContent}>
+          <div className={styles.labelWrapper}>
             {buttonRenderer ? (
               buttonRenderer()
             ) : (
-              <OverflowBody data-testid="dropdown-value">
+              <Body
+                className={styles.overflowBody}
+                data-testid="dropdown-value"
+              >
                 {buttonText}
-              </OverflowBody>
+              </Body>
             )}
-          </LabelWrapper>
-        </ButtonContent>
-      </StyledButton>
-      <Menu
+          </div>
+        </div>
+      </Button>
+      <Popover
         active={isOpen}
         adjustOnMutation
+        className={styles.menu}
         data-testid={`${dataTestId}-options`}
         onClick={(e) => e.stopPropagation()}
         refEl={menuButtonRef}
@@ -83,8 +84,8 @@ const Dropdown: React.FC<DropdownProps> = ({
         }}
       >
         <div ref={listMenuRef}>{children}</div>
-      </Menu>
-    </Container>
+      </Popover>
+    </div>
   );
 };
 
@@ -123,62 +124,5 @@ class DropdownWithRef extends Component<
     );
   }
 }
-
-// Styles lifted from LeafyGreen
-// https://github.com/mongodb/leafygreen-ui/blob/f38cdc3dca3a82a25884d30f43d87cf79997439d/packages/select/src/ListMenu/ListMenu.styles.ts#L34C5-L39C66
-const Menu = styled(Popover)`
-  text-align: left;
-  position: absolute;
-  background-color: ${white};
-  overflow: auto;
-
-  border-radius: 12px;
-  box-shadow: 0 4px 7px 0 ${gray.light2};
-  border: 1px solid ${gray.light2};
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const LabelWrapper = styled.div`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-// Borrow LeafyGreen's styling to un-center button text
-// https://github.com/mongodb/leafygreen-ui/blob/a593238ff5801f82a648c20e3595cfc6de6ec6a8/packages/select/src/MenuButton.tsx#L20-L33
-const menuButtonStyleOverrides = css`
-  // Override button defaults
-  > *:last-child {
-    grid-template-columns: 1fr 16px;
-    justify-content: flex-start;
-    > svg {
-      justify-self: right;
-      width: 16px;
-      height: 16px;
-    }
-  }
-`;
-
-const StyledButton = styled(Button)`
-  ${menuButtonStyleOverrides}
-  background: white;
-  width: 100%;
-`;
-
-const ButtonContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  overflow: hidden;
-`;
-
-const OverflowBody = styled(Body)`
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
 
 export default DropdownWithRef;

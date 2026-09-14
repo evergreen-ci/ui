@@ -1,0 +1,42 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--via-space-1800);
+  background-color: var(--via-color-neutral-700);
+  height: var(--via-space-1600);
+  line-height: var(--via-space-1600);
+  padding: 0 var(--via-space-800);
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--via-space-100);
+}
+
+.navActionContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--via-space-800);
+}
+
+.primaryLink {
+  color: var(--via-color-neutral-000);
+  transition: all 100ms ease-in;
+  flex-shrink: 0;
+}
+
+.primaryLink:hover {
+  color: var(--via-color-blue-300);
+}
+
+.primaryAWithIcon {
+  display: flex;
+  align-items: center;
+}
+
+.primaryAWithIcon > svg {
+  margin-right: var(--via-space-100);
+}

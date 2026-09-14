@@ -1,9 +1,9 @@
-import { css } from "@emotion/react";
+import { SerializedStyles } from "@emotion/react";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
-import { transformTitleToId } from "./utils";
+import { emotionCssToClassName, transformTitleToId } from "./utils";
 
 interface ContainerProps {
-  objectFieldCss?: string;
+  objectFieldCss?: SerializedStyles | string;
   children: React.ReactNode;
   "data-testid"?: string;
   description?: React.ReactNode;
@@ -21,14 +21,12 @@ export const SpruceFormContainer: React.FC<ContainerProps> = ({
   scrollMarginTop = 0,
   title,
 }) => (
-  <div css={objectFieldCss}>
+  <div className={emotionCssToClassName(objectFieldCss)}>
     {title && (
       <a
-        css={css`
-          scroll-margin-top: ${scrollMarginTop}px;
-        `}
         href={`#${transformTitleToId(title)}`}
         id={transformTitleToId(title)}
+        style={{ scrollMarginTop }}
       >
         <SettingsCardTitle id={id}>{title}</SettingsCardTitle>
       </a>

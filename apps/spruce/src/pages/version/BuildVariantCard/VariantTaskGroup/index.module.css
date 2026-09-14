@@ -1,0 +1,15 @@
+.buildVariantLink {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.taskBadgeContainer {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: var(--via-space-100);
+  margin-top: var(--via-space-100);
+}

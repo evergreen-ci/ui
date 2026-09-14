@@ -1,6 +1,4 @@
-import { css } from "@emotion/react";
-
-export const inactiveElementStyle = css`
+export const inactiveElementStyle = `
   opacity: 0.4;
   pointer-events: none;
 `;

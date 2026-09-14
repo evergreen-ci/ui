@@ -1,0 +1,5 @@
+/* 425px represents the height to subtract to prevent an overflow on the modal */
+.contentWrapper {
+  max-height: calc(100vh - 425px);
+  overflow-y: auto;
+}

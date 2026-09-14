@@ -19,3 +19,4 @@ export { useResize } from "./useResize";
 export { useRunningTime } from "./useRunningTime";
 export { useTopmostVisibleElement } from "./useTopmostVisibleElement";
 export { useHasProjectOrRepoEditPermission } from "./useHasProjectOrRepoEditPermission";
+export { useProjectBuildBaronSettings } from "./useProjectBuildBaronSettings";

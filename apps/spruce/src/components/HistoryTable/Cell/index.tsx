@@ -1,23 +1,15 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
+import { forwardRef } from "react";
 import { IconSkeleton, Size, Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { inactiveElementStyle } from "components/styles";
+import { cx } from "@evg-ui/lib/utils/css";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
-import {
-  COLUMN_LABEL_WIDTH,
-  ROW_LABEL_WIDTH,
-  VARIANT_HISTORY_SQUARE_SIZE,
-} from "../constants";
 import { HistoryTableIcon } from "../HistoryTableIcon";
-
-const { gray } = palette;
+import styles from "./index.module.css";
 
 interface TaskCellProps {
   task: {
@@ -39,10 +31,11 @@ const TaskCell: React.FC<TaskCellProps> = ({
   onClick = () => {},
   task,
 }) => (
-  <Cell
+  <div
     aria-disabled={inactive}
+    className={cx(styles.baseCell, styles.cell)}
     data-testid="task-cell"
-    inactive={inactive}
+    style={inactive ? { opacity: 0.4, pointerEvents: "none" } : undefined}
     title={taskStatusToCopy[task.displayStatus as TaskStatus]}
   >
     <Link
@@ -61,13 +54,13 @@ const TaskCell: React.FC<TaskCellProps> = ({
         status={task.displayStatus as TaskStatus}
       />
     </Link>
-  </Cell>
+  </div>
 );
 
 const EmptyCell = () => (
-  <Cell data-testid="empty-cell">
-    <EmptySquare />
-  </Cell>
+  <div className={cx(styles.baseCell, styles.cell)} data-testid="empty-cell">
+    <div className={styles.emptySquare} />
+  </div>
 );
 
 interface LoadingCellProps {
@@ -75,13 +68,19 @@ interface LoadingCellProps {
 }
 const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) =>
   isHeader ? (
-    <HeaderCell data-testid="loading-header-cell">
+    <div
+      className={cx(styles.baseCell, styles.headerCell)}
+      data-testid="loading-header-cell"
+    >
       <Skeleton size={Size.Small} />
-    </HeaderCell>
+    </div>
   ) : (
-    <Cell data-testid="loading-cell">
+    <div
+      className={cx(styles.baseCell, styles.cell)}
+      data-testid="loading-cell"
+    >
       <IconSkeleton />
-    </Cell>
+    </div>
   );
 
 interface ColumnHeaderCellProps {
@@ -95,7 +94,10 @@ const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
   onClick,
   trimmedDisplayName,
 }) => (
-  <HeaderCell data-testid="header-cell">
+  <div
+    className={cx(styles.baseCell, styles.headerCell)}
+    data-testid="header-cell"
+  >
     {trimmedDisplayName !== fullDisplayName ? (
       <Tooltip
         align={Align.Top}
@@ -114,42 +116,21 @@ const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
         {fullDisplayName}
       </Body>
     )}
-  </HeaderCell>
+  </div>
 );
 
-const EmptySquare = styled.div`
-  width: ${VARIANT_HISTORY_SQUARE_SIZE}px;
-  height: ${VARIANT_HISTORY_SQUARE_SIZE}px;
-  border: 1px solid ${gray.light1};
-  margin: 0 auto;
-`;
-
-const BaseCell = styled.div`
-  display: flex;
-  height: 100%;
-  width: ${COLUMN_LABEL_WIDTH}px;
-  margin: 0 ${size.xs};
-  justify-content: center;
-`;
-
-const Cell = styled(BaseCell)<{ inactive?: boolean }>`
-  align-items: center;
-  ${({ inactive }) => inactive && inactiveElementStyle}
-`;
-
-const HeaderCell = styled(BaseCell)`
-  word-break: break-all; // Safari
-  word-wrap: anywhere;
-  text-align: center;
-  height: ${size.xxl};
-  padding: ${size.xs} 0;
-`;
-
 // LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
-const LabelCellContainer = styled.div`
-  width: ${ROW_LABEL_WIDTH}px;
-  margin-right: 40px;
-`;
+const LabelCellContainer = forwardRef<
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<"div">
+>(({ className, ...rest }, ref) => (
+  <div
+    ref={ref}
+    className={cx(styles.labelCellContainer, className)}
+    {...rest}
+  />
+));
+LabelCellContainer.displayName = "LabelCellContainer";
 
 export {
   LabelCellContainer,
