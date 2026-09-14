@@ -815,8 +815,8 @@ importers:
         specifier: ^2.32.0
         version: 2.32.0(@types/eslint@9.6.1)(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
       eslint-plugin-jsdoc:
-        specifier: ^64.1.0
-        version: 64.2.1(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
+        specifier: ^64.3.2
+        version: 64.3.2(@types/eslint@9.6.1)(@typescript/typescript6@6.0.2)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
       eslint-plugin-jsx-a11y:
         specifier: ^6.10.2
         version: 6.10.2(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
@@ -6082,8 +6082,8 @@ packages:
       '@typescript-eslint/parser':
         optional: true
 
-  eslint-plugin-jsdoc@64.2.1:
-    resolution: {integrity: sha512-6GpSYxLPcbMw38S94Cngrgs1Zv8yLinQS1O17OxJVZ6deLbrMRCERUYQKceweSqEuG2kx5Amn4l3aKPkCp4geQ==}
+  eslint-plugin-jsdoc@64.3.2:
+    resolution: {integrity: sha512-9/j8KKTdLt5Gy7FbayPASLKabm9wcntcwkOJ+kidikNudqglqxjbsZBddkPwK9/6AeOyCwlwwAtuzHQzwTQP7A==}
     engines: {node: ^22.22.2 || >=24.15.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
@@ -8206,8 +8206,8 @@ packages:
   spdx-expression-parse@5.0.0:
     resolution: {integrity: sha512-vngmw3Rgn+o2arXNbnZaj5UtOEBuWBfvaI+Wc8GFfykIhA5/vdK9/Sp/XkLv63dykz2rxKDvKEHupF5P0FORcQ==}
 
-  spdx-license-ids@3.0.22:
-    resolution: {integrity: sha512-4PRT4nh1EImPbt2jASOKHX7PB7I+e4IWNLvkKFDxNhJlfjbYlleYQh285Z/3mPTHSAK/AvdMmw5BNNuYH8ShgQ==}
+  spdx-license-ids@3.0.23:
+    resolution: {integrity: sha512-CWLcCCH7VLu13TgOH+r8p1O/Znwhqv/dbb6lqWy67G+pT1kHmeD/+V36AVb/vq8QMIQwVShJ6Ssl5FPh0fuSdw==}
 
   split-on-first@3.0.0:
     resolution: {integrity: sha512-qxQJTx2ryR0Dw0ITYyekNQWpz6f8dGd7vffGNflQQ3Iqj9NJ6qiZ7ELpZsJ/QBhIVAiDfXdag3+Gp8RvWa62AA==}
@@ -13928,7 +13928,7 @@ snapshots:
   '@typescript-eslint/project-service@8.56.0(@typescript/typescript6@6.0.2)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.59.3(@typescript/typescript6@6.0.2)
-      '@typescript-eslint/types': 8.59.3
+      '@typescript-eslint/types': 8.68.0
       debug: 4.4.3
       typescript: '@typescript/typescript6@6.0.2'
     transitivePeerDependencies:
@@ -15506,7 +15506,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-jsdoc@64.2.1(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0)):
+  eslint-plugin-jsdoc@64.3.2(@types/eslint@9.6.1)(@typescript/typescript6@6.0.2)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0)):
     dependencies:
       '@es-joy/jsdoccomment': 0.95.1
       '@es-joy/resolve.exports': 1.2.0
@@ -15514,6 +15514,7 @@ snapshots:
       '@types/esquery': 1.5.4
       '@types/semver': 7.8.0
       '@types/spdx-expression-parse': 4.0.0
+      '@typescript-eslint/utils': 8.68.0(@types/eslint@9.6.1)(@typescript/typescript6@6.0.2)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))
       are-docs-informative: 0.1.1
       comment-parser: 1.4.8
       debug: 4.4.3
@@ -15528,7 +15529,9 @@ snapshots:
       spdx-expression-parse: 5.0.0
       to-valid-identifier: 1.0.0
     transitivePeerDependencies:
+      - '@types/eslint'
       - supports-color
+      - typescript
 
   eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0)):
     dependencies:
@@ -18009,9 +18012,9 @@ snapshots:
   spdx-expression-parse@5.0.0:
     dependencies:
       spdx-exceptions: 2.5.0
-      spdx-license-ids: 3.0.22
+      spdx-license-ids: 3.0.23
 
-  spdx-license-ids@3.0.22: {}
+  spdx-license-ids@3.0.23: {}
 
   split-on-first@3.0.0: {}
 
