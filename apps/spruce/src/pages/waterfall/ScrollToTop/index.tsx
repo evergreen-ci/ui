@@ -1,6 +1,6 @@
 import { IconButton } from "@leafygreen-ui/icon-button";
+import ArrowUp from "@via-ds/icons/ArrowUp";
 import { useMatch } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { routes } from "constants/routes";
 import { waterfallPageContainerId } from "../constants";
 
@@ -14,7 +14,7 @@ export const WaterfallScrollToTop: React.FC = () => {
         document.getElementById(waterfallPageContainerId)?.scrollTo({ top: 0 })
       }
     >
-      <Icon glyph="ArrowUp" />
+      <ArrowUp size="medium" />
     </IconButton>
   ) : null;
 };

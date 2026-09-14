@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Icon } from "@evg-ui/lib/components/Icon";
+import Edit from "@via-ds/icons/Edit";
+import Trash from "@via-ds/icons/Trash";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -44,7 +45,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
     <ButtonContainer>
       <Button
         data-testid="edit-btn"
-        leftGlyph={<Icon glyph="Edit" />}
+        leftGlyph={<Edit />}
         onClick={() => setVisible(true)}
         size={ButtonSize.Small}
       />
@@ -66,7 +67,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
             disabled={loadingRemovePublicKey}
             size={ButtonSize.Small}
           >
-            <Icon glyph="Trash" />
+            <Trash />
           </Button>
         }
       >
