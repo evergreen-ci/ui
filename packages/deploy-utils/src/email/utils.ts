@@ -33,10 +33,10 @@ export const findEvergreen = () => {
   } catch {}
 
   try {
-    const homePath = resolve(homedir(), "evergreen");
-    execFileSync(homePath, ["--version"], { stdio: "ignore" });
+    const homeEvergreen = resolve(homedir(), "evergreen");
+    execFileSync(homeEvergreen, ["--version"], { stdio: "ignore" });
     return {
-      evgExecutable: homePath,
+      evgExecutable: homeEvergreen,
       credentials: ["-c", ".evergreen.yml"],
     };
   } catch {}
