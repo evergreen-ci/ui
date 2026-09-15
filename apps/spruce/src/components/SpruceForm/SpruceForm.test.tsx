@@ -23,6 +23,7 @@ describe("spruce form", () => {
       </SpruceFormContainer>,
     );
     expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
+    expect(screen.getByText("Legacy SSH")).toBeInTheDocument();
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
     expect(screen.getByTestId("add-button")).toHaveTextContent("New User");
     expect(screen.getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
@@ -63,6 +64,66 @@ describe("spruce form", () => {
     });
   });
 
+  it("restores defaults when returning to a oneOf option", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <SpruceForm
+        onChange={onChange}
+        schema={{
+          type: "object",
+          properties: {
+            age: { type: "integer", title: "Age" },
+          },
+          oneOf: [
+            {
+              title: "First method of identification",
+              properties: {
+                firstName: {
+                  type: "string",
+                  title: "First name",
+                  default: "Chuck",
+                },
+                lastName: { type: "string", title: "Last name" },
+              },
+            },
+            {
+              title: "Second method of identification",
+              properties: {
+                idCode: { type: "string", title: "ID code" },
+              },
+            },
+          ],
+        }}
+      />,
+    );
+
+    expect(screen.getByLabelText("First name")).toHaveValue("Chuck");
+    await user.click(
+      screen.getByRole("button", { name: "First method of identification" }),
+    );
+    await user.click(
+      screen.getByRole("option", {
+        name: "Second method of identification",
+      }),
+    );
+    await user.type(screen.getByLabelText("Age"), "42");
+    await user.click(
+      screen.getByRole("button", { name: "Second method of identification" }),
+    );
+    await user.click(
+      screen.getByRole("option", { name: "First method of identification" }),
+    );
+
+    expect(screen.getByLabelText("First name")).toHaveValue("Chuck");
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        formData: expect.objectContaining({ age: 42, firstName: "Chuck" }),
+      }),
+      "root__oneof_select",
+    );
+  });
+
   describe("form elements", () => {
     describe("text input", () => {
       describe("invisible errors", () => {
@@ -79,11 +140,11 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
+                customValidate={validate}
                 formData={formData}
                 onChange={onChange}
                 schema={schema}
                 uiSchema={uiSchema}
-                validate={validate}
               />
             </SpruceFormContainer>,
           );
@@ -92,7 +153,12 @@ describe("spruce form", () => {
           expect(screen.getByTestId("text-input")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
-          expect(formErrors).toStrictEqual([{ stack: "textInput: invisible" }]);
+          expect(formErrors).toEqual([
+            expect.objectContaining({
+              message: "invisible",
+              property: ".textInput",
+            }),
+          ]);
           expect(screen.queryByText("invisible")).toBeNull();
         });
       });
@@ -169,11 +235,11 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
+                customValidate={validate}
                 formData={formData}
                 onChange={onChange}
                 schema={schema}
                 uiSchema={uiSchema}
-                validate={validate}
               />
             </SpruceFormContainer>,
           );
@@ -182,7 +248,12 @@ describe("spruce form", () => {
           expect(screen.getByTestId("text-area")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
-          expect(formErrors).toStrictEqual([{ stack: "textArea: invisible" }]);
+          expect(formErrors).toEqual([
+            expect.objectContaining({
+              message: "invisible",
+              property: ".textArea",
+            }),
+          ]);
           expect(screen.queryByText("invisible")).toBeNull();
         });
       });
@@ -245,22 +316,24 @@ describe("spruce form", () => {
     });
 
     describe("checkbox", () => {
-      it("renders an error banner when validation fails", () => {
+      it("renders an error banner when validation fails", async () => {
         const validate = vi.fn((_formData, err) => {
           err.enabled.addError("Some error");
           return err;
         });
 
+        const user = userEvent.setup();
         const { formData, schema, uiSchema } = checkbox;
         render(
           <SpruceForm
+            customValidate={validate}
             formData={formData}
             onChange={vi.fn()}
             schema={schema}
             uiSchema={uiSchema}
-            validate={validate}
           />,
         );
+        await user.click(screen.getByText("Enabled"));
         expect(screen.getByTestId("error-banner")).toHaveTextContent(
           "Some error",
         );
@@ -504,6 +577,7 @@ describe("spruce form", () => {
                 "Fri Sep 19 2025 15:19:00 GMT+0000 (Coordinated Universal Time)",
             },
           }),
+          "root_dateTime",
         );
       });
 
@@ -543,6 +617,7 @@ describe("spruce form", () => {
                 "Tue Sep 16 2025 15:56:00 GMT+0000 (Coordinated Universal Time)",
             },
           }),
+          "root_dateTime",
         );
       });
     });
@@ -562,7 +637,6 @@ const basicForm = {
         type: "string" as const,
         title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
-        enumNames: ["Legacy SSH", "Oath Token"],
       },
       validProjects: {
         type: "string" as const,
@@ -584,6 +658,7 @@ const basicForm = {
   },
   uiSchema: {
     cloneMethod: {
+      "ui:enumNames": ["Legacy SSH", "Oath Token"],
       "ui:options": {
         label: false,
       },

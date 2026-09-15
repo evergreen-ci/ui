@@ -6,6 +6,7 @@ import FilterChips from "../../FilterChips/index";
 import ElementWrapper from "../ElementWrapper";
 import styles from "./ChipInput.module.css";
 import { SpruceWidgetProps } from "./types";
+import { getWidgetLabel } from "./utils";
 
 export const ChipInput: React.FC<SpruceWidgetProps> = ({
   disabled,
@@ -13,11 +14,14 @@ export const ChipInput: React.FC<SpruceWidgetProps> = ({
   onChange,
   options,
   readonly,
+  schema,
+  uiSchema,
   value = [],
 }) => {
   const [text, setText] = useState("");
   const { "data-testid": dataTestId, description, elementWrapperCSS } = options;
   const isDisabled = disabled || readonly;
+  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
   const chips = value.map((v: string) => ({
     key: v,
     value: v,
@@ -38,7 +42,7 @@ export const ChipInput: React.FC<SpruceWidgetProps> = ({
           data-testid={dataTestId}
           description={description}
           disabled={isDisabled}
-          label={label}
+          label={widgetLabel}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => e.key === CharKey.Enter && text && handleAdd()}
           value={text}

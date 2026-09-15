@@ -28,7 +28,7 @@ export const getFormSchema = (
       projectType === ProjectType.AttachedProject
         ? widgets.RadioBoxWidget
         : "hidden",
-    "ui:showLabel": false,
+    "ui:label": false,
   };
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
@@ -123,7 +123,7 @@ export const getFormSchema = (
         },
         gitTagVersionsEnabled: {
           "ui:data-testid": "git-tag-enabled-radio-box",
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:widget": widgets.RadioBoxWidget,
         },
         users: userTeamStyling(
@@ -175,7 +175,7 @@ export const getFormSchema = (
 
 const overrideStyling = (isMissingRepoField: boolean) => ({
   "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,
-  "ui:showLabel": false,
+  "ui:label": false,
 });
 
 const userTeamStyling = (
@@ -192,14 +192,14 @@ const userTeamStyling = (
   [fieldName]: {
     "ui:addButtonText": addButtonText,
     "ui:orderable": false,
-    "ui:showLabel": false,
+    "ui:label": false,
   },
   repoData: {
     [fieldName]: {
       "ui:disabled": true,
       "ui:orderable": false,
       "ui:readonly": true,
-      "ui:showLabel": false,
+      "ui:label": false,
     },
   },
 });

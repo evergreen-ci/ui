@@ -63,7 +63,7 @@ export const getFormSchema = (
         "ui:addButtonText": "Add Username",
         "ui:description": getAdminsDescription(projectType),
         "ui:orderable": false,
-        "ui:showLabel": false,
+        "ui:label": false,
       },
     },
   },

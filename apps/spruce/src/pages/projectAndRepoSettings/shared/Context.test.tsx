@@ -1,4 +1,4 @@
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsProvider, useProjectSettingsContext } from "./Context";
@@ -119,7 +119,7 @@ describe("projectSettingsContext", () => {
         formData: {
           vars: [],
         },
-        errors: [{ name: "err" } as AjvError],
+        errors: [{ name: "err" } as RJSFValidationError],
       });
     });
 

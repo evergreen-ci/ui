@@ -6,6 +6,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
 import {
   getEnabledHoursCount,
+  getHostUptimeError,
   getHostUptimeWarnings,
   validator,
 } from "components/Spawn";
@@ -83,12 +84,25 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const [formState, setFormState] = useState<FormState>({});
   const [hasError, setHasError] = useState(true);
 
+  const hostUptimeError = useMemo(
+    () =>
+      getHostUptimeError({
+        hostUptime: formState.expirationDetails?.hostUptime,
+        noExpiration: formState.expirationDetails?.noExpiration,
+        permanentlyExempt: false,
+      }),
+    [
+      formState.expirationDetails?.hostUptime,
+      formState.expirationDetails?.noExpiration,
+    ],
+  );
+
   const selectedDistro = useMemo(
     () =>
       formSchemaInput?.distros?.find(
-        ({ name }) => name === formState?.requiredSection?.distro,
+        ({ name }) => name === formState.requiredSection?.distro,
       ),
-    [formSchemaInput.distros, formState?.requiredSection?.distro],
+    [formSchemaInput.distros, formState.requiredSection?.distro],
   );
 
   useVirtualWorkstationDefaultExpiration({
@@ -100,7 +114,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const hostUptimeWarnings = useMemo(() => {
     const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
-      formState?.expirationDetails?.hostUptime,
+      formState.expirationDetails?.hostUptime,
     );
     const warnings = getHostUptimeWarnings({
       enabledHoursCount,
@@ -110,12 +124,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           ?.runContinuously ?? false,
     });
     return { enabledHoursCount, warnings };
-  }, [formState?.expirationDetails?.hostUptime]);
+  }, [formState.expirationDetails?.hostUptime]);
 
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
     distroIdQueryParam,
+    hostUptimeError,
     hostUptimeWarnings,
     isMigration: false,
     tokenExchangeState,
@@ -171,6 +186,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       title="Spawn New Host"
     >
       <SpruceForm
+        customValidate={validator(false)}
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
@@ -178,8 +194,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         }}
         schema={schema}
         uiSchema={uiSchema}
-        // @ts-expect-error rjsf v4 has insufficient typing for its validator
-        validate={validator(!!spawnHost?.sleepSchedule?.permanentlyExempt)}
       />
     </ConfirmationModal>
   );

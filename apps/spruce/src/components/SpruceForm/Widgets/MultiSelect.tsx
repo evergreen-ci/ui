@@ -3,6 +3,7 @@ import Dropdown from "components/Dropdown";
 import ElementWrapper from "../ElementWrapper";
 import styles from "./MultiSelect.module.css";
 import { EnumSpruceWidgetProps } from "./types";
+import { getWidgetLabel } from "./utils";
 
 export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   disabled,
@@ -10,6 +11,8 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   onChange,
   options,
   rawErrors,
+  schema,
+  uiSchema,
   value,
 }) => {
   const {
@@ -17,6 +20,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
     elementWrapperCSS,
     enumOptions = [],
   } = options;
+  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
 
   const dropdownOptions = [
     {
@@ -42,9 +46,9 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <div className={styles.container}>
-        <label htmlFor={`${label}-multiselect`}>{label}</label>
+        <label htmlFor={`${label}-multiselect`}>{widgetLabel}</label>
         <Dropdown
-          buttonText={`${label}: ${
+          buttonText={`${widgetLabel}: ${
             value.length ? value.join(", ") : "No options selected."
           }`}
           data-testid={dataTestId}
@@ -57,7 +61,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
             tData={dropdownOptions}
           />
         </Dropdown>
-        {rawErrors?.length > 0 && (
+        {(rawErrors?.length ?? 0) > 0 && (
           <span className="error">{rawErrors?.join(", ")}</span>
         )}
       </div>
