@@ -69,6 +69,11 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       ?.map((tag) => ({ key: tag.key, value: tag.value })) ?? [];
   const publicKeys = publicKeysData?.myPublicKeys ?? [];
 
+  const initialHostUptime = getHostUptimeFromGql(
+    host?.sleepSchedule && !isNullSleepSchedule(host?.sleepSchedule)
+      ? host.sleepSchedule
+      : { ...defaultSleepSchedule, timeZone },
+  );
   const initialFormState = {
     hostName: host.displayName ?? "",
     instanceType: host.instanceType ?? "",
@@ -78,10 +83,10 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     expirationDetails: {
       expiration: host.expiration ? host.expiration.toString() : undefined,
       noExpiration: host.noExpiration,
-      hostUptime:
-        host?.sleepSchedule && !isNullSleepSchedule(host?.sleepSchedule)
-          ? getHostUptimeFromGql(host.sleepSchedule)
-          : getHostUptimeFromGql({ ...defaultSleepSchedule, timeZone }),
+      hostUptime: {
+        ...initialHostUptime,
+        details: { ...initialHostUptime.details, uptimeHours: null },
+      },
     },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };

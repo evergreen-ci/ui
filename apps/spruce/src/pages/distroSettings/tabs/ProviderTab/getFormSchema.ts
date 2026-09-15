@@ -191,13 +191,15 @@ export const getFormSchema = ({
       "ui:addButtonText": "Add region settings",
       "ui:addable": fleetRegionsInUse.length < awsRegions.length,
       "ui:orderable": false,
-      items: (itemData?: { displayTitle?: string }) => ({
+      items: (itemData?: { displayTitle?: string; region?: string }) => ({
         "ui:title": itemData?.displayTitle || "New AWS Region",
         "ui:label": false,
         region: {
           "ui:data-testid": "region-select",
           "ui:allowDeselect": false,
-          "ui:enumDisabled": fleetRegionsInUse,
+          "ui:enumDisabled": fleetRegionsInUse.filter(
+            (region) => region !== itemData?.region,
+          ),
         },
         ...ec2FleetProviderSettings.uiSchema,
       }),
