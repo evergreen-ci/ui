@@ -16,6 +16,7 @@ import {
 const today = new Date();
 
 type HostUptimeProps = {
+  hostUptimeError?: string;
   hostUptimeWarnings?: {
     enabledHoursCount: number;
     warnings: string[];
@@ -25,6 +26,7 @@ type HostUptimeProps = {
 };
 
 const getHostUptimeSchema = ({
+  hostUptimeError,
   hostUptimeWarnings,
   isEditModal,
   timeZone,
@@ -192,6 +194,7 @@ const getHostUptimeSchema = ({
           />
         ),
         "ui:label": false,
+        "ui:errors": hostUptimeError ? [hostUptimeError] : undefined,
         "ui:warnings": hostUptimeWarnings?.warnings,
       },
     },
@@ -215,6 +218,7 @@ const Details: React.FC<{ totalUptimeHours: number }> = ({
 
 type ExpirationProps = {
   disableExpirationCheckbox: boolean;
+  hostUptimeError?: string;
   hostUptimeWarnings?: {
     enabledHoursCount: number;
     warnings: string[];
@@ -227,6 +231,7 @@ type ExpirationProps = {
 
 export const getExpirationDetailsSchema = ({
   disableExpirationCheckbox,
+  hostUptimeError,
   hostUptimeWarnings,
   isEditModal,
   noExpirationCheckboxTooltip,
@@ -235,6 +240,7 @@ export const getExpirationDetailsSchema = ({
 }: ExpirationProps) => {
   const defaultExpiration = getDefaultExpiration();
   const hostUptime = getHostUptimeSchema({
+    hostUptimeError,
     hostUptimeWarnings,
     isEditModal,
     timeZone,

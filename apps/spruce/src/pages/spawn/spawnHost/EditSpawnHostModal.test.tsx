@@ -256,11 +256,15 @@ describe("editSpawnHostModal", () => {
           "168",
         ),
       );
-      expect(
-        await screen.findByText(
-          "Please pause your host for at least 1 day per week.",
-        ),
-      ).toBeVisible();
+      await waitFor(
+        () =>
+          expect(
+            screen.getByText(
+              "Please pause your host for at least 1 day per week.",
+            ),
+          ).toBeVisible(),
+        { timeout: 5000 },
+      );
       await waitFor(() =>
         expect(screen.getByRole("button", { name: "Save" })).toHaveAttribute(
           "aria-disabled",

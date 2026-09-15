@@ -36,6 +36,7 @@ interface Props {
   debugSpawnHostDisabled?: boolean;
   disableExpirationCheckbox: boolean;
   distroIdQueryParam?: string;
+  hostUptimeError?: string;
   distros: {
     availableRegions: string[];
     adminOnly: boolean;
@@ -65,6 +66,7 @@ export const getFormSchema = ({
   disableExpirationCheckbox,
   distroIdQueryParam,
   distros,
+  hostUptimeError,
   hostUptimeWarnings,
   isMigration,
   isVirtualWorkstation,
@@ -107,6 +109,7 @@ export const getFormSchema = ({
 
   const expirationDetails = getExpirationDetailsSchema({
     disableExpirationCheckbox,
+    hostUptimeError,
     hostUptimeWarnings,
     isEditModal: false,
     noExpirationCheckboxTooltip,
