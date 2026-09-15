@@ -23,6 +23,7 @@ describe("spruce form", () => {
       </SpruceFormContainer>,
     );
     expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
+    expect(screen.getByText("Legacy SSH")).toBeInTheDocument();
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
     expect(screen.getByTestId("add-button")).toHaveTextContent("New User");
     expect(screen.getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
@@ -636,7 +637,6 @@ const basicForm = {
         type: "string" as const,
         title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
-        enumNames: ["Legacy SSH", "Oath Token"],
       },
       validProjects: {
         type: "string" as const,
@@ -658,6 +658,7 @@ const basicForm = {
   },
   uiSchema: {
     cloneMethod: {
+      "ui:enumNames": ["Legacy SSH", "Oath Token"],
       "ui:options": {
         label: false,
       },
