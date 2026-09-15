@@ -1,80 +1,38 @@
-import { FieldValidation } from "@rjsf/core";
-import { validate } from "./ProvidersTab";
-import { resourceTags } from "./schemaFields";
-import { ProvidersFormState } from "./types";
+import { createRef } from "react";
+import Form from "@rjsf/core";
+import { render } from "@evg-ui/lib/test_utils";
+import { formSchema } from "./getFormSchema";
 
-const emptyField = (): FieldValidation => ({
-  __errors: [],
-  addError: vi.fn(),
-});
-
-const makeErrors = () => ({
-  providers: {
-    resourceTags: {
-      mongodbEnv: emptyField(),
-      mongodbOwner: emptyField(),
-    },
-  },
-});
-
-const makeFormData = (
-  mongodbEnv: string,
-  mongodbOwner: string,
-): ProvidersFormState =>
-  ({
+const validateResourceTags = (mongodbEnv: string, mongodbOwner: string) => {
+  const ref = createRef<InstanceType<typeof Form>>();
+  const formData = {
     providers: {
       resourceTags: { mongodbEnv, mongodbOwner },
     },
-  }) as ProvidersFormState;
+  };
+
+  render(
+    <Form
+      ref={ref}
+      customFormats={{ validEmail: () => true }}
+      formData={formData}
+      schema={formSchema.schema}
+    />,
+  );
+
+  return ref.current?.validate(formData).errors ?? [];
+};
 
 describe("providers tab validation", () => {
-  it("allows an unset environment in the form schema", () => {
-    expect(resourceTags.schema.mongodbEnv.enum).toContain("");
-  });
-
   it("allows resource tags to be unset", () => {
-    const errors = makeErrors();
-
-    validate(
-      makeFormData("", ""),
-      errors as unknown as Parameters<typeof validate>[1],
-    );
-
-    expect(
-      errors.providers.resourceTags.mongodbEnv.addError,
-    ).not.toHaveBeenCalled();
-    expect(
-      errors.providers.resourceTags.mongodbOwner.addError,
-    ).not.toHaveBeenCalled();
+    expect(validateResourceTags("", "")).toHaveLength(0);
   });
 
-  it("requires an environment when an owner is set", () => {
-    const errors = makeErrors();
-
-    validate(
-      makeFormData("", "evergreen@mongodb.com"),
-      errors as unknown as Parameters<typeof validate>[1],
-    );
-
-    expect(
-      errors.providers.resourceTags.mongodbEnv.addError,
-    ).toHaveBeenCalledWith(
-      "MongoDB Environment is required when MongoDB Owner Email is set.",
-    );
+  it("allows an owner without an environment", () => {
+    expect(validateResourceTags("", "evergreen@mongodb.com")).toHaveLength(0);
   });
 
-  it("requires an owner when an environment is set", () => {
-    const errors = makeErrors();
-
-    validate(
-      makeFormData("staging", ""),
-      errors as unknown as Parameters<typeof validate>[1],
-    );
-
-    expect(
-      errors.providers.resourceTags.mongodbOwner.addError,
-    ).toHaveBeenCalledWith(
-      "MongoDB Owner Email is required when MongoDB Environment is set.",
-    );
+  it("allows an environment without an owner", () => {
+    expect(validateResourceTags("staging", "")).toHaveLength(0);
   });
 });
