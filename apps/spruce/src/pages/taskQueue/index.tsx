@@ -1,11 +1,9 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Badge } from "@leafygreen-ui/badge";
-import { H2 } from "@leafygreen-ui/typography";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
+import { H2 } from "@via-ds/components/typography";
 import pluralize from "pluralize";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useTaskQueueAnalytics } from "analytics";
@@ -19,6 +17,7 @@ import {
 } from "gql/generated/types";
 import { TASK_QUEUE_DISTROS } from "gql/queries";
 import { DistroOption } from "./DistroOption";
+import styles from "./index.module.css";
 import TaskQueueContent from "./TaskQueueContent";
 
 const TaskQueue = () => {
@@ -70,26 +69,29 @@ const TaskQueue = () => {
   return (
     <PageWrapper>
       <H2>Task Queue</H2>
-      <SearchableDropdownWrapper>
+      <div className={styles.searchableDropdownWrapper}>
         <SearchableDropdown<TaskQueueDistro>
           buttonRenderer={(option: TaskQueueDistro | TaskQueueDistro[]) => {
             const distro = Array.isArray(option) ? option[0] : option;
             return (
-              <DistroLabel>
+              <div className={styles.distroLabel}>
                 {isDropdownLoading ? (
-                  <Badge>Loading...</Badge>
+                  <Badge variant={BadgeVariant.Status}>Loading...</Badge>
                 ) : (
                   <>
-                    <Badge>
+                    <Badge variant={BadgeVariant.Status}>
                       {pluralize("task", distro?.taskCount ?? 0, true)}
                     </Badge>
-                    <Badge>
+                    <Badge variant={BadgeVariant.Status}>
                       {pluralize("host", distro?.hostCount ?? 0, true)}
                     </Badge>
                   </>
                 )}
-                <DistroName> {distro?.id ?? distroId} </DistroName>
-              </DistroLabel>
+                <div className={styles.distroName}>
+                  {" "}
+                  {distro?.id ?? distroId}{" "}
+                </div>
+              </div>
             );
           }}
           data-testid="distro-dropdown"
@@ -111,25 +113,10 @@ const TaskQueue = () => {
           }
           valuePlaceholder="Select a distro"
         />
-      </SearchableDropdownWrapper>
+      </div>
       {distroId && <TaskQueueContent distroId={distroId} />}
     </PageWrapper>
   );
 };
-
-const SearchableDropdownWrapper = styled.div`
-  margin-top: ${size.xs};
-  width: 600px;
-`;
-const DistroLabel = styled.div`
-  display: flex;
-  gap: ${size.xs};
-  align-items: center;
-  white-space: nowrap;
-`;
-const DistroName = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
 
 export default TaskQueue;

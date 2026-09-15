@@ -1,7 +1,9 @@
 name: "Pull Request Checks"
-on: 
+on:
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
+permissions:
+  contents: read
 jobs:
   chromatic:
     if: github.event.pull_request.draft == false
@@ -81,6 +83,7 @@ jobs:
         with:
           working_dir: packages/lib
           project_token: chpt_a5c7789cebbf85e
+
   dependency-review:
     name: Dependency Review
     runs-on: ubuntu-latest

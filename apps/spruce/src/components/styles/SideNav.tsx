@@ -6,8 +6,8 @@ import {
   SideNavProps,
 } from "@leafygreen-ui/side-nav";
 import { Body } from "@leafygreen-ui/typography";
+import ArrowRight from "@via-ds/icons/ArrowRight";
 import { Link } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./SideNav.module.css";
 
@@ -41,7 +41,7 @@ export const SideNavItemLink: React.FC<SideNavItemLinkProps> = ({
     <Body className={styles.body} weight="medium">
       {children}
     </Body>
-    <Icon glyph="ArrowRight" />
+    <ArrowRight />
   </SideNavItem>
 );
 

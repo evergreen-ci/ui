@@ -1,6 +1,7 @@
 import { Button } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import ChevronLeft from "@via-ds/icons/ChevronLeft";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import styles from "./ColumnPaginationButtons.module.css";
 import { useHistoryTable } from "./HistoryTableContext";
 
@@ -41,7 +42,7 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
         className={styles.button}
         data-testid="prev-page-button"
         disabled={!hasPreviousPage}
-        leftGlyph={<Icon glyph="ChevronLeft" />}
+        leftGlyph={<ChevronLeft />}
         onClick={handleOnClickPrev}
       />
       <Disclaimer>
@@ -51,7 +52,7 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
         className={styles.button}
         data-testid="next-page-button"
         disabled={!hasNextPage}
-        leftGlyph={<Icon glyph="ChevronRight" />}
+        leftGlyph={<ChevronRight />}
         onClick={handleOnClickNext}
       />
     </div>

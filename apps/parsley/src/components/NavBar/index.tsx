@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
+import InfoWithCircle from "@via-ds/icons/InfoWithCircle";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -39,7 +40,7 @@ const NavBar: React.FC = () => {
           aria-label="Open shortcut modal"
           onClick={() => setOpen(true)}
         >
-          <Icon glyph="InfoWithCircle" />
+          <InfoWithCircle size="medium" />
         </IconButton>
         <StyledDetailsMenu disabled={!hasLogs} />
         {isDevelopmentBuild() && (
