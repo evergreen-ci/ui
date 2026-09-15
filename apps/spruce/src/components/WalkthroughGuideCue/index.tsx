@@ -162,10 +162,10 @@ export const WalkthroughGuideCue = forwardRef<
           {walkthroughSteps.map((step, i) => (
             <GuideCueStep
               key={step.targetId}
-              beaconAlign={step.beaconAlign}
+              beaconAlign={step.beaconAlign ?? Align.Center}
               referenceElement={targetRefs.current[i]}
-              tooltipAlign={step.tooltipAlign}
-              tooltipSide={step.tooltipSide}
+              tooltipAlign={step.tooltipAlign ?? Align.Center}
+              tooltipSide={step.tooltipSide ?? Side.Bottom}
             >
               <Text data-testid="walkthrough-guide-cue" slot="title">
                 {step.title}
