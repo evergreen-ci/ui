@@ -52,6 +52,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
         }}
         placeholder="Select tasks"
         selectionMode="multiple"
+        showChips={false}
         value={visibleColumns}
       >
         {(taskNamesForBuildVariant ?? []).map((taskName) => (

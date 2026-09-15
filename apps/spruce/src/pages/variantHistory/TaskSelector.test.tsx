@@ -2,6 +2,7 @@ import {
   MockedProvider,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
@@ -31,7 +32,8 @@ const taskNamesMock: ApolloMock<
 };
 
 describe("taskSelector", () => {
-  it("renders a chip labeled with each selected task", async () => {
+  it("summarizes tasks from the url in the field instead of rendering chips", async () => {
+    const user = userEvent.setup();
     render(
       <MockedProvider mocks={[taskNamesMock]}>
         <TaskSelector buildVariant="lint" projectIdentifier="evergreen" />
@@ -42,8 +44,41 @@ describe("taskSelector", () => {
       },
     );
 
+    const input = await screen.findByPlaceholderText("1 item selected");
+    expect(screen.queryByText("lint-agent")).not.toBeInTheDocument();
+
+    await user.click(input);
+
     await waitFor(() => {
-      expect(screen.getByText("lint-agent")).toBeInTheDocument();
+      expect(
+        screen.getByRole("option", { name: "lint-agent" }),
+      ).toHaveAttribute("aria-selected", "true");
+    });
+    expect(
+      screen.getByRole("option", { name: "lint-service" }),
+    ).toHaveAttribute("aria-selected", "false");
+  });
+
+  it("writes the selected tasks to the url", async () => {
+    const user = userEvent.setup();
+    const { router } = render(
+      <MockedProvider mocks={[taskNamesMock]}>
+        <TaskSelector buildVariant="lint" projectIdentifier="evergreen" />
+      </MockedProvider>,
+      {
+        route: "/variant-history/evergreen/lint",
+        path: "/variant-history/:projectId/:variantName",
+      },
+    );
+
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText("Select tasks")).toBeEnabled();
+    });
+    await user.click(screen.getByPlaceholderText("Select tasks"));
+    await user.click(await screen.findByRole("option", { name: "lint-agent" }));
+
+    await waitFor(() => {
+      expect(router.state.location.search).toBe("?visibleColumns=lint-agent");
     });
   });
 });
