@@ -110,6 +110,7 @@ const getHostUptimeSchema = ({
 
           uptimeHours: {
             type: "null" as const,
+            default: null,
           },
         },
       },

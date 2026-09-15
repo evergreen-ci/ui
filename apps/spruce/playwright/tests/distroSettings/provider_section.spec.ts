@@ -183,20 +183,22 @@ test.describe("provider section", () => {
       await addRegionButton.click();
       await expect(addRegionButton).toHaveCount(0);
 
-      const newExpandableCard = page.getByTestId("expandable-card").first();
+      const newExpandableCard = page
+        .getByTestId("expandable-card")
+        .filter({ hasText: "New AWS Region" });
       await expect(
         newExpandableCard
           .getByTestId("expandable-card-title")
           .filter({ hasText: "New AWS Region" }),
       ).toBeVisible();
 
-      await selectOption(newExpandableCard, "Region", "us-west-1");
       await newExpandableCard.getByLabel("EC2 AMI ID").fill("ami-1234");
       await newExpandableCard.getByLabel("Instance Type").fill("m5.xlarge");
       await newExpandableCard
         .getByRole("button", { name: "Add security group" })
         .click();
       await newExpandableCard.getByLabel("Security Group ID").fill("sg-5678");
+      await selectOption(newExpandableCard, "Region", "us-west-1");
       await save(page);
       await validateToast(page, "success", "Updated distro.", true);
 
