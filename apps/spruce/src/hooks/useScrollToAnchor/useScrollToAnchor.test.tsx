@@ -46,15 +46,21 @@ describe("useScrollToAnchor", () => {
     expect(document.getElementById).not.toHaveBeenCalled();
   });
 
-  it("should not scroll again after a rerender with the same hash", () => {
+  it("should wait until the anchor element is ready before scrolling", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const wrapper = ({ children }) => (
       <MemoryRouter initialEntries={["/#test-anchor"]}>{children}</MemoryRouter>
     );
 
-    const { rerender } = renderHook(() => useScrollToAnchor(), { wrapper });
+    const { rerender } = renderHook(
+      ({ isReady }) => useScrollToAnchor(isReady),
+      { initialProps: { isReady: false }, wrapper },
+    );
     vi.runOnlyPendingTimers();
-    rerender();
+
+    expect(document.getElementById).not.toHaveBeenCalled();
+
+    rerender({ isReady: true });
     vi.runOnlyPendingTimers();
 
     expect(mockElement.scrollIntoView).toHaveBeenCalledTimes(1);

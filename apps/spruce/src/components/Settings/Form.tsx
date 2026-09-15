@@ -11,12 +11,13 @@ import { SettingsRoutes } from "./types";
 export type FormProps<
   T extends SettingsRoutes,
   FormStateMap extends Record<T, unknown>,
+  CurrentTab extends T = T,
 > = {
   formRef?: React.Ref<SpruceFormRef>;
   formSchema: ReturnType<GetFormSchema>;
   state: SettingsState<T, FormStateMap>;
-  tab: T;
-  validate?: ValidateProps<FormStateMap[T]>;
+  tab: CurrentTab;
+  validate?: ValidateProps<FormStateMap[CurrentTab]>;
 } & Omit<
   SpruceFormProps,
   "fields" | "formData" | "onChange" | "schema" | "uiSchema" | "validate"
@@ -25,6 +26,7 @@ export type FormProps<
 export const Form = <
   T extends SettingsRoutes,
   FormStateMap extends Record<T, unknown>,
+  CurrentTab extends T = T,
 >({
   formRef,
   formSchema,
@@ -32,7 +34,7 @@ export const Form = <
   tab,
   validate,
   ...rest
-}: FormProps<T, FormStateMap>) => {
+}: FormProps<T, FormStateMap, CurrentTab>) => {
   const { getTab, updateForm } = state;
   const { formData } = getTab(tab);
   const { fields, schema, uiSchema } = formSchema;

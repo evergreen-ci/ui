@@ -29,7 +29,6 @@ export const formSchema: ReturnType<GetFormSchema> = {
             type: "object" as const,
             title: "Default Resource Tags",
             properties: resourceTags.schema,
-            required: ["mongodbEnv", "mongodbOwner"],
           },
         },
       },
