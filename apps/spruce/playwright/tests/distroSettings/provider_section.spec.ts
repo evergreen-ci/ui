@@ -128,6 +128,17 @@ test.describe("provider section", () => {
       await expect(page.getByText("VPC Subnet Prefix")).toHaveCount(0);
     });
 
+    test("switches away and back without crashing", async ({ page }) => {
+      await selectOption(page, "Provider", "Docker");
+      await expect(page.getByTestId("docker-provider-settings")).toBeVisible();
+
+      await selectOption(page, "Provider", "EC2 Fleet");
+      await expect(
+        page.getByTestId("ec2-fleet-provider-settings"),
+      ).toBeVisible();
+      await expect(page.getByTestId("task-host-overrides")).toBeVisible();
+    });
+
     test("successfully updates ec2 fleet provider fields", async ({ page }) => {
       await expect(page.getByTestId("provider-select")).toContainText(
         "EC2 Fleet",

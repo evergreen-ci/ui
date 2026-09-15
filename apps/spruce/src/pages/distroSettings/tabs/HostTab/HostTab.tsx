@@ -18,8 +18,14 @@ export const HostTab: React.FC<TabProps> = ({
   const architecture = formData?.setup?.arch;
 
   const formSchema = useMemo(
-    () => getFormSchema({ architecture, isSingleTaskDistro, provider }),
-    [architecture, isSingleTaskDistro, provider],
+    () =>
+      getFormSchema({
+        architecture,
+        bootstrapSettings: distroData.bootstrapSettings,
+        isSingleTaskDistro,
+        provider,
+      }),
+    [architecture, distroData.bootstrapSettings, isSingleTaskDistro, provider],
   );
 
   return (
