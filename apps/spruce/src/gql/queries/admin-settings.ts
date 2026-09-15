@@ -279,6 +279,10 @@ export const ADMIN_SETTINGS = gql`
             domain
             hostedZoneID
           }
+          resourceTags {
+            mongodbEnv
+            mongodbOwner
+          }
           subnets {
             az
             subnetId
@@ -314,10 +318,6 @@ export const ADMIN_SETTINGS = gql`
         maxConcurrentRequests
         maxRepoRevisionsToSearch
         numNewRepoRevisionsToFetch
-      }
-      resourceTags {
-        mongodbEnv
-        mongodbOwner
       }
       runtimeEnvironments {
         apiKey

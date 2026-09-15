@@ -16,7 +16,13 @@ describe("providers section", () => {
   it("leaves an unset MongoDB environment empty", () => {
     const form = gqlToForm({
       ...testAdminSettings,
-      resourceTags: null,
+      providers: {
+        ...testAdminSettings.providers,
+        aws: {
+          ...testAdminSettings.providers?.aws,
+          resourceTags: null,
+        },
+      },
     } as unknown as AdminSettingsData);
 
     expect(form?.providers.aws.resourceTags.mongodbEnv).toBe("");
@@ -115,10 +121,6 @@ const gql: AdminSettingsInput = {
   parameterStore: {
     prefix: "/evergreen/test",
   },
-  resourceTags: {
-    mongodbEnv: "staging",
-    mongodbOwner: "evergreen@mongodb.com",
-  },
   providers: {
     aws: {
       accountRoles: [
@@ -149,6 +151,10 @@ const gql: AdminSettingsInput = {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
       },
+      resourceTags: {
+        mongodbEnv: "staging",
+        mongodbOwner: "evergreen@mongodb.com",
+      },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
         {
@@ -172,10 +178,6 @@ const gql: AdminSettingsInput = {
 // Test admin settings data that includes providers information
 const testAdminSettings = {
   ...adminSettings,
-  resourceTags: {
-    mongodbEnv: "staging",
-    mongodbOwner: "evergreen@mongodb.com",
-  },
   containerPools: {
     pools: [
       {
@@ -224,6 +226,10 @@ const testAdminSettings = {
       persistentDNS: {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
+      },
+      resourceTags: {
+        mongodbEnv: "staging",
+        mongodbOwner: "evergreen@mongodb.com",
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [

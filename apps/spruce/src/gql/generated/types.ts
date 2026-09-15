@@ -69,6 +69,7 @@ export type AwsConfig = {
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
+  resourceTags?: Maybe<ResourceTagsConfig>;
   subnetTagName?: Maybe<Scalars["String"]["output"]>;
   subnetTagValue?: Maybe<Scalars["String"]["output"]>;
   subnets: Array<Subnet>;
@@ -86,6 +87,7 @@ export type AwsConfigInput = {
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
+  resourceTags?: InputMaybe<ResourceTagsConfigInput>;
   subnetTagName?: InputMaybe<Scalars["String"]["input"]>;
   subnetTagValue?: InputMaybe<Scalars["String"]["input"]>;
   subnets: Array<SubnetInput>;
@@ -185,7 +187,6 @@ export type AdminSettings = {
   rateLimit?: Maybe<RateLimitConfig>;
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
-  resourceTags?: Maybe<ResourceTagsConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
@@ -245,7 +246,6 @@ export type AdminSettingsInput = {
   rateLimit?: InputMaybe<RateLimitConfigInput>;
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
-  resourceTags?: InputMaybe<ResourceTagsConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
@@ -7248,16 +7248,22 @@ export type SaveAdminSettingsMutation = {
       __typename?: "NotifyConfig";
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: string | null;
+          mongodbOwner?: string | null;
+        } | null;
+      } | null;
+    } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
-    } | null;
-    resourceTags?: {
-      __typename?: "ResourceTagsConfig";
-      mongodbEnv?: string | null;
-      mongodbOwner?: string | null;
     } | null;
     sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
@@ -8009,6 +8015,11 @@ export type AdminSettingsQuery = {
           domain?: string | null;
           hostedZoneID?: string | null;
         } | null;
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: string | null;
+          mongodbOwner?: string | null;
+        } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
       } | null;
       docker?: {
@@ -8042,11 +8053,6 @@ export type AdminSettingsQuery = {
       maxConcurrentRequests?: number | null;
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
-    } | null;
-    resourceTags?: {
-      __typename?: "ResourceTagsConfig";
-      mongodbEnv?: string | null;
-      mongodbOwner?: string | null;
     } | null;
     runtimeEnvironments?: {
       __typename?: "RuntimeEnvironmentConfig";

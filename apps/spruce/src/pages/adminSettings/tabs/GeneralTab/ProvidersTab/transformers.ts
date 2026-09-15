@@ -7,7 +7,7 @@ type Tab = AdminSettingsGeneralSection.Providers;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { containerPools, parameterStore, providers, resourceTags } = data;
+  const { containerPools, parameterStore, providers } = data;
 
   return {
     providers: {
@@ -43,8 +43,8 @@ export const gqlToForm = ((data) => {
         elasticIPUsageRate: providers?.aws?.elasticIPUsageRate ?? 0,
         allowedSNSTopicARNs: providers?.aws?.allowedSNSTopicARNs ?? [],
         resourceTags: {
-          mongodbEnv: resourceTags?.mongodbEnv ?? "",
-          mongodbOwner: resourceTags?.mongodbOwner ?? "",
+          mongodbEnv: providers?.aws?.resourceTags?.mongodbEnv ?? "",
+          mongodbOwner: providers?.aws?.resourceTags?.mongodbOwner ?? "",
         },
         persistentDNS: {
           hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
@@ -82,7 +82,6 @@ export const formToGql = ((form: ProvidersFormState) => {
     parameterStore: {
       prefix: aws.parameterStorePrefix || undefined,
     },
-    resourceTags: aws.resourceTags,
     providers: {
       aws: {
         accountRoles: aws.accountRoles.map((role) => ({
@@ -101,6 +100,7 @@ export const formToGql = ((form: ProvidersFormState) => {
           hostedZoneID: aws.persistentDNS.hostedZoneID,
           domain: aws.persistentDNS.domain || undefined,
         },
+        resourceTags: aws.resourceTags,
         parserProject: {
           bucket: aws.parserProject.bucket,
           generatedJSONPrefix:
