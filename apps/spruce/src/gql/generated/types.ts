@@ -69,6 +69,7 @@ export type AwsConfig = {
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
+  resourceTags?: Maybe<ResourceTagsConfig>;
   subnetTagName?: Maybe<Scalars["String"]["output"]>;
   subnetTagValue?: Maybe<Scalars["String"]["output"]>;
   subnets: Array<Subnet>;
@@ -86,6 +87,7 @@ export type AwsConfigInput = {
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
+  resourceTags?: InputMaybe<ResourceTagsConfigInput>;
   subnetTagName?: InputMaybe<Scalars["String"]["input"]>;
   subnetTagValue?: InputMaybe<Scalars["String"]["input"]>;
   subnets: Array<SubnetInput>;
@@ -3587,6 +3589,17 @@ export type ResourceLimitsInput = {
   numProcesses: Scalars["Int"]["input"];
   numTasks: Scalars["Int"]["input"];
   virtualMemoryKb: Scalars["Int"]["input"];
+};
+
+export type ResourceTagsConfig = {
+  __typename?: "ResourceTagsConfig";
+  mongodbEnv?: Maybe<Scalars["String"]["output"]>;
+  mongodbOwner?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ResourceTagsConfigInput = {
+  mongodbEnv?: InputMaybe<Scalars["String"]["input"]>;
+  mongodbOwner?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type RestartAdminTasksOptions = {
@@ -7235,6 +7248,17 @@ export type SaveAdminSettingsMutation = {
       __typename?: "NotifyConfig";
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: string | null;
+          mongodbOwner?: string | null;
+        } | null;
+      } | null;
+    } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;
@@ -7990,6 +8014,11 @@ export type AdminSettingsQuery = {
           __typename?: "PersistentDNSConfig";
           domain?: string | null;
           hostedZoneID?: string | null;
+        } | null;
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: string | null;
+          mongodbOwner?: string | null;
         } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
       } | null;

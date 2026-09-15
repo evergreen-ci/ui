@@ -96,6 +96,7 @@ export const AdminSaveButton: React.FC = () => {
       isLoading={loading}
       onClick={handleSave}
       style={{ alignSelf: "flex-end" }}
+      type="button"
       variant={ButtonVariant.Primary}
     >
       Save changes on page

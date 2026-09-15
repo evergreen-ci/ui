@@ -42,6 +42,10 @@ export const gqlToForm = ((data) => {
         ipamPoolID: providers?.aws?.ipamPoolID ?? "",
         elasticIPUsageRate: providers?.aws?.elasticIPUsageRate ?? 0,
         allowedSNSTopicARNs: providers?.aws?.allowedSNSTopicARNs ?? [],
+        resourceTags: {
+          mongodbEnv: providers?.aws?.resourceTags?.mongodbEnv ?? "",
+          mongodbOwner: providers?.aws?.resourceTags?.mongodbOwner ?? "",
+        },
         persistentDNS: {
           hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
           domain: providers?.aws?.persistentDNS?.domain ?? "",
@@ -96,6 +100,7 @@ export const formToGql = ((form: ProvidersFormState) => {
           hostedZoneID: aws.persistentDNS.hostedZoneID,
           domain: aws.persistentDNS.domain || undefined,
         },
+        resourceTags: aws.resourceTags,
         parserProject: {
           bucket: aws.parserProject.bucket,
           generatedJSONPrefix:

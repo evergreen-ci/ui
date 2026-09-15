@@ -1,4 +1,5 @@
 import { AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { adminSettings } from "../../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { ProvidersFormState } from "./types";
@@ -10,6 +11,21 @@ describe("providers section", () => {
 
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(form)).toStrictEqual(gql);
+  });
+
+  it("leaves an unset MongoDB environment empty", () => {
+    const form = gqlToForm({
+      ...testAdminSettings,
+      providers: {
+        ...testAdminSettings.providers,
+        aws: {
+          ...testAdminSettings.providers?.aws,
+          resourceTags: null,
+        },
+      },
+    } as unknown as AdminSettingsData);
+
+    expect(form?.providers.aws.resourceTags.mongodbEnv).toBe("");
   });
 });
 
@@ -74,6 +90,10 @@ const form: ProvidersFormState = {
       ipamPoolID: "ipam-pool-123",
       elasticIPUsageRate: 0.8,
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
+      resourceTags: {
+        mongodbEnv: "staging",
+        mongodbOwner: "evergreen@mongodb.com",
+      },
     },
     docker: {
       apiVersion: "1.40",
@@ -130,6 +150,10 @@ const gql: AdminSettingsInput = {
       persistentDNS: {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
+      },
+      resourceTags: {
+        mongodbEnv: "staging",
+        mongodbOwner: "evergreen@mongodb.com",
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
@@ -202,6 +226,10 @@ const testAdminSettings = {
       persistentDNS: {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
+      },
+      resourceTags: {
+        mongodbEnv: "staging",
+        mongodbOwner: "evergreen@mongodb.com",
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [

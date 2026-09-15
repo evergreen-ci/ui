@@ -46,6 +46,26 @@ describe("useScrollToAnchor", () => {
     expect(document.getElementById).not.toHaveBeenCalled();
   });
 
+  it("should wait until the anchor element is ready before scrolling", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const wrapper = ({ children }) => (
+      <MemoryRouter initialEntries={["/#test-anchor"]}>{children}</MemoryRouter>
+    );
+
+    const { rerender } = renderHook(
+      ({ isReady }) => useScrollToAnchor(isReady),
+      { initialProps: { isReady: false }, wrapper },
+    );
+    vi.runOnlyPendingTimers();
+
+    expect(document.getElementById).not.toHaveBeenCalled();
+
+    rerender({ isReady: true });
+    vi.runOnlyPendingTimers();
+
+    expect(mockElement.scrollIntoView).toHaveBeenCalledTimes(1);
+  });
+
   it("should clear timeout on unmount", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const wrapper = ({ children }) => (
