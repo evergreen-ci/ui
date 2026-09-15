@@ -19,7 +19,7 @@ describe("providers section", () => {
       resourceTags: null,
     } as unknown as AdminSettingsData);
 
-    expect(form?.providers.resourceTags.mongodbEnv).toBe("");
+    expect(form?.providers.aws.resourceTags.mongodbEnv).toBe("");
   });
 });
 
@@ -84,13 +84,13 @@ const form: ProvidersFormState = {
       ipamPoolID: "ipam-pool-123",
       elasticIPUsageRate: 0.8,
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
+      resourceTags: {
+        mongodbEnv: "staging",
+        mongodbOwner: "evergreen@mongodb.com",
+      },
     },
     docker: {
       apiVersion: "1.40",
-    },
-    resourceTags: {
-      mongodbEnv: "staging",
-      mongodbOwner: "evergreen@mongodb.com",
     },
   },
 };

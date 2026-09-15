@@ -7,7 +7,9 @@ const validateResourceTags = (mongodbEnv: string, mongodbOwner: string) => {
   const ref = createRef<InstanceType<typeof Form>>();
   const formData = {
     providers: {
-      resourceTags: { mongodbEnv, mongodbOwner },
+      aws: {
+        resourceTags: { mongodbEnv, mongodbOwner },
+      },
     },
   };
 

@@ -18,17 +18,21 @@ export const formSchema: ReturnType<GetFormSchema> = {
           aws: {
             type: "object" as const,
             title: "AWS Configuration",
-            properties: aws.schema,
+            properties: {
+              ...aws.schema,
+              resourceTags: {
+                type: "object" as const,
+                title: "Resource Tags",
+                description:
+                  "Configure supported tags for AWS resources created by Evergreen.",
+                properties: resourceTags.schema,
+              },
+            },
           },
           docker: {
             type: "object" as const,
             title: "Docker",
             properties: docker.schema,
-          },
-          resourceTags: {
-            type: "object" as const,
-            title: "Default Resource Tags",
-            properties: resourceTags.schema,
           },
         },
       },
@@ -37,9 +41,11 @@ export const formSchema: ReturnType<GetFormSchema> = {
   uiSchema: {
     providers: {
       containerPools: containerPools.uiSchema,
-      aws: aws.uiSchema,
+      aws: {
+        ...aws.uiSchema,
+        resourceTags: resourceTags.uiSchema,
+      },
       docker: docker.uiSchema,
-      resourceTags: resourceTags.uiSchema,
     },
   },
 };

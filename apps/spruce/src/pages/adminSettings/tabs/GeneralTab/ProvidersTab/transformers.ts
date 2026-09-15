@@ -42,6 +42,10 @@ export const gqlToForm = ((data) => {
         ipamPoolID: providers?.aws?.ipamPoolID ?? "",
         elasticIPUsageRate: providers?.aws?.elasticIPUsageRate ?? 0,
         allowedSNSTopicARNs: providers?.aws?.allowedSNSTopicARNs ?? [],
+        resourceTags: {
+          mongodbEnv: resourceTags?.mongodbEnv ?? "",
+          mongodbOwner: resourceTags?.mongodbOwner ?? "",
+        },
         persistentDNS: {
           hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
           domain: providers?.aws?.persistentDNS?.domain ?? "",
@@ -58,17 +62,13 @@ export const gqlToForm = ((data) => {
       docker: {
         apiVersion: providers?.docker?.apiVersion ?? "",
       },
-      resourceTags: {
-        mongodbEnv: resourceTags?.mongodbEnv ?? "",
-        mongodbOwner: resourceTags?.mongodbOwner ?? "",
-      },
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((form: ProvidersFormState) => {
   const { providers } = form;
-  const { aws, containerPools, docker, resourceTags } = providers;
+  const { aws, containerPools, docker } = providers;
 
   return {
     containerPools: {
@@ -82,7 +82,7 @@ export const formToGql = ((form: ProvidersFormState) => {
     parameterStore: {
       prefix: aws.parameterStorePrefix || undefined,
     },
-    resourceTags,
+    resourceTags: aws.resourceTags,
     providers: {
       aws: {
         accountRoles: aws.accountRoles.map((role) => ({

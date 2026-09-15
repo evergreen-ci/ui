@@ -117,10 +117,7 @@ export const resourceTags = {
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-testid": "resource-tags",
-    "ui:objectFieldCss": objectGridCss,
-    "ui:description": "Default tags applied to resources created by Evergreen.",
+    "ui:fieldCss": nestedObjectGridCss,
     mongodbOwner: {
       "ui:widget": widgets.TextWidget,
       "ui:options": {

@@ -29,6 +29,10 @@ export interface ProvidersFormState {
       ipamPoolID: string;
       elasticIPUsageRate: number;
       allowedSNSTopicARNs: string[];
+      resourceTags: {
+        mongodbEnv: string;
+        mongodbOwner: string;
+      };
 
       persistentDNS: {
         hostedZoneID: string;
@@ -46,11 +50,6 @@ export interface ProvidersFormState {
 
     docker: {
       apiVersion: string;
-    };
-
-    resourceTags: {
-      mongodbEnv: string;
-      mongodbOwner: string;
     };
   };
 }
