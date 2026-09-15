@@ -185,6 +185,7 @@ export type AdminSettings = {
   rateLimit?: Maybe<RateLimitConfig>;
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
+  resourceTags?: Maybe<ResourceTagsConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
@@ -244,6 +245,7 @@ export type AdminSettingsInput = {
   rateLimit?: InputMaybe<RateLimitConfigInput>;
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
+  resourceTags?: InputMaybe<ResourceTagsConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
@@ -3587,6 +3589,17 @@ export type ResourceLimitsInput = {
   numProcesses: Scalars["Int"]["input"];
   numTasks: Scalars["Int"]["input"];
   virtualMemoryKb: Scalars["Int"]["input"];
+};
+
+export type ResourceTagsConfig = {
+  __typename?: "ResourceTagsConfig";
+  mongodbEnv?: Maybe<Scalars["String"]["output"]>;
+  mongodbOwner?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ResourceTagsConfigInput = {
+  mongodbEnv?: InputMaybe<Scalars["String"]["input"]>;
+  mongodbOwner?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type RestartAdminTasksOptions = {
@@ -7274,6 +7287,11 @@ export type SaveAdminSettingsMutation = {
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
     } | null;
+    resourceTags?: {
+      __typename?: "ResourceTagsConfig";
+      mongodbEnv?: string | null;
+      mongodbOwner?: string | null;
+    } | null;
     sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
@@ -8057,6 +8075,11 @@ export type AdminSettingsQuery = {
       maxConcurrentRequests?: number | null;
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    resourceTags?: {
+      __typename?: "ResourceTagsConfig";
+      mongodbEnv?: string | null;
+      mongodbOwner?: string | null;
     } | null;
     runtimeEnvironments?: {
       __typename?: "RuntimeEnvironmentConfig";

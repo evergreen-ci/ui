@@ -78,6 +78,46 @@ export const containerPools = {
   },
 };
 
+export const resourceTags = {
+  schema: {
+    mongodbEnv: {
+      type: "string" as const,
+      title: "MongoDB Environment",
+      enum: [
+        "prod",
+        "staging",
+        "dev",
+        "qa",
+        "test",
+        "local",
+        "poc",
+        "demo",
+        "uat",
+        "sandbox",
+      ],
+    },
+    mongodbOwner: {
+      type: "string" as const,
+      title: "MongoDB Owner Email",
+      format: "validEmail",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-testid": "resource-tags",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:description": "Default tags applied to resources created by Evergreen.",
+    mongodbOwner: {
+      "ui:widget": widgets.TextWidget,
+      "ui:options": {
+        description:
+          "An individual email is recommended for dev, demo, or sandbox. For all other environments, a Jira-referenceable team email is recommended.",
+        inputType: "email",
+      },
+    },
+  },
+};
+
 const accountRoles = {
   schema: {
     type: "array" as const,

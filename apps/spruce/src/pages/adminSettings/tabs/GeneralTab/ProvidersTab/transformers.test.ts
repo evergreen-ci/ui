@@ -1,4 +1,5 @@
 import { AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { adminSettings } from "../../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { ProvidersFormState } from "./types";
@@ -10,6 +11,15 @@ describe("providers section", () => {
 
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(form)).toStrictEqual(gql);
+  });
+
+  it("leaves an unset MongoDB environment empty", () => {
+    const form = gqlToForm({
+      ...testAdminSettings,
+      resourceTags: null,
+    } as unknown as AdminSettingsData);
+
+    expect(form?.providers.resourceTags.mongodbEnv).toBe("");
   });
 });
 
@@ -78,6 +88,10 @@ const form: ProvidersFormState = {
     docker: {
       apiVersion: "1.40",
     },
+    resourceTags: {
+      mongodbEnv: "staging",
+      mongodbOwner: "evergreen@mongodb.com",
+    },
   },
 };
 
@@ -100,6 +114,10 @@ const gql: AdminSettingsInput = {
   },
   parameterStore: {
     prefix: "/evergreen/test",
+  },
+  resourceTags: {
+    mongodbEnv: "staging",
+    mongodbOwner: "evergreen@mongodb.com",
   },
   providers: {
     aws: {
@@ -154,6 +172,10 @@ const gql: AdminSettingsInput = {
 // Test admin settings data that includes providers information
 const testAdminSettings = {
   ...adminSettings,
+  resourceTags: {
+    mongodbEnv: "staging",
+    mongodbOwner: "evergreen@mongodb.com",
+  },
   containerPools: {
     pools: [
       {

@@ -53,6 +53,10 @@ export const SAVE_ADMIN_SETTINGS = gql`
         maxRepoRevisionsToSearch
         numNewRepoRevisionsToFetch
       }
+      resourceTags {
+        mongodbEnv
+        mongodbOwner
+      }
       sage {
         baseUrl
       }

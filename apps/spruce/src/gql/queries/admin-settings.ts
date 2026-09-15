@@ -315,6 +315,10 @@ export const ADMIN_SETTINGS = gql`
         maxRepoRevisionsToSearch
         numNewRepoRevisionsToFetch
       }
+      resourceTags {
+        mongodbEnv
+        mongodbOwner
+      }
       runtimeEnvironments {
         apiKey
         baseUrl

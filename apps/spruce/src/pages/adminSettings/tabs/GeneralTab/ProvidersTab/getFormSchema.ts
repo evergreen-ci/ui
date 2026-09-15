@@ -1,5 +1,5 @@
 import { GetFormSchema } from "components/SpruceForm";
-import { aws, containerPools, docker } from "./schemaFields";
+import { aws, containerPools, docker, resourceTags } from "./schemaFields";
 
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
@@ -25,6 +25,12 @@ export const formSchema: ReturnType<GetFormSchema> = {
             title: "Docker",
             properties: docker.schema,
           },
+          resourceTags: {
+            type: "object" as const,
+            title: "Default Resource Tags",
+            properties: resourceTags.schema,
+            required: ["mongodbEnv", "mongodbOwner"],
+          },
         },
       },
     },
@@ -34,6 +40,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
       containerPools: containerPools.uiSchema,
       aws: aws.uiSchema,
       docker: docker.uiSchema,
+      resourceTags: resourceTags.uiSchema,
     },
   },
 };

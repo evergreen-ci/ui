@@ -7,7 +7,7 @@ type Tab = AdminSettingsGeneralSection.Providers;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { containerPools, parameterStore, providers } = data;
+  const { containerPools, parameterStore, providers, resourceTags } = data;
 
   return {
     providers: {
@@ -58,13 +58,17 @@ export const gqlToForm = ((data) => {
       docker: {
         apiVersion: providers?.docker?.apiVersion ?? "",
       },
+      resourceTags: {
+        mongodbEnv: resourceTags?.mongodbEnv ?? "",
+        mongodbOwner: resourceTags?.mongodbOwner ?? "",
+      },
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((form: ProvidersFormState) => {
   const { providers } = form;
-  const { aws, containerPools, docker } = providers;
+  const { aws, containerPools, docker, resourceTags } = providers;
 
   return {
     containerPools: {
@@ -78,6 +82,7 @@ export const formToGql = ((form: ProvidersFormState) => {
     parameterStore: {
       prefix: aws.parameterStorePrefix || undefined,
     },
+    resourceTags,
     providers: {
       aws: {
         accountRoles: aws.accountRoles.map((role) => ({

@@ -46,6 +46,20 @@ describe("useScrollToAnchor", () => {
     expect(document.getElementById).not.toHaveBeenCalled();
   });
 
+  it("should not scroll again after a rerender with the same hash", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const wrapper = ({ children }) => (
+      <MemoryRouter initialEntries={["/#test-anchor"]}>{children}</MemoryRouter>
+    );
+
+    const { rerender } = renderHook(() => useScrollToAnchor(), { wrapper });
+    vi.runOnlyPendingTimers();
+    rerender();
+    vi.runOnlyPendingTimers();
+
+    expect(mockElement.scrollIntoView).toHaveBeenCalledTimes(1);
+  });
+
   it("should clear timeout on unmount", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const wrapper = ({ children }) => (

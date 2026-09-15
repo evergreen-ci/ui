@@ -47,6 +47,11 @@ export interface ProvidersFormState {
     docker: {
       apiVersion: string;
     };
+
+    resourceTags: {
+      mongodbEnv: string;
+      mongodbOwner: string;
+    };
   };
 }
 
