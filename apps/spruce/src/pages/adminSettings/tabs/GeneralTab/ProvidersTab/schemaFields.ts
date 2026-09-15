@@ -78,57 +78,6 @@ export const containerPools = {
   },
 };
 
-export const resourceTags = {
-  schema: {
-    mongodbEnv: {
-      type: "string" as const,
-      title: "MongoDB Environment",
-      enum: [
-        "",
-        "prod",
-        "staging",
-        "dev",
-        "qa",
-        "test",
-        "local",
-        "poc",
-        "demo",
-        "uat",
-        "sandbox",
-      ],
-      enumNames: [
-        "None",
-        "prod",
-        "staging",
-        "dev",
-        "qa",
-        "test",
-        "local",
-        "poc",
-        "demo",
-        "uat",
-        "sandbox",
-      ],
-    },
-    mongodbOwner: {
-      type: "string" as const,
-      title: "MongoDB Owner Email",
-      format: "validEmail",
-    },
-  },
-  uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
-    mongodbOwner: {
-      "ui:widget": widgets.TextWidget,
-      "ui:options": {
-        description:
-          "An individual email is recommended for dev, demo, or sandbox. For all other environments, a Jira-referenceable team email is recommended.",
-        inputType: "email",
-      },
-    },
-  },
-};
-
 const accountRoles = {
   schema: {
     type: "array" as const,
@@ -334,6 +283,49 @@ export const aws = {
         },
       },
     },
+    resourceTags: {
+      type: "object" as const,
+      title: "Resource Tags",
+      description:
+        "Configure supported tags for AWS resources created by Evergreen.",
+      properties: {
+        mongodbEnv: {
+          type: "string" as const,
+          title: "MongoDB Environment",
+          enum: [
+            "",
+            "prod",
+            "staging",
+            "dev",
+            "qa",
+            "test",
+            "local",
+            "poc",
+            "demo",
+            "uat",
+            "sandbox",
+          ],
+          enumNames: [
+            "None",
+            "prod",
+            "staging",
+            "dev",
+            "qa",
+            "test",
+            "local",
+            "poc",
+            "demo",
+            "uat",
+            "sandbox",
+          ],
+        },
+        mongodbOwner: {
+          type: "string" as const,
+          title: "MongoDB Owner Email",
+          format: "validEmail",
+        },
+      },
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
@@ -358,6 +350,17 @@ export const aws = {
     },
     parserProject: {
       "ui:fieldCss": nestedObjectGridCss,
+    },
+    resourceTags: {
+      "ui:fieldCss": nestedObjectGridCss,
+      mongodbOwner: {
+        "ui:widget": widgets.TextWidget,
+        "ui:options": {
+          description:
+            "An individual email is recommended for dev, demo, or sandbox. For all other environments, a Jira-referenceable team email is recommended.",
+          inputType: "email",
+        },
+      },
     },
   },
 };

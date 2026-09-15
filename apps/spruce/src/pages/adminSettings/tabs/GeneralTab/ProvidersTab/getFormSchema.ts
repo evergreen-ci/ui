@@ -1,5 +1,5 @@
 import { GetFormSchema } from "components/SpruceForm";
-import { aws, containerPools, docker, resourceTags } from "./schemaFields";
+import { aws, containerPools, docker } from "./schemaFields";
 
 export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
@@ -18,16 +18,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
           aws: {
             type: "object" as const,
             title: "AWS Configuration",
-            properties: {
-              ...aws.schema,
-              resourceTags: {
-                type: "object" as const,
-                title: "Resource Tags",
-                description:
-                  "Configure supported tags for AWS resources created by Evergreen.",
-                properties: resourceTags.schema,
-              },
-            },
+            properties: aws.schema,
           },
           docker: {
             type: "object" as const,
@@ -41,10 +32,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
   uiSchema: {
     providers: {
       containerPools: containerPools.uiSchema,
-      aws: {
-        ...aws.uiSchema,
-        resourceTags: resourceTags.uiSchema,
-      },
+      aws: aws.uiSchema,
       docker: docker.uiSchema,
     },
   },
