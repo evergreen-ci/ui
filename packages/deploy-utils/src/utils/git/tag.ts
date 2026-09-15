@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { getAppToDeploy } from "../environment";
 import { execTrim, green, underline } from "../shell";
 import { DeployableApp } from "../types";
@@ -18,10 +18,11 @@ const createTagAndPush = (version: ReleaseVersion) => {
   console.log("Creating new tag...");
   const app = getAppToDeploy();
   try {
-    execSync(`npm version ${version} --tag-version-prefix ${app}/v`, {
-      encoding: "utf-8",
-      stdio: "inherit",
-    });
+    execFileSync(
+      "npm",
+      ["version", version, "--tag-version-prefix", `${app}/v`],
+      { encoding: "utf-8", stdio: "inherit" },
+    );
   } catch (err) {
     throw Error("Creating new tag failed.", { cause: err });
   }
@@ -59,9 +60,14 @@ const getReleaseVersion = (commitMessages: string): ReleaseVersion => {
  */
 const getLatestTag = (app: DeployableApp, baseCommit: string = "") => {
   try {
-    const latestTag = execTrim(
-      `git describe --tags --abbrev=0 --match="${app}/*" ${baseCommit}`,
-    );
+    const args = [
+      "describe",
+      "--tags",
+      "--abbrev=0",
+      `--match=${app}/*`,
+      ...(baseCommit ? [baseCommit] : []),
+    ];
+    const latestTag = execTrim("git", args);
     return latestTag;
   } catch (err) {
     throw Error("Getting latest tag failed.", { cause: err });
@@ -74,9 +80,11 @@ const getLatestTag = (app: DeployableApp, baseCommit: string = "") => {
  */
 const deleteTag = (tag: string) => {
   console.log(`Deleting tag (${tag}) from remote...`);
-  const deleteCommand = `git push --delete upstream ${tag}`;
   try {
-    execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
+    execFileSync("git", ["push", "--delete", "upstream", tag], {
+      stdio: "inherit",
+      encoding: "utf-8",
+    });
   } catch (err) {
     throw Error("Deleting tag failed.", { cause: err });
   }
@@ -88,7 +96,7 @@ const deleteTag = (tag: string) => {
 const pushTags = () => {
   console.log("Pushing tags...");
   try {
-    execSync(`git push --tags upstream`, {
+    execFileSync("git", ["push", "--tags", "upstream"], {
       stdio: "inherit",
       encoding: "utf-8",
     });
