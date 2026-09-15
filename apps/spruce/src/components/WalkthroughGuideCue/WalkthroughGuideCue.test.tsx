@@ -38,7 +38,7 @@ describe("walkthrough guide cue", async () => {
   const GuideCueWalkthroughContent = (
     props: Pick<
       WalkthroughGuideCueProps,
-      "defaultOpen" | "onClose" | "walkthroughSteps"
+      "defaultOpen" | "onClose" | "onCurrentTargetChange" | "walkthroughSteps"
     >,
   ) => (
     <div>
@@ -48,8 +48,9 @@ describe("walkthrough guide cue", async () => {
       <div data-guide-cue-id="step-2">div</div>
       <WalkthroughGuideCue
         dataAttributeName="data-guide-cue-id"
-        defaultOpen
+        defaultOpen={props.defaultOpen}
         onClose={props.onClose}
+        onCurrentTargetChange={props.onCurrentTargetChange}
         walkthroughSteps={props.walkthroughSteps}
       />
     </div>
@@ -72,7 +73,7 @@ describe("walkthrough guide cue", async () => {
 
   const backdropIsNotVisible = async () =>
     waitFor(() => {
-      expect(screen.queryByTestId("walkthrough-guide-cue")).toBeNull();
+      expect(screen.queryByTestId("walkthrough-backdrop")).toBeNull();
     });
 
   it("should not open guide cue if defaultOpen is false", async () => {
@@ -139,7 +140,7 @@ describe("walkthrough guide cue", async () => {
     );
     await guideCueIsVisible();
     await backdropIsVisible();
-    const dismissButton = screen.getByRole("button", { name: "Close Tooltip" });
+    const dismissButton = screen.getByRole("button", { name: "Close" });
     await user.click(dismissButton);
     await guideCueIsNotVisible();
     await backdropIsNotVisible();
@@ -181,6 +182,96 @@ describe("walkthrough guide cue", async () => {
     await guideCueIsNotVisible();
     await backdropIsNotVisible();
   });
+
+  it("reports the current target and clears it when the walkthrough ends", async () => {
+    const user = userEvent.setup();
+    const onCurrentTargetChange = vi.fn();
+    const { unmount } = render(
+      <GuideCueWalkthroughContent
+        defaultOpen
+        onClose={vi.fn()}
+        onCurrentTargetChange={onCurrentTargetChange}
+        walkthroughSteps={walkthroughSteps}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(onCurrentTargetChange).toHaveBeenLastCalledWith("step-1");
+    });
+    await guideCueIsVisible();
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    await waitFor(() => {
+      expect(onCurrentTargetChange).toHaveBeenLastCalledWith("step-2");
+    });
+    await guideCueIsVisible();
+    await user.click(screen.getByRole("button", { name: "Get started" }));
+    await waitFor(() => {
+      expect(onCurrentTargetChange).toHaveBeenLastCalledWith(null);
+    });
+    expect(onCurrentTargetChange).toHaveBeenCalledTimes(3);
+    unmount();
+    expect(onCurrentTargetChange).toHaveBeenCalledTimes(3);
+  });
+
+  it.each(["advanced", "dismissed", "completed", "unmounted"])(
+    "closes controls opened by the walkthrough when %s",
+    async (exit) => {
+      const user = userEvent.setup();
+      const onTargetClick = vi.fn();
+      const target = document.createElement("button");
+      target.dataset.guideCueId = "step-2";
+      target.addEventListener("click", onTargetClick);
+      document.body.appendChild(target);
+      const steps = [
+        walkthroughSteps[0],
+        { ...walkthroughSteps[1], shouldClick: true },
+      ];
+      if (exit === "advanced") {
+        steps.push({
+          title: "Step 3",
+          description: "this is step 3",
+          targetId: "step-3",
+        });
+      }
+
+      const { unmount } = render(
+        <div>
+          <div data-guide-cue-id="step-1">div</div>
+          <div data-guide-cue-id="step-3">div</div>
+          <WalkthroughGuideCue
+            dataAttributeName="data-guide-cue-id"
+            defaultOpen
+            onClose={vi.fn()}
+            walkthroughSteps={steps}
+          />
+        </div>,
+      );
+
+      await guideCueIsVisible();
+      await user.click(screen.getByRole("button", { name: "Next" }));
+      await waitFor(() => {
+        expect(onTargetClick).toHaveBeenCalledTimes(1);
+      });
+
+      if (exit === "advanced") {
+        await guideCueIsVisible();
+        await user.click(screen.getByRole("button", { name: "Next" }));
+      } else if (exit === "dismissed") {
+        await guideCueIsVisible();
+        await user.click(screen.getByRole("button", { name: "Close" }));
+      } else if (exit === "completed") {
+        await guideCueIsVisible();
+        await user.click(screen.getByRole("button", { name: "Get started" }));
+      } else {
+        unmount();
+      }
+
+      await waitFor(() => {
+        expect(onTargetClick).toHaveBeenCalledTimes(2);
+      });
+      target.remove();
+    },
+  );
 
   it("closes the walkthrough if the next step cannot be found", async () => {
     const consoleErrorSpy = vi
