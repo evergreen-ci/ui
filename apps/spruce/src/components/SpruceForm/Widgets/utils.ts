@@ -1,4 +1,14 @@
+import { WidgetProps, getUiOptions } from "@rjsf/utils";
 import { Errors } from "../errors";
+
+export const getWidgetLabel = (
+  label: WidgetProps["label"],
+  schema: WidgetProps["schema"],
+  uiSchema?: WidgetProps["uiSchema"],
+) => {
+  const { title: uiTitle } = getUiOptions(uiSchema);
+  return uiTitle ?? schema.title ?? label;
+};
 
 /**
  * Returns true if a given value is null or undefined.

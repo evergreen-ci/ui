@@ -58,7 +58,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:orderable": false,
       items: {
         "ui:label": false,
-        "ui:title": "Project ID",
       },
     },
   },

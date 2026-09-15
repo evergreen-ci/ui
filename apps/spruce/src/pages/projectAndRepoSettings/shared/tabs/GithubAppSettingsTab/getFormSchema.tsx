@@ -150,7 +150,7 @@ export const getFormSchema = ({
       },
       actions: {
         "ui:field": GithubAppActions,
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:options": { isAppDefined, isRepo, projectOrRepoId, defaultsToRepo },
       },
     },
@@ -218,13 +218,13 @@ const permissionsByRequesterUISchema = {
   "ui:addable": false,
   "ui:orderable": false,
   "ui:removable": false,
-  "ui:showLabel": false,
+  "ui:label": false,
   items: {
     "ui:ObjectFieldTemplate": FieldRow,
     requesterType: {
       "ui:field": RequesterTypeField,
       "ui:elementWrapperCSS": tokenFieldCss,
-      "ui:showLabel": false,
+      "ui:label": false,
     },
     permissionGroup: {
       "ui:allowDeselect": false,

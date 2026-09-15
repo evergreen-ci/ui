@@ -183,6 +183,7 @@ export const getFormSchema = ({
       "ui:orderable": false,
       items: (itemData?: { displayTitle?: string }) => ({
         "ui:title": itemData?.displayTitle || "New AWS Region",
+        "ui:label": false,
         region: {
           "ui:data-testid": "region-select",
           "ui:allowDeselect": false,

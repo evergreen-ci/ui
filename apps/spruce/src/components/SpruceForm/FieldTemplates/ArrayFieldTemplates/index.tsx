@@ -5,6 +5,7 @@ import { Body } from "@leafygreen-ui/typography";
 import {
   ArrayFieldItemTemplateProps,
   ArrayFieldTemplateProps,
+  getUiOptions,
 } from "@rjsf/utils";
 import ArrowDown from "@via-ds/icons/ArrowDown";
 import ArrowUp from "@via-ds/icons/ArrowUp";
@@ -23,6 +24,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
   itemKey,
   parentUiSchema = {},
   readonly,
+  schema,
   uiSchema = {},
 }) => {
   const {
@@ -41,7 +43,9 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
     typeof parentUiSchema.items === "function"
       ? {}
       : (parentUiSchema.items ?? {});
-  const title = uiSchema["ui:title"] ?? itemUiSchema["ui:title"] ?? "";
+  const { title: itemTitle } = getUiOptions(uiSchema);
+  const { title: parentItemTitle } = getUiOptions(itemUiSchema);
+  const title = itemTitle ?? parentItemTitle ?? schema.title ?? "";
   const isDisabled = disabled || readonly;
   const deleteButton = (
     <Button
@@ -138,7 +142,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const descriptionNode = uiSchema["ui:descriptionNode"];
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const placeholder = uiSchema["ui:placeholder"];
-  const showLabel = uiSchema["ui:showLabel"] ?? true;
+  const { label: showLabel = true } = getUiOptions(uiSchema);
   const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
   const isDisabled = disabled || readonly;
 
@@ -152,10 +156,9 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const addToEnd = uiSchema["ui:addToEnd"] ?? false;
   const handleAddClick = (event?: React.MouseEvent) => {
     const addIndex = items.length && !addToEnd ? 0 : undefined;
-    (onAddClick as (event?: React.MouseEvent, index?: number) => void)(
-      event,
-      addIndex,
-    );
+    // RJSF's type omits the optional insertion index supported by the callback.
+    // @ts-expect-error RJSF accepts an optional index at runtime.
+    onAddClick(event, addIndex);
   };
 
   const addButton = (

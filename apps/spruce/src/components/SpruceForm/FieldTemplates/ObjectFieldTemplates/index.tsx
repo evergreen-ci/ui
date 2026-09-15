@@ -1,6 +1,6 @@
 import { Banner } from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { ObjectFieldTemplateProps } from "@rjsf/utils";
+import { ObjectFieldTemplateProps, getUiOptions } from "@rjsf/utils";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { cx } from "@evg-ui/lib/utils/css";
 import { emotionCssToClassName, getFields } from "components/SpruceForm/utils";
@@ -21,6 +21,7 @@ export const ObjectFieldTemplate = ({
   const warnings = uiSchema["ui:warnings"] ?? [];
   const dataCy = uiSchema["ui:data-cy"];
   const dataTestId = uiSchema["ui:data-testid"];
+  const { label: showLabel = true } = getUiOptions(uiSchema);
   return (
     <fieldset
       className={emotionCssToClassName(uiSchema["ui:elementWrapperCSS"])}
@@ -28,7 +29,7 @@ export const ObjectFieldTemplate = ({
       data-testid={dataTestId}
       id={fieldPathId.$id}
     >
-      {(uiSchema["ui:title"] || title) && (
+      {showLabel && (uiSchema["ui:title"] || title) && (
         <div className={styles.titleContainer}>
           <TitleFieldTemplate
             id={`${fieldPathId.$id}__title`}

@@ -157,7 +157,7 @@ const getHostUptimeSchema = ({
     sleepSchedule: {
       enabledWeekdays: {
         "ui:addable": false,
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:widget": widgets.DayPickerWidget,
       },
       timeSelection: {
@@ -169,7 +169,7 @@ const getHostUptimeSchema = ({
           "ui:widget": widgets.TimeWidget,
         },
         or: {
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:descriptionNode": <Body>or</Body>,
         },
         runContinuously: {
@@ -190,7 +190,7 @@ const getHostUptimeSchema = ({
             totalUptimeHours={hostUptimeWarnings?.enabledHoursCount}
           />
         ),
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:warnings": hostUptimeWarnings?.warnings,
       },
     },

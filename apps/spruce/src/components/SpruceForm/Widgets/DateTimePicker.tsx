@@ -11,6 +11,7 @@ import { useUserTimeZone } from "hooks/useUserTimeZone";
 import ElementWrapper from "../ElementWrapper";
 import styles from "./DateTimePicker.module.css";
 import { SpruceWidgetProps } from "./types";
+import { getWidgetLabel } from "./utils";
 
 enum Caller {
   Date,
@@ -24,7 +25,18 @@ export const DateTimePicker: React.FC<
       disableAfter?: Date;
     };
   } & SpruceWidgetProps
-> = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
+> = ({
+  disabled,
+  hideLabel,
+  id,
+  label,
+  onChange,
+  options,
+  readonly,
+  schema,
+  uiSchema,
+  value = "",
+}) => {
   const isDisabled = disabled === true || readonly === true;
   const {
     description,
@@ -33,6 +45,8 @@ export const DateTimePicker: React.FC<
     elementWrapperCSS,
     showLabel,
   } = options;
+  const shouldShowLabel = showLabel ?? !hideLabel;
+  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
 
   const timezone = useUserTimeZone();
 
@@ -61,9 +75,9 @@ export const DateTimePicker: React.FC<
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
-      {showLabel !== false && (
+      {shouldShowLabel && (
         <Label disabled={isDisabled} htmlFor={id}>
-          {label}
+          {widgetLabel}
         </Label>
       )}
       {description && <Description>{description}</Description>}
@@ -96,10 +110,13 @@ export const TimePicker: React.FC<SpruceWidgetProps> = ({
   onChange,
   options,
   readonly,
+  schema,
+  uiSchema,
   value,
 }) => {
   const { description, elementWrapperCSS } = options;
   const isDisabled = disabled === true || readonly === true;
+  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
   const currentDateTime = new Date(value || null);
 
   const handleChange = (d?: DateType) => {
@@ -116,7 +133,7 @@ export const TimePicker: React.FC<SpruceWidgetProps> = ({
       <LGTimePicker
         data-testid="time-picker"
         disabled={isDisabled}
-        label={label}
+        label={widgetLabel}
         onDateChange={handleChange}
         value={currentDateTime}
       />

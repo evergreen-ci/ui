@@ -1,5 +1,6 @@
 import { forwardRef, useMemo } from "react";
-import Form from "@rjsf/core";
+import Form, { FormProps } from "@rjsf/core";
+import { FormValidation } from "@rjsf/utils";
 import { customizeValidator } from "@rjsf/validator-ajv8";
 import { SpruceFormContainer } from "./Container";
 import { DescriptionField, TitleField } from "./CustomFields";
@@ -26,6 +27,26 @@ const templates: SpruceFormProps["templates"] = {
   FieldTemplate: DefaultFieldTemplate,
   ObjectFieldTemplate,
   TitleFieldTemplate: TitleField,
+};
+
+// Adapt Spruce's validator signature to RJSF's optional form data and error types.
+const adaptCustomValidate = (
+  customValidate: SpruceFormProps["customValidate"],
+): FormProps["customValidate"] => {
+  if (!customValidate) {
+    return undefined;
+  }
+
+  return (customFormData, errors) => {
+    if (customFormData === undefined) {
+      return errors;
+    }
+
+    return customValidate(
+      customFormData,
+      errors as Parameters<NonNullable<typeof customValidate>>[1],
+    ) as FormValidation;
+  };
 };
 
 export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
@@ -56,13 +77,21 @@ export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
     return (
       <Form
         ref={ref}
-        customValidate={customValidate as never}
+        customValidate={adaptCustomValidate(customValidate)}
         disabled={disabled}
         fields={{ ...baseFields, ...fields }}
         formData={formData}
         liveValidate={liveValidate ? "onChange" : false}
         noHtml5Validate
-        onChange={onChange as never}
+        onChange={
+          onChange
+            ? (data, id) => {
+                if (data.formData !== undefined) {
+                  onChange({ ...data, formData: data.formData }, id);
+                }
+              }
+            : undefined
+        }
         schema={schema}
         showErrorList={liveValidate ? false : "top"}
         tagName={tagName}
@@ -73,7 +102,7 @@ export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
           ...uiSchema,
         }}
         validator={validator}
-        widgets={widgets as never}
+        widgets={widgets as FormProps["widgets"]}
         {...args}
       />
     );

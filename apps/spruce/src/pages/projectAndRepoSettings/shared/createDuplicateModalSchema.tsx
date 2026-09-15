@@ -48,7 +48,7 @@ export const performanceTooling = {
     enablePerformanceTooling: enablePerformanceTooling.uiSchema,
     performanceToolingBanner: {
       "ui:field": PerformanceToolingBanner,
-      "ui:showLabel": false,
+      "ui:label": false,
     },
   },
 };
@@ -73,6 +73,6 @@ export const s3BucketInfo = {
   },
   uiSchema: {
     "ui:field": S3BucketInfoBanner,
-    "ui:showLabel": false,
+    "ui:label": false,
   },
 };

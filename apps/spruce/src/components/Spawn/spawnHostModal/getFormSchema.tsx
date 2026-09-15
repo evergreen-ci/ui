@@ -476,7 +476,7 @@ export const getFormSchema = ({
           "ui:data-testid": "setup-script-checkbox",
         },
         warningBanner: {
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:warnings": [
             <>
               This script is not guaranteed to run or succeed upon host startup.
@@ -528,7 +528,7 @@ export const getFormSchema = ({
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           spawnHostTokenAuthBanner: {
-            "ui:showLabel": false,
+            "ui:label": false,
             "ui:field-data-testid": "spawn-host-token-auth-banner",
             "ui:descriptionNode": (
               <Banner

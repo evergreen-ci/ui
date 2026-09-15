@@ -53,6 +53,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         itemData?: SingleTaskDistroFormState["projectTasksPairs"][number],
       ) => ({
         "ui:title": itemData?.displayTitle || "",
+        "ui:label": false,
         isRegex: {
           "ui:widget": widgets.CheckboxWidget,
           "ui:description":

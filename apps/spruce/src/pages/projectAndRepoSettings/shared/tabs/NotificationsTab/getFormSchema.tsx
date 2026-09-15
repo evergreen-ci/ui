@@ -161,7 +161,7 @@ export const getFormSchema = (
           "ui:addable": false,
           "ui:orderable": false,
           "ui:readonly": true,
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:useExpandableCard": true,
           items: (itemData?: { displayTitle?: string }) => ({
             "ui:title": itemData?.displayTitle || "",

@@ -81,7 +81,6 @@ const securityGroups = {
     "ui:orderable": false,
     items: {
       "ui:placeholder": "e.g. sg-xxxx",
-      "ui:title": "Security Group ID",
     },
   },
 };

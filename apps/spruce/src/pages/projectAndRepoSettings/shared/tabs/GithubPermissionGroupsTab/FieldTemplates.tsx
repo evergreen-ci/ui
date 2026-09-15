@@ -63,6 +63,12 @@ const ButtonWrapper = styled.div`
   margin-top: ${size.s};
 `;
 
+const ArrayItemWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  gap: ${size.xs};
+`;
+
 const HeaderLabel = styled.span`
   width: 100%;
 `;
@@ -88,7 +94,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
   disabled,
   readonly,
 }) => (
-  <>
+  <ArrayItemWrapper>
     {children}
     {buttonsProps.hasRemove && (
       <Button
@@ -96,8 +102,7 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
         disabled={disabled || readonly}
         leftGlyph={<Trash />}
         onClick={buttonsProps.onRemoveItem}
-        size={ButtonSize.Small}
       />
     )}
-  </>
+  </ArrayItemWrapper>
 );

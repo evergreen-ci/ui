@@ -207,7 +207,7 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       useBuildBaron: {
         "ui:widget": widgets.RadioBoxWidget,
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:data-testid": "enabled-radio-box",
       },
       ticketSearchProjects: {
