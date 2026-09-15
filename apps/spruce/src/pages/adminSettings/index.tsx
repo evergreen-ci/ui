@@ -386,6 +386,16 @@ const AdminSettingsPage: React.FC = () => {
               >
                 Docker
               </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-testid="navitem-admin-default-resource-tags"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "default-resource-tags",
+                )}
+              >
+                Default Resource Tags
+              </SideNavItem>
             </SideNavGroup>
             <SideNavGroup header="Other">
               <SideNavItem
