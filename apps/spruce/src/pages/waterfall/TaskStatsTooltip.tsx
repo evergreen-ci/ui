@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Align, Popover } from "@leafygreen-ui/popover";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
-import Icon from "@evg-ui/lib/components/Icon";
+import Chart from "@via-ds/icons/Chart";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
@@ -68,7 +68,7 @@ export const TaskStatsTooltip: React.FC<
           onClick={() => setOpen((o) => !o)}
           {...buttonContainerProps}
         >
-          <Icon glyph="Chart" />
+          <Chart size="medium" />
         </IconButton>
       </BtnContainer>
       <Popover

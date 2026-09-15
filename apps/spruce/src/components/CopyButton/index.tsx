@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import Checkmark from "@via-ds/icons/Checkmark";
+import Copy from "@via-ds/icons/Copy";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 
 interface Props {
@@ -34,9 +35,7 @@ export const CopyButton: React.FC<Props> = ({ textToCopy, tooltipLabel }) => {
       trigger={
         <Button
           data-testid="copy-button"
-          leftGlyph={
-            copied ? <Icon glyph="Checkmark" /> : <Icon glyph="Copy" />
-          }
+          leftGlyph={copied ? <Checkmark /> : <Copy />}
           onClick={copyText}
           size={ButtonSize.XSmall}
         />

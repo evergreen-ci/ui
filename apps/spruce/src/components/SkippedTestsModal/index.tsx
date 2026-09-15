@@ -6,7 +6,7 @@ import {
 } from "@leafygreen-ui/search-input";
 import { LGTableDataType } from "@leafygreen-ui/table";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import Download from "@via-ds/icons/Download";
 import {
   BaseTable,
   LGColumnDef,
@@ -78,7 +78,7 @@ export const SkippedTestsModal = <T extends LGRowData>({
         <Button
           data-testid="skipped-tests-download"
           disabled={loading}
-          leftGlyph={<Icon glyph="Download" />}
+          leftGlyph={<Download />}
           onClick={onClickDownload}
           size="small"
         >

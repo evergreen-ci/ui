@@ -2542,7 +2542,7 @@ export type Patch = {
   tasks: Array<Scalars["String"]["output"]>;
   user: User;
   variantsTasks: Array<VariantTask>;
-  version?: Maybe<VersionLite>;
+  version?: Maybe<Version>;
 };
 
 /**
@@ -4211,7 +4211,7 @@ export type Task = {
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
-  version: VersionLite;
+  version: Version;
   versionMetadata: Version;
 };
 
@@ -5002,6 +5002,7 @@ export type Version = {
   patch?: Maybe<Patch>;
   predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
+  project?: Maybe<ProjectLite>;
   projectMetadata?: Maybe<Project>;
   quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
@@ -5019,6 +5020,7 @@ export type Version = {
   user: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
+  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 /** Version models a commit within a project. */
@@ -5043,43 +5045,8 @@ export type VersionTaskQuarantinedTestsSampleArgs = {
 };
 
 /** Version models a commit within a project. */
-export type VersionTaskStatusStatsArgs = {
-  options: BuildVariantOptions;
-};
-
-/** Version models a commit within a project. */
 export type VersionTasksArgs = {
   options: TaskFilterOptions;
-};
-
-/** VersionLite replaces Version by sidestepping the APIVersion layer. It does not contain all Version fields at this time. */
-export type VersionLite = {
-  __typename?: "VersionLite";
-  activated?: Maybe<Scalars["Boolean"]["output"]>;
-  baseVersion?: Maybe<VersionLite>;
-  branch: Scalars["String"]["output"];
-  childVersions?: Maybe<Array<VersionLite>>;
-  cost?: Maybe<Cost>;
-  createTime: Scalars["Time"]["output"];
-  errors: Array<Scalars["String"]["output"]>;
-  finishTime?: Maybe<Scalars["Time"]["output"]>;
-  gitTags?: Maybe<Array<GitTag>>;
-  id: Scalars["String"]["output"];
-  ignored: Scalars["Boolean"]["output"];
-  ingestTime?: Maybe<Scalars["Time"]["output"]>;
-  isPatch: Scalars["Boolean"]["output"];
-  message: Scalars["String"]["output"];
-  order: Scalars["Int"]["output"];
-  project?: Maybe<ProjectLite>;
-  repo: Scalars["String"]["output"];
-  requester: Scalars["String"]["output"];
-  revision: Scalars["String"]["output"];
-  startTime?: Maybe<Scalars["Time"]["output"]>;
-  status: Scalars["String"]["output"];
-  taskStatusStats?: Maybe<TaskStats>;
-  user: User;
-  warnings: Array<Scalars["String"]["output"]>;
-  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 export type VersionTasks = {
@@ -5133,7 +5100,7 @@ export type VolumeHost = {
 export type Waterfall = {
   __typename?: "Waterfall";
   pagination: WaterfallPagination;
-  versions: Array<VersionLite>;
+  versions: Array<Version>;
 };
 
 export type WaterfallBuild = {
@@ -5482,7 +5449,7 @@ export type PatchesPagePatchesFragment = {
     } | null;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     version?: {
-      __typename?: "VersionLite";
+      __typename?: "Version";
       id: string;
       requester: string;
       status: string;
@@ -7428,9 +7395,9 @@ export type SchedulePatchMutation = {
     description: string;
     status: string;
     version?: {
-      __typename?: "VersionLite";
+      __typename?: "Version";
       id: string;
-      childVersions?: Array<{ __typename?: "VersionLite"; id: string }> | null;
+      childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
     } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     projectMetadata?: { __typename?: "Project"; id: string } | null;
@@ -9367,7 +9334,7 @@ export type ConfigurePatchQuery = {
       id: string;
       identifier: string;
     } | null;
-    version?: { __typename?: "VersionLite"; id: string } | null;
+    version?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
@@ -9398,7 +9365,7 @@ export type PatchQuery = {
       id: string;
       identifier: string;
     } | null;
-    version?: { __typename?: "VersionLite"; id: string } | null;
+    version?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
@@ -9959,7 +9926,7 @@ export type ProjectPatchesQuery = {
           userId: string;
         };
         version?: {
-          __typename?: "VersionLite";
+          __typename?: "Version";
           id: string;
           requester: string;
           status: string;
@@ -11339,7 +11306,7 @@ export type TaskHistoryQuery = {
         }>;
       };
       version: {
-        __typename?: "VersionLite";
+        __typename?: "Version";
         id: string;
         message: string;
         user: { __typename?: "User"; id: string; displayName?: string | null };
@@ -11765,11 +11732,7 @@ export type TaskQuery = {
       revision?: string | null;
       status: string;
       timeTaken?: number | null;
-      versionMetadata: {
-        __typename?: "VersionLite";
-        id: string;
-        revision: string;
-      };
+      versionMetadata: { __typename?: "Version"; id: string; revision: string };
     } | null;
     dependsOn?: Array<{
       __typename?: "Dependency";
@@ -11863,7 +11826,7 @@ export type TaskQuery = {
       total?: number | null;
     } | null;
     versionMetadata: {
-      __typename?: "VersionLite";
+      __typename?: "Version";
       id: string;
       isPatch: boolean;
       message: string;
@@ -12024,7 +11987,7 @@ export type UserPatchesQuery = {
           userId: string;
         };
         version?: {
-          __typename?: "VersionLite";
+          __typename?: "Version";
           id: string;
           requester: string;
           status: string;
@@ -12554,7 +12517,7 @@ export type WaterfallQuery = {
       prevPageOrder: number;
     };
     versions: Array<{
-      __typename?: "VersionLite";
+      __typename?: "Version";
       id: string;
       activated?: boolean | null;
       createTime: Date;
