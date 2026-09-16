@@ -16,9 +16,10 @@
   "include": [
     "../../packages/lib/vitest.d.ts",
     "src",
-    "scripts",
     "src/**/*.d.ts",
-    "./.storybook/preview.tsx"
+    "src/components/styles/global.css",
+    "scripts",
+    "./.storybook/preview.tsx",
   ],
   "references": [
     {

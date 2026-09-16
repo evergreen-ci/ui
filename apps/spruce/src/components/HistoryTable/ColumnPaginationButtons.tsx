@@ -1,6 +1,7 @@
 import { Button } from "@via-ds/components/button";
 import { Disclaimer } from "@via-ds/components/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import ChevronLeft from "@via-ds/icons/ChevronLeft";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import styles from "./ColumnPaginationButtons.module.css";
 import { useHistoryTable } from "./HistoryTableContext";
 
@@ -44,7 +45,7 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
         isDisabled={!hasPreviousPage}
         onPress={handleOnClickPrev}
       >
-        <Icon glyph="ChevronLeft" />
+        <ChevronLeft />
       </Button>
       <Disclaimer>
         {currentPage + 1} / {pageCount}
@@ -56,7 +57,7 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
         isDisabled={!hasNextPage}
         onPress={handleOnClickNext}
       >
-        <Icon glyph="ChevronRight" />
+        <ChevronRight />
       </Button>
     </div>
   );

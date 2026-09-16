@@ -1,5 +1,5 @@
+import Settings from "@via-ds/icons/Settings";
 import { Link, useParams } from "react-router-dom";
-import { Icon } from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { usePreferencesAnalytics } from "analytics";
 import {
@@ -26,7 +26,7 @@ const Preferences: React.FC = () => {
   return (
     <SideNavPageWrapper>
       <SideNav aria-label="Preferences">
-        <SideNavGroup glyph={<Icon glyph="Settings" />} header="Preferences">
+        <SideNavGroup glyph={<Settings />} header="Preferences">
           <SideNavItem
             active={tab === PreferencesTabRoutes.Profile}
             as={Link}

@@ -1,6 +1,6 @@
 import { Button, Size, Variant } from "@leafygreen-ui/button";
+import Sparkle from "@via-ds/icons/Sparkle";
 import { useChatContext } from "@evg-ui/fungi";
-import Icon from "@evg-ui/lib/components/Icon";
 
 interface Props {
   setSidePanelCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,7 +13,7 @@ export const ToggleChatbotButton: React.FC<Props> = ({
 
   return (
     <Button
-      leftGlyph={<Icon glyph="Sparkle" />}
+      leftGlyph={<Sparkle />}
       onClick={() => {
         if (!drawerOpen) {
           setSidePanelCollapsed(true);

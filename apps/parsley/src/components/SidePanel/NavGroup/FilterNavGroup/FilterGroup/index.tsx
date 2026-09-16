@@ -10,10 +10,11 @@ import {
 import { TextInput } from "@leafygreen-ui/text-input";
 import { Toggle } from "@leafygreen-ui/toggle";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
+import Edit from "@via-ds/icons/Edit";
+import X from "@via-ds/icons/X";
 import Accordion, {
   AccordionCaretAlign,
 } from "@evg-ui/lib/components/Accordion";
-import Icon from "@evg-ui/lib/components/Icon";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
@@ -125,7 +126,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               }}
               title="Edit filter"
             >
-              <Icon fill={gray.base} glyph="Edit" />
+              <Edit fill={gray.base} size="medium" />
             </IconButton>
             <IconButton
               aria-label="Delete filter"
@@ -135,7 +136,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               }}
               title="Delete filter"
             >
-              <Icon fill={gray.base} glyph="X" />
+              <X fill={gray.base} size="medium" />
             </IconButton>
           </IconButtonContainer>
         </>
