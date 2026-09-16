@@ -84,9 +84,7 @@ export const TaskStatsOpen: StoryObj<typeof VersionLabel> = {
       canvas.getByRole("button", { name: "Show task stats" }),
     );
     await expect(
-      within(canvasElement.ownerDocument.body).getByTestId(
-        "task-stats-tooltip",
-      ),
+      within(canvasElement.ownerDocument.body).findByText("Total tasks"),
     ).toBeVisible();
   },
 };

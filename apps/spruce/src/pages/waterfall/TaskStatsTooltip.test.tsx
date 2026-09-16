@@ -1,5 +1,6 @@
 import {
   MockedProvider,
+  act,
   render,
   screen,
   stubGetClientRects,
@@ -88,10 +89,18 @@ describe("TaskStatsTooltip", () => {
       expect(buttons[0]).toHaveAttribute("aria-expanded", "true");
     });
 
-    await user.click(buttons[1]);
+    act(() => buttons[1].focus());
 
     await waitFor(() => {
       expect(buttons[0]).toHaveAttribute("aria-expanded", "false");
+      expect(
+        screen.queryByTestId("task-stats-tooltip"),
+      ).not.toBeInTheDocument();
+    });
+
+    await user.click(buttons[1]);
+
+    await waitFor(() => {
       expect(buttons[1]).toHaveAttribute("aria-expanded", "true");
       expect(screen.getAllByTestId("task-stats-tooltip")).toHaveLength(1);
     });
