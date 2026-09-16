@@ -84,10 +84,7 @@ export const Default: StoryObj<typeof TaskOverviewPopup> = {
 };
 
 const loadingMock = {
-  request: {
-    query: TASK_OVERVIEW_POPUP,
-    variables: { taskId, execution: 0 },
-  },
+  ...defaultMock,
   delay: Infinity,
 };
 

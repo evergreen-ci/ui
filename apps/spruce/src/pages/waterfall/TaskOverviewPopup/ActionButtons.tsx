@@ -84,7 +84,11 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
       {displayOnly ? (
         <TooltipRoot>
           <TooltipTrigger>
-            <span className={styles.disabledTooltipTrigger}>
+            <span
+              className={styles.disabledTooltipTrigger}
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- The disabled button cannot receive focus for its tooltip.
+              tabIndex={0}
+            >
               <Button isDisabled size="small">
                 Logs
               </Button>
