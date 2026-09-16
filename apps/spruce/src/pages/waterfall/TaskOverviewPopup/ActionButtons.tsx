@@ -1,5 +1,11 @@
 import { useMutation } from "@apollo/client/react";
-import { Button, InfoSprinkle, LinkButton } from "@via-ds/components";
+import {
+  Button,
+  LinkButton,
+  Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@via-ds/components";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { getParsleyTaskLogLink } from "constants/externalResources";
@@ -76,12 +82,20 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
         Filter
       </Button>
       {displayOnly ? (
-        <>
-          <Button isDisabled size="small">
-            Logs
-          </Button>
-          <InfoSprinkle>Display tasks do not have logs.</InfoSprinkle>
-        </>
+        <TooltipRoot>
+          <TooltipTrigger>
+            <span
+              className={styles.disabledTooltipTrigger}
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- The disabled button cannot receive focus for its tooltip.
+              tabIndex={0}
+            >
+              <Button isDisabled size="small">
+                Logs
+              </Button>
+            </span>
+          </TooltipTrigger>
+          <Tooltip>Display tasks do not have logs.</Tooltip>
+        </TooltipRoot>
       ) : (
         <LinkButton
           href={getParsleyTaskLogLink(LogTypes.Task, taskId, execution)}
