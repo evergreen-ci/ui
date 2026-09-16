@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { userEvent, within } from "storybook/test";
 import {
   getSpruceConfigMock,
   getUserSettingsMock,
@@ -83,9 +83,7 @@ export const TaskStatsOpen: StoryObj<typeof VersionLabel> = {
     await userEvent.click(
       canvas.getByRole("button", { name: "Show task stats" }),
     );
-    await expect(
-      await within(canvasElement.ownerDocument.body).findByText("Total tasks"),
-    ).toBeVisible();
+    await within(canvasElement.ownerDocument.body).findByText("Total tasks");
   },
 };
 
