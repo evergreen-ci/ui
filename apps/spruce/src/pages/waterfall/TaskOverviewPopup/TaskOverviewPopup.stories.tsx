@@ -83,6 +83,27 @@ export const Default: StoryObj<typeof TaskOverviewPopup> = {
   },
 };
 
+const loadingMock = {
+  request: {
+    query: TASK_OVERVIEW_POPUP,
+    variables: { taskId, execution: 0 },
+  },
+  delay: Infinity,
+};
+
+export const Loading: StoryObj<typeof TaskOverviewPopup> = {
+  render: (args) => <TaskOverviewPopupWrapper {...args} />,
+  parameters: {
+    apolloClient: {
+      mocks: [loadingMock],
+    },
+  },
+  args: {
+    taskId,
+    execution: 0,
+  },
+};
+
 const withAnnotationsMock: ApolloMock<
   TaskOverviewPopupQuery,
   TaskOverviewPopupQueryVariables

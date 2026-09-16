@@ -91,9 +91,9 @@ export const TaskOverviewPopup: React.FC<Props> = ({
         >
           {isLoading ? (
             <Skeleton isLoading>
-              <Body>Loading task details</Body>
-              <Body>Loading task details</Body>
-              <Body>Loading task details</Body>
+              <Body>Task name and status</Body>
+              <Body>Duration: 1m 38s</Body>
+              <Body>Restart Filter Logs History</Body>
             </Skeleton>
           ) : (
             <>
