@@ -3,6 +3,7 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import {
   Button,
   Popover,
+  PopoverFrameWithArrow,
   PopoverRoot,
   Skeleton,
   Text,
@@ -12,7 +13,6 @@ import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Divider } from "components/styles";
-import { PopoverContainer } from "components/styles/Popover";
 import { TaskBox } from "components/TaskBox";
 import {
   WaterfallTaskStatsQuery,
@@ -29,6 +29,7 @@ export const TaskStatsTooltip: React.FC<
   }
 > = ({ id, isFirstVersion }) => {
   const [open, setOpen] = useState(false);
+  const arrowRef = useRef<SVGSVGElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -78,6 +79,7 @@ export const TaskStatsTooltip: React.FC<
   return (
     <PopoverRoot
       align="end"
+      arrowRef={arrowRef}
       isNonModal
       isOpen={open}
       onOpenChange={setOpen}
@@ -97,49 +99,48 @@ export const TaskStatsTooltip: React.FC<
         </Button>
       </div>
       <Popover ref={popoverRef}>
-        <PopoverContainer
-          className={styles.popover}
-          data-testid="task-stats-tooltip"
-        >
-          {isLoading ? (
-            <Skeleton isLoading>
-              <Text>Loading task stats</Text>
-            </Skeleton>
-          ) : (
-            <table>
-              <tbody>
-                {data?.version?.taskStatusStats?.counts?.map(
-                  ({ count, status }) => (
-                    <tr key={`task_stats_row_${status}`}>
-                      <td className={`${styles.cell} ${styles.count}`}>
-                        {count}
-                      </td>
-                      <td className={styles.cell}>
-                        <TaskBox status={status as TaskStatus} />
-                      </td>
-                      <td className={styles.cell}>
-                        {taskStatusToCopy[status as TaskStatus]}
-                      </td>
-                    </tr>
-                  ),
-                )}
-                <tr>
-                  <td className={styles.cell} colSpan={3}>
-                    <Divider />
-                  </td>
-                </tr>
-                <tr>
-                  <td className={`${styles.cell} ${styles.count}`}>
-                    {totalTaskCount}
-                  </td>
-                  <td className={styles.cell} colSpan={2}>
-                    Total tasks
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          )}
-        </PopoverContainer>
+        <div data-testid="task-stats-tooltip">
+          <PopoverFrameWithArrow className={styles.popover}>
+            {isLoading ? (
+              <Skeleton isLoading>
+                <Text>Loading task stats</Text>
+              </Skeleton>
+            ) : (
+              <table>
+                <tbody>
+                  {data?.version?.taskStatusStats?.counts?.map(
+                    ({ count, status }) => (
+                      <tr key={`task_stats_row_${status}`}>
+                        <td className={`${styles.cell} ${styles.count}`}>
+                          {count}
+                        </td>
+                        <td className={styles.cell}>
+                          <TaskBox status={status as TaskStatus} />
+                        </td>
+                        <td className={styles.cell}>
+                          {taskStatusToCopy[status as TaskStatus]}
+                        </td>
+                      </tr>
+                    ),
+                  )}
+                  <tr>
+                    <td className={styles.cell} colSpan={3}>
+                      <Divider />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={`${styles.cell} ${styles.count}`}>
+                      {totalTaskCount}
+                    </td>
+                    <td className={styles.cell} colSpan={2}>
+                      Total tasks
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            )}
+          </PopoverFrameWithArrow>
+        </div>
       </Popover>
     </PopoverRoot>
   );
