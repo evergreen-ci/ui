@@ -2,11 +2,12 @@ import { createRef } from "react";
 import Form from "@rjsf/core";
 import { render } from "@evg-ui/lib/test_utils";
 import { MongoDbEnvironment } from "gql/generated/types";
-import { formSchema } from "./getFormSchema";
+import { getFormSchema } from "./getFormSchema";
 
 const validateResourceTags = (
   mongodbEnv: MongoDbEnvironment | "",
   mongodbOwner: string,
+  initialValues = { mongodbEnv, mongodbOwner },
 ) => {
   const ref = createRef<InstanceType<typeof Form>>();
   const formData = {
@@ -22,7 +23,7 @@ const validateResourceTags = (
       ref={ref}
       customFormats={{ validEmail: () => true }}
       formData={formData}
-      schema={formSchema.schema}
+      schema={getFormSchema(initialValues).schema}
     />,
   );
 
@@ -42,5 +43,20 @@ describe("providers tab validation", () => {
     expect(validateResourceTags(MongoDbEnvironment.Staging, "")).toHaveLength(
       0,
     );
+  });
+
+  it("rejects clearing values that have already been set", () => {
+    expect(
+      validateResourceTags("", "evergreen@mongodb.com", {
+        mongodbEnv: MongoDbEnvironment.Staging,
+        mongodbOwner: "",
+      }),
+    ).toHaveLength(1);
+    expect(
+      validateResourceTags(MongoDbEnvironment.Staging, "", {
+        mongodbEnv: "",
+        mongodbOwner: "evergreen@mongodb.com",
+      }),
+    ).toHaveLength(1);
   });
 });
