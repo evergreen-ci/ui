@@ -1,0 +1,13 @@
+.emptyState {
+  width: 100%;
+}
+
+.graphic {
+  width: 198px;
+}
+
+.graphic > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
