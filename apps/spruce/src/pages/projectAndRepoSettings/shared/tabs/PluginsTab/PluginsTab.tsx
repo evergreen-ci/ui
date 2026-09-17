@@ -1,8 +1,7 @@
 import { useMemo } from "react";
-import { useParams } from "react-router-dom";
 import { ValidateProps } from "components/SpruceForm";
-import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
-import { useHasProjectOrRepoEditPermission, useSpruceConfig } from "hooks";
+import { ProjectSettingsTabRoutes } from "constants/routes";
+import { useSpruceConfig } from "hooks";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
@@ -18,10 +17,6 @@ export const PluginsTab: React.FC<TabProps> = ({
   const initialFormState = projectData || repoData;
   const spruceConfig = useSpruceConfig();
   const jiraEmail = spruceConfig?.jira?.email;
-  const { [slugs.projectIdentifier]: projectIdentifier } = useParams<{
-    [slugs.projectIdentifier]: string;
-  }>();
-  const { canEdit } = useHasProjectOrRepoEditPermission(projectIdentifier);
 
   const formSchema = useMemo(
     () =>
@@ -30,10 +25,8 @@ export const PluginsTab: React.FC<TabProps> = ({
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         jiraEmail,
         projectType === ProjectType.AttachedProject ? repoData : null,
-        projectData,
-        canEdit,
       ),
-    [canEdit, jiraEmail, projectData, projectType, repoData],
+    [jiraEmail, projectType, repoData],
   );
 
   return (

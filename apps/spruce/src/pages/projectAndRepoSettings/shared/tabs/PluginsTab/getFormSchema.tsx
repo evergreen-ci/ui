@@ -7,7 +7,6 @@ import { form } from "../utils";
 import { PluginsFormState } from "./types";
 
 const { placeholderIf, radioBoxOptions } = form;
-const REDACTED_VALUE = "{REDACTED}";
 
 const requesters = [
   {
@@ -28,34 +27,10 @@ const requesters = [
   },
 ];
 
-const getWebhookSecretUiSchema = (
-  isRepo: boolean,
-  canEdit: boolean,
-  projectSecret?: string,
-  inheritedSecret?: string,
-) => {
-  const inheritedSecretPlaceholder = placeholderIf(inheritedSecret);
-  if (
-    !isRepo &&
-    canEdit &&
-    !projectSecret &&
-    inheritedSecret === REDACTED_VALUE
-  ) {
-    return {
-      ...inheritedSecretPlaceholder,
-      "ui:description":
-        "The inherited secret is hidden. Leave it unchanged to keep it, or enter a new secret to override it.",
-    };
-  }
-  return inheritedSecretPlaceholder;
-};
-
 export const getFormSchema = (
   isRepo: boolean,
   jiraEmail?: string,
   repoData?: PluginsFormState,
-  projectData?: PluginsFormState,
-  canEdit = false,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -274,10 +249,7 @@ export const getFormSchema = (
         endpoint: placeholderIf(
           repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
         ),
-        secret: getWebhookSecretUiSchema(
-          isRepo,
-          canEdit,
-          projectData?.buildBaronSettings?.fileTicketWebhook?.secret,
+        secret: placeholderIf(
           repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
         ),
       },
