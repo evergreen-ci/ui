@@ -1,10 +1,10 @@
 import { forwardRef } from "react";
 import { ButtonProps, Button as LeafyGreenButton } from "@leafygreen-ui/button";
-import Icon from "@evg-ui/lib/components/Icon";
+import Plus from "@via-ds/icons/Plus";
 
 export const PlusButton = forwardRef<HTMLDivElement, ButtonProps>(
   ({ leftGlyph, ...rest }, ref) => (
-    <LeafyGreenButton ref={ref} leftGlyph={<Icon glyph="Plus" />} {...rest} />
+    <LeafyGreenButton ref={ref} leftGlyph={<Plus />} {...rest} />
   ),
 );
 

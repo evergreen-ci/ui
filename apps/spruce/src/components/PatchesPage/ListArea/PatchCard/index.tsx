@@ -1,5 +1,5 @@
 import { Chip, ChipGroup, ChipVariant } from "@via-ds/components";
-import Icon from "@evg-ui/lib/components/Icon";
+import Refresh from "@via-ds/icons/Refresh";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
@@ -132,7 +132,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
           >
             {invalidatedByUpstream && (
               <Chip id="merge-queue-aborted" variant={ChipVariant.Gray}>
-                <Icon glyph="Refresh" /> Merge Queue Aborted
+                <Refresh /> Merge Queue Aborted
               </Chip>
             )}
             {hidden && (

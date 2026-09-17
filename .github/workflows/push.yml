@@ -1,8 +1,10 @@
 name: "Commit Checks"
-on: 
+on:
   push:
     branches:
       - main
+permissions:
+  contents: read
 jobs:
   chromatic:
     name: Chromatic Tests
