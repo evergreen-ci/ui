@@ -109,13 +109,36 @@ export const WalkthroughGuideCue = forwardRef<
   useEffect(() => () => closeOpenedControl(), [closeOpenedControl]);
 
   useEffect(() => {
-    walkthroughSteps.forEach((step, i) => {
-      targetRefs.current[i].current = getTargetElement({
+    if (!defaultOpen) {
+      return;
+    }
+
+    const openWhenTargetExists = () => {
+      const initialTarget = getTargetElement({
         dataAttributeName,
-        targetId: step.targetId,
+        targetId: walkthroughSteps[0].targetId,
       });
+      if (!initialTarget) {
+        return false;
+      }
+
+      targetRefs.current[0].current = initialTarget;
+      setActive(true);
+      return true;
+    };
+
+    if (openWhenTargetExists()) {
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      if (openWhenTargetExists()) {
+        observer.disconnect();
+      }
     });
-    setActive(defaultOpen);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
   }, [dataAttributeName, defaultOpen, walkthroughSteps]);
 
   return (

@@ -87,6 +87,26 @@ describe("walkthrough guide cue", async () => {
     await backdropIsNotVisible();
   });
 
+  it("waits for the initial target before opening", async () => {
+    render(
+      <WalkthroughGuideCue
+        dataAttributeName="data-guide-cue-id"
+        defaultOpen
+        onClose={vi.fn()}
+        walkthroughSteps={walkthroughSteps}
+      />,
+    );
+
+    await guideCueIsNotVisible();
+
+    const target = document.createElement("div");
+    target.dataset.guideCueId = walkthroughSteps[0].targetId;
+    document.body.appendChild(target);
+
+    await guideCueIsVisible();
+    target.remove();
+  });
+
   it("should call onClose function when walkthrough ends", async () => {
     const user = userEvent.setup();
     const onClose = vi.fn();
