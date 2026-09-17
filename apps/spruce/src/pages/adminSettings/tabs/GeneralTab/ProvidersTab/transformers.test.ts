@@ -46,7 +46,7 @@ describe("providers section", () => {
     expect(input.providers?.aws?.resourceTags?.mongodbEnv).toBeUndefined();
   });
 
-  it("omits an unset MongoDB owner from the input", () => {
+  it("includes an unset MongoDB owner in the input", () => {
     const input = formToGql({
       ...form,
       providers: {
@@ -61,7 +61,7 @@ describe("providers section", () => {
       },
     });
 
-    expect(input.providers?.aws?.resourceTags?.mongodbOwner).toBeUndefined();
+    expect(input.providers?.aws?.resourceTags?.mongodbOwner).toBe("");
   });
 });
 
