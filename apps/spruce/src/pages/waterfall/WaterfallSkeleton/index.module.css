@@ -6,3 +6,7 @@
   );
   gap: var(--via-space-200) var(--via-space-400);
 }
+
+.skeleton[data-animations-enabled="false"] * {
+  animation: none;
+}

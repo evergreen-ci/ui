@@ -37,21 +37,23 @@ export const InactiveVersionsButton: React.FC<Props> = ({
           {brokenVersionsCount} broken
         </Badge>
       )}
-      <Button
-        aria-label="Open inactive versions modal"
-        className={styles.button}
-        data-highlighted={highlightedIndex !== undefined}
-        data-testid="inactive-versions-button"
-        onPress={() => {
-          setModalOpen(true);
-        }}
-        size="small"
-        variant={highlightedIndex !== undefined ? "primary" : "default"}
-      >
-        <List />
-        {versions?.length}
+      <div className={styles.buttonContainer}>
+        <Button
+          aria-label="Open inactive versions modal"
+          className={styles.button}
+          data-highlighted={highlightedIndex !== undefined}
+          data-testid="inactive-versions-button"
+          onPress={() => {
+            setModalOpen(true);
+          }}
+          size="small"
+          variant={highlightedIndex !== undefined ? "primary" : "default"}
+        >
+          <List />
+          {versions?.length}
+        </Button>
         <div className={styles.inactiveVersionLine} />
-      </Button>
+      </div>
     </>
   );
 };

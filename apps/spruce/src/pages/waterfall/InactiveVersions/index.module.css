@@ -3,7 +3,8 @@
   box-shadow: 0 0 10px var(--via-color-blue-300);
 }
 
-.button {
+.buttonContainer {
+  display: inline-block;
   position: relative;
 }
 

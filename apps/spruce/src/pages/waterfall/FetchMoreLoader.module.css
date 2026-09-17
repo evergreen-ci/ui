@@ -1,5 +1,6 @@
 .loader {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--via-space-200);
+  gap: var(--via-space-400);
 }

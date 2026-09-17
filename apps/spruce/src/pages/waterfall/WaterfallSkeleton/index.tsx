@@ -3,18 +3,24 @@ import { VERSION_LIMIT } from "../constants";
 import styles from "./index.module.css";
 
 interface WaterfallSkeletonProps {
+  enableAnimations?: boolean;
   numCols?: number;
   numRows?: number;
 }
 
 const WaterfallSkeleton: React.FC<WaterfallSkeletonProps> = ({
+  enableAnimations = true,
   numCols = VERSION_LIMIT + 1,
   numRows = 15,
 }) => (
   <Skeleton isLoading>
     <div
+      aria-busy="true"
+      aria-label="Loading waterfall data"
       className={styles.skeleton}
+      data-animations-enabled={enableAnimations}
       data-testid="waterfall-skeleton"
+      role="status"
       style={
         {
           "--waterfall-skeleton-columns": numCols,

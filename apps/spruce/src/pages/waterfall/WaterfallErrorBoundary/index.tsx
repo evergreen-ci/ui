@@ -93,7 +93,7 @@ class WaterfallErrorBoundary extends Component<
               </div>
             </div>
           </div>
-          <WaterfallSkeleton />
+          <WaterfallSkeleton enableAnimations={false} />
         </div>
       );
     }
