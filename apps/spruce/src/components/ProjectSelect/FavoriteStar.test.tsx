@@ -33,6 +33,25 @@ describe("FavoriteStar", () => {
     expect(parentOnClick).not.toHaveBeenCalled();
   });
 
+  it("adds a favorite from the keyboard", async () => {
+    const user = userEvent.setup();
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={mocks}>
+        <FavoriteStar isFavorite={false} projectIdentifier="evergreen" />
+      </MockedProvider>,
+    );
+    render(<Component />);
+
+    screen.getByRole("button", { name: "Add To Favorites" }).focus();
+    await user.keyboard("{Enter}");
+
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledWith(
+        "Added evergreen smoke test to favorites!",
+      );
+    });
+  });
+
   it("removes a favorite", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
