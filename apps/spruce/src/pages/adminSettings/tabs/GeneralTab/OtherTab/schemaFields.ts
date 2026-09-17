@@ -519,7 +519,7 @@ export const bucketConfig = {
     },
     sourceCacheBucketName: {
       "ui:description":
-        "The S3 bucket that stores cached git source. Tasks for projects in the allowlist below can pull source from this bucket instead of cloning from GitHub.",
+        "The S3 bucket that stores cached git source for allowlisted projects.",
     },
     sourceCacheBucketRoleARN: {
       "ui:description":

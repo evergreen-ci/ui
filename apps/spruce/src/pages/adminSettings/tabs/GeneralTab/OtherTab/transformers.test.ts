@@ -31,6 +31,35 @@ describe("other tab transformers", () => {
     );
   });
 
+  it("round-trips a cleared source cache config so it persists as empty", () => {
+    const adminSettingsWithClearedSourceCache: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        sourceCacheBucket: {
+          __typename: "BucketConfig",
+          name: "",
+          roleARN: "",
+        },
+        sourceCacheProjects: [],
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithClearedSourceCache);
+    expect(loaded).not.toBeNull();
+    expect(formToGql(loaded!)).toStrictEqual({
+      ...expectedGql,
+      buckets: {
+        ...expectedGql.buckets,
+        sourceCacheBucket: {
+          name: "",
+          roleARN: "",
+        },
+        sourceCacheProjects: [],
+      },
+    });
+  });
+
   it("round-trips S3 storage account ID lists from admin settings", () => {
     const adminSettingsWithS3Lists: AdminSettingsData = {
       ...mockAdminSettings,

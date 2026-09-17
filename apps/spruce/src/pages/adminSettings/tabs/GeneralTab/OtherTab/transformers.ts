@@ -389,14 +389,14 @@ export const formToGql = ((form: OtherFormState) => {
         roleARN: bucketConfig.testResultsBucketRoleARN || undefined,
         type: bucketConfig.testResultsBucketType || undefined,
       },
+      // These fields are always serialized, even when empty, so that clearing
+      // them in the form persists. The backend merge skips omitted (nil) fields,
+      // which would otherwise leave the previous values in place.
       sourceCacheBucket: {
-        name: bucketConfig.sourceCacheBucketName || undefined,
-        roleARN: bucketConfig.sourceCacheBucketRoleARN || undefined,
+        name: bucketConfig.sourceCacheBucketName,
+        roleARN: bucketConfig.sourceCacheBucketRoleARN,
       },
-      sourceCacheProjects:
-        bucketConfig.sourceCacheProjects.length > 0
-          ? bucketConfig.sourceCacheProjects
-          : undefined,
+      sourceCacheProjects: bucketConfig.sourceCacheProjects,
       credentials: {
         key: bucketConfig.credentialsKey || undefined,
         secret: bucketConfig.credentialsSecret || undefined,
