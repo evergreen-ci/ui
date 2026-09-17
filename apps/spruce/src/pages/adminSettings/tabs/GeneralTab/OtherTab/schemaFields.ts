@@ -438,6 +438,21 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Test Results Bucket Type",
     },
+    sourceCacheBucketName: {
+      type: "string" as const,
+      title: "Source Cache Bucket Name",
+    },
+    sourceCacheBucketRoleARN: {
+      type: "string" as const,
+      title: "Source Cache Bucket Role ARN",
+    },
+    sourceCacheProjects: {
+      type: "array" as const,
+      title: "Projects Opted Into Source Cache",
+      items: {
+        type: "string" as const,
+      },
+    },
     credentialsKey: {
       type: "string" as const,
       title: "S3 Key",
@@ -501,6 +516,20 @@ export const bucketConfig = {
     longRetentionProjects: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+    },
+    sourceCacheBucketName: {
+      "ui:description":
+        "The S3 bucket that stores cached git source. Tasks for projects in the allowlist below can pull source from this bucket instead of cloning from GitHub.",
+    },
+    sourceCacheBucketRoleARN: {
+      "ui:description":
+        "The IAM role ARN granting scoped access to the source cache bucket.",
+    },
+    sourceCacheProjects: {
+      "ui:widget": widgets.ChipInputWidget,
+      "ui:fieldCss": fullWidthCss,
+      "ui:description":
+        "Project IDs whose tasks may use the source cache. An opt-in optimization: allowlisted projects can pull their git source from S3 rather than GitHub.",
     },
     failedTasksLogBucketExpirationDays: { "ui:readonly": true },
     failedTasksLogBucketTransitionToIADays: { "ui:readonly": true },

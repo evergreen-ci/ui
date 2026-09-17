@@ -129,6 +129,11 @@ const mockAdminSettings: AdminSettingsData = {
       roleARN: "arn:aws:iam::123456789:role/TestRole",
       type: "s3",
     },
+    sourceCacheBucket: {
+      name: "evergreen-source-cache",
+      roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
+    },
+    sourceCacheProjects: ["evergreen", "mms"],
     credentials: {
       key: "cred-key",
       secret: "cred-secret",
@@ -275,6 +280,9 @@ const expectedForm: OtherFormState = {
       testResultsBucketTestResultsPrefix: "results/",
       testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
       testResultsBucketType: "s3",
+      sourceCacheBucketName: "evergreen-source-cache",
+      sourceCacheBucketRoleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
+      sourceCacheProjects: ["evergreen", "mms"],
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
       failedTasksLogBucketName: "evergreen-failed-tasks",
@@ -416,6 +424,11 @@ const expectedGql: AdminSettingsInput = {
       roleARN: "arn:aws:iam::123456789:role/TestRole",
       type: "s3",
     },
+    sourceCacheBucket: {
+      name: "evergreen-source-cache",
+      roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
+    },
+    sourceCacheProjects: ["evergreen", "mms"],
     credentials: {
       key: "cred-key",
       secret: "cred-secret",

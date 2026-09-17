@@ -7784,6 +7784,7 @@ export type AdminSettingsQuery = {
       longRetentionProjects?: Array<string> | null;
       retryFailedLogMoveLookbackDays?: number | null;
       retryFailedLogMoveMaxJobsPerRun?: number | null;
+      sourceCacheProjects?: Array<string> | null;
       credentials?: {
         __typename?: "S3Credentials";
         key?: string | null;
@@ -7817,6 +7818,11 @@ export type AdminSettingsQuery = {
         name?: string | null;
         transitionToGlacierDays?: number | null;
         transitionToIADays?: number | null;
+      } | null;
+      sourceCacheBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
       } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";
