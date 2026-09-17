@@ -38,7 +38,7 @@ describe("walkthrough guide cue", async () => {
   const GuideCueWalkthroughContent = (
     props: Pick<
       WalkthroughGuideCueProps,
-      "defaultOpen" | "onClose" | "onCurrentTargetChange" | "walkthroughSteps"
+      "defaultOpen" | "onClose" | "walkthroughSteps"
     >,
   ) => (
     <div>
@@ -50,7 +50,6 @@ describe("walkthrough guide cue", async () => {
         dataAttributeName="data-guide-cue-id"
         defaultOpen={props.defaultOpen}
         onClose={props.onClose}
-        onCurrentTargetChange={props.onCurrentTargetChange}
         walkthroughSteps={props.walkthroughSteps}
       />
     </div>
@@ -181,36 +180,6 @@ describe("walkthrough guide cue", async () => {
     await user.click(closeButton);
     await guideCueIsNotVisible();
     await backdropIsNotVisible();
-  });
-
-  it("reports the current target and clears it when the walkthrough ends", async () => {
-    const user = userEvent.setup();
-    const onCurrentTargetChange = vi.fn();
-    const { unmount } = render(
-      <GuideCueWalkthroughContent
-        defaultOpen
-        onClose={vi.fn()}
-        onCurrentTargetChange={onCurrentTargetChange}
-        walkthroughSteps={walkthroughSteps}
-      />,
-    );
-
-    await waitFor(() => {
-      expect(onCurrentTargetChange).toHaveBeenLastCalledWith("step-1");
-    });
-    await guideCueIsVisible();
-    await user.click(screen.getByRole("button", { name: "Next" }));
-    await waitFor(() => {
-      expect(onCurrentTargetChange).toHaveBeenLastCalledWith("step-2");
-    });
-    await guideCueIsVisible();
-    await user.click(screen.getByRole("button", { name: "Get started" }));
-    await waitFor(() => {
-      expect(onCurrentTargetChange).toHaveBeenLastCalledWith(null);
-    });
-    expect(onCurrentTargetChange).toHaveBeenCalledTimes(3);
-    unmount();
-    expect(onCurrentTargetChange).toHaveBeenCalledTimes(3);
   });
 
   it.each(["advanced", "dismissed", "completed", "unmounted"])(

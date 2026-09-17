@@ -33,7 +33,6 @@ export type WalkthroughGuideCueProps = {
   dataAttributeName: string;
   defaultOpen: boolean;
   onClose: () => void;
-  onCurrentTargetChange?: (targetId: string | null) => void;
   walkthroughSteps: WalkthroughStep[];
 };
 
@@ -45,23 +44,13 @@ export const WalkthroughGuideCue = forwardRef<
   WalkthroughGuideCueRef,
   WalkthroughGuideCueProps
 >((props, ref) => {
-  const {
-    dataAttributeName,
-    defaultOpen,
-    onClose,
-    onCurrentTargetChange,
-    walkthroughSteps,
-  } = props;
-  const [active, setActive] = useState(defaultOpen);
+  const { dataAttributeName, defaultOpen, onClose, walkthroughSteps } = props;
+  const [active, setActive] = useState(false);
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const targetRefs = useRef(
     walkthroughSteps.map(() => ({ current: null as HTMLElement | null })),
   );
   const openedControlRef = useRef<HTMLElement | null>(null);
-  const onCurrentTargetChangeRef = useRef(onCurrentTargetChange);
-  const reportedTargetRef = useRef<string | null>(null);
-
-  onCurrentTargetChangeRef.current = onCurrentTargetChange;
 
   const closeOpenedControl = useCallback(() => {
     openedControlRef.current?.click();
@@ -117,26 +106,7 @@ export const WalkthroughGuideCue = forwardRef<
     }
   };
 
-  const currentStep = walkthroughSteps[currentStepIdx];
-  const currentTargetId = active ? currentStep.targetId : null;
-
-  useEffect(() => {
-    if (reportedTargetRef.current !== currentTargetId) {
-      reportedTargetRef.current = currentTargetId;
-      onCurrentTargetChangeRef.current?.(currentTargetId);
-    }
-  }, [currentTargetId]);
-
-  useEffect(
-    () => () => {
-      closeOpenedControl();
-      if (reportedTargetRef.current !== null) {
-        reportedTargetRef.current = null;
-        onCurrentTargetChangeRef.current?.(null);
-      }
-    },
-    [closeOpenedControl],
-  );
+  useEffect(() => () => closeOpenedControl(), [closeOpenedControl]);
 
   useEffect(() => {
     walkthroughSteps.forEach((step, i) => {
@@ -145,7 +115,8 @@ export const WalkthroughGuideCue = forwardRef<
         targetId: step.targetId,
       });
     });
-  }, [dataAttributeName, walkthroughSteps]);
+    setActive(defaultOpen);
+  }, [dataAttributeName, defaultOpen, walkthroughSteps]);
 
   return (
     <>

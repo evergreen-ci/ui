@@ -8,12 +8,10 @@ import { walkthroughSteps, waterfallGuideId } from "../constants";
 
 type OnboardingTutorialProps = {
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
-  onCurrentTargetChange?: (targetId: string | null) => void;
 };
 
 export const OnboardingTutorial: React.FC<OnboardingTutorialProps> = ({
   guideCueRef,
-  onCurrentTargetChange,
 }) => (
   <WalkthroughGuideCue
     ref={guideCueRef}
@@ -24,7 +22,6 @@ export const OnboardingTutorial: React.FC<OnboardingTutorialProps> = ({
         expires: 365,
       })
     }
-    onCurrentTargetChange={onCurrentTargetChange}
     walkthroughSteps={walkthroughSteps}
   />
 );

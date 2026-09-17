@@ -682,9 +682,7 @@ test.describe("task history", () => {
         page.getByText("Introducing the Task History Tab"),
       ).toBeVisible();
 
-      const nextButton = page
-        .getByTestId("walkthrough-guide-cue")
-        .getByRole("button", { name: "Next" });
+      const nextButton = page.getByRole("button", { name: "Next" });
 
       await nextButton.click();
       await expect(page.getByTestId("walkthrough-guide-cue")).toBeHidden();
