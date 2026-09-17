@@ -1,3 +1,5 @@
+import { MongoDbEnvironment } from "gql/generated/types";
+
 export interface ProvidersFormState {
   providers: {
     containerPools: {
@@ -30,7 +32,7 @@ export interface ProvidersFormState {
       elasticIPUsageRate: number;
       allowedSNSTopicARNs: string[];
       resourceTags: {
-        mongodbEnv: string;
+        mongodbEnv: MongoDbEnvironment | "";
         mongodbOwner: string;
       };
 

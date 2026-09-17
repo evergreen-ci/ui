@@ -100,7 +100,10 @@ export const formToGql = ((form: ProvidersFormState) => {
           hostedZoneID: aws.persistentDNS.hostedZoneID,
           domain: aws.persistentDNS.domain || undefined,
         },
-        resourceTags: aws.resourceTags,
+        resourceTags: {
+          mongodbEnv: aws.resourceTags.mongodbEnv || undefined,
+          mongodbOwner: aws.resourceTags.mongodbOwner,
+        },
         parserProject: {
           bucket: aws.parserProject.bucket,
           generatedJSONPrefix:

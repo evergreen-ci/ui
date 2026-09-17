@@ -1,9 +1,13 @@
 import { createRef } from "react";
 import Form from "@rjsf/core";
 import { render } from "@evg-ui/lib/test_utils";
+import { MongoDbEnvironment } from "gql/generated/types";
 import { formSchema } from "./getFormSchema";
 
-const validateResourceTags = (mongodbEnv: string, mongodbOwner: string) => {
+const validateResourceTags = (
+  mongodbEnv: MongoDbEnvironment | "",
+  mongodbOwner: string,
+) => {
   const ref = createRef<InstanceType<typeof Form>>();
   const formData = {
     providers: {
@@ -35,6 +39,8 @@ describe("providers tab validation", () => {
   });
 
   it("allows an environment without an owner", () => {
-    expect(validateResourceTags("staging", "")).toHaveLength(0);
+    expect(validateResourceTags(MongoDbEnvironment.Staging, "")).toHaveLength(
+      0,
+    );
   });
 });

@@ -3,6 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { MongoDbEnvironment } from "gql/generated/types";
 import {
   fullWidthCss,
   gridWrapCss,
@@ -11,6 +12,8 @@ import {
 } from "../../sharedStyles";
 
 const { gray } = palette;
+
+const mongoDBEnvironments = Object.values(MongoDbEnvironment);
 
 const arrayItemCSS = css`
   border: 1px solid ${gray.light2};
@@ -292,31 +295,12 @@ export const aws = {
         mongodbEnv: {
           type: "string" as const,
           title: "MongoDB Environment",
-          enum: [
-            "",
-            "prod",
-            "staging",
-            "dev",
-            "qa",
-            "test",
-            "local",
-            "poc",
-            "demo",
-            "uat",
-            "sandbox",
-          ],
+          enum: ["", ...mongoDBEnvironments],
           enumNames: [
             "None",
-            "prod",
-            "staging",
-            "dev",
-            "qa",
-            "test",
-            "local",
-            "poc",
-            "demo",
-            "uat",
-            "sandbox",
+            ...mongoDBEnvironments.map((environment) =>
+              environment.toLowerCase(),
+            ),
           ],
         },
         mongodbOwner: {

@@ -1,4 +1,4 @@
-import { AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsInput, MongoDbEnvironment } from "gql/generated/types";
 import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { adminSettings } from "../../testData";
 import { formToGql, gqlToForm } from "./transformers";
@@ -26,6 +26,24 @@ describe("providers section", () => {
     } as unknown as AdminSettingsData);
 
     expect(form?.providers.aws.resourceTags.mongodbEnv).toBe("");
+  });
+
+  it("omits an unset MongoDB environment from the input", () => {
+    const input = formToGql({
+      ...form,
+      providers: {
+        ...form.providers,
+        aws: {
+          ...form.providers.aws,
+          resourceTags: {
+            ...form.providers.aws.resourceTags,
+            mongodbEnv: "",
+          },
+        },
+      },
+    });
+
+    expect(input.providers?.aws?.resourceTags?.mongodbEnv).toBeUndefined();
   });
 });
 
@@ -91,7 +109,7 @@ const form: ProvidersFormState = {
       elasticIPUsageRate: 0.8,
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       resourceTags: {
-        mongodbEnv: "staging",
+        mongodbEnv: MongoDbEnvironment.Staging,
         mongodbOwner: "evergreen@mongodb.com",
       },
     },
@@ -152,7 +170,7 @@ const gql: AdminSettingsInput = {
         domain: "test.example.com",
       },
       resourceTags: {
-        mongodbEnv: "staging",
+        mongodbEnv: MongoDbEnvironment.Staging,
         mongodbOwner: "evergreen@mongodb.com",
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
@@ -228,7 +246,7 @@ const testAdminSettings = {
         domain: "test.example.com",
       },
       resourceTags: {
-        mongodbEnv: "staging",
+        mongodbEnv: MongoDbEnvironment.Staging,
         mongodbOwner: "evergreen@mongodb.com",
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],

@@ -1908,6 +1908,19 @@ export type ModuleCodeChange = {
   rawLink: Scalars["String"]["output"];
 };
 
+export enum MongoDbEnvironment {
+  Demo = "DEMO",
+  Dev = "DEV",
+  Local = "LOCAL",
+  Poc = "POC",
+  Prod = "PROD",
+  Qa = "QA",
+  Sandbox = "SANDBOX",
+  Staging = "STAGING",
+  Test = "TEST",
+  Uat = "UAT",
+}
+
 /**
  * MoveProjectInput is the input to the attachProjectToNewRepo mutation.
  * It contains information used to move a project to a a new owner and repo.
@@ -3593,12 +3606,12 @@ export type ResourceLimitsInput = {
 
 export type ResourceTagsConfig = {
   __typename?: "ResourceTagsConfig";
-  mongodbEnv?: Maybe<Scalars["String"]["output"]>;
+  mongodbEnv?: Maybe<MongoDbEnvironment>;
   mongodbOwner?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type ResourceTagsConfigInput = {
-  mongodbEnv?: InputMaybe<Scalars["String"]["input"]>;
+  mongodbEnv?: InputMaybe<MongoDbEnvironment>;
   mongodbOwner?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -7254,7 +7267,7 @@ export type SaveAdminSettingsMutation = {
         __typename?: "AWSConfig";
         resourceTags?: {
           __typename?: "ResourceTagsConfig";
-          mongodbEnv?: string | null;
+          mongodbEnv?: MongoDbEnvironment | null;
           mongodbOwner?: string | null;
         } | null;
       } | null;
@@ -8017,7 +8030,7 @@ export type AdminSettingsQuery = {
         } | null;
         resourceTags?: {
           __typename?: "ResourceTagsConfig";
-          mongodbEnv?: string | null;
+          mongodbEnv?: MongoDbEnvironment | null;
           mongodbOwner?: string | null;
         } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
