@@ -102,7 +102,7 @@ export const formToGql = ((form: ProvidersFormState) => {
         },
         resourceTags: {
           mongodbEnv: aws.resourceTags.mongodbEnv || undefined,
-          mongodbOwner: aws.resourceTags.mongodbOwner,
+          mongodbOwner: aws.resourceTags.mongodbOwner || undefined,
         },
         parserProject: {
           bucket: aws.parserProject.bucket,

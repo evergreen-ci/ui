@@ -45,6 +45,24 @@ describe("providers section", () => {
 
     expect(input.providers?.aws?.resourceTags?.mongodbEnv).toBeUndefined();
   });
+
+  it("omits an unset MongoDB owner from the input", () => {
+    const input = formToGql({
+      ...form,
+      providers: {
+        ...form.providers,
+        aws: {
+          ...form.providers.aws,
+          resourceTags: {
+            ...form.providers.aws.resourceTags,
+            mongodbOwner: "",
+          },
+        },
+      },
+    });
+
+    expect(input.providers?.aws?.resourceTags?.mongodbOwner).toBeUndefined();
+  });
 });
 
 const form: ProvidersFormState = {
