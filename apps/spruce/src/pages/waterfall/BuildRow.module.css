@@ -2,7 +2,7 @@
   display: flex;
   gap: var(--via-space-400);
   flex-grow: 1;
-  border: 1px solid var(--via-color-neutral-300);
+  border: 1px solid var(--via-color-neutral-200);
   border-radius: var(--via-space-200);
   padding: var(--via-space-200);
 }
@@ -20,6 +20,6 @@
   top: calc(-1 * var(--via-space-100));
 }
 
-.pinButton[data-active="true"] {
+.pinButtonActive {
   transform: rotate(-30deg);
 }
