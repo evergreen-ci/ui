@@ -68,6 +68,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
             isDisabled={commitHash.length < 7}
             onPress={onConfirm}
             slot="action"
+            variant="primary"
           >
             Submit
           </Button>

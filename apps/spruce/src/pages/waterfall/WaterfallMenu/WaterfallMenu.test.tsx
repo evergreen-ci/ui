@@ -141,6 +141,17 @@ describe("WaterfallMenu", () => {
     expect(screen.getByText("Settings")).toBeVisible();
   });
 
+  it("opens for the walkthrough menu step", async () => {
+    renderWaterfallMenu({ isWalkthroughMenuStep: true });
+
+    expect(
+      await screen.findByRole("menu", { name: "Waterfall menu" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Waterfall menu" }),
+    ).toHaveAttribute("aria-expanded", "true");
+  });
+
   it("calls restartWalkthrough when restart walkthrough is clicked", async () => {
     const restartWalkthrough = vi.fn();
     const user = userEvent.setup();
