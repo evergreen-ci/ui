@@ -3,6 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { MongoDbEnvironment } from "gql/generated/types";
 import {
   fullWidthCss,
   gridWrapCss,
@@ -11,6 +12,8 @@ import {
 } from "../../sharedStyles";
 
 const { gray } = palette;
+
+const mongoDBEnvironments = Object.values(MongoDbEnvironment);
 
 const arrayItemCSS = css`
   border: 1px solid ${gray.light2};
@@ -283,6 +286,30 @@ export const aws = {
         },
       },
     },
+    resourceTags: {
+      type: "object" as const,
+      title: "Resource Tags",
+      description:
+        "Configure supported tags for AWS resources created by Evergreen.",
+      properties: {
+        mongodbEnv: {
+          type: "string" as const,
+          title: "MongoDB Environment",
+          enum: ["", ...mongoDBEnvironments],
+          enumNames: [
+            "None",
+            ...mongoDBEnvironments.map((environment) =>
+              environment.toLowerCase(),
+            ),
+          ],
+        },
+        mongodbOwner: {
+          type: "string" as const,
+          title: "MongoDB Owner Email",
+          format: "validEmail",
+        },
+      },
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
@@ -307,6 +334,17 @@ export const aws = {
     },
     parserProject: {
       "ui:fieldCss": nestedObjectGridCss,
+    },
+    resourceTags: {
+      "ui:fieldCss": nestedObjectGridCss,
+      mongodbOwner: {
+        "ui:widget": widgets.TextWidget,
+        "ui:options": {
+          description:
+            "An individual email is recommended for dev, demo, or sandbox. For all other environments, a Jira-referenceable team email is recommended.",
+          inputType: "email",
+        },
+      },
     },
   },
 };

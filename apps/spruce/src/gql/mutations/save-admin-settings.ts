@@ -48,6 +48,14 @@ export const SAVE_ADMIN_SETTINGS = gql`
           senderAddress
         }
       }
+      providers {
+        aws {
+          resourceTags {
+            mongodbEnv
+            mongodbOwner
+          }
+        }
+      }
       repotracker {
         maxConcurrentRequests
         maxRepoRevisionsToSearch
