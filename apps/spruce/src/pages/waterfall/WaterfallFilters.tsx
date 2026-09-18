@@ -94,7 +94,6 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
         />
       </ProjectFilterItem>
       <WaterfallMenu
-        key={isWalkthroughMenuStep ? "walkthrough-menu" : "waterfall-menu"}
         isWalkthroughMenuStep={isWalkthroughMenuStep}
         omitInactiveBuilds={omitInactiveBuilds}
         projectIdentifier={projectIdentifier}
