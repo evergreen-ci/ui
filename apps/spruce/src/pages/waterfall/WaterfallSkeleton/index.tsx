@@ -27,8 +27,10 @@ const WaterfallSkeleton: React.FC<WaterfallSkeletonProps> = ({
         } as React.CSSProperties
       }
     >
-      {Array.from({ length: numCols * numRows }, (_, index) => (
-        <Text key={index}>Loading waterfall data</Text>
+      {Array.from({ length: numCols * (numRows + 1) }, (_, index) => (
+        <Text key={index} className={styles.cell}>
+          Loading waterfall data
+        </Text>
       ))}
     </div>
   </Skeleton>
