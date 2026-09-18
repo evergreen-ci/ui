@@ -37,6 +37,7 @@ const baseline: WaterfallOptions = {
 const makePage = (
   orders = [20, 19, 18, 17, 16],
   taskNames = ["test", "lint"],
+  activated = true,
 ): WaterfallQuery => ({
   waterfall: {
     __typename: "Waterfall",
@@ -58,7 +59,7 @@ const makePage = (
         {
           __typename: "WaterfallBuild",
           id: `build-${order}`,
-          activated: true,
+          activated,
           buildVariant: "linux",
           displayName: "Linux",
           tasks: taskNames.map((displayName) => ({
@@ -151,6 +152,11 @@ const setup = (
   return { ...utils, requests, navigate };
 };
 
+const advanceTimers = (milliseconds: number) =>
+  act(async () => {
+    await vi.advanceTimersByTimeAsync(milliseconds);
+  });
+
 beforeEach(() => cache.restore({}));
 afterEach(() => {
   clients.forEach((client) => client.stop());
@@ -159,16 +165,33 @@ afterEach(() => {
 });
 
 describe("useWaterfallData", () => {
-  it("loads an unfiltered page first and skips a filtered request for five matches", async () => {
-    const { requests } = setup([mockPage({})], { route: "/?tasks=test" });
-    expect(screen.getByText("Skeleton")).toBeVisible();
-    await screen.findByText("Settled");
-    expect(requests).toHaveBeenCalledExactlyOnceWith(baseline);
-    expect(screen.getByTestId("tasks")).toHaveTextContent(
-      "test,test,test,test,test",
-    );
-    expect(screen.getByTestId("tasks")).not.toHaveTextContent("lint");
-  });
+  it.each([
+    {
+      scenario: "five local matches",
+      route: "/?tasks=test",
+      omitInactiveBuilds: false,
+      expectedTasks: /^test,test,test,test,test$/,
+    },
+    {
+      scenario: "no filters despite omitInactiveBuilds being enabled",
+      route: "/",
+      omitInactiveBuilds: true,
+      expectedTasks: /^test,lint,test,lint,test,lint,test,lint,test,lint$/,
+    },
+  ])(
+    "loads only the unfiltered baseline with $scenario, retaining inactive builds",
+    async ({ expectedTasks, omitInactiveBuilds, route }) => {
+      const page = makePage(undefined, undefined, false);
+      const { requests } = setup([mockPage({}, page)], {
+        route,
+        omitInactiveBuilds,
+      });
+      expect(screen.getByText("Skeleton")).toBeVisible();
+      await screen.findByText("Settled");
+      expect(requests).toHaveBeenCalledExactlyOnceWith(baseline);
+      expect(screen.getByTestId("tasks")).toHaveTextContent(expectedTasks);
+    },
+  );
 
   it("reuses the complete baseline while changing client-only filters", async () => {
     const { navigate, requests } = setup([mockPage({})], {
@@ -307,42 +330,30 @@ describe("useWaterfallData", () => {
     },
   );
 
-  it("reloads complete builds after clearing server filters", async () => {
-    const { navigate, requests } = setup(
-      [
-        mockPage({}),
-        mockPage({ tasks: ["remote"] }, makePage(undefined, ["remote"])),
-        mockPage({}),
-      ],
-      { route: "/?tasks=remote" },
-    );
-    await screen.findByText("Settled");
-    expect(screen.getByTestId("tasks")).toHaveTextContent("remote");
-    await navigate("");
-    await waitFor(() =>
-      expect(screen.getByTestId("tasks")).toHaveTextContent("lint"),
-    );
-    expect(requests).toHaveBeenCalledTimes(3);
-    expect(requests).toHaveBeenLastCalledWith(baseline);
-  });
-
-  it("broadens filters using a complete baseline rather than the previous server subset", async () => {
-    const { navigate, requests } = setup(
-      [
-        mockPage({}),
-        mockPage({ tasks: ["remote"] }, makePage(undefined, ["remote"])),
-        mockPage({}),
-      ],
-      { route: "/?tasks=remote" },
-    );
-    await screen.findByText("Settled");
-    await navigate("?tasks=remote,lint");
-    await waitFor(() =>
-      expect(screen.getByTestId("tasks")).toHaveTextContent("lint"),
-    );
-    expect(requests).toHaveBeenCalledTimes(3);
-    expect(requests).toHaveBeenLastCalledWith(baseline);
-  });
+  it.each([
+    { change: "clearing", search: "" },
+    { change: "broadening", search: "?tasks=remote,lint" },
+  ])(
+    "reloads a complete baseline rather than the server subset after $change filters",
+    async ({ search }) => {
+      const { navigate, requests } = setup(
+        [
+          mockPage({}),
+          mockPage({ tasks: ["remote"] }, makePage(undefined, ["remote"])),
+          mockPage({}),
+        ],
+        { route: "/?tasks=remote" },
+      );
+      await screen.findByText("Settled");
+      expect(screen.getByTestId("tasks")).toHaveTextContent("remote");
+      await navigate(search);
+      await waitFor(() =>
+        expect(screen.getByTestId("tasks")).toHaveTextContent("lint"),
+      );
+      expect(requests).toHaveBeenCalledTimes(3);
+      expect(requests).toHaveBeenLastCalledWith(baseline);
+    },
+  );
 
   it("does not let a superseded filtered response replace the current view", async () => {
     vi.useFakeTimers();
@@ -354,18 +365,12 @@ describe("useWaterfallData", () => {
       ],
       { route: "/?tasks=A" },
     );
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(20);
-    });
+    await advanceTimers(20);
     expect(screen.getByText("Fetching")).toBeVisible();
     await navigate("?tasks=B");
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(50);
-    });
+    await advanceTimers(50);
     expect(screen.getByTestId("tasks")).toHaveTextContent("B");
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(500);
-    });
+    await advanceTimers(500);
     expect(screen.getByTestId("tasks")).toHaveTextContent("B");
     expect(requests).toHaveBeenCalledTimes(3);
   });
@@ -380,17 +385,11 @@ describe("useWaterfallData", () => {
       ],
       { route: "/?tasks=A" },
     );
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(20);
-    });
+    await advanceTimers(20);
     await navigate("?tasks=B");
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(20);
-    });
+    await advanceTimers(20);
     await navigate("");
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(500);
-    });
+    await advanceTimers(500);
     expect(screen.getByTestId("tasks")).toHaveTextContent("test,lint");
     expect(screen.getByText("Settled")).toBeVisible();
     expect(requests).toHaveBeenCalledTimes(3);
@@ -406,16 +405,10 @@ describe("useWaterfallData", () => {
       ],
       { route: "/?tasks=remote" },
     );
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(20);
-    });
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(20);
-    });
+    await advanceTimers(20);
+    await advanceTimers(20);
     expect(screen.getByTestId("tasks")).toHaveTextContent("remote");
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(DEFAULT_POLL_INTERVAL);
-    });
+    await advanceTimers(DEFAULT_POLL_INTERVAL);
     expect(screen.getByTestId("tasks")).toHaveTextContent("updated");
     expect(screen.getByTestId("tasks")).not.toHaveTextContent("remote");
     expect(requests).toHaveBeenCalledTimes(3);

@@ -100,6 +100,7 @@ export const useWaterfallData = ({ options, pins }: UseWaterfallDataProps) => {
   const view = useFilters({
     activeVersionIds: data?.waterfall.pagination.activeVersionIds ?? [],
     applyClientFilters: !serverFiltered || showingPreview,
+    filters,
     flattenedVersions: data?.waterfall.versions ?? [],
     omitInactiveBuilds,
     pins,

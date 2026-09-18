@@ -1,19 +1,21 @@
 import { useMemo } from "react";
-import { useQueryParam } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { VERSION_LIMIT } from "./constants";
 import {
   Build,
   BuildVariant,
   Pagination,
+  ServerFilters,
   Version,
-  WaterfallFilterOptions,
 } from "./types";
 import { groupBuildVariants, groupInactiveVersions } from "./utils";
+
+const EMPTY_FILTER: string[] = [];
 
 type UseFiltersProps = {
   activeVersionIds: Pagination["activeVersionIds"];
   applyClientFilters?: boolean;
+  filters: ServerFilters;
   flattenedVersions: Version[];
   omitInactiveBuilds: boolean;
   pins: string[];
@@ -22,6 +24,7 @@ type UseFiltersProps = {
 export const useFilters = ({
   activeVersionIds,
   applyClientFilters = true,
+  filters,
   flattenedVersions,
   omitInactiveBuilds,
   pins,
@@ -31,27 +34,10 @@ export const useFilters = ({
     [flattenedVersions],
   );
 
-  const [requesters] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Requesters,
-    [],
-  );
-
-  const [statuses] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Statuses,
-    [],
-  );
-
-  const [buildVariantFilter] = useQueryParam<string[]>(
-    WaterfallFilterOptions.BuildVariant,
-    [],
-  );
-
-  const [taskFilter] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
-  const hasFilters =
-    requesters.length ||
-    statuses.length ||
-    buildVariantFilter.length ||
-    taskFilter.length;
+  const requesters = filters.requesters ?? EMPTY_FILTER;
+  const statuses = filters.statuses ?? EMPTY_FILTER;
+  const buildVariantFilter = filters.variants ?? EMPTY_FILTER;
+  const taskFilter = filters.tasks ?? EMPTY_FILTER;
 
   const buildVariantFilterRegex: RegExp[] = useMemo(
     () => (applyClientFilters ? makeFilterRegex(buildVariantFilter) : []),
@@ -86,13 +72,7 @@ export const useFilters = ({
       const activeBuilds: Build[] = [];
       bv.builds.forEach((b) => {
         if (activeVersions.find(({ id }) => id === b.version)) {
-          // Omit inactive builds if setting is enabled and filtering is active
-          if (
-            applyClientFilters &&
-            omitInactiveBuilds &&
-            hasFilters &&
-            !b.activated
-          ) {
+          if (applyClientFilters && omitInactiveBuilds && !b.activated) {
             return;
           }
           if (
@@ -123,7 +103,6 @@ export const useFilters = ({
     buildVariantFilterRegex,
     buildVariants,
     flattenedVersions,
-    hasFilters,
     omitInactiveBuilds,
     requesters,
     statuses,
