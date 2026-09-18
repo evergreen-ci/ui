@@ -1,13 +1,13 @@
 import { execFileSync } from "child_process";
 
 /**
- * execTrim runs a command using execFileSync (no shell) and returns trimmed output.
+ * execFileTrim runs a command using execFileSync (no shell) and returns trimmed output.
  * @param executable - the executable to run (git, npm, etc)
  * @param args - array of arguments
  * @param options - optional execFileSync options
  * @returns - trimmed string output
  */
-export const execTrim = (
+export const execFileTrim = (
   executable: string,
   args: string[],
   options: Parameters<typeof execFileSync>[2] = {},

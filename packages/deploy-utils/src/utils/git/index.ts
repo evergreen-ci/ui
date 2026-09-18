@@ -1,6 +1,6 @@
 import { execFileSync } from "child_process";
 import { resolve } from "path";
-import { execTrim } from "../shell";
+import { execFileTrim } from "../shell";
 import { DeployableApp } from "../types";
 
 const COMMIT_LENGTH = 40;
@@ -25,7 +25,7 @@ const push = () => {
  * getGitRoot yields the absolute path to the directory where the caller's .git directory is located.
  * @returns - path to .git
  */
-const getGitRoot = () => execTrim("git", ["rev-parse", "--show-toplevel"]);
+const getGitRoot = () => execFileTrim("git", ["rev-parse", "--show-toplevel"]);
 
 /**
  * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
@@ -42,7 +42,7 @@ const getCommitMessages = (
   const gitRoot = getGitRoot();
   const appDir = resolve(gitRoot, "apps", app);
   const packageDir = resolve(gitRoot, "packages");
-  const commitMessages = execTrim("git", [
+  const commitMessages = execFileTrim("git", [
     "log",
     `${fromCommit}..${toCommit}`,
     "--oneline",
@@ -59,14 +59,14 @@ const getCommitMessages = (
  * The current commit is the commit that is currently checked out on your local machine and will be deployed to production.
  * @returns - the current commit
  */
-const getCurrentCommit = () => execTrim("git", ["rev-parse", "HEAD"]);
+const getCurrentCommit = () => execFileTrim("git", ["rev-parse", "HEAD"]);
 
 /**
  * `assertMainBranch` is a helper function that checks if the current branch is the main branch.
  * @throws {Error} - Will throw an error if current branch is not "main"
  */
 const assertMainBranch = () => {
-  const branchName = execTrim("git", ["branch", "--show-current"]);
+  const branchName = execFileTrim("git", ["branch", "--show-current"]);
   const isOnMain = branchName === "main";
   if (!isOnMain) {
     throw Error(`Currently on branch "${branchName}"`);

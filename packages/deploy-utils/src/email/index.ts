@@ -8,7 +8,7 @@ import {
   getCurrentCommit,
   getLatestTag,
 } from "../utils/git";
-import { execTrim } from "../utils/shell";
+import { execFileTrim } from "../utils/shell";
 import { escapeHtml, findEvergreen, formatDate } from "./utils";
 
 const githubURL = "https://github.com/evergreen-ci/ui";
@@ -46,7 +46,7 @@ export const sendEmail = async () => {
   if (isRevert) {
     const emailFields = makeEmail({
       app,
-      commitsString: execTrim("git", [
+      commitsString: execFileTrim("git", [
         "show",
         "--oneline",
         "-s",
@@ -115,7 +115,7 @@ export const makeEmail = ({
 
   const from = isRunningOnCI()
     ? process.env.AUTHOR_EMAIL
-    : execTrim("git", ["config", "user.email"]);
+    : execFileTrim("git", ["config", "user.email"]);
   if (!from) {
     throw Error("Author email not configured");
   }

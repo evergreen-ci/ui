@@ -66,7 +66,7 @@ describe("makeEmail", async () => {
 
   it("errors if there is no author set", () => {
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
-    vi.spyOn(shellUtils, "execTrim").mockReturnValue("");
+    vi.spyOn(shellUtils, "execFileTrim").mockReturnValue("");
     expect(() => makeEmail(defaultArgs)).toThrow("Author email not configured");
   });
 
@@ -107,7 +107,9 @@ describe("makeEmail", async () => {
     vi.stubEnv("CI", "false");
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
-    vi.spyOn(shellUtils, "execTrim").mockReturnValue("git.email@mongodb.com");
+    vi.spyOn(shellUtils, "execFileTrim").mockReturnValue(
+      "git.email@mongodb.com",
+    );
     vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
     expect(makeEmail(defaultArgs)).toStrictEqual({
       body: "<ul><li>commit&#039;s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",

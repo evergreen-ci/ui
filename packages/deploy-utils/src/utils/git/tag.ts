@@ -1,6 +1,6 @@
 import { execFileSync } from "child_process";
 import { getAppToDeploy } from "../environment";
-import { execTrim, green, underline } from "../shell";
+import { execFileTrim, green, underline } from "../shell";
 import { DeployableApp } from "../types";
 
 enum ReleaseVersion {
@@ -67,7 +67,7 @@ const getLatestTag = (app: DeployableApp, baseCommit: string = "") => {
       `--match=${app}/*`,
       ...(baseCommit ? [baseCommit] : []),
     ];
-    const latestTag = execTrim("git", args);
+    const latestTag = execFileTrim("git", args);
     return latestTag;
   } catch (err) {
     throw Error("Getting latest tag failed.", { cause: err });

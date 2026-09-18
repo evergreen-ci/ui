@@ -1,7 +1,7 @@
 import { execFileSync } from "child_process";
 import process from "process";
 import { getAppToDeploy } from "../environment";
-import { countdownTimer, execTrim, green, underline } from "../shell";
+import { countdownTimer, execFileTrim, green, underline } from "../shell";
 import {
   ReleaseVersion,
   createTagAndPush,
@@ -18,7 +18,7 @@ vi.mock("../shell", async () => {
   const actual = await vi.importActual("../shell");
   return {
     ...actual,
-    execTrim: vi.fn().mockReturnValue(""), // Mock execTrim with default return value
+    execFileTrim: vi.fn().mockReturnValue(""), // Mock execFileTrim with default return value
     countdownTimer: vi.fn(),
     green: vi.fn(),
     underline: vi.fn(),
@@ -43,12 +43,12 @@ describe("tagIsValid", () => {
 
 describe("getLatestTag", () => {
   it("should return the latest spruce tag", () => {
-    // execTrim is mocked at module level, override for this test
-    vi.mocked(execTrim).mockImplementationOnce(() => "spruce/v6.1.15");
+    // execFileTrim is mocked at module level, override for this test
+    vi.mocked(execFileTrim).mockImplementationOnce(() => "spruce/v6.1.15");
     const app = "spruce";
     const latestTag = getLatestTag(app);
     expect(tagIsValid(app, latestTag)).toEqual(true);
-    expect(execTrim).toHaveBeenCalledWith("git", [
+    expect(execFileTrim).toHaveBeenCalledWith("git", [
       "describe",
       "--tags",
       "--abbrev=0",
@@ -57,11 +57,11 @@ describe("getLatestTag", () => {
   });
 
   it("should return the latest parsley tag", () => {
-    vi.mocked(execTrim).mockImplementationOnce(() => "parsley/v3.1.8");
+    vi.mocked(execFileTrim).mockImplementationOnce(() => "parsley/v3.1.8");
     const app = "parsley";
     const latestTag = getLatestTag(app);
     expect(tagIsValid(app, latestTag)).toEqual(true);
-    expect(execTrim).toHaveBeenCalledWith("git", [
+    expect(execFileTrim).toHaveBeenCalledWith("git", [
       "describe",
       "--tags",
       "--abbrev=0",
@@ -123,7 +123,7 @@ describe("createTagAndPush", () => {
 
   it("should call npm version with patch when version is patch", async () => {
     vi.mocked(execFileSync).mockReturnValueOnce(Buffer.from("")); // npm version
-    vi.mocked(execTrim).mockReturnValue("6.1.16");
+    vi.mocked(execFileTrim).mockReturnValue("6.1.16");
 
     await createTagAndPush(ReleaseVersion.Patch);
 
@@ -137,7 +137,7 @@ describe("createTagAndPush", () => {
 
   it("should call npm version with minor when version is minor", async () => {
     vi.mocked(execFileSync).mockReturnValueOnce(Buffer.from("")); // npm version
-    vi.mocked(execTrim).mockReturnValue("6.2.0");
+    vi.mocked(execFileTrim).mockReturnValue("6.2.0");
 
     await createTagAndPush(ReleaseVersion.Minor);
 
@@ -150,7 +150,7 @@ describe("createTagAndPush", () => {
 
   it("should call npm version with major when version is major", async () => {
     vi.mocked(execFileSync).mockReturnValueOnce(Buffer.from("")); // npm version
-    vi.mocked(execTrim).mockReturnValue("7.0.0");
+    vi.mocked(execFileTrim).mockReturnValue("7.0.0");
 
     await createTagAndPush(ReleaseVersion.Major);
 
@@ -163,7 +163,7 @@ describe("createTagAndPush", () => {
 
   it("should log success messages after pushing", async () => {
     vi.mocked(execFileSync).mockReturnValueOnce(Buffer.from("")); // npm version
-    vi.mocked(execTrim).mockReturnValue("6.1.16");
+    vi.mocked(execFileTrim).mockReturnValue("6.1.16");
 
     await createTagAndPush(ReleaseVersion.Patch);
 
