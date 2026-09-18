@@ -119,7 +119,7 @@ export const typeDatePickerDate = async (
 };
 
 /**
- * Selects a page size from the Pagination component.
+ * Selects page size from LeafyGreen Pagination component.
  * @param page - Playwright page object
  * @param pageSize - The page size to select
  */

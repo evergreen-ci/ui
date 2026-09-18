@@ -180,6 +180,17 @@ test.describe("My Patches Page", () => {
     }
   });
 
+  test("Changing page size from a later page resets to the first page", async ({
+    page,
+  }) => {
+    await page.goto(`${MY_PATCHES_ROUTE}?limit=10&page=1`);
+
+    await selectPageSize(page, 20);
+
+    await expect(page).toHaveURL(/limit=20/);
+    await expect(page).toHaveURL(/page=0/);
+  });
+
   test.describe("Changing page number", () => {
     test("Displays the next page of results and updates URL when right arrow is clicked and next page exists", async ({
       page,
