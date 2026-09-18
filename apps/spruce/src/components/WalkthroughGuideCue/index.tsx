@@ -33,6 +33,7 @@ export type WalkthroughGuideCueProps = {
   dataAttributeName: string;
   defaultOpen: boolean;
   onClose: () => void;
+  onCurrentTargetChange?: (targetId: string | null) => void;
   walkthroughSteps: WalkthroughStep[];
 };
 
@@ -44,13 +45,22 @@ export const WalkthroughGuideCue = forwardRef<
   WalkthroughGuideCueRef,
   WalkthroughGuideCueProps
 >((props, ref) => {
-  const { dataAttributeName, defaultOpen, onClose, walkthroughSteps } = props;
+  const {
+    dataAttributeName,
+    defaultOpen,
+    onClose,
+    onCurrentTargetChange,
+    walkthroughSteps,
+  } = props;
   const [active, setActive] = useState(false);
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const targetRefs = useRef(
     walkthroughSteps.map(() => ({ current: null as HTMLElement | null })),
   );
   const openedControlRef = useRef<HTMLElement | null>(null);
+  const onCurrentTargetChangeRef = useRef(onCurrentTargetChange);
+
+  onCurrentTargetChangeRef.current = onCurrentTargetChange;
 
   const closeOpenedControl = useCallback(() => {
     openedControlRef.current?.click();
@@ -107,6 +117,14 @@ export const WalkthroughGuideCue = forwardRef<
   };
 
   useEffect(() => () => closeOpenedControl(), [closeOpenedControl]);
+
+  useEffect(() => {
+    onCurrentTargetChange?.(
+      active ? walkthroughSteps[currentStepIdx]?.targetId : null,
+    );
+  }, [active, currentStepIdx, onCurrentTargetChange, walkthroughSteps]);
+
+  useEffect(() => () => onCurrentTargetChangeRef.current?.(null), []);
 
   useEffect(() => {
     if (!defaultOpen) {
