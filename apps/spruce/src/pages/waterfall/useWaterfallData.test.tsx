@@ -199,40 +199,57 @@ describe("useWaterfallData", () => {
     });
     await screen.findByText("Settled");
     await navigate("?tasks=lint");
-    expect(screen.getByTestId("tasks")).toHaveTextContent("lint");
-    expect(screen.getByTestId("tasks")).not.toHaveTextContent("test");
+    expect(screen.getByTestId("tasks").textContent).toBe(
+      Array(5).fill("lint").join(","),
+    );
     await navigate("");
-    expect(screen.getByTestId("tasks")).toHaveTextContent("test,lint");
+    expect(screen.getByTestId("tasks").textContent).toBe(
+      Array(5).fill("test,lint").join(","),
+    );
     expect(requests).toHaveBeenCalledExactlyOnceWith(baseline);
   });
 
-  it("keeps the local preview while fetching and trusts the final server response", async () => {
-    const preview = makePage();
-    preview.waterfall.versions[0].waterfallBuilds = makePage(
-      [20],
-      ["remote"],
-    ).waterfall.versions[0].waterfallBuilds;
-    const { requests } = setup(
-      [
-        mockPage({}, preview),
-        // Deliberately differs from JS matching to prove it isn't reapplied.
-        mockPage(
-          { tasks: ["remote"] },
-          makePage(undefined, ["server-match"]),
-          100,
-        ),
-      ],
-      { route: "/?tasks=remote" },
-    );
-    await screen.findByText("Fetching");
-    expect(screen.queryByText("Skeleton")).not.toBeInTheDocument();
-    expect(screen.queryByText("Settled")).not.toBeInTheDocument();
-    expect(screen.getByTestId("versions")).toHaveTextContent(/^v-20$/);
-    expect(screen.getByTestId("tasks")).toHaveTextContent(/^remote$/);
-    await screen.findByText("Settled");
-    expect(screen.getByTestId("tasks")).toHaveTextContent("server-match");
-    expect(requests).toHaveBeenCalledTimes(2);
-  });
+  it.each([1, 4])(
+    "keeps a %i-match preview while fetching and trusts the final server response",
+    async (matchCount) => {
+      const preview = makePage();
+      preview.waterfall.versions.splice(
+        0,
+        matchCount,
+        ...makePage([20, 19, 18, 17].slice(0, matchCount), ["remote"]).waterfall
+          .versions,
+      );
+      const { requests } = setup(
+        [
+          mockPage({}, preview),
+          // Deliberately differs from JS matching to prove it isn't reapplied.
+          mockPage(
+            { tasks: ["remote"] },
+            makePage(undefined, ["server-match"]),
+            100,
+          ),
+        ],
+        { route: "/?tasks=remote" },
+      );
+      await screen.findByText("Fetching");
+      expect(screen.queryByText("Skeleton")).not.toBeInTheDocument();
+      expect(screen.queryByText("Settled")).not.toBeInTheDocument();
+      expect(screen.getByTestId("versions").textContent).toBe(
+        ["v-20", "v-19", "v-18", "v-17"].slice(0, matchCount).join(","),
+      );
+      expect(screen.getByTestId("tasks").textContent).toBe(
+        Array(matchCount).fill("remote").join(","),
+      );
+      await screen.findByText("Settled");
+      expect(screen.getByTestId("tasks").textContent).toBe(
+        Array(5).fill("server-match").join(","),
+      );
+      expect(screen.getByTestId("versions").textContent).toBe(
+        "v-20,v-19,v-18,v-17,v-16",
+      );
+      expect(requests).toHaveBeenCalledTimes(2);
+    },
+  );
 
   it("does not request more when the local search range is exhausted", async () => {
     const { requests } = setup([mockPage({}, makePage([5, 4, 3, 2, 1]))], {
@@ -270,11 +287,15 @@ describe("useWaterfallData", () => {
     await screen.findByText("Settled");
     await navigate("?tasks=remote&maxOrder=16");
     await waitFor(() =>
-      expect(screen.getByTestId("versions")).toHaveTextContent("v-15"),
+      expect(screen.getByTestId("versions").textContent).toBe(
+        "v-15,v-14,v-13,v-12,v-11",
+      ),
     );
     await navigate("?tasks=remote&minOrder=15");
     await waitFor(() =>
-      expect(screen.getByTestId("versions")).toHaveTextContent("v-20"),
+      expect(screen.getByTestId("versions").textContent).toBe(
+        "v-20,v-19,v-18,v-17,v-16",
+      ),
     );
     expect(requests).toHaveBeenCalledTimes(3);
     expect(requests).toHaveBeenLastCalledWith({
@@ -326,16 +347,22 @@ describe("useWaterfallData", () => {
         ...options,
         tasks: ["remote"],
       });
-      expect(screen.getByTestId("tasks")).toHaveTextContent("remote");
+      expect(screen.getByTestId("tasks").textContent).toBe(
+        Array(5).fill("remote").join(","),
+      );
     },
   );
 
   it.each([
-    { change: "clearing", search: "" },
-    { change: "broadening", search: "?tasks=remote,lint" },
+    { change: "clearing", search: "", expectedTasks: "test,lint" },
+    {
+      change: "broadening",
+      search: "?tasks=remote,lint",
+      expectedTasks: "lint",
+    },
   ])(
     "reloads a complete baseline rather than the server subset after $change filters",
-    async ({ search }) => {
+    async ({ expectedTasks, search }) => {
       const { navigate, requests } = setup(
         [
           mockPage({}),
@@ -345,10 +372,14 @@ describe("useWaterfallData", () => {
         { route: "/?tasks=remote" },
       );
       await screen.findByText("Settled");
-      expect(screen.getByTestId("tasks")).toHaveTextContent("remote");
+      expect(screen.getByTestId("tasks").textContent).toBe(
+        Array(5).fill("remote").join(","),
+      );
       await navigate(search);
       await waitFor(() =>
-        expect(screen.getByTestId("tasks")).toHaveTextContent("lint"),
+        expect(screen.getByTestId("tasks").textContent).toBe(
+          Array(5).fill(expectedTasks).join(","),
+        ),
       );
       expect(requests).toHaveBeenCalledTimes(3);
       expect(requests).toHaveBeenLastCalledWith(baseline);
@@ -369,13 +400,17 @@ describe("useWaterfallData", () => {
     expect(screen.getByText("Fetching")).toBeVisible();
     await navigate("?tasks=B");
     await advanceTimers(50);
-    expect(screen.getByTestId("tasks")).toHaveTextContent("B");
+    expect(screen.getByTestId("tasks").textContent).toBe(
+      Array(5).fill("B").join(","),
+    );
     await advanceTimers(500);
-    expect(screen.getByTestId("tasks")).toHaveTextContent("B");
+    expect(screen.getByTestId("tasks").textContent).toBe(
+      Array(5).fill("B").join(","),
+    );
     expect(requests).toHaveBeenCalledTimes(3);
   });
 
-  it("cancels pending filtered requests when filters are cleared", async () => {
+  it("ignores superseded filtered responses after filters are cleared", async () => {
     vi.useFakeTimers();
     const { navigate, requests } = setup(
       [
@@ -390,7 +425,9 @@ describe("useWaterfallData", () => {
     await advanceTimers(20);
     await navigate("");
     await advanceTimers(500);
-    expect(screen.getByTestId("tasks")).toHaveTextContent("test,lint");
+    expect(screen.getByTestId("tasks").textContent).toBe(
+      Array(5).fill("test,lint").join(","),
+    );
     expect(screen.getByText("Settled")).toBeVisible();
     expect(requests).toHaveBeenCalledTimes(3);
   });
@@ -407,10 +444,13 @@ describe("useWaterfallData", () => {
     );
     await advanceTimers(20);
     await advanceTimers(20);
-    expect(screen.getByTestId("tasks")).toHaveTextContent("remote");
+    expect(screen.getByTestId("tasks").textContent).toBe(
+      Array(5).fill("remote").join(","),
+    );
     await advanceTimers(DEFAULT_POLL_INTERVAL);
-    expect(screen.getByTestId("tasks")).toHaveTextContent("updated");
-    expect(screen.getByTestId("tasks")).not.toHaveTextContent("remote");
+    expect(screen.getByTestId("tasks").textContent).toBe(
+      Array(5).fill("updated").join(","),
+    );
     expect(requests).toHaveBeenCalledTimes(3);
     expect(requests).toHaveBeenLastCalledWith({
       ...baseline,
@@ -434,7 +474,9 @@ describe("useWaterfallData", () => {
     await screen.findByText("Settled");
     await navigate("?tasks=remote&omit=true");
     await waitFor(() =>
-      expect(screen.getByTestId("tasks")).toHaveTextContent("active-only"),
+      expect(screen.getByTestId("tasks").textContent).toBe(
+        Array(5).fill("active-only").join(","),
+      ),
     );
     expect(requests).toHaveBeenCalledTimes(4);
     expect(requests).toHaveBeenLastCalledWith({

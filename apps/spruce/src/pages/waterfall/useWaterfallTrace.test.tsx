@@ -9,7 +9,7 @@ vi.mock("@opentelemetry/api", () => ({
   trace: { getTracer: () => ({ startSpan }) },
 }));
 
-it("finishes the render trace when data is rendered, not when the skeleton mounts", async () => {
+it("starts and finishes one render trace only after readiness becomes true", async () => {
   const { rerender } = renderHook(({ ready }) => useWaterfallTrace(ready), {
     initialProps: { ready: false },
   });

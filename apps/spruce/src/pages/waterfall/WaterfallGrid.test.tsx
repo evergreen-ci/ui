@@ -1,6 +1,10 @@
 import { renderWithRouterMatch, screen } from "@evg-ui/lib/test_utils";
 import { WaterfallQuery } from "gql/generated/types";
 import { useWaterfallData } from "./useWaterfallData";
+import {
+  useWaterfallNavigationTrace,
+  useWaterfallTrace,
+} from "./useWaterfallTrace";
 import { WaterfallGrid } from "./WaterfallGrid";
 
 vi.mock("analytics", () => ({
@@ -60,7 +64,11 @@ describe("WaterfallGrid query states", () => {
     });
     expect(screen.getByText("Skeleton")).toBeVisible();
     expect(screen.queryByText("No results")).not.toBeInTheDocument();
-    expect(setPagination).toHaveBeenCalledExactlyOnceWith(undefined);
+    expect(setPagination).toHaveBeenLastCalledWith(undefined);
+    expect(useWaterfallTrace).toHaveBeenLastCalledWith(false);
+    expect(useWaterfallNavigationTrace).toHaveBeenLastCalledWith({
+      data: undefined,
+    });
   });
 
   it("shows the fetching indicator instead of an empty state for a pending preview", () => {
@@ -72,7 +80,11 @@ describe("WaterfallGrid query states", () => {
     expect(screen.getByTestId("fetch-more-loader")).toBeVisible();
     expect(screen.queryByText("Skeleton")).not.toBeInTheDocument();
     expect(screen.queryByText("No results")).not.toBeInTheDocument();
-    expect(setPagination).toHaveBeenCalledExactlyOnceWith(undefined);
+    expect(setPagination).toHaveBeenLastCalledWith(undefined);
+    expect(useWaterfallTrace).toHaveBeenLastCalledWith(true);
+    expect(useWaterfallNavigationTrace).toHaveBeenLastCalledWith({
+      data: undefined,
+    });
     expect(replaceState).not.toHaveBeenCalled();
     replaceState.mockRestore();
   });
@@ -81,6 +93,10 @@ describe("WaterfallGrid query states", () => {
     const { setPagination } = setup({});
     expect(screen.getByText("No results")).toBeVisible();
     expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
-    expect(setPagination).toHaveBeenCalledExactlyOnceWith(pagination);
+    expect(setPagination).toHaveBeenLastCalledWith(pagination);
+    expect(useWaterfallTrace).toHaveBeenLastCalledWith(true);
+    expect(useWaterfallNavigationTrace).toHaveBeenLastCalledWith({
+      data: ready.data,
+    });
   });
 });
