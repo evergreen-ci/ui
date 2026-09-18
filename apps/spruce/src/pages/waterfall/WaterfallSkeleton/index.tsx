@@ -12,28 +12,46 @@ const WaterfallSkeleton: React.FC<WaterfallSkeletonProps> = ({
   enableAnimations = true,
   numCols = VERSION_LIMIT + 1,
   numRows = 15,
-}) => (
-  <Skeleton isLoading>
-    <div
-      aria-busy="true"
-      aria-label="Loading waterfall data"
-      className={styles.skeleton}
-      data-animations-enabled={enableAnimations}
-      data-testid="waterfall-skeleton"
-      role="status"
-      style={
-        {
-          "--waterfall-skeleton-columns": numCols,
-        } as React.CSSProperties
+}) => {
+  const cells = Array.from({ length: numRows + 1 }, (_row, rowIndex) =>
+    Array.from({ length: numCols }, (_column, columnIndex) => {
+      if (rowIndex === 0) {
+        return {
+          key: `${rowIndex}-${columnIndex}`,
+          text:
+            columnIndex === 0 ? "Build variant" : "Commit date and revision",
+        };
       }
-    >
-      {Array.from({ length: numCols * (numRows + 1) }, (_, index) => (
-        <Text key={index} className={styles.cell}>
-          Loading waterfall data
-        </Text>
-      ))}
-    </div>
-  </Skeleton>
-);
+      return {
+        key: `${rowIndex}-${columnIndex}`,
+        text: columnIndex === 0 ? "Build variant name" : "Task status summary",
+      };
+    }),
+  ).flat();
+
+  return (
+    <Skeleton isLoading>
+      <div
+        aria-busy="true"
+        aria-label="Loading waterfall data"
+        className={styles.skeleton}
+        data-animations-enabled={enableAnimations}
+        data-testid="waterfall-skeleton"
+        role="status"
+        style={
+          {
+            "--waterfall-skeleton-columns": numCols,
+          } as React.CSSProperties
+        }
+      >
+        {cells.map(({ key, text }) => (
+          <Text key={key} className={styles.cell}>
+            {text}
+          </Text>
+        ))}
+      </div>
+    </Skeleton>
+  );
+};
 
 export default WaterfallSkeleton;

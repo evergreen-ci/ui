@@ -6,12 +6,18 @@ describe("WaterfallSkeleton", () => {
     render(<WaterfallSkeleton />);
 
     expect(screen.getByRole("status")).toHaveAttribute("aria-busy", "true");
-    expect(screen.getAllByText("Loading waterfall data")).toHaveLength(96);
+    expect(screen.getAllByText("Build variant")).toHaveLength(1);
+    expect(screen.getAllByText("Commit date and revision")).toHaveLength(5);
+    expect(screen.getAllByText("Build variant name")).toHaveLength(15);
+    expect(screen.getAllByText("Task status summary")).toHaveLength(75);
   });
 
   it("renders the requested number of cells", () => {
     render(<WaterfallSkeleton numCols={2} numRows={3} />);
 
-    expect(screen.getAllByText("Loading waterfall data")).toHaveLength(8);
+    expect(screen.getAllByText("Build variant")).toHaveLength(1);
+    expect(screen.getAllByText("Commit date and revision")).toHaveLength(1);
+    expect(screen.getAllByText("Build variant name")).toHaveLength(3);
+    expect(screen.getAllByText("Task status summary")).toHaveLength(3);
   });
 });
