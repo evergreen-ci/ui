@@ -69,7 +69,7 @@ const validateURL = (url: string): boolean => {
   const protocol = /(?:https?|ftp):\/\//;
   const optionalWww = /(?:www\.)?/;
   const hostname = /[0-9A-Za-z\-.@:%_+~#=]+/;
-  const domain = /(?:\.[a-zA-Z]{2,3})+/;
+  const domain = /(?:\.[a-zA-Z]{2,})+/;
   const path = /(?:\/[^\s?]*)?/;
   const query = /(?:\?[^\s]*)?/;
 
