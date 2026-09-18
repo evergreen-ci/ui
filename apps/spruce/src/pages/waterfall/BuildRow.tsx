@@ -1,7 +1,8 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Button } from "@via-ds/components";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import Pin from "@via-ds/icons/Pin";
 import { StyledLink } from "@evg-ui/lib/components/styles";
+import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import VisibilityContainer from "components/VisibilityContainer";
@@ -133,18 +134,16 @@ const BuildRowInner: React.FC<Props> = ({
         className={sharedStyles.buildVariantTitle}
         data-testid="build-variant-label"
       >
-        <Button
+        <IconButton
+          active={pinned}
           aria-label="Pin build variant"
-          className={styles.pinButton}
-          data-active={pinned}
+          className={cx(styles.pinButton, pinned && styles.pinButtonActive)}
           data-testid="pin-button"
-          onPress={handlePinClick}
-          size="small"
-          variant="tertiary"
+          onClick={handlePinClick}
           {...iconButtonProps}
         >
-          <Pin />
-        </Button>
+          <Pin size="medium" />
+        </IconButton>
         <StyledLink
           data-testid="build-variant-link"
           href={getVariantHistoryRoute(projectIdentifier, build.id)}

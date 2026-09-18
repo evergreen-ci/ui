@@ -239,6 +239,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       <div
         className={cx(sharedStyles.row, styles.stickyHeader)}
         data-show-shadow={showShadow}
+        data-testid="waterfall-sticky-header"
       >
         <div className={sharedStyles.buildVariantTitle} />
         <div className={styles.versions} data-testid="version-labels">
