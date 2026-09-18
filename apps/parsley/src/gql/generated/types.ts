@@ -72,6 +72,7 @@ export type AwsConfig = {
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
+  resourceTags?: Maybe<ResourceTagsConfig>;
   subnetTagName?: Maybe<Scalars["String"]["output"]>;
   subnetTagValue?: Maybe<Scalars["String"]["output"]>;
   subnets: Array<Subnet>;
@@ -89,6 +90,7 @@ export type AwsConfigInput = {
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
+  resourceTags?: InputMaybe<ResourceTagsConfigInput>;
   subnetTagName?: InputMaybe<Scalars["String"]["input"]>;
   subnetTagValue?: InputMaybe<Scalars["String"]["input"]>;
   subnets: Array<SubnetInput>;
@@ -1033,7 +1035,6 @@ export type EnvVarInput = {
 export enum ExecutionPlatform {
   Container = "CONTAINER",
   Host = "HOST",
-  Virtual = "VIRTUAL",
 }
 
 /**
@@ -1909,6 +1910,19 @@ export type ModuleCodeChange = {
   htmlLink: Scalars["String"]["output"];
   rawLink: Scalars["String"]["output"];
 };
+
+export enum MongoDbEnvironment {
+  Demo = "DEMO",
+  Dev = "DEV",
+  Local = "LOCAL",
+  Poc = "POC",
+  Prod = "PROD",
+  Qa = "QA",
+  Sandbox = "SANDBOX",
+  Staging = "STAGING",
+  Test = "TEST",
+  Uat = "UAT",
+}
 
 /**
  * MoveProjectInput is the input to the attachProjectToNewRepo mutation.
@@ -3591,6 +3605,17 @@ export type ResourceLimitsInput = {
   numProcesses: Scalars["Int"]["input"];
   numTasks: Scalars["Int"]["input"];
   virtualMemoryKb: Scalars["Int"]["input"];
+};
+
+export type ResourceTagsConfig = {
+  __typename?: "ResourceTagsConfig";
+  mongodbEnv?: Maybe<MongoDbEnvironment>;
+  mongodbOwner?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ResourceTagsConfigInput = {
+  mongodbEnv?: InputMaybe<MongoDbEnvironment>;
+  mongodbOwner?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type RestartAdminTasksOptions = {
