@@ -1310,6 +1310,7 @@ export type HomeVolumeSettingsInput = {
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type Host = {
   __typename?: "Host";
+  agentRevision?: Maybe<Scalars["String"]["output"]>;
   ami?: Maybe<Scalars["String"]["output"]>;
   availabilityZone?: Maybe<Scalars["String"]["output"]>;
   displayName?: Maybe<Scalars["String"]["output"]>;
