@@ -7,6 +7,7 @@ import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
 import { useDateFormat, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
+import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
 import styles from "./index.module.css";
@@ -59,6 +60,11 @@ export const VersionLabel: React.FC<Props> = ({
       data-highlighted={highlighted}
       data-testid={`version-label-${commitType}`}
       data-view={view}
+      style={
+        {
+          "--waterfall-version-count": VERSION_LIMIT,
+        } as React.CSSProperties
+      }
     >
       <div className={styles.headerLine}>
         <Body>

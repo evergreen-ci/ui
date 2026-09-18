@@ -45,7 +45,7 @@ const WaterfallSkeleton: React.FC<WaterfallSkeletonProps> = ({
         }
       >
         {cells.map(({ key, text }) => (
-          <Text key={key} className={styles.cell}>
+          <Text key={key} aria-hidden="true" className={styles.cell}>
             {text}
           </Text>
         ))}

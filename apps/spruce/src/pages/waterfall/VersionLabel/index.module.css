@@ -1,5 +1,5 @@
 .versionContainer {
-  flex-basis: calc(100% / 5);
+  flex-basis: calc(100% / var(--waterfall-version-count));
 }
 
 .versionContainer[data-view="waterfall"] :is(div, p) {

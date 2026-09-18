@@ -23,6 +23,7 @@
   height: 200vh;
   position: absolute;
   margin-left: 50%;
+  pointer-events: none;
   top: 30px;
   z-index: 1;
 }
