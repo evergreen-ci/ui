@@ -119,13 +119,13 @@ export const WaterfallMenu: React.FC<Props> = ({
           </Menu>
         </MenuPopover>
       </MenuRoot>
-      {(isMenuOpen || gitCommitModalOpen) && (
+      {(menuOpen || gitCommitModalOpen) && (
         <GitCommitSearch
           open={gitCommitModalOpen}
           setOpen={setGitCommitModalOpen}
         />
       )}
-      {(isMenuOpen || notificationModalOpen) && (
+      {(menuOpen || notificationModalOpen) && (
         <AddNotification
           open={notificationModalOpen}
           projectIdentifier={projectIdentifier}
