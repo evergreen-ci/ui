@@ -176,14 +176,14 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.8.3
-        version: 0.8.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.9.0
+        version: 0.9.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/icons':
         specifier: 0.1.3
         version: 0.1.3(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.2
-        version: 0.3.2
+        specifier: 0.3.4
+        version: 0.3.4
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -534,14 +534,14 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.8.3
-        version: 0.8.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.9.0
+        version: 0.9.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/icons':
         specifier: 0.1.3
         version: 0.1.3(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.2
-        version: 0.3.2
+        specifier: 0.3.4
+        version: 0.3.4
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -1098,14 +1098,14 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.8.3
-        version: 0.8.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.9.0
+        version: 0.9.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/icons':
         specifier: 0.1.3
         version: 0.1.3(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.2
-        version: 0.3.2
+        specifier: 0.3.4
+        version: 0.3.4
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -4923,8 +4923,8 @@ packages:
     resolution: {integrity: sha512-UycprH3T6n3jH0k44NHMa7pnFHGu/N05MjojYr+Mc6I7obkoLIJujSWwin1pCvdy/eOxrI/l3uDLQsmcrOb4ug==}
     engines: {node: '>= 20'}
 
-  '@via-ds/components@0.8.3':
-    resolution: {integrity: sha512-0Zn+xOPhvBGk12M1I9LmmNkgavTYpJekT9sZwY/UTcpliRZsd9wPEy69OsXZp6CZCBFjGpbcpXxOxXP6YJn8hw==}
+  '@via-ds/components@0.9.0':
+    resolution: {integrity: sha512-ht3TXC7yXffA8GpSgCtFHHcj1JjVRkhL9DwyxT7R4RKq7OhaLU/tbznI4CYQNwjke/MRsqOwyZ7uSDiSJGvgfg==}
     peerDependencies:
       '@types/react': ^17 || ^18 || ^19
       '@types/react-dom': ^17 || ^18 || ^19
@@ -4940,8 +4940,8 @@ packages:
   '@via-ds/tokens@0.3.1':
     resolution: {integrity: sha512-8RFKgcFH+6zBxtAXeb4PJ6Gh2tFychsauV7mywJiDAVs3Wr7v6+IFgj+kxY4VQ8wWWlEMkX/tdUM/uhWUadioA==}
 
-  '@via-ds/tokens@0.3.2':
-    resolution: {integrity: sha512-EXpQNDo+nJPrbjrCuh8qNk/yXNE5WImRi4opgQi7NGZbMiJZWdVijaZF4OvjUxACy2KjAyfecCibCTohmGY6Sg==}
+  '@via-ds/tokens@0.3.4':
+    resolution: {integrity: sha512-2jMCm/huwTjR/89cl5NymPaqW1U0FyH/kTx5jjCLiJzlGnuNaH5eQwNtv+8yNZeTB42JYojozK3PfVSXskMd+Q==}
 
   '@via-ds/types@0.0.1':
     resolution: {integrity: sha512-AwR55vxMSbN9tFb+YQIVNVMv+2bxlPZcc0OWFdyY969r0NjwfGsws3Lz1XwfC54fFHHbQZSArtJ6/CrigtAAgw==}
@@ -13928,7 +13928,7 @@ snapshots:
 
   '@vercel/oidc@3.2.0': {}
 
-  '@via-ds/components@0.8.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@via-ds/components@0.9.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@floating-ui/react': 0.26.28(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@floating-ui/react-dom': 2.1.8(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -13950,7 +13950,7 @@ snapshots:
       '@types/react-dom': 18.3.1
       '@types/use-sync-external-store': 1.5.0
       '@via-ds/icons': 0.1.3(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@via-ds/tokens': 0.3.2
+      '@via-ds/tokens': 0.3.4
       '@via-ds/types': 0.0.1
       clsx: 2.1.1
       lodash-es: 4.17.22
@@ -13980,7 +13980,7 @@ snapshots:
       '@types/lodash-es': 4.17.12
       lodash-es: 4.17.22
 
-  '@via-ds/tokens@0.3.2':
+  '@via-ds/tokens@0.3.4':
     dependencies:
       '@types/lodash-es': 4.17.12
       lodash-es: 4.17.22

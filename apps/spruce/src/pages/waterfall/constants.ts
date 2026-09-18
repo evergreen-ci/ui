@@ -1,5 +1,4 @@
-import { TooltipJustify } from "@leafygreen-ui/guide-cue";
-import { WalkthroughStep } from "components/WalkthroughGuideCue";
+import { Align, WalkthroughStep } from "components/WalkthroughGuideCue";
 import { validators } from "utils";
 import { FilterType, ServerFilters } from "./types";
 
@@ -32,14 +31,14 @@ export const walkthroughSteps: WalkthroughStep[] = [
     description:
       "Familiarize yourself with our new task icons using the icon legend at the bottom right.",
     targetId: "task-legend",
-    tooltipJustify: TooltipJustify.End,
+    tooltipAlign: Align.End,
   },
   {
     title: "Pin Build Variants",
     description:
       "Pin variants to the top of the page to help with debugging and monitoring common workflows.",
     targetId: "build-variant-pin",
-    tooltipJustify: TooltipJustify.Start,
+    tooltipAlign: Align.Start,
   },
   {
     title: "Jump to Date",

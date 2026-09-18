@@ -76,7 +76,7 @@ test.describe("onboarding", () => {
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("New Layout", { exact: true })).toBeVisible();
 
-    await page.locator('[aria-label="Close Tooltip"]').click();
+    await page.getByLabel("Close").click();
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeHidden();
     await expect(page.getByTestId("walkthrough-backdrop")).toBeHidden();
 

@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+}
+
+.inactiveVersion {
+  flex-basis: 80px;
+  flex-shrink: 0;
+  text-align: center;
+}

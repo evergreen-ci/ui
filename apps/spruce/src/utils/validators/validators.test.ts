@@ -147,6 +147,11 @@ describe("validateURL", () => {
     expect(
       validateURL("ftp://www.mongodb.com/moreUrlParams?hi=bye"),
     ).toBeTruthy();
+    expect(
+      validateURL(
+        "http://my-web-app.evergreen-namespace.svc.cluster.local/api/blah_blah/blah_blah",
+      ),
+    ).toBeTruthy();
 
     expect(validateURL("ww.fake.org")).toBeFalsy();
     expect(validateURL("bad.org")).toBeFalsy();

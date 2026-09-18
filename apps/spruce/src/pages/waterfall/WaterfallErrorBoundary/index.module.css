@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: var(--via-space-400);
+  box-sizing: border-box;
+  position: absolute;
+  background-color: rgb(255 255 255 / 80%);
+  width: 98vw;
+}
+
+.buttonsContainer {
+  margin-top: var(--via-space-800);
+  display: flex;
+  gap: var(--via-space-400);
+}
