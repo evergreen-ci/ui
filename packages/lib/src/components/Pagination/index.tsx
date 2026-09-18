@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Pagination as LGPagination } from "@leafygreen-ui/pagination";
+import { Pagination as ViaPagination } from "@via-ds/components";
 import { PAGE_SIZES } from "../../constants/pagination";
 import usePagination from "../../hooks/usePagination";
-import styles from "./index.module.css";
 
 interface Props {
   countLimit?: number;
@@ -52,34 +51,26 @@ export const Pagination: React.FC<Props> = ({
     onPageSizeChange?.(newPageSize);
   };
 
-  const handlePrevClick = () => {
-    handlePageChange(currentPage - 1);
-  };
-  const handleNextClick = () => {
-    handlePageChange(currentPage + 1);
-  };
-
   const numTotalItems =
     countLimit !== undefined && prevTotalResults >= countLimit
       ? undefined
       : prevTotalResults;
 
   return (
-    <LGPagination
-      className={styles.pagination}
-      currentPage={currentPage + 1}
+    <ViaPagination
       data-testid="pagination"
-      itemsPerPage={pageSize || PAGE_SIZES[0]}
-      itemsPerPageOptions={PAGE_SIZES}
-      numTotalItems={numTotalItems}
-      onBackArrowClick={handlePrevClick}
-      onCurrentPageOptionChange={(value: string) => {
-        handlePageChange(parseInt(value, 10) - 1);
-      }}
-      onForwardArrowClick={handleNextClick}
-      onItemsPerPageOptionChange={(value: string) => {
-        handlePageSizeChange(parseInt(value, 10));
-      }}
+      isNextDisabled={
+        numTotalItems === 0 ||
+        (numTotalItems !== undefined &&
+          (currentPage + 1) * (pageSize || PAGE_SIZES[0]) >= numTotalItems)
+      }
+      isPreviousDisabled={currentPage === 0}
+      onPageChange={(newPage) => handlePageChange(newPage - 1)}
+      onPageSizeChange={handlePageSizeChange}
+      page={currentPage + 1}
+      pageSize={pageSize || PAGE_SIZES[0]}
+      pageSizeOptions={PAGE_SIZES}
+      totalItems={numTotalItems}
     />
   );
 };
