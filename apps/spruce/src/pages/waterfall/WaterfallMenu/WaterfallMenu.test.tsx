@@ -185,4 +185,29 @@ describe("WaterfallMenu", () => {
     expect(dialog).toBeVisible();
     expect(screen.getByRole("button", { name: "Submit" })).toBeDisabled();
   });
+
+  it("clears the git hash after the dialog closes", async () => {
+    const user = userEvent.setup();
+    renderWaterfallMenu({});
+
+    await user.click(screen.getByRole("button", { name: "Waterfall menu" }));
+    await user.click(screen.getByText("Search by git hash"));
+    await user.type(
+      within(await screen.findByTestId("git-commit-search-modal")).getByRole(
+        "textbox",
+        { name: "Git Commit Hash" },
+      ),
+      "abcdefg",
+    );
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
+    await user.click(screen.getByRole("button", { name: "Waterfall menu" }));
+    await user.click(screen.getByText("Search by git hash"));
+
+    expect(
+      within(await screen.findByTestId("git-commit-search-modal")).getByRole(
+        "textbox",
+        { name: "Git Commit Hash" },
+      ),
+    ).toHaveValue("");
+  });
 });

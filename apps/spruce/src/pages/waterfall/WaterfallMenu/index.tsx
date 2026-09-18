@@ -42,13 +42,11 @@ export const WaterfallMenu: React.FC<Props> = ({
   const [menuOpen, setMenuOpen] = useState(false);
   const [gitCommitModalOpen, setGitCommitModalOpen] = useState(false);
   const [notificationModalOpen, setNotificationModalOpen] = useState(false);
+  const isMenuOpen = isWalkthroughMenuStep || menuOpen;
 
   return (
     <>
-      <MenuRoot
-        isOpen={isWalkthroughMenuStep || menuOpen}
-        onOpenChange={setMenuOpen}
-      >
+      <MenuRoot isOpen={isMenuOpen} onOpenChange={setMenuOpen}>
         <Button
           aria-label="Waterfall menu"
           data-testid="waterfall-menu"
@@ -121,16 +119,20 @@ export const WaterfallMenu: React.FC<Props> = ({
           </Menu>
         </MenuPopover>
       </MenuRoot>
-      <GitCommitSearch
-        open={gitCommitModalOpen}
-        setOpen={setGitCommitModalOpen}
-      />
-      <AddNotification
-        open={notificationModalOpen}
-        projectIdentifier={projectIdentifier}
-        setMenuOpen={setMenuOpen}
-        setOpen={setNotificationModalOpen}
-      />
+      {(isMenuOpen || gitCommitModalOpen) && (
+        <GitCommitSearch
+          open={gitCommitModalOpen}
+          setOpen={setGitCommitModalOpen}
+        />
+      )}
+      {(isMenuOpen || notificationModalOpen) && (
+        <AddNotification
+          open={notificationModalOpen}
+          projectIdentifier={projectIdentifier}
+          setMenuOpen={setMenuOpen}
+          setOpen={setNotificationModalOpen}
+        />
+      )}
     </>
   );
 };
