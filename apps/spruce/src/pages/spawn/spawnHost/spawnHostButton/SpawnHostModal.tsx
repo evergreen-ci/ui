@@ -104,9 +104,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       ),
     [formSchemaInput.distros, formState.requiredSection?.distro],
   );
+  const isVirtualWorkstation = selectedDistro?.isVirtualWorkStation ?? false;
 
   useVirtualWorkstationDefaultExpiration({
-    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation ?? false,
+    isVirtualWorkstation,
     setFormState,
     formState,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
@@ -134,7 +135,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     hostUptimeWarnings,
     isMigration: false,
     tokenExchangeState,
-    isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
+    isVirtualWorkstation,
     spawnTaskData: spawnTaskData?.task,
     timeZone:
       formState?.expirationDetails?.hostUptime?.details?.timeZone || timeZone,
@@ -185,7 +186,9 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       open={open}
       title="Spawn New Host"
     >
+      {/* RJSF can skip a schema update triggered by the same change event. */}
       <SpruceForm
+        key={isVirtualWorkstation ? "virtual-workstation" : "standard-host"}
         customValidate={validator(false)}
         formData={formState}
         onChange={({ errors, formData }) => {

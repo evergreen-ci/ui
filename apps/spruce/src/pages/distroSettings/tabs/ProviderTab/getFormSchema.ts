@@ -189,6 +189,7 @@ export const getFormSchema = ({
       "ui:label": false,
       "ui:useExpandableCard": true,
       "ui:addButtonText": "Add region settings",
+      "ui:addToEnd": true,
       "ui:addable": fleetRegionsInUse.length < awsRegions.length,
       "ui:orderable": false,
       items: (itemData?: { displayTitle?: string; region?: string }) => ({
