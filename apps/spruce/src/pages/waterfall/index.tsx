@@ -11,7 +11,7 @@ import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { slugs } from "constants/routes";
-import { waterfallPageContainerId } from "./constants";
+import { walkthroughSteps, waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
@@ -29,6 +29,9 @@ const Waterfall: React.FC = () => {
   const { sendEvent } = useWaterfallAnalytics();
 
   const [pagination, setPagination] = useState<Pagination>();
+  const [currentWalkthroughTarget, setCurrentWalkthroughTarget] = useState<
+    string | null
+  >(null);
 
   const [omitInactiveBuilds, setOmitInactiveBuilds] = useState(
     localStorage.getItem(OMIT_INACTIVE_WATERFALL_BUILDS) === "true",
@@ -49,6 +52,9 @@ const Waterfall: React.FC = () => {
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
+          isWalkthroughMenuStep={
+            currentWalkthroughTarget === walkthroughSteps[4].targetId
+          }
           omitInactiveBuilds={omitInactiveBuilds}
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
@@ -72,6 +78,7 @@ const Waterfall: React.FC = () => {
               key={projectIdentifier}
               guideCueRef={guideCueRef}
               omitInactiveBuilds={omitInactiveBuilds}
+              onCurrentTargetChange={setCurrentWalkthroughTarget}
               projectIdentifier={projectIdentifier ?? ""}
               setPagination={setPagination}
             />
