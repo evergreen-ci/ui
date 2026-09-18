@@ -4,6 +4,10 @@
   grid-column-gap: var(--via-space-400);
 }
 
+.pageTitle {
+  margin-bottom: var(--via-space-400);
+}
+
 .hiddenCheckbox {
   justify-content: flex-end;
 }

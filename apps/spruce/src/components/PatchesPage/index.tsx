@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Checkbox, SearchField } from "@via-ds/components";
+import { Checkbox, SearchField, Text, TextStyle } from "@via-ds/components";
 import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
-import { FiltersWrapper, PageTitle, PageWrapper } from "components/styles";
+import { FiltersWrapper, PageWrapper } from "components/styles";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchPageQueryParams } from "types/patch";
@@ -78,7 +78,14 @@ export const PatchesPage: React.FC<Props> = ({
 
   return (
     <PageWrapper>
-      <PageTitle data-testid="patches-page-title">{pageTitle}</PageTitle>
+      <Text
+        className={styles.pageTitle}
+        data-testid="patches-page-title"
+        elementType="h2"
+        textStyle={TextStyle.heading2}
+      >
+        {pageTitle}
+      </Text>
       <FiltersWrapper className={styles.filtersWrapperSpaceBetween}>
         <SearchField
           aria-label="Search patch descriptions"
