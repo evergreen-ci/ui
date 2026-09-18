@@ -1035,7 +1035,6 @@ export type EnvVarInput = {
 export enum ExecutionPlatform {
   Container = "CONTAINER",
   Host = "HOST",
-  Virtual = "VIRTUAL",
 }
 
 /**

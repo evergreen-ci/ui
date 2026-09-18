@@ -1,13 +1,12 @@
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
+import { Skeleton, Text } from "@via-ds/components";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { getTaskRoute } from "constants/routes";
 import { TaskTestsQuery, TaskTestsQueryVariables } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
 import { TaskTab } from "types/task";
+import styles from "./FailingTests.module.css";
 
 const FAILING_TEST_LIMIT = 3;
 interface FailingTestsProps {
@@ -40,7 +39,11 @@ export const FailingTests: React.FC<FailingTestsProps> = ({
   const hasTestResults = testResults && testResults.length > 0;
 
   if (loading) {
-    return <Skeleton size={SkeletonSize.Small} />;
+    return (
+      <Skeleton isLoading>
+        <Text>Loading failing tests</Text>
+      </Skeleton>
+    );
   }
 
   if (!hasTestResults) {
@@ -48,15 +51,15 @@ export const FailingTests: React.FC<FailingTestsProps> = ({
   }
 
   return (
-    <FailingTestsContainer>
+    <div className={styles.container}>
       <b>Failing Test(s):</b>
-      <FailingTestsList>
+      <ul className={styles.list}>
         {testResults.map((test) => (
-          <FailingTestListItem key={test.testFile}>
+          <li key={test.testFile} className={styles.listItem}>
             {test.testFile}
-          </FailingTestListItem>
+          </li>
         ))}
-      </FailingTestsList>
+      </ul>
       {filteredTestCount && filteredTestCount > FAILING_TEST_LIMIT ? (
         <StyledRouterLink
           to={getTaskRoute(taskId, { execution, tab: TaskTab.Tests })}
@@ -64,27 +67,6 @@ export const FailingTests: React.FC<FailingTestsProps> = ({
           View all {filteredTestCount} failing tests
         </StyledRouterLink>
       ) : null}
-    </FailingTestsContainer>
+    </div>
   );
 };
-
-const FailingTestsList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-`;
-
-const FailingTestListItem = styled.li`
-  word-break: break-all;
-  margin-bottom: ${size.xxs};
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const FailingTestsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-`;
