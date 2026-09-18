@@ -96,8 +96,8 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   if (allProjects.length === 0 || loading) {
     return (
       <div className={cx(styles.skeletonContainer, className)}>
+        {showLabel && <span className={styles.skeletonLabel}>Project</span>}
         <Skeleton isLoading>
-          {showLabel && <Text className={styles.skeletonLabel}>Project</Text>}
           <Text className={styles.skeletonControl}>Select a project</Text>
         </Skeleton>
       </div>
