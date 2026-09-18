@@ -280,11 +280,11 @@ test.describe("project selection", () => {
     await page.goto("/project/spruce/waterfall");
     await page.getByTestId("status-filter").click();
     await page.getByTestId("test-timed-out-option").click();
-    await page.locator("body").click();
+    await page.keyboard.press("Escape");
     await page.getByTestId("project-select").click();
     await page
-      .getByTestId("project-select-options")
-      .getByText("evergreen smoke test")
+      .getByTestId("project-display-name")
+      .getByText("evergreen smoke test", { exact: true })
       .click();
     await expect(page).toHaveURL(
       "/project/evergreen/waterfall?statuses=test-timed-out",

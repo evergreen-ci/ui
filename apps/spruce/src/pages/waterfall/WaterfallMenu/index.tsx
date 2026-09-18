@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Header,
@@ -42,24 +42,12 @@ export const WaterfallMenu: React.FC<Props> = ({
   const [menuOpen, setMenuOpen] = useState(false);
   const [gitCommitModalOpen, setGitCommitModalOpen] = useState(false);
   const [notificationModalOpen, setNotificationModalOpen] = useState(false);
-  const wasWalkthroughMenuStep = useRef(false);
-
-  useEffect(() => {
-    if (wasWalkthroughMenuStep.current && !isWalkthroughMenuStep) {
-      setMenuOpen(false);
-    }
-    wasWalkthroughMenuStep.current = isWalkthroughMenuStep;
-  }, [isWalkthroughMenuStep]);
 
   return (
     <>
       <MenuRoot
-        isOpen={menuOpen}
-        onOpenChange={(isOpen) => {
-          if (isOpen || !isWalkthroughMenuStep) {
-            setMenuOpen(isOpen);
-          }
-        }}
+        isOpen={isWalkthroughMenuStep || menuOpen}
+        onOpenChange={setMenuOpen}
       >
         <Button
           aria-label="Waterfall menu"
