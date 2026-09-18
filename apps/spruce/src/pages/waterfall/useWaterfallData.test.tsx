@@ -51,7 +51,7 @@ const makePage = (
     },
     versions: orders.map((order) => ({
       ...version,
-      __typename: "VersionLite",
+      __typename: "Version",
       id: `v-${order}`,
       order,
       waterfallBuilds: [

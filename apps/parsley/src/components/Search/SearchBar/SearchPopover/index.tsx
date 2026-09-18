@@ -5,7 +5,8 @@ import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Popover } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import Bulb from "@via-ds/icons/Bulb";
+import CaretDown from "@via-ds/icons/CaretDown";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
@@ -94,8 +95,8 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
         title="View search suggestions"
       >
         <>
-          <Icon fill={gray.base} glyph="Bulb" />
-          <Icon fill={gray.base} glyph="CaretDown" />
+          <Bulb fill={gray.base} size="medium" />
+          <CaretDown fill={gray.base} size="medium" />
         </>
       </IconButton>
       <Popover active={isOpen} data-testid="search-suggestion-popover">

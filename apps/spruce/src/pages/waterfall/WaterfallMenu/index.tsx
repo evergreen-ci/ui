@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MenuGroup, MenuSeparator } from "@leafygreen-ui/menu";
-import Icon from "@evg-ui/lib/components/Icon";
+import Bulb from "@via-ds/icons/Bulb";
+import Settings from "@via-ds/icons/Settings";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { AddNotification } from "./AddNotification";
@@ -44,7 +45,7 @@ export const WaterfallMenu: React.FC<Props> = ({
       <DropdownItem
         key="restart-walkthrough"
         data-testid="restart-walkthrough"
-        glyph={<Icon glyph="Bulb" />}
+        glyph={<Bulb />}
         onClick={() => {
           setMenuOpen(false);
           restartWalkthrough();
@@ -55,7 +56,7 @@ export const WaterfallMenu: React.FC<Props> = ({
 
       <MenuSeparator />
 
-      <MenuGroup glyph={<Icon glyph="Settings" />} title="Settings">
+      <MenuGroup glyph={<Settings />} title="Settings">
         <OmitInactiveBuilds
           key="omit-inactive-builds"
           omitInactiveBuilds={omitInactiveBuilds}

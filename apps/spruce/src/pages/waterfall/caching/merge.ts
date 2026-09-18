@@ -80,7 +80,7 @@ const evictBuildsForVersions = ({
 
   discardedVersions.forEach((version) => {
     const versionCacheId = cache.identify({
-      __typename: "VersionLite",
+      __typename: "Version",
       id: getVersionId(version, readField),
     });
     if (versionCacheId) {

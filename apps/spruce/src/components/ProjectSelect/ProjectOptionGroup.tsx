@@ -1,6 +1,6 @@
 import { palette } from "@leafygreen-ui/palette";
 import { Body, Overline } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import Checkmark from "@via-ds/icons/Checkmark";
 import { cx } from "@evg-ui/lib/utils/css";
 import { FavoriteStar } from "./FavoriteStar";
 import styles from "./ProjectOptionGroup.module.css";
@@ -39,11 +39,7 @@ const ProjectOption: React.FC<OptionProps> = ({
       {displayName || projectIdentifier}
     </Body>
     {isSelected && (
-      <Icon
-        className={styles.checkmarkIcon}
-        fill={blue.base}
-        glyph="Checkmark"
-      />
+      <Checkmark className={styles.checkmarkIcon} fill={blue.base} />
     )}
   </div>
 );

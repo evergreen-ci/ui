@@ -1,7 +1,7 @@
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import Megaphone from "@via-ds/icons/Megaphone";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
   getJiraBugUrl,
@@ -26,7 +26,7 @@ export const Feedback: React.FC = () => {
       justify="end"
       trigger={
         <IconButton aria-label="Show Feedback form">
-          <Icon color={green.dark1} glyph="Megaphone" />
+          <Megaphone color={green.dark1} size="medium" />
         </IconButton>
       }
       triggerEvent="click"

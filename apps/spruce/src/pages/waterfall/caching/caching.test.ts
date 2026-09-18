@@ -117,7 +117,7 @@ const makeNormalizedPage = (orders: number[]): Waterfall => {
     },
     versions: page.versions.map((version) => ({
       ...version,
-      __typename: "VersionLite",
+      __typename: "Version",
       waterfallBuilds: [
         makeBuild(`build-${version.order}`, ["task-a", "task-b"]),
       ],
@@ -255,7 +255,7 @@ describe("normalized waterfall cache", () => {
     const filtersA = { tasks: ["task-a"] };
     const filtersB = { tasks: ["task-b"] };
     write(makeNormalizedPage([20, 19, 18, 17, 16]), filtersA);
-    cache.retain("VersionLite:version-19");
+    cache.retain("Version:version-19");
     write(makeNormalizedPage([15, 14, 13, 12, 11]), {
       ...filtersA,
       maxOrder: 16,
@@ -272,11 +272,11 @@ describe("normalized waterfall cache", () => {
       1,
     );
     const entities = cache.extract();
-    expect(entities["VersionLite:version-19"]).toMatchObject({
+    expect(entities["Version:version-19"]).toMatchObject({
       id: "version-19",
       order: 19,
     });
-    expect(entities["VersionLite:version-19"]?.waterfallBuilds).toBeUndefined();
+    expect(entities["Version:version-19"]?.waterfallBuilds).toBeUndefined();
     expect(entities["WaterfallBuild:build-19"]).toBeUndefined();
     expect(entities["WaterfallBuild:build-20"]).toBeDefined();
 
@@ -552,7 +552,7 @@ describe("bounded waterfall cache", () => {
     expect(cache.evict).toHaveBeenCalledWith({
       broadcast: false,
       fieldName: "waterfallBuilds",
-      id: "VersionLite:version-20",
+      id: "Version:version-20",
     });
     await new Promise<void>((resolve) => queueMicrotask(resolve));
     expect(cache.gc).toHaveBeenCalledWith({ resetResultCache: true });
