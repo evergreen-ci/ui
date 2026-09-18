@@ -8766,6 +8766,7 @@ export type HostQuery = {
   __typename?: "Query";
   host?: {
     __typename?: "Host";
+    agentRevision?: string | null;
     ami?: string | null;
     lastCommunicationTime?: Date | null;
     id: string;
