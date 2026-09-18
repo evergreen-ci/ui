@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { hoverForTooltip, validateToast } from "../../helpers";
 
 test.describe("Variant history", () => {
   test("shows an error message if mainline commit history could not be retrieved", async ({
@@ -56,7 +56,7 @@ test.describe("Variant history", () => {
     await page.goto("/variant-history/spruce/ubuntu1604");
     await expect(page.getByTestId("header-cell")).toHaveCount(6);
 
-    const tasksInput = page.getByRole("textbox", { name: "Tasks" });
+    const tasksInput = page.getByRole("combobox", { name: "Tasks" });
     await tasksInput.click();
     await tasksInput.press("ArrowDown");
     await page.getByRole("option", { name: "compile" }).click();
@@ -81,11 +81,8 @@ test.describe("Variant history", () => {
     );
     const failed = page.getByText("1 / 1 Failing Tests");
     await expect(failed).toBeVisible();
-    await failed.hover();
-    await expect(page.getByTestId("test-tooltip")).toBeVisible();
-    await expect(page.getByTestId("test-tooltip")).toContainText(
-      "JustAFakeTestInALonelyWorld",
-    );
+    const tooltip = await hoverForTooltip(page, failed, "test-tooltip");
+    await expect(tooltip).toContainText("JustAFakeTestInALonelyWorld");
   });
 
   test("clicking a task cell navigates to the task history tab", async ({
@@ -126,11 +123,8 @@ test.describe("Variant history", () => {
     }) => {
       const failedTask = page.getByText("1 / 1 Failing Tests");
       await expect(failedTask).toBeVisible();
-      await failedTask.hover();
-      await expect(page.getByTestId("test-tooltip")).toBeVisible();
-      await expect(page.getByTestId("test-tooltip")).toContainText(
-        "JustAFakeTestInALonelyWorld",
-      );
+      const tooltip = await hoverForTooltip(page, failedTask, "test-tooltip");
+      await expect(tooltip).toContainText("JustAFakeTestInALonelyWorld");
     });
 
     test("should clear all applied test filters", async ({ page }) => {
