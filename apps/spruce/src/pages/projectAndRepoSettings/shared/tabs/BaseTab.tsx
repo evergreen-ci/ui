@@ -11,7 +11,7 @@ type BaseTabProps<T extends WritableProjectSettingsType> = {
   initialFormState: FormStateMap[T];
   formSchema: ReturnType<GetFormSchema>;
   tab: T;
-  validate?: ValidateProps<FormStateMap[T]>;
+  customValidate?: ValidateProps<FormStateMap[T]>;
 };
 
 export const BaseTab = <T extends WritableProjectSettingsType>({
@@ -37,11 +37,12 @@ export const BaseTab = <T extends WritableProjectSettingsType>({
   );
 
   return loading ? null : (
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    <Form<WritableProjectSettingsType, FormStateMap>
+    <Form<T, FormStateMap>
       {...rest}
       disabled={disabled || !canEdit}
-      state={state}
+      state={
+        state as unknown as Parameters<typeof Form<T, FormStateMap>>[0]["state"]
+      }
       tab={tab}
     />
   );

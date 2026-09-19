@@ -82,7 +82,7 @@ export const getFormSchema = (
       "ui:fullWidth": true,
       "ui:orderable": false,
       "ui:secondaryButton": modalButton,
-      "ui:showLabel": false,
+      "ui:label": false,
       items: {
         "ui:ObjectFieldTemplate": VariableRow,
         "ui:label": false,
@@ -116,7 +116,7 @@ export const getFormSchema = (
       vars: {
         "ui:fullWidth": true,
         "ui:readonly": true,
-        "ui:showLabel": false,
+        "ui:label": false,
         items: {
           "ui:ObjectFieldTemplate": VariableRow,
           varName: {

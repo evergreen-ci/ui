@@ -9,19 +9,24 @@ import {
   taskHostOverridesFields,
 } from "./schemaFields";
 import { textAreaCSS } from "./styles";
+import { ProviderFormState } from "./types";
 
 export const getFormSchema = ({
   awsRegions,
+  ec2FleetProviderSettings: initialEC2FleetProviderSettings,
   fleetRegionsInUse,
   isEC2Provider,
   poolMappingInfo,
   pools,
+  taskHostOverrides: initialTaskHostOverrides,
 }: {
   awsRegions: string[];
+  ec2FleetProviderSettings: ProviderFormState["ec2FleetProviderSettings"];
   fleetRegionsInUse: string[];
   poolMappingInfo: string;
   pools: ContainerPool[];
   isEC2Provider: boolean;
+  taskHostOverrides: ProviderFormState["taskHostOverrides"];
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -59,7 +64,6 @@ export const getFormSchema = ({
       },
     },
     dependencies: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       provider: {
         oneOf: [
           {
@@ -123,6 +127,7 @@ export const getFormSchema = ({
                 type: "array" as const,
                 minItems: 1,
                 title: "",
+                default: initialEC2FleetProviderSettings,
                 items: {
                   type: "object" as const,
                   properties: {
@@ -140,7 +145,10 @@ export const getFormSchema = ({
                   },
                 },
               },
-              taskHostOverrides: taskHostOverridesFields.schema,
+              taskHostOverrides: {
+                ...taskHostOverridesFields.schema,
+                default: initialTaskHostOverrides,
+              },
             },
           },
         ],
@@ -178,19 +186,24 @@ export const getFormSchema = ({
     },
     ec2FleetProviderSettings: {
       "ui:data-testid": "ec2-fleet-provider-settings",
+      "ui:label": false,
       "ui:useExpandableCard": true,
       "ui:addButtonText": "Add region settings",
+      "ui:addToEnd": true,
       "ui:addable": fleetRegionsInUse.length < awsRegions.length,
       "ui:orderable": false,
-      items: {
-        "ui:displayTitle": "New AWS Region",
+      items: (itemData?: { displayTitle?: string; region?: string }) => ({
+        "ui:title": itemData?.displayTitle || "New AWS Region",
+        "ui:label": false,
         region: {
           "ui:data-testid": "region-select",
           "ui:allowDeselect": false,
-          "ui:enumDisabled": fleetRegionsInUse,
+          "ui:enumDisabled": fleetRegionsInUse.filter(
+            (region) => region !== itemData?.region,
+          ),
         },
         ...ec2FleetProviderSettings.uiSchema,
-      },
+      }),
     },
     taskHostOverrides: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,

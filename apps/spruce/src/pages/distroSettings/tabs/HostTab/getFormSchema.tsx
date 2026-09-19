@@ -12,15 +12,18 @@ import {
   setup,
   sshConfig as sshConfigProperties,
 } from "./schemaFields";
+import { HostFormState } from "./types";
 
 type FormSchemaParams = {
   architecture: Arch;
+  bootstrapSettings: HostFormState["bootstrapSettings"];
   isSingleTaskDistro: boolean;
   provider: Provider;
 };
 
 export const getFormSchema = ({
   architecture,
+  bootstrapSettings: initialBootstrapSettings,
   isSingleTaskDistro,
   provider,
 }: FormSchemaParams): ReturnType<GetFormSchema> => {
@@ -117,7 +120,10 @@ export const getFormSchema = ({
                     },
                   },
                 },
-                bootstrapSettings,
+                bootstrapSettings: {
+                  ...bootstrapSettings,
+                  default: initialBootstrapSettings,
+                },
                 sshConfig,
                 containerIsolation,
                 allocation,

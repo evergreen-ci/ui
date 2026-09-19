@@ -239,19 +239,37 @@ describe("editSpawnHostModal", () => {
         }),
       );
       await user.click(screen.getByTitle("Sunday"));
-      await user.click(screen.getByTitle("Saturday"));
-      await user.click(screen.getByText("Run continuously for enabled days"));
-      expect(screen.queryByTestId("host-uptime-details")).toHaveTextContent(
-        "168",
-      );
-      expect(
-        screen.queryByText(
-          "Please pause your host for at least 1 day per week.",
+      await waitFor(() =>
+        expect(screen.getByTestId("host-uptime-details")).toHaveTextContent(
+          "72",
         ),
-      ).toBeVisible();
-      expect(screen.queryByRole("button", { name: "Save" })).toHaveAttribute(
-        "aria-disabled",
-        "true",
+      );
+      await user.click(screen.getByTitle("Saturday"));
+      await waitFor(() =>
+        expect(screen.getByTestId("host-uptime-details")).toHaveTextContent(
+          "84",
+        ),
+      );
+      await user.click(screen.getByText("Run continuously for enabled days"));
+      await waitFor(() =>
+        expect(screen.getByTestId("host-uptime-details")).toHaveTextContent(
+          "168",
+        ),
+      );
+      await waitFor(
+        () =>
+          expect(
+            screen.getByText(
+              "Please pause your host for at least 1 day per week.",
+            ),
+          ).toBeVisible(),
+        { timeout: 5000 },
+      );
+      await waitFor(() =>
+        expect(screen.getByRole("button", { name: "Save" })).toHaveAttribute(
+          "aria-disabled",
+          "true",
+        ),
       );
     }, 15000);
   });

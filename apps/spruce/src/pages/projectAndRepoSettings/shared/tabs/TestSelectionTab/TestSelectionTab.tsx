@@ -70,10 +70,10 @@ export const TestSelectionTab: React.FC<TabProps> = ({
   }
   return (
     <BaseTab
+      customValidate={getValidate(repoData)}
       formSchema={formSchema}
       initialFormState={initialFormState}
       tab={tab}
-      validate={getValidate(repoData)}
     />
   );
 };

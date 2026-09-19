@@ -129,10 +129,7 @@ export const getFormSchema = (
       aliases: {
         "ui:addButtonText": "Add alias",
         "ui:orderable": false,
-        "ui:showLabel": false,
-        items: {
-          "ui:label": false,
-        },
+        "ui:label": false,
       },
     },
     distroOptions: {
