@@ -1,14 +1,24 @@
-import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Tooltip, TooltipRoot, TooltipTrigger } from "@via-ds/components";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { mapUmbrellaStatusColors } from "constants/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
+import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./index.module.css";
+
+const statusClass: Record<string, string> = {
+  [TaskStatusUmbrella.Undispatched]: styles.undispatched,
+  [TaskStatusUmbrella.Running]: styles.running,
+  [TaskStatusUmbrella.SystemFailure]: styles.systemFailure,
+  [TaskStatusUmbrella.Scheduled]: styles.scheduled,
+  [TaskStatusUmbrella.Failed]: styles.failed,
+  [TaskStatus.Succeeded]: styles.succeeded,
+  [TaskStatus.SetupFailed]: styles.setupFailed,
+};
 
 interface GroupedTaskStatusBadgeProps {
   count: number;
   onClick?: () => void;
-  status: keyof typeof mapUmbrellaStatusColors;
+  status: keyof typeof statusClass;
   statusCounts?: { [key: string]: number };
   href: string;
   isActive?: boolean;
@@ -21,42 +31,27 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
   onClick = () => undefined,
   status,
   statusCounts,
-}) => {
-  const { border, fill, text } = mapUmbrellaStatusColors[status];
-
-  return (
-    <Tooltip
-      align="top"
-      darkMode
-      enabled={!!statusCounts}
-      justify="middle"
-      trigger={
-        <div>
-          <Link
-            aria-selected={isActive}
-            data-testid="grouped-task-status-badge"
-            onClick={() => onClick()}
-            to={href}
-          >
-            <div
-              className={styles.badgeContainer}
-              style={{
-                borderColor: border,
-                backgroundColor: fill,
-                color: text,
-                opacity: isActive === false ? 0.4 : undefined,
-              }}
-            >
-              <span className={styles.number}>{count}</span>
-              <span className={styles.status}>
-                {taskStatusToCopy[status as TaskStatus]}
-              </span>
-            </div>
-          </Link>
+}) => (
+  <TooltipRoot align="center" isDisabled={!statusCounts} side="top">
+    <TooltipTrigger>
+      <Link
+        aria-selected={isActive}
+        data-testid="grouped-task-status-badge"
+        onClick={() => onClick()}
+        to={href}
+      >
+        <div
+          className={cx(styles.badgeContainer, statusClass[status])}
+          style={{ opacity: isActive === false ? 0.4 : undefined }}
+        >
+          <span className={styles.number}>{count}</span>
+          <span className={styles.status}>
+            {taskStatusToCopy[status as TaskStatus]}
+          </span>
         </div>
-      }
-      triggerEvent="hover"
-    >
+      </Link>
+    </TooltipTrigger>
+    <Tooltip>
       <div data-testid="grouped-task-status-badge-tooltip">
         {statusCounts &&
           Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
@@ -67,5 +62,5 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
           ))}
       </div>
     </Tooltip>
-  );
-};
+  </TooltipRoot>
+);
