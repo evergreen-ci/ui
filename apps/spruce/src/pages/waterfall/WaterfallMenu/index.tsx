@@ -25,7 +25,6 @@ import { JumpToMostRecent } from "./JumpToMostRecent";
 import { OmitInactiveBuilds } from "./OmitInactiveBuilds";
 
 type Props = {
-  isWalkthroughMenuStep: boolean;
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
   restartWalkthrough: () => void;
@@ -33,7 +32,6 @@ type Props = {
 };
 
 export const WaterfallMenu: React.FC<Props> = ({
-  isWalkthroughMenuStep,
   omitInactiveBuilds,
   projectIdentifier,
   restartWalkthrough,
@@ -43,11 +41,10 @@ export const WaterfallMenu: React.FC<Props> = ({
   const [menuOpen, setMenuOpen] = useState(false);
   const [gitCommitModalOpen, setGitCommitModalOpen] = useState(false);
   const [notificationModalOpen, setNotificationModalOpen] = useState(false);
-  const isMenuOpen = isWalkthroughMenuStep || menuOpen;
 
   return (
     <>
-      <MenuRoot isOpen={isMenuOpen} onOpenChange={setMenuOpen}>
+      <MenuRoot isOpen={menuOpen} onOpenChange={setMenuOpen}>
         <Button
           aria-label="Waterfall menu"
           className={styles.trigger}
@@ -56,7 +53,7 @@ export const WaterfallMenu: React.FC<Props> = ({
         >
           <Ellipsis />
         </Button>
-        <MenuPopover isNonModal={isWalkthroughMenuStep}>
+        <MenuPopover>
           <Menu aria-label="Waterfall actions">
             <MenuItem
               data-testid="git-commit-search"

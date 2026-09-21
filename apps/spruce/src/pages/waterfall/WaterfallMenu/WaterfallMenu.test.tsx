@@ -18,14 +18,12 @@ const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 const renderWaterfallMenu = (props: {
-  isWalkthroughMenuStep?: boolean;
   omitInactiveBuilds?: boolean;
   projectIdentifier?: string;
   restartWalkthrough?: () => void;
   setOmitInactiveBuilds?: (value: boolean) => void;
 }) => {
   const {
-    isWalkthroughMenuStep = false,
     omitInactiveBuilds = false,
     projectIdentifier = "spruce",
     restartWalkthrough = vi.fn(),
@@ -35,7 +33,6 @@ const renderWaterfallMenu = (props: {
   const { Component } = RenderFakeToastContext(
     <MockedProvider>
       <WaterfallMenu
-        isWalkthroughMenuStep={isWalkthroughMenuStep}
         omitInactiveBuilds={omitInactiveBuilds}
         projectIdentifier={projectIdentifier}
         restartWalkthrough={restartWalkthrough}
@@ -139,17 +136,6 @@ describe("WaterfallMenu", () => {
     expect(screen.getByText("Add notification")).toBeVisible();
     expect(screen.getByText("Restart walkthrough")).toBeVisible();
     expect(screen.getByText("Settings")).toBeVisible();
-  });
-
-  it("opens for the walkthrough menu step", async () => {
-    renderWaterfallMenu({ isWalkthroughMenuStep: true });
-
-    expect(
-      await screen.findByRole("menu", { name: "Waterfall menu" }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Waterfall menu" }),
-    ).toHaveAttribute("aria-expanded", "true");
   });
 
   it("calls restartWalkthrough when restart walkthrough is clicked", async () => {

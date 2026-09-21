@@ -17,7 +17,6 @@ import { Pagination, WaterfallFilterOptions } from "./types";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 type WaterfallFiltersProps = {
-  isWalkthroughMenuStep: boolean;
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
   pagination: Pagination | undefined;
@@ -26,7 +25,6 @@ type WaterfallFiltersProps = {
 };
 
 export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
-  isWalkthroughMenuStep,
   omitInactiveBuilds,
   pagination,
   projectIdentifier,
@@ -94,7 +92,6 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
         />
       </ProjectFilterItem>
       <WaterfallMenu
-        isWalkthroughMenuStep={isWalkthroughMenuStep}
         omitInactiveBuilds={omitInactiveBuilds}
         projectIdentifier={projectIdentifier}
         restartWalkthrough={restartWalkthrough}
