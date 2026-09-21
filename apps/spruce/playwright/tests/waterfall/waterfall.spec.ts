@@ -12,6 +12,29 @@ test.describe("waterfall page", () => {
     });
   });
 
+  test.describe("grid layout", () => {
+    test("aligns rows with the sticky version header", async ({ page }) => {
+      await page.setViewportSize({ width: 1280, height: 250 });
+      await page.goto("/project/evergreen/waterfall");
+      const versions = page.getByTestId("version-labels");
+      const buildGroup = page.getByTestId("build-group").first();
+      const stickyHeader = page.getByTestId("waterfall-sticky-header");
+
+      const versionBounds = await versions.boundingBox();
+      const buildBounds = await buildGroup.boundingBox();
+      expect(versionBounds).not.toBeNull();
+      expect(buildBounds).not.toBeNull();
+      expect(buildBounds?.x).toBeCloseTo(versionBounds?.x ?? 0, 0);
+      expect(buildBounds?.width).toBeCloseTo(versionBounds?.width ?? 0, 0);
+
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+      await expect
+        .poll(async () => (await stickyHeader.boundingBox())?.y)
+        .toBeCloseTo(64, 0);
+    });
+  });
+
   test.describe("inactive commits", () => {
     test("renders an inactive version column, button and broken versions badge", async ({
       page,
