@@ -42,7 +42,6 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         data-testid="prev-page-button"
         isDisabled={!hasPrevPage || isNavigatingToPage}
         onPress={onPrevClick}
-        variant="tertiary"
       >
         <ChevronLeft />
       </Button>
@@ -51,7 +50,6 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         data-testid="next-page-button"
         isDisabled={!hasNextPage || isNavigatingToPage}
         onPress={onNextClick}
-        variant="tertiary"
       >
         <ChevronRight />
       </Button>

@@ -13,8 +13,6 @@ export const WaterfallScrollToTop: React.FC = () => {
       onPress={() =>
         document.getElementById(waterfallPageContainerId)?.scrollTo({ top: 0 })
       }
-      size="small"
-      variant="tertiary"
     >
       <ArrowUp />
     </Button>

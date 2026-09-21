@@ -50,8 +50,6 @@ export const WaterfallMenu: React.FC<Props> = ({
         <Button
           aria-label="Waterfall menu"
           data-testid="waterfall-menu"
-          size="small"
-          variant="tertiary"
           {...{ [waterfallGuideId]: walkthroughSteps[4].targetId }}
         >
           <Ellipsis />
