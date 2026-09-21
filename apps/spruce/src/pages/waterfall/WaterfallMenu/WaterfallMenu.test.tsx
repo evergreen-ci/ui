@@ -210,4 +210,19 @@ describe("WaterfallMenu", () => {
       ),
     ).toHaveValue("");
   });
+
+  it.each([
+    ["Search by git hash", "git-commit-search-modal"],
+    ["Add notification", "waterfall-notification-modal"],
+  ])("closes the menu when opening %s", async (menuItem, modalTestId) => {
+    const user = userEvent.setup();
+    renderWaterfallMenu({});
+
+    const menuButton = screen.getByRole("button", { name: "Waterfall menu" });
+    await user.click(menuButton);
+    await user.click(screen.getByText(menuItem));
+
+    expect(await screen.findByTestId(modalTestId)).toBeVisible();
+    expect(menuButton).toHaveAttribute("aria-expanded", "false");
+  });
 });

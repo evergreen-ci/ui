@@ -28,8 +28,11 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
 
   const [commitHash, setCommitHash] = useState("");
 
-  const onCancel = () => {
-    setOpen(false);
+  const onOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      setCommitHash("");
+    }
+    setOpen(isOpen);
   };
 
   const onConfirm = () => {
@@ -37,11 +40,11 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
     setQueryParams({
       [WaterfallFilterOptions.Revision]: commitHash,
     });
-    onCancel();
+    onOpenChange(false);
   };
 
   return (
-    <DialogRoot isOpen={open} onOpenChange={setOpen}>
+    <DialogRoot isOpen={open} onOpenChange={onOpenChange}>
       <Dialog data-testid="git-commit-search-modal">
         <Header>
           <Text slot="title">Search by Git Commit Hash</Text>
@@ -61,7 +64,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
           />
         </Content>
         <Footer>
-          <Button onPress={onCancel} slot="cancel">
+          <Button onPress={() => onOpenChange(false)} slot="cancel">
             Cancel
           </Button>
           <Button

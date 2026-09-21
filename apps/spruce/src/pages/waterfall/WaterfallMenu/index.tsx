@@ -61,7 +61,10 @@ export const WaterfallMenu: React.FC<Props> = ({
             <MenuItem
               data-testid="git-commit-search"
               id="git-commit-search"
-              onAction={() => setGitCommitModalOpen(true)}
+              onAction={() => {
+                setMenuOpen(false);
+                setGitCommitModalOpen(true);
+              }}
               textValue="Search by git hash"
             >
               <Code slot="icon" />
@@ -72,7 +75,10 @@ export const WaterfallMenu: React.FC<Props> = ({
             <MenuItem
               data-testid="add-notification"
               id="add-notification"
-              onAction={() => setNotificationModalOpen(true)}
+              onAction={() => {
+                setMenuOpen(false);
+                setNotificationModalOpen(true);
+              }}
               textValue="Add notification"
             >
               <Bell slot="icon" />
