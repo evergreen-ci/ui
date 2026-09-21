@@ -20,6 +20,7 @@ import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { AddNotification } from "./AddNotification";
 import { ClearAllFilters } from "./ClearAllFilters";
 import { GitCommitSearch } from "./GitCommitSearch";
+import styles from "./index.module.css";
 import { JumpToMostRecent } from "./JumpToMostRecent";
 import { OmitInactiveBuilds } from "./OmitInactiveBuilds";
 
@@ -49,6 +50,7 @@ export const WaterfallMenu: React.FC<Props> = ({
       <MenuRoot isOpen={isMenuOpen} onOpenChange={setMenuOpen}>
         <Button
           aria-label="Waterfall menu"
+          className={styles.trigger}
           data-testid="waterfall-menu"
           {...{ [waterfallGuideId]: walkthroughSteps[4].targetId }}
         >
