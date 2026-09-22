@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react-vite";
+import { userEvent, within } from "storybook/test";
 import {
   getSpruceConfigMock,
   getUserSettingsMock,
@@ -12,6 +12,7 @@ import {
   versionWithUpstreamProject,
 } from "../testData";
 import { getVersionUpstreamProjectMock } from "./testData";
+import styles from "./VersionLabel.stories.module.css";
 import { VersionLabel, VersionLabelView } from ".";
 
 export default {
@@ -30,9 +31,9 @@ export default {
 
 export const Default: StoryObj<typeof VersionLabel> = {
   render: (args) => (
-    <Container>
+    <div className={styles.container}>
       <VersionLabel {...args} />
-    </Container>
+    </div>
   ),
   parameters: {
     apolloClient: {
@@ -75,11 +76,18 @@ export const SmallSize: StoryObj<typeof VersionLabel> = {
   },
 };
 
+export const TaskStatsOpen: StoryObj<typeof VersionLabel> = {
+  ...SmallSize,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Show task stats" }),
+    );
+    await within(canvasElement.ownerDocument.body).findByText("Total tasks");
+  },
+};
+
 export const Broken: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: versionBroken,
 };
-
-const Container = styled.div`
-  max-width: 300px;
-`;
