@@ -136,6 +136,28 @@ export const selectPageSize = async (page: Page, pageSize: number) => {
   await option.click();
 };
 
+/**
+ * Hovers a trigger and waits for its Via tooltip to appear.
+ * Via tooltips are React Aria based, and React Aria ignores hover until a
+ * pointer event has established pointer modality, so a bare .hover() on a
+ * freshly loaded page never opens them.
+ * @param page - The Playwright page object
+ * @param trigger - The locator to hover
+ * @param tooltipTestId - data-testid of the tooltip content (default: "tooltip")
+ * @returns The tooltip locator, once visible
+ */
+export const hoverForTooltip = async (
+  page: Page,
+  trigger: Locator,
+  tooltipTestId: string = "tooltip",
+): Promise<Locator> => {
+  await page.mouse.move(0, 0);
+  await trigger.hover();
+  const tooltip = page.getByTestId(tooltipTestId);
+  await expect(tooltip).toBeVisible();
+  return tooltip;
+};
+
 // Re-export shared helpers from the playwright-config package.
 export {
   validateToast,

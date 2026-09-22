@@ -1,9 +1,13 @@
-import { Spinner } from "@leafygreen-ui/loading-indicator/spinner";
-import { Description } from "@leafygreen-ui/typography";
+import { ProgressCircle, Text } from "@via-ds/components";
+import styles from "./FetchMoreLoader.module.css";
 
 export const FetchMoreLoader: React.FC = () => (
-  <div data-testid="fetch-more-loader">
-    <Spinner size="large" />
-    <Description>Fetching…</Description>
+  <div className={styles.loader} data-testid="fetch-more-loader">
+    <ProgressCircle
+      aria-label="Fetching more commits"
+      className={styles.progressCircle}
+      size="4xlarge"
+    />
+    <Text textStyle="description">Fetching…</Text>
   </div>
 );
