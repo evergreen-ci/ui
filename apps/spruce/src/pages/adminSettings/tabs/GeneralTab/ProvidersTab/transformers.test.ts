@@ -14,7 +14,7 @@ describe("providers section", () => {
   });
 
   it("leaves an unset MongoDB environment empty", () => {
-    const form = gqlToForm({
+    const gqlData: AdminSettingsData = {
       ...testAdminSettings,
       providers: {
         ...testAdminSettings.providers,
@@ -23,13 +23,14 @@ describe("providers section", () => {
           resourceTags: null,
         },
       },
-    } as unknown as AdminSettingsData);
+    };
+    const form = gqlToForm(gqlData);
 
     expect(form?.providers.aws.resourceTags.mongodbEnv).toBe("");
   });
 
   it("omits an unset MongoDB environment from the input", () => {
-    const input = formToGql({
+    const formData: ProvidersFormState = {
       ...form,
       providers: {
         ...form.providers,
@@ -41,13 +42,14 @@ describe("providers section", () => {
           },
         },
       },
-    });
+    };
+    const input = formToGql(formData);
 
     expect(input.providers?.aws?.resourceTags?.mongodbEnv).toBeUndefined();
   });
 
   it("includes an unset MongoDB owner in the input", () => {
-    const input = formToGql({
+    const formData: ProvidersFormState = {
       ...form,
       providers: {
         ...form.providers,
@@ -59,7 +61,8 @@ describe("providers section", () => {
           },
         },
       },
-    });
+    };
+    const input = formToGql(formData);
 
     expect(input.providers?.aws?.resourceTags?.mongodbOwner).toBe("");
   });

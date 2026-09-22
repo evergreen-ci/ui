@@ -1,9 +1,16 @@
+import { PropsWithChildren } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import useScrollToAnchor from ".";
 
 describe("useScrollToAnchor", () => {
   const mockElement = { scrollIntoView: vi.fn() };
+  const createWrapper = (initialEntries: string[]) =>
+    function Wrapper({ children }: PropsWithChildren) {
+      return (
+        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+      );
+    };
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -20,12 +27,9 @@ describe("useScrollToAnchor", () => {
   });
 
   it("should scroll to element when hash is present", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const wrapper = ({ children }) => (
-      <MemoryRouter initialEntries={["/#test-anchor"]}>{children}</MemoryRouter>
-    );
-
-    renderHook(() => useScrollToAnchor(), { wrapper });
+    renderHook(() => useScrollToAnchor(), {
+      wrapper: createWrapper(["/#test-anchor"]),
+    });
     vi.runOnlyPendingTimers();
 
     expect(document.getElementById).toHaveBeenCalledWith("test-anchor");
@@ -35,26 +39,19 @@ describe("useScrollToAnchor", () => {
   });
 
   it("should not scroll when hash is not present", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const wrapper = ({ children }) => (
-      <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>
-    );
-
-    renderHook(() => useScrollToAnchor(), { wrapper });
+    renderHook(() => useScrollToAnchor(), { wrapper: createWrapper(["/"]) });
     vi.runOnlyPendingTimers();
 
     expect(document.getElementById).not.toHaveBeenCalled();
   });
 
   it("should wait until the anchor element is ready before scrolling", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const wrapper = ({ children }) => (
-      <MemoryRouter initialEntries={["/#test-anchor"]}>{children}</MemoryRouter>
-    );
-
     const { rerender } = renderHook(
       ({ isReady }) => useScrollToAnchor(isReady),
-      { initialProps: { isReady: false }, wrapper },
+      {
+        initialProps: { isReady: false },
+        wrapper: createWrapper(["/#test-anchor"]),
+      },
     );
     vi.runOnlyPendingTimers();
 
@@ -67,12 +64,9 @@ describe("useScrollToAnchor", () => {
   });
 
   it("should clear timeout on unmount", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const wrapper = ({ children }) => (
-      <MemoryRouter initialEntries={["/#test-anchor"]}>{children}</MemoryRouter>
-    );
-
-    const { unmount } = renderHook(() => useScrollToAnchor(), { wrapper });
+    const { unmount } = renderHook(() => useScrollToAnchor(), {
+      wrapper: createWrapper(["/#test-anchor"]),
+    });
     unmount();
     vi.runOnlyPendingTimers();
 
