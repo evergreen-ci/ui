@@ -58,12 +58,12 @@ describe("sourceCacheMode round-trip", () => {
     ).toBe("ALL");
   });
 
-  it("maps an unset sourceCacheMode to null in both directions", () => {
+  it("maps an unset sourceCacheMode to Disabled (OFF) in both directions", () => {
     const form = gqlToForm(projectBase);
-    expect(form?.sourceCache.sourceCacheMode).toBeNull();
+    expect(form?.sourceCache.sourceCacheMode).toBe(SourceCacheMode.Off);
     expect(
       formToGql(projectForm, false, "project").projectRef.sourceCacheMode,
-    ).toBeNull();
+    ).toBe(SourceCacheMode.Off);
   });
 });
 
@@ -182,7 +182,7 @@ const projectForm: GeneralFormState = {
     disabledStatsCache: null,
   },
   sourceCache: {
-    sourceCacheMode: null,
+    sourceCacheMode: SourceCacheMode.Off,
   },
 };
 
@@ -210,6 +210,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     stepbackDisabled: null,
     stepbackBisect: null,
     disabledStatsCache: null,
-    sourceCacheMode: null,
+    sourceCacheMode: SourceCacheMode.Off,
   },
 };

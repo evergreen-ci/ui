@@ -67,8 +67,13 @@ export const gqlToForm = ((data, options = {}) => {
       disabledStatsCache: projectRef.disabledStatsCache,
     },
     sourceCache: {
-      sourceCacheMode: (projectRef.sourceCacheMode ??
-        null) as SourceCacheMode | null,
+      sourceCacheMode:
+        // Attached projects with no override defer to the repo's source cache mode.
+        projectType === ProjectType.AttachedProject &&
+        projectRef.sourceCacheMode == null
+          ? null
+          : ((projectRef.sourceCacheMode ??
+              SourceCacheMode.Off) as SourceCacheMode | null),
     },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
