@@ -1,4 +1,9 @@
-import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
+import {
+  ProjectSettingsInput,
+  ProjectSettingsQuery,
+  RepoSettingsInput,
+  SourceCacheMode,
+} from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
@@ -27,6 +32,38 @@ describe("project data", () => {
     expect(formToGql(projectForm, false, "project")).toStrictEqual(
       projectResult,
     );
+  });
+});
+
+describe("sourceCacheMode round-trip", () => {
+  const sourceCacheForm: GeneralFormState = {
+    ...projectForm,
+    sourceCache: {
+      sourceCacheMode: "ALL",
+    },
+  };
+
+  it("preserves sourceCacheMode through a gqlToForm and formToGql round-trip", () => {
+    const projectRefWithSourceCache = {
+      ...projectBase.projectRef,
+      sourceCacheMode: SourceCacheMode.All,
+    };
+    const form = gqlToForm({
+      ...projectBase,
+      projectRef: projectRefWithSourceCache,
+    } as ProjectSettingsQuery["projectSettings"]);
+    expect(form?.sourceCache.sourceCacheMode).toBe("ALL");
+    expect(
+      formToGql(sourceCacheForm, false, "project").projectRef.sourceCacheMode,
+    ).toBe("ALL");
+  });
+
+  it("maps an unset sourceCacheMode to null in both directions", () => {
+    const form = gqlToForm(projectBase);
+    expect(form?.sourceCache.sourceCacheMode).toBeNull();
+    expect(
+      formToGql(projectForm, false, "project").projectRef.sourceCacheMode,
+    ).toBeNull();
   });
 });
 
@@ -68,6 +105,9 @@ const repoForm: GeneralFormState = {
   historicalTaskDataCaching: {
     disabledStatsCache: false,
   },
+  sourceCache: {
+    sourceCacheMode: SourceCacheMode.Waterfall,
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
@@ -91,6 +131,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     stepbackDisabled: true,
     stepbackBisect: true,
     disabledStatsCache: false,
+    sourceCacheMode: SourceCacheMode.Waterfall,
   },
 };
 
@@ -140,6 +181,9 @@ const projectForm: GeneralFormState = {
   historicalTaskDataCaching: {
     disabledStatsCache: null,
   },
+  sourceCache: {
+    sourceCacheMode: null,
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -166,5 +210,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     stepbackDisabled: null,
     stepbackBisect: null,
     disabledStatsCache: null,
+    sourceCacheMode: null,
   },
 };

@@ -42,6 +42,9 @@ export interface GeneralFormState {
   historicalTaskDataCaching: {
     disabledStatsCache: boolean | null;
   };
+  sourceCache: {
+    sourceCacheMode: "OFF" | "ALL" | "WATERFALL" | null;
+  };
 }
 
 export type TabProps = {
