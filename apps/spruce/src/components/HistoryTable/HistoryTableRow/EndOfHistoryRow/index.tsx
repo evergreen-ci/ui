@@ -1,4 +1,4 @@
-import { Body } from "@leafygreen-ui/typography";
+import { Body } from "@via-ds/components/typography";
 import { DashedLine } from "../BaseRow/styles";
 import styles from "./index.module.css";
 
@@ -8,9 +8,7 @@ interface EndOfHistoryRowProps {
 const EndOfHistoryRow: React.FC<EndOfHistoryRowProps> = ({ children }) => (
   <div className={styles.row}>
     <DashedLine />
-    <Body className={styles.styledBody} weight="medium">
-      {children}
-    </Body>
+    <Body className={styles.styledBody}>{children}</Body>
     <DashedLine />
   </div>
 );
