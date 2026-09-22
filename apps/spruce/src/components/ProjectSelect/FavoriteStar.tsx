@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client/react";
 import { Button, ButtonVariant } from "@via-ds/components";
-import Icon from "@evg-ui/lib/components/Icon";
+import Favorite from "@via-ds/icons/Favorite";
+import OutlineFavorite from "@via-ds/icons/OutlineFavorite";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   AddFavoriteProjectMutation,
@@ -62,14 +63,11 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
         onPress={onPress}
         variant={ButtonVariant.Tertiary}
       >
-        <Icon
-          fill={
-            isFavorite
-              ? "var(--via-color-green-500)"
-              : "var(--via-color-neutral-500)"
-          }
-          glyph={isFavorite ? "Favorite" : "OutlineFavorite"}
-        />
+        {isFavorite ? (
+          <Favorite fill="var(--via-color-green-500)" />
+        ) : (
+          <OutlineFavorite fill="var(--via-color-neutral-500)" />
+        )}
       </Button>
     </div>
   );
