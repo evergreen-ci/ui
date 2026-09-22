@@ -39,6 +39,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     <div className={styles.buttonContainer}>
       <Button
         aria-label="Previous page"
+        className={styles.button}
         data-testid="prev-page-button"
         isDisabled={!hasPrevPage || isNavigatingToPage}
         onPress={onPrevClick}
@@ -47,6 +48,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
       </Button>
       <Button
         aria-label="Next page"
+        className={styles.button}
         data-testid="next-page-button"
         isDisabled={!hasNextPage || isNavigatingToPage}
         onPress={onNextClick}
