@@ -39,16 +39,6 @@ export const authenticateIfSuccessfulLink = (
               // If there is data in response, then server responded with 200; therefore, is authenticated.
               dispatchAuthenticated();
             }
-            leaveBreadcrumb(
-              "Graphql Request",
-              {
-                operationName: operation.operationName,
-                variables: operation.variables,
-                status: !response.errors ? "OK" : "ERROR",
-                errors: response.errors,
-              },
-              SentryBreadcrumbTypes.HTTP,
-            );
             observer.next(response);
           },
           error: observer.error.bind(observer),
