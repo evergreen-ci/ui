@@ -279,6 +279,10 @@ export const ADMIN_SETTINGS = gql`
             domain
             hostedZoneID
           }
+          resourceTags {
+            mongodbEnv
+            mongodbOwner
+          }
           subnets {
             az
             subnetId

@@ -7279,6 +7279,17 @@ export type SaveAdminSettingsMutation = {
       __typename?: "NotifyConfig";
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: MongoDbEnvironment | null;
+          mongodbOwner?: string | null;
+        } | null;
+      } | null;
+    } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;
@@ -8034,6 +8045,11 @@ export type AdminSettingsQuery = {
           __typename?: "PersistentDNSConfig";
           domain?: string | null;
           hostedZoneID?: string | null;
+        } | null;
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: MongoDbEnvironment | null;
+          mongodbOwner?: string | null;
         } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
       } | null;
