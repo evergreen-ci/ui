@@ -13,7 +13,13 @@ import {
 
 const { gray } = palette;
 
-const mongoDBEnvironments = Object.values(MongoDbEnvironment);
+const mongodbEnvironmentOptions = [
+  { label: "None", value: "" },
+  ...Object.values(MongoDbEnvironment).map((value) => ({
+    label: value.toLowerCase(),
+    value,
+  })),
+];
 
 const arrayItemCSS = css`
   border: 1px solid ${gray.light2};
@@ -295,13 +301,11 @@ export const aws = {
         mongodbEnv: {
           type: "string" as const,
           title: "MongoDB Environment",
-          enum: ["", ...mongoDBEnvironments],
-          enumNames: [
-            "None",
-            ...mongoDBEnvironments.map((environment) =>
-              environment.toLowerCase(),
-            ),
-          ],
+          oneOf: mongodbEnvironmentOptions.map(({ label, value }) => ({
+            type: "string" as const,
+            title: label,
+            enum: [value],
+          })),
         },
         mongodbOwner: {
           type: "string" as const,
@@ -337,6 +341,9 @@ export const aws = {
     },
     resourceTags: {
       "ui:fieldCss": nestedObjectGridCss,
+      mongodbEnv: {
+        "ui:allowDeselect": false,
+      },
       mongodbOwner: {
         "ui:widget": widgets.TextWidget,
         "ui:options": {

@@ -1,62 +1,91 @@
-import { createRef } from "react";
-import Form from "@rjsf/core";
-import { render } from "@evg-ui/lib/test_utils";
 import { MongoDbEnvironment } from "gql/generated/types";
-import { getFormSchema } from "./getFormSchema";
+import { validateResourceTags } from "./ProvidersTab";
+import { ProvidersFormState } from "./types";
 
-const validateResourceTags = (
+const validateFormResourceTags = (
   mongodbEnv: MongoDbEnvironment | "",
   mongodbOwner: string,
   initialValues = { mongodbEnv, mongodbOwner },
 ) => {
-  const ref = createRef<InstanceType<typeof Form>>();
-  const formData = {
+  const addEnvironmentError = vi.fn();
+  const addOwnerError = vi.fn();
+  const errors = {
     providers: {
       aws: {
-        resourceTags: { mongodbEnv, mongodbOwner },
+        resourceTags: {
+          mongodbEnv: { addError: addEnvironmentError },
+          mongodbOwner: { addError: addOwnerError },
+        },
       },
     },
   };
 
-  render(
-    <Form
-      ref={ref}
-      customFormats={{ validEmail: () => true }}
-      formData={formData}
-      schema={getFormSchema(initialValues).schema}
-    />,
+  validateResourceTags(initialValues)(
+    {
+      providers: {
+        aws: {
+          resourceTags: { mongodbEnv, mongodbOwner },
+        },
+      },
+    } as ProvidersFormState,
+    errors as unknown as Parameters<ReturnType<typeof validateResourceTags>>[1],
   );
 
-  return ref.current?.validate(formData).errors ?? [];
+  return { addEnvironmentError, addOwnerError };
 };
 
 describe("providers tab validation", () => {
   it("allows resource tags to be unset", () => {
-    expect(validateResourceTags("", "")).toHaveLength(0);
+    const { addEnvironmentError, addOwnerError } = validateFormResourceTags(
+      "",
+      "",
+    );
+
+    expect(addEnvironmentError).not.toHaveBeenCalled();
+    expect(addOwnerError).not.toHaveBeenCalled();
   });
 
   it("allows an owner without an environment", () => {
-    expect(validateResourceTags("", "evergreen@mongodb.com")).toHaveLength(0);
+    const { addEnvironmentError, addOwnerError } = validateFormResourceTags(
+      "",
+      "evergreen@mongodb.com",
+    );
+
+    expect(addEnvironmentError).not.toHaveBeenCalled();
+    expect(addOwnerError).not.toHaveBeenCalled();
   });
 
   it("allows an environment without an owner", () => {
-    expect(validateResourceTags(MongoDbEnvironment.Staging, "")).toHaveLength(
-      0,
+    const { addEnvironmentError, addOwnerError } = validateFormResourceTags(
+      MongoDbEnvironment.Staging,
+      "",
     );
+
+    expect(addEnvironmentError).not.toHaveBeenCalled();
+    expect(addOwnerError).not.toHaveBeenCalled();
   });
 
   it("rejects clearing values that have already been set", () => {
-    expect(
-      validateResourceTags("", "evergreen@mongodb.com", {
+    const clearedEnvironment = validateFormResourceTags(
+      "",
+      "evergreen@mongodb.com",
+      {
         mongodbEnv: MongoDbEnvironment.Staging,
         mongodbOwner: "",
-      }),
-    ).toHaveLength(1);
-    expect(
-      validateResourceTags(MongoDbEnvironment.Staging, "", {
+      },
+    );
+    const clearedOwner = validateFormResourceTags(
+      MongoDbEnvironment.Staging,
+      "",
+      {
         mongodbEnv: "",
         mongodbOwner: "evergreen@mongodb.com",
-      }),
-    ).toHaveLength(1);
+      },
+    );
+
+    expect(clearedEnvironment.addEnvironmentError).toHaveBeenCalledOnce();
+    expect(clearedEnvironment.addOwnerError).not.toHaveBeenCalled();
+    expect(clearedOwner.addEnvironmentError).not.toHaveBeenCalled();
+    expect(clearedOwner.addOwnerError).toHaveBeenCalledOnce();
   });
 });
