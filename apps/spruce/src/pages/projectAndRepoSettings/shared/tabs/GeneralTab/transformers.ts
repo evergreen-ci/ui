@@ -1,5 +1,5 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectInput } from "gql/generated/types";
+import { ProjectInput, SourceCacheMode } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
 
@@ -66,6 +66,14 @@ export const gqlToForm = ((data, options = {}) => {
     historicalTaskDataCaching: {
       disabledStatsCache: projectRef.disabledStatsCache,
     },
+    sourceCache: {
+      sourceCacheMode:
+        // Attached projects with no override defer to the repo's source cache mode.
+        projectType === ProjectType.AttachedProject &&
+        projectRef.sourceCacheMode == null
+          ? null
+          : (projectRef.sourceCacheMode ?? SourceCacheMode.Off),
+    },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
@@ -75,6 +83,7 @@ export const formToGql = ((
     generalConfiguration,
     historicalTaskDataCaching: { disabledStatsCache },
     projectFlags,
+    sourceCache: { sourceCacheMode },
   },
   isRepo,
   id,
@@ -107,6 +116,7 @@ export const formToGql = ((
     patchingDisabled: projectFlags.patch.patchingDisabled,
     runEveryMainlineCommit: projectFlags.repotracker.runEveryMainlineCommit,
     disabledStatsCache,
+    sourceCacheMode,
   };
 
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };

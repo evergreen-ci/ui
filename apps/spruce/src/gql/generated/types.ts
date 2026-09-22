@@ -506,7 +506,6 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   sourceCacheBucket?: Maybe<BucketConfig>;
-  sourceCacheProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -521,7 +520,6 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   sourceCacheBucket?: InputMaybe<BucketConfigInput>;
-  sourceCacheProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -2797,6 +2795,7 @@ export type Project = {
   repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
   runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
+  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2952,6 +2951,7 @@ export type ProjectInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3452,6 +3452,7 @@ export type RepoRef = {
   repotrackerDisabled: Scalars["Boolean"]["output"];
   restricted: Scalars["Boolean"]["output"];
   runEveryMainlineCommit: Scalars["Boolean"]["output"];
+  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
@@ -3503,6 +3504,7 @@ export type RepoRefInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3948,6 +3950,17 @@ export type Source = {
   requester: Scalars["String"]["output"];
   time: Scalars["Time"]["output"];
 };
+
+/**
+ * SourceCacheMode controls whether a project's tasks may use the git source cache.
+ * OFF disables it, ALL enables it for every build, and WATERFALL enables it only
+ * for mainline (waterfall/commit) builds.
+ */
+export enum SourceCacheMode {
+  All = "ALL",
+  Off = "OFF",
+  Waterfall = "WATERFALL",
+}
 
 export type SpawnHostConfig = {
   __typename?: "SpawnHostConfig";
@@ -5535,6 +5548,7 @@ export type ProjectGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled?: boolean | null;
   runEveryMainlineCommit?: boolean | null;
+  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
@@ -5557,6 +5571,7 @@ export type RepoGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled: boolean;
   runEveryMainlineCommit: boolean;
+  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
@@ -5735,6 +5750,7 @@ export type ProjectSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -5951,6 +5967,7 @@ export type RepoSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled: boolean;
     runEveryMainlineCommit: boolean;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
@@ -6362,6 +6379,7 @@ export type ProjectEventSettingsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -9472,6 +9490,7 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9702,6 +9721,7 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9997,6 +10017,7 @@ export type ProjectSettingsQuery = {
       repo: string;
       repotrackerDisabled?: boolean | null;
       runEveryMainlineCommit?: boolean | null;
+      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
@@ -10275,6 +10296,7 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10505,6 +10527,7 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10741,6 +10764,7 @@ export type RepoSettingsQuery = {
       repo: string;
       repotrackerDisabled: boolean;
       runEveryMainlineCommit: boolean;
+      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
