@@ -296,12 +296,13 @@ export const getFormSchema = (
                 title: "Waterfall builds",
                 enum: [SourceCacheMode.Waterfall],
               },
-              ...(repoData?.sourceCache?.sourceCacheMode
+              ...(projectType === ProjectType.AttachedProject
                 ? [
                     {
                       type: ["string", "null"],
                       title: `Default to repo (${sourceCacheModeLabel(
-                        repoData.sourceCache.sourceCacheMode,
+                        repoData?.sourceCache?.sourceCacheMode ??
+                          SourceCacheMode.Off,
                       )})`,
                       enum: [null],
                     } as SpruceFormProps["schema"],

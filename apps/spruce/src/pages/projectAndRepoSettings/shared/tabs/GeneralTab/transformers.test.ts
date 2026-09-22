@@ -39,7 +39,7 @@ describe("sourceCacheMode round-trip", () => {
   const sourceCacheForm: GeneralFormState = {
     ...projectForm,
     sourceCache: {
-      sourceCacheMode: "ALL",
+      sourceCacheMode: SourceCacheMode.All,
     },
   };
 
@@ -64,6 +64,13 @@ describe("sourceCacheMode round-trip", () => {
     expect(
       formToGql(projectForm, false, "project").projectRef.sourceCacheMode,
     ).toBe(SourceCacheMode.Off);
+  });
+
+  it("defers to the repo when an attached project has no sourceCacheMode override", () => {
+    const form = gqlToForm(projectBase, {
+      projectType: ProjectType.AttachedProject,
+    });
+    expect(form?.sourceCache.sourceCacheMode).toBe(null);
   });
 });
 

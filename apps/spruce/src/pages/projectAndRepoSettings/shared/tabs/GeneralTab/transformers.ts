@@ -72,8 +72,7 @@ export const gqlToForm = ((data, options = {}) => {
         projectType === ProjectType.AttachedProject &&
         projectRef.sourceCacheMode == null
           ? null
-          : ((projectRef.sourceCacheMode ??
-              SourceCacheMode.Off) as SourceCacheMode | null),
+          : (projectRef.sourceCacheMode ?? SourceCacheMode.Off),
     },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -117,7 +116,7 @@ export const formToGql = ((
     patchingDisabled: projectFlags.patch.patchingDisabled,
     runEveryMainlineCommit: projectFlags.repotracker.runEveryMainlineCommit,
     disabledStatsCache,
-    sourceCacheMode: sourceCacheMode as SourceCacheMode | null,
+    sourceCacheMode,
   };
 
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
