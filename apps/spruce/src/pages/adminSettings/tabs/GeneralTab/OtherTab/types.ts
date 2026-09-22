@@ -71,7 +71,6 @@ export interface OtherFormState {
       testResultsBucketType: string;
       sourceCacheBucketName: string;
       sourceCacheBucketRoleARN: string;
-      sourceCacheProjects: string[];
       credentialsKey: string;
       credentialsSecret: string;
       failedTasksLogBucketName: string;

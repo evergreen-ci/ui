@@ -41,7 +41,6 @@ describe("other tab transformers", () => {
           name: "",
           roleARN: "",
         },
-        sourceCacheProjects: [],
       },
     };
 
@@ -55,7 +54,6 @@ describe("other tab transformers", () => {
           name: "",
           roleARN: "",
         },
-        sourceCacheProjects: [],
       },
     });
   });
@@ -162,7 +160,6 @@ const mockAdminSettings: AdminSettingsData = {
       name: "evergreen-source-cache",
       roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
     },
-    sourceCacheProjects: ["evergreen", "mms"],
     credentials: {
       key: "cred-key",
       secret: "cred-secret",
@@ -311,7 +308,6 @@ const expectedForm: OtherFormState = {
       testResultsBucketType: "s3",
       sourceCacheBucketName: "evergreen-source-cache",
       sourceCacheBucketRoleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
-      sourceCacheProjects: ["evergreen", "mms"],
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
       failedTasksLogBucketName: "evergreen-failed-tasks",
@@ -457,7 +453,6 @@ const expectedGql: AdminSettingsInput = {
       name: "evergreen-source-cache",
       roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
     },
-    sourceCacheProjects: ["evergreen", "mms"],
     credentials: {
       key: "cred-key",
       secret: "cred-secret",

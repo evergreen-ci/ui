@@ -150,7 +150,6 @@ export const gqlToForm = ((data) => {
         testResultsBucketRoleARN: buckets?.testResultsBucket?.roleARN ?? "",
         sourceCacheBucketName: buckets?.sourceCacheBucket?.name ?? "",
         sourceCacheBucketRoleARN: buckets?.sourceCacheBucket?.roleARN ?? "",
-        sourceCacheProjects: buckets?.sourceCacheProjects ?? [],
         credentialsKey: buckets?.credentials?.key ?? "",
         credentialsSecret: buckets?.credentials?.secret ?? "",
         failedTasksLogBucketName: buckets?.logBucketFailedTasks?.name ?? "",
@@ -396,7 +395,6 @@ export const formToGql = ((form: OtherFormState) => {
         name: bucketConfig.sourceCacheBucketName,
         roleARN: bucketConfig.sourceCacheBucketRoleARN,
       },
-      sourceCacheProjects: bucketConfig.sourceCacheProjects,
       credentials: {
         key: bucketConfig.credentialsKey || undefined,
         secret: bucketConfig.credentialsSecret || undefined,
