@@ -101,6 +101,13 @@ const getProjectConfig = () => {
       globalSetup: "./config/vitest/global-setup.ts",
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+      server: {
+        deps: {
+          // @via-ds/components 0.9.1 imports graphql-language-service/esm
+          // paths without extensions, which Node's resolver rejects.
+          inline: ["@via-ds/components"],
+        },
+      },
       setupFiles: ["@evg-ui/lib/config/vitest/setupTests.ts"],
       include: ["src/**/*.test.{ts,tsx}"],
     },
