@@ -5,25 +5,25 @@ import { Icon } from ".";
 
 describe("Icon", () => {
   it("renders a Via glyph", () => {
-    render(<Icon data-testid="via-glyph" glyph="Checkmark" />);
+    render(<Icon data-testid="via-glyph" glyph="Warning" />);
     expect(screen.getByTestId("via-glyph")).toBeInTheDocument();
   });
 
   it("carries the isGlyph marker so LG glyph-slot components (SideNavGroup etc.) accept it", () => {
     expect(isComponentGlyph(<Icon glyph="Expand" />)).toBe(true);
-    expect(isComponentGlyph(<Icon glyph="Checkmark" />)).toBe(true);
+    expect(isComponentGlyph(<Icon glyph="Warning" />)).toBe(true);
   });
 
   it("defaults to 16px", () => {
-    render(<Icon data-testid="default" glyph="Checkmark" />);
+    render(<Icon data-testid="default" glyph="Warning" />);
     expect(screen.getByTestId("default")).toHaveAttribute("width", "16");
   });
 
   it("ignores IconContext size, matching LeafyGreen behavior", () => {
     render(
       <IconContextProvider size="large">
-        <Icon data-testid="default" glyph="Checkmark" />
-        <Icon data-testid="explicit" glyph="Checkmark" size="small" />
+        <Icon data-testid="default" glyph="Warning" />
+        <Icon data-testid="explicit" glyph="Warning" size="small" />
       </IconContextProvider>,
     );
     expect(screen.getByTestId("default")).toHaveAttribute("width", "16");
@@ -33,7 +33,7 @@ describe("Icon", () => {
   it('maps the legacy LG "default" size key to 16px (injected by LG IconButton via cloneElement)', () => {
     render(
       <>
-        <Icon data-testid="via" glyph="Checkmark" size={"default" as never} />
+        <Icon data-testid="via" glyph="Warning" size={"default" as never} />
         <Icon data-testid="local" glyph="GitHub" size={"default" as never} />
       </>,
     );
@@ -88,10 +88,10 @@ describe("Icon", () => {
   it("resolves preset and numeric sizes for Via glyphs", () => {
     render(
       <>
-        <Icon data-testid="small" glyph="Checkmark" size="small" />
-        <Icon data-testid="medium" glyph="Checkmark" size="medium" />
-        <Icon data-testid="large" glyph="Checkmark" size="large" />
-        <Icon data-testid="numeric" glyph="Checkmark" size={32} />
+        <Icon data-testid="small" glyph="Warning" size="small" />
+        <Icon data-testid="medium" glyph="Warning" size="medium" />
+        <Icon data-testid="large" glyph="Warning" size="large" />
+        <Icon data-testid="numeric" glyph="Warning" size={32} />
       </>,
     );
     expect(screen.getByTestId("small")).toHaveAttribute("width", "14");
@@ -101,7 +101,7 @@ describe("Icon", () => {
   });
 
   it("maps xlarge to 24px for Via glyphs", () => {
-    render(<Icon data-testid="xlarge" glyph="Checkmark" size="xlarge" />);
+    render(<Icon data-testid="xlarge" glyph="Warning" size="xlarge" />);
     expect(screen.getByTestId("xlarge")).toHaveAttribute("width", "24");
   });
 
