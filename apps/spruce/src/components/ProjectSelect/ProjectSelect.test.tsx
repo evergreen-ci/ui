@@ -1,6 +1,7 @@
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
+  render,
   renderWithRouterMatch,
   screen,
   userEvent,
@@ -15,6 +16,8 @@ import {
 } from "gql/generated/types";
 import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
 
+import { FavoriteStar } from "./FavoriteStar";
+import { mocks as favoriteMocks } from "./testData";
 import { ProjectSelect } from ".";
 
 describe("projectSelect", () => {
@@ -273,6 +276,72 @@ describe("projectSelect", () => {
       const options = await screen.findAllByTestId("project-display-name");
       expect(options).toHaveLength(1);
       expect(screen.queryByText("Disabled Projects")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("favoriteStar", () => {
+    it("adds a favorite without triggering the surrounding option", async () => {
+      const user = userEvent.setup();
+      const parentOnClick = vi.fn();
+      const { Component, dispatchToast } = RenderFakeToastContext(
+        <MockedProvider mocks={favoriteMocks}>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Test event propagation. */}
+          <div onClick={parentOnClick}>
+            <FavoriteStar isFavorite={false} projectIdentifier="evergreen" />
+          </div>
+        </MockedProvider>,
+      );
+      render(<Component />);
+
+      await user.click(
+        screen.getByRole("button", { name: "Add To Favorites" }),
+      );
+
+      await waitFor(() => {
+        expect(dispatchToast.success).toHaveBeenCalledWith(
+          "Added evergreen smoke test to favorites!",
+        );
+      });
+      expect(parentOnClick).not.toHaveBeenCalled();
+    });
+
+    it("adds a favorite from the keyboard", async () => {
+      const user = userEvent.setup();
+      const { Component, dispatchToast } = RenderFakeToastContext(
+        <MockedProvider mocks={favoriteMocks}>
+          <FavoriteStar isFavorite={false} projectIdentifier="evergreen" />
+        </MockedProvider>,
+      );
+      render(<Component />);
+
+      screen.getByRole("button", { name: "Add To Favorites" }).focus();
+      await user.keyboard("{Enter}");
+
+      await waitFor(() => {
+        expect(dispatchToast.success).toHaveBeenCalledWith(
+          "Added evergreen smoke test to favorites!",
+        );
+      });
+    });
+
+    it("removes a favorite", async () => {
+      const user = userEvent.setup();
+      const { Component, dispatchToast } = RenderFakeToastContext(
+        <MockedProvider mocks={favoriteMocks}>
+          <FavoriteStar isFavorite projectIdentifier="evergreen" />
+        </MockedProvider>,
+      );
+      render(<Component />);
+
+      await user.click(
+        screen.getByRole("button", { name: "Add To Favorites" }),
+      );
+
+      await waitFor(() => {
+        expect(dispatchToast.success).toHaveBeenCalledWith(
+          "Removed evergreen smoke test from favorites!",
+        );
+      });
     });
   });
 });

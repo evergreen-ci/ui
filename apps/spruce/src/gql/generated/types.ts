@@ -69,6 +69,7 @@ export type AwsConfig = {
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
+  resourceTags?: Maybe<ResourceTagsConfig>;
   subnetTagName?: Maybe<Scalars["String"]["output"]>;
   subnetTagValue?: Maybe<Scalars["String"]["output"]>;
   subnets: Array<Subnet>;
@@ -86,6 +87,7 @@ export type AwsConfigInput = {
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
+  resourceTags?: InputMaybe<ResourceTagsConfigInput>;
   subnetTagName?: InputMaybe<Scalars["String"]["input"]>;
   subnetTagValue?: InputMaybe<Scalars["String"]["input"]>;
   subnets: Array<SubnetInput>;
@@ -504,7 +506,6 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   sourceCacheBucket?: Maybe<BucketConfig>;
-  sourceCacheProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -519,7 +520,6 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   sourceCacheBucket?: InputMaybe<BucketConfigInput>;
-  sourceCacheProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -1030,7 +1030,6 @@ export type EnvVarInput = {
 export enum ExecutionPlatform {
   Container = "CONTAINER",
   Host = "HOST",
-  Virtual = "VIRTUAL",
 }
 
 /**
@@ -1906,6 +1905,19 @@ export type ModuleCodeChange = {
   htmlLink: Scalars["String"]["output"];
   rawLink: Scalars["String"]["output"];
 };
+
+export enum MongoDbEnvironment {
+  Demo = "DEMO",
+  Dev = "DEV",
+  Local = "LOCAL",
+  Poc = "POC",
+  Prod = "PROD",
+  Qa = "QA",
+  Sandbox = "SANDBOX",
+  Staging = "STAGING",
+  Test = "TEST",
+  Uat = "UAT",
+}
 
 /**
  * MoveProjectInput is the input to the attachProjectToNewRepo mutation.
@@ -2783,6 +2795,7 @@ export type Project = {
   repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
   runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
+  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2938,6 +2951,7 @@ export type ProjectInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3438,6 +3452,7 @@ export type RepoRef = {
   repotrackerDisabled: Scalars["Boolean"]["output"];
   restricted: Scalars["Boolean"]["output"];
   runEveryMainlineCommit: Scalars["Boolean"]["output"];
+  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
@@ -3489,6 +3504,7 @@ export type RepoRefInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3588,6 +3604,17 @@ export type ResourceLimitsInput = {
   numProcesses: Scalars["Int"]["input"];
   numTasks: Scalars["Int"]["input"];
   virtualMemoryKb: Scalars["Int"]["input"];
+};
+
+export type ResourceTagsConfig = {
+  __typename?: "ResourceTagsConfig";
+  mongodbEnv?: Maybe<MongoDbEnvironment>;
+  mongodbOwner?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ResourceTagsConfigInput = {
+  mongodbEnv?: InputMaybe<MongoDbEnvironment>;
+  mongodbOwner?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type RestartAdminTasksOptions = {
@@ -3923,6 +3950,17 @@ export type Source = {
   requester: Scalars["String"]["output"];
   time: Scalars["Time"]["output"];
 };
+
+/**
+ * SourceCacheMode controls whether a project's tasks may use the git source cache.
+ * OFF disables it, ALL enables it for every build, and WATERFALL enables it only
+ * for mainline (waterfall/commit) builds.
+ */
+export enum SourceCacheMode {
+  All = "ALL",
+  Off = "OFF",
+  Waterfall = "WATERFALL",
+}
 
 export type SpawnHostConfig = {
   __typename?: "SpawnHostConfig";
@@ -5510,6 +5548,7 @@ export type ProjectGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled?: boolean | null;
   runEveryMainlineCommit?: boolean | null;
+  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
@@ -5532,6 +5571,7 @@ export type RepoGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled: boolean;
   runEveryMainlineCommit: boolean;
+  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
@@ -5710,6 +5750,7 @@ export type ProjectSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -5926,6 +5967,7 @@ export type RepoSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled: boolean;
     runEveryMainlineCommit: boolean;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
@@ -6337,6 +6379,7 @@ export type ProjectEventSettingsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -7236,6 +7279,17 @@ export type SaveAdminSettingsMutation = {
       __typename?: "NotifyConfig";
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: MongoDbEnvironment | null;
+          mongodbOwner?: string | null;
+        } | null;
+      } | null;
+    } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;
@@ -7992,6 +8046,11 @@ export type AdminSettingsQuery = {
           domain?: string | null;
           hostedZoneID?: string | null;
         } | null;
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: MongoDbEnvironment | null;
+          mongodbOwner?: string | null;
+        } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
       } | null;
       docker?: {
@@ -8741,6 +8800,7 @@ export type HostQuery = {
   __typename?: "Query";
   host?: {
     __typename?: "Host";
+    agentRevision?: string | null;
     ami?: string | null;
     lastCommunicationTime?: Date | null;
     id: string;
@@ -9446,6 +9506,7 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9676,6 +9737,7 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9971,6 +10033,7 @@ export type ProjectSettingsQuery = {
       repo: string;
       repotrackerDisabled?: boolean | null;
       runEveryMainlineCommit?: boolean | null;
+      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
@@ -10249,6 +10312,7 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10479,6 +10543,7 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10715,6 +10780,7 @@ export type RepoSettingsQuery = {
       repo: string;
       repotrackerDisabled: boolean;
       runEveryMainlineCommit: boolean;
+      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
