@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   BaseTable,
   ColumnFiltersState,
+  ExpandedState,
   LeafyGreenTable,
   SortingState,
   TableControl,
@@ -76,6 +77,22 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 
   const { initialFilters, initialSorting } = getInitialState(queryParams);
 
+  const statusFilter = queryParams[PatchTasksQueryParams.Statuses] as
+    | string
+    | string[]
+    | undefined;
+  const hasStatusFilter = Array.isArray(statusFilter)
+    ? statusFilter.length > 0
+    : !!statusFilter;
+
+  const [expanded, setExpanded] = useState<ExpandedState>(
+    hasStatusFilter ? true : {},
+  );
+
+  useEffect(() => {
+    setExpanded(hasStatusFilter ? true : {});
+  }, [hasStatusFilter]);
+
   const columns = useMemo(
     () =>
       getColumnsTemplate({
@@ -149,8 +166,10 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         columnVisibility: { reviewed: taskReviewEnabled },
       },
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
+      onExpandedChange: setExpanded,
       state: {
         columnFilters,
+        expanded,
         sorting,
       },
       maxMultiSortColCount: 2,
