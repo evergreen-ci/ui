@@ -1,5 +1,7 @@
 import { FieldFunctionOptions, FieldMergeFunction } from "@apollo/client";
+import { readVersions } from "./read";
 import {
+  CachedWaterfall,
   ReadField,
   Version,
   Waterfall,
@@ -60,7 +62,7 @@ const boundVersions = ({
   };
 };
 
-// Remove WaterfallBuild cache entries if their versions have been dropped by boundVersions
+// Remove only waterfall payloads; version metadata may be used by other queries.
 const evictBuildsForVersions = ({
   cache,
   discardedVersions,
@@ -104,19 +106,18 @@ const evictBuildsForVersions = ({
   });
 };
 
-export const mergeVersions = ((
-  existing,
-  incoming,
-  { args, cache, readField, storage },
-) => {
-  const { limit, maxOrder, projectIdentifier } = getCacheOptions(args);
+export const mergeVersions = ((existing, incoming, options) => {
+  const { args, cache, readField, storage } = options;
+  const { filterContext, lastRequest, limit, maxOrder, projectIdentifier } =
+    getCacheOptions(args);
+  const sameContext = existing?.filterContext === filterContext;
   const existingVersions = existing
     ? (readField<Waterfall["versions"]>("versions", existing) ?? [])
     : [];
   const incomingVersions =
     readField<Waterfall["versions"]>("versions", incoming) ?? [];
   const mergedVersions = deduplicateAndSortVersions(
-    [...existingVersions, ...incomingVersions],
+    [...(sameContext ? existingVersions : []), ...incomingVersions],
     readField,
   );
 
@@ -132,11 +133,19 @@ export const mergeVersions = ((
     prevPageOrder: 0,
   };
 
-  const allActiveVersions = existing
+  const allActiveVersions = sameContext
     ? new Set(readField<Set<string>>("allActiveVersions", existing) ?? [])
     : new Set<string>();
   const incomingActiveVersions =
     readField<string[]>("activeVersionIds", pagination) ?? [];
+  if (sameContext && incomingVersions.length === 0) {
+    readVersions(existing, options)?.versions.forEach((version) =>
+      allActiveVersions.delete(getVersionId(version, readField)),
+    );
+  }
+  incomingVersions.forEach((version) =>
+    allActiveVersions.delete(getVersionId(version, readField)),
+  );
   incomingActiveVersions.forEach((versionId) =>
     allActiveVersions.add(versionId),
   );
@@ -144,10 +153,11 @@ export const mergeVersions = ((
   const maxActiveVersions = limit * getCachedPageLimit(projectIdentifier);
   let retainedVersions = mergedVersions;
   let retainedActiveVersions = allActiveVersions;
+  let discardedVersions = sameContext ? [] : existingVersions;
 
   if (allActiveVersions.size > maxActiveVersions) {
     const {
-      discardedVersions,
+      discardedVersions: boundedDiscards,
       retainedVersionIds,
       retainedVersions: bounded,
     } = boundVersions({
@@ -158,24 +168,39 @@ export const mergeVersions = ((
       versions: mergedVersions,
     });
     retainedVersions = bounded;
+    discardedVersions = [...discardedVersions, ...boundedDiscards];
     retainedActiveVersions = new Set(
       [...allActiveVersions].filter((versionId) =>
         retainedVersionIds.has(versionId),
       ),
     );
-    evictBuildsForVersions({
-      cache,
-      discardedVersions,
-      readField,
-      storage,
-    });
   }
 
+  // Incoming normalized objects have already been written before this merge.
+  // Never evict their new payloads when discarding the previous context.
+  const protectedVersionIds = new Set(
+    [...retainedVersions, ...incomingVersions].map((version) =>
+      getVersionId(version, readField),
+    ),
+  );
+  evictBuildsForVersions({
+    cache,
+    discardedVersions: discardedVersions.filter(
+      (version) => !protectedVersionIds.has(getVersionId(version, readField)),
+    ),
+    readField,
+    storage,
+  });
+
   return {
+    ...incoming,
     versions: retainedVersions,
     pagination,
     allActiveVersions: retainedActiveVersions,
+    filterContext,
+    lastRequest,
+    lastPageVersionIds: incomingVersions.map((version) =>
+      getVersionId(version, readField),
+    ),
   };
-}) satisfies FieldMergeFunction<
-  Waterfall & { allActiveVersions?: Set<string> }
->;
+}) satisfies FieldMergeFunction<CachedWaterfall, Waterfall>;
