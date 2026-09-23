@@ -4,10 +4,12 @@ import ArrowUp from "@via-ds/icons/ArrowUp";
 import CaretDown from "@via-ds/icons/CaretDown";
 import CaretRight from "@via-ds/icons/CaretRight";
 import CaretUp from "@via-ds/icons/CaretUp";
+import Checkmark from "@via-ds/icons/Checkmark";
 import CheckmarkWithCircle from "@via-ds/icons/CheckmarkWithCircle";
 import ChevronRight from "@via-ds/icons/ChevronRight";
 import CurlyBraces from "@via-ds/icons/CurlyBraces";
 import Ellipsis from "@via-ds/icons/Ellipsis";
+import File from "@via-ds/icons/File";
 import Filter from "@via-ds/icons/Filter";
 import Highlight from "@via-ds/icons/Highlight";
 import ImportantWithCircle from "@via-ds/icons/ImportantWithCircle";
@@ -38,10 +40,12 @@ const glyphs = {
   CaretDown,
   CaretRight,
   CaretUp,
+  Checkmark,
   CheckmarkWithCircle,
   ChevronRight,
   CurlyBraces,
   Ellipsis,
+  File,
   Filter,
   Highlight,
   ImportantWithCircle,

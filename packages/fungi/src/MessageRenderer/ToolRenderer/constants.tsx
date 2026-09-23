@@ -1,3 +1,4 @@
+import { IconProps } from "@evg-ui/lib/components/Icon";
 import { MergedFindingsView } from "./MergedFindingsView";
 import { isMergedFindings } from "./utils";
 
@@ -12,6 +13,7 @@ export const renderableToolLabels: Record<
     loadingCopy: string;
     completedCopy: string;
     errorCopy: string;
+    glyph: IconProps["glyph"];
     renderOutput?: (
       output: unknown,
       onLinkClick?: (href: string) => void,
@@ -22,6 +24,7 @@ export const renderableToolLabels: Record<
     loadingCopy: "Asking Evergreen Agent for more information",
     completedCopy: "Received information from the Evergreen Agent",
     errorCopy: "Error fetching information from Evergreen Agent",
+    glyph: "EvergreenLogo",
     renderOutput: (output) => {
       if (typeof output === "string") {
         return output;
@@ -33,6 +36,7 @@ export const renderableToolLabels: Record<
     loadingCopy: "Analyzing logs",
     completedCopy: "Analyzed logs",
     errorCopy: "Error analyzing logs",
+    glyph: "File",
     renderOutput: (output, onLinkClick) =>
       isMergedFindings(output) ? (
         <MergedFindingsView findings={output} onLineClick={onLinkClick} />
