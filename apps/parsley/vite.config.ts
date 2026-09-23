@@ -107,8 +107,10 @@ const getProjectConfig = () => {
       server: {
         deps: {
           // Inlining works around extensionless lodash ESM imports in the LG
-          // packages and extensionless graphql-language-service imports in
-          // @via-ds/components, both rejected by Node's resolver.
+          // packages, which Node's resolver rejects.
+          // TODO(UXE-1082): drop @via-ds/components once its root entry stops
+          // pulling graphqlHighlight and its graphql-language-service imports
+          // carry file extensions.
           inline: [
             "@via-ds/components",
             "@leafygreen-ui/icon",

@@ -103,8 +103,9 @@ const getProjectConfig = () => {
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
       server: {
         deps: {
-          // @via-ds/components 0.9.1 imports graphql-language-service/esm
-          // paths without extensions, which Node's resolver rejects.
+          // TODO(UXE-1082): drop @via-ds/components once its root entry stops
+          // pulling graphqlHighlight and its graphql-language-service imports
+          // carry file extensions, which Node's resolver requires.
           inline: ["@via-ds/components"],
         },
       },
