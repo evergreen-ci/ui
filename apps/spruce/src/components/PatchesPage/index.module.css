@@ -1,8 +1,6 @@
 .filtersWrapperSpaceBetween {
   display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-columns: max-content;
+  grid-template-columns: repeat(4, 1fr) auto;
   grid-column-gap: var(--via-space-400);
 }
 
