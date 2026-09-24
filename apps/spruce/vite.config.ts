@@ -101,6 +101,14 @@ const getProjectConfig = () => {
       globalSetup: "./config/vitest/global-setup.ts",
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+      server: {
+        deps: {
+          // TODO(UXE-1082): drop @via-ds/components once its root entry stops
+          // pulling graphqlHighlight and its graphql-language-service imports
+          // carry file extensions, which Node's resolver requires.
+          inline: ["@via-ds/components"],
+        },
+      },
       setupFiles: ["@evg-ui/lib/config/vitest/setupTests.ts"],
       include: ["src/**/*.test.{ts,tsx}"],
     },
