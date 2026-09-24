@@ -5,13 +5,13 @@ import {
   setToUTCMidnight,
 } from "@leafygreen-ui/date-utils";
 import { Description, Label } from "@leafygreen-ui/typography";
+import { labelValue } from "@rjsf/utils";
 import { fromZonedTime, toZonedTime } from "date-fns-tz";
 import LGTimePicker from "components/TimePicker";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import ElementWrapper from "../ElementWrapper";
 import styles from "./DateTimePicker.module.css";
 import { SpruceWidgetProps } from "./types";
-import { getWidgetLabel } from "./utils";
 
 enum Caller {
   Date,
@@ -33,8 +33,6 @@ export const DateTimePicker: React.FC<
   onChange,
   options,
   readonly,
-  schema,
-  uiSchema,
   value = "",
 }) => {
   const isDisabled = disabled === true || readonly === true;
@@ -46,7 +44,7 @@ export const DateTimePicker: React.FC<
     showLabel,
   } = options;
   const shouldShowLabel = showLabel ?? !hideLabel;
-  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
+  const widgetLabel = labelValue(label, !shouldShowLabel);
 
   const timezone = useUserTimeZone();
 
@@ -106,17 +104,16 @@ export const DateTimePicker: React.FC<
 
 export const TimePicker: React.FC<SpruceWidgetProps> = ({
   disabled,
+  hideLabel,
   label,
   onChange,
   options,
   readonly,
-  schema,
-  uiSchema,
   value,
 }) => {
   const { description, elementWrapperCSS } = options;
   const isDisabled = disabled === true || readonly === true;
-  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
+  const widgetLabel = labelValue(label, hideLabel);
   const currentDateTime = new Date(value || null);
 
   const handleChange = (d?: DateType) => {

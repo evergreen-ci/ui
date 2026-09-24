@@ -11,6 +11,25 @@ import widgets from "./Widgets";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
+  it("respects ui:label false in custom widgets", () => {
+    render(
+      <SpruceForm
+        schema={{
+          type: "object",
+          properties: {
+            field: { type: "string", title: "Hidden field label" },
+          },
+        }}
+        uiSchema={{
+          field: { "ui:label": false },
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.queryByText("Hidden field label")).not.toBeInTheDocument();
+  });
+
   it("should render as expected", () => {
     render(
       <SpruceFormContainer title="Just a test">
@@ -22,7 +41,9 @@ describe("spruce form", () => {
         />
       </SpruceFormContainer>,
     );
-    expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Project Cloning Method"),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("Legacy SSH")).toBeInTheDocument();
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
     expect(screen.getByTestId("add-button")).toHaveTextContent("New User");

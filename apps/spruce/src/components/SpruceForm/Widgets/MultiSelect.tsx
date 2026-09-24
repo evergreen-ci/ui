@@ -1,18 +1,17 @@
+import { labelValue } from "@rjsf/utils";
 import { ALL_VALUE, TreeSelect } from "@evg-ui/lib/components/TreeSelect";
 import Dropdown from "components/Dropdown";
 import ElementWrapper from "../ElementWrapper";
 import styles from "./MultiSelect.module.css";
 import { EnumSpruceWidgetProps } from "./types";
-import { getWidgetLabel } from "./utils";
 
 export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   disabled,
+  hideLabel,
   label,
   onChange,
   options,
   rawErrors,
-  schema,
-  uiSchema,
   value,
 }) => {
   const {
@@ -20,7 +19,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
     elementWrapperCSS,
     enumOptions = [],
   } = options;
-  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
+  const widgetLabel = labelValue(label, hideLabel);
 
   const dropdownOptions = [
     {
@@ -46,9 +45,11 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <div className={styles.container}>
-        <label htmlFor={`${label}-multiselect`}>{widgetLabel}</label>
+        {widgetLabel && (
+          <label htmlFor={`${label}-multiselect`}>{widgetLabel}</label>
+        )}
         <Dropdown
-          buttonText={`${widgetLabel}: ${
+          buttonText={`${widgetLabel ? `${widgetLabel}: ` : ""}${
             value.length ? value.join(", ") : "No options selected."
           }`}
           data-testid={dataTestId}

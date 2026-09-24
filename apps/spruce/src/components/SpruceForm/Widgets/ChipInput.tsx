@@ -1,27 +1,26 @@
 import { useState } from "react";
 import { TextInput } from "@leafygreen-ui/text-input";
+import { labelValue } from "@rjsf/utils";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { PlusButton, Variant } from "components/Buttons";
 import FilterChips from "../../FilterChips/index";
 import ElementWrapper from "../ElementWrapper";
 import styles from "./ChipInput.module.css";
 import { SpruceWidgetProps } from "./types";
-import { getWidgetLabel } from "./utils";
 
 export const ChipInput: React.FC<SpruceWidgetProps> = ({
   disabled,
+  hideLabel,
   label,
   onChange,
   options,
   readonly,
-  schema,
-  uiSchema,
   value = [],
 }) => {
   const [text, setText] = useState("");
   const { "data-testid": dataTestId, description, elementWrapperCSS } = options;
   const isDisabled = disabled || readonly;
-  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
+  const widgetLabel = labelValue(label, hideLabel, "") ?? "";
   const chips = value.map((v: string) => ({
     key: v,
     value: v,

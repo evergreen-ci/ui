@@ -1,8 +1,8 @@
 import { Description, Label } from "@leafygreen-ui/typography";
+import { labelValue } from "@rjsf/utils";
 import { DayPicker } from "components/DayPicker";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
-import { getWidgetLabel } from "./utils";
 
 export const DayPickerWidget: React.FC<SpruceWidgetProps> = ({
   disabled,
@@ -12,13 +12,11 @@ export const DayPickerWidget: React.FC<SpruceWidgetProps> = ({
   onChange,
   options,
   readonly,
-  schema,
-  uiSchema,
   value,
 }) => {
   const { description, elementWrapperCSS, showLabel } = options;
   const shouldShowLabel = showLabel ?? !hideLabel;
-  const widgetLabel = getWidgetLabel(label, schema, uiSchema);
+  const widgetLabel = labelValue(label, !shouldShowLabel);
 
   const isDisabled = disabled || readonly;
 

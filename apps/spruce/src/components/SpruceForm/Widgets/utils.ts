@@ -1,15 +1,4 @@
-import { WidgetProps, getUiOptions } from "@rjsf/utils";
 import { Errors } from "../errors";
-
-// RJSF widgets use this logic to determine which label to show; standardize it here to use across widgets.
-export const getWidgetLabel = (
-  label: WidgetProps["label"],
-  schema: WidgetProps["schema"],
-  uiSchema?: WidgetProps["uiSchema"],
-) => {
-  const { title: uiTitle } = getUiOptions(uiSchema);
-  return uiTitle ?? schema.title ?? label;
-};
 
 /**
  * Returns true if a given value is null or undefined.
