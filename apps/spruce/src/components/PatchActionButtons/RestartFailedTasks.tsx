@@ -4,6 +4,7 @@ import { MenuItem } from "@leafygreen-ui/menu";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
+import { useRestartSuccessToast } from "components/Notifications/RestartToastMessage/useRestartSuccessToast";
 import { finishedTaskStatuses } from "constants/task";
 import {
   BuildVariantsWithChildrenQuery,
@@ -13,6 +14,7 @@ import {
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
+import { NotificationModalSource } from "types/subscription";
 import { isFailedTaskStatus } from "utils/statuses";
 
 interface RestartFailedTasksProps {
@@ -27,13 +29,26 @@ export const RestartFailedTasks = forwardRef<
 >(({ disabled = false, patchId, refetchQueries }, ref) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(patchId);
+  const dispatchRestartSuccessToast = useRestartSuccessToast({
+    onPromptShown: () =>
+      sendEvent({ name: "Viewed restart notification prompt" }),
+    onSubscribe: (subscription) =>
+      sendEvent({
+        name: "Created notification",
+        "notification.source": NotificationModalSource.RestartToast,
+        "subscription.type": subscription.subscriber.type || "",
+        "subscription.trigger": subscription.trigger || "",
+      }),
+    resourceId: patchId,
+    type: "version",
+  });
 
   const [restartVersions, { loading: mutationLoading }] = useMutation<
     RestartVersionsMutation,
     RestartVersionsMutationVariables
   >(RESTART_VERSIONS, {
     onCompleted: () => {
-      dispatchToast.success(`Successfully restarted tasks!`);
+      dispatchRestartSuccessToast("Successfully restarted tasks!");
     },
     onError: (err) => {
       dispatchToast.error(`Error while restarting tasks: '${err.message}'`);

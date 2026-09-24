@@ -24,7 +24,12 @@ import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
 import styles from "./index.module.css";
 import { FormRegexSelector, FormState } from "./types";
-import { getGqlPayload, hasInitialError } from "./utils";
+import {
+  getDefaultEvent,
+  getDefaultNotificationMethod,
+  getGqlPayload,
+  hasInitialError,
+} from "./utils";
 
 interface NotificationModalProps {
   "data-testid": string;
@@ -32,6 +37,7 @@ interface NotificationModalProps {
   resourceId: string;
   sendAnalyticsEvent: (
     subscription: SaveSubscriptionForUserMutationVariables["subscription"],
+    details: { changedInitialSelection: boolean },
   ) => void;
   subscriptionMethods: SubscriptionMethodOption[];
   triggers: Trigger;
@@ -69,23 +75,40 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const { user } = userData || {};
   const { emailAddress } = user || {};
 
-  // Define initial form state.
-  const [formState, setFormState] = useState<FormState>({
+  const getInitialFormState = (): FormState => ({
     event: {
       eventSelect:
-        Cookies.get(getNotificationTriggerCookie(type)) ??
-        Object.keys(triggers)[0],
+        Cookies.get(getNotificationTriggerCookie(type)) ||
+        getDefaultEvent(triggers),
       extraFields: {},
       regexSelector: [],
     },
     notification: {
-      notificationSelect: Cookies.get(SUBSCRIPTION_METHOD) ?? "jira-comment",
+      notificationSelect:
+        Cookies.get(SUBSCRIPTION_METHOD) ||
+        getDefaultNotificationMethod(subscriptionMethods),
       jiraCommentInput: "",
       slackInput: slackUsername ? `@${slackUsername}` : "",
       emailInput: emailAddress ?? "",
     },
   });
+
+  const [initialFormState, setInitialFormState] = useState(getInitialFormState);
+  const [formState, setFormState] = useState<FormState>(initialFormState);
   const [hasError, setHasError] = useState(hasInitialError(formState));
+
+  // Rebuild the form each time the modal opens so it reflects the latest cookies
+  // and user settings, which may not have loaded when the modal first mounted.
+  const [wasVisible, setWasVisible] = useState(visible);
+  if (visible !== wasVisible) {
+    setWasVisible(visible);
+    if (visible) {
+      const nextFormState = getInitialFormState();
+      setInitialFormState(nextFormState);
+      setFormState(nextFormState);
+      setHasError(hasInitialError(nextFormState));
+    }
+  }
 
   const onClickSave = () => {
     const subscription = getGqlPayload(type, triggers, resourceId, formState);
@@ -94,7 +117,12 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
       variables: { subscription },
     });
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    sendAnalyticsEvent(subscription);
+    sendAnalyticsEvent(subscription, {
+      changedInitialSelection:
+        formState.event.eventSelect !== initialFormState.event.eventSelect ||
+        formState.notification.notificationSelect !==
+          initialFormState.notification.notificationSelect,
+    });
     onCancel();
   };
 

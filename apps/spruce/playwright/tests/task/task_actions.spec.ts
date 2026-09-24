@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { mockSlackUsername, validateToast } from "../../helpers";
 
 const prioritySuccessBannerText = "Priority updated for 1 task.";
 const restartSuccessBannerText = "Task scheduled to restart";
@@ -27,6 +27,20 @@ test.describe("Task Action Buttons", () => {
       await page.goto(tasks[3]);
       await page.getByTestId("restart-task").click();
       await validateToast(page, "success", restartSuccessBannerText);
+    });
+
+    test("Restart toast subscribes the user to a Slack message when the task finishes", async ({
+      page,
+    }) => {
+      await mockSlackUsername(page);
+      await page.goto(tasks[3]);
+      await page.getByTestId("restart-task").click();
+      await validateToast(page, "success", restartSuccessBannerText);
+      await page.getByTestId("restart-toast-notify-button").click();
+      await expect(page.getByText("Subscribed.")).toBeVisible();
+      await expect(
+        page.getByTestId("restart-toast-notify-button"),
+      ).toBeHidden();
     });
 
     test("Clicking Unschedule button should unschedule a task and display a success toast", async ({

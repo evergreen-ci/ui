@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { mockGraphQLResponse } from "@evg-ui/playwright-config/helpers";
 
 /**
  * Selects an option from a LeafyGreen select component
@@ -156,6 +157,45 @@ export const hoverForTooltip = async (
   const tooltip = page.getByTestId(tooltipTestId);
   await expect(tooltip).toBeVisible();
   return tooltip;
+};
+
+/**
+ * Mocks the UserSettings query so the logged in user has a Slack username, since the E2E users
+ * do not have one configured.
+ * @param page - The Playwright page object
+ * @param slackUsername - The Slack username to return
+ */
+export const mockSlackUsername = async (
+  page: Page,
+  slackUsername: string = "test.user",
+): Promise<void> => {
+  await mockGraphQLResponse(page, "UserSettings", {
+    errors: null,
+    data: {
+      user: {
+        __typename: "User",
+        userId: "admin",
+        settings: {
+          __typename: "UserSettings",
+          dateFormat: null,
+          githubUser: { __typename: "GithubUser", lastKnownAs: "admin" },
+          notifications: {
+            __typename: "Notifications",
+            buildBreak: "",
+            patchFinish: "",
+            patchFirstFailure: "",
+            spawnHostExpiration: "",
+            spawnHostOutcome: "",
+          },
+          region: null,
+          slackMemberId: slackUsername,
+          slackUsername,
+          timeFormat: null,
+          timezone: null,
+        },
+      },
+    },
+  });
 };
 
 // Re-export shared helpers from the playwright-config package.

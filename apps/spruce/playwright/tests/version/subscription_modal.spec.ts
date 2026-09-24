@@ -49,6 +49,11 @@ test.describe("Version Subscription Modal", () => {
 
     test("has an invalid percentage", async ({ page }) => {
       await selectOption(page, "Event", "changes by some percentage");
+      await selectOption(
+        page,
+        "Notification Method",
+        "Comment on a JIRA issue",
+      );
       await page.getByTestId("percent-change-input").clear();
       await page.getByTestId("percent-change-input").fill("-100");
       await page.getByTestId("jira-comment-input").fill("EVG-2000");
@@ -62,6 +67,11 @@ test.describe("Version Subscription Modal", () => {
 
     test("has an invalid duration value", async ({ page }) => {
       await selectOption(page, "Event", "exceeds some duration");
+      await selectOption(
+        page,
+        "Notification Method",
+        "Comment on a JIRA issue",
+      );
       await page.getByTestId("duration-secs-input").clear();
       await page.getByTestId("duration-secs-input").fill("-100");
       await page.getByTestId("jira-comment-input").fill("EVG-2000");
@@ -74,6 +84,11 @@ test.describe("Version Subscription Modal", () => {
     });
 
     test("has an invalid jira ticket", async ({ page }) => {
+      await selectOption(
+        page,
+        "Notification Method",
+        "Comment on a JIRA issue",
+      );
       await page.getByTestId("jira-comment-input").fill("E");
       await expectSaveButtonEnabled(page, false);
       await page.getByTestId("jira-comment-input").fill("EVG-100");
@@ -120,6 +135,7 @@ test.describe("Version Subscription Modal", () => {
     await selectOption(page, "Event", "This version finishes", {
       exact: true,
     });
+    await selectOption(page, "Notification Method", "Comment on a JIRA issue");
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
     await page.getByRole("button", { name: "Save" }).click();
     await validateToast(page, "error", "Error adding your subscription");
@@ -131,6 +147,20 @@ test.describe("Version Subscription Modal", () => {
     await expect(page.getByTestId(MODAL_DATA_CY)).toBeVisible();
     await page.getByRole("button", { name: "Cancel" }).click();
     await expect(page.getByTestId(MODAL_DATA_CY)).toBeHidden();
+  });
+
+  test("Defaults to a Slack message when the version finishes", async ({
+    page,
+  }) => {
+    await openSubscriptionModal(page);
+    await expect(page.getByTestId(MODAL_DATA_CY)).toBeVisible();
+    await expect(
+      page.getByText("This version finishes", { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByTestId("notification-method-select").getByText("Slack message"),
+    ).toBeVisible();
+    await expect(page.getByTestId("slack-input")).toBeVisible();
   });
 
   test("Pulls initial values from cookies", async ({ page, context }) => {
@@ -146,7 +176,7 @@ test.describe("Version Subscription Modal", () => {
       },
       {
         name: subscriptionCookie,
-        value: "slack",
+        value: "email",
         domain: "localhost",
         path: "/",
       },
@@ -156,7 +186,7 @@ test.describe("Version Subscription Modal", () => {
     await expect(page.getByTestId(MODAL_DATA_CY)).toBeVisible();
     await expect(page.getByText("This version succeeds")).toBeVisible();
     await expect(
-      page.getByTestId("notification-method-select").getByText("Slack message"),
+      page.getByTestId("notification-method-select").getByText("Email"),
     ).toBeVisible();
 
     await context.clearCookies();
@@ -211,6 +241,11 @@ test.describe("Version Subscription Modal", () => {
         "Event",
         "A build-variant in this version finishes",
       );
+      await selectOption(
+        page,
+        "Notification Method",
+        "Comment on a JIRA issue",
+      );
       await page.getByTestId("jira-comment-input").fill("EVG-2000");
       await expect(page.getByRole("button", { name: "Save" })).toHaveAttribute(
         "aria-disabled",
@@ -235,6 +270,11 @@ test.describe("Version Subscription Modal", () => {
       await addCriteriaButton.click();
       await selectOption(page, "Field name", "Build Variant Name");
       await page.getByTestId("regex-input").fill("stuff");
+      await selectOption(
+        page,
+        "Notification Method",
+        "Comment on a JIRA issue",
+      );
       await page.getByTestId("jira-comment-input").fill("EVG-2000");
       await page.getByRole("button", { name: "Save" }).click();
       await validateToast(page, "success", "Your subscription has been added");

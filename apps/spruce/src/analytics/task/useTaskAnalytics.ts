@@ -15,6 +15,7 @@ import {
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
 import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
+import { NotificationModalSource } from "types/subscription";
 import { LogTypes, RequiredQueryParams } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley" | "download";
@@ -77,9 +78,15 @@ type Action =
   | { name: "Clicked skipped tests details button" }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
-  | { name: "Viewed notification modal" }
+  | {
+      name: "Viewed notification modal";
+      "notification.source": NotificationModalSource;
+    }
+  | { name: "Viewed restart notification prompt" }
   | {
       name: "Created notification";
+      "notification.source": NotificationModalSource;
+      "subscription.changed_initial_selection"?: boolean;
       "subscription.type": string;
       "subscription.trigger": string;
     }

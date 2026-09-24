@@ -1,6 +1,11 @@
 import { StringMap } from "@evg-ui/lib/types/utils";
-import { NotificationMethods } from "types/subscription";
-import { ExtraField, Trigger } from "types/triggers";
+import { taskTriggers, versionTriggers } from "constants/triggers";
+import { SubscriptionInput } from "gql/generated/types";
+import {
+  NotificationMethods,
+  SubscriptionMethodOption,
+} from "types/subscription";
+import { ExtraField, Trigger, TriggerType } from "types/triggers";
 import { FormExtraFields, FormRegexSelector, FormState } from "./types";
 
 // This utils file contains functions used to process the form state.
@@ -115,4 +120,60 @@ export const hasInitialError = (formState: FormState) => {
     return true;
   }
   return false;
+};
+
+/**
+ * getDefaultEvent returns the event to preselect when the user has no saved preference. Most users
+ * subscribe to a resource's outcome, so prefer the first outcome trigger.
+ * @param triggers - the triggers available in the modal
+ * @returns the key of the default trigger
+ */
+export const getDefaultEvent = (triggers: Trigger) =>
+  Object.keys(triggers).find(
+    (key) => triggers[key].trigger === TriggerType.OUTCOME,
+  ) ?? Object.keys(triggers)[0];
+
+/**
+ * getDefaultNotificationMethod returns the method to preselect when the user has no saved preference.
+ * The vast majority of users are notified through Slack.
+ * @param subscriptionMethods - the methods available in the modal
+ * @returns the value of the default method
+ */
+export const getDefaultNotificationMethod = (
+  subscriptionMethods: SubscriptionMethodOption[],
+) =>
+  subscriptionMethods.find(({ value }) => value === NotificationMethods.SLACK)
+    ?.value ??
+  subscriptionMethods[0]?.value ??
+  "";
+
+/**
+ * getSlackOnOutcomeSubscription builds a subscription that Slacks the user when the resource finishes.
+ * @param type - the type of resource being subscribed to
+ * @param resourceId - the ID of the resource being subscribed to
+ * @param slackUsername - the user's Slack username
+ * @returns the subscription to save
+ */
+export const getSlackOnOutcomeSubscription = (
+  type: "task" | "version",
+  resourceId: string,
+  slackUsername: string,
+): SubscriptionInput => {
+  const triggers = type === "task" ? taskTriggers : versionTriggers;
+  const { resourceType, trigger } = triggers[getDefaultEvent(triggers)];
+  return {
+    owner_type: "person",
+    regex_selectors: [],
+    resource_type: resourceType,
+    selectors: [
+      { type: "object", data: resourceType.toLowerCase() },
+      { type: "id", data: resourceId },
+    ],
+    subscriber: {
+      type: NotificationMethods.SLACK,
+      target: `@${slackUsername}`,
+    },
+    trigger,
+    trigger_data: {},
+  };
 };

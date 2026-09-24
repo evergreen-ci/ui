@@ -9,6 +9,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
+import { useRestartSuccessToast } from "components/Notifications/RestartToastMessage/useRestartSuccessToast";
 import { finishedTaskStatuses } from "constants/task";
 import {
   BuildVariantsWithChildrenQuery,
@@ -18,6 +19,7 @@ import {
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
+import { NotificationModalSource } from "types/subscription";
 import { sumActivatedTasksInSelectedTasks } from "utils/tasks/estimatedActivatedTasks";
 import styles from "./index.module.css";
 import { SelectedTasksMap } from "./types";
@@ -40,6 +42,19 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(versionId);
+  const dispatchRestartSuccessToast = useRestartSuccessToast({
+    onPromptShown: () =>
+      sendEvent({ name: "Viewed restart notification prompt" }),
+    onSubscribe: (subscription) =>
+      sendEvent({
+        name: "Created notification",
+        "notification.source": NotificationModalSource.RestartToast,
+        "subscription.type": subscription.subscriber.type || "",
+        "subscription.trigger": subscription.trigger || "",
+      }),
+    resourceId: versionId,
+    type: "version",
+  });
 
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] =
     useState(false);
@@ -53,7 +68,7 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   >(RESTART_VERSIONS, {
     onCompleted: () => {
       onOk();
-      dispatchToast.success(`Successfully restarted tasks!`);
+      dispatchRestartSuccessToast("Successfully restarted tasks!");
     },
     onError: (err) => {
       onOk();

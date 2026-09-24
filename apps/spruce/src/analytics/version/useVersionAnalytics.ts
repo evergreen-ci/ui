@@ -7,10 +7,13 @@ import {
   VersionQueryVariables,
 } from "gql/generated/types";
 import { VERSION } from "gql/queries";
+import { NotificationModalSource } from "types/subscription";
 
 type Action =
   | {
       name: "Created notification";
+      "notification.source": NotificationModalSource;
+      "subscription.changed_initial_selection"?: boolean;
       "subscription.type": string;
       "subscription.trigger": string;
     }
@@ -44,7 +47,11 @@ type Action =
   | { name: "Filtered tasks table"; "filter.by": string | string[] }
   | { name: "Filtered task duration table"; "filter.by": string | string[] }
   | { name: "Sorted task duration table"; "sort.by": string | string[] }
-  | { name: "Viewed notification modal" }
+  | {
+      name: "Viewed notification modal";
+      "notification.source": NotificationModalSource;
+    }
+  | { name: "Viewed restart notification prompt" }
   | { name: "Viewed schedule tasks modal" }
   | {
       name: "Toggled include never activated tasks";

@@ -6,6 +6,7 @@ import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { Size as ButtonSize, LoadingButton } from "components/Buttons";
+import { useRestartSuccessToast } from "components/Notifications/RestartToastMessage/useRestartSuccessToast";
 import { Requester } from "constants/requesters";
 import {
   RestartTaskMutation,
@@ -13,6 +14,7 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { RESTART_TASK } from "gql/mutations";
+import { NotificationModalSource } from "types/subscription";
 
 interface Props {
   isDisplayTask: boolean;
@@ -31,6 +33,19 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
 
   const taskAnalytics = useTaskAnalytics();
   const [, setExecution] = useQueryParam("execution", 0);
+  const dispatchRestartSuccessToast = useRestartSuccessToast({
+    onPromptShown: () =>
+      taskAnalytics.sendEvent({ name: "Viewed restart notification prompt" }),
+    onSubscribe: (subscription) =>
+      taskAnalytics.sendEvent({
+        name: "Created notification",
+        "notification.source": NotificationModalSource.RestartToast,
+        "subscription.type": subscription.subscriber.type || "",
+        "subscription.trigger": subscription.trigger || "",
+      }),
+    resourceId: taskId,
+    type: "task",
+  });
 
   const [restartTask, { loading: loadingRestartTask }] = useMutation<
     RestartTaskMutation,
@@ -44,7 +59,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
           "Task scheduled to restart, but is disabled. Enable the task to run.",
         );
       } else {
-        dispatchToast.success("Task scheduled to restart");
+        dispatchRestartSuccessToast("Task scheduled to restart.");
       }
       setExecution(latestExecution);
     },

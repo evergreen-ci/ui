@@ -46,3 +46,10 @@ export const notificationMethodToCopy = projectSubscriptionMethods.reduce(
   }),
   {},
 );
+
+/** Where the user opened the notification modal from, used to compare entry points in analytics. */
+export enum NotificationModalSource {
+  NotifyMeButton = "notify_me_button",
+  RestartToast = "restart_toast",
+  TaskHistory = "task_history",
+}
