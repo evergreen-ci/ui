@@ -106,9 +106,6 @@ importers:
       '@leafygreen-ui/guide-cue':
         specifier: ^8.2.0
         version: 8.2.0(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@leafygreen-ui/icon':
-        specifier: ^14.8.0
-        version: 14.8.0(@types/react@18.3.12)(react@18.3.1)
       '@leafygreen-ui/icon-button':
         specifier: ^17.1.2
         version: 17.1.5(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
@@ -422,9 +419,6 @@ importers:
       '@leafygreen-ui/guide-cue':
         specifier: ^8.2.0
         version: 8.2.0(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@leafygreen-ui/icon':
-        specifier: ^14.8.0
-        version: 14.8.0(@types/react@18.3.12)(react@18.3.1)
       '@leafygreen-ui/icon-button':
         specifier: ^17.1.2
         version: 17.1.5(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
@@ -1031,9 +1025,6 @@ importers:
       '@leafygreen-ui/guide-cue':
         specifier: ^8.2.0
         version: 8.2.0(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@leafygreen-ui/icon':
-        specifier: ^14.8.0
-        version: 14.8.0(@types/react@18.3.12)(react@18.3.1)
       '@leafygreen-ui/icon-button':
         specifier: ^17.1.2
         version: 17.1.5(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
