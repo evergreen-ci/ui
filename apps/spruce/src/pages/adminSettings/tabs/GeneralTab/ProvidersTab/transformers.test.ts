@@ -1,4 +1,5 @@
-import { AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsInput, MongoDbEnvironment } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { adminSettings } from "../../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { ProvidersFormState } from "./types";
@@ -10,6 +11,60 @@ describe("providers section", () => {
 
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(form)).toStrictEqual(gql);
+  });
+
+  it("leaves an unset MongoDB environment empty", () => {
+    const gqlData: AdminSettingsData = {
+      ...testAdminSettings,
+      providers: {
+        ...testAdminSettings.providers,
+        aws: {
+          ...testAdminSettings.providers?.aws,
+          resourceTags: null,
+        },
+      },
+    };
+    const form = gqlToForm(gqlData);
+
+    expect(form?.providers.aws.resourceTags.mongodbEnv).toBe("");
+  });
+
+  it("omits an unset MongoDB environment from the input", () => {
+    const formData: ProvidersFormState = {
+      ...form,
+      providers: {
+        ...form.providers,
+        aws: {
+          ...form.providers.aws,
+          resourceTags: {
+            ...form.providers.aws.resourceTags,
+            mongodbEnv: "",
+          },
+        },
+      },
+    };
+    const input = formToGql(formData);
+
+    expect(input.providers?.aws?.resourceTags?.mongodbEnv).toBeUndefined();
+  });
+
+  it("includes an unset MongoDB owner in the input", () => {
+    const formData: ProvidersFormState = {
+      ...form,
+      providers: {
+        ...form.providers,
+        aws: {
+          ...form.providers.aws,
+          resourceTags: {
+            ...form.providers.aws.resourceTags,
+            mongodbOwner: "",
+          },
+        },
+      },
+    };
+    const input = formToGql(formData);
+
+    expect(input.providers?.aws?.resourceTags?.mongodbOwner).toBe("");
   });
 });
 
@@ -74,6 +129,10 @@ const form: ProvidersFormState = {
       ipamPoolID: "ipam-pool-123",
       elasticIPUsageRate: 0.8,
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
+      resourceTags: {
+        mongodbEnv: MongoDbEnvironment.Staging,
+        mongodbOwner: "evergreen@mongodb.com",
+      },
     },
     docker: {
       apiVersion: "1.40",
@@ -130,6 +189,10 @@ const gql: AdminSettingsInput = {
       persistentDNS: {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
+      },
+      resourceTags: {
+        mongodbEnv: MongoDbEnvironment.Staging,
+        mongodbOwner: "evergreen@mongodb.com",
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
@@ -202,6 +265,10 @@ const testAdminSettings = {
       persistentDNS: {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
+      },
+      resourceTags: {
+        mongodbEnv: MongoDbEnvironment.Staging,
+        mongodbOwner: "evergreen@mongodb.com",
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
