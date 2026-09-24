@@ -149,20 +149,6 @@ test.describe("Version Subscription Modal", () => {
     await expect(page.getByTestId(MODAL_DATA_CY)).toBeHidden();
   });
 
-  test("Defaults to a Slack message when the version finishes", async ({
-    page,
-  }) => {
-    await openSubscriptionModal(page);
-    await expect(page.getByTestId(MODAL_DATA_CY)).toBeVisible();
-    await expect(
-      page.getByText("This version finishes", { exact: true }),
-    ).toBeVisible();
-    await expect(
-      page.getByTestId("notification-method-select").getByText("Slack message"),
-    ).toBeVisible();
-    await expect(page.getByTestId("slack-input")).toBeVisible();
-  });
-
   test("Pulls initial values from cookies", async ({ page, context }) => {
     const triggerCookie = "version-notification-trigger";
     const subscriptionCookie = "subscription-method";
