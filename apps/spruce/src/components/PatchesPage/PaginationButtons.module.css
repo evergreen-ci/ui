@@ -4,7 +4,8 @@
   margin-top: var(--via-space-400);
 }
 
-/* Doubled selector outranks Via's Pagination border regardless of CSS chunk order. */
+/* Doubled selector outranks Via's Pagination styles regardless of CSS chunk order. */
 .pagination.pagination {
   border-block-start: none;
+  padding-block: var(--via-space-100);
 }

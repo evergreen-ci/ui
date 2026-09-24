@@ -18,7 +18,8 @@
   gap: var(--via-space-100);
 }
 
-/* Via caps Field width; fill the grid track so filter spacing stays even. */
+/* Via caps Field width; fill the grid track so filter spacing stays even.
+   Doubled selector outranks Via's own class regardless of CSS chunk order. */
 .filterField.filterField {
   max-width: none;
   width: 100%;
