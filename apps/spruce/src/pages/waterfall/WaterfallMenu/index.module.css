@@ -1,0 +1,6 @@
+.trigger {
+  /* Match the 36px LeafyGreen controls that remain in the filter bar. */
+  --via-size-control-height-md: 36px;
+
+  flex-shrink: 0;
+}
