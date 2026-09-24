@@ -10,7 +10,10 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   SaveSubscriptionForUserMutation,
   SaveSubscriptionForUserMutationVariables,
+  UserSettingsQuery,
+  UserSettingsQueryVariables,
 } from "gql/generated/types";
+import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
 import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import { RestartToastMessage } from ".";
 
@@ -22,14 +25,13 @@ describe("restartToastMessage", () => {
     const onError = vi.fn();
     const onSubscribe = vi.fn();
     render(
-      <MockedProvider mocks={[saveTaskSubscriptionMock]}>
+      <MockedProvider mocks={[getUserSettingsMock, saveTaskSubscriptionMock]}>
         <RestartToastMessage
           message="Task scheduled to restart."
           onError={onError}
           onOpenModal={vi.fn()}
           onSubscribe={onSubscribe}
           resourceId={taskId}
-          slackUsername="user"
           type="task"
         />
       </MockedProvider>,
@@ -38,7 +40,9 @@ describe("restartToastMessage", () => {
     await user.click(
       screen.getByRole("button", { name: "Slack me on outcome" }),
     );
-    expect(onSubscribe).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(onSubscribe).toHaveBeenCalledTimes(1);
+    });
     expect(onSubscribe).toHaveBeenCalledWith(taskSubscription);
     expect(await screen.findByText(/Subscribed\./)).toBeInTheDocument();
     expect(
@@ -50,14 +54,15 @@ describe("restartToastMessage", () => {
     const user = userEvent.setup();
     const onError = vi.fn();
     render(
-      <MockedProvider mocks={[saveTaskSubscriptionErrorMock]}>
+      <MockedProvider
+        mocks={[getUserSettingsMock, saveTaskSubscriptionErrorMock]}
+      >
         <RestartToastMessage
           message="Task scheduled to restart."
           onError={onError}
           onOpenModal={vi.fn()}
           onSubscribe={vi.fn()}
           resourceId={taskId}
-          slackUsername="user"
           type="task"
         />
       </MockedProvider>,
@@ -76,7 +81,51 @@ describe("restartToastMessage", () => {
       screen.getByRole("button", { name: "Slack me on outcome" }),
     ).toBeEnabled();
   });
+
+  it("opens the notification modal when the user has no Slack username", async () => {
+    const user = userEvent.setup();
+    const onOpenModal = vi.fn();
+    const onSubscribe = vi.fn();
+    render(
+      <MockedProvider mocks={[noSlackUsernameMock]}>
+        <RestartToastMessage
+          message="Task scheduled to restart."
+          onError={vi.fn()}
+          onOpenModal={onOpenModal}
+          onSubscribe={onSubscribe}
+          resourceId={taskId}
+          type="task"
+        />
+      </MockedProvider>,
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: "Slack me on outcome" }),
+    );
+    await waitFor(() => {
+      expect(onOpenModal).toHaveBeenCalledTimes(1);
+    });
+    expect(onSubscribe).not.toHaveBeenCalled();
+  });
 });
+
+const noSlackUsernameMock: ApolloMock<
+  UserSettingsQuery,
+  UserSettingsQueryVariables
+> = {
+  request: getUserSettingsMock.request,
+  result: {
+    data: {
+      user: {
+        ...getUserSettingsMock.result!.data!.user,
+        settings: {
+          ...getUserSettingsMock.result!.data!.user.settings,
+          slackUsername: "",
+        },
+      },
+    },
+  },
+};
 
 const taskSubscription: SaveSubscriptionForUserMutationVariables["subscription"] =
   {

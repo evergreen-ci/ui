@@ -94,7 +94,7 @@ export const getGqlPayload = (
         ]
       : [
           { type: "object", data: resourceType.toLowerCase() },
-          { type: payloadResourceIdKey, data: resourceId },
+          { type: payloadResourceIdKey ?? "id", data: resourceId },
         ];
 
   return {
@@ -160,20 +160,17 @@ export const getSlackOnOutcomeSubscription = (
   slackUsername: string,
 ): SubscriptionInput => {
   const triggers = type === "task" ? taskTriggers : versionTriggers;
-  const { resourceType, trigger } = triggers[getDefaultEvent(triggers)];
-  return {
-    owner_type: "person",
-    regex_selectors: [],
-    resource_type: resourceType,
-    selectors: [
-      { type: "object", data: resourceType.toLowerCase() },
-      { type: "id", data: resourceId },
-    ],
-    subscriber: {
-      type: NotificationMethods.SLACK,
-      target: `@${slackUsername}`,
+  return getGqlPayload(type, triggers, resourceId, {
+    event: {
+      eventSelect: getDefaultEvent(triggers),
+      extraFields: {},
+      regexSelector: [],
     },
-    trigger,
-    trigger_data: {},
-  };
+    notification: {
+      notificationSelect: NotificationMethods.SLACK,
+      jiraCommentInput: "",
+      slackInput: `@${slackUsername}`,
+      emailInput: "",
+    },
+  });
 };

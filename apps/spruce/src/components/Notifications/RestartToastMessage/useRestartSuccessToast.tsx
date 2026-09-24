@@ -1,42 +1,61 @@
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { taskTriggers, versionTriggers } from "constants/triggers";
-import { useUserSettings } from "hooks/useUserSettings";
-import { subscriptionMethods } from "types/subscription";
+import {
+  NotificationModalSource,
+  subscriptionMethods,
+} from "types/subscription";
 import { NotificationModalProps } from "..";
 import { useNotificationModal } from "../NotificationModalContext";
 import { RestartToastMessage, RestartToastMessageProps } from ".";
+
+type RestartToastAction =
+  | { name: "Viewed restart notification prompt" }
+  | {
+      name: "Created notification";
+      "notification.source": NotificationModalSource;
+      "subscription.changed_initial_selection": boolean;
+      "subscription.type": string;
+      "subscription.trigger": string;
+    };
 
 interface UseRestartSuccessToastOptions extends Pick<
   RestartToastMessageProps,
   "resourceId" | "type"
 > {
-  onPromptShown: () => void;
-  onSubscribe: NotificationModalProps["sendAnalyticsEvent"];
+  sendEvent: (action: RestartToastAction) => void;
 }
 
 /**
  * useRestartSuccessToast returns a function that dispatches the restart success toast with a shortcut to Slack the
  * user on the outcome. Users without a Slack username are sent to the notification modal to enter one.
- * @param options - the resource being restarted and analytics callbacks
- * @param options.onPromptShown - called when the toast offers the Slack shortcut
- * @param options.onSubscribe - called when the user subscribes from the toast
+ * @param options - the resource being restarted and the analytics sender
  * @param options.resourceId - the ID of the resource being restarted
+ * @param options.sendEvent - sends the toast's analytics events
  * @param options.type - the type of resource being restarted
  * @returns a function that dispatches the success toast with the given message
  */
 export const useRestartSuccessToast = ({
-  onPromptShown,
-  onSubscribe,
   resourceId,
+  sendEvent,
   type,
 }: UseRestartSuccessToastOptions) => {
   const dispatchToast = useToastContext();
   const { openNotificationModal } = useNotificationModal();
-  const { userSettings } = useUserSettings();
-  const { slackUsername } = userSettings;
+
+  const onSubscribe: NotificationModalProps["sendAnalyticsEvent"] = (
+    subscription,
+    { changedInitialSelection },
+  ) =>
+    sendEvent({
+      name: "Created notification",
+      "notification.source": NotificationModalSource.RestartToast,
+      "subscription.changed_initial_selection": changedInitialSelection,
+      "subscription.type": subscription.subscriber.type || "",
+      "subscription.trigger": subscription.trigger || "",
+    });
 
   return (message: string) => {
-    onPromptShown();
+    sendEvent({ name: "Viewed restart notification prompt" });
     dispatchToast.success(
       <RestartToastMessage
         message={message}
@@ -56,7 +75,6 @@ export const useRestartSuccessToast = ({
           onSubscribe(subscription, { changedInitialSelection: false })
         }
         resourceId={resourceId}
-        slackUsername={slackUsername ?? undefined}
         type={type}
       />,
     );

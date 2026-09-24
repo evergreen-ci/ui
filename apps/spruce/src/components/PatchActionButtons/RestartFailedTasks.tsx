@@ -14,7 +14,6 @@ import {
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
-import { NotificationModalSource } from "types/subscription";
 import { isFailedTaskStatus } from "utils/statuses";
 
 interface RestartFailedTasksProps {
@@ -30,17 +29,8 @@ export const RestartFailedTasks = forwardRef<
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(patchId);
   const dispatchRestartSuccessToast = useRestartSuccessToast({
-    onPromptShown: () =>
-      sendEvent({ name: "Viewed restart notification prompt" }),
-    onSubscribe: (subscription, { changedInitialSelection }) =>
-      sendEvent({
-        name: "Created notification",
-        "notification.source": NotificationModalSource.RestartToast,
-        "subscription.changed_initial_selection": changedInitialSelection,
-        "subscription.type": subscription.subscriber.type || "",
-        "subscription.trigger": subscription.trigger || "",
-      }),
     resourceId: patchId,
+    sendEvent: sendEvent,
     type: "version",
   });
 

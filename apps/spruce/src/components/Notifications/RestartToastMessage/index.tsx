@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client/react";
+import { useLazyQuery, useMutation } from "@apollo/client/react";
 import {
   SaveSubscriptionForUserMutation,
   SaveSubscriptionForUserMutationVariables,
+  UserSettingsQuery,
+  UserSettingsQueryVariables,
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations";
+import { USER_SETTINGS } from "gql/queries";
 import { getSlackOnOutcomeSubscription } from "../utils";
 import styles from "./index.module.css";
 
@@ -17,8 +20,6 @@ export interface RestartToastMessageProps {
   onOpenModal: () => void;
   onSubscribe: (subscription: Subscription) => void;
   resourceId: string;
-  /** Without a Slack username there is no target to subscribe in one click, so the link opens the modal instead. */
-  slackUsername?: string;
   type: "task" | "version";
 }
 
@@ -29,11 +30,15 @@ export const RestartToastMessage: React.FC<RestartToastMessageProps> = ({
   onOpenModal,
   onSubscribe,
   resourceId,
-  slackUsername,
   type,
 }) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [saveSubscription, { loading }] = useMutation<
+  // The user may have saved a Slack username in another tab since the toast appeared.
+  const [fetchUserSettings, { loading: userSettingsLoading }] = useLazyQuery<
+    UserSettingsQuery,
+    UserSettingsQueryVariables
+  >(USER_SETTINGS, { fetchPolicy: "network-only" });
+  const [saveSubscription, { loading: saveLoading }] = useMutation<
     SaveSubscriptionForUserMutation,
     SaveSubscriptionForUserMutationVariables
   >(SAVE_SUBSCRIPTION, {
@@ -43,7 +48,11 @@ export const RestartToastMessage: React.FC<RestartToastMessageProps> = ({
     },
   });
 
-  const onClick = () => {
+  const onClick = async () => {
+    const slackUsername = await fetchUserSettings()
+      .then(({ data }) => data?.user?.settings?.slackUsername)
+      .catch(() => undefined);
+    // Without a Slack username there is no target to subscribe in one click, so the modal asks for one.
     if (!slackUsername) {
       onOpenModal();
       return;
@@ -66,7 +75,7 @@ export const RestartToastMessage: React.FC<RestartToastMessageProps> = ({
         <button
           className={styles.notifyButton}
           data-testid="restart-toast-notify-button"
-          disabled={loading}
+          disabled={userSettingsLoading || saveLoading}
           onClick={onClick}
           type="button"
         >

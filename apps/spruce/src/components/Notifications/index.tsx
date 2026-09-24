@@ -122,11 +122,19 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
 
   const onClickSave = () => {
     const subscription = getGqlPayload(type, triggers, resourceId, formState);
+    Cookies.set(
+      getNotificationTriggerCookie(type),
+      formState.event.eventSelect,
+      { expires: 365 },
+    );
+    Cookies.set(
+      SUBSCRIPTION_METHOD,
+      formState.notification.notificationSelect,
+      { expires: 365 },
+    );
     saveSubscription({
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       variables: { subscription },
     });
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvent(subscription, {
       changedInitialSelection:
         formState.event.eventSelect !== initialFormState.event.eventSelect ||
@@ -134,22 +142,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           initialFormState.notification.notificationSelect,
     });
     onCancel();
-  };
-
-  const updateEventCookie = (newEvent: string) => {
-    // If user selected a new event, update cookie
-    if (formState.event.eventSelect !== newEvent) {
-      Cookies.set(`${type}-notification-trigger`, `${newEvent}`, {
-        expires: 365,
-      });
-    }
-  };
-
-  const updateNotificationCookie = (newMethod: string) => {
-    // If user selected a new notification method, update cookie
-    if (formState.notification.notificationSelect !== newMethod) {
-      Cookies.set(SUBSCRIPTION_METHOD, newMethod, { expires: 365 });
-    }
   };
 
   const typedSlackUsername =
@@ -181,10 +173,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
       <SpruceForm
         formData={formState}
         onChange={({ errors, formData }) => {
-          // Update event cookie when it changes.
-          updateEventCookie(formData.event.eventSelect);
-          // Update notification cookie when it changes.
-          updateNotificationCookie(formData.notification.notificationSelect);
           setFormState(formData);
           setHasError(errors.length !== 0);
         }}

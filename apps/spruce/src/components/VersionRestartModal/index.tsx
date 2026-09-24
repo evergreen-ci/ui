@@ -19,7 +19,6 @@ import {
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
-import { NotificationModalSource } from "types/subscription";
 import { sumActivatedTasksInSelectedTasks } from "utils/tasks/estimatedActivatedTasks";
 import styles from "./index.module.css";
 import { SelectedTasksMap } from "./types";
@@ -43,17 +42,8 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(versionId);
   const dispatchRestartSuccessToast = useRestartSuccessToast({
-    onPromptShown: () =>
-      sendEvent({ name: "Viewed restart notification prompt" }),
-    onSubscribe: (subscription, { changedInitialSelection }) =>
-      sendEvent({
-        name: "Created notification",
-        "notification.source": NotificationModalSource.RestartToast,
-        "subscription.changed_initial_selection": changedInitialSelection,
-        "subscription.type": subscription.subscriber.type || "",
-        "subscription.trigger": subscription.trigger || "",
-      }),
     resourceId: versionId,
+    sendEvent: sendEvent,
     type: "version",
   });
 

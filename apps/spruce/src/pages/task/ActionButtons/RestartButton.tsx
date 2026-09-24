@@ -14,7 +14,6 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { RESTART_TASK } from "gql/mutations";
-import { NotificationModalSource } from "types/subscription";
 
 interface Props {
   isDisplayTask: boolean;
@@ -34,17 +33,8 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
   const taskAnalytics = useTaskAnalytics();
   const [, setExecution] = useQueryParam("execution", 0);
   const dispatchRestartSuccessToast = useRestartSuccessToast({
-    onPromptShown: () =>
-      taskAnalytics.sendEvent({ name: "Viewed restart notification prompt" }),
-    onSubscribe: (subscription, { changedInitialSelection }) =>
-      taskAnalytics.sendEvent({
-        name: "Created notification",
-        "notification.source": NotificationModalSource.RestartToast,
-        "subscription.changed_initial_selection": changedInitialSelection,
-        "subscription.type": subscription.subscriber.type || "",
-        "subscription.trigger": subscription.trigger || "",
-      }),
     resourceId: taskId,
+    sendEvent: taskAnalytics.sendEvent,
     type: "task",
   });
 
