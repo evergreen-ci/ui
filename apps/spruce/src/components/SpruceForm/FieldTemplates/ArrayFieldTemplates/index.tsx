@@ -53,7 +53,6 @@ export const ArrayFieldItemTemplate: React.FC<ArrayFieldItemTemplateProps> = ({
       disabled={isDisabled}
       leftGlyph={<Trash />}
       onClick={onRemoveItem}
-      size="small"
     />
   );
   return useExpandableCard ? (

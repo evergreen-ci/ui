@@ -316,6 +316,7 @@ export const baseProps = {
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-testid": "task-tags-input",
+        "ui:label": false,
       },
     },
   },
@@ -357,6 +358,7 @@ export const baseProps = {
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-testid": "variant-tags-input",
+        "ui:label": false,
       },
     },
   },
@@ -510,6 +512,7 @@ const parameters = {
   },
   uiSchema: {
     "ui:addButtonText": "Add parameter",
+    "ui:orderable": false,
     items: {
       "ui:ObjectFieldTemplate": FieldRow,
       "ui:data-testid": "parameter-input",

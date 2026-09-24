@@ -39,6 +39,12 @@ export const oktaServiceConfig = {
     "ui:objectFieldCss": objectGridCss,
     "ui:description":
       "Settings for the Okta Services app. Used exclusively for machine-to-machine authentication, e.g. the token exchange grant used in the spawn host workflow.",
+    scopes: {
+      "ui:topAlignDelete": true,
+      items: {
+        "ui:label": false,
+      },
+    },
   },
 };
 
@@ -334,6 +340,7 @@ export const getSingleTaskDistroSchema = () => ({
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
+        "ui:label": false,
         "ui:order": ["projectId", "allowedTasks", "isRegex", "allowedBVs"],
         projectId: {
           "ui:description":
@@ -560,7 +567,6 @@ export const expansions = {
   schema: {
     expansionValues: {
       type: "array" as const,
-      title: "",
       items: {
         type: "object" as const,
         properties: {
@@ -581,6 +587,7 @@ export const expansions = {
     "ui:data-testid": "expansions-list",
     "ui:fullWidth": true,
     expansionValues: {
+      "ui:label": false,
       "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:addButtonText": "Add expansion",
@@ -588,6 +595,7 @@ export const expansions = {
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
         "ui:data-testid": "expansion-item",
+        "ui:label": false,
         value: {
           "ui:widget": "textarea",
         },
@@ -687,6 +695,7 @@ export const jiraNotificationsFields = {
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
         "ui:data-testid": "jira-custom-field-item",
+        "ui:label": false,
         fields: {
           "ui:addButtonText": "Add custom field",
           "ui:placeholder": "No custom fields defined.",
@@ -695,6 +704,9 @@ export const jiraNotificationsFields = {
           "ui:fullWidth": true,
           "ui:fieldCss": fullWidthCss,
           "ui:arrayItemCSS": arrayItemCSS,
+          items: {
+            "ui:label": false,
+          },
         },
         components: {
           "ui:widget": widgets.ChipInputWidget,
@@ -848,6 +860,7 @@ export const projectCreationSettings = {
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
         "ui:data-testid": "repo-exception-item",
+        "ui:label": false,
       },
     },
   },

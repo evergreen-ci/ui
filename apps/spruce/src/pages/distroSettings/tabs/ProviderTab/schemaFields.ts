@@ -103,6 +103,9 @@ const hosts = {
   uiSchema: {
     "ui:addButtonText": "Add host",
     "ui:orderable": false,
+    items: {
+      "ui:label": false,
+    },
   },
 };
 
