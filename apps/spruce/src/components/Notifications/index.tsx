@@ -2,7 +2,9 @@ import { forwardRef, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client/react";
 import { Button, ButtonProps } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { cx } from "@evg-ui/lib/utils/css";
 import { SpruceForm } from "components/SpruceForm";
@@ -10,6 +12,7 @@ import {
   SUBSCRIPTION_METHOD,
   getNotificationTriggerCookie,
 } from "constants/cookies";
+import { getSlackUsernamePreferencesRoute } from "constants/routes";
 import { regexBuildVariant, regexDisplayName } from "constants/triggers";
 import {
   SaveSubscriptionForUserMutation,
@@ -19,7 +22,10 @@ import {
 import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import { USER } from "gql/queries";
 import { useUserSettings } from "hooks/useUserSettings";
-import { SubscriptionMethodOption } from "types/subscription";
+import {
+  NotificationMethods,
+  SubscriptionMethodOption,
+} from "types/subscription";
 import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
 import styles from "./index.module.css";
@@ -31,8 +37,10 @@ import {
   hasInitialError,
 } from "./utils";
 
-interface NotificationModalProps {
+export interface NotificationModalProps {
   "data-testid": string;
+  /** Start from the recommended defaults instead of the user's last-used selections saved in cookies. */
+  ignoreSavedSelections?: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   resourceId: string;
   sendAnalyticsEvent: (
@@ -47,6 +55,7 @@ interface NotificationModalProps {
 
 export const NotificationModal: React.FC<NotificationModalProps> = ({
   "data-testid": dataTestId,
+  ignoreSavedSelections = false,
   onCancel,
   resourceId,
   sendAnalyticsEvent,
@@ -78,14 +87,15 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const getInitialFormState = (): FormState => ({
     event: {
       eventSelect:
-        Cookies.get(getNotificationTriggerCookie(type)) ||
+        (!ignoreSavedSelections &&
+          Cookies.get(getNotificationTriggerCookie(type))) ||
         getDefaultEvent(triggers),
       extraFields: {},
       regexSelector: [],
     },
     notification: {
       notificationSelect:
-        Cookies.get(SUBSCRIPTION_METHOD) ||
+        (!ignoreSavedSelections && Cookies.get(SUBSCRIPTION_METHOD)) ||
         getDefaultNotificationMethod(subscriptionMethods),
       jiraCommentInput: "",
       slackInput: slackUsername ? `@${slackUsername}` : "",
@@ -142,6 +152,12 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     }
   };
 
+  const typedSlackUsername =
+    formState.notification.notificationSelect === NotificationMethods.SLACK
+      ? getSlackUsername(formState.notification.slackInput)
+      : "";
+  const showSaveSlackUsernameHint = !slackUsername && !!typedSlackUsername;
+
   const { schema, uiSchema } = getFormSchema(
     getRegexEnumsToDisable(formState.event.regexSelector),
     triggers,
@@ -175,9 +191,27 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         schema={schema}
         uiSchema={uiSchema}
       />
+      {showSaveSlackUsernameHint && (
+        <Disclaimer
+          className={styles.slackUsernameHint}
+          data-testid="save-slack-username-hint"
+        >
+          <StyledRouterLink
+            target="_blank"
+            to={getSlackUsernamePreferencesRoute(typedSlackUsername)}
+          >
+            Save this username
+          </StyledRouterLink>{" "}
+          in your preferences to prefill it next time.
+        </Disclaimer>
+      )}
     </ConfirmationModal>
   );
 };
+
+// Only an @username target is the user's own Slack account; channels and member IDs are not.
+const getSlackUsername = (slackInput: string) =>
+  /^@[\w.-]+$/.test(slackInput) ? slackInput.slice(1) : "";
 
 const getRegexEnumsToDisable = (regexForm: FormRegexSelector[]) => {
   const usingID = !!regexForm.find((r) => r.regexSelect === regexBuildVariant);

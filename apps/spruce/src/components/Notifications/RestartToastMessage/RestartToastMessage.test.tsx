@@ -26,6 +26,7 @@ describe("restartToastMessage", () => {
         <RestartToastMessage
           message="Task scheduled to restart."
           onError={onError}
+          onOpenModal={vi.fn()}
           onSubscribe={onSubscribe}
           resourceId={taskId}
           slackUsername="user"
@@ -53,6 +54,7 @@ describe("restartToastMessage", () => {
         <RestartToastMessage
           message="Task scheduled to restart."
           onError={onError}
+          onOpenModal={vi.fn()}
           onSubscribe={vi.fn()}
           resourceId={taskId}
           slackUsername="user"

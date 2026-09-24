@@ -45,10 +45,11 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   const dispatchRestartSuccessToast = useRestartSuccessToast({
     onPromptShown: () =>
       sendEvent({ name: "Viewed restart notification prompt" }),
-    onSubscribe: (subscription) =>
+    onSubscribe: (subscription, { changedInitialSelection }) =>
       sendEvent({
         name: "Created notification",
         "notification.source": NotificationModalSource.RestartToast,
+        "subscription.changed_initial_selection": changedInitialSelection,
         "subscription.type": subscription.subscriber.type || "",
         "subscription.trigger": subscription.trigger || "",
       }),

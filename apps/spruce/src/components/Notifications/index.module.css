@@ -3,3 +3,7 @@
 .leftButton.leftButton {
   margin-right: var(--via-space-400);
 }
+
+.slackUsernameHint {
+  margin-top: calc(-1 * var(--via-space-200));
+}

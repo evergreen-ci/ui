@@ -86,7 +86,7 @@ type Action =
   | {
       name: "Created notification";
       "notification.source": NotificationModalSource;
-      "subscription.changed_initial_selection"?: boolean;
+      "subscription.changed_initial_selection": boolean;
       "subscription.type": string;
       "subscription.trigger": string;
     }

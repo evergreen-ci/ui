@@ -14,9 +14,11 @@ export interface RestartToastMessageProps {
   message: string;
   // Toast content renders outside the toast context, so errors are reported through the dispatcher's context.
   onError: (message: string) => void;
+  onOpenModal: () => void;
   onSubscribe: (subscription: Subscription) => void;
   resourceId: string;
-  slackUsername: string;
+  /** Without a Slack username there is no target to subscribe in one click, so the link opens the modal instead. */
+  slackUsername?: string;
   type: "task" | "version";
 }
 
@@ -24,6 +26,7 @@ export interface RestartToastMessageProps {
 export const RestartToastMessage: React.FC<RestartToastMessageProps> = ({
   message,
   onError,
+  onOpenModal,
   onSubscribe,
   resourceId,
   slackUsername,
@@ -41,6 +44,10 @@ export const RestartToastMessage: React.FC<RestartToastMessageProps> = ({
   });
 
   const onClick = () => {
+    if (!slackUsername) {
+      onOpenModal();
+      return;
+    }
     const subscription = getSlackOnOutcomeSubscription(
       type,
       resourceId,

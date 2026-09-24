@@ -36,10 +36,11 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
   const dispatchRestartSuccessToast = useRestartSuccessToast({
     onPromptShown: () =>
       taskAnalytics.sendEvent({ name: "Viewed restart notification prompt" }),
-    onSubscribe: (subscription) =>
+    onSubscribe: (subscription, { changedInitialSelection }) =>
       taskAnalytics.sendEvent({
         name: "Created notification",
         "notification.source": NotificationModalSource.RestartToast,
+        "subscription.changed_initial_selection": changedInitialSelection,
         "subscription.type": subscription.subscriber.type || "",
         "subscription.trigger": subscription.trigger || "",
       }),

@@ -27,9 +27,14 @@ test.describe("Task Action Buttons", () => {
       await page.goto(tasks[3]);
       await page.getByTestId("restart-task").click();
       await validateToast(page, "success", restartSuccessBannerText);
+      await page.getByTestId("restart-toast-notify-button").click();
+      const modal = page.getByTestId("restart-notification-modal");
+      await expect(modal).toBeVisible();
       await expect(
-        page.getByTestId("restart-toast-notify-button"),
-      ).toBeHidden();
+        modal
+          .getByTestId("notification-method-select")
+          .getByText("Slack message"),
+      ).toBeVisible();
     });
 
     test("Restart toast subscribes the user to a Slack message when the task finishes", async ({
