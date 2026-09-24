@@ -8,6 +8,7 @@
     "@eslint/js": "^10.0.1",
     "@graphql-eslint/eslint-plugin": "^4.4.1",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@via-ds/eslint-plugin": "0.4.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
