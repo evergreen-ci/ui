@@ -40,7 +40,7 @@ describe("restartToastMessage", () => {
     );
     expect(onSubscribe).toHaveBeenCalledTimes(1);
     expect(onSubscribe).toHaveBeenCalledWith(taskSubscription);
-    expect(await screen.findByText("Subscribed.")).toBeInTheDocument();
+    expect(await screen.findByText(/Subscribed\./)).toBeInTheDocument();
     expect(
       screen.queryByRole("button", { name: "Slack me on outcome" }),
     ).not.toBeInTheDocument();
@@ -71,7 +71,7 @@ describe("restartToastMessage", () => {
         "Error adding your subscription: 'Failed to save subscription'",
       );
     });
-    expect(screen.queryByText("Subscribed.")).not.toBeInTheDocument();
+    expect(screen.queryByText(/Subscribed\./)).not.toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Slack me on outcome" }),
     ).toBeEnabled();

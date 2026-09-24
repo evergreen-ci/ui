@@ -1,13 +1,10 @@
-.notifyButton,
-.subscribed {
-  margin-left: var(--via-space-100);
-}
-
 .notifyButton {
   padding: 0;
   border: none;
   background: none;
   font: inherit;
+  text-align: left;
+  white-space: nowrap;
   color: var(--via-color-blue-300);
   text-decoration: underline;
   text-decoration-color: var(--via-color-blue-300);

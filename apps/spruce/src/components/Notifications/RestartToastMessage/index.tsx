@@ -59,9 +59,9 @@ export const RestartToastMessage: React.FC<RestartToastMessageProps> = ({
 
   return (
     <span>
-      {message}
+      {message}{" "}
       {isSubscribed ? (
-        <span className={styles.subscribed}>Subscribed.</span>
+        "Subscribed."
       ) : (
         <button
           className={styles.notifyButton}
