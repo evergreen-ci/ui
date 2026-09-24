@@ -1,5 +1,5 @@
 import { forwardRef, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client/react";
+import { useQuery } from "@apollo/client/react";
 import { Button, ButtonProps } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Disclaimer } from "@leafygreen-ui/typography";
@@ -15,11 +15,9 @@ import {
 import { getSlackUsernamePreferencesRoute } from "constants/routes";
 import { regexBuildVariant, regexDisplayName } from "constants/triggers";
 import {
-  SaveSubscriptionForUserMutation,
   SaveSubscriptionForUserMutationVariables,
   UserQuery,
 } from "gql/generated/types";
-import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import { USER } from "gql/queries";
 import { useUserSettings } from "hooks/useUserSettings";
 import {
@@ -30,6 +28,7 @@ import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
 import styles from "./index.module.css";
 import { FormRegexSelector, FormState } from "./types";
+import { useSaveSubscription } from "./useSaveSubscription";
 import {
   getDefaultEvent,
   getDefaultNotificationMethod,
@@ -65,15 +64,12 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   visible,
 }) => {
   const dispatchToast = useToastContext();
-  const [saveSubscription] = useMutation<
-    SaveSubscriptionForUserMutation,
-    SaveSubscriptionForUserMutationVariables
-  >(SAVE_SUBSCRIPTION, {
+  const [saveSubscription] = useSaveSubscription({
     onCompleted: () => {
       dispatchToast.success("Your subscription has been added");
     },
-    onError: (err) => {
-      dispatchToast.error(`Error adding your subscription: '${err.message}'`);
+    onError: (message) => {
+      dispatchToast.error(message);
     },
   });
 

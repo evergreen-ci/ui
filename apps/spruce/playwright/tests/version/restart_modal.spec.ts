@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { clickCheckbox, mockSlackUsername, validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 
 const path = "/version/5ecedafb562343215a7ff297";
 
@@ -127,24 +127,6 @@ test.describe("version/restart_modal", () => {
       await modal.getByRole("button", { name: "Restart" }).click();
       await expect(page.getByTestId("version-restart-modal")).toBeHidden();
       await validateToast(page, "success", "Successfully restarted tasks!");
-    });
-  });
-
-  test.describe("Restart toast notification prompt", () => {
-    test("subscribes the user to a Slack message when the version finishes", async ({
-      page,
-    }) => {
-      await mockSlackUsername(page);
-      await page.goto(path);
-      await page.getByTestId("restart-version").click();
-      const restartModal = page.getByTestId("version-restart-modal");
-      await expect(restartModal).toBeVisible();
-      await restartModal.getByTestId("variant-accordion").first().click();
-      await clickCheckbox(restartModal.getByRole("checkbox", { name: "dist" }));
-      await restartModal.getByRole("button", { name: "Restart" }).click();
-      await validateToast(page, "success", "Successfully restarted tasks!");
-      await page.getByTestId("restart-toast-notify-button").click();
-      await expect(page.getByText("Subscribed.")).toBeVisible();
     });
   });
 

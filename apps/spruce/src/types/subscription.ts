@@ -53,3 +53,15 @@ export enum NotificationModalSource {
   RestartToast = "restart_toast",
   TaskHistory = "task_history",
 }
+
+export type CreatedNotificationAction = {
+  name: "Created notification";
+  "notification.source": NotificationModalSource;
+  "subscription.changed_initial_selection": boolean;
+  "subscription.type": string;
+  "subscription.trigger": string;
+};
+
+export type ViewedRestartNotificationPromptAction = {
+  name: "Viewed restart notification prompt";
+};

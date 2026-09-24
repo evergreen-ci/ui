@@ -7,16 +7,14 @@ import {
   VersionQueryVariables,
 } from "gql/generated/types";
 import { VERSION } from "gql/queries";
-import { NotificationModalSource } from "types/subscription";
+import {
+  CreatedNotificationAction,
+  NotificationModalSource,
+  ViewedRestartNotificationPromptAction,
+} from "types/subscription";
 
 type Action =
-  | {
-      name: "Created notification";
-      "notification.source": NotificationModalSource;
-      "subscription.changed_initial_selection": boolean;
-      "subscription.type": string;
-      "subscription.trigger": string;
-    }
+  | CreatedNotificationAction
   | { name: "Changed page size"; "page.size": number }
   | { name: "Changed tab"; tab: string }
   | { name: "Clicked metadata base commit link" }
@@ -51,7 +49,7 @@ type Action =
       name: "Viewed notification modal";
       "notification.source": NotificationModalSource;
     }
-  | { name: "Viewed restart notification prompt" }
+  | ViewedRestartNotificationPromptAction
   | { name: "Viewed schedule tasks modal" }
   | {
       name: "Toggled include never activated tasks";

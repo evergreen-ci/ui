@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useLazyQuery, useMutation } from "@apollo/client/react";
+import { useLazyQuery } from "@apollo/client/react";
 import {
-  SaveSubscriptionForUserMutation,
   SaveSubscriptionForUserMutationVariables,
   UserSettingsQuery,
   UserSettingsQueryVariables,
 } from "gql/generated/types";
-import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import { USER_SETTINGS } from "gql/queries";
+import { useSaveSubscription } from "../useSaveSubscription";
 import { getSlackOnOutcomeSubscription } from "../utils";
 import styles from "./index.module.css";
 
@@ -38,14 +37,9 @@ export const RestartToastMessage: React.FC<RestartToastMessageProps> = ({
     UserSettingsQuery,
     UserSettingsQueryVariables
   >(USER_SETTINGS, { fetchPolicy: "network-only" });
-  const [saveSubscription, { loading: saveLoading }] = useMutation<
-    SaveSubscriptionForUserMutation,
-    SaveSubscriptionForUserMutationVariables
-  >(SAVE_SUBSCRIPTION, {
+  const [saveSubscription, { loading: saveLoading }] = useSaveSubscription({
     onCompleted: () => setIsSubscribed(true),
-    onError: (err) => {
-      onError(`Error adding your subscription: '${err.message}'`);
-    },
+    onError,
   });
 
   const onClick = async () => {

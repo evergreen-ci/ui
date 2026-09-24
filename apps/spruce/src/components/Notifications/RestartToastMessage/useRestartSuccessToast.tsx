@@ -1,22 +1,18 @@
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { taskTriggers, versionTriggers } from "constants/triggers";
 import {
+  CreatedNotificationAction,
   NotificationModalSource,
+  ViewedRestartNotificationPromptAction,
   subscriptionMethods,
 } from "types/subscription";
 import { NotificationModalProps } from "..";
 import { useNotificationModal } from "../NotificationModalContext";
+import { getCreatedNotificationEvent, getResourceTriggers } from "../utils";
 import { RestartToastMessage, RestartToastMessageProps } from ".";
 
 type RestartToastAction =
-  | { name: "Viewed restart notification prompt" }
-  | {
-      name: "Created notification";
-      "notification.source": NotificationModalSource;
-      "subscription.changed_initial_selection": boolean;
-      "subscription.type": string;
-      "subscription.trigger": string;
-    };
+  | ViewedRestartNotificationPromptAction
+  | CreatedNotificationAction;
 
 interface UseRestartSuccessToastOptions extends Pick<
   RestartToastMessageProps,
@@ -44,15 +40,15 @@ export const useRestartSuccessToast = ({
 
   const onSubscribe: NotificationModalProps["sendAnalyticsEvent"] = (
     subscription,
-    { changedInitialSelection },
+    details,
   ) =>
-    sendEvent({
-      name: "Created notification",
-      "notification.source": NotificationModalSource.RestartToast,
-      "subscription.changed_initial_selection": changedInitialSelection,
-      "subscription.type": subscription.subscriber.type || "",
-      "subscription.trigger": subscription.trigger || "",
-    });
+    sendEvent(
+      getCreatedNotificationEvent(
+        NotificationModalSource.RestartToast,
+        subscription,
+        details,
+      ),
+    );
 
   return (message: string) => {
     sendEvent({ name: "Viewed restart notification prompt" });
@@ -67,7 +63,7 @@ export const useRestartSuccessToast = ({
             resourceId,
             sendAnalyticsEvent: onSubscribe,
             subscriptionMethods,
-            triggers: type === "task" ? taskTriggers : versionTriggers,
+            triggers: getResourceTriggers(type),
             type,
           })
         }

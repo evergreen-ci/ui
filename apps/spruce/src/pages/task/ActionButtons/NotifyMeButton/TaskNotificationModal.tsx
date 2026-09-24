@@ -1,5 +1,6 @@
 import { useTaskAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
+import { getCreatedNotificationEvent } from "components/Notifications/utils";
 import { taskTriggers } from "constants/triggers";
 import {
   NotificationModalSource,
@@ -26,14 +27,10 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       data-testid="task-notification-modal"
       onCancel={onCancel}
       resourceId={taskId}
-      sendAnalyticsEvent={(subscription, { changedInitialSelection }) =>
-        taskAnalytics.sendEvent({
-          name: "Created notification",
-          "notification.source": source,
-          "subscription.changed_initial_selection": changedInitialSelection,
-          "subscription.type": subscription.subscriber.type || "",
-          "subscription.trigger": subscription.trigger || "",
-        })
+      sendAnalyticsEvent={(subscription, details) =>
+        taskAnalytics.sendEvent(
+          getCreatedNotificationEvent(source, subscription, details),
+        )
       }
       subscriptionMethods={taskSubscriptionMethods}
       triggers={taskTriggers}

@@ -15,7 +15,11 @@ import {
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
 import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
-import { NotificationModalSource } from "types/subscription";
+import {
+  CreatedNotificationAction,
+  NotificationModalSource,
+  ViewedRestartNotificationPromptAction,
+} from "types/subscription";
 import { LogTypes, RequiredQueryParams } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley" | "download";
@@ -82,14 +86,8 @@ type Action =
       name: "Viewed notification modal";
       "notification.source": NotificationModalSource;
     }
-  | { name: "Viewed restart notification prompt" }
-  | {
-      name: "Created notification";
-      "notification.source": NotificationModalSource;
-      "subscription.changed_initial_selection": boolean;
-      "subscription.type": string;
-      "subscription.trigger": string;
-    }
+  | ViewedRestartNotificationPromptAction
+  | CreatedNotificationAction
   | { name: "Clicked see history link" }
   | { name: "Clicked metadata link"; "link.type": string }
   | {

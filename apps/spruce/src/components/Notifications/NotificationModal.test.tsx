@@ -68,17 +68,7 @@ describe("notificationModal", () => {
   });
 
   it("defaults to Slack on outcome with the user's Slack username when nothing is saved", async () => {
-    const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getUserSettingsMock, getUserMock]}>
-        <ModalHarness />
-      </MockedProvider>,
-    );
-    render(<Component />);
-    await user.click(await screen.findByRole("button", { name: "Open" }));
-    await waitFor(() => {
-      expect(screen.getByTestId("notification-modal")).toBeVisible();
-    });
+    await openModal();
 
     expect(screen.getByText("This task finishes")).toBeInTheDocument();
     expect(

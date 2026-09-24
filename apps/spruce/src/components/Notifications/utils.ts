@@ -1,8 +1,13 @@
 import { StringMap } from "@evg-ui/lib/types/utils";
 import { taskTriggers, versionTriggers } from "constants/triggers";
-import { SubscriptionInput } from "gql/generated/types";
 import {
+  SaveSubscriptionForUserMutationVariables,
+  SubscriptionInput,
+} from "gql/generated/types";
+import {
+  CreatedNotificationAction,
   NotificationMethods,
+  NotificationModalSource,
   SubscriptionMethodOption,
 } from "types/subscription";
 import { ExtraField, Trigger, TriggerType } from "types/triggers";
@@ -148,6 +153,34 @@ export const getDefaultNotificationMethod = (
   "";
 
 /**
+ * getResourceTriggers returns the triggers a user can subscribe to for the given resource type.
+ * @param type - the type of resource being subscribed to
+ * @returns the triggers for the resource type
+ */
+export const getResourceTriggers = (type: "task" | "version") =>
+  type === "task" ? taskTriggers : versionTriggers;
+
+/**
+ * getCreatedNotificationEvent builds the analytics event sent when a user creates a subscription.
+ * @param source - where the user created the subscription from
+ * @param subscription - the subscription that was saved
+ * @param details - details about how the subscription was created
+ * @param details.changedInitialSelection - whether the user changed the preselected event or method
+ * @returns the analytics event
+ */
+export const getCreatedNotificationEvent = (
+  source: NotificationModalSource,
+  subscription: SaveSubscriptionForUserMutationVariables["subscription"],
+  { changedInitialSelection }: { changedInitialSelection: boolean },
+): CreatedNotificationAction => ({
+  name: "Created notification",
+  "notification.source": source,
+  "subscription.changed_initial_selection": changedInitialSelection,
+  "subscription.type": subscription.subscriber.type || "",
+  "subscription.trigger": subscription.trigger || "",
+});
+
+/**
  * getSlackOnOutcomeSubscription builds a subscription that Slacks the user when the resource finishes.
  * @param type - the type of resource being subscribed to
  * @param resourceId - the ID of the resource being subscribed to
@@ -159,7 +192,7 @@ export const getSlackOnOutcomeSubscription = (
   resourceId: string,
   slackUsername: string,
 ): SubscriptionInput => {
-  const triggers = type === "task" ? taskTriggers : versionTriggers;
+  const triggers = getResourceTriggers(type);
   return getGqlPayload(type, triggers, resourceId, {
     event: {
       eventSelect: getDefaultEvent(triggers),
