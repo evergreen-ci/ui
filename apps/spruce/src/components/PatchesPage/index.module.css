@@ -21,7 +21,7 @@
 }
 
 /* Via caps Field width; fill the grid track so filter spacing stays even. */
-.comboboxField.comboboxField {
+.filterField.filterField {
   max-width: none;
   width: 100%;
 }

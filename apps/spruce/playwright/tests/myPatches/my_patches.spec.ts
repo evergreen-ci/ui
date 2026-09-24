@@ -133,7 +133,7 @@ test.describe("My Patches Page", () => {
       await page.goto(MY_PATCHES_ROUTE);
       await page
         .getByTestId("requester-selector")
-        .getByRole("button", { name: "Show suggestions" })
+        .getByRole("button", { name: /Patch submission/ })
         .click();
       const cliPatchTitle = "main: EVG-7823 add a commit queue message (#4048)";
       const prPatchTitle =
@@ -160,10 +160,10 @@ test.describe("My Patches Page", () => {
       );
       await page.keyboard.press("Escape");
       await expect(
-        page.getByLabel("Selected patch submissions").getByText("Patch", {
-          exact: true,
-        }),
-      ).toBeVisible();
+        page
+          .getByTestId("requester-selector")
+          .getByRole("button", { name: /Patch submission/ }),
+      ).toHaveText("Patch");
     });
   });
 
