@@ -22,6 +22,9 @@ const localGlyphs = {
 
 export type LocalGlyphName = keyof typeof localGlyphs;
 
+const isLocalGlyph = (glyph: string): glyph is LocalGlyphName =>
+  glyph in localGlyphs;
+
 export interface IconProps extends ViaIconProps {
   glyph: ViaGlyphName | LocalGlyphName;
 }
@@ -31,13 +34,13 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
     // LG's IconButton cloneElements icons with the legacy "default" size key;
     // Via calls that size "medium".
     const normalizedSize = (size as string) === "default" ? "medium" : size;
-    if (glyph in localGlyphs) {
-      const LocalGlyph = localGlyphs[glyph as LocalGlyphName];
+    if (isLocalGlyph(glyph)) {
+      const LocalGlyph = localGlyphs[glyph];
       return <LocalGlyph ref={ref} size={normalizedSize} {...rest} />;
     }
     // Pin the default so Via's IconContext can't resize glyphs (LG had no
     // context); keeps this barrel identical to the LG one it replaced.
-    const ViaGlyph = viaGlyphs[glyph as ViaGlyphName];
+    const ViaGlyph = viaGlyphs[glyph];
     return <ViaGlyph ref={ref} size={normalizedSize ?? 16} {...rest} />;
   },
 );
