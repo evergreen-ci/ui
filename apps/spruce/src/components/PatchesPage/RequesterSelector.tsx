@@ -20,6 +20,7 @@ export const RequesterSelector: React.FC = () => {
     <div className={styles.comboboxFilter} data-testid="requester-selector">
       <Combobox
         aria-label="Patch submission"
+        className={styles.comboboxField}
         onChange={(selectedKeys) =>
           statusValOnChange(selectedKeys.map((key) => key.toString()))
         }

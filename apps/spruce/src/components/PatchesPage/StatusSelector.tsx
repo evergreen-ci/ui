@@ -53,6 +53,7 @@ export const StatusSelector: React.FC = () => {
     <div className={styles.comboboxFilter} data-testid="my-patch-status-select">
       <Combobox
         aria-label="Patch status"
+        className={styles.comboboxField}
         onChange={onChange}
         placeholder="Patch Status"
         selectionMode="multiple"

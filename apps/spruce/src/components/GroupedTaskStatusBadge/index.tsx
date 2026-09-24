@@ -36,6 +36,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
     <TooltipTrigger>
       <Link
         aria-selected={isActive}
+        className={styles.tooltipTrigger}
         data-testid="grouped-task-status-badge"
         onClick={() => onClick()}
         to={href}

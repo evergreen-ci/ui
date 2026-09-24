@@ -1,3 +1,7 @@
+.tooltipTrigger {
+  align-self: flex-start;
+}
+
 .badgeContainer {
   height: var(--via-space-800);
   width: var(--via-space-1600);
@@ -30,43 +34,43 @@
 }
 
 .undispatched {
-  color: var(--via-color-neutral-700);
+  color: var(--via-color-neutral-500);
   background-color: var(--via-color-neutral-100);
   border-color: var(--via-color-neutral-200);
 }
 
 .running {
-  color: var(--via-color-yellow-800);
+  color: var(--via-color-yellow-600);
   background-color: var(--via-color-yellow-100);
   border-color: var(--via-color-yellow-200);
 }
 
 .systemFailure {
-  color: var(--via-color-purple-800);
+  color: var(--via-color-purple-600);
   background-color: var(--via-color-purple-100);
   border-color: var(--via-color-purple-200);
 }
 
 .scheduled {
   color: var(--via-color-neutral-100);
-  background-color: var(--via-color-neutral-700);
-  border-color: var(--via-color-neutral-800);
+  background-color: var(--via-color-neutral-500);
+  border-color: var(--via-color-neutral-600);
 }
 
 .failed {
-  color: var(--via-color-red-800);
+  color: var(--via-color-red-600);
   background-color: var(--via-color-red-100);
   border-color: var(--via-color-red-200);
 }
 
 .succeeded {
-  color: var(--via-color-green-800);
+  color: var(--via-color-green-600);
   background-color: var(--via-color-green-100);
   border-color: var(--via-color-green-200);
 }
 
 .setupFailed {
-  color: var(--via-color-blue-700);
+  color: var(--via-color-blue-500);
   background-color: var(--via-color-blue-100);
   border-color: var(--via-color-blue-200);
 }

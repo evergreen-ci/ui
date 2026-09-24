@@ -43,6 +43,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   return (
     <div className={styles.paginationRow}>
       <Pagination
+        className={styles.pagination}
         data-testid="pagination"
         isNextDisabled={isNextDisabled}
         isPreviousDisabled={page === 0}
@@ -69,6 +70,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         page={page + 1}
         pageSize={limit}
         pageSizeOptions={PAGE_SIZES}
+        showGoToPage={false}
         totalItems={totalItems}
       />
     </div>

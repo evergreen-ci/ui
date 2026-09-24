@@ -1,5 +1,6 @@
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { patchData } from "../testData";
 import PatchCard from ".";
 
@@ -39,5 +40,28 @@ export const UserPatchCard: Story = {
   args: {
     pageType: "user",
     patch: patchData,
+  },
+};
+
+export const ProjectPatchCardAllTaskStatuses: Story = {
+  args: {
+    pageType: "project",
+    patch: {
+      ...patchData,
+      version: {
+        ...patchData.version,
+        taskStatusStats: {
+          counts: [
+            { count: 8, status: TaskStatus.Succeeded },
+            { count: 2, status: TaskStatus.Failed },
+            { count: 1, status: TaskStatus.Started },
+            { count: 1, status: TaskStatus.SystemFailed },
+            { count: 3, status: TaskStatus.WillRun },
+            { count: 2, status: TaskStatus.Unscheduled },
+            { count: 1, status: TaskStatus.SetupFailed },
+          ],
+        },
+      },
+    },
   },
 };

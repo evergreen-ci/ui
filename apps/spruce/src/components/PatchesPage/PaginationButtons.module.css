@@ -3,3 +3,8 @@
   justify-content: flex-end;
   margin-top: var(--via-space-400);
 }
+
+/* Doubled selector outranks Via's Pagination border regardless of CSS chunk order. */
+.pagination.pagination {
+  border-block-start: none;
+}
