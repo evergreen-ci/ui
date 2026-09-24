@@ -1,10 +1,17 @@
+import { useMemo, useState } from "react";
 import { FieldValidation } from "@rjsf/utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
+import { SpruceForm } from "components/SpruceForm";
 import {
   Arch,
   BootstrapMethod,
   CommunicationMethod,
+  Provider,
 } from "gql/generated/types";
+import { distroData } from "../testData";
+import { getFormSchema } from "./getFormSchema";
 import { validate } from "./HostTab";
+import { formToGql, gqlToForm } from "./transformers";
 import { HostFormState } from "./types";
 
 const emptyField = (): FieldValidation => ({
@@ -36,6 +43,70 @@ const baseFormData: HostFormState = {
     requireIsolation: false,
   },
 } as unknown as HostFormState;
+
+describe("host tab form", () => {
+  it("preserves bootstrap settings when switching to Legacy SSH", async () => {
+    const user = userEvent.setup();
+    const initialFormData = gqlToForm(distroData);
+    if (!initialFormData) {
+      throw new Error("Expected distro test data");
+    }
+    const initialState = {
+      ...initialFormData,
+      setup: {
+        ...initialFormData.setup,
+        bootstrapMethod: BootstrapMethod.UserData,
+        communicationMethod: CommunicationMethod.Ssh,
+      },
+    };
+    const bootstrapSettingsChange = vi.fn();
+    const ControlledForm = () => {
+      const [formData, setFormData] = useState(initialState);
+      const formSchema = useMemo(
+        () =>
+          getFormSchema({
+            architecture: formData.setup.arch,
+            bootstrapMethod: formData.setup.bootstrapMethod,
+            bootstrapSettings: initialState.bootstrapSettings,
+            isSingleTaskDistro: false,
+            provider: Provider.Static,
+          }),
+        [formData.setup.arch, formData.setup.bootstrapMethod],
+      );
+
+      return (
+        <SpruceForm
+          customValidate={validate}
+          fields={formSchema.fields}
+          formData={formData}
+          onChange={({ formData: nextFormData }) => {
+            bootstrapSettingsChange(nextFormData.bootstrapSettings);
+            formToGql(nextFormData, distroData);
+            setFormData(nextFormData);
+          }}
+          schema={formSchema.schema}
+          uiSchema={formSchema.uiSchema}
+        />
+      );
+    };
+
+    render(<ControlledForm />);
+
+    await user.clear(screen.getByLabelText("Client Directory"));
+    await user.type(
+      screen.getByLabelText("Client Directory"),
+      "/tmp/modified-client",
+    );
+    await user.click(screen.getByLabelText("Host Bootstrap Method"));
+    await user.click(screen.getByRole("option", { name: "Legacy SSH" }));
+
+    expect(bootstrapSettingsChange).toHaveBeenLastCalledWith({
+      ...initialState.bootstrapSettings,
+      clientDir: "/tmp/modified-client",
+    });
+    expect(screen.queryByText("Bootstrap Settings")).not.toBeInTheDocument();
+  });
+});
 
 describe("host tab validate", () => {
   it("does not add errors when container isolation is disabled and unconfigured", () => {

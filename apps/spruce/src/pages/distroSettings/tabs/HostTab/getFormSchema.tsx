@@ -16,6 +16,7 @@ import { HostFormState } from "./types";
 
 type FormSchemaParams = {
   architecture: Arch;
+  bootstrapMethod: BootstrapMethod | undefined;
   bootstrapSettings: HostFormState["bootstrapSettings"];
   isSingleTaskDistro: boolean;
   provider: Provider;
@@ -23,6 +24,7 @@ type FormSchemaParams = {
 
 export const getFormSchema = ({
   architecture,
+  bootstrapMethod,
   bootstrapSettings: initialBootstrapSettings,
   isSingleTaskDistro,
   provider,
@@ -30,6 +32,10 @@ export const getFormSchema = ({
   const hasStaticProvider = provider === Provider.Static;
   const hasDockerProvider = provider === Provider.Docker;
   const hasEC2Provider = !hasStaticProvider && !hasDockerProvider;
+  const bootstrapSettingsWithDefault = {
+    ...bootstrapSettings,
+    default: initialBootstrapSettings,
+  };
 
   return {
     fields: {},
@@ -106,6 +112,7 @@ export const getFormSchema = ({
                     bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
                   },
                 },
+                bootstrapSettings: bootstrapSettingsWithDefault,
                 sshConfig,
                 containerIsolation,
                 allocation,
@@ -120,10 +127,7 @@ export const getFormSchema = ({
                     },
                   },
                 },
-                bootstrapSettings: {
-                  ...bootstrapSettings,
-                  default: initialBootstrapSettings,
-                },
+                bootstrapSettings: bootstrapSettingsWithDefault,
                 sshConfig,
                 containerIsolation,
                 allocation,
@@ -139,7 +143,10 @@ export const getFormSchema = ({
         hasStaticProvider,
         isSingleTaskDistro,
       ),
-      bootstrapSettings: bootstrapProperties.uiSchema(architecture),
+      bootstrapSettings:
+        bootstrapMethod === BootstrapMethod.LegacySsh
+          ? { "ui:widget": "hidden" }
+          : bootstrapProperties.uiSchema(architecture),
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
       containerIsolation: containerIsolationProperties.uiSchema(architecture),
       allocation: allocationProperties.uiSchema(

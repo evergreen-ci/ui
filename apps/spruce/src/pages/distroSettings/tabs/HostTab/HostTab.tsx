@@ -16,16 +16,24 @@ export const HostTab: React.FC<TabProps> = ({
   const { getTab } = useDistroSettingsContext();
   const { formData } = getTab(DistroSettingsTabRoutes.Host);
   const architecture = formData?.setup?.arch;
+  const bootstrapMethod = formData?.setup?.bootstrapMethod;
 
   const formSchema = useMemo(
     () =>
       getFormSchema({
         architecture,
+        bootstrapMethod,
         bootstrapSettings: distroData.bootstrapSettings,
         isSingleTaskDistro,
         provider,
       }),
-    [architecture, distroData.bootstrapSettings, isSingleTaskDistro, provider],
+    [
+      architecture,
+      bootstrapMethod,
+      distroData.bootstrapSettings,
+      isSingleTaskDistro,
+      provider,
+    ],
   );
 
   return (

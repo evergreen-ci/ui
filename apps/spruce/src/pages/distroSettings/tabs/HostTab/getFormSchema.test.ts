@@ -1,4 +1,4 @@
-import { Arch, Provider } from "gql/generated/types";
+import { Arch, BootstrapMethod, Provider } from "gql/generated/types";
 import { getFormSchema } from "./getFormSchema";
 import { HostFormState } from "./types";
 
@@ -24,6 +24,7 @@ describe("getFormSchema", () => {
   it("restores bootstrap settings when selecting a non-legacy bootstrap method", () => {
     const formSchema = getFormSchema({
       architecture: Arch.Linux_64Bit,
+      bootstrapMethod: BootstrapMethod.Ssh,
       bootstrapSettings: initialBootstrapSettings,
       isSingleTaskDistro: false,
       provider: Provider.Ec2Fleet,

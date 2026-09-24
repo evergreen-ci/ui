@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
@@ -25,7 +24,6 @@ export const ArrayFieldTemplate: React.FC<
   >
 > = ({ disabled, items, onAddClick, readonly }) => {
   const isDisabled = readonly || disabled;
-  const columns = useMemo(() => getColumns(), []);
   const table = useLeafyGreenTable<ArrayItem>({
     columns,
     data: items,
@@ -73,7 +71,7 @@ const HeaderLabel = styled.span`
   width: 100%;
 `;
 
-const getColumns = (): LGColumnDef<ArrayItem>[] => [
+const columns: LGColumnDef<ArrayItem>[] = [
   {
     id: "fields",
     header: () => (
