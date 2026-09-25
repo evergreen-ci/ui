@@ -63,7 +63,11 @@ describe("restartFailedTasks", () => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
     expect(dispatchToast.success).toHaveBeenCalledWith(
-      "Successfully restarted tasks!",
+      expect.objectContaining({
+        props: expect.objectContaining({
+          message: "Successfully restarted tasks!",
+        }),
+      }),
     );
   });
 
