@@ -7,8 +7,10 @@ import { AjvError } from "@rjsf/core";
 import isEqual from "lodash.isequal";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
+import { slackUsernameQueryParam } from "constants/routes";
 import { notificationFields } from "constants/subscription";
 import {
   Notifications,
@@ -31,6 +33,9 @@ export const Settings: React.FC<SettingsProps> = ({
   const dispatchToast = useToastContext();
   const { sendEvent } = usePreferencesAnalytics();
   const [formErrors, setFormErrors] = useState<AjvError[]>([]);
+  // Set when the user follows the link from the notification modal to save the Slack username they typed.
+  const [prefilledSlackUsername] = useQueryParam(slackUsernameQueryParam, "");
+  const isSlackUsernamePrefilled = !slackUsername && !!prefilledSlackUsername;
 
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
@@ -48,6 +53,7 @@ export const Settings: React.FC<SettingsProps> = ({
     const variables = { userSettings: formState };
     sendEvent({
       name: "Saved notification preferences",
+      "slack_username.prefilled_from_link": isSlackUsernamePrefilled,
     });
     updateUserSettings({
       variables,
@@ -64,7 +70,11 @@ export const Settings: React.FC<SettingsProps> = ({
     [notifications, slackMemberId, slackUsername],
   );
 
-  const [formState, setFormState] = useState<FormState>(initialState);
+  const [formState, setFormState] = useState<FormState>(() =>
+    isSlackUsernamePrefilled
+      ? { ...initialState, slackUsername: String(prefilledSlackUsername) }
+      : initialState,
+  );
 
   const hasChanges =
     slackUsername !== formState.slackUsername ||

@@ -320,6 +320,14 @@ export const getFileDiffRoute = (
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;
 
+/** Query param that prefills the Slack username on the notification preferences page. */
+export const slackUsernameQueryParam = "slackUsername";
+
+export const getSlackUsernamePreferencesRoute = (slackUsername: string) =>
+  `${getPreferencesRoute(PreferencesTabRoutes.Notifications)}?${stringifyQuery({
+    [slackUsernameQueryParam]: slackUsername,
+  })}`;
+
 export const getTaskQueueRoute = (distro: string, taskId?: string) => {
   const queryParams = stringifyQuery({
     taskId,
