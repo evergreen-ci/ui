@@ -50,6 +50,7 @@ export const notificationMethodToCopy = projectSubscriptionMethods.reduce(
 /** Where the user opened the notification modal from, used to compare entry points in analytics. */
 export enum NotificationModalSource {
   NotifyMeButton = "notify_me_button",
+  RestartToast = "restart_toast",
   TaskHistory = "task_history",
   WaterfallMenu = "waterfall_menu",
 }
@@ -65,4 +66,8 @@ export type CreatedNotificationAction = {
   "subscription.changed_initial_selection": boolean;
   "subscription.type": string;
   "subscription.trigger": string;
+};
+
+export type ViewedRestartNotificationPromptAction = {
+  name: "Viewed restart notification prompt";
 };

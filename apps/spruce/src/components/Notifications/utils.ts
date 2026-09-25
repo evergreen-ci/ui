@@ -1,5 +1,9 @@
 import { StringMap } from "@evg-ui/lib/types/utils";
-import { SaveSubscriptionForUserMutationVariables } from "gql/generated/types";
+import { taskTriggers, versionTriggers } from "constants/triggers";
+import {
+  SaveSubscriptionForUserMutationVariables,
+  SubscriptionInput,
+} from "gql/generated/types";
 import {
   CreatedNotificationAction,
   NotificationMethods,
@@ -149,6 +153,14 @@ export const getDefaultNotificationMethod = (
   "";
 
 /**
+ * getResourceTriggers returns the triggers a user can subscribe to for the given resource type.
+ * @param type - the type of resource being subscribed to
+ * @returns the triggers for the resource type
+ */
+export const getResourceTriggers = (type: "task" | "version") =>
+  type === "task" ? taskTriggers : versionTriggers;
+
+/**
  * getCreatedNotificationEvent builds the analytics event sent when a user creates a subscription.
  * @param source - where the user created the subscription from
  * @param subscription - the subscription that was saved
@@ -167,3 +179,31 @@ export const getCreatedNotificationEvent = (
   "subscription.type": subscription.subscriber.type || "",
   "subscription.trigger": subscription.trigger || "",
 });
+
+/**
+ * getSlackOnOutcomeSubscription builds a subscription that Slacks the user when the resource finishes.
+ * @param type - the type of resource being subscribed to
+ * @param resourceId - the ID of the resource being subscribed to
+ * @param slackUsername - the user's Slack username
+ * @returns the subscription to save
+ */
+export const getSlackOnOutcomeSubscription = (
+  type: "task" | "version",
+  resourceId: string,
+  slackUsername: string,
+): SubscriptionInput => {
+  const triggers = getResourceTriggers(type);
+  return getGqlPayload(type, triggers, resourceId, {
+    event: {
+      eventSelect: getDefaultEvent(triggers),
+      extraFields: {},
+      regexSelector: [],
+    },
+    notification: {
+      notificationSelect: NotificationMethods.SLACK,
+      jiraCommentInput: "",
+      slackInput: `@${slackUsername}`,
+      emailInput: "",
+    },
+  });
+};
