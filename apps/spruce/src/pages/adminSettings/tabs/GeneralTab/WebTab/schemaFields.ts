@@ -43,6 +43,11 @@ export const ui = {
       title: "Parsley URL",
       format: "validURL",
     },
+    logUrl: {
+      type: "string" as const,
+      title: "Log URL",
+      format: "validURL",
+    },
     fileStreamingContentTypes: {
       type: "array" as const,
       title: "File Streaming Content Types",
@@ -98,6 +103,18 @@ export const ui = {
     },
   },
   uiSchema: {
+    url: {
+      "ui:description": "The non-corpsecure URL to handle Okta login flow.",
+    },
+    uiv2Url: {
+      "ui:description": "The corpsecure URL for Spruce.",
+    },
+    parsleyUrl: {
+      "ui:description": "The corpsecure URL for Parsley.",
+    },
+    logUrl: {
+      "ui:description": "The Evergreen URL from which to fetch logs.",
+    },
     fileStreamingContentTypes: {
       "ui:fieldCss": fullWidthCss,
       "ui:widget": widgets.ChipInputWidget,
