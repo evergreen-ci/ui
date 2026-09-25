@@ -4,6 +4,7 @@ export { AttachVolumeSelect } from "./AttachVolumeSelect";
 export {
   defaultSleepSchedule,
   getEnabledHoursCount,
+  getHostUptimeError,
   getHostUptimeFromGql,
   getHostUptimeWarnings,
   isNullSleepSchedule,

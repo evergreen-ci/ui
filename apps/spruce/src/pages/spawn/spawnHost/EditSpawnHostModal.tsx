@@ -6,6 +6,7 @@ import { useSpawnAnalytics } from "analytics";
 import {
   defaultSleepSchedule,
   getEnabledHoursCount,
+  getHostUptimeError,
   getHostUptimeFromGql,
   getHostUptimeWarnings,
   isNullSleepSchedule,
@@ -89,9 +90,23 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const [hasError, setHasError] = useState(false);
 
+  const hostUptimeError = useMemo(
+    () =>
+      getHostUptimeError({
+        hostUptime: formState.expirationDetails?.hostUptime,
+        noExpiration: formState.expirationDetails?.noExpiration,
+        permanentlyExempt: !!host.sleepSchedule?.permanentlyExempt,
+      }),
+    [
+      formState.expirationDetails?.hostUptime,
+      formState.expirationDetails?.noExpiration,
+      host.sleepSchedule?.permanentlyExempt,
+    ],
+  );
+
   const hostUptimeWarnings = useMemo(() => {
     const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
-      formState?.expirationDetails?.hostUptime,
+      formState.expirationDetails?.hostUptime,
     );
     const warnings = getHostUptimeWarnings({
       enabledHoursCount,
@@ -101,7 +116,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           ?.runContinuously ?? false,
     });
     return { enabledHoursCount, warnings };
-  }, [formState?.expirationDetails?.hostUptime]);
+  }, [formState.expirationDetails?.hostUptime]);
 
   const { schema, uiSchema } = getFormSchema({
     canEditInstanceType: host.status === HostStatus.Stopped,
@@ -109,6 +124,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       (host?.distro?.isWindows && host.status === HostStatus.Running) ?? false,
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
+    hostUptimeError,
     hostUptimeWarnings,
     instanceTypes: instanceTypes ?? [],
     myPublicKeys: publicKeys ?? [],
@@ -186,6 +202,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       title="Edit Host Details"
     >
       <SpruceForm
+        customValidate={validator(!!host?.sleepSchedule?.permanentlyExempt)}
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
@@ -193,8 +210,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         }}
         schema={schema}
         uiSchema={uiSchema}
-        // @ts-expect-error rjsf v4 has insufficient typing for its validator
-        validate={validator(!!host?.sleepSchedule?.permanentlyExempt)}
       />
     </ConfirmationModal>
   );

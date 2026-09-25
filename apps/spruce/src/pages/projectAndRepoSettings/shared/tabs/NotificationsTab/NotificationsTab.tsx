@@ -40,10 +40,10 @@ export const NotificationsTab: React.FC<TabProps> = ({
 
   return (
     <BaseTab
+      customValidate={validate}
       formSchema={formSchema}
       initialFormState={initialFormState as NotificationsFormState}
       tab={tab}
-      validate={validate}
     />
   );
 };

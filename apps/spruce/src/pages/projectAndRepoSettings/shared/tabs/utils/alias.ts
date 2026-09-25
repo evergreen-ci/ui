@@ -311,11 +311,12 @@ export const baseProps = {
       "ui:addButtonText": "Add task tag",
       "ui:orderable": false,
       "ui:sectionId": "task-tags-field",
-      "ui:showLabel": false,
+      "ui:label": false,
       "ui:topAlignDelete": true,
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-testid": "task-tags-input",
+        "ui:label": false,
       },
     },
   },
@@ -352,11 +353,12 @@ export const baseProps = {
       "ui:addButtonText": "Add variant tag",
       "ui:orderable": false,
       "ui:sectionId": "variant-tags-field",
-      "ui:showLabel": false,
+      "ui:label": false,
       "ui:topAlignDelete": true,
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-testid": "variant-tags-input",
+        "ui:label": false,
       },
     },
   },
@@ -510,6 +512,7 @@ const parameters = {
   },
   uiSchema: {
     "ui:addButtonText": "Add parameter",
+    "ui:orderable": false,
     items: {
       "ui:ObjectFieldTemplate": FieldRow,
       "ui:data-testid": "parameter-input",
@@ -528,6 +531,7 @@ export const gitTagArray = {
     type: "array" as const,
     items: {
       type: "object" as const,
+      title: "Git Tag",
       properties: {
         gitTag: gitTag.schema,
         specifier: {
@@ -576,7 +580,7 @@ export const gitTagArray = {
   uiSchema: {
     "ui:addButtonText": "Add git tag",
     "ui:orderable": false,
-    "ui:showLabel": false,
+    "ui:label": false,
     "ui:topAlignDelete": true,
     items: {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,
@@ -626,17 +630,18 @@ export const aliasRowUiSchema = ({
   numberedTitle,
   useExpandableCard = false,
 }: AliasRowUIParams) => ({
-  "ui:showLabel": false,
+  "ui:label": false,
   "ui:topAlignDelete": true,
   "ui:useExpandableCard": useExpandableCard,
   "ui:orderable": false,
   ...(addButtonText && { "ui:addButtonText": addButtonText }),
   ...(isRepo && { "ui:readonly": true }),
-  items: {
+  items: (itemData?: { displayTitle?: string }) => ({
+    "ui:title": itemData?.displayTitle || displayTitle || "",
+    "ui:label": false,
     ...(!useExpandableCard && {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,
     }),
-    ...(displayTitle && { "ui:displayTitle": displayTitle }),
     ...(numberedTitle && { "ui:numberedTitle": numberedTitle }),
     "ui:useExpandableCard": useExpandableCard,
     ...(!aliasHidden && {
@@ -646,7 +651,7 @@ export const aliasRowUiSchema = ({
     variants: variants.uiSchema,
     tasks: tasks.uiSchema,
     parameters: parameters.uiSchema,
-  },
+  }),
 });
 
 export const patchAliasArray = {

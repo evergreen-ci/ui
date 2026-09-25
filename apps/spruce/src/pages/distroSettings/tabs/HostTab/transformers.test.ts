@@ -45,6 +45,22 @@ describe("host tab", () => {
     });
   });
 
+  it("sends empty bootstrap settings when the form has none", () => {
+    const { bootstrapSettings, ...legacyForm } = form;
+    const result = formToGql(legacyForm, undefined);
+    expect(result?.bootstrapSettings).toMatchObject({
+      clientDir: "",
+      env: [],
+      jasperBinaryDir: "",
+      jasperCredentialsPath: "",
+      method: BootstrapMethod.LegacySsh,
+      preconditionScripts: [],
+      serviceUser: "",
+      shellPath: "",
+    });
+    expect(result?.homeVolumeSettings).toStrictEqual({ formatCommand: "" });
+  });
+
   it("correctly converts from GQL to a form when mountpoints is null", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(gqlToForm({ ...distroData, mountpoints: null })).toStrictEqual({

@@ -59,7 +59,6 @@ export const getFormSchema = ({
       },
     },
     dependencies: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       provider: {
         oneOf: [
           {
@@ -178,19 +177,24 @@ export const getFormSchema = ({
     },
     ec2FleetProviderSettings: {
       "ui:data-testid": "ec2-fleet-provider-settings",
+      "ui:label": false,
       "ui:useExpandableCard": true,
       "ui:addButtonText": "Add region settings",
+      "ui:addToEnd": true,
       "ui:addable": fleetRegionsInUse.length < awsRegions.length,
       "ui:orderable": false,
-      items: {
-        "ui:displayTitle": "New AWS Region",
+      items: (itemData?: { displayTitle?: string; region?: string }) => ({
+        "ui:title": itemData?.displayTitle || "New AWS Region",
+        "ui:label": false,
         region: {
           "ui:data-testid": "region-select",
           "ui:allowDeselect": false,
-          "ui:enumDisabled": fleetRegionsInUse,
+          "ui:enumDisabled": fleetRegionsInUse.filter(
+            (region) => region !== itemData?.region,
+          ),
         },
         ...ec2FleetProviderSettings.uiSchema,
-      },
+      }),
     },
     taskHostOverrides: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,

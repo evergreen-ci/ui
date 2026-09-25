@@ -1,3 +1,4 @@
+import { labelValue } from "@rjsf/utils";
 import { ALL_VALUE, TreeSelect } from "@evg-ui/lib/components/TreeSelect";
 import Dropdown from "components/Dropdown";
 import ElementWrapper from "../ElementWrapper";
@@ -6,6 +7,7 @@ import { EnumSpruceWidgetProps } from "./types";
 
 export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   disabled,
+  hideLabel,
   label,
   onChange,
   options,
@@ -17,6 +19,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
     elementWrapperCSS,
     enumOptions = [],
   } = options;
+  const widgetLabel = labelValue(label, hideLabel);
 
   const dropdownOptions = [
     {
@@ -42,9 +45,11 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <div className={styles.container}>
-        <label htmlFor={`${label}-multiselect`}>{label}</label>
+        {widgetLabel && (
+          <label htmlFor={`${label}-multiselect`}>{widgetLabel}</label>
+        )}
         <Dropdown
-          buttonText={`${label}: ${
+          buttonText={`${widgetLabel ? `${widgetLabel}: ` : ""}${
             value.length ? value.join(", ") : "No options selected."
           }`}
           data-testid={dataTestId}
@@ -57,7 +62,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
             tData={dropdownOptions}
           />
         </Dropdown>
-        {rawErrors?.length > 0 && (
+        {(rawErrors?.length ?? 0) > 0 && (
           <span className="error">{rawErrors?.join(", ")}</span>
         )}
       </div>

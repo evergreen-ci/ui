@@ -64,16 +64,17 @@ export const PullRequestsTab: React.FC<TabProps> = ({
     versionControlEnabled,
   );
 
+  if (!initialFormState) return null;
+
   return (
     <>
       {!githubWebhooksEnabled && <GithubWebhooksDisabledBanner />}
       <BaseTab
+        customValidate={validateConflicts}
         disabled={!githubWebhooksEnabled}
         formSchema={formSchema}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         initialFormState={initialFormState}
         tab={tab}
-        validate={validateConflicts}
       />
     </>
   );

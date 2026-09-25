@@ -77,12 +77,16 @@ export const containerPools = {
     "ui:data-testid": "container-pools",
     "ui:objectFieldCss": objectGridCss,
     pools: {
+      "ui:label": false,
       "ui:addButtonText": "Add container pool",
       "ui:data-testid": "container-pools-list",
       "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
+      items: {
+        "ui:label": false,
+      },
     },
   },
 };
@@ -118,6 +122,9 @@ const accountRoles = {
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,
     "ui:arrayItemCSS": arrayItemCSS,
+    items: {
+      "ui:label": false,
+    },
   },
 };
 
@@ -152,6 +159,9 @@ const subnets = {
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,
     "ui:arrayItemCSS": arrayItemCSS,
+    items: {
+      "ui:label": false,
+    },
   },
 };
 
