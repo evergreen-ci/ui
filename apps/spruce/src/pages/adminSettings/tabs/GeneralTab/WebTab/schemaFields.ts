@@ -104,7 +104,8 @@ export const ui = {
   },
   uiSchema: {
     url: {
-      "ui:description": "The non-corpsecure URL to handle Okta login flow.",
+      "ui:description":
+        "The non-corpsecure backend URL to handle Okta login flow.",
     },
     uiv2Url: {
       "ui:description": "The corpsecure URL for Spruce.",
