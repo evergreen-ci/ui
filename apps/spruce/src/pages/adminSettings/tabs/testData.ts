@@ -132,6 +132,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     url: "http://ui.example.com",
     uiv2Url: "http://uiv2.example.com",
     parsleyUrl: "http://parsley.example.com",
+    logUrl: "http://log.example.com",
     httpListenAddr: "http://localhost:8081",
     secret: "supersecret",
     defaultProject: "default",

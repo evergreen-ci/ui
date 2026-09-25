@@ -119,6 +119,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
         fileStreamingContentTypes
         httpListenAddr
         loginDomain
+        logUrl
         parsleyUrl
         secret
         stagingEnvironment

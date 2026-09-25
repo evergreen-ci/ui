@@ -4809,6 +4809,7 @@ export type UiConfig = {
   defaultProject: Scalars["String"]["output"];
   fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
   httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  logUrl?: Maybe<Scalars["String"]["output"]>;
   loginDomain?: Maybe<Scalars["String"]["output"]>;
   parsleyUrl?: Maybe<Scalars["String"]["output"]>;
   secret?: Maybe<Scalars["String"]["output"]>;
@@ -4826,6 +4827,7 @@ export type UiConfigInput = {
   defaultProject: Scalars["String"]["input"];
   fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
   httpListenAddr: Scalars["String"]["input"];
+  logUrl?: InputMaybe<Scalars["String"]["input"]>;
   loginDomain: Scalars["String"]["input"];
   parsleyUrl: Scalars["String"]["input"];
   secret: Scalars["String"]["input"];
@@ -7353,6 +7355,7 @@ export type SaveAdminSettingsMutation = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;
@@ -8219,6 +8222,7 @@ export type AdminSettingsQuery = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;
