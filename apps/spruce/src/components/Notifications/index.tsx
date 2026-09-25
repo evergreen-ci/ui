@@ -38,6 +38,8 @@ import {
 
 export interface NotificationModalProps {
   "data-testid": string;
+  /** Start from the recommended defaults instead of the user's last-used selections saved in cookies. */
+  ignoreSavedSelections?: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   resourceId: string;
   sendAnalyticsEvent: (
@@ -52,6 +54,7 @@ export interface NotificationModalProps {
 
 export const NotificationModal: React.FC<NotificationModalProps> = ({
   "data-testid": dataTestId,
+  ignoreSavedSelections = false,
   onCancel,
   resourceId,
   sendAnalyticsEvent,
@@ -80,14 +83,15 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const getInitialFormState = (): FormState => ({
     event: {
       eventSelect:
-        Cookies.get(getNotificationTriggerCookie(type)) ??
+        (!ignoreSavedSelections &&
+          Cookies.get(getNotificationTriggerCookie(type))) ||
         getDefaultEvent(triggers),
       extraFields: {},
       regexSelector: [],
     },
     notification: {
       notificationSelect:
-        Cookies.get(SUBSCRIPTION_METHOD) ??
+        (!ignoreSavedSelections && Cookies.get(SUBSCRIPTION_METHOD)) ||
         getDefaultNotificationMethod(subscriptionMethods),
       jiraCommentInput: "",
       slackInput: slackUsername ? `@${slackUsername}` : "",

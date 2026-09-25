@@ -10,6 +10,7 @@ import { VERSION } from "gql/queries";
 import {
   CreatedNotificationAction,
   ViewedNotificationModalAction,
+  ViewedRestartNotificationPromptAction,
 } from "types/subscription";
 
 type Action =
@@ -45,6 +46,7 @@ type Action =
   | { name: "Filtered task duration table"; "filter.by": string | string[] }
   | { name: "Sorted task duration table"; "sort.by": string | string[] }
   | ViewedNotificationModalAction
+  | ViewedRestartNotificationPromptAction
   | { name: "Viewed schedule tasks modal" }
   | {
       name: "Toggled include never activated tasks";
