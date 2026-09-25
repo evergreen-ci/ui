@@ -154,7 +154,7 @@ test.describe("Waterfall subscription modal", () => {
       },
       {
         name: "subscription-method",
-        value: "slack",
+        value: "email",
         domain: "localhost",
         path: "/",
       },
@@ -166,7 +166,7 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(modalTestId)).toBeVisible();
     await expect(page.getByText("Any build fails")).toBeVisible();
     await expect(
-      page.getByTestId("notification-method-select").getByText("Slack message"),
+      page.getByTestId("notification-method-select").getByText("Email"),
     ).toBeVisible();
   });
 });

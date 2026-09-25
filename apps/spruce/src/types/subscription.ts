@@ -51,6 +51,7 @@ export const notificationMethodToCopy = projectSubscriptionMethods.reduce(
 export enum NotificationModalSource {
   NotifyMeButton = "notify_me_button",
   TaskHistory = "task_history",
+  WaterfallMenu = "waterfall_menu",
 }
 
 export type ViewedNotificationModalAction = {
