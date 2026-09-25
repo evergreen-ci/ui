@@ -2,6 +2,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   CreatedNotificationAction,
   NotificationModalSource,
+  ViewedNotificationModalAction,
   ViewedRestartNotificationPromptAction,
   subscriptionMethods,
 } from "types/subscription";
@@ -12,6 +13,7 @@ import { RestartToastMessage, RestartToastMessageProps } from ".";
 
 type RestartToastAction =
   | ViewedRestartNotificationPromptAction
+  | ViewedNotificationModalAction
   | CreatedNotificationAction;
 
 interface UseRestartSuccessToastOptions extends Pick<
@@ -56,7 +58,11 @@ export const useRestartSuccessToast = ({
       <RestartToastMessage
         message={message}
         onError={(errorMessage) => dispatchToast.error(errorMessage)}
-        onOpenModal={() =>
+        onOpenModal={() => {
+          sendEvent({
+            name: "Viewed notification modal",
+            "notification.source": NotificationModalSource.RestartToast,
+          });
           openNotificationModal({
             "data-testid": "restart-notification-modal",
             ignoreSavedSelections: true,
@@ -65,8 +71,8 @@ export const useRestartSuccessToast = ({
             subscriptionMethods,
             triggers: getResourceTriggers(type),
             type,
-          })
-        }
+          });
+        }}
         onSubscribe={(subscription) =>
           onSubscribe(subscription, { changedInitialSelection: false })
         }
