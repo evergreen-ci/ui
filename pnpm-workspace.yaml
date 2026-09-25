@@ -6,6 +6,7 @@ packages:
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   - '@via-ds/components'
+  - '@via-ds/eslint-plugin'
   - '@via-ds/icons'
   - '@via-ds/tokens'
 # Fix from DEVPROD-41675. A regression in @opentelemetry/instrumentation-user-interaction
