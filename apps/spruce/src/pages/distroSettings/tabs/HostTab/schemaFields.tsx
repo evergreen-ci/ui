@@ -190,6 +190,7 @@ export const mountpoints = {
     "ui:orderable": false,
     items: {
       "ui:placeholder": "/data",
+      "ui:title": "Mountpoint",
     },
   },
 };

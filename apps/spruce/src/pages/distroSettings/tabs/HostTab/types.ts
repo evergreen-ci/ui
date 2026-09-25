@@ -24,7 +24,8 @@ export interface HostFormState {
     icecreamConfigPath: string;
     mountpoints: string[];
   };
-  bootstrapSettings: {
+  // Undefined when the selected bootstrap method (Legacy SSH) does not use bootstrap settings.
+  bootstrapSettings?: {
     jasperBinaryDir: string;
     jasperCredentialsPath: string;
     clientDir: string;

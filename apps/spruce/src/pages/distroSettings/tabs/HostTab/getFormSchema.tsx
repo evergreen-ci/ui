@@ -12,30 +12,21 @@ import {
   setup,
   sshConfig as sshConfigProperties,
 } from "./schemaFields";
-import { HostFormState } from "./types";
 
 type FormSchemaParams = {
   architecture: Arch;
-  bootstrapMethod: BootstrapMethod | undefined;
-  bootstrapSettings: HostFormState["bootstrapSettings"];
   isSingleTaskDistro: boolean;
   provider: Provider;
 };
 
 export const getFormSchema = ({
   architecture,
-  bootstrapMethod,
-  bootstrapSettings: initialBootstrapSettings,
   isSingleTaskDistro,
   provider,
 }: FormSchemaParams): ReturnType<GetFormSchema> => {
   const hasStaticProvider = provider === Provider.Static;
   const hasDockerProvider = provider === Provider.Docker;
   const hasEC2Provider = !hasStaticProvider && !hasDockerProvider;
-  const bootstrapSettingsWithDefault = {
-    ...bootstrapSettings,
-    default: initialBootstrapSettings,
-  };
 
   return {
     fields: {},
@@ -112,7 +103,6 @@ export const getFormSchema = ({
                     bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
                   },
                 },
-                bootstrapSettings: bootstrapSettingsWithDefault,
                 sshConfig,
                 containerIsolation,
                 allocation,
@@ -127,7 +117,7 @@ export const getFormSchema = ({
                     },
                   },
                 },
-                bootstrapSettings: bootstrapSettingsWithDefault,
+                bootstrapSettings,
                 sshConfig,
                 containerIsolation,
                 allocation,
@@ -143,10 +133,7 @@ export const getFormSchema = ({
         hasStaticProvider,
         isSingleTaskDistro,
       ),
-      bootstrapSettings:
-        bootstrapMethod === BootstrapMethod.LegacySsh
-          ? { "ui:widget": "hidden" }
-          : bootstrapProperties.uiSchema(architecture),
+      bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
       containerIsolation: containerIsolationProperties.uiSchema(architecture),
       allocation: allocationProperties.uiSchema(

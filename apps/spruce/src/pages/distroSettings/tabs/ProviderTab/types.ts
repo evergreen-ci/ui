@@ -29,7 +29,8 @@ export type ProviderFormState = {
     mergeUserData: boolean;
     securityGroups: string[];
   };
-  ec2FleetProviderSettings: Array<{
+  // Undefined after switching to EC2 Fleet from another provider.
+  ec2FleetProviderSettings?: Array<{
     displayTitle: string;
     region: string;
     amiId: string;

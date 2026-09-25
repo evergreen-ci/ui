@@ -9,24 +9,19 @@ import {
   taskHostOverridesFields,
 } from "./schemaFields";
 import { textAreaCSS } from "./styles";
-import { ProviderFormState } from "./types";
 
 export const getFormSchema = ({
   awsRegions,
-  ec2FleetProviderSettings: initialEC2FleetProviderSettings,
   fleetRegionsInUse,
   isEC2Provider,
   poolMappingInfo,
   pools,
-  taskHostOverrides: initialTaskHostOverrides,
 }: {
   awsRegions: string[];
-  ec2FleetProviderSettings: ProviderFormState["ec2FleetProviderSettings"];
   fleetRegionsInUse: string[];
   poolMappingInfo: string;
   pools: ContainerPool[];
   isEC2Provider: boolean;
-  taskHostOverrides: ProviderFormState["taskHostOverrides"];
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -127,7 +122,6 @@ export const getFormSchema = ({
                 type: "array" as const,
                 minItems: 1,
                 title: "",
-                default: initialEC2FleetProviderSettings,
                 items: {
                   type: "object" as const,
                   properties: {
@@ -145,10 +139,7 @@ export const getFormSchema = ({
                   },
                 },
               },
-              taskHostOverrides: {
-                ...taskHostOverridesFields.schema,
-                default: initialTaskHostOverrides,
-              },
+              taskHostOverrides: taskHostOverridesFields.schema,
             },
           },
         ],
