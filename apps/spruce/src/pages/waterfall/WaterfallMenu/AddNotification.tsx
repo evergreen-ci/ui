@@ -3,8 +3,12 @@ import Bell from "@via-ds/icons/Bell";
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { NotificationModal } from "components/Notifications";
+import { getCreatedNotificationEvent } from "components/Notifications/utils";
 import { waterfallTriggers } from "constants/triggers";
-import { subscriptionMethods } from "types/subscription";
+import {
+  NotificationModalSource,
+  subscriptionMethods,
+} from "types/subscription";
 
 interface AddNotificationProps {
   projectIdentifier: string;
@@ -23,6 +27,10 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
         data-testid="add-notification"
         glyph={<Bell />}
         onClick={() => {
+          sendEvent({
+            name: "Viewed notification modal",
+            "notification.source": NotificationModalSource.WaterfallMenu,
+          });
           setIsModalVisible(true);
         }}
       >
@@ -35,12 +43,14 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
           setMenuOpen(false);
         }}
         resourceId={projectIdentifier}
-        sendAnalyticsEvent={(subscription) =>
-          sendEvent({
-            name: "Created notification",
-            "subscription.type": subscription.subscriber.type || "",
-            "subscription.trigger": subscription.trigger || "",
-          })
+        sendAnalyticsEvent={(subscription, details) =>
+          sendEvent(
+            getCreatedNotificationEvent(
+              NotificationModalSource.WaterfallMenu,
+              subscription,
+              details,
+            ),
+          )
         }
         subscriptionMethods={subscriptionMethods}
         triggers={waterfallTriggers}

@@ -1,35 +1,34 @@
-import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
-import { slugs } from "constants/routes";
+import { getCreatedNotificationEvent } from "components/Notifications/utils";
 import { versionTriggers } from "constants/triggers";
-import { subscriptionMethods as versionSubscriptionMethods } from "types/subscription";
+import {
+  NotificationModalSource,
+  subscriptionMethods as versionSubscriptionMethods,
+} from "types/subscription";
 
 interface ModalProps {
-  visible: boolean;
   onCancel: () => void;
+  source: NotificationModalSource;
+  versionId: string;
+  visible: boolean;
 }
 
 export const PatchNotificationModal: React.FC<ModalProps> = ({
   onCancel,
+  source,
+  versionId,
   visible,
 }) => {
-  const { [slugs.versionId]: versionId } = useParams();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
 
   return (
     <NotificationModal
       data-testid="patch-notification-modal"
       onCancel={onCancel}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       resourceId={versionId}
-      sendAnalyticsEvent={(subscription) =>
-        sendEvent({
-          name: "Created notification",
-          "subscription.type": subscription.subscriber.type || "",
-          "subscription.trigger": subscription.trigger || "",
-        })
+      sendAnalyticsEvent={(subscription, details) =>
+        sendEvent(getCreatedNotificationEvent(source, subscription, details))
       }
       subscriptionMethods={versionSubscriptionMethods}
       triggers={versionTriggers}
