@@ -18,6 +18,7 @@ import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
 import {
   CreatedNotificationAction,
   ViewedNotificationModalAction,
+  ViewedRestartNotificationPromptAction,
 } from "types/subscription";
 import { LogTypes, RequiredQueryParams } from "types/task";
 
@@ -82,6 +83,7 @@ type Action =
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
   | ViewedNotificationModalAction
+  | ViewedRestartNotificationPromptAction
   | CreatedNotificationAction
   | { name: "Clicked see history link" }
   | { name: "Clicked metadata link"; "link.type": string }
