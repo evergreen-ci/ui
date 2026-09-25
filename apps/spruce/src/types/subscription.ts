@@ -53,6 +53,11 @@ export enum NotificationModalSource {
   TaskHistory = "task_history",
 }
 
+export type ViewedNotificationModalAction = {
+  name: "Viewed notification modal";
+  "notification.source": NotificationModalSource;
+};
+
 export type CreatedNotificationAction = {
   name: "Created notification";
   "notification.source": NotificationModalSource;

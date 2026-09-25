@@ -17,7 +17,7 @@ import { TASK, TASK_TEST_COUNT } from "gql/queries";
 import { CommitType } from "pages/task/ActionButtons/StepbackMenu/types";
 import {
   CreatedNotificationAction,
-  NotificationModalSource,
+  ViewedNotificationModalAction,
 } from "types/subscription";
 import { LogTypes, RequiredQueryParams } from "types/task";
 
@@ -81,10 +81,7 @@ type Action =
   | { name: "Clicked skipped tests details button" }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
-  | {
-      name: "Viewed notification modal";
-      "notification.source": NotificationModalSource;
-    }
+  | ViewedNotificationModalAction
   | CreatedNotificationAction
   | { name: "Clicked see history link" }
   | { name: "Clicked metadata link"; "link.type": string }
