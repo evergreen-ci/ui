@@ -3,7 +3,7 @@ import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 
 import styles from "./GroupedTaskStatusBadge.stories.module.css";
-import { GroupedTaskStatusBadge } from ".";
+import { GroupedTaskStatus, GroupedTaskStatusBadge } from ".";
 
 export default {
   component: GroupedTaskStatusBadge,
@@ -26,7 +26,7 @@ export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
   ),
 };
 
-const groupedTaskStats = [
+const groupedTaskStats: { status: GroupedTaskStatus; count: number }[] = [
   { status: TaskStatus.Succeeded, count: 20 },
   { status: TaskStatus.Succeeded, count: 1 },
   { status: TaskStatusUmbrella.Failed, count: 1 },

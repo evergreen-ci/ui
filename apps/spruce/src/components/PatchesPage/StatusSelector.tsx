@@ -1,4 +1,4 @@
-import { Chip, ChipGroup, Combobox, ComboboxItem } from "@via-ds/components";
+import { Select, SelectItem } from "@via-ds/components";
 import { useStatusesFilter } from "hooks";
 import {
   ALL_PATCH_STATUS,
@@ -33,54 +33,27 @@ export const StatusSelector: React.FC = () => {
     }
   };
 
-  const selectedOptions = statusOptions.filter(({ value }) =>
-    statusVal.includes(value),
-  );
-  const onRemove = (keys: Set<React.Key>) => {
-    if (keys.has(ALL_PATCH_STATUS)) {
-      statusValOnChange([]);
-      return;
-    }
-
-    statusValOnChange(
-      statusVal.filter(
-        (value) => value !== ALL_PATCH_STATUS && !keys.has(value),
-      ),
-    );
-  };
-
   return (
-    <div className={styles.comboboxFilter} data-testid="my-patch-status-select">
-      <Combobox
-        aria-label="Patch status"
-        className={styles.filterField}
-        onChange={onChange}
-        placeholder="Patch Status"
-        selectionMode="multiple"
-        showChips={false}
-        value={statusVal}
-      >
-        {statusOptions.map(({ label, value }) => (
-          <ComboboxItem
-            key={value}
-            data-testid={`${value}-option`}
-            id={value}
-            textValue={label}
-          >
-            {label}
-          </ComboboxItem>
-        ))}
-      </Combobox>
-      {selectedOptions.length > 0 && (
-        <ChipGroup aria-label="Selected patch statuses" onRemove={onRemove}>
-          {selectedOptions.map(({ label, value }) => (
-            <Chip key={value} id={value}>
-              {label}
-            </Chip>
-          ))}
-        </ChipGroup>
-      )}
-    </div>
+    <Select
+      aria-label="Patch status"
+      className={styles.filterField}
+      data-testid="my-patch-status-select"
+      onChange={onChange}
+      placeholder="Patch Status"
+      selectionMode="multiple"
+      value={statusVal}
+    >
+      {statusOptions.map(({ label, value }) => (
+        <SelectItem
+          key={value}
+          data-testid={`${value}-option`}
+          id={value}
+          textValue={label}
+        >
+          {label}
+        </SelectItem>
+      ))}
+    </Select>
   );
 };
 

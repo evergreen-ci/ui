@@ -259,7 +259,7 @@ test.describe("My Patches Page", () => {
       await expect(page.getByTestId("patch-card")).toHaveCount(10);
       await page
         .getByTestId("my-patch-status-select")
-        .getByRole("button", { name: "Show suggestions" })
+        .getByRole("button", { name: /Patch status/ })
         .click();
     });
 

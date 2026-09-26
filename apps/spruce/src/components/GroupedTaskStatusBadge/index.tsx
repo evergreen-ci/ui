@@ -5,7 +5,12 @@ import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./index.module.css";
 
-const statusClass: Record<string, string> = {
+export type GroupedTaskStatus =
+  | TaskStatusUmbrella
+  | TaskStatus.Succeeded
+  | TaskStatus.SetupFailed;
+
+const statusClass: Record<GroupedTaskStatus, string> = {
   [TaskStatusUmbrella.Undispatched]: styles.undispatched,
   [TaskStatusUmbrella.Running]: styles.running,
   [TaskStatusUmbrella.SystemFailure]: styles.systemFailure,
@@ -18,7 +23,7 @@ const statusClass: Record<string, string> = {
 interface GroupedTaskStatusBadgeProps {
   count: number;
   onClick?: () => void;
-  status: keyof typeof statusClass;
+  status: GroupedTaskStatus;
   statusCounts?: { [key: string]: number };
   href: string;
   isActive?: boolean;
