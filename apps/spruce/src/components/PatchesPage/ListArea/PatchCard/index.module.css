@@ -30,9 +30,7 @@
   height: 28px;
 }
 
-/* Doubled selector outranks lib's static a.link/span.link override.
-   Remove when links migrate to Via. */
-.descriptionLink.descriptionLink {
+.descriptionLink {
   font-size: 18px;
   font-weight: 500;
   padding-bottom: var(--via-space-200);
