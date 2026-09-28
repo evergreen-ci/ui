@@ -13,7 +13,7 @@ updates:
     commit-message:
       prefix: "CHORE(NPM) - "
     cooldown:
-      default-days: 14
+      semver-patch-days: 30
     groups:
       ai:
         applies-to: version-updates
