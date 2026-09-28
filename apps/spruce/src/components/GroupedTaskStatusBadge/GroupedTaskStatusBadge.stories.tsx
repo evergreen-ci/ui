@@ -28,12 +28,10 @@ export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
 
 const groupedTaskStats: { status: GroupedTaskStatus; count: number }[] = [
   { status: TaskStatus.Succeeded, count: 20 },
-  { status: TaskStatus.Succeeded, count: 1 },
   { status: TaskStatusUmbrella.Failed, count: 1 },
   { status: TaskStatusUmbrella.Running, count: 2 },
   { status: TaskStatusUmbrella.SystemFailure, count: 3 },
   { status: TaskStatus.SetupFailed, count: 4 },
-  { status: TaskStatus.SetupFailed, count: 1 },
   { status: TaskStatusUmbrella.Undispatched, count: 5 },
   { status: TaskStatusUmbrella.Scheduled, count: 5 },
 ];
