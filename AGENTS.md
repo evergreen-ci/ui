@@ -201,6 +201,8 @@ pnpm test run <name>      # Run specific test
 
 Vitest globals (`describe`, `it`, `expect`, `vi`) do not need to be imported.
 
+- Prefer explicitly typed test fixtures over type assertions, especially `as unknown as ...`, when the fixture can be constructed to satisfy its target type.
+
 Use test utilities from `@evg-ui/lib/test_utils`:
 ```typescript
 import { render, screen, userEvent, waitFor, renderWithRouterMatch } from "@evg-ui/lib/test_utils";

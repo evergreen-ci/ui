@@ -1,0 +1,11 @@
+.dialog {
+  text-align: left;
+}
+
+.content.content {
+  padding-bottom: var(--via-space-600);
+}
+
+.versionLabel {
+  padding-top: var(--via-space-200);
+}

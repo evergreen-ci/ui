@@ -1,5 +1,5 @@
-import { Button } from "@leafygreen-ui/button";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Button } from "@via-ds/components/button";
+import { Disclaimer } from "@via-ds/components/typography";
 import ChevronLeft from "@via-ds/icons/ChevronLeft";
 import ChevronRight from "@via-ds/icons/ChevronRight";
 import styles from "./ColumnPaginationButtons.module.css";
@@ -39,22 +39,26 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
   return (
     <div className={styles.container}>
       <Button
+        aria-label="Previous page"
         className={styles.button}
         data-testid="prev-page-button"
-        disabled={!hasPreviousPage}
-        leftGlyph={<ChevronLeft />}
-        onClick={handleOnClickPrev}
-      />
+        isDisabled={!hasPreviousPage}
+        onPress={handleOnClickPrev}
+      >
+        <ChevronLeft />
+      </Button>
       <Disclaimer>
         {currentPage + 1} / {pageCount}
       </Disclaimer>
       <Button
+        aria-label="Next page"
         className={styles.button}
         data-testid="next-page-button"
-        disabled={!hasNextPage}
-        leftGlyph={<ChevronRight />}
-        onClick={handleOnClickNext}
-      />
+        isDisabled={!hasNextPage}
+        onPress={handleOnClickNext}
+      >
+        <ChevronRight />
+      </Button>
     </div>
   );
 };

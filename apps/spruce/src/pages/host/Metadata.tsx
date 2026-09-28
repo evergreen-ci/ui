@@ -12,6 +12,7 @@ export const Metadata: React.FC<{
   error: Error | undefined;
 }> = ({ error, host, loading }) => {
   const {
+    agentRevision,
     ami,
     distro,
     hostUrl,
@@ -61,6 +62,11 @@ export const Metadata: React.FC<{
           {distroId}
         </StyledLink>
       </MetadataItem>
+      {agentRevision && (
+        <MetadataItem label="Evergreen agent version">
+          {agentRevision}
+        </MetadataItem>
+      )}
       {startedBy === MCI_USER && (
         <MetadataItem data-testid="current-running-task" label="Current task">
           {runningTaskName ? (

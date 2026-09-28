@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
@@ -12,6 +11,7 @@ import {
 } from "gql/generated/types";
 import { TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { array } from "utils";
+import styles from "./ColumnHeaders.module.css";
 import { variantHistoryMaxLength as maxLength } from "./constants";
 
 const { mapStringArrayToObject } = array;
@@ -66,7 +66,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   const activeColumns = useColumns(taskNamesForBuildVariant, (c) => c);
 
   return (
-    <RowContainer>
+    <div className={styles.rowContainer}>
       <LabelCellContainer />
       {activeColumns.map((vc) => {
         const cell = columnMap[vc];
@@ -91,13 +91,8 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
           // eslint-disable-next-line react/no-array-index-key
           <LoadingCell key={`loading_cell_${i}`} isHeader />
         ))}
-    </RowContainer>
+    </div>
   );
 };
-
-const RowContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 
 export default ColumnHeaders;

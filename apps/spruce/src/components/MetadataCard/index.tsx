@@ -12,7 +12,6 @@ import {
   TextAliasProps,
 } from "@via-ds/components";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { cx } from "@evg-ui/lib/utils/css";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
@@ -157,9 +156,8 @@ export const MetadataLabel: React.FC<{
   <strong style={color ? { color } : undefined}>{children}</strong>
 );
 
-export const MetadataCardTitle: React.FC<TextAliasProps> = ({
-  className,
-  ...rest
-}) => <H5 className={cx(styles.cardTitle, className)} {...rest} />;
+export const MetadataCardTitle: React.FC<TextAliasProps> = (props) => (
+  <H5 {...props} />
+);
 
 export default MetadataCard;

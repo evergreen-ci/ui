@@ -10,13 +10,8 @@ const vitestConfig = defineTestConfig({
     server: {
       deps: {
         // Inlining works around extensionless lodash ESM imports in the LG
-        // packages (rejected by Node's resolver) and keeps @via-ds/icons on
-        // Vite's faster resolver (188 glyph modules starve the worker pool).
-        inline: [
-          "@via-ds/icons",
-          "@leafygreen-ui/icon",
-          "@leafygreen-ui/icon-button",
-        ],
+        // packages, which Node's resolver rejects.
+        inline: ["@leafygreen-ui/icon-button"],
       },
     },
     setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",

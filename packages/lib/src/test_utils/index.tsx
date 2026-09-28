@@ -1,7 +1,7 @@
 import { createElement, useEffect } from "react";
 import { MockLink } from "@apollo/client/testing";
 import {
-  MockedProvider,
+  MockedProvider as ApolloMockedProvider,
   MockedProviderProps,
 } from "@apollo/client/testing/react";
 import {
@@ -134,6 +134,11 @@ const createWrapper = <T extends Record<string, unknown>>(
   };
 
 type MockedResponse = MockLink.MockedResponse;
+
+const MockedProvider: React.FC<MockedProviderProps> = ({
+  devtools = { enabled: false },
+  ...props
+}) => <ApolloMockedProvider devtools={devtools} {...props} />;
 
 export {
   act,

@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react-vite";
 import { userEvent, within } from "storybook/test";
 import {
@@ -13,6 +12,7 @@ import {
   versionWithUpstreamProject,
 } from "../testData";
 import { getVersionUpstreamProjectMock } from "./testData";
+import styles from "./VersionLabel.stories.module.css";
 import { VersionLabel, VersionLabelView } from ".";
 
 export default {
@@ -31,9 +31,9 @@ export default {
 
 export const Default: StoryObj<typeof VersionLabel> = {
   render: (args) => (
-    <Container>
+    <div className={styles.container}>
       <VersionLabel {...args} />
-    </Container>
+    </div>
   ),
   parameters: {
     apolloClient: {
@@ -91,7 +91,3 @@ export const Broken: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: versionBroken,
 };
-
-const Container = styled.div`
-  max-width: 300px;
-`;

@@ -5,7 +5,7 @@
   flex-shrink: 0;
 }
 
-.button.button {
+.button {
   margin-right: var(--via-space-100);
   margin-left: var(--via-space-100);
 }

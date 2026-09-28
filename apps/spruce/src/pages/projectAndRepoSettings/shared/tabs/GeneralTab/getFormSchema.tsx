@@ -1,12 +1,14 @@
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import {
   debugSpawnHostsDocumentationUrl,
   runEveryMainlineCommitDocumentationUrl,
   versionControlDocumentationUrl,
 } from "constants/externalResources";
+import { SourceCacheMode } from "gql/generated/types";
 import { ProjectType, form } from "../utils";
 import {
   DeactivateStepbackTaskField,
@@ -271,6 +273,45 @@ export const getFormSchema = (
           },
         },
       },
+      sourceCache: {
+        type: "object" as const,
+        title: "Source Cache",
+        properties: {
+          sourceCacheMode: {
+            type: ["string", "null"],
+            title: "Source Cache Mode",
+            oneOf: [
+              {
+                type: ["string", "null"],
+                title: "Disabled",
+                enum: [SourceCacheMode.Off],
+              },
+              {
+                type: ["string", "null"],
+                title: "All builds",
+                enum: [SourceCacheMode.All],
+              },
+              {
+                type: ["string", "null"],
+                title: "Waterfall builds",
+                enum: [SourceCacheMode.Waterfall],
+              },
+              ...(projectType === ProjectType.AttachedProject
+                ? [
+                    {
+                      type: ["string", "null"],
+                      title: `Default to repo (${sourceCacheModeLabel(
+                        repoData?.sourceCache?.sourceCacheMode ??
+                          SourceCacheMode.Off,
+                      )})`,
+                      enum: [null],
+                    } as SpruceFormProps["schema"],
+                  ]
+                : []),
+            ],
+          },
+        },
+      },
       ...(projectType !== ProjectType.Repo && {
         delete: {
           type: "object" as const,
@@ -453,6 +494,16 @@ export const getFormSchema = (
           "Task execution statistics aggregated by project, build variant, distro, task name, and task creation date.",
       },
     },
+    sourceCache: {
+      "ui:rootFieldId": "sourceCache",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      sourceCacheMode: {
+        "ui:widget": widgets.RadioBoxWidget,
+        "ui:data-testid": "source-cache-mode-radio-box",
+        "ui:description":
+          "This setting is temporary and will eventually be automatically enabled for all projects.",
+      },
+    },
     delete: {
       "ui:rootFieldId": "removeProject",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
@@ -510,3 +561,16 @@ const RunEveryMainlineCommitDescription = (
     </StyledLink>
   </>
 );
+
+const sourceCacheModeLabel = (
+  mode: GeneralFormState["sourceCache"]["sourceCacheMode"],
+) => {
+  switch (mode) {
+    case SourceCacheMode.All:
+      return "all builds";
+    case SourceCacheMode.Waterfall:
+      return "waterfall builds";
+    default:
+      return "disabled";
+  }
+};

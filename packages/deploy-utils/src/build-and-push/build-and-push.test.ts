@@ -1,10 +1,10 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { writeFileSync } from "fs";
 import { pushToS3 } from "../utils/s3";
 import { buildAndPush } from ".";
 
 vi.mock("child_process", () => ({
-  execSync: vi.fn(),
+  execFileSync: vi.fn(),
 }));
 
 vi.mock("fs", () => ({
@@ -22,8 +22,8 @@ describe("buildAndPush", () => {
   });
 
   it("calls pushToS3 function when BUCKET is defined", () => {
-    vi.mocked(execSync).mockImplementationOnce(vi.fn());
-    vi.mocked(execSync).mockReturnValueOnce("commitHash");
+    vi.mocked(execFileSync).mockReturnValueOnce("");
+    vi.mocked(execFileSync).mockReturnValueOnce("commitHash");
     buildAndPush("bucket-name");
     expect(vi.mocked(pushToS3)).toHaveBeenCalledOnce();
     expect(vi.mocked(pushToS3)).toHaveBeenCalledWith("bucket-name");
@@ -35,7 +35,7 @@ describe("buildAndPush", () => {
   });
 
   it("fails when pnpm build fails", () => {
-    vi.mocked(execSync).mockImplementation(() => {
+    vi.mocked(execFileSync).mockImplementation(() => {
       throw Error("mock pnpm build error");
     });
     expect(() => buildAndPush("my-bucket")).toThrow("mock pnpm build error");
