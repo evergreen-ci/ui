@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useQuery } from "@apollo/client/react";
 import Cookies from "js-cookie";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -20,15 +18,12 @@ import { taskTriggers } from "constants/triggers";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
-  UserQuery,
   UserSettingsQuery,
   UserSettingsQueryVariables,
 } from "gql/generated/types";
 import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { USER } from "gql/queries";
-import { useUserSettings } from "hooks/useUserSettings";
 import { selectLGOption } from "test_utils/utils";
 import {
   NotificationModalSource,
@@ -36,40 +31,9 @@ import {
 } from "types/subscription";
 import { NotificationModal, NotificationModalProps } from ".";
 
-// Opening the modal after the user and their settings load mirrors how users reach it from a page.
-const ModalHarness = ({
-  sendEvent = vi.fn(),
-}: {
-  sendEvent?: NotificationModalProps["sendEvent"];
-}) => {
-  const [visible, setVisible] = useState(false);
-  const { loading: userSettingsLoading } = useUserSettings();
-  const { loading: userLoading } = useQuery<UserQuery>(USER);
-  return (
-    <>
-      {!userSettingsLoading && !userLoading && (
-        <button onClick={() => setVisible(true)} type="button">
-          Open
-        </button>
-      )}
-      <NotificationModal
-        data-testid="notification-modal"
-        onCancel={() => setVisible(false)}
-        resourceId="task_id"
-        sendEvent={sendEvent}
-        source={NotificationModalSource.NotifyMeButton}
-        subscriptionMethods={subscriptionMethods}
-        triggers={taskTriggers}
-        type="task"
-        visible={visible}
-      />
-    </>
-  );
-};
-
 const openModal = async ({
   mocks = [getUserSettingsWithSlackMock("user"), getUserMock],
-  sendEvent,
+  sendEvent = vi.fn(),
 }: {
   mocks?: MockedProviderProps["mocks"];
   sendEvent?: NotificationModalProps["sendEvent"];
@@ -77,11 +41,20 @@ const openModal = async ({
   const user = userEvent.setup();
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks}>
-      <ModalHarness sendEvent={sendEvent} />
+      <NotificationModal
+        data-testid="notification-modal"
+        onCancel={vi.fn()}
+        resourceId="task_id"
+        sendEvent={sendEvent}
+        source={NotificationModalSource.NotifyMeButton}
+        subscriptionMethods={subscriptionMethods}
+        triggers={taskTriggers}
+        type="task"
+        visible
+      />
     </MockedProvider>,
   );
   render(<Component />);
-  await user.click(await screen.findByRole("button", { name: "Open" }));
   await waitFor(() => {
     expect(screen.getByTestId("notification-modal")).toBeVisible();
   });

@@ -50,16 +50,51 @@ export interface NotificationModalProps {
   visible: boolean;
 }
 
+/**
+ * NotificationModal lets the user subscribe to a resource. The form only mounts while the modal is open and the user's
+ * details have loaded, so each open starts fresh from the latest saved selections and user settings.
+ * @param props - NotificationModalProps
+ * @param props.visible - whether the modal is open
+ * @returns the notification modal, or nothing while closed or loading
+ */
 export const NotificationModal: React.FC<NotificationModalProps> = ({
+  visible,
+  ...props
+}) => {
+  const { loading: userSettingsLoading, userSettings } = useUserSettings();
+  const { data: userData, loading: userLoading } = useQuery<UserQuery>(USER);
+
+  if (!visible || userSettingsLoading || userLoading) {
+    return null;
+  }
+  return (
+    <NotificationModalForm
+      {...props}
+      emailAddress={userData?.user?.emailAddress ?? ""}
+      slackUsername={userSettings.slackUsername ?? ""}
+    />
+  );
+};
+
+interface NotificationModalFormProps extends Omit<
+  NotificationModalProps,
+  "visible"
+> {
+  emailAddress: string;
+  slackUsername: string;
+}
+
+const NotificationModalForm: React.FC<NotificationModalFormProps> = ({
   "data-testid": dataTestId,
+  emailAddress,
   onCancel,
   resourceId,
   sendEvent,
+  slackUsername,
   source,
   subscriptionMethods,
   triggers,
   type,
-  visible,
 }) => {
   const dispatchToast = useToastContext();
   const [saveSubscription] = useSaveSubscription({
@@ -82,14 +117,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     },
   });
 
-  // Fetch user Slack and email information.
-  const { userSettings } = useUserSettings();
-  const { slackUsername } = userSettings || {};
-  const { data: userData } = useQuery<UserQuery>(USER);
-  const { user } = userData || {};
-  const { emailAddress } = user || {};
-
-  const getInitialFormState = (): FormState => ({
+  const [initialFormState] = useState<FormState>(() => ({
     event: {
       eventSelect:
         Cookies.get(getNotificationTriggerCookie(type)) ??
@@ -103,28 +131,12 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         getDefaultNotificationMethod(subscriptionMethods),
       jiraCommentInput: "",
       slackInput: slackUsername ? `@${slackUsername}` : "",
-      emailInput: emailAddress ?? "",
+      emailInput: emailAddress,
     },
-  });
-
-  const [initialFormState, setInitialFormState] = useState(getInitialFormState);
-  const [formState, setFormState] = useState<FormState>(initialFormState);
-  const [hasError, setHasError] = useState(hasInitialError(formState));
+  }));
+  const [formState, setFormState] = useState(initialFormState);
+  const [hasError, setHasError] = useState(hasInitialError(initialFormState));
   const [shouldSaveSlackUsername, setShouldSaveSlackUsername] = useState(false);
-
-  // Rebuild the form each time the modal opens so it reflects the latest cookies
-  // and user settings, which may not have loaded when the modal first mounted.
-  const [wasVisible, setWasVisible] = useState(visible);
-  if (visible !== wasVisible) {
-    setWasVisible(visible);
-    if (visible) {
-      const nextFormState = getInitialFormState();
-      setInitialFormState(nextFormState);
-      setFormState(nextFormState);
-      setHasError(hasInitialError(nextFormState));
-      setShouldSaveSlackUsername(false);
-    }
-  }
 
   const typedSlackUsername =
     formState.notification.notificationSelect === NotificationMethods.SLACK
@@ -184,7 +196,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         onClick: onClickSave,
       }}
       data-testid={dataTestId}
-      open={visible}
+      open
       title="Add Subscription"
     >
       <SpruceForm
