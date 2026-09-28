@@ -66,6 +66,10 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         allowedBVs: {
           "ui:orderable": false,
           "ui:placeholder": "No build variants.",
+          "ui:topAlignDelete": true,
+          items: {
+            "ui:label": false,
+          },
         },
       }),
     },

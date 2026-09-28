@@ -193,6 +193,10 @@ const userTeamStyling = (
     "ui:addButtonText": addButtonText,
     "ui:orderable": false,
     "ui:label": false,
+    "ui:topAlignDelete": true,
+    items: {
+      "ui:label": false,
+    },
   },
   repoData: {
     [fieldName]: {
@@ -200,6 +204,10 @@ const userTeamStyling = (
       "ui:orderable": false,
       "ui:readonly": true,
       "ui:label": false,
+      "ui:topAlignDelete": true,
+      items: {
+        "ui:label": false,
+      },
     },
   },
 });

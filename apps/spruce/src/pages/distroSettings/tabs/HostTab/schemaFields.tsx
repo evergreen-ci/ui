@@ -498,6 +498,7 @@ const sshOptions = {
     ),
     "ui:orderable": false,
     items: {
+      "ui:title": "SSH Option",
       "ui:placeholder": "ConnectTimeout=10",
     },
   },

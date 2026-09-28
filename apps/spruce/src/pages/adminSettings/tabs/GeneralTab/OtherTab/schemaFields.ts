@@ -40,6 +40,7 @@ export const oktaServiceConfig = {
     "ui:description":
       "Settings for the Okta Services app. Used exclusively for machine-to-machine authentication, e.g. the token exchange grant used in the spawn host workflow.",
     scopes: {
+      "ui:orderable": false,
       "ui:topAlignDelete": true,
       items: {
         "ui:label": false,
