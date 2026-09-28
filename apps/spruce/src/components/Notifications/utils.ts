@@ -154,15 +154,20 @@ export const getDefaultNotificationMethod = (
  * @param subscription - the subscription that was saved
  * @param details - details about how the subscription was created
  * @param details.changedInitialSelection - whether the user changed the preselected event or method
+ * @param details.savedSlackUsername - whether the user saved the Slack username they typed to their settings
  * @returns the analytics event
  */
 export const getCreatedNotificationEvent = (
   source: NotificationModalSource,
   subscription: SaveSubscriptionForUserMutationVariables["subscription"],
-  { changedInitialSelection }: { changedInitialSelection: boolean },
+  {
+    changedInitialSelection,
+    savedSlackUsername,
+  }: { changedInitialSelection: boolean; savedSlackUsername: boolean },
 ): CreatedNotificationAction => ({
   name: "Created notification",
   "notification.source": source,
+  "slack_username.saved": savedSlackUsername,
   "subscription.changed_initial_selection": changedInitialSelection,
   "subscription.type": subscription.subscriber.type || "",
   "subscription.trigger": subscription.trigger || "",

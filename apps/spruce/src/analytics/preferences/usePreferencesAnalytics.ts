@@ -7,10 +7,7 @@ type Action =
   | {
       name: "Saved beta feature settings";
     }
-  | {
-      name: "Saved notification preferences";
-      "slack_username.prefilled_from_link": boolean;
-    }
+  | { name: "Saved notification preferences" }
   | { name: "Deleted subscriptions" }
   | { name: "Clicked CLI download link"; "download.name": string }
   | { name: "Clicked download auth file" }

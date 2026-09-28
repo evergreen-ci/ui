@@ -4,6 +4,6 @@
   margin-right: var(--via-space-400);
 }
 
-.slackUsernameHint {
+.saveSlackUsernameCheckbox {
   margin-top: calc(-1 * var(--via-space-200));
 }

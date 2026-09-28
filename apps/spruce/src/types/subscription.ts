@@ -62,6 +62,7 @@ export type ViewedNotificationModalAction = {
 export type CreatedNotificationAction = {
   name: "Created notification";
   "notification.source": NotificationModalSource;
+  "slack_username.saved": boolean;
   "subscription.changed_initial_selection": boolean;
   "subscription.type": string;
   "subscription.trigger": string;
