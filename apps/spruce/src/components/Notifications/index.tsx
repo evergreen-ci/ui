@@ -13,7 +13,6 @@ import {
 } from "constants/cookies";
 import { regexBuildVariant, regexDisplayName } from "constants/triggers";
 import {
-  SaveSubscriptionForUserMutationVariables,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
   UserQuery,
@@ -22,7 +21,9 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { USER } from "gql/queries";
 import { useUserSettings } from "hooks/useUserSettings";
 import {
+  CreatedNotificationAction,
   NotificationMethods,
+  NotificationModalSource,
   SubscriptionMethodOption,
 } from "types/subscription";
 import { Trigger } from "types/triggers";
@@ -41,10 +42,8 @@ export interface NotificationModalProps {
   "data-testid": string;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   resourceId: string;
-  sendAnalyticsEvent: (
-    subscription: SaveSubscriptionForUserMutationVariables["subscription"],
-    details: { changedInitialSelection: boolean; savedSlackUsername: boolean },
-  ) => void;
+  sendEvent: (event: CreatedNotificationAction) => void;
+  source: NotificationModalSource;
   subscriptionMethods: SubscriptionMethodOption[];
   triggers: Trigger;
   type: "task" | "version" | "project";
@@ -55,7 +54,8 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   "data-testid": dataTestId,
   onCancel,
   resourceId,
-  sendAnalyticsEvent,
+  sendEvent,
+  source,
   subscriptionMethods,
   triggers,
   type,
@@ -153,12 +153,16 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         variables: { userSettings: { slackUsername: typedSlackUsername } },
       });
     }
-    sendAnalyticsEvent(subscription, {
-      changedInitialSelection:
+    sendEvent({
+      name: "Created notification",
+      "notification.source": source,
+      "slack_username.saved": savedSlackUsername,
+      "subscription.changed_initial_selection":
         formState.event.eventSelect !== initialFormState.event.eventSelect ||
         formState.notification.notificationSelect !==
           initialFormState.notification.notificationSelect,
-      savedSlackUsername,
+      "subscription.type": subscription.subscriber.type || "",
+      "subscription.trigger": subscription.trigger || "",
     });
     onCancel();
   };

@@ -1,9 +1,6 @@
 import { StringMap } from "@evg-ui/lib/types/utils";
-import { SaveSubscriptionForUserMutationVariables } from "gql/generated/types";
 import {
-  CreatedNotificationAction,
   NotificationMethods,
-  NotificationModalSource,
   SubscriptionMethodOption,
 } from "types/subscription";
 import { ExtraField, Trigger, TriggerType } from "types/triggers";
@@ -147,28 +144,3 @@ export const getDefaultNotificationMethod = (
     ?.value ??
   subscriptionMethods[0]?.value ??
   "";
-
-/**
- * getCreatedNotificationEvent builds the analytics event sent when a user creates a subscription.
- * @param source - where the user created the subscription from
- * @param subscription - the subscription that was saved
- * @param details - details about how the subscription was created
- * @param details.changedInitialSelection - whether the user changed the preselected event or method
- * @param details.savedSlackUsername - whether the user saved the Slack username they typed to their settings
- * @returns the analytics event
- */
-export const getCreatedNotificationEvent = (
-  source: NotificationModalSource,
-  subscription: SaveSubscriptionForUserMutationVariables["subscription"],
-  {
-    changedInitialSelection,
-    savedSlackUsername,
-  }: { changedInitialSelection: boolean; savedSlackUsername: boolean },
-): CreatedNotificationAction => ({
-  name: "Created notification",
-  "notification.source": source,
-  "slack_username.saved": savedSlackUsername,
-  "subscription.changed_initial_selection": changedInitialSelection,
-  "subscription.type": subscription.subscriber.type || "",
-  "subscription.trigger": subscription.trigger || "",
-});

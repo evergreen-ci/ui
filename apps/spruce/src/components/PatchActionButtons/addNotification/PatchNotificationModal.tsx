@@ -1,6 +1,5 @@
 import { useVersionAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
-import { getCreatedNotificationEvent } from "components/Notifications/utils";
 import { versionTriggers } from "constants/triggers";
 import {
   NotificationModalSource,
@@ -27,9 +26,8 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
       data-testid="patch-notification-modal"
       onCancel={onCancel}
       resourceId={versionId}
-      sendAnalyticsEvent={(subscription, details) =>
-        sendEvent(getCreatedNotificationEvent(source, subscription, details))
-      }
+      sendEvent={sendEvent}
+      source={source}
       subscriptionMethods={versionSubscriptionMethods}
       triggers={versionTriggers}
       type="version"

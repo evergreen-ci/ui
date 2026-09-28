@@ -3,7 +3,6 @@ import Bell from "@via-ds/icons/Bell";
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { NotificationModal } from "components/Notifications";
-import { getCreatedNotificationEvent } from "components/Notifications/utils";
 import { waterfallTriggers } from "constants/triggers";
 import {
   NotificationModalSource,
@@ -43,15 +42,8 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
           setMenuOpen(false);
         }}
         resourceId={projectIdentifier}
-        sendAnalyticsEvent={(subscription, details) =>
-          sendEvent(
-            getCreatedNotificationEvent(
-              NotificationModalSource.WaterfallMenu,
-              subscription,
-              details,
-            ),
-          )
-        }
+        sendEvent={sendEvent}
+        source={NotificationModalSource.WaterfallMenu}
         subscriptionMethods={subscriptionMethods}
         triggers={waterfallTriggers}
         type="project"

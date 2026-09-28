@@ -30,14 +30,17 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { USER } from "gql/queries";
 import { useUserSettings } from "hooks/useUserSettings";
 import { selectLGOption } from "test_utils/utils";
-import { subscriptionMethods } from "types/subscription";
+import {
+  NotificationModalSource,
+  subscriptionMethods,
+} from "types/subscription";
 import { NotificationModal, NotificationModalProps } from ".";
 
 // Opening the modal after the user and their settings load mirrors how users reach it from a page.
 const ModalHarness = ({
-  sendAnalyticsEvent = vi.fn(),
+  sendEvent = vi.fn(),
 }: {
-  sendAnalyticsEvent?: NotificationModalProps["sendAnalyticsEvent"];
+  sendEvent?: NotificationModalProps["sendEvent"];
 }) => {
   const [visible, setVisible] = useState(false);
   const { loading: userSettingsLoading } = useUserSettings();
@@ -53,7 +56,8 @@ const ModalHarness = ({
         data-testid="notification-modal"
         onCancel={() => setVisible(false)}
         resourceId="task_id"
-        sendAnalyticsEvent={sendAnalyticsEvent}
+        sendEvent={sendEvent}
+        source={NotificationModalSource.NotifyMeButton}
         subscriptionMethods={subscriptionMethods}
         triggers={taskTriggers}
         type="task"
@@ -65,15 +69,15 @@ const ModalHarness = ({
 
 const openModal = async ({
   mocks = [getUserSettingsWithSlackMock("user"), getUserMock],
-  sendAnalyticsEvent,
+  sendEvent,
 }: {
   mocks?: MockedProviderProps["mocks"];
-  sendAnalyticsEvent?: NotificationModalProps["sendAnalyticsEvent"];
+  sendEvent?: NotificationModalProps["sendEvent"];
 } = {}) => {
   const user = userEvent.setup();
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks}>
-      <ModalHarness sendAnalyticsEvent={sendAnalyticsEvent} />
+      <ModalHarness sendEvent={sendEvent} />
     </MockedProvider>,
   );
   render(<Component />);
@@ -141,7 +145,7 @@ describe("notificationModal", () => {
     });
 
     it("saves the typed Slack username to user settings when checked", async () => {
-      const sendAnalyticsEvent = vi.fn();
+      const sendEvent = vi.fn();
       const user = await openModal({
         mocks: [
           userSettingsWithoutSlackMock,
@@ -149,7 +153,7 @@ describe("notificationModal", () => {
           updateSlackUsernameMock,
           getUserSettingsWithSlackMock("new.user"),
         ],
-        sendAnalyticsEvent,
+        sendEvent,
       });
       await user.type(screen.getByTestId("slack-input"), "@new.user");
       await user.click(screen.getByText("Save Slack username to my settings"));
@@ -158,17 +162,21 @@ describe("notificationModal", () => {
       await waitFor(() => {
         expect(updateSlackUsernameResult).toHaveBeenCalledTimes(1);
       });
-      expect(sendAnalyticsEvent).toHaveBeenCalledWith(expect.anything(), {
-        changedInitialSelection: false,
-        savedSlackUsername: true,
+      expect(sendEvent).toHaveBeenCalledWith({
+        name: "Created notification",
+        "notification.source": NotificationModalSource.NotifyMeButton,
+        "slack_username.saved": true,
+        "subscription.changed_initial_selection": false,
+        "subscription.type": "slack",
+        "subscription.trigger": "outcome",
       });
     });
 
     it("does not save the typed Slack username when unchecked", async () => {
-      const sendAnalyticsEvent = vi.fn();
+      const sendEvent = vi.fn();
       const user = await openModal({
         mocks: [userSettingsWithoutSlackMock, getUserMock],
-        sendAnalyticsEvent,
+        sendEvent,
       });
       await user.type(screen.getByTestId("slack-input"), "@new.user");
       expect(
@@ -176,10 +184,9 @@ describe("notificationModal", () => {
       ).toBeInTheDocument();
       await user.click(screen.getByRole("button", { name: "Save" }));
 
-      expect(sendAnalyticsEvent).toHaveBeenCalledWith(expect.anything(), {
-        changedInitialSelection: false,
-        savedSlackUsername: false,
-      });
+      expect(sendEvent).toHaveBeenCalledWith(
+        expect.objectContaining({ "slack_username.saved": false }),
+      );
     });
   });
 });

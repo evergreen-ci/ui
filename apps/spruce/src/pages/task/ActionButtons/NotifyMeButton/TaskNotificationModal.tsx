@@ -1,6 +1,5 @@
 import { useTaskAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
-import { getCreatedNotificationEvent } from "components/Notifications/utils";
 import { taskTriggers } from "constants/triggers";
 import {
   NotificationModalSource,
@@ -27,11 +26,8 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       data-testid="task-notification-modal"
       onCancel={onCancel}
       resourceId={taskId}
-      sendAnalyticsEvent={(subscription, details) =>
-        taskAnalytics.sendEvent(
-          getCreatedNotificationEvent(source, subscription, details),
-        )
-      }
+      sendEvent={taskAnalytics.sendEvent}
+      source={source}
       subscriptionMethods={taskSubscriptionMethods}
       triggers={taskTriggers}
       type="task"
