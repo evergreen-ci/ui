@@ -13,11 +13,13 @@ import {
 } from "constants/cookies";
 import { regexBuildVariant, regexDisplayName } from "constants/triggers";
 import {
+  SaveSubscriptionForUserMutation,
+  SaveSubscriptionForUserMutationVariables,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
   UserQuery,
 } from "gql/generated/types";
-import { UPDATE_USER_SETTINGS } from "gql/mutations";
+import { SAVE_SUBSCRIPTION, UPDATE_USER_SETTINGS } from "gql/mutations";
 import { USER } from "gql/queries";
 import { useUserSettings } from "hooks/useUserSettings";
 import {
@@ -30,7 +32,6 @@ import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
 import styles from "./index.module.css";
 import { FormRegexSelector, FormState } from "./types";
-import { useSaveSubscription } from "./useSaveSubscription";
 import {
   getDefaultEvent,
   getDefaultNotificationMethod,
@@ -97,12 +98,15 @@ const NotificationModalForm: React.FC<NotificationModalFormProps> = ({
   type,
 }) => {
   const dispatchToast = useToastContext();
-  const [saveSubscription] = useSaveSubscription({
+  const [saveSubscription] = useMutation<
+    SaveSubscriptionForUserMutation,
+    SaveSubscriptionForUserMutationVariables
+  >(SAVE_SUBSCRIPTION, {
     onCompleted: () => {
       dispatchToast.success("Your subscription has been added");
     },
-    onError: (message) => {
-      dispatchToast.error(message);
+    onError: (err) => {
+      dispatchToast.error(`Error adding your subscription: '${err.message}'`);
     },
   });
 
