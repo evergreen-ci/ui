@@ -111,7 +111,7 @@
     "@styled/typescript-styled-plugin": "1.0.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.6",
+    "@testing-library/user-event": "^14.6.7",
     "@types/js-cookie": "3.0.6",
     "@types/node": "^22.15.3",
     "@types/pluralize": "0.0.31",
