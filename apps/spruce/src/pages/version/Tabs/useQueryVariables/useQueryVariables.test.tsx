@@ -65,6 +65,9 @@ describe("useQueryVariables", () => {
         page: 0,
         limit: 20,
       },
+      executionTaskOptions: {
+        statuses: ["success"],
+      },
     });
   });
 
@@ -89,6 +92,9 @@ describe("useQueryVariables", () => {
         page: 0,
         limit: 20,
       },
+      executionTaskOptions: {
+        statuses: ["success"],
+      },
     });
   });
 
@@ -109,6 +115,9 @@ describe("useQueryVariables", () => {
         includeNeverActivatedTasks: true,
         taskName: "",
         variant: "",
+      },
+      executionTaskOptions: {
+        statuses: [],
       },
     });
   });
@@ -166,6 +175,9 @@ describe("useQueryVariables", () => {
         sorts: [],
         page: 0,
         limit: 20,
+      },
+      executionTaskOptions: {
+        statuses: [],
       },
     });
   });
