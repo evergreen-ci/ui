@@ -1,3 +1,4 @@
+import { toast } from "@via-ds/components/toast";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -19,10 +20,18 @@ import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
 import { RestartFailedTasks } from "./RestartFailedTasks";
 
+vi.mock("@via-ds/components/toast", () => ({
+  toast: { success: vi.fn() },
+}));
+
 const patchId = "test-patch-id";
 const refetchQueries = ["VersionTasks"];
 
 describe("restartFailedTasks", () => {
+  beforeEach(() => {
+    vi.mocked(toast.success).mockClear();
+  });
+
   it("renders the menu item", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[buildVariantsQueryMock]}>
@@ -48,7 +57,7 @@ describe("restartFailedTasks", () => {
 
   it("successfully restarts failed tasks", async () => {
     const user = userEvent.setup();
-    const { Component, dispatchToast } = RenderFakeToastContext(
+    const { Component } = RenderFakeToastContext(
       <MockedProvider
         mocks={[buildVariantsQueryMock, restartVersionsMutationMock]}
       >
@@ -60,12 +69,13 @@ describe("restartFailedTasks", () => {
     await user.click(screen.getByTestId("restart-failed-tasks"));
 
     await waitFor(() => {
-      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledTimes(1);
     });
-    expect(dispatchToast.success).toHaveBeenCalledWith(
+    expect(toast.success).toHaveBeenCalledWith(
+      "Successfully restarted tasks!",
       expect.objectContaining({
-        props: expect.objectContaining({
-          message: "Successfully restarted tasks!",
+        actionElement: expect.objectContaining({
+          props: expect.objectContaining({ resourceId: patchId }),
         }),
       }),
     );
@@ -132,7 +142,7 @@ describe("restartFailedTasks", () => {
 
   it("restarts failed tasks from child versions", async () => {
     const user = userEvent.setup();
-    const { Component, dispatchToast } = RenderFakeToastContext(
+    const { Component } = RenderFakeToastContext(
       <MockedProvider
         mocks={[
           buildVariantsQueryMockWithChildVersions,
@@ -147,7 +157,7 @@ describe("restartFailedTasks", () => {
     await user.click(screen.getByTestId("restart-failed-tasks"));
 
     await waitFor(() => {
-      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledTimes(1);
     });
   });
 

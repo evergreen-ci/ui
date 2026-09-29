@@ -1,5 +1,6 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { ViaProvider } from "@via-ds/components/provider";
+import { Toaster } from "@via-ds/components/toast";
 import { ColorScheme } from "@via-ds/components/types";
 import { useNavigate } from "react-router-dom";
 import { ToastProvider } from "@evg-ui/lib/context/toast";
@@ -22,7 +23,10 @@ const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
           navigate={navigate}
         >
           <ToastProvider>
-            <NotificationModalProvider>{children}</NotificationModalProvider>
+            <NotificationModalProvider>
+              {children}
+              <Toaster />
+            </NotificationModalProvider>
           </ToastProvider>
         </ViaProvider>
       </LeafyGreenProvider>
