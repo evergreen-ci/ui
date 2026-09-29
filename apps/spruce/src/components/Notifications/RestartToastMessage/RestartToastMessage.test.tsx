@@ -26,32 +26,36 @@ describe("restartToastMessage", () => {
       onSubscribe,
     });
 
-    await clickNotifyLink(user);
+    await clickNotifyAction(user);
     await waitFor(() => {
       expect(onSubscribe).toHaveBeenCalledWith(taskSubscription);
     });
-    expect(await screen.findByText(/Subscribed\./)).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Slack me on outcome" }),
+      await screen.findByText(/✓ Slack notification added\./),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Slack when finished" }),
     ).not.toBeInTheDocument();
   });
 
-  it("reports an error and keeps the link when subscribing fails", async () => {
+  it("reports an error and keeps the action when subscribing fails", async () => {
     const onError = vi.fn();
     const user = setupToast(
       [getUserSettingsMock, saveTaskSubscriptionErrorMock],
       { onError },
     );
 
-    await clickNotifyLink(user);
+    await clickNotifyAction(user);
     await waitFor(() => {
       expect(onError).toHaveBeenCalledWith(
         "Error adding your subscription: 'Failed to save subscription'",
       );
     });
-    expect(screen.queryByText(/Subscribed\./)).not.toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Slack me on outcome" }),
+      screen.queryByText(/✓ Slack notification added\./),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Slack when finished" }),
     ).toBeEnabled();
   });
 
@@ -63,7 +67,7 @@ describe("restartToastMessage", () => {
       onSubscribe,
     });
 
-    await clickNotifyLink(user);
+    await clickNotifyAction(user);
     await waitFor(() => {
       expect(onOpenModal).toHaveBeenCalledTimes(1);
     });
@@ -79,7 +83,6 @@ const setupToast = (
   render(
     <MockedProvider mocks={mocks}>
       <RestartToastMessage
-        message="Task scheduled to restart."
         onError={vi.fn()}
         onOpenModal={vi.fn()}
         onSubscribe={vi.fn()}
@@ -92,8 +95,8 @@ const setupToast = (
   return user;
 };
 
-const clickNotifyLink = (user: ReturnType<typeof userEvent.setup>) =>
-  user.click(screen.getByRole("button", { name: "Slack me on outcome" }));
+const clickNotifyAction = (user: ReturnType<typeof userEvent.setup>) =>
+  user.click(screen.getByRole("button", { name: "Slack when finished" }));
 
 const noSlackUsernameMock: ApolloMock<
   UserSettingsQuery,
