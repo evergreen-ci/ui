@@ -139,7 +139,7 @@
     "@graphql-codegen/cli": "6.3.1",
     "@graphql-codegen/typescript": "5.0.10",
     "@graphql-codegen/typescript-operations": "5.1.0",
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "^1.63.0",
     "@sentry/vite-plugin": "^5.4.0",
     "@storybook/addon-docs": "^10.6.0",
     "@storybook/addon-links": "^10.6.0",
