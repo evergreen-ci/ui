@@ -191,8 +191,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1(@types/react@18.3.12)(react@18.3.1)
       linkify-html:
-        specifier: 4.3.2
-        version: 4.3.2(linkifyjs@4.3.2)
+        specifier: 4.3.3
+        version: 4.3.3(linkifyjs@4.3.2)
       linkifyjs:
         specifier: 4.3.2
         version: 4.3.2
@@ -561,8 +561,8 @@ importers:
         specifier: 3.0.8
         version: 3.0.8
       linkify-html:
-        specifier: 4.3.2
-        version: 4.3.2(linkifyjs@4.3.2)
+        specifier: 4.3.3
+        version: 4.3.3(linkifyjs@4.3.2)
       linkifyjs:
         specifier: 4.3.2
         version: 4.3.2
@@ -7114,10 +7114,10 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  linkify-html@4.3.2:
-    resolution: {integrity: sha512-RozNgrfSFrNQlprJSZIN7lF+ZVPj5Pz8POQcu1PYGAUhL9tKtvtWcOXOmlXjuGGEWHtC6gt6Q2U4+VUq9ELmng==}
+  linkify-html@4.3.3:
+    resolution: {integrity: sha512-VQH0xk8QilyWvRNQqyervP/zfe/KqE1bXB5NcwWoz8Oj9Yz5hWM0VvXs9vkLy7NlTao1jrmM1cqQv8rTmerctg==}
     peerDependencies:
-      linkifyjs: ^4.0.0
+      linkifyjs: '==4.3.3'
 
   linkifyjs@4.3.2:
     resolution: {integrity: sha512-NT1CJtq3hHIreOianA8aSXn6Cw0JzYOuDQbOrSPe7gqFnCpKP++MQe3ODgO3oh2GJFORkAAdqredOa60z63GbA==}
@@ -16677,7 +16677,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  linkify-html@4.3.2(linkifyjs@4.3.2):
+  linkify-html@4.3.3(linkifyjs@4.3.2):
     dependencies:
       linkifyjs: 4.3.2
 
