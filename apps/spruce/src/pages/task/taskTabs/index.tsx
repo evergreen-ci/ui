@@ -237,13 +237,7 @@ const useTabConfig = (
       <Tab
         key="task-config-tab"
         data-testid="task-config-tab"
-        name={
-          <TabLabelWithBadge
-            badgeText="New"
-            badgeVariant={Variant.Blue}
-            tabLabel="Task Config"
-          />
-        }
+        name="Task Config"
       >
         <TaskConfigTab execution={execution} taskId={id} />
       </Tab>
