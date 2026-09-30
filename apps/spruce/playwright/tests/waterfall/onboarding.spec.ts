@@ -16,25 +16,25 @@ test.describe("onboarding", () => {
     await expect(page.getByTestId("walkthrough-backdrop")).toBeVisible();
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("New Layout", { exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByRole("button", { name: "Next", exact: true }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("Reimagined Task Statuses")).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByRole("button", { name: "Next", exact: true }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("Pin Build Variants")).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByRole("button", { name: "Next", exact: true }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("Jump to Date")).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByRole("button", { name: "Next", exact: true }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(
       page.getByText("Search by Git Hash", { exact: true }),
     ).toBeVisible();
-    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByRole("button", { name: "Next", exact: true }).click();
 
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("Summary View")).toBeVisible();
@@ -58,7 +58,9 @@ test.describe("onboarding", () => {
     await expect(page.getByTestId("walkthrough-backdrop")).toBeVisible();
     await expect(page.getByTestId("walkthrough-guide-cue")).toBeVisible();
     await expect(page.getByText("New Layout", { exact: true })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Next" })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Next", exact: true }),
+    ).toBeVisible();
   });
 
   test("can end walkthrough early using the dismiss button", async ({

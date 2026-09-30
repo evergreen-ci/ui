@@ -1,31 +1,38 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
-import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { TextInput } from "@leafygreen-ui/text-input";
-import { Description } from "@leafygreen-ui/typography";
-import Code from "@via-ds/icons/Code";
-import { size } from "@evg-ui/lib/constants/tokens";
+import {
+  Button,
+  Content,
+  Dialog,
+  DialogRoot,
+  Footer,
+  Header,
+  Text,
+  TextField,
+} from "@via-ds/components";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics/waterfall/useWaterfallAnalytics";
-import { DropdownItem } from "components/ButtonDropdown";
 import { WaterfallFilterOptions } from "../types";
+import styles from "./GitCommitSearch.module.css";
 
 interface GitCommitSearchProps {
-  setMenuOpen: (open: boolean) => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
-  setMenuOpen,
+  open,
+  setOpen,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const [, setQueryParams] = useQueryParams();
 
-  const [modalOpen, setModalOpen] = useState(false);
   const [commitHash, setCommitHash] = useState("");
 
-  const onCancel = () => {
-    setModalOpen(false);
-    setMenuOpen(false);
+  const onOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      setCommitHash("");
+    }
+    setOpen(isOpen);
   };
 
   const onConfirm = () => {
@@ -33,48 +40,43 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
     setQueryParams({
       [WaterfallFilterOptions.Revision]: commitHash,
     });
-    onCancel();
+    onOpenChange(false);
   };
 
   return (
-    <>
-      <DropdownItem
-        data-testid="git-commit-search"
-        glyph={<Code />}
-        onClick={() => {
-          setModalOpen(true);
-        }}
-      >
-        Search by git hash
-      </DropdownItem>
-      <ConfirmationModal
-        cancelButtonProps={{
-          onClick: onCancel,
-        }}
-        confirmButtonProps={{
-          children: "Submit",
-          onClick: onConfirm,
-          disabled: commitHash.trim().length < 7,
-        }}
-        data-testid="git-commit-search-modal"
-        open={modalOpen}
-        title="Search by Git Commit Hash"
-      >
-        <StyledDescription>
-          Searching for a git hash will jump to the commit in the waterfall. If
-          the commit is not found, the waterfall will be reset.
-        </StyledDescription>
-        <TextInput
-          label="Git Commit Hash"
-          onChange={(e) => setCommitHash(e.target.value.trim())}
-          onKeyDown={(e) => e.key === "Enter" && onConfirm()}
-          value={commitHash}
-        />
-      </ConfirmationModal>
-    </>
+    <DialogRoot isOpen={open} onOpenChange={onOpenChange}>
+      <Dialog data-testid="git-commit-search-modal">
+        <Header>
+          <Text slot="title">Search by Git Commit Hash</Text>
+        </Header>
+        <Content>
+          <Text className={styles.description} textStyle="description">
+            Searching for a git hash will jump to the commit in the waterfall.
+            If the commit is not found, the waterfall will be reset.
+          </Text>
+          <TextField
+            label="Git Commit Hash"
+            onChange={(value) => setCommitHash(value.trim())}
+            onKeyDown={(e) =>
+              e.key === "Enter" && commitHash.length >= 7 && onConfirm()
+            }
+            value={commitHash}
+          />
+        </Content>
+        <Footer>
+          <Button onPress={() => onOpenChange(false)} slot="cancel">
+            Cancel
+          </Button>
+          <Button
+            isDisabled={commitHash.length < 7}
+            onPress={onConfirm}
+            slot="action"
+            variant="primary"
+          >
+            Submit
+          </Button>
+        </Footer>
+      </Dialog>
+    </DialogRoot>
   );
 };
-
-const StyledDescription = styled(Description)`
-  margin-bottom: ${size.xs};
-`;

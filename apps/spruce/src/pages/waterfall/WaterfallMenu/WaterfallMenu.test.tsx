@@ -6,6 +6,7 @@ import {
   screen,
   userEvent,
   waitFor,
+  within,
 } from "@evg-ui/lib/test_utils";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { WaterfallMenu } from ".";
@@ -65,8 +66,11 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: off")).toBeVisible();
     });
+    expect(
+      screen.getByRole("menuitem", { name: "Omit inactive builds: off" }),
+    ).toBeVisible();
   });
 
   it("calls setOmitInactiveBuilds and updates localStorage when checkbox is toggled on", async () => {
@@ -79,10 +83,10 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: off")).toBeVisible();
     });
 
-    await user.click(screen.getByText("Omit inactive builds"));
+    await user.click(screen.getByText("Omit inactive builds: off"));
 
     expect(setOmitInactiveBuilds).toHaveBeenCalledWith(true);
     expect(localStorageSpy).toHaveBeenCalledWith(
@@ -103,10 +107,10 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+      expect(screen.getByText("Omit inactive builds: on")).toBeVisible();
     });
 
-    await user.click(screen.getByText("Omit inactive builds"));
+    await user.click(screen.getByText("Omit inactive builds: on"));
 
     expect(setOmitInactiveBuilds).toHaveBeenCalledWith(false);
     expect(localStorageSpy).toHaveBeenCalledWith(
@@ -149,5 +153,62 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByText("Restart walkthrough"));
 
     expect(restartWalkthrough).toHaveBeenCalled();
+  });
+
+  it("does not submit an invalid git hash with Enter", async () => {
+    const user = userEvent.setup();
+    renderWaterfallMenu({});
+
+    await user.click(screen.getByRole("button", { name: "Waterfall menu" }));
+    await user.click(screen.getByText("Search by git hash"));
+
+    const dialog = await screen.findByTestId("git-commit-search-modal");
+    const input = within(dialog).getByRole("textbox", {
+      name: "Git Commit Hash",
+    });
+    await user.type(input, "short{Enter}");
+
+    expect(dialog).toBeVisible();
+    expect(screen.getByRole("button", { name: "Submit" })).toBeDisabled();
+  });
+
+  it("clears the git hash after the dialog closes", async () => {
+    const user = userEvent.setup();
+    renderWaterfallMenu({});
+
+    await user.click(screen.getByRole("button", { name: "Waterfall menu" }));
+    await user.click(screen.getByText("Search by git hash"));
+    await user.type(
+      within(await screen.findByTestId("git-commit-search-modal")).getByRole(
+        "textbox",
+        { name: "Git Commit Hash" },
+      ),
+      "abcdefg",
+    );
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
+    await user.click(screen.getByRole("button", { name: "Waterfall menu" }));
+    await user.click(screen.getByText("Search by git hash"));
+
+    expect(
+      within(await screen.findByTestId("git-commit-search-modal")).getByRole(
+        "textbox",
+        { name: "Git Commit Hash" },
+      ),
+    ).toHaveValue("");
+  });
+
+  it.each([
+    ["Search by git hash", "git-commit-search-modal"],
+    ["Add notification", "waterfall-notification-modal"],
+  ])("closes the menu when opening %s", async (menuItem, modalTestId) => {
+    const user = userEvent.setup();
+    renderWaterfallMenu({});
+
+    const menuButton = screen.getByRole("button", { name: "Waterfall menu" });
+    await user.click(menuButton);
+    await user.click(screen.getByText(menuItem));
+
+    expect(await screen.findByTestId(modalTestId)).toBeVisible();
+    expect(menuButton).toHaveAttribute("aria-expanded", "false");
   });
 });

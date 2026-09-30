@@ -1,20 +1,23 @@
-import { IconButton } from "@leafygreen-ui/icon-button";
+import { Button } from "@via-ds/components";
 import ArrowUp from "@via-ds/icons/ArrowUp";
 import { useMatch } from "react-router-dom";
 import { routes } from "constants/routes";
 import { waterfallPageContainerId } from "../constants";
+import styles from "./index.module.css";
 
 export const WaterfallScrollToTop: React.FC = () => {
   const isWaterfallPage = !!useMatch(`${routes.waterfall}/*`);
 
   return isWaterfallPage ? (
-    <IconButton
+    <Button
       aria-label="Scroll to top"
-      onClick={() =>
+      className={styles.button}
+      onPress={() =>
         document.getElementById(waterfallPageContainerId)?.scrollTo({ top: 0 })
       }
+      variant="tertiary"
     >
-      <ArrowUp size="medium" />
-    </IconButton>
+      <ArrowUp />
+    </Button>
   ) : null;
 };
