@@ -142,6 +142,35 @@ describe("metadata", () => {
     await user.click(screen.getByTestId("cost-details-button"));
     expect(screen.getByTestId("cost-modal")).toBeInTheDocument();
   });
+
+  it("hides host information and cost for a push-completed virtual task", () => {
+    render(<Metadata loading={false} task={pushCompletedVirtualTask.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.getByTestId("task-metadata-completed-by")).toHaveTextContent(
+      runnerTaskId,
+    );
+    expect(screen.queryByText("Host Information")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("task-host-link")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("task-distro-link")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("task-metrics-link")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("cost-details-button")).not.toBeInTheDocument();
+  });
+
+  it("shows host information for a virtual task that ran on a host", () => {
+    render(<Metadata loading={false} task={ranVirtualTask.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(
+      screen.queryByTestId("task-metadata-completed-by"),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText("Host Information")).toBeInTheDocument();
+    expect(screen.getByTestId("cost-details-button")).toBeInTheDocument();
+  });
 });
 
 const taskId =
@@ -220,5 +249,23 @@ const taskInContainer: TaskQueryType = {
   task: {
     ...taskQuery.task,
     executionPlatform: ExecutionPlatform.Container,
+  },
+};
+
+const runnerTaskId = "runner_task_id";
+
+const ranVirtualTask: TaskQueryType = {
+  task: {
+    ...taskWithCostAndFinishTime.task,
+    isVirtual: true,
+  },
+};
+
+const pushCompletedVirtualTask: TaskQueryType = {
+  task: {
+    ...taskSucceeded.task,
+    ...ranVirtualTask.task,
+    completedBy: runnerTaskId,
+    hostId: null,
   },
 };

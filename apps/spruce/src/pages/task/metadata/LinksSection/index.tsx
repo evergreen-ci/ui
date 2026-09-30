@@ -7,6 +7,7 @@ import {
   getHoneycombTraceUrl,
 } from "constants/externalResources/honeycomb";
 import { TaskQuery } from "gql/generated/types";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 
 type Task = NonNullable<TaskQuery["task"]>;
 
@@ -21,6 +22,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
   const metadataLinks = annotation?.metadataLinks ?? [];
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices ?? [];
+  const isPushCompleted = isPushCompletedVirtualTask(task);
 
   return (
     <MetadataSection title="External Links">
@@ -59,24 +61,26 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
                 Honeycomb Trace
               </StyledLink>
             )}
-            <StyledLink
-              data-testid="task-metrics-link"
-              hideExternalIcon={false}
-              href={getHoneycombSystemMetricsUrl(
-                task.id,
-                diskDevices,
-                startTime,
-                finishTime,
-              )}
-              onClick={() => {
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "honeycomb metrics link",
-                });
-              }}
-            >
-              Honeycomb System Metrics
-            </StyledLink>
+            {!isPushCompleted && (
+              <StyledLink
+                data-testid="task-metrics-link"
+                hideExternalIcon={false}
+                href={getHoneycombSystemMetricsUrl(
+                  task.id,
+                  diskDevices,
+                  startTime,
+                  finishTime,
+                )}
+                onClick={() => {
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "honeycomb metrics link",
+                  });
+                }}
+              >
+                Honeycomb System Metrics
+              </StyledLink>
+            )}
           </HoneycombLinkContainer>
         </MetadataItem>
       )}
