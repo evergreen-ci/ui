@@ -163,50 +163,6 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   },
   ...taskStatuses,
 ];
-type ColorScheme = {
-  fill: string;
-  border: string;
-  text: string;
-};
-
-export const mapUmbrellaStatusColors: Record<string, ColorScheme> = {
-  [TaskStatusUmbrella.Undispatched]: {
-    fill: gray.light3,
-    border: gray.light2,
-    text: gray.dark1,
-  },
-  [TaskStatusUmbrella.Running]: {
-    fill: yellow.light3,
-    border: yellow.light2,
-    text: yellow.dark2,
-  },
-  [TaskStatusUmbrella.SystemFailure]: {
-    border: purple.light2,
-    fill: purple.light3,
-    text: purple.dark2,
-  },
-  [TaskStatusUmbrella.Scheduled]: {
-    fill: gray.dark1,
-    border: gray.dark2,
-    text: gray.light3,
-  },
-  [TaskStatusUmbrella.Failed]: {
-    fill: red.light3,
-    border: red.light2,
-    text: red.dark2,
-  },
-  [TaskStatus.Succeeded]: {
-    fill: green.light3,
-    border: green.light2,
-    text: green.dark2,
-  },
-  [TaskStatus.SetupFailed]: {
-    fill: blue.light3,
-    border: blue.light2,
-    text: blue.dark1,
-  },
-};
-
 export const mapTaskToBarchartColor = {
   [TaskStatusUmbrella.Undispatched]: gray.dark1,
   [TaskStatusUmbrella.Running]: yellow.base,

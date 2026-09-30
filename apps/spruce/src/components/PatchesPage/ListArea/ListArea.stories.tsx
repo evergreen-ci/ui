@@ -32,3 +32,12 @@ export const Empty: CustomStoryObj<typeof ListArea> = {
     patches: [],
   },
 };
+
+export const Loading: CustomStoryObj<typeof ListArea> = {
+  render: (args) => <ListArea {...args} />,
+  argTypes: {},
+  args: {
+    loading: true,
+    patches: [],
+  },
+};
