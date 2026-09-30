@@ -10,7 +10,7 @@ import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
 } from "constants/routes";
-import { ArrayFieldTemplate } from "./FieldTemplates";
+import { ArrayFieldItemTemplate, ArrayFieldTemplate } from "./FieldTemplates";
 
 export const getFormSchema = ({
   defaultsToRepo,
@@ -167,9 +167,10 @@ const permissionCss = css`
   width: 100%;
 `;
 
-const itemsUISchema = {
+const itemsUISchema = (itemData?: { displayTitle?: string }) => ({
   "ui:data-testid": "permission-group",
-  "ui:displayTitle": "New Permission Group",
+  "ui:label": false,
+  "ui:title": itemData?.displayTitle || "New Permission Group",
   name: {
     "ui:ariaLabelledBy": "Permission Group Name",
     "ui:data-testid": "permission-group-title-input",
@@ -180,11 +181,12 @@ const itemsUISchema = {
   },
   permissions: {
     "ui:ArrayFieldTemplate": ArrayFieldTemplate,
+    "ui:ArrayFieldItemTemplate": ArrayFieldItemTemplate,
     "ui:addButtonText": "Add permission",
     "ui:addToEnd": true,
     "ui:orderable": false,
     "ui:placeholder": "No permissions have been added.",
-    "ui:showLabel": false,
+    "ui:label": false,
     "ui:topAlignDelete": true,
     items: {
       "ui:ObjectFieldTemplate": FieldRow,
@@ -201,7 +203,7 @@ const itemsUISchema = {
       },
     },
   },
-};
+});
 
 const StyledDescription = styled(Description)`
   margin-bottom: ${size.xs};

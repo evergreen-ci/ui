@@ -40,7 +40,7 @@ export const getFormSchema = (
       projectType === ProjectType.AttachedProject
         ? widgets.RadioBoxWidget
         : "hidden",
-    "ui:showLabel": false,
+    "ui:label": false,
   };
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
@@ -106,9 +106,9 @@ export const getFormSchema = (
       mergeQueue: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-testid": "mq-card",
-        "ui:showLabel": false,
+        "ui:label": false,
         enabled: {
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:widget": widgets.RadioBoxWidget,
           "ui:data-testid": "mq-enabled-radio-box",
           ...githubConflictErrorStyling(

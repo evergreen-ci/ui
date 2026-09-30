@@ -130,15 +130,15 @@ export const getFormSchema = (
         projectType === ProjectType.AttachedProject
           ? widgets.RadioBoxWidget
           : "hidden",
-      "ui:showLabel": false,
+      "ui:label": false,
     },
     periodicBuilds: {
       "ui:addButtonText": "Add periodic build",
       "ui:orderable": false,
-      "ui:showLabel": false,
+      "ui:label": false,
       "ui:useExpandableCard": true,
       items: {
-        "ui:displayTitle": "New Periodic Build",
+        "ui:title": "New Periodic Build",
         "ui:label": false,
         interval: {
           specifier: {
@@ -176,7 +176,7 @@ export const getFormSchema = (
       "ui:orderable": false,
       "ui:readonly": true,
       periodicBuilds: {
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:useExpandableCard": true,
         items: {
           nextRunTime: {

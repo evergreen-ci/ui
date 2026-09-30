@@ -69,11 +69,11 @@ export const CommitChecksTab: React.FC<TabProps> = ({
     <>
       {!githubWebhooksEnabled && <GithubWebhooksDisabledBanner />}
       <BaseTab
+        customValidate={validateConflicts}
         disabled={!githubWebhooksEnabled}
         formSchema={formSchema}
         initialFormState={initialFormState}
         tab={tab}
-        validate={validateConflicts}
       />
     </>
   );

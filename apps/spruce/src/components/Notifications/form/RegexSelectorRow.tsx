@@ -1,4 +1,4 @@
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { ObjectFieldTemplateProps } from "@rjsf/utils";
 import { getFields } from "components/SpruceForm/utils";
 import styles from "./RegexSelectorRow.module.css";
 

@@ -190,6 +190,7 @@ export const mountpoints = {
     "ui:orderable": false,
     items: {
       "ui:placeholder": "/data",
+      "ui:title": "Mountpoint",
     },
   },
 };
@@ -497,6 +498,7 @@ const sshOptions = {
     ),
     "ui:orderable": false,
     items: {
+      "ui:title": "SSH Option",
       "ui:placeholder": "ConnectTimeout=10",
     },
   },
