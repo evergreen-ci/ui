@@ -5157,6 +5157,8 @@ export type WaterfallOptions = {
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
   taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  /** Match any of these exact, case-sensitive task tags. Display tasks match tags on any execution task. */
+  taskTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
   variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -5179,6 +5181,8 @@ export type WaterfallTask = {
   displayStatusCache: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
+  /** Task tags, including the union of execution task tags for display tasks. */
+  tags: Array<Scalars["String"]["output"]>;
 };
 
 export type Webhook = {
@@ -12547,6 +12551,7 @@ export type WaterfallTaskStatsQuery = {
 
 export type WaterfallQueryVariables = Exact<{
   options: WaterfallOptions;
+  includeTaskTags?: Scalars["Boolean"]["input"];
 }>;
 
 export type WaterfallQuery = {
@@ -12590,6 +12595,7 @@ export type WaterfallQuery = {
           displayName: string;
           displayStatusCache: string;
           execution: number;
+          tags?: Array<string>;
         }>;
       }> | null;
     }>;

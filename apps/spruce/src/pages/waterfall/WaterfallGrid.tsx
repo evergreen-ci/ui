@@ -40,6 +40,7 @@ import {
 } from "./styles";
 import { Pagination, Version, WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
+import { useTaskTagFilter } from "./useTaskTagFilter";
 import {
   useWaterfallNavigationTrace,
   useWaterfallTrace,
@@ -48,7 +49,7 @@ import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type ServerFilters = Pick<
   WaterfallOptions,
-  "requesters" | "statuses" | "tasks" | "variants"
+  "requesters" | "statuses" | "tasks" | "taskTags" | "variants"
 >;
 
 type WaterfallGridProps = {
@@ -62,6 +63,7 @@ const resetFilterState: ServerFilters = {
   requesters: [],
   statuses: [],
   tasks: [],
+  taskTags: [],
   variants: [],
 };
 
@@ -133,6 +135,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     [],
   );
   const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
+  const taskTags = useTaskTagFilter();
   const [variants] = useQueryParam<string[]>(
     WaterfallFilterOptions.BuildVariant,
     [],
@@ -146,7 +149,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    const newFilters = { requesters, statuses, tasks, variants };
+    const newFilters = { requesters, statuses, tasks, taskTags, variants };
     const hasFilters = Object.values(newFilters).some((f) => f.length);
 
     // Mount in particular can introduce a lot of useEffect calls due to different array references, so compare strictly
@@ -166,13 +169,14 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         setServerFilters(newFilters);
       }
     }
-  }, [requesters, statuses, tasks, variants]);
+  }, [requesters, statuses, tasks, taskTags, variants]);
 
   const { data, dataState } = useSuspenseQuery<
     WaterfallQuery,
     WaterfallQueryVariables
   >(WATERFALL, {
     variables: {
+      includeTaskTags: !!serverFilters.taskTags?.length,
       options: {
         projectIdentifier,
         limit: VERSION_LIMIT,
