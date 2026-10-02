@@ -1,18 +1,19 @@
+import { useApolloClient } from "@apollo/client/react";
 import { toast } from "@via-ds/components/toast";
+import {
+  UserSettingsQuery,
+  UserSettingsQueryVariables,
+} from "gql/generated/types";
+import { USER_SETTINGS } from "gql/queries";
 import {
   CreatedNotificationAction,
   NotificationModalSource,
-  ViewedNotificationModalAction,
   ViewedRestartNotificationPromptAction,
-  subscriptionMethods,
 } from "types/subscription";
-import { useNotificationModal } from "../NotificationModalContext";
-import { getResourceTriggers } from "../utils";
 import { RestartToastMessage, RestartToastMessageProps } from ".";
 
 type RestartToastAction =
   | ViewedRestartNotificationPromptAction
-  | ViewedNotificationModalAction
   | CreatedNotificationAction;
 
 interface UseRestartSuccessToastOptions extends Pick<
@@ -24,7 +25,7 @@ interface UseRestartSuccessToastOptions extends Pick<
 
 /**
  * useRestartSuccessToast returns a function that dispatches the restart success toast with a shortcut to Slack the
- * user on the outcome. Users without a Slack username are sent to the notification modal to enter one.
+ * user on the outcome. The shortcut appears only when the user has a Slack username.
  * @param options - the resource being restarted and the analytics sender
  * @param options.resourceId - the ID of the resource being restarted
  * @param options.sendEvent - sends the toast's analytics events
@@ -36,8 +37,7 @@ export const useRestartSuccessToast = ({
   sendEvent,
   type,
 }: UseRestartSuccessToastOptions) => {
-  const { openNotificationModal } = useNotificationModal();
-
+  const client = useApolloClient();
   const onSubscribe: RestartToastMessageProps["onSubscribe"] = (subscription) =>
     sendEvent({
       name: "Created notification",
@@ -48,33 +48,29 @@ export const useRestartSuccessToast = ({
       "subscription.trigger": subscription.trigger || "",
     });
 
-  return (message: string) => {
+  return async (message: string) => {
+    // Fetch again in case the user changed their Slack username in another tab.
+    const slackUsername = await client
+      .query<UserSettingsQuery, UserSettingsQueryVariables>({
+        query: USER_SETTINGS,
+        fetchPolicy: "network-only",
+      })
+      .then(({ data }) => data?.user?.settings?.slackUsername)
+      .catch(() => undefined);
+
     sendEvent({ name: "Viewed restart notification prompt" });
     toast.success(message, {
-      actionElement: (
-        <RestartToastMessage
-          onError={(errorMessage) => toast.error(errorMessage)}
-          onOpenModal={() => {
-            sendEvent({
-              name: "Viewed notification modal",
-              "notification.source": NotificationModalSource.RestartToast,
-            });
-            openNotificationModal({
-              "data-testid": "restart-notification-modal",
-              ignoreSavedSelections: true,
-              resourceId,
-              sendEvent,
-              source: NotificationModalSource.RestartToast,
-              subscriptionMethods,
-              triggers: getResourceTriggers(type),
-              type,
-            });
-          }}
-          onSubscribe={onSubscribe}
-          resourceId={resourceId}
-          type={type}
-        />
-      ),
+      ...(slackUsername && {
+        actionElement: (
+          <RestartToastMessage
+            onError={(errorMessage) => toast.error(errorMessage)}
+            onSubscribe={onSubscribe}
+            resourceId={resourceId}
+            slackUsername={slackUsername}
+            type={type}
+          />
+        ),
+      }),
       duration: 30_000,
       isDismissible: true,
     });

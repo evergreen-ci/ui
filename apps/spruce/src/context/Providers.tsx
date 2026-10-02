@@ -4,7 +4,6 @@ import { Toaster } from "@via-ds/components/toast";
 import { ColorScheme } from "@via-ds/components/types";
 import { useNavigate } from "react-router-dom";
 import { ToastProvider } from "@evg-ui/lib/context/toast";
-import { NotificationModalProvider } from "components/Notifications/NotificationModalContext";
 import GQLWrapper from "gql/GQLWrapper";
 
 const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
@@ -23,10 +22,8 @@ const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
           navigate={navigate}
         >
           <ToastProvider>
-            <NotificationModalProvider>
-              {children}
-              <Toaster />
-            </NotificationModalProvider>
+            {children}
+            <Toaster />
           </ToastProvider>
         </ViaProvider>
       </LeafyGreenProvider>

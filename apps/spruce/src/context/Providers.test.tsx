@@ -1,13 +1,21 @@
+import { toast } from "@via-ds/components/toast";
 import { Link } from "@via-ds/components/typography";
 import {
   MockedProvider,
+  act,
   renderWithRouterMatch,
   screen,
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { useRestartSuccessToast } from "components/Notifications/RestartToastMessage/useRestartSuccessToast";
 import ContextProviders from "context/Providers";
+import {
+  UserSettingsQuery,
+  UserSettingsQueryVariables,
+} from "gql/generated/types";
+import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
 
 // GQLWrapper blocks rendering children on a network fetch that never resolves in jsdom.
 vi.mock("gql/GQLWrapper", () => ({
@@ -15,6 +23,11 @@ vi.mock("gql/GQLWrapper", () => ({
 }));
 
 describe("ContextProviders", () => {
+  afterEach(() => {
+    act(() => toast.remove());
+    vi.restoreAllMocks();
+  });
+
   it("applies the light color scheme to the Via provider root", () => {
     renderWithRouterMatch(
       <ContextProviders>
@@ -45,24 +58,8 @@ describe("ContextProviders", () => {
 
   it("renders the restart toast action in the Via toaster", async () => {
     const user = userEvent.setup();
-    const RestartToastTrigger = () => {
-      const showRestartToast = useRestartSuccessToast({
-        resourceId: "task_id",
-        sendEvent: vi.fn(),
-        type: "task",
-      });
-      return (
-        <button
-          onClick={() => showRestartToast("Task scheduled to restart.")}
-          type="button"
-        >
-          Show restart toast
-        </button>
-      );
-    };
-
     renderWithRouterMatch(
-      <MockedProvider>
+      <MockedProvider mocks={[getUserSettingsMock]}>
         <ContextProviders>
           <RestartToastTrigger />
         </ContextProviders>
@@ -77,7 +74,67 @@ describe("ContextProviders", () => {
       await screen.findByText("Task scheduled to restart."),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Slack when finished" }),
+      await screen.findByRole("button", { name: "Slack when finished" }),
     ).toBeInTheDocument();
   });
+
+  it("shows the default restart toast when the user has no Slack username", async () => {
+    const user = userEvent.setup();
+    const showToast = vi.spyOn(toast, "success");
+    renderWithRouterMatch(
+      <MockedProvider mocks={[noSlackUsernameMock]}>
+        <ContextProviders>
+          <RestartToastTrigger />
+        </ContextProviders>
+      </MockedProvider>,
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: "Show restart toast" }),
+    );
+
+    await waitFor(() => {
+      expect(showToast).toHaveBeenCalledWith("Task scheduled to restart.", {
+        duration: 30_000,
+        isDismissible: true,
+      });
+    });
+    expect(
+      screen.queryByRole("button", { name: "Slack when finished" }),
+    ).not.toBeInTheDocument();
+  });
 });
+
+const RestartToastTrigger: React.FC = () => {
+  const showRestartToast = useRestartSuccessToast({
+    resourceId: "task_id",
+    sendEvent: vi.fn(),
+    type: "task",
+  });
+  return (
+    <button
+      onClick={() => showRestartToast("Task scheduled to restart.")}
+      type="button"
+    >
+      Show restart toast
+    </button>
+  );
+};
+
+const noSlackUsernameMock: ApolloMock<
+  UserSettingsQuery,
+  UserSettingsQueryVariables
+> = {
+  request: getUserSettingsMock.request,
+  result: {
+    data: {
+      user: {
+        ...getUserSettingsMock.result!.data!.user,
+        settings: {
+          ...getUserSettingsMock.result!.data!.user.settings,
+          slackUsername: "",
+        },
+      },
+    },
+  },
+};
