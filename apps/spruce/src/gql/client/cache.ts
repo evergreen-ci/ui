@@ -19,6 +19,7 @@ export const cache = new InMemoryCache({
               "requesters",
               "statuses",
               "tasks",
+              "taskTags",
               "variants",
             ],
           ],
