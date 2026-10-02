@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { mockGraphQLResponse, validateToast } from "../../helpers";
 
 const prioritySuccessBannerText = "Priority updated for 1 task.";
 const restartSuccessBannerText = "Task scheduled to restart";
@@ -24,9 +24,37 @@ test.describe("Task Action Buttons", () => {
     test("Clicking Restart button should restart a task and display a success toast", async ({
       page,
     }) => {
+      await mockGraphQLResponse(page, "UserSettings", {
+        errors: null,
+        data: {
+          user: {
+            __typename: "User",
+            userId: "admin",
+            settings: { __typename: "UserSettings", slackUsername: "admin" },
+          },
+        },
+      });
       await page.goto(tasks[3]);
       await page.getByTestId("restart-task").click();
       await validateToast(page, "success", restartSuccessBannerText);
+      const subscriptionRequest = page.waitForRequest(
+        (request) =>
+          request.url().endsWith("/graphql/query") &&
+          request.postDataJSON()?.operationName === "SaveSubscriptionForUser",
+      );
+      await page.getByTestId("restart-toast-notify-button").click();
+      expect(
+        (await subscriptionRequest).postDataJSON().variables.subscription,
+      ).toMatchObject({
+        resource_type: "TASK",
+        selectors: [
+          { type: "object", data: "task" },
+          { type: "id", data: tasks[3].replace("/task/", "") },
+        ],
+        subscriber: { type: "slack", target: "@admin" },
+        trigger: "outcome",
+      });
+      await expect(page.getByText("✓ Slack notification added.")).toBeVisible();
     });
 
     test("Clicking Unschedule button should unschedule a task and display a success toast", async ({
