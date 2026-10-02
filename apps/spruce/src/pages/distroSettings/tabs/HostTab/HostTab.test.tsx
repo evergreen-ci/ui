@@ -1,4 +1,4 @@
-import { FieldValidation } from "@rjsf/core";
+import { FieldValidation } from "@rjsf/utils";
 import {
   Arch,
   BootstrapMethod,

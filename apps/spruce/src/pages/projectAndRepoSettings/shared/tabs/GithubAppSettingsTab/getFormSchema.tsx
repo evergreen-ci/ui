@@ -15,7 +15,7 @@ import {
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
 import { form } from "../utils";
 import { GithubAppActions, RequesterTypeField } from "./Fields";
-import { ArrayFieldTemplate } from "./FieldTemplates";
+import { ArrayFieldItemTemplate, ArrayFieldTemplate } from "./FieldTemplates";
 import { AppSettingsFormState } from "./types";
 
 const { placeholderIf } = form;
@@ -150,8 +150,8 @@ export const getFormSchema = ({
       },
       actions: {
         "ui:field": GithubAppActions,
-        "ui:showLabel": false,
-        options: { isAppDefined, isRepo, projectOrRepoId, defaultsToRepo },
+        "ui:label": false,
+        "ui:options": { isAppDefined, isRepo, projectOrRepoId, defaultsToRepo },
       },
     },
     tokenPermissionRestrictions: {
@@ -214,16 +214,17 @@ const StyledDescription = styled.span`
 
 const permissionsByRequesterUISchema = {
   "ui:ArrayFieldTemplate": ArrayFieldTemplate,
+  "ui:ArrayFieldItemTemplate": ArrayFieldItemTemplate,
   "ui:addable": false,
   "ui:orderable": false,
   "ui:removable": false,
-  "ui:showLabel": false,
+  "ui:label": false,
   items: {
     "ui:ObjectFieldTemplate": FieldRow,
     requesterType: {
       "ui:field": RequesterTypeField,
       "ui:elementWrapperCSS": tokenFieldCss,
-      "ui:showLabel": false,
+      "ui:label": false,
     },
     permissionGroup: {
       "ui:allowDeselect": false,

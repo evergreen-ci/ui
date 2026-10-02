@@ -92,6 +92,7 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(modalTestId)).toBeVisible();
 
     await selectOption(page, "Event", "Any build finishes");
+    await selectOption(page, "Notification Method", "JIRA issue");
     await page.getByTestId("add-button").click();
 
     const saveButton = page.getByRole("button", { name: "Save" });
@@ -127,6 +128,7 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(modalTestId)).toBeVisible();
 
     await selectOption(page, "Event", "Any version finishes");
+    await selectOption(page, "Notification Method", "JIRA issue");
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
     await page.getByRole("button", { name: "Save" }).click();
     await validateToast(page, "error", "Error adding your subscription");
@@ -152,7 +154,7 @@ test.describe("Waterfall subscription modal", () => {
       },
       {
         name: "subscription-method",
-        value: "slack",
+        value: "email",
         domain: "localhost",
         path: "/",
       },
@@ -164,7 +166,7 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(modalTestId)).toBeVisible();
     await expect(page.getByText("Any build fails")).toBeVisible();
     await expect(
-      page.getByTestId("notification-method-select").getByText("Slack message"),
+      page.getByTestId("notification-method-select").getByText("Email"),
     ).toBeVisible();
   });
 });

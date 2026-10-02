@@ -864,6 +864,7 @@ export type Distro = {
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
+  isIaCManaged: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
@@ -926,6 +927,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
+  isIaCManaged?: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints: Array<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
@@ -4156,6 +4158,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
+  completedBy?: Maybe<Scalars["String"]["output"]>;
   config?: Maybe<TaskConfig>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
@@ -4195,6 +4198,7 @@ export type Task = {
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
   isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
+  isVirtual: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"]["output"];

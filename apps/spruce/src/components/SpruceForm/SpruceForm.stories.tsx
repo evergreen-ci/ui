@@ -93,7 +93,6 @@ const example1Def = {
         type: "string" as const,
         title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
-        enumNames: ["Legacy SSH", "Oath Token"],
       },
       expansions: {
         type: "array" as const,
@@ -126,6 +125,7 @@ const example1Def = {
       },
     },
     cloneMethod: {
+      "ui:enumNames": ["Legacy SSH", "Oath Token"],
       "ui:options": {
         label: false,
       },
@@ -168,15 +168,15 @@ const example2Def = {
         title: "",
         type: "string" as const,
         enum: ["restartJasper", "reprovisionHosts"],
-        enumNames: [
-          "Restart Jasper service on running hosts of this distro for this update",
-          "Reprovision running hosts of this distro for this update",
-        ],
       },
     },
   },
   uiSchema: {
     reprovisionMethod: {
+      "ui:enumNames": [
+        "Restart Jasper service on running hosts of this distro for this update",
+        "Reprovision running hosts of this distro for this update",
+      ],
       "ui:widget": "radio",
       "ui:options": {
         label: false,

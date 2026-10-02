@@ -1,5 +1,5 @@
 import { Description, H3, Subtitle } from "@leafygreen-ui/typography";
-import { Field, FieldProps } from "@rjsf/core";
+import { Field, FieldProps } from "@rjsf/utils";
 import styles from "./CustomFields.module.css";
 
 type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
