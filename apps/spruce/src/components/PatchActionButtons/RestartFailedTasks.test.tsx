@@ -16,6 +16,7 @@ import {
   RestartVersionsMutation,
   RestartVersionsMutationVariables,
 } from "gql/generated/types";
+import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
 import { RestartFailedTasks } from "./RestartFailedTasks";
@@ -59,7 +60,11 @@ describe("restartFailedTasks", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
-        mocks={[buildVariantsQueryMock, restartVersionsMutationMock]}
+        mocks={[
+          buildVariantsQueryMock,
+          restartVersionsMutationMock,
+          getUserSettingsMock,
+        ]}
       >
         <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
@@ -147,6 +152,7 @@ describe("restartFailedTasks", () => {
         mocks={[
           buildVariantsQueryMockWithChildVersions,
           restartVersionsWithChildrenMutationMock,
+          getUserSettingsMock,
         ]}
       >
         <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
