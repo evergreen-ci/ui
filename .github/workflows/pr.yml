@@ -4,6 +4,7 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
 permissions:
   contents: read
+  members: read
   pull-requests: write # Necessary for adding reviewers to pull requests
 jobs:
   chromatic:
