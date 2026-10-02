@@ -4,6 +4,7 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
 permissions:
   contents: read
+  pull-requests: write # Necessary for adding reviewers to pull requests
 jobs:
   chromatic:
     if: github.event.pull_request.draft == false
@@ -16,7 +17,7 @@ jobs:
           echo "Event not triggered by a collaborator."
           exit 1
 
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -88,7 +89,26 @@ jobs:
     name: Dependency Review
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout Repository'
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: 'Dependency Review'
+      - name: Dependency review
         uses: actions/dependency-review-action@v4
+
+  assign-dependabot-reviewers:
+    name: Assign Dependabot Reviewers
+    runs-on: ubuntu-latest
+    # if: github.actor == 'dependabot[bot]' # Only run this job for Dependabot PRs
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Request reviewers
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              reviewers: ['minnakt'],
+            });
