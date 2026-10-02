@@ -1,9 +1,9 @@
-import { InMemoryCache } from "@apollo/client";
+import { InMemoryCache, InMemoryCacheConfig } from "@apollo/client";
 import { readTaskReviewed } from "components/TaskReview/caching";
 import { mergeTasks, readTasks } from "pages/task/taskTabs/TaskHistory/caching";
 import { mergeVersions, readVersions } from "pages/waterfall/caching";
 
-export const cache = new InMemoryCache({
+export const cacheConfig = {
   typePolicies: {
     Query: {
       fields: {
@@ -11,17 +11,8 @@ export const cache = new InMemoryCache({
           keyArgs: ["$patchId"],
         },
         waterfall: {
-          // All server-side filter params should be used as cache keyArgs to maintain separate caches when they are applied.
-          keyArgs: [
-            "options",
-            [
-              "projectIdentifier",
-              "requesters",
-              "statuses",
-              "tasks",
-              "variants",
-            ],
-          ],
+          // Normalized build/task payloads belong to one current filter context.
+          keyArgs: ["options", ["projectIdentifier"]],
           read(...args) {
             return readVersions(...args);
           },
@@ -129,16 +120,21 @@ export const cache = new InMemoryCache({
     WaterfallTask: {
       keyFields: false,
     },
+    WaterfallBuild: {
+      fields: {
+        tasks: {
+          merge: false,
+        },
+      },
+    },
     Version: {
       fields: {
         waterfallBuilds: {
-          merge(existing, incoming) {
-            // Applying a server-side filter causes non-matching versions to return with waterfallBuilds = null.
-            // We don't want to overwrite existing build data for versions that previously matched, so check to see if the new waterfallBuilds is defined before merging it with the cache.
-            return incoming ?? existing;
-          },
+          merge: false,
         },
       },
     },
   },
-});
+} satisfies InMemoryCacheConfig;
+
+export const cache = new InMemoryCache(cacheConfig);

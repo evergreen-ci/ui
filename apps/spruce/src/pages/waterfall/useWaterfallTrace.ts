@@ -86,12 +86,15 @@ export const finishWaterfallNavigationTrace = ({
   });
 };
 
-export const useWaterfallTrace = () => {
+export const useWaterfallTrace = (ready = true) => {
   const resolveRenderRef = useRef<(() => void) | null>(null);
   const renderPromiseRef = useRef<Promise<void> | null>(null);
   const spanRef = useRef<Span | null>(null);
 
   useEffect(() => {
+    if (!ready) {
+      return;
+    }
     // Initialize the promise and resolver only once
     if (renderPromiseRef.current == null) {
       renderPromiseRef.current = new Promise<void>((resolve) => {
@@ -108,13 +111,13 @@ export const useWaterfallTrace = () => {
         }
       });
     }
-  }, []);
+  }, [ready]);
 
   useEffect(() => {
-    if (resolveRenderRef.current) {
+    if (ready && resolveRenderRef.current) {
       resolveRenderRef.current();
     }
-  }, []);
+  }, [ready]);
 };
 
 export const useWaterfallNavigationTrace = ({
