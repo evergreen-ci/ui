@@ -7876,6 +7876,11 @@ export type AdminSettingsQuery = {
         transitionToGlacierDays?: number | null;
         transitionToIADays?: number | null;
       } | null;
+      sourceCacheBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+      } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";
         name?: string | null;

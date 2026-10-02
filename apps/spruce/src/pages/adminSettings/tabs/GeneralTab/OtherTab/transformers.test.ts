@@ -31,6 +31,33 @@ describe("other tab transformers", () => {
     );
   });
 
+  it("round-trips a cleared source cache config so it persists as empty", () => {
+    const adminSettingsWithClearedSourceCache: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        sourceCacheBucket: {
+          __typename: "BucketConfig",
+          name: "",
+          roleARN: "",
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithClearedSourceCache);
+    expect(loaded).not.toBeNull();
+    expect(formToGql(loaded!)).toStrictEqual({
+      ...expectedGql,
+      buckets: {
+        ...expectedGql.buckets,
+        sourceCacheBucket: {
+          name: "",
+          roleARN: "",
+        },
+      },
+    });
+  });
+
   it("round-trips S3 storage account ID lists from admin settings", () => {
     const adminSettingsWithS3Lists: AdminSettingsData = {
       ...mockAdminSettings,
@@ -128,6 +155,10 @@ const mockAdminSettings: AdminSettingsData = {
       testResultsPrefix: "results/",
       roleARN: "arn:aws:iam::123456789:role/TestRole",
       type: "s3",
+    },
+    sourceCacheBucket: {
+      name: "evergreen-source-cache",
+      roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
     },
     credentials: {
       key: "cred-key",
@@ -275,6 +306,8 @@ const expectedForm: OtherFormState = {
       testResultsBucketTestResultsPrefix: "results/",
       testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
       testResultsBucketType: "s3",
+      sourceCacheBucketName: "evergreen-source-cache",
+      sourceCacheBucketRoleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
       failedTasksLogBucketName: "evergreen-failed-tasks",
@@ -415,6 +448,10 @@ const expectedGql: AdminSettingsInput = {
       testResultsPrefix: "results/",
       roleARN: "arn:aws:iam::123456789:role/TestRole",
       type: "s3",
+    },
+    sourceCacheBucket: {
+      name: "evergreen-source-cache",
+      roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
     },
     credentials: {
       key: "cred-key",
