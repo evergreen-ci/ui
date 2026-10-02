@@ -97,7 +97,7 @@ jobs:
   assign-dependabot-reviewers:
     name: Assign Dependabot Reviewers
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]' # Only run this job for Dependabot PRs
+    # if: github.actor == 'dependabot[bot]' # Only run this job for Dependabot PRs
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -106,9 +106,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.pull_requests.requestReviewers({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              reviewers: ['minnakt', 'sophstad', 'athammer'],
-            })
+            const { data: members } = await github.rest.teams.listMembersInOrg({
+              org: 'evergreen-ci',
+              team_slug: 'evg-ui',
+            });
+            const reviewer = members[Math.floor(Math.random() * members.length)].login;
+            console.log(reviewer)
