@@ -255,6 +255,21 @@ export const getFormSchema = (
               },
             },
           },
+          virtualTasks: {
+            type: "object" as const,
+            title: "Virtual Task Settings",
+            properties: {
+              virtualTasksEnabled: {
+                type: ["boolean", "null"],
+                title: "Virtual Tasks",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.virtualTasks?.virtualTasksEnabled,
+                ),
+              },
+            },
+          },
         },
       },
       historicalTaskDataCaching: {
@@ -482,6 +497,14 @@ export const getFormSchema = (
         patchingDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:label": false,
+        },
+      },
+      virtualTasks: {
+        virtualTasksEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:data-testid": "virtual-tasks-enabled-radio-box",
+          "ui:description":
+            "Sets if tasks in this project can be defined as virtual tasks, which can have their results pushed by another task instead of running on a host.",
         },
       },
     },

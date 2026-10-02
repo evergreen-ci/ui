@@ -5555,6 +5555,7 @@ export type ProjectGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
   versionControlEnabled?: boolean | null;
+  virtualTasksEnabled?: boolean | null;
   waterfallDisabled?: boolean | null;
 };
 
@@ -5578,6 +5579,7 @@ export type RepoGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
+  virtualTasksEnabled?: boolean | null;
   waterfallDisabled: boolean;
 };
 
@@ -5757,6 +5759,7 @@ export type ProjectSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
@@ -5974,6 +5977,7 @@ export type RepoSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled: boolean;
     notifyOnBuildFailure: boolean;
     githubMQTriggerAliases?: Array<string> | null;
@@ -6386,6 +6390,7 @@ export type ProjectEventSettingsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
@@ -9513,6 +9518,7 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -9744,6 +9750,7 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10040,6 +10047,7 @@ export type ProjectSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
+      virtualTasksEnabled?: boolean | null;
       waterfallDisabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
       githubMQTriggerAliases?: Array<string> | null;
@@ -10319,6 +10327,7 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10550,6 +10559,7 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10787,6 +10797,7 @@ export type RepoSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
+      virtualTasksEnabled?: boolean | null;
       waterfallDisabled: boolean;
       notifyOnBuildFailure: boolean;
       githubMQTriggerAliases?: Array<string> | null;
@@ -11192,6 +11203,20 @@ export type TaskAllExecutionsQuery = {
     execution: number;
     ingestTime?: Date | null;
   }>;
+};
+
+export type TaskCompletedByQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+}>;
+
+export type TaskCompletedByQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    displayName: string;
+    execution: number;
+  } | null;
 };
 
 export type TaskConfigQueryVariables = Exact<{
@@ -11671,6 +11696,7 @@ export type TaskQuery = {
     canSchedule: boolean;
     canSetPriority: boolean;
     canUnschedule: boolean;
+    completedBy?: string | null;
     displayOnly?: boolean | null;
     distroId: string;
     errors?: Array<string> | null;
@@ -11684,6 +11710,7 @@ export type TaskQuery = {
     imageId: string;
     ingestTime?: Date | null;
     invalidatedByUpstream?: boolean | null;
+    isVirtual: boolean;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
