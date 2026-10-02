@@ -106,9 +106,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { data: members } = await github.rest.teams.listMembersInOrg({
-              org: 'evergreen-ci',
-              team_slug: 'evg-ui',
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              reviewers: ['minnakt'],
             });
-            const reviewer = members[Math.floor(Math.random() * members.length)].login;
-            console.log(reviewer)
