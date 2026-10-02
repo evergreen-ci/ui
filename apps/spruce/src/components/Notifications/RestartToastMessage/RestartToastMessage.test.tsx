@@ -10,10 +10,7 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   SaveSubscriptionForUserMutation,
   SaveSubscriptionForUserMutationVariables,
-  UserSettingsQuery,
-  UserSettingsQueryVariables,
 } from "gql/generated/types";
-import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
 import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import { RestartToastMessage, RestartToastMessageProps } from ".";
 
@@ -22,9 +19,7 @@ const taskId = "task_id";
 describe("restartToastMessage", () => {
   it("subscribes the user to a Slack message when the task finishes", async () => {
     const onSubscribe = vi.fn();
-    const user = setupToast([getUserSettingsMock, saveTaskSubscriptionMock], {
-      onSubscribe,
-    });
+    const user = setupToast([saveTaskSubscriptionMock], { onSubscribe });
 
     await clickNotifyAction(user);
     await waitFor(() => {
@@ -40,10 +35,7 @@ describe("restartToastMessage", () => {
 
   it("reports an error and keeps the action when subscribing fails", async () => {
     const onError = vi.fn();
-    const user = setupToast(
-      [getUserSettingsMock, saveTaskSubscriptionErrorMock],
-      { onError },
-    );
+    const user = setupToast([saveTaskSubscriptionErrorMock], { onError });
 
     await clickNotifyAction(user);
     await waitFor(() => {
@@ -58,21 +50,6 @@ describe("restartToastMessage", () => {
       screen.getByRole("button", { name: "Slack when finished" }),
     ).toBeEnabled();
   });
-
-  it("opens the notification modal when the user has no Slack username", async () => {
-    const onOpenModal = vi.fn();
-    const onSubscribe = vi.fn();
-    const user = setupToast([noSlackUsernameMock], {
-      onOpenModal,
-      onSubscribe,
-    });
-
-    await clickNotifyAction(user);
-    await waitFor(() => {
-      expect(onOpenModal).toHaveBeenCalledTimes(1);
-    });
-    expect(onSubscribe).not.toHaveBeenCalled();
-  });
 });
 
 const setupToast = (
@@ -84,9 +61,9 @@ const setupToast = (
     <MockedProvider mocks={mocks}>
       <RestartToastMessage
         onError={vi.fn()}
-        onOpenModal={vi.fn()}
         onSubscribe={vi.fn()}
         resourceId={taskId}
+        slackUsername="user"
         type="task"
         {...props}
       />
@@ -95,26 +72,10 @@ const setupToast = (
   return user;
 };
 
-const clickNotifyAction = (user: ReturnType<typeof userEvent.setup>) =>
-  user.click(screen.getByRole("button", { name: "Slack when finished" }));
-
-const noSlackUsernameMock: ApolloMock<
-  UserSettingsQuery,
-  UserSettingsQueryVariables
-> = {
-  request: getUserSettingsMock.request,
-  result: {
-    data: {
-      user: {
-        ...getUserSettingsMock.result!.data!.user,
-        settings: {
-          ...getUserSettingsMock.result!.data!.user.settings,
-          slackUsername: "",
-        },
-      },
-    },
-  },
-};
+const clickNotifyAction = async (user: ReturnType<typeof userEvent.setup>) =>
+  user.click(
+    await screen.findByRole("button", { name: "Slack when finished" }),
+  );
 
 const taskSubscription: SaveSubscriptionForUserMutationVariables["subscription"] =
   {
