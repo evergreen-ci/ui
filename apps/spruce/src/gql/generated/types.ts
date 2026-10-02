@@ -11205,6 +11205,20 @@ export type TaskAllExecutionsQuery = {
   }>;
 };
 
+export type TaskCompletedByQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+}>;
+
+export type TaskCompletedByQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    displayName: string;
+    execution: number;
+  } | null;
+};
+
 export type TaskConfigQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;

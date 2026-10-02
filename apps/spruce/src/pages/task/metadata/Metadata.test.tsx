@@ -6,13 +6,21 @@ import {
   stubGetClientRects,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { ExecutionPlatform } from "gql/generated/types";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import {
+  ExecutionPlatform,
+  TaskCompletedByQuery,
+  TaskCompletedByQueryVariables,
+} from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
 import { TaskQueryType, taskQuery } from "gql/mocks/taskData";
+import { TASK_COMPLETED_BY } from "gql/queries";
 import { Metadata } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
+  <MockedProvider mocks={[getUserMock, taskCompletedByMock]}>
+    {children}
+  </MockedProvider>
 );
 
 describe("metadata", () => {
@@ -143,20 +151,40 @@ describe("metadata", () => {
     expect(screen.getByTestId("cost-modal")).toBeInTheDocument();
   });
 
-  it("hides host information and cost for a push-completed virtual task", () => {
+  it("hides host information and cost for a push-completed virtual task", async () => {
     render(<Metadata loading={false} task={pushCompletedVirtualTask.task} />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
       wrapper,
     });
+    expect(await screen.findByText(runnerTaskDisplayName)).toBeInTheDocument();
     expect(screen.getByTestId("task-metadata-completed-by")).toHaveTextContent(
-      runnerTaskId,
+      runnerTaskDisplayName,
     );
     expect(screen.queryByText("Host Information")).not.toBeInTheDocument();
     expect(screen.queryByTestId("task-host-link")).not.toBeInTheDocument();
     expect(screen.queryByTestId("task-distro-link")).not.toBeInTheDocument();
     expect(screen.queryByTestId("task-metrics-link")).not.toBeInTheDocument();
     expect(screen.queryByTestId("cost-details-button")).not.toBeInTheDocument();
+    expect(screen.queryByText("External Links")).not.toBeInTheDocument();
+  });
+
+  it("hides the External Links section when there are no links to show", () => {
+    render(<Metadata loading={false} task={taskStarted.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.queryByText("External Links")).not.toBeInTheDocument();
+  });
+
+  it("shows the External Links section when the task has links", () => {
+    render(<Metadata loading={false} task={taskSucceeded.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.getByText("External Links")).toBeInTheDocument();
   });
 
   it("shows host information for a virtual task that ran on a host", () => {
@@ -253,6 +281,27 @@ const taskInContainer: TaskQueryType = {
 };
 
 const runnerTaskId = "runner_task_id";
+const runnerTaskDisplayName = "engflow_runner";
+
+const taskCompletedByMock: ApolloMock<
+  TaskCompletedByQuery,
+  TaskCompletedByQueryVariables
+> = {
+  request: {
+    query: TASK_COMPLETED_BY,
+    variables: { taskId: runnerTaskId },
+  },
+  result: {
+    data: {
+      task: {
+        __typename: "Task",
+        id: runnerTaskId,
+        displayName: runnerTaskDisplayName,
+        execution: 0,
+      },
+    },
+  },
+};
 
 const ranVirtualTask: TaskQueryType = {
   task: {

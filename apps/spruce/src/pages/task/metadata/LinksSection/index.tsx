@@ -22,31 +22,36 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
   const metadataLinks = annotation?.metadataLinks ?? [];
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices ?? [];
-  const isPushCompleted = isPushCompletedVirtualTask(task);
+  const hasTaskTimeRange = !!startTime && !!finishTime;
+  const showTraceLink = hasTaskTimeRange && !!taskTrace;
+  const showMetricsLink = hasTaskTimeRange && !isPushCompletedVirtualTask(task);
+
+  if (metadataLinks.length === 0 && !showTraceLink && !showMetricsLink) {
+    return null;
+  }
 
   return (
     <MetadataSection title="External Links">
-      {metadataLinks &&
-        metadataLinks.map((link) => (
-          <MetadataItem key={link.text}>
-            <StyledLink
-              data-testid="task-metadata-link"
-              href={link.url}
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "annotation link",
-                })
-              }
-            >
-              {link.text}
-            </StyledLink>
-          </MetadataItem>
-        ))}
-      {startTime && finishTime && (
+      {metadataLinks.map((link) => (
+        <MetadataItem key={link.text}>
+          <StyledLink
+            data-testid="task-metadata-link"
+            href={link.url}
+            onClick={() =>
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                "link.type": "annotation link",
+              })
+            }
+          >
+            {link.text}
+          </StyledLink>
+        </MetadataItem>
+      ))}
+      {(showTraceLink || showMetricsLink) && (
         <MetadataItem>
           <HoneycombLinkContainer>
-            {taskTrace && (
+            {showTraceLink && (
               <StyledLink
                 data-testid="task-trace-link"
                 hideExternalIcon={false}
@@ -61,7 +66,7 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
                 Honeycomb Trace
               </StyledLink>
             )}
-            {!isPushCompleted && (
+            {showMetricsLink && (
               <StyledLink
                 data-testid="task-metrics-link"
                 hideExternalIcon={false}
