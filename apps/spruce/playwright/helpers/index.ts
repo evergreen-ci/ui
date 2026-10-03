@@ -1,36 +1,4 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { toastTestId } from "@evg-ui/playwright-config/constants";
-import { validateToast as validateLeafyGreenToast } from "@evg-ui/playwright-config/helpers";
-
-/**
- * Validates either toast implementation while Spruce migrates to Via.
- * @param page - The Playwright page object
- * @param status - The expected toast variant
- * @param message - The expected toast message
- * @param shouldClose - Whether to close the toast after validation
- */
-export const validateToast = async (
-  page: Page,
-  status: string,
-  message: string,
-  shouldClose?: boolean,
-) => {
-  const leafyGreenToast = page.getByTestId(toastTestId);
-  const viaToast = page
-    .getByRole("region", { name: "Notifications" })
-    .getByRole("status")
-    .filter({ hasText: message });
-  await expect(leafyGreenToast.or(viaToast)).toBeVisible();
-  if (await leafyGreenToast.isVisible()) {
-    await validateLeafyGreenToast(page, status, message, shouldClose);
-    return;
-  }
-  await expect(viaToast.locator(`div[class*="_${status}"]`)).toBeVisible();
-  if (shouldClose) {
-    await viaToast.getByRole("button", { name: "Close", exact: true }).click();
-    await expect(viaToast).toBeHidden();
-  }
-};
 
 /**
  * Selects an option from a LeafyGreen select component
@@ -192,6 +160,7 @@ export const hoverForTooltip = async (
 
 // Re-export shared helpers from the playwright-config package.
 export {
+  validateToast,
   login,
   logout,
   clickCheckbox,

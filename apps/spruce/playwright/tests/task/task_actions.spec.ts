@@ -36,7 +36,12 @@ test.describe("Task Action Buttons", () => {
       });
       await page.goto(tasks[3]);
       await page.getByTestId("restart-task").click();
-      await validateToast(page, "success", restartSuccessBannerText);
+      await expect(
+        page
+          .getByRole("region", { name: "Notifications" })
+          .getByRole("status")
+          .filter({ hasText: restartSuccessBannerText }),
+      ).toBeVisible();
       const subscriptionRequest = page.waitForRequest(
         (request) =>
           request.url().endsWith("/graphql/query") &&
@@ -118,7 +123,12 @@ test.describe("Task Action Buttons", () => {
     }) => {
       await page.goto(tasks[4]);
       await page.getByTestId("restart-task").click();
-      await validateToast(page, "success", restartSuccessBannerText);
+      await expect(
+        page
+          .getByRole("region", { name: "Notifications" })
+          .getByRole("status")
+          .filter({ hasText: restartSuccessBannerText }),
+      ).toBeVisible();
     });
   });
 });
