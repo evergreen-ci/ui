@@ -167,7 +167,7 @@
     "mutation-observer": "1.0.3",
     "path": "0.12.7",
     "prettier": "3.7.4",
-    "rollup-plugin-visualizer": "7.0.1",
+    "rollup-plugin-visualizer": "7.1.1",
     "serve": "^14.2.5",
     "storybook": "^10.6.1",
     "storybook-addon-apollo-client": "^10.0.0",
