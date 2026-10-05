@@ -113,12 +113,7 @@ test.describe("task history", () => {
       await expect(firstTaskCard.getByTestId("execution-chip")).toBeHidden();
       await expect(firstTaskCard.getByTestId("restart-button")).toBeEnabled();
       await firstTaskCard.getByTestId("restart-button").click();
-      await expect(
-        page
-          .getByRole("region", { name: "Notifications" })
-          .getByRole("status")
-          .filter({ hasText: "Task scheduled to restart" }),
-      ).toBeVisible();
+      await validateToast(page, "success", "Task scheduled to restart");
 
       await expect(page).toHaveURL(/execution=1/);
       await expect(firstTaskBox).toHaveCSS("background-color", willRunColor);
@@ -141,12 +136,7 @@ test.describe("task history", () => {
       await expect(secondTaskCard.getByTestId("execution-chip")).toBeHidden();
       await expect(secondTaskCard.getByTestId("restart-button")).toBeEnabled();
       await secondTaskCard.getByTestId("restart-button").click();
-      await expect(
-        page
-          .getByRole("region", { name: "Notifications" })
-          .getByRole("status")
-          .filter({ hasText: "Task scheduled to restart" }),
-      ).toBeVisible();
+      await validateToast(page, "success", "Task scheduled to restart");
 
       await expect(page).not.toHaveURL(/execution=1/);
       await expect(secondTaskBox).toHaveCSS("background-color", willRunColor);
