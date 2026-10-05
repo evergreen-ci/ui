@@ -446,6 +446,14 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Test Results Bucket Type",
     },
+    sourceCacheBucketName: {
+      type: "string" as const,
+      title: "Source Cache Bucket Name",
+    },
+    sourceCacheBucketRoleARN: {
+      type: "string" as const,
+      title: "Source Cache Bucket Role ARN",
+    },
     credentialsKey: {
       type: "string" as const,
       title: "S3 Key",
@@ -509,6 +517,14 @@ export const bucketConfig = {
     longRetentionProjects: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+    },
+    sourceCacheBucketName: {
+      "ui:description":
+        "The S3 bucket that stores cached git source for projects with the source cache enabled.",
+    },
+    sourceCacheBucketRoleARN: {
+      "ui:description":
+        "The IAM role ARN granting scoped access to the source cache bucket.",
     },
     failedTasksLogBucketExpirationDays: { "ui:readonly": true },
     failedTasksLogBucketTransitionToIADays: { "ui:readonly": true },
