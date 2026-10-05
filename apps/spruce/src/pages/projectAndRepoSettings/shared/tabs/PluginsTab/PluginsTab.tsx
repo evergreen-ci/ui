@@ -29,13 +29,14 @@ export const PluginsTab: React.FC<TabProps> = ({
     [jiraEmail, projectType, repoData],
   );
 
+  if (!initialFormState) return null;
+
   return (
     <BaseTab
+      customValidate={validate}
       formSchema={formSchema}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       initialFormState={initialFormState}
       tab={tab}
-      validate={validate}
     />
   );
 };

@@ -80,6 +80,7 @@ const securityGroups = {
     "ui:addButtonText": "Add security group",
     "ui:orderable": false,
     items: {
+      "ui:title": "Security Group ID",
       "ui:placeholder": "e.g. sg-xxxx",
     },
   },
@@ -103,6 +104,9 @@ const hosts = {
   uiSchema: {
     "ui:addButtonText": "Add host",
     "ui:orderable": false,
+    items: {
+      "ui:label": false,
+    },
   },
 };
 

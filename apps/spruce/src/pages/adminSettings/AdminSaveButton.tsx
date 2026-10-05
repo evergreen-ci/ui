@@ -60,7 +60,7 @@ export const AdminSaveButton: React.FC = () => {
     const { errors, isValid } = validateTabs(changedTabs);
     if (!isValid) {
       const fieldNames = [
-        ...new Set(errors.map((e) => e.property.split(".").pop())),
+        ...new Set(errors.map((e) => e.property?.split(".").pop())),
       ].join(", ");
       dispatchToast.error(
         `Please fix errors in the following fields: ${fieldNames}`,

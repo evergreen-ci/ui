@@ -120,6 +120,10 @@ export const ADMIN_SETTINGS = gql`
         longRetentionProjects
         retryFailedLogMoveLookbackDays
         retryFailedLogMoveMaxJobsPerRun
+        sourceCacheBucket {
+          name
+          roleARN
+        }
         testResultsBucket {
           name
           roleARN

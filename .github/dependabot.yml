@@ -10,10 +10,9 @@ updates:
       time: "05:00"
       timezone: "EST"
     open-pull-requests-limit: 5
+    versioning-strategy: increase
     commit-message:
       prefix: "CHORE(NPM) - "
-    cooldown:
-      default-days: 14
     groups:
       ai:
         applies-to: version-updates

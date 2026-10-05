@@ -116,15 +116,15 @@ export const getFormSchema = (
         projectType === ProjectType.AttachedProject
           ? widgets.RadioBoxWidget
           : "hidden",
-      "ui:showLabel": false,
+      "ui:label": false,
     },
     triggers: {
       "ui:addButtonText": "Add project trigger",
       "ui:orderable": false,
-      "ui:showLabel": false,
+      "ui:label": false,
       "ui:useExpandableCard": true,
       items: {
-        "ui:displayTitle": "New Project Trigger",
+        "ui:title": "New Project Trigger",
         "ui:label": false,
         project: {
           "ui:description":
@@ -179,7 +179,7 @@ export const getFormSchema = (
       "ui:orderable": false,
       "ui:readonly": true,
       triggers: {
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:useExpandableCard": true,
       },
     },

@@ -46,12 +46,7 @@ export const sendEmail = async () => {
   if (isRevert) {
     const emailFields = makeEmail({
       app,
-      commitsString: execFileTrim("git", [
-        "show",
-        "--oneline",
-        "-s",
-        previousDeployCommit,
-      ]),
+      commitsString: previousDeployCommit,
       commitToDeploy: previousDeployCommit,
       isRevert,
     });

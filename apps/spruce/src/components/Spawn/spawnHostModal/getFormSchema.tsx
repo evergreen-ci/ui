@@ -36,6 +36,7 @@ interface Props {
   debugSpawnHostDisabled?: boolean;
   disableExpirationCheckbox: boolean;
   distroIdQueryParam?: string;
+  hostUptimeError?: string;
   distros: {
     availableRegions: string[];
     adminOnly: boolean;
@@ -65,6 +66,7 @@ export const getFormSchema = ({
   disableExpirationCheckbox,
   distroIdQueryParam,
   distros,
+  hostUptimeError,
   hostUptimeWarnings,
   isMigration,
   isVirtualWorkstation,
@@ -107,6 +109,7 @@ export const getFormSchema = ({
 
   const expirationDetails = getExpirationDetailsSchema({
     disableExpirationCheckbox,
+    hostUptimeError,
     hostUptimeWarnings,
     isEditModal: false,
     noExpirationCheckboxTooltip,
@@ -128,7 +131,6 @@ export const getFormSchema = ({
               type: "string" as const,
               title: "Distro",
               default: distroIdQueryParam,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               enum: distros?.map(({ name }) => name),
               minLength: 1,
             },
@@ -139,20 +141,18 @@ export const getFormSchema = ({
                 userAwsRegion && availableRegions.includes(userAwsRegion)
                   ? userAwsRegion
                   : availableRegions[0],
-              oneOf: [
-                ...(availableRegions.map((r) => ({
+              ...(availableRegions.length > 0 && {
+                oneOf: availableRegions.map((r) => ({
                   type: "string" as const,
                   title: r,
                   enum: [r],
-                })) || []),
-              ],
+                })),
+              }),
               minLength: 1,
             },
           },
         },
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         publicKeySection: publicKeys.schema,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         expirationDetails: expirationDetails.schema,
         optionalInformationTitle: {
           title: "Optional Host Details",
@@ -479,7 +479,7 @@ export const getFormSchema = ({
           "ui:data-testid": "setup-script-checkbox",
         },
         warningBanner: {
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:warnings": [
             <>
               This script is not guaranteed to run or succeed upon host startup.
@@ -509,9 +509,9 @@ export const getFormSchema = ({
             "ui:customLabel": (
               <>
                 Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b>{" "}
-                {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-                @ <b>{shortenGithash(revision)}</b> onto host at startup (These
-                files will typically be in <InlineCode>/data/mci</InlineCode>)
+                @ <b>{shortenGithash(revision ?? undefined)}</b> onto host at
+                startup (These files will typically be in{" "}
+                <InlineCode>/data/mci</InlineCode>)
               </>
             ),
             "ui:elementWrapperCSS": dropMarginBottomCSS,
@@ -531,7 +531,7 @@ export const getFormSchema = ({
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           spawnHostTokenAuthBanner: {
-            "ui:showLabel": false,
+            "ui:label": false,
             "ui:field-data-testid": "spawn-host-token-auth-banner",
             "ui:descriptionNode": (
               <Banner

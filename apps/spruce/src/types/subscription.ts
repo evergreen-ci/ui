@@ -46,3 +46,24 @@ export const notificationMethodToCopy = projectSubscriptionMethods.reduce(
   }),
   {},
 );
+
+/** Where the user opened the notification modal from, used to compare entry points in analytics. */
+export enum NotificationModalSource {
+  NotifyMeButton = "notify_me_button",
+  TaskHistory = "task_history",
+  WaterfallMenu = "waterfall_menu",
+}
+
+export type ViewedNotificationModalAction = {
+  name: "Viewed notification modal";
+  "notification.source": NotificationModalSource;
+};
+
+export type CreatedNotificationAction = {
+  name: "Created notification";
+  "notification.source": NotificationModalSource;
+  "slack_username.saved": boolean;
+  "subscription.changed_initial_selection": boolean;
+  "subscription.type": string;
+  "subscription.trigger": string;
+};
