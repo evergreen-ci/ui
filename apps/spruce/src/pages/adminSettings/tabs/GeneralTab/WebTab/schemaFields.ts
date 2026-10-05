@@ -114,7 +114,7 @@ export const ui = {
       "ui:description": "The corpsecure URL for Parsley.",
     },
     logUrl: {
-      "ui:description": "The Evergreen URL from which to fetch logs.",
+      "ui:description": "The backend URL from which to fetch logs.",
     },
     fileStreamingContentTypes: {
       "ui:fieldCss": fullWidthCss,
