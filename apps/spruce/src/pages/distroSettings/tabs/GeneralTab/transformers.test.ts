@@ -79,6 +79,7 @@ const generalForm: GeneralFormState = {
   distroOptions: {
     adminOnly: false,
     isCluster: false,
+    isIaCManaged: false,
     singleTaskDistro: false,
     disableShallowClone: true,
     disabled: false,
@@ -99,6 +100,7 @@ const generalGql: DistroInput = {
   adminOnly: false,
   aliases: ["rhel71-power8", "rhel71-power8-build"],
   isCluster: false,
+  isIaCManaged: false,
   disableShallowClone: true,
   disabled: false,
   note: "distro note",
