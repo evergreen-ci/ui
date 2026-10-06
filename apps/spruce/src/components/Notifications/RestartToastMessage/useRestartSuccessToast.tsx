@@ -3,19 +3,14 @@ import { useUserSettings } from "hooks/useUserSettings";
 import {
   CreatedNotificationAction,
   NotificationModalSource,
-  ViewedRestartNotificationPromptAction,
 } from "types/subscription";
 import { RestartToastMessage, RestartToastMessageProps } from ".";
-
-type RestartToastAction =
-  | ViewedRestartNotificationPromptAction
-  | CreatedNotificationAction;
 
 interface UseRestartSuccessToastOptions extends Pick<
   RestartToastMessageProps,
   "resourceId" | "type"
 > {
-  sendEvent: (action: RestartToastAction) => void;
+  sendEvent: (action: CreatedNotificationAction) => void;
 }
 
 /**
@@ -45,7 +40,6 @@ export const useRestartSuccessToast = ({
     });
 
   return (message: string) => {
-    sendEvent({ name: "Viewed restart notification prompt" });
     toast.success(message, {
       ...(slackUsername && {
         actionElement: (

@@ -68,7 +68,3 @@ export type CreatedNotificationAction = {
   "subscription.type": string;
   "subscription.trigger": string;
 };
-
-export type ViewedRestartNotificationPromptAction = {
-  name: "Viewed restart notification prompt";
-};
