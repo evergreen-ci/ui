@@ -1,10 +1,5 @@
-import { useApolloClient } from "@apollo/client/react";
 import { toast } from "@via-ds/components/toast";
-import {
-  UserSettingsQuery,
-  UserSettingsQueryVariables,
-} from "gql/generated/types";
-import { USER_SETTINGS } from "gql/queries";
+import { useUserSettings } from "hooks/useUserSettings";
 import {
   CreatedNotificationAction,
   NotificationModalSource,
@@ -37,7 +32,8 @@ export const useRestartSuccessToast = ({
   sendEvent,
   type,
 }: UseRestartSuccessToastOptions) => {
-  const client = useApolloClient();
+  const { userSettings } = useUserSettings();
+  const { slackUsername } = userSettings;
   const onSubscribe: RestartToastMessageProps["onSubscribe"] = (subscription) =>
     sendEvent({
       name: "Created notification",
@@ -48,16 +44,7 @@ export const useRestartSuccessToast = ({
       "subscription.trigger": subscription.trigger || "",
     });
 
-  return async (message: string) => {
-    // Fetch again in case the user changed their Slack username in another tab.
-    const slackUsername = await client
-      .query<UserSettingsQuery, UserSettingsQueryVariables>({
-        query: USER_SETTINGS,
-        fetchPolicy: "network-only",
-      })
-      .then(({ data }) => data?.user?.settings?.slackUsername)
-      .catch(() => undefined);
-
+  return (message: string) => {
     sendEvent({ name: "Viewed restart notification prompt" });
     toast.success(message, {
       ...(slackUsername && {

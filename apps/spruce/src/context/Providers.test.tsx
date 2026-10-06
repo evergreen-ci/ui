@@ -1,3 +1,4 @@
+import { InMemoryCache } from "@apollo/client";
 import { toast } from "@via-ds/components/toast";
 import { Link } from "@via-ds/components/typography";
 import {
@@ -16,6 +17,7 @@ import {
   UserSettingsQueryVariables,
 } from "gql/generated/types";
 import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
+import { USER_SETTINGS } from "gql/queries";
 
 // GQLWrapper blocks rendering children on a network fetch that never resolves in jsdom.
 vi.mock("gql/GQLWrapper", () => ({
@@ -56,10 +58,19 @@ describe("ContextProviders", () => {
     });
   });
 
-  it("renders the restart toast action in the Via toaster", async () => {
+  it("renders the restart toast action without refetching cached user settings", async () => {
     const user = userEvent.setup();
+    const cache = new InMemoryCache();
+    cache.writeQuery<UserSettingsQuery>({
+      query: USER_SETTINGS,
+      data: getUserSettingsMock.result!.data!,
+    });
+    const fetchUserSettings = vi.fn(() => getUserSettingsMock.result!);
     renderWithRouterMatch(
-      <MockedProvider mocks={[getUserSettingsMock]}>
+      <MockedProvider
+        cache={cache}
+        mocks={[{ ...getUserSettingsMock, result: fetchUserSettings }]}
+      >
         <ContextProviders>
           <RestartToastTrigger />
         </ContextProviders>
@@ -76,6 +87,7 @@ describe("ContextProviders", () => {
     expect(
       await screen.findByRole("button", { name: "Slack when finished" }),
     ).toBeInTheDocument();
+    expect(fetchUserSettings).not.toHaveBeenCalled();
   });
 
   it("shows the default restart toast when the user has no Slack username", async () => {

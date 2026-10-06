@@ -35,7 +35,7 @@ describe("restartFailedTasks", () => {
 
   it("renders the menu item", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[buildVariantsQueryMock]}>
+      <MockedProvider mocks={[buildVariantsQueryMock, getUserSettingsMock]}>
         <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
@@ -45,7 +45,7 @@ describe("restartFailedTasks", () => {
 
   it("is enabled initially since query runs on click", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[buildVariantsQueryMock]}>
+      <MockedProvider mocks={[buildVariantsQueryMock, getUserSettingsMock]}>
         <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
@@ -89,7 +89,9 @@ describe("restartFailedTasks", () => {
   it("shows a warning when no failed tasks exist", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={[buildVariantsQueryMockNoFailedTasks]}>
+      <MockedProvider
+        mocks={[buildVariantsQueryMockNoFailedTasks, getUserSettingsMock]}
+      >
         <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
@@ -108,7 +110,9 @@ describe("restartFailedTasks", () => {
   it("shows an error when the query fails", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={[buildVariantsQueryErrorMock]}>
+      <MockedProvider
+        mocks={[buildVariantsQueryErrorMock, getUserSettingsMock]}
+      >
         <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
@@ -128,7 +132,11 @@ describe("restartFailedTasks", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider
-        mocks={[buildVariantsQueryMock, restartVersionsMutationErrorMock]}
+        mocks={[
+          buildVariantsQueryMock,
+          restartVersionsMutationErrorMock,
+          getUserSettingsMock,
+        ]}
       >
         <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
@@ -169,7 +177,7 @@ describe("restartFailedTasks", () => {
 
   it("is disabled when the disabled prop is true", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[buildVariantsQueryMock]}>
+      <MockedProvider mocks={[buildVariantsQueryMock, getUserSettingsMock]}>
         <RestartFailedTasks
           disabled
           patchId={patchId}
