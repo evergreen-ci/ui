@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useDistroSettingsAnalytics } from "analytics";
 import { GetFormSchema } from "components/SpruceForm";
@@ -188,7 +189,7 @@ export const DistroBanners: React.FC<DistroBannersProps> = ({
               data-testid="distro-banner-next"
               onClick={showNextBanner}
             >
-              <ThinChevronRight />
+              <ChevronRight />
             </NextButton>
           )}
         </CardContent>
@@ -249,19 +250,6 @@ const CardContent = styled.div`
   justify-content: space-between;
   gap: ${size.s};
 `;
-
-// The icon library's chevrons are solid glyphs, which look heavy next to banner text.
-const ThinChevronRight = () => (
-  <svg aria-hidden fill="none" height={16} viewBox="0 0 16 16" width={16}>
-    <polyline
-      points="6,3 11,8 6,13"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-    />
-  </svg>
-);
 
 // Inherits the banner's text color so the button matches the variant of the card it is on.
 const NextButton = styled(IconButton)`
