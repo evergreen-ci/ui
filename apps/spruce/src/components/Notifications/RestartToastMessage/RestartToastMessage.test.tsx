@@ -26,7 +26,7 @@ describe("restartToastMessage", () => {
       expect(onSubscribe).toHaveBeenCalledWith(taskSubscription);
     });
     expect(
-      await screen.findByText(/✓ Slack notification added\./),
+      await screen.findByText("✓ Slack notification added"),
     ).toBeInTheDocument();
     expect(
       screen.queryByRole("button", { name: "Slack when finished" }),
@@ -44,7 +44,7 @@ describe("restartToastMessage", () => {
       );
     });
     expect(
-      screen.queryByText(/✓ Slack notification added\./),
+      screen.queryByText("✓ Slack notification added"),
     ).not.toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Slack when finished" }),

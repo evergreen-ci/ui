@@ -47,7 +47,7 @@ export const RestartToastMessage: React.FC<RestartToastMessageProps> = ({
   };
 
   if (isSubscribed) {
-    return <span>✓ Slack notification added.</span>;
+    return <span>✓ Slack notification added</span>;
   }
   return (
     <Button
