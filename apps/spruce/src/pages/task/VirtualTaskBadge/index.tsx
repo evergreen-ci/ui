@@ -20,8 +20,8 @@ export const VirtualTaskBadge: React.FC<VirtualTaskBadgeProps> = ({
     </TooltipTrigger>
     <Tooltip data-testid="virtual-task-badge-tooltip">
       {isPushCompleted
-        ? "This is a virtual task. Its results were pushed by another task, so it did not run on a host for this execution."
-        : "This is a virtual task that ran on a host for this execution."}
+        ? "Another task pushed the results for this execution, so this virtual task did not run on a host."
+        : "This virtual task ran on a host for this execution."}
     </Tooltip>
   </TooltipRoot>
 );

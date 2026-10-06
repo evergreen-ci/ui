@@ -310,9 +310,10 @@ const ranVirtualTask: TaskQueryType = {
   },
 };
 
+// Identical to ranVirtualTask (which has a cost and finish time) except for the
+// push-completion fields, so the test can isolate the effect of being push-completed.
 const pushCompletedVirtualTask: TaskQueryType = {
   task: {
-    ...taskSucceeded.task,
     ...ranVirtualTask.task,
     completedBy: runnerTaskId,
     hostId: null,

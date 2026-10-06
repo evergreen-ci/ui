@@ -7,6 +7,7 @@ import {
   TaskCompletedByQueryVariables,
 } from "gql/generated/types";
 import { TASK_COMPLETED_BY } from "gql/queries";
+import styles from "./index.module.css";
 
 interface CompletedByProps {
   completedBy: string;
@@ -20,11 +21,15 @@ export const CompletedBy: React.FC<CompletedByProps> = ({ completedBy }) => {
     variables: { taskId: completedBy },
   });
 
+  const displayName = data?.task?.displayName ?? completedBy;
+
   return (
     <MetadataItem data-testid="task-metadata-completed-by" label="Completed by">
-      <StyledRouterLink to={getTaskRoute(completedBy)}>
-        {data?.task?.displayName ?? completedBy}
-      </StyledRouterLink>
+      <span className={styles.displayName} title={displayName}>
+        <StyledRouterLink to={getTaskRoute(completedBy)}>
+          {displayName}
+        </StyledRouterLink>
+      </span>
     </MetadataItem>
   );
 };
