@@ -8,12 +8,6 @@ type Action =
   | { name: "Created new distro"; "distro.id": string }
   | { name: "Clicked duplicate distro"; "distro.id": string }
   | {
-      name: "Clicked next banner";
-      "banner.path": string;
-      "banner.position": number;
-      "banner.count": number;
-    }
-  | {
       name: "Clicked link";
       link: "Task Queue" | "Image Build Information" | "Image Event Log";
     };

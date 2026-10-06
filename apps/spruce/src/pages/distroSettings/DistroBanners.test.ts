@@ -1,5 +1,5 @@
 import { Variant } from "@leafygreen-ui/banner";
-import { getDistroBanners, sortBannersByUrgency } from "./DistroBanners";
+import { getDistroBanners } from "./DistroBanners";
 
 const uiSchema = {
   distroOptions: {
@@ -105,35 +105,5 @@ describe("getDistroBanners", () => {
 
   it("handles missing form data", () => {
     expect(getDistroBanners(uiSchema, undefined)).toStrictEqual([]);
-  });
-});
-
-describe("sortBannersByUrgency", () => {
-  const banner = (path: string, variant: Variant) => ({
-    dataTestId: "distro-banner",
-    path,
-    message: path,
-    variant,
-  });
-
-  it("puts the most urgent banners first", () => {
-    expect(
-      sortBannersByUrgency([
-        banner("info", Variant.Info),
-        banner("warning", Variant.Warning),
-        banner("success", Variant.Success),
-        banner("danger", Variant.Danger),
-      ]).map(({ path }) => path),
-    ).toStrictEqual(["danger", "warning", "info", "success"]);
-  });
-
-  it("keeps the original order for banners of equal urgency", () => {
-    expect(
-      sortBannersByUrgency([
-        banner("first", Variant.Warning),
-        banner("danger", Variant.Danger),
-        banner("second", Variant.Warning),
-      ]).map(({ path }) => path),
-    ).toStrictEqual(["danger", "first", "second"]);
   });
 });
