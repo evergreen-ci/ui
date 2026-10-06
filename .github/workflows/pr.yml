@@ -113,7 +113,7 @@ jobs:
               org: 'evergreen-ci',
               team_slug: 'evg-ui',
             });
-            const excludedReviewers = ["sophstad", "athammer"] // Add your name if you are on long-term PTO.
+            const excludedReviewers = ["sophstad", "minnakt"] // Add your name if you are on long-term PTO.
             const eligibleReviewers = members.filter(member => !excludedReviewers.includes(member.login));
             const reviewer = eligibleReviewers[Math.floor(Math.random() * eligibleReviewers.length)].login;
             await github.rest.pulls.requestReviewers({
