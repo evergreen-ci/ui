@@ -864,6 +864,7 @@ export type Distro = {
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
+  isIaCManaged: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
@@ -926,6 +927,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
+  isIaCManaged?: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints: Array<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
@@ -4811,6 +4813,7 @@ export type UiConfig = {
   defaultProject: Scalars["String"]["output"];
   fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
   httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  logUrl?: Maybe<Scalars["String"]["output"]>;
   loginDomain?: Maybe<Scalars["String"]["output"]>;
   parsleyUrl?: Maybe<Scalars["String"]["output"]>;
   secret?: Maybe<Scalars["String"]["output"]>;
@@ -4828,6 +4831,7 @@ export type UiConfigInput = {
   defaultProject: Scalars["String"]["input"];
   fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
   httpListenAddr: Scalars["String"]["input"];
+  logUrl?: InputMaybe<Scalars["String"]["input"]>;
   loginDomain: Scalars["String"]["input"];
   parsleyUrl: Scalars["String"]["input"];
   secret: Scalars["String"]["input"];
