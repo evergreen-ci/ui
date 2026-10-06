@@ -10,7 +10,7 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { useRestartSuccessToast } from "components/Notifications/RestartToastMessage/useRestartSuccessToast";
+import { useSuccessToastWithNotify } from "components/Notifications/RestartToastMessage/useSuccessToastWithNotify";
 import ContextProviders from "context/Providers";
 import {
   UserSettingsQuery,
@@ -118,7 +118,7 @@ describe("ContextProviders", () => {
 });
 
 const RestartToastTrigger: React.FC = () => {
-  const showRestartToast = useRestartSuccessToast({
+  const showRestartToast = useSuccessToastWithNotify({
     resourceId: "task_id",
     sendEvent: vi.fn(),
     type: "task",

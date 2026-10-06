@@ -4,7 +4,7 @@ import { MenuItem } from "@leafygreen-ui/menu";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
-import { useRestartSuccessToast } from "components/Notifications/RestartToastMessage/useRestartSuccessToast";
+import { useSuccessToastWithNotify } from "components/Notifications/RestartToastMessage/useSuccessToastWithNotify";
 import { finishedTaskStatuses } from "constants/task";
 import {
   BuildVariantsWithChildrenQuery,
@@ -28,7 +28,7 @@ export const RestartFailedTasks = forwardRef<
 >(({ disabled = false, patchId, refetchQueries }, ref) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(patchId);
-  const dispatchRestartSuccessToast = useRestartSuccessToast({
+  const dispatchSuccessToastWithNotify = useSuccessToastWithNotify({
     resourceId: patchId,
     sendEvent: sendEvent,
     type: "version",
@@ -39,7 +39,7 @@ export const RestartFailedTasks = forwardRef<
     RestartVersionsMutationVariables
   >(RESTART_VERSIONS, {
     onCompleted: () => {
-      dispatchRestartSuccessToast("Successfully restarted tasks!");
+      dispatchSuccessToastWithNotify("Successfully restarted tasks!");
     },
     onError: (err) => {
       dispatchToast.error(`Error while restarting tasks: '${err.message}'`);

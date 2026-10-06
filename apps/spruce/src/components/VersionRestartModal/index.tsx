@@ -9,7 +9,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
-import { useRestartSuccessToast } from "components/Notifications/RestartToastMessage/useRestartSuccessToast";
+import { useSuccessToastWithNotify } from "components/Notifications/RestartToastMessage/useSuccessToastWithNotify";
 import { finishedTaskStatuses } from "constants/task";
 import {
   BuildVariantsWithChildrenQuery,
@@ -41,7 +41,7 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(versionId);
-  const dispatchRestartSuccessToast = useRestartSuccessToast({
+  const dispatchSuccessToastWithNotify = useSuccessToastWithNotify({
     resourceId: versionId,
     sendEvent: sendEvent,
     type: "version",
@@ -59,7 +59,7 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   >(RESTART_VERSIONS, {
     onCompleted: () => {
       onOk();
-      dispatchRestartSuccessToast("Successfully restarted tasks!");
+      dispatchSuccessToastWithNotify("Successfully restarted tasks!");
     },
     onError: (err) => {
       onOk();

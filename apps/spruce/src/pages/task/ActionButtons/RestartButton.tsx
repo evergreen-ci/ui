@@ -6,7 +6,7 @@ import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { Size as ButtonSize, LoadingButton } from "components/Buttons";
-import { useRestartSuccessToast } from "components/Notifications/RestartToastMessage/useRestartSuccessToast";
+import { useSuccessToastWithNotify } from "components/Notifications/RestartToastMessage/useSuccessToastWithNotify";
 import { Requester } from "constants/requesters";
 import {
   RestartTaskMutation,
@@ -32,7 +32,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
 
   const taskAnalytics = useTaskAnalytics();
   const [, setExecution] = useQueryParam("execution", 0);
-  const dispatchRestartSuccessToast = useRestartSuccessToast({
+  const dispatchSuccessToastWithNotify = useSuccessToastWithNotify({
     resourceId: taskId,
     sendEvent: taskAnalytics.sendEvent,
     type: "task",
@@ -50,7 +50,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
           "Task scheduled to restart, but is disabled. Enable the task to run.",
         );
       } else {
-        dispatchRestartSuccessToast("Task scheduled to restart.");
+        dispatchSuccessToastWithNotify("Task scheduled to restart.");
       }
       setExecution(latestExecution);
     },

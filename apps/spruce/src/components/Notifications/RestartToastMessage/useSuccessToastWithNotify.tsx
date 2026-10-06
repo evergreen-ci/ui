@@ -6,7 +6,7 @@ import {
 } from "types/subscription";
 import { RestartToastMessage, RestartToastMessageProps } from ".";
 
-interface UseRestartSuccessToastOptions extends Pick<
+interface UseSuccessToastWithNotifyOptions extends Pick<
   RestartToastMessageProps,
   "resourceId" | "type"
 > {
@@ -14,7 +14,7 @@ interface UseRestartSuccessToastOptions extends Pick<
 }
 
 /**
- * useRestartSuccessToast returns a function that dispatches the restart success toast with a shortcut to Slack the
+ * useSuccessToastWithNotify returns a function that dispatches a success toast with a shortcut to Slack the
  * user on the outcome. The shortcut appears only when the user has a Slack username.
  * @param options - the resource being restarted and the analytics sender
  * @param options.resourceId - the ID of the resource being restarted
@@ -22,11 +22,11 @@ interface UseRestartSuccessToastOptions extends Pick<
  * @param options.type - the type of resource being restarted
  * @returns a function that dispatches the success toast with the given message
  */
-export const useRestartSuccessToast = ({
+export const useSuccessToastWithNotify = ({
   resourceId,
   sendEvent,
   type,
-}: UseRestartSuccessToastOptions) => {
+}: UseSuccessToastWithNotifyOptions) => {
   const { userSettings } = useUserSettings();
   const { slackUsername } = userSettings;
   const onSubscribe: RestartToastMessageProps["onSubscribe"] = (subscription) =>
