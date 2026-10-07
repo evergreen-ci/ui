@@ -7359,6 +7359,7 @@ export type SaveAdminSettingsMutation = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;
@@ -8230,6 +8231,7 @@ export type AdminSettingsQuery = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;

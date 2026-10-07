@@ -9,6 +9,7 @@ export interface WebFormState {
       url: string;
       uiv2Url: string;
       parsleyUrl: string;
+      logUrl: string;
       httpListenAddr: string;
       secret: string;
       defaultProject: string;
