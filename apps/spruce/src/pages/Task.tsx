@@ -27,11 +27,13 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
 import { RequiredQueryParams } from "types/task";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
 import ExecutionSelector from "./task/ExecutionSelector";
 import { Metadata } from "./task/metadata";
 import TaskTabs from "./task/taskTabs";
+import { VirtualTaskBadge } from "./task/VirtualTaskBadge";
 
 export const Task = () => {
   const { [slugs.taskId]: taskId } = useParams<{
@@ -79,6 +81,7 @@ export const Task = () => {
     errors,
     executionTasksFull,
     invalidatedByUpstream,
+    isVirtual,
     latestExecution,
     priority,
     status,
@@ -143,6 +146,11 @@ export const Task = () => {
                 glyph={<Refresh />}
                 label="Merge Queue Aborted"
                 variant={ChipVariant.Gray}
+              />
+            )}
+            {task && isVirtual && (
+              <VirtualTaskBadge
+                isPushCompleted={isPushCompletedVirtualTask(task)}
               />
             )}
           </StyledBadgeWrapper>

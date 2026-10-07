@@ -3,7 +3,7 @@ import {
   versionTriggers,
   waterfallTriggers,
 } from "constants/triggers";
-import { getGqlPayload } from "./utils";
+import { getGqlPayload, getSlackOnOutcomeSubscription } from "./utils";
 
 describe("getGqlPayload", () => {
   it("should correctly format the GQL payload for a personal task subscription", () => {
@@ -106,6 +106,25 @@ describe("getGqlPayload", () => {
         type: "email",
         target: "fake.user@mongodb.com",
       },
+      trigger: "outcome",
+      trigger_data: {},
+    });
+  });
+});
+
+describe("getSlackOnOutcomeSubscription", () => {
+  it("subscribes the user to a Slack message when the version finishes", () => {
+    expect(
+      getSlackOnOutcomeSubscription("version", "version_id", "fake.user"),
+    ).toStrictEqual({
+      owner_type: "person",
+      regex_selectors: [],
+      resource_type: "VERSION",
+      selectors: [
+        { type: "object", data: "version" },
+        { type: "id", data: "version_id" },
+      ],
+      subscriber: { type: "slack", target: "@fake.user" },
       trigger: "outcome",
       trigger_data: {},
     });

@@ -3341,7 +3341,9 @@ export type RateLimitConfig = {
   __typename?: "RateLimitConfig";
   elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
   exemptUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlComplexityPerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
@@ -3355,7 +3357,9 @@ export type RateLimitConfig = {
 export type RateLimitConfigInput = {
   elevatedUserIds: Array<Scalars["String"]["input"]>;
   exemptUserIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  graphqlComplexityBurst: Scalars["Int"]["input"];
   graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlComplexityPerHour: Scalars["Int"]["input"];
   graphqlServiceBurst: Scalars["Int"]["input"];
   graphqlServicePerHour: Scalars["Int"]["input"];
   graphqlUserBurst: Scalars["Int"]["input"];
@@ -5559,6 +5563,7 @@ export type ProjectGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
   versionControlEnabled?: boolean | null;
+  virtualTasksEnabled?: boolean | null;
   waterfallDisabled?: boolean | null;
 };
 
@@ -5582,6 +5587,7 @@ export type RepoGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
+  virtualTasksEnabled?: boolean | null;
   waterfallDisabled: boolean;
 };
 
@@ -5761,6 +5767,7 @@ export type ProjectSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
@@ -5978,6 +5985,7 @@ export type RepoSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled: boolean;
     notifyOnBuildFailure: boolean;
     githubMQTriggerAliases?: Array<string> | null;
@@ -6390,6 +6398,7 @@ export type ProjectEventSettingsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
@@ -8074,7 +8083,9 @@ export type AdminSettingsQuery = {
       __typename?: "RateLimitConfig";
       elevatedUserIds?: Array<string> | null;
       exemptUserIds?: Array<string> | null;
+      graphqlComplexityBurst?: number | null;
       graphqlComplexityLimit?: number | null;
+      graphqlComplexityPerHour?: number | null;
       graphqlServiceBurst?: number | null;
       graphqlServicePerHour?: number | null;
       graphqlUserBurst?: number | null;
@@ -9525,6 +9536,7 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -9756,6 +9768,7 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10052,6 +10065,7 @@ export type ProjectSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
+      virtualTasksEnabled?: boolean | null;
       waterfallDisabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
       githubMQTriggerAliases?: Array<string> | null;
@@ -10331,6 +10345,7 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10562,6 +10577,7 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10799,6 +10815,7 @@ export type RepoSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
+      virtualTasksEnabled?: boolean | null;
       waterfallDisabled: boolean;
       notifyOnBuildFailure: boolean;
       githubMQTriggerAliases?: Array<string> | null;
@@ -11204,6 +11221,20 @@ export type TaskAllExecutionsQuery = {
     execution: number;
     ingestTime?: Date | null;
   }>;
+};
+
+export type TaskCompletedByQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+}>;
+
+export type TaskCompletedByQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    displayName: string;
+    execution: number;
+  } | null;
 };
 
 export type TaskConfigQueryVariables = Exact<{
@@ -11683,6 +11714,7 @@ export type TaskQuery = {
     canSchedule: boolean;
     canSetPriority: boolean;
     canUnschedule: boolean;
+    completedBy?: string | null;
     displayOnly?: boolean | null;
     distroId: string;
     errors?: Array<string> | null;
@@ -11696,6 +11728,7 @@ export type TaskQuery = {
     imageId: string;
     ingestTime?: Date | null;
     invalidatedByUpstream?: boolean | null;
+    isVirtual: boolean;
     latestExecution: number;
     minQueuePosition: number;
     order: number;

@@ -7,6 +7,7 @@ import { CopyableID } from "components/CopyableID";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { getProjectPatchesRoute, getTaskRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
+import { CompletedBy } from "./CompletedBy";
 import { TaskOwnership } from "./TaskOwnership";
 
 type Task = NonNullable<TaskQuery["task"]>;
@@ -20,6 +21,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
 
   const {
     baseTask,
+    completedBy,
     displayTask,
     execution,
     generatedBy,
@@ -64,6 +66,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
           </StyledRouterLink>
         </MetadataItem>
       )}
+      {completedBy && <CompletedBy completedBy={completedBy} />}
       <TaskOwnership execution={execution} taskId={task.id} />
       {displayTask && (
         <MetadataItem label="Display task">

@@ -1,6 +1,6 @@
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { expect, test } from "../../fixtures";
-import { validateToast } from "../../helpers";
+import { clickCheckbox, validateToast } from "../../helpers";
 
 const patchWithoutVersion = "test meee";
 const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
@@ -76,15 +76,25 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await patchCard.getByTestId("patch-card-dropdown").click();
     await page.getByTestId("restart-version").click();
 
-    await page.getByTestId("variant-accordion").nth(0).click();
-    await page.getByText("asdf").click();
+    const modal = page.getByTestId("version-restart-modal");
+    await expect(modal).toBeVisible();
+    await modal
+      .getByTestId("variant-accordion")
+      .first()
+      .getByTestId("accordion-toggle")
+      .click();
+    await clickCheckbox(modal.getByRole("checkbox", { name: "asdf" }));
 
-    const restartButton = page
-      .getByTestId("version-restart-modal")
-      .getByRole("button", { name: "Restart" });
+    const restartButton = modal.getByRole("button", { name: "Restart" });
     await expect(restartButton).toBeEnabled();
     await restartButton.click();
-    await validateToast(page, "success", "Successfully restarted tasks!");
+    await expect(modal).toBeHidden();
+    await expect(
+      page
+        .getByRole("region", { name: "Notifications" })
+        .getByRole("status")
+        .filter({ hasText: "Successfully restarted tasks!" }),
+    ).toBeVisible();
   });
 
   test("'Restart' link is disabled for unfinalized patch", async ({ page }) => {

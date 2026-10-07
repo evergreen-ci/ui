@@ -2,6 +2,7 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { TaskQuery } from "gql/generated/types";
 import { msToDuration } from "utils/string";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 import { RuntimeTimer } from "./RuntimeTimer";
 import { Timeline } from "./Timeline";
 
@@ -22,11 +23,12 @@ export const TimelineSection: React.FC<TimelineProps> = ({ task }) => {
   } = task;
 
   const baseTaskDuration = baseTask?.timeTaken;
+  const isPushCompleted = isPushCompletedVirtualTask(task);
 
   return (
     <MetadataSection title="Timeline">
       <Timeline task={task} />
-      {estimatedStart && estimatedStart > 0 ? (
+      {!isPushCompleted && estimatedStart && estimatedStart > 0 ? (
         <MetadataItem label="Estimated time to start">
           <span data-testid="task-metadata-estimated-start">
             {msToDuration(estimatedStart)}

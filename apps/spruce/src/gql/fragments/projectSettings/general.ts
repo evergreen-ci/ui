@@ -23,6 +23,7 @@ export const PROJECT_GENERAL_SETTINGS = gql`
     stepbackBisect
     stepbackDisabled
     versionControlEnabled
+    virtualTasksEnabled
     waterfallDisabled
   }
 `;
@@ -47,6 +48,7 @@ export const REPO_GENERAL_SETTINGS = gql`
     stepbackBisect
     stepbackDisabled
     versionControlEnabled
+    virtualTasksEnabled
     waterfallDisabled
   }
 `;

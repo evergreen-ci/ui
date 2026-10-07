@@ -39,6 +39,9 @@ export interface GeneralFormState {
     patch: {
       patchingDisabled: boolean | null;
     };
+    virtualTasks: {
+      virtualTasksEnabled: boolean | null;
+    };
   };
   historicalTaskDataCaching: {
     disabledStatsCache: boolean | null;

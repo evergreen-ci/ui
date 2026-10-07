@@ -1,4 +1,6 @@
 import { StringMap } from "@evg-ui/lib/types/utils";
+import { taskTriggers, versionTriggers } from "constants/triggers";
+import { SubscriptionInput } from "gql/generated/types";
 import {
   NotificationMethods,
   SubscriptionMethodOption,
@@ -144,3 +146,31 @@ export const getDefaultNotificationMethod = (
     ?.value ??
   subscriptionMethods[0]?.value ??
   "";
+
+/**
+ * getSlackOnOutcomeSubscription builds a subscription that Slacks the user when the resource finishes.
+ * @param type - the type of resource being subscribed to
+ * @param resourceId - the ID of the resource being subscribed to
+ * @param slackUsername - the user's Slack username
+ * @returns the subscription to save
+ */
+export const getSlackOnOutcomeSubscription = (
+  type: "task" | "version",
+  resourceId: string,
+  slackUsername: string,
+): SubscriptionInput => {
+  const triggers = type === "task" ? taskTriggers : versionTriggers;
+  return getGqlPayload(type, triggers, resourceId, {
+    event: {
+      eventSelect: getDefaultEvent(triggers),
+      extraFields: {},
+      regexSelector: [],
+    },
+    notification: {
+      notificationSelect: NotificationMethods.SLACK,
+      jiraCommentInput: "",
+      slackInput: `@${slackUsername}`,
+      emailInput: "",
+    },
+  });
+};
