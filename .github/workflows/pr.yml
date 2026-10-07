@@ -96,7 +96,7 @@ jobs:
   assign-dependabot-reviewers:
     name: Assign Dependabot Reviewers
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    if: github.actor == 'dependabot[bot]' && github.event.action == 'opened'
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -116,12 +116,14 @@ jobs:
             const excludedReviewers = ['sophstad']; // Add your name if you are on long-term PTO.
             const eligibleReviewers = members.filter(member => !excludedReviewers.includes(member.login));
             const reviewer = eligibleReviewers[Math.floor(Math.random() * eligibleReviewers.length)].login;
+
             await github.rest.pulls.requestReviewers({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number,
               reviewers: [reviewer],
             });
+            
             await github.rest.pulls.removeRequestedReviewers({
               owner: context.repo.owner,
               repo: context.repo.repo,
