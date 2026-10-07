@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import { Banner, Variant } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Body } from "@leafygreen-ui/typography";
@@ -8,6 +9,7 @@ import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useDistroSettingsAnalytics } from "analytics";
+import { DistroSettingsTabRoutes } from "constants/routes";
 import {
   DistroOnSaveOperation,
   DistroQuery,
@@ -27,6 +29,9 @@ type SaveModalProps = {
   open: boolean;
   tab: WritableDistroSettingsType;
 };
+
+const IAC_MANAGED_BANNER =
+  "This distro is managed by infrastructure as code. Changes made here may be overwritten.";
 
 const onSaveOptions: {
   value: DistroOnSaveOperation;
@@ -71,6 +76,9 @@ export const SaveModal: React.FC<SaveModalProps> = ({
   const dispatchToast = useToastContext();
   const { getTab, saveTab } = useDistroSettingsContext();
   const { formData } = getTab(tab);
+  const { formData: generalFormData } = getTab(DistroSettingsTabRoutes.General);
+  const showIaCManagedBanner =
+    !!generalFormData?.distroOptions.isIaCManaged && !!distro?.isIaCManaged;
   const [onSaveOperation, setOnSaveOperation] = useState(
     DistroOnSaveOperation.None,
   );
@@ -131,6 +139,14 @@ export const SaveModal: React.FC<SaveModalProps> = ({
       open={open}
       title="Save page"
     >
+      {showIaCManagedBanner && (
+        <StyledBanner
+          data-testid="iac-managed-banner"
+          variant={Variant.Warning}
+        >
+          {IAC_MANAGED_BANNER}
+        </StyledBanner>
+      )}
       {banner}
       <StyledBody>
         Evergreen can perform one of the following actions on save:
@@ -151,6 +167,10 @@ export const SaveModal: React.FC<SaveModalProps> = ({
     </ConfirmationModal>
   );
 };
+
+const StyledBanner = styled(Banner)`
+  margin-bottom: ${size.m};
+`;
 
 const StyledBody = styled(Body)`
   margin-bottom: ${size.xs};
