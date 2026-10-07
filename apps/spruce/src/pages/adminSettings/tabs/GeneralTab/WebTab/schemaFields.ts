@@ -223,17 +223,17 @@ export const rateLimitConfig = {
       type: "object" as const,
       title: "GraphQL Query Complexity",
       properties: {
-        graphqlComplexityBurst: {
-          type: "number" as const,
-          title: "Complexity Burst",
-        },
         graphqlComplexityLimit: {
           type: "number" as const,
           title: "Complexity Limit",
         },
         graphqlComplexityPerHour: {
           type: "number" as const,
-          title: "Complexity Per Hour",
+          title: "Cumulative Complexity Per Hour",
+        },
+        graphqlComplexityBurst: {
+          type: "number" as const,
+          title: "Cumulative Complexity Burst",
         },
       },
     },
@@ -294,8 +294,9 @@ export const rateLimitConfig = {
       "ui:fieldCss": nestedObjectGridCss,
     },
     graphqlComplexity: {
+      "ui:data-testid": "graphql-complexity",
       "ui:description":
-        "Prevent expensive queries from being executed by blocking queries beyond the complexity limit (see https://gqlgen.com/reference/complexity).",
+        "Prevent expensive queries from being executed by blocking queries beyond the complexity limit (see https://gqlgen.com/reference/complexity). Each user's cumulative query complexity is also charged against an hourly budget; the burst limit cannot exceed the per hour limit.",
       "ui:fieldCss": nestedObjectGridCss,
     },
     elevatedUsers: {
