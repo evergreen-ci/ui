@@ -9,7 +9,6 @@ import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useDistroSettingsAnalytics } from "analytics";
-import { DistroSettingsTabRoutes } from "constants/routes";
 import {
   DistroOnSaveOperation,
   DistroQuery,
@@ -76,9 +75,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
   const dispatchToast = useToastContext();
   const { getTab, saveTab } = useDistroSettingsContext();
   const { formData } = getTab(tab);
-  const { formData: generalFormData } = getTab(DistroSettingsTabRoutes.General);
-  const showIaCManagedBanner =
-    !!generalFormData?.distroOptions.isIaCManaged && !!distro?.isIaCManaged;
+  const showIaCManagedBanner = !!distro?.isIaCManaged;
   const [onSaveOperation, setOnSaveOperation] = useState(
     DistroOnSaveOperation.None,
   );
