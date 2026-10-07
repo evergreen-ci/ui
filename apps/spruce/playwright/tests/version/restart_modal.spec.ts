@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { clickCheckbox, validateToast } from "../../helpers";
+import { clickCheckbox } from "../../helpers";
 
 const path = "/version/5ecedafb562343215a7ff297";
 
@@ -126,7 +126,12 @@ test.describe("version/restart_modal", () => {
       await clickCheckbox(taskCheckbox);
       await modal.getByRole("button", { name: "Restart" }).click();
       await expect(page.getByTestId("version-restart-modal")).toBeHidden();
-      await validateToast(page, "success", "Successfully restarted tasks!");
+      await expect(
+        page
+          .getByRole("region", { name: "Notifications" })
+          .getByRole("status")
+          .filter({ hasText: "Successfully restarted tasks!" }),
+      ).toBeVisible();
     });
   });
 
@@ -150,7 +155,12 @@ test.describe("version/restart_modal", () => {
       const confirmButton = modal.getByRole("button", { name: "Restart" });
       await expect(confirmButton).toHaveAttribute("aria-disabled", "false");
       await confirmButton.click();
-      await validateToast(page, "success", "Successfully restarted tasks!");
+      await expect(
+        page
+          .getByRole("region", { name: "Notifications" })
+          .getByRole("status")
+          .filter({ hasText: "Successfully restarted tasks!" }),
+      ).toBeVisible();
     });
   });
 });

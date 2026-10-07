@@ -10,6 +10,17 @@ describe("WebTab transformers", () => {
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(form)).toEqual(gql);
   });
+  it("preserves configured complexity rate limits when saving", () => {
+    const rateLimit = {
+      graphqlComplexityBurst: 100,
+      graphqlComplexityPerHour: 1000,
+    };
+    const result = gqlToForm({ ...adminSettings, rateLimit });
+    expect(result).not.toBeNull();
+    if (result) {
+      expect(formToGql(result).rateLimit).toMatchObject(rateLimit);
+    }
+  });
 });
 
 const form: WebFormState = {

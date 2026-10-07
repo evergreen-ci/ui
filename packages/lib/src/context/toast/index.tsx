@@ -10,6 +10,7 @@ import {
   Variant,
   useToast,
 } from "@leafygreen-ui/toast";
+import { Toaster } from "@via-ds/components/toast";
 import { WordBreak } from "../../components/styles";
 import {
   TOAST_TIMEOUT,
@@ -135,7 +136,10 @@ const ToastProvider: React.FC<{
   portalClassName?: string;
 }> = ({ children, portalClassName }) => (
   <LGToastProvider portalClassName={portalClassName}>
-    <ToastProviderCore>{children}</ToastProviderCore>
+    <ToastProviderCore>
+      {children}
+      <Toaster />
+    </ToastProviderCore>
   </LGToastProvider>
 );
 
