@@ -59,7 +59,7 @@ test.describe("Task Action Buttons", () => {
         subscriber: { type: "slack", target: "@admin" },
         trigger: "outcome",
       });
-      await expect(page.getByText("✓ Slack notification added.")).toBeVisible();
+      await expect(page.getByText("✓ Slack notification added")).toBeVisible();
     });
 
     test("Clicking Unschedule button should unschedule a task and display a success toast", async ({
