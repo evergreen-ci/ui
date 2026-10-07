@@ -51,6 +51,11 @@ export const getFormSchema = (
         type: "object" as const,
         title: "Distro Options",
         properties: {
+          isIaCManaged: {
+            type: "boolean" as const,
+            title: "Mark distro as managed by IaC",
+            default: false,
+          },
           adminOnly: {
             type: "boolean" as const,
             title: "Admin only",
@@ -144,6 +149,10 @@ export const getFormSchema = (
       isCluster: {
         "ui:description":
           "Jobs will not be run on this host. Used for special purposes.",
+      },
+      isIaCManaged: {
+        "ui:description":
+          "This distro's configuration is managed by infrastructure as code.",
       },
       disabled: {
         "ui:description": "Tasks already in the task queue will be removed.",

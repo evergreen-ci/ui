@@ -8617,6 +8617,7 @@ export type DistroQuery = {
     execUser: string;
     imageId: string;
     isCluster: boolean;
+    isIaCManaged: boolean;
     isVirtualWorkStation: boolean;
     mountpoints: Array<string>;
     name: string;

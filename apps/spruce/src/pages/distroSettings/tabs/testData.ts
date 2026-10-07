@@ -98,6 +98,7 @@ const distroData: DistroQuery["distro"] = {
     schedulerHost: "",
   },
   isCluster: false,
+  isIaCManaged: false,
   isVirtualWorkStation: false,
   name: "rhel71-power8-large",
   note: "distro note",
