@@ -54,6 +54,8 @@ const form: WebFormState = {
       },
       graphqlComplexity: {
         graphqlComplexityLimit: 0,
+        graphqlComplexityPerHour: 0,
+        graphqlComplexityBurst: 0,
       },
       elevatedUsers: {
         elevatedUserIds: [],
@@ -99,6 +101,8 @@ const gql: AdminSettingsInput = {
     graphqlServicePerHour: 0,
     graphqlServiceBurst: 0,
     graphqlComplexityLimit: 0,
+    graphqlComplexityPerHour: 0,
+    graphqlComplexityBurst: 0,
     elevatedUserIds: [],
     exemptUserIds: [],
   },
