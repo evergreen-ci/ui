@@ -96,7 +96,7 @@ jobs:
   assign-dependabot-reviewers:
     name: Assign Dependabot Reviewers
     runs-on: ubuntu-latest
-    # if: github.actor == 'dependabot[bot]'
+    if: github.actor == 'dependabot[bot]'
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -113,7 +113,7 @@ jobs:
               org: 'evergreen-ci',
               team_slug: 'evg-ui',
             });
-            const excludedReviewers = ['sophstad', 'minnakt']; // Add your name if you are on long-term PTO.
+            const excludedReviewers = ['sophstad']; // Add your name if you are on long-term PTO.
             const eligibleReviewers = members.filter(member => !excludedReviewers.includes(member.login));
             const reviewer = eligibleReviewers[Math.floor(Math.random() * eligibleReviewers.length)].login;
             await github.rest.pulls.requestReviewers({
