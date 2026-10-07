@@ -223,9 +223,17 @@ export const rateLimitConfig = {
       type: "object" as const,
       title: "GraphQL Query Complexity",
       properties: {
+        graphqlComplexityBurst: {
+          type: "number" as const,
+          title: "Complexity Burst",
+        },
         graphqlComplexityLimit: {
           type: "number" as const,
           title: "Complexity Limit",
+        },
+        graphqlComplexityPerHour: {
+          type: "number" as const,
+          title: "Complexity Per Hour",
         },
       },
     },
