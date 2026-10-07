@@ -301,7 +301,9 @@ export const ADMIN_SETTINGS = gql`
       rateLimit {
         elevatedUserIds
         exemptUserIds
+        graphqlComplexityBurst
         graphqlComplexityLimit
+        graphqlComplexityPerHour
         graphqlServiceBurst
         graphqlServicePerHour
         graphqlUserBurst

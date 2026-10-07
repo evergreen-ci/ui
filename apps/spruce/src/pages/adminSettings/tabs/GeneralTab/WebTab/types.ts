@@ -40,6 +40,8 @@ export interface WebFormState {
       };
       graphqlComplexity: {
         graphqlComplexityLimit: number;
+        graphqlComplexityPerHour: number;
+        graphqlComplexityBurst: number;
       };
       elevatedUsers: {
         elevatedUserIds: string[];
