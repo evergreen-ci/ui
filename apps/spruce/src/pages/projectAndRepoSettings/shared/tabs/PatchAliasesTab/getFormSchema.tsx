@@ -167,7 +167,7 @@ export const getFormSchema = (
           projectType === ProjectType.AttachedProject
             ? widgets.RadioBoxWidget
             : "hidden",
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:data-testid": "patch-aliases-override-radio-box",
       },
       "ui:description": PatchAliasesDescription,
@@ -182,7 +182,7 @@ export const getFormSchema = (
           projectType === ProjectType.AttachedProject
             ? widgets.RadioBoxWidget
             : "hidden",
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:data-testid": "patch-trigger-aliases-override-radio-box",
       },
       aliases: aliasesUiSchema,
@@ -199,10 +199,10 @@ export const getFormSchema = (
 const aliasesUiSchema = {
   "ui:addButtonText": "Add patch trigger alias",
   "ui:orderable": false,
-  "ui:showLabel": false,
+  "ui:label": false,
   "ui:useExpandableCard": true,
-  items: {
-    "ui:displayTitle": "New Patch Trigger Alias",
+  items: (itemData?: { displayTitle?: string }) => ({
+    "ui:title": itemData?.displayTitle || "New Patch Trigger Alias",
     "ui:label": false,
     alias: {
       "ui:data-testid": "pta-alias-input",
@@ -222,7 +222,7 @@ const aliasesUiSchema = {
     taskSpecifiers: {
       "ui:addButtonText": "Add task regex pair",
       "ui:orderable": false,
-      "ui:showLabel": false,
+      "ui:label": false,
       "ui:topAlignDelete": true,
       items: {
         "ui:ObjectFieldTemplate": AccordionFieldTemplate,
@@ -255,7 +255,7 @@ const aliasesUiSchema = {
         margin-bottom: 0;
       `,
     },
-  },
+  }),
 };
 
 const PatchAliasesDescription = (

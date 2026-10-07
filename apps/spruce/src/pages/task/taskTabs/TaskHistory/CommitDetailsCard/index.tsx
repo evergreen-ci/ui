@@ -35,6 +35,7 @@ import {
 import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
 import { NotifyMeButton } from "pages/task/ActionButtons/NotifyMeButton";
+import { NotificationModalSource } from "types/subscription";
 import { RequiredQueryParams, TaskTab } from "types/task";
 import { isProduction } from "utils/environmentVariables";
 import {
@@ -235,7 +236,11 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               Schedule Task
             </Button>
           )}
-          <NotifyMeButton buttonSize={ButtonSize.XSmall} taskId={taskId} />
+          <NotifyMeButton
+            buttonSize={ButtonSize.XSmall}
+            source={NotificationModalSource.TaskHistory}
+            taskId={taskId}
+          />
           {isCurrentTask && (
             <Badge data-testid="this-task-badge" variant={BadgeVariant.Blue}>
               {isPatch ? "Base" : "This"} Task

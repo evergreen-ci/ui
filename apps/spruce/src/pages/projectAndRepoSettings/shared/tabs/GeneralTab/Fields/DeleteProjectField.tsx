@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Description } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
+import { Field } from "@rjsf/utils";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -68,9 +68,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
 };
 
 export const DeleteProjectField: Field = ({ disabled, uiSchema }) => {
-  const {
-    options: { projectId },
-  } = uiSchema;
+  const { projectId } = uiSchema?.["ui:options"] ?? {};
 
   const [open, setOpen] = useState(false);
 

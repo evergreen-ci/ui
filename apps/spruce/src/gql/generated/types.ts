@@ -7364,6 +7364,7 @@ export type SaveAdminSettingsMutation = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;
@@ -7883,6 +7884,11 @@ export type AdminSettingsQuery = {
         transitionToGlacierDays?: number | null;
         transitionToIADays?: number | null;
       } | null;
+      sourceCacheBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+      } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";
         name?: string | null;
@@ -8230,6 +8236,7 @@ export type AdminSettingsQuery = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;

@@ -112,6 +112,9 @@ export const taskLimits = {
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
+      items: {
+        "ui:label": false,
+      },
     },
   },
 };

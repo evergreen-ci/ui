@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { Button } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { Field } from "@rjsf/core";
+import { Field } from "@rjsf/utils";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import {
@@ -66,9 +66,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
 };
 
 export const RepotrackerField: Field = ({ disabled, uiSchema }) => {
-  const {
-    options: { projectId },
-  } = uiSchema;
+  const { projectId } = uiSchema?.["ui:options"] ?? {};
 
   const [open, setOpen] = useState(false);
 

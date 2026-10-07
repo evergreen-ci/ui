@@ -39,6 +39,13 @@ export const oktaServiceConfig = {
     "ui:objectFieldCss": objectGridCss,
     "ui:description":
       "Settings for the Okta Services app. Used exclusively for machine-to-machine authentication, e.g. the token exchange grant used in the spawn host workflow.",
+    scopes: {
+      "ui:orderable": false,
+      "ui:topAlignDelete": true,
+      items: {
+        "ui:label": false,
+      },
+    },
   },
 };
 
@@ -334,6 +341,7 @@ export const getSingleTaskDistroSchema = () => ({
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
+        "ui:label": false,
         "ui:order": ["projectId", "allowedTasks", "isRegex", "allowedBVs"],
         projectId: {
           "ui:description":
@@ -438,6 +446,14 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Test Results Bucket Type",
     },
+    sourceCacheBucketName: {
+      type: "string" as const,
+      title: "Source Cache Bucket Name",
+    },
+    sourceCacheBucketRoleARN: {
+      type: "string" as const,
+      title: "Source Cache Bucket Role ARN",
+    },
     credentialsKey: {
       type: "string" as const,
       title: "S3 Key",
@@ -502,6 +518,14 @@ export const bucketConfig = {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
     },
+    sourceCacheBucketName: {
+      "ui:description":
+        "The S3 bucket that stores cached git source for projects with the source cache enabled.",
+    },
+    sourceCacheBucketRoleARN: {
+      "ui:description":
+        "The IAM role ARN granting scoped access to the source cache bucket.",
+    },
     failedTasksLogBucketExpirationDays: { "ui:readonly": true },
     failedTasksLogBucketTransitionToIADays: { "ui:readonly": true },
     failedTasksLogBucketTransitionToGlacierDays: { "ui:readonly": true },
@@ -560,7 +584,6 @@ export const expansions = {
   schema: {
     expansionValues: {
       type: "array" as const,
-      title: "",
       items: {
         type: "object" as const,
         properties: {
@@ -581,6 +604,7 @@ export const expansions = {
     "ui:data-testid": "expansions-list",
     "ui:fullWidth": true,
     expansionValues: {
+      "ui:label": false,
       "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:addButtonText": "Add expansion",
@@ -588,6 +612,7 @@ export const expansions = {
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
         "ui:data-testid": "expansion-item",
+        "ui:label": false,
         value: {
           "ui:widget": "textarea",
         },
@@ -687,6 +712,7 @@ export const jiraNotificationsFields = {
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
         "ui:data-testid": "jira-custom-field-item",
+        "ui:label": false,
         fields: {
           "ui:addButtonText": "Add custom field",
           "ui:placeholder": "No custom fields defined.",
@@ -695,6 +721,9 @@ export const jiraNotificationsFields = {
           "ui:fullWidth": true,
           "ui:fieldCss": fullWidthCss,
           "ui:arrayItemCSS": arrayItemCSS,
+          items: {
+            "ui:label": false,
+          },
         },
         components: {
           "ui:widget": widgets.ChipInputWidget,
@@ -848,6 +877,7 @@ export const projectCreationSettings = {
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
         "ui:data-testid": "repo-exception-item",
+        "ui:label": false,
       },
     },
   },

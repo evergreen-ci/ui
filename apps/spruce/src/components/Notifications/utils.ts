@@ -1,6 +1,9 @@
 import { StringMap } from "@evg-ui/lib/types/utils";
-import { NotificationMethods } from "types/subscription";
-import { ExtraField, Trigger } from "types/triggers";
+import {
+  NotificationMethods,
+  SubscriptionMethodOption,
+} from "types/subscription";
+import { ExtraField, Trigger, TriggerType } from "types/triggers";
 import { FormExtraFields, FormRegexSelector, FormState } from "./types";
 
 // This utils file contains functions used to process the form state.
@@ -89,7 +92,7 @@ export const getGqlPayload = (
         ]
       : [
           { type: "object", data: resourceType.toLowerCase() },
-          { type: payloadResourceIdKey, data: resourceId },
+          { type: payloadResourceIdKey ?? "id", data: resourceId },
         ];
 
   return {
@@ -116,3 +119,28 @@ export const hasInitialError = (formState: FormState) => {
   }
   return false;
 };
+
+/**
+ * getDefaultEvent returns the event to preselect when the user has no saved preference. Most users
+ * subscribe to a resource's outcome, so prefer the first outcome trigger.
+ * @param triggers - the triggers available in the modal
+ * @returns the key of the default trigger
+ */
+export const getDefaultEvent = (triggers: Trigger) =>
+  Object.keys(triggers).find(
+    (key) => triggers[key].trigger === TriggerType.OUTCOME,
+  ) ?? Object.keys(triggers)[0];
+
+/**
+ * getDefaultNotificationMethod returns the method to preselect when the user has no saved preference.
+ * The vast majority of users are notified through Slack.
+ * @param subscriptionMethods - the methods available in the modal
+ * @returns the value of the default method
+ */
+export const getDefaultNotificationMethod = (
+  subscriptionMethods: SubscriptionMethodOption[],
+) =>
+  subscriptionMethods.find(({ value }) => value === NotificationMethods.SLACK)
+    ?.value ??
+  subscriptionMethods[0]?.value ??
+  "";
