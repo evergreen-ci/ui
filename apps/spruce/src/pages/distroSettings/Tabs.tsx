@@ -5,7 +5,6 @@ import { DistroSettingsTabRoutes, slugs } from "constants/routes";
 import { DistroQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useDistroSettingsContext } from "./Context";
-import { DistroBanners } from "./DistroBanners";
 import { Header } from "./Header";
 import { NavigationModal } from "./NavigationModal";
 import {
@@ -42,9 +41,6 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
       <NavigationModal />
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <Header distro={distro} tab={tab} />
-      {tab === DistroSettingsTabRoutes.General && (
-        <DistroBanners distro={distro} tabData={tabData} />
-      )}
       <Routes>
         <Route
           element={<Navigate replace to={DistroSettingsTabRoutes.General} />}

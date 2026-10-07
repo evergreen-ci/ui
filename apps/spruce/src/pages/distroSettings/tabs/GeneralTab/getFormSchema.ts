@@ -1,4 +1,3 @@
-import { Variant } from "@leafygreen-ui/banner";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 
@@ -154,10 +153,6 @@ export const getFormSchema = (
       isIaCManaged: {
         "ui:description":
           "This distro's configuration is managed by infrastructure as code.",
-        "ui:distro-banner":
-          "This distro is managed by infrastructure as code. Changes made here may be overwritten.",
-        "ui:data-testid-distro-banner": "iac-managed-banner",
-        "ui:distro-banner-variant": Variant.Warning,
       },
       disabled: {
         "ui:description": "Tasks already in the task queue will be removed.",
