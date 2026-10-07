@@ -122,3 +122,9 @@ jobs:
               pull_number: context.payload.pull_request.number,
               reviewers: [reviewer],
             });
+            await github.rest.pulls.removeRequestedReviewers({                                                                                                                                                   
+              owner: context.repo.owner,                                                                                                                                                                         
+              repo: context.repo.repo,                                                                                                                                                                           
+              pull_number: context.issue.number,                                                                                                                                                                 
+              team_reviewers: ['evg-ui'],                                                                                                                                                                        
+            });                                                                                                                                                                                                  
