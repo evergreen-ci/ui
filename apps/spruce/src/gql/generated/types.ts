@@ -3341,7 +3341,9 @@ export type RateLimitConfig = {
   __typename?: "RateLimitConfig";
   elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
   exemptUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlComplexityPerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
@@ -3355,7 +3357,9 @@ export type RateLimitConfig = {
 export type RateLimitConfigInput = {
   elevatedUserIds: Array<Scalars["String"]["input"]>;
   exemptUserIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  graphqlComplexityBurst: Scalars["Int"]["input"];
   graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlComplexityPerHour: Scalars["Int"]["input"];
   graphqlServiceBurst: Scalars["Int"]["input"];
   graphqlServicePerHour: Scalars["Int"]["input"];
   graphqlUserBurst: Scalars["Int"]["input"];
@@ -8079,7 +8083,9 @@ export type AdminSettingsQuery = {
       __typename?: "RateLimitConfig";
       elevatedUserIds?: Array<string> | null;
       exemptUserIds?: Array<string> | null;
+      graphqlComplexityBurst?: number | null;
       graphqlComplexityLimit?: number | null;
+      graphqlComplexityPerHour?: number | null;
       graphqlServiceBurst?: number | null;
       graphqlServicePerHour?: number | null;
       graphqlUserBurst?: number | null;

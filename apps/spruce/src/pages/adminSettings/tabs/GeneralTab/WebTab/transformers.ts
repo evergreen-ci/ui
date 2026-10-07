@@ -67,6 +67,8 @@ export const gqlToForm = ((data) => {
         },
         graphqlComplexity: {
           graphqlComplexityLimit: rateLimit?.graphqlComplexityLimit ?? 0,
+          graphqlComplexityPerHour: rateLimit?.graphqlComplexityPerHour ?? 0,
+          graphqlComplexityBurst: rateLimit?.graphqlComplexityBurst ?? 0,
         },
         elevatedUsers: {
           elevatedUserIds: rateLimit?.elevatedUserIds ?? [],
@@ -100,6 +102,10 @@ export const formToGql = (({ web }) => {
       graphqlServiceBurst: rateLimitConfig.graphqlLimits.graphqlServiceBurst,
       graphqlComplexityLimit:
         rateLimitConfig.graphqlComplexity.graphqlComplexityLimit,
+      graphqlComplexityPerHour:
+        rateLimitConfig.graphqlComplexity.graphqlComplexityPerHour,
+      graphqlComplexityBurst:
+        rateLimitConfig.graphqlComplexity.graphqlComplexityBurst,
       elevatedUserIds: rateLimitConfig.elevatedUsers.elevatedUserIds,
       exemptUserIds: rateLimitConfig.exemptUsers.exemptUserIds,
     },
