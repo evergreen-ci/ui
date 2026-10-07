@@ -108,6 +108,9 @@ const repoForm: GeneralFormState = {
     patch: {
       patchingDisabled: false,
     },
+    virtualTasks: {
+      virtualTasksEnabled: true,
+    },
   },
   historicalTaskDataCaching: {
     disabledStatsCache: false,
@@ -133,6 +136,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     deactivatePrevious: true,
     repotrackerDisabled: false,
     runEveryMainlineCommit: false,
+    virtualTasksEnabled: true,
     debugSpawnHostsDisabled: false,
     patchingDisabled: false,
     stepbackDisabled: true,
@@ -184,6 +188,9 @@ const projectForm: GeneralFormState = {
     patch: {
       patchingDisabled: null,
     },
+    virtualTasks: {
+      virtualTasksEnabled: null,
+    },
   },
   historicalTaskDataCaching: {
     disabledStatsCache: null,
@@ -212,6 +219,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     deactivatePrevious: null,
     repotrackerDisabled: null,
     runEveryMainlineCommit: null,
+    virtualTasksEnabled: null,
     debugSpawnHostsDisabled: null,
     patchingDisabled: null,
     stepbackDisabled: null,

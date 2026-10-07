@@ -13,6 +13,7 @@ import {
 } from "constants/routes";
 import { ExecutionPlatform, TaskQuery } from "gql/generated/types";
 import { isFailedTaskStatus } from "utils/statuses";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 import { BuildVariantCard } from "./BuildVariant";
 import { DebugSpawnHostGuideCue } from "./DebugSpawnHostGuideCue";
 import { DependsOn } from "./DependsOn";
@@ -62,6 +63,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   } = task;
 
   const isDisplayTask = executionTasksFull != null;
+  const isPushCompleted = isPushCompletedVirtualTask(task);
   const { identifier: projectIdentifier } = project || {};
 
   return (
@@ -96,7 +98,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         />
       )}
 
-      {!isDisplayTask && (
+      {!isDisplayTask && !isPushCompleted && (
         <MetadataCard title="Host Information">
           {executionPlatform === ExecutionPlatform.Container && (
             <MetadataItem
