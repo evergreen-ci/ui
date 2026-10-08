@@ -1,6 +1,7 @@
 import { InMemoryCache } from "@apollo/client";
 import {
   MockedProvider,
+  act,
   renderWithRouterMatch,
   screen,
   userEvent,
@@ -80,7 +81,8 @@ describe("TaskDurationTable", () => {
     );
   });
 
-  it("shows linked base durations alongside current durations and an unavailable state", () => {
+  it("shows linked base durations alongside current durations and an unavailable state", async () => {
+    const user = userEvent.setup();
     renderTable();
 
     expect(
@@ -102,8 +104,20 @@ describe("TaskDurationTable", () => {
       getTaskRoute("base_check_codegen", { execution: 2 }),
     );
     expect(within(taskWithoutBase).getByText("Unavailable")).toBeVisible();
-    expect(within(taskWithoutBase).getByText("Unavailable")).toHaveAttribute(
-      "title",
+    await user.hover(within(taskWithoutBase).getByText("Unavailable"));
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "No matching task was found for this comparison.",
+    );
+  });
+
+  it("explains unavailable durations on keyboard focus", async () => {
+    const user = userEvent.setup();
+    renderTable({ tasks: [tasks[1]] });
+
+    act(() => screen.getByRole("link", { name: "compile" }).focus());
+    await user.tab();
+    expect(screen.getByText("Unavailable")).toHaveFocus();
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
       "No matching task was found for this comparison.",
     );
   });
@@ -176,7 +190,8 @@ describe("TaskDurationTable", () => {
     },
   ])(
     "shows $expectedDuration for a baseline with finishTime $finishTime and duration $timeTaken",
-    ({ expectedDuration, finishTime, timeTaken }) => {
+    async ({ expectedDuration, finishTime, timeTaken }) => {
+      const user = userEvent.setup();
       const fixture: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
         {
           ...tasks[1],
@@ -205,8 +220,8 @@ describe("TaskDurationTable", () => {
         expect(
           within(row).queryByRole("link", { name: /Base task duration/ }),
         ).toBeNull();
-        expect(within(row).getByText("Unavailable")).toHaveAttribute(
-          "title",
+        await user.hover(within(row).getByText("Unavailable"));
+        expect(await screen.findByRole("tooltip")).toHaveTextContent(
           finishTime
             ? "The comparison task has no recorded duration."
             : "The comparison task has not finished.",

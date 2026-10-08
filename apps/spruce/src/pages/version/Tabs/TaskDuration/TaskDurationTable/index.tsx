@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
@@ -278,7 +279,15 @@ const getColumns = (
           </StyledRouterLink>
         </TaskDurationCell>
       ) : (
-        <span title={getUnavailableReason(baseTask)}>Unavailable</span>
+        <Tooltip
+          trigger={
+            <button className={styles.tooltipTrigger} type="button">
+              Unavailable
+            </button>
+          }
+        >
+          {getUnavailableReason(baseTask)}
+        </Tooltip>
       ),
   },
 ];
