@@ -1,0 +1,14 @@
+.table {
+  overflow-x: auto;
+}
+
+/* Match the last column's padding so both duration bars share a visual scale. */
+.table.table [data-column="duration"] {
+  padding-right: var(--via-space-600);
+}
+
+/* Keep both duration columns equally wide, including when headers wrap. */
+.table table {
+  table-layout: fixed;
+  min-width: 1020px;
+}
