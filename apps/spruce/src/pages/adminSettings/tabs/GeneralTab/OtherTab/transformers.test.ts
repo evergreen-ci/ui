@@ -218,7 +218,6 @@ const mockAdminSettings: AdminSettingsData = {
     traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
-    totalProjectLimit: 100,
     repoProjectLimit: 50,
     repoExceptions: [
       {
@@ -381,7 +380,6 @@ const expectedForm: OtherFormState = {
       traceUrlTemplate: "https://apm.example.com/trace/%s",
     },
     projectCreationSettings: {
-      totalProjectLimit: 100,
       repoProjectLimit: 50,
       repoExceptions: [
         {
@@ -533,7 +531,6 @@ const expectedGql: AdminSettingsInput = {
     traceUrlTemplate: "https://apm.example.com/trace/%s",
   },
   projectCreation: {
-    totalProjectLimit: 100,
     repoProjectLimit: 50,
     repoExceptions: [
       {

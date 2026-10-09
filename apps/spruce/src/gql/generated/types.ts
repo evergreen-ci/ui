@@ -8030,7 +8030,6 @@ export type AdminSettingsQuery = {
     projectCreation?: {
       __typename?: "ProjectCreationConfig";
       repoProjectLimit?: number | null;
-      totalProjectLimit?: number | null;
       repoExceptions: Array<{
         __typename?: "OwnerRepo";
         owner: string;

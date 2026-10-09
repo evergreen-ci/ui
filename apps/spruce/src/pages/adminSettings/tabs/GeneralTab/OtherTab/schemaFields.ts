@@ -838,10 +838,6 @@ export const tracerConfiguration = {
 
 export const projectCreationSettings = {
   schema: {
-    totalProjectLimit: {
-      type: "number" as const,
-      title: "Total Project Limit",
-    },
     repoProjectLimit: {
       type: "number" as const,
       title: "Repository Project Limit",
