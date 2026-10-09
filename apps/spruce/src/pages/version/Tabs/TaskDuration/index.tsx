@@ -101,6 +101,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
       shouldShowBottomTableControl={shouldShowBottomTableControl}
     >
       <TaskDurationTable
+        isPatch={version?.isPatch}
         loading={loading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         numLoadingRows={limit}

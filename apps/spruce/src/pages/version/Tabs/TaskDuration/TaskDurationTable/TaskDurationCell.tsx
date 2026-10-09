@@ -5,17 +5,17 @@ import {
   mapTaskStatusToUmbrellaStatus,
   mapTaskToBarchartColor,
 } from "constants/task";
-import { string } from "utils";
-
-const { msToDuration } = string;
+import { msToDuration } from "utils/string";
 
 interface TaskDurationCellProps {
+  children?: React.ReactNode;
   maxTimeTaken: number;
   status: string;
   timeTaken: number;
 }
 
 export const TaskDurationCell: React.FC<TaskDurationCellProps> = ({
+  children,
   maxTimeTaken,
   status,
   timeTaken,
@@ -27,7 +27,9 @@ export const TaskDurationCell: React.FC<TaskDurationCellProps> = ({
   return (
     <Duration>
       <DurationBar color={barColor} width={barWidth} />
-      <DurationLabel>{msToDuration(timeTaken) || "0s"}</DurationLabel>
+      <DurationLabel title={`${timeTaken / 1000}s`}>
+        {children ?? msToDuration(timeTaken)}
+      </DurationLabel>
     </Duration>
   );
 };
