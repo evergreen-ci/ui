@@ -99,8 +99,6 @@ test.describe("admin settings save properly", () => {
     ).toHaveValue("https://apm.test.com/trace/%s");
 
     // Modify single section.
-    await page.getByLabel("Total Project Limit").clear();
-    await page.getByLabel("Total Project Limit").fill("200");
     const projectCreationSettings = page.getByTestId(
       "project-creation-settings",
     );
@@ -117,7 +115,6 @@ test.describe("admin settings save properly", () => {
     await validateToast(page, "success", "Settings saved successfully");
     await page.reload();
 
-    await expect(page.getByLabel("Total Project Limit")).toHaveValue("200");
     await expect(newProjectCreationException.getByLabel("Owner")).toHaveValue(
       "owner",
     );

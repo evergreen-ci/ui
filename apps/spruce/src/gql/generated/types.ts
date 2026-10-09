@@ -2867,12 +2867,14 @@ export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
+  /** @deprecated The total project limit is no longer enforced */
   totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
+  /** @deprecated The total project limit is no longer enforced */
   totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
@@ -8028,7 +8030,6 @@ export type AdminSettingsQuery = {
     projectCreation?: {
       __typename?: "ProjectCreationConfig";
       repoProjectLimit?: number | null;
-      totalProjectLimit?: number | null;
       repoExceptions: Array<{
         __typename?: "OwnerRepo";
         owner: string;
