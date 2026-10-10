@@ -1,5 +1,6 @@
 import { FieldReadFunction } from "@apollo/client";
 import {
+  CachedWaterfall,
   ReadField,
   Version,
   Waterfall,
@@ -91,8 +92,24 @@ export const readVersions = ((existing, { args, readField }) => {
   }
 
   const options = getCacheOptions(args);
-  const { date, limit, minOrder, revision } = options;
+  const { date, filterContext, lastRequest, limit, minOrder, revision } =
+    options;
+  if (existing.filterContext !== filterContext) {
+    return undefined;
+  }
   let { maxOrder } = options;
+
+  const existingVersions =
+    readField<Waterfall["versions"]>("versions", existing) ?? [];
+  if (existing.lastRequest === lastRequest) {
+    const pageIds = new Set(existing.lastPageVersionIds);
+    return {
+      ...existing,
+      versions: existingVersions.filter((version) =>
+        pageIds.has(getVersionId(version, readField)),
+      ),
+    };
+  }
 
   const { hasNextPage = true, mostRecentVersionOrder = 0 } =
     readField<Waterfall["pagination"]>("pagination", existing) ?? {};
@@ -101,8 +118,6 @@ export const readVersions = ((existing, { args, readField }) => {
     maxOrder = mostRecentVersionOrder + 1;
   }
 
-  const existingVersions =
-    readField<Waterfall["versions"]>("versions", existing) ?? [];
   const allActiveVersions =
     readField<Set<string>>("allActiveVersions", existing) ?? new Set();
   const pageRange = findPageRange({
@@ -131,7 +146,9 @@ export const readVersions = ((existing, { args, readField }) => {
   const nextOrderNumber = lastVersionOrder === 1 ? 0 : lastVersionOrder;
 
   return {
+    ...existing,
     pagination: {
+      ...readField<Waterfall["pagination"]>("pagination", existing),
       activeVersionIds: activeVersionIds.sort(),
       mostRecentVersionOrder,
       prevPageOrder: prevOrderNumber,
@@ -141,4 +158,4 @@ export const readVersions = ((existing, { args, readField }) => {
     },
     versions,
   };
-}) satisfies FieldReadFunction<Waterfall>;
+}) satisfies FieldReadFunction<CachedWaterfall>;
