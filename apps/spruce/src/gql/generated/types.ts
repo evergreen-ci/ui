@@ -12316,6 +12316,7 @@ export type VersionTaskDurationsQuery = {
           displayName: string;
           displayStatus: string;
           execution: number;
+          finishTime?: Date | null;
           startTime?: Date | null;
           timeTaken?: number | null;
           baseTask?: {

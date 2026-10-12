@@ -72,6 +72,9 @@ describe("TaskDurationTable", () => {
     await user.click(expandRowButton);
     expect(screen.queryByText("check_codegen_execution_task")).toBeVisible();
     expect(
+      screen.getByLabelText("1s shorter than the base task"),
+    ).toHaveTextContent("−1s");
+    expect(
       screen.getByRole("link", {
         name: "View base task for check_codegen_execution_task",
       }),
@@ -95,6 +98,9 @@ describe("TaskDurationTable", () => {
       "task-duration-table-row",
     );
     expect(within(taskWithBase).getByText("6s")).toBeVisible();
+    expect(
+      within(taskWithBase).getByLabelText("2s shorter than the base task"),
+    ).toHaveTextContent("−2s");
     const baseDuration = within(taskWithBase).getByText("8s");
     expect(baseDuration).toBeVisible();
     expect(baseDuration.closest("a")).toBeNull();
@@ -154,7 +160,10 @@ describe("TaskDurationTable", () => {
       ];
       renderTable({ tasks: fixture });
       expect(screen.getByText("0s")).toBeVisible();
-      expect(screen.getByText("0s")).toHaveAttribute("title", "0s");
+      expect(screen.getByText("0s").parentElement).toHaveAttribute(
+        "title",
+        "0s",
+      );
     },
   );
 
@@ -270,6 +279,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
     buildVariantDisplayName: "Ubuntu 16.04",
     buildVariant: "ubuntu1604",
     timeTaken: 6000,
+    finishTime: new Date("2022-04-04T13:30:00Z"),
     baseTask: {
       id: "base_check_codegen",
       displayStatus: "success",
@@ -285,6 +295,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
         displayName: "check_codegen_execution_task",
         buildVariantDisplayName: "Ubuntu 16.04",
         timeTaken: 4000,
+        finishTime: new Date("2022-04-04T13:30:00Z"),
         baseTask: {
           id: "base_execution_task",
           displayStatus: "success",

@@ -1,4 +1,5 @@
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { TaskDurationData } from "./types";
 import TaskDurationTable from ".";
 
 export default {
@@ -362,4 +363,39 @@ const props = {
     },
   ],
   loading: false,
+};
+
+const differenceTasks: TaskDurationData[] = [
+  { displayName: "longer", current: 120000, base: 100000 },
+  { displayName: "shorter", current: 80000, base: 100000 },
+  { displayName: "within_ten_percent", current: 109000, base: 100000 },
+  { displayName: "within_five_seconds", current: 2000, base: 1000 },
+  { displayName: "equal", current: 100000, base: 100000 },
+].map(({ base, current, displayName }) => ({
+  id: displayName,
+  displayName,
+  displayStatus: "success",
+  buildVariantDisplayName: "Ubuntu 16.04",
+  buildVariant: "ubuntu1604",
+  execution: 0,
+  finishTime: new Date("2023-01-04T16:00:00Z"),
+  timeTaken: current,
+  baseTask: {
+    id: `base_${displayName}`,
+    displayStatus: "success",
+    execution: 0,
+    finishTime: new Date("2023-01-04T15:00:00Z"),
+    timeTaken: base,
+  },
+}));
+
+export const DurationDifferences: CustomStoryObj<typeof TaskDurationTable> = {
+  render: () => (
+    <TaskDurationTable
+      isPatch
+      loading={false}
+      numLoadingRows={10}
+      tasks={differenceTasks}
+    />
+  ),
 };

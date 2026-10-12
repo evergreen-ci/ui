@@ -26,8 +26,10 @@ import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useTableSort, useTaskStatuses } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 import { parseSortString } from "utils/queryString";
+import { msToDuration } from "utils/string";
 import { BaseTaskDurationCell } from "./BaseTaskDurationCell";
 import { TaskDurationCell } from "./TaskDurationCell";
+import { TaskDurationDifference } from "./TaskDurationDifference";
 import styles from "./TaskDurationTable.module.css";
 import { TaskDurationData } from "./types";
 
@@ -228,7 +230,7 @@ const getColumns = (
     size: 250,
     cell: ({
       row: {
-        original: { displayStatus, timeTaken },
+        original: { baseTask, displayStatus, finishTime, timeTaken },
       },
       table,
     }) => (
@@ -236,7 +238,15 @@ const getColumns = (
         maxTimeTaken={getMaxTimeTaken(table)}
         status={displayStatus}
         timeTaken={timeTaken ?? 0}
-      />
+      >
+        <span>{msToDuration(timeTaken ?? 0)}</span>
+        <TaskDurationDifference
+          baseTask={baseTask}
+          comparisonLabel={getComparisonLabel(isPatch)}
+          finishTime={finishTime}
+          timeTaken={timeTaken}
+        />
+      </TaskDurationCell>
     ),
   },
   {

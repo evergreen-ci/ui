@@ -48,6 +48,7 @@ export const VERSION_TASK_DURATIONS = gql`
             displayName
             displayStatus
             execution
+            finishTime
             startTime
             timeTaken
           }
