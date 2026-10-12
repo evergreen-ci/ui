@@ -1,8 +1,6 @@
 import { useMemo } from "react";
-import { Tooltip } from "@leafygreen-ui/tooltip";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   ColumnFiltering,
@@ -18,33 +16,24 @@ import {
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
-import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import { TableQueryParams } from "constants/queryParams";
-import { getTaskRoute, slugs } from "constants/routes";
-import {
-  SortDirection,
-  TaskSortCategory,
-  VersionTaskDurationsQuery,
-} from "gql/generated/types";
+import { slugs } from "constants/routes";
+import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useTableSort, useTaskStatuses } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
-import { formatZeroIndexForDisplay } from "utils/numbers";
 import { parseSortString } from "utils/queryString";
-import { msToDuration } from "utils/string";
+import { BaseTaskDurationCell } from "./BaseTaskDurationCell";
 import { TaskDurationCell } from "./TaskDurationCell";
 import styles from "./TaskDurationTable.module.css";
+import { TaskDurationData } from "./types";
 
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
-type TaskDurationData = Unpacked<
-  VersionTaskDurationsQuery["version"]["tasks"]["data"]
->;
 interface TaskDurationQueryParams {
   [PatchTasksQueryParams.TaskName]?: string;
   [PatchTasksQueryParams.Statuses]?: string | string[];
@@ -263,44 +252,16 @@ const getColumns = (
         original: { baseTask, displayName },
       },
       table,
-    }) =>
-      baseTask?.finishTime && baseTask.timeTaken != null ? (
-        <TaskDurationCell
-          maxTimeTaken={getMaxTimeTaken(table)}
-          status={baseTask.displayStatus}
-          timeTaken={baseTask.timeTaken}
-        >
-          <StyledRouterLink
-            aria-label={`${getComparisonLabel(isPatch)} task duration for ${displayName}: ${msToDuration(baseTask.timeTaken)}`}
-            title={`${taskStatusToCopy[baseTask.displayStatus as TaskStatus] ?? baseTask.displayStatus}, execution ${formatZeroIndexForDisplay(baseTask.execution)}; ${baseTask.timeTaken / 1000}s`}
-            to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
-          >
-            {msToDuration(baseTask.timeTaken)}
-          </StyledRouterLink>
-        </TaskDurationCell>
-      ) : (
-        <Tooltip
-          trigger={
-            <button className={styles.tooltipTrigger} type="button">
-              Unavailable
-            </button>
-          }
-        >
-          {getUnavailableReason(baseTask)}
-        </Tooltip>
-      ),
+    }) => (
+      <BaseTaskDurationCell
+        baseTask={baseTask}
+        comparisonLabel={getComparisonLabel(isPatch)}
+        displayName={displayName}
+        maxTimeTaken={getMaxTimeTaken(table)}
+      />
+    ),
   },
 ];
-
-const getUnavailableReason = (baseTask: TaskDurationData["baseTask"]) => {
-  if (!baseTask) {
-    return "No matching task was found for this comparison.";
-  }
-  if (!baseTask.finishTime) {
-    return "The comparison task has not finished.";
-  }
-  return "The comparison task has no recorded duration.";
-};
 
 const getComparisonLabel = (isPatch: boolean | undefined) => {
   if (isPatch === undefined) {
