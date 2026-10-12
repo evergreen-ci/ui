@@ -29,12 +29,14 @@ export const BaseTaskDurationCell: React.FC<BaseTaskDurationCellProps> = ({
       status={baseTask.displayStatus}
       timeTaken={baseTask.timeTaken}
     >
+      <span>{msToDuration(baseTask.timeTaken)}</span>
+      <span aria-hidden="true"> · </span>
       <StyledRouterLink
-        aria-label={`${comparisonLabel} task duration for ${displayName}: ${msToDuration(baseTask.timeTaken)}`}
+        aria-label={`View ${comparisonLabel.toLowerCase()} task for ${displayName}`}
         title={`${taskStatusToCopy[baseTask.displayStatus as TaskStatus] ?? baseTask.displayStatus}, execution ${formatZeroIndexForDisplay(baseTask.execution)}; ${baseTask.timeTaken / 1000}s`}
         to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
       >
-        {msToDuration(baseTask.timeTaken)}
+        View task
       </StyledRouterLink>
     </TaskDurationCell>
   ) : (

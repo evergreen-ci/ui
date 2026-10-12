@@ -73,7 +73,7 @@ describe("TaskDurationTable", () => {
     expect(screen.queryByText("check_codegen_execution_task")).toBeVisible();
     expect(
       screen.getByRole("link", {
-        name: "Base task duration for check_codegen_execution_task: 5s",
+        name: "View base task for check_codegen_execution_task",
       }),
     ).toHaveAttribute(
       "href",
@@ -81,7 +81,7 @@ describe("TaskDurationTable", () => {
     );
   });
 
-  it("shows linked base durations alongside current durations and an unavailable state", async () => {
+  it("shows base durations with inline task links and an unavailable state", async () => {
     const user = userEvent.setup();
     renderTable();
 
@@ -95,11 +95,15 @@ describe("TaskDurationTable", () => {
       "task-duration-table-row",
     );
     expect(within(taskWithBase).getByText("6s")).toBeVisible();
-    expect(
-      within(taskWithBase).getByRole("link", {
-        name: "Base task duration for check_codegen: 8s",
-      }),
-    ).toHaveAttribute(
+    const baseDuration = within(taskWithBase).getByText("8s");
+    expect(baseDuration).toBeVisible();
+    expect(baseDuration.closest("a")).toBeNull();
+    const viewTaskLink = within(taskWithBase).getByRole("link", {
+      name: "View base task for check_codegen",
+    });
+    expect(viewTaskLink).toHaveTextContent("View task");
+    expect(baseDuration.parentElement).toHaveTextContent("8s · View task");
+    expect(viewTaskLink).toHaveAttribute(
       "href",
       getTaskRoute("base_check_codegen", { execution: 2 }),
     );
@@ -129,7 +133,7 @@ describe("TaskDurationTable", () => {
     ).toBeVisible();
     expect(
       screen.getByRole("link", {
-        name: "Previous task duration for check_codegen: 8s",
+        name: "View previous task for check_codegen",
       }),
     ).toBeVisible();
   });
@@ -169,10 +173,11 @@ describe("TaskDurationTable", () => {
     ];
     renderTable({ tasks: fixture });
     const link = screen.getByRole("link", {
-      name: "Base task duration for compile: 1h 0m",
+      name: "View base task for compile",
     });
     expect(link).toHaveAttribute("title", "Failed, execution 2; 3601.5s");
-    expect(link).toHaveTextContent("1h 0m");
+    expect(link).toHaveTextContent("View task");
+    expect(screen.getByText("1h 0m")).toBeVisible();
   });
 
   it.each([
@@ -210,7 +215,7 @@ describe("TaskDurationTable", () => {
       if (expectedDuration === "0s") {
         expect(
           within(row).getByRole("link", {
-            name: "Base task duration for compile: 0s",
+            name: "View base task for compile",
           }),
         ).toHaveAttribute(
           "href",
@@ -218,7 +223,7 @@ describe("TaskDurationTable", () => {
         );
       } else {
         expect(
-          within(row).queryByRole("link", { name: /Base task duration/ }),
+          within(row).queryByRole("link", { name: /View base task/ }),
         ).toBeNull();
         await user.hover(within(row).getByText("Unavailable"));
         expect(await screen.findByRole("tooltip")).toHaveTextContent(
