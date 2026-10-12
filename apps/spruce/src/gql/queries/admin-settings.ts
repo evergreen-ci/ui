@@ -255,7 +255,6 @@ export const ADMIN_SETTINGS = gql`
           repo
         }
         repoProjectLimit
-        totalProjectLimit
       }
 
       providers {

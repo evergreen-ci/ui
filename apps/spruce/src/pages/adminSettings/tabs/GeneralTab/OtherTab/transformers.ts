@@ -249,7 +249,6 @@ export const gqlToForm = ((data) => {
       },
 
       projectCreationSettings: {
-        totalProjectLimit: projectCreation?.totalProjectLimit ?? 0,
         repoProjectLimit: projectCreation?.repoProjectLimit ?? 0,
         repoExceptions:
           projectCreation?.repoExceptions?.map((exception) => ({
@@ -474,7 +473,6 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     projectCreation: {
-      totalProjectLimit: projectCreationSettings.totalProjectLimit || undefined,
       repoProjectLimit: projectCreationSettings.repoProjectLimit || undefined,
       repoExceptions: projectCreationSettings.repoExceptions
         .filter((exception) => exception.owner && exception.repo)

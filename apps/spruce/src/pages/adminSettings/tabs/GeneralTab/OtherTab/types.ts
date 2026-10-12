@@ -144,7 +144,6 @@ export interface OtherFormState {
     };
 
     projectCreationSettings: {
-      totalProjectLimit: number;
       repoProjectLimit: number;
       repoExceptions: Array<{
         owner: string;
