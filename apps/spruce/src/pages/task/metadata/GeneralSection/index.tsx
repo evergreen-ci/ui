@@ -39,7 +39,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
   const baseCommit = shortenGithash(
     baseTask?.versionMetadata?.revision ?? undefined,
   );
-  const { user } = versionMetadata ?? {};
+  const { isPatch, user } = versionMetadata ?? {};
 
   return (
     <MetadataSection>
@@ -86,10 +86,9 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
         </MetadataItem>
       )}
       {baseTask && (
-        <MetadataItem label="Base commit">
+        <MetadataItem label={isPatch ? "Base commit" : "Previous commit"}>
           <InlineCode
             as={Link}
-            data-testid="base-task-link"
             onClick={() =>
               taskAnalytics.sendEvent({
                 name: "Clicked metadata link",
