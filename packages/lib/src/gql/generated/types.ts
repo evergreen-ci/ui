@@ -3141,6 +3141,7 @@ export type QuarantineTaskInput = {
 };
 
 export type QuarantineTestInput = {
+  comment?: InputMaybe<Scalars["String"]["input"]>;
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
 };

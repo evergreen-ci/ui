@@ -3138,6 +3138,7 @@ export type QuarantineTaskInput = {
 };
 
 export type QuarantineTestInput = {
+  comment?: InputMaybe<Scalars["String"]["input"]>;
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
 };
@@ -7088,6 +7089,7 @@ export type PromoteVarsToRepoMutation = {
 export type QuarantineTestMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
+  comment: Scalars["String"]["input"];
 }>;
 
 export type QuarantineTestMutation = {
