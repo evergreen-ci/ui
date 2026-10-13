@@ -1,7 +1,7 @@
+import { MenuItem, Text } from "@via-ds/components";
 import NoFilter from "@via-ds/icons/NoFilter";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
-import { DropdownItem } from "components/ButtonDropdown";
 import { WaterfallFilterOptions } from "../types";
 
 interface ClearAllFiltersProps {
@@ -29,12 +29,14 @@ export const ClearAllFilters: React.FC<ClearAllFiltersProps> = ({
   };
 
   return (
-    <DropdownItem
+    <MenuItem
       data-testid="clear-all-filters"
-      glyph={<NoFilter />}
-      onClick={handleClick}
+      id="clear-all-filters"
+      onAction={handleClick}
+      textValue="Clear all filters"
     >
-      Clear all filters
-    </DropdownItem>
+      <NoFilter slot="icon" />
+      <Text>Clear all filters</Text>
+    </MenuItem>
   );
 };

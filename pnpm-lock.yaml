@@ -173,14 +173,14 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.9.1
-        version: 0.9.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.10.0
+        version: 0.10.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/icons':
-        specifier: 0.1.4
-        version: 0.1.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.2.0
+        version: 0.2.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.4
-        version: 0.3.4
+        specifier: 0.3.5
+        version: 0.3.5
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -534,14 +534,14 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.9.1
-        version: 0.9.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.10.0
+        version: 0.10.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/icons':
-        specifier: 0.1.4
-        version: 0.1.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.2.0
+        version: 0.2.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.4
-        version: 0.3.4
+        specifier: 0.3.5
+        version: 0.3.5
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -969,8 +969,8 @@ importers:
         specifier: ^16.3.3
         version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/icons':
-        specifier: 0.1.4
-        version: 0.1.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.2.0
+        version: 0.2.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
         specifier: 0.3.1
         version: 0.3.1
@@ -1098,14 +1098,14 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.9.1
-        version: 0.9.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.10.0
+        version: 0.10.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/icons':
-        specifier: 0.1.4
-        version: 0.1.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.2.0
+        version: 0.2.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
-        specifier: 0.3.4
-        version: 0.3.4
+        specifier: 0.3.5
+        version: 0.3.5
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -4635,9 +4635,6 @@ packages:
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
 
-  '@types/use-sync-external-store@1.5.0':
-    resolution: {integrity: sha512-5dyB8nLC/qogMrlCizZnYWQTA4lnb/v+It+sqNl5YnSRAPMlIqY/X0Xn+gZw8vOL+TgTTr28VEbn3uf8fUtAkw==}
-
   '@types/use-sync-external-store@1.7.0':
     resolution: {integrity: sha512-v8435kzWm3FuxyUa4r8o4sG6b0D+r+uOrzF5MXHxZKW4Haoo6txu/lq56Vio45e2i1nkmFPA+R7myWcmV7Z7Bg==}
 
@@ -5031,8 +5028,8 @@ packages:
     resolution: {integrity: sha512-UycprH3T6n3jH0k44NHMa7pnFHGu/N05MjojYr+Mc6I7obkoLIJujSWwin1pCvdy/eOxrI/l3uDLQsmcrOb4ug==}
     engines: {node: '>= 20'}
 
-  '@via-ds/components@0.9.1':
-    resolution: {integrity: sha512-hSZ13bfdcLK/kL1KBc0C3i6Y2+ARGEP0F6AW0G0yUwT+JF+WxFjDjlIY7to7iOLLI60nPXfTB2K4SlmfezgveA==}
+  '@via-ds/components@0.10.0':
+    resolution: {integrity: sha512-B9yVGMYqezZ/2oDC9pjSi0D4PYLsaJ4tAND9S3klnD/RvgtOT5tD2CeEZznxKN2MEzBnMorkz+UBmfUGRdH4Sg==}
     peerDependencies:
       '@types/react': ^17 || ^18 || ^19
       '@types/react-dom': ^17 || ^18 || ^19
@@ -5044,8 +5041,8 @@ packages:
     peerDependencies:
       eslint: ^9.0.0
 
-  '@via-ds/icons@0.1.4':
-    resolution: {integrity: sha512-MSJsEYKRBtflE5E1TJQZemhwQgWPFfdUzgo6rbpLe/NRom5cpqmw5uOplv+MFDwPR6AoP+HeVKmtuEhsXPF1fQ==}
+  '@via-ds/icons@0.2.0':
+    resolution: {integrity: sha512-Hc1cFr8G3b9SUIJ1S2gMs0zHssdK462Ndt68XxhqEVRQWgpwU/sdmc4rWb8bnXUiwItfhDxeS+RVCv46WmG7fw==}
     peerDependencies:
       '@types/react': '*'
       react: ^17 || ^18 || ^19
@@ -5053,8 +5050,8 @@ packages:
   '@via-ds/tokens@0.3.1':
     resolution: {integrity: sha512-8RFKgcFH+6zBxtAXeb4PJ6Gh2tFychsauV7mywJiDAVs3Wr7v6+IFgj+kxY4VQ8wWWlEMkX/tdUM/uhWUadioA==}
 
-  '@via-ds/tokens@0.3.4':
-    resolution: {integrity: sha512-2jMCm/huwTjR/89cl5NymPaqW1U0FyH/kTx5jjCLiJzlGnuNaH5eQwNtv+8yNZeTB42JYojozK3PfVSXskMd+Q==}
+  '@via-ds/tokens@0.3.5':
+    resolution: {integrity: sha512-nPmZx+VIpAqDHPZzQntSAEME2HQ7maHntN03QrKJFJ+qXTt0lgk9YHMW2etlQJZ6I4dkZqQyin9Gd5svtx4ZlA==}
 
   '@via-ds/types@0.0.1':
     resolution: {integrity: sha512-AwR55vxMSbN9tFb+YQIVNVMv+2bxlPZcc0OWFdyY969r0NjwfGsws3Lz1XwfC54fFHHbQZSArtJ6/CrigtAAgw==}
@@ -5949,9 +5946,9 @@ packages:
     resolution: {integrity: sha512-9vhedylFonb2YGogzUKX6+Ja72gOJbN1QHAqdrvqLwhdl/QWbKopzoUC9EbQNVsAns/bx/4uyqalrQAoy1IByw==}
     engines: {node: '>=10.13.0'}
 
-  entities@8.0.0:
-    resolution: {integrity: sha512-zwfzJecQ/Uej6tusMqwAqU/6KL2XaB2VZ2Jg54Je6ahNBGNH6Ek6g3jjNCF0fG9EWQKGZNddNjU5F1ZQn/sBnA==}
-    engines: {node: '>=20.19.0'}
+  entities@6.0.1:
+    resolution: {integrity: sha512-aN97NXWF6AWBTahfVOIrB/NShkzi5H7F9r1s9mD3cDj4Ko5f2qhhVoYMibXF7GlLveb/D2ioWay8lxI97Ven3g==}
+    engines: {node: '>=0.12'}
 
   entities@8.1.0:
     resolution: {integrity: sha512-kxL7msIffSuh9aaFAMD7rxAIuTRMAHMeBtgHW2yUdWw732ZNh4MehkF2gdjvtdmikkaIP9bFDDJOPlsvm7avrA==}
@@ -8762,11 +8759,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  use-sync-external-store@1.6.0:
-    resolution: {integrity: sha512-Pp6GSwGP/NrPIrxVFAIkOQeyw8lFenOHijQWkUTrDvrF4ALqylP2C/KCkeS9dpUM3KvYRQhna5vt7IL95+ZQ9w==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   use-sync-external-store@1.7.0:
     resolution: {integrity: sha512-6L+EeigHMQhdaIPNIFUKwfWJSwWFQ8gJbJ2DLOs5sDIegTwR9fRxvnM3uciHKjIZhFz+KAv2emhWMRvDmMcY8A==}
@@ -13812,8 +13804,6 @@ snapshots:
 
   '@types/unist@2.0.11': {}
 
-  '@types/use-sync-external-store@1.5.0': {}
-
   '@types/use-sync-external-store@1.7.0': {}
 
   '@types/webpack@5.28.5(esbuild@0.28.2)(lightningcss@1.33.0)':
@@ -14184,7 +14174,7 @@ snapshots:
 
   '@vercel/oidc@3.2.0': {}
 
-  '@via-ds/components@0.9.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@via-ds/components@0.10.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@codemirror/legacy-modes': 6.5.4
       '@floating-ui/react': 0.26.28(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -14218,11 +14208,12 @@ snapshots:
       '@types/lodash-es': 4.17.12
       '@types/react': 18.3.12
       '@types/react-dom': 18.3.1
-      '@types/use-sync-external-store': 1.5.0
-      '@via-ds/icons': 0.1.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@via-ds/tokens': 0.3.4
+      '@types/use-sync-external-store': 1.7.0
+      '@via-ds/icons': 0.2.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@via-ds/tokens': 0.3.5
       '@via-ds/types': 0.0.1
       clsx: 2.1.1
+      entities: 6.0.1
       graphql: 17.0.2
       graphql-language-service: 5.7.0(graphql@17.0.2)
       lodash-es: 4.17.22
@@ -14234,7 +14225,7 @@ snapshots:
       react-hot-toast: 2.6.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-intersection-observer: 10.0.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-stately: 3.49.0(react@18.3.1)
-      use-sync-external-store: 1.6.0(react@18.3.1)
+      use-sync-external-store: 1.7.0(react@18.3.1)
 
   '@via-ds/eslint-plugin@0.4.0(@babel/core@7.29.7)(@typescript/typescript6@6.0.2)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))':
     dependencies:
@@ -14251,7 +14242,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@via-ds/icons@0.1.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@via-ds/icons@0.2.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@react-aria/utils': 3.34.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/lodash-es': 4.17.12
@@ -14267,7 +14258,7 @@ snapshots:
       '@types/lodash-es': 4.17.12
       lodash-es: 4.17.22
 
-  '@via-ds/tokens@0.3.4':
+  '@via-ds/tokens@0.3.5':
     dependencies:
       '@types/lodash-es': 4.17.12
       lodash-es: 4.17.22
@@ -15195,7 +15186,7 @@ snapshots:
     dependencies:
       domelementtype: 3.0.0
       domhandler: 6.0.1
-      entities: 8.0.0
+      entities: 8.1.0
 
   domelementtype@3.0.0: {}
 
@@ -15253,7 +15244,7 @@ snapshots:
       graceful-fs: 4.2.11
       tapable: 2.3.3
 
-  entities@8.0.0: {}
+  entities@6.0.1: {}
 
   entities@8.1.0: {}
 
@@ -16137,7 +16128,7 @@ snapshots:
       domelementtype: 3.0.0
       domhandler: 6.0.1
       domutils: 4.0.2
-      entities: 8.0.0
+      entities: 8.1.0
 
   https-proxy-agent@5.0.1:
     dependencies:
@@ -18663,10 +18654,6 @@ snapshots:
       use-isomorphic-layout-effect: 1.2.1(@types/react@18.3.12)(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.12
-
-  use-sync-external-store@1.6.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
 
   use-sync-external-store@1.7.0(react@18.3.1):
     dependencies:
