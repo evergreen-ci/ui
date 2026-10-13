@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { msToDuration } from "utils/string";
 import { TaskDurationData } from "./types";
@@ -41,10 +40,10 @@ export const TaskDurationDifference: React.FC<TaskDurationDifferenceProps> = ({
   return (
     <>
       <span aria-hidden="true"> · </span>
-      <Difference aria-label={description} color={color} title={description}>
+      <span aria-label={description} style={{ color }} title={description}>
         {sign}
         {msToDuration(absoluteDifference)}
-      </Difference>
+      </span>
     </>
   );
 };
@@ -68,7 +67,3 @@ const getDifferenceSign = (difference: number) => {
   }
   return difference > 0 ? "+" : "−";
 };
-
-const Difference = styled.span<{ color: string }>`
-  color: ${({ color }) => color};
-`;
