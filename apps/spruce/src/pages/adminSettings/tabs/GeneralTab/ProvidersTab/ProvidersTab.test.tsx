@@ -1,6 +1,15 @@
+import { createRef } from "react";
 import { createErrorHandler } from "@rjsf/utils";
-import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
-import { SpruceForm } from "components/SpruceForm";
+import { customizeValidator } from "@rjsf/validator-ajv8";
+import {
+  act,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { SpruceForm, SpruceFormRef } from "components/SpruceForm";
+import { customFormats } from "components/SpruceForm/customFormats";
 import { RecursivelyAddError } from "components/SpruceForm/types";
 import { MongoDbEnvironment } from "gql/generated/types";
 import { adminSettings } from "../../testData";
@@ -78,7 +87,6 @@ describe("providers tab validation", () => {
   });
 
   it.each([
-    [],
     ["@mongodb.com"],
     ["*.mongodb.com"],
     ["MONGODB.COM"],
@@ -88,7 +96,6 @@ describe("providers tab validation", () => {
     ["-mongodb.com"],
     ["mongodb-.com"],
     ["mongodb"],
-    ["mongodb.com", "mongodb.com"],
   ])(
     "rejects invalid domain lists %j",
     (...mongodbOwnerEmailDomains: string[]) => {
@@ -96,6 +103,49 @@ describe("providers tab validation", () => {
       expect(errors.mongodbOwnerEmailDomains.__errors).toHaveLength(1);
     },
   );
+
+  it.each([
+    { domains: [], errorName: "minItems" },
+    { domains: ["mongodb.com", "mongodb.com"], errorName: "uniqueItems" },
+  ])(
+    "rejects domain lists that violate $errorName",
+    ({ domains, errorName }) => {
+      const validator = customizeValidator({ customFormats: customFormats() });
+      const { errors } = validator.validateFormData(
+        makeForm({ ...defaultResourceTags, mongodbOwnerEmailDomains: domains }),
+        formSchema.schema,
+      );
+      expect(errors).toContainEqual(
+        expect.objectContaining({
+          name: errorName,
+          property: ".providers.aws.resourceTags.mongodbOwnerEmailDomains",
+        }),
+      );
+    },
+  );
+
+  it("shows a validation error for an empty domain list", () => {
+    const formRef = createRef<SpruceFormRef>();
+    const formData = makeForm({
+      ...defaultResourceTags,
+      mongodbOwnerEmailDomains: [],
+    });
+    render(
+      <SpruceForm
+        {...formSchema}
+        ref={formRef}
+        customValidate={validateResourceTags(defaultResourceTags)}
+        formData={formData}
+        liveValidate={false}
+        onError={vi.fn()}
+      />,
+    );
+
+    act(() => {
+      expect(formRef.current?.validateFormWithFormData(formData)).toBe(false);
+    });
+    expect(screen.getByText(/must NOT have fewer than 1 items/)).toBeVisible();
+  });
 
   it.each([
     "team@mongodb.com",

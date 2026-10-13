@@ -28,11 +28,6 @@ export const validateResourceTags =
     }
 
     const { mongodbOwner, mongodbOwnerEmailDomains } = resourceTags;
-    if (mongodbOwnerEmailDomains.length === 0) {
-      resourceTagErrors.mongodbOwnerEmailDomains.addError(
-        "At least one MongoDB owner email domain is required.",
-      );
-    }
     if (
       mongodbOwnerEmailDomains.some(
         (domain) =>
@@ -41,13 +36,6 @@ export const validateResourceTags =
     ) {
       resourceTagErrors.mongodbOwnerEmailDomains.addError(
         "Enter lowercase domains without @, wildcards, or whitespace.",
-      );
-    }
-    if (
-      new Set(mongodbOwnerEmailDomains).size !== mongodbOwnerEmailDomains.length
-    ) {
-      resourceTagErrors.mongodbOwnerEmailDomains.addError(
-        "MongoDB owner email domains must be unique.",
       );
     }
     if (

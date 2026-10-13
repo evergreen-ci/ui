@@ -325,6 +325,8 @@ export const aws = {
         mongodbOwnerEmailDomains: {
           type: "array" as const,
           title: "MongoDB Owner Email Domains",
+          minItems: 1,
+          uniqueItems: true,
           items: {
             type: "string" as const,
           },
