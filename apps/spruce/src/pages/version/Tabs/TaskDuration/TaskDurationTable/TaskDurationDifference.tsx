@@ -31,16 +31,8 @@ export const TaskDurationDifference: React.FC<TaskDurationDifferenceProps> = ({
 
   const difference = timeTaken - baseTask.timeTaken;
   const absoluteDifference = Math.abs(difference);
-  const shouldHighlight =
-    absoluteDifference >
-    Math.max(
-      MIN_DURATION_DIFFERENCE_MS,
-      baseTask.timeTaken * DURATION_DIFFERENCE_THRESHOLD,
-    );
-  const highlightColor = difference > 0 ? red.dark2 : green.dark2;
-  const color = shouldHighlight ? highlightColor : gray.dark1;
-  const nonZeroSign = difference > 0 ? "+" : "−";
-  const sign = difference === 0 ? "" : nonZeroSign;
+  const color = getDifferenceColor(difference, baseTask.timeTaken);
+  const sign = getDifferenceSign(difference);
   const description =
     difference === 0
       ? `Same duration as the ${comparisonLabel.toLowerCase()} task`
@@ -55,6 +47,26 @@ export const TaskDurationDifference: React.FC<TaskDurationDifferenceProps> = ({
       </Difference>
     </>
   );
+};
+
+const getDifferenceColor = (difference: number, baseTimeTaken: number) => {
+  const shouldHighlight =
+    Math.abs(difference) >
+    Math.max(
+      MIN_DURATION_DIFFERENCE_MS,
+      baseTimeTaken * DURATION_DIFFERENCE_THRESHOLD,
+    );
+  if (!shouldHighlight) {
+    return gray.dark1;
+  }
+  return difference > 0 ? red.dark2 : green.dark2;
+};
+
+const getDifferenceSign = (difference: number) => {
+  if (difference === 0) {
+    return "";
+  }
+  return difference > 0 ? "+" : "−";
 };
 
 const Difference = styled.span<{ color: string }>`
