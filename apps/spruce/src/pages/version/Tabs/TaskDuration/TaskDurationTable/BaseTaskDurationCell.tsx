@@ -5,26 +5,23 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import { msToDuration } from "utils/string";
-import { TaskDurationCell } from "./TaskDurationCell";
+import { DurationBar } from "./DurationBar";
 import styles from "./TaskDurationTable.module.css";
 import { TaskDurationData } from "./types";
 
-interface BaseTaskDurationCellProps extends Pick<
-  TaskDurationData,
-  "baseTask" | "displayName"
-> {
+interface BaseTaskDurationCellProps {
   comparisonLabel: string;
   maxTimeTaken: number;
+  task: TaskDurationData;
 }
 
 export const BaseTaskDurationCell: React.FC<BaseTaskDurationCellProps> = ({
-  baseTask,
   comparisonLabel,
-  displayName,
   maxTimeTaken,
+  task: { baseTask, displayName },
 }) =>
   baseTask?.finishTime && baseTask.timeTaken != null ? (
-    <TaskDurationCell
+    <DurationBar
       maxTimeTaken={maxTimeTaken}
       status={baseTask.displayStatus}
       timeTaken={baseTask.timeTaken}
@@ -38,7 +35,7 @@ export const BaseTaskDurationCell: React.FC<BaseTaskDurationCellProps> = ({
       >
         View task
       </StyledRouterLink>
-    </TaskDurationCell>
+    </DurationBar>
   ) : (
     <Tooltip
       trigger={
