@@ -43,6 +43,7 @@ export const TASK = gql`
       canSchedule
       canSetPriority
       canUnschedule
+      completedBy
       dependsOn {
         buildVariant
         metStatus
@@ -106,6 +107,7 @@ export const TASK = gql`
       imageId
       ingestTime
       invalidatedByUpstream
+      isVirtual
       latestExecution
       logs {
         agentLogLink

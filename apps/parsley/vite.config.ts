@@ -107,10 +107,12 @@ const getProjectConfig = () => {
       server: {
         deps: {
           // Inlining works around extensionless lodash ESM imports in the LG
-          // packages (rejected by Node's resolver) and keeps @via-ds/icons on
-          // Vite's faster resolver (188 glyph modules starve the worker pool).
+          // packages, which Node's resolver rejects.
+          // TODO(UXE-1082): drop @via-ds/components once its root entry stops
+          // pulling graphqlHighlight and its graphql-language-service imports
+          // carry file extensions.
           inline: [
-            "@via-ds/icons",
+            "@via-ds/components",
             "@leafygreen-ui/icon",
             "@leafygreen-ui/icon-button",
             "@leafygreen-ui/segmented-control",

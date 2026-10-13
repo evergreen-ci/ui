@@ -77,7 +77,7 @@ export const getFormSchema = (
         },
         githubChecksEnabled: {
           "ui:data-testid": "github-checks-enabled-radio-box",
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:widget": widgets.RadioBoxWidget,
           ...githubConflictErrorStyling(
             githubProjectConflicts?.commitCheckIdentifiers ?? null,
@@ -105,7 +105,7 @@ export const getFormSchema = (
               projectType === ProjectType.AttachedProject
                 ? widgets.RadioBoxWidget
                 : "hidden",
-            "ui:showLabel": false,
+            "ui:label": false,
           },
           githubCheckAliases: aliasRowUiSchema({
             addButtonText: "Add definition",

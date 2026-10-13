@@ -1,7 +1,10 @@
 import { useWaterfallAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
 import { waterfallTriggers } from "constants/triggers";
-import { subscriptionMethods } from "types/subscription";
+import {
+  NotificationModalSource,
+  subscriptionMethods,
+} from "types/subscription";
 
 interface AddNotificationProps {
   open: boolean;
@@ -25,13 +28,8 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
         setMenuOpen(false);
       }}
       resourceId={projectIdentifier}
-      sendAnalyticsEvent={(subscription) =>
-        sendEvent({
-          name: "Created notification",
-          "subscription.type": subscription.subscriber.type || "",
-          "subscription.trigger": subscription.trigger || "",
-        })
-      }
+      sendEvent={sendEvent}
+      source={NotificationModalSource.WaterfallMenu}
       subscriptionMethods={subscriptionMethods}
       triggers={waterfallTriggers}
       type="project"

@@ -16,6 +16,7 @@ import Code from "@via-ds/icons/Code";
 import Ellipsis from "@via-ds/icons/Ellipsis";
 import { useWaterfallAnalytics } from "analytics";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
+import { NotificationModalSource } from "types/subscription";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { AddNotification } from "./AddNotification";
 import { ClearAllFilters } from "./ClearAllFilters";
@@ -74,6 +75,10 @@ export const WaterfallMenu: React.FC<Props> = ({
               id="add-notification"
               onAction={() => {
                 setMenuOpen(false);
+                sendEvent({
+                  name: "Viewed notification modal",
+                  "notification.source": NotificationModalSource.WaterfallMenu,
+                });
                 setNotificationModalOpen(true);
               }}
               textValue="Add notification"

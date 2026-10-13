@@ -1,32 +1,37 @@
-import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { Select, SelectItem } from "@via-ds/components";
 import { Requester } from "constants/requesters";
 import { requesterSubscriberOptions } from "constants/triggers";
 import { useStatusesFilter } from "hooks";
 import { PatchPageQueryParams } from "types/patch";
+import styles from "./index.module.css";
 
 export const RequesterSelector: React.FC = () => {
   const { inputValue: statusVal, setAndSubmitInputValue: statusValOnChange } =
     useStatusesFilter({ urlParam: PatchPageQueryParams.Requesters });
 
   return (
-    <Combobox
+    <Select
+      aria-label="Patch submission"
+      className={styles.filterField}
       data-testid="requester-selector"
-      label=""
-      multiselect
-      onChange={statusValOnChange}
-      overflow="scroll-x"
+      onChange={(selectedKeys) =>
+        statusValOnChange(selectedKeys.map((key) => key.toString()))
+      }
       placeholder="Patch submission"
+      selectionMode="multiple"
       value={statusVal}
     >
-      {options.map(({ displayName, key, value }) => (
-        <ComboboxOption
-          key={key}
+      {options.map(({ displayName, value }) => (
+        <SelectItem
+          key={value}
           data-testid={`${value}-option`}
-          displayName={displayName}
-          value={value}
-        />
+          id={value}
+          textValue={displayName}
+        >
+          {displayName}
+        </SelectItem>
       ))}
-    </Combobox>
+    </Select>
   );
 };
 
@@ -34,11 +39,9 @@ const options = [
   {
     displayName: requesterSubscriberOptions[Requester.GitHubPR],
     value: Requester.GitHubPR,
-    key: Requester.GitHubPR,
   },
   {
     displayName: requesterSubscriberOptions[Requester.Patch],
     value: Requester.Patch,
-    key: Requester.Patch,
   },
 ];

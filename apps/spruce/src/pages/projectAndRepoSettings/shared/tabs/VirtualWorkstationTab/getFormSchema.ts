@@ -65,14 +65,14 @@ export const getFormSchema = (
           projectType === ProjectType.AttachedProject
             ? widgets.RadioBoxWidget
             : "hidden",
-        "ui:showLabel": false,
+        "ui:label": false,
       },
       setupCommands: {
         "ui:addButtonText": "Add command",
         "ui:addToEnd": true,
         "ui:border": true,
         "ui:fullWidth": true,
-        "ui:showLabel": false,
+        "ui:label": false,
         items: {
           "ui:ObjectFieldTemplate": CommandRow,
           "ui:label": false,
@@ -92,7 +92,7 @@ export const getFormSchema = (
           "ui:fullWidth": true,
           "ui:orderable": false,
           "ui:readonly": true,
-          "ui:showLabel": false,
+          "ui:label": false,
           items: {
             "ui:ObjectFieldTemplate": CommandRow,
             command: {

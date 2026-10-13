@@ -16,6 +16,7 @@ import {
 const today = new Date();
 
 type HostUptimeProps = {
+  hostUptimeError?: string;
   hostUptimeWarnings?: {
     enabledHoursCount: number;
     warnings: string[];
@@ -25,6 +26,7 @@ type HostUptimeProps = {
 };
 
 const getHostUptimeSchema = ({
+  hostUptimeError,
   hostUptimeWarnings,
   isEditModal,
   timeZone,
@@ -110,6 +112,7 @@ const getHostUptimeSchema = ({
 
           uptimeHours: {
             type: "null" as const,
+            default: null,
           },
         },
       },
@@ -157,7 +160,7 @@ const getHostUptimeSchema = ({
     sleepSchedule: {
       enabledWeekdays: {
         "ui:addable": false,
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:widget": widgets.DayPickerWidget,
       },
       timeSelection: {
@@ -169,7 +172,7 @@ const getHostUptimeSchema = ({
           "ui:widget": widgets.TimeWidget,
         },
         or: {
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:descriptionNode": <Body>or</Body>,
         },
         runContinuously: {
@@ -190,7 +193,8 @@ const getHostUptimeSchema = ({
             totalUptimeHours={hostUptimeWarnings?.enabledHoursCount}
           />
         ),
-        "ui:showLabel": false,
+        "ui:label": false,
+        "ui:errors": hostUptimeError ? [hostUptimeError] : undefined,
         "ui:warnings": hostUptimeWarnings?.warnings,
       },
     },
@@ -214,6 +218,7 @@ const Details: React.FC<{ totalUptimeHours: number }> = ({
 
 type ExpirationProps = {
   disableExpirationCheckbox: boolean;
+  hostUptimeError?: string;
   hostUptimeWarnings?: {
     enabledHoursCount: number;
     warnings: string[];
@@ -226,6 +231,7 @@ type ExpirationProps = {
 
 export const getExpirationDetailsSchema = ({
   disableExpirationCheckbox,
+  hostUptimeError,
   hostUptimeWarnings,
   isEditModal,
   noExpirationCheckboxTooltip,
@@ -234,6 +240,7 @@ export const getExpirationDetailsSchema = ({
 }: ExpirationProps) => {
   const defaultExpiration = getDefaultExpiration();
   const hostUptime = getHostUptimeSchema({
+    hostUptimeError,
     hostUptimeWarnings,
     isEditModal,
     timeZone,

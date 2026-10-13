@@ -1,5 +1,5 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectInput } from "gql/generated/types";
+import { ProjectInput, SourceCacheMode } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
 
@@ -62,9 +62,20 @@ export const gqlToForm = ((data, options = {}) => {
       patch: {
         patchingDisabled: projectRef.patchingDisabled,
       },
+      virtualTasks: {
+        virtualTasksEnabled: projectRef.virtualTasksEnabled,
+      },
     },
     historicalTaskDataCaching: {
       disabledStatsCache: projectRef.disabledStatsCache,
+    },
+    sourceCache: {
+      sourceCacheMode:
+        // Attached projects with no override defer to the repo's source cache mode.
+        projectType === ProjectType.AttachedProject &&
+        projectRef.sourceCacheMode == null
+          ? null
+          : (projectRef.sourceCacheMode ?? SourceCacheMode.Off),
     },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -75,6 +86,7 @@ export const formToGql = ((
     generalConfiguration,
     historicalTaskDataCaching: { disabledStatsCache },
     projectFlags,
+    sourceCache: { sourceCacheMode },
   },
   isRepo,
   id,
@@ -106,7 +118,9 @@ export const formToGql = ((
     stepbackBisect: projectFlags.scheduling.stepbackBisection,
     patchingDisabled: projectFlags.patch.patchingDisabled,
     runEveryMainlineCommit: projectFlags.repotracker.runEveryMainlineCommit,
+    virtualTasksEnabled: projectFlags.virtualTasks.virtualTasksEnabled,
     disabledStatsCache,
+    sourceCacheMode,
   };
 
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };

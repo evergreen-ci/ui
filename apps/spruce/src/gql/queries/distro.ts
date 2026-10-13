@@ -78,6 +78,7 @@ export const DISTRO = gql`
       }
       imageId
       isCluster
+      isIaCManaged
       isVirtualWorkStation
       mountpoints
       name

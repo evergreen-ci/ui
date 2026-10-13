@@ -1,6 +1,7 @@
 import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
 import stylisticPlugin from "@stylistic/eslint-plugin";
+import viaDsPlugin from "@via-ds/eslint-plugin";
 import { defineConfig } from "eslint/config";
 import disableConflictsPlugin from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
@@ -315,6 +316,18 @@ const storyBookConfig = {
   },
 };
 
+// Via design system ESLint (@via-ds/eslint-plugin) settings.
+const viaDsConfig = {
+  name: "via-ds/rules",
+  files: ["src/**/*.ts?(x)"],
+  plugins: {
+    "via-ds": viaDsPlugin,
+  },
+  rules: {
+    "via-ds/no-full-icon-set-imports": ERROR,
+  },
+};
+
 // Playwright ESLint (eslint-plugin-playwright) settings.
 const playwrightConfig = {
   name: "playwright/rules",
@@ -490,6 +503,7 @@ export default defineConfig(
   jsDocConfig,
   storybookPlugin.configs["flat/recommended"],
   storyBookConfig,
+  viaDsConfig,
   playwrightConfig,
   playwrightSetupConfig,
   graphQLProcessorConfig,

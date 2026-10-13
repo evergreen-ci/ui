@@ -1,12 +1,14 @@
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import {
   debugSpawnHostsDocumentationUrl,
   runEveryMainlineCommitDocumentationUrl,
   versionControlDocumentationUrl,
 } from "constants/externalResources";
+import { SourceCacheMode } from "gql/generated/types";
 import { ProjectType, form } from "../utils";
 import {
   DeactivateStepbackTaskField,
@@ -253,6 +255,21 @@ export const getFormSchema = (
               },
             },
           },
+          virtualTasks: {
+            type: "object" as const,
+            title: "Virtual Task Settings",
+            properties: {
+              virtualTasksEnabled: {
+                type: ["boolean", "null"],
+                title: "Virtual Tasks",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.virtualTasks?.virtualTasksEnabled,
+                ),
+              },
+            },
+          },
         },
       },
       historicalTaskDataCaching: {
@@ -268,6 +285,45 @@ export const getFormSchema = (
               repoData?.historicalTaskDataCaching?.disabledStatsCache,
               true,
             ),
+          },
+        },
+      },
+      sourceCache: {
+        type: "object" as const,
+        title: "Source Cache",
+        properties: {
+          sourceCacheMode: {
+            type: ["string", "null"],
+            title: "Source Cache Mode",
+            oneOf: [
+              {
+                type: ["string", "null"],
+                title: "Disabled",
+                enum: [SourceCacheMode.Off],
+              },
+              {
+                type: ["string", "null"],
+                title: "All builds",
+                enum: [SourceCacheMode.All],
+              },
+              {
+                type: ["string", "null"],
+                title: "Waterfall builds",
+                enum: [SourceCacheMode.Waterfall],
+              },
+              ...(projectType === ProjectType.AttachedProject
+                ? [
+                    {
+                      type: ["string", "null"],
+                      title: `Default to repo (${sourceCacheModeLabel(
+                        repoData?.sourceCache?.sourceCacheMode ??
+                          SourceCacheMode.Off,
+                      )})`,
+                      enum: [null],
+                    } as SpruceFormProps["schema"],
+                  ]
+                : []),
+            ],
           },
         },
       },
@@ -290,12 +346,12 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       enabled: {
         "ui:widget": widgets.RadioBoxWidget,
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:data-testid": "enabled-radio-box",
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
-        options: {
+        "ui:options": {
           initialOwner,
           initialRepo,
           projectId,
@@ -400,8 +456,8 @@ export const getFormSchema = (
         },
         forceRun: {
           "ui:field": "repotrackerField",
-          "ui:showLabel": false,
-          options: { projectId },
+          "ui:label": false,
+          "ui:options": { projectId },
         },
         runEveryMainlineCommit: {
           "ui:data-testid": "run-every-mainline-commit-radio-box",
@@ -433,14 +489,22 @@ export const getFormSchema = (
         },
         deactivateStepback: {
           "ui:field": "deactivateStepbackTask",
-          "ui:showLabel": false,
-          options: { projectId },
+          "ui:label": false,
+          "ui:options": { projectId },
         },
       },
       patch: {
         patchingDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:showLabel": false,
+          "ui:label": false,
+        },
+      },
+      virtualTasks: {
+        virtualTasksEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:data-testid": "virtual-tasks-enabled-radio-box",
+          "ui:description":
+            "Sets if tasks in this project can be defined as virtual tasks, which can have their results pushed by another task instead of running on a host.",
         },
       },
     },
@@ -453,13 +517,23 @@ export const getFormSchema = (
           "Task execution statistics aggregated by project, build variant, distro, task name, and task creation date.",
       },
     },
+    sourceCache: {
+      "ui:rootFieldId": "sourceCache",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      sourceCacheMode: {
+        "ui:widget": widgets.RadioBoxWidget,
+        "ui:data-testid": "source-cache-mode-radio-box",
+        "ui:description":
+          "This setting is temporary and will eventually be automatically enabled for all projects.",
+      },
+    },
     delete: {
       "ui:rootFieldId": "removeProject",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       deleteProject: {
         "ui:field": "deleteProjectField",
-        "ui:showLabel": false,
-        options: { projectId },
+        "ui:label": false,
+        "ui:options": { projectId },
       },
     },
   },
@@ -510,3 +584,16 @@ const RunEveryMainlineCommitDescription = (
     </StyledLink>
   </>
 );
+
+const sourceCacheModeLabel = (
+  mode: GeneralFormState["sourceCache"]["sourceCacheMode"],
+) => {
+  switch (mode) {
+    case SourceCacheMode.All:
+      return "all builds";
+    case SourceCacheMode.Waterfall:
+      return "waterfall builds";
+    default:
+      return "disabled";
+  }
+};

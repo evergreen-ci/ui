@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 
 /**
  * Gets the merge base between the current branch and main
@@ -6,7 +6,7 @@ import { execSync } from "child_process";
  */
 export const getMergeBase = () => {
   try {
-    const mergeBaseCmd = execSync("git merge-base main@{upstream} HEAD")
+    const mergeBaseCmd = execFileSync("git", ["merge-base", "main@{upstream}", "HEAD"])
       .toString()
       .trim();
     return mergeBaseCmd;
@@ -24,7 +24,7 @@ export const getMergeBase = () => {
 export const whatChanged = () => {
   const mergeBase = getMergeBase();
   try {
-    const diffFiles = execSync(`git diff ${mergeBase} --name-only`)
+    const diffFiles = execFileSync("git", ["diff", mergeBase, "--name-only"])
       .toString()
       .trim();
 

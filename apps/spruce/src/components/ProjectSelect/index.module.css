@@ -1,0 +1,24 @@
+.skeletonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-100);
+}
+
+/* Mirrors SearchableDropdown's label so the loading and loaded labels align. */
+.skeletonLabel {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--via-color-neutral-700);
+}
+
+.skeletonControl {
+  display: block;
+  line-height: 36px;
+  width: 100%;
+}
+
+.skeletonControl > span {
+  display: block;
+  width: 100%;
+}

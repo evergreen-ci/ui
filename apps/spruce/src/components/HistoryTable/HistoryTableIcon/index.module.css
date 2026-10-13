@@ -13,3 +13,8 @@
 .testName {
   word-break: break-all;
 }
+
+.tooltipSkeleton {
+  width: 100%;
+  height: var(--via-space-200);
+}

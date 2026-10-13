@@ -13,12 +13,13 @@ type BaseTabProps<T extends WritableAdminSettingsType> = {
   formSchema: ReturnType<GetFormSchema>;
   initialFormState: FormStates;
   tab: T;
-  validate?: ValidateProps<FormStates>;
+  validate?: ValidateProps<FormStateMap[T]>;
 };
 
 export const BaseTab = <T extends WritableAdminSettingsType>({
   initialFormState,
   tab,
+  validate,
   ...rest
 }: BaseTabProps<T>) => {
   const state = useAdminSettingsContext();
@@ -35,6 +36,7 @@ export const BaseTab = <T extends WritableAdminSettingsType>({
   return (
     <Form<WritableAdminSettingsType, FormStateMap>
       {...rest}
+      customValidate={validate}
       formRef={formRef}
       liveValidate={false}
       state={state}

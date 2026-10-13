@@ -1,3 +1,5 @@
+import { MongoDbEnvironment } from "gql/generated/types";
+
 export interface ProvidersFormState {
   providers: {
     containerPools: {
@@ -29,6 +31,10 @@ export interface ProvidersFormState {
       ipamPoolID: string;
       elasticIPUsageRate: number;
       allowedSNSTopicARNs: string[];
+      resourceTags: {
+        mongodbEnv: MongoDbEnvironment | "";
+        mongodbOwner: string;
+      };
 
       persistentDNS: {
         hostedZoneID: string;

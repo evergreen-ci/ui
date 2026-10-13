@@ -1,3 +1,4 @@
+import { SourceCacheMode } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
 export interface GeneralFormState {
@@ -38,9 +39,15 @@ export interface GeneralFormState {
     patch: {
       patchingDisabled: boolean | null;
     };
+    virtualTasks: {
+      virtualTasksEnabled: boolean | null;
+    };
   };
   historicalTaskDataCaching: {
     disabledStatsCache: boolean | null;
+  };
+  sourceCache: {
+    sourceCacheMode: SourceCacheMode | null;
   };
 }
 

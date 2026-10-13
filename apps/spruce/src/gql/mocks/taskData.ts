@@ -84,6 +84,7 @@ export const taskQuery: TaskQueryType = {
     executionPlatform: ExecutionPlatform.Host,
     expectedDuration: 123,
     hostId: "i-0e0e62799806e037d",
+    isVirtual: false,
     latestExecution: 0,
     logs: {
       __typename: "TaskLogLinks",

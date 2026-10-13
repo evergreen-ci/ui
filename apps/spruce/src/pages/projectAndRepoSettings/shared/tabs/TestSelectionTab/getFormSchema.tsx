@@ -73,7 +73,7 @@ export const getFormSchema = ({
           "Sets if the project can use test selection features or not.",
         allowed: {
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:showLabel": false,
+          "ui:label": false,
         },
       },
       taskLevel: {

@@ -1,8 +1,28 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { linuxArchitectures } from "./constants";
+import { HostFormState } from "./types";
 
 type Tab = DistroSettingsTabRoutes.Host;
+
+const emptyBootstrapSettings: NonNullable<HostFormState["bootstrapSettings"]> =
+  {
+    clientDir: "",
+    env: [],
+    homeVolumeFormatCommand: "",
+    jasperBinaryDir: "",
+    jasperCredentialsPath: "",
+    preconditionScripts: [],
+    resourceLimits: {
+      lockedMemoryKb: 0,
+      numFiles: 0,
+      numProcesses: 0,
+      numTasks: 0,
+      virtualMemoryKb: 0,
+    },
+    serviceUser: "",
+    shellPath: "",
+  };
 
 export const gqlToForm = ((data) => {
   if (!data) return null;
@@ -83,7 +103,13 @@ export const gqlToForm = ((data) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
-  { allocation, bootstrapSettings, containerIsolation, setup, sshConfig },
+  {
+    allocation,
+    bootstrapSettings = emptyBootstrapSettings,
+    containerIsolation,
+    setup,
+    sshConfig,
+  },
   distro,
 ) => {
   const { acceptableHostIdleTimeSeconds, ...hostAllocatorSettings } =

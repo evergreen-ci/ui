@@ -321,9 +321,6 @@ test.describe("other", () => {
   test("can save project creation changes", async ({ page }) => {
     await expect(page.getByTestId("save-settings-button")).toBeDisabled();
 
-    await page.getByLabel("Total Project Limit").clear();
-    await page.getByLabel("Total Project Limit").fill("150");
-
     const projectCreationSettings = page.getByTestId(
       "project-creation-settings",
     );
@@ -342,7 +339,6 @@ test.describe("other", () => {
     await validateToast(page, "success", "Settings saved successfully");
     await page.reload();
 
-    await expect(page.getByLabel("Total Project Limit")).toHaveValue("150");
     await expect(page.getByTestId("repo-exception-item")).toHaveCount(1);
   });
 

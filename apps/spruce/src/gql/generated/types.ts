@@ -506,7 +506,6 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   sourceCacheBucket?: Maybe<BucketConfig>;
-  sourceCacheProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -521,7 +520,6 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   sourceCacheBucket?: InputMaybe<BucketConfigInput>;
-  sourceCacheProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -866,6 +864,7 @@ export type Distro = {
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
+  isIaCManaged: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
@@ -928,6 +927,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
+  isIaCManaged?: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints: Array<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
@@ -2797,6 +2797,7 @@ export type Project = {
   repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
   runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
+  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2866,12 +2867,14 @@ export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
+  /** @deprecated The total project limit is no longer enforced */
   totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
+  /** @deprecated The total project limit is no longer enforced */
   totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
@@ -2952,6 +2955,7 @@ export type ProjectInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3339,7 +3343,9 @@ export type RateLimitConfig = {
   __typename?: "RateLimitConfig";
   elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
   exemptUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlComplexityPerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
@@ -3353,7 +3359,9 @@ export type RateLimitConfig = {
 export type RateLimitConfigInput = {
   elevatedUserIds: Array<Scalars["String"]["input"]>;
   exemptUserIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  graphqlComplexityBurst: Scalars["Int"]["input"];
   graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlComplexityPerHour: Scalars["Int"]["input"];
   graphqlServiceBurst: Scalars["Int"]["input"];
   graphqlServicePerHour: Scalars["Int"]["input"];
   graphqlUserBurst: Scalars["Int"]["input"];
@@ -3452,6 +3460,7 @@ export type RepoRef = {
   repotrackerDisabled: Scalars["Boolean"]["output"];
   restricted: Scalars["Boolean"]["output"];
   runEveryMainlineCommit: Scalars["Boolean"]["output"];
+  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
@@ -3503,6 +3512,7 @@ export type RepoRefInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3949,6 +3959,17 @@ export type Source = {
   time: Scalars["Time"]["output"];
 };
 
+/**
+ * SourceCacheMode controls whether a project's tasks may use the git source cache.
+ * OFF disables it, ALL enables it for every build, and WATERFALL enables it only
+ * for mainline (waterfall/commit) builds.
+ */
+export enum SourceCacheMode {
+  All = "ALL",
+  Off = "OFF",
+  Waterfall = "WATERFALL",
+}
+
 export type SpawnHostConfig = {
   __typename?: "SpawnHostConfig";
   spawnHostsPerUser?: Maybe<Scalars["Int"]["output"]>;
@@ -4143,6 +4164,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
+  completedBy?: Maybe<Scalars["String"]["output"]>;
   config?: Maybe<TaskConfig>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
@@ -4182,6 +4204,7 @@ export type Task = {
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
   isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
+  isVirtual: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"]["output"];
@@ -4796,6 +4819,7 @@ export type UiConfig = {
   defaultProject: Scalars["String"]["output"];
   fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
   httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  logUrl?: Maybe<Scalars["String"]["output"]>;
   loginDomain?: Maybe<Scalars["String"]["output"]>;
   parsleyUrl?: Maybe<Scalars["String"]["output"]>;
   secret?: Maybe<Scalars["String"]["output"]>;
@@ -4813,6 +4837,7 @@ export type UiConfigInput = {
   defaultProject: Scalars["String"]["input"];
   fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
   httpListenAddr: Scalars["String"]["input"];
+  logUrl?: InputMaybe<Scalars["String"]["input"]>;
   loginDomain: Scalars["String"]["input"];
   parsleyUrl: Scalars["String"]["input"];
   secret: Scalars["String"]["input"];
@@ -5535,10 +5560,12 @@ export type ProjectGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled?: boolean | null;
   runEveryMainlineCommit?: boolean | null;
+  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
   versionControlEnabled?: boolean | null;
+  virtualTasksEnabled?: boolean | null;
   waterfallDisabled?: boolean | null;
 };
 
@@ -5557,10 +5584,12 @@ export type RepoGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled: boolean;
   runEveryMainlineCommit: boolean;
+  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
+  virtualTasksEnabled?: boolean | null;
   waterfallDisabled: boolean;
 };
 
@@ -5735,10 +5764,12 @@ export type ProjectSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
@@ -5951,10 +5982,12 @@ export type RepoSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled: boolean;
     runEveryMainlineCommit: boolean;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled: boolean;
     notifyOnBuildFailure: boolean;
     githubMQTriggerAliases?: Array<string> | null;
@@ -6362,10 +6395,12 @@ export type ProjectEventSettingsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
+    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
@@ -7261,6 +7296,17 @@ export type SaveAdminSettingsMutation = {
       __typename?: "NotifyConfig";
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: MongoDbEnvironment | null;
+          mongodbOwner?: string | null;
+        } | null;
+      } | null;
+    } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;
@@ -7324,6 +7370,7 @@ export type SaveAdminSettingsMutation = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;
@@ -7843,6 +7890,11 @@ export type AdminSettingsQuery = {
         transitionToGlacierDays?: number | null;
         transitionToIADays?: number | null;
       } | null;
+      sourceCacheBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+      } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";
         name?: string | null;
@@ -7978,7 +8030,6 @@ export type AdminSettingsQuery = {
     projectCreation?: {
       __typename?: "ProjectCreationConfig";
       repoProjectLimit?: number | null;
-      totalProjectLimit?: number | null;
       repoExceptions: Array<{
         __typename?: "OwnerRepo";
         owner: string;
@@ -8017,6 +8068,11 @@ export type AdminSettingsQuery = {
           domain?: string | null;
           hostedZoneID?: string | null;
         } | null;
+        resourceTags?: {
+          __typename?: "ResourceTagsConfig";
+          mongodbEnv?: MongoDbEnvironment | null;
+          mongodbOwner?: string | null;
+        } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
       } | null;
       docker?: {
@@ -8028,7 +8084,9 @@ export type AdminSettingsQuery = {
       __typename?: "RateLimitConfig";
       elevatedUserIds?: Array<string> | null;
       exemptUserIds?: Array<string> | null;
+      graphqlComplexityBurst?: number | null;
       graphqlComplexityLimit?: number | null;
+      graphqlComplexityPerHour?: number | null;
       graphqlServiceBurst?: number | null;
       graphqlServicePerHour?: number | null;
       graphqlUserBurst?: number | null;
@@ -8185,6 +8243,7 @@ export type AdminSettingsQuery = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;
@@ -8559,6 +8618,7 @@ export type DistroQuery = {
     execUser: string;
     imageId: string;
     isCluster: boolean;
+    isIaCManaged: boolean;
     isVirtualWorkStation: boolean;
     mountpoints: Array<string>;
     name: string;
@@ -9472,10 +9532,12 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -9702,10 +9764,12 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -9997,10 +10061,12 @@ export type ProjectSettingsQuery = {
       repo: string;
       repotrackerDisabled?: boolean | null;
       runEveryMainlineCommit?: boolean | null;
+      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
+      virtualTasksEnabled?: boolean | null;
       waterfallDisabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
       githubMQTriggerAliases?: Array<string> | null;
@@ -10275,10 +10341,12 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10505,10 +10573,12 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
+          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10741,10 +10811,12 @@ export type RepoSettingsQuery = {
       repo: string;
       repotrackerDisabled: boolean;
       runEveryMainlineCommit: boolean;
+      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
+      virtualTasksEnabled?: boolean | null;
       waterfallDisabled: boolean;
       notifyOnBuildFailure: boolean;
       githubMQTriggerAliases?: Array<string> | null;
@@ -11150,6 +11222,20 @@ export type TaskAllExecutionsQuery = {
     execution: number;
     ingestTime?: Date | null;
   }>;
+};
+
+export type TaskCompletedByQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+}>;
+
+export type TaskCompletedByQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    displayName: string;
+    execution: number;
+  } | null;
 };
 
 export type TaskConfigQueryVariables = Exact<{
@@ -11629,6 +11715,7 @@ export type TaskQuery = {
     canSchedule: boolean;
     canSetPriority: boolean;
     canUnschedule: boolean;
+    completedBy?: string | null;
     displayOnly?: boolean | null;
     distroId: string;
     errors?: Array<string> | null;
@@ -11642,6 +11729,7 @@ export type TaskQuery = {
     imageId: string;
     ingestTime?: Date | null;
     invalidatedByUpstream?: boolean | null;
+    isVirtual: boolean;
     latestExecution: number;
     minQueuePosition: number;
     order: number;

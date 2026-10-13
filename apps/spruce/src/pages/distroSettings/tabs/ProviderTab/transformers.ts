@@ -96,9 +96,11 @@ export const formToGql = ((data, distro) => {
         ...distro,
         provider: Provider.Ec2Fleet,
         providerAccount: data.provider.providerAccount,
-        providerSettingsList: data.ec2FleetProviderSettings.map((p) => ({
-          ...gqlProviderSettings(p).ec2FleetProviderSettings,
-        })),
+        providerSettingsList: (data.ec2FleetProviderSettings ?? []).map(
+          (p) => ({
+            ...gqlProviderSettings(p).ec2FleetProviderSettings,
+          }),
+        ),
         containerPool: "",
         taskHostOverrides: toTaskHostOverridesInput(data.taskHostOverrides),
       };

@@ -13,6 +13,7 @@ export interface GeneralFormState {
     disabled: boolean;
     disableShallowClone: boolean;
     isCluster: boolean;
+    isIaCManaged: boolean;
     note: string;
     singleTaskDistro: boolean;
     warningNote: string;

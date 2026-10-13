@@ -15,7 +15,7 @@ const {
   validateURLTemplate,
 } = validators;
 
-export const customFormats = (jiraHost: string) => ({
+export const customFormats = (jiraHost = "") => ({
   noSpecialCharacters: validateNoSpecialCharacters,
   // Permit empty string but disallow whitespace
   noSpaces: /^$|^\S+$/,

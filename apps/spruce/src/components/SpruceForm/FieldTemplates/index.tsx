@@ -1,5 +1,5 @@
 import { Banner } from "@leafygreen-ui/banner";
-import { FieldTemplateProps } from "@rjsf/core";
+import { FieldTemplateProps, getUiOptions } from "@rjsf/utils";
 import { cx } from "@evg-ui/lib/utils/css";
 import { TitleField as CustomTitleField } from "../CustomFields";
 import { emotionCssToClassName } from "../utils";
@@ -19,12 +19,12 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   label,
   rawErrors,
   schema,
-  uiSchema,
+  uiSchema = {},
 }) => {
   const isNullType = schema.type === "null";
   const sectionId = uiSchema["ui:sectionId"] ?? "";
   const border = uiSchema["ui:border"];
-  const showLabel = uiSchema["ui:showLabel"] ?? true;
+  const { label: showLabel = true } = getUiOptions(uiSchema);
   const fielddataTestId = uiSchema["ui:field-data-testid"];
   const descriptionNode = uiSchema["ui:descriptionNode"];
   const fieldCss = uiSchema["ui:fieldCss"];

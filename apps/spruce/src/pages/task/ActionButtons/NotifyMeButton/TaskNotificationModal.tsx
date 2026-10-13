@@ -1,16 +1,21 @@
 import { useTaskAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
 import { taskTriggers } from "constants/triggers";
-import { subscriptionMethods as taskSubscriptionMethods } from "types/subscription";
+import {
+  NotificationModalSource,
+  subscriptionMethods as taskSubscriptionMethods,
+} from "types/subscription";
 
 interface ModalProps {
   onCancel: () => void;
+  source: NotificationModalSource;
   taskId: string;
   visible: boolean;
 }
 
 export const TaskNotificationModal: React.FC<ModalProps> = ({
   onCancel,
+  source,
   taskId,
   visible,
 }) => {
@@ -21,13 +26,8 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       data-testid="task-notification-modal"
       onCancel={onCancel}
       resourceId={taskId}
-      sendAnalyticsEvent={(subscription) =>
-        taskAnalytics.sendEvent({
-          name: "Created notification",
-          "subscription.type": subscription.subscriber.type || "",
-          "subscription.trigger": subscription.trigger || "",
-        })
-      }
+      sendEvent={taskAnalytics.sendEvent}
+      source={source}
       subscriptionMethods={taskSubscriptionMethods}
       triggers={taskTriggers}
       type="task"

@@ -1,11 +1,8 @@
-import { palette } from "@leafygreen-ui/palette";
-import { Body, Overline } from "@leafygreen-ui/typography";
+import { Body, Text, TextStyle } from "@via-ds/components";
 import Checkmark from "@via-ds/icons/Checkmark";
 import { cx } from "@evg-ui/lib/utils/css";
 import { FavoriteStar } from "./FavoriteStar";
 import styles from "./ProjectOptionGroup.module.css";
-
-const { blue } = palette;
 
 interface OptionProps {
   displayName: string;
@@ -39,7 +36,10 @@ const ProjectOption: React.FC<OptionProps> = ({
       {displayName || projectIdentifier}
     </Body>
     {isSelected && (
-      <Checkmark className={styles.checkmarkIcon} fill={blue.base} />
+      <Checkmark
+        className={styles.checkmarkIcon}
+        fill="var(--via-color-blue-400)"
+      />
     )}
   </div>
 );
@@ -73,15 +73,17 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
 
   return (
     <div className={styles.optionGroupContainer}>
-      <Overline
+      <Text
         className={cx(
           styles.groupHeader,
           canClickOnRepoGroup && styles.groupHeaderClickable,
         )}
+        elementType="div"
+        textStyle={TextStyle.heading6}
         {...groupHeaderProps}
       >
         {name}
-      </Overline>
+      </Text>
       <div className={styles.listContainer}>
         {projects?.map((project) => (
           <ProjectOption

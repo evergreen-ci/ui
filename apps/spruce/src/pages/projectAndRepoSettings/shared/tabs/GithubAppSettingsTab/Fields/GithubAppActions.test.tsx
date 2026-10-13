@@ -1,4 +1,4 @@
-import { FieldProps } from "@rjsf/core";
+import { FieldProps } from "@rjsf/utils";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -29,7 +29,7 @@ const Field = ({
       <GithubAppActions
         {...({} as unknown as FieldProps)}
         uiSchema={{
-          options: {
+          "ui:options": {
             projectOrRepoId: "evergreen",
             isAppDefined,
             isRepo,

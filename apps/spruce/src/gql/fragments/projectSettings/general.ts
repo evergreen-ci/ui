@@ -18,10 +18,12 @@ export const PROJECT_GENERAL_SETTINGS = gql`
     repo
     repotrackerDisabled
     runEveryMainlineCommit
+    sourceCacheMode
     spawnHostScriptPath
     stepbackBisect
     stepbackDisabled
     versionControlEnabled
+    virtualTasksEnabled
     waterfallDisabled
   }
 `;
@@ -41,10 +43,12 @@ export const REPO_GENERAL_SETTINGS = gql`
     repo
     repotrackerDisabled
     runEveryMainlineCommit
+    sourceCacheMode
     spawnHostScriptPath
     stepbackBisect
     stepbackDisabled
     versionControlEnabled
+    virtualTasksEnabled
     waterfallDisabled
   }
 `;

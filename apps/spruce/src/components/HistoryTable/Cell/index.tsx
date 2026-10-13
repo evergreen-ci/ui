@@ -1,7 +1,11 @@
 import { forwardRef } from "react";
-import { IconSkeleton, Size, Skeleton } from "@leafygreen-ui/skeleton-loader";
-import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import { Body } from "@leafygreen-ui/typography";
+import { Skeleton, SkeletonWrapper } from "@via-ds/components/skeleton";
+import {
+  Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@via-ds/components/tooltip";
+import { Body } from "@via-ds/components/typography";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -72,14 +76,22 @@ const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) =>
       className={cx(styles.baseCell, styles.headerCell)}
       data-testid="loading-header-cell"
     >
-      <Skeleton size={Size.Small} />
+      <Skeleton isLoading>
+        <SkeletonWrapper>
+          <div className={styles.loadingHeaderBar} />
+        </SkeletonWrapper>
+      </Skeleton>
     </div>
   ) : (
     <div
       className={cx(styles.baseCell, styles.cell)}
       data-testid="loading-cell"
     >
-      <IconSkeleton />
+      <Skeleton isLoading>
+        <SkeletonWrapper>
+          <div className={styles.loadingIcon} />
+        </SkeletonWrapper>
+      </Skeleton>
     </div>
   );
 
@@ -99,20 +111,16 @@ const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
     data-testid="header-cell"
   >
     {trimmedDisplayName !== fullDisplayName ? (
-      <Tooltip
-        align={Align.Top}
-        justify={Justify.Middle}
-        trigger={
-          <Body onClick={onClick} weight="medium">
+      <TooltipRoot align="center" side="top">
+        <TooltipTrigger>
+          <Body className={styles.mediumWeight} onClick={onClick}>
             {trimmedDisplayName}
           </Body>
-        }
-        triggerEvent={TriggerEvent.Hover}
-      >
-        {fullDisplayName}
-      </Tooltip>
+        </TooltipTrigger>
+        <Tooltip>{fullDisplayName}</Tooltip>
+      </TooltipRoot>
     ) : (
-      <Body onClick={onClick} weight="medium">
+      <Body className={styles.mediumWeight} onClick={onClick}>
         {fullDisplayName}
       </Body>
     )}

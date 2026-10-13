@@ -1,6 +1,6 @@
 #!/usr/bin/env vite-node --script
 
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { getAppToDeploy } from "../utils/environment";
 import { push, pushTags } from "../utils/git";
 import { countdownTimer } from "../utils/shell";
@@ -14,13 +14,19 @@ const tagName = `${app}/v${newVersion}`;
 console.log(`Creating commit and tag for ${tagName}...`);
 
 // Stage the package.json change
-execSync("git add package.json", { stdio: "inherit", encoding: "utf-8" });
+execFileSync("git", ["add", "package.json"], {
+  stdio: "inherit",
+  encoding: "utf-8",
+});
 
 // Create the version commit
-execSync(`git commit -m "${tagName}"`, { stdio: "inherit", encoding: "utf-8" });
+execFileSync("git", ["commit", "-m", tagName], {
+  stdio: "inherit",
+  encoding: "utf-8",
+});
 
 // Create the annotated tag
-execSync(`git tag -a "${tagName}" -m "${tagName}"`, {
+execFileSync("git", ["tag", "-a", tagName, "-m", tagName], {
   stdio: "inherit",
   encoding: "utf-8",
 });

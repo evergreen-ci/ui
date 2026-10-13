@@ -509,7 +509,6 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   sourceCacheBucket?: Maybe<BucketConfig>;
-  sourceCacheProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -524,7 +523,6 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   sourceCacheBucket?: InputMaybe<BucketConfigInput>;
-  sourceCacheProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -869,6 +867,7 @@ export type Distro = {
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
+  isIaCManaged: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
@@ -931,6 +930,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
+  isIaCManaged?: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints: Array<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
@@ -2800,6 +2800,7 @@ export type Project = {
   repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
   runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
+  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2869,12 +2870,14 @@ export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
+  /** @deprecated The total project limit is no longer enforced */
   totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
+  /** @deprecated The total project limit is no longer enforced */
   totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
@@ -2955,6 +2958,7 @@ export type ProjectInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3342,7 +3346,9 @@ export type RateLimitConfig = {
   __typename?: "RateLimitConfig";
   elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
   exemptUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlComplexityPerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
@@ -3356,7 +3362,9 @@ export type RateLimitConfig = {
 export type RateLimitConfigInput = {
   elevatedUserIds: Array<Scalars["String"]["input"]>;
   exemptUserIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  graphqlComplexityBurst: Scalars["Int"]["input"];
   graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlComplexityPerHour: Scalars["Int"]["input"];
   graphqlServiceBurst: Scalars["Int"]["input"];
   graphqlServicePerHour: Scalars["Int"]["input"];
   graphqlUserBurst: Scalars["Int"]["input"];
@@ -3455,6 +3463,7 @@ export type RepoRef = {
   repotrackerDisabled: Scalars["Boolean"]["output"];
   restricted: Scalars["Boolean"]["output"];
   runEveryMainlineCommit: Scalars["Boolean"]["output"];
+  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
@@ -3506,6 +3515,7 @@ export type RepoRefInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3952,6 +3962,17 @@ export type Source = {
   time: Scalars["Time"]["output"];
 };
 
+/**
+ * SourceCacheMode controls whether a project's tasks may use the git source cache.
+ * OFF disables it, ALL enables it for every build, and WATERFALL enables it only
+ * for mainline (waterfall/commit) builds.
+ */
+export enum SourceCacheMode {
+  All = "ALL",
+  Off = "OFF",
+  Waterfall = "WATERFALL",
+}
+
 export type SpawnHostConfig = {
   __typename?: "SpawnHostConfig";
   spawnHostsPerUser?: Maybe<Scalars["Int"]["output"]>;
@@ -4146,6 +4167,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
+  completedBy?: Maybe<Scalars["String"]["output"]>;
   config?: Maybe<TaskConfig>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
@@ -4185,6 +4207,7 @@ export type Task = {
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
   isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
+  isVirtual: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"]["output"];
@@ -4798,6 +4821,7 @@ export type UiConfig = {
   defaultProject: Scalars["String"]["output"];
   fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
   httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  logUrl?: Maybe<Scalars["String"]["output"]>;
   loginDomain?: Maybe<Scalars["String"]["output"]>;
   parsleyUrl?: Maybe<Scalars["String"]["output"]>;
   secret?: Maybe<Scalars["String"]["output"]>;
@@ -4815,6 +4839,7 @@ export type UiConfigInput = {
   defaultProject: Scalars["String"]["input"];
   fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
   httpListenAddr: Scalars["String"]["input"];
+  logUrl?: InputMaybe<Scalars["String"]["input"]>;
   loginDomain: Scalars["String"]["input"];
   parsleyUrl: Scalars["String"]["input"];
   secret: Scalars["String"]["input"];

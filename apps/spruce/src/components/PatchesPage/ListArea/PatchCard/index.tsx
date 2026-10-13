@@ -1,6 +1,11 @@
-import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
+import {
+  Chip,
+  ChipGroup,
+  ChipVariant,
+  Link,
+  LinkStyle,
+} from "@via-ds/components";
 import Refresh from "@via-ds/icons/Refresh";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -60,21 +65,23 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     patchProject = unlinkedPRUsers.has(user.userId) ? (
       user.displayName
     ) : (
-      <StyledRouterLink
+      <Link
         data-testid="user-patches-link"
-        to={getUserPatchesRoute(user.userId)}
+        href={getUserPatchesRoute(user.userId)}
+        linkStyle={LinkStyle.Internal}
       >
         <strong>{user.displayName}</strong>
-      </StyledRouterLink>
+      </Link>
     );
   } else if (projectIdentifier) {
     patchProject = (
-      <StyledRouterLink
+      <Link
         data-testid="project-patches-link"
-        to={getProjectPatchesRoute(projectIdentifier)}
+        href={getProjectPatchesRoute(projectIdentifier)}
+        linkStyle={LinkStyle.Internal}
       >
         <strong>{projectIdentifier}</strong>
-      </StyledRouterLink>
+      </Link>
     );
   } else if (projectMetadata?.owner && projectMetadata?.repo) {
     patchProject = `${projectMetadata.owner}/${projectMetadata.repo}`;
@@ -97,18 +104,19 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   return (
     <div className={styles.cardWrapper} data-testid="patch-card">
       <div className={styles.left}>
-        <StyledRouterLink
+        <Link
           className={styles.descriptionLink}
           data-testid="patch-card-patch-link"
-          onClick={() => analytics.sendEvent({ name: "Clicked patch link" })}
-          to={
+          href={
             activated
               ? getVersionRoute(id)
               : getPatchRoute(id, { configure: true })
           }
+          linkStyle={LinkStyle.Internal}
+          onPress={() => analytics.sendEvent({ name: "Clicked patch link" })}
         >
           {description || "no description"}
-        </StyledRouterLink>
+        </Link>
         <div className={styles.timeAndProject}>
           {getDateCopy(createDate)} {pageType === "project" ? "by" : "on"}{" "}
           {patchProject}
@@ -125,23 +133,26 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         <div className={styles.taskBadgeContainer}>{badges}</div>
       </div>
       <div className={styles.right}>
-        {invalidatedByUpstream && (
-          <div className={styles.chipContainer}>
-            <Chip
-              glyph={<Refresh />}
-              label="Merge Queue Aborted"
-              variant={ChipVariant.Gray}
-            />
-          </div>
-        )}
-        {hidden && (
-          <div className={styles.chipContainer}>
-            <Chip
-              data-testid="hidden-badge"
-              label="Hidden"
-              variant={ChipVariant.Gray}
-            />
-          </div>
+        {(invalidatedByUpstream || hidden) && (
+          <ChipGroup
+            aria-label="Patch attributes"
+            className={styles.chipContainer}
+          >
+            {invalidatedByUpstream && (
+              <Chip id="merge-queue-aborted" variant={ChipVariant.Gray}>
+                <Refresh /> Merge Queue Aborted
+              </Chip>
+            )}
+            {hidden && (
+              <Chip
+                data-testid="hidden-badge"
+                id="hidden"
+                variant={ChipVariant.Gray}
+              >
+                Hidden
+              </Chip>
+            )}
+          </ChipGroup>
         )}
         <DropdownMenu
           hasVersion={!!versionId}

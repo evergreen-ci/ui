@@ -2,6 +2,7 @@ import {
   BannerTheme,
   ProjectSettingsQuery,
   RepoSettingsQuery,
+  SourceCacheMode,
 } from "gql/generated/types";
 import { JiraTicketType } from "types/jira";
 
@@ -54,6 +55,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     spawnHostScriptPath: null,
     dispatchingDisabled: null,
     waterfallDisabled: null,
+    sourceCacheMode: null,
     versionControlEnabled: true,
     deactivatePrevious: null,
     repotrackerDisabled: null,
@@ -71,6 +73,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     githubMQTriggerAliases: null,
     gitTagVersionsEnabled: null,
     runEveryMainlineCommit: null,
+    virtualTasksEnabled: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
     commitQueue: {
@@ -233,6 +236,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     stepbackDisabled: true,
     stepbackBisect: true,
     disabledStatsCache: false,
+    sourceCacheMode: SourceCacheMode.Waterfall,
     restricted: true,
     admins: ["admin"],
     prTestingEnabled: false,
@@ -242,6 +246,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     githubMQTriggerAliases: ["mq-alias"],
     gitTagVersionsEnabled: false,
     runEveryMainlineCommit: false,
+    virtualTasksEnabled: true,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
     githubDynamicTokenPermissionGroups: [

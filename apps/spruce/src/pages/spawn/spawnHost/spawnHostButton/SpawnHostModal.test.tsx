@@ -62,6 +62,14 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
           availableRegions: ["us-east-1"],
           isVirtualWorkStation: false,
         },
+        {
+          id: "ubuntu1804-workstation",
+          name: "ubuntu1804-workstation",
+          adminOnly: false,
+          aliases: [],
+          availableRegions: ["us-east-1"],
+          isVirtualWorkStation: true,
+        },
       ],
     },
   },
@@ -204,5 +212,26 @@ describe("SpawnHostModal token gate", () => {
     await waitFor(() => {
       expect(spawnButton.getAttribute("aria-disabled")).not.toBe("true");
     });
+  });
+
+  it("shows volume options after selecting a virtual workstation", async () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnHostModal open setOpen={() => {}} />,
+    );
+    render(
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>,
+      { route: "/?taskId=t1&distroId=test-distro", path: "/" },
+    );
+
+    const distroInput = await screen.findByTestId("distro-input");
+    fireEvent.click(distroInput);
+    fireEvent.click(screen.getByTestId("distro-option-ubuntu1804-workstation"));
+
+    expect(await screen.findByTestId("volume-select")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
   });
 });
