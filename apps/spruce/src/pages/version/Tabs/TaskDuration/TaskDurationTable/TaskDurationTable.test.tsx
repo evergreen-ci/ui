@@ -1,4 +1,3 @@
-import { InMemoryCache } from "@apollo/client";
 import {
   MockedProvider,
   act,
@@ -11,10 +10,8 @@ import { getTaskRoute } from "constants/routes";
 import {
   SortDirection,
   TaskSortCategory,
-  TaskStatusesQuery,
   VersionTaskDurationsQuery,
 } from "gql/generated/types";
-import { TASK_STATUSES } from "gql/queries";
 import { PatchTasksQueryParams } from "types/task";
 import TaskDurationTable, { getInitialParams } from ".";
 
@@ -22,19 +19,12 @@ vi.mock("analytics", () => ({
   useVersionAnalytics: () => ({ sendEvent: vi.fn() }),
 }));
 
-const cache = new InMemoryCache();
-const statusData: TaskStatusesQuery = {
-  version: {
-    id: "version-1234",
-    taskStatuses: ["success"],
-    baseVersion: null,
-  },
-};
-cache.writeQuery({
-  query: TASK_STATUSES,
-  variables: { id: "version-1234" },
-  data: statusData,
-});
+vi.mock("hooks/useTaskStatuses", () => ({
+  useTaskStatuses: () => ({
+    currentStatuses: [],
+    baseStatuses: [],
+  }),
+}));
 
 const renderTable = (
   props: Partial<React.ComponentProps<typeof TaskDurationTable>> = {},
@@ -50,9 +40,7 @@ const renderTable = (
     {
       route: "/version/version-1234/task-duration",
       path: "/version/:versionId/task-duration",
-      wrapper: ({ children }) => (
-        <MockedProvider cache={cache}>{children}</MockedProvider>
-      ),
+      wrapper: ({ children }) => <MockedProvider>{children}</MockedProvider>,
     },
   );
 
