@@ -1,6 +1,4 @@
 import { createRef } from "react";
-import { createErrorHandler } from "@rjsf/utils";
-import { customizeValidator } from "@rjsf/validator-ajv8";
 import {
   act,
   render,
@@ -9,13 +7,9 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { SpruceForm, SpruceFormRef } from "components/SpruceForm";
-import { customFormats } from "components/SpruceForm/customFormats";
-import { RecursivelyAddError } from "components/SpruceForm/types";
 import { MongoDbEnvironment } from "gql/generated/types";
-import { adminSettings } from "../../testData";
 import { formSchema } from "./getFormSchema";
 import { validateResourceTags } from "./ProvidersTab";
-import { gqlToForm } from "./transformers";
 import { ProvidersFormState } from "./types";
 
 type ResourceTags = ProvidersFormState["providers"]["aws"]["resourceTags"];
@@ -25,53 +19,54 @@ const defaultResourceTags: ResourceTags = {
   mongodbOwnerEmailDomains: ["mongodb.com", "10gen.com"],
 };
 
-const makeForm = (resourceTags: ResourceTags): ProvidersFormState => {
-  const form = gqlToForm(adminSettings)!;
-  return {
-    ...form,
-    providers: {
-      ...form.providers,
-      aws: { ...form.providers.aws, resourceTags },
-    },
-  };
-};
-
 const validateFormResourceTags = (
   values: Partial<ResourceTags>,
   initialValues: Partial<ResourceTags> = values,
 ) => {
-  const form = makeForm({ ...defaultResourceTags, ...values });
-  const errors = createErrorHandler(
-    form,
-  ) as RecursivelyAddError<ProvidersFormState>;
-  return validateResourceTags({ ...defaultResourceTags, ...initialValues })(
-    form,
-    errors,
-  ).providers.aws.resourceTags;
+  const form = {
+    providers: {
+      aws: {
+        resourceTags: { ...defaultResourceTags, ...values },
+      },
+    },
+  };
+  const resourceTagErrors = {
+    mongodbEnv: { __errors: [], addError: vi.fn() },
+    mongodbOwner: { __errors: [], addError: vi.fn() },
+    mongodbOwnerEmailDomains: { __errors: [], addError: vi.fn() },
+  };
+  const errors = {
+    providers: { aws: { resourceTags: resourceTagErrors } },
+  };
+  validateResourceTags({ ...defaultResourceTags, ...initialValues })(
+    form as ProvidersFormState,
+    errors as unknown as Parameters<ReturnType<typeof validateResourceTags>>[1],
+  );
+  return resourceTagErrors;
 };
 
 describe("providers tab validation", () => {
   it("allows an unset owner and environment with the default domains", () => {
     const errors = validateFormResourceTags({});
-    expect(errors.mongodbEnv.__errors).toEqual([]);
-    expect(errors.mongodbOwner.__errors).toEqual([]);
-    expect(errors.mongodbOwnerEmailDomains.__errors).toEqual([]);
+    expect(errors.mongodbEnv.addError).not.toHaveBeenCalled();
+    expect(errors.mongodbOwner.addError).not.toHaveBeenCalled();
+    expect(errors.mongodbOwnerEmailDomains.addError).not.toHaveBeenCalled();
   });
 
   it("allows an owner without an environment", () => {
     const errors = validateFormResourceTags({
       mongodbOwner: "evergreen@mongodb.com",
     });
-    expect(errors.mongodbEnv.__errors).toEqual([]);
-    expect(errors.mongodbOwner.__errors).toEqual([]);
+    expect(errors.mongodbEnv.addError).not.toHaveBeenCalled();
+    expect(errors.mongodbOwner.addError).not.toHaveBeenCalled();
   });
 
   it("allows an environment without an owner", () => {
     const errors = validateFormResourceTags({
       mongodbEnv: MongoDbEnvironment.Staging,
     });
-    expect(errors.mongodbEnv.__errors).toEqual([]);
-    expect(errors.mongodbOwner.__errors).toEqual([]);
+    expect(errors.mongodbEnv.addError).not.toHaveBeenCalled();
+    expect(errors.mongodbOwner.addError).not.toHaveBeenCalled();
   });
 
   it("rejects clearing values that have already been set", () => {
@@ -82,70 +77,69 @@ describe("providers tab validation", () => {
         mongodbOwner: "evergreen@mongodb.com",
       },
     );
-    expect(errors.mongodbEnv.__errors).toHaveLength(1);
-    expect(errors.mongodbOwner.__errors).toHaveLength(1);
-  });
-
-  it.each([
-    ["@mongodb.com"],
-    ["*.mongodb.com"],
-    ["MONGODB.COM"],
-    ["mongodb.com "],
-    ["https://mongodb.com"],
-    ["sub..mongodb.com"],
-    ["-mongodb.com"],
-    ["mongodb-.com"],
-    ["mongodb"],
-  ])(
-    "rejects invalid domain lists %j",
-    (...mongodbOwnerEmailDomains: string[]) => {
-      const errors = validateFormResourceTags({ mongodbOwnerEmailDomains });
-      expect(errors.mongodbOwnerEmailDomains.__errors).toHaveLength(1);
-    },
-  );
-
-  it.each([
-    { domains: [], errorName: "minItems" },
-    { domains: ["mongodb.com", "mongodb.com"], errorName: "uniqueItems" },
-  ])(
-    "rejects domain lists that violate $errorName",
-    ({ domains, errorName }) => {
-      const validator = customizeValidator({ customFormats: customFormats() });
-      const { errors } = validator.validateFormData(
-        makeForm({ ...defaultResourceTags, mongodbOwnerEmailDomains: domains }),
-        formSchema.schema,
-      );
-      expect(errors).toContainEqual(
-        expect.objectContaining({
-          name: errorName,
-          property: ".providers.aws.resourceTags.mongodbOwnerEmailDomains",
-        }),
-      );
-    },
-  );
-
-  it("shows a validation error for an empty domain list", () => {
-    const formRef = createRef<SpruceFormRef>();
-    const formData = makeForm({
-      ...defaultResourceTags,
-      mongodbOwnerEmailDomains: [],
-    });
-    render(
-      <SpruceForm
-        {...formSchema}
-        ref={formRef}
-        customValidate={validateResourceTags(defaultResourceTags)}
-        formData={formData}
-        liveValidate={false}
-        onError={vi.fn()}
-      />,
+    expect(errors.mongodbEnv.addError).toHaveBeenCalledWith(
+      "MongoDB Environment cannot be unset after it has been configured.",
     );
-
-    act(() => {
-      expect(formRef.current?.validateFormWithFormData(formData)).toBe(false);
-    });
-    expect(screen.getByText(/must NOT have fewer than 1 items/)).toBeVisible();
+    expect(errors.mongodbOwner.addError).toHaveBeenCalledWith(
+      "MongoDB Owner Email cannot be unset after it has been configured.",
+    );
   });
+
+  it.each([
+    "@mongodb.com",
+    "*.mongodb.com",
+    "MONGODB.COM",
+    "mongodb.com ",
+    "https://mongodb.com",
+    "sub..mongodb.com",
+    "-mongodb.com",
+    "mongodb-.com",
+    "mongodb",
+  ])("rejects invalid domain %s", (domain) => {
+    const errors = validateFormResourceTags({
+      mongodbOwnerEmailDomains: [domain],
+    });
+    expect(errors.mongodbOwnerEmailDomains.addError).toHaveBeenCalledWith(
+      "Enter lowercase domains without @, wildcards, or whitespace.",
+    );
+  });
+
+  it.each([
+    { domains: [], message: /must NOT have fewer than 1 items/ },
+    {
+      domains: ["mongodb.com", "mongodb.com"],
+      message: /must NOT have duplicate items/,
+    },
+  ])(
+    "shows a validation error for domain list $domains",
+    ({ domains, message }) => {
+      const formRef = createRef<SpruceFormRef>();
+      const formData = {
+        providers: {
+          aws: {
+            resourceTags: {
+              ...defaultResourceTags,
+              mongodbOwnerEmailDomains: domains,
+            },
+          },
+        },
+      };
+      render(
+        <SpruceForm
+          {...formSchema}
+          ref={formRef}
+          formData={formData}
+          liveValidate={false}
+          onError={vi.fn()}
+        />,
+      );
+
+      act(() => {
+        expect(formRef.current?.validateFormWithFormData(formData)).toBe(false);
+      });
+      expect(screen.getByText(message)).toBeVisible();
+    },
+  );
 
   it.each([
     "team@mongodb.com",
@@ -157,7 +151,9 @@ describe("providers tab validation", () => {
       mongodbOwner,
       mongodbOwnerEmailDomains: ["example.com"],
     });
-    expect(errors.mongodbOwner.__errors).toHaveLength(1);
+    expect(errors.mongodbOwner.addError).toHaveBeenCalledWith(
+      "MongoDB Owner Email must use an allowed email domain.",
+    );
   });
 
   it("allows replacing the owner and its domain in one save", () => {
@@ -168,8 +164,8 @@ describe("providers tab validation", () => {
       },
       { mongodbOwner: "team@mongodb.com" },
     );
-    expect(errors.mongodbOwner.__errors).toEqual([]);
-    expect(errors.mongodbOwnerEmailDomains.__errors).toEqual([]);
+    expect(errors.mongodbOwner.addError).not.toHaveBeenCalled();
+    expect(errors.mongodbOwnerEmailDomains.addError).not.toHaveBeenCalled();
   });
 
   it("renders the editable domain chips and reports changes", async () => {
@@ -178,7 +174,9 @@ describe("providers tab validation", () => {
     render(
       <SpruceForm
         {...formSchema}
-        formData={makeForm(defaultResourceTags)}
+        formData={{
+          providers: { aws: { resourceTags: defaultResourceTags } },
+        }}
         onChange={onChange}
       />,
     );
