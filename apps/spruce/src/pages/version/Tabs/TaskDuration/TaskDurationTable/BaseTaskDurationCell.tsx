@@ -22,20 +22,23 @@ export const BaseTaskDurationCell: React.FC<BaseTaskDurationCellProps> = ({
 }) =>
   baseTask?.finishTime && baseTask.timeTaken != null ? (
     <DurationBar
+      label={
+        <>
+          <span>{msToDuration(baseTask.timeTaken)}</span>
+          <span aria-hidden="true"> · </span>
+          <StyledRouterLink
+            aria-label={`View ${comparisonLabel.toLowerCase()} task for ${displayName}`}
+            title={`${taskStatusToCopy[baseTask.displayStatus as TaskStatus] ?? baseTask.displayStatus}, execution ${formatZeroIndexForDisplay(baseTask.execution)}; ${baseTask.timeTaken / 1000}s`}
+            to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
+          >
+            View task
+          </StyledRouterLink>
+        </>
+      }
       maxTimeTaken={maxTimeTaken}
       status={baseTask.displayStatus}
       timeTaken={baseTask.timeTaken}
-    >
-      <span>{msToDuration(baseTask.timeTaken)}</span>
-      <span aria-hidden="true"> · </span>
-      <StyledRouterLink
-        aria-label={`View ${comparisonLabel.toLowerCase()} task for ${displayName}`}
-        title={`${taskStatusToCopy[baseTask.displayStatus as TaskStatus] ?? baseTask.displayStatus}, execution ${formatZeroIndexForDisplay(baseTask.execution)}; ${baseTask.timeTaken / 1000}s`}
-        to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
-      >
-        View task
-      </StyledRouterLink>
-    </DurationBar>
+    />
   ) : (
     <Tooltip
       trigger={

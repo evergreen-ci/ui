@@ -7,14 +7,14 @@ import {
 } from "constants/task";
 
 interface DurationBarProps {
-  children: React.ReactNode;
+  label: React.ReactNode;
   maxTimeTaken: number;
   status: string;
   timeTaken: number;
 }
 
 export const DurationBar: React.FC<DurationBarProps> = ({
-  children,
+  label,
   maxTimeTaken,
   status,
   timeTaken,
@@ -26,7 +26,7 @@ export const DurationBar: React.FC<DurationBarProps> = ({
   return (
     <Duration>
       <Bar color={barColor} width={barWidth} />
-      <DurationLabel title={`${timeTaken / 1000}s`}>{children}</DurationLabel>
+      <DurationLabel title={`${timeTaken / 1000}s`}>{label}</DurationLabel>
     </Duration>
   );
 };

@@ -15,16 +15,19 @@ export const TaskDurationCell: React.FC<TaskDurationCellProps> = ({
   task: { baseTask, displayStatus, finishTime, timeTaken },
 }) => (
   <DurationBar
+    label={
+      <>
+        <span>{msToDuration(timeTaken ?? 0)}</span>
+        <TaskDurationDifference
+          baseTask={baseTask}
+          comparisonLabel={comparisonLabel}
+          finishTime={finishTime}
+          timeTaken={timeTaken}
+        />
+      </>
+    }
     maxTimeTaken={maxTimeTaken}
     status={displayStatus}
     timeTaken={timeTaken ?? 0}
-  >
-    <span>{msToDuration(timeTaken ?? 0)}</span>
-    <TaskDurationDifference
-      baseTask={baseTask}
-      comparisonLabel={comparisonLabel}
-      finishTime={finishTime}
-      timeTaken={timeTaken}
-    />
-  </DurationBar>
+  />
 );
