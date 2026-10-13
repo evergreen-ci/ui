@@ -16,10 +16,18 @@ export const VERSION_TASK_DURATIONS = gql`
         }
         startTime
       }
+      isPatch
       tasks(options: $taskFilterOptions) {
         count
         data {
           id
+          baseTask {
+            id
+            displayStatus
+            execution
+            finishTime
+            timeTaken
+          }
           buildVariant
           buildVariantDisplayName
           displayName
@@ -29,10 +37,18 @@ export const VERSION_TASK_DURATIONS = gql`
           startTime
           subRows: executionTasksFull {
             id
+            baseTask {
+              id
+              displayStatus
+              execution
+              finishTime
+              timeTaken
+            }
             buildVariantDisplayName
             displayName
             displayStatus
             execution
+            finishTime
             startTime
             timeTaken
           }

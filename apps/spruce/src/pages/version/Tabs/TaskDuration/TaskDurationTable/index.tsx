@@ -18,27 +18,22 @@ import {
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import { TableQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
-import {
-  SortDirection,
-  TaskSortCategory,
-  VersionTaskDurationsQuery,
-} from "gql/generated/types";
+import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useTableSort, useTaskStatuses } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 import { parseSortString } from "utils/queryString";
+import { BaseTaskDurationCell } from "./BaseTaskDurationCell";
 import { TaskDurationCell } from "./TaskDurationCell";
+import styles from "./TaskDurationTable.module.css";
+import { TaskDurationData } from "./types";
 
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
-type TaskDurationData = Unpacked<
-  VersionTaskDurationsQuery["version"]["tasks"]["data"]
->;
 interface TaskDurationQueryParams {
   [PatchTasksQueryParams.TaskName]?: string;
   [PatchTasksQueryParams.Statuses]?: string | string[];
@@ -47,12 +42,14 @@ interface TaskDurationQueryParams {
 }
 
 interface Props {
+  isPatch: boolean | undefined;
   tasks: TaskDurationData[];
   loading: boolean;
   numLoadingRows: number;
 }
 
 const TaskDurationTable: React.FC<Props> = ({
+  isPatch,
   loading,
   numLoadingRows,
   tasks,
@@ -105,8 +102,8 @@ const TaskDurationTable: React.FC<Props> = ({
   });
 
   const columns: LGColumnDef<TaskDurationData>[] = useMemo(
-    () => getColumns(statusOptions),
-    [statusOptions],
+    () => getColumns(statusOptions, isPatch),
+    [statusOptions, isPatch],
   );
 
   const table: LeafyGreenTable<TaskDurationData> =
@@ -149,6 +146,7 @@ const TaskDurationTable: React.FC<Props> = ({
 
   return (
     <BaseTable
+      className={styles.table}
       data-testid="task-duration-table"
       data-testid-row="task-duration-table-row"
       emptyComponent={<TablePlaceholder message="No tasks found." />}
@@ -162,6 +160,7 @@ const TaskDurationTable: React.FC<Props> = ({
 
 const getColumns = (
   statusOptions: TreeDataEntry[],
+  isPatch: boolean | undefined,
 ): LGColumnDef<TaskDurationData>[] => [
   {
     id: PatchTasksQueryParams.TaskName,
@@ -227,21 +226,48 @@ const getColumns = (
     enableColumnFilter: false,
     enableSorting: true,
     size: 250,
-    cell: ({
-      column,
-      getValue,
-      row: {
-        original: { displayStatus },
-      },
-    }) => (
+    cell: ({ row: { original }, table }) => (
       <TaskDurationCell
-        maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
-        status={displayStatus}
-        timeTaken={getValue() as number}
+        comparisonLabel={getComparisonLabel(isPatch)}
+        maxTimeTaken={getMaxTimeTaken(table)}
+        task={original}
+      />
+    ),
+  },
+  {
+    id: "baseTaskDuration",
+    accessorFn: ({ baseTask }) =>
+      baseTask?.finishTime ? (baseTask.timeTaken ?? undefined) : undefined,
+    header: `${getComparisonLabel(isPatch)} Task Duration`,
+    enableColumnFilter: false,
+    enableSorting: false,
+    size: 250,
+    cell: ({ row: { original }, table }) => (
+      <BaseTaskDurationCell
+        comparisonLabel={getComparisonLabel(isPatch)}
+        maxTimeTaken={getMaxTimeTaken(table)}
+        task={original}
       />
     ),
   },
 ];
+
+const getComparisonLabel = (isPatch: boolean | undefined) => {
+  if (isPatch === undefined) {
+    return "Comparison";
+  }
+  return isPatch ? "Base" : "Previous";
+};
+
+const getMaxTimeTaken = (
+  table: Pick<LeafyGreenTable<TaskDurationData>, "getColumn">,
+) =>
+  Math.max(
+    table
+      .getColumn(PatchTasksQueryParams.Duration)
+      ?.getFacetedMinMaxValues()?.[1] ?? 0,
+    table.getColumn("baseTaskDuration")?.getFacetedMinMaxValues()?.[1] ?? 0,
+  );
 
 const columnIdToSortCategory: { [key: string]: TaskSortCategory } = {
   [PatchTasksQueryParams.Duration]: TaskSortCategory.Duration,

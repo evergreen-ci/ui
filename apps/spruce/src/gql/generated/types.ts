@@ -12276,6 +12276,7 @@ export type VersionTaskDurationsQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    isPatch: boolean;
     childVersions?: Array<{
       __typename?: "Version";
       id: string;
@@ -12301,6 +12302,14 @@ export type VersionTaskDurationsQuery = {
         finishTime?: Date | null;
         startTime?: Date | null;
         timeTaken?: number | null;
+        baseTask?: {
+          __typename?: "Task";
+          id: string;
+          displayStatus: string;
+          execution: number;
+          finishTime?: Date | null;
+          timeTaken?: number | null;
+        } | null;
         subRows?: Array<{
           __typename?: "Task";
           id: string;
@@ -12308,8 +12317,17 @@ export type VersionTaskDurationsQuery = {
           displayName: string;
           displayStatus: string;
           execution: number;
+          finishTime?: Date | null;
           startTime?: Date | null;
           timeTaken?: number | null;
+          baseTask?: {
+            __typename?: "Task";
+            id: string;
+            displayStatus: string;
+            execution: number;
+            finishTime?: Date | null;
+            timeTaken?: number | null;
+          } | null;
         }> | null;
       }>;
     };
