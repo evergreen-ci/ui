@@ -5,6 +5,9 @@ import { BaseTab } from "../../BaseTab";
 import { formSchema } from "./getFormSchema";
 import { ProvidersFormState, TabProps } from "./types";
 
+const OWNER_EMAIL_DOMAIN_PATTERN =
+  /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$/;
+
 export const validateResourceTags =
   (
     initialResourceTags: ProvidersFormState["providers"]["aws"]["resourceTags"],
@@ -21,6 +24,40 @@ export const validateResourceTags =
     if (initialResourceTags.mongodbOwner && !resourceTags.mongodbOwner) {
       resourceTagErrors.mongodbOwner.addError(
         "MongoDB Owner Email cannot be unset after it has been configured.",
+      );
+    }
+
+    const { mongodbOwner, mongodbOwnerEmailDomains } = resourceTags;
+    if (mongodbOwnerEmailDomains.length === 0) {
+      resourceTagErrors.mongodbOwnerEmailDomains.addError(
+        "At least one MongoDB owner email domain is required.",
+      );
+    }
+    if (
+      mongodbOwnerEmailDomains.some(
+        (domain) =>
+          domain.length > 253 || !OWNER_EMAIL_DOMAIN_PATTERN.test(domain),
+      )
+    ) {
+      resourceTagErrors.mongodbOwnerEmailDomains.addError(
+        "Enter lowercase domains without @, wildcards, or whitespace.",
+      );
+    }
+    if (
+      new Set(mongodbOwnerEmailDomains).size !== mongodbOwnerEmailDomains.length
+    ) {
+      resourceTagErrors.mongodbOwnerEmailDomains.addError(
+        "MongoDB owner email domains must be unique.",
+      );
+    }
+    if (
+      mongodbOwner &&
+      !mongodbOwnerEmailDomains.includes(
+        mongodbOwner.slice(mongodbOwner.lastIndexOf("@") + 1),
+      )
+    ) {
+      resourceTagErrors.mongodbOwner.addError(
+        "MongoDB Owner Email must use an allowed email domain.",
       );
     }
 

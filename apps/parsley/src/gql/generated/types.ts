@@ -3621,11 +3621,13 @@ export type ResourceTagsConfig = {
   __typename?: "ResourceTagsConfig";
   mongodbEnv?: Maybe<MongoDbEnvironment>;
   mongodbOwner?: Maybe<Scalars["String"]["output"]>;
+  mongodbOwnerEmailDomains: Array<Scalars["String"]["output"]>;
 };
 
 export type ResourceTagsConfigInput = {
   mongodbEnv?: InputMaybe<MongoDbEnvironment>;
   mongodbOwner?: InputMaybe<Scalars["String"]["input"]>;
+  mongodbOwnerEmailDomains?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type RestartAdminTasksOptions = {

@@ -34,6 +34,7 @@ export interface ProvidersFormState {
       resourceTags: {
         mongodbEnv: MongoDbEnvironment | "";
         mongodbOwner: string;
+        mongodbOwnerEmailDomains: string[];
       };
 
       persistentDNS: {

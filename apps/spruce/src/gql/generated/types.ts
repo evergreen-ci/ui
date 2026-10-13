@@ -3618,11 +3618,13 @@ export type ResourceTagsConfig = {
   __typename?: "ResourceTagsConfig";
   mongodbEnv?: Maybe<MongoDbEnvironment>;
   mongodbOwner?: Maybe<Scalars["String"]["output"]>;
+  mongodbOwnerEmailDomains: Array<Scalars["String"]["output"]>;
 };
 
 export type ResourceTagsConfigInput = {
   mongodbEnv?: InputMaybe<MongoDbEnvironment>;
   mongodbOwner?: InputMaybe<Scalars["String"]["input"]>;
+  mongodbOwnerEmailDomains?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type RestartAdminTasksOptions = {
@@ -7304,6 +7306,7 @@ export type SaveAdminSettingsMutation = {
           __typename?: "ResourceTagsConfig";
           mongodbEnv?: MongoDbEnvironment | null;
           mongodbOwner?: string | null;
+          mongodbOwnerEmailDomains: Array<string>;
         } | null;
       } | null;
     } | null;
@@ -8072,6 +8075,7 @@ export type AdminSettingsQuery = {
           __typename?: "ResourceTagsConfig";
           mongodbEnv?: MongoDbEnvironment | null;
           mongodbOwner?: string | null;
+          mongodbOwnerEmailDomains: Array<string>;
         } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
       } | null;

@@ -45,6 +45,8 @@ export const gqlToForm = ((data) => {
         resourceTags: {
           mongodbEnv: providers?.aws?.resourceTags?.mongodbEnv ?? "",
           mongodbOwner: providers?.aws?.resourceTags?.mongodbOwner ?? "",
+          mongodbOwnerEmailDomains:
+            providers?.aws?.resourceTags?.mongodbOwnerEmailDomains ?? [],
         },
         persistentDNS: {
           hostedZoneID: providers?.aws?.persistentDNS?.hostedZoneID ?? "",
@@ -103,6 +105,7 @@ export const formToGql = ((form: ProvidersFormState) => {
         resourceTags: {
           mongodbEnv: aws.resourceTags.mongodbEnv || undefined,
           mongodbOwner: aws.resourceTags.mongodbOwner,
+          mongodbOwnerEmailDomains: aws.resourceTags.mongodbOwnerEmailDomains,
         },
         parserProject: {
           bucket: aws.parserProject.bucket,

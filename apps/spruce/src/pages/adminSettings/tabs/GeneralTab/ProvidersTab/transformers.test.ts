@@ -132,6 +132,7 @@ const form: ProvidersFormState = {
       resourceTags: {
         mongodbEnv: MongoDbEnvironment.Staging,
         mongodbOwner: "evergreen@mongodb.com",
+        mongodbOwnerEmailDomains: ["mongodb.com", "10gen.com", "example.com"],
       },
     },
     docker: {
@@ -193,6 +194,7 @@ const gql: AdminSettingsInput = {
       resourceTags: {
         mongodbEnv: MongoDbEnvironment.Staging,
         mongodbOwner: "evergreen@mongodb.com",
+        mongodbOwnerEmailDomains: ["mongodb.com", "10gen.com", "example.com"],
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [
@@ -269,6 +271,7 @@ const testAdminSettings = {
       resourceTags: {
         mongodbEnv: MongoDbEnvironment.Staging,
         mongodbOwner: "evergreen@mongodb.com",
+        mongodbOwnerEmailDomains: ["mongodb.com", "10gen.com", "example.com"],
       },
       allowedSNSTopicARNs: ["arn:aws:sns:us-east-1:123456789:evergreen-events"],
       subnets: [

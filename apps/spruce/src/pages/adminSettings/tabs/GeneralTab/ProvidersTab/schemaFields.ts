@@ -322,6 +322,13 @@ export const aws = {
           title: "MongoDB Owner Email",
           format: "validEmail",
         },
+        mongodbOwnerEmailDomains: {
+          type: "array" as const,
+          title: "MongoDB Owner Email Domains",
+          items: {
+            type: "string" as const,
+          },
+        },
       },
     },
   },
@@ -351,6 +358,13 @@ export const aws = {
     },
     resourceTags: {
       "ui:fieldCss": nestedObjectGridCss,
+      mongodbOwnerEmailDomains: {
+        "ui:widget": widgets.ChipInputWidget,
+        "ui:options": {
+          description:
+            "Allowed email domains for mongodb-owner tags. Enter lowercase domains without @, such as mongodb.com. Subdomains must be listed explicitly.",
+        },
+      },
       mongodbEnv: {
         "ui:allowDeselect": false,
       },

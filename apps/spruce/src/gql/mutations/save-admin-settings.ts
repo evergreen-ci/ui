@@ -53,6 +53,7 @@ export const SAVE_ADMIN_SETTINGS = gql`
           resourceTags {
             mongodbEnv
             mongodbOwner
+            mongodbOwnerEmailDomains
           }
         }
       }

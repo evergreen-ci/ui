@@ -285,6 +285,7 @@ export const ADMIN_SETTINGS = gql`
           resourceTags {
             mongodbEnv
             mongodbOwner
+            mongodbOwnerEmailDomains
           }
           subnets {
             az
