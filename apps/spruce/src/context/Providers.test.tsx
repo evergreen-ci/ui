@@ -37,9 +37,8 @@ describe("ContextProviders", () => {
       </ContextProviders>,
     );
 
-    expect(document.querySelector("[data-via-provider]")).toHaveAttribute(
-      "data-color-scheme",
-      "light",
+    expect(document.querySelector("[data-via-provider]")?.className).toMatch(
+      /colorScheme-module_\w+_light/,
     );
   });
 
