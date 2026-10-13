@@ -1,7 +1,4 @@
-import { useState } from "react";
-import Bell from "@via-ds/icons/Bell";
 import { useWaterfallAnalytics } from "analytics";
-import { DropdownItem } from "components/ButtonDropdown";
 import { NotificationModal } from "components/Notifications";
 import { waterfallTriggers } from "constants/triggers";
 import {
@@ -10,45 +7,33 @@ import {
 } from "types/subscription";
 
 interface AddNotificationProps {
+  open: boolean;
   projectIdentifier: string;
   setMenuOpen: (open: boolean) => void;
+  setOpen: (open: boolean) => void;
 }
 
 export const AddNotification: React.FC<AddNotificationProps> = ({
+  open,
   projectIdentifier,
   setMenuOpen,
+  setOpen,
 }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const { sendEvent } = useWaterfallAnalytics();
   return (
-    <>
-      <DropdownItem
-        data-testid="add-notification"
-        glyph={<Bell />}
-        onClick={() => {
-          sendEvent({
-            name: "Viewed notification modal",
-            "notification.source": NotificationModalSource.WaterfallMenu,
-          });
-          setIsModalVisible(true);
-        }}
-      >
-        Add notification
-      </DropdownItem>
-      <NotificationModal
-        data-testid="waterfall-notification-modal"
-        onCancel={() => {
-          setIsModalVisible(false);
-          setMenuOpen(false);
-        }}
-        resourceId={projectIdentifier}
-        sendEvent={sendEvent}
-        source={NotificationModalSource.WaterfallMenu}
-        subscriptionMethods={subscriptionMethods}
-        triggers={waterfallTriggers}
-        type="project"
-        visible={isModalVisible}
-      />
-    </>
+    <NotificationModal
+      data-testid="waterfall-notification-modal"
+      onCancel={() => {
+        setOpen(false);
+        setMenuOpen(false);
+      }}
+      resourceId={projectIdentifier}
+      sendEvent={sendEvent}
+      source={NotificationModalSource.WaterfallMenu}
+      subscriptionMethods={subscriptionMethods}
+      triggers={waterfallTriggers}
+      type="project"
+      visible={open}
+    />
   );
 };
