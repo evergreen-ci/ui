@@ -51,7 +51,10 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
   return (
     <MetadataSection title="Execution">
       {details?.description || details?.failingCommand ? (
-        <DetailsDescription details={details} />
+        <DetailsDescription
+          details={details}
+          isPushCompleted={isPushCompleted}
+        />
       ) : null}
       {details?.timeoutType && details?.timeoutType !== "" ? (
         <MetadataItem label="Timeout type">{details?.timeoutType}</MetadataItem>
