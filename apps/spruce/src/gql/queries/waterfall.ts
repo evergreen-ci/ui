@@ -1,7 +1,10 @@
 import { gql } from "@apollo/client";
 
 export const WATERFALL = gql`
-  query Waterfall($options: WaterfallOptions!) {
+  query Waterfall(
+    $options: WaterfallOptions!
+    $includeTaskTags: Boolean! = false
+  ) {
     waterfall(options: $options) {
       pagination {
         activeVersionIds
@@ -37,6 +40,7 @@ export const WATERFALL = gql`
             displayName
             displayStatusCache
             execution
+            tags @include(if: $includeTaskTags)
           }
         }
       }

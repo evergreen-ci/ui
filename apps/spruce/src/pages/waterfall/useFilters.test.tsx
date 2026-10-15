@@ -1,6 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
-import { buildVariants, groupedVersions, versions } from "./testData";
+import { buildVariants, groupedVersions, version, versions } from "./testData";
+import { Version } from "./types";
 import { useFilters } from "./useFilters";
 
 type WrapperProps = {
@@ -17,6 +18,84 @@ const createWrapper = (props = {}) => {
 };
 
 describe("useFilters", () => {
+  describe("task tag filters", () => {
+    const taggedVersion: Version = {
+      ...version,
+      id: "tagged",
+      waterfallBuilds: [
+        {
+          id: "build",
+          activated: true,
+          buildVariant: "linux",
+          displayName: "Linux",
+          tasks: [
+            {
+              id: "display",
+              displayName: "Display",
+              displayStatusCache: "failed",
+              execution: 0,
+              tags: ["integration", "unit"],
+            },
+            {
+              id: "regular",
+              displayName: "Regular",
+              displayStatusCache: "success",
+              execution: 0,
+              tags: ["performance", "123", "true"],
+            },
+            {
+              id: "untagged",
+              displayName: "Untagged",
+              displayStatusCache: "success",
+              execution: 0,
+            },
+          ],
+        },
+      ],
+    };
+
+    it.each([
+      ["", ["display", "regular", "untagged"]],
+      ["taskTags=", ["display", "regular", "untagged"]],
+      ["taskTags", ["display", "regular", "untagged"]],
+      ["taskTags=integration", ["display"]],
+      ["taskTags=integration,performance", ["display", "regular"]],
+      ["taskTags=integration,unit", ["display"]],
+      ["taskTags=Integration", []],
+      ["taskTags=integr.*", []],
+      ["taskTags=missing", []],
+      ["taskTags=123", ["regular"]],
+      ["taskTags=true", ["regular"]],
+      ["taskTags=integration&tasks=Display&statuses=failed", ["display"]],
+      ["taskTags=integration&statuses=success", []],
+      ["taskTags=integration&buildVariants=windows", []],
+    ])("filters tasks for %s", (query, expected) => {
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            activeVersionIds: ["tagged"],
+            flattenedVersions: [taggedVersion],
+            omitInactiveBuilds: false,
+            pins: [],
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry: `/project/spruce/waterfall?${query}`,
+          }),
+        },
+      );
+
+      expect(
+        result.current.buildVariants.flatMap((bv) =>
+          bv.builds.flatMap((b) => b.tasks.map((t) => t.id)),
+        ),
+      ).toEqual(expected);
+      expect(result.current.activeVersionIds).toEqual(
+        expected.length ? ["tagged"] : [],
+      );
+    });
+  });
+
   describe("requester filters", () => {
     it("should not make any versions inactive when no filters are applied", () => {
       const { result } = renderHook(

@@ -34,6 +34,21 @@ const renderEmptyState = (
   );
 
 describe("EmptyState", () => {
+  it("preserves task tags when searching older commits", async () => {
+    const user = userEvent.setup();
+    renderEmptyState(
+      basePagination,
+      "/project/spruce/waterfall?taskTags=integration,unit",
+    );
+    await user.click(screen.getByTestId("search-older-commits-button"));
+    expect(screen.getByTestId("location-search")).toHaveTextContent(
+      "maxOrder=700",
+    );
+    expect(screen.getByTestId("location-search")).toHaveTextContent(
+      "taskTags=integration,unit",
+    );
+  });
+
   it("shows a search older commits button when a task filter has more commits to search", () => {
     renderEmptyState(basePagination);
     expect(

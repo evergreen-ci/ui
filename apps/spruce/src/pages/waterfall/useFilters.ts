@@ -9,6 +9,7 @@ import {
   Version,
   WaterfallFilterOptions,
 } from "./types";
+import { useTaskTagFilter } from "./useTaskTagFilter";
 import { groupBuildVariants, groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
@@ -45,6 +46,7 @@ export const useFilters = ({
   );
 
   const [taskFilter] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
+  const taskTags = useTaskTagFilter();
 
   const buildVariantFilterRegex: RegExp[] = useMemo(
     () => makeFilterRegex(buildVariantFilter),
@@ -86,11 +88,13 @@ export const useFilters = ({
           ) {
             return;
           }
-          if (taskFilterRegex.length || statuses.length) {
+          if (taskFilterRegex.length || statuses.length || taskTags.length) {
             const activeTasks = b.tasks.filter(
               (t) =>
                 matchesTasksFilter(t, taskFilterRegex) &&
-                matchesStatuses(t, statuses),
+                matchesStatuses(t, statuses) &&
+                (!taskTags.length ||
+                  taskTags.some((tag) => t.tags?.includes(tag))),
             );
             if (activeTasks.length) {
               activeBuilds.push({ ...b, tasks: activeTasks });
@@ -114,6 +118,7 @@ export const useFilters = ({
     requesters,
     statuses,
     taskFilterRegex,
+    taskTags,
   ]);
 
   const orderedBuildVariants = useMemo(() => {

@@ -83,11 +83,13 @@ const Waterfall: React.FC = () => {
 const validQueryParams = new Set([
   WaterfallFilterOptions.BuildVariant,
   WaterfallFilterOptions.Task,
+  WaterfallFilterOptions.TaskTags,
 ]);
 
 const urlParamToTitleMap = {
   [WaterfallFilterOptions.BuildVariant]: "Variant",
   [WaterfallFilterOptions.Task]: "Task",
+  [WaterfallFilterOptions.TaskTags]: "Task tag",
 };
 
 export default Waterfall;

@@ -5,7 +5,7 @@ export type Pagination = WaterfallQuery["waterfall"]["pagination"];
 
 export type ServerFilters = Pick<
   WaterfallOptions,
-  "requesters" | "statuses" | "tasks" | "variants"
+  "requesters" | "statuses" | "tasks" | "taskTags" | "variants"
 >;
 
 export type Version = Omit<
@@ -26,6 +26,7 @@ export type Build = {
     displayStatusCache: string;
     execution: number;
     id: string;
+    tags?: string[];
   }>;
   version: string;
 };
@@ -44,6 +45,7 @@ export enum WaterfallFilterOptions {
   Revision = "revision",
   Statuses = "statuses",
   Task = "tasks",
+  TaskTags = "taskTags",
   Date = "date",
 }
 

@@ -77,5 +77,6 @@ export const resetFilterState: ServerFilters = {
   requesters: undefined,
   statuses: undefined,
   tasks: undefined,
+  taskTags: undefined,
   variants: undefined,
 };
