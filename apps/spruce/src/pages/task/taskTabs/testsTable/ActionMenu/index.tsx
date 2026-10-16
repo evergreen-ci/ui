@@ -13,6 +13,7 @@ import {
   UnquarantineTestMutationVariables,
 } from "gql/generated/types";
 import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
+import { QuarantineTestModal } from "./QuarantineTestModal";
 
 interface ActionMenuProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -23,8 +24,9 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   const { sendEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
   const [open, setOpen] = useState(false);
+  const [showQuarantineModal, setShowQuarantineModal] = useState(false);
 
-  const [quarantineTest] = useMutation<
+  const [quarantineTest, { loading: loadingQuarantineTest }] = useMutation<
     QuarantineTestMutation,
     QuarantineTestMutationVariables
   >(QUARANTINE_TEST, {
@@ -52,8 +54,13 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     },
   });
 
-  const onQuarantineTest = () => {
+  const onOpenQuarantineModal = () => {
     setOpen(false);
+    setShowQuarantineModal(true);
+  };
+
+  const onQuarantineTest = (comment: string) => {
+    setShowQuarantineModal(false);
     // Fall back to task.id since the field is nullable in the schema; for non-display tasks the two IDs are equal.
     const taskId = test.taskId ?? task.id;
     sendEvent({
@@ -62,7 +69,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       "test.task_id": taskId,
     });
     quarantineTest({
-      variables: { taskId, testName: test.testFile },
+      variables: { taskId, testName: test.testFile, comment },
     });
   };
 
@@ -104,7 +111,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         key="quarantine"
         data-testid="quarantine-test"
         description="Quarantine test so that it does not run in future task runs."
-        onClick={onQuarantineTest}
+        onClick={onOpenQuarantineModal}
       >
         Quarantine
       </DropdownItem>,
@@ -112,11 +119,19 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   }
 
   return (
-    <ButtonDropdown
-      dropdownItems={dropdownItems}
-      open={open}
-      setOpen={setOpen}
-      size={ButtonSize.XSmall}
-    />
+    <>
+      <ButtonDropdown
+        dropdownItems={dropdownItems}
+        open={open}
+        setOpen={setOpen}
+        size={ButtonSize.XSmall}
+      />
+      <QuarantineTestModal
+        loading={loadingQuarantineTest}
+        onClose={() => setShowQuarantineModal(false)}
+        onSubmit={onQuarantineTest}
+        visible={showQuarantineModal}
+      />
+    </>
   );
 };

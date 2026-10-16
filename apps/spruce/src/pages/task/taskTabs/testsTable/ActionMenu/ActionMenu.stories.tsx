@@ -1,4 +1,4 @@
-import { userEvent } from "storybook/test";
+import { userEvent, within } from "storybook/test";
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TestStatus } from "@evg-ui/lib/types/test";
@@ -83,6 +83,18 @@ export const Quarantined: CustomStoryObj<typeof ActionMenu> = {
 
 export const FailingTest: CustomStoryObj<typeof ActionMenu> = {
   render: () => <ActionMenu task={taskWithTestSelection} test={failingTest} />,
+};
+
+export const QuarantineModal: CustomStoryObj<typeof ActionMenu> = {
+  render: () => <ActionMenu task={taskWithTestSelection} test={failingTest} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByTestId("ellipsis-btn"));
+    // The dropdown and dialog render in a portal outside the canvas.
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(await body.findByTestId("quarantine-test"));
+    await body.findByTestId("quarantine-test-modal");
+  },
 };
 
 export const PassingTest: CustomStoryObj<typeof ActionMenu> = {

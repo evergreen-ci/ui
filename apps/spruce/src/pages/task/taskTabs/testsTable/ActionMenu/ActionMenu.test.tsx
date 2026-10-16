@@ -63,6 +63,69 @@ describe("action menu for tests table", () => {
       expect(screen.getByTestId("quarantine-test")).toBeVisible();
     });
     await user.click(screen.getByTestId("quarantine-test"));
+    await user.type(
+      screen.getByRole("textbox", { name: "Comment" }),
+      quarantineComment,
+    );
+    await user.click(screen.getByTestId("quarantine-test-submit"));
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it("opens a dialog with a required comment instead of quarantining immediately", async () => {
+    const user = userEvent.setup();
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={[quarantineTestMock]}>
+        <ActionMenu task={taskWithTestSelection} test={failingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByTestId("ellipsis-btn"));
+    await waitFor(() => {
+      expect(screen.getByTestId("quarantine-test")).toBeVisible();
+    });
+    await user.click(screen.getByTestId("quarantine-test"));
+    expect(screen.getByTestId("quarantine-test-modal")).toBeVisible();
+    expect(dispatchToast.success).not.toHaveBeenCalled();
+  });
+
+  it("disables the quarantine submit button until the comment is non-empty", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[]}>
+        <ActionMenu task={taskWithTestSelection} test={failingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByTestId("ellipsis-btn"));
+    await waitFor(() => {
+      expect(screen.getByTestId("quarantine-test")).toBeVisible();
+    });
+    await user.click(screen.getByTestId("quarantine-test"));
+    expect(screen.getByTestId("quarantine-test-submit")).toBeDisabled();
+    await user.type(screen.getByRole("textbox", { name: "Comment" }), "   ");
+    expect(screen.getByTestId("quarantine-test-submit")).toBeDisabled();
+  });
+
+  it("quarantines with the trimmed comment", async () => {
+    const user = userEvent.setup();
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={[quarantineTestMock]}>
+        <ActionMenu task={taskWithTestSelection} test={failingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByTestId("ellipsis-btn"));
+    await waitFor(() => {
+      expect(screen.getByTestId("quarantine-test")).toBeVisible();
+    });
+    await user.click(screen.getByTestId("quarantine-test"));
+    await user.type(
+      screen.getByRole("textbox", { name: "Comment" }),
+      `  ${quarantineComment}  `,
+    );
+    await user.click(screen.getByTestId("quarantine-test-submit"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
@@ -85,24 +148,11 @@ describe("action menu for tests table", () => {
       "true",
     );
     await user.click(screen.getByTestId("quarantine-test"));
-    await waitFor(() => {
-      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  it("quarantines a failing test on a non-display task", async () => {
-    const user = userEvent.setup();
-    const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={[quarantineTestMock]}>
-        <ActionMenu task={taskWithTestSelection} test={failingTest} />
-      </MockedProvider>,
+    await user.type(
+      screen.getByRole("textbox", { name: "Comment" }),
+      quarantineComment,
     );
-    render(<Component />);
-    await user.click(screen.getByTestId("ellipsis-btn"));
-    await waitFor(() => {
-      expect(screen.getByTestId("quarantine-test")).toBeVisible();
-    });
-    await user.click(screen.getByTestId("quarantine-test"));
+    await user.click(screen.getByTestId("quarantine-test-submit"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
@@ -163,7 +213,10 @@ const failingTestOnDisplayTask: TestResult = {
   logs: {},
 };
 
+const quarantineComment = "test is flaky, see JIRA-1234";
+
 const quarantineMock = ({
+  comment = quarantineComment,
   id,
   taskId,
   testName,
@@ -171,10 +224,11 @@ const quarantineMock = ({
   id: string;
   taskId: string;
   testName: string;
+  comment?: string;
 }): ApolloMock<QuarantineTestMutation, QuarantineTestMutationVariables> => ({
   request: {
     query: QUARANTINE_TEST,
-    variables: { taskId, testName },
+    variables: { taskId, testName, comment },
   },
   result: {
     data: {
