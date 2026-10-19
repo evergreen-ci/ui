@@ -16,7 +16,7 @@ interface AnnotationTicketRowProps {
   url?: string;
   jiraTicket?: JiraTicket;
   loading?: boolean;
-  confidenceScore?: number;
+  confidenceScore?: number | null;
 }
 
 const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
@@ -86,7 +86,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
               {status.name}
             </Badge>
           )}
-          {confidenceScore !== undefined && (
+          {confidenceScore != null && (
             <Badge
               className={styles.badge}
               data-testid={`${issueKey}-confidence-badge`}

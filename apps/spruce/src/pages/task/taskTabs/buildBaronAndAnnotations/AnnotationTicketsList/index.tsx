@@ -87,7 +87,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
   const handleMove = (apiIssue: {
     url: string;
     issueKey: string;
-    confidenceScore: number;
+    confidenceScore?: number | null;
   }): void => {
     moveAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
 
