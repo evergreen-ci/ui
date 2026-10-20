@@ -4810,6 +4810,15 @@ export type TriggerConfigInput = {
   generateTaskDistro: Scalars["String"]["input"];
 };
 
+export type TriggerModule = {
+  __typename?: "TriggerModule";
+  branch: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  owner: Scalars["String"]["output"];
+  repo: Scalars["String"]["output"];
+  revision: Scalars["String"]["output"];
+};
+
 export type UiConfig = {
   __typename?: "UIConfig";
   betaFeatures: BetaFeatures;
@@ -5054,6 +5063,7 @@ export type Version = {
   taskStatusStats?: Maybe<TaskStats>;
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
+  triggerModule?: Maybe<TriggerModule>;
   upstreamProject?: Maybe<UpstreamProject>;
   user: User;
   versionTiming?: Maybe<VersionTiming>;
