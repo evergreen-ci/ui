@@ -137,8 +137,8 @@ export const getFormSchema = (
       "ui:orderable": false,
       "ui:label": false,
       "ui:useExpandableCard": true,
-      items: {
-        "ui:title": "New Periodic Build",
+      items: (itemData?: { displayTitle?: string }) => ({
+        "ui:title": itemData?.displayTitle || "New Periodic Build",
         "ui:label": false,
         interval: {
           specifier: {
@@ -170,7 +170,7 @@ export const getFormSchema = (
           "ui:disableBefore": new Date(),
           "ui:widget": "date-time",
         },
-      },
+      }),
     },
     repoData: {
       "ui:orderable": false,
@@ -178,11 +178,13 @@ export const getFormSchema = (
       periodicBuilds: {
         "ui:label": false,
         "ui:useExpandableCard": true,
-        items: {
+        items: (itemData?: { displayTitle?: string }) => ({
+          "ui:title": itemData?.displayTitle || "",
+          "ui:label": false,
           nextRunTime: {
             "ui:widget": "date-time",
           },
-        },
+        }),
       },
     },
   },
