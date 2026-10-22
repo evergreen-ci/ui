@@ -1,4 +1,5 @@
 import {
+  validateCron,
   validateEmail,
   validateJira,
   validateJiraURL,
@@ -10,6 +11,24 @@ import {
   validateSlack,
   validateURL,
 } from ".";
+
+describe("validateCron", () => {
+  it("accepts a valid cron expression", () => {
+    expect(validateCron("0 0 * * *")).toBe(true);
+    expect(validateCron("*/15 9-17 * * 1-5")).toBe(true);
+  });
+
+  it("rejects an invalid cron expression", () => {
+    expect(validateCron("3")).toBe(false);
+    expect(validateCron("not a cron")).toBe(false);
+    expect(validateCron("@every 5m")).toBe(false);
+    expect(validateCron("61 * * * *")).toBe(false);
+  });
+
+  it("rejects a well-formed cron expression with an impossible schedule", () => {
+    expect(validateCron("0 0 31 2 *")).toBe(false); // February 31 is impossible to achieve
+  });
+});
 
 describe("validateNoSpecialCharacters", () => {
   it("returns true if string has no special characters", () => {

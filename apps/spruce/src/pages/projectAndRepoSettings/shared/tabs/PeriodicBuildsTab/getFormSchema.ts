@@ -73,6 +73,7 @@ export const getFormSchema = (
                         cron: {
                           type: "string" as const,
                           title: "Cron Expression",
+                          format: "validCron",
                         },
                       },
                     },
