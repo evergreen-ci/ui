@@ -2183,6 +2183,7 @@ export type MutationRestartJasperArgs = {
 };
 
 export type MutationRestartTaskArgs = {
+  executionTaskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   failedOnly: Scalars["Boolean"]["input"];
   taskId: Scalars["String"]["input"];
 };
