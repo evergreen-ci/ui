@@ -1873,10 +1873,12 @@ export type MainlineCommitsOptions = {
 export type Manifest = {
   __typename?: "Manifest";
   branch: Scalars["String"]["output"];
+  changedModules?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   isBase: Scalars["Boolean"]["output"];
   moduleOverrides?: Maybe<Scalars["StringMap"]["output"]>;
   modules?: Maybe<Scalars["Map"]["output"]>;
+  previousVersionId?: Maybe<Scalars["String"]["output"]>;
   project: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
 };
