@@ -64,6 +64,20 @@ export const getFormSchema = ({
             },
           },
         },
+        quarantine: {
+          type: "object" as const,
+          title: "Quarantine",
+          properties: {
+            jiraTicketsRequired: {
+              type: ["boolean", "null"],
+              title: "Require Jira Tickets When Quarantining Tests",
+              oneOf: radioBoxOptions(
+                ["Required", "Optional"],
+                repoData?.quarantine.jiraTicketsRequired ?? undefined,
+              ),
+            },
+          },
+        },
       },
     },
     uiSchema: {
@@ -94,6 +108,14 @@ export const getFormSchema = ({
           ...(!canEnableMainline && {
             "ui:enumDisabled": [true],
           }),
+        },
+      },
+      quarantine: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:description":
+          "Controls whether users must link at least one existing Jira ticket when manually quarantining a test.",
+        jiraTicketsRequired: {
+          "ui:widget": widgets.RadioBoxWidget,
         },
       },
     },
