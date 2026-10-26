@@ -10,9 +10,8 @@ import {
   TextArea,
   TextField,
 } from "@via-ds/components";
+import { validateJira } from "utils/validators";
 import styles from "./QuarantineTestModal.module.css";
-
-const jiraTicketKeyRegex = /^[A-Z][A-Z0-9_]*-[0-9]+$/i;
 
 const parseJiraTickets = (input: string): string[] =>
   Array.from(new Set(input.split(/[\s,]+/).filter(Boolean)));
@@ -45,7 +44,7 @@ export const QuarantineTestModal: React.FC<QuarantineTestModalProps> = ({
     existingJiraTicketsToLinkInput,
   );
   const invalidJiraTickets = existingJiraTicketsToLink.filter(
-    (ticket) => !jiraTicketKeyRegex.test(ticket),
+    (ticket) => !validateJira(ticket),
   );
   const isMissingRequiredJiraTickets =
     requireJiraTickets && existingJiraTicketsToLink.length === 0;
