@@ -1,11 +1,14 @@
 import { ProjectType } from "../utils";
 
 export interface TaskOwnershipAndFoliageFormState {
-  taskOwnership: {
-    mothra: {
-      defaultMothraTeam: string;
-      defaultMothraTeamForBreakingCommit: string;
-    };
+  mothra: {
+    defaultMothraTeam: string;
+    defaultMothraTeamForBreakingCommit: string;
+  };
+  tagValidation: {
+    tagValidationPrefix: string;
+    trackTagValidation: boolean | null;
+    blockOnTagValidation: boolean | null;
   };
 }
 

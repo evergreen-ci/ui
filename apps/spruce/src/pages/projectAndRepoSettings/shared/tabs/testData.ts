@@ -148,6 +148,9 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     taskOwnership: {
       defaultMothraTeam: "my-team",
       defaultMothraTeamForBreakingCommit: "other-team",
+      tagValidationPrefix: "prefix",
+      trackTagValidation: true,
+      blockOnTagValidation: false,
     },
   },
   vars: {
@@ -371,6 +374,9 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     taskOwnership: {
       defaultMothraTeam: "my-team",
       defaultMothraTeamForBreakingCommit: "other-team",
+      tagValidationPrefix: "prefix",
+      trackTagValidation: true,
+      blockOnTagValidation: false,
     },
   },
   vars: {

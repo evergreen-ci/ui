@@ -2870,15 +2870,11 @@ export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
-  /** @deprecated The total project limit is no longer enforced */
-  totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
-  /** @deprecated The total project limit is no longer enforced */
-  totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type ProjectEventLogEntry = {
@@ -3557,8 +3553,11 @@ export type RepoSettingsInput = {
 
 export type RepoTaskOwnershipSettings = {
   __typename?: "RepoTaskOwnershipSettings";
+  blockOnTagValidation: Scalars["Boolean"]["output"];
   defaultMothraTeam: Scalars["String"]["output"];
   defaultMothraTeamForBreakingCommit: Scalars["String"]["output"];
+  tagValidationPrefix: Scalars["String"]["output"];
+  trackTagValidation: Scalars["Boolean"]["output"];
 };
 
 export type RepoTestSelectionSettings = {
@@ -4509,13 +4508,19 @@ export type TaskOwnerTeam = {
 
 export type TaskOwnershipSettings = {
   __typename?: "TaskOwnershipSettings";
+  blockOnTagValidation?: Maybe<Scalars["Boolean"]["output"]>;
   defaultMothraTeam?: Maybe<Scalars["String"]["output"]>;
   defaultMothraTeamForBreakingCommit?: Maybe<Scalars["String"]["output"]>;
+  tagValidationPrefix?: Maybe<Scalars["String"]["output"]>;
+  trackTagValidation?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TaskOwnershipSettingsInput = {
+  blockOnTagValidation?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultMothraTeam?: InputMaybe<Scalars["String"]["input"]>;
   defaultMothraTeamForBreakingCommit?: InputMaybe<Scalars["String"]["input"]>;
+  tagValidationPrefix?: InputMaybe<Scalars["String"]["input"]>;
+  trackTagValidation?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type TaskPriority = {
@@ -5849,6 +5854,9 @@ export type ProjectSettingsFieldsFragment = {
       __typename?: "TaskOwnershipSettings";
       defaultMothraTeam?: string | null;
       defaultMothraTeamForBreakingCommit?: string | null;
+      tagValidationPrefix?: string | null;
+      trackTagValidation?: boolean | null;
+      blockOnTagValidation?: boolean | null;
     } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
@@ -6066,6 +6074,9 @@ export type RepoSettingsFieldsFragment = {
       __typename?: "RepoTaskOwnershipSettings";
       defaultMothraTeam: string;
       defaultMothraTeamForBreakingCommit: string;
+      tagValidationPrefix: string;
+      trackTagValidation: boolean;
+      blockOnTagValidation: boolean;
     } | null;
     testSelection?: {
       __typename?: "RepoTestSelectionSettings";
@@ -6480,6 +6491,9 @@ export type ProjectEventSettingsFragment = {
       __typename?: "TaskOwnershipSettings";
       defaultMothraTeam?: string | null;
       defaultMothraTeamForBreakingCommit?: string | null;
+      tagValidationPrefix?: string | null;
+      trackTagValidation?: boolean | null;
+      blockOnTagValidation?: boolean | null;
     } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
@@ -6632,6 +6646,9 @@ export type ProjectTaskOwnershipAndFoliageSettingsFragment = {
     __typename?: "TaskOwnershipSettings";
     defaultMothraTeam?: string | null;
     defaultMothraTeamForBreakingCommit?: string | null;
+    tagValidationPrefix?: string | null;
+    trackTagValidation?: boolean | null;
+    blockOnTagValidation?: boolean | null;
   } | null;
 };
 
@@ -6642,6 +6659,9 @@ export type RepoTaskOwnershipAndFoliageSettingsFragment = {
     __typename?: "RepoTaskOwnershipSettings";
     defaultMothraTeam: string;
     defaultMothraTeamForBreakingCommit: string;
+    tagValidationPrefix: string;
+    trackTagValidation: boolean;
+    blockOnTagValidation: boolean;
   } | null;
 };
 
@@ -9617,6 +9637,9 @@ export type ProjectEventLogsQuery = {
             __typename?: "TaskOwnershipSettings";
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            tagValidationPrefix?: string | null;
+            trackTagValidation?: boolean | null;
+            blockOnTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
@@ -9849,6 +9872,9 @@ export type ProjectEventLogsQuery = {
             __typename?: "TaskOwnershipSettings";
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            tagValidationPrefix?: string | null;
+            trackTagValidation?: boolean | null;
+            blockOnTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
@@ -10146,6 +10172,9 @@ export type ProjectSettingsQuery = {
         __typename?: "TaskOwnershipSettings";
         defaultMothraTeam?: string | null;
         defaultMothraTeamForBreakingCommit?: string | null;
+        tagValidationPrefix?: string | null;
+        trackTagValidation?: boolean | null;
+        blockOnTagValidation?: boolean | null;
       } | null;
       testSelection?: {
         __typename?: "TestSelectionSettings";
@@ -10426,6 +10455,9 @@ export type RepoEventLogsQuery = {
             __typename?: "TaskOwnershipSettings";
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            tagValidationPrefix?: string | null;
+            trackTagValidation?: boolean | null;
+            blockOnTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
@@ -10658,6 +10690,9 @@ export type RepoEventLogsQuery = {
             __typename?: "TaskOwnershipSettings";
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            tagValidationPrefix?: string | null;
+            trackTagValidation?: boolean | null;
+            blockOnTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
@@ -10895,6 +10930,9 @@ export type RepoSettingsQuery = {
         __typename?: "RepoTaskOwnershipSettings";
         defaultMothraTeam: string;
         defaultMothraTeamForBreakingCommit: string;
+        tagValidationPrefix: string;
+        trackTagValidation: boolean;
+        blockOnTagValidation: boolean;
       } | null;
       testSelection?: {
         __typename?: "RepoTestSelectionSettings";
