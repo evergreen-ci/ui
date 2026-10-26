@@ -70,7 +70,7 @@ export const getFormSchema = ({
           properties: {
             jiraTicketsRequired: {
               type: ["boolean", "null"],
-              title: "Require Jira Tickets When Quarantining Tests",
+              title: "Require Existing Jira Tickets When Quarantining Tests",
               oneOf: radioBoxOptions(
                 ["Required", "Optional"],
                 repoData?.quarantine.jiraTicketsRequired ?? undefined,
