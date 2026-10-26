@@ -1,8 +1,7 @@
-import { Body, InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import ExpandedText from "components/ExpandedText";
+import { RevisionLink } from "components/RevisionLink";
 import { getTriggerRoute, getVersionRoute } from "constants/routes";
 import { GitTag, UpstreamProjectFragment } from "gql/generated/types";
 import { useDateFormat, useSpruceConfig } from "hooks";
@@ -54,14 +53,12 @@ const CommitChartLabel: React.FC<Props> = ({
   return (
     <div className={styles.labelContainer} data-testid="commit-label">
       <Body className={styles.labelText}>
-        <InlineCode
-          as={Link}
+        <RevisionLink
           data-testid="githash-link"
           onClick={onClickGithash}
+          revision={githash}
           to={getVersionRoute(versionId)}
-        >
-          {shortenGithash(githash)}
-        </InlineCode>{" "}
+        />{" "}
         <b title={getDateCopy(createDate)}>
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
         </b>{" "}

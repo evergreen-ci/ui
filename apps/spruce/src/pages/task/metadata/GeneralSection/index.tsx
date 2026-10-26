@@ -1,10 +1,8 @@
-import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
+import { RevisionLink } from "components/RevisionLink";
 import { getProjectPatchesRoute, getTaskRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { CompletedBy } from "./CompletedBy";
@@ -36,9 +34,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
     owner,
     repo,
   } = project || {};
-  const baseCommit = shortenGithash(
-    baseTask?.versionMetadata?.revision ?? undefined,
-  );
   const { isPatch, user } = versionMetadata ?? {};
 
   return (
@@ -86,19 +81,17 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
         </MetadataItem>
       )}
       {baseTask && (
-        <MetadataItem label={isPatch ? "Base commit" : "Previous commit"}>
-          <InlineCode
-            as={Link}
+        <MetadataItem label={isPatch ? "Base task" : "Previous task"}>
+          <RevisionLink
             onClick={() =>
               taskAnalytics.sendEvent({
                 name: "Clicked metadata link",
                 "link.type": "base commit",
               })
             }
+            revision={baseTask.versionMetadata?.revision ?? ""}
             to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
-          >
-            {baseCommit}
-          </InlineCode>
+          />
         </MetadataItem>
       )}
     </MetadataSection>
