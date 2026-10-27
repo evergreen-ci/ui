@@ -1876,10 +1876,12 @@ export type MainlineCommitsOptions = {
 export type Manifest = {
   __typename?: "Manifest";
   branch: Scalars["String"]["output"];
+  changedModules?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   isBase: Scalars["Boolean"]["output"];
   moduleOverrides?: Maybe<Scalars["StringMap"]["output"]>;
   modules?: Maybe<Scalars["Map"]["output"]>;
+  previousVersionId?: Maybe<Scalars["String"]["output"]>;
   project: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
 };
@@ -2186,6 +2188,7 @@ export type MutationRestartJasperArgs = {
 };
 
 export type MutationRestartTaskArgs = {
+  executionTaskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   failedOnly: Scalars["Boolean"]["input"];
   taskId: Scalars["String"]["input"];
 };
@@ -2870,15 +2873,11 @@ export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
-  /** @deprecated The total project limit is no longer enforced */
-  totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
-  /** @deprecated The total project limit is no longer enforced */
-  totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type ProjectEventLogEntry = {
