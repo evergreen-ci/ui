@@ -31,6 +31,29 @@ describe("other tab transformers", () => {
     );
   });
 
+  it("round-trips a cleared source cache opt-out list as an omitted field", () => {
+    const adminSettingsWithEmptyOptOut: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        sourceCacheOptOutProjects: [],
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithEmptyOptOut);
+    expect(loaded).not.toBeNull();
+    expect(loaded?.other.bucketConfig.sourceCacheOptOutProjects).toStrictEqual(
+      [],
+    );
+    expect(formToGql(loaded!)).toStrictEqual({
+      ...expectedGql,
+      buckets: {
+        ...expectedGql.buckets,
+        sourceCacheOptOutProjects: undefined,
+      },
+    });
+  });
+
   it("round-trips a cleared source cache config so it persists as empty", () => {
     const adminSettingsWithClearedSourceCache: AdminSettingsData = {
       ...mockAdminSettings,
@@ -160,6 +183,7 @@ const mockAdminSettings: AdminSettingsData = {
       name: "evergreen-source-cache",
       roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
     },
+    sourceCacheOptOutProjects: ["project3"],
     credentials: {
       key: "cred-key",
       secret: "cred-secret",
@@ -307,6 +331,7 @@ const expectedForm: OtherFormState = {
       testResultsBucketType: "s3",
       sourceCacheBucketName: "evergreen-source-cache",
       sourceCacheBucketRoleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
+      sourceCacheOptOutProjects: ["project3"],
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
       failedTasksLogBucketName: "evergreen-failed-tasks",
@@ -451,6 +476,7 @@ const expectedGql: AdminSettingsInput = {
       name: "evergreen-source-cache",
       roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
     },
+    sourceCacheOptOutProjects: ["project3"],
     credentials: {
       key: "cred-key",
       secret: "cred-secret",
