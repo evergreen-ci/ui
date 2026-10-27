@@ -1,7 +1,7 @@
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useVersionAnalytics } from "analytics";
 import { GithubCommitLink } from "components/GithubCommitLink";
-import { MetadataItem } from "components/MetadataCard";
+import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { RevisionLink } from "components/RevisionLink";
 import { getTriggerRoute, getWaterfallRoute } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
@@ -34,14 +34,17 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
   });
 
   return (
-    <>
-      <MetadataItem label="Trigger project">
+    <MetadataSection title="Triggered by">
+      <MetadataItem label="Project">
         <StyledRouterLink to={getWaterfallRoute(project)}>
           {project}
         </StyledRouterLink>
       </MetadataItem>
+      <MetadataItem label="Repo">
+        {owner}/{repo}
+      </MetadataItem>
       {triggerType === ProjectTriggerLevel.PUSH ? (
-        <MetadataItem label="Trigger commit">
+        <MetadataItem label="GitHub commit">
           <GithubCommitLink
             data-testid="version-github-commit"
             href={triggerLink}
@@ -53,11 +56,7 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
         </MetadataItem>
       ) : (
         <MetadataItem
-          label={
-            triggerType === ProjectTriggerLevel.TASK
-              ? "Trigger task"
-              : "Trigger build"
-          }
+          label={triggerType === ProjectTriggerLevel.TASK ? "Task" : "Build"}
         >
           <RevisionLink
             data-testid="version-trigger-revision"
@@ -66,7 +65,7 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
           />
         </MetadataItem>
       )}
-    </>
+    </MetadataSection>
   );
 };
 

@@ -13,9 +13,9 @@ import {
 } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import {
-  getProjectPatchesRoute,
   getUserPatchesRoute,
   getVersionRoute,
+  getWaterfallRoute,
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import BaseCommitMetadata from "./BaseCommitMetadata";
@@ -117,43 +117,50 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
           </StyledLink>
         </MetadataItem>
       )}
-      <MetadataItem label="Project">
-        <StyledRouterLink
-          onClick={() =>
-            sendEvent({ name: "Clicked metadata project patches link" })
-          }
-          to={getProjectPatchesRoute(projectIdentifier || projectID || "")}
-        >
-          {projectIdentifier || `${owner}/${repo}`}
-        </StyledRouterLink>
-      </MetadataItem>
-      {!isPatch && hasOwnerAndRepo && revision && (
-        <MetadataItem label="Project commit">
-          <GithubCommitLink
-            data-testid="version-github-commit"
-            href={getGithubCommitUrl(owner, repo, revision)}
+
+      <MetadataSection title="Source">
+        <MetadataItem label="Project">
+          <StyledRouterLink
             onClick={() =>
-              sendEvent({ name: "Clicked metadata github commit link" })
+              sendEvent({ name: "Clicked metadata waterfall link" })
             }
-            revision={revision}
-          />
+            to={getWaterfallRoute(projectIdentifier || projectID || "")}
+          >
+            {projectIdentifier || `${owner}/${repo}`}
+          </StyledRouterLink>
         </MetadataItem>
-      )}
+        <MetadataItem label="Repo">
+          {owner}/{repo}
+        </MetadataItem>
+        {!isPatch && hasOwnerAndRepo && revision && (
+          <MetadataItem label="GitHub commit">
+            <GithubCommitLink
+              data-testid="version-github-commit"
+              href={getGithubCommitUrl(owner, repo, revision)}
+              onClick={() =>
+                sendEvent({ name: "Clicked metadata github commit link" })
+              }
+              revision={revision}
+            />
+          </MetadataItem>
+        )}
+        {gitTags && (
+          <MetadataItem>
+            {gitTags.map((g) => (
+              <Disclaimer key={g.tag}>
+                Tag {g.tag} pushed by {g.pusher}
+              </Disclaimer>
+            ))}
+          </MetadataItem>
+        )}
+        {manifest && <ManifestBlob manifest={manifest} />}
+        {includedLocalModules && includedLocalModules.length > 0 && (
+          <IncludedLocalModules includedLocalModules={includedLocalModules} />
+        )}
+      </MetadataSection>
+
       {upstreamProject && (
         <UpstreamProject upstreamProject={upstreamProject} versionId={id} />
-      )}
-      {includedLocalModules && includedLocalModules.length > 0 && (
-        <IncludedLocalModules includedLocalModules={includedLocalModules} />
-      )}
-      {manifest && <ManifestBlob manifest={manifest} />}
-      {gitTags && (
-        <MetadataItem>
-          {gitTags.map((g) => (
-            <Disclaimer key={g.tag}>
-              Tag {g.tag} pushed by {g.pusher}
-            </Disclaimer>
-          ))}
-        </MetadataItem>
       )}
     </MetadataSection>
   );
