@@ -16,6 +16,8 @@ describe("validateCron", () => {
   it("accepts a valid cron expression", () => {
     expect(validateCron("0 0 * * *")).toBe(true);
     expect(validateCron("*/15 9-17 * * 1-5")).toBe(true);
+    expect(validateCron("@daily")).toBe(true);
+    expect(validateCron("@weekly")).toBe(true);
   });
 
   it("rejects an invalid cron expression", () => {
