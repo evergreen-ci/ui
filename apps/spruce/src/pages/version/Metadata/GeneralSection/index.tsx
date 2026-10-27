@@ -1,10 +1,11 @@
 import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useVersionAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
+import { GithubCommitLink } from "components/GithubCommitLink";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
+import { RevisionLink } from "components/RevisionLink";
 import {
   getGithubCommitUrl,
   getGithubMergeQueueUrl,
@@ -90,29 +91,26 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
         />
       ) : (
         <MetadataItem label="Previous commit">
-          <InlineCode
-            as={Link}
+          <RevisionLink
             data-testid="version-previous-commit"
             onClick={() =>
               sendEvent({ name: "Clicked metadata previous version link" })
             }
+            revision={previousVersion?.revision || ""}
             to={getVersionRoute(previousVersion?.id || "")}
-          >
-            {shortenGithash(previousVersion?.revision || "")}
-          </InlineCode>
+          />
         </MetadataItem>
       )}
       {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
         <MetadataItem label="GitHub PR commit">
-          <InlineCode
+          <GithubCommitLink
             data-testid="github-pr-commit"
             href={getGithubPRUrl(owner, repo, prNumber, headHash)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
             }
-          >
-            {shortenGithash(headHash)}
-          </InlineCode>
+            revision={headHash}
+          />
         </MetadataItem>
       )}
       {isGithubMergePatch && hasOwnerAndRepo && branch && (
@@ -128,15 +126,14 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
       )}
       {!isPatch && hasOwnerAndRepo && revision && (
         <MetadataItem label="GitHub commit">
-          <InlineCode
+          <GithubCommitLink
             data-testid="version-github-commit"
             href={getGithubCommitUrl(owner, repo, revision)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
             }
-          >
-            {shortenGithash(revision)}
-          </InlineCode>
+            revision={revision}
+          />
         </MetadataItem>
       )}
       {includedLocalModules && includedLocalModules.length > 0 && (
@@ -194,14 +191,12 @@ const BaseCommitMetadata: React.FC<BaseCommitMetadataProps> = ({
           {shortenGithash(revision)}
         </InlineCode>
       ) : (
-        <InlineCode
-          as={Link}
+        <RevisionLink
           data-testid="patch-base-commit"
           onClick={onClick}
+          revision={revision}
           to={getVersionRoute(baseVersionId)}
-        >
-          {shortenGithash(revision)}
-        </InlineCode>
+        />
       )}
       {isBaseVersionPending && " (pending)"}
     </MetadataItem>
