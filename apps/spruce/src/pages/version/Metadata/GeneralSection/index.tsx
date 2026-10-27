@@ -144,6 +144,10 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
             />
           </MetadataItem>
         )}
+        {manifest && <ManifestBlob manifest={manifest} />}
+        {includedLocalModules && includedLocalModules.length > 0 && (
+          <IncludedLocalModules includedLocalModules={includedLocalModules} />
+        )}
         {gitTags && (
           <MetadataItem>
             {gitTags.map((g) => (
@@ -152,10 +156,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
               </Disclaimer>
             ))}
           </MetadataItem>
-        )}
-        {manifest && <ManifestBlob manifest={manifest} />}
-        {includedLocalModules && includedLocalModules.length > 0 && (
-          <IncludedLocalModules includedLocalModules={includedLocalModules} />
         )}
       </MetadataSection>
 
