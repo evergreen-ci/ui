@@ -1,6 +1,5 @@
-import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useVersionAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
 import { GithubCommitLink } from "components/GithubCommitLink";
@@ -93,30 +92,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
           />
         </MetadataItem>
       )}
-      {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
-        <MetadataItem label="GitHub PR commit">
-          <InlineCode
-            data-testid="github-pr-commit"
-            href={getGithubPRUrl(owner, repo, prNumber, headHash)}
-            onClick={() =>
-              sendEvent({ name: "Clicked metadata github commit link" })
-            }
-          >
-            {shortenGithash(headHash)}
-          </InlineCode>
-        </MetadataItem>
-      )}
-      {isGithubMergePatch && hasOwnerAndRepo && branch && (
-        <MetadataItem>
-          <StyledLink
-            data-testid="github-merge-queue-link"
-            hideExternalIcon={false}
-            href={getGithubMergeQueueUrl(owner, repo, branch)}
-          >
-            GitHub Merge Queue
-          </StyledLink>
-        </MetadataItem>
-      )}
 
       <MetadataSection title="Source">
         <MetadataItem label="Project">
@@ -142,6 +117,29 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
               }
               revision={revision}
             />
+          </MetadataItem>
+        )}
+        {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
+          <MetadataItem label="GitHub PR commit">
+            <GithubCommitLink
+              data-testid="github-pr-commit"
+              href={getGithubPRUrl(owner, repo, prNumber, headHash)}
+              onClick={() =>
+                sendEvent({ name: "Clicked metadata github commit link" })
+              }
+              revision={headHash}
+            />
+          </MetadataItem>
+        )}
+        {isGithubMergePatch && hasOwnerAndRepo && branch && (
+          <MetadataItem>
+            <StyledLink
+              data-testid="github-merge-queue-link"
+              hideExternalIcon={false}
+              href={getGithubMergeQueueUrl(owner, repo, branch)}
+            >
+              GitHub Merge Queue
+            </StyledLink>
           </MetadataItem>
         )}
         {manifest && <ManifestBlob manifest={manifest} />}

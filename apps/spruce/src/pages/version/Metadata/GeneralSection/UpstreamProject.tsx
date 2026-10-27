@@ -34,7 +34,7 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
   });
 
   return (
-    <MetadataSection title="Triggered by">
+    <MetadataSection title="Triggered By">
       <MetadataItem label="Project">
         <StyledRouterLink to={getWaterfallRoute(project)}>
           {project}

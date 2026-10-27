@@ -4,6 +4,7 @@ import {
   CustomMeta,
   CustomStoryObj,
 } from "@evg-ui/lib/test_utils/types";
+import { Requester } from "constants/requesters";
 import {
   VersionQuarantinedTasksQuery,
   VersionQuarantinedTasksQueryVariables,
@@ -245,6 +246,50 @@ export const WithModulesAndGitTags: CustomStoryObj<typeof Metadata> = {
             ],
             patchNumber: 1,
           },
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const GithubPullRequest: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          baseVersion: { __typename: "Version", id: "base123" },
+          isPatch: true,
+          patch: {
+            __typename: "Patch",
+            id: "patch123",
+            alias: null,
+            githubPatchData: {
+              __typename: "GithubPatch",
+              headHash: "9f8e7d6c5b4a39281706f5e4d3c2b1a098765432",
+              prNumber: 1234,
+            },
+            includedLocalModules: [],
+            patchNumber: 1,
+          },
+          requester: Requester.GitHubPR,
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const GithubMergeQueue: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          baseVersion: { __typename: "Version", id: "base123" },
+          isPatch: true,
+          requester: Requester.GitHubMergeQueue,
         }}
       />
     </Container>
