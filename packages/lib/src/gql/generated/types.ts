@@ -1876,10 +1876,12 @@ export type MainlineCommitsOptions = {
 export type Manifest = {
   __typename?: "Manifest";
   branch: Scalars["String"]["output"];
+  changedModules?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   isBase: Scalars["Boolean"]["output"];
   moduleOverrides?: Maybe<Scalars["StringMap"]["output"]>;
   modules?: Maybe<Scalars["Map"]["output"]>;
+  previousVersionId?: Maybe<Scalars["String"]["output"]>;
   project: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
 };
@@ -2186,6 +2188,7 @@ export type MutationRestartJasperArgs = {
 };
 
 export type MutationRestartTaskArgs = {
+  executionTaskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   failedOnly: Scalars["Boolean"]["input"];
   taskId: Scalars["String"]["input"];
 };
@@ -2870,15 +2873,11 @@ export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
-  /** @deprecated The total project limit is no longer enforced */
-  totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
-  /** @deprecated The total project limit is no longer enforced */
-  totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type ProjectEventLogEntry = {
@@ -3143,6 +3142,8 @@ export type QuarantineTaskInput = {
 };
 
 export type QuarantineTestInput = {
+  existingJiraTicketsToLink?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  justification?: InputMaybe<Scalars["String"]["input"]>;
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
 };
@@ -3566,6 +3567,7 @@ export type RepoTestSelectionSettings = {
   allowed: Scalars["Boolean"]["output"];
   defaultEnabled: Scalars["Boolean"]["output"];
   mainlineDefaultEnabled: Scalars["Boolean"]["output"];
+  quarantineJiraTicketsRequired: Scalars["Boolean"]["output"];
 };
 
 export type RepoWorkstationConfig = {
@@ -4711,12 +4713,14 @@ export type TestSelectionSettings = {
   allowed?: Maybe<Scalars["Boolean"]["output"]>;
   defaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   mainlineDefaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  quarantineJiraTicketsRequired?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TestSelectionSettingsInput = {
   allowed?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   mainlineDefaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  quarantineJiraTicketsRequired?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum TestSortCategory {

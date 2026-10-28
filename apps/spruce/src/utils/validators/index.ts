@@ -1,4 +1,31 @@
+import { CronExpressionParser } from "cron-parser";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+
+/**
+ * `validateCron` tests if a provided string is a valid cron schedule
+ * @param cronSchedule - the cron schedule to validate
+ * @returns - true if the provided string is a valid cron schedule, false otherwise
+ */
+const validateCron = (cronSchedule: string) => {
+  const trimmedCron = cronSchedule.trim();
+
+  // cron-parser pads trailing fields with `*`, so "3" would otherwise parse as "3 * * * *".
+  // We should reject incomplete cron schedules.
+  const numFields = trimmedCron.split(/\s+/).length;
+  if (!trimmedCron.startsWith("@") && numFields < 5) {
+    return false;
+  }
+  try {
+    const interval = CronExpressionParser.parse(trimmedCron);
+    if (interval.hasNext()) {
+      return true;
+    }
+    return false;
+  } catch (err) {
+    // This means the syntax is invalid or the cron is impossible to achieve.
+    return false;
+  }
+};
 
 /**
  * `validateDuration` tests if a provided string is a valid duration
@@ -180,6 +207,7 @@ const validateNoStartingOrTrailingWhitespace = (str: string): boolean => {
 
 export {
   allowedSymbols,
+  validateCron,
   validateDuration,
   validateEmail,
   validateJira,

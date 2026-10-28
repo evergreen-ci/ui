@@ -1,6 +1,7 @@
 import { validators } from "utils";
 
 const {
+  validateCron,
   validateDuration,
   validateEmail,
   validateJira,
@@ -20,6 +21,7 @@ export const customFormats = (jiraHost = "") => ({
   // Permit empty string but disallow whitespace
   noSpaces: /^$|^\S+$/,
   noStartingOrTrailingWhitespace: validateNoStartingOrTrailingWhitespace,
+  validCron: validateCron,
   validDuration: validateDuration,
   validEmail: validateEmail,
   validJiraTicket: validateJira,
