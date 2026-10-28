@@ -199,6 +199,92 @@ describe("metadata", () => {
     expect(screen.getByText("Host Information")).toBeInTheDocument();
     expect(screen.getByTestId("cost-details-button")).toBeInTheDocument();
   });
+  it("shows a host task's system failure reason with its first letter capitalized", () => {
+    render(
+      <Metadata
+        loading={false}
+        task={systemFailedTask("stranded", hostStoppedReason)}
+      />,
+      { route: `/task/${taskId}`, path: "/task/:id", wrapper },
+    );
+    const command = screen.getByTestId("task-metadata-command");
+    expect(command).toHaveTextContent("Failure reason");
+    expect(command).not.toHaveTextContent("Failing command");
+    expect(command).toHaveTextContent(
+      "Host was found in state 'stopped' (reason: Client.UserInitiatedShutdown: User initiated shutdown)",
+    );
+    expect(screen.queryByText("more")).not.toBeInTheDocument();
+  });
+
+  it("shows the full system failure reason in a tooltip when it is truncated", async () => {
+    const user = userEvent.setup();
+    render(
+      <Metadata
+        loading={false}
+        task={systemFailedTask("stranded", hostSpotTerminatedReason)}
+      />,
+      { route: `/task/${taskId}`, path: "/task/:id", wrapper },
+    );
+    await user.hover(screen.getByText("more"));
+    expect(
+      await screen.findByTestId("task-metadata-command-tooltip"),
+    ).toHaveTextContent(
+      "Host was found in state 'terminated' (reason: Server.SpotInstanceTermination: Spot instance termination)",
+    );
+  });
+
+  it("shows the default stranded message when there is no system failure reason", () => {
+    render(
+      <Metadata loading={false} task={systemFailedTask("stranded", null)} />,
+      { route: `/task/${taskId}`, path: "/task/:id", wrapper },
+    );
+    expect(screen.getByTestId("task-metadata-command")).toHaveTextContent(
+      "Task failed because the host became unreachable unexpectedly",
+    );
+  });
+
+  it("shows a heartbeat failure's system failure reason", () => {
+    render(
+      <Metadata
+        loading={false}
+        task={systemFailedTask(
+          "heartbeat",
+          "task has not sent a heartbeat since 2026-02-03T15:52:55Z",
+        )}
+      />,
+      { route: `/task/${taskId}`, path: "/task/:id", wrapper },
+    );
+    const command = screen.getByTestId("task-metadata-command");
+    expect(command).toHaveTextContent("Failure reason");
+    expect(command).toHaveTextContent(
+      "Task has not sent a heartbeat since 2026-02-03T15:52:55Z",
+    );
+  });
+
+  it("shows the default heartbeat message when there is no system failure reason", () => {
+    render(
+      <Metadata loading={false} task={systemFailedTask("heartbeat", null)} />,
+      { route: `/task/${taskId}`, path: "/task/:id", wrapper },
+    );
+    const command = screen.getByTestId("task-metadata-command");
+    expect(command).toHaveTextContent("Failure reason");
+    expect(command).toHaveTextContent(
+      "Task failed because it stopped sending heartbeats",
+    );
+  });
+
+  it("shows the system failure reason when there is no description or failing command", () => {
+    render(
+      <Metadata
+        loading={false}
+        task={systemFailedTask("", "agent re-requested the same task 10 times")}
+      />,
+      { route: `/task/${taskId}`, path: "/task/:id", wrapper },
+    );
+    expect(screen.getByTestId("task-metadata-command")).toHaveTextContent(
+      "Agent re-requested the same task 10 times",
+    );
+  });
 });
 
 const taskId =
@@ -319,3 +405,28 @@ const pushCompletedVirtualTask: TaskQueryType = {
     hostId: null,
   },
 };
+
+const hostStoppedReason =
+  "host was found in state 'stopped' (reason: Client.UserInitiatedShutdown: User initiated shutdown)";
+
+const hostSpotTerminatedReason =
+  "host was found in state 'terminated' (reason: Server.SpotInstanceTermination: Spot instance termination)";
+
+const systemFailedTask = (
+  description: string,
+  systemFailureReason: string | null,
+): TaskQueryType["task"] => ({
+  ...taskQuery.task,
+  status: "failed",
+  details: {
+    description,
+    diskDevices: [],
+    failingCommand: "",
+    failureMetadataTags: [],
+    oomTracker: { detected: false },
+    otherFailingCommands: [],
+    status: "failed",
+    systemFailureReason,
+    type: "system",
+  },
+});

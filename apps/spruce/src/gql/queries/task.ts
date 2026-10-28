@@ -65,6 +65,7 @@ export const TASK = gql`
           fullDisplayName
         }
         status
+        systemFailureReason
         timedOut
         timeoutType
         traceID

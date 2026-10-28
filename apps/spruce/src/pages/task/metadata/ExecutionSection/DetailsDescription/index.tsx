@@ -18,23 +18,41 @@ export const DetailsDescription = ({
   details: TaskEndDetail;
   isPushCompleted?: boolean;
 }) => {
-  const { description, failingCommand, otherFailingCommands, status } =
-    details ?? {};
+  const {
+    description,
+    failingCommand,
+    otherFailingCommands,
+    status,
+    systemFailureReason,
+  } = details ?? {};
   const isFailingTask = isFailedTaskStatus(status);
   const baseCopy = description || failingCommand || "";
   const fullText = isFailingTask
-    ? `${processFailingCommand(baseCopy, isPushCompleted)}`
-    : `${baseCopy}`;
+    ? processFailingCommand(baseCopy, isPushCompleted, systemFailureReason)
+    : baseCopy;
+  const isSystemFailure =
+    isFailingTask &&
+    (!!systemFailureReason ||
+      baseCopy === strandedDescription ||
+      baseCopy === heartbeatDescription);
 
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
+
+  let label = "Command";
+  if (isSystemFailure) {
+    label = "Failure reason";
+  } else if (isFailingTask) {
+    label = "Failing command";
+  }
 
   return (
     <>
       <MetadataItem
         data-testid="task-metadata-command"
-        label={isFailingTask ? "Failing command" : "Command"}
+        label={label}
         labelColor={isFailingTask ? red.base : undefined}
+        orientation={isFailingTask ? "vertical" : "horizontal"}
       >
         {shouldTruncate ? (
           <>
@@ -43,7 +61,7 @@ export const DetailsDescription = ({
               align="right"
               data-testid="task-metadata-command-tooltip"
               justify="end"
-              message={description ?? ""}
+              message={fullText}
             />
           </>
         ) : (
@@ -109,17 +127,32 @@ const ChipContainer = styled.div`
 const processFailingCommand = (
   description: string,
   isPushCompleted: boolean,
+  systemFailureReason: string | null | undefined,
 ): string => {
-  if (description === "stranded") {
+  if (systemFailureReason) {
+    return (
+      systemFailureReason.charAt(0).toUpperCase() + systemFailureReason.slice(1)
+    );
+  }
+  if (description === strandedDescription) {
     return isPushCompleted
       ? virtualTaskStrandedMessage
       : hostTaskStrandedMessage;
   }
+  if (description === heartbeatDescription) {
+    return heartbeatMessage;
+  }
   return description;
 };
+
+const strandedDescription = "stranded";
+
+const heartbeatDescription = "heartbeat";
 
 const hostTaskStrandedMessage =
   "Task failed because the host became unreachable unexpectedly";
 
 const virtualTaskStrandedMessage =
   "Virtual task failed because the runner task did not set a status for it";
+
+const heartbeatMessage = "Task failed because it stopped sending heartbeats";

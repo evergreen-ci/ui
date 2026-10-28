@@ -11942,6 +11942,7 @@ export type TaskQuery = {
       failingCommand?: string | null;
       failureMetadataTags: Array<string>;
       status: string;
+      systemFailureReason?: string | null;
       timedOut?: boolean | null;
       timeoutType?: string | null;
       traceID?: string | null;
