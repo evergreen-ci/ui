@@ -123,8 +123,8 @@ export const getFormSchema = (
       "ui:orderable": false,
       "ui:label": false,
       "ui:useExpandableCard": true,
-      items: {
-        "ui:title": "New Project Trigger",
+      items: (itemData?: { displayTitle?: string }) => ({
+        "ui:title": itemData?.displayTitle || "New Project Trigger",
         "ui:label": false,
         project: {
           "ui:description":
@@ -173,7 +173,7 @@ export const getFormSchema = (
           "ui:optional": true,
           "ui:bold": true,
         },
-      },
+      }),
     },
     repoData: {
       "ui:orderable": false,
@@ -181,6 +181,10 @@ export const getFormSchema = (
       triggers: {
         "ui:label": false,
         "ui:useExpandableCard": true,
+        items: (itemData?: { displayTitle?: string }) => ({
+          "ui:title": itemData?.displayTitle || "",
+          "ui:label": false,
+        }),
       },
     },
   },
