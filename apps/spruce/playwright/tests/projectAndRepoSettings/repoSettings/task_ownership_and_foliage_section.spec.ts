@@ -1,5 +1,5 @@
 import { expect, test } from "../../../fixtures";
-import { validateToast } from "../../../helpers";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -62,16 +62,21 @@ test.describe("Task Ownership and Foliage section", () => {
     });
 
     await validationPrefix.fill("prefix");
-    await trackEnabled.check();
+    await clickRadio(trackEnabled);
     await save(page);
     await validateToast(page, "success", "Successfully updated repo");
 
-    // Visit the project page and verify the defaults from the repo.
+    // Visit the project page and verify the defaults from the repo. The
+    // project's own value is unset, so the radio shows the default-to-repo
+    // option as selected.
     await page.goto(projectOrigin);
     await expect(validationPrefix).toHaveAttribute(
       "placeholder",
       "prefix (Default from repo)",
     );
-    await expect(trackEnabled).toBeChecked();
+    const trackDefaultToRepo = trackRadioBox.getByRole("radio", {
+      name: "Default to repo (enabled)",
+    });
+    await expect(trackDefaultToRepo).toBeChecked();
   });
 });

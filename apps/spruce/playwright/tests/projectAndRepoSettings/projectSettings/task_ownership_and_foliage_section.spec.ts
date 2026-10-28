@@ -1,5 +1,5 @@
 import { expect, test } from "../../../fixtures";
-import { validateToast } from "../../../helpers";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -50,7 +50,7 @@ test.describe("Task Ownership and Foliage section", () => {
     });
 
     await validationPrefix.fill("prefix");
-    await trackEnabled.check();
+    await clickRadio(trackEnabled);
     await save(page);
     await validateToast(page, "success", "Successfully updated project");
 
