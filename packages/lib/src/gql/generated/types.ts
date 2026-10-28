@@ -509,6 +509,7 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   sourceCacheBucket?: Maybe<BucketConfig>;
+  sourceCacheOptOutProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -523,6 +524,7 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   sourceCacheBucket?: InputMaybe<BucketConfigInput>;
+  sourceCacheOptOutProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
