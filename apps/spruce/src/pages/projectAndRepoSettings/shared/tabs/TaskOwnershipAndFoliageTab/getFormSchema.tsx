@@ -105,11 +105,10 @@ export const getFormSchema = (
     tagValidation: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:description":
-        "Validate that generated tasks follow the task ownership tagging convention.",
+        "Validate that generated tasks follow the required task tagging rules.",
       generatedTaskValidationPrefix: {
         "ui:data-testid": "generated-task-validation-prefix",
-        "ui:description":
-          "The prefix for task tags that indicate team ownership.",
+        "ui:description": "The required prefix for generated task tags.",
         "ui:optional": true,
         ...placeholderIf(
           repoData?.tagValidation?.generatedTaskValidationPrefix,
@@ -118,13 +117,13 @@ export const getFormSchema = (
       trackGeneratedTaskTagValidation: {
         "ui:data-testid": "track-generated-task-tag-validation",
         "ui:description":
-          "Track generate.tasks when it creates tasks that don't have a task tag with the validation prefix.",
+          "Track generate.tasks when it creates tasks that don't have a task tag starting with the validation prefix.",
         "ui:widget": widgets.RadioBoxWidget,
       },
       blockTaskGenerationOnTagValidation: {
         "ui:data-testid": "block-task-generation-on-tag-validation",
         "ui:description":
-          "Fail generate.tasks entirely if any task about to be generated doesn't have a task tag with the validation prefix.",
+          "Fail generate.tasks entirely if any task about to be generated doesn't have a task tag starting with the validation prefix.",
         "ui:widget": widgets.RadioBoxWidget,
       },
     },

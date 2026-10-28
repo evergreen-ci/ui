@@ -48,9 +48,15 @@ test.describe("Task Ownership and Foliage section", () => {
     const trackEnabled = trackRadioBox.getByRole("radio", {
       name: "Enabled",
     });
+    const saveButton = page.getByTestId("save-settings-button");
+
+    // Saving is blocked while tracking is enabled without a prefix set.
+    await clickRadio(trackEnabled);
+    await expect(saveButton).toBeDisabled();
 
     await validationPrefix.fill("prefix");
-    await clickRadio(trackEnabled);
+    await expect(saveButton).toBeEnabled();
+
     await save(page);
     await validateToast(page, "success", "Successfully updated project");
 
