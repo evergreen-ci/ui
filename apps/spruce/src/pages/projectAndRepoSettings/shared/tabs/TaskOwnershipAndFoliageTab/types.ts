@@ -6,9 +6,9 @@ export interface TaskOwnershipAndFoliageFormState {
     defaultMothraTeamForBreakingCommit: string;
   };
   tagValidation: {
-    tagValidationPrefix: string;
-    trackTagValidation: boolean | null;
-    blockOnTagValidation: boolean | null;
+    generatedTaskValidationPrefix: string;
+    trackGeneratedTaskTagValidation: boolean | null;
+    blockTaskGenerationOnTagValidation: boolean | null;
   };
 }
 

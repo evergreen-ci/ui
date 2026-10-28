@@ -51,20 +51,24 @@ test.describe("Task Ownership and Foliage section", () => {
   }) => {
     await page.goto(repoOrigin);
 
-    const tagValidationPrefix = page.getByTestId("tag-validation-prefix");
-    const trackRadioBox = page.getByTestId("track-tag-validation");
+    const validationPrefix = page.getByTestId(
+      "generated-task-validation-prefix",
+    );
+    const trackRadioBox = page.getByTestId(
+      "track-generated-task-tag-validation",
+    );
     const trackEnabled = trackRadioBox.getByRole("radio", {
       name: "Enabled",
     });
 
-    await tagValidationPrefix.fill("prefix");
+    await validationPrefix.fill("prefix");
     await trackEnabled.check();
     await save(page);
     await validateToast(page, "success", "Successfully updated repo");
 
     // Visit the project page and verify the defaults from the repo.
     await page.goto(projectOrigin);
-    await expect(tagValidationPrefix).toHaveAttribute(
+    await expect(validationPrefix).toHaveAttribute(
       "placeholder",
       "prefix (Default from repo)",
     );

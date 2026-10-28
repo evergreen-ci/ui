@@ -39,19 +39,23 @@ test.describe("Task Ownership and Foliage section", () => {
   test("can set tag validation settings on the project", async ({ page }) => {
     await page.goto(projectOrigin);
 
-    const tagValidationPrefix = page.getByTestId("tag-validation-prefix");
-    const trackRadioBox = page.getByTestId("track-tag-validation");
+    const validationPrefix = page.getByTestId(
+      "generated-task-validation-prefix",
+    );
+    const trackRadioBox = page.getByTestId(
+      "track-generated-task-tag-validation",
+    );
     const trackEnabled = trackRadioBox.getByRole("radio", {
       name: "Enabled",
     });
 
-    await tagValidationPrefix.fill("prefix");
+    await validationPrefix.fill("prefix");
     await trackEnabled.check();
     await save(page);
     await validateToast(page, "success", "Successfully updated project");
 
     await page.reload();
-    await expect(tagValidationPrefix).toHaveValue("prefix");
+    await expect(validationPrefix).toHaveValue("prefix");
     await expect(trackEnabled).toBeChecked();
   });
 });

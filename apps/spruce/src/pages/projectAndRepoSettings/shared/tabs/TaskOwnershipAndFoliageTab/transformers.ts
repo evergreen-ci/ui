@@ -16,9 +16,12 @@ export const gqlToForm = ((data) => {
         taskOwnership?.defaultMothraTeamForBreakingCommit ?? "",
     },
     tagValidation: {
-      tagValidationPrefix: taskOwnership?.tagValidationPrefix ?? "",
-      trackTagValidation: taskOwnership?.trackTagValidation ?? null,
-      blockOnTagValidation: taskOwnership?.blockOnTagValidation ?? null,
+      generatedTaskValidationPrefix:
+        taskOwnership?.generatedTaskValidationPrefix ?? "",
+      trackGeneratedTaskTagValidation:
+        taskOwnership?.trackGeneratedTaskTagValidation ?? null,
+      blockTaskGenerationOnTagValidation:
+        taskOwnership?.blockTaskGenerationOnTagValidation ?? null,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -31,9 +34,12 @@ export const formToGql = ((data, isRepo, id) => ({
       defaultMothraTeam: data.mothra.defaultMothraTeam,
       defaultMothraTeamForBreakingCommit:
         data.mothra.defaultMothraTeamForBreakingCommit,
-      tagValidationPrefix: data.tagValidation.tagValidationPrefix,
-      trackTagValidation: data.tagValidation.trackTagValidation,
-      blockOnTagValidation: data.tagValidation.blockOnTagValidation,
+      generatedTaskValidationPrefix:
+        data.tagValidation.generatedTaskValidationPrefix,
+      trackGeneratedTaskTagValidation:
+        data.tagValidation.trackGeneratedTaskTagValidation,
+      blockTaskGenerationOnTagValidation:
+        data.tagValidation.blockTaskGenerationOnTagValidation,
     },
   },
 })) satisfies FormToGqlFunction<Tab>;

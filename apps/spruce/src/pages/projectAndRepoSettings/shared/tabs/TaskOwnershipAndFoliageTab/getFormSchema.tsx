@@ -40,25 +40,27 @@ export const getFormSchema = (
         type: "object" as const,
         title: "Tag Validation",
         properties: {
-          tagValidationPrefix: {
+          generatedTaskValidationPrefix: {
             type: "string" as const,
-            title: "Tag Validation Prefix",
+            title: "Generated Task Validation Prefix",
             default: "",
           },
-          trackTagValidation: {
+          trackGeneratedTaskTagValidation: {
             type: ["boolean", "null"] as const,
-            title: "Track Tag Validation",
+            title: "Track Generated Task Tag Validation",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
-              repoData?.tagValidation?.trackTagValidation ?? undefined,
+              repoData?.tagValidation?.trackGeneratedTaskTagValidation ??
+                undefined,
             ),
           },
-          blockOnTagValidation: {
+          blockTaskGenerationOnTagValidation: {
             type: ["boolean", "null"] as const,
-            title: "Block on Tag Validation",
+            title: "Block Task Generation on Tag Validation",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
-              repoData?.tagValidation?.blockOnTagValidation ?? undefined,
+              repoData?.tagValidation?.blockTaskGenerationOnTagValidation ??
+                undefined,
             ),
           },
         },
@@ -103,24 +105,26 @@ export const getFormSchema = (
     tagValidation: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:description":
-        "Validate that tasks follow the task ownership tagging convention.",
-      tagValidationPrefix: {
-        "ui:data-testid": "tag-validation-prefix",
+        "Validate that generated tasks follow the task ownership tagging convention.",
+      generatedTaskValidationPrefix: {
+        "ui:data-testid": "generated-task-validation-prefix",
         "ui:description":
           "The prefix for task tags that indicate team ownership.",
         "ui:optional": true,
-        ...placeholderIf(repoData?.tagValidation?.tagValidationPrefix),
+        ...placeholderIf(
+          repoData?.tagValidation?.generatedTaskValidationPrefix,
+        ),
       },
-      trackTagValidation: {
-        "ui:data-testid": "track-tag-validation",
+      trackGeneratedTaskTagValidation: {
+        "ui:data-testid": "track-generated-task-tag-validation",
         "ui:description":
-          "Track generate.tasks when it creates tasks that don't have a task tag with the tag validation prefix.",
+          "Track generate.tasks when it creates tasks that don't have a task tag with the validation prefix.",
         "ui:widget": widgets.RadioBoxWidget,
       },
-      blockOnTagValidation: {
-        "ui:data-testid": "block-tag-validation",
+      blockTaskGenerationOnTagValidation: {
+        "ui:data-testid": "block-task-generation-on-tag-validation",
         "ui:description":
-          "Fail generate.tasks entirely if any task about to be generated doesn't have a task tag with the tag validation prefix.",
+          "Fail generate.tasks entirely if any task about to be generated doesn't have a task tag with the validation prefix.",
         "ui:widget": widgets.RadioBoxWidget,
       },
     },
