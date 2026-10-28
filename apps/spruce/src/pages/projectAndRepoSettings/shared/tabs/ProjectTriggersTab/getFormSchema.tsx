@@ -181,6 +181,10 @@ export const getFormSchema = (
       triggers: {
         "ui:label": false,
         "ui:useExpandableCard": true,
+        items: (itemData?: { displayTitle?: string }) => ({
+          "ui:title": itemData?.displayTitle || "",
+          "ui:label": false,
+        }),
       },
     },
   },
