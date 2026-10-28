@@ -66,9 +66,7 @@ test.describe("Task Ownership and Foliage section", () => {
     await save(page);
     await validateToast(page, "success", "Successfully updated repo");
 
-    // Visit the project page and verify the defaults from the repo. The
-    // project's own value is unset, so the radio shows the default-to-repo
-    // option as selected.
+    // Visit the project page and verify the defaults from the repo.
     await page.goto(projectOrigin);
     await expect(validationPrefix).toHaveAttribute(
       "placeholder",

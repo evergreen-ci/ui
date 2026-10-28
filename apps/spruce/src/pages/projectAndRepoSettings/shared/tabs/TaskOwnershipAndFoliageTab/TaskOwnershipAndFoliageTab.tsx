@@ -2,13 +2,11 @@ import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { BaseTab } from "../BaseTab";
+import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps, TaskOwnershipAndFoliageFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.TaskOwnershipAndFoliage;
-
-const PREFIX_REQUIRED_MESSAGE =
-  "Generated task validation prefix must be set when tracking or blocking tasks missing the validation prefix.";
 
 const getInitialFormState = (
   projectData: TabProps["projectData"],
@@ -41,7 +39,7 @@ const getValidate =
 
     if ((trackEnabled || blockEnabled) && prefix === "") {
       errors.tagValidation.generatedTaskValidationPrefix.addError(
-        PREFIX_REQUIRED_MESSAGE,
+        "Must be set when either of the settings below are enabled.",
       );
     }
 
@@ -50,6 +48,7 @@ const getValidate =
 
 export const TaskOwnershipAndFoliageTab: React.FC<TabProps> = ({
   projectData,
+  projectType,
   repoData,
 }) => {
   const initialFormState = useMemo(
@@ -57,7 +56,13 @@ export const TaskOwnershipAndFoliageTab: React.FC<TabProps> = ({
     [projectData, repoData],
   );
 
-  const formSchema = useMemo(() => getFormSchema(repoData), [repoData]);
+  const formSchema = useMemo(
+    () =>
+      getFormSchema(
+        projectType === ProjectType.AttachedProject ? repoData : undefined,
+      ),
+    [repoData, projectType],
+  );
 
   return (
     <BaseTab
