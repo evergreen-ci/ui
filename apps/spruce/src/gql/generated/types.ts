@@ -3555,8 +3555,11 @@ export type RepoSettingsInput = {
 
 export type RepoTaskOwnershipSettings = {
   __typename?: "RepoTaskOwnershipSettings";
+  blockTaskGenerationOnTagValidation: Scalars["Boolean"]["output"];
   defaultMothraTeam: Scalars["String"]["output"];
   defaultMothraTeamForBreakingCommit: Scalars["String"]["output"];
+  generatedTaskValidationPrefix: Scalars["String"]["output"];
+  trackGeneratedTaskTagValidation: Scalars["Boolean"]["output"];
 };
 
 export type RepoTestSelectionSettings = {
@@ -4508,13 +4511,19 @@ export type TaskOwnerTeam = {
 
 export type TaskOwnershipSettings = {
   __typename?: "TaskOwnershipSettings";
+  blockTaskGenerationOnTagValidation?: Maybe<Scalars["Boolean"]["output"]>;
   defaultMothraTeam?: Maybe<Scalars["String"]["output"]>;
   defaultMothraTeamForBreakingCommit?: Maybe<Scalars["String"]["output"]>;
+  generatedTaskValidationPrefix?: Maybe<Scalars["String"]["output"]>;
+  trackGeneratedTaskTagValidation?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TaskOwnershipSettingsInput = {
+  blockTaskGenerationOnTagValidation?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultMothraTeam?: InputMaybe<Scalars["String"]["input"]>;
   defaultMothraTeamForBreakingCommit?: InputMaybe<Scalars["String"]["input"]>;
+  generatedTaskValidationPrefix?: InputMaybe<Scalars["String"]["input"]>;
+  trackGeneratedTaskTagValidation?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type TaskPriority = {
