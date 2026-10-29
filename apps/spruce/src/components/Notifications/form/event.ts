@@ -430,7 +430,7 @@ export const getEventSchema = (
       "ui:allowDeselect": false,
     },
     extraFields: {
-      "ui:showLabel": false,
+      "ui:label": false,
       [ExtraFieldKey.TASK_PERCENT_CHANGE]: {
         "ui:data-testid": "percent-change-input",
       },
@@ -459,7 +459,7 @@ export const getEventSchema = (
       },
     },
     regexSelector: {
-      "ui:showLabel": false,
+      "ui:label": false,
       "ui:description":
         "Regex can be specified for at most one name and one ID.",
       "ui:orderable": false,

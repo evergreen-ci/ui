@@ -62,6 +62,9 @@ export const gqlToForm = ((data, options = {}) => {
       patch: {
         patchingDisabled: projectRef.patchingDisabled,
       },
+      virtualTasks: {
+        virtualTasksEnabled: projectRef.virtualTasksEnabled,
+      },
     },
     historicalTaskDataCaching: {
       disabledStatsCache: projectRef.disabledStatsCache,
@@ -115,6 +118,7 @@ export const formToGql = ((
     stepbackBisect: projectFlags.scheduling.stepbackBisection,
     patchingDisabled: projectFlags.patch.patchingDisabled,
     runEveryMainlineCommit: projectFlags.repotracker.runEveryMainlineCommit,
+    virtualTasksEnabled: projectFlags.virtualTasks.virtualTasksEnabled,
     disabledStatsCache,
     sourceCacheMode,
   };

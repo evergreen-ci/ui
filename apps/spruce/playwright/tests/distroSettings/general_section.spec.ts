@@ -90,4 +90,43 @@ test.describe("general section", () => {
       await validateToast(page, "success", "Updated distro.");
     });
   });
+
+  test.describe("IaC managed distro", () => {
+    test("warns in the save modal when saving changes to an IaC managed distro", async ({
+      page,
+    }) => {
+      const iacCheckbox = page.getByRole("checkbox", {
+        name: "Mark distro as managed by IaC",
+      });
+      const saveButton = page.getByTestId("save-settings-button");
+      const modal = page.getByTestId("save-modal");
+      const iacBanner = modal.getByTestId("iac-managed-banner");
+
+      // Enabling IaC management for the first time shows no banner, because the saved distro is not yet IaC managed.
+      await expect(iacCheckbox).toBeEnabled();
+      await clickCheckbox(iacCheckbox);
+      await saveButton.click();
+      await expect(modal).toBeVisible();
+      await expect(iacBanner).toHaveCount(0);
+      await modal.getByRole("button", { name: "Save" }).click();
+      await validateToast(page, "success", "Updated distro.", true);
+
+      await page.reload();
+      await expect(page.getByTestId("distro-settings-page")).toBeVisible();
+      await expect(iacCheckbox).toBeChecked();
+
+      await page.getByLabel("Notes").fill("IaC managed distro note");
+      await saveButton.click();
+      await expect(iacBanner).toHaveText(
+        "This distro is managed by infrastructure as code. Changes made here may be overwritten.",
+      );
+      await modal.getByRole("button", { name: "Save" }).click();
+      await validateToast(page, "success", "Updated distro.", true);
+
+      await page.getByLabel("Notes").clear();
+      await clickCheckbox(iacCheckbox);
+      await save(page);
+      await validateToast(page, "success", "Updated distro.");
+    });
+  });
 });

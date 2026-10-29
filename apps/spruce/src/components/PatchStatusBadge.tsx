@@ -1,4 +1,4 @@
-import { Badge, Variant } from "@leafygreen-ui/badge";
+import { Badge, BadgeVariant } from "@via-ds/components";
 import { PatchStatus } from "types/patch";
 
 interface Props {
@@ -11,17 +11,17 @@ export const PatchStatusBadge: React.FC<Props> = ({ status }) => (
   </Badge>
 );
 
-const statusToBadgeVariant = {
-  unconfigured: Variant.LightGray,
-  [PatchStatus.Created]: Variant.LightGray,
-  [PatchStatus.Failed]: Variant.Red,
-  [PatchStatus.Started]: Variant.Yellow,
-  [PatchStatus.Success]: Variant.Green,
-  [PatchStatus.Aborted]: Variant.LightGray,
+const statusToBadgeVariant: Record<PatchStatus, BadgeVariant> = {
+  [PatchStatus.Unconfigured]: BadgeVariant.Status,
+  [PatchStatus.Created]: BadgeVariant.Status,
+  [PatchStatus.Failed]: BadgeVariant.Error,
+  [PatchStatus.Started]: BadgeVariant.Warning,
+  [PatchStatus.Success]: BadgeVariant.Success,
+  [PatchStatus.Aborted]: BadgeVariant.Status,
 };
 
-const patchStatusToCopy = {
-  unconfigured: "Unconfigured",
+const patchStatusToCopy: Record<PatchStatus, string> = {
+  [PatchStatus.Unconfigured]: "Unconfigured",
   [PatchStatus.Created]: "Created",
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",

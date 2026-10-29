@@ -26,6 +26,7 @@ import { useProjectBuildBaronSettings } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import { statuses } from "utils";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 import BuildBaron from "./buildBaronAndAnnotations";
 import ExecutionTasksTable from "./ExecutionTasksTable";
 import ExecutionTasksTiming from "./ExecutionTasksTiming";
@@ -102,6 +103,7 @@ const useTabConfig = (
       <Tab key="task-logs-tab" data-testid="task-logs-tab" name="Logs">
         <Logs
           execution={execution}
+          hideHostLogs={isPushCompletedVirtualTask(task)}
           isDisplayTask={isDisplayTask}
           logLinks={logLinks}
           taskId={id}
@@ -237,13 +239,7 @@ const useTabConfig = (
       <Tab
         key="task-config-tab"
         data-testid="task-config-tab"
-        name={
-          <TabLabelWithBadge
-            badgeText="New"
-            badgeVariant={Variant.Blue}
-            tabLabel="Task Config"
-          />
-        }
+        name="Task Config"
       >
         <TaskConfigTab execution={execution} taskId={id} />
       </Tab>

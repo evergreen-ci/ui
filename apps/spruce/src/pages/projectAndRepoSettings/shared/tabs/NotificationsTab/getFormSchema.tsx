@@ -146,14 +146,14 @@ export const getFormSchema = (
         "ui:addButtonText": "Add subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
-        items: {
-          "ui:displayTitle": "New Subscription",
+        items: (itemData?: { displayTitle?: string }) => ({
+          "ui:title": itemData?.displayTitle || "New Subscription",
           "ui:label": false,
           subscriptionData: {
             event: eventUiSchema,
             notification: notificationUiSchema,
           },
-        },
+        }),
       },
       repoData: {
         subscriptions: {
@@ -161,15 +161,16 @@ export const getFormSchema = (
           "ui:addable": false,
           "ui:orderable": false,
           "ui:readonly": true,
-          "ui:showLabel": false,
+          "ui:label": false,
           "ui:useExpandableCard": true,
-          items: {
+          items: (itemData?: { displayTitle?: string }) => ({
+            "ui:title": itemData?.displayTitle || "",
             "ui:label": false,
             subscriptionData: {
               event: eventUiSchema,
               notification: notificationUiSchema,
             },
-          },
+          }),
         },
       },
     },

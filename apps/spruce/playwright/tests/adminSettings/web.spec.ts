@@ -36,8 +36,15 @@ test.describe("web", () => {
     await gqlLimits.getByLabel("Service User Per Hour").fill("1000");
     await gqlLimits.getByLabel("Service User Burst").clear();
     await gqlLimits.getByLabel("Service User Burst").fill("200");
-    await page.getByLabel("Complexity Limit").clear();
-    await page.getByLabel("Complexity Limit").fill("500");
+    const gqlComplexity = page.getByTestId("graphql-complexity");
+    await gqlComplexity.getByLabel("Complexity Limit").clear();
+    await gqlComplexity.getByLabel("Complexity Limit").fill("500");
+    await gqlComplexity.getByLabel("Cumulative Complexity Per Hour").clear();
+    await gqlComplexity
+      .getByLabel("Cumulative Complexity Per Hour")
+      .fill("100000");
+    await gqlComplexity.getByLabel("Cumulative Complexity Burst").clear();
+    await gqlComplexity.getByLabel("Cumulative Complexity Burst").fill("10000");
     await page.getByTestId("elevated-user-ids").fill("user1");
     await page.getByTestId("elevated-user-ids").press("Enter");
     await page.getByTestId("elevated-user-ids").fill("user2");

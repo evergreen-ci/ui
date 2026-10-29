@@ -68,6 +68,9 @@ const getLatestTag = (app: DeployableApp, baseCommit: string = "") => {
       ...(baseCommit ? [baseCommit] : []),
     ];
     const latestTag = execFileTrim("git", args);
+    if (!tagIsValid(app, latestTag)) {
+      throw Error(`Invalid tag format: ${latestTag}`);
+    }
     return latestTag;
   } catch (err) {
     throw Error("Getting latest tag failed.", { cause: err });

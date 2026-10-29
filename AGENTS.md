@@ -120,16 +120,8 @@ interface ComponentNameProps {
 - Co-locate tests (`*.test.tsx`), stories (`*.stories.tsx`), and types
 - Use named exports (not default exports)
 
-### Styling with Emotion
-```typescript
-import styled from "@emotion/styled";
-import { size } from "constants/tokens";
-
-const StyledWrapper = styled.div`
-  padding: ${size.xs};
-  margin-bottom: ${size.s};
-`;
-```
+### Styling
+Use CSS Modules (`*.module.css`) for new components as the codebase is migrating away from Emotion.
 
 ### Naming Conventions
 - Components: PascalCase

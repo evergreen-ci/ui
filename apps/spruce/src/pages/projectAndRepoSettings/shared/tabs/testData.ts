@@ -73,6 +73,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     githubMQTriggerAliases: null,
     gitTagVersionsEnabled: null,
     runEveryMainlineCommit: null,
+    virtualTasksEnabled: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
     commitQueue: {
@@ -83,6 +84,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       allowed: null,
       defaultEnabled: null,
       mainlineDefaultEnabled: null,
+      quarantineJiraTicketsRequired: null,
     },
     buildBaronSettings: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -147,6 +149,9 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     taskOwnership: {
       defaultMothraTeam: "my-team",
       defaultMothraTeamForBreakingCommit: "other-team",
+      generatedTaskValidationPrefix: "prefix",
+      trackGeneratedTaskTagValidation: true,
+      blockTaskGenerationOnTagValidation: false,
     },
   },
   vars: {
@@ -245,6 +250,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     githubMQTriggerAliases: ["mq-alias"],
     gitTagVersionsEnabled: false,
     runEveryMainlineCommit: false,
+    virtualTasksEnabled: true,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
     githubDynamicTokenPermissionGroups: [
@@ -271,6 +277,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       allowed: true,
       defaultEnabled: true,
       mainlineDefaultEnabled: true,
+      quarantineJiraTicketsRequired: true,
     },
     buildBaronSettings: {
       ticketCreateProject: "EVG",
@@ -369,6 +376,9 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     taskOwnership: {
       defaultMothraTeam: "my-team",
       defaultMothraTeamForBreakingCommit: "other-team",
+      generatedTaskValidationPrefix: "prefix",
+      trackGeneratedTaskTagValidation: true,
+      blockTaskGenerationOnTagValidation: false,
     },
   },
   vars: {

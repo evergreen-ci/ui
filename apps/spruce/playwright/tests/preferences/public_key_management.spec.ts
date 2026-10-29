@@ -60,8 +60,8 @@ test.describe("Public Key Management Page", () => {
       await page.getByTestId("add-key-button").click();
     });
 
-    test("displays errors when the modal opens", async ({ page }) => {
-      await expect(page.getByText(invalidSSHPublicKeyError)).toBeVisible();
+    test("does not display errors when the modal opens", async ({ page }) => {
+      await expect(page.getByText(invalidSSHPublicKeyError)).toHaveCount(0);
     });
 
     test("error messages go away after typing valid input", async ({

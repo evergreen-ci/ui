@@ -39,11 +39,12 @@ const taskEventLogsMock: ApolloMock<
   },
 };
 
-const renderLogs = (isDisplayTask: boolean) => {
+const renderLogs = (isDisplayTask: boolean, hideHostLogs = false) => {
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={[taskEventLogsMock]}>
       <Logs
         execution={execution}
+        hideHostLogs={hideHostLogs}
         isDisplayTask={isDisplayTask}
         logLinks={{} as TaskLogLinks}
         taskId={taskId}
@@ -73,5 +74,14 @@ describe("logs", () => {
     expect(screen.queryByText("Agent Logs")).toBeNull();
     expect(screen.queryByText("System Logs")).toBeNull();
     expect(screen.queryByText("Combined")).toBeNull();
+  });
+
+  it("hides agent and system logs for a push-completed virtual task, since it did not run on a host", () => {
+    renderLogs(false, true);
+    expect(screen.getByText("Task Logs")).toBeInTheDocument();
+    expect(screen.getByText("Event Logs")).toBeInTheDocument();
+    expect(screen.getByText("Combined")).toBeInTheDocument();
+    expect(screen.queryByText("Agent Logs")).toBeNull();
+    expect(screen.queryByText("System Logs")).toBeNull();
   });
 });

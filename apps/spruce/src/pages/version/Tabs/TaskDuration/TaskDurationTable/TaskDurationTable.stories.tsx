@@ -1,4 +1,5 @@
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { TaskDurationData } from "./types";
 import TaskDurationTable from ".";
 
 export default {
@@ -8,6 +9,7 @@ export default {
 export const Default: CustomStoryObj<typeof TaskDurationTable> = {
   render: () => (
     <TaskDurationTable
+      isPatch
       loading={false}
       numLoadingRows={10}
       tasks={props.tasks}
@@ -18,9 +20,21 @@ export const Default: CustomStoryObj<typeof TaskDurationTable> = {
 export const LongContent: CustomStoryObj<typeof TaskDurationTable> = {
   render: () => (
     <TaskDurationTable
+      isPatch
       loading={false}
       numLoadingRows={10}
       tasks={props.tasksLong}
+    />
+  ),
+};
+
+export const PreviousVersion: CustomStoryObj<typeof TaskDurationTable> = {
+  render: () => (
+    <TaskDurationTable
+      isPatch={false}
+      loading={false}
+      numLoadingRows={10}
+      tasks={props.tasks}
     />
   ),
 };
@@ -61,6 +75,13 @@ const props = {
           status: "failed",
           displayStatus: "failed",
           timeTaken: 1417378,
+          baseTask: {
+            id: "base_sharding_last_continuous_01",
+            displayStatus: "success",
+            execution: 0,
+            finishTime: new Date("2023-10-09T15:00:00Z"),
+            timeTaken: 1200000,
+          },
         },
         {
           buildVariantDisplayName:
@@ -171,6 +192,13 @@ const props = {
         },
       ],
       timeTaken: 15701302,
+      baseTask: {
+        id: "base_sharding_multiversion",
+        displayStatus: "success",
+        execution: 0,
+        finishTime: new Date("2023-10-09T15:00:00Z"),
+        timeTaken: 12000000,
+      },
     },
   ],
   tasks: [
@@ -210,6 +238,13 @@ const props = {
       status: "failed",
       displayStatus: "failed",
       timeTaken: 4840547,
+      baseTask: {
+        id: "base_test_model_distro",
+        displayStatus: "success",
+        execution: 1,
+        finishTime: new Date("2023-01-04T15:00:00Z"),
+        timeTaken: 3600000,
+      },
     },
     {
       id: "evg_ubuntu1604_container_test_rest_data_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
@@ -222,6 +257,13 @@ const props = {
       status: "failed",
       displayStatus: "system-failed",
       timeTaken: 4840553,
+      baseTask: {
+        id: "base_test_rest_data",
+        displayStatus: "failed",
+        execution: 0,
+        finishTime: new Date("2023-01-04T15:00:00Z"),
+        timeTaken: 5400000,
+      },
     },
     {
       id: "evg_ubuntu1604_container_test_agent_internal_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
@@ -321,4 +363,39 @@ const props = {
     },
   ],
   loading: false,
+};
+
+const differenceTasks: TaskDurationData[] = [
+  { displayName: "longer", current: 120000, base: 100000 },
+  { displayName: "shorter", current: 80000, base: 100000 },
+  { displayName: "within_ten_percent", current: 109000, base: 100000 },
+  { displayName: "within_five_seconds", current: 2000, base: 1000 },
+  { displayName: "equal", current: 100000, base: 100000 },
+].map(({ base, current, displayName }) => ({
+  id: displayName,
+  displayName,
+  displayStatus: "success",
+  buildVariantDisplayName: "Ubuntu 16.04",
+  buildVariant: "ubuntu1604",
+  execution: 0,
+  finishTime: new Date("2023-01-04T16:00:00Z"),
+  timeTaken: current,
+  baseTask: {
+    id: `base_${displayName}`,
+    displayStatus: "success",
+    execution: 0,
+    finishTime: new Date("2023-01-04T15:00:00Z"),
+    timeTaken: base,
+  },
+}));
+
+export const DurationDifferences: CustomStoryObj<typeof TaskDurationTable> = {
+  render: () => (
+    <TaskDurationTable
+      isPatch
+      loading={false}
+      numLoadingRows={10}
+      tasks={differenceTasks}
+    />
+  ),
 };

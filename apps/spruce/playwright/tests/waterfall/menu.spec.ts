@@ -1,6 +1,5 @@
 import { expect, test } from "../../fixtures";
 import {
-  clickCheckbox,
   mockGraphQLResponse,
   selectOption,
   validateToast,
@@ -15,18 +14,19 @@ test.describe("Waterfall menu settings", () => {
     page,
   }) => {
     await page.getByTestId("waterfall-menu").click();
-    const omitInactiveBuildsCheckbox = page.getByRole("checkbox", {
-      name: "Omit inactive builds",
+    const omitInactiveBuildsItem = page.getByRole("menuitem", {
+      name: "Omit inactive builds: off",
     });
-    await expect(omitInactiveBuildsCheckbox).not.toBeChecked();
-    await clickCheckbox(omitInactiveBuildsCheckbox);
-    await expect(omitInactiveBuildsCheckbox).toBeChecked();
+    await omitInactiveBuildsItem.click();
 
     await page.reload();
     await page.getByTestId("waterfall-menu").click();
-    await expect(omitInactiveBuildsCheckbox).toBeChecked();
+    const selectedOmitInactiveBuildsItem = page.getByRole("menuitem", {
+      name: "Omit inactive builds: on",
+    });
+    await expect(selectedOmitInactiveBuildsItem).toBeVisible();
 
-    await clickCheckbox(omitInactiveBuildsCheckbox);
+    await selectedOmitInactiveBuildsItem.click();
   });
 
   test("omits inactive build variants when filter is applied and setting is enabled", async ({
@@ -38,10 +38,10 @@ test.describe("Waterfall menu settings", () => {
 
     await page.getByTestId("waterfall-menu").click();
 
-    const omitInactiveBuildsCheckbox = page.getByRole("checkbox", {
-      name: "Omit inactive builds",
+    const omitInactiveBuildsItem = page.getByRole("menuitem", {
+      name: "Omit inactive builds: off",
     });
-    await clickCheckbox(omitInactiveBuildsCheckbox);
+    await omitInactiveBuildsItem.click();
     await page.locator("body").click();
 
     await page.getByTestId("build-variant-filter-input").clear();
@@ -52,7 +52,9 @@ test.describe("Waterfall menu settings", () => {
     expect(count).toBeGreaterThanOrEqual(1);
 
     await page.getByTestId("waterfall-menu").click();
-    await clickCheckbox(omitInactiveBuildsCheckbox);
+    await page
+      .getByRole("menuitem", { name: "Omit inactive builds: on" })
+      .click();
   });
 });
 
@@ -92,6 +94,7 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(modalTestId)).toBeVisible();
 
     await selectOption(page, "Event", "Any build finishes");
+    await selectOption(page, "Notification Method", "JIRA issue");
     await page.getByTestId("add-button").click();
 
     const saveButton = page.getByRole("button", { name: "Save" });
@@ -127,6 +130,7 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(modalTestId)).toBeVisible();
 
     await selectOption(page, "Event", "Any version finishes");
+    await selectOption(page, "Notification Method", "JIRA issue");
     await page.getByTestId("jira-comment-input").fill("EVG-2000");
     await page.getByRole("button", { name: "Save" }).click();
     await validateToast(page, "error", "Error adding your subscription");
@@ -152,7 +156,7 @@ test.describe("Waterfall subscription modal", () => {
       },
       {
         name: "subscription-method",
-        value: "slack",
+        value: "email",
         domain: "localhost",
         path: "/",
       },
@@ -164,7 +168,7 @@ test.describe("Waterfall subscription modal", () => {
     await expect(page.getByTestId(modalTestId)).toBeVisible();
     await expect(page.getByText("Any build fails")).toBeVisible();
     await expect(
-      page.getByTestId("notification-method-select").getByText("Slack message"),
+      page.getByTestId("notification-method-select").getByText("Email"),
     ).toBeVisible();
   });
 });

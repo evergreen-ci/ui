@@ -1,6 +1,7 @@
 import { validators } from "utils";
 
 const {
+  validateCron,
   validateDuration,
   validateEmail,
   validateJira,
@@ -15,11 +16,12 @@ const {
   validateURLTemplate,
 } = validators;
 
-export const customFormats = (jiraHost: string) => ({
+export const customFormats = (jiraHost = "") => ({
   noSpecialCharacters: validateNoSpecialCharacters,
   // Permit empty string but disallow whitespace
   noSpaces: /^$|^\S+$/,
   noStartingOrTrailingWhitespace: validateNoStartingOrTrailingWhitespace,
+  validCron: validateCron,
   validDuration: validateDuration,
   validEmail: validateEmail,
   validJiraTicket: validateJira,

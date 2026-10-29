@@ -11,6 +11,9 @@ const formData: TestSelectionFormState = {
     defaultEnabled: true,
     mainlineDefaultEnabled: false,
   },
+  quarantine: {
+    jiraTicketsRequired: false,
+  },
 };
 
 const renderForm = (canEnableTaskLevel: boolean, canEnableMainline = true) => {
@@ -45,6 +48,17 @@ describe("getFormSchema", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText("Run Test Selection on Mainline"),
+    ).toBeInTheDocument();
+  });
+
+  it("renders the quarantine Jira ticket setting in its own card", () => {
+    renderForm(true);
+
+    expect(
+      screen.getByRole("heading", { name: "Quarantine" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Require Existing Jira Tickets When Quarantining Tests"),
     ).toBeInTheDocument();
   });
 

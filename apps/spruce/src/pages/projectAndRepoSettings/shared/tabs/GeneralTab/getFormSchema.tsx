@@ -255,6 +255,21 @@ export const getFormSchema = (
               },
             },
           },
+          virtualTasks: {
+            type: "object" as const,
+            title: "Virtual Task Settings",
+            properties: {
+              virtualTasksEnabled: {
+                type: ["boolean", "null"],
+                title: "Virtual Tasks",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.virtualTasks?.virtualTasksEnabled,
+                ),
+              },
+            },
+          },
         },
       },
       historicalTaskDataCaching: {
@@ -331,12 +346,12 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       enabled: {
         "ui:widget": widgets.RadioBoxWidget,
-        "ui:showLabel": false,
+        "ui:label": false,
         "ui:data-testid": "enabled-radio-box",
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
-        options: {
+        "ui:options": {
           initialOwner,
           initialRepo,
           projectId,
@@ -441,8 +456,8 @@ export const getFormSchema = (
         },
         forceRun: {
           "ui:field": "repotrackerField",
-          "ui:showLabel": false,
-          options: { projectId },
+          "ui:label": false,
+          "ui:options": { projectId },
         },
         runEveryMainlineCommit: {
           "ui:data-testid": "run-every-mainline-commit-radio-box",
@@ -474,14 +489,22 @@ export const getFormSchema = (
         },
         deactivateStepback: {
           "ui:field": "deactivateStepbackTask",
-          "ui:showLabel": false,
-          options: { projectId },
+          "ui:label": false,
+          "ui:options": { projectId },
         },
       },
       patch: {
         patchingDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:showLabel": false,
+          "ui:label": false,
+        },
+      },
+      virtualTasks: {
+        virtualTasksEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:data-testid": "virtual-tasks-enabled-radio-box",
+          "ui:description":
+            "Sets if tasks in this project can be defined as virtual tasks, which can have their results pushed by another task instead of running on a host.",
         },
       },
     },
@@ -509,8 +532,8 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       deleteProject: {
         "ui:field": "deleteProjectField",
-        "ui:showLabel": false,
-        options: { projectId },
+        "ui:label": false,
+        "ui:options": { projectId },
       },
     },
   },

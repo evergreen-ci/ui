@@ -43,6 +43,11 @@ export const ui = {
       title: "Parsley URL",
       format: "validURL",
     },
+    logUrl: {
+      type: "string" as const,
+      title: "Log URL",
+      format: "validURL",
+    },
     fileStreamingContentTypes: {
       type: "array" as const,
       title: "File Streaming Content Types",
@@ -98,6 +103,19 @@ export const ui = {
     },
   },
   uiSchema: {
+    url: {
+      "ui:description":
+        "The non-corpsecure backend URL to handle Okta login flow.",
+    },
+    uiv2Url: {
+      "ui:description": "The corpsecure URL for Spruce.",
+    },
+    parsleyUrl: {
+      "ui:description": "The corpsecure URL for Parsley.",
+    },
+    logUrl: {
+      "ui:description": "The backend URL from which to fetch logs.",
+    },
     fileStreamingContentTypes: {
       "ui:fieldCss": fullWidthCss,
       "ui:widget": widgets.ChipInputWidget,
@@ -209,6 +227,14 @@ export const rateLimitConfig = {
           type: "number" as const,
           title: "Complexity Limit",
         },
+        graphqlComplexityPerHour: {
+          type: "number" as const,
+          title: "Cumulative Complexity Per Hour",
+        },
+        graphqlComplexityBurst: {
+          type: "number" as const,
+          title: "Cumulative Complexity Burst",
+        },
       },
     },
     elevatedUsers: {
@@ -268,8 +294,9 @@ export const rateLimitConfig = {
       "ui:fieldCss": nestedObjectGridCss,
     },
     graphqlComplexity: {
+      "ui:data-testid": "graphql-complexity",
       "ui:description":
-        "Prevent expensive queries from being executed by blocking queries beyond the complexity limit (see https://gqlgen.com/reference/complexity).",
+        "Prevent expensive queries from being executed by blocking queries beyond the complexity limit (see https://gqlgen.com/reference/complexity). Each user's cumulative query complexity is also charged against an hourly budget; the burst limit cannot exceed the per hour limit.",
       "ui:fieldCss": nestedObjectGridCss,
     },
     elevatedUsers: {

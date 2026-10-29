@@ -120,6 +120,10 @@ export const ADMIN_SETTINGS = gql`
         longRetentionProjects
         retryFailedLogMoveLookbackDays
         retryFailedLogMoveMaxJobsPerRun
+        sourceCacheBucket {
+          name
+          roleARN
+        }
         testResultsBucket {
           name
           roleARN
@@ -251,7 +255,6 @@ export const ADMIN_SETTINGS = gql`
           repo
         }
         repoProjectLimit
-        totalProjectLimit
       }
 
       providers {
@@ -297,7 +300,9 @@ export const ADMIN_SETTINGS = gql`
       rateLimit {
         elevatedUserIds
         exemptUserIds
+        graphqlComplexityBurst
         graphqlComplexityLimit
+        graphqlComplexityPerHour
         graphqlServiceBurst
         graphqlServicePerHour
         graphqlUserBurst
@@ -444,6 +449,7 @@ export const ADMIN_SETTINGS = gql`
         fileStreamingContentTypes
         httpListenAddr
         loginDomain
+        logUrl
         parsleyUrl
         secret
         stagingEnvironment

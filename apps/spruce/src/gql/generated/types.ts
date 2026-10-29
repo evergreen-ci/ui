@@ -506,6 +506,7 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   sourceCacheBucket?: Maybe<BucketConfig>;
+  sourceCacheOptOutProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -520,6 +521,7 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   sourceCacheBucket?: InputMaybe<BucketConfigInput>;
+  sourceCacheOptOutProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -864,6 +866,7 @@ export type Distro = {
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
+  isIaCManaged: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   isWindows: Scalars["Boolean"]["output"];
   mountpoints: Array<Scalars["String"]["output"]>;
@@ -926,6 +929,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
+  isIaCManaged?: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints: Array<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
@@ -1871,10 +1875,12 @@ export type MainlineCommitsOptions = {
 export type Manifest = {
   __typename?: "Manifest";
   branch: Scalars["String"]["output"];
+  changedModules?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   isBase: Scalars["Boolean"]["output"];
   moduleOverrides?: Maybe<Scalars["StringMap"]["output"]>;
   modules?: Maybe<Scalars["Map"]["output"]>;
+  previousVersionId?: Maybe<Scalars["String"]["output"]>;
   project: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
 };
@@ -2181,6 +2187,7 @@ export type MutationRestartJasperArgs = {
 };
 
 export type MutationRestartTaskArgs = {
+  executionTaskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   failedOnly: Scalars["Boolean"]["input"];
   taskId: Scalars["String"]["input"];
 };
@@ -2865,13 +2872,11 @@ export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
-  totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
-  totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type ProjectEventLogEntry = {
@@ -3136,6 +3141,8 @@ export type QuarantineTaskInput = {
 };
 
 export type QuarantineTestInput = {
+  existingJiraTicketsToLink?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  justification?: InputMaybe<Scalars["String"]["input"]>;
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
 };
@@ -3339,7 +3346,9 @@ export type RateLimitConfig = {
   __typename?: "RateLimitConfig";
   elevatedUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
   exemptUserIds?: Maybe<Array<Scalars["String"]["output"]>>;
+  graphqlComplexityBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlComplexityLimit?: Maybe<Scalars["Int"]["output"]>;
+  graphqlComplexityPerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlServiceBurst?: Maybe<Scalars["Int"]["output"]>;
   graphqlServicePerHour?: Maybe<Scalars["Int"]["output"]>;
   graphqlUserBurst?: Maybe<Scalars["Int"]["output"]>;
@@ -3353,7 +3362,9 @@ export type RateLimitConfig = {
 export type RateLimitConfigInput = {
   elevatedUserIds: Array<Scalars["String"]["input"]>;
   exemptUserIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  graphqlComplexityBurst: Scalars["Int"]["input"];
   graphqlComplexityLimit: Scalars["Int"]["input"];
+  graphqlComplexityPerHour: Scalars["Int"]["input"];
   graphqlServiceBurst: Scalars["Int"]["input"];
   graphqlServicePerHour: Scalars["Int"]["input"];
   graphqlUserBurst: Scalars["Int"]["input"];
@@ -3546,8 +3557,11 @@ export type RepoSettingsInput = {
 
 export type RepoTaskOwnershipSettings = {
   __typename?: "RepoTaskOwnershipSettings";
+  blockTaskGenerationOnTagValidation: Scalars["Boolean"]["output"];
   defaultMothraTeam: Scalars["String"]["output"];
   defaultMothraTeamForBreakingCommit: Scalars["String"]["output"];
+  generatedTaskValidationPrefix: Scalars["String"]["output"];
+  trackGeneratedTaskTagValidation: Scalars["Boolean"]["output"];
 };
 
 export type RepoTestSelectionSettings = {
@@ -3555,6 +3569,7 @@ export type RepoTestSelectionSettings = {
   allowed: Scalars["Boolean"]["output"];
   defaultEnabled: Scalars["Boolean"]["output"];
   mainlineDefaultEnabled: Scalars["Boolean"]["output"];
+  quarantineJiraTicketsRequired: Scalars["Boolean"]["output"];
 };
 
 export type RepoWorkstationConfig = {
@@ -4156,6 +4171,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
+  completedBy?: Maybe<Scalars["String"]["output"]>;
   config?: Maybe<TaskConfig>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
@@ -4195,6 +4211,7 @@ export type Task = {
   invalidatedByUpstream?: Maybe<Scalars["Boolean"]["output"]>;
   isAutomaticRestart: Scalars["Boolean"]["output"];
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
+  isVirtual: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"]["output"];
@@ -4496,13 +4513,19 @@ export type TaskOwnerTeam = {
 
 export type TaskOwnershipSettings = {
   __typename?: "TaskOwnershipSettings";
+  blockTaskGenerationOnTagValidation?: Maybe<Scalars["Boolean"]["output"]>;
   defaultMothraTeam?: Maybe<Scalars["String"]["output"]>;
   defaultMothraTeamForBreakingCommit?: Maybe<Scalars["String"]["output"]>;
+  generatedTaskValidationPrefix?: Maybe<Scalars["String"]["output"]>;
+  trackGeneratedTaskTagValidation?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TaskOwnershipSettingsInput = {
+  blockTaskGenerationOnTagValidation?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultMothraTeam?: InputMaybe<Scalars["String"]["input"]>;
   defaultMothraTeamForBreakingCommit?: InputMaybe<Scalars["String"]["input"]>;
+  generatedTaskValidationPrefix?: InputMaybe<Scalars["String"]["input"]>;
+  trackGeneratedTaskTagValidation?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type TaskPriority = {
@@ -4699,12 +4722,14 @@ export type TestSelectionSettings = {
   allowed?: Maybe<Scalars["Boolean"]["output"]>;
   defaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   mainlineDefaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  quarantineJiraTicketsRequired?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TestSelectionSettingsInput = {
   allowed?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   mainlineDefaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  quarantineJiraTicketsRequired?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum TestSortCategory {
@@ -4800,6 +4825,15 @@ export type TriggerConfigInput = {
   generateTaskDistro: Scalars["String"]["input"];
 };
 
+export type TriggerModule = {
+  __typename?: "TriggerModule";
+  branch: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  owner: Scalars["String"]["output"];
+  repo: Scalars["String"]["output"];
+  revision: Scalars["String"]["output"];
+};
+
 export type UiConfig = {
   __typename?: "UIConfig";
   betaFeatures: BetaFeatures;
@@ -4809,6 +4843,7 @@ export type UiConfig = {
   defaultProject: Scalars["String"]["output"];
   fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
   httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  logUrl?: Maybe<Scalars["String"]["output"]>;
   loginDomain?: Maybe<Scalars["String"]["output"]>;
   parsleyUrl?: Maybe<Scalars["String"]["output"]>;
   secret?: Maybe<Scalars["String"]["output"]>;
@@ -4826,6 +4861,7 @@ export type UiConfigInput = {
   defaultProject: Scalars["String"]["input"];
   fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
   httpListenAddr: Scalars["String"]["input"];
+  logUrl?: InputMaybe<Scalars["String"]["input"]>;
   loginDomain: Scalars["String"]["input"];
   parsleyUrl: Scalars["String"]["input"];
   secret: Scalars["String"]["input"];
@@ -5042,6 +5078,7 @@ export type Version = {
   taskStatusStats?: Maybe<TaskStats>;
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
+  triggerModule?: Maybe<TriggerModule>;
   upstreamProject?: Maybe<UpstreamProject>;
   user: User;
   versionTiming?: Maybe<VersionTiming>;
@@ -5553,6 +5590,7 @@ export type ProjectGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
   versionControlEnabled?: boolean | null;
+  virtualTasksEnabled?: boolean | null;
   waterfallDisabled?: boolean | null;
 };
 
@@ -5576,6 +5614,7 @@ export type RepoGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
+  virtualTasksEnabled?: boolean | null;
   waterfallDisabled: boolean;
 };
 
@@ -5755,6 +5794,7 @@ export type ProjectSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
@@ -5819,14 +5859,18 @@ export type ProjectSettingsFieldsFragment = {
     };
     taskOwnership?: {
       __typename?: "TaskOwnershipSettings";
+      blockTaskGenerationOnTagValidation?: boolean | null;
       defaultMothraTeam?: string | null;
       defaultMothraTeamForBreakingCommit?: string | null;
+      generatedTaskValidationPrefix?: string | null;
+      trackGeneratedTaskTagValidation?: boolean | null;
     } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
       mainlineDefaultEnabled?: boolean | null;
+      quarantineJiraTicketsRequired?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -5972,6 +6016,7 @@ export type RepoSettingsFieldsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled: boolean;
     notifyOnBuildFailure: boolean;
     githubMQTriggerAliases?: Array<string> | null;
@@ -6035,14 +6080,18 @@ export type RepoSettingsFieldsFragment = {
     };
     taskOwnership?: {
       __typename?: "RepoTaskOwnershipSettings";
+      blockTaskGenerationOnTagValidation: boolean;
       defaultMothraTeam: string;
       defaultMothraTeamForBreakingCommit: string;
+      generatedTaskValidationPrefix: string;
+      trackGeneratedTaskTagValidation: boolean;
     } | null;
     testSelection?: {
       __typename?: "RepoTestSelectionSettings";
       allowed: boolean;
       defaultEnabled: boolean;
       mainlineDefaultEnabled: boolean;
+      quarantineJiraTicketsRequired: boolean;
     } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -6384,6 +6433,7 @@ export type ProjectEventSettingsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
+    virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubMQTriggerAliases?: Array<string> | null;
@@ -6448,14 +6498,18 @@ export type ProjectEventSettingsFragment = {
     };
     taskOwnership?: {
       __typename?: "TaskOwnershipSettings";
+      blockTaskGenerationOnTagValidation?: boolean | null;
       defaultMothraTeam?: string | null;
       defaultMothraTeamForBreakingCommit?: string | null;
+      generatedTaskValidationPrefix?: string | null;
+      trackGeneratedTaskTagValidation?: boolean | null;
     } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
       mainlineDefaultEnabled?: boolean | null;
+      quarantineJiraTicketsRequired?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6600,8 +6654,11 @@ export type ProjectTaskOwnershipAndFoliageSettingsFragment = {
   id: string;
   taskOwnership?: {
     __typename?: "TaskOwnershipSettings";
+    blockTaskGenerationOnTagValidation?: boolean | null;
     defaultMothraTeam?: string | null;
     defaultMothraTeamForBreakingCommit?: string | null;
+    generatedTaskValidationPrefix?: string | null;
+    trackGeneratedTaskTagValidation?: boolean | null;
   } | null;
 };
 
@@ -6610,8 +6667,11 @@ export type RepoTaskOwnershipAndFoliageSettingsFragment = {
   id: string;
   taskOwnership?: {
     __typename?: "RepoTaskOwnershipSettings";
+    blockTaskGenerationOnTagValidation: boolean;
     defaultMothraTeam: string;
     defaultMothraTeamForBreakingCommit: string;
+    generatedTaskValidationPrefix: string;
+    trackGeneratedTaskTagValidation: boolean;
   } | null;
 };
 
@@ -6623,6 +6683,7 @@ export type ProjectTestSelectionSettingsFragment = {
     allowed?: boolean | null;
     defaultEnabled?: boolean | null;
     mainlineDefaultEnabled?: boolean | null;
+    quarantineJiraTicketsRequired?: boolean | null;
   } | null;
 };
 
@@ -6634,6 +6695,7 @@ export type RepoTestSelectionSettingsFragment = {
     allowed: boolean;
     defaultEnabled: boolean;
     mainlineDefaultEnabled: boolean;
+    quarantineJiraTicketsRequired: boolean;
   } | null;
 };
 
@@ -7073,6 +7135,8 @@ export type PromoteVarsToRepoMutation = {
 export type QuarantineTestMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
+  existingJiraTicketsToLink?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  justification?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type QuarantineTestMutation = {
@@ -7353,6 +7417,7 @@ export type SaveAdminSettingsMutation = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;
@@ -7872,6 +7937,11 @@ export type AdminSettingsQuery = {
         transitionToGlacierDays?: number | null;
         transitionToIADays?: number | null;
       } | null;
+      sourceCacheBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+      } | null;
       testResultsBucket?: {
         __typename?: "BucketConfig";
         name?: string | null;
@@ -8007,7 +8077,6 @@ export type AdminSettingsQuery = {
     projectCreation?: {
       __typename?: "ProjectCreationConfig";
       repoProjectLimit?: number | null;
-      totalProjectLimit?: number | null;
       repoExceptions: Array<{
         __typename?: "OwnerRepo";
         owner: string;
@@ -8062,7 +8131,9 @@ export type AdminSettingsQuery = {
       __typename?: "RateLimitConfig";
       elevatedUserIds?: Array<string> | null;
       exemptUserIds?: Array<string> | null;
+      graphqlComplexityBurst?: number | null;
       graphqlComplexityLimit?: number | null;
+      graphqlComplexityPerHour?: number | null;
       graphqlServiceBurst?: number | null;
       graphqlServicePerHour?: number | null;
       graphqlUserBurst?: number | null;
@@ -8219,6 +8290,7 @@ export type AdminSettingsQuery = {
       fileStreamingContentTypes: Array<string>;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
+      logUrl?: string | null;
       parsleyUrl?: string | null;
       secret?: string | null;
       stagingEnvironment?: string | null;
@@ -8593,6 +8665,7 @@ export type DistroQuery = {
     execUser: string;
     imageId: string;
     isCluster: boolean;
+    isIaCManaged: boolean;
     isVirtualWorkStation: boolean;
     mountpoints: Array<string>;
     name: string;
@@ -9511,6 +9584,7 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -9575,14 +9649,18 @@ export type ProjectEventLogsQuery = {
           };
           taskOwnership?: {
             __typename?: "TaskOwnershipSettings";
+            blockTaskGenerationOnTagValidation?: boolean | null;
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            generatedTaskValidationPrefix?: string | null;
+            trackGeneratedTaskTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -9742,6 +9820,7 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -9806,14 +9885,18 @@ export type ProjectEventLogsQuery = {
           };
           taskOwnership?: {
             __typename?: "TaskOwnershipSettings";
+            blockTaskGenerationOnTagValidation?: boolean | null;
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            generatedTaskValidationPrefix?: string | null;
+            trackGeneratedTaskTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10038,6 +10121,7 @@ export type ProjectSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
+      virtualTasksEnabled?: boolean | null;
       waterfallDisabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
       githubMQTriggerAliases?: Array<string> | null;
@@ -10102,14 +10186,18 @@ export type ProjectSettingsQuery = {
       };
       taskOwnership?: {
         __typename?: "TaskOwnershipSettings";
+        blockTaskGenerationOnTagValidation?: boolean | null;
         defaultMothraTeam?: string | null;
         defaultMothraTeamForBreakingCommit?: string | null;
+        generatedTaskValidationPrefix?: string | null;
+        trackGeneratedTaskTagValidation?: boolean | null;
       } | null;
       testSelection?: {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
         defaultEnabled?: boolean | null;
         mainlineDefaultEnabled?: boolean | null;
+        quarantineJiraTicketsRequired?: boolean | null;
       } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -10317,6 +10405,7 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10381,14 +10470,18 @@ export type RepoEventLogsQuery = {
           };
           taskOwnership?: {
             __typename?: "TaskOwnershipSettings";
+            blockTaskGenerationOnTagValidation?: boolean | null;
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            generatedTaskValidationPrefix?: string | null;
+            trackGeneratedTaskTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10548,6 +10641,7 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           versionControlEnabled?: boolean | null;
+          virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubMQTriggerAliases?: Array<string> | null;
@@ -10612,14 +10706,18 @@ export type RepoEventLogsQuery = {
           };
           taskOwnership?: {
             __typename?: "TaskOwnershipSettings";
+            blockTaskGenerationOnTagValidation?: boolean | null;
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            generatedTaskValidationPrefix?: string | null;
+            trackGeneratedTaskTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10785,6 +10883,7 @@ export type RepoSettingsQuery = {
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
+      virtualTasksEnabled?: boolean | null;
       waterfallDisabled: boolean;
       notifyOnBuildFailure: boolean;
       githubMQTriggerAliases?: Array<string> | null;
@@ -10848,14 +10947,18 @@ export type RepoSettingsQuery = {
       };
       taskOwnership?: {
         __typename?: "RepoTaskOwnershipSettings";
+        blockTaskGenerationOnTagValidation: boolean;
         defaultMothraTeam: string;
         defaultMothraTeamForBreakingCommit: string;
+        generatedTaskValidationPrefix: string;
+        trackGeneratedTaskTagValidation: boolean;
       } | null;
       testSelection?: {
         __typename?: "RepoTestSelectionSettings";
         allowed: boolean;
         defaultEnabled: boolean;
         mainlineDefaultEnabled: boolean;
+        quarantineJiraTicketsRequired: boolean;
       } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";
@@ -11190,6 +11293,20 @@ export type TaskAllExecutionsQuery = {
     execution: number;
     ingestTime?: Date | null;
   }>;
+};
+
+export type TaskCompletedByQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+}>;
+
+export type TaskCompletedByQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    displayName: string;
+    execution: number;
+  } | null;
 };
 
 export type TaskConfigQueryVariables = Exact<{
@@ -11669,6 +11786,7 @@ export type TaskQuery = {
     canSchedule: boolean;
     canSetPriority: boolean;
     canUnschedule: boolean;
+    completedBy?: string | null;
     displayOnly?: boolean | null;
     distroId: string;
     errors?: Array<string> | null;
@@ -11682,6 +11800,7 @@ export type TaskQuery = {
     imageId: string;
     ingestTime?: Date | null;
     invalidatedByUpstream?: boolean | null;
+    isVirtual: boolean;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
@@ -11849,6 +11968,7 @@ export type TaskQuery = {
       testSelection?: {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
+        quarantineJiraTicketsRequired?: boolean | null;
       } | null;
     } | null;
     stepbackInfo?: {
@@ -12228,6 +12348,7 @@ export type VersionTaskDurationsQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    isPatch: boolean;
     childVersions?: Array<{
       __typename?: "Version";
       id: string;
@@ -12253,6 +12374,14 @@ export type VersionTaskDurationsQuery = {
         finishTime?: Date | null;
         startTime?: Date | null;
         timeTaken?: number | null;
+        baseTask?: {
+          __typename?: "Task";
+          id: string;
+          displayStatus: string;
+          execution: number;
+          finishTime?: Date | null;
+          timeTaken?: number | null;
+        } | null;
         subRows?: Array<{
           __typename?: "Task";
           id: string;
@@ -12260,8 +12389,17 @@ export type VersionTaskDurationsQuery = {
           displayName: string;
           displayStatus: string;
           execution: number;
+          finishTime?: Date | null;
           startTime?: Date | null;
           timeTaken?: number | null;
+          baseTask?: {
+            __typename?: "Task";
+            id: string;
+            displayStatus: string;
+            execution: number;
+            finishTime?: Date | null;
+            timeTaken?: number | null;
+          } | null;
         }> | null;
       }>;
     };

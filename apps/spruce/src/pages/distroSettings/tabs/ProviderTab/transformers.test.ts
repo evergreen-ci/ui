@@ -313,6 +313,15 @@ describe("provider tab", () => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(formToGql(ec2Form, ec2FleetDistroData)).toStrictEqual(ec2Gql);
     });
+
+    it("sends no provider settings when the form has none", () => {
+      const { ec2FleetProviderSettings, ...formWithoutSettings } = ec2Form;
+      expect(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        formToGql(formWithoutSettings, ec2FleetDistroData)
+          ?.providerSettingsList,
+      ).toStrictEqual([]);
+    });
   });
 
   describe("ec2 fleet provider with task host overrides", () => {

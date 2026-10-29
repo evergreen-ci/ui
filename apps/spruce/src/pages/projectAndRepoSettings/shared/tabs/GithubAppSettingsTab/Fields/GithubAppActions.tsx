@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client/react";
 import { Banner, Variant as BannerVariant } from "@leafygreen-ui/banner";
 import { Button } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { Field } from "@rjsf/core";
+import { Field } from "@rjsf/utils";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SpruceForm } from "components/SpruceForm";
@@ -188,9 +188,8 @@ const ReplaceAppCredentialsButton: React.FC<{
 };
 
 const GithubAppActions: Field = ({ disabled, uiSchema }) => {
-  const {
-    options: { defaultsToRepo, isAppDefined, isRepo, projectOrRepoId },
-  } = uiSchema;
+  const { defaultsToRepo, isAppDefined, isRepo, projectOrRepoId } =
+    uiSchema?.["ui:options"] ?? {};
 
   const { getTab } = useProjectSettingsContext();
   const { formData } = getTab(ProjectSettingsTabRoutes.GithubAppSettings);
@@ -208,7 +207,7 @@ const GithubAppActions: Field = ({ disabled, uiSchema }) => {
 
   return isAppDefined ? (
     <ReplaceAppCredentialsButton
-      disabled={disabled}
+      disabled={disabled ?? false}
       githubPermissionGroupByRequester={githubPermissionGroupByRequester}
       isRepo={isRepo}
       projectId={projectOrRepoId}

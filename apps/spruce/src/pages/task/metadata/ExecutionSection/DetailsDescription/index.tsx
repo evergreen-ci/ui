@@ -11,13 +11,19 @@ const { red } = palette;
 
 const MAX_CHAR = 100;
 
-export const DetailsDescription = ({ details }: { details: TaskEndDetail }) => {
+export const DetailsDescription = ({
+  details,
+  isPushCompleted = false,
+}: {
+  details: TaskEndDetail;
+  isPushCompleted?: boolean;
+}) => {
   const { description, failingCommand, otherFailingCommands, status } =
     details ?? {};
   const isFailingTask = isFailedTaskStatus(status);
   const baseCopy = description || failingCommand || "";
   const fullText = isFailingTask
-    ? `${processFailingCommand(baseCopy)}`
+    ? `${processFailingCommand(baseCopy, isPushCompleted)}`
     : `${baseCopy}`;
 
   const shouldTruncate = fullText.length > MAX_CHAR;
@@ -100,12 +106,20 @@ const ChipContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const processFailingCommand = (description: string): string => {
+const processFailingCommand = (
+  description: string,
+  isPushCompleted: boolean,
+): string => {
   if (description === "stranded") {
-    return hostTaskStrandedMessage;
+    return isPushCompleted
+      ? virtualTaskStrandedMessage
+      : hostTaskStrandedMessage;
   }
   return description;
 };
 
 const hostTaskStrandedMessage =
   "Task failed because the host became unreachable unexpectedly";
+
+const virtualTaskStrandedMessage =
+  "Virtual task failed because the runner task did not set a status for it";

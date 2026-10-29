@@ -106,6 +106,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   hostId: "i-0defcae9395f8e081",
   imageId: "ubuntu2204",
   ingestTime: new Date("2025-07-17T20:30:58.127Z"),
+  isVirtual: false,
   latestExecution: 0,
   logs: {
     agentLogLink:
@@ -307,6 +308,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   hostId: "",
   imageId: "",
   ingestTime: new Date("2025-07-17T20:31:07.64Z"),
+  isVirtual: false,
   latestExecution: 0,
   logs: {
     agentLogLink:

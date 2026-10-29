@@ -58,6 +58,21 @@ const tokenAuthDescription = (
     "ui:descriptionNode"
   ] as ReactElement;
 
+describe("getFormSchema regions", () => {
+  it("does not generate an empty oneOf when no regions are available", () => {
+    const { schema } = getFormSchema({
+      ...baseSchemaInput,
+      availableRegions: [],
+      isMigration: true,
+      tokenExchangeState: TokenExchangeState.NeedsAuthentication,
+    });
+
+    expect(
+      schema.properties.requiredSection.properties.region,
+    ).not.toHaveProperty("oneOf");
+  });
+});
+
 describe("getFormSchema spawn host token exchange callout", () => {
   it("renders required authentication copy", () => {
     const { uiSchema } = getFormSchema({

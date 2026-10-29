@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 import { diff } from "deep-object-diff";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
@@ -36,7 +36,7 @@ export const EditModal: React.FC<EditModalProps> = ({
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
-  const [formErrors, setFormErrors] = useState<AjvError[]>([]);
+  const [formErrors, setFormErrors] = useState<RJSFValidationError[]>([]);
 
   const [updatePublicKey] = useMutation<
     UpdatePublicKeyMutation,
@@ -120,6 +120,7 @@ export const EditModal: React.FC<EditModalProps> = ({
       title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
     >
       <SpruceForm
+        customValidate={validator(myPublicKeys, replaceKeyName)}
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
@@ -127,8 +128,6 @@ export const EditModal: React.FC<EditModalProps> = ({
         }}
         schema={schema}
         uiSchema={uiSchema}
-        // @ts-expect-error: Will work regardless of type error
-        validate={validator(myPublicKeys, replaceKeyName)}
       />
     </ConfirmationModal>
   );

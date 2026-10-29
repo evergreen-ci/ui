@@ -24,7 +24,7 @@
 .itemsContainer {
   display: flex;
   flex-direction: column;
-  gap: var(--via-space-300);
+  gap: var(--via-space-200);
 }
 
 .itemWrapper {

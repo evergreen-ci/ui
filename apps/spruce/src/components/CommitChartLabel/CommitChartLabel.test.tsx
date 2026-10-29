@@ -29,9 +29,9 @@ const RenderCommitChartLabel = ({ version }) => (
 describe("commitChartLabel", () => {
   it("displays author, githash and createTime", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
+    expect(screen.queryByTestId("githash-link")).toHaveTextContent("4137c33");
     expect(screen.queryByTestId("commit-label")).toHaveTextContent(
-      "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal" +
-        "Git Tags: v1.2.3, v1.2.3-rc0",
+      /Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton InternalGit Tags: v1.2.3, v1.2.3-rc0/,
     );
   });
 
@@ -56,9 +56,9 @@ describe("commitChartLabel", () => {
   it("displays shortened commit message and the 'more' button if necessary", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
     expect(screen.getByText("more")).toBeInTheDocument();
+    expect(screen.queryByTestId("githash-link")).toHaveTextContent("4137c33");
     expect(screen.queryByTestId("commit-label")).toHaveTextContent(
-      "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal...more" +
-        "Git Tags: v1.2.3, v1.2.3-rc0",
+      /Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal...moreGit Tags: v1.2.3, v1.2.3-rc0/,
     );
   });
 

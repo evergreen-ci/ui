@@ -8,6 +8,7 @@ import { Stepback } from "components/Stepback";
 import { getTaskQueueRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { isInStepback } from "utils/stepback";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 import { AbortMessage } from "./AbortMessage";
 import { DetailsDescription } from "./DetailsDescription";
 import { SkippedTestsMetadata } from "./SkippedTestsMetadata";
@@ -43,13 +44,17 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
   const { allowed: testSelectionEnabledForProject } =
     task.project?.testSelection || {};
 
+  const isPushCompleted = isPushCompletedVirtualTask(task);
   const totalCost = task.taskCost?.total ?? 0;
-  const hasCost = totalCost > 0;
+  const hasCost = !isPushCompleted && totalCost > 0;
 
   return (
     <MetadataSection title="Execution">
       {details?.description || details?.failingCommand ? (
-        <DetailsDescription details={details} />
+        <DetailsDescription
+          details={details}
+          isPushCompleted={isPushCompleted}
+        />
       ) : null}
       {details?.timeoutType && details?.timeoutType !== "" ? (
         <MetadataItem label="Timeout type">{details?.timeoutType}</MetadataItem>
@@ -59,7 +64,7 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
           {priority} {priority < 0 && `(Disabled)`}
         </MetadataItem>
       ) : null}
-      {taskQueuePosition && taskQueuePosition > 0 ? (
+      {!isPushCompleted && taskQueuePosition && taskQueuePosition > 0 ? (
         <MetadataItem label="Position in queue">
           <StyledRouterLink
             data-testid="task-queue-position"

@@ -10,6 +10,17 @@ describe("WebTab transformers", () => {
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(form)).toEqual(gql);
   });
+  it("preserves configured complexity rate limits when saving", () => {
+    const rateLimit = {
+      graphqlComplexityBurst: 100,
+      graphqlComplexityPerHour: 1000,
+    };
+    const result = gqlToForm({ ...adminSettings, rateLimit });
+    expect(result).not.toBeNull();
+    if (result) {
+      expect(formToGql(result).rateLimit).toMatchObject(rateLimit);
+    }
+  });
 });
 
 const form: WebFormState = {
@@ -23,6 +34,7 @@ const form: WebFormState = {
       url: "http://ui.example.com",
       uiv2Url: "http://uiv2.example.com",
       parsleyUrl: "http://parsley.example.com",
+      logUrl: "http://log.example.com",
       httpListenAddr: "http://localhost:8081",
       secret: "supersecret",
       defaultProject: "default",
@@ -53,6 +65,8 @@ const form: WebFormState = {
       },
       graphqlComplexity: {
         graphqlComplexityLimit: 0,
+        graphqlComplexityPerHour: 0,
+        graphqlComplexityBurst: 0,
       },
       elevatedUsers: {
         elevatedUserIds: [],
@@ -74,6 +88,7 @@ const gql: AdminSettingsInput = {
     url: "http://ui.example.com",
     uiv2Url: "http://uiv2.example.com",
     parsleyUrl: "http://parsley.example.com",
+    logUrl: "http://log.example.com",
     httpListenAddr: "http://localhost:8081",
     secret: "supersecret",
     defaultProject: "default",
@@ -97,6 +112,8 @@ const gql: AdminSettingsInput = {
     graphqlServicePerHour: 0,
     graphqlServiceBurst: 0,
     graphqlComplexityLimit: 0,
+    graphqlComplexityPerHour: 0,
+    graphqlComplexityBurst: 0,
     elevatedUserIds: [],
     exemptUserIds: [],
   },

@@ -40,14 +40,18 @@ const logTypeOptions: { id: string; label: string; value: LogTypes }[] = [
   { id: "all-option", label: "Combined", value: LogTypes.All },
 ];
 
+const HOST_LOG_TYPES = [LogTypes.Agent, LogTypes.System];
+
 interface Props {
   logLinks: TaskLogLinks;
   taskId: string;
   execution: number;
+  hideHostLogs?: boolean;
   isDisplayTask: boolean;
 }
 const Logs: React.FC<Props> = ({
   execution,
+  hideHostLogs = false,
   isDisplayTask,
   logLinks,
   taskId,
@@ -60,7 +64,18 @@ const Logs: React.FC<Props> = ({
     .toString()
     .toLowerCase() as LogTypes;
 
-  const validatedLogType = Object.values(LogTypes).includes(logTypeParam)
+  const availableLogTypeOptions = logTypeOptions.filter(({ value }) => {
+    if (isDisplayTask) {
+      return value === LogTypes.Event;
+    }
+    if (hideHostLogs) {
+      return !HOST_LOG_TYPES.includes(value);
+    }
+    return true;
+  });
+  const validatedLogType = availableLogTypeOptions.some(
+    ({ value }) => value === logTypeParam,
+  )
     ? logTypeParam
     : DEFAULT_LOG_TYPE;
   const [currentLog, setCurrentLog] = useState<LogTypes>(
@@ -113,13 +128,11 @@ const Logs: React.FC<Props> = ({
           onChange={onChangeLog}
           value={currentLog}
         >
-          {logTypeOptions
-            .filter(({ value }) => !isDisplayTask || value === LogTypes.Event)
-            .map(({ id, label, value }) => (
-              <SegmentedControlOption key={value} id={id} value={value}>
-                {label}
-              </SegmentedControlOption>
-            ))}
+          {availableLogTypeOptions.map(({ id, label, value }) => (
+            <SegmentedControlOption key={value} id={id} value={value}>
+              {label}
+            </SegmentedControlOption>
+          ))}
         </SegmentedControl>
       </LogHeader>
       <LogContentWrapper>
