@@ -1,7 +1,7 @@
 import { palette } from "@leafygreen-ui/palette";
 import { Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { RevisionLink } from "components/RevisionLink";
 import {
   getGithubCommitUrl,
   getGithubPRUrl,
@@ -42,7 +42,9 @@ export const GithubCommitLink: React.FC<GithubCommitLinkProps> = ({
       {owner}/
     </span>
     <wbr />
-    <span className={styles.unbreakable}>{repo}</span>{" "}
-    <span className={styles.unbreakable}>@ {shortenGithash(revision)}</span>
+    <span className={styles.unbreakable}>{repo}</span>
+    <span className={styles.unbreakable}>
+      @<RevisionLink revision={revision} />
+    </span>
   </Link>
 );
