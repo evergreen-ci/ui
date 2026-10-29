@@ -58,7 +58,7 @@ const CommitChartLabel: React.FC<Props> = ({
           onClick={onClickGithash}
           revision={githash}
           to={getVersionRoute(versionId)}
-        />
+        />{" "}
         <b title={getDateCopy(createDate)}>
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
         </b>{" "}
