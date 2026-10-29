@@ -5867,6 +5867,7 @@ export type ProjectSettingsFieldsFragment = {
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
       mainlineDefaultEnabled?: boolean | null;
+      quarantineJiraTicketsRequired?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6084,6 +6085,7 @@ export type RepoSettingsFieldsFragment = {
       allowed: boolean;
       defaultEnabled: boolean;
       mainlineDefaultEnabled: boolean;
+      quarantineJiraTicketsRequired: boolean;
     } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -6498,6 +6500,7 @@ export type ProjectEventSettingsFragment = {
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
       mainlineDefaultEnabled?: boolean | null;
+      quarantineJiraTicketsRequired?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6665,6 +6668,7 @@ export type ProjectTestSelectionSettingsFragment = {
     allowed?: boolean | null;
     defaultEnabled?: boolean | null;
     mainlineDefaultEnabled?: boolean | null;
+    quarantineJiraTicketsRequired?: boolean | null;
   } | null;
 };
 
@@ -6676,6 +6680,7 @@ export type RepoTestSelectionSettingsFragment = {
     allowed: boolean;
     defaultEnabled: boolean;
     mainlineDefaultEnabled: boolean;
+    quarantineJiraTicketsRequired: boolean;
   } | null;
 };
 
@@ -7115,6 +7120,8 @@ export type PromoteVarsToRepoMutation = {
 export type QuarantineTestMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
+  existingJiraTicketsToLink?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  justification?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type QuarantineTestMutation = {
@@ -9635,6 +9642,7 @@ export type ProjectEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -9867,6 +9875,7 @@ export type ProjectEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10164,6 +10173,7 @@ export type ProjectSettingsQuery = {
         allowed?: boolean | null;
         defaultEnabled?: boolean | null;
         mainlineDefaultEnabled?: boolean | null;
+        quarantineJiraTicketsRequired?: boolean | null;
       } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -10444,6 +10454,7 @@ export type RepoEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10676,6 +10687,7 @@ export type RepoEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10913,6 +10925,7 @@ export type RepoSettingsQuery = {
         allowed: boolean;
         defaultEnabled: boolean;
         mainlineDefaultEnabled: boolean;
+        quarantineJiraTicketsRequired: boolean;
       } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";
@@ -11922,6 +11935,7 @@ export type TaskQuery = {
       testSelection?: {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
+        quarantineJiraTicketsRequired?: boolean | null;
       } | null;
     } | null;
     stepbackInfo?: {
