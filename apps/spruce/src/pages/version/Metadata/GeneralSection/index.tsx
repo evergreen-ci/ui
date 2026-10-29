@@ -5,12 +5,7 @@ import { CopyableID } from "components/CopyableID";
 import { GithubCommitLink } from "components/GithubCommitLink";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { RevisionLink } from "components/RevisionLink";
-import {
-  getGithubCommitUrl,
-  getGithubMergeQueueUrl,
-  getGithubPRUrl,
-  getGithubRepoUrl,
-} from "constants/externalResources";
+import { getGithubMergeQueueUrl } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import {
   getUserPatchesRoute,
@@ -55,10 +50,14 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
     owner,
     repo,
   } = projectMetadata || {};
-  const hasOwnerAndRepo = !!owner && !!repo;
 
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
   const isGitHubPullRequest = requester === Requester.GitHubPR;
+
+  const hasOwnerAndRepo = !!owner && !!repo;
+  const hasCommitLink = !isPatch && hasOwnerAndRepo && !!revision;
+  const hasPRCommitLink =
+    isGitHubPullRequest && hasOwnerAndRepo && !!headHash && !!prNumber;
 
   return (
     <MetadataSection>
@@ -102,38 +101,29 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
           {projectIdentifier || `${owner}/${repo}`}
         </StyledRouterLink>
       </MetadataItem>
-      <MetadataItem label="Repo">
-        {hasOwnerAndRepo ? (
-          <StyledLink
-            hideExternalIcon={false}
-            href={getGithubRepoUrl(owner, repo)}
-          >
-            {owner}/{repo}
-          </StyledLink>
-        ) : (
-          `${owner}/${repo}`
-        )}
-      </MetadataItem>
-      {!isPatch && hasOwnerAndRepo && revision && (
-        <MetadataItem label="GitHub commit">
+      {hasCommitLink && (
+        <MetadataItem label="Commit">
           <GithubCommitLink
             data-testid="version-github-commit"
-            href={getGithubCommitUrl(owner, repo, revision)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
             }
+            owner={owner}
+            repo={repo}
             revision={revision}
           />
         </MetadataItem>
       )}
-      {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
-        <MetadataItem label="GitHub PR commit">
+      {hasPRCommitLink && (
+        <MetadataItem label="PR commit">
           <GithubCommitLink
             data-testid="github-pr-commit"
-            href={getGithubPRUrl(owner, repo, prNumber, headHash)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
             }
+            owner={owner}
+            prNumber={prNumber}
+            repo={repo}
             revision={headHash}
           />
         </MetadataItem>

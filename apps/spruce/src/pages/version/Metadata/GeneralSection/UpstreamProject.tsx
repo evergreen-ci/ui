@@ -1,9 +1,8 @@
-import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useVersionAnalytics } from "analytics";
 import { GithubCommitLink } from "components/GithubCommitLink";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { RevisionLink } from "components/RevisionLink";
-import { getGithubRepoUrl } from "constants/externalResources";
 import { getTriggerRoute, getWaterfallRoute } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { ProjectTriggerLevel } from "types/triggers";
@@ -46,14 +45,6 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
           {project}
         </StyledRouterLink>
       </MetadataItem>
-      <MetadataItem label="Repo">
-        <StyledLink
-          hideExternalIcon={false}
-          href={getGithubRepoUrl(owner, repo)}
-        >
-          {owner}/{repo}
-        </StyledLink>
-      </MetadataItem>
       {isTaskTrigger && (
         <MetadataItem label="Task">
           <StyledRouterLink to={triggerLink}>
@@ -71,13 +62,14 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
         </MetadataItem>
       )}
       {isPushTrigger && (
-        <MetadataItem label="GitHub commit">
+        <MetadataItem label="Commit">
           <GithubCommitLink
             data-testid="version-github-commit"
-            href={triggerLink}
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
             }
+            owner={owner}
+            repo={repo}
             revision={revision}
           />
         </MetadataItem>
