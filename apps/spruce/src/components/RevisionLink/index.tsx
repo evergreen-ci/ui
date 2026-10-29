@@ -1,6 +1,6 @@
-import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link, Text } from "@via-ds/components";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
+import styles from "./RevisionLink.module.css";
 
 interface RevisionLinkProps {
   "data-testid"?: string;
@@ -15,7 +15,14 @@ export const RevisionLink: React.FC<RevisionLinkProps> = ({
   revision,
   to,
 }) => (
-  <InlineCode as={Link} data-testid={dataTestId} onClick={onClick} to={to}>
-    {shortenGithash(revision)}
-  </InlineCode>
+  <Link
+    className={styles.hashLink}
+    data-testid={dataTestId}
+    href={to}
+    onClick={onClick}
+  >
+    <Text className={styles.hash} textStyle="inlineCode">
+      {shortenGithash(revision)}
+    </Text>
+  </Link>
 );

@@ -1,7 +1,7 @@
-import { Badge, BadgeVariant, Body, Link, Text } from "@via-ds/components";
+import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useWaterfallAnalytics } from "analytics";
+import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
@@ -68,18 +68,17 @@ export const VersionLabel: React.FC<Props> = ({
     >
       <div className={styles.headerLine}>
         <Body>
-          <Link
-            href={getVersionRoute(id)}
-            onPress={() => {
+          <RevisionLink
+            onClick={() => {
               sendEvent({
                 name: "Clicked commit label",
                 "commit.type": commitType,
                 link: "githash",
               });
             }}
-          >
-            <Text textStyle="inlineCode">{shortenGithash(revision)}</Text>
-          </Link>{" "}
+            revision={revision}
+            to={getVersionRoute(id)}
+          />{" "}
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
           {commitType === "inactive" && (
             <Badge className={styles.badge} variant={BadgeVariant.Status}>

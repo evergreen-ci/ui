@@ -54,6 +54,7 @@ describe("task-level settings", () => {
               allowed: true,
               defaultEnabled,
               mainlineDefaultEnabled,
+              quarantineJiraTicketsRequired: false,
             },
           },
         }),
@@ -84,6 +85,7 @@ describe("task-level settings", () => {
           {
             projectLevel: { allowed: true },
             taskLevel: { defaultEnabled, mainlineDefaultEnabled },
+            quarantine: { jiraTicketsRequired: true },
           },
           false,
           "project",
@@ -92,6 +94,7 @@ describe("task-level settings", () => {
         allowed: true,
         defaultEnabled,
         mainlineDefaultEnabled,
+        quarantineJiraTicketsRequired: true,
       });
     },
   );
@@ -105,6 +108,9 @@ const projectForm: TestSelectionFormState = {
     defaultEnabled: null,
     mainlineDefaultEnabled: null,
   },
+  quarantine: {
+    jiraTicketsRequired: null,
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -115,6 +121,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
       allowed: null,
       defaultEnabled: null,
       mainlineDefaultEnabled: null,
+      quarantineJiraTicketsRequired: null,
     },
   },
 };
@@ -127,6 +134,9 @@ const repoForm: TestSelectionFormState = {
     defaultEnabled: true,
     mainlineDefaultEnabled: true,
   },
+  quarantine: {
+    jiraTicketsRequired: true,
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
@@ -137,6 +147,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
       allowed: true,
       defaultEnabled: true,
       mainlineDefaultEnabled: true,
+      quarantineJiraTicketsRequired: true,
     },
   },
 };

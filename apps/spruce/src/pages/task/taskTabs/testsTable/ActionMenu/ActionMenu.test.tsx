@@ -5,6 +5,7 @@ import {
   screen,
   userEvent,
   waitFor,
+  within,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { TestStatus } from "@evg-ui/lib/types/test";
@@ -22,6 +23,14 @@ import { ActionMenu } from ".";
 const taskWithTestSelection = {
   ...taskQuery.task,
   testSelectionEnabled: true,
+};
+
+const taskRequiringJiraTickets = {
+  ...taskWithTestSelection,
+  project: {
+    ...taskQuery.task.project!,
+    testSelection: { allowed: true, quarantineJiraTicketsRequired: true },
+  },
 };
 
 describe("action menu for tests table", () => {
@@ -63,6 +72,7 @@ describe("action menu for tests table", () => {
       expect(screen.getByTestId("quarantine-test")).toBeVisible();
     });
     await user.click(screen.getByTestId("quarantine-test"));
+    await user.click(await screen.findByTestId("confirm-quarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
@@ -85,6 +95,7 @@ describe("action menu for tests table", () => {
       "true",
     );
     await user.click(screen.getByTestId("quarantine-test"));
+    await user.click(await screen.findByTestId("confirm-quarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
@@ -103,9 +114,95 @@ describe("action menu for tests table", () => {
       expect(screen.getByTestId("quarantine-test")).toBeVisible();
     });
     await user.click(screen.getByTestId("quarantine-test"));
+    await user.click(await screen.findByTestId("confirm-quarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it("allows quarantining without Jira tickets when the project does not require them", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[]}>
+        <ActionMenu task={taskWithTestSelection} test={failingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByTestId("ellipsis-btn"));
+    await user.click(await screen.findByTestId("quarantine-test"));
+    expect(
+      await screen.findByTestId("quarantine-jira-tickets"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("confirm-quarantine-test")).not.toHaveAttribute(
+      "disabled",
+    );
+  });
+
+  it("requires a Jira ticket when the project requires them", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[]}>
+        <ActionMenu task={taskRequiringJiraTickets} test={failingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByTestId("ellipsis-btn"));
+    await user.click(await screen.findByTestId("quarantine-test"));
+    expect(
+      await screen.findByTestId("confirm-quarantine-test"),
+    ).toHaveAttribute("disabled");
+  });
+
+  it("sends multiple Jira tickets and the justification", async () => {
+    const user = userEvent.setup();
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={[quarantineWithDetailsMock]}>
+        <ActionMenu task={taskRequiringJiraTickets} test={failingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByTestId("ellipsis-btn"));
+    await user.click(await screen.findByTestId("quarantine-test"));
+    await user.type(
+      within(await screen.findByTestId("quarantine-jira-tickets")).getByRole(
+        "textbox",
+      ),
+      "BF-123, EVG-456 BF-123",
+    );
+    await user.type(
+      within(screen.getByTestId("quarantine-justification")).getByRole(
+        "textbox",
+      ),
+      "Fails intermittently.",
+    );
+    await user.click(screen.getByTestId("confirm-quarantine-test"));
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it("disables quarantining when a Jira ticket is malformed", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[]}>
+        <ActionMenu task={taskWithTestSelection} test={failingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByTestId("ellipsis-btn"));
+    await user.click(await screen.findByTestId("quarantine-test"));
+    await user.type(
+      within(await screen.findByTestId("quarantine-jira-tickets")).getByRole(
+        "textbox",
+      ),
+      "BF-123, bf123",
+    );
+    expect(screen.getByTestId("confirm-quarantine-test")).toHaveAttribute(
+      "disabled",
+    );
+    expect(
+      screen.getByText("Not a valid Jira ticket key: bf123"),
+    ).toBeInTheDocument();
   });
 
   it("unquarantines a quarantined test", async () => {
@@ -164,17 +261,21 @@ const failingTestOnDisplayTask: TestResult = {
 };
 
 const quarantineMock = ({
+  existingJiraTicketsToLink,
   id,
+  justification,
   taskId,
   testName,
 }: {
   id: string;
   taskId: string;
   testName: string;
+  existingJiraTicketsToLink?: string[];
+  justification?: string;
 }): ApolloMock<QuarantineTestMutation, QuarantineTestMutationVariables> => ({
   request: {
     query: QUARANTINE_TEST,
-    variables: { taskId, testName },
+    variables: { taskId, testName, existingJiraTicketsToLink, justification },
   },
   result: {
     data: {
@@ -197,6 +298,14 @@ const quarantinePassingTestMock = quarantineMock({
   id: "2",
   taskId: taskQuery.task.id,
   testName: "test_2",
+});
+
+const quarantineWithDetailsMock = quarantineMock({
+  id: "1",
+  taskId: taskQuery.task.id,
+  testName: "test_1",
+  existingJiraTicketsToLink: ["BF-123", "EVG-456"],
+  justification: "Fails intermittently.",
 });
 
 const quarantineDisplayTaskTestMock = quarantineMock({
