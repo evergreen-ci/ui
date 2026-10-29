@@ -28,11 +28,14 @@ describe("repo data", () => {
 });
 
 const projectForm: TaskOwnershipAndFoliageFormState = {
-  taskOwnership: {
-    mothra: {
-      defaultMothraTeam: "my-team",
-      defaultMothraTeamForBreakingCommit: "other-team",
-    },
+  mothra: {
+    defaultMothraTeam: "my-team",
+    defaultMothraTeamForBreakingCommit: "other-team",
+  },
+  tagValidation: {
+    generatedTaskValidationPrefix: "prefix",
+    trackGeneratedTaskTagValidation: true,
+    blockTaskGenerationOnTagValidation: false,
   },
 };
 
@@ -43,16 +46,22 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     taskOwnership: {
       defaultMothraTeam: "my-team",
       defaultMothraTeamForBreakingCommit: "other-team",
+      generatedTaskValidationPrefix: "prefix",
+      trackGeneratedTaskTagValidation: true,
+      blockTaskGenerationOnTagValidation: false,
     },
   },
 };
 
 const repoForm: TaskOwnershipAndFoliageFormState = {
-  taskOwnership: {
-    mothra: {
-      defaultMothraTeam: "my-team",
-      defaultMothraTeamForBreakingCommit: "other-team",
-    },
+  mothra: {
+    defaultMothraTeam: "my-team",
+    defaultMothraTeamForBreakingCommit: "other-team",
+  },
+  tagValidation: {
+    generatedTaskValidationPrefix: "prefix",
+    trackGeneratedTaskTagValidation: true,
+    blockTaskGenerationOnTagValidation: false,
   },
 };
 
@@ -63,6 +72,9 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     taskOwnership: {
       defaultMothraTeam: "my-team",
       defaultMothraTeamForBreakingCommit: "other-team",
+      generatedTaskValidationPrefix: "prefix",
+      trackGeneratedTaskTagValidation: true,
+      blockTaskGenerationOnTagValidation: false,
     },
   },
 };
