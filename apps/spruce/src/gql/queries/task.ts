@@ -126,6 +126,7 @@ export const TASK = gql`
         repo
         testSelection {
           allowed
+          quarantineJiraTicketsRequired
         }
       }
       quarantinedTestsSkippedCount

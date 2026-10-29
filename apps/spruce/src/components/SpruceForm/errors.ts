@@ -67,6 +67,11 @@ export const transformErrors = (errors: RJSFValidationError[]) =>
                 ...error,
                 message: "Value should not start or end with whitespace.",
               };
+            case "validCron":
+              return {
+                ...error,
+                message: "Value should be a valid cron expression.",
+              };
             case "validDuration":
               return {
                 ...error,

@@ -506,6 +506,7 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   sourceCacheBucket?: Maybe<BucketConfig>;
+  sourceCacheOptOutProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -520,6 +521,7 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   sourceCacheBucket?: InputMaybe<BucketConfigInput>;
+  sourceCacheOptOutProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -3139,6 +3141,8 @@ export type QuarantineTaskInput = {
 };
 
 export type QuarantineTestInput = {
+  existingJiraTicketsToLink?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  justification?: InputMaybe<Scalars["String"]["input"]>;
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
 };
@@ -3553,8 +3557,11 @@ export type RepoSettingsInput = {
 
 export type RepoTaskOwnershipSettings = {
   __typename?: "RepoTaskOwnershipSettings";
+  blockTaskGenerationOnTagValidation: Scalars["Boolean"]["output"];
   defaultMothraTeam: Scalars["String"]["output"];
   defaultMothraTeamForBreakingCommit: Scalars["String"]["output"];
+  generatedTaskValidationPrefix: Scalars["String"]["output"];
+  trackGeneratedTaskTagValidation: Scalars["Boolean"]["output"];
 };
 
 export type RepoTestSelectionSettings = {
@@ -3562,6 +3569,7 @@ export type RepoTestSelectionSettings = {
   allowed: Scalars["Boolean"]["output"];
   defaultEnabled: Scalars["Boolean"]["output"];
   mainlineDefaultEnabled: Scalars["Boolean"]["output"];
+  quarantineJiraTicketsRequired: Scalars["Boolean"]["output"];
 };
 
 export type RepoWorkstationConfig = {
@@ -4505,13 +4513,19 @@ export type TaskOwnerTeam = {
 
 export type TaskOwnershipSettings = {
   __typename?: "TaskOwnershipSettings";
+  blockTaskGenerationOnTagValidation?: Maybe<Scalars["Boolean"]["output"]>;
   defaultMothraTeam?: Maybe<Scalars["String"]["output"]>;
   defaultMothraTeamForBreakingCommit?: Maybe<Scalars["String"]["output"]>;
+  generatedTaskValidationPrefix?: Maybe<Scalars["String"]["output"]>;
+  trackGeneratedTaskTagValidation?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TaskOwnershipSettingsInput = {
+  blockTaskGenerationOnTagValidation?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultMothraTeam?: InputMaybe<Scalars["String"]["input"]>;
   defaultMothraTeamForBreakingCommit?: InputMaybe<Scalars["String"]["input"]>;
+  generatedTaskValidationPrefix?: InputMaybe<Scalars["String"]["input"]>;
+  trackGeneratedTaskTagValidation?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type TaskPriority = {
@@ -4708,12 +4722,14 @@ export type TestSelectionSettings = {
   allowed?: Maybe<Scalars["Boolean"]["output"]>;
   defaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   mainlineDefaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  quarantineJiraTicketsRequired?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type TestSelectionSettingsInput = {
   allowed?: InputMaybe<Scalars["Boolean"]["input"]>;
   defaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   mainlineDefaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  quarantineJiraTicketsRequired?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum TestSortCategory {
@@ -5851,6 +5867,7 @@ export type ProjectSettingsFieldsFragment = {
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
       mainlineDefaultEnabled?: boolean | null;
+      quarantineJiraTicketsRequired?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6068,6 +6085,7 @@ export type RepoSettingsFieldsFragment = {
       allowed: boolean;
       defaultEnabled: boolean;
       mainlineDefaultEnabled: boolean;
+      quarantineJiraTicketsRequired: boolean;
     } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -6482,6 +6500,7 @@ export type ProjectEventSettingsFragment = {
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
       mainlineDefaultEnabled?: boolean | null;
+      quarantineJiraTicketsRequired?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6649,6 +6668,7 @@ export type ProjectTestSelectionSettingsFragment = {
     allowed?: boolean | null;
     defaultEnabled?: boolean | null;
     mainlineDefaultEnabled?: boolean | null;
+    quarantineJiraTicketsRequired?: boolean | null;
   } | null;
 };
 
@@ -6660,6 +6680,7 @@ export type RepoTestSelectionSettingsFragment = {
     allowed: boolean;
     defaultEnabled: boolean;
     mainlineDefaultEnabled: boolean;
+    quarantineJiraTicketsRequired: boolean;
   } | null;
 };
 
@@ -7099,6 +7120,8 @@ export type PromoteVarsToRepoMutation = {
 export type QuarantineTestMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
+  existingJiraTicketsToLink?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  justification?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type QuarantineTestMutation = {
@@ -9619,6 +9642,7 @@ export type ProjectEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -9851,6 +9875,7 @@ export type ProjectEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10148,6 +10173,7 @@ export type ProjectSettingsQuery = {
         allowed?: boolean | null;
         defaultEnabled?: boolean | null;
         mainlineDefaultEnabled?: boolean | null;
+        quarantineJiraTicketsRequired?: boolean | null;
       } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -10428,6 +10454,7 @@ export type RepoEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10660,6 +10687,7 @@ export type RepoEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10897,6 +10925,7 @@ export type RepoSettingsQuery = {
         allowed: boolean;
         defaultEnabled: boolean;
         mainlineDefaultEnabled: boolean;
+        quarantineJiraTicketsRequired: boolean;
       } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";
@@ -11906,6 +11935,7 @@ export type TaskQuery = {
       testSelection?: {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
+        quarantineJiraTicketsRequired?: boolean | null;
       } | null;
     } | null;
     stepbackInfo?: {
