@@ -6,6 +6,7 @@ import { RevisionLink } from "components/RevisionLink";
 import { getTriggerRoute, getWaterfallRoute } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { ProjectTriggerLevel } from "types/triggers";
+import styles from "./index.module.css";
 
 type UpstreamProjectType = NonNullable<
   NonNullable<VersionQuery["version"]>["upstreamProject"]
@@ -34,7 +35,7 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
   });
 
   return (
-    <MetadataSection title="Triggered By">
+    <MetadataSection className={styles.section} title="Triggered By">
       <MetadataItem label="Project">
         <StyledRouterLink to={getWaterfallRoute(project)}>
           {project}

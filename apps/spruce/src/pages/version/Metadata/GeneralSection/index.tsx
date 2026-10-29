@@ -19,6 +19,7 @@ import {
 import { VersionQuery } from "gql/generated/types";
 import BaseCommitMetadata from "./BaseCommitMetadata";
 import IncludedLocalModules from "./IncludedLocalModules";
+import styles from "./index.module.css";
 import ManifestBlob from "./ManifestBlob";
 import UpstreamProject from "./UpstreamProject";
 
@@ -93,7 +94,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
         </MetadataItem>
       )}
 
-      <MetadataSection title="Source">
+      <MetadataSection className={styles.section} title="Source">
         <MetadataItem label="Project">
           <StyledRouterLink
             onClick={() =>
