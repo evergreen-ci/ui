@@ -5859,8 +5859,11 @@ export type ProjectSettingsFieldsFragment = {
     };
     taskOwnership?: {
       __typename?: "TaskOwnershipSettings";
+      blockTaskGenerationOnTagValidation?: boolean | null;
       defaultMothraTeam?: string | null;
       defaultMothraTeamForBreakingCommit?: string | null;
+      generatedTaskValidationPrefix?: string | null;
+      trackGeneratedTaskTagValidation?: boolean | null;
     } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
@@ -6077,8 +6080,11 @@ export type RepoSettingsFieldsFragment = {
     };
     taskOwnership?: {
       __typename?: "RepoTaskOwnershipSettings";
+      blockTaskGenerationOnTagValidation: boolean;
       defaultMothraTeam: string;
       defaultMothraTeamForBreakingCommit: string;
+      generatedTaskValidationPrefix: string;
+      trackGeneratedTaskTagValidation: boolean;
     } | null;
     testSelection?: {
       __typename?: "RepoTestSelectionSettings";
@@ -6492,8 +6498,11 @@ export type ProjectEventSettingsFragment = {
     };
     taskOwnership?: {
       __typename?: "TaskOwnershipSettings";
+      blockTaskGenerationOnTagValidation?: boolean | null;
       defaultMothraTeam?: string | null;
       defaultMothraTeamForBreakingCommit?: string | null;
+      generatedTaskValidationPrefix?: string | null;
+      trackGeneratedTaskTagValidation?: boolean | null;
     } | null;
     testSelection?: {
       __typename?: "TestSelectionSettings";
@@ -6645,8 +6654,11 @@ export type ProjectTaskOwnershipAndFoliageSettingsFragment = {
   id: string;
   taskOwnership?: {
     __typename?: "TaskOwnershipSettings";
+    blockTaskGenerationOnTagValidation?: boolean | null;
     defaultMothraTeam?: string | null;
     defaultMothraTeamForBreakingCommit?: string | null;
+    generatedTaskValidationPrefix?: string | null;
+    trackGeneratedTaskTagValidation?: boolean | null;
   } | null;
 };
 
@@ -6655,8 +6667,11 @@ export type RepoTaskOwnershipAndFoliageSettingsFragment = {
   id: string;
   taskOwnership?: {
     __typename?: "RepoTaskOwnershipSettings";
+    blockTaskGenerationOnTagValidation: boolean;
     defaultMothraTeam: string;
     defaultMothraTeamForBreakingCommit: string;
+    generatedTaskValidationPrefix: string;
+    trackGeneratedTaskTagValidation: boolean;
   } | null;
 };
 
@@ -9634,8 +9649,11 @@ export type ProjectEventLogsQuery = {
           };
           taskOwnership?: {
             __typename?: "TaskOwnershipSettings";
+            blockTaskGenerationOnTagValidation?: boolean | null;
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            generatedTaskValidationPrefix?: string | null;
+            trackGeneratedTaskTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
@@ -9867,8 +9885,11 @@ export type ProjectEventLogsQuery = {
           };
           taskOwnership?: {
             __typename?: "TaskOwnershipSettings";
+            blockTaskGenerationOnTagValidation?: boolean | null;
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            generatedTaskValidationPrefix?: string | null;
+            trackGeneratedTaskTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
@@ -10165,8 +10186,11 @@ export type ProjectSettingsQuery = {
       };
       taskOwnership?: {
         __typename?: "TaskOwnershipSettings";
+        blockTaskGenerationOnTagValidation?: boolean | null;
         defaultMothraTeam?: string | null;
         defaultMothraTeamForBreakingCommit?: string | null;
+        generatedTaskValidationPrefix?: string | null;
+        trackGeneratedTaskTagValidation?: boolean | null;
       } | null;
       testSelection?: {
         __typename?: "TestSelectionSettings";
@@ -10446,8 +10470,11 @@ export type RepoEventLogsQuery = {
           };
           taskOwnership?: {
             __typename?: "TaskOwnershipSettings";
+            blockTaskGenerationOnTagValidation?: boolean | null;
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            generatedTaskValidationPrefix?: string | null;
+            trackGeneratedTaskTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
@@ -10679,8 +10706,11 @@ export type RepoEventLogsQuery = {
           };
           taskOwnership?: {
             __typename?: "TaskOwnershipSettings";
+            blockTaskGenerationOnTagValidation?: boolean | null;
             defaultMothraTeam?: string | null;
             defaultMothraTeamForBreakingCommit?: string | null;
+            generatedTaskValidationPrefix?: string | null;
+            trackGeneratedTaskTagValidation?: boolean | null;
           } | null;
           testSelection?: {
             __typename?: "TestSelectionSettings";
@@ -10917,8 +10947,11 @@ export type RepoSettingsQuery = {
       };
       taskOwnership?: {
         __typename?: "RepoTaskOwnershipSettings";
+        blockTaskGenerationOnTagValidation: boolean;
         defaultMothraTeam: string;
         defaultMothraTeamForBreakingCommit: string;
+        generatedTaskValidationPrefix: string;
+        trackGeneratedTaskTagValidation: boolean;
       } | null;
       testSelection?: {
         __typename?: "RepoTestSelectionSettings";
