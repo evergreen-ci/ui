@@ -6785,7 +6785,12 @@ export type UpstreamProjectFragment = {
     revision: string;
     triggerID: string;
     triggerType: string;
-    task?: { __typename?: "Task"; id: string; execution: number } | null;
+    task?: {
+      __typename?: "Task";
+      id: string;
+      displayName: string;
+      execution: number;
+    } | null;
     version?: { __typename?: "Version"; id: string } | null;
   } | null;
 };
@@ -9271,7 +9276,12 @@ export type MainlineCommitsForHistoryQuery = {
           revision: string;
           triggerID: string;
           triggerType: string;
-          task?: { __typename?: "Task"; id: string; execution: number } | null;
+          task?: {
+            __typename?: "Task";
+            id: string;
+            displayName: string;
+            execution: number;
+          } | null;
           version?: { __typename?: "Version"; id: string } | null;
         } | null;
       } | null;
@@ -12503,7 +12513,12 @@ export type VersionUpstreamProjectQuery = {
       revision: string;
       triggerID: string;
       triggerType: string;
-      task?: { __typename?: "Task"; id: string; execution: number } | null;
+      task?: {
+        __typename?: "Task";
+        id: string;
+        displayName: string;
+        execution: number;
+      } | null;
       version?: { __typename?: "Version"; id: string } | null;
     } | null;
   };
@@ -12634,7 +12649,12 @@ export type VersionQuery = {
       revision: string;
       triggerID: string;
       triggerType: string;
-      task?: { __typename?: "Task"; id: string; execution: number } | null;
+      task?: {
+        __typename?: "Task";
+        id: string;
+        displayName: string;
+        execution: number;
+      } | null;
       version?: { __typename?: "Version"; id: string } | null;
     } | null;
   };

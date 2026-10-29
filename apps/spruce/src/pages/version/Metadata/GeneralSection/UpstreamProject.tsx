@@ -35,6 +35,10 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
     upstreamRepo: repo,
   });
 
+  const isTaskTrigger = triggerType === ProjectTriggerLevel.TASK && !!task;
+  const isBuildTrigger = triggerType === ProjectTriggerLevel.BUILD;
+  const isPushTrigger = triggerType === ProjectTriggerLevel.PUSH;
+
   return (
     <MetadataSection className={styles.section} title="Triggered By">
       <MetadataItem label="Project">
@@ -50,7 +54,23 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
           {owner}/{repo}
         </StyledLink>
       </MetadataItem>
-      {triggerType === ProjectTriggerLevel.PUSH ? (
+      {isTaskTrigger && (
+        <MetadataItem label="Task">
+          <StyledRouterLink to={triggerLink}>
+            {task.displayName}
+          </StyledRouterLink>
+        </MetadataItem>
+      )}
+      {isBuildTrigger && (
+        <MetadataItem label="Version">
+          <RevisionLink
+            data-testid="version-trigger-revision"
+            revision={revision}
+            to={triggerLink}
+          />
+        </MetadataItem>
+      )}
+      {isPushTrigger && (
         <MetadataItem label="GitHub commit">
           <GithubCommitLink
             data-testid="version-github-commit"
@@ -59,16 +79,6 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
               sendEvent({ name: "Clicked metadata github commit link" })
             }
             revision={revision}
-          />
-        </MetadataItem>
-      ) : (
-        <MetadataItem
-          label={triggerType === ProjectTriggerLevel.TASK ? "Task" : "Build"}
-        >
-          <RevisionLink
-            data-testid="version-trigger-revision"
-            revision={revision}
-            to={triggerLink}
           />
         </MetadataItem>
       )}
