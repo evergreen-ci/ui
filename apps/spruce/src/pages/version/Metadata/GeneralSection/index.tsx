@@ -9,6 +9,7 @@ import {
   getGithubCommitUrl,
   getGithubMergeQueueUrl,
   getGithubPRUrl,
+  getGithubRepoUrl,
 } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import {
@@ -19,7 +20,6 @@ import {
 import { VersionQuery } from "gql/generated/types";
 import BaseCommitMetadata from "./BaseCommitMetadata";
 import IncludedLocalModules from "./IncludedLocalModules";
-import styles from "./index.module.css";
 import ManifestBlob from "./ManifestBlob";
 import UpstreamProject from "./UpstreamProject";
 
@@ -94,69 +94,74 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
         </MetadataItem>
       )}
 
-      <MetadataSection className={styles.section} title="Source">
-        <MetadataItem label="Project">
-          <StyledRouterLink
-            onClick={() =>
-              sendEvent({ name: "Clicked metadata waterfall link" })
-            }
-            to={getWaterfallRoute(projectIdentifier || projectID || "")}
+      <MetadataItem label="Project">
+        <StyledRouterLink
+          onClick={() => sendEvent({ name: "Clicked metadata waterfall link" })}
+          to={getWaterfallRoute(projectIdentifier || projectID || "")}
+        >
+          {projectIdentifier || `${owner}/${repo}`}
+        </StyledRouterLink>
+      </MetadataItem>
+      <MetadataItem label="Repo">
+        {hasOwnerAndRepo ? (
+          <StyledLink
+            hideExternalIcon={false}
+            href={getGithubRepoUrl(owner, repo)}
           >
-            {projectIdentifier || `${owner}/${repo}`}
-          </StyledRouterLink>
+            {owner}/{repo}
+          </StyledLink>
+        ) : (
+          `${owner}/${repo}`
+        )}
+      </MetadataItem>
+      {!isPatch && hasOwnerAndRepo && revision && (
+        <MetadataItem label="GitHub commit">
+          <GithubCommitLink
+            data-testid="version-github-commit"
+            href={getGithubCommitUrl(owner, repo, revision)}
+            onClick={() =>
+              sendEvent({ name: "Clicked metadata github commit link" })
+            }
+            revision={revision}
+          />
         </MetadataItem>
-        <MetadataItem label="Repo">
-          {owner}/{repo}
+      )}
+      {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
+        <MetadataItem label="GitHub PR commit">
+          <GithubCommitLink
+            data-testid="github-pr-commit"
+            href={getGithubPRUrl(owner, repo, prNumber, headHash)}
+            onClick={() =>
+              sendEvent({ name: "Clicked metadata github commit link" })
+            }
+            revision={headHash}
+          />
         </MetadataItem>
-        {!isPatch && hasOwnerAndRepo && revision && (
-          <MetadataItem label="GitHub commit">
-            <GithubCommitLink
-              data-testid="version-github-commit"
-              href={getGithubCommitUrl(owner, repo, revision)}
-              onClick={() =>
-                sendEvent({ name: "Clicked metadata github commit link" })
-              }
-              revision={revision}
-            />
-          </MetadataItem>
-        )}
-        {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
-          <MetadataItem label="GitHub PR commit">
-            <GithubCommitLink
-              data-testid="github-pr-commit"
-              href={getGithubPRUrl(owner, repo, prNumber, headHash)}
-              onClick={() =>
-                sendEvent({ name: "Clicked metadata github commit link" })
-              }
-              revision={headHash}
-            />
-          </MetadataItem>
-        )}
-        {isGithubMergePatch && hasOwnerAndRepo && branch && (
-          <MetadataItem>
-            <StyledLink
-              data-testid="github-merge-queue-link"
-              hideExternalIcon={false}
-              href={getGithubMergeQueueUrl(owner, repo, branch)}
-            >
-              GitHub Merge Queue
-            </StyledLink>
-          </MetadataItem>
-        )}
-        {manifest && <ManifestBlob manifest={manifest} />}
-        {includedLocalModules && includedLocalModules.length > 0 && (
-          <IncludedLocalModules includedLocalModules={includedLocalModules} />
-        )}
-        {gitTags && (
-          <MetadataItem>
-            {gitTags.map((g) => (
-              <Disclaimer key={g.tag}>
-                Tag {g.tag} pushed by {g.pusher}
-              </Disclaimer>
-            ))}
-          </MetadataItem>
-        )}
-      </MetadataSection>
+      )}
+      {isGithubMergePatch && hasOwnerAndRepo && branch && (
+        <MetadataItem>
+          <StyledLink
+            data-testid="github-merge-queue-link"
+            hideExternalIcon={false}
+            href={getGithubMergeQueueUrl(owner, repo, branch)}
+          >
+            GitHub Merge Queue
+          </StyledLink>
+        </MetadataItem>
+      )}
+      {manifest && <ManifestBlob manifest={manifest} />}
+      {includedLocalModules && includedLocalModules.length > 0 && (
+        <IncludedLocalModules includedLocalModules={includedLocalModules} />
+      )}
+      {gitTags && (
+        <MetadataItem>
+          {gitTags.map((g) => (
+            <Disclaimer key={g.tag}>
+              Tag {g.tag} pushed by {g.pusher}
+            </Disclaimer>
+          ))}
+        </MetadataItem>
+      )}
 
       {upstreamProject && (
         <UpstreamProject upstreamProject={upstreamProject} versionId={id} />

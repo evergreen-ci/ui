@@ -1,8 +1,9 @@
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useVersionAnalytics } from "analytics";
 import { GithubCommitLink } from "components/GithubCommitLink";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { RevisionLink } from "components/RevisionLink";
+import { getGithubRepoUrl } from "constants/externalResources";
 import { getTriggerRoute, getWaterfallRoute } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { ProjectTriggerLevel } from "types/triggers";
@@ -42,7 +43,12 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
         </StyledRouterLink>
       </MetadataItem>
       <MetadataItem label="Repo">
-        {owner}/{repo}
+        <StyledLink
+          hideExternalIcon={false}
+          href={getGithubRepoUrl(owner, repo)}
+        >
+          {owner}/{repo}
+        </StyledLink>
       </MetadataItem>
       {triggerType === ProjectTriggerLevel.PUSH ? (
         <MetadataItem label="GitHub commit">
