@@ -7,8 +7,6 @@ import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { palette } from "@leafygreen-ui/palette";
-import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import Accordion, {
   AccordionCaretAlign,
 } from "@evg-ui/lib/components/Accordion";
@@ -17,8 +15,8 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskHistoryAnalytics } from "analytics";
+import { RevisionLink } from "components/RevisionLink";
 import SetPriority, { Align } from "components/SetPriority";
 import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
@@ -184,8 +182,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
         {...walkthroughCommitCardProps}
       >
         <TopLabel>
-          <InlineCode
-            as={Link}
+          <RevisionLink
             data-testid="task-link"
             onClick={() =>
               sendEvent({
@@ -193,10 +190,9 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                 "task.id": taskId,
               })
             }
+            revision={revision ?? ""}
             to={getTaskRoute(taskId, { tab: TaskTab.History })}
-          >
-            {shortenGithash(revision ?? "")}
-          </InlineCode>
+          />
           <IconButton
             aria-label="GitHub Commit Link"
             data-testid="github-link"

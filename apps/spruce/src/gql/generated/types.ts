@@ -506,6 +506,7 @@ export type BucketsConfig = {
   retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
   retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   sourceCacheBucket?: Maybe<BucketConfig>;
+  sourceCacheOptOutProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -520,6 +521,7 @@ export type BucketsConfigInput = {
   retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
   retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   sourceCacheBucket?: InputMaybe<BucketConfigInput>;
+  sourceCacheOptOutProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -5868,6 +5870,7 @@ export type ProjectSettingsFieldsFragment = {
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
       mainlineDefaultEnabled?: boolean | null;
+      quarantineJiraTicketsRequired?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6088,6 +6091,7 @@ export type RepoSettingsFieldsFragment = {
       allowed: boolean;
       defaultEnabled: boolean;
       mainlineDefaultEnabled: boolean;
+      quarantineJiraTicketsRequired: boolean;
     } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -6505,6 +6509,7 @@ export type ProjectEventSettingsFragment = {
       allowed?: boolean | null;
       defaultEnabled?: boolean | null;
       mainlineDefaultEnabled?: boolean | null;
+      quarantineJiraTicketsRequired?: boolean | null;
     } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6678,6 +6683,7 @@ export type ProjectTestSelectionSettingsFragment = {
     allowed?: boolean | null;
     defaultEnabled?: boolean | null;
     mainlineDefaultEnabled?: boolean | null;
+    quarantineJiraTicketsRequired?: boolean | null;
   } | null;
 };
 
@@ -6689,6 +6695,7 @@ export type RepoTestSelectionSettingsFragment = {
     allowed: boolean;
     defaultEnabled: boolean;
     mainlineDefaultEnabled: boolean;
+    quarantineJiraTicketsRequired: boolean;
   } | null;
 };
 
@@ -7128,6 +7135,8 @@ export type PromoteVarsToRepoMutation = {
 export type QuarantineTestMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
+  existingJiraTicketsToLink?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  justification?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type QuarantineTestMutation = {
@@ -9651,6 +9660,7 @@ export type ProjectEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -9886,6 +9896,7 @@ export type ProjectEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10186,6 +10197,7 @@ export type ProjectSettingsQuery = {
         allowed?: boolean | null;
         defaultEnabled?: boolean | null;
         mainlineDefaultEnabled?: boolean | null;
+        quarantineJiraTicketsRequired?: boolean | null;
       } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -10469,6 +10481,7 @@ export type RepoEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10704,6 +10717,7 @@ export type RepoEventLogsQuery = {
             allowed?: boolean | null;
             defaultEnabled?: boolean | null;
             mainlineDefaultEnabled?: boolean | null;
+            quarantineJiraTicketsRequired?: boolean | null;
           } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -10944,6 +10958,7 @@ export type RepoSettingsQuery = {
         allowed: boolean;
         defaultEnabled: boolean;
         mainlineDefaultEnabled: boolean;
+        quarantineJiraTicketsRequired: boolean;
       } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";
@@ -11953,6 +11968,7 @@ export type TaskQuery = {
       testSelection?: {
         __typename?: "TestSelectionSettings";
         allowed?: boolean | null;
+        quarantineJiraTicketsRequired?: boolean | null;
       } | null;
     } | null;
     stepbackInfo?: {

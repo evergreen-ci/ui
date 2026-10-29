@@ -84,6 +84,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       allowed: null,
       defaultEnabled: null,
       mainlineDefaultEnabled: null,
+      quarantineJiraTicketsRequired: null,
     },
     buildBaronSettings: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -276,6 +277,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       allowed: true,
       defaultEnabled: true,
       mainlineDefaultEnabled: true,
+      quarantineJiraTicketsRequired: true,
     },
     buildBaronSettings: {
       ticketCreateProject: "EVG",
