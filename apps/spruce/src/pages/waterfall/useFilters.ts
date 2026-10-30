@@ -1,18 +1,21 @@
 import { useMemo } from "react";
-import { useQueryParam } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { VERSION_LIMIT } from "./constants";
 import {
   Build,
   BuildVariant,
   Pagination,
+  ServerFilters,
   Version,
-  WaterfallFilterOptions,
 } from "./types";
 import { groupBuildVariants, groupInactiveVersions } from "./utils";
 
+const EMPTY_FILTER: string[] = [];
+
 type UseFiltersProps = {
   activeVersionIds: Pagination["activeVersionIds"];
+  applyClientFilters?: boolean;
+  filters: ServerFilters;
   flattenedVersions: Version[];
   omitInactiveBuilds: boolean;
   pins: string[];
@@ -20,6 +23,8 @@ type UseFiltersProps = {
 
 export const useFilters = ({
   activeVersionIds,
+  applyClientFilters = true,
+  filters,
   flattenedVersions,
   omitInactiveBuilds,
   pins,
@@ -29,31 +34,19 @@ export const useFilters = ({
     [flattenedVersions],
   );
 
-  const [requesters] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Requesters,
-    [],
-  );
-
-  const [statuses] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Statuses,
-    [],
-  );
-
-  const [buildVariantFilter] = useQueryParam<string[]>(
-    WaterfallFilterOptions.BuildVariant,
-    [],
-  );
-
-  const [taskFilter] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
+  const requesters = filters.requesters ?? EMPTY_FILTER;
+  const statuses = filters.statuses ?? EMPTY_FILTER;
+  const buildVariantFilter = filters.variants ?? EMPTY_FILTER;
+  const taskFilter = filters.tasks ?? EMPTY_FILTER;
 
   const buildVariantFilterRegex: RegExp[] = useMemo(
-    () => makeFilterRegex(buildVariantFilter),
-    [buildVariantFilter],
+    () => (applyClientFilters ? makeFilterRegex(buildVariantFilter) : []),
+    [applyClientFilters, buildVariantFilter],
   );
 
   const taskFilterRegex: RegExp[] = useMemo(
-    () => makeFilterRegex(taskFilter),
-    [taskFilter],
+    () => (applyClientFilters ? makeFilterRegex(taskFilter) : []),
+    [applyClientFilters, taskFilter],
   );
 
   const filteredBuildVariants = useMemo(() => {
@@ -61,7 +54,8 @@ export const useFilters = ({
 
     const activeVersions = flattenedVersions.filter(
       (v) =>
-        activeVersionIds.includes(v.id) && matchesRequesters(v, requesters),
+        activeVersionIds.includes(v.id) &&
+        (!applyClientFilters || matchesRequesters(v, requesters)),
     );
 
     buildVariants.forEach((bv) => {
@@ -78,15 +72,13 @@ export const useFilters = ({
       const activeBuilds: Build[] = [];
       bv.builds.forEach((b) => {
         if (activeVersions.find(({ id }) => id === b.version)) {
-          // Omit inactive builds if setting is enabled and filtering is active
-          if (
-            omitInactiveBuilds &&
-            buildVariantFilterRegex.length &&
-            !b.activated
-          ) {
+          if (applyClientFilters && omitInactiveBuilds && !b.activated) {
             return;
           }
-          if (taskFilterRegex.length || statuses.length) {
+          if (
+            applyClientFilters &&
+            (taskFilterRegex.length || statuses.length)
+          ) {
             const activeTasks = b.tasks.filter(
               (t) =>
                 matchesTasksFilter(t, taskFilterRegex) &&
@@ -107,6 +99,7 @@ export const useFilters = ({
     return bvs;
   }, [
     activeVersionIds,
+    applyClientFilters,
     buildVariantFilterRegex,
     buildVariants,
     flattenedVersions,
