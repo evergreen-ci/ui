@@ -1,41 +1,8 @@
 import { forwardRef } from "react";
-import { useMutation } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { palette } from "@leafygreen-ui/palette";
-import Accordion, {
-  AccordionCaretAlign,
-} from "@evg-ui/lib/components/Accordion";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { useTaskHistoryAnalytics } from "analytics";
-import { RevisionLink } from "components/RevisionLink";
-import SetPriority, { Align } from "components/SetPriority";
-import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
-import { UpstreamProjectLink } from "components/UpstreamProjectLink";
-import { getGithubCommitUrl } from "constants/externalResources";
 import { Requester } from "constants/requesters";
-import { getTaskRoute } from "constants/routes";
-import {
-  RestartTaskMutation,
-  RestartTaskMutationVariables,
-  ScheduleTasksMutation,
-  ScheduleTasksMutationVariables,
-} from "gql/generated/types";
-import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
-import { NotifyMeButton } from "pages/task/ActionButtons/NotifyMeButton";
-import { NotificationModalSource } from "types/subscription";
-import { RequiredQueryParams, TaskTab } from "types/task";
-import { isProduction } from "utils/environmentVariables";
 import {
   stickyHeaderScrollOffset,
   walkthroughCommitCardProps,
@@ -43,10 +10,10 @@ import {
 import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
 import { getTaskIngestTime } from "../utils";
-import CommitDescription from "./CommitDescription";
-import FailedTestsTable from "./FailedTestsTable";
-
-const { blue, gray } = palette;
+import styles from "./CommitDetailsCard.module.css";
+import { CommitInfo } from "./CommitInfo";
+import { CommitMessage } from "./CommitMessage";
+import { Header } from "./Header";
 
 interface CommitDetailsCardProps {
   isMatching: boolean;
@@ -55,42 +22,13 @@ interface CommitDetailsCardProps {
 
 const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
   ({ isMatching, task }, ref) => {
-    const { sendEvent } = useTaskHistoryAnalytics();
-    const dispatchToast = useToastContext();
     const getDateCopy = useDateFormat();
 
-    const {
-      baseTaskId,
-      currentTask,
-      expandedTasksMap,
-      isPatch,
-      selectedTask,
-      setExpandedTasksMap,
-      setHoveredTask,
-    } = useTaskHistoryContext();
-    const [, setExecution] = useQueryParam(RequiredQueryParams.Execution, 0);
+    const { baseTaskId, currentTask, isPatch, selectedTask, setHoveredTask } =
+      useTaskHistoryContext();
 
-    const {
-      activated,
-      canRestart,
-      canSchedule,
-      canSetPriority,
-      displayStatus,
-      execution,
-      generator,
-      id: taskId,
-      order,
-      priority,
-      requester,
-      revision,
-      tests,
-      version,
-    } = task;
-    const { id: versionId, message, user } = version;
-    const author = user.displayName!;
+    const { displayStatus, id: taskId, requester } = task;
 
-    const owner = currentTask.project?.owner ?? "";
-    const repo = currentTask.project?.repo ?? "";
     const isCurrentTask = isPatch
       ? taskId === baseTaskId
       : taskId === currentTask.id;
@@ -104,271 +42,34 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       omitTimezone: true,
     });
 
-    const githubCommitUrl =
-      owner && repo && revision
-        ? getGithubCommitUrl(owner, repo, revision)
-        : "";
-
-    const [scheduleTask] = useMutation<
-      ScheduleTasksMutation,
-      ScheduleTasksMutationVariables
-    >(SCHEDULE_TASKS, {
-      onCompleted: () => {
-        const newMap = new Map(expandedTasksMap);
-        newMap.delete(task.id);
-        setExpandedTasksMap(newMap);
-        dispatchToast.success("Task scheduled to run");
-      },
-      onError: (err) => {
-        dispatchToast.error(`Error scheduling task: ${err.message}`);
-      },
-      update: (cache) => {
-        cache.modify({
-          id: cache.identify(task),
-          fields: {
-            canSchedule: () => false,
-            canSetPriority: () => true,
-            displayStatus: () => TaskStatus.WillRun,
-            activated: () => true,
-          },
-          broadcast: true,
-        });
-      },
-    });
-
-    const [restartTask] = useMutation<
-      RestartTaskMutation,
-      RestartTaskMutationVariables
-    >(RESTART_TASK, {
-      onCompleted: (data) => {
-        dispatchToast.success("Task scheduled to restart");
-        if (isCurrentTask) {
-          const newerExecution = data?.restartTask.latestExecution ?? 0;
-          setExecution(newerExecution);
-        }
-      },
-      onError: (err) =>
-        dispatchToast.error(`Error restarting task: ${err.message}`),
-      update: (cache) => {
-        if (!isCurrentTask) {
-          cache.modify({
-            id: cache.identify(task),
-            fields: {
-              canRestart: () => false,
-              canSetPriority: () => true,
-              displayStatus: () => TaskStatus.WillRun,
-              execution: (cachedExecution: number) => cachedExecution + 1,
-            },
-            broadcast: false,
-          });
-        }
-      },
-      // Only re-request if the current task is restarted. This should be relatively
-      // uncommon.
-      refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
-    });
+    // These values are only known at runtime, so they're handed to the
+    // stylesheet as CSS variables.
+    const cardCssVariables = {
+      "--status-color": statusColorMap[displayStatus as TaskStatus],
+      "--scroll-margin-top": `${stickyHeaderScrollOffset}px`,
+    } as React.CSSProperties;
 
     return (
-      <CommitCard
+      <div
         key={taskId}
         ref={ref}
+        className={styles.card}
+        data-matching={isMatching}
+        data-selected={isSelectedTask}
         data-testid="commit-details-card"
         id={`commit-card-${taskId}`}
-        isMatching={isMatching}
         onMouseEnter={() => setHoveredTask(taskId)}
         onMouseLeave={() => setHoveredTask(null)}
-        selected={isSelectedTask}
-        status={displayStatus as TaskStatus}
+        style={cardCssVariables}
         {...walkthroughCommitCardProps}
       >
-        <TopLabel>
-          <RevisionLink
-            data-testid="task-link"
-            onClick={() =>
-              sendEvent({
-                name: "Clicked task link",
-                "task.id": taskId,
-              })
-            }
-            revision={revision ?? ""}
-            to={getTaskRoute(taskId, { tab: TaskTab.History })}
-          />
-          <IconButton
-            aria-label="GitHub Commit Link"
-            data-testid="github-link"
-            href={githubCommitUrl}
-            target="_blank"
-          >
-            <Icon glyph="GitHub" />
-          </IconButton>
-          {activated ? (
-            <Button
-              data-testid="restart-button"
-              disabled={!canRestart}
-              onClick={() => {
-                sendEvent({
-                  name: "Clicked restart task button",
-                  "task.id": taskId,
-                });
-                restartTask({ variables: { taskId, failedOnly: false } });
-              }}
-              size={ButtonSize.XSmall}
-            >
-              Restart Task
-            </Button>
-          ) : (
-            <Button
-              data-testid="schedule-button"
-              disabled={!canSchedule}
-              onClick={() => {
-                sendEvent({
-                  name: "Clicked schedule task button",
-                  "task.id": taskId,
-                });
-                scheduleTask({ variables: { taskIds: [taskId], versionId } });
-              }}
-              size={ButtonSize.XSmall}
-            >
-              Schedule Task
-            </Button>
-          )}
-          <NotifyMeButton
-            buttonSize={ButtonSize.XSmall}
-            source={NotificationModalSource.TaskHistory}
-            taskId={taskId}
-          />
-          {isCurrentTask && (
-            <Badge data-testid="this-task-badge" variant={BadgeVariant.Blue}>
-              {isPatch ? "Base" : "This"} Task
-            </Badge>
-          )}
-          <DateContainer>
-            <span>{dateCopy}</span>
-            {generator?.ingestTime && (
-              <InfoSprinkle>
-                Generated tasks are sorted by generator ingest time.
-              </InfoSprinkle>
-            )}
-          </DateContainer>
-          {execution > 0 ? (
-            <Chip
-              data-testid="execution-chip"
-              label={`Executions: ${execution + 1}`}
-              variant={ChipVariant.Gray}
-            />
-          ) : null}
-          {isTrigger ? (
-            <>
-              •{" "}
-              <UpstreamProjectLink
-                isTrigger={isTrigger}
-                versionId={versionId}
-              />
-            </>
-          ) : null}
-          <PriorityContainer>
-            <SetPriority
-              disabled={!canSetPriority}
-              initialPriority={priority ?? 0}
-              isButton
-              popconfirmAlign={Align.Top}
-              taskIds={[taskId]}
-            />
-            {priority && priority > 0 ? (
-              <Chip
-                data-testid="priority-chip"
-                label={`Priority: ${priority}`}
-                variant={ChipVariant.Gray}
-              />
-            ) : null}
-          </PriorityContainer>
-        </TopLabel>
-        <BottomLabel>
-          {tests.testResults.length > 0 ? (
-            <FullWidthAccordion
-              caretAlign={AccordionCaretAlign.Start}
-              onToggle={({ isVisible }) =>
-                sendEvent({
-                  name: "Toggled failed tests table",
-                  open: isVisible,
-                })
-              }
-              title={<CommitDescription author={author} message={message} />}
-            >
-              <FailedTestsTable tests={tests} />
-            </FullWidthAccordion>
-          ) : (
-            <CommitDescription author={author} message={message} />
-          )}
-          {/* Use order label to debug issues with pagination. */}
-          {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
-        </BottomLabel>
-      </CommitCard>
+        <Header dateCopy={dateCopy} isCurrentTask={isCurrentTask} task={task} />
+        <CommitInfo isTrigger={isTrigger} task={task} />
+        <CommitMessage task={task} />
+      </div>
     );
   },
 );
 CommitDetailsCard.displayName = "CommitDetailsCard";
 
 export default CommitDetailsCard;
-
-const CommitCard = styled.div<{
-  status: TaskStatus;
-  selected: boolean;
-  isMatching: boolean;
-}>`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xs};
-  padding: ${size.xs};
-
-  border-radius: ${size.xs};
-  border: 1px solid ${gray.light2};
-  :hover {
-    border-color: ${blue.base};
-  }
-  ${({ selected }) => selected && `border-color: ${blue.base};`}
-
-  /* Styles for the status stripe. Border isn't used as it interferes with hover styles. */
-  ${({ status }) => `
-     background: linear-gradient(to right, ${statusColorMap[status]} 10px, transparent 0px) no-repeat;
-     `}
-  padding-left: ${size.s};
-
-  ${({ isMatching }) => !isMatching && inactiveElementStyle};
-
-  scroll-margin-top: ${stickyHeaderScrollOffset}px;
-`;
-
-const TopLabel = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;
-
-const DateContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;
-
-const PriorityContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: ${size.xs};
-  margin-left: auto;
-`;
-
-const BottomLabel = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;
-
-const FullWidthAccordion = styled(Accordion)`
-  flex: 1;
-  min-width: 0;
-`;
-
-const OrderLabel = styled.div`
-  margin-left: auto;
-`;

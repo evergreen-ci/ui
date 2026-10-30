@@ -197,7 +197,7 @@ describe("CommitDetailsCard component", () => {
     );
     renderWithRouterMatch(<Component />, { wrapper });
     const card = screen.getByTestId("commit-details-card");
-    expect(card).toHaveStyle("opacity: 0.4");
+    expect(card).toHaveAttribute("data-matching", "false");
   });
 
   describe("button interactions", () => {
