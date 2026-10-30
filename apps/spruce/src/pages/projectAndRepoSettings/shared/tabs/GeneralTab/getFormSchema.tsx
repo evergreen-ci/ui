@@ -27,6 +27,7 @@ export const getFormSchema = (
   initialOwner: string,
   initialRepo: string,
   repoData?: GeneralFormState,
+  sourceCacheAllProjectsEnabled = false,
 ): ReturnType<GetFormSchema> => ({
   fields: {
     deactivateStepbackTask: DeactivateStepbackTaskField,
@@ -523,8 +524,9 @@ export const getFormSchema = (
       sourceCacheMode: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:data-testid": "source-cache-mode-radio-box",
-        "ui:description":
-          "This setting is temporary and will eventually be automatically enabled for all projects.",
+        "ui:description": sourceCacheAllProjectsEnabled
+          ? "The source cache is currently enabled for all projects."
+          : "This setting is temporary and will eventually be automatically enabled for all projects.",
       },
     },
     delete: {
