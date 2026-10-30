@@ -1,5 +1,7 @@
 import { FieldFunctionOptions, FieldMergeFunction } from "@apollo/client";
 import {
+  CachedRange,
+  CachedWaterfall,
   ReadField,
   Version,
   Waterfall,
@@ -7,72 +9,122 @@ import {
   getCacheOptions,
   getCachedPageLimit,
   getVersionId,
+  getVersionOrder,
+  getWaterfallBuildsFieldName,
 } from "./utils";
 
-// Limit the number of active versions kept in the cache, using pagination direction to remove either the oldest or newest active versions present.
-const boundVersions = ({
-  activeVersionIds,
-  evictNewestVersions,
-  maxActiveVersions,
-  readField,
-  versions,
-}: {
-  activeVersionIds: Set<string>;
-  evictNewestVersions: boolean;
-  maxActiveVersions: number;
-  readField: ReadField;
-  versions: readonly Version[];
-}) => {
-  const activeVersionIndexes = versions.reduce<number[]>(
-    (indexes, version, index) => {
-      if (activeVersionIds.has(getVersionId(version, readField))) {
-        indexes.push(index);
-      }
-      return indexes;
-    },
-    [],
-  );
-
-  let retainedVersions: Version[];
-  let discardedVersions: Version[];
-
-  if (activeVersionIndexes.length <= maxActiveVersions) {
-    retainedVersions = [...versions];
-    discardedVersions = [];
-  } else if (evictNewestVersions) {
-    // Retain adjacent inactive versions so each cached page remains complete.
-    const startIndex =
-      activeVersionIndexes[activeVersionIndexes.length - maxActiveVersions];
-    retainedVersions = versions.slice(startIndex);
-    discardedVersions = versions.slice(0, startIndex);
-  } else {
-    const endIndex = activeVersionIndexes[maxActiveVersions - 1];
-    retainedVersions = versions.slice(0, endIndex + 1);
-    discardedVersions = versions.slice(endIndex + 1);
+const getRange = (
+  data: Waterfall,
+  args: FieldFunctionOptions["args"],
+  readField: ReadField,
+): CachedRange => {
+  const { date, limit, maxOrder, minOrder, revision } = getCacheOptions(args);
+  const { pagination, versions } = data;
+  const first = versions[0];
+  const last = versions.at(-1);
+  let upper = pagination.mostRecentVersionOrder;
+  if (maxOrder) {
+    upper = maxOrder - 1;
+  } else if (minOrder || date || revision) {
+    upper = first
+      ? getVersionOrder(first, readField)
+      : pagination.prevPageOrder || pagination.mostRecentVersionOrder;
   }
-
+  const lastOrder = last ? getVersionOrder(last, readField) : upper;
+  let lower = Math.min(lastOrder, pagination.nextPageOrder || lastOrder);
+  if (minOrder) {
+    lower = minOrder + 1;
+    upper = Math.max(upper, lower);
+  } else if (!pagination.hasNextPage) {
+    lower = Math.min(1, upper);
+  }
+  const completedLimit = pagination.activeVersionIds.length < limit ? limit : 0;
   return {
-    discardedVersions,
-    retainedVersionIds: new Set(
-      retainedVersions.map((version) => getVersionId(version, readField)),
-    ),
-    retainedVersions,
+    minOrder: lower,
+    maxOrder: upper,
+    lower: {
+      anchor: upper,
+      cursor: pagination.nextPageOrder,
+      hasMore: pagination.hasNextPage,
+      limit: completedLimit,
+    },
+    upper: {
+      anchor: lower,
+      cursor: pagination.prevPageOrder,
+      hasMore: pagination.hasPrevPage,
+      limit: completedLimit,
+    },
   };
 };
 
-// Remove WaterfallBuild cache entries if their versions have been dropped by boundVersions
+const clipRange = (
+  range: CachedRange,
+  minOrder: number,
+  maxOrder: number,
+): CachedRange | undefined => {
+  const lower = Math.max(range.minOrder, minOrder);
+  const upper = Math.min(range.maxOrder, maxOrder);
+  if (lower > upper) {
+    return undefined;
+  }
+  return {
+    minOrder: lower,
+    maxOrder: upper,
+    lower:
+      lower === range.minOrder
+        ? range.lower
+        : { anchor: upper, cursor: lower, hasMore: true, limit: 0 },
+    upper:
+      upper === range.maxOrder
+        ? range.upper
+        : { anchor: lower, cursor: upper, hasMore: true, limit: 0 },
+  };
+};
+
+const mergeCoverage = (
+  ranges: CachedRange[],
+  incoming: CachedRange,
+): CachedRange[] => {
+  const merged: CachedRange[] = [];
+  [...ranges, incoming]
+    .sort((a, b) => b.maxOrder - a.maxOrder)
+    .forEach((range) => {
+      const previous = merged.at(-1);
+      if (!previous || range.maxOrder < previous.minOrder - 1) {
+        merged.push(range);
+      } else {
+        merged[merged.length - 1] = {
+          minOrder: Math.min(previous.minOrder, range.minOrder),
+          maxOrder: previous.maxOrder,
+          lower:
+            range.minOrder < previous.minOrder ||
+            (range === incoming && range.minOrder === previous.minOrder)
+              ? range.lower
+              : previous.lower,
+          upper:
+            range === incoming && range.maxOrder === previous.maxOrder
+              ? range.upper
+              : previous.upper,
+        };
+      }
+    });
+  return merged;
+};
+
 const evictBuildsForVersions = ({
+  args,
   cache,
   discardedVersions,
   readField,
   storage,
 }: {
-  cache: FieldFunctionOptions["cache"] | undefined;
+  args: FieldFunctionOptions["args"];
+  cache: FieldFunctionOptions["cache"];
   discardedVersions: readonly Version[];
   readField: ReadField;
-  storage: FieldFunctionOptions["storage"] | undefined;
+  storage: FieldFunctionOptions["storage"];
 }) => {
-  if (!cache || discardedVersions.length === 0) {
+  if (!discardedVersions.length) {
     return;
   }
 
@@ -84,98 +136,114 @@ const evictBuildsForVersions = ({
     if (versionCacheId) {
       cache.evict({
         broadcast: false,
-        fieldName: "waterfallBuilds",
+        fieldName: getWaterfallBuildsFieldName(args?.options ?? {}),
         id: versionCacheId,
       });
     }
   });
 
-  if (storage?.pendingGarbageCollection) {
+  if (storage.pendingGarbageCollection) {
     return;
   }
-  if (storage) {
-    storage.pendingGarbageCollection = true;
-  }
+  storage.pendingGarbageCollection = true;
   queueMicrotask(() => {
-    if (storage) {
-      storage.pendingGarbageCollection = false;
-    }
+    storage.pendingGarbageCollection = false;
     cache.gc({ resetResultCache: true });
   });
 };
 
-export const mergeVersions = ((
+export const mergeVersions: FieldMergeFunction<CachedWaterfall, Waterfall> = (
   existing,
   incoming,
-  { args, cache, readField, storage },
+  context,
 ) => {
+  const { args, cache, readField, storage } = context;
   const { limit, maxOrder, projectIdentifier } = getCacheOptions(args);
-  const existingVersions = existing
-    ? (readField<Waterfall["versions"]>("versions", existing) ?? [])
-    : [];
-  const incomingVersions =
-    readField<Waterfall["versions"]>("versions", incoming) ?? [];
+  const maxActiveVersions = limit * getCachedPageLimit(projectIdentifier);
+  const incomingRange = getRange(incoming, args, readField);
+  const activeIds = new Set(existing?.allActiveVersions);
+  incoming.versions.forEach((version) => {
+    activeIds.delete(getVersionId(version, readField));
+  });
+  incoming.pagination.activeVersionIds.forEach((id) => activeIds.add(id));
   const mergedVersions = deduplicateAndSortVersions(
-    [...existingVersions, ...incomingVersions],
+    [...(existing?.versions ?? []), ...incoming.versions],
     readField,
   );
-
-  const pagination = readField<Waterfall["pagination"]>(
-    "pagination",
-    incoming,
-  ) ?? {
-    activeVersionIds: [],
-    hasNextPage: true,
-    hasPrevPage: true,
-    mostRecentVersionOrder: 0,
-    nextPageOrder: 0,
-    prevPageOrder: 0,
-  };
-
-  const allActiveVersions = existing
-    ? new Set(readField<Set<string>>("allActiveVersions", existing) ?? [])
-    : new Set<string>();
-  const incomingActiveVersions =
-    readField<string[]>("activeVersionIds", pagination) ?? [];
-  incomingActiveVersions.forEach((versionId) =>
-    allActiveVersions.add(versionId),
+  const isActive = (version: Version) =>
+    activeIds.has(getVersionId(version, readField));
+  const activeIndexes = mergedVersions.flatMap((version, index) =>
+    isActive(version) ? [index] : [],
   );
-
-  const maxActiveVersions = limit * getCachedPageLimit(projectIdentifier);
-  let retainedVersions = mergedVersions;
-  let retainedActiveVersions = allActiveVersions;
-
-  if (allActiveVersions.size > maxActiveVersions) {
-    const {
-      discardedVersions,
-      retainedVersionIds,
-      retainedVersions: bounded,
-    } = boundVersions({
-      activeVersionIds: allActiveVersions,
-      evictNewestVersions: Boolean(maxOrder),
-      maxActiveVersions,
-      readField,
-      versions: mergedVersions,
-    });
-    retainedVersions = bounded;
-    retainedActiveVersions = new Set(
-      [...allActiveVersions].filter((versionId) =>
-        retainedVersionIds.has(versionId),
-      ),
-    );
-    evictBuildsForVersions({
-      cache,
-      discardedVersions,
-      readField,
-      storage,
-    });
+  let minRetainedOrder = -Infinity;
+  let maxRetainedOrder = Infinity;
+  if (activeIndexes.length > maxActiveVersions) {
+    if (maxOrder) {
+      let firstRetainedIndex =
+        activeIndexes[activeIndexes.length - maxActiveVersions];
+      while (
+        firstRetainedIndex > 0 &&
+        !isActive(mergedVersions[firstRetainedIndex - 1])
+      ) {
+        firstRetainedIndex -= 1;
+      }
+      maxRetainedOrder = getVersionOrder(
+        mergedVersions[firstRetainedIndex],
+        readField,
+      );
+    } else {
+      let lastRetainedIndex = activeIndexes[maxActiveVersions - 1];
+      while (
+        lastRetainedIndex < mergedVersions.length - 1 &&
+        !isActive(mergedVersions[lastRetainedIndex + 1])
+      ) {
+        lastRetainedIndex += 1;
+      }
+      minRetainedOrder = getVersionOrder(
+        mergedVersions[lastRetainedIndex],
+        readField,
+      );
+    }
   }
 
+  let coverage = mergeCoverage(existing?.coverage ?? [], incomingRange).flatMap(
+    (range) => {
+      const retained = clipRange(range, minRetainedOrder, maxRetainedOrder);
+      return retained ? [retained] : [];
+    },
+  );
+  // Disconnected empty scans must also remain bounded without consuming version slots.
+  coverage = maxOrder
+    ? coverage.slice(-maxActiveVersions)
+    : coverage.slice(0, maxActiveVersions);
+  const isCovered = (order: number) =>
+    coverage.some(
+      (range) => range.minOrder <= order && order <= range.maxOrder,
+    );
+  const retainedVersions = mergedVersions.filter((version) =>
+    isCovered(getVersionOrder(version, readField)),
+  );
+  const retainedIds = new Set(
+    retainedVersions.map((version) => getVersionId(version, readField)),
+  );
+  const discardedVersions = (existing?.versions ?? []).filter(
+    (version) => !retainedIds.has(getVersionId(version, readField)),
+  );
+  evictBuildsForVersions({
+    args,
+    cache,
+    discardedVersions,
+    readField,
+    storage,
+  });
+
   return {
+    __typename: incoming.__typename,
     versions: retainedVersions,
-    pagination,
-    allActiveVersions: retainedActiveVersions,
+    mostRecentVersionOrder: incoming.pagination.mostRecentVersionOrder,
+    allActiveVersions: new Set(
+      [...activeIds].filter((id) => retainedIds.has(id)),
+    ),
+    coverage,
   };
-}) satisfies FieldMergeFunction<
-  Waterfall & { allActiveVersions?: Set<string> }
->;
+};

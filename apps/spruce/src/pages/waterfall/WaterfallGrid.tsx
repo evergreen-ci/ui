@@ -1,5 +1,13 @@
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { useSuspenseQuery } from "@apollo/client/react";
+import { useLocation, useNavigationType } from "react-router-dom";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { cx } from "@evg-ui/lib/utils/css";
 import {
@@ -25,6 +33,10 @@ import { getUTCEndOfDay } from "utils/date";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
+import {
+  getWaterfallAnchorKey,
+  normalizeWaterfallFilters,
+} from "./caching/utils";
 import { VERSION_LIMIT } from "./constants";
 import { EmptyState } from "./EmptyState";
 import { FetchMoreLoader } from "./FetchMoreLoader";
@@ -40,23 +52,16 @@ import {
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 import styles from "./WaterfallGrid.module.css";
 
-type ServerFilters = Pick<
-  WaterfallOptions,
-  "requesters" | "statuses" | "tasks" | "variants"
->;
-
 type WaterfallGridProps = {
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
-  setPagination: (pagination: Pagination) => void;
+  setPagination: (pagination: Pagination | undefined) => void;
 };
 
-const resetFilterState: ServerFilters = {
-  requesters: [],
-  statuses: [],
-  tasks: [],
-  variants: [],
+type WaterfallRequest = {
+  options: WaterfallOptions;
+  preview: boolean;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
@@ -67,6 +72,21 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 }) => {
   useWaterfallTrace();
   const { sendEvent } = useWaterfallAnalytics();
+  const { key: locationKey } = useLocation();
+  const navigationType = useNavigationType();
+  const [navigation, setNavigation] = useState({
+    key: locationKey,
+    hasPopped: false,
+  });
+  const hasHistoryNavigation =
+    navigation.hasPopped ||
+    (navigation.key !== locationKey && navigationType === "POP");
+  if (navigation.key !== locationKey) {
+    setNavigation({
+      key: locationKey,
+      hasPopped: hasHistoryNavigation,
+    });
+  }
 
   const headerScrollRef = useRef<HTMLDivElement>(null);
   const [showShadow, setShowShadow] = useState(false);
@@ -116,7 +136,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   );
   const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
   const timezone = useUserTimeZone() ?? utcTimeZone;
-  const utcDate = getUTCEndOfDay(date, timezone);
+  const utcDate = useMemo(
+    () => getUTCEndOfDay(date, timezone),
+    [date, timezone],
+  );
 
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
@@ -132,68 +155,148 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     [],
   );
 
-  // TODO: It would be ideal to represent serverFilters with useDeferredValue to ditch the useState/useEffect pattern.
-  // However, useDeferredValue's initialState option is introduced in React 19.
-  const [serverFilters, setServerFilters] =
-    useState<ServerFilters>(resetFilterState);
-  const serverFiltersRef = useRef(resetFilterState);
+  const hasFilters = !!(
+    requesters.length ||
+    statuses.length ||
+    tasks.length ||
+    variants.length
+  );
+  const targetOptions = useMemo<WaterfallOptions>(
+    () => ({
+      ...normalizeWaterfallFilters({
+        projectIdentifier,
+        requesters,
+        statuses,
+        tasks,
+        variants,
+        includeAllBuildsAndTasks: !hasFilters,
+        omitInactiveBuilds: omitInactiveBuilds && variants.length > 0,
+      }),
+      limit: VERSION_LIMIT,
+      maxOrder,
+      minOrder,
+      revision,
+      date: utcDate,
+    }),
+    [
+      projectIdentifier,
+      requesters,
+      statuses,
+      tasks,
+      variants,
+      hasFilters,
+      omitInactiveBuilds,
+      maxOrder,
+      minOrder,
+      revision,
+      utcDate,
+    ],
+  );
+
+  const [request, setRequest] = useState<WaterfallRequest>(() => ({
+    options: {
+      ...targetOptions,
+      ...normalizeWaterfallFilters({ projectIdentifier }),
+    },
+    preview: true,
+  }));
+  const requestKey = JSON.stringify(request);
+  const requestedKeyRef = useRef(requestKey);
   const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    const newFilters = { requesters, statuses, tasks, variants };
-    const hasFilters = Object.values(newFilters).some((f) => f.length);
-
-    // Mount in particular can introduce a lot of useEffect calls due to different array references, so compare strictly
-    const hasChanges =
-      JSON.stringify(serverFiltersRef.current) !== JSON.stringify(newFilters);
-
-    if (hasChanges) {
-      serverFiltersRef.current = newFilters;
-      if (hasFilters) {
-        startTransition(() => {
-          setServerFilters(newFilters);
-        });
-      } else {
-        // Don't use a transition: if cached, the data will appear immediately
-        // If not a skeleton will appear, which makes more sense than 'fetching more'
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setServerFilters(newFilters);
-      }
-    }
-  }, [requesters, statuses, tasks, variants]);
+  const pageChanged =
+    getWaterfallAnchorKey({ options: request.options }) !==
+    getWaterfallAnchorKey({ options: targetOptions });
+  // Navigate directly so cache misses suspend, while filter updates stay deferred.
+  const queryRequest = useMemo<WaterfallRequest>(
+    () => (pageChanged ? { options: targetOptions, preview: false } : request),
+    [pageChanged, request, targetOptions],
+  );
+  const [previewOptions, setPreviewOptions] = useState(targetOptions);
+  if (
+    request.preview &&
+    !pageChanged &&
+    !hasHistoryNavigation &&
+    JSON.stringify(previewOptions) !== JSON.stringify(targetOptions)
+  ) {
+    // Retain this page's local selection while navigating to a different page.
+    setPreviewOptions(targetOptions);
+  }
 
   const { data, dataState } = useSuspenseQuery<
     WaterfallQuery,
     WaterfallQueryVariables
   >(WATERFALL, {
-    variables: {
-      options: {
-        projectIdentifier,
-        limit: VERSION_LIMIT,
-        maxOrder,
-        minOrder,
-        omitInactiveBuilds,
-        revision,
-        date: utcDate,
-        ...serverFilters,
-      },
-    },
+    variables: { options: queryRequest.options },
     // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
     pollInterval: DEFAULT_POLL_INTERVAL,
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-first",
+    refetchWritePolicy: "merge",
   });
   // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
   const dataIsComplete = dataState === "complete";
-  useWaterfallNavigationTrace({
-    data: dataIsComplete ? data : undefined,
+
+  const { activeVersionIds, buildVariants, versions } = useFilters({
+    activeVersionIds: dataIsComplete
+      ? data.waterfall.pagination.activeVersionIds
+      : [],
+    flattenedVersions: dataIsComplete ? data.waterfall.versions : [],
+    filters: queryRequest.preview ? previewOptions : queryRequest.options,
+    omitInactiveBuilds: queryRequest.preview
+      ? !!previewOptions.omitInactiveBuilds
+      : !!queryRequest.options.omitInactiveBuilds,
+    pins,
+    serverFiltered: !queryRequest.preview,
   });
+
+  const hasMore =
+    dataIsComplete &&
+    (queryRequest.options.minOrder
+      ? data.waterfall.pagination.hasPrevPage
+      : data.waterfall.pagination.hasNextPage);
+  const needsBackfill =
+    queryRequest.preview &&
+    hasFilters &&
+    hasMore &&
+    activeVersionIds.length < VERSION_LIMIT;
+  const nextRequest = useMemo<WaterfallRequest>(
+    () =>
+      request.preview && !pageChanged && !hasHistoryNavigation && !needsBackfill
+        ? request
+        : { options: targetOptions, preview: false },
+    [request, pageChanged, hasHistoryNavigation, needsBackfill, targetOptions],
+  );
+  const nextRequestKey = JSON.stringify(nextRequest);
+  const isFetching =
+    isPending || nextRequestKey !== JSON.stringify(queryRequest);
+
+  useEffect(() => {
+    if (requestedKeyRef.current !== nextRequestKey) {
+      requestedKeyRef.current = nextRequestKey;
+      if (pageChanged) {
+        // Commit the destination after its query is ready; only filters need a transition.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setRequest({ ...nextRequest });
+      } else {
+        startTransition(() => {
+          // A fresh update also supersedes a suspended request when filters are cleared.
+          setRequest({ ...nextRequest });
+        });
+      }
+    }
+  }, [nextRequest, nextRequestKey, pageChanged]);
+
+  useWaterfallNavigationTrace({
+    data: dataIsComplete && !isFetching ? data : undefined,
+  });
+
+  useEffect(() => () => setPagination(undefined), [setPagination]);
 
   useEffect(() => {
     if (dataIsComplete) {
-      setPagination(data.waterfall.pagination);
+      setPagination({ ...data.waterfall.pagination, isLoading: isFetching });
 
       // Use replaceState to remove the query params without causing a rerender
-      if (data.waterfall.pagination.hasPrevPage === false) {
+      if (!isFetching && data.waterfall.pagination.hasPrevPage === false) {
         const {
           maxOrder: _,
           minOrder: __,
@@ -207,27 +310,17 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         );
       }
     }
-  }, [setPagination, dataIsComplete, data?.waterfall?.pagination]);
-
-  const { activeVersionIds, buildVariants, versions } = useFilters({
-    activeVersionIds: dataIsComplete
-      ? data.waterfall.pagination.activeVersionIds
-      : [],
-    flattenedVersions: dataIsComplete ? data.waterfall.versions : [],
-    omitInactiveBuilds,
-    pins,
-  });
+  }, [setPagination, dataIsComplete, data?.waterfall?.pagination, isFetching]);
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
   const isHighlighted = (v: Version, i: number) =>
-    (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
+    (!!queryRequest.options.revision &&
+      v.revision.includes(queryRequest.options.revision)) ||
+    (!!queryRequest.options.date && i === 0);
 
-  if (
-    dataIsComplete &&
-    data?.waterfall?.pagination?.activeVersionIds?.length === 0
-  ) {
+  if (dataIsComplete && !isFetching && activeVersionIds.length === 0) {
     return <EmptyState pagination={data.waterfall.pagination} />;
   }
 
@@ -272,9 +365,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
               </div>
             );
           })}
-          {isPending && activeVersionIds.length < VERSION_LIMIT && (
-            <FetchMoreLoader />
-          )}
+          {isFetching && !pageChanged && <FetchMoreLoader />}
         </div>
       </div>
       <BuildVariantProvider>

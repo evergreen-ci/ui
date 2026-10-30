@@ -25,7 +25,9 @@ export const usePaginationNavigation = (pagination: Pagination | undefined) => {
   // If the query param is equivalent to the current pagination value, this means we are fetching and the new pagination data hasn't yet been returned.
   // During this time, disable pagination buttons.
   const isNavigatingToPage =
-    prevPageOrder === minOrder || nextPageOrder === maxOrder;
+    pagination?.isLoading ||
+    prevPageOrder === minOrder ||
+    nextPageOrder === maxOrder;
 
   const goToNextPage = useCallback(() => {
     startWaterfallNavigationTrace({

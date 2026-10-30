@@ -30,6 +30,24 @@ describe("groupInactiveVersions", () => {
       },
     ]);
   });
+
+  it.each([
+    { name: "before another active version", input: versions },
+    { name: "at the end of the page", input: versions.slice(0, -1) },
+  ])(
+    "keeps trailing inactive versions $name after reaching the limit",
+    ({ input }) => {
+      expect(groupInactiveVersions(input, () => true, 2)).toEqual(
+        groupedVersions.slice(0, 4),
+      );
+    },
+  );
+
+  it("does not include inactive groups beyond the next active version", () => {
+    expect(groupInactiveVersions(versions, () => true, 1)).toEqual(
+      groupedVersions.slice(0, 2),
+    );
+  });
 });
 
 describe("groupBuildVariants", () => {

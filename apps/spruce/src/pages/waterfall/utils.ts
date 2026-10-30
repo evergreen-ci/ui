@@ -41,16 +41,16 @@ export const groupInactiveVersions = (
     });
   };
 
-  versions.forEach((version) => {
-    if (limit && activeVersionsCount >= limit) {
-      return;
-    }
+  for (const version of versions) {
     if (version.activated && versionHasActiveBuild(version)) {
+      if (limit && activeVersionsCount >= limit) {
+        break;
+      }
       pushActive(version);
     } else {
       pushInactive(version);
     }
-  });
+  }
 
   return filteredVersions;
 };
