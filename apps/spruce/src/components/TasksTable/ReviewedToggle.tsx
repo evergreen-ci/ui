@@ -29,7 +29,6 @@ export const ReviewedToggle: React.FC<{
       disabled={task.displayStatus === TaskStatus.Succeeded}
       onChange={handleClick}
       size={ToggleSize.XSmall}
-      style={{ flexShrink: 0 }}
     />
   );
 };
