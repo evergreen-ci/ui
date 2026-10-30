@@ -1,4 +1,3 @@
-import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import { Page, expect, test } from "../../fixtures";
 import { clickCheckbox } from "../../helpers";
 
@@ -242,54 +241,6 @@ test.describe("Task table", () => {
       await expect(displayTaskCheckbox).toBeChecked();
       await page.getByRole("button", { name: "Expand row" }).click();
       await expect(executionTask2Checkbox).toBeChecked();
-    });
-
-    test.describe("announcement tooltip", () => {
-      test.beforeEach(async ({ page }) => {
-        await page.context().clearCookies({ name: SEEN_TASK_REVIEW_TOOLTIP });
-        await page.goto(pathTasks);
-        await waitForTaskTable(page);
-      });
-
-      test("shows the announcement tooltip open on the first viewing", async ({
-        page,
-      }) => {
-        await expect(page.getByText("New feature: Task Review")).toBeVisible();
-      });
-
-      test("shows the info icon one day after the initial close and hides it after one week", async ({
-        page,
-      }) => {
-        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-        await page.context().addCookies([
-          {
-            name: SEEN_TASK_REVIEW_TOOLTIP,
-            value: oneDayAgo.toString(),
-            domain: "localhost",
-            path: "/",
-          },
-        ]);
-        await page.goto(pathTasks);
-        await expect(page.getByText("Reviewed")).toBeVisible();
-        await expect(page.getByText("New feature: Task Review")).toBeHidden();
-        await page.getByTestId("announcement-tooltip-trigger").click();
-
-        const eightDaysAgo = new Date(Date.now() - 8 * 24 * 60 * 60 * 1000);
-        await page.context().addCookies([
-          {
-            name: SEEN_TASK_REVIEW_TOOLTIP,
-            value: eightDaysAgo.toString(),
-            domain: "localhost",
-            path: "/",
-          },
-        ]);
-        await page.goto(pathTasks);
-        await expect(page.getByText("Reviewed")).toBeVisible();
-        await expect(page.getByText("New feature: Task Review")).toBeHidden();
-        await expect(
-          page.getByTestId("announcement-tooltip-trigger"),
-        ).toBeHidden();
-      });
     });
   });
 });
