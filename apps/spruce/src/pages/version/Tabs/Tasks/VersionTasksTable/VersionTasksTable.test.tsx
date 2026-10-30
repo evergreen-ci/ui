@@ -1,6 +1,6 @@
 import { InMemoryCache } from "@apollo/client";
-import { getTestUtils } from "@leafygreen-ui/checkbox";
 import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
+import { getTestUtils } from "@leafygreen-ui/toggle/testing";
 import {
   MockedProvider,
   fireEvent,
@@ -309,14 +309,15 @@ describe("VersionTasksTable", () => {
       );
 
       displayTask = getTestUtils(`lg-reviewed-${tasks[3].id}`);
-      expect(displayTask.isIndeterminate()).toBe(true);
       expect(displayTask.getInputValue()).toBe(false);
 
       fireEvent.click(executionTask1.getInput());
       fireEvent.click(executionTask2.getInput());
       await waitFor(() => {
-        expect(displayTask.isIndeterminate()).toBe(false);
+        expect(executionTask1.getInputValue()).toBe(false);
       });
+      expect(executionTask2.getInputValue()).toBe(false);
+      expect(displayTask.getInputValue()).toBe(false);
     });
   });
 });
