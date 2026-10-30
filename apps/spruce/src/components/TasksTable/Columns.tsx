@@ -255,7 +255,7 @@ export const getColumnsTemplate = ({
     ),
     accessorKey: "reviewed",
     enableColumnFilter: false,
-    size: 20,
+    size: 0,
     cell: ({ row }) => <ReviewedToggle row={row} />,
   } as LGColumnDef<TaskTableInfo>,
 ];
