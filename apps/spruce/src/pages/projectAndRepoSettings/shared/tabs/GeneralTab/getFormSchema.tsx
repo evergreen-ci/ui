@@ -525,7 +525,7 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
         "ui:data-testid": "source-cache-mode-radio-box",
         "ui:description": sourceCacheAllProjectsEnabled
-          ? "The source cache is currently enabled for all projects, so this setting will not take effect unless the Evergreen team turns that off."
+          ? "The source cache is currently enabled for all projects."
           : "This setting is temporary and will eventually be automatically enabled for all projects.",
       },
     },
