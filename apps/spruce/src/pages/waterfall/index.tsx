@@ -1,5 +1,5 @@
 import { Suspense, useCallback, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useWaterfallAnalytics } from "analytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
@@ -25,7 +25,21 @@ const Waterfall: React.FC = () => {
 
   const { sendEvent } = useWaterfallAnalytics();
 
-  const [pagination, setPagination] = useState<Pagination>();
+  const { key: locationKey } = useLocation();
+  const [paginationResult, setPaginationResult] = useState<{
+    locationKey: string;
+    pagination: Pagination;
+  }>();
+  const setPagination = useCallback(
+    (pagination: Pagination) =>
+      setPaginationResult({ locationKey, pagination }),
+    [locationKey],
+  );
+  // This guard must render outside Suspense: the destination's grid may not commit yet.
+  const pagination =
+    paginationResult?.locationKey === locationKey
+      ? paginationResult.pagination
+      : undefined;
 
   const [omitInactiveBuilds, setOmitInactiveBuilds] = useState(
     localStorage.getItem(OMIT_INACTIVE_WATERFALL_BUILDS) === "true",
