@@ -10,6 +10,33 @@ import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
 
+const TRIGGER_VERSION_ID =
+  "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a";
+
+const getUpstreamProjectMock = (
+  triggerType: string,
+): typeof getVersionUpstreamProjectMock => ({
+  ...getVersionUpstreamProjectMock,
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: TRIGGER_VERSION_ID,
+        upstreamProject: {
+          owner: "evergreen-ci",
+          project: "evergreen",
+          repo: "evergreen",
+          revision: "ed0e891754059eb7055c8c82752dedf1a35a87a6",
+          task: { execution: 0, id: "678" },
+          triggerID: "12345",
+          triggerType,
+          version: { id: "9876" },
+        },
+      },
+    },
+  },
+});
+
 type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
   activated: boolean;
   canRestart: boolean;
@@ -88,6 +115,10 @@ export const WithFailingTests: CustomStoryObj<TemplateProps> = {
   ),
 };
 
+export const WithPriority: CustomStoryObj<TemplateProps> = {
+  render: (args) => <Template {...args} priority={50} />,
+};
+
 export const WithLongMessage: CustomStoryObj<TemplateProps> = {
   render: (args) => (
     <Template
@@ -97,9 +128,14 @@ export const WithLongMessage: CustomStoryObj<TemplateProps> = {
   ),
 };
 
-export const WithUpstreamProject: CustomStoryObj<TemplateProps> = {
+export const WithTrigger: CustomStoryObj<TemplateProps> = {
   args: {
     isTrigger: true,
+  },
+  parameters: {
+    apolloClient: {
+      mocks: [getUpstreamProjectMock("push")],
+    },
   },
   render: (args) => <Template {...args} />,
 };
@@ -115,6 +151,7 @@ type TemplateProps = {
   isTrigger?: boolean;
   execution: number;
   message: string;
+  priority?: number;
   status: TaskStatus;
 };
 
@@ -141,12 +178,11 @@ const getStoryTask = (args: TemplateProps) => {
     canRestart: args.canRestart,
     canSchedule: args.canSchedule,
     execution: args.execution,
+    priority: args.priority ?? task.priority,
     requester: args.isTrigger ? Requester.Trigger : task.requester,
     version: {
       ...task.version,
-      id: args.isTrigger
-        ? "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a"
-        : task.version.id,
+      id: args.isTrigger ? TRIGGER_VERSION_ID : task.version.id,
       message: args.message,
     },
   };
