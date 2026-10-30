@@ -1,7 +1,21 @@
 import { getLocalStorageString } from "@evg-ui/lib/utils/localStorage";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
-import { WaterfallQuery } from "gql/generated/types";
+import { WaterfallOptions, WaterfallQuery } from "gql/generated/types";
 import { BuildVariant, FilterType, GroupedVersion, Version } from "./types";
+
+export const normalizeWaterfallFilters = (
+  options: Partial<WaterfallOptions>,
+) => ({
+  projectIdentifier: options.projectIdentifier ?? "",
+  requesters: options.requesters ?? [],
+  statuses: options.statuses ?? [],
+  tasks: options.tasks ?? [],
+  variants: options.variants ?? [],
+  includeAllBuildsAndTasks: options.includeAllBuildsAndTasks ?? true,
+  omitInactiveBuilds: options.omitInactiveBuilds ?? false,
+  taskCaseSensitive: options.taskCaseSensitive ?? true,
+  variantCaseSensitive: options.variantCaseSensitive ?? true,
+});
 
 export const getFilterType = (key: string): FilterType => {
   const defaultFilterType = FilterType.Exact;
@@ -41,16 +55,16 @@ export const groupInactiveVersions = (
     });
   };
 
-  for (const version of versions) {
+  versions.forEach((version) => {
+    if (limit && activeVersionsCount >= limit) {
+      return;
+    }
     if (version.activated && versionHasActiveBuild(version)) {
-      if (limit && activeVersionsCount >= limit) {
-        break;
-      }
       pushActive(version);
     } else {
       pushInactive(version);
     }
-  }
+  });
 
   return filteredVersions;
 };

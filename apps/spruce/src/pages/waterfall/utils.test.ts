@@ -1,6 +1,58 @@
+import { WaterfallOptions } from "gql/generated/types";
 import { buildVariants, groupedVersions, versions } from "./testData";
 import { Version } from "./types";
-import { groupBuildVariants, groupInactiveVersions } from "./utils";
+import {
+  groupBuildVariants,
+  groupInactiveVersions,
+  normalizeWaterfallFilters,
+} from "./utils";
+
+describe("normalizeWaterfallFilters", () => {
+  const defaults: WaterfallOptions = {
+    projectIdentifier: "spruce",
+    requesters: [],
+    statuses: [],
+    tasks: [],
+    variants: [],
+    includeAllBuildsAndTasks: true,
+    omitInactiveBuilds: false,
+    taskCaseSensitive: true,
+    variantCaseSensitive: true,
+  };
+
+  it.each([
+    { projectIdentifier: "spruce" },
+    defaults,
+    {
+      projectIdentifier: "spruce",
+      requesters: null,
+      statuses: null,
+      tasks: null,
+      variants: null,
+      includeAllBuildsAndTasks: null,
+      omitInactiveBuilds: null,
+      taskCaseSensitive: null,
+      variantCaseSensitive: null,
+    },
+  ])("normalizes default request options: %j", (options) => {
+    expect(normalizeWaterfallFilters(options)).toEqual(defaults);
+  });
+
+  it("preserves explicitly selected filters and non-default flags", () => {
+    const options: WaterfallOptions = {
+      projectIdentifier: "another-project",
+      requesters: ["git_tag_request"],
+      statuses: ["success"],
+      tasks: ["Task A"],
+      variants: ["variant"],
+      includeAllBuildsAndTasks: false,
+      omitInactiveBuilds: true,
+      taskCaseSensitive: false,
+      variantCaseSensitive: false,
+    };
+    expect(normalizeWaterfallFilters(options)).toEqual(options);
+  });
+});
 
 describe("groupInactiveVersions", () => {
   it("correctly groups inactive versions", () => {
@@ -29,24 +81,6 @@ describe("groupInactiveVersions", () => {
         version: versions[5],
       },
     ]);
-  });
-
-  it.each([
-    { name: "before another active version", input: versions },
-    { name: "at the end of the page", input: versions.slice(0, -1) },
-  ])(
-    "keeps trailing inactive versions $name after reaching the limit",
-    ({ input }) => {
-      expect(groupInactiveVersions(input, () => true, 2)).toEqual(
-        groupedVersions.slice(0, 4),
-      );
-    },
-  );
-
-  it("does not include inactive groups beyond the next active version", () => {
-    expect(groupInactiveVersions(versions, () => true, 1)).toEqual(
-      groupedVersions.slice(0, 2),
-    );
   });
 });
 

@@ -20,7 +20,6 @@ import {
   WaterfallQueryVariables,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
-import { normalizeWaterfallFilters } from "./caching/utils";
 import { PaginationButtons } from "./PaginationButtons";
 import { getWaterfallData } from "./testData";
 import { BuildVariant, Pagination } from "./types";
@@ -73,7 +72,15 @@ vi.mock("@evg-ui/lib/utils/errorReporting", () => ({
 }));
 
 const baseOptions: WaterfallOptions = {
-  ...normalizeWaterfallFilters({ projectIdentifier: "spruce" }),
+  projectIdentifier: "spruce",
+  requesters: [],
+  statuses: [],
+  tasks: [],
+  variants: [],
+  includeAllBuildsAndTasks: true,
+  omitInactiveBuilds: false,
+  taskCaseSensitive: true,
+  variantCaseSensitive: true,
   limit: 5,
   maxOrder: 0,
   minOrder: 0,
@@ -231,7 +238,7 @@ describe("WaterfallGrid requests", () => {
         "version-17",
       ]);
       expect(tasks()).toEqual(Array(4).fill("Task A"));
-      expect(screen.getByTestId("next-page-button")).toBeDisabled();
+      expect(screen.getByTestId("next-page-button")).toBeEnabled();
       await waitForSettled();
       expect(versionIds()).toEqual([
         "version-20",
@@ -347,6 +354,28 @@ describe("WaterfallGrid requests", () => {
     expect(requests).toHaveLength(2);
   });
 
+  it("uses identical request variables for initial and cleared filters on a cache miss", async () => {
+    const { client, navigate, requests } = setup(
+      [
+        makeMock({}, previewData(4)),
+        makeMock(filteredOptions, filteredData()),
+        makeMock({}, previewData(5)),
+      ],
+      { search: "?tasks=Task%20A", omitInactiveBuilds: true },
+    );
+    await screen.findByText("version-15");
+    await waitForSettled();
+    await act(async () => client.clearStore());
+    await navigate("");
+    await screen.findByText("version-16");
+    await waitForSettled();
+    expect(requests).toEqual([
+      { options: baseOptions },
+      { options: { ...baseOptions, ...filteredOptions } },
+      { options: baseOptions },
+    ]);
+  });
+
   it("cancels pending backfill when filters are cleared", async () => {
     const { navigate, requests } = setup(
       [
@@ -418,6 +447,32 @@ describe("WaterfallGrid requests", () => {
     expect(requests).toHaveLength(4);
   });
 
+  it("can paginate with the selected filters while backfill is pending", async () => {
+    const second = getWaterfallData([15, 14, 13, 12, 11], {
+      taskNames: ["Task A"],
+    });
+    const { requests } = setup(
+      [
+        makeMock({}, previewData(4)),
+        makeMock(filteredOptions, filteredData(), 250),
+        makeMock({ ...filteredOptions, maxOrder: 16 }, second),
+      ],
+      { search: "?tasks=Task%20A" },
+    );
+    await screen.findByTestId("fetch-more-loader");
+    await userEvent.click(screen.getByTestId("next-page-button"));
+    await screen.findByText("version-11");
+    await waitForSettled();
+    await act(() => new Promise((resolve) => setTimeout(resolve, 300)));
+    expect(versionIds()).toEqual(second.waterfall.pagination.activeVersionIds);
+    expect(tasks()).toEqual(Array(5).fill("Task A"));
+    expect(requests).toEqual([
+      { options: baseOptions },
+      { options: { ...baseOptions, ...filteredOptions } },
+      { options: { ...baseOptions, ...filteredOptions, maxOrder: 16 } },
+    ]);
+  });
+
   it("shows a skeleton for uncached next-page navigation and sends filters immediately", async () => {
     const second = getWaterfallData([15, 14, 13, 12, 11], {
       taskNames: ["Task A"],
@@ -463,52 +518,42 @@ describe("WaterfallGrid requests", () => {
     });
   });
 
-  it.each([
-    {
-      name: "full",
-      first: filteredData(),
-      second: getWaterfallData([14, 13, 12, 11, 10], { taskNames: ["Task A"] }),
-    },
-    {
-      name: "sparse",
-      first: getWaterfallData([20, 19], { taskNames: ["Task A"] }),
-      second: getWaterfallData([18, 17], { taskNames: ["Task A"] }),
-    },
-  ])(
-    "reuses $name filtered results when navigating back and forth without a request",
-    async ({ first, second }) => {
-      const firstLastId =
-        first.waterfall.versions[first.waterfall.versions.length - 1].id;
-      const secondLastId =
-        second.waterfall.versions[second.waterfall.versions.length - 1].id;
-      const { requests } = setup(
-        [
-          makeMock({}, previewData(4)),
-          makeMock(filteredOptions, first),
-          makeMock(
-            {
-              ...filteredOptions,
-              maxOrder: first.waterfall.pagination.nextPageOrder,
-            },
-            second,
-          ),
-        ],
-        { search: "?tasks=Task%20A" },
-      );
-      await screen.findByText(firstLastId);
-      await userEvent.click(screen.getByTestId("next-page-button"));
-      await screen.findByText(secondLastId);
-      await waitForSettled();
-      skeletonMounted.mockClear();
-      await userEvent.click(screen.getByTestId("prev-page-button"));
-      await screen.findByText("version-20");
-      await userEvent.click(screen.getByTestId("next-page-button"));
-      await screen.findByText(secondLastId);
-      await waitForSettled();
-      expect(requests).toHaveLength(3);
-      expect(skeletonMounted).not.toHaveBeenCalled();
-    },
-  );
+  it("reuses full filtered results when navigating back and forth without a request", async () => {
+    const first = filteredData();
+    const second = getWaterfallData([14, 13, 12, 11, 10], {
+      taskNames: ["Task A"],
+    });
+    const firstLastId =
+      first.waterfall.versions[first.waterfall.versions.length - 1].id;
+    const secondLastId =
+      second.waterfall.versions[second.waterfall.versions.length - 1].id;
+    const { requests } = setup(
+      [
+        makeMock({}, previewData(4)),
+        makeMock(filteredOptions, first),
+        makeMock(
+          {
+            ...filteredOptions,
+            maxOrder: first.waterfall.pagination.nextPageOrder,
+          },
+          second,
+        ),
+      ],
+      { search: "?tasks=Task%20A" },
+    );
+    await screen.findByText(firstLastId);
+    await userEvent.click(screen.getByTestId("next-page-button"));
+    await screen.findByText(secondLastId);
+    await waitForSettled();
+    skeletonMounted.mockClear();
+    await userEvent.click(screen.getByTestId("prev-page-button"));
+    await screen.findByText("version-20");
+    await userEvent.click(screen.getByTestId("next-page-button"));
+    await screen.findByText(secondLastId);
+    await waitForSettled();
+    expect(requests).toHaveLength(3);
+    expect(skeletonMounted).not.toHaveBeenCalled();
+  });
 
   it.each(jumpCases)(
     "refetches $search jumps while reusing numeric cursor results",
@@ -561,79 +606,6 @@ describe("WaterfallGrid requests", () => {
     },
   );
 
-  it.each([false, true])(
-    "preserves leading and trailing inactive groups on cached navigation with filters: %s",
-    async (filtered) => {
-      const first = getWaterfallData([20, 19, 18, 17, 16, 15, 14, 13, 12], {
-        taskNames: ["Task A"],
-        pagination: {
-          activeVersionIds: [18, 17, 16, 15, 14].map((n) => `version-${n}`),
-        },
-      });
-      const second = getWaterfallData([11, 10, 9, 8, 7, 6, 5], {
-        taskNames: ["Task A"],
-        pagination: {
-          activeVersionIds: [11, 10, 9, 8, 7].map((n) => `version-${n}`),
-        },
-      });
-      [first, second].forEach(({ waterfall }) => {
-        waterfall.versions.forEach((version) => {
-          if (!waterfall.pagination.activeVersionIds.includes(version.id)) {
-            version.activated = false;
-            version.waterfallBuilds = null;
-          }
-        });
-      });
-      const selection = filtered ? filteredOptions : {};
-      const { requests } = setup(
-        [
-          ...(filtered ? [makeMock({}, previewData(4))] : []),
-          makeMock(selection, first),
-          makeMock({ ...selection, maxOrder: 12 }, second),
-        ],
-        { search: filtered ? "?tasks=Task%20A" : "" },
-      );
-      const inactiveGroups = () =>
-        screen
-          .queryAllByTestId("inactive-versions-group")
-          .map((node) => node.textContent);
-
-      await screen.findByText("version-14");
-      await waitForSettled();
-      expect(versionIds()).toHaveLength(5);
-      expect(inactiveGroups()).toEqual([
-        "version-20,version-19",
-        "version-13,version-12",
-      ]);
-      await userEvent.click(screen.getByTestId("next-page-button"));
-      await screen.findByText("version-7");
-      await waitForSettled();
-      expect(versionIds()).toHaveLength(5);
-      expect(inactiveGroups()).toEqual(["version-6,version-5"]);
-      skeletonMounted.mockClear();
-
-      const navigateBackAndForth = async () => {
-        await userEvent.click(screen.getByTestId("prev-page-button"));
-        await screen.findByText("version-14");
-        await waitForSettled();
-        expect(versionIds()).toHaveLength(5);
-        expect(inactiveGroups()).toEqual([
-          "version-20,version-19",
-          "version-13,version-12",
-        ]);
-        await userEvent.click(screen.getByTestId("next-page-button"));
-        await screen.findByText("version-7");
-        await waitForSettled();
-        expect(versionIds()).toHaveLength(5);
-        expect(inactiveGroups()).toEqual(["version-6,version-5"]);
-      };
-      await navigateBackAndForth();
-      await navigateBackAndForth();
-      expect(requests).toHaveLength(filtered ? 3 : 2);
-      expect(skeletonMounted).not.toHaveBeenCalled();
-    },
-  );
-
   it.each(jumpCases)(
     "polls $search without restarting its preview",
     async ({ options, search }) => {
@@ -683,12 +655,12 @@ describe("WaterfallGrid requests", () => {
     });
   });
 
-  it("uses server filters on browser Back/Forward even within the initial page", async () => {
+  it("keeps browser Back/Forward filter changes local while the preview is sufficient", async () => {
     const { navigate, requests, router } = setup([
       makeMock({}, previewData(5)),
-      makeMock(filteredOptions, filteredData()),
     ]);
     await screen.findByText("version-16");
+    skeletonMounted.mockClear();
     await navigate("?tasks=Task%20A");
     await waitForSettled();
     expect(requests).toHaveLength(1);
@@ -696,12 +668,46 @@ describe("WaterfallGrid requests", () => {
     await waitForSettled();
     expect(tasks().filter((name) => name === "Task B")).toHaveLength(5);
     await act(() => router.navigate(1));
+    await waitForSettled();
+    expect(tasks()).toEqual(Array(5).fill("Task A"));
+    await navigate("?tasks=Task%20B");
+    await waitForSettled();
+    expect(tasks()).toEqual(Array(5).fill("Task B"));
+    expect(requests).toHaveLength(1);
+    expect(skeletonMounted).not.toHaveBeenCalled();
+  });
+
+  it("reuses server-filtered results for browser Back/Forward after backfill", async () => {
+    const second = getWaterfallData([20, 19, 18, 17, 16], {
+      taskNames: ["Task B"],
+    });
+    const { navigate, requests, router } = setup(
+      [
+        makeMock({}, previewData(4)),
+        makeMock(filteredOptions, filteredData()),
+        makeMock(
+          { tasks: ["Task B"], includeAllBuildsAndTasks: false },
+          second,
+        ),
+      ],
+      { search: "?tasks=Task%20A" },
+    );
     await screen.findByText("version-15");
     await waitForSettled();
-    expect(requests).toHaveLength(2);
-    expect(requests[1]).toEqual({
-      options: { ...baseOptions, ...filteredOptions },
-    });
+    await navigate("?tasks=Task%20B");
+    await screen.findByText("version-16");
+    await waitForSettled();
+    skeletonMounted.mockClear();
+    await act(() => router.navigate(-1));
+    await screen.findByText("version-15");
+    await waitForSettled();
+    expect(tasks()).toEqual(Array(5).fill("Task A"));
+    await act(() => router.navigate(1));
+    await screen.findByText("version-16");
+    await waitForSettled();
+    expect(tasks()).toEqual(Array(5).fill("Task B"));
+    expect(requests).toHaveLength(3);
+    expect(skeletonMounted).not.toHaveBeenCalled();
   });
 
   it("keeps another cached page available after polling the current page", async () => {

@@ -1,9 +1,7 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { WaterfallOptions, WaterfallQuery } from "gql/generated/types";
 
-export type Pagination = WaterfallQuery["waterfall"]["pagination"] & {
-  isLoading?: boolean;
-};
+export type Pagination = WaterfallQuery["waterfall"]["pagination"];
 
 export type ServerFilters = Pick<
   WaterfallOptions,

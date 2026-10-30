@@ -1,115 +1,146 @@
 import { FieldReadFunction } from "@apollo/client";
 import {
-  CachedWaterfall,
+  ReadField,
+  Version,
   Waterfall,
   getCacheOptions,
   getVersionId,
   getVersionOrder,
 } from "./utils";
 
-export const readVersions: FieldReadFunction<CachedWaterfall, Waterfall> = (
-  existing,
-  { args, readField },
-) => {
-  if (!existing) {
-    return undefined;
-  }
-
-  const { date, limit, maxOrder, minOrder, revision } = getCacheOptions(args);
-  if (date || revision) {
-    return undefined;
-  }
-  let anchor = existing.mostRecentVersionOrder;
-  if (minOrder) {
-    anchor = minOrder + 1;
-  } else if (maxOrder) {
-    anchor = maxOrder - 1;
-  }
-  const range = existing.coverage.find(
-    (covered) => covered.minOrder <= anchor && anchor <= covered.maxOrder,
-  );
-  if (!range) {
-    return undefined;
-  }
-
-  const candidates = existing.versions.filter((version) => {
+// Within all versions, identify the indices that identify the current page being read.
+const findPageRange = ({
+  activeVersionIds,
+  hasNextPage,
+  limit,
+  maxOrder,
+  minOrder,
+  readField,
+  versions,
+}: {
+  activeVersionIds: Set<string>;
+  hasNextPage: boolean;
+  limit: number;
+  maxOrder: number;
+  minOrder: number;
+  readField: ReadField;
+  versions: readonly Version[];
+}) => {
+  const anchorIndex = versions.findIndex((version) => {
     const order = getVersionOrder(version, readField);
-    return (
-      range.minOrder <= order &&
-      order <= range.maxOrder &&
-      (minOrder ? order >= anchor : order <= anchor)
-    );
+    return minOrder ? order - 1 === minOrder : order + 1 === maxOrder;
   });
-  const isActive = (version: Waterfall["versions"][number]) =>
-    existing.allActiveVersions.has(getVersionId(version, readField));
-  let startIndex = 0;
-  let endIndex = candidates.length - 1;
-  let activeCount = 0;
+  if (anchorIndex === -1) {
+    return undefined;
+  }
+
+  let startIndex = maxOrder ? anchorIndex : 0;
+  let endIndex = maxOrder ? versions.length : anchorIndex;
+  const pageActiveVersionIds: string[] = [];
+
   if (minOrder) {
     for (let i = endIndex; i >= 0; i--) {
-      if (isActive(candidates[i])) {
-        activeCount += 1;
-        if (activeCount === limit) {
+      const versionId = getVersionId(versions[i], readField);
+      if (activeVersionIds.has(versionId)) {
+        pageActiveVersionIds.push(versionId);
+        if (pageActiveVersionIds.length === limit) {
           startIndex = i;
-          while (startIndex > 0 && !isActive(candidates[startIndex - 1])) {
+          while (
+            startIndex > 0 &&
+            !activeVersionIds.has(
+              getVersionId(versions[startIndex - 1], readField),
+            )
+          ) {
             startIndex -= 1;
           }
           break;
         }
       }
     }
-  } else {
-    for (let i = 0; i < candidates.length; i++) {
-      if (isActive(candidates[i])) {
-        activeCount += 1;
-        if (activeCount === limit) {
+  }
+
+  if (maxOrder) {
+    for (let i = startIndex; i < versions.length; i++) {
+      const versionId = getVersionId(versions[i], readField);
+      if (activeVersionIds.has(versionId)) {
+        pageActiveVersionIds.push(versionId);
+        if (pageActiveVersionIds.length === limit) {
           endIndex = i;
-          while (
-            endIndex < candidates.length - 1 &&
-            !isActive(candidates[endIndex + 1])
-          ) {
-            endIndex += 1;
-          }
           break;
         }
       }
     }
+    if (pageActiveVersionIds.length < limit) {
+      if (hasNextPage) {
+        return undefined;
+      }
+      endIndex = versions.length - 1;
+    }
   }
-
-  // A completed scan can be sparse or empty even when more history exists.
-  const boundary = minOrder ? range.upper : range.lower;
-  const completedScan =
-    boundary.limit >= limit &&
-    (minOrder ? anchor <= boundary.anchor : anchor >= boundary.anchor);
-  if (activeCount < limit && boundary.hasMore && !completedScan) {
-    return undefined;
-  }
-  const versions = candidates.slice(startIndex, endIndex + 1);
-  const startsAtBoundary = minOrder
-    ? startIndex === 0
-    : anchor === range.maxOrder;
-  const endsAtBoundary = minOrder
-    ? anchor === range.minOrder
-    : endIndex === candidates.length - 1;
-  const firstOrder = versions[0]
-    ? getVersionOrder(versions[0], readField)
-    : anchor;
-  const last = versions.at(-1);
-  const lastOrder = last ? getVersionOrder(last, readField) : anchor;
 
   return {
-    __typename: existing.__typename,
+    activeVersionIds: pageActiveVersionIds,
+    endIndex,
+    startIndex,
+  };
+};
+
+export const readVersions = ((existing, { args, readField }) => {
+  if (!existing) {
+    return undefined;
+  }
+
+  const options = getCacheOptions(args);
+  const { date, limit, minOrder, revision } = options;
+  let { maxOrder } = options;
+
+  const { hasNextPage = true, mostRecentVersionOrder = 0 } =
+    readField<Waterfall["pagination"]>("pagination", existing) ?? {};
+
+  if (minOrder === 0 && maxOrder === 0 && !date && !revision) {
+    maxOrder = mostRecentVersionOrder + 1;
+  }
+
+  const existingVersions =
+    readField<Waterfall["versions"]>("versions", existing) ?? [];
+  const allActiveVersions =
+    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
+  const pageRange = findPageRange({
+    activeVersionIds: allActiveVersions,
+    hasNextPage,
+    limit,
+    maxOrder,
+    minOrder,
+    readField,
+    versions: existingVersions,
+  });
+  if (!pageRange) {
+    return undefined;
+  }
+
+  const { activeVersionIds, endIndex, startIndex } = pageRange;
+  const versions = existingVersions.slice(startIndex, endIndex + 1);
+  const zerothOrder = getVersionOrder(versions[0], readField);
+  const prevOrderNumber =
+    mostRecentVersionOrder === zerothOrder ? 0 : zerothOrder;
+
+  const lastVersionOrder = getVersionOrder(
+    versions[versions.length - 1],
+    readField,
+  );
+  const nextOrderNumber = lastVersionOrder === 1 ? 0 : lastVersionOrder;
+
+  return {
     pagination: {
-      __typename: "WaterfallPagination",
-      mostRecentVersionOrder: existing.mostRecentVersionOrder,
-      activeVersionIds: versions
-        .filter(isActive)
-        .map((version) => getVersionId(version, readField)),
-      hasPrevPage: startsAtBoundary ? range.upper.hasMore : true,
-      prevPageOrder: startsAtBoundary ? range.upper.cursor : firstOrder,
-      hasNextPage: endsAtBoundary ? range.lower.hasMore : true,
-      nextPageOrder: endsAtBoundary ? range.lower.cursor : lastOrder,
+      activeVersionIds: activeVersionIds.sort(),
+      mostRecentVersionOrder,
+      prevPageOrder: prevOrderNumber,
+      nextPageOrder: nextOrderNumber,
+      hasNextPage:
+        nextOrderNumber > 0 &&
+        (endIndex < existingVersions.length - 1 || hasNextPage),
+      hasPrevPage: prevOrderNumber > 0,
     },
     versions,
   };
-};
+}) satisfies FieldReadFunction<Waterfall>;

@@ -10,47 +10,20 @@ export type Waterfall = WaterfallQuery["waterfall"];
 export type Version = Waterfall["versions"][number];
 export type ReadField = FieldFunctionOptions["readField"];
 
-type RangeBoundary = {
-  anchor: number;
-  cursor: number;
-  hasMore: boolean;
-  limit: number;
-};
-
-export type CachedRange = {
-  minOrder: number;
-  maxOrder: number;
-  lower: RangeBoundary;
-  upper: RangeBoundary;
-};
-
-export type CachedWaterfall = Pick<Waterfall, "__typename" | "versions"> & {
-  allActiveVersions: Set<string>;
-  coverage: CachedRange[];
-  mostRecentVersionOrder: number;
-};
-
-export const normalizeWaterfallFilters = (
-  options: Partial<WaterfallOptions>,
-) => ({
-  projectIdentifier: options.projectIdentifier ?? "",
-  requesters: options.requesters ?? [],
-  statuses: options.statuses ?? [],
-  tasks: options.tasks ?? [],
-  variants: options.variants ?? [],
-  includeAllBuildsAndTasks: options.includeAllBuildsAndTasks ?? true,
-  omitInactiveBuilds: options.omitInactiveBuilds ?? false,
-  taskCaseSensitive: options.taskCaseSensitive ?? true,
-  variantCaseSensitive: options.variantCaseSensitive ?? true,
-});
-
 export const getWaterfallFilterKey = (
   options: Partial<WaterfallOptions> = {},
-) => JSON.stringify(normalizeWaterfallFilters(options));
-
-export const getWaterfallBuildsFieldName = (
-  options: Partial<WaterfallOptions>,
-) => `waterfallBuilds:${getWaterfallFilterKey(options)}`;
+) =>
+  JSON.stringify({
+    projectIdentifier: options.projectIdentifier,
+    requesters: options.requesters,
+    statuses: options.statuses,
+    tasks: options.tasks,
+    variants: options.variants,
+    includeAllBuildsAndTasks: options.includeAllBuildsAndTasks,
+    omitInactiveBuilds: options.omitInactiveBuilds,
+    taskCaseSensitive: options.taskCaseSensitive,
+    variantCaseSensitive: options.variantCaseSensitive,
+  });
 
 export const getCacheOptions = (args: FieldFunctionOptions["args"]) => ({
   date: args?.options?.date ?? "",
