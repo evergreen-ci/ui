@@ -2,10 +2,10 @@ import { LeafyGreenTableRow } from "@leafygreen-ui/table";
 import { Toggle, Size as ToggleSize } from "@leafygreen-ui/toggle";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskReview } from "components/TaskReview/useTaskReview";
-import styles from "./ReviewedCheckbox.module.css";
+import styles from "./ReviewedToggle.module.css";
 import { TaskTableInfo } from "./types";
 
-export const ReviewedCheckbox: React.FC<{
+export const ReviewedToggle: React.FC<{
   row: LeafyGreenTableRow<TaskTableInfo>;
 }> = ({ row }) => {
   const { checked, task, updateDisplayTask, updateTask } = useTaskReview({

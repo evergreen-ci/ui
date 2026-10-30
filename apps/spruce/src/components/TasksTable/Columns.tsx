@@ -17,7 +17,7 @@ import {
 import { TaskSortCategory } from "gql/generated/types";
 import { TaskTab } from "types/task";
 import styles from "./Columns.module.css";
-import { ReviewedCheckbox } from "./ReviewedCheckbox";
+import { ReviewedToggle } from "./ReviewedToggle";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
 
@@ -256,6 +256,6 @@ export const getColumnsTemplate = ({
     accessorKey: "reviewed",
     enableColumnFilter: false,
     size: 20,
-    cell: ({ row }) => <ReviewedCheckbox row={row} />,
+    cell: ({ row }) => <ReviewedToggle row={row} />,
   } as LGColumnDef<TaskTableInfo>,
 ];
