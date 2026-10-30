@@ -123,7 +123,7 @@ export const useWaterfallData = ({
       ? !!selectedQueryOptions.omitInactiveBuilds
       : !!displayedResult.options.omitInactiveBuilds,
     pins,
-    serverFiltered: !displayedResult.applyClientFilters,
+    serverFiltered: displayedResult.options.includeAllBuildsAndTasks === false,
   });
 
   const hasMore =

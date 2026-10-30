@@ -72,14 +72,35 @@ test.describe("requester filtering", () => {
   });
 
   test("clears requester filters", async ({ page }) => {
+    const versionRevisions = page
+      .getByTestId("version-label-active")
+      .locator("code");
+    const unfilteredRevisions = [
+      "2ab1c56",
+      "2c9056d",
+      "d54e2c6",
+      "d54e2c6",
+      "d950163",
+    ];
+    await expect(versionRevisions).toHaveText(unfilteredRevisions);
+
     await page.getByTestId("requester-filter").click();
     await page.getByTestId("gitter_request-option").click();
-    await expect(page.getByTestId("version-label-active")).toHaveCount(4);
+    await expect(versionRevisions).toHaveText([
+      "2c9056d",
+      "d54e2c6",
+      "d950163",
+      "e391612",
+      "04a52b2",
+    ]);
+    await expect(page.getByTestId("inactive-versions-button")).toHaveCount(2);
+
     await page
       .getByTestId("requester-filter")
       .getByRole("button", { name: "Clear selection" })
       .click();
-    await expect(page.getByTestId("version-label-active")).toHaveCount(5);
+    await expect(page).not.toHaveURL(/requesters=/);
+    await expect(versionRevisions).toHaveText(unfilteredRevisions);
   });
 });
 

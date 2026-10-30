@@ -24,6 +24,7 @@ import { WATERFALL } from "gql/queries";
 import { PaginationButtons } from "./PaginationButtons";
 import { getWaterfallData } from "./testData";
 import { BuildVariant, Pagination } from "./types";
+import * as filterHooks from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallGrid } from "./WaterfallGrid";
@@ -347,18 +348,54 @@ describe("WaterfallGrid requests", () => {
   });
 
   it("restores a cached unfiltered page when filters are cleared", async () => {
+    const useFiltersSpy = vi.spyOn(filterHooks, "useFilters");
     const { navigate, requests } = setup(
       [makeMock({}, previewData(4)), makeMock(filteredOptions, filteredData())],
       { search: "?tasks=Task%20A" },
     );
     await screen.findByText("version-15");
     await waitForSettled();
+    expect(useFiltersSpy).toHaveBeenLastCalledWith(
+      expect.objectContaining({ serverFiltered: true }),
+    );
     await navigate("");
     await screen.findByText("version-16");
     await waitForSettled();
     expect(tasks().filter((name) => name === "Task B")).toHaveLength(5);
+    expect(useFiltersSpy).toHaveBeenLastCalledWith(
+      expect.objectContaining({ serverFiltered: false }),
+    );
     expect(requests).toHaveLength(2);
   });
+
+  it.each([
+    { search: "?maxOrder=16", options: { maxOrder: 16 } },
+    {
+      search: "?date=2024-09-19",
+      options: { date: new Date("2024-09-19T23:59:59Z") },
+    },
+    { search: "?revision=revision-15", options: { revision: "revision-15" } },
+  ])(
+    "does not mark an unfiltered search as server-filtered",
+    async ({ options, search }) => {
+      const useFiltersSpy = vi.spyOn(filterHooks, "useFilters");
+      const { navigate, requests } = setup([
+        makeMock({}, previewData(5)),
+        makeMock(options, getWaterfallData([15, 14, 13, 12, 11])),
+      ]);
+      await screen.findByText("version-16");
+      await navigate(search);
+      await screen.findByText("version-11");
+      await waitForSettled();
+      expect(useFiltersSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({ serverFiltered: false }),
+      );
+      expect(requests).toEqual([
+        { options: baseOptions },
+        { options: { ...baseOptions, ...options } },
+      ]);
+    },
+  );
 
   it("uses identical request variables for initial and cleared filters on a cache miss", async () => {
     const { client, navigate, requests } = setup(
