@@ -14,7 +14,6 @@ import { useQueryParams } from "@evg-ui/lib/hooks";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
-import { taskReviewStyles } from "components/TasksTable/styles";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
@@ -82,7 +81,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         baseStatusOptions,
         statusOptions,
         isPatch,
-        loading,
         onClickTaskLink: (taskId: string, status?: string) =>
           sendEvent({
             name: "Clicked task table task link",
@@ -101,7 +99,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             column: column,
           }),
       }),
-    [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
+    [baseStatusOptions, statusOptions, isPatch, sendEvent],
   );
 
   const [columnFilters, setColumnFilters] =
@@ -187,7 +185,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       shouldShowBottomTableControl={limit > 10}
     >
       <BaseTable
-        css={taskReviewEnabled && taskReviewStyles}
         data-loading={loading}
         data-testid="tasks-table"
         data-testid-row="tasks-table-row"
