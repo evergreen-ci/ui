@@ -454,6 +454,13 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Source Cache Bucket Role ARN",
     },
+    sourceCacheOptOutProjects: {
+      type: "array" as const,
+      title: "Source Cache Opt-Out Projects",
+      items: {
+        type: "string" as const,
+      },
+    },
     credentialsKey: {
       type: "string" as const,
       title: "S3 Key",
@@ -525,6 +532,12 @@ export const bucketConfig = {
     sourceCacheBucketRoleARN: {
       "ui:description":
         "The IAM role ARN granting scoped access to the source cache bucket.",
+    },
+    sourceCacheOptOutProjects: {
+      "ui:widget": widgets.ChipInputWidget,
+      "ui:fieldCss": fullWidthCss,
+      "ui:description":
+        "Project IDs that never use the git source cache, even when the source cache is enabled for all projects.",
     },
     failedTasksLogBucketExpirationDays: { "ui:readonly": true },
     failedTasksLogBucketTransitionToIADays: { "ui:readonly": true },

@@ -7903,6 +7903,7 @@ export type AdminSettingsQuery = {
       longRetentionProjects?: Array<string> | null;
       retryFailedLogMoveLookbackDays?: number | null;
       retryFailedLogMoveMaxJobsPerRun?: number | null;
+      sourceCacheOptOutProjects?: Array<string> | null;
       credentials?: {
         __typename?: "S3Credentials";
         key?: string | null;

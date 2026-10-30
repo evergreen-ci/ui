@@ -124,6 +124,7 @@ export const ADMIN_SETTINGS = gql`
           name
           roleARN
         }
+        sourceCacheOptOutProjects
         testResultsBucket {
           name
           roleARN
