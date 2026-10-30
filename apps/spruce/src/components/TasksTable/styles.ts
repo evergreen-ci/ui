@@ -1,9 +1,11 @@
 import { css } from "@emotion/react";
 
-// Reduce the amount of padding in the review column
+// Center the header over the review toggles
 export const taskReviewStyles = css`
-  th:first-of-type#reviewed {
-    padding-left: var(--via-space-200);
-    padding-right: 0;
+  th#reviewed {
+    text-align: center;
+    > div {
+      justify-content: center;
+    }
   }
 `;
