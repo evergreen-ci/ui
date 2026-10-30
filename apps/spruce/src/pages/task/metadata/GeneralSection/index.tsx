@@ -1,5 +1,4 @@
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
@@ -35,9 +34,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
     owner,
     repo,
   } = project || {};
-  const baseCommit = shortenGithash(
-    baseTask?.versionMetadata?.revision ?? undefined,
-  );
   const { isPatch, user } = versionMetadata ?? {};
 
   return (
@@ -85,7 +81,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
         </MetadataItem>
       )}
       {baseTask && (
-        <MetadataItem label={isPatch ? "Base commit" : "Previous commit"}>
+        <MetadataItem label={isPatch ? "Base task" : "Previous task"}>
           <RevisionLink
             onClick={() =>
               taskAnalytics.sendEvent({
@@ -93,7 +89,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
                 "link.type": "base commit",
               })
             }
-            revision={baseCommit}
+            revision={baseTask.versionMetadata?.revision ?? ""}
             to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
           />
         </MetadataItem>

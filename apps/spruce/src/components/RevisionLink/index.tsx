@@ -6,7 +6,7 @@ interface RevisionLinkProps {
   "data-testid"?: string;
   onClick?: () => void;
   revision: string;
-  to: string;
+  to?: string;
 }
 
 export const RevisionLink: React.FC<RevisionLinkProps> = ({
@@ -14,15 +14,33 @@ export const RevisionLink: React.FC<RevisionLinkProps> = ({
   onClick,
   revision,
   to,
-}) => (
-  <Link
-    className={styles.hashLink}
-    data-testid={dataTestId}
-    href={to}
-    onClick={onClick}
-  >
-    <Text className={styles.hash} textStyle="inlineCode">
-      {shortenGithash(revision)}
-    </Text>
-  </Link>
-);
+}) => {
+  if (!to) {
+    return (
+      <Text
+        className={styles.hash}
+        data-testid={dataTestId}
+        textStyle="inlineCode"
+      >
+        {shortenGithash(revision)}
+      </Text>
+    );
+  }
+
+  return (
+    <Link
+      className={styles.hashLink}
+      data-testid={dataTestId}
+      href={to}
+      onClick={onClick}
+    >
+      <Text
+        className={styles.hash}
+        data-testid={dataTestId}
+        textStyle="inlineCode"
+      >
+        {shortenGithash(revision)}
+      </Text>
+    </Link>
+  );
+};

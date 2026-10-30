@@ -1,6 +1,9 @@
-.link {
+.icon {
   display: inline-flex;
-  align-items: center;
-  gap: var(--via-space-100);
-  vertical-align: middle;
+  vertical-align: text-bottom;
+  margin-right: var(--via-space-100);
+}
+
+.unbreakable {
+  white-space: nowrap;
 }

@@ -176,6 +176,82 @@ export const WithExecutionData: CustomStoryObj<typeof Metadata> = {
   ),
 };
 
+export const WithTriggeredBy: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          upstreamProject: {
+            __typename: "UpstreamProject",
+            owner: "mongodb",
+            project: "mongo",
+            repo: "mongo",
+            revision: "def5361abc",
+            triggerID: "mongo_def5361abc",
+            triggerType: "push",
+            task: null,
+            version: null,
+          },
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const WithModulesAndGitTags: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          gitTags: [
+            { __typename: "GitTag", pusher: "testuser", tag: "v1.2.3" },
+            { __typename: "GitTag", pusher: "testuser", tag: "stable" },
+          ],
+          manifest: {
+            __typename: "Manifest",
+            id: "manifest123",
+            branch: "main",
+            isBase: false,
+            moduleOverrides: null,
+            modules: {
+              wiredtiger: {
+                branch: "main",
+                repo: "wiredtiger",
+                revision: "wiredtiger_revision",
+              },
+            },
+            project: "evergreen",
+            revision: version.revision,
+          },
+          patch: {
+            __typename: "Patch",
+            id: "patch123",
+            alias: null,
+            githubPatchData: null,
+            includedLocalModules: [
+              {
+                __typename: "IncludedLocalModule",
+                fileName: "wiredtiger.patch",
+                module: "wiredtiger",
+              },
+              {
+                __typename: "IncludedLocalModule",
+                fileName: "enterprise.patch",
+                module: "enterprise",
+              },
+            ],
+            patchNumber: 1,
+          },
+        }}
+      />
+    </Container>
+  ),
+};
+
 export const GithubPullRequest: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>

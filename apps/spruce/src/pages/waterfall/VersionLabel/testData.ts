@@ -27,6 +27,7 @@ export const getVersionUpstreamProjectMock: ApolloMock<
           revision: "abcdefg",
           task: {
             execution: 0,
+            displayName: "task-display-name",
             id: "678",
           },
           triggerID: "12345",
