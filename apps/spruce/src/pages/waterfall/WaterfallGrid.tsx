@@ -1,13 +1,6 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
-import { useSuspenseQuery } from "@apollo/client/react";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from "@apollo/client/react";
+import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { cx } from "@evg-ui/lib/utils/css";
 import {
   parseQueryString,
@@ -48,6 +41,7 @@ import {
 import { normalizeWaterfallFilters } from "./utils";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 import styles from "./WaterfallGrid.module.css";
+import WaterfallSkeleton from "./WaterfallSkeleton";
 
 type WaterfallGridProps = {
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
@@ -56,7 +50,8 @@ type WaterfallGridProps = {
   setPagination: (pagination: Pagination) => void;
 };
 
-type WaterfallQueryState = {
+type DisplayedWaterfall = {
+  data?: WaterfallQuery;
   options: WaterfallOptions;
   applyClientFilters: boolean;
 };
@@ -67,7 +62,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
   setPagination,
 }) => {
-  useWaterfallTrace();
   const { sendEvent } = useWaterfallAnalytics();
 
   const headerScrollRef = useRef<HTMLDivElement>(null);
@@ -175,7 +169,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     ],
   );
 
-  const [deferredQuery, setDeferredQuery] = useState<WaterfallQueryState>(
+  const [displayedResult, setDisplayedResult] = useState<DisplayedWaterfall>(
     () => ({
       options: {
         ...selectedQueryOptions,
@@ -184,90 +178,76 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       applyClientFilters: true,
     }),
   );
-  const lastScheduledQueryKeyRef = useRef(JSON.stringify(deferredQuery));
-  const [isPending, startTransition] = useTransition();
+  const { data } = displayedResult;
   const pageChanged =
-    getWaterfallAnchorKey({ options: deferredQuery.options }) !==
+    getWaterfallAnchorKey({ options: displayedResult.options }) !==
     getWaterfallAnchorKey({ options: selectedQueryOptions });
-  // Navigate directly so cache misses suspend, while filter updates stay deferred.
-  const activeQuery = useMemo<WaterfallQueryState>(
-    () =>
-      pageChanged
-        ? { options: selectedQueryOptions, applyClientFilters: false }
-        : deferredQuery,
-    [pageChanged, deferredQuery, selectedQueryOptions],
-  );
 
-  const { data, dataState } = useSuspenseQuery<
-    WaterfallQuery,
-    WaterfallQueryVariables
-  >(WATERFALL, {
-    variables: { options: activeQuery.options },
-    // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
+  const { activeVersionIds, buildVariants, versions } = useFilters({
+    activeVersionIds: data?.waterfall.pagination.activeVersionIds ?? [],
+    flattenedVersions: data?.waterfall.versions ?? [],
+    filters: displayedResult.applyClientFilters
+      ? selectedQueryOptions
+      : displayedResult.options,
+    omitInactiveBuilds: displayedResult.applyClientFilters
+      ? !!selectedQueryOptions.omitInactiveBuilds
+      : !!displayedResult.options.omitInactiveBuilds,
+    pins,
+    serverFiltered: !displayedResult.applyClientFilters,
+  });
+
+  const hasMore =
+    data &&
+    (displayedResult.options.minOrder
+      ? data.waterfall.pagination.hasPrevPage
+      : data.waterfall.pagination.hasNextPage);
+  const shouldFetchMore =
+    displayedResult.applyClientFilters &&
+    hasFilters &&
+    hasMore &&
+    activeVersionIds.length < VERSION_LIMIT;
+  const applyClientFilters =
+    displayedResult.applyClientFilters && !pageChanged && !shouldFetchMore;
+  const queryOptions = applyClientFilters
+    ? displayedResult.options
+    : selectedQueryOptions;
+  const queryChanged =
+    JSON.stringify(queryOptions) !== JSON.stringify(displayedResult.options);
+
+  const {
+    data: queryData,
+    dataState,
+    error,
+  } = useQuery<WaterfallQuery, WaterfallQueryVariables>(WATERFALL, {
+    variables: { options: queryOptions },
     pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "cache-first",
     refetchWritePolicy: "merge",
   });
-  // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
-  const dataIsComplete = dataState === "complete";
+  useErrorToast(error, "Unable to load waterfall");
 
-  const { activeVersionIds, buildVariants, versions } = useFilters({
-    activeVersionIds: dataIsComplete
-      ? data.waterfall.pagination.activeVersionIds
-      : [],
-    flattenedVersions: dataIsComplete ? data.waterfall.versions : [],
-    filters: activeQuery.applyClientFilters
-      ? selectedQueryOptions
-      : activeQuery.options,
-    omitInactiveBuilds: activeQuery.applyClientFilters
-      ? !!selectedQueryOptions.omitInactiveBuilds
-      : !!activeQuery.options.omitInactiveBuilds,
-    pins,
-    serverFiltered: !activeQuery.applyClientFilters,
-  });
+  // Update before rendering children so cache hits never flash a skeleton or stale filters.
+  if (
+    dataState === "complete" &&
+    (queryData !== data ||
+      queryChanged ||
+      applyClientFilters !== displayedResult.applyClientFilters)
+  ) {
+    setDisplayedResult({
+      data: queryData,
+      options: queryOptions,
+      applyClientFilters,
+    });
+  }
 
-  const hasMore =
-    dataIsComplete &&
-    (activeQuery.options.minOrder
-      ? data.waterfall.pagination.hasPrevPage
-      : data.waterfall.pagination.hasNextPage);
-  const shouldFetchMore =
-    activeQuery.applyClientFilters &&
-    hasFilters &&
-    hasMore &&
-    activeVersionIds.length < VERSION_LIMIT;
-  const nextQuery = useMemo<WaterfallQueryState>(
-    () =>
-      deferredQuery.applyClientFilters && !pageChanged && !shouldFetchMore
-        ? deferredQuery
-        : { options: selectedQueryOptions, applyClientFilters: false },
-    [deferredQuery, pageChanged, shouldFetchMore, selectedQueryOptions],
-  );
-  const nextQueryKey = JSON.stringify(nextQuery);
-  const isFetching = isPending || nextQueryKey !== JSON.stringify(activeQuery);
-
-  useEffect(() => {
-    if (lastScheduledQueryKeyRef.current !== nextQueryKey) {
-      lastScheduledQueryKeyRef.current = nextQueryKey;
-      if (pageChanged) {
-        // Commit the destination after its query is ready; only filters need a transition.
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setDeferredQuery({ ...nextQuery });
-      } else {
-        startTransition(() => {
-          // A fresh update also supersedes a suspended request when filters are cleared.
-          setDeferredQuery({ ...nextQuery });
-        });
-      }
-    }
-  }, [nextQuery, nextQueryKey, pageChanged]);
-
+  const isFetching = shouldFetchMore || queryChanged;
+  useWaterfallTrace(!!data && !pageChanged && !error);
   useWaterfallNavigationTrace({
-    data: dataIsComplete && !isFetching ? data : undefined,
+    data: !error && !pageChanged && !isFetching ? data : undefined,
   });
 
   useEffect(() => {
-    if (dataIsComplete) {
+    if (data && !pageChanged && !error) {
       setPagination(data.waterfall.pagination);
 
       // Use replaceState to remove the query params without causing a rerender
@@ -285,17 +265,25 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         );
       }
     }
-  }, [setPagination, dataIsComplete, data?.waterfall?.pagination, isFetching]);
+  }, [setPagination, data, pageChanged, isFetching, error]);
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
   const isHighlighted = (v: Version, i: number) =>
-    (!!activeQuery.options.revision &&
-      v.revision.includes(activeQuery.options.revision)) ||
-    (!!activeQuery.options.date && i === 0);
+    (!!displayedResult.options.revision &&
+      v.revision.includes(displayedResult.options.revision)) ||
+    (!!displayedResult.options.date && i === 0);
 
-  if (dataIsComplete && !isFetching && activeVersionIds.length === 0) {
+  if (error) {
+    return null;
+  }
+
+  if (!data || pageChanged) {
+    return <WaterfallSkeleton />;
+  }
+
+  if (!isFetching && activeVersionIds.length === 0) {
     return <EmptyState pagination={data.waterfall.pagination} />;
   }
 

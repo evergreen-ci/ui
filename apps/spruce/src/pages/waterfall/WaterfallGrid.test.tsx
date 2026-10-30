@@ -3,6 +3,7 @@ import { ApolloClient, ApolloLink } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 import { MockLink } from "@apollo/client/testing";
 import { useParams } from "react-router-dom";
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   act,
   renderWithRouterMatch,
@@ -23,6 +24,7 @@ import { WATERFALL } from "gql/queries";
 import { PaginationButtons } from "./PaginationButtons";
 import { getWaterfallData } from "./testData";
 import { BuildVariant, Pagination } from "./types";
+import { useWaterfallTrace } from "./useWaterfallTrace";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallGrid } from "./WaterfallGrid";
 
@@ -37,6 +39,7 @@ vi.mock("./useWaterfallTrace", () => ({
   startWaterfallNavigationTrace: vi.fn(),
 }));
 vi.mock("./OnboardingTutorial", () => ({ OnboardingTutorial: () => null }));
+vi.mock("./WaterfallSkeleton", () => ({ default: () => <Skeleton /> }));
 vi.mock("./VersionLabel", () => ({
   VersionLabelView: { Waterfall: "waterfall" },
   VersionLabel: ({ id }: { id: string }) => (
@@ -169,6 +172,7 @@ const setup = (
   mocks: WaterfallMock[],
   { omitInactiveBuilds = false, search = "" } = {},
 ) => {
+  const { dispatchToast } = RenderFakeToastContext();
   const requests: Record<string, unknown>[] = [];
   const link = new ApolloLink((operation, forward) => {
     requests.push(operation.variables);
@@ -191,7 +195,7 @@ const setup = (
   const navigate = async (nextSearch: string) => {
     await act(() => router.navigate(`/project/spruce/waterfall${nextSearch}`));
   };
-  return { client, navigate, requests, router };
+  return { client, dispatchToast, navigate, requests, router };
 };
 const versionIds = () =>
   screen
@@ -229,8 +233,10 @@ describe("WaterfallGrid requests", () => {
         { search },
       );
       expect(screen.getByTestId("initial-skeleton")).toBeInTheDocument();
+      expect(useWaterfallTrace).toHaveBeenLastCalledWith(false);
       await screen.findByTestId("fetch-more-loader");
       expect(screen.queryByTestId("initial-skeleton")).not.toBeInTheDocument();
+      expect(useWaterfallTrace).toHaveBeenLastCalledWith(true);
       expect(versionIds()).toEqual([
         "version-20",
         "version-19",
@@ -392,6 +398,10 @@ describe("WaterfallGrid requests", () => {
     expect(versionIds()).not.toContain("version-15");
     expect(tasks().filter((name) => name === "Task B")).toHaveLength(5);
     expect(requests).toHaveLength(2);
+    await navigate("?tasks=Task%20B");
+    await waitForSettled();
+    expect(tasks()).toEqual(Array(5).fill("Task B"));
+    expect(requests).toHaveLength(2);
   });
 
   it("ignores a late response for superseded filters", async () => {
@@ -488,7 +498,7 @@ describe("WaterfallGrid requests", () => {
     await userEvent.click(screen.getByTestId("next-page-button"));
     await screen.findByTestId("initial-skeleton");
     expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
-    expect(screen.getByText("version-20")).not.toBeVisible();
+    expect(screen.queryByText("version-20")).not.toBeInTheDocument();
     await screen.findByText("version-11");
     await waitForSettled();
     expect(requests).toHaveLength(2);
@@ -509,7 +519,7 @@ describe("WaterfallGrid requests", () => {
     await userEvent.click(screen.getByTestId("prev-page-button"));
     await screen.findByTestId("initial-skeleton");
     expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
-    expect(screen.getByText("version-11")).not.toBeVisible();
+    expect(screen.queryByText("version-11")).not.toBeInTheDocument();
     await screen.findByText("version-20");
     await waitForSettled();
     expect(requests).toHaveLength(2);
@@ -639,7 +649,7 @@ describe("WaterfallGrid requests", () => {
       [
         makeMock({}, previewData(4)),
         makeMock(filteredOptions, filteredData()),
-        makeMock({ projectIdentifier: "another-project" }, previewData(5)),
+        makeMock({ projectIdentifier: "another-project" }, previewData(5), 100),
       ],
       { search: "?tasks=Task%20A" },
     );
@@ -647,6 +657,8 @@ describe("WaterfallGrid requests", () => {
     await act(() =>
       router.navigate("/project/another-project/waterfall?tasks=Task%20A"),
     );
+    expect(screen.getByTestId("initial-skeleton")).toBeInTheDocument();
+    expect(screen.queryByText("version-15")).not.toBeInTheDocument();
     await screen.findByText("version-16");
     await waitForSettled();
     expect(requests).toHaveLength(3);
@@ -795,26 +807,62 @@ describe("WaterfallGrid requests", () => {
     expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
   });
 
-  it("reports a failed backfill instead of leaving the preview fetching forever", async () => {
-    vi.spyOn(console, "error").mockImplementation(() => {});
-    const onError = (event: ErrorEvent) => {
-      if (
-        event.error instanceof Error &&
-        event.error.message === "Waterfall request failed"
-      ) {
-        event.preventDefault();
+  it.each([
+    { request: "initial", graphql: false },
+    { request: "backfill", graphql: false },
+    { request: "pagination", graphql: false },
+    { request: "backfill", graphql: true },
+  ])(
+    "toasts a failed $request request without throwing or logging again (GraphQL: $graphql)",
+    async ({ graphql, request }) => {
+      const consoleError = vi.spyOn(console, "error");
+      vi.mocked(reportError).mockClear();
+      const options =
+        request === "initial"
+          ? {}
+          : {
+              ...filteredOptions,
+              ...(request === "pagination" ? { maxOrder: 16 } : {}),
+            };
+      const failed = makeMock(options, filteredData(), 50);
+      if (graphql) {
+        failed.result = { errors: [{ message: "Waterfall request failed" }] };
+      } else {
+        failed.error = new Error("Waterfall request failed");
+        failed.result = undefined;
       }
-    };
-    window.addEventListener("error", onError);
-    const failed = makeMock(filteredOptions, filteredData(), 50);
-    failed.error = new Error("Waterfall request failed");
-    failed.result = undefined;
-    setup([makeMock({}, previewData(4)), failed], {
-      search: "?tasks=Task%20A",
-    });
-    await screen.findByText("Error: Waterfall request failed");
-    expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
-    expect(reportError).toHaveBeenCalled();
-    window.removeEventListener("error", onError);
-  });
+      const { dispatchToast, navigate } = setup(
+        [
+          ...(request === "initial"
+            ? []
+            : [makeMock({}, previewData(request === "pagination" ? 5 : 4))]),
+          failed,
+        ],
+        { search: "?tasks=Task%20A" },
+      );
+      if (request === "pagination") {
+        await screen.findByText("version-16");
+        await navigate("?tasks=Task%20A&maxOrder=16");
+      }
+      await waitFor(() =>
+        expect(dispatchToast.error).toHaveBeenCalledWith(
+          "Unable to load waterfall: Waterfall request failed",
+        ),
+      );
+      expect(dispatchToast.error).toHaveBeenCalledTimes(1);
+      expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("initial-skeleton")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Oops! Something went wrong."),
+      ).not.toBeInTheDocument();
+      expect(reportError).not.toHaveBeenCalled();
+      expect(consoleError).not.toHaveBeenCalled();
+      if (request !== "initial") {
+        await navigate("");
+        await screen.findByText("version-16");
+        await waitForSettled();
+        expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+      }
+    },
+  );
 });
