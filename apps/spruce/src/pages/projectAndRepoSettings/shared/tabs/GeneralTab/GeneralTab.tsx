@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { SOURCE_CACHE_ALL_PROJECTS_FLAG } from "constants/serviceFlags";
 import {
   ServiceFlagsListQuery,
   ServiceFlagsListQueryVariables,
@@ -15,6 +14,8 @@ import { getFormSchema } from "./getFormSchema";
 import { GeneralFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.General;
+
+const SOURCE_CACHE_ALL_PROJECTS_FLAG = "source_cache_all_projects_enabled";
 
 export const GeneralTab: React.FC<TabProps> = ({
   projectData,
