@@ -3,7 +3,6 @@ import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
 import { getTestUtils } from "@leafygreen-ui/toggle/testing";
 import {
   MockedProvider,
-  fireEvent,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
@@ -192,7 +191,8 @@ describe("VersionTasksTable", () => {
   });
 
   describe("marking tasks as reviewed", () => {
-    it("allows checking a task", async () => {
+    it("allows toggling a task", async () => {
+      const user = userEvent.setup();
       render(
         <MockedProvider cache={cache}>
           <VersionTasksTable {...sharedProps} />
@@ -206,9 +206,8 @@ describe("VersionTasksTable", () => {
       expect(isDisabled()).toBe(false);
       expect(getInputValue()).toBe(false);
 
-      // Use fireEvent because this checkbox has no label to click.
-      // This is how LG tests their checkboxes ¯\_(ツ)_/¯
-      fireEvent.click(getInput());
+      // Click once to mark as reviewed.
+      await user.click(getInput());
       await waitFor(() => {
         expect(getTestUtils(`lg-reviewed-${tasks[0].id}`).getInputValue()).toBe(
           true,
@@ -219,10 +218,11 @@ describe("VersionTasksTable", () => {
         true,
       );
 
-      fireEvent.click(getTestUtils(`lg-reviewed-${tasks[0].id}`).getInput());
+      // Click again to mark as unreviewed.
+      await user.click(getTestUtils(`lg-reviewed-${tasks[0].id}`).getInput());
       await waitFor(() => {
         expect(getTestUtils(`lg-reviewed-${tasks[0].id}`).getInputValue()).toBe(
-          true,
+          false,
         );
       });
       await waitFor(() => {
@@ -234,7 +234,7 @@ describe("VersionTasksTable", () => {
       );
     });
 
-    it("disables the checkbox for successful tasks", async () => {
+    it("disables the toggle for successful tasks", async () => {
       render(
         <MockedProvider cache={cache}>
           <VersionTasksTable {...sharedProps} />
@@ -246,7 +246,7 @@ describe("VersionTasksTable", () => {
       );
     });
 
-    it("checking a display task marks unsuccessful children", async () => {
+    it("toggling a display task marks unsuccessful children", async () => {
       const user = userEvent.setup();
       render(
         <MockedProvider cache={cache}>
@@ -259,9 +259,7 @@ describe("VersionTasksTable", () => {
       expect(displayTask.isDisabled()).toBe(false);
       expect(displayTask.getInputValue()).toBe(false);
 
-      // Use fireEvent because this checkbox has no label to click.
-      // This is how LG tests their checkboxes ¯\_(ツ)_/¯
-      fireEvent.click(displayTask.getInput());
+      await user.click(displayTask.getInput());
       expect(db.setItem).not.toHaveBeenCalled();
       expect(db.setItems).toHaveBeenCalledOnce();
 
@@ -290,7 +288,7 @@ describe("VersionTasksTable", () => {
       expect(executionTask2.getInputValue()).toBe(true);
       expect(executionTask3.getInputValue()).toBe(false);
 
-      fireEvent.click(executionTask0.getInput());
+      await user.click(executionTask0.getInput());
       await waitFor(() => {
         expect(executionTask0.getInputValue()).toBe(false);
       });
@@ -311,8 +309,8 @@ describe("VersionTasksTable", () => {
       displayTask = getTestUtils(`lg-reviewed-${tasks[3].id}`);
       expect(displayTask.getInputValue()).toBe(false);
 
-      fireEvent.click(executionTask1.getInput());
-      fireEvent.click(executionTask2.getInput());
+      await user.click(executionTask1.getInput());
+      await user.click(executionTask2.getInput());
       await waitFor(() => {
         expect(executionTask1.getInputValue()).toBe(false);
       });

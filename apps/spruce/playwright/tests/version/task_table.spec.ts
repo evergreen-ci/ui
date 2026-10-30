@@ -1,5 +1,4 @@
 import { Page, expect, test } from "../../fixtures";
-import { clickCheckbox } from "../../helpers";
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
 const lastRunStatusPath =
@@ -90,7 +89,7 @@ test.describe("Task table", () => {
       name: /Last Run Status/,
     });
     await expect(lastRunStatusHeader).toBeVisible();
-    await lastRunStatusHeader.getByRole("button").hover();
+    await lastRunStatusHeader.getByRole("button").click();
     await expect(
       page.getByText(
         /For (base|previous) tasks that have not finished running, this column links to the most recent completed commit\./,
@@ -212,9 +211,9 @@ test.describe("Task table", () => {
       page,
     }) => {
       await page.goto(pathTasks);
-      const firstTaskCheckbox = page.getByTestId(firstTask);
-      await clickCheckbox(firstTaskCheckbox);
-      await expect(firstTaskCheckbox).toBeChecked();
+      const firstTaskToggle = page.getByTestId(firstTask);
+      await firstTaskToggle.click();
+      await expect(firstTaskToggle).toBeChecked();
 
       await page.getByRole("button", { name: "Expand row" }).click();
       await expect(page.getByTestId(executionTask1)).toHaveAttribute(
@@ -222,25 +221,25 @@ test.describe("Task table", () => {
         "true",
       );
 
-      const executionTask2Checkbox = page.getByTestId(executionTask2);
-      await clickCheckbox(executionTask2Checkbox);
-      await expect(executionTask2Checkbox).toBeChecked();
+      const executionTask2Toggle = page.getByTestId(executionTask2);
+      await executionTask2Toggle.click();
+      await expect(executionTask2Toggle).toBeChecked();
 
-      const displayTaskCheckbox = page.getByTestId(displayTask);
-      await clickCheckbox(displayTaskCheckbox);
-      await expect(displayTaskCheckbox).not.toBeChecked();
-      await expect(executionTask2Checkbox).not.toBeChecked();
+      const displayTaskToggle = page.getByTestId(displayTask);
+      await displayTaskToggle.click();
+      await expect(displayTaskToggle).not.toBeChecked();
+      await expect(executionTask2Toggle).not.toBeChecked();
 
-      await clickCheckbox(displayTaskCheckbox);
-      await expect(displayTaskCheckbox).toBeChecked();
-      await expect(executionTask2Checkbox).toBeChecked();
+      await displayTaskToggle.click();
+      await expect(displayTaskToggle).toBeChecked();
+      await expect(executionTask2Toggle).toBeChecked();
 
       await page.reload();
 
-      await expect(firstTaskCheckbox).toBeChecked();
-      await expect(displayTaskCheckbox).toBeChecked();
+      await expect(firstTaskToggle).toBeChecked();
+      await expect(displayTaskToggle).toBeChecked();
       await page.getByRole("button", { name: "Expand row" }).click();
-      await expect(executionTask2Checkbox).toBeChecked();
+      await expect(executionTask2Toggle).toBeChecked();
     });
   });
 });
