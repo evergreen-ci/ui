@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
 import { ErrorLike } from "@apollo/client";
-import { CombinedGraphQLErrors } from "@apollo/client/errors";
 import { useToastContext } from "../../context/toast";
 
 /**
- * useErrorToast displays an error toast when a GraphQL query fails.
+ * useErrorToast displays an error toast when a query fails.
  * It tracks the error message to avoid showing duplicate toasts for the same error.
  * @param error - The error from useQuery or useLazyQuery
  * @param messagePrefix - A human-readable prefix describing what failed (e.g., "Unable to load files")
@@ -24,11 +23,7 @@ export const useErrorToast = (
 
   useEffect(() => {
     // Only show toast if there's a new error we haven't shown yet
-    if (
-      error &&
-      CombinedGraphQLErrors.is(error) &&
-      error.message !== lastErrorMessage.current
-    ) {
+    if (error && error.message !== lastErrorMessage.current) {
       lastErrorMessage.current = error.message;
       if (shouldDispatchToast) {
         dispatchToast.error(`${messagePrefix}: ${error.message}`);

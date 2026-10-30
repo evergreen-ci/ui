@@ -1,5 +1,5 @@
 import { ApolloCache, FieldFunctionOptions } from "@apollo/client";
-import { WaterfallQuery } from "gql/generated/types";
+import { WaterfallOptions, WaterfallQuery } from "gql/generated/types";
 import { VERSION_LIMIT } from "../constants";
 
 const DEFAULT_CACHED_PAGE_LIMIT = 6;
@@ -10,6 +10,21 @@ export type Waterfall = WaterfallQuery["waterfall"];
 export type Version = Waterfall["versions"][number];
 export type ReadField = FieldFunctionOptions["readField"];
 
+export const getWaterfallFilterKey = (
+  options: Partial<WaterfallOptions> = {},
+) =>
+  JSON.stringify({
+    projectIdentifier: options.projectIdentifier,
+    requesters: options.requesters,
+    statuses: options.statuses,
+    tasks: options.tasks,
+    variants: options.variants,
+    includeAllBuildsAndTasks: options.includeAllBuildsAndTasks,
+    omitInactiveBuilds: options.omitInactiveBuilds,
+    taskCaseSensitive: options.taskCaseSensitive,
+    variantCaseSensitive: options.variantCaseSensitive,
+  });
+
 export const getCacheOptions = (args: FieldFunctionOptions["args"]) => ({
   date: args?.options?.date ?? "",
   limit: args?.options?.limit ?? VERSION_LIMIT,
@@ -18,6 +33,11 @@ export const getCacheOptions = (args: FieldFunctionOptions["args"]) => ({
   projectIdentifier: args?.options?.projectIdentifier ?? "",
   revision: args?.options?.revision ?? "",
 });
+
+export const getWaterfallAnchorKey = (args: FieldFunctionOptions["args"]) => {
+  const { date, limit, maxOrder, minOrder, revision } = getCacheOptions(args);
+  return JSON.stringify({ date, limit, maxOrder, minOrder, revision });
+};
 
 export const getCachedPageLimit = (projectIdentifier: string) =>
   projectIdentifier.startsWith(MONGODB_MONGO_PROJECT_PREFIX)

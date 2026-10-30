@@ -1,4 +1,5 @@
 import { expect, test } from "../../fixtures";
+import { hasOperationName } from "../../helpers";
 
 test.describe("pagination", () => {
   test.beforeEach(async ({ page }) => {
@@ -27,6 +28,15 @@ test.describe("pagination", () => {
 
     await expect(versionLabels).toHaveCount(6);
     await expect(versionLabels.nth(0)).toContainText(firstPageFirstCommit);
+    let waterfallRequests = 0;
+    page.on("request", (request) => {
+      if (
+        request.url().endsWith("/graphql/query") &&
+        hasOperationName(request.postDataJSON(), "Waterfall")
+      ) {
+        waterfallRequests += 1;
+      }
+    });
 
     await page.getByTestId("next-page-button").click();
     await expect(versionLabels).toHaveCount(5);
@@ -35,6 +45,10 @@ test.describe("pagination", () => {
     await page.getByTestId("prev-page-button").click();
     await expect(versionLabels).toHaveCount(6);
     await expect(versionLabels.nth(0)).toContainText(firstPageFirstCommit);
+    await page.getByTestId("next-page-button").click();
+    await expect(versionLabels).toHaveCount(5);
+    await expect(versionLabels.nth(0)).toContainText(secondPageFirstCommit);
+    expect(waterfallRequests).toBe(1);
   });
 
   test("builds update correctly as page changes", async ({ page }) => {

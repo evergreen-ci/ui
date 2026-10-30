@@ -1,5 +1,9 @@
 import { expect, test } from "../../fixtures";
-import { selectDatePickerDate, validateDatePickerDate } from "../../helpers";
+import {
+  hasOperationName,
+  selectDatePickerDate,
+  validateDatePickerDate,
+} from "../../helpers";
 
 test.describe("status filtering", () => {
   test.beforeEach(async ({ page }) => {
@@ -12,8 +16,21 @@ test.describe("status filtering", () => {
     await expect(
       page.getByTestId("inactive-versions-button").first(),
     ).toContainText("1");
+    const filteredRequest = page.waitForRequest(
+      (request) =>
+        request.url().endsWith("/graphql/query") &&
+        hasOperationName(request.postDataJSON(), "Waterfall"),
+    );
     await page.getByTestId("status-filter").click();
     await page.getByTestId("failed-option").click();
+    expect((await filteredRequest).postDataJSON()).toMatchObject({
+      variables: {
+        options: {
+          includeAllBuildsAndTasks: false,
+          statuses: expect.arrayContaining(["failed"]),
+        },
+      },
+    });
     await expect(page.locator("a[data-tooltip]")).toHaveCount(4);
     await expect(page.getByTestId("version-label-active")).toHaveCount(4);
     await expect(page.getByTestId("inactive-versions-button")).toHaveCount(3);

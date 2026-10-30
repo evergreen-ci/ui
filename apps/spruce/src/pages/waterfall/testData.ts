@@ -1,11 +1,70 @@
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { Requester } from "constants/requesters";
 import {
+  WaterfallQuery,
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
 } from "gql/generated/types";
 import { WATERFALL_TASK_STATS } from "gql/queries";
 import { BuildVariant, Version } from "./types";
+
+export const getWaterfallData = (
+  orders: number[],
+  {
+    pagination = {},
+    taskNames = ["Task A", "Task B"],
+  }: {
+    pagination?: Partial<WaterfallQuery["waterfall"]["pagination"]>;
+    taskNames?: string[];
+  } = {},
+): WaterfallQuery => ({
+  waterfall: {
+    __typename: "Waterfall",
+    pagination: {
+      __typename: "WaterfallPagination",
+      activeVersionIds: orders.map((order) => `version-${order}`),
+      hasNextPage: orders.at(-1) !== 1,
+      hasPrevPage: orders[0] !== 20,
+      mostRecentVersionOrder: 20,
+      nextPageOrder: orders.at(-1) === 1 ? 0 : (orders.at(-1) ?? 0),
+      prevPageOrder: orders[0] === 20 ? 0 : (orders[0] ?? 0),
+      ...pagination,
+    },
+    versions: orders.map((order) => ({
+      __typename: "Version",
+      activated: true,
+      createTime: new Date("2024-09-19T14:56:08Z"),
+      errors: [],
+      gitTags: [],
+      id: `version-${order}`,
+      message: `Commit ${order}`,
+      order,
+      requester: Requester.Gitter,
+      revision: `revision-${order}`,
+      user: {
+        __typename: "User",
+        userId: "waterfall-test-user",
+        displayName: "Waterfall test user",
+      },
+      waterfallBuilds: [
+        {
+          __typename: "WaterfallBuild",
+          activated: true,
+          buildVariant: "variant",
+          displayName: "Variant",
+          id: `build-${order}`,
+          tasks: taskNames.map((displayName) => ({
+            __typename: "WaterfallTask",
+            id: `task-${order}-${displayName}`,
+            displayName,
+            displayStatusCache: "success",
+            execution: 0,
+          })),
+        },
+      ],
+    })),
+  },
+});
 
 export const version: Version = {
   activated: true,

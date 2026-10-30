@@ -35,6 +35,21 @@ describe("useErrorToast", () => {
     );
   });
 
+  it("shows a toast for network errors without duplicating it on rerender", () => {
+    const { dispatchToast } = RenderFakeToastContext();
+    const error = new Error("Failed to fetch");
+    const { rerender } = renderHook(
+      () => useErrorToast(error, "Unable to load data"),
+      { wrapper: Provider },
+    );
+
+    rerender();
+    expect(dispatchToast.error).toHaveBeenCalledTimes(1);
+    expect(dispatchToast.error).toHaveBeenCalledWith(
+      "Unable to load data: Failed to fetch",
+    );
+  });
+
   it("should not show duplicate toasts for the same error", () => {
     const { dispatchToast } = RenderFakeToastContext();
     const error = new CombinedGraphQLErrors(

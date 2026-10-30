@@ -136,7 +136,9 @@ export const readVersions = ((existing, { args, readField }) => {
       mostRecentVersionOrder,
       prevPageOrder: prevOrderNumber,
       nextPageOrder: nextOrderNumber,
-      hasNextPage: nextOrderNumber > 0,
+      hasNextPage:
+        nextOrderNumber > 0 &&
+        (endIndex < existingVersions.length - 1 || hasNextPage),
       hasPrevPage: prevOrderNumber > 0,
     },
     versions,
