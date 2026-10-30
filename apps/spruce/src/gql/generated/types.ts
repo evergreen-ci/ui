@@ -12710,6 +12710,12 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      project?: {
+        __typename?: "ProjectLite";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
       user: {
         __typename?: "User";
         displayName?: string | null;

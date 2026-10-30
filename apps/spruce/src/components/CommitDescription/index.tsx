@@ -1,69 +1,80 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { Body } from "@via-ds/components";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useTaskHistoryAnalytics } from "analytics";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 
 const { blue } = palette;
 
-const MAX_CHAR = 250;
+const DEFAULT_MAX_CHAR = 250;
 
 interface CommitDescriptionProps {
   author: string;
+  inline?: boolean;
+  maxLength?: number;
   message: string;
+  onJiraLinkClick?: () => void;
+  onToggle?: (expanded: boolean) => void;
 }
 
-const CommitDescription: React.FC<CommitDescriptionProps> = ({
+export const CommitDescription: React.FC<CommitDescriptionProps> = ({
   author,
+  inline = false,
+  maxLength = DEFAULT_MAX_CHAR,
   message,
+  onJiraLinkClick,
+  onToggle,
 }) => {
-  const { sendEvent } = useTaskHistoryAnalytics();
-
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host ?? "";
 
-  const shouldTruncate = message.length > MAX_CHAR;
+  const shouldTruncate = message.length > maxLength;
   const [showDescription, setShowDescription] = useState(!shouldTruncate);
 
   const displayMessage = showDescription
     ? message
-    : message.substring(0, MAX_CHAR).concat("…");
+    : message.substring(0, maxLength).concat("…");
 
   const linkedMessage = useMemo(
-    () => jiraLinkify(displayMessage, jiraHost),
-    [displayMessage, jiraHost],
+    () => jiraLinkify(displayMessage, jiraHost, onJiraLinkClick),
+    [displayMessage, jiraHost, onJiraLinkClick],
   );
 
   const toggleText = showDescription ? "Show less" : "Show more";
 
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setShowDescription((prev) => {
-      sendEvent({
-        name: "Toggled commit description",
-        expanded: !prev,
-      });
-      return !prev;
-    });
+    setShowDescription(!showDescription);
+    onToggle?.(!showDescription);
   };
+
+  const messageContent = (
+    <WordBreak>
+      {linkedMessage}
+      {shouldTruncate ? (
+        <ToggleButton onClick={handleToggle}>{toggleText}</ToggleButton>
+      ) : null}
+    </WordBreak>
+  );
+
+  if (inline) {
+    return (
+      <Body>
+        <AuthorLabel>{author} •</AuthorLabel> {messageContent}
+      </Body>
+    );
+  }
 
   return (
     <BottomLabel>
-      <AuthorLabel>{author} - </AuthorLabel>
-      <WordBreak>
-        {linkedMessage}
-        {shouldTruncate ? (
-          <ToggleButton onClick={handleToggle}>{toggleText}</ToggleButton>
-        ) : null}
-      </WordBreak>
+      <AuthorLabel>{author} •</AuthorLabel>
+      {messageContent}
     </BottomLabel>
   );
 };
-
-export default CommitDescription;
 
 const BottomLabel = styled.div`
   display: flex;

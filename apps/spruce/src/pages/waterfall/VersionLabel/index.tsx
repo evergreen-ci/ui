@@ -1,6 +1,7 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
+import { CommitDescription } from "components/CommitDescription";
 import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";
@@ -11,6 +12,8 @@ import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
 import styles from "./index.module.css";
+
+const MODAL_MAX_MESSAGE_LENGTH = 150;
 
 export enum VersionLabelView {
   Modal = "modal",
@@ -80,11 +83,6 @@ export const VersionLabel: React.FC<Props> = ({
             to={getVersionRoute(id)}
           />{" "}
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-          {commitType === "inactive" && (
-            <Badge className={styles.badge} variant={BadgeVariant.Status}>
-              Inactive
-            </Badge>
-          )}
           {errors.length > 0 && (
             <Badge className={styles.badge} variant={BadgeVariant.Error}>
               Broken
@@ -106,20 +104,35 @@ export const VersionLabel: React.FC<Props> = ({
         }}
         versionId={id}
       />
-      <Body
-        className={styles.commitMessage}
-        data-view={view}
-        title={view === VersionLabelView.Waterfall ? message : undefined}
-      >
-        <strong>{user.displayName}</strong> &bull;{" "}
-        {jiraLinkify(message, jiraHost, () => {
-          sendEvent({
-            name: "Clicked commit label",
-            "commit.type": commitType,
-            link: "jira",
-          });
-        })}
-      </Body>
+      {view === VersionLabelView.Modal ? (
+        <CommitDescription
+          author={user.displayName ?? user.userId}
+          inline
+          maxLength={MODAL_MAX_MESSAGE_LENGTH}
+          message={message}
+          onJiraLinkClick={() => {
+            sendEvent({
+              name: "Clicked commit label",
+              "commit.type": commitType,
+              link: "jira",
+            });
+          }}
+          onToggle={(expanded) =>
+            sendEvent({ name: "Toggled commit description", expanded })
+          }
+        />
+      ) : (
+        <Body className={styles.commitMessage} data-view={view} title={message}>
+          <strong>{user.displayName}</strong> &bull;{" "}
+          {jiraLinkify(message, jiraHost, () => {
+            sendEvent({
+              name: "Clicked commit label",
+              "commit.type": commitType,
+              link: "jira",
+            });
+          })}
+        </Body>
+      )}
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}
