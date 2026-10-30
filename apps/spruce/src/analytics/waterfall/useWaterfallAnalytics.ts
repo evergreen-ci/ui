@@ -16,6 +16,7 @@ type Action =
       link: "jira" | "githash" | "upstream project";
       "commit.type": "active" | "inactive";
     }
+  | { name: "Toggled commit description"; expanded: boolean }
   | { name: "Clicked variant label" }
   | { name: "Clicked task box"; "task.status": string }
   | { name: "Clicked jump to most recent commit button" }
