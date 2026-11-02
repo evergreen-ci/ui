@@ -22,5 +22,12 @@
     "lint-staged": "16.4.0",
     "storybook": "^10.6.1",
     "vitest": "^4.1.6"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^22.18.0",
+      "onFail": "download"
+    }
   }
 }
