@@ -68,31 +68,33 @@ export const VersionLabel: React.FC<Props> = ({
     >
       <div className={styles.headerLine}>
         <Body>
-          <RevisionLink
-            onClick={() => {
-              sendEvent({
-                name: "Clicked commit label",
-                "commit.type": commitType,
-                link: "githash",
-              });
-            }}
-            revision={revision}
-            to={getVersionRoute(id)}
-          />{" "}
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-          {commitType === "inactive" && (
-            <Badge className={styles.badge} variant={BadgeVariant.Status}>
-              Inactive
-            </Badge>
-          )}
-          {errors.length > 0 && (
-            <Badge className={styles.badge} variant={BadgeVariant.Error}>
-              Broken
-            </Badge>
-          )}
         </Body>
         {view === VersionLabelView.Waterfall && (
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
+        )}
+      </div>
+      <div>
+        <RevisionLink
+          onClick={() => {
+            sendEvent({
+              name: "Clicked commit label",
+              "commit.type": commitType,
+              link: "githash",
+            });
+          }}
+          revision={revision}
+          to={getVersionRoute(id)}
+        />{" "}
+        {commitType === "inactive" && (
+          <Badge className={styles.badge} variant={BadgeVariant.Status}>
+            Inactive
+          </Badge>
+        )}
+        {errors.length > 0 && (
+          <Badge className={styles.badge} variant={BadgeVariant.Error}>
+            Broken
+          </Badge>
         )}
       </div>
       <UpstreamProjectLink

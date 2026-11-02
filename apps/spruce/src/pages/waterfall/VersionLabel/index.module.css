@@ -1,4 +1,7 @@
 .versionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   flex-basis: calc(100% / var(--waterfall-version-count));
 }
 
@@ -23,6 +26,7 @@
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
 }
 
@@ -33,8 +37,6 @@
 .headerLine {
   align-items: center;
   display: flex;
+  justify-content: space-between;
 }
 
-.headerLine > p {
-  flex-grow: 1;
-}
