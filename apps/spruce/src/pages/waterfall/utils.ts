@@ -13,8 +13,6 @@ export const normalizeWaterfallFilters = (
   variants: options.variants ?? [],
   includeAllBuildsAndTasks: options.includeAllBuildsAndTasks ?? true,
   omitInactiveBuilds: options.omitInactiveBuilds ?? false,
-  taskCaseSensitive: options.taskCaseSensitive ?? true,
-  variantCaseSensitive: options.variantCaseSensitive ?? true,
 });
 
 export const getFilterType = (key: string): FilterType => {

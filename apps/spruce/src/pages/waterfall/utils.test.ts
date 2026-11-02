@@ -16,8 +16,6 @@ describe("normalizeWaterfallFilters", () => {
     variants: [],
     includeAllBuildsAndTasks: true,
     omitInactiveBuilds: false,
-    taskCaseSensitive: true,
-    variantCaseSensitive: true,
   };
 
   it.each([
@@ -31,8 +29,6 @@ describe("normalizeWaterfallFilters", () => {
       variants: null,
       includeAllBuildsAndTasks: null,
       omitInactiveBuilds: null,
-      taskCaseSensitive: null,
-      variantCaseSensitive: null,
     },
   ])("normalizes default request options: %j", (options) => {
     expect(normalizeWaterfallFilters(options)).toEqual(defaults);
@@ -47,8 +43,6 @@ describe("normalizeWaterfallFilters", () => {
       variants: ["variant"],
       includeAllBuildsAndTasks: false,
       omitInactiveBuilds: true,
-      taskCaseSensitive: false,
-      variantCaseSensitive: false,
     };
     expect(normalizeWaterfallFilters(options)).toEqual(options);
   });

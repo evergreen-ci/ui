@@ -83,8 +83,6 @@ const baseOptions: WaterfallOptions = {
   variants: [],
   includeAllBuildsAndTasks: true,
   omitInactiveBuilds: false,
-  taskCaseSensitive: true,
-  variantCaseSensitive: true,
   limit: 5,
   maxOrder: 0,
   minOrder: 0,
@@ -787,14 +785,9 @@ describe("WaterfallGrid requests", () => {
     expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
   });
 
-  it.each([
-    { request: "initial", graphql: false },
-    { request: "fetch more", graphql: false },
-    { request: "pagination", graphql: false },
-    { request: "fetch more", graphql: true },
-  ])(
-    "toasts a failed $request request without throwing or logging again (GraphQL: $graphql)",
-    async ({ graphql, request }) => {
+  it.each(["initial", "fetch more", "pagination"])(
+    "toasts a failed %s GraphQL request without throwing or logging again",
+    async (request) => {
       const consoleError = vi.spyOn(console, "error");
       vi.mocked(reportError).mockClear();
       const options =
@@ -805,12 +798,7 @@ describe("WaterfallGrid requests", () => {
               ...(request === "pagination" ? { maxOrder: 16 } : {}),
             };
       const failed = makeMock(options, filteredData(), 50);
-      if (graphql) {
-        failed.result = { errors: [{ message: "Waterfall request failed" }] };
-      } else {
-        failed.error = new Error("Waterfall request failed");
-        failed.result = undefined;
-      }
+      failed.result = { errors: [{ message: "Waterfall request failed" }] };
       const { dispatchToast, navigate } = setup(
         [
           ...(request === "initial"

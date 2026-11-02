@@ -11,7 +11,6 @@ import {
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { getUTCEndOfDay } from "utils/date";
-import { getWaterfallAnchorKey } from "./caching/utils";
 import { VERSION_LIMIT } from "./constants";
 import { WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
@@ -110,8 +109,10 @@ export const useWaterfallData = ({
   );
   const { data } = displayedResult;
   const pageChanged =
-    getWaterfallAnchorKey({ options: displayedResult.options }) !==
-    getWaterfallAnchorKey({ options: selectedQueryOptions });
+    displayedResult.options.maxOrder !== maxOrder ||
+    displayedResult.options.minOrder !== minOrder ||
+    (displayedResult.options.revision ?? "") !== (revision ?? "") ||
+    !Object.is(displayedResult.options.date?.getTime(), utcDate?.getTime());
 
   const { activeVersionIds, buildVariants, versions } = useFilters({
     activeVersionIds: data?.waterfall.pagination.activeVersionIds ?? [],

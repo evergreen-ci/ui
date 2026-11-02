@@ -1,8 +1,17 @@
 import { InMemoryCache } from "@apollo/client";
 import { readTaskReviewed } from "components/TaskReview/caching";
+import { WaterfallOptions } from "gql/generated/types";
 import { mergeTasks, readTasks } from "pages/task/taskTabs/TaskHistory/caching";
 import { mergeVersions, readVersions } from "pages/waterfall/caching";
-import { getWaterfallFilterKey } from "pages/waterfall/caching/utils";
+
+const WATERFALL_FILTER_FIELDS: (keyof WaterfallOptions)[] = [
+  "projectIdentifier",
+  "requesters",
+  "statuses",
+  "tasks",
+  "variants",
+  "omitInactiveBuilds",
+];
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -12,7 +21,7 @@ export const cache = new InMemoryCache({
           keyArgs: ["$patchId"],
         },
         waterfall: {
-          keyArgs: (args) => getWaterfallFilterKey(args?.options),
+          keyArgs: ["options", WATERFALL_FILTER_FIELDS],
           read(...args) {
             return readVersions(...args);
           },
@@ -127,8 +136,7 @@ export const cache = new InMemoryCache({
       fields: {
         waterfallBuilds: {
           // The resolver filters this argument-less field using its parent query's options.
-          keyArgs: (_args, { variables }) =>
-            getWaterfallFilterKey(variables?.options),
+          keyArgs: ["$options", WATERFALL_FILTER_FIELDS],
           merge: false,
         },
       },
