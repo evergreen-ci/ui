@@ -55,7 +55,7 @@ const upstreamProjectMock = (
           project: "dsi",
           repo: "dsi",
           revision: "abcdefg",
-          task: { execution: 0, id: "dsi_task" },
+          task: { execution: 0, id: "dsi_task", displayName: "DSI Task" },
           triggerID: "12345",
           triggerType: "task",
           version: { id: "dsi_version" },
