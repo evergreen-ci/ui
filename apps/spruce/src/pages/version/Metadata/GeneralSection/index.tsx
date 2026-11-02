@@ -111,7 +111,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
         </MetadataItem>
       )}
       {hasPRCommitLink && (
-        <MetadataItem label="PR commit">
+        <MetadataItem>
           <GithubCommitLink
             data-testid="github-pr-commit"
             onClick={() =>
