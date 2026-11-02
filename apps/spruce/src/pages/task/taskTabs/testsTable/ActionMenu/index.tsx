@@ -99,8 +99,8 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   } else if (!task.canQuarantine) {
     dropdownItems = [
       <DropdownItem key="no-permission" disabled>
-        You do not have permission to quarantine or unquarantine tests in this
-        project. Request the Test quarantine permission in MANA.
+        You do not have permission to quarantine tests in this
+        project. Request the permission in MANA.
       </DropdownItem>,
     ];
   } else if (test.isManuallyQuarantined) {
