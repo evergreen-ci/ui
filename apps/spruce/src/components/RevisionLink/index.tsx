@@ -34,11 +34,7 @@ export const RevisionLink: React.FC<RevisionLinkProps> = ({
       href={to}
       onClick={onClick}
     >
-      <Text
-        className={styles.hash}
-        data-testid={dataTestId}
-        textStyle="inlineCode"
-      >
+      <Text className={styles.hash} textStyle="inlineCode">
         {shortenGithash(revision)}
       </Text>
     </Link>
