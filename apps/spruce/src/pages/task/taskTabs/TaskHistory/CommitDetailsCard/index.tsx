@@ -42,8 +42,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       omitTimezone: true,
     });
 
-    // These values are only known at runtime, so they're handed to the
-    // stylesheet as CSS variables.
     const cardCssVariables = {
       "--status-color": statusColorMap[displayStatus as TaskStatus],
       "--scroll-margin-top": `${stickyHeaderScrollOffset}px`,

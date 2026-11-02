@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+
   padding: var(--via-space-200);
   padding-left: var(--via-space-400);
 
@@ -42,15 +43,12 @@
 
 .buttonContainer {
   display: flex;
-  flex-direction: row;
   gap: var(--via-space-200);
   margin-left: auto;
 }
 
-/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles. */
-.fullWidthAccordion.fullWidthAccordion {
+.fullWidthAccordion {
   flex: 1;
-  min-width: 0;
 }
 
 .orderLabel {
