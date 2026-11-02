@@ -30,8 +30,15 @@
   -webkit-line-clamp: 3;
 }
 
-.badge {
-  margin-left: var(--via-space-200);
+.date {
+  color: var(--via-color-neutral-500);
+}
+
+
+.flexRow {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
 }
 
 .headerLine {

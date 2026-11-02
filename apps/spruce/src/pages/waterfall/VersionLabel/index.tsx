@@ -67,14 +67,22 @@ export const VersionLabel: React.FC<Props> = ({
       }
     >
       <div className={styles.headerLine}>
-        <Body>
-          {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-        </Body>
+        <span className={styles.flexRow}>
+          <Body className={styles.date}>
+            {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+          </Body>
+          {commitType === "inactive" && (
+            <Badge variant={BadgeVariant.Status}>Inactive</Badge>
+          )}
+          {errors.length > 0 && (
+            <Badge variant={BadgeVariant.Error}>Broken</Badge>
+          )}
+        </span>
         {view === VersionLabelView.Waterfall && (
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
       </div>
-      <div>
+      <div className={styles.flexRow}>
         <RevisionLink
           onClick={() => {
             sendEvent({
@@ -85,29 +93,19 @@ export const VersionLabel: React.FC<Props> = ({
           }}
           revision={revision}
           to={getVersionRoute(id)}
-        />{" "}
-        {commitType === "inactive" && (
-          <Badge className={styles.badge} variant={BadgeVariant.Status}>
-            Inactive
-          </Badge>
-        )}
-        {errors.length > 0 && (
-          <Badge className={styles.badge} variant={BadgeVariant.Error}>
-            Broken
-          </Badge>
-        )}
+        />
+        <UpstreamProjectLink
+          isTrigger={requester === Requester.Trigger}
+          onClick={() => {
+            sendEvent({
+              name: "Clicked commit label",
+              "commit.type": commitType,
+              link: "upstream project",
+            });
+          }}
+          versionId={id}
+        />
       </div>
-      <UpstreamProjectLink
-        isTrigger={requester === Requester.Trigger}
-        onClick={() => {
-          sendEvent({
-            name: "Clicked commit label",
-            "commit.type": commitType,
-            link: "upstream project",
-          });
-        }}
-        versionId={id}
-      />
       <Body
         className={styles.commitMessage}
         data-view={view}
