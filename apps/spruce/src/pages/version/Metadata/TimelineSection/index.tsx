@@ -1,9 +1,7 @@
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
-import { VersionQuery } from "gql/generated/types";
+import { Version } from "pages/version/Metadata/types";
 import { msToDuration } from "utils/string";
 import { Timeline } from "./Timeline";
-
-type Version = NonNullable<VersionQuery["version"]>;
 
 interface TimelineSectionProps {
   version: Version;

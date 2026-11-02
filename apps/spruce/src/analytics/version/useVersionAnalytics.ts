@@ -17,6 +17,7 @@ type Action =
   | { name: "Changed page size"; "page.size": number }
   | { name: "Changed tab"; tab: string }
   | { name: "Clicked metadata base commit link" }
+  | { name: "Clicked metadata waterfall link" }
   | { name: "Filtered by build variant group" }
   | { name: "Clicked metadata github commit link" }
   | {

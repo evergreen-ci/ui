@@ -10,6 +10,7 @@ export const UPSTREAM_PROJECT = gql`
       revision
       task {
         id
+        displayName
         execution
       }
       triggerID
