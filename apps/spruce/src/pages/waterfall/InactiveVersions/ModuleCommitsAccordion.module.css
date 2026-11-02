@@ -11,10 +11,6 @@
   font-weight: 600;
 }
 
-.basedOn {
-  color: var(--via-color-text-secondary);
-}
-
 .commits {
   display: flex;
   flex-direction: column;
