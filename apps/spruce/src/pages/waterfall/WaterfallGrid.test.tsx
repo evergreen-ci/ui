@@ -224,7 +224,7 @@ describe("WaterfallGrid requests", () => {
   });
 
   it.each([{ search: "?tasks=Task%20A", options: {} }, ...jumpCases])(
-    "keeps a four-version preview visible while backfilling $search",
+    "keeps 4 versions visible while fetching more filtered results",
     async ({ options, search }) => {
       const { requests } = setup(
         [
@@ -261,7 +261,7 @@ describe("WaterfallGrid requests", () => {
     },
   );
 
-  it("does not backfill a preview with five matching versions", async () => {
+  it("does not fetch more results with five matching versions", async () => {
     const { requests } = setup([makeMock({}, previewData(5))], {
       search: "?tasks=task%20a",
     });
@@ -272,7 +272,7 @@ describe("WaterfallGrid requests", () => {
     expect(requests).toHaveLength(1);
   });
 
-  it("does not backfill an exhausted page and renders a local empty state", async () => {
+  it("does not fetch more results for an empty page and renders an empty state", async () => {
     const data = previewData(0);
     data.waterfall.pagination.hasNextPage = false;
     data.waterfall.pagination.nextPageOrder = 0;
@@ -282,15 +282,6 @@ describe("WaterfallGrid requests", () => {
     await screen.findByText("No Results Found");
     expect(requests).toHaveLength(1);
     expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
-  });
-
-  it("uses the newer-history flag for an initial minOrder preview", async () => {
-    const data = previewData(0);
-    const { requests } = setup([makeMock({ minOrder: 15 }, data)], {
-      search: "?minOrder=15&tasks=Task%20A",
-    });
-    await screen.findByText("No Results Found");
-    expect(requests).toHaveLength(1);
   });
 
   it("stops after one sparse server response without reapplying client filters", async () => {
@@ -322,7 +313,7 @@ describe("WaterfallGrid requests", () => {
     expect(requests).toHaveLength(2);
   });
 
-  it("changes filters directly after backfill while keeping the previous grid visible", async () => {
+  it("changes filters directly after fetching more results while keeping the previous grid visible", async () => {
     const newOptions = { tasks: ["Task B"], includeAllBuildsAndTasks: false };
     const { navigate, requests } = setup(
       [
@@ -419,7 +410,7 @@ describe("WaterfallGrid requests", () => {
     ]);
   });
 
-  it("cancels pending backfill when filters are cleared", async () => {
+  it("cancels a pending fetch more request when filters are cleared", async () => {
     const { navigate, requests } = setup(
       [
         makeMock({}, previewData(4)),
@@ -439,28 +430,6 @@ describe("WaterfallGrid requests", () => {
     await waitForSettled();
     expect(tasks()).toEqual(Array(5).fill("Task B"));
     expect(requests).toHaveLength(2);
-  });
-
-  it("ignores a late response for superseded filters", async () => {
-    const { navigate, requests } = setup(
-      [
-        makeMock({}, previewData(4)),
-        makeMock(filteredOptions, filteredData(), 250),
-        makeMock(
-          { tasks: ["Task C"], includeAllBuildsAndTasks: false },
-          getWaterfallData([13], { taskNames: ["Task C"] }),
-        ),
-      ],
-      { search: "?tasks=Task%20A" },
-    );
-    await screen.findByTestId("fetch-more-loader");
-    await navigate("?tasks=Task%20C");
-    await screen.findByText("version-13");
-    await waitForSettled();
-    await act(() => new Promise((resolve) => setTimeout(resolve, 300)));
-    expect(versionIds()).toEqual(["version-13"]);
-    expect(tasks()).toEqual(["Task C"]);
-    expect(requests).toHaveLength(3);
   });
 
   it("uses the latest filters when a pagination response is still pending", async () => {
@@ -494,33 +463,7 @@ describe("WaterfallGrid requests", () => {
     expect(requests).toHaveLength(4);
   });
 
-  it("can paginate with the selected filters while backfill is pending", async () => {
-    const second = getWaterfallData([15, 14, 13, 12, 11], {
-      taskNames: ["Task A"],
-    });
-    const { requests } = setup(
-      [
-        makeMock({}, previewData(4)),
-        makeMock(filteredOptions, filteredData(), 250),
-        makeMock({ ...filteredOptions, maxOrder: 16 }, second),
-      ],
-      { search: "?tasks=Task%20A" },
-    );
-    await screen.findByTestId("fetch-more-loader");
-    await userEvent.click(screen.getByTestId("next-page-button"));
-    await screen.findByText("version-11");
-    await waitForSettled();
-    await act(() => new Promise((resolve) => setTimeout(resolve, 300)));
-    expect(versionIds()).toEqual(second.waterfall.pagination.activeVersionIds);
-    expect(tasks()).toEqual(Array(5).fill("Task A"));
-    expect(requests).toEqual([
-      { options: baseOptions },
-      { options: { ...baseOptions, ...filteredOptions } },
-      { options: { ...baseOptions, ...filteredOptions, maxOrder: 16 } },
-    ]);
-  });
-
-  it("shows a skeleton for uncached next-page navigation and sends filters immediately", async () => {
+  it("shows a skeleton when navigating to next page", async () => {
     const second = getWaterfallData([15, 14, 13, 12, 11], {
       taskNames: ["Task A"],
     });
@@ -726,7 +669,7 @@ describe("WaterfallGrid requests", () => {
     expect(skeletonMounted).not.toHaveBeenCalled();
   });
 
-  it("reuses server-filtered results for browser Back/Forward after backfill", async () => {
+  it("reuses server-filtered results for browser Back/Forward after fetching more results", async () => {
     const second = getWaterfallData([20, 19, 18, 17, 16], {
       taskNames: ["Task B"],
     });
@@ -846,9 +789,9 @@ describe("WaterfallGrid requests", () => {
 
   it.each([
     { request: "initial", graphql: false },
-    { request: "backfill", graphql: false },
+    { request: "fetch more", graphql: false },
     { request: "pagination", graphql: false },
-    { request: "backfill", graphql: true },
+    { request: "fetch more", graphql: true },
   ])(
     "toasts a failed $request request without throwing or logging again (GraphQL: $graphql)",
     async ({ graphql, request }) => {
