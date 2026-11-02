@@ -30,7 +30,6 @@ const getModuleVersion = (
   ...inactiveVersion,
   id: `module_${suffix}`,
   message: `Module commit ${suffix}`,
-  project: { id: "mongo", owner: "10gen", repo: "mongo" },
   requester: Requester.Trigger,
   revision: baseRevision,
   ...overrides,

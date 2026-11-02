@@ -1,9 +1,7 @@
-import { Body, Link, Text } from "@via-ds/components";
+import { Text } from "@via-ds/components";
 import Accordion, {
   AccordionCaretPosition,
 } from "@evg-ui/lib/components/Accordion";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
-import { getGithubCommitUrl } from "constants/externalResources";
 import { ModuleGroup } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
 import styles from "./ModuleCommitsAccordion.module.css";
@@ -20,25 +18,12 @@ export const ModuleCommitsAccordion: React.FC<ModuleCommitsAccordionProps> = ({
   shouldDisableText,
 }) => {
   const { versions } = group;
-  const { project, revision } = versions[0];
 
   return (
     <Accordion
       caretPosition={AccordionCaretPosition.End}
       className={styles.container}
       defaultOpen
-      subtitle={
-        project && (
-          <Body className={styles.basedOn}>
-            Based on {project.owner}/{project.repo}{" "}
-            <Link
-              href={getGithubCommitUrl(project.owner, project.repo, revision)}
-            >
-              <Text textStyle="inlineCode">{shortenGithash(revision)}</Text>
-            </Link>
-          </Body>
-        )
-      }
       title={
         <Text
           className={styles.title}
