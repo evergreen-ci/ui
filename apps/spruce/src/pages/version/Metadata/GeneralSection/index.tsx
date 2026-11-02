@@ -12,13 +12,10 @@ import {
   getVersionRoute,
   getWaterfallRoute,
 } from "constants/routes";
-import { VersionQuery } from "gql/generated/types";
+import { Version } from "pages/version/Metadata/types";
 import BaseCommitMetadata from "./BaseCommitMetadata";
 import IncludedLocalModules from "./IncludedLocalModules";
 import ManifestBlob from "./ManifestBlob";
-import UpstreamProject from "./UpstreamProject";
-
-type Version = NonNullable<VersionQuery["version"]>;
 
 interface GeneralSectionProps {
   version: Version;
@@ -36,7 +33,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
     projectMetadata,
     requester,
     revision,
-    upstreamProject,
     user,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
@@ -102,7 +98,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
         </StyledRouterLink>
       </MetadataItem>
       {hasCommitLink && (
-        <MetadataItem label="Commit">
+        <MetadataItem>
           <GithubCommitLink
             data-testid="version-github-commit"
             onClick={() =>
@@ -151,10 +147,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
             </Disclaimer>
           ))}
         </MetadataItem>
-      )}
-
-      {upstreamProject && (
-        <UpstreamProject upstreamProject={upstreamProject} versionId={id} />
       )}
     </MetadataSection>
   );

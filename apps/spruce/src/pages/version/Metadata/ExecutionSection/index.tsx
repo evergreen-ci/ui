@@ -1,11 +1,9 @@
 import { useVersionAnalytics } from "analytics";
 import { CostSummary } from "components/CostSummary";
 import { MetadataSection } from "components/MetadataCard";
-import { VersionQuery } from "gql/generated/types";
+import { Version } from "pages/version/Metadata/types";
 import { ParametersModal } from "../../ParametersModal";
 import { SkippedTestsMetadata } from "../SkippedTestsMetadata";
-
-type Version = NonNullable<VersionQuery["version"]>;
 
 interface ExecutionSectionProps {
   version: Version;

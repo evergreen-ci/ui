@@ -128,18 +128,16 @@ export const MetadataItem: React.FC<ItemProps> = ({
 
 interface MetadataSectionProps {
   children?: React.ReactNode;
-  className?: string;
   title?: string;
 }
 
 export const MetadataSection: React.FC<MetadataSectionProps> = ({
   children,
-  className,
   title,
 }) => {
   if (Children.toArray(children).length === 0) return null;
   return (
-    <div className={className}>
+    <div>
       {title && (
         <>
           <H6 className={styles.header}>{title}</H6>

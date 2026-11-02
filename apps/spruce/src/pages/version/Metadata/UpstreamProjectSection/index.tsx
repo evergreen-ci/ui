@@ -4,31 +4,37 @@ import { GithubCommitLink } from "components/GithubCommitLink";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { RevisionLink } from "components/RevisionLink";
 import { getTriggerRoute, getWaterfallRoute } from "constants/routes";
-import { VersionQuery } from "gql/generated/types";
+import { Version } from "pages/version/Metadata/types";
 import { ProjectTriggerLevel } from "types/triggers";
-import styles from "./index.module.css";
 
-type UpstreamProjectType = NonNullable<
-  NonNullable<VersionQuery["version"]>["upstreamProject"]
->;
-
-interface UpstreamProjectProps {
-  upstreamProject: UpstreamProjectType;
-  versionId: string;
+interface UpstreamProjectSectionProps {
+  version: Version;
 }
 
-const UpstreamProject: React.FC<UpstreamProjectProps> = ({
-  upstreamProject,
-  versionId,
+export const UpstreamProjectSection: React.FC<UpstreamProjectSectionProps> = ({
+  version,
 }) => {
-  const { sendEvent } = useVersionAnalytics(versionId);
-  const { owner, project, repo, revision, task, triggerType, version } =
-    upstreamProject;
+  const { sendEvent } = useVersionAnalytics(version.id);
+  const { upstreamProject } = version;
+
+  if (!upstreamProject) {
+    return null;
+  }
+
+  const {
+    owner,
+    project,
+    repo,
+    revision,
+    task,
+    triggerType,
+    version: upstreamVersion,
+  } = upstreamProject;
 
   const triggerLink = getTriggerRoute({
     triggerType,
     upstreamTask: task,
-    upstreamVersion: version,
+    upstreamVersion,
     upstreamRevision: revision,
     upstreamOwner: owner,
     upstreamRepo: repo,
@@ -39,9 +45,9 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
   const isPushTrigger = triggerType === ProjectTriggerLevel.PUSH;
 
   return (
-    <MetadataSection className={styles.section} title="Triggered By">
+    <MetadataSection title="Triggered By">
       <MetadataItem label="Project">
-        <StyledRouterLink to={getWaterfallRoute(project)}>
+        <StyledRouterLink to={getWaterfallRoute(project, { revision })}>
           {project}
         </StyledRouterLink>
       </MetadataItem>
@@ -62,7 +68,7 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
         </MetadataItem>
       )}
       {isPushTrigger && (
-        <MetadataItem label="Commit">
+        <MetadataItem>
           <GithubCommitLink
             data-testid="version-github-commit"
             onClick={() =>
@@ -77,5 +83,3 @@ const UpstreamProject: React.FC<UpstreamProjectProps> = ({
     </MetadataSection>
   );
 };
-
-export default UpstreamProject;

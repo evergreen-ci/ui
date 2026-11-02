@@ -87,9 +87,6 @@ export const getGithubPullRequestUrl = (
   issue: number | string,
 ) => `https://github.com/${owner}/${repo}/pull/${issue}`;
 
-export const getGithubRepoUrl = (owner: string, repo: string) =>
-  `https://github.com/${owner}/${repo}`;
-
 export const getGithubCommitUrl = (
   owner: string,
   repo: string,

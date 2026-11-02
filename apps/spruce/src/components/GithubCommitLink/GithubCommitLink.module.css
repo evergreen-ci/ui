@@ -3,7 +3,3 @@
   vertical-align: text-bottom;
   margin-right: var(--via-space-100);
 }
-
-.unbreakable {
-  white-space: nowrap;
-}

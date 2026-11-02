@@ -35,16 +35,10 @@ export const GithubCommitLink: React.FC<GithubCommitLinkProps> = ({
     }
     onClick={onClick}
   >
-    <span className={styles.unbreakable}>
-      <span className={styles.icon}>
-        <Icon fill={palette.black} glyph="GitHub" />
-      </span>
-      {owner}/
+    <span className={styles.icon}>
+      <Icon fill={palette.black} glyph="GitHub" />
     </span>
-    <wbr />
-    <span className={styles.unbreakable}>{repo}</span>
-    <span className={styles.unbreakable}>
-      @<RevisionLink revision={revision} />
-    </span>
+    {owner}/{repo}@<wbr />
+    <RevisionLink revision={revision} />
   </Link>
 );
