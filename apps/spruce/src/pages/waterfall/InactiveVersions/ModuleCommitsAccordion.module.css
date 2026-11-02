@@ -7,32 +7,12 @@
   border-bottom: none;
 }
 
-.toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  gap: var(--via-space-100);
-  padding: 0;
-}
-
 .title {
   font-weight: 600;
 }
 
-.chevron {
-  transform: rotate(-90deg);
-  transition: transform var(--via-duration-default) ease;
-}
-
-.toggle[aria-expanded="true"] .chevron {
-  transform: none;
-}
-
 .basedOn {
-  color: var(--via-color-neutral-500);
+  color: var(--via-color-text-secondary);
 }
 
 .commits {
@@ -43,8 +23,4 @@
   margin-block: var(--via-space-200) 0;
   padding-inline: var(--via-space-200);
   border-left: 3px solid var(--via-color-neutral-200);
-}
-
-.commits[hidden] {
-  display: none;
 }

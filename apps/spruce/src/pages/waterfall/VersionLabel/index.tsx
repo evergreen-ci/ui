@@ -23,7 +23,7 @@ export enum VersionLabelView {
 type Props = Version & {
   className?: string;
   highlighted: boolean;
-  isFirstVersion: boolean;
+  isFirstVersion?: boolean;
   shouldDisableText?: boolean;
   view: VersionLabelView;
 };
@@ -36,7 +36,7 @@ export const VersionLabel: React.FC<Props> = ({
   gitTags,
   highlighted,
   id,
-  isFirstVersion,
+  isFirstVersion = false,
   message,
   requester,
   revision,
@@ -83,6 +83,11 @@ export const VersionLabel: React.FC<Props> = ({
             to={getVersionRoute(id)}
           />{" "}
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+          {commitType === "inactive" && (
+            <Badge className={styles.badge} variant={BadgeVariant.Status}>
+              Inactive
+            </Badge>
+          )}
           {errors.length > 0 && (
             <Badge className={styles.badge} variant={BadgeVariant.Error}>
               Broken

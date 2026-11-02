@@ -47,8 +47,9 @@ export const CommitDescription: React.FC<CommitDescriptionProps> = ({
 
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setShowDescription(!showDescription);
-    onToggle?.(!showDescription);
+    const toggleTo = !showDescription;
+    setShowDescription(toggleTo);
+    onToggle?.(toggleTo);
   };
 
   const messageContent = (
