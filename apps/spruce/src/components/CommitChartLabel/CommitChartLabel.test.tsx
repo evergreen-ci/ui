@@ -30,7 +30,7 @@ describe("commitChartLabel", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     expect(screen.queryByTestId("githash-link")).toHaveTextContent("4137c33");
     expect(screen.queryByTestId("commit-label")).toHaveTextContent(
-      /Jun 16, 2021, 11:38 PM Mohamed Khelif • SERVER-57332 Create skeleton InternalGit Tags: v1.2.3, v1.2.3-rc0/,
+      /Mohamed Khelif • SERVER-57332 Create skeleton InternalGit Tags: v1.2.3, v1.2.3-rc0/,
     );
   });
 
