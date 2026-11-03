@@ -27,7 +27,7 @@ const getUpstreamProjectMock = (
           project: "evergreen",
           repo: "evergreen",
           revision: "ed0e891754059eb7055c8c82752dedf1a35a87a6",
-          task: { execution: 0, id: "678" },
+          task: { execution: 0, id: "678", displayName: "Task 678" },
           triggerID: "12345",
           triggerType,
           version: { id: "9876" },
