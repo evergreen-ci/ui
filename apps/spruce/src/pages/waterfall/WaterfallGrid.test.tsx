@@ -121,6 +121,16 @@ const filteredOptions: Partial<WaterfallOptions> = {
 const filteredData = () =>
   getWaterfallData([20, 19, 18, 17, 15], { taskNames: ["Task A"] });
 
+const cachePreview = (
+  data: WaterfallQuery,
+  options: Partial<WaterfallOptions> = {},
+) =>
+  cache.writeQuery({
+    query: WATERFALL,
+    variables: { options: { ...baseOptions, ...options } },
+    data,
+  });
+
 const jumpCases = [
   {
     search: "?tasks=Task%20A&date=2024-09-19",
@@ -221,18 +231,17 @@ describe("WaterfallGrid requests", () => {
     vi.restoreAllMocks();
   });
 
-  it.each([{ search: "?tasks=Task%20A", options: {} }, ...jumpCases])(
-    "keeps 4 versions visible while fetching more filtered results",
+  it.each([
+    { search: "?tasks=Task%20A", options: {} },
+    { search: "?tasks=Task%20A&maxOrder=21", options: { maxOrder: 21 } },
+  ])(
+    "shows four cached versions while requesting filtered results",
     async ({ options, search }) => {
+      cachePreview(previewData(4), options);
       const { requests } = setup(
-        [
-          makeMock(options, previewData(4)),
-          makeMock({ ...filteredOptions, ...options }, filteredData(), 150),
-        ],
+        [makeMock({ ...filteredOptions, ...options }, filteredData(), 150)],
         { search },
       );
-      expect(screen.getByTestId("initial-skeleton")).toBeInTheDocument();
-      expect(useWaterfallTrace).toHaveBeenLastCalledWith(false);
       await screen.findByTestId("fetch-more-loader");
       expect(screen.queryByTestId("initial-skeleton")).not.toBeInTheDocument();
       expect(useWaterfallTrace).toHaveBeenLastCalledWith(true);
@@ -253,28 +262,64 @@ describe("WaterfallGrid requests", () => {
         "version-15",
       ]);
       expect(requests).toEqual([
-        { options: { ...baseOptions, ...options } },
         { options: { ...baseOptions, ...filteredOptions, ...options } },
       ]);
     },
   );
 
-  it("does not fetch more results with five matching versions", async () => {
-    const { requests } = setup([makeMock({}, previewData(5))], {
+  it("requests filtered results even when the preview has five matching versions", async () => {
+    cachePreview(previewData(5));
+    const options = { ...filteredOptions, tasks: ["task a"] };
+    const { requests } = setup([makeMock(options, filteredData(), 100)], {
       search: "?tasks=task%20a",
     });
+    expect(screen.getByTestId("fetch-more-loader")).toBeInTheDocument();
     await screen.findAllByTestId("version-label-active");
     await waitForSettled();
     expect(versionIds()).toHaveLength(5);
     expect(tasks()).toEqual(Array(5).fill("Task A"));
-    expect(requests).toHaveLength(1);
+    expect(requests).toEqual([{ options: { ...baseOptions, ...options } }]);
   });
 
-  it("does not fetch more results for an empty page and renders an empty state", async () => {
-    const data = previewData(0);
-    data.waterfall.pagination.hasNextPage = false;
-    data.waterfall.pagination.nextPageOrder = 0;
-    const { requests } = setup([makeMock({}, data)], {
+  it("requests filtered results directly when no preview is cached", async () => {
+    const { requests } = setup(
+      [makeMock(filteredOptions, filteredData(), 100)],
+      {
+        search: "?tasks=Task%20A",
+      },
+    );
+    expect(screen.getByTestId("initial-skeleton")).toBeInTheDocument();
+    expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
+    await screen.findByText("version-15");
+    await waitForSettled();
+    expect(requests).toEqual([
+      { options: { ...baseOptions, ...filteredOptions } },
+    ]);
+  });
+
+  it.each(jumpCases)(
+    "does not show an unrelated cached preview for $search",
+    async ({ options, search }) => {
+      cachePreview(previewData(5));
+      const { requests } = setup(
+        [makeMock({ ...filteredOptions, ...options }, filteredData(), 100)],
+        { search },
+      );
+      expect(screen.getByTestId("initial-skeleton")).toBeInTheDocument();
+      expect(screen.queryByText("version-20")).not.toBeInTheDocument();
+      await screen.findByText("version-15");
+      await waitForSettled();
+      expect(requests).toEqual([
+        { options: { ...baseOptions, ...filteredOptions, ...options } },
+      ]);
+    },
+  );
+
+  it("renders an empty state for an authoritative empty page", async () => {
+    const data = getWaterfallData([], {
+      pagination: { hasNextPage: false, nextPageOrder: 0 },
+    });
+    const { requests } = setup([makeMock(filteredOptions, data)], {
       search: "?tasks=Task%20A",
     });
     await screen.findByText("No Results Found");
@@ -286,36 +331,40 @@ describe("WaterfallGrid requests", () => {
     const authoritative = getWaterfallData([19, 15], {
       taskNames: ["Server-selected task"],
     });
-    const { requests } = setup(
-      [makeMock({}, previewData(0)), makeMock(filteredOptions, authoritative)],
-      { search: "?tasks=Task%20A" },
-    );
+    const { requests } = setup([makeMock(filteredOptions, authoritative)], {
+      search: "?tasks=Task%20A",
+    });
     await screen.findAllByText("Server-selected task");
     await waitForSettled();
     expect(versionIds()).toEqual(["version-19", "version-15"]);
-    expect(requests).toHaveLength(2);
+    expect(requests).toHaveLength(1);
   });
 
-  it("keeps an empty preview pending until the server returns the final empty window", async () => {
-    const empty = getWaterfallData([], {
-      pagination: { hasNextPage: true, nextPageOrder: 10 },
-    });
-    const { requests } = setup(
-      [makeMock({}, previewData(0)), makeMock(filteredOptions, empty, 150)],
-      { search: "?tasks=Task%20A" },
-    );
-    await screen.findByTestId("fetch-more-loader");
-    expect(screen.queryByText("No Results Found")).not.toBeInTheDocument();
-    await screen.findByTestId("search-older-commits-button");
-    await waitForSettled();
-    expect(requests).toHaveLength(2);
-  });
+  it.each([true, false])(
+    "keeps an empty preview pending even when hasNextPage is %s",
+    async (hasNextPage) => {
+      const preview = previewData(0);
+      preview.waterfall.pagination.hasNextPage = hasNextPage;
+      cachePreview(preview);
+      const empty = getWaterfallData([], {
+        pagination: { hasNextPage: true, nextPageOrder: 10 },
+      });
+      const { requests } = setup([makeMock(filteredOptions, empty, 150)], {
+        search: "?tasks=Task%20A",
+      });
+      await screen.findByTestId("fetch-more-loader");
+      expect(screen.queryByText("No Results Found")).not.toBeInTheDocument();
+      await screen.findByTestId("search-older-commits-button");
+      await waitForSettled();
+      expect(requests).toHaveLength(1);
+    },
+  );
 
-  it("changes filters directly after fetching more results while keeping the previous grid visible", async () => {
+  it("filters the cached preview with the latest filters while requesting results", async () => {
+    cachePreview(previewData(4));
     const newOptions = { tasks: ["Task B"], includeAllBuildsAndTasks: false };
     const { navigate, requests } = setup(
       [
-        makeMock({}, previewData(4)),
         makeMock(filteredOptions, filteredData()),
         makeMock(
           newOptions,
@@ -329,22 +378,23 @@ describe("WaterfallGrid requests", () => {
     await waitForSettled();
     await navigate("?tasks=Task%20B");
     await screen.findByTestId("fetch-more-loader");
-    expect(tasks()).toEqual(Array(5).fill("Task A"));
+    expect(tasks()).toEqual(Array(5).fill("Task B"));
     await screen.findByText("version-14");
     await waitForSettled();
     expect(tasks()).toEqual(["Task B", "Task B"]);
-    expect(requests).toHaveLength(3);
+    expect(requests).toHaveLength(2);
   });
 
   it("restores a cached unfiltered page when filters are cleared", async () => {
+    cachePreview(previewData(4));
     const useFiltersSpy = vi.spyOn(filterHooks, "useFilters");
     const { navigate, requests } = setup(
-      [makeMock({}, previewData(4)), makeMock(filteredOptions, filteredData())],
+      [makeMock(filteredOptions, filteredData())],
       { search: "?tasks=Task%20A" },
     );
     await screen.findByText("version-15");
     await waitForSettled();
-    expect(useFiltersSpy).toHaveBeenLastCalledWith(
+    expect(useFiltersSpy).toHaveBeenCalledWith(
       expect.objectContaining({ serverFiltered: true }),
     );
     await navigate("");
@@ -354,7 +404,7 @@ describe("WaterfallGrid requests", () => {
     expect(useFiltersSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({ serverFiltered: false }),
     );
-    expect(requests).toHaveLength(2);
+    expect(requests).toHaveLength(1);
   });
 
   it.each([
@@ -393,8 +443,10 @@ describe("WaterfallGrid requests", () => {
         makeMock(filteredOptions, filteredData()),
         makeMock({}, previewData(5)),
       ],
-      { search: "?tasks=Task%20A", omitInactiveBuilds: true },
+      { omitInactiveBuilds: true },
     );
+    await screen.findByText("version-16");
+    await navigate("?tasks=Task%20A");
     await screen.findByText("version-15");
     await waitForSettled();
     await act(async () => client.clearStore());
@@ -408,11 +460,15 @@ describe("WaterfallGrid requests", () => {
     ]);
   });
 
-  it("cancels a pending fetch more request when filters are cleared", async () => {
+  it("ignores a pending filtered response when filters are cleared", async () => {
+    cachePreview(previewData(4));
     const { navigate, requests } = setup(
       [
-        makeMock({}, previewData(4)),
         makeMock(filteredOptions, filteredData(), 200),
+        makeMock(
+          { tasks: ["Task B"], includeAllBuildsAndTasks: false },
+          getWaterfallData([20, 19, 18, 17, 16], { taskNames: ["Task B"] }),
+        ),
       ],
       { search: "?tasks=Task%20A" },
     );
@@ -423,7 +479,7 @@ describe("WaterfallGrid requests", () => {
     expect(versionIds()).toContain("version-16");
     expect(versionIds()).not.toContain("version-15");
     expect(tasks().filter((name) => name === "Task B")).toHaveLength(5);
-    expect(requests).toHaveLength(2);
+    expect(requests).toHaveLength(1);
     await navigate("?tasks=Task%20B");
     await waitForSettled();
     expect(tasks()).toEqual(Array(5).fill("Task B"));
@@ -433,7 +489,6 @@ describe("WaterfallGrid requests", () => {
   it("uses the latest filters when a pagination response is still pending", async () => {
     const { navigate, requests } = setup(
       [
-        makeMock({}, previewData(4)),
         makeMock(filteredOptions, filteredData()),
         makeMock(
           { ...filteredOptions, maxOrder: 15 },
@@ -452,22 +507,28 @@ describe("WaterfallGrid requests", () => {
     await screen.findByTestId("initial-skeleton");
     expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
     await navigate("?tasks=Task%20B&maxOrder=15");
-    expect(requests).toHaveLength(4);
+    expect(requests).toHaveLength(3);
     await screen.findByText("version-11");
     await waitForSettled();
     await act(() => new Promise((resolve) => setTimeout(resolve, 250)));
     expect(versionIds()).toEqual(["version-12", "version-11"]);
     expect(tasks()).toEqual(["Task B", "Task B"]);
-    expect(requests).toHaveLength(4);
+    expect(requests).toHaveLength(3);
   });
 
   it("shows a skeleton when navigating to next page", async () => {
+    cachePreview(previewData(5));
     const second = getWaterfallData([15, 14, 13, 12, 11], {
       taskNames: ["Task A"],
     });
     const { requests } = setup(
       [
-        makeMock({}, previewData(5)),
+        makeMock(
+          filteredOptions,
+          getWaterfallData([20, 19, 18, 17, 16], {
+            taskNames: ["Task A"],
+          }),
+        ),
         makeMock({ ...filteredOptions, maxOrder: 16 }, second, 150),
       ],
       { search: "?tasks=Task%20A" },
@@ -488,7 +549,12 @@ describe("WaterfallGrid requests", () => {
   it("shows a skeleton for uncached previous-page navigation", async () => {
     const { requests } = setup(
       [
-        makeMock({ maxOrder: 16 }, getWaterfallData([15, 14, 13, 12, 11])),
+        makeMock(
+          { ...filteredOptions, maxOrder: 16 },
+          getWaterfallData([15, 14, 13, 12, 11], {
+            taskNames: ["Task A"],
+          }),
+        ),
         makeMock({ ...filteredOptions, minOrder: 15 }, filteredData(), 150),
       ],
       { search: "?maxOrder=16&tasks=Task%20A" },
@@ -517,7 +583,6 @@ describe("WaterfallGrid requests", () => {
       second.waterfall.versions[second.waterfall.versions.length - 1].id;
     const { requests } = setup(
       [
-        makeMock({}, previewData(4)),
         makeMock(filteredOptions, first),
         makeMock(
           {
@@ -539,7 +604,7 @@ describe("WaterfallGrid requests", () => {
     await userEvent.click(screen.getByTestId("next-page-button"));
     await screen.findByText(secondLastId);
     await waitForSettled();
-    expect(requests).toHaveLength(3);
+    expect(requests).toHaveLength(2);
     expect(skeletonMounted).not.toHaveBeenCalled();
   });
 
@@ -548,7 +613,7 @@ describe("WaterfallGrid requests", () => {
     async ({ options, search }) => {
       const { navigate, requests } = setup(
         [
-          makeMock({}, previewData(5)),
+          makeMock(filteredOptions, filteredData()),
           makeMock({ ...filteredOptions, ...options }, filteredData()),
           makeMock(
             { ...filteredOptions, maxOrder: 15 },
@@ -561,7 +626,7 @@ describe("WaterfallGrid requests", () => {
         ],
         { search: "?tasks=Task%20A" },
       );
-      await screen.findByText("version-16");
+      await screen.findByText("version-15");
       await navigate(search);
       await screen.findByText("version-15");
       await waitForSettled();
@@ -577,7 +642,7 @@ describe("WaterfallGrid requests", () => {
       await screen.findByText("version-20");
       await waitForSettled();
       expect(requests).toEqual([
-        { options: baseOptions },
+        { options: { ...baseOptions, ...filteredOptions } },
         { options: { ...baseOptions, ...filteredOptions, ...options } },
         { options: { ...baseOptions, ...filteredOptions, maxOrder: 15 } },
       ]);
@@ -595,12 +660,12 @@ describe("WaterfallGrid requests", () => {
   );
 
   it.each(jumpCases)(
-    "polls $search without restarting its preview",
+    "polls $search without falling back to a preview",
     async ({ options, search }) => {
       vi.useFakeTimers();
+      cachePreview(previewData(4), options);
       const { requests } = setup(
         [
-          makeMock(options, previewData(4)),
           makeMock({ ...filteredOptions, ...options }, filteredData()),
           makeMock(
             { ...filteredOptions, ...options },
@@ -614,20 +679,26 @@ describe("WaterfallGrid requests", () => {
       expect(versionIds()).toContain("version-15");
       await act(() => vi.advanceTimersByTimeAsync(DEFAULT_POLL_INTERVAL + 10));
       expect(tasks()).toEqual(["Updated task", "Updated task"]);
-      expect(requests).toHaveLength(3);
-      expect(requests[2]).toEqual({
+      expect(requests).toHaveLength(2);
+      expect(requests[1]).toEqual({
         options: { ...baseOptions, ...filteredOptions, ...options },
       });
       expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
     },
   );
 
-  it("starts a fresh unfiltered preview on project changes", async () => {
+  it("does not reuse another project's cached preview", async () => {
+    cachePreview(previewData(4));
     const { requests, router } = setup(
       [
-        makeMock({}, previewData(4)),
         makeMock(filteredOptions, filteredData()),
-        makeMock({ projectIdentifier: "another-project" }, previewData(5), 100),
+        makeMock(
+          { ...filteredOptions, projectIdentifier: "another-project" },
+          getWaterfallData([20, 19, 18, 17, 16], {
+            taskNames: ["Task A"],
+          }),
+          100,
+        ),
       ],
       { search: "?tasks=Task%20A" },
     );
@@ -639,21 +710,33 @@ describe("WaterfallGrid requests", () => {
     expect(screen.queryByText("version-15")).not.toBeInTheDocument();
     await screen.findByText("version-16");
     await waitForSettled();
-    expect(requests).toHaveLength(3);
-    expect(requests[2]).toEqual({
-      options: { ...baseOptions, projectIdentifier: "another-project" },
+    expect(requests).toHaveLength(2);
+    expect(requests[1]).toEqual({
+      options: {
+        ...baseOptions,
+        ...filteredOptions,
+        projectIdentifier: "another-project",
+      },
     });
   });
 
-  it("keeps browser Back/Forward filter changes local while the preview is sufficient", async () => {
+  it("reuses cached filtered results for browser Back/Forward without flashing a skeleton", async () => {
     const { navigate, requests, router } = setup([
       makeMock({}, previewData(5)),
+      makeMock(
+        filteredOptions,
+        getWaterfallData([20, 19, 18, 17, 16], { taskNames: ["Task A"] }),
+      ),
+      makeMock(
+        { tasks: ["Task B"], includeAllBuildsAndTasks: false },
+        getWaterfallData([20, 19, 18, 17, 16], { taskNames: ["Task B"] }),
+      ),
     ]);
     await screen.findByText("version-16");
     skeletonMounted.mockClear();
     await navigate("?tasks=Task%20A");
     await waitForSettled();
-    expect(requests).toHaveLength(1);
+    expect(requests).toHaveLength(2);
     await act(() => router.navigate(-1));
     await waitForSettled();
     expect(tasks().filter((name) => name === "Task B")).toHaveLength(5);
@@ -663,7 +746,7 @@ describe("WaterfallGrid requests", () => {
     await navigate("?tasks=Task%20B");
     await waitForSettled();
     expect(tasks()).toEqual(Array(5).fill("Task B"));
-    expect(requests).toHaveLength(1);
+    expect(requests).toHaveLength(3);
     expect(skeletonMounted).not.toHaveBeenCalled();
   });
 
@@ -673,7 +756,6 @@ describe("WaterfallGrid requests", () => {
     });
     const { navigate, requests, router } = setup(
       [
-        makeMock({}, previewData(4)),
         makeMock(filteredOptions, filteredData()),
         makeMock(
           { tasks: ["Task B"], includeAllBuildsAndTasks: false },
@@ -696,7 +778,7 @@ describe("WaterfallGrid requests", () => {
     await screen.findByText("version-16");
     await waitForSettled();
     expect(tasks()).toEqual(Array(5).fill("Task B"));
-    expect(requests).toHaveLength(3);
+    expect(requests).toHaveLength(2);
     expect(skeletonMounted).not.toHaveBeenCalled();
   });
 
@@ -730,7 +812,6 @@ describe("WaterfallGrid requests", () => {
     async ({ omitInactiveBuilds, search, variants }) => {
       const { requests } = setup(
         [
-          makeMock({}, previewData(4)),
           makeMock(
             { ...filteredOptions, variants, omitInactiveBuilds },
             filteredData(),
@@ -740,22 +821,24 @@ describe("WaterfallGrid requests", () => {
       );
       await screen.findByText("version-15");
       await waitForSettled();
-      expect(requests[1]).toEqual({
-        options: {
-          ...baseOptions,
-          ...filteredOptions,
-          variants,
-          omitInactiveBuilds,
+      expect(requests).toEqual([
+        {
+          options: {
+            ...baseOptions,
+            ...filteredOptions,
+            variants,
+            omitInactiveBuilds,
+          },
         },
-      });
+      ]);
     },
   );
 
   it("updates polled commits and retains omitted commits without restarting preview", async () => {
     vi.useFakeTimers();
+    cachePreview(previewData(4));
     const { requests } = setup(
       [
-        makeMock({}, previewData(4)),
         makeMock(filteredOptions, filteredData()),
         makeMock(
           filteredOptions,
@@ -778,32 +861,39 @@ describe("WaterfallGrid requests", () => {
       "Task A",
       "Task A",
     ]);
-    expect(requests).toHaveLength(3);
-    expect(requests[2]).toEqual({
+    expect(requests).toHaveLength(2);
+    expect(requests[1]).toEqual({
       options: { ...baseOptions, ...filteredOptions },
     });
     expect(screen.queryByTestId("fetch-more-loader")).not.toBeInTheDocument();
   });
 
-  it.each(["initial", "fetch more", "pagination"])(
+  it.each(["initial", "preview", "pagination"])(
     "toasts a failed %s GraphQL request without throwing or logging again",
     async (request) => {
       const consoleError = vi.spyOn(console, "error");
       vi.mocked(reportError).mockClear();
-      const options =
-        request === "initial"
-          ? {}
-          : {
-              ...filteredOptions,
-              ...(request === "pagination" ? { maxOrder: 16 } : {}),
-            };
+      if (request !== "initial") {
+        cachePreview(previewData(request === "pagination" ? 5 : 4));
+      }
+      const options = {
+        ...filteredOptions,
+        ...(request === "pagination" ? { maxOrder: 16 } : {}),
+      };
       const failed = makeMock(options, filteredData(), 50);
       failed.result = { errors: [{ message: "Waterfall request failed" }] };
       const { dispatchToast, navigate } = setup(
         [
-          ...(request === "initial"
-            ? []
-            : [makeMock({}, previewData(request === "pagination" ? 5 : 4))]),
+          ...(request === "pagination"
+            ? [
+                makeMock(
+                  filteredOptions,
+                  getWaterfallData([20, 19, 18, 17, 16], {
+                    taskNames: ["Task A"],
+                  }),
+                ),
+              ]
+            : []),
           failed,
         ],
         { search: "?tasks=Task%20A" },

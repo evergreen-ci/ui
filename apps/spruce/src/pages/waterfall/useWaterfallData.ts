@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -20,12 +20,6 @@ type UseWaterfallDataProps = {
   omitInactiveBuilds: boolean;
   pins: string[];
   projectIdentifier: string;
-};
-
-type DisplayedWaterfall = {
-  data?: WaterfallQuery;
-  options: WaterfallOptions;
-  applyClientFilters: boolean;
 };
 
 export const useWaterfallData = ({
@@ -66,7 +60,7 @@ export const useWaterfallData = ({
     tasks.length ||
     variants.length
   );
-  const selectedQueryOptions = useMemo<WaterfallOptions>(
+  const queryOptions = useMemo<WaterfallOptions>(
     () => ({
       ...normalizeWaterfallFilters({
         projectIdentifier,
@@ -98,53 +92,6 @@ export const useWaterfallData = ({
     ],
   );
 
-  const [displayedResult, setDisplayedResult] = useState<DisplayedWaterfall>(
-    () => ({
-      options: {
-        ...selectedQueryOptions,
-        ...normalizeWaterfallFilters({ projectIdentifier }),
-      },
-      applyClientFilters: true,
-    }),
-  );
-  const { data } = displayedResult;
-  const pageChanged =
-    displayedResult.options.maxOrder !== maxOrder ||
-    displayedResult.options.minOrder !== minOrder ||
-    (displayedResult.options.revision ?? "") !== (revision ?? "") ||
-    !Object.is(displayedResult.options.date?.getTime(), utcDate?.getTime());
-
-  const { activeVersionIds, buildVariants, versions } = useFilters({
-    activeVersionIds: data?.waterfall.pagination.activeVersionIds ?? [],
-    flattenedVersions: data?.waterfall.versions ?? [],
-    filters: displayedResult.applyClientFilters
-      ? selectedQueryOptions
-      : displayedResult.options,
-    omitInactiveBuilds: displayedResult.applyClientFilters
-      ? !!selectedQueryOptions.omitInactiveBuilds
-      : !!displayedResult.options.omitInactiveBuilds,
-    pins,
-    serverFiltered: displayedResult.options.includeAllBuildsAndTasks === false,
-  });
-
-  const hasMore =
-    data &&
-    (displayedResult.options.minOrder
-      ? data.waterfall.pagination.hasPrevPage
-      : data.waterfall.pagination.hasNextPage);
-  const shouldFetchMore =
-    displayedResult.applyClientFilters &&
-    hasFilters &&
-    hasMore &&
-    activeVersionIds.length < VERSION_LIMIT;
-  const applyClientFilters =
-    displayedResult.applyClientFilters && !pageChanged && !shouldFetchMore;
-  const queryOptions = applyClientFilters
-    ? displayedResult.options
-    : selectedQueryOptions;
-  const queryChanged =
-    JSON.stringify(queryOptions) !== JSON.stringify(displayedResult.options);
-
   const {
     data: queryData,
     dataState,
@@ -157,27 +104,47 @@ export const useWaterfallData = ({
   });
   useErrorToast(error, "Unable to load waterfall");
 
-  // Update before rendering children so cache hits never flash a skeleton or stale filters.
-  if (
-    dataState === "complete" &&
-    (queryData !== data ||
-      queryChanged ||
-      applyClientFilters !== displayedResult.applyClientFilters)
-  ) {
-    setDisplayedResult({
-      data: queryData,
-      options: queryOptions,
-      applyClientFilters,
-    });
-  }
+  const queryResult = useFilters({
+    activeVersionIds: queryData?.waterfall.pagination.activeVersionIds ?? [],
+    flattenedVersions: queryData?.waterfall.versions ?? [],
+    filters: queryOptions,
+    omitInactiveBuilds: !!queryOptions.omitInactiveBuilds,
+    pins,
+    serverFiltered: hasFilters,
+  });
+
+  const previewOptions = useMemo<WaterfallOptions>(
+    () => ({
+      ...queryOptions,
+      ...normalizeWaterfallFilters({ projectIdentifier }),
+    }),
+    [queryOptions, projectIdentifier],
+  );
+  const { data: previewData } = useQuery<
+    WaterfallQuery,
+    WaterfallQueryVariables
+  >(WATERFALL, {
+    variables: { options: previewOptions },
+    fetchPolicy: "cache-only",
+    skip: !hasFilters,
+  });
+  const previewResult = useFilters({
+    activeVersionIds: previewData?.waterfall.pagination.activeVersionIds ?? [],
+    flattenedVersions: previewData?.waterfall.versions ?? [],
+    filters: queryOptions,
+    omitInactiveBuilds: !!queryOptions.omitInactiveBuilds,
+    pins,
+    serverFiltered: false,
+  });
+
+  const isFetching = dataState !== "complete" && !error;
+  const showPreview = isFetching && hasFilters && !!previewData;
 
   return {
-    activeVersionIds,
-    buildVariants,
-    data: pageChanged ? undefined : data,
-    displayedOptions: displayedResult.options,
+    ...(showPreview ? previewResult : queryResult),
+    data: showPreview ? previewData : queryData,
+    displayedOptions: showPreview ? previewOptions : queryOptions,
     error,
-    isFetching: shouldFetchMore || queryChanged,
-    versions,
+    isFetching,
   };
 };
