@@ -1,0 +1,22 @@
+.container {
+  border-block: 1px solid var(--via-color-neutral-200);
+  padding-block: var(--via-space-200);    
+}
+
+.container:last-child {
+  border-bottom: none;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.commits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--via-space-300);
+
+  margin-block: var(--via-space-100) 0;
+  padding-inline: var(--via-space-200);
+  border-left: 3px solid var(--via-color-neutral-200);
+}
