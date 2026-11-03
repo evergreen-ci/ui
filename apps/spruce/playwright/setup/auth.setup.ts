@@ -3,7 +3,6 @@ import { users } from "@evg-ui/playwright-config/constants";
 import {
   SEEN_GITHUB_NAV_GUIDE_CUE,
   SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
-  SEEN_TASK_REVIEW_TOOLTIP,
   SEEN_TEST_SELECTION_GUIDE_CUE,
   SEEN_WATERFALL_ONBOARDING_TUTORIAL,
   SLACK_NOTIFICATION_BANNER,
@@ -27,12 +26,6 @@ const dismissalCookies = [
   },
   {
     name: SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
-    value: "true",
-    domain: "localhost",
-    path: "/",
-  },
-  {
-    name: SEEN_TASK_REVIEW_TOOLTIP,
     value: "true",
     domain: "localhost",
     path: "/",

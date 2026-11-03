@@ -3,9 +3,10 @@
 }
 
 .content.content {
+  gap: 0;
   padding-bottom: var(--via-space-600);
 }
 
 .versionLabel {
-  padding-top: var(--via-space-200);
+  padding-block: var(--via-space-200);
 }
