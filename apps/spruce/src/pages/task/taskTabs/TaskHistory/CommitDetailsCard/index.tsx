@@ -16,6 +16,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskHistoryAnalytics } from "analytics";
+import { CommitDescription } from "components/CommitDescription";
 import { RevisionLink } from "components/RevisionLink";
 import SetPriority, { Align } from "components/SetPriority";
 import { inactiveElementStyle } from "components/styles";
@@ -43,7 +44,6 @@ import {
 import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
 import { getTaskIngestTime } from "../utils";
-import CommitDescription from "./CommitDescription";
 import FailedTestsTable from "./FailedTestsTable";
 
 const { blue, gray } = palette;
@@ -103,6 +103,9 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       omitSeconds: true,
       omitTimezone: true,
     });
+
+    const onToggle = (expanded: boolean) =>
+      sendEvent({ name: "Toggled commit description", expanded });
 
     const githubCommitUrl =
       owner && repo && revision
@@ -293,12 +296,22 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                   open: isVisible,
                 })
               }
-              title={<CommitDescription author={author} message={message} />}
+              title={
+                <CommitDescription
+                  author={author}
+                  message={message}
+                  onToggle={onToggle}
+                />
+              }
             >
               <FailedTestsTable tests={tests} />
             </FullWidthAccordion>
           ) : (
-            <CommitDescription author={author} message={message} />
+            <CommitDescription
+              author={author}
+              message={message}
+              onToggle={onToggle}
+            />
           )}
           {/* Use order label to debug issues with pagination. */}
           {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}

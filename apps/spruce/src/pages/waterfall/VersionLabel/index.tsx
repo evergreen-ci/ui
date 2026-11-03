@@ -1,6 +1,7 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
+import { CommitDescription } from "components/CommitDescription";
 import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";
@@ -12,6 +13,8 @@ import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
 import styles from "./index.module.css";
 
+const MODAL_MAX_MESSAGE_LENGTH = 150;
+
 export enum VersionLabelView {
   Modal = "modal",
   Waterfall = "waterfall",
@@ -20,7 +23,7 @@ export enum VersionLabelView {
 type Props = Version & {
   className?: string;
   highlighted: boolean;
-  isFirstVersion: boolean;
+  isFirstVersion?: boolean;
   shouldDisableText?: boolean;
   view: VersionLabelView;
 };
@@ -33,7 +36,7 @@ export const VersionLabel: React.FC<Props> = ({
   gitTags,
   highlighted,
   id,
-  isFirstVersion,
+  isFirstVersion = false,
   message,
   requester,
   revision,
@@ -48,6 +51,13 @@ export const VersionLabel: React.FC<Props> = ({
   const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const { sendEvent } = useWaterfallAnalytics();
+  const handleJiraLinkClick = () => {
+    sendEvent({
+      name: "Clicked commit label",
+      "commit.type": commitType,
+      link: "jira",
+    });
+  };
 
   const commitType = activated ? "active" : "inactive";
 
@@ -106,20 +116,23 @@ export const VersionLabel: React.FC<Props> = ({
           versionId={id}
         />
       </div>
-      <Body
-        className={styles.commitMessage}
-        data-view={view}
-        title={view === VersionLabelView.Waterfall ? message : undefined}
-      >
-        <strong>{user.displayName}</strong> &bull;{" "}
-        {jiraLinkify(message, jiraHost, () => {
-          sendEvent({
-            name: "Clicked commit label",
-            "commit.type": commitType,
-            link: "jira",
-          });
-        })}
-      </Body>
+      {view === VersionLabelView.Modal ? (
+        <CommitDescription
+          author={user.displayName ?? user.userId}
+          inline
+          maxLength={MODAL_MAX_MESSAGE_LENGTH}
+          message={message}
+          onJiraLinkClick={handleJiraLinkClick}
+          onToggle={(expanded) =>
+            sendEvent({ name: "Toggled commit description", expanded })
+          }
+        />
+      ) : (
+        <Body className={styles.commitMessage} data-view={view} title={message}>
+          <strong>{user.displayName}</strong> &bull;{" "}
+          {jiraLinkify(message, jiraHost, handleJiraLinkClick)}
+        </Body>
+      )}
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}

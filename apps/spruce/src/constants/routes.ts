@@ -399,15 +399,22 @@ export const getWaterfallRoute = (
     variantFilters?: string[];
     requesterFilters?: string[];
     taskFilters?: string[];
+    revision?: string;
   },
 ) => {
-  const { requesterFilters, statusFilters, taskFilters, variantFilters } =
-    options || {};
+  const {
+    requesterFilters,
+    revision,
+    statusFilters,
+    taskFilters,
+    variantFilters,
+  } = options || {};
   const queryParams = stringifyQuery({
     [WaterfallFilterOptions.Statuses]: statusFilters,
     [WaterfallFilterOptions.Task]: taskFilters,
     [WaterfallFilterOptions.Requesters]: requesterFilters,
     [WaterfallFilterOptions.BuildVariant]: variantFilters,
+    [WaterfallFilterOptions.Revision]: revision,
   });
   return `${paths.project}/${encodeURIComponent(projectIdentifier ?? "")}${paths.waterfall}${queryParams ? `?${queryParams}` : ""}`;
 };
