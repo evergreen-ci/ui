@@ -51,6 +51,13 @@ export const VersionLabel: React.FC<Props> = ({
   const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const { sendEvent } = useWaterfallAnalytics();
+  const handleJiraLinkClick = () => {
+    sendEvent({
+      name: "Clicked commit label",
+      "commit.type": commitType,
+      link: "jira",
+    });
+  };
 
   const commitType = activated ? "active" : "inactive";
 
@@ -115,13 +122,7 @@ export const VersionLabel: React.FC<Props> = ({
           inline
           maxLength={MODAL_MAX_MESSAGE_LENGTH}
           message={message}
-          onJiraLinkClick={() => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "jira",
-            });
-          }}
+          onJiraLinkClick={handleJiraLinkClick}
           onToggle={(expanded) =>
             sendEvent({ name: "Toggled commit description", expanded })
           }
@@ -129,13 +130,7 @@ export const VersionLabel: React.FC<Props> = ({
       ) : (
         <Body className={styles.commitMessage} data-view={view} title={message}>
           <strong>{user.displayName}</strong> &bull;{" "}
-          {jiraLinkify(message, jiraHost, () => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "jira",
-            });
-          })}
+          {jiraLinkify(message, jiraHost, handleJiraLinkClick)}
         </Body>
       )}
       {gitTags?.length ? (
