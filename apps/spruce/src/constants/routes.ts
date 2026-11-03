@@ -10,6 +10,7 @@ import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
 
 export enum PageNames {
+  History = "history",
   HTMLLog = "html-log",
   TestHTMLLog = "test-html-log",
   Diff = "diff",
@@ -159,6 +160,7 @@ export const routes = {
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
   preferences: paths.preferences,
+  projectHistory: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.History}`,
   projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,
   repoSettings: `${paths.repo}/:${slugs.repoId}/${PageNames.Settings}`,
@@ -391,6 +393,9 @@ export const getDistroSettingsRoute = (
   tab
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
     : `${paths.distro}/${distroId}/${PageNames.Settings}/${DistroSettingsTabRoutes.General}`;
+
+export const getProjectHistoryRoute = (projectIdentifier: string) =>
+  `${paths.project}/${encodeURIComponent(projectIdentifier)}${PageNames.History}`;
 
 export const getWaterfallRoute = (
   projectIdentifier?: string,

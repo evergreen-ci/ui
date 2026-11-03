@@ -9532,6 +9532,49 @@ export type ProjectBuildBaronSettingsQuery = {
   };
 };
 
+export type ProjectCommitHistoryQueryVariables = Exact<{
+  options: WaterfallOptions;
+}>;
+
+export type ProjectCommitHistoryQuery = {
+  __typename?: "Query";
+  waterfall: {
+    __typename?: "Waterfall";
+    pagination: {
+      __typename?: "WaterfallPagination";
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+      mostRecentVersionOrder: number;
+      nextPageOrder: number;
+      prevPageOrder: number;
+    };
+    versions: Array<{
+      __typename?: "Version";
+      id: string;
+      activated?: boolean | null;
+      createTime: Date;
+      message: string;
+      order: number;
+      requester: string;
+      revision: string;
+      taskCount?: number | null;
+      taskStatusStats?: {
+        __typename?: "TaskStats";
+        counts?: Array<{
+          __typename?: "StatusCount";
+          count: number;
+          status: string;
+        }> | null;
+      } | null;
+      user: {
+        __typename?: "User";
+        displayName?: string | null;
+        userId: string;
+      };
+    }>;
+  };
+};
+
 export type ProjectEventLogsQueryVariables = Exact<{
   projectIdentifier: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;

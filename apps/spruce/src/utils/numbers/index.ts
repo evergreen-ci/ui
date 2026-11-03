@@ -21,8 +21,8 @@ const toDecimal = (value: string | null): number => {
  * @param value - A string or number that represents a percentage value between 0 and 1.
  * @returns A float representing the percentage value.
  * @example
- * toPercentage("0.5") // => 50
- * toPercentage("1") // => 100
+ * toPercent("0.5") // => 50
+ * toPercent("1") // => 100
  */
 const toPercent = (value: string | number): number => {
   if (typeof value === "number") {

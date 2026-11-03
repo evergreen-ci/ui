@@ -22,12 +22,13 @@ export const cache = new InMemoryCache({
               "variants",
             ],
           ],
-          read(...args) {
+          /* read(...args) {
             return readVersions(...args);
           },
           merge(...args) {
+            console.log("uh oh")
             return mergeVersions(...args);
-          },
+          }, */
         },
         taskHistory: {
           keyArgs: [
