@@ -6,8 +6,7 @@ import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
-import { useDateFormat, useSpruceConfig } from "hooks";
-import { jiraLinkify } from "utils/string";
+import { useDateFormat } from "hooks";
 import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
@@ -46,9 +45,6 @@ export const VersionLabel: React.FC<Props> = ({
 }) => {
   const getDateCopy = useDateFormat();
   const createDate = new Date(createTime);
-
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const { sendEvent } = useWaterfallAnalytics();
   const handleJiraLinkClick = () => {
@@ -116,23 +112,22 @@ export const VersionLabel: React.FC<Props> = ({
           versionId={id}
         />
       </div>
-      {view === VersionLabelView.Modal ? (
-        <CommitDescription
-          author={user.displayName ?? user.userId}
-          inline
-          maxLength={MODAL_MAX_MESSAGE_LENGTH}
-          message={message}
-          onJiraLinkClick={handleJiraLinkClick}
-          onToggle={(expanded) =>
-            sendEvent({ name: "Toggled commit description", expanded })
-          }
-        />
-      ) : (
-        <Body className={styles.commitMessage} data-view={view} title={message}>
-          <strong>{user.displayName}</strong> &bull;{" "}
-          {jiraLinkify(message, jiraHost, handleJiraLinkClick)}
-        </Body>
-      )}
+      <CommitDescription
+        author={user.displayName ?? user.userId}
+        className={styles.commitMessage}
+        inline
+        maxLength={
+          view === VersionLabelView.Waterfall
+            ? Infinity
+            : MODAL_MAX_MESSAGE_LENGTH
+        }
+        message={message}
+        onJiraLinkClick={handleJiraLinkClick}
+        onToggle={(expanded) =>
+          sendEvent({ name: "Toggled commit description", expanded })
+        }
+        title={message}
+      />
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}

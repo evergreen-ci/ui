@@ -22,7 +22,7 @@
   background-color: var(--via-color-blue-100);
 }
 
-.commitMessage[data-view="waterfall"] {
+.versionContainer[data-view="waterfall"] .commitMessage {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;

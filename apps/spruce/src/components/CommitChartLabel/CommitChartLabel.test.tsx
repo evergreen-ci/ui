@@ -2,7 +2,6 @@ import {
   MockedProvider,
   renderWithRouterMatch,
   screen,
-  userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
@@ -31,7 +30,7 @@ describe("commitChartLabel", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     expect(screen.queryByTestId("githash-link")).toHaveTextContent("4137c33");
     expect(screen.queryByTestId("commit-label")).toHaveTextContent(
-      /Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton InternalGit Tags: v1.2.3, v1.2.3-rc0/,
+      /Jun 16, 2021, 11:38 PM Mohamed Khelif • SERVER-57332 Create skeleton InternalGit Tags: v1.2.3, v1.2.3-rc0/,
     );
   });
 
@@ -53,39 +52,12 @@ describe("commitChartLabel", () => {
     });
   });
 
-  it("displays shortened commit message and the 'more' button if necessary", () => {
+  it("displays the entire commit message and exposes it via title", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
-    expect(screen.getByText("more")).toBeInTheDocument();
-    expect(screen.queryByTestId("githash-link")).toHaveTextContent("4137c33");
     expect(screen.queryByTestId("commit-label")).toHaveTextContent(
-      /Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal...moreGit Tags: v1.2.3, v1.2.3-rc0/,
-    );
-  });
-
-  it("displays entire commit message if it does not break length limit", () => {
-    renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
-    expect(screen.queryByTestId("commit-label")).toHaveTextContent(
-      "SERVER-57332 Create skeleton Internal",
-    );
-  });
-
-  it("clicking on the 'more' button should open a tooltip containing commit message", async () => {
-    const user = userEvent.setup();
-    renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
-
-    expect(screen.queryByTestId("long-commit-message-tooltip")).toBeNull();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("more"));
-    await waitFor(() => {
-      expect(
-        screen.getByTestId("long-commit-message-tooltip"),
-      ).toBeInTheDocument();
-    });
-    expect(
-      screen.queryByTestId("long-commit-message-tooltip"),
-    ).toHaveTextContent(
       "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     );
+    expect(screen.getByTitle(versionLong.message)).toBeInTheDocument();
   });
 
   it("displays git tags", () => {
