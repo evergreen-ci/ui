@@ -47,9 +47,7 @@ export const CommitInfo: React.FC<CommitInfoProps> = ({ isTrigger, task }) => {
           <Icon glyph="GitHub" />
         </IconButton>
       )}
-      {isTrigger && (
-        <UpstreamProjectLink isTrigger={isTrigger} versionId={versionId} />
-      )}
+      <UpstreamProjectLink isTrigger={isTrigger} versionId={versionId} />
     </div>
   );
 };
