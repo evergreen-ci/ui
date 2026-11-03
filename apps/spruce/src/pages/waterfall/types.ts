@@ -13,6 +13,11 @@ export type Version = Omit<
   "buildVariants"
 >;
 
+export type ModuleGroup = {
+  isModule: boolean;
+  versions: Version[];
+};
+
 export type GroupedVersion = {
   inactiveVersions: Version[] | null;
   version: Version | null;

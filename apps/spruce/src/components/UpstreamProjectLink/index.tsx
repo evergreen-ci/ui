@@ -30,26 +30,25 @@ export const UpstreamProjectLink: React.FC<{
   }
 
   const upstreamProject = data?.version?.upstreamProject;
-  if (!upstreamProject) {
-    return null;
-  }
 
   return (
     <Body>
       Triggered by:{" "}
-      <StyledRouterLink
-        onClick={onClick}
-        to={getTriggerRoute({
-          triggerType: upstreamProject.triggerType,
-          upstreamTask: upstreamProject.task,
-          upstreamVersion: upstreamProject.version,
-          upstreamRevision: upstreamProject.revision,
-          upstreamOwner: upstreamProject.owner,
-          upstreamRepo: upstreamProject.repo,
-        })}
-      >
-        {upstreamProject.project}
-      </StyledRouterLink>
+      {upstreamProject && (
+        <StyledRouterLink
+          onClick={onClick}
+          to={getTriggerRoute({
+            triggerType: upstreamProject.triggerType,
+            upstreamTask: upstreamProject.task,
+            upstreamVersion: upstreamProject.version,
+            upstreamRevision: upstreamProject.revision,
+            upstreamOwner: upstreamProject.owner,
+            upstreamRepo: upstreamProject.repo,
+          })}
+        >
+          {upstreamProject.project}
+        </StyledRouterLink>
+      )}
     </Body>
   );
 };

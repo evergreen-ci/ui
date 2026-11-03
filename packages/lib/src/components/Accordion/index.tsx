@@ -18,9 +18,15 @@ export enum AccordionCaretIcon {
   Chevron = "Chevron",
 }
 
+export enum AccordionCaretPosition {
+  Start = "start",
+  End = "end",
+}
+
 interface AccordionProps {
   caretAlign?: AccordionCaretAlign;
   caretIcon?: AccordionCaretIcon;
+  caretPosition?: AccordionCaretPosition;
   children: React.ReactNode;
   className?: string;
   "data-testid"?: string;
@@ -38,6 +44,7 @@ interface AccordionProps {
 const Accordion: React.FC<AccordionProps> = ({
   caretAlign = AccordionCaretAlign.Center,
   caretIcon = AccordionCaretIcon.Chevron,
+  caretPosition = AccordionCaretPosition.Start,
   children,
   className,
   "data-testid": dataTestId,
@@ -66,6 +73,18 @@ const Accordion: React.FC<AccordionProps> = ({
   const titleToShow = toggledTitle && accordionOpen ? toggledTitle : title;
   const titleComp = <TitleTag>{titleToShow}</TitleTag>;
 
+  const isCaretAtStart = caretPosition === AccordionCaretPosition.Start;
+
+  const caret = (
+    <IconButton
+      aria-label="Accordion icon"
+      className={cx(styles.icon, accordionOpen && styles.iconOpen)}
+      style={{ alignSelf: caretAlign }}
+    >
+      <Icon fill={gray.dark1} glyph={`${caretIcon}Right`} />
+    </IconButton>
+  );
+
   const toggleAccordionHandler = () => {
     onToggle({ isVisible: !accordionOpen });
     setAccordionOpen(!accordionOpen);
@@ -80,16 +99,15 @@ const Accordion: React.FC<AccordionProps> = ({
         onClick={toggleAccordionHandler}
         role="button"
       >
-        <IconButton
-          aria-label="Accordion icon"
-          className={cx(styles.icon, accordionOpen && styles.iconOpen)}
-          style={{ alignSelf: caretAlign }}
-        >
-          <Icon fill={gray.dark1} glyph={`${caretIcon}Right`} />
-        </IconButton>
+        {isCaretAtStart && caret}
         {titleComp}
+        {!isCaretAtStart && caret}
       </div>
-      {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
+      {subtitle && (
+        <div className={cx(isCaretAtStart && styles.subtitleIndented)}>
+          {subtitle}
+        </div>
+      )}
       <div
         aria-expanded={accordionOpen}
         className={cx(
