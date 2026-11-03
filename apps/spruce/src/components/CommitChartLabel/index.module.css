@@ -13,6 +13,15 @@
    Remove when this component migrates to Via. */
 .labelText.labelText {
   color: var(--via-color-neutral-600);
-  width: 100%;
   font-size: 12px;
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+}
+
+.date {
+  color: var(--via-color-neutral-500);
 }

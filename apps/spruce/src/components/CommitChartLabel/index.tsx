@@ -39,57 +39,45 @@ const CommitChartLabel: React.FC<Props> = ({
   const shortenMessage = message.length > MAX_CHAR;
   const shortenedMessage = message.substring(0, MAX_CHAR - 3).concat("...");
   const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host;
-  const {
-    owner: upstreamOwner,
-    project: upstreamProjectIdentifier,
-    repo: upstreamRepo,
-    revision: upstreamRevision,
-    task: upstreamTask,
-    triggerType,
-    version: upstreamVersion,
-  } = upstreamProject || {};
+  const jiraHost = spruceConfig?.jira?.host ?? "";
 
   return (
     <div className={styles.labelContainer} data-testid="commit-label">
-      <Body className={styles.labelText}>
+      <div className={styles.flexRow}>
+        <span className={styles.date} title={getDateCopy(createDate)}>
+          {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+        </span>
+      </div>
+      <div className={styles.flexRow}>
         <RevisionLink
           data-testid="githash-link"
           onClick={onClickGithash}
           revision={githash}
           to={getVersionRoute(versionId)}
-        />{" "}
-        <b title={getDateCopy(createDate)}>
-          {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-        </b>{" "}
-      </Body>
-      {upstreamProject && (
-        <Body className={styles.labelText}>
-          Triggered from:{" "}
-          <StyledRouterLink
-            onClick={onClickUpstreamProject}
-            to={getTriggerRoute({
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              triggerType,
-              upstreamTask,
-              upstreamVersion,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              upstreamRevision,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              upstreamOwner,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              upstreamRepo,
-            })}
-          >
-            {upstreamProjectIdentifier}
-          </StyledRouterLink>
-        </Body>
-      )}
+        />
+        {upstreamProject && (
+          <Body className={styles.labelText}>
+            Triggered from:{" "}
+            <StyledRouterLink
+              onClick={onClickUpstreamProject}
+              to={getTriggerRoute({
+                triggerType: upstreamProject.triggerType,
+                upstreamTask: upstreamProject.task,
+                upstreamVersion: upstreamProject.version,
+                upstreamRevision: upstreamProject.revision,
+                upstreamOwner: upstreamProject.owner,
+                upstreamRepo: upstreamProject.repo,
+              })}
+            >
+              {upstreamProject.project}
+            </StyledRouterLink>
+          </Body>
+        )}
+      </div>
       <Body className={styles.labelText}>{author} -</Body>
       <Body className={styles.labelText}>
         {jiraLinkify(
           shortenMessage ? shortenedMessage : message,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           jiraHost,
           onClickJiraTicket,
         )}
