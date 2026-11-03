@@ -32,11 +32,6 @@
   gap: var(--via-space-100);
 }
 
-.repoLabel {
-  display: flex;
-  align-items: center;
-}
-
 .basedOnLabel {
   color: var(--via-color-text-secondary);
 }
