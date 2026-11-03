@@ -52,28 +52,18 @@ export const CommitDescription: React.FC<CommitDescriptionProps> = ({
     onToggle?.(toggleTo);
   };
 
-  const messageContent = (
-    <WordBreak>
-      {linkedMessage}
-      {shouldTruncate ? (
-        <ToggleButton onClick={handleToggle}>{toggleText}</ToggleButton>
-      ) : null}
-    </WordBreak>
-  );
-
-  if (inline) {
-    return (
-      <Body>
-        <AuthorLabel>{author} •</AuthorLabel> {messageContent}
-      </Body>
-    );
-  }
+  const Wrapper = inline ? Body : BottomLabel;
 
   return (
-    <BottomLabel>
-      <AuthorLabel>{author} •</AuthorLabel>
-      {messageContent}
-    </BottomLabel>
+    <Wrapper>
+      <AuthorLabel>{author} • </AuthorLabel>
+      <WordBreak>
+        {linkedMessage}
+        {shouldTruncate ? (
+          <ToggleButton onClick={handleToggle}>{toggleText}</ToggleButton>
+        ) : null}
+      </WordBreak>
+    </Wrapper>
   );
 };
 
