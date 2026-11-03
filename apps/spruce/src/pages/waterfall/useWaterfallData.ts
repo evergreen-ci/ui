@@ -1,19 +1,15 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
-import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { utcTimeZone } from "constants/time";
 import {
   WaterfallOptions,
   WaterfallQuery,
   WaterfallQueryVariables,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
-import { useUserTimeZone } from "hooks";
-import { getUTCEndOfDay } from "utils/date";
-import { VERSION_LIMIT } from "./constants";
-import { WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
+import { useWaterfallQueryParams } from "./useWaterfallQueryParams";
 import { normalizeWaterfallFilters } from "./utils";
 
 type UseWaterfallDataProps = {
@@ -27,70 +23,10 @@ export const useWaterfallData = ({
   pins,
   projectIdentifier,
 }: UseWaterfallDataProps) => {
-  const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
-  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
-  const [revision] = useQueryParam<string | null>(
-    WaterfallFilterOptions.Revision,
-    null,
-  );
-  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
-  const timezone = useUserTimeZone() ?? utcTimeZone;
-  const utcDate = useMemo(
-    () => getUTCEndOfDay(date, timezone),
-    [date, timezone],
-  );
-
-  const [requesters] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Requesters,
-    [],
-  );
-  const [statuses] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Statuses,
-    [],
-  );
-  const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
-  const [variants] = useQueryParam<string[]>(
-    WaterfallFilterOptions.BuildVariant,
-    [],
-  );
-
-  const hasFilters = !!(
-    requesters.length ||
-    statuses.length ||
-    tasks.length ||
-    variants.length
-  );
-  const queryOptions = useMemo<WaterfallOptions>(
-    () => ({
-      ...normalizeWaterfallFilters({
-        projectIdentifier,
-        requesters,
-        statuses,
-        tasks,
-        variants,
-        includeAllBuildsAndTasks: !hasFilters,
-        omitInactiveBuilds: omitInactiveBuilds && variants.length > 0,
-      }),
-      limit: VERSION_LIMIT,
-      maxOrder,
-      minOrder,
-      revision,
-      date: utcDate,
-    }),
-    [
-      projectIdentifier,
-      requesters,
-      statuses,
-      tasks,
-      variants,
-      hasFilters,
-      omitInactiveBuilds,
-      maxOrder,
-      minOrder,
-      revision,
-      utcDate,
-    ],
-  );
+  const { hasFilters, queryOptions } = useWaterfallQueryParams({
+    omitInactiveBuilds,
+    projectIdentifier,
+  });
 
   const {
     data: queryData,

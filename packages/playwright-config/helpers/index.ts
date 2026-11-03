@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { expect, Locator, Page, Request } from "@playwright/test";
 import { evergreenUrl, toastTestId, users } from "./constants";
 
 /**
@@ -136,3 +136,13 @@ export function hasOperationName(
     (postData as { operationName: string }).operationName === operationName
   );
 }
+
+/**
+ * Matches a GraphQL query request by operation name.
+ * @param request - The Playwright request
+ * @param operationName - The operation name to check for
+ * @returns True if the request targets the GraphQL endpoint with the specified operation name
+ */
+export const isGraphQLQuery = (request: Request, operationName: string): boolean =>
+  request.url().endsWith("/graphql/query") &&
+  hasOperationName(request.postDataJSON(), operationName);

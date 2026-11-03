@@ -1,6 +1,6 @@
 import { expect, test } from "../../fixtures";
 import {
-  hasOperationName,
+  isGraphQLQuery,
   selectDatePickerDate,
   validateDatePickerDate,
 } from "../../helpers";
@@ -16,10 +16,8 @@ test.describe("status filtering", () => {
     await expect(
       page.getByTestId("inactive-versions-button").first(),
     ).toContainText("1");
-    const filteredRequest = page.waitForRequest(
-      (request) =>
-        request.url().endsWith("/graphql/query") &&
-        hasOperationName(request.postDataJSON(), "Waterfall"),
+    const filteredRequest = page.waitForRequest((request) =>
+      isGraphQLQuery(request, "Waterfall"),
     );
     await page.getByTestId("status-filter").click();
     await page.getByTestId("failed-option").click();

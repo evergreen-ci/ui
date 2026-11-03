@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { hasOperationName } from "../../helpers";
+import { isGraphQLQuery } from "../../helpers";
 
 test.describe("pagination", () => {
   test.beforeEach(async ({ page }) => {
@@ -30,10 +30,7 @@ test.describe("pagination", () => {
     await expect(versionLabels.nth(0)).toContainText(firstPageFirstCommit);
     let waterfallRequests = 0;
     page.on("request", (request) => {
-      if (
-        request.url().endsWith("/graphql/query") &&
-        hasOperationName(request.postDataJSON(), "Waterfall")
-      ) {
+      if (isGraphQLQuery(request, "Waterfall")) {
         waterfallRequests += 1;
       }
     });
