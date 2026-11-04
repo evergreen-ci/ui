@@ -12,7 +12,7 @@ import {
 import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
 import { MockedProvider } from "test_utils/graphql";
 import { ProjectTriggerLevel } from "types/triggers";
-import { CommitSource } from ".";
+import { CommitSource } from "./CommitSource";
 
 const upstreamProjectMock: ApolloMock<
   VersionUpstreamProjectQuery,

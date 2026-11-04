@@ -8,7 +8,7 @@ import {
   VersionUpstreamProjectQueryVariables,
 } from "gql/generated/types";
 import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
-import styles from "./index.module.css";
+import styles from "./CommitSource.module.css";
 
 interface CommitSourceProps {
   "data-testid"?: string;

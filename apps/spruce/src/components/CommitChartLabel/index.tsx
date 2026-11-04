@@ -1,7 +1,6 @@
 import { Body } from "@leafygreen-ui/typography";
 import { cx } from "@evg-ui/lib/utils/css";
-import { CommitDescription } from "components/CommitDescription";
-import { CommitSource } from "components/CommitSource";
+import { CommitDescription, CommitSource } from "components/CommitLabel";
 import { getVersionRoute } from "constants/routes";
 import { GitTag } from "gql/generated/types";
 import { useDateFormat } from "hooks";

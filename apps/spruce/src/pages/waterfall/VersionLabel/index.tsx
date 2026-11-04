@@ -1,8 +1,7 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
-import { CommitDescription } from "components/CommitDescription";
-import { CommitSource } from "components/CommitSource";
+import { CommitDescription, CommitSource } from "components/CommitLabel";
 import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";

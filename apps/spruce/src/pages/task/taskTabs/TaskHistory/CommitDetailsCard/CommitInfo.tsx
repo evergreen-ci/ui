@@ -1,5 +1,5 @@
 import { useTaskHistoryAnalytics } from "analytics";
-import { CommitSource } from "components/CommitSource";
+import { CommitSource } from "components/CommitLabel";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
 import { TaskHistoryTask } from "../types";
