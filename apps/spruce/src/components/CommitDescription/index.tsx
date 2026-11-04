@@ -13,20 +13,24 @@ const DEFAULT_MAX_CHAR = 250;
 
 interface CommitDescriptionProps {
   author: string;
+  className?: string;
   inline?: boolean;
   maxLength?: number;
   message: string;
   onJiraLinkClick?: () => void;
   onToggle?: (expanded: boolean) => void;
+  title?: string;
 }
 
 export const CommitDescription: React.FC<CommitDescriptionProps> = ({
   author,
+  className,
   inline = false,
   maxLength = DEFAULT_MAX_CHAR,
   message,
   onJiraLinkClick,
   onToggle,
+  title,
 }) => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host ?? "";
@@ -55,7 +59,7 @@ export const CommitDescription: React.FC<CommitDescriptionProps> = ({
   const Wrapper = inline ? Body : BottomLabel;
 
   return (
-    <Wrapper>
+    <Wrapper className={className} title={title}>
       <AuthorLabel>{author} • </AuthorLabel>
       <WordBreak>
         {linkedMessage}

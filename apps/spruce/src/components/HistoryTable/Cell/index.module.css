@@ -26,7 +26,8 @@
 }
 
 .labelCellContainer {
-  width: 200px;
+  width: 230px;
+  flex-shrink: 0;
   margin-right: 40px;
 }
 
