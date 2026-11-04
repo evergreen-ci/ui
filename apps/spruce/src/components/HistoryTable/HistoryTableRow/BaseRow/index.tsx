@@ -1,4 +1,5 @@
 import CommitChartLabel from "components/CommitChartLabel";
+import { Requester } from "constants/requesters";
 import { types } from "../..";
 import { LabelCellContainer } from "../../Cell";
 import { useHistoryTable } from "../../HistoryTableContext";
@@ -52,8 +53,8 @@ const BaseRow: React.FC<RowProps> = ({
         gitTags,
         id: versionId,
         message,
+        requester,
         revision,
-        upstreamProject,
         user,
       } = data.commit;
 
@@ -65,11 +66,11 @@ const BaseRow: React.FC<RowProps> = ({
               createTime={createTime}
               githash={revision}
               gitTags={gitTags}
+              isTrigger={requester === Requester.Trigger}
               message={message}
               onClickGithash={onClickGithash}
               onClickJiraTicket={onClickJiraTicket}
               onClickUpstreamProject={onClickUpstreamProject}
-              upstreamProject={upstreamProject}
               versionId={versionId}
             />
           </LabelCellContainer>

@@ -1,10 +1,8 @@
 import { Body } from "@leafygreen-ui/typography";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { cx } from "@evg-ui/lib/utils/css";
 import { CommitDescription } from "components/CommitDescription";
-import { RevisionLink } from "components/RevisionLink";
-import { getTriggerRoute, getVersionRoute } from "constants/routes";
-import { GitTag, UpstreamProjectFragment } from "gql/generated/types";
+import { CommitSource } from "components/CommitSource";
+import { GitTag } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import styles from "./index.module.css";
 
@@ -18,7 +16,7 @@ interface Props {
   onClickGithash?: () => void;
   onClickJiraTicket?: () => void;
   onClickUpstreamProject?: () => void;
-  upstreamProject?: UpstreamProjectFragment["upstreamProject"];
+  isTrigger?: boolean;
 }
 
 const CommitChartLabel: React.FC<Props> = ({
@@ -26,11 +24,11 @@ const CommitChartLabel: React.FC<Props> = ({
   createTime,
   gitTags,
   githash,
+  isTrigger = false,
   message,
   onClickGithash = () => {},
   onClickJiraTicket = () => {},
   onClickUpstreamProject = () => {},
-  upstreamProject,
   versionId,
 }) => {
   const getDateCopy = useDateFormat();
@@ -43,32 +41,12 @@ const CommitChartLabel: React.FC<Props> = ({
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
         </span>
       </div>
-      <div className={styles.flexRow}>
-        <RevisionLink
-          data-testid="githash-link"
-          onClick={onClickGithash}
-          revision={githash}
-          to={getVersionRoute(versionId)}
-        />
-        {upstreamProject && (
-          <Body className={styles.labelText}>
-            Module:{" "}
-            <StyledRouterLink
-              onClick={onClickUpstreamProject}
-              to={getTriggerRoute({
-                triggerType: upstreamProject.triggerType,
-                upstreamTask: upstreamProject.task,
-                upstreamVersion: upstreamProject.version,
-                upstreamRevision: upstreamProject.revision,
-                upstreamOwner: upstreamProject.owner,
-                upstreamRepo: upstreamProject.repo,
-              })}
-            >
-              {upstreamProject.project}
-            </StyledRouterLink>
-          </Body>
-        )}
-      </div>
+      <CommitSource
+        isTrigger={isTrigger}
+        onHashClick={onClickGithash}
+        onModuleClick={onClickUpstreamProject}
+        version={{ id: versionId, revision: githash }}
+      />
       <CommitDescription
         author={author}
         className={cx(styles.labelText, styles.commitMessage)}

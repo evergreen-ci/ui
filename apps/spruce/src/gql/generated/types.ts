@@ -9228,6 +9228,7 @@ export type MainlineCommitsForHistoryQuery = {
         createTime: Date;
         message: string;
         order: number;
+        requester: string;
         revision: string;
         gitTags?: Array<{
           __typename?: "GitTag";
@@ -9246,6 +9247,7 @@ export type MainlineCommitsForHistoryQuery = {
         createTime: Date;
         message: string;
         order: number;
+        requester: string;
         revision: string;
         buildVariants?: Array<{
           __typename?: "GroupedBuildVariant";
@@ -9269,22 +9271,6 @@ export type MainlineCommitsForHistoryQuery = {
           displayName?: string | null;
           userId: string;
         };
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: {
-            __typename?: "Task";
-            id: string;
-            displayName: string;
-            execution: number;
-          } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
       } | null;
     }>;
   } | null;
@@ -11481,6 +11467,13 @@ export type TaskHistoryQuery = {
         __typename?: "Version";
         id: string;
         message: string;
+        revision: string;
+        projectMetadata?: {
+          __typename?: "Project";
+          id: string;
+          owner: string;
+          repo: string;
+        } | null;
         user: { __typename?: "User"; id: string; displayName?: string | null };
       };
     }>;
@@ -12730,6 +12723,12 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
       user: {
         __typename?: "User";
         displayName?: string | null;

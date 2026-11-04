@@ -2,10 +2,8 @@ import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
 import { CommitDescription } from "components/CommitDescription";
-import { RevisionLink } from "components/RevisionLink";
-import { UpstreamProjectLink } from "components/UpstreamProjectLink";
+import { CommitSource } from "components/CommitSource";
 import { Requester } from "constants/requesters";
-import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
 import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
@@ -37,6 +35,7 @@ export const VersionLabel: React.FC<Props> = ({
   id,
   isFirstVersion = false,
   message,
+  projectMetadata,
   requester,
   revision,
   shouldDisableText = false,
@@ -57,6 +56,7 @@ export const VersionLabel: React.FC<Props> = ({
 
   const commitType = activated ? "active" : "inactive";
   const isWaterfall = view === VersionLabelView.Waterfall;
+  const isTrigger = requester === Requester.Trigger;
 
   return (
     <div
@@ -87,30 +87,25 @@ export const VersionLabel: React.FC<Props> = ({
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
       </div>
-      <div className={styles.flexRow}>
-        <RevisionLink
-          onClick={() => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "githash",
-            });
-          }}
-          revision={revision}
-          to={getVersionRoute(id)}
-        />
-        <UpstreamProjectLink
-          isTrigger={requester === Requester.Trigger}
-          onClick={() => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "upstream project",
-            });
-          }}
-          versionId={id}
-        />
-      </div>
+      <CommitSource
+        isTrigger={isTrigger}
+        onHashClick={() => {
+          sendEvent({
+            name: "Clicked commit label",
+            "commit.type": commitType,
+            link: "githash",
+          });
+        }}
+        onModuleClick={() => {
+          sendEvent({
+            name: "Clicked commit label",
+            "commit.type": commitType,
+            link: "upstream project",
+          });
+        }}
+        showRepo={!isWaterfall}
+        version={{ id, projectMetadata, revision }}
+      />
       <CommitDescription
         author={user.displayName ?? user.userId}
         className={styles.commitMessage}

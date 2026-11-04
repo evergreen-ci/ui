@@ -4,6 +4,7 @@ import { cx } from "@evg-ui/lib/utils/css";
 import CommitChartLabel from "components/CommitChartLabel";
 import { EmptyCell, LabelCellContainer } from "components/HistoryTable/Cell";
 import { FoldedCommitsRow } from "components/HistoryTable/types";
+import { Requester } from "constants/requesters";
 import { RowContainer } from "../styles";
 import styles from "./index.module.css";
 
@@ -53,6 +54,7 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
           createTime={commit.createTime}
           githash={commit.revision}
           gitTags={commit.gitTags}
+          isTrigger={commit.requester === Requester.Trigger}
           message={commit.message}
           onClickGithash={onClickGithash}
           onClickJiraTicket={onClickJiraTicket}
