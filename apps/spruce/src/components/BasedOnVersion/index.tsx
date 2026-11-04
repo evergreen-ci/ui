@@ -2,6 +2,7 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { Align, InfoSprinkle, Side } from "@via-ds/components";
 import { Body } from "@via-ds/components/typography";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { CommitDescription } from "components/CommitDescription";
 import { RevisionLink } from "components/RevisionLink";
 import { getVersionRoute } from "constants/routes";
 import {
@@ -9,9 +10,10 @@ import {
   VersionBasedOnQueryVariables,
 } from "gql/generated/types";
 import { VERSION_BASED_ON } from "gql/queries";
-import { useDateFormat, useSpruceConfig } from "hooks";
-import { jiraLinkify } from "utils/string";
+import { useDateFormat } from "hooks";
 import styles from "./index.module.css";
+
+const MAX_MESSAGE_LENGTH = 150;
 
 interface BasedOnVersionProps {
   isTrigger: boolean;
@@ -27,8 +29,6 @@ export const BasedOnVersion: React.FC<BasedOnVersionProps> = ({
   versionId,
 }) => {
   const getDateCopy = useDateFormat();
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const { data } = useQuery<VersionBasedOnQuery, VersionBasedOnQueryVariables>(
     VERSION_BASED_ON,
@@ -64,13 +64,15 @@ export const BasedOnVersion: React.FC<BasedOnVersionProps> = ({
       >
         <div data-testid="based-on-version-tooltip">
           <strong>
-            {shortenGithash(revision)} &bull;{" "}
+            {shortenGithash(revision)} &middot;{" "}
             {getDateCopy(new Date(createTime), { omitSeconds: true })}
           </strong>
-          <div>
-            <strong>{user.displayName}</strong> &bull;{" "}
-            {jiraLinkify(`${message.slice(0, 150)}...`, jiraHost)}
-          </div>
+          <CommitDescription
+            author={user.displayName ?? user.id}
+            inline
+            maxLength={MAX_MESSAGE_LENGTH}
+            message={message}
+          />
         </div>
       </InfoSprinkle>
     </Body>

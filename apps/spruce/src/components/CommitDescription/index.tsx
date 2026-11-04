@@ -68,7 +68,7 @@ export const CommitDescription: React.FC<CommitDescriptionProps> = ({
       data-line-clamp={lineClamp}
       title={title}
     >
-      <AuthorLabel>{author} • </AuthorLabel>
+      <AuthorLabel>{author} &middot; </AuthorLabel>
       <WordBreak>
         {linkedMessage}
         {shouldTruncate ? (
