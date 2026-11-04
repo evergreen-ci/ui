@@ -4328,6 +4328,7 @@ export type TaskEndDetail = {
   oomTracker: OomTrackerInfo;
   otherFailingCommands: Array<FailingCommand>;
   status: Scalars["String"]["output"];
+  systemFailureReason?: Maybe<Scalars["String"]["output"]>;
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
   timeoutType?: Maybe<Scalars["String"]["output"]>;
   traceID?: Maybe<Scalars["String"]["output"]>;
