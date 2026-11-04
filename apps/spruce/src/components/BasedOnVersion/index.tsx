@@ -46,7 +46,7 @@ export const BasedOnVersion: React.FC<BasedOnVersionProps> = ({
 
   return (
     <Body className={styles.basedOn} data-testid="based-on-version">
-      Based on{" "}
+      <span>Based on</span>
       {showRepo && projectMetadata && (
         <span>
           {projectMetadata.owner}/{projectMetadata.repo}
