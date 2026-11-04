@@ -5087,6 +5087,11 @@ export type Version = {
 };
 
 /** Version models a commit within a project. */
+export type VersionBaseVersionArgs = {
+  repotrackerOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
+/** Version models a commit within a project. */
 export type VersionBuildVariantStatsArgs = {
   options: BuildVariantOptions;
 };
@@ -12321,6 +12326,32 @@ export type UserQuery = {
     permissions?: {
       __typename?: "Permissions";
       canEditAdminSettings: boolean;
+    } | null;
+  };
+};
+
+export type VersionBasedOnQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type VersionBasedOnQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    baseVersion?: {
+      __typename?: "Version";
+      id: string;
+      createTime: Date;
+      message: string;
+      revision: string;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
+      user: { __typename?: "User"; id: string; displayName?: string | null };
     } | null;
   };
 };

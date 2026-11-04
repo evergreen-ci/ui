@@ -30,6 +30,11 @@
   -webkit-line-clamp: 3;
 }
 
+.versionContainer[data-view="waterfall"][data-trigger="true"] .commitMessage {
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
 .date {
   color: var(--via-color-neutral-500);
 }

@@ -1,6 +1,7 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
+import { BasedOnVersion } from "components/BasedOnVersion";
 import { CommitDescription } from "components/CommitDescription";
 import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
@@ -57,6 +58,7 @@ export const VersionLabel: React.FC<Props> = ({
 
   const commitType = activated ? "active" : "inactive";
   const isWaterfall = view === VersionLabelView.Waterfall;
+  const isTrigger = requester === Requester.Trigger;
 
   return (
     <div
@@ -64,6 +66,7 @@ export const VersionLabel: React.FC<Props> = ({
       data-disabled={!isWaterfall && !activated && shouldDisableText}
       data-highlighted={highlighted}
       data-testid={`version-label-${commitType}`}
+      data-trigger={isTrigger}
       data-view={view}
       style={
         {
@@ -100,7 +103,7 @@ export const VersionLabel: React.FC<Props> = ({
           to={getVersionRoute(id)}
         />
         <UpstreamProjectLink
-          isTrigger={requester === Requester.Trigger}
+          isTrigger={isTrigger}
           onClick={() => {
             sendEvent({
               name: "Clicked commit label",
@@ -126,6 +129,7 @@ export const VersionLabel: React.FC<Props> = ({
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}
+      {isWaterfall && isTrigger && <BasedOnVersion isTrigger versionId={id} />}
     </div>
   );
 };
