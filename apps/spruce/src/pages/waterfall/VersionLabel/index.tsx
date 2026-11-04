@@ -129,7 +129,7 @@ export const VersionLabel: React.FC<Props> = ({
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}
-      {isWaterfall && isTrigger && <BasedOnVersion isTrigger versionId={id} />}
+      {isWaterfall && <BasedOnVersion isTrigger versionId={id} />}
     </div>
   );
 };
