@@ -52,13 +52,11 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
         to={getVersionRoute(version.id)}
       />
       {showRepo && project?.owner && project.repo && (
-        <>
-          <Body>
-            in {project.owner}/{project.repo}
-          </Body>
-          <span aria-hidden>&bull;</span>
-        </>
+        <Body>
+          in {project.owner}/{project.repo}
+        </Body>
       )}
+      {showRepo && isTrigger && <span aria-hidden>&middot;</span>}
       {isTrigger && (
         <Body>
           Module:{" "}
