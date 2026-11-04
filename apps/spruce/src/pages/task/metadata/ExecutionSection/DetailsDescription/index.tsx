@@ -132,7 +132,7 @@ const processFailingCommand = (
 ): string => {
   if (systemFailureReason) {
     return (
-      systemFailureReason.charAt(0).toUpperCase() + systemFailureReason.slice(1)
+      toSentenceCase(systemFailureReason)
     );
   }
   if (description === strandedDescription) {
