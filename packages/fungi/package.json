@@ -60,7 +60,7 @@
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.7",
     "prettier": "3.7.4",
-    "storybook": "^10.6.1",
+    "storybook": "^10.6.2",
     "storybook-addon-apollo-client": "^10.0.0",
     "typescript": "npm:@typescript/typescript6@~6.0.2",
     "typescript-7": "npm:typescript@~7.0.2",
