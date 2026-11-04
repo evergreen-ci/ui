@@ -59,6 +59,7 @@ export const VersionLabel: React.FC<Props> = ({
   const commitType = activated ? "active" : "inactive";
   const isWaterfall = view === VersionLabelView.Waterfall;
   const isTrigger = requester === Requester.Trigger;
+  const waterfallLineClamp = isTrigger ? 2 : 3;
 
   return (
     <div
@@ -66,7 +67,6 @@ export const VersionLabel: React.FC<Props> = ({
       data-disabled={!isWaterfall && !activated && shouldDisableText}
       data-highlighted={highlighted}
       data-testid={`version-label-${commitType}`}
-      data-trigger={isTrigger}
       data-view={view}
       style={
         {
@@ -116,8 +116,8 @@ export const VersionLabel: React.FC<Props> = ({
       </div>
       <CommitDescription
         author={user.displayName ?? user.userId}
-        className={styles.commitMessage}
         inline
+        lineClamp={isWaterfall ? waterfallLineClamp : undefined}
         maxLength={isWaterfall ? Infinity : MODAL_MAX_MESSAGE_LENGTH}
         message={message}
         onJiraLinkClick={handleJiraLinkClick}

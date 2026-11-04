@@ -1,6 +1,6 @@
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { cx } from "@evg-ui/lib/utils/css";
+import { BasedOnVersion } from "components/BasedOnVersion";
 import { CommitDescription } from "components/CommitDescription";
 import { RevisionLink } from "components/RevisionLink";
 import { getTriggerRoute, getVersionRoute } from "constants/routes";
@@ -71,13 +71,15 @@ const CommitChartLabel: React.FC<Props> = ({
       </div>
       <CommitDescription
         author={author}
-        className={cx(styles.labelText, styles.commitMessage)}
+        className={styles.labelText}
         inline
+        lineClamp={upstreamProject ? 2 : 3}
         maxLength={Infinity}
         message={message}
         onJiraLinkClick={onClickJiraTicket}
         title={message}
       />
+      <BasedOnVersion isTrigger={!!upstreamProject} versionId={versionId} />
       {gitTags && (
         <Body className={styles.labelText}>
           Git Tags: {gitTags.map((g) => g.tag).join(", ")}
