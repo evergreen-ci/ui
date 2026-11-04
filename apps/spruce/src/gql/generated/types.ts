@@ -2806,6 +2806,7 @@ export type Project = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<TaskOwnershipSettings>;
   testSelection?: Maybe<TestSelectionSettings>;
@@ -2960,6 +2961,7 @@ export type ProjectInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -3009,6 +3011,7 @@ export type ProjectLite = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
@@ -3467,6 +3470,7 @@ export type RepoRef = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
+  stepbackPushTriggers: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<RepoTaskOwnershipSettings>;
   testSelection?: Maybe<RepoTestSelectionSettings>;
@@ -3519,6 +3523,7 @@ export type RepoRefInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -5192,9 +5197,11 @@ export type WaterfallOptions = {
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
   taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
   variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  variantTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
@@ -5589,6 +5596,7 @@ export type ProjectGeneralSettingsFragment = {
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
+  stepbackPushTriggers?: boolean | null;
   versionControlEnabled?: boolean | null;
   virtualTasksEnabled?: boolean | null;
   waterfallDisabled?: boolean | null;
@@ -5613,6 +5621,7 @@ export type RepoGeneralSettingsFragment = {
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
+  stepbackPushTriggers: boolean;
   versionControlEnabled: boolean;
   virtualTasksEnabled?: boolean | null;
   waterfallDisabled: boolean;
@@ -5793,6 +5802,7 @@ export type ProjectSettingsFieldsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
+    stepbackPushTriggers?: boolean | null;
     versionControlEnabled?: boolean | null;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
@@ -6015,6 +6025,7 @@ export type RepoSettingsFieldsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
+    stepbackPushTriggers: boolean;
     versionControlEnabled: boolean;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled: boolean;
@@ -6432,6 +6443,7 @@ export type ProjectEventSettingsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
+    stepbackPushTriggers?: boolean | null;
     versionControlEnabled?: boolean | null;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
@@ -9594,6 +9606,7 @@ export type ProjectEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -9830,6 +9843,7 @@ export type ProjectEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10131,6 +10145,7 @@ export type ProjectSettingsQuery = {
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
+      stepbackPushTriggers?: boolean | null;
       versionControlEnabled?: boolean | null;
       virtualTasksEnabled?: boolean | null;
       waterfallDisabled?: boolean | null;
@@ -10415,6 +10430,7 @@ export type RepoEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10651,6 +10667,7 @@ export type RepoEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10893,6 +10910,7 @@ export type RepoSettingsQuery = {
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
+      stepbackPushTriggers: boolean;
       versionControlEnabled: boolean;
       virtualTasksEnabled?: boolean | null;
       waterfallDisabled: boolean;

@@ -1,4 +1,7 @@
 .versionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   flex-basis: calc(100% / var(--waterfall-version-count));
 }
 
@@ -19,22 +22,28 @@
   background-color: var(--via-color-blue-100);
 }
 
-.commitMessage[data-view="waterfall"] {
+.versionContainer[data-view="waterfall"] .commitMessage {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
 }
 
-.badge {
-  margin-left: var(--via-space-200);
+.date {
+  color: var(--via-color-neutral-500);
+}
+
+
+.flexRow {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
 }
 
 .headerLine {
   align-items: center;
   display: flex;
+  justify-content: space-between;
 }
 
-.headerLine > p {
-  flex-grow: 1;
-}

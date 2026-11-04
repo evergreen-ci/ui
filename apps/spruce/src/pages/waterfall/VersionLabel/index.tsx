@@ -6,8 +6,7 @@ import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
-import { useDateFormat, useSpruceConfig } from "hooks";
-import { jiraLinkify } from "utils/string";
+import { useDateFormat } from "hooks";
 import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
@@ -47,9 +46,6 @@ export const VersionLabel: React.FC<Props> = ({
   const getDateCopy = useDateFormat();
   const createDate = new Date(createTime);
 
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host ?? "";
-
   const { sendEvent } = useWaterfallAnalytics();
   const handleJiraLinkClick = () => {
     sendEvent({
@@ -60,13 +56,12 @@ export const VersionLabel: React.FC<Props> = ({
   };
 
   const commitType = activated ? "active" : "inactive";
+  const isWaterfall = view === VersionLabelView.Waterfall;
 
   return (
     <div
       className={cx(styles.versionContainer, className)}
-      data-disabled={
-        view !== VersionLabelView.Waterfall && !activated && shouldDisableText
-      }
+      data-disabled={!isWaterfall && !activated && shouldDisableText}
       data-highlighted={highlighted}
       data-testid={`version-label-${commitType}`}
       data-view={view}
@@ -77,62 +72,57 @@ export const VersionLabel: React.FC<Props> = ({
       }
     >
       <div className={styles.headerLine}>
-        <Body>
-          <RevisionLink
-            onClick={() => {
-              sendEvent({
-                name: "Clicked commit label",
-                "commit.type": commitType,
-                link: "githash",
-              });
-            }}
-            revision={revision}
-            to={getVersionRoute(id)}
-          />{" "}
-          {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+        <span className={styles.flexRow}>
+          <Body className={styles.date}>
+            {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+          </Body>
           {commitType === "inactive" && (
-            <Badge className={styles.badge} variant={BadgeVariant.Status}>
-              Inactive
-            </Badge>
+            <Badge variant={BadgeVariant.Status}>Inactive</Badge>
           )}
           {errors.length > 0 && (
-            <Badge className={styles.badge} variant={BadgeVariant.Error}>
-              Broken
-            </Badge>
+            <Badge variant={BadgeVariant.Error}>Broken</Badge>
           )}
-        </Body>
-        {view === VersionLabelView.Waterfall && (
+        </span>
+        {isWaterfall && (
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
       </div>
-      <UpstreamProjectLink
-        isTrigger={requester === Requester.Trigger}
-        onClick={() => {
-          sendEvent({
-            name: "Clicked commit label",
-            "commit.type": commitType,
-            link: "upstream project",
-          });
-        }}
-        versionId={id}
-      />
-      {view === VersionLabelView.Modal ? (
-        <CommitDescription
-          author={user.displayName ?? user.userId}
-          inline
-          maxLength={MODAL_MAX_MESSAGE_LENGTH}
-          message={message}
-          onJiraLinkClick={handleJiraLinkClick}
-          onToggle={(expanded) =>
-            sendEvent({ name: "Toggled commit description", expanded })
-          }
+      <div className={styles.flexRow}>
+        <RevisionLink
+          onClick={() => {
+            sendEvent({
+              name: "Clicked commit label",
+              "commit.type": commitType,
+              link: "githash",
+            });
+          }}
+          revision={revision}
+          to={getVersionRoute(id)}
         />
-      ) : (
-        <Body className={styles.commitMessage} data-view={view} title={message}>
-          <strong>{user.displayName}</strong> &bull;{" "}
-          {jiraLinkify(message, jiraHost, handleJiraLinkClick)}
-        </Body>
-      )}
+        <UpstreamProjectLink
+          isTrigger={requester === Requester.Trigger}
+          onClick={() => {
+            sendEvent({
+              name: "Clicked commit label",
+              "commit.type": commitType,
+              link: "upstream project",
+            });
+          }}
+          versionId={id}
+        />
+      </div>
+      <CommitDescription
+        author={user.displayName ?? user.userId}
+        className={styles.commitMessage}
+        inline
+        maxLength={isWaterfall ? Infinity : MODAL_MAX_MESSAGE_LENGTH}
+        message={message}
+        onJiraLinkClick={handleJiraLinkClick}
+        onToggle={(expanded) =>
+          sendEvent({ name: "Toggled commit description", expanded })
+        }
+        title={message}
+      />
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}
