@@ -24,17 +24,18 @@ export const DetailsDescription = ({
     otherFailingCommands,
     status,
     systemFailureReason,
+    type,
   } = details ?? {};
   const isFailingTask = isFailedTaskStatus(status);
+  const isSystemFailure = isFailingTask && type === "system";
   const baseCopy = description || failingCommand || "";
   const fullText = isFailingTask
-    ? processFailingCommand(baseCopy, isPushCompleted, systemFailureReason)
+    ? processFailingCommand(
+        baseCopy,
+        isPushCompleted,
+        isSystemFailure ? systemFailureReason : null,
+      )
     : baseCopy;
-  const isSystemFailure =
-    isFailingTask &&
-    (!!systemFailureReason ||
-      baseCopy === strandedDescription ||
-      baseCopy === heartbeatDescription);
 
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
