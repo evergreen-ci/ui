@@ -2,7 +2,7 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { Body } from "@via-ds/components";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { RevisionLink } from "components/RevisionLink";
-import { getTriggerRoute, getVersionRoute } from "constants/routes";
+import { getTriggerRoute } from "constants/routes";
 import {
   VersionUpstreamProjectQuery,
   VersionUpstreamProjectQueryVariables,
@@ -12,51 +12,52 @@ import styles from "./index.module.css";
 
 interface CommitSourceProps {
   "data-testid"?: string;
+  hashHref: string;
   isTrigger: boolean;
   onHashClick?: () => void;
   onModuleClick?: () => void;
-  showRepo?: boolean;
-  version: {
-    id: string;
-    projectMetadata?: { owner: string; repo: string } | null;
-    revision?: string | null;
-  };
+  repo?: { owner: string; repo: string } | null;
+  revision: string;
+  versionId: string;
 }
 
 export const CommitSource: React.FC<CommitSourceProps> = ({
   "data-testid": dataTestId,
+  hashHref,
   isTrigger,
   onHashClick,
   onModuleClick,
-  showRepo = false,
-  version,
+  repo,
+  revision,
+  versionId,
 }) => {
   const { data } = useQuery<
     VersionUpstreamProjectQuery,
     VersionUpstreamProjectQueryVariables
   >(
     VERSION_UPSTREAM_PROJECT,
-    isTrigger ? { variables: { versionId: version.id } } : skipToken,
+    isTrigger ? { variables: { versionId } } : skipToken,
   );
   const upstreamProject = data?.version?.upstreamProject;
-
-  const project = isTrigger ? upstreamProject : version.projectMetadata;
-  const revision = isTrigger ? upstreamProject?.revision : version.revision;
 
   return (
     <div className={styles.container}>
       <RevisionLink
         data-testid={dataTestId}
         onClick={onHashClick}
-        revision={revision ?? ""}
-        to={getVersionRoute(version.id)}
+        revision={revision}
+        to={hashHref}
       />
-      {showRepo && project?.owner && project.repo && (
+      {repo && (
         <Body>
-          in {project.owner}/{project.repo}
+          in {repo.owner}/{repo.repo}
         </Body>
       )}
-      {showRepo && isTrigger && <span aria-hidden>&middot;</span>}
+      {repo && isTrigger && (
+        <span aria-hidden data-testid="separator">
+          &middot;
+        </span>
+      )}
       {isTrigger && (
         <Body>
           Module:{" "}

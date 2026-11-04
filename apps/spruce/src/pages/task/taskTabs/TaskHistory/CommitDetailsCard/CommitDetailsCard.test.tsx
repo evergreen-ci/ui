@@ -7,7 +7,6 @@ import {
   waitFor,
 } from "@evg-ui/lib/src/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { getVersionRoute } from "constants/routes";
 import {
   RestartTaskMutation,
   RestartTaskMutationVariables,
@@ -182,11 +181,8 @@ describe("CommitDetailsCard component", () => {
       <CommitDetailsCard isMatching task={task} />,
     );
     renderWithRouterMatch(<Component />, { wrapper });
-    const versionLink = screen.getByTestId("task-link");
-    expect(versionLink).toHaveAttribute(
-      "href",
-      getVersionRoute(task.version.id),
-    );
+    const taskLink = screen.getByTestId("task-link");
+    expect(taskLink).toHaveAttribute("href", `/task/${task.id}/history`);
   });
 
   it("decreases opacity if isMatching is 'false'", () => {

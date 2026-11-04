@@ -2,6 +2,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { cx } from "@evg-ui/lib/utils/css";
 import { CommitDescription } from "components/CommitDescription";
 import { CommitSource } from "components/CommitSource";
+import { getVersionRoute } from "constants/routes";
 import { GitTag } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import styles from "./index.module.css";
@@ -42,10 +43,13 @@ const CommitChartLabel: React.FC<Props> = ({
         </span>
       </div>
       <CommitSource
+        data-testid="githash-link"
+        hashHref={getVersionRoute(versionId)}
         isTrigger={isTrigger}
         onHashClick={onClickGithash}
         onModuleClick={onClickUpstreamProject}
-        version={{ id: versionId, revision: githash }}
+        revision={githash}
+        versionId={versionId}
       />
       <CommitDescription
         author={author}

@@ -4,6 +4,7 @@ import { useWaterfallAnalytics } from "analytics";
 import { CommitDescription } from "components/CommitDescription";
 import { CommitSource } from "components/CommitSource";
 import { Requester } from "constants/requesters";
+import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
 import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
@@ -88,6 +89,7 @@ export const VersionLabel: React.FC<Props> = ({
         )}
       </div>
       <CommitSource
+        hashHref={getVersionRoute(id)}
         isTrigger={isTrigger}
         onHashClick={() => {
           sendEvent({
@@ -103,8 +105,9 @@ export const VersionLabel: React.FC<Props> = ({
             link: "upstream project",
           });
         }}
-        showRepo={!isWaterfall}
-        version={{ id, projectMetadata, revision }}
+        repo={isWaterfall ? undefined : projectMetadata}
+        revision={revision}
+        versionId={id}
       />
       <CommitDescription
         author={user.displayName ?? user.userId}
