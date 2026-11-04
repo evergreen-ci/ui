@@ -56,13 +56,12 @@ export const VersionLabel: React.FC<Props> = ({
   };
 
   const commitType = activated ? "active" : "inactive";
+  const isWaterfall = view === VersionLabelView.Waterfall;
 
   return (
     <div
       className={cx(styles.versionContainer, className)}
-      data-disabled={
-        view !== VersionLabelView.Waterfall && !activated && shouldDisableText
-      }
+      data-disabled={!isWaterfall && !activated && shouldDisableText}
       data-highlighted={highlighted}
       data-testid={`version-label-${commitType}`}
       data-view={view}
@@ -84,7 +83,7 @@ export const VersionLabel: React.FC<Props> = ({
             <Badge variant={BadgeVariant.Error}>Broken</Badge>
           )}
         </span>
-        {view === VersionLabelView.Waterfall && (
+        {isWaterfall && (
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
       </div>
@@ -116,11 +115,7 @@ export const VersionLabel: React.FC<Props> = ({
         author={user.displayName ?? user.userId}
         className={styles.commitMessage}
         inline
-        maxLength={
-          view === VersionLabelView.Waterfall
-            ? Infinity
-            : MODAL_MAX_MESSAGE_LENGTH
-        }
+        maxLength={isWaterfall ? Infinity : MODAL_MAX_MESSAGE_LENGTH}
         message={message}
         onJiraLinkClick={handleJiraLinkClick}
         onToggle={(expanded) =>
