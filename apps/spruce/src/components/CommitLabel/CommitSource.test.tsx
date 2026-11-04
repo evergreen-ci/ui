@@ -2,7 +2,6 @@ import {
   MockedProviderProps,
   renderWithRouterMatch,
   screen,
-  waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
@@ -29,10 +28,10 @@ const upstreamProjectMock: ApolloMock<
         id: "v1",
         upstreamProject: {
           __typename: "UpstreamProject",
-          owner: "evergreen-ci",
+          owner: "10gen",
           project: "upstream-project",
-          repo: "evergreen",
-          revision: "abc123",
+          repo: "dsi",
+          revision: "9a3f1c7e5b2d48a6f0c1e3d5b7a9c2e4f6081a3d",
           task: {
             __typename: "Task",
             id: "upstream_task",
@@ -65,40 +64,47 @@ const renderComponent = (
   );
 
 describe("CommitSource", () => {
-  it("links to the provided href", () => {
-    renderComponent({ "data-testid": "hash" });
-    expect(screen.getByTestId("hash")).toHaveAttribute("href", "/version/v1");
+  describe("non-trigger commit", () => {
+    it("links to the provided href", () => {
+      renderComponent({ "data-testid": "hash" });
+      expect(screen.getByTestId("hash")).toHaveAttribute("href", "/version/v1");
+    });
+
+    it("renders the base hash and repo without a separator", () => {
+      renderComponent({ repo: { owner: "evergreen-ci", repo: "ui" } });
+      expect(screen.getByText("abcdef1")).toBeVisible();
+      expect(screen.getByText("in evergreen-ci/ui")).toBeVisible();
+      expect(screen.queryByTestId("separator")).toBeNull();
+    });
+
+    it("does not render upstream project", () => {
+      renderComponent();
+      expect(screen.queryByText(/Module:/)).toBeNull();
+      expect(screen.queryByText(/^in /)).toBeNull();
+    });
   });
 
-  it("renders only the hash when it is not a trigger and has no repo", () => {
-    renderComponent();
-    expect(screen.queryByText(/Module:/)).toBeNull();
-    expect(screen.queryByText(/^in /)).toBeNull();
-  });
-
-  it("renders the repo without a separator for non-trigger versions", () => {
-    renderComponent({ repo: { owner: "evergreen-ci", repo: "ui" } });
-    expect(screen.getByText("in evergreen-ci/ui")).toBeVisible();
-    expect(screen.queryByTestId("separator")).toBeNull();
-  });
-
-  it("renders the module label immediately and the link once the upstream project loads", async () => {
-    renderComponent({ isTrigger: true }, [upstreamProjectMock]);
-    expect(screen.getByText(/Module:/)).toBeVisible();
-    expect(screen.queryByRole("link", { name: "upstream-project" })).toBeNull();
-    await waitFor(() => {
+  describe("trigger commit", () => {
+    it("renders the module label and link", async () => {
+      renderComponent({ isTrigger: true }, [upstreamProjectMock]);
+      expect(screen.getByText(/Module:/)).toBeVisible();
       expect(
-        screen.getByRole("link", { name: "upstream-project" }),
+        await screen.findByRole("link", { name: "upstream-project" }),
       ).toBeVisible();
     });
-    expect(screen.queryByTestId("separator")).toBeNull();
-  });
 
-  it("renders a separator between the repo and the module", () => {
-    renderComponent(
-      { isTrigger: true, repo: { owner: "evergreen-ci", repo: "ui" } },
-      [upstreamProjectMock],
-    );
-    expect(screen.getByTestId("separator")).toBeInTheDocument();
+    it("renders the upstream hash and module repo", async () => {
+      renderComponent(
+        { isTrigger: true, repo: { owner: "evergreen-ci", repo: "ui" } },
+        [upstreamProjectMock],
+      );
+      expect(await screen.findByText("in 10gen/dsi")).toBeVisible();
+      expect(screen.getByText("9a3f1c7")).toBeVisible();
+    });
+
+    it("renders a separator between the module repo and the module", async () => {
+      renderComponent({ isTrigger: true }, [upstreamProjectMock]);
+      expect(await screen.findByTestId("separator")).toBeInTheDocument();
+    });
   });
 });
