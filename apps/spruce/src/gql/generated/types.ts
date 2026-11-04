@@ -2806,6 +2806,7 @@ export type Project = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<TaskOwnershipSettings>;
   testSelection?: Maybe<TestSelectionSettings>;
@@ -2960,6 +2961,7 @@ export type ProjectInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -3009,6 +3011,7 @@ export type ProjectLite = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
@@ -3467,6 +3470,7 @@ export type RepoRef = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
+  stepbackPushTriggers: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<RepoTaskOwnershipSettings>;
   testSelection?: Maybe<RepoTestSelectionSettings>;
@@ -3519,6 +3523,7 @@ export type RepoRefInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
