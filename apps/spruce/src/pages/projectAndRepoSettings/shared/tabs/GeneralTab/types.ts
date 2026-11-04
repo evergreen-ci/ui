@@ -28,6 +28,7 @@ export interface GeneralFormState {
       deactivatePrevious: boolean | null;
       stepbackDisabled: boolean | null;
       stepbackBisection: boolean | null;
+      stepbackPushTriggers: boolean | null;
       deactivateStepback: null;
     };
     repotracker: {

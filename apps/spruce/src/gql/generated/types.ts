@@ -5594,6 +5594,7 @@ export type ProjectGeneralSettingsFragment = {
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
+  stepbackPushTriggers?: boolean | null;
   versionControlEnabled?: boolean | null;
   virtualTasksEnabled?: boolean | null;
   waterfallDisabled?: boolean | null;
@@ -5618,6 +5619,7 @@ export type RepoGeneralSettingsFragment = {
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
+  stepbackPushTriggers: boolean;
   versionControlEnabled: boolean;
   virtualTasksEnabled?: boolean | null;
   waterfallDisabled: boolean;
@@ -5798,6 +5800,7 @@ export type ProjectSettingsFieldsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
+    stepbackPushTriggers?: boolean | null;
     versionControlEnabled?: boolean | null;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
@@ -6020,6 +6023,7 @@ export type RepoSettingsFieldsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
+    stepbackPushTriggers: boolean;
     versionControlEnabled: boolean;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled: boolean;
@@ -6437,6 +6441,7 @@ export type ProjectEventSettingsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
+    stepbackPushTriggers?: boolean | null;
     versionControlEnabled?: boolean | null;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
@@ -9599,6 +9604,7 @@ export type ProjectEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -9835,6 +9841,7 @@ export type ProjectEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10136,6 +10143,7 @@ export type ProjectSettingsQuery = {
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
+      stepbackPushTriggers?: boolean | null;
       versionControlEnabled?: boolean | null;
       virtualTasksEnabled?: boolean | null;
       waterfallDisabled?: boolean | null;
@@ -10420,6 +10428,7 @@ export type RepoEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10656,6 +10665,7 @@ export type RepoEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10898,6 +10908,7 @@ export type RepoSettingsQuery = {
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
+      stepbackPushTriggers: boolean;
       versionControlEnabled: boolean;
       virtualTasksEnabled?: boolean | null;
       waterfallDisabled: boolean;

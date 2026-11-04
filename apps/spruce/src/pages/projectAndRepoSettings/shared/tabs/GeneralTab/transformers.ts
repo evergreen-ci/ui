@@ -51,6 +51,7 @@ export const gqlToForm = ((data, options = {}) => {
         deactivatePrevious: projectRef.deactivatePrevious,
         stepbackDisabled: projectRef.stepbackDisabled,
         stepbackBisection: projectRef.stepbackBisect,
+        stepbackPushTriggers: projectRef.stepbackPushTriggers,
         deactivateStepback: null,
       },
       repotracker: {
@@ -116,6 +117,7 @@ export const formToGql = ((
     debugSpawnHostsDisabled: projectFlags.debug.debugSpawnHostsDisabled,
     stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
     stepbackBisect: projectFlags.scheduling.stepbackBisection,
+    stepbackPushTriggers: projectFlags.scheduling.stepbackPushTriggers,
     patchingDisabled: projectFlags.patch.patchingDisabled,
     runEveryMainlineCommit: projectFlags.repotracker.runEveryMainlineCommit,
     virtualTasksEnabled: projectFlags.virtualTasks.virtualTasksEnabled,

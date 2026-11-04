@@ -97,6 +97,7 @@ const repoForm: GeneralFormState = {
       deactivatePrevious: true,
       stepbackDisabled: true,
       stepbackBisection: true,
+      stepbackPushTriggers: true,
       deactivateStepback: null,
     },
     repotracker: {
@@ -141,6 +142,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     patchingDisabled: false,
     stepbackDisabled: true,
     stepbackBisect: true,
+    stepbackPushTriggers: true,
     disabledStatsCache: false,
     sourceCacheMode: SourceCacheMode.Waterfall,
   },
@@ -177,6 +179,7 @@ const projectForm: GeneralFormState = {
       deactivatePrevious: null,
       stepbackDisabled: null,
       stepbackBisection: null,
+      stepbackPushTriggers: null,
       deactivateStepback: null,
     },
     repotracker: {
@@ -224,6 +227,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     patchingDisabled: null,
     stepbackDisabled: null,
     stepbackBisect: null,
+    stepbackPushTriggers: null,
     disabledStatsCache: null,
     sourceCacheMode: SourceCacheMode.Off,
   },

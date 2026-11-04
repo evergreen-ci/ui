@@ -233,6 +233,15 @@ export const getFormSchema = (
                   repoData?.projectFlags?.scheduling?.stepbackBisection,
                 ),
               },
+              stepbackPushTriggers: {
+                type: ["boolean", "null"],
+                title: "Stepback Push Triggers",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.scheduling?.stepbackPushTriggers,
+                ),
+              },
               deactivateStepback: {
                 type: "null" as const,
               },
@@ -487,6 +496,12 @@ export const getFormSchema = (
           "ui:description":
             "Bisection will cause your stepback to activate the midway task between the last failing task and last passing task.",
           "ui:data-testid": "stepback-bisect-group",
+        },
+        stepbackPushTriggers: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description":
+            "When enabled, stepback on mainline and push level trigger versions (e.g. module commits) will step back through both kinds of versions. Versions created by task and build level triggers are still skipped.",
+          "ui:data-testid": "stepback-push-triggers-group",
         },
         deactivateStepback: {
           "ui:field": "deactivateStepbackTask",
