@@ -5,7 +5,10 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import { Requester } from "constants/requesters";
 import { TaskQuery, TestResult } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
-import { getVersionUpstreamProjectMock } from "pages/waterfall/VersionLabel/testData";
+import {
+  getVersionBasedOnMock,
+  getVersionUpstreamProjectMock,
+} from "pages/waterfall/VersionLabel/testData";
 import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
@@ -134,7 +137,10 @@ export const WithTrigger: CustomStoryObj<TemplateProps> = {
   },
   parameters: {
     apolloClient: {
-      mocks: [getUpstreamProjectMock("push")],
+      mocks: [
+        getUpstreamProjectMock("push"),
+        getVersionBasedOnMock(TRIGGER_VERSION_ID),
+      ],
     },
   },
   render: (args) => <Template {...args} />,

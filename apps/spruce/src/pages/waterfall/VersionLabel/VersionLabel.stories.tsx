@@ -11,7 +11,10 @@ import {
   versionWithGitTag,
   versionWithUpstreamProject,
 } from "../testData";
-import { getVersionUpstreamProjectMock } from "./testData";
+import {
+  getVersionBasedOnMock,
+  getVersionUpstreamProjectMock,
+} from "./testData";
 import styles from "./VersionLabel.stories.module.css";
 import { VersionLabel, VersionLabelView } from ".";
 
@@ -50,13 +53,15 @@ export const GitTag: StoryObj<typeof VersionLabel> = {
 
 export const UpstreamProject: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: versionWithUpstreamProject,
+  args: { ...versionWithUpstreamProject, view: VersionLabelView.Waterfall },
   parameters: {
     apolloClient: {
       mocks: [
+        getTaskStatsMock(versionWithUpstreamProject.id),
         getSpruceConfigMock,
         getUserSettingsMock,
         getVersionUpstreamProjectMock,
+        getVersionBasedOnMock(versionWithUpstreamProject.id),
       ],
     },
   },
