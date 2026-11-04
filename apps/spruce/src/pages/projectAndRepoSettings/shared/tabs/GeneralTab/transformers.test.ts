@@ -95,6 +95,8 @@ const repoForm: GeneralFormState = {
     },
     scheduling: {
       deactivatePrevious: true,
+    },
+    stepback: {
       stepbackDisabled: true,
       stepbackBisection: true,
       stepbackPushTriggers: true,
@@ -177,6 +179,8 @@ const projectForm: GeneralFormState = {
     },
     scheduling: {
       deactivatePrevious: null,
+    },
+    stepback: {
       stepbackDisabled: null,
       stepbackBisection: null,
       stepbackPushTriggers: null,

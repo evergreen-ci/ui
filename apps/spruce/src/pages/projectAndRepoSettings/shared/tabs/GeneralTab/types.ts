@@ -26,6 +26,8 @@ export interface GeneralFormState {
     };
     scheduling: {
       deactivatePrevious: boolean | null;
+    };
+    stepback: {
       stepbackDisabled: boolean | null;
       stepbackBisection: boolean | null;
       stepbackPushTriggers: boolean | null;

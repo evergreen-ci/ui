@@ -214,13 +214,19 @@ export const getFormSchema = (
                   repoData?.projectFlags?.scheduling?.deactivatePrevious,
                 ),
               },
+            },
+          },
+          stepback: {
+            type: "object" as const,
+            title: "Stepback Settings",
+            properties: {
               stepbackDisabled: {
                 type: ["boolean", "null"],
                 title: "Stepback",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  repoData?.projectFlags?.scheduling?.stepbackDisabled,
+                  repoData?.projectFlags?.stepback?.stepbackDisabled,
                   true,
                 ),
               },
@@ -230,7 +236,7 @@ export const getFormSchema = (
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  repoData?.projectFlags?.scheduling?.stepbackBisection,
+                  repoData?.projectFlags?.stepback?.stepbackBisection,
                 ),
               },
               stepbackPushTriggers: {
@@ -239,7 +245,7 @@ export const getFormSchema = (
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  repoData?.projectFlags?.scheduling?.stepbackPushTriggers,
+                  repoData?.projectFlags?.stepback?.stepbackPushTriggers,
                 ),
               },
               deactivateStepback: {
@@ -486,6 +492,8 @@ export const getFormSchema = (
           "ui:description":
             "When unscheduled, tasks from previous revisions will be unscheduled when the equivalent task in a newer commit finishes successfully.",
         },
+      },
+      stepback: {
         stepbackDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
@@ -500,7 +508,7 @@ export const getFormSchema = (
         stepbackPushTriggers: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
-            "When enabled, stepback on mainline and push level trigger versions (e.g. module commits) will step back through both kinds of versions. Versions created by task and build level triggers are still skipped.",
+            "When enabled, stepback includes versions created from mainline commits and push level triggers (i.e. module commits). Versions created from task and build level triggers are still skipped.",
           "ui:data-testid": "stepback-push-triggers-group",
         },
         deactivateStepback: {
