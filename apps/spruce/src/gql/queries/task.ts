@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { ANNOTATION } from "../fragments/annotation";
 import { BASE_TASK } from "../fragments/baseTask";
+import { UPSTREAM_PROJECT } from "../fragments/upstreamProject";
 
 export const TASK = gql`
   query Task($taskId: String!, $execution: Int) {
@@ -156,6 +157,7 @@ export const TASK = gql`
       testSelectionEnabled
       timeTaken
       versionMetadata: version {
+        ...UpstreamProject
         id
         isPatch
         message
@@ -174,4 +176,5 @@ export const TASK = gql`
   }
   ${BASE_TASK}
   ${ANNOTATION}
+  ${UPSTREAM_PROJECT}
 `;

@@ -25,6 +25,7 @@ interface TaskPageBreadcrumbsProps {
       identifier: string;
     } | null;
     message: string;
+    upstreamProject?: { revision: string } | null;
   };
 }
 const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
@@ -33,8 +34,15 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
   taskName,
   versionMetadata,
 }) => {
-  const { id, isPatch, message, projectMetadata, revision, user } =
-    versionMetadata;
+  const {
+    id,
+    isPatch,
+    message,
+    projectMetadata,
+    revision,
+    upstreamProject,
+    user,
+  } = versionMetadata;
   const breadcrumbRoot = useBreadcrumbRoot(
     isPatch,
     user,
@@ -44,7 +52,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
 
   const messagePrefix = isPatch
     ? `Patch ${patchNumber}`
-    : shortenGithash(revision);
+    : shortenGithash(upstreamProject?.revision ?? revision);
 
   const messageBreadcrumb = {
     to: getVersionRoute(id),

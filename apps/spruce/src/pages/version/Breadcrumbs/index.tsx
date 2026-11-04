@@ -18,6 +18,7 @@ interface VersionPageBreadcrumbsProps {
       identifier: string;
     } | null;
     message: string;
+    upstreamProject?: { revision: string } | null;
   };
 }
 
@@ -25,7 +26,8 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   patchNumber,
   versionMetadata,
 }) => {
-  const { isPatch, projectMetadata, revision, user } = versionMetadata;
+  const { isPatch, projectMetadata, revision, upstreamProject, user } =
+    versionMetadata;
   const breadcrumbRoot = useBreadcrumbRoot(
     isPatch,
     user,
@@ -45,7 +47,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   };
 
   const commitBreadcrumb = {
-    text: shortenGithash(revision),
+    text: shortenGithash(upstreamProject?.revision ?? revision),
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
         name: "Clicked link",
