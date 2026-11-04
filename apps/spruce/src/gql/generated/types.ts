@@ -2764,6 +2764,7 @@ export type Project = {
   branch: Scalars["String"]["output"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
+  commits: ProjectCommits;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
   debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2817,6 +2818,11 @@ export type Project = {
 };
 
 /** Project models single repository on GitHub. */
+export type ProjectCommitsArgs = {
+  options: ProjectCommitsOptions;
+};
+
+/** Project models single repository on GitHub. */
 export type ProjectPatchesArgs = {
   patchesInput: PatchesInput;
 };
@@ -2866,6 +2872,23 @@ export type ProjectBuildVariant = {
   displayName: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
+};
+
+export type ProjectCommits = {
+  __typename?: "ProjectCommits";
+  pagination?: Maybe<ProjectCommitsPagination>;
+  versions: Array<Version>;
+};
+
+export type ProjectCommitsOptions = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type ProjectCommitsPagination = {
+  __typename?: "ProjectCommitsPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
 };
 
 export type ProjectCreationConfig = {
@@ -9533,45 +9556,44 @@ export type ProjectBuildBaronSettingsQuery = {
 };
 
 export type ProjectCommitHistoryQueryVariables = Exact<{
-  options: WaterfallOptions;
+  projectIdentifier: Scalars["String"]["input"];
+  options: ProjectCommitsOptions;
 }>;
 
 export type ProjectCommitHistoryQuery = {
   __typename?: "Query";
-  waterfall: {
-    __typename?: "Waterfall";
-    pagination: {
-      __typename?: "WaterfallPagination";
-      hasNextPage: boolean;
-      hasPrevPage: boolean;
-      mostRecentVersionOrder: number;
-      nextPageOrder: number;
-      prevPageOrder: number;
-    };
-    versions: Array<{
-      __typename?: "Version";
-      id: string;
-      activated?: boolean | null;
-      createTime: Date;
-      message: string;
-      order: number;
-      requester: string;
-      revision: string;
-      taskCount?: number | null;
-      taskStatusStats?: {
-        __typename?: "TaskStats";
-        counts?: Array<{
-          __typename?: "StatusCount";
-          count: number;
-          status: string;
-        }> | null;
+  project: {
+    __typename?: "Project";
+    id: string;
+    commits: {
+      __typename?: "ProjectCommits";
+      pagination?: {
+        __typename?: "ProjectCommitsPagination";
+        hasNextPage: boolean;
+        nextPageOrder: number;
       } | null;
-      user: {
-        __typename?: "User";
-        displayName?: string | null;
-        userId: string;
-      };
-    }>;
+      versions: Array<{
+        __typename?: "Version";
+        id: string;
+        createTime: Date;
+        message: string;
+        order: number;
+        revision: string;
+        taskStatusStats?: {
+          __typename?: "TaskStats";
+          counts?: Array<{
+            __typename?: "StatusCount";
+            count: number;
+            status: string;
+          }> | null;
+        } | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
+      }>;
+    };
   };
 };
 
