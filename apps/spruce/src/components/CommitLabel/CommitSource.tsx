@@ -27,8 +27,8 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
   isTrigger,
   onHashClick,
   onModuleClick,
-  repo,
-  revision,
+  repo: baseRepo,
+  revision: baseRevision,
   versionId,
 }) => {
   const { data } = useQuery<
@@ -39,21 +39,26 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
     isTrigger ? { variables: { versionId } } : skipToken,
   );
   const upstreamProject = data?.version?.upstreamProject;
+  const revision = isTrigger ? upstreamProject?.revision : baseRevision;
+
+  const repoOwner = isTrigger ? upstreamProject?.owner : baseRepo?.owner;
+  const repoName = isTrigger ? upstreamProject?.repo : baseRepo?.repo;
+  const hasRepo = repoOwner && repoName;
 
   return (
     <div className={styles.container}>
       <RevisionLink
         data-testid={dataTestId}
         onClick={onHashClick}
-        revision={revision}
+        revision={revision ?? "000000"}
         to={hashHref}
       />
-      {repo && (
+      {hasRepo && (
         <Body>
-          in {repo.owner}/{repo.repo}
+          in {repoOwner}/{repoName}
         </Body>
       )}
-      {repo && isTrigger && (
+      {hasRepo && isTrigger && (
         <span aria-hidden data-testid="separator">
           &middot;
         </span>

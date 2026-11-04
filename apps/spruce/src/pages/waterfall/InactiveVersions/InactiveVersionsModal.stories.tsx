@@ -90,6 +90,7 @@ const getModuleVersion = (
 
 const upstreamProjectMock = (
   versionId: string,
+  revision: string,
 ): ApolloMock<
   VersionUpstreamProjectQuery,
   VersionUpstreamProjectQueryVariables
@@ -107,7 +108,7 @@ const upstreamProjectMock = (
           owner: "10gen",
           project: "dsi",
           repo: "dsi",
-          revision: "abcdefg",
+          revision,
           task: { execution: 0, id: "dsi_task", displayName: "DSI Task" },
           triggerID: "12345",
           triggerType: "task",
@@ -117,6 +118,13 @@ const upstreamProjectMock = (
     },
   },
 });
+
+const moduleRevisions: Record<string, string> = {
+  module_a1: "1c0e5a7d93b24f6e8a1d0c5b7e3f9a2d4c6b8e0f",
+  module_a2: "5b8d2f4a6c1e3079d5a7b9c1e3f50a2c4e6d8b01",
+  module_a3: "8e2a4c6d0f1b3957a9c5e7d1b3f5a7c9e1d3b5f7",
+  module_b1: "f3d1b9e7c5a30826d4f6b8a0c2e4d6f8a1b3c5e7",
+};
 
 const moduleGroupingVersions: Version[] = [
   getModuleVersion("a1", inactiveVersion.revision, {
@@ -147,7 +155,7 @@ export const ModuleGrouping: StoryObj<typeof InactiveVersionsButton> = {
         getUserSettingsMock,
         ...moduleGroupingVersions
           .filter(({ requester }) => requester === Requester.Trigger)
-          .map(({ id }) => upstreamProjectMock(id)),
+          .map(({ id }) => upstreamProjectMock(id, moduleRevisions[id])),
       ],
     },
   },

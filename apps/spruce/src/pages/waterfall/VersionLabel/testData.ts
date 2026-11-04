@@ -22,9 +22,9 @@ export const getVersionUpstreamProjectMock: ApolloMock<
         id: "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a",
         upstreamProject: {
           owner: "evergreen-ci",
-          project: "evergreen",
-          repo: "evergreen",
-          revision: "abcdefg",
+          project: "gimlet",
+          repo: "gimlet",
+          revision: "9a3f1c7e5b2d48a6f0c1e3d5b7a9c2e4f6081a3d",
           task: {
             execution: 0,
             displayName: "task-display-name",

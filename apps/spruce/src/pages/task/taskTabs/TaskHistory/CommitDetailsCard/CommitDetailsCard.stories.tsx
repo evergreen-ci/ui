@@ -24,8 +24,8 @@ const getUpstreamProjectMock = (
         id: TRIGGER_VERSION_ID,
         upstreamProject: {
           owner: "evergreen-ci",
-          project: "evergreen",
-          repo: "evergreen",
+          project: "gimlet",
+          repo: "gimlet",
           revision: "ed0e891754059eb7055c8c82752dedf1a35a87a6",
           task: { execution: 0, id: "678", displayName: "Task 678" },
           triggerID: "12345",
