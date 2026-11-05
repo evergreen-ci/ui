@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useQueryParams } from "@evg-ui/lib/hooks";
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { utcTimeZone } from "constants/time";
 import { WaterfallOptions } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
@@ -16,10 +17,12 @@ type UseWaterfallQueryParamsProps = {
 const PARSE_OPTIONS = { parseBooleans: false, parseNumbers: false };
 
 const toStringArray = (value: unknown): string[] | undefined => {
-  if (Array.isArray(value)) {
-    return value.filter((item): item is string => typeof item === "string");
+  if (typeof value === "string" || Array.isArray(value)) {
+    return conditionalToArray(value, true).filter(
+      (item): item is string => typeof item === "string",
+    );
   }
-  return typeof value === "string" ? [value] : undefined;
+  return undefined;
 };
 
 export const useWaterfallQueryParams = ({

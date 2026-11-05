@@ -28,6 +28,7 @@ export const useWaterfallData = ({
     projectIdentifier,
   });
 
+  // Introduce a base query with no filters applied so we can show these versions while fetching more from the server with the appropriate filters.
   const {
     data: queryData,
     dataState,

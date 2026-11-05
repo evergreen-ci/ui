@@ -1,6 +1,7 @@
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { Requester } from "constants/requesters";
 import {
+  WaterfallOptions,
   WaterfallQuery,
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
@@ -65,6 +66,36 @@ export const getWaterfallData = (
     })),
   },
 });
+
+export const previewData = (matchingVersions: number) => {
+  const data = getWaterfallData([20, 19, 18, 17, 16]);
+  data.waterfall.versions.slice(matchingVersions).forEach((version) => {
+    version.waterfallBuilds?.forEach((build) => {
+      build.tasks = build.tasks.filter((task) => task.displayName !== "Task A");
+    });
+  });
+  return data;
+};
+
+export const filteredOptions: Partial<WaterfallOptions> = {
+  tasks: ["Task A"],
+  includeAllBuildsAndTasks: false,
+};
+
+export const filteredData = getWaterfallData([20, 19, 18, 17, 15], {
+  taskNames: ["Task A"],
+});
+
+export const jumpCases = [
+  {
+    search: "?tasks=Task%20A&date=2024-09-19",
+    options: { date: new Date("2024-09-19T23:59:59Z") },
+  },
+  {
+    search: "?tasks=Task%20A&revision=abc1234",
+    options: { revision: "abc1234" },
+  },
+];
 
 export const version: Version = {
   activated: true,

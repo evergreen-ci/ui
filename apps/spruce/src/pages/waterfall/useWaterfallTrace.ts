@@ -86,10 +86,17 @@ export const finishWaterfallNavigationTrace = ({
   });
 };
 
-export const useWaterfallTrace = (ready = true) => {
+export const useWaterfallTrace = ({
+  data,
+  error,
+}: {
+  data: WaterfallQuery | undefined;
+  error: unknown;
+}) => {
   const resolveRenderRef = useRef<(() => void) | null>(null);
   const renderPromiseRef = useRef<Promise<void> | null>(null);
   const spanRef = useRef<Span | null>(null);
+  const ready = !!data && !error;
 
   useEffect(() => {
     if (!ready) {
@@ -122,11 +129,15 @@ export const useWaterfallTrace = (ready = true) => {
 
 export const useWaterfallNavigationTrace = ({
   data,
+  error,
+  isFetching,
 }: {
   data: WaterfallQuery | undefined;
+  error: unknown;
+  isFetching: boolean;
 }) => {
   useEffect(() => {
-    if (!data) {
+    if (!data || error || isFetching) {
       return;
     }
 
@@ -146,5 +157,5 @@ export const useWaterfallNavigationTrace = ({
       taskCount,
       versionCount: data.waterfall.versions.length,
     });
-  }, [data]);
+  }, [data, error, isFetching]);
 };
