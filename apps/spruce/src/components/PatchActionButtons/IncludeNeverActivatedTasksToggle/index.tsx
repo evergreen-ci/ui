@@ -47,7 +47,6 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
       >
         <Checkbox
           checked={includeNeverActivatedTasks}
-          className={styles.checkbox}
           darkMode
           description="Include tasks that have never been activated."
           label="Include never-activated tasks"
