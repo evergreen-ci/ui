@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { palette } from "@leafygreen-ui/palette";
+import { Orientation } from "@via-ds/components";
 import { size } from "@evg-ui/lib/constants/tokens";
 import ExpandedText from "components/ExpandedText";
 import { MetadataItem, MetadataLabel } from "components/MetadataCard";
@@ -53,7 +54,9 @@ export const DetailsDescription = ({
         data-testid="task-metadata-command"
         label={label}
         labelColor={isFailingTask ? red.base : undefined}
-        orientation={isFailingTask ? "vertical" : "horizontal"}
+        orientation={
+          isFailingTask ? Orientation.Vertical : Orientation.Horizontal
+        }
       >
         {shouldTruncate ? (
           <>
@@ -131,9 +134,7 @@ const processFailingCommand = (
   systemFailureReason: string | null | undefined,
 ): string => {
   if (systemFailureReason) {
-    return (
-      toSentenceCase(systemFailureReason)
-    );
+    return systemFailureReason;
   }
   if (description === strandedDescription) {
     return isPushCompleted

@@ -199,7 +199,7 @@ describe("metadata", () => {
     expect(screen.getByText("Host Information")).toBeInTheDocument();
     expect(screen.getByTestId("cost-details-button")).toBeInTheDocument();
   });
-  it("shows a host task's system failure reason with its first letter capitalized", () => {
+  it("shows a host task's system failure reason", () => {
     render(
       <Metadata
         loading={false}
@@ -211,7 +211,7 @@ describe("metadata", () => {
     expect(command).toHaveTextContent("Failure reason");
     expect(command).not.toHaveTextContent("Failing command");
     expect(command).toHaveTextContent(
-      "Host was found in state 'stopped' (reason: Client.UserInitiatedShutdown: User initiated shutdown)",
+      "host was found in state 'stopped' (reason: Client.UserInitiatedShutdown: User initiated shutdown)",
     );
     expect(screen.queryByText("more")).not.toBeInTheDocument();
   });
@@ -229,7 +229,7 @@ describe("metadata", () => {
     expect(
       await screen.findByTestId("task-metadata-command-tooltip"),
     ).toHaveTextContent(
-      "Host was found in state 'terminated' (reason: Server.SpotInstanceTermination: Spot instance termination)",
+      "host was found in state 'terminated' (reason: Server.SpotInstanceTermination: Spot instance termination)",
     );
   });
 
@@ -257,7 +257,7 @@ describe("metadata", () => {
     const command = screen.getByTestId("task-metadata-command");
     expect(command).toHaveTextContent("Failure reason");
     expect(command).toHaveTextContent(
-      "Task has not sent a heartbeat since 2026-02-03T15:52:55Z",
+      "task has not sent a heartbeat since 2026-02-03T15:52:55Z",
     );
   });
 
@@ -282,7 +282,7 @@ describe("metadata", () => {
       { route: `/task/${taskId}`, path: "/task/:id", wrapper },
     );
     expect(screen.getByTestId("task-metadata-command")).toHaveTextContent(
-      "Agent re-requested the same task 10 times",
+      "agent re-requested the same task 10 times",
     );
   });
 });
