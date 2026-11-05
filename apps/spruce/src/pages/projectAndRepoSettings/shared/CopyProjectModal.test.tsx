@@ -313,6 +313,7 @@ const projectSettingsMock: ApolloMock<
           repotrackerDisabled: false,
           stepbackDisabled: null,
           stepbackBisect: null,
+          stepbackPushTriggers: null,
           patchingDisabled: false,
           disabledStatsCache: false,
           debugSpawnHostsDisabled: false,
