@@ -79,11 +79,9 @@ const tabMap = ({
   numStartedChildPatches,
   numSuccessChildPatches,
   setActiveTaskIds,
-  taskCount,
   versionId,
 }: {
   childVersions: ChildVersion[];
-  taskCount: number;
   isMergeQueuePatch: boolean;
   numFailedChildPatches: number;
   numStartedChildPatches: number;
@@ -96,11 +94,7 @@ const tabMap = ({
 } => ({
   [VersionPageTabs.Tasks]: (
     <Tab key="tasks-tab" data-testid="task-tab" id="task-tab" name="Tasks">
-      <Tasks
-        setActiveTaskIds={setActiveTaskIds}
-        taskCount={taskCount}
-        versionId={versionId}
-      />
+      <Tasks setActiveTaskIds={setActiveTaskIds} versionId={versionId} />
     </Tab>
   ),
   [VersionPageTabs.TaskDuration]: (
@@ -110,7 +104,7 @@ const tabMap = ({
       id="duration-tab"
       name="Task Duration"
     >
-      <TaskDuration taskCount={taskCount} versionId={versionId} />
+      <TaskDuration versionId={versionId} />
     </Tab>
   ),
   [VersionPageTabs.Changes]: (
@@ -154,7 +148,7 @@ const tabMap = ({
       id="version-timing-tab"
       name={isVariantTimingView ? "Variant Timing" : "Version Timing"}
     >
-      <VersionTiming taskCount={taskCount} versionId={versionId} />
+      <VersionTiming versionId={versionId} />
     </Tab>
   ),
 });
@@ -170,8 +164,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({
   const navigate = useNavigate();
   const [queryParams] = useQueryParams();
 
-  const { childVersions, isPatch, requester, status, taskCount } =
-    version || {};
+  const { childVersions, isPatch, requester, status } = version || {};
   const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
 
   const tabIsActive = useMemo(
@@ -198,7 +191,6 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       ? childVersions.filter((c) => c.status === PatchStatus.Success).length
       : 0;
     return tabMap({
-      taskCount: taskCount ?? 0,
       childVersions: childVersions ?? [],
       isMergeQueuePatch,
       numFailedChildPatches,
@@ -209,13 +201,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       isVariantTimingView: !!queryParams.variant,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    taskCount,
-    childVersions,
-    isMergeQueuePatch,
-    version.id,
-    queryParams.variant,
-  ]);
+  }, [childVersions, isMergeQueuePatch, version.id, queryParams.variant]);
 
   const activeTabs = useMemo(
     () =>
