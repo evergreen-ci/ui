@@ -1,7 +1,6 @@
 import { forwardRef } from "react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { statusColorMap } from "components/TaskBox";
-import { Requester } from "constants/requesters";
 import { useDateFormat } from "hooks";
 import {
   stickyHeaderScrollOffset,
@@ -27,13 +26,12 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
     const { baseTaskId, currentTask, isPatch, selectedTask, setHoveredTask } =
       useTaskHistoryContext();
 
-    const { displayStatus, id: taskId, requester } = task;
+    const { displayStatus, id: taskId } = task;
 
     const isCurrentTask = isPatch
       ? taskId === baseTaskId
       : taskId === currentTask.id;
     const isSelectedTask = taskId === selectedTask;
-    const isTrigger = requester === Requester.Trigger;
 
     const ingestTime = getTaskIngestTime(task);
     const ingestDate = new Date(ingestTime ?? "");
@@ -62,7 +60,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
         {...walkthroughCommitCardProps}
       >
         <Header dateCopy={dateCopy} isCurrentTask={isCurrentTask} task={task} />
-        <CommitInfo isTrigger={isTrigger} task={task} />
+        <CommitInfo task={task} />
         <CommitMessage task={task} />
       </div>
     );

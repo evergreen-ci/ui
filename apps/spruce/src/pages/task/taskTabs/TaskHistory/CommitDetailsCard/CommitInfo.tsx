@@ -1,18 +1,19 @@
 import { useTaskHistoryAnalytics } from "analytics";
 import { BasedOnVersion, CommitSource } from "components/CommitLabel";
+import { Requester } from "constants/requesters";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
 import { TaskHistoryTask } from "../types";
 import styles from "./CommitDetailsCard.module.css";
 
 interface CommitInfoProps {
-  isTrigger: boolean;
   task: TaskHistoryTask;
 }
 
-export const CommitInfo: React.FC<CommitInfoProps> = ({ isTrigger, task }) => {
+export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
   const { sendEvent } = useTaskHistoryAnalytics();
-  const { id: taskId, version } = task;
+  const { id: taskId, requester, version } = task;
+  const isTrigger = requester === Requester.Trigger;
 
   return (
     <div className={styles.row}>
