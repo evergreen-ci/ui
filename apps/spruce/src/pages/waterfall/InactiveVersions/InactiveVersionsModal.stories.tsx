@@ -19,6 +19,7 @@ import {
   versionWithUpstreamProject,
 } from "../testData";
 import { Version } from "../types";
+import { getVersionBasedOnMock } from "../VersionLabel/testData";
 import styles from "./InactiveVersionsModal.stories.module.css";
 import { InactiveVersionsButton } from ".";
 
@@ -155,7 +156,10 @@ export const ModuleGrouping: StoryObj<typeof InactiveVersionsButton> = {
         getUserSettingsMock,
         ...moduleGroupingVersions
           .filter(({ requester }) => requester === Requester.Trigger)
-          .map(({ id }) => upstreamProjectMock(id, moduleRevisions[id])),
+          .flatMap(({ id }) => [
+            upstreamProjectMock(id, moduleRevisions[id]),
+            getVersionBasedOnMock(id),
+          ]),
       ],
     },
   },

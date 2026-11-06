@@ -22,14 +22,6 @@
   background-color: var(--via-color-blue-100);
 }
 
-.versionContainer[data-view="waterfall"] .commitMessage {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-}
-
 .date {
   color: var(--via-color-neutral-500);
 }
