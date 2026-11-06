@@ -26,6 +26,7 @@ export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
         showRepo
         version={version}
       />
+      {isTrigger && <span aria-hidden>&middot;</span>}
       <BasedOnVersion isTrigger={isTrigger} showRepo versionId={version.id} />
     </div>
   );
