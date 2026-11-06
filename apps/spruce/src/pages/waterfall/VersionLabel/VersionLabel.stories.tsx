@@ -22,7 +22,7 @@ export default {
   title: "Pages/Waterfall/VersionLabel",
   component: VersionLabel,
   args: {
-    view: VersionLabelView.Modal,
+    view: VersionLabelView.Waterfall,
   },
   argTypes: {
     view: {
