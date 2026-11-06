@@ -8,6 +8,7 @@ import {
   VersionUpstreamProjectQueryVariables,
 } from "gql/generated/types";
 import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
+import { getDisplayRevision } from "utils/string";
 import styles from "./CommitSource.module.css";
 
 interface CommitSourceProps {
@@ -27,8 +28,8 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
   isTrigger,
   onHashClick,
   onModuleClick,
-  repo: baseRepo,
-  revision: baseRevision,
+  repo,
+  revision,
   versionId,
 }) => {
   const { data } = useQuery<
@@ -39,10 +40,9 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
     isTrigger ? { variables: { versionId } } : skipToken,
   );
   const upstreamProject = data?.version?.upstreamProject;
-  const revision = isTrigger ? upstreamProject?.revision : baseRevision;
 
-  const repoOwner = isTrigger ? upstreamProject?.owner : baseRepo?.owner;
-  const repoName = isTrigger ? upstreamProject?.repo : baseRepo?.repo;
+  const repoOwner = isTrigger ? upstreamProject?.owner : repo?.owner;
+  const repoName = isTrigger ? upstreamProject?.repo : repo?.repo;
   const hasRepo = repoOwner && repoName;
 
   return (
@@ -50,7 +50,7 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
       <RevisionLink
         data-testid={dataTestId}
         onClick={onHashClick}
-        revision={revision ?? "000000"}
+        revision={getDisplayRevision({ revision, upstreamProject })}
         to={hashHref}
       />
       {hasRepo && (

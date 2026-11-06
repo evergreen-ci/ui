@@ -1,8 +1,8 @@
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { VersionQuery } from "gql/generated/types";
 import { useBreadcrumbRoot } from "hooks";
+import { getDisplayRevision } from "utils/string";
 
 interface VersionPageBreadcrumbsProps {
   patchNumber?: number;
@@ -13,8 +13,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   patchNumber,
   versionMetadata,
 }) => {
-  const { isPatch, projectMetadata, revision, upstreamProject, user } =
-    versionMetadata;
+  const { isPatch, projectMetadata, user } = versionMetadata;
   const breadcrumbRoot = useBreadcrumbRoot(
     isPatch,
     user,
@@ -34,7 +33,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   };
 
   const commitBreadcrumb = {
-    text: shortenGithash(upstreamProject?.revision ?? revision),
+    text: getDisplayRevision(versionMetadata),
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
         name: "Clicked link",

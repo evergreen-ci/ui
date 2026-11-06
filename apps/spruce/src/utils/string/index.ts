@@ -1,4 +1,5 @@
 import { format, toZonedTime } from "date-fns-tz";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TimeFormat } from "constants/time";
 
 export { githubPRLinkify, jiraLinkify } from "./Linkify";
@@ -181,3 +182,19 @@ export const getTicketFromJiraURL = (jiraURL: string) => {
   const ticketNumber = jiraURL.match(/[A-Z]+-[0-9]+/)?.[0];
   return ticketNumber;
 };
+
+/**
+ * Trigger versions use their upstream revision to identify them.
+ * All other versions use their own revision.
+ * @param args - arguments for the function
+ * @param args.revision - The revision of the commit.
+ * @param args.upstreamProject - The upstream project associated with the commit.
+ * @returns The shortened revision (which is the upstream revision if available, otherwise the commit's own revision)
+ */
+export const getDisplayRevision = ({
+  revision,
+  upstreamProject,
+}: {
+  revision: string;
+  upstreamProject?: { revision: string } | null;
+}) => shortenGithash(upstreamProject?.revision ?? revision);
