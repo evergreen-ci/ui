@@ -4,3 +4,9 @@
   flex-wrap: wrap;
   gap: var(--via-space-100);
 }
+
+.githubIcon {
+  display: inline-flex;
+  vertical-align: text-bottom;
+  margin-right: var(--via-space-100);
+}

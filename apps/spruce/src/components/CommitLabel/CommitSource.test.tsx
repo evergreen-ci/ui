@@ -41,7 +41,7 @@ const upstreamProjectMock: ApolloMock<
           __typename: "UpstreamProject",
           owner: "10gen",
           project: "upstream-project",
-          repo: "dsi",
+          repo: "docs",
           revision: "9a3f1c7e5b2d48a6f0c1e3d5b7a9c2e4f6081a3d",
           task: {
             __typename: "Task",
@@ -81,6 +81,10 @@ describe("commitSource", () => {
     it("renders the version's own repo only when showRepo is set", () => {
       renderComponent({ showRepo: true, version: commitVersion });
       expect(screen.getByText("in evergreen-ci/ui")).toBeVisible();
+      expect(screen.getByTestId("github-link")).toHaveAttribute(
+        "href",
+        "https://github.com/evergreen-ci/ui/commit/abcdef123456",
+      );
       expect(screen.queryByTestId("separator")).not.toBeInTheDocument();
     });
 
@@ -100,9 +104,13 @@ describe("commitSource", () => {
       expect(screen.getByText("9a3f1c7")).toBeVisible();
     });
 
-    it("renders the upstream repo and a separator when showRepo is set", async () => {
+    it("renders the upstream repo, linked to the upstream commit, and a separator when showRepo is set", async () => {
       renderComponent({ showRepo: true, version: triggerVersion });
-      expect(await screen.findByText("in 10gen/dsi")).toBeVisible();
+      expect(await screen.findByText("in 10gen/docs")).toBeVisible();
+      expect(screen.getByTestId("github-link")).toHaveAttribute(
+        "href",
+        "https://github.com/10gen/docs/commit/9a3f1c7e5b2d48a6f0c1e3d5b7a9c2e4f6081a3d",
+      );
       expect(screen.getByTestId("separator")).toBeInTheDocument();
     });
 

@@ -1,3 +1,4 @@
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
@@ -30,7 +31,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
 
   const messagePrefix = isPatch
     ? `Patch ${patchNumber}`
-    : getDisplayRevision(versionMetadata);
+    : shortenGithash(getDisplayRevision(versionMetadata));
 
   const messageBreadcrumb = {
     to: getVersionRoute(id),

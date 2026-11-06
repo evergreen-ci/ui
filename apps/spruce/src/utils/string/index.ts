@@ -1,5 +1,4 @@
 import { format, toZonedTime } from "date-fns-tz";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TimeFormat } from "constants/time";
 
 export { githubPRLinkify, jiraLinkify } from "./Linkify";
@@ -189,7 +188,7 @@ export const getTicketFromJiraURL = (jiraURL: string) => {
  * @param args - arguments for the function
  * @param args.revision - The revision of the commit.
  * @param args.upstreamProject - The upstream project associated with the commit.
- * @returns The shortened revision (which is the upstream revision if available, otherwise the commit's own revision)
+ * @returns The revision to display (upstream revision if available, otherwise commit's own revision)
  */
 export const getDisplayRevision = ({
   revision,
@@ -197,4 +196,4 @@ export const getDisplayRevision = ({
 }: {
   revision: string;
   upstreamProject?: { revision: string } | null;
-}) => shortenGithash(upstreamProject?.revision ?? revision);
+}) => upstreamProject?.revision ?? revision;

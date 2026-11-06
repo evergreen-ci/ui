@@ -1,3 +1,4 @@
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { VersionQuery } from "gql/generated/types";
@@ -33,7 +34,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   };
 
   const commitBreadcrumb = {
-    text: getDisplayRevision(versionMetadata),
+    text: shortenGithash(getDisplayRevision(versionMetadata)),
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
         name: "Clicked link",

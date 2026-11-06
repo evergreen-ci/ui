@@ -1,7 +1,10 @@
 import { skipToken, useQuery } from "@apollo/client/react";
+import { Link } from "@leafygreen-ui/typography";
 import { Body } from "@via-ds/components";
+import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { RevisionLink } from "components/RevisionLink";
+import { getGithubCommitUrl } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import { getTriggerRoute } from "constants/routes";
 import {
@@ -46,18 +49,32 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
   );
   const upstreamProject = data?.version?.upstreamProject;
   const displayRepo = showRepo ? (upstreamProject ?? projectMetadata) : null;
+  const displayRevision = getDisplayRevision({ revision, upstreamProject });
 
   return (
     <div className={styles.container}>
       <RevisionLink
         data-testid={dataTestId}
         onClick={onHashClick}
-        revision={getDisplayRevision({ revision, upstreamProject })}
+        revision={displayRevision}
         to={hashHref}
       />
       {displayRepo && (
         <Body>
-          in {displayRepo.owner}/{displayRepo.repo}
+          <Link
+            data-testid="github-link"
+            hideExternalIcon
+            href={getGithubCommitUrl(
+              displayRepo.owner,
+              displayRepo.repo,
+              displayRevision,
+            )}
+          >
+            <span className={styles.githubIcon}>
+              <Icon glyph="GitHub" />
+            </span>
+            in {displayRepo.owner}/{displayRepo.repo}
+          </Link>
         </Body>
       )}
       {displayRepo && isTrigger && (
