@@ -4326,6 +4326,7 @@ export type TaskEndDetail = {
   oomTracker: OomTrackerInfo;
   otherFailingCommands: Array<FailingCommand>;
   status: Scalars["String"]["output"];
+  systemFailureReason?: Maybe<Scalars["String"]["output"]>;
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
   timeoutType?: Maybe<Scalars["String"]["output"]>;
   traceID?: Maybe<Scalars["String"]["output"]>;
@@ -5046,6 +5047,11 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
+  /**
+   * The mainline version this version is based on. If repotrackerOnly is true, only a version created by the
+   * repotracker (gitter_request) is returned. Otherwise, the base version can have any mainline requester:
+   * gitter_request, trigger_request, ad_hoc, or git_tag_request.
+   */
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
@@ -5089,6 +5095,11 @@ export type Version = {
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
+};
+
+/** Version models a commit within a project. */
+export type VersionBaseVersionArgs = {
+  repotrackerOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Version models a commit within a project. */
