@@ -12,10 +12,10 @@ import { useDateFormat } from "hooks";
 import styles from "./index.module.css";
 
 interface Props {
-  version: Unpacked<MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions>;
   onClickGithash?: () => void;
   onClickJiraTicket?: () => void;
   onClickUpstreamProject?: () => void;
+  version: Unpacked<MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions>;
 }
 
 const CommitChartLabel: React.FC<Props> = ({
