@@ -21,6 +21,7 @@ export default {
 
 const taskWithTestSelection: NonNullable<TaskQuery["task"]> = {
   ...taskQuery.task,
+  canQuarantine: true,
   testSelectionEnabled: true,
 };
 
@@ -61,6 +62,15 @@ export const TestSelectionDisabled: CustomStoryObj<typeof ActionMenu> = {
   render: () => (
     <ActionMenu
       task={{ ...taskWithTestSelection, testSelectionEnabled: false }}
+      test={failingTest}
+    />
+  ),
+};
+
+export const NoQuarantinePermission: CustomStoryObj<typeof ActionMenu> = {
+  render: () => (
+    <ActionMenu
+      task={{ ...taskWithTestSelection, canQuarantine: false }}
       test={failingTest}
     />
   ),
