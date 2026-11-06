@@ -1,55 +1,33 @@
-import { IconButton } from "@leafygreen-ui/icon-button";
-import Icon from "@evg-ui/lib/components/Icon";
 import { useTaskHistoryAnalytics } from "analytics";
-import { BasedOnVersion } from "components/BasedOnVersion";
-import { RevisionLink } from "components/RevisionLink";
-import { UpstreamProjectLink } from "components/UpstreamProjectLink";
-import { getGithubCommitUrl } from "constants/externalResources";
+import { BasedOnVersion, CommitSource } from "components/CommitLabel";
+import { Requester } from "constants/requesters";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
-import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
 import styles from "./CommitDetailsCard.module.css";
 
 interface CommitInfoProps {
-  isTrigger: boolean;
   task: TaskHistoryTask;
 }
 
-export const CommitInfo: React.FC<CommitInfoProps> = ({ isTrigger, task }) => {
+export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
   const { sendEvent } = useTaskHistoryAnalytics();
-
-  const { id: taskId, revision, version } = task;
-  const { id: versionId } = version;
-
-  const { currentTask } = useTaskHistoryContext();
-  const owner = currentTask.project?.owner;
-  const repo = currentTask.project?.repo;
-  const githubCommitUrl =
-    owner && repo && revision ? getGithubCommitUrl(owner, repo, revision) : "";
+  const { id: taskId, requester, version } = task;
+  const isTrigger = requester === Requester.Trigger;
 
   return (
     <div className={styles.row}>
-      <RevisionLink
+      <CommitSource
         data-testid="task-link"
-        onClick={() =>
+        hashHref={getTaskRoute(taskId, { tab: TaskTab.History })}
+        onHashClick={() =>
           sendEvent({ name: "Clicked task link", "task.id": taskId })
         }
-        revision={revision ?? ""}
-        to={getTaskRoute(taskId, { tab: TaskTab.History })}
+        showRepo
+        version={version}
       />
-      {githubCommitUrl && (
-        <IconButton
-          aria-label="GitHub Commit Link"
-          data-testid="github-link"
-          href={githubCommitUrl}
-          target="_blank"
-        >
-          <Icon glyph="GitHub" />
-        </IconButton>
-      )}
-      <UpstreamProjectLink isTrigger={isTrigger} versionId={versionId} />
-      <BasedOnVersion isTrigger={isTrigger} showRepo versionId={versionId} />
+      {isTrigger && <span aria-hidden>&middot;</span>}
+      <BasedOnVersion isTrigger={isTrigger} showRepo versionId={version.id} />
     </div>
   );
 };

@@ -245,11 +245,11 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
             if (version) {
               return (
                 <VersionLabel
+                  key={version.id}
                   highlighted={isHighlighted(version, versionIndex)}
                   isFirstVersion={version.id === firstActiveVersionId}
+                  version={version}
                   view={VersionLabelView.Waterfall}
-                  {...version}
-                  key={version.id}
                 />
               );
             }

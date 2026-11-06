@@ -181,12 +181,6 @@ describe("CommitDetailsCard component", () => {
       <CommitDetailsCard isMatching task={task} />,
     );
     renderWithRouterMatch(<Component />, { wrapper });
-    const githubLink = screen.getByTestId("github-link");
-    expect(githubLink).toHaveAttribute(
-      "href",
-      `https://github.com/${taskQuery.task?.project?.owner}/${taskQuery.task?.project?.repo}/commit/${task.revision}`,
-    );
-
     const taskLink = screen.getByTestId("task-link");
     expect(taskLink).toHaveAttribute("href", `/task/${task.id}/history`);
   });

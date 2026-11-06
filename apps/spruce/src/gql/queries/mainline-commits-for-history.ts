@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { UPSTREAM_PROJECT } from "../fragments/upstreamProject";
 
 export const MAINLINE_COMMITS_FOR_HISTORY = gql`
   query MainlineCommitsForHistory(
@@ -22,6 +21,7 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
           }
           message
           order
+          requester
           revision
           user {
             displayName
@@ -29,7 +29,6 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
           }
         }
         version {
-          ...UpstreamProject
           id
           buildVariants(options: $buildVariantOptions) {
             displayName
@@ -48,6 +47,7 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
           }
           message
           order
+          requester
           revision
           user {
             displayName
@@ -57,5 +57,4 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
       }
     }
   }
-  ${UPSTREAM_PROJECT}
 `;

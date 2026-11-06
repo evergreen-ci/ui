@@ -38,6 +38,13 @@ export const TASK_HISTORY = gql`
         version {
           id
           message
+          projectMetadata {
+            id
+            owner
+            repo
+          }
+          requester
+          revision
           user {
             id
             displayName

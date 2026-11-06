@@ -10,6 +10,7 @@ import { context, types } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
 import { CommitRowType } from "components/HistoryTable/types";
+import { Requester } from "constants/requesters";
 import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
@@ -232,6 +233,7 @@ const taskRow: CommitRowType = {
     createTime: new Date("2021-09-02T14:20:04Z"),
     message:
       "EVG-15213: Reference a project’s configuration when interacting with perf plugin configs (#4992)",
+    requester: Requester.Gitter,
     revision: "d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     order: 3399,
     buildVariants: [

@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--via-space-100);
+}
+
+.text.text {
+  font-size: inherit;
+}
+
+.githubIcon {
+  display: inline-flex;
+  vertical-align: text-bottom;
+  margin-right: var(--via-space-100);
+}
