@@ -2,10 +2,10 @@ import { renderWithRouterMatch, screen } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { Requester } from "constants/requesters";
 import {
-  VersionUpstreamProjectQuery,
-  VersionUpstreamProjectQueryVariables,
+  VersionTriggerInfoQuery,
+  VersionTriggerInfoQueryVariables,
 } from "gql/generated/types";
-import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
+import { VERSION_TRIGGER_INFO } from "gql/queries";
 import { MockedProvider } from "test_utils/graphql";
 import { ProjectTriggerLevel } from "types/triggers";
 import { CommitSource } from "./CommitSource";
@@ -25,11 +25,11 @@ const triggerVersion: Props["version"] = {
 };
 
 const upstreamProjectMock: ApolloMock<
-  VersionUpstreamProjectQuery,
-  VersionUpstreamProjectQueryVariables
+  VersionTriggerInfoQuery,
+  VersionTriggerInfoQueryVariables
 > = {
   request: {
-    query: VERSION_UPSTREAM_PROJECT,
+    query: VERSION_TRIGGER_INFO,
     variables: { versionId: "v1" },
   },
   result: {
@@ -37,6 +37,7 @@ const upstreamProjectMock: ApolloMock<
       version: {
         __typename: "Version",
         id: "v1",
+        repotrackerBaseVersion: null,
         upstreamProject: {
           __typename: "UpstreamProject",
           owner: "10gen",

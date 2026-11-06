@@ -1,15 +1,9 @@
 import { StoryObj } from "@storybook/react-vite";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { Requester } from "constants/requesters";
-import {
-  VersionUpstreamProjectQuery,
-  VersionUpstreamProjectQueryVariables,
-} from "gql/generated/types";
 import {
   getSpruceConfigMock,
   getUserSettingsMock,
 } from "gql/mocks/getSpruceConfig";
-import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
 import {
   inactiveBrokenVersion,
   inactiveVersion,
@@ -19,7 +13,10 @@ import {
   versionWithUpstreamProject,
 } from "../testData";
 import { Version } from "../types";
-import { getVersionBasedOnMock } from "../VersionLabel/testData";
+import {
+  UpstreamProject,
+  getVersionTriggerInfoMock,
+} from "../VersionLabel/testData";
 import styles from "./InactiveVersionsModal.stories.module.css";
 import { InactiveVersionsButton } from ".";
 
@@ -89,35 +86,15 @@ const getModuleVersion = (
   ...overrides,
 });
 
-const upstreamProjectMock = (
-  versionId: string,
-  revision: string,
-): ApolloMock<
-  VersionUpstreamProjectQuery,
-  VersionUpstreamProjectQueryVariables
-> => ({
-  request: {
-    query: VERSION_UPSTREAM_PROJECT,
-    variables: { versionId },
-  },
-  result: {
-    data: {
-      version: {
-        __typename: "Version",
-        id: versionId,
-        upstreamProject: {
-          owner: "10gen",
-          project: "dsi",
-          repo: "dsi",
-          revision,
-          task: { execution: 0, id: "dsi_task", displayName: "DSI Task" },
-          triggerID: "12345",
-          triggerType: "task",
-          version: { id: "dsi_version" },
-        },
-      },
-    },
-  },
+const getUpstreamProject = (revision: string): UpstreamProject => ({
+  owner: "10gen",
+  project: "dsi",
+  repo: "dsi",
+  revision,
+  task: { execution: 0, id: "dsi_task", displayName: "DSI Task" },
+  triggerID: "12345",
+  triggerType: "task",
+  version: { id: "dsi_version" },
 });
 
 const moduleRevisions: Record<string, string> = {
@@ -156,10 +133,12 @@ export const ModuleGrouping: StoryObj<typeof InactiveVersionsButton> = {
         getUserSettingsMock,
         ...moduleGroupingVersions
           .filter(({ requester }) => requester === Requester.Trigger)
-          .flatMap(({ id }) => [
-            upstreamProjectMock(id, moduleRevisions[id]),
-            getVersionBasedOnMock(id),
-          ]),
+          .map(({ id }) =>
+            getVersionTriggerInfoMock(
+              id,
+              getUpstreamProject(moduleRevisions[id]),
+            ),
+          ),
       ],
     },
   },

@@ -1,8 +1,10 @@
 import { gql } from "@apollo/client";
+import { UPSTREAM_PROJECT } from "../fragments/upstreamProject";
 
-export const VERSION_BASED_ON = gql`
-  query VersionBasedOn($versionId: String!) {
+export const VERSION_TRIGGER_INFO = gql`
+  query VersionTriggerInfo($versionId: String!) {
     version(versionId: $versionId) {
+      ...UpstreamProject
       id
       repotrackerBaseVersion: baseVersion(repotrackerOnly: true) {
         id
@@ -21,4 +23,5 @@ export const VERSION_BASED_ON = gql`
       }
     }
   }
+  ${UPSTREAM_PROJECT}
 `;

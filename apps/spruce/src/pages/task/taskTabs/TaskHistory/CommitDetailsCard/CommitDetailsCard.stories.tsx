@@ -6,8 +6,8 @@ import { Requester } from "constants/requesters";
 import { TaskQuery, TestResult } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import {
-  getVersionBasedOnMock,
-  getVersionUpstreamProjectMock,
+  UpstreamProject,
+  getVersionTriggerInfoMock,
 } from "pages/waterfall/VersionLabel/testData";
 import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
@@ -16,29 +16,16 @@ import CommitDetailsCard from ".";
 const TRIGGER_VERSION_ID =
   "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a";
 
-const getUpstreamProjectMock = (
-  triggerType: string,
-): typeof getVersionUpstreamProjectMock => ({
-  ...getVersionUpstreamProjectMock,
-  result: {
-    data: {
-      version: {
-        __typename: "Version",
-        id: TRIGGER_VERSION_ID,
-        upstreamProject: {
-          owner: "evergreen-ci",
-          project: "evergreen",
-          repo: "evergreen",
-          revision: "ed0e891754059eb7055c8c82752dedf1a35a87a6",
-          task: { execution: 0, id: "678", displayName: "Task 678" },
-          triggerID: "12345",
-          triggerType,
-          version: { id: "9876" },
-        },
-      },
-    },
-  },
-});
+const upstreamProject: UpstreamProject = {
+  owner: "evergreen-ci",
+  project: "evergreen",
+  repo: "evergreen",
+  revision: "ed0e891754059eb7055c8c82752dedf1a35a87a6",
+  task: { execution: 0, id: "678", displayName: "Task 678" },
+  triggerID: "12345",
+  triggerType: "task",
+  version: { id: "9876" },
+};
 
 type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
   activated: boolean;
@@ -103,7 +90,7 @@ export default {
   },
   parameters: {
     apolloClient: {
-      mocks: [getVersionUpstreamProjectMock],
+      mocks: [getVersionTriggerInfoMock(TRIGGER_VERSION_ID)],
     },
   },
 } satisfies CustomMeta<CommitDetailsCardType>;
@@ -138,8 +125,10 @@ export const WithTrigger: CustomStoryObj<TemplateProps> = {
   parameters: {
     apolloClient: {
       mocks: [
-        getUpstreamProjectMock("push"),
-        getVersionBasedOnMock(TRIGGER_VERSION_ID),
+        getVersionTriggerInfoMock(TRIGGER_VERSION_ID, {
+          ...upstreamProject,
+          triggerType: "push",
+        }),
       ],
     },
   },

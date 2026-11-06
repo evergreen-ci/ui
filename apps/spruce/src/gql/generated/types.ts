@@ -12365,32 +12365,6 @@ export type UserQuery = {
   };
 };
 
-export type VersionBasedOnQueryVariables = Exact<{
-  versionId: Scalars["String"]["input"];
-}>;
-
-export type VersionBasedOnQuery = {
-  __typename?: "Query";
-  version: {
-    __typename?: "Version";
-    id: string;
-    repotrackerBaseVersion?: {
-      __typename?: "Version";
-      id: string;
-      createTime: Date;
-      message: string;
-      revision: string;
-      projectMetadata?: {
-        __typename?: "Project";
-        id: string;
-        owner: string;
-        repo: string;
-      } | null;
-      user: { __typename?: "User"; id: string; displayName?: string | null };
-    } | null;
-  };
-};
-
 export type VersionQuarantinedTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
 }>;
@@ -12563,15 +12537,29 @@ export type VersionTasksQuery = {
   };
 };
 
-export type VersionUpstreamProjectQueryVariables = Exact<{
+export type VersionTriggerInfoQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
 }>;
 
-export type VersionUpstreamProjectQuery = {
+export type VersionTriggerInfoQuery = {
   __typename?: "Query";
   version: {
     __typename?: "Version";
     id: string;
+    repotrackerBaseVersion?: {
+      __typename?: "Version";
+      id: string;
+      createTime: Date;
+      message: string;
+      revision: string;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
+      user: { __typename?: "User"; id: string; displayName?: string | null };
+    } | null;
     upstreamProject?: {
       __typename?: "UpstreamProject";
       owner: string;

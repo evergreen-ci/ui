@@ -1,4 +1,3 @@
-import { skipToken, useQuery } from "@apollo/client/react";
 import { Link } from "@leafygreen-ui/typography";
 import { Body } from "@via-ds/components";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -7,13 +6,9 @@ import { RevisionLink } from "components/RevisionLink";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import { getTriggerRoute } from "constants/routes";
-import {
-  VersionUpstreamProjectQuery,
-  VersionUpstreamProjectQueryVariables,
-} from "gql/generated/types";
-import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
 import { getDisplayRevision } from "utils/string";
 import styles from "./CommitSource.module.css";
+import { useVersionTriggerInfo } from "./useVersionTriggerInfo";
 
 interface CommitSourceProps {
   "data-testid"?: string;
@@ -40,14 +35,7 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
   const { id, projectMetadata, requester, revision } = version;
   const isTrigger = requester === Requester.Trigger;
 
-  const { data } = useQuery<
-    VersionUpstreamProjectQuery,
-    VersionUpstreamProjectQueryVariables
-  >(
-    VERSION_UPSTREAM_PROJECT,
-    isTrigger ? { variables: { versionId: id } } : skipToken,
-  );
-  const upstreamProject = data?.version?.upstreamProject;
+  const { upstreamProject } = useVersionTriggerInfo(isTrigger, id);
   const displayRepo = showRepo ? (upstreamProject ?? projectMetadata) : null;
   const displayRevision = getDisplayRevision({ revision, upstreamProject });
 

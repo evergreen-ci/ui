@@ -11,10 +11,7 @@ import {
   versionWithGitTag,
   versionWithUpstreamProject,
 } from "../testData";
-import {
-  getVersionBasedOnMock,
-  getVersionUpstreamProjectMock,
-} from "./testData";
+import { getVersionTriggerInfoMock } from "./testData";
 import styles from "./VersionLabel.stories.module.css";
 import { VersionLabel, VersionLabelView } from ".";
 
@@ -63,8 +60,7 @@ export const UpstreamProject: StoryObj<typeof VersionLabel> = {
         getTaskStatsMock(versionWithUpstreamProject.id),
         getSpruceConfigMock,
         getUserSettingsMock,
-        getVersionUpstreamProjectMock,
-        getVersionBasedOnMock(versionWithUpstreamProject.id),
+        getVersionTriggerInfoMock(versionWithUpstreamProject.id),
       ],
     },
   },

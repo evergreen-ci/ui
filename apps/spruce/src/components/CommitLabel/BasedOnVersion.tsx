@@ -1,17 +1,12 @@
-import { skipToken, useQuery } from "@apollo/client/react";
 import { Align, InfoSprinkle, Side } from "@via-ds/components";
 import { Body } from "@via-ds/components/typography";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { RevisionLink } from "components/RevisionLink";
 import { getVersionRoute } from "constants/routes";
-import {
-  VersionBasedOnQuery,
-  VersionBasedOnQueryVariables,
-} from "gql/generated/types";
-import { VERSION_BASED_ON } from "gql/queries";
 import { useDateFormat } from "hooks";
 import styles from "./BasedOnVersion.module.css";
 import { CommitDescription } from "./CommitDescription";
+import { useVersionTriggerInfo } from "./useVersionTriggerInfo";
 
 const MAX_MESSAGE_LENGTH = 150;
 
@@ -30,12 +25,10 @@ export const BasedOnVersion: React.FC<BasedOnVersionProps> = ({
 }) => {
   const getDateCopy = useDateFormat();
 
-  const { data } = useQuery<VersionBasedOnQuery, VersionBasedOnQueryVariables>(
-    VERSION_BASED_ON,
-    isTrigger ? { variables: { versionId } } : skipToken,
+  const { repotrackerBaseVersion: basedOnVersion } = useVersionTriggerInfo(
+    isTrigger,
+    versionId,
   );
-
-  const basedOnVersion = data?.version?.repotrackerBaseVersion;
 
   if (!isTrigger || !basedOnVersion) {
     return null;
