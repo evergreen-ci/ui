@@ -2809,6 +2809,7 @@ export type Project = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<TaskOwnershipSettings>;
   testSelection?: Maybe<TestSelectionSettings>;
@@ -2963,6 +2964,7 @@ export type ProjectInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -3012,6 +3014,7 @@ export type ProjectLite = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
@@ -3470,6 +3473,7 @@ export type RepoRef = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
+  stepbackPushTriggers: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<RepoTaskOwnershipSettings>;
   testSelection?: Maybe<RepoTestSelectionSettings>;
@@ -3522,6 +3526,7 @@ export type RepoRefInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -4323,6 +4328,7 @@ export type TaskEndDetail = {
   oomTracker: OomTrackerInfo;
   otherFailingCommands: Array<FailingCommand>;
   status: Scalars["String"]["output"];
+  systemFailureReason?: Maybe<Scalars["String"]["output"]>;
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
   timeoutType?: Maybe<Scalars["String"]["output"]>;
   traceID?: Maybe<Scalars["String"]["output"]>;
@@ -5043,6 +5049,11 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
+  /**
+   * The mainline version this version is based on. If repotrackerOnly is true, only a version created by the
+   * repotracker (gitter_request) is returned. Otherwise, the base version can have any mainline requester:
+   * gitter_request, trigger_request, ad_hoc, or git_tag_request.
+   */
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
@@ -5086,6 +5097,11 @@ export type Version = {
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
+};
+
+/** Version models a commit within a project. */
+export type VersionBaseVersionArgs = {
+  repotrackerOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Version models a commit within a project. */
@@ -5194,9 +5210,11 @@ export type WaterfallOptions = {
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
   taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
   variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  variantTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
