@@ -177,6 +177,8 @@ const getStoryTask = (args: TemplateProps) => {
       }
     : tasks[0];
 
+  const requester = args.isTrigger ? Requester.Trigger : task.requester;
+
   return {
     ...task,
     activated: args.activated,
@@ -185,11 +187,13 @@ const getStoryTask = (args: TemplateProps) => {
     canSchedule: args.canSchedule,
     execution: args.execution,
     priority: args.priority ?? task.priority,
-    requester: args.isTrigger ? Requester.Trigger : task.requester,
+    requester,
     version: {
       ...task.version,
       id: args.isTrigger ? TRIGGER_VERSION_ID : task.version.id,
       message: args.message,
+      projectMetadata: { id: "evergreen", owner: "evergreen-ci", repo: "ui" },
+      requester,
     },
   };
 };
