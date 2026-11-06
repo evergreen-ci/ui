@@ -20,13 +20,11 @@ export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
       <CommitSource
         data-testid="task-link"
         hashHref={getTaskRoute(taskId, { tab: TaskTab.History })}
-        isTrigger={isTrigger}
         onHashClick={() =>
           sendEvent({ name: "Clicked task link", "task.id": taskId })
         }
-        repo={version.projectMetadata}
-        revision={version.revision}
-        versionId={version.id}
+        showRepo
+        version={version}
       />
       <BasedOnVersion isTrigger={isTrigger} showRepo versionId={version.id} />
     </div>

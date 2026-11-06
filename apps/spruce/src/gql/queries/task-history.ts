@@ -43,6 +43,7 @@ export const TASK_HISTORY = gql`
             owner
             repo
           }
+          requester
           revision
           user {
             id

@@ -1,41 +1,33 @@
 import { Body } from "@leafygreen-ui/typography";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import {
   BasedOnVersion,
   CommitDescription,
   CommitSource,
 } from "components/CommitLabel";
+import { MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions } from "components/HistoryTable/types";
+import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
-import { GitTag } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import styles from "./index.module.css";
 
 interface Props {
-  githash: string;
-  gitTags?: GitTag[] | null;
-  createTime: Date;
-  author: string;
-  message: string;
-  versionId: string;
+  version: Unpacked<MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions>;
   onClickGithash?: () => void;
   onClickJiraTicket?: () => void;
   onClickUpstreamProject?: () => void;
-  isTrigger?: boolean;
 }
 
 const CommitChartLabel: React.FC<Props> = ({
-  author,
-  createTime,
-  gitTags,
-  githash,
-  isTrigger = false,
-  message,
   onClickGithash = () => {},
   onClickJiraTicket = () => {},
   onClickUpstreamProject = () => {},
-  versionId,
+  version,
 }) => {
   const getDateCopy = useDateFormat();
+  const { createTime, gitTags, id, message, requester, user } = version;
   const createDate = new Date(createTime);
+  const isTrigger = requester === Requester.Trigger;
 
   return (
     <div className={styles.labelContainer} data-testid="commit-label">
@@ -46,15 +38,13 @@ const CommitChartLabel: React.FC<Props> = ({
       </div>
       <CommitSource
         data-testid="githash-link"
-        hashHref={getVersionRoute(versionId)}
-        isTrigger={isTrigger}
+        hashHref={getVersionRoute(id)}
         onHashClick={onClickGithash}
         onModuleClick={onClickUpstreamProject}
-        revision={githash}
-        versionId={versionId}
+        version={version}
       />
       <CommitDescription
-        author={author}
+        author={user.displayName ?? user.userId}
         className={styles.labelText}
         inline
         lineClamp={isTrigger ? 2 : 3}
@@ -63,7 +53,7 @@ const CommitChartLabel: React.FC<Props> = ({
         onJiraLinkClick={onClickJiraTicket}
         title={message}
       />
-      <BasedOnVersion isTrigger={isTrigger} versionId={versionId} />
+      <BasedOnVersion isTrigger={isTrigger} versionId={id} />
       {gitTags && (
         <Body className={styles.labelText}>
           Git Tags: {gitTags.map((g) => g.tag).join(", ")}

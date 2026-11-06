@@ -11496,6 +11496,7 @@ export type TaskHistoryQuery = {
         __typename?: "Version";
         id: string;
         message: string;
+        requester: string;
         revision: string;
         projectMetadata?: {
           __typename?: "Project";

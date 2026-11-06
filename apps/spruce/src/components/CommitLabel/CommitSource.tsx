@@ -2,6 +2,7 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { Body } from "@via-ds/components";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { RevisionLink } from "components/RevisionLink";
+import { Requester } from "constants/requesters";
 import { getTriggerRoute } from "constants/routes";
 import {
   VersionUpstreamProjectQuery,
@@ -14,36 +15,37 @@ import styles from "./CommitSource.module.css";
 interface CommitSourceProps {
   "data-testid"?: string;
   hashHref: string;
-  isTrigger: boolean;
   onHashClick?: () => void;
   onModuleClick?: () => void;
-  repo?: { owner: string; repo: string } | null;
-  revision: string;
-  versionId: string;
+  showRepo?: boolean;
+  version: {
+    id: string;
+    projectMetadata?: { owner: string; repo: string } | null;
+    requester: string;
+    revision: string;
+  };
 }
 
 export const CommitSource: React.FC<CommitSourceProps> = ({
   "data-testid": dataTestId,
   hashHref,
-  isTrigger,
   onHashClick,
   onModuleClick,
-  repo,
-  revision,
-  versionId,
+  showRepo = false,
+  version,
 }) => {
+  const { id, projectMetadata, requester, revision } = version;
+  const isTrigger = requester === Requester.Trigger;
+
   const { data } = useQuery<
     VersionUpstreamProjectQuery,
     VersionUpstreamProjectQueryVariables
   >(
     VERSION_UPSTREAM_PROJECT,
-    isTrigger ? { variables: { versionId } } : skipToken,
+    isTrigger ? { variables: { versionId: id } } : skipToken,
   );
   const upstreamProject = data?.version?.upstreamProject;
-
-  const repoOwner = isTrigger ? upstreamProject?.owner : repo?.owner;
-  const repoName = isTrigger ? upstreamProject?.repo : repo?.repo;
-  const hasRepo = repoOwner && repoName;
+  const displayRepo = showRepo ? (upstreamProject ?? projectMetadata) : null;
 
   return (
     <div className={styles.container}>
@@ -53,12 +55,12 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
         revision={getDisplayRevision({ revision, upstreamProject })}
         to={hashHref}
       />
-      {hasRepo && (
+      {displayRepo && (
         <Body>
-          in {repoOwner}/{repoName}
+          in {displayRepo.owner}/{displayRepo.repo}
         </Body>
       )}
-      {hasRepo && isTrigger && (
+      {displayRepo && isTrigger && (
         <span aria-hidden data-testid="separator">
           &middot;
         </span>

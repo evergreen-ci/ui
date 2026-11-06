@@ -41,8 +41,8 @@ export const ModuleCommitsAccordion: React.FC<ModuleCommitsAccordionProps> = ({
             key={version.id}
             highlighted={highlightedId === version.id}
             shouldDisableText={shouldDisableText}
+            version={version}
             view={VersionLabelView.Modal}
-            {...version}
           />
         ))}
       </div>

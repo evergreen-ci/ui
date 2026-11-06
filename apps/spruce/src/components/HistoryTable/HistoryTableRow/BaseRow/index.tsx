@@ -1,5 +1,4 @@
 import CommitChartLabel from "components/CommitChartLabel";
-import { Requester } from "constants/requesters";
 import { types } from "../..";
 import { LabelCellContainer } from "../../Cell";
 import { useHistoryTable } from "../../HistoryTableContext";
@@ -47,37 +46,20 @@ const BaseRow: React.FC<RowProps> = ({
   switch (data.type) {
     case rowType.DATE_SEPARATOR:
       return <DateSeparator date={data.date} />;
-    case rowType.COMMIT: {
-      const {
-        createTime,
-        gitTags,
-        id: versionId,
-        message,
-        requester,
-        revision,
-        user,
-      } = data.commit;
-
+    case rowType.COMMIT:
       return (
         <RowContainer data-selected={selected} selected={selected}>
           <LabelCellContainer>
             <CommitChartLabel
-              author={user.displayName!}
-              createTime={createTime}
-              githash={revision}
-              gitTags={gitTags}
-              isTrigger={requester === Requester.Trigger}
-              message={message}
               onClickGithash={onClickGithash}
               onClickJiraTicket={onClickJiraTicket}
               onClickUpstreamProject={onClickUpstreamProject}
-              versionId={versionId}
+              version={data.commit}
             />
           </LabelCellContainer>
           {columns}
         </RowContainer>
       );
-    }
     case rowType.FOLDED_COMMITS:
       return (
         <FoldedCommit

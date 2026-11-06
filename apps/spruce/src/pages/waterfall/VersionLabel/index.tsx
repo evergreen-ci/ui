@@ -21,31 +21,33 @@ export enum VersionLabelView {
   Waterfall = "waterfall",
 }
 
-type Props = Version & {
+type Props = {
   className?: string;
   highlighted: boolean;
   isFirstVersion?: boolean;
   shouldDisableText?: boolean;
+  version: Version;
   view: VersionLabelView;
 };
 
 export const VersionLabel: React.FC<Props> = ({
-  activated,
   className,
-  createTime,
-  errors,
-  gitTags,
   highlighted,
-  id,
   isFirstVersion = false,
-  message,
-  projectMetadata,
-  requester,
-  revision,
   shouldDisableText = false,
-  user,
+  version,
   view,
 }) => {
+  const {
+    activated,
+    createTime,
+    errors,
+    gitTags,
+    id,
+    message,
+    requester,
+    user,
+  } = version;
   const getDateCopy = useDateFormat();
   const createDate = new Date(createTime);
 
@@ -94,7 +96,6 @@ export const VersionLabel: React.FC<Props> = ({
       </div>
       <CommitSource
         hashHref={getVersionRoute(id)}
-        isTrigger={isTrigger}
         onHashClick={() => {
           sendEvent({
             name: "Clicked commit label",
@@ -109,9 +110,8 @@ export const VersionLabel: React.FC<Props> = ({
             link: "upstream project",
           });
         }}
-        repo={isWaterfall ? undefined : projectMetadata}
-        revision={revision}
-        versionId={id}
+        showRepo={!isWaterfall}
+        version={version}
       />
       <CommitDescription
         author={user.displayName ?? user.userId}
