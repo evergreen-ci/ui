@@ -2,32 +2,18 @@ import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
+import { TaskQuery } from "gql/generated/types";
 import { useBreadcrumbRoot } from "hooks";
 
+type Task = NonNullable<TaskQuery["task"]>;
+
 interface TaskPageBreadcrumbsProps {
-  displayTask?: {
-    displayName: string;
-    execution: number;
-    id: string;
-  };
+  displayTask: Task["displayTask"];
   patchNumber?: number;
   taskName: string;
-  versionMetadata: {
-    id: string;
-    revision: string;
-    isPatch: boolean;
-    user: {
-      userId: string;
-      displayName?: string | null;
-    };
-    projectMetadata?: {
-      id: string;
-      identifier: string;
-    } | null;
-    message: string;
-    upstreamProject?: { revision: string } | null;
-  };
+  versionMetadata: Task["versionMetadata"];
 }
+
 const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
   displayTask,
   patchNumber,
