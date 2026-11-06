@@ -12363,7 +12363,7 @@ export type VersionBasedOnQuery = {
   version: {
     __typename?: "Version";
     id: string;
-    baseVersion?: {
+    repotrackerBaseVersion?: {
       __typename?: "Version";
       id: string;
       createTime: Date;

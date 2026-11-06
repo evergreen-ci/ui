@@ -19,7 +19,7 @@ export const getVersionBasedOnMock = (
       version: {
         __typename: "Version",
         id: versionId,
-        baseVersion: {
+        repotrackerBaseVersion: {
           __typename: "Version",
           id: "evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
           createTime: new Date("2024-09-19T14:56:08Z"),

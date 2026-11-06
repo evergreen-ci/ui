@@ -4,7 +4,7 @@ export const VERSION_BASED_ON = gql`
   query VersionBasedOn($versionId: String!) {
     version(versionId: $versionId) {
       id
-      baseVersion {
+      repotrackerBaseVersion: baseVersion(repotrackerOnly: true) {
         id
         createTime
         message

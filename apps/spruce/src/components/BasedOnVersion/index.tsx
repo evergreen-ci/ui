@@ -35,7 +35,7 @@ export const BasedOnVersion: React.FC<BasedOnVersionProps> = ({
     isTrigger ? { variables: { versionId } } : skipToken,
   );
 
-  const basedOnVersion = data?.version?.baseVersion;
+  const basedOnVersion = data?.version?.repotrackerBaseVersion;
 
   if (!isTrigger || !basedOnVersion) {
     return null;
@@ -59,7 +59,7 @@ export const BasedOnVersion: React.FC<BasedOnVersionProps> = ({
       />
       <InfoSprinkle
         align={Align.Start}
-        aria-label="Show based on commit details"
+        aria-label="Show commit details of the version this is based on"
         side={Side.Top}
       >
         <div data-testid="based-on-version-tooltip">
