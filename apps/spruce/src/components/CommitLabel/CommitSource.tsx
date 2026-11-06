@@ -60,8 +60,9 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
         to={hashHref}
       />
       {displayRepo && (
-        <Body>
+        <Body className={styles.text}>
           <Link
+            className={styles.text}
             data-testid="github-link"
             hideExternalIcon
             href={getGithubCommitUrl(
@@ -83,8 +84,8 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
         </span>
       )}
       {isTrigger && (
-        <Body>
-          Module:{" "}
+        <Body className={styles.text}>
+          Triggered by:{" "}
           {upstreamProject && (
             <StyledRouterLink
               onClick={onModuleClick}

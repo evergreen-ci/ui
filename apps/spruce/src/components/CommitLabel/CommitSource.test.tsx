@@ -75,7 +75,7 @@ describe("commitSource", () => {
     it("renders the version's own hash and no module", () => {
       renderComponent({ version: commitVersion });
       expect(screen.getByText("abcdef1")).toBeVisible();
-      expect(screen.queryByText(/Module:/)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Triggered by:/)).not.toBeInTheDocument();
     });
 
     it("renders the version's own repo only when showRepo is set", () => {
@@ -97,7 +97,7 @@ describe("commitSource", () => {
   describe("trigger version", () => {
     it("renders the upstream hash and a link to the module", async () => {
       renderComponent({ version: triggerVersion });
-      expect(screen.getByText(/Module:/)).toBeVisible();
+      expect(screen.getByText(/Triggered by:/)).toBeVisible();
       expect(
         await screen.findByRole("link", { name: "upstream-project" }),
       ).toBeVisible();

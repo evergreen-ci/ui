@@ -5,6 +5,10 @@
   gap: var(--via-space-100);
 }
 
+.text.text {
+  font-size: inherit;
+}
+
 .githubIcon {
   display: inline-flex;
   vertical-align: text-bottom;
