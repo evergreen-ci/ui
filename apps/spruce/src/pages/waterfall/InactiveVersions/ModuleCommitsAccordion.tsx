@@ -2,7 +2,7 @@ import { Text } from "@via-ds/components";
 import Accordion, {
   AccordionCaretPosition,
 } from "@evg-ui/lib/components/Accordion";
-import { BasedOnVersion } from "components/BasedOnVersion";
+import { BasedOnVersion } from "components/CommitLabel";
 import { ModuleGroup } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
 import styles from "./ModuleCommitsAccordion.module.css";

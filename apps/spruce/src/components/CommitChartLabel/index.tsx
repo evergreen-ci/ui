@@ -1,6 +1,9 @@
 import { Body } from "@leafygreen-ui/typography";
-import { BasedOnVersion } from "components/BasedOnVersion";
-import { CommitDescription, CommitSource } from "components/CommitLabel";
+import {
+  BasedOnVersion,
+  CommitDescription,
+  CommitSource,
+} from "components/CommitLabel";
 import { getVersionRoute } from "constants/routes";
 import { GitTag } from "gql/generated/types";
 import { useDateFormat } from "hooks";
