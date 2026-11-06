@@ -2,6 +2,7 @@ import { Text } from "@via-ds/components";
 import Accordion, {
   AccordionCaretPosition,
 } from "@evg-ui/lib/components/Accordion";
+import { BasedOnVersion } from "components/BasedOnVersion";
 import { ModuleGroup } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
 import styles from "./ModuleCommitsAccordion.module.css";
@@ -24,6 +25,9 @@ export const ModuleCommitsAccordion: React.FC<ModuleCommitsAccordionProps> = ({
       caretPosition={AccordionCaretPosition.End}
       className={styles.container}
       defaultOpen
+      subtitle={
+        <BasedOnVersion isTrigger showRepo versionId={versions[0].id} />
+      }
       title={
         <Text
           className={styles.title}
