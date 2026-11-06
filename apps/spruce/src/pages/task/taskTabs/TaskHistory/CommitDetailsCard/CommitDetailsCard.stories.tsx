@@ -27,8 +27,8 @@ const getUpstreamProjectMock = (
         id: TRIGGER_VERSION_ID,
         upstreamProject: {
           owner: "evergreen-ci",
-          project: "gimlet",
-          repo: "gimlet",
+          project: "evergreen",
+          repo: "evergreen",
           revision: "ed0e891754059eb7055c8c82752dedf1a35a87a6",
           task: { execution: 0, id: "678", displayName: "Task 678" },
           triggerID: "12345",
@@ -192,7 +192,6 @@ const getStoryTask = (args: TemplateProps) => {
       ...task.version,
       id: args.isTrigger ? TRIGGER_VERSION_ID : task.version.id,
       message: args.message,
-      projectMetadata: { id: "evergreen", owner: "evergreen-ci", repo: "ui" },
       requester,
     },
   };
