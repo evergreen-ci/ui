@@ -105,6 +105,13 @@ describe("commitSource", () => {
       expect(screen.getByText("9a3f1c7")).toBeVisible();
     });
 
+    it("does not show the version's own hash while the upstream project loads", async () => {
+      renderComponent({ version: triggerVersion });
+      expect(screen.queryByText("abcdef1")).not.toBeInTheDocument();
+      expect(await screen.findByText("9a3f1c7")).toBeVisible();
+      expect(screen.queryByText("abcdef1")).not.toBeInTheDocument();
+    });
+
     it("renders the upstream repo, linked to the upstream commit, and a separator when showRepo is set", async () => {
       renderComponent({ showRepo: true, version: triggerVersion });
       expect(await screen.findByText("in 10gen/docs")).toBeVisible();

@@ -7,6 +7,9 @@
 
 .versionContainer[data-view="waterfall"] :is(div, p) {
   font-size: 12px;
+}
+
+.description {
   line-height: 1.3;
 }
 

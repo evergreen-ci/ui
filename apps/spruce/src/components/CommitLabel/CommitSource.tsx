@@ -1,14 +1,15 @@
-import { Link } from "@leafygreen-ui/typography";
 import { Body } from "@via-ds/components";
-import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { RevisionLink } from "components/RevisionLink";
-import { getGithubCommitUrl } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import { getTriggerRoute } from "constants/routes";
 import { getDisplayRevision } from "utils/string";
 import styles from "./CommitSource.module.css";
+import { LoadingText } from "./LoadingText";
+import { RepoLink } from "./RepoLink";
 import { useVersionTriggerInfo } from "./useVersionTriggerInfo";
+
+const MODULE_PLACEHOLDER = "evergreen";
 
 interface CommitSourceProps {
   "data-testid"?: string;
@@ -34,63 +35,62 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
 }) => {
   const { id, projectMetadata, requester, revision } = version;
   const isTrigger = requester === Requester.Trigger;
-
-  const { upstreamProject } = useVersionTriggerInfo(isTrigger, id);
-  const displayRepo = showRepo ? (upstreamProject ?? projectMetadata) : null;
+  const { loading, upstreamProject } = useVersionTriggerInfo(isTrigger, id);
   const displayRevision = getDisplayRevision({ revision, upstreamProject });
+
+  if (!isTrigger) {
+    return (
+      <div className={styles.container}>
+        <RevisionLink
+          data-testid={dataTestId}
+          onClick={onHashClick}
+          revision={displayRevision}
+          to={hashHref}
+        />
+        {showRepo && (
+          <RepoLink repo={projectMetadata} revision={displayRevision} />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <RevisionLink
         data-testid={dataTestId}
+        isLoading={loading}
         onClick={onHashClick}
         revision={displayRevision}
         to={hashHref}
       />
-      {displayRepo && (
-        <Body className={styles.text}>
-          <Link
-            className={styles.text}
-            data-testid="github-link"
-            hideExternalIcon
-            href={getGithubCommitUrl(
-              displayRepo.owner,
-              displayRepo.repo,
-              displayRevision,
-            )}
+      {showRepo && (
+        <RepoLink
+          isLoading={loading}
+          repo={upstreamProject}
+          revision={displayRevision}
+          showSeparator
+        />
+      )}
+      <Body className={styles.text}>
+        Triggered by:{" "}
+        {upstreamProject ? (
+          <StyledRouterLink
+            onClick={onModuleClick}
+            to={getTriggerRoute({
+              triggerType: upstreamProject.triggerType,
+              upstreamTask: upstreamProject.task,
+              upstreamVersion: upstreamProject.version,
+              upstreamRevision: upstreamProject.revision,
+              upstreamOwner: upstreamProject.owner,
+              upstreamRepo: upstreamProject.repo,
+            })}
           >
-            <span className={styles.githubIcon}>
-              <Icon glyph="GitHub" />
-            </span>
-            in {displayRepo.owner}/{displayRepo.repo}
-          </Link>
-        </Body>
-      )}
-      {displayRepo && isTrigger && (
-        <span aria-hidden data-testid="separator">
-          &middot;
-        </span>
-      )}
-      {isTrigger && (
-        <Body className={styles.text}>
-          Triggered by:{" "}
-          {upstreamProject && (
-            <StyledRouterLink
-              onClick={onModuleClick}
-              to={getTriggerRoute({
-                triggerType: upstreamProject.triggerType,
-                upstreamTask: upstreamProject.task,
-                upstreamVersion: upstreamProject.version,
-                upstreamRevision: upstreamProject.revision,
-                upstreamOwner: upstreamProject.owner,
-                upstreamRepo: upstreamProject.repo,
-              })}
-            >
-              {upstreamProject.project}
-            </StyledRouterLink>
-          )}
-        </Body>
-      )}
+            {upstreamProject.project}
+          </StyledRouterLink>
+        ) : (
+          <LoadingText placeholder={MODULE_PLACEHOLDER} />
+        )}
+      </Body>
     </div>
   );
 };

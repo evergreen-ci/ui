@@ -115,6 +115,7 @@ export const VersionLabel: React.FC<Props> = ({
       />
       <CommitDescription
         author={user.displayName ?? user.userId}
+        className={isWaterfall ? styles.description : undefined}
         inline
         lineClamp={isWaterfall ? waterfallLineClamp : undefined}
         maxLength={isWaterfall ? Infinity : MODAL_MAX_MESSAGE_LENGTH}
