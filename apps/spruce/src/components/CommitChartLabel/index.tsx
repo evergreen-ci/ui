@@ -1,8 +1,7 @@
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { BasedOnVersion } from "components/BasedOnVersion";
-import { CommitDescription } from "components/CommitDescription";
+import { BasedOnVersion, CommitDescription } from "components/CommitLabel";
 import { MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions } from "components/HistoryTable/types";
 import { RevisionLink } from "components/RevisionLink";
 import { getTriggerRoute, getVersionRoute } from "constants/routes";

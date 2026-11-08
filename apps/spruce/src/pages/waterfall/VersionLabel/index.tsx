@@ -1,8 +1,7 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
-import { BasedOnVersion } from "components/BasedOnVersion";
-import { CommitDescription } from "components/CommitDescription";
+import { BasedOnVersion, CommitDescription } from "components/CommitLabel";
 import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";

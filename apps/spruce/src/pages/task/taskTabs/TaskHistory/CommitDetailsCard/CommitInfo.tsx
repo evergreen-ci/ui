@@ -1,7 +1,7 @@
 import { IconButton } from "@leafygreen-ui/icon-button";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useTaskHistoryAnalytics } from "analytics";
-import { BasedOnVersion } from "components/BasedOnVersion";
+import { BasedOnVersion } from "components/CommitLabel";
 import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { getGithubCommitUrl } from "constants/externalResources";

@@ -2,7 +2,6 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { Align, InfoSprinkle, Side } from "@via-ds/components";
 import { Body } from "@via-ds/components/typography";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
-import { CommitDescription } from "components/CommitDescription";
 import { RevisionLink } from "components/RevisionLink";
 import { getVersionRoute } from "constants/routes";
 import {
@@ -11,7 +10,8 @@ import {
 } from "gql/generated/types";
 import { VERSION_BASED_ON } from "gql/queries";
 import { useDateFormat } from "hooks";
-import styles from "./index.module.css";
+import styles from "./BasedOnVersion.module.css";
+import { CommitDescription } from "./CommitDescription";
 
 const MAX_MESSAGE_LENGTH = 150;
 
