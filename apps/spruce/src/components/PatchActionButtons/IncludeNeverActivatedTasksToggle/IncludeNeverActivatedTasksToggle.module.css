@@ -1,7 +1,6 @@
 .sectionHeader {
   color: var(--via-color-neutral-100);
-  font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
-  padding: var(--via-space-100) var(--via-space-300);
+  padding: 0 var(--via-space-300);
 }

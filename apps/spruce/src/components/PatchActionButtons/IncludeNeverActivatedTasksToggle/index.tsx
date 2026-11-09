@@ -14,7 +14,7 @@ interface IncludeNeverActivatedTasksToggleProps {
 export const IncludeNeverActivatedTasksToggle: React.FC<
   IncludeNeverActivatedTasksToggleProps
 > = ({ versionId }) => {
-  const versionAnalytics = useVersionAnalytics(versionId);
+  const { sendEvent } = useVersionAnalytics(versionId);
 
   const [includeNeverActivatedTasks, setIncludeNeverActivatedTasks] =
     useQueryParam<boolean | undefined>(
@@ -29,7 +29,7 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
     const checked = !includeNeverActivatedTasks;
     setIncludeNeverActivatedTasks(checked);
     Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, checked.toString());
-    versionAnalytics.sendEvent({
+    sendEvent({
       name: "Toggled include never activated tasks",
       include_never_activated_tasks: checked,
     });
@@ -48,7 +48,7 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
         <Checkbox
           checked={includeNeverActivatedTasks}
           darkMode
-          description="Include tasks that have never been activated."
+          description="Show tasks that exist in this version but have never been activated."
           label="Include never-activated tasks"
         />
       </MenuItem>
