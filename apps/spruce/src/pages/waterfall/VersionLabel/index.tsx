@@ -1,6 +1,7 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
+import { BasedOnVersion } from "components/BasedOnVersion";
 import { CommitDescription } from "components/CommitDescription";
 import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
@@ -57,6 +58,8 @@ export const VersionLabel: React.FC<Props> = ({
 
   const commitType = activated ? "active" : "inactive";
   const isWaterfall = view === VersionLabelView.Waterfall;
+  const isTrigger = requester === Requester.Trigger;
+  const waterfallLineClamp = isTrigger ? 2 : 3;
 
   return (
     <div
@@ -100,7 +103,7 @@ export const VersionLabel: React.FC<Props> = ({
           to={getVersionRoute(id)}
         />
         <UpstreamProjectLink
-          isTrigger={requester === Requester.Trigger}
+          isTrigger={isTrigger}
           onClick={() => {
             sendEvent({
               name: "Clicked commit label",
@@ -113,8 +116,8 @@ export const VersionLabel: React.FC<Props> = ({
       </div>
       <CommitDescription
         author={user.displayName ?? user.userId}
-        className={styles.commitMessage}
         inline
+        lineClamp={isWaterfall ? waterfallLineClamp : undefined}
         maxLength={isWaterfall ? Infinity : MODAL_MAX_MESSAGE_LENGTH}
         message={message}
         onJiraLinkClick={handleJiraLinkClick}
@@ -126,6 +129,7 @@ export const VersionLabel: React.FC<Props> = ({
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}
+      {isWaterfall && <BasedOnVersion isTrigger={isTrigger} versionId={id} />}
     </div>
   );
 };

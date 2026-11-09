@@ -5047,6 +5047,11 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
+  /**
+   * The mainline version this version is based on. If repotrackerOnly is true, only a version created by the
+   * repotracker (gitter_request) is returned. Otherwise, the base version can have any mainline requester:
+   * gitter_request, trigger_request, ad_hoc, or git_tag_request.
+   */
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
@@ -5090,6 +5095,11 @@ export type Version = {
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
+};
+
+/** Version models a commit within a project. */
+export type VersionBaseVersionArgs = {
+  repotrackerOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Version models a commit within a project. */
@@ -11942,6 +11952,7 @@ export type TaskQuery = {
       failingCommand?: string | null;
       failureMetadataTags: Array<string>;
       status: string;
+      systemFailureReason?: string | null;
       timedOut?: boolean | null;
       timeoutType?: string | null;
       traceID?: string | null;
@@ -12340,6 +12351,32 @@ export type UserQuery = {
     permissions?: {
       __typename?: "Permissions";
       canEditAdminSettings: boolean;
+    } | null;
+  };
+};
+
+export type VersionBasedOnQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type VersionBasedOnQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    repotrackerBaseVersion?: {
+      __typename?: "Version";
+      id: string;
+      createTime: Date;
+      message: string;
+      revision: string;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
+      user: { __typename?: "User"; id: string; displayName?: string | null };
     } | null;
   };
 };
