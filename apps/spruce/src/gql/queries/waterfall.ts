@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { VERSION_TRIGGER_INFO } from "../fragments/versionTriggerInfo";
 
 export const WATERFALL = gql`
   query Waterfall($options: WaterfallOptions!) {
@@ -12,6 +13,7 @@ export const WATERFALL = gql`
         prevPageOrder
       }
       versions {
+        ...VersionTriggerInfo
         id
         activated
         createTime
@@ -47,4 +49,5 @@ export const WATERFALL = gql`
       }
     }
   }
+  ${VERSION_TRIGGER_INFO}
 `;

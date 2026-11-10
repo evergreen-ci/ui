@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { VERSION_TRIGGER_INFO } from "../fragments/versionTriggerInfo";
 
 export const MAINLINE_COMMITS_FOR_HISTORY = gql`
   query MainlineCommitsForHistory(
@@ -13,6 +14,7 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
       prevPageOrderNumber
       versions {
         rolledUpVersions {
+          ...VersionTriggerInfo
           id
           createTime
           gitTags {
@@ -29,6 +31,7 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
           }
         }
         version {
+          ...VersionTriggerInfo
           id
           buildVariants(options: $buildVariantOptions) {
             displayName
@@ -57,4 +60,5 @@ export const MAINLINE_COMMITS_FOR_HISTORY = gql`
       }
     }
   }
+  ${VERSION_TRIGGER_INFO}
 `;

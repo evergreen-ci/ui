@@ -15,7 +15,7 @@ import {
 import { Version } from "../types";
 import {
   UpstreamProject,
-  getVersionTriggerInfoMock,
+  defaultRepotrackerBaseVersion,
 } from "../VersionLabel/testData";
 import styles from "./InactiveVersionsModal.stories.module.css";
 import { InactiveVersionsButton } from ".";
@@ -81,8 +81,10 @@ const getModuleVersion = (
   ...inactiveVersion,
   id: `module_${suffix}`,
   message: `Module commit ${suffix}`,
+  repotrackerBaseVersion: defaultRepotrackerBaseVersion,
   requester: Requester.Trigger,
   revision: baseRevision,
+  upstreamProject: getUpstreamProject(moduleRevisions[`module_${suffix}`]),
   ...overrides,
 });
 
@@ -128,18 +130,7 @@ export const ModuleGrouping: StoryObj<typeof InactiveVersionsButton> = {
   },
   parameters: {
     apolloClient: {
-      mocks: [
-        getSpruceConfigMock,
-        getUserSettingsMock,
-        ...moduleGroupingVersions
-          .filter(({ requester }) => requester === Requester.Trigger)
-          .map(({ id }) =>
-            getVersionTriggerInfoMock(
-              id,
-              getUpstreamProject(moduleRevisions[id]),
-            ),
-          ),
-      ],
+      mocks: [getSpruceConfigMock, getUserSettingsMock],
     },
   },
 };

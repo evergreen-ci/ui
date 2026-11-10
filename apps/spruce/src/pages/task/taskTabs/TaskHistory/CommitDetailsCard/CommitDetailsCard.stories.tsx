@@ -7,7 +7,7 @@ import { TaskQuery, TestResult } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import {
   UpstreamProject,
-  getVersionTriggerInfoMock,
+  defaultRepotrackerBaseVersion,
 } from "pages/waterfall/VersionLabel/testData";
 import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
@@ -88,11 +88,6 @@ export default {
       control: { type: "select" },
     },
   },
-  parameters: {
-    apolloClient: {
-      mocks: [getVersionTriggerInfoMock(TRIGGER_VERSION_ID)],
-    },
-  },
 } satisfies CustomMeta<CommitDetailsCardType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
@@ -121,16 +116,7 @@ export const WithLongMessage: CustomStoryObj<TemplateProps> = {
 export const WithTrigger: CustomStoryObj<TemplateProps> = {
   args: {
     isTrigger: true,
-  },
-  parameters: {
-    apolloClient: {
-      mocks: [
-        getVersionTriggerInfoMock(TRIGGER_VERSION_ID, {
-          ...upstreamProject,
-          triggerType: "push",
-        }),
-      ],
-    },
+    triggerType: "push",
   },
   render: (args) => <Template {...args} />,
 };
@@ -144,6 +130,7 @@ type TemplateProps = {
   isMatching: boolean;
   isPatch: boolean;
   isTrigger?: boolean;
+  triggerType?: string;
   execution: number;
   message: string;
   priority?: number;
@@ -181,7 +168,13 @@ const getStoryTask = (args: TemplateProps) => {
       ...task.version,
       id: args.isTrigger ? TRIGGER_VERSION_ID : task.version.id,
       message: args.message,
+      repotrackerBaseVersion: args.isTrigger
+        ? defaultRepotrackerBaseVersion
+        : null,
       requester,
+      upstreamProject: args.isTrigger
+        ? { ...upstreamProject, triggerType: args.triggerType ?? "task" }
+        : null,
     },
   };
 };
