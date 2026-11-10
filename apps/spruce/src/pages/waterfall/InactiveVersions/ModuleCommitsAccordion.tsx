@@ -2,6 +2,7 @@ import { Text } from "@via-ds/components";
 import Accordion, {
   AccordionCaretPosition,
 } from "@evg-ui/lib/components/Accordion";
+import { BasedOnVersion } from "components/CommitLabel";
 import { ModuleGroup } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
 import styles from "./ModuleCommitsAccordion.module.css";
@@ -24,6 +25,9 @@ export const ModuleCommitsAccordion: React.FC<ModuleCommitsAccordionProps> = ({
       caretPosition={AccordionCaretPosition.End}
       className={styles.container}
       defaultOpen
+      subtitle={
+        <BasedOnVersion isTrigger showRepo versionId={versions[0].id} />
+      }
       title={
         <Text
           className={styles.title}
@@ -37,8 +41,8 @@ export const ModuleCommitsAccordion: React.FC<ModuleCommitsAccordionProps> = ({
             key={version.id}
             highlighted={highlightedId === version.id}
             shouldDisableText={shouldDisableText}
+            version={version}
             view={VersionLabelView.Modal}
-            {...version}
           />
         ))}
       </div>

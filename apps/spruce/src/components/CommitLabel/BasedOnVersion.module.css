@@ -1,0 +1,7 @@
+.basedOn.basedOn {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+  color: var(--via-color-neutral-600);
+  font-size: inherit;
+}

@@ -8,6 +8,7 @@
   align-items: flex-start;
   gap: 2px;
 
+  font-size: 12px;
   word-break: normal;
   overflow-wrap: anywhere;
 }
@@ -24,14 +25,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--via-space-100);
-}
-
-.commitMessage {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
 }
 
 .date {
