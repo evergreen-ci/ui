@@ -4,6 +4,7 @@ import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { useBreadcrumbRoot } from "hooks";
+import { getDisplayRevision } from "utils/string";
 
 type Task = NonNullable<TaskQuery["task"]>;
 
@@ -20,8 +21,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
   taskName,
   versionMetadata,
 }) => {
-  const { id, isPatch, message, projectMetadata, revision, user } =
-    versionMetadata;
+  const { id, isPatch, message, projectMetadata, user } = versionMetadata;
   const breadcrumbRoot = useBreadcrumbRoot(
     isPatch,
     user,
@@ -31,7 +31,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
 
   const messagePrefix = isPatch
     ? `Patch ${patchNumber}`
-    : shortenGithash(revision);
+    : shortenGithash(getDisplayRevision(versionMetadata));
 
   const messageBreadcrumb = {
     to: getVersionRoute(id),
