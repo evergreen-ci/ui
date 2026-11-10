@@ -122,7 +122,7 @@ export const Task = () => {
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {task && (
         <TaskPageBreadcrumbs
-          displayTask={task.displayTask || undefined}
+          displayTask={task.displayTask}
           patchNumber={task.patchNumber || undefined}
           taskName={task.displayName}
           versionMetadata={task.versionMetadata}

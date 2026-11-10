@@ -43,17 +43,20 @@ export const Default: StoryObj<typeof VersionLabel> = {
       mocks: [getSpruceConfigMock, getUserSettingsMock],
     },
   },
-  args: version,
+  args: { version },
 };
 
 export const GitTag: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: versionWithGitTag,
+  args: { version: versionWithGitTag, view: VersionLabelView.Waterfall },
 };
 
 export const UpstreamProject: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: { ...versionWithUpstreamProject, view: VersionLabelView.Waterfall },
+  args: {
+    version: versionWithUpstreamProject,
+    view: VersionLabelView.Waterfall,
+  },
   parameters: {
     apolloClient: {
       mocks: [
@@ -69,7 +72,7 @@ export const UpstreamProject: StoryObj<typeof VersionLabel> = {
 
 export const SmallSize: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: { ...version, view: VersionLabelView.Waterfall },
+  args: { version, view: VersionLabelView.Waterfall },
   parameters: {
     apolloClient: {
       mocks: [
@@ -94,5 +97,5 @@ export const TaskStatsOpen: StoryObj<typeof VersionLabel> = {
 
 export const Broken: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: versionBroken,
+  args: { version: versionBroken },
 };

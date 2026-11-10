@@ -2,7 +2,7 @@ import Accordion, {
   AccordionCaretAlign,
 } from "@evg-ui/lib/components/Accordion";
 import { useTaskHistoryAnalytics } from "analytics";
-import { CommitDescription } from "components/CommitDescription";
+import { CommitDescription } from "components/CommitLabel";
 import { isProduction } from "utils/environmentVariables";
 import { TaskHistoryTask } from "../types";
 import styles from "./CommitDetailsCard.module.css";

@@ -7,7 +7,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
-import styles from "./index.module.css";
+import styles from "./CommitDescription.module.css";
 
 const { blue } = palette;
 

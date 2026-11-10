@@ -1,8 +1,7 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
-import { BasedOnVersion } from "components/BasedOnVersion";
-import { CommitDescription } from "components/CommitDescription";
+import { BasedOnVersion, CommitDescription } from "components/CommitLabel";
 import { RevisionLink } from "components/RevisionLink";
 import { UpstreamProjectLink } from "components/UpstreamProjectLink";
 import { Requester } from "constants/requesters";
@@ -20,30 +19,34 @@ export enum VersionLabelView {
   Waterfall = "waterfall",
 }
 
-type Props = Version & {
+type Props = {
   className?: string;
   highlighted: boolean;
   isFirstVersion?: boolean;
   shouldDisableText?: boolean;
+  version: Version;
   view: VersionLabelView;
 };
 
 export const VersionLabel: React.FC<Props> = ({
-  activated,
   className,
-  createTime,
-  errors,
-  gitTags,
   highlighted,
-  id,
   isFirstVersion = false,
-  message,
-  requester,
-  revision,
   shouldDisableText = false,
-  user,
+  version,
   view,
 }) => {
+  const {
+    activated,
+    createTime,
+    errors,
+    gitTags,
+    id,
+    message,
+    requester,
+    revision,
+    user,
+  } = version;
   const getDateCopy = useDateFormat();
   const createDate = new Date(createTime);
 
@@ -116,6 +119,7 @@ export const VersionLabel: React.FC<Props> = ({
       </div>
       <CommitDescription
         author={user.displayName ?? user.userId}
+        className={isWaterfall ? styles.description : undefined}
         inline
         lineClamp={isWaterfall ? waterfallLineClamp : undefined}
         maxLength={isWaterfall ? Infinity : MODAL_MAX_MESSAGE_LENGTH}
