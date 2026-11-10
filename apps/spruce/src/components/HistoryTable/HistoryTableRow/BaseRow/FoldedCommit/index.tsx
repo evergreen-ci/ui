@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { cx } from "@evg-ui/lib/utils/css";
 import CommitChartLabel from "components/CommitChartLabel";
@@ -30,7 +30,7 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
   selected,
 }) => {
   const { expanded, rolledUpCommits } = data;
-  const defaultOpen = expanded;
+  const [open, setOpen] = useState(expanded);
   const numCommits = rolledUpCommits.length;
 
   const columns = useMemo(
@@ -62,8 +62,9 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
     <div className={cx(styles.column, selected && styles.columnSelected)}>
       <Accordion
         className={styles.accordion}
-        defaultOpen={defaultOpen}
+        defaultOpen={open}
         onToggle={({ isVisible }) => {
+          setOpen(isVisible);
           onToggleFoldedCommit({ expanded: isVisible, index, numCommits });
         }}
         title={`Expand ${numCommits} inactive`}
@@ -71,7 +72,7 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
         toggledTitle={`Collapse ${numCommits} inactive`}
         useIndent={false}
       >
-        {commits}
+        {open && commits}
       </Accordion>
     </div>
   );
