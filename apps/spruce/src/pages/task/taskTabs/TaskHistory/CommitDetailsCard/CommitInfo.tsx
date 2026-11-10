@@ -20,7 +20,7 @@ export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
   const { sendEvent } = useTaskHistoryAnalytics();
 
   const { id: taskId, requester, revision, version } = task;
-  const { id: versionId } = version;
+  const { id: versionId, repotrackerBaseVersion } = version;
   const isTrigger = requester === Requester.Trigger;
 
   const { currentTask } = useTaskHistoryContext();
@@ -50,7 +50,10 @@ export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
         </IconButton>
       )}
       <UpstreamProjectLink isTrigger={isTrigger} versionId={versionId} />
-      <BasedOnVersion isTrigger={isTrigger} showRepo versionId={versionId} />
+      <BasedOnVersion
+        repotrackerBaseVersion={repotrackerBaseVersion}
+        showRepo
+      />
     </div>
   );
 };
