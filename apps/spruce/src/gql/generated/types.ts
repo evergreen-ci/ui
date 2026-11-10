@@ -11602,6 +11602,13 @@ export type TaskHistoryQuery = {
         __typename?: "Version";
         id: string;
         message: string;
+        revision: string;
+        projectMetadata?: {
+          __typename?: "Project";
+          id: string;
+          owner: string;
+          repo: string;
+        } | null;
         user: { __typename?: "User"; id: string; displayName?: string | null };
         repotrackerBaseVersion?: {
           __typename?: "Version";

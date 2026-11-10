@@ -1,20 +1,17 @@
 import { Body } from "@leafygreen-ui/typography";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { BasedOnVersion, CommitDescription } from "components/CommitLabel";
+import {
+  BasedOnVersion,
+  CommitDescription,
+  CommitSource,
+} from "components/CommitLabel";
 import { MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions } from "components/HistoryTable/types";
-import { RevisionLink } from "components/RevisionLink";
-import { getTriggerRoute, getVersionRoute } from "constants/routes";
-import { UpstreamProjectFragment } from "gql/generated/types";
+import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
 import styles from "./index.module.css";
 
-type RolledUpCommit =
+type Commit =
   Unpacked<MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions>;
-
-type Commit = RolledUpCommit & {
-  upstreamProject?: UpstreamProjectFragment["upstreamProject"];
-};
 
 interface Props {
   onClickGithash?: () => void;
@@ -30,8 +27,7 @@ const CommitChartLabel: React.FC<Props> = ({
   version,
 }) => {
   const getDateCopy = useDateFormat();
-  const { createTime, gitTags, id, message, revision, upstreamProject, user } =
-    version;
+  const { createTime, gitTags, id, message, upstreamProject, user } = version;
   const createDate = new Date(createTime);
 
   return (
@@ -41,32 +37,13 @@ const CommitChartLabel: React.FC<Props> = ({
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
         </span>
       </div>
-      <div className={styles.flexRow}>
-        <RevisionLink
-          data-testid="githash-link"
-          onClick={onClickGithash}
-          revision={revision}
-          to={getVersionRoute(id)}
-        />
-        {upstreamProject && (
-          <Body className={styles.labelText}>
-            Module:{" "}
-            <StyledRouterLink
-              onClick={onClickUpstreamProject}
-              to={getTriggerRoute({
-                triggerType: upstreamProject.triggerType,
-                upstreamTask: upstreamProject.task,
-                upstreamVersion: upstreamProject.version,
-                upstreamRevision: upstreamProject.revision,
-                upstreamOwner: upstreamProject.owner,
-                upstreamRepo: upstreamProject.repo,
-              })}
-            >
-              {upstreamProject.project}
-            </StyledRouterLink>
-          </Body>
-        )}
-      </div>
+      <CommitSource
+        data-testid="githash-link"
+        hashHref={getVersionRoute(id)}
+        onHashClick={onClickGithash}
+        onModuleClick={onClickUpstreamProject}
+        version={version}
+      />
       <CommitDescription
         author={user.displayName ?? user.userId}
         className={styles.labelText}

@@ -1,14 +1,7 @@
-import { IconButton } from "@leafygreen-ui/icon-button";
-import Icon from "@evg-ui/lib/components/Icon";
 import { useTaskHistoryAnalytics } from "analytics";
-import { BasedOnVersion } from "components/CommitLabel";
-import { RevisionLink } from "components/RevisionLink";
-import { UpstreamProjectLink } from "components/UpstreamProjectLink";
-import { getGithubCommitUrl } from "constants/externalResources";
-import { Requester } from "constants/requesters";
+import { BasedOnVersion, CommitSource } from "components/CommitLabel";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
-import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
 import styles from "./CommitDetailsCard.module.css";
 
@@ -18,38 +11,21 @@ interface CommitInfoProps {
 
 export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
   const { sendEvent } = useTaskHistoryAnalytics();
-
-  const { id: taskId, requester, revision, version } = task;
-  const { id: versionId, repotrackerBaseVersion } = version;
-  const isTrigger = requester === Requester.Trigger;
-
-  const { currentTask } = useTaskHistoryContext();
-  const owner = currentTask.project?.owner;
-  const repo = currentTask.project?.repo;
-  const githubCommitUrl =
-    owner && repo && revision ? getGithubCommitUrl(owner, repo, revision) : "";
+  const { id: taskId, version } = task;
+  const { repotrackerBaseVersion } = version;
 
   return (
     <div className={styles.row}>
-      <RevisionLink
+      <CommitSource
         data-testid="task-link"
-        onClick={() =>
+        hashHref={getTaskRoute(taskId, { tab: TaskTab.History })}
+        onHashClick={() =>
           sendEvent({ name: "Clicked task link", "task.id": taskId })
         }
-        revision={revision ?? ""}
-        to={getTaskRoute(taskId, { tab: TaskTab.History })}
+        showRepo
+        version={version}
       />
-      {githubCommitUrl && (
-        <IconButton
-          aria-label="GitHub Commit Link"
-          data-testid="github-link"
-          href={githubCommitUrl}
-          target="_blank"
-        >
-          <Icon glyph="GitHub" />
-        </IconButton>
-      )}
-      <UpstreamProjectLink isTrigger={isTrigger} versionId={versionId} />
+      {repotrackerBaseVersion && <span aria-hidden>&middot;</span>}
       <BasedOnVersion
         repotrackerBaseVersion={repotrackerBaseVersion}
         showRepo

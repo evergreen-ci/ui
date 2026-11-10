@@ -40,6 +40,12 @@ export const TASK_HISTORY = gql`
           ...VersionTriggerInfo
           id
           message
+          projectMetadata {
+            id
+            owner
+            repo
+          }
+          revision
           user {
             id
             displayName

@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--via-space-100);
+}
+
+.text.text {
+  color: var(--via-color-neutral-600);
+  font-size: inherit;
+}
+
+.repoText.repoText {
+  display: flex;
+}
+
+.repoLink {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+}
+
