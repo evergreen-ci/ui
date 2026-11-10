@@ -81,6 +81,7 @@ export const DownstreamProjectAccordion: React.FC<
         taskName,
         variant,
       },
+      executionTaskOptions: { statuses },
     },
     fetchPolicy: "cache-and-network",
   });
