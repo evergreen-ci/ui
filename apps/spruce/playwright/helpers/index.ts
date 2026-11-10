@@ -167,4 +167,5 @@ export {
   clickRadio,
   mockGraphQLResponse,
   hasOperationName,
+  isGraphQLQuery,
 } from "@evg-ui/playwright-config/helpers";
