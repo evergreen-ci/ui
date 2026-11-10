@@ -45,7 +45,7 @@ export const Default: StoryObj<typeof VersionLabel> = {
 
 export const GitTag: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: { version: versionWithGitTag },
+  args: { version: versionWithGitTag, view: VersionLabelView.Waterfall },
 };
 
 export const UpstreamProject: StoryObj<typeof VersionLabel> = {

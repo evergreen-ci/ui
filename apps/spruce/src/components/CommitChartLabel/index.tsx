@@ -11,11 +11,14 @@ import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
 import styles from "./index.module.css";
 
+type Commit =
+  Unpacked<MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions>;
+
 interface Props {
   onClickGithash?: () => void;
   onClickJiraTicket?: () => void;
   onClickUpstreamProject?: () => void;
-  version: Unpacked<MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions>;
+  version: Commit;
 }
 
 const CommitChartLabel: React.FC<Props> = ({
