@@ -96,11 +96,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   });
 
   useWaterfallTrace({ data, error });
-  useWaterfallNavigationTrace({
-    data,
-    error,
-    isFetching,
-  });
+  useWaterfallNavigationTrace({ data, error, isFetching });
 
   useEffect(() => {
     if (data && !error) {

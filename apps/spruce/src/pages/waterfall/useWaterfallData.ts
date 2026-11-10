@@ -18,6 +18,8 @@ type UseWaterfallDataProps = {
   projectIdentifier: string;
 };
 
+// Manage fetching waterfall data according to query param state.
+// To support server-side filtering in a simple way, make up to two queries: one previewQuery, which omits filters, and, if necessary to display 5 matching versions, a separate query with server filters applied.
 export const useWaterfallData = ({
   omitInactiveBuilds,
   pins,
@@ -28,7 +30,6 @@ export const useWaterfallData = ({
     projectIdentifier,
   });
 
-  // Introduce a base query with no filters applied so we can show these versions while fetching more from the server with the appropriate filters.
   const {
     data: queryData,
     dataState,
@@ -57,6 +58,8 @@ export const useWaterfallData = ({
     }),
     [queryOptions, projectIdentifier],
   );
+
+  // Introduce a base query with no filters applied so we can show these versions while fetching more from the server with the appropriate filters.
   const { data: previewData } = useQuery<
     WaterfallQuery,
     WaterfallQueryVariables
@@ -65,6 +68,7 @@ export const useWaterfallData = ({
     fetchPolicy: "cache-only",
     skip: !hasFilters,
   });
+
   const previewResult = useFilters({
     activeVersionIds: previewData?.waterfall.pagination.activeVersionIds ?? [],
     flattenedVersions: previewData?.waterfall.versions ?? [],
