@@ -8,8 +8,6 @@ import { getDisplayRevision } from "utils/string";
 
 type Task = NonNullable<TaskQuery["task"]>;
 
-type Task = NonNullable<TaskQuery["task"]>;
-
 interface TaskPageBreadcrumbsProps {
   displayTask: Task["displayTask"];
   patchNumber?: number;
