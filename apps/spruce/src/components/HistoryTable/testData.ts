@@ -1,3 +1,5 @@
+import { Requester } from "constants/requesters";
+
 export const mainlineCommitData = {
   versions: [
     {
@@ -10,6 +12,7 @@ export const mainlineCommitData = {
         createTime: new Date("2021-09-02T14:20:04Z"),
         message:
           "EVG-15213: Reference a project’s configuration when interacting with perf plugin configs (#4992)",
+        requester: Requester.Gitter,
         revision: "d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
         order: 3399,
         buildVariants: [
@@ -68,6 +71,7 @@ export const mainlineCommitData = {
         },
         createTime: new Date("2021-09-02T14:07:07Z"),
         message: "EVG-15357 Include display name for build variants (#4990)",
+        requester: Requester.Gitter,
         revision: "f476f5f137d385858d633300521a744970540f54",
         order: 3398,
         buildVariants: [
@@ -127,6 +131,7 @@ export const mainlineCommitData = {
         createTime: new Date("2021-09-01T20:41:31Z"),
         message:
           "EVG-14956 Verify that PatchedConfig stores the merged config (#4981)",
+        requester: Requester.Gitter,
         revision: "d74a055481b3c706f37098b0b1bd8c3ae73ef9ac",
         order: 3397,
         buildVariants: [
@@ -186,6 +191,7 @@ export const mainlineCommitData = {
         createTime: new Date("2021-09-01T18:25:38Z"),
         message:
           "EVG-15212: Only reference a project’s configuration when interacting with build baron configs (#4959)",
+        requester: Requester.Gitter,
         revision: "5c34535229dcda24f968b707b022c51245958aab",
         order: 3396,
         buildVariants: [
@@ -244,6 +250,7 @@ export const mainlineCommitData = {
         },
         createTime: new Date("2021-09-01T18:19:34Z"),
         message: "EVG-15338 use valid js syntax (#4991)",
+        requester: Requester.Gitter,
         revision: "fc023273280db4689ee824983736401521e73d71",
         order: 3395,
         buildVariants: [
@@ -304,6 +311,7 @@ export const mainlineCommitData = {
           },
           createTime: new Date("2021-08-31T18:25:38Z"),
           message: "EVG-15211: Don't run this (#4957)",
+          requester: Requester.Gitter,
           revision: "5c34535229dcda24f968b707b022c51245958aab",
           order: 3395,
         },

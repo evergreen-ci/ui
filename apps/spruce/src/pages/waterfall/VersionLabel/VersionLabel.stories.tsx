@@ -11,10 +11,6 @@ import {
   versionWithGitTag,
   versionWithUpstreamProject,
 } from "../testData";
-import {
-  getVersionBasedOnMock,
-  getVersionUpstreamProjectMock,
-} from "./testData";
 import styles from "./VersionLabel.stories.module.css";
 import { VersionLabel, VersionLabelView } from ".";
 
@@ -22,7 +18,7 @@ export default {
   title: "Pages/Waterfall/VersionLabel",
   component: VersionLabel,
   args: {
-    view: VersionLabelView.Modal,
+    view: VersionLabelView.Waterfall,
   },
   argTypes: {
     view: {
@@ -63,8 +59,6 @@ export const UpstreamProject: StoryObj<typeof VersionLabel> = {
         getTaskStatsMock(versionWithUpstreamProject.id),
         getSpruceConfigMock,
         getUserSettingsMock,
-        getVersionUpstreamProjectMock,
-        getVersionBasedOnMock(versionWithUpstreamProject.id),
       ],
     },
   },

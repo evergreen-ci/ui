@@ -62,11 +62,11 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
     <div className={cx(styles.column, selected && styles.columnSelected)}>
       <Accordion
         className={styles.accordion}
-        defaultOpen={open}
         onToggle={({ isVisible }) => {
           setOpen(isVisible);
           onToggleFoldedCommit({ expanded: isVisible, index, numCommits });
         }}
+        open={open}
         title={`Expand ${numCommits} inactive`}
         titleTag={AccordionTitle}
         toggledTitle={`Collapse ${numCommits} inactive`}

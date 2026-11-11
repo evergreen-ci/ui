@@ -1,4 +1,5 @@
 import { FoldedCommitsRow, rowType } from "components/HistoryTable/types";
+import { Requester } from "constants/requesters";
 
 const rolledUpCommits = [
   {
@@ -10,6 +11,7 @@ const rolledUpCommits = [
     },
     order: 1010,
     message: "v2.17.0",
+    requester: Requester.Gitter,
     revision: "ca3a8b45e855cf0d2e353a85c8af2d4c2a1dad95",
   },
   {
@@ -21,6 +23,7 @@ const rolledUpCommits = [
     },
     order: 1020,
     message: "v2.17.1",
+    requester: Requester.Gitter,
     revision: "ca3a8b45e855cf0d2e353a85c8af2d4c2a1dad95",
   },
   {
@@ -32,6 +35,7 @@ const rolledUpCommits = [
     },
     order: 1030,
     message: "v2.17.2",
+    requester: Requester.Gitter,
     revision: "ca3a8b45e855cf0d2e353a85c8af2d4c2a1dad95",
   },
   {
@@ -43,6 +47,7 @@ const rolledUpCommits = [
     },
     order: 1040,
     message: "v2.17.3",
+    requester: Requester.Gitter,
     revision: "ca3a8b45e855cf0d2e353a85c8af2d4c2a1dad95",
   },
   {
@@ -54,6 +59,7 @@ const rolledUpCommits = [
     },
     order: 1050,
     message: "v2.17.4",
+    requester: Requester.Gitter,
     revision: "ca3a8b45e855cf0d2e353a85c8af2d4c2a1dad95",
   },
 ];

@@ -1,0 +1,9 @@
+.text.text {
+  font-size: inherit;
+}
+
+.githubIcon {
+  display: inline-flex;
+  vertical-align: text-bottom;
+  margin-right: var(--via-space-100);
+}
