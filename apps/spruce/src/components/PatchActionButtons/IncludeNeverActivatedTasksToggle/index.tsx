@@ -38,6 +38,7 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
   return (
     <>
       <MenuSeparator />
+      {/* MenuGroup is not used because it does not inherit the dark mode styles correctly; this should be addressed when migrating the component to Via.*/}
       <div className={styles.sectionHeader} role="presentation">
         Settings
       </div>
