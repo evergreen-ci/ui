@@ -90,6 +90,7 @@ export { VERSION } from "./version";
 export { VERSION_QUARANTINED_TASKS } from "./version-quarantined-tasks";
 export { VERSION_TASK_DURATIONS } from "./version-task-durations";
 export { VERSION_TASKS } from "./version-tasks";
+export { VERSION_TRIGGER_INFO } from "./version-trigger-info";
 export { VIEWABLE_PROJECTS } from "./viewable-projects";
 export { WATERFALL } from "./waterfall";
 export { WATERFALL_TASK_STATS } from "./waterfall-task-stats";

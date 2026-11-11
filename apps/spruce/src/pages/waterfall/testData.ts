@@ -6,10 +6,6 @@ import {
 } from "gql/generated/types";
 import { WATERFALL_TASK_STATS } from "gql/queries";
 import { BuildVariant, Version } from "./types";
-import {
-  defaultRepotrackerBaseVersion,
-  defaultUpstreamProject,
-} from "./VersionLabel/testData";
 
 const projectMetadata = {
   id: "evergreen",
@@ -33,8 +29,6 @@ export const version: Version = {
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
   order: 10,
   projectMetadata,
-  repotrackerBaseVersion: null,
-  upstreamProject: null,
 };
 
 export const versionWithGitTag: Version = {
@@ -56,8 +50,6 @@ export const versionWithGitTag: Version = {
   revision: "deb77a36604446272d610d267f1cd9f95e4fe8ff",
   order: 9,
   projectMetadata,
-  repotrackerBaseVersion: null,
-  upstreamProject: null,
 };
 
 export const versionWithUpstreamProject: Version = {
@@ -79,8 +71,6 @@ export const versionWithUpstreamProject: Version = {
   revision: "130948895a46d4fd04292e7783069918e4e7cd5a",
   order: 8,
   projectMetadata,
-  repotrackerBaseVersion: defaultRepotrackerBaseVersion,
-  upstreamProject: defaultUpstreamProject,
 };
 
 export const versionBroken: Version = {
@@ -99,8 +89,6 @@ export const versionBroken: Version = {
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
   order: 7,
   projectMetadata,
-  repotrackerBaseVersion: null,
-  upstreamProject: null,
 };
 
 export const inactiveVersion: Version = {
@@ -118,8 +106,6 @@ export const inactiveVersion: Version = {
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
   order: 6,
   projectMetadata,
-  repotrackerBaseVersion: null,
-  upstreamProject: null,
 };
 
 export const inactiveBrokenVersion: Version = {
@@ -137,8 +123,6 @@ export const inactiveBrokenVersion: Version = {
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
   order: 5,
   projectMetadata,
-  repotrackerBaseVersion: null,
-  upstreamProject: null,
 };
 
 export const buildVariants: BuildVariant[] = [

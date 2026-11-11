@@ -3,15 +3,15 @@ import { Body } from "@via-ds/components/typography";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { RevisionLink } from "components/RevisionLink";
 import { getVersionRoute } from "constants/routes";
-import { VersionTriggerInfoFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import styles from "./BasedOnVersion.module.css";
 import { CommitDescription } from "./CommitDescription";
+import { useVersionTriggerInfo } from "./useVersionTriggerInfo";
 
 const MAX_MESSAGE_LENGTH = 150;
 
 type RepotrackerBaseVersion = NonNullable<
-  VersionTriggerInfoFragment["repotrackerBaseVersion"]
+  ReturnType<typeof useVersionTriggerInfo>["repotrackerBaseVersion"]
 >;
 
 const BasedOnDetails: React.FC<{ basedOnVersion: RepotrackerBaseVersion }> = ({
@@ -39,40 +39,49 @@ const BasedOnDetails: React.FC<{ basedOnVersion: RepotrackerBaseVersion }> = ({
 interface BasedOnVersionProps {
   isTrigger: boolean;
   onClick?: () => void;
-  repotrackerBaseVersion: VersionTriggerInfoFragment["repotrackerBaseVersion"];
   showRepo?: boolean;
+  versionId: string;
 }
 
 export const BasedOnVersion: React.FC<BasedOnVersionProps> = ({
   isTrigger,
   onClick,
-  repotrackerBaseVersion: basedOnVersion,
   showRepo = false,
+  versionId,
 }) => {
-  if (!isTrigger || !basedOnVersion) {
+  const { loading, repotrackerBaseVersion: basedOnVersion } =
+    useVersionTriggerInfo(isTrigger, versionId);
+  const isLoading = isTrigger && loading;
+
+  if (!isTrigger || (!isLoading && !basedOnVersion)) {
     return null;
   }
 
   return (
-    <Body className={styles.basedOn} data-testid="based-on-version">
+    <Body
+      className={styles.basedOn}
+      data-testid={isLoading ? undefined : "based-on-version"}
+    >
       <span>Based on</span>
-      {showRepo && basedOnVersion.projectMetadata && (
+      {showRepo && basedOnVersion?.projectMetadata && (
         <span>
           {basedOnVersion.projectMetadata.owner}/
           {basedOnVersion.projectMetadata.repo}
         </span>
       )}
       <RevisionLink
+        isLoading={isLoading}
         onClick={onClick}
-        revision={basedOnVersion.revision}
-        to={getVersionRoute(basedOnVersion.id)}
+        revision={basedOnVersion?.revision}
+        to={basedOnVersion ? getVersionRoute(basedOnVersion.id) : undefined}
       />
       <InfoSprinkle
         align={Align.Start}
         aria-label="Show commit details of the version this is based on"
+        isDisabled={isLoading}
         side={Side.Top}
       >
-        <BasedOnDetails basedOnVersion={basedOnVersion} />
+        {basedOnVersion && <BasedOnDetails basedOnVersion={basedOnVersion} />}
       </InfoSprinkle>
     </Body>
   );

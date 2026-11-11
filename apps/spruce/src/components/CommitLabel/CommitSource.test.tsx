@@ -1,5 +1,12 @@
-import { render, screen } from "@evg-ui/lib/test_utils";
+import { renderWithRouterMatch, screen } from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { Requester } from "constants/requesters";
+import {
+  VersionTriggerInfoQuery,
+  VersionTriggerInfoQueryVariables,
+} from "gql/generated/types";
+import { VERSION_TRIGGER_INFO } from "gql/queries";
+import { MockedProvider } from "test_utils/graphql";
 import { ProjectTriggerLevel } from "types/triggers";
 import { CommitSource } from "./CommitSource";
 
@@ -10,31 +17,53 @@ const commitVersion: Props["version"] = {
   projectMetadata: { owner: "evergreen-ci", repo: "ui" },
   requester: Requester.Gitter,
   revision: "abcdef123456",
-  upstreamProject: null,
 };
 
 const triggerVersion: Props["version"] = {
   ...commitVersion,
   requester: Requester.Trigger,
-  upstreamProject: {
-    owner: "10gen",
-    project: "upstream-project",
-    repo: "docs",
-    revision: "9a3f1c7e5b2d48a6f0c1e3d5b7a9c2e4f6081a3d",
-    task: {
-      id: "upstream_task",
-      displayName: "compile",
-      execution: 0,
+};
+
+const upstreamProjectMock: ApolloMock<
+  VersionTriggerInfoQuery,
+  VersionTriggerInfoQueryVariables
+> = {
+  request: {
+    query: VERSION_TRIGGER_INFO,
+    variables: { versionId: "v1" },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: "v1",
+        repotrackerBaseVersion: null,
+        upstreamProject: {
+          __typename: "UpstreamProject",
+          owner: "10gen",
+          project: "upstream-project",
+          repo: "docs",
+          revision: "9a3f1c7e5b2d48a6f0c1e3d5b7a9c2e4f6081a3d",
+          task: {
+            __typename: "Task",
+            id: "upstream_task",
+            displayName: "compile",
+            execution: 0,
+          },
+          triggerID: "trigger",
+          triggerType: ProjectTriggerLevel.TASK,
+          version: { __typename: "Version", id: "upstream_version" },
+        },
+      },
     },
-    triggerID: "trigger",
-    triggerType: ProjectTriggerLevel.TASK,
-    version: { id: "upstream_version" },
   },
 };
 
 const renderComponent = (props: Partial<Props> = {}) =>
-  render(
-    <CommitSource hashHref="/version/v1" version={commitVersion} {...props} />,
+  renderWithRouterMatch(
+    <MockedProvider mocks={[upstreamProjectMock]}>
+      <CommitSource hashHref="/version/v1" version={commitVersion} {...props} />
+    </MockedProvider>,
   );
 
 describe("commitSource", () => {
@@ -67,19 +96,25 @@ describe("commitSource", () => {
   });
 
   describe("trigger version", () => {
-    it("renders the upstream hash and a link to the module", () => {
+    it("renders the upstream hash and a link to the module", async () => {
       renderComponent({ version: triggerVersion });
       expect(screen.getByText(/Triggered by:/)).toBeVisible();
       expect(
-        screen.getByRole("link", { name: "upstream-project" }),
+        await screen.findByRole("link", { name: "upstream-project" }),
       ).toBeVisible();
       expect(screen.getByText("9a3f1c7")).toBeVisible();
+    });
+
+    it("does not show the version's own hash while the upstream project loads", async () => {
+      renderComponent({ version: triggerVersion });
+      expect(screen.queryByText("abcdef1")).not.toBeInTheDocument();
+      expect(await screen.findByText("9a3f1c7")).toBeVisible();
       expect(screen.queryByText("abcdef1")).not.toBeInTheDocument();
     });
 
-    it("renders the upstream repo, linked to the upstream commit, and a separator when showRepo is set", () => {
+    it("renders the upstream repo, linked to the upstream commit, and a separator when showRepo is set", async () => {
       renderComponent({ showRepo: true, version: triggerVersion });
-      expect(screen.getByText("in 10gen/docs")).toBeVisible();
+      expect(await screen.findByText("in 10gen/docs")).toBeVisible();
       expect(screen.getByTestId("github-link")).toHaveAttribute(
         "href",
         "https://github.com/10gen/docs/commit/9a3f1c7e5b2d48a6f0c1e3d5b7a9c2e4f6081a3d",
@@ -87,8 +122,11 @@ describe("commitSource", () => {
       expect(screen.getByTestId("separator")).toBeInTheDocument();
     });
 
-    it("does not render a repo or separator by default", () => {
+    it("does not render a repo or separator by default", async () => {
       renderComponent({ version: triggerVersion });
+      expect(
+        await screen.findByRole("link", { name: "upstream-project" }),
+      ).toBeVisible();
       expect(screen.queryByText(/^in /)).not.toBeInTheDocument();
       expect(screen.queryByTestId("separator")).not.toBeInTheDocument();
     });

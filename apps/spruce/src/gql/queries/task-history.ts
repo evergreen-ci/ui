@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { VERSION_TRIGGER_INFO } from "../fragments/versionTriggerInfo";
 
 export const TASK_HISTORY = gql`
   query TaskHistory($options: TaskHistoryOpts!, $includeGenerator: Boolean!) {
@@ -37,7 +36,6 @@ export const TASK_HISTORY = gql`
           }
         }
         version {
-          ...VersionTriggerInfo
           id
           message
           projectMetadata {
@@ -55,5 +53,4 @@ export const TASK_HISTORY = gql`
       }
     }
   }
-  ${VERSION_TRIGGER_INFO}
 `;

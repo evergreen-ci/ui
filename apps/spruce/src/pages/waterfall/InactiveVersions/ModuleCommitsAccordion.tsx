@@ -26,11 +26,7 @@ export const ModuleCommitsAccordion: React.FC<ModuleCommitsAccordionProps> = ({
       className={styles.container}
       defaultOpen
       subtitle={
-        <BasedOnVersion
-          isTrigger
-          repotrackerBaseVersion={versions[0].repotrackerBaseVersion}
-          showRepo
-        />
+        <BasedOnVersion isTrigger showRepo versionId={versions[0].id} />
       }
       title={
         <Text

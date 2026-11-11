@@ -3,10 +3,13 @@ import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { RevisionLink } from "components/RevisionLink";
 import { Requester } from "constants/requesters";
 import { getTriggerRoute } from "constants/routes";
-import { VersionTriggerInfoFragment } from "gql/generated/types";
 import { getDisplayRevision } from "utils/string";
 import styles from "./CommitSource.module.css";
+import { LoadingText } from "./LoadingText";
 import { RepoLink } from "./RepoLink";
+import { useVersionTriggerInfo } from "./useVersionTriggerInfo";
+
+const MODULE_PLACEHOLDER = "evergreen";
 
 interface CommitSourceProps {
   "data-testid"?: string;
@@ -14,7 +17,7 @@ interface CommitSourceProps {
   onHashClick?: () => void;
   onModuleClick?: () => void;
   showRepo?: boolean;
-  version: Pick<VersionTriggerInfoFragment, "upstreamProject"> & {
+  version: {
     id: string;
     projectMetadata?: { owner: string; repo: string } | null;
     requester: string;
@@ -30,28 +33,47 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
   showRepo = false,
   version,
 }) => {
-  const { projectMetadata, requester, revision, upstreamProject } = version;
+  const { id, projectMetadata, requester, revision } = version;
   const isTrigger = requester === Requester.Trigger;
+  const { loading, upstreamProject } = useVersionTriggerInfo(isTrigger, id);
   const displayRevision = getDisplayRevision({ revision, upstreamProject });
+
+  if (!isTrigger) {
+    return (
+      <div className={styles.container}>
+        <RevisionLink
+          data-testid={dataTestId}
+          onClick={onHashClick}
+          revision={displayRevision}
+          to={hashHref}
+        />
+        {showRepo && (
+          <RepoLink repo={projectMetadata} revision={displayRevision} />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <RevisionLink
         data-testid={dataTestId}
+        isLoading={loading}
         onClick={onHashClick}
         revision={displayRevision}
         to={hashHref}
       />
       {showRepo && (
         <RepoLink
-          repo={isTrigger ? upstreamProject : projectMetadata}
+          isLoading={loading}
+          repo={upstreamProject}
           revision={displayRevision}
-          showSeparator={isTrigger}
+          showSeparator
         />
       )}
-      {isTrigger && upstreamProject && (
-        <Body className={styles.text}>
-          Triggered by:{" "}
+      <Body className={styles.text}>
+        Triggered by:{" "}
+        {upstreamProject ? (
           <StyledRouterLink
             onClick={onModuleClick}
             to={getTriggerRoute({
@@ -65,8 +87,10 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
           >
             {upstreamProject.project}
           </StyledRouterLink>
-        </Body>
-      )}
+        ) : (
+          <LoadingText placeholder={MODULE_PLACEHOLDER} />
+        )}
+      </Body>
     </div>
   );
 };

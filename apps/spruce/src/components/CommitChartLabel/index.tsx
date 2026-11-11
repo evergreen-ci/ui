@@ -56,10 +56,7 @@ const CommitChartLabel: React.FC<Props> = ({
         onJiraLinkClick={onClickJiraTicket}
         title={message}
       />
-      <BasedOnVersion
-        isTrigger={isTrigger}
-        repotrackerBaseVersion={version.repotrackerBaseVersion}
-      />
+      <BasedOnVersion isTrigger={isTrigger} versionId={id} />
       {gitTags && (
         <Body className={styles.labelText}>
           Git Tags: {gitTags.map((g) => g.tag).join(", ")}
