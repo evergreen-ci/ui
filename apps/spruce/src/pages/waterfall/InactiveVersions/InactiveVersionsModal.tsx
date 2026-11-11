@@ -49,8 +49,8 @@ export const InactiveVersionsModal: React.FC<Props> = ({
                 className={styles.versionLabel}
                 highlighted={highlightedId === group.versions[0].id}
                 shouldDisableText={hasUnmatchingVersions}
+                version={group.versions[0]}
                 view={VersionLabelView.Modal}
-                {...group.versions[0]}
               />
             ),
           )}

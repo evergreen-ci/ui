@@ -175,4 +175,12 @@ describe("bounded waterfall cache", () => {
       getVersionIds(readPage(cache, { minOrder: 15 }) as Waterfall),
     ).toStrictEqual(getVersionIds(page1));
   });
+
+  it("does not report another page when the cached final page has no successor", () => {
+    const finalPage = makePage([20, 19, 18, 17, 16]);
+    finalPage.pagination.hasNextPage = false;
+    const cache = mergePage(undefined, finalPage);
+
+    expect(readPage(cache)?.pagination.hasNextPage).toBe(false);
+  });
 });

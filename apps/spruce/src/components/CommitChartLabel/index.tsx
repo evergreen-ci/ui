@@ -1,39 +1,37 @@
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { BasedOnVersion } from "components/BasedOnVersion";
-import { CommitDescription } from "components/CommitDescription";
+import { Unpacked } from "@evg-ui/lib/types/utils";
+import { BasedOnVersion, CommitDescription } from "components/CommitLabel";
+import { MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions } from "components/HistoryTable/types";
 import { RevisionLink } from "components/RevisionLink";
 import { getTriggerRoute, getVersionRoute } from "constants/routes";
-import { GitTag, UpstreamProjectFragment } from "gql/generated/types";
+import { UpstreamProjectFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import styles from "./index.module.css";
 
+type RolledUpCommit =
+  Unpacked<MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions>;
+
+type Commit = RolledUpCommit & {
+  upstreamProject?: UpstreamProjectFragment["upstreamProject"];
+};
+
 interface Props {
-  githash: string;
-  gitTags?: GitTag[] | null;
-  createTime: Date;
-  author: string;
-  message: string;
-  versionId: string;
   onClickGithash?: () => void;
   onClickJiraTicket?: () => void;
   onClickUpstreamProject?: () => void;
-  upstreamProject?: UpstreamProjectFragment["upstreamProject"];
+  version: Commit;
 }
 
 const CommitChartLabel: React.FC<Props> = ({
-  author,
-  createTime,
-  gitTags,
-  githash,
-  message,
   onClickGithash = () => {},
   onClickJiraTicket = () => {},
   onClickUpstreamProject = () => {},
-  upstreamProject,
-  versionId,
+  version,
 }) => {
   const getDateCopy = useDateFormat();
+  const { createTime, gitTags, id, message, revision, upstreamProject, user } =
+    version;
   const createDate = new Date(createTime);
 
   return (
@@ -47,8 +45,8 @@ const CommitChartLabel: React.FC<Props> = ({
         <RevisionLink
           data-testid="githash-link"
           onClick={onClickGithash}
-          revision={githash}
-          to={getVersionRoute(versionId)}
+          revision={revision}
+          to={getVersionRoute(id)}
         />
         {upstreamProject && (
           <Body className={styles.labelText}>
@@ -70,7 +68,7 @@ const CommitChartLabel: React.FC<Props> = ({
         )}
       </div>
       <CommitDescription
-        author={author}
+        author={user.displayName ?? user.userId}
         className={styles.labelText}
         inline
         lineClamp={upstreamProject ? 2 : 3}
@@ -79,7 +77,7 @@ const CommitChartLabel: React.FC<Props> = ({
         onJiraLinkClick={onClickJiraTicket}
         title={message}
       />
-      <BasedOnVersion isTrigger={!!upstreamProject} versionId={versionId} />
+      <BasedOnVersion isTrigger={!!upstreamProject} versionId={id} />
       {gitTags && (
         <Body className={styles.labelText}>
           Git Tags: {gitTags.map((g) => g.tag).join(", ")}

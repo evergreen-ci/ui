@@ -46,37 +46,20 @@ const BaseRow: React.FC<RowProps> = ({
   switch (data.type) {
     case rowType.DATE_SEPARATOR:
       return <DateSeparator date={data.date} />;
-    case rowType.COMMIT: {
-      const {
-        createTime,
-        gitTags,
-        id: versionId,
-        message,
-        revision,
-        upstreamProject,
-        user,
-      } = data.commit;
-
+    case rowType.COMMIT:
       return (
         <RowContainer data-selected={selected} selected={selected}>
           <LabelCellContainer>
             <CommitChartLabel
-              author={user.displayName!}
-              createTime={createTime}
-              githash={revision}
-              gitTags={gitTags}
-              message={message}
               onClickGithash={onClickGithash}
               onClickJiraTicket={onClickJiraTicket}
               onClickUpstreamProject={onClickUpstreamProject}
-              upstreamProject={upstreamProject}
-              versionId={versionId}
+              version={data.commit}
             />
           </LabelCellContainer>
           {columns}
         </RowContainer>
       );
-    }
     case rowType.FOLDED_COMMITS:
       return (
         <FoldedCommit
