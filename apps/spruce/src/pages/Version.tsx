@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TTLInfo } from "components/404/TTLInfo";
 import { ErrorBanner, ProjectBanner, WarningBanner } from "components/Banners";
@@ -15,13 +14,11 @@ import {
   PageSider,
   PageWrapper,
 } from "components/styles";
-import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
 import { usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
-import { PatchTasksQueryParams } from "types/task";
 import { githubPRLinkify, jiraLinkify } from "utils/string";
 import { ActionButtons } from "./version/ActionButtons";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
@@ -34,10 +31,6 @@ import VersionTabs from "./version/Tabs";
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { [slugs.versionId]: versionId = "" } = useParams();
-  const [includeNeverActivatedTasks] = useQueryParam<boolean | undefined>(
-    PatchTasksQueryParams.IncludeNeverActivatedTasks,
-    Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
-  );
   const {
     data: versionData,
     error,
@@ -46,7 +39,7 @@ export const VersionPage: React.FC = () => {
     startPolling,
     stopPolling,
   } = useQuery<VersionQuery, VersionQueryVariables>(VERSION, {
-    variables: { id: versionId, includeNeverActivatedTasks },
+    variables: { id: versionId },
     fetchPolicy: "cache-and-network",
   });
   useErrorToast(error, "There was an error loading the version");

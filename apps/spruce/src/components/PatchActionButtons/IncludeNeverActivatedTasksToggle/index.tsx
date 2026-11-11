@@ -1,10 +1,11 @@
-import { MenuItem } from "@leafygreen-ui/menu";
-import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Checkbox } from "@leafygreen-ui/checkbox";
+import { MenuItem, MenuSeparator } from "@leafygreen-ui/menu";
 import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics/version/useVersionAnalytics";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { PatchTasksQueryParams } from "types/task";
+import styles from "./IncludeNeverActivatedTasksToggle.module.css";
 
 interface IncludeNeverActivatedTasksToggleProps {
   versionId: string;
@@ -13,7 +14,7 @@ interface IncludeNeverActivatedTasksToggleProps {
 export const IncludeNeverActivatedTasksToggle: React.FC<
   IncludeNeverActivatedTasksToggleProps
 > = ({ versionId }) => {
-  const versionAnalytics = useVersionAnalytics(versionId);
+  const { sendEvent } = useVersionAnalytics(versionId);
 
   const [includeNeverActivatedTasks, setIncludeNeverActivatedTasks] =
     useQueryParam<boolean | undefined>(
@@ -28,26 +29,30 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
     const checked = !includeNeverActivatedTasks;
     setIncludeNeverActivatedTasks(checked);
     Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, checked.toString());
-    versionAnalytics.sendEvent({
+    sendEvent({
       name: "Toggled include never activated tasks",
       include_never_activated_tasks: checked,
     });
   };
 
   return (
-    <Tooltip
-      align="left"
-      trigger={
-        <MenuItem onClick={handleIncludeNeverActivatedTasksChange}>
-          {includeNeverActivatedTasks
-            ? "Exclude never-activated tasks"
-            : "Include never-activated tasks"}
-        </MenuItem>
-      }
-    >
-      {includeNeverActivatedTasks
-        ? "Hide tasks that exist in this version but have never been activated"
-        : "Show tasks that exist in this version but have never been activated"}
-    </Tooltip>
+    <>
+      <MenuSeparator />
+      {/* MenuGroup is not used because it does not inherit the dark mode styles correctly; this should be addressed when migrating the component to Via.*/}
+      <div className={styles.sectionHeader} role="presentation">
+        Settings
+      </div>
+      <MenuItem
+        data-testid="include-never-activated-tasks"
+        onClick={handleIncludeNeverActivatedTasksChange}
+      >
+        <Checkbox
+          checked={includeNeverActivatedTasks}
+          darkMode
+          description="Show tasks that exist in this version but have never been activated."
+          label="Include never-activated tasks"
+        />
+      </MenuItem>
+    </>
   );
 };

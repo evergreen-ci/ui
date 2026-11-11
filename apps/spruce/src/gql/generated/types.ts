@@ -12408,6 +12408,7 @@ export type VersionQuarantinedTasksQuery = {
 export type VersionTaskDurationsQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionTaskDurationsQuery = {
@@ -12416,6 +12417,7 @@ export type VersionTaskDurationsQuery = {
     __typename?: "Version";
     id: string;
     isPatch: boolean;
+    taskCount?: number | null;
     childVersions?: Array<{
       __typename?: "Version";
       id: string;
@@ -12476,6 +12478,7 @@ export type VersionTaskDurationsQuery = {
 export type VersionTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionTasksQuery = {
@@ -12484,6 +12487,7 @@ export type VersionTasksQuery = {
     __typename?: "Version";
     id: string;
     isPatch: boolean;
+    taskCount?: number | null;
     tasks: {
       __typename?: "VersionTasks";
       count: number;
@@ -12583,7 +12587,6 @@ export type VersionUpstreamProjectQuery = {
 
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
-  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionQuery = {
@@ -12605,7 +12608,6 @@ export type VersionQuery = {
     revision: string;
     startTime?: Date | null;
     status: string;
-    taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
     childVersions?: Array<{

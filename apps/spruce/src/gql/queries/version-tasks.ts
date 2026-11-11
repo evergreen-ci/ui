@@ -4,10 +4,14 @@ export const VERSION_TASKS = gql`
   query VersionTasks(
     $versionId: String!
     $taskFilterOptions: TaskFilterOptions!
+    $includeNeverActivatedTasks: Boolean
   ) {
     version(versionId: $versionId) {
       id
       isPatch
+      taskCount(
+        options: { includeNeverActivatedTasks: $includeNeverActivatedTasks }
+      )
       tasks(options: $taskFilterOptions) {
         count
         data {
