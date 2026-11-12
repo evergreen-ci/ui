@@ -1,5 +1,5 @@
 import { useTaskHistoryAnalytics } from "analytics";
-import { BasedOnVersion, CommitSource } from "components/CommitLabel";
+import { CommitSource } from "components/CommitLabel";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
 import { TaskHistoryTask } from "../types";
@@ -12,7 +12,6 @@ interface CommitInfoProps {
 export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
   const { sendEvent } = useTaskHistoryAnalytics();
   const { id: taskId, version } = task;
-  const upstreamBaseVersion = version?.upstreamProject?.baseVersion;
 
   return (
     <div className={styles.row}>
@@ -25,8 +24,6 @@ export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
         showRepo
         version={version}
       />
-      {upstreamBaseVersion && <span aria-hidden>&middot;</span>}
-      <BasedOnVersion baseVersion={upstreamBaseVersion} showRepo />
     </div>
   );
 };

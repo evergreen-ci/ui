@@ -1,10 +1,6 @@
 import { Body } from "@leafygreen-ui/typography";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import {
-  BasedOnVersion,
-  CommitDescription,
-  CommitSource,
-} from "components/CommitLabel";
+import { CommitDescription, CommitSource } from "components/CommitLabel";
 import { MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions } from "components/HistoryTable/types";
 import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
@@ -54,7 +50,6 @@ const CommitChartLabel: React.FC<Props> = ({
         onJiraLinkClick={onClickJiraTicket}
         title={message}
       />
-      <BasedOnVersion baseVersion={version.upstreamProject?.baseVersion} />
       {gitTags && (
         <Body className={styles.labelText}>
           Git Tags: {gitTags.map((g) => g.tag).join(", ")}

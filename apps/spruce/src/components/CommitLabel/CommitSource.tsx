@@ -5,6 +5,7 @@ import { RevisionLink } from "components/RevisionLink";
 import { getTriggerRoute } from "constants/routes";
 import { VersionTriggerInfoFragment } from "gql/generated/types";
 import { getDisplayRevision } from "utils/string";
+import { BasedOnVersion } from "./BasedOnVersion";
 import styles from "./CommitSource.module.css";
 
 interface CommitSourceProps {
@@ -31,6 +32,8 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
   const displayRevision = getDisplayRevision({ revision, upstreamProject });
   const repo = upstreamProject ?? projectMetadata;
 
+  const baseVersion = upstreamProject?.baseVersion;
+
   return (
     <div className={styles.container}>
       <RevisionLink
@@ -44,28 +47,34 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
           {repo.owner}/{repo.repo}
         </Body>
       )}
-      {showRepo && repo && upstreamProject && (
-        <span aria-hidden data-testid="separator">
-          &middot;
-        </span>
+      {baseVersion && (
+        <>
+          <span aria-hidden data-testid="separator">
+            &middot;
+          </span>
+          <BasedOnVersion baseVersion={baseVersion} showRepo={showRepo} />
+        </>
       )}
       {upstreamProject && (
-        <Body className={styles.text}>
-          Triggered by:{" "}
-          <StyledRouterLink
-            onClick={onModuleClick}
-            to={getTriggerRoute({
-              triggerType: upstreamProject.triggerType,
-              upstreamTask: upstreamProject.task,
-              upstreamVersion: upstreamProject.version,
-              upstreamRevision: upstreamProject.revision,
-              upstreamOwner: upstreamProject.owner,
-              upstreamRepo: upstreamProject.repo,
-            })}
-          >
-            {upstreamProject.project}
-          </StyledRouterLink>
-        </Body>
+        <>
+          {showRepo && <span aria-hidden>&middot;</span>}
+          <Body className={cx(styles.text, !showRepo && styles.ownLine)}>
+            Triggered by:{" "}
+            <StyledRouterLink
+              onClick={onModuleClick}
+              to={getTriggerRoute({
+                triggerType: upstreamProject.triggerType,
+                upstreamTask: upstreamProject.task,
+                upstreamVersion: upstreamProject.version,
+                upstreamRevision: upstreamProject.revision,
+                upstreamOwner: upstreamProject.owner,
+                upstreamRepo: upstreamProject.repo,
+              })}
+            >
+              {upstreamProject.project}
+            </StyledRouterLink>
+          </Body>
+        </>
       )}
     </div>
   );

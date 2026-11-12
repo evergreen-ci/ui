@@ -1,11 +1,7 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
-import {
-  BasedOnVersion,
-  CommitDescription,
-  CommitSource,
-} from "components/CommitLabel";
+import { CommitDescription, CommitSource } from "components/CommitLabel";
 import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
@@ -129,9 +125,6 @@ export const VersionLabel: React.FC<Props> = ({
       {gitTags?.length ? (
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}
-      {isWaterfall && (
-        <BasedOnVersion baseVersion={version.upstreamProject?.baseVersion} />
-      )}
     </div>
   );
 };
