@@ -97,7 +97,7 @@ export const useVersionAnalytics = (id: string) => {
     VERSION,
     id
       ? {
-          variables: { id, includeNeverActivatedTasks: false },
+          variables: { id },
           fetchPolicy: "cache-first",
         }
       : skipToken,

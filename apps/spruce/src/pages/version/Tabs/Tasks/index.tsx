@@ -19,11 +19,10 @@ import { VersionTasksTable } from "./VersionTasksTable";
 
 interface Props {
   setActiveTaskIds: React.Dispatch<React.SetStateAction<string[]>>;
-  taskCount: number;
   versionId: string;
 }
 
-const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
+const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(versionId || "");
@@ -79,7 +78,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     refetch,
   });
   const { version } = data || {};
-  const { isPatch, tasks } = version || {};
+  const { isPatch, taskCount, tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};
 
   const activeTaskIds = useMemo(
@@ -106,7 +105,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
       loading={tasksData.length === 0 && loading}
       page={page ?? 0}
       tasks={tasksData}
-      totalCount={taskCount}
+      totalCount={taskCount ?? 0}
       versionId={versionId}
     />
   );

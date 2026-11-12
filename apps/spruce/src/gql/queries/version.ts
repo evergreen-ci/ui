@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { UPSTREAM_PROJECT } from "../fragments/upstreamProject";
 
 export const VERSION = gql`
-  query Version($id: String!, $includeNeverActivatedTasks: Boolean) {
+  query Version($id: String!) {
     version(versionId: $id) {
       ...UpstreamProject
       id
@@ -99,9 +99,6 @@ export const VERSION = gql`
       revision
       startTime
       status
-      taskCount(
-        options: { includeNeverActivatedTasks: $includeNeverActivatedTasks }
-      )
       user {
         displayName
         userId: id

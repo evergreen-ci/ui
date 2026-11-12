@@ -43,7 +43,6 @@ const baseVersion: Version = {
   revision: "abc123def456",
   startTime: new Date("2024-01-01"),
   status: PatchStatus.Started,
-  taskCount: null,
   warnings: [],
   baseVersion: null,
   cost: null,
