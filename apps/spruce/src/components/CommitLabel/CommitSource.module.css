@@ -13,10 +13,3 @@
 .repoText.repoText {
   display: flex;
 }
-
-.repoLink {
-  display: flex;
-  align-items: center;
-  gap: var(--via-space-100);
-}
-

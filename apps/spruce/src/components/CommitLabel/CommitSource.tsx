@@ -1,10 +1,7 @@
-import { Link } from "@leafygreen-ui/typography";
 import { Body } from "@via-ds/components";
-import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { cx } from "@evg-ui/lib/utils/css";
 import { RevisionLink } from "components/RevisionLink";
-import { getGithubCommitUrl } from "constants/externalResources";
 import { getTriggerRoute } from "constants/routes";
 import { VersionTriggerInfoFragment } from "gql/generated/types";
 import { getDisplayRevision } from "utils/string";
@@ -44,16 +41,7 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
       />
       {showRepo && repo && (
         <Body className={cx(styles.text, styles.repoText)}>
-          <Link
-            data-testid="github-link"
-            hideExternalIcon
-            href={getGithubCommitUrl(repo.owner, repo.repo, displayRevision)}
-          >
-            <span className={styles.repoLink}>
-              <Icon glyph="GitHub" />
-              {`in ${repo.owner}/${repo.repo}`}
-            </span>
-          </Link>
+          {repo.owner}/{repo.repo}
         </Body>
       )}
       {showRepo && repo && upstreamProject && (
