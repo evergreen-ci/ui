@@ -45,7 +45,7 @@ test.describe("Waterfall menu settings", () => {
     await page.locator("body").click();
 
     await page.getByTestId("build-variant-filter-input").clear();
-    await page.getByTestId("build-variant-filter-input").fill("Ubuntu");
+    await page.getByTestId("build-variant-filter-input").fill("ubuntu1604");
     await page.getByTestId("build-variant-filter-input").press("Enter");
 
     const count = await page.getByTestId("build-variant-label").count();
