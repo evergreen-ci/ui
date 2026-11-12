@@ -12,9 +12,6 @@ export const VERSION_LIMIT = 5;
 export const TASK_FILTER_SETTING_KEY = "task-filter-setting";
 export const VARIANT_FILTER_SETTING_KEY = "variant-filter-setting";
 
-export const stringFilterTooltipText =
-  "Search is case sensitive. For best performance, use an Exact filter whenever possible.";
-
 export const waterfallPageContainerId = "waterfall-page";
 
 export const waterfallGuideId = "data-waterfall-guide-id";
@@ -64,12 +61,18 @@ export const tupleSelectOptions = [
   {
     value: FilterType.Exact,
     displayName: "Exact",
-    validator: () => true,
+    tooltip: "Best performance, case sensitive search.",
   },
   {
     value: FilterType.Regex,
     displayName: "Regex",
     validator: validators.validateRegexp,
+    tooltip: "Regex match, may take longer.",
+  },
+  {
+    value: FilterType.Tag,
+    displayName: "Tag",
+    tooltip: "Exact match on a tag from your Evergreen config file.",
   },
 ];
 
@@ -77,5 +80,7 @@ export const resetFilterState: ServerFilters = {
   requesters: undefined,
   statuses: undefined,
   tasks: undefined,
+  taskTags: undefined,
   variants: undefined,
+  variantTags: undefined,
 };
