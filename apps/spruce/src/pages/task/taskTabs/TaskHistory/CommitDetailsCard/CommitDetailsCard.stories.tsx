@@ -5,10 +5,7 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import { Requester } from "constants/requesters";
 import { TaskQuery, TestResult } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
-import {
-  UpstreamProject,
-  defaultRepotrackerBaseVersion,
-} from "pages/waterfall/VersionLabel/testData";
+import { UpstreamProject } from "pages/waterfall/VersionLabel/testData";
 import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
@@ -164,9 +161,6 @@ const getStoryTask = (args: TemplateProps) => {
       ...task.version,
       id: args.isTrigger ? TRIGGER_VERSION_ID : task.version.id,
       message: args.message,
-      repotrackerBaseVersion: args.isTrigger
-        ? defaultRepotrackerBaseVersion
-        : null,
       upstreamProject: args.isTrigger ? upstreamProject : null,
     },
   };

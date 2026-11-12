@@ -4922,6 +4922,7 @@ export type UpdateVolumeInput = {
 
 export type UpstreamProject = {
   __typename?: "UpstreamProject";
+  baseVersion?: Maybe<Version>;
   owner: Scalars["String"]["output"];
   project: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
@@ -5079,11 +5080,6 @@ export type Version = {
   projectMetadata?: Maybe<Project>;
   quarantinedTestsSkippedCount: Scalars["Int"]["output"];
   repo: Scalars["String"]["output"];
-  /**
-   * The most recent repotracker (gitter_request) version this version is based on. Only resolves for trigger,
-   * git tag, and periodic build versions.
-   */
-  repotrackerBaseVersion?: Maybe<Version>;
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
   startTime?: Maybe<Scalars["Time"]["output"]>;
@@ -6826,20 +6822,6 @@ export type UpstreamProjectFragment = {
 export type VersionTriggerInfoFragment = {
   __typename?: "Version";
   id: string;
-  repotrackerBaseVersion?: {
-    __typename?: "Version";
-    id: string;
-    createTime: Date;
-    message: string;
-    revision: string;
-    projectMetadata?: {
-      __typename?: "Project";
-      id: string;
-      owner: string;
-      repo: string;
-    } | null;
-    user: { __typename?: "User"; id: string; displayName?: string | null };
-  } | null;
   upstreamProject?: {
     __typename?: "UpstreamProject";
     owner: string;
@@ -6848,6 +6830,20 @@ export type VersionTriggerInfoFragment = {
     revision: string;
     triggerID: string;
     triggerType: string;
+    baseVersion?: {
+      __typename?: "Version";
+      id: string;
+      createTime: Date;
+      message: string;
+      revision: string;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
+      user: { __typename?: "User"; id: string; displayName?: string | null };
+    } | null;
     task?: {
       __typename?: "Task";
       id: string;
@@ -9302,24 +9298,6 @@ export type MainlineCommitsForHistoryQuery = {
           displayName?: string | null;
           userId: string;
         };
-        repotrackerBaseVersion?: {
-          __typename?: "Version";
-          id: string;
-          createTime: Date;
-          message: string;
-          revision: string;
-          projectMetadata?: {
-            __typename?: "Project";
-            id: string;
-            owner: string;
-            repo: string;
-          } | null;
-          user: {
-            __typename?: "User";
-            id: string;
-            displayName?: string | null;
-          };
-        } | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           owner: string;
@@ -9328,6 +9306,24 @@ export type MainlineCommitsForHistoryQuery = {
           revision: string;
           triggerID: string;
           triggerType: string;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
           task?: {
             __typename?: "Task";
             id: string;
@@ -9366,24 +9362,6 @@ export type MainlineCommitsForHistoryQuery = {
           displayName?: string | null;
           userId: string;
         };
-        repotrackerBaseVersion?: {
-          __typename?: "Version";
-          id: string;
-          createTime: Date;
-          message: string;
-          revision: string;
-          projectMetadata?: {
-            __typename?: "Project";
-            id: string;
-            owner: string;
-            repo: string;
-          } | null;
-          user: {
-            __typename?: "User";
-            id: string;
-            displayName?: string | null;
-          };
-        } | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           owner: string;
@@ -9392,6 +9370,24 @@ export type MainlineCommitsForHistoryQuery = {
           revision: string;
           triggerID: string;
           triggerType: string;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
           task?: {
             __typename?: "Task";
             id: string;
@@ -11610,24 +11606,6 @@ export type TaskHistoryQuery = {
           repo: string;
         } | null;
         user: { __typename?: "User"; id: string; displayName?: string | null };
-        repotrackerBaseVersion?: {
-          __typename?: "Version";
-          id: string;
-          createTime: Date;
-          message: string;
-          revision: string;
-          projectMetadata?: {
-            __typename?: "Project";
-            id: string;
-            owner: string;
-            repo: string;
-          } | null;
-          user: {
-            __typename?: "User";
-            id: string;
-            displayName?: string | null;
-          };
-        } | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           owner: string;
@@ -11636,6 +11614,24 @@ export type TaskHistoryQuery = {
           revision: string;
           triggerID: string;
           triggerType: string;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
           task?: {
             __typename?: "Task";
             id: string;
@@ -12928,20 +12924,6 @@ export type WaterfallQuery = {
           execution: number;
         }>;
       }> | null;
-      repotrackerBaseVersion?: {
-        __typename?: "Version";
-        id: string;
-        createTime: Date;
-        message: string;
-        revision: string;
-        projectMetadata?: {
-          __typename?: "Project";
-          id: string;
-          owner: string;
-          repo: string;
-        } | null;
-        user: { __typename?: "User"; id: string; displayName?: string | null };
-      } | null;
       upstreamProject?: {
         __typename?: "UpstreamProject";
         owner: string;
@@ -12950,6 +12932,24 @@ export type WaterfallQuery = {
         revision: string;
         triggerID: string;
         triggerType: string;
+        baseVersion?: {
+          __typename?: "Version";
+          id: string;
+          createTime: Date;
+          message: string;
+          revision: string;
+          projectMetadata?: {
+            __typename?: "Project";
+            id: string;
+            owner: string;
+            repo: string;
+          } | null;
+          user: {
+            __typename?: "User";
+            id: string;
+            displayName?: string | null;
+          };
+        } | null;
         task?: {
           __typename?: "Task";
           id: string;

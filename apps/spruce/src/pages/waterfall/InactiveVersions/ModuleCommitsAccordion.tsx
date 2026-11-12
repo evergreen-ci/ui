@@ -27,7 +27,7 @@ export const ModuleCommitsAccordion: React.FC<ModuleCommitsAccordionProps> = ({
       defaultOpen
       subtitle={
         <BasedOnVersion
-          repotrackerBaseVersion={versions[0].repotrackerBaseVersion}
+          baseVersion={versions[0].upstreamProject?.baseVersion}
           showRepo
         />
       }

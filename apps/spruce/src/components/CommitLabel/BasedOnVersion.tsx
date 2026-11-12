@@ -10,18 +10,19 @@ import { CommitDescription } from "./CommitDescription";
 
 const MAX_MESSAGE_LENGTH = 150;
 
-type RepotrackerBaseVersion =
-  VersionTriggerInfoFragment["repotrackerBaseVersion"];
+type UpstreamProjectBaseVersion = NonNullable<
+  VersionTriggerInfoFragment["upstreamProject"]
+>["baseVersion"];
 
 interface BasedOnVersionProps {
   onClick?: () => void;
-  repotrackerBaseVersion: RepotrackerBaseVersion;
+  baseVersion: UpstreamProjectBaseVersion;
   showRepo?: boolean;
 }
 
 export const BasedOnVersion: React.FC<BasedOnVersionProps> = ({
+  baseVersion: basedOnVersion,
   onClick,
-  repotrackerBaseVersion: basedOnVersion,
   showRepo = false,
 }) => {
   const getDateCopy = useDateFormat();

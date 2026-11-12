@@ -8,10 +8,7 @@ import {
 } from "gql/generated/types";
 import { WATERFALL_TASK_STATS } from "gql/queries";
 import { BuildVariant, Version } from "./types";
-import {
-  defaultRepotrackerBaseVersion,
-  defaultUpstreamProject,
-} from "./VersionLabel/testData";
+import { defaultUpstreamProject } from "./VersionLabel/testData";
 
 export const getWaterfallData = (
   orders: number[],
@@ -156,7 +153,6 @@ export const versionWithUpstreamProject: Version = {
   requester: Requester.Trigger,
   revision: "130948895a46d4fd04292e7783069918e4e7cd5a",
   order: 8,
-  repotrackerBaseVersion: defaultRepotrackerBaseVersion,
   upstreamProject: defaultUpstreamProject,
 };
 

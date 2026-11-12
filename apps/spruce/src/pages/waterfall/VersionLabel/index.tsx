@@ -45,7 +45,6 @@ export const VersionLabel: React.FC<Props> = ({
     gitTags,
     id,
     message,
-    repotrackerBaseVersion,
     requester,
     user,
   } = version;
@@ -131,7 +130,7 @@ export const VersionLabel: React.FC<Props> = ({
         <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
       ) : null}
       {isWaterfall && (
-        <BasedOnVersion repotrackerBaseVersion={repotrackerBaseVersion} />
+        <BasedOnVersion baseVersion={version.upstreamProject?.baseVersion} />
       )}
     </div>
   );

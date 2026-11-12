@@ -5,19 +5,21 @@ export const VERSION_TRIGGER_INFO = gql`
   fragment VersionTriggerInfo on Version {
     ...UpstreamProject
     id
-    repotrackerBaseVersion {
-      id
-      createTime
-      message
-      projectMetadata {
+    upstreamProject {
+      baseVersion {
         id
-        owner
-        repo
-      }
-      revision
-      user {
-        id
-        displayName
+        createTime
+        message
+        projectMetadata {
+          id
+          owner
+          repo
+        }
+        revision
+        user {
+          id
+          displayName
+        }
       }
     }
   }

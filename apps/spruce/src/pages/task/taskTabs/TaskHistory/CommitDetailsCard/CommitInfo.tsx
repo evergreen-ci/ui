@@ -12,7 +12,7 @@ interface CommitInfoProps {
 export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
   const { sendEvent } = useTaskHistoryAnalytics();
   const { id: taskId, version } = task;
-  const { repotrackerBaseVersion } = version;
+  const upstreamBaseVersion = version?.upstreamProject?.baseVersion;
 
   return (
     <div className={styles.row}>
@@ -25,11 +25,8 @@ export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
         showRepo
         version={version}
       />
-      {repotrackerBaseVersion && <span aria-hidden>&middot;</span>}
-      <BasedOnVersion
-        repotrackerBaseVersion={repotrackerBaseVersion}
-        showRepo
-      />
+      {upstreamBaseVersion && <span aria-hidden>&middot;</span>}
+      <BasedOnVersion baseVersion={upstreamBaseVersion} showRepo />
     </div>
   );
 };

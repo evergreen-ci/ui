@@ -13,10 +13,7 @@ import {
   versionWithUpstreamProject,
 } from "../testData";
 import { Version } from "../types";
-import {
-  UpstreamProject,
-  defaultRepotrackerBaseVersion,
-} from "../VersionLabel/testData";
+import { UpstreamProject } from "../VersionLabel/testData";
 import styles from "./InactiveVersionsModal.stories.module.css";
 import { InactiveVersionsButton } from ".";
 
@@ -79,7 +76,6 @@ const getModuleVersion = (
   overrides: Partial<Version> = {},
 ): Version => ({
   ...inactiveVersion,
-  repotrackerBaseVersion: defaultRepotrackerBaseVersion,
   id: `module_${suffix}`,
   message: `Module commit ${suffix}`,
   requester: Requester.Trigger,
