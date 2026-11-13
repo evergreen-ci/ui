@@ -5,7 +5,7 @@ import { setLocalStorageString } from "@evg-ui/lib/utils/localStorage";
 import { useWaterfallAnalytics } from "analytics";
 import { useUpsertQueryParams } from "hooks";
 import { TASK_FILTER_SETTING_KEY, tupleSelectOptions } from "../constants";
-import RadioInput from "../RadioInput";
+import TextFilterInput from "../TextFilterInput";
 import { FilterType, WaterfallFilterOptions } from "../types";
 import { getFilterType, makeExactFilter } from "../utils";
 
@@ -42,7 +42,7 @@ export const TaskFilter = () => {
   }, []);
 
   return (
-    <RadioInput
+    <TextFilterInput
       ariaLabel="Task Filter"
       data-testid="task-filter"
       defaultOption={defaultFilterType}

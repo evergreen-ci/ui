@@ -29,7 +29,7 @@ describe("tupleSelect", () => {
     expect(screen.getByRole("radio", { name: "Task" })).toBeChecked();
   });
 
-  it("calls onToggleOption when the radio selection changes", async () => {
+  it("calls onToggleOption when the segmented control selection changes", async () => {
     const user = userEvent.setup();
     const onToggleOption = vi.fn();
     render(
@@ -66,8 +66,8 @@ describe("tupleSelect", () => {
       />,
     );
     const input = screen.queryByTestId("tuple-select-input");
-    const radio = screen.getByRole("radio", { name: "Build Variant" });
-    expect(radio).toBeInTheDocument();
+    const segment = screen.getByRole("radio", { name: "Build Variant" });
+    expect(segment).toBeInTheDocument();
     expect(input).toBeInTheDocument();
     expect(input).toHaveValue("");
   });

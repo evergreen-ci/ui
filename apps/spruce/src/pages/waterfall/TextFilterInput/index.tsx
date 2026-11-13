@@ -1,23 +1,28 @@
 import { useCallback, useState } from "react";
 import { Label } from "@leafygreen-ui/typography";
-import { Radio, RadioGroup } from "@via-ds/components/radio-group";
+import {
+  SegmentedControl,
+  SegmentedControlItem,
+} from "@via-ds/components/segmented-control";
 import {
   Tooltip,
   TooltipRoot,
   TooltipTrigger,
 } from "@via-ds/components/tooltip";
+import Icon, { IconProps } from "@evg-ui/lib/components/Icon";
 import TextInput from "components/TextInputWithValidation";
 import styles from "./index.module.css";
 
 type Option<T extends string = string> = {
   value: T;
   displayName: string;
+  glyph?: IconProps["glyph"];
   placeholderText?: string;
   tooltip?: string;
   validator?: (value: string) => boolean;
 };
 
-interface RadioInputProps<T extends string = string> {
+interface TextFilterInputProps<T extends string = string> {
   ariaLabel: string;
   "data-testid": string;
   defaultOption?: T;
@@ -31,7 +36,7 @@ interface RadioInputProps<T extends string = string> {
   validatorErrorMessage?: string;
 }
 
-const RadioInput: React.FC<RadioInputProps> = ({
+const TextFilterInput: React.FC<TextFilterInputProps> = ({
   ariaLabel,
   "data-testid": dataTestId,
   defaultOption,
@@ -54,9 +59,10 @@ const RadioInput: React.FC<RadioInputProps> = ({
     options.find((o) => o.value === selected) ?? options[0];
 
   const handleChange = useCallback(
-    (v: string) => {
-      setSelected(v);
-      onToggleOption?.(v);
+    (value: React.Key) => {
+      const selectedValue = String(value);
+      setSelected(selectedValue);
+      onToggleOption?.(selectedValue);
     },
     [onToggleOption],
   );
@@ -65,29 +71,35 @@ const RadioInput: React.FC<RadioInputProps> = ({
     <div className={styles.container}>
       <div className={styles.labelContainer}>
         <Label htmlFor={id}>{label}</Label>
-        <RadioGroup
+        <SegmentedControl
           aria-label={`${ariaLabel} Filter Type`}
-          className={styles.radioGroup}
+          className={styles.segmentedControl}
           name={`${id}-filter-type`}
           onChange={handleChange}
-          orientation="horizontal"
+          size="small"
           value={selected}
         >
-          {options.map((o) => (
-            <Radio key={o.value} value={o.value}>
-              {o.tooltip ? (
-                <TooltipRoot delay={1000}>
-                  <TooltipTrigger>
-                    <span>{o.displayName}</span>
-                  </TooltipTrigger>
-                  <Tooltip>{o.tooltip}</Tooltip>
-                </TooltipRoot>
-              ) : (
-                o.displayName
-              )}
-            </Radio>
-          ))}
-        </RadioGroup>
+          {options.map((o) => {
+            const button = (
+              <SegmentedControlItem
+                key={o.value}
+                className={styles.segmentedControlItem}
+                value={o.value}
+              >
+                {o?.glyph ? <Icon glyph={o.glyph} /> : null}
+                <span>{o.displayName}</span>
+              </SegmentedControlItem>
+            );
+            return o.tooltip ? (
+              <TooltipRoot delay={1000}>
+                <TooltipTrigger>{button}</TooltipTrigger>
+                <Tooltip>{o.tooltip}</Tooltip>
+              </TooltipRoot>
+            ) : (
+              button
+            );
+          })}
+        </SegmentedControl>
       </div>
       <TextInput
         aria-label={`${ariaLabel} Input`}
@@ -106,4 +118,4 @@ const RadioInput: React.FC<RadioInputProps> = ({
   );
 };
 
-export default RadioInput;
+export default TextFilterInput;

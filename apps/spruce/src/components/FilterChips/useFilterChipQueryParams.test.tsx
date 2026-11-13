@@ -19,9 +19,9 @@ const Content = () => {
       TestFilterOptions.Task,
     ]),
     {
-      [TestFilterOptions.BuildVariant]: "Variant",
-      [TestFilterOptions.Test]: "Test",
-      [TestFilterOptions.Task]: "Task",
+      [TestFilterOptions.BuildVariant]: { label: "Variant" },
+      [TestFilterOptions.Test]: { label: "Test" },
+      [TestFilterOptions.Task]: { label: "Task" },
     },
   );
   return (

@@ -31,7 +31,9 @@ describe("useWaterfallQueryParams", () => {
     ["requesters", "requesters"],
     ["statuses", "statuses"],
     ["tasks", "tasks"],
+    ["taskTags", "taskTags"],
     ["buildVariants", "variants"],
+    ["variantTags", "variantTags"],
   ])("recognizes %s as a server filter", (param, field) => {
     const { result } = setup(`?${param}=first,second`);
     expect(result.current.hasFilters).toBe(true);
@@ -45,7 +47,9 @@ describe("useWaterfallQueryParams", () => {
     ["requesters", "requesters"],
     ["statuses", "statuses"],
     ["tasks", "tasks"],
+    ["taskTags", "taskTags"],
     ["buildVariants", "variants"],
+    ["variantTags", "variantTags"],
   ])("normalizes a single %s value into an array", (param, field) => {
     const { result } = setup(`?${param}=single`);
     expect(result.current.queryOptions).toMatchObject({ [field]: ["single"] });
@@ -66,7 +70,9 @@ describe("useWaterfallQueryParams", () => {
       requesters: [],
       statuses: [],
       tasks: [],
+      taskTags: [],
       variants: [],
+      variantTags: [],
     });
   });
 
