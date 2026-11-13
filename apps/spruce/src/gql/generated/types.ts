@@ -6821,6 +6821,12 @@ export type UpstreamProjectFragment = {
   } | null;
 };
 
+export type UpstreamProjectHashFragment = {
+  __typename?: "Version";
+  id: string;
+  upstreamProject?: { __typename?: "UpstreamProject"; revision: string } | null;
+};
+
 export type VersionTriggerInfoFragment = {
   __typename?: "Version";
   id: string;
@@ -12066,7 +12072,15 @@ export type TaskQuery = {
       revision?: string | null;
       status: string;
       timeTaken?: number | null;
-      versionMetadata: { __typename?: "Version"; id: string; revision: string };
+      versionMetadata: {
+        __typename?: "Version";
+        id: string;
+        revision: string;
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          revision: string;
+        } | null;
+      };
     } | null;
     dependsOn?: Array<{
       __typename?: "Dependency";
@@ -12180,19 +12194,7 @@ export type TaskQuery = {
       };
       upstreamProject?: {
         __typename?: "UpstreamProject";
-        owner: string;
-        project: string;
-        repo: string;
         revision: string;
-        triggerID: string;
-        triggerType: string;
-        task?: {
-          __typename?: "Task";
-          id: string;
-          displayName: string;
-          execution: number;
-        } | null;
-        version?: { __typename?: "Version"; id: string } | null;
       } | null;
     };
   } | null;
@@ -12802,6 +12804,10 @@ export type VersionQuery = {
       __typename?: "Version";
       id: string;
       revision: string;
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        revision: string;
+      } | null;
     } | null;
     projectMetadata?: {
       __typename?: "Project";
