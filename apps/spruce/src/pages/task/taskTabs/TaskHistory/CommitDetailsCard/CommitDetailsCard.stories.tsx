@@ -165,6 +165,7 @@ const testResults: TestResult[] = Array.from({ length: 15 }, (_, idx) => ({
   id: `e2e_test_${idx}`,
   testFile: `e2e_test_${idx}`,
   status: idx % 3 === 0 ? TestStatus.SilentFail : TestStatus.Fail,
+  canQuarantine: false,
   isManuallyQuarantined: false,
   logs: { urlParsley: `https://${idx}-parsley-url.mongodb.com` },
 }));
