@@ -12,6 +12,7 @@ vi.mock("analytics", () => ({
 const renderLogsColumn = (logs: NonNullable<TestResult["logs"]>) => {
   const testResult: TestResult = {
     id: "test-id",
+    canQuarantine: false,
     isManuallyQuarantined: false,
     logs,
     status: TestStatus.Pass,

@@ -20,13 +20,8 @@ import { taskQuery } from "gql/mocks/taskData";
 import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
 import { ActionMenu } from ".";
 
-const taskWithTestSelection = {
-  ...taskQuery.task,
-  testSelectionEnabled: true,
-};
-
 const taskRequiringJiraTickets = {
-  ...taskWithTestSelection,
+  ...taskQuery.task,
   project: {
     ...taskQuery.task.project!,
     testSelection: { allowed: true, quarantineJiraTicketsRequired: true },
@@ -34,13 +29,13 @@ const taskRequiringJiraTickets = {
 };
 
 describe("action menu for tests table", () => {
-  it("shows disabled message when test selection did not run for the task", async () => {
+  it("shows disabled message when test selection did not check the test", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[]}>
         <ActionMenu
-          task={{ ...taskWithTestSelection, testSelectionEnabled: false }}
-          test={failingTest}
+          task={taskQuery.task}
+          test={{ ...failingTest, canQuarantine: false }}
         />
       </MockedProvider>,
     );
@@ -51,7 +46,7 @@ describe("action menu for tests table", () => {
     });
     expect(
       screen.getByText(
-        "Test selection did not run for this task, so its tests cannot be quarantined.",
+        "Test selection did not check this test in this task run, so it cannot be quarantined.",
       ),
     ).toBeVisible();
   });
@@ -61,7 +56,7 @@ describe("action menu for tests table", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[quarantineDisplayTaskTestMock]}>
         <ActionMenu
-          task={{ ...taskWithTestSelection, displayOnly: true }}
+          task={{ ...taskQuery.task, displayOnly: true }}
           test={failingTestOnDisplayTask}
         />
       </MockedProvider>,
@@ -82,7 +77,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[quarantinePassingTestMock]}>
-        <ActionMenu task={taskWithTestSelection} test={passingTest} />
+        <ActionMenu task={taskQuery.task} test={passingTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -105,7 +100,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[quarantineTestMock]}>
-        <ActionMenu task={taskWithTestSelection} test={failingTest} />
+        <ActionMenu task={taskQuery.task} test={failingTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -124,7 +119,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[]}>
-        <ActionMenu task={taskWithTestSelection} test={failingTest} />
+        <ActionMenu task={taskQuery.task} test={failingTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -185,7 +180,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[]}>
-        <ActionMenu task={taskWithTestSelection} test={failingTest} />
+        <ActionMenu task={taskQuery.task} test={failingTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -209,7 +204,7 @@ describe("action menu for tests table", () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[unquarantineTestMock]}>
-        <ActionMenu task={taskWithTestSelection} test={quarantinedTest} />
+        <ActionMenu task={taskQuery.task} test={quarantinedTest} />
       </MockedProvider>,
     );
     render(<Component />);
@@ -229,6 +224,7 @@ const failingTest: TestResult = {
   taskId: taskQuery.task.id,
   testFile: "test_1",
   status: TestStatus.Fail,
+  canQuarantine: true,
   isManuallyQuarantined: false,
   logs: {},
 };
@@ -238,6 +234,7 @@ const passingTest: TestResult = {
   taskId: taskQuery.task.id,
   testFile: "test_2",
   status: TestStatus.Pass,
+  canQuarantine: true,
   isManuallyQuarantined: false,
   logs: {},
 };
@@ -247,6 +244,7 @@ const quarantinedTest: TestResult = {
   taskId: taskQuery.task.id,
   testFile: "test_3",
   status: TestStatus.Pass,
+  canQuarantine: true,
   isManuallyQuarantined: true,
   logs: {},
 };
@@ -256,6 +254,7 @@ const failingTestOnDisplayTask: TestResult = {
   taskId: "execTaskId",
   testFile: "test_4",
   status: TestStatus.Fail,
+  canQuarantine: true,
   isManuallyQuarantined: false,
   logs: {},
 };
