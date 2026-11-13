@@ -4,6 +4,10 @@ import { VersionTasksTable } from ".";
 
 const versionId = versionTasks.data.version.id;
 const tasks = versionTasks.data.version.tasks.data;
+const selectedTasks = tasks.slice(0, 2);
+const rowSelection = Object.fromEntries(
+  selectedTasks.map(({ id }) => [id, true]),
+);
 
 export default {
   component: VersionTasksTable,
@@ -17,7 +21,12 @@ export const Default: CustomStoryObj<typeof VersionTasksTable> = {
       isPatch={args.isPatch}
       limit={10}
       loading={false}
+      onFilterChange={() => {}}
+      onRowSelectionChange={() => {}}
+      onToggleAll={() => {}}
       page={0}
+      rowSelection={rowSelection}
+      selectedCount={selectedTasks.length}
       tasks={tasks}
       totalCount={tasks.length}
       versionId={versionId}
