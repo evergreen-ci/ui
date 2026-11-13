@@ -26,6 +26,7 @@ export const TASK_TESTS = gql`
         testResults {
           id
           baseStatus
+          canQuarantine
           duration
           isManuallyQuarantined
           logs {

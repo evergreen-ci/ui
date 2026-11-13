@@ -4700,6 +4700,7 @@ export type TestQuarantineEntry = {
 export type TestResult = {
   __typename?: "TestResult";
   baseStatus?: Maybe<Scalars["String"]["output"]>;
+  canQuarantine: Scalars["Boolean"]["output"];
   duration?: Maybe<Scalars["Float"]["output"]>;
   endTime?: Maybe<Scalars["Time"]["output"]>;
   execution?: Maybe<Scalars["Int"]["output"]>;
@@ -11788,6 +11789,7 @@ export type TaskTestsQuery = {
         __typename?: "TestResult";
         id: string;
         baseStatus?: string | null;
+        canQuarantine: boolean;
         duration?: number | null;
         isManuallyQuarantined: boolean;
         status: string;
