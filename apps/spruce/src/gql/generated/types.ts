@@ -4922,6 +4922,7 @@ export type UpdateVolumeInput = {
 
 export type UpstreamProject = {
   __typename?: "UpstreamProject";
+  baseVersion?: Maybe<Version>;
   owner: Scalars["String"]["output"];
   project: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
@@ -5199,6 +5200,8 @@ export type WaterfallOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Max active versions to return to the client, between 1 and 300. Mostly used to allow smaller tests. */
+  maxVersions?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order greater than minOrder. Used for paginating backward. */
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   omitInactiveBuilds?: InputMaybe<Scalars["Boolean"]["input"]>;
