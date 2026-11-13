@@ -14,6 +14,7 @@ import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
+import { useTaskSelectionContext } from "../../TaskSelection";
 import { useQueryVariables } from "../useQueryVariables";
 import { VersionTasksTable } from "./VersionTasksTable";
 
@@ -27,6 +28,13 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(versionId || "");
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
+  const {
+    clearSelection,
+    getRowSelection,
+    selectedCount,
+    setRowSelection,
+    toggleAll,
+  } = useTaskSelectionContext();
 
   useEffect(() => {
     const hasValidSortsForTab =
@@ -41,6 +49,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
+    clearSelection();
     updateQueryParams({
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.TaskName]: undefined,
@@ -86,6 +95,11 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
     [tasksData],
   );
 
+  const rowSelection = useMemo(
+    () => getRowSelection(activeTaskIds),
+    [getRowSelection, activeTaskIds],
+  );
+
   useEffect(() => {
     // Track the tasks currently shown by the tasks table in order to allow multiple tasks to be activated.
     // If no filters are applied, unset active tasks in order to activate the entire version.
@@ -103,7 +117,14 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
       isPatch={isPatch ?? false}
       limit={limit ?? 0}
       loading={tasksData.length === 0 && loading}
+      onFilterChange={clearSelection}
+      onRowSelectionChange={(updater) =>
+        setRowSelection(updater, activeTaskIds, count)
+      }
+      onToggleAll={() => toggleAll(count)}
       page={page ?? 0}
+      rowSelection={rowSelection}
+      selectedCount={selectedCount}
       tasks={tasksData}
       totalCount={taskCount ?? 0}
       versionId={versionId}

@@ -27,6 +27,7 @@ import { IgnoredBanner } from "./version/IgnoredBanner";
 import { Metadata } from "./version/Metadata";
 import { NameChangeModal } from "./version/NameChangeModal";
 import VersionTabs from "./version/Tabs";
+import { TaskSelectionProvider } from "./version/TaskSelection";
 
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
@@ -107,44 +108,51 @@ export const VersionPage: React.FC = () => {
   );
 
   return (
-    <PageWrapper data-testid="version-page">
-      <ProjectBanner projectIdentifier={projectMetadata?.identifier} />
-      {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
-      {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
-      {ignored && <IgnoredBanner />}
-      {version && (
-        <VersionPageBreadcrumbs
-          patchNumber={patchNumber}
-          versionMetadata={version}
-        />
-      )}
-      <PageTitle
-        badge={<PatchStatusBadge status={status} />}
-        buttons={
-          <ActionButtons
-            activeTaskIds={activeTaskIds}
-            isPatch={!!isPatch}
-            requester={requester}
-            versionId={versionId}
-          />
-        }
-        loading={false}
-        pageTitle={pageTitle}
-        title={linkifiedMessage || `Version ${order}`}
-      >
-        {isPatch && (
-          <NameChangeModal originalPatchName={message} patchId={versionId} />
+    <TaskSelectionProvider versionId={versionId}>
+      <PageWrapper data-testid="version-page">
+        <ProjectBanner projectIdentifier={projectMetadata?.identifier} />
+        {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
+        {warnings && warnings.length > 0 && (
+          <WarningBanner warnings={warnings} />
         )}
-      </PageTitle>
-      <PageLayout hasSider>
-        <PageSider>
-          <Metadata version={version} />
-          <BuildVariantCard versionId={versionId} />
-        </PageSider>
-        <PageContent>
-          <VersionTabs setActiveTaskIds={setActiveTaskIds} version={version} />
-        </PageContent>
-      </PageLayout>
-    </PageWrapper>
+        {ignored && <IgnoredBanner />}
+        {version && (
+          <VersionPageBreadcrumbs
+            patchNumber={patchNumber}
+            versionMetadata={version}
+          />
+        )}
+        <PageTitle
+          badge={<PatchStatusBadge status={status} />}
+          buttons={
+            <ActionButtons
+              activeTaskIds={activeTaskIds}
+              isPatch={!!isPatch}
+              requester={requester}
+              versionId={versionId}
+            />
+          }
+          loading={false}
+          pageTitle={pageTitle}
+          title={linkifiedMessage || `Version ${order}`}
+        >
+          {isPatch && (
+            <NameChangeModal originalPatchName={message} patchId={versionId} />
+          )}
+        </PageTitle>
+        <PageLayout hasSider>
+          <PageSider>
+            <Metadata version={version} />
+            <BuildVariantCard versionId={versionId} />
+          </PageSider>
+          <PageContent>
+            <VersionTabs
+              setActiveTaskIds={setActiveTaskIds}
+              version={version}
+            />
+          </PageContent>
+        </PageLayout>
+      </PageWrapper>
+    </TaskSelectionProvider>
   );
 };
