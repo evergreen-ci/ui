@@ -22,6 +22,7 @@ import { ActionMenu } from ".";
 
 const taskWithTestSelection = {
   ...taskQuery.task,
+  canQuarantine: true,
   testSelectionEnabled: true,
 };
 
@@ -55,6 +56,36 @@ describe("action menu for tests table", () => {
       ),
     ).toBeVisible();
   });
+
+  it.each([
+    ["an unquarantined", failingTest],
+    ["a quarantined", quarantinedTest],
+  ])(
+    "shows disabled message for %s test when the user cannot quarantine tests",
+    async (_, test) => {
+      const user = userEvent.setup();
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={[]}>
+          <ActionMenu
+            task={{ ...taskWithTestSelection, canQuarantine: false }}
+            test={test}
+          />
+        </MockedProvider>,
+      );
+      render(<Component />);
+      await user.click(screen.getByTestId("ellipsis-btn"));
+      await waitFor(() => {
+        expect(screen.getByTestId("card-dropdown")).toBeVisible();
+      });
+      expect(
+        screen.getByText(
+          "You do not have permission to quarantine or unquarantine tests in this project. Request the Test quarantine permission in MANA.",
+        ),
+      ).toBeVisible();
+      expect(screen.queryByTestId("quarantine-test")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("unquarantine-test")).not.toBeInTheDocument();
+    },
+  );
 
   it("quarantines a failing test on a display task using its execution task ID", async () => {
     const user = userEvent.setup();

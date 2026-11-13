@@ -4172,6 +4172,7 @@ export type Task = {
   canDisable: Scalars["Boolean"]["output"];
   canModifyAnnotation: Scalars["Boolean"]["output"];
   canOverrideDependencies: Scalars["Boolean"]["output"];
+  canQuarantine: Scalars["Boolean"]["output"];
   canRestart: Scalars["Boolean"]["output"];
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
@@ -11823,6 +11824,7 @@ export type TaskQuery = {
     canDisable: boolean;
     canModifyAnnotation: boolean;
     canOverrideDependencies: boolean;
+    canQuarantine: boolean;
     canRestart: boolean;
     canSchedule: boolean;
     canSetPriority: boolean;
