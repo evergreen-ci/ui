@@ -13,6 +13,7 @@ import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
 import { StatusFilter } from "./StatusFilter";
 import { TaskFilter } from "./TaskFilter";
+import { TextFilterChips } from "./TextFilterChips";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import { WaterfallMenu } from "./WaterfallMenu";
 
@@ -48,57 +49,61 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   );
 
   return (
-    <Container>
-      <BVTaskFilterItem>
-        <BuildVariantFilter />
-      </BVTaskFilterItem>
-      <BVTaskFilterItem>
-        <TaskFilter />
-      </BVTaskFilterItem>
-      <StatusFilterItem>
-        <StatusFilter />
-      </StatusFilterItem>
-      <RequesterFilterItem>
-        <RequesterFilter />
-      </RequesterFilterItem>
-      <DateFilterItem>
-        <DateFilter
-          dataProps={{ [waterfallGuideId]: walkthroughSteps[3].targetId }}
-          onChange={(newDate) => {
-            setQueryParams({
-              ...queryParams,
-              [WaterfallFilterOptions.MaxOrder]: undefined,
-              [WaterfallFilterOptions.MinOrder]: undefined,
-              [WaterfallFilterOptions.Date]: newDate,
-            });
-            sendEvent({ name: "Filtered by date" });
-          }}
-          showLabel
-          value={date}
-        />
-      </DateFilterItem>
-      <ProjectFilterItem>
-        <ProjectSelect
-          getProjectRoute={projectSelectRoute}
-          onSubmit={(project: string) => {
-            evictWaterfallCache(cache, { broadcast: false });
+    <>
+      <Container>
+        <BVTaskFilterItem>
+          <BuildVariantFilter />
+        </BVTaskFilterItem>
+        <BVTaskFilterItem>
+          <TaskFilter />
+        </BVTaskFilterItem>
+        <StatusFilterItem>
+          <StatusFilter />
+        </StatusFilterItem>
+        <RequesterFilterItem>
+          <RequesterFilter />
+        </RequesterFilterItem>
+        <DateFilterItem>
+          <DateFilter
+            dataProps={{ [waterfallGuideId]: walkthroughSteps[3].targetId }}
+            onChange={(newDate) => {
+              setQueryParams({
+                ...queryParams,
+                [WaterfallFilterOptions.MaxOrder]: undefined,
+                [WaterfallFilterOptions.MinOrder]: undefined,
+                [WaterfallFilterOptions.Date]: newDate,
+              });
+              sendEvent({ name: "Filtered by date" });
+            }}
+            showLabel
+            value={date}
+          />
+        </DateFilterItem>
+        <ProjectFilterItem>
+          <ProjectSelect
+            getProjectRoute={projectSelectRoute}
+            onSubmit={(project: string) => {
+              evictWaterfallCache(cache, { broadcast: false });
 
-            sendEvent({
-              name: "Changed project",
-              project,
-            });
-          }}
-          selectedProjectIdentifier={projectIdentifier}
+              sendEvent({
+                name: "Changed project",
+                project,
+              });
+            }}
+            selectedProjectIdentifier={projectIdentifier}
+          />
+        </ProjectFilterItem>
+        <WaterfallMenu
+          omitInactiveBuilds={omitInactiveBuilds}
+          projectIdentifier={projectIdentifier}
+          restartWalkthrough={restartWalkthrough}
+          setOmitInactiveBuilds={setOmitInactiveBuilds}
         />
-      </ProjectFilterItem>
-      <WaterfallMenu
-        omitInactiveBuilds={omitInactiveBuilds}
-        projectIdentifier={projectIdentifier}
-        restartWalkthrough={restartWalkthrough}
-        setOmitInactiveBuilds={setOmitInactiveBuilds}
-      />
-      <PaginationButtons pagination={pagination} />
-    </Container>
+        <PaginationButtons pagination={pagination} />
+      </Container>
+
+      <TextFilterChips />
+    </>
   );
 };
 

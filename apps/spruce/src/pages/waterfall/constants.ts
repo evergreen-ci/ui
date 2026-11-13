@@ -1,3 +1,4 @@
+import { type IconProps } from "@evg-ui/lib/components/Icon";
 import { Align, WalkthroughStep } from "components/WalkthroughGuideCue";
 import { validators } from "utils";
 import { FilterType, ServerFilters } from "./types";
@@ -11,9 +12,6 @@ export const VERSION_LIMIT = 5;
 /* localStorage fields for default filter settings */
 export const TASK_FILTER_SETTING_KEY = "task-filter-setting";
 export const VARIANT_FILTER_SETTING_KEY = "variant-filter-setting";
-
-export const stringFilterTooltipText =
-  "Search is case sensitive. For best performance, use an Exact filter whenever possible.";
 
 export const waterfallPageContainerId = "waterfall-page";
 
@@ -64,18 +62,35 @@ export const tupleSelectOptions = [
   {
     value: FilterType.Exact,
     displayName: "Exact",
-    validator: () => true,
+    glyph: "ExactString",
+    tooltip: "Case-sensitive search on name for the best performance.",
   },
   {
     value: FilterType.Regex,
     displayName: "Regex",
+    glyph: "Regex",
+    tooltip: "Regex match on name, may take longer.",
     validator: validators.validateRegexp,
   },
-];
+  {
+    value: FilterType.Tag,
+    displayName: "Tag",
+    glyph: "Tag",
+    tooltip: "Exact match on a tag from your Evergreen config file.",
+  },
+] satisfies {
+  value: FilterType;
+  displayName: string;
+  glyph: IconProps["glyph"];
+  tooltip: string;
+  validator?: (value: string) => boolean;
+}[];
 
 export const resetFilterState: ServerFilters = {
   requesters: undefined,
   statuses: undefined,
   tasks: undefined,
+  taskTags: undefined,
   variants: undefined,
+  variantTags: undefined,
 };

@@ -18,6 +18,8 @@ import Key from "@via-ds/icons/Key";
 import MagnifyingGlass from "@via-ds/icons/MagnifyingGlass";
 import Pause from "@via-ds/icons/Pause";
 import Play from "@via-ds/icons/Play";
+import String from "@via-ds/icons/String";
+import Tag from "@via-ds/icons/Tag";
 import Trash from "@via-ds/icons/Trash";
 import Warning from "@via-ds/icons/Warning";
 import XWithCircle from "@via-ds/icons/XWithCircle";
@@ -54,6 +56,8 @@ const glyphs = {
   MagnifyingGlass,
   Pause,
   Play,
+  String,
+  Tag,
   Trash,
   Warning,
   XWithCircle,
