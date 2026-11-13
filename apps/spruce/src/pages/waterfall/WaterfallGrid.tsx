@@ -124,7 +124,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   const isHighlighted = (version: Version, index: number) => {
     const { date, revision } = displayedOptions;
-    const matchesRevision = !!revision && version.revision.includes(revision);
+    const matchesRevision =
+      !!revision &&
+      (version.revision.includes(revision) ||
+        version?.upstreamProject?.revision.includes(revision));
     const isFirstVersionAfterDate = date != null && index === 0;
     return matchesRevision || isFirstVersionAfterDate;
   };

@@ -13,6 +13,7 @@ import {
   getWaterfallRoute,
 } from "constants/routes";
 import { Version } from "pages/version/Metadata/types";
+import { getDisplayRevision } from "utils/string";
 import BaseCommitMetadata from "./BaseCommitMetadata";
 import IncludedLocalModules from "./IncludedLocalModules";
 import ManifestBlob from "./ManifestBlob";
@@ -83,7 +84,9 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
             onClick={() =>
               sendEvent({ name: "Clicked metadata previous version link" })
             }
-            revision={previousVersion?.revision || ""}
+            revision={
+              previousVersion ? getDisplayRevision(previousVersion) : ""
+            }
             to={getVersionRoute(previousVersion?.id || "")}
           />
         </MetadataItem>

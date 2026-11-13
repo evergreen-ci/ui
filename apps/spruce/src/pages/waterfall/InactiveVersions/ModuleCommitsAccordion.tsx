@@ -26,7 +26,10 @@ export const ModuleCommitsAccordion: React.FC<ModuleCommitsAccordionProps> = ({
       className={styles.container}
       defaultOpen
       subtitle={
-        <BasedOnVersion isTrigger showRepo versionId={versions[0].id} />
+        <BasedOnVersion
+          baseVersion={versions[0].upstreamProject?.baseVersion}
+          showRepo
+        />
       }
       title={
         <Text

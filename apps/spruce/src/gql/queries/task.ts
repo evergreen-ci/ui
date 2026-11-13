@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { ANNOTATION } from "../fragments/annotation";
 import { BASE_TASK } from "../fragments/baseTask";
+import { UPSTREAM_PROJECT_HASH } from "../fragments/upstreamProjectHash";
 
 export const TASK = gql`
   query Task($taskId: String!, $execution: Int) {
@@ -29,6 +30,7 @@ export const TASK = gql`
         status
         timeTaken
         versionMetadata: version {
+          ...UpstreamProjectHash
           id
           revision
         }
@@ -157,6 +159,7 @@ export const TASK = gql`
       testSelectionEnabled
       timeTaken
       versionMetadata: version {
+        ...UpstreamProjectHash
         id
         isPatch
         message
@@ -175,4 +178,5 @@ export const TASK = gql`
   }
   ${BASE_TASK}
   ${ANNOTATION}
+  ${UPSTREAM_PROJECT_HASH}
 `;

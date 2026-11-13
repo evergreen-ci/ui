@@ -5,6 +5,7 @@ import { MetadataItem, MetadataSection } from "components/MetadataCard";
 import { RevisionLink } from "components/RevisionLink";
 import { getProjectPatchesRoute, getTaskRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
+import { getDisplayRevision } from "utils/string";
 import { CompletedBy } from "./CompletedBy";
 import { TaskOwnership } from "./TaskOwnership";
 
@@ -89,7 +90,11 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
                 "link.type": "base commit",
               })
             }
-            revision={baseTask.versionMetadata?.revision ?? ""}
+            revision={
+              baseTask.versionMetadata
+                ? getDisplayRevision(baseTask.versionMetadata)
+                : ""
+            }
             to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
           />
         </MetadataItem>

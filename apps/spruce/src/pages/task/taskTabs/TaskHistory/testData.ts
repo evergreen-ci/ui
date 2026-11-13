@@ -3,6 +3,12 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import { Requester } from "constants/requesters";
 import { GroupedTask, TaskHistoryTask } from "./types";
 
+const projectMetadata = {
+  id: "evergreen",
+  owner: "evergreen-ci",
+  repo: "evergreen",
+};
+
 const emptyTests = {
   testResults: [],
 };
@@ -27,6 +33,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: A",
+      projectMetadata,
+      revision: "aef363719d0287e92cd83749a827bae",
     },
     tests: emptyTests,
   },
@@ -49,6 +57,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: B",
+      projectMetadata,
+      revision: "b",
     },
     tests: emptyTests,
   },
@@ -71,6 +81,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: C",
+      projectMetadata,
+      revision: "ce135c28ba11e9189cae",
     },
     tests: emptyTests,
   },
@@ -93,6 +105,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: D",
+      projectMetadata,
+      revision: "d",
     },
     tests: emptyTests,
   },
@@ -115,6 +129,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: E",
+      projectMetadata,
+      revision: "e",
     },
     tests: emptyTests,
   },
@@ -137,6 +153,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: F",
+      projectMetadata,
+      revision: "f",
     },
     tests: {
       testResults: [
@@ -168,6 +186,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: G",
+      projectMetadata,
+      revision: "g",
     },
     tests: emptyTests,
   },
@@ -190,6 +210,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: H",
+      projectMetadata,
+      revision: "h",
     },
     tests: emptyTests,
   },
@@ -212,6 +234,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: I",
+      projectMetadata,
+      revision: "i",
     },
     tests: emptyTests,
   },
@@ -234,6 +258,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: J",
+      projectMetadata,
+      revision: "j",
     },
     tests: emptyTests,
   },
@@ -256,6 +282,8 @@ export const tasks: TaskHistoryTask[] = [
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: K",
+      projectMetadata,
+      revision: "k",
     },
     tests: emptyTests,
   },
