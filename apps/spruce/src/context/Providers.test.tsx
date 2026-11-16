@@ -26,7 +26,7 @@ vi.mock("gql/GQLWrapper", () => ({
 
 describe("ContextProviders", () => {
   afterEach(() => {
-    act(() => toast.remove());
+    act(() => toast.dismiss());
     vi.restoreAllMocks();
   });
 
