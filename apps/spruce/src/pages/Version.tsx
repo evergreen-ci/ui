@@ -19,7 +19,7 @@ import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
 import { usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
-import { githubPRLinkify, jiraLinkify } from "utils/string";
+import { getDisplayRevision, githubPRLinkify, jiraLinkify } from "utils/string";
 import { ActionButtons } from "./version/ActionButtons";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
 import BuildVariantCard from "./version/BuildVariantCard";
@@ -92,10 +92,13 @@ export const VersionPage: React.FC = () => {
     requester,
     revision,
     status,
+    upstreamProject,
     warnings,
   } = version || {};
   const { patchNumber } = patch || {};
-  const versionText = shortenGithash(revision || versionId);
+  const versionText = shortenGithash(
+    revision ? getDisplayRevision({ revision, upstreamProject }) : versionId,
+  );
   const pageTitle = isPatch
     ? `Patch - ${patchNumber}`
     : `Version - ${versionText}`;

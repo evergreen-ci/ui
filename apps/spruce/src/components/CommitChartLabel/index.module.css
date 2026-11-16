@@ -23,7 +23,7 @@
 .flexRow {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   gap: var(--via-space-100);
 }
 
