@@ -1,6 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
+import { Button } from "@via-ds/components/button";
 import Plus from "@via-ds/icons/Plus";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import {
@@ -8,7 +7,6 @@ import {
   TextInputWithGlyphProps,
 } from "@evg-ui/lib/components/TextInputWithGlyph";
 
-const { yellow } = palette;
 type TextInputWithValidationProps = {
   /**
    * `onSubmit` will be called when the user submits a new input with the enter key or the plus button
@@ -81,17 +79,18 @@ const TextInputWithValidation = forwardRef<
       disabled={disabled}
       icon={
         isValid ? (
-          <IconButton
+          <Button
             aria-label="Select plus button"
-            disabled={disabled}
-            onClick={handleOnSubmit}
+            isDisabled={disabled}
+            onPress={handleOnSubmit}
+            variant="tertiary"
           >
-            <Plus size="medium" />
-          </IconButton>
+            <Plus />
+          </Button>
         ) : (
           <IconWithTooltip
             aria-label="validation error"
-            fill={yellow.base}
+            fill="var(--via-color-icon-warning)"
             glyph="Warning"
           >
             {validatorErrorMessage}
