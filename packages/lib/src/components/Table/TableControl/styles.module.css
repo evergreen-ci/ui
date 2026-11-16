@@ -6,6 +6,7 @@
 
 .outerRow {
   composes: innerRow;
+  align-items: baseline;
   flex-wrap: wrap;
   gap: var(--via-space-200);
   padding-bottom: var(--via-space-200);
