@@ -56,7 +56,7 @@ const TableControl: React.FC<Props> = ({
           Clear all filters
         </Button>
       </div>
-      <TableControlInnerRow className={styles.paginationContainer}>
+      <TableControlInnerRow>
         <Pagination
           currentPage={page}
           loading={loading}
