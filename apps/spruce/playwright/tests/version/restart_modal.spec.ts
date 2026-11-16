@@ -129,7 +129,7 @@ test.describe("version/restart_modal", () => {
       await expect(
         page
           .getByRole("region", { name: "Notifications" })
-          .getByRole("status")
+          .getByRole("listitem")
           .filter({ hasText: "Successfully restarted tasks!" }),
       ).toBeVisible();
     });
@@ -158,7 +158,7 @@ test.describe("version/restart_modal", () => {
       await expect(
         page
           .getByRole("region", { name: "Notifications" })
-          .getByRole("status")
+          .getByRole("listitem")
           .filter({ hasText: "Successfully restarted tasks!" }),
       ).toBeVisible();
     });

@@ -6,6 +6,7 @@ import {
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
 } from "gql/generated/types";
+import { defaultUpstreamProject } from "gql/mocks/upstreamProject";
 import { WATERFALL_TASK_STATS } from "gql/queries";
 import { BuildVariant, Version } from "./types";
 
@@ -40,8 +41,15 @@ export const getWaterfallData = (
       id: `version-${order}`,
       message: `Commit ${order}`,
       order,
+      projectMetadata: {
+        __typename: "Project",
+        id: "evergreen",
+        owner: "evergreen-ci",
+        repo: "evergreen",
+      },
       requester: Requester.Gitter,
       revision: `revision-${order}`,
+      upstreamProject: null,
       user: {
         __typename: "User",
         userId: "waterfall-test-user",
@@ -152,6 +160,7 @@ export const versionWithUpstreamProject: Version = {
   requester: Requester.Trigger,
   revision: "130948895a46d4fd04292e7783069918e4e7cd5a",
   order: 8,
+  upstreamProject: defaultUpstreamProject,
 };
 
 export const versionBroken: Version = {

@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { UPSTREAM_PROJECT } from "../fragments/upstreamProject";
+import { UPSTREAM_PROJECT_HASH } from "../fragments/upstreamProjectHash";
 
 export const VERSION = gql`
   query Version($id: String!) {
@@ -80,6 +81,7 @@ export const VERSION = gql`
         patchNumber
       }
       previousVersion {
+        ...UpstreamProjectHash
         id
         revision
       }
@@ -111,4 +113,5 @@ export const VERSION = gql`
     }
   }
   ${UPSTREAM_PROJECT}
+  ${UPSTREAM_PROJECT_HASH}
 `;

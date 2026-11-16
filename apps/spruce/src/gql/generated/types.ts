@@ -5200,6 +5200,8 @@ export type WaterfallOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Max active versions to return to the client, between 1 and 300. Mostly used to allow smaller tests. */
+  maxVersions?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order greater than minOrder. Used for paginating backward. */
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   omitInactiveBuilds?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -6809,6 +6811,47 @@ export type UpstreamProjectFragment = {
     revision: string;
     triggerID: string;
     triggerType: string;
+    task?: {
+      __typename?: "Task";
+      id: string;
+      displayName: string;
+      execution: number;
+    } | null;
+    version?: { __typename?: "Version"; id: string } | null;
+  } | null;
+};
+
+export type UpstreamProjectHashFragment = {
+  __typename?: "Version";
+  id: string;
+  upstreamProject?: { __typename?: "UpstreamProject"; revision: string } | null;
+};
+
+export type VersionTriggerInfoFragment = {
+  __typename?: "Version";
+  id: string;
+  upstreamProject?: {
+    __typename?: "UpstreamProject";
+    owner: string;
+    project: string;
+    repo: string;
+    revision: string;
+    triggerID: string;
+    triggerType: string;
+    baseVersion?: {
+      __typename?: "Version";
+      id: string;
+      createTime: Date;
+      message: string;
+      revision: string;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
+      user: { __typename?: "User"; id: string; displayName?: string | null };
+    } | null;
     task?: {
       __typename?: "Task";
       id: string;
@@ -9263,6 +9306,40 @@ export type MainlineCommitsForHistoryQuery = {
           displayName?: string | null;
           userId: string;
         };
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          owner: string;
+          project: string;
+          repo: string;
+          revision: string;
+          triggerID: string;
+          triggerType: string;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
+          task?: {
+            __typename?: "Task";
+            id: string;
+            displayName: string;
+            execution: number;
+          } | null;
+          version?: { __typename?: "Version"; id: string } | null;
+        } | null;
       }> | null;
       version?: {
         __typename?: "Version";
@@ -9301,6 +9378,24 @@ export type MainlineCommitsForHistoryQuery = {
           revision: string;
           triggerID: string;
           triggerType: string;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
           task?: {
             __typename?: "Task";
             id: string;
@@ -11511,7 +11606,48 @@ export type TaskHistoryQuery = {
         __typename?: "Version";
         id: string;
         message: string;
+        revision: string;
+        projectMetadata?: {
+          __typename?: "Project";
+          id: string;
+          owner: string;
+          repo: string;
+        } | null;
         user: { __typename?: "User"; id: string; displayName?: string | null };
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          owner: string;
+          project: string;
+          repo: string;
+          revision: string;
+          triggerID: string;
+          triggerType: string;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
+          task?: {
+            __typename?: "Task";
+            id: string;
+            displayName: string;
+            execution: number;
+          } | null;
+          version?: { __typename?: "Version"; id: string } | null;
+        } | null;
       };
     }>;
   };
@@ -11936,7 +12072,15 @@ export type TaskQuery = {
       revision?: string | null;
       status: string;
       timeTaken?: number | null;
-      versionMetadata: { __typename?: "Version"; id: string; revision: string };
+      versionMetadata: {
+        __typename?: "Version";
+        id: string;
+        revision: string;
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          revision: string;
+        } | null;
+      };
     } | null;
     dependsOn?: Array<{
       __typename?: "Dependency";
@@ -12048,6 +12192,10 @@ export type TaskQuery = {
         displayName?: string | null;
         userId: string;
       };
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        revision: string;
+      } | null;
     };
   } | null;
 };
@@ -12356,32 +12504,6 @@ export type UserQuery = {
   };
 };
 
-export type VersionBasedOnQueryVariables = Exact<{
-  versionId: Scalars["String"]["input"];
-}>;
-
-export type VersionBasedOnQuery = {
-  __typename?: "Query";
-  version: {
-    __typename?: "Version";
-    id: string;
-    repotrackerBaseVersion?: {
-      __typename?: "Version";
-      id: string;
-      createTime: Date;
-      message: string;
-      revision: string;
-      projectMetadata?: {
-        __typename?: "Project";
-        id: string;
-        owner: string;
-        repo: string;
-      } | null;
-      user: { __typename?: "User"; id: string; displayName?: string | null };
-    } | null;
-  };
-};
-
 export type VersionQuarantinedTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
 }>;
@@ -12682,6 +12804,10 @@ export type VersionQuery = {
       __typename?: "Version";
       id: string;
       revision: string;
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        revision: string;
+      } | null;
     } | null;
     projectMetadata?: {
       __typename?: "Project";
@@ -12789,6 +12915,12 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
       user: {
         __typename?: "User";
         displayName?: string | null;
@@ -12808,6 +12940,40 @@ export type WaterfallQuery = {
           execution: number;
         }>;
       }> | null;
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        owner: string;
+        project: string;
+        repo: string;
+        revision: string;
+        triggerID: string;
+        triggerType: string;
+        baseVersion?: {
+          __typename?: "Version";
+          id: string;
+          createTime: Date;
+          message: string;
+          revision: string;
+          projectMetadata?: {
+            __typename?: "Project";
+            id: string;
+            owner: string;
+            repo: string;
+          } | null;
+          user: {
+            __typename?: "User";
+            id: string;
+            displayName?: string | null;
+          };
+        } | null;
+        task?: {
+          __typename?: "Task";
+          id: string;
+          displayName: string;
+          execution: number;
+        } | null;
+        version?: { __typename?: "Version"; id: string } | null;
+      } | null;
     }>;
   };
 };

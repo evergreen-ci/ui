@@ -181,3 +181,19 @@ export const getTicketFromJiraURL = (jiraURL: string) => {
   const ticketNumber = jiraURL.match(/[A-Z]+-[0-9]+/)?.[0];
   return ticketNumber;
 };
+
+/**
+ * Trigger versions use their upstream revision to identify them.
+ * All other versions use their own revision.
+ * @param args - arguments for the function
+ * @param args.revision - The revision of the commit.
+ * @param args.upstreamProject - The upstream project associated with the commit.
+ * @returns The revision to display (upstream revision if available, otherwise commit's own revision)
+ */
+export const getDisplayRevision = ({
+  revision,
+  upstreamProject,
+}: {
+  revision: string;
+  upstreamProject?: { revision: string } | null;
+}) => upstreamProject?.revision ?? revision;
