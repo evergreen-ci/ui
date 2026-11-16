@@ -6,9 +6,9 @@ import {
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
 } from "gql/generated/types";
+import { defaultUpstreamProject } from "gql/mocks/upstreamProject";
 import { WATERFALL_TASK_STATS } from "gql/queries";
 import { BuildVariant, Version } from "./types";
-import { defaultUpstreamProject } from "./VersionLabel/testData";
 
 export const getWaterfallData = (
   orders: number[],

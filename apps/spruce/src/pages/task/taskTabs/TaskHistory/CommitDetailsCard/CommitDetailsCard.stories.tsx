@@ -5,7 +5,7 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import { Requester } from "constants/requesters";
 import { TaskQuery, TestResult } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
-import { UpstreamProject } from "pages/waterfall/VersionLabel/testData";
+import { UpstreamProject } from "gql/mocks/upstreamProject";
 import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";

@@ -4,6 +4,7 @@ import {
   getSpruceConfigMock,
   getUserSettingsMock,
 } from "gql/mocks/getSpruceConfig";
+import { UpstreamProject } from "gql/mocks/upstreamProject";
 import {
   inactiveBrokenVersion,
   inactiveVersion,
@@ -13,7 +14,6 @@ import {
   versionWithUpstreamProject,
 } from "../testData";
 import { Version } from "../types";
-import { UpstreamProject } from "../VersionLabel/testData";
 import styles from "./InactiveVersionsModal.stories.module.css";
 import { InactiveVersionsButton } from ".";
 
