@@ -43,6 +43,7 @@ export const getWaterfallData = (
       order,
       requester: Requester.Gitter,
       revision: `revision-${order}`,
+      upstreamProject: null,
       user: {
         __typename: "User",
         userId: "waterfall-test-user",
