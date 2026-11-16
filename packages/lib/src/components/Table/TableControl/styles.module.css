@@ -6,5 +6,11 @@
 
 .outerRow {
   composes: innerRow;
+  flex-wrap: wrap;
+  gap: var(--via-space-200);
   padding-bottom: var(--via-space-200);
+}
+
+.outerRow > :last-child {
+  margin-inline-start: auto;
 }

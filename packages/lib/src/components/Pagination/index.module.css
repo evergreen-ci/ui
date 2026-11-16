@@ -1,8 +1,14 @@
 .pagination.pagination {
   border-block-start: none;
   padding: 0;
+  min-block-size: 0;
 }
 
 .pagination.pagination > * {
   column-gap: var(--via-space-400);
+  justify-content: flex-end;
+}
+
+.pagination [aria-haspopup="listbox"] {
+  min-inline-size: calc(var(--via-space-1600) + var(--via-space-400));
 }
