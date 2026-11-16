@@ -65,81 +65,109 @@ export const VersionLabel: React.FC<Props> = ({
   };
 
   const commitType = activated ? "active" : "inactive";
-  const isWaterfall = view === VersionLabelView.Waterfall;
-  const isTrigger = requester === Requester.Trigger;
-  const waterfallLineClamp = isTrigger ? 2 : 3;
 
-  const triggeredBy = (
-    <TriggeredBy
+  const containerProps = {
+    className: cx(styles.versionContainer, className),
+    "data-highlighted": highlighted,
+    "data-testid": `version-label-${commitType}`,
+    "data-view": view,
+    style: {
+      "--waterfall-version-count": VERSION_LIMIT,
+    } as React.CSSProperties,
+  };
+
+  const dateAndBadges = (
+    <span className={styles.flexRow}>
+      <Body className={styles.date}>
+        {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+      </Body>
+      {commitType === "inactive" && (
+        <Badge variant={BadgeVariant.Status}>Inactive</Badge>
+      )}
+      {errors.length > 0 && <Badge variant={BadgeVariant.Error}>Broken</Badge>}
+    </span>
+  );
+
+  const revisionLink = (
+    <RevisionLink
       onClick={() => {
         sendEvent({
           name: "Clicked commit label",
           "commit.type": commitType,
-          link: "upstream project",
+          link: "githash",
         });
       }}
-      showSeparator={!isWaterfall}
-      upstreamProject={upstreamProject}
+      revision={getDisplayRevision(version)}
+      to={getVersionRoute(id)}
     />
   );
 
-  return (
-    <div
-      className={cx(styles.versionContainer, className)}
-      data-disabled={!isWaterfall && !activated && shouldDisableText}
-      data-highlighted={highlighted}
-      data-testid={`version-label-${commitType}`}
-      data-view={view}
-      style={
-        {
-          "--waterfall-version-count": VERSION_LIMIT,
-        } as React.CSSProperties
-      }
-    >
-      <div className={styles.headerLine}>
-        <span className={styles.flexRow}>
-          <Body className={styles.date}>
-            {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-          </Body>
-          {commitType === "inactive" && (
-            <Badge variant={BadgeVariant.Status}>Inactive</Badge>
-          )}
-          {errors.length > 0 && (
-            <Badge variant={BadgeVariant.Error}>Broken</Badge>
-          )}
-        </span>
-        {isWaterfall && (
+  const handleTriggeredByClick = () => {
+    sendEvent({
+      name: "Clicked commit label",
+      "commit.type": commitType,
+      link: "upstream project",
+    });
+  };
+
+  const gitTagsLabel = gitTags?.length ? (
+    <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
+  ) : null;
+
+  if (view === VersionLabelView.Waterfall) {
+    const isTrigger = requester === Requester.Trigger;
+
+    return (
+      <div {...containerProps}>
+        <div className={styles.headerLine}>
+          {dateAndBadges}
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
-        )}
-      </div>
-      <div className={styles.hashRow}>
-        <RevisionLink
-          onClick={() => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "githash",
-            });
-          }}
-          revision={getDisplayRevision(version)}
-          to={getVersionRoute(id)}
-        />
-        {isWaterfall && (
+        </div>
+        <div className={styles.hashRow}>
+          {revisionLink}
           <BasedOnVersion
             baseVersion={upstreamProject?.baseVersion}
             showSeparator
           />
-        )}
-        {!isWaterfall && <RepoLabel version={version} />}
-        {!isWaterfall && triggeredBy}
+        </div>
+        <TriggeredBy
+          onClick={handleTriggeredByClick}
+          upstreamProject={upstreamProject}
+        />
+        <CommitDescription
+          author={user.displayName ?? user.userId}
+          className={styles.description}
+          inline
+          lineClamp={isTrigger ? 2 : 3}
+          maxLength={Infinity}
+          message={message}
+          onJiraLinkClick={handleJiraLinkClick}
+          onToggle={(expanded) =>
+            sendEvent({ name: "Toggled commit description", expanded })
+          }
+          title={message}
+        />
+        {gitTagsLabel}
       </div>
-      {isWaterfall && triggeredBy}
+    );
+  }
+
+  return (
+    <div {...containerProps} data-disabled={!activated && shouldDisableText}>
+      <div className={styles.headerLine}>{dateAndBadges}</div>
+      <div className={styles.hashRow}>
+        {revisionLink}
+        <RepoLabel version={version} />
+        <TriggeredBy
+          onClick={handleTriggeredByClick}
+          showSeparator
+          upstreamProject={upstreamProject}
+        />
+      </div>
       <CommitDescription
         author={user.displayName ?? user.userId}
-        className={isWaterfall ? styles.description : undefined}
         inline
-        lineClamp={isWaterfall ? waterfallLineClamp : undefined}
-        maxLength={isWaterfall ? Infinity : MODAL_MAX_MESSAGE_LENGTH}
+        maxLength={MODAL_MAX_MESSAGE_LENGTH}
         message={message}
         onJiraLinkClick={handleJiraLinkClick}
         onToggle={(expanded) =>
@@ -147,9 +175,7 @@ export const VersionLabel: React.FC<Props> = ({
         }
         title={message}
       />
-      {gitTags?.length ? (
-        <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>
-      ) : null}
+      {gitTagsLabel}
     </div>
   );
 };
