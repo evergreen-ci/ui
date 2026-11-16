@@ -146,9 +146,13 @@ test.describe("build variant filtering", () => {
   test("submitting a build variant tag filter uses variantTags", async ({
     page,
   }) => {
-    const filteredRequest = page.waitForRequest((request) =>
-      isGraphQLQuery(request, "Waterfall"),
-    );
+    const filteredRequest = page.waitForRequest((request) => {
+      if (!isGraphQLQuery(request, "Waterfall")) {
+        return false;
+      }
+      const { options } = request.postDataJSON().variables;
+      return !!options.variantTags?.includes("ubuntu");
+    });
     await page
       .getByRole("radiogroup", { name: "Build Variant Filter Filter Type" })
       .getByRole("radio", { name: "Tag" })
@@ -242,9 +246,13 @@ test.describe("task filtering", () => {
   });
 
   test("submitting a task tag filter uses taskTags", async ({ page }) => {
-    const filteredRequest = page.waitForRequest((request) =>
-      isGraphQLQuery(request, "Waterfall"),
-    );
+    const filteredRequest = page.waitForRequest((request) => {
+      if (!isGraphQLQuery(request, "Waterfall")) {
+        return false;
+      }
+      const { options } = request.postDataJSON().variables;
+      return !!options.taskTags?.includes("lint");
+    });
     await page
       .getByRole("radiogroup", { name: "Task Filter Filter Type" })
       .getByRole("radio", { name: "Tag" })
