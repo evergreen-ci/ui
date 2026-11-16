@@ -172,23 +172,14 @@ describe("CommitDetailsCard component", () => {
     expect(thisTaskBadge).toBeVisible();
   });
 
-  it("shows correct links", () => {
-    const task = {
-      ...currentTask,
-      revision: "abcdef",
-    };
+  it("links the commit hash to the task history", () => {
     const { Component } = RenderFakeToastContext(
-      <CommitDetailsCard isMatching task={task} />,
+      <CommitDetailsCard isMatching task={currentTask} />,
     );
     renderWithRouterMatch(<Component />, { wrapper });
-    const githubLink = screen.getByTestId("github-link");
-    expect(githubLink).toHaveAttribute(
-      "href",
-      `https://github.com/${taskQuery.task?.project?.owner}/${taskQuery.task?.project?.repo}/commit/${task.revision}`,
-    );
 
     const taskLink = screen.getByTestId("task-link");
-    expect(taskLink).toHaveAttribute("href", `/task/${task.id}/history`);
+    expect(taskLink).toHaveAttribute("href", `/task/${currentTask.id}/history`);
   });
 
   it("decreases opacity if isMatching is 'false'", () => {

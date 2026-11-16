@@ -3,6 +3,7 @@ import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { VersionQuery } from "gql/generated/types";
 import { useBreadcrumbRoot } from "hooks";
+import { getDisplayRevision } from "utils/string";
 
 interface VersionPageBreadcrumbsProps {
   patchNumber?: number;
@@ -13,7 +14,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   patchNumber,
   versionMetadata,
 }) => {
-  const { isPatch, projectMetadata, revision, user } = versionMetadata;
+  const { isPatch, projectMetadata, user } = versionMetadata;
   const breadcrumbRoot = useBreadcrumbRoot(
     isPatch,
     user,
@@ -33,7 +34,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   };
 
   const commitBreadcrumb = {
-    text: shortenGithash(revision),
+    text: shortenGithash(getDisplayRevision(versionMetadata)),
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
         name: "Clicked link",

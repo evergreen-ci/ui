@@ -9,19 +9,19 @@ test.describe("pagination", () => {
   test("url query params update as page changes", async ({ page }) => {
     await expect(page).toHaveURL("/project/spruce/waterfall");
 
-    await expect(page.getByTestId("version-labels")).toContainText("2ab1c56");
+    await expect(page.getByTestId("version-labels")).toContainText("b0c52a7");
 
     await page.getByTestId("next-page-button").click();
     await expect(page.getByTestId("version-labels")).toContainText("e391612");
     await expect(page).toHaveURL(/maxOrder/);
 
     await page.getByTestId("prev-page-button").click();
-    await expect(page.getByTestId("version-labels")).toContainText("2ab1c56");
+    await expect(page.getByTestId("version-labels")).toContainText("b0c52a7");
     await expect(page).toHaveURL("/project/spruce/waterfall");
   });
 
   test("versions update correctly as page changes", async ({ page }) => {
-    const firstPageFirstCommit = "2ab1c56";
+    const firstPageFirstCommit = "b0c52a7";
     const secondPageFirstCommit = "e391612";
 
     const versionLabels = page.getByTestId("version-labels").locator("> *");
@@ -101,7 +101,7 @@ test.describe("pagination", () => {
 
   test.describe("'Jump to most recent commit' button", () => {
     test("returns user to the first page", async ({ page }) => {
-      const firstPageFirstCommit = "2ab1c56";
+      const firstPageFirstCommit = "b0c52a7";
       const versionLabels = page.getByTestId("version-labels").locator("> *");
 
       await expect(versionLabels).toHaveCount(6);
