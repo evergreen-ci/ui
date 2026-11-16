@@ -12,5 +12,6 @@
 }
 
 .outerRow > :last-child {
-  margin-inline-start: auto;
+  flex: 1 1 0;
+  min-inline-size: min-content;
 }
