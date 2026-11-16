@@ -106,6 +106,7 @@ export const VersionLabel: React.FC<Props> = ({
             link: "upstream project",
           });
         }}
+        showBasedOn={isWaterfall}
         showRepo={!isWaterfall}
         version={version}
       />

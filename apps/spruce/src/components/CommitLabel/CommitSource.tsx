@@ -13,6 +13,7 @@ interface CommitSourceProps {
   hashHref: string;
   onHashClick?: () => void;
   onModuleClick?: () => void;
+  showBasedOn?: boolean;
   showRepo?: boolean;
   version: Pick<VersionTriggerInfoFragment, "upstreamProject"> & {
     projectMetadata?: { owner: string; repo: string } | null;
@@ -25,6 +26,7 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
   hashHref,
   onHashClick,
   onModuleClick,
+  showBasedOn = true,
   showRepo = false,
   version,
 }) => {
@@ -44,10 +46,10 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
       />
       {showRepo && repo && (
         <Body className={cx(styles.text, styles.repoText)}>
-          {repo.owner}/{repo.repo}
+          in {repo.owner}/{repo.repo}
         </Body>
       )}
-      {baseVersion && (
+      {showBasedOn && baseVersion && (
         <>
           <span aria-hidden data-testid="separator">
             &middot;
@@ -58,7 +60,7 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
       {upstreamProject && (
         <>
           {showRepo && <span aria-hidden>&middot;</span>}
-          <Body className={cx(styles.text, !showRepo && styles.ownLine)}>
+          <Body>
             Triggered by:{" "}
             <StyledRouterLink
               onClick={onModuleClick}
