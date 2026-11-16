@@ -17,3 +17,7 @@
 .repoText.repoText {
   display: flex;
 }
+
+.triggeredBy.triggeredBy {
+  font-size: inherit;
+}

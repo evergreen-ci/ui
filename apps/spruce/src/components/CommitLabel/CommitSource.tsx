@@ -60,7 +60,7 @@ export const CommitSource: React.FC<CommitSourceProps> = ({
       {upstreamProject && (
         <>
           {showRepo && <span aria-hidden>&middot;</span>}
-          <Body>
+          <Body className={styles.triggeredBy}>
             Triggered by:{" "}
             <StyledRouterLink
               onClick={onModuleClick}
