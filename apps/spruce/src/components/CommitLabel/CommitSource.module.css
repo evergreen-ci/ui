@@ -10,6 +10,10 @@
   font-size: inherit;
 }
 
+.ownLine.ownLine {
+  flex-basis: 100%;
+}
+
 .repoText.repoText {
   display: flex;
 }

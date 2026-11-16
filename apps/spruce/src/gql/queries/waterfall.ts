@@ -23,6 +23,11 @@ export const WATERFALL = gql`
         }
         message
         order
+        projectMetadata {
+          id
+          owner
+          repo
+        }
         requester
         revision
         user {

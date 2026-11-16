@@ -41,6 +41,12 @@ export const getWaterfallData = (
       id: `version-${order}`,
       message: `Commit ${order}`,
       order,
+      projectMetadata: {
+        __typename: "Project",
+        id: "evergreen",
+        owner: "evergreen-ci",
+        repo: "evergreen",
+      },
       requester: Requester.Gitter,
       revision: `revision-${order}`,
       upstreamProject: null,
