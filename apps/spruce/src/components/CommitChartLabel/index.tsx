@@ -1,9 +1,15 @@
 import { Body } from "@leafygreen-ui/typography";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { CommitDescription, CommitSource } from "components/CommitLabel";
+import {
+  BasedOnVersion,
+  CommitDescription,
+  TriggeredBy,
+} from "components/CommitLabel";
 import { MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions } from "components/HistoryTable/types";
+import { RevisionLink } from "components/RevisionLink";
 import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
+import { getDisplayRevision } from "utils/string";
 import styles from "./index.module.css";
 
 type Commit =
@@ -33,12 +39,21 @@ const CommitChartLabel: React.FC<Props> = ({
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
         </span>
       </div>
-      <CommitSource
-        data-testid="githash-link"
-        hashHref={getVersionRoute(id)}
-        onHashClick={onClickGithash}
-        onModuleClick={onClickUpstreamProject}
-        version={version}
+      <div className={styles.flexRow}>
+        <RevisionLink
+          data-testid="githash-link"
+          onClick={onClickGithash}
+          revision={getDisplayRevision(version)}
+          to={getVersionRoute(id)}
+        />
+        <BasedOnVersion
+          baseVersion={upstreamProject?.baseVersion}
+          showSeparator
+        />
+      </div>
+      <TriggeredBy
+        onClick={onClickUpstreamProject}
+        upstreamProject={upstreamProject}
       />
       <CommitDescription
         author={user.displayName ?? user.userId}

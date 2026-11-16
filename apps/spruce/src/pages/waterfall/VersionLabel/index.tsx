@@ -1,10 +1,17 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
-import { CommitDescription, CommitSource } from "components/CommitLabel";
+import {
+  BasedOnVersion,
+  CommitDescription,
+  RepoLabel,
+  TriggeredBy,
+} from "components/CommitLabel";
+import { RevisionLink } from "components/RevisionLink";
 import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
+import { getDisplayRevision } from "utils/string";
 import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
@@ -42,6 +49,7 @@ export const VersionLabel: React.FC<Props> = ({
     id,
     message,
     requester,
+    upstreamProject,
     user,
   } = version;
   const getDateCopy = useDateFormat();
@@ -60,6 +68,20 @@ export const VersionLabel: React.FC<Props> = ({
   const isWaterfall = view === VersionLabelView.Waterfall;
   const isTrigger = requester === Requester.Trigger;
   const waterfallLineClamp = isTrigger ? 2 : 3;
+
+  const triggeredBy = (
+    <TriggeredBy
+      onClick={() => {
+        sendEvent({
+          name: "Clicked commit label",
+          "commit.type": commitType,
+          link: "upstream project",
+        });
+      }}
+      showSeparator={!isWaterfall}
+      upstreamProject={upstreamProject}
+    />
+  );
 
   return (
     <div
@@ -90,26 +112,28 @@ export const VersionLabel: React.FC<Props> = ({
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
       </div>
-      <CommitSource
-        hashHref={getVersionRoute(id)}
-        onHashClick={() => {
-          sendEvent({
-            name: "Clicked commit label",
-            "commit.type": commitType,
-            link: "githash",
-          });
-        }}
-        onModuleClick={() => {
-          sendEvent({
-            name: "Clicked commit label",
-            "commit.type": commitType,
-            link: "upstream project",
-          });
-        }}
-        showBasedOn={isWaterfall}
-        showRepo={!isWaterfall}
-        version={version}
-      />
+      <div className={styles.hashRow}>
+        <RevisionLink
+          onClick={() => {
+            sendEvent({
+              name: "Clicked commit label",
+              "commit.type": commitType,
+              link: "githash",
+            });
+          }}
+          revision={getDisplayRevision(version)}
+          to={getVersionRoute(id)}
+        />
+        {isWaterfall && (
+          <BasedOnVersion
+            baseVersion={upstreamProject?.baseVersion}
+            showSeparator
+          />
+        )}
+        {!isWaterfall && <RepoLabel version={version} />}
+        {!isWaterfall && triggeredBy}
+      </div>
+      {isWaterfall && triggeredBy}
       <CommitDescription
         author={user.displayName ?? user.userId}
         className={isWaterfall ? styles.description : undefined}

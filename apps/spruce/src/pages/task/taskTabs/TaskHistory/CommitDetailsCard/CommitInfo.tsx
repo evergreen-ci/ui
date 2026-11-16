@@ -1,7 +1,9 @@
 import { useTaskHistoryAnalytics } from "analytics";
-import { CommitSource } from "components/CommitLabel";
+import { BasedOnVersion, RepoLabel, TriggeredBy } from "components/CommitLabel";
+import { RevisionLink } from "components/RevisionLink";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
+import { getDisplayRevision } from "utils/string";
 import { TaskHistoryTask } from "../types";
 import styles from "./CommitDetailsCard.module.css";
 
@@ -12,17 +14,24 @@ interface CommitInfoProps {
 export const CommitInfo: React.FC<CommitInfoProps> = ({ task }) => {
   const { sendEvent } = useTaskHistoryAnalytics();
   const { id: taskId, version } = task;
+  const { upstreamProject } = version;
 
   return (
     <div className={styles.row}>
-      <CommitSource
+      <RevisionLink
         data-testid="task-link"
-        hashHref={getTaskRoute(taskId, { tab: TaskTab.History })}
-        onHashClick={() =>
+        onClick={() =>
           sendEvent({ name: "Clicked task link", "task.id": taskId })
         }
+        revision={getDisplayRevision(version)}
+        to={getTaskRoute(taskId, { tab: TaskTab.History })}
+      />
+      <RepoLabel version={version} />
+      <TriggeredBy showSeparator upstreamProject={upstreamProject} />
+      <BasedOnVersion
+        baseVersion={upstreamProject?.baseVersion}
         showRepo
-        version={version}
+        showSeparator
       />
     </div>
   );

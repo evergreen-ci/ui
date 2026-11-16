@@ -1,3 +1,4 @@
 export { BasedOnVersion } from "./BasedOnVersion";
 export { CommitDescription } from "./CommitDescription";
-export { CommitSource } from "./CommitSource";
+export { RepoLabel } from "./RepoLabel";
+export { TriggeredBy } from "./TriggeredBy";

@@ -29,6 +29,11 @@
   color: var(--via-color-neutral-500);
 }
 
+.hashRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--via-space-100);
+}
 
 .flexRow {
   display: flex;
