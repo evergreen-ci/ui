@@ -74,7 +74,7 @@ test.describe("requester filtering", () => {
       .getByTestId("version-label-active")
       .locator("code");
     const unfilteredRevisions = [
-      "2ab1c56",
+      "b0c52a7",
       "2c9056d",
       "d54e2c6",
       "d54e2c6",
