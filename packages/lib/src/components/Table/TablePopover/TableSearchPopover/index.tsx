@@ -1,19 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
-import { Align, Justify, Popover } from "@leafygreen-ui/popover";
-import {
-  SearchInput,
-  Size as SearchInputSize,
-} from "@leafygreen-ui/search-input";
-import { Description } from "@leafygreen-ui/typography";
+import { Button } from "@via-ds/components/button";
+import { Popover, PopoverRoot } from "@via-ds/components/popover";
+import { SearchField } from "@via-ds/components/search-field";
 import MagnifyingGlass from "@via-ds/icons/MagnifyingGlass";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
-import { DEFAULT_SPACING, FilterWrapper } from "../constants";
+import { FilterWrapper } from "../constants";
+import constantStyles from "../constants.module.css";
 import styles from "./index.module.css";
-
-const { blue, gray } = palette;
 
 interface TableSearchPopoverProps {
   "data-testid"?: string;
@@ -25,74 +19,71 @@ interface TableSearchPopoverProps {
 const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   "data-testid": dataTestId,
   onConfirm,
-  placeholder,
+  placeholder = "Search",
   value,
 }) => {
   const [input, setInput] = useState(value);
   const [active, setActive] = useState(false);
-  const iconColor = value === "" ? gray.dark2 : blue.base;
-
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setInput(value);
-  }, [value]);
-
-  const onEnter = () => {
-    onConfirm(input);
-    setActive(false);
-  };
 
   useEffect(() => {
     inputRef?.focus();
     inputRef?.select();
   }, [inputRef]);
 
+  const onOpenChange = (isOpen: boolean) => {
+    setInput(value);
+    setActive(isOpen);
+  };
+
   return (
     <FilterWrapper>
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-ignore: LeafyGreen component throws JSX errors */}
-      <IconButton
-        ref={buttonRef}
-        active={active}
-        aria-label="Table Search Popover Icon"
-        data-testid={dataTestId}
-        onClick={() => setActive(!active)}
+      <PopoverRoot
+        isNonModal
+        isOpen={active}
+        onOpenChange={onOpenChange}
+        triggerType="dialog"
       >
-        <MagnifyingGlass fill={iconColor} size="medium" />
-      </IconButton>
-      <Popover
-        active={active}
-        align={Align.Bottom}
-        justify={Justify.Middle}
-        refEl={buttonRef}
-        spacing={DEFAULT_SPACING}
-      >
-        <PopoverContainer
-          ref={popoverRef}
-          data-testid={`${dataTestId}-wrapper`}
+        <Button
+          ref={buttonRef}
+          aria-label="Table Search Popover Icon"
+          data-testid={dataTestId}
+          variant="tertiary"
         >
-          <div className={styles.inputContainer}>
-            <Description>Press enter to filter.</Description>
-            <SearchInput
-              ref={(el) => setInputRef(el)}
+          <MagnifyingGlass
+            className={
+              value === ""
+                ? constantStyles.inactiveIcon
+                : constantStyles.activeIcon
+            }
+          />
+        </Button>
+        <Popover>
+          <PopoverContainer
+            ref={popoverRef}
+            data-testid={`${dataTestId}-wrapper`}
+          >
+            <SearchField
+              ref={setInputRef}
               aria-label="Search table"
+              className={styles.searchField}
               data-testid={`${dataTestId}-input-filter`}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && onEnter()}
+              description="Press enter to filter."
+              onChange={setInput}
+              onSubmit={(search) => {
+                onConfirm(search);
+                setActive(false);
+              }}
               placeholder={placeholder}
-              size={SearchInputSize.Small}
               value={input}
             />
-          </div>
-        </PopoverContainer>
-      </Popover>
+          </PopoverContainer>
+        </Popover>
+      </PopoverRoot>
     </FilterWrapper>
   );
 };
