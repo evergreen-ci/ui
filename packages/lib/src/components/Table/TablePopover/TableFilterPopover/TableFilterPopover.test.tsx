@@ -68,7 +68,7 @@ describe("table filter popover", () => {
       expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
 
-    const checkboxLabel = screen.getByText("Success"); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
+    const checkboxLabel = screen.getByText("Success");
     await user.click(checkboxLabel);
     expect(onConfirm).toHaveBeenCalledTimes(1);
     expect(onConfirm).toHaveBeenCalledWith(["success"]);
