@@ -1,5 +1,5 @@
 import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
-import TupleSelect from ".";
+import TextFilterInput from ".";
 
 const options = [
   {
@@ -15,16 +15,20 @@ const options = [
 ];
 
 const sharedProps = {
-  ariaLabel: "Tuple Select",
-  id: "tuple-select",
-  "data-testid": "tuple-select",
-  label: "Tuple Select",
+  ariaLabel: "Text Filter Input",
+  id: "text-filter-input",
+  "data-testid": "text-filter-input",
+  label: "Text Filter Input",
 };
 
-describe("tupleSelect", () => {
+describe("TextFilterInput", () => {
   it("renders with defaultOption when provided", () => {
     render(
-      <TupleSelect {...sharedProps} defaultOption="task" options={options} />,
+      <TextFilterInput
+        {...sharedProps}
+        defaultOption="task"
+        options={options}
+      />,
     );
     expect(screen.getByRole("radio", { name: "Task" })).toBeChecked();
   });
@@ -33,7 +37,7 @@ describe("tupleSelect", () => {
     const user = userEvent.setup();
     const onToggleOption = vi.fn();
     render(
-      <TupleSelect
+      <TextFilterInput
         {...sharedProps}
         onToggleOption={onToggleOption}
         options={options}
@@ -45,8 +49,8 @@ describe("tupleSelect", () => {
 
   it("does not crash when onSubmit is not provided", async () => {
     const user = userEvent.setup();
-    render(<TupleSelect {...sharedProps} options={options} />);
-    const input = screen.getByTestId("tuple-select-input");
+    render(<TextFilterInput {...sharedProps} options={options} />);
+    const input = screen.getByTestId("text-filter-input-input");
     await user.type(input, "some-filter");
     await user.type(input, "{enter}");
     expect(input).toHaveValue("");
@@ -57,7 +61,7 @@ describe("tupleSelect", () => {
     const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
-      <TupleSelect
+      <TextFilterInput
         {...sharedProps}
         onSubmit={onSubmit}
         options={options}
@@ -65,7 +69,7 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.queryByTestId("tuple-select-input");
+    const input = screen.queryByTestId("text-filter-input-input");
     const segment = screen.getByRole("radio", { name: "Build Variant" });
     expect(segment).toBeInTheDocument();
     expect(input).toBeInTheDocument();
@@ -78,7 +82,7 @@ describe("tupleSelect", () => {
     const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
-      <TupleSelect
+      <TextFilterInput
         {...sharedProps}
         onSubmit={onSubmit}
         options={options}
@@ -86,7 +90,7 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.getByTestId("tuple-select-input");
+    const input = screen.getByTestId("text-filter-input-input");
     expect(input).toHaveValue("");
     await user.type(input, "some-filter");
     await user.type(input, "{enter}");
@@ -99,7 +103,7 @@ describe("tupleSelect", () => {
     const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
-      <TupleSelect
+      <TextFilterInput
         {...sharedProps}
         onSubmit={onSubmit}
         options={options}
@@ -107,7 +111,7 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.getByTestId("tuple-select-input");
+    const input = screen.getByTestId("text-filter-input-input");
 
     expect(input).toHaveValue("");
     await user.type(input, "bad");

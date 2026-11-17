@@ -2,20 +2,20 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { action } from "storybook/actions";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 
-import TupleSelect from ".";
+import TextFilterInput from ".";
 
 export default {
-  component: TupleSelect,
-} satisfies CustomMeta<typeof TupleSelect>;
+  component: TextFilterInput,
+} satisfies CustomMeta<typeof TextFilterInput>;
 
-export const Default: CustomStoryObj<typeof TupleSelect> = {
+export const Default: CustomStoryObj<typeof TextFilterInput> = {
   render: () => (
     <>
-      <TupleSelect
-        ariaLabel="Tuple Select"
-        data-testid="tuple-select"
-        id="tuple-select"
-        label="Tuple Select"
+      <TextFilterInput
+        ariaLabel="Text Filter Input"
+        data-testid="text-filter-input"
+        id="text-filter-input"
+        label="Text Filter Input"
         onSubmit={action("submit")}
         options={options}
         validator={(v) => v !== "bad"}

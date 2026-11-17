@@ -1,6 +1,4 @@
 import { useCallback } from "react";
-import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { setLocalStorageString } from "@evg-ui/lib/utils/localStorage";
 import { useWaterfallAnalytics } from "analytics";
 import { useUpsertQueryParams } from "hooks";
@@ -10,10 +8,10 @@ import { FilterType, WaterfallFilterOptions } from "../types";
 import { getFilterType, makeExactFilter } from "../utils";
 
 export const BuildVariantFilter = () => {
-  const onSubmit = useUpsertQueryParams();
+  const updateURL = useUpsertQueryParams();
   const { sendEvent } = useWaterfallAnalytics();
 
-  const onSubmitTupleSelect = useCallback(
+  const onSubmit = useCallback(
     ({ category, value }: { category: string; value: string }) => {
       const filterType = category as FilterType;
       const filterValue =
@@ -22,7 +20,7 @@ export const BuildVariantFilter = () => {
         filterType === FilterType.Tag
           ? WaterfallFilterOptions.VariantTags
           : WaterfallFilterOptions.BuildVariant;
-      onSubmit({
+      updateURL({
         category: param,
         value: filterValue,
       });
@@ -32,7 +30,7 @@ export const BuildVariantFilter = () => {
         "filter.value": filterValue,
       });
     },
-    [onSubmit, sendEvent],
+    [updateURL, sendEvent],
   );
 
   const defaultFilterType = getFilterType(VARIANT_FILTER_SETTING_KEY);
@@ -47,8 +45,8 @@ export const BuildVariantFilter = () => {
       data-testid="build-variant-filter"
       defaultOption={defaultFilterType}
       id="build-variant-filter"
-      label={<LabelContainer>Build Variant</LabelContainer>}
-      onSubmit={onSubmitTupleSelect}
+      label="Build Variant"
+      onSubmit={onSubmit}
       onToggleOption={handleToggleOption}
       options={tupleSelectOptions}
       placeholder="Search"
@@ -56,9 +54,3 @@ export const BuildVariantFilter = () => {
     />
   );
 };
-
-const LabelContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;

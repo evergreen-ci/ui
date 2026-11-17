@@ -1,7 +1,7 @@
 import { createGlyphComponent } from "@via-ds/icons";
 
 export const ExactString = createGlyphComponent(
-  "Expand",
+  "ExactString",
   "0 0 16 16",
   <>
     <path

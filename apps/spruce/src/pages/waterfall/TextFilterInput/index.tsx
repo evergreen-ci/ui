@@ -91,7 +91,7 @@ const TextFilterInput: React.FC<TextFilterInputProps> = ({
               </SegmentedControlItem>
             );
             return o.tooltip ? (
-              <TooltipRoot delay={1000}>
+              <TooltipRoot key={o.value} delay={1000}>
                 <TooltipTrigger>{button}</TooltipTrigger>
                 <Tooltip>{o.tooltip}</Tooltip>
               </TooltipRoot>

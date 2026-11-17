@@ -1,6 +1,4 @@
 import { useCallback } from "react";
-import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { setLocalStorageString } from "@evg-ui/lib/utils/localStorage";
 import { useWaterfallAnalytics } from "analytics";
 import { useUpsertQueryParams } from "hooks";
@@ -10,10 +8,10 @@ import { FilterType, WaterfallFilterOptions } from "../types";
 import { getFilterType, makeExactFilter } from "../utils";
 
 export const TaskFilter = () => {
-  const onSubmit = useUpsertQueryParams();
+  const updateURL = useUpsertQueryParams();
   const { sendEvent } = useWaterfallAnalytics();
 
-  const onSubmitTupleSelect = useCallback(
+  const onSubmit = useCallback(
     ({ category, value }: { category: string; value: string }) => {
       const filterType = category as FilterType;
       const filterValue =
@@ -22,7 +20,7 @@ export const TaskFilter = () => {
         filterType === FilterType.Tag
           ? WaterfallFilterOptions.TaskTags
           : WaterfallFilterOptions.Task;
-      onSubmit({
+      updateURL({
         category: param,
         value: filterValue,
       });
@@ -32,7 +30,7 @@ export const TaskFilter = () => {
         "filter.value": filterValue,
       });
     },
-    [onSubmit, sendEvent],
+    [updateURL, sendEvent],
   );
 
   const defaultFilterType = getFilterType(TASK_FILTER_SETTING_KEY);
@@ -47,8 +45,8 @@ export const TaskFilter = () => {
       data-testid="task-filter"
       defaultOption={defaultFilterType}
       id="task-filter"
-      label={<LabelContainer>Task</LabelContainer>}
-      onSubmit={onSubmitTupleSelect}
+      label="Task"
+      onSubmit={onSubmit}
       onToggleOption={handleToggleOption}
       options={tupleSelectOptions}
       placeholder="Search"
@@ -56,9 +54,3 @@ export const TaskFilter = () => {
     />
   );
 };
-
-const LabelContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;

@@ -1,7 +1,7 @@
 import { createGlyphComponent } from "@via-ds/icons";
 
 export const Regex = createGlyphComponent(
-  "Expand",
+  "Regex",
   "0 0 16 16",
   <>
     <path
