@@ -264,7 +264,7 @@ export const gqlToForm = ((data) => {
       },
 
       githubRecoveryApp: {
-        appId: githubRecoveryApp?.appId ?? null,
+        appId: githubRecoveryApp?.appId || null,
         privateKey: githubRecoveryApp?.privateKey ?? "",
       },
 
