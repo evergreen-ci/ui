@@ -1,4 +1,4 @@
-import { SortingState } from "@leafygreen-ui/table";
+import { SortingState } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { TableQueryParams } from "constants/queryParams";
