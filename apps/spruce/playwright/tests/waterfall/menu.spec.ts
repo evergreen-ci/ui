@@ -48,7 +48,12 @@ test.describe("Waterfall menu settings", () => {
     await page.getByTestId("build-variant-filter-input").fill("ubuntu1604");
     await page.getByTestId("build-variant-filter-input").press("Enter");
 
-    await expect(page.getByTestId("build-variant-label").first()).toBeVisible();
+    await expect(
+      page
+        .getByTestId("build-variant-label")
+        .filter({ hasText: "Ubuntu 16.04" })
+        .first(),
+    ).toBeVisible();
 
     await page.getByTestId("waterfall-menu").click();
     await page
