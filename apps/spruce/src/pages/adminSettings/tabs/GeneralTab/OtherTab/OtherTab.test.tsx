@@ -28,6 +28,12 @@ describe("other tab validation", () => {
     ).not.toHaveBeenCalled();
   });
 
+  it("allows a private key left over after the app ID is cleared", () => {
+    expect(
+      validateGitHubRecoveryApp({ appId: null, privateKey: "stale-key" }),
+    ).not.toHaveBeenCalled();
+  });
+
   it("allows an app ID with a private key", () => {
     expect(
       validateGitHubRecoveryApp({ appId: 1234, privateKey: "key" }),

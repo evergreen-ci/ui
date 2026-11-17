@@ -12,6 +12,17 @@ describe("other tab transformers", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
 
+  it("shows an unset GitHub recovery app ID as empty", () => {
+    const loaded = gqlToForm({
+      ...mockAdminSettings,
+      githubRecoveryApp: { appId: 0, privateKey: "stale-key" },
+    });
+    expect(loaded?.other.githubRecoveryApp).toStrictEqual({
+      appId: null,
+      privateKey: "stale-key",
+    });
+  });
+
   it("sends a cleared GitHub recovery app ID so it persists as unset", () => {
     const form: OtherFormState = {
       other: {
