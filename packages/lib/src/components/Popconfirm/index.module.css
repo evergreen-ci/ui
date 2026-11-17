@@ -14,6 +14,12 @@
   overflow-wrap: anywhere;
 }
 
+/* TODO(UXE-1517): remove this dark override and the darkMode LeafyGreenProvider in index.tsx once Menu moves to Via so popovers and menus share one surface color. The doubled selector outranks PopoverContainer's background regardless of stylesheet order. */
+.contentWrapper.contentWrapper {
+  background-color: var(--via-color-neutral-900);
+  color: var(--via-color-neutral-000);
+}
+
 .buttonWrapper {
   display: flex;
   align-self: flex-end;

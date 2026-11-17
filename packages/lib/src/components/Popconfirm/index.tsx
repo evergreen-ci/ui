@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { Align, Button, Popover, PopoverRoot, Side } from "@via-ds/components";
 import { cx } from "../../utils/css";
 import { PopoverContainer } from "../styles/Popover";
@@ -83,33 +84,35 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
         </span>
       )}
       <Popover>
-        <PopoverContainer
-          className={cx(styles.contentWrapper, className)}
-          data-testid={dataTestId}
-        >
-          {children}
-          <div className={styles.buttonWrapper}>
-            <Button
-              data-testid="popconfirm-cancel-button"
-              onPress={close}
-              size="small"
-            >
-              Cancel
-            </Button>
-            <Button
-              data-testid="popconfirm-confirm-button"
-              isDisabled={confirmDisabled}
-              onPress={() => {
-                onConfirm();
-                setOpen(false);
-              }}
-              size="small"
-              variant="primary"
-            >
-              {confirmText}
-            </Button>
-          </div>
-        </PopoverContainer>
+        <LeafyGreenProvider darkMode>
+          <PopoverContainer
+            className={cx(styles.contentWrapper, className)}
+            data-testid={dataTestId}
+          >
+            {children}
+            <div className={styles.buttonWrapper}>
+              <Button
+                data-testid="popconfirm-cancel-button"
+                onPress={close}
+                size="small"
+              >
+                Cancel
+              </Button>
+              <Button
+                data-testid="popconfirm-confirm-button"
+                isDisabled={confirmDisabled}
+                onPress={() => {
+                  onConfirm();
+                  setOpen(false);
+                }}
+                size="small"
+                variant="primary"
+              >
+                {confirmText}
+              </Button>
+            </div>
+          </PopoverContainer>
+        </LeafyGreenProvider>
       </Popover>
     </PopoverRoot>
   );
