@@ -309,6 +309,13 @@ export const scheduler = {
       minimum: 0,
       maximum: 100,
     },
+    gitTagFactor: {
+      type: "number" as const,
+      title: "Git Tag Factor",
+      default: 0,
+      minimum: 0,
+      maximum: 100,
+    },
     numDependentsFactor: {
       type: "number" as const,
       title: "Num Dependents Factor",
@@ -382,6 +389,9 @@ export const scheduler = {
       "ui:description": boundsDescription,
     },
     stepbackTaskFactor: {
+      "ui:description": boundsDescription,
+    },
+    gitTagFactor: {
       "ui:description": boundsDescription,
     },
     numDependentsFactor: {

@@ -3788,6 +3788,7 @@ export type SchedulerConfig = {
   expectedRuntimeFactor?: Maybe<Scalars["Int"]["output"]>;
   futureHostFraction?: Maybe<Scalars["Float"]["output"]>;
   generateTaskFactor?: Maybe<Scalars["Int"]["output"]>;
+  gitTagFactor?: Maybe<Scalars["Int"]["output"]>;
   groupVersions: Scalars["Boolean"]["output"];
   hostAllocator?: Maybe<HostAllocatorVersion>;
   hostAllocatorFeedbackRule?: Maybe<FeedbackRule>;
@@ -3813,6 +3814,7 @@ export type SchedulerConfigInput = {
   expectedRuntimeFactor: Scalars["Int"]["input"];
   futureHostFraction: Scalars["Float"]["input"];
   generateTaskFactor: Scalars["Int"]["input"];
+  gitTagFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   hostAllocator: HostAllocatorVersion;
   hostAllocatorFeedbackRule: FeedbackRule;
@@ -7441,6 +7443,7 @@ export type SaveAdminSettingsMutation = {
       expectedRuntimeFactor?: number | null;
       futureHostFraction?: number | null;
       generateTaskFactor?: number | null;
+      gitTagFactor?: number | null;
       groupVersions: boolean;
       hostAllocator?: HostAllocatorVersion | null;
       hostAllocatorFeedbackRule?: FeedbackRule | null;
@@ -8243,6 +8246,7 @@ export type AdminSettingsQuery = {
       expectedRuntimeFactor?: number | null;
       futureHostFraction?: number | null;
       generateTaskFactor?: number | null;
+      gitTagFactor?: number | null;
       groupVersions: boolean;
       hostAllocator?: HostAllocatorVersion | null;
       hostAllocatorFeedbackRule?: FeedbackRule | null;
