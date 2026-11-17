@@ -15,4 +15,5 @@
 .outerRow > :last-child {
   flex: 1 1 0;
   min-inline-size: min-content;
+  justify-content: flex-end;
 }

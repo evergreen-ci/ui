@@ -1,4 +1,5 @@
 .pagination.pagination {
+  inline-size: fit-content;
   border-block-start: none;
   padding: 0;
   min-block-size: 0;
