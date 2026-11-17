@@ -5,17 +5,13 @@ import styles from "./SelectColumn.module.css";
 
 interface SelectColumnOptions {
   allSelected: boolean;
-  isRowSelected: (taskId: string) => boolean;
   onToggleAll: () => void;
-  onToggleRow: (taskId: string) => void;
   someSelected: boolean;
 }
 
 export const getSelectColumn = ({
   allSelected,
-  isRowSelected,
   onToggleAll,
-  onToggleRow,
   someSelected,
 }: SelectColumnOptions): LGColumnDef<TaskTableInfo> => ({
   id: "select",
@@ -37,9 +33,10 @@ export const getSelectColumn = ({
     row.getCanSelect() ? (
       <Checkbox
         aria-label={`Select task ${row.original.displayName}`}
-        checked={isRowSelected(row.id)}
+        checked={row.getIsSelected()}
         data-testid="select-row"
-        onChange={() => onToggleRow(row.id)}
+        indeterminate={row.getIsSomeSelected()}
+        onChange={row.getToggleSelectedHandler()}
       />
     ) : null,
 });

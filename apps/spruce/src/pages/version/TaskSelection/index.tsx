@@ -20,7 +20,7 @@ interface TaskSelectionContextState {
   selectedCount: number;
   taskSelection: SelectionState | null;
   toggleAll: (filteredCount: number) => void;
-  toggleRow: (taskId: string, filteredCount: number) => void;
+  toggleRows: (taskIds: string[], filteredCount: number) => void;
 }
 
 const TaskSelectionContext = createContext<TaskSelectionContextState | null>(
@@ -67,9 +67,12 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
     [selectionState],
   );
 
-  const toggleRow = useCallback(
-    (taskId: string, filteredCount: number) => {
-      const nextSelectionState = toggleTask(selectionState, taskId);
+  const toggleRows = useCallback(
+    (taskIds: string[], filteredCount: number) => {
+      let nextSelectionState = selectionState;
+      taskIds.forEach((taskId) => {
+        nextSelectionState = toggleTask(nextSelectionState, taskId);
+      });
       setState({
         selectedCount: getSelectedCount(nextSelectionState, filteredCount),
         selectionState: nextSelectionState,
@@ -123,7 +126,7 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
       selectedCount,
       taskSelection,
       toggleAll,
-      toggleRow,
+      toggleRows,
     }),
     [
       clearSelection,
@@ -131,7 +134,7 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
       selectedCount,
       taskSelection,
       toggleAll,
-      toggleRow,
+      toggleRows,
     ],
   );
 

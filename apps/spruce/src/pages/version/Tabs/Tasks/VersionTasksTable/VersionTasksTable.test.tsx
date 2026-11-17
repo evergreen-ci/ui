@@ -329,7 +329,7 @@ const sharedProps = {
   loading: false,
   onFilterChange: () => {},
   onToggleAll: () => {},
-  onToggleRow: () => {},
+  onToggleRows: () => {},
   page: 0,
   selectedCount: 0,
   tasks,

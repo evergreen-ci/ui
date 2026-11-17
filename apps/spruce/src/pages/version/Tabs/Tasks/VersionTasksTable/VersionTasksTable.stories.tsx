@@ -22,7 +22,7 @@ export const Default: CustomStoryObj<typeof VersionTasksTable> = {
       loading={false}
       onFilterChange={() => {}}
       onToggleAll={() => {}}
-      onToggleRow={() => {}}
+      onToggleRows={() => {}}
       page={0}
       selectedCount={selectedTasks.length}
       tasks={tasks}

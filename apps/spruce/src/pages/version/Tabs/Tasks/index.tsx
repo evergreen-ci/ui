@@ -28,7 +28,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(versionId || "");
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
-  const { clearSelection, isSelected, selectedCount, toggleAll, toggleRow } =
+  const { clearSelection, isSelected, selectedCount, toggleAll, toggleRows } =
     useTaskSelectionContext();
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
       loading={tasksData.length === 0 && loading}
       onFilterChange={clearSelection}
       onToggleAll={() => toggleAll(count)}
-      onToggleRow={(taskId) => toggleRow(taskId, count)}
+      onToggleRows={(taskIds) => toggleRows(taskIds, count)}
       page={page ?? 0}
       selectedCount={selectedCount}
       tasks={tasksData}
