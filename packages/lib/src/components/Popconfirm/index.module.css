@@ -1,3 +1,7 @@
+.trigger {
+  display: inline-flex;
+}
+
 .contentWrapper {
   display: flex;
   flex-direction: column;

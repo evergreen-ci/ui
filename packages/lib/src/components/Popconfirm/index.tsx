@@ -1,100 +1,137 @@
-import { useEffect, useRef, useState } from "react";
-import { Button, Size, Variant } from "@leafygreen-ui/button";
-import { Align, Justify, Tooltip, TooltipProps } from "@leafygreen-ui/tooltip";
+import { useCallback, useRef, useState } from "react";
+import { Button, Popover, PopoverRoot } from "@via-ds/components";
+import { cx } from "../../utils/css";
 import styles from "./index.module.css";
 
-export { Align, Justify };
+export const Align = {
+  Top: "top",
+  Bottom: "bottom",
+  Left: "left",
+  Right: "right",
+} as const;
+export type Align = (typeof Align)[keyof typeof Align];
 
-type PopconfirmProps = Omit<
-  TooltipProps,
-  "onEnter" | "onEntering" | "onEntered" | "onExit" | "onExited" | "onExiting"
-> & {
+export const Justify = {
+  Start: "start",
+  Middle: "middle",
+  End: "end",
+} as const;
+export type Justify = (typeof Justify)[keyof typeof Justify];
+
+const viaAlignByJustify = {
+  [Justify.Start]: "start",
+  [Justify.Middle]: "center",
+  [Justify.End]: "end",
+} as const;
+
+type PopconfirmProps = {
+  align?: Align;
+  children: React.ReactNode;
+  className?: string;
   confirmDisabled?: boolean;
   confirmText?: string;
-  onConfirm?: (e?: React.MouseEvent) => void;
-  children: React.ReactNode;
+  "data-testid"?: string;
+  justify?: Justify;
+  onClose?: () => void;
+  onConfirm?: () => void;
+  open?: boolean;
+  refEl?: React.RefObject<HTMLElement | null>;
+  setOpen?: (open: boolean) => void;
+  trigger?: React.ReactNode;
 };
 
 const Popconfirm: React.FC<PopconfirmProps> = ({
+  align = Align.Top,
   children,
+  className,
   confirmDisabled = false,
   confirmText = "Yes",
+  "data-testid": dataTestId,
+  justify = Justify.Middle,
   onClose = () => {},
   onConfirm = () => {},
   open: controlledOpen,
   refEl,
   setOpen: controlledSetOpen,
-  ...props
+  trigger,
 }) => {
   const isControlled = !!(controlledOpen !== undefined && controlledSetOpen);
   const [uncontrolledOpen, uncontrolledSetOpen] = useState(false);
   const open = isControlled ? controlledOpen : uncontrolledOpen;
   const setOpen = isControlled ? controlledSetOpen : uncontrolledSetOpen;
 
-  const popoverRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLSpanElement>(null);
+  const anchorRef = refEl ?? triggerRef;
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        popoverRef.current &&
-        !popoverRef.current.contains(event.target as Node) &&
-        (!refEl ||
-          (refEl &&
-            refEl instanceof HTMLElement &&
-            refEl.contains(event.target as Node)))
-      ) {
-        onClose();
-        setOpen(false);
-      }
-    };
+  const close = useCallback(() => {
+    onClose();
+    setOpen(false);
+  }, [onClose, setOpen]);
 
-    if (typeof window !== "undefined" && open) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (nextOpen) {
+      setOpen(true);
+    } else {
+      close();
     }
-  }, [open, onClose, setOpen, refEl]);
+  };
+
+  const isOutsideAnchor = (element: Element) =>
+    !anchorRef.current?.contains(element);
 
   return (
-    <Tooltip
-      onClose={onClose}
-      open={open}
-      refEl={refEl}
-      setOpen={setOpen}
-      triggerEvent="click"
-      {...props}
+    <PopoverRoot
+      align={viaAlignByJustify[justify]}
+      isDismissable
+      isNonModal
+      isOpen={open}
+      onOpenChange={handleOpenChange}
+      referenceElement={anchorRef}
+      shouldCloseOnInteractOutside={isOutsideAnchor}
+      shouldToggleOnPress={false}
+      side={align}
+      triggerType="dialog"
     >
-      <div ref={popoverRef} className={styles.contentWrapper}>
-        {children}
-        <div className={styles.buttonWrapper}>
-          <Button
-            as="button"
-            data-testid="popconfirm-cancel-button"
-            onClick={() => {
-              onClose();
-              setOpen(false);
-            }}
-            size={Size.Small}
-          >
-            Cancel
-          </Button>
-          <Button
-            as="button"
-            data-testid="popconfirm-confirm-button"
-            disabled={confirmDisabled}
-            onClick={(e) => {
-              onConfirm(e);
-              setOpen(false);
-            }}
-            size={Size.Small}
-            variant={Variant.Primary}
-          >
-            {confirmText}
-          </Button>
+      {trigger && (
+        <span
+          ref={triggerRef}
+          className={styles.trigger}
+          onClick={() => (open ? close() : setOpen(true))}
+          role="presentation"
+        >
+          {trigger}
+        </span>
+      )}
+      <Popover>
+        <div
+          className={cx(styles.contentWrapper, className)}
+          data-testid={dataTestId}
+        >
+          {children}
+          <div className={styles.buttonWrapper}>
+            <Button
+              data-testid="popconfirm-cancel-button"
+              onPress={close}
+              size="small"
+            >
+              Cancel
+            </Button>
+            <Button
+              data-testid="popconfirm-confirm-button"
+              isDisabled={confirmDisabled}
+              onPress={() => {
+                onConfirm();
+                setOpen(false);
+              }}
+              size="small"
+              variant="primary"
+            >
+              {confirmText}
+            </Button>
+          </div>
         </div>
-      </div>
-    </Tooltip>
+      </Popover>
+    </PopoverRoot>
   );
 };
 

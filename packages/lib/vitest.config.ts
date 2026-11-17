@@ -10,6 +10,7 @@ const vitestConfig = defineTestConfig({
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
     include: ["src/**/*.test.{ts,tsx}"],
+    server: { deps: { inline: ["@via-ds/components"] } },
   },
   resolve: {
     tsconfigPaths: true,

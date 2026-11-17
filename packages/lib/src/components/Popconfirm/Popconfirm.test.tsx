@@ -50,10 +50,7 @@ describe("controlled popconfirm", () => {
         <div>hello</div>
       </Popconfirm>,
     );
-    expect(screen.getByRole("button", { name: "Yes" })).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    expect(screen.getByRole("button", { name: "Yes" })).toBeDisabled();
   });
 });
 
